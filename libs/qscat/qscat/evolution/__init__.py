@@ -1,0 +1,1 @@
+"""Time propagation (Crank–Nicolson, ...)."""
