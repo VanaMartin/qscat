@@ -1,0 +1,3 @@
+[submodule "libXcuda"]
+	path = libXcuda
+	url = git@ascez.cz:libXcuda.git

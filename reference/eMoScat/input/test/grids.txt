@@ -1,0 +1,60 @@
+#	The grids parameterisation file
+#	The first four lines are reserved for additional inormation
+#
+
+4	# Number of grids to be read
+
+	# The first grid declaration
+0, 5, 4					# how many element types in each part (complex - real - complex)
+0 						# (c) number of elements of given type
+0.0 					# (c) endpoint of element type
+1, 4, 1, 1, 20				# (r) number of elements of given type 
+1.0, 5.0, 7.0, 10.0, 90.0	# (r) endpoint of element type
+2, 1, 5, 1				# (c) number of elements of given type 
+100.0, 110.0, 210.0, 1000.0		# (C) endpoint of element type
+35.0					# angle (degrees) 
+8						# Quadrature order
+
+	# The first grid declaration
+0, 1, 0					# how many element types in each part (complex - real - complex)
+0 						# (c) number of elements of given type
+0.0 					# (c) endpoint of element type
+20       				# (r) number of elements of given type 
+40.0                 	# (r) endpoint of element type
+0       				# (c) number of elements of given type 
+20.0             		# (C) endpoint of element type
+0.0 					# angle (degrees) 
+8						# Quadrature order
+
+	# The second grid declaration
+0, 6, 4							# how many element types in each part (complex - real - complex)
+0								# (c) number of elements of given type
+0.0 							# (c) endpoint of element type
+2, 1, 10, 2 , 2, 6				# (r) number of elements of given type 
+1.0, 1.5, 3.0, 4.0, 6.0, 12.0	# (r) endpoint of element type
+1, 2, 1, 4						# (c) number of elements of given type 
+13.0, 16.0, 18.0, 55.0			# (C) endpoint of element type
+35.0							# angle (degrees) 
+14								# Quadrature order
+
+	# The third grid declaration
+0, 4, 3					# how many element types in each part (complex - real - complex)
+0 						# (c) number of elements of given type
+0.0 					# (c) endpoint of element type
+5, 1, 1, 12 				# (r) number of elements of given type 
+5.0, 7.0, 10.0, 55.0	# (r) endpoint of element type
+2, 1, 5					# (c) number of elements of given type 
+60.0, 70.0, 170.0		# (C) endpoint of element type
+45.0					# angle (degrees) 
+12						# Quadrature order
+
+	# The fourth grid declaration
+0, 4, 3					# how many element types in each part (complex - real - complex)
+0 						# (c) number of elements of given type
+0.0 					# (c) endpoint of element type
+5, 1, 1, 9 				# (r) number of elements of given type 
+5.0, 7.0, 10.0, 55.0	# (r) endpoint of element type
+1, 1, 5					# (c) number of elements of given type 
+60.0, 70.0, 170.0		# (C) endpoint of element type
+45.0					# angle (degrees) 
+10						# Quadrature order	

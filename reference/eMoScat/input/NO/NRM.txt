@@ -1,0 +1,21 @@
+# The Nonlocal  Resonance  Model (NRM) file  input.  The first  four lines  are 
+# reserved for the comments. The specification includes the grids specification
+# and the input parameters of the model.
+
+# Grids specification (see file grids)
+2	# Index of the main nuclear grid in the grids file
+1 	# Index of the electronic grid for the use of the 
+
+# The S-matrix computation parameters
+3	# the total of VE channels to be determined
+1	# DA channel determination switch: 0 -false, 1 -true
+n	# The evolution operator approximation method specifier: 'c' - Chebyshev, 'n' - Crank Nicloson
+3	# Order of the Pade approximation in Crank-Nicolson method
+50	# Order of the Chebyshev approximation
+
+# Evolution & energy problem constants
+2	# Time quadrature order
+100	# Time quadrature steps
+20	# Number of energy distribution points
+0.0	# Lower energy bond
+0.2	# Upper energy bond

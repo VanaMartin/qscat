@@ -1,0 +1,3 @@
+[submodule "reference/libXcuda"]
+	path = reference/libXcuda
+	url = ssh://git-codecommit.eu-central-1.amazonaws.com/v1/repos/libXcuda

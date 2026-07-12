@@ -1,0 +1,49 @@
+#	The grids parameterisation file
+#	The first four lines are reserved for additional inormation
+#
+
+4	# Number of grids to be read
+
+	# The first grid declaration
+0, 5, 3						# how many element types in each part (complex - real - complex)
+0 							# (c) number of elements of given type
+0.0 						# (c) endpoint of element type
+1, 1, 1, 1, 20				# (r) number of elements of given type 
+1.0, 3.0, 6.0, 10.0, 90.0	# (r) endpoint of element type
+1, 3, 8						# (c) number of elements of given type 
+94.0, 110.0, 195.0			# (C) endpoint of element type
+35.0						# angle (degrees) 
+8							# Quadrature order
+
+	# The second grid declaration
+0, 3, 4						# how many element types in each part (complex - real - complex)
+0							# (c) number of elements of given type
+0.0 						# (c) endpoint of element type
+1, 1, 37					# (r) number of elements of given type 
+1.0, 1.6, 9.0				# (r) endpoint of element type
+1, 1, 1, 4					# (c) number of elements of given type 
+9.25, 10.0, 12.0, 42.0		# (C) endpoint of element type
+45.0						# angle (degrees) 
+14 # 14						# Quadrature order
+
+	# The third grid declaration
+0, 5, 3						# how many element types in each part (complex - real - complex)
+0 							# (c) number of elements of given type
+0.0 						# (c) endpoint of element type
+1, 1, 1, 1, 10				# (r) number of elements of given type 
+1.0, 3.0, 6.0, 10.0, 50.0	# (r) endpoint of element type
+2, 3, 8						# (c) number of elements of given type 
+60.0, 80.0, 150.0			# (c) endpoint of element type
+45.0						# angle (degrees) 
+8							# Quadrature order
+
+	# The fourth grid declaration
+0, 5, 3						# how many element types in each part (complex - real - complex)
+0 							# (c) number of elements of given type
+0.0 						# (c) endpoint of element type
+1, 1, 1, 1, 10				# (r) number of elements of given type
+1.0, 3.0, 6.0, 10.0, 50.0	# (r) endpoint of element type
+2, 3, 8						# (c) number of elements of given type 
+62.0, 84.0, 180.0			# (C) endpoint of element type
+45.0						# angle (degrees) 
+8							# Quadrature order		

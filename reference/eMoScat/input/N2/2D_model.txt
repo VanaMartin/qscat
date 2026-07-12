@@ -1,0 +1,57 @@
+# The parametrisation of the 2D model
+# First five lines are reserved for additional information
+
+# The parametrisation of the model (potential, reduced mass and partial wave)
+
+output/N2/
+12766.36, 2, 0.75102, 1.15350, 2.01943, 6.21066, 1.05708, -27.9833, 5.38022, 2.40500, 0.40000
+
+1, 2 		# On which grids, electronic and nuclear respectively (see file grids.txt)
+
+# Test functions declarations (molecular and electronic respectively)
+
+n		# testfunction usage variable (values y/n)
+y		# the channel coordinate (x - electronic, y - nuclear)
+1		# declares direction of mean impulse (1:out/-1:in)
+a		# declares method usage - t: tannor&weeks, d:delta-t&w, f: flux, k:t+d, l:t+f, m: d+f, a: all
+7.0		# gauss wavepacket mean position
+48.0		# gauss wavepacket mean impulse
+0.15		# gauss wavepacket thickness
+1		# number of transversal eigenstates
+
+y		# testfunction usage variable (values y/n)
+x		# the channel coordinate (x - electronic, y - nuclear)
+1		# declares direction of mean impulse (1:out/-1:in)
+a		# declares method usage - t: tannor&weeks, d:delta-t&w, f: flux, k:t+d, l:t+f, m: d+f, a: all
+55.0	# gauss wavepacket mean position
+0.7		# gauss wavepacket mean impulse
+4.0		# gauss wavepacket thickness
+11		# number of transversal eigenstates
+
+# Initial wave function declaration
+
+x		# the channel coordinate (x - electronic, y - nuclear)
+45.0	# gauss : x_position
+6.0		# gauss : packet thickness
+-0.35	# gauss : x_impulse
+0		# which transversal state
+
+# Evolution parameters declaration
+
+1.0		# dt - time step
+n		# evolution operator approximation controller
+3		# oder of the Pade approximation
+50		# oder of the Chebyshev approximation
+2		# Integration over time quadrature order
+1.0E-20		# Precision boundary for the evolution cutoff
+20000		# Absolute time boundary for the evolution cutoff
+2000		# number of energy steps
+0.0		# lower energy bound
+0.2		# upper energy bound
+100		# evolution loop steps
+
+# Saving options
+
+200, 100	# samples in electronic and nuclear coordinate respectively
+0, 40		# electronic range
+1.8, 2.6	# nuclear range

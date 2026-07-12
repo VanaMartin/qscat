@@ -1,0 +1,57 @@
+# The parametrisation of the coupled 2D model
+# First five lines are reserved for additional information
+
+
+
+output/H2+/
+12766.36, 2, 0.75102, 1.15350, 2.01943, 6.21066, 1.05708, -27.9833, 5.38022, 2.40500, 0.40000
+
+1, 2 		# On which grids, electronic and nuclear respectively (see file grids.txt)		
+
+# Test functions declarations (molecular and electronic respectively)
+
+y		# testfunction usage variable (values y/n)
+y		# the channel coordinate (x - electronic, y - nuclear)
+1		# declares direction of mean impulse (1:out/-1:in)
+t		# declares method usage - t: tannor&weeks, d:delta-t&w, f: flux, k:t+d, l:t+f, m: d+f, a: all  
+10.0	    # gauss wavepacket mean position
+15.0	# gauss wavepacket mean impulse 40:15
+0.3		# gauss wavepacket thickness 0.15
+3		# number of transversal eigenstates
+
+n		# testfunction usage variable (values y/n)
+x		# the channel coordinate (x - electronic, y - nuclear)
+1		# declares direction of mean impulse (1:out/-1:in)
+a		# declares method usage - t: tannor&weeks, d:delta-t&w, f: flux, k:t+d, l:t+f, m: d+f, a: all  
+45.0	# gauss wavepacket mean position
+0.7		# gauss wavepacket mean impulse
+4.0		# gauss wavepacket thickness
+11		# number of transversal eigenstates
+
+# Initial wave function declaration
+
+x		# the channel coordinate (x - electronic, y - nuclear)
+35.0		# gauss : x_position
+4.0		# gauss : packet thickness
+-0.3	# gauss : x_impulse
+0		# which transversal state
+
+# Evolution parameters declaration
+
+10.0		# dt - time step
+n		# evolution operator approximation controller
+3		# oder of the Pade approximation
+50		# oder of the Chebyshev approximation
+2		# Integration over time quadrature order
+1.0E-20		# Precision boundary for the evolution cutoff
+150000		# Absolute time boundary for the evolution cutoff
+5000		# number of energy steps
+0.0		# lower energy bound
+0.05		# upper energy bound
+100		# evolution loop steps
+
+# Saving options
+
+400, 200	# samples in electronic and nuclear coordinate respectively
+0, 40		# electronic range 
+1.6, 3.2	# nuclear range

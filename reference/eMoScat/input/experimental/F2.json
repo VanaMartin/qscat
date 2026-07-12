@@ -1,0 +1,166 @@
+{
+    "grids" : {
+        "electronic" : {
+            "quadrature" : "Gauss-Lobatto",
+            "dvr_order" : 10,
+            "real" : {
+                "type" : "points",
+                "start" : 0,
+                "lengths" :  [ 0.1, 0.2, 0.5, 1.0, 3.0, 4.0 ],
+                "points" :  [ 0.2, 1.5, 2.0, 4.0, 10.0, 98.0 ]
+            },
+            "complex_positive" : {
+                "angle" : 40.0,
+                "type" : "uniform_increment",
+                "increment" : { "type" : "exp", "skip" : 2, "base" : "last", "alpha" : 0.2 },
+                "elements" : 15
+            }
+        },
+        "electronic_low_angle" : {
+            "quadrature" : "Gauss-Lobatto",
+            "dvr_order" : 10,
+            "real" : {
+                "type" : "points",
+                "start" : 0,
+                "lengths" :  [ 0.1, 0.2, 0.5, 1.0, 3.0, 4.0 ],
+                "points" :  [ 0.2, 1.5, 2.0, 4.0, 10.0, 98.0 ]
+            },
+            "complex_positive" : {
+                "angle" : 30.0,
+                "type" : "uniform_increment",
+                "increment" : { "type" : "exp", "skip" : 2, "base" : "last", "alpha" : 0.2 },
+                "elements" : 15
+            }
+        },
+        "electronic_short" : {
+            "quadrature" : "Gauss-Lobatto",
+            "dvr_order" : 10,
+            "real" : {
+                "type" : "points",
+                "start" : 0,
+                "lengths" :  [ 0.1, 0.2, 0.5, 1.0, 3.0, 4.0 ],
+                "points" :  [ 0.2, 1.5, 2.0, 4.0, 10.0, 26.0 ]
+            },
+            "complex_positive" : {
+                "angle" : 40.0,
+                "type" : "uniform_increment",
+                "increment" : { "type" : "exp", "skip" : 2, "base" : "last", "alpha" : 0.2 },
+                "elements" : 15
+            }
+        },
+        "electronic_short_low_angle" : {
+            "quadrature" : "Gauss-Lobatto",
+            "dvr_order" : 10,
+            "real" : {
+                "type" : "points",
+                "start" : 0,
+                "lengths" :  [ 0.1, 0.2, 0.5, 1.0, 3.0, 4.0 ],
+                "points" :  [ 0.2, 1.5, 2.0, 4.0, 10.0, 26.0 ]
+            },
+            "complex_positive" : {
+                "angle" : 30.0,
+                "type" : "uniform_increment",
+                "increment" : { "type" : "exp", "skip" : 2, "base" : "last", "alpha" : 0.2 },
+                "elements" : 15
+            }
+        },
+        "nuclear" : {
+            "quadrature" : "Gauss-Lobatto",
+            "dvr_order" : 12,
+            "real" : {
+                "type" : "points",
+                "start" : 0,
+                "lengths" : [ 0.2, 0.1, 0.025, 0.025, 0.25 ],
+                "points" : [ 2.0, 2.5, 2.596908, 2.7, 10.7]
+            },
+            "complex_positive" : {
+                "angle" : 25.0,
+                "type" : "uniform_increment",
+                "increment" : { "type" : "exp", "skip" : 2, "base" : "last", "alpha" : 0.2 },
+                "elements" : 15
+            }
+        }
+    },
+    "model" : {
+        "folder" : "output/F2/",
+        "reduced_mass" : 17315.99,
+        "potential" : {
+            "impulsemomentum" : 1,
+            "D_0" : 0.05980,
+            "alpha_0" : 1.51610,
+            "R_0" : 2.69060,
+            "lambda_inf" : 18.8490,
+            "lambda_1" : 3.21300,
+            "R_lambda" : 1.8320,
+            "lambda_c" : 18.1450,
+            "R_c" : 2.59500,
+            "alpha_c" : 3.00000
+        },
+        "electronic_grid" : "electronic",
+        "nuclear_grid" : "nuclear"
+    },
+    "initial_state" : {
+        "coordinate" : "electronic",
+        "wavepacket" : {
+            "function" : "GaussianWavePacket",
+            "position" : 45,
+            "impulse" : -0.35,
+            "sigma" : 6.0
+        },
+        "channel" : 0
+    },
+    "cross_sections" : {
+        "range" : [0.0, 0.2],
+        "dE" : 0.0001,
+        "testfunctions" : {
+            "vibrational_excitation" : {
+                "coordinate" : "electronic",
+                "direction" : "outgoing",
+                "method" : "all",
+                "channels" : 11,
+                "wavepacket" : {
+                    "function" : "GaussianWavePacket",
+                    "position" : 75.0,
+                    "impulse" : 0.39,
+                    "sigma" : 6.0
+                }
+            },
+            "dissociative_attachment" : {
+                "coordinate" : "nuclear",
+                "direction" : "outgoing",
+                "method" : "all",
+                "channels" : 1,
+                "wavepacket" : {
+                    "function" : "GaussianWavePacket",
+                    "position" : 9.70,
+                    "impulse" : 70.0,
+                    "sigma" : 0.07
+                }
+            }
+        }
+    },
+    "evolution" : {
+        "time_step" : 1.0,
+        "approximation" : "Crank-Nicolson",
+        "order" : 3,
+        "normalization_cutoff" : 1e-20,
+        "time_cutoff" : 2e+4,
+        "loop_steps" : 10
+    },
+    "storage" : {
+        "equidistant_sampling" : {
+            "electronic" : {
+                "range" : [0,40],
+                "samples" : 100
+            },
+            "nuclear" : {
+                "range" : [1.8, 3.0],
+                "samples" : 200
+            }
+        }
+    },
+    "LCP" : {
+        "electronic_grids" : [ "electronic_short", "electronic_short_low_angle" ],
+        "nuclear_grid" : "nuclear"
+    }
+}

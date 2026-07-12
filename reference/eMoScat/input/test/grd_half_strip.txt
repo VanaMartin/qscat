@@ -1,0 +1,27 @@
+#   The grids parameterisation file
+#   The first four lines are reserved for additional inormation
+#
+
+2   # Number of grids to be read
+
+    # Half line with complex scaled region
+0, 1, 4                     # how many element types in each part (complex - real - complex)
+0                           # (c) number of elements of given type
+0.0                         # (c) endpoint of element type
+20                          # (r) number of elements of given type 
+20.0                        # (r) endpoint of element type
+1, 3, 2, 8                  # (c) number of elements of given type 
+21.0, 30.0, 100.0, 1000.0   # (C) endpoint of element type
+35.0                        # angle (degrees) 
+8                           # Quadrature order
+
+    # Line segment in 0,1
+0, 1, 0                 # how many element types in each part (complex - real - complex)
+0                       # (c) number of elements of given type
+0.0                     # (c) endpoint of element type
+4                       # (r) number of elements of given type 
+1.0                     # (r) endpoint of element type
+0                       # (c) number of elements of given type 
+1.0                     # (C) endpoint of element type
+0.0                     # angle (degrees) 
+8                       # Quadrature order

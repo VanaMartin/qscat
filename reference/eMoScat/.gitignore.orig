@@ -1,0 +1,12 @@
+output/
+Debug/
+backup/
+*.vcproj*
+clean.bat
+x64/
+<<<<<<< HEAD
+*.icproj
+*.dll
+libcuda.lib
+=======
+>>>>>>> parent of dc256f7... deleted icproj file from commit queue

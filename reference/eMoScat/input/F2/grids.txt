@@ -1,0 +1,49 @@
+#	The grids parameterisation file
+#	The first four lines are reserved for additional inormation
+#
+
+4	# Number of grids to be read
+
+	# The first grid declaration
+0, 5, 4						# how many element types in each part (complex - real - complex)
+0 							# (c) number of elements of given type
+0.0 						# (c) endpoint of element type
+6, 1, 1, 2, 20				# (r) number of elements of given type 
+1.5, 2.0, 4.0, 10.0, 90.0	# (r) endpoint of element type
+5, 1, 4, 6					# (c) number of elements of given type 
+110.0, 120.0, 190.0, 500	# (C) endpoint of element type
+40.0						# angle (degrees) 
+10							# Quadrature order
+
+	# The second grid declaration
+0, 6, 8									# how many element types in each part (complex - real - complex)
+0										# (c) number of elements of given type
+0.0 									# (c) endpoint of element type
+9, 1, 5, 4, 4, 40						# (r) number of elements of given type 
+1.8, 2.0, 2.5, 2.596908, 2.7, 10.7		# (r) endpoint of element type
+1, 1, 1, 1, 1, 1, 4, 2						# (c) number of elements of given type 
+10.8, 11.0, 11.5, 12.5, 14.0, 18.0, 30.0, 101.0	    # (C) endpoint of element type
+35.0									# angle (degrees) 
+14										# Quadrature order
+
+	# The third grid declaration
+0, 5, 3						# how many element types in each part (complex - real - complex)
+0 							# (c) number of elements of given type
+0.0 						# (c) endpoint of element type
+6, 1, 1, 2, 20				# (r) number of elements of given type 
+1.5, 2.0, 4.0, 10.0, 90.0	# (r) endpoint of element type
+5, 3, 6						# (c) number of elements of given type 
+110.0, 140.0, 300.0			# (C) endpoint of element type
+45.0						# angle (degrees) 
+12							# Quadrature order
+
+	# The fourth grid declaration
+0, 5, 3						# how many element types in each part (complex - real - complex)
+0 							# (c) number of elements of given type
+0.0 						# (c) endpoint of element type
+6, 1, 1, 2, 30				# (r) number of elements of given type 
+1.5, 2.0, 4.0, 10.0, 130.0	# (r) endpoint of element type
+2, 1, 5						# (c) number of elements of given type 
+138.0, 148.0, 248.0			# (C) endpoint of element type
+45.0						# angle (degrees) 
+10							# Quadrature order

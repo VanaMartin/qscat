@@ -1,0 +1,15 @@
+output/
+build/
+Debug/
+backup/
+documentation/html
+documentation/latex
+documentation/*.bak
+*.vcproj*
+clean.bat
+x64/
+*.icproj
+*.dll
+*CUDA.lib
+*.swp
+*.qbin
