@@ -17,7 +17,7 @@ and is containerizable.
 
 ## Quickstart
 ```bash
-uv sync
+uv sync --all-packages   # installs qscat + builds the Rust qscat_kernels
 uv run pytest
 ```
 
