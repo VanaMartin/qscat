@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.uv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+# Rust
+target/
+Cargo.lock
+# maturin
+*.so
+*.pyd
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+# Data / outputs
+*.npz
+*.h5
+outputs/
