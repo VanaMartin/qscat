@@ -10,6 +10,7 @@ resolution-markers = [
 members = [
     "qmodeling",
     "qscat",
+    "qscat-kernels",
 ]
 
 [[package]]
@@ -801,6 +802,11 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "numpy", specifier = ">=2" }]
+
+[[package]]
+name = "qscat-kernels"
+version = "0.0.0"
+source = { editable = "native/qscat-kernels" }
 
 [[package]]
 name = "ruff"

@@ -1,0 +1,11 @@
+[package]
+name = "qscat-kernels"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+name = "qscat_kernels"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }

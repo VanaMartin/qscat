@@ -1,0 +1,12 @@
+[project]
+name = "qscat-kernels"
+version = "0.0.0"
+description = "QSCAT compiled kernels (Rust/PyO3)"
+requires-python = ">=3.12"
+
+[build-system]
+requires = ["maturin>=1.7"]
+build-backend = "maturin"
+
+[tool.maturin]
+module-name = "qscat_kernels"
