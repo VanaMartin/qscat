@@ -1,9 +1,10 @@
 # syntax=docker/dockerfile:1
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS build
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      build-essential curl ca-certificates && rm -rf /var/lib/apt/lists/*
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
+# Build/test/runtime for qModeling. Architecture/vendor lives in BASE_IMAGE
+# (see docker/base.Dockerfile). Swap BASE_IMAGE to retarget (e.g. an -mkl or ARM base)
+# without editing this file.
+ARG BASE_IMAGE=qmodeling-base:latest
+
+FROM ${BASE_IMAGE} AS build
 WORKDIR /app
 COPY . .
 # --all-packages installs qscat AND builds/installs the Rust qscat_kernels
@@ -14,6 +15,10 @@ FROM build AS test
 RUN uv run --no-sync pytest -q
 
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS runtime
+# Runtime needs only the shared numerical libs (no -dev headers, no toolchain)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      libopenblas0 libfftw3-double3 liblapacke \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY --from=build /app /app
 ENV PATH="/app/.venv/bin:${PATH}"
