@@ -60,7 +60,9 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
   for kernel benchmarks; every Rust kernel gets a Python differential test
   against its oracle.
 - **Quality tooling**: ruff (lint), mypy --strict (types), cargo clippy (Rust
-  lint), enforced via `.pre-commit-config.yaml`.
+  lint). Pre-commit (`.pre-commit-config.yaml`) currently enforces only
+  **ruff**, **ruff-format**, and **cargo fmt --check**; mypy and clippy are
+  run manually / in CI, not (yet) pre-commit hooks.
 - **Units**: atomic units throughout (`libs/qscat/qscat/units.py`); no ad hoc
   unit conversions scattered through method code.
 - **Docker is layered, not a single Dockerfile**:
@@ -126,7 +128,10 @@ uv run maturin develop --manifest-path native/qscat-kernels/Cargo.toml
 
 # Lint / type-check
 uv run ruff check .
-uv run mypy .
+# mypy is type-clean over the qscat library (type stubs for the Rust
+# qscat_kernels extension are pending, so repo-wide strict mypy isn't
+# claimed to pass yet):
+uv run mypy libs/qscat
 
 # Build and test the CPU Docker images (base, then test target)
 docker/build.sh test

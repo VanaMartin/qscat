@@ -20,6 +20,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libopenblas0 libfftw3-double3 liblapacke \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
+# LOAD-BEARING: `uv sync --all-packages` installs `qscat` as an editable
+# install whose .pth file points at /app/libs/qscat, so the source tree
+# (not just .venv) must be copied. Do not reduce this to copying only
+# .venv without first switching qscat to a non-editable/wheel install.
 COPY --from=build /app /app
 ENV PATH="/app/.venv/bin:${PATH}"
 CMD ["python", "-c", "import qscat, qscat_kernels; print('qscat', qscat.__version__, 'ready')"]

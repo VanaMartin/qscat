@@ -18,5 +18,5 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 ENV OPENBLAS_NUM_THREADS=1
 
 # Fail the build if the standard ABIs are not discoverable (sanity gate)
-RUN pkg-config --exists openblas && pkg-config --exists fftw3 \
-    && echo "openblas $(pkg-config --modversion openblas), fftw3 $(pkg-config --modversion fftw3)"
+RUN pkg-config --exists openblas && pkg-config --exists fftw3 && pkg-config --exists lapacke \
+    && echo "openblas $(pkg-config --modversion openblas), fftw3 $(pkg-config --modversion fftw3), lapacke $(pkg-config --modversion lapacke)"
