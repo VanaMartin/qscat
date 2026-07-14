@@ -11,6 +11,12 @@ package = false
 [tool.uv.workspace]
 members = ["libs/*", "native/*"]
 
+[tool.pytest.ini_options]
+# reference/ holds read-only prior codebases (eMoScat, libXcuda), not part of
+# this workspace's test suite — their *_test.py files assume a different cwd
+# and fixture layout. Never collect them.
+norecursedirs = [".venv", ".git", "reference", "target", "*.egg-info"]
+
 [dependency-groups]
 dev = [
     "pytest>=8",

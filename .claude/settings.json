@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv sync --all-packages)",
+      "Bash(uv run:*)",
+      "Bash(uv lock)",
+      "Bash(cargo test:*)",
+      "Bash(cargo clippy:*)",
+      "Bash(docker build:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)"
+    ]
+  }
+}
