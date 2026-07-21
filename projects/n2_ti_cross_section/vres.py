@@ -8,7 +8,7 @@ interpolation from a coarse R-scan). At each R: `E_res(R) = Re(E_pole)`,
 `Gamma(R) = max(0, -2*Im(E_pole))`, `V_d(R) = v0(R) + E_res(R)`, where
 `E_pole` is the two-angle-matched electronic resonance pole from
 `projects/n2_resonance/pole.find_pole(R, grid_a, grid_b, window)` (imported
-via sys.path insert, the pattern already used by `vibrational.py`). The two
+package-absolute, the pattern already used by `vibrational.py`). The two
 electronic ECS grids (35 deg / 44 deg) are built once and reused across all
 R -- only `V_eff_el`'s R argument changes, per the efficiency note.
 
@@ -73,19 +73,14 @@ Complex tail (R > R0_nuclear_ECS_pivot = 12 bohr):
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
 import numpy as np
 import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid
 
-# Reuse the sub-project #2 electronic pole finder (cross-import via
-# sys.path insert, the pattern `vibrational.py` already uses for `potential`).
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "n2_resonance"))
-from grid_n2 import n2_electronic_grid  # noqa: E402
-from pole import find_pole  # noqa: E402
-from potential import v0  # noqa: E402
+# Reuse the sub-project #2 electronic pole finder.
+from projects.n2_resonance.grid_n2 import n2_electronic_grid
+from projects.n2_resonance.pole import find_pole
+from projects.n2_resonance.potential import v0
 
 __all__ = ["vres_on_grid"]
 

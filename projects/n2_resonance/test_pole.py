@@ -3,8 +3,8 @@
 `potential.v_eff_el` (Task 0/1) and `grid_n2.n2_electronic_grid` (Task 1).
 """
 
-import pole
-from grid_n2 import n2_electronic_grid
+from projects.n2_resonance import pole
+from projects.n2_resonance.grid_n2 import n2_electronic_grid
 
 HARTREE_TO_EV = 27.211386245988
 R0 = 2.01943

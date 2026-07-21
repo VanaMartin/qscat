@@ -1,5 +1,6 @@
-import gll
 import numpy as np
+
+from projects.femdvr_ecs import gll
 
 
 def test_gll_nodes_endpoints_and_count():

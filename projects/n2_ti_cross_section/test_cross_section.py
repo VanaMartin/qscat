@@ -25,20 +25,17 @@ Two families of checks:
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
 import numpy as np
 import pytest
-from cross_section import ve_cross_section
-from nuclear_grid import n2_nuclear_grid
-from vibrational import vibrational_states
-from vres import vres_on_grid
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "validation" / "n2"))
-import loader  # noqa: E402
-
-from reference import ANCHOR_COORDS  # noqa: E402
+from projects.n2_ti_cross_section.cross_section import ve_cross_section
+from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
+from projects.n2_ti_cross_section.vibrational import vibrational_states
+from projects.n2_ti_cross_section.vres import vres_on_grid
+from validation.n2 import loader
+from validation.n2.reference import ANCHOR_COORDS
 
 _CONFIG = json.loads(
     (Path(__file__).resolve().parents[2] / "validation" / "n2" / "config.json").read_text()

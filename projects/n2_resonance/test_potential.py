@@ -1,19 +1,14 @@
 """Failing-first tests for the N2 electronic potential (Task 1, sub-project #2).
 
 Cross-checks against the already-validated `validation/n2/model.py` (same
-physics, same config.json params) by importing it directly via sys.path, and
-also checks the concrete numeric assertions from the task brief.
+physics, same config.json params) by importing it directly (package-absolute),
+and also checks the concrete numeric assertions from the task brief.
 """
 
-import sys
-from pathlib import Path
-
 import numpy as np
-import potential
 
-# Cross-check against the validated reference implementation.
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "validation" / "n2"))
-import model as ref_model  # noqa: E402
+from projects.n2_resonance import potential
+from validation.n2 import model as ref_model
 
 
 def test_lambda_at_Rc_matches_config():

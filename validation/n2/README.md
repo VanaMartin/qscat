@@ -72,7 +72,7 @@ if it is ever regenerated.
 uv run pytest validation/n2
 
 # Print the benchmark table locally
-uv run python validation/n2/experiment.py
+uv run python -m validation.n2.experiment
 
 # Same, inside the CPU runtime Docker image
 docker/run-n2.sh

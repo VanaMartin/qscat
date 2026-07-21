@@ -5,13 +5,13 @@ informational NOTE naming the mechanism, never a FAIL).
 
 Cross-import note: unlike `resonance.py` (which reimplements the electronic
 grid in-line so Group B stays independent of `projects/`), this module
-imports the TI solver itself via `sys.path` insertion -- the object under
-test for C5 *is* `projects/n2_ti_cross_section`'s resolvent/driven-equation
-solver, so there is nothing to keep independent of it here. This mirrors the
-already-established reverse cross-import:
-`projects/n2_ti_cross_section/test_cross_section.py` already imports
-`validation/n2/reference` (via the same sys.path pattern) to get the anchor
-coordinates; this module closes the loop from the other side.
+imports the TI solver itself, package-absolute
+(`projects.n2_ti_cross_section`) -- the object under test for C5 *is* that
+project's resolvent/driven-equation solver, so there is nothing to keep
+independent of it here. This mirrors the already-established reverse
+cross-import: `projects/n2_ti_cross_section/test_cross_section.py` already
+imports `validation.n2.reference` to get the anchor coordinates; this module
+closes the loop from the other side.
 
 Classification (per `.superpowers/sdd/task-4-brief.md`), decided GENERALLY
 from the anchor's `(energy, channel)`, never by hardcoding which of the 6
@@ -46,9 +46,7 @@ own tests call into this module.
 from __future__ import annotations
 
 import functools
-import importlib.util
 import json
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -56,40 +54,13 @@ import numpy as np
 import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid
 
-_TI_DIR = Path(__file__).resolve().parents[2] / "projects" / "n2_ti_cross_section"
-sys.path.insert(0, str(_TI_DIR))
-from nuclear_grid import n2_nuclear_grid  # noqa: E402
-from vibrational import vibrational_states  # noqa: E402
-from vres import vres_on_grid  # noqa: E402
-
-import reference  # noqa: E402
+from projects.n2_ti_cross_section.cross_section import ve_cross_section
+from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
+from projects.n2_ti_cross_section.vibrational import vibrational_states
+from projects.n2_ti_cross_section.vres import vres_on_grid
+from validation.n2 import reference
 
 __all__ = ["AnchorResult", "compute_anchor_results"]
-
-
-def _load_ti_cross_section():  # type: ignore[no-untyped-def]
-    """Load `projects/n2_ti_cross_section/cross_section.py` under a private
-    module name, NOT the bare name `cross_section`.
-
-    This file is itself named `cross_section.py` (per the task brief) and,
-    once imported (e.g. by `experiment.py`), is registered in
-    `sys.modules['cross_section']`. A plain `from cross_section import
-    ve_cross_section` here would resolve to *that* partially-initialized
-    self-entry rather than `projects/n2_ti_cross_section`'s same-named
-    module, causing a circular-import `ImportError`. Loading via
-    `importlib.util` under a distinct internal name sidesteps the name
-    collision entirely.
-    """
-    name = "_n2_ti_cross_section_impl"
-    spec = importlib.util.spec_from_file_location(name, _TI_DIR / "cross_section.py")
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module  # dataclasses/pickling need this registered
-    spec.loader.exec_module(module)
-    return module
-
-
-ve_cross_section = _load_ti_cross_section().ve_cross_section
 
 _CONFIG = json.loads((Path(__file__).parent / "config.json").read_text())
 MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.); matches

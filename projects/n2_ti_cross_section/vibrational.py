@@ -34,18 +34,12 @@ functions themselves already absorb it.
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
 import numpy as np
 import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
 
-# Reuse the already-validated N2 neutral Morse potential from sub-project #2
-# (cross-import via sys.path insert, like `projects/n2_resonance/test_potential.py`
-# does for `validation/n2/model.py`).
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "n2_resonance"))
-from potential import v0  # noqa: E402
+# Reuse the already-validated N2 neutral Morse potential from sub-project #2.
+from projects.n2_resonance.potential import v0
 
 __all__ = ["vibrational_states"]
 

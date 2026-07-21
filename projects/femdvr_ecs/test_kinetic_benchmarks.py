@@ -10,9 +10,10 @@ See .superpowers/sdd/femdvr-ecs-extraction.md and task-2-brief.md.
 """
 
 import numpy as np
-from spec import ElementSpec, GridSpec
-from grid import FemDvrEcsGrid
-from operators import hamiltonian, eigen
+
+from projects.femdvr_ecs.grid import FemDvrEcsGrid
+from projects.femdvr_ecs.operators import eigen, hamiltonian
+from projects.femdvr_ecs.spec import ElementSpec, GridSpec
 
 
 def _box(L=1.0, nel=4, nq=10):

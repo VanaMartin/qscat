@@ -42,9 +42,10 @@ Local-to-global index mapping (`element_maps`):
   dropped: local_idx=[1, ..., nq-2], global_idx=[0, ..., nq-3].
 """
 
-import gll
 import numpy as np
-from spec import GridSpec
+
+from projects.femdvr_ecs import gll
+from projects.femdvr_ecs.spec import GridSpec
 
 
 class FemDvrEcsGrid:

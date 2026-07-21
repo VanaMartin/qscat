@@ -1,5 +1,6 @@
 import numpy as np
-import model
+
+from validation.n2 import model
 
 
 def test_morse_minimum_and_depth():

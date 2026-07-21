@@ -64,9 +64,10 @@ at 0, 3, 6, 9, 12 -- a=3.0 sits exactly on the first internal boundary).
 """
 
 import numpy as np
-from spec import ElementSpec, GridSpec
-from grid import FemDvrEcsGrid
-from operators import hamiltonian, eigen
+
+from projects.femdvr_ecs.grid import FemDvrEcsGrid
+from projects.femdvr_ecs.operators import eigen, hamiltonian
+from projects.femdvr_ecs.spec import ElementSpec, GridSpec
 
 
 def _b3_grid(theta_deg, real_len=1.0, nreal=2, tail_len=20.0, ncomplex=10, nq=8):

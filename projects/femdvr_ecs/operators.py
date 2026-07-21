@@ -8,7 +8,7 @@ c.f. ZGEEV) rather than a Hermitian one, and sort by ascending Re(E).
 
 import numpy as np
 
-from kinetic import kinetic
+from projects.femdvr_ecs.kinetic import kinetic
 
 
 def hamiltonian(grid, V, mass: float) -> np.ndarray:

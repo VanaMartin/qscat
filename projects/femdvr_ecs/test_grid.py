@@ -1,7 +1,8 @@
 import numpy as np
-import gll
-from grid import FemDvrEcsGrid
-from spec import ElementSpec, GridSpec
+
+from projects.femdvr_ecs import gll
+from projects.femdvr_ecs.grid import FemDvrEcsGrid
+from projects.femdvr_ecs.spec import ElementSpec, GridSpec
 
 
 def _real_grid(nq=6, lengths=(1.0, 1.0, 1.0)):

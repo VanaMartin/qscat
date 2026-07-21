@@ -21,8 +21,9 @@ import math
 from pathlib import Path
 
 import numpy as np
-from nuclear_grid import n2_nuclear_grid
-from vibrational import vibrational_states
+
+from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
+from projects.n2_ti_cross_section.vibrational import vibrational_states
 
 REAL_N2_SPACING_HA = 0.01074  # real N2 omega_e = 2358 cm^-1 = 0.2924 eV
 

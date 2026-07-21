@@ -1,5 +1,6 @@
 import numpy as np
-import loader
+
+from validation.n2 import loader
 
 
 def test_shape_and_grid():

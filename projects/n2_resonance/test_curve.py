@@ -24,8 +24,9 @@ smooth curve rather than any single closed-form oracle:
 from __future__ import annotations
 
 import numpy as np
-import pole
-from grid_n2 import n2_electronic_grid
+
+from projects.n2_resonance import pole
+from projects.n2_resonance.grid_n2 import n2_electronic_grid
 
 R_GRID = np.linspace(1.6, 3.0, 15)
 

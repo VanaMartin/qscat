@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import numpy as np
 
-import loader
+from validation.n2 import loader
 
 # Electron–N₂ ²Π_g shape-resonance acceptance windows (eV) for the FUTURE B1 check.
 # Deliberately generous *plausibility bands*, not tight literature centres: the literature

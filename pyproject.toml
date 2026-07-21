@@ -16,6 +16,7 @@ members = ["libs/*", "native/*"]
 # this workspace's test suite — their *_test.py files assume a different cwd
 # and fixture layout. Never collect them.
 norecursedirs = [".venv", ".git", "reference", "target", "*.egg-info"]
+pythonpath = ["."]
 
 [dependency-groups]
 dev = [

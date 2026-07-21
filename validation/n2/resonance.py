@@ -15,11 +15,12 @@ against it independently).
 
 from __future__ import annotations
 
-import model
 import numpy as np
 import numpy.typing as npt
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec, eigen, hamiltonian
 from qscat.ecs import find_resonance_pole
+
+from validation.n2 import model
 
 R0: float = model.PARAMS["potential"]["R_0"]  # N2 equilibrium bond length (Bohr)
 

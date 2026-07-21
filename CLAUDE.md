@@ -54,7 +54,19 @@ validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
               anchors this solver's σ_{0→v'}(E) against Karel Houfek's
               independent `CSVE.V00.J00` data (documented cross-model
-              tolerance, not exact agreement).
+              tolerance, not exact agreement). Run the harness with
+              `uv run python -m validation.n2.experiment`.
+
+`projects/` and `validation/` (and their sub-project directories) are real
+Python packages (`__init__.py` present at every level); all intra-repo
+imports are package-absolute (e.g. `from projects.n2_resonance.potential
+import v0`, `from validation.n2 import loader`) — no bare intra-dir imports,
+`sys.path.insert`, or `importlib.util.spec_from_file_location` workarounds.
+Root `pyproject.toml` sets `pythonpath = ["."]` under
+`[tool.pytest.ini_options]` so pytest resolves these packages from the repo
+root without any path hacking. A module meant to be run directly (not just
+imported), such as `validation/n2/experiment.py`, is invoked as
+`python -m validation.n2.experiment`, not by file path.
 reference/  read-only oracles: eMoScat (C++/CUDA snapshot), libXcuda
             (CUDA submodule) — for porting reference only, never imported
 docs/       specs/plans (docs/superpowers), physics notes (docs/physics),

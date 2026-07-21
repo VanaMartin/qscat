@@ -23,8 +23,9 @@ Dirichlet-trimmed FEM-DVR basis exposed by `FemDvrEcsGrid`:
   casing needed.
 """
 
-import gll
 import numpy as np
+
+from projects.femdvr_ecs import gll
 
 
 def kinetic(grid, mass: float) -> np.ndarray:

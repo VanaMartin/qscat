@@ -3,7 +3,8 @@ sub-project #2). Builds on the validated `qscat.dvr.FemDvrEcsGrid`.
 """
 
 import numpy as np
-from grid_n2 import n2_electronic_grid
+
+from projects.n2_resonance.grid_n2 import n2_electronic_grid
 
 
 def test_pivot_matches_r_pivot():

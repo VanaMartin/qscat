@@ -1,46 +1,16 @@
 """N₂ LCP benchmark harness. Prints a PASS/PENDING/FAIL table; exits non-zero on FAIL.
 
-Run: python validation/n2/experiment.py  (or in Docker: docker run --rm qmodeling:runtime
-python validation/n2/experiment.py)
+Run: python -m validation.n2.experiment  (or in Docker: docker run --rm qmodeling:runtime
+python -m validation.n2.experiment)
 """
 
 from __future__ import annotations
 
-import importlib.util
 import sys
-from pathlib import Path
 
-import loader
-import model
-import resonance
 from qscat.units import HARTREE_TO_EV
 
-import reference
-
-
-def _load_local(module_name: str, internal_name: str):  # type: ignore[no-untyped-def]
-    """Load a sibling module by file path under a private internal name.
-
-    `projects/n2_ti_cross_section` also has a top-level module literally
-    named `cross_section.py`. When both that project's tests and this
-    harness are collected in the same pytest session, whichever one a bare
-    `import cross_section` sees FIRST wins the ambient `sys.modules
-    ['cross_section']` cache -- a plain `import cross_section` here would
-    then silently pick up the wrong module depending on test collection
-    order. Loading THIS file explicitly by path under a distinct name
-    sidesteps that entirely (mirrors the same technique `cross_section.py`
-    itself uses to load the *other* `cross_section.py`, in reverse).
-    """
-    path = Path(__file__).resolve().parent / f"{module_name}.py"
-    spec = importlib.util.spec_from_file_location(internal_name, path)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[internal_name] = module  # dataclasses/pickling need this registered
-    spec.loader.exec_module(module)
-    return module
-
-
-cross_section = _load_local("cross_section", "_n2_harness_cross_section")
+from validation.n2 import cross_section, loader, model, reference, resonance
 
 Check = tuple[str, str, str, str]  # (group, name, status, detail)
 # Status values: PASS, FAIL, PENDING (no result yet), or NOTE (a result exists

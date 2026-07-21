@@ -12,16 +12,11 @@ R0), so a several-percent tolerance is used rather than exact equality.
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
 import numpy as np
-from nuclear_grid import n2_nuclear_grid
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "n2_resonance"))
-from potential import v0  # noqa: E402
-
-from vres import vres_on_grid
+from projects.n2_resonance.potential import v0
+from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
+from projects.n2_ti_cross_section.vres import vres_on_grid
 
 R0 = 2.01943
 E_RES_R0 = 0.0898  # Ha, sub-project #2 result

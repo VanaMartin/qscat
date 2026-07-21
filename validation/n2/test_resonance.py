@@ -14,15 +14,10 @@ against `validation/n2/model.py`.
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
 import numpy as np
-import resonance
 
-# Cross-check against the toy-model reference implementation.
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "projects" / "n2_resonance"))
-import grid_n2 as ref_grid_n2  # noqa: E402
+from projects.n2_resonance import grid_n2 as ref_grid_n2
+from validation.n2 import resonance
 
 
 def _assert_grids_identical(angle_deg: float) -> None:

@@ -1,4 +1,4 @@
-import experiment
+from validation.n2 import experiment
 
 
 def test_green_groups_pass_pending_never_fail():

@@ -13,9 +13,10 @@ from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
-from potential import v0, v_eff_el
 from qscat.dvr import FemDvrEcsGrid, eigen, hamiltonian
 from qscat.ecs import find_resonance_pole
+
+from projects.n2_resonance.potential import v0, v_eff_el
 
 __all__ = ["electronic_hamiltonian", "find_pole", "resonance_curve"]
 
