@@ -50,7 +50,13 @@ def v_int(r, R):
 
 
 def v_eff_el(r, R):
-    """Fixed-R electronic effective potential incl. l(l+1)/2r^2 centrifugal term."""
+    """Fixed-R electronic effective potential incl. l(l+1)/2r^2 centrifugal term.
+
+    `r` may be complex (ECS-rotated tail points): both `v_int` and the
+    centrifugal term are analytic in `r`, so this must NOT coerce to
+    `dtype=float` -- doing so silently discards Im(r) and corrupts the
+    analytic continuation the exterior-complex-scaling method relies on.
+    """
     ell = PARAMS["impulsemomentum"]
-    r = np.asarray(r, dtype=float)
+    r = np.asarray(r)
     return v_int(r, R) + ell * (ell + 1) / (2 * r**2)
