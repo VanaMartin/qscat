@@ -3,7 +3,6 @@
 `potential.v_eff_el` (Task 0/1) and `grid_n2.n2_electronic_grid` (Task 1).
 """
 
-import numpy as np
 import pole
 from grid_n2 import n2_electronic_grid
 

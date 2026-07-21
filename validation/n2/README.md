@@ -17,12 +17,14 @@ vibrationally-inelastic scattering off the N₂ ²Π_g shape resonance (the well
   `l(l+1)/2r²` centrifugal term (`l` = 2, ²Π_g symmetry).
 
 The resonance position `E_res(R)` and width `Γ(R)` are **not** closed-form — they are poles
-of the fixed-nuclei electronic scattering problem and require an exterior-complex-scaling
-(ECS) eigensolver, which does not exist yet in this repo. Likewise the vibrational-excitation
-cross sections `σ(v=0→v')` require a time-independent (TI) nuclear scattering solve driven by
-`E_res(R)`/`Γ(R)`, and time-dependent (TD) cross sections require propagating the nuclear
-wavepacket through the same complex potential surface. All atomic units throughout (Hartree,
-bohr, bohr²).
+of the fixed-nuclei electronic scattering problem, found via an exterior-complex-scaling
+(ECS) eigensolver (`resonance.py`, built on `qscat.dvr`/`qscat.ecs`; see
+`docs/physics/n2-resonance.md` for the method and the `projects/n2_resonance/` toy model it
+was validated against). Likewise the vibrational-excitation cross sections `σ(v=0→v')`
+require a time-independent (TI) nuclear scattering solve driven by `E_res(R)`/`Γ(R)`, and
+time-dependent (TD) cross sections require propagating the nuclear wavepacket through the
+same complex potential surface — those two are still pending. All atomic units throughout
+(Hartree, bohr, bohr²).
 
 ## Check groups
 
@@ -34,9 +36,10 @@ bohr, bohr²).
 - **Group C1–C4 — data integrity** (`loader.integrity_checks()`): shape, monotonic energy
   grid, non-negativity, ordered channel thresholds of the golden cross-section data.
   **Green now.**
-- **Group B — resonance position**: checks `E_res(R_0)` against the literature window
-  `reference.LITERATURE["E_res_eV"]` (2.3–2.4 eV, Schulz; Berman/Domcke). **PENDING** — needs
-  an ECS eigensolver to compute `E_res(R)`/`Γ(R)` from `v_eff_el`.
+- **Group B — resonance position** (`resonance.e_res_at_R0()`): computes `E_res(R_0)` via
+  two-angle ECS pole matching (`qscat.ecs.find_resonance_pole`) and checks it against the
+  literature window `reference.LITERATURE["E_res_eV"]` (2.3–2.5 eV, Schulz; Berman/Domcke).
+  **Green now** (`E_res(R_0) ≈ 2.445 eV`).
 - **Group C5 — cross-section anchors**: compares a time-independent solver's
   `σ(E, v=0→v')` at fixed `(energy, channel)` coordinates (`reference.ANCHOR_COORDS`) against
   values looked up from the Houfek golden data (`reference.anchors()`), within

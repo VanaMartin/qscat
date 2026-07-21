@@ -35,3 +35,18 @@ def test_v_eff_has_centrifugal_term():
 def test_model_checks_all_pass():
     results = model.model_checks()
     assert results and all(ok for _n, ok, _d in results), results
+
+
+def test_v_eff_el_is_complex_safe():
+    # r may be an ECS-rotated (complex) tail point: v_eff_el must NOT coerce
+    # to dtype=float internally (that would silently discard Im(r) and
+    # corrupt the analytic continuation the ECS method relies on -- see the
+    # docstring on model.v_eff_el and projects/n2_resonance/potential.py).
+    R0 = model.PARAMS["potential"]["R_0"]
+    r_complex = 2.0 * np.exp(1j * np.deg2rad(30.0))
+    l = model.PARAMS["impulsemomentum"]
+    expected = model.v_int(r_complex, R0) + l * (l + 1) / (2 * r_complex**2)
+    out = model.v_eff_el(r_complex, R0)
+    assert np.iscomplexobj(out)
+    assert abs(out.imag) > 1e-6  # Im(r) must survive, not be discarded
+    assert abs(out - expected) < 1e-12

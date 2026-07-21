@@ -38,7 +38,10 @@ libs/       qscat — the standard library: validated, reusable QM code
               docs/physics/femdvr-ecs.md.
             - qscat.ecs: exterior-complex-scaling coordinate map (`ecs_map`),
               the single source of the `z(x) = x` / `R0 + (x-R0)e^{i theta}`
-              transform used by qscat.dvr's complex tail.
+              transform used by qscat.dvr's complex tail; also
+              `find_resonance_pole(eigs_a, eigs_b, window)`, the general
+              two-spectrum resonance-pole matcher (promoted from the N2
+              resonance project) — see docs/physics/n2-resonance.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
