@@ -125,4 +125,7 @@ def test_B4_bound_state_theta_independence():
         bound = E[E.real < 0].real
         assert bound.size >= 1, "expected a bound state"
         Eb.append(bound.min())
-    assert abs(Eb[0] - Eb[1]) < 1e-4, Eb        # theta-independent
+    # Design spec requires rtol <= 1e-6; measured agreement is ~2.8e-14
+    # (machine precision), so 1e-8 is a real regression guard with ample
+    # headroom rather than a rubber-stamp tolerance.
+    assert abs(Eb[0] - Eb[1]) < 1e-8, Eb        # theta-independent

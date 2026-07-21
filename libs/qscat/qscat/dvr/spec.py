@@ -37,9 +37,9 @@ class GridSpec:
     construction sits exactly on an element boundary.
 
     Caveat: using multiple *different* nonzero `angle_deg` values across tail
-    elements (a bent/graded ECS contour) is UNVERIFIED/experimental -- the
-    validated, actually-used case is a single ECS tail angle shared by all
-    complex elements.
+    elements (a bent/graded ECS contour) is REJECTED UNTIL VALIDATED IN
+    SUB-PROJECT #2 -- the validated, actually-used case is a single ECS tail
+    angle shared by all complex elements.
     """
 
     quadrature: int
@@ -55,11 +55,13 @@ class GridSpec:
 
         seen_complex = False
         real_length_sum = 0.0
+        distinct_nonzero_angles: set[float] = set()
         for el in self.elements:
             if el.length <= 0.0:
                 raise ValueError("element length must be positive")
             if el.angle_deg != 0.0:
                 seen_complex = True
+                distinct_nonzero_angles.add(el.angle_deg)
             else:
                 if seen_complex:
                     raise ValueError(
@@ -67,5 +69,12 @@ class GridSpec:
                         "the element list; found a real element after a complex one"
                     )
                 real_length_sum += el.length
+
+        if len(distinct_nonzero_angles) > 1:
+            raise ValueError(
+                "a bent/graded ECS tail (more than one distinct nonzero "
+                "angle_deg among the elements) is rejected until validated "
+                "in sub-project #2; use a single uniform ECS tail angle"
+            )
 
         self.R0 = self.x_min + real_length_sum

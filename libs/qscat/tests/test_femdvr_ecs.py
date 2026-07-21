@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
+import pytest
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec, eigen, hamiltonian
 
 
@@ -138,4 +139,15 @@ def test_B4_bound_state_theta_independence() -> None:
         bound = E[E.real < 0].real
         assert bound.size >= 1, "expected a bound state"
         Eb.append(bound.min())
-    assert abs(Eb[0] - Eb[1]) < 1e-4, Eb
+    # Design spec requires rtol <= 1e-6; measured agreement is ~2.8e-14
+    # (machine precision), so 1e-8 is a real regression guard with ample
+    # headroom rather than a rubber-stamp tolerance.
+    assert abs(Eb[0] - Eb[1]) < 1e-8, Eb
+
+
+def test_spec_rejects_bent_tail_with_multiple_distinct_angles() -> None:
+    # more than one distinct nonzero angle_deg among the tail elements is a
+    # bent/graded ECS contour, rejected until validated in sub-project #2
+    elements = [ElementSpec(1.0), ElementSpec(1.0, 30.0), ElementSpec(1.0, 45.0)]
+    with pytest.raises(ValueError):
+        GridSpec(quadrature=6, elements=elements)

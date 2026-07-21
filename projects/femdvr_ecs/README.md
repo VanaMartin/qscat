@@ -17,3 +17,8 @@ consumers should import from `qscat.dvr` / `qscat.ecs`, not from here.
 See `docs/physics/femdvr-ecs.md` for the method and validation benchmarks,
 and `.superpowers/sdd/femdvr-ecs-extraction.md` for the port-scout extraction
 from `reference/eMoScat` this implementation is based on.
+
+Note: this dev copy builds ECS points inline (not via `qscat.ecs.ecs_map`), so
+it is a same-numerics oracle for the validated uniform-tail case but does NOT
+exercise the promoted `ecs_map` code path -- the `qscat` tests are the real
+coverage for that path.

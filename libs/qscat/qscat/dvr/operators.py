@@ -37,7 +37,12 @@ def hamiltonian(
 def eigen(
     H: npt.NDArray[np.complex128],
 ) -> tuple[npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
-    """Eigendecompose H, sorted by ascending Re(E)."""
+    """Eigendecompose H, sorted by ascending Re(E).
+
+    Eigenvectors carry numpy's `v†v=1` (Hermitian) normalization; for ECS
+    c-product observables (residues/widths in sub-project #2), re-normalize
+    to `vᵀv=1`.
+    """
     E, vecs = np.linalg.eig(H)  # complex, non-Hermitian
     order = np.argsort(E.real)
     return E[order], vecs[:, order]

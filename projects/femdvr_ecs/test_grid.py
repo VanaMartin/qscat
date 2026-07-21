@@ -83,3 +83,13 @@ def test_spec_rejects_noncontiguous_complex():
     elements = [ElementSpec(1.0, 30.0), ElementSpec(1.0, 0.0)]
     with pytest.raises(ValueError):
         GridSpec(quadrature=6, elements=elements)
+
+
+def test_spec_rejects_bent_tail_with_multiple_distinct_angles():
+    import pytest
+
+    # more than one distinct nonzero angle_deg among the tail elements is a
+    # bent/graded ECS contour, rejected until validated in sub-project #2
+    elements = [ElementSpec(1.0), ElementSpec(1.0, 30.0), ElementSpec(1.0, 45.0)]
+    with pytest.raises(ValueError):
+        GridSpec(quadrature=6, elements=elements)

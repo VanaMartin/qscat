@@ -64,7 +64,8 @@ projects/femdvr_ecs/
 └── tests/         analytic benchmarks (below)
 ```
 
-Gauss-Lobatto nodes/weights come from scipy (not the reference's hand-rolled QL solver).
+Gauss-Lobatto nodes/weights come from `numpy.polynomial.legendre` (no scipy dependency;
+not the reference's hand-rolled QL solver).
 
 ## Validation (the `numerical-validation` gate — all N₂-independent)
 
