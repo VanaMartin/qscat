@@ -2,9 +2,13 @@
 
 Same physics as the already-validated `validation/n2/model.py`: closed-form
 LCP potentials extracted from reference/eMoScat, verified there against
-`model_checks()`. This module re-implements the same formulas, loading
-parameters from the same `validation/n2/config.json`, so the two stay in
-lockstep by construction rather than by copy-paste drift.
+`model_checks()`. This module re-implements the same formulas (not shared
+code) but loads parameters from the same `validation/n2/config.json`.
+Consistency between the two independent implementations is NOT guaranteed
+by construction -- the formulas could still silently drift apart on edit --
+it is guaranteed BY TEST: `test_potential.py::test_matches_reference_model_to_1e_12`
+cross-checks this module against `validation/n2/model.py` to 1e-12 on every
+change.
 
 E_res(R)/Gamma(R) are NOT closed form (ECS eigenvalue pole) and are out of
 scope here -- that's the pole finder built on top of this potential + the

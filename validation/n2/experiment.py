@@ -31,13 +31,21 @@ def run_checks() -> list[Check]:
 
     # Group B — resonance position via two-angle ECS matching (green now)
     lo, hi = reference.LITERATURE["E_res_eV"]
-    E_pole, residual = resonance.e_res_at_R0()
-    E_res_eV = E_pole.real * HARTREE_TO_EV
-    b1_ok = lo <= E_res_eV <= hi
-    checks.append(("B resonance", "B1 E_res(R0) in literature window",
-                   "PASS" if b1_ok else "FAIL",
-                   f"E_res={E_res_eV:.3f} eV (expect {lo}-{hi} eV; "
-                   f"match residual={residual:.2e} Ha)"))
+    residual_tol = 1e-3  # Ha; angle-stability threshold for a genuine pole
+    try:
+        E_pole, residual = resonance.e_res_at_R0()
+    except Exception as e:
+        checks.append(("B resonance", "B1 E_res(R0) in literature window", "FAIL",
+                        f"pole computation failed: {e}"))
+    else:
+        E_res_eV = E_pole.real * HARTREE_TO_EV
+        b1_ok = lo <= E_res_eV <= hi and residual < residual_tol
+        detail = (f"E_res={E_res_eV:.3f} eV (expect {lo}-{hi} eV; "
+                  f"match residual={residual:.2e} Ha, expect <{residual_tol:.0e} Ha)")
+        if not b1_ok and lo <= E_res_eV <= hi:
+            detail += " -- residual too large for an angle-stable pole"
+        checks.append(("B resonance", "B1 E_res(R0) in literature window",
+                       "PASS" if b1_ok else "FAIL", detail))
 
     # Group C5 — cross-section value anchors vs Houfek data (needs TI solver): PENDING
     for e, ch, ref in reference.anchors():

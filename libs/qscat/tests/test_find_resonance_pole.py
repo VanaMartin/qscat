@@ -16,9 +16,12 @@ from qscat.ecs import find_resonance_pole
 
 
 def test_shared_eigenvalue_is_matched_as_the_pole() -> None:
+    # The shared pole value sits at index 1 in eigs_a but index 2 in eigs_b
+    # (a different index in each array), so a naive same-index comparator
+    # (rather than a true all-pairs |ea - eb| search) would fail this test.
     pole_val = 0.10 - 0.02j
     eigs_a = np.array([0.05 + 0.09j, pole_val, 0.14 - 0.30j])
-    eigs_b = np.array([0.02 - 0.31j, pole_val, 0.13 + 0.11j])
+    eigs_b = np.array([0.02 - 0.31j, 0.13 + 0.11j, pole_val])
     window = (0.0, 0.2, -0.05, 0.05)
 
     E_pole, residual = find_resonance_pole(eigs_a, eigs_b, window)
