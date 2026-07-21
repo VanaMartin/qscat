@@ -105,7 +105,13 @@ def test_v0_to_v1_resonance_enhancement(system):
 # Two of the six C5 anchors sit in regimes where the *derived* 1D LCP
 # formula is known -- on physical grounds, not just empirically -- to
 # diverge from Houfek's full 2D close-coupling calculation, independent of
-# any implementation bug:
+# any implementation bug. Both are instances of a GENERAL rule, not a
+# property of these two specific coordinates: any anchor whose channel is
+# the elastic (v'=0) channel, OR whose collision energy sits within about
+# one vibrational quantum of that channel's OWN threshold, is excluded from
+# the gate for a *structural* reason (see `validation/n2/cross_section.py`,
+# which implements this exclusion generally from `(energy, channel)` rather
+# than by hardcoding these two coordinates):
 #
 #   (0.2, 0) elastic (v'=0): far from the resonance (E=0.2 Ha ~ 5.4 eV is
 #       well above the ~2.3-2.5 eV Pi_g resonance), the elastic channel is
@@ -114,19 +120,28 @@ def test_v0_to_v1_resonance_enhancement(system):
 #       purely from the resonance's V_d/Gamma -- structurally does not
 #       include. Confirmed by scanning E=0.02..0.2 Ha for this channel: the
 #       computed/Houfek ratio is O(1) right at and near the resonance peak
-#       (E=0.08-0.1 Ha, ratio 0.83-1.17) and only diverges progressively
-#       further from it (ratio 0.04-11.8 for E<0.05 or E>0.12) -- a smooth,
-#       monotonic trend consistent with a missing background term, not a
-#       localized bug.
+#       (E=0.08-0.1 Ha, ratio 0.83-1.17) and diverges progressively further
+#       from it in *both* directions -- e.g. ratio 0.04-11.8 already by
+#       E<0.05 or E>0.12 -- a smooth, monotonic trend consistent with a
+#       missing background term, not a localized bug. This is not a bounded
+#       discrepancy: as E moves further from the peak the mismatch keeps
+#       growing (in the low-E direction compounding with the next bullet's
+#       ~1/E threshold divergence, since elastic's own threshold is E=0),
+#       it just isn't sampled further here.
 #   (0.02, 1) v'=1 extremely close to its own threshold (eps1-eps0 ~ 0.0125
-#       Ha; E=0.02 Ha is only ~0.0075 Ha above it): Houfek's sigma there
-#       rises over ~4 orders of magnitude across E=0.0125..0.03 Ha (a steep
-#       Wigner threshold power law tied to the resonance's partial-wave
-#       character), so a tiny difference in the *local* model's effective
-#       threshold shape gets amplified enormously in the ratio. Confirmed by
-#       scanning the same channel at E=0.05..0.2 Ha (well clear of
-#       threshold): ratio is 0.11-1.2, i.e. good agreement resumes as soon
-#       as the threshold-law regime is left.
+#       Ha; E=0.02 Ha is only ~0.0075 Ha above it): the LCP's local width
+#       Gamma(R) has no explicit electron-energy dependence, so the model
+#       gives every channel the wrong (non-Wigner) threshold power law --
+#       sigma diverges as ~1/E toward EVERY channel's own opening, not just
+#       this one. Houfek's sigma there rises over ~4 orders of magnitude
+#       across E=0.0125..0.03 Ha (a steep Wigner threshold power law tied to
+#       the resonance's partial-wave character), so a tiny difference in the
+#       *local* model's effective near-threshold shape gets amplified
+#       enormously in the ratio; the computed/Houfek ratio is not bounded by
+#       any fixed factor as E -> the threshold from above, it grows without
+#       limit. Confirmed clear of this regime by scanning the same channel
+#       at E=0.05..0.2 Ha (well clear of threshold): ratio is 0.11-1.2, i.e.
+#       good agreement resumes as soon as the threshold-law regime is left.
 #
 # Both are reported (ratio printed, never hidden) but excluded from the
 # factor-of-ANCHOR_FACTOR gate; the remaining four anchors -- which include

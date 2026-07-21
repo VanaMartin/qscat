@@ -133,8 +133,10 @@ numerics. Meanwhile the model's resonance parameters `E_res(R0)`/`Γ(R0)`
 (=~2.44 eV / 0.46 eV, see the "R0 result" section above) DO match real N₂
 electron-scattering data — only the *neutral* vibrational ladder departs
 from real N₂ spectroscopy. This model-vs-reality gap is folded into the
-LCP-vs-Houfek-2D differences seen in the time-independent cross-section
-benchmark (`projects/n2_ti_cross_section/`).
+LCP-vs-Houfek-2D differences seen in the time-independent (TI) cross-section
+benchmark (`projects/n2_ti_cross_section/`; method, resonance-peak agreement,
+and the two structural LCP limitations are documented in
+`docs/physics/n2-cross-section.md`).
 
 ## Simplifications / out of scope
 
@@ -152,10 +154,11 @@ benchmark (`projects/n2_ti_cross_section/`).
   `docs/physics/femdvr-ecs.md`'s limitations.
 - **Fixed reduced-mass / no nuclear dynamics here**: this is the *electronic*
   (fixed-R) problem only. `E_res(R)`/`Γ(R)`/`V_d(R)` are inputs to a
-  nuclear-motion (vibrational excitation, dissociative attachment) solve,
-  which is out of scope for this sub-project (see `validation/n2/README.md`
-  Groups C5/D — still PENDING, waiting on a time-independent/time-dependent
-  nuclear solver).
+  nuclear-motion (vibrational excitation, dissociative attachment) solve; the
+  time-independent version of that solve is now implemented and validated
+  (`docs/physics/n2-cross-section.md`, `validation/n2/README.md` Group C5 —
+  4/4 gated anchors PASS); the time-dependent (wavepacket propagation)
+  version remains out of scope / PENDING (Group D).
 - **Continuation window widths are hand-tuned** (`re_half_width =
   im_half_width = 0.05` Ha in `resonance_curve`), chosen empirically to
   track the pole across the observed drift rate without catching a
@@ -180,3 +183,6 @@ benchmark (`projects/n2_ti_cross_section/`).
 - `validation/n2/experiment.py` Group B (`B1`): `E_res(R0)` computed
   independently via `validation/n2/resonance.py` against the literature
   window — **PASS**.
+- The nuclear-motion time-independent cross-section solve built on top of
+  `E_res(R)`/`Γ(R)` (Group C5) is documented separately in
+  `docs/physics/n2-cross-section.md`.

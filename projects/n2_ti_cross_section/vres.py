@@ -26,7 +26,10 @@ Breakdown region (small R, deep repulsive wall):
   Walking the continuation down to very small R (below roughly 0.9-1.2
   bohr), the two-angle match degrades and eventually fails outright
   (`find_pole` raises `ValueError`: the window empties in one of the two
-  spectra). This is NOT a solver bug -- `v0(R)` there is already several
+  spectra; the per-step call also defensively catches
+  `np.linalg.LinAlgError`, in case `qscat.dvr.eigen`'s diagonalization ever
+  fails to converge at a pathological R -- treated identically to a failed
+  match). This is NOT a solver bug -- `v0(R)` there is already several
   Hartree above the neutral dissociation limit (e.g. v0(1.0) ~= 3.0 Ha,
   v0(0.5) ~= 16.3 Ha; the interaction strength `lambda(R)` itself swings
   from ~6.2 at large R to negative at very small R), so the model's shape
@@ -162,7 +165,13 @@ def vres_on_grid(
             R = float(sorted_R[pos])
             try:
                 E_pole, residual = find_pole(R, ga, gb, window)
-            except ValueError:
+            except (ValueError, np.linalg.LinAlgError):
+                # ValueError: the two-angle window match found no candidate pole
+                # (see module docstring's "Breakdown region"). LinAlgError:
+                # defensive -- `find_pole` diagonalizes H_el(R) via `qscat.dvr.eigen`,
+                # which could in principle raise on a pathological (non-converging)
+                # eigendecomposition at some R; treated the same as a failed match
+                # (per the Task-2 review Minor).
                 residual = np.inf
             else:
                 if residual < _RESID_TOL_HA:
