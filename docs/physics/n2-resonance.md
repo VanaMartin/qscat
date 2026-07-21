@@ -114,6 +114,28 @@ V3):
   `R ≳ 2.4` Bohr, matching the expected resonance-to-bound-state closure.
 - `Gamma(R) >= 0` everywhere by construction (`Gamma = max(0, -2*Im(E_pole))`).
 
+## Model caveat: neutral N₂ Morse is a model potential, not a spectroscopic fit
+
+`v0(R)` (`validation/n2/model.py`, `projects/n2_resonance/potential.py`) is
+eMoScat's neutral N₂ Morse curve, extracted as-is from
+`reference/eMoScat/input/experimental/N2-model.json`. Its dissociation
+energy `D_0 = 0.75102` Ha (=~20.4 eV) is =~2x real N₂'s actual dissociation
+energy (=~9.8 eV). Consequently the model's neutral vibrational spacing
+(`omega_e =~ 0.0125` Ha analytic; FEM-DVR `eps1-eps0 =~ 0.0124` Ha, see
+`projects/n2_ti_cross_section/test_vibrational.py`) is =~16% larger than
+real N₂'s (0.01074 Ha / 2358 cm⁻¹).
+
+This is a deliberate, accepted property of the model (maintainer decision),
+not a bug: the FEM-DVR-ECS vibrational solver is verified correct against
+the *analytic* Morse spectrum of this same potential (residuals ~1e-14 Ha),
+so the gap lives entirely in the model's `D_0`/`alpha_0` choice, not in the
+numerics. Meanwhile the model's resonance parameters `E_res(R0)`/`Γ(R0)`
+(=~2.44 eV / 0.46 eV, see the "R0 result" section above) DO match real N₂
+electron-scattering data — only the *neutral* vibrational ladder departs
+from real N₂ spectroscopy. This model-vs-reality gap is folded into the
+LCP-vs-Houfek-2D differences seen in the time-independent cross-section
+benchmark (`projects/n2_ti_cross_section/`).
+
 ## Simplifications / out of scope
 
 - **Diagonal-potential DVR approximation** (inherited from `qscat.dvr`): `V`

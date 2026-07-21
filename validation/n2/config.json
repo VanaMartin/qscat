@@ -1,5 +1,6 @@
 {
   "provenance": "reference/eMoScat/input/experimental/N2-model.json (model.potential + model.reduced_mass)",
+  "note": "eMoScat's neutral N2 Morse is a MODEL potential for the resonance study, NOT a spectroscopic fit to real N2. D_0=0.75102 Ha (~20.4 eV) is ~2x real N2's actual dissociation energy (~9.8 eV); the resulting neutral vibrational spacing (omega_e ~= 0.0124 Ha) is ~16% larger than real N2 (0.01074 Ha / 2358 cm^-1). The model's resonance E_res/Gamma (~2.44 eV / 0.46 eV) DO match real N2 scattering data; the neutral vibrational levels do NOT match real N2 spectroscopy. This model-vs-reality gap is folded into the LCP-vs-Houfek-2D differences in the cross-section benchmark (projects/n2_ti_cross_section/). See docs/physics/n2-resonance.md 'Model caveat' and .superpowers/sdd/task1fix-report.md.",
   "units": "atomic units (Hartree, bohr)",
   "reduced_mass": 12766.36,
   "impulsemomentum": 2,
