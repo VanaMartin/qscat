@@ -32,6 +32,13 @@ Every method or numerical capability moves through five stages:
 ```
 libs/       qscat — the standard library: validated, reusable QM code
             (units, linalg, dvr, ecs, special, evolution submodules)
+            - qscat.dvr: FEM-DVR-ECS radial grid (`FemDvrEcsGrid`), kinetic-
+              energy assembly (`kinetic`), and diagonal-potential Hamiltonian
+              + eigensolver helpers (`hamiltonian`, `eigen`) — see
+              docs/physics/femdvr-ecs.md.
+            - qscat.ecs: exterior-complex-scaling coordinate map (`ecs_map`),
+              the single source of the `z(x) = x` / `R0 + (x-R0)e^{i theta}`
+              transform used by qscat.dvr's complex tail.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
