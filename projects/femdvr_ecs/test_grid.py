@@ -1,4 +1,5 @@
 import numpy as np
+import gll
 from grid import FemDvrEcsGrid
 from spec import ElementSpec, GridSpec
 
@@ -38,6 +39,41 @@ def test_weights_bridge_summed_at_shared_nodes():
     # they should be (roughly) larger than the small end-weights within an element.
     g = FemDvrEcsGrid(_real_grid(nq=6, lengths=(1.0, 1.0)))
     assert np.all(g.weights.real > 0)
+
+    # Strengthen: the weight at the shared boundary global index must equal
+    # hz0*w_local[-1] + hz1*w_local[0], the exact sum of the two adjoining
+    # elements' scaled local Lobatto weights at that node (see element_maps
+    # docstring in grid.py: adjacent elements share exactly one global index).
+    _, w_local = gll.gll_nodes_weights(6)
+    (local0, global0), (local1, global1) = g.element_maps
+    shared = set(global0.tolist()) & set(global1.tolist())
+    assert len(shared) == 1
+    bridge_idx = shared.pop()
+    expected = g.hz[0] * w_local[local0[-1]] + g.hz[1] * w_local[local1[0]]
+    assert np.isclose(g.weights[bridge_idx], expected, atol=1e-12)
+
+
+def test_element_maps_cover_global_basis_with_single_index_overlap():
+    for lengths in [(1.0,), (1.0, 1.0), (1.0, 1.0, 1.0)]:
+        g = FemDvrEcsGrid(_real_grid(nq=6, lengths=lengths))
+        assert len(g.element_maps) == len(lengths)
+
+        all_global: list[int] = []
+        for local, glob in g.element_maps:
+            assert local.shape == glob.shape
+            all_global.extend(glob.tolist())
+
+        # adjacent elements share exactly one global index (the bridge node)
+        for i in range(len(g.element_maps) - 1):
+            _, glob_i = g.element_maps[i]
+            _, glob_ip1 = g.element_maps[i + 1]
+            shared = set(glob_i.tolist()) & set(glob_ip1.tolist())
+            assert len(shared) == 1
+            assert glob_i[-1] == glob_ip1[0] == shared.pop()
+
+        # union of all global indices (accounting for the 1-index overlaps)
+        # equals exactly range(nb)
+        assert set(all_global) == set(range(g.n))
 
 
 def test_spec_rejects_noncontiguous_complex():

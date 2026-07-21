@@ -19,6 +19,27 @@ Construction (mirrors FemDvrEcsGrid.cpp:84-112 exactly):
     sums of the per-element complex/real lengths, starting at x_min).
   - The two outermost global points (x_min and x_max) are dropped (Dirichlet
     psi=0): nb = tnel*(nq-1) + 1 - 2.
+
+Local-to-global index mapping (`element_maps`):
+  The retained local GLL node indices differ at the first/last element because
+  of the Dirichlet drop, and are NOT simply `range(nq)` shifted by a constant
+  offset -- a consumer must not assume `global = start + local`. Instead each
+  element carries an EXPLICIT `(local_idx, global_idx)` pair of equal-length
+  int arrays (see `element_maps` below); `global_idx[k]` is where local node
+  `local_idx[k]` of that element scatters to in the length-`nb` global basis.
+  Adjacent elements deliberately share their boundary global index (the last
+  entry of element i's global_idx equals the first entry of element i+1's
+  global_idx), which is what makes a `+=` scatter-accumulate assemble the
+  bridge coupling correctly in the kinetic-operator build (Task 2).
+
+  Worked example (nq=3, tnel=2, single-element-local nodes = [0, 1, 2]):
+    element 0 (first): drop local 0            -> local_idx=[1, 2], global_idx=[0, 1]
+    element 1 (last):  drop local nq-1=2        -> local_idx=[0, 1], global_idx=[1, 2]
+    Shared global index 1 (the bridge node) appears in both elements' global_idx,
+    exactly where a consumer should accumulate contributions from both.
+    nb = tnel*(nq-1) + 1 - 2 = 2*2+1-2 = 3, matching the union {0, 1, 2}.
+  With a single element (tnel=1), BOTH endpoints (local 0 and local nq-1) are
+  dropped: local_idx=[1, ..., nq-2], global_idx=[0, ..., nq-3].
 """
 
 import gll
@@ -27,7 +48,11 @@ from spec import GridSpec
 
 
 class FemDvrEcsGrid:
-    """FEM-DVR-ECS grid geometry built from a validated `GridSpec`."""
+    """FEM-DVR-ECS grid geometry built from a validated `GridSpec`.
+
+    See the module docstring for the `element_maps` local->global index
+    convention that Task 2's kinetic-operator assembly relies on.
+    """
 
     def __init__(self, spec: GridSpec) -> None:
         nq = spec.quadrature
@@ -77,11 +102,34 @@ class FemDvrEcsGrid:
         weights = all_wz[1: nall - 1]
         real_points = all_xr[1: nall - 1]
 
+        # element_ranges: half-open [start, stop) slices into the global basis
+        # spanned by each element, INCLUSIVE of shared boundary indices with
+        # neighbors (i.e. adjacent ranges overlap by one index). This is a
+        # coarse, position-independent summary kept for backward-compat /
+        # quick range checks; it does NOT say which local index maps to which
+        # global index, so a kinetic-assembly consumer should use
+        # `element_maps` instead (see module docstring).
         element_ranges: list[tuple[int, int]] = []
         for s, e in element_span_all:
             gs = max(0, s - 1)
             ge = min(nb - 1, e - 1)
             element_ranges.append((gs, ge + 1))   # half-open [start, stop)
+
+        # element_maps: explicit per-element (local_idx, global_idx) pairs.
+        # local_idx = retained local GLL node indices (0..nq-1), dropping the
+        # Dirichlet endpoint(s): local 0 for the first element, local nq-1 for
+        # the last element (both, if tnel == 1). global_idx = the matching
+        # row/column index into the length-nb global basis ("all" index - 1).
+        # See module docstring for the convention and a worked example.
+        element_maps: list[tuple[np.ndarray, np.ndarray]] = []
+        for i, (s, e) in enumerate(element_span_all):
+            local = np.arange(nq)
+            if i == 0:
+                local = local[local != 0]
+            if i == tnel - 1:
+                local = local[local != nq - 1]
+            global_idx = (s + local) - 1
+            element_maps.append((local, global_idx))
 
         self.spec = spec
         self.nq = nq
@@ -93,3 +141,4 @@ class FemDvrEcsGrid:
         self.dLp = dLp
         self.hz = hz
         self.element_ranges = element_ranges
+        self.element_maps = element_maps

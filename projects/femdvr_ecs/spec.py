@@ -31,6 +31,11 @@ class GridSpec:
     boundary) is out of scope for this port (see design spec, Out of scope).
     Computes the ECS pivot `R0 = x_min + sum(real element lengths)`, which by
     construction sits exactly on an element boundary.
+
+    Caveat: using multiple *different* nonzero `angle_deg` values across tail
+    elements (a bent/graded ECS contour) is UNVERIFIED/experimental -- the
+    validated, actually-used case is a single ECS tail angle shared by all
+    complex elements.
     """
 
     quadrature: int
