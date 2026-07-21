@@ -10,17 +10,26 @@ these low-lying bound ones. We select the `n` eigenpairs with the smallest
 |Im(E)| (the bound-state signature) among the lowest-Re(E) eigenvalues,
 ordered ascending in Re(E).
 
-Normalization convention (c-product-free, matches the DVR/ECS convention
-used throughout this repo -- see `operators.eigen` and
-`.superpowers/sdd/ti-cross-section-extraction.md` section 2's S-matrix
-formula "DVR basis pre-normalized by 1/sqrt(w) => inner product is plain dot
-of coeff vectors"): `chi` is returned as `numpy.linalg.eig`'s raw
-eigenvectors, i.e. `chi_v^T chi_v = 1` (complex-symmetric/c-product norm,
-not Hermitian `chi_v^dagger chi_v = 1`) built directly on the
-weight-pre-normalized FEM-DVR basis. Downstream (the doorway/driven-equation
-formulas), `chi_v(R_j)` is this raw coefficient `chi[v, j]` -- no extra
-`sqrt(weight)` factor is needed because the basis functions themselves
-already absorb it.
+Normalization convention: `qscat.dvr.eigen()` returns eigenvectors with
+numpy's Hermitian normalization (`v^dagger v = 1`); c-product
+renormalization (`v^T v = 1`, the convention appropriate for ECS-basis
+observables) is a *separate* step that `eigen()`'s own docstring flags
+callers must apply themselves when it matters. For the real bound
+vibrational eigenvectors built here, `chi` is real, so `chi_v^dagger chi_v`
+and `chi_v^T chi_v` are literally the same sum-of-squares -- they coincide
+to machine precision in the Hermitian-normalized output `eigen()` already
+hands back, so no extra c-product step is needed and `chi` is usable
+directly here, matching the DVR/ECS convention used throughout this repo
+(see `.superpowers/sdd/ti-cross-section-extraction.md` section 2's
+S-matrix formula "DVR basis pre-normalized by 1/sqrt(w) => inner product is
+plain dot of coeff vectors"). This coincidence does NOT generalize:
+downstream code handling genuinely complex vectors (e.g. resonance
+eigenvectors, or the driven-equation/doorway solution in Task 3) must apply
+the c-product convention explicitly per `eigen()`'s own note, since
+Hermitian and c-product norms differ once the vector is complex. Downstream
+(the doorway/driven-equation formulas), `chi_v(R_j)` is this raw coefficient
+`chi[v, j]` -- no extra `sqrt(weight)` factor is needed because the basis
+functions themselves already absorb it.
 """
 
 from __future__ import annotations
@@ -40,6 +49,12 @@ from potential import v0  # noqa: E402
 
 __all__ = ["vibrational_states"]
 
+# Bound-state signature: true bound levels have |Im(E)| ~ 1e-15 on this ECS
+# grid, while the discretized continuum/dissociative states (starting
+# ~index 111 for the grid built by `nuclear_grid.n2_nuclear_grid()`) jump to
+# |Im(E)| ~ 1e-7 or larger. This tolerance sits comfortably between the two.
+_IM_TOL_HA = 1e-6
+
 
 def vibrational_states(
     grid: FemDvrEcsGrid, mu: float, n: int
@@ -48,13 +63,33 @@ def vibrational_states(
 
     Returns `(eps, chi)`: `eps` is the real part of the `n` lowest-Re(E)
     eigenvalues (Hartree), ascending; `chi` is the (n, grid.n) array of the
-    corresponding raw (`v^T v = 1`) eigenvectors (see module docstring for
-    the normalization convention).
+    corresponding eigenvectors, Hermitian-normalized (`v^dagger v = 1`) by
+    `qscat.dvr.eigen()` -- which coincides with the c-product norm
+    (`v^T v = 1`) for these real bound-state vectors (see module docstring
+    for the normalization convention).
+
+    Raises `ValueError` if any of the `n` lowest-Re(E) eigenvalues has
+    `|Im(E)| > _IM_TOL_HA`: that signals `n` reached past the true bound
+    spectrum into quasi-continuum/ECS states, which are not valid
+    "vibrational levels" and must not be silently returned as such.
     """
     T = kinetic(grid, mu)
     H0 = T + np.diag(v0(grid.points))
     E, V = eigen(H0)  # already sorted ascending by Re(E)
 
-    eps = E[:n].real
+    E_n = E[:n]
+    bad = np.abs(E_n.imag) > _IM_TOL_HA
+    if np.any(bad):
+        bad_idx = np.flatnonzero(bad).tolist()
+        raise ValueError(
+            f"vibrational_states(n={n}) requested more states than there "
+            f"are bound levels: eigenvalue index/indices {bad_idx} (within "
+            f"the n={n} lowest-Re(E) selection) have |Im(E)| > "
+            f"{_IM_TOL_HA} Ha, i.e. they are quasi-continuum/ECS states, "
+            "not true bound vibrational levels. Reduce n to stay within "
+            "the true bound spectrum."
+        )
+
+    eps = E_n.real
     chi = V[:, :n].T
     return eps, chi
