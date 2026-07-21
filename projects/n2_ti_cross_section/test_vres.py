@@ -1,0 +1,81 @@
+"""Failing-first tests for V_d(R)/Gamma(R) recomputed per nuclear-R
+(sub-project #3, Task 2).
+
+Cross-checks `vres.vres_on_grid` against sub-project #2's own validated
+pole-finder result (`.superpowers/sdd/task-2-report.md` for
+`projects/n2_resonance`): at R0 = 2.01943 bohr,
+`E_pole = 0.089850 - 0.008363i Ha`, i.e. `E_res ~= 0.0898 Ha`,
+`Gamma = -2*Im(E_pole) ~= 0.01673 Ha`. The nuclear grid's nearest real point
+to R0 is a few thousandths of a bohr off (grid nodes don't land exactly on
+R0), so a several-percent tolerance is used rather than exact equality.
+"""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+import numpy as np
+from nuclear_grid import n2_nuclear_grid
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "n2_resonance"))
+from potential import v0  # noqa: E402
+
+from vres import vres_on_grid
+
+R0 = 2.01943
+E_RES_R0 = 0.0898  # Ha, sub-project #2 result
+GAMMA_R0 = 0.0167  # Ha, sub-project #2 result (2 * 0.00836)
+
+
+def _grid():
+    return n2_nuclear_grid()
+
+
+def test_vres_shapes_finite_and_gamma_nonnegative():
+    grid = _grid()
+    Vd, Gamma = vres_on_grid(grid)
+    assert Vd.shape == (grid.n,)
+    assert Gamma.shape == (grid.n,)
+    assert np.all(np.isfinite(Vd.real)) and np.all(np.isfinite(Vd.imag))
+    assert np.all(np.isfinite(Gamma))
+    assert np.all(Gamma >= -1e-12)
+
+
+def test_vres_matches_pole_finder_at_R0():
+    grid = _grid()
+    Vd, Gamma = vres_on_grid(grid)
+
+    real_mask = grid.points.imag == 0.0
+    real_idx = np.flatnonzero(real_mask)
+    idx = real_idx[np.argmin(np.abs(grid.points[real_idx].real - R0))]
+    R = grid.points[idx].real
+
+    E_res = Vd[idx].real - v0(R)
+    assert abs(E_res - E_RES_R0) / E_RES_R0 < 0.05, E_res
+    assert abs(Gamma[idx] - GAMMA_R0) / GAMMA_R0 < 0.10, Gamma[idx]
+
+
+def test_gamma_closes_beyond_crossing_and_on_complex_tail():
+    grid = _grid()
+    Vd, Gamma = vres_on_grid(grid)
+
+    real_mask = grid.points.imag == 0.0
+    real_idx = np.flatnonzero(real_mask)
+    real_R = grid.points[real_idx].real
+
+    # Beyond the ~2.4 bohr resonance -> bound-state crossing, Gamma should
+    # have closed to ~0.
+    outer = real_idx[real_R > 4.0]
+    assert np.all(Gamma[outer] < 1e-4), Gamma[outer]
+
+    # Complex-tail points (R > 12 bohr, ECS-rotated): Gamma == 0 by the
+    # documented analytic-continuation treatment (see vres.py docstring).
+    tail_idx = np.flatnonzero(~real_mask)
+    assert tail_idx.size > 0
+    assert np.all(Gamma[tail_idx] == 0.0)
+
+    # Vd must be finite (and equal v0(R) + a constant E_res asymptote) on
+    # the tail.
+    assert np.all(np.isfinite(Vd[tail_idx].real))
+    assert np.all(np.isfinite(Vd[tail_idx].imag))
