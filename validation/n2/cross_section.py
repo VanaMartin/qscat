@@ -47,6 +47,7 @@ from __future__ import annotations
 
 import functools
 import importlib.util
+import json
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -90,7 +91,8 @@ def _load_ti_cross_section():  # type: ignore[no-untyped-def]
 
 ve_cross_section = _load_ti_cross_section().ve_cross_section
 
-MU = 12766.36  # N2 nuclear reduced mass (a.u.); matches
+_CONFIG = json.loads((Path(__file__).parent / "config.json").read_text())
+MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.); matches
 # `projects/n2_ti_cross_section/test_cross_section.py`.
 N_VIB = 6  # v=0..5 -- enough to cover vprimes up to 3 used by the anchors.
 

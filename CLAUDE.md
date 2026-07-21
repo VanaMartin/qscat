@@ -45,7 +45,16 @@ libs/       qscat — the standard library: validated, reusable QM code
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
+            - `n2_ti_cross_section`: time-independent (resolvent/driven-
+              equation) N₂ vibrational-excitation cross-section solver
+              (`nuclear_grid.py`/`vibrational.py`/`vres.py`/`cross_section.py`),
+              built on `qscat.dvr`/`qscat.ecs` and the N₂ resonance pole
+              finder — see docs/physics/n2-cross-section.md.
 validation/ analytic benchmarks, golden datasets, convergence studies
+            - `validation/n2/`: N₂ electron-scattering harness; its C5 group
+              anchors this solver's σ_{0→v'}(E) against Karel Houfek's
+              independent `CSVE.V00.J00` data (documented cross-model
+              tolerance, not exact agreement).
 reference/  read-only oracles: eMoScat (C++/CUDA snapshot), libXcuda
             (CUDA submodule) — for porting reference only, never imported
 docs/       specs/plans (docs/superpowers), physics notes (docs/physics),

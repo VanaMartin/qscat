@@ -24,6 +24,7 @@ Two families of checks:
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -39,7 +40,10 @@ import loader  # noqa: E402
 
 from reference import ANCHOR_COORDS  # noqa: E402
 
-MU = 12766.36
+_CONFIG = json.loads(
+    (Path(__file__).resolve().parents[2] / "validation" / "n2" / "config.json").read_text()
+)
+MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.), 12766.36
 N_VIB = 6  # v=0..5, enough to cover vprimes up to 3 used by the anchors
 
 # Loose, documented cross-model bound (LCP 1D vs. Houfek's explicit 2D

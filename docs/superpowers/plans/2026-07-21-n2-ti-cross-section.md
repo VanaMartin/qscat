@@ -18,6 +18,15 @@
   - `V_d(R)=V₀(R)+E_res(R)`, from the #2 pole finder (recompute per nuclear-R).
 - **c-product note:** ECS matrices are complex-symmetric non-Hermitian; the correct inner product is the c-product (`Σ a_j b_j`, NO conjugate) for resolvent/doorway quantities, while the qscat `eigen` returns `v†v=1`-normalized vectors. Get this right — a wrong conjugate/normalization gives wrong (often complex or negative) σ. The internal checks (σ real & ≥0) will catch it.
 - N₂ ω_e ≈ 2358 cm⁻¹ = **0.01074 Ha** (0.2924 eV) — the vibrational-spacing target.
+  - **Note (superseded):** this real-N₂ target was superseded by a maintainer
+    decision to accept eMoScat's model potential as-is (see
+    `.superpowers/sdd/task1fix-report.md`). The shipped Part-1 check (`Step 5`
+    below, `test_vibrational.py`) instead validates the FEM-DVR solver against
+    the **analytic Morse spectrum of eMoScat's own potential** (matched to
+    ~1e-14), not against this real-N₂ target. eMoScat's model gives
+    `ε₁−ε₀ ≈ 0.0124` Ha — ~16% above real N₂'s `ω_e` — a documented property
+    of the model potential, not a solver error; "ε₁−ε₀ ≈ N₂ ω_e" as written
+    in this plan is not the criterion actually met.
 - HARTREE_TO_EV = 27.211386245988. Houfek data: `validation/n2/data/CSVE.V00.J00` (energy Ha col 0; col j = v=0→(j−1); bohr²).
 - No `__init__.py` under `projects/n2_ti_cross_section/`. Commit trailer: `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`.
 

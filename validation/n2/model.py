@@ -6,12 +6,13 @@ NOTE -- model vs. reality (read before comparing v0(R) to N2 spectroscopy):
 eMoScat's neutral N₂ Morse curve (`v0`, params `D_0=0.75102` Ha =~ 20.4 eV,
 `alpha_0=1.1535`) is a MODEL potential built for the resonance study, NOT a
 spectroscopic fit to real N₂. `D_0` is =~2x real N₂'s actual dissociation
-energy (=~9.8 eV), so the resulting neutral vibrational spacing
-(`omega_e =~ 0.0124` Ha) is =~16% larger than real N₂'s (0.01074 Ha /
-2358 cm⁻¹). The model's resonance parameters `E_res(R0)`/`Γ(R0)`
-(=~2.44 eV / 0.46 eV) DO match real N₂ electron-scattering data -- it is
-only the *neutral* vibrational ladder that departs from real N₂
-spectroscopy. This model-vs-reality gap is inherited by, and folded into,
+energy (=~9.8 eV), so the resulting neutral vibrational spacing (FEM-DVR
+`eps1-eps0 =~ 0.0124` Ha; analytic Morse `omega_e =~ 0.0125` Ha) is =~16%
+larger than real N₂'s (0.01074 Ha / 2358 cm⁻¹). The model's resonance
+parameters `E_res(R0)`/`Γ(R0)` (=~2.44 eV / 0.46 eV) DO match real N₂
+electron-scattering data -- it is only the *neutral* vibrational ladder
+that departs from real N₂ spectroscopy. This model-vs-reality gap is
+inherited by, and folded into,
 the LCP-vs-Houfek-2D differences seen in the cross-section benchmark
 (`projects/n2_ti_cross_section/`). See
 `.superpowers/sdd/task1fix-report.md` and

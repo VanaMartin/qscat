@@ -59,6 +59,15 @@ Reuses `qscat.dvr` (grid, kinetic → T_nuc(μ)), `qscat.ecs`, and the sub-proje
 
 **Part 1 — internal correctness (Houfek-independent; the real bug gate):**
 - Neutral vibrational spacing `ε₁ − ε₀ ≈ N₂ ω_e` (~0.29 eV / ~0.0107 Ha) within a few %.
+  - **Note (superseded):** this real-N₂ target was superseded by a maintainer
+    decision to accept eMoScat's model potential as-is (see
+    `.superpowers/sdd/task1fix-report.md`). The shipped Part-1 check instead
+    validates the FEM-DVR solver against the **analytic Morse spectrum of
+    eMoScat's own potential** (matched to ~1e-14), not against real N₂. Under
+    eMoScat's model, `ε₁−ε₀ ≈ 0.0124` Ha — ~16% above real N₂'s `ω_e` — which
+    is a documented property of the model potential, not a solver error; the
+    criterion as written above is not what the solver is actually checked
+    against.
 - σ ≥ 0 for all computed anchors; channel-opening thresholds correct (`σ=0` when `E_tot−ε_{v'}<0`).
 - Resonance enhancement: the VE cross section is largest in the ~2–3 eV region (the ²Π_g resonance).
 

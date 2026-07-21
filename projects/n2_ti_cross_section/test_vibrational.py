@@ -24,12 +24,12 @@ import numpy as np
 from nuclear_grid import n2_nuclear_grid
 from vibrational import vibrational_states
 
-MU = 12766.36
 REAL_N2_SPACING_HA = 0.01074  # real N2 omega_e = 2358 cm^-1 = 0.2924 eV
 
 _CONFIG = json.loads(
     (Path(__file__).resolve().parents[2] / "validation" / "n2" / "config.json").read_text()
 )
+MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.), 12766.36
 D0 = _CONFIG["potential"]["D_0"]  # 0.75102 Ha
 ALPHA0 = _CONFIG["potential"]["alpha_0"]  # 1.1535 bohr^-1
 

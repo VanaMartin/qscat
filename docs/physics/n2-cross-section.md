@@ -87,11 +87,13 @@ percent-level match.
 | 0.0200 | 1 | 1.166e-01 | 1.434e-05 | 8133.082 | DOCUMENTED-LIMITED |
 
 **4 of 4 GATED anchors agree within the documented factor-of-3 band**
-(`reference.ANCHOR_FACTOR = 3.0`), including the resonance-peak anchor
-(E=0.1 Ha, v'=1) at **ratio 1.010** — essentially exact agreement at the point
-that matters most physically, the ²Π_g shape-resonance maximum. Scanning
-`sigma_{0->1}(E)` across the whole resonance region (E=0.06–0.2 Ha) gives ratios
-0.38–1.2 throughout, not just at this one point.
+(`reference.ANCHOR_FACTOR = 3.0`), including the E=0.1 Ha, v'=1 anchor at
+**ratio 1.010** — near-unity at this anchor, not a single fortuitous point:
+note that E=0.1 Ha (2.72 eV) sits somewhat above the ²Π_g resonance maximum
+itself (~2.44 eV), so this is not literally the resonance peak. Scanning
+`sigma_{0->1}(E)` across the whole resonance region (E=0.06–0.2 Ha) gives
+ratios spanning ~0.38–1.2 throughout, consistent with the anchor's good
+agreement rather than an isolated coincidence.
 
 ## Two structural LCP limitations (why 2 of 6 anchors are DOCUMENTED-LIMITED, not FAILs)
 
