@@ -39,7 +39,7 @@ from qscat.dvr import FemDvrEcsGrid, kinetic
 
 from projects.n2_td_cross_section.propagator import make_cn_stepper
 
-__all__ = ["td_ve_cross_section", "td_norm_ratio"]
+__all__ = ["td_ve_cross_section"]
 
 
 def _quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
@@ -183,26 +183,3 @@ def td_ve_cross_section(
     if return_norm_ratio:
         return sigma, norm_ratio
     return sigma
-
-
-def td_norm_ratio(
-    grid: FemDvrEcsGrid,
-    mu: float,
-    Vd: npt.NDArray[np.complex128],
-    Gamma: npt.NDArray[np.float64],
-    chi: npt.NDArray[np.complex128],
-    v_init: int,
-    *,
-    dt: float,
-    n_steps: int,
-) -> float:
-    """`||psi(T)|| / ||psi(0)||` with `T = n_steps*dt`, `psi(0) = d_{v_init}`.
-
-    A thin convenience wrapper over `_propagate_and_correlate` for callers
-    (e.g. the V2 convergence test) that only need the depletion ratio, not
-    a full cross section.
-    """
-    _, _, norm_ratio = _propagate_and_correlate(
-        grid, mu, Vd, Gamma, chi, v_init, [v_init], dt=dt, n_steps=n_steps
-    )
-    return norm_ratio

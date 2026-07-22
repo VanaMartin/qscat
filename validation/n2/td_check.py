@@ -16,9 +16,10 @@ The correlation functions `c_v'(t)` needed for the energy transform are
 E-independent, so ONE Crank-Nicolson trajectory (`v_init=0`) computed with
 `vprimes` = every distinct GATED channel and `E` = every distinct GATED
 energy yields sigma_TD at all 4 gated anchors -- not 4 separate
-propagations. `_build_system` is the same `functools.lru_cache`d builder
-`cross_section.py` uses for Group C5, so the ~7s `vres_on_grid` cost is
-paid at most once per process even though Groups C5 and D both need it.
+propagations. `cross_section.build_system` (a public alias for the same
+`functools.lru_cache`d builder) is the one `cross_section.py` uses for
+Group C5, so the ~7s `vres_on_grid` cost is paid at most once per process
+even though Groups C5 and D both need it.
 """
 
 from __future__ import annotations
@@ -60,7 +61,7 @@ class TDResult:
 
 def compute_td_results() -> list[TDResult]:
     """sigma_TD at the GATED C5 anchors, from a single CN propagation."""
-    grid, eps, chi, Vd, Gamma = cross_section._build_system()
+    grid, eps, chi, Vd, Gamma = cross_section.build_system()
     anchors = cross_section.compute_anchor_results()  # reuses the cached system
     gated = [r for r in anchors if r.gated]
     if not gated:

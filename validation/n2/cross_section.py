@@ -60,7 +60,7 @@ from projects.n2_ti_cross_section.vibrational import vibrational_states
 from projects.n2_ti_cross_section.vres import vres_on_grid
 from validation.n2 import reference
 
-__all__ = ["AnchorResult", "compute_anchor_results"]
+__all__ = ["AnchorResult", "build_system", "compute_anchor_results"]
 
 _CONFIG = json.loads((Path(__file__).parent / "config.json").read_text())
 MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.); matches
@@ -103,6 +103,9 @@ def _build_system() -> System:
     eps, chi = vibrational_states(grid, MU, N_VIB)
     Vd, Gamma = vres_on_grid(grid)
     return grid, eps, chi, Vd, Gamma
+
+
+build_system = _build_system
 
 
 def classify(e_ha: float, channel: int, eps: npt.NDArray[np.float64]) -> tuple[bool, str]:
