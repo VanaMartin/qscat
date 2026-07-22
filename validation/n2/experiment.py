@@ -10,7 +10,7 @@ import sys
 
 from qscat.units import HARTREE_TO_EV
 
-from validation.n2 import cross_section, loader, model, reference, resonance
+from validation.n2 import cross_section, loader, model, reference, resonance, td_check
 
 Check = tuple[str, str, str, str]  # (group, name, status, detail)
 # Status values: PASS, FAIL, PENDING (no result yet), or NOTE (a result exists
@@ -69,9 +69,28 @@ def run_checks() -> list[Check]:
             else:
                 checks.append(("C anchors", name, "NOTE", f"{core} -- {r.mechanism}"))
 
-    # Group D — time-dependent model: PENDING (later)
-    checks.append(("D time-dependent", "D1 TD cross sections", "PENDING",
-                   "needs time-dependent LCP propagation"))
+    # Group D — time-dependent model: sigma_TD (Crank-Nicolson propagation +
+    # energy transform, projects/n2_td_cross_section) at the 4 GATED C5
+    # anchors, cross-checked against both sigma_TI (the exact differential
+    # oracle TD converges to) and the Houfek data (same factor-3 bound as
+    # C5). One CN trajectory (~9s, amortized across all 4 anchors); reuses
+    # the C5 system (~7s vres_on_grid, cached) so this group adds only the
+    # propagation cost.
+    try:
+        td_results = td_check.compute_td_results()
+    except Exception as e:
+        checks.append(("D time-dependent", "D1 TD cross sections", "FAIL",
+                        f"TD solver failed: {e}"))
+    else:
+        if not td_results:
+            checks.append(("D time-dependent", "D1 TD cross sections", "FAIL",
+                            "no GATED anchors available to check"))
+        for r in td_results:
+            name = f"D1 sigma_TD(E={r.energy_ha:.4g} Ha, v=0->{r.channel})"
+            detail = (f"TD={r.sigma_td:.4e} bohr^2, TI={r.sigma_ti:.4e} bohr^2 "
+                      f"(ratio={r.ratio_td_ti:.3f}, tol=10%), houfek={r.sigma_houfek:.4e} bohr^2 "
+                      f"(ratio={r.ratio_td_houfek:.3f}, factor={reference.ANCHOR_FACTOR:.1f})")
+            checks.append(("D time-dependent", name, "PASS" if r.ok else "FAIL", detail))
     return checks
 
 

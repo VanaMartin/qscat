@@ -42,6 +42,11 @@ libs/       qscat — the standard library: validated, reusable QM code
               `find_resonance_pole(eigs_a, eigs_b, window)`, the general
               two-spectrum resonance-pole matcher (promoted from the N2
               resonance project) — see docs/physics/n2-resonance.md.
+            - qscat.evolution: `make_cn_stepper(H, dt)`, a general Crank-
+              Nicolson time propagator for `d/dt psi = -i H psi` (any complex,
+              possibly non-Hermitian `H`) — promoted from the N2
+              time-dependent cross-section project — see
+              docs/physics/n2-td-cross-section.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
@@ -50,12 +55,22 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               (`nuclear_grid.py`/`vibrational.py`/`vres.py`/`cross_section.py`),
               built on `qscat.dvr`/`qscat.ecs` and the N₂ resonance pole
               finder — see docs/physics/n2-cross-section.md.
+            - `n2_td_cross_section`: time-dependent (Crank-Nicolson
+              propagation + energy transform) route to the same N₂
+              vibrational-excitation cross section (`propagator.py` — thin
+              re-export of `qscat.evolution.make_cn_stepper`;
+              `td_cross_section.py` — doorway wavepacket propagation under
+              `H_res`, correlation function, energy transform), validated
+              against the TI solver as an exact differential oracle — see
+              docs/physics/n2-td-cross-section.md.
 validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
               anchors this solver's σ_{0→v'}(E) against Karel Houfek's
               independent `CSVE.V00.J00` data (documented cross-model
-              tolerance, not exact agreement). Run the harness with
-              `uv run python -m validation.n2.experiment`.
+              tolerance, not exact agreement); its D1 group cross-checks the
+              TD solver against both the TI solver (rtol<=0.10) and the same
+              Houfek data at the GATED anchors (`td_check.py`). Run the
+              harness with `uv run python -m validation.n2.experiment`.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo
