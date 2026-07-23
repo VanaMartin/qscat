@@ -27,6 +27,8 @@ elastic T-matrix DOES contain the non-resonant background scattering.
 
 from __future__ import annotations
 
+from typing import Literal, overload
+
 import numpy as np
 import numpy.typing as npt
 import scipy.sparse as sp
@@ -37,6 +39,13 @@ from projects.n2_2d_cross_section.channels import riccati_bessel_en
 from projects.n2_2d_cross_section.hamiltonian2d import ELL, build_h2d, interaction_diag
 
 __all__ = ["channel_vector", "ve_cross_section_2d"]
+
+# `channel_vector` divides by `sqrt(c_product(chi, chi))`; guard against a
+# (near-)null vibrational vector producing a divide-by-(near-)zero rather
+# than a clear error. In practice `c_product(chi, chi)` is within ~7e-15 of
+# 1.0 for every vibrational state this repo uses (see `vibrational_states`'s
+# docstring), so this threshold is cheap insurance, not a normal code path.
+_MIN_NORM2 = 1e-12
 
 
 def channel_vector(
@@ -59,7 +68,13 @@ def channel_vector(
     f_coeff = f_vals * sqrt_w_r
 
     chi = np.asarray(chi_v, dtype=np.complex128)
-    chi = chi / np.sqrt(c_product(chi, chi))  # c-product normalization, not Hermitian
+    norm2 = c_product(chi, chi)
+    if abs(norm2) < _MIN_NORM2:
+        raise ValueError(
+            f"channel_vector: c-product norm^2 of chi_v is ~0 ({norm2!r}); "
+            "cannot normalize a (near-)null vibrational vector"
+        )
+    chi = chi / np.sqrt(norm2)  # c-product normalization, not Hermitian
 
     psi = tgrid.outer([f_coeff, chi])
     psi[~tgrid.real_mask()] = 0.0
@@ -80,6 +95,10 @@ def _sigma_at_one_energy(
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128] | None]:
     sigma = np.zeros(len(vprimes), dtype=np.float64)
     if E <= 0.0:
+        # No driven-equation solve happens below threshold (there is no
+        # scattering wavefunction to compute): `psi` is `None` here
+        # regardless of `want_psi`, by design -- not a `want_psi`-dependent
+        # omission.
         return sigma, None
 
     e_tot = E + eps[v_init]
@@ -101,6 +120,45 @@ def _sigma_at_one_energy(
     return sigma, (psi_plus if want_psi else None)
 
 
+# `return_wavefunction=False`'s return type (the common case).
+_Sigma = npt.NDArray[np.float64]
+# `return_wavefunction=True`'s wavefunction slot: `None` below threshold,
+# else the `(psi_plus, ...)` for a scalar `E`, or one such entry per energy
+# for an array `E`.
+_Psi = npt.NDArray[np.complex128] | None
+_PsiOut = _Psi | list[_Psi]
+
+
+@overload
+def ve_cross_section_2d(
+    tgrid: TensorGrid,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    ordering: str = ...,
+    lam_scale: float = ...,
+    return_wavefunction: Literal[False] = ...,
+) -> _Sigma: ...
+
+
+@overload
+def ve_cross_section_2d(
+    tgrid: TensorGrid,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    ordering: str = ...,
+    lam_scale: float = ...,
+    return_wavefunction: Literal[True],
+) -> tuple[_Sigma, _PsiOut]: ...
+
+
 def ve_cross_section_2d(
     tgrid: TensorGrid,
     eps: npt.NDArray[np.float64],
@@ -112,7 +170,7 @@ def ve_cross_section_2d(
     ordering: str = "COLAMD",
     lam_scale: float = 1.0,
     return_wavefunction: bool = False,
-):
+) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """sigma_{v_init->v'}(E) in bohr^2, exact 2-D driven-equation solution.
 
     `E` may be scalar or an array; scalar returns shape `(len(vprimes),)`,
@@ -121,6 +179,10 @@ def ve_cross_section_2d(
 
     `lam_scale` scales `V_int` ONLY, for the free-particle and first-Born
     validation limits. It is a test lever, never a physics knob.
+
+    If `return_wavefunction`, also returns `psi_plus` (or `None` when
+    `E <= 0`, since no driven-equation solve happens below threshold): one
+    array for scalar `E`, one list entry per energy for array `E`.
     """
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     H = build_h2d(tgrid)
