@@ -75,14 +75,24 @@ def test_diagnostics_are_reported() -> None:
 
 
 def test_ordering_is_configurable_and_changes_fill() -> None:
-    """Both orderings must solve correctly; fill-in generally differs."""
+    """Every ordering must solve correctly, and fill-in must actually differ.
+
+    Measured `fill_factor` on this exact matrix (n=300, seed=5):
+    NATURAL=18.1998, COLAMD=17.5993, MMD_AT_PLUS_A=8.7879. MMD_AT_PLUS_A is
+    dramatically better on this structurally-symmetric fixture; COLAMD is
+    only marginally better than NATURAL. Assert the ordering that was
+    actually observed, not an assumed one.
+    """
     n = 300
     A = _complex_symmetric(n, seed=5)
     rng = np.random.default_rng(13)
     b = rng.standard_normal(n) + 1j * rng.standard_normal(n)
+    fill_factors: dict[str, float] = {}
     for ordering in ("COLAMD", "MMD_AT_PLUS_A", "NATURAL"):
         lu = SparseLU(A, ordering=ordering)
         assert np.linalg.norm(A @ lu.solve(b) - b) / np.linalg.norm(b) < 1e-12
+        fill_factors[ordering] = lu.fill_factor
+    assert fill_factors["MMD_AT_PLUS_A"] < fill_factors["COLAMD"] < fill_factors["NATURAL"]
 
 
 def test_rejects_non_square() -> None:

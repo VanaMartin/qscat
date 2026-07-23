@@ -38,6 +38,9 @@ class SparseLU:
     `"MMD_AT_PLUS_A"`, `"COLAMD"` (the default). For a structurally symmetric
     pattern -- which a Kronecker-sum Hamiltonian has -- `"MMD_AT_PLUS_A"` is
     often the better choice; measure with `fill_factor` before assuming.
+
+    A real-valued `A` is silently promoted: the internal CSC conversion always
+    uses `dtype=np.complex128`, so values are preserved but memory doubles.
     """
 
     def __init__(self, A: sp.spmatrix, *, ordering: _Ordering = "COLAMD") -> None:
@@ -60,8 +63,6 @@ class SparseLU:
     @property
     def fill_factor(self) -> float:
         """`(L.nnz + U.nnz) / A.nnz` -- how much denser the factors are."""
-        if self._nnz == 0:
-            return 1.0
         return float(self._lu.L.nnz + self._lu.U.nnz) / float(self._nnz)
 
     @property
