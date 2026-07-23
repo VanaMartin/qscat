@@ -3,7 +3,7 @@ name = "qscat"
 version = "0.0.0"
 description = "QSCAT standard library — validated quantum-scattering numerics"
 requires-python = ">=3.12"
-dependencies = ["numpy>=2"]
+dependencies = ["numpy>=2", "scipy>=1.14"]
 
 [build-system]
 requires = ["hatchling"]
