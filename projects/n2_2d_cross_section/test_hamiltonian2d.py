@@ -73,22 +73,42 @@ def test_interaction_diag_matches_pointwise_evaluation() -> None:
 
 
 def test_masses_are_on_the_right_axes() -> None:
-    """Axis 0 is the ELECTRON (mass 1), axis 1 the nuclei (mass mu). Swapping
-    them assigns the wrong 1/mass factor to each grid's kinetic operator.
+    """Axis 0 is the ELECTRON (mass 1), axis 1 the nuclei (mass mu).
 
-    NOTE on direction: the nuclear grid's finest FEM element (0.15 bohr, near
-    the equilibrium bond length, needed to resolve the potential well) is
-    intrinsically numerically stiffer -- i.e. has a larger raw kinetic
-    matrix scale at mass=1 -- than the electronic grid's finest element.
-    Correctly suppressing that stiffness with the heavy mass mu (the "right"
-    assignment) therefore gives the SMALLER combined matrix norm; leaving it
-    unsuppressed (the "wrong" assignment, mass=1 on the nuclear axis) gives
-    the LARGER one. So the axis-swap check below compares wrong/right, not
-    right/wrong.
+    Structural check, not an incidental-scale one: build the right and
+    swapped kinetic operators explicitly from `kinetic_sparse` per-grid
+    matrices and `kron_sum`, and assert `kinetic_nd(tg, [1.0, MU])` matches
+    the explicit correct pairing to round-off while differing hugely from
+    the explicit swapped pairing. This exercises `kinetic_nd`'s own
+    axis-to-mass wiring rather than restating it, and is independent of
+    which grid's finest FEM element happens to be numerically stiffer.
+
+    Also ties the check to `build_h2d` itself (not just `kinetic_nd` in
+    isolation): its kinetic part is recovered by subtracting the
+    mass-independent potential diagonal from `H_2D`, and must equal the
+    explicit correct pairing too -- so a mass argument swapped inside
+    `build_h2d` is caught here, not just a swap inside `kinetic_nd`.
     """
     tg = _small_tgrid()
-    from qscat.dvr import kinetic_nd
+    from qscat.dvr import kinetic_nd, kinetic_sparse, potential_nd
+    from qscat.linalg import kron_sum
 
-    right = abs(kinetic_nd(tg, [1.0, MU])).max()
-    wrong = abs(kinetic_nd(tg, [MU, 1.0])).max()
-    assert wrong / right > 4.0
+    g_electronic, g_nuclear = tg.grids
+
+    got = kinetic_nd(tg, [1.0, MU])
+
+    right = kron_sum([kinetic_sparse(g_electronic, 1.0), kinetic_sparse(g_nuclear, MU)])
+    wrong = kron_sum([kinetic_sparse(g_electronic, MU), kinetic_sparse(g_nuclear, 1.0)])
+
+    assert abs(got - right).max() < 1e-9 * abs(right).max()
+
+    # Wide, clearly-reported margin: `got` disagrees with the swapped pairing
+    # by a large fraction of the swapped pairing's own scale -- not merely
+    # more than round-off, but grossly different.
+    diff_from_wrong = abs(got - wrong).max()
+    assert diff_from_wrong > 0.5 * abs(wrong).max()
+
+    H = build_h2d(tg)
+    v_diag = potential_nd(tg, potential_2d)
+    kinetic_from_h2d = H - sp.diags(v_diag, format="csr")
+    assert abs(kinetic_from_h2d - right).max() < 1e-9 * abs(right).max()
