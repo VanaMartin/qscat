@@ -12,6 +12,10 @@ Public API:
   - `gll_nodes_weights`, `diff_matrix` -- the underlying Gauss-Lobatto-
     Legendre quadrature/differentiation building blocks (reusable outside
     FEM-DVR-ECS).
+  - `TensorGrid` -- tensor product of D FEM-DVR-ECS grids (C order, last axis
+    fastest), with the ECS real-region mask and separable-state construction.
+  - `kinetic_nd`, `potential_nd`, `hamiltonian_nd` -- the N-dimensional
+    Kronecker-sum Hamiltonian assembled on a `TensorGrid`, sparse (CSR).
 
 See `docs/physics/femdvr-ecs.md` for the method and its validation
 benchmarks, and `.superpowers/sdd/femdvr-ecs-extraction.md` for the port-scout
@@ -25,6 +29,7 @@ from .grid import FemDvrEcsGrid
 from .kinetic import kinetic, kinetic_sparse
 from .operators import eigen, hamiltonian
 from .spec import ElementSpec, GridSpec
+from .tensor import TensorGrid, hamiltonian_nd, kinetic_nd, potential_nd
 
 __all__ = [
     "ElementSpec",
@@ -36,4 +41,8 @@ __all__ = [
     "eigen",
     "gll_nodes_weights",
     "diff_matrix",
+    "TensorGrid",
+    "kinetic_nd",
+    "potential_nd",
+    "hamiltonian_nd",
 ]
