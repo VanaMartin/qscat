@@ -1,6 +1,5 @@
 import numpy as np
 import pytest
-
 import qscat
 from qscat import units
 

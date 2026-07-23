@@ -37,9 +37,20 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+# reference/ is a read-only snapshot of prior codebases (eMoScat, libXcuda) that
+# we must never edit — linting it produces ~124 unfixable diagnostics and makes
+# `ruff check .` permanently red. pytest already skips it via norecursedirs.
+extend-exclude = ["reference"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "NPY"]
+
+[tool.ruff.lint.per-file-ignores]
+# `l` is the standard physics symbol for the orbital angular momentum quantum
+# number, and these lines transcribe formulas that use it (l(l+1)/2r²).
+# Renaming it to satisfy E741 would obscure the physics being transcribed.
+"validation/n2/model.py" = ["E741"]
+"validation/n2/test_model.py" = ["E741"]
 
 [tool.mypy]
 python_version = "3.12"

@@ -123,7 +123,7 @@ class FemDvrEcsGrid:
         # row/column index into the length-nb global basis ("all" index - 1).
         # See module docstring for the convention and a worked example.
         element_maps: list[tuple[np.ndarray, np.ndarray]] = []
-        for i, (s, e) in enumerate(element_span_all):
+        for i, (s, _e) in enumerate(element_span_all):
             local = np.arange(nq)
             if i == 0:
                 local = local[local != 0]

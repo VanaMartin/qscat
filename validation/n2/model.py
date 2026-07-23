@@ -77,10 +77,17 @@ def model_checks() -> list[tuple[str, bool, str]]:
     Rg = np.linspace(1.0, 6.0, 200001)
     out.append(("A2 Morse minimum at R0", abs(Rg[np.argmin(v0(Rg))] - R0) < 1e-3, f"R0={R0}"))
     out.append(("A3 V0(inf) -> 0", abs(float(v0(20.0))) < 1e-6, f"{float(v0(20.0)):.2e}"))
-    out.append(("A4 lambda(Rc) == lambda_c", abs(float(lam(Rc)) - lc) < 1e-12, f"{float(lam(Rc)):.6f}"))
-    out.append(("A5 V_int negative well", float(v_int(1.0, R0)) < 0.0, f"{float(v_int(1.0, R0)):.4f} Ha"))
+    out.append(
+        ("A4 lambda(Rc) == lambda_c", abs(float(lam(Rc)) - lc) < 1e-12, f"{float(lam(Rc)):.6f}")
+    )
+    out.append(
+        ("A5 V_int negative well", float(v_int(1.0, R0)) < 0.0, f"{float(v_int(1.0, R0)):.4f} Ha")
+    )
     r_t, ell = 2.0, PARAMS["impulsemomentum"]
-    centrifugal_ok = abs(float(v_eff_el(r_t, R0)) - (float(v_int(r_t, R0)) + ell * (ell + 1) / (2 * r_t**2))) < 1e-12
+    centrifugal_ok = (
+        abs(float(v_eff_el(r_t, R0)) - (float(v_int(r_t, R0)) + ell * (ell + 1) / (2 * r_t**2)))
+        < 1e-12
+    )
     decays = abs(float(v_int(10.0, R0))) < abs(float(v_int(1.0, R0)))
     out.append(("A6 V_eff_el l=2 centrifugal + V_int r-decay", centrifugal_ok and decays,
                 f"l(l+1)/2r^2 at r={r_t}, l={ell}"))
