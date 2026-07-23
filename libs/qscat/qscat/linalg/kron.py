@@ -32,6 +32,15 @@ def kron_sum(ops: Sequence[sp.spmatrix]) -> sp.csr_matrix:
 
     Each `ops[d]` must be square. The result is square with dimension
     `prod(n_d)`. `D == 1` returns `ops[0]` unchanged (as CSR).
+
+    The identity blocks used to pad each `ops[d]` are always built with
+    `dtype=complex` (`np.complex128`), regardless of the input operators'
+    dtype -- so a purely real problem (all-real `ops`, no ECS tail on any
+    axis) still pays complex128 memory for the assembled sum, doubling it
+    relative to a real-only assembly. This mirrors `SparseLU`'s documented
+    real-to-complex promotion, for the same reason: every real use of this
+    library has at least one ECS-tailed axis, so a real fast path would be
+    untested and this module does not carry one.
     """
     mats = list(ops)
     if not mats:

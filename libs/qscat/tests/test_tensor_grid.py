@@ -49,6 +49,70 @@ def test_points_for_d1_is_plain_1d() -> None:
     assert np.allclose(p, g.points)
 
 
+def test_weights_are_broadcastable_and_match_points_shape() -> None:
+    ga, gb = _real_grid(6, 2), _real_grid(5, 3)
+    tg = TensorGrid([ga, gb])
+    wa, wb = tg.weights()
+    pa, pb = tg.points()
+    assert wa.shape == pa.shape == (ga.n, 1)
+    assert wb.shape == pb.shape == (1, gb.n)
+    assert np.allclose(wa.ravel(), ga.weights)
+    assert np.allclose(wb.ravel(), gb.weights)
+
+
+def test_weights_are_complex_on_the_ecs_tail() -> None:
+    """A weight that coerced to float would silently kill the ECS tail."""
+    g = _ecs_grid(6, 3, 2)
+    (w,) = TensorGrid([g]).weights()
+    assert np.abs(w.imag).max() > 1e-6
+
+
+def test_sqrt_weights_is_sqrt_of_weights_per_axis() -> None:
+    ga, gb = _ecs_grid(6, 3, 2), _ecs_grid(5, 2, 2)
+    tg = TensorGrid([ga, gb])
+    for w, sw in zip(tg.weights(), tg.sqrt_weights(), strict=True):
+        assert np.allclose(sw**2, w)
+        assert sw.shape == w.shape
+
+
+def test_weights_product_over_axes_matches_explicit_outer_product() -> None:
+    """The broadcast product `w_a * w_b` (what a physics routine actually
+    computes) must equal the explicit outer product of the flat 1-D weights,
+    in the same C-order flattening `points()`/`real_mask()` use.
+    """
+    ga, gb = _real_grid(6, 2), _real_grid(5, 3)
+    tg = TensorGrid([ga, gb])
+    wa, wb = tg.weights()
+    broadcast_flat = np.broadcast_to(wa * wb, tg.shape).ravel()
+    explicit_outer = np.outer(ga.weights, gb.weights).ravel()
+    assert np.allclose(broadcast_flat, explicit_outer)
+
+
+def test_sqrt_weights_converts_a_separable_function_to_basis_coefficients() -> None:
+    """The intended use: `c = f(points) * sqrt_weight_product` converts a
+    known function to FEM-DVR basis coefficients. For a separable
+    `f(x, y) = f_a(x) * f_b(y)`, the coefficient array must itself be
+    separable into the two axes' own `f_d(x_d) * sqrt(w_d)` factors.
+    """
+    ga, gb = _ecs_grid(7, 3, 2), _ecs_grid(6, 2, 2)
+    tg = TensorGrid([ga, gb])
+    pa, pb = tg.points()
+    swa, swb = tg.sqrt_weights()
+
+    def f_a(x: np.ndarray) -> np.ndarray:
+        return np.exp(-0.1 * x**2)
+
+    def f_b(y: np.ndarray) -> np.ndarray:
+        return np.exp(-0.2 * (y - 0.5) ** 2)
+
+    ca_flat = (f_a(pa) * swa).ravel()
+    cb_flat = (f_b(pb) * swb).ravel()
+    got = np.outer(ca_flat, cb_flat).ravel()
+
+    want = ((f_a(pa) * swa) * (f_b(pb) * swb)).ravel()
+    assert np.allclose(got, want)
+
+
 def test_real_mask_is_and_across_dimensions() -> None:
     ga = _ecs_grid(6, 3, 2)
     gb = _ecs_grid(5, 2, 2)

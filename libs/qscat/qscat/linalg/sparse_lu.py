@@ -10,11 +10,36 @@ a problem fits in RAM at all. A measured spike on the production N2 2-D deck
 (N = 143,380, nnz = 3,276,450) gave x93 fill-in, 3.05e8 nonzeros in L+U, and
 13.6 GB peak RSS with the default COLAMD ordering, against a 440 ms
 back-substitution. Choosing an ordering is therefore a real decision, and
-`ordering` + `fill_factor` + `memory_bytes` exist so it can be MEASURED rather
-than guessed. It cannot affect correctness -- only speed and memory.
+`ordering` + `fill_factor` + `memory_bytes()` exist so it can be MEASURED
+rather than guessed. Neither can affect correctness -- only speed and memory.
 
 Reusing one factorization across right-hand sides is the point: in a scattering
 calculation every final channel at a given energy shares the same matrix.
+
+FILL-IN DIAGNOSTICS COST MEMORY DIFFERENTLY -- READ BEFORE CALLING
+`memory_bytes()` ON A PRODUCTION MATRIX:
+
+  `fill_factor` is free at any scale: SuperLU's own `nnz` attribute reports
+  the total L+U nonzero count directly from its internal factorization
+  structure, with NO conversion to sparse arrays and NO extra memory. Call it
+  as often as you like.
+
+  `memory_bytes()` is NOT free, which is why it is a method, not a property.
+  Computing it forces scipy to materialize `self._lu.L` and `self._lu.U` as
+  full CSC arrays (data + indices + indptr) -- and, measured directly on this
+  class (see `docs/physics/nd-tensor-hamiltonian.md`), scipy's `SuperLU`
+  object then CACHES those arrays internally for its own lifetime: a second
+  access costs no extra memory (proof the first access is cached, not
+  rebuilt), and the memory is NOT released by deleting your own references to
+  the returned arrays -- only deleting this whole `SparseLU` object (and
+  therefore the factorization itself) frees it. At production scale (L+U
+  nnz = 3.05e8, complex128 data + int32 indices) that cache is on the order
+  of **+6 GB on top of the already-documented 13.6 GB peak** -- enough to OOM
+  a 32 GB laptop that would otherwise finish the factorization. Measure
+  `memory_bytes()` on a reduced grid to characterize the scaling, NOT on the
+  production matrix itself; use the cheap `fill_factor` (and the nnz-based
+  estimate `fill_factor * A.nnz * 16` bytes for data alone) to reason about
+  the production case without ever paying this cost there.
 """
 
 from __future__ import annotations
@@ -41,6 +66,13 @@ class SparseLU:
 
     A real-valued `A` is silently promoted: the internal CSC conversion always
     uses `dtype=np.complex128`, so values are preserved but memory doubles.
+
+    `fill_factor` is cheap at any scale (reads SuperLU's own `nnz` count, no
+    array materialization). `memory_bytes()` is NOT cheap -- it is a method,
+    not a property, precisely so that its cost is opt-in rather than hidden
+    behind attribute access -- and its cache is permanent for this object's
+    lifetime. See the module docstring before calling it on a production-size
+    matrix.
     """
 
     def __init__(self, A: sp.spmatrix, *, ordering: _Ordering = "COLAMD") -> None:
@@ -62,12 +94,29 @@ class SparseLU:
 
     @property
     def fill_factor(self) -> float:
-        """`(L.nnz + U.nnz) / A.nnz` -- how much denser the factors are."""
-        return float(self._lu.L.nnz + self._lu.U.nnz) / float(self._nnz)
+        """`(L.nnz + U.nnz) / A.nnz` -- how much denser the factors are.
 
-    @property
+        Cheap at any scale: `self._lu.nnz` is SuperLU's own reported L+U
+        nonzero count, read directly off the internal factorization -- this
+        NEVER materializes `L` or `U` as arrays and costs no extra memory
+        (measured delta < 0.1 MB on an N=6000 matrix with a x300 fill-in).
+        Contrast `memory_bytes()`, which does materialize them and is
+        priced accordingly -- see the module docstring.
+        """
+        return float(self._lu.nnz) / float(self._nnz)
+
     def memory_bytes(self) -> int:
-        """Bytes actually held by the L and U factors (data + index arrays)."""
+        """Bytes actually held by the L and U factors (data + index arrays).
+
+        NOT CHEAP -- a method, not a property, because computing this forces
+        scipy to materialize `self._lu.L` and `self._lu.U` as full CSC arrays,
+        which `SuperLU` then caches for this object's lifetime (measured: a
+        second call allocates no further memory, and the cache is not
+        released by dropping your own references to the result -- only
+        deleting this `SparseLU` instance does). Read the module docstring's
+        production-scale estimate (+6 GB on the N2 2-D deck) before calling
+        this on anything but a reduced/test-scale matrix.
+        """
         total = 0
         for factor in (self._lu.L, self._lu.U):
             fcsc = factor.tocsc()
@@ -77,6 +126,12 @@ class SparseLU:
     def solve(self, b: npt.NDArray[np.complex128]) -> npt.NDArray[np.complex128]:
         """Solve `A x = b` for one `(N,)` or several `(N, k)` right-hand sides."""
         rhs = np.asarray(b)
+        if rhs.ndim == 0:
+            raise ValueError(
+                f"right-hand side must be at least 1-D (an (N,) vector or an "
+                f"(N, k) block of right-hand sides), got a 0-d scalar with "
+                f"shape {rhs.shape}"
+            )
         if rhs.shape[0] != self._shape[0]:
             raise ValueError(
                 f"right-hand side has leading dimension {rhs.shape[0]}, "

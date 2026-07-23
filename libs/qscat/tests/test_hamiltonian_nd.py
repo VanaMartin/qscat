@@ -4,6 +4,12 @@ regression against the existing 1-D stack (V4).
 The generality is EXERCISED, not asserted: every benchmark runs at D = 1, 2
 and 3, with unequal per-axis extents and masses so a transposed-axis bug
 cannot pass.
+
+V3c (below, "ECS separable bound-state benchmark") is the one D>=2 accuracy
+check that actually uses a complex ECS tail on both axes rather than an
+all-real box: every other D=2/D=3 test here is real-only and ECS at D>=2 is
+otherwise checked only structurally (`H = H^T`), which is not enough given
+that a 2-D ECS solve is the entire premise of sub-project #6.
 """
 
 from __future__ import annotations
@@ -13,6 +19,7 @@ from collections.abc import Callable
 
 import numpy as np
 import numpy.typing as npt
+import pytest
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
 from qscat.dvr import (
@@ -20,6 +27,7 @@ from qscat.dvr import (
     FemDvrEcsGrid,
     GridSpec,
     TensorGrid,
+    eigen,
     hamiltonian,
     hamiltonian_nd,
     kinetic,
@@ -201,6 +209,95 @@ def test_d1_kinetic_nd_matches_dense_kinetic() -> None:
 
 
 # --------------------------------------------------------------------------
+# V3c: ECS separable bound-state benchmark -- the D=2 ECS accuracy check
+# --------------------------------------------------------------------------
+#
+# Every D=2/D=3 benchmark above uses an all-real box grid; ECS at D>=2 is
+# otherwise exercised only structurally (H = H^T). For a SEPARABLE potential
+# V(x, y) = V_a(x) + V_b(y) on two DIFFERENT ECS grids, the 2-D bound-state
+# eigenvalues of `hamiltonian_nd` are EXACTLY the pairwise sums of the two
+# axes' independent 1-D eigenvalues (computed with the pre-existing
+# `hamiltonian` + `eigen`) -- a Kronecker-sum identity, not an approximation,
+# so this benchmark is truncation-free and should reach round-off. Two
+# attractive Gaussian wells (different depth, width, center, mass, element
+# layout AND ECS tail length per axis) are used so a transposed-axis bug
+# cannot hide.
+#
+# Bound-state eigenvalues must also be independent of the ECS rotation angle
+# theta -- that is the defining property of exterior complex scaling (only
+# resonance/continuum eigenvalues rotate with theta) and the single most
+# sensitive numerical check available for an ECS grid, so it is asserted
+# here too, at two different theta.
+
+_ECS_BOUND_THETAS = (25.0, 35.0)
+
+
+def _v_gaussian_well(
+    depth: float, center: float, sigma: float
+) -> Callable[[npt.NDArray[np.complex128]], npt.NDArray[np.complex128]]:
+    """An attractive Gaussian well: analytic for complex z, so it stays
+    well-defined on a rotated ECS tail (no poles to avoid, unlike e.g. a
+    Lorentzian well).
+    """
+
+    def V(z: npt.NDArray[np.complex128]) -> npt.NDArray[np.complex128]:
+        raw = -depth * np.exp(-((z - center) ** 2) / (2.0 * sigma**2))
+        return np.asarray(raw, dtype=np.complex128)
+
+    return V
+
+
+def _ecs_well_grid_a(theta: float) -> FemDvrEcsGrid:
+    els = [ElementSpec(1.5) for _ in range(4)] + [ElementSpec(1.5, theta) for _ in range(2)]
+    return FemDvrEcsGrid(GridSpec(quadrature=8, elements=els, x_min=-3.0))
+
+
+def _ecs_well_grid_b(theta: float) -> FemDvrEcsGrid:
+    els = [ElementSpec(1.5) for _ in range(4)] + [ElementSpec(1.2, theta) for _ in range(2)]
+    return FemDvrEcsGrid(GridSpec(quadrature=7, elements=els, x_min=-3.0))
+
+
+_V_A = _v_gaussian_well(depth=8.0, center=0.0, sigma=0.7)
+_V_B = _v_gaussian_well(depth=9.0, center=0.3, sigma=0.8)
+_MASS_A, _MASS_B = 1.0, 1.3
+
+
+def _ecs_separable_benchmark(theta: float) -> tuple[Floats, Floats]:
+    """Lowest-3 analytic (sum) and `hamiltonian_nd` 2-D eigenvalues at `theta`."""
+    ga, gb = _ecs_well_grid_a(theta), _ecs_well_grid_b(theta)
+    Ea, _ = eigen(hamiltonian(ga, _V_A, _MASS_A))
+    Eb, _ = eigen(hamiltonian(gb, _V_B, _MASS_B))
+    # First two states of each axis are deeply bound (Im(E) ~ 1e-11 or
+    # smaller): confirms these are genuine bound states, not resonances.
+    assert np.abs(Ea[:2].imag).max() < 1e-8
+    assert np.abs(Eb[:2].imag).max() < 1e-8
+
+    tg = TensorGrid([ga, gb])
+    H2 = hamiltonian_nd(tg, [_MASS_A, _MASS_B], lambda x, y: _V_A(x) + _V_B(y))
+    got = _lowest_dense(H2, 3)
+
+    want = np.sort(np.array([a.real + b.real for a in Ea[:2] for b in Eb[:2]]))[:3]
+    return want, got
+
+
+def test_ecs_d2_separable_bound_states_match_analytic_sum() -> None:
+    for theta in _ECS_BOUND_THETAS:
+        want, got = _ecs_separable_benchmark(theta)
+        # measured max relative error ~4.4e-14 (theta=25) / ~1.6e-14 (theta=35)
+        assert np.allclose(got, want, rtol=1e-10, atol=0)
+
+
+def test_ecs_d2_bound_states_are_theta_independent() -> None:
+    """The defining property of ECS: bound states must not move when the
+    contour rotates, unlike resonance/continuum states which do.
+    """
+    _, e25 = _ecs_separable_benchmark(25.0)
+    _, e35 = _ecs_separable_benchmark(35.0)
+    # measured max relative difference ~3.8e-11
+    assert np.allclose(e25, e35, rtol=1e-8, atol=0)
+
+
+# --------------------------------------------------------------------------
 # Structural: ECS makes H complex symmetric, never Hermitian
 # --------------------------------------------------------------------------
 
@@ -235,3 +332,21 @@ def test_potential_nd_preserves_complex_points_on_the_ecs_tail() -> None:
     tg = TensorGrid([g])
     vals = potential_nd(tg, lambda z: z**2)
     assert np.abs(vals.imag).max() > 1e-3
+
+
+def test_potential_nd_rejects_rank_deficient_v() -> None:
+    """A `V` that returns a plain `(n1,)` array at D=2 (e.g. it only used one
+    coordinate, or returned a stray 1-D array by mistake) must raise rather
+    than silently broadcasting along the trailing axis.
+    """
+    ga, gb = _box_grid(1.0, 2, 6), _box_grid(1.3, 2, 6)
+    tg = TensorGrid([ga, gb])
+    with pytest.raises(ValueError, match="ndim"):
+        potential_nd(tg, lambda a, b: np.ones(gb.n))  # ignores `a` -- rank 1, not 2
+
+
+def test_potential_nd_accepts_a_true_scalar_constant() -> None:
+    """A genuinely constant `V` (ndim=0) is unambiguous and must be allowed."""
+    tg = TensorGrid([_box_grid(1.0, 2, 6), _box_grid(1.3, 2, 6)])
+    vals = potential_nd(tg, lambda a, b: 2.5)
+    assert np.allclose(vals, 2.5)

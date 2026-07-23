@@ -22,9 +22,17 @@ __all__ = ["c_product"]
 
 
 def c_product(a: npt.ArrayLike, b: npt.ArrayLike) -> complex:
-    """`sum_i a_i b_i` -- the bilinear (NOT conjugated) inner product."""
-    av = np.asarray(a, dtype=np.complex128).ravel()
-    bv = np.asarray(b, dtype=np.complex128).ravel()
-    if av.shape != bv.shape:
-        raise ValueError(f"shape mismatch: {av.shape} vs {bv.shape}")
-    return complex(np.dot(av, bv))
+    """`sum_i a_i b_i` -- the bilinear (NOT conjugated) inner product.
+
+    Shapes are compared BEFORE flattening: `c_product(psi_(n0, n1),
+    chi_(n1, n0))` with `n0 != n1` raises rather than silently ravelling both
+    down to the same total element count and returning a plausible-looking
+    but physically wrong number (a transposed-axis bug hiding behind a
+    reshape that `ravel()` alone would never catch, since `ravel` only cares
+    about total size, not per-axis shape).
+    """
+    a_arr = np.asarray(a, dtype=np.complex128)
+    b_arr = np.asarray(b, dtype=np.complex128)
+    if a_arr.shape != b_arr.shape:
+        raise ValueError(f"shape mismatch: {a_arr.shape} vs {b_arr.shape}")
+    return complex(np.dot(a_arr.ravel(), b_arr.ravel()))

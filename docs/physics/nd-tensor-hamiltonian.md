@@ -250,21 +250,39 @@ matches looped single solves; one factorization reused across many
 right-hand sides gives identical results to re-factorizing for each (as it
 must, since nothing about the matrix changes between solves). A fixed-seed
 300x300 complex-symmetric test matrix was also used to measure how
-`fill_factor` (`(L.nnz + U.nnz) / A.nnz`) varies with the `permc_spec`
-ordering scipy's `splu` is given: **NATURAL 18.20, COLAMD 17.60,
-MMD_AT_PLUS_A 8.79** -- MMD_AT_PLUS_A roughly halves the fill relative to
-the other two on this matrix. This is genuinely promising evidence that
-`MMD_AT_PLUS_A` -- appropriate in principle for the structurally symmetric
-sparsity pattern a Kronecker-sum Hamiltonian has -- is worth trying at
-production scale, where the default COLAMD ordering measured a much larger
-x93 fill-in (below). It is **not** a proven production result: it has only
-ever been measured on one small, randomly generated 300x300 matrix, never on
-the real N2 Hamiltonian, whose sparsity pattern (a 2-D FEM-DVR-ECS tensor
-product with a ~23-nonzero-per-row band structure) is structurally quite
-different from a dense random complex-symmetric matrix. Sub-project #6, which
-actually needs to factorize at production scale, should measure `fill_factor`
-on the real matrix before choosing an ordering, not assume this ratio
-transfers.
+`fill_factor` varies with the `permc_spec` ordering scipy's `splu` is given:
+**NATURAL 19.54, COLAMD 18.79, MMD_AT_PLUS_A 9.60** -- MMD_AT_PLUS_A roughly
+halves the fill relative to the other two on this matrix. This is genuinely
+promising evidence that `MMD_AT_PLUS_A` -- appropriate in principle for the
+structurally symmetric sparsity pattern a Kronecker-sum Hamiltonian has -- is
+worth trying at production scale, where the default COLAMD ordering measured
+a much larger x93 fill-in (below). It is **not** a proven production result:
+it has only ever been measured on one small, randomly generated 300x300
+matrix, never on the real N2 Hamiltonian, whose sparsity pattern (a 2-D
+FEM-DVR-ECS tensor product with a ~23-nonzero-per-row band structure) is
+structurally quite different from a dense random complex-symmetric matrix.
+Sub-project #6, which actually needs to factorize at production scale, should
+measure `fill_factor` -- **not** `memory_bytes()`, see below -- on the real
+matrix before choosing an ordering, not assume this ratio transfers.
+
+**`fill_factor` vs. `memory_bytes()`: a deliberately asymmetric cost.**
+`fill_factor` reads `(L.nnz + U.nnz) / A.nnz` from SuperLU's own `nnz`
+attribute directly off the internal factorization structure -- measured
+delta on an N=6000, x300-fill-in matrix: **< 0.1 MB**, i.e. free at any
+scale, safe to call on the production matrix. `memory_bytes()` is a
+different story and was deliberately changed from a property to a method
+during review: computing it forces scipy to materialize `self._lu.L` and
+`self._lu.U` as full CSC arrays, and **`SuperLU` then caches those arrays
+internally for the object's lifetime** -- measured directly: a second access
+allocates no further memory (proof of caching, not rebuilding), and dropping
+your own references to the returned arrays does not free it; only deleting
+the whole `SparseLU` object does. At production scale (L+U nnz = 3.05e8,
+complex128 data + int32 indices) that cache is on the order of **+6 GB on
+top of the already-documented 13.6 GB peak** -- enough to OOM a 32 GB laptop
+that would otherwise finish. Sub-project #6 should therefore measure
+`memory_bytes()` on a **reduced-size grid** to characterize how the cache
+scales, and reach for the free `fill_factor` -- not `memory_bytes()` -- when
+reasoning about the production matrix itself.
 
 **V6 -- production-scale smoke test** (`test_nd_scale.py`, marked `slow` and
 excluded from the default `pytest` run). Assembles a `TensorGrid` at the

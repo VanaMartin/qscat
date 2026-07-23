@@ -79,3 +79,17 @@ def test_c_product_is_symmetric() -> None:
     a = rng.standard_normal(6) + 1j * rng.standard_normal(6)
     b = rng.standard_normal(6) + 1j * rng.standard_normal(6)
     assert c_product(a, b) == pytest.approx(c_product(b, a))
+
+
+def test_c_product_rejects_mismatched_shapes_even_with_equal_size() -> None:
+    """`(n0, n1)` vs `(n1, n0)` with n0 != n1 has the SAME total element
+    count, so a shape check performed only after `ravel()` would silently
+    accept it and return a plausible-looking, transposed-axis-wrong number.
+    The check must happen BEFORE flattening.
+    """
+    rng = np.random.default_rng(4)
+    a = rng.standard_normal((2, 3)) + 1j * rng.standard_normal((2, 3))
+    b = rng.standard_normal((3, 2)) + 1j * rng.standard_normal((3, 2))
+    assert a.size == b.size  # same total size -- the trap a post-ravel check would miss
+    with pytest.raises(ValueError, match="shape mismatch"):
+        c_product(a, b)
