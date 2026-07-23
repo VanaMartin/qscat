@@ -135,24 +135,39 @@ def test_oscillator_d1() -> None:
 
 
 def test_oscillator_d2_unequal_frequencies() -> None:
+    """Each axis gets a genuinely different grid (extent, element count AND
+    quadrature order, so the two axes even have different point counts: 27 vs
+    31) -- not just a different omega -- so a transposed-axis bug cannot pass
+    by having both axes look identical.
+    """
     m, w = (1.0, 1.0), (1.0, 1.7)
-    tg = TensorGrid([_box_grid(14.0, 4, 8, x_min=-7.0) for _ in range(2)])
+    tg = TensorGrid([_box_grid(14.0, 4, 8, x_min=-7.0), _box_grid(16.0, 4, 9, x_min=-8.0)])
     H = hamiltonian_nd(tg, m, _oscillator_V(m, w))
     got = _lowest_dense(H, 4)
     want = _analytic_oscillator_levels(w, 4)
-    # measured 1.09e-3 at this basis size (finite box + finite basis)
-    assert np.allclose(got, want, rtol=2.5e-3, atol=0)
+    # measured 6.2e-4 at this basis size (finite box + finite basis)
+    assert np.allclose(got, want, rtol=1.5e-3, atol=0)
 
 
 def test_oscillator_d3_unequal_frequencies() -> None:
+    """Each axis gets a distinct grid (extent, element count and quadrature
+    order all differ -> distinct point counts 15, 17, 13), so a transposed-
+    axis bug cannot pass by having any two axes look alike.
+    """
     m, w = (1.0, 1.0, 1.0), (1.0, 1.3, 1.7)
-    tg = TensorGrid([_box_grid(12.0, 2, 10, x_min=-6.0) for _ in range(3)])
+    tg = TensorGrid(
+        [
+            _box_grid(12.0, 2, 9, x_min=-6.0),
+            _box_grid(13.0, 2, 10, x_min=-6.5),
+            _box_grid(11.0, 2, 8, x_min=-5.5),
+        ]
+    )
     H = hamiltonian_nd(tg, m, _oscillator_V(m, w))
     want = _analytic_oscillator_levels(w, 3)
     got = _lowest_shift_invert(H, 3, sigma=float(want[0]) - 0.3)
-    # measured 4.1e-4 at this basis size (coarse box kept deliberately small
+    # measured 8.3e-4 at this basis size (coarse boxes kept deliberately small
     # so the D=3 sparse shift-invert eigensolve stays fast)
-    assert np.allclose(got, want, rtol=1e-3, atol=0)
+    assert np.allclose(got, want, rtol=2e-3, atol=0)
 
 
 # --------------------------------------------------------------------------
@@ -191,10 +206,24 @@ def test_d1_kinetic_nd_matches_dense_kinetic() -> None:
 
 
 def test_hamiltonian_nd_is_complex_symmetric_under_ecs() -> None:
-    els = [ElementSpec(1.0), ElementSpec(1.0), ElementSpec(2.0, 35.0)]
-    g = FemDvrEcsGrid(GridSpec(quadrature=8, elements=els))
-    tg = TensorGrid([g, g])
-    H = hamiltonian_nd(tg, [1.0, 1.0], lambda a, b: 1.0 / (1.0 + a**2 + b**2))
+    """Two DIFFERENT ECS grids (different real-region extent -- 2.0 vs 4.5 --
+    and a different number of complex tail elements -- 1 vs 2, hence
+    different sizes: 20 vs 34 basis functions) and an asymmetric potential
+    (different coefficients on each coordinate, different mass per axis), so
+    a transposed-axis bug could not masquerade as a still-symmetric matrix.
+    """
+    els_a = [ElementSpec(1.0), ElementSpec(1.0), ElementSpec(2.0, 35.0)]
+    g_a = FemDvrEcsGrid(GridSpec(quadrature=8, elements=els_a))
+    els_b = [
+        ElementSpec(1.5),
+        ElementSpec(1.5),
+        ElementSpec(1.5),
+        ElementSpec(1.0, 35.0),
+        ElementSpec(1.0, 35.0),
+    ]
+    g_b = FemDvrEcsGrid(GridSpec(quadrature=8, elements=els_b))
+    tg = TensorGrid([g_a, g_b])
+    H = hamiltonian_nd(tg, [1.0, 2.0], lambda a, b: 1.0 / (1.0 + 2.0 * a**2 + 3.0 * b**2))
     assert abs(H - H.T).max() < 1e-10
     assert abs(H - H.conj().T).max() > 1e-6
 
