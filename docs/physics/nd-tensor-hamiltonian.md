@@ -147,8 +147,10 @@ Two things follow directly from `H` being merely symmetric, not Hermitian:
   first argument and is the correct pairing only for a Hermitian operator.
   Using `vdot` under ECS produces a complex value with a plausible-looking
   magnitude and the wrong phase -- a quiet failure mode, not a crash. This
-  has already bitten this repo once (sub-project #3's S-matrix, where the
-  Hermitian convention produced a negative cross section), and even
+  has already bitten this repo once: in sub-project #3's S-matrix the
+  c-product convention gives a real, non-negative cross section and the
+  Hermitian one does not (see the module docstring of
+  `projects/n2_ti_cross_section/cross_section.py`). And even
   eMoScat's own reference implementation gets it formally wrong
   (`cblas_zdotc`, sesquilinear) and is saved only because every channel
   function it pairs against happens to be zeroed on the ECS tail. Naming the
