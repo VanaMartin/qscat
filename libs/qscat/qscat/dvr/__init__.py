@@ -4,7 +4,9 @@ Public API:
   - `ElementSpec`, `GridSpec` -- grid specification dataclasses.
   - `FemDvrEcsGrid` -- grid geometry (points, bridge-summed weights, the
     local-to-global `element_maps`) built from a validated `GridSpec`.
-  - `kinetic` -- assembles the FEM-DVR kinetic-energy matrix on a grid.
+  - `kinetic`, `kinetic_sparse` -- assemble the FEM-DVR kinetic-energy matrix
+    on a grid, dense or sparse (CSR). The dense one is the sparse one's
+    differential oracle.
   - `hamiltonian`, `eigen` -- diagonal-potential Hamiltonian assembly and the
     complex-symmetric (non-Hermitian) eigensolver.
   - `gll_nodes_weights`, `diff_matrix` -- the underlying Gauss-Lobatto-
@@ -20,7 +22,7 @@ from __future__ import annotations
 
 from .gll import diff_matrix, gll_nodes_weights
 from .grid import FemDvrEcsGrid
-from .kinetic import kinetic
+from .kinetic import kinetic, kinetic_sparse
 from .operators import eigen, hamiltonian
 from .spec import ElementSpec, GridSpec
 
@@ -29,6 +31,7 @@ __all__ = [
     "GridSpec",
     "FemDvrEcsGrid",
     "kinetic",
+    "kinetic_sparse",
     "hamiltonian",
     "eigen",
     "gll_nodes_weights",
