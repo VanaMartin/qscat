@@ -32,10 +32,19 @@ Every method or numerical capability moves through five stages:
 ```
 libs/       qscat — the standard library: validated, reusable QM code
             (units, linalg, dvr, ecs, special, evolution submodules)
+            - qscat.linalg: dimension-general sparse linear algebra --
+              `kron_sum` (Kronecker sum over arbitrary D), `SparseLU` (cached
+              factorization with fill-in/memory diagnostics), and `c_product`
+              (the bilinear, non-conjugated ECS inner product) -- see
+              docs/physics/nd-tensor-hamiltonian.md.
             - qscat.dvr: FEM-DVR-ECS radial grid (`FemDvrEcsGrid`), kinetic-
               energy assembly (`kinetic`), and diagonal-potential Hamiltonian
               + eigensolver helpers (`hamiltonian`, `eigen`) — see
               docs/physics/femdvr-ecs.md.
+              Also `kinetic_sparse` and the N-dimensional tensor layer
+              (`TensorGrid`, `kinetic_nd`, `potential_nd`, `hamiltonian_nd`):
+              H = sum_d I x .. T_d .. x I + diag(V) for any D, sparse (CSR),
+              validated on analytic box/oscillator benchmarks at D = 1, 2, 3.
             - qscat.ecs: exterior-complex-scaling coordinate map (`ecs_map`),
               the single source of the `z(x) = x` / `R0 + (x-R0)e^{i theta}`
               transform used by qscat.dvr's complex tail; also

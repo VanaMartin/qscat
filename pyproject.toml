@@ -17,6 +17,9 @@ members = ["libs/*", "native/*"]
 # and fixture layout. Never collect them.
 norecursedirs = [".venv", ".git", "reference", "target", "*.egg-info"]
 pythonpath = ["."]
+markers = [
+    "slow: heavier checks (production-scale assembly); deselect with -m 'not slow'",
+]
 
 [dependency-groups]
 dev = [
