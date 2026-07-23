@@ -31,6 +31,30 @@ elastic T-matrix contains the background scattering the LCP omits, and its width
 with the correct energy dependence rather than being imposed. Both documented NOTEs should
 close. Whether they do is a falsifiable prediction of this sub-project.
 
+### What is actually being measured (read this before designing any check)
+
+**The model is given, not studied.** This potential surface is a *testbed*, chosen because
+it can be solved exactly — it is deliberately not an attempt to describe real N₂. (This is
+why the model's `D_0 ≈ 2×` real N₂'s dissociation energy was accepted as-is in sub-project
+#3 rather than corrected.) The research goal is to find **where standardly used techniques
+actually fail**.
+
+That inverts the usual direction of validation, and it determines what this sub-project's
+deliverable is:
+
+- **Houfek's data validates our solver.** It is an independent implementation of the same
+  model and method, so agreement means our 2-D code is right. It is *not* the physical
+  truth being sought.
+- **Once verified, the exact 2-D result becomes the oracle**, and the LCP approximation is
+  the thing **under test**.
+- **The LCP-vs-exact difference is therefore the scientific result**, not an error to be
+  minimized. A large, well-characterized discrepancy is a successful outcome — it is the
+  answer to "where does this standard technique fail?"
+
+Consequently no model parameter may ever be tuned to improve agreement with real-molecule
+data, and V5/V6/V7 below (approximation vs exact) rank *above* V4 (solver vs Houfek) in
+scientific importance, even though V4 must pass first for the rest to mean anything.
+
 ## Method (atomic units, bohr²)
 
 **The Hamiltonian**, on a tensor product of two FEM-DVR-ECS grids (electronic `r`,
@@ -131,18 +155,34 @@ convergence table; choose the smallest grid where σ is stable to ~1% and use *t
 benchmark. This deliberately redoes the box/angle study eMoScat performed but never
 documented.
 
-**V4 — the six benchmark anchors vs Houfek.** The same `reference.ANCHOR_COORDS` the LCP
-solver is measured on. Because this is the same model and method Houfek used, agreement
-should be far better than the LCP's factor-3 bound. **A tolerance will be set from the
-converged result, not assumed in advance** — see Open Questions.
+**V4 — the six benchmark anchors vs Houfek. This is the gate, not the goal.** The same
+`reference.ANCHOR_COORDS` the LCP solver is measured on. Because this is the same model and
+method Houfek used, agreement should be far better than the LCP's factor-3 bound. V4 passing
+is what earns the exact solver the right to be used as an oracle in V5–V7. **A tolerance
+will be set from the converged result, not assumed in advance** — see Open Questions.
 
-**V5 — head-to-head against the 1-D LCP solver** at the 4 GATED anchors. The 2-D result
-should be at least as close to Houfek as the LCP is (LCP ratios: 0.44, 0.77, 0.83, 1.01).
+**V5 (primary deliverable) — LCP vs exact, head to head.** At all six anchors, report
+`σ_LCP / σ_exact` with the exact result as the reference. Current LCP-vs-Houfek ratios are
+0.44, 0.77, 0.83, 1.01 at the GATED anchors; those become secondary once a verified exact
+solver exists. **The size and structure of this discrepancy is the sub-project's scientific
+output.** A large, well-characterized failure of the LCP is a successful result.
 
-**V6 — do the two documented NOTEs close?** The elastic anchor (0.2 Ha, v'=0) and the
-near-threshold anchor (0.02 Ha, v'=1) are the LCP's two known structural failures. Report
-what the exact model gives at both. **This is a prediction, not a requirement:** if they do
-not improve, that is a real and reportable result, not a failed task.
+**V6 — do the LCP's two documented structural failures show up as predicted?** The elastic
+anchor (0.2 Ha, v'=0) and the near-threshold anchor (0.02 Ha, v'=1) are where the LCP is
+*expected* to fail, for reasons already derived: no background scattering, and an
+energy-independent width giving the wrong threshold law. Quantify the failure against the
+exact result at both. **This is a measurement, not a pass/fail requirement** — making it a
+gate would create pressure to fudge it.
+
+**V7 — nuclear dynamics, not just integrated cross sections.** The interesting differences
+between an approximate and an exact treatment need not show up in σ, which integrates a lot
+away. Compare the **nuclear-coordinate density** of the driven solution: project the exact
+`Ψ⁽⁺⁾(r,R)` onto `R` (over the unscaled region) and compare its shape against the LCP
+solver's 1-D driven solution `ξ(R)` at the same energy. Report the comparison as a figure
+and a few summary numbers (e.g. centroid and width in `R`). This is exploratory — there is
+no pass/fail — but it is where a local-width approximation is most likely to visibly break,
+and it is the natural bridge to the further model systems and higher-dimensional models
+planned for later sub-projects.
 
 **Harness wiring.** A new group **E** in `validation/n2/experiment.py`, guarded like B1/C5/D1
 so a solver error becomes a labeled FAIL rather than a crash. Whether group E runs at full
@@ -158,6 +198,10 @@ size in Docker depends on the converged grid cost — see Open Questions.
 - Coupled partial waves; rotation; anything beyond the single fixed `l = 2`.
 - Rust. The cost is entirely inside SuperLU.
 - Promoting anything new into `qscat`.
+- **Other model systems** (F₂, NO, H₂⁺ — decks exist in `reference/eMoScat/input/`) and
+  **models above two dimensions**, both of which are planned follow-on work. They are out of
+  scope here, but they are the reason the #5 library layer is dimension-general and why
+  anything N₂-specific in this sub-project belongs under `projects/`, never in `libs/qscat`.
 
 ## Open questions (to be resolved by the work, not guessed now)
 
