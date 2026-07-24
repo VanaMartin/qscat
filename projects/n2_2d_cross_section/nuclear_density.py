@@ -31,8 +31,10 @@ DVR-coefficient convention (see `cross_section_2d.py`'s and
 IS the physical density weight at grid point `(r_i, R_j)` -- no extra
 quadrature-weight factor is applied when summing over `i`. This was
 sanity-checked here by requiring `nuclear_density`'s output to integrate
-(via `np.trapz` over the real `R` points) to a finite, strictly positive
+(via `np.trapezoid` over the real `R` points) to a finite, strictly positive
 number for a genuine driven solution -- see `test_nuclear_density.py`.
+`np.trapz` was deprecated in numpy 2.0 and is unavailable here (numpy
+2.5.1 pinned); `np.trapezoid` is used throughout instead.
 
 The 1-D LCP driven solution `xi(R)` faithfully reproduces sub-project #3's
 `ve_cross_section` (`projects/n2_ti_cross_section/cross_section.py`): that
