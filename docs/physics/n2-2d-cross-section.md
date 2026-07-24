@@ -37,6 +37,20 @@ T_{v->v'} = <chi_v' F_{E',l} | V_int | Psi^(+)>       [c-product, masked]
 sigma_{v->v'} = 4 pi^3 |T|^2 / k^2                    [bohr^2]
 ```
 
+**A convention caveat on the absolute prefactor.** The map from `|T|^2` to a
+cross section in `bohr^2` carries no explicit `(2l+1)` partial-wave degeneracy
+factor: this is a single fixed partial wave (`l = 2`), and the prefactor's
+normalization is the one shared with Houfek's reference calculation and with
+this repo's 1-D LCP solver. This one factor is therefore fixed *by convention
+inherited from the reference*, not derived or checked by any of the internal,
+reference-free validations below — those pin the *relative* channel
+normalizations (reciprocity) and the *global* `T`-scale up to that shared
+convention (unitarity), but the absolute `bohr^2` scale of a single isolated σ
+rests on matching Houfek. It is safe for the scientific deliverable regardless:
+`ratio_lcp_vs_exact` (V5) is a ratio of two cross sections computed with the
+*same* prefactor, so any convention factor cancels exactly and the LCP-vs-exact
+comparison is immune to it.
+
 1. **Grids**: `n2_electronic_grid` (r-axis, FEM-DVR-ECS, `qscat.dvr.FemDvrEcsGrid`) and
    `projects.n2_ti_cross_section.nuclear_grid.n2_nuclear_grid` (R-axis, the same grid
    the LCP solver uses) are combined into one `qscat.dvr.TensorGrid` — axis 0 = electron
