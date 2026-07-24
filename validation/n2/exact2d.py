@@ -59,7 +59,19 @@ from projects.n2_ti_cross_section.vibrational import vibrational_states
 from validation.n2 import reference
 from validation.n2.cross_section import N_VIB, compute_anchor_results
 
-__all__ = ["Exact2dResult", "build_system", "compute_exact2d_results"]
+__all__ = ["GATED_RTOL", "Exact2dResult", "build_system", "compute_exact2d_results"]
+
+# The V4 gate tolerance on `ratio_exact_vs_houfek` at the 4 GATED anchors.
+# Derived (not picked in advance) from the measured deviations
+# |ratio_exact_vs_houfek - 1|: 1.149e-06 (E=0.2, v'=1), 8.430e-06 (E=0.2,
+# v'=2), 1.665e-05 (E=0.2, v'=3), 2.672e-04 (E=0.1, v'=1) -- the last, the
+# largest, sets the scale. GATED_RTOL sits ~3.7x above it: headroom for
+# run-to-run solver/BLAS variation, while remaining orders of magnitude
+# tighter than the LCP's own cross-model `reference.ANCHOR_FACTOR = 3.0`
+# band. Defined ONCE here and imported by both
+# `projects/n2_2d_cross_section/test_anchors.py` and
+# `validation/n2/experiment.py` (Group E) so the two cannot drift apart.
+GATED_RTOL = 1e-3
 
 
 @dataclass(frozen=True)

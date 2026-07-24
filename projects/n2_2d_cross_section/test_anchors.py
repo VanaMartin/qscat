@@ -33,13 +33,12 @@ from __future__ import annotations
 
 import numpy as np
 
-from validation.n2.exact2d import compute_exact2d_results
+from validation.n2.exact2d import GATED_RTOL, compute_exact2d_results
 
-# See module docstring: largest measured |ratio_exact_vs_houfek - 1| among
-# the 4 GATED anchors is 2.672e-04 (E=0.1 Ha, v'=1); this leaves ~3.7x
-# headroom while remaining orders of magnitude tighter than the LCP's own
-# cross-model ANCHOR_FACTOR=3.0 band.
-GATED_RTOL = 1e-3
+# GATED_RTOL is defined once in `validation.n2.exact2d` (see its module-level
+# docstring for the derivation from the measured deviations) and imported
+# here and by `validation/n2/experiment.py` (Group E) so the two cannot
+# drift apart.
 
 
 def test_sigma_real_and_nonnegative() -> None:

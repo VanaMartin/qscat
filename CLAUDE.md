@@ -72,13 +72,29 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               `H_res`, correlation function, energy transform), validated
               against the TI solver as an exact differential oracle — see
               docs/physics/n2-td-cross-section.md.
+            - `n2_2d_cross_section`: the exact 2-D (electronic r × nuclear R)
+              driven Lippmann-Schwinger solver for the same N₂
+              vibrational-excitation cross section — no local-complex-
+              potential reduction (`electronic_grid.py`/`channels.py`/
+              `hamiltonian2d.py`/`cross_section_2d.py`/`convergence.py`/
+              `nuclear_density.py`), validated standalone (free-particle and
+              first-Born limits, S-matrix reciprocity/unitarity) and then
+              gated against Houfek's data as an independent implementation of
+              the same model/method; once gated, it is the ORACLE the
+              1-D LCP solver is compared against — see
+              docs/physics/n2-2d-cross-section.md.
 validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
               anchors this solver's σ_{0→v'}(E) against Karel Houfek's
               independent `CSVE.V00.J00` data (documented cross-model
               tolerance, not exact agreement); its D1 group cross-checks the
               TD solver against both the TI solver (rtol<=0.10) and the same
-              Houfek data at the GATED anchors (`td_check.py`). Run the
+              Houfek data at the GATED anchors (`td_check.py`); its E1 group
+              (`exact2d.py`) reruns the same 6 anchors through the exact 2-D
+              solver, GATED at `GATED_RTOL=1e-3` against Houfek (a tight
+              differential-oracle bound, not the LCP's cross-model factor-3
+              band) with the two DOCUMENTED-LIMITED LCP anchors reported as
+              NOTE rows showing how the exact model closes that gap. Run the
               harness with `uv run python -m validation.n2.experiment`.
 
 `projects/` and `validation/` (and their sub-project directories) are real

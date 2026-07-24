@@ -10,7 +10,7 @@ import sys
 
 from qscat.units import HARTREE_TO_EV
 
-from validation.n2 import cross_section, loader, model, reference, resonance, td_check
+from validation.n2 import cross_section, exact2d, loader, model, reference, resonance, td_check
 
 Check = tuple[str, str, str, str]  # (group, name, status, detail)
 # Status values: PASS, FAIL, PENDING (no result yet), or NOTE (a result exists
@@ -91,6 +91,52 @@ def run_checks() -> list[Check]:
                       f"(ratio={r.ratio_td_ti:.3f}, tol=10%), houfek={r.sigma_houfek:.4e} bohr^2 "
                       f"(ratio={r.ratio_td_houfek:.3f}, factor={reference.ANCHOR_FACTOR:.1f})")
             checks.append(("D time-dependent", name, "PASS" if r.ok else "FAIL", detail))
+
+    # Group E — exact 2-D driven-equation (Lippmann-Schwinger) solver
+    # (projects/n2_2d_cross_section, sub-project #6): the SAME 6 anchors,
+    # computed by solving the full 2-D (electronic r + nuclear R) scattering
+    # problem directly -- no local-complex-potential (LCP) approximation.
+    # GATED anchors get a real PASS/FAIL against Houfek at GATED_RTOL=1e-3
+    # (a differential-oracle tolerance derived from the measured deviations,
+    # see projects/n2_2d_cross_section/test_anchors.py and
+    # .superpowers/sdd/task-5-report.md -- 3-5 orders of magnitude tighter
+    # than the LCP's own cross-model ANCHOR_FACTOR=3.0 band, since exact-2D
+    # vs. Houfek is the SAME model/method, just an independent
+    # implementation). DOCUMENTED-LIMITED anchors (elastic, near-threshold)
+    # are classified by the SAME rule as C5 (reused verbatim via `r.gated`,
+    # never re-derived) and get a NOTE reporting how dramatically the exact
+    # model closes the LCP's own documented gap to Houfek -- these never gate.
+    # GATED_RTOL is imported from `exact2d` (defined once there) so this
+    # harness and `test_anchors.py`'s own gate cannot drift apart.
+    try:
+        exact2d_results = exact2d.compute_exact2d_results()
+    except Exception as e:
+        checks.append(("E exact-2D", "E1 sigma anchors (6, exact 2-D solver)", "FAIL",
+                        f"exact 2-D solver failed: {e}"))
+    else:
+        for r2 in exact2d_results:
+            lbl = "elastic" if r2.channel == 0 else f"v=0->{r2.channel}"
+            name = f"E1 sigma_exact({r2.energy_ha:.4g} Ha, {lbl})"
+            if r2.gated:
+                dev = abs(r2.ratio_exact_vs_houfek - 1.0)
+                ok = dev < exact2d.GATED_RTOL
+                detail = (
+                    f"exact={r2.sigma_exact:.4e} bohr^2, houfek={r2.sigma_houfek:.4e} bohr^2, "
+                    f"exact/houfek={r2.ratio_exact_vs_houfek:.6f} (dev={dev:.2e}, "
+                    f"GATED_RTOL={exact2d.GATED_RTOL:.0e}); LCP/exact={r2.ratio_lcp_vs_exact:.4f} "
+                    "(V5, the deliverable)"
+                )
+                checks.append(("E exact-2D", name, "PASS" if ok else "FAIL", detail))
+            else:
+                # LCP/houfek expressed as an over/under-estimate factor so the
+                # scale of the gap the exact model closes is legible either way.
+                r_lh = r2.ratio_lcp_vs_houfek
+                lcp_gap = f"~{1.0 / r_lh:.0f}x too low" if r_lh < 1.0 else f"~{r_lh:.0f}x too high"
+                detail = (
+                    f"exact/houfek={r2.ratio_exact_vs_houfek:.4f} (exact matches Houfek) vs. "
+                    f"LCP/houfek={r_lh:.4f} ({lcp_gap}) -- {r2.mechanism}"
+                )
+                checks.append(("E exact-2D", name, "NOTE", detail))
     return checks
 
 
