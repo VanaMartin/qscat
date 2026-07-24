@@ -41,9 +41,11 @@ def test_working_grid_is_theta_independent() -> None:
     .md`'s note that a shallow 25 deg contour combined with few complex
     tail elements under-resolves the rotated continuum -- 25 deg is
     deliberately excluded from this sweep for that documented reason, not
-    asserted "converged" here. 1e-4 sits ~50x above the measured 1.9e-6
-    spread over {30, 35, 40}: tight relative to the spec's ~1% bar, with
-    headroom against run-to-run solver noise.
+    asserted "converged" here. Tolerance is 1e-5, ~5x above the measured
+    1.9e-6 spread over {30, 35, 40} -- just above the measured spread, per
+    Task-4 Step 5, while leaving deliberate margin for cross-machine
+    BLAS/LAPACK LU-ordering noise (the legitimate reason not to tighten
+    all the way down to the measured 1.9e-6).
     """
     base = dict(WORKING_GRID)
     sigmas = []
@@ -63,7 +65,7 @@ def test_working_grid_is_theta_independent() -> None:
         )
         sigmas.append(_sigma(tg))
     spread = (max(sigmas) - min(sigmas)) / np.mean(sigmas)
-    assert spread < 1e-4, f"theta-dependence {spread:.2%}: grid is NOT converged"
+    assert spread < 1e-5, f"theta-dependence {spread:.2%}: grid is NOT converged"
 
 
 @pytest.mark.slow
@@ -74,9 +76,11 @@ def test_working_grid_is_stable_under_refinement() -> None:
     BASELINE grid's sigma (N=71476, ~2.7x larger) by 2.368e-06 relative
     (`.superpowers/sdd/task-4-convergence-table.md`). This refinement test
     goes further still (r_max*1.5, order+1, n_complex+3, nuc_quadrature+2,
-    nuc_r_max+10, nuc_n_complex+3), so 1e-4 sits comfortably above the
-    measured ~2e-6-scale deviation while remaining four orders of magnitude
-    inside the spec's ~1% bar.
+    nuc_r_max+10, nuc_n_complex+3). Tolerance is 1e-5, ~4x above the
+    measured 2.368e-06 deviation -- just above the measured spread, per
+    Task-4 Step 5, while leaving deliberate margin for cross-machine
+    BLAS/LAPACK LU-ordering noise (the legitimate reason not to tighten
+    all the way down to the measured ~2.4e-6).
     """
     coarse = _sigma(working_tgrid())
     fine_tg = TensorGrid(
@@ -94,4 +98,4 @@ def test_working_grid_is_stable_under_refinement() -> None:
             ),
         ]
     )
-    assert abs(_sigma(fine_tg) - coarse) / coarse < 1e-4
+    assert abs(_sigma(fine_tg) - coarse) / coarse < 1e-5
