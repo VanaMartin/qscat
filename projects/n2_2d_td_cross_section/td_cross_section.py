@@ -47,7 +47,7 @@ from projects.n2_2d_td_cross_section.correlation import (
 from projects.n2_2d_td_cross_section.td_propagation import PropagationResult, propagate
 from projects.n2_2d_td_cross_section.wavepacket import initial_state
 
-__all__ = ["td_ve_cross_section_2d"]
+__all__ = ["sigma_from_correlations", "td_ve_cross_section_2d"]
 
 # Wavepacket parameter dict keys `initial_state`/`outgoing_channel` accept
 # (r0/p0/sigma for the incident packet; r0_out/p0_out/sigma_out for the
@@ -97,7 +97,7 @@ def _propagate(
     return propagate(tgrid, psi0, out_channels, dt=dt, n_steps=n_steps)
 
 
-def _sigma_from_correlations(
+def _sigma_one_energy(
     tgrid: TensorGrid,
     result: PropagationResult,
     eps: npt.NDArray[np.float64],
@@ -108,6 +108,13 @@ def _sigma_from_correlations(
     wp_in: _WpIn,
     wp_out: _WpOut,
 ) -> npt.NDArray[np.float64]:
+    """`sigma_{v_init->v'}(E)` (bohr^2) at a single scalar `E`, shape `(len(vprimes),)`.
+
+    The per-energy transform of an already-computed `PropagationResult` --
+    the single-energy kernel both `sigma_from_correlations` (which adds the
+    scalar-or-array `E` convention) and `td_ve_cross_section_2d` (which also
+    runs the propagation) build on.
+    """
     sigma = np.zeros(len(vprimes), dtype=np.float64)
     if E <= 0.0:
         return sigma
@@ -129,6 +136,53 @@ def _sigma_from_correlations(
         delta = 1.0 if vp == v_init else 0.0
         sigma[j] = np.pi * abs(s - delta) ** 2 / (2.0 * E)
     return sigma
+
+
+def sigma_from_correlations(
+    tgrid: TensorGrid,
+    result: PropagationResult,
+    eps: npt.NDArray[np.float64],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    dt: float,
+    wp_in: _WpIn,
+    wp_out: _WpOut,
+) -> npt.NDArray[np.float64]:
+    """sigma_{v_init->v'}(E) (bohr^2) from an ALREADY-COMPUTED `PropagationResult`.
+
+    The "cheap sigma(E) from a stored propagation" primitive: unlike
+    `td_ve_cross_section_2d`, this never runs (or re-runs) the Crank-Nicolson
+    propagation -- it only transforms the `c_{v'}(t)` already sitting in
+    `result` (e.g. loaded back from `observation.save_numeric_outputs`'s
+    `.npz`, or a truncated/reused trajectory from a convergence study). This
+    is exactly the "one propagation, many transforms" structural advantage
+    `convergence.sigma_curve`'s docstring describes, exposed here as a public
+    building block instead of requiring callers to reach into a private
+    per-energy helper.
+
+    `E` (collision energy, Hartree) may be scalar or array-like; scalar `E`
+    returns shape `(len(vprimes),)`, array `E` returns `(len(E), len(vprimes))`
+    -- the SAME convention as `td_ve_cross_section_2d` and
+    `projects.n2_2d_cross_section.cross_section_2d.ve_cross_section_2d`.
+
+    `dt`, `wp_in`, `wp_out` must match the values used to produce `result`
+    (the quadrature step and the incident/outgoing wavepacket parameters that
+    `eta_incident`/`eta_outgoing` are evaluated with) -- this function does
+    not validate that consistency, it trusts the caller.
+    """
+    e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+    out = np.stack(
+        [
+            _sigma_one_energy(tgrid, result, eps, v_init, vprimes, float(e), dt, wp_in, wp_out)
+            for e in e_arr
+        ]
+    )
+    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+    if scalar:
+        return np.asarray(out[0], dtype=np.float64)
+    return out
 
 
 def td_ve_cross_section_2d(
@@ -163,17 +217,6 @@ def td_ve_cross_section_2d(
     result = _propagate(
         tgrid, eps, chi, v_init, vprimes, dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out
     )
-
-    e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
-    out = np.stack(
-        [
-            _sigma_from_correlations(
-                tgrid, result, eps, v_init, vprimes, float(e), dt, wp_in, wp_out
-            )
-            for e in e_arr
-        ]
+    return sigma_from_correlations(
+        tgrid, result, eps, v_init, vprimes, E, dt=dt, wp_in=wp_in, wp_out=wp_out
     )
-    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
-    if scalar:
-        return np.asarray(out[0], dtype=np.float64)
-    return out

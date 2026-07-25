@@ -20,10 +20,12 @@ Functions:
     packet -> transient anion at the molecule -> decay), plus ||Psi(t)||.
   * `plot_correlation` -- |c_v'(t)| (and Re/Im) vs t, per channel -- the
     correlation build-up.
-  * `plot_sigma_vs_ti` -- sigma_TD(E) overlaid on sigma_TI(E), with the
-    usable window shaded; outside it, sigma_TD is faded and honestly
-    labeled as eta-deconvolution noise / finite-T-unresolved, never
-    presented as signal.
+  * `plot_sigma_vs_ti` -- sigma_TD(E) overlaid on sigma_TI(E), distinguishing
+    THREE honesty regions: well-converged (solid, trustworthy), finite-T
+    unresolved (dotted, inside the spectral window but below the boomerang
+    resolution floor), and outside the spectral window (faded, eta-
+    deconvolution noise). Neither of the latter two is ever presented as
+    trustworthy signal.
 """
 
 from __future__ import annotations
@@ -251,21 +253,50 @@ def plot_sigma_vs_ti(
     sigma_ti: npt.ArrayLike,
     usable: tuple[float, float],
     path: _PathLike,
+    resolution_floor_e: float = 0.13,
 ) -> None:
-    """sigma_TD(E) overlaid on #6's exact sigma_TI(E), usable window shaded.
+    """sigma_TD(E) overlaid on #6's exact sigma_TI(E), THREE honestly-drawn regions.
 
     `sigma_td`/`sigma_ti` are `(n_E,)` or `(n_E, n_ch)` array-likes aligned
     with `E_grid`; `usable = (E_lo, E_hi)` (e.g. from
     `convergence.usable_window`) is the sub-interval where
     `|eta_incident(E)|` is large enough that the Tannor-Weeks deconvolution
-    is trustworthy (see `convergence.usable_window`'s docstring).
+    is trustworthy (see `convergence.usable_window`'s docstring). That
+    spectral-coverage window is NOT the only reliability limit, though: Task
+    5 (`test_td_convergence.py`'s module docstring) documents a SEPARATE
+    finite-time-propagation resolution limit -- below `E ~ 0.13` Ha the exact
+    `sigma_TI(E)` has boomerang sub-features (swings over ranges of order
+    `0.004` Ha) narrower than the propagation's energy resolution
+    `2*pi/T ~ 0.0042` Ha (at `T=1500` a.u.), so `sigma_TD` there can be off by
+    a large factor (measured ratios 5.7 at E=0.09, 0.37 at E=0.11) EVEN WHEN
+    `|eta_incident(E)|` is large -- a resolution problem, not an SNR problem,
+    so it survives being "inside the usable window" and must be flagged
+    separately.
 
-    Inside the window, sigma_TD is drawn as a normal solid marker+line series
-    next to sigma_TI (the exact oracle, solid reference line). OUTSIDE the
-    window, sigma_TD is drawn faded/dashed and labeled honestly as
-    "eta-deconvolution noise / finite-T unresolved" -- it is never presented
-    as signal (per the module docstring's instruction not to mislead about
-    what's plotted there).
+    `resolution_floor_e` (default `0.13`, Hartree) is that finite-T
+    resolution floor: the energy below which the boomerang sub-structure is
+    known to be narrower than `2*pi/T` for the `T=1500` a.u. propagation this
+    module's figures are built from. It is a judgment call read off Task 5's
+    measurements (smooth, well-tracked behavior confirmed from E=0.14 up;
+    sharp sub-0.13 disagreement measured at E=0.09/0.11), not a sharp
+    analytic threshold -- callers propagating at a different `T` should pass
+    a value appropriate to `2*pi/T` for that run.
+
+    Three regions are drawn, most-to-least trustworthy:
+
+      * **well-converged** (`E >= resolution_floor_e` AND inside `usable`):
+        solid marker+line, the trustworthy sigma_TD-vs-sigma_TI comparison.
+      * **finite-T unresolved** (inside `usable` but `E < resolution_floor_e`,
+        the boomerang zone): drawn with a distinct marker/linestyle (squares,
+        dotted) and its own legend entry, "finite-T unresolved (boomerang
+        sub-features narrower than 2*pi/T)" -- visually different from both
+        the solid signal and the faded noise-floor points, never presented
+        as trustworthy.
+      * **outside the spectral window** (`|eta_incident(E)|` small): faded/
+        dashed, labeled "eta-deconvolution noise" (unchanged from before).
+
+    No sigma value is altered by this function -- only how each point is
+    drawn and labeled.
     """
     E = np.asarray(E_grid, dtype=np.float64)
     order = np.argsort(E)
@@ -277,21 +308,45 @@ def plot_sigma_vs_ti(
 
     fig, ax = plt.subplots(figsize=(7.5, 5.5))
     ax.axvspan(e_lo, e_hi, color="tab:green", alpha=0.12, label="usable window", zorder=0)
+    if e_lo < resolution_floor_e < e_hi:
+        ax.axvspan(
+            e_lo,
+            resolution_floor_e,
+            color="tab:orange",
+            alpha=0.10,
+            label="finite-T resolution floor (boomerang zone)",
+            zorder=0,
+        )
 
     below = E < e_lo
-    inside = (E >= e_lo) & (E <= e_hi)
     above = E > e_hi
+    unresolved = (E >= e_lo) & (E < resolution_floor_e)
+    converged = (E >= resolution_floor_e) & (E <= e_hi)
 
     for j in range(n_ch):
         color = f"C{j}"
         ti_label = "sigma_TI (exact)" if n_ch == 1 else f"sigma_TI v'={j}"
         ax.plot(E, ti[:, j], "-", color=color, lw=2, alpha=0.9, label=ti_label)
 
-        td_label = "sigma_TD (usable)" if n_ch == 1 else f"sigma_TD v'={j} (usable)"
-        if np.any(inside):
-            ax.plot(E[inside], td[inside, j], "o-", color=color, ms=4, label=td_label)
+        td_label = "sigma_TD (well-converged)" if n_ch == 1 else f"sigma_TD v'={j} (well-converged)"
+        if np.any(converged):
+            ax.plot(E[converged], td[converged, j], "o-", color=color, ms=4, label=td_label)
 
-        noise_label = "sigma_TD outside window (eta-deconvolution noise / finite-T unresolved)"
+        unresolved_label = (
+            "sigma_TD finite-T unresolved (boomerang sub-features narrower than 2*pi/T)"
+        )
+        if np.any(unresolved):
+            ax.plot(
+                E[unresolved],
+                td[unresolved, j],
+                "s:",
+                color=color,
+                ms=5,
+                mfc="none",
+                label=unresolved_label if j == 0 else None,
+            )
+
+        noise_label = "sigma_TD outside window (eta-deconvolution noise)"
         first_outside = True
         for mask in (below, above):
             if np.any(mask):
@@ -309,7 +364,7 @@ def plot_sigma_vs_ti(
     ax.set_xlabel("E (Hartree)")
     ax.set_ylabel("sigma (bohr^2)")
     ax.set_title("TD vs TI vibrational-excitation cross section")
-    ax.legend(fontsize=8)
+    ax.legend(fontsize=7)
     fig.tight_layout()
     fig.savefig(Path(path), dpi=150)
     plt.close(fig)

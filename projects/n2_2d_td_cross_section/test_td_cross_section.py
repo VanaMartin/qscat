@@ -35,13 +35,13 @@
   is the signature of a usable-window residual rather than an unconverged
   transient.
 
-One ~250s propagation is run ONCE at module scope (`_propagate`, not the
+One ~250s propagation is run ONCE at module scope (`td._propagate`, not the
 public `td_ve_cross_section_2d`, so the SAME stored `c(t)` can be
 transformed at multiple truncation lengths for V4 without re-propagating);
-every test transforms it with `_sigma_from_correlations` -- exactly the
-function `td_ve_cross_section_2d` calls internally per-energy, so this
-exercises the real transform, just not the outer scalar/array plumbing
-(covered separately, cheaply, by `test_public_api_shape_contract`).
+every test transforms it with the public `sigma_from_correlations` -- exactly
+the function `td_ve_cross_section_2d` calls internally, so this exercises the
+real transform, just not the outer scalar/array plumbing (covered separately,
+cheaply, by `test_public_api_shape_contract`).
 """
 
 from __future__ import annotations
@@ -93,9 +93,9 @@ def propagation() -> td.PropagationResult:
 @pytest.mark.slow
 def test_v2a_td_matches_ti_at_e010(propagation: td.PropagationResult) -> None:
     sigma_td = float(
-        td._sigma_from_correlations(TG, propagation, EPS, V_INIT, VPRIMES, 0.10, DT, WP_IN, WP_OUT)[
-            0
-        ]
+        td.sigma_from_correlations(
+            TG, propagation, EPS, V_INIT, VPRIMES, 0.10, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
+        )[0]
     )
     assert sigma_td >= 0.0
     # Measured ratio 0.931 at the converged (dt, n_steps) -- see module docstring.
@@ -111,9 +111,9 @@ def test_v2a_td_matches_ti_at_e015_usable_window_edge(propagation: td.Propagatio
     tolerance is set just above the measured value, not tightened to it.
     """
     sigma_td = float(
-        td._sigma_from_correlations(TG, propagation, EPS, V_INIT, VPRIMES, 0.15, DT, WP_IN, WP_OUT)[
-            0
-        ]
+        td.sigma_from_correlations(
+            TG, propagation, EPS, V_INIT, VPRIMES, 0.15, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
+        )[0]
     )
     assert sigma_td >= 0.0
     assert sigma_td == pytest.approx(SIGMA_TI[0.15], rel=0.15)
@@ -125,12 +125,13 @@ def test_v2b_closed_channel_is_exactly_zero(propagation: td.PropagationResult) -
 
     `eps[1] - eps[0] = 0.0124` Ha; at `E = 0.0107 < eps[1] - eps[0]`, the
     channel is closed and `sigma_TD` must be exactly 0 (the `excess <= 0`
-    branch in `_sigma_from_correlations`, not a small-but-nonzero residual).
+    branch in the underlying per-energy transform, not a small-but-nonzero
+    residual).
     """
     e_closed = 0.0107
     assert e_closed + EPS[V_INIT] - EPS[VPRIMES[0]] <= 0.0  # confirms the channel is closed
-    sigma_td = td._sigma_from_correlations(
-        TG, propagation, EPS, V_INIT, VPRIMES, e_closed, DT, WP_IN, WP_OUT
+    sigma_td = td.sigma_from_correlations(
+        TG, propagation, EPS, V_INIT, VPRIMES, e_closed, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
     )
     assert sigma_td[0] == 0.0
 
@@ -145,15 +146,17 @@ def test_v4_finite_t_stability_and_depletion(propagation: td.PropagationResult) 
     check "free" per the task brief.
     """
     full_sigma = float(
-        td._sigma_from_correlations(TG, propagation, EPS, V_INIT, VPRIMES, 0.10, DT, WP_IN, WP_OUT)[
-            0
-        ]
+        td.sigma_from_correlations(
+            TG, propagation, EPS, V_INIT, VPRIMES, 0.10, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
+        )[0]
     )
     short = SimpleNamespace(
         t=propagation.t[: N_STEPS_SHORT + 1], c=propagation.c[: N_STEPS_SHORT + 1, :]
     )
     short_sigma = float(
-        td._sigma_from_correlations(TG, short, EPS, V_INIT, VPRIMES, 0.10, DT, WP_IN, WP_OUT)[0]
+        td.sigma_from_correlations(
+            TG, short, EPS, V_INIT, VPRIMES, 0.10, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
+        )[0]
     )
     assert short_sigma == pytest.approx(full_sigma, rel=0.10)
 

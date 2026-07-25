@@ -27,7 +27,7 @@ from projects.n2_2d_td_cross_section.observation import (
     plot_snapshots,
     save_numeric_outputs,
 )
-from projects.n2_2d_td_cross_section.td_cross_section import _sigma_from_correlations
+from projects.n2_2d_td_cross_section.td_cross_section import sigma_from_correlations
 from projects.n2_2d_td_cross_section.td_propagation import PropagationResult, propagate
 from projects.n2_2d_td_cross_section.wavepacket import initial_state
 from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
@@ -60,11 +60,8 @@ def _tiny_result() -> PropagationResult:
 
 
 def _sigma_at(result: PropagationResult, e_grid: np.ndarray) -> np.ndarray:
-    return np.stack(
-        [
-            _sigma_from_correlations(TG, result, EPS, V_INIT, VPRIMES, float(e), DT, WP_IN, WP_OUT)
-            for e in e_grid
-        ]
+    return sigma_from_correlations(
+        TG, result, EPS, V_INIT, VPRIMES, e_grid, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
     )
 
 
