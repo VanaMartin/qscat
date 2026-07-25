@@ -151,24 +151,31 @@ def run_checks() -> list[Check]:
     # sub-project #7): a second, independent (time-domain, Crank-Nicolson +
     # Tannor-Weeks transform) route to the SAME exact 2-D cross section
     # Group E computes in the energy domain (S_TD(E) = S_TI(E) exactly, in
-    # the long-T limit). A full propagation at TD_WORKING_GRID costs
-    # ~210-250s -- measured, not assumed, to be far too heavy for this
-    # harness's ~60s-per-group budget (even the shortest T on the sub-
-    # project's own T-scan, T=600, costs ~85s: see td_exact2d.py's module
-    # docstring for the timing breakdown). So Group F reports the ALREADY-
-    # VALIDATED result as NOTE rows -- a documented fact, never a live gate
-    # -- rather than re-running the propagation in-harness. The genuine
-    # PASS/FAIL gate on this comparison lives in
+    # the long-T limit). sigma_TI is obtained LIVE here, reusing Group E's
+    # already-cached exact 2-D TI solver (free) plus one extra live solve for
+    # the one anchor Group E doesn't already tabulate (still cheap, ~seconds
+    # -- see td_exact2d.py). sigma_TD is NOT recomputed live: a full
+    # propagation at TD_WORKING_GRID costs ~210-250s, and this is a measured
+    # execution decision, not a rule from the Task 7 brief -- even the
+    # shortest T on the sub-project's own T-scan (T=600) costs ~85s, over
+    # this harness's ~60s-per-group budget, and is also the least-converged
+    # point that T-scan measured (sigma_TD/sigma_TI ratio 0.760 there vs.
+    # 0.931 at the converged T=1500), so a live check at that config would be
+    # both too slow and too loose to be worth running (see td_exact2d.py's
+    # module docstring for the full timing/convergence argument). So Group F
+    # reports the ALREADY-VALIDATED sigma_TD as NOTE rows -- a documented
+    # fact, never a live gate -- rather than re-running the propagation
+    # in-harness. The genuine PASS/FAIL gate on this comparison lives in
     # projects/n2_2d_td_cross_section/test_td_cross_section.py's `@slow`
     # tests (run explicitly, not part of the default harness).
     try:
         td_exact2d_results = td_exact2d.compute_td_exact2d_results()
     except Exception as e:
-        checks.append(("F time-dependent 2-D", "F1 sigma_TD vs sigma_TI (recorded)", "FAIL",
+        checks.append(("F time-dependent 2-D", "F1 sigma_TD (recorded) vs sigma_TI (live)", "FAIL",
                         f"failed to load recorded TD results: {e}"))
     else:
         for r3 in td_exact2d_results:
-            name = f"F1 sigma_TD(E={r3.energy_ha:.4g} Ha, v=0->{r3.channel}) [recorded]"
+            name = f"F1 sigma_TD(E={r3.energy_ha:.4g} Ha, v=0->{r3.channel}) [sigma_TD recorded]"
             detail = (
                 f"sigma_TD={r3.sigma_td:.4e} bohr^2, sigma_TI={r3.sigma_ti:.4e} bohr^2, "
                 f"ratio={r3.ratio_td_ti:.4f} (validated rtol<={r3.rtol:.2f} by {r3.source}); "
