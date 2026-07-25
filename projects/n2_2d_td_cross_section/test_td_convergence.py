@@ -13,19 +13,27 @@ scan of the exact TI oracle (`ve_cross_section_2d`, step 0.002 Ha, E in
 oscillations (period ~0.01-0.02 Ha, e.g. TI jumps 9.89 -> 6.12 -> 1.49 bohr^2
 across E=0.098/0.100/0.102) for E below ~0.13 Ha, then settles into a smooth,
 monotonically-decreasing background for E >= 0.14 Ha. The finite propagation
-T=1500 a.u. gives the correlation-function transform a frequency resolution
-of order `2*pi/T ~ 0.0042` Ha -- coarser than that oscillation period. Below
-E~0.13, TD's pointwise value can therefore differ from the exact TI value by
-a large factor (measured: ratio 5.7 at E=0.09, 0.37 at E=0.11) even though
-`|eta_incident(E)|` is near its PEAK there (so the deconvolution itself is
-not noise-starved) -- this is a distinct, additional limitation from the
-noise-floor `usable_window` effect: it is a finite-T FREQUENCY-RESOLUTION
-limit on resolving fine pointwise structure, not an amplitude/SNR limit.
-Longer T would resolve it (future work, out of Task 5's scope); this test
-does not assert pointwise agreement in that sub-region. It DOES assert
-agreement at Task 4's two validated anchors (E=0.10, E=0.15, which happen to
-sit at points where the transform's implicit smoothing tracks the true value
-well) and across the smooth E >= 0.14 background tail, where the widening
+T=1500 a.u. gives the correlation-function transform an energy resolution of
+order `2*pi/T ~ 0.0042` Ha -- FINER than that ~0.01-0.02 Ha oscillation
+period, not coarser. The mismatch is not a resolution-vs-period gap: it is
+that the exact `sigma_TI(E)` has narrow sub-features -- sharp swings over an
+energy range comparable to or narrower than `2*pi/T` itself (e.g. the
+9.89 -> 6.12 -> 1.49 bohr^2 swing above spans only ~0.004 Ha, the same order
+as `2*pi/T`) -- so even a `2*pi/T ~ 0.0042` Ha resolution cannot cleanly
+resolve them pointwise; the T=1500 transform effectively averages over
+structure that is changing that fast. Below E~0.13, TD's pointwise value can
+therefore differ from the exact TI value by a large factor (measured: ratio
+5.7 at E=0.09, 0.37 at E=0.11) even though `|eta_incident(E)|` is near its
+PEAK there (so the deconvolution itself is not noise-starved) -- this is a
+distinct, additional limitation from the noise-floor `usable_window` effect:
+it is a finite-T ENERGY-RESOLUTION limit on resolving fine pointwise
+structure, not an amplitude/SNR limit. A LONGER propagation T gives a finer
+`2*pi/T` and would resolve more of this fine structure (future work, out of
+Task 5's scope); this test does not assert pointwise agreement in that
+sub-region. It DOES assert agreement at Task 4's two validated anchors
+(E=0.10, E=0.15, which happen to sit at points where the transform's
+implicit smoothing tracks the true value well) and across the smooth
+E >= 0.14 background tail, where the widening
 tolerance with distance from the incident spectral peak (`p0**2/2 = 0.125`
 Ha) IS the documented noise-floor `usable_window` effect.
 """

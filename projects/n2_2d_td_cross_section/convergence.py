@@ -14,13 +14,16 @@ capability Task 5 asks for: the WHOLE sigma(E) curve from a single stored
 `c(t)` trajectory (the "boomerang"), plus an honest usable-energy window
 built from `|eta_incident(E)|`.
 
-`c_{v'}(t)` does not depend on E, so `sigma_curve` propagates ONCE
-(`td_cross_section._propagate`) and then calls
-`td_cross_section._sigma_from_correlations` once per requested energy on the
-SAME stored trajectory -- the expensive part (the Crank-Nicolson propagation,
-~250s at `TD_WORKING_GRID`) happens exactly once regardless of how dense
-`E_grid` is. This is TD's structural advantage over the TI solver, which
-needs one sparse LU factorization per energy.
+`c_{v'}(t)` does not depend on E, so `sigma_curve` is a thin wrapper around
+`td_cross_section.td_ve_cross_section_2d` called with the whole `E_grid` as
+its array-`E` argument: that public function already propagates ONCE and
+then transforms the SAME stored trajectory at every requested energy --
+the expensive part (the Crank-Nicolson propagation, ~250s at
+`TD_WORKING_GRID`) happens exactly once regardless of how dense `E_grid` is.
+This is TD's structural advantage over the TI solver, which needs one sparse
+LU factorization per energy. `sigma_curve` does not reimplement any of this
+-- it exists only to supply `TD_WORKING_GRID`'s defaults for the keyword-only
+propagation parameters when the caller leaves them `None`.
 """
 
 from __future__ import annotations
@@ -51,6 +54,16 @@ TD_WORKING_GRID: dict = {
         # inside the real region). This is why the TD box is larger than
         # #6's TI working grid (r_max=16): the TD box must hold a moving
         # wavepacket, not just a static scattering solution.
+        #
+        # Honest caveat: r_max=50 was sized by the physical reasoning above
+        # (wp_in/wp_out both fit comfortably inside the real region, and the
+        # interaction V_int = -lambda(R)*exp(-alpha_c*r^2) vanishes by
+        # r~5-6), and is cross-checked only INDIRECTLY, via the TD-vs-TI
+        # agreement this module and `test_td_convergence.py` measure across
+        # the usable window. It was NOT subjected to a direct empirical
+        # r_max-convergence sweep (re-running at, say, r_max=40/50/60 and
+        # checking sigma_TD is unchanged) -- that sweep is future work, out
+        # of scope here.
         "r_max": 50.0,
         "order": 8,       # unchanged from #6's TI working grid.
         "n_complex": 6,   # unchanged from #6's TI working grid.
@@ -131,36 +144,33 @@ def sigma_curve(
 ) -> npt.NDArray[np.float64]:
     """The whole `sigma_{v_init->v'}(E)` curve (bohr^2) from ONE propagation.
 
-    `c_{v'}(t)` does not depend on E: `td_cross_section._propagate` runs the
-    Crank-Nicolson propagation exactly once, then this function calls
-    `td_cross_section._sigma_from_correlations` once per energy in `E_grid`
-    on that SAME stored trajectory. However dense `E_grid` is, only one
-    propagation happens -- the "boomerang" curve is free once that one run
-    (~250s at `TD_WORKING_GRID`) is done.
+    Thin wrapper around `td_cross_section.td_ve_cross_section_2d` -- that
+    public function already does exactly this: `c_{v'}(t)` does not depend on
+    E, so it runs the Crank-Nicolson propagation exactly once and then
+    transforms that SAME stored trajectory once per energy in the (array)
+    `E` it is given. However dense `E_grid` is, only one propagation happens
+    -- the "boomerang" curve is free once that one run (~250s at
+    `TD_WORKING_GRID`) is done. This function adds nothing computationally;
+    it only supplies `TD_WORKING_GRID`'s defaults for the keyword-only
+    propagation parameters when the caller leaves them `None`.
 
     Any of `dt`/`n_steps`/`wp_in`/`wp_out` left `None` default to
     `TD_WORKING_GRID`'s values.
 
     Returns shape `(len(E_grid), len(vprimes))`, matching
     `projects.n2_2d_cross_section.cross_section_2d.ve_cross_section_2d`'s
-    array-E convention (so the two curves overlay directly).
+    array-E convention (so the two curves overlay directly) -- guaranteed
+    here because `E_grid` is always passed through as an array, which is the
+    branch of `td_ve_cross_section_2d` that returns that shape.
     """
     dt = TD_WORKING_GRID["dt"] if dt is None else dt
     n_steps = TD_WORKING_GRID["n_steps"] if n_steps is None else n_steps
     wp_in = TD_WORKING_GRID["wp_in"] if wp_in is None else wp_in
     wp_out = TD_WORKING_GRID["wp_out"] if wp_out is None else wp_out
 
-    result = td._propagate(
-        tgrid, eps, chi, v_init, vprimes, dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out
-    )
     e_arr = np.atleast_1d(np.asarray(E_grid, dtype=np.float64))
-    return np.stack(
-        [
-            td._sigma_from_correlations(
-                tgrid, result, eps, v_init, vprimes, float(e), dt, wp_in, wp_out
-            )
-            for e in e_arr
-        ]
+    return td.td_ve_cross_section_2d(
+        tgrid, eps, chi, v_init, vprimes, e_arr, dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out
     )
 
 
