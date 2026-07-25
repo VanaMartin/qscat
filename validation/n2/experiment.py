@@ -10,7 +10,16 @@ import sys
 
 from qscat.units import HARTREE_TO_EV
 
-from validation.n2 import cross_section, exact2d, loader, model, reference, resonance, td_check
+from validation.n2 import (
+    cross_section,
+    exact2d,
+    loader,
+    model,
+    reference,
+    resonance,
+    td_check,
+    td_exact2d,
+)
 
 Check = tuple[str, str, str, str]  # (group, name, status, detail)
 # Status values: PASS, FAIL, PENDING (no result yet), or NOTE (a result exists
@@ -137,6 +146,36 @@ def run_checks() -> list[Check]:
                     f"LCP/houfek={r_lh:.4f} ({lcp_gap}) -- {r2.mechanism}"
                 )
                 checks.append(("E exact-2D", name, "NOTE", detail))
+
+    # Group F — time-dependent 2-D solver (projects/n2_2d_td_cross_section,
+    # sub-project #7): a second, independent (time-domain, Crank-Nicolson +
+    # Tannor-Weeks transform) route to the SAME exact 2-D cross section
+    # Group E computes in the energy domain (S_TD(E) = S_TI(E) exactly, in
+    # the long-T limit). A full propagation at TD_WORKING_GRID costs
+    # ~210-250s -- measured, not assumed, to be far too heavy for this
+    # harness's ~60s-per-group budget (even the shortest T on the sub-
+    # project's own T-scan, T=600, costs ~85s: see td_exact2d.py's module
+    # docstring for the timing breakdown). So Group F reports the ALREADY-
+    # VALIDATED result as NOTE rows -- a documented fact, never a live gate
+    # -- rather than re-running the propagation in-harness. The genuine
+    # PASS/FAIL gate on this comparison lives in
+    # projects/n2_2d_td_cross_section/test_td_cross_section.py's `@slow`
+    # tests (run explicitly, not part of the default harness).
+    try:
+        td_exact2d_results = td_exact2d.compute_td_exact2d_results()
+    except Exception as e:
+        checks.append(("F time-dependent 2-D", "F1 sigma_TD vs sigma_TI (recorded)", "FAIL",
+                        f"failed to load recorded TD results: {e}"))
+    else:
+        for r3 in td_exact2d_results:
+            name = f"F1 sigma_TD(E={r3.energy_ha:.4g} Ha, v=0->{r3.channel}) [recorded]"
+            detail = (
+                f"sigma_TD={r3.sigma_td:.4e} bohr^2, sigma_TI={r3.sigma_ti:.4e} bohr^2, "
+                f"ratio={r3.ratio_td_ti:.4f} (validated rtol<={r3.rtol:.2f} by {r3.source}); "
+                "full TD propagation (~210-250s at TD_WORKING_GRID) NOT run in-harness -- "
+                "see td_exact2d.py for the measured cost that justifies this"
+            )
+            checks.append(("F time-dependent 2-D", name, "NOTE", detail))
     return checks
 
 

@@ -55,7 +55,11 @@ libs/       qscat — the standard library: validated, reusable QM code
               Nicolson time propagator for `d/dt psi = -i H psi` (any complex,
               possibly non-Hermitian `H`) — promoted from the N2
               time-dependent cross-section project — see
-              docs/physics/n2-td-cross-section.md.
+              docs/physics/n2-td-cross-section.md. Also
+              `make_sparse_cn_stepper(H, dt)`, the sparse sibling (factors
+              once with `SparseLU`, matches the dense stepper to round-off) —
+              promoted from the N2 2-D time-dependent cross-section project —
+              see docs/physics/n2-2d-td-cross-section.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
@@ -83,6 +87,16 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               the same model/method; once gated, it is the ORACLE the
               1-D LCP solver is compared against — see
               docs/physics/n2-2d-cross-section.md.
+            - `n2_2d_td_cross_section`: time-dependent (sparse Crank-Nicolson
+              propagation + Tannor-Weeks energy transform) route to the SAME
+              exact 2-D N₂ vibrational-excitation cross section as
+              `n2_2d_cross_section` — an incident Gaussian wavepacket
+              `g(r) chi_0(R)` propagated under `H_2D`
+              (`wavepacket.py`/`td_propagation.py`/`correlation.py`/
+              `td_cross_section.py`/`convergence.py`/`observation.py`),
+              validated against the exact 2-D solver as an exact differential
+              oracle (σ_TD/σ_TI = 0.93 at E=0.10, 1.10 at E=0.15) — see
+              docs/physics/n2-2d-td-cross-section.md.
 validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
               anchors this solver's σ_{0→v'}(E) against Karel Houfek's
@@ -94,8 +108,15 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               solver, GATED at `GATED_RTOL=1e-3` against Houfek (a tight
               differential-oracle bound, not the LCP's cross-model factor-3
               band) with the two DOCUMENTED-LIMITED LCP anchors reported as
-              NOTE rows showing how the exact model closes that gap. Run the
-              harness with `uv run python -m validation.n2.experiment`.
+              NOTE rows showing how the exact model closes that gap; its F1
+              group (`td_exact2d.py`) reports the time-dependent 2-D solver's
+              σ_TD-vs-σ_TI agreement at the two validated anchors as
+              recorded, cited NOTE rows rather than a live in-harness
+              propagation — a full run costs ~210–250s (measured), far over
+              the harness's per-group budget, so the genuine PASS/FAIL gate
+              lives in `n2_2d_td_cross_section/test_td_cross_section.py`'s
+              `@slow` tests instead. Run the harness with
+              `uv run python -m validation.n2.experiment`.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo
