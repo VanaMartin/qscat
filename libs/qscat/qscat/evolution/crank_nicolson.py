@@ -81,7 +81,7 @@ def make_sparse_cn_stepper(
     Hermiticity is assumed.
     """
     n = H.shape[0]
-    # Explicit conversion to a concrete complex128 csr_matrix, mirroring
+    # Explicit conversion to a concrete complex128 csc_matrix, mirroring
     # SparseLU's own internal conversion: scipy-stubs' generic `spmatrix`
     # mixin lacks the arithmetic overloads needed for `ident + ... * H`
     # below, so `H` (whatever concrete sparse subtype/dtype it arrives as)

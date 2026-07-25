@@ -12,6 +12,7 @@ not by this test module (see `.superpowers/sdd/task-6-report.md`).
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -71,11 +72,26 @@ def test_npz_round_trips(tmp_path: Path) -> None:
     sigma_e = _sigma_at(result, e_grid)
 
     out = tmp_path / "numeric.npz"
-    save_numeric_outputs(result, sigma_e, e_grid, out)
+    save_numeric_outputs(result, sigma_e, e_grid, out, dt=DT, wp_in=WP_IN, wp_out=WP_OUT)
     assert out.exists() and out.stat().st_size > 0
 
     with np.load(out) as data:
-        assert set(data.files) >= {"t", "c", "norm", "times", "rho_R", "rho_r", "E_grid", "sigma_E"}
+        assert set(data.files) >= {
+            "t",
+            "c",
+            "norm",
+            "times",
+            "rho_R",
+            "rho_r",
+            "E_grid",
+            "sigma_E",
+            "dt",
+            "wp_in",
+            "wp_out",
+        }
+        assert float(data["dt"]) == DT
+        assert json.loads(str(data["wp_in"])) == WP_IN
+        assert json.loads(str(data["wp_out"])) == WP_OUT
         np.testing.assert_array_equal(data["t"], result.t)
         np.testing.assert_array_equal(data["c"], result.c)
         np.testing.assert_array_equal(data["norm"], result.norm)
@@ -101,16 +117,31 @@ def test_v5_saved_c_reproduces_saved_sigma(tmp_path: Path) -> None:
     sigma_e = _sigma_at(result, e_grid)
 
     out = tmp_path / "numeric.npz"
-    save_numeric_outputs(result, sigma_e, e_grid, out)
+    save_numeric_outputs(result, sigma_e, e_grid, out, dt=DT, wp_in=WP_IN, wp_out=WP_OUT)
 
+    # Reload EVERYTHING the transform needs (incl. dt/wp_in/wp_out) purely
+    # from the .npz -- proves the file is self-contained for re-transform.
     with np.load(out) as data:
         reloaded = PropagationResult(
             t=data["t"], c=data["c"], norm=data["norm"], snapshots=[]
         )
         reloaded_e_grid = data["E_grid"]
         reloaded_sigma = data["sigma_E"]
+        reloaded_dt = float(data["dt"])
+        reloaded_wp_in = json.loads(str(data["wp_in"]))
+        reloaded_wp_out = json.loads(str(data["wp_out"]))
 
-    retransformed = _sigma_at(reloaded, reloaded_e_grid)
+    retransformed = sigma_from_correlations(
+        TG,
+        reloaded,
+        EPS,
+        V_INIT,
+        VPRIMES,
+        reloaded_e_grid,
+        dt=reloaded_dt,
+        wp_in=reloaded_wp_in,
+        wp_out=reloaded_wp_out,
+    )
     np.testing.assert_allclose(retransformed, reloaded_sigma, rtol=1e-12, atol=1e-14)
     np.testing.assert_allclose(retransformed, sigma_e, rtol=1e-12, atol=1e-14)
 

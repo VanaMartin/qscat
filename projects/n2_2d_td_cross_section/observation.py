@@ -25,11 +25,18 @@ Functions:
     unresolved (dotted, inside the spectral window but below the boomerang
     resolution floor), and outside the spectral window (faded, eta-
     deconvolution noise). Neither of the latter two is ever presented as
-    trustworthy signal.
+    trustworthy signal. On top of that, the specific `validated_anchors`
+    (energies gate-validated point-by-point against the exact TI oracle, e.g.
+    E=0.10/0.15) are drawn as trustworthy "validated" points regardless of
+    the resolution-floor heuristic -- E=0.10 sits in the boomerang energy
+    range but lands near the resonance peak where the feature is broad enough
+    to resolve, so it agrees with the exact TI there even though the dense
+    curve between anchors does not.
 """
 
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 
@@ -54,13 +61,23 @@ def save_numeric_outputs(
     sigma_E: npt.ArrayLike,
     E_grid: npt.ArrayLike,
     path: _PathLike,
+    *,
+    dt: float,
+    wp_in: dict[str, float],
+    wp_out: dict[str, float],
 ) -> None:
     """Write the sampled dynamics + cross-section arrays to a documented `.npz`.
 
     This file IS the primary numeric deliverable of sub-project #7 -- the
     user's stated goal is observing the transient-anion formation/decay in
     the raw correlation functions and densities, not just the final
-    `sigma(E)` curve.
+    `sigma(E)` curve. It is written to be *self-contained*: the propagation
+    time step `dt` and the incoming/outgoing wavepacket parameters
+    (`wp_in`/`wp_out`) that the Tannor-Weeks transform needs are stored
+    alongside `c(t)`, so a pure-`.npz` consumer can reload `t`/`c` and re-run
+    `td_cross_section.sigma_from_correlations(..., dt=..., wp_in=...,
+    wp_out=...)` to reproduce `sigma_E` without any externally-remembered
+    metadata.
 
     Keys and shapes (`n_t` = number of propagation samples, `n_ch` = number
     of outgoing channels `len(vprimes)`, `n_snap` = number of density
@@ -96,6 +113,22 @@ def save_numeric_outputs(
                                        `td_ve_cross_section_2d`'s array-`E`
                                        convention) -- `sigma_{v_init->v'}(E)`
                                        in bohr^2.
+      * `dt`        scalar float64   -- the propagation time step used to
+                                       generate `c(t)`; needed (with `t`) to
+                                       re-run the energy transform.
+      * `wp_in`     0-d string       -- the incoming-wavepacket parameter
+                                       dict (keys `r0`/`p0`/`sigma`), JSON-
+                                       encoded; reload with
+                                       `json.loads(str(data["wp_in"]))`.
+      * `wp_out`    0-d string       -- the outgoing-channel wavepacket
+                                       parameter dict (keys
+                                       `r0_out`/`p0_out`/`sigma_out`), JSON-
+                                       encoded; reload with
+                                       `json.loads(str(data["wp_out"]))`.
+
+    Together `dt`, `wp_in`, and `wp_out` make the file self-contained: they
+    are exactly the keyword arguments `sigma_from_correlations` needs beyond
+    the reloaded `t`/`c`.
 
     `rho_R`/`rho_r` are NOT masked to the real (unscaled) region here -- they
     are saved exactly as `td_propagation.propagate` computed them (see that
@@ -119,6 +152,9 @@ def save_numeric_outputs(
         rho_r=rho_r,
         E_grid=np.asarray(E_grid, dtype=np.float64),
         sigma_E=np.asarray(sigma_E, dtype=np.float64),
+        dt=np.float64(dt),
+        wp_in=np.asarray(json.dumps(wp_in)),
+        wp_out=np.asarray(json.dumps(wp_out)),
     )
 
 
@@ -254,6 +290,7 @@ def plot_sigma_vs_ti(
     usable: tuple[float, float],
     path: _PathLike,
     resolution_floor_e: float = 0.13,
+    validated_anchors: tuple[float, ...] = (0.10, 0.15),
 ) -> None:
     """sigma_TD(E) overlaid on #6's exact sigma_TI(E), THREE honestly-drawn regions.
 
@@ -295,6 +332,21 @@ def plot_sigma_vs_ti(
       * **outside the spectral window** (`|eta_incident(E)|` small): faded/
         dashed, labeled "eta-deconvolution noise" (unchanged from before).
 
+    `validated_anchors` overrides the resolution-floor heuristic for the
+    specific energies (default `(0.10, 0.15)`, Hartree) that were validated
+    point-by-point against the exact TI oracle at the `@slow` gate (harness
+    Group F). Those points -- when they appear in `E_grid` and fall inside
+    `usable` -- are drawn as trustworthy "validated" markers (large starred,
+    black-edged, legend "sigma_TD validated vs TI oracle") regardless of
+    whether they sit above or below `resolution_floor_e`, and are removed
+    from the well-converged and finite-T-unresolved sets so they are never
+    double-drawn. This resolves the apparent contradiction at E=0.10: it lies
+    in the boomerang energy range (below the ~0.13 finite-T floor), yet it
+    lands near the resonance peak where the exact feature is broad enough to
+    resolve, so `sigma_TD(0.10)` agrees with the exact TI (ratio 0.9305) and
+    is a legitimate gate anchor -- whereas the *dense* boomerang curve between
+    the anchors is genuinely not pointwise-resolved and stays dotted.
+
     No sigma value is altered by this function -- only how each point is
     drawn and labeled.
     """
@@ -318,10 +370,19 @@ def plot_sigma_vs_ti(
             zorder=0,
         )
 
+    # Gate-validated anchors: trustworthy point-by-point vs the exact TI
+    # oracle regardless of the resolution-floor heuristic. Only in-window
+    # points count, and they are pulled out of the converged / unresolved
+    # sets so each point is drawn exactly once.
+    validated = np.zeros(E.shape, dtype=bool)
+    for a in validated_anchors:
+        validated |= np.isclose(E, a, atol=1e-9)
+    validated &= (E >= e_lo) & (E <= e_hi)
+
     below = E < e_lo
     above = E > e_hi
-    unresolved = (E >= e_lo) & (E < resolution_floor_e)
-    converged = (E >= resolution_floor_e) & (E <= e_hi)
+    unresolved = (E >= e_lo) & (E < resolution_floor_e) & ~validated
+    converged = (E >= resolution_floor_e) & (E <= e_hi) & ~validated
 
     for j in range(n_ch):
         color = f"C{j}"
@@ -331,6 +392,24 @@ def plot_sigma_vs_ti(
         td_label = "sigma_TD (well-converged)" if n_ch == 1 else f"sigma_TD v'={j} (well-converged)"
         if np.any(converged):
             ax.plot(E[converged], td[converged, j], "o-", color=color, ms=4, label=td_label)
+
+        validated_label = (
+            "sigma_TD validated vs TI oracle"
+            if n_ch == 1
+            else f"sigma_TD v'={j} validated vs TI oracle"
+        )
+        if np.any(validated):
+            ax.plot(
+                E[validated],
+                td[validated, j],
+                "*",
+                color=color,
+                ms=14,
+                markeredgecolor="k",
+                markeredgewidth=0.7,
+                zorder=5,
+                label=validated_label if j == 0 else None,
+            )
 
         unresolved_label = (
             "sigma_TD finite-T unresolved (boomerang sub-features narrower than 2*pi/T)"

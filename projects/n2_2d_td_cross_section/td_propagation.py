@@ -12,8 +12,13 @@ Two cadences (the numeric-output design):
 once and reused; under the ECS contour `||Psi||` decays as outgoing flux is
 absorbed (the resonance depletes). Norm here is the Hermitian L2 norm
 `np.linalg.norm(psi)` -- the physical remaining-probability diagnostic, real
-and provably monotone non-increasing under CN with an absorbing (ECS) H. The
-c-product is a different object, reserved for the correlations `c_{v'}(t)`.
+and monotone non-increasing under CN in practice for the absorbing ECS
+contour (rigorously so when the anti-Hermitian part of H is negative
+semidefinite -- e.g. a negative-imaginary-diagonal H, as the Task-1
+propagator test covers; a general complex-symmetric ECS H does not guarantee
+it in the abstract, but the observed 2-D propagation decays monotonically).
+The c-product is a different object, reserved for the correlations
+`c_{v'}(t)`.
 """
 
 from __future__ import annotations

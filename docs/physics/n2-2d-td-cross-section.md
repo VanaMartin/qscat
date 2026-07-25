@@ -264,6 +264,19 @@ independently reproduced. 0.06/0.08/0.12 are the finite-T boomerang zone (above)
 `usable_window(frac=0.5)` on this 21-point scan gives `(0.06, 0.21)`, so only `E=0.22`
 falls genuinely outside the spectral window.
 
+The "well-converged anchor" label at `E=0.10` and the finite-T caveat are consistent, not
+contradictory: although `E=0.10` lies in the boomerang energy range below the `~0.13` Ha
+finite-T-resolution heuristic, it lands near the resonance peak where the exact TI feature is
+broad enough to resolve at `2*pi/T`, so `sigma_TD(0.10)` agrees pointwise with the exact TI
+there (ratio `0.9305`) and is a valid gate anchor — whereas the *dense* boomerang curve
+*between* the anchors (e.g. `E=0.08`/`0.12`) is not pointwise-resolved and is not trustworthy.
+The figure reflects exactly this: `plot_sigma_vs_ti`'s `validated_anchors=(0.10, 0.15)` draws
+those two gate-validated points as starred "validated vs TI oracle" markers (trustworthy
+regardless of the resolution floor), while the other sub-floor boomerang points stay dotted
+"finite-T unresolved". Both validated anchors bracket ratio `1.0` (`0.9305` below, `1.1033`
+above), and both are now shown as trustworthy rather than one sitting in a "not-trustworthy"
+zone.
+
 ## Harness Group F: reported, not re-run live
 
 `validation/n2/td_exact2d.py` computes nothing at harness run time. A full propagation at
