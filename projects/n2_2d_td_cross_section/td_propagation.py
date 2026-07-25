@@ -87,6 +87,7 @@ def propagate(
     else:
         snap_set = {0, n_t - 1}
     keep_set = {round(x / dt) for x in (keep_psi_at or [])}
+    snap_set |= keep_set  # a requested keep_psi_at time always gets a snapshot
 
     psi = psi0.astype(np.complex128).copy()
     snapshots: list[Snapshot] = []

@@ -77,3 +77,16 @@ def test_full_psi_kept_only_at_requested_times() -> None:
 def test_explicit_snapshot_times() -> None:
     res = propagate(TG, PSI0, OUT, dt=0.5, n_steps=40, snapshot_times=[0.0, 5.0, 20.0])
     assert [s.time for s in res.snapshots] == [0.0, 5.0, 20.0]
+
+
+def test_keep_psi_at_off_grid_time_gets_own_snapshot() -> None:
+    # t=7.0 is not on the sample_period=5 coarse grid (0,5,10,15,20); requesting
+    # keep_psi_at there must still produce a snapshot with the full Psi kept.
+    res = propagate(
+        TG, PSI0, OUT, dt=1.0, n_steps=20, sample_period=5, keep_psi_at=[7.0]
+    )
+    kept = {s.time: s for s in res.snapshots}
+    assert 7.0 in kept
+    s = kept[7.0]
+    assert s.psi is not None
+    assert s.psi.shape == (TG.size,)
