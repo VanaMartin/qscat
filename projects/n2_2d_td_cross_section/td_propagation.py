@@ -27,6 +27,7 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
+import scipy.sparse as sp
 from qscat.dvr import TensorGrid
 from qscat.evolution import make_sparse_cn_stepper
 from qscat.linalg import c_product
@@ -74,9 +75,16 @@ def propagate(
     sample_period: int = 0,
     snapshot_times: list[float] | None = None,
     keep_psi_at: list[float] | None = None,
+    hamiltonian: sp.spmatrix | None = None,
 ) -> PropagationResult:
-    """Propagate and sample. See module docstring for the two cadences."""
-    H = build_h2d(tgrid)
+    """Propagate and sample. See module docstring for the two cadences.
+
+    `hamiltonian` overrides the propagation Hamiltonian; when `None` (the
+    default) `build_h2d(tgrid)` is used. The override exists for the elastic
+    free-reference propagation (`H_2D` with the interaction `V_int` removed) --
+    see `td_cross_section._propagate`'s `free` path.
+    """
+    H = build_h2d(tgrid) if hamiltonian is None else hamiltonian
     step = make_sparse_cn_stepper(H, dt)
 
     n_t = n_steps + 1
