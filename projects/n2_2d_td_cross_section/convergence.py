@@ -78,14 +78,16 @@ TD_WORKING_GRID: dict = {
         "r_max": 22.0,
         "n_complex": 5,
     },
-    # dt=0.5, n_steps=3000 (T=1500 a.u.): Task 4's T-scan shows
-    # sigma_TD/sigma_TI at E=0.10 stops drifting with T once T>=1200
-    # (0.950, 0.931, 0.945 for T=1200/1500/1800); T=1500 is the value Task 4
-    # settled on. By T=1500, ||Psi|| has decayed 1.0 -> 0.024 (the resonance
-    # fully depletes -- the physical "formation and decay" this method is
-    # built to show).
-    "dt": 0.5,
-    "n_steps": 3000,
+    # dt=1.0, n_steps=1500 (T=1500 a.u.) with the order-3 Pade evolution
+    # operator (eMoScat's setting). The earlier order-1 Crank-Nicolson at
+    # dt=0.5 under-converged badly (~100% accumulated propagation error over
+    # 3000 steps -- see docs/physics/n2-2d-td-cross-section.md), capping
+    # TD-vs-TI at ~10-15%; order-3 Pade at dt=1.0 brings the whole 0.04-0.18 Ha
+    # curve to ~1-2% of the TI oracle. T=1500 still fully depletes ||Psi||
+    # (the resonance's formation and decay).
+    "dt": 1.0,
+    "n_steps": 1500,
+    "pade_order": 3,
     "wp_in": {
         # r0=25: launched well inside the box (see r_max's comment above),
         # far enough out that dt=0.5/n_steps=3000 is enough time to travel
@@ -141,12 +143,13 @@ def sigma_curve(
     n_steps: int | None = None,
     wp_in: dict[str, float] | None = None,
     wp_out: dict[str, float] | None = None,
+    order: int | None = None,
 ) -> npt.NDArray[np.float64]:
     """The whole `sigma_{v_init->v'}(E)` curve (bohr^2) from ONE propagation.
 
     Thin wrapper around `td_cross_section.td_ve_cross_section_2d` -- that
     public function already does exactly this: `c_{v'}(t)` does not depend on
-    E, so it runs the Crank-Nicolson propagation exactly once and then
+    E, so it runs the order-`order` Pade propagation exactly once and then
     transforms that SAME stored trajectory once per energy in the (array)
     `E` it is given. However dense `E_grid` is, only one propagation happens
     -- the "boomerang" curve is free once that one run (~250s at
@@ -154,8 +157,8 @@ def sigma_curve(
     it only supplies `TD_WORKING_GRID`'s defaults for the keyword-only
     propagation parameters when the caller leaves them `None`.
 
-    Any of `dt`/`n_steps`/`wp_in`/`wp_out` left `None` default to
-    `TD_WORKING_GRID`'s values.
+    Any of `dt`/`n_steps`/`wp_in`/`wp_out`/`order` left `None` default to
+    `TD_WORKING_GRID`'s values (`order` -> `TD_WORKING_GRID["pade_order"]`).
 
     Returns shape `(len(E_grid), len(vprimes))`, matching
     `projects.n2_2d_cross_section.cross_section_2d.ve_cross_section_2d`'s
@@ -167,10 +170,12 @@ def sigma_curve(
     n_steps = TD_WORKING_GRID["n_steps"] if n_steps is None else n_steps
     wp_in = TD_WORKING_GRID["wp_in"] if wp_in is None else wp_in
     wp_out = TD_WORKING_GRID["wp_out"] if wp_out is None else wp_out
+    order = TD_WORKING_GRID["pade_order"] if order is None else order
 
     e_arr = np.atleast_1d(np.asarray(E_grid, dtype=np.float64))
     return td.td_ve_cross_section_2d(
-        tgrid, eps, chi, v_init, vprimes, e_arr, dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out
+        tgrid, eps, chi, v_init, vprimes, e_arr,
+        dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, order=order,
     )
 
 

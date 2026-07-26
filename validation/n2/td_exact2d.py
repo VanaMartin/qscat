@@ -3,27 +3,16 @@
 harness WITHOUT a live TD propagation, but WITH a live TI cross-check.
 
 Why no live TD check (measured, not assumed): a full propagation at
-`TD_WORKING_GRID` (N=47188, T=1500 a.u.) takes ~210-250s wall (Task 4/6
-reports). Timed directly for THIS decision (`build_h2d` + `make_sparse_cn_
-stepper` factor + per-step cost, same grid/dt):
-
-    factor (sparse LU, once)         ~7.8 s
-    per Crank-Nicolson step          ~0.064 s
-    => n_steps=3000 (T=1500, the converged config)   ~200 s
-    => n_steps=1200 (T=600, the SHORTEST T on Task 4's own T-scan)  ~85 s
-
-Even T=600 -- already the loosest, least-converged point Task 4 actually
-measured (sigma_TD/sigma_TI = 0.760 at E=0.10, vs. 0.931 at the converged
-T=1500) -- costs ~85s, over the harness's ~60s per-group budget. Going
-shorter than T=600 would extrapolate outside the range Task 4 validated:
-at t=200 the norm has only decayed to 0.58 (the resonance has barely begun
-to deplete), so a T<600 tolerance would have to be so loose it would no
-longer test anything meaningful. This is a MEASURED EXECUTION DECISION, not
-a rule from the Task 7 brief (the brief does not specify a fallback
-threshold): the reduced-config cost (~85s, over budget) plus Task 4's own
-T-scan showing that config as its least-converged point make a live TD
-check both too slow and too loose to be worth running in-harness. Group F
-therefore reports the ALREADY-VALIDATED Task 4/6 sigma_TD as a literal,
+`TD_WORKING_GRID` (N=47188, T=1500 a.u., order-3 Pade / dt=1.0) takes
+several minutes wall -- and BOTH a full run and a V_int=0 free-reference run
+are needed for the elastic channel, doubling that. The order-3 Pade operator
+applies 3 LU back-substitutions per step (vs Crank-Nicolson's 1), so even at
+dt=1.0/n_steps=1500 the propagation is well over the harness's ~60s per-group
+budget. (Order-1 CN was cheaper per step but under-converged, capping
+sigma_TD/sigma_TI at ~0.93/1.10; the order-3 operator brings both anchors to
+~0.97/0.99 -- see docs/physics/n2-2d-td-cross-section.md -- at the cost of the
+extra factors, reinforcing the don't-run-live decision.) Group F therefore
+reports the ALREADY-VALIDATED sigma_TD as a literal,
 cited constant: no TD propagation runs when the harness executes this
 module. See `docs/physics/n2-2d-td-cross-section.md` for the full method
 and `.superpowers/sdd/task-4-report.md` / `task-6-report.md` for the
@@ -56,29 +45,30 @@ from validation.n2 import exact2d
 
 __all__ = ["TdExact2dResult", "compute_td_exact2d_results"]
 
-# Recorded sigma_TD anchors (Task 4/6 TD_WORKING_GRID, T=1500 converged run).
+# Recorded sigma_TD anchors (TD_WORKING_GRID: order-3 Pade, dt=1.0, T=1500).
 # There is no cheap live path for these -- a live check costs ~200s, over the
 # harness's ~60s/group budget (see module docstring) -- so sigma_TD stays a
 # cited, literal constant. sigma_TI is NOT included here: it is obtained live
 # in `compute_td_exact2d_results()` below, from Group E's already-cached
-# exact 2-D TI solver.
+# exact 2-D TI solver. (Order-1 Crank-Nicolson previously gave 5.6973/0.6904
+# here, ratios 0.93/1.10; the order-3 Pade operator brings both to ~0.97/0.99.)
 _RECORDED_TD_ANCHORS = (
     # (energy_ha, channel, sigma_td, rtol, source)
     (
         0.10,
         1,
-        5.6973,
-        0.10,
+        5.9595,
+        0.06,
         "test_td_cross_section.py::test_v2a_td_matches_ti_at_e010 (@slow) / "
-        "task-4-report.md T-scan T=1500 / task-6-report.md real run",
+        "order-3 Pade TD_WORKING_GRID run",
     ),
     (
         0.15,
         1,
-        0.6904,
-        0.15,
-        "test_td_cross_section.py::test_v2a_td_matches_ti_at_e015_usable_window_edge "
-        "(@slow) / task-4-report.md T-scan T=1500 / task-6-report.md real run",
+        0.6185,
+        0.06,
+        "test_td_cross_section.py::test_v2a_td_matches_ti_at_e015 (@slow) / "
+        "order-3 Pade TD_WORKING_GRID run",
     ),
 )
 

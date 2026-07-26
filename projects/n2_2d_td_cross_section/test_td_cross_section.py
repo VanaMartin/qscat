@@ -19,23 +19,20 @@
   (`correlation.py`'s `_outgoing_coeffs`, `h^{(1)}_{E,l}/2`), not the
   regular function: using the regular function (debug order item 7) gave
   `sigma_TD` five to six orders of magnitude too small (ratio ~1e-5); the
-  Hankel half brought it to within ~10-15% of the TI oracle.
-- Converged propagation: `dt = 0.5`, `n_steps = 3000` (`T = 1500` a.u.);
-  `norm` decays `1.0 -> 0.024` (fully depleted, well under the `< 0.05`
-  bar). Measured at this config: `sigma_TD/sigma_TI = 0.931` at
-  `(E=0.10, v'=1)` and `1.103` at `(E=0.15, v'=1)`. The `E=0.15` residual is
-  larger because it sits farther from the incident wavepacket's spectral
-  peak (`0.125` Ha) -- the deconvolution `eta_in(E)` amplifies whatever
-  residual truncation/discretization error remains, more so away from the
-  peak. This is the documented "usable spectral window" effect anticipated
-  by the task brief, not a solver defect -- confirmed by scanning multiple
-  propagation lengths (`T` in `[600, 900, ..., 1800]`, `.superpowers/sdd/
-  task-4-report.md`): the `E=0.15` ratio oscillates in `[1.10, 1.15]` across
-  that whole range, never approaching 1 as tightly as `E=0.10` does, which
-  is the signature of a usable-window residual rather than an unconverged
-  transient.
+  Hankel half brought it to the right order of magnitude.
+- Evolution operator: **order-3 diagonal Pade** (`qscat.evolution.make_pade_stepper`),
+  `dt = 1.0`, `n_steps = 1500` (`T = 1500` a.u.) -- eMoScat's setting. Order-1
+  Crank-Nicolson under-converges catastrophically over a multi-thousand-step
+  run (~100% accumulated propagation error at dt=0.5-1.0, verified vs `expm`),
+  which capped `sigma_TD/sigma_TI` at ~0.93/1.10 for `(E=0.10/0.15, v'=1)` and
+  left the boomerang oscillations unresolved. The order-3 Pade operator
+  (`O(dt^7)`) removes that: across 0.04-0.18 Ha `sigma_TD` matches the TI
+  oracle to ~1-2% median for all channels (elastic + excitations), tracking
+  the boomerang peaks point-by-point. `norm` still decays `~1.0 -> ~0.02` by
+  `T=1500` (the resonance's formation and decay). See
+  `docs/physics/n2-2d-td-cross-section.md`.
 
-One ~250s propagation is run ONCE at module scope (`td._propagate`, not the
+One ~5-min propagation is run ONCE at module scope (`td._propagate`, not the
 public `td_ve_cross_section_2d`, so the SAME stored `c(t)` can be
 transformed at multiple truncation lengths for V4 without re-propagating);
 every test transforms it with the public `sigma_from_correlations` -- exactly
@@ -71,9 +68,10 @@ VPRIMES = [1]
 WP_IN = {"r0": 25.0, "p0": -0.5, "sigma": 5.0}
 WP_OUT = {"r0_out": 35.0, "p0_out": 0.5, "sigma_out": 4.0}
 
-DT = 0.5
-N_STEPS = 3000  # T = 1500 a.u., converged (see module docstring)
-N_STEPS_SHORT = 2000  # T = 1000 a.u., V4's shorter-truncation comparison point
+DT = 1.0
+N_STEPS = 1500  # T = 1500 a.u., order-3 Pade (see module docstring)
+N_STEPS_SHORT = 1000  # T = 1000 a.u., V4's shorter-truncation comparison point
+PADE_ORDER = 3
 
 # `ve_cross_section_2d` at the two anchors, computed once (cheap: one sparse
 # LU solve per energy, not a propagation).
@@ -84,9 +82,10 @@ SIGMA_TI = {
 
 @pytest.fixture(scope="module")
 def propagation() -> td.PropagationResult:
-    """The ONE ~250s propagation this whole file reuses (see module docstring)."""
+    """The ONE ~5-min order-3 Pade propagation this file reuses (module docstring)."""
     return td._propagate(
-        TG, EPS, CHI, V_INIT, VPRIMES, dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT
+        TG, EPS, CHI, V_INIT, VPRIMES,
+        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, order=PADE_ORDER,
     )
 
 
@@ -98,17 +97,15 @@ def test_v2a_td_matches_ti_at_e010(propagation: td.PropagationResult) -> None:
         )[0]
     )
     assert sigma_td >= 0.0
-    # Measured ratio 0.931 at the converged (dt, n_steps) -- see module docstring.
-    assert sigma_td == pytest.approx(SIGMA_TI[0.10], rel=0.10)
+    # Order-3 Pade: measured ratio ~0.97 (was 0.931 with order-1 CN) -- the
+    # rel=0.06 gate reflects the converged accuracy, not the old CN residual.
+    assert sigma_td == pytest.approx(SIGMA_TI[0.10], rel=0.06)
 
 
 @pytest.mark.slow
-def test_v2a_td_matches_ti_at_e015_usable_window_edge(propagation: td.PropagationResult) -> None:
-    """E=0.15 sits farther from the incident wavepacket's spectral peak
-    (`p0**2/2 = 0.125` Ha) than E=0.10 does, so `|eta_in(E)|` is smaller and
-    the deconvolution is noisier here -- the documented usable-window effect
-    (module docstring), not a solver defect. Measured ratio 1.103; the
-    tolerance is set just above the measured value, not tightened to it.
+def test_v2a_td_matches_ti_at_e015(propagation: td.PropagationResult) -> None:
+    """With the order-3 Pade operator the E=0.15 point is no longer a
+    usable-window outlier (order-1 CN gave 1.103 here); measured ratio ~0.99.
     """
     sigma_td = float(
         td.sigma_from_correlations(
@@ -116,7 +113,7 @@ def test_v2a_td_matches_ti_at_e015_usable_window_edge(propagation: td.Propagatio
         )[0]
     )
     assert sigma_td >= 0.0
-    assert sigma_td == pytest.approx(SIGMA_TI[0.15], rel=0.15)
+    assert sigma_td == pytest.approx(SIGMA_TI[0.15], rel=0.06)
 
 
 @pytest.mark.slow
@@ -139,11 +136,11 @@ def test_v2b_closed_channel_is_exactly_zero(propagation: td.PropagationResult) -
 @pytest.mark.slow
 def test_v4_finite_t_stability_and_depletion(propagation: td.PropagationResult) -> None:
     """Truncating the SAME stored `c(t)` at `T=1000` vs the full `T=1500`
-    changes `sigma_TD(E=0.10)` by only a few percent (measured 0.958 vs
-    0.931 -- a 2.8% relative change), and `norm` has decayed well below the
-    `< 0.05` depletion bar by `T=1500`. No second propagation needed: this
-    truncates the one stored trajectory, which is exactly what makes this
-    check "free" per the task brief.
+    changes `sigma_TD(E=0.10)` by only a few percent, and `norm` has decayed
+    well below the `< 0.05` depletion bar by `T=1500`. No second propagation
+    needed: this truncates the one stored trajectory, which is exactly what
+    makes this check "free" per the task brief. (Convergence with propagation
+    length `T`; the order-3 Pade operator handles convergence with `dt`.)
     """
     full_sigma = float(
         td.sigma_from_correlations(
@@ -202,11 +199,12 @@ def elastic_propagations() -> tuple[td.PropagationResult, td.PropagationResult]:
     free (`_propagate(..., free=True)`) reference on the SAME wavepacket/grid.
     """
     full = td._propagate(
-        TG, EPS, CHI, V_INIT, [V_INIT], dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT
+        TG, EPS, CHI, V_INIT, [V_INIT],
+        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, order=PADE_ORDER,
     )
     free = td._propagate(
         TG, EPS, CHI, V_INIT, [V_INIT],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, free=True,
+        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, free=True, order=PADE_ORDER,
     )
     return full, free
 
@@ -215,11 +213,11 @@ def elastic_propagations() -> tuple[td.PropagationResult, td.PropagationResult]:
 def test_v2c_td_elastic_matches_ti_with_free_reference(
     elastic_propagations: tuple[td.PropagationResult, td.PropagationResult],
 ) -> None:
-    """Elastic sigma with the free-particle reference matches the exact TI oracle
-    in the resolved usable window; the literal-1 subtraction is orders of
-    magnitude too large. Measured elastic TD/TI at this config: 1.11 (E=0.14),
-    1.14 (E=0.15) -- rel=0.25 sits above that (headroom for solver/BLAS run-to-
-    run variation) while the broken literal-1 result is >50x the TI value.
+    """Elastic sigma with the free-particle reference matches the exact TI oracle;
+    the literal-1 subtraction is orders of magnitude too large. With the order-3
+    Pade operator, measured elastic TD/TI at this config is ~1.01 (E=0.14),
+    ~0.99 (E=0.15) -- rel=0.08 gates the converged accuracy, while the broken
+    literal-1 result is >50x the TI value.
     """
     full, free = elastic_propagations
     for e in ELASTIC_GATE_ENERGIES:
@@ -235,5 +233,5 @@ def test_v2c_td_elastic_matches_ti_with_free_reference(
                 TG, full, EPS, V_INIT, [V_INIT], e, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
             )[0]
         )
-        assert sigma_fixed == pytest.approx(sigma_ti, rel=0.25)
+        assert sigma_fixed == pytest.approx(sigma_ti, rel=0.08)
         assert sigma_literal1 > 50.0 * sigma_ti  # the bug the free reference fixes

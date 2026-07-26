@@ -46,14 +46,20 @@ the resolvent #6 computes directly.
    #6's static incident channel function `F_{E,l}(r) chi_v(R)` (one fixed energy), the
    wavepacket carries a *spread* of energies set by `p0`/`sigma` — this is what lets one
    propagation cover a whole `sigma(E)` curve at once (see below).
-2. **Sparse Crank-Nicolson propagation** (`qscat.evolution.make_sparse_cn_stepper(H, dt)`,
-   promoted from this sub-project's Task 1): the Cayley form
-   `(I + i H dt/2) psi_{n+1} = (I - i H dt/2) psi_n`, exact to `O(dt^3)` per step,
-   unconditionally stable. `H = H_2D` (built once via `hamiltonian2d.build_h2d`) is
-   time-independent, so **the sparse LU factorization happens exactly once** and is reused
-   for every one of the `n_steps` back-substitutions — this is the same "factor once,
-   reuse many times" structure #6 uses per-energy, applied here across time instead of
-   across energy. `H_2D`'s absorbing ECS tail makes `||psi(t)||` genuinely decay: this is
+2. **Order-3 Padé propagation** (`qscat.evolution.make_pade_stepper(H, dt, order=3)`): the
+   diagonal [3,3] Padé approximant of `exp(-i H dt)`, `exp(-iHdt) ~ prod_i (I - iHdt/r_i)
+   (I + iHdt/r_i)^{-1}` over the Padé roots `r_i`, accurate to `O(dt^7)` per step. Order 1
+   is ordinary Crank-Nicolson (`make_sparse_cn_stepper`, `O(dt^3)`) — and order-1 CN
+   **under-converges catastrophically** over a multi-thousand-step run: ~100% accumulated
+   propagation error at `dt = 0.5-1.0` (verified against `scipy.linalg.expm`), which capped
+   the earlier `sigma_TD/sigma_TI` at ~0.93/1.10 and left the boomerang oscillations
+   unresolved. The order-3 operator (eMoScat's setting, `dt = 1.0`) removes it: `sigma_TD`
+   matches the TI oracle to **~1-2% median across 0.04-0.18 Ha for all channels** (elastic +
+   excitations), tracking the boomerang peaks point-by-point. Each of the 3 denominators
+   `(I + iHdt/r_i)` is LU-factored **once** (via `SparseLU`) and reused for every step —
+   the same "factor once, reuse many times" structure #6 uses per-energy, applied across
+   time. `H = H_2D` (built once via `hamiltonian2d.build_h2d`) is time-independent.
+   `H_2D`'s absorbing ECS tail makes `||psi(t)||` genuinely decay: this is
    the mechanism by which the transient N₂⁻ resonance "leaks away" into the numerically
    absorbed continuum, exactly mirroring the physical autodetachment/dissociative-
    attachment decay.

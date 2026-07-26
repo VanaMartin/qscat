@@ -76,7 +76,13 @@ libs/       qscat — the standard library: validated, reusable QM code
               `make_sparse_cn_stepper(H, dt)`, the sparse sibling (factors
               once with `SparseLU`, matches the dense stepper to round-off) —
               promoted from the N2 2-D time-dependent cross-section project —
-              see docs/physics/n2-2d-td-cross-section.md.
+              see docs/physics/n2-2d-td-cross-section.md. Also
+              `make_pade_stepper(H, dt, order)` (+ `pade_roots`), the order-N
+              diagonal-Padé generalization of the sparse CN stepper (order 1 ==
+              CN; `O(dt^(2N+1))` per step). Order-1 CN under-converges badly
+              over a long propagation (~100% accumulated error at dt=0.5-1.0 vs
+              `expm`); order-3 Padé is what makes the TD cross section converge
+              to the TI oracle to ~1-2% — see docs/physics/n2-2d-td-cross-section.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
@@ -125,9 +131,13 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               outgoing normalization makes S_free≈2π²≠1, so |S−1|² left a ~500×
               spurious elastic background; `td_ve_cross_section_2d(...,
               subtract_free_reference=True)` (default) runs the reference
-              propagation and now matches TI to ~15% across the resolved usable
-              window (elastic + excitations), with a documented near-threshold
-              limit — see docs/physics/n2-2d-td-cross-section.md and the
+              propagation. The propagator is the order-3 diagonal Padé
+              (`make_pade_stepper`, dt=1.0, eMoScat's setting) — order-1 CN
+              under-converged, capping TD-vs-TI at ~10-15%; with order-3 the
+              TD cross section matches the exact TI (and Houfek) to ~1-2%
+              median across 0.04-0.18 Ha for elastic + first excitations,
+              boomerang oscillations resolved point-by-point — see
+              docs/physics/n2-2d-td-cross-section.md and the
               td-elastic-wavepacket-normalization note.
 validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
