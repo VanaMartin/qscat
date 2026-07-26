@@ -104,6 +104,11 @@ def _sigma_at_one_energy(
     e_tot = E + eps[v_init]
     k = float(np.sqrt(2.0 * E))
 
+    # `lu` is never `None` here: the caller builds (or refactors) the solver
+    # for every `E > 0` before this call, and the `E <= 0` case returned
+    # above. The assert makes that cross-function invariant explicit (and
+    # narrows the `SparseLU | None` type for the `.solve` below).
+    assert lu is not None
     psi_i = channel_vector(tgrid, k, chi[v_init])
     psi_plus = psi_i + lu.solve(v_diag * psi_i)
     v_psi = v_diag * psi_plus
