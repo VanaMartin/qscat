@@ -12,7 +12,7 @@ import numpy as np
 import pytest
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
-from qscat.linalg import SparseLU
+from qscat.linalg import SparseLU, default_backend, get_default_backend, set_default_backend
 from qscat.linalg._mumps_backend import mumps_available
 
 
@@ -203,3 +203,82 @@ def test_symmetric_autodetect_false_on_asymmetric_and_overridable() -> None:
     assert abs(A - A.T).max() > 1e-6  # guard: the fixture really is asymmetric
     assert SparseLU(A).symmetric is False  # auto-detect
     assert SparseLU(A, symmetric=True).symmetric is True  # explicit override honored
+
+
+# --- V4: fallback / absence (Mac-runnable; these assert the MUMPS-absent path) ---
+
+
+@pytest.mark.skipif(
+    mumps_available(), reason="asserts the MUMPS-ABSENT RuntimeError path (Mac only)"
+)
+def test_forced_mumps_without_mumps_raises_clear_error() -> None:
+    """`backend="mumps"` with MUMPS not installed must fail loudly, naming the
+    missing extra, rather than silently falling back to SuperLU (Task 2's
+    contract; confirmed here on the MUMPS-less box)."""
+    A = _complex_symmetric(40, seed=30)
+    with pytest.raises(RuntimeError, match=r"MUMPS backend requested but not available"):
+        SparseLU(A, backend="mumps")
+
+
+@pytest.mark.skipif(
+    mumps_available(), reason="asserts the MUMPS-ABSENT auto==scipy path (Mac only)"
+)
+def test_auto_is_bit_identical_to_scipy_when_mumps_absent() -> None:
+    """With MUMPS absent, `backend="auto"` IS the SuperLU path in every
+    observable way -- same backend label and bit-identical solve."""
+    A = _complex_symmetric(120, seed=31)
+    rng = np.random.default_rng(32)
+    b = rng.standard_normal(120) + 1j * rng.standard_normal(120)
+    auto = SparseLU(A)  # backend defaults to "auto"
+    scipy = SparseLU(A, backend="scipy")
+    assert auto.backend_used == "scipy"
+    assert np.array_equal(auto.solve(b), scipy.solve(b))  # bit-for-bit
+
+
+# --- default-backend override (the seam V2 uses to force a whole computation) ---
+
+
+def test_default_backend_override_is_scoped_and_restored() -> None:
+    """`default_backend("scipy")` forces every `"auto"` site to SuperLU inside
+    the block, and the previous default is restored on exit."""
+    A = _complex_symmetric(80, seed=33)
+    before = get_default_backend()
+    with default_backend("scipy"):
+        assert SparseLU(A).backend_used == "scipy"  # "auto" resolved to scipy
+    assert get_default_backend() == before  # restored
+
+
+def test_default_backend_override_restored_on_exception() -> None:
+    before = get_default_backend()
+    with pytest.raises(ValueError, match="boom"):
+        with default_backend("scipy"):
+            raise ValueError("boom")
+    assert get_default_backend() == before
+
+
+def test_explicit_backend_wins_over_default_override() -> None:
+    """An explicit `backend="scipy"` ignores the override; only `"auto"` sites
+    consult it."""
+    A = _complex_symmetric(80, seed=34)
+    with default_backend("scipy"):
+        # explicit scipy honored (trivially), and the override does not force
+        # anything an explicit arg already pins.
+        assert SparseLU(A, backend="scipy").backend_used == "scipy"
+
+
+def test_set_default_backend_rejects_unknown_name() -> None:
+    with pytest.raises(ValueError, match="unknown backend"):
+        set_default_backend("nope")  # type: ignore[arg-type]
+
+
+@pytest.mark.skipif(
+    mumps_available(), reason="asserts MUMPS-ABSENT behaviour of the override (Mac only)"
+)
+def test_default_backend_mumps_override_raises_when_absent() -> None:
+    """Forcing the default to `"mumps"` with MUMPS absent makes even an
+    `"auto"` call site raise the clear error (the override resolves `"auto"`
+    to `"mumps"`, which then fails loudly)."""
+    A = _complex_symmetric(40, seed=35)
+    with default_backend("mumps"):
+        with pytest.raises(RuntimeError, match="MUMPS backend requested but not available"):
+            SparseLU(A)

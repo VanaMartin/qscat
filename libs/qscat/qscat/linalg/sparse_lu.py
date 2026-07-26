@@ -44,6 +44,8 @@ FILL-IN DIAGNOSTICS COST MEMORY DIFFERENTLY -- READ BEFORE CALLING
 
 from __future__ import annotations
 
+from collections.abc import Iterator
+from contextlib import contextmanager
 from typing import Literal, cast
 
 import numpy as np
@@ -53,10 +55,58 @@ import scipy.sparse.linalg as spla
 
 from ._mumps_backend import _MumpsBackend, mumps_available
 
-__all__ = ["SparseLU"]
+__all__ = ["SparseLU", "set_default_backend", "get_default_backend", "default_backend"]
 
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 _Backend = Literal["auto", "scipy", "mumps"]
+
+# Process-wide default that `backend="auto"` resolves against. Lets a caller
+# force every internal `SparseLU(...)` -- e.g. the ones `ve_cross_section_2d`
+# creates without exposing a `backend=` kwarg -- onto one engine, for
+# differential backend-equivalence checks. An EXPLICIT `backend="scipy"` /
+# `backend="mumps"` at a call site always wins over this default; only the
+# `"auto"` sites (the default, and every call that does not name a backend)
+# consult it. Itself defaults to `"auto"` (prefer MUMPS when available, else
+# SuperLU), so absent any override the behaviour is exactly as before.
+_DEFAULT_BACKEND: _Backend = "auto"
+
+
+def set_default_backend(name: _Backend) -> None:
+    """Set the process-wide backend that `SparseLU(backend="auto")` resolves to.
+
+    `name` is `"auto"` (prefer MUMPS when available, else SuperLU -- the
+    original behaviour), `"scipy"`, or `"mumps"`. Only `"auto"` call sites
+    consult this; an explicit `backend="scipy"`/`"mumps"` argument always
+    overrides it. Prefer the `default_backend` context manager for scoped,
+    exception-safe changes.
+    """
+    global _DEFAULT_BACKEND
+    if name not in ("auto", "scipy", "mumps"):
+        raise ValueError(f"unknown backend {name!r}; expected auto/scipy/mumps")
+    _DEFAULT_BACKEND = name
+
+
+def get_default_backend() -> _Backend:
+    """The current process-wide default backend (see `set_default_backend`)."""
+    return _DEFAULT_BACKEND
+
+
+@contextmanager
+def default_backend(name: _Backend) -> Iterator[None]:
+    """Temporarily force the `"auto"` backend to `name` within a `with` block.
+
+    Restores the previous default on exit (including on exception). Used to
+    force a whole computation that builds `SparseLU` internally -- e.g.
+    `projects.n2_2d_cross_section.ve_cross_section_2d` -- through one specific
+    factorization backend, so the two backends can be compared for physics
+    equivalence without threading a `backend=` kwarg through every call site.
+    """
+    prev = get_default_backend()
+    set_default_backend(name)
+    try:
+        yield
+    finally:
+        set_default_backend(prev)
 
 
 class _ScipyBackend:
@@ -124,7 +174,11 @@ class SparseLU:
     absent); `"auto"` (the default) prefers MUMPS when available and falls back
     to scipy otherwise, so on a MUMPS-less box `"auto"` and `"scipy"` are
     identical in every observable way. `backend_used` reports which one
-    actually ran.
+    actually ran. An `"auto"` call site also consults the process-wide
+    override set by `set_default_backend` / the `default_backend` context
+    manager (an explicit `"scipy"`/`"mumps"` here overrides it) -- the seam
+    used to force an entire computation that builds `SparseLU` internally
+    onto one engine for a backend-equivalence check.
 
     `symmetric`, if left `None`, is auto-detected as `A == A.T` (an O(nnz)
     sparse comparison: `(abs(A - A.T)).max() == 0`, cheap relative to the
@@ -149,11 +203,16 @@ class SparseLU:
         self._nnz: int = int(csc.nnz)
         self._ordering = ordering
 
+        # Resolve `"auto"` against the process-wide default; an explicit
+        # `"scipy"`/`"mumps"` at the call site is honored verbatim and never
+        # consults the override.
+        resolved: _Backend = get_default_backend() if backend == "auto" else backend
+
         self._backend_used: str
-        if backend == "mumps" and not mumps_available():
-            # An explicit request for MUMPS must fail loudly rather than
-            # silently falling back to scipy -- and before doing any (wasted)
-            # symmetry detection on this error path.
+        if resolved == "mumps" and not mumps_available():
+            # An explicit (or defaulted-to) request for MUMPS must fail loudly
+            # rather than silently falling back to scipy -- and before doing
+            # any (wasted) symmetry detection on this error path.
             raise RuntimeError(
                 "MUMPS backend requested but not available "
                 "(qscat[mumps] / system MUMPS missing)"
@@ -166,15 +225,15 @@ class SparseLU:
         self._symmetric = symmetric
 
         self._impl: _ScipyBackend | _MumpsBackend
-        if backend == "scipy":
+        if resolved == "scipy":
             self._impl = _ScipyBackend(csc, ordering)
             self._backend_used = "scipy"
-        elif backend == "mumps":
+        elif resolved == "mumps":
             # Availability already checked above; select SYM=2 vs SYM=0 from
             # the (auto-detected or overridden) symmetry flag.
             self._impl = _MumpsBackend(csc, symmetric=self._symmetric)
             self._backend_used = "mumps"
-        else:  # backend == "auto": prefer MUMPS when available, else scipy.
+        else:  # resolved == "auto": prefer MUMPS when available, else scipy.
             if mumps_available():
                 self._impl = _MumpsBackend(csc, symmetric=self._symmetric)
                 self._backend_used = "mumps"
