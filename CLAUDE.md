@@ -36,7 +36,16 @@ libs/       qscat — the standard library: validated, reusable QM code
               `kron_sum` (Kronecker sum over arbitrary D), `SparseLU` (cached
               factorization with fill-in/memory diagnostics), and `c_product`
               (the bilinear, non-conjugated ECS inner product) -- see
-              docs/physics/nd-tensor-hamiltonian.md.
+              docs/physics/nd-tensor-hamiltonian.md. `SparseLU` dispatches
+              between SuperLU (`backend="scipy"`, numpy/scipy-only, the fallback
+              AND the differential oracle) and a complex-symmetric MUMPS `SYM=2`
+              backend (`backend="mumps"`, the optional `qscat[mumps]` extra):
+              `backend="auto"` (default) picks MUMPS if present else SuperLU,
+              and `set_default_backend`/`default_backend()` override what
+              `"auto"` resolves to process-wide. On the ECS-complex-symmetric
+              N₂ matrices MUMPS beats SuperLU by 72× in factor time / 9× in peak
+              RSS at the 143k production deck (3.6 s / 0.8 GB vs 260 s / 7.4 GB)
+              -- see docs/physics/mumps-sparse-backend.md.
             - qscat.dvr: FEM-DVR-ECS radial grid (`FemDvrEcsGrid`), kinetic-
               energy assembly (`kinetic`), and diagonal-potential Hamiltonian
               + eigensolver helpers (`hamiltonian`, `eigen`) — see
@@ -128,6 +137,11 @@ Root `pyproject.toml` sets `pythonpath = ["."]` under
 root without any path hacking. A module meant to be run directly (not just
 imported), such as `validation/n2/experiment.py`, is invoked as
 `python -m validation.n2.experiment`, not by file path.
+benchmarks/ standalone measurement scripts (a real package, run via
+            `python -m benchmarks.<name>`; imports `projects`, never imported by
+            `projects`/`qscat`) -- `mumps_vs_superlu` measures the MUMPS vs
+            SuperLU factor/solve/RSS/fill on the real N₂ 2-D matrices; run in
+            the Docker `test` image (needs system MUMPS + `qscat[mumps]`).
 reference/  read-only oracles: eMoScat (C++/CUDA snapshot), libXcuda
             (CUDA submodule) — for porting reference only, never imported
 docs/       specs/plans (docs/superpowers), physics notes (docs/physics),
@@ -163,9 +177,18 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     a Rust toolchain, and uv/Python 3.12. Code targets the standard CBLAS /
     LAPACKE / FFTW3 ABIs, so this layer is swappable. Default vendor choice
     (OpenBLAS/FFTW3) keeps ARM/Graviton open; an MKL x86-64 variant is a
-    planned future alternative, not implemented yet.
+    planned future alternative, not implemented yet. It also provisions system
+    **MUMPS** (`libmumps-seq-dev` + `libscotch-dev`, the sequential build) for
+    `qscat.linalg`'s optional MUMPS backend, and **synthesizes the pkg-config
+    `.pc` files** Debian omits (the conda-forge `{d,z,c,s}mumps_seq` names
+    python-mumps looks for) so the extra builds against the system library.
   - `docker/Dockerfile` is `FROM ${BASE_IMAGE}` and layers `build` → `test` →
-    `runtime` on top, using `uv sync --all-packages` for setup.
+    `runtime` on top, using `uv sync --all-packages` for setup. The `test`
+    stage adds `--extra mumps` so the MUMPS backend is exercised; `runtime`
+    deliberately omits it, keeping python-mumps out of the production image.
+    MUMPS tests run in the container and `@skipif`-absent on a MUMPS-less box
+    (a bare Mac), so the Mac suite stays green while the same tests run + pass
+    in Docker — see docs/physics/mumps-sparse-backend.md.
   - `docker/build.sh [test|runtime]` builds the base image then the
     requested app target. Verified working: `test` prints `5 passed`;
     `runtime` prints `qscat 0.0.0 ready`.
