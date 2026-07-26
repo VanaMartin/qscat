@@ -29,7 +29,7 @@ import numpy as np
 import numpy.typing as npt
 import scipy.sparse as sp
 from qscat.dvr import TensorGrid
-from qscat.evolution import make_sparse_cn_stepper
+from qscat.evolution import make_pade_stepper
 from qscat.linalg import c_product
 
 from projects.n2_2d_cross_section.hamiltonian2d import build_h2d
@@ -76,6 +76,7 @@ def propagate(
     snapshot_times: list[float] | None = None,
     keep_psi_at: list[float] | None = None,
     hamiltonian: sp.spmatrix | None = None,
+    order: int = 3,
 ) -> PropagationResult:
     """Propagate and sample. See module docstring for the two cadences.
 
@@ -83,9 +84,16 @@ def propagate(
     default) `build_h2d(tgrid)` is used. The override exists for the elastic
     free-reference propagation (`H_2D` with the interaction `V_int` removed) --
     see `td_cross_section._propagate`'s `free` path.
+
+    `order` is the diagonal-Pade order of the evolution operator
+    (`qscat.evolution.make_pade_stepper`): `O(dt^(2*order+1))` per step. The
+    default 3 matches eMoScat (order-1 Crank-Nicolson under-converges badly over
+    a multi-thousand-step run -- ~100% accumulated error at dt=0.5/1.0 -- and is
+    the reason an order-1 TD cross section only reached ~10-15% of the TI oracle;
+    order 3 brings it to convergence). See `docs/physics/n2-2d-td-cross-section.md`.
     """
     H = build_h2d(tgrid) if hamiltonian is None else hamiltonian
-    step = make_sparse_cn_stepper(H, dt)
+    step = make_pade_stepper(H, dt, order=order)
 
     n_t = n_steps + 1
     t = np.arange(n_t, dtype=np.float64) * dt

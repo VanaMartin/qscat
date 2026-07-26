@@ -102,6 +102,7 @@ def _propagate(
     wp_in: _WpIn,
     wp_out: _WpOut,
     free: bool = False,
+    order: int = 3,
 ) -> PropagationResult:
     """Propagate the incident packet and record `c_{v'}(t)` for each `v'`.
 
@@ -111,13 +112,18 @@ def _propagate(
     (see `_sigma_one_energy`). Everything else -- the incident packet, the
     outgoing test functions, the grid -- is identical to the full run, so the
     spurious direct/unscattered content cancels in `S_full - S_free`.
+
+    `order` is the diagonal-Pade evolution-operator order (default 3; see
+    `td_propagation.propagate`). Order 1 is Crank-Nicolson.
     """
     psi0 = initial_state(tgrid, chi[v_init], **wp_in)
     out_channels = [outgoing_channel(tgrid, chi[vp], **wp_out) for vp in vprimes]
     hamiltonian = None
     if free:
         hamiltonian = (build_h2d(tgrid) - sp.diags(interaction_diag(tgrid))).tocsr()
-    return propagate(tgrid, psi0, out_channels, dt=dt, n_steps=n_steps, hamiltonian=hamiltonian)
+    return propagate(
+        tgrid, psi0, out_channels, dt=dt, n_steps=n_steps, hamiltonian=hamiltonian, order=order
+    )
 
 
 def _s_vector_one_energy(
@@ -281,8 +287,9 @@ def td_ve_cross_section_2d(
     wp_in: _WpIn,
     wp_out: _WpOut,
     subtract_free_reference: bool = True,
+    order: int = 3,
 ) -> npt.NDArray[np.float64]:
-    """sigma_{v_init->v'}(E) (bohr^2), 2-D CN propagation + Tannor-Weeks transform.
+    """sigma_{v_init->v'}(E) (bohr^2), 2-D Pade propagation + Tannor-Weeks transform.
 
     `E` (collision energy, Hartree) may be scalar or array-like; scalar `E`
     returns shape `(len(vprimes),)`, array `E` returns `(len(E), len(vprimes))`
@@ -308,13 +315,14 @@ def td_ve_cross_section_2d(
     are identical either way.
     """
     result = _propagate(
-        tgrid, eps, chi, v_init, vprimes, dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out
+        tgrid, eps, chi, v_init, vprimes,
+        dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, order=order,
     )
     free_result = None
     if subtract_free_reference and v_init in vprimes:
         free_result = _propagate(
             tgrid, eps, chi, v_init, vprimes,
-            dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, free=True,
+            dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, free=True, order=order,
         )
     return sigma_from_correlations(
         tgrid, result, eps, v_init, vprimes, E,
