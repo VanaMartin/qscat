@@ -5,6 +5,12 @@ description = "QSCAT standard library — validated quantum-scattering numerics"
 requires-python = ">=3.12"
 dependencies = ["numpy>=2", "scipy>=1.14"]
 
+[project.optional-dependencies]
+# MUMPS complex-symmetric sparse backend for qscat.linalg.SparseLU. Builds
+# against a system MUMPS (see docker/base.Dockerfile); not installable without
+# it, hence optional. Install with: uv pip install "qscat[mumps]".
+mumps = ["python-mumps>=0.0.6"]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
