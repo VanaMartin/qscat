@@ -180,3 +180,60 @@ def test_public_api_shape_contract() -> None:
         TG, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15], dt=0.1, n_steps=2, wp_in=WP_IN, wp_out=WP_OUT
     )
     assert sigma_array.shape == (2, len(VPRIMES))
+
+
+# --- Elastic channel: the free-particle-reference subtraction (v' == v_init) ---
+# The outgoing normalization factor C(E) multiplies every channel's S, so the
+# inelastic sigma=|S|^2 already absorbs it -- but the diagonal sigma=|S-ref|^2
+# only isolates genuine scattering if `ref` is the actual unscattered value
+# S_free(E)=C(E), NOT a literal 1 (a free-particle V_int=0 propagation gives
+# |S_elastic|~2*pi^2, not 1). Subtracting a V_int=0 reference restores it. See
+# td_cross_section._sigma_one_energy and the `td-elastic-wavepacket-normalization`
+# note. Gate energies sit in the RESOLVED part of the usable window (E>=0.13);
+# below that the elastic channel degrades near threshold / on the steep resonance
+# rise, the ordinary TD finite-T limit (module docstring), not this fix.
+ELASTIC_GATE_ENERGIES = (0.14, 0.15)
+
+
+@pytest.fixture(scope="module")
+def elastic_propagations() -> tuple[td.PropagationResult, td.PropagationResult]:
+    """The full and the V_int=0 free-reference elastic-channel propagations
+    (~2x250s), reused across the elastic assertions -- one full run and one
+    free (`_propagate(..., free=True)`) reference on the SAME wavepacket/grid.
+    """
+    full = td._propagate(
+        TG, EPS, CHI, V_INIT, [V_INIT], dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT
+    )
+    free = td._propagate(
+        TG, EPS, CHI, V_INIT, [V_INIT],
+        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, free=True,
+    )
+    return full, free
+
+
+@pytest.mark.slow
+def test_v2c_td_elastic_matches_ti_with_free_reference(
+    elastic_propagations: tuple[td.PropagationResult, td.PropagationResult],
+) -> None:
+    """Elastic sigma with the free-particle reference matches the exact TI oracle
+    in the resolved usable window; the literal-1 subtraction is orders of
+    magnitude too large. Measured elastic TD/TI at this config: 1.11 (E=0.14),
+    1.14 (E=0.15) -- rel=0.25 sits above that (headroom for solver/BLAS run-to-
+    run variation) while the broken literal-1 result is >50x the TI value.
+    """
+    full, free = elastic_propagations
+    for e in ELASTIC_GATE_ENERGIES:
+        sigma_ti = float(ve_cross_section_2d(TG, EPS, CHI, V_INIT, [V_INIT], e)[0])
+        sigma_fixed = float(
+            td.sigma_from_correlations(
+                TG, full, EPS, V_INIT, [V_INIT], e,
+                dt=DT, wp_in=WP_IN, wp_out=WP_OUT, free_result=free,
+            )[0]
+        )
+        sigma_literal1 = float(
+            td.sigma_from_correlations(
+                TG, full, EPS, V_INIT, [V_INIT], e, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
+            )[0]
+        )
+        assert sigma_fixed == pytest.approx(sigma_ti, rel=0.25)
+        assert sigma_literal1 > 50.0 * sigma_ti  # the bug the free reference fixes

@@ -67,7 +67,7 @@ the resolvent #6 computes directly.
    ```
    S_{v->v'}(E) = [2*pi * conj(eta_out_{v'}(E)) * eta_in_v(E)]^{-1}
                   * sum_n w_n exp(i*E_tot*t_n) c_{v'}(t_n) * dt
-   sigma_{v->v'}(E) = pi |S - delta_{v,v'}|^2 / (2E)         [bohr^2, = #6's 4 pi^3 |T|^2 / (2E)]
+   sigma_{v->v'}(E) = pi |S - S_ref|^2 / (2E)               [bohr^2, = #6's 4 pi^3 |T|^2 / (2E)]
    ```
    `E_tot = E + eps[v_init]`, `w_n` composite Simpson weights (trapezoid fallback), and
    `eta_in`/`eta_out` **deconvolve** the wavepacket's own spectral content, leaving the
@@ -75,6 +75,31 @@ the resolvent #6 computes directly.
    transform can be evaluated at *any number* of energies from **one stored trajectory** —
    the whole `sigma(E)` "boomerang" curve is free once the single ~3.5-minute propagation
    is done (`convergence.sigma_curve`, Task 5).
+
+   **The unscattered reference `S_ref` (the elastic subtraction).** For an
+   inelastic channel (`v' != v_init`) `S_ref = 0` and `sigma = pi|S|^2/(2E)`.
+   For the **elastic/diagonal** channel the standard convention is `S_ref = 1`
+   (the Kronecker delta) — but that is only correct if the transform normalizes
+   the free/unscattered S-matrix to *exactly* 1, which THIS transform does not.
+   The outgoing normalization factor `C(E)` multiplies every channel's `S`
+   equally, so the inelastic `|S|^2` silently absorbs it (that is why the
+   excitation channels matched the TI oracle all along); but a free-particle
+   (`V_int = 0`) propagation gives `|S_free(E)| = C(E) ~ 2*pi^2`, NOT 1, so the
+   diagonal `|S - 1|^2` leaves a **~500x spurious elastic background**. The fix
+   is to subtract the actual unscattered value: `S_ref = S_free(E)`, the
+   S-matrix of a `V_int = 0` reference propagation run with the **same**
+   wavepacket and grid (`td_ve_cross_section_2d(..., subtract_free_reference=
+   True)`, the default, runs it; `_propagate(..., free=True)` builds the
+   reference; `sigma_from_correlations(..., free_result=...)` consumes it). This
+   also cancels, to leading order, the small already-outgoing tail any displaced
+   Gaussian carries (it evolves identically in the free reference). With the
+   reference subtracted, the elastic channel matches the exact TI solver to
+   within ~15% across the resolved usable window (elastic TD/TI = 1.03–1.14 for
+   E = 0.13–0.17 Ha on the working grid, from ~500x wrong). The residual
+   near-threshold elastic degradation (the `1/eta_out` deconvolution grows
+   ill-conditioned as `k -> 0`: `sqrt(2k/pi) -> 0` and the outgoing Hankel's
+   `y_l(kr) ~ (kr)^-(l+1)` diverges) is a documented low-E limit, not this bug —
+   see the `td-elastic-wavepacket-normalization` note and GitHub issue #1.
 
 ## The two physics facts settled by the exact-oracle gate
 

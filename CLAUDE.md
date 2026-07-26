@@ -119,8 +119,16 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               (`wavepacket.py`/`td_propagation.py`/`correlation.py`/
               `td_cross_section.py`/`convergence.py`/`observation.py`),
               validated against the exact 2-D solver as an exact differential
-              oracle (σ_TD/σ_TI = 0.93 at E=0.10, 1.10 at E=0.15) — see
-              docs/physics/n2-2d-td-cross-section.md.
+              oracle (σ_TD/σ_TI = 0.93 at E=0.10, 1.10 at E=0.15). The
+              ELASTIC (v'=v_init) channel subtracts a free-particle (V_int=0)
+              reference S_free(E) instead of a literal 1 — the transform's
+              outgoing normalization makes S_free≈2π²≠1, so |S−1|² left a ~500×
+              spurious elastic background; `td_ve_cross_section_2d(...,
+              subtract_free_reference=True)` (default) runs the reference
+              propagation and now matches TI to ~15% across the resolved usable
+              window (elastic + excitations), with a documented near-threshold
+              limit — see docs/physics/n2-2d-td-cross-section.md and the
+              td-elastic-wavepacket-normalization note.
 validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
               anchors this solver's σ_{0→v'}(E) against Karel Houfek's
