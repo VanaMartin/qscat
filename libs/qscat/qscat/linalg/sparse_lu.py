@@ -147,25 +147,27 @@ class SparseLU:
         self._nnz: int = int(csc.nnz)
         self._ordering = ordering
 
+        self._backend_used: str
+        if backend == "mumps":
+            # Task 3 seam: wire the real MUMPS complex-symmetric factorization
+            # in here (using `self.symmetric` to pick the MUMPS matrix type).
+            # Until then, an explicit request for MUMPS must fail loudly
+            # rather than silently falling back to scipy -- and before doing
+            # any (wasted) symmetry detection on this error path.
+            raise RuntimeError(
+                "MUMPS backend requested but not available "
+                "(qscat[mumps] / system MUMPS missing)"
+            )
+
         if symmetric is None:
             # O(nnz) sparse comparison -- cheap relative to the factorization
             # that follows, but not free, hence computed once and cached.
             symmetric = bool((abs(csc - csc.T)).max() == 0)
         self._symmetric = symmetric
 
-        self._backend_used: str
         if backend == "scipy":
             self._impl: _ScipyBackend = _ScipyBackend(csc, ordering)
             self._backend_used = "scipy"
-        elif backend == "mumps":
-            # Task 3 seam: wire the real MUMPS complex-symmetric factorization
-            # in here (using `self._symmetric` to pick the MUMPS matrix type).
-            # Until then, an explicit request for MUMPS must fail loudly
-            # rather than silently falling back to scipy.
-            raise RuntimeError(
-                "MUMPS backend requested but not available "
-                "(qscat[mumps] / system MUMPS missing)"
-            )
         else:  # backend == "auto"
             # Task 3 seam: try MUMPS first here (guarded by an availability
             # check), falling back to scipy on ImportError/unavailability.
@@ -181,6 +183,17 @@ class SparseLU:
     @property
     def ordering(self) -> str:
         return self._ordering
+
+    @property
+    def symmetric(self) -> bool:
+        """Whether `A` was treated as (complex-)symmetric `A == A.T`.
+
+        Auto-detected from `A` when `symmetric=None` was passed (the default),
+        or the explicit override. Informational on the scipy path; the MUMPS
+        path (Task 3) uses it to select the complex-symmetric (`SYM=2`) matrix
+        type instead of the general unsymmetric one.
+        """
+        return self._symmetric
 
     @property
     def backend_used(self) -> str:

@@ -158,7 +158,7 @@ def test_force_scipy_backend() -> None:
     A = _complex_symmetric(120, seed=22)
     lu = SparseLU(A, backend="scipy")
     assert lu.backend_used == "scipy"
-    assert lu.ordering_used in {"COLAMD", "NATURAL", "MMD_ATA", "MMD_AT_PLUS_A"}
+    assert lu.ordering_used == "COLAMD"  # the default permc_spec on the scipy path
 
 
 def test_ordering_still_applies_on_scipy_path() -> None:
@@ -169,8 +169,29 @@ def test_ordering_still_applies_on_scipy_path() -> None:
 
 
 def test_symmetric_autodetect_flag_is_recorded() -> None:
-    """A == A.T is detected (used by the MUMPS path later); scipy ignores it."""
-    A = _complex_symmetric(80, seed=24)  # symmetric fixture
+    """A == A.T is genuinely detected (the MUMPS path uses it to pick SYM=2)."""
+    A = _complex_symmetric(80, seed=24)  # symmetric fixture (A == A.T)
     lu = SparseLU(A)  # symmetric=None => auto-detect
-    # exposed for the MUMPS path; on scipy it is informational only
+    assert lu.symmetric is True  # detected symmetric
     assert lu.backend_used == "scipy"
+
+
+def _asymmetric(n: int, seed: int) -> sp.csc_matrix:
+    """A well-conditioned sparse complex matrix with A != A.T (built like
+    `_complex_symmetric` but WITHOUT the `m + m.T` symmetrization)."""
+    rng = np.random.default_rng(seed)
+    nnz = 5 * n
+    rows = rng.integers(0, n, size=nnz)
+    cols = rng.integers(0, n, size=nnz)
+    vals = rng.standard_normal(nnz) + 1j * rng.standard_normal(nnz)
+    m = sp.coo_matrix((vals, (rows, cols)), shape=(n, n), dtype=complex).tocsr()
+    m = m + sp.identity(n, format="csr", dtype=complex) * (10.0 + 3.0j)
+    return sp.csc_matrix(m)
+
+
+def test_symmetric_autodetect_false_on_asymmetric_and_overridable() -> None:
+    """A genuinely non-symmetric matrix is detected False; the flag is overridable."""
+    A = _asymmetric(80, seed=25)
+    assert abs(A - A.T).max() > 1e-6  # guard: the fixture really is asymmetric
+    assert SparseLU(A).symmetric is False  # auto-detect
+    assert SparseLU(A, symmetric=True).symmetric is True  # explicit override honored
