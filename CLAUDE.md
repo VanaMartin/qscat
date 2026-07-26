@@ -45,7 +45,15 @@ libs/       qscat — the standard library: validated, reusable QM code
               `"auto"` resolves to process-wide. On the ECS-complex-symmetric
               N₂ matrices MUMPS beats SuperLU by 72× in factor time / 9× in peak
               RSS at the 143k production deck (3.6 s / 0.8 GB vs 260 s / 7.4 GB)
-              -- see docs/physics/mumps-sparse-backend.md.
+              -- see docs/physics/mumps-sparse-backend.md. `SparseLU.refactor(
+              A_new)` reuses the symbolic analysis (same sparsity pattern, e.g. a
+              diagonal shift `E_tot·I − H` across an energy sweep): MUMPS
+              `factor(reuse_analysis=True)` skips the SCOTCH ordering; scipy
+              re-runs `splu` (correct, no reuse); a pattern guard raises on a
+              structure mismatch. On the N₂ working grid a reuse sweep is ~80% /
+              ~5× faster than fresh-per-energy (the analysis dominates the cheap
+              numeric factor there; the fraction shrinks for larger decks) — see
+              docs/physics/ti-energy-sweep-reuse.md.
             - qscat.dvr: FEM-DVR-ECS radial grid (`FemDvrEcsGrid`), kinetic-
               energy assembly (`kinetic`), and diagonal-potential Hamiltonian
               + eigensolver helpers (`hamiltonian`, `eigen`) — see
@@ -95,7 +103,14 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               gated against Houfek's data as an independent implementation of
               the same model/method; once gated, it is the ORACLE the
               1-D LCP solver is compared against — see
-              docs/physics/n2-2d-cross-section.md.
+              docs/physics/n2-2d-cross-section.md. `ve_cross_section_2d` sweeps
+              energies analyze-once/refactor-per-energy (via
+              `SparseLU.refactor`) — same σ, cheaper sweep. The generic,
+              experiment-agnostic `cross_section_plot.plot_cross_sections`
+              (no physics, reference passed as an argument — reusable for
+              F₂/NO) renders the dense σ_{0→v'}(E) curves; the committed N₂
+              curve vs Houfek is docs/physics/figures/n2-2d-ti-cross-section.png
+              — see docs/physics/ti-energy-sweep-reuse.md.
             - `n2_2d_td_cross_section`: time-dependent (sparse Crank-Nicolson
               propagation + Tannor-Weeks energy transform) route to the SAME
               exact 2-D N₂ vibrational-excitation cross section as
@@ -125,7 +140,12 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               the harness's per-group budget, so the genuine PASS/FAIL gate
               lives in `n2_2d_td_cross_section/test_td_cross_section.py`'s
               `@slow` tests instead. Run the harness with
-              `uv run python -m validation.n2.experiment`.
+              `uv run python -m validation.n2.experiment`. `ti_curve.py` is the
+              N₂-specific driver behind the dense exact-2D σ(E) figure: it reads
+              Houfek (`loader`) and calls the generic `plot_cross_sections`
+              (validation may import projects; projects must not import
+              validation), and `test_ti_curve.py` gates the dense curve against
+              Houfek at the anchors — see docs/physics/ti-energy-sweep-reuse.md.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo
@@ -140,8 +160,10 @@ imported), such as `validation/n2/experiment.py`, is invoked as
 benchmarks/ standalone measurement scripts (a real package, run via
             `python -m benchmarks.<name>`; imports `projects`, never imported by
             `projects`/`qscat`) -- `mumps_vs_superlu` measures the MUMPS vs
-            SuperLU factor/solve/RSS/fill on the real N₂ 2-D matrices; run in
-            the Docker `test` image (needs system MUMPS + `qscat[mumps]`).
+            SuperLU factor/solve/RSS/fill on the real N₂ 2-D matrices;
+            `sweep_reuse` measures the energy-sweep symbolic-reuse speedup
+            (`SparseLU.refactor` vs fresh-per-energy); both run in the Docker
+            `test` image (need system MUMPS + `qscat[mumps]`).
 reference/  read-only oracles: eMoScat (C++/CUDA snapshot), libXcuda
             (CUDA submodule) — for porting reference only, never imported
 docs/       specs/plans (docs/superpowers), physics notes (docs/physics),

@@ -262,3 +262,28 @@ def test_array_of_energies_matches_scalar_calls() -> None:
         assert both[i, 0] == pytest.approx(
             ve_cross_section_2d(TG, EPS, CHI, 0, [1], e)[0], rel=1e-12
         )
+
+
+def test_reuse_swept_equals_per_energy_calls() -> None:
+    """V2 gate: analyze-once/refactor-per-energy reuse must not change the
+    physics. An array `E` builds ONE `SparseLU` and `refactor`s it per open
+    energy; a scalar `E` builds a fresh `SparseLU`. The swept result must equal
+    the stack of the individual scalar calls to round-off.
+
+    The leading `E=0.0` (below threshold) exercises the lazy-init path: no
+    factorization happens there, and the solver is built at the first `E > 0`
+    (0.1), then refactored at 0.15 and 0.2. On the scipy path both routes run
+    `splu` (bit-identical); on the MUMPS path the array route reuses the
+    symbolic analysis while the scalar route re-analyzes each time, so they
+    agree only to ~1e-9 -- hence the modest `rel=1e-9` tolerance rather than
+    exact equality.
+    """
+    energies = [0.0, 0.1, 0.15, 0.2]
+    vprimes = [0, 1, 2]
+    swept = ve_cross_section_2d(TG, EPS, CHI, 0, vprimes, energies)
+    assert swept.shape == (len(energies), len(vprimes))
+
+    per_energy = np.stack(
+        [ve_cross_section_2d(TG, EPS, CHI, 0, vprimes, e) for e in energies]
+    )
+    assert swept == pytest.approx(per_energy, rel=1e-9)

@@ -140,3 +140,19 @@ def test_mumps_upper_triangle_trap_would_be_caught() -> None:
     # and the correct (unsymmetric SYM=0) MUMPS path matches scipy
     x_unsym = SparseLU(A, backend="mumps", symmetric=False).solve(b)
     assert np.linalg.norm(x_unsym - x_true) / np.linalg.norm(x_true) < 1e-10
+
+
+def test_mumps_refactor_reuses_analysis_matches_fresh() -> None:
+    """analyze once, refactor(A_shift) per shift == fresh SuperLU each time."""
+    n = 400
+    A0 = _complex_symmetric(n, seed=300)
+    lu = SparseLU(A0, backend="mumps")
+    rng = np.random.default_rng(9)
+    b = rng.standard_normal(n) + 1j * rng.standard_normal(n)
+    for shift in (2.0 + 1.0j, -3.0 + 0.5j, 5.0 - 2.0j):
+        A = (A0 + shift * sp.identity(n, dtype=complex)).tocsc()
+        lu.refactor(A)
+        x = lu.solve(b)
+        x_ref = SparseLU(A, backend="scipy").solve(b)
+        assert np.linalg.norm(x - x_ref) / np.linalg.norm(x_ref) < 1e-9
+    assert lu.backend_used == "mumps"
