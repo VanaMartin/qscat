@@ -80,18 +80,23 @@ def plot_cross_sections(
     fig, ax = plt.subplots(figsize=(8, 6))
     colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
 
+    # Parse the (E_ref, sigma_ref) overlay once, not per channel.
+    e_ref_arr = s_ref_arr = None
+    if reference is not None:
+        e_ref, sigma_ref = reference
+        e_ref_arr = np.asarray(e_ref, dtype=np.float64)
+        s_ref_arr = np.where(
+            (tmp := np.asarray(sigma_ref, dtype=np.float64)) > 0.0, tmp, np.nan
+        )
+
     s_masked = np.where(s > 0.0, s, np.nan)
     for j, ch in enumerate(ch_labels):
         color = colors[j % len(colors)]
         ax.plot(e, s_masked[:, j], "-", color=color, label=f"v'={ch} (computed)")
 
-        if reference is not None:
-            e_ref, sigma_ref = reference
-            e_ref_arr = np.asarray(e_ref, dtype=np.float64)
-            s_ref_arr = np.asarray(sigma_ref, dtype=np.float64)
-            s_ref_masked = np.where(s_ref_arr[:, j] > 0.0, s_ref_arr[:, j], np.nan)
+        if e_ref_arr is not None and s_ref_arr is not None:
             ax.plot(
-                e_ref_arr, s_ref_masked, "--", marker="o", markersize=2.5,
+                e_ref_arr, s_ref_arr[:, j], "--", marker="o", markersize=2.5,
                 linewidth=0.8, color=color, alpha=0.6, label=f"v'={ch} (reference)",
             )
 
