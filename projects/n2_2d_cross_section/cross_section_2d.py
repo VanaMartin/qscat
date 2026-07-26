@@ -83,7 +83,7 @@ def channel_vector(
 
 def _sigma_at_one_energy(
     tgrid: TensorGrid,
-    lu: SparseLU,
+    lu: SparseLU | None,
     v_diag: npt.NDArray[np.complex128],
     eps: npt.NDArray[np.float64],
     chi: npt.NDArray[np.complex128],
@@ -189,11 +189,24 @@ def ve_cross_section_2d(
     v_diag = lam_scale * interaction_diag(tgrid)
     ident = sp.identity(tgrid.size, format="csc", dtype=np.complex128)
 
+    # `A(E) = e_tot*ident - H` has an E-INDEPENDENT sparsity pattern (H fixed;
+    # the identity only shifts the already-present diagonal), so the symbolic
+    # analysis is done ONCE and reused: build `SparseLU` at the first energy
+    # that needs a solve, then `refactor` it per subsequent energy. Energies
+    # with `E <= 0` return zeros without any factorization (`_sigma_at_one_energy`
+    # short-circuits before touching `lu`), so the solver is built lazily at the
+    # first `E > 0` -- never for a below-threshold energy.
     out = []
     psis = []
+    lu: SparseLU | None = None
     for e in e_arr:
-        e_tot = float(e) + eps[v_init]
-        lu = SparseLU((e_tot * ident - H).tocsc(), ordering=ordering)
+        if float(e) > 0.0:
+            e_tot = float(e) + eps[v_init]
+            a = (e_tot * ident - H).tocsc()
+            if lu is None:
+                lu = SparseLU(a, ordering=ordering)
+            else:
+                lu.refactor(a)
         s, psi = _sigma_at_one_energy(
             tgrid, lu, v_diag, eps, chi, v_init, vprimes, float(e),
             want_psi=return_wavefunction,
