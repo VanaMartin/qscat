@@ -13,6 +13,7 @@ import pytest
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
 from qscat.linalg import SparseLU
+from qscat.linalg._mumps_backend import mumps_available
 
 
 def _complex_symmetric(n: int, seed: int) -> sp.csc_matrix:
@@ -68,8 +69,11 @@ def test_factorization_is_reused_across_solves() -> None:
 
 
 def test_diagnostics_are_reported() -> None:
+    # Pinned to scipy: this asserts the SuperLU diagnostics contract (exact
+    # materialized-factor bytes, always > 0). MUMPS reports memory in whole MB
+    # -- 0 for a matrix this small -- and has its own diagnostics test.
     A = _complex_symmetric(200, seed=4)
-    lu = SparseLU(A)
+    lu = SparseLU(A, backend="scipy")
     assert lu.shape == (200, 200)
     assert lu.fill_factor >= 1.0
     assert lu.memory_bytes() > 0
@@ -87,7 +91,7 @@ def test_fill_factor_is_a_sane_proxy_for_materialized_lu_nnz() -> None:
     `SparseLU`'s internals.
     """
     A = _complex_symmetric(150, seed=7)
-    lu = SparseLU(A)
+    lu = SparseLU(A, backend="scipy")  # SuperLU-specific proxy, pin the backend
     bare = spla.splu(sp.csc_matrix(A, dtype=np.complex128), permc_spec="COLAMD")
     materialized = float(bare.L.nnz + bare.U.nnz) / float(A.nnz)
     assert lu.fill_factor / materialized == pytest.approx(1.0, rel=0.5)
@@ -109,7 +113,9 @@ def test_ordering_is_configurable_and_changes_fill() -> None:
     b = rng.standard_normal(n) + 1j * rng.standard_normal(n)
     fill_factors: dict[str, float] = {}
     for ordering in ("COLAMD", "MMD_AT_PLUS_A", "NATURAL"):
-        lu = SparseLU(A, ordering=ordering)
+        # `ordering` is scipy's permc_spec; MUMPS chooses its own ordering, so
+        # this fill-in comparison is meaningful only on the scipy backend.
+        lu = SparseLU(A, ordering=ordering, backend="scipy")
         assert np.linalg.norm(A @ lu.solve(b) - b) / np.linalg.norm(b) < 1e-12
         fill_factors[ordering] = lu.fill_factor
     assert fill_factors["MMD_AT_PLUS_A"] < 0.7 * fill_factors["COLAMD"]
@@ -143,13 +149,15 @@ def test_solve_rejects_0d_right_hand_side() -> None:
         lu.solve(np.array(1.0 + 0j))
 
 
-def test_default_backend_is_scipy_and_bit_identical() -> None:
-    """backend='auto' with MUMPS absent == the old SuperLU behaviour exactly."""
+def test_default_backend_prefers_mumps_when_available_else_scipy() -> None:
+    """backend='auto' picks MUMPS when available, else SuperLU; either way it
+    solves to roundoff. With MUMPS absent (e.g. the Mac) it IS the old SuperLU
+    behaviour exactly."""
     A = _complex_symmetric(200, seed=20)
     rng = np.random.default_rng(21)
     b = rng.standard_normal(200) + 1j * rng.standard_normal(200)
     lu = SparseLU(A)  # unchanged call site
-    assert lu.backend_used == "scipy"
+    assert lu.backend_used == ("mumps" if mumps_available() else "scipy")
     x = lu.solve(b)
     assert np.linalg.norm(A @ x - b) / np.linalg.norm(b) < 1e-12
 
@@ -173,7 +181,7 @@ def test_symmetric_autodetect_flag_is_recorded() -> None:
     A = _complex_symmetric(80, seed=24)  # symmetric fixture (A == A.T)
     lu = SparseLU(A)  # symmetric=None => auto-detect
     assert lu.symmetric is True  # detected symmetric
-    assert lu.backend_used == "scipy"
+    assert lu.backend_used == ("mumps" if mumps_available() else "scipy")
 
 
 def _asymmetric(n: int, seed: int) -> sp.csc_matrix:

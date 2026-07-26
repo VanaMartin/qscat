@@ -7,8 +7,11 @@ ARG BASE_IMAGE=qmodeling-base:latest
 FROM ${BASE_IMAGE} AS build
 WORKDIR /app
 COPY . .
-# --all-packages installs qscat AND builds/installs the Rust qscat_kernels
-RUN uv sync --all-packages
+# --all-packages installs qscat AND builds/installs the Rust qscat_kernels;
+# --extra mumps pulls in python-mumps (which links the system MUMPS provisioned
+# in the base image) so the complex-symmetric MUMPS backend is exercised, not
+# skipped, by the test stage below.
+RUN uv sync --all-packages --extra mumps
 
 FROM build AS test
 # --no-sync so uv does not re-resolve and prune the just-built workspace members

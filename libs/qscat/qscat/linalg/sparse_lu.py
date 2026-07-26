@@ -51,6 +51,8 @@ import numpy.typing as npt
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
 
+from ._mumps_backend import _MumpsBackend, mumps_available
+
 __all__ = ["SparseLU"]
 
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
@@ -116,20 +118,20 @@ class SparseLU:
     matrix.
 
     `backend` selects the factorization engine: `"scipy"` is the SuperLU path
-    above (the only one implemented so far); `"mumps"` is reserved for a
-    complex-symmetric MUMPS factorization (not yet implemented -- provisioned
-    in Docker but not wired in here); `"auto"` (the default) prefers MUMPS
-    when available and falls back to scipy otherwise -- today that fallback
-    is unconditional, since no MUMPS path exists yet, so `"auto"` and
-    `"scipy"` are currently identical in every observable way. `backend_used`
-    reports which one actually ran.
+    above; `"mumps"` is the complex-symmetric MUMPS factorization (available
+    only where system MUMPS + the `qscat[mumps]` extra are installed -- the
+    Docker image, not a bare Mac -- and raising `RuntimeError` if forced when
+    absent); `"auto"` (the default) prefers MUMPS when available and falls back
+    to scipy otherwise, so on a MUMPS-less box `"auto"` and `"scipy"` are
+    identical in every observable way. `backend_used` reports which one
+    actually ran.
 
     `symmetric`, if left `None`, is auto-detected as `A == A.T` (an O(nnz)
     sparse comparison: `(abs(A - A.T)).max() == 0`, cheap relative to the
     factorization itself). It is informational only on the scipy path --
-    SuperLU does not exploit symmetry -- but is stored for the future MUMPS
-    path (Task 3), which will use it to select the complex-symmetric MUMPS
-    matrix type instead of the general unsymmetric one.
+    SuperLU does not exploit symmetry -- but on the MUMPS path it selects the
+    complex-symmetric `SYM=2` matrix type (upper triangle only) instead of the
+    general unsymmetric `SYM=0` one.
     """
 
     def __init__(
@@ -148,12 +150,10 @@ class SparseLU:
         self._ordering = ordering
 
         self._backend_used: str
-        if backend == "mumps":
-            # Task 3 seam: wire the real MUMPS complex-symmetric factorization
-            # in here (using `self.symmetric` to pick the MUMPS matrix type).
-            # Until then, an explicit request for MUMPS must fail loudly
-            # rather than silently falling back to scipy -- and before doing
-            # any (wasted) symmetry detection on this error path.
+        if backend == "mumps" and not mumps_available():
+            # An explicit request for MUMPS must fail loudly rather than
+            # silently falling back to scipy -- and before doing any (wasted)
+            # symmetry detection on this error path.
             raise RuntimeError(
                 "MUMPS backend requested but not available "
                 "(qscat[mumps] / system MUMPS missing)"
@@ -165,16 +165,22 @@ class SparseLU:
             symmetric = bool((abs(csc - csc.T)).max() == 0)
         self._symmetric = symmetric
 
+        self._impl: _ScipyBackend | _MumpsBackend
         if backend == "scipy":
-            self._impl: _ScipyBackend = _ScipyBackend(csc, ordering)
-            self._backend_used = "scipy"
-        else:  # backend == "auto"
-            # Task 3 seam: try MUMPS first here (guarded by an availability
-            # check), falling back to scipy on ImportError/unavailability.
-            # For now there is no MUMPS path at all, so "auto" always falls
-            # straight through to scipy.
             self._impl = _ScipyBackend(csc, ordering)
             self._backend_used = "scipy"
+        elif backend == "mumps":
+            # Availability already checked above; select SYM=2 vs SYM=0 from
+            # the (auto-detected or overridden) symmetry flag.
+            self._impl = _MumpsBackend(csc, symmetric=self._symmetric)
+            self._backend_used = "mumps"
+        else:  # backend == "auto": prefer MUMPS when available, else scipy.
+            if mumps_available():
+                self._impl = _MumpsBackend(csc, symmetric=self._symmetric)
+                self._backend_used = "mumps"
+            else:
+                self._impl = _ScipyBackend(csc, ordering)
+                self._backend_used = "scipy"
 
     @property
     def shape(self) -> tuple[int, int]:
@@ -197,7 +203,7 @@ class SparseLU:
 
     @property
     def backend_used(self) -> str:
-        """Which backend actually factorized `A`: `"scipy"` (only option today)."""
+        """Which backend actually factorized `A`: `"scipy"` or `"mumps"`."""
         return self._backend_used
 
     @property
@@ -205,8 +211,8 @@ class SparseLU:
         """The ordering the active backend actually used.
 
         On the scipy path this is scipy's `permc_spec` (identical to
-        `ordering`); the MUMPS path (Task 3) will report MUMPS's own chosen
-        ordering here instead.
+        `ordering`); on the MUMPS path it is MUMPS's own chosen ordering
+        (e.g. `"scotch"`/`"metis"`/`"amd"`), read from `INFOG(7)`.
         """
         return self._impl.ordering_used
 
