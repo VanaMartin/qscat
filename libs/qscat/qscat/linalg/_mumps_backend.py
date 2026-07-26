@@ -60,6 +60,10 @@ _INFOG_ENTRIES_IN_FACTORS = 29  # effective number of entries in the factors
 _INFOG_MEMORY_MB = 22  # memory (MB) effectively used during factorization
 
 # INFOG(7) ordering codes -> human names (MUMPS manual, ICNTL(7)/INFOG(7)).
+# INFOG(7) reports the ordering MUMPS ACTUALLY used (0-6); it never reports 7
+# ("auto" is an ICNTL(7) *request* value that MUMPS resolves to a concrete
+# 0-6 code by analysis time), so there is deliberately no `7` key here -- an
+# unexpected code falls through to `_ORDERING_NAMES.get(code, f"code-{code}")`.
 _ORDERING_NAMES: dict[int, str] = {
     0: "amd",
     1: "user",
@@ -68,7 +72,6 @@ _ORDERING_NAMES: dict[int, str] = {
     4: "pord",
     5: "metis",
     6: "qamd",
-    7: "auto",
 }
 
 

@@ -32,7 +32,7 @@ number that decides whether a production energy sweep -- and by extension the
 NO and F₂ decks behind it -- finishes in an afternoon or a week.
 
 With scipy's SuperLU (the only backend before this sub-project), that number was
-259.5 s and a 7.4 GB peak on the production deck (measured; see the table). A
+258 s and a 7.4 GB peak on the production deck (measured; see the table). A
 multi-hundred-point energy sweep at ~260 s/point is on the order of a day per
 molecule -- uncomfortably close to, and for the larger decks over, the "under an
 hour for all of N₂/NO/F₂" bar this sub-project was chartered to clear.
@@ -85,13 +85,34 @@ the lower triangle from symmetry and never looks at it. So the backend passes
 `sp.triu(A)`, not the full `A`: supplying the full matrix with `symmetric=True`
 would double-count every off-diagonal entry and silently produce the wrong
 factorization -- a plausible-looking wrong number, not a crash. `SparseLU`'s
-`symmetric` flag (auto-detected as `A == A.T` via the cheap O(nnz)
-`(abs(A - A.T)).max() == 0`, or set explicitly) selects `SYM=2` + upper-triangle
-when true and falls back to `SYM=0` on the full matrix when false. The
-differential test in `libs/qscat/tests/test_mumps_backend.py` actively guards
-the trap: it confirms `sp.triu(A)` under `SYM=2` reproduces the full-matrix
-SuperLU solve to machine precision, which it would not if the triangle handling
-were wrong.
+`symmetric` flag (auto-detected, or set explicitly) selects `SYM=2` +
+upper-triangle when true and falls back to `SYM=0` on the full matrix when
+false. The differential test in `libs/qscat/tests/test_mumps_backend.py`
+actively guards the trap: it confirms `sp.triu(A)` under `SYM=2` reproduces the
+full-matrix SuperLU solve to machine precision, which it would not if the
+triangle handling were wrong.
+
+**The auto-detect must use a scaled tolerance, not exact equality -- or `SYM=2`
+never engages on real physics.** This is a subtle and important point. The real
+N₂ matrices are `A = Aᵀ` *mathematically*, but they are assembled by
+Kronecker-sum reordering of float arrays, so `A - Aᵀ` is not bit-zero: on the
+working deck, `max|A − Aᵀ| = 4.5e-13` against `max|A| = 1.3e4`, a **relative
+asymmetry of ~3.6e-17** -- one ULP, pure round-off. An *exact*-equality detect
+(`(abs(A − Aᵀ)).max() == 0`) therefore returns **False on every real N₂
+matrix**, silently routing the MUMPS backend onto `SYM=0` (general unsymmetric,
+full matrix) -- forfeiting the single-triangle storage that is the entire reason
+the backend exists. So the auto-detect compares against a **scaled tolerance**:
+`(abs(A − Aᵀ)).max() <= _SYM_RTOL · abs(A).max()` with `_SYM_RTOL = 1e-12`
+(`qscat.linalg.sparse_lu`). That threshold sits ~5 orders of magnitude *above*
+the real matrices' ~3.6e-17 relative asymmetry (a decisive accept) yet ~12
+orders *below* the O(1) relative asymmetry of a genuinely non-symmetric matrix
+(a decisive reject). The tightness is a correctness guard, not a nicety: `SYM=2`
+takes the upper triangle as truth and reconstructs the lower from it, so a
+truly-asymmetric matrix wrongly accepted would produce a *wrong* factorization.
+A round-off-symmetric matrix is only perturbed at the ~1e-13 level, which a
+backward-stable factorization absorbs; a zero matrix (`abs(A).max() == 0`) is
+treated as trivially symmetric. An explicit `symmetric=True`/`False` always
+overrides the auto-detect.
 
 ### Dispatch, and SuperLU as fallback + oracle
 
@@ -135,70 +156,104 @@ backend) row runs in a **fresh subprocess** so peak RSS
 it deliberately does **not** call `SparseLU.memory_bytes()`, which would
 materialize SuperLU's `L`/`U` factors and add ~6 GB at production scale.
 Environment: Docker `qmodeling-base:latest`, Linux aarch64, Python 3.12.12,
-mumps_seq 5.5.1 / python-mumps 0.0.6.
+mumps_seq 5.5.1 / python-mumps 0.0.6. The **SYM** column records the MUMPS
+matrix type actually driven -- `SYM=2` (complex-symmetric, single upper
+triangle) when the auto-detect flagged the matrix symmetric, `SYM=0` (general
+unsymmetric, full matrix) otherwise; SuperLU has no symmetric mode, so its cell
+is `-`. Because the real N₂ matrices are round-off-symmetric and the auto-detect
+now uses the scaled `_SYM_RTOL` tolerance (above), **every MUMPS row here runs
+`SYM=2`**.
 
-| grid | backend | N | nnz | factor (s) | solve (s) | peak RSS (MB) | fill_factor | ordering | residual |
-|---|---|---|---|---|---|---|---|---|---|
-| working | scipy | 26,857 | 476,377 | 5.255 | 0.0266 | 479 | 44.62 | COLAMD | 1.81e-13 |
-| working | mumps | 26,857 | 476,377 | 0.440 | 0.0070 | 171 | 6.89 | scotch | 1.30e-13 |
-| td | scipy | 47,188 | 886,664 | 18.959 | 0.0622 | 1,410 | 58.33 | COLAMD | 5.09e-13 |
-| td | mumps | 47,188 | 886,664 | 0.799 | 0.0121 | 260 | 7.26 | scotch | 3.36e-13 |
-| production | scipy | 143,380 | 3,276,450 | 259.531 | 0.3871 | 7,420 | 93.35 | COLAMD | 3.16e-13 |
-| production | mumps | 143,380 | 3,276,450 | 3.574 | 0.0507 | 809 | 7.95 | scotch | 2.91e-13 |
+| grid | backend | SYM | N | nnz | factor (s) | solve (s) | peak RSS (MB) | fill_factor | ordering | residual |
+|---|---|---|---|---|---|---|---|---|---|---|
+| working | scipy | - | 26,857 | 476,377 | 4.936 | 0.0254 | 479 | 44.62 | COLAMD | 1.81e-13 |
+| working | mumps | SYM=2 | 26,857 | 476,377 | 0.411 | 0.0052 | 147 | 3.54 | scotch | 1.63e-13 |
+| td | scipy | - | 47,188 | 886,664 | 18.477 | 0.0620 | 1,409 | 58.33 | COLAMD | 5.09e-13 |
+| td | mumps | SYM=2 | 47,188 | 886,664 | 0.789 | 0.0095 | 213 | 3.68 | scotch | 4.93e-13 |
+| production | scipy | - | 143,380 | 3,276,450 | 258.116 | 0.3709 | 7,418 | 93.35 | COLAMD | 3.16e-13 |
+| production | mumps | SYM=2 | 143,380 | 3,276,450 | 3.175 | 0.0388 | 625 | 4.00 | scotch | 4.37e-12 |
 
-Per grid, MUMPS vs SuperLU (measured, not assumed):
+Per grid, MUMPS (`SYM=2`) vs SuperLU (measured, not assumed):
 
-- **working (27k):** factor **11.9×** faster, peak RSS **2.8×** smaller.
-- **td (47k):** factor **23.7×** faster, peak RSS **5.4×** smaller.
-- **production (143k):** factor **72.6×** faster (3.6 s vs 260 s), peak RSS
-  **9.2×** smaller (0.8 GB vs 7.4 GB).
+- **working (27k):** factor **12.0×** faster, peak RSS **3.3×** smaller.
+- **td (47k):** factor **23.4×** faster, peak RSS **6.6×** smaller.
+- **production (143k):** factor **81.3×** faster (3.2 s vs 258 s), peak RSS
+  **11.9×** smaller (0.6 GB vs 7.4 GB).
 
-The residuals agree to ~1e-13 across backends at every grid: the two engines
-compute the same solution, only the cost differs. The production factorization
-drops from 260 s / 7.4 GB to 3.6 s / 0.8 GB -- which puts a multi-hundred-point
-energy sweep for N₂/NO/F₂ comfortably inside the "under an hour" bar, with
-room to spare, rather than skirting it.
+The residuals agree to ~1e-12 or better across backends at every grid: the two
+engines compute the same solution, only the cost differs. (The production MUMPS
+residual, 4.4e-12, is a touch larger than SuperLU's 3.2e-13 because `SYM=2`
+reconstructs the lower triangle from the upper of a matrix that was only
+round-off-symmetric to begin with -- still ~4 orders of magnitude inside any
+tolerance that matters.) The production factorization drops from 258 s / 7.4 GB
+to 3.2 s / 0.6 GB -- which puts a multi-hundred-point energy sweep for N₂/NO/F₂
+comfortably inside the "under an hour" bar, with room to spare, rather than
+skirting it.
 
-## The mechanism -- two compounding causes, not one
+**Historical note -- these are the `SYM=2` numbers; an earlier revision of this
+table reported `SYM=0`.** The first benchmark ran before the auto-detect was
+fixed: the exact-equality symmetry check rejected the round-off-symmetric N₂
+matrices, so the MUMPS rows silently ran `SYM=0` (general unsymmetric) and
+reported *full*-factor `fill_factor` values (working 6.89, td 7.26, production
+7.95) at 11.9× / 23.7× / 72.6× speedup and 2.8× / 5.4× / 9.2× memory. Switching
+to the scaled-tolerance detect engaged the intended `SYM=2` single-triangle
+mode, which roughly **halved** the `fill_factor` at every grid (6.89→3.54,
+7.26→3.68, 7.95→4.00) and improved both the speedup and the memory ratio. The
+speedup was always real; `SYM=2` makes it larger *and* makes the mechanism the
+one the backend was chosen for.
 
-It is tempting to read the table and credit the whole win to MUMPS's ordering,
-because the `fill_factor` column jumps out. That reading is wrong. The MUMPS
-advantage has **two** distinct, compounding causes:
+## The mechanism -- two compounding causes, now separately measured
 
-1. **Symmetric single-triangle storage.** `SYM=2` factors only the upper
-   triangle of `A = Aᵀ`; SuperLU stores and factors both `L` and `U`
-   independently. That is roughly a **2× factor** in both arithmetic and
-   storage before any ordering effect, and SuperLU cannot recover it -- it has
-   no symmetric mode.
+The MUMPS advantage has **two** distinct, compounding causes, and the two
+`SYM=2`-vs-`SYM=0` benchmark runs let us *isolate* each one instead of
+hand-waving. The key that makes the decomposition clean: a MUMPS `SYM=0` run
+still uses MUMPS's SCOTCH ordering but stores **both** triangles, so its
+`fill_factor` is a full-factor count directly comparable to SuperLU's, while the
+`SYM=2` run adds single-triangle storage on top of the same ordering.
 
-2. **A better fill-reducing ordering.** MUMPS's `analyze()` picks SCOTCH
-   nested-dissection ordering, which holds `fill_factor` at ~7-8 at every scale
-   (6.89 → 7.26 → 7.95). SuperLU's default COLAMD, ordering a general
-   unsymmetric pattern, lets fill grow with N: 44.62 → 58.33 → 93.35. Lower
-   fill means both **less arithmetic** (the factorization is superlinear in the
-   number of factor entries) *and* **less memory** -- which is why both the
-   time gap and the RSS gap widen together as N grows, rather than one or the
-   other.
+1. **A better fill-reducing ordering (cause 2, isolated by SYM=0 vs SuperLU).**
+   Both SuperLU's `fill_factor` and MUMPS's `SYM=0` `fill_factor` are
+   full-factor `(L+U)/A.nnz`-style counts, so they compare directly. SuperLU's
+   default COLAMD, ordering a general unsymmetric pattern, lets fill grow with
+   N: 44.62 → 58.33 → 93.35. MUMPS's `analyze()` picks SCOTCH nested-dissection
+   ordering, which under `SYM=0` held the full-factor fill at ~7-8 at every
+   scale (6.89 → 7.26 → 7.95, from the historical `SYM=0` run). That ~6× → ~12×
+   fill reduction is **pure ordering** -- same two-triangle storage, better
+   permutation.
 
-**Do not attribute the whole gap to ordering.** The two `fill_factor` numbers
-are not even measured the same way and cannot be compared as a clean ratio:
-SuperLU's is `(L.nnz + U.nnz) / A.nnz`, a two-triangle count, while MUMPS's is
-its INFOG entries-in-factors over `A.nnz`, effectively a single-triangle count.
-The `fill_factor` column therefore already **conflates** the storage halving
-(cause 1) with the ordering improvement (cause 2); reading the ~44→7 and ~93→8
-drops as pure ordering wins double-counts the triangle effect. The honest
-statement is: MUMPS wins because it exploits symmetry to store one triangle
-*and* orders that triangle better, and both effects grow with N.
+2. **Symmetric single-triangle storage (cause 1, isolated by SYM=2 vs SYM=0).**
+   Switching the *same* SCOTCH-ordered factorization from `SYM=0` to `SYM=2`
+   drops the `fill_factor` by **roughly half** at every grid -- 6.89 → 3.54,
+   7.26 → 3.68, 7.95 → 4.00 -- because `SYM=2` factors only the upper triangle
+   of `A = Aᵀ`. This is the ~**2× factor** in arithmetic and storage that
+   SuperLU structurally cannot recover (it has no symmetric mode), and it is now
+   measured directly rather than asserted, by comparing the two MUMPS runs on
+   identical matrices with identical ordering.
+
+Lower fill means both **less arithmetic** (the factorization is superlinear in
+the number of factor entries) *and* **less memory**, which is why both the time
+gap and the RSS gap widen together as N grows. The honest, now-quantified
+statement: SuperLU→MUMPS-`SYM=0` is the ordering win (~6-12× fill), and
+`SYM=0`→`SYM=2` is the single-triangle win (~2× fill on top), and the shipped
+default (`SYM=2`, ~3.5-4 fill vs SuperLU's ~44-93) delivers both.
+
+Note the two shipped `fill_factor` columns are *not* the same measurement and
+should not be divided as a raw ratio: SuperLU's is a two-triangle
+`(L.nnz + U.nnz) / A.nnz`, while MUMPS `SYM=2`'s is its INFOG entries-in-factors
+over `A.nnz`, a single-triangle count. The `SYM=0` intermediate above is exactly
+what makes the decomposition rigorous: it supplies the apples-to-apples
+full-factor count that pins the ordering effect before the triangle effect is
+layered on.
 
 ## Honest caveats on the absolute numbers
 
-- **SuperLU's absolute time is inflated by the container.** The 259.5 s
+- **SuperLU's absolute time is inflated by the container.** The 258 s
   production factorization here is roughly 2× the repo's historical
   Mac-native 128 s figure (recorded in `docs/physics/nd-tensor-hamiltonian.md`
   and `sparse_lu.py`'s docstring). That gap is Docker-on-Mac virtualization
   overhead, not a regression. The **speedup ratio is unaffected**: both
-  backends run in the same container under the same overhead, so the 72.6× /
-  9.2× figures are valid comparisons even though the SuperLU absolute is
+  backends run in the same container under the same overhead, so the 81.3× /
+  11.9× figures are valid comparisons even though the SuperLU absolute is
   container-slowed.
 
 - **SuperLU's production peak (7.4 GB) is lower than the docstring's 13.6 GB.**

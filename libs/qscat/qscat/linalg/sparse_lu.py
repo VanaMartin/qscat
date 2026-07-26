@@ -60,6 +60,28 @@ __all__ = ["SparseLU", "set_default_backend", "get_default_backend", "default_ba
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 _Backend = Literal["auto", "scipy", "mumps"]
 
+# Relative tolerance for the `symmetric=None` auto-detect: `A` is treated as
+# (complex-)symmetric when `max|A - A.T| <= _SYM_RTOL * max|A|`. This is a
+# SCALED tolerance, not exact equality, because the matrices this class exists
+# to factor -- the N2 driven `(E_tot*I - H)` and Crank-Nicolson `(I + iH*dt/2)`
+# decks -- are mathematically `A = A.T` but only symmetric to ROUND-OFF: they
+# are assembled by Kronecker-sum reordering of float arrays, so `A - A.T` is
+# not bit-zero but sits at the floating-point noise floor (measured on the real
+# N2 working deck: `max|A - A.T| = 4.5e-13`, `max|A| = 1.3e4`, i.e. a RELATIVE
+# asymmetry ~3.6e-17 -- essentially one ULP). Exact equality
+# (`(abs(A - A.T)).max() == 0`) rejected every such matrix and silently forced
+# the MUMPS path onto SYM=0 (general unsymmetric) instead of the SYM=2
+# (complex-symmetric, single-triangle) mode that is the whole point of the
+# backend. `1e-12` sits ~5 orders of magnitude above the real matrices' ~3.6e-17
+# relative asymmetry (an enormous accept margin) yet ~12 orders below the O(1)
+# relative asymmetry of a genuinely non-symmetric matrix (a decisive reject
+# margin), so it cannot misclassify a truly asymmetric matrix as symmetric.
+# That safety matters because SYM=2 treats the upper triangle as truth and
+# reconstructs the lower from it; accepting a truly-asymmetric matrix would give
+# a WRONG answer. The tight bound keeps that from happening. Callers can always
+# override the auto-detect with an explicit `symmetric=True`/`False`.
+_SYM_RTOL = 1e-12
+
 # Process-wide default that `backend="auto"` resolves against. Lets a caller
 # force every internal `SparseLU(...)` -- e.g. the ones `ve_cross_section_2d`
 # creates without exposing a `backend=` kwarg -- onto one engine, for
@@ -68,6 +90,10 @@ _Backend = Literal["auto", "scipy", "mumps"]
 # `"auto"` sites (the default, and every call that does not name a backend)
 # consult it. Itself defaults to `"auto"` (prefer MUMPS when available, else
 # SuperLU), so absent any override the behaviour is exactly as before.
+# Caveat: this is a plain process-global, not thread-local -- fine for the
+# intended single-threaded, scoped `default_backend(...)` use, but concurrent
+# threads flipping the default would race. Pass an explicit `backend=` at the
+# call site if you need per-thread control.
 _DEFAULT_BACKEND: _Backend = "auto"
 
 
@@ -180,12 +206,18 @@ class SparseLU:
     used to force an entire computation that builds `SparseLU` internally
     onto one engine for a backend-equivalence check.
 
-    `symmetric`, if left `None`, is auto-detected as `A == A.T` (an O(nnz)
-    sparse comparison: `(abs(A - A.T)).max() == 0`, cheap relative to the
-    factorization itself). It is informational only on the scipy path --
-    SuperLU does not exploit symmetry -- but on the MUMPS path it selects the
-    complex-symmetric `SYM=2` matrix type (upper triangle only) instead of the
-    general unsymmetric `SYM=0` one.
+    `symmetric`, if left `None`, is auto-detected as `A == A.T` to a SCALED
+    tolerance (an O(nnz) sparse comparison:
+    `(abs(A - A.T)).max() <= _SYM_RTOL * abs(A).max()`, cheap relative to the
+    factorization itself). The tolerance -- not exact equality -- is deliberate:
+    the N2 decks this class factors are `A = A.T` mathematically but symmetric
+    only to round-off (Kronecker-sum float reordering; ~3.6e-17 relative
+    asymmetry), so exact equality would reject them and forfeit the whole point
+    of the MUMPS backend (see `_SYM_RTOL`). The flag is informational only on
+    the scipy path -- SuperLU does not exploit symmetry -- but on the MUMPS path
+    it selects the complex-symmetric `SYM=2` matrix type (upper triangle only)
+    instead of the general unsymmetric `SYM=0` one. Pass an explicit
+    `symmetric=True`/`False` to override the auto-detect entirely.
     """
 
     def __init__(
@@ -220,8 +252,14 @@ class SparseLU:
 
         if symmetric is None:
             # O(nnz) sparse comparison -- cheap relative to the factorization
-            # that follows, but not free, hence computed once and cached.
-            symmetric = bool((abs(csc - csc.T)).max() == 0)
+            # that follows, but not free, hence computed once and cached. A
+            # SCALED tolerance (`_SYM_RTOL`), not exact equality: the real N2
+            # decks are symmetric only to round-off (see `_SYM_RTOL`'s comment).
+            scale = abs(csc).max() if csc.nnz else 0.0
+            if scale == 0.0:
+                symmetric = True  # a zero matrix is trivially symmetric
+            else:
+                symmetric = bool((abs(csc - csc.T)).max() <= _SYM_RTOL * scale)
         self._symmetric = symmetric
 
         self._impl: _ScipyBackend | _MumpsBackend
@@ -253,10 +291,11 @@ class SparseLU:
     def symmetric(self) -> bool:
         """Whether `A` was treated as (complex-)symmetric `A == A.T`.
 
-        Auto-detected from `A` when `symmetric=None` was passed (the default),
-        or the explicit override. Informational on the scipy path; the MUMPS
-        path (Task 3) uses it to select the complex-symmetric (`SYM=2`) matrix
-        type instead of the general unsymmetric one.
+        Auto-detected from `A` (to the scaled `_SYM_RTOL` tolerance) when
+        `symmetric=None` was passed (the default), or the explicit override.
+        Informational on the scipy path; the MUMPS path (Task 3) uses it to
+        select the complex-symmetric (`SYM=2`) matrix type instead of the
+        general unsymmetric one.
         """
         return self._symmetric
 

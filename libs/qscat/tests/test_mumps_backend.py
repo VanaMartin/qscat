@@ -71,6 +71,46 @@ def test_mumps_multi_rhs_matches_scipy() -> None:
     assert np.linalg.norm(x_mumps - x_scipy) / np.linalg.norm(x_scipy) < 1e-10
 
 
+def _roundoff_symmetric(n: int, seed: int) -> sp.csc_matrix:
+    """`A == A.T` mathematically but only to ROUND-OFF, like the real N2 decks.
+
+    Built from a true symmetric matrix with its strictly-lower triangle
+    perturbed by ~1e-13 (relative asymmetry ~1e-14) -- inside `_SYM_RTOL`=1e-12,
+    so the auto-detect returns True, but NOT bit-exact, so the old
+    exact-equality detect returned False and forced SYM=0.
+    """
+    A = _complex_symmetric(n, seed).tolil()
+    rng = np.random.default_rng(seed + 999)
+    for _ in range(3 * n):
+        i = int(rng.integers(1, n))
+        j = int(rng.integers(0, i))
+        A[i, j] += (rng.standard_normal() + 1j * rng.standard_normal()) * 1e-13
+    return sp.csc_matrix(A)
+
+
+def test_mumps_engages_sym2_on_roundoff_symmetric_matrix() -> None:
+    """The fix, proven on a realistic (round-off-symmetric) matrix, not just an
+    exactly-symmetric synthetic one: the auto-detect now flags it symmetric, so
+    the MUMPS path runs SYM=2, and it STILL matches SuperLU on the FULL matrix
+    to tight rtol. rtol is 1e-9 (slightly looser than the exactly-symmetric
+    1e-10) because SYM=2 takes the upper triangle as truth and reconstructs the
+    lower from it, perturbing the matrix at the ~1e-13 round-off level."""
+    n = 400
+    A = _roundoff_symmetric(n, seed=300)
+    assert abs(A - A.T).max() != 0.0  # NOT bit-exact (exact-equality would say False)
+    assert abs(A - A.T).max() / abs(A).max() < 1e-12  # but inside the tolerance
+
+    lu = SparseLU(A, backend="mumps")  # symmetric=None => auto-detect
+    assert lu.symmetric is True  # SYM=2 genuinely engaged (was False before the fix)
+
+    rng = np.random.default_rng(13)
+    b = rng.standard_normal(n) + 1j * rng.standard_normal(n)
+    x_mumps = lu.solve(b)
+    x_scipy = SparseLU(A, backend="scipy").solve(b)
+    assert np.linalg.norm(x_mumps - x_scipy) / np.linalg.norm(x_scipy) < 1e-9
+    assert np.linalg.norm(A @ x_mumps - b) / np.linalg.norm(b) < 1e-9
+
+
 def _asymmetric(n: int, seed: int) -> sp.csc_matrix:
     """A well-conditioned complex matrix with A != A.T (no `m + m.T`)."""
     rng = np.random.default_rng(seed)

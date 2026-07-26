@@ -125,10 +125,22 @@ def _measure(grid_name: str, backend: str) -> dict[str, Any]:
 
     residual = float(np.linalg.norm(A @ x - b) / np.linalg.norm(b))
 
+    # The MUMPS matrix type actually driven: SYM=2 (complex-symmetric, single
+    # upper triangle) when `symmetric` was detected/forced True, else SYM=0
+    # (general unsymmetric, full matrix). SuperLU has no symmetric mode, so
+    # its SYM cell is "-". This is the audit column: it makes visible which
+    # mode ran, so a fill_factor is never misread as the wrong storage count.
+    if lu.backend_used == "mumps":
+        sym = "SYM=2" if lu.symmetric else "SYM=0"
+    else:
+        sym = "-"
+
     return {
         "grid": grid_name,
         "backend": backend,
         "backend_used": lu.backend_used,
+        "symmetric": bool(lu.symmetric),
+        "sym": sym,
         "N": n,
         "nnz": nnz,
         "factor_s": factor_s,
@@ -177,15 +189,16 @@ def _format_table(rows: list[dict[str, Any]]) -> str:
     )
     lines.append("")
     header = (
-        "| grid | backend | N | nnz | factor (s) | solve (s) | "
+        "| grid | backend | SYM | N | nnz | factor (s) | solve (s) | "
         "peak RSS (MB) | factor RSS delta (MB) | fill_factor | ordering | residual |"
     )
-    sep = "|---|---|---|---|---|---|---|---|---|---|---|"
+    sep = "|---|---|---|---|---|---|---|---|---|---|---|---|"
     lines.append(header)
     lines.append(sep)
     for r in rows:
         lines.append(
-            f"| {r['grid']} | {r['backend_used']} | {r['N']:,} | {r['nnz']:,} | "
+            f"| {r['grid']} | {r['backend_used']} | {r.get('sym', '-')} | "
+            f"{r['N']:,} | {r['nnz']:,} | "
             f"{r['factor_s']:.3f} | {r['solve_s']:.4f} | "
             f"{r['peak_rss_mb']:.0f} | {r['factor_rss_delta_mb']:.0f} | "
             f"{r['fill_factor']:.2f} | {r['ordering_used']} | {r['residual']:.2e} |"
@@ -207,7 +220,8 @@ def _format_table(rows: list[dict[str, Any]]) -> str:
             )
             won = "MUMPS faster" if fac > 1.0 else "SuperLU faster"
             lines.append(
-                f"- **{grid}** (N={m['N']:,}): factor speedup SuperLU/MUMPS = "
+                f"- **{grid}** (N={m['N']:,}): MUMPS mode {m.get('sym', '?')}; "
+                f"factor speedup SuperLU/MUMPS = "
                 f"{fac:.2f}x ({won}); peak-RSS ratio SuperLU/MUMPS = {mem:.2f}x; "
                 f"MUMPS ordering={m['ordering_used']}, SuperLU ordering={s['ordering_used']}."
             )

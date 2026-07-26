@@ -205,6 +205,54 @@ def test_symmetric_autodetect_false_on_asymmetric_and_overridable() -> None:
     assert SparseLU(A, symmetric=True).symmetric is True  # explicit override honored
 
 
+def _roundoff_symmetric(n: int, seed: int) -> sp.csc_matrix:
+    """A matrix that is `A == A.T` mathematically but only to round-off.
+
+    Mirrors the real N2 decks: `(E_tot*I - H_2D)` is symmetric by construction
+    yet its `max|A - A.T|` sits at the float noise floor (~1e-13 absolute on a
+    matrix whose entries are O(1e4)) because it is assembled by Kronecker-sum
+    float reordering, not bit-exact mirroring. Reproduced here by building a
+    true symmetric matrix and perturbing its lower triangle by ~1e-13 -- a
+    relative asymmetry ~1e-14, far below `_SYM_RTOL` = 1e-12.
+    """
+    A = _complex_symmetric(n, seed).tolil()
+    rng = np.random.default_rng(seed + 999)
+    for _ in range(3 * n):
+        i = int(rng.integers(1, n))
+        j = int(rng.integers(0, i))  # strictly-lower entry
+        A[i, j] += (rng.standard_normal() + 1j * rng.standard_normal()) * 1e-13
+    return sp.csc_matrix(A)
+
+
+def test_roundoff_symmetric_is_detected_symmetric_under_tolerance() -> None:
+    """The whole fix: an N2-like round-off-symmetric matrix (relative asymmetry
+    ~1e-14, NOT bit-exact) is detected `symmetric is True` under `_SYM_RTOL`,
+    where the old exact-equality check would have wrongly returned False and
+    forfeited SYM=2. A genuinely asymmetric matrix (relative asymmetry O(1)) is
+    still rejected -- pinning both sides of the tolerance WITHOUT needing MUMPS.
+    """
+    A = _roundoff_symmetric(120, seed=40)
+    rel = abs(A - A.T).max() / abs(A).max()
+    assert rel != 0.0  # guard: NOT bit-exactly symmetric (exact-equality would say False)
+    assert rel < 1e-12  # but comfortably inside the tolerance
+    assert SparseLU(A).symmetric is True  # detected symmetric under _SYM_RTOL
+
+    B = _asymmetric(120, seed=41)
+    assert abs(B - B.T).max() / abs(B).max() > 1e-2  # relative asymmetry O(1)
+    assert SparseLU(B).symmetric is False  # still rejected -- tolerance is tight
+
+
+def test_zero_matrix_scale_edge_does_not_crash_detection() -> None:
+    """The `abs(A).max() == 0` edge must be handled by the auto-detect (a zero
+    matrix is trivially symmetric) rather than crashing on a zero scale. A zero
+    matrix is singular, so construction reaches -- and fails at -- factorization
+    with SuperLU's `Factor is exactly singular` RuntimeError; the point is that
+    the symmetry auto-detect BEFORE it does not raise (no divide/empty-reduce)."""
+    Z = sp.csc_matrix((5, 5), dtype=complex)
+    with pytest.raises(RuntimeError, match="singular"):
+        SparseLU(Z, backend="scipy")
+
+
 # --- V4: fallback / absence (Mac-runnable; these assert the MUMPS-absent path) ---
 
 
@@ -263,6 +311,18 @@ def test_explicit_backend_wins_over_default_override() -> None:
     with default_backend("scipy"):
         # explicit scipy honored (trivially), and the override does not force
         # anything an explicit arg already pins.
+        assert SparseLU(A, backend="scipy").backend_used == "scipy"
+
+
+def test_explicit_scipy_wins_over_mumps_default_override() -> None:
+    """The DISTINGUISHING case: with the process default flipped to `"mumps"`,
+    an explicit `backend="scipy"` still runs SuperLU -- proving the explicit arg
+    overrides a NON-matching override, not just a coincidentally-equal one. Runs
+    on any box: the explicit-scipy path never consults MUMPS availability, so
+    this holds whether or not MUMPS is installed (the `"mumps"` override would
+    only bite an `"auto"` site)."""
+    A = _complex_symmetric(80, seed=36)
+    with default_backend("mumps"):
         assert SparseLU(A, backend="scipy").backend_used == "scipy"
 
 
