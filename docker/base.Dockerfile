@@ -24,10 +24,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # (mumps_common_seq, SCOTCH, LAPACK, gfortran) via ELF NEEDED, so -l<name>_seq
 # alone links transitively.
 RUN triple="$(gcc -dumpmachine)"; \
+    ver="$(dpkg-query -W -f='${Version}' libmumps-seq-dev | sed -E 's/^[0-9]+://; s/[-+].*$//')"; \
     mkdir -p "/usr/lib/${triple}/pkgconfig"; \
     for name in dmumps zmumps cmumps smumps; do \
-      printf 'prefix=/usr\nlibdir=${prefix}/lib/%s\nincludedir=${prefix}/include\n\nName: %s_seq\nDescription: MUMPS sequential (Debian libmumps-seq-dev), %s\nVersion: 5.5.0\nLibs: -L${libdir} -l%s_seq\nCflags: -I${includedir}\n' \
-        "$triple" "$name" "$name" "$name" \
+      printf 'prefix=/usr\nlibdir=${prefix}/lib/%s\nincludedir=${prefix}/include\n\nName: %s_seq\nDescription: MUMPS sequential (Debian libmumps-seq-dev), %s\nVersion: %s\nLibs: -L${libdir} -l%s_seq\nCflags: -I${includedir}\n' \
+        "$triple" "$name" "$name" "$ver" "$name" \
         > "/usr/lib/${triple}/pkgconfig/${name}_seq.pc"; \
     done
 
