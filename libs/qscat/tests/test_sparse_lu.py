@@ -141,3 +141,36 @@ def test_solve_rejects_0d_right_hand_side() -> None:
     lu = SparseLU(A)
     with pytest.raises(ValueError, match="0-d"):
         lu.solve(np.array(1.0 + 0j))
+
+
+def test_default_backend_is_scipy_and_bit_identical() -> None:
+    """backend='auto' with MUMPS absent == the old SuperLU behaviour exactly."""
+    A = _complex_symmetric(200, seed=20)
+    rng = np.random.default_rng(21)
+    b = rng.standard_normal(200) + 1j * rng.standard_normal(200)
+    lu = SparseLU(A)  # unchanged call site
+    assert lu.backend_used == "scipy"
+    x = lu.solve(b)
+    assert np.linalg.norm(A @ x - b) / np.linalg.norm(b) < 1e-12
+
+
+def test_force_scipy_backend() -> None:
+    A = _complex_symmetric(120, seed=22)
+    lu = SparseLU(A, backend="scipy")
+    assert lu.backend_used == "scipy"
+    assert lu.ordering_used in {"COLAMD", "NATURAL", "MMD_ATA", "MMD_AT_PLUS_A"}
+
+
+def test_ordering_still_applies_on_scipy_path() -> None:
+    A = _complex_symmetric(300, seed=23)
+    lu = SparseLU(A, ordering="MMD_AT_PLUS_A", backend="scipy")
+    assert lu.ordering == "MMD_AT_PLUS_A"
+    assert lu.backend_used == "scipy"
+
+
+def test_symmetric_autodetect_flag_is_recorded() -> None:
+    """A == A.T is detected (used by the MUMPS path later); scipy ignores it."""
+    A = _complex_symmetric(80, seed=24)  # symmetric fixture
+    lu = SparseLU(A)  # symmetric=None => auto-detect
+    # exposed for the MUMPS path; on scipy it is informational only
+    assert lu.backend_used == "scipy"

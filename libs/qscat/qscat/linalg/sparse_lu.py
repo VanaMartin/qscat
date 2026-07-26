@@ -54,6 +54,47 @@ import scipy.sparse.linalg as spla
 __all__ = ["SparseLU"]
 
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
+_Backend = Literal["auto", "scipy", "mumps"]
+
+
+class _ScipyBackend:
+    """The original `scipy.sparse.linalg.splu` path, unchanged.
+
+    Holds exactly the factorization object and semantics `SparseLU` used
+    before backend dispatch existed: `fill_factor` reads SuperLU's own `nnz`
+    with no materialization, `memory_bytes()` materializes (and permanently
+    caches, on the `SuperLU` object) the `L`/`U` CSC factors. See the module
+    docstring for the memory caveat.
+    """
+
+    name = "scipy"
+
+    def __init__(self, csc: sp.csc_matrix[np.complex128], ordering: _Ordering) -> None:
+        self._ordering = ordering
+        self._lu: spla.SuperLU[np.complex128] = spla.splu(csc, permc_spec=ordering)
+
+    @property
+    def ordering_used(self) -> str:
+        return self._ordering
+
+    def fill_factor(self, nnz: int) -> float:
+        return float(self._lu.nnz) / float(nnz)
+
+    def memory_bytes(self) -> int:
+        total = 0
+        for factor in (self._lu.L, self._lu.U):
+            fcsc = factor.tocsc()
+            total += fcsc.data.nbytes + fcsc.indices.nbytes + fcsc.indptr.nbytes
+        return int(total)
+
+    def solve(self, rhs: npt.NDArray[np.complex128]) -> npt.NDArray[np.complex128]:
+        result = self._lu.solve(rhs)
+        # mypy note: an inline `out: npt.NDArray[...] = self._lu.solve(...)` annotation here
+        # pushes an expected-type context into SuperLU.solve's overload resolution that picks
+        # the wrong (float64) overload despite a complex128 argument -- a scipy-stubs/mypy
+        # interaction, not a real type error. `cast` sidesteps it; the dtype is guaranteed by
+        # the caller's explicit `.astype(np.complex128, ...)` before this is called.
+        return cast(npt.NDArray[np.complex128], result)
 
 
 class SparseLU:
@@ -73,16 +114,65 @@ class SparseLU:
     behind attribute access -- and its cache is permanent for this object's
     lifetime. See the module docstring before calling it on a production-size
     matrix.
+
+    `backend` selects the factorization engine: `"scipy"` is the SuperLU path
+    above (the only one implemented so far); `"mumps"` is reserved for a
+    complex-symmetric MUMPS factorization (not yet implemented -- provisioned
+    in Docker but not wired in here); `"auto"` (the default) prefers MUMPS
+    when available and falls back to scipy otherwise -- today that fallback
+    is unconditional, since no MUMPS path exists yet, so `"auto"` and
+    `"scipy"` are currently identical in every observable way. `backend_used`
+    reports which one actually ran.
+
+    `symmetric`, if left `None`, is auto-detected as `A == A.T` (an O(nnz)
+    sparse comparison: `(abs(A - A.T)).max() == 0`, cheap relative to the
+    factorization itself). It is informational only on the scipy path --
+    SuperLU does not exploit symmetry -- but is stored for the future MUMPS
+    path (Task 3), which will use it to select the complex-symmetric MUMPS
+    matrix type instead of the general unsymmetric one.
     """
 
-    def __init__(self, A: sp.spmatrix, *, ordering: _Ordering = "COLAMD") -> None:
+    def __init__(
+        self,
+        A: sp.spmatrix,
+        *,
+        ordering: _Ordering = "COLAMD",
+        backend: _Backend = "auto",
+        symmetric: bool | None = None,
+    ) -> None:
         if A.shape[0] != A.shape[1]:
             raise ValueError(f"matrix must be square, got shape {A.shape}")
         csc: sp.csc_matrix[np.complex128] = sp.csc_matrix(A, dtype=np.complex128)
         self._shape: tuple[int, int] = (int(csc.shape[0]), int(csc.shape[1]))
         self._nnz: int = int(csc.nnz)
         self._ordering = ordering
-        self._lu: spla.SuperLU[np.complex128] = spla.splu(csc, permc_spec=ordering)
+
+        if symmetric is None:
+            # O(nnz) sparse comparison -- cheap relative to the factorization
+            # that follows, but not free, hence computed once and cached.
+            symmetric = bool((abs(csc - csc.T)).max() == 0)
+        self._symmetric = symmetric
+
+        self._backend_used: str
+        if backend == "scipy":
+            self._impl: _ScipyBackend = _ScipyBackend(csc, ordering)
+            self._backend_used = "scipy"
+        elif backend == "mumps":
+            # Task 3 seam: wire the real MUMPS complex-symmetric factorization
+            # in here (using `self._symmetric` to pick the MUMPS matrix type).
+            # Until then, an explicit request for MUMPS must fail loudly
+            # rather than silently falling back to scipy.
+            raise RuntimeError(
+                "MUMPS backend requested but not available "
+                "(qscat[mumps] / system MUMPS missing)"
+            )
+        else:  # backend == "auto"
+            # Task 3 seam: try MUMPS first here (guarded by an availability
+            # check), falling back to scipy on ImportError/unavailability.
+            # For now there is no MUMPS path at all, so "auto" always falls
+            # straight through to scipy.
+            self._impl = _ScipyBackend(csc, ordering)
+            self._backend_used = "scipy"
 
     @property
     def shape(self) -> tuple[int, int]:
@@ -93,17 +183,33 @@ class SparseLU:
         return self._ordering
 
     @property
+    def backend_used(self) -> str:
+        """Which backend actually factorized `A`: `"scipy"` (only option today)."""
+        return self._backend_used
+
+    @property
+    def ordering_used(self) -> str:
+        """The ordering the active backend actually used.
+
+        On the scipy path this is scipy's `permc_spec` (identical to
+        `ordering`); the MUMPS path (Task 3) will report MUMPS's own chosen
+        ordering here instead.
+        """
+        return self._impl.ordering_used
+
+    @property
     def fill_factor(self) -> float:
         """`(L.nnz + U.nnz) / A.nnz` -- how much denser the factors are.
 
-        Cheap at any scale: `self._lu.nnz` is SuperLU's own reported L+U
-        nonzero count, read directly off the internal factorization -- this
-        NEVER materializes `L` or `U` as arrays and costs no extra memory
-        (measured delta < 0.1 MB on an N=6000 matrix with a x300 fill-in).
-        Contrast `memory_bytes()`, which does materialize them and is
-        priced accordingly -- see the module docstring.
+        Cheap at any scale: on the scipy backend, `self._lu.nnz` is SuperLU's
+        own reported L+U nonzero count, read directly off the internal
+        factorization -- this NEVER materializes `L` or `U` as arrays and
+        costs no extra memory (measured delta < 0.1 MB on an N=6000 matrix
+        with a x300 fill-in). Contrast `memory_bytes()`, which does
+        materialize them and is priced accordingly -- see the module
+        docstring.
         """
-        return float(self._lu.nnz) / float(self._nnz)
+        return self._impl.fill_factor(self._nnz)
 
     def memory_bytes(self) -> int:
         """Bytes actually held by the L and U factors (data + index arrays).
@@ -117,11 +223,7 @@ class SparseLU:
         production-scale estimate (+6 GB on the N2 2-D deck) before calling
         this on anything but a reduced/test-scale matrix.
         """
-        total = 0
-        for factor in (self._lu.L, self._lu.U):
-            fcsc = factor.tocsc()
-            total += fcsc.data.nbytes + fcsc.indices.nbytes + fcsc.indptr.nbytes
-        return int(total)
+        return self._impl.memory_bytes()
 
     def solve(self, b: npt.NDArray[np.complex128]) -> npt.NDArray[np.complex128]:
         """Solve `A x = b` for one `(N,)` or several `(N, k)` right-hand sides."""
@@ -137,10 +239,4 @@ class SparseLU:
                 f"right-hand side has leading dimension {rhs.shape[0]}, "
                 f"expected {self._shape[0]}"
             )
-        result = self._lu.solve(rhs.astype(np.complex128, copy=False))
-        # mypy note: an inline `out: npt.NDArray[...] = self._lu.solve(...)` annotation here
-        # pushes an expected-type context into SuperLU.solve's overload resolution that picks
-        # the wrong (float64) overload despite a complex128 argument -- a scipy-stubs/mypy
-        # interaction, not a real type error. `cast` sidesteps it; the dtype is guaranteed by
-        # the explicit `.astype(np.complex128, ...)` just above.
-        return cast(npt.NDArray[np.complex128], result)
+        return self._impl.solve(rhs.astype(np.complex128, copy=False))
