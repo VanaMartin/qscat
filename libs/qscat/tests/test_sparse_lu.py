@@ -342,3 +342,39 @@ def test_default_backend_mumps_override_raises_when_absent() -> None:
     with default_backend("mumps"):
         with pytest.raises(RuntimeError, match="MUMPS backend requested but not available"):
             SparseLU(A)
+
+
+def test_refactor_scipy_matches_fresh_factorization() -> None:
+    """refactor(A1) then solve == a fresh SparseLU(A1).solve, on the scipy path."""
+    n = 200
+    A0 = _complex_symmetric(n, seed=40)
+    # A1 = A0 with a different diagonal shift -> SAME sparsity pattern
+    A1 = (A0 + (2.0 + 1.0j) * sp.identity(n, dtype=complex)).tocsc()
+    rng = np.random.default_rng(41)
+    b = rng.standard_normal(n) + 1j * rng.standard_normal(n)
+    lu = SparseLU(A0, backend="scipy")
+    lu.refactor(A1)
+    x = lu.solve(b)
+    x_fresh = SparseLU(A1, backend="scipy").solve(b)
+    assert np.linalg.norm(x - x_fresh) / np.linalg.norm(x_fresh) < 1e-10
+    assert np.linalg.norm(A1 @ x - b) / np.linalg.norm(b) < 1e-10
+
+
+def test_refactor_rejects_pattern_mismatch() -> None:
+    """reuse_analysis is only valid for an identical pattern -> guard raises."""
+    A0 = _complex_symmetric(80, seed=42)
+    B = _complex_symmetric(80, seed=43)  # different random pattern, same shape
+    lu = SparseLU(A0, backend="scipy")
+    with pytest.raises(ValueError, match="pattern"):
+        lu.refactor(B)
+    with pytest.raises(ValueError, match="shape|pattern"):
+        lu.refactor(_complex_symmetric(70, seed=44))  # different shape too
+
+
+def test_refactor_reuses_backend_and_symmetry() -> None:
+    A0 = _complex_symmetric(100, seed=45)
+    A1 = (A0 + (1.0 + 1.0j) * sp.identity(100, dtype=complex)).tocsc()
+    lu = SparseLU(A0, backend="scipy")
+    assert lu.symmetric is True
+    lu.refactor(A1)
+    assert lu.backend_used == "scipy" and lu.symmetric is True

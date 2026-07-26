@@ -53,7 +53,7 @@ import numpy.typing as npt
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
 
-from ._mumps_backend import _MumpsBackend, mumps_available
+from ._mumps_backend import _check_pattern, _MumpsBackend, _pattern_of, mumps_available
 
 __all__ = ["SparseLU", "set_default_backend", "get_default_backend", "default_backend"]
 
@@ -149,7 +149,22 @@ class _ScipyBackend:
 
     def __init__(self, csc: sp.csc_matrix[np.complex128], ordering: _Ordering) -> None:
         self._ordering = ordering
+        # Store the analyzed pattern for the `refactor` guard. scipy has no
+        # symbolic-reuse hook, so `refactor` re-runs `splu`; the guard still
+        # holds `refactor` to the same-pattern contract as the MUMPS path.
+        self._pattern = _pattern_of(csc)
         self._lu: spla.SuperLU[np.complex128] = spla.splu(csc, permc_spec=ordering)
+
+    def refactor(self, csc: sp.csc_matrix[np.complex128]) -> None:
+        """Re-factorize ``csc`` (scipy: a fresh ``splu``, no symbolic reuse).
+
+        scipy exposes no clean symbolic-reuse hook, so this simply re-runs
+        ``splu`` with the original ordering -- correct, but with no speedup over
+        constructing a new `SparseLU`. The pattern guard is kept so the scipy
+        and MUMPS paths share one contract (same sparsity pattern required).
+        """
+        _check_pattern(self._pattern, csc)
+        self._lu = spla.splu(csc, permc_spec=self._ordering)
 
     @property
     def ordering_used(self) -> str:
@@ -278,6 +293,21 @@ class SparseLU:
             else:
                 self._impl = _ScipyBackend(csc, ordering)
                 self._backend_used = "scipy"
+
+    def refactor(self, A_new: sp.spmatrix) -> None:
+        """Re-factorize `A_new` reusing this object's symbolic analysis.
+
+        `A_new` MUST share the original matrix's sparsity pattern (e.g. a
+        diagonal shift `E*I - H` across energies). On the MUMPS backend this
+        reuses the analysis (skips re-ordering); on scipy it re-runs `splu`
+        (correct, no reuse). Keeps the original backend and symmetry decision.
+        Raises `ValueError` on a shape/pattern mismatch.
+        """
+        if A_new.shape != self._shape:
+            raise ValueError(f"refactor shape {A_new.shape} != {self._shape}")
+        csc: sp.csc_matrix[np.complex128] = sp.csc_matrix(A_new, dtype=np.complex128)
+        self._impl.refactor(csc)
+        self._nnz = int(csc.nnz)
 
     @property
     def shape(self) -> tuple[int, int]:

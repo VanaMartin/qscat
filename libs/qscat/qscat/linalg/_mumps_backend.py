@@ -50,6 +50,51 @@ def mumps_available() -> bool:
     return _MUMPS is not None
 
 
+# A stored sparsity pattern: ``(indices, indptr)`` of a canonicalized CSC matrix.
+_Pattern = tuple[npt.NDArray[Any], npt.NDArray[Any]]
+
+
+def _pattern_of(csc: sp.csc_matrix[np.complex128]) -> _Pattern:
+    """The canonical ``(indices, indptr)`` sparsity pattern of ``csc`` (copied).
+
+    Canonicalizes first (sorted column indices, summed duplicates) so the
+    stored pattern is well-defined and comparable to any later matrix put
+    through the same canonicalization in `_check_pattern`.
+    """
+    canon = csc.sorted_indices()
+    canon.sum_duplicates()
+    return (canon.indices.copy(), canon.indptr.copy())
+
+
+def _check_pattern(pattern: _Pattern, csc: sp.csc_matrix[np.complex128]) -> None:
+    """Raise ``ValueError`` if ``csc``'s sparsity pattern differs from ``pattern``.
+
+    ``pattern`` is the stored ``(indices, indptr)`` of the matrix that was
+    symbolically analyzed. Reusing that analysis (MUMPS ``reuse_analysis=True``)
+    is valid ONLY for an identical nonzero structure, so a mismatch must raise
+    rather than silently reuse a wrong ordering and produce garbage. ``csc`` is
+    canonicalized (sorted indices, summed duplicates) before comparison so the
+    check is well-defined regardless of the caller's index ordering.
+    """
+    indices, indptr = pattern
+    canon = csc.sorted_indices()
+    canon.sum_duplicates()
+    if canon.indptr.shape != indptr.shape or canon.indices.shape != indices.shape:
+        raise ValueError(
+            "refactor pattern mismatch: nonzero-structure shape "
+            f"(indptr {canon.indptr.shape}, indices {canon.indices.shape}) "
+            f"differs from the analyzed pattern "
+            f"(indptr {indptr.shape}, indices {indices.shape})"
+        )
+    if not (
+        np.array_equal(canon.indptr, indptr) and np.array_equal(canon.indices, indices)
+    ):
+        raise ValueError(
+            "refactor pattern mismatch: nonzero structure differs from the "
+            "analyzed matrix (reuse_analysis requires an identical pattern)"
+        )
+
+
 # python-mumps exposes INFOG 1-based-aligned: infog[k] == INFOG(k), with index 0
 # unused (its `mumps_int_array` mirrors the Fortran 1-based indexing directly, it
 # is NOT the usual 0-based shift). Verified against the live array in the
@@ -94,9 +139,28 @@ class _MumpsBackend:
         self._ctx = _MUMPS.Context()
         # SYM=2 takes ONLY the upper triangle; SYM=0 takes the full matrix.
         a = sp.triu(csc).tocsc() if symmetric else csc
+        # Store the SUPPLIED matrix's pattern (triu for SYM=2, full for SYM=0):
+        # `refactor` must guard against a different structure before reusing
+        # this analysis (see `_check_pattern`).
+        self._pattern = _pattern_of(a)
         self._ctx.set_matrix(a, symmetric=symmetric)
         self._ctx.analyze()
         self._ctx.factor()
+
+    def refactor(self, csc: sp.csc_matrix[np.complex128]) -> None:
+        """Re-factorize ``csc`` reusing the existing symbolic analysis.
+
+        ``csc`` MUST share the analyzed matrix's sparsity pattern (a diagonal
+        shift ``E*I - H`` does). Re-supplies the same-pattern matrix and calls
+        ``factor(reuse_analysis=True)``, so the persistent Context keeps its
+        analysis and the (SCOTCH/METIS/...) ordering is NOT recomputed. Raises
+        ``ValueError`` on a pattern mismatch, since reusing the analysis for a
+        different structure would silently produce a wrong factorization.
+        """
+        a = sp.triu(csc).tocsc() if self._symmetric else csc
+        _check_pattern(self._pattern, a)
+        self._ctx.set_matrix(a, symmetric=self._symmetric)
+        self._ctx.factor(reuse_analysis=True)
 
     def _infog(self, one_based: int) -> int:
         """Read INFOG(one_based), applying MUMPS's negative-million convention.
