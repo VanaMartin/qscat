@@ -39,8 +39,8 @@ Public API:
   - `local_complex_potential` -- the LCP reduction `(V_d(R), Gamma(R))` of the
     fixed-R electronic resonance to a single complex number per R.
   - `lcp_da_cross_section` -- the LCP dissociative-attachment cross section
-    `sigma_DA(E)` via 1-D nuclear doorway propagation + boundary-flux energy
-    transform (the approximation under test vs. `da_cross_section`).
+    `sigma_DA(E)` via the TI resolvent (1-D nuclear doorway, boundary-value
+    outgoing flux; the approximation under test vs. `da_cross_section`).
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
   - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.

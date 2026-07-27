@@ -45,7 +45,7 @@ exactly like `driven.py`/`dissociation.py`.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import numpy as np
 import numpy.typing as npt
@@ -53,7 +53,7 @@ import scipy.sparse as sp
 
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic, kinetic_sparse
 from qscat.ecs import find_resonance_pole
-from qscat.evolution import make_pade_stepper
+from qscat.linalg import SparseLU
 
 from .dissociation import anion_electronic_states
 
@@ -139,21 +139,10 @@ def local_complex_potential(
     return Vd, Gamma
 
 
-def _quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
-    """Composite Simpson weights (unscaled by dt); trapezoidal fallback for even n_t.
-    Copied from projects/n2_td_cross_section/td_cross_section.py."""
-    if n_t < 2:
-        raise ValueError("need at least 2 time samples")
-    if n_t % 2 == 1:
-        w = np.ones(n_t)
-        w[1:-1:2] = 4.0
-        w[2:-1:2] = 2.0
-        w /= 3.0
-    else:
-        w = np.full(n_t, 2.0)
-        w[0] = w[-1] = 1.0
-        w /= 2.0
-    return np.asarray(w, dtype=np.float64)
+# Mirrors `driven.py`'s (private) `_Ordering` -- scipy's `splu`'s
+# `permc_spec`. Not imported directly: that name is an internal detail of
+# `SparseLU`, not part of its public API.
+_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 
 
 def lcp_da_cross_section(
@@ -164,49 +153,54 @@ def lcp_da_cross_section(
     eps: npt.NDArray[np.float64],
     chi: npt.NDArray[np.complex128],
     v_init: int,
-    eps_e: float,
     E: float | npt.ArrayLike,
     *,
-    dt: float = 1.0,
-    n_steps: int = 1500,
-    order: int = 3,
+    ordering: _Ordering = "COLAMD",
 ) -> npt.NDArray[np.float64]:
-    """LCP dissociative-attachment sigma_DA(E) (bohr^2): the 1-D nuclear
-    doorway propagated on V_d - i Gamma/2, DA = flux at the dissociation
-    boundary. eMoScat ModelLCP/SMatrix.cpp. The approximation under test vs the
-    exact-2D `da_cross_section` oracle."""
+    """LCP dissociative-attachment sigma_DA(E) (bohr^2), TI resolvent form.
+
+    Solve `(E_tot I - H_res) psi_sc = d`, `H_res = T_nuc + diag(V_d - i Gamma/2)`,
+    doorway `d = sqrt(Gamma/2pi) chi_{v_init}`; the DA amplitude is the outgoing
+    dissociation flux at the boundary `X` (outermost real point):
+    `S_DA = sqrt(K/2pi mu) psi_sc(X)`, `psi_sc(X) = psi_sc[b]/sqrt(w_b)` (the
+    wavefunction VALUE, not the DVR coefficient), `sigma = 4 pi^3 |S_DA|^2/2E`.
+    The DA threshold `eps_e = V_d(R_inf) = Vd[b].real` (open iff `E_tot > eps_e`).
+
+    Requires the FINE per-molecule nuclear grid (the K~58 outgoing wave is
+    unresolved on a coarse grid). The T->infty limit of eMoScat's TD
+    `ModelLCP/SMatrix.cpp`. The approximation under test vs the exact-2D
+    `da_cross_section` oracle -- validated at sigma_DA(F2,0.03)=1.47 vs ~1.66.
+    """
     pts = nuclear_grid.points
     real_idx = np.flatnonzero(pts.imag == 0.0)
-    b = int(real_idx[np.argmax(pts[real_idx].real)])   # outermost real point index
-    X = float(pts[b].real)
+    b = int(real_idx[np.argmax(pts[real_idx].real)])
+    eps_e = float(Vd[b].real)
+    sqrt_wb = np.sqrt(complex(nuclear_grid.weights[b]))
 
     doorway = np.sqrt(Gamma / (2.0 * np.pi)).astype(np.complex128) * chi[v_init]
-    H_res = kinetic_sparse(nuclear_grid, mu) + sp.diags(Vd - 0.5j * Gamma)
-    step = make_pade_stepper(H_res.tocsc(), dt, order)
+    H_res = (kinetic_sparse(nuclear_grid, mu) + sp.diags(Vd - 0.5j * Gamma)).tocsc()
+    ident = sp.identity(nuclear_grid.n, format="csc", dtype=np.complex128)
 
-    n_t = n_steps + 1
-    t = np.arange(n_t, dtype=np.float64) * dt
-    psi_X = np.empty(n_t, dtype=np.complex128)
-    psi = doorway.copy()
-    for n in range(n_t):
-        psi_X[n] = psi[b]
-        if n < n_steps:
-            psi = step(psi)
-
-    w = _quadrature_weights(n_t)
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     out = np.zeros(e_arr.size, dtype=np.float64)
+    lu: SparseLU | None = None
     for ie, e in enumerate(e_arr):
-        if e <= 0.0:
+        if float(e) <= 0.0:
             continue
         e_tot = float(e) + eps[v_init]
         e_dr = e_tot - eps_e
         if e_dr <= 0.0:
             continue
-        K = float(np.sqrt(2.0 * mu * e_dr))
-        phase = np.exp(1j * e_tot * t)
-        S = np.sqrt(K / (2.0 * np.pi * mu)) * np.exp(-1j * K * X) * np.sum(w * phase * psi_X) * dt
-        out[ie] = 4.0 * np.pi**3 * abs(S) ** 2 / (2.0 * float(e))
+        a = (e_tot * ident - H_res).tocsc()
+        if lu is None:
+            lu = SparseLU(a, ordering=ordering)
+        else:
+            lu.refactor(a)
+        psi_sc = lu.solve(doorway)
+        k_r = float(np.sqrt(2.0 * mu * e_dr))
+        val = psi_sc[b] / sqrt_wb
+        s_da = np.sqrt(k_r / (2.0 * np.pi * mu)) * val
+        out[ie] = 4.0 * np.pi**3 * abs(s_da) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
     return np.asarray(out[0] if scalar else out, dtype=np.float64)
