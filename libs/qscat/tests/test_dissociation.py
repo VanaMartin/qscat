@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from qscat.core.dissociation import anion_electronic_states
+from qscat.core.dissociation import anion_electronic_states, v_dr_diag
 from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.core.vibrational import vibrational_states
+from qscat.dvr import TensorGrid
 from qscat.model import F2, N2, NO
 
 
@@ -46,3 +47,38 @@ def test_raises_when_too_many_states_requested():
     _, R0 = _eps0(F2)
     with pytest.raises(ValueError):
         anion_electronic_states(g_r, F2, R0, n_states=50)
+
+
+def _tgrid():
+    return TensorGrid([electronic_grid(r_max=14.0, order=6, n_complex=4),
+                       nuclear_grid(r_max=20.0, n_complex=4, quadrature=8)])
+
+
+def test_v_dr_shape_and_dtype():
+    tg = _tgrid()
+    vdr = v_dr_diag(tg, F2)
+    assert vdr.shape == (tg.size,) and vdr.dtype == np.complex128
+
+
+def test_v_dr_equals_definition_pointwise():
+    tg = _tgrid()
+    model = F2
+    R_inf = tg.grids[1].R0
+    pts_r, pts_R = tg.points()  # (n_r,1), (1,n_R)
+    expect = (
+        model.interaction_diag(tg)
+        + np.broadcast_to(model.v0(pts_R), tg.shape).ravel()
+        - np.broadcast_to(model.v_int(pts_r, R_inf), tg.shape).ravel()
+    )
+    assert np.allclose(v_dr_diag(tg, model), expect, rtol=0, atol=1e-14)
+
+
+def test_v_dr_tends_to_v0_at_large_R():
+    # Where R is near R_inf, V_int(r,R) ~ V_int(r,R_inf), so V_DR ~ v0(R).
+    tg = _tgrid()
+    model = F2
+    vdr = v_dr_diag(tg, model).reshape(tg.shape)  # (n_r, n_R)
+    pts_R = tg.points()[1].ravel()
+    j = int(np.argmin(np.abs(pts_R - tg.grids[1].R0)))  # column nearest R_inf
+    v0_col = np.broadcast_to(model.v0(tg.points()[1]), tg.shape)[:, j]
+    assert np.allclose(vdr[:, j], v0_col, rtol=0, atol=1e-10)

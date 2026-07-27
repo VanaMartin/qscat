@@ -32,13 +32,13 @@ from typing import TYPE_CHECKING
 import numpy as np
 import numpy.typing as npt
 
-from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
+from qscat.dvr import FemDvrEcsGrid, TensorGrid, eigen, kinetic
 from qscat.linalg import c_product
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["anion_electronic_states"]  # Tasks 3/4 append "v_dr_diag", "da_cross_section"
+__all__ = ["anion_electronic_states", "v_dr_diag"]  # Task 4 appends "da_cross_section"
 
 # Bound-state signature on an ECS grid: true bound levels have |Im(E)| ~ 1e-15,
 # ECS-continuum states jump to >= 1e-7. Same tolerance as `vibrational_states`.
@@ -93,3 +93,22 @@ def anion_electronic_states(
         norm2 = c_product(p, p)
         phi[i] = phi[i] / np.sqrt(norm2)
     return eps_e, phi
+
+
+def v_dr_diag(tgrid: TensorGrid, model: ResonanceModel) -> npt.NDArray[np.complex128]:
+    """The rearrangement interaction `V_DR = V_int(r,R) + v0(R) - V_int(r, R_inf)`,
+    flat (C-order), length `tgrid.size`. `R_inf = tgrid.grids[1].R0` (the nuclear
+    ECS pivot / real-region endpoint, eMoScat's `nu_inf`).
+
+    This -- not `V_int` -- is the operator in the DA/DR T-matrix: `H - H_final`,
+    where `H_final` is the asymptotic channel Hamiltonian (electron bound in
+    `V_int(r, R_inf)`, free nuclei on `v0`). As `R -> R_inf` the `V_int` terms
+    cancel and `V_DR -> v0(R)`.
+    """
+    R_inf = tgrid.grids[1].R0
+    pts_r, pts_R = tgrid.points()
+    v0_term = np.broadcast_to(model.v0(pts_R), tgrid.shape).ravel()
+    vint_inf = np.broadcast_to(model.v_int(pts_r, R_inf), tgrid.shape).ravel()
+    return np.asarray(
+        model.interaction_diag(tgrid) + v0_term - vint_inf, dtype=np.complex128
+    )
