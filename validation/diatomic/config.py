@@ -20,7 +20,7 @@ from dataclasses import dataclass
 import numpy as np
 import numpy.typing as npt
 from qscat.core.grids import electronic_grid, segmented_grid
-from qscat.dvr import TensorGrid
+from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.model import F2, NO, DiatomicResonanceModel
 
 __all__ = ["MoleculeConfig", "CONFIGS"]
@@ -51,6 +51,9 @@ class MoleculeConfig:
     nuc_complex: tuple[tuple[int, float], ...]
     nuc_angle: float
     nuc_quad: int
+    # LCP fixed-R electronic ECS angles (two-angle pole-matching, sub-project B)
+    lcp_angle_a: float = 35.0
+    lcp_angle_b: float = 44.0
 
     def energy_grid(self) -> npt.NDArray[np.float64]:
         return np.round(np.arange(self.e_lo, self.e_hi + 0.5 * self.e_step, self.e_step), 6)
@@ -74,6 +77,28 @@ class MoleculeConfig:
                     quadrature=self.nuc_quad,
                 ),
             ]
+        )
+
+    def lcp_elec_grids(self) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid]:
+        """The two ECS-angle-matched fixed-R electronic grids for LCP pole finding."""
+        return (
+            electronic_grid(
+                r_max=self.e_r_max, order=self.e_order, n_complex=self.e_n_complex,
+                angle_deg=self.lcp_angle_a,
+            ),
+            electronic_grid(
+                r_max=self.e_r_max, order=self.e_order, n_complex=self.e_n_complex,
+                angle_deg=self.lcp_angle_b,
+            ),
+        )
+
+    def lcp_nuclear_grid(self) -> FemDvrEcsGrid:
+        """The eMoScat per-molecule nuclear deck (same fine grid as `da_grid()`)."""
+        return segmented_grid(
+            self.nuc_real,
+            self.nuc_complex,
+            angle_deg=self.nuc_angle,
+            quadrature=self.nuc_quad,
         )
 
 
