@@ -161,7 +161,7 @@ git commit -m "feat(da): mass-mu energy-normalized nuclear Bessel (riccati_besse
 - Consumes: `qscat.dvr.{kinetic, eigen, FemDvrEcsGrid}`, `qscat.linalg.c_product`, `model.surface`, `model.ell`, `model.mu`.
 - Produces: `anion_electronic_states(g_r: FemDvrEcsGrid, model: ResonanceModel, R_inf: float, n_states: int = 1) -> tuple[NDArray[float64], NDArray[complex128]]` returning `(eps_e, phi_e)`: `eps_e` the `n_states` lowest-Re bound electronic eigenvalues (real, ascending) of `−½∂²_r + surface(r, R_inf)`; `phi_e` shape `(n_states, g_r.n)`, each c-product-normalized over the electronic real region.
 
-**Design notes (read before coding):** `model.surface(g_r.points, R_inf)` is the full electronic potential at the dissociation limit — `v0(R_inf) + ℓ(ℓ+1)/2r² + v_int(r, R_inf)` — so `eps_e` sits on the SAME energy scale as `H_2D` (it includes `v0(R_inf)`), which is what makes the DA threshold `eps_e − eps[v_init]` correct. The anion state is genuinely BOUND at `R_inf` (real eigenvalue below the ECS continuum), so select by `|Im(E)| < _IM_TOL_HA` then take the lowest `n_states` by `Re(E)` — do NOT take "the n lowest-Re overall" (ECS continuum eigenvalues can have `Re(E)` below the bound state; only the `|Im|` filter distinguishes them). `g_r.points` may be complex on the tail; `surface` handles that. Mirror `qscat.core.vibrational.vibrational_states`' structure and its `_IM_TOL_HA = 1e-6`.
+**Design notes (read before coding):** `model.surface(g_r.points, R_inf)` is the full electronic potential at the dissociation limit — `v0(R_inf) + ℓ(ℓ+1)/2r² + v_int(r, R_inf)` — so `eps_e` sits on the SAME energy scale as `H_2D` (it includes `v0(R_inf)`), which is what makes the DA threshold `eps_e − eps[v_init]` correct. The anion state is genuinely BOUND at `R_inf`: a real eigenvalue (`|Im(E)| < _IM_TOL_HA`) BELOW the asymptotic electronic continuum edge, which is `v0(R_inf)` (as `r→∞` both `v_int` and the centrifugal term vanish, so the electron sees only `v0(R_inf)`). Select by BOTH conditions — `|Im(E)| < _IM_TOL_HA` AND `Re(E) < v0(R_inf)` — then take the lowest `n_states` by `Re(E)`. **The `|Im|` filter alone is NOT enough:** a finite FEM/DVR basis always produces "top-of-grid numerical-junk" eigenvalues with large positive `Re(E)` but tiny `|Im(E)|` (documented in `test_femdvr_ecs.py`'s "numerical-junk states"; on the 113-point grid there are ~50 of them), which the `Re(E) < v0(R_inf)` ceiling excludes. Do NOT take "the n lowest-Re overall" either. `g_r.points` may be complex on the tail; `surface`/`v0` handle that. Mirror `qscat.core.vibrational.vibrational_states`' structure and its `_IM_TOL_HA = 1e-6`.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -266,7 +266,7 @@ from qscat.linalg import c_product
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["anion_electronic_states", "v_dr_diag", "da_cross_section"]
+__all__ = ["anion_electronic_states"]  # Tasks 3/4 append "v_dr_diag", "da_cross_section"
 
 # Bound-state signature on an ECS grid: true bound levels have |Im(E)| ~ 1e-15,
 # ECS-continuum states jump to >= 1e-7. Same tolerance as `vibrational_states`.
@@ -287,23 +287,30 @@ def anion_electronic_states(
     `H_2D` energy scale (it includes `v0(R_inf)`) and the DA threshold
     `eps_e - eps[v_init]` is correct.
 
-    Returns `(eps_e, phi_e)`: `eps_e` the `n_states` lowest-Re eigenvalues with
-    `|Im(E)| < _IM_TOL_HA` (the genuinely bound states), real, ascending;
-    `phi_e` shape `(n_states, g_r.n)`, each c-product-normalized over the
-    electronic real region. Raises `ValueError` if fewer than `n_states` bound
-    states exist (e.g. `n_states` reached past the finite bound spectrum).
+    Returns `(eps_e, phi_e)`: `eps_e` the `n_states` lowest-Re genuinely bound
+    eigenvalues (`|Im(E)| < _IM_TOL_HA` AND `Re(E) < v0(R_inf)`), real,
+    ascending; `phi_e` shape `(n_states, g_r.n)`, each c-product-normalized
+    over the electronic real region. Raises `ValueError` if fewer than
+    `n_states` bound states exist (e.g. `n_states` reached past the finite
+    bound spectrum).
     """
     H_el = kinetic(g_r, 1.0) + np.diag(model.surface(g_r.points, R_inf))
     E, V = eigen(H_el)  # ascending Re(E)
-    bound = np.flatnonzero(np.abs(E.imag) < _IM_TOL_HA)
+    # Genuinely bound: near-real AND below the asymptotic electronic continuum
+    # edge v0(R_inf) (as r->inf, v_int and centrifugal vanish -> the electron
+    # sees only v0(R_inf)). The |Im| filter alone counts finite-basis
+    # "top-of-grid numerical-junk" eigenvalues (large positive Re(E), tiny
+    # |Im|) as bound; the Re(E) < e_thresh cut excludes them.
+    e_thresh = float(np.real(model.v0(np.asarray(R_inf))))
+    bound = np.flatnonzero((np.abs(E.imag) < _IM_TOL_HA) & (E.real < e_thresh))
     if bound.size < n_states:
         raise ValueError(
             f"anion_electronic_states(n_states={n_states}) found only "
-            f"{bound.size} bound electronic state(s) with |Im(E)| < "
-            f"{_IM_TOL_HA} Ha at R_inf={R_inf}: the well supports fewer bound "
-            "states than requested. Reduce n_states."
+            f"{bound.size} bound electronic state(s) (|Im(E)| < {_IM_TOL_HA} Ha "
+            f"and Re(E) < v0(R_inf)={e_thresh:.6g}) at R_inf={R_inf}: the well "
+            "supports fewer bound states than requested. Reduce n_states."
         )
-    idx = bound[:n_states]
+    idx = bound[:n_states]  # E is Re-ascending, so these are the lowest-Re bound states
     eps_e = E[idx].real
     phi = V[:, idx].T.astype(np.complex128)
 
@@ -417,7 +424,7 @@ def v_dr_diag(tgrid: TensorGrid, model: ResonanceModel) -> npt.NDArray[np.comple
     )
 ```
 
-Update the import line to `from qscat.dvr import FemDvrEcsGrid, TensorGrid, eigen, kinetic`.
+Update the import line to `from qscat.dvr import FemDvrEcsGrid, TensorGrid, eigen, kinetic`, and append `"v_dr_diag"` to the module `__all__` (so it reads `["anion_electronic_states", "v_dr_diag"]` — ruff F822 fails on names in `__all__` that aren't yet defined, so grow it as each function lands).
 
 - [ ] **Step 4: Run to verify it passes**
 
@@ -586,9 +593,7 @@ def da_cross_section(
     return np.asarray(out[0] if scalar else out, dtype=np.float64)
 ```
 
-Export in `libs/qscat/qscat/core/__init__.py`: add
-`from .dissociation import anion_electronic_states, da_cross_section, v_dr_diag`
-and append `"anion_electronic_states"`, `"v_dr_diag"`, `"da_cross_section"` to `__all__`. Extend the module docstring's "Public API" list with a one-line entry for the DA cross section.
+Append `"da_cross_section"` to `dissociation.py`'s module `__all__` (now `["anion_electronic_states", "v_dr_diag", "da_cross_section"]`). Export in `libs/qscat/qscat/core/__init__.py`: add `from .dissociation import anion_electronic_states, da_cross_section, v_dr_diag` and append `"anion_electronic_states"`, `"v_dr_diag"`, `"da_cross_section"` to its `__all__`. Extend that module docstring's "Public API" list with a one-line entry for the DA cross section.
 
 - [ ] **Step 4: Run to verify it passes**
 
@@ -609,126 +614,210 @@ git commit -m "feat(da): exact-2D TI da_cross_section (driven solve + V_DR T-mat
 
 ---
 
-### Task 5: Nuclear-grid convergence study
+### Task 5: `segmented_grid` — the eMoScat per-molecule grid builder
+
+**Rationale (why this replaced the quadrature convergence study):** the DA magnitude did NOT converge under quadrature (p-)refinement — σ_DA(F₂,0.03) swung 0.16→26→0.54→2.3→4.0 across q=10→30 on the shared N₂-style grid. A `sin(K_R R)` exit wave with K_R≈58 (wavelength ~0.107 bohr) needs element-density (h-)refinement, not more points per element. eMoScat already solved this ACCURATELY with hand-tuned **per-molecule** grids (`reference/eMoScat/input/{N2,NO,F2}/grids.txt`), whose nuclear grids are far finer over the dissociation region (NO: 37×0.2 bohr over [1.6,9.0]; F₂: 40×0.2 bohr over [2.7,10.7] + 0.024 bohr around the 2.5–2.7 resonance). We adopt those tested values rather than rediscover the knob. This task adds the general builder for eMoScat's grid-deck format; Task 6 transcribes the decks. (Future work — a skill that CHOOSES the discretisation from the potential curves via the per-element de Broglie phase — is noted in the docs, not built here.)
 
 **Files:**
-- Create: `benchmarks/da_nuclear_convergence.py`
-- Test: `benchmarks/test_da_nuclear_convergence.py`
+- Modify: `libs/qscat/qscat/core/grids.py`
+- Modify: `libs/qscat/qscat/core/__init__.py`
+- Test: `libs/qscat/tests/test_grids_segmented.py`
 
 **Interfaces:**
-- Consumes: `qscat.core.da_cross_section`, `qscat.core.grids`, `qscat.core.vibrational.vibrational_states`, `qscat.model.F2`.
-- Produces: `convergence_table(model, E, grids) -> list[dict]` returning `{"n_complex", "quadrature", "r_max", "sigma"}` per nuclear-grid setting, and a `main()` that prints the table. This MEASURES how σ_DA(E) stabilizes as the nuclear grid resolves the fast outgoing wave (`K_R ~ 50`, wavelength `~0.13 bohr`) — documenting that the DA roughness is under-resolution, not a method error.
+- Produces: `segmented_grid(real_segments, complex_segments, *, angle_deg, quadrature, x_min=0.0) -> FemDvrEcsGrid`. `real_segments`/`complex_segments` are `Sequence[tuple[int, float]]` of `(n_elements, endpoint)` pairs — exactly eMoScat's `grids.txt` format: from `x_min`, each segment lays `n` uniform elements up to `endpoint`; the complex part is an ECS tail at `angle_deg`. The ECS pivot `R0` is the last real endpoint. `complex_segments` may be empty (pure real grid).
 
-**Design notes:** F₂ (exothermic, strongest DA) at a fixed collision energy in its window (e.g. `E=0.03`). Sweep the nuclear grid's `quadrature` (10→18) and `n_complex` at fixed electronic grid; hold `v_init=0`, `n_channels=1`. Report σ_DA and the successive relative change. The `benchmarks/` package imports `projects`/`qscat` and is run via `python -m benchmarks.da_nuclear_convergence` (see CLAUDE.md).
+**Design notes:** mirror the element assembly already in `nuclear_grid`/`electronic_grid` (build a `list[ElementSpec]`, real as `ElementSpec(h)`, complex as `ElementSpec(h, angle_deg)`, then `FemDvrEcsGrid(GridSpec(quadrature, elements, x_min))`). `h = (endpoint - start) / n`. Validate: every `n >= 1`; endpoints strictly increasing (each `> start`); `quadrature >= 2`. `GridSpec` computes `R0` as `x_min + sum(real element lengths)` = the last real endpoint, so the ECS tail starts there automatically.
 
 - [ ] **Step 1: Write the failing test**
 
 ```python
-# benchmarks/test_da_nuclear_convergence.py
+# libs/qscat/tests/test_grids_segmented.py
 from __future__ import annotations
 
 import numpy as np
-from benchmarks.da_nuclear_convergence import convergence_table
-from qscat.model import F2
+import pytest
+from qscat.core.grids import segmented_grid
 
 
-def test_convergence_table_runs_and_stabilizes():
-    rows = convergence_table(F2, 0.03, quadratures=(10, 14, 18))
-    assert len(rows) == 3
-    assert all(np.isfinite(r["sigma"]) and r["sigma"] >= 0.0 for r in rows)
-    # finer nuclear quadrature: the last step changes less than the first
-    d1 = abs(rows[1]["sigma"] - rows[0]["sigma"])
-    d2 = abs(rows[2]["sigma"] - rows[1]["sigma"])
-    assert d2 <= d1 + 1e-12
+def test_reproduces_emoscat_n2_nuclear_deck():
+    # N2 nuclear (input/N2/grids.txt, 2nd declaration): real to 12.0, tail to 55.
+    g = segmented_grid(
+        [(2, 1.0), (1, 1.5), (10, 3.0), (2, 4.0), (2, 6.0), (6, 12.0)],
+        [(1, 13.0), (2, 16.0), (1, 18.0), (4, 55.0)],
+        angle_deg=35.0,
+        quadrature=14,
+    )
+    assert g.R0 == pytest.approx(12.0)            # ECS pivot = last real endpoint
+    # real region ends at 12, tail runs onto the complex plane past it
+    assert float(g.real_points.max()) == pytest.approx(55.0)
+    assert np.iscomplexobj(g.points) and np.any(np.abs(g.points.imag) > 0)
+
+
+def test_element_lengths_are_uniform_per_segment():
+    # the 10 elements over [1.5, 3.0] are each 0.15 bohr
+    g = segmented_grid([(1, 1.5), (10, 3.0)], [], angle_deg=35.0, quadrature=8)
+    assert g.R0 == pytest.approx(3.0)             # no complex tail -> pivot at real end
+    assert np.max(np.abs(g.points.imag)) == pytest.approx(0.0)  # pure real
+
+
+@pytest.mark.parametrize(
+    "real_seg",
+    [[(0, 1.0)], [(2, 1.0), (1, 0.5)]],  # n<1 ; non-increasing endpoint
+)
+def test_rejects_bad_segments(real_seg):
+    with pytest.raises(ValueError):
+        segmented_grid(real_seg, [], angle_deg=35.0, quadrature=8)
 ```
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `uv run pytest benchmarks/test_da_nuclear_convergence.py -q`
-Expected: FAIL — `ModuleNotFoundError: benchmarks.da_nuclear_convergence`.
+Run: `uv run pytest libs/qscat/tests/test_grids_segmented.py -q`
+Expected: FAIL — `cannot import name 'segmented_grid'`.
 
-- [ ] **Step 3: Implement the study**
+- [ ] **Step 3: Implement `segmented_grid`** (append to `grids.py`, add to `__all__`)
 
 ```python
-# benchmarks/da_nuclear_convergence.py
-"""DA nuclear-grid convergence: sigma_DA(E) vs nuclear resolution for F2.
-
-The DA exit wave F^nuc_{K,0}(R) = sqrt(2 mu/pi K) sin(KR) oscillates fast for
-heavy nuclei (F2: K_R ~ 50, wavelength ~ 0.13 bohr), so the nuclear FEM-DVR
-grid must resolve it for the T-matrix quadrature to converge. This measures
-that: sigma_DA(F2, E) as the nuclear quadrature is refined. Run via
-`uv run python -m benchmarks.da_nuclear_convergence`.
-"""
-
-from __future__ import annotations
-
-from collections.abc import Sequence
-
-import numpy as np
-from qscat.core.dissociation import da_cross_section
-from qscat.core.grids import electronic_grid, nuclear_grid
-from qscat.core.vibrational import vibrational_states
-from qscat.dvr import TensorGrid
-from qscat.model import DiatomicResonanceModel
-
-
-def convergence_table(
-    model: DiatomicResonanceModel,
-    E: float,
-    quadratures: Sequence[int] = (10, 12, 14, 16, 18),
+def segmented_grid(
+    real_segments: Sequence[tuple[int, float]],
+    complex_segments: Sequence[tuple[int, float]],
     *,
-    r_max_R: float = 22.0,
-    n_complex: int = 10,
-    el_r_max: float = 16.0,
-) -> list[dict]:
-    rows: list[dict] = []
-    g_r = electronic_grid(r_max=el_r_max, order=8, n_complex=6)
-    for q in quadratures:
-        g_R = nuclear_grid(r_max=r_max_R, n_complex=n_complex, quadrature=q)
-        tg = TensorGrid([g_r, g_R])
-        eps, chi = vibrational_states(g_R, model.mu, 3, model.v0)
-        sigma = float(da_cross_section(tg, model, eps, chi, 0, E)[0])
-        rows.append({"quadrature": q, "n_complex": n_complex, "r_max": r_max_R, "sigma": sigma})
-    return rows
+    angle_deg: float,
+    quadrature: int,
+    x_min: float = 0.0,
+) -> FemDvrEcsGrid:
+    """A FEM-DVR-ECS grid from eMoScat's `grids.txt` segment format.
 
-
-def main() -> None:
-    from qscat.model import F2
-
-    rows = convergence_table(F2, 0.03)
-    print(f"F2 sigma_DA(E=0.03) vs nuclear quadrature (r_max={rows[0]['r_max']}):")
-    prev = None
-    for r in rows:
-        rel = "" if prev is None else f"  d_rel={abs(r['sigma']-prev)/max(abs(r['sigma']),1e-30):.2%}"
-        print(f"  q={r['quadrature']:2d}  sigma={r['sigma']:.6e}{rel}")
-        prev = r["sigma"]
-
-
-if __name__ == "__main__":
-    main()
+    `real_segments` / `complex_segments` are `(n_elements, endpoint)` pairs:
+    from `x_min`, each segment tiles `n` uniform elements up to `endpoint`.
+    The complex part is an ECS tail at `angle_deg`; the ECS pivot `R0` is the
+    last real endpoint. `complex_segments` may be empty (a pure real grid).
+    This is the per-molecule discretisation route -- see
+    docs/physics/diatomic-ve-cross-sections.md (DA nuclear grids).
+    """
+    if quadrature < 2:
+        raise ValueError(f"quadrature must be >= 2, got {quadrature}")
+    elements: list[ElementSpec] = []
+    start = x_min
+    for label, segs, angle in (("real", real_segments, None), ("complex", complex_segments, angle_deg)):
+        for n, end in segs:
+            if n < 1:
+                raise ValueError(f"{label} segment ({n}, {end}) has n_elements < 1")
+            if end <= start:
+                raise ValueError(f"{label} endpoint {end} must exceed previous {start}")
+            h = (end - start) / n
+            elements += [ElementSpec(h) if angle is None else ElementSpec(h, angle) for _ in range(n)]
+            start = end
+    return FemDvrEcsGrid(GridSpec(quadrature=quadrature, elements=elements, x_min=x_min))
 ```
+
+Add `from collections.abc import Sequence` at the top of `grids.py` if not present, append `"segmented_grid"` to `grids.py`'s `__all__`, and export it from `libs/qscat/qscat/core/__init__.py` (import + `__all__` + a one-line Public-API docstring entry).
 
 - [ ] **Step 4: Run to verify it passes**
 
-Run: `uv run pytest benchmarks/test_da_nuclear_convergence.py -q`
-Expected: PASS.
+Run: `uv run pytest libs/qscat/tests/test_grids_segmented.py -q`
+Expected: PASS (4 tests).
 
-- [ ] **Step 5: Run the study, record the numbers**
+- [ ] **Step 5: Type-check + lint**
 
-Run: `uv run python -m benchmarks.da_nuclear_convergence`
-Expected: a printed table of σ_DA vs quadrature with shrinking `d_rel`. Copy the numbers into the commit message (they seed Task 6's doc table).
+Run: `uv run mypy libs/qscat/qscat/core && uv run ruff check libs/qscat/qscat/core`
+Expected: no errors.
 
-- [ ] **Step 6: Type-check + lint + commit**
+- [ ] **Step 6: Commit**
 
-Run: `uv run mypy benchmarks/da_nuclear_convergence.py && uv run ruff check benchmarks/da_nuclear_convergence.py`
 ```bash
-git add benchmarks/da_nuclear_convergence.py benchmarks/test_da_nuclear_convergence.py
-git commit -m "bench(da): nuclear-grid convergence study for sigma_DA (K_R~50 resolution)"
+git add libs/qscat/qscat/core/grids.py libs/qscat/qscat/core/__init__.py libs/qscat/tests/test_grids_segmented.py
+git commit -m "feat(da): segmented_grid builder for eMoScat per-molecule grid decks"
 ```
 
 ---
 
-### Task 6: F₂/NO σ_DA figures, docs, and CLAUDE.md
+### Task 6: eMoScat per-molecule nuclear decks + σ_DA stability
+
+**Files:**
+- Modify: `validation/diatomic/config.py`
+- Create: `benchmarks/da_grid_stability.py`
+- Test: `validation/diatomic/test_da_grid.py`
+
+**Interfaces:**
+- `MoleculeConfig` gains the eMoScat nuclear deck fields + a `da_grid()` builder:
+  ```python
+  nuc_real: tuple[tuple[int, float], ...]      # eMoScat real segments
+  nuc_complex: tuple[tuple[int, float], ...]   # eMoScat complex (ECS tail) segments
+  nuc_angle: float
+  nuc_quad: int
+  def da_grid(self) -> TensorGrid: ...          # electronic (r_max=e_r_max, validated) x eMoScat nuclear
+  ```
+- `benchmarks/da_grid_stability.py`: `stability(cfg, E) -> dict` returning σ_DA on the eMoScat grid AND on a modestly h-refined variant (doubling the outer nuclear elements) + their relative difference — the real convergence evidence (records numbers for the docs). Run via `uv run python -m benchmarks.da_grid_stability`.
+
+**Design notes:** the electronic grid stays the VE-validated one (`electronic_grid(r_max=e_r_max, order=e_order, n_complex=e_n_complex)` — r_max=16); only the NUCLEAR grid becomes eMoScat's fine per-molecule deck via `segmented_grid`. `da_grid` = `TensorGrid([electronic_grid(...), segmented_grid(nuc_real, nuc_complex, angle_deg=nuc_angle, quadrature=nuc_quad)])`. This is a NEW grid path used only by DA; the VE `build_grid` (in `curves.py`) is unchanged (VE's outgoing flux is electronic, already converged on the coarse nuclear grid — do not touch VE figures here). The eMoScat decks, transcribed verbatim from `reference/eMoScat/input/{NO,F2}/grids.txt` (2nd/nuclear declaration):
+
+- **NO** nuclear: real `[(1,1.0),(1,1.6),(37,9.0)]`, complex `[(1,9.25),(1,10.0),(1,12.0),(4,42.0)]`, angle `45.0`, quad `14`.
+- **F₂** nuclear: real `[(9,1.8),(1,2.0),(5,2.5),(4,2.596908),(4,2.7),(40,10.7)]`, complex `[(1,10.8),(1,11.0),(1,11.5),(1,12.5),(1,14.0),(1,18.0),(4,30.0),(2,101.0)]`, angle `35.0`, quad `14`.
+
+(N₂'s deck — real `[(2,1.0),(1,1.5),(10,3.0),(2,4.0),(2,6.0),(6,12.0)]`, complex `[(1,13.0),(2,16.0),(1,18.0),(4,55.0)]`, angle 35, quad 14 — is recorded in the doc but N₂ DA is closed, so no N₂ config entry is needed.) These grids are large (F₂ ≈ 108k-unknown 2-D solve), so the σ_DA runs are heavy: the pytest gate uses 1–2 anchor energies and is `@slow`; the stability benchmark is a script, not a gate.
+
+- [ ] **Step 1: Write the failing test**
+
+```python
+# validation/diatomic/test_da_grid.py
+from __future__ import annotations
+
+import numpy as np
+import pytest
+from validation.diatomic.config import CONFIGS
+from qscat.core.vibrational import vibrational_states
+from qscat.core.dissociation import da_cross_section
+
+
+def test_da_grid_uses_emoscat_nuclear_resolution():
+    # F2 nuclear real region ends at 10.7 (eMoScat deck), finely resolved.
+    tg = CONFIGS["F2"].da_grid()
+    assert tg.grids[1].R0 == pytest.approx(10.7)
+    # the [2.7,10.7] region is tiled at ~0.2 bohr -> many nuclear elements
+    assert tg.grids[1].n > 700  # ~960 for the F2 deck at quad 14
+
+
+@pytest.mark.slow
+def test_f2_sigma_da_wellposed_on_emoscat_grid():
+    cfg = CONFIGS["F2"]
+    tg = cfg.da_grid()
+    eps, chi = vibrational_states(tg.grids[1], cfg.model.mu, cfg.n_vib, cfg.model.v0)
+    E = np.array([0.03])
+    s = da_cross_section(tg, cfg.model, eps, chi, 0, E)[:, 0]
+    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
+    assert s[0] > 0.0                      # exothermic -> open
+    assert s[0] < 50.0 * np.pi / (2.0 * E[0])   # soft unitarity
+```
+
+- [ ] **Step 2: Run to verify it fails**
+
+Run: `uv run pytest validation/diatomic/test_da_grid.py -q`
+Expected: FAIL — `AttributeError: ... 'da_grid'` / missing config fields.
+
+- [ ] **Step 3: Extend `MoleculeConfig` + add the decks**
+
+In `validation/diatomic/config.py`: import `segmented_grid`, `electronic_grid` from `qscat.core.grids` and `TensorGrid` from `qscat.dvr`; add the four `nuc_*` fields to the `MoleculeConfig` dataclass and the `da_grid()` method (per the Interfaces block); fill `nuc_real`/`nuc_complex`/`nuc_angle`/`nuc_quad` for NO and F₂ from the decks above. Keep all existing VE fields/values untouched.
+
+- [ ] **Step 4: Run the well-posedness gate**
+
+Run: `uv run pytest validation/diatomic/test_da_grid.py -q` (non-slow), then `uv run pytest validation/diatomic/test_da_grid.py -q -m slow` (the heavy F₂ solve, minutes).
+Expected: both PASS — σ_DA finite, positive, soft-unitary on the eMoScat grid.
+
+- [ ] **Step 5: Add + run the stability benchmark**
+
+Implement `benchmarks/da_grid_stability.py`: for F₂ at E∈{0.02,0.03,0.04}, compute σ_DA on `cfg.da_grid()` and on a variant with the outer nuclear segments' element counts doubled (h-refinement), print both + the relative difference. Run `uv run python -m benchmarks.da_grid_stability` and record the numbers (they go in the doc: evidence σ_DA is now stable under h-refinement, unlike the earlier quadrature sweep).
+
+- [ ] **Step 6: Type-check + lint + commit**
+
+Run: `uv run mypy libs/qscat && uv run ruff check .`
+```bash
+git add validation/diatomic/config.py validation/diatomic/test_da_grid.py benchmarks/da_grid_stability.py
+git commit -m "feat(da): per-molecule eMoScat nuclear grids (NO/F2) + sigma_DA stability"
+```
+
+---
+
+### Task 7: F₂/NO σ_DA figures, docs, and CLAUDE.md
 
 **Files:**
 - Create: `validation/diatomic/da_curves.py`
@@ -737,10 +826,10 @@ git commit -m "bench(da): nuclear-grid convergence study for sigma_DA (K_R~50 re
 - Modify: `CLAUDE.md`
 
 **Interfaces:**
-- Consumes: `qscat.core.da_cross_section`, `validation.diatomic.config.CONFIGS`, `validation.diatomic.curves.build_grid` + `FIGURE_DIR`, `qscat.core.vibrational.vibrational_states`, `qscat.core.plot.plot_cross_sections`.
-- Produces: `compute_da_curve(cfg: MoleculeConfig, E_grid) -> (E, sigma)` with `sigma` shape `(len(E), 1)`, and `main()` writing `docs/physics/figures/{f2,no}-2d-ti-da-cross-section.png`.
+- Consumes: `qscat.core.da_cross_section`, `validation.diatomic.config.CONFIGS`, `validation.diatomic.curves.FIGURE_DIR`, `qscat.core.vibrational.vibrational_states`, `qscat.core.plot.plot_cross_sections`.
+- Produces: `compute_da_curve(cfg, E_grid) -> (E, sigma)` (`sigma` shape `(len(E), 1)`), building the grid via `cfg.da_grid()`; `main()` writing `docs/physics/figures/{f2,no}-2d-ti-da-cross-section.png`.
 
-**Design notes (verified against the real APIs):** reuse `build_grid(cfg)` and `FIGURE_DIR` from `validation/diatomic/curves.py` (do NOT rebuild the grid by hand). `MoleculeConfig` exposes grid *fields* (`e_r_max`, `n_quadrature`, …, `n_vib`, `model`), NOT builder methods. `plot_cross_sections(E_grid, sigma, *, channels=None, title=..., path=...)` is keyword-only for everything after `sigma`, `path` is required, and it log-scales y + masks non-positive σ to NaN. `channels` is typed `list[int] | None`; DA is a single channel with no `v'`, so pass `channels=None` (one curve) and let the `title` carry "dissociative attachment" — the legend's generic "v'=0" label is a known cosmetic wart on a single-curve DA plot, not worth widening the shared plot signature. `CONFIGS` holds only NO and F₂ (no N₂ — closed). F₂ exothermic (`E ∈ [0.005, 0.05]`), NO opens ~0.17 (`E ∈ [0.15, 0.30]`). This is the oracle σ_DA (no independent data). The gate test uses a coarse E grid and asserts thresholds + finiteness only (a full curve is `@slow`).
+**Design notes (verified against the real APIs):** build the grid with `cfg.da_grid()` (the eMoScat per-molecule nuclear grid from Task 6) — NOT `build_grid` (that's the VE grid). `plot_cross_sections(E_grid, sigma, *, channels=None, title=..., path=...)` — keyword-only after `sigma`, `path` required, log-y, masks non-positive to NaN; pass `channels=None` (single DA channel; the `title` carries "dissociative attachment"). `CONFIGS` holds only NO and F₂. Because the eMoScat grid makes each energy a ~108k solve (minutes with SuperLU on a laptop), the committed figures use a MODEST energy count (F₂ ~24 points in [0.01,0.05]; NO ~20 in [0.15,0.30]) — dense curves are a Docker+MUMPS follow-on; note this in the doc. The gate test is coarse (2–3 anchors) and `@slow`.
 
 - [ ] **Step 1: Write the failing gate test**
 
@@ -754,8 +843,8 @@ from validation.diatomic.config import CONFIGS
 from validation.diatomic.da_curves import compute_da_curve
 
 
-def test_f2_da_open_no_closed_below_threshold():
-    # F2 exothermic: sigma_DA > 0 somewhere in [0.01, 0.04].
+@pytest.mark.slow
+def test_f2_da_positive_on_emoscat_grid():
     E, s = compute_da_curve(CONFIGS["F2"], np.array([0.02, 0.03, 0.04]))
     assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
     assert s.max() > 0.0
@@ -781,10 +870,11 @@ Expected: FAIL — `ModuleNotFoundError: validation.diatomic.da_curves`.
 # validation/diatomic/da_curves.py
 """Exact-2D TI dissociative-attachment sigma_DA(E) for F2 and NO (the oracle).
 
-No independent DA data exists (only N2 VE has Houfek's); the exact-2D TI
-solver IS the reference. N2's DA channel is closed in the measurement window
-(threshold +0.5 Ha), so only F2 (exothermic) and NO (~0.17 Ha) are shown.
-Run via `uv run python -m validation.diatomic.da_curves`.
+Computed on eMoScat's per-molecule NUCLEAR grid (`cfg.da_grid()`) -- the fine
+discretisation the fast K_R~58 dissociation wave needs. No independent DA data
+exists (only N2 VE has Houfek's); the exact-2D TI solver IS the reference. N2's
+DA channel is closed in the window (+0.5 Ha), so only F2 (exothermic) and NO
+(~0.17 Ha) are shown. Run via `uv run python -m validation.diatomic.da_curves`.
 """
 
 from __future__ import annotations
@@ -796,14 +886,14 @@ from qscat.core.plot import plot_cross_sections
 from qscat.core.vibrational import vibrational_states
 
 from validation.diatomic.config import CONFIGS, MoleculeConfig
-from validation.diatomic.curves import FIGURE_DIR, build_grid
+from validation.diatomic.curves import FIGURE_DIR
 
 
 def compute_da_curve(
     cfg: MoleculeConfig, E_grid: npt.NDArray[np.float64]
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
-    """`(E_grid, sigma_DA[E, 0])` — the exact-2D TI single-channel DA σ(E)."""
-    tg = build_grid(cfg)
+    """`(E_grid, sigma_DA[E, 0])` on the eMoScat per-molecule nuclear grid."""
+    tg = cfg.da_grid()
     eps, chi = vibrational_states(tg.grids[1], cfg.model.mu, cfg.n_vib, cfg.model.v0)
     E = np.asarray(E_grid, dtype=np.float64)
     sigma = da_cross_section(tg, cfg.model, eps, chi, 0, E)
@@ -813,8 +903,8 @@ def compute_da_curve(
 def main() -> None:
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
     specs = {
-        "F2": (np.linspace(0.005, 0.05, 60), "f2-2d-ti-da-cross-section"),
-        "NO": (np.linspace(0.15, 0.30, 60), "no-2d-ti-da-cross-section"),
+        "F2": (np.linspace(0.01, 0.05, 24), "f2-2d-ti-da-cross-section"),
+        "NO": (np.linspace(0.15, 0.30, 20), "no-2d-ti-da-cross-section"),
     }
     for name, (E, stem) in specs.items():
         _, sigma = compute_da_curve(CONFIGS[name], E)
@@ -835,13 +925,13 @@ if __name__ == "__main__":
 
 - [ ] **Step 4: Run gate test + generate figures**
 
-Run: `uv run pytest validation/diatomic/test_da_curves.py -q`
-Then: `uv run python -m validation.diatomic.da_curves`
-Expected: gate PASS; two PNGs written.
+Run: `uv run pytest validation/diatomic/test_da_curves.py -q -m slow` (heavy — minutes).
+Then: `uv run python -m validation.diatomic.da_curves` (heavy — the two curves take a while on a laptop; this is expected).
+Expected: gate PASS; two PNGs + `.npz` written.
 
 - [ ] **Step 5: Extend the docs**
 
-In `docs/physics/diatomic-ve-cross-sections.md`, under the DA section, add the converged σ_DA figures and a short table of the Task-5 convergence numbers (σ_DA(F₂, E=0.03) vs nuclear quadrature), stating the K_R~50 resolution requirement and that the roughness is under-resolution, not method error. In `CLAUDE.md`, add a one-line entry for `qscat.core.dissociation` (the DA cross section) to the `qscat.core` bullet, and note `validation/diatomic/da_curves.py` produces the σ_DA figures.
+In `docs/physics/diatomic-ve-cross-sections.md`, under the DA section: (a) REPLACE the "roughness is under-resolution, needs finer nuclear grid" caveat with the resolved story — σ_DA is computed on eMoScat's **per-molecule** nuclear grid (NO/F₂ decks quoted), which resolves the K_R~58 exit wave; add the committed σ_DA figures and the Task-6 stability numbers (σ_DA stable under h-refinement); note the earlier quadrature (p-)refinement could not converge an oscillatory integrand. (b) Add a short "Future: automatic discretisation" note — a skill to choose the grid from the potential curves via the per-element de Broglie phase. In `CLAUDE.md`, add a one-line `qscat.core.dissociation` entry (the DA cross section) to the `qscat.core` bullet, a `segmented_grid` mention to the grids bullet, and note `validation/diatomic/da_curves.py` + the per-molecule `da_grid()`.
 
 - [ ] **Step 6: Commit**
 
@@ -849,8 +939,10 @@ In `docs/physics/diatomic-ve-cross-sections.md`, under the DA section, add the c
 git add validation/diatomic/da_curves.py validation/diatomic/test_da_curves.py \
         docs/physics/figures/f2-2d-ti-da-cross-section.png \
         docs/physics/figures/no-2d-ti-da-cross-section.png \
+        docs/physics/figures/f2-2d-ti-da-cross-section.npz \
+        docs/physics/figures/no-2d-ti-da-cross-section.npz \
         docs/physics/diatomic-ve-cross-sections.md CLAUDE.md
-git commit -m "feat(da): F2/NO sigma_DA oracle curves + figures; docs + CLAUDE.md"
+git commit -m "feat(da): F2/NO sigma_DA oracle curves on eMoScat grids + figures + docs"
 ```
 
 ---
@@ -859,12 +951,14 @@ git commit -m "feat(da): F2/NO sigma_DA oracle curves + figures; docs + CLAUDE.m
 
 - `uv run pytest -q -m "not slow"` passes; `uv run pytest -q -m slow libs/qscat/tests/test_dissociation.py` passes.
 - `uv run pytest libs/qscat/tests/test_core_no_model_import.py -q` passes (DA code keeps the core/model boundary).
-- `uv run mypy libs/qscat` 0 errors; `uv run ruff check .` clean.
+- `uv run mypy libs/qscat/qscat` 0 errors (the qscat LIBRARY — test helpers follow the repo's untyped convention); `uv run ruff check .` clean.
 - σ_DA thresholds correct in tests: N₂ ≡ 0 (closed), F₂ > 0 (exothermic), NO onset ~0.17; σ_DA finite, ≥0, soft-unitary.
-- Nuclear-grid convergence measured and documented (the roughness is under-resolution, not a method error); F₂/NO σ_DA figures committed; `docs/physics/diatomic-ve-cross-sections.md` + `CLAUDE.md` updated.
+- `segmented_grid` reproduces eMoScat's per-molecule grid decks; the eMoScat per-molecule NUCLEAR grids (NO/F₂) resolve the K_R~58 exit wave, and σ_DA is stable under h-refinement on them (measured, documented) — the earlier quadrature (p-)refinement non-convergence is explained and resolved. F₂/NO σ_DA figures committed on those grids; `docs/physics/diatomic-ve-cross-sections.md` (+ the future automatic-discretisation note) and `CLAUDE.md` updated.
 
 ## Out of scope (this plan)
 
 - **LCP DA** (the approximation under test) — sub-project B.
 - **H₂⁺ DR** (Rydberg-series loop + Coulomb incident `coulomb::sF_en`) — sub-project D.
+- **A skill to choose discretisation from the potential curves** (the per-element de Broglie phase) — noted in the docs as future work; the eMoScat decks are the interim tested values.
+- **Re-gridding the VE curves onto the eMoScat grids** — VE is already converged on its grid (VE's outgoing flux is electronic, not nuclear); a separate follow-on if desired.
 - Rotational (J>0), multiple electron partial waves, TD exact-2D DA (the TI route is exact and cheaper).
