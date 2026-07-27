@@ -33,7 +33,7 @@ import numpy as np
 import numpy.typing as npt
 from scipy.special import spherical_jn, spherical_yn
 
-__all__ = ["riccati_bessel_en", "riccati_hankel_en"]
+__all__ = ["riccati_bessel_en", "riccati_hankel_en", "riccati_bessel_en_mass"]
 
 
 def riccati_bessel_en(r: npt.NDArray[np.float64], k: float, l: int) -> npt.NDArray[np.float64]:
@@ -60,4 +60,27 @@ def riccati_hankel_en(r: npt.NDArray[np.float64], k: float, l: int) -> npt.NDArr
     rr = np.asarray(r, dtype=np.float64)
     h1_l = spherical_jn(l, k * rr) + 1j * spherical_yn(l, k * rr)
     out: npt.NDArray[np.complex128] = np.sqrt(2.0 * k / np.pi) * rr.astype(np.complex128) * h1_l
+    return out
+
+
+def riccati_bessel_en_mass(
+    r: npt.NDArray[np.float64], k: float, l: int, mu: float
+) -> npt.NDArray[np.float64]:
+    """`F_{E,l}(r) = sqrt(2 mu k / pi) r j_l(k r)`, energy-normalized at mass `mu`.
+
+    The mass-`mu` generalization of `riccati_bessel_en` (which is the `mu=1`
+    case): the energy-normalized (`<F_E|F_E'> = delta(E-E')`) regular radial
+    solution for a particle of reduced mass `mu` and momentum `k = sqrt(2 mu E)`.
+    Used for the OUTGOING NUCLEAR dissociation wave in the DA/DR exit channel
+    (eMoScat `bessel::s_jEn(R, K, mu, l)`). `r` must be REAL (channel
+    projections are masked to the unscaled region); `k>0`, `mu>0`.
+    """
+    if k <= 0.0:
+        raise ValueError(f"k must be positive, got {k}")
+    if mu <= 0.0:
+        raise ValueError(f"mu must be positive, got {mu}")
+    rr = np.asarray(r, dtype=np.float64)
+    out: npt.NDArray[np.float64] = (
+        np.sqrt(2.0 * mu * k / np.pi) * rr * spherical_jn(l, k * rr)
+    )
     return out
