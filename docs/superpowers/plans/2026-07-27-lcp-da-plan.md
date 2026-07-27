@@ -4,9 +4,9 @@
 
 **Goal:** Add the **local-complex-potential (LCP) approximation** of the dissociative-attachment cross section σ_DA(E) to `qscat.core` — the 1-D nuclear reduction (the approximation *under test*) — and validate it against the exact-2D DA oracle (`da_cross_section`) on F₂/NO (+ N₂ sanity), showing where the LCP holds and where it departs.
 
-**Architecture:** The LCP replaces the full electron–nuclear problem with a 1-D nuclear wavepacket on a *local complex potential* `V_d(R) − iΓ(R)/2`, where `(V_d(R), Γ(R))` is the fixed-R electronic resonance pole. A doorway `d_{v₀}(R) = √(Γ(R)/2π)·χ_{v₀}` is propagated (order-3 Padé) under `H_res = T_nuc + diag(V_d − iΓ/2)`; DA is the outgoing flux at the dissociation boundary. Two model-independent additions to `qscat.core`: `local_complex_potential(model, …)` (the R-dependent `V_d/Γ` via `qscat.ecs.find_resonance_pole`, seeded from the anion bound state `anion_electronic_states` already gives at R_inf) and `lcp_da_cross_section(…)` (doorway propagation + boundary-flux energy transform). This is eMoScat's `ModelLCP` method (`SMatrix.cpp`); it is entirely 1-D nuclear (cheap — no 2-D solves).
+**Architecture:** The LCP replaces the full electron–nuclear problem with a 1-D nuclear problem on a *local complex potential* `V_d(R) − iΓ(R)/2`, where `(V_d(R), Γ(R))` is the fixed-R electronic resonance pole. From the doorway `d_{v₀}(R) = √(Γ(R)/2π)·χ_{v₀}`, DA is the outgoing dissociation flux at the boundary. Two model-independent additions to `qscat.core`: `local_complex_potential(model, …)` (the R-dependent `V_d/Γ` via `qscat.ecs.find_resonance_pole`, seeded from the anion bound state `anion_electronic_states` gives at R_inf) and `lcp_da_cross_section(…)`. **`lcp_da_cross_section` uses the TIME-INDEPENDENT resolvent form** `ψ_sc = (E_tot·I − H_res)⁻¹ d_{v₀}`, `S_DA = √(K/2πμ)·ψ_sc(X)`, `σ_DA = 4π³|S_DA|²/2E` — a `SparseLU.refactor` energy sweep (no long propagation; the T→∞ limit of eMoScat's TD `ModelLCP/SMatrix.cpp` form, cheaper and confound-free). **Two things are essential and were the bugs in a first TD attempt:** (1) the NUCLEAR grid must be the fine per-molecule eMoScat deck (the K≈58 dissociation wave under-resolves on the coarse N₂-style grid — σ_DA collapses by ~36 orders); (2) the boundary observable is the wavefunction VALUE `ψ_sc(X) = ψ_sc_coeff[b] / √(w_b)`, NOT the raw DVR coefficient (a √w boundary-weight factor). With both, LCP σ_DA(F₂) = 1.47 bohr² vs the exact-2D 1.66 — ~11%, well inside the expected 50% band. Entirely 1-D nuclear (cheap — one small sparse solve per energy).
 
-**Tech Stack:** Python ≥3.12, NumPy/SciPy, `qscat.dvr` (FemDvrEcsGrid, `kinetic_sparse`, `eigen`), `qscat.ecs.find_resonance_pole`, `qscat.evolution.make_pade_stepper`, `qscat.core.dissociation` (`anion_electronic_states`, `da_cross_section` the oracle), `qscat.core.vibrational`, `qscat.model`. pytest, mypy --strict over `libs/qscat/qscat`, ruff.
+**Tech Stack:** Python ≥3.12, NumPy/SciPy, `qscat.dvr` (FemDvrEcsGrid, `kinetic_sparse`, `eigen`), `qscat.ecs.find_resonance_pole`, `qscat.linalg.SparseLU` (the resolvent sweep), `qscat.core.dissociation` (`anion_electronic_states`, `da_cross_section` the oracle), `qscat.core.grids.segmented_grid`, `qscat.core.vibrational`, `qscat.model`. pytest, mypy --strict over `libs/qscat/qscat`, ruff.
 
 ## Global Constraints
 
@@ -15,7 +15,9 @@
 - **`V_d(R) = Re(E_pole(R))`, `Γ(R) = max(0, −2·Im(E_pole(R)))`**, where `E_pole(R)` is the two-angle-matched resonance pole of the electronic Hamiltonian `−½∂²_r + model.surface(r, R)` at fixed `R`. Because `model.surface` **includes** `v0(R)`, `V_d` is `Re(E_pole)` directly (NOT `v0(R) + E_res` — that would double-count `v0`; the N₂ project's `vres.py` adds `v0` separately only because its `v_eff_el` excludes it). At `R → R_inf` the pole closes to the bound anion, so `V_d(R_inf) = ε_e` (the exact-DA threshold from `anion_electronic_states`) and `Γ(R_inf) → 0`.
 - **DA threshold `ε_e = V_d(R_inf)`**; the DA channel is open only where `E_tot − ε_e > 0` (`E_tot = E + eps[v_init]`), `K = √(2μ(E_tot − ε_e))`.
 - **σ prefactor `4·π³·|S|²/(2E)`** (identical to VE and the exact DA).
-- **Propagator: order-3 diagonal Padé** (`make_pade_stepper(H_res, dt, 3)`, eMoScat's LCP setting), `H_res` **sparse** (`kinetic_sparse(grid, μ) + sp.diags(V_d − 0.5j·Γ)`).
+- **TI resolvent, sparse:** `H_res = kinetic_sparse(grid, μ) + sp.diags(V_d − 0.5j·Γ)`; per energy solve `(E_tot·I − H_res) ψ_sc = d_{v₀}` with `qscat.linalg.SparseLU` (analyze once, `refactor` per energy across the sweep — the pattern is `E_tot·I − H_res`, E-independent sparsity).
+- **Boundary VALUE, not coefficient:** `X` = the outermost REAL nuclear point (`b = real_idx[argmax(points[real_idx].real)]`, `X = points[b].real`); the DA amplitude uses `ψ_sc(X) = ψ_sc[b] / √(w_b)`, `w_b = grid.weights[b]` (the bridge-summed complex DVR weight). Using the raw coefficient `ψ_sc[b]` is wrong by `√w_b` (~27× in σ). `S_DA = √(K/2πμ)·ψ_sc(X)` (the unit-modulus `e^{−iKX}` phase does not affect `|S_DA|`, so it may be dropped).
+- **The nuclear grid MUST be the fine per-molecule eMoScat deck** (`config.MoleculeConfig.da_grid().grids[1]` / `segmented_grid(nuc_real, nuc_complex, …)`), NOT the coarse `nuclear_grid` — the K≈58 outgoing wave is otherwise unresolved and σ_DA collapses. Tests use the fine deck.
 - **`qscat.core` never imports `qscat.model`/`projects` at runtime** — `model: ResonanceModel` under `TYPE_CHECKING` only (enforced by `test_core_no_model_import.py`).
 - **LCP is the approximation under test, the exact-2D `da_cross_section` is the ORACLE** — the deliverable is the *comparison* (where LCP agrees/departs), NOT tuning LCP to match. No independent DA data exists.
 
@@ -259,7 +261,7 @@ git commit -m "feat(lcp): model-independent local complex potential V_d(R)/Gamma
 
 ---
 
-### Task 2: `lcp_da_cross_section` — doorway propagation + boundary flux
+### Task 2: `lcp_da_cross_section` — TI resolvent + boundary-value flux
 
 **Files:**
 - Modify: `libs/qscat/qscat/core/lcp.py`
@@ -267,61 +269,85 @@ git commit -m "feat(lcp): model-independent local complex potential V_d(R)/Gamma
 - Test: `libs/qscat/tests/test_lcp.py`
 
 **Interfaces:**
-- Consumes: `qscat.dvr.kinetic_sparse`, `qscat.evolution.make_pade_stepper`, `scipy.sparse`.
+- Consumes: `qscat.dvr.kinetic_sparse`, `qscat.linalg.SparseLU`, `scipy.sparse`.
 - Produces:
   ```python
   def lcp_da_cross_section(
       nuclear_grid: FemDvrEcsGrid, mu: float,
       Vd: NDArray[complex128], Gamma: NDArray[float64],
       eps: NDArray[float64], chi: NDArray[complex128],
-      v_init: int, eps_e: float, E: float | ArrayLike, *,
-      dt: float = 1.0, n_steps: int = 1500, order: int = 3,
+      v_init: int, E: float | ArrayLike, *,
+      ordering: _Ordering = "COLAMD",
   ) -> NDArray[float64]: ...
   ```
-  σ_DA(E) (bohr²). Scalar `E` → shape `()` (0-d) or `(1,)`; array `E` → `(len(E),)`. `σ=0` where `E ≤ 0` or `E_tot − eps_e ≤ 0` (closed).
+  σ_DA(E) (bohr²) by the TI resolvent. Scalar `E` → shape `()`; array `E` → `(len(E),)`. `σ=0` where `E ≤ 0` or `E_tot − ε_e ≤ 0` (closed). **`ε_e` is NOT a parameter — it is computed internally as `Vd[b].real` (the DA threshold `= V_d(R_inf)`, the boundary value of `V_d`, guaranteed `= ε_e` by `local_complex_potential`)**, so caller and callee cannot disagree.
 
-**Design notes:** mirror `projects/n2_td_cross_section/td_cross_section.py`, but (a) the propagated observable is `ψ(X, t_n)` — the wavefunction coefficient at the **dissociation-boundary grid point** `X` (the outermost REAL point, `boundary_idx = argmax(points.real where imag==0)`, `X = points[boundary_idx].real`), recorded each step; (b) the energy transform is the DA one: `S_DA(E) = √(K/2πμ)·e^{−iKX}·Σ_n w_n·e^{i(E+eps[v_init])t_n}·ψ(X,t_n)·dt`, `K = √(2μ(E_tot − eps_e))`, `σ_DA = 4π³|S_DA|²/2E`. Doorway `d(R) = √(Γ(R)/2π)·χ_{v_init}`. Propagator: `H_res = kinetic_sparse(grid, mu) + sp.diags(Vd − 0.5j·Gamma)` (SPARSE), `step = make_pade_stepper(H_res, dt, order)`. Reuse the Simpson/trapezoidal `_quadrature_weights` (copy from `td_cross_section.py` — a small helper). Record `psi_X[n]` for `n = 0..n_steps` (t_0=0 included), stepping between records.
+**Design notes (this is the validated method — see the sub-project's investigation):** the DA cross section is the TIME-INDEPENDENT resolvent, the `T→∞` limit of eMoScat's TD `ModelLCP/SMatrix.cpp` flux (cheaper, no propagation-length confound):
+1. `H_res = kinetic_sparse(grid, mu) + sp.diags(Vd − 0.5j·Gamma)` (SPARSE). Doorway `d = √(Γ/2π)·χ_{v_init}` (already a valid coefficient vector — `χ` carries `√w`).
+2. Per open energy, solve `(E_tot·I − H_res) ψ_sc = d` with `qscat.linalg.SparseLU` — analyze once at the first open energy, `refactor` per subsequent energy (E-independent sparsity: the identity only shifts the diagonal, mirroring `driven.ve_cross_section`).
+3. **Boundary VALUE, not coefficient:** `b = argmax` of the real points' `R`; `X = pts[b].real`; `ψ_sc(X) = ψ_sc[b] / √(w_b)`, `w_b = nuclear_grid.weights[b]` (bridge-summed complex DVR weight). Using `ψ_sc[b]` raw is wrong by `√w_b` (~27× in σ) — the coefficient-vs-value bug.
+4. `K = √(2μ(E_tot − ε_e))`, `S_DA = √(K/2πμ)·ψ_sc(X)`, `σ_DA = 4π³|S_DA|²/2E`. (The `e^{−iKX}` phase is unit-modulus, irrelevant to `|S_DA|`; dropped.)
 
-- [ ] **Step 1: Write the failing test** (append to `test_lcp.py`)
+Add a local `_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]` (mirroring `driven.py`) so `ordering` is type-clean; add `Literal` to the `typing` import.
+
+**The DA MAGNITUDE only comes out right on the FINE per-molecule nuclear grid** (the coarse `nuclear_grid` under-resolves the K≈58 outgoing wave → σ_DA ≈ 0). So the magnitude test builds the eMoScat F₂ nuclear deck via `segmented_grid`; the fast shape/closed-guard tests may use the coarse grid (they don't assert magnitude).
+
+- [ ] **Step 1: Write the failing tests** (append to `test_lcp.py`)
 
 ```python
 from qscat.core.lcp import lcp_da_cross_section
+from qscat.core.grids import segmented_grid
 from qscat.core.vibrational import vibrational_states
 
+# eMoScat F2 nuclear deck (verbatim from reference/eMoScat/input/F2/grids.txt, 2nd decl)
+_F2_NUC_REAL = [(9, 1.8), (1, 2.0), (5, 2.5), (4, 2.596908), (4, 2.7), (40, 10.7)]
+_F2_NUC_CPLX = [(1, 10.8), (1, 11.0), (1, 11.5), (1, 12.5), (1, 14.0), (1, 18.0), (4, 30.0), (2, 101.0)]
 
-def _f2_lcp_inputs():
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
+
+def _f2_fine_grid():
+    return segmented_grid(_F2_NUC_REAL, _F2_NUC_CPLX, angle_deg=35.0, quadrature=14)
+
+
+def _lcp_inputs(g_R, n_vib=3):
     ga, gb = _elec_grids()
     Vd, Gamma = local_complex_potential(F2, g_R, ga, gb)
-    eps, chi = vibrational_states(g_R, F2.mu, 3, F2.v0)
-    eps_e = float(Vd[np.flatnonzero(g_R.points.imag == 0.0)][np.argmax(g_R.points.real[g_R.points.imag == 0.0])].real)
-    return g_R, Vd, Gamma, eps, chi, eps_e
+    eps, chi = vibrational_states(g_R, F2.mu, n_vib, F2.v0)
+    return Vd, Gamma, eps, chi
 
 
 def test_lcp_da_shape_and_nonneg():
-    g_R, Vd, Gamma, eps, chi, eps_e = _f2_lcp_inputs()
-    E = np.array([0.02, 0.03, 0.04])
-    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, eps_e, E, dt=1.0, n_steps=400)
-    assert s.shape == (3,)
-    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
+    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)  # coarse ok: shape only
+    Vd, Gamma, eps, chi = _lcp_inputs(g_R)
+    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, np.array([0.02, 0.03, 0.04]))
+    assert s.shape == (3,) and np.all(np.isfinite(s)) and np.all(s >= 0.0)
+    assert lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, 0.03).shape == ()  # scalar
 
 
 def test_lcp_da_closed_channel_is_zero():
-    # F2 is exothermic (no closed region for E>0), so test the closed guard
-    # directly: a threshold eps_e above E_tot forces E_DR<0 -> sigma must be 0.
-    g_R, Vd, Gamma, eps, chi, _ = _f2_lcp_inputs()
-    eps_e_high = float(eps[0]) + 1.0
-    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, eps_e_high,
-                             np.array([0.03]), dt=1.0, n_steps=400)
-    assert s[0] == 0.0
+    # A below-threshold collision energy is closed -> sigma == 0 exactly.
+    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
+    Vd, Gamma, eps, chi = _lcp_inputs(g_R)
+    eps_e = float(Vd[np.flatnonzero(g_R.points.imag == 0.0)][
+        np.argmax(g_R.points.real[g_R.points.imag == 0.0])].real)
+    E_closed = (eps_e - eps[0]) - 0.05        # well below the DA threshold
+    if E_closed > 0:                          # F2 is exothermic -> threshold<0, so pick any tiny E:
+        E_closed = None
+    if E_closed is not None:
+        assert lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, np.array([E_closed]))[0] == 0.0
+    # E<=0 is always closed:
+    assert lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, np.array([-0.01]))[0] == 0.0
 
 
 @pytest.mark.slow
-def test_lcp_da_f2_positive():
-    g_R, Vd, Gamma, eps, chi, eps_e = _f2_lcp_inputs()
-    E = np.array([0.02, 0.03, 0.04])
-    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, eps_e, E, dt=1.0, n_steps=2000)
-    assert s.max() > 0.0                     # exothermic F2: DA is open and nonzero
+def test_lcp_da_f2_magnitude_matches_exact_order():
+    # THE gate: on the fine eMoScat grid with the value extraction, LCP sigma_DA(F2)
+    # must land at the exact-2D oracle's ORDER (exact-2D ~1.66 bohr^2 at E=0.03);
+    # the LCP is an approximation, so a ~2x band, not exact agreement.
+    g_R = _f2_fine_grid()
+    Vd, Gamma, eps, chi = _lcp_inputs(g_R)
+    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, np.array([0.02, 0.03, 0.04]))
+    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
+    assert 0.5 < s[1] < 5.0                   # sigma_DA(0.03) ~ 1.47 (exact ~1.66); within ~2x
 ```
 
 - [ ] **Step 2: Run to verify it fails**
@@ -331,22 +357,10 @@ Expected: FAIL — `cannot import name 'lcp_da_cross_section'`.
 
 - [ ] **Step 3: Implement `lcp_da_cross_section`** (append to `lcp.py`)
 
+Add to the top-of-module imports: `from typing import ..., Literal` (extend the existing `typing` import), `import scipy.sparse as sp`, `from qscat.dvr import ..., kinetic_sparse` (extend), `from qscat.linalg import SparseLU`, and the `_Ordering` alias. Then:
+
 ```python
-import scipy.sparse as sp
-from qscat.dvr import kinetic_sparse
-from qscat.evolution import make_pade_stepper
-
-
-def _quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
-    """Composite Simpson weights (unscaled by dt); trapezoidal fallback for even n_t.
-    Copied from projects/n2_td_cross_section/td_cross_section.py."""
-    if n_t < 2:
-        raise ValueError("need at least 2 time samples")
-    if n_t % 2 == 1:
-        w = np.ones(n_t); w[1:-1:2] = 4.0; w[2:-1:2] = 2.0; w /= 3.0
-    else:
-        w = np.full(n_t, 2.0); w[0] = w[-1] = 1.0; w /= 2.0
-    return np.asarray(w, dtype=np.float64)
+_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]  # mirrors driven.py
 
 
 def lcp_da_cross_section(
@@ -357,49 +371,54 @@ def lcp_da_cross_section(
     eps: npt.NDArray[np.float64],
     chi: npt.NDArray[np.complex128],
     v_init: int,
-    eps_e: float,
     E: float | npt.ArrayLike,
     *,
-    dt: float = 1.0,
-    n_steps: int = 1500,
-    order: int = 3,
+    ordering: _Ordering = "COLAMD",
 ) -> npt.NDArray[np.float64]:
-    """LCP dissociative-attachment sigma_DA(E) (bohr^2): the 1-D nuclear
-    doorway propagated on V_d - i Gamma/2, DA = flux at the dissociation
-    boundary. eMoScat ModelLCP/SMatrix.cpp. The approximation under test vs the
-    exact-2D `da_cross_section` oracle."""
+    """LCP dissociative-attachment sigma_DA(E) (bohr^2), TI resolvent form.
+
+    Solve `(E_tot I - H_res) psi_sc = d`, `H_res = T_nuc + diag(V_d - i Gamma/2)`,
+    doorway `d = sqrt(Gamma/2pi) chi_{v_init}`; the DA amplitude is the outgoing
+    dissociation flux at the boundary `X` (outermost real point):
+    `S_DA = sqrt(K/2pi mu) psi_sc(X)`, `psi_sc(X) = psi_sc[b]/sqrt(w_b)` (the
+    wavefunction VALUE, not the DVR coefficient), `sigma = 4 pi^3 |S_DA|^2/2E`.
+    The DA threshold `eps_e = V_d(R_inf) = Vd[b].real` (open iff `E_tot > eps_e`).
+
+    Requires the FINE per-molecule nuclear grid (the K~58 outgoing wave is
+    unresolved on a coarse grid). The T->infty limit of eMoScat's TD
+    `ModelLCP/SMatrix.cpp`. The approximation under test vs the exact-2D
+    `da_cross_section` oracle -- validated at sigma_DA(F2,0.03)=1.47 vs ~1.66.
+    """
     pts = nuclear_grid.points
     real_idx = np.flatnonzero(pts.imag == 0.0)
-    b = int(real_idx[np.argmax(pts[real_idx].real)])   # outermost real point index
-    X = float(pts[b].real)
+    b = int(real_idx[np.argmax(pts[real_idx].real)])
+    eps_e = float(Vd[b].real)
+    sqrt_wb = np.sqrt(complex(nuclear_grid.weights[b]))
 
     doorway = np.sqrt(Gamma / (2.0 * np.pi)).astype(np.complex128) * chi[v_init]
-    H_res = kinetic_sparse(nuclear_grid, mu) + sp.diags(Vd - 0.5j * Gamma)
-    step = make_pade_stepper(H_res.tocsc(), dt, order)
+    H_res = (kinetic_sparse(nuclear_grid, mu) + sp.diags(Vd - 0.5j * Gamma)).tocsc()
+    ident = sp.identity(nuclear_grid.n, format="csc", dtype=np.complex128)
 
-    n_t = n_steps + 1
-    t = np.arange(n_t, dtype=np.float64) * dt
-    psi_X = np.empty(n_t, dtype=np.complex128)
-    psi = doorway.copy()
-    for n in range(n_t):
-        psi_X[n] = psi[b]
-        if n < n_steps:
-            psi = step(psi)
-
-    w = _quadrature_weights(n_t)
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     out = np.zeros(e_arr.size, dtype=np.float64)
+    lu: SparseLU | None = None
     for ie, e in enumerate(e_arr):
-        if e <= 0.0:
+        if float(e) <= 0.0:
             continue
         e_tot = float(e) + eps[v_init]
         e_dr = e_tot - eps_e
         if e_dr <= 0.0:
             continue
-        K = float(np.sqrt(2.0 * mu * e_dr))
-        phase = np.exp(1j * e_tot * t)
-        S = np.sqrt(K / (2.0 * np.pi * mu)) * np.exp(-1j * K * X) * np.sum(w * phase * psi_X) * dt
-        out[ie] = 4.0 * np.pi**3 * abs(S) ** 2 / (2.0 * float(e))
+        a = (e_tot * ident - H_res).tocsc()
+        if lu is None:
+            lu = SparseLU(a, ordering=ordering)
+        else:
+            lu.refactor(a)
+        psi_sc = lu.solve(doorway)
+        k_r = float(np.sqrt(2.0 * mu * e_dr))
+        val = psi_sc[b] / sqrt_wb
+        s_da = np.sqrt(k_r / (2.0 * np.pi * mu)) * val
+        out[ie] = 4.0 * np.pi**3 * abs(s_da) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
     return np.asarray(out[0] if scalar else out, dtype=np.float64)
@@ -409,8 +428,8 @@ Append `"lcp_da_cross_section"` to `lcp.py`'s `__all__`. Export both names from 
 
 - [ ] **Step 4: Run to verify it passes**
 
-Run: `uv run pytest libs/qscat/tests/test_lcp.py -q` (non-slow), then `uv run pytest libs/qscat/tests/test_lcp.py -q -m slow`.
-Expected: all PASS.
+Run: `uv run pytest libs/qscat/tests/test_lcp.py -q` (non-slow), then `uv run pytest libs/qscat/tests/test_lcp.py -q -m slow` (the fine-grid F₂ magnitude — the `local_complex_potential` pole search on ~974 nuclear points takes ~2–3 min).
+Expected: all PASS; `test_lcp_da_f2_magnitude_matches_exact_order` gives σ_DA(0.03) ≈ 1.5.
 
 - [ ] **Step 5: Boundary guard + type-check + lint**
 
@@ -421,7 +440,7 @@ Expected: import-boundary test PASSES (lcp.py imports no `qscat.model` at runtim
 
 ```bash
 git add libs/qscat/qscat/core/lcp.py libs/qscat/qscat/core/__init__.py libs/qscat/tests/test_lcp.py
-git commit -m "feat(lcp): lcp_da_cross_section (doorway propagation + boundary-flux transform)"
+git commit -m "feat(lcp): TI resolvent lcp_da_cross_section (boundary-value flux, fine grid)"
 ```
 
 ---
@@ -441,9 +460,9 @@ git commit -m "feat(lcp): lcp_da_cross_section (doorway propagation + boundary-f
   def lcp_elec_grids(self) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid]: ...   # electronic_grid at the two angles (r_max=e_r_max, order=e_order, n_complex=e_n_complex)
   def lcp_nuclear_grid(self) -> FemDvrEcsGrid: ...                        # the eMoScat da nuclear grid (reuse the da_grid()'s nuclear factor)
   ```
-- `validation/diatomic/lcp_da_curves.py`: `compute_lcp_da_curve(cfg, E_grid, *, dt=1.0, n_steps=1500) -> (E, sigma_lcp)` and `main()` that overlays σ_DA^LCP vs σ_DA^exact (from `validation.diatomic.da_curves.compute_da_curve`) into `docs/physics/figures/{f2,no}-2d-da-lcp-vs-exact.png`.
+- `validation/diatomic/lcp_da_curves.py`: `compute_lcp_da_curve(cfg, E_grid) -> (E, sigma_lcp)` and `main()` that overlays σ_DA^LCP vs σ_DA^exact (from `validation.diatomic.da_curves.compute_da_curve`) into `docs/physics/figures/{f2,no}-2d-da-lcp-vs-exact.png`.
 
-**Design notes:** the LCP nuclear grid should be the SAME per-molecule eMoScat nuclear grid used for the exact DA (`da_grid().grids[1]`) so the comparison is grid-consistent — expose it as `lcp_nuclear_grid()` (build the nuclear factor via `segmented_grid(nuc_real, nuc_complex, angle_deg=nuc_angle, quadrature=nuc_quad)`). `eps_e` comes from `local_complex_potential`'s `V_d` at the outer real point (== the anion asymptote). `compute_lcp_da_curve`: build `Vd, Gamma = local_complex_potential(cfg.model, g_R, *cfg.lcp_elec_grids())`, `eps, chi = vibrational_states(g_R, cfg.model.mu, cfg.n_vib, cfg.model.v0)`, then `lcp_da_cross_section(...)`. The LCP is 1-D (cheap) EXCEPT `local_complex_potential` does ~2 electronic diagonalizations per nuclear real point (~hundreds) — a few minutes; the propagation itself is fast.
+**Design notes:** the LCP nuclear grid MUST be the SAME fine per-molecule eMoScat nuclear grid as the exact DA (`cfg.da_grid().grids[1]`) — grid-consistent AND the only grid on which σ_DA is resolved. Expose it as `lcp_nuclear_grid()` = `segmented_grid(nuc_real, nuc_complex, angle_deg=nuc_angle, quadrature=nuc_quad)` (the nuclear factor of `da_grid()`). `lcp_da_cross_section` computes `ε_e` internally (no param). `compute_lcp_da_curve`: `g_R = cfg.lcp_nuclear_grid()`, `Vd, Gamma = local_complex_potential(cfg.model, g_R, *cfg.lcp_elec_grids())`, `eps, chi = vibrational_states(g_R, cfg.model.mu, cfg.n_vib, cfg.model.v0)`, then `sigma = lcp_da_cross_section(g_R, cfg.model.mu, Vd, Gamma, eps, chi, 0, E)`. Cost: `local_complex_potential` does ~2 electronic diagonalizations per nuclear real point (~1000 on the fine F₂ deck) — a few minutes; the resolvent sweep itself is fast.
 
 - [ ] **Step 1: Write the failing gate test**
 
@@ -459,22 +478,23 @@ from validation.diatomic.lcp_da_curves import compute_lcp_da_curve
 
 @pytest.mark.slow
 def test_f2_lcp_da_positive_and_finite():
-    E, s = compute_lcp_da_curve(CONFIGS["F2"], np.array([0.02, 0.03, 0.04]), n_steps=1500)
+    E, s = compute_lcp_da_curve(CONFIGS["F2"], np.array([0.02, 0.03, 0.04]))
     assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
     assert s.max() > 0.0
 
 
 @pytest.mark.slow
-def test_f2_lcp_within_order_of_magnitude_of_exact():
-    # The scientific check: the LCP approximation should be the SAME ORDER as
-    # the exact oracle across F2's DA window (a cross-model band, NOT exact
-    # agreement -- the LCP is the approximation under test).
+def test_f2_lcp_agrees_with_exact_within_factor_two():
+    # The scientific check: on the fine grid, the LCP approximation should agree
+    # with the exact-2D oracle to within ~a factor of 2 (the ~50% band the user
+    # expects -- the LCP is the approximation under test, not tuned to match;
+    # measured sigma_DA(F2,0.03)_LCP ~ 1.47 vs exact ~1.66).
     from validation.diatomic.da_curves import compute_da_curve
     E = np.array([0.02, 0.03, 0.04])
-    _, s_lcp = compute_lcp_da_curve(CONFIGS["F2"], E, n_steps=1500)
+    _, s_lcp = compute_lcp_da_curve(CONFIGS["F2"], E)
     _, s_exact = compute_da_curve(CONFIGS["F2"], E)
     ratio = s_lcp / s_exact[:, 0]
-    assert np.all((ratio > 0.1) & (ratio < 10.0))   # within 10x either way
+    assert np.all((ratio > 0.5) & (ratio < 2.0))    # within ~2x (LCP is ~11% low)
 ```
 
 - [ ] **Step 2: Run to verify it fails**
@@ -488,8 +508,8 @@ Add the `lcp_*` fields/methods to `MoleculeConfig` (verify the actual field name
 
 - [ ] **Step 4: Run the gate**
 
-Run: `uv run pytest validation/diatomic/test_lcp_da_curves.py -q -m slow` (heavy — the V_d/Γ pole search + propagation; minutes).
-Expected: PASS — LCP σ_DA finite/positive and within ~10× of the exact oracle across F₂'s window.
+Run: `uv run pytest validation/diatomic/test_lcp_da_curves.py -q -m slow` (heavy — the V_d/Γ pole search + resolvent sweep on the fine grid; minutes).
+Expected: PASS — LCP σ_DA finite/positive and within ~2× (~50% band) of the exact oracle across F₂'s window (σ_DA(0.03) ≈ 1.5 vs exact ≈ 1.66).
 
 - [ ] **Step 5: Type-check + lint + commit**
 
@@ -538,7 +558,7 @@ git commit -m "docs(lcp): F2/NO LCP-vs-exact DA comparison figures + docs + CLAU
 - `uv run pytest libs/qscat/tests/test_core_no_model_import.py -q` passes (LCP code keeps the core/model boundary).
 - `uv run mypy libs/qscat/qscat` 0 errors; `uv run ruff check .` clean.
 - `local_complex_potential` matches the N₂ `vres_on_grid` oracle (V_d/Γ) in the resonance region; `Γ→0`, `V_d(R_inf)=ε_e` at the edge.
-- `lcp_da_cross_section` respects the DA threshold, is finite/≥0, and (F₂) positive; the LCP-vs-exact comparison is within a documented cross-model band. Committed overlays + docs + CLAUDE.md updated.
+- `lcp_da_cross_section` (TI resolvent, boundary-value flux, fine grid) respects the DA threshold, is finite/≥0, and agrees with the exact-2D oracle to within ~a factor of 2 for F₂ (σ_DA(0.03) ≈ 1.5 vs 1.66, ~11% low). Committed LCP-vs-exact overlays + docs + CLAUDE.md updated.
 
 ## Out of scope (this plan)
 
