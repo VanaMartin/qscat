@@ -65,3 +65,16 @@ select = ["E", "F", "I", "UP", "B", "NPY"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
+
+[[tool.mypy.overrides]]
+# `libs/qscat/tests/test_model.py` imports these two pre-existing,
+# not-yet-strict-typed N2 project modules as the DIFFERENTIAL ORACLE for
+# `qscat.model` (never modified here -- that rewiring is a later task). Once
+# imported, mypy follows them and reports their (pre-existing, unrelated to
+# this task) missing-annotation / no-any-return findings as part of `mypy
+# libs/qscat`; this override keeps that gate scoped to qscat's own code.
+module = [
+    "projects.n2_resonance.potential",
+    "projects.n2_2d_cross_section.hamiltonian2d",
+]
+ignore_errors = true
