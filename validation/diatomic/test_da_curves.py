@@ -16,8 +16,10 @@ def test_f2_da_positive_on_emoscat_grid():
 
 @pytest.mark.slow
 def test_no_da_threshold_onset():
-    # NO opens ~0.17 Ha: closed below, open above.
+    # NO's DA is a sharp near-threshold spike (opens ~0.17 Ha, peak ~0.007 bohr^2
+    # at E~0.177, then decays fast). Test genuine onset: exactly closed below
+    # threshold, meaningfully open at the near-threshold peak.
     _, s_lo = compute_da_curve(CONFIGS["NO"], np.array([0.10]))
-    _, s_hi = compute_da_curve(CONFIGS["NO"], np.array([0.22]))
+    _, s_hi = compute_da_curve(CONFIGS["NO"], np.array([0.177]))
     assert s_lo[0, 0] == 0.0
-    assert s_hi[0, 0] >= 0.0
+    assert s_hi[0, 0] > 1e-3

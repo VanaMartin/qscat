@@ -105,8 +105,10 @@ oscillatory integrand; element density (h-refinement) must. The fix is eMoScat's
 per-molecule grids** (`reference/eMoScat/input/{NO,F₂}/grids.txt`), whose nuclear grids are far
 finer over the dissociation region (NO: 37×0.2 bohr over [1.6, 9.0]; F₂: 40×0.2 bohr over
 [2.7, 10.7] plus 0.024 bohr around the 2.5–2.7 resonance). On the F₂ eMoScat grid (nuclear
-`n = 974`, `R0 = 10.7`) σ_DA(E=0.03) = **1.66 bohr²**, **stable to < 0.002 %** under further
-refinement — the coarse-grid `25.99` was a pure quadrature artifact. `qscat.core.grids.segmented_grid`
+`n = 974`, `R0 = 10.7`) σ_DA(E=0.03) = **1.66 bohr²**, **stable to < 0.002 %** under a
+quadrature-order refinement (nuc_quad 14→16) of that already-fine mesh — the coarse-grid `25.99`
+was a pure quadrature artifact. (A full element-doubling *h*-refinement at this ~10⁵-unknown deck
+size exceeds a laptop's memory; confirming it needs the Docker+MUMPS backend — a follow-on.) `qscat.core.grids.segmented_grid`
 builds any such deck; `validation.diatomic.config.MoleculeConfig.da_grid()` carries the NO/F₂
 decks. This distinction is why VE converged on the coarse nuclear grid but DA did not: **VE's
 outgoing flux is electronic** (needs fine *electronic* resolution, already validated at
