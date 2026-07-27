@@ -171,9 +171,11 @@ plus a DVR-normalization one.
 Two **documented, physically-sensible LCP departures** (the point of the comparison — the exact
 solver is the oracle, the LCP is under test): (a) it **under-predicts the near-threshold spike** —
 the exact σ_DA rises sharply as E→threshold while the LCP stays smooth (ratio 0.47 at E=0.02);
-(b) for the sibling VE channel, the LCP **elastic misses the non-resonant background** (~an order
-of magnitude low — `driven.py` notes the exact elastic T-matrix contains that background, which
-the resonant LCP omits), while VE_1 agrees to ~30%. N₂'s DA channel is closed (threshold +0.5 Ha),
+(b) for the sibling VE channel, the LCP **elastic omits the non-resonant background** that the
+exact elastic T-matrix contains (`driven.py` documents this) — a known *qualitative* LCP
+limitation (the resonant inelastic channels are captured better). The LCP VE cross section itself
+is not computed in this sub-project (`lcp_ve_cross_section` is a documented follow-on), so no
+quantitative LCP-VE agreement is claimed here. N₂'s DA channel is closed (threshold +0.5 Ha),
 so LCP and exact both give ≈0 there — a consistency sanity, no figure.
 
 **NO** is a harder, near-threshold-dominated case: its exact σ_DA is a sharp spike at the ~0.17 Ha
