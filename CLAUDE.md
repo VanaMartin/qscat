@@ -184,6 +184,16 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               (validation may import projects; projects must not import
               validation), and `test_ti_curve.py` gates the dense curve against
               Houfek at the anchors — see docs/physics/ti-energy-sweep-reuse.md.
+            - `validation/diatomic/`: the NO and F₂ exact-2D VE cross sections —
+              the model port, computed entirely through `qscat.core` +
+              `qscat.model` (the first consumers of sub-project A beyond N₂).
+              `config.py` holds per-molecule grid/energy config; `curves.py`
+              (`compute_ti_curve`, `main`) computes the exact-2D TI σ(E) oracle
+              and the committed figures (`docs/physics/figures/{no,f2}-2d-ti-
+              cross-section.png`). No independent golden data exists for NO/F₂
+              (only N₂ has Houfek's), so the exact solver IS the oracle; NO/F₂
+              have lower/sharper resonances than N₂, so their TD-vs-TI check is
+              a documented follow-on — see docs/physics/diatomic-ve-cross-sections.md.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo
