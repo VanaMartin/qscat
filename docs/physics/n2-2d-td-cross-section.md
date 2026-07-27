@@ -219,6 +219,14 @@ future work, out of this sub-project's scope.
 
 ## The figures
 
+![TD (order-3 Pade + elastic free-reference) vs exact TI vs Houfek, all channels](figures/n2-2d-td-vs-ti-vs-houfek.png)
+
+The capstone comparison: `sigma_{0->v'}(E)` for elastic (v'=0) and the first two
+excitations (v'=1, v'=2), with the TD points (order-3 Pade, dt=1.0, elastic
+free-reference) overlaid on the exact TI oracle (which itself reproduces Houfek's
+`CSVE.V00.J00` data to the plotted precision). TD tracks TI/Houfek to ~1-2%
+median across 0.04-0.18 Ha, boomerang oscillations resolved point-by-point.
+
 ![Snapshots: incoming wavepacket -> transient anion -> decay, and the norm-decay curve](figures/n2-2d-td-snapshots.png)
 
 `rho(R,t)`/`rho(r,t)` at `t = [0, 200, 400, 600, 900, 1500]`: the nuclear density starts
