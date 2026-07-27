@@ -14,17 +14,16 @@ from qscat.special import riccati_bessel_en, riccati_hankel_en
 from scipy.special import spherical_jn, spherical_yn
 
 
-def test_riccati_bessel_en_matches_pre_move_channels_values() -> None:
-    from projects.n2_2d_cross_section.channels import (
-        riccati_bessel_en as old_riccati_bessel_en,
-    )
-
+def test_riccati_bessel_en_matches_direct_construction() -> None:
+    """`sqrt(2k/pi) r j_l(kr)`, energy-normalized at mass 1 -- compared against
+    the direct scipy expression (NOT against `channels.riccati_bessel_en`, which
+    now re-exports this very function, so that comparison would be tautological)."""
     r = np.linspace(0.1, 20.0, 25)
     k = 0.55
     l = 2
 
     got = riccati_bessel_en(r, k, l)
-    want = old_riccati_bessel_en(r, k, l)
+    want = np.sqrt(2.0 * k / np.pi) * r * spherical_jn(l, k * r)
 
     np.testing.assert_allclose(got, want, atol=1e-14, rtol=0.0)
 
