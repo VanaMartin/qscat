@@ -54,6 +54,8 @@ select = ["E", "F", "I", "UP", "B", "NPY"]
 # Renaming it to satisfy E741 would obscure the physics being transcribed.
 "validation/n2/model.py" = ["E741"]
 "validation/n2/test_model.py" = ["E741"]
+"libs/qscat/qscat/special/radial.py" = ["E741"]
+"libs/qscat/tests/test_special_radial.py" = ["E741"]
 "projects/n2_2d_cross_section/channels.py" = ["E741"]
 "projects/n2_2d_cross_section/cross_section_2d.py" = ["E741"]
 "projects/n2_2d_cross_section/test_cross_section_2d.py" = ["E741"]

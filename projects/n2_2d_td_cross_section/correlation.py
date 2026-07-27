@@ -35,9 +35,8 @@ import numpy as np
 import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.linalg import c_product
-from scipy.special import spherical_jn, spherical_yn
+from qscat.special import riccati_bessel_en, riccati_hankel_en
 
-from projects.n2_2d_cross_section.channels import riccati_bessel_en
 from projects.n2_2d_td_cross_section.wavepacket import gaussian_coeffs
 
 __all__ = ["outgoing_channel", "eta_incident", "eta_outgoing"]
@@ -85,8 +84,7 @@ def _outgoing_coeffs(grid: FemDvrEcsGrid, k: float, l: int) -> npt.NDArray[np.co
     why this (not the regular function) is `F_out`.
     """
     r = grid.real_points
-    h1_l = spherical_jn(l, k * r) + 1j * spherical_yn(l, k * r)
-    riccati_h1 = np.sqrt(2.0 * k / np.pi) * r * h1_l
+    riccati_h1 = riccati_hankel_en(r, k, l)
     f_vals = riccati_h1 / 2.0
     sqrt_w = np.sqrt(np.asarray(grid.weights, dtype=np.complex128))
     coeffs = (f_vals * sqrt_w).astype(np.complex128)
