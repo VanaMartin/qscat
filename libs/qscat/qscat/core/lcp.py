@@ -49,16 +49,18 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 import numpy.typing as npt
+import scipy.sparse as sp
 
-from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
+from qscat.dvr import FemDvrEcsGrid, eigen, kinetic, kinetic_sparse
 from qscat.ecs import find_resonance_pole
+from qscat.evolution import make_pade_stepper
 
 from .dissociation import anion_electronic_states
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["local_complex_potential"]  # Task 2 appends "lcp_da_cross_section"
+__all__ = ["local_complex_potential", "lcp_da_cross_section"]
 
 
 def _h_el(model: ResonanceModel, R: complex, g: FemDvrEcsGrid) -> npt.NDArray[np.complex128]:
@@ -135,3 +137,76 @@ def local_complex_potential(
         s_asym = shift[0]                                  # shift at the largest real R
         Vd[tail] = model.v0(pts[tail]) + s_asym
     return Vd, Gamma
+
+
+def _quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
+    """Composite Simpson weights (unscaled by dt); trapezoidal fallback for even n_t.
+    Copied from projects/n2_td_cross_section/td_cross_section.py."""
+    if n_t < 2:
+        raise ValueError("need at least 2 time samples")
+    if n_t % 2 == 1:
+        w = np.ones(n_t)
+        w[1:-1:2] = 4.0
+        w[2:-1:2] = 2.0
+        w /= 3.0
+    else:
+        w = np.full(n_t, 2.0)
+        w[0] = w[-1] = 1.0
+        w /= 2.0
+    return np.asarray(w, dtype=np.float64)
+
+
+def lcp_da_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    eps_e: float,
+    E: float | npt.ArrayLike,
+    *,
+    dt: float = 1.0,
+    n_steps: int = 1500,
+    order: int = 3,
+) -> npt.NDArray[np.float64]:
+    """LCP dissociative-attachment sigma_DA(E) (bohr^2): the 1-D nuclear
+    doorway propagated on V_d - i Gamma/2, DA = flux at the dissociation
+    boundary. eMoScat ModelLCP/SMatrix.cpp. The approximation under test vs the
+    exact-2D `da_cross_section` oracle."""
+    pts = nuclear_grid.points
+    real_idx = np.flatnonzero(pts.imag == 0.0)
+    b = int(real_idx[np.argmax(pts[real_idx].real)])   # outermost real point index
+    X = float(pts[b].real)
+
+    doorway = np.sqrt(Gamma / (2.0 * np.pi)).astype(np.complex128) * chi[v_init]
+    H_res = kinetic_sparse(nuclear_grid, mu) + sp.diags(Vd - 0.5j * Gamma)
+    step = make_pade_stepper(H_res.tocsc(), dt, order)
+
+    n_t = n_steps + 1
+    t = np.arange(n_t, dtype=np.float64) * dt
+    psi_X = np.empty(n_t, dtype=np.complex128)
+    psi = doorway.copy()
+    for n in range(n_t):
+        psi_X[n] = psi[b]
+        if n < n_steps:
+            psi = step(psi)
+
+    w = _quadrature_weights(n_t)
+    e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+    out = np.zeros(e_arr.size, dtype=np.float64)
+    for ie, e in enumerate(e_arr):
+        if e <= 0.0:
+            continue
+        e_tot = float(e) + eps[v_init]
+        e_dr = e_tot - eps_e
+        if e_dr <= 0.0:
+            continue
+        K = float(np.sqrt(2.0 * mu * e_dr))
+        phase = np.exp(1j * e_tot * t)
+        S = np.sqrt(K / (2.0 * np.pi * mu)) * np.exp(-1j * K * X) * np.sum(w * phase * psi_X) * dt
+        out[ie] = 4.0 * np.pi**3 * abs(S) ** 2 / (2.0 * float(e))
+
+    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+    return np.asarray(out[0] if scalar else out, dtype=np.float64)

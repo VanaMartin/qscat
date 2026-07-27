@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 from qscat.core.dissociation import anion_electronic_states
 from qscat.core.grids import electronic_grid, nuclear_grid
-from qscat.core.lcp import local_complex_potential
+from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
+from qscat.core.vibrational import vibrational_states
 from qscat.model import F2, N2
 
 
@@ -58,3 +60,39 @@ def test_matches_n2_vres_oracle():
     band = real & (R > 1.5) & (R < 3.5)
     assert np.allclose(Vd[band].real, Vd_ref[band].real, atol=5e-3)
     assert np.allclose(Gamma[band], Gamma_ref[band], atol=5e-3)
+
+
+def _f2_lcp_inputs():
+    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
+    ga, gb = _elec_grids()
+    Vd, Gamma = local_complex_potential(F2, g_R, ga, gb)
+    eps, chi = vibrational_states(g_R, F2.mu, 3, F2.v0)
+    real = g_R.points.imag == 0.0
+    eps_e = float(Vd[np.flatnonzero(real)][np.argmax(g_R.points.real[real])].real)
+    return g_R, Vd, Gamma, eps, chi, eps_e
+
+
+def test_lcp_da_shape_and_nonneg():
+    g_R, Vd, Gamma, eps, chi, eps_e = _f2_lcp_inputs()
+    E = np.array([0.02, 0.03, 0.04])
+    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, eps_e, E, dt=1.0, n_steps=400)
+    assert s.shape == (3,)
+    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
+
+
+def test_lcp_da_closed_channel_is_zero():
+    # F2 is exothermic (no closed region for E>0), so test the closed guard
+    # directly: a threshold eps_e above E_tot forces E_DR<0 -> sigma must be 0.
+    g_R, Vd, Gamma, eps, chi, _ = _f2_lcp_inputs()
+    eps_e_high = float(eps[0]) + 1.0
+    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, eps_e_high,
+                             np.array([0.03]), dt=1.0, n_steps=400)
+    assert s[0] == 0.0
+
+
+@pytest.mark.slow
+def test_lcp_da_f2_positive():
+    g_R, Vd, Gamma, eps, chi, eps_e = _f2_lcp_inputs()
+    E = np.array([0.02, 0.03, 0.04])
+    s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, eps_e, E, dt=1.0, n_steps=2000)
+    assert s.max() > 0.0                     # exothermic F2: DA is open and nonzero

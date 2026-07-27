@@ -36,6 +36,11 @@ Public API:
     bound electronic state(s) at `R_inf`, the `V_DR` rearrangement
     interaction, and the exact TI driven-equation dissociative-attachment
     (DA) cross section `sigma_DA(E)`, for any `model`.
+  - `local_complex_potential` -- the LCP reduction `(V_d(R), Gamma(R))` of the
+    fixed-R electronic resonance to a single complex number per R.
+  - `lcp_da_cross_section` -- the LCP dissociative-attachment cross section
+    `sigma_DA(E)` via 1-D nuclear doorway propagation + boundary-flux energy
+    transform (the approximation under test vs. `da_cross_section`).
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
   - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.
@@ -51,6 +56,7 @@ from .correlation import eta_incident, eta_outgoing, outgoing_channel
 from .dissociation import anion_electronic_states, da_cross_section, v_dr_diag
 from .driven import ve_cross_section
 from .grids import electronic_grid, nuclear_grid, segmented_grid
+from .lcp import lcp_da_cross_section, local_complex_potential
 from .plot import plot_cross_sections
 from .time_dependent import propagate, sigma_from_correlations, td_ve_cross_section
 from .vibrational import vibrational_states
@@ -66,6 +72,8 @@ __all__ = [
     "anion_electronic_states",
     "v_dr_diag",
     "da_cross_section",
+    "local_complex_potential",
+    "lcp_da_cross_section",
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",
