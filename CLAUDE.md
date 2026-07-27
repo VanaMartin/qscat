@@ -31,7 +31,8 @@ Every method or numerical capability moves through five stages:
 
 ```
 libs/       qscat — the standard library: validated, reusable QM code
-            (units, linalg, dvr, ecs, special, evolution submodules)
+            (units, linalg, dvr, ecs, special, evolution, core, model
+            submodules)
             - qscat.linalg: dimension-general sparse linear algebra --
               `kron_sum` (Kronecker sum over arbitrary D), `SparseLU` (cached
               factorization with fill-in/memory diagnostics), and `c_product`
@@ -83,6 +84,25 @@ libs/       qscat — the standard library: validated, reusable QM code
               over a long propagation (~100% accumulated error at dt=0.5-1.0 vs
               `expm`); order-3 Padé is what makes the TD cross section converge
               to the TI oracle to ~1-2% — see docs/physics/n2-2d-td-cross-section.md.
+            - qscat.core: the model-INDEPENDENT electron–diatomic VE-scattering
+              engine, promoted from the N2 sub-projects. `driven.ve_cross_section`
+              (exact TI driven Lippmann-Schwinger, `SparseLU.refactor` sweep,
+              σ=π|S−δ|²/2E) and `time_dependent.td_ve_cross_section` (order-3
+              Padé propagation + Tannor-Weeks transform + elastic free-reference
+              subtraction) — both take a `model`. Plus `channels`, `grids`
+              (parameterized FEM-DVR-ECS builders), `vibrational` (`v0` passed
+              in), `wavepacket`, `correlation`, `plot`. **`qscat.core` never
+              imports `qscat.model`/`projects` at runtime** (depends only on the
+              `ResonanceModel` protocol; enforced by
+              `test_core_no_model_import.py`) — see
+              docs/physics/qscat-core-scattering.md.
+            - qscat.model: everything tied to a specific model — the
+              `ResonanceModel` protocol (the contract `qscat.core` depends on),
+              `DiatomicResonanceModel` (the shared Morse+sigmoid+Gaussian form),
+              and the `N2`/`NO`/`F2` parameter registry. `qscat.model.N2` is the
+              single source of truth for the N2 model (the N2 projects consume it
+              via thin shims). Adding a molecule = a registry entry + validation,
+              never solver code — see docs/physics/qscat-core-scattering.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2

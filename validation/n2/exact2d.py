@@ -1,7 +1,10 @@
 """Task 5: sigma at the 6 `reference.ANCHOR_COORDS` via the exact 2-D
-driven-Lippmann-Schwinger solver (`projects/n2_2d_cross_section`), compared
-THREE ways against both Houfek's golden data and the 1-D LCP solver's own
-anchor table (`validation/n2/cross_section.py`, sub-project #3/#4).
+driven-Lippmann-Schwinger solver (`qscat.core.driven.ve_cross_section`,
+called directly against `qscat.model.N2` -- sub-project #A, Task 6 dogfoods
+the promoted library here instead of going through the
+`projects.n2_2d_cross_section` shim), compared THREE ways against both
+Houfek's golden data and the 1-D LCP solver's own anchor table
+(`validation/n2/cross_section.py`, sub-project #3/#4).
 
 Framing (do not lose this while reading numbers below): the model is a GIVEN
 testbed, never tuned to match anything. Houfek's `CSVE.V00.J00` is the GATE
@@ -19,10 +22,15 @@ hardcoded coordinates -- and a `compute_*_results()` entry point that
 resolves anchors via `reference.anchors()`.
 
 Cross-import note: `validation/` importing `projects/` is allowed (the
-reverse is forbidden); the object under test for this benchmark *is*
-`projects.n2_2d_cross_section`'s exact solver, so there is nothing to keep
-independent of it here -- same rationale `cross_section.py` gives for its
-own import of `projects.n2_ti_cross_section`.
+reverse is forbidden); this module also still imports `working_tgrid`
+(`projects.n2_2d_cross_section.convergence`) and `vibrational_states`
+(`projects.n2_ti_cross_section.vibrational`), project-specific grid/basis
+builders with no `qscat.model` equivalent. The exact 2-D SOLVER itself,
+though, is called directly against `qscat.model.N2` via
+`qscat.core.driven.ve_cross_section` -- the object under test for this
+benchmark *is* that promoted solver, so there is nothing to keep independent
+of it here -- same rationale `cross_section.py` gives for its own import of
+`projects.n2_ti_cross_section`.
 
 Classification: rather than re-derive GATED-vs-DOCUMENTED-LIMITED from
 scratch (which would risk silently drifting from C5's rule on a borderline
@@ -38,7 +46,7 @@ there, not a property of the exact solver.
 
 Grouping: `reference.anchors()` yields 6 `(energy_row, channel, sigma_houfek)`
 triples that collapse to 3 distinct `energy_row` values (four channels share
-E=0.2 Ha); anchors are grouped by energy so `ve_cross_section_2d` is called
+E=0.2 Ha); anchors are grouped by energy so `ve_cross_section` is called
 once per distinct energy with the full channel list, reusing one sparse LU
 factorization across every channel at that energy -- 6 anchors, 3 solves.
 """
@@ -50,11 +58,11 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
+from qscat.core.driven import ve_cross_section
 from qscat.dvr import TensorGrid
+from qscat.model import N2
 
 from projects.n2_2d_cross_section.convergence import working_tgrid
-from projects.n2_2d_cross_section.cross_section_2d import ve_cross_section_2d
-from projects.n2_2d_cross_section.hamiltonian2d import MU
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 from validation.n2 import reference
 from validation.n2.cross_section import N_VIB, compute_anchor_results
@@ -108,7 +116,7 @@ def _build_system() -> System:
     cover every channel index the anchors use.
     """
     tgrid = working_tgrid()
-    eps, chi = vibrational_states(tgrid.grids[1], MU, N_VIB)
+    eps, chi = vibrational_states(tgrid.grids[1], N2.mu, N_VIB)
     return tgrid, eps, chi
 
 
@@ -124,7 +132,7 @@ def compute_exact2d_results() -> list[Exact2dResult]:
     Anchors are grouped by their (already-resolved) Houfek row energy so
     each distinct energy costs exactly one sparse LU factorization, reused
     across every channel sharing that energy via one
-    `ve_cross_section_2d(..., vprimes=[...], E)` call.
+    `ve_cross_section(..., vprimes=[...], E)` call.
     """
     tgrid, eps, chi = _build_system()
     anchor_rows = reference.anchors()  # [(e_row, channel, sigma_houfek), ...]
@@ -138,7 +146,7 @@ def compute_exact2d_results() -> list[Exact2dResult]:
 
     sigma_exact_by_key: dict[tuple[float, int], float] = {}
     for e_row, channels in channels_by_energy.items():
-        sigma = ve_cross_section_2d(tgrid, eps, chi, 0, channels, e_row)
+        sigma = ve_cross_section(tgrid, N2, eps, chi, 0, channels, e_row)
         for channel, s in zip(channels, sigma, strict=True):
             sigma_exact_by_key[(e_row, channel)] = float(s)
 
@@ -146,12 +154,8 @@ def compute_exact2d_results() -> list[Exact2dResult]:
     for e_row, channel, sigma_houfek in anchor_rows:
         sigma_exact = sigma_exact_by_key[(e_row, channel)]
         lcp = lcp_by_key[(e_row, channel)]
-        ratio_exact_vs_houfek = (
-            sigma_exact / sigma_houfek if sigma_houfek != 0 else float("inf")
-        )
-        ratio_lcp_vs_exact = (
-            lcp.sigma_computed / sigma_exact if sigma_exact != 0 else float("inf")
-        )
+        ratio_exact_vs_houfek = sigma_exact / sigma_houfek if sigma_houfek != 0 else float("inf")
+        ratio_lcp_vs_exact = lcp.sigma_computed / sigma_exact if sigma_exact != 0 else float("inf")
         results.append(
             Exact2dResult(
                 energy_ha=e_row,
