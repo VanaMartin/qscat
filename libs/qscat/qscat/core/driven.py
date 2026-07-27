@@ -199,7 +199,15 @@ def ve_cross_section(
             else:
                 lu.refactor(a)
         s, psi = _sigma_at_one_energy(
-            tgrid, lu, v_diag, eps, chi, v_init, vprimes, float(e), model.ell,
+            tgrid,
+            lu,
+            v_diag,
+            eps,
+            chi,
+            v_init,
+            vprimes,
+            float(e),
+            model.ell,
             want_psi=return_wavefunction,
         )
         out.append(s)

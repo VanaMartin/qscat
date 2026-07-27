@@ -50,8 +50,18 @@ def _propagate(
     """N2-binding shim over `qscat.core.time_dependent._propagate`; see there
     for the full docstring."""
     return _core_propagate(
-        tgrid, N2, eps, chi, v_init, vprimes,
-        dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, free=free, order=order,
+        tgrid,
+        N2,
+        eps,
+        chi,
+        v_init,
+        vprimes,
+        dt=dt,
+        n_steps=n_steps,
+        wp_in=wp_in,
+        wp_out=wp_out,
+        free=free,
+        order=order,
     )
 
 
@@ -68,9 +78,7 @@ def _s_vector_one_energy(
 ) -> npt.NDArray[np.complex128]:
     """N2-binding shim over `qscat.core.time_dependent._s_vector_one_energy`;
     see there for the full docstring."""
-    return _core_s_vector_one_energy(
-        tgrid, N2, result, eps, v_init, vprimes, E, dt, wp_in, wp_out
-    )
+    return _core_s_vector_one_energy(tgrid, N2, result, eps, v_init, vprimes, E, dt, wp_in, wp_out)
 
 
 def _sigma_one_energy(
@@ -108,8 +116,17 @@ def sigma_from_correlations(
     """N2-binding shim over `qscat.core.time_dependent.sigma_from_correlations`;
     see there for the full docstring."""
     return _core_sigma_from_correlations(
-        tgrid, N2, result, eps, v_init, vprimes, E,
-        dt=dt, wp_in=wp_in, wp_out=wp_out, free_result=free_result,
+        tgrid,
+        N2,
+        result,
+        eps,
+        v_init,
+        vprimes,
+        E,
+        dt=dt,
+        wp_in=wp_in,
+        wp_out=wp_out,
+        free_result=free_result,
     )
 
 
@@ -132,7 +149,17 @@ def td_ve_cross_section_2d(
     see there for the full docstring (scalar/array `E` contract,
     `subtract_free_reference` semantics)."""
     return _core_td_ve_cross_section(
-        tgrid, N2, eps, chi, v_init, vprimes, E,
-        dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out,
-        order=order, subtract_free_reference=subtract_free_reference,
+        tgrid,
+        N2,
+        eps,
+        chi,
+        v_init,
+        vprimes,
+        E,
+        dt=dt,
+        n_steps=n_steps,
+        wp_in=wp_in,
+        wp_out=wp_out,
+        order=order,
+        subtract_free_reference=subtract_free_reference,
     )

@@ -26,8 +26,8 @@ reusing that cache is free. E=0.10/v'=1 is itself one of Group E's anchors
 (`reference.ANCHOR_COORDS`), so its sigma_TI is read straight out of the
 cached result list. E=0.15/v'=1 is not one of Group E's anchors, so for that
 one row this module makes one extra, equally cheap live call to
-`ve_cross_section_2d` on the SAME cached working grid/vibrational states
-`exact2d.build_system()` already built for Group E.
+`qscat.core.driven.ve_cross_section` on the SAME cached working grid/vibrational
+states `exact2d.build_system()` already built for Group E.
 
 These rows are NOTE, never PASS/FAIL: they report a validated fact, not a
 live gate. The genuine PASS/FAIL gate on this same comparison lives in

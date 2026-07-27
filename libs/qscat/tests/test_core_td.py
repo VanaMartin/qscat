@@ -93,8 +93,17 @@ def test_td_ve_cross_section_shape_and_regression() -> None:
     np.testing.assert_allclose(sigma_scalar, _SIGMA_SCALAR_REF, rtol=1e-6, atol=0.0)
 
     sigma_array = td_ve_cross_section(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        [0.10, 0.15],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
     )
     assert sigma_array.shape == (2, len(VPRIMES))
     np.testing.assert_allclose(sigma_array, _SIGMA_ARRAY_REF, rtol=1e-6, atol=0.0)
@@ -109,9 +118,15 @@ def test_propagate_keep_psi_at_contract() -> None:
     out_channels = [TG.outer([np.ones(TG.shape[0]), CHI[v]]) for v in VPRIMES]
     H = N2.hamiltonian(TG)
     result = propagate(
-        TG, psi0, out_channels,
-        dt=DT, n_steps=6, sample_period=2, keep_psi_at=[0.0, DT * 2],
-        hamiltonian=H, order=3,
+        TG,
+        psi0,
+        out_channels,
+        dt=DT,
+        n_steps=6,
+        sample_period=2,
+        keep_psi_at=[0.0, DT * 2],
+        hamiltonian=H,
+        order=3,
     )
     kept = {s.time: s.psi for s in result.snapshots}
     assert kept[0.0] is not None
@@ -120,9 +135,7 @@ def test_propagate_keep_psi_at_contract() -> None:
     # a snapshot on the coarse cadence but NOT in keep_psi_at has no psi kept
     other_times = [s.time for s in result.snapshots if s.time not in (0.0, DT * 2)]
     assert other_times  # sanity: there is at least one such snapshot
-    assert all(
-        s.psi is None for s in result.snapshots if s.time not in (0.0, DT * 2)
-    )
+    assert all(s.psi is None for s in result.snapshots if s.time not in (0.0, DT * 2))
 
 
 @pytest.fixture(scope="module")
@@ -134,8 +147,17 @@ def propagation_pair() -> tuple[PropagationResult, PropagationResult]:
         TG, N2, EPS, CHI, V_INIT, VPRIMES, dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT
     )
     free = _propagate(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES,
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, free=True,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        free=True,
     )
     return full, free
 
@@ -150,8 +172,17 @@ def test_sigma_from_correlations_matches_sigma_one_energy_per_energy(
     full, free = propagation_pair
     e_arr = np.array([0.10, 0.15])
     batched = sigma_from_correlations(
-        TG, N2, full, EPS, V_INIT, VPRIMES, e_arr,
-        dt=DT, wp_in=WP_IN, wp_out=WP_OUT, free_result=free,
+        TG,
+        N2,
+        full,
+        EPS,
+        V_INIT,
+        VPRIMES,
+        e_arr,
+        dt=DT,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        free_result=free,
     )
     manual = np.stack(
         [
@@ -171,8 +202,17 @@ def test_free_reference_elastic_path_finite_and_nonnegative(
     `TD_WORKING_GRID` scale (module docstring), cheaply reproduced here."""
     full, free = propagation_pair
     sigma_fixed = sigma_from_correlations(
-        TG, N2, full, EPS, V_INIT, [V_INIT], 0.10,
-        dt=DT, wp_in=WP_IN, wp_out=WP_OUT, free_result=free,
+        TG,
+        N2,
+        full,
+        EPS,
+        V_INIT,
+        [V_INIT],
+        0.10,
+        dt=DT,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        free_result=free,
     )
     sigma_literal1 = sigma_from_correlations(
         TG, N2, full, EPS, V_INIT, [V_INIT], 0.10, dt=DT, wp_in=WP_IN, wp_out=WP_OUT

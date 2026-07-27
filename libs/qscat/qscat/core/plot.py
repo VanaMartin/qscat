@@ -85,9 +85,7 @@ def plot_cross_sections(
     if reference is not None:
         e_ref, sigma_ref = reference
         e_ref_arr = np.asarray(e_ref, dtype=np.float64)
-        s_ref_arr = np.where(
-            (tmp := np.asarray(sigma_ref, dtype=np.float64)) > 0.0, tmp, np.nan
-        )
+        s_ref_arr = np.where((tmp := np.asarray(sigma_ref, dtype=np.float64)) > 0.0, tmp, np.nan)
 
     s_masked = np.where(s > 0.0, s, np.nan)
     for j, ch in enumerate(ch_labels):
@@ -96,8 +94,15 @@ def plot_cross_sections(
 
         if e_ref_arr is not None and s_ref_arr is not None:
             ax.plot(
-                e_ref_arr, s_ref_arr[:, j], "--", marker="o", markersize=2.5,
-                linewidth=0.8, color=color, alpha=0.6, label=f"v'={ch} (reference)",
+                e_ref_arr,
+                s_ref_arr[:, j],
+                "--",
+                marker="o",
+                markersize=2.5,
+                linewidth=0.8,
+                color=color,
+                alpha=0.6,
+                label=f"v'={ch} (reference)",
             )
 
         if thresholds is not None and ch in thresholds:

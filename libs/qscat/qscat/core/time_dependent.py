@@ -238,9 +238,7 @@ def _propagate(
     psi0 = initial_state(tgrid, chi[v_init], **wp_in)
     out_channels = [outgoing_channel(tgrid, chi[vp], **wp_out) for vp in vprimes]
     if free:
-        hamiltonian = (
-            model.hamiltonian(tgrid) - sp.diags(model.interaction_diag(tgrid))
-        ).tocsr()
+        hamiltonian = (model.hamiltonian(tgrid) - sp.diags(model.interaction_diag(tgrid))).tocsr()
     else:
         hamiltonian = model.hamiltonian(tgrid)
     return propagate(
@@ -323,9 +321,7 @@ def _sigma_one_energy(
     sigma = np.zeros(len(vprimes), dtype=np.float64)
     if E <= 0.0:
         return sigma
-    s_full = _s_vector_one_energy(
-        tgrid, model, result, eps, v_init, vprimes, E, dt, wp_in, wp_out
-    )
+    s_full = _s_vector_one_energy(tgrid, model, result, eps, v_init, vprimes, E, dt, wp_in, wp_out)
     s_free = None
     if free_result is not None:
         s_free = _s_vector_one_energy(
@@ -386,7 +382,16 @@ def sigma_from_correlations(
     out = np.stack(
         [
             _sigma_one_energy(
-                tgrid, model, result, eps, v_init, vprimes, float(e), dt, wp_in, wp_out,
+                tgrid,
+                model,
+                result,
+                eps,
+                v_init,
+                vprimes,
+                float(e),
+                dt,
+                wp_in,
+                wp_out,
                 free_result,
             )
             for e in e_arr
@@ -440,16 +445,44 @@ def td_ve_cross_section(
     are identical either way.
     """
     result = _propagate(
-        tgrid, model, eps, chi, v_init, vprimes,
-        dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, order=order,
+        tgrid,
+        model,
+        eps,
+        chi,
+        v_init,
+        vprimes,
+        dt=dt,
+        n_steps=n_steps,
+        wp_in=wp_in,
+        wp_out=wp_out,
+        order=order,
     )
     free_result = None
     if subtract_free_reference and v_init in vprimes:
         free_result = _propagate(
-            tgrid, model, eps, chi, v_init, vprimes,
-            dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, free=True, order=order,
+            tgrid,
+            model,
+            eps,
+            chi,
+            v_init,
+            vprimes,
+            dt=dt,
+            n_steps=n_steps,
+            wp_in=wp_in,
+            wp_out=wp_out,
+            free=True,
+            order=order,
         )
     return sigma_from_correlations(
-        tgrid, model, result, eps, v_init, vprimes, E,
-        dt=dt, wp_in=wp_in, wp_out=wp_out, free_result=free_result,
+        tgrid,
+        model,
+        result,
+        eps,
+        v_init,
+        vprimes,
+        E,
+        dt=dt,
+        wp_in=wp_in,
+        wp_out=wp_out,
+        free_result=free_result,
     )

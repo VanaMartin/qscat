@@ -81,17 +81,13 @@ def test_scalar_energy_matches_the_corresponding_array_row() -> None:
 def test_return_wavefunction_contract() -> None:
     """`return_wavefunction=True` also returns `psi_plus`: `None` below
     threshold, else a complex array of length `tgrid.size` for a scalar `E`."""
-    sigma, psi = ve_cross_section(
-        TG, N2, EPS, CHI, 0, [0, 1, 2], 0.2, return_wavefunction=True
-    )
+    sigma, psi = ve_cross_section(TG, N2, EPS, CHI, 0, [0, 1, 2], 0.2, return_wavefunction=True)
     np.testing.assert_allclose(sigma, _SIGMA_REF[2], rtol=1e-12, atol=0.0)
     assert isinstance(psi, np.ndarray)  # scalar E -> one array, never a list
     assert psi.shape == (TG.size,)
     assert psi.dtype == np.complex128
 
-    sigma0, psi0 = ve_cross_section(
-        TG, N2, EPS, CHI, 0, [0, 1, 2], 0.0, return_wavefunction=True
-    )
+    sigma0, psi0 = ve_cross_section(TG, N2, EPS, CHI, 0, [0, 1, 2], 0.0, return_wavefunction=True)
     assert np.all(sigma0 == 0.0)
     assert psi0 is None
 
