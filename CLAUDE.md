@@ -97,6 +97,17 @@ libs/       qscat — the standard library: validated, reusable QM code
               `anion_electronic_states`, `v_dr_diag`) — the DA magnitude needs a
               per-molecule NUCLEAR grid (fast K_R~58 exit wave), built by
               `grids.segmented_grid` from eMoScat's per-molecule decks — see
+              docs/physics/diatomic-ve-cross-sections.md. Also `lcp` — the
+              **LCP (local-complex-potential) approximation** OF the DA (the
+              approximation under test vs the exact `da_cross_section` oracle):
+              `local_complex_potential` (model-independent R-dependent
+              `V_d(R)/Γ(R)` via `qscat.ecs.find_resonance_pole`, seeded from the
+              anion state) + `lcp_da_cross_section` (1-D TI resolvent, boundary-
+              wavefunction-VALUE flux `ψ(X)=ψ_coeff[b]/√w_b`, on the fine
+              per-molecule nuclear grid). F₂ σ_DA agrees with the exact-2D to
+              ~11% away from threshold; documented departures near threshold
+              (LCP misses the exact's spike) and in VE-elastic (LCP misses the
+              non-resonant background) — see
               docs/physics/diatomic-ve-cross-sections.md. Plus `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
               eMoScat's `(n_elem, endpoint)` deck format), `vibrational` (`v0`
@@ -203,8 +214,13 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               2d-ti-cross-section.png`); `da_curves.py` (`compute_da_curve`,
               `main`) computes the exact-2D TI σ_DA(E) oracle on the eMoScat
               per-molecule nuclear grids + figures (`docs/physics/figures/{f2,no}-
-              2d-ti-da-cross-section.png`). No independent golden data exists for
-              NO/F₂ (only N₂ has Houfek's), so the exact solver IS the oracle;
+              2d-ti-da-cross-section.png`); `lcp_da_curves.py` (`compute_lcp_da_curve`,
+              `main`) computes the LCP-approximation σ_DA(E) and overlays it on the
+              exact-2D oracle (`docs/physics/figures/{f2,no}-2d-da-lcp-vs-exact.png`)
+              — the sub-project-B deliverable (LCP ~11% of exact away from
+              threshold; documented near-threshold departure) + `MoleculeConfig`'s
+              `lcp_elec_grids()`/`lcp_nuclear_grid()`. No independent golden data
+              exists for NO/F₂ (only N₂ has Houfek's), so the exact solver IS the oracle;
               NO/F₂ have lower/sharper resonances than N₂, so their TD-vs-TI
               check is a documented follow-on — see
               docs/physics/diatomic-ve-cross-sections.md.

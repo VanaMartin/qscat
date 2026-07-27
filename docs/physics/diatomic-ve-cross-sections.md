@@ -136,6 +136,53 @@ measurable number). This is the H₂⁺ case — deferred with the Coulomb tail 
 `sphHankel1En` Coulomb branch exists in eMoScat), but structurally it is "DA with N electronic
 channels instead of 1."
 
+## Local-complex-potential (LCP) DA — the approximation under test
+
+The exact-2D DA above is the ORACLE. The **local-complex-potential (LCP)** model is the
+*approximation*: it reduces the full electron–nuclear problem to a **1-D nuclear** problem on a
+complex potential `V_d(R) − iΓ(R)/2`, where the fixed-R electronic resonance pole gives
+`V_d(R) = Re(E_pole(R))`, `Γ(R) = max(0, −2 Im(E_pole(R)))`. Implemented model-independently in
+`qscat.core.lcp`: `local_complex_potential` finds `E_pole(R)` by two-angle ECS matching
+(`qscat.ecs.find_resonance_pole`) of `−½∂²_r + model.surface(r,R)`, **seeded from the bound anion
+state at R_inf** (`anion_electronic_states`) and continued inward (validated against the N₂
+`vres_on_grid` oracle to ~1e-5). `lcp_da_cross_section` is the **time-independent resolvent** form
+(the T→∞ limit of eMoScat's `ModelLCP/SMatrix.cpp` doorway propagation, cheaper and
+confound-free): from the doorway `d = √(Γ/2π)·χ_{v₀}`, solve `ψ_sc = (E_tot·I − H_res)⁻¹ d`, and
+the DA amplitude is the outgoing flux at the boundary `X`, `S_DA = √(K/2πμ)·ψ_sc(X)`,
+`σ_DA = 4π³|S_DA|²/2E`.
+
+**Two subtleties are decisive** (each collapsed σ_DA by many orders when wrong): (1) the nuclear
+grid must be the **fine per-molecule eMoScat deck** — the K≈58 outgoing dissociation wave is
+unresolved on the coarse shared grid (σ_DA drops ~36 orders); (2) the boundary observable is the
+wavefunction **value** `ψ_sc(X) = ψ_sc_coeff[b]/√(w_b)`, NOT the raw DVR coefficient (a √w
+boundary-weight factor, ~27× in σ). These are the same lessons as the exact DA (per-molecule grid)
+plus a DVR-normalization one.
+
+**Result (F₂).** With both, the LCP is a **good approximation away from threshold**:
+
+![F₂ σ_DA: LCP vs exact-2D oracle](figures/f2-2d-da-lcp-vs-exact.png)
+
+| E (Ha) | σ_DA LCP | σ_DA exact-2D | LCP/exact |
+|---|---|---|---|
+| 0.02 (near threshold) | 1.56 | **3.36** | 0.47 |
+| 0.03 | 1.47 | 1.66 | **0.89** |
+| 0.04 | 1.02 | 0.72 | 1.43 |
+
+Two **documented, physically-sensible LCP departures** (the point of the comparison — the exact
+solver is the oracle, the LCP is under test): (a) it **under-predicts the near-threshold spike** —
+the exact σ_DA rises sharply as E→threshold while the LCP stays smooth (ratio 0.47 at E=0.02);
+(b) for the sibling VE channel, the LCP **elastic misses the non-resonant background** (~an order
+of magnitude low — `driven.py` notes the exact elastic T-matrix contains that background, which
+the resonant LCP omits), while VE_1 agrees to ~30%. N₂'s DA channel is closed (threshold +0.5 Ha),
+so LCP and exact both give ≈0 there — a consistency sanity, no figure.
+
+**NO** is a harder, near-threshold-dominated case: its exact σ_DA is a sharp spike at the ~0.17 Ha
+threshold decaying to ~1e-14, so the LCP–exact comparison is dominated by that near-threshold
+region (where, as for F₂, the LCP departs) rather than a clean plateau — shown for completeness,
+not as a quantitative agreement claim.
+
+![NO σ_DA: LCP vs exact-2D oracle](figures/no-2d-da-lcp-vs-exact.png)
+
 ## Time-dependent route (next)
 
 The N₂ time-dependent route (order-3 Padé + Tannor-Weeks, `qscat.core.time_dependent`) matches
