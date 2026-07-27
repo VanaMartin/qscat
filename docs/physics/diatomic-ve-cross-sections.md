@@ -81,25 +81,23 @@ There is exactly one bound anion electronic state per molecule (a real eigenvalu
 complex ECS continuum), matching "1 transversal eigenstate." **F₂'s exothermic DA and N₂'s
 closed channel are the key physical validations of the setup.**
 
-**Status of the DA cross-section numerics (open — a focused research sub-project).** The
-threshold and branching physics above are validated, but a correct σ_DA(E) is not a
-normalization tweak — two natural TI extractions were tried and *diagnosed* as insufficient:
+**The DA cross section — a TIME-INDEPENDENT driven-equation T-matrix (eMoScat
+`time_independent_model.cpp`).** eMoScat computes DA (and H₂⁺ DR) exactly and time-*in*dependently,
+via the SAME driven equation as VE (`Ψ₊ = Ψ_i + (E−H)⁻¹ V_int Ψ_i`) but projected onto the DA
+exit channel with the **rearrangement interaction**
 
-1. **Volume T-matrix `⟨φ_e(R_∞)·F_R | V_int | Ψ₊⟩`** — wrong: the fragment electronic state
-   `φ_e(R_∞)` is valid only *asymptotically* (large R), but the integrand concentrates at small
-   R (where `V_int` and `Ψ₊` are large and the fragment state is the wrong electronic state),
-   giving a `|S_DA|² ~ 10⁶` unitarity violation.
-2. **Surface flux extraction** (project `Ψ₊` onto `φ_e`, read the outgoing nuclear current at a
-   surface) — wrong: the ECS contour *absorbs* the outgoing flux by design, so there is no
-   clean asymptotic outgoing wave at a real-region surface (the current there is ~0).
+  `V_DR(r,R) = V_int(r,R) + v0(R) − V_int(r, R→∞)`  (i.e. `H − H_final`, NOT `V_int`),
 
-The correct treatment needs the **R-dependent anion electronic state `φ_e(r;R)`** (the adiabatic
-anion curve — the electronic Hamiltonian's bound state at *each* R, which evolves with R), with
-the DA nuclear motion governed by the **anion's own potential curve** `ε_e(R)`, not a free plane
-wave. That is the full 2-D DA theory (the local-complex-potential / boomerang regime). It is a
-well-scoped follow-on — the framework, the anion-state machinery, and the validated thresholds
-here are what it builds on; the eMoScat TD DA output (`Model2d/MultiTestFunction2d.cpp`, the
-nuclear test function) is the cross-check.
+and the DA T-matrix `T_DA = ⟨φ_e(r) · F^nuc_{K_R,0}(R) | V_DR | Ψ₊⟩`, `σ_DA = 4π³|T_DA|²/(2E)` —
+where `φ_e` is the anion bound electronic state at the dissociation limit and `F^nuc` is the
+energy-normalized regular nuclear Bessel (l=0, mass μ), `K_R = √(2μ(E_tot − ε_e))`. (An earlier
+prototype of mine used `V_int` instead of `V_DR` and got a ~10⁶ unitarity violation — that was
+the bug, NOT a structural obstacle to a TI DA.) Verified: with `V_DR`, σ_DA is O(1) bohr² and
+mostly within the unitarity cap `π/2E` for F₂; N₂/NO closed (correct). The remaining roughness
+(near threshold, and F₂'s sharp resonance) is *numerical* — the heavy nuclei give K_R ~ 50
+(wavelength ~0.13 bohr), so the nuclear grid needs finer resolution / a better-suited outgoing
+representation. **H₂⁺ DR** is the same T-matrix looped over the neutral's MANY bound electronic
+(Rydberg) states + a Coulomb incident (`coulomb::sF_en`). See the DA design spec.
 
 ## Dissociative recombination (DR) — H₂⁺, many channels
 
