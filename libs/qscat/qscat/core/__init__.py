@@ -22,8 +22,10 @@ potential/Hamiltonian. This keeps `core` reusable for NO, F2, and any future
 model the `ResonanceModel` protocol admits.
 
 Public API:
-  - `electronic_grid`, `nuclear_grid` -- FEM-DVR-ECS radial grid builders,
-    parameterized (extents/orders are config, not baked in).
+  - `electronic_grid`, `nuclear_grid`, `segmented_grid` -- FEM-DVR-ECS radial
+    grid builders; `segmented_grid` takes eMoScat's per-molecule `grids.txt`
+    format (segment-based element layout), parameterized (extents/orders are
+    config, not baked in).
   - `vibrational_states` -- the `n` lowest bound eigenpairs of
     `T_nuc(mu) + diag(v0(R))` on a nuclear grid.
   - `channel_vector` -- DVR coefficients of the asymptotic channel function
@@ -48,7 +50,7 @@ from .channels import channel_vector
 from .correlation import eta_incident, eta_outgoing, outgoing_channel
 from .dissociation import anion_electronic_states, da_cross_section, v_dr_diag
 from .driven import ve_cross_section
-from .grids import electronic_grid, nuclear_grid
+from .grids import electronic_grid, nuclear_grid, segmented_grid
 from .plot import plot_cross_sections
 from .time_dependent import propagate, sigma_from_correlations, td_ve_cross_section
 from .vibrational import vibrational_states
@@ -57,6 +59,7 @@ from .wavepacket import gaussian_coeffs, initial_state
 __all__ = [
     "electronic_grid",
     "nuclear_grid",
+    "segmented_grid",
     "vibrational_states",
     "channel_vector",
     "ve_cross_section",

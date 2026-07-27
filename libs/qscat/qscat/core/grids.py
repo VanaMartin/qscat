@@ -31,11 +31,13 @@ construction.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
+
 import numpy as np
 
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
 
-__all__ = ["electronic_grid", "nuclear_grid"]
+__all__ = ["electronic_grid", "nuclear_grid", "segmented_grid"]
 
 # --- electronic_grid layout -------------------------------------------------
 
@@ -129,3 +131,49 @@ def nuclear_grid(
 
     spec = GridSpec(quadrature=quadrature, elements=elements, x_min=0.0)
     return FemDvrEcsGrid(spec)
+
+
+# --- segmented_grid layout ---------------------------------------------------
+
+
+def segmented_grid(
+    real_segments: Sequence[tuple[int, float]],
+    complex_segments: Sequence[tuple[int, float]],
+    *,
+    angle_deg: float,
+    quadrature: int,
+    x_min: float = 0.0,
+) -> FemDvrEcsGrid:
+    """A FEM-DVR-ECS grid from eMoScat's `grids.txt` segment format.
+
+    `real_segments` / `complex_segments` are `(n_elements, endpoint)` pairs:
+    from `x_min`, each segment tiles `n` uniform elements up to `endpoint`.
+    The complex part is an ECS tail at `angle_deg`; the ECS pivot `R0` is the
+    last real endpoint. `complex_segments` may be empty (a pure real grid).
+    This is the per-molecule discretisation route -- see
+    docs/physics/diatomic-ve-cross-sections.md (DA nuclear grids).
+    """
+    if quadrature < 2:
+        raise ValueError(f"quadrature must be >= 2, got {quadrature}")
+    elements: list[ElementSpec] = []
+    start = x_min
+    for label, segs, angle in (
+        ("real", real_segments, None),
+        ("complex", complex_segments, angle_deg),
+    ):
+        for n, end in segs:
+            if n < 1:
+                raise ValueError(f"{label} segment ({n}, {end}) has n_elements < 1")
+            if end <= start:
+                raise ValueError(
+                    f"{label} endpoint {end} must exceed previous {start}"
+                )
+            h = (end - start) / n
+            elements += [
+                ElementSpec(h) if angle is None else ElementSpec(h, angle)
+                for _ in range(n)
+            ]
+            start = end
+    return FemDvrEcsGrid(
+        GridSpec(quadrature=quadrature, elements=elements, x_min=x_min)
+    )
