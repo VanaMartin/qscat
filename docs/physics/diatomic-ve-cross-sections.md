@@ -81,13 +81,25 @@ There is exactly one bound anion electronic state per molecule (a real eigenvalu
 complex ECS continuum), matching "1 transversal eigenstate." **F₂'s exothermic DA and N₂'s
 closed channel are the key physical validations of the setup.**
 
-**Status of the DA cross-section numerics (open):** a driven-equation prototype reproduces the
-threshold and qualitative shape (F₂ strong at low E, N₂ zero) but the *absolute magnitude* is
-not yet correct — the nuclear exit channel is heavy (μ ~ 1.4–1.7×10⁴, so k_R ~ 50, wavelength
-~0.13 bohr), so the electron-channel `4π³|T|²/2E` prefactor + the nuclear-channel
-energy-normalization/grid-resolution need the proper multichannel flux factor, validated against
-eMoScat's own TD DA output. That is a focused follow-on (the framework + thresholds here are
-what it builds on).
+**Status of the DA cross-section numerics (open — a focused research sub-project).** The
+threshold and branching physics above are validated, but a correct σ_DA(E) is not a
+normalization tweak — two natural TI extractions were tried and *diagnosed* as insufficient:
+
+1. **Volume T-matrix `⟨φ_e(R_∞)·F_R | V_int | Ψ₊⟩`** — wrong: the fragment electronic state
+   `φ_e(R_∞)` is valid only *asymptotically* (large R), but the integrand concentrates at small
+   R (where `V_int` and `Ψ₊` are large and the fragment state is the wrong electronic state),
+   giving a `|S_DA|² ~ 10⁶` unitarity violation.
+2. **Surface flux extraction** (project `Ψ₊` onto `φ_e`, read the outgoing nuclear current at a
+   surface) — wrong: the ECS contour *absorbs* the outgoing flux by design, so there is no
+   clean asymptotic outgoing wave at a real-region surface (the current there is ~0).
+
+The correct treatment needs the **R-dependent anion electronic state `φ_e(r;R)`** (the adiabatic
+anion curve — the electronic Hamiltonian's bound state at *each* R, which evolves with R), with
+the DA nuclear motion governed by the **anion's own potential curve** `ε_e(R)`, not a free plane
+wave. That is the full 2-D DA theory (the local-complex-potential / boomerang regime). It is a
+well-scoped follow-on — the framework, the anion-state machinery, and the validated thresholds
+here are what it builds on; the eMoScat TD DA output (`Model2d/MultiTestFunction2d.cpp`, the
+nuclear test function) is the cross-check.
 
 ## Dissociative recombination (DR) — H₂⁺, many channels
 
