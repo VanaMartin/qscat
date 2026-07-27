@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.core.time_dependent import (
     PropagationResult,
     _propagate,
@@ -39,24 +40,21 @@ from qscat.core.time_dependent import (
     sigma_from_correlations,
     td_ve_cross_section,
 )
+from qscat.core.vibrational import vibrational_states
 from qscat.core.wavepacket import initial_state
 from qscat.dvr import TensorGrid
 from qscat.model import N2
-
-from projects.n2_2d_cross_section.electronic_grid import n2_electronic_grid
-from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
-from projects.n2_ti_cross_section.vibrational import vibrational_states
 
 # Deliberately tiny/unconverged grid -- fast, not physically meaningful (the
 # converged grid is `TD_WORKING_GRID` in `projects/n2_2d_td_cross_section/
 # convergence.py`, gated at `@slow` scale elsewhere).
 TG = TensorGrid(
     [
-        n2_electronic_grid(r_max=12.0, order=5, n_complex=3),
-        n2_nuclear_grid(quadrature=6, r_max=14.0, n_complex=3),
+        electronic_grid(r_max=12.0, order=5, n_complex=3),
+        nuclear_grid(quadrature=6, r_max=14.0, n_complex=3),
     ]
 )
-EPS, CHI = vibrational_states(TG.grids[1], N2.mu, 4)
+EPS, CHI = vibrational_states(TG.grids[1], N2.mu, 4, N2.v0)
 
 V_INIT = 0
 VPRIMES = [0, 1]  # includes the elastic (v'=v_init) channel

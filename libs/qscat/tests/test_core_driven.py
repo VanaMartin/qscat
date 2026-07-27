@@ -34,20 +34,18 @@ import numpy as np
 import pytest
 from qscat.core.channels import channel_vector
 from qscat.core.driven import ve_cross_section
+from qscat.core.grids import electronic_grid, nuclear_grid
+from qscat.core.vibrational import vibrational_states
 from qscat.dvr import TensorGrid
 from qscat.model import N2
 
-from projects.n2_2d_cross_section.electronic_grid import n2_electronic_grid
-from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
-from projects.n2_ti_cross_section.vibrational import vibrational_states
-
 TG = TensorGrid(
     [
-        n2_electronic_grid(r_max=16.0, order=7, n_complex=5),
-        n2_nuclear_grid(quadrature=10, r_max=22.0, n_complex=5),
+        electronic_grid(r_max=16.0, order=7, n_complex=5),
+        nuclear_grid(quadrature=10, r_max=22.0, n_complex=5),
     ]
 )
-EPS, CHI = vibrational_states(TG.grids[1], N2.mu, 4)
+EPS, CHI = vibrational_states(TG.grids[1], N2.mu, 4, N2.v0)
 
 # Captured from the pre-promotion `ve_cross_section_2d(TG, EPS, CHI, 0, [0, 1,
 # 2], [0.1, 0.15, 0.2])` -- see module docstring. Row 2 (E=0.2, v'=1) also

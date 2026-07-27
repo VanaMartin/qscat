@@ -142,10 +142,50 @@ def test_n2_satisfies_the_resonance_model_protocol() -> None:
 
 def test_no_and_f2_are_registered_with_the_deck_constants() -> None:
     """Not gated against an independent oracle (none exists for NO/F2 yet --
-    see the design spec's Deliverable 2) -- just pins the transcribed deck
-    values so a registry edit can't silently drift.
+    see the design spec's Deliverable 2) -- pins ALL transcribed deck values
+    (reference/eMoScat/input/{NO,F2}/2D_model.txt line 7, column order mu, l,
+    D0, alpha0, R0, lambda_inf, lambda_1, R_lambda, lambda_c, R_c, alpha_c) so
+    a registry edit can't silently drift before sub-projects B/C consume them.
     """
-    assert (NO.mu, NO.ell, NO.alpha_c) == (13614.16, 1, 1.0)
-    assert (F2.mu, F2.ell, F2.alpha_c) == (17315.99, 1, 3.0)
+    no = (
+        NO.mu,
+        NO.ell,
+        NO.D0,
+        NO.alpha0,
+        NO.R0,
+        NO.lambda_inf,
+        NO.lambda_1,
+        NO.R_lambda,
+        NO.lambda_c,
+        NO.R_c,
+        NO.alpha_c,
+    )
+    assert no == (13614.16, 1, 0.2363, 1.5710, 2.1570, 6.3670, 5.0000, 2.0843, 6.0500, 2.2850, 1.0)
+    f2 = (
+        F2.mu,
+        F2.ell,
+        F2.D0,
+        F2.alpha0,
+        F2.R0,
+        F2.lambda_inf,
+        F2.lambda_1,
+        F2.R_lambda,
+        F2.lambda_c,
+        F2.R_c,
+        F2.alpha_c,
+    )
+    assert f2 == (
+        17315.99,
+        1,
+        0.05980,
+        1.51610,
+        2.69060,
+        18.8490,
+        3.21300,
+        1.8320,
+        18.1450,
+        2.5950,
+        3.0,
+    )
     assert isinstance(NO, ResonanceModel)
     assert isinstance(F2, ResonanceModel)
