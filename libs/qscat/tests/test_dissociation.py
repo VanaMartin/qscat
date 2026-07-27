@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from qscat.core.dissociation import anion_electronic_states, v_dr_diag
+from qscat.core.dissociation import anion_electronic_states, da_cross_section, v_dr_diag
 from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.core.vibrational import vibrational_states
 from qscat.dvr import TensorGrid
 from qscat.model import F2, N2, NO
+
+_eg = electronic_grid
+_ng = nuclear_grid
 
 
 def _eps0(model):
@@ -82,3 +85,45 @@ def test_v_dr_tends_to_v0_at_large_R():
     j = int(np.argmin(np.abs(pts_R - tg.grids[1].R0)))  # column nearest R_inf
     v0_col = np.broadcast_to(model.v0(tg.points()[1]), tg.shape)[:, j]
     assert np.allclose(vdr[:, j], v0_col, rtol=0, atol=1e-10)
+
+
+def _working():
+    tg = TensorGrid([_eg(r_max=16.0, order=8, n_complex=6),
+                     _ng(r_max=22.0, n_complex=8, quadrature=12)])
+    return tg
+
+
+def test_da_shape_scalar_and_array():
+    tg = _working()
+    eps, chi = vibrational_states(tg.grids[1], F2.mu, 3, F2.v0)
+    s1 = da_cross_section(tg, F2, eps, chi, 0, 0.05)
+    assert s1.shape == (1,)
+    sN = da_cross_section(tg, F2, eps, chi, 0, np.array([0.05, 0.10]))
+    assert sN.shape == (2, 1)
+    assert np.all(sN >= 0.0) and np.all(np.isfinite(sN))
+
+
+def test_n2_channel_closed_is_zero():
+    # N2's DA threshold is +0.5 Ha -> sigma_DA == 0 across the whole VE window.
+    tg = _working()
+    eps, chi = vibrational_states(tg.grids[1], N2.mu, 3, N2.v0)
+    E = np.array([0.04, 0.10, 0.18])
+    s = da_cross_section(tg, N2, eps, chi, 0, E)
+    assert np.all(s == 0.0)
+
+
+@pytest.mark.slow
+def test_f2_exothermic_da_is_positive():
+    # F2 DA is open at all E>0; expect a nonzero, finite sigma in its resonance
+    # window. No golden number (no independent DA data) -- positivity + soft
+    # unitarity only.
+    tg = _working()
+    eps, chi = vibrational_states(tg.grids[1], F2.mu, 3, F2.v0)
+    E = np.array([0.02, 0.03, 0.04])
+    s = da_cross_section(tg, F2, eps, chi, 0, E)[:, 0]
+    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
+    assert s.max() > 0.0
+    # soft unitarity: sigma_DA <= a few * pi/(2E) (partial-wave cap, generous
+    # band for the under-resolved fast outgoing wave; see the convergence note)
+    cap = np.pi / (2.0 * E)
+    assert np.all(s < 50.0 * cap)

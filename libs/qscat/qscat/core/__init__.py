@@ -30,6 +30,10 @@ Public API:
     `F_{E,l}(r) chi_v(R)`, masked to the unscaled region.
   - `ve_cross_section` -- the exact TI driven Lippmann-Schwinger VE cross
     section, `sigma_{v_init->v'}(E)`, for any `model`.
+  - `anion_electronic_states`, `v_dr_diag`, `da_cross_section` -- the anion's
+    bound electronic state(s) at `R_inf`, the `V_DR` rearrangement
+    interaction, and the exact TI driven-equation dissociative-attachment
+    (DA) cross section `sigma_DA(E)`, for any `model`.
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
   - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.
@@ -42,6 +46,7 @@ from __future__ import annotations
 
 from .channels import channel_vector
 from .correlation import eta_incident, eta_outgoing, outgoing_channel
+from .dissociation import anion_electronic_states, da_cross_section, v_dr_diag
 from .driven import ve_cross_section
 from .grids import electronic_grid, nuclear_grid
 from .plot import plot_cross_sections
@@ -55,6 +60,9 @@ __all__ = [
     "vibrational_states",
     "channel_vector",
     "ve_cross_section",
+    "anion_electronic_states",
+    "v_dr_diag",
+    "da_cross_section",
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",

@@ -27,18 +27,25 @@ the `ResonanceModel` protocol under `TYPE_CHECKING` only, exactly like
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import numpy as np
 import numpy.typing as npt
 
 from qscat.dvr import FemDvrEcsGrid, TensorGrid, eigen, kinetic
 from qscat.linalg import c_product
+from qscat.special import riccati_bessel_en_mass
+
+from .driven import ve_cross_section
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["anion_electronic_states", "v_dr_diag"]  # Task 4 appends "da_cross_section"
+__all__ = ["anion_electronic_states", "v_dr_diag", "da_cross_section"]
+
+# Mirrors driven.py's re-declaration of SparseLU's private ordering Literal,
+# so `ordering` passes through to ve_cross_section type-clean.
+_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 
 # Bound-state signature on an ECS grid: true bound levels have |Im(E)| ~ 1e-15,
 # ECS-continuum states jump to >= 1e-7. Same tolerance as `vibrational_states`.
@@ -112,3 +119,62 @@ def v_dr_diag(tgrid: TensorGrid, model: ResonanceModel) -> npt.NDArray[np.comple
     return np.asarray(
         model.interaction_diag(tgrid) + v0_term - vint_inf, dtype=np.complex128
     )
+
+
+def da_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = 1,
+    ordering: _Ordering = "COLAMD",
+) -> npt.NDArray[np.float64]:
+    """sigma_DA(E) in bohr^2, exact 2-D driven-equation DA cross section.
+
+    Reuses `ve_cross_section(..., return_wavefunction=True)` for `Psi+` (one
+    `SparseLU.refactor` sweep across `E`), then projects onto each of
+    `n_channels` anion dissociation channels with `V_DR`. `E` may be scalar
+    (returns `(n_channels,)`) or an array (returns `(len(E), n_channels)`).
+    `sigma = 0` for a closed channel (`E <= 0` or `E_DR = E_tot - eps_e <= 0`).
+    """
+    e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+    mu = model.mu
+    g_R = tgrid.grids[1]
+    R_inf = g_R.R0
+
+    eps_e, phi = anion_electronic_states(
+        g_r=tgrid.grids[0], model=model, R_inf=R_inf, n_states=n_channels
+    )
+    v_dr = v_dr_diag(tgrid, model)
+    mask = tgrid.real_mask()
+    sqrt_w_R = tgrid.sqrt_weights()[1].ravel()
+
+    _, psis = ve_cross_section(
+        tgrid, model, eps, chi, v_init, [v_init], e_arr,
+        ordering=ordering, return_wavefunction=True,
+    )
+    psi_list = psis if isinstance(psis, list) else [psis]
+
+    out = np.zeros((len(e_arr), n_channels), dtype=np.float64)
+    for ie, e in enumerate(e_arr):
+        psi_plus = psi_list[ie]
+        if psi_plus is None:  # E <= 0
+            continue
+        e_tot = float(e) + eps[v_init]
+        v_psi = v_dr * psi_plus
+        for n in range(n_channels):
+            e_dr = e_tot - eps_e[n]
+            if e_dr <= 0.0:
+                continue
+            k_r = float(np.sqrt(2.0 * mu * e_dr))
+            y_coeff = riccati_bessel_en_mass(g_R.real_points, k_r, 0, mu) * sqrt_w_R
+            phi_f = tgrid.outer([phi[n], y_coeff])
+            phi_f[~mask] = 0.0
+            t = c_product(phi_f, v_psi)
+            out[ie, n] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e))
+
+    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+    return np.asarray(out[0] if scalar else out, dtype=np.float64)
