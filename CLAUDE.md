@@ -89,9 +89,18 @@ libs/       qscat — the standard library: validated, reusable QM code
               (exact TI driven Lippmann-Schwinger, `SparseLU.refactor` sweep,
               σ=π|S−δ|²/2E) and `time_dependent.td_ve_cross_section` (order-3
               Padé propagation + Tannor-Weeks transform + elastic free-reference
-              subtraction) — both take a `model`. Plus `channels`, `grids`
-              (parameterized FEM-DVR-ECS builders), `vibrational` (`v0` passed
-              in), `wavepacket`, `correlation`, `plot`. **`qscat.core` never
+              subtraction) — both take a `model`. Also
+              `dissociation.da_cross_section` (exact TI **dissociative
+              attachment**: the same driven Ψ₊ solve projected onto the nuclear
+              dissociation channel with the rearrangement interaction
+              `V_DR = V_int + v0 − V_int(r,R→∞)`, σ_DA=4π³|T|²/2E; plus
+              `anion_electronic_states`, `v_dr_diag`) — the DA magnitude needs a
+              per-molecule NUCLEAR grid (fast K_R~58 exit wave), built by
+              `grids.segmented_grid` from eMoScat's per-molecule decks — see
+              docs/physics/diatomic-ve-cross-sections.md. Plus `channels`, `grids`
+              (parameterized FEM-DVR-ECS builders + `segmented_grid` for
+              eMoScat's `(n_elem, endpoint)` deck format), `vibrational` (`v0`
+              passed in), `wavepacket`, `correlation`, `plot`. **`qscat.core` never
               imports `qscat.model`/`projects` at runtime** (depends only on the
               `ResonanceModel` protocol; enforced by
               `test_core_no_model_import.py`) — see
@@ -187,13 +196,18 @@ validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/diatomic/`: the NO and F₂ exact-2D VE cross sections —
               the model port, computed entirely through `qscat.core` +
               `qscat.model` (the first consumers of sub-project A beyond N₂).
-              `config.py` holds per-molecule grid/energy config; `curves.py`
-              (`compute_ti_curve`, `main`) computes the exact-2D TI σ(E) oracle
-              and the committed figures (`docs/physics/figures/{no,f2}-2d-ti-
-              cross-section.png`). No independent golden data exists for NO/F₂
-              (only N₂ has Houfek's), so the exact solver IS the oracle; NO/F₂
-              have lower/sharper resonances than N₂, so their TD-vs-TI check is
-              a documented follow-on — see docs/physics/diatomic-ve-cross-sections.md.
+              `config.py` holds per-molecule grid/energy config (incl. the
+              eMoScat per-molecule NUCLEAR deck + `MoleculeConfig.da_grid()` used
+              for DA); `curves.py` (`compute_ti_curve`, `main`) computes the
+              exact-2D TI VE σ(E) oracle + figures (`docs/physics/figures/{no,f2}-
+              2d-ti-cross-section.png`); `da_curves.py` (`compute_da_curve`,
+              `main`) computes the exact-2D TI σ_DA(E) oracle on the eMoScat
+              per-molecule nuclear grids + figures (`docs/physics/figures/{f2,no}-
+              2d-ti-da-cross-section.png`). No independent golden data exists for
+              NO/F₂ (only N₂ has Houfek's), so the exact solver IS the oracle;
+              NO/F₂ have lower/sharper resonances than N₂, so their TD-vs-TI
+              check is a documented follow-on — see
+              docs/physics/diatomic-ve-cross-sections.md.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo

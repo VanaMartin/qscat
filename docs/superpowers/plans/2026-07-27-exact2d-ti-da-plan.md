@@ -903,8 +903,8 @@ def compute_da_curve(
 def main() -> None:
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
     specs = {
-        "F2": (np.linspace(0.01, 0.05, 24), "f2-2d-ti-da-cross-section"),
-        "NO": (np.linspace(0.15, 0.30, 20), "no-2d-ti-da-cross-section"),
+        "F2": (np.linspace(0.01, 0.05, 13), "f2-2d-ti-da-cross-section"),
+        "NO": (np.linspace(0.15, 0.30, 12), "no-2d-ti-da-cross-section"),
     }
     for name, (E, stem) in specs.items():
         _, sigma = compute_da_curve(CONFIGS[name], E)

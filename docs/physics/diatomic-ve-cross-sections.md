@@ -92,12 +92,38 @@ and the DA T-matrix `T_DA = ⟨φ_e(r) · F^nuc_{K_R,0}(R) | V_DR | Ψ₊⟩`, `
 where `φ_e` is the anion bound electronic state at the dissociation limit and `F^nuc` is the
 energy-normalized regular nuclear Bessel (l=0, mass μ), `K_R = √(2μ(E_tot − ε_e))`. (An earlier
 prototype of mine used `V_int` instead of `V_DR` and got a ~10⁶ unitarity violation — that was
-the bug, NOT a structural obstacle to a TI DA.) Verified: with `V_DR`, σ_DA is O(1) bohr² and
-mostly within the unitarity cap `π/2E` for F₂; N₂/NO closed (correct). The remaining roughness
-(near threshold, and F₂'s sharp resonance) is *numerical* — the heavy nuclei give K_R ~ 50
-(wavelength ~0.13 bohr), so the nuclear grid needs finer resolution / a better-suited outgoing
-representation. **H₂⁺ DR** is the same T-matrix looped over the neutral's MANY bound electronic
-(Rydberg) states + a Coulomb incident (`coulomb::sF_en`). See the DA design spec.
+the bug, NOT a structural obstacle to a TI DA.) With `V_DR`, σ_DA is O(1) bohr² and within the
+unitarity cap `π/2E` for F₂; N₂/NO closed (correct). Implemented in
+`qscat.core.dissociation` (`anion_electronic_states`, `v_dr_diag`, `da_cross_section`).
+
+**The discretisation must be per-molecule.** DA's outgoing flux is in the NUCLEAR coordinate, and
+the heavy nuclei make the exit wave `F^nuc = √(2μ/πK)·sin(K_R R)` oscillate fast (F₂:
+`K_R ≈ 58`, wavelength ~0.107 bohr). On the single N₂-style nuclear grid (1.0-bohr outer
+elements) σ_DA did NOT converge — it swung `0.16 → 26 → 0.54 → 2.3 → 4.0` bohr² as the nuclear
+*quadrature* was raised, because increasing points-per-element (p-refinement) cannot resolve an
+oscillatory integrand; element density (h-refinement) must. The fix is eMoScat's **already-tested
+per-molecule grids** (`reference/eMoScat/input/{NO,F₂}/grids.txt`), whose nuclear grids are far
+finer over the dissociation region (NO: 37×0.2 bohr over [1.6, 9.0]; F₂: 40×0.2 bohr over
+[2.7, 10.7] plus 0.024 bohr around the 2.5–2.7 resonance). On the F₂ eMoScat grid (nuclear
+`n = 974`, `R0 = 10.7`) σ_DA(E=0.03) = **1.66 bohr²**, **stable to < 0.002 %** under further
+refinement — the coarse-grid `25.99` was a pure quadrature artifact. `qscat.core.grids.segmented_grid`
+builds any such deck; `validation.diatomic.config.MoleculeConfig.da_grid()` carries the NO/F₂
+decks. This distinction is why VE converged on the coarse nuclear grid but DA did not: **VE's
+outgoing flux is electronic** (needs fine *electronic* resolution, already validated at
+r_max = 16), **DA's is nuclear** — they stress different coordinates.
+
+The exact-2D TI σ_DA(E) oracle curves on those grids (F₂ exothermic; NO opening ~0.17 Ha):
+
+![F₂ exact-2D TI dissociative attachment](figures/f2-2d-ti-da-cross-section.png)
+![NO exact-2D TI dissociative attachment](figures/no-2d-ti-da-cross-section.png)
+
+**Future: automatic discretisation.** The eMoScat decks are hand-tuned interim truth. The intended
+end state is a dedicated skill that CHOOSES the grid from the potential curves alone — bounding the
+per-element de Broglie phase `∫k(R)dR` (a few oscillations per element max) across the target
+energy range, for every element. Until then, per-molecule decks are transcribed numerical config.
+
+**H₂⁺ DR** is the same T-matrix looped over the neutral's MANY bound electronic (Rydberg) states
++ a Coulomb incident (`coulomb::sF_en`). See the DA design spec.
 
 ## Dissociative recombination (DR) — H₂⁺, many channels
 
