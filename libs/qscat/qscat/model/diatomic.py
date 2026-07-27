@@ -49,10 +49,23 @@ class ResonanceModel(Protocol):
     assemble those surfaces onto a `qscat.dvr.TensorGrid`: the sparse `H_2D`
     and the flattened `diag(V_int)` a time-dependent free-reference subtracts
     off `H_2D`.
+
+    `mu`/`ell` are declared as READ-ONLY properties (not plain mutable
+    attributes) so that a frozen dataclass like `DiatomicResonanceModel` --
+    whose fields are read-only by construction -- satisfies this protocol
+    structurally under mypy. A plain `mu: float` annotation here would
+    require a SETTABLE attribute (mypy's default for Protocol attributes),
+    which a frozen dataclass field can never be; `qscat.core.driven`'s
+    `model: ResonanceModel` parameter is the first real static consumer of
+    this protocol (earlier code only used `isinstance` at runtime, which
+    does not distinguish read-only from settable), so this mismatch was
+    latent until Task 4.
     """
 
-    mu: float
-    ell: int
+    @property
+    def mu(self) -> float: ...
+    @property
+    def ell(self) -> int: ...
 
     def v0(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
         """Neutral molecule's own potential (Hartree); a CHANNEL potential --
