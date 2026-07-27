@@ -40,7 +40,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from projects.n2_2d_cross_section.cross_section_2d import ve_cross_section_2d
+from qscat.core.driven import ve_cross_section
+from qscat.model import N2
+
 from validation.n2 import exact2d
 
 __all__ = ["TdExact2dResult", "compute_td_exact2d_results"]
@@ -106,15 +108,16 @@ def _sigma_ti_live(energy_ha: float, channel: int) -> float:
     Reuses Group E's `exact2d.compute_exact2d_results()` (already `lru_cache`d
     from Group E's own run earlier in this same harness pass, so this lookup
     is free) whenever the coordinate is one of its anchors. Otherwise falls
-    back to one live `ve_cross_section_2d` call on the SAME cached working
-    grid/vibrational states `exact2d.build_system()` built for Group E --
-    still cheap (sparse solves, ~seconds), just not pre-tabulated.
+    back to one live `ve_cross_section` call (`qscat.core.driven`, against
+    `qscat.model.N2` directly) on the SAME cached working grid/vibrational
+    states `exact2d.build_system()` built for Group E -- still cheap (sparse
+    solves, ~seconds), just not pre-tabulated.
     """
     for r in exact2d.compute_exact2d_results():
         if r.channel == channel and abs(r.energy_ha - energy_ha) < _ENERGY_MATCH_TOL_HA:
             return r.sigma_exact
     tgrid, eps, chi = exact2d.build_system()
-    sigma = ve_cross_section_2d(tgrid, eps, chi, 0, [channel], energy_ha)
+    sigma = ve_cross_section(tgrid, N2, eps, chi, 0, [channel], energy_ha)
     return float(sigma[0])
 
 
