@@ -151,14 +151,24 @@ libs/       qscat — the standard library: validated, reusable QM code
               de-Broglie phase constant `C` (`qscat.tuning.mesh._PHASE_COEFF`)
               is CALIBRATED (`validation/tuning/calibrate.py`) against F2's
               genuinely-open dissociative-attachment channel — the tuner
-              reproduces-and-beats that eMoScat deck (37% fewer points, clean
-              rtol=1e-3 convergence on the K~78 DA wave) and its cheapest probe
-              correctly flags the coarse shared N2-style grid as under-
-              resolved for that same wave (`validation/tuning/
-              test_emoscat_decks.py`); N2/NO's proposed nuclear grids cost
-              more points than their decks (traced to a fixed real-region
-              extent default, not to `C`) — a documented, reported limitation.
-              See docs/physics/discretisation-tuning.md.
+              reproduces-and-beats that eMoScat deck on the 1-D probes (37%
+              fewer points, clean rtol=1e-3 convergence on the K~78 DA wave)
+              and its cheapest probe correctly flags the coarse shared
+              N2-style grid as under-resolved for that same wave
+              (`validation/tuning/test_emoscat_decks.py`); H2+'s proxy nuclear
+              deck is likewise a clean reproduce-and-beat; N2/NO's proposed
+              nuclear grids cost more points than their decks (traced to a
+              fixed real-region extent default, not to `C`) — a documented,
+              reported limitation. The gate's `@slow` 2-D spot-check on F2 is
+              a genuine, load-bearing finding, NOT a rubber stamp: the 1-D
+              probes pass on the reproduce-and-beat grid, but the actual
+              sigma_DA is NOT 2-D-converged there (one nuclear h-refinement
+              changes it ~5x, toward the eMoScat deck's own value) — the
+              a-priori mesh, built only from `v0`'s classical k(x) profile,
+              cannot see the narrow R~2.5-2.7 bohr interaction feature
+              eMoScat's deck hand-resolves; the 1-D probes are necessary but
+              NOT sufficient for this observable. See
+              docs/physics/discretisation-tuning.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
@@ -267,15 +277,26 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               value making `propose_grid`'s F₂ nuclear grid
               reproduce-and-beat the eMoScat F₂ DA deck (the molecule with a
               genuinely open dissociative-attachment channel in its tested
-              range) — calibrated to `C = 0.10`. `test_emoscat_decks.py`
-              gates `propose_grid` for N₂/NO/F₂ against their committed
-              decks (F₂ strictly; N₂/NO comparatively, since their
-              channel-representation floor wavenumber is a conservative
-              bound their OWN decks don't clear either — a reported finding,
-              not a loosened gate) and confirms the cheap
-              `probe_channel_representation` probe still flags the coarse
-              shared N₂-style grid as under-resolved for F₂ DA's K≈58-78 wave
-              — see docs/physics/discretisation-tuning.md.
+              range) — calibrated to `C = 0.10`; H₂⁺'s proxy nuclear deck is
+              swept alongside N₂/NO/F₂ for reporting (a clean reproduce-and-
+              beat, unlike N₂/NO — see docs/physics/discretisation-tuning.md).
+              `test_emoscat_decks.py` gates `propose_grid` for N₂/NO/F₂/H₂⁺
+              against their committed/proxy decks (F₂ and H₂⁺ strictly;
+              N₂/NO comparatively, since their channel-representation floor
+              wavenumber is a conservative bound their OWN decks don't clear
+              either — a reported finding, not a loosened gate) and confirms
+              the cheap `probe_channel_representation` probe still flags the
+              coarse shared N₂-style grid as under-resolved for F₂ DA's
+              K≈58-78 wave. Its `@pytest.mark.slow` 2-D spot-check
+              (`test_f2_2d_da_cross_section_spot_check`) is the design
+              spec's "final 2-D solve confirming the tensor-product grid" —
+              and a genuine finding: F₂'s reproduce-and-beat nuclear grid
+              (609 pts) passes both 1-D probes but gives an UNCONVERGED
+              sigma_DA (one nuclear h-refinement moves it ~5x, toward the
+              eMoScat deck's own value); the refined-grid FAMILY converges
+              (refine¹ vs refine² agree to 2%), gated as such rather than
+              forcing a false base-vs-refined match — see
+              docs/physics/discretisation-tuning.md.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo

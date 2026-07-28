@@ -136,7 +136,17 @@ refined grid, agreeing to 1e-3.
   see `validation/tuning/calibrate.py` and `docs/physics/discretisation-tuning.md`. Trust it, don't
   re-tune it by eye. N2/NO's proposed nuclear grids cost MORE points than their committed decks
   (~1.0-1.5x) -- a `_NUCLEAR_X_MAX_DEFAULT` (fixed real-region extent) mismatch with their
-  decks' own extent, not a C problem; a documented follow-on, not (yet) fixed.
+  decks' own extent, not a C problem; a documented follow-on, not (yet) fixed. H2+'s proxy
+  nuclear deck is a clean reproduce-and-beat (unlike N2/NO): lighter mu keeps its floor K
+  modest and its deck's real-region extent is close to the fixed default.
+- **Step 6 (the final 2-D spot-check) is NOT optional/a rubber stamp -- concrete proof, not just
+  a warning.** `validation/tuning/test_emoscat_decks.py::test_f2_2d_da_cross_section_spot_check`
+  found that F2's reproduce-and-beat NUCLEAR grid (both 1-D probes pass, fewer points than the
+  deck) gives an sigma_DA that is NOT 2-D converged -- one nuclear h-refinement moves it ~5x
+  (toward the eMoScat deck's own value), traced to a narrow R~2.5-2.7 bohr interaction feature
+  (in `v_int`/`lambda(R)`, not `v0`) the a-priori mesh cannot see since it is built only from
+  `v0`'s classical k(x) profile. The 1-D probes are NECESSARY but NOT SUFFICIENT here -- always
+  run step 6 for a new grid before trusting it, even when every 1-D probe passed.
 - `qscat.tuning` primitives are pure/deterministic and unit-tested on analytic potentials; the
   judgment (this procedure) is the only non-deterministic part.
 - See `docs/superpowers/specs/2026-07-28-discretisation-tuner-design.md` and

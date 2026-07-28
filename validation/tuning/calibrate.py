@@ -36,8 +36,25 @@ these decks were never tuned to resolve, not evidence the tuner
 under-performs. What DOES matter for N2/NO -- their vibrational spectrum
 (`probe_nuclear`) -- converges cleanly at every candidate `C` tried.
 
+**H2+ (proxy nuclear deck) is reported alongside N2/NO.** Its DR channel
+wavenumber also uses the `sqrt(2*mu*E_max)` floor (its Rydberg exit-channel
+threshold is a near-continuum SERIES, not a single bound state like F2's
+anion ground state, so pinning one `eps_e` is awkward -- same rationale as
+N2/NO). Unlike N2/NO, H2+'s much lighter reduced mass (918 vs 13000-17000)
+keeps even this floor modest (K~9.6 at E_max=0.05), and both the proxy deck
+and the proposed grid converge on it cleanly at every `C` tried -- see
+`validation/tuning/test_emoscat_decks.py`'s H2+ gate.
+
+**IMPORTANT CAVEAT (see `test_emoscat_decks.py::test_f2_2d_da_cross_section_spot_check`,
+`@slow`):** the 1-D probes calibrated here are necessary but NOT sufficient for F2's actual
+2-D DA cross section -- the 609-point grid that reproduces-and-beats the deck on these 1-D
+probes gives an UNCONVERGED sigma_DA (one nuclear h-refinement moves it ~5x, toward the
+eMoScat deck's own value). Traced to a narrow R~2.5-2.7 bohr interaction feature (`v_int`/
+`lambda(R)`, not `v0`) the a-priori mesh cannot see, since it is built only from `v0`'s
+classical k(x) profile. See docs/physics/discretisation-tuning.md's finding #3.
+
 Run via `uv run python -m validation.tuning.calibrate` (takes a few minutes:
-a full 40-candidate x 3-molecule x 2-probe sweep).
+a full 40-candidate x 4-molecule x 2-probe sweep).
 """
 
 from __future__ import annotations
@@ -50,10 +67,11 @@ import numpy as np
 import numpy.typing as npt
 from qscat.core.dissociation import anion_electronic_states
 from qscat.core.grids import electronic_grid, nuclear_grid
-from qscat.model import F2, N2, NO, DiatomicResonanceModel
+from qscat.model import F2, H2P, N2, NO, ResonanceModel
 from qscat.tuning import grid_cost, probe_channel_representation, probe_nuclear, propose_grid
 
 from validation.diatomic.config import CONFIGS
+from validation.h2plus.config import proxy_grid
 
 __all__ = ["MoleculeSpec", "molecule_specs", "sweep", "main"]
 
@@ -75,7 +93,7 @@ class MoleculeSpec:
     """
 
     name: str
-    model: DiatomicResonanceModel
+    model: ResonanceModel
     energy_range: tuple[float, float]
     K: float
     deck_n: int
@@ -96,8 +114,10 @@ def _f2_da_threshold_k(e_max: float) -> tuple[float, float]:
 
 
 def molecule_specs() -> list[MoleculeSpec]:
-    """The three calibration targets, each with its committed eMoScat deck
-    point count and its fastest in-range wavenumber `K`.
+    """The four calibration targets (N2/NO/F2 nuclear + the H2+ proxy
+    nuclear deck), each with its committed eMoScat/proxy deck point count
+    and its fastest in-range wavenumber `K`. Only F2 (see module docstring)
+    decides the calibrated `C`; the rest are reported.
     """
     e_max_f2 = 0.05
     k_f2, eps_e_f2 = _f2_da_threshold_k(e_max_f2)
@@ -106,9 +126,18 @@ def molecule_specs() -> list[MoleculeSpec]:
     deck_n2 = nuclear_grid()
     deck_no = CONFIGS["NO"].da_grid().grids[1]
     deck_f2 = CONFIGS["F2"].da_grid().grids[1]
+    deck_h2p = proxy_grid().grids[1]
 
     k_n2 = math.sqrt(2.0 * N2.mu * 0.18)  # floor: DA closed for N2 in-range
     k_no = math.sqrt(2.0 * NO.mu * 0.12)  # floor: NO's DA opens ~0.17, above range
+    # H2+ DR channel wavenumber: a floor (sqrt(2*mu*E_max)), same as N2/NO --
+    # H2+'s many-channel Rydberg threshold eps_e is awkward to pin down (a
+    # near-continuum SERIES, not a single bound state like N2/NO/F2's anion
+    # ground state), so the floor + comparative-vs-proxy-deck gating used
+    # for N2/NO is reused here rather than resolving one particular Rydberg
+    # member. H2+'s much lighter mu (918 vs 13000-17000) makes even this
+    # floor modest (K~9.6) -- see the module docstring's H2+ note.
+    k_h2p = math.sqrt(2.0 * H2P.mu * 0.05)
 
     return [
         MoleculeSpec(
@@ -122,6 +151,10 @@ def molecule_specs() -> list[MoleculeSpec]:
         MoleculeSpec(
             "F2", F2, (0.01, 0.05), k_f2, deck_f2.n,
             probe_channel_representation(deck_f2, k_f2, 0, mass=F2.mu).detail["rel_error"],
+        ),
+        MoleculeSpec(
+            "H2P", H2P, (0.0, 0.05), k_h2p, deck_h2p.n,
+            probe_channel_representation(deck_h2p, k_h2p, 0, mass=H2P.mu).detail["rel_error"],
         ),
     ]
 
@@ -230,7 +263,12 @@ def main() -> None:
         "point counts exceed their decks' because qscat.tuning.propose's fixed "
         "_NUCLEAR_X_MAX_DEFAULT=18.0 bohr real-region default exceeds their committed decks' "
         "own real-region extent (N2: 12.0 bohr, NO: 9.0 bohr) -- a Task-5 a-priori-adapter "
-        "limitation, not a miscalibration of C; see docs/physics/discretisation-tuning.md."
+        "limitation, not a miscalibration of C; see docs/physics/discretisation-tuning.md.\n\n"
+        "H2P is a CLEAN reproduce-and-beat, unlike N2/NO: its proxy deck's real region (14.0 "
+        "bohr) is much closer to the fixed 18.0-bohr default, so its proposed grid costs only "
+        "1.145x the deck (vs N2's 1.435x/NO's 1.012x with a much harder floor); H2P's lighter "
+        "reduced mass (918 vs 13000-17000) makes its floor K~9.6 modest, and BOTH the proxy "
+        "deck and the proposed grid converge on it absolutely at rtol=1e-3."
     )
 
 
