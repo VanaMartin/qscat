@@ -37,7 +37,7 @@ import numpy as np
 
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
 
-__all__ = ["electronic_grid", "nuclear_grid", "segmented_grid"]
+__all__ = ["electronic_grid", "fem_grid_exp_tail", "nuclear_grid", "segmented_grid"]
 
 # --- electronic_grid layout -------------------------------------------------
 
@@ -174,6 +174,57 @@ def segmented_grid(
                 for _ in range(n)
             ]
             start = end
+    return FemDvrEcsGrid(
+        GridSpec(quadrature=quadrature, elements=elements, x_min=x_min)
+    )
+
+
+# --- fem_grid_exp_tail layout -------------------------------------------------
+
+
+def fem_grid_exp_tail(
+    real_segments: Sequence[tuple[int, float]],
+    *,
+    angle_deg: float,
+    quadrature: int,
+    tail_n: int,
+    tail_alpha: float = 0.2,
+    tail_skip: int = 2,
+    x_min: float = 0.0,
+) -> FemDvrEcsGrid:
+    """A FEM-DVR-ECS grid whose real region is uniform-per-segment (like
+    `segmented_grid`) but whose ECS tail grows EXPONENTIALLY rather than
+    tiling uniformly -- the H2+ electronic/nuclear deck layout (eMoScat's
+    `uniform_increment`/`exp` element spec), which `segmented_grid` cannot
+    express.
+
+    `real_segments` are `(n_elements, endpoint)` pairs from `x_min`, tiled
+    exactly like `segmented_grid`'s real region. The tail appends `tail_n`
+    complex `ElementSpec`s at `angle_deg` whose lengths are `_ecs_tail(base,
+    tail_n, skip=tail_skip, alpha=tail_alpha)`, with `base` the length of the
+    LAST real element. The ECS pivot `R0` is the last real endpoint.
+    """
+    if quadrature < 2:
+        raise ValueError(f"quadrature must be >= 2, got {quadrature}")
+    if not real_segments:
+        raise ValueError("real_segments must be non-empty")
+
+    elements: list[ElementSpec] = []
+    start = x_min
+    for n, end in real_segments:
+        if n < 1:
+            raise ValueError(f"real segment ({n}, {end}) has n_elements < 1")
+        if end <= start:
+            raise ValueError(f"real endpoint {end} must exceed previous {start}")
+        h = (end - start) / n
+        elements += [ElementSpec(h) for _ in range(n)]
+        start = end
+
+    base = h
+    elements += [
+        ElementSpec(length, angle_deg)
+        for length in _ecs_tail(base, tail_n, skip=tail_skip, alpha=tail_alpha)
+    ]
     return FemDvrEcsGrid(
         GridSpec(quadrature=quadrature, elements=elements, x_min=x_min)
     )
