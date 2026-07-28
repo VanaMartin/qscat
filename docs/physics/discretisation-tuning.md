@@ -138,7 +138,7 @@ limitation that Task 8's `C`-calibration cannot fix (`C` controls density, not e
 documented follow-on (deriving `x_max` from the potential rather than a fixed constant),
 not addressed here.
 
-## Genuine finding #3: the 1-D probes pass on F₂'s grid, but the 2-D observable isn't converged
+## Genuine finding #3: RESOLVED (resonance-aware mesh)
 
 The design spec's "final 2-D spot-check" (the ONE full observable solve confirming the
 tensor-product grid delivers the claimed precision) is `test_f2_2d_da_cross_section_
@@ -153,30 +153,81 @@ at the base 609) changes nothing (`0.30842 → 0.30842`) — isolating the gap s
 nuclear grid's resolution.
 
 **The 1-D probes (channel-representation + vibrational) are NECESSARY but NOT SUFFICIENT**
-for this observable. The likely cause: eMoScat's own F₂ deck hand-places extra-fine
-sub-0.1-bohr elements specifically around R≈2.5–2.7 bohr — a narrow feature in the
-ELECTRON-NUCLEAR INTERACTION (`v_int`/`lambda(R)`), not in `v0` alone. The a-priori
-equidistribution mesh is built purely from `v0`'s classical `k(x)` profile
-(`_nuclear_adapter`/`analyze_potential`), so it has no way to see a feature that lives only
-in the coupling term — exactly the "structures the de Broglie prior misses (a narrow
-resonance needing local refinement in R)" case the design spec already anticipated as
-needing a probe-driven local refinement, which is NOT YET IMPLEMENTED (the tuner has no
-resonance/coupling-aware local-refinement step; `qscat.tuning.probes.probe_electronic` is
-the closest primitive, but it is not wired into `propose_grid`'s a-priori pass). The gate
-test therefore does not assert the base grid matches the refined solve (it doesn't, by
-~5×) — it asserts what IS true: the refined-grid family converges (refine¹ vs refine²
-agree to `rtol=0.02`, a defensible band for a 2-D driven-equation T-matrix observable).
+for this observable — that was the standing gap. The cause: eMoScat's own F₂ deck
+hand-places extra-fine sub-0.1-bohr elements specifically around R≈2.5–2.7 bohr — a narrow
+feature in the ELECTRON-NUCLEAR INTERACTION (`v_int`/`lambda(R)`, concretely the
+adiabatic resonance curve `V_d(R)`), not in `v0` alone. The plain a-priori equidistribution
+mesh is built purely from `v0`'s classical `k(x)` profile (`_nuclear_adapter`/
+`analyze_potential`), so it has no way to see a feature that lives only in the coupling
+term.
 
-**Practical consequence:** `propose_grid`'s raw a-priori output for F₂'s DA observable is
-NOT a drop-in deck replacement without at least one nuclear h-refinement pass (which then
-costs MORE points than the deck, ~1189 vs 974) — consistent with the skill's own standing
-warning ("Do NOT use it to re-grid a validated production deck without an explicit
-decision"; propose_grid is the START of the probe/refine loop, not its end). The 1-D
-"reproduce-or-beat" gate is still meaningful (it is what the calibrated `C` targets, and it
-does catch the historical coarse-grid failure directly below), but it does not by itself
-certify 2-D convergence for an observable with sub-structure invisible to `v0` alone.
+### The fix: the resonance-aware nuclear mesh (`channel="dissociation"`)
 
-## The gate (`validation/tuning/test_emoscat_decks.py`)
+`propose_grid(model, "nuclear", energy_range, channel="dissociation")` (nuclear-only;
+`channel="ve"` remains the byte-identical default for every other path) makes the mesh
+aware of exactly the structure the plain `v0`-only pass cannot see, via
+`qscat.tuning.resonance.resonance_curve` (the two-angle ECS pole match already used by
+`qscat.ecs.find_resonance_pole`, sampled densely inside `interaction_region` and once at
+the asymptote):
+
+1. **Exit-wave DVR order.** `K_exit = sqrt(2·mu·max(E_max − Re(V_d)_asym, E_max))` — the
+   fast outgoing dissociation wavenumber the ECS tail must absorb — sizes the quadrature
+   order directly via `order_for_wavenumber(K_exit, min_len, target_ppw=6)`, instead of
+   letting the h/p sweep pick an order from `v0` alone.
+2. **Crossing super-refinement.** `R* =` the outermost sign change of
+   `Re(V_d(R)) − v0(R)` (`_outermost_crossing`) locates the resonance crossing (F₂:
+   R*≈2.598, matching the eMoScat deck's own hand-placed fine region); a Γ-closing-width
+   half-window around it (clamped to [0.15, 0.18] bohr) is then LOCALLY super-refined to
+   ~0.03-bohr elements via `refine_elements_in_window` — overriding the global `min_len`
+   only inside that window, which is the point (a floored global `min_len` is exactly why
+   the earlier worst-case-`k`-merge design was inert).
+3. **Trimmed real extent.** The resonant path uses a reduced real-region default (10.5
+   bohr, vs the VE path's 18.0) — the ECS tail absorbs the outgoing wave, so the real
+   region need only host the interaction region plus a few exit-wave wavelengths, close to
+   the eMoScat F₂ deck's own ~10.7-bohr real extent.
+
+**Verified numbers (controller-measured, 2026-07-28):**
+
+| Molecule | Resonant grid | Deck | Ratio | 2-D observable |
+|---|---|---|---|---|
+| F₂ | 1000 pts, order 14 | 974 pts (eMoScat DA deck), order 14 | 1.027× (deck-parity) | σ_DA(E=0.03) = 1.6562 bohr², CONVERGED (deck 1.66, finding-#3 refine² 1.658) |
+| H₂⁺ | 489 pts, order 8 | 510 pts (proxy deck), order 8 | 0.959× (~4% smaller) | not laptop-verifiable (full 2-D DR ~1.15M unknowns — Docker/MUMPS) |
+
+(F₂'s old `channel="ve"` grid was smaller still — 609 points — but gave σ_DA≈0.31, the ~5×
+gap this whole finding is about.) The gate is
+`validation/tuning/test_resonance_aware.py`: `@pytest.mark.slow` SIZE tests assert
+`F2_resonant.n <= 1.05·F2_deck.n` and `H2P_resonant.n <= H2P_proxy_deck.n` (both pass, plus
+an order-floor sanity check), and an `@pytest.mark.slow` CONVERGENCE test reruns the 2-D DA
+spot-check harness with `channel="dissociation"` and asserts `|σ_base − σ_refined| /
+σ_refined < 0.15` with `σ_base > 1.0` bohr².
+
+**The honest finding (stated plainly, not spun): the "10–20% smaller than the hand deck"
+expectation this sub-project set out with does NOT hold for F₂.** eMoScat's F₂ DA deck is
+a near-optimal expert hand-tuning — it already hand-places exactly the fine crossing region
+the resonance-aware mesh now finds automatically. The OLD `propose_grid` (`channel="ve"`)
+was smaller than that deck (609 vs 974) ONLY because it was under-converged; that
+under-convergence WAS finding #3. Reaching 2-D convergence costs approximately deck-sized
+resolution, and the resonance-aware tuner reaches it AUTOMATICALLY — at deck-parity for F₂
+(1.027×) and a few percent under for H₂⁺ (0.959×). The deliverable this closes is
+**convergence + automation at deck-competitive size, not a point-count reduction.**
+
+**`refine_to_2d_convergence` remains the general, model-agnostic fallback** (`qscat.tuning.
+refine2d`, the skill's step 6) for any observable/coordinate combination the resonance-aware
+adapter doesn't cover (a non-adiabatic channel, a structure in some other coupling term,
+electronic-side sub-structure): it iteratively refines whichever of a caller-supplied
+`(g_r, g_R)` pair moves the observable more, closing over ANY scalar cross-section, until
+both relative moves fall under `rtol` or `max_iter` is hit. The resonance-aware nuclear path
+above is the SPECIFIC, cheap, a-priori fix for the F₂/H₂⁺-style adiabatic-resonance case;
+`refine_to_2d_convergence` is what to reach for when a new model's 2-D spot-check finds a
+gap the a-priori adapters don't already know how to close.
+
+**Practical consequence:** `propose_grid(..., channel="dissociation")` is now the
+recommended nuclear grid for any resonant/dissociative-channel observable (DA, DR) — it
+reaches 2-D convergence on the FIRST a-priori pass, without a probe/refine loop, at
+deck-competitive size. The plain `channel="ve"` path is unchanged and remains correct for
+non-resonant (VE-only) nuclear grids.
+
+## The gate (`validation/tuning/test_emoscat_decks.py`, `test_resonance_aware.py`)
 
 Three kinds of test:
 
@@ -194,6 +245,11 @@ Three kinds of test:
 3. **The 2-D spot-check** (`@pytest.mark.slow`, F₂ only) — see finding #3 above: confirms
    the refined-grid FAMILY converges, and records the base-grid gap as an honest, actionable
    finding rather than asserting a false match.
+4. **The resonance-aware re-tune** (`validation/tuning/test_resonance_aware.py`,
+   `@pytest.mark.slow` throughout — each grid build pays a ~60–90s resonance scan): F₂'s and
+   H₂⁺'s `channel="dissociation"` nuclear grids are SIZE-gated against their decks
+   (deck-parity / no-larger-than-proxy) and, for F₂, CONVERGENCE-gated against a once-refined
+   solve — see finding #3's resolution above.
 
 An H₂⁺ Coulomb-incident coarse-grid FLAG check was explored but not included as a gate: at
 H₂⁺ DR's low incident `k` (long de-Broglie wavelength), `probe_channel_representation`'s
@@ -210,11 +266,16 @@ things this whole sub-project set out to prove — and the same clean result hol
 proxy deck. N₂/NO's nuclear grids are comparatively good (vibrational spectra converge;
 channel representation beats their own decks by 7-17×) but cost more points than their
 decks, root-caused to a fixed real-region extent default, not to `C` — a genuine, documented
-limitation for a follow-on, not silently hidden. **The 2-D spot-check (finding #3) is the
-important caveat on all of this:** passing the 1-D probes does not guarantee 2-D
-convergence when the observable is sensitive to structure the a-priori mesh cannot see (F₂
-DA's narrow R≈2.5–2.7 bohr interaction feature) — a real, reported gap between the fast
-gate and the actual physics, not papered over with a loosened tolerance.
+limitation for a follow-on, not silently hidden. **Finding #3 — the 1-D probes passing while
+the 2-D observable was not converged — is now RESOLVED:** the resonance-aware
+`channel="dissociation"` nuclear path sizes the DVR order to the exit wave and locally
+super-refines the resonance crossing, converging F₂'s σ_DA on the FIRST a-priori pass
+(1.6562 bohr², matching the eMoScat deck and finding #3's own refine² value) at
+deck-parity size (1.027×), with the same mechanism giving H₂⁺'s resonant grid at ~4%
+under its proxy deck's size. The honest caveat carries forward, restated rather than
+dropped: reaching that convergence costs approximately deck-sized resolution, not less — the
+original "10–20% smaller" hope did not survive contact with F₂'s own near-optimal hand
+deck, and the real deliverable is convergence + automation at deck-competitive size.
 
 See also: `docs/superpowers/specs/2026-07-28-discretisation-tuner-design.md` (the design),
 the `discretisation-tuner` skill (the supervised loop + worked example),

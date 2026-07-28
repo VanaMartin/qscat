@@ -167,7 +167,15 @@ libs/       qscat — the standard library: validated, reusable QM code
               a-priori mesh, built only from `v0`'s classical k(x) profile,
               cannot see the narrow R~2.5-2.7 bohr interaction feature
               eMoScat's deck hand-resolves; the 1-D probes are necessary but
-              NOT sufficient for this observable. See
+              NOT sufficient for this observable. That gap is now CLOSED: a
+              resonance-aware DA nuclear path (`propose_grid(..., channel=
+              "dissociation")` -- exit-wave DVR order sized off the adiabatic
+              resonance curve + a local crossing super-refine, with
+              `refine_to_2d_convergence` as the general model-agnostic
+              fallback) converges F2's sigma_DA on the FIRST a-priori pass
+              (1.6562, matching the eMoScat deck) at deck-parity size
+              (1000 vs 974 pts, 1.027x) and gives H2+'s resonant grid ~4%
+              under its proxy deck (489 vs 510 pts) -- see
               docs/physics/discretisation-tuning.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
