@@ -202,25 +202,54 @@ def test_resonant_nuclear_grid_converges_f2_da():
 - Test: `libs/qscat/tests/test_tuning_refine2d.py`
 
 **Interfaces:**
-- `refine_to_2d_convergence(observable, g_r, g_R, *, rtol=1e-2, max_iter=4) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, dict]` — `observable(g_r, g_R) -> float` (a scalar the caller closes over, e.g. σ_DA at one energy). Compare `observable(g_r, g_R)` vs a once-`refine`d NUCLEAR variant (then electronic); whichever refinement moves the observable more is the under-resolved coordinate → adopt that refinement; repeat until `|Δ|/|value| < rtol` or `max_iter`. Return the converged `(g_r, g_R)` + a `detail` dict (iterations, per-iter values, which coordinate refined). Model-agnostic — the general fallback for structure the adiabatic heuristic misses.
+- `refine_to_2d_convergence(observable, g_r, g_R, *, rtol=1e-2, max_iter=4) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, dict]` — `observable(g_r, g_R) -> float` (a scalar the caller closes over, e.g. σ_DA at one energy). Each iteration: evaluate the observable on a once-`refine`d NUCLEAR variant and a once-`refine`d ELECTRONIC variant; whichever moves the observable MORE (larger `|Δ|/|value|`) is the under-resolved coordinate → adopt that refinement and record the step. STOP when the larger of the two relative moves is `< rtol` (converged — record NO step for that final check) or when `max_iter` adopted steps is hit (not converged). Return `(g_r, g_R)` (refined) + `detail` with EXACTLY these keys: `detail["converged"]: bool`, `detail["iterations"]: list[dict]` where each adopted step is `{"coordinate": "nuclear"|"electronic", "value": float, "rel_move": float}`, and `detail["final_value"]: float`. So an already-converged input returns `iterations == []` and `converged is True`; a never-converging one returns `len(iterations) == max_iter` and `converged is False`. Model-agnostic — the general fallback for structure the adiabatic heuristic misses.
 
 **Design notes:** reuse `probes.refine`. The observable is a closure (keeps `refine2d` model-free). Cap `max_iter`; if it doesn't converge, return the best + `detail["converged"]=False` (a real signal, don't loop forever). Wire into the skill's step 6: the 2-D spot-check becomes "call `refine_to_2d_convergence`; if it needed refinement, the a-priori grid was insufficient — report the converged grid + the cost delta."
 
-**Harness for the `@slow` test:** copy the F2 DA harness from `validation/tuning/test_emoscat_decks.py::test_f2_2d_da_cross_section_spot_check` (it already builds the F2 `(g_r, g_R)`, the anion `eps`/`chi` via `anion_electronic_states` + `vibrational`, and calls `da_cross_section` — reuse that assembly verbatim; only the grids and the loop differ). Read that test first.
+**Test strategy — the loop LOGIC is tested cheaply (a real F2-DA loop is 20–40 min of solves, uncheckable in-harness).** The observable is a closure, so a SYNTHETIC one exercises the whole loop deterministically and fast. Test: (1) convergence + right-coordinate adoption, (2) the `max_iter` cap, (3) already-converged (0 iterations). The real F2-DA integration is a `@slow` marker only (its per-solve cost is documented; the Task-3 gate already proved the resonant grid converges F2 DA).
 
-- [ ] **Step 1: Write the failing test** (`@slow` — one 2-D observable; assemble the F2 harness by copying the spot-check test above)
-
+- [ ] **Step 1: Write the failing tests (FAST synthetic observable — deterministic, no 2-D solves):**
 ```python
-@pytest.mark.slow
-def test_refine_converges_f2_da_from_coarse_guess():
-    # Assemble F2 (g_r, coarse g_R) + eps/chi exactly as the spot-check test does.
-    # observable(gr, gR) = da_cross_section(TensorGrid([gr, gR]), F2, eps, chi, 0, 0.03)[0]
-    # A deliberately coarse nuclear guess -> refine_to_2d_convergence lifts sigma_DA
-    # to the converged value in a few iterations.
-    obs = lambda gr, gR: float(da_cross_section(TensorGrid([gr, gR]), F2, eps, chi, 0, 0.03)[0])
-    g_r2, g_R2, detail = refine_to_2d_convergence(obs, g_r, g_R_coarse, rtol=0.05, max_iter=4)
-    assert detail["converged"] and obs(g_r2, g_R2) > 1.0    # lifted from ~0.3 toward 1.66
+# The observable "converges" as the NUCLEAR grid gains points; the electronic grid
+# is already fine (refining it does nothing). A closure over g.n mimics a real
+# observable's approach to its converged limit, so the loop must (a) pick the nuclear
+# coordinate, (b) stop when |Δ|/|value| < rtol.
+def _obs_factory(exact=1.66, scale=200.0):
+    return lambda g_r, g_R: exact - scale / g_R.n     # rises toward `exact` as g_R refines
+
+def test_refine_adopts_nuclear_and_converges():
+    from qscat.tuning import propose_grid, refine_to_2d_convergence
+    from qscat.model import F2
+    g_r = propose_grid(F2, "electronic", (0.01, 0.05))
+    g_R = propose_grid(F2, "nuclear", (0.01, 0.05))
+    obs = _obs_factory()
+    g_r2, g_R2, detail = refine_to_2d_convergence(obs, g_r, g_R, rtol=1e-2, max_iter=6)
+    assert detail["converged"]
+    assert g_R2.n > g_R.n and g_r2.n == g_r.n          # refined nuclear, left electronic alone
+    assert all(step["coordinate"] == "nuclear" for step in detail["iterations"])
+
+def test_refine_caps_at_max_iter_when_never_converging():
+    from qscat.tuning import propose_grid, refine_to_2d_convergence
+    from qscat.model import F2
+    g_r = propose_grid(F2, "electronic", (0.01, 0.05))
+    g_R = propose_grid(F2, "nuclear", (0.01, 0.05))
+    # An observable that keeps changing by a fixed relative amount never converges.
+    flip = {"v": 1.0}
+    def obs(g_r, g_R):
+        flip["v"] *= -2.0
+        return flip["v"]
+    _, _, detail = refine_to_2d_convergence(obs, g_r, g_R, rtol=1e-3, max_iter=3)
+    assert detail["converged"] is False and len(detail["iterations"]) == 3
+
+def test_refine_already_converged_is_zero_iterations():
+    from qscat.tuning import propose_grid, refine_to_2d_convergence
+    from qscat.model import F2
+    g_r = propose_grid(F2, "electronic", (0.01, 0.05))
+    g_R = propose_grid(F2, "nuclear", (0.01, 0.05))
+    _, _, detail = refine_to_2d_convergence(lambda a, b: 3.14, g_r, g_R, rtol=1e-3, max_iter=4)
+    assert detail["converged"] and len(detail["iterations"]) == 0
 ```
+- [ ] **Step 1b (optional `@slow`, documented — do NOT block on it running in-harness):** a `test_refine_converges_f2_da_from_coarse_guess` marked `@pytest.mark.slow` that closes `observable` over the real `da_cross_section` (harness from `validation/tuning/test_emoscat_decks.py::test_f2_2d_da_cross_section_spot_check`). Note in a comment that a full run is ~20–40 min (multiple 2-D solves) and is not run in the fast suite — the fast synthetic tests above gate the loop logic.
 
 - [ ] **Step 2–6:** run→fail; implement `refine2d` + the skill step-6 wiring; run the `@slow` test FOREGROUND (a few 2-D solves, minutes — be patient, do NOT background/Monitor); mypy+ruff; commit `feat(tuning): refine_to_2d_convergence iterative loop + skill step-6 wiring`.
 
