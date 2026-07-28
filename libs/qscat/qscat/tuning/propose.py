@@ -19,6 +19,7 @@ in Tasks 1-3.
 
 from __future__ import annotations
 
+import dataclasses
 import math
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -27,11 +28,13 @@ from typing import TYPE_CHECKING, Literal
 import numpy as np
 import numpy.typing as npt
 
+from qscat.core.grids import electronic_grid
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
 
-from .analyze import analyze_potential
+from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
-from .mesh import optimal_real_mesh
+from .mesh import combined_profile, optimal_real_mesh
+from .resonance import resonance_curve
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -76,6 +79,18 @@ _ELECTRONIC_MAX_LEN = 3.0
 _ANGLE_PROBE_TAIL_EXTENT = 40.0
 
 PotentialFn = Callable[[npt.ArrayLike], npt.NDArray[np.complexfloating]]
+
+# Default two-angle electronic grids for the resonance-pole match
+# (`qscat.tuning.resonance.resonance_curve`) driving the resonant nuclear
+# path (`channel="dissociation"`) -- two different ECS rotation angles are
+# needed so `find_resonance_pole` can triangulate the pole across them.
+# Overridable via `propose_grid`'s `elec_grids` so tests can inject small
+# grids instead of paying for these full-size eigensolves.
+_RESONANCE_ELEC_R_MAX = 16.0
+_RESONANCE_ELEC_ORDER = 7
+_RESONANCE_ELEC_N_COMPLEX = 6
+_RESONANCE_ELEC_ANGLE_A = 35.0
+_RESONANCE_ELEC_ANGLE_B = 44.0
 
 
 @dataclass(frozen=True)
@@ -155,6 +170,64 @@ def _electronic_adapter(model: ResonanceModel, e_max: float) -> _CoordinateSpec:
     )
 
 
+def _resonant_nuclear_profile(
+    model: ResonanceModel,
+    spec: _CoordinateSpec,
+    x_max: float,
+    e_max_mesh: float,
+    elec_grids: tuple[FemDvrEcsGrid, FemDvrEcsGrid] | None,
+    resonance_n_dense: int,
+) -> PotentialProfile:
+    """The `channel="dissociation"` nuclear profile: the worst-case merge of
+    `v0`-alone with the adiabatic resonance curve `V_d(R)`, plus a turning-
+    point injected at the `Gamma(R)` peak so `equidistribution_elements`'s
+    existing feature-refinement halves the elements straddling it.
+
+    Runs the (expensive) two-angle pole match `resonance_curve` -- callers
+    needing this cheap may inject small `elec_grids` (see `propose_grid`).
+    """
+    if elec_grids is None:
+        ga = electronic_grid(
+            r_max=_RESONANCE_ELEC_R_MAX,
+            order=_RESONANCE_ELEC_ORDER,
+            n_complex=_RESONANCE_ELEC_N_COMPLEX,
+            angle_deg=_RESONANCE_ELEC_ANGLE_A,
+        )
+        gb = electronic_grid(
+            r_max=_RESONANCE_ELEC_R_MAX,
+            order=_RESONANCE_ELEC_ORDER,
+            n_complex=_RESONANCE_ELEC_N_COMPLEX,
+            angle_deg=_RESONANCE_ELEC_ANGLE_B,
+        )
+    else:
+        ga, gb = elec_grids
+
+    R, Vd, Gamma = resonance_curve(model, ga, gb, R_max=x_max, n_dense=resonance_n_dense)
+    Vd_real = np.real(Vd)
+    vd_left = float(Vd_real[0])
+    vd_right = float(Vd_real[-1])
+
+    def Vd_of_R(rr: npt.ArrayLike) -> npt.NDArray[np.float64]:
+        # Constant-extrapolate both ends -- outside the sampled range V_d
+        # has saturated to its asymptote (see `resonance_curve`'s docstring:
+        # a single far point standing in for the whole outer region).
+        return np.asarray(
+            np.interp(np.real(np.asarray(rr)), R, Vd_real, left=vd_left, right=vd_right),
+            dtype=np.float64,
+        )
+
+    profile_v0 = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
+    profile_vd = analyze_potential(Vd_of_R, spec.x_min, x_max, spec.mass, e_max_mesh)
+    combined = combined_profile([profile_v0, profile_vd])
+
+    if Gamma.max() > 0.0:
+        r_peak = float(R[int(np.argmax(Gamma))])
+        turning_points = np.unique(np.concatenate([combined.turning_points, [r_peak]]))
+        combined = dataclasses.replace(combined, turning_points=turning_points)
+
+    return combined
+
+
 def propose_grid(
     model: ResonanceModel,
     coordinate: Coordinate,
@@ -163,6 +236,9 @@ def propose_grid(
     rtol: float = 1e-3,
     incident: object | None = None,
     phase_coeff: float | None = None,
+    channel: str = "ve",
+    elec_grids: tuple[FemDvrEcsGrid, FemDvrEcsGrid] | None = None,
+    resonance_n_dense: int = 25,
 ) -> FemDvrEcsGrid:
     """The one-shot a-priori `FemDvrEcsGrid` for `model`/`coordinate` over
     `energy_range = (E_min, E_max)`.
@@ -213,8 +289,35 @@ def propose_grid(
     see `qscat.tuning.incident`'s docstring for the reconciliation. The
     placement logic itself (impulse/width/observation boundary,
     `tw_analysis`) lives there; this is only the extent/resolution floor.
+
+    `channel` selects which physical channel the mesh targets:
+
+    - `"ve"` (the default): the VE (vibrational-excitation) path, v0-alone,
+      exactly as before this parameter existed -- BYTE-IDENTICAL to the
+      pre-`channel` behavior; nothing below reads `elec_grids` or
+      `resonance_n_dense` on this path.
+    - `"dissociation"`, `coordinate="nuclear"` only: the resonance-aware
+      nuclear path. Builds the adiabatic resonance curve
+      `(R, V_d(R), Gamma(R))` (`qscat.tuning.resonance.resonance_curve`,
+      via a two-angle ECS pole match -- `elec_grids`, if given, overrides
+      the default electronic grids used for that match, and
+      `resonance_n_dense` overrides its dense-sampling point count; both
+      exist so tests can inject small/cheap grids), then feeds
+      `optimal_real_mesh` the WORST CASE of `v0`-alone and `V_d(R)`
+      (`qscat.tuning.mesh.combined_profile`: elementwise max-`k`/min-
+      `kappa`, unioned turning points), with an extra turning point
+      injected at the `Gamma(R)` peak so the existing near-feature
+      refinement halves the elements straddling the resonance crossing.
+      `"dissociation"` with `coordinate="electronic"` raises `ValueError`
+      (this resonant path is nuclear-only in this sub-project).
+    - any other value raises `ValueError`.
     """
     del rtol  # interface parity with the probe/refine loop; unused here
+
+    if channel not in ("ve", "dissociation"):
+        raise ValueError(f"channel must be 've' or 'dissociation', got {channel!r}")
+    if channel == "dissociation" and coordinate != "nuclear":
+        raise ValueError(f"channel='dissociation' is nuclear-only, got coordinate={coordinate!r}")
 
     e_min, e_max = energy_range
     if e_max <= e_min:
@@ -231,7 +334,12 @@ def propose_grid(
         incident_energy = getattr(incident, "incident_energy", lambda: 0.0)()
         e_max_mesh = max(e_max_mesh, float(incident_energy))
 
-    profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
+    if channel == "dissociation":
+        profile = _resonant_nuclear_profile(
+            model, spec, x_max, e_max_mesh, elec_grids, resonance_n_dense
+        )
+    else:
+        profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
     real_lengths, order = (
         optimal_real_mesh(profile, min_len=spec.min_len, max_len=spec.max_len)
         if phase_coeff is None
