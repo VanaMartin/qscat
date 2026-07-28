@@ -13,6 +13,11 @@ Public API:
     singularities).
   - `optimal_real_mesh` -- h/p sweep over DVR orders, returning the
     `(mesh, order)` combination with the fewest DVR points.
+  - `combined_profile` -- worst-case merge of several `PotentialProfile`s
+    (elementwise max `k` / min `kappa`, unioned turning points/
+    singularities) -- lets the mesh resolve the finest of several adiabatic
+    curves at once, e.g. `v0` and a resonance curve `V_d(R)` -- see
+    `qscat.tuning.mesh`.
   - `max_stable_angle` -- the largest ECS rotation angle (capped at the
     double-ECS bound, ~35 deg) for which a potential `V` stays bounded on
     the rotated tail contour.
@@ -50,7 +55,7 @@ from __future__ import annotations
 from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
 from .incident import IncidentSpec, required_extent, tw_analysis
-from .mesh import equidistribution_elements, optimal_real_mesh
+from .mesh import combined_profile, equidistribution_elements, optimal_real_mesh
 from .metrics import grid_cost, tensor_cost
 from .probes import (
     ProbeResult,
@@ -67,6 +72,7 @@ __all__ = [
     "PotentialProfile",
     "ProbeResult",
     "analyze_potential",
+    "combined_profile",
     "equidistribution_elements",
     "grid_cost",
     "interaction_region",

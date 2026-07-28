@@ -11,6 +11,8 @@ the fewest total DVR points for a given target accuracy -- the h/p optimum.
 
 from __future__ import annotations
 
+import dataclasses
+
 import numpy as np
 from numpy.typing import NDArray
 from scipy.integrate import cumulative_trapezoid
@@ -147,6 +149,55 @@ def optimal_real_mesh(
 
     assert best_mesh is not None
     return best_mesh, best_order
+
+
+def combined_profile(profiles: list[PotentialProfile]) -> PotentialProfile:
+    """Worst-case merge of several `PotentialProfile`s onto a common grid.
+
+    Each profile's `k`/`kappa` is interpolated (`np.interp`) onto
+    `profiles[0].x`, then combined elementwise: `k = max` (the FASTEST local
+    wavenumber among the contributors -- a mesh built to resolve it resolves
+    all of them), `kappa = min` (a point classically ALLOWED on any one
+    curve must be meshed as allowed, not capped by another curve's decay
+    length). `turning_points` and `singularities` are unioned
+    (`np.unique(np.concatenate(...))`) so the halving refinement in
+    `_refine_near_features` fires near a feature from ANY contributor.
+
+    `V` (and `x`) are taken from `profiles[0]` verbatim -- `combined_profile`
+    only feeds `optimal_real_mesh`, which reads `k`/`kappa`/`turning_points`/
+    `singularities` and never `V` itself, so which contributor's raw `V`
+    rides along is immaterial to the mesh this produces.
+
+    Requires at least one profile; a single-profile list is returned as an
+    equivalent profile (each other-profile step is simply a no-op).
+    """
+    if not profiles:
+        raise ValueError("combined_profile requires at least one profile")
+
+    x = profiles[0].x
+    k_layers = [profiles[0].k]
+    kappa_layers = [profiles[0].kappa]
+    turning_layers = [profiles[0].turning_points]
+    singularity_layers = [profiles[0].singularities]
+
+    for p in profiles[1:]:
+        k_layers.append(np.interp(x, p.x, p.k))
+        kappa_layers.append(np.interp(x, p.x, p.kappa))
+        turning_layers.append(p.turning_points)
+        singularity_layers.append(p.singularities)
+
+    k = np.maximum.reduce(k_layers)
+    kappa = np.minimum.reduce(kappa_layers)
+    turning_points = np.unique(np.concatenate(turning_layers))
+    singularities = np.unique(np.concatenate(singularity_layers))
+
+    return dataclasses.replace(
+        profiles[0],
+        k=k,
+        kappa=kappa,
+        turning_points=turning_points,
+        singularities=singularities,
+    )
 
 
 def _clamp_lengths_span_preserving(

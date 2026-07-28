@@ -1,7 +1,13 @@
 from __future__ import annotations
 
 import numpy as np
-from qscat.tuning import analyze_potential, equidistribution_elements, optimal_real_mesh
+from qscat.tuning import (
+    PotentialProfile,
+    analyze_potential,
+    combined_profile,
+    equidistribution_elements,
+    optimal_real_mesh,
+)
 from qscat.tuning.mesh import _clamp_lengths_span_preserving
 
 
@@ -67,6 +73,32 @@ def test_undersized_elements_are_merged_not_inflated():
     assert abs(sum(els) - span) < 1e-9
     assert all(e >= 1.0 - 1e-9 for e in els)
     assert all(e <= 10.0 + 1e-9 for e in els)
+
+
+def test_combined_profile_takes_elementwise_max_k_min_kappa_union_features():
+    # Two hand-built profiles on the same x -- no models, no eigensolves.
+    x = np.linspace(0.0, 10.0, 50)
+    p1 = PotentialProfile(
+        x=x,
+        V=np.zeros_like(x),
+        k=np.full_like(x, 1.0),
+        kappa=np.full_like(x, 0.5),
+        turning_points=np.array([2.0]),
+        singularities=np.array([]),
+    )
+    p2 = PotentialProfile(
+        x=x,
+        V=np.zeros_like(x),
+        k=np.full_like(x, 2.0),
+        kappa=np.full_like(x, 0.1),
+        turning_points=np.array([7.0]),
+        singularities=np.array([1.0]),
+    )
+    combined = combined_profile([p1, p2])
+    assert np.allclose(combined.k, 2.0)              # elementwise max
+    assert np.allclose(combined.kappa, 0.1)          # elementwise min
+    assert np.array_equal(combined.turning_points, np.array([2.0, 7.0]))
+    assert np.array_equal(combined.singularities, np.array([1.0]))
 
 
 def test_merge_never_breaches_max_len_hard_cap():
