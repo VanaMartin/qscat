@@ -48,8 +48,11 @@ def equidistribution_elements(
     `Phi(x) = cumulative_trapezoid(profile.k, profile.x)`. Where `Phi` fails
     to advance (classically forbidden: `k ~ 0`, `kappa > 0`), the local
     element length is instead capped by a `kappa`-based decay length. All
-    lengths are clamped to `[min_len, max_len]`, and elements adjacent to a
-    turning point or singularity are halved as a post-pass refinement.
+    lengths are then brought into `[min_len, max_len]` -- oversized elements
+    subdivided, undersized ones merged forward -- and elements adjacent to a
+    turning point or singularity are halved as a post-pass refinement. Every
+    step only regroups/splits existing length, so the returned lengths
+    always sum to the real-region domain span `profile.x[-1] - profile.x[0]`.
     """
     x = profile.x
     k = profile.k
@@ -65,7 +68,14 @@ def equidistribution_elements(
         n_elem = max(int(np.ceil(phi_total / phase_per_element)), 1)
         targets = np.arange(1, n_elem) * phase_per_element
         targets = targets[targets < phi_total]
-        interior = np.interp(targets, phi, x)
+        # Interior boundaries only ever come from targets < phi_total, so
+        # np.interp always lands strictly inside (x[0], x[-1]); the clip is
+        # just a defensive guard against float round-off at the phi_total
+        # edge. The final boundary is *always* appended explicitly below,
+        # so the mesh covers the whole domain regardless of where the last
+        # phase target landed -- there is no separate "missing last
+        # boundary" gap to close.
+        interior = np.clip(np.interp(targets, phi, x), x[0], x[-1])
         boundary_list = [float(x[0]), *interior.tolist(), float(x[-1])]
     else:
         boundary_list = [float(x[0]), float(x[-1])]
@@ -74,7 +84,13 @@ def equidistribution_elements(
     boundary_list = _subdivide_forbidden_gaps(boundary_list, x, profile.kappa, max_len)
     lengths = np.diff(np.asarray(boundary_list, dtype=np.float64))
 
-    lengths = np.clip(lengths, min_len, max_len)
+    # Clamp to [min_len, max_len] WITHOUT changing the total span: an
+    # oversized element is subdivided into equal pieces (mirrors
+    # `_subdivide_forbidden_gaps`), an undersized one is merged forward
+    # into its neighbors until the accumulated length clears the floor.
+    # A blind `np.clip` here would silently drop or inflate the domain
+    # whenever it actually fired.
+    lengths = _clamp_lengths_span_preserving(lengths, min_len, max_len)
     boundaries: FloatArray = np.concatenate(
         [[boundary_list[0]], boundary_list[0] + np.cumsum(lengths)]
     )
@@ -123,6 +139,45 @@ def optimal_real_mesh(
 
     assert best_mesh is not None
     return best_mesh, best_order
+
+
+def _clamp_lengths_span_preserving(
+    lengths: FloatArray, min_len: float, max_len: float
+) -> FloatArray:
+    """Clamp element lengths to `[min_len, max_len]` preserving their sum.
+
+    Oversized elements are subdivided into equal pieces (each `<= max_len`);
+    undersized elements are merged forward into their neighbors until the
+    accumulated length clears `min_len` (a trailing undersized remainder is
+    folded into the previous emitted element instead). Both operations only
+    ever regroup the existing lengths, so `sum(result) == sum(lengths)`
+    exactly (up to float round-off) -- unlike `np.clip`, which changes
+    individual lengths without redistributing and so silently shrinks or
+    inflates the total domain span whenever it actually fires.
+    """
+    subdivided: list[float] = []
+    for length in lengths:
+        length = float(length)
+        if length > max_len:
+            n_sub = max(int(np.ceil(length / max_len)), 1)
+            subdivided.extend([length / n_sub] * n_sub)
+        else:
+            subdivided.append(length)
+
+    merged: list[float] = []
+    acc = 0.0
+    for length in subdivided:
+        acc += length
+        if acc >= min_len:
+            merged.append(acc)
+            acc = 0.0
+    if acc > 0.0:
+        if merged:
+            merged[-1] += acc
+        else:
+            merged.append(acc)
+
+    return np.asarray(merged, dtype=np.float64)
 
 
 def _dedupe_sorted(boundaries: list[float], tol: float = 1e-12) -> list[float]:
