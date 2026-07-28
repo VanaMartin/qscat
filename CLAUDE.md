@@ -135,6 +135,20 @@ libs/       qscat — the standard library: validated, reusable QM code
               functions for ions live in `qscat.special.coulomb`
               (`coulomb_f_en`/`g`/`h1_en`, mpmath, the charge-z generalization of
               `riccati_bessel_en`).
+            - qscat.tuning: the automatic FEM-DVR-ECS **discretisation tuner** —
+              deterministic primitives that compute the minimal-DVR-point grid at
+              a target precision from the potential + energy range, replacing the
+              human "good eye" for element lengths. `analyze` (potential →
+              local-wavenumber profile), `mesh` (adaptive equidistribution
+              elements — `∫k dx` ~const per element — + the h/p quadrature sweep),
+              `ecs` (the double-ECS-capped angle + exp-growth absorbing tail),
+              `probes` (decoupled 1-D convergence: nuclear/electronic + the
+              `channel_representation` probe that catches the K≈58-under-resolution
+              failures), `metrics`+`propose` (`propose_grid` a-priori assembler +
+              cost model), `incident` (`IncidentSpec`/`tw_analysis` — the TW
+              wavepacket/test-function placement). Driven by the
+              `discretisation-tuner` skill (the supervised loop). See
+              docs/physics/discretisation-tuning.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
@@ -316,6 +330,7 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
 | `python-to-rust-kernel` | skill | A validated Python method has a proven hot path — scaffolding a PyO3/maturin crate under `native/`, mirroring the API, benchmarking, keeping Python as the oracle. |
 | `containerize-and-run` | skill | Packaging a capability to run in Docker locally or prep it for AWS — reproducible multi-stage `uv` + `maturin` builds, CPU-only. |
 | `qscat-conventions` | skill | Unsure how the project names or measures things — atomic units, FEM-DVR-ECS notation, tolerance defaults, standard-library layout. |
+| `discretisation-tuner` | skill | Setting up (or distrusting) a FEM-DVR-ECS grid — supervises the `qscat.tuning` loop (analyze the potential → adaptive equidistribution mesh + h/p + double-ECS-safe tail → convergence probes at the energy extremes → 2-D spot-check → minimal-cost grid at a target precision), instead of hand-picking element lengths. |
 | `port-scout` | agent | Before porting anything from `reference/eMoScat` or `reference/libXcuda` — read-only archaeologist that extracts the math/algorithm, not the C++. |
 | `physics-reviewer` | agent | Before promoting a method into `qscat` — reviews for physical/numerical correctness (units, conservation, boundary conditions, ECS handling, convergence), not style. |
 | `rust-kernel-engineer` | agent | During the optimize-in-Rust stage — builds PyO3/Rust kernels in `native/` mirroring a validated Python API, with benchmarks and differential tests. |

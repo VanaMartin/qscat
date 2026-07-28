@@ -1,0 +1,131 @@
+---
+name: discretisation-tuner
+description: Use when a qModeling calculation needs a FEM-DVR-ECS grid — supervises the qscat.tuning loop (analyze the potential → propose an adaptive grid → probe convergence at the energy extremes → refine/coarsen → 2-D spot-check → emit the minimal-cost grid at a target precision) instead of hand-picking element lengths by eye.
+---
+
+# discretisation-tuner
+
+## Overview
+
+Hand-tuned FEM-DVR-ECS grids have been the single most expensive class of bug in this
+repo — a coarse shared nuclear grid under-resolved the K≈58 dissociative-attachment wave
+(σ off by ~36 orders); the H₂⁺ Coulomb tail needed 1300 bohr. This skill replaces the
+human "good eye" for element lengths with the `qscat.tuning` primitives: it computes the
+**minimal-DVR-point grid that holds a target precision** for a given model, coordinate, and
+energy range — an adaptive equidistribution mesh (each element carrying a ~constant de
+Broglie phase), the h/p-optimal quadrature, and a double-ECS-safe absorbing tail.
+
+You (the supervisor) run the deterministic primitives, read the convergence probes, and make
+the judgment calls (which knob to move, when to stop, when to defer the 2-D check to Docker).
+The physics/numerics live in `qscat.tuning`; the loop + judgment live here.
+
+## When to Use
+
+- Setting up (or distrusting) a grid for any qscat calculation — a new molecule, a new energy
+  range, a new observable (VE / DA / DR), or a suspected under-resolution.
+- Before committing a per-molecule grid deck to `validation/`.
+- Diagnosing "the answer changes when I refine the grid" — the probes localize which coordinate
+  and which knob is under-resolved.
+
+Do NOT use it to re-grid a validated production deck without an explicit decision — the tuner
+EMITS a config; adopting it is a separate, opt-in choice.
+
+## What `qscat.tuning` gives you (the primitives you call)
+
+```python
+from qscat.tuning import (
+    analyze_potential, PotentialProfile,        # V(x) -> local-wavenumber profile
+    equidistribution_elements, optimal_real_mesh,  # adaptive mesh + h/p sweep
+    max_stable_angle, tune_ecs_tail,            # ECS-tail (double-ECS-capped angle + exp absorption)
+    refine, probe_nuclear, probe_electronic, probe_channel_representation,  # convergence probes
+    grid_cost, tensor_cost, propose_grid,       # cost model + one-shot a-priori grid
+    IncidentSpec, required_extent, tw_analysis, interaction_extent,  # incident/test-function placement
+)
+```
+
+`propose_grid(model, coordinate, energy_range, *, rtol=1e-3, incident=None)` is the a-priori
+half of the hybrid — it already runs analyze → mesh → ECS and returns a `FemDvrEcsGrid`. Your
+job is to VALIDATE and MINIMISE it with the probes.
+
+## The tuning loop (the procedure)
+
+Create a todo per step.
+
+1. **Frame the problem.** Fix the `model`, the target `energy_range = (E_min, E_max)`, the target
+   `rtol` (default 1e-3), and the observable (VE/DA/DR). Note whether it's the TI route (incident =
+   channel function) or the TD route (incident = a Gaussian wavepacket).
+
+2. **Incident / test-function placement (TW analysis) — if TD.** Either take a caller-supplied
+   `IncidentSpec`, or `incident = tw_analysis(model, energy_range)` to auto-place the wavepacket
+   (position/impulse/σ) so its spectrum spans the range. The incident drives BOTH the real-region
+   EXTENT (`required_extent`) AND the RESOLUTION (its energy `impulse²/2` raises the mesh's effective
+   `E_max`). For TI, `incident=None`.
+
+3. **Propose the a-priori grid, per coordinate.** For each of `"nuclear"` and `"electronic"`:
+   `g = propose_grid(model, coordinate, energy_range, rtol=rtol, incident=incident)`.
+
+4. **Probe convergence at the EXTREMES.** The finest requirement is at `E_max`; the longest wave /
+   largest extent is near-threshold `E_min`. At each extreme:
+   - Nuclear: `probe_nuclear(model, g_R, n_vib, rtol=rtol)` (vibrational eigenvalues stable under
+     one `refine`).
+   - Electronic: `probe_electronic(model, g_r, R_eq, window=..., rtol=rtol)` (bound/resonance energy
+     stable).
+   - **Channel representation — the cheap, decisive one:** `probe_channel_representation(g, k, l,
+     charge=model.charge, mass=..., rtol=rtol)` where `k` is the largest channel wavenumber the
+     observable needs — the incident `k=√(2E_max)`, and for a dissociation channel the OUTGOING
+     `K=√(2μ·E_DR_max)` (heavy → large; use `E_DR = E_max − ε_threshold` for an exothermic channel,
+     NOT just `E_max`). This is the probe that catches the K≈58-under-resolution failures.
+   Read each `ProbeResult.converged` and `.cost`.
+
+5. **Refine / coarsen to the minimum.** For any probe with `converged == False`, the grid is
+   under-resolved there — `refine` that coordinate (h) or accept the higher order the h/p sweep
+   picks (p), re-propose/re-probe. For any knob COMFORTABLY over-converged (Δ ≪ rtol), try a coarser
+   variant (fewer elements / lower order / smaller real extent / shorter tail) and re-probe; keep
+   the coarsest variant that still holds every probe at `rtol`. **Watch the cost with `grid_cost` /
+   `tensor_cost` (n_unknowns = n_r·n_R, and the est. factor memory/time) — those are relative-ranking
+   estimates; pick the fewest-unknowns grid that passes.** Note: DVR point count is NON-MONOTONE
+   under the h/p sweep (a higher order can win with fewer, denser elements), so rank by the probe +
+   `tensor_cost`, not by element count alone.
+
+6. **Final 2-D spot-check.** Build `TensorGrid([g_r, g_R])` and run the ACTUAL observable
+   (`ve_cross_section` / `da_cross_section` / `dr_cross_section`) at the HARDEST energy, and confirm
+   it agrees with a once-refined grid to `rtol`. For a non-laptop deck (H₂⁺-scale), run this on a
+   reduced proxy or under Docker/MUMPS and SAY SO — do not silently skip it.
+
+7. **Emit the config + report.** Output the per-coordinate grid (the `ElementSpec` lists / the built
+   `FemDvrEcsGrid`, expressible as a committed deck) and a report:
+   - the achieved precision (each probe's convergence number),
+   - the cost (`grid_cost`/`tensor_cost`) vs the previous/hand grid,
+   - the tuning decisions (which knobs moved and why),
+   - any deferrals (the 2-D check on Docker; an uncalibrated constant).
+
+## Stop criteria
+
+STOP and emit when **every** probe (both extremes, both coordinates, the channel wavenumber) holds
+`rtol` under one refinement AND no single knob can be coarsened without breaking a probe. STOP and
+ESCALATE if a probe cannot reach `rtol` at any feasible grid (a genuine finding — report the numbers,
+don't loosen `rtol`), or if the ECS angle the potential allows can't absorb the fastest wave (report
+it — the model may need a different tail representation).
+
+## Worked example — the N₂ nuclear grid
+
+```python
+from qscat.model import N2
+from qscat.tuning import propose_grid, probe_nuclear, probe_channel_representation, refine, grid_cost
+g = propose_grid(N2, "nuclear", (0.04, 0.18))          # a-priori adaptive grid
+pn = probe_nuclear(N2, g, n_vib=3)                       # vibrational eps stable?  -> converged
+K = (2 * N2.mu * 0.18) ** 0.5                            # the fastest nuclear wave in-range
+pc = probe_channel_representation(g, K, 0, mass=N2.mu)   # is that wave resolved? -> converged
+# both converged: g holds rtol. grid_cost(g)["n_points"] ~ comparable to the committed deck.
+```
+Then the 2-D spot-check: `ve_cross_section(TensorGrid([elec_grid, g]), N2, ...)` at E=0.10 vs a
+refined grid, agreeing to 1e-3.
+
+## Notes
+
+- The de Broglie phase-per-element constant and the ECS safety fractions are calibrated so the tuner
+  reproduces-or-beats the eMoScat decks (see `validation/tuning/`); trust those, don't re-tune.
+- `qscat.tuning` primitives are pure/deterministic and unit-tested on analytic potentials; the
+  judgment (this procedure) is the only non-deterministic part.
+- See `docs/superpowers/specs/2026-07-28-discretisation-tuner-design.md` and
+  `docs/physics/discretisation-tuning.md`.
