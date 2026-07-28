@@ -76,10 +76,15 @@ _ELECTRONIC_MAX_LEN = 3.0
 # resonant mesh's ECS tail absorbs the outgoing dissociation wave, so the
 # real region need only host it a few de Broglie wavelengths past the
 # interaction region, not the blunt VE-path default (18 bohr) sized for a
-# bound-state-like vibrational problem. 12.0 bohr targets the eMoScat F2 DA
-# deck's own real-region extent (~10.7 bohr) with a little headroom -- see
-# docs/physics/discretisation-tuning.md.
-_RESONANT_NUCLEAR_X_MAX_DEFAULT = 12.0
+# bound-state-like vibrational problem. 10.5 bohr ~ the eMoScat F2 DA deck's
+# own real-region extent (~10.7 bohr) -- verified to keep F2 sigma_DA 2-D-
+# converged (1.656 at E=0.03) while bringing the grid to deck-parity (n=1000
+# vs the ~974-pt deck). A per-molecule derivation from the potential profile
+# (where v0/V_d flatten + an outgoing-wave margin) is the documented follow-on
+# -- 10.5 is an F2-anchored default; a longer-range channel may need more (an
+# `incident`/extent override still applies). See docs/physics/
+# discretisation-tuning.md.
+_RESONANT_NUCLEAR_X_MAX_DEFAULT = 10.5
 
 # Points-per-wavelength target for `order_for_wavenumber` when sizing the
 # resonant path's DVR order against the exit-wave wavenumber `K_exit` -- see
@@ -106,7 +111,7 @@ _CROSSING_DELTA_MIN = 0.15
 # the window out to ~0.6 bohr and over-refine. The genuine crossing feature
 # is narrow (the eMoScat deck super-refines only ~[2.5,2.7], a ~0.1-bohr
 # half-width); cap here so the contaminated estimate cannot bloat the grid.
-_CROSSING_DELTA_MAX = 0.25
+_CROSSING_DELTA_MAX = 0.18
 
 # Fraction of the peak (region-restricted) Gamma a point must clear to count
 # as part of the "Gamma-significant" closing region bracketing the crossing.
