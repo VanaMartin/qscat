@@ -18,6 +18,13 @@ Public API:
     the rotated tail contour.
   - `tune_ecs_tail` -- exp-growth ECS-tail element lengths sized to absorb
     a given outgoing wavenumber `K` down to a target decay.
+  - `ProbeResult`, `refine`, `probe_nuclear`, `probe_electronic`,
+    `probe_channel_representation` -- the decoupled 1-D convergence probes:
+    empirical validators that tell the tuner whether a candidate grid
+    resolves the physics (nuclear vibrational levels, the electronic
+    bound-state energy, and the cheap/diagnostic channel-representation
+    check that catches an unresolved fast outgoing wave) -- see
+    `qscat.tuning.probes`.
 """
 
 from __future__ import annotations
@@ -25,12 +32,24 @@ from __future__ import annotations
 from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
 from .mesh import equidistribution_elements, optimal_real_mesh
+from .probes import (
+    ProbeResult,
+    probe_channel_representation,
+    probe_electronic,
+    probe_nuclear,
+    refine,
+)
 
 __all__ = [
     "PotentialProfile",
+    "ProbeResult",
     "analyze_potential",
     "equidistribution_elements",
     "max_stable_angle",
     "optimal_real_mesh",
+    "probe_channel_representation",
+    "probe_electronic",
+    "probe_nuclear",
+    "refine",
     "tune_ecs_tail",
 ]
