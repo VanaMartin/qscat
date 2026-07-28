@@ -36,15 +36,25 @@ resonance + the fast outgoing wave, coarse in the smooth well/asymptotic regions
 ## Key efficiency constraint (first-class)
 
 The per-R resonance scan (~2 electronic diagonalizations per R) is the tuner's real cost. It MUST
-be **sparse in the far channel region and dense only where `V_int` is non-negligible**:
-- **Interaction region** `[R_lo, R_hi]` — where `max_r |V_int(r,R)|` (equivalently `|λ(R)|`) exceeds
-  a small fraction of its peak. Sample `V_d(R)/Γ(R)` at a *reasonable* density here (enough to
-  resolve the crossing — the continuation walk needs consecutive R anyway).
-- **Far channel space** (`R > R_hi`, `R < R_lo`) — `V_int → 0`, so `V_d → ` the asymptotic anion
-  energy and `Γ → 0`. Compute this **once** (a single asymptotic solve); the nuclear mesh there is
-  driven by `v0(R)` + the outgoing-channel wavenumber alone. This reuses
-  `local_complex_potential`'s existing continuation-freeze: stop the pole scan once past the
-  interaction region with `Γ` below threshold, freeze at the asymptote.
+be **sparse in the far channel region and dense only where the resonance curve has structure**:
+- **Interaction region** `[R_lo, R_hi]` — where `V_d(R)/Γ(R)` is still CHANGING with `R`, i.e. where
+  the coupling `max_r |V_int(r,R)|` is still TRANSITIONING between its low-R and high-R regimes.
+  Sample `V_d(R)/Γ(R)` at a *reasonable* density here (enough to resolve the crossing — the
+  continuation walk needs consecutive R anyway).
+- **Far channel space** (`R > R_hi`, `R < R_lo`) — the coupling has **saturated** (become
+  R-independent), so `V_d → ` the asymptotic anion energy and `Γ →` a constant; compute this
+  **once** (a single asymptotic solve). This reuses `local_complex_potential`'s continuation-freeze:
+  stop the pole scan once past the interaction region, freeze at the asymptote.
+
+  > **Premise correction (Task 1 finding, verified 2026-07-28):** the interaction does NOT vanish
+  > at large R for these models — `V_int(r,R) = −λ(R)·f(r)` with `λ(R)` a *sigmoid* that saturates
+  > to a substantial NON-ZERO plateau (F2: ~9.8 at R=0.5 → ~18.85 for R≳4). So `max_r|V_int|`
+  > exceeding "a fraction of its peak" degenerates to the whole domain. What actually localises the
+  > structure is where `λ(R)` is still *rising* between its floor and ceiling — and there `V_d(R)`
+  > changes, while past it `λ` (and hence the fixed-R electronic problem, hence `V_d`/`Γ`)
+  > *saturates*. The efficiency argument ("compute far once") is preserved — justified by
+  > SATURATION of `V_d`, not by `V_int → 0`. `interaction_region` therefore brackets the middle
+  > `(1−2·frac)` of `s(R)=max_r|Re V_int|`'s own `[min,max]` rise, not a fraction-of-peak threshold.
 
 ## Approach
 
@@ -54,12 +64,19 @@ be **sparse in the far channel region and dense only where `V_int` is non-neglig
    elec_grid_b, R_samples) -> (V_d, Γ)` — reuse the sub-project-B pole continuation, but sample
    `R_samples` DENSE only inside `[R_lo, R_hi]` and take a SINGLE far/asymptotic value (freeze
    beyond). Returns `V_d(R)`, `Γ(R)` on the sample set (interpolatable).
-3. **Multi-curve nuclear mesh** (extend `qscat.tuning.mesh`/`propose`): the nuclear `k(R)` profile
-   = worst-case (max) over `k_{v0}(R)` and `k_{V_d}(R) = √(2μ(E_max − V_d(R)))`, with extra local
-   refinement where `Γ(R)` is large (halve elements there). Only in `[R_lo, R_hi]` does `V_d` differ
-   from the asymptote, so the extra density lands exactly at the resonance. `propose_grid` gains a
-   `resonant=True`/`channel="dissociation"` path (VE-only stays `v0`-driven — its nuclear
-   wavefunction is the smooth bound χ_v, already resolved).
+3. **Resonance-aware nuclear mesh** (extend `qscat.tuning.mesh`/`propose`): `propose_grid` gains a
+   `channel="dissociation"` path (VE-only stays `v0`-driven). **[REVISED 2026-07-28 — see the plan's
+   "Task 3 (REVISED)".]** The original design here was a worst-case-`k` merge (`k = max(k_{v0},
+   k_{V_d})`) with Γ-refinement. A validated diagnostic proved that merge INERT: `min_len=0.15`
+   floors the exit-region elements, so the resonant grid came out ≈ the `v0` grid (614 vs 609 pts)
+   and would stay ~5× off on σ_DA. The corrected levers — matching how the eMoScat deck converges
+   with FEWER points than brute refinement — are: **(a) resolve the fast exit wave
+   `K_exit=√(2μ(E_max−V_d_asym))≈78` with a high DVR ORDER** (order-6 gives only 3.2 pts/λ; the
+   deck uses q=14); **(b) super-refine the narrow crossing** `R* =` the `Re(V_d)−v0` sign-change
+   (F2: 2.598, on `R_c=2.595`; NOT `argmax Γ`, which is a frozen-plateau artifact at the walk's
+   inner edge) to ~0.03 bohr; **(c) trim the real extent** from the blunt 18 bohr toward the deck's
+   ~10.7 (the ECS tail absorbs — the real exit region need only host the outgoing wave a few λ past
+   the interaction region). `resonance_curve` is used to LOCATE `R*`/`K_exit`, not for a `k`-merge.
 4. **Iterative 2-D refinement loop** (`qscat.tuning` + the skill): the general fallback —
    `refine_to_2d_convergence(model, g_r, g_R, observable, energy, rtol, max_iter)`: run the 2-D
    observable on `(g_r, g_R)` vs a once-refined variant; where they disagree, LOCALLY refine the

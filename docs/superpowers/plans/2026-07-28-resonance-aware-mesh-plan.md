@@ -39,9 +39,9 @@
 - Test: `libs/qscat/tests/test_tuning_resonance.py`
 
 **Interfaces:**
-- `interaction_region(model, *, r_probe=..., R_max=..., frac=0.02, n=400) -> tuple[float, float]` — the `[R_lo, R_hi]` where the interaction strength `s(R) = max over r of |Re(model.v_int(r, R))|` exceeds `frac × s.max()`. Returns the outermost such bracket (the R-window where `V_int` is non-negligible).
+- `interaction_region(model, *, r_probe=None, R_max=8.0, frac=0.02, n=400) -> tuple[float, float]` — the `[R_lo, R_hi]` window over which the coupling `s(R) = max over r of |Re(model.v_int(r, R))|` is still TRANSITIONING between its low-R and high-R regimes. `R_lo`/`R_hi` bracket the middle `(1−2·frac)` of `s`'s own `[min,max]` rise on the scan.
 
-**Design notes:** `s(R) = max_r |Re(v_int(r_probe, R))|` over a fixed electronic probe set `r_probe` (a modest grid, e.g. `linspace(0.1, 15, 200)`) — universal (uses only `model.v_int`, in the protocol). Scan `R` on `linspace(1e-3, R_max, n)`; `R_lo`/`R_hi` = first/last R with `s(R) ≥ frac·s.max()`. This brackets where the coupling lives (F₂: ~[1.5, 4] bohr).
+**Design notes (CORRECTED — see the spec's "Premise correction"):** `s(R) = max_r |Re(v_int(r_probe, R))|` over `r_probe = linspace(0.1, 15, 200)` — universal (uses only `model.v_int`). Scan `R` on `linspace(1e-3, R_max, n)`. `λ(R)` (hence `s(R)`) is a SIGMOID saturating to a nonzero plateau on both ends, so a raw `s ≥ frac·s.max()` threshold degenerates to the scan edges — do NOT use it. Instead: `span = s.max()−s.min()`; `R_lo` = first R with `(s−s.min) ≥ frac·span`, `R_hi` = last R with `(s−s.min) ≤ (1−frac)·span`; if `span ≤ 0` return the full scanned domain. This brackets the transition zone where `V_d(R)` is non-saturated (F₂: ≈[0.66, 3.03] bohr, containing the R≈2.5–2.7 crossing).
 
 - [ ] **Step 1: Write the failing test**
 
@@ -60,13 +60,15 @@ def test_f2_interaction_region_brackets_the_coupling():
     assert R_lo < R_hi
 
 
-def test_region_is_where_vint_is_nonnegligible():
-    # outside [R_lo,R_hi], max_r|v_int| is < a few % of its peak
+def test_region_ends_where_coupling_has_saturated():
+    # outside [R_lo,R_hi], s(R) has SATURATED (stopped changing) — NOT that it is
+    # small in absolute terms (the sigmoid plateau is large). This is the property
+    # the downstream resonance_curve sampler relies on (freeze at one far value).
     R_lo, R_hi = interaction_region(N2, frac=0.05)
     r = np.linspace(0.1, 15, 200)
     s = lambda R: np.max(np.abs(np.real(N2.v_int(r[:, None], np.array([[R]])))))
     peak = max(s(R) for R in np.linspace(0.5, 6, 60))
-    assert s(R_hi + 1.0) < 0.05 * peak * 1.5          # well outside -> small
+    assert abs(s(R_hi + 1.0) - s(R_hi)) < 0.05 * peak * 1.5   # saturated past R_hi
 ```
 
 - [ ] **Step 2–5:** run→fail; implement `interaction_region` in `resonance.py` + export; run→pass; mypy+ruff; commit `feat(tuning): interaction_region (where V_int is non-negligible)`.
@@ -115,37 +117,80 @@ def test_resonance_curve_dense_interaction_sparse_far():
 
 ---
 
-### Task 3: Multi-curve resonance-aware nuclear mesh (`mesh`, `propose`)
+### Task 3 (REVISED): Resonance-aware nuclear mesh — crossing super-refinement + exit-wave order
+
+> **This supersedes the original k-merge design.** A validated diagnostic (2026-07-28) showed the
+> worst-case-`k` merge is INERT: `min_len=0.15` floors the exit-region elements, so the resonant
+> grid (614 pts) came out ≈ the v0 grid (609) and would stay ~5× off on σ_DA. The real levers
+> (matching how the eMoScat deck converges with FEWER points than brute refinement) are: **(1)
+> resolve the fast exit wave with a high ORDER, (2) super-refine the narrow crossing, (3) trim the
+> real extent.** The prior commits `c4f2404`/`248d451` (the k-merge + `combined_profile`) are
+> SUPERSEDED — this task builds on the still-good scaffolding they added (`channel` param, the
+> `elec_grids`/`resonance_n_dense` kwargs, the ValueError guards) but REPLACES the mesh logic and
+> REMOVES `combined_profile` if it ends up unused (YAGNI).
+
+**Validated numbers (F2, use as the design anchors — a subagent should reproduce, not trust blindly):**
+- Crossing `R* = 2.598` = the `Re(V_d(R)) − v0(R)` sign-change (lands on `F2.R_c=2.595`). `argmax Γ`
+  is WRONG (Γ has a frozen-plateau artifact at the walk's inner edge → `R≈0.06`).
+- `V_d` asymptote ≈ −0.127 Ha; `K_exit = √(2μ(E_max − V_d_asym)) ≈ 78` (μ≈17316). λ_exit ≈ 0.080 bohr.
+- Points/wavelength = `order·λ_exit / L`. Order-6 at L=0.15 → 3.2 ppw (UNDER-resolved). Order-14 at
+  L=0.15 → 7.5 ppw (resolved). Deck uses q=14 + 0.024-bohr crossing elements + ~10.7-bohr extent.
 
 **Files:**
-- Modify: `libs/qscat/qscat/tuning/mesh.py` (a worst-case-`k` combiner)
-- Modify: `libs/qscat/qscat/tuning/propose.py` (the resonant nuclear path)
+- Modify: `libs/qscat/qscat/tuning/mesh.py` (a local-refinement + resolution-order helper; remove `combined_profile` if unused)
+- Modify: `libs/qscat/qscat/tuning/propose.py` (the revised resonant nuclear path)
 - Modify: `libs/qscat/qscat/tuning/__init__.py`
-- Test: `libs/qscat/tests/test_tuning_mesh.py`, `test_tuning_propose.py`
+- Test: `libs/qscat/tests/test_tuning_mesh.py`, `test_tuning_propose.py`, and a `@slow` 2-D convergence test in `test_tuning_propose.py`
 
 **Interfaces:**
-- `mesh.combined_profile(profiles: list[PotentialProfile]) -> PotentialProfile` — a `PotentialProfile` whose `k(x)` is the elementwise MAX over the inputs (interpolated onto a common `x`), `kappa` the elementwise MIN, turning points/singularities unioned. (Lets the mesh resolve the worst-case of several curves.)
-- `propose_grid(model, coordinate, energy_range, *, rtol=1e-3, incident=None, channel="ve") -> FemDvrEcsGrid` — `channel="dissociation"` (or `resonant=True`) makes the NUCLEAR path build `k(R)` from the worst-case of `analyze_potential(model.v0, …)` AND `analyze_potential(V_d_interp, …)` (from `resonance_curve`, mass μ), with extra local refinement where `Γ(R)` is large. `channel="ve"` (default) is unchanged (`v0`-only).
+- `mesh.refine_elements_in_window(real_lengths, x_min, R_lo, R_hi, target_len) -> list[float]` — subdivide (span-preservingly) every real element overlapping `[R_lo, R_hi]` until each is ≤ `target_len`; elements outside are untouched. (Reuse the `_clamp_lengths_span_preserving` subdivide logic — the local, override-`min_len` refinement for the crossing.)
+- `mesh.order_for_wavenumber(k, element_len, *, target_ppw=6.0, orders=(6,8,10,14)) -> int` — the smallest `order` in `orders` with `order·(2π/k)/element_len ≥ target_ppw` (i.e. resolves wavenumber `k` at that element length); falls back to `max(orders)` if none qualifies.
+- `propose_grid(model, coordinate, energy_range, *, rtol=1e-3, incident=None, phase_coeff=None, channel="ve", elec_grids=None, resonance_n_dense=25) -> FemDvrEcsGrid` — `channel="dissociation"` (nuclear only) takes the revised resonant path below. `channel="ve"` (default) UNCHANGED.
 
-**Design notes:** in `propose._nuclear_adapter` (or a resonant sibling): call `resonance_curve(model, elec_a, elec_b, R_max=x_max)` → `(R, V_d, Γ)`; build `V_d_of_R` by interpolation (constant-extrapolate the far asymptote); `profile_v0 = analyze_potential(model.v0, 0, x_max, μ, e_max)`; `profile_vd = analyze_potential(V_d_of_R, 0, x_max, μ, e_max)`; `combined = combined_profile([profile_v0, profile_vd])`; feed to `optimal_real_mesh`; then HALVE elements overlapping the `Γ`-peak region (reuse `mesh`'s refinement post-pass keyed on the Γ>threshold R-interval). Because `V_d` differs from its asymptote only inside `[R_lo,R_hi]`, the extra density lands exactly at the crossing. Keep the electronic path unchanged.
+**Design notes (the revised resonant nuclear path):**
+1. `R, Vd, Gamma = resonance_curve(model, ga, gb, R_max=x_max, n_dense=resonance_n_dense)` (build/accept `elec_grids` as before).
+2. **Exit wave:** `Vd_asym = Re(Vd)` at the largest sampled R; `K_exit = √(2·μ·max(e_max − Vd_asym, e_max))` (the fast outgoing dissociation wavenumber). Set the ECS-tail `channel_k = K_exit` (physical — the wave the tail must absorb). Build the base real mesh from the **v0 profile** (as the ve path) — but choose the DVR order via `order_for_wavenumber(K_exit, min_len)` instead of the point-count-min sweep, so the exit wave is resolved (F2 → order 14).
+3. **Crossing:** `R* = ` the outermost `Re(Vd) − v0` sign-change (interpolated); if none, fall back to `R[argmin(Re(Vd) − v0)]`. `δ` from the Γ-closing width — the R-range around `R*` where `Γ > 0.1·Γ_significant` (exclude the frozen inner plateau: restrict to `R ≥ R_lo` from `interaction_region`), clamped to a sane `[0.15, 0.6]` bohr half-width. Super-refine `[R*−δ, R*+δ]` to `target_len ≈ 0.03` bohr via `refine_elements_in_window` (this OVERRIDES `min_len` locally — that is the point).
+4. **Extent:** derive `x_max` for the resonant path from where both `v0` and `V_d` have flattened to their asymptote (within a small tol) plus a fixed outgoing-wave margin (a few bohr) before the ECS tail — NOT the blunt `_NUCLEAR_X_MAX_DEFAULT=18`. Target ≈ the deck's ~10–11 bohr for F2. If a principled derivation is hard, expose it as a parameter defaulting to a reduced value (e.g. 12.0) and note it — the ECS tail does the absorbing, so the real exit region need only host the outgoing wave a few λ past the interaction region.
+5. Assemble the `GridSpec` (real refined lengths + ECS tail at the chosen order/angle) as the ve path does.
 
-- [ ] **Step 1: Write the failing test**
-
+- [ ] **Step 1 — unit tests (FAST, no models):**
 ```python
-def test_resonant_nuclear_mesh_refines_the_crossing():
-    from qscat.model import F2
-    from qscat.tuning import propose_grid, interaction_region
-    g_ve = propose_grid(F2, "nuclear", (0.01, 0.05))                      # v0-only
-    g_res = propose_grid(F2, "nuclear", (0.01, 0.05), channel="dissociation")
-    R_lo, R_hi = interaction_region(F2)
-    # the resonance-aware grid packs MORE real points into [R_lo, R_hi] than the v0-only one
-    def frac_in(g):
-        rp = g.real_points[g.real_points < g.R0]
-        return ((rp >= R_lo) & (rp <= R_hi)).sum() / max(rp.size, 1)
-    assert frac_in(g_res) > frac_in(g_ve)
-```
+def test_order_for_wavenumber_resolves_fast_wave():
+    from qscat.tuning import order_for_wavenumber
+    import numpy as np
+    # K_exit=78, lambda≈0.08; at 0.15-bohr elements order 6 gives 3.2 ppw (too few), 14 gives 7.5
+    assert order_for_wavenumber(78.0, 0.15, target_ppw=6.0) == 14
+    assert order_for_wavenumber(5.0, 0.15, target_ppw=6.0) <= 8       # slow wave, low order ok
 
-- [ ] **Step 2–6:** run→fail; implement `combined_profile` + the resonant nuclear path (+ the Γ-refinement); run→pass; also confirm `channel="ve"` default is UNCHANGED (a test that `propose_grid(F2,"nuclear",…)` == the pre-change grid); mypy+ruff; commit `feat(tuning): resonance-aware nuclear mesh (worst-case v0 ⊔ V_d + Gamma refinement)`.
+def test_refine_elements_in_window_only_local_and_span_preserving():
+    from qscat.tuning import refine_elements_in_window
+    import numpy as np
+    lengths = [0.5]*10                                   # span 5.0, from x_min=0
+    out = refine_elements_in_window(lengths, 0.0, 2.0, 3.0, 0.1)
+    assert abs(sum(out) - 5.0) < 1e-12                   # span preserved
+    assert max(out) <= 0.5 + 1e-12                       # nothing coarsened
+    # elements straddling [2,3] are now <=0.1; those outside stay 0.5
+    assert min(out) <= 0.1 + 1e-12
+```
+- [ ] **Step 2 — VE-unchanged regression (FAST):** `test_ve_channel_default_unchanged` — `propose_grid(F2,"nuclear",(0.01,0.05))` `.n` and `.points` identical with/without `channel="ve"` (the default path is byte-unchanged). Keep the ValueError-guard tests (`test_propose_grid_rejects_unknown_channel`, `..._rejects_dissociation_electronic`).
+- [ ] **Step 3 — the crossing/order test (small elec grids for speed):** `propose_grid(F2,"nuclear",(0.01,0.05),channel="dissociation",elec_grids=<small>,resonance_n_dense=10)` returns a grid whose (a) order == `order_for_wavenumber(K_exit,min_len)` (≥10), and (b) the smallest real element is `≤ 0.05` bohr AND sits within `[R*−δ, R*+δ]` around `R*≈2.6` (the super-refined crossing) — NOT at the inner wall. Mark `@pytest.mark.slow` if the resonance scan pushes it over ~30s.
+- [ ] **Step 4 — the LOAD-BEARING `@slow` 2-D convergence gate (this proves the mechanism):**
+```python
+@pytest.mark.slow
+def test_resonant_nuclear_grid_converges_f2_da():
+    # Copy the F2 DA harness from
+    # validation/tuning/test_emoscat_decks.py::test_f2_2d_da_cross_section_spot_check
+    # (electronic grid, anion eps/chi, da_cross_section). Build g_R via the resonant path.
+    # The resonant a-priori grid must give sigma_DA within ~15% of the once-refined value
+    # (converged ≈1.6), i.e. CONVERGED on the first pass — contrast the v0 grid's ~0.31 (5x off).
+    ...
+    sig_base = da_cross_section(TensorGrid([g_r, g_R]), F2, eps, chi, 0, 0.03)[0]
+    sig_ref  = da_cross_section(TensorGrid([g_r, refine(g_R)]), F2, eps, chi, 0, 0.03)[0]
+    assert abs(sig_base - sig_ref) / abs(sig_ref) < 0.15      # converged on the first resonant pass
+    assert sig_base > 1.0                                     # lifted off the v0 grid's ~0.31
+```
+- [ ] **Step 5:** run all; `uv run mypy libs/qscat/qscat`; `uv run ruff check .`; commit `feat(tuning): resonance-aware nuclear mesh — crossing super-refine + exit-wave order (supersedes k-merge)`. If `combined_profile` is now unused, remove it + its test in the same commit (note it in the message).
 
 ---
 
