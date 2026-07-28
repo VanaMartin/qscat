@@ -37,6 +37,9 @@ Public API:
     test-function placement: the TD Gaussian-wavepacket spec, the real-
     region extent it forces, and the (best-effort) Tannor-Weeks auto-tune
     that places it for a target energy range -- see `qscat.tuning.incident`.
+  - `interaction_region` -- the R-window where the electron-molecule
+    interaction `V_int(r, R)` is non-negligible, from `model.v_int` alone
+    -- see `qscat.tuning.resonance`.
 """
 
 from __future__ import annotations
@@ -54,6 +57,7 @@ from .probes import (
     refine,
 )
 from .propose import propose_grid
+from .resonance import interaction_region
 
 __all__ = [
     "IncidentSpec",
@@ -62,6 +66,7 @@ __all__ = [
     "analyze_potential",
     "equidistribution_elements",
     "grid_cost",
+    "interaction_region",
     "max_stable_angle",
     "optimal_real_mesh",
     "probe_channel_representation",
