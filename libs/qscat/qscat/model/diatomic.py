@@ -41,11 +41,12 @@ class ResonanceModel(Protocol):
     """Structural type: anything with this shape is a model `qscat.core` can
     drive, regardless of functional form.
 
-    `mu`/`ell` are per-molecule constants (nuclear reduced mass, fixed
-    partial wave). `v0`/`lam`/`v_int`/`surface` are the potential-energy
-    surface, evaluated pointwise (scalars or broadcastable arrays; `r`/`R`
-    may be COMPLEX on an exterior-complex-scaling tail, and an implementation
-    must not coerce them to a real dtype). `hamiltonian`/`interaction_diag`
+    `mu`/`ell`/`charge` are per-molecule constants (nuclear reduced mass,
+    fixed partial wave, Coulomb charge of the residual channel -- 0 for a
+    neutral target, -1 for a cation like H2+). `v0`/`v_int`/`surface` are the
+    potential-energy surface, evaluated pointwise (scalars or broadcastable
+    arrays; `r`/`R` may be COMPLEX on an exterior-complex-scaling tail, and an
+    implementation must not coerce them to a real dtype). `hamiltonian`/`interaction_diag`
     assemble those surfaces onto a `qscat.dvr.TensorGrid`: the sparse `H_2D`
     and the flattened `diag(V_int)` a time-dependent free-reference subtracts
     off `H_2D`.
@@ -66,14 +67,15 @@ class ResonanceModel(Protocol):
     def mu(self) -> float: ...
     @property
     def ell(self) -> int: ...
+    @property
+    def charge(self) -> int:
+        """The Coulomb charge z for the channel functions; 0 for neutral
+        targets, -1 for a singly-charged cation like H2+."""
+        ...
 
     def v0(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
         """Neutral molecule's own potential (Hartree); a CHANNEL potential --
         survives as r -> infinity."""
-        ...
-
-    def lam(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
-        """Interaction strength `lambda(R)`."""
         ...
 
     def v_int(self, r: npt.ArrayLike, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
@@ -117,6 +119,7 @@ class DiatomicResonanceModel:
     lambda_c: float
     R_c: float
     alpha_c: float
+    charge: int = 0
 
     def v0(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
         """Neutral Morse potential (Hartree). Minimum -D0 at R0.

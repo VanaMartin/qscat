@@ -13,8 +13,9 @@ new molecule is added to the registry.
 from __future__ import annotations
 
 from .diatomic import DiatomicResonanceModel
+from .ionic import IonicResonanceModel
 
-__all__ = ["N2", "NO", "F2"]
+__all__ = ["N2", "NO", "F2", "H2P"]
 
 N2 = DiatomicResonanceModel(
     mu=12766.36,
@@ -56,4 +57,17 @@ F2 = DiatomicResonanceModel(
     lambda_c=18.1450,
     R_c=2.5950,
     alpha_c=3.0,
+)
+
+H2P = IonicResonanceModel(
+    mu=918.25,
+    ell=1,
+    charge=-1,
+    V0=0.1027,
+    R0=2.0,
+    alpha=0.69,
+    a1=1.6435,
+    a2=6.2,
+    a3=0.0125,
+    a4=1.15,
 )
