@@ -30,8 +30,9 @@ def compute_dr(
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
     """sigma_DR(E) for H2+ on `grid`.
 
-    Diagonalizes the neutral H2's vibrational states (`v0 == 0`, the H2+
-    target's own ground vibrational level) up to `max(3, n_channels + 1)`
+    Diagonalizes the H2+ ION's vibrational states on the ion-core Morse
+    `H2P.v0` (`v_init == 0`, the H2+ target's own ground vibrational level)
+    up to `max(3, n_channels + 1)`
     states -- one more than `n_channels` so `dr_cross_section`'s Rydberg
     exit-channel loop always has a properly-converged incident vibrational
     state to draw on -- then calls `qscat.core.dr_cross_section`.
