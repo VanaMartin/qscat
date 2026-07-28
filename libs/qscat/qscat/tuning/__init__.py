@@ -25,6 +25,14 @@ Public API:
     bound-state energy, and the cheap/diagnostic channel-representation
     check that catches an unresolved fast outgoing wave) -- see
     `qscat.tuning.probes`.
+  - `grid_cost`, `tensor_cost` -- the cost model: exact DVR point counts,
+    plus ROUGH anchored estimates (nnz, factor memory/time) of the tensor-
+    product problem's sparse-LU cost, for RELATIVE ranking of candidate
+    grids -- see `qscat.tuning.metrics`.
+  - `propose_grid` -- the one-shot a-priori grid assembler: model adapter ->
+    `analyze_potential` -> `optimal_real_mesh` -> `max_stable_angle` +
+    `tune_ecs_tail` -> a complete `FemDvrEcsGrid`, the a-priori half of the
+    hybrid tuner -- see `qscat.tuning.propose`.
 """
 
 from __future__ import annotations
@@ -32,6 +40,7 @@ from __future__ import annotations
 from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
 from .mesh import equidistribution_elements, optimal_real_mesh
+from .metrics import grid_cost, tensor_cost
 from .probes import (
     ProbeResult,
     probe_channel_representation,
@@ -39,17 +48,21 @@ from .probes import (
     probe_nuclear,
     refine,
 )
+from .propose import propose_grid
 
 __all__ = [
     "PotentialProfile",
     "ProbeResult",
     "analyze_potential",
     "equidistribution_elements",
+    "grid_cost",
     "max_stable_angle",
     "optimal_real_mesh",
     "probe_channel_representation",
     "probe_electronic",
     "probe_nuclear",
+    "propose_grid",
     "refine",
+    "tensor_cost",
     "tune_ecs_tail",
 ]
