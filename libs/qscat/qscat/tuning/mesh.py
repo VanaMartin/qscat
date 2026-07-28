@@ -1,0 +1,201 @@
+"""Equidistribution mesh generator + h/p quadrature sweep.
+
+`equidistribution_elements` lays out real-region FEM-DVR element boundaries
+so each element carries a ~constant de Broglie phase `phase_per_element =
+integral of k dx` over the element. In classically forbidden stretches (`k ~
+0`, `kappa > 0`) phase does not accumulate, so element length there is
+instead capped by the local `kappa`-decay length. `optimal_real_mesh` sweeps
+a handful of DVR orders and picks the `(mesh, order)` combination that gives
+the fewest total DVR points for a given target accuracy -- the h/p optimum.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+from numpy.typing import NDArray
+from scipy.integrate import cumulative_trapezoid
+
+from .analyze import PotentialProfile
+
+FloatArray = NDArray[np.float64]
+
+# Provisional phase-per-(order-1) coefficient `C` in `phase_per_element =
+# C * (order - 1)`. This is CALIBRATED against convergence studies in a
+# later task (Task 8); until then this value is a reasonable placeholder
+# that keeps the h/p sweep functional and testable.
+_PHASE_COEFF_PROVISIONAL = 1.5
+
+# How many kappa-decay-lengths (1/kappa) a forbidden-region element may
+# span, before it is clamped by max_len anyway.
+_DECAY_LENGTHS_PER_ELEMENT = 1.0
+
+# Turning points / singularities are "near" a boundary if within this
+# fraction of the local element length -- triggers the halving refinement.
+_REFINE_FRACTION = 0.5
+
+
+def equidistribution_elements(
+    profile: PotentialProfile,
+    order: int,
+    *,
+    phase_per_element: float,
+    min_len: float,
+    max_len: float,
+) -> list[float]:
+    """Return real-region element lengths equidistributing de Broglie phase.
+
+    Boundaries are placed at `Phi(x) = j * phase_per_element`, where
+    `Phi(x) = cumulative_trapezoid(profile.k, profile.x)`. Where `Phi` fails
+    to advance (classically forbidden: `k ~ 0`, `kappa > 0`), the local
+    element length is instead capped by a `kappa`-based decay length. All
+    lengths are clamped to `[min_len, max_len]`, and elements adjacent to a
+    turning point or singularity are halved as a post-pass refinement.
+    """
+    x = profile.x
+    k = profile.k
+    total_span = float(x[-1] - x[0])
+    if total_span <= 0.0:
+        return []
+
+    phi = cumulative_trapezoid(k, x, initial=0)
+    phi_total = float(phi[-1])
+
+    boundary_list: list[float]
+    if phi_total > 0.0:
+        n_elem = max(int(np.ceil(phi_total / phase_per_element)), 1)
+        targets = np.arange(1, n_elem) * phase_per_element
+        targets = targets[targets < phi_total]
+        interior = np.interp(targets, phi, x)
+        boundary_list = [float(x[0]), *interior.tolist(), float(x[-1])]
+    else:
+        boundary_list = [float(x[0]), float(x[-1])]
+
+    boundary_list = _dedupe_sorted(boundary_list)
+    boundary_list = _subdivide_forbidden_gaps(boundary_list, x, profile.kappa, max_len)
+    lengths = np.diff(np.asarray(boundary_list, dtype=np.float64))
+
+    lengths = np.clip(lengths, min_len, max_len)
+    boundaries: FloatArray = np.concatenate(
+        [[boundary_list[0]], boundary_list[0] + np.cumsum(lengths)]
+    )
+
+    boundaries = _refine_near_features(
+        boundaries, profile.turning_points, profile.singularities, min_len
+    )
+
+    result: list[float] = np.diff(boundaries).tolist()
+    return result
+
+
+def optimal_real_mesh(
+    profile: PotentialProfile,
+    *,
+    orders: tuple[int, ...] = (6, 8, 10, 14),
+    phase_coeff: float = _PHASE_COEFF_PROVISIONAL,
+    min_len: float,
+    max_len: float,
+) -> tuple[list[float], int]:
+    """Sweep DVR `orders`, returning the `(mesh, order)` with fewest points.
+
+    For each candidate `order`, `phase_per_element = phase_coeff * (order -
+    1)` sets the per-element phase budget; the resulting mesh's DVR point
+    count is estimated as `len(elements) * (order - 1)`. The h/p optimum is
+    the combination minimizing that count.
+    """
+    best_mesh: list[float] | None = None
+    best_order = orders[0]
+    best_points = None
+
+    for order in orders:
+        phase_per_element = phase_coeff * (order - 1)
+        mesh = equidistribution_elements(
+            profile,
+            order,
+            phase_per_element=phase_per_element,
+            min_len=min_len,
+            max_len=max_len,
+        )
+        n_points = len(mesh) * (order - 1)
+        if best_points is None or n_points < best_points:
+            best_points = n_points
+            best_mesh = mesh
+            best_order = order
+
+    assert best_mesh is not None
+    return best_mesh, best_order
+
+
+def _dedupe_sorted(boundaries: list[float], tol: float = 1e-12) -> list[float]:
+    out = [boundaries[0]]
+    for b in boundaries[1:]:
+        if b - out[-1] > tol:
+            out.append(b)
+    return out
+
+
+def _subdivide_forbidden_gaps(
+    boundaries: list[float],
+    x: FloatArray,
+    kappa: FloatArray,
+    max_len: float,
+) -> list[float]:
+    """Insert extra boundaries inside any gap whose local kappa demands it.
+
+    Within a forbidden stretch, cap the element length at
+    `_DECAY_LENGTHS_PER_ELEMENT / kappa_local` (the local decay length),
+    where `kappa_local` is the mean `kappa` sampled over that gap.
+    """
+    out = [boundaries[0]]
+    for lo, hi in zip(boundaries[:-1], boundaries[1:], strict=True):
+        gap = hi - lo
+        mask = (x >= lo) & (x <= hi)
+        kappa_local = float(np.mean(kappa[mask])) if np.any(mask) else 0.0
+        if kappa_local > 0.0:
+            decay_len = _DECAY_LENGTHS_PER_ELEMENT / kappa_local
+            cap = min(decay_len, max_len)
+            if gap > cap:
+                n_sub = max(int(np.ceil(gap / cap)), 1)
+                sub_bounds = np.linspace(lo, hi, n_sub + 1)[1:].tolist()
+                out.extend(sub_bounds)
+                continue
+        out.append(hi)
+    return out
+
+
+def _refine_near_features(
+    boundaries: FloatArray,
+    turning_points: FloatArray,
+    singularities: FloatArray,
+    min_len: float,
+) -> FloatArray:
+    """Halve the element adjacent to any turning point / singularity."""
+    features = np.concatenate([turning_points, singularities])
+    if features.size == 0:
+        return boundaries
+
+    out = boundaries.tolist()
+    changed = True
+    # Bounded number of passes: refine can only add finitely many boundaries
+    # before hitting min_len, but guard against pathological loops anyway.
+    max_passes = 20
+    passes = 0
+    while changed and passes < max_passes:
+        changed = False
+        passes += 1
+        new_out = [out[0]]
+        for lo, hi in zip(out[:-1], out[1:], strict=True):
+            length = hi - lo
+            near = np.any(
+                (features >= lo - _REFINE_FRACTION * length)
+                & (features <= hi + _REFINE_FRACTION * length)
+            )
+            half = length / 2.0
+            if near and half >= min_len:
+                mid = lo + half
+                new_out.append(mid)
+                new_out.append(hi)
+                changed = True
+            else:
+                new_out.append(hi)
+        out = new_out
+    return np.asarray(out, dtype=np.float64)

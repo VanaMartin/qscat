@@ -72,6 +72,9 @@ select = ["E", "F", "I", "UP", "B", "NPY"]
 # verbatim (V = lambda x: ...); rewriting them as def would deviate from the
 # spec without changing behavior.
 "libs/qscat/tests/test_tuning_analyze.py" = ["E731"]
+# Same rationale, plus the brief's one-liner test bodies (semicolon-joined
+# statements, one slightly-long inline comment) transcribed verbatim.
+"libs/qscat/tests/test_tuning_mesh.py" = ["E731", "E702", "E501"]
 
 [tool.mypy]
 python_version = "3.12"
