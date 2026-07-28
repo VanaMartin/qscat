@@ -101,6 +101,19 @@ class IncidentSpec:
         observation = self.observation if self.observation is not None else 0.0
         return max(tail, observation)
 
+    def incident_energy(self) -> float:
+        """The wavepacket's mean kinetic energy, `impulse**2 / 2` (mass 1,
+        the electronic-coordinate convention every `IncidentSpec` is
+        defined against).
+
+        `propose_grid` reads this to make sure the RESOLUTION (not just
+        the extent) of the a-priori mesh covers the incident's local
+        wavenumber -- see its docstring for why `required_extent` alone
+        is not enough whenever a hand-built `IncidentSpec` implies an
+        energy above `energy_range`'s own `E_max`.
+        """
+        return self.impulse**2 / 2.0
+
 
 def required_extent(spec: IncidentSpec) -> float:
     """Free-function form of `IncidentSpec.required_extent`, for callers

@@ -2,7 +2,13 @@ from __future__ import annotations
 
 import pytest
 from qscat.model import N2
-from qscat.tuning import IncidentSpec, propose_grid, required_extent, tw_analysis
+from qscat.tuning import (
+    IncidentSpec,
+    probe_channel_representation,
+    propose_grid,
+    required_extent,
+    tw_analysis,
+)
 from qscat.tuning.incident import _interaction_extent
 
 
@@ -53,7 +59,36 @@ def test_interaction_extent_is_positive_and_finite_for_n2():
     assert 0.0 < r_int < 30.0
 
 
-def test_tw_analysis_rejects_empty_energy_range():
+def test_propose_grid_incident_energy_above_range_refines_resolution():
+    # Regression guard: a HAND-BUILT IncidentSpec whose impulse implies an
+    # energy well above energy_range's own E_max must still get a mesh fine
+    # enough to represent that faster wave -- not one sized only for the
+    # (lower) energy_range. `position`/`sigma` are kept small here so
+    # `required_extent()` stays well under the default electronic cutoff:
+    # this isolates the RESOLUTION effect from the (already-tested) extent
+    # effect.
+    e_range = (1.0, 2.0)
+    high_k = 90.0  # impulse**2/2 = 4050, far above e_range's E_max=2.0
+    incident = IncidentSpec(position=5.0, impulse=-high_k, sigma=1.0)
+    assert incident.incident_energy() == pytest.approx(high_k**2 / 2.0)
+    assert incident.required_extent() < 20.0  # under the default electronic x_max
+
+    g_with = propose_grid(N2, "electronic", e_range, incident=incident)
+    g_without = propose_grid(N2, "electronic", e_range)
+
+    # Point count is NOT the metric here: raising e_max_mesh also raises the
+    # h/p sweep's optimal quadrature order (fewer, higher-order elements can
+    # resolve a fast wave with FEWER total points than many low-order ones
+    # sized for a much slower wave) -- so a plain `n` comparison is not a
+    # reliable "finer" signal. The genuine regression guard is whether the
+    # incident's own channel function is actually representable:
+    with_result = probe_channel_representation(g_with, k=high_k, l=0, rtol=1e-3)
+    without_result = probe_channel_representation(g_without, k=high_k, l=0, rtol=1e-3)
+    assert with_result.converged, with_result.detail
+    assert not without_result.converged, without_result.detail
+
+
+def test_tw_analysis_rejects_reversed_energy_range():
     with pytest.raises(ValueError):
         tw_analysis(N2, (0.18, 0.04))
 

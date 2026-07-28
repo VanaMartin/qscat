@@ -171,13 +171,32 @@ def propose_grid(
     does not probe or refine -- it has no eigensolve to converge.
 
     `incident` (`qscat.tuning.incident.IncidentSpec`, Task 6) is accepted
-    here as an extent floor: if given, `getattr(incident, "required_extent",
-    lambda: 0.0)()` extends the real-region cutoff to at least that value
-    before the mesh/ECS steps run. `IncidentSpec.required_extent` is a
-    METHOD (not a module function) precisely so this duck-typed call works
-    against it unchanged -- see `qscat.tuning.incident`'s docstring for the
-    reconciliation. The placement logic itself (impulse/width/observation
-    boundary, `tw_analysis`) lives there; this is only the extent floor.
+    here as BOTH an extent floor AND a resolution floor:
+
+    - EXTENT: `getattr(incident, "required_extent", lambda: 0.0)()` extends
+      the real-region cutoff to at least that value before the mesh/ECS
+      steps run.
+    - RESOLUTION: `getattr(incident, "incident_energy", lambda: 0.0)()`
+      raises the effective `E_max` fed to `analyze_potential`/
+      `optimal_real_mesh` to `max(E_max, incident_energy)`. Without this, a
+      HAND-BUILT `IncidentSpec` whose `impulse` implies an energy above
+      `energy_range`'s own `E_max` would still get a mesh sized only for the
+      (lower) `energy_range`'s local wavenumber -- silently under-resolving
+      the incident's actual wave. (A `tw_analysis`-produced `IncidentSpec`
+      never triggers this: its energy is bounded by `energy_range` by
+      construction, so `max(...)` is then a no-op.) The ECS-tail
+      `channel_k` is deliberately left keyed to `energy_range`'s own
+      `E_max` alone, not this raised value: the incident wavepacket is a
+      TD object CONTAINED in the real region by the extent floor above, not
+      an outgoing wave the tail need absorb -- widening `channel_k` too is
+      a plausible future refinement, not required by this baseline.
+
+    Both getattrs default to `0.0` (a no-op) for any duck-typed `incident`
+    that does not define the corresponding method; `IncidentSpec` defines
+    both, precisely so these duck-typed calls work against it unchanged --
+    see `qscat.tuning.incident`'s docstring for the reconciliation. The
+    placement logic itself (impulse/width/observation boundary,
+    `tw_analysis`) lives there; this is only the extent/resolution floor.
     """
     del rtol  # interface parity with the probe/refine loop; unused here
 
@@ -189,11 +208,14 @@ def propose_grid(
     spec = adapter(model, e_max)
 
     x_max = spec.x_max
+    e_max_mesh = e_max
     if incident is not None:
         required_extent = getattr(incident, "required_extent", lambda: 0.0)()
         x_max = max(x_max, float(required_extent))
+        incident_energy = getattr(incident, "incident_energy", lambda: 0.0)()
+        e_max_mesh = max(e_max_mesh, float(incident_energy))
 
-    profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max)
+    profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
     real_lengths, order = optimal_real_mesh(profile, min_len=spec.min_len, max_len=spec.max_len)
 
     R0 = spec.x_min + sum(real_lengths)
