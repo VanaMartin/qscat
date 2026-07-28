@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import math
+
 import numpy as np
 import pytest
-from qscat.core.grids import nuclear_grid
+from qscat.core.dissociation import anion_electronic_states
+from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.model import F2, N2
 from qscat.tuning import probe_channel_representation, propose_grid
 
@@ -30,11 +33,20 @@ def test_propose_grid_electronic_n2_is_a_valid_grid():
 
 
 def test_propose_grid_nuclear_f2_resolves_the_da_channel_wave():
-    # The known F2 dissociative-attachment wavenumber (docs/physics/
-    # diatomic-ve-cross-sections.md: "F2: K_R ~ 58, wavelength ~0.107 bohr")
-    # -- the coarse shared N2-style grid famously failed to resolve this
-    # (sigma_DA off by ~36 orders); the a-priori proposed grid must not
-    # repeat that failure.
-    g = propose_grid(F2, "nuclear", (0.01, 0.05))
-    result = probe_channel_representation(g, k=58.0, l=0, rtol=1e-3)
+    # F2's actual dissociative-attachment (DA) wavenumber at the top of this
+    # energy range: K = sqrt(2*mu*(E_max - eps_e)), eps_e the anion bound
+    # electronic state at the dissociation limit (docs/physics/
+    # diatomic-ve-cross-sections.md quotes the rough "K_R ~ 58" at E~0.03;
+    # this is the precise value at E_max=0.05, ~78 -- Task 8's
+    # validation.tuning.calibrate calibrated the tuner's phase constant
+    # against exactly this wave). The coarse shared N2-style grid famously
+    # failed to resolve it (sigma_DA off by ~36 orders); the a-priori
+    # proposed grid must not repeat that failure.
+    e_max = 0.05
+    elec = electronic_grid(r_max=16.0, order=8, n_complex=6)
+    eps_e, _ = anion_electronic_states(elec, F2, R_inf=10.7, n_states=1)
+    K = math.sqrt(2.0 * F2.mu * (e_max - float(eps_e[0])))
+
+    g = propose_grid(F2, "nuclear", (0.01, e_max))
+    result = probe_channel_representation(g, k=K, l=0, mass=F2.mu, rtol=1e-3)
     assert result.converged, result.detail

@@ -147,8 +147,18 @@ libs/       qscat — the standard library: validated, reusable QM code
               failures), `metrics`+`propose` (`propose_grid` a-priori assembler +
               cost model), `incident` (`IncidentSpec`/`tw_analysis` — the TW
               wavepacket/test-function placement). Driven by the
-              `discretisation-tuner` skill (the supervised loop). See
-              docs/physics/discretisation-tuning.md.
+              `discretisation-tuner` skill (the supervised loop). The mesh's
+              de-Broglie phase constant `C` (`qscat.tuning.mesh._PHASE_COEFF`)
+              is CALIBRATED (`validation/tuning/calibrate.py`) against F2's
+              genuinely-open dissociative-attachment channel — the tuner
+              reproduces-and-beats that eMoScat deck (37% fewer points, clean
+              rtol=1e-3 convergence on the K~78 DA wave) and its cheapest probe
+              correctly flags the coarse shared N2-style grid as under-
+              resolved for that same wave (`validation/tuning/
+              test_emoscat_decks.py`); N2/NO's proposed nuclear grids cost
+              more points than their decks (traced to a fixed real-region
+              extent default, not to `C`) — a documented, reported limitation.
+              See docs/physics/discretisation-tuning.md.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
@@ -250,6 +260,22 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               NO/F₂ have lower/sharper resonances than N₂, so their TD-vs-TI
               check is a documented follow-on — see
               docs/physics/diatomic-ve-cross-sections.md.
+            - `validation/tuning/`: the `qscat.tuning` discretisation tuner's
+              own calibration + gate (sub-project #8/final). `calibrate.py`
+              (`uv run python -m validation.tuning.calibrate`) sweeps the
+              mesh's de-Broglie phase constant `C` and picks the smallest
+              value making `propose_grid`'s F₂ nuclear grid
+              reproduce-and-beat the eMoScat F₂ DA deck (the molecule with a
+              genuinely open dissociative-attachment channel in its tested
+              range) — calibrated to `C = 0.10`. `test_emoscat_decks.py`
+              gates `propose_grid` for N₂/NO/F₂ against their committed
+              decks (F₂ strictly; N₂/NO comparatively, since their
+              channel-representation floor wavenumber is a conservative
+              bound their OWN decks don't clear either — a reported finding,
+              not a loosened gate) and confirms the cheap
+              `probe_channel_representation` probe still flags the coarse
+              shared N₂-style grid as under-resolved for F₂ DA's K≈58-78 wave
+              — see docs/physics/discretisation-tuning.md.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo

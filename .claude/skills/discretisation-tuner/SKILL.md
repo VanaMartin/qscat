@@ -112,19 +112,31 @@ it — the model may need a different tail representation).
 ```python
 from qscat.model import N2
 from qscat.tuning import propose_grid, probe_nuclear, probe_channel_representation, refine, grid_cost
-g = propose_grid(N2, "nuclear", (0.04, 0.18))          # a-priori adaptive grid
+g = propose_grid(N2, "nuclear", (0.04, 0.18))          # a-priori adaptive grid, calibrated C
 pn = probe_nuclear(N2, g, n_vib=3)                       # vibrational eps stable?  -> converged
 K = (2 * N2.mu * 0.18) ** 0.5                            # the fastest nuclear wave in-range
-pc = probe_channel_representation(g, K, 0, mass=N2.mu)   # is that wave resolved? -> converged
-# both converged: g holds rtol. grid_cost(g)["n_points"] ~ comparable to the committed deck.
+pc = probe_channel_representation(g, K, 0, mass=N2.mu)   # is that wave resolved?
+# pn.converged is True. pc.converged is NOT (rel_error ~1.7e-3, just over rtol=1e-3) -- but this K
+# is a CONSERVATIVE FLOOR (N2's DA channel is closed in-window, so there is no genuinely open
+# dissociation wave to represent; sqrt(2*mu*E_max) over-estimates it), and neither does N2's own
+# committed deck at this K (rel_error ~2.9e-2) -- see `validation.tuning.calibrate`'s Task 8 report.
+# The comparative bar (rel_error no worse than the deck's own) IS met, by >10x -- see
+# `validation/tuning/test_emoscat_decks.py`. For a molecule with a genuinely OPEN dissociation
+# channel in-range (F2, K derived from its anion bound-state threshold -- `eps_e`), pc.converged
+# IS the right absolute bar, and it holds.
 ```
 Then the 2-D spot-check: `ve_cross_section(TensorGrid([elec_grid, g]), N2, ...)` at E=0.10 vs a
 refined grid, agreeing to 1e-3.
 
 ## Notes
 
-- The de Broglie phase-per-element constant and the ECS safety fractions are calibrated so the tuner
-  reproduces-or-beats the eMoScat decks (see `validation/tuning/`); trust those, don't re-tune.
+- The de Broglie phase-per-element constant `C` is calibrated (`qscat.tuning.mesh._PHASE_COEFF =
+  0.10`) so the tuner reproduces-or-beats the eMoScat F2 dissociative-attachment deck -- the
+  molecule with a genuinely open channel in its tested range, and the decisive calibration case;
+  see `validation/tuning/calibrate.py` and `docs/physics/discretisation-tuning.md`. Trust it, don't
+  re-tune it by eye. N2/NO's proposed nuclear grids cost MORE points than their committed decks
+  (~1.0-1.5x) -- a `_NUCLEAR_X_MAX_DEFAULT` (fixed real-region extent) mismatch with their
+  decks' own extent, not a C problem; a documented follow-on, not (yet) fixed.
 - `qscat.tuning` primitives are pure/deterministic and unit-tested on analytic potentials; the
   judgment (this procedure) is the only non-deterministic part.
 - See `docs/superpowers/specs/2026-07-28-discretisation-tuner-design.md` and

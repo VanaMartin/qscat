@@ -119,10 +119,11 @@ The exact-2D TI σ_DA(E) oracle curves on those grids (F₂ exothermic; NO openi
 ![F₂ exact-2D TI dissociative attachment](figures/f2-2d-ti-da-cross-section.png)
 ![NO exact-2D TI dissociative attachment](figures/no-2d-ti-da-cross-section.png)
 
-**Future: automatic discretisation.** The eMoScat decks are hand-tuned interim truth. The intended
-end state is a dedicated skill that CHOOSES the grid from the potential curves alone — bounding the
-per-element de Broglie phase `∫k(R)dR` (a few oscillations per element max) across the target
-energy range, for every element. Until then, per-molecule decks are transcribed numerical config.
+**Automatic discretisation.** The eMoScat decks above are hand-tuned; `qscat.tuning` (the
+`discretisation-tuner` skill) now computes a grid from the potential curve alone — an
+equidistribution mesh bounding the per-element de Broglie phase, an h/p quadrature sweep, and a
+double-ECS-safe tail — calibrated and gated against exactly these N₂/NO/F₂ decks, including F₂'s
+K≈58-78 DA wave. See docs/physics/discretisation-tuning.md.
 
 **H₂⁺ DR** is the same T-matrix looped over the neutral's MANY bound electronic (Rydberg) states
 + a Coulomb incident (`coulomb::sF_en`). See the DA design spec.

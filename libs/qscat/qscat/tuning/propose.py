@@ -43,13 +43,21 @@ Coordinate = Literal["nuclear", "electronic"]
 # Sane real-region cutoff defaults (bohr) -- see the design spec's per-
 # coordinate guidance ("14-22 bohr" nuclear, "~16-30 bohr" electronic); a
 # fixed default here, refined by the h/p mesh sweep and (Task 6) extended by
-# an `incident` requirement. Calibration against the eMoScat decks is Task 8.
+# an `incident` requirement. Task 8 calibrated the mesh's phase constant `C`
+# against the eMoScat decks but did NOT retune these fixed extents: they are
+# a per-molecule-INDEPENDENT default, which Task 8's calibration found
+# exceeds N2's (12 bohr) / NO's (9 bohr) committed nuclear real regions --
+# the reason those two molecules' proposed grids cost more DVR points than
+# their decks even at the calibrated C (see docs/physics/
+# discretisation-tuning.md). Deriving x_max from the potential profile itself
+# (rather than this fixed constant) is a follow-on, not done here.
 _NUCLEAR_X_MAX_DEFAULT = 18.0
 _ELECTRONIC_X_MAX_DEFAULT = 20.0
 
 # Element-length bounds (bohr) fed to `optimal_real_mesh`'s equidistribution
-# sweep -- sane, not calibrated (Task 8 owns calibration). The nuclear floor
-# is deliberately not tiny: a heavy reduced mass mu inflates the local
+# sweep -- sane, not independently calibrated (Task 8 calibrated only the
+# phase constant `C`). The nuclear floor is deliberately not tiny: a heavy
+# reduced mass mu inflates the local
 # wavenumber k = sqrt(2*mu*(e_max-V)) deep in the classically-forbidden well
 # wall, which (via the kappa-decay-length branch) would otherwise carve that
 # region into far more sub-min_len elements than the physics needs -- 0.15
@@ -154,6 +162,7 @@ def propose_grid(
     *,
     rtol: float = 1e-3,
     incident: object | None = None,
+    phase_coeff: float | None = None,
 ) -> FemDvrEcsGrid:
     """The one-shot a-priori `FemDvrEcsGrid` for `model`/`coordinate` over
     `energy_range = (E_min, E_max)`.
@@ -169,6 +178,13 @@ def propose_grid(
     `rtol` is accepted for interface parity with the probe/refine loop this
     feeds (the `discretisation-tuner` skill); this a-priori assembler itself
     does not probe or refine -- it has no eigensolve to converge.
+
+    `phase_coeff`, if given, overrides `optimal_real_mesh`'s calibrated
+    default de-Broglie phase-per-`(order-1)` constant `C` -- the knob
+    `validation.tuning.calibrate` sweeps to find that calibrated value
+    against the eMoScat decks. `None` (the default) leaves
+    `optimal_real_mesh` at its own calibrated default; ordinary callers never
+    need to pass this.
 
     `incident` (`qscat.tuning.incident.IncidentSpec`, Task 6) is accepted
     here as BOTH an extent floor AND a resolution floor:
@@ -216,7 +232,13 @@ def propose_grid(
         e_max_mesh = max(e_max_mesh, float(incident_energy))
 
     profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
-    real_lengths, order = optimal_real_mesh(profile, min_len=spec.min_len, max_len=spec.max_len)
+    real_lengths, order = (
+        optimal_real_mesh(profile, min_len=spec.min_len, max_len=spec.max_len)
+        if phase_coeff is None
+        else optimal_real_mesh(
+            profile, phase_coeff=phase_coeff, min_len=spec.min_len, max_len=spec.max_len
+        )
+    )
 
     R0 = spec.x_min + sum(real_lengths)
     angle = max_stable_angle(spec.V, R0, _ANGLE_PROBE_TAIL_EXTENT)

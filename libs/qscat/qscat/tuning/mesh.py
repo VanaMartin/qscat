@@ -19,11 +19,17 @@ from .analyze import PotentialProfile
 
 FloatArray = NDArray[np.float64]
 
-# Provisional phase-per-(order-1) coefficient `C` in `phase_per_element =
-# C * (order - 1)`. This is CALIBRATED against convergence studies in a
-# later task (Task 8); until then this value is a reasonable placeholder
-# that keeps the h/p sweep functional and testable.
-_PHASE_COEFF_PROVISIONAL = 1.5
+# Phase-per-(order-1) coefficient `C` in `phase_per_element = C * (order -
+# 1)`. Calibrated Task 8 against eMoScat N2/NO/F2 decks
+# (`validation.tuning.calibrate`): the smallest C making F2's nuclear grid
+# reproduce-and-beat the eMoScat DA deck (probe_channel_representation on the
+# K~78 dissociative-attachment wave converges at rtol=1e-3 with 609 points vs
+# the deck's 974) -- see docs/physics/discretisation-tuning.md for the full
+# sweep and the N2/NO findings (their nuclear grids cost more points than
+# their decks at this C, traced to `_NUCLEAR_X_MAX_DEFAULT` exceeding their
+# per-molecule real-region extent, a Task-5 a-priori-adapter limitation, not
+# a miscalibration of C).
+_PHASE_COEFF = 0.10
 
 # How many kappa-decay-lengths (1/kappa) a forbidden-region element may
 # span, before it is clamped by max_len anyway.
@@ -109,7 +115,7 @@ def optimal_real_mesh(
     profile: PotentialProfile,
     *,
     orders: tuple[int, ...] = (6, 8, 10, 14),
-    phase_coeff: float = _PHASE_COEFF_PROVISIONAL,
+    phase_coeff: float = _PHASE_COEFF,
     min_len: float,
     max_len: float,
 ) -> tuple[list[float], int]:
