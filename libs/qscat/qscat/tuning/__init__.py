@@ -13,16 +13,24 @@ Public API:
     singularities).
   - `optimal_real_mesh` -- h/p sweep over DVR orders, returning the
     `(mesh, order)` combination with the fewest DVR points.
+  - `max_stable_angle` -- the largest ECS rotation angle (capped at the
+    double-ECS bound, ~35 deg) for which a potential `V` stays bounded on
+    the rotated tail contour.
+  - `tune_ecs_tail` -- exp-growth ECS-tail element lengths sized to absorb
+    a given outgoing wavenumber `K` down to a target decay.
 """
 
 from __future__ import annotations
 
 from .analyze import PotentialProfile, analyze_potential
+from .ecs import max_stable_angle, tune_ecs_tail
 from .mesh import equidistribution_elements, optimal_real_mesh
 
 __all__ = [
     "PotentialProfile",
     "analyze_potential",
     "equidistribution_elements",
+    "max_stable_angle",
     "optimal_real_mesh",
+    "tune_ecs_tail",
 ]
