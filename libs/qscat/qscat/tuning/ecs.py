@@ -62,6 +62,9 @@ def max_stable_angle(
     running minimum, beyond `_GROWTH_RELTOL`) stops the scan; the last
     angle that did NOT diverge is returned. Never exceeds `angle_cap`.
     """
+    if n_probe < 1:
+        raise ValueError(f"n_probe must be >= 1, got {n_probe}")
+
     x = R0 + np.linspace(0.0, tail_extent, _N_TAIL_SAMPLES)
     angles = np.linspace(angle_cap / n_probe, angle_cap, n_probe)
 

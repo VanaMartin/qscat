@@ -75,8 +75,9 @@ select = ["E", "F", "I", "UP", "B", "NPY"]
 # Same rationale, plus the brief's one-liner test bodies (semicolon-joined
 # statements, one slightly-long inline comment) transcribed verbatim.
 "libs/qscat/tests/test_tuning_mesh.py" = ["E731", "E702", "E501"]
-# Same rationale (V = lambda z: ... transcribed verbatim from the brief).
-"libs/qscat/tests/test_tuning_ecs.py" = ["E731"]
+# Same rationale (V = lambda z: ... transcribed verbatim from the brief);
+# E501 covers one review-added line transcribed verbatim from the coordinator.
+"libs/qscat/tests/test_tuning_ecs.py" = ["E731", "E501"]
 
 [tool.mypy]
 python_version = "3.12"
