@@ -170,11 +170,14 @@ def propose_grid(
     feeds (the `discretisation-tuner` skill); this a-priori assembler itself
     does not probe or refine -- it has no eigensolve to converge.
 
-    `incident` (Task 6's incident/test-function spec) is accepted here as a
-    MINIMAL floor: if given, `getattr(incident, "required_extent", lambda:
-    0.0)()` extends the real-region cutoff to at least that value before the
-    mesh/ECS steps run. The real placement logic (impulse/width/observation
-    boundary) is Task 6's; this is only the extent floor.
+    `incident` (`qscat.tuning.incident.IncidentSpec`, Task 6) is accepted
+    here as an extent floor: if given, `getattr(incident, "required_extent",
+    lambda: 0.0)()` extends the real-region cutoff to at least that value
+    before the mesh/ECS steps run. `IncidentSpec.required_extent` is a
+    METHOD (not a module function) precisely so this duck-typed call works
+    against it unchanged -- see `qscat.tuning.incident`'s docstring for the
+    reconciliation. The placement logic itself (impulse/width/observation
+    boundary, `tw_analysis`) lives there; this is only the extent floor.
     """
     del rtol  # interface parity with the probe/refine loop; unused here
 
@@ -191,9 +194,7 @@ def propose_grid(
         x_max = max(x_max, float(required_extent))
 
     profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max)
-    real_lengths, order = optimal_real_mesh(
-        profile, min_len=spec.min_len, max_len=spec.max_len
-    )
+    real_lengths, order = optimal_real_mesh(profile, min_len=spec.min_len, max_len=spec.max_len)
 
     R0 = spec.x_min + sum(real_lengths)
     angle = max_stable_angle(spec.V, R0, _ANGLE_PROBE_TAIL_EXTENT)

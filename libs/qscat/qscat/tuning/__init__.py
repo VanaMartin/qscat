@@ -33,12 +33,17 @@ Public API:
     `analyze_potential` -> `optimal_real_mesh` -> `max_stable_angle` +
     `tune_ecs_tail` -> a complete `FemDvrEcsGrid`, the a-priori half of the
     hybrid tuner -- see `qscat.tuning.propose`.
+  - `IncidentSpec`, `required_extent`, `tw_analysis` -- incident-state /
+    test-function placement: the TD Gaussian-wavepacket spec, the real-
+    region extent it forces, and the (best-effort) Tannor-Weeks auto-tune
+    that places it for a target energy range -- see `qscat.tuning.incident`.
 """
 
 from __future__ import annotations
 
 from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
+from .incident import IncidentSpec, required_extent, tw_analysis
 from .mesh import equidistribution_elements, optimal_real_mesh
 from .metrics import grid_cost, tensor_cost
 from .probes import (
@@ -51,6 +56,7 @@ from .probes import (
 from .propose import propose_grid
 
 __all__ = [
+    "IncidentSpec",
     "PotentialProfile",
     "ProbeResult",
     "analyze_potential",
@@ -63,6 +69,8 @@ __all__ = [
     "probe_nuclear",
     "propose_grid",
     "refine",
+    "required_extent",
     "tensor_cost",
     "tune_ecs_tail",
+    "tw_analysis",
 ]
