@@ -40,6 +40,7 @@ from qscat.tuning import (
     refine, probe_nuclear, probe_electronic, probe_channel_representation,  # convergence probes
     grid_cost, tensor_cost, propose_grid,       # cost model + one-shot a-priori grid
     IncidentSpec, required_extent, tw_analysis,  # incident/test-function placement
+    refine_to_2d_convergence,                   # general iterative 2-D-convergence fallback
 )
 ```
 
@@ -90,7 +91,15 @@ Create a todo per step.
 6. **Final 2-D spot-check.** Build `TensorGrid([g_r, g_R])` and run the ACTUAL observable
    (`ve_cross_section` / `da_cross_section` / `dr_cross_section`) at the HARDEST energy, and confirm
    it agrees with a once-refined grid to `rtol`. For a non-laptop deck (H₂⁺-scale), run this on a
-   reduced proxy or under Docker/MUMPS and SAY SO — do not silently skip it.
+   reduced proxy or under Docker/MUMPS and SAY SO — do not silently skip it. Instead of a single
+   manual once-refined comparison, you may call the general fallback directly: define `observable`
+   as a closure over the real cross-section at that hardest energy (`observable(g_r, g_R) ->
+   float`) and call `refine_to_2d_convergence(observable, g_r, g_R, rtol=..., max_iter=...)` — it
+   iterates, adopting whichever coordinate (nuclear or electronic) moves the observable more, until
+   both relative moves are under `rtol` or `max_iter` is hit. If `detail["iterations"]` is
+   non-empty, the a-priori grid from step 3 was under-resolved in 2-D even though it may have
+   passed every 1-D probe (exactly the F2 DA finding above) — report the converged grid pair
+   in place of the original, plus the cost delta (`grid_cost`/`tensor_cost` before vs after).
 
 7. **Emit the config + report.** Output the per-coordinate grid (the `ElementSpec` lists / the built
    `FemDvrEcsGrid`, expressible as a committed deck) and a report:

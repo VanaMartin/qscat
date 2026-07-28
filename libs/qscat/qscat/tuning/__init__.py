@@ -51,6 +51,13 @@ Public API:
   - `resonance_curve` -- the efficient adiabatic resonance-curve sampler
     `(R, V_d(R), Gamma(R))`: dense inside `interaction_region`, a single far
     point at the asymptote -- see `qscat.tuning.resonance`.
+  - `refine_to_2d_convergence` -- the general, model-agnostic 2-D-convergence
+    FALLBACK: given any scalar observable closing over a real cross-section
+    (or a synthetic test function), iteratively `refine`s whichever of the
+    electronic/nuclear grids moves the observable more, until the larger
+    relative move is under `rtol` or `max_iter` adopted steps is hit -- the
+    step-6 spot-check's supervised loop, generalized -- see
+    `qscat.tuning.refine2d`.
 """
 
 from __future__ import annotations
@@ -73,6 +80,7 @@ from .probes import (
     refine,
 )
 from .propose import propose_grid
+from .refine2d import refine_to_2d_convergence
 from .resonance import interaction_region, resonance_curve
 
 __all__ = [
@@ -92,6 +100,7 @@ __all__ = [
     "propose_grid",
     "refine",
     "refine_elements_in_window",
+    "refine_to_2d_convergence",
     "required_extent",
     "resonance_curve",
     "tensor_cost",
