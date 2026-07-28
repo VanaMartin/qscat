@@ -39,7 +39,7 @@ from qscat.tuning import (
     max_stable_angle, tune_ecs_tail,            # ECS-tail (double-ECS-capped angle + exp absorption)
     refine, probe_nuclear, probe_electronic, probe_channel_representation,  # convergence probes
     grid_cost, tensor_cost, propose_grid,       # cost model + one-shot a-priori grid
-    IncidentSpec, required_extent, tw_analysis, interaction_extent,  # incident/test-function placement
+    IncidentSpec, required_extent, tw_analysis,  # incident/test-function placement
 )
 ```
 
