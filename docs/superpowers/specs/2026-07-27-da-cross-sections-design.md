@@ -107,9 +107,14 @@ def lcp_da_sigma(grid_R, mu, Vd, Gamma, chi, eps, eps_e_inf, E, *, dt, n_steps):
 
 - **A — exact-2-D TI DA** (D1): `V_DR` + nuclear Bessel + the driven-solve reuse + the nuclear-grid
   convergence; unitarity/threshold gates; F₂/N₂/NO σ_DA. The oracle; do first (it is the corrected
-  method and the highest-value piece).
+  method and the highest-value piece). **DELIVERED** (2026-07-27).
 - **B — LCP DA** (D2): the boundary-flux channel + R-dependent V_res/Γ. The approximation.
+  **DELIVERED** (2026-07-27; TI resolvent form, ~11% of exact away from threshold).
 - **C — comparison + figures** (D4). **D — H₂⁺ DR** (D3): the Rydberg-channel loop + Coulomb tail.
+  **D DELIVERED** (2026-07-28; the first ion — `qscat.special.coulomb`, `qscat.model.H2P`,
+  `qscat.core.dr_cross_section`; analytic + small-proxy validated, full deck Docker/MUMPS-ready;
+  converged full-size σ_DR curve is the follow-on — see docs/physics/h2plus-dr.md and
+  docs/superpowers/specs/2026-07-28-h2plus-dr-design.md).
 
 Each its own spec → plan → execute → merge.
 

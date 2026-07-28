@@ -97,7 +97,12 @@ libs/       qscat — the standard library: validated, reusable QM code
               `anion_electronic_states`, `v_dr_diag`) — the DA magnitude needs a
               per-molecule NUCLEAR grid (fast K_R~58 exit wave), built by
               `grids.segmented_grid` from eMoScat's per-molecule decks — see
-              docs/physics/diatomic-ve-cross-sections.md. Also `lcp` — the
+              docs/physics/diatomic-ve-cross-sections.md. Also
+              `dissociation.dr_cross_section` (**dissociative recombination**
+              for the IONIC H₂⁺: `da_cross_section` generalized to a Coulomb
+              incident (`channel_vector(charge=−1)`) + a LOOP over the Rydberg
+              exit series; the first non-laptop model, ~1.15M unknowns at full
+              size — Docker/MUMPS) — see docs/physics/h2plus-dr.md. Also `lcp` — the
               **LCP (local-complex-potential) approximation** OF the DA (the
               approximation under test vs the exact `da_cross_section` oracle):
               `local_complex_potential` (model-independent R-dependent
@@ -117,12 +122,19 @@ libs/       qscat — the standard library: validated, reusable QM code
               `test_core_no_model_import.py`) — see
               docs/physics/qscat-core-scattering.md.
             - qscat.model: everything tied to a specific model — the
-              `ResonanceModel` protocol (the contract `qscat.core` depends on),
-              `DiatomicResonanceModel` (the shared Morse+sigmoid+Gaussian form),
-              and the `N2`/`NO`/`F2` parameter registry. `qscat.model.N2` is the
-              single source of truth for the N2 model (the N2 projects consume it
-              via thin shims). Adding a molecule = a registry entry + validation,
-              never solver code — see docs/physics/qscat-core-scattering.md.
+              `ResonanceModel` protocol (the contract `qscat.core` depends on;
+              carries a `charge` attribute — 0 neutral, −1 for a cation),
+              `DiatomicResonanceModel` (the shared Morse+sigmoid+Gaussian
+              NEUTRAL form) + the `N2`/`NO`/`F2` registry, and
+              `IonicResonanceModel` (the H₂⁺ Morse + σ-capture + `−1/r` Coulomb
+              form) + the `H2P` registry entry (the first ION). `qscat.model.N2`
+              is the single source of truth for the N2 model (the N2 projects
+              consume it via thin shims). Adding a molecule = a registry entry +
+              validation, never solver code — see
+              docs/physics/qscat-core-scattering.md. The Coulomb channel/special
+              functions for ions live in `qscat.special.coulomb`
+              (`coulomb_f_en`/`g`/`h1_en`, mpmath, the charge-z generalization of
+              `riccati_bessel_en`).
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
