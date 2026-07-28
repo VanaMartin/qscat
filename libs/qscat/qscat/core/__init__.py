@@ -36,6 +36,9 @@ Public API:
     bound electronic state(s) at `R_inf`, the `V_DR` rearrangement
     interaction, and the exact TI driven-equation dissociative-attachment
     (DA) cross section `sigma_DA(E)`, for any `model`.
+  - `dr_cross_section` -- `da_cross_section` generalized for a CHARGED target
+    (H2+): a Coulomb incident channel and a loop over `n_channels` Rydberg
+    electronic exit states, `sigma_DR(E)`.
   - `local_complex_potential` -- the LCP reduction `(V_d(R), Gamma(R))` of the
     fixed-R electronic resonance to a single complex number per R.
   - `lcp_da_cross_section` -- the LCP dissociative-attachment cross section
@@ -53,7 +56,12 @@ from __future__ import annotations
 
 from .channels import channel_vector
 from .correlation import eta_incident, eta_outgoing, outgoing_channel
-from .dissociation import anion_electronic_states, da_cross_section, v_dr_diag
+from .dissociation import (
+    anion_electronic_states,
+    da_cross_section,
+    dr_cross_section,
+    v_dr_diag,
+)
 from .driven import ve_cross_section
 from .grids import electronic_grid, nuclear_grid, segmented_grid
 from .lcp import lcp_da_cross_section, local_complex_potential
@@ -72,6 +80,7 @@ __all__ = [
     "anion_electronic_states",
     "v_dr_diag",
     "da_cross_section",
+    "dr_cross_section",
     "local_complex_potential",
     "lcp_da_cross_section",
     "gaussian_coeffs",

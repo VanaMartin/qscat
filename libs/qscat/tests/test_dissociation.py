@@ -127,3 +127,31 @@ def test_f2_exothermic_da_is_positive():
     # band for the under-resolved fast outgoing wave; see the convergence note)
     cap = np.pi / (2.0 * E)
     assert np.all(s < 50.0 * cap)
+
+
+def _h2p_proxy():
+    # small ionic proxy: electronic to ~60 bohr (holds a couple Rydberg states +
+    # the incident), nuclear to ~14. Big enough for well-posedness, laptop-fast.
+    from qscat.core.grids import electronic_grid, nuclear_grid
+    from qscat.dvr import TensorGrid
+
+    return TensorGrid(
+        [
+            electronic_grid(r_max=60.0, order=8, n_complex=6),
+            nuclear_grid(r_max=22.0, n_complex=6, quadrature=10),
+        ]
+    )
+
+
+@pytest.mark.slow
+def test_dr_wellposed_and_threshold_ordered():
+    from qscat.core.dissociation import dr_cross_section
+    from qscat.core.vibrational import vibrational_states
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
+    E = np.array([0.01, 0.03])
+    s = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2)
+    assert s.shape == (2, 2)
+    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)

@@ -15,9 +15,11 @@ T_n = <Phi_n | V_DR | Psi+> (c-product, masked), sigma_n = 4 pi^3 |T_n|^2/(2E).
 
 This is eMoScat's `time_independent_model.cpp` method (an earlier prototype
 that used V_int instead of V_DR gave a ~1e6 unitarity violation -- that was
-the bug, not a structural obstacle to a TI DA). H2+ DR is the same T-matrix
-looped over the neutral's Rydberg electronic series + a Coulomb incident;
-deferred (sub-project D). See docs/physics/diatomic-ve-cross-sections.md and
+the bug, not a structural obstacle to a TI DA). `dr_cross_section` is the
+same T-matrix GENERALIZED for H2+: looped over the neutral's Rydberg
+electronic series (`n_channels` states of the same bound-electronic-state
+solver) with a Coulomb incident (`channel_vector(..., charge=model.charge)`)
+(sub-project D). See docs/physics/diatomic-ve-cross-sections.md and
 docs/superpowers/specs/2026-07-27-da-cross-sections-design.md.
 
 `qscat.core` never imports `qscat.model` at runtime: `model` is typed against
@@ -31,17 +33,19 @@ from typing import TYPE_CHECKING, Literal
 
 import numpy as np
 import numpy.typing as npt
+import scipy.sparse as sp
 
 from qscat.dvr import FemDvrEcsGrid, TensorGrid, eigen, kinetic
-from qscat.linalg import c_product
+from qscat.linalg import SparseLU, c_product
 from qscat.special import riccati_bessel_en_mass
 
+from .channels import channel_vector
 from .driven import ve_cross_section
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["anion_electronic_states", "v_dr_diag", "da_cross_section"]
+__all__ = ["anion_electronic_states", "v_dr_diag", "da_cross_section", "dr_cross_section"]
 
 # Mirrors driven.py's re-declaration of SparseLU's private ordering Literal,
 # so `ordering` passes through to ve_cross_section type-clean.
@@ -172,6 +176,88 @@ def da_cross_section(
             k_r = float(np.sqrt(2.0 * mu * e_dr))
             y_coeff = riccati_bessel_en_mass(g_R.real_points, k_r, 0, mu) * sqrt_w_R
             phi_f = tgrid.outer([phi[n], y_coeff])
+            phi_f[~mask] = 0.0
+            t = c_product(phi_f, v_psi)
+            out[ie, n] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e))
+
+    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+    return np.asarray(out[0] if scalar else out, dtype=np.float64)
+
+
+def dr_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = 3,
+    ordering: _Ordering = "COLAMD",
+) -> npt.NDArray[np.float64]:
+    """sigma_DR(E) in bohr^2, exact 2-D driven-equation dissociative-
+    recombination cross section for a CHARGED target (e.g. H2+, `charge=-1`).
+
+    `da_cross_section` GENERALIZED two ways: (1) the incident channel is
+    Coulomb rather than free -- `channel_vector(..., charge=model.charge)`;
+    (2) the exit channel is a LOOP over `n_channels` Rydberg electronic
+    states of the neutral, `anion_electronic_states(..., n_states=n_channels)`
+    (the SAME bound-electronic-state solver DA uses for the anion state --
+    the Rydberg series is likewise bound, below the `-1/r` Coulomb
+    continuum). `V_DR` (the rearrangement interaction, NOT `V_int`) is
+    unchanged from DA.
+
+    The driven Lippmann-Schwinger solve for `Psi+` is replicated inline
+    (rather than reusing `ve_cross_section`) because that helper cannot pass
+    `charge` through to `channel_vector`; the sparse LU is still built once
+    and `refactor`-ed across the energy sweep exactly as `ve_cross_section`
+    does.
+
+    `E` may be scalar (returns `(n_channels,)`) or an array (returns
+    `(len(E), n_channels)`). `sigma_n = 0` for a closed channel (`E <= 0` or
+    `E_DR = E_tot - E_ryd(n) <= 0`, `E_ryd(n) = eps_e[n]`).
+    """
+    e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+    mu = model.mu
+    g_R = tgrid.grids[1]
+    R_inf = g_R.R0
+
+    eps_ryd, phi_ryd = anion_electronic_states(
+        g_r=tgrid.grids[0], model=model, R_inf=R_inf, n_states=n_channels
+    )
+    v_dr = v_dr_diag(tgrid, model)
+    mask = tgrid.real_mask()
+    sqrt_w_R = tgrid.sqrt_weights()[1].ravel()
+
+    H = model.hamiltonian(tgrid)
+    v_diag = model.interaction_diag(tgrid)
+    ident = sp.identity(tgrid.size, format="csc", dtype=np.complex128)
+
+    out = np.zeros((len(e_arr), n_channels), dtype=np.float64)
+    lu: SparseLU | None = None
+    for ie, e in enumerate(e_arr):
+        if float(e) <= 0.0:
+            continue  # below threshold: no driven-equation solve, sigma == 0
+
+        e_tot = float(e) + eps[v_init]
+        a = (e_tot * ident - H).tocsc()
+        if lu is None:
+            lu = SparseLU(a, ordering=ordering)
+        else:
+            lu.refactor(a)
+
+        k = float(np.sqrt(2.0 * float(e)))
+        psi_i = channel_vector(tgrid, k, chi[v_init], model.ell, charge=model.charge)
+        psi_plus = psi_i + lu.solve(v_diag * psi_i)
+        v_psi = v_dr * psi_plus
+
+        for n in range(n_channels):
+            e_dr = e_tot - eps_ryd[n]
+            if e_dr <= 0.0:
+                continue  # closed Rydberg channel
+            k_r = float(np.sqrt(2.0 * mu * e_dr))
+            y_coeff = riccati_bessel_en_mass(g_R.real_points, k_r, 0, mu) * sqrt_w_R
+            phi_f = tgrid.outer([phi_ryd[n], y_coeff])
             phi_f[~mask] = 0.0
             t = c_product(phi_f, v_psi)
             out[ie, n] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e))
