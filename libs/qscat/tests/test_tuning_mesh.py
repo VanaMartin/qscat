@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 from qscat.tuning import analyze_potential, equidistribution_elements, optimal_real_mesh
+from qscat.tuning.mesh import _clamp_lengths_span_preserving
 
 
 def _flat_profile(k_const, x_max, m):
@@ -66,3 +67,14 @@ def test_undersized_elements_are_merged_not_inflated():
     assert abs(sum(els) - span) < 1e-9
     assert all(e >= 1.0 - 1e-9 for e in els)
     assert all(e <= 10.0 + 1e-9 for e in els)
+
+
+def test_merge_never_breaches_max_len_hard_cap():
+    # A small element (0.5) sitting right next to a near-max_len element
+    # (9.9): gluing them (0.5 + 9.9 = 10.4) would breach the HARD max_len
+    # cap of 10.0. The merge must instead emit them separately -- max_len
+    # is inviolable, min_len is only a best-effort floor, so we deliberately
+    # do NOT assert every element >= min_len here (0.5 stays below it).
+    out = _clamp_lengths_span_preserving(np.array([0.5, 9.9]), min_len=1.0, max_len=10.0)
+    assert all(e <= 10.0 + 1e-9 for e in out)
+    assert abs(sum(out) - 10.4) < 1e-9

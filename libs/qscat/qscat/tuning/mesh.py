@@ -50,9 +50,11 @@ def equidistribution_elements(
     element length is instead capped by a `kappa`-based decay length. All
     lengths are then brought into `[min_len, max_len]` -- oversized elements
     subdivided, undersized ones merged forward -- and elements adjacent to a
-    turning point or singularity are halved as a post-pass refinement. Every
-    step only regroups/splits existing length, so the returned lengths
-    always sum to the real-region domain span `profile.x[-1] - profile.x[0]`.
+    turning point or singularity are halved as a post-pass refinement.
+    `max_len` is a HARD cap (never exceeded); `min_len` is a SOFT floor (met
+    except where doing so would breach `max_len`). Every step only
+    regroups/splits existing length, so the returned lengths always sum to
+    the real-region domain span `profile.x[-1] - profile.x[0]`.
     """
     x = profile.x
     k = profile.k
@@ -146,14 +148,23 @@ def _clamp_lengths_span_preserving(
 ) -> FloatArray:
     """Clamp element lengths to `[min_len, max_len]` preserving their sum.
 
-    Oversized elements are subdivided into equal pieces (each `<= max_len`);
-    undersized elements are merged forward into their neighbors until the
-    accumulated length clears `min_len` (a trailing undersized remainder is
-    folded into the previous emitted element instead). Both operations only
-    ever regroup the existing lengths, so `sum(result) == sum(lengths)`
-    exactly (up to float round-off) -- unlike `np.clip`, which changes
-    individual lengths without redistributing and so silently shrinks or
-    inflates the total domain span whenever it actually fires.
+    `max_len` is a HARD cap: no emitted element ever exceeds it. `min_len` is
+    a SOFT floor: met whenever achievable, but not at the cost of breaching
+    `max_len` -- a small element wedged next to a near-`max_len` neighbor may
+    end up emitted below `min_len` rather than glued onto that neighbor.
+
+    Oversized elements are subdivided into equal pieces (each `<= max_len`).
+    The (now all `<= max_len`) pieces are then merged forward: consecutive
+    pieces accumulate until the running total would exceed `max_len` (emit
+    what's accumulated so far and start fresh) or clears `min_len` (emit and
+    start fresh). A trailing sub-`min_len` remainder is folded into the
+    previous emitted element only if that keeps it `<= max_len`; otherwise
+    it is emitted on its own (below `min_len`, but the cap is inviolable).
+    Every input length is consumed exactly once by either subdivision or
+    merging, so `sum(result) == sum(lengths)` exactly (up to float
+    round-off) -- unlike `np.clip`, which changes individual lengths without
+    redistributing and so silently shrinks or inflates the total domain span
+    whenever it actually fires.
     """
     subdivided: list[float] = []
     for length in lengths:
@@ -167,15 +178,18 @@ def _clamp_lengths_span_preserving(
     merged: list[float] = []
     acc = 0.0
     for length in subdivided:
+        if acc > 0.0 and acc + length > max_len:
+            merged.append(acc)  # adding would exceed the hard cap -> emit what we have
+            acc = 0.0
         acc += length
         if acc >= min_len:
-            merged.append(acc)
+            merged.append(acc)  # reached the floor -> emit
             acc = 0.0
-    if acc > 0.0:
-        if merged:
-            merged[-1] += acc
+    if acc > 0.0:  # leftover < min_len
+        if merged and merged[-1] + acc <= max_len:
+            merged[-1] += acc  # fold into previous only if it stays <= max_len
         else:
-            merged.append(acc)
+            merged.append(acc)  # else emit as-is (below min_len: best-effort floor)
 
     return np.asarray(merged, dtype=np.float64)
 
