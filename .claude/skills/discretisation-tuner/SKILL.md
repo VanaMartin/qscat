@@ -64,6 +64,14 @@ Create a todo per step.
 
 3. **Propose the a-priori grid, per coordinate.** For each of `"nuclear"` and `"electronic"`:
    `g = propose_grid(model, coordinate, energy_range, rtol=rtol, incident=incident)`.
+   **For a DA/DR (dissociation) observable, propose the NUCLEAR grid with
+   `channel="dissociation"`** — the resonance-aware path that sizes the DVR order to the fast
+   exit wave `K_exit`, super-refines the anion/neutral crossing `R*` (`Re(V_d)−v0` sign-change),
+   and trims the extent. This is what makes the a-priori nuclear grid 2-D-CONVERGE for σ_DA on
+   the first pass (it closes "finding #3" — the plain `v0`-only nuclear grid under-resolves the
+   crossing and gives σ_DA ~5× too low; see `docs/physics/discretisation-tuning.md`). VE keeps
+   the default `channel="ve"`. It does a per-R resonance scan (two electronic diagonalizations
+   per sample), so it is not free — pass small `elec_grids`/`resonance_n_dense` for a quick look.
 
 4. **Probe convergence at the EXTREMES.** The finest requirement is at `E_max`; the longest wave /
    largest extent is near-threshold `E_min`. At each extreme:
