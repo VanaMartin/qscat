@@ -35,17 +35,20 @@ uniformly regardless of what each one actually computes.
   breaking change.
 
 - `probe_channel_representation` -- THE cheapest and most diagnostic probe:
-  no eigensolve at all. It checks whether the free (or Coulomb) scattering
-  channel function at wavenumber `k` and partial wave `l` is REPRESENTABLE
-  on the grid's real region, by comparing the DVR quadrature estimate of
-  `integral |F(r)|^2 dr` over `[0, R0]` against a reference computed on a
-  uniform grid fine enough to resolve the fastest oscillation present
-  (`>= 40` samples per de Broglie wavelength `2*pi/k`), via Simpson's rule.
-  A grid whose element lengths are large compared to `1/k` aliases this
-  integral badly -- this is exactly the failure mode of a K~58 wave on
-  ~1.0-bohr elements (the coarse-grid dissociative-attachment failure this
-  probe is designed to catch), and it costs nothing beyond evaluating a
-  special function.
+  no eigensolve at all. It checks whether the free (`charge=0`, mass-`mass`
+  `riccati_bessel_en_mass`) or Coulomb (`coulomb_f_en`) scattering channel
+  function at wavenumber `k` and partial wave `l` is REPRESENTABLE on the
+  grid's real region, by comparing the DVR quadrature estimate of `integral
+  |F(r)|^2 dr` over `[x_min, R0)` against a reference computed on a uniform
+  grid fine enough to resolve the fastest oscillation present (`>= 40`
+  samples per de Broglie wavelength `2*pi/k`) over that SAME `[x_min, R0]`
+  span, via Simpson's rule. A grid whose element lengths are large compared
+  to `1/k` aliases this integral badly -- this is exactly the failure mode
+  of a K~58 wave on ~1.0-bohr elements (the coarse-grid dissociative-
+  attachment failure this probe is designed to catch), and it costs nothing
+  beyond evaluating a special function. `mass` matters for a non-electron
+  channel (e.g. a mass-`mu` nuclear dissociation wave); it is honored in
+  BOTH the neutral (`charge=0`) and Coulomb branches, and in the reference.
 """
 
 from __future__ import annotations
@@ -58,7 +61,7 @@ from scipy.integrate import simpson
 from qscat.core.dissociation import anion_electronic_states
 from qscat.core.vibrational import vibrational_states
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
-from qscat.special import coulomb_f_en, riccati_bessel_en
+from qscat.special import coulomb_f_en, riccati_bessel_en_mass
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -192,17 +195,19 @@ def probe_electronic(
 
 
 def _fine_reference_norm(
-    R0: float, k: float, l: int, *, charge: int, mass: float
+    x_min: float, R0: float, k: float, l: int, *, charge: int, mass: float
 ) -> float:
-    """`integral_0^R0 |F(r)|^2 dr`, via Simpson's rule on a uniform grid fine
-    enough (`_SAMPLES_PER_WAVELENGTH` samples per `2*pi/k`) to resolve the
-    fastest oscillation `F` exhibits over `[0, R0]`.
+    """`integral_{x_min}^R0 |F(r)|^2 dr`, via Simpson's rule on a uniform grid
+    fine enough (`_SAMPLES_PER_WAVELENGTH` samples per `2*pi/k`) to resolve
+    the fastest oscillation `F` exhibits over `[x_min, R0]` -- the same real
+    domain `probe_channel_representation`'s DVR-quadrature sum covers.
     """
     wavelength = 2.0 * np.pi / k
-    n_pts = max(_MIN_FINE_SAMPLES, int(_SAMPLES_PER_WAVELENGTH * R0 / wavelength) + 1)
-    r_fine = np.linspace(0.0, R0, n_pts)
+    span = R0 - x_min
+    n_pts = max(_MIN_FINE_SAMPLES, int(_SAMPLES_PER_WAVELENGTH * span / wavelength) + 1)
+    r_fine = np.linspace(x_min, R0, n_pts)
     f_fine = (
-        riccati_bessel_en(r_fine, k, l)
+        riccati_bessel_en_mass(r_fine, k, l, mass)
         if charge == 0
         else coulomb_f_en(r_fine, k, float(charge), mass, l)
     )
@@ -224,16 +229,23 @@ def probe_channel_representation(
     Compares the grid's own composite Gauss-Lobatto quadrature estimate of
     `integral |F|^2 dr` over the real region `[x_min, R0)` -- `sum(Re(w_j) *
     F(r_j)^2)` at the grid's own real-region nodes/weights -- against a
-    fine-uniform-grid Simpson reference (`_fine_reference_norm`). The node
-    exactly at `R0` (shared with the first ECS-tail element) is EXCLUDED:
-    its global bridge-summed weight mixes in that neighbor's complex
-    Jacobian (see the inline comment at the mask below), which would corrupt
-    a real-region-only quadrature at any nonzero ECS angle. No eigensolve is
-    needed, so this is by far the cheapest of the three probes -- and the
-    most diagnostic: a grid whose element lengths are not small compared to
-    the channel's wavelength `2*pi/k` cannot represent `F` and this probe
-    catches it directly (this is what would have caught the K~58-on-1.0-bohr-
-    elements coarse-grid DA failure).
+    fine-uniform-grid Simpson reference (`_fine_reference_norm`, integrated
+    over that SAME `[x_min, R0]` span -- `grid.spec.x_min`, not hardcoded to
+    0.0; every grid built by `qscat.core.grids` uses `x_min=0.0` today, but
+    `GridSpec.x_min` is a supported nonzero field). The node exactly at `R0`
+    (shared with the first ECS-tail element) is EXCLUDED: its global
+    bridge-summed weight mixes in that neighbor's complex Jacobian (see the
+    inline comment at the mask below), which would corrupt a real-region-only
+    quadrature at any nonzero ECS angle. `charge=0` uses `riccati_bessel_en_
+    mass(..., mass)` (mass-`mass` free wave; reduces to the mass-1 electron
+    channel at the default `mass=1.0`) and `charge != 0` uses `coulomb_f_en`
+    (which already takes `mass`) -- both the DVR sum and the reference honor
+    `mass` identically. No eigensolve is needed, so this is by far the
+    cheapest of the three probes -- and the most diagnostic: a grid whose
+    element lengths are not small compared to the channel's wavelength
+    `2*pi/k` cannot represent `F` and this probe catches it directly (this is
+    what would have caught the K~58-on-1.0-bohr-elements coarse-grid DA
+    failure).
     """
     # Strict `<`, not `<=`: the node exactly at R0 is the bridge point shared
     # with the first ECS-tail element, and its GLOBAL bridge-summed weight
@@ -251,14 +263,16 @@ def probe_channel_representation(
     w_real = grid.weights[real_mask].real
 
     f_vals = (
-        riccati_bessel_en(r_real, k, l)
+        riccati_bessel_en_mass(r_real, k, l, mass)
         if charge == 0
         else coulomb_f_en(r_real, k, float(charge), mass, l)
     )
     f2 = np.abs(np.asarray(f_vals, dtype=np.complex128)) ** 2
     quad_val = float(np.sum(w_real * f2))
 
-    ref_val = _fine_reference_norm(float(grid.R0), k, l, charge=charge, mass=mass)
+    ref_val = _fine_reference_norm(
+        float(grid.spec.x_min), float(grid.R0), k, l, charge=charge, mass=mass
+    )
     denom = abs(ref_val) if abs(ref_val) > _REL_FLOOR else 1.0
     rel_err = abs(quad_val - ref_val) / denom
     return ProbeResult(

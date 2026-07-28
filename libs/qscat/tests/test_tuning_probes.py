@@ -71,6 +71,16 @@ def test_probe_channel_representation_fails_on_coarse_grid_fast_wave():
     assert result.detail["rel_error"] > 1e-2  # >20x rtol: badly wrong, not a marginal miss
 
 
+def test_probe_channel_representation_honors_nonunit_mass():
+    # charge=0 with a non-electron mass (e.g. a nuclear dissociation wave) --
+    # riccati_bessel_en_mass's r-dependence is mass-independent (only the
+    # overall normalization scales), so this is a smoke test that the mass
+    # path runs and still converges on a grid well-resolved for k=1.0.
+    g = electronic_grid(r_max=16.0, order=7, n_complex=6)
+    result = probe_channel_representation(g, k=1.0, l=0, mass=918.25, rtol=1e-3)
+    assert result.converged, result.detail
+
+
 def test_probe_channel_representation_fine_grid_resolves_same_fast_wave():
     # Same K~58 wave, but on a grid whose elements (0.05 bohr, roughly half
     # the K~58 wavelength of 2*pi/58~0.108 bohr) are sized for it -- the
