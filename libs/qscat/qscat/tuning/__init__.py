@@ -40,6 +40,9 @@ Public API:
   - `interaction_region` -- the R-window where the electron-molecule
     interaction `V_int(r, R)` is non-negligible, from `model.v_int` alone
     -- see `qscat.tuning.resonance`.
+  - `resonance_curve` -- the efficient adiabatic resonance-curve sampler
+    `(R, V_d(R), Gamma(R))`: dense inside `interaction_region`, a single far
+    point at the asymptote -- see `qscat.tuning.resonance`.
 """
 
 from __future__ import annotations
@@ -57,7 +60,7 @@ from .probes import (
     refine,
 )
 from .propose import propose_grid
-from .resonance import interaction_region
+from .resonance import interaction_region, resonance_curve
 
 __all__ = [
     "IncidentSpec",
@@ -75,6 +78,7 @@ __all__ = [
     "propose_grid",
     "refine",
     "required_extent",
+    "resonance_curve",
     "tensor_cost",
     "tune_ecs_tail",
     "tw_analysis",

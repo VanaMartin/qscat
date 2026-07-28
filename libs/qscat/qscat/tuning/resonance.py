@@ -36,10 +36,14 @@ from typing import TYPE_CHECKING
 import numpy as np
 from numpy.typing import NDArray
 
+from qscat.core.dissociation import anion_electronic_states
+from qscat.core.lcp import resonance_pole_walk
+
 if TYPE_CHECKING:
+    from qscat.dvr import FemDvrEcsGrid
     from qscat.model import ResonanceModel
 
-__all__ = ["interaction_region"]
+__all__ = ["interaction_region", "resonance_curve"]
 
 FloatArray = NDArray[np.float64]
 
@@ -99,3 +103,50 @@ def interaction_region(
     R_lo = R_scan[int(lo_above[0])] if lo_above.size else float(R_scan[0])
     R_hi = R_scan[int(hi_below[-1])] if hi_below.size else float(R_scan[-1])
     return float(R_lo), float(R_hi)
+
+
+def resonance_curve(
+    model: ResonanceModel,
+    elec_grid_a: FemDvrEcsGrid,
+    elec_grid_b: FemDvrEcsGrid,
+    *,
+    R_max: float = 22.0,
+    n_dense: int = 25,
+    region: tuple[float, float] | None = None,
+) -> tuple[FloatArray, FloatArray, FloatArray]:
+    """Efficient adiabatic resonance curve `(R, V_d(R), Gamma(R))`.
+
+    Samples the pole continuation (`qscat.core.lcp.resonance_pole_walk`)
+    DENSELY (`n_dense` points) only inside the interaction window
+    `region = region or interaction_region(model)`, plus a few inner points
+    below `R_lo` and a SINGLE far point at `R_max` standing in for the
+    saturated asymptote -- the efficiency constraint that keeps this to
+    `O(n_dense)` electronic solves rather than a scan over hundreds of `R`
+    points. The walk runs over the samples DESCENDING (outer -> inner) and
+    its freeze (see `resonance_pole_walk`) correctly holds `V_d` constant
+    across the big `R_max -> R_hi` gap, since `Gamma` has already saturated
+    to ~0 out there.
+
+    Seeded from the bound anion state at `R_max`
+    (`qscat.core.dissociation.anion_electronic_states`). Returns arrays
+    ascending in `R`; `V_d(R) = Re(model.v0(R)) + shift`.
+    """
+    R_lo, R_hi = region or interaction_region(model)
+
+    inner = np.linspace(max(1e-3, R_lo - 0.6), R_lo, 3)[:-1]
+    dense = np.linspace(R_lo, R_hi, n_dense)
+    R_samples = np.unique(np.concatenate([[R_max], dense, inner]))
+    R_descending = R_samples[::-1]
+
+    eps_e, _ = anion_electronic_states(elec_grid_a, model, R_max, 1)
+    seed_window = (eps_e[0] - 0.05, eps_e[0] + 0.05, -0.05, 0.05)
+
+    shift, gamma = resonance_pole_walk(
+        model, R_descending, elec_grid_a, elec_grid_b, seed_window,
+    )
+
+    order = np.argsort(R_descending)
+    R = R_descending[order]
+    Vd = np.real(model.v0(R)) + shift[order]
+    Gamma = gamma[order]
+    return R, Vd, Gamma
