@@ -34,8 +34,9 @@ it is converged, and validate the tool against the known-good eMoScat decks.
   each coordinate on cheap 1-D sub-problems; one full 2-D solve confirms.
 - **Fully-adaptive equidistribution mesh**: an explicit per-element length list (each element
   sized to its local de Broglie phase), the minimal-point layout — the "no good eye" win.
-- **Tune every knob**: element lengths, quadrature order (the h/p tradeoff), real cutoff, ECS
-  angle + tail length/growth.
+- **Tune every knob**: element lengths, quadrature order (the h/p tradeoff), real cutoff, the ECS
+  tail as a JOINT (angle, exp-increment, tail-quadrature) choice, and the incident-state /
+  test-function placement (the TW analysis) — all for the target energy range.
 - **Precision target**: 1-D spectral proxies (nuclear vibrational eigenvalues; electronic
   resonance-pole / bound-state energies; channel-function representation) **plus a final 2-D cross
   section spot-check**, all to `rtol=1e-3` by default (user-overridable).
@@ -47,7 +48,11 @@ it is converged, and validate the tool against the known-good eMoScat decks.
   - `analyze` — potential analysis: the local wavenumber profile `k(x)`, turning points,
     singularities, asymptotics, channel wavenumbers over the energy range.
   - `mesh` — the equidistribution mesh generator + the quadrature (h/p) sweep.
-  - `ecs` — the ECS-tail tuner: max-valid-angle scan, tail-length sizing, cutoff.
+  - `ecs` — the ECS-tail tuner: the joint `(angle≤~35°, exp-increment, tail-quadrature, length)`
+    choice, double-ECS-stable, with the cutoff/pivot.
+  - `incident` (a.k.a. the TW analysis) — incident-state + test-function placement: accept specs as
+    input, and auto-tune the TD Gaussian-wavepacket position/impulse/width + observation boundary
+    for the energy range (an EXTENSION if the auto-tuning proves complex).
   - `probes` — the 1-D convergence probes (nuclear vibrational; electronic resonance/bound +
     channel representation) at the energy extremes, returning `(observable, converged?, cost)`.
   - `metrics` — cost model (DVR point counts; estimated 2-D matrix size / memory / factor-time)
@@ -71,16 +76,46 @@ decay length instead (element ~ a fixed fraction of `1/κ`), plus refinement at 
 singularities (the `−1/r` origin). Sweep `q ∈ {6,8,10,14}` and pick the `(mesh, q)` minimizing the
 **total DVR points** — the h/p optimum (higher q ⇒ fewer, denser elements; the cost model decides).
 
-### ECS tail
-- **Max angle θ**: increase θ until (a) the potential's analytic continuation misbehaves — a
-  Gaussian `e^{−αr²}` diverges for θ>45°, `−1/r` is fine but its origin sits in the real region —
-  detected by the potential growing on the rotated contour; or (b) the tail eigenvalues stop being
-  θ-stable (an angle scan on the 1-D problem). Take a safe fraction of the max.
-- **Tail length**: the fastest outgoing wave decays `e^{−K(x−R₀)sinθ}`; extend until it reaches
-  ~machine-ε, with tail elements equidistributed on the rotated contour (still oscillating +
-  decaying). `K` is the largest channel wavenumber over the energy range.
+### ECS tail — a JOINT (angle, exp-increment, tail-quadrature) choice
+The tail is NOT the equidistribution regime: the rotated outgoing wave is exponentially DECAYING
+(`e^{−K(x−R₀)sinθ}`), so the tail wants exp-GROWTH elements + a quadrature suited to
+exponentially-decreasing functions, not the oscillatory de Broglie mesh. The three knobs trade off:
+- **Angle θ — capped at ~35° by the DOUBLE-ECS region.** The binding limit is NOT the
+  single-coordinate potential continuation but the 2-D corner where BOTH r and R sit on their
+  complex tails: the two rotations compound, and stability there degrades for steep θ. ~35° is the
+  reasonable practical cap for the double-ECS setting (a Gaussian `e^{−αr²}` also diverges for
+  θ>45°, and `−1/r` is fine — its origin is in the real region). Practically: a per-coordinate 1-D
+  angle scan finds each coordinate's own θ-stability limit (pole/tail eigenvalues θ-stable), and
+  the tuner uses `θ = min(per-coordinate limit, ~35° double-ECS cap)`; the final 2-D spot-check
+  confirms the corner is stable (avoiding a full 2-D angle scan in the loop).
+- **Exponential increment.** A LOWER angle is preferable when paired with a good exp-increment of
+  the tail element lengths (grow ×`e^{α}` per element, `skip` initial elements at the pivot size)
+  so the decaying wave is absorbed in few elements — fewer double-ECS-corner stability issues at a
+  small angle. The tuner optimizes `(θ, α, skip, element count)` JOINTLY to absorb to ~machine-ε
+  with the fewest, best-conditioned elements.
+- **Tail quadrature** may DIFFER from the real region's — chosen for exponentially-decreasing
+  functions (a decay-suited rule) rather than oscillation resolution.
 - **Cutoff R₀** (real→complex pivot): where the interaction has died and the asymptotic channel
-  form holds (from the potential analysis).
+  form holds (from the potential analysis) — the pivot the tail grows from.
+`K` (the wave the tail must absorb) is the largest channel wavenumber over the energy range.
+
+### Incident state + test-function placement (the TW analysis)
+The grid must CONTAIN and RESOLVE not just the potential's eigenstates but the **incident state**
+and the **test functions** (the outgoing-channel projections / flux-extraction points) — these can
+dominate the required extent and resolution:
+- **TI route**: the incident is the channel function (Bessel/Coulomb) and the test functions are
+  the exit-channel projections at the target energies — set by the energy range directly (covered
+  by the channel-representation probes).
+- **TD route (Tannor-Weeks)**: the incident is a GAUSSIAN WAVEPACKET placed far out (position
+  ~800 bohr for H₂⁺, ~45 for N₂) with an impulse + width tuned so its energy spectrum spans
+  `[E_min, E_max]`; the observation/test-function points sit at specific boundaries. These set how
+  far the (electronic) real region must extend and its resolution — a FIRST-CLASS input to the
+  coordinate tuning, not an afterthought.
+The tuner therefore (a) ACCEPTS incident-state + test-function specs as inputs (baseline), and
+(b) — ideally — a **TW-analysis helper** auto-tunes them for the energy range (the wavepacket
+position/impulse/width covering `[E_min, E_max]`, the observation boundary) and PREPENDS that to the
+coordinate discretisation tuning, so the grid extent/resolution accounts for them. If the
+auto-tuning proves too complex it ships as an EXTENSION (inputs-only first, auto-tuning second).
 
 ### The 1-D probes (validation, at both energy extremes)
 - **Nuclear**: `vibrational_states` eigenvalues `eps_v` stable to `rtol` under one refinement step;
@@ -122,14 +157,20 @@ The tool is only trustworthy if validated:
    asymptotics, channel wavenumbers; pure, unit-tested on analytic potentials.
 2. **Equidistribution mesh + h/p sweep** (`qscat.tuning.mesh`) — element-length list from a `k(x)`
    profile + order; the point-minimizing quadrature pick; forbidden-region/turning-point handling.
-3. **ECS-tail tuner** (`qscat.tuning.ecs`) — max-angle scan, tail-length sizing, cutoff.
+3. **ECS-tail tuner** (`qscat.tuning.ecs`) — the joint `(angle, exp-increment, tail-quadrature,
+   length)` optimizer, capped at ~35° for double-ECS stability (an angle scan in the 2-D
+   double-ECS setting), with the cutoff/pivot.
 4. **1-D convergence probes** (`qscat.tuning.probes`) — nuclear + electronic, at the extremes,
    with the channel-representation + ECS-absorption checks; `(observable, converged?, cost)`.
 5. **Cost/precision metrics + a `propose_grid` a-priori assembler** (`qscat.tuning.metrics`,
    `qscat.tuning.propose`) — the cost model and the one-shot a-priori grid.
-6. **The `discretisation-tuner` skill** — the supervised loop procedure, calling the primitives,
+6. **Incident/test-function inputs + TW analysis** (`qscat.tuning.incident`) — accept incident-state
+   + test-function specs as inputs to the tuner (baseline), and the TW auto-tuner that places the
+   TD Gaussian wavepacket / observation boundary for the energy range and prepends to coordinate
+   tuning. **Ships as an EXTENSION** if the auto-tuning is too complex (inputs-only first).
+7. **The `discretisation-tuner` skill** — the supervised loop procedure, calling the primitives,
    emitting the config + report.
-7. **Calibration + validation** — calibrate `C`/ECS fractions and gate against the eMoScat decks +
+8. **Calibration + validation** — calibrate `C`/ECS fractions and gate against the eMoScat decks +
    the known coarse-grid failures.
 
 ## Out of scope (this sub-project)
