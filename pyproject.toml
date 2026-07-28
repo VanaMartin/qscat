@@ -68,6 +68,10 @@ select = ["E", "F", "I", "UP", "B", "NPY"]
 "projects/n2_2d_td_cross_section/convergence.py" = ["E741"]
 "libs/qscat/qscat/special/coulomb.py" = ["E741"]
 "libs/qscat/tests/test_coulomb.py" = ["E741"]
+# Lambda-assigned potential callables transcribe the brief's test cases
+# verbatim (V = lambda x: ...); rewriting them as def would deviate from the
+# spec without changing behavior.
+"libs/qscat/tests/test_tuning_analyze.py" = ["E731"]
 
 [tool.mypy]
 python_version = "3.12"
