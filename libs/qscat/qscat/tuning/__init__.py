@@ -13,11 +13,14 @@ Public API:
     singularities).
   - `optimal_real_mesh` -- h/p sweep over DVR orders, returning the
     `(mesh, order)` combination with the fewest DVR points.
-  - `combined_profile` -- worst-case merge of several `PotentialProfile`s
-    (elementwise max `k` / min `kappa`, unioned turning points/
-    singularities) -- lets the mesh resolve the finest of several adiabatic
-    curves at once, e.g. `v0` and a resonance curve `V_d(R)` -- see
-    `qscat.tuning.mesh`.
+  - `order_for_wavenumber` -- the smallest DVR order (from a fixed
+    candidate set) resolving a given wavenumber at a fixed element length,
+    in points-per-wavelength -- see `qscat.tuning.mesh`.
+  - `refine_elements_in_window` -- span-preservingly subdivide every real
+    element overlapping an `[R_lo, R_hi]` window until each piece is below a
+    target length; elements outside the window are untouched -- the LOCAL,
+    `min_len`-overriding refinement the resonance-aware nuclear mesh uses to
+    super-refine a narrow resonance crossing -- see `qscat.tuning.mesh`.
   - `max_stable_angle` -- the largest ECS rotation angle (capped at the
     double-ECS bound, ~35 deg) for which a potential `V` stays bounded on
     the rotated tail contour.
@@ -55,7 +58,12 @@ from __future__ import annotations
 from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
 from .incident import IncidentSpec, required_extent, tw_analysis
-from .mesh import combined_profile, equidistribution_elements, optimal_real_mesh
+from .mesh import (
+    equidistribution_elements,
+    optimal_real_mesh,
+    order_for_wavenumber,
+    refine_elements_in_window,
+)
 from .metrics import grid_cost, tensor_cost
 from .probes import (
     ProbeResult,
@@ -72,17 +80,18 @@ __all__ = [
     "PotentialProfile",
     "ProbeResult",
     "analyze_potential",
-    "combined_profile",
     "equidistribution_elements",
     "grid_cost",
     "interaction_region",
     "max_stable_angle",
     "optimal_real_mesh",
+    "order_for_wavenumber",
     "probe_channel_representation",
     "probe_electronic",
     "probe_nuclear",
     "propose_grid",
     "refine",
+    "refine_elements_in_window",
     "required_extent",
     "resonance_curve",
     "tensor_cost",

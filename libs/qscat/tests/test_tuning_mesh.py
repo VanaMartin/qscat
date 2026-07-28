@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import numpy as np
 from qscat.tuning import (
-    PotentialProfile,
     analyze_potential,
-    combined_profile,
     equidistribution_elements,
     optimal_real_mesh,
+    order_for_wavenumber,
+    refine_elements_in_window,
 )
 from qscat.tuning.mesh import _clamp_lengths_span_preserving
 
@@ -75,30 +75,42 @@ def test_undersized_elements_are_merged_not_inflated():
     assert all(e <= 10.0 + 1e-9 for e in els)
 
 
-def test_combined_profile_takes_elementwise_max_k_min_kappa_union_features():
-    # Two hand-built profiles on the same x -- no models, no eigensolves.
-    x = np.linspace(0.0, 10.0, 50)
-    p1 = PotentialProfile(
-        x=x,
-        V=np.zeros_like(x),
-        k=np.full_like(x, 1.0),
-        kappa=np.full_like(x, 0.5),
-        turning_points=np.array([2.0]),
-        singularities=np.array([]),
-    )
-    p2 = PotentialProfile(
-        x=x,
-        V=np.zeros_like(x),
-        k=np.full_like(x, 2.0),
-        kappa=np.full_like(x, 0.1),
-        turning_points=np.array([7.0]),
-        singularities=np.array([1.0]),
-    )
-    combined = combined_profile([p1, p2])
-    assert np.allclose(combined.k, 2.0)              # elementwise max
-    assert np.allclose(combined.kappa, 0.1)          # elementwise min
-    assert np.array_equal(combined.turning_points, np.array([2.0, 7.0]))
-    assert np.array_equal(combined.singularities, np.array([1.0]))
+def test_order_for_wavenumber_resolves_fast_wave():
+    # K_exit=78, lambda~0.08; at 0.15-bohr elements order 6 gives 3.2 ppw
+    # (too few), 14 gives 7.5 -- the F2 exit-wave anchor from the design
+    # brief.
+    assert order_for_wavenumber(78.0, 0.15, target_ppw=6.0) == 14
+    assert order_for_wavenumber(5.0, 0.15, target_ppw=6.0) <= 8  # slow wave, low order ok
+
+
+def test_order_for_wavenumber_nonpositive_k_returns_cheapest_order():
+    assert order_for_wavenumber(0.0, 0.15) == 6
+    assert order_for_wavenumber(-1.0, 0.15) == 6
+
+
+def test_refine_elements_in_window_only_local_and_span_preserving():
+    lengths = [0.5] * 10  # span 5.0, from x_min=0
+    out = refine_elements_in_window(lengths, 0.0, 2.0, 3.0, 0.1)
+    assert abs(sum(out) - 5.0) < 1e-12  # span preserved
+    assert max(out) <= 0.5 + 1e-12  # nothing coarsened
+    # elements straddling [2,3] are now <=0.1; those outside stay 0.5
+    assert min(out) <= 0.1 + 1e-12
+
+
+def test_refine_elements_in_window_elements_outside_untouched():
+    lengths = [0.5] * 10
+    out = refine_elements_in_window(lengths, 0.0, 2.0, 3.0, 0.1)
+    # the elements before/after the refined window are exactly the
+    # original 0.5-length ones, unchanged.
+    n_refined = sum(1 for h in out if h < 0.5 - 1e-9)
+    assert n_refined > 0
+    assert all(abs(h - 0.5) < 1e-12 or h <= 0.1 + 1e-12 for h in out)
+
+
+def test_refine_elements_in_window_noop_when_already_fine():
+    lengths = [0.05] * 10  # already below target_len everywhere
+    out = refine_elements_in_window(lengths, 0.0, 2.0, 3.0, 0.1)
+    assert out == lengths
 
 
 def test_merge_never_breaches_max_len_hard_cap():
