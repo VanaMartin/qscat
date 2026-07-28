@@ -148,12 +148,12 @@ def test_resonant_nuclear_mesh_order_and_crossing_refinement():
     idx = real_lengths.index(finest)
     mid = 0.5 * (boundaries[idx] + boundaries[idx + 1])
 
-    # The clamp bounds the crossing window's half-width to 0.6 bohr; allow
-    # one extra base-element length of slack, since `refine_elements_in_
-    # window` refines any element OVERLAPPING the window in full (so an
-    # element straddling the window's edge is refined even though part of
-    # it sits just outside).
-    assert r_star - 0.6 - 0.2 <= mid <= r_star + 0.6 + 0.2
+    # The clamp bounds the crossing window's half-width to _CROSSING_DELTA_MAX
+    # (0.18 bohr); allow one extra base-element length of slack, since
+    # `refine_elements_in_window` refines any element OVERLAPPING the window in
+    # full (so an element straddling the window's edge is refined even though
+    # part of it sits just outside).
+    assert r_star - 0.18 - 0.2 <= mid <= r_star + 0.18 + 0.2
     # NOT at the inner wall (the argmax(Gamma) failure mode this design
     # supersedes puts the "refined" region at R~0.06 instead).
     assert mid > 1.5
