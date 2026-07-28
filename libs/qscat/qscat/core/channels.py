@@ -19,7 +19,7 @@ import numpy.typing as npt
 
 from qscat.dvr import TensorGrid
 from qscat.linalg import c_product
-from qscat.special import riccati_bessel_en
+from qscat.special import coulomb_f_en, riccati_bessel_en
 
 __all__ = ["channel_vector"]
 
@@ -36,14 +36,25 @@ def channel_vector(
     k: float,
     chi_v: npt.NDArray[np.complex128],
     l: int,
+    *,
+    charge: int = 0,
 ) -> npt.NDArray[np.complex128]:
     """DVR coefficients of `F_{E,l}(r) chi_v(R)`, masked to the unscaled region.
 
     `chi_v` is already a coefficient vector; `F` is a function and picks up
-    `sqrt(w_r)`.
+    `sqrt(w_r)`. `charge=0` (default) is the neutral-target case: the
+    electronic factor is the fast `riccati_bessel_en` free radial function,
+    bit-for-bit unchanged from before `charge` existed (every VE/DA caller).
+    `charge != 0` is the ionic-target case (e.g. H2+): the electronic factor
+    is the energy-normalized Coulomb function `coulomb_f_en` instead (mass-1
+    electron).
     """
     g_r = tgrid.grids[0]
-    f_vals = riccati_bessel_en(g_r.real_points, k, l)
+    f_vals = (
+        riccati_bessel_en(g_r.real_points, k, l)
+        if charge == 0
+        else coulomb_f_en(g_r.real_points, k, float(charge), 1.0, l)
+    )
     # sqrt_weights() is per-axis and broadcast-shaped ((n_r, 1) at D=2); ravel
     # it to pair elementwise with the 1-D electronic function values.
     sqrt_w_r = tgrid.sqrt_weights()[0].ravel()
