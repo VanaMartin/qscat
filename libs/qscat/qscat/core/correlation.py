@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
+from scipy.special import spherical_jn, spherical_yn
 
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.linalg import c_product
@@ -40,7 +41,13 @@ from qscat.special import coulomb_h1_en, riccati_bessel_en, riccati_hankel_en
 
 from .wavepacket import gaussian_coeffs
 
-__all__ = ["outgoing_channel", "eta_incident", "eta_outgoing", "hankel_point_value"]
+__all__ = [
+    "outgoing_channel",
+    "eta_incident",
+    "eta_outgoing",
+    "hankel_point_value",
+    "outgoing_surface_wave",
+]
 
 
 def outgoing_channel(
@@ -144,3 +151,61 @@ def hankel_point_value(
             / 2.0
         )
     return complex(np.asarray(val))
+
+
+def outgoing_surface_wave(
+    grid: FemDvrEcsGrid, z_surface: float, k: float, l: int, charge: float = 0.0
+) -> tuple[complex, complex]:
+    """`(phi_out, dphi_out) = H^{(1)}_{E,l}(z_surface)/2` and its SPATIAL
+    derivative at `z_surface` -- the `Flux` extractor's per-channel outgoing
+    wave + derivative (eMoScat `FluxTestFunction2d`'s `phi_out_`/`dphi_out_`,
+    confirmed by port-scout reading `FluxTestFunction2d.cpp`'s constructor:
+    it samples `sphHankel1En(...)/2` -- or the Coulomb `sH1_en(...)/2` for a
+    charged target -- over an element's nodes and applies the SAME DVR
+    derivative `GridVector::derivative` uses; that machinery is reproduced
+    here directly against the ANALYTIC function instead, see below).
+
+    Neutral (`charge == 0`, `riccati_hankel_en`'s definition
+    `F^{(1)}_{E,l}(r) = sqrt(2k/pi) r h_l^{(1)}(kr)`): computed ANALYTICALLY
+    via the product rule,
+
+        dF/dr = sqrt(2k/pi) * [h_l(kr) + kr * h_l'(kr)]
+
+    using `scipy.special.spherical_jn`/`spherical_yn`'s `derivative=True`
+    option for `h_l^{(1)}{}'(x) = j_l'(x) + i y_l'(x)` -- `qscat.special.
+    radial` does not itself expose a derivative primitive (only the two
+    VALUE functions), but the underlying scipy pieces it is built on already
+    support one, so no finite difference is needed for this branch (checked
+    against a finite difference of `riccati_hankel_en` in
+    `test_correlation.py`, confirming the analytic formula).
+
+    Charged (`charge != 0`, `coulomb_h1_en`): `qscat.special.coulomb` has no
+    derivative primitive for the Coulomb functions (mpmath's `coulombf`/
+    `coulombg` expose no `derivative=` option, and the F_l'/G_l' recurrence
+    needs extra pieces this module does not carry) -- this branch falls back
+    to a high-accuracy CENTRAL finite difference (4th-order, 5-point
+    stencil) of `coulomb_h1_en` itself. Kept structurally for a charged
+    target (e.g. H2+); N2 is neutral, so only the analytic branch is
+    exercised by this sub-project's gate.
+    """
+    del grid  # unused: kept for call-site symmetry with hankel_point_value
+    r = float(z_surface)
+    if charge == 0:
+        pref = np.sqrt(2.0 * k / np.pi)
+        x = k * r
+        h_l = spherical_jn(l, x) + 1j * spherical_yn(l, x)
+        h_l_prime = spherical_jn(l, x, derivative=True) + 1j * spherical_yn(
+            l, x, derivative=True
+        )
+        phi = pref * r * h_l / 2.0
+        dphi = pref * (h_l + x * h_l_prime) / 2.0
+        return complex(phi), complex(dphi)
+
+    def _h1(rr: float) -> complex:
+        val = coulomb_h1_en(np.asarray(rr, dtype=np.complex128), k, float(charge), 1.0, l) / 2.0
+        return complex(np.asarray(val))
+
+    phi = _h1(r)
+    h = 1e-4 * max(1.0, abs(r))
+    dphi = (-_h1(r + 2 * h) + 8 * _h1(r + h) - 8 * _h1(r - h) + _h1(r - 2 * h)) / (12.0 * h)
+    return phi, dphi

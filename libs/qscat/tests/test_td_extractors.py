@@ -20,7 +20,7 @@ import numpy as np
 import pytest
 from qscat.core.driven import ve_cross_section
 from qscat.core.grids import electronic_grid, nuclear_grid
-from qscat.core.td_extractors import Dirac, TannorWeeks
+from qscat.core.td_extractors import Dirac, Flux, TannorWeeks
 from qscat.core.time_dependent import _free_hamiltonian, propagate, td_ve_cross_section
 from qscat.core.vibrational import vibrational_states
 from qscat.core.wavepacket import initial_state
@@ -194,3 +194,112 @@ def test_delta_agrees_with_ti_oracle_one_anchor() -> None:
     s_ti = ve_cross_section(tg_oracle, N2, eps, chi, v_init, vprimes, e)
     assert np.all(np.isfinite(s_delta))
     np.testing.assert_allclose(s_delta, s_ti, rtol=0.10, atol=1e-14)
+
+
+# --- Task 3: Flux (flow) extractor --------------------------------------------
+#
+# Reuses `POSITION = 37` (r = 6.0, colocated with `WP_OUT`) as the flux
+# surface -- the same asymptotic electronic node `Dirac` uses; no reason for
+# the flow extractor's surface to differ from the delta extractor's fixed
+# analysis point in this differential test.
+
+
+def _propagate_all_three(
+    n_steps: int, dt: float
+) -> tuple[TannorWeeks, Dirac, Flux, TannorWeeks, Dirac, Flux]:
+    """ONE `propagate()` call drives `TannorWeeks` + `Dirac` + `Flux` together
+    (plus a second call for the `V_int=0` free reference) -- the brief's
+    differential-test gate: all three extractors' `sigma(E)` come from the
+    IDENTICAL trajectory."""
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+
+    tw = TannorWeeks(TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT, wp_in=WP_IN, dt=dt)
+    dirac = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
+    flux = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
+    propagate(
+        TG, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        extractors=[tw, dirac, flux],
+    )
+
+    tw_free = TannorWeeks(TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT, wp_in=WP_IN, dt=dt)
+    dirac_free = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
+    flux_free = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
+    propagate(
+        TG, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=_free_hamiltonian(N2, TG),
+        extractors=[tw_free, dirac_free, flux_free],
+    )
+    return tw, dirac, flux, tw_free, dirac_free, flux_free
+
+
+# Cross-method agreement band: Flux is a genuinely DIFFERENT analysis (a
+# surface-current Wronskian at a FIXED electronic node vs. TW's propagated-
+# test-packet volume overlap) of the identical trajectory -- no reason to
+# expect machine-precision agreement. Measured (standalone script, same
+# `N_STEPS_DIFF = 800` config this file already uses for the Dirac gate):
+#
+#   s_tw   = [[141.145, 43.485], [23.694, 2.562]]
+#   s_flux = [[108.077, 35.513], [21.113, 1.970]]
+#   ratio  = [[0.7657, 0.8167], [0.8911, 0.7692]]   (worst-case ~23.4% low)
+#
+# Re-checked at n_steps=1500: ratio [[0.7714,0.8204],[0.9098,0.8185]] -- the
+# same band, not still drifting toward 1 (same qualitative pattern Dirac's
+# ~18-19% band showed at these two step counts). `rtol=0.25` covers the
+# observed ~23.4% worst-case deviation with a small margin; a future change
+# that widens this further is a finding to report, not to silently re-loosen.
+_FLUX_TW_RTOL = 0.25
+
+
+def test_flux_agrees_with_tw_same_trajectory() -> None:
+    tw, dirac, flux, tw_free, dirac_free, flux_free = _propagate_all_three(N_STEPS_DIFF, DT)
+    e = [0.10, 0.15]
+    s_tw = tw.sigma(e, free=tw_free)
+    s_dirac = dirac.sigma(e, free=dirac_free)  # recorded from the SAME pass; not gated here
+    s_flux = flux.sigma(e, free=flux_free)
+    assert s_tw.shape == s_flux.shape == s_dirac.shape == (2, len(VPRIMES))
+    assert np.all(np.isfinite(s_tw))
+    assert np.all(np.isfinite(s_dirac))
+    assert np.all(np.isfinite(s_flux))
+    np.testing.assert_allclose(s_flux, s_tw, rtol=_FLUX_TW_RTOL, atol=1e-14)
+
+
+@pytest.mark.slow
+def test_flux_agrees_with_ti_oracle_one_anchor() -> None:
+    """A looser, independent check: `Flux.sigma` vs the exact TI
+    `ve_cross_section` oracle at one anchor energy -- the SAME converged
+    working grid/wavepacket/surface `test_delta_agrees_with_ti_oracle_one_
+    anchor` uses (T=1000, inelastic-only channel `v'=1`, no free-reference
+    run needed). See that test's docstring for the shared config rationale.
+
+    Measured: `sigma_flux/sigma_ti = 0.970` at E=0.10 (`= 1.007` at E=0.15,
+    checked but not gated here) -- essentially the SAME magnitude as
+    `Dirac`'s own 0.971/1.009 at this grid (both alternative extractors
+    converge to the TI oracle with a similar residual, driven by the shared
+    propagation/discretization truncation rather than by which extraction
+    method is used). `rtol=0.10` covers the observed ~3.0% deviation with
+    margin, matching `Dirac`'s gate.
+    """
+    tg_oracle = TensorGrid(
+        [
+            electronic_grid(r_max=50.0, order=8, n_complex=6),
+            nuclear_grid(quadrature=10, r_max=22.0, n_complex=5),
+        ]
+    )
+    eps, chi = vibrational_states(tg_oracle.grids[1], N2.mu, 4, N2.v0)
+    v_init = 0
+    vprimes = [1]  # inelastic only -- no elastic free-reference propagation needed
+    wp_in = {"r0": 25.0, "p0": -0.5, "sigma": 5.0}
+    dt = 1.0
+    n_steps = 1000
+    surface = 128  # r = 39.58 bohr, real region (R0=50), past the interaction
+
+    psi0 = initial_state(tg_oracle, chi[v_init], **wp_in)
+    flux = Flux(tg_oracle, N2, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt)
+    propagate(
+        tg_oracle, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=N2.hamiltonian(tg_oracle),
+        extractors=[flux],
+    )
+    e = 0.10
+    s_flux = flux.sigma(e)
+    s_ti = ve_cross_section(tg_oracle, N2, eps, chi, v_init, vprimes, e)
+    assert np.all(np.isfinite(s_flux))
+    np.testing.assert_allclose(s_flux, s_ti, rtol=0.10, atol=1e-14)

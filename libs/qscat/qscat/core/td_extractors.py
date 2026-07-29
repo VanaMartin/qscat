@@ -32,9 +32,21 @@ transform (not routed through `sigma_from_correlations`, which is TW-
 specific) so this task cannot perturb TW's byte-identical golden regression
 (`test_td_extractors.py::test_tw_method_matches_prerefactor_golden_*`).
 
-Flow extractors (sub-project task 3) will live alongside these, implementing
-the same `Extractor` protocol (`record`/`sigma`) so `propagate` can drive any
-combination of them from one shared trajectory.
+`Flux` (this task) is the flow (flux) sibling: eMoScat's `FluxTestFunction2d`
+-- "the time-energy Fourier transform of the probability flux projected to
+the outgoing state". Its `record` appends BOTH the value `b_{v'}(t) =
+<chi_{v'}|psi(surface,.)>` (`Dirac`'s line projection, at a FIXED electronic
+surface -- an element border past the interaction) AND its electronic-
+coordinate derivative `d_{v'}(t) = <chi_{v'}| d/dr psi(surface,.)>`, using
+the new `qscat.dvr.dvr_first_derivative_at_node` primitive applied along the
+electronic axis before the nuclear c-product projection. Its `sigma` is the
+Wronskian-like flux transform (module docstring of `correlation.
+outgoing_surface_wave`): `S_i = -i/(2*mu_e*ifc_i) * sum_j w_j *
+(conj(phi_out_i)*d_{v'}(t_j) - b_{v'}(t_j)*conj(dphi_out_i)) *
+exp(i*E_tot*t_j)*dt`, `mu_e = 1` (electronic reduced mass, a.u.) -- again a
+small self-contained transform (like `Dirac`'s), not routed through
+`sigma_from_correlations`, so this task cannot perturb TW's byte-identical
+golden regression either.
 """
 
 from __future__ import annotations
@@ -44,16 +56,16 @@ from typing import TYPE_CHECKING
 import numpy as np
 import numpy.typing as npt
 
-from qscat.dvr import FemDvrEcsGrid, TensorGrid
+from qscat.dvr import FemDvrEcsGrid, TensorGrid, dvr_first_derivative_at_node
 from qscat.linalg import c_product
 
-from .correlation import eta_incident, hankel_point_value, outgoing_channel
+from .correlation import eta_incident, hankel_point_value, outgoing_channel, outgoing_surface_wave
 from .time_dependent import PropagationResult, _quadrature_weights, sigma_from_correlations
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["TannorWeeks", "Dirac"]
+__all__ = ["TannorWeeks", "Dirac", "Flux"]
 
 _WpIn = dict[str, float]
 _WpOut = dict[str, float]
@@ -333,6 +345,213 @@ class Dirac:
                     self._dt,
                     self._wp_in,
                     free_result,
+                )
+                for e in e_arr
+            ]
+        )
+        scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+        if scalar:
+            return np.asarray(out[0], dtype=np.float64)
+        return out
+
+
+def _flux_s_vector_one_energy(
+    grid: FemDvrEcsGrid,
+    model: ResonanceModel,
+    t: npt.NDArray[np.float64],
+    b: npt.NDArray[np.complex128],
+    d: npt.NDArray[np.complex128],
+    eps: npt.NDArray[np.float64],
+    v_init: int,
+    vprimes: list[int],
+    z_surface: float,
+    E: float,
+    dt: float,
+    wp_in: _WpIn,
+) -> npt.NDArray[np.complex128]:
+    """The raw flux-transform S-matrix (module docstring's Wronskian formula):
+
+        S_i = -i/(2*mu_e*ifc_i) * sum_j w_j *
+              (conj(phi_out_i)*d_j - b_j*conj(dphi_out_i)) * exp(i*E_tot*t_j) * dt
+
+    `mu_e = 1.0` (electronic reduced mass, a.u.); `phi_out_i`/`dphi_out_i` are
+    `outgoing_surface_wave`'s pair at the channel's outgoing momentum `k' =
+    sqrt(2*(E_tot - eps[v']))` -- the SAME per-channel momentum `TannorWeeks`/
+    `Dirac` use for their own outgoing deconvolution factor.
+    """
+    S = np.zeros(len(vprimes), dtype=np.complex128)
+    if E <= 0.0:
+        return S
+    mu_e = 1.0
+    weights = _quadrature_weights(t.size)
+    e_tot = E + eps[v_init]
+    k = float(np.sqrt(2.0 * E))
+    eta_in = eta_incident(grid, k, model.ell, **wp_in)
+    phase = np.exp(1j * e_tot * t)
+    for j, vp in enumerate(vprimes):
+        excess = e_tot - eps[vp]
+        if excess <= 0.0:
+            continue  # closed channel
+        kp = float(np.sqrt(2.0 * excess))
+        phi_out, dphi_out = outgoing_surface_wave(grid, z_surface, kp, model.ell, model.charge)
+        wronskian = np.conj(phi_out) * d[:, j] - b[:, j] * np.conj(dphi_out)
+        s_raw = np.sum(weights * wronskian * phase) * dt
+        S[j] = (-1j / (2.0 * mu_e * eta_in)) * s_raw
+    return S
+
+
+def _flux_sigma_one_energy(
+    grid: FemDvrEcsGrid,
+    model: ResonanceModel,
+    t: npt.NDArray[np.float64],
+    b: npt.NDArray[np.complex128],
+    d: npt.NDArray[np.complex128],
+    eps: npt.NDArray[np.float64],
+    v_init: int,
+    vprimes: list[int],
+    z_surface: float,
+    E: float,
+    dt: float,
+    wp_in: _WpIn,
+    free: tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]
+    | None,
+) -> npt.NDArray[np.float64]:
+    """`sigma_{v_init->v'}(E)` (bohr^2) via the flux transform, one energy --
+    same elastic free-reference pattern as `time_dependent._sigma_one_energy`
+    / `_dirac_sigma_one_energy`."""
+    sigma = np.zeros(len(vprimes), dtype=np.float64)
+    if E <= 0.0:
+        return sigma
+    s_full = _flux_s_vector_one_energy(
+        grid, model, t, b, d, eps, v_init, vprimes, z_surface, E, dt, wp_in
+    )
+    s_free = None
+    if free is not None:
+        t_free, b_free, d_free = free
+        s_free = _flux_s_vector_one_energy(
+            grid, model, t_free, b_free, d_free, eps, v_init, vprimes, z_surface, E, dt, wp_in
+        )
+    e_tot = E + eps[v_init]
+    for j, vp in enumerate(vprimes):
+        if e_tot - eps[vp] <= 0.0:
+            continue  # closed channel
+        if vp == v_init:
+            ref = complex(s_free[j]) if s_free is not None else 1.0 + 0.0j
+        else:
+            ref = 0.0 + 0.0j
+        sigma[j] = np.pi * abs(s_full[j] - ref) ** 2 / (2.0 * E)
+    return sigma
+
+
+class Flux:
+    """The flow (flux) `Extractor`: eMoScat's `FluxTestFunction2d` -- the
+    time-energy Fourier transform of the probability flux projected onto the
+    outgoing channel, at a FIXED electronic surface.
+
+    `record` appends, per `v'`, BOTH the value `b_{v'}(t) = <chi_{v'}|
+    psi(surface,.)>` (`Dirac`'s line projection) AND its electronic-
+    coordinate derivative `d_{v'}(t) = <chi_{v'}| d/dr psi(surface,.)>`
+    (via `qscat.dvr.dvr_first_derivative_at_node` applied along the
+    electronic axis, then a nuclear c-product onto `chi_{v'}` -- no extra
+    `/sqrt(w)` needed there, unlike `b_{v'}`: `dvr_first_derivative_at_node`
+    already converts coefficient->value internally, see its docstring).
+    `sigma(E, free=...)` is the Wronskian-like flux transform (module
+    docstring); same elastic free-reference contract as
+    `TannorWeeks.sigma`/`Dirac.sigma`.
+
+    `surface` must be a real (unscaled) electronic DVR index in the
+    asymptotic region (past the interaction), same requirement as `Dirac`'s
+    `position`.
+    """
+
+    def __init__(
+        self,
+        tgrid: TensorGrid,
+        model: ResonanceModel,
+        eps: npt.NDArray[np.float64],
+        chi: npt.NDArray[np.complex128],
+        v_init: int,
+        vprimes: list[int],
+        surface: int,
+        *,
+        wp_in: _WpIn,
+        dt: float,
+    ) -> None:
+        grid = tgrid.grids[0]
+        if not (0 <= surface < grid.n):
+            raise ValueError(f"surface {surface} out of range for grid of size {grid.n}")
+        if grid.real_points[surface] > grid.R0:
+            raise ValueError(
+                f"surface {surface} (r={grid.real_points[surface]}) is not in the real "
+                f"(unscaled) electronic region (R0={grid.R0}) -- pick an index with "
+                "real_points[surface] <= R0"
+            )
+        self._tgrid = tgrid
+        self._model = model
+        self._eps = eps
+        self._v_init = v_init
+        self._vprimes = vprimes
+        self._wp_in = wp_in
+        self._dt = dt
+        self._surface = surface
+        self._z_surface = float(grid.real_points[surface])
+        self._inv_sqrt_w = 1.0 / np.sqrt(np.asarray(grid.weights[surface], dtype=np.complex128))
+        self._deriv_row = dvr_first_derivative_at_node(grid, surface)
+        self._chi = [np.asarray(chi[vp], dtype=np.complex128) for vp in vprimes]
+        self._b_rows: list[npt.NDArray[np.complex128]] = []
+        self._d_rows: list[npt.NDArray[np.complex128]] = []
+
+    def record(self, psi: npt.NDArray[np.complex128]) -> None:
+        """Append this step's `b_{v'}(t_n)` and `d_{v'}(t_n)` rows (docstring)."""
+        block = psi.reshape(self._tgrid.shape)
+        psi_row = block[self._surface, :]
+        dpsi_row = self._deriv_row @ block  # (n_nuclear,): d/dr psi(surface, R), coeff-in-R
+        row_b = np.empty(len(self._vprimes), dtype=np.complex128)
+        row_d = np.empty(len(self._vprimes), dtype=np.complex128)
+        for k, chi_vp in enumerate(self._chi):
+            row_b[k] = c_product(chi_vp, psi_row) * self._inv_sqrt_w
+            row_d[k] = c_product(chi_vp, dpsi_row)
+        self._b_rows.append(row_b)
+        self._d_rows.append(row_d)
+
+    @property
+    def _arrays(
+        self,
+    ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
+        n_t = len(self._b_rows)
+        n_ch = len(self._vprimes)
+        b = np.stack(self._b_rows) if self._b_rows else np.zeros((0, n_ch), dtype=np.complex128)
+        d = np.stack(self._d_rows) if self._d_rows else np.zeros((0, n_ch), dtype=np.complex128)
+        t = np.arange(n_t, dtype=np.float64) * self._dt
+        return t, b, d
+
+    def sigma(
+        self, E: float | npt.ArrayLike, *, free: Flux | None = None
+    ) -> npt.NDArray[np.float64]:
+        """`sigma_{v_init->v'}(E)` (bohr^2) via the flux transform (module
+        docstring). `free`, when given, is a companion `Flux` extractor
+        recorded from a SEPARATE `V_int=0` propagation -- same elastic
+        free-reference contract as `TannorWeeks.sigma`/`Dirac.sigma`."""
+        free_arrays = free._arrays if free is not None else None
+        e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+        t, b, d = self._arrays
+        grid = self._tgrid.grids[0]
+        out = np.stack(
+            [
+                _flux_sigma_one_energy(
+                    grid,
+                    self._model,
+                    t,
+                    b,
+                    d,
+                    self._eps,
+                    self._v_init,
+                    self._vprimes,
+                    self._z_surface,
+                    float(e),
+                    self._dt,
+                    self._wp_in,
+                    free_arrays,
                 )
                 for e in e_arr
             ]
