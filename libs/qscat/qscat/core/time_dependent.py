@@ -85,6 +85,7 @@ __all__ = [
     "propagate",
     "sigma_from_correlations",
     "td_ve_cross_section",
+    "td_ve_cross_sections_all",
 ]
 
 
@@ -459,11 +460,15 @@ def td_ve_cross_section(
     order: int = 3,
     subtract_free_reference: bool = True,
     method: str = "tw",
+    position: int | None = None,
+    surface: int | None = None,
 ) -> npt.NDArray[np.float64]:
     """sigma_{v_init->v'}(E) (bohr^2), Pade propagation + an energy-extraction
-    method's transform -- currently only Tannor-Weeks (`method="tw"`, the
-    default; `"delta"`/`"flow"` are alternative extractors sharing the SAME
-    propagation, arriving in later tasks).
+    method's transform: `method="tw"` (default, Tannor-Weeks -- a propagated
+    Gaussian test packet), `"delta"` (a fixed-point line projection, eMoScat's
+    `DiracTestFunction2d`), or `"flow"` (a fixed-surface Wronskian flux,
+    eMoScat's `FluxTestFunction2d`) -- see `td_extractors.py` for the three
+    `Extractor` implementations and their formulas.
 
     `E` (collision energy, Hartree) may be scalar or array-like; scalar `E`
     returns shape `(len(vprimes),)`, array `E` returns `(len(E), len(vprimes))`
@@ -474,10 +479,19 @@ def td_ve_cross_section(
     `wp_in = {"r0": ..., "p0": ..., "sigma": ...}` are the SAME incident
     Gaussian parameters used to build `Psi(0)` (via `initial_state`) and
     `eta_incident`; `wp_out = {"r0_out": ..., "p0_out": ..., "sigma_out": ...}`
-    are the outgoing test function's parameters, used for both
-    `outgoing_channel` (the `Phi_{v'}` propagated against) and `eta_outgoing`.
-    The propagation (the expensive part) happens ONCE regardless of how many
-    energies `E` are requested, since `c_{v'}(t)` does not depend on `E`.
+    are the outgoing test function's parameters -- used only by `method="tw"`
+    (`outgoing_channel`/`eta_outgoing`); ignored by `"delta"`/`"flow"`. The
+    propagation (the expensive part) happens ONCE regardless of how many
+    energies `E` are requested, since the recorded per-step series does not
+    depend on `E`.
+
+    `position` (required, keyword-only, for `method="delta"`) and `surface`
+    (required, keyword-only, for `method="flow"`) are the fixed electronic
+    DVR index the `Dirac`/`Flux` extractor analyzes at -- an index in the
+    real (unscaled) region past the interaction, mirroring `wp_out`'s
+    asymptotic standoff (see `Dirac`/`Flux`'s own docstrings for the
+    validity requirement). Omitting the one the selected `method` needs
+    raises `ValueError`.
 
     `subtract_free_reference` (default `True`): when the diagonal/elastic
     channel is requested (`v_init in vprimes`), a SECOND `V_int=0` propagation
@@ -494,19 +508,166 @@ def td_ve_cross_section(
     `extractor.sigma(E)` -- reproducing this function's pre-refactor
     implementation (direct `_propagate` + `sigma_from_correlations`) to
     machine precision; see `libs/qscat/tests/test_td_extractors.py`'s golden
-    regression test. Any other `method` raises `ValueError` (delta/flow are
-    not yet implemented).
+    regression test. `method="delta"`/`"flow"` mirror the SAME pattern with
+    `td_extractors.Dirac`/`Flux` in place of `TannorWeeks`. Any other
+    `method` raises `ValueError`.
     """
-    if method != "tw":
-        raise ValueError(
-            f"td_ve_cross_section: unknown method {method!r} "
-            "(only 'tw' is implemented; 'delta'/'flow' are pending sub-project tasks)"
-        )
-    from .td_extractors import TannorWeeks  # deferred: td_extractors imports this module
+    from .td_extractors import Dirac, Flux, TannorWeeks  # deferred: avoids an import cycle
 
     psi0 = initial_state(tgrid, chi[v_init], **wp_in)
     hamiltonian = model.hamiltonian(tgrid)
+
+    if method == "tw":
+        tw = TannorWeeks(tgrid, model, eps, chi, v_init, vprimes, wp_out, wp_in=wp_in, dt=dt)
+        propagate(
+            tgrid,
+            psi0,
+            [],
+            dt=dt,
+            n_steps=n_steps,
+            hamiltonian=hamiltonian,
+            order=order,
+            extractors=[tw],
+        )
+
+        tw_free = None
+        if subtract_free_reference and v_init in vprimes:
+            free_hamiltonian = _free_hamiltonian(model, tgrid)
+            tw_free = TannorWeeks(
+                tgrid, model, eps, chi, v_init, vprimes, wp_out, wp_in=wp_in, dt=dt
+            )
+            propagate(
+                tgrid,
+                psi0,
+                [],
+                dt=dt,
+                n_steps=n_steps,
+                hamiltonian=free_hamiltonian,
+                order=order,
+                extractors=[tw_free],
+            )
+
+        return tw.sigma(E, free=tw_free)
+
+    if method == "delta":
+        if position is None:
+            raise ValueError("td_ve_cross_section: method='delta' requires `position`")
+        dirac = Dirac(tgrid, model, eps, chi, v_init, vprimes, position, wp_in=wp_in, dt=dt)
+        propagate(
+            tgrid,
+            psi0,
+            [],
+            dt=dt,
+            n_steps=n_steps,
+            hamiltonian=hamiltonian,
+            order=order,
+            extractors=[dirac],
+        )
+
+        dirac_free = None
+        if subtract_free_reference and v_init in vprimes:
+            free_hamiltonian = _free_hamiltonian(model, tgrid)
+            dirac_free = Dirac(
+                tgrid, model, eps, chi, v_init, vprimes, position, wp_in=wp_in, dt=dt
+            )
+            propagate(
+                tgrid,
+                psi0,
+                [],
+                dt=dt,
+                n_steps=n_steps,
+                hamiltonian=free_hamiltonian,
+                order=order,
+                extractors=[dirac_free],
+            )
+
+        return dirac.sigma(E, free=dirac_free)
+
+    if method == "flow":
+        if surface is None:
+            raise ValueError("td_ve_cross_section: method='flow' requires `surface`")
+        flux = Flux(tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt)
+        propagate(
+            tgrid,
+            psi0,
+            [],
+            dt=dt,
+            n_steps=n_steps,
+            hamiltonian=hamiltonian,
+            order=order,
+            extractors=[flux],
+        )
+
+        flux_free = None
+        if subtract_free_reference and v_init in vprimes:
+            free_hamiltonian = _free_hamiltonian(model, tgrid)
+            flux_free = Flux(
+                tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt
+            )
+            propagate(
+                tgrid,
+                psi0,
+                [],
+                dt=dt,
+                n_steps=n_steps,
+                hamiltonian=free_hamiltonian,
+                order=order,
+                extractors=[flux_free],
+            )
+
+        return flux.sigma(E, free=flux_free)
+
+    raise ValueError(
+        f"td_ve_cross_section: unknown method {method!r} "
+        "(must be one of 'tw', 'delta', 'flow')"
+    )
+
+
+def td_ve_cross_sections_all(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    dt: float,
+    n_steps: int,
+    wp_in: _WpIn,
+    wp_out: _WpOut,
+    position: int,
+    surface: int,
+    order: int = 3,
+    subtract_free_reference: bool = True,
+) -> dict[str, npt.NDArray[np.float64]]:
+    """`{"tw": sigma, "delta": sigma, "flow": sigma}` (each bohr^2, same shape
+    convention as `td_ve_cross_section`) from ONE shared propagation.
+
+    This is the HONEST three-way comparison: `TannorWeeks`, `Dirac`, and
+    `Flux` are all built up front and driven by a SINGLE `propagate(...,
+    extractors=[tw, dirac, flux])` call (and a single companion `V_int=0`
+    propagation, when `subtract_free_reference` applies) -- identical
+    dynamics `psi(t_n)` feed all three transforms, so any spread between the
+    returned cross sections reflects a genuine difference between the
+    energy-extraction methods (or, at an under-converged grid/propagation
+    length, a shared discretization/truncation residual all three inherit
+    together -- see `docs/physics/td-extractors.md`), never a difference in
+    what was propagated.
+
+    `position`/`surface` are the `Dirac`/`Flux` fixed electronic DVR indices
+    (see `td_ve_cross_section`'s docstring); both are required here (unlike
+    `td_ve_cross_section`, which only needs whichever one its `method`
+    selects).
+    """
+    from .td_extractors import Dirac, Flux, TannorWeeks  # deferred: avoids an import cycle
+
+    psi0 = initial_state(tgrid, chi[v_init], **wp_in)
+    hamiltonian = model.hamiltonian(tgrid)
+
     tw = TannorWeeks(tgrid, model, eps, chi, v_init, vprimes, wp_out, wp_in=wp_in, dt=dt)
+    dirac = Dirac(tgrid, model, eps, chi, v_init, vprimes, position, wp_in=wp_in, dt=dt)
+    flux = Flux(tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt)
     propagate(
         tgrid,
         psi0,
@@ -515,13 +676,15 @@ def td_ve_cross_section(
         n_steps=n_steps,
         hamiltonian=hamiltonian,
         order=order,
-        extractors=[tw],
+        extractors=[tw, dirac, flux],
     )
 
-    tw_free = None
+    tw_free = dirac_free = flux_free = None
     if subtract_free_reference and v_init in vprimes:
         free_hamiltonian = _free_hamiltonian(model, tgrid)
         tw_free = TannorWeeks(tgrid, model, eps, chi, v_init, vprimes, wp_out, wp_in=wp_in, dt=dt)
+        dirac_free = Dirac(tgrid, model, eps, chi, v_init, vprimes, position, wp_in=wp_in, dt=dt)
+        flux_free = Flux(tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt)
         propagate(
             tgrid,
             psi0,
@@ -530,7 +693,11 @@ def td_ve_cross_section(
             n_steps=n_steps,
             hamiltonian=free_hamiltonian,
             order=order,
-            extractors=[tw_free],
+            extractors=[tw_free, dirac_free, flux_free],
         )
 
-    return tw.sigma(E, free=tw_free)
+    return {
+        "tw": tw.sigma(E, free=tw_free),
+        "delta": dirac.sigma(E, free=dirac_free),
+        "flow": flux.sigma(E, free=flux_free),
+    }

@@ -21,7 +21,12 @@ import pytest
 from qscat.core.driven import ve_cross_section
 from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.core.td_extractors import Dirac, Flux, TannorWeeks
-from qscat.core.time_dependent import _free_hamiltonian, propagate, td_ve_cross_section
+from qscat.core.time_dependent import (
+    _free_hamiltonian,
+    propagate,
+    td_ve_cross_section,
+    td_ve_cross_sections_all,
+)
 from qscat.core.vibrational import vibrational_states
 from qscat.core.wavepacket import initial_state
 from qscat.dvr import TensorGrid
@@ -89,7 +94,26 @@ def test_unknown_method_raises() -> None:
     with pytest.raises(ValueError, match="unknown method"):
         td_ve_cross_section(
             TG, N2, EPS, CHI, V_INIT, VPRIMES, 0.10,
+            dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="bogus",
+        )
+
+
+# --- Task 4: method="delta"/"flow" wiring + required position/surface ------
+
+
+def test_delta_method_requires_position() -> None:
+    with pytest.raises(ValueError, match="requires `position`"):
+        td_ve_cross_section(
+            TG, N2, EPS, CHI, V_INIT, VPRIMES, 0.10,
             dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="delta",
+        )
+
+
+def test_flow_method_requires_surface() -> None:
+    with pytest.raises(ValueError, match="requires `surface`"):
+        td_ve_cross_section(
+            TG, N2, EPS, CHI, V_INIT, VPRIMES, 0.10,
+            dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="flow",
         )
 
 
@@ -303,3 +327,80 @@ def test_flux_agrees_with_ti_oracle_one_anchor() -> None:
     s_ti = ve_cross_section(tg_oracle, N2, eps, chi, v_init, vprimes, e)
     assert np.all(np.isfinite(s_flux))
     np.testing.assert_allclose(s_flux, s_ti, rtol=0.10, atol=1e-14)
+
+
+# --- Task 4: method="delta"/"flow" wiring + td_ve_cross_sections_all --------
+#
+# `td_ve_cross_section(method="delta"/"flow")` must reproduce building the
+# `Dirac`/`Flux` extractor directly (as `_propagate_pair`/`_propagate_all_
+# three` above already do) to machine precision -- it is the exact same
+# construction + `propagate` call, just wired behind the `method=` string.
+
+
+def test_delta_method_matches_direct_dirac_construction() -> None:
+    sigma_method = td_ve_cross_section(
+        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
+        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
+        method="delta", position=POSITION,
+    )
+
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+    dirac = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=N2.hamiltonian(TG),
+        extractors=[dirac],
+    )
+    dirac_free = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=_free_hamiltonian(N2, TG),
+        extractors=[dirac_free],
+    )
+    sigma_direct = dirac.sigma([0.10, 0.15], free=dirac_free)
+    np.testing.assert_allclose(sigma_method, sigma_direct, rtol=0, atol=0)
+
+
+def test_flow_method_matches_direct_flux_construction() -> None:
+    sigma_method = td_ve_cross_section(
+        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
+        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
+        method="flow", surface=POSITION,
+    )
+
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+    flux = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=N2.hamiltonian(TG),
+        extractors=[flux],
+    )
+    flux_free = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=_free_hamiltonian(N2, TG),
+        extractors=[flux_free],
+    )
+    sigma_direct = flux.sigma([0.10, 0.15], free=flux_free)
+    np.testing.assert_allclose(sigma_method, sigma_direct, rtol=0, atol=0)
+
+
+def test_cross_sections_all_matches_each_method_individually() -> None:
+    """`td_ve_cross_sections_all`'s ONE-propagation result must reproduce
+    calling `td_ve_cross_section` once per method (each its OWN, separately
+    propagated, trajectory) to machine precision -- the propagation is
+    deterministic, so driving three independent `Extractor`s from a shared
+    trajectory changes nothing about what each individually records."""
+    e = [0.10, 0.15]
+    sigma_all = td_ve_cross_sections_all(
+        TG, N2, EPS, CHI, V_INIT, VPRIMES, e,
+        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
+        position=POSITION, surface=POSITION,
+    )
+    assert set(sigma_all) == {"tw", "delta", "flow"}
+    for key, method in (("tw", "tw"), ("delta", "delta"), ("flow", "flow")):
+        kwargs = {"position": POSITION} if key == "delta" else {}
+        if key == "flow":
+            kwargs = {"surface": POSITION}
+        sigma_individual = td_ve_cross_section(
+            TG, N2, EPS, CHI, V_INIT, VPRIMES, e,
+            dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method=method, **kwargs,
+        )
+        assert sigma_all[key].shape == (2, len(VPRIMES))
+        np.testing.assert_allclose(sigma_all[key], sigma_individual, rtol=0, atol=0)

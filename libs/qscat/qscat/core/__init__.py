@@ -54,11 +54,15 @@ Public API:
   - `outgoing_surface_wave` -- the outgoing-Hankel-half VALUE *and* its
     spatial derivative at a single electronic coordinate (the flow/flux
     extractor's per-channel deconvolution pair).
-  - `Extractor`, `propagate`, `sigma_from_correlations`, `td_ve_cross_section`
-    -- the time-dependent Pade-propagation route to the same VE cross
-    section: `propagate` drives a LIST of `Extractor`s (recorder+transform
-    pairs) from one shared trajectory; `TannorWeeks` (below) is the current
-    one, wired in via `td_ve_cross_section(method="tw")` (the default).
+  - `Extractor`, `propagate`, `sigma_from_correlations`, `td_ve_cross_section`,
+    `td_ve_cross_sections_all` -- the time-dependent Pade-propagation route
+    to the same VE cross section: `propagate` drives a LIST of `Extractor`s
+    (recorder+transform pairs) from one shared trajectory;
+    `td_ve_cross_section(method="tw"|"delta"|"flow")` selects one extractor
+    (`TannorWeeks`/`Dirac`/`Flux`, below; `"tw"` is the default);
+    `td_ve_cross_sections_all` runs ONE propagation driving all three and
+    returns `{"tw":, "delta":, "flow":}` sigma(E) -- the honest, identical-
+    dynamics three-way comparison.
   - `TannorWeeks` -- the Tannor-Weeks `Extractor` (eta deconvolution +
     elastic free-reference subtraction).
   - `Dirac` -- the delta-distribution `Extractor` (eMoScat
@@ -93,7 +97,13 @@ from .grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_g
 from .lcp import lcp_da_cross_section, local_complex_potential
 from .plot import plot_cross_sections
 from .td_extractors import Dirac, Flux, TannorWeeks
-from .time_dependent import Extractor, propagate, sigma_from_correlations, td_ve_cross_section
+from .time_dependent import (
+    Extractor,
+    propagate,
+    sigma_from_correlations,
+    td_ve_cross_section,
+    td_ve_cross_sections_all,
+)
 from .vibrational import vibrational_states
 from .wavepacket import gaussian_coeffs, initial_state
 
@@ -122,6 +132,7 @@ __all__ = [
     "propagate",
     "sigma_from_correlations",
     "td_ve_cross_section",
+    "td_ve_cross_sections_all",
     "TannorWeeks",
     "Dirac",
     "Flux",

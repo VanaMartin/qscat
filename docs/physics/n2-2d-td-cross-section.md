@@ -390,3 +390,16 @@ measurements (the T-scan, the wavepacket-placement reasoning above) — none was
 after seeing a TI-oracle or Houfek comparison. The `F_out = Hankel/2` choice was settled by
 a five-order-of-magnitude structural discriminator (regular vs. Hankel), not by fitting to
 match a target ratio.
+
+## Sibling extractors: Dirac (delta) and Flux (flow)
+
+The Tannor-Weeks transform documented above is one of THREE energy-extraction routes
+eMoScat implements from the same propagated trajectory. A later sub-project
+(`td-alternative-extractors`) promotes the other two — `Dirac` (a fixed-point delta
+projection) and `Flux` (a fixed-surface Wronskian flux) — as siblings behind a shared
+`Extractor` protocol (`qscat.core.time_dependent.propagate(..., extractors=[...])`),
+selectable via `td_ve_cross_section(method="tw"|"delta"|"flow")`, plus
+`td_ve_cross_sections_all` (one shared propagation, all three sigma(E) at once — the
+honest three-way comparison). On N2 all three converge to the SAME TI oracle this document
+gates against, to ~3% at a converged grid. See `docs/physics/td-extractors.md` for the
+full architecture, formulas, and three-way validation.

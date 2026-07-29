@@ -88,8 +88,24 @@ libs/       qscat — the standard library: validated, reusable QM code
               engine, promoted from the N2 sub-projects. `driven.ve_cross_section`
               (exact TI driven Lippmann-Schwinger, `SparseLU.refactor` sweep,
               σ=π|S−δ|²/2E) and `time_dependent.td_ve_cross_section` (order-3
-              Padé propagation + Tannor-Weeks transform + elastic free-reference
-              subtraction) — both take a `model`. Also
+              Padé propagation + a `method`-selectable energy-extraction
+              transform + elastic free-reference subtraction) — both take a
+              `model`. `method="tw"` (default, Tannor-Weeks — a propagated
+              Gaussian test packet) is joined by two siblings sharing the SAME
+              propagate-once `Extractor` protocol (`td_extractors.py`):
+              `method="delta"` (`Dirac`, eMoScat `DiracTestFunction2d` — a
+              fixed-point line projection, needs `position`) and
+              `method="flow"` (`Flux`, eMoScat `FluxTestFunction2d` — a
+              fixed-surface Wronskian flux, needs `surface`; built on the new
+              `qscat.dvr.dvr_first_derivative_at_node` DVR-derivative-at-a-node
+              primitive). `td_ve_cross_sections_all` runs ONE shared propagation
+              driving all three and returns `{"tw":, "delta":, "flow":}` — the
+              honest, identical-dynamics three-way comparison. On N2, all three
+              converge to the same `driven.ve_cross_section` TI oracle to ~3%
+              at a converged grid (delta 0.971, flow 0.970 at E=0.10 Ha);
+              cross-method spread at an under-converged grid (~20-25%) is a
+              convergence diagnostic, not a disagreement — see
+              docs/physics/td-extractors.md. Also
               `dissociation.da_cross_section` (exact TI **dissociative
               attachment**: the same driven Ψ₊ solve projected onto the nuclear
               dissociation channel with the rearrangement interaction
