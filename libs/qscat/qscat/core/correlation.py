@@ -36,11 +36,11 @@ import numpy.typing as npt
 
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.linalg import c_product
-from qscat.special import riccati_bessel_en, riccati_hankel_en
+from qscat.special import coulomb_h1_en, riccati_bessel_en, riccati_hankel_en
 
 from .wavepacket import gaussian_coeffs
 
-__all__ = ["outgoing_channel", "eta_incident", "eta_outgoing"]
+__all__ = ["outgoing_channel", "eta_incident", "eta_outgoing", "hankel_point_value"]
 
 
 def outgoing_channel(
@@ -113,3 +113,34 @@ def eta_outgoing(
     g_coeff = gaussian_coeffs(grid, r0=r0_out, p0=p0_out, sigma=sigma_out)
     f_coeff = _outgoing_coeffs(grid, kp, l)
     return c_product(g_coeff, f_coeff)
+
+
+def hankel_point_value(
+    grid: FemDvrEcsGrid, z_position: float, k: float, l: int, charge: int = 0
+) -> complex:
+    """`H^{(1)}_{E,l}(z_position)/2` -- the outgoing-Hankel-half VALUE at a
+    single physical (real, unscaled) electronic coordinate, e.g.
+    `z_position = grid.real_points[position]` for some fixed DVR index
+    `position` (`Dirac`'s analysis point, `td_extractors.py`).
+
+    The scalar sibling of `_outgoing_coeffs`: same energy-normalized outgoing
+    function -- `riccati_hankel_en(z_position, k, l)/2` (neutral, `charge ==
+    0`) or `coulomb_h1_en(z_position, k, charge, 1.0, l)/2` (charged target,
+    mass 1 -- the SAME electronic-mass convention `_regular_coeffs`/
+    `_outgoing_coeffs`/`qscat.core.channels.channel_vector` use) -- but
+    evaluated at ONE point rather than converted to a `sqrt(w_r)`-scaled,
+    masked DVR coefficient VECTOR: a delta-distribution test function needs
+    the outgoing function's VALUE, not an integral against it. `grid` is
+    accepted (unused) to keep this call-compatible with `_regular_coeffs`/
+    `_outgoing_coeffs` and make "a value on THIS grid's real axis" explicit
+    at call sites.
+    """
+    del grid  # unused: kept for call-site symmetry with _regular_coeffs/_outgoing_coeffs
+    if charge == 0:
+        val = riccati_hankel_en(np.asarray(z_position, dtype=np.float64), k, l) / 2.0
+    else:
+        val = (
+            coulomb_h1_en(np.asarray(z_position, dtype=np.complex128), k, float(charge), 1.0, l)
+            / 2.0
+        )
+    return complex(np.asarray(val))

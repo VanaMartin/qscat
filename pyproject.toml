@@ -81,6 +81,9 @@ select = ["E", "F", "I", "UP", "B", "NPY"]
 "libs/qscat/tests/test_tuning_ecs.py" = ["E731", "E501"]
 # Same rationale (s = lambda R: ... transcribed verbatim from the brief).
 "libs/qscat/tests/test_tuning_resonance.py" = ["E731"]
+# `l` is the standard physics symbol for the orbital angular momentum quantum
+# number (see libs/qscat/qscat/core/correlation.py's own E741 ignore above).
+"libs/qscat/tests/test_correlation.py" = ["E741"]
 
 [tool.mypy]
 python_version = "3.12"

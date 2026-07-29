@@ -49,21 +49,25 @@ Public API:
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
   - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.
+  - `hankel_point_value` -- the outgoing-Hankel-half VALUE at a single
+    electronic coordinate (the delta extractor's deconvolution factor).
   - `Extractor`, `propagate`, `sigma_from_correlations`, `td_ve_cross_section`
     -- the time-dependent Pade-propagation route to the same VE cross
     section: `propagate` drives a LIST of `Extractor`s (recorder+transform
     pairs) from one shared trajectory; `TannorWeeks` (below) is the current
     one, wired in via `td_ve_cross_section(method="tw")` (the default).
   - `TannorWeeks` -- the Tannor-Weeks `Extractor` (eta deconvolution +
-    elastic free-reference subtraction); alternative extractors (delta,
-    flow) are pending sub-project tasks.
+    elastic free-reference subtraction).
+  - `Dirac` -- the delta-distribution `Extractor` (eMoScat
+    `DiracTestFunction2d`): TW with a delta test function instead of the
+    Gaussian test packet; a flow extractor is a pending sub-project task.
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
 """
 
 from __future__ import annotations
 
 from .channels import channel_vector
-from .correlation import eta_incident, eta_outgoing, outgoing_channel
+from .correlation import eta_incident, eta_outgoing, hankel_point_value, outgoing_channel
 from .dissociation import (
     anion_electronic_states,
     da_cross_section,
@@ -74,7 +78,7 @@ from .driven import ve_cross_section
 from .grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
 from .lcp import lcp_da_cross_section, local_complex_potential
 from .plot import plot_cross_sections
-from .td_extractors import TannorWeeks
+from .td_extractors import Dirac, TannorWeeks
 from .time_dependent import Extractor, propagate, sigma_from_correlations, td_ve_cross_section
 from .vibrational import vibrational_states
 from .wavepacket import gaussian_coeffs, initial_state
@@ -98,10 +102,12 @@ __all__ = [
     "outgoing_channel",
     "eta_incident",
     "eta_outgoing",
+    "hankel_point_value",
     "Extractor",
     "propagate",
     "sigma_from_correlations",
     "td_ve_cross_section",
     "TannorWeeks",
+    "Dirac",
     "plot_cross_sections",
 ]
