@@ -89,12 +89,12 @@ SURFACE = 128
 
 E_LIVE = 0.10  # the GATED C5/D1 anchor `(0.1, 1)` -- run live, within budget
 
-# Recorded from `libs/qscat/tests/test_td_extractors.py`'s @slow docstrings
-# (same grid/wavepacket, T=1000 propagation): sigma_delta/sigma_ti = 0.971,
-# sigma_flow/sigma_ti = 1.007 wasn't measured together with TW in one
-# propagation there (those tests only drove ONE extractor at a time) -- this
-# module's own `compute_live_result` is what actually exercises the combined
-# ONE-propagation three-way path at E=0.10; E=0.15 is cited here, not re-run.
+# Recorded E=0.15 ratios from `libs/qscat/tests/test_td_extractors.py`'s @slow
+# docstrings (same grid/wavepacket, T=1000 propagation): sigma_delta/sigma_ti =
+# 1.009, sigma_flow/sigma_ti = 1.007. Those tests drove ONE extractor at a time,
+# not the combined three-way path -- this module's own `compute_live_result` is
+# what exercises the ONE-propagation three-way path (run live at E=0.10);
+# E=0.15 is cited here from those single-extractor runs, not re-run.
 _RECORDED_E15_DELTA_RATIO = 1.009
 _RECORDED_E15_FLOW_RATIO = 1.007
 _RECORDED_SOURCE = (
