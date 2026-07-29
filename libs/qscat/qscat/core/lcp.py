@@ -60,11 +60,67 @@ from .dissociation import anion_electronic_states
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["local_complex_potential", "lcp_da_cross_section"]
+__all__ = ["local_complex_potential", "lcp_da_cross_section", "resonance_pole_walk"]
 
 
 def _h_el(model: ResonanceModel, R: complex, g: FemDvrEcsGrid) -> npt.NDArray[np.complex128]:
     return kinetic(g, 1.0) + np.diag(model.surface(g.points, R))
+
+
+def resonance_pole_walk(
+    model: ResonanceModel,
+    R_descending: npt.NDArray[np.float64],
+    elec_grid_a: FemDvrEcsGrid,
+    elec_grid_b: FemDvrEcsGrid,
+    seed_window: tuple[float, float, float, float],
+    *,
+    re_half_width: float = 0.05,
+    im_half_width: float = 0.05,
+    resid_tol: float = 1e-3,
+) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
+    """Continuation walk of the resonance pole over descending real `R`.
+
+    Returns `(shift, gamma)` aligned with `R_descending`, where
+    `shift[j] = Re(E_pole(R_j)) - v0(R_j)` and `gamma[j] = max(0, -2
+    Im(E_pole(R_j)))`. The pole finder (`qscat.ecs.find_resonance_pole`) is
+    seeded from `seed_window` at the FIRST (outermost) `R` and recentered on
+    each accepted pole; on breakdown (residual `>= resid_tol` or a solver
+    error) the LAST accepted `(shift, gamma)` is FROZEN for all remaining
+    (inner) `R`. The freeze holds the electronic SHIFT `s = V_d - v0(R)`
+    constant, not the absolute pole. Raises `RuntimeError` if the finder
+    fails already at the seed edge (no accepted pole to freeze).
+    """
+    window = seed_window
+    shift = np.empty(R_descending.size, dtype=np.float64)  # s = V_d - v0(R)
+    gamma_w = np.empty(R_descending.size, dtype=np.float64)
+    last_s: float | None = None
+    last_g = 0.0
+    broken = False
+    for j in range(R_descending.size):
+        R = float(R_descending[j])
+        if not broken:
+            try:
+                E_pole, resid = find_resonance_pole(
+                    eigen(_h_el(model, R, elec_grid_a))[0],
+                    eigen(_h_el(model, R, elec_grid_b))[0],
+                    window,
+                )
+            except (ValueError, np.linalg.LinAlgError):
+                resid = np.inf
+            else:
+                if resid < resid_tol:
+                    v0R = float(np.real(model.v0(np.asarray(R))))
+                    last_s = E_pole.real - v0R
+                    last_g = max(0.0, -2.0 * E_pole.imag)
+                    window = (E_pole.real - re_half_width, E_pole.real + re_half_width,
+                              E_pole.imag - im_half_width, E_pole.imag + im_half_width)
+                    shift[j], gamma_w[j] = last_s, last_g
+                    continue
+            broken = True
+        if last_s is None:
+            raise RuntimeError("resonance_pole_walk: pole finder failed at the seed edge")
+        shift[j], gamma_w[j] = last_s, last_g
+    return shift, gamma_w
 
 
 def local_complex_potential(
@@ -88,7 +144,9 @@ def local_complex_potential(
     """
     R_inf = nuclear_grid.R0
     eps_e, _ = anion_electronic_states(elec_grid_a, model, R_inf, 1)
-    window = (eps_e[0] - re_half_width, eps_e[0] + re_half_width, -im_half_width, im_half_width)
+    seed_window = (
+        eps_e[0] - re_half_width, eps_e[0] + re_half_width, -im_half_width, im_half_width,
+    )
 
     pts = nuclear_grid.points
     real_idx = np.flatnonzero(pts.imag == 0.0)
@@ -96,35 +154,10 @@ def local_complex_potential(
     walk = real_idx[order]
     R_real = pts[walk].real
 
-    shift = np.empty(walk.size, dtype=np.float64)          # s = V_d - v0(R)
-    gamma_w = np.empty(walk.size, dtype=np.float64)
-    last_s: float | None = None
-    last_g = 0.0
-    broken = False
-    for j in range(walk.size):
-        R = float(R_real[j])
-        if not broken:
-            try:
-                E_pole, resid = find_resonance_pole(
-                    eigen(_h_el(model, R, elec_grid_a))[0],
-                    eigen(_h_el(model, R, elec_grid_b))[0],
-                    window,
-                )
-            except (ValueError, np.linalg.LinAlgError):
-                resid = np.inf
-            else:
-                if resid < resid_tol:
-                    v0R = float(np.real(model.v0(np.asarray(R))))
-                    last_s = E_pole.real - v0R
-                    last_g = max(0.0, -2.0 * E_pole.imag)
-                    window = (E_pole.real - re_half_width, E_pole.real + re_half_width,
-                              E_pole.imag - im_half_width, E_pole.imag + im_half_width)
-                    shift[j], gamma_w[j] = last_s, last_g
-                    continue
-            broken = True
-        if last_s is None:
-            raise RuntimeError("local_complex_potential: pole finder failed at the seed edge")
-        shift[j], gamma_w[j] = last_s, last_g
+    shift, gamma_w = resonance_pole_walk(
+        model, R_real, elec_grid_a, elec_grid_b, seed_window,
+        re_half_width=re_half_width, im_half_width=im_half_width, resid_tol=resid_tol,
+    )
 
     Vd = np.empty(nuclear_grid.n, dtype=np.complex128)
     Gamma = np.zeros(nuclear_grid.n, dtype=np.float64)
@@ -133,7 +166,6 @@ def local_complex_potential(
 
     tail = np.flatnonzero(pts.imag != 0.0)
     if tail.size:
-        assert last_s is not None
         s_asym = shift[0]                                  # shift at the largest real R
         Vd[tail] = model.v0(pts[tail]) + s_asym
     return Vd, Gamma

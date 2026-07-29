@@ -27,11 +27,13 @@ from typing import TYPE_CHECKING, Literal
 import numpy as np
 import numpy.typing as npt
 
+from qscat.core.grids import electronic_grid
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
 
 from .analyze import analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
-from .mesh import optimal_real_mesh
+from .mesh import optimal_real_mesh, order_for_wavenumber, refine_elements_in_window
+from .resonance import interaction_region, resonance_curve
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -69,6 +71,52 @@ _NUCLEAR_MAX_LEN = 2.0
 _ELECTRONIC_MIN_LEN = 0.05
 _ELECTRONIC_MAX_LEN = 3.0
 
+# Real-region extent (bohr) for the RESONANT (`channel="dissociation"`)
+# nuclear path -- overrides `_NUCLEAR_X_MAX_DEFAULT` for that path only. The
+# resonant mesh's ECS tail absorbs the outgoing dissociation wave, so the
+# real region need only host it a few de Broglie wavelengths past the
+# interaction region, not the blunt VE-path default (18 bohr) sized for a
+# bound-state-like vibrational problem. 10.5 bohr ~ the eMoScat F2 DA deck's
+# own real-region extent (~10.7 bohr) -- verified to keep F2 sigma_DA 2-D-
+# converged (1.656 at E=0.03) while bringing the grid to deck-parity (n=1000
+# vs the ~974-pt deck). A per-molecule derivation from the potential profile
+# (where v0/V_d flatten + an outgoing-wave margin) is the documented follow-on
+# -- 10.5 is an F2-anchored default; a longer-range channel may need more (an
+# `incident`/extent override still applies). See docs/physics/
+# discretisation-tuning.md.
+_RESONANT_NUCLEAR_X_MAX_DEFAULT = 10.5
+
+# Points-per-wavelength target for `order_for_wavenumber` when sizing the
+# resonant path's DVR order against the exit-wave wavenumber `K_exit` -- see
+# `qscat.tuning.mesh.order_for_wavenumber`'s docstring for what this counts.
+_EXIT_TARGET_PPW = 6.0
+
+# Target element length (bohr) the resonance-crossing window is super-
+# refined to -- overrides `_NUCLEAR_MIN_LEN` LOCALLY inside that window
+# (`qscat.tuning.mesh.refine_elements_in_window`); this is the sub-0.1-bohr
+# spacing the eMoScat F2 deck hand-places around its own R~2.5-2.7 bohr
+# interaction feature (see docs/physics/discretisation-tuning.md's 2-D
+# spot-check finding).
+_CROSSING_TARGET_LEN = 0.03
+
+# Half-width (bohr) of the crossing super-refinement window, clamped from
+# the Gamma-closing width computed around the crossing -- a floor so a
+# vanishingly narrow closing width still refines a physically sane region,
+# and a ceiling so a contaminated (frozen-plateau) closing-width estimate
+# cannot blow the window out to the whole domain.
+_CROSSING_DELTA_MIN = 0.15
+# Ceiling on the crossing half-width. The Gamma-closing-width estimate is
+# contaminated by the frozen-plateau artifact (Gamma held constant across the
+# inner range where the pole finder broke down), which would otherwise push
+# the window out to ~0.6 bohr and over-refine. The genuine crossing feature
+# is narrow (the eMoScat deck super-refines only ~[2.5,2.7], a ~0.1-bohr
+# half-width); cap here so the contaminated estimate cannot bloat the grid.
+_CROSSING_DELTA_MAX = 0.18
+
+# Fraction of the peak (region-restricted) Gamma a point must clear to count
+# as part of the "Gamma-significant" closing region bracketing the crossing.
+_GAMMA_SIGNIFICANT_FRAC = 0.1
+
 # How far out (bohr) `max_stable_angle` probes the rotated tail for growth --
 # generous enough to catch a diverging continuation before the actual tail
 # length (from `tune_ecs_tail`) is known; a fixed, molecule-independent
@@ -76,6 +124,18 @@ _ELECTRONIC_MAX_LEN = 3.0
 _ANGLE_PROBE_TAIL_EXTENT = 40.0
 
 PotentialFn = Callable[[npt.ArrayLike], npt.NDArray[np.complexfloating]]
+
+# Default two-angle electronic grids for the resonance-pole match
+# (`qscat.tuning.resonance.resonance_curve`) driving the resonant nuclear
+# path (`channel="dissociation"`) -- two different ECS rotation angles are
+# needed so `find_resonance_pole` can triangulate the pole across them.
+# Overridable via `propose_grid`'s `elec_grids` so tests can inject small
+# grids instead of paying for these full-size eigensolves.
+_RESONANCE_ELEC_R_MAX = 16.0
+_RESONANCE_ELEC_ORDER = 7
+_RESONANCE_ELEC_N_COMPLEX = 6
+_RESONANCE_ELEC_ANGLE_A = 35.0
+_RESONANCE_ELEC_ANGLE_B = 44.0
 
 
 @dataclass(frozen=True)
@@ -155,6 +215,141 @@ def _electronic_adapter(model: ResonanceModel, e_max: float) -> _CoordinateSpec:
     )
 
 
+def _outermost_crossing(R: npt.NDArray[np.float64], diff: npt.NDArray[np.float64]) -> float:
+    """The largest-`R` (interpolated) zero of `diff(R)`, or `R[argmin(diff)]`
+    if `diff` never changes sign -- the resonance-crossing localizer (`R* =`
+    where `Re(V_d(R))` crosses `v0(R)`; see `_resonant_nuclear_mesh`).
+    """
+    sign = np.sign(diff)
+    crossings = np.nonzero(np.diff(sign))[0]
+    if crossings.size == 0:
+        return float(R[int(np.argmin(diff))])
+    i = int(crossings[-1])  # outermost: R ascending, so the LAST crossing
+    x0, x1 = R[i], R[i + 1]
+    f0, f1 = diff[i], diff[i + 1]
+    if f1 == f0:
+        return float(x0)
+    t = -f0 / (f1 - f0)
+    return float(x0 + t * (x1 - x0))
+
+
+def _crossing_half_width(
+    model: ResonanceModel, R: npt.NDArray[np.float64], Gamma: npt.NDArray[np.float64], r_star: float
+) -> float:
+    """Half-width `delta` of the `Gamma`-closing region bracketing `r_star`,
+    clamped to `[_CROSSING_DELTA_MIN, _CROSSING_DELTA_MAX]`.
+
+    Restricts to `R >= R_lo` (`interaction_region`) to exclude the walk's
+    frozen inner plateau (see `resonance_curve`/`resonance_pole_walk`'s
+    docstrings: on breakdown the LAST accepted `Gamma` freezes for all
+    remaining -- smaller -- `R`, an artifact, not physics), then takes the
+    `R`-span where `Gamma` clears `_GAMMA_SIGNIFICANT_FRAC` of its
+    (region-restricted) peak.
+    """
+    R_lo, _R_hi = interaction_region(model)
+    mask = R >= R_lo
+    if not np.any(mask):
+        return _CROSSING_DELTA_MIN
+    gamma_peak = float(np.max(Gamma[mask]))
+    if gamma_peak <= 0.0:
+        return _CROSSING_DELTA_MIN
+    sig_R = R[mask & (Gamma >= _GAMMA_SIGNIFICANT_FRAC * gamma_peak)]
+    if sig_R.size == 0:
+        return _CROSSING_DELTA_MIN
+    delta = max(r_star - float(np.min(sig_R)), float(np.max(sig_R)) - r_star)
+    return float(np.clip(delta, _CROSSING_DELTA_MIN, _CROSSING_DELTA_MAX))
+
+
+def _resonant_nuclear_mesh(
+    model: ResonanceModel,
+    spec: _CoordinateSpec,
+    x_max: float,
+    e_max: float,
+    e_max_mesh: float,
+    elec_grids: tuple[FemDvrEcsGrid, FemDvrEcsGrid] | None,
+    resonance_n_dense: int,
+    phase_coeff: float | None,
+) -> tuple[list[float], int, float]:
+    """The `channel="dissociation"` real-region mesh: `(real_lengths, order,
+    channel_k)`.
+
+    Builds the adiabatic resonance curve `(R, V_d(R), Gamma(R))`
+    (`resonance_curve`; the (expensive) two-angle pole match -- callers
+    needing this cheap may inject small `elec_grids`, as `propose_grid`
+    does), then:
+
+    1. **Exit wave**: `K_exit = sqrt(2*mass*max(e_max - V_d_asym, e_max))`,
+       `V_d_asym` the asymptotic `Re(V_d)` at the largest sampled `R` -- the
+       fast outgoing dissociation wavenumber the ECS tail must absorb
+       (`channel_k`, returned). The DVR `order` is sized to resolve THIS
+       wave at the base `min_len` via `order_for_wavenumber`, not swept for
+       point-count as the ve path does.
+    2. **Base mesh**: `v0`-alone (`analyze_potential` + `optimal_real_mesh`
+       restricted to the single chosen `order`).
+    3. **Crossing**: `R* =` the outermost `Re(V_d) - v0` sign change
+       (`_outermost_crossing`); `delta` the Gamma-closing half-width
+       (`_crossing_half_width`). `[R* - delta, R* + delta]` is super-refined
+       to `_CROSSING_TARGET_LEN` via `refine_elements_in_window` -- this
+       LOCALLY overrides `min_len`, which is the point (see module
+       docstring / the design note this supersedes: a floored `min_len` is
+       exactly why the prior worst-case-`k`-merge design was inert).
+    """
+    if elec_grids is None:
+        ga = electronic_grid(
+            r_max=_RESONANCE_ELEC_R_MAX,
+            order=_RESONANCE_ELEC_ORDER,
+            n_complex=_RESONANCE_ELEC_N_COMPLEX,
+            angle_deg=_RESONANCE_ELEC_ANGLE_A,
+        )
+        gb = electronic_grid(
+            r_max=_RESONANCE_ELEC_R_MAX,
+            order=_RESONANCE_ELEC_ORDER,
+            n_complex=_RESONANCE_ELEC_N_COMPLEX,
+            angle_deg=_RESONANCE_ELEC_ANGLE_B,
+        )
+    else:
+        ga, gb = elec_grids
+
+    R, Vd, Gamma = resonance_curve(model, ga, gb, R_max=x_max, n_dense=resonance_n_dense)
+    Vd_real = np.real(Vd)
+
+    vd_asym = float(Vd_real[-1])  # R ascending -> the largest sampled R
+    channel_k = math.sqrt(2.0 * spec.mass * max(e_max - vd_asym, e_max))
+    order = order_for_wavenumber(channel_k, spec.min_len, target_ppw=_EXIT_TARGET_PPW)
+
+    # Exit-region element floor: the COARSEST element that still resolves the
+    # fast exit wave `channel_k` at `target_ppw` points per wavelength for the
+    # chosen `order` (`order * lambda / ppw`, lambda = 2*pi/channel_k). Since
+    # `order` is picked high enough to resolve the exit wave, the base
+    # `spec.min_len` (0.15) OVER-resolves it -- floor at this coarser length
+    # instead (the eMoScat deck's ~0.2-bohr exit elements at q=14), then let
+    # the crossing window super-refine locally below it. This is the size
+    # lever that keeps the resonant grid competitive with the hand deck.
+    exit_min_len = max(spec.min_len, order * (2.0 * math.pi / channel_k) / _EXIT_TARGET_PPW)
+
+    profile_v0 = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
+    real_lengths, order = (
+        optimal_real_mesh(profile_v0, orders=(order,), min_len=exit_min_len, max_len=spec.max_len)
+        if phase_coeff is None
+        else optimal_real_mesh(
+            profile_v0,
+            orders=(order,),
+            phase_coeff=phase_coeff,
+            min_len=exit_min_len,
+            max_len=spec.max_len,
+        )
+    )
+
+    v0_at_R = np.real(np.asarray(spec.V(R), dtype=np.complex128))
+    r_star = _outermost_crossing(R, Vd_real - v0_at_R)
+    delta = _crossing_half_width(model, R, Gamma, r_star)
+    real_lengths = refine_elements_in_window(
+        real_lengths, spec.x_min, r_star - delta, r_star + delta, _CROSSING_TARGET_LEN
+    )
+
+    return real_lengths, order, channel_k
+
+
 def propose_grid(
     model: ResonanceModel,
     coordinate: Coordinate,
@@ -163,6 +358,9 @@ def propose_grid(
     rtol: float = 1e-3,
     incident: object | None = None,
     phase_coeff: float | None = None,
+    channel: str = "ve",
+    elec_grids: tuple[FemDvrEcsGrid, FemDvrEcsGrid] | None = None,
+    resonance_n_dense: int = 25,
 ) -> FemDvrEcsGrid:
     """The one-shot a-priori `FemDvrEcsGrid` for `model`/`coordinate` over
     `energy_range = (E_min, E_max)`.
@@ -213,8 +411,43 @@ def propose_grid(
     see `qscat.tuning.incident`'s docstring for the reconciliation. The
     placement logic itself (impulse/width/observation boundary,
     `tw_analysis`) lives there; this is only the extent/resolution floor.
+
+    `channel` selects which physical channel the mesh targets:
+
+    - `"ve"` (the default): the VE (vibrational-excitation) path, v0-alone,
+      exactly as before this parameter existed -- BYTE-IDENTICAL to the
+      pre-`channel` behavior; nothing below reads `elec_grids` or
+      `resonance_n_dense` on this path.
+    - `"dissociation"`, `coordinate="nuclear"` only: the resonance-aware
+      nuclear path (see `_resonant_nuclear_mesh`). Builds the adiabatic
+      resonance curve `(R, V_d(R), Gamma(R))`
+      (`qscat.tuning.resonance.resonance_curve`, via a two-angle ECS pole
+      match -- `elec_grids`, if given, overrides the default electronic
+      grids used for that match, and `resonance_n_dense` overrides its
+      dense-sampling point count; both exist so tests can inject
+      small/cheap grids). A REDUCED real-region extent
+      (`_RESONANT_NUCLEAR_X_MAX_DEFAULT`, not the VE path's
+      `_NUCLEAR_X_MAX_DEFAULT`) is used, since the ECS tail absorbs the
+      outgoing wave. The DVR order is sized (`order_for_wavenumber`) to
+      resolve the fast dissociation EXIT wave `K_exit` at the base
+      `min_len`, and that same `K_exit` (not `spec.channel_k`) drives the
+      ECS tail. The narrow resonance CROSSING `R*` (the outermost
+      `Re(V_d) - v0` sign change) is then LOCALLY super-refined
+      (`refine_elements_in_window`, overriding `min_len` only inside a
+      Gamma-closing-width window around `R*`) -- replacing the prior
+      worst-case-`k`-merge design (`qscat.tuning.mesh.combined_profile`,
+      now removed), which was inert: the merge's finer elements were
+      floored right back up by the shared global `min_len`.
+      `"dissociation"` with `coordinate="electronic"` raises `ValueError`
+      (this resonant path is nuclear-only in this sub-project).
+    - any other value raises `ValueError`.
     """
     del rtol  # interface parity with the probe/refine loop; unused here
+
+    if channel not in ("ve", "dissociation"):
+        raise ValueError(f"channel must be 've' or 'dissociation', got {channel!r}")
+    if channel == "dissociation" and coordinate != "nuclear":
+        raise ValueError(f"channel='dissociation' is nuclear-only, got coordinate={coordinate!r}")
 
     e_min, e_max = energy_range
     if e_max <= e_min:
@@ -223,7 +456,12 @@ def propose_grid(
     adapter = _nuclear_adapter if coordinate == "nuclear" else _electronic_adapter
     spec = adapter(model, e_max)
 
-    x_max = spec.x_max
+    # The resonant path uses a REDUCED default extent (the ECS tail absorbs
+    # the exit wave, so the real region need only host it a few wavelengths
+    # past the interaction region) -- not `spec.x_max` (the VE-path default,
+    # sized for a bound-state-like vibrational problem). `incident`, if
+    # given, may still widen either default below.
+    x_max = _RESONANT_NUCLEAR_X_MAX_DEFAULT if channel == "dissociation" else spec.x_max
     e_max_mesh = e_max
     if incident is not None:
         required_extent = getattr(incident, "required_extent", lambda: 0.0)()
@@ -231,18 +469,24 @@ def propose_grid(
         incident_energy = getattr(incident, "incident_energy", lambda: 0.0)()
         e_max_mesh = max(e_max_mesh, float(incident_energy))
 
-    profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
-    real_lengths, order = (
-        optimal_real_mesh(profile, min_len=spec.min_len, max_len=spec.max_len)
-        if phase_coeff is None
-        else optimal_real_mesh(
-            profile, phase_coeff=phase_coeff, min_len=spec.min_len, max_len=spec.max_len
+    if channel == "dissociation":
+        real_lengths, order, channel_k = _resonant_nuclear_mesh(
+            model, spec, x_max, e_max, e_max_mesh, elec_grids, resonance_n_dense, phase_coeff
         )
-    )
+    else:
+        profile = analyze_potential(spec.V, spec.x_min, x_max, spec.mass, e_max_mesh)
+        real_lengths, order = (
+            optimal_real_mesh(profile, min_len=spec.min_len, max_len=spec.max_len)
+            if phase_coeff is None
+            else optimal_real_mesh(
+                profile, phase_coeff=phase_coeff, min_len=spec.min_len, max_len=spec.max_len
+            )
+        )
+        channel_k = spec.channel_k
 
     R0 = spec.x_min + sum(real_lengths)
     angle = max_stable_angle(spec.V, R0, _ANGLE_PROBE_TAIL_EXTENT)
-    tail_lengths = tune_ecs_tail(spec.channel_k, R0, angle=angle, order=order)
+    tail_lengths = tune_ecs_tail(channel_k, R0, angle=angle, order=order)
 
     elements = [ElementSpec(h) for h in real_lengths] + [
         ElementSpec(h, angle) for h in tail_lengths

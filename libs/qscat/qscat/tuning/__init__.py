@@ -13,6 +13,14 @@ Public API:
     singularities).
   - `optimal_real_mesh` -- h/p sweep over DVR orders, returning the
     `(mesh, order)` combination with the fewest DVR points.
+  - `order_for_wavenumber` -- the smallest DVR order (from a fixed
+    candidate set) resolving a given wavenumber at a fixed element length,
+    in points-per-wavelength -- see `qscat.tuning.mesh`.
+  - `refine_elements_in_window` -- span-preservingly subdivide every real
+    element overlapping an `[R_lo, R_hi]` window until each piece is below a
+    target length; elements outside the window are untouched -- the LOCAL,
+    `min_len`-overriding refinement the resonance-aware nuclear mesh uses to
+    super-refine a narrow resonance crossing -- see `qscat.tuning.mesh`.
   - `max_stable_angle` -- the largest ECS rotation angle (capped at the
     double-ECS bound, ~35 deg) for which a potential `V` stays bounded on
     the rotated tail contour.
@@ -37,6 +45,19 @@ Public API:
     test-function placement: the TD Gaussian-wavepacket spec, the real-
     region extent it forces, and the (best-effort) Tannor-Weeks auto-tune
     that places it for a target energy range -- see `qscat.tuning.incident`.
+  - `interaction_region` -- the R-window where the electron-molecule
+    interaction `V_int(r, R)` is non-negligible, from `model.v_int` alone
+    -- see `qscat.tuning.resonance`.
+  - `resonance_curve` -- the efficient adiabatic resonance-curve sampler
+    `(R, V_d(R), Gamma(R))`: dense inside `interaction_region`, a single far
+    point at the asymptote -- see `qscat.tuning.resonance`.
+  - `refine_to_2d_convergence` -- the general, model-agnostic 2-D-convergence
+    FALLBACK: given any scalar observable closing over a real cross-section
+    (or a synthetic test function), iteratively `refine`s whichever of the
+    electronic/nuclear grids moves the observable more, until the larger
+    relative move is under `rtol` or `max_iter` adopted steps is hit -- the
+    step-6 spot-check's supervised loop, generalized -- see
+    `qscat.tuning.refine2d`.
 """
 
 from __future__ import annotations
@@ -44,7 +65,12 @@ from __future__ import annotations
 from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
 from .incident import IncidentSpec, required_extent, tw_analysis
-from .mesh import equidistribution_elements, optimal_real_mesh
+from .mesh import (
+    equidistribution_elements,
+    optimal_real_mesh,
+    order_for_wavenumber,
+    refine_elements_in_window,
+)
 from .metrics import grid_cost, tensor_cost
 from .probes import (
     ProbeResult,
@@ -54,6 +80,8 @@ from .probes import (
     refine,
 )
 from .propose import propose_grid
+from .refine2d import refine_to_2d_convergence
+from .resonance import interaction_region, resonance_curve
 
 __all__ = [
     "IncidentSpec",
@@ -62,14 +90,19 @@ __all__ = [
     "analyze_potential",
     "equidistribution_elements",
     "grid_cost",
+    "interaction_region",
     "max_stable_angle",
     "optimal_real_mesh",
+    "order_for_wavenumber",
     "probe_channel_representation",
     "probe_electronic",
     "probe_nuclear",
     "propose_grid",
     "refine",
+    "refine_elements_in_window",
+    "refine_to_2d_convergence",
     "required_extent",
+    "resonance_curve",
     "tensor_cost",
     "tune_ecs_tail",
     "tw_analysis",

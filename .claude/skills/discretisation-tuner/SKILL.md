@@ -40,6 +40,7 @@ from qscat.tuning import (
     refine, probe_nuclear, probe_electronic, probe_channel_representation,  # convergence probes
     grid_cost, tensor_cost, propose_grid,       # cost model + one-shot a-priori grid
     IncidentSpec, required_extent, tw_analysis,  # incident/test-function placement
+    refine_to_2d_convergence,                   # general iterative 2-D-convergence fallback
 )
 ```
 
@@ -63,6 +64,14 @@ Create a todo per step.
 
 3. **Propose the a-priori grid, per coordinate.** For each of `"nuclear"` and `"electronic"`:
    `g = propose_grid(model, coordinate, energy_range, rtol=rtol, incident=incident)`.
+   **For a DA/DR (dissociation) observable, propose the NUCLEAR grid with
+   `channel="dissociation"`** — the resonance-aware path that sizes the DVR order to the fast
+   exit wave `K_exit`, super-refines the anion/neutral crossing `R*` (`Re(V_d)−v0` sign-change),
+   and trims the extent. This is what makes the a-priori nuclear grid 2-D-CONVERGE for σ_DA on
+   the first pass (it closes "finding #3" — the plain `v0`-only nuclear grid under-resolves the
+   crossing and gives σ_DA ~5× too low; see `docs/physics/discretisation-tuning.md`). VE keeps
+   the default `channel="ve"`. It does a per-R resonance scan (two electronic diagonalizations
+   per sample), so it is not free — pass small `elec_grids`/`resonance_n_dense` for a quick look.
 
 4. **Probe convergence at the EXTREMES.** The finest requirement is at `E_max`; the longest wave /
    largest extent is near-threshold `E_min`. At each extreme:
@@ -90,7 +99,15 @@ Create a todo per step.
 6. **Final 2-D spot-check.** Build `TensorGrid([g_r, g_R])` and run the ACTUAL observable
    (`ve_cross_section` / `da_cross_section` / `dr_cross_section`) at the HARDEST energy, and confirm
    it agrees with a once-refined grid to `rtol`. For a non-laptop deck (H₂⁺-scale), run this on a
-   reduced proxy or under Docker/MUMPS and SAY SO — do not silently skip it.
+   reduced proxy or under Docker/MUMPS and SAY SO — do not silently skip it. Instead of a single
+   manual once-refined comparison, you may call the general fallback directly: define `observable`
+   as a closure over the real cross-section at that hardest energy (`observable(g_r, g_R) ->
+   float`) and call `refine_to_2d_convergence(observable, g_r, g_R, rtol=..., max_iter=...)` — it
+   iterates, adopting whichever coordinate (nuclear or electronic) moves the observable more, until
+   both relative moves are under `rtol` or `max_iter` is hit. If `detail["iterations"]` is
+   non-empty, the a-priori grid from step 3 was under-resolved in 2-D even though it may have
+   passed every 1-D probe (exactly the F2 DA finding above) — report the converged grid pair
+   in place of the original, plus the cost delta (`grid_cost`/`tensor_cost` before vs after).
 
 7. **Emit the config + report.** Output the per-coordinate grid (the `ElementSpec` lists / the built
    `FemDvrEcsGrid`, expressible as a committed deck) and a report:

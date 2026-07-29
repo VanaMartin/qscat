@@ -7,9 +7,18 @@ integral of k dx` over the element. In classically forbidden stretches (`k ~
 instead capped by the local `kappa`-decay length. `optimal_real_mesh` sweeps
 a handful of DVR orders and picks the `(mesh, order)` combination that gives
 the fewest total DVR points for a given target accuracy -- the h/p optimum.
+
+`order_for_wavenumber` and `refine_elements_in_window` are the two levers
+the resonance-aware nuclear mesh (`qscat.tuning.propose`,
+`channel="dissociation"`) uses instead of a worst-case profile merge: a
+fixed high DVR order sized to resolve the fast dissociation exit wave, plus
+a LOCAL super-refinement of the narrow resonance-crossing region (overriding
+`min_len` only there) -- see docs/physics/discretisation-tuning.md.
 """
 
 from __future__ import annotations
+
+import math
 
 import numpy as np
 from numpy.typing import NDArray
@@ -147,6 +156,74 @@ def optimal_real_mesh(
 
     assert best_mesh is not None
     return best_mesh, best_order
+
+
+def order_for_wavenumber(
+    k: float,
+    element_len: float,
+    *,
+    target_ppw: float = 6.0,
+    orders: tuple[int, ...] = (6, 8, 10, 14),
+) -> int:
+    """Smallest DVR `order` in `orders` resolving wavenumber `k` at a fixed
+    real element length `element_len`, in points-per-wavelength.
+
+    Points-per-wavelength at a given `order` is `order * (2*pi/k) /
+    element_len` -- `order` DVR points span each element, and `2*pi/k` is
+    the de Broglie wavelength of the wave being resolved. Returns the
+    smallest `order` (searched in the given, ascending order) with
+    `ppw >= target_ppw`; falls back to `max(orders)` if none qualifies (a
+    caller asking to resolve an implausibly fast wave at a fixed element
+    length still gets the best available order rather than an exception).
+
+    `k <= 0` (no wave to resolve) returns `orders[0]` -- the cheapest order,
+    since there is nothing to resolve.
+    """
+    if k <= 0.0:
+        return orders[0]
+    wavelength = 2.0 * math.pi / k
+    for order in orders:
+        ppw = order * wavelength / element_len
+        if ppw >= target_ppw:
+            return order
+    return max(orders)
+
+
+def refine_elements_in_window(
+    real_lengths: list[float],
+    x_min: float,
+    R_lo: float,
+    R_hi: float,
+    target_len: float,
+) -> list[float]:
+    """Span-preservingly subdivide every real element overlapping `[R_lo,
+    R_hi]` until each piece is `<= target_len`; elements entirely outside
+    the window are returned untouched.
+
+    This is a LOCAL override of `min_len` -- unlike `optimal_real_mesh`'s
+    global equidistribution sweep, this targets one narrow feature (e.g. the
+    resonance-crossing region a resonant nuclear mesh must super-refine)
+    without perturbing element lengths anywhere else. An element only
+    counts as "overlapping" if it shares more than a single boundary point
+    with `[R_lo, R_hi]` (`hi > R_lo and lo < R_hi`), so a neighbor that
+    merely touches the window at one endpoint is left alone. Every input
+    length is either kept whole or subdivided into equal pieces, so
+    `sum(result) == sum(real_lengths)` exactly (up to float round-off) --
+    nothing outside the window is coarsened, and nothing inside it is left
+    above `target_len`.
+    """
+    lengths = np.asarray(real_lengths, dtype=np.float64)
+    boundaries = np.concatenate([[float(x_min)], float(x_min) + np.cumsum(lengths)])
+
+    out: list[float] = []
+    for lo, hi, length in zip(boundaries[:-1], boundaries[1:], lengths, strict=True):
+        overlaps = hi > R_lo and lo < R_hi
+        if overlaps and length > target_len:
+            n_sub = max(int(np.ceil(length / target_len)), 1)
+            out.extend([float(length) / n_sub] * n_sub)
+        else:
+            out.append(float(length))
+    return out
 
 
 def _clamp_lengths_span_preserving(
