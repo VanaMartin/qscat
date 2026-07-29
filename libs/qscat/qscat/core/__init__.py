@@ -49,8 +49,14 @@ Public API:
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
   - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.
-  - `propagate`, `sigma_from_correlations`, `td_ve_cross_section` -- the
-    time-dependent Pade-propagation route to the same VE cross section.
+  - `Extractor`, `propagate`, `sigma_from_correlations`, `td_ve_cross_section`
+    -- the time-dependent Pade-propagation route to the same VE cross
+    section: `propagate` drives a LIST of `Extractor`s (recorder+transform
+    pairs) from one shared trajectory; `TannorWeeks` (below) is the current
+    one, wired in via `td_ve_cross_section(method="tw")` (the default).
+  - `TannorWeeks` -- the Tannor-Weeks `Extractor` (eta deconvolution +
+    elastic free-reference subtraction); alternative extractors (delta,
+    flow) are pending sub-project tasks.
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
 """
 
@@ -68,7 +74,8 @@ from .driven import ve_cross_section
 from .grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
 from .lcp import lcp_da_cross_section, local_complex_potential
 from .plot import plot_cross_sections
-from .time_dependent import propagate, sigma_from_correlations, td_ve_cross_section
+from .td_extractors import TannorWeeks
+from .time_dependent import Extractor, propagate, sigma_from_correlations, td_ve_cross_section
 from .vibrational import vibrational_states
 from .wavepacket import gaussian_coeffs, initial_state
 
@@ -91,8 +98,10 @@ __all__ = [
     "outgoing_channel",
     "eta_incident",
     "eta_outgoing",
+    "Extractor",
     "propagate",
     "sigma_from_correlations",
     "td_ve_cross_section",
+    "TannorWeeks",
     "plot_cross_sections",
 ]
