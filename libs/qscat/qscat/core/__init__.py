@@ -49,15 +49,43 @@ Public API:
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
   - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.
-  - `propagate`, `sigma_from_correlations`, `td_ve_cross_section` -- the
-    time-dependent Pade-propagation route to the same VE cross section.
+  - `hankel_point_value` -- the outgoing-Hankel-half VALUE at a single
+    electronic coordinate (the delta extractor's deconvolution factor).
+  - `outgoing_surface_wave` -- the outgoing-Hankel-half VALUE *and* its
+    spatial derivative at a single electronic coordinate (the flow/flux
+    extractor's per-channel deconvolution pair).
+  - `Extractor`, `propagate`, `sigma_from_correlations`, `td_ve_cross_section`,
+    `td_ve_cross_sections_all` -- the time-dependent Pade-propagation route
+    to the same VE cross section: `propagate` drives a LIST of `Extractor`s
+    (recorder+transform pairs) from one shared trajectory;
+    `td_ve_cross_section(method="tw"|"delta"|"flow")` selects one extractor
+    (`TannorWeeks`/`Dirac`/`Flux`, below; `"tw"` is the default);
+    `td_ve_cross_sections_all` runs ONE propagation driving all three and
+    returns `{"tw":, "delta":, "flow":}` sigma(E) -- the honest, identical-
+    dynamics three-way comparison.
+  - `TannorWeeks` -- the Tannor-Weeks `Extractor` (eta deconvolution +
+    elastic free-reference subtraction).
+  - `Dirac` -- the delta-distribution `Extractor` (eMoScat
+    `DiracTestFunction2d`): TW with a delta test function instead of the
+    Gaussian test packet.
+  - `Flux` -- the flow `Extractor` (eMoScat `FluxTestFunction2d`): the
+    time-energy Fourier transform of the probability flux (value AND
+    electronic-coordinate derivative) projected onto the outgoing channel at
+    a fixed electronic surface -- the Wronskian-like transform built on the
+    new `qscat.dvr.dvr_first_derivative_at_node` primitive.
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
 """
 
 from __future__ import annotations
 
 from .channels import channel_vector
-from .correlation import eta_incident, eta_outgoing, outgoing_channel
+from .correlation import (
+    eta_incident,
+    eta_outgoing,
+    hankel_point_value,
+    outgoing_channel,
+    outgoing_surface_wave,
+)
 from .dissociation import (
     anion_electronic_states,
     da_cross_section,
@@ -68,7 +96,14 @@ from .driven import ve_cross_section
 from .grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
 from .lcp import lcp_da_cross_section, local_complex_potential
 from .plot import plot_cross_sections
-from .time_dependent import propagate, sigma_from_correlations, td_ve_cross_section
+from .td_extractors import Dirac, Flux, TannorWeeks
+from .time_dependent import (
+    Extractor,
+    propagate,
+    sigma_from_correlations,
+    td_ve_cross_section,
+    td_ve_cross_sections_all,
+)
 from .vibrational import vibrational_states
 from .wavepacket import gaussian_coeffs, initial_state
 
@@ -91,8 +126,15 @@ __all__ = [
     "outgoing_channel",
     "eta_incident",
     "eta_outgoing",
+    "hankel_point_value",
+    "outgoing_surface_wave",
+    "Extractor",
     "propagate",
     "sigma_from_correlations",
     "td_ve_cross_section",
+    "td_ve_cross_sections_all",
+    "TannorWeeks",
+    "Dirac",
+    "Flux",
     "plot_cross_sections",
 ]

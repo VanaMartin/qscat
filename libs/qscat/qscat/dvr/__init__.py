@@ -7,6 +7,10 @@ Public API:
   - `kinetic`, `kinetic_sparse` -- assemble the FEM-DVR kinetic-energy matrix
     on a grid, dense or sparse (CSR). The dense one is the sparse one's
     differential oracle.
+  - `dvr_first_derivative_at_node` -- the FEM-DVR first-derivative operator's
+    row at a real grid node (`d @ psi_coeffs ~= d/dx psi(x_node)`), built
+    from the same element-local Lagrange-derivative matrix `kinetic` uses;
+    the flow (flux) time-dependent energy extractor's numerical primitive.
   - `hamiltonian`, `eigen` -- diagonal-potential Hamiltonian assembly and the
     complex-symmetric (non-Hermitian) eigensolver.
   - `gll_nodes_weights`, `diff_matrix` -- the underlying Gauss-Lobatto-
@@ -24,6 +28,7 @@ extraction from eMoScat this implementation is based on.
 
 from __future__ import annotations
 
+from .derivative import dvr_first_derivative_at_node
 from .gll import diff_matrix, gll_nodes_weights
 from .grid import FemDvrEcsGrid
 from .kinetic import kinetic, kinetic_sparse
@@ -37,6 +42,7 @@ __all__ = [
     "FemDvrEcsGrid",
     "kinetic",
     "kinetic_sparse",
+    "dvr_first_derivative_at_node",
     "hamiltonian",
     "eigen",
     "gll_nodes_weights",
