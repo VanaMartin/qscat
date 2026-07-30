@@ -104,7 +104,9 @@ class Extractor(Protocol):
 
     def record(self, psi: npt.NDArray[np.complex128]) -> None: ...
 
-    def sigma(self, E: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]: ...
+    def sigma(
+        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
+    ) -> npt.NDArray[np.float64]: ...
 
 # Wavepacket parameter dict keys `initial_state`/`outgoing_channel` accept
 # (r0/p0/sigma for the incident packet; r0_out/p0_out/sigma_out for the

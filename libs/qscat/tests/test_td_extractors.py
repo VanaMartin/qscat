@@ -404,3 +404,41 @@ def test_cross_sections_all_matches_each_method_individually() -> None:
         )
         assert sigma_all[key].shape == (2, len(VPRIMES))
         np.testing.assert_allclose(sigma_all[key], sigma_individual, rtol=0, atol=0)
+
+
+# --- Task 1 (SP2): `axis` scaffolding ----------------------------------------
+#
+# `axis="electronic"` (default) is the ONLY implemented path -- covered by
+# every test above, which all construct extractors without an `axis` kwarg
+# and hit the byte-identical golden values. These tests cover the new
+# guard rails: `axis="nuclear"` is a Task 2-4 stub (`NotImplementedError`),
+# an invalid `axis` is a `ValueError`, and the default matches an explicit
+# `axis="electronic"`.
+
+_AXIS_CTOR_ARGS: dict[str, tuple[type, tuple]] = {
+    "TannorWeeks": (TannorWeeks, (TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT)),
+    "Dirac": (Dirac, (TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION)),
+    "Flux": (Flux, (TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION)),
+}
+
+
+@pytest.mark.parametrize("cls_name", ["TannorWeeks", "Dirac", "Flux"])
+def test_axis_nuclear_raises_not_implemented(cls_name: str) -> None:
+    cls, args = _AXIS_CTOR_ARGS[cls_name]
+    with pytest.raises(NotImplementedError, match="nuclear axis is implemented in a later"):
+        cls(*args, wp_in=WP_IN, dt=DT, axis="nuclear")
+
+
+@pytest.mark.parametrize("cls_name", ["TannorWeeks", "Dirac", "Flux"])
+def test_axis_invalid_raises_value_error(cls_name: str) -> None:
+    cls, args = _AXIS_CTOR_ARGS[cls_name]
+    with pytest.raises(ValueError, match="axis must be one of"):
+        cls(*args, wp_in=WP_IN, dt=DT, axis="bogus")
+
+
+@pytest.mark.parametrize("cls_name", ["TannorWeeks", "Dirac", "Flux"])
+def test_axis_default_matches_explicit_electronic(cls_name: str) -> None:
+    cls, args = _AXIS_CTOR_ARGS[cls_name]
+    default = cls(*args, wp_in=WP_IN, dt=DT)
+    explicit = cls(*args, wp_in=WP_IN, dt=DT, axis="electronic")
+    assert default._axis == explicit._axis == "electronic"

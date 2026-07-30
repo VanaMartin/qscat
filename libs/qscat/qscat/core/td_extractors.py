@@ -60,7 +60,12 @@ from qscat.dvr import FemDvrEcsGrid, TensorGrid, dvr_first_derivative_at_node
 from qscat.linalg import c_product
 
 from .correlation import eta_incident, hankel_point_value, outgoing_channel, outgoing_surface_wave
-from .time_dependent import PropagationResult, _quadrature_weights, sigma_from_correlations
+from .time_dependent import (
+    Extractor,
+    PropagationResult,
+    _quadrature_weights,
+    sigma_from_correlations,
+)
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -69,6 +74,26 @@ __all__ = ["TannorWeeks", "Dirac", "Flux"]
 
 _WpIn = dict[str, float]
 _WpOut = dict[str, float]
+
+_AXES = ("electronic", "nuclear")
+
+
+def _check_axis(axis: str, cls_name: str) -> None:
+    """Validate `axis` and enforce the SP2 scaffolding: `"electronic"` is the
+    only implemented path (Task 1, byte-identical to the pre-refactor code);
+    `"nuclear"` is a stub for Tasks 2-4, `ValueError` for anything else."""
+    if axis not in _AXES:
+        raise ValueError(f"{cls_name}: axis must be one of {_AXES}, got {axis!r}")
+    if axis == "nuclear":
+        raise NotImplementedError(f"{cls_name}: nuclear axis is implemented in a later SP2 task")
+
+
+def _axis_grid_index(axis: str) -> int:
+    """`TensorGrid.grids` index for `axis` -- the seam Tasks 2-4 branch the
+    coordinate-grid selection on (`0` electronic, `1` nuclear). Only ever
+    reached with `axis="electronic"` today: `_check_axis` raises before any
+    caller gets here with `axis="nuclear"`."""
+    return 0 if axis == "electronic" else 1
 
 
 class TannorWeeks:
@@ -97,7 +122,10 @@ class TannorWeeks:
         *,
         wp_in: _WpIn,
         dt: float,
+        axis: str = "electronic",
     ) -> None:
+        _check_axis(axis, "TannorWeeks")
+        self._axis = axis
         self._tgrid = tgrid
         self._model = model
         self._eps = eps
@@ -135,19 +163,25 @@ class TannorWeeks:
         return PropagationResult(t=t, c=c, norm=norm, snapshots=[])
 
     def sigma(
-        self, E: float | npt.ArrayLike, *, free: TannorWeeks | None = None
+        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
     ) -> npt.NDArray[np.float64]:
         """`sigma_{v_init->v'}(E)` (bohr^2) via the Tannor-Weeks transform.
 
-        `free`, when given, is a companion `TannorWeeks` extractor recorded
-        from a SEPARATE `V_int=0` propagation (same wavepacket/grid); its
-        series supplies `sigma_from_correlations`'s `free_result` -- the
-        elastic (`v'==v_init`) channel then subtracts the free-particle
-        `S_free(E)` instead of a literal 1 (see
+        `free`, when given, must be a companion `TannorWeeks` extractor
+        recorded from a SEPARATE `V_int=0` propagation (same wavepacket/
+        grid); its series supplies `sigma_from_correlations`'s
+        `free_result` -- the elastic (`v'==v_init`) channel then subtracts
+        the free-particle `S_free(E)` instead of a literal 1 (see
         `time_dependent._sigma_one_energy`). Leave `None` to reproduce the
-        literal-1 fallback.
+        literal-1 fallback. `free` is typed via the `Extractor` protocol
+        (SP1 tech-debt lift) but only a `TannorWeeks` is meaningful here;
+        anything else raises `TypeError`.
         """
-        free_result = free.result if free is not None else None
+        free_result: PropagationResult | None = None
+        if free is not None:
+            if not isinstance(free, TannorWeeks):
+                raise TypeError(f"TannorWeeks.sigma: free must be a TannorWeeks, got {type(free)}")
+            free_result = free.result
         return sigma_from_correlations(
             self._tgrid,
             self._model,
@@ -271,8 +305,11 @@ class Dirac:
         *,
         wp_in: _WpIn,
         dt: float,
+        axis: str = "electronic",
     ) -> None:
-        grid = tgrid.grids[0]
+        _check_axis(axis, "Dirac")
+        self._axis = axis
+        grid = tgrid.grids[_axis_grid_index(axis)]
         if not (0 <= position < grid.n):
             raise ValueError(f"position {position} out of range for grid of size {grid.n}")
         if grid.real_points[position] > grid.R0:
@@ -317,20 +354,26 @@ class Dirac:
         return PropagationResult(t=t, c=c, norm=norm, snapshots=[])
 
     def sigma(
-        self, E: float | npt.ArrayLike, *, free: Dirac | None = None
+        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
     ) -> npt.NDArray[np.float64]:
         """`sigma_{v_init->v'}(E)` (bohr^2) via the delta transform (module
         docstring): TW's transform with `eta_out_i -> hankel_point_value(...)`
         at `position`.
 
-        `free`, when given, is a companion `Dirac` extractor recorded from a
-        SEPARATE `V_int=0` propagation -- same elastic free-reference
-        contract as `TannorWeeks.sigma`.
+        `free`, when given, must be a companion `Dirac` extractor recorded
+        from a SEPARATE `V_int=0` propagation -- same elastic free-reference
+        contract as `TannorWeeks.sigma`. `free` is typed via the `Extractor`
+        protocol (SP1 tech-debt lift) but only a `Dirac` is meaningful here;
+        anything else raises `TypeError`.
         """
-        free_result = free.result if free is not None else None
+        free_result: PropagationResult | None = None
+        if free is not None:
+            if not isinstance(free, Dirac):
+                raise TypeError(f"Dirac.sigma: free must be a Dirac, got {type(free)}")
+            free_result = free.result
         e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
         result = self.result
-        grid = self._tgrid.grids[0]
+        grid = self._tgrid.grids[_axis_grid_index(self._axis)]
         out = np.stack(
             [
                 _dirac_sigma_one_energy(
@@ -476,8 +519,11 @@ class Flux:
         *,
         wp_in: _WpIn,
         dt: float,
+        axis: str = "electronic",
     ) -> None:
-        grid = tgrid.grids[0]
+        _check_axis(axis, "Flux")
+        self._axis = axis
+        grid = tgrid.grids[_axis_grid_index(axis)]
         if not (0 <= surface < grid.n):
             raise ValueError(f"surface {surface} out of range for grid of size {grid.n}")
         if grid.real_points[surface] > grid.R0:
@@ -526,16 +572,25 @@ class Flux:
         return t, b, d
 
     def sigma(
-        self, E: float | npt.ArrayLike, *, free: Flux | None = None
+        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
     ) -> npt.NDArray[np.float64]:
         """`sigma_{v_init->v'}(E)` (bohr^2) via the flux transform (module
-        docstring). `free`, when given, is a companion `Flux` extractor
+        docstring). `free`, when given, must be a companion `Flux` extractor
         recorded from a SEPARATE `V_int=0` propagation -- same elastic
-        free-reference contract as `TannorWeeks.sigma`/`Dirac.sigma`."""
-        free_arrays = free._arrays if free is not None else None
+        free-reference contract as `TannorWeeks.sigma`/`Dirac.sigma`. `free`
+        is typed via the `Extractor` protocol (SP1 tech-debt lift) but only
+        a `Flux` is meaningful here; anything else raises `TypeError`."""
+        free_arrays: (
+            tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]
+            | None
+        ) = None
+        if free is not None:
+            if not isinstance(free, Flux):
+                raise TypeError(f"Flux.sigma: free must be a Flux, got {type(free)}")
+            free_arrays = free._arrays
         e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
         t, b, d = self._arrays
-        grid = self._tgrid.grids[0]
+        grid = self._tgrid.grids[_axis_grid_index(self._axis)]
         out = np.stack(
             [
                 _flux_sigma_one_energy(
