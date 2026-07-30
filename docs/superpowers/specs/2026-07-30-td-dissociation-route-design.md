@@ -1,11 +1,14 @@
-# TD-dissociation route (σ_DA + σ_DR) via nuclear-axis extractors — Design Spec
+# TD dissociative-attachment (σ_DA) route via nuclear-axis extractors — Design Spec
 
 **Date:** 2026-07-30
 **Author:** Martin (martin@qscat.com) with Claude
 **Status:** Approved design — spec for review
 **Lifecycle:** `qm-method-lifecycle` — extends the time-dependent extractor family
 (`qscat.core.time_dependent` + `qscat.core.td_extractors`, merged 2026-07-30) from the electronic
-(VE) axis to the nuclear (dissociation) axis. Sub-project **2 of 2** (SP1 = the VE extractors).
+(VE) axis to the nuclear (dissociation) axis, for **dissociative attachment (DA)**. Sub-project
+**2 of 3** (SP1 = the VE extractors; **SP3 = TD-DR**, the H₂⁺ ion route, its own later spec —
+split out because DR is non-laptop (Docker/MUMPS) and cannot be laptop-validated, whereas DA has a
+clean laptop TI oracle). Proving the nuclear extractors on DA against ground truth de-risks SP3.
 
 ## Context
 
@@ -25,11 +28,11 @@ The exact TI oracles already exist: `qscat.core.dissociation.da_cross_section` (
 
 ## Goal
 
-Extend the extractor family to the **nuclear axis** and build the TD-dissociation route: propagate
-the incident wavepacket under `H_2D` and extract σ_DA/σ_DR via the outgoing nuclear flux (and delta,
-and TW, for three-way cross-validation), validated against the TI oracles. Establishes the TD
-dissociation capability and completes the port of eMoScat's TD extraction (both axes, all three
-methods).
+Extend the extractor family to the **nuclear axis** and build the TD dissociative-attachment route:
+propagate the incident wavepacket under `H_2D` and extract σ_DA via the outgoing nuclear flux (and
+delta, and TW, for three-way cross-validation), validated against the TI `da_cross_section` oracle
+(F₂/NO). Establishes the TD dissociation capability + the nuclear-axis extractor infrastructure that
+SP3 (TD-DR) reuses. (The H₂⁺ ion — Coulomb outgoing + Rydberg series + Docker/MUMPS — is SP3.)
 
 ## Architecture — nuclear-axis generalization of the Extractor family
 
@@ -89,49 +92,41 @@ propagation. Validate: three-way agreement + convergence to the TI `da_cross_sec
 F₂/NO (the molecules whose DA channel is genuinely open, on their per-molecule nuclear grids —
 `validation/diatomic` / `MoleculeConfig.da_grid()`).
 
-## TD-DR (H₂⁺ ion, Docker)
-
-`td_dr_cross_section(...)`: the ionic generalization — a Coulomb incident wavepacket (charge=−1) +
-nuclear flux with the **Coulomb outgoing wave** (`coulomb_h1_en` + its derivative — the SP1
-charged-Coulomb `dphi_out` tech-debt is cleared and tested here) + the Rydberg exit-series LOOP
-(mirroring TI `dr_cross_section`). The full H₂⁺ propagation is ~1.15M unknowns → Docker/MUMPS; 2-D
-convergence is **Docker-deferred** (like the resonance-aware H₂⁺ re-tune), the laptop-verifiable part
-being the build + a reduced proxy.
-
 ## Deliverables
 
 - **D1** the nuclear-axis generalization of `Flux` (axis param; project onto anion φ; surface in R;
-  outgoing μ_R/l=0; DVR derivative on `grids[1]`) + `free=` lifted into the `Extractor` protocol.
+  outgoing μ_R/l=0; DVR derivative on `grids[1]`) + `free=` lifted into the `Extractor` protocol
+  (needed to extend the family cleanly).
 - **D2** the nuclear-axis `Dirac` + `TannorWeeks` (the latter incl. the nuclear
   `eta`/`outgoing_channel` helpers).
-- **D3** `td_da_cross_section(method=)` + `td_da_cross_sections_all`; the F₂/NO three-way + TI-oracle
-  validation.
-- **D4** `td_dr_cross_section` (Coulomb incident + Coulomb outgoing + Rydberg loop) + the
-  charged-Coulomb `dphi_out` test; the H₂⁺ validation vs TI `dr_cross_section` (Docker-deferred
-  convergence) + docs.
+- **D3** `td_da_cross_section(method="tw"|"delta"|"flow")` + `td_da_cross_sections_all` (one
+  propagation → three σ_DA); the F₂/NO three-way + TI-oracle validation + docs.
 
 ## Validation
 
 - Nuclear extractors: three-way agreement (flux/delta/TW-nuclear from ONE propagation) + each
   converges to the TI `da_cross_section` for F₂/NO; the ~15-25% cross-method spread at
-  under-converged grids is the documented convergence diagnostic (as in SP1).
+  under-converged grids is the documented convergence diagnostic (as in SP1). F₂/NO use their
+  per-molecule nuclear grids (`validation/diatomic` / `MoleculeConfig.da_grid()`, the resolved DA
+  grids), since the exact-2D DA needs them (per the resonance-aware / per-molecule-discretisation
+  findings).
 - The electronic (VE) path stays byte-identical (SP1 tests + golden test still pass).
-- DR: builds + runs on a reduced H₂⁺ proxy; the full 2-D convergence vs TI `dr_cross_section` is a
-  Docker/MUMPS-deferred gate (documented, like resonance-aware H₂⁺).
 - `uv run pytest -q -m "not slow"` passes; `uv run mypy libs/qscat/qscat` 0; `uv run ruff check .`
   clean; `qscat.core` still imports no model/projects at runtime.
-- The charged-Coulomb `dphi_out` branch gets an independent-reference derivative test (closing the
-  SP1 tech-debt) before DR relies on it.
 
 ## Out of scope
 
-- **NO/F₂ DR** and **other ions** — DR is validated on H₂⁺ (its TI oracle); the pattern generalizes
-  but isn't re-run here.
+- **SP3 — the TD-DR route** (H₂⁺ ion): a Coulomb incident wavepacket (charge=−1) + nuclear flux with
+  the **Coulomb outgoing wave** (`coulomb_h1_en` + its derivative — clears the SP1 charged-Coulomb
+  `dphi_out` tech-debt, tested there) + the Rydberg exit-series loop (mirroring TI `dr_cross_section`).
+  ~1.15M unknowns → Docker/MUMPS, 2-D convergence Docker-deferred. Its own spec; reuses SP2's
+  nuclear extractors. The SP2 nuclear `Flux`/`Dirac`/`TW` should keep the `charge` plumbing so SP3 is
+  mostly the Coulomb outgoing wave + the Rydberg loop, not a re-architecture.
+- **NO/F₂ DR** and **other ions**.
 - **Rust optimization** of the transforms.
-- **A full non-Docker H₂⁺ TD-DR convergence run** — deferred to Docker/MUMPS.
 
-## Build order (one sub-project, sequenced)
+## Build order (sequenced)
 
-nuclear Flux + `free=` protocol lift → nuclear Dirac + nuclear TW → TD-DA + F₂/NO three-way
-validation → TD-DR H₂⁺ (Coulomb + Rydberg) + charged-Coulomb test + Docker validation. DA is fully
-validated on a laptop before DR builds on it.
+nuclear Flux + `free=` protocol lift → nuclear Dirac + nuclear TW → `td_da_cross_section` +
+`td_da_cross_sections_all` + the F₂/NO three-way + TI-oracle validation + docs. Each step ends with a
+laptop-testable deliverable.
