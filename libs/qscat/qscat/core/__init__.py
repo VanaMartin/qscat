@@ -79,7 +79,17 @@ Public API:
     time-energy Fourier transform of the probability flux (value AND
     electronic-coordinate derivative) projected onto the outgoing channel at
     a fixed electronic surface -- the Wronskian-like transform built on the
-    new `qscat.dvr.dvr_first_derivative_at_node` primitive.
+    new `qscat.dvr.dvr_first_derivative_at_node` primitive. All three
+    extractors also implement `axis="nuclear"` -- the DISSOCIATIVE
+    ATTACHMENT (DA) generalization: the outgoing side moves to the nuclear
+    coordinate R, projecting onto `n_channels` anion electronic bound states
+    (`anion_electronic_states`) instead of neutral vibrational levels; no
+    elastic free-reference subtraction (DA is a pure rearrangement channel).
+  - `td_da_cross_section(method="flow"|"delta"|"tw")` -- the DA sibling of
+    `td_ve_cross_section`: builds the requested `axis="nuclear"` extractor,
+    propagates once, returns `sigma_DA(E)`. `td_da_cross_sections_all` runs
+    ONE propagation driving all three nuclear extractors and returns
+    `{"flow":, "delta":, "tw":}` -- see `docs/physics/td-da.md`.
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
 """
 
@@ -109,6 +119,8 @@ from .time_dependent import (
     Extractor,
     propagate,
     sigma_from_correlations,
+    td_da_cross_section,
+    td_da_cross_sections_all,
     td_ve_cross_section,
     td_ve_cross_sections_all,
 )
@@ -142,6 +154,8 @@ __all__ = [
     "sigma_from_correlations",
     "td_ve_cross_section",
     "td_ve_cross_sections_all",
+    "td_da_cross_section",
+    "td_da_cross_sections_all",
     "TannorWeeks",
     "Dirac",
     "Flux",

@@ -105,7 +105,32 @@ libs/       qscat — the standard library: validated, reusable QM code
               at a converged grid (delta 0.971, flow 0.970 at E=0.10 Ha);
               cross-method spread at an under-converged grid (~20-25%) is a
               convergence diagnostic, not a disagreement — see
-              docs/physics/td-extractors.md. Also
+              docs/physics/td-extractors.md. All three extractors also
+              implement `axis="nuclear"` (`Flux`/`Dirac`/`TannorWeeks`,
+              `td_extractors.py`) — the DISSOCIATIVE ATTACHMENT (DA)
+              generalization: the outgoing side moves from the electronic
+              to the nuclear coordinate, projecting onto `n_channels` anion
+              electronic bound states (`anion_electronic_states`) instead of
+              neutral vibrational levels (no elastic free-reference
+              subtraction — DA has no `v'==v_init` diagonal). Wired as
+              `time_dependent.td_da_cross_section(method="flow"|"delta"|
+              "tw")` (default `"flow"`, the natural DA extractor) and
+              `td_da_cross_sections_all` (ONE shared propagation, all
+              three), the TD sibling of `dissociation.da_cross_section`
+              (below) — σ_DA uses `C_DA=π` (not the TI oracle's literal
+              `4π³`; the two reconcile via `S=1−2πiT`). **Key finding: TD-DA
+              needs a LARGE electronic launch-box grid (incident well
+              inside `r_max`), NOT the small TI `da_grid` — an off-box
+              incident diverges ~1e6×, a coarse nuclear grid reads σ≈0** (the
+              fine per-molecule nuclear deck is unchanged/reused). F2/NO
+              three-way validation converges to `da_cross_section` to a
+              ~0.86-0.97 (flow/delta) / ~0.9 (tw) plateau — see
+              docs/physics/td-da.md. The Coulomb-generalized
+              `riccati_hankel_en_mass` (`qscat.special.radial`, the
+              mass-generalized outgoing Hankel half already used by the
+              nuclear extractors' `eta_outgoing`) is validated (μ=1
+              byte-identical reduction + Wronskian) and is what SP3 (TD-DR,
+              H₂⁺) will drive at nonzero charge. Also
               `dissociation.da_cross_section` (exact TI **dissociative
               attachment**: the same driven Ψ₊ solve projected onto the nuclear
               dissociation channel with the rearrangement interaction
