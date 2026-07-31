@@ -33,7 +33,12 @@ import numpy as np
 import numpy.typing as npt
 from scipy.special import spherical_jn, spherical_yn
 
-__all__ = ["riccati_bessel_en", "riccati_hankel_en", "riccati_bessel_en_mass"]
+__all__ = [
+    "riccati_bessel_en",
+    "riccati_hankel_en",
+    "riccati_bessel_en_mass",
+    "riccati_hankel_en_mass",
+]
 
 
 def riccati_bessel_en(r: npt.NDArray[np.float64], k: float, l: int) -> npt.NDArray[np.float64]:
@@ -82,5 +87,37 @@ def riccati_bessel_en_mass(
     rr = np.asarray(r, dtype=np.float64)
     out: npt.NDArray[np.float64] = (
         np.sqrt(2.0 * mu * k / np.pi) * rr * spherical_jn(l, k * rr)
+    )
+    return out
+
+
+def riccati_hankel_en_mass(
+    r: npt.NDArray[np.float64], k: float, l: int, mu: float
+) -> npt.NDArray[np.complex128]:
+    """`F^{(1)}_{E,l}(r) = sqrt(2 mu k / pi) r h_l^{(1)}(k r)`, energy-normalized,
+    mass `mu`.
+
+    The mass-`mu` generalization of `riccati_hankel_en` (which is the `mu=1`
+    case, reproduced bit-for-bit here since `2.0*1.0 == 2.0` exactly), the
+    same way `riccati_bessel_en_mass` generalizes `riccati_bessel_en`: only
+    the overall `sqrt(mu)` energy-normalization prefactor changes, since
+    `h_l^{(1)}(k r) = j_l(k r) + i y_l(k r)` does not itself depend on `mu`
+    (the momentum argument is `k r`, not `mu k r` -- same convention
+    `riccati_bessel_en_mass` uses). `Re(F^{(1)}) == riccati_bessel_en_mass`
+    at the same `(r, k, l, mu)`; `Im(F^{(1)}) = sqrt(2 mu k/pi) r y_l(k r)`.
+    Used for the OUTGOING NUCLEAR dissociation wave in the DA/DR exit
+    channel's flux (Wronskian) extractor (eMoScat `bessel::sphHankel1En(R,
+    K, mu, l)` -- the nuclear-axis analog of `FluxTestFunction2d`'s `phi_out_`
+    -- see `qscat.core.td_extractors.Flux`). `r` must be REAL (channel
+    projections are masked to the unscaled region); `k>0`, `mu>0`.
+    """
+    if k <= 0.0:
+        raise ValueError(f"k must be positive, got {k}")
+    if mu <= 0.0:
+        raise ValueError(f"mu must be positive, got {mu}")
+    rr = np.asarray(r, dtype=np.float64)
+    h1_l = spherical_jn(l, k * rr) + 1j * spherical_yn(l, k * rr)
+    out: npt.NDArray[np.complex128] = (
+        np.sqrt(2.0 * mu * k / np.pi) * rr.astype(np.complex128) * h1_l
     )
     return out

@@ -86,6 +86,8 @@ __all__ = [
     "sigma_from_correlations",
     "td_ve_cross_section",
     "td_ve_cross_sections_all",
+    "td_da_cross_section",
+    "td_da_cross_sections_all",
 ]
 
 
@@ -104,7 +106,9 @@ class Extractor(Protocol):
 
     def record(self, psi: npt.NDArray[np.complex128]) -> None: ...
 
-    def sigma(self, E: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]: ...
+    def sigma(
+        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
+    ) -> npt.NDArray[np.float64]: ...
 
 # Wavepacket parameter dict keys `initial_state`/`outgoing_channel` accept
 # (r0/p0/sigma for the incident packet; r0_out/p0_out/sigma_out for the
@@ -700,4 +704,167 @@ def td_ve_cross_sections_all(
         "tw": tw.sigma(E, free=tw_free),
         "delta": dirac.sigma(E, free=dirac_free),
         "flow": flux.sigma(E, free=flux_free),
+    }
+
+
+def td_da_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    dt: float,
+    n_steps: int,
+    wp_in: _WpIn,
+    method: str = "flow",
+    surface: int | None = None,
+    position: int | None = None,
+    wp_out: _WpOut | None = None,
+    n_channels: int = 1,
+    order: int = 3,
+) -> npt.NDArray[np.float64]:
+    """sigma_DA(E) (bohr^2), Pade propagation + a NUCLEAR-axis energy-
+    extraction method's transform -- the dissociative-attachment (DA)
+    sibling of `td_ve_cross_section`, built on the SAME propagation engine
+    but the `axis="nuclear"` `Flux`/`Dirac`/`TannorWeeks` extractors
+    (`td_extractors.py`) instead of the electronic-axis ones.
+
+    `method="flow"` (default, eMoScat's `FluxTestFunction2d` `axis_=='y'`
+    branch -- the natural DA extractor: a fixed-surface Wronskian flux
+    needs no propagated outgoing test packet), `"delta"` (a fixed nuclear-
+    node point projection), or `"tw"` (a propagated nuclear outgoing
+    Gaussian test packet) -- see `td_extractors.py`'s module docstring for
+    the three nuclear-axis transforms and the `_C_DA = pi` reconciliation
+    with the TI `dissociation.da_cross_section` oracle's `4*pi^3` T-matrix
+    convention.
+
+    `E` (collision energy, Hartree) may be scalar or array-like; scalar `E`
+    returns shape `(n_channels,)`, array `E` returns `(len(E), n_channels)`
+    -- matching `dissociation.da_cross_section`'s per-anion-channel
+    contract (DA has no `v'` vibrational index; `n_channels` selects how
+    many anion electronic bound states, `dissociation.
+    anion_electronic_states` at `R_inf = tgrid.grids[1].R0`, are tracked as
+    exit channels).
+
+    `wp_in = {"r0": ..., "p0": ..., "sigma": ...}` is the SAME incident
+    Gaussian parameters used to build `Psi(0)` (`initial_state`) and
+    `eta_incident` -- identical to `td_ve_cross_section`'s `wp_in`. `surface`
+    (required for `method="flow"`), `position` (required for
+    `method="delta"`), and `wp_out` (required for `method="tw"`, now the
+    NUCLEAR outgoing test packet's `r0_out`/`p0_out`/`sigma_out` in R) are
+    the method-specific extractor parameters; omitting the one `method`
+    needs raises `ValueError`. Unlike `td_ve_cross_section`, there is NO
+    `wp_out`/free-reference for `"flow"`/`"delta"` (no propagated test
+    packet needed there) and NO elastic free-reference subtraction for any
+    method -- DA is a pure rearrangement channel with no `v'==v_init`
+    diagonal to subtract a reference from (see `td_extractors.py`'s
+    `Flux`/`Dirac`/`TannorWeeks(axis="nuclear")`'s `sigma` docstrings, which
+    all raise on a non-`None` `free`).
+
+    The propagation (the expensive part) happens ONCE regardless of how many
+    energies `E` are requested, exactly as `td_ve_cross_section`.
+    """
+    from .td_extractors import Dirac, Flux, TannorWeeks  # deferred: avoids an import cycle
+
+    psi0 = initial_state(tgrid, chi[v_init], **wp_in)
+    hamiltonian = model.hamiltonian(tgrid)
+
+    ext: Extractor
+    if method == "flow":
+        if surface is None:
+            raise ValueError("td_da_cross_section: method='flow' requires `surface`")
+        ext = Flux(
+            tgrid, model, eps, chi, v_init, [], surface,
+            wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+        )
+    elif method == "delta":
+        if position is None:
+            raise ValueError("td_da_cross_section: method='delta' requires `position`")
+        ext = Dirac(
+            tgrid, model, eps, chi, v_init, [], position,
+            wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+        )
+    elif method == "tw":
+        if wp_out is None:
+            raise ValueError("td_da_cross_section: method='tw' requires `wp_out`")
+        ext = TannorWeeks(
+            tgrid, model, eps, chi, v_init, [], wp_out,
+            wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+        )
+    else:
+        raise ValueError(
+            f"td_da_cross_section: unknown method {method!r} "
+            "(must be one of 'flow', 'delta', 'tw')"
+        )
+
+    propagate(
+        tgrid, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=hamiltonian,
+        order=order, extractors=[ext],
+    )
+    return ext.sigma(E)
+
+
+def td_da_cross_sections_all(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    dt: float,
+    n_steps: int,
+    wp_in: _WpIn,
+    surface: int,
+    position: int,
+    wp_out: _WpOut,
+    n_channels: int = 1,
+    order: int = 3,
+) -> dict[str, npt.NDArray[np.float64]]:
+    """`{"flow": sigma_DA, "delta": sigma_DA, "tw": sigma_DA}` (each bohr^2,
+    per anion channel, same shape convention as `td_da_cross_section`) from
+    ONE shared propagation -- the DA sibling of `td_ve_cross_sections_all`.
+
+    `Flux`, `Dirac`, and `TannorWeeks` (all `axis="nuclear"`) are built up
+    front and driven by a SINGLE `propagate(..., extractors=[flux, dirac,
+    tw])` call -- identical dynamics `psi(t_n)` feed all three transforms,
+    so any spread between the returned cross sections reflects a genuine
+    difference between the energy-extraction methods (or, at an under-
+    converged grid/propagation length, a shared discretization/truncation
+    residual all three inherit together -- see `docs/physics/td-da.md`),
+    never a difference in what was propagated. No elastic free-reference
+    run (DA has no elastic diagonal, see `td_da_cross_section`).
+
+    `surface`/`position`/`wp_out` are all REQUIRED here (unlike
+    `td_da_cross_section`, which only needs whichever one its `method`
+    selects).
+    """
+    from .td_extractors import Dirac, Flux, TannorWeeks  # deferred: avoids an import cycle
+
+    psi0 = initial_state(tgrid, chi[v_init], **wp_in)
+    hamiltonian = model.hamiltonian(tgrid)
+
+    flux = Flux(
+        tgrid, model, eps, chi, v_init, [], surface,
+        wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+    )
+    dirac = Dirac(
+        tgrid, model, eps, chi, v_init, [], position,
+        wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+    )
+    tw = TannorWeeks(
+        tgrid, model, eps, chi, v_init, [], wp_out,
+        wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+    )
+    propagate(
+        tgrid, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=hamiltonian,
+        order=order, extractors=[flux, dirac, tw],
+    )
+
+    return {
+        "flow": flux.sigma(E),
+        "delta": dirac.sigma(E),
+        "tw": tw.sigma(E),
     }

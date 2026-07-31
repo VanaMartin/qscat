@@ -48,7 +48,14 @@ Public API:
     outgoing flux; the approximation under test vs. `da_cross_section`).
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
-  - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.
+  - `outgoing_channel_nuclear` -- the NUCLEAR-axis transpose of
+    `outgoing_channel` (`phi_c(r) g_out(R)`, an anion electronic bound state
+    times a nuclear outgoing test packet): the nuclear `TannorWeeks`
+    dissociative-attachment extractor's channel function.
+  - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors;
+    `eta_outgoing` takes a `mass` keyword (default `1.0`, electronic,
+    byte-identical) so the SAME function serves the nuclear-axis
+    `TannorWeeks` DA extractor (`mass=model.mu`, `l=0`).
   - `hankel_point_value` -- the outgoing-Hankel-half VALUE at a single
     electronic coordinate (the delta extractor's deconvolution factor).
   - `outgoing_surface_wave` -- the outgoing-Hankel-half VALUE *and* its
@@ -72,7 +79,17 @@ Public API:
     time-energy Fourier transform of the probability flux (value AND
     electronic-coordinate derivative) projected onto the outgoing channel at
     a fixed electronic surface -- the Wronskian-like transform built on the
-    new `qscat.dvr.dvr_first_derivative_at_node` primitive.
+    new `qscat.dvr.dvr_first_derivative_at_node` primitive. All three
+    extractors also implement `axis="nuclear"` -- the DISSOCIATIVE
+    ATTACHMENT (DA) generalization: the outgoing side moves to the nuclear
+    coordinate R, projecting onto `n_channels` anion electronic bound states
+    (`anion_electronic_states`) instead of neutral vibrational levels; no
+    elastic free-reference subtraction (DA is a pure rearrangement channel).
+  - `td_da_cross_section(method="flow"|"delta"|"tw")` -- the DA sibling of
+    `td_ve_cross_section`: builds the requested `axis="nuclear"` extractor,
+    propagates once, returns `sigma_DA(E)`. `td_da_cross_sections_all` runs
+    ONE propagation driving all three nuclear extractors and returns
+    `{"flow":, "delta":, "tw":}` -- see `docs/physics/td-da.md`.
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
 """
 
@@ -84,6 +101,7 @@ from .correlation import (
     eta_outgoing,
     hankel_point_value,
     outgoing_channel,
+    outgoing_channel_nuclear,
     outgoing_surface_wave,
 )
 from .dissociation import (
@@ -101,6 +119,8 @@ from .time_dependent import (
     Extractor,
     propagate,
     sigma_from_correlations,
+    td_da_cross_section,
+    td_da_cross_sections_all,
     td_ve_cross_section,
     td_ve_cross_sections_all,
 )
@@ -124,6 +144,7 @@ __all__ = [
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",
+    "outgoing_channel_nuclear",
     "eta_incident",
     "eta_outgoing",
     "hankel_point_value",
@@ -133,6 +154,8 @@ __all__ = [
     "sigma_from_correlations",
     "td_ve_cross_section",
     "td_ve_cross_sections_all",
+    "td_da_cross_section",
+    "td_da_cross_sections_all",
     "TannorWeeks",
     "Dirac",
     "Flux",
