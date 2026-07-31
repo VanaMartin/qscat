@@ -164,15 +164,16 @@ def test_f2_td_da_three_way_agrees_with_ti_oracle() -> None:
     `libs/qscat/tests/test_td_extractors.py`'s per-extractor `@slow` gates,
     which this test's three-way call reproduces from a single shared
     propagation): `flow`/`delta` reach a STABLE plateau sigma/sigma_ti ~
-    0.86-0.97; `tw` (the propagated nuclear test-packet method, test-packet-
-    sensitive -- needs the narrow `sigma_out=0.07` wide-K packet placed
-    inward of the surface/position, `p0_out=72.0`) lands ~0.9. The residual
-    ~3-14% gap is the TD-vs-TI cross-method discretization band (as in the
-    electronic VE extractors), not a normalization error: a wrong `_C_DA`
-    (`qscat.core.td_extractors`) would plateau at a wildly different
-    constant, not ~1. `rtol` bands below are widened slightly (0.7, 1.3)
-    from the single-extractor `@slow` gates' (0.7, 1.25) to leave margin for
-    the `n_steps=1800` (vs. 1500) config.
+    0.86-0.97; `tw` (the propagated nuclear test-packet method, the noisiest
+    and most test-packet-sensitive -- needs the narrow `sigma_out=0.07` wide-K
+    packet placed inward of the surface/position, `p0_out=72.0`) converges to
+    the RIGHT MAGNITUDE (order ~1) but OSCILLATES (~0.55-1.42 across
+    n=1750-2000), it does NOT plateau cleanly like flux/delta. The residual is
+    the TD-vs-TI cross-method band (as in the electronic VE extractors), not a
+    normalization error: a wrong `_C_DA` (`qscat.core.td_extractors`) would
+    land at a wildly different constant, not ~1. Bands below are per-method:
+    flux/delta (0.7,1.3) (their tight plateau), TW the wider order-~1 band
+    (0.4,1.7) (its oscillation).
     """
     e_probe = np.array([0.03, 0.04])
     cfg = CONFIGS["F2"]

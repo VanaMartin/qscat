@@ -124,7 +124,8 @@ libs/       qscat — the standard library: validated, reusable QM code
               incident diverges ~1e6×, a coarse nuclear grid reads σ≈0** (the
               fine per-molecule nuclear deck is unchanged/reused). F2/NO
               three-way validation converges to `da_cross_section` to a
-              ~0.86-0.97 (flow/delta) / ~0.9 (tw) plateau — see
+              flow/delta plateau ~0.86-0.97, tw converges to order ~1 but
+              oscillates ~0.55-1.42 (the noisiest, most test-packet-sensitive) — see
               docs/physics/td-da.md. The Coulomb-generalized
               `riccati_hankel_en_mass` (`qscat.special.radial`, the
               mass-generalized outgoing Hankel half already used by the

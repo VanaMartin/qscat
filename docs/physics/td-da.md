@@ -179,14 +179,24 @@ propagate-ONCE `td_da_cross_sections_all` helper at `n_steps=1800` (a small
 margin over the per-extractor gates' 1500, since the assertion tolerance
 widens slightly to `(0.7, 1.3)` from `(0.7, 1.25)`).
 
-**Measured (controller, 2026-07-31), F2, launch-box grid, `n_steps=1500`:**
+**Measured (controller, 2026-07-31), F2, launch-box grid:**
 
 ```
-sigma_flux/sigma_ti   (E=0.02, 0.03, 0.04): stable plateau ~0.86-0.97 by n>=1350
-sigma_tw/sigma_ti:    lands ~0.9 (the same general band), TEST-PACKET
-                      SENSITIVE -- needs the narrow sigma_out~0.07 (wide-K)
-                      packet placed inward; a wide/slow packet undersamples
-                      the K_R~72 wave and gives a spuriously small sigma.
+sigma_flux/sigma_ti   (E=0.02,0.03,0.04): STABLE plateau ~0.86-0.97 by n>=1350
+sigma_delta/sigma_ti: STABLE plateau ~0.87-0.96 by n>=1350 (mirrors flux)
+sigma_tw/sigma_ti:    converges to the RIGHT MAGNITUDE (order ~1) but does NOT
+                      plateau cleanly -- it OSCILLATES (~0.55-1.42 across
+                      n=1750-2000). TW is the noisiest, most test-packet-
+                      SENSITIVE of the three (a propagated-Gaussian
+                      deconvolution, not a point-value/Wronskian read of the
+                      SAME trajectory): it needs the narrow sigma_out~0.07
+                      (wide-K) packet placed inward of the ECS edge with
+                      p0_out~K_R; a wide-in-R (narrow-in-K) packet
+                      ill-conditions the deconvolution and blows up the
+                      higher-E channels. Hence flux/delta are gated at
+                      (0.7,1.3) but TW at the wider order-~1 band (0.4,1.7).
+                      This test-packet sensitivity is exactly what the
+                      `qscat.tuning` TW-analysis machinery exists to tame.
 ```
 
 (A SEPARATE, smaller cross-method check on `libs/qscat/tests/test_td_
@@ -196,9 +206,10 @@ and not this validation's own gate -- found `sigma_dirac/sigma_flux ~
 a toy-grid sanity check on the shared codepath, not evidence about `Dirac`'s
 F2 plateau, which mirrors `Flux`'s per its own `@slow` gate's docstring.)
 
-All three plateau near, but not exactly at, 1.0 -- the same ~3-14% TD-vs-TI
+Flux and delta plateau near (not exactly at) 1.0 -- the same ~3-14% TD-vs-TI
 cross-method residual the electronic-axis VE extractors show at a converged
-(but not infinitely fine) grid, NOT a normalization error (see the `C_DA`
+(but not infinitely fine) grid; TW lands at order ~1 with more scatter. This
+is NOT a normalization error (see the `C_DA`
 section above: a wrong prefactor would land at a wildly different constant).
 
 ## Deferred: the full eMoScat grid, and SP3 (TD-DR)
@@ -220,3 +231,12 @@ present in the nuclear extractors' outgoing-Hankel-half machinery
 (`hankel_point_value`/`outgoing_surface_wave`'s `charge` argument, currently
 exercised only at `charge=0` since F2/NO are neutral) is the reason SP3 is
 additive rather than a rewrite.
+
+## Deferred
+
+The committed three-way comparison FIGURE (sigma_DA-vs-TI per method for F2/NO)
+was NOT produced in-session -- generating it needs the `@slow` per-molecule
+propagations (~10 min each), which exceed the harness run window. The gates
+(`validation/diatomic/test_td_da.py`, `@slow`) encode the numeric comparison;
+the figure is a Docker/overnight follow-on, alongside the full eMoScat 90-bohr-
+electronic-grid convergence run.
