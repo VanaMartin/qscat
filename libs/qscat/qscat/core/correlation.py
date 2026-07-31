@@ -37,7 +37,12 @@ from scipy.special import spherical_jn, spherical_yn
 
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.linalg import c_product
-from qscat.special import coulomb_h1_en, riccati_bessel_en, riccati_hankel_en
+from qscat.special import (
+    coulomb_h1_en,
+    riccati_bessel_en,
+    riccati_hankel_en,
+    riccati_hankel_en_mass,
+)
 
 from .wavepacket import gaussian_coeffs
 
@@ -123,38 +128,49 @@ def eta_outgoing(
 
 
 def hankel_point_value(
-    grid: FemDvrEcsGrid, z_position: float, k: float, l: int, charge: int = 0
+    grid: FemDvrEcsGrid, z_position: float, k: float, l: int, charge: int = 0, *, mass: float = 1.0
 ) -> complex:
     """`H^{(1)}_{E,l}(z_position)/2` -- the outgoing-Hankel-half VALUE at a
-    single physical (real, unscaled) electronic coordinate, e.g.
-    `z_position = grid.real_points[position]` for some fixed DVR index
-    `position` (`Dirac`'s analysis point, `td_extractors.py`).
+    single physical (real, unscaled) coordinate, e.g. `z_position =
+    grid.real_points[position]` for some fixed DVR index `position`
+    (`Dirac`'s analysis point, `td_extractors.py`).
 
     The scalar sibling of `_outgoing_coeffs`: same energy-normalized outgoing
-    function -- `riccati_hankel_en(z_position, k, l)/2` (neutral, `charge ==
-    0`) or `coulomb_h1_en(z_position, k, charge, 1.0, l)/2` (charged target,
-    mass 1 -- the SAME electronic-mass convention `_regular_coeffs`/
-    `_outgoing_coeffs`/`qscat.core.channels.channel_vector` use) -- but
-    evaluated at ONE point rather than converted to a `sqrt(w_r)`-scaled,
-    masked DVR coefficient VECTOR: a delta-distribution test function needs
-    the outgoing function's VALUE, not an integral against it. `grid` is
-    accepted (unused) to keep this call-compatible with `_regular_coeffs`/
-    `_outgoing_coeffs` and make "a value on THIS grid's real axis" explicit
-    at call sites.
+    function -- `riccati_hankel_en_mass(z_position, k, l, mass)/2` (neutral,
+    `charge == 0`) or `coulomb_h1_en(z_position, k, charge, mass, l)/2`
+    (charged target) -- but evaluated at ONE point rather than converted to a
+    `sqrt(w_r)`-scaled, masked DVR coefficient VECTOR: a delta-distribution
+    test function needs the outgoing function's VALUE, not an integral
+    against it. `grid` is accepted (unused) to keep this call-compatible
+    with `_regular_coeffs`/`_outgoing_coeffs` and make "a value on THIS
+    grid's real axis" explicit at call sites.
+
+    `mass` defaults to `1.0` (the electronic reduced mass, a.u.) -- every
+    existing (electronic) call site is untouched: `riccati_hankel_en_mass(
+    ..., 1.0)` reproduces `riccati_hankel_en(...)` bit-for-bit (`2.0*1.0 ==
+    2.0` exactly), and `coulomb_h1_en(..., 1.0, l)` is the same literal `1.0`
+    the pre-`mass` code passed. A nuclear (dissociation) caller passes
+    `mass=model.mu`.
     """
     del grid  # unused: kept for call-site symmetry with _regular_coeffs/_outgoing_coeffs
     if charge == 0:
-        val = riccati_hankel_en(np.asarray(z_position, dtype=np.float64), k, l) / 2.0
+        val = riccati_hankel_en_mass(np.asarray(z_position, dtype=np.float64), k, l, mass) / 2.0
     else:
         val = (
-            coulomb_h1_en(np.asarray(z_position, dtype=np.complex128), k, float(charge), 1.0, l)
+            coulomb_h1_en(np.asarray(z_position, dtype=np.complex128), k, float(charge), mass, l)
             / 2.0
         )
     return complex(np.asarray(val))
 
 
 def outgoing_surface_wave(
-    grid: FemDvrEcsGrid, z_surface: float, k: float, l: int, charge: float = 0.0
+    grid: FemDvrEcsGrid,
+    z_surface: float,
+    k: float,
+    l: int,
+    charge: float = 0.0,
+    *,
+    mass: float = 1.0,
 ) -> tuple[complex, complex]:
     """`(phi_out, dphi_out) = H^{(1)}_{E,l}(z_surface)/2` and its SPATIAL
     derivative at `z_surface` -- the `Flux` extractor's per-channel outgoing
@@ -165,33 +181,41 @@ def outgoing_surface_wave(
     derivative `GridVector::derivative` uses; that machinery is reproduced
     here directly against the ANALYTIC function instead, see below).
 
-    Neutral (`charge == 0`, `riccati_hankel_en`'s definition
-    `F^{(1)}_{E,l}(r) = sqrt(2k/pi) r h_l^{(1)}(kr)`): computed ANALYTICALLY
-    via the product rule,
+    `mass` (eMoScat's `reduced_mass()`, `mu_x_=1.0` electronic / `mu_y_=mass`
+    nuclear) is the mass entering the energy normalization of the outgoing
+    function -- `F^{(1)}_{E,l}(r) = sqrt(2 mass k/pi) r h_l^{(1)}(kr)`
+    (`riccati_hankel_en_mass`'s definition; `mass` does NOT enter the
+    momentum argument `kr`, matching `riccati_bessel_en_mass`'s convention).
+    Defaults to `1.0` -- every existing (electronic) call site is untouched:
+    at `mass=1.0` the formulas below reproduce the pre-`mass` code bit-for-
+    bit (`2.0*1.0 == 2.0` exactly). A nuclear (dissociation) caller passes
+    `mass=model.mu`.
 
-        dF/dr = sqrt(2k/pi) * [h_l(kr) + kr * h_l'(kr)]
+    Neutral (`charge == 0`): computed ANALYTICALLY via the product rule,
+
+        dF/dr = sqrt(2 mass k/pi) * [h_l(kr) + kr * h_l'(kr)]
 
     using `scipy.special.spherical_jn`/`spherical_yn`'s `derivative=True`
     option for `h_l^{(1)}{}'(x) = j_l'(x) + i y_l'(x)` -- `qscat.special.
     radial` does not itself expose a derivative primitive (only the two
     VALUE functions), but the underlying scipy pieces it is built on already
     support one, so no finite difference is needed for this branch (checked
-    against a finite difference of `riccati_hankel_en` in
-    `test_correlation.py`, confirming the analytic formula).
+    against a finite difference of `riccati_hankel_en`/`riccati_hankel_en_mass`
+    in `test_correlation.py`, confirming the analytic formula).
 
     Charged (`charge != 0`, `coulomb_h1_en`): `qscat.special.coulomb` has no
     derivative primitive for the Coulomb functions (mpmath's `coulombf`/
     `coulombg` expose no `derivative=` option, and the F_l'/G_l' recurrence
     needs extra pieces this module does not carry) -- this branch falls back
     to a high-accuracy CENTRAL finite difference (4th-order, 5-point
-    stencil) of `coulomb_h1_en` itself. Kept structurally for a charged
-    target (e.g. H2+); N2 is neutral, so only the analytic branch is
-    exercised by this sub-project's gate.
+    stencil) of `coulomb_h1_en(..., mass, l)` itself. Kept structurally for a
+    charged target (e.g. H2+); N2/F2 are neutral, so only the analytic
+    branch is exercised by this sub-project's gate.
     """
     del grid  # unused: kept for call-site symmetry with hankel_point_value
     r = float(z_surface)
     if charge == 0:
-        pref = np.sqrt(2.0 * k / np.pi)
+        pref = np.sqrt(2.0 * mass * k / np.pi)
         x = k * r
         h_l = spherical_jn(l, x) + 1j * spherical_yn(l, x)
         h_l_prime = spherical_jn(l, x, derivative=True) + 1j * spherical_yn(
@@ -202,7 +226,9 @@ def outgoing_surface_wave(
         return complex(phi), complex(dphi)
 
     def _h1(rr: float) -> complex:
-        val = coulomb_h1_en(np.asarray(rr, dtype=np.complex128), k, float(charge), 1.0, l) / 2.0
+        val = (
+            coulomb_h1_en(np.asarray(rr, dtype=np.complex128), k, float(charge), mass, l) / 2.0
+        )
         return complex(np.asarray(val))
 
     phi = _h1(r)

@@ -10,7 +10,7 @@ from __future__ import annotations
 import numpy as np
 from qscat.core.correlation import hankel_point_value, outgoing_surface_wave
 from qscat.core.grids import electronic_grid
-from qscat.special import coulomb_h1_en, riccati_hankel_en
+from qscat.special import coulomb_h1_en, riccati_hankel_en, riccati_hankel_en_mass
 
 GRID = electronic_grid(r_max=12.0, order=5, n_complex=3)
 
@@ -95,3 +95,60 @@ def test_outgoing_surface_wave_charged_branch_is_finite_and_matches_value() -> N
     assert np.isfinite(dphi)
     want = hankel_point_value(GRID, z, k, l, charge)
     assert phi == want
+
+
+# --- Task 2 (this task): `mass` kwarg (electronic default byte-identical +
+# the nuclear-mass generalization used by `Flux(axis="nuclear")`) -----------
+
+
+def test_hankel_point_value_mass_default_is_byte_identical() -> None:
+    """`mass=1.0` (the default) must reproduce the pre-`mass` neutral-branch
+    result bit-for-bit -- `riccati_hankel_en_mass(..., 1.0)` == `riccati_
+    hankel_en(...)` exactly (`2.0*1.0 == 2.0` in IEEE754, no rounding)."""
+    position = 43
+    z_position = float(GRID.real_points[position])
+    k, l = 0.5, 2
+    got = hankel_point_value(GRID, z_position, k, l, 0)
+    want = complex(riccati_hankel_en(np.asarray(z_position), k, l) / 2.0)
+    assert got == want
+
+
+def test_hankel_point_value_nuclear_mass_matches_riccati_hankel_en_mass() -> None:
+    position = 43
+    z_position = float(GRID.real_points[position])
+    k, l, mu = 0.5, 0, 918.25
+    got = hankel_point_value(GRID, z_position, k, l, 0, mass=mu)
+    want = complex(riccati_hankel_en_mass(np.asarray(z_position), k, l, mu) / 2.0)
+    assert got == want
+
+
+def test_outgoing_surface_wave_mass_default_is_byte_identical() -> None:
+    z, k, l = 10.0, 0.5, 2
+    phi_default, dphi_default = outgoing_surface_wave(GRID, z, k, l, 0)
+    phi_explicit, dphi_explicit = outgoing_surface_wave(GRID, z, k, l, 0, mass=1.0)
+    assert phi_default == phi_explicit
+    assert dphi_default == dphi_explicit
+
+
+def test_outgoing_surface_wave_nuclear_mass_phi_matches_hankel_point_value() -> None:
+    z, k, l, mu = 12.0, 0.6, 0, 918.25
+    phi, _ = outgoing_surface_wave(GRID, z, k, l, 0, mass=mu)
+    want = hankel_point_value(GRID, z, k, l, 0, mass=mu)
+    assert phi == want
+
+
+def test_outgoing_surface_wave_nuclear_mass_dphi_matches_finite_difference() -> None:
+    """Same analytic-vs-FD check as the electronic (`mass=1.0`) case, at a
+    nuclear-scale reduced mass."""
+    z, k, l, mu = 12.0, 0.6, 0, 918.25
+    _, dphi = outgoing_surface_wave(GRID, z, k, l, 0, mass=mu)
+    h = 1e-6
+    fd = (
+        complex(
+            riccati_hankel_en_mass(np.asarray(z + h), k, l, mu)
+            - riccati_hankel_en_mass(np.asarray(z - h), k, l, mu)
+        )
+        / (2.0 * h)
+        / 2.0
+    )
+    np.testing.assert_allclose(dphi, fd, rtol=1e-6)

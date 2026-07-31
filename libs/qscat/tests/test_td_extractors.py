@@ -408,12 +408,15 @@ def test_cross_sections_all_matches_each_method_individually() -> None:
 
 # --- Task 1 (SP2): `axis` scaffolding ----------------------------------------
 #
-# `axis="electronic"` (default) is the ONLY implemented path -- covered by
-# every test above, which all construct extractors without an `axis` kwarg
-# and hit the byte-identical golden values. These tests cover the new
-# guard rails: `axis="nuclear"` is a Task 2-4 stub (`NotImplementedError`),
-# an invalid `axis` is a `ValueError`, and the default matches an explicit
-# `axis="electronic"`.
+# `axis="electronic"` (default) is the ONLY implemented path for
+# `TannorWeeks`/`Dirac` -- covered by every test above, which all construct
+# extractors without an `axis` kwarg and hit the byte-identical golden
+# values. These tests cover the new guard rails: `axis="nuclear"` is still a
+# stub (`NotImplementedError`) for `TannorWeeks`/`Dirac` (later SP2 tasks),
+# but IS implemented for `Flux` (Task 2, below -- see the nuclear-Flux
+# section further down for its own coverage); an invalid `axis` is a
+# `ValueError` for all three, and the default matches an explicit
+# `axis="electronic"` for all three.
 
 _AXIS_CTOR_ARGS: dict[str, tuple[type, tuple]] = {
     "TannorWeeks": (TannorWeeks, (TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT)),
@@ -422,7 +425,7 @@ _AXIS_CTOR_ARGS: dict[str, tuple[type, tuple]] = {
 }
 
 
-@pytest.mark.parametrize("cls_name", ["TannorWeeks", "Dirac", "Flux"])
+@pytest.mark.parametrize("cls_name", ["TannorWeeks", "Dirac"])
 def test_axis_nuclear_raises_not_implemented(cls_name: str) -> None:
     cls, args = _AXIS_CTOR_ARGS[cls_name]
     with pytest.raises(NotImplementedError, match="nuclear axis is implemented in a later"):
@@ -442,3 +445,144 @@ def test_axis_default_matches_explicit_electronic(cls_name: str) -> None:
     default = cls(*args, wp_in=WP_IN, dt=DT)
     explicit = cls(*args, wp_in=WP_IN, dt=DT, axis="electronic")
     assert default._axis == explicit._axis == "electronic"
+
+
+# --- Task 2 (SP2): nuclear-axis `Flux` (dissociative attachment) ------------
+#
+# Fast structural tests: builds/records/computes sigma on this file's tiny
+# N2 config (`n_channels=1` -- the only bound anion electronic state that
+# config's small `R_inf=grids[1].R0=12.0` supports, see
+# `anion_electronic_states`'s docstring). NOT a converged DA cross section
+# (same caveat the VE golden-regression config carries) -- this just checks
+# "builds, records, sigma runs, threshold gating correct" (shape/finiteness/
+# zero-below-threshold/zero-on-a-closed-channel/no-free-reference). The
+# LOAD-BEARING convergence gate (`@slow`, pins `_C_DA`) is further below,
+# against the TI `da_cross_section` oracle on F2's real (eMoScat) DA grid.
+
+NUCLEAR_SURFACE = 90  # R=7.12 bohr on TG.grids[1] (nuclear_grid r_max=14, real region R0=12.0)
+
+
+def _nuclear_flux_fixture(n_steps: int = N_STEPS) -> Flux:
+    flux = Flux(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
+        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+    )
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        extractors=[flux],
+    )
+    return flux
+
+
+def test_nuclear_flux_builds_and_records() -> None:
+    flux = _nuclear_flux_fixture()
+    t, b, d = flux._arrays
+    n_recorded = t.shape[0]  # N_STEPS+1: propagate() records the t=0 state too
+    assert n_recorded == N_STEPS + 1
+    assert b.shape == d.shape == (n_recorded, 1)
+    assert np.all(np.isfinite(b))
+    assert np.all(np.isfinite(d))
+
+
+def test_nuclear_flux_sigma_shape_and_finite() -> None:
+    flux = _nuclear_flux_fixture()
+    s_scalar = flux.sigma(0.6)
+    assert s_scalar.shape == (1,)
+    assert np.all(np.isfinite(s_scalar))
+    s_array = flux.sigma([0.10, 0.6])
+    assert s_array.shape == (2, 1)
+    assert np.all(np.isfinite(s_array))
+
+
+def test_nuclear_flux_zero_at_or_below_threshold() -> None:
+    flux = _nuclear_flux_fixture()
+    np.testing.assert_allclose(flux.sigma(-0.1), [0.0])
+    np.testing.assert_allclose(flux.sigma(0.0), [0.0])
+
+
+def test_nuclear_flux_closed_dissociation_channel_gives_zero() -> None:
+    """At this tiny grid's (too-small-`R_inf`, hence too-high) `eps_e`, E=0.10
+    leaves the dissociation channel closed (`e_tot - eps_e[0] <= 0`) -- sigma
+    must be exactly zero, distinct from the `E<=0` branch above."""
+    flux = _nuclear_flux_fixture()
+    e_tot = 0.10 + EPS[V_INIT]
+    assert e_tot - flux._eps_e[0] <= 0.0  # sanity: confirms the closed-channel premise
+    np.testing.assert_allclose(flux.sigma(0.10), [0.0])
+
+
+def test_nuclear_flux_open_channel_path_is_finite() -> None:
+    """At an energy that DOES clear this tiny grid's (unconverged) `eps_e`
+    threshold, the open-channel branch executes (not skipped by `continue`)
+    and returns a finite (though not physically converged) value."""
+    flux = _nuclear_flux_fixture()
+    e_tot = 0.6 + EPS[V_INIT]
+    assert e_tot - flux._eps_e[0] > 0.0  # sanity: confirms the open-channel premise
+    s = flux.sigma(0.6)
+    assert np.all(np.isfinite(s))
+    assert np.all(s >= 0.0)
+
+
+def test_nuclear_flux_rejects_free_reference() -> None:
+    flux = _nuclear_flux_fixture()
+    with pytest.raises(ValueError, match="no elastic free-reference"):
+        flux.sigma(0.10, free=flux)
+
+
+def test_nuclear_flux_n_channels_defaults_to_one() -> None:
+    flux = Flux(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE, wp_in=WP_IN, dt=DT, axis="nuclear"
+    )
+    assert flux._n_channels == 1
+
+
+@pytest.mark.slow
+def test_nuclear_flux_da_converges_to_ti_oracle() -> None:
+    """LOAD-BEARING (pins `_C_DA`): the nuclear-`Flux` sigma_DA converges to the
+    TI `da_cross_section` on the SAME grid (a differential test -- both must
+    agree even where the grid is not physically converged).
+
+    Config = a CLEAN launch-box electronic grid (r_max=25, the incident r0=12
+    sits well INSIDE it, so the packet launches without ECS-tail garbage) x the
+    FINE eMoScat F2 nuclear deck (which resolves the fast K_R~72 dissociation
+    flux wave at the surface -- a coarse nuclear grid gives sigma_flux~0, the
+    surface never sees the outgoing wave). Both failure modes were real bugs
+    found while validating this: an off-box incident diverges ~1e6x; a coarse
+    nuclear reads ~0.
+
+    Measured (controller, 2026-07-31): sigma_flux/sigma_ti reaches a STABLE
+    plateau ~0.86-0.97 by n>=1350 (|psi| flat at 0.0556) -- the ~3-14% gap is
+    the TD-vs-TI cross-method band (as in the VE extractors), NOT a
+    normalization error: a wrong `_C_DA` (e.g. 4*pi^2 off the `S=1-2*pi*i*T`
+    identity) would plateau at a wildly different constant, not ~1. Heavy
+    (~86k unknowns x 1500 steps, ~10 min) -- @slow. The FULL eMoScat F2 grid
+    (electronic real->90 bohr, ~402k unknowns) convergence is a
+    Docker/overnight-deferred production run, not this laptop gate.
+    """
+    from qscat.core.dissociation import da_cross_section
+    from qscat.core.grids import segmented_grid
+    from qscat.model import F2
+
+    elec = electronic_grid(r_max=25.0, order=6, n_complex=3, angle_deg=40.0)
+    nuc = segmented_grid(
+        [(9, 1.8), (1, 2.0), (5, 2.5), (4, 2.596908), (4, 2.7), (40, 10.7)],
+        [(1, 10.8), (1, 11.0), (1, 11.5), (1, 12.5), (1, 14.0), (1, 18.0), (4, 30.0), (2, 101.0)],
+        angle_deg=35.0,
+        quadrature=14,
+    )
+    tg = TensorGrid([elec, nuc])
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    e_probe = np.array([0.03, 0.04])
+    sigma_ti = np.ravel(da_cross_section(tg, F2, eps, chi, 0, e_probe))
+
+    real = nuc.real_points
+    surface = int(np.argmin(np.abs(np.where(real <= nuc.R0, real, 1e9) - 6.0)))
+    wp_in = {"r0": 12.0, "p0": -0.5, "sigma": 3.0}
+    psi0 = initial_state(tg, chi[0], **wp_in)
+    flux = Flux(tg, F2, eps, chi, 0, [], surface, wp_in=wp_in, dt=1.0, axis="nuclear", n_channels=1)
+    # `propagate` records the t=0 state itself, then every step -> 1501 samples.
+    propagate(
+        tg, psi0, [], dt=1.0, n_steps=1500, hamiltonian=F2.hamiltonian(tg), extractors=[flux]
+    )
+    ratio = np.ravel(flux.sigma(e_probe)) / sigma_ti
+    assert np.all(ratio > 0.7) and np.all(ratio < 1.25), (ratio, sigma_ti)
