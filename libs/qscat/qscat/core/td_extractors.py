@@ -84,6 +84,25 @@ element for ANY exit channel (electronic or nuclear), so it lands on the
 SAME `pi*|S|^2/2E` convention regardless of which axis carries the outgoing
 flux -- confirmed empirically by the TI-convergence gate (`task-2-report.md`),
 not merely asserted.
+
+`Dirac(axis="nuclear")` (sub-project #4/SP2, Task 3) is the delta (point-
+projection) sibling of `Flux(axis="nuclear")` -- the SAME anion-channel
+scaffolding (`n_channels`, `anion_electronic_states` at `R_inf =
+tgrid.grids[1].R0`), but `record` keeps only the point VALUE, no derivative:
+`b_c(t) = <phi_c|psi(.,R=position)> / sqrt(w_R[position])` (a c-product on
+the ELECTRONIC axis at fixed nuclear node `position`) -- the direct nuclear-
+axis transpose of the electronic `Dirac`'s `b_{v'}(t) = <chi_{v'}|
+psi(position,.)> / sqrt(w_r[position])`. Its `sigma` is `_dirac_s_vector_
+one_energy`'s nuclear-axis twin: `eta_out_c -> hankel_point_value(g_nuc,
+R_position, K_R, l=0, model.charge, mass=mu_R)` (the point-VALUE half-Hankel,
+not `outgoing_surface_wave`'s Wronskian pair -- a delta test function has no
+derivative side), `K_R = sqrt(2 mu_R (E_tot - eps_e_c))`, `mu_R = model.mu`,
+`eta_in = eta_incident` STILL on the electronic incident axis (unchanged --
+only the outgoing side moves to the nuclear axis, exactly as `Flux(axis=
+"nuclear")`'s docstring explains). `sigma_DA,c(E) = C_DA * |S_c|^2 / (2E)`,
+the SAME `C_DA = pi` (no elastic free-reference subtraction: DA has no
+`v'==v_init` diagonal, `free != None` raises `ValueError`, matching
+`Flux(axis="nuclear")`).
 """
 
 from __future__ import annotations
@@ -119,9 +138,9 @@ _AXES = ("electronic", "nuclear")
 def _check_axis(axis: str, cls_name: str, *, nuclear_implemented: bool = False) -> None:
     """Validate `axis` and enforce the SP2 scaffolding: `"electronic"` is
     always implemented (Task 1, byte-identical to the pre-refactor code);
-    `"nuclear"` is a stub for `TannorWeeks`/`Dirac` (later SP2 tasks) but
-    IS implemented for `Flux` (this task, `nuclear_implemented=True`).
-    `ValueError` for anything outside `_AXES`."""
+    `"nuclear"` is a stub for `TannorWeeks` (a later SP2 task) but IS
+    implemented for `Flux` (Task 2) and `Dirac` (Task 3, this task,
+    `nuclear_implemented=True`). `ValueError` for anything outside `_AXES`."""
     if axis not in _AXES:
         raise ValueError(f"{cls_name}: axis must be one of {_AXES}, got {axis!r}")
     if axis == "nuclear" and not nuclear_implemented:
@@ -313,24 +332,120 @@ def _dirac_sigma_one_energy(
     return sigma
 
 
+def _dirac_da_s_vector_one_energy(
+    g_elec: FemDvrEcsGrid,
+    g_nuc: FemDvrEcsGrid,
+    model: ResonanceModel,
+    mu_r: float,
+    result: PropagationResult,
+    eps: npt.NDArray[np.float64],
+    v_init: int,
+    eps_e: npt.NDArray[np.float64],
+    R_position: float,
+    E: float,
+    dt: float,
+    wp_in: _WpIn,
+) -> npt.NDArray[np.complex128]:
+    """The raw DA delta-transform S-matrix, per anion dissociation channel --
+    `_dirac_s_vector_one_energy`'s nuclear-axis twin (module docstring's
+    `Flux(axis="nuclear")` section, adapted to a point VALUE rather than a
+    Wronskian): the outgoing test function moves to the nuclear axis at mass
+    `mu_r` (`l=0`, `hankel_point_value` instead of `outgoing_surface_wave`),
+    the incident deconvolution `eta_in` stays on the ELECTRONIC incident axis.
+    """
+    n_channels = len(eps_e)
+    S = np.zeros(n_channels, dtype=np.complex128)
+    if E <= 0.0:
+        return S
+    weights = _quadrature_weights(result.t.size)
+    e_tot = E + eps[v_init]
+    k = float(np.sqrt(2.0 * E))
+    eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
+    phase = np.exp(1j * e_tot * result.t)
+    for c in range(n_channels):
+        e_dr = e_tot - eps_e[c]
+        if e_dr <= 0.0:
+            continue  # closed dissociation channel
+        k_r = float(np.sqrt(2.0 * mu_r * e_dr))
+        f_c = hankel_point_value(g_nuc, R_position, k_r, 0, model.charge, mass=mu_r)
+        s_raw = np.sum(weights * phase * result.c[:, c]) * dt
+        S[c] = s_raw / (2.0 * np.pi * np.conj(f_c) * eta_in)
+    return S
+
+
+def _dirac_da_sigma_one_energy(
+    g_elec: FemDvrEcsGrid,
+    g_nuc: FemDvrEcsGrid,
+    model: ResonanceModel,
+    mu_r: float,
+    result: PropagationResult,
+    eps: npt.NDArray[np.float64],
+    v_init: int,
+    eps_e: npt.NDArray[np.float64],
+    R_position: float,
+    E: float,
+    dt: float,
+    wp_in: _WpIn,
+) -> npt.NDArray[np.float64]:
+    """`sigma_DA,c(E)` (bohr^2) per anion dissociation channel `c`, via the
+    nuclear-axis delta transform -- no elastic free-reference subtraction
+    (DA is a pure rearrangement channel, no `v'==v_init` diagonal), the SAME
+    `_C_DA = pi` convention `_flux_da_sigma_one_energy` uses (defined further
+    below in this module; referenced here by name, resolved at call time)."""
+    n_channels = len(eps_e)
+    sigma = np.zeros(n_channels, dtype=np.float64)
+    if E <= 0.0:
+        return sigma
+    s_full = _dirac_da_s_vector_one_energy(
+        g_elec, g_nuc, model, mu_r, result, eps, v_init, eps_e, R_position, E, dt, wp_in
+    )
+    e_tot = E + eps[v_init]
+    for c in range(n_channels):
+        if e_tot - eps_e[c] <= 0.0:
+            continue  # closed dissociation channel
+        sigma[c] = _C_DA * abs(s_full[c]) ** 2 / (2.0 * E)
+    return sigma
+
+
 class Dirac:
     """The delta (Dirac) `Extractor`: eMoScat's `DiracTestFunction2d` --
     Tannor-Weeks with a delta-distribution test function instead of the
     Gaussian test packet.
 
-    `record` projects `psi` onto `chi_{v'}` in the nuclear coordinate at a
-    FIXED electronic DVR index `position` -- no propagated outgoing test
-    function, unlike `TannorWeeks`. `position` must land in the real
-    (unscaled) electronic region (`grid.real_points[position] <= grid.R0`),
-    typically an element end well past the interaction range (mirroring
-    `TannorWeeks`'s `wp_out` standoff).
+    Electronic (`axis="electronic"`, the default): `record` projects `psi`
+    onto `chi_{v'}` in the nuclear coordinate at a FIXED electronic DVR index
+    `position` -- no propagated outgoing test function, unlike `TannorWeeks`.
+    `position` must land in the real (unscaled) electronic region
+    (`grid.real_points[position] <= grid.R0`), typically an element end well
+    past the interaction range (mirroring `TannorWeeks`'s `wp_out` standoff).
+    `sigma(E, free=...)` accepts the companion free-reference `Dirac` (built
+    from ITS OWN, separately propagated, run), matching `TannorWeeks.sigma`'s
+    `free` contract.
+
+    Nuclear (`axis="nuclear"`): the DISSOCIATIVE ATTACHMENT (DA) sibling of
+    `Flux(axis="nuclear")` (module docstring's `Flux(axis="nuclear")`
+    section) -- `position` is a NUCLEAR DVR index, `n_channels` selects how
+    many anion electronic bound states (`qscat.core.dissociation.
+    anion_electronic_states`, at `R_inf = tgrid.grids[1].R0`) are tracked as
+    exit channels; `vprimes` is unused (pass `[]`). `record` projects `psi`
+    onto `phi_c(r)` (the electronic anion state) at the FIXED nuclear node
+    `position` -- the SAME point-VALUE projection as the electronic path,
+    transposed to the other axis (no derivative, unlike `Flux`: a delta test
+    function needs only the point value). `sigma(E)` returns the delta
+    transform's `sigma_DA,c(E)` per channel (module docstring), `eta_out ->
+    hankel_point_value(..., mass=model.mu)` at `position` -- shape
+    `(n_channels,)` for scalar `E`, matching `Flux(axis="nuclear")`'s
+    contract. `free` is not supported (DA has no elastic diagonal to
+    subtract a reference from; passing it raises `ValueError`).
 
     Construct one instance per propagation run (the full run, and -- when an
-    elastic free reference is wanted -- a second instance for a SEPARATE
-    `V_int=0` run); pass it to `time_dependent.propagate(..., extractors=
-    [dirac])`. `sigma(E, free=...)` accepts the companion free-reference
-    `Dirac` (built from ITS OWN, separately propagated, run), matching
-    `TannorWeeks.sigma`'s `free` contract.
+    elastic free reference is wanted, electronic axis only -- a second
+    instance for a SEPARATE `V_int=0` run); pass it to `time_dependent.
+    propagate(..., extractors=[dirac])`.
+
+    `position` must be a real (unscaled) DVR index, on the axis-appropriate
+    grid, in the asymptotic region (past the interaction) -- same
+    requirement as `Flux`'s `surface`.
     """
 
     def __init__(
@@ -346,16 +461,18 @@ class Dirac:
         wp_in: _WpIn,
         dt: float,
         axis: str = "electronic",
+        n_channels: int = 1,
     ) -> None:
-        _check_axis(axis, "Dirac")
+        _check_axis(axis, "Dirac", nuclear_implemented=True)
         self._axis = axis
         grid = tgrid.grids[_axis_grid_index(axis)]
+        region = "electronic" if axis == "electronic" else "nuclear"
         if not (0 <= position < grid.n):
             raise ValueError(f"position {position} out of range for grid of size {grid.n}")
         if grid.real_points[position] > grid.R0:
             raise ValueError(
                 f"position {position} (r={grid.real_points[position]}) is not in the real "
-                f"(unscaled) electronic region (R0={grid.R0}) -- pick an index with "
+                f"(unscaled) {region} region (R0={grid.R0}) -- pick an index with "
                 "real_points[position] <= R0"
             )
         self._tgrid = tgrid
@@ -368,18 +485,35 @@ class Dirac:
         self._position = position
         self._z_position = float(grid.real_points[position])
         self._inv_sqrt_w = 1.0 / np.sqrt(np.asarray(grid.weights[position], dtype=np.complex128))
-        self._chi = [np.asarray(chi[vp], dtype=np.complex128) for vp in vprimes]
+        if axis == "electronic":
+            self._n_channels = len(vprimes)
+            self._chi = [np.asarray(chi[vp], dtype=np.complex128) for vp in vprimes]
+        else:  # nuclear
+            eps_e, phi = anion_electronic_states(
+                tgrid.grids[0], model, R_inf=tgrid.grids[1].R0, n_states=n_channels
+            )
+            self._n_channels = n_channels
+            self._eps_e = eps_e
+            self._phi = [np.asarray(phi[c], dtype=np.complex128) for c in range(n_channels)]
         self._rows: list[npt.NDArray[np.complex128]] = []
 
     def record(self, psi: npt.NDArray[np.complex128]) -> None:
-        """Append this step's `b_{v'}(t_n) = <chi_{v'}|psi(position, .)> /
-        sqrt(w_r[position])` row -- the DVR-coefficient-to-VALUE conversion
-        `qscat.core.lcp`'s boundary flux also relies on."""
+        """Append this step's point-value projection row (class docstring):
+        `b_{v'}(t_n) = <chi_{v'}|psi(position, .)> / sqrt(w_r[position])`
+        (electronic axis) or `b_c(t_n) = <phi_c|psi(., R=position)> /
+        sqrt(w_R[position])` (nuclear axis) -- the DVR-coefficient-to-VALUE
+        conversion `qscat.core.lcp`'s boundary flux also relies on."""
         block = psi.reshape(self._tgrid.shape)
-        psi_row = block[self._position, :]
-        row = np.empty(len(self._vprimes), dtype=np.complex128)
-        for k, chi_vp in enumerate(self._chi):
-            row[k] = c_product(chi_vp, psi_row) * self._inv_sqrt_w
+        if self._axis == "electronic":
+            psi_row = block[self._position, :]
+            row = np.empty(len(self._vprimes), dtype=np.complex128)
+            for k, chi_vp in enumerate(self._chi):
+                row[k] = c_product(chi_vp, psi_row) * self._inv_sqrt_w
+        else:  # nuclear
+            psi_col = block[:, self._position]
+            row = np.empty(self._n_channels, dtype=np.complex128)
+            for k, phi_c in enumerate(self._phi):
+                row[k] = c_product(phi_c, psi_col) * self._inv_sqrt_w
         self._rows.append(row)
 
     @property
@@ -387,7 +521,7 @@ class Dirac:
         """The recorded series as a `PropagationResult` (same shape/role as
         `TannorWeeks.result`; `norm`/`snapshots` are left empty/zero)."""
         n_t = len(self._rows)
-        n_ch = len(self._vprimes)
+        n_ch = len(self._vprimes) if self._axis == "electronic" else self._n_channels
         c = np.stack(self._rows) if self._rows else np.zeros((0, n_ch), dtype=np.complex128)
         t = np.arange(n_t, dtype=np.float64) * self._dt
         norm = np.zeros(n_t, dtype=np.float64)
@@ -396,16 +530,54 @@ class Dirac:
     def sigma(
         self, E: float | npt.ArrayLike, *, free: Extractor | None = None
     ) -> npt.NDArray[np.float64]:
-        """`sigma_{v_init->v'}(E)` (bohr^2) via the delta transform (module
-        docstring): TW's transform with `eta_out_i -> hankel_point_value(...)`
-        at `position`.
+        """`sigma_{v_init->v'}(E)` (bohr^2, electronic axis) or `sigma_DA,c(E)`
+        (bohr^2 per anion channel `c`, nuclear axis) via the delta transform
+        (module docstring / class docstring).
 
-        `free`, when given, must be a companion `Dirac` extractor recorded
-        from a SEPARATE `V_int=0` propagation -- same elastic free-reference
-        contract as `TannorWeeks.sigma`. `free` is typed via the `Extractor`
-        protocol (SP1 tech-debt lift) but only a `Dirac` is meaningful here;
-        anything else raises `TypeError`.
+        Electronic: `free`, when given, must be a companion `Dirac` extractor
+        recorded from a SEPARATE `V_int=0` propagation -- same elastic
+        free-reference contract as `TannorWeeks.sigma`. `free` is typed via
+        the `Extractor` protocol (SP1 tech-debt lift) but only a `Dirac` is
+        meaningful here; anything else raises `TypeError`.
+
+        Nuclear: DA has no elastic diagonal to subtract a reference from --
+        `free` must be `None` (`ValueError` otherwise).
         """
+        if self._axis == "nuclear":
+            if free is not None:
+                raise ValueError(
+                    "Dirac.sigma(axis='nuclear'): DA has no elastic free-reference "
+                    "subtraction -- free must be None"
+                )
+            e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+            result = self.result
+            g_elec = self._tgrid.grids[0]
+            g_nuc = self._tgrid.grids[1]
+            mu_r = self._model.mu
+            out = np.stack(
+                [
+                    _dirac_da_sigma_one_energy(
+                        g_elec,
+                        g_nuc,
+                        self._model,
+                        mu_r,
+                        result,
+                        self._eps,
+                        self._v_init,
+                        self._eps_e,
+                        self._z_position,
+                        float(e),
+                        self._dt,
+                        self._wp_in,
+                    )
+                    for e in e_arr
+                ]
+            )
+            scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+            if scalar:
+                return np.asarray(out[0], dtype=np.float64)
+            return out
+
         free_result: PropagationResult | None = None
         if free is not None:
             if not isinstance(free, Dirac):

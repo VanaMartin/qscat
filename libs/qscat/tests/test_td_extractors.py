@@ -409,14 +409,14 @@ def test_cross_sections_all_matches_each_method_individually() -> None:
 # --- Task 1 (SP2): `axis` scaffolding ----------------------------------------
 #
 # `axis="electronic"` (default) is the ONLY implemented path for
-# `TannorWeeks`/`Dirac` -- covered by every test above, which all construct
+# `TannorWeeks` -- covered by every test above, which all construct
 # extractors without an `axis` kwarg and hit the byte-identical golden
 # values. These tests cover the new guard rails: `axis="nuclear"` is still a
-# stub (`NotImplementedError`) for `TannorWeeks`/`Dirac` (later SP2 tasks),
-# but IS implemented for `Flux` (Task 2, below -- see the nuclear-Flux
-# section further down for its own coverage); an invalid `axis` is a
-# `ValueError` for all three, and the default matches an explicit
-# `axis="electronic"` for all three.
+# stub (`NotImplementedError`) for `TannorWeeks` (a later SP2 task), but IS
+# implemented for `Flux` (Task 2) and `Dirac` (Task 3, both below -- see the
+# nuclear-Flux/nuclear-Dirac sections further down for their own coverage);
+# an invalid `axis` is a `ValueError` for all three, and the default matches
+# an explicit `axis="electronic"` for all three.
 
 _AXIS_CTOR_ARGS: dict[str, tuple[type, tuple]] = {
     "TannorWeeks": (TannorWeeks, (TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT)),
@@ -425,7 +425,7 @@ _AXIS_CTOR_ARGS: dict[str, tuple[type, tuple]] = {
 }
 
 
-@pytest.mark.parametrize("cls_name", ["TannorWeeks", "Dirac"])
+@pytest.mark.parametrize("cls_name", ["TannorWeeks"])
 def test_axis_nuclear_raises_not_implemented(cls_name: str) -> None:
     cls, args = _AXIS_CTOR_ARGS[cls_name]
     with pytest.raises(NotImplementedError, match="nuclear axis is implemented in a later"):
@@ -585,4 +585,186 @@ def test_nuclear_flux_da_converges_to_ti_oracle() -> None:
         tg, psi0, [], dt=1.0, n_steps=1500, hamiltonian=F2.hamiltonian(tg), extractors=[flux]
     )
     ratio = np.ravel(flux.sigma(e_probe)) / sigma_ti
+    assert np.all(ratio > 0.7) and np.all(ratio < 1.25), (ratio, sigma_ti)
+
+
+# --- Task 3 (SP2): nuclear-axis `Dirac` (delta) DA extractor ----------------
+#
+# Fast structural tests: builds/records/computes sigma on this file's tiny
+# N2 config, mirroring the nuclear-`Flux` section above exactly (same
+# `NUCLEAR_SURFACE`, same tiny-grid caveats -- not a converged DA cross
+# section, just "builds, records, sigma runs, threshold gating correct").
+# The LOAD-BEARING convergence gate (`@slow`) is further below, against the
+# TI `da_cross_section` oracle on F2's real (eMoScat) DA grid -- a mirror of
+# `test_nuclear_flux_da_converges_to_ti_oracle`.
+
+
+def _nuclear_dirac_fixture(n_steps: int = N_STEPS) -> Dirac:
+    dirac = Dirac(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
+        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+    )
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        extractors=[dirac],
+    )
+    return dirac
+
+
+def test_nuclear_dirac_builds_and_records() -> None:
+    dirac = _nuclear_dirac_fixture()
+    result = dirac.result
+    n_recorded = result.t.shape[0]  # N_STEPS+1: propagate() records the t=0 state too
+    assert n_recorded == N_STEPS + 1
+    assert result.c.shape == (n_recorded, 1)
+    assert np.all(np.isfinite(result.c))
+
+
+def test_nuclear_dirac_sigma_shape_and_finite() -> None:
+    dirac = _nuclear_dirac_fixture()
+    s_scalar = dirac.sigma(0.6)
+    assert s_scalar.shape == (1,)
+    assert np.all(np.isfinite(s_scalar))
+    s_array = dirac.sigma([0.10, 0.6])
+    assert s_array.shape == (2, 1)
+    assert np.all(np.isfinite(s_array))
+
+
+def test_nuclear_dirac_zero_at_or_below_threshold() -> None:
+    dirac = _nuclear_dirac_fixture()
+    np.testing.assert_allclose(dirac.sigma(-0.1), [0.0])
+    np.testing.assert_allclose(dirac.sigma(0.0), [0.0])
+
+
+def test_nuclear_dirac_closed_dissociation_channel_gives_zero() -> None:
+    """At this tiny grid's (too-small-`R_inf`, hence too-high) `eps_e`, E=0.10
+    leaves the dissociation channel closed (`e_tot - eps_e[0] <= 0`) -- sigma
+    must be exactly zero, distinct from the `E<=0` branch above."""
+    dirac = _nuclear_dirac_fixture()
+    e_tot = 0.10 + EPS[V_INIT]
+    assert e_tot - dirac._eps_e[0] <= 0.0  # sanity: confirms the closed-channel premise
+    np.testing.assert_allclose(dirac.sigma(0.10), [0.0])
+
+
+def test_nuclear_dirac_open_channel_path_is_finite() -> None:
+    """At an energy that DOES clear this tiny grid's (unconverged) `eps_e`
+    threshold, the open-channel branch executes (not skipped by `continue`)
+    and returns a finite (though not physically converged) value."""
+    dirac = _nuclear_dirac_fixture()
+    e_tot = 0.6 + EPS[V_INIT]
+    assert e_tot - dirac._eps_e[0] > 0.0  # sanity: confirms the open-channel premise
+    s = dirac.sigma(0.6)
+    assert np.all(np.isfinite(s))
+    assert np.all(s >= 0.0)
+
+
+def test_nuclear_dirac_rejects_free_reference() -> None:
+    dirac = _nuclear_dirac_fixture()
+    with pytest.raises(ValueError, match="no elastic free-reference"):
+        dirac.sigma(0.10, free=dirac)
+
+
+def test_nuclear_dirac_n_channels_defaults_to_one() -> None:
+    dirac = Dirac(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE, wp_in=WP_IN, dt=DT, axis="nuclear"
+    )
+    assert dirac._n_channels == 1
+
+
+# Cross-method agreement band: nuclear `Dirac` and nuclear `Flux` are two
+# DIFFERENT analyses (a fixed-point projection vs. a surface-current
+# Wronskian) of the identical trajectory -- no reason to expect
+# machine-precision agreement, mirroring the electronic Dirac-vs-Flux
+# difference documented above. Measured (standalone script, this file's tiny
+# N2 config, `NUCLEAR_SURFACE=90`, `n_steps=800`): `sigma_dirac/sigma_flux =
+# 0.740` at E=0.6 (the only open dissociation channel on this tiny grid --
+# `E=0.10` is closed for both, see `test_nuclear_dirac_closed_dissociation_
+# channel_gives_zero`); re-checked at `n_steps=1500`: `0.672` (same
+# qualitative band, still drifting on this deliberately tiny/toy grid -- NOT
+# the convergence gate, see the `@slow` test below). `rtol=0.35` covers the
+# observed ~33% worst-case deviation with a small margin; a future change
+# that widens this further is a finding to report, not to silently re-loosen.
+_NUCLEAR_DIRAC_FLUX_RTOL = 0.35
+_NUCLEAR_DIRAC_FLUX_N_STEPS = 800
+
+
+def test_nuclear_dirac_agrees_with_nuclear_flux_same_trajectory() -> None:
+    """ONE `propagate()` call drives nuclear `Dirac` + nuclear `Flux`
+    together -- the differential test's whole point: two independent
+    analyses of the identical trajectory."""
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+    dirac = Dirac(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
+        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+    )
+    flux = Flux(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
+        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+    )
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=_NUCLEAR_DIRAC_FLUX_N_STEPS,
+        hamiltonian=N2.hamiltonian(TG), extractors=[dirac, flux],
+    )
+    e = [0.10, 0.6]
+    s_dirac = dirac.sigma(e)
+    s_flux = flux.sigma(e)
+    assert s_dirac.shape == s_flux.shape == (2, 1)
+    assert np.all(np.isfinite(s_dirac))
+    assert np.all(np.isfinite(s_flux))
+    np.testing.assert_allclose(s_dirac[0], s_flux[0], rtol=0, atol=0)  # both closed -> exactly 0
+    np.testing.assert_allclose(
+        s_dirac[1], s_flux[1], rtol=_NUCLEAR_DIRAC_FLUX_RTOL, atol=1e-60
+    )
+
+
+@pytest.mark.slow
+def test_nuclear_dirac_da_converges_to_ti_oracle() -> None:
+    """LOAD-BEARING: the nuclear-`Dirac` sigma_DA converges to the TI
+    `da_cross_section` on the SAME grid (a differential test -- both must
+    agree even where the grid is not physically converged) -- a mirror of
+    `test_nuclear_flux_da_converges_to_ti_oracle` (see that test's docstring
+    for the full config rationale: the launch-box electronic grid x the
+    FINE eMoScat F2 nuclear deck, the off-box-incident and coarse-nuclear
+    failure modes it guards against).
+
+    The sibling nuclear `Flux` gate plateaus at sigma_flux/sigma_ti ~
+    0.86-0.97 by n>=1350 on this same config (`task-2-report.md`/the test
+    above) -- `Dirac` is a different (point-value, not Wronskian-flux)
+    transform of the identical propagation, so it need not land at the exact
+    same ratio, but should land in the same general TD-vs-TI cross-method
+    band, not at a wildly different constant (which would indicate a wrong
+    `_C_DA` or a sign/prefactor error in the point-Hankel transform). Heavy
+    (~86k unknowns x 1500 steps, ~10 min) -- @slow, NOT executed by the
+    implementer (mirrors the already-validated `Flux` sibling; see
+    `.superpowers/sdd/task-3-report.md`).
+    """
+    from qscat.core.dissociation import da_cross_section
+    from qscat.core.grids import segmented_grid
+    from qscat.model import F2
+
+    elec = electronic_grid(r_max=25.0, order=6, n_complex=3, angle_deg=40.0)
+    nuc = segmented_grid(
+        [(9, 1.8), (1, 2.0), (5, 2.5), (4, 2.596908), (4, 2.7), (40, 10.7)],
+        [(1, 10.8), (1, 11.0), (1, 11.5), (1, 12.5), (1, 14.0), (1, 18.0), (4, 30.0), (2, 101.0)],
+        angle_deg=35.0,
+        quadrature=14,
+    )
+    tg = TensorGrid([elec, nuc])
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    e_probe = np.array([0.03, 0.04])
+    sigma_ti = np.ravel(da_cross_section(tg, F2, eps, chi, 0, e_probe))
+
+    real = nuc.real_points
+    surface = int(np.argmin(np.abs(np.where(real <= nuc.R0, real, 1e9) - 6.0)))
+    wp_in = {"r0": 12.0, "p0": -0.5, "sigma": 3.0}
+    psi0 = initial_state(tg, chi[0], **wp_in)
+    dirac = Dirac(
+        tg, F2, eps, chi, 0, [], surface, wp_in=wp_in, dt=1.0, axis="nuclear", n_channels=1
+    )
+    # `propagate` records the t=0 state itself, then every step -> 1501 samples.
+    propagate(
+        tg, psi0, [], dt=1.0, n_steps=1500, hamiltonian=F2.hamiltonian(tg), extractors=[dirac]
+    )
+    ratio = np.ravel(dirac.sigma(e_probe)) / sigma_ti
     assert np.all(ratio > 0.7) and np.all(ratio < 1.25), (ratio, sigma_ti)
