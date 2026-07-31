@@ -27,6 +27,23 @@ element, per `.superpowers/sdd/n2-2d-exact-extraction.md` section 5.3
 `Phi_{v'} = g_out(r) chi_{v'}(R)`: the k'-dependence lives entirely in
 `eta_outgoing`, evaluated once per (E, v') pair in `td_cross_section.py`,
 while the (expensive) propagation against `Phi_{v'}` happens only once.
+
+`outgoing_channel_nuclear`/nuclear `eta_outgoing` (sub-project #4/SP2, Task 4)
+are the NUCLEAR-axis transpose of the above, for the `TannorWeeks(axis=
+"nuclear")` dissociative-attachment (DA) extractor (`qscat.core.
+td_extractors`): the outgoing Gaussian test packet moves to the NUCLEAR
+coordinate `R` (mass `mu_R = model.mu`, `l=0`), projected against one of the
+anion ELECTRONIC bound states `phi_c(r)` instead of a nuclear vibrational
+level -- `Phi_c = phi_c(r) g_out(R)`, the direct transpose of `Phi_{v'} =
+g_out(r) chi_{v'}(R)`. `eta_outgoing` gains a `mass` keyword (default `1.0`,
+reproducing the electronic path bit-for-bit via `riccati_hankel_en_mass(...,
+1.0) == riccati_hankel_en(...)`, see `qscat.special.radial.
+riccati_hankel_en_mass`'s docstring) so the SAME function serves both axes:
+electronic callers are untouched, a nuclear caller passes `mass=model.mu`.
+`eta_incident` (the incident ELECTRON) is NOT generalized -- the incident
+side always stays on the electronic axis, even for the nuclear DA extractor
+(`td_extractors.py`'s module docstring, `Flux`/`Dirac(axis="nuclear")`
+sections).
 """
 
 from __future__ import annotations
@@ -40,7 +57,6 @@ from qscat.linalg import c_product
 from qscat.special import (
     coulomb_h1_en,
     riccati_bessel_en,
-    riccati_hankel_en,
     riccati_hankel_en_mass,
 )
 
@@ -48,6 +64,7 @@ from .wavepacket import gaussian_coeffs
 
 __all__ = [
     "outgoing_channel",
+    "outgoing_channel_nuclear",
     "eta_incident",
     "eta_outgoing",
     "hankel_point_value",
@@ -75,6 +92,31 @@ def outgoing_channel(
     return psi
 
 
+def outgoing_channel_nuclear(
+    tgrid: TensorGrid,
+    phi_c: npt.NDArray[np.complex128],
+    *,
+    r0_out: float,
+    p0_out: float,
+    sigma_out: float,
+) -> npt.NDArray[np.complex128]:
+    """`Phi_c = phi_c(r) g_out(R)`, masked, energy-independent.
+
+    The NUCLEAR-axis transpose of `outgoing_channel`: the outgoing test
+    packet `g_out` sits in the nuclear coordinate `R` (`tgrid.grids[1]`)
+    while `phi_c` -- one of the anion electronic bound states
+    (`qscat.core.dissociation.anion_electronic_states`) -- sits in the
+    electronic coordinate `r` (`tgrid.grids[0]`). `phi_c` is already
+    c-product-normalized (that function's docstring); no rescaling is
+    applied here, mirroring `outgoing_channel`'s treatment of `chi_v`.
+    """
+    phi = np.asarray(phi_c, dtype=np.complex128)
+    g_out_coeff = gaussian_coeffs(tgrid.grids[1], r0=r0_out, p0=p0_out, sigma=sigma_out)
+    psi = tgrid.outer([phi, g_out_coeff])
+    psi[~tgrid.real_mask()] = 0.0
+    return psi
+
+
 def _regular_coeffs(grid: FemDvrEcsGrid, k: float, l: int) -> npt.NDArray[np.complex128]:
     """`riccati_bessel_en(r, k, l) * sqrt(w_r)`, masked to the unscaled region.
 
@@ -89,15 +131,21 @@ def _regular_coeffs(grid: FemDvrEcsGrid, k: float, l: int) -> npt.NDArray[np.com
     return coeffs
 
 
-def _outgoing_coeffs(grid: FemDvrEcsGrid, k: float, l: int) -> npt.NDArray[np.complex128]:
+def _outgoing_coeffs(
+    grid: FemDvrEcsGrid, k: float, l: int, *, mass: float = 1.0
+) -> npt.NDArray[np.complex128]:
     """`h^{(1)}_{E,l}(r)/2 * sqrt(w_r)`, masked to the unscaled region.
 
-    `h^{(1)}_{E,l}(r) = sqrt(2k/pi) r h_l^{(1)}(kr)` (energy-normalized,
-    mass 1), `h_l^{(1)} = j_l + i*y_l`, halved -- see module docstring for
-    why this (not the regular function) is `F_out`.
+    `h^{(1)}_{E,l}(r) = sqrt(2*mass*k/pi) r h_l^{(1)}(kr)` (energy-normalized,
+    mass `mass`), `h_l^{(1)} = j_l + i*y_l`, halved -- see module docstring
+    for why this (not the regular function) is `F_out`. `mass` defaults to
+    `1.0` -- `riccati_hankel_en_mass(..., 1.0)` reproduces `riccati_hankel_en`
+    bit-for-bit (`qscat.special.radial.riccati_hankel_en_mass`'s docstring),
+    so every existing (electronic) call site is untouched; a nuclear (DA)
+    caller passes `mass=model.mu`.
     """
     r = grid.real_points
-    riccati_h1 = riccati_hankel_en(r, k, l)
+    riccati_h1 = riccati_hankel_en_mass(r, k, l, mass)
     f_vals = riccati_h1 / 2.0
     sqrt_w = np.sqrt(np.asarray(grid.weights, dtype=np.complex128))
     coeffs = (f_vals * sqrt_w).astype(np.complex128)
@@ -115,15 +163,24 @@ def eta_incident(
 
 
 def eta_outgoing(
-    grid: FemDvrEcsGrid, kp: float, l: int, *, r0_out: float, p0_out: float, sigma_out: float
+    grid: FemDvrEcsGrid,
+    kp: float,
+    l: int,
+    *,
+    r0_out: float,
+    p0_out: float,
+    sigma_out: float,
+    mass: float = 1.0,
 ) -> complex:
-    """`eta_out(E') = c_product(g_out_coeffs, F^out_{E',l}_coeffs)` on the electronic grid.
+    """`eta_out(E') = c_product(g_out_coeffs, F^out_{E',l}_coeffs)` on `grid`.
 
     `F^out` is the outgoing Hankel half, NOT the regular function -- see
-    module docstring.
+    module docstring. `mass` defaults to `1.0` (electronic, byte-identical to
+    the pre-`mass` code -- see `_outgoing_coeffs`'s docstring); a nuclear DA
+    caller (`grid = tgrid.grids[1]`) passes `mass=model.mu`, `l=0`.
     """
     g_coeff = gaussian_coeffs(grid, r0=r0_out, p0=p0_out, sigma=sigma_out)
-    f_coeff = _outgoing_coeffs(grid, kp, l)
+    f_coeff = _outgoing_coeffs(grid, kp, l, mass=mass)
     return c_product(g_coeff, f_coeff)
 
 

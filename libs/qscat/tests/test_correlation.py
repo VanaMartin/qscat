@@ -8,8 +8,18 @@ deconvolution factors.
 from __future__ import annotations
 
 import numpy as np
-from qscat.core.correlation import hankel_point_value, outgoing_surface_wave
-from qscat.core.grids import electronic_grid
+from qscat.core.correlation import (
+    eta_outgoing,
+    hankel_point_value,
+    outgoing_channel_nuclear,
+    outgoing_surface_wave,
+)
+from qscat.core.dissociation import anion_electronic_states
+from qscat.core.grids import electronic_grid, nuclear_grid
+from qscat.core.wavepacket import gaussian_coeffs
+from qscat.dvr import TensorGrid
+from qscat.linalg import c_product
+from qscat.model import N2
 from qscat.special import coulomb_h1_en, riccati_hankel_en, riccati_hankel_en_mass
 
 GRID = electronic_grid(r_max=12.0, order=5, n_complex=3)
@@ -152,3 +162,70 @@ def test_outgoing_surface_wave_nuclear_mass_dphi_matches_finite_difference() -> 
         / 2.0
     )
     np.testing.assert_allclose(dphi, fd, rtol=1e-6)
+
+
+# --- Task 4: `outgoing_channel_nuclear` + nuclear `eta_outgoing` (sub-project
+# #4/SP2) -- the nuclear-axis transpose of `outgoing_channel`/`eta_outgoing`,
+# feeding `td_extractors.TannorWeeks(axis="nuclear")`. -----------------------
+
+TG2 = TensorGrid(
+    [
+        electronic_grid(r_max=12.0, order=5, n_complex=3),
+        nuclear_grid(quadrature=6, r_max=14.0, n_complex=3),
+    ]
+)
+EPS_E, PHI = anion_electronic_states(TG2.grids[0], N2, R_inf=TG2.grids[1].R0, n_states=1)
+NUCLEAR_WP_OUT = {"r0_out": 7.0, "p0_out": 5.0, "sigma_out": 1.0}
+
+
+def test_outgoing_channel_nuclear_shape_and_mask() -> None:
+    psi = outgoing_channel_nuclear(TG2, PHI[0], **NUCLEAR_WP_OUT)
+    assert psi.shape == (TG2.size,)
+    assert np.all(np.isfinite(psi))
+    mask = TG2.real_mask()
+    assert np.all(psi[~mask] == 0.0)
+    assert np.any(psi[mask] != 0.0)
+
+
+def test_outgoing_channel_nuclear_matches_manual_outer_product() -> None:
+    """Transpose of `outgoing_channel`: `phi_c(r)` on axis 0 (electronic),
+    `g_out(R)` on axis 1 (nuclear) -- `outgoing_channel`'s `g_out(r) x
+    chi_v(R)` with the two factors and axes swapped."""
+    g_out = gaussian_coeffs(TG2.grids[1], r0=7.0, p0=5.0, sigma=1.0)
+    want = TG2.outer([np.asarray(PHI[0], dtype=np.complex128), g_out])
+    want[~TG2.real_mask()] = 0.0
+    got = outgoing_channel_nuclear(TG2, PHI[0], **NUCLEAR_WP_OUT)
+    np.testing.assert_allclose(got, want)
+
+
+def test_eta_outgoing_mass_default_is_byte_identical() -> None:
+    """`mass=1.0` (the default) must reproduce the pre-`mass` electronic
+    result exactly -- `riccati_hankel_en_mass(..., 1.0)` == `riccati_hankel_
+    en(...)` bit-for-bit (`_outgoing_coeffs`'s docstring)."""
+    wp_out = {"r0_out": 6.0, "p0_out": 0.5, "sigma_out": 1.0}
+    got = eta_outgoing(GRID, 0.5, 2, **wp_out)
+    want = eta_outgoing(GRID, 0.5, 2, mass=1.0, **wp_out)
+    assert got == want
+
+
+def test_eta_outgoing_nuclear_mass_matches_manual_construction() -> None:
+    grid = TG2.grids[1]
+    k, l, mu = 0.6, 0, N2.mu
+    got = eta_outgoing(grid, k, l, mass=mu, **NUCLEAR_WP_OUT)
+
+    g_coeff = gaussian_coeffs(grid, r0=7.0, p0=5.0, sigma=1.0)
+    r = grid.real_points
+    f_vals = riccati_hankel_en_mass(r, k, l, mu) / 2.0
+    sqrt_w = np.sqrt(np.asarray(grid.weights, dtype=np.complex128))
+    f_coeff = (f_vals * sqrt_w).astype(np.complex128)
+    f_coeff[r > grid.R0] = 0.0
+    want = c_product(g_coeff, f_coeff)
+    assert got == want
+
+
+def test_eta_outgoing_nuclear_mass_is_finite_and_nonzero() -> None:
+    grid = TG2.grids[1]
+    k, l, mu = 0.6, 0, N2.mu
+    got = eta_outgoing(grid, k, l, mass=mu, **NUCLEAR_WP_OUT)
+    assert np.isfinite(got)
+    assert got != 0.0

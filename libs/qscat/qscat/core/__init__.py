@@ -48,7 +48,14 @@ Public API:
     outgoing flux; the approximation under test vs. `da_cross_section`).
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
-  - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors.
+  - `outgoing_channel_nuclear` -- the NUCLEAR-axis transpose of
+    `outgoing_channel` (`phi_c(r) g_out(R)`, an anion electronic bound state
+    times a nuclear outgoing test packet): the nuclear `TannorWeeks`
+    dissociative-attachment extractor's channel function.
+  - `eta_incident`, `eta_outgoing` -- Tannor-Weeks deconvolution factors;
+    `eta_outgoing` takes a `mass` keyword (default `1.0`, electronic,
+    byte-identical) so the SAME function serves the nuclear-axis
+    `TannorWeeks` DA extractor (`mass=model.mu`, `l=0`).
   - `hankel_point_value` -- the outgoing-Hankel-half VALUE at a single
     electronic coordinate (the delta extractor's deconvolution factor).
   - `outgoing_surface_wave` -- the outgoing-Hankel-half VALUE *and* its
@@ -84,6 +91,7 @@ from .correlation import (
     eta_outgoing,
     hankel_point_value,
     outgoing_channel,
+    outgoing_channel_nuclear,
     outgoing_surface_wave,
 )
 from .dissociation import (
@@ -124,6 +132,7 @@ __all__ = [
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",
+    "outgoing_channel_nuclear",
     "eta_incident",
     "eta_outgoing",
     "hankel_point_value",

@@ -408,28 +408,20 @@ def test_cross_sections_all_matches_each_method_individually() -> None:
 
 # --- Task 1 (SP2): `axis` scaffolding ----------------------------------------
 #
-# `axis="electronic"` (default) is the ONLY implemented path for
-# `TannorWeeks` -- covered by every test above, which all construct
-# extractors without an `axis` kwarg and hit the byte-identical golden
-# values. These tests cover the new guard rails: `axis="nuclear"` is still a
-# stub (`NotImplementedError`) for `TannorWeeks` (a later SP2 task), but IS
-# implemented for `Flux` (Task 2) and `Dirac` (Task 3, both below -- see the
-# nuclear-Flux/nuclear-Dirac sections further down for their own coverage);
-# an invalid `axis` is a `ValueError` for all three, and the default matches
-# an explicit `axis="electronic"` for all three.
+# `axis="electronic"` (default) is covered by every test above, which all
+# construct extractors without an `axis` kwarg and hit the byte-identical
+# golden values. `axis="nuclear"` is now implemented for all three
+# extractors -- `Flux` (Task 2), `Dirac` (Task 3), `TannorWeeks` (Task 4,
+# see the nuclear-TannorWeeks section further down for its own coverage) --
+# so there is no remaining `NotImplementedError` stub to test here. An
+# invalid `axis` is a `ValueError` for all three, and the default matches an
+# explicit `axis="electronic"` for all three.
 
 _AXIS_CTOR_ARGS: dict[str, tuple[type, tuple]] = {
     "TannorWeeks": (TannorWeeks, (TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT)),
     "Dirac": (Dirac, (TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION)),
     "Flux": (Flux, (TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION)),
 }
-
-
-@pytest.mark.parametrize("cls_name", ["TannorWeeks"])
-def test_axis_nuclear_raises_not_implemented(cls_name: str) -> None:
-    cls, args = _AXIS_CTOR_ARGS[cls_name]
-    with pytest.raises(NotImplementedError, match="nuclear axis is implemented in a later"):
-        cls(*args, wp_in=WP_IN, dt=DT, axis="nuclear")
 
 
 @pytest.mark.parametrize("cls_name", ["TannorWeeks", "Dirac", "Flux"])
@@ -767,4 +759,154 @@ def test_nuclear_dirac_da_converges_to_ti_oracle() -> None:
         tg, psi0, [], dt=1.0, n_steps=1500, hamiltonian=F2.hamiltonian(tg), extractors=[dirac]
     )
     ratio = np.ravel(dirac.sigma(e_probe)) / sigma_ti
+    assert np.all(ratio > 0.7) and np.all(ratio < 1.25), (ratio, sigma_ti)
+
+
+# --- Task 4 (SP2): nuclear-axis `TannorWeeks` (dissociative attachment) -----
+#
+# Fast structural tests: builds/records/computes sigma on this file's tiny
+# N2 config, mirroring the nuclear-`Flux`/nuclear-`Dirac` sections above
+# exactly (same tiny-grid caveats -- not a converged DA cross section, just
+# "builds, records, sigma runs, threshold gating correct"). Unlike `Flux`/
+# `Dirac`, `TannorWeeks` needs its own outgoing test-packet parameters
+# (`wp_out`, now in the NUCLEAR coordinate `R`) rather than a fixed DVR
+# index -- `NUCLEAR_WP_OUT` is centered near `NUCLEAR_SURFACE`'s R=7.12,
+# with an outward (positive) momentum, well inside the tiny grid's real
+# region (`R0=12.0`). The LOAD-BEARING convergence gate (`@slow`) is further
+# below, against the TI `da_cross_section` oracle on F2's real (eMoScat) DA
+# grid -- a mirror of `test_nuclear_flux_da_converges_to_ti_oracle`/
+# `test_nuclear_dirac_da_converges_to_ti_oracle`.
+
+NUCLEAR_WP_OUT = {"r0_out": 7.0, "p0_out": 5.0, "sigma_out": 1.0}
+
+
+def _nuclear_tw_fixture(n_steps: int = N_STEPS) -> TannorWeeks:
+    tw = TannorWeeks(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_WP_OUT,
+        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+    )
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        extractors=[tw],
+    )
+    return tw
+
+
+def test_nuclear_tw_builds_and_records() -> None:
+    tw = _nuclear_tw_fixture()
+    result = tw.result
+    n_recorded = result.t.shape[0]  # N_STEPS+1: propagate() records the t=0 state too
+    assert n_recorded == N_STEPS + 1
+    assert result.c.shape == (n_recorded, 1)
+    assert np.all(np.isfinite(result.c))
+
+
+def test_nuclear_tw_sigma_shape_and_finite() -> None:
+    tw = _nuclear_tw_fixture()
+    s_scalar = tw.sigma(0.6)
+    assert s_scalar.shape == (1,)
+    assert np.all(np.isfinite(s_scalar))
+    s_array = tw.sigma([0.10, 0.6])
+    assert s_array.shape == (2, 1)
+    assert np.all(np.isfinite(s_array))
+
+
+def test_nuclear_tw_zero_at_or_below_threshold() -> None:
+    tw = _nuclear_tw_fixture()
+    np.testing.assert_allclose(tw.sigma(-0.1), [0.0])
+    np.testing.assert_allclose(tw.sigma(0.0), [0.0])
+
+
+def test_nuclear_tw_closed_dissociation_channel_gives_zero() -> None:
+    """At this tiny grid's (too-small-`R_inf`, hence too-high) `eps_e`, E=0.10
+    leaves the dissociation channel closed (`e_tot - eps_e[0] <= 0`) -- sigma
+    must be exactly zero, distinct from the `E<=0` branch above."""
+    tw = _nuclear_tw_fixture()
+    e_tot = 0.10 + EPS[V_INIT]
+    assert e_tot - tw._eps_e[0] <= 0.0  # sanity: confirms the closed-channel premise
+    np.testing.assert_allclose(tw.sigma(0.10), [0.0])
+
+
+def test_nuclear_tw_open_channel_path_is_finite() -> None:
+    """At an energy that DOES clear this tiny grid's (unconverged) `eps_e`
+    threshold, the open-channel branch executes (not skipped by `continue`)
+    and returns a finite (though not physically converged) value."""
+    tw = _nuclear_tw_fixture()
+    e_tot = 0.6 + EPS[V_INIT]
+    assert e_tot - tw._eps_e[0] > 0.0  # sanity: confirms the open-channel premise
+    s = tw.sigma(0.6)
+    assert np.all(np.isfinite(s))
+    assert np.all(s >= 0.0)
+
+
+def test_nuclear_tw_rejects_free_reference() -> None:
+    tw = _nuclear_tw_fixture()
+    with pytest.raises(ValueError, match="no elastic free-reference"):
+        tw.sigma(0.10, free=tw)
+
+
+def test_nuclear_tw_n_channels_defaults_to_one() -> None:
+    tw = TannorWeeks(
+        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_WP_OUT, wp_in=WP_IN, dt=DT, axis="nuclear"
+    )
+    assert tw._n_channels == 1
+
+
+@pytest.mark.slow
+def test_nuclear_tw_da_converges_to_ti_oracle() -> None:
+    """LOAD-BEARING: the nuclear-`TannorWeeks` sigma_DA converges to the TI
+    `da_cross_section` on the SAME grid (a differential test -- both must
+    agree even where the grid is not physically converged) -- a mirror of
+    `test_nuclear_flux_da_converges_to_ti_oracle`/`test_nuclear_dirac_da_
+    converges_to_ti_oracle` (see the former's docstring for the full config
+    rationale: the launch-box electronic grid x the FINE eMoScat F2 nuclear
+    deck, the off-box-incident and coarse-nuclear failure modes it guards
+    against).
+
+    `wp_out` is eMoScat's F2 NUCLEAR test function: `r0_out=9.7` (position),
+    `p0_out=70.0` (impulse, the K_R~70 dissociation wave), `sigma_out=0.07`
+    (thickness) -- unlike `Flux`/`Dirac`'s fixed surface index, `TannorWeeks`
+    PROPAGATES this Gaussian test packet against the trajectory, so its
+    parameters are physical (bohr/momentum), not a grid index.
+
+    The sibling nuclear `Flux`/`Dirac` gates plateau at sigma/sigma_ti ~
+    0.86-0.97 / ~0.7-close-band by n>=1350 on this same config
+    (`task-2-report.md`/`task-3-report.md`) -- `TannorWeeks` is a different
+    (propagated-test-packet, not point-value or Wronskian-flux) transform of
+    the identical propagation, so it need not land at the exact same ratio,
+    but should land in the same general TD-vs-TI cross-method band, not at a
+    wildly different constant (which would indicate a wrong `_C_DA` or a
+    sign/prefactor error in the nuclear `eta_outgoing` deconvolution). Heavy
+    (~86k unknowns x 1500 steps, ~10 min) -- @slow, NOT executed by the
+    implementer (mirrors the already-validated `Flux`/`Dirac` siblings; see
+    `.superpowers/sdd/task-2-report.md`/`task-3-report.md`).
+    """
+    from qscat.core.dissociation import da_cross_section
+    from qscat.core.grids import segmented_grid
+    from qscat.model import F2
+
+    elec = electronic_grid(r_max=25.0, order=6, n_complex=3, angle_deg=40.0)
+    nuc = segmented_grid(
+        [(9, 1.8), (1, 2.0), (5, 2.5), (4, 2.596908), (4, 2.7), (40, 10.7)],
+        [(1, 10.8), (1, 11.0), (1, 11.5), (1, 12.5), (1, 14.0), (1, 18.0), (4, 30.0), (2, 101.0)],
+        angle_deg=35.0,
+        quadrature=14,
+    )
+    tg = TensorGrid([elec, nuc])
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    e_probe = np.array([0.03, 0.04])
+    sigma_ti = np.ravel(da_cross_section(tg, F2, eps, chi, 0, e_probe))
+
+    wp_in = {"r0": 12.0, "p0": -0.5, "sigma": 3.0}
+    wp_out = {"r0_out": 9.7, "p0_out": 70.0, "sigma_out": 0.07}
+    psi0 = initial_state(tg, chi[0], **wp_in)
+    tw = TannorWeeks(
+        tg, F2, eps, chi, 0, [], wp_out, wp_in=wp_in, dt=1.0, axis="nuclear", n_channels=1
+    )
+    # `propagate` records the t=0 state itself, then every step -> 1501 samples.
+    propagate(
+        tg, psi0, [], dt=1.0, n_steps=1500, hamiltonian=F2.hamiltonian(tg), extractors=[tw]
+    )
+    ratio = np.ravel(tw.sigma(e_probe)) / sigma_ti
     assert np.all(ratio > 0.7) and np.all(ratio < 1.25), (ratio, sigma_ti)

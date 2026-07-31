@@ -103,6 +103,32 @@ only the outgoing side moves to the nuclear axis, exactly as `Flux(axis=
 the SAME `C_DA = pi` (no elastic free-reference subtraction: DA has no
 `v'==v_init` diagonal, `free != None` raises `ValueError`, matching
 `Flux(axis="nuclear")`).
+
+`TannorWeeks(axis="nuclear")` (sub-project #4/SP2, Task 4) is the NUCLEAR-
+axis TannorWeeks: the DA sibling of the electronic `TannorWeeks` above, the
+same `n_channels` anion-electronic-state scaffolding as `Flux(axis=
+"nuclear")`/`Dirac(axis="nuclear")`, but keeping TW's own defining trait --
+a PROPAGATED outgoing Gaussian test packet, not a fixed point/surface. The
+outgoing test function moves to the NUCLEAR coordinate (`correlation.
+outgoing_channel_nuclear`, the transpose of `outgoing_channel`):
+`Phi_c = phi_c(r) g_out(R)`, `phi_c` one of the anion electronic bound
+states (`R_inf = tgrid.grids[1].R0`) instead of a nuclear vibrational
+level. `record` keeps the IDENTICAL per-channel c-product loop the
+electronic path already uses (`c_c(t) = c_product(Phi_c, psi)`) -- only the
+channel vectors differ, so this needed no change. `sigma(E)` is the DA
+analog of `_s_vector_one_energy`/`_sigma_one_energy` (this module's own
+`_tw_da_s_vector_one_energy`/`_tw_da_sigma_one_energy`, defined below, NOT
+routed through `sigma_from_correlations`: that helper is hardwired to
+electronic vibrational levels/axis, see its own docstring in
+`time_dependent.py`): the outgoing deconvolution factor is `eta_outgoing`
+on the NUCLEAR axis (`tgrid.grids[1]`, mass `mu_R = model.mu`, `l=0`,
+`correlation.eta_outgoing`'s new `mass` keyword), evaluated against the
+propagated `c_c(t)` series itself (unlike `Flux`'s Wronskian pair or
+`Dirac`'s point value); the incident deconvolution `eta_in` stays on the
+ELECTRONIC incident axis, unchanged. `sigma_DA,c(E) = C_DA * |S_c|^2 /
+(2E)`, the SAME `C_DA = pi` convention, no elastic free-reference
+subtraction (DA has no `v'==v_init` diagonal; `free != None` raises
+`ValueError`, matching `Flux`/`Dirac(axis="nuclear")`).
 """
 
 from __future__ import annotations
@@ -115,7 +141,14 @@ import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid, TensorGrid, dvr_first_derivative_at_node
 from qscat.linalg import c_product
 
-from .correlation import eta_incident, hankel_point_value, outgoing_channel, outgoing_surface_wave
+from .correlation import (
+    eta_incident,
+    eta_outgoing,
+    hankel_point_value,
+    outgoing_channel,
+    outgoing_channel_nuclear,
+    outgoing_surface_wave,
+)
 from .dissociation import anion_electronic_states
 from .time_dependent import (
     Extractor,
@@ -138,9 +171,9 @@ _AXES = ("electronic", "nuclear")
 def _check_axis(axis: str, cls_name: str, *, nuclear_implemented: bool = False) -> None:
     """Validate `axis` and enforce the SP2 scaffolding: `"electronic"` is
     always implemented (Task 1, byte-identical to the pre-refactor code);
-    `"nuclear"` is a stub for `TannorWeeks` (a later SP2 task) but IS
-    implemented for `Flux` (Task 2) and `Dirac` (Task 3, this task,
-    `nuclear_implemented=True`). `ValueError` for anything outside `_AXES`."""
+    `"nuclear"` is implemented for `Flux` (Task 2), `Dirac` (Task 3), and
+    `TannorWeeks` (Task 4, this task) -- all three now pass
+    `nuclear_implemented=True`. `ValueError` for anything outside `_AXES`."""
     if axis not in _AXES:
         raise ValueError(f"{cls_name}: axis must be one of {_AXES}, got {axis!r}")
     if axis == "nuclear" and not nuclear_implemented:
@@ -155,6 +188,84 @@ def _axis_grid_index(axis: str) -> int:
     return 0 if axis == "electronic" else 1
 
 
+def _tw_da_s_vector_one_energy(
+    g_elec: FemDvrEcsGrid,
+    g_nuc: FemDvrEcsGrid,
+    model: ResonanceModel,
+    mu_r: float,
+    result: PropagationResult,
+    eps: npt.NDArray[np.float64],
+    v_init: int,
+    eps_e: npt.NDArray[np.float64],
+    wp_out: _WpOut,
+    E: float,
+    dt: float,
+    wp_in: _WpIn,
+) -> npt.NDArray[np.complex128]:
+    """The raw DA Tannor-Weeks S-matrix, per anion dissociation channel --
+    `_s_vector_one_energy`'s (`time_dependent.py`) nuclear-axis twin (module
+    docstring's `TannorWeeks(axis="nuclear")` section): the outgoing
+    deconvolution factor is `eta_outgoing` evaluated on the NUCLEAR axis
+    (mass `mu_r`, `l=0`) against the PROPAGATED test-packet correlation
+    `result.c[:, c]` itself (unlike `Flux`'s Wronskian pair or `Dirac`'s
+    point value); the incident deconvolution `eta_in` stays on the
+    ELECTRONIC incident axis.
+    """
+    n_channels = len(eps_e)
+    S = np.zeros(n_channels, dtype=np.complex128)
+    if E <= 0.0:
+        return S
+    weights = _quadrature_weights(result.t.size)
+    e_tot = E + eps[v_init]
+    k = float(np.sqrt(2.0 * E))
+    eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
+    phase = np.exp(1j * e_tot * result.t)
+    for c in range(n_channels):
+        e_dr = e_tot - eps_e[c]
+        if e_dr <= 0.0:
+            continue  # closed dissociation channel
+        k_r = float(np.sqrt(2.0 * mu_r * e_dr))
+        eta_out = eta_outgoing(g_nuc, k_r, 0, mass=mu_r, **wp_out)
+        s_raw = np.sum(weights * phase * result.c[:, c]) * dt
+        S[c] = s_raw / (2.0 * np.pi * np.conj(eta_out) * eta_in)
+    return S
+
+
+def _tw_da_sigma_one_energy(
+    g_elec: FemDvrEcsGrid,
+    g_nuc: FemDvrEcsGrid,
+    model: ResonanceModel,
+    mu_r: float,
+    result: PropagationResult,
+    eps: npt.NDArray[np.float64],
+    v_init: int,
+    eps_e: npt.NDArray[np.float64],
+    wp_out: _WpOut,
+    E: float,
+    dt: float,
+    wp_in: _WpIn,
+) -> npt.NDArray[np.float64]:
+    """`sigma_DA,c(E)` (bohr^2) per anion dissociation channel `c`, via the
+    nuclear-axis Tannor-Weeks transform -- no elastic free-reference
+    subtraction (DA is a pure rearrangement channel, no `v'==v_init`
+    diagonal), the SAME `_C_DA = pi` convention `_flux_da_sigma_one_energy`/
+    `_dirac_da_sigma_one_energy` use (defined further below in this module;
+    referenced here by name, resolved at call time)."""
+    n_channels = len(eps_e)
+    sigma = np.zeros(n_channels, dtype=np.float64)
+    if E <= 0.0:
+        return sigma
+    s_full = _tw_da_s_vector_one_energy(
+        g_elec, g_nuc, model, mu_r, result, eps, v_init, eps_e, wp_out, E, dt, wp_in
+    )
+    e_tot = E + eps[v_init]
+    for c in range(n_channels):
+        if e_tot - eps_e[c] <= 0.0:
+            continue  # closed dissociation channel
+        sigma[c] = _C_DA * abs(s_full[c]) ** 2 / (2.0 * E)
+    return sigma
+
+
 class TannorWeeks:
     """The Tannor-Weeks `Extractor`: records `c_{v'}(t)`, transforms via the
     existing eta-deconvolution + elastic free-reference logic.
@@ -167,6 +278,20 @@ class TannorWeeks:
     run) so the elastic channel can subtract `S_free(E)` exactly as
     `_sigma_one_energy` documents -- this is the "second TannorWeeks" the
     `time_dependent.propagate` design notes describe.
+
+    Nuclear (`axis="nuclear"`): the DISSOCIATIVE ATTACHMENT (DA) sibling of
+    `Flux(axis="nuclear")`/`Dirac(axis="nuclear")` (module docstring's
+    `TannorWeeks(axis="nuclear")` section) -- `wp_out` is now the NUCLEAR
+    outgoing test packet's parameters (`r0_out`/`p0_out`/`sigma_out` in `R`),
+    `n_channels` selects how many anion electronic bound states
+    (`qscat.core.dissociation.anion_electronic_states`, at `R_inf =
+    tgrid.grids[1].R0`) are tracked as exit channels; `vprimes` is unused
+    (pass `[]`). `record` is UNCHANGED (the same per-channel c-product loop
+    -- only the channel test functions differ). `sigma(E)` returns the DA
+    transform's `sigma_DA,c(E)` per channel, shape `(n_channels,)` for
+    scalar `E` (matching `Flux`/`Dirac(axis="nuclear")`'s contract). `free`
+    is not supported (DA has no elastic diagonal to subtract a reference
+    from; passing it raises `ValueError`).
     """
 
     def __init__(
@@ -182,8 +307,9 @@ class TannorWeeks:
         wp_in: _WpIn,
         dt: float,
         axis: str = "electronic",
+        n_channels: int = 1,
     ) -> None:
-        _check_axis(axis, "TannorWeeks")
+        _check_axis(axis, "TannorWeeks", nuclear_implemented=True)
         self._axis = axis
         self._tgrid = tgrid
         self._model = model
@@ -193,7 +319,17 @@ class TannorWeeks:
         self._wp_in = wp_in
         self._wp_out = wp_out
         self._dt = dt
-        self._out_channels = [outgoing_channel(tgrid, chi[vp], **wp_out) for vp in vprimes]
+        if axis == "electronic":
+            self._out_channels = [outgoing_channel(tgrid, chi[vp], **wp_out) for vp in vprimes]
+        else:  # nuclear
+            eps_e, phi = anion_electronic_states(
+                tgrid.grids[0], model, R_inf=tgrid.grids[1].R0, n_states=n_channels
+            )
+            self._n_channels = n_channels
+            self._eps_e = eps_e
+            self._out_channels = [
+                outgoing_channel_nuclear(tgrid, phi[c], **wp_out) for c in range(n_channels)
+            ]
         self._rows: list[npt.NDArray[np.complex128]] = []
 
     def record(self, psi: npt.NDArray[np.complex128]) -> None:
@@ -213,7 +349,8 @@ class TannorWeeks:
     def result(self) -> PropagationResult:
         """The recorded series as a `PropagationResult` (`norm`/`snapshots`
         are not tracked by this extractor and are left empty/zero -- only
-        `t`/`c` feed `sigma_from_correlations`)."""
+        `t`/`c` feed `sigma_from_correlations` (electronic axis) or
+        `_tw_da_sigma_one_energy` (nuclear axis)."""
         n_t = len(self._rows)
         n_ch = len(self._out_channels)
         c = np.stack(self._rows) if self._rows else np.zeros((0, n_ch), dtype=np.complex128)
@@ -224,18 +361,58 @@ class TannorWeeks:
     def sigma(
         self, E: float | npt.ArrayLike, *, free: Extractor | None = None
     ) -> npt.NDArray[np.float64]:
-        """`sigma_{v_init->v'}(E)` (bohr^2) via the Tannor-Weeks transform.
+        """`sigma_{v_init->v'}(E)` (bohr^2, electronic axis) or `sigma_DA,c(E)`
+        (bohr^2 per anion channel `c`, nuclear axis) via the Tannor-Weeks
+        transform (class docstring).
 
-        `free`, when given, must be a companion `TannorWeeks` extractor
-        recorded from a SEPARATE `V_int=0` propagation (same wavepacket/
-        grid); its series supplies `sigma_from_correlations`'s
+        Electronic: `free`, when given, must be a companion `TannorWeeks`
+        extractor recorded from a SEPARATE `V_int=0` propagation (same
+        wavepacket/grid); its series supplies `sigma_from_correlations`'s
         `free_result` -- the elastic (`v'==v_init`) channel then subtracts
         the free-particle `S_free(E)` instead of a literal 1 (see
         `time_dependent._sigma_one_energy`). Leave `None` to reproduce the
         literal-1 fallback. `free` is typed via the `Extractor` protocol
         (SP1 tech-debt lift) but only a `TannorWeeks` is meaningful here;
         anything else raises `TypeError`.
+
+        Nuclear: DA has no elastic diagonal to subtract a reference from --
+        `free` must be `None` (`ValueError` otherwise).
         """
+        if self._axis == "nuclear":
+            if free is not None:
+                raise ValueError(
+                    "TannorWeeks.sigma(axis='nuclear'): DA has no elastic free-reference "
+                    "subtraction -- free must be None"
+                )
+            e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+            result = self.result
+            g_elec = self._tgrid.grids[0]
+            g_nuc = self._tgrid.grids[1]
+            mu_r = self._model.mu
+            out = np.stack(
+                [
+                    _tw_da_sigma_one_energy(
+                        g_elec,
+                        g_nuc,
+                        self._model,
+                        mu_r,
+                        result,
+                        self._eps,
+                        self._v_init,
+                        self._eps_e,
+                        self._wp_out,
+                        float(e),
+                        self._dt,
+                        self._wp_in,
+                    )
+                    for e in e_arr
+                ]
+            )
+            scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+            if scalar:
+                return np.asarray(out[0], dtype=np.float64)
+            return out
+
         free_result: PropagationResult | None = None
         if free is not None:
             if not isinstance(free, TannorWeeks):
