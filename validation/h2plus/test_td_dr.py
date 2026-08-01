@@ -36,9 +36,7 @@ def _small() -> TensorGrid:
 def test_td_dr_runs_and_is_finite_all_three_methods() -> None:
     tg = _small()
     energies = np.array([0.01, 0.02])
-    e_out, sigmas = compute_td_dr(
-        tg, energies=energies, n_steps=5, r0_incident=12.0, n_channels=2
-    )
+    e_out, sigmas = compute_td_dr(tg, energies=energies, n_steps=5, r0_incident=12.0, n_channels=2)
 
     assert np.array_equal(e_out, energies)
     assert set(sigmas) == {"flow", "delta", "tw"}
