@@ -36,6 +36,17 @@ class GridError(QscatError, ValueError):
     Raised when a grid, element, or quadrature specification is malformed or
     out of range (e.g. a non-increasing segment endpoint, a quadrature order
     below 2, an `r_max` inside the fixed inner segments).
+
+    Examples
+    --------
+    Each qscat error subclasses the built-in it replaces, so existing
+    ``except``/``pytest.raises`` code keeps working:
+
+    >>> from qscat.exceptions import GridError, QscatError
+    >>> issubclass(GridError, ValueError)
+    True
+    >>> issubclass(GridError, QscatError)
+    True
     """
 
 

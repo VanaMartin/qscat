@@ -69,18 +69,23 @@ _INTERACTION_SCAN_N = 3000
 class IncidentSpec:
     """TD Gaussian-wavepacket placement + observation boundary.
 
-    `position` (bohr): the wavepacket centre `r0` at `t=0`.
-    `impulse` (bohr^-1): the mean momentum `p0`; negative launches the
-        packet INWARD (toward the interaction region), matching the
-        `n2_2d_td_cross_section` convention (`wp_in`'s `p0 < 0` -- see
-        `projects/n2_2d_td_cross_section/convergence.py`).
-    `sigma` (bohr): the Gaussian width.
-    `observation`: the flux-extraction / test-function boundary (bohr);
-        `None` if the caller has not set one (`required_extent` then falls
-        back to just the wavepacket's own tail).
+    For the TI route this dataclass is not used -- see the module docstring.
 
-    For the TI route this dataclass is not used -- see the module
-    docstring.
+    Attributes
+    ----------
+    position : float
+        The wavepacket centre ``r0`` (bohr) at ``t=0``.
+    impulse : float
+        The mean momentum ``p0`` (bohr^-1); negative launches the packet
+        INWARD (toward the interaction region), matching the
+        ``n2_2d_td_cross_section`` convention (``wp_in``'s ``p0 < 0`` -- see
+        ``projects/n2_2d_td_cross_section/convergence.py``).
+    sigma : float
+        The Gaussian width (bohr).
+    observation : float or None
+        The flux-extraction / test-function boundary (bohr); ``None`` if the
+        caller has not set one (``required_extent`` then falls back to just
+        the wavepacket's own tail).
     """
 
     position: float

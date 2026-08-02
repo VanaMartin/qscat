@@ -7,6 +7,10 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- Docs: numpydoc-format docstrings for the getting-started public API
+  (`electronic_grid`, `nuclear_grid`, `vibrational_states`, `IncidentSpec`,
+  `GridError`) so the API reference renders parameter/return/raises tables; the
+  Sphinx build is now strict (`-W`, 0 warnings) with a doctest step in CI.
 - Typed exception hierarchy `qscat.exceptions` (`QscatError` base +
   `GridError`, `ModelError`, `BackendError`, `ConvergenceError`); each also
   subclasses the built-in it replaces, so `except ValueError`/`RuntimeError`
