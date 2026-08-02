@@ -45,7 +45,17 @@ intersphinx_mapping = {
 }
 
 templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+# The site is index/getting-started/api only. physics/, adr/, and superpowers/
+# are repository docs (theory notes, ADRs, specs), not rendered site pages —
+# excluded so Sphinx doesn't warn about them being outside any toctree.
+exclude_patterns = [
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    "physics",
+    "adr",
+    "superpowers",
+]
 
 html_theme = "furo"
 html_title = f"qscat {release}"
