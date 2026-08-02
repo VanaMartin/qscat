@@ -1,6 +1,11 @@
 """Artifact writers for a `qscat-run` experiment: the cross-section
-CSV/NPZ/PNG trio, TI wavefunction-density snapshots, the resolved config
-(for reproducibility), and the run manifest (provenance).
+CSV/NPZ/PNG trio (TI and/or TD -- `methods: [ti, td]` overlays both on the
+SAME `cross_section.png`, since their keys share disjoint `"ti:"`/`"td:"`
+prefixes), the TD-only moment-resolved `cross_section_vs_time` NPZ/PNG, the
+TD-only opt-in `correlations.npz`, TI/TD wavefunction-density snapshots
+(the SAME writer for both -- a `WavefunctionSnapshot`'s `kind`/`label` are
+the only thing that differs), the resolved config (for reproducibility),
+and the run manifest (provenance).
 
 `matplotlib.use("Agg")` is set at import time (before `pyplot`), so this
 module never needs a display and is safe to import in CI/tests. Nothing here
@@ -106,6 +111,17 @@ def _write_cross_section_png(
     plt.close(fig)
 
 
+def _write_correlations_npz(path: Path, correlations: dict[str, npt.NDArray[Any]]) -> None:
+    """The raw per-step series behind each TD extractor's transform (opt-in,
+    `cfg.artifacts.correlations`): `"{label}:t"`/`"{label}:c"`
+    (`TannorWeeks`/`Dirac`) or `"{label}:t"`/`"{label}:b"`/`"{label}:d"`
+    (`Flux`) -- see `runner.ExperimentResult.correlations`'s docstring for
+    the exact keying. Mixed float (`t`) and complex (`c`/`b`/`d`) dtypes
+    across keys are fine -- `np.savez` stores each named array independently.
+    """
+    np.savez(path, **correlations)  # type: ignore[arg-type]
+
+
 def _write_wavefunction_snapshot(out_dir: Path, wf: WavefunctionSnapshot) -> None:
     # NOTE: build the full filename with an f-string rather than
     # `stem.with_suffix(...)` -- `wf.label` (e.g. "E0.05") contains a literal
@@ -150,6 +166,19 @@ def write_artifacts(
         _write_cross_section_csv(out_dir / "cross_section.csv", e, series)
         _write_cross_section_npz(out_dir / "cross_section.npz", e, series)
         _write_cross_section_png(out_dir / "cross_section.png", e, series)
+
+    cvt_spec = cfg.artifacts.cross_section_vs_time
+    if cvt_spec is not None and cvt_spec.moments and result.cross_section_vs_time:
+        e, cvt_series = result.energies, result.cross_section_vs_time
+        # Reuses the cross-section NPZ/PNG writers verbatim -- they are
+        # already generic over (energies, series) and need no TD-specific
+        # logic: `cvt_series`'s keys already carry the "@t{t_i}" moment
+        # suffix, so the PNG legend reads one curve per (series, moment).
+        _write_cross_section_npz(out_dir / "cross_section_vs_time.npz", e, cvt_series)
+        _write_cross_section_png(out_dir / "cross_section_vs_time.png", e, cvt_series)
+
+    if cfg.artifacts.correlations and result.correlations:
+        _write_correlations_npz(out_dir / "correlations.npz", result.correlations)
 
     if result.wavefunctions:
         wf_dir = out_dir / "wavefunction"

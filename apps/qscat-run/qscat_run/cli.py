@@ -1,10 +1,9 @@
 """The `qscat-run` click command group: `validate`, `list`, `init`, `run`.
 
 `run` resolves a config, runs it (`runner.run_experiment`), and writes its
-artifacts (`artifacts.write_artifacts`) -- the TI path only for now (TD is
-Task 3; `run_experiment` raises `NotImplementedError` if `"td"` is
-requested). `--dry-run` resolves + prints the plan (grids, sizes, energy
-count) without solving anything.
+artifacts (`artifacts.write_artifacts`) -- both `ti` and `td` methods (any
+subset, including both at once) actually solve. `--dry-run` resolves +
+prints the plan (grids, sizes, energy count) without solving anything.
 """
 
 from __future__ import annotations
@@ -204,8 +203,7 @@ def init_cmd(molecule: str, observables: str | None, methods: str, output_path: 
 def run_cmd(config_path: str, output_dir: str | None, backend: str | None, dry_run: bool) -> None:
     """Run CONFIG end-to-end: parse -> validate -> resolve -> solve -> write
     artifacts. `--dry-run` resolves and prints the plan without solving or
-    writing anything -- only `ti` methods actually solve today (TD is a
-    later task).
+    writing anything.
     """
     cfg = load_config(config_path)
     with warnings.catch_warnings(record=True) as caught:
