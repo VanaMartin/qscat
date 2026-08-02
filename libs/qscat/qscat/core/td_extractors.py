@@ -1110,9 +1110,9 @@ class Flux:
     def _arrays_n(
         self, n_steps: int | None = None
     ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
-        """`._arrays`, optionally truncated to the FIRST `n_steps` recorded
+        """`.series`, optionally truncated to the FIRST `n_steps` recorded
         samples -- see `TannorWeeks._result` for the exact contract
-        (`n_steps=None` is byte-identical to the pre-truncation `._arrays`)."""
+        (`n_steps=None` is byte-identical to the full `.series` read)."""
         b_rows = self._b_rows if n_steps is None else self._b_rows[:n_steps]
         d_rows = self._d_rows if n_steps is None else self._d_rows[:n_steps]
         n_t = len(b_rows)
@@ -1123,11 +1123,15 @@ class Flux:
         return t, b, d
 
     @property
-    def _arrays(
+    def series(
         self,
     ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
-        """The full recorded series (`self._arrays_n(None)`); see `sigma`'s
-        `n_steps` for a truncated read."""
+        """The full recorded flux series `(t, boundary_value, derivative)` --
+        the raw material of the flux transform, the `Flux` analogue of
+        `TannorWeeks`/`Dirac`'s `.result` (which carry `.t`/`.c` instead).
+        Public so a caller can persist the raw series (e.g. the `qscat-run`
+        CLI's optional `correlations` artifact); see `sigma`'s `n_steps` for a
+        truncated read."""
         return self._arrays_n()
 
     def sigma(

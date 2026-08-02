@@ -469,7 +469,7 @@ def _nuclear_flux_fixture(n_steps: int = N_STEPS) -> Flux:
 
 def test_nuclear_flux_builds_and_records() -> None:
     flux = _nuclear_flux_fixture()
-    t, b, d = flux._arrays
+    t, b, d = flux.series
     n_recorded = t.shape[0]  # N_STEPS+1: propagate() records the t=0 state too
     assert n_recorded == N_STEPS + 1
     assert b.shape == d.shape == (n_recorded, 1)
@@ -923,7 +923,7 @@ def test_nuclear_tw_da_converges_to_ti_oracle() -> None:
 # `apps/qscat-run`'s moment-resolved `cross_section_vs_time` artifact needs to
 # read sigma(E) as of an EARLIER time from an already-completed propagation,
 # without re-propagating -- these keyword-only `n_steps=` additions to
-# `sigma`/`.result`/`._arrays` are that hook. `n_steps=None` (the default,
+# `sigma`/`.result`/`.series` are that hook. `n_steps=None` (the default,
 # used everywhere else in this file and by every pre-existing caller) MUST be
 # byte-identical to the pre-addition behavior -- this file's golden/
 # differential tests above (re-run unchanged, still passing) are the load-

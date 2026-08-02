@@ -45,7 +45,7 @@ e.g. F2's validated DA deck: packet centered at R=8, surface read at R=6).
 
 An elastic VE channel (`cfg.v_init in vprimes`, requested by a `ve`
 observable) gets a SECOND `V_int=0` free-reference propagation
-(`qscat.core.time_dependent._free_hamiltonian`), mirroring `qscat.core.
+(`qscat.core.time_dependent.free_hamiltonian`), mirroring `qscat.core.
 td_ve_cross_sections_all`: a matching free extractor is built per (ve
 observable, extractor name) and driven by that second propagation, then
 `ext.sigma(E, free=free_ext)` subtracts the free-particle `S_free(E)` on the
@@ -83,7 +83,7 @@ from qscat.core import (
     ve_cross_section,
     vibrational_states,
 )
-from qscat.core.time_dependent import _free_hamiltonian  # same helper td_ve_cross_sections_all uses
+from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.linalg import set_default_backend
 
@@ -542,7 +542,7 @@ def _run_td(
             [],
             dt=td.dt,
             n_steps=td.n_steps,
-            hamiltonian=_free_hamiltonian(model, tg),
+            hamiltonian=free_hamiltonian(model, tg),
             order=td.order,
             extractors=list(free_entries.values()),
         )
@@ -576,7 +576,7 @@ def _run_td(
     if cfg.artifacts.correlations:
         for label, ext, _channel_labels, _kind in entries:
             if isinstance(ext, Flux):
-                t_arr, b, d = ext._arrays
+                t_arr, b, d = ext.series
                 correlations[f"{label}:t"] = t_arr
                 correlations[f"{label}:b"] = b
                 correlations[f"{label}:d"] = d
