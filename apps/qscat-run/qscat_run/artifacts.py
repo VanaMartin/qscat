@@ -37,7 +37,13 @@ __all__ = ["write_artifacts"]
 
 def _git_sha() -> str:
     """The current commit SHA, best-effort: `"unknown"` if `git` is absent,
-    this isn't a repo, or anything else goes wrong."""
+    this isn't a repo, or anything else goes wrong.
+
+    `cwd` is pinned to this file's own location (rather than inherited from
+    the caller's working directory) so the SHA is found regardless of where
+    `qscat-run` is invoked from -- `git rev-parse` walks up from `cwd` to
+    find the repo root, so any path inside the repo works.
+    """
     try:
         out = subprocess.run(
             ["git", "rev-parse", "HEAD"],
@@ -45,6 +51,7 @@ def _git_sha() -> str:
             text=True,
             check=True,
             timeout=10,
+            cwd=Path(__file__).resolve().parent,
         )
         return out.stdout.strip() or "unknown"
     except Exception:  # noqa: BLE001 -- provenance is best-effort, never fatal

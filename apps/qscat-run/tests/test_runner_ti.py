@@ -11,8 +11,16 @@ import numpy as np
 from click.testing import CliRunner
 from qscat_run.artifacts import write_artifacts
 from qscat_run.cli import main
-from qscat_run.config import load_config, validate_config
-from qscat_run.runner import run_experiment
+from qscat_run.config import (
+    EcsSpec,
+    ExperimentConfig,
+    GridSpec,
+    Observable,
+    SegmentSpec,
+    load_config,
+    validate_config,
+)
+from qscat_run.runner import _n_vib, run_experiment
 
 
 def _tiny_f2_ti_yaml(output_dir: str) -> str:
@@ -94,3 +102,41 @@ def test_run_cli_dry_run_prints_plan_without_solving(tmp_path: Path) -> None:
     assert "molecule: F2" in r.output
     assert "grid[ti]" in r.output
     assert not out_dir.exists()
+
+
+def _tiny_explicit_segment() -> SegmentSpec:
+    return SegmentSpec(
+        real=((4, 2.0), (2, 4.0), (2, 8.0)),
+        ecs=EcsSpec(angle=30.0, elements=3, quadrature=5),
+    )
+
+
+def test_n_vib_explicit_grid_uses_required_not_preset_floor() -> None:
+    """An EXPLICIT grid must not be floored at the molecule's preset `n_vib`
+    (N2:emoscat's is 6): a config asking only for the v_init channel
+    (`required=1`) should get `n_vib=1`, not 6 -- forcing 6 bound states on a
+    tiny/coarse custom grid that may not support them is exactly the
+    spurious `vibrational_states` ValueError this fixes."""
+    cfg = ExperimentConfig(
+        molecule="N2",
+        methods=("ti",),
+        observables=(Observable(kind="ve", channels=1),),
+        output_dir="unused",
+        v_init=0,
+        grid=GridSpec(electronic=_tiny_explicit_segment(), nuclear=_tiny_explicit_segment()),
+    )
+    assert _n_vib(cfg, required=1) == 1
+
+
+def test_n_vib_preset_grid_still_floors_at_preset_n_vib() -> None:
+    """No explicit grid (preset only): the old floor-at-preset behavior is
+    unchanged -- N2:emoscat's `n_vib=6` still wins over a smaller `required`."""
+    cfg = ExperimentConfig(
+        molecule="N2",
+        methods=("ti",),
+        observables=(Observable(kind="ve", channels=1),),
+        output_dir="unused",
+        v_init=0,
+        grid=GridSpec(),
+    )
+    assert _n_vib(cfg, required=1) == 6

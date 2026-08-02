@@ -85,9 +85,17 @@ def _n_channels(obs: Observable) -> int:
 
 
 def _n_vib(cfg: ExperimentConfig, required: int) -> int:
-    """The vibrational basis size to diagonalize: the molecule's preset
-    `n_vib`, widened (never narrowed) to cover every level `run_experiment`
-    actually needs (`v_init` plus every requested `ve` final state)."""
+    """The vibrational basis size to diagonalize.
+
+    Mirrors `presets.resolve_grid`'s explicit-grid precedence exactly: an
+    explicit grid (`cfg.grid.electronic`/`nuclear` both given) bypasses the
+    preset entirely, so `n_vib` is just `required` (`v_init` plus every
+    requested `ve` final state) -- an explicit/custom coarse grid must not
+    be forced to support more bound states than the request actually needs.
+    Only when resolving to a NAMED PRESET grid is the count widened (never
+    narrowed) to the preset's `n_vib`."""
+    if cfg.grid.electronic is not None and cfg.grid.nuclear is not None:
+        return required
     variant = cfg.grid.preset or presets.DEFAULT_PRESET
     preset = presets.PRESETS.get(f"{cfg.molecule}:{variant}")
     base = preset.n_vib if preset is not None else required
