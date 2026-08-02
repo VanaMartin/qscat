@@ -1,0 +1,56 @@
+cff-version: 1.2.0
+title: qscat
+message: >-
+  If you use qscat directly in research, citation is REQUIRED. Please cite the
+  software (this file) and the references listed below. The forthcoming method
+  paper (preferred-citation) is the canonical reference for the code itself.
+type: software
+abstract: >-
+  Validated, CPU-first FEM-DVR-ECS numerics for electron-diatomic scattering:
+  vibrational-excitation, dissociative-attachment, and dissociative-recombination
+  cross sections by time-independent and time-dependent routes.
+authors:
+  - family-names: Vana
+    given-names: Martin
+    email: martin@qscat.com
+    # More collaborators (and eventually an organisation) will be added here as
+    # the project grows.
+version: 0.1.0.dev0
+license: BSD-3-Clause
+repository-code: "https://github.com/VanaMartin/qscat"
+url: "https://github.com/VanaMartin/qscat"
+keywords:
+  - quantum scattering
+  - electron-molecule scattering
+  - FEM-DVR
+  - exterior complex scaling
+  - cross section
+
+# The canonical reference for the CODE. In preparation — replace the placeholder
+# fields (journal, volume, doi, year) with the final citation on publication.
+preferred-citation:
+  type: article
+  title: "QSCAT: validated FEM-DVR-ECS numerics for electron-molecule scattering"
+  authors:
+    - family-names: Vana
+      given-names: Martin
+      email: martin@qscat.com
+  year: 2026
+  notes: "In preparation — reference to be finalized on publication."
+
+# Prior published work this code builds on / continues. A direct user is
+# expected to cite these. Fill in the exact citations (title, authors, journal,
+# volume, pages, year, doi) you want to require.
+references:
+  - type: article
+    title: "[Prior article #1 — fill in title]"
+    authors:
+      - name: "To be added"
+    year: 2026
+    notes: "Fill in the exact citation (authors, journal, volume, pages, doi)."
+  - type: article
+    title: "[Prior article #2 — fill in title]"
+    authors:
+      - name: "To be added"
+    year: 2026
+    notes: "Fill in the exact citation (authors, journal, volume, pages, doi)."

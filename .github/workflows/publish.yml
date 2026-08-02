@@ -1,0 +1,45 @@
+name: Publish qscat to PyPI
+
+# Tag-triggered release of the pure-Python `qscat` wheel + sdist via PyPI
+# Trusted Publishing (OIDC — no API tokens). Tag format: qscat-v0.1.0
+#
+# ONE-TIME SETUP (pending): on PyPI, add a Trusted Publisher for project
+# `qscat` pointing at this repo + workflow `publish.yml` + environment `pypi`.
+# Until that is configured on PyPI, this workflow will fail at the publish step
+# by design (build + twine check still run).
+
+on:
+  push:
+    tags: ["qscat-v*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Build sdist + wheel (qscat)
+        run: uv build --package qscat --out-dir dist
+      - name: twine check
+        run: uvx twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qscat-dist
+          path: dist/*
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write # required for Trusted Publishing (OIDC)
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: qscat-dist
+          path: dist
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
