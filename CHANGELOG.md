@@ -7,6 +7,12 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `qscat.viz.plot_wavefunction_2d` contour overlay: thin white lines at 0.6
+  opacity (all overridable), tracing either the wavefunction `magnitude`
+  (`|psi|`, levels derived from `mag`) or a `potential` — supplied as nodal
+  values on the same tensor grid (projected via the new
+  `EquidistantProjector.project_values`; the robust path for a numerically-
+  evaluated potential) or as a callable `V(r, R)` for an analytic one.
 - `qscat.viz`: 2-D wavefunction visualisation (ported from eMoScat's
   `EquidistantProjector2d` + `display_wf.py`). `EquidistantProjector` caches a
   sparse projection of a 2-D `TensorGrid` state onto a uniform grid (build once,

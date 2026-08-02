@@ -119,3 +119,112 @@ def test_plot_wavefunction_2d_writes_png(tmp_path) -> None:
     out = tmp_path / "psi.png"
     plot_wavefunction_2d(proj, state, mag=0.05, path=out, ylabel="r", xlabel="R")
     assert out.exists() and out.stat().st_size > 0
+
+
+def test_projector_project_values_interpolates_nodal_field() -> None:
+    # project_values interpolates a nodal-VALUE field (no 1/sqrt(w)): a separable
+    # low-degree polynomial is reproduced to round-off in the real region.
+    tg = _tgrid()
+    g0, g1 = tg.grids
+    m0 = g0.real_points <= g0.R0
+    m1 = g1.real_points <= g1.R0
+
+    def vr(r: np.ndarray) -> np.ndarray:
+        return 0.5 - 0.1 * r + 0.02 * r**2
+
+    def vR(R: np.ndarray) -> np.ndarray:
+        return -1.0 + 0.3 * R
+
+    V = np.outer(np.where(m0, vr(g0.real_points), 0.0), np.where(m1, vR(g1.real_points), 0.0))
+    proj = EquidistantProjector(tg, samples=(30, 30), extent=((1.0, 6.0), (1.0, 4.0)))
+    got = np.real(proj.project_values(V))
+    exact = np.outer(vr(proj.axis0), vR(proj.axis1))
+    assert np.max(np.abs(got - exact)) < 1e-10
+
+
+def test_contours_magnitude_thin_white_06(tmp_path) -> None:
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(40, 40))
+    rng = np.random.default_rng(0)
+    state = rng.standard_normal(tg.grids[0].n * tg.grids[1].n) + 0j
+    _, ax = plt.subplots()
+    plot_wavefunction_2d(proj, state, mag=0.05, ax=ax, contours=True)
+    csets = [c for c in ax.get_children() if isinstance(c, QuadContourSet)]
+    assert len(csets) == 1
+    cset = csets[0]
+    # Thin white lines at 0.6 opacity, and magnitude levels derived from mag.
+    assert np.allclose(cset.get_alpha(), 0.6)
+    assert np.allclose(cset.get_linewidths(), 0.6)
+    assert np.allclose(cset.get_edgecolor()[0][:3], [1.0, 1.0, 1.0])  # white
+    # magnitude levels are k*mag/5 -> evenly spaced
+    assert np.allclose(np.diff(cset.levels), cset.levels[1] - cset.levels[0])
+    plt.close("all")
+
+
+def test_contours_potential_array_and_callable_both_draw() -> None:
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(30, 30), extent=((1.0, 6.0), (1.0, 4.0)))
+    state = np.zeros(tg.grids[0].n * tg.grids[1].n, dtype=complex)
+
+    # Nodal-array potential on the same grid (the numerically-evaluated path).
+    V = np.outer(tg.grids[0].real_points, tg.grids[1].real_points).astype(complex)
+    _, ax1 = plt.subplots()
+    plot_wavefunction_2d(
+        proj, state, mag=0.05, ax=ax1, contours=6,
+        contour_field="potential", potential=V, contour_color="grey",
+    )
+    assert len([c for c in ax1.get_children() if isinstance(c, QuadContourSet)]) == 1
+
+    # Callable potential (analytic path): V(r, R) on the sampling meshgrid.
+    _, ax2 = plt.subplots()
+    plot_wavefunction_2d(
+        proj, state, mag=0.05, ax=ax2, contours=6,
+        contour_field="potential", potential=lambda r, R: r + R,
+    )
+    assert len([c for c in ax2.get_children() if isinstance(c, QuadContourSet)]) == 1
+    plt.close("all")
+
+
+def test_contours_potential_requires_potential() -> None:
+    pytest.importorskip("matplotlib")
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(20, 20))
+    state = np.zeros(tg.grids[0].n * tg.grids[1].n, dtype=complex)
+    with pytest.raises(ValueError, match="requires potential"):
+        plot_wavefunction_2d(proj, state, mag=0.05, contours=True, contour_field="potential")
+
+
+def test_contours_false_draws_nothing() -> None:
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(20, 20))
+    state = np.zeros(tg.grids[0].n * tg.grids[1].n, dtype=complex)
+    _, ax = plt.subplots()
+    plot_wavefunction_2d(proj, state, mag=0.05, ax=ax)  # contours default False
+    assert not [c for c in ax.get_children() if isinstance(c, QuadContourSet)]
+    plt.close("all")

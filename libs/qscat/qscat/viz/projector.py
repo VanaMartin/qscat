@@ -51,9 +51,11 @@ class EquidistantProjector:
             )
         self.tgrid = tgrid
         n0, n1 = (samples, samples) if isinstance(samples, int) else samples
+        g0g, g1g = tgrid.grids
         if extent is None:
-            extent = tuple(  # type: ignore[assignment]
-                (float(g.spec.x_min), float(g.R0)) for g in tgrid.grids
+            extent = (
+                (float(g0g.spec.x_min), float(g0g.R0)),
+                (float(g1g.spec.x_min), float(g1g.R0)),
             )
         (a0, b0), (a1, b1) = extent
         self.axis0 = np.linspace(a0, b0, n0)
@@ -73,3 +75,18 @@ class EquidistantProjector:
         m = state.reshape(self.tgrid.grids[0].n, self.tgrid.grids[1].n)
         # P0 @ M @ P1.T  ->  (n0, n1); sparse @ dense @ sparse.T
         return np.asarray(self._p0 @ m @ self._p1.T)
+
+    def project_values(
+        self, field: npt.NDArray[np.complex128]
+    ) -> npt.NDArray[np.complex128]:
+        """Project a nodal-VALUE field (e.g. a potential) on the same grid.
+
+        `project` interpolates a √w-scaled DVR state (a wavefunction). A field
+        given as plain nodal values ``f(x_i)`` (e.g. a potential surface) has
+        interpolant ``sum_i f(x_i) L_i(x)`` -- no 1/√w -- so it must be scaled by
+        ``√w`` before going through the same operator. Returns shape ``(n0, n1)``.
+        """
+        g0, g1 = self.tgrid.grids
+        f = np.asarray(field, dtype=np.complex128).reshape(g0.n, g1.n)
+        sw = np.sqrt(np.outer(g0.weights, g1.weights))  # √(w_i w_j) node scaling
+        return self.project((sw * f).reshape(-1))
