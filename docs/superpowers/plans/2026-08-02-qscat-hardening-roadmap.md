@@ -220,3 +220,19 @@ differential oracle (the lifecycle already mandates keeping it alive).
 
 Each phase is its own spec/plan; Phase A should start immediately. Phases B and C can run
 in parallel with A once the blockers are green.
+
+## Detailed sub-project specs
+
+Parts 0, and the safe subsets of 1–5, are done (see the CHANGELOG and the git
+history). The remaining implementation work is captured as focused specs:
+
+- `2026-08-02-sparse-lu-pardiso-backend.md` — MKL PARDISO backend (Part 5 #1).
+- `2026-08-02-gpu-sparse-backend.md` — GPU cuDSS backend (design-only; deferred).
+- `2026-08-02-first-rust-kernel.md` — the optimize-in-Rust starter (Part 5 #2).
+- `2026-08-02-scattering-context-refactor.md` — full functional-signature
+  refactor onto the context object (the deferred Part 1 piece; SDD-suited).
+- `2026-08-02-docs-numpydoc-and-hosting.md` — numpydoc conversion + Pages (Part 2).
+
+Also outstanding (no separate spec needed — mechanical): the `td_extractors.py`/
+`time_dependent.py` module splits; extending the exception migration to deeper
+internal raises; dev-group dependency de-dup + a lowest-resolution CI leg.
