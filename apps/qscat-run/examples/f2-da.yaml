@@ -1,0 +1,76 @@
+# qscat-run example: F2 vibrational-excitation (VE) + dissociative
+# attachment (DA), BOTH time-independent (TI) and time-dependent (TD) in one
+# run -- exercises the full artifact set: cross_section, cross_section_vs_time
+# (TD moments), and a wavefunction snapshot.
+#
+# Like n2-ve.yaml, this uses a deliberately tiny, hand-written explicit grid
+# (F2 has no laptop-sized "proxy" preset -- only H2P does) so it stays fast
+# for local iteration; it is a plumbing smoke test, not a converged cross
+# section (`apps/qscat-run/tests/test_examples.py` only schema-validates this
+# file, it does not run it in the fast gate).
+#
+# For the real, validated F2 DA/VE cross sections (the sub-project's actual
+# deliverable, exact-2D oracle against the eMoScat deck), swap the explicit
+# `grid:` block below for the molecule's production preset:
+#
+#     grid: {preset: emoscat}
+#
+# That preset is the ~O(10^4-10^5)-unknown production deck -- run it via
+# Docker (has MUMPS):
+#
+#     docker/run.sh apps/qscat-run/examples/f2-da.yaml runs/f2-da
+#
+# See docs/physics/diatomic-ve-cross-sections.md and
+# docs/physics/figures/f2-2d-ti-da-cross-section.png /
+# f2-2d-ti-cross-section.png for the committed reference curves.
+# `qscat-run init F2 --observables ve,da --methods ti,td -o f2.yaml` scaffolds
+# that full preset-based starting point.
+#
+# Run:
+#   qscat-run validate apps/qscat-run/examples/f2-da.yaml
+#   qscat-run run apps/qscat-run/examples/f2-da.yaml --output runs/f2-da
+
+molecule: F2
+methods: [ti, td]
+
+observables:
+  - {kind: ve, channels: 2}   # v'=0, v'=1
+  - {kind: da, channels: 1}   # 1 dissociation channel
+
+v_init: 0
+energies: {values: [0.03, 0.05]}
+
+# A tiny explicit grid: electronic real region to 8 bohr; nuclear real
+# region finely resolved around F2's R0 ~ 2.69 bohr (2.5-2.7) out to 10 bohr
+# -- fast, NOT convergence-tested. See the `preset: emoscat` note above.
+grid:
+  electronic:
+    real: [[4, 2.0], [2, 4.0], [2, 8.0]]
+    ecs: {angle: 30, elements: 3, quadrature: 5}
+  nuclear:
+    real: [[3, 1.8], [1, 2.0], [2, 2.5], [2, 2.6], [2, 2.7], [3, 10.0]]
+    ecs: {angle: 30, elements: 3, quadrature: 6}
+
+td:
+  dt: 0.2
+  n_steps: 10
+  order: 3
+  extractors: [tw, delta]
+  incident: {r0: 4.0, p0: -0.5, sigma: 1.0}
+  # A per-observable-kind mapping: `ve`'s outgoing packet is ELECTRONIC (in
+  # r), `da`'s is NUCLEAR (in R) -- physically different scales, so they
+  # cannot share one flat `test_function` block on a mixed VE+DA run.
+  test_function:
+    ve: {r0_out: 6.0, p0_out: 0.5, sigma_out: 1.0}
+    da: {r0_out: 5.0, p0_out: 3.0, sigma_out: 0.5}
+
+artifacts:
+  cross_section: true
+  cross_section_vs_time:
+    moments: [1.0, 2.0]
+  wavefunction_snapshots:
+    td_times: [0.0, 1.0]
+    ti_energies: [0.05]
+
+backend: auto
+output_dir: runs/f2-da
