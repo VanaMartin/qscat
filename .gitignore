@@ -26,3 +26,6 @@ outputs/
 
 # hypothesis property-test database/cache
 .hypothesis/
+
+# Sphinx build output
+docs/_build/

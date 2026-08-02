@@ -22,6 +22,11 @@ markers = [
 ]
 
 [dependency-groups]
+docs = [
+    "sphinx>=8",
+    "myst-parser>=4",
+    "furo>=2024.8",
+]
 dev = [
     "pytest>=8",
     "pytest-benchmark>=4",
