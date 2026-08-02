@@ -30,6 +30,7 @@ _SUBMODULES = (
     "core",
     "model",
     "tuning",
+    "viz",
 )
 
 if TYPE_CHECKING:  # let type-checkers/IDEs resolve `qscat.<submodule>` statically
@@ -43,6 +44,7 @@ if TYPE_CHECKING:  # let type-checkers/IDEs resolve `qscat.<submodule>` statical
         special,
         tuning,
         units,
+        viz,
     )
 
 

@@ -31,6 +31,7 @@ from __future__ import annotations
 from .derivative import dvr_first_derivative_at_node
 from .gll import diff_matrix, gll_nodes_weights
 from .grid import FemDvrEcsGrid
+from .interpolate import dvr_interpolation_matrix
 from .kinetic import kinetic, kinetic_sparse
 from .operators import eigen, hamiltonian
 from .spec import ElementSpec, GridSpec
@@ -43,6 +44,7 @@ __all__ = [
     "kinetic",
     "kinetic_sparse",
     "dvr_first_derivative_at_node",
+    "dvr_interpolation_matrix",
     "hamiltonian",
     "eigen",
     "gll_nodes_weights",

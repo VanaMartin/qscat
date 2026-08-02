@@ -1,0 +1,121 @@
+"""qscat.viz: domain colouring + the equidistant projector."""
+
+from __future__ import annotations
+
+import numpy as np
+import pytest
+from qscat.core.grids import electronic_grid, nuclear_grid
+from qscat.dvr import TensorGrid
+from qscat.viz import EquidistantProjector, complex_to_hsv, complex_to_rgb
+
+# --- coloring ---------------------------------------------------------------
+
+
+def test_complex_to_hsv_phase_is_hue() -> None:
+    # Positive real -> hue 0; +i -> 0.25; -1 -> 0.5; -i -> 0.75.
+    z = np.array([1.0, 1.0j, -1.0, -1.0j], dtype=complex)
+    hsv = complex_to_hsv(z, mag=1.0)
+    assert np.allclose(hsv[:, 0], [0.0, 0.25, 0.5, 0.75])
+
+
+def test_complex_to_hsv_magnitude_maps_to_value() -> None:
+    # Below mag: value = |z|/mag, full saturation. Above mag: value clips to 1,
+    # saturation drops (white-wash).
+    z = np.array([0.5, 2.0], dtype=complex)
+    hsv = complex_to_hsv(z, mag=1.0)
+    assert np.isclose(hsv[0, 2], 0.5) and np.isclose(hsv[0, 1], 1.0)  # |z|=0.5
+    assert np.isclose(hsv[1, 2], 1.0) and np.isclose(hsv[1, 1], 0.5)  # |z|=2
+
+
+def test_complex_to_rgb_zero_is_black_and_large_is_white() -> None:
+    rgb = complex_to_rgb(np.array([0.0 + 0j, 1e6 + 0j]), mag=1.0)
+    assert np.allclose(rgb[0], [0.0, 0.0, 0.0])  # zero -> black
+    assert np.allclose(rgb[1], [1.0, 1.0, 1.0], atol=1e-3)  # huge -> white
+
+
+def test_complex_to_hsv_rejects_real_input() -> None:
+    with pytest.raises(ValueError, match="complex"):
+        complex_to_hsv(np.array([1.0, 2.0]))
+
+
+# --- projector --------------------------------------------------------------
+
+
+def _tgrid() -> TensorGrid:
+    return TensorGrid([
+        electronic_grid(r_max=16.0, order=7, n_complex=4),
+        nuclear_grid(r_max=22.0, quadrature=8, n_complex=4),
+    ])
+
+
+def test_projector_reproduces_separable_polynomial_exactly() -> None:
+    # A separable low-degree polynomial (degree <= nq-1 per axis) is reproduced
+    # to round-off by the DVR interpolation in the REAL region (z(x)=x there):
+    # field(r,R) = gr(r)*hR(R) exactly. Build state_ij = sqrt(w_i w_j) f(r_i,R_j).
+    tg = _tgrid()
+    g0, g1 = tg.grids
+    m0 = g0.real_points <= g0.R0
+    m1 = g1.real_points <= g1.R0
+
+    def gr(r: np.ndarray) -> np.ndarray:
+        return 1.0 + 0.1 * r - 0.02 * r**2  # degree 2 <= 6 (electronic order 7)
+
+    def hR(R: np.ndarray) -> np.ndarray:
+        return 2.0 - 0.3 * R + 0.05 * R**2  # degree 2 <= 7 (nuclear order 8)
+
+    vr = np.where(m0, np.sqrt(g0.weights) * gr(g0.real_points), 0.0)
+    vR = np.where(m1, np.sqrt(g1.weights) * hR(g1.real_points), 0.0)
+    M = np.outer(vr, vR)
+
+    proj = EquidistantProjector(tg, samples=(40, 40), extent=((1.0, 6.0), (1.0, 4.0)))
+    field = proj.project(M.reshape(-1))
+    exact = np.outer(gr(proj.axis0), hR(proj.axis1))
+    assert field.shape == (40, 40)
+    assert np.max(np.abs(field.real - exact)) < 1e-10
+
+
+def test_projector_exact_at_nodes() -> None:
+    # Sampling at real node coordinates recovers state_ij / sqrt(w_i w_j) exactly
+    # (Lagrange cardinal property), a differential check on the projector.
+    tg = _tgrid()
+    g0, g1 = tg.grids
+    r_nodes = g0.real_points[g0.real_points <= g0.R0]
+    R_nodes = g1.real_points[g1.real_points <= g1.R0]
+    proj = EquidistantProjector(
+        tg,
+        samples=(r_nodes.size, R_nodes.size),
+        extent=((r_nodes[0], r_nodes[-1]), (R_nodes[0], R_nodes[-1])),
+    )
+    # linspace over [first,last] node won't hit interior nodes; instead build the
+    # projector's 1-D operators directly at the exact node coords via the public
+    # dvr_interpolation_matrix and check the cardinal property.
+    from qscat.dvr import dvr_interpolation_matrix
+
+    P0 = dvr_interpolation_matrix(g0, r_nodes)
+    rng = np.random.default_rng(1)
+    state = rng.standard_normal(g0.n) + 1j * rng.standard_normal(g0.n)
+    got = P0 @ state
+    idx = np.flatnonzero(g0.real_points <= g0.R0)
+    assert np.allclose(got, (state / np.sqrt(g0.weights))[idx], atol=1e-12)
+    assert proj.axis0.size == r_nodes.size  # sanity on construction
+
+
+def test_projector_rejects_non_2d_grid() -> None:
+    from qscat.exceptions import GridError
+
+    tg1 = TensorGrid([electronic_grid(r_max=16.0, order=6, n_complex=3)])
+    with pytest.raises(GridError, match="2-D"):
+        EquidistantProjector(tg1, samples=10)
+
+
+def test_plot_wavefunction_2d_writes_png(tmp_path) -> None:
+    pytest.importorskip("matplotlib")
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(30, 30))
+    rng = np.random.default_rng(0)
+    state = rng.standard_normal(tg.grids[0].n * tg.grids[1].n) + 0j
+    out = tmp_path / "psi.png"
+    plot_wavefunction_2d(proj, state, mag=0.05, path=out, ylabel="r", xlabel="R")
+    assert out.exists() and out.stat().st_size > 0
