@@ -1,19 +1,67 @@
 [project]
 name = "qscat"
-version = "0.0.0"
-description = "QSCAT standard library — validated quantum-scattering numerics"
+description = "QSCAT standard library — validated quantum-scattering numerics (FEM-DVR-ECS)"
+readme = "README.md"
 requires-python = ">=3.12"
+dynamic = ["version"]
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+# Copyright holder: Martin Vana, for now. More collaborators (and eventually an
+# organisation) may be added here as the project grows — see CONTRIBUTING /
+# CITATION.cff.
+authors = [{ name = "Martin Vana", email = "martin@qscat.com" }]
+maintainers = [{ name = "Martin Vana", email = "martin@qscat.com" }]
+keywords = [
+    "quantum scattering",
+    "electron-molecule scattering",
+    "FEM-DVR",
+    "exterior complex scaling",
+    "cross section",
+    "resonance",
+    "vibrational excitation",
+    "dissociative attachment",
+    "computational physics",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
 dependencies = ["numpy>=2", "scipy>=1.14", "mpmath>=1.3"]
 
+[project.urls]
+Homepage = "https://github.com/VanaMartin/qscat"
+Repository = "https://github.com/VanaMartin/qscat"
+Issues = "https://github.com/VanaMartin/qscat/issues"
+Changelog = "https://github.com/VanaMartin/qscat/blob/main/CHANGELOG.md"
+
 [project.optional-dependencies]
+# Plotting helpers (qscat.core.plot_cross_sections). matplotlib is imported
+# lazily, so it is NOT required to import qscat.core; only to render figures.
+plot = ["matplotlib>=3.9"]
 # MUMPS complex-symmetric sparse backend for qscat.linalg.SparseLU. Builds
-# against a system MUMPS (see docker/base.Dockerfile); not installable without
-# it, hence optional. Install with: uv pip install "qscat[mumps]".
+# against a SYSTEM MUMPS (see docker/base.Dockerfile), so `pip install
+# "qscat[mumps]"` fails on a machine without it — the supported route is a
+# prebuilt MUMPS (e.g. conda-forge). See docs/physics/mumps-sparse-backend.md.
 mumps = ["python-mumps>=0.0.6"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.version]
+# Single source of truth for the version (no second hardcoded copy).
+path = "qscat/__init__.py"
+
 [tool.hatch.build.targets.wheel]
 packages = ["qscat"]
+
+[tool.hatch.build.targets.sdist]
+# Ship the package, its license, readme, and tests; keep scratch/VCS files out.
+include = ["qscat", "LICENSE", "README.md", "tests"]

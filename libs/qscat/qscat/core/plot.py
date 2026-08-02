@@ -12,17 +12,18 @@ molecule's channels, or no reference at all.
 `projects/n2_2d_td_cross_section/observation.py`) so this module never
 requires a display, works headlessly in CI/tests, and never leaks a figure
 window across test runs (every call closes its `Figure`).
+
+matplotlib is imported LAZILY inside `plot_cross_sections`, not at module
+scope: it is an OPTIONAL dependency (the `qscat[plot]` extra), so merely
+importing `qscat.core` -- which re-exports this function -- must not require
+matplotlib. See `libs/qscat/pyproject.toml`'s `[project.optional-dependencies]`
+and `tests/test_no_matplotlib_at_import.py`.
 """
 
 from __future__ import annotations
 
 import os
 
-import matplotlib
-
-matplotlib.use("Agg")  # non-interactive backend, set before pyplot import
-
-import matplotlib.pyplot as plt
 import numpy as np
 import numpy.typing as npt
 
@@ -67,7 +68,21 @@ def plot_cross_sections(
 
     No physics lives here: this function does not know what a channel, a
     threshold, or a molecule is -- it plots whatever arrays it is given.
+
+    Requires the optional `qscat[plot]` extra (matplotlib); raises
+    `ModuleNotFoundError` with an actionable hint if it is not installed.
     """
+    try:
+        import matplotlib
+
+        matplotlib.use("Agg")  # non-interactive backend, set before pyplot import
+        import matplotlib.pyplot as plt
+    except ModuleNotFoundError as exc:  # pragma: no cover - trivial guard
+        raise ModuleNotFoundError(
+            "qscat.core.plot_cross_sections requires matplotlib. "
+            "Install the plotting extra: pip install 'qscat[plot]'."
+        ) from exc
+
     e = np.asarray(E_grid, dtype=np.float64)
     s = np.asarray(sigma, dtype=np.float64)
     n_channels = s.shape[1]

@@ -897,7 +897,6 @@ dev = [
 
 [[package]]
 name = "qscat"
-version = "0.0.0"
 source = { editable = "libs/qscat" }
 dependencies = [
     { name = "mpmath" },
@@ -909,15 +908,19 @@ dependencies = [
 mumps = [
     { name = "python-mumps" },
 ]
+plot = [
+    { name = "matplotlib" },
+]
 
 [package.metadata]
 requires-dist = [
+    { name = "matplotlib", marker = "extra == 'plot'", specifier = ">=3.9" },
     { name = "mpmath", specifier = ">=1.3" },
     { name = "numpy", specifier = ">=2" },
     { name = "python-mumps", marker = "extra == 'mumps'", specifier = ">=0.0.6" },
     { name = "scipy", specifier = ">=1.14" },
 ]
-provides-extras = ["mumps"]
+provides-extras = ["mumps", "plot"]
 
 [[package]]
 name = "qscat-kernels"
