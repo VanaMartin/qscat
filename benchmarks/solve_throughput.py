@@ -95,16 +95,21 @@ def main(argv: list[str] | None = None) -> int:
 
     if "mumps" in results:
         s, m = results["scipy"], results["mumps"]
-        d_factor = m["factor_s"] - s["factor_s"]
+        d_factor = m["factor_s"] - s["factor_s"]  # <0 if MUMPS factors faster
         d_solve = s["per_solve_ms"] - m["per_solve_ms"]  # >0 if MUMPS solve faster
         print()
         print(f"factor: MUMPS {'faster' if d_factor < 0 else 'slower'} by {abs(d_factor):.3f} s")
-        if d_solve > 0:
-            breakeven = d_factor / (d_solve / 1e3) if d_solve else float("inf")
-            print(f"solve : MUMPS faster by {d_solve:.3f} ms/solve")
-            print(f"break-even: MUMPS wins a run of > {breakeven:.0f} solves")
-        else:
-            print(f"solve : MUMPS SLOWER by {abs(d_solve):.3f} ms/solve (SuperLU wins the solve)")
+        print(
+            f"solve : MUMPS {'faster' if d_solve > 0 else 'SLOWER'} by "
+            f"{abs(d_solve):.3f} ms/solve"
+        )
+        if d_factor <= 0 and d_solve >= 0:
+            print("verdict: MUMPS wins outright (faster factor AND solve) -- default for TI and TD")
+        elif d_factor > 0 and d_solve > 0:
+            breakeven = d_factor / (d_solve / 1e3)
+            print(f"verdict: MUMPS factors slower, solves faster; wins > {breakeven:.0f} solves")
+        elif d_solve < 0 <= d_factor:
+            print("verdict: SuperLU wins the solve; MUMPS only pays off if factor-bound")
     else:
         print("\n(mumps unavailable here — run in the Docker `test` image for the comparison)")
     return 0

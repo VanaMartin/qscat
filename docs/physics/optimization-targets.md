@@ -49,6 +49,26 @@ Two consequences:
    SuperLU's is a separate, unmeasured question that decides the optimal TD
    backend. `benchmarks/solve_throughput.py` measures exactly this.
 
+## Measured: does MUMPS fix the solve-bound TD path? Yes.
+
+`benchmarks/solve_throughput.py` on a CN/Padé shift of the N2 2-D Hamiltonian
+(N=20328), factor once + 100 repeated solves, in the Docker `test` image:
+
+| backend | factor | per-solve | 100 solves |
+|---|---|---|---|
+| SuperLU | 2.54 s | 15.8 ms | 1.58 s |
+| **MUMPS** | **0.31 s (8.2×)** | **3.4 ms (4.6×)** | **0.34 s** |
+
+MUMPS wins **both** — crucially the *solve* by ~4.6×, not just the factor. So the
+solve-bound TD propagation is ~4.6× faster on MUMPS per step, and the whole
+propagation (solve + factor) is ~5× faster. **MUMPS is the correct default for
+both TI and TD**, and `SparseLU(backend="auto")` already selects it when present
+(it is provisioned in the Docker `test`/`cpu` images; absent on a bare Mac, hence
+these numbers are Docker-measured). Conclusion: on the current architecture we
+are near the practical direct-solver optimum once MUMPS is used; PARDISO and GPU
+cuDSS are *incremental* beyond this (parity/large-scale), not step changes — the
+big win over the SuperLU fallback is already in hand.
+
 ## Ranked plan (unchanged by the measurement, now evidence-backed)
 
 1. **Sparse factorization (`SparseLU`) — #1, by 60×.** MUMPS already beats
