@@ -7,6 +7,15 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `qscat.viz`: 2-D wavefunction visualisation (ported from eMoScat's
+  `EquidistantProjector2d` + `display_wf.py`). `EquidistantProjector` caches a
+  sparse projection of a 2-D `TensorGrid` state onto a uniform grid (build once,
+  apply per frame); `complex_to_rgb`/`complex_to_hsv` domain-colour the field
+  (phase→hue, magnitude→brightness); `plot_wavefunction_2d` renders it
+  (matplotlib, lazy). The building block for time-dependent animations.
+- `qscat.dvr.dvr_interpolation_matrix`: the sparse FEM-DVR-ECS field-value
+  operator (Lagrange interpolation at arbitrary points, ECS-mapped, with the
+  dropped-Dirichlet-endpoint bridge factors) — the projector's kernel.
 - Docs: numpydoc-format docstrings for the getting-started public API
   (`electronic_grid`, `nuclear_grid`, `vibrational_states`, `IncidentSpec`,
   `GridError`) so the API reference renders parameter/return/raises tables; the

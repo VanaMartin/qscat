@@ -22,7 +22,7 @@ import sys
 import pytest
 
 
-@pytest.mark.parametrize("module", ["qscat.core", "qscat.tuning", "qscat"])
+@pytest.mark.parametrize("module", ["qscat.core", "qscat.tuning", "qscat.viz", "qscat"])
 def test_importing_module_does_not_import_matplotlib(module: str) -> None:
     code = (
         f"import sys; import {module}; "
