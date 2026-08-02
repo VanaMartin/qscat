@@ -1,13 +1,17 @@
 """The `qscat-run` click command group: `validate`, `list`, `init`, `run`.
 
-`run` is a stub in this task (Task 1) -- the shared-work runner (`runner.py`)
-and artifact writers (`artifacts.py`) land in Task 2/3; it raises a
-`click.ClickException` pointing at `validate` in the meantime.
+`run` resolves a config, runs it (`runner.run_experiment`), and writes its
+artifacts (`artifacts.write_artifacts`) -- the TI path only for now (TD is
+Task 3; `run_experiment` raises `NotImplementedError` if `"td"` is
+requested). `--dry-run` resolves + prints the plan (grids, sizes, energy
+count) without solving anything.
 """
 
 from __future__ import annotations
 
 import warnings
+from dataclasses import replace
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -15,7 +19,9 @@ import click
 import yaml
 
 from qscat_run import presets
+from qscat_run.artifacts import write_artifacts
 from qscat_run.config import ConfigError, load_config, validate_config
+from qscat_run.runner import run_experiment
 
 __all__ = ["main"]
 
@@ -196,13 +202,47 @@ def init_cmd(molecule: str, observables: str | None, methods: str, output_path: 
 )
 @click.option("--dry-run", is_flag=True, help="Resolve + print the plan without solving.")
 def run_cmd(config_path: str, output_dir: str | None, backend: str | None, dry_run: bool) -> None:
-    """Run CONFIG end-to-end: parse -> resolve -> solve -> write artifacts.
-
-    Not yet implemented -- the shared-work runner (`runner.py`) and artifact
-    writers (`artifacts.py`) are a later task; use `qscat-run validate` to
-    check a config in the meantime.
+    """Run CONFIG end-to-end: parse -> validate -> resolve -> solve -> write
+    artifacts. `--dry-run` resolves and prints the plan without solving or
+    writing anything -- only `ti` methods actually solve today (TD is a
+    later task).
     """
-    raise click.ClickException(
-        "run is implemented in a later task (the runner/artifacts writers); "
-        "use `qscat-run validate CONFIG` to check a config for now."
-    )
+    cfg = load_config(config_path)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        validate_config(cfg)
+    for w in caught:
+        click.echo(f"WARNING: {w.message}", err=True)
+
+    if backend is not None:
+        cfg = replace(cfg, backend=backend)
+    if output_dir is not None:
+        cfg = replace(cfg, output_dir=output_dir)
+
+    resolved = presets.resolve_defaults(cfg)
+
+    if dry_run:
+        click.echo(f"molecule: {resolved.molecule}")
+        click.echo(f"methods: {list(resolved.methods)}")
+        click.echo("observables:")
+        for obs in resolved.observables:
+            click.echo(f"  - kind={obs.kind} channels={obs.channels}")
+        n_energies = len(resolved.energies.as_array()) if resolved.energies is not None else 0
+        click.echo(f"energies: {n_energies}")
+        for method in resolved.methods:
+            try:
+                tg = presets.resolve_grid(resolved, method)
+            except ConfigError:
+                raise
+            except Exception as exc:  # noqa: BLE001 -- surface as an actionable ConfigError
+                raise ConfigError(f"failed to build the {method!r} grid: {exc}") from exc
+            click.echo(f"grid[{method}]: shape={tg.shape} size={tg.size}")
+        click.echo(f"output_dir: {resolved.output_dir}")
+        click.echo(f"backend: {resolved.backend}")
+        return
+
+    result = run_experiment(resolved)
+    out_dir = resolved.output_dir
+    timestamp = datetime.now(UTC).isoformat()
+    write_artifacts(result, resolved, out_dir, timestamp=timestamp)
+    click.echo(f"wrote artifacts to {out_dir}")

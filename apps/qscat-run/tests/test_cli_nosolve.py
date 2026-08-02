@@ -40,9 +40,13 @@ def test_validate_rejects_bad(tmp_path: Path) -> None:
     assert CliRunner().invoke(main, ["validate", str(bad)]).exit_code != 0
 
 
-def test_run_is_a_stub(tmp_path: Path) -> None:
+def test_run_dry_run_prints_plan_and_solves_nothing(tmp_path: Path) -> None:
     out = tmp_path / "f2.yaml"
     CliRunner().invoke(main, ["init", "F2", "--observables", "ve", "-o", str(out)])
-    r = CliRunner().invoke(main, ["run", str(out)])
-    assert r.exit_code != 0
-    assert "later task" in r.output or "Task" in r.output
+    output_dir = tmp_path / "out"
+    r = CliRunner().invoke(main, ["run", str(out), "--output", str(output_dir), "--dry-run"])
+    assert r.exit_code == 0, r.output
+    assert "molecule: F2" in r.output
+    assert "grid[ti]" in r.output
+    # --dry-run never solves or writes any artifact.
+    assert not output_dir.exists()

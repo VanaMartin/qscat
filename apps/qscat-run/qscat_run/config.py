@@ -30,6 +30,8 @@ from pathlib import Path
 from typing import Any
 
 import click
+import numpy as np
+import numpy.typing as npt
 import yaml
 
 __all__ = [
@@ -106,6 +108,21 @@ class EnergySpec:
     max: float | None = None
     step: float | None = None
     values: tuple[float, ...] | None = None
+
+    def as_array(self) -> npt.NDArray[np.float64]:
+        """The concrete energy sweep: `values` verbatim if given, else
+        `np.arange(min, max + step/2, step)` (the half-step pad makes the
+        sweep inclusive of `max` despite `arange`'s exclusive upper bound
+        and float round-off), rounded to 10 decimals to kill the last-ULP
+        noise `arange` accumulates over many steps."""
+        if self.values is not None:
+            return np.asarray(self.values, dtype=np.float64)
+        if self.min is None or self.max is None or self.step is None:
+            raise ConfigError(
+                "EnergySpec.as_array() needs either 'values' or all of 'min'/'max'/'step'"
+            )
+        arr = np.arange(self.min, self.max + 0.5 * self.step, self.step, dtype=np.float64)
+        return np.round(arr, decimals=10)
 
 
 def _load_energies(raw: dict[str, Any] | None) -> EnergySpec | None:
