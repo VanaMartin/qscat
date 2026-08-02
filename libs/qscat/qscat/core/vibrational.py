@@ -40,6 +40,7 @@ the basis functions themselves already absorb it.
 from __future__ import annotations
 
 from collections.abc import Callable
+from typing import NamedTuple
 
 import numpy as np
 import numpy.typing as npt
@@ -47,7 +48,18 @@ import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
 from qscat.exceptions import GridError
 
-__all__ = ["vibrational_states"]
+__all__ = ["VibrationalBasis", "vibrational_states"]
+
+
+class VibrationalBasis(NamedTuple):
+    """The vibrational eigenbasis returned by `vibrational_states`.
+
+    A `NamedTuple`, so the historical `eps, chi = vibrational_states(...)`
+    unpacking keeps working unchanged, while `.eps` / `.chi` give named access.
+    """
+
+    eps: npt.NDArray[np.float64]  # (n,) real vibrational energies (Ha), ascending
+    chi: npt.NDArray[np.complex128]  # (n, grid.n) eigenvectors, one row per level
 
 # Bound-state signature: true bound levels have |Im(E)| ~ 1e-15 on this ECS
 # grid, while the discretized continuum/dissociative states jump to
@@ -60,7 +72,7 @@ def vibrational_states(
     mu: float,
     n: int,
     v0: Callable[[npt.ArrayLike], npt.NDArray[np.complexfloating]],
-) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128]]:
+) -> VibrationalBasis:
     """The `n` lowest bound eigenpairs of `T_nuc(mu) + diag(v0(R))`.
 
     `v0` is the neutral molecule's potential-energy curve, evaluated
@@ -99,4 +111,4 @@ def vibrational_states(
 
     eps = E_n.real
     chi = V[:, :n].T
-    return eps, chi
+    return VibrationalBasis(eps, chi)

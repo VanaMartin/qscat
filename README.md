@@ -1,5 +1,10 @@
 # qModeling
 
+[![CI](https://github.com/VanaMartin/qscat/actions/workflows/ci.yml/badge.svg)](https://github.com/VanaMartin/qscat/actions/workflows/ci.yml)
+[![Docs](https://github.com/VanaMartin/qscat/actions/workflows/docs.yml/badge.svg)](https://github.com/VanaMartin/qscat/actions/workflows/docs.yml)
+[![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](LICENSE)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
+
 qModeling is a Python-first quantum-mechanics research monorepo, home to **QSCAT**
 (`libs/qscat`) — a CPU-first electron-diatomic-molecule scattering toolkit built
 around FEM-DVR-ECS (finite-element discrete-variable-representation, exterior-
