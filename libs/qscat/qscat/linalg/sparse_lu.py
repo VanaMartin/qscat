@@ -53,6 +53,8 @@ import numpy.typing as npt
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
 
+from qscat.exceptions import BackendError
+
 from ._mumps_backend import _check_pattern, _MumpsBackend, _pattern_of, mumps_available
 
 __all__ = ["SparseLU", "set_default_backend", "get_default_backend", "default_backend"]
@@ -260,7 +262,7 @@ class SparseLU:
             # An explicit (or defaulted-to) request for MUMPS must fail loudly
             # rather than silently falling back to scipy -- and before doing
             # any (wasted) symmetry detection on this error path.
-            raise RuntimeError(
+            raise BackendError(
                 "MUMPS backend requested but not available "
                 "(qscat[mumps] / system MUMPS missing)"
             )

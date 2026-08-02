@@ -45,6 +45,7 @@ import numpy as np
 import numpy.typing as npt
 
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
+from qscat.exceptions import GridError
 
 __all__ = ["vibrational_states"]
 
@@ -87,7 +88,7 @@ def vibrational_states(
     bad = np.abs(E_n.imag) > _IM_TOL_HA
     if np.any(bad):
         bad_idx = np.flatnonzero(bad).tolist()
-        raise ValueError(
+        raise GridError(
             f"vibrational_states(n={n}) requested more states than there "
             f"are bound levels: eigenvalue index/indices {bad_idx} (within "
             f"the n={n} lowest-Re(E) selection) have |Im(E)| > "

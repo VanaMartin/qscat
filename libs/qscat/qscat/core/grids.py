@@ -36,6 +36,7 @@ from collections.abc import Sequence
 import numpy as np
 
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
+from qscat.exceptions import GridError
 
 __all__ = ["electronic_grid", "fem_grid_exp_tail", "nuclear_grid", "segmented_grid"]
 
@@ -65,7 +66,7 @@ def electronic_grid(
     The ECS pivot is `R0 == r_max` by construction.
     """
     if r_max <= _INNER_SEGMENTS[-1][0]:
-        raise ValueError(f"r_max must exceed {_INNER_SEGMENTS[-1][0]} bohr, got {r_max}")
+        raise GridError(f"r_max must exceed {_INNER_SEGMENTS[-1][0]} bohr, got {r_max}")
 
     elements: list[ElementSpec] = []
     start = 0.0
@@ -119,7 +120,7 @@ def nuclear_grid(
         span = end - start
         n_seg = round(span / length)
         if abs(n_seg * length - span) > 1e-9:
-            raise ValueError(
+            raise GridError(
                 f"segment [{start}, {end}] is not an exact multiple of length {length}"
             )
         elements += [ElementSpec(length) for _ in range(n_seg)]
@@ -154,7 +155,7 @@ def segmented_grid(
     docs/physics/diatomic-ve-cross-sections.md (DA nuclear grids).
     """
     if quadrature < 2:
-        raise ValueError(f"quadrature must be >= 2, got {quadrature}")
+        raise GridError(f"quadrature must be >= 2, got {quadrature}")
     elements: list[ElementSpec] = []
     start = x_min
     for label, segs, angle in (
@@ -163,9 +164,9 @@ def segmented_grid(
     ):
         for n, end in segs:
             if n < 1:
-                raise ValueError(f"{label} segment ({n}, {end}) has n_elements < 1")
+                raise GridError(f"{label} segment ({n}, {end}) has n_elements < 1")
             if end <= start:
-                raise ValueError(
+                raise GridError(
                     f"{label} endpoint {end} must exceed previous {start}"
                 )
             h = (end - start) / n
@@ -205,17 +206,17 @@ def fem_grid_exp_tail(
     LAST real element. The ECS pivot `R0` is the last real endpoint.
     """
     if quadrature < 2:
-        raise ValueError(f"quadrature must be >= 2, got {quadrature}")
+        raise GridError(f"quadrature must be >= 2, got {quadrature}")
     if not real_segments:
-        raise ValueError("real_segments must be non-empty")
+        raise GridError("real_segments must be non-empty")
 
     elements: list[ElementSpec] = []
     start = x_min
     for n, end in real_segments:
         if n < 1:
-            raise ValueError(f"real segment ({n}, {end}) has n_elements < 1")
+            raise GridError(f"real segment ({n}, {end}) has n_elements < 1")
         if end <= start:
-            raise ValueError(f"real endpoint {end} must exceed previous {start}")
+            raise GridError(f"real endpoint {end} must exceed previous {start}")
         h = (end - start) / n
         elements += [ElementSpec(h) for _ in range(n)]
         start = end
