@@ -469,7 +469,7 @@ def _nuclear_flux_fixture(n_steps: int = N_STEPS) -> Flux:
 
 def test_nuclear_flux_builds_and_records() -> None:
     flux = _nuclear_flux_fixture()
-    t, b, d = flux._arrays
+    t, b, d = flux.series
     n_recorded = t.shape[0]  # N_STEPS+1: propagate() records the t=0 state too
     assert n_recorded == N_STEPS + 1
     assert b.shape == d.shape == (n_recorded, 1)
@@ -916,3 +916,50 @@ def test_nuclear_tw_da_converges_to_ti_oracle() -> None:
     # TW is the noisiest/most test-packet-sensitive method -> wider order-~1 band
     # (controller-measured ~[1.21,1.26,1.42] at n=1750); see the docstring.
     assert np.all(ratio > 0.4) and np.all(ratio < 1.7), (ratio, sigma_ti)
+
+
+# --- `n_steps=` truncation (qscat-run Task 3) --------------------------------
+#
+# `apps/qscat-run`'s moment-resolved `cross_section_vs_time` artifact needs to
+# read sigma(E) as of an EARLIER time from an already-completed propagation,
+# without re-propagating -- these keyword-only `n_steps=` additions to
+# `sigma`/`.result`/`.series` are that hook. `n_steps=None` (the default,
+# used everywhere else in this file and by every pre-existing caller) MUST be
+# byte-identical to the pre-addition behavior -- this file's golden/
+# differential tests above (re-run unchanged, still passing) are the load-
+# bearing confirmation of that; the tests below are a direct, minimal check
+# of the new keyword itself: `n_steps=None` == the full series exactly,
+# `n_steps=k < full` differs.
+
+
+def _fresh_extractors() -> tuple[TannorWeeks, Dirac, Flux]:
+    tw = TannorWeeks(TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT, wp_in=WP_IN, dt=DT)
+    dirac = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
+    flux = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
+    psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
+    propagate(
+        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=N2.hamiltonian(TG),
+        extractors=[tw, dirac, flux],
+    )
+    return tw, dirac, flux
+
+
+@pytest.mark.parametrize("extractor_index", [0, 1, 2], ids=["tw", "dirac", "flux"])
+def test_sigma_n_steps_none_is_byte_identical_to_full(extractor_index: int) -> None:
+    ext = _fresh_extractors()[extractor_index]
+    full = ext.sigma([0.10, 0.15])
+    explicit_none = ext.sigma([0.10, 0.15], n_steps=None)
+    np.testing.assert_array_equal(full, explicit_none)
+    # n_steps equal to the full recorded sample count is the SAME truncation
+    # as n_steps=None (propagate records N_STEPS+1 samples, t=0 included).
+    explicit_full_count = ext.sigma([0.10, 0.15], n_steps=N_STEPS + 1)
+    np.testing.assert_array_equal(full, explicit_full_count)
+
+
+@pytest.mark.parametrize("extractor_index", [0, 1, 2], ids=["tw", "dirac", "flux"])
+def test_sigma_n_steps_truncated_differs_from_full(extractor_index: int) -> None:
+    ext = _fresh_extractors()[extractor_index]
+    full = ext.sigma([0.10, 0.15])
+    truncated = ext.sigma([0.10, 0.15], n_steps=3)
+    assert not np.allclose(full, truncated)
+    assert np.all(np.isfinite(truncated))

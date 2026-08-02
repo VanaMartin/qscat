@@ -1,0 +1,71 @@
+# qscat-run example: H2+ dissociative recombination (DR), time-dependent
+# (TD) only -- H2+ is an ION (charge -1), so `dr` is its only valid
+# observable kind (see `qscat-run list`).
+#
+# Uses the `proxy` grid preset: a laptop-sized reduction of the real deck
+# (electronic real region truncated to ~60 bohr, smaller ECS tails) that
+# still resolves the physics qualitatively -- see
+# `qscat_run/presets.py`'s H2P:proxy entry. `channels: 2` (2 Rydberg exit
+# channels) is what this SMALL grid comfortably supports; the full deck
+# below resolves more (3+, eMoScat's own `channels: 3`).
+#
+# The FULL, validated H2+ deck (~1.15M unknowns: electronic real region to
+# 1300 bohr, order-8 quadrature) is Docker/MUMPS-only -- a laptop SuperLU
+# solve is not practical at that size. To run it, swap the preset and bump
+# the channel count and incident position back to the eMoScat values:
+#
+#     grid: {preset: emoscat}
+#     observables: [{kind: dr, channels: 3}]
+#     td: {incident: {r0: 800.0, p0: -0.25, sigma: 8.0}, ...}
+#
+# and run via Docker (builds the `test` image, which has MUMPS):
+#
+#     docker/run.sh apps/qscat-run/examples/h2p-dr.yaml runs/h2p-dr
+#
+# See docs/physics/h2plus-dr.md for the model and `validation/h2plus/td_dr.py`
+# for the validated full-deck parametrisation this example's `td:` block is
+# scaled down from (`r0` moved from 800 to 40 bohr so the incident packet
+# still launches inside the proxy grid's ~60-bohr electronic real region --
+# an off-box incident lands in the ECS tail and diverges; this is the CLI's
+# KEY LESSON about TD launch-box grids, see the top-level README).
+# `qscat-run init H2P --observables dr --methods td -o h2p.yaml` scaffolds
+# the full `emoscat`-preset starting point directly.
+#
+# This example is schema-validated by
+# `apps/qscat-run/tests/test_examples.py` but NOT run in the fast test gate
+# (the proxy grid + a multi-thousand-step propagation is not "seconds
+# fast") -- it is a documented, runnable-in-Docker/@slow example, not a smoke
+# test.
+#
+# Run:
+#   qscat-run validate apps/qscat-run/examples/h2p-dr.yaml
+#   docker/run.sh apps/qscat-run/examples/h2p-dr.yaml runs/h2p-dr
+
+molecule: H2P
+methods: [td]
+
+observables:
+  - {kind: dr, channels: 2}
+
+v_init: 0
+energies: {min: 0.001, max: 0.010, step: 0.001}
+
+grid:
+  preset: proxy
+
+td:
+  dt: 10.0
+  n_steps: 500
+  order: 3
+  extractors: [flow, delta, tw]
+  # r0 scaled down from the full deck's 800 bohr to fit inside the proxy
+  # grid's ~60-bohr electronic real region (see the note above).
+  incident: {r0: 40.0, p0: -0.25, sigma: 8.0}
+  test_function:
+    dr: {r0_out: 12.0, p0_out: 15.0, sigma_out: 0.4}
+
+artifacts:
+  cross_section: true
+
+backend: auto
+output_dir: runs/h2p-dr

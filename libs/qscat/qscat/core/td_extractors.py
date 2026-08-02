@@ -345,21 +345,39 @@ class TannorWeeks:
             row[k] = c_product(ch, psi)
         self._rows.append(row)
 
+    def _result(self, n_steps: int | None = None) -> PropagationResult:
+        """`.result`, optionally truncated to the FIRST `n_steps` recorded
+        samples (`self._rows[:n_steps]`). `n_steps=None` (the default) is the
+        full series -- byte-identical to `.result`/pre-truncation behavior.
+        The moment-resolved `cross_section_vs_time` runner artifact calls
+        this (via `sigma`'s own `n_steps`) with `n_steps = round(t_i / dt) +
+        1` to read sigma(E) as of an earlier time `t_i` without re-running
+        the propagation.
+        """
+        rows = self._rows if n_steps is None else self._rows[:n_steps]
+        n_t = len(rows)
+        n_ch = len(self._out_channels)
+        c = np.stack(rows) if rows else np.zeros((0, n_ch), dtype=np.complex128)
+        t = np.arange(n_t, dtype=np.float64) * self._dt
+        norm = np.zeros(n_t, dtype=np.float64)
+        return PropagationResult(t=t, c=c, norm=norm, snapshots=[])
+
     @property
     def result(self) -> PropagationResult:
         """The recorded series as a `PropagationResult` (`norm`/`snapshots`
         are not tracked by this extractor and are left empty/zero -- only
         `t`/`c` feed `sigma_from_correlations` (electronic axis) or
-        `_tw_da_sigma_one_energy` (nuclear axis)."""
-        n_t = len(self._rows)
-        n_ch = len(self._out_channels)
-        c = np.stack(self._rows) if self._rows else np.zeros((0, n_ch), dtype=np.complex128)
-        t = np.arange(n_t, dtype=np.float64) * self._dt
-        norm = np.zeros(n_t, dtype=np.float64)
-        return PropagationResult(t=t, c=c, norm=norm, snapshots=[])
+        `_tw_da_sigma_one_energy` (nuclear axis)). The full series
+        (`self._result(None)`); see `sigma`'s `n_steps` for a truncated read.
+        """
+        return self._result()
 
     def sigma(
-        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
+        self,
+        E: float | npt.ArrayLike,
+        *,
+        free: Extractor | None = None,
+        n_steps: int | None = None,
     ) -> npt.NDArray[np.float64]:
         """`sigma_{v_init->v'}(E)` (bohr^2, electronic axis) or `sigma_DA,c(E)`
         (bohr^2 per anion channel `c`, nuclear axis) via the Tannor-Weeks
@@ -377,6 +395,12 @@ class TannorWeeks:
 
         Nuclear: DA has no elastic diagonal to subtract a reference from --
         `free` must be `None` (`ValueError` otherwise).
+
+        `n_steps` (keyword-only, default `None`): transform only the FIRST
+        `n_steps` recorded samples instead of the full series -- `None`
+        reproduces today's behavior byte-identically (`self._rows[:None] ==
+        self._rows[:]`). When `free` is also given, ITS series is truncated
+        to the SAME `n_steps` (both runs share the same step schedule).
         """
         if self._axis == "nuclear":
             if free is not None:
@@ -385,7 +409,7 @@ class TannorWeeks:
                     "subtraction -- free must be None"
                 )
             e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
-            result = self.result
+            result = self._result(n_steps)
             g_elec = self._tgrid.grids[0]
             g_nuc = self._tgrid.grids[1]
             mu_r = self._model.mu
@@ -417,11 +441,11 @@ class TannorWeeks:
         if free is not None:
             if not isinstance(free, TannorWeeks):
                 raise TypeError(f"TannorWeeks.sigma: free must be a TannorWeeks, got {type(free)}")
-            free_result = free.result
+            free_result = free._result(n_steps)
         return sigma_from_correlations(
             self._tgrid,
             self._model,
-            self.result,
+            self._result(n_steps),
             self._eps,
             self._v_init,
             self._vprimes,
@@ -693,19 +717,32 @@ class Dirac:
                 row[k] = c_product(phi_c, psi_col) * self._inv_sqrt_w
         self._rows.append(row)
 
-    @property
-    def result(self) -> PropagationResult:
-        """The recorded series as a `PropagationResult` (same shape/role as
-        `TannorWeeks.result`; `norm`/`snapshots` are left empty/zero)."""
-        n_t = len(self._rows)
+    def _result(self, n_steps: int | None = None) -> PropagationResult:
+        """`.result`, optionally truncated to the FIRST `n_steps` recorded
+        samples -- see `TannorWeeks._result` for the exact contract
+        (`n_steps=None` is byte-identical to the pre-truncation `.result`)."""
+        rows = self._rows if n_steps is None else self._rows[:n_steps]
+        n_t = len(rows)
         n_ch = len(self._vprimes) if self._axis == "electronic" else self._n_channels
-        c = np.stack(self._rows) if self._rows else np.zeros((0, n_ch), dtype=np.complex128)
+        c = np.stack(rows) if rows else np.zeros((0, n_ch), dtype=np.complex128)
         t = np.arange(n_t, dtype=np.float64) * self._dt
         norm = np.zeros(n_t, dtype=np.float64)
         return PropagationResult(t=t, c=c, norm=norm, snapshots=[])
 
+    @property
+    def result(self) -> PropagationResult:
+        """The recorded series as a `PropagationResult` (same shape/role as
+        `TannorWeeks.result`; `norm`/`snapshots` are left empty/zero). The
+        full series (`self._result(None)`); see `sigma`'s `n_steps` for a
+        truncated read."""
+        return self._result()
+
     def sigma(
-        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
+        self,
+        E: float | npt.ArrayLike,
+        *,
+        free: Extractor | None = None,
+        n_steps: int | None = None,
     ) -> npt.NDArray[np.float64]:
         """`sigma_{v_init->v'}(E)` (bohr^2, electronic axis) or `sigma_DA,c(E)`
         (bohr^2 per anion channel `c`, nuclear axis) via the delta transform
@@ -719,6 +756,11 @@ class Dirac:
 
         Nuclear: DA has no elastic diagonal to subtract a reference from --
         `free` must be `None` (`ValueError` otherwise).
+
+        `n_steps` (keyword-only, default `None`): transform only the FIRST
+        `n_steps` recorded samples -- see `TannorWeeks.sigma`'s `n_steps` for
+        the exact contract (byte-identical to today when `None`; `free`'s
+        series is truncated to the SAME `n_steps` when both are given).
         """
         if self._axis == "nuclear":
             if free is not None:
@@ -727,7 +769,7 @@ class Dirac:
                     "subtraction -- free must be None"
                 )
             e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
-            result = self.result
+            result = self._result(n_steps)
             g_elec = self._tgrid.grids[0]
             g_nuc = self._tgrid.grids[1]
             mu_r = self._model.mu
@@ -759,9 +801,9 @@ class Dirac:
         if free is not None:
             if not isinstance(free, Dirac):
                 raise TypeError(f"Dirac.sigma: free must be a Dirac, got {type(free)}")
-            free_result = free.result
+            free_result = free._result(n_steps)
         e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
-        result = self.result
+        result = self._result(n_steps)
         grid = self._tgrid.grids[_axis_grid_index(self._axis)]
         out = np.stack(
             [
@@ -1065,19 +1107,39 @@ class Flux:
         self._b_rows.append(row_b)
         self._d_rows.append(row_d)
 
-    @property
-    def _arrays(
-        self,
+    def _arrays_n(
+        self, n_steps: int | None = None
     ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
-        n_t = len(self._b_rows)
+        """`.series`, optionally truncated to the FIRST `n_steps` recorded
+        samples -- see `TannorWeeks._result` for the exact contract
+        (`n_steps=None` is byte-identical to the full `.series` read)."""
+        b_rows = self._b_rows if n_steps is None else self._b_rows[:n_steps]
+        d_rows = self._d_rows if n_steps is None else self._d_rows[:n_steps]
+        n_t = len(b_rows)
         n_ch = self._n_channels
-        b = np.stack(self._b_rows) if self._b_rows else np.zeros((0, n_ch), dtype=np.complex128)
-        d = np.stack(self._d_rows) if self._d_rows else np.zeros((0, n_ch), dtype=np.complex128)
+        b = np.stack(b_rows) if b_rows else np.zeros((0, n_ch), dtype=np.complex128)
+        d = np.stack(d_rows) if d_rows else np.zeros((0, n_ch), dtype=np.complex128)
         t = np.arange(n_t, dtype=np.float64) * self._dt
         return t, b, d
 
+    @property
+    def series(
+        self,
+    ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
+        """The full recorded flux series `(t, boundary_value, derivative)` --
+        the raw material of the flux transform, the `Flux` analogue of
+        `TannorWeeks`/`Dirac`'s `.result` (which carry `.t`/`.c` instead).
+        Public so a caller can persist the raw series (e.g. the `qscat-run`
+        CLI's optional `correlations` artifact); see `sigma`'s `n_steps` for a
+        truncated read."""
+        return self._arrays_n()
+
     def sigma(
-        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
+        self,
+        E: float | npt.ArrayLike,
+        *,
+        free: Extractor | None = None,
+        n_steps: int | None = None,
     ) -> npt.NDArray[np.float64]:
         """`sigma_{v_init->v'}(E)` (bohr^2, electronic axis) or `sigma_DA,c(E)`
         (bohr^2 per anion channel `c`, nuclear axis) via the flux transform
@@ -1091,6 +1153,11 @@ class Flux:
 
         Nuclear: DA has no elastic diagonal to subtract a reference from --
         `free` must be `None` (`ValueError` otherwise).
+
+        `n_steps` (keyword-only, default `None`): transform only the FIRST
+        `n_steps` recorded samples -- see `TannorWeeks.sigma`'s `n_steps` for
+        the exact contract (byte-identical to today when `None`; `free`'s
+        series is truncated to the SAME `n_steps` when both are given).
         """
         if self._axis == "nuclear":
             if free is not None:
@@ -1099,7 +1166,7 @@ class Flux:
                     "subtraction -- free must be None"
                 )
             e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
-            t, b, d = self._arrays
+            t, b, d = self._arrays_n(n_steps)
             g_elec = self._tgrid.grids[0]
             g_nuc = self._tgrid.grids[1]
             mu_r = self._model.mu
@@ -1136,9 +1203,9 @@ class Flux:
         if free is not None:
             if not isinstance(free, Flux):
                 raise TypeError(f"Flux.sigma: free must be a Flux, got {type(free)}")
-            free_arrays = free._arrays
+            free_arrays = free._arrays_n(n_steps)
         e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
-        t, b, d = self._arrays
+        t, b, d = self._arrays_n(n_steps)
         grid = self._tgrid.grids[_axis_grid_index(self._axis)]
         out = np.stack(
             [

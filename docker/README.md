@@ -29,6 +29,25 @@ docker run --rm qmodeling:runtime
 `docker/build.sh` always builds `qmodeling-base:latest` first, then the requested app
 target (`test` by default), so the base is never stale relative to the app image.
 
+## Running a `qscat-run` experiment
+
+`docker/run.sh` builds the `test` image (has MUMPS — needed for the larger production
+decks, e.g. H2P's ~1.15M-unknown full grid) and runs a `qscat-run` YAML config inside it
+in one step:
+
+```bash
+docker/run.sh CONFIG [OUTPUT_DIR]     # OUTPUT_DIR defaults to runs/<config-stem>
+
+# e.g.
+docker/run.sh apps/qscat-run/examples/h2p-dr.yaml runs/h2p-dr
+```
+
+It mounts `CONFIG` into the container read-only at `/config.yaml` and `OUTPUT_DIR` out
+at `/out`, then runs `uv run --no-sync qscat-run run /config.yaml --output /out`. This
+replaces the molecule-specific `docker/run-n2.sh` (kept as-is for the older N2 LCP
+benchmark harness) with a general entry point for any `qscat-run` config. See the
+top-level `README.md` for the full `qscat-run` walkthrough.
+
 ## AWS deploy
 
 AWS deployment pushes `qmodeling-base` to ECR once (it changes only when the

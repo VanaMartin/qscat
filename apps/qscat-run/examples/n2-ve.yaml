@@ -1,0 +1,52 @@
+# qscat-run example: N2 vibrational-excitation (VE), time-independent (TI).
+#
+# This is the LAPTOP-FAST example: a deliberately tiny, hand-written explicit
+# grid (not the validated production N2 deck) so the whole run finishes in a
+# fraction of a second -- a plumbing smoke test, not a converged cross
+# section. It is the example `apps/qscat-run/tests/test_examples.py` actually
+# RUNS as the fast end-to-end check.
+#
+# For the real, convergence-tested N2 VE cross section (validated against
+# Karel Houfek's independent CSVE.V00.J00 data), use the molecule's own
+# `emoscat` preset instead of an explicit grid:
+#
+#     grid: {preset: emoscat}
+#
+# and see docs/physics/n2-2d-cross-section.md /
+# docs/physics/figures/n2-2d-ti-cross-section.png for the committed reference
+# curve. `qscat-run init N2 --observables ve --methods ti -o n2.yaml` scaffolds
+# that full preset-based starting point.
+#
+# Run:
+#   qscat-run validate apps/qscat-run/examples/n2-ve.yaml
+#   qscat-run run apps/qscat-run/examples/n2-ve.yaml --output runs/n2-ve
+
+molecule: N2
+methods: [ti]
+
+observables:
+  # v'=0 (elastic) and v'=1 (first vibrational excitation).
+  - {kind: ve, channels: 2}
+
+# Just two energies -- enough to exercise the sweep/refactor path without
+# costing anything.
+energies: {values: [0.03, 0.05]}
+
+v_init: 0
+
+# A tiny explicit grid (electronic real region to 8 bohr, nuclear real
+# region to 6 bohr around N2's R0 ~ 2.02 bohr): fast, NOT convergence-tested.
+# See the `preset: emoscat` note above for the real deck.
+grid:
+  electronic:
+    real: [[4, 2.0], [2, 4.0], [2, 8.0]]
+    ecs: {angle: 30, elements: 3, quadrature: 5}
+  nuclear:
+    real: [[3, 1.5], [3, 2.0], [2, 2.3], [3, 6.0]]
+    ecs: {angle: 30, elements: 3, quadrature: 6}
+
+artifacts:
+  cross_section: true
+
+backend: auto
+output_dir: runs/n2-ve

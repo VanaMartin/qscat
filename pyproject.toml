@@ -9,7 +9,7 @@ readme = "README.md"
 package = false
 
 [tool.uv.workspace]
-members = ["libs/*", "native/*"]
+members = ["libs/*", "native/*", "apps/*"]
 
 [tool.pytest.ini_options]
 # reference/ holds read-only prior codebases (eMoScat, libXcuda), not part of
@@ -35,6 +35,7 @@ dev = [
     "matplotlib>=3.9",
     "hatchling>=1.6",
     "scipy-stubs>=1.18.0.1",
+    "types-PyYAML>=6",
 ]
 
 [tool.ruff]

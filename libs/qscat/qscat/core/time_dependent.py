@@ -83,6 +83,7 @@ __all__ = [
     "Snapshot",
     "PropagationResult",
     "propagate",
+    "free_hamiltonian",
     "sigma_from_correlations",
     "td_ve_cross_section",
     "td_ve_cross_sections_all",
@@ -243,16 +244,24 @@ def _quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
     return w
 
 
-def _free_hamiltonian(model: ResonanceModel, tgrid: TensorGrid) -> sp.spmatrix:
+def free_hamiltonian(model: ResonanceModel, tgrid: TensorGrid) -> sp.spmatrix:
     """`model.hamiltonian(tgrid)` with the interaction `V_int` removed.
 
     The unscattered (`V_int=0`) reference Hamiltonian used by the elastic
     free-reference propagation (`_propagate`'s `free=True` and
     `td_ve_cross_section`'s `subtract_free_reference` path) -- see
     `_sigma_one_energy` for why the elastic channel needs this reference
-    instead of a literal `1`.
+    instead of a literal `1`. Public so a caller assembling its own
+    `propagate(..., hamiltonian=...)` free-reference run (e.g. the
+    `qscat-run` CLI) reuses the exact same reference this module does,
+    rather than reaching into a private helper.
     """
     return (model.hamiltonian(tgrid) - sp.diags(model.interaction_diag(tgrid))).tocsr()
+
+
+# Internal alias: this module and its tests refer to the helper by its
+# original private name; the public `free_hamiltonian` is the same function.
+_free_hamiltonian = free_hamiltonian
 
 
 def _propagate(
@@ -536,7 +545,7 @@ def td_ve_cross_section(
 
         tw_free = None
         if subtract_free_reference and v_init in vprimes:
-            free_hamiltonian = _free_hamiltonian(model, tgrid)
+            free_ham = _free_hamiltonian(model, tgrid)
             tw_free = TannorWeeks(
                 tgrid, model, eps, chi, v_init, vprimes, wp_out, wp_in=wp_in, dt=dt
             )
@@ -546,7 +555,7 @@ def td_ve_cross_section(
                 [],
                 dt=dt,
                 n_steps=n_steps,
-                hamiltonian=free_hamiltonian,
+                hamiltonian=free_ham,
                 order=order,
                 extractors=[tw_free],
             )
@@ -570,7 +579,7 @@ def td_ve_cross_section(
 
         dirac_free = None
         if subtract_free_reference and v_init in vprimes:
-            free_hamiltonian = _free_hamiltonian(model, tgrid)
+            free_ham = _free_hamiltonian(model, tgrid)
             dirac_free = Dirac(
                 tgrid, model, eps, chi, v_init, vprimes, position, wp_in=wp_in, dt=dt
             )
@@ -580,7 +589,7 @@ def td_ve_cross_section(
                 [],
                 dt=dt,
                 n_steps=n_steps,
-                hamiltonian=free_hamiltonian,
+                hamiltonian=free_ham,
                 order=order,
                 extractors=[dirac_free],
             )
@@ -604,7 +613,7 @@ def td_ve_cross_section(
 
         flux_free = None
         if subtract_free_reference and v_init in vprimes:
-            free_hamiltonian = _free_hamiltonian(model, tgrid)
+            free_ham = _free_hamiltonian(model, tgrid)
             flux_free = Flux(
                 tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt
             )
@@ -614,7 +623,7 @@ def td_ve_cross_section(
                 [],
                 dt=dt,
                 n_steps=n_steps,
-                hamiltonian=free_hamiltonian,
+                hamiltonian=free_ham,
                 order=order,
                 extractors=[flux_free],
             )
@@ -685,7 +694,7 @@ def td_ve_cross_sections_all(
 
     tw_free = dirac_free = flux_free = None
     if subtract_free_reference and v_init in vprimes:
-        free_hamiltonian = _free_hamiltonian(model, tgrid)
+        free_ham = _free_hamiltonian(model, tgrid)
         tw_free = TannorWeeks(tgrid, model, eps, chi, v_init, vprimes, wp_out, wp_in=wp_in, dt=dt)
         dirac_free = Dirac(tgrid, model, eps, chi, v_init, vprimes, position, wp_in=wp_in, dt=dt)
         flux_free = Flux(tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt)
@@ -695,7 +704,7 @@ def td_ve_cross_sections_all(
             [],
             dt=dt,
             n_steps=n_steps,
-            hamiltonian=free_hamiltonian,
+            hamiltonian=free_ham,
             order=order,
             extractors=[tw_free, dirac_free, flux_free],
         )
