@@ -44,7 +44,9 @@ from qscat_run.config import (
     EnergySpec,
     ExperimentConfig,
     IncidentSpec,
+    Observable,
     SegmentSpec,
+    TdSpec,
     TestFunctionSpec,
 )
 
@@ -58,6 +60,8 @@ __all__ = [
     "available_presets",
     "resolve_grid",
     "resolve_defaults",
+    "resolve_test_function",
+    "resolve_surface_r",
 ]
 
 MODELS: dict[str, ResonanceModel] = {"N2": N2, "NO": NO, "F2": F2, "H2P": H2P}
@@ -80,9 +84,26 @@ DEFAULT_PRESET = "emoscat"
 @dataclass(frozen=True)
 class MoleculePreset:
     """One molecule/variant's numerical deck: the TI and TD grid builders,
-    the default energy sweep, the default TD incident/test-function
-    parameters, the observables this molecule supports, and the vibrational
-    basis size to diagonalize."""
+    the default energy sweep, the default TD incident + PER-KIND outgoing
+    test-function parameters, the observables this molecule supports, and
+    the vibrational basis size to diagonalize.
+
+    `ve_test_function` is the ELECTRONIC outgoing packet (in `r`) `td.
+    ve.TannorWeeks`/`Dirac`/`Flux` use for a `ve` observable -- also the
+    fixed electronic analysis point (`_electronic_index_near`'s `r_value`),
+    unchanged from before this fix. `da_test_function`/`dr_test_function`
+    are the NUCLEAR outgoing packet (in `R`) for `da`/`dr` -- a physically
+    DIFFERENT scale from the electronic packet (this is the bug this fix
+    corrects: previously the single electronic packet doubled as the
+    nuclear one too). `da_surface_R`/`dr_surface_R` are the fixed nuclear
+    analysis point `Dirac`/`Flux` read at for that kind -- NOT necessarily
+    the same coordinate as the nuclear packet's own `r0_out` (e.g. F2's
+    validated DA deck: the outgoing packet is centered at R=8 but the
+    surface/point extractors read at R=6, see `libs/qscat/tests/
+    test_td_extractors.py::test_nuclear_flux_da_converges_to_ti_oracle`).
+    `None` for a kind this molecule does not (or does not yet validatedly)
+    support in TD.
+    """
 
     molecule: str
     variant: str
@@ -90,9 +111,13 @@ class MoleculePreset:
     td_grid: Callable[[], TensorGrid]
     default_energies: EnergySpec
     default_incident: IncidentSpec
-    default_test_function: TestFunctionSpec
     valid_observables: frozenset[str]
     n_vib: int
+    ve_test_function: TestFunctionSpec | None = None
+    da_test_function: TestFunctionSpec | None = None
+    da_surface_R: float | None = None
+    dr_test_function: TestFunctionSpec | None = None
+    dr_surface_R: float | None = None
 
 
 # --- N2 -----------------------------------------------------------------
@@ -209,6 +234,28 @@ def _h2p_proxy_grid() -> TensorGrid:
     return TensorGrid([electronic, nuclear])
 
 
+# The VALIDATED F2 nuclear (DA) outgoing test packet + surface: the outgoing
+# packet is centered INWARD of the packet's own r0_out at the fixed
+# analysis point -- see `libs/qscat/tests/test_td_extractors.py`'s
+# `test_nuclear_flux_da_converges_to_ti_oracle`/`test_nuclear_tw_da_converges
+# _to_ti_oracle` docstrings (SP2 validation) for the full rationale. NO has
+# no validated TD DA experiment of its own (see CLAUDE.md's diatomic note);
+# its nuclear real region is a comparable scale (segmented to R=9.0 vs F2's
+# R=10.7), so it reuses F2's validated packet SHAPE verbatim as a reasonable,
+# UNVALIDATED placeholder rather than leaving `da` TD unsupported for NO.
+# N2's own nuclear grid (`nuclear_grid()`, real region to R=12.0) also
+# comfortably fits this packet; N2's `da` channel is separately flagged
+# closed-in-range (`WARN_OBSERVABLES`), so this too is a documented,
+# UNVALIDATED placeholder, not a tuned N2 deck.
+_F2_DA_TEST_FUNCTION = TestFunctionSpec(r0_out=8.0, p0_out=72.0, sigma_out=0.07)
+_F2_DA_SURFACE_R = 6.0
+
+# The VALIDATED H2+ nuclear (DR) outgoing test packet + surface
+# (`validation/h2plus/td_dr.py`'s `WP_OUT_DR`/`SURFACE_R` -- copied by VALUE,
+# never imported, see module docstring).
+_H2P_DR_TEST_FUNCTION = TestFunctionSpec(r0_out=12.0, p0_out=15.0, sigma_out=0.4)
+_H2P_DR_SURFACE_R = 12.0
+
 PRESETS: dict[str, MoleculePreset] = {
     "N2:emoscat": MoleculePreset(
         molecule="N2",
@@ -219,9 +266,11 @@ PRESETS: dict[str, MoleculePreset] = {
         # (validation/n2/ti_curve.py) as a min/max/step sweep.
         default_energies=EnergySpec(min=0.005, max=0.20, step=0.005),
         default_incident=IncidentSpec(r0=25.0, p0=-0.5, sigma=5.0),
-        default_test_function=TestFunctionSpec(r0_out=35.0, p0_out=0.5, sigma_out=4.0),
         valid_observables=VALIDITY["N2"],
         n_vib=6,
+        ve_test_function=TestFunctionSpec(r0_out=35.0, p0_out=0.5, sigma_out=4.0),
+        da_test_function=_F2_DA_TEST_FUNCTION,
+        da_surface_R=_F2_DA_SURFACE_R,
     ),
     "NO:emoscat": MoleculePreset(
         molecule="NO",
@@ -233,9 +282,11 @@ PRESETS: dict[str, MoleculePreset] = {
         # note) -- these incident/test-function defaults are a reasonable,
         # UNVALIDATED scaling of N2's (see module docstring's caveat).
         default_incident=IncidentSpec(r0=20.0, p0=-0.4, sigma=4.0),
-        default_test_function=TestFunctionSpec(r0_out=24.0, p0_out=0.4, sigma_out=3.0),
         valid_observables=VALIDITY["NO"],
         n_vib=4,
+        ve_test_function=TestFunctionSpec(r0_out=24.0, p0_out=0.4, sigma_out=3.0),
+        da_test_function=_F2_DA_TEST_FUNCTION,
+        da_surface_R=_F2_DA_SURFACE_R,
     ),
     "F2:emoscat": MoleculePreset(
         molecule="F2",
@@ -243,11 +294,14 @@ PRESETS: dict[str, MoleculePreset] = {
         ti_grid=_f2_ti_grid,
         td_grid=_f2_td_grid,
         default_energies=EnergySpec(min=0.004, max=0.100, step=0.004),
-        # Same caveat as NO: unvalidated TD defaults, scaled from N2's.
+        # Same caveat as NO: unvalidated TD VE defaults, scaled from N2's
+        # (the DA packet below IS validated -- see the module note above).
         default_incident=IncidentSpec(r0=20.0, p0=-0.4, sigma=4.0),
-        default_test_function=TestFunctionSpec(r0_out=24.0, p0_out=0.4, sigma_out=3.0),
         valid_observables=VALIDITY["F2"],
         n_vib=4,
+        ve_test_function=TestFunctionSpec(r0_out=24.0, p0_out=0.4, sigma_out=3.0),
+        da_test_function=_F2_DA_TEST_FUNCTION,
+        da_surface_R=_F2_DA_SURFACE_R,
     ),
     "H2P:emoscat": MoleculePreset(
         molecule="H2P",
@@ -256,9 +310,10 @@ PRESETS: dict[str, MoleculePreset] = {
         td_grid=_h2p_full_grid,
         default_energies=EnergySpec(min=0.001, max=0.050, step=0.001),
         default_incident=IncidentSpec(r0=800.0, p0=-0.25, sigma=8.0),
-        default_test_function=TestFunctionSpec(r0_out=12.0, p0_out=15.0, sigma_out=0.4),
         valid_observables=VALIDITY["H2P"],
         n_vib=4,
+        dr_test_function=_H2P_DR_TEST_FUNCTION,
+        dr_surface_R=_H2P_DR_SURFACE_R,
     ),
     "H2P:proxy": MoleculePreset(
         molecule="H2P",
@@ -270,9 +325,10 @@ PRESETS: dict[str, MoleculePreset] = {
         # grid's ~60-bohr electronic real region (an off-box incident lands
         # in the ECS tail and diverges -- see validation/h2plus/td_dr.py).
         default_incident=IncidentSpec(r0=40.0, p0=-0.25, sigma=8.0),
-        default_test_function=TestFunctionSpec(r0_out=12.0, p0_out=15.0, sigma_out=0.4),
         valid_observables=VALIDITY["H2P"],
         n_vib=4,
+        dr_test_function=_H2P_DR_TEST_FUNCTION,
+        dr_surface_R=_H2P_DR_SURFACE_R,
     ),
 }
 
@@ -330,12 +386,118 @@ def _default_channels(kind: str, preset: MoleculePreset) -> int | tuple[int, ...
     return 1
 
 
+def _kinds_in(observables: tuple[Observable, ...]) -> set[str]:
+    """The distinct `ve`/`da`/`dr` observable kinds a run actually requests
+    (ignores any other kind -- unreachable in practice since `validate_config`
+    already rejects unknown kinds)."""
+    return {obs.kind for obs in observables if obs.kind in ("ve", "da", "dr")}
+
+
+def _preset_test_function(preset: MoleculePreset, kind: str) -> TestFunctionSpec | None:
+    return {
+        "ve": preset.ve_test_function,
+        "da": preset.da_test_function,
+        "dr": preset.dr_test_function,
+    }.get(kind)
+
+
+def _test_function_for_kind(
+    td: TdSpec, preset: MoleculePreset | None, kind: str, kinds: set[str]
+) -> TestFunctionSpec | None:
+    """The TD outgoing test-packet for one observable `kind`, given the full
+    set of `kinds` this run requests -- the resolution order both
+    `resolve_test_function` (below) and `resolve_defaults` share:
+
+    1. An explicit per-kind override (`td.test_functions[kind]`).
+    2. The flat back-compat `td.test_function`, but ONLY when it is
+       unambiguous: either this run requests just ONE kind (there's nothing
+       else it could mean), or `kind == "ve"` (the flat block's historical,
+       sole meaning before this fix -- the electronic outgoing packet). A
+       MIXED run's `da`/`dr` kind is NEVER filled from a flat block: that is
+       precisely the bug this fix corrects (an electronic-scale packet
+       silently reused as the nuclear one).
+    3. The resolved preset's per-kind default
+       (`ve_test_function`/`da_test_function`/`dr_test_function`).
+
+    Returns `None` if none of the three resolves it (e.g. no preset AND no
+    matching override) -- callers decide whether that is fatal.
+    """
+    if td.test_functions is not None and kind in td.test_functions:
+        return td.test_functions[kind]
+    if td.test_function is not None and (len(kinds) == 1 or kind == "ve"):
+        return td.test_function
+    if preset is not None:
+        return _preset_test_function(preset, kind)
+    return None
+
+
+def resolve_test_function(cfg: ExperimentConfig, kind: str) -> TestFunctionSpec:
+    """The resolved TD outgoing test-packet for observable `kind` (`"ve"`
+    electronic, `"da"`/`"dr"` nuclear) -- see `_test_function_for_kind` for
+    the resolution order. Works whether or not `resolve_defaults` has already
+    run (it re-derives the preset itself), so `_run_td` can call it directly
+    even for an explicit-grid config with no matching preset (as long as the
+    user supplied enough of `td.test_function`/`test_functions` to cover
+    `kind`). Raises `ConfigError` with an actionable message if `kind`
+    remains unresolved.
+    """
+    if cfg.td is None:
+        raise ConfigError("no 'td' block resolved for this config")
+    kinds = _kinds_in(cfg.observables)
+    variant = cfg.grid.preset or DEFAULT_PRESET
+    preset = PRESETS.get(f"{cfg.molecule}:{variant}")
+    tf = _test_function_for_kind(cfg.td, preset, kind, kinds)
+    if tf is None:
+        raise ConfigError(
+            f"no TD test-function resolved for observable kind {kind!r} "
+            f"(molecule={cfg.molecule!r}); supply 'td.test_function' (a flat "
+            "{r0_out, p0_out, sigma_out} block, valid for a single-observable-kind "
+            "run) or a per-kind 'td.test_function: {ve: {...}, da: {...}, dr: {...}}' "
+            "mapping, or use a named grid preset that provides a default for this kind"
+        )
+    return tf
+
+
+def resolve_surface_r(cfg: ExperimentConfig, kind: str) -> float:
+    """The fixed analysis-surface coordinate (bohr) the `Dirac`/`Flux`
+    extractors read at for observable `kind`: for `ve`, the resolved
+    electronic test function's OWN `r0_out` (unchanged -- the electronic
+    packet's center doubles as its analysis point, as before this fix). For
+    `da`/`dr`, the resolved preset's `da_surface_R`/`dr_surface_R` -- a
+    DIFFERENT coordinate from the nuclear packet's `r0_out` in general (see
+    `MoleculePreset`'s docstring) -- when a preset resolves; otherwise (an
+    explicit custom grid with no matching preset) falls back to the resolved
+    nuclear test function's own `r0_out`, mirroring `ve`'s convention (the
+    user built that grid and picked `r0_out` for it already, so it is a
+    reasonable analysis point absent a preset-specific one)."""
+    if kind == "ve":
+        return resolve_test_function(cfg, "ve").r0_out
+    variant = cfg.grid.preset or DEFAULT_PRESET
+    preset = PRESETS.get(f"{cfg.molecule}:{variant}")
+    if preset is not None:
+        surface = preset.da_surface_R if kind == "da" else preset.dr_surface_R
+        if surface is not None:
+            return surface
+    return resolve_test_function(cfg, kind).r0_out
+
+
 def resolve_defaults(cfg: ExperimentConfig) -> ExperimentConfig:
-    """Fill omitted `energies`/`td.incident`/`td.test_function`/
+    """Fill omitted `energies`/`td.incident`/`td.test_functions`/
     `Observable.channels` from the resolved preset. A no-op (returns `cfg`
     unchanged) if no preset matches (an explicit grid with no matching
     preset key, or an unknown molecule/variant) -- `validate_config` is
-    responsible for rejecting that case with an actionable message."""
+    responsible for rejecting that case with an actionable message.
+
+    `td.test_functions` is filled to a COMPLETE per-kind mapping (covering
+    every kind this run's `observables` request) via `_test_function_for_kind`
+    -- purely for API convenience/inspection (e.g. `qscat-run validate`'s
+    resolved-config introspection); `_run_td` does not depend on this having
+    run first, since `resolve_test_function`/`resolve_surface_r` re-derive
+    the same resolution directly from `cfg` (so an explicit-grid config with
+    no matching preset, where this function no-ops, still resolves correctly
+    at point of use provided the user supplied enough of `td.test_function`/
+    `test_functions`).
+    """
     variant = cfg.grid.preset or DEFAULT_PRESET
     preset = PRESETS.get(f"{cfg.molecule}:{variant}")
     if preset is None:
@@ -351,9 +513,12 @@ def resolve_defaults(cfg: ExperimentConfig) -> ExperimentConfig:
     td = cfg.td
     if td is not None:
         incident = td.incident if td.incident is not None else preset.default_incident
-        test_function = (
-            td.test_function if td.test_function is not None else preset.default_test_function
-        )
-        td = replace(td, incident=incident, test_function=test_function)
+        kinds = _kinds_in(observables)
+        test_functions = dict(td.test_functions or {})
+        for kind in kinds:
+            tf = test_functions.get(kind) or _test_function_for_kind(td, preset, kind, kinds)
+            if tf is not None:
+                test_functions[kind] = tf
+        td = replace(td, incident=incident, test_functions=test_functions or None)
 
     return replace(cfg, energies=energies, observables=observables, td=td)

@@ -205,7 +205,10 @@ class IncidentSpec:
 
 @dataclass(frozen=True)
 class TestFunctionSpec:
-    """The TD nuclear Tannor-Weeks outgoing test packet: position/impulse/width."""
+    """One TD outgoing test packet (electronic `wp_out`, in `r`, for `ve`; or
+    nuclear, in `R`, for `da`/`dr` -- the SAME shape, different physical
+    scale/axis depending which observable kind it is resolved for; see
+    `TdSpec.test_function`/`test_functions`): position/impulse/width."""
 
     r0_out: float
     p0_out: float
@@ -214,7 +217,21 @@ class TestFunctionSpec:
 
 @dataclass(frozen=True)
 class TdSpec:
-    """The `td` block, required iff `"td" in methods`."""
+    """The `td` block, required iff `"td" in methods`.
+
+    `test_function`/`test_functions` are the two shapes `td.test_function`'s
+    YAML may take (`_load_td` picks exactly one, based on whether the block
+    has an `r0_out` key): a flat `TestFunctionSpec` (back-compat -- the
+    historical single packet, unambiguous for a single-observable-kind run,
+    see `presets.resolve_test_function`), or a per-observable-kind mapping
+    (`{"ve": ..., "da": ..., "dr": ...}`) -- required to disambiguate a
+    MIXED `ve`+`da`/`dr` run, since `ve`'s outgoing packet is electronic (in
+    `r`) and `da`/`dr`'s is nuclear (in `R`), physically different scales.
+    `presets.resolve_test_function`/`resolve_surface_r` are the resolution
+    entry points; `presets.resolve_defaults` also fills `test_functions` from
+    the preset for convenience, but callers should always resolve through
+    those functions rather than reading either field directly.
+    """
 
     dt: float
     n_steps: int
@@ -222,6 +239,7 @@ class TdSpec:
     extractors: tuple[str, ...] = ()
     incident: IncidentSpec | None = None
     test_function: TestFunctionSpec | None = None
+    test_functions: dict[str, TestFunctionSpec] | None = None
 
 
 def _load_td(raw: dict[str, Any] | None) -> TdSpec | None:
@@ -232,13 +250,24 @@ def _load_td(raw: dict[str, Any] | None) -> TdSpec | None:
         ir = raw["incident"]
         incident = IncidentSpec(r0=float(ir["r0"]), p0=float(ir["p0"]), sigma=float(ir["sigma"]))
     test_function = None
+    test_functions = None
     if "test_function" in raw:
         tr = raw["test_function"]
-        test_function = TestFunctionSpec(
-            r0_out=float(tr["r0_out"]),
-            p0_out=float(tr["p0_out"]),
-            sigma_out=float(tr["sigma_out"]),
-        )
+        if "r0_out" in tr:
+            test_function = TestFunctionSpec(
+                r0_out=float(tr["r0_out"]),
+                p0_out=float(tr["p0_out"]),
+                sigma_out=float(tr["sigma_out"]),
+            )
+        else:
+            test_functions = {
+                str(kind): TestFunctionSpec(
+                    r0_out=float(block["r0_out"]),
+                    p0_out=float(block["p0_out"]),
+                    sigma_out=float(block["sigma_out"]),
+                )
+                for kind, block in tr.items()
+            }
     return TdSpec(
         dt=float(raw["dt"]),
         n_steps=int(raw["n_steps"]),
@@ -246,6 +275,7 @@ def _load_td(raw: dict[str, Any] | None) -> TdSpec | None:
         extractors=tuple(str(e) for e in raw.get("extractors", ())),
         incident=incident,
         test_function=test_function,
+        test_functions=test_functions,
     )
 
 
@@ -303,7 +333,7 @@ def _load_artifacts(raw: dict[str, Any] | None) -> ArtifactSpec:
 class ExperimentConfig:
     """A parsed (not necessarily yet default-resolved) experiment config.
 
-    `energies`/`grid.preset`/`td.incident`/`td.test_function`/
+    `energies`/`grid.preset`/`td.incident`/`td.test_function`/`test_functions`/
     `Observable.channels` may all be `None` (omitted) straight out of
     `load_config` -- `qscat_run.presets.resolve_defaults` fills them from
     the molecule's preset. `validate_config` accepts either state (resolved
@@ -426,6 +456,5 @@ def validate_config(cfg: ExperimentConfig) -> None:
         available = presets.available_presets(cfg.molecule)
         if grid.preset not in available:
             raise ConfigError(
-                f"unknown preset {grid.preset!r} for {cfg.molecule}; "
-                f"available: {sorted(available)}"
+                f"unknown preset {grid.preset!r} for {cfg.molecule}; available: {sorted(available)}"
             )

@@ -119,6 +119,23 @@ def _scaffold_yaml(molecule: str, obs_kinds: list[str], methods: list[str]) -> s
     }
     if "td" in methods:
         td_defaults = _TD_DEFAULTS.get(molecule, {"dt": 1.0, "n_steps": 1000, "order": 3})
+        # Per-observable-kind mapping (`ve` electronic / `da`/`dr` nuclear --
+        # see `presets.MoleculePreset`'s docstring): only emit an entry for a
+        # kind this run actually requests AND the preset has a default for.
+        kind_test_functions = {
+            "ve": preset.ve_test_function,
+            "da": preset.da_test_function,
+            "dr": preset.dr_test_function,
+        }
+        test_function_map = {
+            kind: {
+                "r0_out": tf.r0_out,
+                "p0_out": tf.p0_out,
+                "sigma_out": tf.sigma_out,
+            }
+            for kind in obs_kinds
+            if (tf := kind_test_functions.get(kind)) is not None
+        }
         cfg["td"] = {
             **td_defaults,
             "extractors": ["flow", "delta", "tw"],
@@ -127,11 +144,7 @@ def _scaffold_yaml(molecule: str, obs_kinds: list[str], methods: list[str]) -> s
                 "p0": preset.default_incident.p0,
                 "sigma": preset.default_incident.sigma,
             },
-            "test_function": {
-                "r0_out": preset.default_test_function.r0_out,
-                "p0_out": preset.default_test_function.p0_out,
-                "sigma_out": preset.default_test_function.sigma_out,
-            },
+            "test_function": test_function_map,
         }
 
     valid_kinds = sorted(presets.VALIDITY.get(molecule, frozenset()))
@@ -154,8 +167,7 @@ def _scaffold_yaml(molecule: str, obs_kinds: list[str], methods: list[str]) -> s
     "--observables",
     default=None,
     help=(
-        "Comma-separated observable kinds, e.g. 've,da' "
-        "(default: the molecule's first valid kind)."
+        "Comma-separated observable kinds, e.g. 've,da' (default: the molecule's first valid kind)."
     ),
 )
 @click.option(

@@ -9,7 +9,17 @@ test, not a convergence study. The explicit grid is the SAME one
 `test_runner_ti.py` already proved supports a bound anion electronic state
 (its `da` observable solves successfully there), so `da` is safe to include
 here too.
-"""
+
+`td.test_function` uses the per-observable-kind mapping (`{ve: {...}, da:
+{...}}`, an explicit custom grid with no matching preset -- see
+`presets.resolve_test_function`): the `ve` packet is electronic (in `r`,
+launched near the SAME grid's electronic real region), the `da` packet is
+nuclear (in `R`) -- two deliberately DIFFERENT small numbers, covering the
+`presets.py`/`runner.py` fix that a single shared packet used to conflate.
+`v_init=0` is one of `ve`'s requested channels, so this run also exercises
+the elastic VE free-reference propagation (Fix 2, `test_runner_td_fixes.py`
+asserts on it directly; this file just checks the resulting artifacts are
+all present/finite)."""
 
 from __future__ import annotations
 
@@ -45,7 +55,9 @@ def _tiny_f2_td_yaml(output_dir: str, *, correlations: bool = False) -> str:
           order: 3
           extractors: [tw, delta]
           incident: {{r0: 4.0, p0: -0.5, sigma: 1.0}}
-          test_function: {{r0_out: 6.0, p0_out: 0.5, sigma_out: 1.0}}
+          test_function:
+            ve: {{r0_out: 6.0, p0_out: 0.5, sigma_out: 1.0}}
+            da: {{r0_out: 5.0, p0_out: 3.0, sigma_out: 0.5}}
         artifacts:
           cross_section: true
           cross_section_vs_time:
@@ -97,13 +109,15 @@ def test_td_run_writes_all_td_artifacts(tmp_path: Path) -> None:
         assert key in npz
         assert np.all(np.isfinite(npz[key]))
     # A later moment differs from an earlier one (a genuinely truncated read,
-    # not an accidental full-series repeat) -- the elastic v0->0 channel has
-    # a large enough magnitude here that the difference is not swallowed by
-    # `allclose`'s absolute tolerance (unlike the tiny inelastic v0->1
-    # channel at this unconverged, few-step config).
+    # not an accidental full-series repeat). With the elastic free-reference
+    # fix (Fix 2) the v0->0 channel's absolute magnitude is now genuinely
+    # tiny (the spurious ~500x literal-1-fallback background is gone), so
+    # `atol=0` forces a RELATIVE comparison -- otherwise `allclose`'s default
+    # absolute tolerance would swallow the (still large, ~7x) relative
+    # difference between the two moments.
     early = result.cross_section_vs_time["td:ve:tw:v0->0@t1"]
     late = result.cross_section_vs_time["td:ve:tw:v0->0@t2"]
-    assert not np.allclose(early, late)
+    assert not np.allclose(early, late, rtol=1e-3, atol=0.0)
     # The last moment (t=2.0 == n_steps*dt) matches the untruncated sigma.
     np.testing.assert_allclose(late, result.cross_sections["td:ve:tw:v0->0"])
 

@@ -29,28 +29,32 @@ observable's extractor(s) at once: electronic-axis `TannorWeeks`/`Dirac`/
 extractor(s) to build per observable; `_build_extractor` is the one factory
 both axes share.
 
-`td.test_function` is the ONE test-packet config the schema carries; it
-doubles as the electronic outgoing packet (VE's `wp_out`, in `r`) AND, for
-`da`/`dr`, the nuclear outgoing packet (in `R`) -- a real approximation
-across two physically different scales, but the only choice available
-without a second schema field (see the design brief). The SAME point,
-`test_function.r0_out`, also gives the fixed electronic/nuclear DVR index
-`Dirac`/`Flux` analyze at (`_electronic_index_near`/`_nuclear_index_near`,
-following `validation/h2plus/td_dr.py`'s helper of the same name) --
-mirroring the pattern `libs/qscat/tests/test_td_extractors.py` uses
-throughout ("reuses `POSITION`... colocated with `WP_OUT`").
+`td.test_function` carries EITHER a flat, back-compat single test-packet
+block, or a per-observable-kind mapping (`{ve: {...}, da: {...}, dr: {...}}`)
+-- `presets.resolve_test_function(cfg, kind)` is the ONE resolution entry
+point, called separately per observable KIND: `ve`'s packet is electronic
+(`wp_out`, in `r`); `da`/`dr`'s is nuclear (in `R`) -- physically different
+scales, no longer conflated (the pre-fix bug: a single electronic-scale
+packet silently doubling as the nuclear one too). The fixed electronic/
+nuclear DVR analysis index `Dirac`/`Flux` read at
+(`_electronic_index_near`/`_nuclear_index_near`) is likewise resolved
+per-kind: `ve` reuses its own packet's `r0_out` (unchanged); `da`/`dr` use
+`presets.resolve_surface_r(cfg, kind)`, which is generally a DIFFERENT point
+from that kind's own nuclear `r0_out` (see `MoleculePreset`'s docstring --
+e.g. F2's validated DA deck: packet centered at R=8, surface read at R=6).
 
-LIMITATION (documented, not fixed here): unlike `qscat.core.
-td_ve_cross_section`/`td_ve_cross_sections_all`, this mixed-observable path
-does NOT run a second `V_int=0` free-reference propagation -- the design
-brief calls for exactly ONE propagation feeding every extractor. An elastic
-VE channel (`v_init in vprimes`) therefore reads `ext.sigma(E)` with
-`free=None`, the literal-`S_ref=1` fallback (see `qscat.core.
-time_dependent._sigma_one_energy`'s own docstring for why that fallback is
-the less-accurate one) rather than the free-particle reference -- a real,
-bounded inaccuracy on the elastic channel only; inelastic VE and DA/DR
-channels have no diagonal to subtract a reference from in the first place
-and are unaffected.
+An elastic VE channel (`cfg.v_init in vprimes`, requested by a `ve`
+observable) gets a SECOND `V_int=0` free-reference propagation
+(`qscat.core.time_dependent._free_hamiltonian`), mirroring `qscat.core.
+td_ve_cross_sections_all`: a matching free extractor is built per (ve
+observable, extractor name) and driven by that second propagation, then
+`ext.sigma(E, free=free_ext)` subtracts the free-particle `S_free(E)` on the
+diagonal channel instead of the less-accurate literal-`S_ref=1` fallback
+(see `qscat.core.time_dependent._sigma_one_energy`'s docstring). This only
+runs when an elastic VE channel is actually requested (a no-op skip
+otherwise -- no extra propagation cost). DA/DR extractors take no free
+reference (a pure rearrangement channel, no elastic diagonal to subtract
+from -- `axis="nuclear"` extractors reject a non-`None` `free`).
 
 Moment-resolved `cross_section_vs_time` reads `ext.sigma(E, n_steps=n_i)`
 against the SAME already-completed propagation (`n_i = round(t_i / dt) + 1`
@@ -79,11 +83,18 @@ from qscat.core import (
     ve_cross_section,
     vibrational_states,
 )
+from qscat.core.time_dependent import _free_hamiltonian  # same helper td_ve_cross_sections_all uses
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.linalg import set_default_backend
 
 from qscat_run import presets
-from qscat_run.config import VALID_EXTRACTORS, ConfigError, ExperimentConfig, Observable
+from qscat_run.config import (
+    VALID_EXTRACTORS,
+    ConfigError,
+    ExperimentConfig,
+    Observable,
+    TestFunctionSpec,
+)
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -93,7 +104,7 @@ __all__ = ["WavefunctionSnapshot", "ExperimentResult", "run_experiment"]
 # The three extractor classes `td.extractors` can select, sharing one
 # `Extractor`-protocol-conformant interface (`record`/`sigma`) plus the
 # `n_steps=` truncated read added for this task's moment-resolved artifact.
-TdExtractor = TannorWeeks | Dirac | Flux
+type TdExtractor = TannorWeeks | Dirac | Flux
 
 
 @dataclass(frozen=True)
@@ -242,7 +253,13 @@ def _run_ti(
         t0 = time.time()
         for e in wf_spec.ti_energies:
             _, psis = ve_cross_section(
-                tg, model, eps, chi, cfg.v_init, [cfg.v_init], np.array([e]),
+                tg,
+                model,
+                eps,
+                chi,
+                cfg.v_init,
+                [cfg.v_init],
+                np.array([e]),
                 return_wavefunction=True,
             )
             psi_plus = psis[0] if isinstance(psis, list) else psis
@@ -281,16 +298,25 @@ def _index_near(grid: FemDvrEcsGrid, r_value: float) -> int:
 
 def _electronic_index_near(tg: TensorGrid, r_value: float) -> int:
     """The fixed electronic DVR index `Dirac`/`Flux` analyze at, nearest
-    `r_value` (bohr) -- `_run_td` passes `td.test_function.r0_out` (the same
-    point the VE `TannorWeeks` outgoing test packet is centered on; see
-    module docstring)."""
+    `r_value` (bohr) -- `_run_td` passes the resolved `ve` test function's
+    own `r0_out` (the same point the VE `TannorWeeks` outgoing test packet
+    is centered on; see module docstring)."""
     return _index_near(tg.grids[0], r_value)
 
 
 def _nuclear_index_near(tg: TensorGrid, r_value: float) -> int:
     """The nuclear-axis twin of `_electronic_index_near` (DA/DR's fixed
-    analysis point)."""
+    analysis point) -- `_run_td` passes `presets.resolve_surface_r(cfg,
+    kind)`, generally a DIFFERENT point from that kind's own nuclear test
+    function's `r0_out` (see module docstring / `MoleculePreset`)."""
     return _index_near(tg.grids[1], r_value)
+
+
+def _wp_out_dict(tf: TestFunctionSpec) -> dict[str, float]:
+    """A resolved per-kind `TestFunctionSpec` -> the `wp_out` dict the
+    `qscat.core` wavepacket/extractor constructors take (`r0_out`/`p0_out`/
+    `sigma_out`)."""
+    return {"r0_out": tf.r0_out, "p0_out": tf.p0_out, "sigma_out": tf.sigma_out}
 
 
 def _build_extractor(
@@ -319,18 +345,45 @@ def _build_extractor(
     anion-channel count)."""
     if name == "tw":
         return TannorWeeks(
-            tg, model, eps, chi, v_init, vprimes, wp_out,
-            wp_in=wp_in, dt=dt, axis=axis, n_channels=n_channels,
+            tg,
+            model,
+            eps,
+            chi,
+            v_init,
+            vprimes,
+            wp_out,
+            wp_in=wp_in,
+            dt=dt,
+            axis=axis,
+            n_channels=n_channels,
         )
     if name == "delta":
         return Dirac(
-            tg, model, eps, chi, v_init, vprimes, position,
-            wp_in=wp_in, dt=dt, axis=axis, n_channels=n_channels,
+            tg,
+            model,
+            eps,
+            chi,
+            v_init,
+            vprimes,
+            position,
+            wp_in=wp_in,
+            dt=dt,
+            axis=axis,
+            n_channels=n_channels,
         )
     if name == "flow":
         return Flux(
-            tg, model, eps, chi, v_init, vprimes, surface,
-            wp_in=wp_in, dt=dt, axis=axis, n_channels=n_channels,
+            tg,
+            model,
+            eps,
+            chi,
+            v_init,
+            vprimes,
+            surface,
+            wp_in=wp_in,
+            dt=dt,
+            axis=axis,
+            n_channels=n_channels,
         )
     raise ConfigError(  # pragma: no cover -- validate_config already rejects unknown names
         f"unknown td extractor {name!r}; choose from {sorted(VALID_EXTRACTORS)}"
@@ -348,10 +401,11 @@ def _run_td(
     TensorGrid,
 ]:
     """The TD path: ONE Pade propagation drives every requested observable's
-    extractor(s); returns `(cross_sections, cross_section_vs_time,
-    correlations, wavefunctions, grid)` -- see module docstring for the full
-    design (extractor construction, the free-reference limitation, the
-    moment-truncation mechanism).
+    extractor(s), plus a SECOND `V_int=0` free-reference propagation when an
+    elastic VE channel is requested; returns `(cross_sections,
+    cross_section_vs_time, correlations, wavefunctions, grid)` -- see module
+    docstring for the full design (per-kind test-function resolution, the
+    free-reference propagation, the moment-truncation mechanism).
     """
     if cfg.td is None:
         raise ConfigError("no 'td' block resolved for this config")
@@ -360,8 +414,6 @@ def _run_td(
     td = cfg.td
     if td.incident is None:
         raise ConfigError("td.incident not resolved (missing preset defaults?)")
-    if td.test_function is None:
-        raise ConfigError("td.test_function not resolved (missing preset defaults?)")
     energies = cfg.energies.as_array()
 
     t0 = time.time()
@@ -380,41 +432,85 @@ def _run_td(
     timings["td:vibrational_states"] = time.time() - t0
 
     wp_in = {"r0": td.incident.r0, "p0": td.incident.p0, "sigma": td.incident.sigma}
-    wp_out = {
-        "r0_out": td.test_function.r0_out,
-        "p0_out": td.test_function.p0_out,
-        "sigma_out": td.test_function.sigma_out,
-    }
-    elec_index = _electronic_index_near(tg, td.test_function.r0_out)
-    nuc_index = _nuclear_index_near(tg, td.test_function.r0_out)
-
     psi0 = initial_state(tg, chi[cfg.v_init], **wp_in)
 
-    # One (label, extractor, channel-label-list) entry per (observable,
+    # One (label, extractor, channel-label-list, kind) entry per (observable,
     # requested extractor name); `channel_labels[k]` is the suffix appended
-    # to `label` for `ext.sigma(...)[:, k]`.
-    entries: list[tuple[str, TdExtractor, list[str]]] = []
+    # to `label` for `ext.sigma(...)[:, k]`. `free_entries[label]` (VE
+    # observables requesting the elastic channel only) is the companion
+    # `V_int=0`-propagation extractor `ext.sigma`'s `free=` reads (see module
+    # docstring) -- DA/DR entries never get one (no elastic diagonal).
+    entries: list[tuple[str, TdExtractor, list[str], str]] = []
+    free_entries: dict[str, TdExtractor] = {}
     for obs in cfg.observables:
         if obs.kind == "ve":
             vprimes = _vprimes(obs)
             channel_labels = [f"v{cfg.v_init}->{vp}" for vp in vprimes]
+            tf_ve = presets.resolve_test_function(cfg, "ve")
+            wp_out_ve = _wp_out_dict(tf_ve)
+            elec_index = _electronic_index_near(tg, tf_ve.r0_out)
+            wants_free = cfg.v_init in vprimes
             for name in td.extractors:
                 ext = _build_extractor(
-                    name, tg, model, eps, chi, cfg.v_init, vprimes, wp_out,
-                    wp_in=wp_in, dt=td.dt, position=elec_index, surface=elec_index,
-                    axis="electronic", n_channels=1,
+                    name,
+                    tg,
+                    model,
+                    eps,
+                    chi,
+                    cfg.v_init,
+                    vprimes,
+                    wp_out_ve,
+                    wp_in=wp_in,
+                    dt=td.dt,
+                    position=elec_index,
+                    surface=elec_index,
+                    axis="electronic",
+                    n_channels=1,
                 )
-                entries.append((f"td:ve:{name}", ext, channel_labels))
+                label = f"td:ve:{name}"
+                entries.append((label, ext, channel_labels, "ve"))
+                if wants_free:
+                    free_entries[label] = _build_extractor(
+                        name,
+                        tg,
+                        model,
+                        eps,
+                        chi,
+                        cfg.v_init,
+                        vprimes,
+                        wp_out_ve,
+                        wp_in=wp_in,
+                        dt=td.dt,
+                        position=elec_index,
+                        surface=elec_index,
+                        axis="electronic",
+                        n_channels=1,
+                    )
         elif obs.kind in ("da", "dr"):
             n_channels = _n_channels(obs)
             channel_labels = [f"ch{c}" for c in range(n_channels)]
+            tf_nuc = presets.resolve_test_function(cfg, obs.kind)
+            wp_out_nuc = _wp_out_dict(tf_nuc)
+            surface_r = presets.resolve_surface_r(cfg, obs.kind)
+            nuc_index = _nuclear_index_near(tg, surface_r)
             for name in td.extractors:
                 ext = _build_extractor(
-                    name, tg, model, eps, chi, cfg.v_init, [], wp_out,
-                    wp_in=wp_in, dt=td.dt, position=nuc_index, surface=nuc_index,
-                    axis="nuclear", n_channels=n_channels,
+                    name,
+                    tg,
+                    model,
+                    eps,
+                    chi,
+                    cfg.v_init,
+                    [],
+                    wp_out_nuc,
+                    wp_in=wp_in,
+                    dt=td.dt,
+                    position=nuc_index,
+                    surface=nuc_index,
+                    axis="nuclear",
+                    n_channels=n_channels,
                 )
-                entries.append((f"td:{obs.kind}:{name}", ext, channel_labels))
+                entries.append((f"td:{obs.kind}:{name}", ext, channel_labels, obs.kind))
         else:  # pragma: no cover -- validate_config already rejects unknown kinds
             raise ConfigError(f"unknown observable kind {obs.kind!r}")
 
@@ -430,14 +526,34 @@ def _run_td(
         n_steps=td.n_steps,
         hamiltonian=model.hamiltonian(tg),
         order=td.order,
-        extractors=[ext for _, ext, _ in entries],
+        extractors=[ext for _, ext, _, _ in entries],
         snapshot_times=snapshot_times,
     )
     timings["td:propagate"] = time.time() - t0
 
+    if free_entries:
+        # The elastic-VE free-reference propagation (Fix 2): SAME incident
+        # packet/grid, `V_int=0` Hamiltonian -- no snapshots/other channels
+        # needed, only the free extractors' recorded `c_{v'}(t)` series.
+        t0 = time.time()
+        propagate(
+            tg,
+            psi0,
+            [],
+            dt=td.dt,
+            n_steps=td.n_steps,
+            hamiltonian=_free_hamiltonian(model, tg),
+            order=td.order,
+            extractors=list(free_entries.values()),
+        )
+        timings["td:propagate_free"] = time.time() - t0
+
     cross_sections: dict[str, npt.NDArray[np.float64]] = {}
-    for label, ext, channel_labels in entries:
-        sigma = ext.sigma(energies)
+    for label, ext, channel_labels, kind in entries:
+        if kind == "ve":
+            sigma = ext.sigma(energies, free=free_entries.get(label))
+        else:
+            sigma = ext.sigma(energies)
         for k, suffix in enumerate(channel_labels):
             cross_sections[f"{label}:{suffix}"] = sigma[:, k]
 
@@ -447,15 +563,18 @@ def _run_td(
         t0 = time.time()
         for t_i in cvt_spec.moments:
             n_i = round(t_i / td.dt) + 1
-            for label, ext, channel_labels in entries:
-                sigma_t = ext.sigma(energies, n_steps=n_i)
+            for label, ext, channel_labels, kind in entries:
+                if kind == "ve":
+                    sigma_t = ext.sigma(energies, free=free_entries.get(label), n_steps=n_i)
+                else:
+                    sigma_t = ext.sigma(energies, n_steps=n_i)
                 for k, suffix in enumerate(channel_labels):
                     cross_section_vs_time[f"{label}:{suffix}@t{t_i:g}"] = sigma_t[:, k]
         timings["td:cross_section_vs_time"] = time.time() - t0
 
     correlations: dict[str, npt.NDArray[Any]] = {}
     if cfg.artifacts.correlations:
-        for label, ext, _channel_labels in entries:
+        for label, ext, _channel_labels, _kind in entries:
             if isinstance(ext, Flux):
                 t_arr, b, d = ext._arrays
                 correlations[f"{label}:t"] = t_arr
