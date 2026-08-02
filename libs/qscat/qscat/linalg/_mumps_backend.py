@@ -30,6 +30,8 @@ import numpy as np
 import numpy.typing as npt
 import scipy.sparse as sp
 
+from qscat.exceptions import BackendError
+
 # Runtime import guard: typed as ``Any`` so this module type-checks with MUMPS
 # absent (no stubs, no module). ``mumps_available()`` is the single gate every
 # caller uses; the class body never runs unless it returned True.
@@ -134,7 +136,7 @@ class _MumpsBackend:
 
     def __init__(self, csc: sp.csc_matrix[np.complex128], *, symmetric: bool) -> None:
         if _MUMPS is None:  # pragma: no cover - callers gate on mumps_available()
-            raise RuntimeError("python-mumps is not installed")
+            raise BackendError("python-mumps is not installed")
         self._symmetric = symmetric
         self._ctx = _MUMPS.Context()
         # SYM=2 takes ONLY the upper triangle; SYM=0 takes the full matrix.

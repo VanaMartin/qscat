@@ -18,6 +18,7 @@ import numpy as np
 import numpy.typing as npt
 
 from qscat.dvr import TensorGrid
+from qscat.exceptions import GridError
 from qscat.linalg import c_product
 from qscat.special import coulomb_f_en, riccati_bessel_en
 
@@ -63,7 +64,7 @@ def channel_vector(
     chi = np.asarray(chi_v, dtype=np.complex128)
     norm2 = c_product(chi, chi)
     if abs(norm2) < _MIN_NORM2:
-        raise ValueError(
+        raise GridError(
             f"channel_vector: c-product norm^2 of chi_v is ~0 ({norm2!r}); "
             "cannot normalize a (near-)null vibrational vector"
         )

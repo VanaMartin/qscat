@@ -160,6 +160,12 @@ def ve_cross_section(
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """sigma_{v_init->v'}(E) in bohr^2, exact 2-D driven-equation solution.
 
+    .. note::
+       **Provisional signature.** The ``(tgrid, model, eps, chi, v_init)``
+       argument group is slated to be bundled into a single context object
+       (see ADR 0004 and the hardening roadmap); the leading parameters of
+       this and the sibling solvers may change in a future minor release.
+
     `model` supplies the Hamiltonian (`model.hamiltonian(tgrid)`), the
     interaction diagonal (`model.interaction_diag(tgrid)`) and the fixed
     partial wave (`model.ell`) -- the entire molecule-specific input.
