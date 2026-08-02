@@ -114,6 +114,7 @@ from .driven import ve_cross_section
 from .grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
 from .lcp import lcp_da_cross_section, local_complex_potential
 from .plot import plot_cross_sections
+from .problem import ScatteringProblem
 from .td_extractors import Dirac, Flux, TannorWeeks
 from .time_dependent import (
     Extractor,
@@ -124,7 +125,7 @@ from .time_dependent import (
     td_ve_cross_section,
     td_ve_cross_sections_all,
 )
-from .vibrational import vibrational_states
+from .vibrational import VibrationalBasis, vibrational_states
 from .wavepacket import gaussian_coeffs, initial_state
 
 __all__ = [
@@ -133,6 +134,8 @@ __all__ = [
     "nuclear_grid",
     "segmented_grid",
     "vibrational_states",
+    "VibrationalBasis",
+    "ScatteringProblem",
     "channel_vector",
     "ve_cross_section",
     "anion_electronic_states",

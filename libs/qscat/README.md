@@ -37,26 +37,30 @@ An N₂ vibrational-excitation cross section, σ₀→v′(E), on a small grid:
 
 ```python
 import numpy as np
+from qscat.core import ScatteringProblem
+from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.dvr import TensorGrid
 from qscat.model import N2
-from qscat.core.grids import electronic_grid, nuclear_grid
-from qscat.core.vibrational import vibrational_states
-from qscat.core.driven import ve_cross_section
 
 # Tensor-product FEM-DVR-ECS grid: electronic (r) × nuclear (R)
-tg = TensorGrid([
+grid = TensorGrid([
     electronic_grid(r_max=16.0, order=7, n_complex=5),
     nuclear_grid(r_max=22.0, quadrature=10, n_complex=5),
 ])
 
-# Vibrational basis of the neutral target (eps: energies, chi: wavefunctions)
-eps, chi = vibrational_states(tg.grids[1], N2.mu, 4, N2.v0)
+# One problem = grid + model + how many vibrational states (solved once, reused)
+prob = ScatteringProblem(grid=grid, model=N2, n_vib=4, v_init=0)
 
 # σ for v=0 → v'=0,1,2 at three collision energies (Hartree)
-E = np.array([0.10, 0.15, 0.20])
-sigma = ve_cross_section(tg, N2, eps, chi, 0, [0, 1, 2], E)  # (3, 3) bohr², [E, v']
-print(sigma)
+sigma = prob.ve_cross_section(vprimes=[0, 1, 2], E=np.array([0.10, 0.15, 0.20]))
+print(sigma)  # shape (3, 3) bohr², [E, v']
 ```
+
+`ScatteringProblem` is the recommended entry point; it also exposes
+`.da_cross_section(...)`, `.dr_cross_section(...)`, and the time-dependent
+`.td_ve_cross_section(...)` / `.td_da_cross_section(...)`. The underlying
+functional solvers (`qscat.core.ve_cross_section`, …) remain available as the
+low-level layer.
 
 See the `docs/` tree in the repository for the theory notes and more examples
 (TI vs TD, DA/DR, the discretisation tuner, and the `qscat-run` config CLI).
