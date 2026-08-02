@@ -75,22 +75,39 @@ def vibrational_states(
 ) -> VibrationalBasis:
     """The `n` lowest bound eigenpairs of `T_nuc(mu) + diag(v0(R))`.
 
-    `v0` is the neutral molecule's potential-energy curve, evaluated
-    pointwise on `grid.points` -- passed in by the caller (e.g.
-    `qscat.model.N2.v0`) rather than hardcoded, so this solver stays
-    model-independent.
+    `v0` is the neutral molecule's potential-energy curve, evaluated pointwise
+    on `grid.points` -- passed in by the caller (e.g. `qscat.model.N2.v0`)
+    rather than hardcoded, so this solver stays model-independent. The
+    eigenvectors are Hermitian-normalized (``v^dagger v = 1``) by
+    `qscat.dvr.eigen()`, which coincides with the c-product norm
+    (``v^T v = 1``) for these real bound-state vectors.
 
-    Returns `(eps, chi)`: `eps` is the real part of the `n` lowest-Re(E)
-    eigenvalues (Hartree), ascending; `chi` is the (n, grid.n) array of the
-    corresponding eigenvectors, Hermitian-normalized (`v^dagger v = 1`) by
-    `qscat.dvr.eigen()` -- which coincides with the c-product norm
-    (`v^T v = 1`) for these real bound-state vectors (see module docstring
-    for the normalization convention).
+    Parameters
+    ----------
+    grid : FemDvrEcsGrid
+        The nuclear radial grid.
+    mu : float
+        Nuclear reduced mass (atomic units).
+    n : int
+        Number of lowest bound vibrational states to return.
+    v0 : callable
+        The neutral potential-energy curve ``v0(R)``, evaluated pointwise on
+        ``grid.points``.
 
-    Raises `ValueError` if any of the `n` lowest-Re(E) eigenvalues has
-    `|Im(E)| > _IM_TOL_HA`: that signals `n` reached past the true bound
-    spectrum into quasi-continuum/ECS states, which are not valid
-    "vibrational levels" and must not be silently returned as such.
+    Returns
+    -------
+    VibrationalBasis
+        A ``(eps, chi)`` named tuple: ``eps`` the real part of the ``n``
+        lowest-Re(E) eigenvalues (Hartree), ascending; ``chi`` the
+        ``(n, grid.n)`` array of eigenvectors, one row per level.
+
+    Raises
+    ------
+    GridError
+        If any of the ``n`` lowest-Re(E) eigenvalues has
+        ``|Im(E)| > _IM_TOL_HA`` -- i.e. ``n`` reached past the true bound
+        spectrum into quasi-continuum/ECS states, which are not valid
+        vibrational levels.
     """
     T = kinetic(grid, mu)
     H0 = T + np.diag(v0(grid.points))

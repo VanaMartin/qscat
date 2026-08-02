@@ -63,7 +63,33 @@ def electronic_grid(
 ) -> FemDvrEcsGrid:
     """Electronic radial grid: real region [0, r_max] + an ECS tail at `angle_deg`.
 
-    The ECS pivot is `R0 == r_max` by construction.
+    The ECS pivot is ``R0 == r_max`` by construction.
+
+    Parameters
+    ----------
+    r_max : float, optional
+        Outer edge of the real region (bohr); the ECS pivot. Must exceed the
+        fixed inner segments.
+    angle_deg : float, optional
+        ECS rotation angle of the complex tail, in degrees.
+    order : int, optional
+        DVR quadrature order (points per element).
+    n_complex : int, optional
+        Number of complex (ECS-tail) elements.
+    tail_alpha : float, optional
+        Geometric growth factor of the tail element lengths.
+    tail_skip : int, optional
+        Number of leading tail elements before growth begins.
+
+    Returns
+    -------
+    FemDvrEcsGrid
+        The assembled electronic radial grid.
+
+    Raises
+    ------
+    GridError
+        If ``r_max`` does not exceed the fixed inner segments.
     """
     if r_max <= _INNER_SEGMENTS[-1][0]:
         raise GridError(f"r_max must exceed {_INNER_SEGMENTS[-1][0]} bohr, got {r_max}")
@@ -113,6 +139,22 @@ def nuclear_grid(
     `angle_deg` tile [12, r_max]. The ECS pivot `R0 == 12.0` bohr by
     construction (GridSpec computes R0 as x_min plus the sum of real element
     lengths).
+
+    Parameters
+    ----------
+    angle_deg : float, optional
+        ECS rotation angle of the complex tail, in degrees.
+    r_max : float, optional
+        Outer edge of the complex tail (bohr).
+    n_complex : int, optional
+        Number of complex (ECS-tail) elements tiling ``[12, r_max]``.
+    quadrature : int, optional
+        DVR quadrature order (points per element).
+
+    Returns
+    -------
+    FemDvrEcsGrid
+        The assembled nuclear radial grid.
     """
     elements: list[ElementSpec] = []
     start = 0.0
