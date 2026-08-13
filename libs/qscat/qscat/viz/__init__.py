@@ -19,6 +19,7 @@ module load, so ``import qscat.viz`` works without the plotting extra.
 from __future__ import annotations
 
 from .coloring import complex_to_hsv, complex_to_rgb, hsv_to_rgb
+from .levels import energy_contour_levels
 from .plot import plot_wavefunction_2d
 from .projector import EquidistantProjector
 
@@ -27,5 +28,6 @@ __all__ = [
     "complex_to_hsv",
     "complex_to_rgb",
     "hsv_to_rgb",
+    "energy_contour_levels",
     "plot_wavefunction_2d",
 ]
