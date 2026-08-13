@@ -76,6 +76,7 @@ def animate_wavefunction(
     mag: float,
     times: Sequence[float] | None = None,
     time_fmt: str = "t = {:.1f}",
+    phase_reference: float = 0.0,
     outfile: _PathLike | None = None,
     fps: int = 15,
     writer: Any = None,
@@ -95,7 +96,14 @@ def animate_wavefunction(
     mag : float
         Fixed brightness scale across all frames.
     times : sequence of float, optional
-        Per-frame times; when given the title shows ``time_fmt.format(t)``.
+        Per-frame times; when given the title shows ``time_fmt.format(t)`` and
+        enable `phase_reference`.
+    phase_reference : float, optional
+        Channel base energy ``E_ref`` (Hartree). Each frame is coloured after a
+        global phase ``e^{+i E_ref * times[i]}``, i.e. the phase is shown RELATIVE
+        to ``E_ref`` -- removing the fast base-energy hue spin so the wavepacket's
+        relative motion in the channel is visible. Default 0 (no shift); requires
+        ``times``. ``|psi|`` (brightness/contours) is unaffected.
     outfile : path-like, optional
         Save target: ``.mp4`` (ffmpeg) or ``.gif`` (pillow). If None, the
         `FuncAnimation` is returned unsaved.
@@ -115,6 +123,10 @@ def animate_wavefunction(
     frame_list = [np.asarray(f) for f in frames]
     if not frame_list:
         raise ValueError("frames is empty; nothing to animate")
+    if phase_reference != 0.0 and times is None:
+        raise ValueError(
+            "phase_reference needs times= (the per-frame phase is E_ref * times[i])"
+        )
 
     created = ax is None
     if created:
@@ -122,7 +134,10 @@ def animate_wavefunction(
     artist = WavefunctionArtist(ax, projector, mag=mag, title=title, **style)
 
     def _update(i: int) -> list[Any]:
-        arts = artist.update(frame_list[i])
+        # e^{+i E_ref t} rotates out the channel base-energy spin (phase shown
+        # relative to E_ref); global phase, so |psi| / contours are unchanged.
+        phase = phase_reference * times[i] if (phase_reference and times is not None) else 0.0
+        arts = artist.update(frame_list[i], phase=phase)
         if times is not None:
             label = time_fmt.format(times[i])
             ax.set_title(f"{title}  {label}" if title else label)

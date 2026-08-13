@@ -372,6 +372,45 @@ def test_animate_wavefunction_empty_frames_raises() -> None:
         animate_wavefunction(proj, [], mag=0.5)
 
 
+def test_phase_rotates_hue_not_magnitude() -> None:
+    # A global phase changes the colouring (hue) but not |psi| (image not equal,
+    # but the |psi| contour levels / magnitudes are identical).
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from qscat.viz import WavefunctionArtist
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(24, 24), extent=((1.0, 6.0), (1.0, 4.0)))
+    rng = np.random.default_rng(0)
+    state = rng.standard_normal(tg.grids[0].n * tg.grids[1].n) + 1j * rng.standard_normal(
+        tg.grids[0].n * tg.grids[1].n
+    )
+    _, ax = plt.subplots()
+    art = WavefunctionArtist(ax, proj, mag=0.5)
+    rgb0 = art.update(state, phase=0.0)[0].get_array().copy()
+    rgb1 = art.update(state, phase=np.pi / 2)[0].get_array()
+    assert not np.allclose(rgb0, rgb1)  # hue rotated
+    # |psi| is phase-invariant: the projected magnitude is unchanged.
+    mag_field = np.abs(proj.project(state))
+    mag_field_phased = np.abs(proj.project(np.exp(1j * np.pi / 2) * state))
+    assert np.allclose(mag_field, mag_field_phased)
+    plt.close("all")
+
+
+def test_phase_reference_requires_times() -> None:
+    pytest.importorskip("matplotlib")
+    from qscat.viz import animate_wavefunction
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(10, 10))
+    state = np.zeros(tg.grids[0].n * tg.grids[1].n, dtype=complex)
+    with pytest.raises(ValueError, match="phase_reference needs times"):
+        animate_wavefunction(proj, [state, state], mag=0.5, phase_reference=0.5)
+
+
 def test_animate_artists_multi_panel(tmp_path) -> None:
     pytest.importorskip("matplotlib")
     pytest.importorskip("PIL")

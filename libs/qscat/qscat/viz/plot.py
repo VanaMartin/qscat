@@ -54,6 +54,7 @@ def plot_wavefunction_2d(
     eps: npt.ArrayLike | None = None,
     v_init: int = 0,
     energies: npt.ArrayLike | None = None,
+    phase: float = 0.0,
 ) -> Any:
     """Project, domain-colour, and draw a 2-D state; save to ``path`` if given.
 
@@ -102,6 +103,11 @@ def plot_wavefunction_2d(
     eps, v_init, energies : optional
         For ``potential_levels="auto"``: vibrational energies, initial level, and
         collision energies (levels ``eps_v`` and ``eps[v_init] + E``).
+    phase : float, optional
+        Global hue-rotation (radians) applied to the colouring only
+        (``psi -> e^{i*phase}*psi``); leaves ``|psi|`` unchanged. For animation,
+        `animate_wavefunction`'s ``phase_reference`` sets ``phase = E_ref*t`` to
+        view the phase relative to a channel base energy.
 
     Returns
     -------
@@ -139,7 +145,7 @@ def plot_wavefunction_2d(
         potential_label_fmt=potential_label_fmt, eps=eps, v_init=v_init,
         energies=energies,
     )
-    (image, *_) = artist.update(np.asarray(state))
+    (image, *_) = artist.update(np.asarray(state), phase=phase)
 
     if path is not None:
         ax.figure.tight_layout()
