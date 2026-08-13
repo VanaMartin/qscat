@@ -228,3 +228,83 @@ def test_contours_false_draws_nothing() -> None:
     plot_wavefunction_2d(proj, state, mag=0.05, ax=ax)  # contours default False
     assert not [c for c in ax.get_children() if isinstance(c, QuadContourSet)]
     plt.close("all")
+
+
+# --- combined potential + wavefunction overlay ------------------------------
+
+
+def test_energy_contour_levels_selection() -> None:
+    from qscat.viz import energy_contour_levels
+
+    eps = np.array([0.01, 0.03, 0.06, 0.10])
+    # thresholds only
+    lv = energy_contour_levels(eps=eps)
+    assert lv == [0.01, 0.03, 0.06, 0.10]
+    # thresholds + total energies eps[0] + E
+    lv = energy_contour_levels(eps=eps, v_init=0, energies=[0.05, 0.09])
+    assert 0.06 in lv and pytest.approx(0.10, abs=1e-9) in lv  # 0.01+0.05, 0.01+0.09
+    # e_range clip
+    lv = energy_contour_levels(eps=eps, e_range=(0.02, 0.07))
+    assert lv == [0.03, 0.06]
+    # min_spacing thinning + sorted
+    lv = energy_contour_levels(eps=np.array([0.0, 0.005, 0.02, 0.021, 0.05]), min_spacing=0.01)
+    assert lv == [0.0, 0.02, 0.05]
+    # max_levels cap
+    lv = energy_contour_levels(eps=np.linspace(0.0, 1.0, 50), max_levels=6)
+    assert len(lv) <= 6 and lv == sorted(lv)
+    # energies without eps raises
+    with pytest.raises(ValueError, match="requires eps"):
+        energy_contour_levels(energies=[0.1])
+
+
+def test_combined_overlays_dotted_potential_plus_psi() -> None:
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(40, 40), extent=((1.0, 6.0), (1.0, 4.0)))
+    rng = np.random.default_rng(0)
+    state = rng.standard_normal(tg.grids[0].n * tg.grids[1].n) + 0j
+    # A smooth "potential" on the same grid so auto levels land inside its range.
+    V = np.add.outer(tg.grids[0].real_points, tg.grids[1].real_points).astype(complex)
+
+    _, ax = plt.subplots()
+    plot_wavefunction_2d(
+        proj, state, mag=0.05, ax=ax,
+        contours=True,  # solid white |psi|
+        potential=V, potential_levels="auto",  # dotted potential overlay
+        eps=np.array([2.5, 4.0, 6.0]), v_init=0, energies=[1.0, 2.0],
+    )
+    csets = [c for c in ax.get_children() if isinstance(c, QuadContourSet)]
+    assert len(csets) == 2  # |psi| + potential
+    # Inline energy labels were drawn by clabel (Text children on the axes).
+    assert any(t.get_text() for t in ax.texts)
+    plt.close("all")
+
+
+def test_combined_potential_only_overlay_independent_of_contours() -> None:
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(30, 30), extent=((1.0, 6.0), (1.0, 4.0)))
+    state = np.zeros(tg.grids[0].n * tg.grids[1].n, dtype=complex)
+    V = np.add.outer(tg.grids[0].real_points, tg.grids[1].real_points).astype(complex)
+    _, ax = plt.subplots()
+    # contours=False, but potential overlay still draws (independent).
+    plot_wavefunction_2d(
+        proj, state, mag=0.05, ax=ax,
+        potential=V, potential_levels=[4.0, 6.0], potential_labels=False,
+    )
+    assert len([c for c in ax.get_children() if isinstance(c, QuadContourSet)]) == 1
+    plt.close("all")

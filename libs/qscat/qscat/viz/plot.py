@@ -45,6 +45,46 @@ def _contour_levels(
     return [v for v in levels if zmin < v < zmax]
 
 
+def _potential_surface(
+    projector: EquidistantProjector,
+    potential: Any,
+    a0: npt.NDArray[np.float64],
+    a1: npt.NDArray[np.float64],
+) -> npt.NDArray[np.float64]:
+    """The potential on the sampling grid (can be negative -> real, not abs)."""
+    if callable(potential):
+        # Analytic potential: evaluate directly on the sampling meshgrid.
+        r_mesh, big_r_mesh = np.meshgrid(a0, a1, indexing="ij")
+        return np.real(np.asarray(potential(r_mesh, big_r_mesh), dtype=float))
+    # Numerically-evaluated potential known only on the grid: project as values.
+    return np.real(projector.project_values(potential))
+
+
+def _resolve_potential_levels(
+    potential_levels: Sequence[float] | Literal["auto"],
+    z: npt.NDArray[np.float64],
+    eps: npt.ArrayLike | None,
+    v_init: int,
+    energies: npt.ArrayLike | None,
+) -> list[float]:
+    """Resolve the dotted potential-overlay levels; ``"auto"`` uses the energies."""
+    from .levels import energy_contour_levels
+
+    zmin, zmax = float(np.nanmin(z)), float(np.nanmax(z))
+    if isinstance(potential_levels, str):  # "auto"
+        if eps is None and energies is None:
+            raise ValueError(
+                "potential_levels='auto' needs eps= (vibrational energies) and/or "
+                "energies= (collision energies) to place the turning-surface levels"
+            )
+        levels = energy_contour_levels(
+            eps=eps, v_init=v_init, energies=energies, e_range=(zmin, zmax)
+        )
+    else:
+        levels = sorted(float(v) for v in potential_levels)
+    return [v for v in levels if zmin < v < zmax]
+
+
 def plot_wavefunction_2d(
     projector: EquidistantProjector,
     state: npt.NDArray[np.complex128],
@@ -64,6 +104,16 @@ def plot_wavefunction_2d(
     contour_color: str = "white",
     contour_alpha: float = 0.6,
     contour_linewidth: float = 0.6,
+    potential_levels: Sequence[float] | Literal["auto"] | None = None,
+    potential_style: str = ":",
+    potential_color: str = "0.75",
+    potential_alpha: float = 0.7,
+    potential_linewidth: float = 0.6,
+    potential_labels: bool = True,
+    potential_label_fmt: str = "%.3f",
+    eps: npt.ArrayLike | None = None,
+    v_init: int = 0,
+    energies: npt.ArrayLike | None = None,
 ) -> Any:
     """Project, domain-colour, and draw a 2-D state; save to ``path`` if given.
 
@@ -101,7 +151,23 @@ def plot_wavefunction_2d(
         the grid -- OR a callable ``V(r, R)`` (analytic only) taking 2-D
         meshgrids ``(axis0, axis1)`` and returning the surface directly.
     contour_color, contour_alpha, contour_linewidth : optional
-        Contour style; defaults are thin white lines at 0.6 opacity.
+        |psi|-contour style; defaults are thin white lines at 0.6 opacity.
+    potential_levels : sequence of float or "auto", optional
+        Enables the DEDICATED dotted potential overlay (drawn in addition to the
+        ``|psi|`` contours) when both this and ``potential`` are given. An
+        explicit list of energies (Hartree), or ``"auto"`` to derive turning-
+        surface levels from ``eps``/``energies`` via `energy_contour_levels`.
+        The physical (turning-surface) reading holds only if ``potential`` is the
+        FULL 2-D PES in Hartree -- pass ``model.surface`` (``v0(R) +
+        ell(ell+1)/2r^2 + v_int(r,R)``), NOT just the nuclear ``v0`` or the
+        interaction-only ``interaction_diag``.
+    potential_style, potential_color, potential_alpha, potential_linewidth : optional
+        Style of the potential overlay; defaults are dotted grey lines at 0.7 α.
+    potential_labels : bool, optional
+        Inline-label each dotted line with its energy (``potential_label_fmt``).
+    eps, v_init, energies : optional
+        For ``potential_levels="auto"``: the vibrational energies, initial level,
+        and collision energies (levels ``eps_v`` and ``eps[v_init] + E``).
 
     Returns
     -------
@@ -136,36 +202,39 @@ def plot_wavefunction_2d(
         _, ax = plt.subplots(figsize=(8, 6))
     image = ax.imshow(rgb, origin="upper", aspect="auto", extent=extent)
 
+    # Primary overlay: |psi| (default) or potential-as-primary.
     if contours is not False:
         if contour_field == "magnitude":
             z = np.abs(field)  # |psi|, contoured on the same sampling grid
-        else:  # potential (can be negative -> use .real, not abs)
+        else:  # potential-as-primary (can be negative -> _potential_surface uses .real)
             if potential is None:
                 raise ValueError(
                     "contour_field='potential' requires potential= (a nodal field "
                     "on the same tensor grid, or a callable V(r, R))"
                 )
-            if callable(potential):
-                # Analytic potential: evaluate directly on the sampling meshgrid.
-                r_mesh, big_r_mesh = np.meshgrid(a0, a1, indexing="ij")
-                z = np.real(np.asarray(potential(r_mesh, big_r_mesh), dtype=float))
-            else:
-                # Numerically-evaluated potential known ONLY on the grid nodes:
-                # project the nodal values through the same operator.
-                z = np.real(projector.project_values(potential))
+            z = _potential_surface(projector, potential, a0, a1)
         levels = _contour_levels(contours, contour_field, mag, z)
         if levels:
             # Explicit (a1, a0) coords share the imshow-inverted axes, so the
             # lines land on the coloured features (imshow+contour alignment).
             ax.contour(
-                a1,
-                a0,
-                z,
-                levels=levels,
-                colors=contour_color,
-                alpha=contour_alpha,
-                linewidths=contour_linewidth,
+                a1, a0, z, levels=levels, colors=contour_color,
+                alpha=contour_alpha, linewidths=contour_linewidth,
             )
+
+    # Dedicated dotted potential overlay at energy-relevant (turning-surface)
+    # levels -- drawn IN ADDITION to the |psi| contours above.
+    if potential is not None and potential_levels is not None:
+        zp = _potential_surface(projector, potential, a0, a1)
+        plevels = _resolve_potential_levels(potential_levels, zp, eps, v_init, energies)
+        if plevels:
+            pset = ax.contour(
+                a1, a0, zp, levels=plevels, colors=potential_color,
+                linestyles=potential_style, alpha=potential_alpha,
+                linewidths=potential_linewidth,
+            )
+            if potential_labels:
+                ax.clabel(pset, fmt=potential_label_fmt, fontsize=7)
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)

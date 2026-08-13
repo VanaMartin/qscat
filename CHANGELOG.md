@@ -7,6 +7,11 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `qscat.viz`: combined contour overlay — the solid-white `|psi|` contours plus a
+  DEDICATED dotted potential overlay (`potential=` + `potential_levels=`) drawn
+  together, with inline energy labels. `qscat.viz.energy_contour_levels` picks
+  physically relevant levels (vibrational thresholds `eps_v` and total energies
+  `eps[v_init]+E` = classical turning surfaces) via `potential_levels="auto"`.
 - `qscat.viz.plot_wavefunction_2d` contour overlay: thin white lines at 0.6
   opacity (all overridable), tracing either the wavefunction `magnitude`
   (`|psi|`, levels derived from `mag`) or a `potential` — supplied as nodal
