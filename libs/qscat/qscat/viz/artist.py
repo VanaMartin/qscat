@@ -162,10 +162,20 @@ class WavefunctionArtist:
                 if potential_labels:
                     ax.clabel(pset, fmt=potential_label_fmt, fontsize=7)
 
-    def update(self, state: npt.NDArray[np.complex128]) -> list[Any]:
-        """Refresh the image + ``|psi|`` contours for a new state; return changed artists."""
+    def update(self, state: npt.NDArray[np.complex128], *, phase: float = 0.0) -> list[Any]:
+        """Refresh the image + ``|psi|`` contours for a new state; return changed artists.
+
+        `phase` (radians) applies a global hue rotation ``psi -> e^{i*phase}*psi``
+        to the COLOURING only -- used to view the phase relative to a reference
+        energy (e.g. ``phase = E_ref * t`` removes the channel base-energy spin).
+        Since it is a global phase it leaves ``|psi|`` (brightness, contours,
+        the potential overlay) unchanged, and by linearity of the projector it is
+        equivalent to phasing the state -- applied here on the small projected
+        field, so it costs nothing extra over the per-frame recolour.
+        """
         field = self.projector.project(state)
-        rgb = complex_to_rgb(field, self.mag, inverse=self.inverse)
+        colour_field = field if phase == 0.0 else field * np.exp(1j * phase)
+        rgb = complex_to_rgb(colour_field, self.mag, inverse=self.inverse)
         if self._image is None:
             self._image = self.ax.imshow(
                 rgb, origin="upper", aspect="auto", extent=self._extent, zorder=_Z_IMAGE

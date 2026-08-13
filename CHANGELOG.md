@@ -7,6 +7,12 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `qscat.viz` phase reference: `animate_wavefunction(..., phase_reference=E_ref)`
+  colours each frame after a global phase `e^{+i E_ref * t}`, showing the phase
+  RELATIVE to a channel base energy (removes the fast base-energy hue spin);
+  `WavefunctionArtist.update(state, phase=...)` / `plot_wavefunction_2d(..., phase=)`
+  are the static knob. A global phase, so `|psi|`/contours are unchanged; applied
+  on the projected field (projector stays phase-agnostic), ~zero overhead.
 - `qscat.viz` animation: `WavefunctionArtist` (draw/update one HSV panel in a
   caller-supplied axes — isolated from figure creation, so panels compose),
   `animate_wavefunction` (a decoupled sequence of `psi(t)` frames → `.mp4`/`.gif`,
