@@ -308,3 +308,89 @@ def test_combined_potential_only_overlay_independent_of_contours() -> None:
     )
     assert len([c for c in ax.get_children() if isinstance(c, QuadContourSet)]) == 1
     plt.close("all")
+
+
+# --- artist + animation -----------------------------------------------------
+
+
+def test_wavefunction_artist_update_changes_image_keeps_static_potential() -> None:
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import WavefunctionArtist
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(30, 30), extent=((1.0, 6.0), (1.0, 4.0)))
+    V = np.add.outer(tg.grids[0].real_points, tg.grids[1].real_points).astype(complex)
+    n = tg.grids[0].n * tg.grids[1].n
+    rng = np.random.default_rng(0)
+
+    _, ax = plt.subplots()
+    artist = WavefunctionArtist(
+        ax, proj, mag=0.5, contours=True,
+        potential=V, potential_levels=[4.0, 6.0], potential_labels=False,
+    )
+    # static potential overlay drawn at construction (before any state)
+    assert len([c for c in ax.get_children() if isinstance(c, QuadContourSet)]) == 1
+
+    img1 = artist.update(rng.standard_normal(n) + 0j)[0].get_array().copy()
+    img2 = artist.update(2.0 * (rng.standard_normal(n) + 0j))[0].get_array()
+    assert not np.allclose(img1, img2)  # image updated for the new state
+    # one static potential set + exactly one (refreshed) |psi| set -> 2 total
+    assert len([c for c in ax.get_children() if isinstance(c, QuadContourSet)]) == 2
+    plt.close("all")
+
+
+def test_animate_wavefunction_writes_gif(tmp_path) -> None:
+    pytest.importorskip("matplotlib")
+    pytest.importorskip("PIL")  # PillowWriter
+    from qscat.viz import animate_wavefunction
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(24, 24))
+    n = tg.grids[0].n * tg.grids[1].n
+    rng = np.random.default_rng(0)
+    frames = [np.exp(1j * k) * (rng.standard_normal(n) + 0j) for k in range(3)]
+    out = tmp_path / "psi.gif"
+    anim = animate_wavefunction(
+        proj, frames, mag=0.5, times=[0.0, 1.0, 2.0], outfile=out, fps=5, contours=True
+    )
+    assert out.exists() and out.stat().st_size > 0
+    assert anim is not None
+
+
+def test_animate_wavefunction_empty_frames_raises() -> None:
+    pytest.importorskip("matplotlib")
+    from qscat.viz import animate_wavefunction
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(10, 10))
+    with pytest.raises(ValueError, match="empty"):
+        animate_wavefunction(proj, [], mag=0.5)
+
+
+def test_animate_artists_multi_panel(tmp_path) -> None:
+    pytest.importorskip("matplotlib")
+    pytest.importorskip("PIL")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from qscat.viz import WavefunctionArtist, animate_artists
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(20, 20))
+    n = tg.grids[0].n * tg.grids[1].n
+    rng = np.random.default_rng(1)
+    frames = [rng.standard_normal(n) + 0j for _ in range(2)]
+
+    fig, (axl, axr) = plt.subplots(1, 2)
+    a_left = WavefunctionArtist(axl, proj, mag=0.5)
+    a_right = WavefunctionArtist(axr, proj, mag=0.5, contours=True)
+    out = tmp_path / "two.gif"
+    animate_artists(fig, [(a_left, frames), (a_right, frames)], outfile=out, fps=5)
+    assert out.exists() and out.stat().st_size > 0
+    plt.close("all")

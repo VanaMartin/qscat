@@ -7,6 +7,12 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `qscat.viz` animation: `WavefunctionArtist` (draw/update one HSV panel in a
+  caller-supplied axes — isolated from figure creation, so panels compose),
+  `animate_wavefunction` (a decoupled sequence of `psi(t)` frames → `.mp4`/`.gif`,
+  fixed mag + static potential overlay, per-frame `|psi|`), and `animate_artists`
+  (several panels in one figure). `plot_wavefunction_2d` is now a thin wrapper
+  over `WavefunctionArtist`. (TODO noted: an inverse-value/print colour mode.)
 - `qscat.viz`: combined contour overlay — the solid-white `|psi|` contours plus a
   DEDICATED dotted potential overlay (`potential=` + `potential_levels=`) drawn
   together, with inline energy labels. `qscat.viz.energy_contour_levels` picks
