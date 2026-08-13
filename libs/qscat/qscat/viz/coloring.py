@@ -12,6 +12,13 @@ the roles so large magnitudes go dark on a white background (for light figures).
 
 Pure numpy (no matplotlib) so the RGB array can be produced and tested without
 the plotting extra; `qscat.viz.plot` renders it.
+
+TODO (print mode): add an explicit inverse VALUE (brightness) scaling -- map the
+value channel ``black->white`` to ``white->black`` so features render dark on a
+white ground, useful for printed figures. This is distinct from the existing
+``inverse`` (which swaps the saturation/value roles); it is a straight
+brightness inversion (``v -> 1 - v``, with saturation handled to keep hue
+readable). Deferred to a follow-on; see the roadmap.
 """
 
 from __future__ import annotations
