@@ -8,25 +8,34 @@ FROM ${BASE_IMAGE} AS build
 WORKDIR /app
 COPY . .
 # --all-packages installs qscat AND builds/installs the Rust qscat_kernels.
-# NOTE: the mumps extra is deliberately NOT installed here -- `runtime` copies
-# from this stage, and shipping python-mumps into the production image (whose
-# apt layer has no system MUMPS .so) would bloat it with a nonfunctional
-# package. The extra is added only in the `test` stage below.
-RUN uv sync --all-packages
+# The `plot` extra (matplotlib) IS installed here so it flows into `runtime`,
+# which copies this stage's venv verbatim (runtime has no toolchain, so it
+# cannot re-sync/rebuild the Rust kernel) -- that is what makes qscat.viz's
+# animation output usable in the runtime image (paired with ffmpeg below).
+# NOTE: the mumps extra is deliberately NOT installed here -- shipping
+# python-mumps into the production image (whose apt layer has no system MUMPS
+# .so) would bloat it with a nonfunctional package. That extra is test-only.
+RUN uv sync --all-packages --extra plot
 
 FROM build AS test
-# Add the mumps extra ONLY here so the complex-symmetric MUMPS backend is
-# exercised (not skipped) -- python-mumps links the system MUMPS provisioned in
-# the base image. This stage is not copied by `runtime`, so the extra stays
-# test-only. Then run the suite with --no-sync (no re-resolve/prune of the
-# just-built workspace members).
-RUN uv sync --all-packages --extra mumps \
+# Add the mumps extra here so the complex-symmetric MUMPS backend is exercised
+# (not skipped) -- python-mumps links the system MUMPS provisioned in the base
+# image. `plot` is re-stated because `uv sync` reconciles to exactly the given
+# extras (omitting it would prune matplotlib). This stage is not copied by
+# `runtime`, so the mumps extra stays test-only. Then run the suite with
+# --no-sync (no re-resolve/prune of the just-built workspace members); the base
+# image's ffmpeg makes the ffmpeg-gated .mp4 viz test render rather than skip.
+RUN uv sync --all-packages --extra mumps --extra plot \
     && uv run --no-sync pytest -q
 
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS runtime
-# Runtime needs only the shared numerical libs (no -dev headers, no toolchain)
+# Runtime needs the shared numerical libs (no -dev headers, no toolchain) plus
+# ffmpeg -- the matplotlib FFMpegWriter backend for qscat.viz's .mp4 animation
+# output (matplotlib itself arrives in the copied venv via the build stage's
+# `--extra plot`; the .gif path needs only pillow, already a plot-extra dep).
 RUN apt-get update && apt-get install -y --no-install-recommends \
       libopenblas0 libfftw3-double3 liblapacke \
+      ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 # LOAD-BEARING: `uv sync --all-packages` installs `qscat` as an editable

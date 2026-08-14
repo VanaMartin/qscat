@@ -7,6 +7,19 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- Docker base image now leverages OpenMP-threaded numerics: the **OpenMP
+  OpenBLAS** variant is selected (`update-alternatives`) and the hard
+  `OPENBLAS_NUM_THREADS=1` pin is dropped, and an **OpenMP-enabled MUMPS 5.9.1
+  is built from source** (scivision/mumps CMake) to replace Debian's non-OpenMP
+  `libmumps-seq`, so BLAS/LAPACK and MUMPS share one libgomp thread pool. The
+  MUMPS backend stays exact vs SuperLU (`max|dx|~6e-16`). (Measured: on the
+  2-D ECS decks this halves the single-thread factor via the newer MUMPS but
+  does not scale with threads — small independent fronts; see GitHub #3/#4.)
+- Docker images render `qscat.viz` animations: the base image ships **ffmpeg**
+  (matplotlib's `FFMpegWriter` backend) and the `build` stage installs the
+  `plot` extra (matplotlib), so the `runtime` image can write `.mp4`/`.gif`
+  out of the box and the `test` image exercises a new ffmpeg-gated `.mp4` viz
+  test (`test_animate_wavefunction_writes_mp4`) that skips on a bare Mac.
 - `qscat.viz` phase reference: `animate_wavefunction(..., phase_reference=E_ref)`
   colours each frame after a global phase `e^{+i E_ref * t}`, showing the phase
   RELATIVE to a channel base energy (removes the fast base-energy hue spin);
