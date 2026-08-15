@@ -28,7 +28,12 @@ grid: {preset: emoscat}
 
 artifacts:
   cross_section: true
-  eigenstates: true            # also emit F2's vibrational levels + eigenstates
+  # eigenstates -> F2's vibrational levels + eigenfunctions AND (LCP) the
+  # resonance electronic eigenstate at the width peak (complex pole + Gamma).
+  eigenstates: true
+  # full_field + ti_energies -> the LCP 1-D nuclear scattering states psi_sc(R)
+  # at those collision energies (under eigenstates/, kind lcp_scattering).
+  wavefunction_snapshots: {ti_energies: [0.03, 0.04], full_field: true}
 
 backend: auto
 output_dir: runs/f2-da-lcp

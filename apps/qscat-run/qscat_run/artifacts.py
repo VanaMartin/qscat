@@ -35,7 +35,7 @@ import numpy.typing as npt  # noqa: E402
 import yaml  # noqa: E402
 
 from qscat_run.config import ExperimentConfig
-from qscat_run.runner import EigenStates, ExperimentResult, WavefunctionSnapshot
+from qscat_run.runner import EigenStates, ExperimentResult, ResonanceState, WavefunctionSnapshot
 
 __all__ = ["write_artifacts"]
 
@@ -180,24 +180,58 @@ def _write_wavefunction_field_png(png_path: Path, wf: WavefunctionSnapshot) -> N
 
 
 def _write_eigenstates(out_dir: Path, es: EigenStates) -> None:
-    """`eigenstates_{label}.npz` (energies + eigenfunctions + axis) plus a png:
-    the level ladder annotating each eigenfunction |chi_v(R)|^2 offset to its
-    own energy -- the energy-levels-and-their-state-wavefunctions view."""
+    """`eigenstates_{label}.npz` (energies + fields + axis) plus a png: each
+    field's |psi|^2 offset to its own energy -- the levels-and-their-state-
+    wavefunctions view (vibrational) or the scattering states at each collision
+    energy (LCP)."""
     stem = f"eigenstates_{es.label.replace(':', '_')}"
     np.savez(out_dir / f"{stem}.npz", energies=es.energies, states=es.states, axis=es.axis)
 
+    is_vib = es.kind == "vibrational"
     fig, ax = plt.subplots(figsize=(7, 5))
-    dens = np.abs(es.states) ** 2  # (n_levels, len(axis))
-    scale = 0.6 * (es.energies[-1] - es.energies[0]) / max(1, len(es.energies))
-    for v, e in enumerate(es.energies):
-        d = dens[v]
+    dens = np.abs(es.states) ** 2  # (n, len(axis))
+    spread = float(es.energies[-1] - es.energies[0]) if len(es.energies) > 1 else 1.0
+    scale = 0.6 * spread / max(1, len(es.energies))
+    for i, e in enumerate(es.energies):
+        d = dens[i]
         peak = d.max() or 1.0
         ax.axhline(float(e), color="0.8", lw=0.6)
-        ax.plot(es.axis, float(e) + scale * d / peak, label=f"v={v}")
+        ax.plot(es.axis, float(e) + scale * d / peak, label=(f"v={i}" if is_vib else f"E={e:g}"))
     ax.set_xlabel("R (bohr)")
-    ax.set_ylabel(r"energy (Hartree) + $|\chi_v(R)|^2$ (offset)")
-    ax.set_title(f"{es.kind} levels ({es.label})")
+    ylabel = r"$|\chi_v|^2$" if is_vib else r"$|\psi_{sc}|^2$"
+    ax.set_ylabel(f"energy (Hartree) + {ylabel} (offset)")
+    ax.set_title(f"{es.kind} ({es.label})")
     ax.legend(fontsize="small", ncol=2)
+    fig.tight_layout()
+    fig.savefig(out_dir / f"{stem}.png")
+    plt.close(fig)
+
+
+def _write_resonance_state(out_dir: Path, rs: ResonanceState) -> None:
+    """`resonance_{label}.npz` (complex pole energy, width, R, electronic
+    eigenfunction + axis) plus a png of |phi_res(r)|^2 and Re/Im."""
+    stem = f"resonance_{rs.label.replace(':', '_')}"
+    np.savez(
+        out_dir / f"{stem}.npz",
+        energy=np.array(rs.energy),
+        width=np.array(rs.width),
+        R=np.array(rs.R),
+        state=rs.state,
+        axis=rs.axis,
+    )
+    real = rs.axis <= rs.axis.max()  # plot the real region only (axis is real_points)
+    r = rs.axis[real]
+    phi = rs.state[real]
+    fig, ax = plt.subplots(figsize=(7, 5))
+    ax.plot(r, np.abs(phi) ** 2, "k-", label=r"$|\phi_{res}|^2$")
+    ax.plot(r, phi.real, "C0-", lw=0.8, alpha=0.7, label=r"Re $\phi$")
+    ax.plot(r, phi.imag, "C1-", lw=0.8, alpha=0.7, label=r"Im $\phi$")
+    ax.set_xlabel("r (bohr)")
+    ax.set_title(
+        f"resonance state ({rs.label}) at R={rs.R:.3g} bohr: "
+        rf"$E_r$={rs.energy.real:.4g}, $\Gamma$={rs.width:.3g} Ha"
+    )
+    ax.legend(fontsize="small")
     fig.tight_layout()
     fig.savefig(out_dir / f"{stem}.png")
     plt.close(fig)
@@ -249,6 +283,12 @@ def write_artifacts(
         es_dir.mkdir(parents=True, exist_ok=True)
         for es in result.eigenstates:
             _write_eigenstates(es_dir, es)
+
+    if result.resonance_states:
+        rs_dir = out_dir / "resonance"
+        rs_dir.mkdir(parents=True, exist_ok=True)
+        for rs in result.resonance_states:
+            _write_resonance_state(rs_dir, rs)
 
     (out_dir / "config.resolved.yaml").write_text(
         yaml.safe_dump(_config_to_dict(result.resolved_cfg), sort_keys=False)

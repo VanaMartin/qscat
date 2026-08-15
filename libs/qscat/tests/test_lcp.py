@@ -114,3 +114,53 @@ def test_lcp_da_f2_magnitude_matches_exact_order():
     s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, np.array([0.02, 0.03, 0.04]))
     assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
     assert 0.5 < s[1] < 5.0                   # sigma_DA(0.03) ~ 1.47 (exact ~1.66); within ~2x
+
+
+def test_lcp_da_return_wavefunction_parity_and_shape():
+    # #2: return_wavefunction exposes the 1-D nuclear resolvent psi_sc(R) without
+    # changing sigma; None for a closed channel.
+    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
+    Vd, Gamma, eps, chi = _lcp_inputs(g_R)
+    E = np.array([0.02, 0.03])
+    s_plain = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, E)
+    s2, psis = lcp_da_cross_section(
+        g_R, F2.mu, Vd, Gamma, eps, chi, 0, E, return_wavefunction=True
+    )
+    assert np.array_equal(s_plain, s2)  # exact
+    assert isinstance(psis, list) and len(psis) == 2
+    for psi in psis:  # F2 exothermic -> both open
+        assert psi is not None and psi.shape == (g_R.n,) and psi.dtype == np.complex128
+    # scalar E -> a single array; E<=0 -> None (closed)
+    _s1, psi1 = lcp_da_cross_section(
+        g_R, F2.mu, Vd, Gamma, eps, chi, 0, 0.03, return_wavefunction=True
+    )
+    assert psi1 is not None and psi1.shape == (g_R.n,)
+    _, psi0 = lcp_da_cross_section(
+        g_R, F2.mu, Vd, Gamma, eps, chi, 0, -0.01, return_wavefunction=True
+    )
+    assert psi0 is None
+
+
+def test_resonance_eigenstate_at_peak_width():
+    # #1: the resonance eigenstate at the width peak -- a genuine resonance
+    # (Gamma>0), a c-product-normalized electronic eigenfunction, and Re(E_pole)
+    # consistent with local_complex_potential's V_d at that R.
+    from qscat.core.lcp import resonance_eigenstate_at_peak_width
+    from qscat.linalg import c_product
+
+    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
+    ga, gb = _elec_grids()
+    R_star, E_pole, phi = resonance_eigenstate_at_peak_width(F2, g_R, ga, gb)
+
+    assert 1.0 < R_star < 3.0                       # F2 resonance is inside the crossing
+    assert phi.shape == (ga.n,) and phi.dtype == np.complex128
+    assert -2.0 * E_pole.imag > 1e-4                # genuine width (Gamma>0)
+    # Re(E_pole) reproduces local_complex_potential's V_d at R_star
+    Vd, _ = local_complex_potential(F2, g_R, ga, gb)
+    j = int(np.flatnonzero(g_R.points.imag == 0.0)[
+        np.argmin(np.abs(g_R.points.real[g_R.points.imag == 0.0] - R_star))])
+    assert abs(E_pole.real - float(Vd[j].real)) < 5e-3
+    # c-product normalized over the electronic real region
+    p = phi.copy()
+    p[~(ga.real_points <= ga.R0)] = 0.0
+    assert abs(complex(c_product(p, p)) - 1.0) < 1e-6

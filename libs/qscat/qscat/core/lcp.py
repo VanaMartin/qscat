@@ -45,7 +45,7 @@ exactly like `driven.py`/`dissociation.py`.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, overload
 
 import numpy as np
 import numpy.typing as npt
@@ -53,14 +53,27 @@ import scipy.sparse as sp
 
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic, kinetic_sparse
 from qscat.ecs import find_resonance_pole
-from qscat.linalg import SparseLU
+from qscat.linalg import SparseLU, c_product
 
 from .dissociation import anion_electronic_states
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["local_complex_potential", "lcp_da_cross_section", "resonance_pole_walk"]
+__all__ = [
+    "local_complex_potential",
+    "lcp_da_cross_section",
+    "resonance_pole_walk",
+    "resonance_eigenstate",
+    "resonance_eigenstate_at_peak_width",
+]
+
+# `return_wavefunction` output types (same convention as driven/dissociation):
+# the 1-D nuclear resolvent `psi_sc(R)` per energy (`None` when the DA channel
+# is closed), one array for scalar `E`, one list entry per energy for array `E`.
+_Sigma = npt.NDArray[np.float64]
+_Psi = npt.NDArray[np.complex128] | None
+_PsiOut = _Psi | list[_Psi]
 
 
 def _h_el(model: ResonanceModel, R: complex, g: FemDvrEcsGrid) -> npt.NDArray[np.complex128]:
@@ -123,6 +136,86 @@ def resonance_pole_walk(
     return shift, gamma_w
 
 
+def resonance_eigenstate(
+    model: ResonanceModel,
+    elec_grid_a: FemDvrEcsGrid,
+    elec_grid_b: FemDvrEcsGrid,
+    R: float,
+    window: tuple[float, float, float, float],
+) -> tuple[complex, npt.NDArray[np.complex128]]:
+    """The resonance pole energy + its electronic eigenfunction at nuclear `R`.
+
+    Diagonalizes the fixed-`R` electronic Hamiltonian
+    `H_el(R) = -1/2 d^2/dr^2 + model.surface(r, R)` at the two ECS angles,
+    matches the angle-stable pole (`qscat.ecs.find_resonance_pole`, restricted to
+    `window = (re_lo, re_hi, im_lo, im_hi)`), and returns `(E_pole, phi_res)`:
+    `E_pole = V_d - i*Gamma/2` (complex; `Gamma = -2*Im`), and `phi_res` the
+    angle-`a` eigenvector nearest `E_pole`, c-product-normalized over the
+    electronic real region. The eigenstate counterpart of `local_complex_potential`
+    (which keeps only the pole energy). Raises whatever `find_resonance_pole`
+    raises if no pole lies in `window`.
+    """
+    E_a, V_a = eigen(_h_el(model, R, elec_grid_a))
+    E_b, _ = eigen(_h_el(model, R, elec_grid_b))
+    E_pole, _resid = find_resonance_pole(E_a, E_b, window)
+    idx = int(np.argmin(np.abs(E_a - E_pole)))
+    phi = V_a[:, idx].astype(np.complex128)
+    real = elec_grid_a.real_points <= elec_grid_a.R0
+    p = phi.copy()
+    p[~real] = 0.0
+    phi = phi / np.sqrt(c_product(p, p))
+    return complex(E_pole), np.asarray(phi, dtype=np.complex128)
+
+
+def resonance_eigenstate_at_peak_width(
+    model: ResonanceModel,
+    nuclear_grid: FemDvrEcsGrid,
+    elec_grid_a: FemDvrEcsGrid,
+    elec_grid_b: FemDvrEcsGrid,
+    *,
+    re_half_width: float = 0.05,
+    im_half_width: float = 0.05,
+) -> tuple[float, complex, npt.NDArray[np.complex128]]:
+    """`(R_star, E_pole, phi_res)` at the nuclear geometry of maximum resonance width.
+
+    Runs `local_complex_potential` to find `Gamma(R)`, then re-solves the resonance
+    eigenstate (`resonance_eigenstate`) at the real-`R` points in DESCENDING order
+    of `Gamma`, returning the first that resolves cleanly. This skips the frozen
+    small-`R` continuation tail (where `local_complex_potential` holds the shift
+    constant, so a fresh single-`R` pole find has no matching eigenvalue) and lands
+    on the genuinely most-resonant geometry -- the natural single representative
+    resonance state for a molecule (the width peak of `V_d(R)/Gamma(R)`).
+
+    Raises `RuntimeError` if no real-`R` point has a resolvable width (`Gamma` ~ 0
+    everywhere, e.g. a molecule with no open resonance in range).
+    """
+    Vd, gamma = local_complex_potential(
+        model, nuclear_grid, elec_grid_a, elec_grid_b,
+        re_half_width=re_half_width, im_half_width=im_half_width,
+    )
+    pts = nuclear_grid.points
+    real = np.flatnonzero(pts.imag == 0.0)
+    order = real[np.argsort(gamma[real])[::-1]]  # widest first
+    for j in order:
+        if gamma[j] < 1e-4:
+            break
+        R = float(pts[j].real)
+        e_re, g = float(Vd[j].real), float(gamma[j])
+        window = (
+            e_re - re_half_width, e_re + re_half_width,
+            -0.5 * g - im_half_width, -0.5 * g + im_half_width,
+        )
+        try:
+            E_pole, phi = resonance_eigenstate(model, elec_grid_a, elec_grid_b, R, window)
+        except (ValueError, np.linalg.LinAlgError):
+            continue  # frozen / unresolvable at this R -- try the next-widest
+        return R, E_pole, phi
+    raise RuntimeError(
+        "resonance_eigenstate_at_peak_width: no real-R point has a resolvable "
+        "resonance width (Gamma ~ 0 everywhere)"
+    )
+
+
 def local_complex_potential(
     model: ResonanceModel,
     nuclear_grid: FemDvrEcsGrid,
@@ -177,6 +270,38 @@ def local_complex_potential(
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 
 
+@overload
+def lcp_da_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[False] = ...,
+) -> _Sigma: ...
+
+
+@overload
+def lcp_da_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[True],
+) -> tuple[_Sigma, _PsiOut]: ...
+
+
 def lcp_da_cross_section(
     nuclear_grid: FemDvrEcsGrid,
     mu: float,
@@ -188,7 +313,8 @@ def lcp_da_cross_section(
     E: float | npt.ArrayLike,
     *,
     ordering: _Ordering = "COLAMD",
-) -> npt.NDArray[np.float64]:
+    return_wavefunction: bool = False,
+) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """LCP dissociative-attachment sigma_DA(E) (bohr^2), TI resolvent form.
 
     Solve `(E_tot I - H_res) psi_sc = d`, `H_res = T_nuc + diag(V_d - i Gamma/2)`,
@@ -202,6 +328,13 @@ def lcp_da_cross_section(
     unresolved on a coarse grid). The T->infty limit of eMoScat's TD
     `ModelLCP/SMatrix.cpp`. The approximation under test vs the exact-2D
     `da_cross_section` oracle -- validated at sigma_DA(F2,0.03)=1.47 vs ~1.66.
+
+    If `return_wavefunction`, also returns the 1-D nuclear resolvent
+    `psi_sc(R) = (E_tot I - H_res)^-1 d` per energy (`None` when the DA channel
+    is closed -- `E <= 0` or `E_tot <= eps_e`): one array for scalar `E`, one
+    list entry per energy for array `E`, same convention as
+    `driven`/`dissociation`. `psi_sc` is the DVR-coefficient vector on the full
+    nuclear grid (length `nuclear_grid.n`).
     """
     pts = nuclear_grid.points
     real_idx = np.flatnonzero(pts.imag == 0.0)
@@ -215,6 +348,7 @@ def lcp_da_cross_section(
 
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     out = np.zeros(e_arr.size, dtype=np.float64)
+    psi_list: list[_Psi] = [None] * e_arr.size
     lu: SparseLU | None = None
     for ie, e in enumerate(e_arr):
         if float(e) <= 0.0:
@@ -229,10 +363,14 @@ def lcp_da_cross_section(
         else:
             lu.refactor(a)
         psi_sc = lu.solve(doorway)
+        psi_list[ie] = np.asarray(psi_sc, dtype=np.complex128)
         k_r = float(np.sqrt(2.0 * mu * e_dr))
         val = psi_sc[b] / sqrt_wb
         s_da = np.sqrt(k_r / (2.0 * np.pi * mu)) * val
         out[ie] = 4.0 * np.pi**3 * abs(s_da) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
-    return np.asarray(out[0] if scalar else out, dtype=np.float64)
+    sigma = np.asarray(out[0] if scalar else out, dtype=np.float64)
+    if return_wavefunction:
+        return sigma, (psi_list[0] if scalar else psi_list)
+    return sigma

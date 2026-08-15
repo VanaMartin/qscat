@@ -83,7 +83,11 @@ from qscat.core import (
     ve_cross_section,
     vibrational_states,
 )
-from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
+from qscat.core.lcp import (
+    lcp_da_cross_section,
+    local_complex_potential,
+    resonance_eigenstate_at_peak_width,
+)
 from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
 from qscat.dvr import TensorGrid
 from qscat.linalg import set_default_backend
@@ -100,7 +104,13 @@ from qscat_run.config import (
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["WavefunctionSnapshot", "EigenStates", "ExperimentResult", "run_experiment"]
+__all__ = [
+    "WavefunctionSnapshot",
+    "EigenStates",
+    "ResonanceState",
+    "ExperimentResult",
+    "run_experiment",
+]
 
 # The three extractor classes `td.extractors` can select, sharing one
 # `Extractor`-protocol-conformant interface (`record`/`sigma`) plus the
@@ -134,20 +144,40 @@ class WavefunctionSnapshot:
 
 @dataclass(frozen=True)
 class EigenStates:
-    """The target's vibrational energy levels + their eigenstate wavefunctions
-    (the `eps`/`chi` already diagonalized for the cross section), opt-in via
-    `artifacts.eigenstates`.
+    """A set of labelled complex fields on one axis, at labelled (real) energies.
 
-    `label` tags the producing method + grid (`"ti:vibrational"` /
-    `"td:vibrational"`); `energies` are the level energies (Hartree, ascending),
-    `states` shape `(n_levels, len(axis))` the nuclear eigenfunctions, `axis`
-    the real (unscaled) nuclear coordinate (`FemDvrEcsGrid.real_points`).
+    Two producers today: the target's vibrational levels + eigenfunctions
+    (`kind="vibrational"`, from the `eps`/`chi` already diagonalized for the
+    cross section; `label` tags method+grid, e.g. `"ti:vibrational"`), and the
+    LCP nuclear SCATTERING states (`kind="lcp_scattering"`, the 1-D resolvent
+    `psi_sc(R)` at each open collision energy). `energies` are the level/collision
+    energies (Hartree), `states` shape `(n, len(axis))` the complex fields, `axis`
+    the real (unscaled) coordinate the fields live on (`FemDvrEcsGrid.real_points`).
     """
 
     kind: str
     label: str
     energies: npt.NDArray[np.float64]
     states: npt.NDArray[np.complex128]
+    axis: npt.NDArray[np.float64]
+
+
+@dataclass(frozen=True)
+class ResonanceState:
+    """The resonance electronic eigenstate at the nuclear width peak (opt-in via
+    `artifacts.eigenstates`, LCP-capable molecules).
+
+    `energy` is the complex resonance pole `E_r - i*Gamma/2` (Hartree); `width`
+    is `Gamma` (Hartree); `R` the nuclear geometry (bohr) it was solved at (the
+    peak of `Gamma(R)`); `state` shape `(len(axis),)` the c-product-normalized
+    electronic eigenfunction; `axis` the real electronic coordinate.
+    """
+
+    label: str
+    R: float
+    energy: complex
+    width: float
+    state: npt.NDArray[np.complex128]
     axis: npt.NDArray[np.float64]
 
 
@@ -174,6 +204,7 @@ class ExperimentResult:
     cross_section_vs_time: dict[str, npt.NDArray[np.float64]] = field(default_factory=dict)
     correlations: dict[str, npt.NDArray[Any]] = field(default_factory=dict)
     eigenstates: list[EigenStates] = field(default_factory=list)
+    resonance_states: list[ResonanceState] = field(default_factory=list)
 
 
 def _vprimes(obs: Observable) -> list[int]:
@@ -660,13 +691,18 @@ def _run_td(
 def _run_lcp(
     cfg: ExperimentConfig,
     timings: dict[str, float],
-) -> tuple[dict[str, npt.NDArray[np.float64]], list[EigenStates]]:
+) -> tuple[dict[str, npt.NDArray[np.float64]], list[EigenStates], list[ResonanceState]]:
     """The LCP path: reduce the exact 2-D DA resonance to a 1-D local complex
     potential `(V_d(R), Gamma(R))` (`qscat.core.lcp.local_complex_potential`,
     two ECS-angle electronic decks + the fine nuclear deck), then solve the 1-D
     driven equation (`lcp_da_cross_section`) per requested `da` observable.
     Keyed `"lcp:da:ch0"` so a `methods: [ti, lcp]` run overlays the exact and
     approximate DA cross sections on the SAME figure (disjoint key prefixes).
+
+    Also emits (opt-in) the vibrational levels + the resonance electronic
+    eigenstate at the width peak (`artifacts.eigenstates`) and the 1-D nuclear
+    scattering states `psi_sc(R)` at the requested snapshot energies
+    (`artifacts.wavefunction_snapshots.full_field` + `ti_energies`).
     """
     if cfg.energies is None:
         raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
@@ -697,6 +733,7 @@ def _run_lcp(
         timings["lcp:da"] = timings.get("lcp:da", 0.0) + (time.time() - t0)
 
     eigenstates: list[EigenStates] = []
+    resonance_states: list[ResonanceState] = []
     if cfg.artifacts.eigenstates:
         eigenstates.append(
             EigenStates(
@@ -707,7 +744,50 @@ def _run_lcp(
                 axis=g_R.real_points,
             )
         )
-    return cross_sections, eigenstates
+        # The resonance electronic eigenstate at the width peak (#1).
+        t0 = time.time()
+        try:
+            R_star, e_pole, phi_res = resonance_eigenstate_at_peak_width(
+                model, g_R, elec_a, elec_b
+            )
+            resonance_states.append(
+                ResonanceState(
+                    label="lcp:resonance",
+                    R=R_star,
+                    energy=e_pole,
+                    width=float(-2.0 * e_pole.imag),
+                    state=phi_res,
+                    axis=elec_a.real_points,
+                )
+            )
+        except RuntimeError:
+            pass  # no resolvable resonance width for this molecule/grid -- skip
+        timings["lcp:resonance_state"] = time.time() - t0
+
+    # The 1-D nuclear scattering states psi_sc(R) at the snapshot energies (#2).
+    wf_spec = cfg.artifacts.wavefunction_snapshots
+    if wf_spec is not None and wf_spec.full_field and wf_spec.ti_energies:
+        t0 = time.time()
+        snap_E = np.asarray(wf_spec.ti_energies, dtype=np.float64)
+        _, psis = lcp_da_cross_section(
+            g_R, model.mu, v_d, gamma, eps, chi, cfg.v_init, snap_E, return_wavefunction=True
+        )
+        psi_list = psis if isinstance(psis, list) else [psis]
+        open_E = [float(e) for e, p in zip(snap_E, psi_list, strict=True) if p is not None]
+        open_psi = [p for p in psi_list if p is not None]
+        if open_psi:
+            eigenstates.append(
+                EigenStates(
+                    kind="lcp_scattering",
+                    label="lcp:scattering",
+                    energies=np.asarray(open_E, dtype=np.float64),
+                    states=np.asarray(open_psi, dtype=np.complex128),
+                    axis=g_R.real_points,
+                )
+            )
+        timings["lcp:scattering_states"] = time.time() - t0
+
+    return cross_sections, eigenstates, resonance_states
 
 
 def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
@@ -731,6 +811,7 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     correlations: dict[str, npt.NDArray[Any]] = {}
     wavefunctions: list[WavefunctionSnapshot] = []
     eigenstates: list[EigenStates] = []
+    resonance_states: list[ResonanceState] = []
     grids: dict[str, TensorGrid] = {}
     energies = np.zeros(0, dtype=np.float64)
 
@@ -762,9 +843,10 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
             energies = resolved.energies.as_array()
 
     if "lcp" in resolved.methods:
-        lcp_cross_sections, lcp_eigenstates = _run_lcp(resolved, timings)
+        lcp_cross_sections, lcp_eigenstates, lcp_resonance_states = _run_lcp(resolved, timings)
         cross_sections.update(lcp_cross_sections)
         eigenstates.extend(lcp_eigenstates)
+        resonance_states.extend(lcp_resonance_states)
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
 
@@ -780,4 +862,5 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
         cross_section_vs_time=cross_section_vs_time,
         correlations=correlations,
         eigenstates=eigenstates,
+        resonance_states=resonance_states,
     )

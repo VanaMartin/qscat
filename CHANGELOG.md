@@ -7,6 +7,22 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `qscat.core.lcp` resonance/scattering observables: `lcp_da_cross_section(...,
+  return_wavefunction=True)` returns the 1-D nuclear resolvent `psi_sc(R)` per
+  energy (the DA scattering state; same overload convention as
+  `ve`/`da`/`dr_cross_section`); `resonance_eigenstate` and
+  `resonance_eigenstate_at_peak_width` return the resonance pole energy
+  (`E_r - iGamma/2`) + its c-product-normalized electronic eigenfunction (the
+  eigenstate counterpart of `local_complex_potential`, which keeps only the
+  pole energy), the width-peak variant robustly skipping the frozen small-R
+  continuation tail.
+- `qscat-run` LCP artifacts: with `artifacts.eigenstates`, an LCP run now also
+  emits the **resonance electronic eigenstate** (`ResonanceState`, `resonance/`
+  npz+png) at the width peak; with `wavefunction_snapshots.full_field` +
+  `ti_energies`, the **LCP nuclear scattering states** `psi_sc(R)` at those
+  collision energies (an `EigenStates` of `kind="lcp_scattering"`). Closes the
+  last "all observables" gaps for the LCP method (resonance states + LCP
+  wavefunctions).
 - Docker base image now leverages OpenMP-threaded numerics: the **OpenMP
   OpenBLAS** variant is selected (`update-alternatives`) and the hard
   `OPENBLAS_NUM_THREADS=1` pin is dropped, and an **OpenMP-enabled MUMPS 5.9.1
