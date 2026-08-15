@@ -1,0 +1,35 @@
+# qscat-run example: H2+ dissociative recombination (DR), TIME-INDEPENDENT
+# (the exact driven Lippmann-Schwinger solve). This is the config that
+# reproduces the committed short-range DR figure
+# (docs/physics/figures/h2plus-dr-cross-section-shortrange.png) -- it replaces
+# the retired validation/h2plus/dr_curves.py driver.
+#
+# The FULL 1300-bohr deck is ~1.15M unknowns -> Docker/MUMPS only. qscat_run's
+# H2P:emoscat preset grid is byte-identical to the retired driver's full_grid
+# (locked by validation/h2plus/test_config.py::test_h2p_decks_match_presets),
+# so this reproduces that driver's data exactly. Run under Docker:
+#
+#     docker/run.sh apps/qscat-run/examples/h2p-dr-ti.yaml runs/h2p-dr-ti
+#
+# For the log-log short-range accuracy view, narrow `energies` to a fine sweep
+# across the DR1 resonance, e.g. {min: 0.005, max: 0.007, step: 0.00001}.
+#
+# This example is schema-validated by apps/qscat-run/tests/test_examples.py but
+# NOT run in the fast gate (the full deck needs MUMPS).
+
+molecule: H2P
+methods: [ti]
+
+observables:
+  - {kind: dr, channels: 3}   # eMoScat's 3 Rydberg exit channels
+
+v_init: 0
+energies: {min: 0.001, max: 0.050, step: 0.001}
+
+grid: {preset: emoscat}
+
+artifacts:
+  cross_section: true
+
+backend: auto
+output_dir: runs/h2p-dr-ti

@@ -78,8 +78,8 @@ def _default_channel_count(kind: str, preset: presets.MoleculePreset) -> int:
 
 # Time-domain evolution defaults per molecule for the `init --methods td`
 # scaffold. Not part of `presets.MoleculePreset` (the brief's field list has
-# no dt/n_steps/order) -- N2/H2P mirror their validated decks
-# (`TD_WORKING_GRID`, `validation.h2plus.td_dr`); NO/F2 have no validated TD
+# no dt/n_steps/order) -- N2/H2P mirror their validated decks (N2's
+# `TD_WORKING_GRID`; H2P's eMoScat DR evolution: dt=10, order-3); NO/F2 have no validated TD
 # experiment yet (see CLAUDE.md's diatomic note), so their numbers are a
 # documented, unvalidated placeholder.
 _TD_DEFAULTS: dict[str, dict[str, float | int]] = {
