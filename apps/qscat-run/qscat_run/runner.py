@@ -83,6 +83,7 @@ from qscat.core import (
     ve_cross_section,
     vibrational_states,
 )
+from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
 from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
 from qscat.dvr import TensorGrid
 from qscat.linalg import set_default_backend
@@ -656,13 +657,67 @@ def _run_td(
     return cross_sections, cross_section_vs_time, correlations, wavefunctions, eigenstates, tg
 
 
+def _run_lcp(
+    cfg: ExperimentConfig,
+    timings: dict[str, float],
+) -> tuple[dict[str, npt.NDArray[np.float64]], list[EigenStates]]:
+    """The LCP path: reduce the exact 2-D DA resonance to a 1-D local complex
+    potential `(V_d(R), Gamma(R))` (`qscat.core.lcp.local_complex_potential`,
+    two ECS-angle electronic decks + the fine nuclear deck), then solve the 1-D
+    driven equation (`lcp_da_cross_section`) per requested `da` observable.
+    Keyed `"lcp:da:ch0"` so a `methods: [ti, lcp]` run overlays the exact and
+    approximate DA cross sections on the SAME figure (disjoint key prefixes).
+    """
+    if cfg.energies is None:
+        raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
+    energies = cfg.energies.as_array()
+
+    t0 = time.time()
+    g_R, elec_a, elec_b = presets.resolve_lcp_grids(cfg)
+    timings["lcp:grid"] = time.time() - t0
+
+    model = presets.MODELS[cfg.molecule]
+    n_vib = _n_vib(cfg, cfg.v_init + 1)
+
+    t0 = time.time()
+    eps, chi = vibrational_states(g_R, model.mu, n_vib, model.v0)
+    timings["lcp:vibrational_states"] = time.time() - t0
+
+    t0 = time.time()
+    v_d, gamma = local_complex_potential(model, g_R, elec_a, elec_b)
+    timings["lcp:local_complex_potential"] = time.time() - t0
+
+    cross_sections: dict[str, npt.NDArray[np.float64]] = {}
+    for obs in cfg.observables:
+        if obs.kind != "da":
+            continue  # LCP only produces the DA cross section
+        t0 = time.time()
+        sigma = lcp_da_cross_section(g_R, model.mu, v_d, gamma, eps, chi, cfg.v_init, energies)
+        cross_sections["lcp:da:ch0"] = np.asarray(sigma, dtype=np.float64)
+        timings["lcp:da"] = timings.get("lcp:da", 0.0) + (time.time() - t0)
+
+    eigenstates: list[EigenStates] = []
+    if cfg.artifacts.eigenstates:
+        eigenstates.append(
+            EigenStates(
+                kind="vibrational",
+                label="lcp:vibrational",
+                energies=np.asarray(eps, dtype=np.float64),
+                states=np.asarray(chi, dtype=np.complex128),
+                axis=g_R.real_points,
+            )
+        )
+    return cross_sections, eigenstates
+
+
 def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     """Resolve `cfg` fully (defaults, backend), run every requested method's
     observables on its own grid, and return the collected result.
 
-    `methods: [ti, td]` runs both (`_run_ti` then `_run_td`) and merges their
-    `cross_sections`/`wavefunctions` into one result -- their key prefixes
-    (`"ti:"`/`"td:"`) never collide, so the merge is a plain dict update.
+    `methods: [ti, td, lcp]` runs each and merges their `cross_sections`/
+    `wavefunctions`/`eigenstates` into one result -- their key prefixes
+    (`"ti:"`/`"td:"`/`"lcp:"`) never collide, so the merge is a plain dict
+    update and `cross_section.png` overlays exact vs approximation.
     """
     t_start = time.time()
     resolved = presets.resolve_defaults(cfg)
@@ -703,6 +758,13 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
         wavefunctions.extend(td_wavefunctions)
         eigenstates.extend(td_eigenstates)
         grids["td"] = tg_td
+        if resolved.energies is not None:
+            energies = resolved.energies.as_array()
+
+    if "lcp" in resolved.methods:
+        lcp_cross_sections, lcp_eigenstates = _run_lcp(resolved, timings)
+        cross_sections.update(lcp_cross_sections)
+        eigenstates.extend(lcp_eigenstates)
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
 

@@ -65,7 +65,7 @@ class ConfigError(click.ClickException):
     """
 
 
-VALID_METHODS = frozenset({"ti", "td"})
+VALID_METHODS = frozenset({"ti", "td", "lcp"})
 VALID_EXTRACTORS = frozenset({"flow", "delta", "tw"})
 
 
@@ -444,6 +444,30 @@ def validate_config(cfg: ExperimentConfig) -> None:
             "`td: {dt: ..., n_steps: ..., order: 3}` block (see the design spec's "
             "config schema for the full set of td keys)"
         )
+
+    if "lcp" in cfg.methods:
+        # LCP is the local-complex-potential APPROXIMATION of DA, so it needs a
+        # `da` observable, a molecule with an LCP path (F2/NO -- N2's DA is
+        # closed, H2P is DR), and the preset grids (no explicit-grid schema for
+        # the two ECS-angle electronic decks + fine nuclear deck).
+        if not any(obs.kind == "da" for obs in cfg.observables):
+            raise ConfigError(
+                "methods includes 'lcp' but no 'da' observable is requested; LCP "
+                "approximates the DA cross section -- add `{kind: da, channels: 1}`"
+            )
+        if cfg.grid.electronic is not None or cfg.grid.nuclear is not None:
+            raise ConfigError(
+                "the 'lcp' method does not support an explicit grid (it needs the "
+                "preset's paired two-ECS-angle electronic + fine nuclear decks); "
+                "use `grid: {preset: ...}` (or omit grid) with methods including 'lcp'"
+            )
+        variant = cfg.grid.preset or presets.DEFAULT_PRESET
+        lcp_preset = presets.PRESETS.get(f"{cfg.molecule}:{variant}")
+        if lcp_preset is None or lcp_preset.lcp_grids is None:
+            raise ConfigError(
+                f"the 'lcp' method is not available for {cfg.molecule}; LCP is "
+                "defined only for the DA molecules (F2, NO)"
+            )
 
     if cfg.td is not None:
         bad_extractors = sorted(e for e in cfg.td.extractors if e not in VALID_EXTRACTORS)

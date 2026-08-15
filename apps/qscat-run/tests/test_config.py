@@ -35,6 +35,73 @@ def test_minimal_config_loads_and_resolves(tmp_path: Path) -> None:
     assert [o.kind for o in cfg.observables] == ["ve", "da"]
 
 
+def test_lcp_method_accepted_for_f2_with_da(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [ti, lcp]
+        observables: [{kind: da, channels: 1}]
+        output_dir: out
+    """,
+        )
+    )
+    validate_config(cfg)  # no raise
+    assert "lcp" in cfg.methods
+
+
+def test_lcp_rejected_for_n2(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: N2
+        methods: [lcp]
+        observables: [{kind: da, channels: 1}]
+        output_dir: out
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="lcp.*not available"):
+        validate_config(cfg)
+
+
+def test_lcp_without_da_observable_rejected(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [lcp]
+        observables: [{kind: ve, channels: 2}]
+        output_dir: out
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="no 'da' observable"):
+        validate_config(cfg)
+
+
+def test_lcp_with_explicit_grid_rejected(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [lcp]
+        observables: [{kind: da, channels: 1}]
+        output_dir: out
+        grid:
+          electronic: {real: [[4, 2.0], [2, 8.0]], ecs: {angle: 30, elements: 3, quadrature: 5}}
+          nuclear: {real: [[3, 1.8], [3, 10.0]], ecs: {angle: 30, elements: 3, quadrature: 6}}
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="lcp.*does not support an explicit grid"):
+        validate_config(cfg)
+
+
 def test_dr_on_neutral_rejected(tmp_path: Path) -> None:
     cfg = load_config(
         _write(

@@ -59,6 +59,7 @@ __all__ = [
     "PRESETS",
     "available_presets",
     "resolve_grid",
+    "resolve_lcp_grids",
     "resolve_defaults",
     "resolve_test_function",
     "resolve_surface_r",
@@ -118,6 +119,11 @@ class MoleculePreset:
     da_surface_R: float | None = None
     dr_test_function: TestFunctionSpec | None = None
     dr_surface_R: float | None = None
+    # `(nuclear, elec_a, elec_b)` grid builder for the LCP method (the two
+    # ECS-angle electronic decks the resonance-pole match needs + the fine
+    # nuclear deck). `None` for molecules with no LCP path (N2 -- DA closed;
+    # H2P -- DR, not DA-LCP).
+    lcp_grids: Callable[[], tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]] | None = None
 
 
 # --- N2 -----------------------------------------------------------------
@@ -193,6 +199,27 @@ def _f2_ti_grid() -> TensorGrid:
 
 def _f2_td_grid() -> TensorGrid:
     return TensorGrid([electronic_grid(r_max=30.0, order=8, n_complex=6), _f2_nuc_grid()])
+
+
+# LCP (local-complex-potential) pole-matching uses TWO fixed-R electronic grids
+# at distinct ECS angles + the fine per-molecule nuclear deck (the same deck DA
+# uses) -- the exact recipe validation/diatomic/config.py's MoleculeConfig
+# encodes (lcp_angle_a=35, lcp_angle_b=44).
+_LCP_ANGLE_A, _LCP_ANGLE_B = 35.0, 44.0
+
+
+def _lcp_elec(angle_deg: float) -> FemDvrEcsGrid:
+    return electronic_grid(r_max=16.0, order=8, n_complex=6, angle_deg=angle_deg)
+
+
+def _f2_lcp_grids() -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]:
+    """(nuclear, elec_a, elec_b) for F2 LCP -- fine DA nuclear deck + two ECS angles."""
+    return _f2_nuc_grid(), _lcp_elec(_LCP_ANGLE_A), _lcp_elec(_LCP_ANGLE_B)
+
+
+def _no_lcp_grids() -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]:
+    """(nuclear, elec_a, elec_b) for NO LCP -- fine DA nuclear deck + two ECS angles."""
+    return _no_nuc_grid(), _lcp_elec(_LCP_ANGLE_A), _lcp_elec(_LCP_ANGLE_B)
 
 
 # --- H2+ -------------------------------------------------------------------
@@ -287,6 +314,7 @@ PRESETS: dict[str, MoleculePreset] = {
         ve_test_function=TestFunctionSpec(r0_out=24.0, p0_out=0.4, sigma_out=3.0),
         da_test_function=_F2_DA_TEST_FUNCTION,
         da_surface_R=_F2_DA_SURFACE_R,
+        lcp_grids=_no_lcp_grids,
     ),
     "F2:emoscat": MoleculePreset(
         molecule="F2",
@@ -302,6 +330,7 @@ PRESETS: dict[str, MoleculePreset] = {
         ve_test_function=TestFunctionSpec(r0_out=24.0, p0_out=0.4, sigma_out=3.0),
         da_test_function=_F2_DA_TEST_FUNCTION,
         da_surface_R=_F2_DA_SURFACE_R,
+        lcp_grids=_f2_lcp_grids,
     ),
     "H2P:emoscat": MoleculePreset(
         molecule="H2P",
@@ -375,6 +404,27 @@ def resolve_grid(cfg: ExperimentConfig, method: str) -> TensorGrid:
     if method == "td":
         return preset.td_grid()
     raise ConfigError(f"unknown method {method!r}; choose 'ti' or 'td'")
+
+
+def resolve_lcp_grids(
+    cfg: ExperimentConfig,
+) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]:
+    """The `(nuclear, elec_a, elec_b)` LCP grid triple for `cfg`'s molecule.
+
+    LCP has no explicit-grid path (its two ECS-angle electronic decks + fine
+    nuclear deck cannot be expressed by the single electronic/nuclear explicit
+    schema), so it always resolves through the named preset's `lcp_grids`.
+    Raises `ConfigError` if the molecule/variant has no LCP path.
+    """
+    variant = cfg.grid.preset or DEFAULT_PRESET
+    key = f"{cfg.molecule}:{variant}"
+    preset = PRESETS.get(key)
+    if preset is None or preset.lcp_grids is None:
+        raise ConfigError(
+            f"the 'lcp' method is not available for {cfg.molecule} ({variant}); "
+            "LCP is defined only for the DA molecules (F2, NO)"
+        )
+    return preset.lcp_grids()
 
 
 def _default_channels(kind: str, preset: MoleculePreset) -> int | tuple[int, ...]:
