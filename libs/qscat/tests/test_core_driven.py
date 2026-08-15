@@ -12,13 +12,20 @@ PRE-promotion `projects.n2_2d_cross_section.cross_section_2d.ve_cross_section_2d
 (checked out at the base commit, before this task rewired it into a shim over
 this very module) -- comparing against the NOW-rewired shim would be
 tautological, since the shim just calls straight through to
-`qscat.core.driven.ve_cross_section`. Matched to round-off (`atol=0`,
-`rtol=1e-12`): the promotion changes only where the Hamiltonian/interaction
-diagonal/`l` come from (`model.hamiltonian`/`model.interaction_diag`/
-`model.ell` instead of `build_h2d`/`interaction_diag`/`ELL`), not any
-arithmetic, and `N2.hamiltonian`/`N2.interaction_diag` are themselves already
-gated bit-identical to `build_h2d`/`interaction_diag`
+`qscat.core.driven.ve_cross_section`. The promotion changes only WHERE the
+Hamiltonian/interaction diagonal/`l` come from (`model.hamiltonian`/
+`model.interaction_diag`/`model.ell` instead of `build_h2d`/`interaction_diag`/
+`ELL`), not any arithmetic, and `N2.hamiltonian`/`N2.interaction_diag` are
+themselves already gated bit-identical to `build_h2d`/`interaction_diag`
 (`libs/qscat/tests/test_model.py`).
+
+Tolerance `rtol=1e-9` (`atol=0`): a real promotion regression would change the
+result by O(1) or not at all, never by 1e-9 -- so this is a strong regression
+pin, while staying ABOVE the cross-architecture round-off floor. The cross
+section comes from a multithreaded sparse LU solve, whose last 2-3 ULPs depend
+on the BLAS reduction order (Mac-ARM vs ubuntu-x86 OpenBLAS differ by ~1e-12
+here); a former `rtol=1e-12` passed on the capture machine but flaked on other
+CI architectures.
 
 Beyond the regression pin, this file gates the physics/contract invariants
 per the task brief: sigma real & >=0, correct shape, the scalar/array +
@@ -64,7 +71,7 @@ _SIGMA_REF = np.array(
 def test_ve_cross_section_matches_pre_promotion_reference() -> None:
     sigma = ve_cross_section(TG, N2, EPS, CHI, 0, [0, 1, 2], _E_ARR)
     assert sigma.shape == (3, 3)
-    np.testing.assert_allclose(sigma, _SIGMA_REF, rtol=1e-12, atol=0.0)
+    np.testing.assert_allclose(sigma, _SIGMA_REF, rtol=1e-9, atol=0.0)
 
 
 def test_scalar_energy_matches_the_corresponding_array_row() -> None:
@@ -73,14 +80,14 @@ def test_scalar_energy_matches_the_corresponding_array_row() -> None:
     documents, preserved verbatim by the promotion."""
     sigma_scalar = ve_cross_section(TG, N2, EPS, CHI, 0, [0, 1, 2], 0.2)
     assert sigma_scalar.shape == (3,)
-    np.testing.assert_allclose(sigma_scalar, _SIGMA_REF[2], rtol=1e-12, atol=0.0)
+    np.testing.assert_allclose(sigma_scalar, _SIGMA_REF[2], rtol=1e-9, atol=0.0)
 
 
 def test_return_wavefunction_contract() -> None:
     """`return_wavefunction=True` also returns `psi_plus`: `None` below
     threshold, else a complex array of length `tgrid.size` for a scalar `E`."""
     sigma, psi = ve_cross_section(TG, N2, EPS, CHI, 0, [0, 1, 2], 0.2, return_wavefunction=True)
-    np.testing.assert_allclose(sigma, _SIGMA_REF[2], rtol=1e-12, atol=0.0)
+    np.testing.assert_allclose(sigma, _SIGMA_REF[2], rtol=1e-9, atol=0.0)
     assert isinstance(psi, np.ndarray)  # scalar E -> one array, never a list
     assert psi.shape == (TG.size,)
     assert psi.dtype == np.complex128
