@@ -29,8 +29,6 @@ beyond skipping the Python-level setup) and is NOT run by the test suite.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import numpy as np
 import numpy.typing as npt
 from qscat.dvr import TensorGrid
@@ -40,16 +38,13 @@ from projects.n2_2d_cross_section.cross_section_2d import ve_cross_section_2d
 from projects.n2_2d_cross_section.cross_section_plot import plot_cross_sections
 from projects.n2_2d_cross_section.hamiltonian2d import MU
 from projects.n2_ti_cross_section.vibrational import vibrational_states
+from validation.figures import FIGURE_DIR
 from validation.n2 import loader
 from validation.n2.cross_section import N_VIB
 
 __all__ = ["FIGURE_PATH", "NPZ_PATH", "compute_ti_curve", "houfek_reference", "main"]
 
-# docs/physics/figures/, relative to this file's location four levels up
-# (validation/n2/ti_curve.py -> repo root -> docs/physics/figures).
-FIGURE_PATH = Path(__file__).resolve().parents[2] / "docs" / "physics" / "figures" / (
-    "n2-2d-ti-cross-section.png"
-)
+FIGURE_PATH = FIGURE_DIR / "n2-2d-ti-cross-section.png"
 NPZ_PATH = FIGURE_PATH.with_suffix(".npz")
 
 # The channels the 6 `reference.anchors()` exercise (0=elastic, 1..3=VE):

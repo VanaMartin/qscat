@@ -40,7 +40,6 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass
-from pathlib import Path
 
 import numpy as np
 from qscat.core.driven import ve_cross_section
@@ -50,6 +49,7 @@ from qscat.core.vibrational import vibrational_states
 from qscat.dvr import TensorGrid
 from qscat.model import N2
 
+from validation.figures import FIGURE_DIR
 from validation.n2 import loader
 
 __all__ = [
@@ -70,9 +70,7 @@ __all__ = [
     "main",
 ]
 
-FIGURE_PATH = Path(__file__).parent.parent.parent / "docs" / "physics" / "figures" / (
-    "n2-td-extractors-comparison.png"
-)
+FIGURE_PATH = FIGURE_DIR / "n2-td-extractors-comparison.png"
 
 # Converged N2 working grid -- SAME as `libs/qscat/tests/test_td_extractors.py`'s
 # `test_delta_agrees_with_ti_oracle_one_anchor`/`test_flux_agrees_with_ti_oracle_
@@ -155,9 +153,19 @@ def compute_live_result(energy_ha: float = E_LIVE, channel: int = VPRIMES[0]) ->
 
     t0 = time.time()
     sigma_all = td_ve_cross_sections_all(
-        tgrid, N2, eps, chi, V_INIT, [channel], energy_ha,
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
-        position=POSITION, surface=SURFACE,
+        tgrid,
+        N2,
+        eps,
+        chi,
+        V_INIT,
+        [channel],
+        energy_ha,
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        position=POSITION,
+        surface=SURFACE,
     )
     wall = time.time() - t0
 

@@ -29,18 +29,15 @@ its figure so the numbers are recoverable without re-solving.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import numpy as np
 import numpy.typing as npt
 from qscat.linalg import default_backend
 
+from validation.figures import FIGURE_DIR
 from validation.h2plus.config import N_CHANNELS, energy_grid, full_grid
 from validation.h2plus.dr import compute_dr
 
 __all__ = ["FIGURE_DIR", "full_range_curve", "short_range_curve", "main"]
-
-FIGURE_DIR = Path(__file__).resolve().parents[2] / "docs" / "physics" / "figures"
 
 
 def _sweep(

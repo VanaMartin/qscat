@@ -36,9 +36,9 @@ golden-data anchor gates.
 - [x] **R6** — `return_wavefunction` flag on `da_cross_section`/`dr_cross_section` (parity with `ve`). *capability*
 - [x] **R3** — full complex Ψ field in `WavefunctionSnapshot` + viz-ready npz artifact. *capability*
 - [x] **R1** — `lcp` as a `qscat-run` method; LCP angles + nuclear deck fields on `MoleculePreset`. *capability*
-- [ ] **R4** — migrate diatomic+h2plus curve drivers to committed `*.yaml` + generic figure step; delete superseded drivers/config schemas. *refactor/debt*
+- [x] **R4** — migrate diatomic+h2plus curve drivers to committed `*.yaml` + generic figure step; delete superseded drivers/config schemas. *refactor/debt*
 - [ ] **R7** — migrate `n2/ti_curve.py` curve-gen to qscat-run; keep anchor gates; drop `projects.*` reach-through. *refactor*
-- [ ] **R8** — single `FIGURE_DIR`; wire `nuclear_density` as a real observable or delete. *refactor*
+- [x] **R8** — single `FIGURE_DIR`; wire `nuclear_density` as a real observable or delete. *refactor*
 
 ---
 
