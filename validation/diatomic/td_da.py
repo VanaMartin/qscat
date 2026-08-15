@@ -64,9 +64,7 @@ def td_launch_grid(cfg: MoleculeConfig) -> TensorGrid:
 
 def _real_index_near(tg: TensorGrid, R: float) -> int:
     """Nearest REAL-region (unscaled) nuclear DVR index to `R` (bohr)."""
-    nuc = tg.grids[1]
-    real = nuc.real_points
-    return int(np.argmin(np.abs(np.where(real <= nuc.R0, real, 1e9) - R)))
+    return tg.grids[1].real_index_near(R)
 
 
 def compute_td_da_three_way(

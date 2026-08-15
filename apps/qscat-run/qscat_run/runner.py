@@ -84,7 +84,7 @@ from qscat.core import (
     vibrational_states,
 )
 from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
-from qscat.dvr import FemDvrEcsGrid, TensorGrid
+from qscat.dvr import TensorGrid
 from qscat.linalg import set_default_backend
 
 from qscat_run import presets
@@ -284,24 +284,12 @@ def _run_ti(
 # --- TD (time-dependent) runner ---------------------------------------------
 
 
-def _index_near(grid: FemDvrEcsGrid, r_value: float) -> int:
-    """Nearest REAL-region (unscaled) DVR index to `r_value` (bohr) on a
-    single `FemDvrEcsGrid`, the shared body of `_electronic_index_near`/
-    `_nuclear_index_near`, following `validation/h2plus/td_dr.py`'s
-    `_nuclear_index_near` helper of the same idea (nearest real-region
-    index, complex-tail points masked to `inf` first so they never win the
-    `argmin`)."""
-    real = grid.real_points
-    masked = np.where(real <= grid.R0, real, np.inf)
-    return int(np.argmin(np.abs(masked - r_value)))
-
-
 def _electronic_index_near(tg: TensorGrid, r_value: float) -> int:
     """The fixed electronic DVR index `Dirac`/`Flux` analyze at, nearest
     `r_value` (bohr) -- `_run_td` passes the resolved `ve` test function's
     own `r0_out` (the same point the VE `TannorWeeks` outgoing test packet
     is centered on; see module docstring)."""
-    return _index_near(tg.grids[0], r_value)
+    return tg.grids[0].real_index_near(r_value)
 
 
 def _nuclear_index_near(tg: TensorGrid, r_value: float) -> int:
@@ -309,7 +297,7 @@ def _nuclear_index_near(tg: TensorGrid, r_value: float) -> int:
     analysis point) -- `_run_td` passes `presets.resolve_surface_r(cfg,
     kind)`, generally a DIFFERENT point from that kind's own nuclear test
     function's `r0_out` (see module docstring / `MoleculePreset`)."""
-    return _index_near(tg.grids[1], r_value)
+    return tg.grids[1].real_index_near(r_value)
 
 
 def _wp_out_dict(tf: TestFunctionSpec) -> dict[str, float]:

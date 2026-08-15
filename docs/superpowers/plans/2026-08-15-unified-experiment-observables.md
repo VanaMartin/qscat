@@ -31,7 +31,7 @@ golden-data anchor gates.
 
 ## Task order & status
 
-- [ ] **R5** — hoist the real-region-DVR-index helper into `qscat.dvr` (kill 4 copies). *refactor*
+- [x] **R5** — hoist the real-region-DVR-index helper into `qscat.dvr` (kill 4 copies). *refactor*
 - [ ] **R2** — `eigenstates` observable: vibrational (eps+chi) + resonance poles in the result/artifacts. *capability*
 - [ ] **R6** — `return_wavefunction` flag on `da_cross_section`/`dr_cross_section` (parity with `ve`). *capability*
 - [ ] **R3** — full complex Ψ field in `WavefunctionSnapshot` + viz-ready npz artifact. *capability*
