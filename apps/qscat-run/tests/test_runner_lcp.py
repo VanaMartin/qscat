@@ -54,6 +54,53 @@ def test_lcp_run_produces_da_cross_section(tmp_path: Path) -> None:
 
 
 @pytest.mark.slow
+def test_lcp_emits_resonance_state_and_scattering_wavefunctions(tmp_path: Path) -> None:
+    # #1 + #2: with eigenstates + full_field wavefunction snapshots, the LCP run
+    # emits the resonance electronic eigenstate (complex pole + width) AND the
+    # 1-D nuclear scattering states psi_sc(R) at the snapshot energies.
+    out_dir = tmp_path / "out"
+    cfg = load_config(
+        _write(
+            tmp_path,
+            f"""
+        molecule: F2
+        methods: [lcp]
+        observables: [{{kind: da, channels: 1}}]
+        energies: {{values: [0.02, 0.03, 0.04]}}
+        grid: {{preset: emoscat}}
+        artifacts:
+          cross_section: true
+          eigenstates: true
+          wavefunction_snapshots: {{ti_energies: [0.03, 0.04], full_field: true}}
+        backend: auto
+        output_dir: {out_dir}
+    """,
+        )
+    )
+    validate_config(cfg)
+    result = run_experiment(cfg)
+
+    # #1 resonance state
+    assert len(result.resonance_states) == 1
+    rs = result.resonance_states[0]
+    assert rs.label == "lcp:resonance"
+    assert rs.width > 0.0 and abs(-2.0 * rs.energy.imag - rs.width) < 1e-12
+    assert rs.state.shape == (rs.axis.size,) and rs.state.dtype == np.complex128
+    assert 1.0 < rs.R < 3.0
+
+    # #2 LCP scattering states (F2 exothermic -> both snapshot energies open)
+    scat = [es for es in result.eigenstates if es.kind == "lcp_scattering"]
+    assert len(scat) == 1
+    assert scat[0].states.shape == (2, scat[0].axis.size)
+    assert np.all(np.isfinite(scat[0].states))
+
+    write_artifacts(result, cfg, out_dir, timestamp="2026-01-01T00:00:00")
+    assert (out_dir / "resonance" / "resonance_lcp_resonance.npz").exists()
+    assert (out_dir / "resonance" / "resonance_lcp_resonance.png").exists()
+    assert (out_dir / "eigenstates" / "eigenstates_lcp_scattering.npz").exists()
+
+
+@pytest.mark.slow
 def test_ti_and_lcp_overlay_disjoint_keys(tmp_path: Path) -> None:
     # methods: [ti, lcp] must produce BOTH the exact (ti:da) and approximate
     # (lcp:da) DA cross sections under disjoint keys -> one overlaid figure.
