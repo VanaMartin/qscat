@@ -102,12 +102,34 @@ not a converged cross section.
   the **c-product vs conjugated-dot** agreement (≈3.4e-12) justifies the convention. This is a
   well-posedness gate, NOT a converged σ_DR — the real grid is 1300 bohr.
 - **Docker/MUMPS**: `validation/h2plus/dr.py`'s `main()` is the full-deck smoke path (a couple of
-  energies); a **converged σ_DR(E) curve is the explicit follow-on** (needs the container +
-  MUMPS). No independent golden data ships (eMoScat's `output/H2+/sigma.txt` is absent from the
-  snapshot), so — as for the neutral DA — the exact solver is the oracle.
+  energies); the **converged σ_DR(E) curve** (needs the container + MUMPS) is now delivered — see
+  the next section. No independent golden data ships (eMoScat's `output/H2+/sigma.txt` is absent
+  from the snapshot), so — as for the neutral DA — the exact solver is the oracle.
+
+## The converged full-size σ_DR(E) curve (delivered)
+
+Run the full 1300-bohr deck (~1.15 M unknowns) under MUMPS via the reproducible generator
+`validation/h2plus/dr_curves.py` (Docker/MUMPS-only, NOT in the test suite — same convention as
+`dr.py`'s `main()`):
+
+```
+uv run python -m validation.h2plus.dr_curves
+```
+
+It writes two figures + their sidecar data (`.npz`/`.csv`) into `docs/physics/figures/`:
+
+- `h2plus-dr-cross-section.png` — the coarse `config.energy_grid()` sweep (0.001..0.050 Ha), first
+  `N_CHANNELS = 3` Rydberg exit channels, linear axes.
+- `h2plus-dr-cross-section-shortrange.png` — 200 log-spaced energies across the DR1 resonance in
+  [0.005, 0.007] Ha, log–log (the accuracy figure).
+
+![H2+ DR cross section, short range (log–log)](figures/h2plus-dr-cross-section-shortrange.png)
+
+The DR1 (n=0) channel peaks at **E ≈ 6.31×10⁻³ Ha, σ ≈ 1.54×10⁻³ bohr²** above a ~10⁻¹⁰
+background; DR2 (n=1) is ~10⁻⁶; DR3 (n=2) is closed in this window (threshold ≈ 0.0426 Ha). The
+solve runs in ~8 s/energy on the `sadaharu` host with the OpenMP MUMPS backend.
 
 ## Follow-ons
 
-A converged full-size σ_DR(E) curve under Docker/MUMPS; the π channel (`p_pi_potential`);
-optimizing the mpmath Coulomb functions (a Rust/COULCC port) if they become the bottleneck;
-rotational / coupled-channel (non-adiabatic) DR.
+The π channel (`p_pi_potential`); optimizing the mpmath Coulomb functions (a Rust/COULCC port) if
+they become the bottleneck; rotational / coupled-channel (non-adiabatic) DR.
