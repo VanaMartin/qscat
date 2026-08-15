@@ -33,7 +33,7 @@ golden-data anchor gates.
 
 - [x] **R5** — hoist the real-region-DVR-index helper into `qscat.dvr` (kill 4 copies). *refactor*
 - [ ] **R2** — `eigenstates` observable: vibrational (eps+chi) + resonance poles in the result/artifacts. *capability*
-- [ ] **R6** — `return_wavefunction` flag on `da_cross_section`/`dr_cross_section` (parity with `ve`). *capability*
+- [x] **R6** — `return_wavefunction` flag on `da_cross_section`/`dr_cross_section` (parity with `ve`). *capability*
 - [ ] **R3** — full complex Ψ field in `WavefunctionSnapshot` + viz-ready npz artifact. *capability*
 - [ ] **R1** — `lcp` as a `qscat-run` method; LCP angles + nuclear deck fields on `MoleculePreset`. *capability*
 - [ ] **R4** — migrate diatomic+h2plus curve drivers to committed `*.yaml` + generic figure step; delete superseded drivers/config schemas. *refactor/debt*

@@ -29,7 +29,7 @@ the `ResonanceModel` protocol under `TYPE_CHECKING` only, exactly like
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, overload
 
 import numpy as np
 import numpy.typing as npt
@@ -50,6 +50,14 @@ __all__ = ["anion_electronic_states", "v_dr_diag", "da_cross_section", "dr_cross
 # Mirrors driven.py's re-declaration of SparseLU's private ordering Literal,
 # so `ordering` passes through to ve_cross_section type-clean.
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
+
+# `return_wavefunction` output types, same convention as driven.py: the driven
+# Psi+ per energy (`None` below threshold), one array for scalar `E`, one list
+# entry per energy for an array `E`. The SAME Psi+ the cross section is built
+# from -- exposed so a caller can snapshot/animate it (e.g. qscat_run).
+_Sigma = npt.NDArray[np.float64]
+_Psi = npt.NDArray[np.complex128] | None
+_PsiOut = _Psi | list[_Psi]
 
 # Bound-state signature on an ECS grid: true bound levels have |Im(E)| ~ 1e-15,
 # ECS-continuum states jump to >= 1e-7. Same tolerance as `vibrational_states`.
@@ -125,6 +133,36 @@ def v_dr_diag(tgrid: TensorGrid, model: ResonanceModel) -> npt.NDArray[np.comple
     )
 
 
+@overload
+def da_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[False] = ...,
+) -> _Sigma: ...
+
+
+@overload
+def da_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[True],
+) -> tuple[_Sigma, _PsiOut]: ...
+
+
 def da_cross_section(
     tgrid: TensorGrid,
     model: ResonanceModel,
@@ -135,7 +173,8 @@ def da_cross_section(
     *,
     n_channels: int = 1,
     ordering: _Ordering = "COLAMD",
-) -> npt.NDArray[np.float64]:
+    return_wavefunction: bool = False,
+) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """sigma_DA(E) in bohr^2, exact 2-D driven-equation DA cross section.
 
     Reuses `ve_cross_section(..., return_wavefunction=True)` for `Psi+` (one
@@ -143,6 +182,11 @@ def da_cross_section(
     `n_channels` anion dissociation channels with `V_DR`. `E` may be scalar
     (returns `(n_channels,)`) or an array (returns `(len(E), n_channels)`).
     `sigma = 0` for a closed channel (`E <= 0` or `E_DR = E_tot - eps_e <= 0`).
+
+    If `return_wavefunction`, also returns the driven `Psi+` (the SAME solution
+    the T-matrix is built from; `None` for `E <= 0`): one array for scalar `E`,
+    one list entry per energy for an array `E` -- same convention as
+    `ve_cross_section`.
     """
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     mu = model.mu
@@ -181,7 +225,40 @@ def da_cross_section(
             out[ie, n] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
-    return np.asarray(out[0] if scalar else out, dtype=np.float64)
+    sigma = np.asarray(out[0] if scalar else out, dtype=np.float64)
+    if return_wavefunction:
+        return sigma, (psi_list[0] if scalar else psi_list)
+    return sigma
+
+
+@overload
+def dr_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[False] = ...,
+) -> _Sigma: ...
+
+
+@overload
+def dr_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[True],
+) -> tuple[_Sigma, _PsiOut]: ...
 
 
 def dr_cross_section(
@@ -194,7 +271,8 @@ def dr_cross_section(
     *,
     n_channels: int = 3,
     ordering: _Ordering = "COLAMD",
-) -> npt.NDArray[np.float64]:
+    return_wavefunction: bool = False,
+) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """sigma_DR(E) in bohr^2, exact 2-D driven-equation dissociative-
     recombination cross section for a CHARGED target (e.g. H2+, `charge=-1`).
 
@@ -216,6 +294,10 @@ def dr_cross_section(
     `E` may be scalar (returns `(n_channels,)`) or an array (returns
     `(len(E), n_channels)`). `sigma_n = 0` for a closed channel (`E <= 0` or
     `E_DR = E_tot - E_ryd(n) <= 0`, `E_ryd(n) = eps_e[n]`).
+
+    If `return_wavefunction`, also returns the driven `Psi+` (`None` for
+    `E <= 0`): one array for scalar `E`, one list entry per energy for an array
+    `E` -- same convention as `ve_cross_section`/`da_cross_section`.
     """
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     mu = model.mu
@@ -234,6 +316,7 @@ def dr_cross_section(
     ident = sp.identity(tgrid.size, format="csc", dtype=np.complex128)
 
     out = np.zeros((len(e_arr), n_channels), dtype=np.float64)
+    psi_list: list[_Psi] = [None] * len(e_arr)
     lu: SparseLU | None = None
     for ie, e in enumerate(e_arr):
         if float(e) <= 0.0:
@@ -249,6 +332,7 @@ def dr_cross_section(
         k = float(np.sqrt(2.0 * float(e)))
         psi_i = channel_vector(tgrid, k, chi[v_init], model.ell, charge=model.charge)
         psi_plus = psi_i + lu.solve(v_diag * psi_i)
+        psi_list[ie] = psi_plus
         v_psi = v_dr * psi_plus
 
         for n in range(n_channels):
@@ -263,4 +347,7 @@ def dr_cross_section(
             out[ie, n] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
-    return np.asarray(out[0] if scalar else out, dtype=np.float64)
+    sigma = np.asarray(out[0] if scalar else out, dtype=np.float64)
+    if return_wavefunction:
+        return sigma, (psi_list[0] if scalar else psi_list)
+    return sigma

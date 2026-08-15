@@ -103,6 +103,27 @@ def test_da_shape_scalar_and_array():
     assert np.all(sN >= 0.0) and np.all(np.isfinite(sN))
 
 
+def test_da_return_wavefunction_parity_and_shape():
+    # return_wavefunction must not change sigma (byte-identical), and must hand
+    # back the driven Psi+ (full tensor field) per energy -- the R6 hook that
+    # lets qscat_run snapshot/animate the DA scattering state.
+    tg = _working()
+    eps, chi = vibrational_states(tg.grids[1], F2.mu, 3, F2.v0)
+    E = np.array([0.05, 0.10])
+    s_plain = da_cross_section(tg, F2, eps, chi, 0, E)
+    s2, psis = da_cross_section(tg, F2, eps, chi, 0, E, return_wavefunction=True)
+    assert np.array_equal(s_plain, s2)  # exact, not approx
+    assert isinstance(psis, list) and len(psis) == 2
+    for psi in psis:
+        assert psi is not None and psi.shape == (tg.size,) and psi.dtype == np.complex128
+    # scalar E -> a single array (None only below threshold)
+    s1, psi1 = da_cross_section(tg, F2, eps, chi, 0, 0.05, return_wavefunction=True)
+    assert psi1 is not None and psi1.shape == (tg.size,)
+    # E <= 0 -> closed, Psi+ is None
+    _, psi0 = da_cross_section(tg, F2, eps, chi, 0, -0.01, return_wavefunction=True)
+    assert psi0 is None
+
+
 def test_n2_channel_closed_is_zero():
     # N2's DA threshold is +0.5 Ha -> sigma_DA == 0 across the whole VE window.
     tg = _working()
@@ -155,3 +176,10 @@ def test_dr_wellposed_and_threshold_ordered():
     s = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2)
     assert s.shape == (2, 2)
     assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
+
+    # R6: return_wavefunction hands back the driven Psi+ without changing sigma.
+    s2, psis = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2, return_wavefunction=True)
+    assert np.array_equal(s, s2)
+    assert isinstance(psis, list) and len(psis) == 2
+    for psi in psis:
+        assert psi is not None and psi.shape == (tg.size,) and psi.dtype == np.complex128
