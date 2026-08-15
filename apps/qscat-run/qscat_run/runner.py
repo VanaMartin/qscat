@@ -99,7 +99,7 @@ from qscat_run.config import (
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["WavefunctionSnapshot", "ExperimentResult", "run_experiment"]
+__all__ = ["WavefunctionSnapshot", "EigenStates", "ExperimentResult", "run_experiment"]
 
 # The three extractor classes `td.extractors` can select, sharing one
 # `Extractor`-protocol-conformant interface (`record`/`sigma`) plus the
@@ -131,6 +131,25 @@ class WavefunctionSnapshot:
     psi: npt.NDArray[np.complex128] | None = None
 
 
+@dataclass(frozen=True)
+class EigenStates:
+    """The target's vibrational energy levels + their eigenstate wavefunctions
+    (the `eps`/`chi` already diagonalized for the cross section), opt-in via
+    `artifacts.eigenstates`.
+
+    `label` tags the producing method + grid (`"ti:vibrational"` /
+    `"td:vibrational"`); `energies` are the level energies (Hartree, ascending),
+    `states` shape `(n_levels, len(axis))` the nuclear eigenfunctions, `axis`
+    the real (unscaled) nuclear coordinate (`FemDvrEcsGrid.real_points`).
+    """
+
+    kind: str
+    label: str
+    energies: npt.NDArray[np.float64]
+    states: npt.NDArray[np.complex128]
+    axis: npt.NDArray[np.float64]
+
+
 @dataclass
 class ExperimentResult:
     """Everything a config run produced, ready for `artifacts.write_artifacts`.
@@ -141,7 +160,8 @@ class ExperimentResult:
     `cross_section_vs_time` artifact. `correlations` (TD only, opt-in):
     keyed `"{label}:t"`/`"{label}:c"` (`TannorWeeks`/`Dirac`) or
     `"{label}:t"`/`"{label}:b"`/`"{label}:d"` (`Flux`) -- the raw recorded
-    per-step series behind each extractor's transform.
+    per-step series behind each extractor's transform. `eigenstates` (opt-in):
+    one entry per method run, the vibrational levels + eigenfunctions.
     """
 
     energies: npt.NDArray[np.float64]
@@ -152,6 +172,7 @@ class ExperimentResult:
     grids: dict[str, TensorGrid] = field(default_factory=dict)
     cross_section_vs_time: dict[str, npt.NDArray[np.float64]] = field(default_factory=dict)
     correlations: dict[str, npt.NDArray[Any]] = field(default_factory=dict)
+    eigenstates: list[EigenStates] = field(default_factory=list)
 
 
 def _vprimes(obs: Observable) -> list[int]:
@@ -209,10 +230,28 @@ def _project_density(
     return rho_r, rho_R
 
 
+def _vibrational_eigenstates(
+    label: str,
+    tg: TensorGrid,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+) -> EigenStates:
+    """Package the already-computed nuclear `eps`/`chi` as an `EigenStates`."""
+    return EigenStates(
+        kind="vibrational",
+        label=label,
+        energies=np.asarray(eps, dtype=np.float64),
+        states=np.asarray(chi, dtype=np.complex128),
+        axis=tg.grids[1].real_points,
+    )
+
+
 def _run_ti(
     cfg: ExperimentConfig,
     timings: dict[str, float],
-) -> tuple[dict[str, npt.NDArray[np.float64]], list[WavefunctionSnapshot], TensorGrid]:
+) -> tuple[
+    dict[str, npt.NDArray[np.float64]], list[WavefunctionSnapshot], list[EigenStates], TensorGrid
+]:
     if cfg.energies is None:
         raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
     energies = cfg.energies.as_array()
@@ -231,6 +270,10 @@ def _run_ti(
     t0 = time.time()
     eps, chi = vibrational_states(tg.grids[1], model.mu, n_vib, model.v0)
     timings["ti:vibrational_states"] = time.time() - t0
+
+    eigenstates: list[EigenStates] = []
+    if cfg.artifacts.eigenstates:
+        eigenstates.append(_vibrational_eigenstates("ti:vibrational", tg, eps, chi))
 
     cross_sections: dict[str, npt.NDArray[np.float64]] = {}
     for obs in cfg.observables:
@@ -290,7 +333,7 @@ def _run_ti(
             )
         timings["ti:wavefunction_snapshots"] = time.time() - t0
 
-    return cross_sections, wavefunctions, tg
+    return cross_sections, wavefunctions, eigenstates, tg
 
 
 # --- TD (time-dependent) runner ---------------------------------------------
@@ -398,14 +441,16 @@ def _run_td(
     dict[str, npt.NDArray[np.float64]],
     dict[str, npt.NDArray[Any]],
     list[WavefunctionSnapshot],
+    list[EigenStates],
     TensorGrid,
 ]:
     """The TD path: ONE Pade propagation drives every requested observable's
     extractor(s), plus a SECOND `V_int=0` free-reference propagation when an
     elastic VE channel is requested; returns `(cross_sections,
-    cross_section_vs_time, correlations, wavefunctions, grid)` -- see module
-    docstring for the full design (per-kind test-function resolution, the
-    free-reference propagation, the moment-truncation mechanism).
+    cross_section_vs_time, correlations, wavefunctions, eigenstates, grid)` --
+    see module docstring for the full design (per-kind test-function
+    resolution, the free-reference propagation, the moment-truncation
+    mechanism).
     """
     if cfg.td is None:
         raise ConfigError("no 'td' block resolved for this config")
@@ -430,6 +475,10 @@ def _run_td(
     t0 = time.time()
     eps, chi = vibrational_states(tg.grids[1], model.mu, n_vib, model.v0)
     timings["td:vibrational_states"] = time.time() - t0
+
+    eigenstates: list[EigenStates] = []
+    if cfg.artifacts.eigenstates:
+        eigenstates.append(_vibrational_eigenstates("td:vibrational", tg, eps, chi))
 
     wp_in = {"r0": td.incident.r0, "p0": td.incident.p0, "sigma": td.incident.sigma}
     psi0 = initial_state(tg, chi[cfg.v_init], **wp_in)
@@ -604,7 +653,7 @@ def _run_td(
                 )
             )
 
-    return cross_sections, cross_section_vs_time, correlations, wavefunctions, tg
+    return cross_sections, cross_section_vs_time, correlations, wavefunctions, eigenstates, tg
 
 
 def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
@@ -626,13 +675,15 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     cross_section_vs_time: dict[str, npt.NDArray[np.float64]] = {}
     correlations: dict[str, npt.NDArray[Any]] = {}
     wavefunctions: list[WavefunctionSnapshot] = []
+    eigenstates: list[EigenStates] = []
     grids: dict[str, TensorGrid] = {}
     energies = np.zeros(0, dtype=np.float64)
 
     if "ti" in resolved.methods:
-        ti_cross_sections, ti_wavefunctions, tg_ti = _run_ti(resolved, timings)
+        ti_cross_sections, ti_wavefunctions, ti_eigenstates, tg_ti = _run_ti(resolved, timings)
         cross_sections.update(ti_cross_sections)
         wavefunctions.extend(ti_wavefunctions)
+        eigenstates.extend(ti_eigenstates)
         grids["ti"] = tg_ti
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
@@ -643,12 +694,14 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
             td_cross_section_vs_time,
             td_correlations,
             td_wavefunctions,
+            td_eigenstates,
             tg_td,
         ) = _run_td(resolved, timings)
         cross_sections.update(td_cross_sections)
         cross_section_vs_time.update(td_cross_section_vs_time)
         correlations.update(td_correlations)
         wavefunctions.extend(td_wavefunctions)
+        eigenstates.extend(td_eigenstates)
         grids["td"] = tg_td
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
@@ -664,4 +717,5 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
         grids=grids,
         cross_section_vs_time=cross_section_vs_time,
         correlations=correlations,
+        eigenstates=eigenstates,
     )

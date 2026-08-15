@@ -120,6 +120,32 @@ def test_ti_full_field_snapshot_emits_complex_psi_and_domain_colour(tmp_path: Pa
     assert (out_dir / "wavefunction" / f"psi_{wf.label}_field.png").exists()
 
 
+def test_ti_eigenstates_artifact_emits_levels_and_states(tmp_path: Path) -> None:
+    # R2: artifacts.eigenstates emits the vibrational levels + their eigenstate
+    # wavefunctions (the eps/chi already diagonalized for the cross section).
+    out_dir = tmp_path / "out"
+    yaml_text = _tiny_f2_ti_yaml(str(out_dir)).replace(
+        "cross_section: true",
+        "cross_section: true\n  eigenstates: true",
+    )
+    cfg = load_config(_write(tmp_path, yaml_text))
+    validate_config(cfg)
+    assert cfg.artifacts.eigenstates is True
+
+    result = run_experiment(cfg)
+    assert len(result.eigenstates) == 1
+    es = result.eigenstates[0]
+    assert es.kind == "vibrational" and es.label == "ti:vibrational"
+    assert es.energies.ndim == 1 and es.energies.size >= 1
+    assert es.states.shape == (es.energies.size, es.axis.size)
+    assert np.all(np.diff(es.energies) > 0)  # ascending levels
+
+    write_artifacts(result, cfg, out_dir, timestamp="2026-01-01T00:00:00")
+    npz = np.load(out_dir / "eigenstates" / "eigenstates_ti_vibrational.npz")
+    assert npz["energies"].size == es.energies.size
+    assert (out_dir / "eigenstates" / "eigenstates_ti_vibrational.png").exists()
+
+
 def test_run_cli_dry_run_prints_plan_without_solving(tmp_path: Path) -> None:
     out_dir = tmp_path / "out"
     cfg_path = _write(tmp_path, _tiny_f2_ti_yaml(str(out_dir)))

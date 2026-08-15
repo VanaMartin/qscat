@@ -303,6 +303,9 @@ class ArtifactSpec:
     cross_section_vs_time: CrossSectionVsTimeSpec | None = None
     correlations: bool = False
     wavefunction_snapshots: WavefunctionSnapshotsSpec | None = None
+    # Emit the target's vibrational energy levels + their eigenstate wavefunctions
+    # (the eps/chi already diagonalized for the cross section) as an artifact.
+    eigenstates: bool = False
 
 
 def _load_artifacts(raw: dict[str, Any] | None) -> ArtifactSpec:
@@ -328,6 +331,7 @@ def _load_artifacts(raw: dict[str, Any] | None) -> ArtifactSpec:
         cross_section_vs_time=cvt,
         correlations=bool(raw.get("correlations", False)),
         wavefunction_snapshots=wf,
+        eigenstates=bool(raw.get("eigenstates", False)),
     )
 
 

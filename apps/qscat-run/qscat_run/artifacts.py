@@ -35,7 +35,7 @@ import numpy.typing as npt  # noqa: E402
 import yaml  # noqa: E402
 
 from qscat_run.config import ExperimentConfig
-from qscat_run.runner import ExperimentResult, WavefunctionSnapshot
+from qscat_run.runner import EigenStates, ExperimentResult, WavefunctionSnapshot
 
 __all__ = ["write_artifacts"]
 
@@ -179,6 +179,30 @@ def _write_wavefunction_field_png(png_path: Path, wf: WavefunctionSnapshot) -> N
     plt.close(fig)
 
 
+def _write_eigenstates(out_dir: Path, es: EigenStates) -> None:
+    """`eigenstates_{label}.npz` (energies + eigenfunctions + axis) plus a png:
+    the level ladder annotating each eigenfunction |chi_v(R)|^2 offset to its
+    own energy -- the energy-levels-and-their-state-wavefunctions view."""
+    stem = f"eigenstates_{es.label.replace(':', '_')}"
+    np.savez(out_dir / f"{stem}.npz", energies=es.energies, states=es.states, axis=es.axis)
+
+    fig, ax = plt.subplots(figsize=(7, 5))
+    dens = np.abs(es.states) ** 2  # (n_levels, len(axis))
+    scale = 0.6 * (es.energies[-1] - es.energies[0]) / max(1, len(es.energies))
+    for v, e in enumerate(es.energies):
+        d = dens[v]
+        peak = d.max() or 1.0
+        ax.axhline(float(e), color="0.8", lw=0.6)
+        ax.plot(es.axis, float(e) + scale * d / peak, label=f"v={v}")
+    ax.set_xlabel("R (bohr)")
+    ax.set_ylabel(r"energy (Hartree) + $|\chi_v(R)|^2$ (offset)")
+    ax.set_title(f"{es.kind} levels ({es.label})")
+    ax.legend(fontsize="small", ncol=2)
+    fig.tight_layout()
+    fig.savefig(out_dir / f"{stem}.png")
+    plt.close(fig)
+
+
 def write_artifacts(
     result: ExperimentResult,
     cfg: ExperimentConfig,
@@ -219,6 +243,12 @@ def write_artifacts(
         wf_dir.mkdir(parents=True, exist_ok=True)
         for wf in result.wavefunctions:
             _write_wavefunction_snapshot(wf_dir, wf)
+
+    if cfg.artifacts.eigenstates and result.eigenstates:
+        es_dir = out_dir / "eigenstates"
+        es_dir.mkdir(parents=True, exist_ok=True)
+        for es in result.eigenstates:
+            _write_eigenstates(es_dir, es)
 
     (out_dir / "config.resolved.yaml").write_text(
         yaml.safe_dump(_config_to_dict(result.resolved_cfg), sort_keys=False)
