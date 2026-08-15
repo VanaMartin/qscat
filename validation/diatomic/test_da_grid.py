@@ -26,6 +26,23 @@ def test_da_grid_uses_emoscat_nuclear_resolution() -> None:
     assert tg.grids[1].n > 700  # ~960 for the F2 deck at quad 14
 
 
+@pytest.mark.parametrize("name", ["F2", "NO"])
+def test_diatomic_decks_match_presets(name: str) -> None:
+    """Guard: the eMoScat deck here and `qscat_run.presets`' copy of it must
+    stay byte-identical. The two exist separately because layering forbids
+    `qscat_run` importing `validation` (and the tuner should not reach into the
+    app's grid internals) -- this test is what keeps them from drifting."""
+    import qscat_run.presets as presets
+
+    here = CONFIGS[name].da_grid().grids[1]
+    there = {"F2": presets._f2_nuc_grid, "NO": presets._no_nuc_grid}[name]()
+    assert here.n == there.n
+    assert here.R0 == there.R0
+    assert np.allclose(here.points, there.points)
+    assert np.allclose(here.weights, there.weights)
+    assert np.allclose(here.real_points, there.real_points)
+
+
 @pytest.mark.slow
 def test_f2_sigma_da_wellposed_on_emoscat_grid() -> None:
     cfg = CONFIGS["F2"]

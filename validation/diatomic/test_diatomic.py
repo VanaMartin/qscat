@@ -19,7 +19,10 @@ from qscat.core.vibrational import vibrational_states
 from qscat.dvr import TensorGrid
 
 from validation.diatomic.config import CONFIGS, MoleculeConfig
-from validation.diatomic.curves import VPRIMES, compute_ti_curve
+
+# The exact-2D VE channels [elastic, v'=1, v'=2] the dense curves (now produced
+# by `apps/qscat-run`, e.g. `qscat-run run` on an F2/NO VE config) sweep.
+VPRIMES = [0, 1, 2]
 
 
 def _small_tgrid() -> TensorGrid:
@@ -55,16 +58,20 @@ def test_ti_curve_shape_and_physical(name: str) -> None:
     assert 0.001 < (eps[1] - eps[0]) < 0.02
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("name", ["NO", "F2"])
 def test_low_energy_resonance_drives_vibrational_excitation(name: str) -> None:
-    """On the converged working grid: each molecule's low-lying resonance
-    produces a strong v'=1 excitation cross section somewhere in its resonance
-    window -- the physical signature the exact-2D solver must reproduce for the
-    port to be meaningful. A couple of energies only (seconds), not the full
-    curve."""
+    """On the converged deck (the fine `da_grid`, the same grid `apps/qscat-run`
+    uses for these molecules): each molecule's low-lying resonance produces a
+    strong v'=1 excitation cross section somewhere in its resonance window --
+    the physical signature the exact-2D solver must reproduce for the port to be
+    meaningful. A couple of energies only, not the full curve (the dense curve +
+    figure are now produced by `apps/qscat-run`)."""
     cfg = CONFIGS[name]
+    tg = cfg.da_grid()
+    eps, chi = vibrational_states(tg.grids[1], cfg.model.mu, cfg.n_vib, cfg.model.v0)
     E = np.array([0.024, 0.036]) if name == "F2" else np.array([0.030, 0.044])
-    _, sigma, _ = compute_ti_curve(cfg, E)
+    sigma = ve_cross_section(tg, cfg.model, eps, chi, 0, VPRIMES, E)
     assert np.all(sigma >= 0.0) and np.all(np.isfinite(sigma))
     # strong resonant vibrational excitation: v'=1 exceeds ~0.3 bohr^2 at a peak
     assert sigma[:, 1].max() > 0.3
