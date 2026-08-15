@@ -362,6 +362,30 @@ def test_animate_wavefunction_writes_gif(tmp_path) -> None:
     assert anim is not None
 
 
+def test_animate_wavefunction_writes_mp4(tmp_path) -> None:
+    # Exercises the FFMpegWriter path. Skips when ffmpeg is not on PATH (bare
+    # Mac), so this stays green locally while the Docker `test` image -- which
+    # ships ffmpeg -- actually renders the .mp4 (mirrors the MUMPS pattern).
+    pytest.importorskip("matplotlib")
+    from matplotlib import animation
+
+    if not animation.FFMpegWriter.isAvailable():
+        pytest.skip("ffmpeg not on PATH; .mp4 writer unavailable")
+    from qscat.viz import animate_wavefunction
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(24, 24))
+    n = tg.grids[0].n * tg.grids[1].n
+    rng = np.random.default_rng(0)
+    frames = [np.exp(1j * k) * (rng.standard_normal(n) + 0j) for k in range(3)]
+    out = tmp_path / "psi.mp4"
+    anim = animate_wavefunction(
+        proj, frames, mag=0.5, times=[0.0, 1.0, 2.0], outfile=out, fps=5, contours=True
+    )
+    assert out.exists() and out.stat().st_size > 0
+    assert anim is not None
+
+
 def test_animate_wavefunction_empty_frames_raises() -> None:
     pytest.importorskip("matplotlib")
     from qscat.viz import animate_wavefunction

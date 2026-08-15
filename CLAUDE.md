@@ -404,14 +404,22 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     **MUMPS** (`libmumps-seq-dev` + `libscotch-dev`, the sequential build) for
     `qscat.linalg`'s optional MUMPS backend, and **synthesizes the pkg-config
     `.pc` files** Debian omits (the conda-forge `{d,z,c,s}mumps_seq` names
-    python-mumps looks for) so the extra builds against the system library.
+    python-mumps looks for) so the extra builds against the system library. It
+    also installs **ffmpeg** — the matplotlib `FFMpegWriter` backend for
+    `qscat.viz`'s `.mp4` animation output (the `.gif` path needs only pillow) —
+    which flows to the `build`/`test` stages so the ffmpeg-gated `.mp4` viz test
+    renders rather than skips.
   - `docker/Dockerfile` is `FROM ${BASE_IMAGE}` and layers `build` → `test` →
-    `runtime` on top, using `uv sync --all-packages` for setup. The `test`
-    stage adds `--extra mumps` so the MUMPS backend is exercised; `runtime`
-    deliberately omits it, keeping python-mumps out of the production image.
-    MUMPS tests run in the container and `@skipif`-absent on a MUMPS-less box
-    (a bare Mac), so the Mac suite stays green while the same tests run + pass
-    in Docker — see docs/physics/mumps-sparse-backend.md.
+    `runtime` on top, using `uv sync --all-packages` for setup. The `build`
+    stage adds `--extra plot` (matplotlib) so `qscat.viz` animation works in
+    `runtime`, which copies `build`'s venv verbatim (no toolchain there to
+    re-sync/rebuild the Rust kernel); `runtime` also installs **ffmpeg** for the
+    `.mp4` writer. The `test` stage additionally adds `--extra mumps` so the
+    MUMPS backend is exercised; that extra is test-only (`runtime` omits it,
+    keeping python-mumps out of the production image). Both MUMPS and the `.mp4`
+    viz test run in the container and `@skipif`/`@skip`-absent on a bare Mac (no
+    system MUMPS, no ffmpeg), so the Mac suite stays green while the same tests
+    run + pass in Docker — see docs/physics/mumps-sparse-backend.md.
   - `docker/build.sh [test|runtime]` builds the base image then the
     requested app target. Verified working: `test` prints `5 passed`;
     `runtime` prints `qscat 0.0.0 ready`.
