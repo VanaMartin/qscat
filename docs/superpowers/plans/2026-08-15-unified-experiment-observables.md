@@ -79,7 +79,29 @@ asserts shapes + that chi diagonalizes the nuclear Hamiltonian.
 **Acceptance:** `methods: [ti, lcp]` on F2 overlays exact vs LCP σ_DA from one config, matching
 `validation/diatomic/lcp_da_curves.py`'s numbers on a small grid.
 
-### R4/R7/R8 — consolidation
+### R4/R7/R8 — consolidation (BLOCKED on a shared-schema dependency — see finding)
 Migrate each `validation/*` curve driver to a committed `*.yaml` + the generic figure step; delete
 the driver + its rogue config schema once a run reproduces its committed figure (laptop-feasible
 grids only; Docker-only decks stay until container-verified). Collapse the 3 `FIGURE_DIR` copies.
+
+**FINDING (2026-08-15, discovered during R4 blast-radius mapping):** the two "rogue config
+schemas" the audit flagged for deletion are NOT driver-internal — they are the eMoScat-deck source
+of truth for a SEPARATE sub-project, the discretisation tuner:
+- `validation/diatomic/config.py` (`MoleculeConfig`/`CONFIGS`) is imported by
+  `validation/tuning/calibrate.py`, `test_resonance_aware.py`, `test_emoscat_decks.py` (the tuner's
+  calibration + gate), plus `test_diatomic.py`/`test_da_grid.py`.
+- `validation/h2plus/config.py` (the free functions) is imported by the same three tuning modules
+  plus `test_config.py`.
+
+So R4 is not "delete 7 drivers"; it is a cross-sub-project migration: the tuner's deck references
+must first move onto `qscat_run.presets` (or the decks must be relocated to a shared, non-driver
+home) BEFORE any config schema can be deleted. Combined with (a) figure/data-parity verification
+needing slow full-preset runs, (b) the h2+ deck being Docker/MUMPS-only, and (c) the n2 curve's
+bespoke Houfek-reference overlay (a golden-data gate the audit says KEEP), the deletion step is a
+deliberate, reviewed refactor — NOT an autonomous sweep. **Recommended sequencing for R4:**
+1. Relocate the eMoScat per-molecule deck definitions to a single shared module (e.g.
+   `validation/decks.py` or fold into `qscat_run.presets`), repoint the tuner + drivers at it.
+2. Verify qscat-run reproduces each committed figure's DATA on the preset deck (F2/NO on laptop;
+   h2+ under Docker) — the acceptance gate.
+3. Only then delete the superseded curve drivers, keeping the n2 Houfek gate + `validation/tuning`.
+The capability half (R1/R2/R3/R5/R6) is independent and complete; R4/R7/R8 ship as a follow-on PR.
