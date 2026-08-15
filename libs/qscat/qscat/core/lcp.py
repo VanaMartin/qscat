@@ -75,6 +75,12 @@ _Sigma = npt.NDArray[np.float64]
 _Psi = npt.NDArray[np.complex128] | None
 _PsiOut = _Psi | list[_Psi]
 
+# `resonance_eigenstate_at_peak_width`: max |Re(E_pole_fresh) - V_d_walk| for a
+# real R to count as GENUINE (walk-accepted) rather than a frozen-tail point. At
+# an accepted R the fresh find and the walk are the same computation (agree to
+# round-off); on the frozen plateau V_d is stale and the fresh pole drifts O(1e-2).
+_FROZEN_TOL = 1e-3
+
 
 def _h_el(model: ResonanceModel, R: complex, g: FemDvrEcsGrid) -> npt.NDArray[np.complex128]:
     return kinetic(g, 1.0) + np.diag(model.surface(g.points, R))
@@ -180,14 +186,18 @@ def resonance_eigenstate_at_peak_width(
 
     Runs `local_complex_potential` to find `Gamma(R)`, then re-solves the resonance
     eigenstate (`resonance_eigenstate`) at the real-`R` points in DESCENDING order
-    of `Gamma`, returning the first that resolves cleanly. This skips the frozen
-    small-`R` continuation tail (where `local_complex_potential` holds the shift
-    constant, so a fresh single-`R` pole find has no matching eigenvalue) and lands
-    on the genuinely most-resonant geometry -- the natural single representative
-    resonance state for a molecule (the width peak of `V_d(R)/Gamma(R)`).
+    of `Gamma`, returning the first GENUINE (non-frozen) resolve. A point is
+    genuine iff the fresh single-`R` pole reproduces `local_complex_potential`'s
+    `V_d(R)` there (to `_FROZEN_TOL`): at a walk-accepted `R` the two are the same
+    computation and agree to round-off, whereas on the frozen small-`R`
+    continuation tail (where the walk holds the shift constant) `V_d` is stale and
+    the fresh pole drifts away -- so this both excludes the unphysical frozen
+    plateau from the width search AND guarantees the returned `E_pole` is
+    consistent with the reported `V_d(R_star)`. Lands on the genuinely
+    most-resonant geometry -- the natural single representative resonance state.
 
-    Raises `RuntimeError` if no real-`R` point has a resolvable width (`Gamma` ~ 0
-    everywhere, e.g. a molecule with no open resonance in range).
+    Raises `RuntimeError` if no real-`R` point has a resolvable, genuine width
+    (`Gamma` ~ 0 everywhere, or every wide point is frozen).
     """
     Vd, gamma = local_complex_potential(
         model, nuclear_grid, elec_grid_a, elec_grid_b,
@@ -208,11 +218,13 @@ def resonance_eigenstate_at_peak_width(
         try:
             E_pole, phi = resonance_eigenstate(model, elec_grid_a, elec_grid_b, R, window)
         except (ValueError, np.linalg.LinAlgError):
-            continue  # frozen / unresolvable at this R -- try the next-widest
+            continue  # unresolvable at this R -- try the next-widest
+        if abs(E_pole.real - e_re) > _FROZEN_TOL:
+            continue  # frozen point: fresh pole disagrees with the stale V_d -- skip
         return R, E_pole, phi
     raise RuntimeError(
-        "resonance_eigenstate_at_peak_width: no real-R point has a resolvable "
-        "resonance width (Gamma ~ 0 everywhere)"
+        "resonance_eigenstate_at_peak_width: no real-R point has a resolvable, "
+        "genuine (non-frozen) resonance width"
     )
 
 
