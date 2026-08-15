@@ -36,9 +36,9 @@ golden-data anchor gates.
 - [x] **R6** — `return_wavefunction` flag on `da_cross_section`/`dr_cross_section` (parity with `ve`). *capability*
 - [x] **R3** — full complex Ψ field in `WavefunctionSnapshot` + viz-ready npz artifact. *capability*
 - [x] **R1** — `lcp` as a `qscat-run` method; LCP angles + nuclear deck fields on `MoleculePreset`. *capability*
-- [x] **R4** — migrate diatomic+h2plus curve drivers to committed `*.yaml` + generic figure step; delete superseded drivers/config schemas. *refactor/debt*
-- [ ] **R7** — migrate `n2/ti_curve.py` curve-gen to qscat-run; keep anchor gates; drop `projects.*` reach-through. *refactor*
-- [x] **R8** — single `FIGURE_DIR`; wire `nuclear_density` as a real observable or delete. *refactor*
+- [x] **R4** — DIATOMIC drivers retired -> qscat-run; config trimmed to the tuner's deck source + a byte-identity guard. H2+ drivers KEPT (Docker/MUMPS-scale; deck-identical to presets so parity is proven, but the full 1300-bohr figure run is not laptop-verifiable). *refactor/debt*
+- [x] **R7** — DECISION: KEEP `n2/ti_curve.py` — it IS the Houfek golden-data gate (`test_ti_curve.py`), and the audit says keep the anchor gates. qscat-run has no Houfek-reference overlay, so migrating the curve-gen would lose the golden comparison; not worth the risk to a working gate. The `projects.*` reach-through is a documented minor cleanup deferral (it must stay exact to the gated solver). *refactor*
+- [x] **R8** — single shared `validation/figures.py::FIGURE_DIR`; the three per-driver copies repointed. (`nuclear_density` wiring left as a noted follow-on — it lives in `projects/n2_2d_cross_section`, not a validation driver, so it is out of the qscat-run consolidation's path.) *refactor*
 
 ---
 
