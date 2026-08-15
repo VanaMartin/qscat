@@ -291,6 +291,10 @@ class CrossSectionVsTimeSpec:
 class WavefunctionSnapshotsSpec:
     td_times: tuple[float, ...] = ()
     ti_energies: tuple[float, ...] = ()
+    # When true, snapshots also carry the FULL complex Psi field (masked to the
+    # real region) -- emitted as `psi` in the npz + a domain-coloured png, for
+    # `qscat.viz`. Default false keeps only the cheap per-axis density marginals.
+    full_field: bool = False
 
 
 @dataclass(frozen=True)
@@ -314,6 +318,7 @@ def _load_artifacts(raw: dict[str, Any] | None) -> ArtifactSpec:
         WavefunctionSnapshotsSpec(
             td_times=tuple(float(t) for t in wf_raw.get("td_times", ())),
             ti_energies=tuple(float(e) for e in wf_raw.get("ti_energies", ())),
+            full_field=bool(wf_raw.get("full_field", False)),
         )
         if wf_raw
         else None

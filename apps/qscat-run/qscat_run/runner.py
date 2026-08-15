@@ -109,12 +109,17 @@ type TdExtractor = TannorWeeks | Dirac | Flux
 
 @dataclass(frozen=True)
 class WavefunctionSnapshot:
-    """One TI Psi+ density snapshot, projected onto each axis.
+    """One TI Psi+ (or TD Psi(t)) snapshot: per-axis density + optional field.
 
-    `rho_r`/`rho_R` are `|Psi+|^2` summed over the OTHER axis (masked to the
+    `rho_r`/`rho_R` are `|Psi|^2` summed over the OTHER axis (masked to the
     unscaled/real region first, via `TensorGrid.real_mask()`); `r`/`R` are
     the matching real (unscaled) coordinate axes (`FemDvrEcsGrid.real_points`),
     same length as `rho_r`/`rho_R` respectively.
+
+    `psi` is the FULL complex field reshaped to `(len(r), len(R))` and masked to
+    the real region (zeros in the ECS tail), present only when the config asks
+    for `full_field` -- the phase-carrying field `qscat.viz` domain-colours
+    (the marginals throw the phase away). `None` otherwise.
     """
 
     kind: str
@@ -123,6 +128,7 @@ class WavefunctionSnapshot:
     rho_R: npt.NDArray[np.float64]
     r: npt.NDArray[np.float64]
     R: npt.NDArray[np.float64]
+    psi: npt.NDArray[np.complex128] | None = None
 
 
 @dataclass
@@ -186,13 +192,18 @@ def _n_vib(cfg: ExperimentConfig, required: int) -> int:
     return max(base, required)
 
 
+def _masked_field(tg: TensorGrid, psi: npt.NDArray[np.complex128]) -> npt.NDArray[np.complex128]:
+    """`psi` reshaped to `tg.shape` with the ECS tail zeroed (real region only)."""
+    masked = psi.copy()
+    masked[~tg.real_mask()] = 0.0
+    return np.asarray(masked.reshape(tg.shape), dtype=np.complex128)
+
+
 def _project_density(
     tg: TensorGrid, psi: npt.NDArray[np.complex128]
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
     """`|psi|^2`, masked to the real region, summed onto each axis."""
-    masked = psi.copy()
-    masked[~tg.real_mask()] = 0.0
-    dens = np.abs(masked.reshape(tg.shape)) ** 2
+    dens = np.abs(_masked_field(tg, psi)) ** 2
     rho_r = np.asarray(dens.sum(axis=1), dtype=np.float64)
     rho_R = np.asarray(dens.sum(axis=0), dtype=np.float64)
     return rho_r, rho_R
@@ -274,6 +285,7 @@ def _run_ti(
                     rho_R=rho_R,
                     r=tg.grids[0].real_points,
                     R=tg.grids[1].real_points,
+                    psi=_masked_field(tg, psi_plus) if wf_spec.full_field else None,
                 )
             )
         timings["ti:wavefunction_snapshots"] = time.time() - t0
@@ -504,6 +516,9 @@ def _run_td(
 
     wf_spec = cfg.artifacts.wavefunction_snapshots
     snapshot_times = list(wf_spec.td_times) if wf_spec is not None and wf_spec.td_times else None
+    # Keep the full Psi(t) field at the snapshot times only when full_field is
+    # asked for (each kept field is a tg.size copy -- opt-in for memory).
+    keep_psi_at = snapshot_times if (wf_spec is not None and wf_spec.full_field) else None
 
     t0 = time.time()
     result = propagate(
@@ -516,6 +531,7 @@ def _run_td(
         order=td.order,
         extractors=[ext for _, ext, _, _ in entries],
         snapshot_times=snapshot_times,
+        keep_psi_at=keep_psi_at,
     )
     timings["td:propagate"] = time.time() - t0
 
@@ -584,6 +600,7 @@ def _run_td(
                     rho_R=snap.rho_R,
                     r=tg.grids[0].real_points,
                     R=tg.grids[1].real_points,
+                    psi=_masked_field(tg, snap.psi) if snap.psi is not None else None,
                 )
             )
 

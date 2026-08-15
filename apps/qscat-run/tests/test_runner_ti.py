@@ -93,6 +93,33 @@ def test_ti_run_writes_cross_section_and_manifest(tmp_path: Path) -> None:
     assert (out_dir / "wavefunction" / f"psi_{wf.label}.png").exists()
 
 
+def test_ti_full_field_snapshot_emits_complex_psi_and_domain_colour(tmp_path: Path) -> None:
+    # R3: `full_field: true` keeps the complex Psi field (not just the density
+    # marginals) and renders a domain-coloured png + a `psi` array in the npz.
+    out_dir = tmp_path / "out"
+    yaml_text = _tiny_f2_ti_yaml(str(out_dir)).replace(
+        "ti_energies: [0.05]",
+        "ti_energies: [0.05]\n    full_field: true",
+    )
+    cfg = load_config(_write(tmp_path, yaml_text))
+    validate_config(cfg)
+    assert cfg.artifacts.wavefunction_snapshots is not None
+    assert cfg.artifacts.wavefunction_snapshots.full_field is True
+
+    result = run_experiment(cfg)
+    wf = result.wavefunctions[0]
+    assert wf.psi is not None
+    assert wf.psi.dtype == np.complex128
+    assert wf.psi.shape == (wf.r.size, wf.R.size)
+    # the marginals must be recoverable from the field (real-region masked)
+    assert np.allclose(np.abs(wf.psi) ** 2 @ np.ones(wf.R.size), wf.rho_r)
+
+    write_artifacts(result, cfg, out_dir, timestamp="2026-01-01T00:00:00")
+    npz = np.load(out_dir / "wavefunction" / f"psi_{wf.label}.npz")
+    assert "psi" in npz and npz["psi"].shape == wf.psi.shape
+    assert (out_dir / "wavefunction" / f"psi_{wf.label}_field.png").exists()
+
+
 def test_run_cli_dry_run_prints_plan_without_solving(tmp_path: Path) -> None:
     out_dir = tmp_path / "out"
     cfg_path = _write(tmp_path, _tiny_f2_ti_yaml(str(out_dir)))

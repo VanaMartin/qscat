@@ -129,7 +129,15 @@ def _write_wavefunction_snapshot(out_dir: Path, wf: WavefunctionSnapshot) -> Non
     # rather than appending, which would silently truncate "E0.05" to "E0".
     npz_path = out_dir / f"psi_{wf.label}.npz"
     png_path = out_dir / f"psi_{wf.label}.png"
-    np.savez(npz_path, rho_r=wf.rho_r, rho_R=wf.rho_R, r=wf.r, R=wf.R)
+    arrays: dict[str, npt.NDArray[Any]] = {
+        "rho_r": wf.rho_r,
+        "rho_R": wf.rho_R,
+        "r": wf.r,
+        "R": wf.R,
+    }
+    if wf.psi is not None:
+        arrays["psi"] = wf.psi  # full complex field (n_r, n_R), for qscat.viz
+    np.savez(npz_path, **arrays)  # type: ignore[arg-type]
 
     fig, (ax_r, ax_R) = plt.subplots(1, 2, figsize=(10, 4))
     ax_r.plot(wf.r, wf.rho_r)
@@ -140,6 +148,32 @@ def _write_wavefunction_snapshot(out_dir: Path, wf: WavefunctionSnapshot) -> Non
     ax_R.set_xlabel("R (bohr)")
     ax_R.set_title("nuclear")
     fig.suptitle(f"{wf.kind} {wf.label}")
+    fig.tight_layout()
+    fig.savefig(png_path)
+    plt.close(fig)
+
+    if wf.psi is not None:
+        _write_wavefunction_field_png(out_dir / f"psi_{wf.label}_field.png", wf)
+
+
+def _write_wavefunction_field_png(png_path: Path, wf: WavefunctionSnapshot) -> None:
+    """Domain-coloured (phase->hue, magnitude->brightness) render of the full
+    complex Psi field on the real-region r x R block, via `qscat.viz`'s pure-numpy
+    `complex_to_rgb` -- the phase-carrying view the density marginals discard."""
+    from qscat.viz import complex_to_rgb
+
+    assert wf.psi is not None
+    rgb = complex_to_rgb(wf.psi)  # (n_r, n_R, 3)
+    fig, ax = plt.subplots(figsize=(6, 5))
+    ax.imshow(
+        rgb,
+        origin="lower",
+        aspect="auto",
+        extent=(float(wf.R[0]), float(wf.R[-1]), float(wf.r[0]), float(wf.r[-1])),
+    )
+    ax.set_xlabel("R (bohr)")
+    ax.set_ylabel("r (bohr)")
+    ax.set_title(rf"{wf.kind} {wf.label}: $\Psi(r, R)$ (phase=hue, |·|=brightness)")
     fig.tight_layout()
     fig.savefig(png_path)
     plt.close(fig)
