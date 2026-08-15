@@ -2,7 +2,10 @@
 
 **Location:** the ionic pieces live in `qscat` (`qscat.special.coulomb`, `qscat.model.H2P` /
 `IonicResonanceModel`, `qscat.core.dr_cross_section`); the deck + validation in
-`validation/h2plus/` (`config.py` — the grids; `dr.py` — the driver; `test_dr.py` — the gate).
+`validation/h2plus/` (`config.py` — the eMoScat deck definitions, kept as the tuner's reference +
+the qscat-run deck-parity guard `test_config.py`; the exact σ_DR curves now run through
+`apps/qscat-run`). The DR convention gate (c-product vs eMoScat's conjugated dot) lives in
+`libs/qscat/tests/test_dissociation.py`.
 **Origin:** sub-project D of the DA/DR design spec
 (`docs/superpowers/specs/2026-07-27-da-cross-sections-design.md`), designed in
 `docs/superpowers/specs/2026-07-28-h2plus-dr-design.md` and ported from eMoScat via port-scout.
@@ -101,27 +104,28 @@ not a converged cross section.
   channel returns exactly 0 (the 3rd channel, threshold ≈0.0426 Ha, above the probe energies); and
   the **c-product vs conjugated-dot** agreement (≈3.4e-12) justifies the convention. This is a
   well-posedness gate, NOT a converged σ_DR — the real grid is 1300 bohr.
-- **Docker/MUMPS**: `validation/h2plus/dr.py`'s `main()` is the full-deck smoke path (a couple of
-  energies); the **converged σ_DR(E) curve** (needs the container + MUMPS) is now delivered — see
-  the next section. No independent golden data ships (eMoScat's `output/H2+/sigma.txt` is absent
-  from the snapshot), so — as for the neutral DA — the exact solver is the oracle.
+- **Docker/MUMPS**: the exact σ_DR(E) is a full-deck (~1.15 M unknown) solve — Docker/MUMPS only.
+  No independent golden data ships (eMoScat's `output/H2+/sigma.txt` is absent from the snapshot),
+  so — as for the neutral DA — the exact solver is the oracle. The converged curve is delivered —
+  see the next section.
 
 ## The converged full-size σ_DR(E) curve (delivered)
 
-Run the full 1300-bohr deck (~1.15 M unknowns) under MUMPS via the reproducible generator
-`validation/h2plus/dr_curves.py` (Docker/MUMPS-only, NOT in the test suite — same convention as
-`dr.py`'s `main()`):
+The exact-2D TI σ_DR(E) now runs through **`apps/qscat-run`** (config-driven — the per-molecule DR
+driver was retired in the qscat-run consolidation). The H2P `emoscat` preset grid is byte-identical
+to the retired driver's `full_grid` (locked by
+`validation/h2plus/test_config.py::test_h2p_decks_match_presets`), so qscat-run reproduces its data
+exactly. Run the full 1300-bohr deck under MUMPS via
+`apps/qscat-run/examples/h2p-dr-ti.yaml` (`methods: [ti]`, `observables: [{kind: dr, channels: 3}]`,
+`grid: {preset: emoscat}`):
 
 ```
-uv run python -m validation.h2plus.dr_curves
+docker/run.sh apps/qscat-run/examples/h2p-dr-ti.yaml runs/h2p-dr-ti
 ```
 
-It writes two figures + their sidecar data (`.npz`/`.csv`) into `docs/physics/figures/`:
-
-- `h2plus-dr-cross-section.png` — the coarse `config.energy_grid()` sweep (0.001..0.050 Ha), first
-  `N_CHANNELS = 3` Rydberg exit channels, linear axes.
-- `h2plus-dr-cross-section-shortrange.png` — 200 log-spaced energies across the DR1 resonance in
-  [0.005, 0.007] Ha, log–log (the accuracy figure).
+The committed figure `docs/physics/figures/h2plus-dr-cross-section-shortrange.png` is the log–log
+short-range accuracy view (narrow the config's `energies` to a fine sweep across the DR1 resonance
+in [0.005, 0.007] Ha to reproduce it):
 
 ![H2+ DR cross section, short range (log–log)](figures/h2plus-dr-cross-section-shortrange.png)
 

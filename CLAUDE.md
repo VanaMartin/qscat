@@ -300,25 +300,26 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               (validation may import projects; projects must not import
               validation), and `test_ti_curve.py` gates the dense curve against
               Houfek at the anchors — see docs/physics/ti-energy-sweep-reuse.md.
-            - `validation/diatomic/`: the NO and F₂ exact-2D VE cross sections —
-              the model port, computed entirely through `qscat.core` +
-              `qscat.model` (the first consumers of sub-project A beyond N₂).
-              `config.py` holds per-molecule grid/energy config (incl. the
-              eMoScat per-molecule NUCLEAR deck + `MoleculeConfig.da_grid()` used
-              for DA); `curves.py` (`compute_ti_curve`, `main`) computes the
-              exact-2D TI VE σ(E) oracle + figures (`docs/physics/figures/{no,f2}-
-              2d-ti-cross-section.png`); `da_curves.py` (`compute_da_curve`,
-              `main`) computes the exact-2D TI σ_DA(E) oracle on the eMoScat
-              per-molecule nuclear grids + figures (`docs/physics/figures/{f2,no}-
-              2d-ti-da-cross-section.png`); `lcp_da_curves.py` (`compute_lcp_da_curve`,
-              `main`) computes the LCP-approximation σ_DA(E) and overlays it on the
-              exact-2D oracle (`docs/physics/figures/{f2,no}-2d-da-lcp-vs-exact.png`)
-              — the sub-project-B deliverable (LCP ~11% of exact away from
-              threshold; documented near-threshold departure) + `MoleculeConfig`'s
-              `lcp_elec_grids()`/`lcp_nuclear_grid()`. No independent golden data
-              exists for NO/F₂ (only N₂ has Houfek's), so the exact solver IS the oracle;
-              NO/F₂ have lower/sharper resonances than N₂, so their TD-vs-TI
-              check is a documented follow-on — see
+            - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross
+              sections — the model port, the first consumers of sub-project A
+              beyond N₂. The per-molecule *curve/figure drivers* were RETIRED in
+              the qscat-run consolidation (docs/superpowers/plans/2026-08-15-
+              unified-experiment-observables.md): the exact-2D TI VE σ(E), TI
+              σ_DA(E), and the LCP-vs-exact σ_DA overlay are now produced from
+              config through `apps/qscat-run` (e.g. `apps/qscat-run/examples/
+              f2-da-lcp-vs-exact.yaml`, `methods: [ti, lcp]`) — no dedicated
+              solver code. The committed figures (`docs/physics/figures/{no,f2}-
+              2d-ti-cross-section.png`, `{f2,no}-2d-ti-da-cross-section.png`,
+              `{f2,no}-2d-da-lcp-vs-exact.png`) remain the sub-project-A/B
+              deliverables (LCP ~11% of exact away from threshold; documented
+              near-threshold departure). `config.py` remains, trimmed to its one
+              surviving job: the eMoScat per-molecule NUCLEAR deck definitions
+              (`MoleculeConfig.da_grid()`) the **discretisation tuner** reads as
+              its reproduce-and-beat reference; `test_da_grid.py::
+              test_diatomic_decks_match_presets` locks those decks byte-identical
+              to `qscat_run.presets`' copy (layering keeps the two separate).
+              No independent golden data exists for NO/F₂ (only N₂ has Houfek's),
+              so the exact solver IS the oracle — see
               docs/physics/diatomic-ve-cross-sections.md.
             - `validation/tuning/`: the `qscat.tuning` discretisation tuner's
               own calibration + gate (sub-project #8/final). `calibrate.py`

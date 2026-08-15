@@ -183,3 +183,63 @@ def test_dr_wellposed_and_threshold_ordered():
     assert isinstance(psis, list) and len(psis) == 2
     for psi in psis:
         assert psi is not None and psi.shape == (tg.size,) and psi.dtype == np.complex128
+
+
+def _dr_t_matrix_conjugated_channel0(tg, E: float) -> complex:
+    """Mirrors `dr_cross_section`'s internals for ONE channel (n=0) but with a
+    CONJUGATED T-matrix dot (eMoScat's `zdotc` convention) instead of the shipped
+    c-product -- the reference the convention check compares against."""
+    import scipy.sparse as sp
+    from qscat.core.channels import channel_vector
+    from qscat.linalg import SparseLU
+    from qscat.model import H2P
+    from qscat.special import riccati_bessel_en_mass
+
+    model = H2P
+    mu = model.mu
+    g_R = tg.grids[1]
+    eps, chi = vibrational_states(tg.grids[1], model.mu, 3, model.v0)
+    eps_ryd, phi_ryd = anion_electronic_states(
+        g_r=tg.grids[0], model=model, R_inf=g_R.R0, n_states=1
+    )
+    v_dr = v_dr_diag(tg, model)
+    mask = tg.real_mask()
+    sqrt_w_R = tg.sqrt_weights()[1].ravel()
+
+    ident = sp.identity(tg.size, format="csc", dtype=np.complex128)
+    e_tot = E + eps[0]
+    lu = SparseLU((e_tot * ident - model.hamiltonian(tg)).tocsc())
+    k = float(np.sqrt(2.0 * E))
+    psi_i = channel_vector(tg, k, chi[0], model.ell, charge=model.charge)
+    psi_plus = psi_i + lu.solve(model.interaction_diag(tg) * psi_i)
+    v_psi = v_dr * psi_plus
+
+    e_dr = e_tot - eps_ryd[0]
+    assert e_dr > 0.0, "test picked a closed n=0 Rydberg channel"
+    k_r = float(np.sqrt(2.0 * mu * e_dr))
+    y_coeff = riccati_bessel_en_mass(g_R.real_points, k_r, 0, mu) * sqrt_w_R
+    phi_f = tg.outer([phi_ryd[0], y_coeff])
+    phi_f[~mask] = 0.0
+    return complex(np.sum(np.conj(phi_f[mask]) * v_psi[mask]))
+
+
+@pytest.mark.slow
+def test_dr_cproduct_matches_conjugated_dot_on_proxy():
+    """The CONVENTION check (promoted from validation/h2plus/test_dr.py when the
+    h2+ driver was retired): `dr_cross_section`'s c-product T-matrix (no conjugate,
+    the ECS-correct choice) agrees with eMoScat's conjugated-dot (`zdotc`)
+    convention to <1e-2 relative on the proxy -- the rotated-nuclear-tail
+    contribution is negligible there, so the convention question is settled."""
+    from qscat.core.dissociation import dr_cross_section
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    E = 0.03
+    eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
+    sigma_c0 = float(dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=1)[0])
+    t_conj = _dr_t_matrix_conjugated_channel0(tg, E)
+    sigma_conj0 = 4.0 * np.pi**3 * abs(t_conj) ** 2 / (2.0 * E)
+
+    assert sigma_c0 > 0.0 and np.isfinite(sigma_c0)
+    assert sigma_conj0 > 0.0 and np.isfinite(sigma_conj0)
+    assert abs(sigma_c0 - sigma_conj0) / sigma_c0 < 1e-2
