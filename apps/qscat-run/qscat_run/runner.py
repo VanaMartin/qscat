@@ -83,8 +83,9 @@ from qscat.core import (
     ve_cross_section,
     vibrational_states,
 )
+from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
 from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
-from qscat.dvr import FemDvrEcsGrid, TensorGrid
+from qscat.dvr import TensorGrid
 from qscat.linalg import set_default_backend
 
 from qscat_run import presets
@@ -99,7 +100,7 @@ from qscat_run.config import (
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["WavefunctionSnapshot", "ExperimentResult", "run_experiment"]
+__all__ = ["WavefunctionSnapshot", "EigenStates", "ExperimentResult", "run_experiment"]
 
 # The three extractor classes `td.extractors` can select, sharing one
 # `Extractor`-protocol-conformant interface (`record`/`sigma`) plus the
@@ -109,12 +110,17 @@ type TdExtractor = TannorWeeks | Dirac | Flux
 
 @dataclass(frozen=True)
 class WavefunctionSnapshot:
-    """One TI Psi+ density snapshot, projected onto each axis.
+    """One TI Psi+ (or TD Psi(t)) snapshot: per-axis density + optional field.
 
-    `rho_r`/`rho_R` are `|Psi+|^2` summed over the OTHER axis (masked to the
+    `rho_r`/`rho_R` are `|Psi|^2` summed over the OTHER axis (masked to the
     unscaled/real region first, via `TensorGrid.real_mask()`); `r`/`R` are
     the matching real (unscaled) coordinate axes (`FemDvrEcsGrid.real_points`),
     same length as `rho_r`/`rho_R` respectively.
+
+    `psi` is the FULL complex field reshaped to `(len(r), len(R))` and masked to
+    the real region (zeros in the ECS tail), present only when the config asks
+    for `full_field` -- the phase-carrying field `qscat.viz` domain-colours
+    (the marginals throw the phase away). `None` otherwise.
     """
 
     kind: str
@@ -123,6 +129,26 @@ class WavefunctionSnapshot:
     rho_R: npt.NDArray[np.float64]
     r: npt.NDArray[np.float64]
     R: npt.NDArray[np.float64]
+    psi: npt.NDArray[np.complex128] | None = None
+
+
+@dataclass(frozen=True)
+class EigenStates:
+    """The target's vibrational energy levels + their eigenstate wavefunctions
+    (the `eps`/`chi` already diagonalized for the cross section), opt-in via
+    `artifacts.eigenstates`.
+
+    `label` tags the producing method + grid (`"ti:vibrational"` /
+    `"td:vibrational"`); `energies` are the level energies (Hartree, ascending),
+    `states` shape `(n_levels, len(axis))` the nuclear eigenfunctions, `axis`
+    the real (unscaled) nuclear coordinate (`FemDvrEcsGrid.real_points`).
+    """
+
+    kind: str
+    label: str
+    energies: npt.NDArray[np.float64]
+    states: npt.NDArray[np.complex128]
+    axis: npt.NDArray[np.float64]
 
 
 @dataclass
@@ -135,7 +161,8 @@ class ExperimentResult:
     `cross_section_vs_time` artifact. `correlations` (TD only, opt-in):
     keyed `"{label}:t"`/`"{label}:c"` (`TannorWeeks`/`Dirac`) or
     `"{label}:t"`/`"{label}:b"`/`"{label}:d"` (`Flux`) -- the raw recorded
-    per-step series behind each extractor's transform.
+    per-step series behind each extractor's transform. `eigenstates` (opt-in):
+    one entry per method run, the vibrational levels + eigenfunctions.
     """
 
     energies: npt.NDArray[np.float64]
@@ -146,6 +173,7 @@ class ExperimentResult:
     grids: dict[str, TensorGrid] = field(default_factory=dict)
     cross_section_vs_time: dict[str, npt.NDArray[np.float64]] = field(default_factory=dict)
     correlations: dict[str, npt.NDArray[Any]] = field(default_factory=dict)
+    eigenstates: list[EigenStates] = field(default_factory=list)
 
 
 def _vprimes(obs: Observable) -> list[int]:
@@ -186,22 +214,45 @@ def _n_vib(cfg: ExperimentConfig, required: int) -> int:
     return max(base, required)
 
 
+def _masked_field(tg: TensorGrid, psi: npt.NDArray[np.complex128]) -> npt.NDArray[np.complex128]:
+    """`psi` reshaped to `tg.shape` with the ECS tail zeroed (real region only)."""
+    masked = psi.copy()
+    masked[~tg.real_mask()] = 0.0
+    return np.asarray(masked.reshape(tg.shape), dtype=np.complex128)
+
+
 def _project_density(
     tg: TensorGrid, psi: npt.NDArray[np.complex128]
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
     """`|psi|^2`, masked to the real region, summed onto each axis."""
-    masked = psi.copy()
-    masked[~tg.real_mask()] = 0.0
-    dens = np.abs(masked.reshape(tg.shape)) ** 2
+    dens = np.abs(_masked_field(tg, psi)) ** 2
     rho_r = np.asarray(dens.sum(axis=1), dtype=np.float64)
     rho_R = np.asarray(dens.sum(axis=0), dtype=np.float64)
     return rho_r, rho_R
 
 
+def _vibrational_eigenstates(
+    label: str,
+    tg: TensorGrid,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+) -> EigenStates:
+    """Package the already-computed nuclear `eps`/`chi` as an `EigenStates`."""
+    return EigenStates(
+        kind="vibrational",
+        label=label,
+        energies=np.asarray(eps, dtype=np.float64),
+        states=np.asarray(chi, dtype=np.complex128),
+        axis=tg.grids[1].real_points,
+    )
+
+
 def _run_ti(
     cfg: ExperimentConfig,
     timings: dict[str, float],
-) -> tuple[dict[str, npt.NDArray[np.float64]], list[WavefunctionSnapshot], TensorGrid]:
+) -> tuple[
+    dict[str, npt.NDArray[np.float64]], list[WavefunctionSnapshot], list[EigenStates], TensorGrid
+]:
     if cfg.energies is None:
         raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
     energies = cfg.energies.as_array()
@@ -220,6 +271,10 @@ def _run_ti(
     t0 = time.time()
     eps, chi = vibrational_states(tg.grids[1], model.mu, n_vib, model.v0)
     timings["ti:vibrational_states"] = time.time() - t0
+
+    eigenstates: list[EigenStates] = []
+    if cfg.artifacts.eigenstates:
+        eigenstates.append(_vibrational_eigenstates("ti:vibrational", tg, eps, chi))
 
     cross_sections: dict[str, npt.NDArray[np.float64]] = {}
     for obs in cfg.observables:
@@ -274,26 +329,15 @@ def _run_ti(
                     rho_R=rho_R,
                     r=tg.grids[0].real_points,
                     R=tg.grids[1].real_points,
+                    psi=_masked_field(tg, psi_plus) if wf_spec.full_field else None,
                 )
             )
         timings["ti:wavefunction_snapshots"] = time.time() - t0
 
-    return cross_sections, wavefunctions, tg
+    return cross_sections, wavefunctions, eigenstates, tg
 
 
 # --- TD (time-dependent) runner ---------------------------------------------
-
-
-def _index_near(grid: FemDvrEcsGrid, r_value: float) -> int:
-    """Nearest REAL-region (unscaled) DVR index to `r_value` (bohr) on a
-    single `FemDvrEcsGrid`, the shared body of `_electronic_index_near`/
-    `_nuclear_index_near`, following `validation/h2plus/td_dr.py`'s
-    `_nuclear_index_near` helper of the same idea (nearest real-region
-    index, complex-tail points masked to `inf` first so they never win the
-    `argmin`)."""
-    real = grid.real_points
-    masked = np.where(real <= grid.R0, real, np.inf)
-    return int(np.argmin(np.abs(masked - r_value)))
 
 
 def _electronic_index_near(tg: TensorGrid, r_value: float) -> int:
@@ -301,7 +345,7 @@ def _electronic_index_near(tg: TensorGrid, r_value: float) -> int:
     `r_value` (bohr) -- `_run_td` passes the resolved `ve` test function's
     own `r0_out` (the same point the VE `TannorWeeks` outgoing test packet
     is centered on; see module docstring)."""
-    return _index_near(tg.grids[0], r_value)
+    return tg.grids[0].real_index_near(r_value)
 
 
 def _nuclear_index_near(tg: TensorGrid, r_value: float) -> int:
@@ -309,7 +353,7 @@ def _nuclear_index_near(tg: TensorGrid, r_value: float) -> int:
     analysis point) -- `_run_td` passes `presets.resolve_surface_r(cfg,
     kind)`, generally a DIFFERENT point from that kind's own nuclear test
     function's `r0_out` (see module docstring / `MoleculePreset`)."""
-    return _index_near(tg.grids[1], r_value)
+    return tg.grids[1].real_index_near(r_value)
 
 
 def _wp_out_dict(tf: TestFunctionSpec) -> dict[str, float]:
@@ -398,14 +442,16 @@ def _run_td(
     dict[str, npt.NDArray[np.float64]],
     dict[str, npt.NDArray[Any]],
     list[WavefunctionSnapshot],
+    list[EigenStates],
     TensorGrid,
 ]:
     """The TD path: ONE Pade propagation drives every requested observable's
     extractor(s), plus a SECOND `V_int=0` free-reference propagation when an
     elastic VE channel is requested; returns `(cross_sections,
-    cross_section_vs_time, correlations, wavefunctions, grid)` -- see module
-    docstring for the full design (per-kind test-function resolution, the
-    free-reference propagation, the moment-truncation mechanism).
+    cross_section_vs_time, correlations, wavefunctions, eigenstates, grid)` --
+    see module docstring for the full design (per-kind test-function
+    resolution, the free-reference propagation, the moment-truncation
+    mechanism).
     """
     if cfg.td is None:
         raise ConfigError("no 'td' block resolved for this config")
@@ -430,6 +476,10 @@ def _run_td(
     t0 = time.time()
     eps, chi = vibrational_states(tg.grids[1], model.mu, n_vib, model.v0)
     timings["td:vibrational_states"] = time.time() - t0
+
+    eigenstates: list[EigenStates] = []
+    if cfg.artifacts.eigenstates:
+        eigenstates.append(_vibrational_eigenstates("td:vibrational", tg, eps, chi))
 
     wp_in = {"r0": td.incident.r0, "p0": td.incident.p0, "sigma": td.incident.sigma}
     psi0 = initial_state(tg, chi[cfg.v_init], **wp_in)
@@ -516,6 +566,9 @@ def _run_td(
 
     wf_spec = cfg.artifacts.wavefunction_snapshots
     snapshot_times = list(wf_spec.td_times) if wf_spec is not None and wf_spec.td_times else None
+    # Keep the full Psi(t) field at the snapshot times only when full_field is
+    # asked for (each kept field is a tg.size copy -- opt-in for memory).
+    keep_psi_at = snapshot_times if (wf_spec is not None and wf_spec.full_field) else None
 
     t0 = time.time()
     result = propagate(
@@ -528,6 +581,7 @@ def _run_td(
         order=td.order,
         extractors=[ext for _, ext, _, _ in entries],
         snapshot_times=snapshot_times,
+        keep_psi_at=keep_psi_at,
     )
     timings["td:propagate"] = time.time() - t0
 
@@ -596,19 +650,74 @@ def _run_td(
                     rho_R=snap.rho_R,
                     r=tg.grids[0].real_points,
                     R=tg.grids[1].real_points,
+                    psi=_masked_field(tg, snap.psi) if snap.psi is not None else None,
                 )
             )
 
-    return cross_sections, cross_section_vs_time, correlations, wavefunctions, tg
+    return cross_sections, cross_section_vs_time, correlations, wavefunctions, eigenstates, tg
+
+
+def _run_lcp(
+    cfg: ExperimentConfig,
+    timings: dict[str, float],
+) -> tuple[dict[str, npt.NDArray[np.float64]], list[EigenStates]]:
+    """The LCP path: reduce the exact 2-D DA resonance to a 1-D local complex
+    potential `(V_d(R), Gamma(R))` (`qscat.core.lcp.local_complex_potential`,
+    two ECS-angle electronic decks + the fine nuclear deck), then solve the 1-D
+    driven equation (`lcp_da_cross_section`) per requested `da` observable.
+    Keyed `"lcp:da:ch0"` so a `methods: [ti, lcp]` run overlays the exact and
+    approximate DA cross sections on the SAME figure (disjoint key prefixes).
+    """
+    if cfg.energies is None:
+        raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
+    energies = cfg.energies.as_array()
+
+    t0 = time.time()
+    g_R, elec_a, elec_b = presets.resolve_lcp_grids(cfg)
+    timings["lcp:grid"] = time.time() - t0
+
+    model = presets.MODELS[cfg.molecule]
+    n_vib = _n_vib(cfg, cfg.v_init + 1)
+
+    t0 = time.time()
+    eps, chi = vibrational_states(g_R, model.mu, n_vib, model.v0)
+    timings["lcp:vibrational_states"] = time.time() - t0
+
+    t0 = time.time()
+    v_d, gamma = local_complex_potential(model, g_R, elec_a, elec_b)
+    timings["lcp:local_complex_potential"] = time.time() - t0
+
+    cross_sections: dict[str, npt.NDArray[np.float64]] = {}
+    for obs in cfg.observables:
+        if obs.kind != "da":
+            continue  # LCP only produces the DA cross section
+        t0 = time.time()
+        sigma = lcp_da_cross_section(g_R, model.mu, v_d, gamma, eps, chi, cfg.v_init, energies)
+        cross_sections["lcp:da:ch0"] = np.asarray(sigma, dtype=np.float64)
+        timings["lcp:da"] = timings.get("lcp:da", 0.0) + (time.time() - t0)
+
+    eigenstates: list[EigenStates] = []
+    if cfg.artifacts.eigenstates:
+        eigenstates.append(
+            EigenStates(
+                kind="vibrational",
+                label="lcp:vibrational",
+                energies=np.asarray(eps, dtype=np.float64),
+                states=np.asarray(chi, dtype=np.complex128),
+                axis=g_R.real_points,
+            )
+        )
+    return cross_sections, eigenstates
 
 
 def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     """Resolve `cfg` fully (defaults, backend), run every requested method's
     observables on its own grid, and return the collected result.
 
-    `methods: [ti, td]` runs both (`_run_ti` then `_run_td`) and merges their
-    `cross_sections`/`wavefunctions` into one result -- their key prefixes
-    (`"ti:"`/`"td:"`) never collide, so the merge is a plain dict update.
+    `methods: [ti, td, lcp]` runs each and merges their `cross_sections`/
+    `wavefunctions`/`eigenstates` into one result -- their key prefixes
+    (`"ti:"`/`"td:"`/`"lcp:"`) never collide, so the merge is a plain dict
+    update and `cross_section.png` overlays exact vs approximation.
     """
     t_start = time.time()
     resolved = presets.resolve_defaults(cfg)
@@ -621,13 +730,15 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     cross_section_vs_time: dict[str, npt.NDArray[np.float64]] = {}
     correlations: dict[str, npt.NDArray[Any]] = {}
     wavefunctions: list[WavefunctionSnapshot] = []
+    eigenstates: list[EigenStates] = []
     grids: dict[str, TensorGrid] = {}
     energies = np.zeros(0, dtype=np.float64)
 
     if "ti" in resolved.methods:
-        ti_cross_sections, ti_wavefunctions, tg_ti = _run_ti(resolved, timings)
+        ti_cross_sections, ti_wavefunctions, ti_eigenstates, tg_ti = _run_ti(resolved, timings)
         cross_sections.update(ti_cross_sections)
         wavefunctions.extend(ti_wavefunctions)
+        eigenstates.extend(ti_eigenstates)
         grids["ti"] = tg_ti
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
@@ -638,13 +749,22 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
             td_cross_section_vs_time,
             td_correlations,
             td_wavefunctions,
+            td_eigenstates,
             tg_td,
         ) = _run_td(resolved, timings)
         cross_sections.update(td_cross_sections)
         cross_section_vs_time.update(td_cross_section_vs_time)
         correlations.update(td_correlations)
         wavefunctions.extend(td_wavefunctions)
+        eigenstates.extend(td_eigenstates)
         grids["td"] = tg_td
+        if resolved.energies is not None:
+            energies = resolved.energies.as_array()
+
+    if "lcp" in resolved.methods:
+        lcp_cross_sections, lcp_eigenstates = _run_lcp(resolved, timings)
+        cross_sections.update(lcp_cross_sections)
+        eigenstates.extend(lcp_eigenstates)
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
 
@@ -659,4 +779,5 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
         grids=grids,
         cross_section_vs_time=cross_section_vs_time,
         correlations=correlations,
+        eigenstates=eigenstates,
     )

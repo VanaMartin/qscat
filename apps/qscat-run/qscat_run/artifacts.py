@@ -35,7 +35,7 @@ import numpy.typing as npt  # noqa: E402
 import yaml  # noqa: E402
 
 from qscat_run.config import ExperimentConfig
-from qscat_run.runner import ExperimentResult, WavefunctionSnapshot
+from qscat_run.runner import EigenStates, ExperimentResult, WavefunctionSnapshot
 
 __all__ = ["write_artifacts"]
 
@@ -129,7 +129,15 @@ def _write_wavefunction_snapshot(out_dir: Path, wf: WavefunctionSnapshot) -> Non
     # rather than appending, which would silently truncate "E0.05" to "E0".
     npz_path = out_dir / f"psi_{wf.label}.npz"
     png_path = out_dir / f"psi_{wf.label}.png"
-    np.savez(npz_path, rho_r=wf.rho_r, rho_R=wf.rho_R, r=wf.r, R=wf.R)
+    arrays: dict[str, npt.NDArray[Any]] = {
+        "rho_r": wf.rho_r,
+        "rho_R": wf.rho_R,
+        "r": wf.r,
+        "R": wf.R,
+    }
+    if wf.psi is not None:
+        arrays["psi"] = wf.psi  # full complex field (n_r, n_R), for qscat.viz
+    np.savez(npz_path, **arrays)  # type: ignore[arg-type]
 
     fig, (ax_r, ax_R) = plt.subplots(1, 2, figsize=(10, 4))
     ax_r.plot(wf.r, wf.rho_r)
@@ -142,6 +150,56 @@ def _write_wavefunction_snapshot(out_dir: Path, wf: WavefunctionSnapshot) -> Non
     fig.suptitle(f"{wf.kind} {wf.label}")
     fig.tight_layout()
     fig.savefig(png_path)
+    plt.close(fig)
+
+    if wf.psi is not None:
+        _write_wavefunction_field_png(out_dir / f"psi_{wf.label}_field.png", wf)
+
+
+def _write_wavefunction_field_png(png_path: Path, wf: WavefunctionSnapshot) -> None:
+    """Domain-coloured (phase->hue, magnitude->brightness) render of the full
+    complex Psi field on the real-region r x R block, via `qscat.viz`'s pure-numpy
+    `complex_to_rgb` -- the phase-carrying view the density marginals discard."""
+    from qscat.viz import complex_to_rgb
+
+    assert wf.psi is not None
+    rgb = complex_to_rgb(wf.psi)  # (n_r, n_R, 3)
+    fig, ax = plt.subplots(figsize=(6, 5))
+    ax.imshow(
+        rgb,
+        origin="lower",
+        aspect="auto",
+        extent=(float(wf.R[0]), float(wf.R[-1]), float(wf.r[0]), float(wf.r[-1])),
+    )
+    ax.set_xlabel("R (bohr)")
+    ax.set_ylabel("r (bohr)")
+    ax.set_title(rf"{wf.kind} {wf.label}: $\Psi(r, R)$ (phase=hue, |·|=brightness)")
+    fig.tight_layout()
+    fig.savefig(png_path)
+    plt.close(fig)
+
+
+def _write_eigenstates(out_dir: Path, es: EigenStates) -> None:
+    """`eigenstates_{label}.npz` (energies + eigenfunctions + axis) plus a png:
+    the level ladder annotating each eigenfunction |chi_v(R)|^2 offset to its
+    own energy -- the energy-levels-and-their-state-wavefunctions view."""
+    stem = f"eigenstates_{es.label.replace(':', '_')}"
+    np.savez(out_dir / f"{stem}.npz", energies=es.energies, states=es.states, axis=es.axis)
+
+    fig, ax = plt.subplots(figsize=(7, 5))
+    dens = np.abs(es.states) ** 2  # (n_levels, len(axis))
+    scale = 0.6 * (es.energies[-1] - es.energies[0]) / max(1, len(es.energies))
+    for v, e in enumerate(es.energies):
+        d = dens[v]
+        peak = d.max() or 1.0
+        ax.axhline(float(e), color="0.8", lw=0.6)
+        ax.plot(es.axis, float(e) + scale * d / peak, label=f"v={v}")
+    ax.set_xlabel("R (bohr)")
+    ax.set_ylabel(r"energy (Hartree) + $|\chi_v(R)|^2$ (offset)")
+    ax.set_title(f"{es.kind} levels ({es.label})")
+    ax.legend(fontsize="small", ncol=2)
+    fig.tight_layout()
+    fig.savefig(out_dir / f"{stem}.png")
     plt.close(fig)
 
 
@@ -185,6 +243,12 @@ def write_artifacts(
         wf_dir.mkdir(parents=True, exist_ok=True)
         for wf in result.wavefunctions:
             _write_wavefunction_snapshot(wf_dir, wf)
+
+    if cfg.artifacts.eigenstates and result.eigenstates:
+        es_dir = out_dir / "eigenstates"
+        es_dir.mkdir(parents=True, exist_ok=True)
+        for es in result.eigenstates:
+            _write_eigenstates(es_dir, es)
 
     (out_dir / "config.resolved.yaml").write_text(
         yaml.safe_dump(_config_to_dict(result.resolved_cfg), sort_keys=False)

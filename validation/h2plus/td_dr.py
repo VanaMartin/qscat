@@ -72,10 +72,7 @@ SURFACE_R = 12.0  # flux surface / delta point (nuclear), at the eMoScat test-fu
 
 
 def _nuclear_index_near(grid: TensorGrid, r_value: float) -> int:
-    nuc = grid.grids[1]
-    rp = nuc.real_points
-    masked = np.where(rp <= nuc.R0, rp, np.inf)
-    return int(np.argmin(np.abs(masked - r_value)))
+    return grid.grids[1].real_index_near(r_value)
 
 
 def compute_td_dr(

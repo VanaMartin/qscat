@@ -171,3 +171,16 @@ class FemDvrEcsGrid:
         self.hz = hz
         self.element_ranges = element_ranges
         self.element_maps = element_maps
+
+    def real_index_near(self, r_value: float) -> int:
+        """Index of the real-region DVR node nearest `r_value` (bohr).
+
+        The ECS complex-tail points (unscaled coordinate `> R0`) are masked
+        out first, so the returned index is always a genuine real-region node
+        -- the point a fixed-position/fixed-surface time-dependent extractor
+        (`Dirac`/`Flux`) or a wavepacket launch reads at. Shared primitive for
+        what was copy-pasted as `_index_near`/`_real_index_near`/
+        `_nuclear_index_near` across the runner and the TD validation drivers.
+        """
+        masked = np.where(self.real_points <= self.R0, self.real_points, np.inf)
+        return int(np.argmin(np.abs(masked - r_value)))
