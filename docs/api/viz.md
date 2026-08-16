@@ -15,6 +15,7 @@ the `plot` extra (`pip install "qscat[plot]"`).
    complex_to_hsv
    complex_to_rgb
    hsv_to_rgb
+   region_magnitudes
    energy_contour_levels
    plot_wavefunction_2d
    animate_wavefunction
