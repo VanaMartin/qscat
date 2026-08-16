@@ -1,6 +1,9 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.9
+    # Keep this in step with the `ruff>=` floor in pyproject.toml's dev group:
+    # ruff's FORMATTER output changes between releases, so a hook pinned to an
+    # older ruff than the one developers run will fight it file by file.
+    rev: v0.15.21
     hooks:
       - id: ruff
         args: [--fix]

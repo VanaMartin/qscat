@@ -40,7 +40,10 @@ dev = [
     # things down rather than speed them up.
     "pytest-xdist>=3",
     "hypothesis>=6",
-    "ruff>=0.6",
+    # Keep in step with the ruff-pre-commit `rev:` in .pre-commit-config.yaml --
+    # the formatter's output changes between releases, so a mismatch makes
+    # `ruff format` and the pre-commit hook disagree.
+    "ruff>=0.15.21",
     "mypy>=1.11",
     "maturin>=1.7",
     "numpy>=2",
