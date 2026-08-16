@@ -81,3 +81,47 @@ def test_complex_to_hsv_rejects_a_non_broadcastable_mag() -> None:
     z = np.ones((4, 6), dtype=np.complex128)
     with pytest.raises(ValueError):
         complex_to_hsv(z, np.ones((3, 3)))
+
+
+class _IdentityProjector:
+    """Minimal EquidistantProjector stand-in: reshapes a flat state to a grid.
+
+    Matches the real interface `WavefunctionArtist` uses: a `project()` method
+    (not `__call__`) and `axis0`/`axis1` sample arrays (not `x`/`y`) -- axis0
+    indexes rows (length shape[0]), axis1 indexes columns (length shape[1]),
+    per `EquidistantProjector`.
+    """
+
+    def __init__(self, shape: tuple[int, int]) -> None:
+        self.shape = shape
+        self.axis0 = np.arange(shape[0], dtype=np.float64)
+        self.axis1 = np.arange(shape[1], dtype=np.float64)
+
+    def project(self, state: np.ndarray) -> np.ndarray:
+        return np.asarray(state).reshape(self.shape)
+
+
+def test_artist_accepts_an_array_mag() -> None:
+    # The call chain must carry a per-point scale all the way to the image,
+    # while contour levels (which must be scalars) key off the largest region.
+    plt = pytest.importorskip("matplotlib.pyplot")
+    from qscat.viz import WavefunctionArtist, region_magnitudes
+
+    z = np.ones((8, 10), dtype=np.complex128)
+    z[:, 5:] = 1e-6
+    mag = region_magnitudes(np.abs(z), axis=1, boundaries=[5])
+
+    fig, ax = plt.subplots()
+    try:
+        # _IdentityProjector duck-types EquidistantProjector's interface
+        # (project(), axis0/axis1) without subclassing it.
+        artist = WavefunctionArtist(
+            ax, _IdentityProjector(z.shape), mag=mag, contours=3  # type: ignore[arg-type]
+        )
+        changed = artist.update(z.ravel())
+        assert changed, "update() returned no artists"
+        rgb = artist._image.get_array()
+        # Weak region is visible, not black -- the whole point.
+        assert float(np.max(rgb[0, 9])) > 0.5
+    finally:
+        plt.close(fig)
