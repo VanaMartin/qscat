@@ -60,6 +60,8 @@ __all__ = [
     "available_presets",
     "resolve_grid",
     "resolve_lcp_grids",
+    "nuclear_angle_b",
+    "nuclear_grid_at_angle",
     "resolve_defaults",
     "resolve_test_function",
     "resolve_surface_r",
@@ -73,8 +75,8 @@ MODELS: dict[str, ResonanceModel] = {"N2": N2, "NO": NO, "F2": F2, "H2P": H2P}
 # the studied energy range.
 VALIDITY: dict[str, frozenset[str]] = {
     "N2": frozenset({"ve", "da"}),
-    "NO": frozenset({"ve", "da"}),
-    "F2": frozenset({"ve", "da"}),
+    "NO": frozenset({"ve", "da", "resonance_levels"}),
+    "F2": frozenset({"ve", "da", "resonance_levels"}),
     "H2P": frozenset({"dr"}),
 }
 WARN_OBSERVABLES: dict[str, frozenset[str]] = {"N2": frozenset({"da"})}
@@ -171,9 +173,9 @@ _F2_NUC_COMPLEX = (
 _F2_NUC_ANGLE, _F2_NUC_QUAD = 35.0, 14
 
 
-def _no_nuc_grid() -> FemDvrEcsGrid:
+def _no_nuc_grid(angle_deg: float = _NO_NUC_ANGLE) -> FemDvrEcsGrid:
     return segmented_grid(
-        _NO_NUC_REAL, _NO_NUC_COMPLEX, angle_deg=_NO_NUC_ANGLE, quadrature=_NO_NUC_QUAD
+        _NO_NUC_REAL, _NO_NUC_COMPLEX, angle_deg=angle_deg, quadrature=_NO_NUC_QUAD
     )
 
 
@@ -187,9 +189,9 @@ def _no_td_grid() -> TensorGrid:
     return TensorGrid([electronic_grid(r_max=30.0, order=8, n_complex=6), _no_nuc_grid()])
 
 
-def _f2_nuc_grid() -> FemDvrEcsGrid:
+def _f2_nuc_grid(angle_deg: float = _F2_NUC_ANGLE) -> FemDvrEcsGrid:
     return segmented_grid(
-        _F2_NUC_REAL, _F2_NUC_COMPLEX, angle_deg=_F2_NUC_ANGLE, quadrature=_F2_NUC_QUAD
+        _F2_NUC_REAL, _F2_NUC_COMPLEX, angle_deg=angle_deg, quadrature=_F2_NUC_QUAD
     )
 
 
@@ -427,12 +429,52 @@ def resolve_lcp_grids(
     return preset.lcp_grids()
 
 
-def _default_channels(kind: str, preset: MoleculePreset) -> int | tuple[int, ...]:
+_NUC_GRID_BUILDERS = {"NO": _no_nuc_grid, "F2": _f2_nuc_grid}
+
+# How far below grid a's tail angle grid b sits, when not set explicitly.
+# eMoScat's electronic LCP decks pair 44/35 and 40/30 -- about ten degrees.
+_ANGLE_B_OFFSET = 10.0
+
+
+def nuclear_angle_b(cfg: ExperimentConfig) -> float:
+    """The second nuclear grid's tail angle: explicit, or `angle_a - 10` deg.
+
+    Always moves DOWNWARD, which is unconditionally safe against the ionic
+    model's `max_nuclear_ecs_angle_deg` divergence bound.
+    """
+    if cfg.grid.nuclear_angle_b is not None:
+        return float(cfg.grid.nuclear_angle_b)
+    g_a, _ea, _eb = resolve_lcp_grids(cfg)
+    return max(el.angle_deg for el in g_a.spec.elements) - _ANGLE_B_OFFSET
+
+
+def nuclear_grid_at_angle(cfg: ExperimentConfig, angle_deg: float) -> FemDvrEcsGrid:
+    """This molecule's nuclear deck rebuilt at a different ECS tail angle.
+
+    Same real segments and quadrature -- only the tail rotates -- so every real
+    node is shared with `resolve_lcp_grids`'s nuclear grid, which is what
+    `qscat.core.lcp.lcp_resonance_levels` requires of its two grids.
+    """
+    builder = _NUC_GRID_BUILDERS.get(cfg.molecule)
+    if builder is None:
+        raise ConfigError(
+            f"no LCP nuclear deck for {cfg.molecule}; available: {sorted(_NUC_GRID_BUILDERS)}"
+        )
+    return builder(angle_deg)
+
+
+def _default_channels(kind: str, preset: MoleculePreset) -> int | tuple[int, ...] | None:
     """A reasonable channel default when the config omits `channels`: for
     `ve`, the first few excited vibrational levels (bounded by `n_vib`);
-    for `da`/`dr`, a single channel (the usual case)."""
+    for `da`/`dr`, a single channel (the usual case); for `resonance_levels`,
+    `None` -- there is no natural count, so report EVERY angle-stable level
+    inside the default window (`qscat.core.lcp.lcp_resonance_levels`'s own
+    `n_levels=None`), which is what the design spec and the shipped example
+    both promise for an omitted `channels`."""
     if kind == "ve":
         return tuple(range(1, min(preset.n_vib, 4)))
+    if kind == "resonance_levels":
+        return None
     return 1
 
 
@@ -553,7 +595,13 @@ def resolve_defaults(cfg: ExperimentConfig) -> ExperimentConfig:
     if preset is None:
         return cfg
 
-    energies = cfg.energies if cfg.energies is not None else preset.default_energies
+    # A levels-only run has no energy sweep to fill: `resonance_levels` needs
+    # a molecule and two nuclear grids, nothing else. Leave `energies` None so
+    # the runner can tell "not requested" from "requested but unresolved".
+    needs_energies = any(obs.kind != "resonance_levels" for obs in cfg.observables)
+    energies = cfg.energies
+    if energies is None and needs_energies:
+        energies = preset.default_energies
     observables = tuple(
         obs
         if obs.channels is not None
