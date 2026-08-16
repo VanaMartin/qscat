@@ -16,6 +16,18 @@ open(src.replace('.pdf', '.txt'), 'w').write(
 
 The `.txt` is gitignored, so it can sit beside the PDF as a working file.
 
+**If the extraction comes back empty or near-empty, the PDF is a scan with no
+text layer** — older papers often are. Do not give up and do not write the note
+from memory. Render the pages and read them visually:
+
+```bash
+pdftoppm -r 150 -png reference/literature/<stem>.pdf /tmp/<stem>-page
+```
+
+then Read the resulting PNGs. Locators still come from the printed page numbers
+visible in the images. Say in the note that the source is a scan and that no
+`.txt` exists to grep, so the next reader does not go looking for one.
+
 ## The page-offset check — do this before writing any locator
 
 **The extractor's page index is not the printed page number.** Front matter,
