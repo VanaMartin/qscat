@@ -14,6 +14,7 @@ bilinear (non-conjugated) ECS inner product. See
    kron_sum
    c_product
    SparseLU
+   ShiftInvertEigs
    default_backend
    set_default_backend
    get_default_backend

@@ -15,6 +15,8 @@ record limitations and negative results as well as what works.
 - {doc}`mumps-sparse-backend` — the complex-symmetric MUMPS backend.
 - {doc}`ti-energy-sweep-reuse` — reusing the symbolic factorization across an
   energy sweep.
+- {doc}`shift-invert-eigensolver` — the eigenpairs nearest a complex shift, for
+  resonances that sit in the interior of the spectrum. Validated in 1-D only.
 
 ## The scattering engine
 

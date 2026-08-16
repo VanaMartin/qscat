@@ -28,6 +28,7 @@ physics/nd-tensor-hamiltonian
 physics/discretisation-tuning
 physics/mumps-sparse-backend
 physics/ti-energy-sweep-reuse
+physics/shift-invert-eigensolver
 physics/qscat-core-scattering
 physics/n2-resonance
 physics/n2-cross-section
