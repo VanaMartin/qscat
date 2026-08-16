@@ -75,6 +75,22 @@ def test_missing_file_fails_at_validate_time_not_at_plot_time(tmp_path: Path) ->
         validate_config(cfg)
 
 
+def test_bad_channel_index_fails_at_validate_time_not_after_the_solve(tmp_path: Path) -> None:
+    """A typo'd `channels` index against a real file must be caught by
+    `validate_config` itself -- not merely raise somewhere downstream (e.g.
+    inside `load_reference`, which `write_artifacts` only reaches AFTER
+    `run_experiment` has already solved)."""
+    (tmp_path / "r.dat").write_text("0.1 1.0 2.0\n0.2 3.0 4.0\n")
+    cfg = load_config(
+        _write(
+            tmp_path,
+            BASE + "\nreference:\n  - path: r.dat\n    format: houfek\n    channels: [5]\n",
+        )
+    )
+    with pytest.raises(ConfigError, match=r"\[5\]"):
+        validate_config(cfg)
+
+
 def test_relative_path_resolves_against_the_config_file(tmp_path: Path) -> None:
     (tmp_path / "data").mkdir()
     (tmp_path / "data" / "r.dat").write_text("0.1 1.0 2.0\n0.2 3.0 4.0\n")

@@ -445,8 +445,9 @@ def validate_config(cfg: ExperimentConfig) -> None:
     `td` block present iff `"td" in methods` -> `td.extractors` all known ->
     an explicit grid supplies both `electronic` and `nuclear` -> a named
     preset (if given, with no explicit grid) exists for the molecule ->
-    each `reference` entry names a known `format` and resolves to a file
-    that actually exists.
+    each `reference` entry names a known `format`, resolves to a file that
+    actually exists, and (if `channels` is given) requests only channels
+    the file actually has.
     """
     from qscat_run import presets  # local import: breaks the config<->presets cycle
 
@@ -545,7 +546,7 @@ def validate_config(cfg: ExperimentConfig) -> None:
                 f"unknown preset {grid.preset!r} for {cfg.molecule}; available: {sorted(available)}"
             )
 
-    base = Path(cfg.config_dir) if cfg.config_dir else Path.cwd()
+    base = _reference.config_base_dir(cfg.config_dir)
     for i, ref in enumerate(cfg.reference):
         if ref.format not in _reference.REFERENCE_FORMATS:
             raise ConfigError(
@@ -556,4 +557,20 @@ def validate_config(cfg: ExperimentConfig) -> None:
         if not resolved.is_file():
             raise ConfigError(
                 f"reference[{i}]: no such file {ref.path!r} (looked at {resolved})"
+            )
+        # Bounds-check `channels` here too (not just at `load_reference` time,
+        # which `write_artifacts` only reaches AFTER `run_experiment` has
+        # already solved) -- a typo'd channel index should fail fast, before
+        # the solve, like every other config problem. `peek_n_channels` reads
+        # only the file's first line, so this stays cheap even on a large
+        # production dataset.
+        try:
+            n_channels = _reference.peek_n_channels(resolved)
+        except (OSError, ValueError) as exc:
+            raise ConfigError(f"reference[{i}]: could not read {resolved}: {exc}") from exc
+        bad = _reference.bad_channels(ref.channels, n_channels)
+        if bad:
+            raise ConfigError(
+                f"reference[{i}]: requested channel(s) {bad} but {resolved} has "
+                f"{n_channels} column(s) (valid 0..{n_channels - 1})"
             )

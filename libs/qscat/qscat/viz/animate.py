@@ -97,7 +97,10 @@ def animate_wavefunction(
         Fixed brightness scale across all frames. A scalar applies one scale
         to the whole field; an array (same shape as the projected field, e.g.
         from `region_magnitudes`) gives a per-point scale, held fixed across
-        frames along with the potential overlay.
+        frames along with the potential overlay. As in `plot_wavefunction_2d`,
+        magnitude contour levels still key off the array's maximum, so weaker
+        regions get no meaningful contour lines despite their own brightness
+        scale.
     times : sequence of float, optional
         Per-frame times; when given the title shows ``time_fmt.format(t)`` and
         enable `phase_reference`.
