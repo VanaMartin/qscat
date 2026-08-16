@@ -12,6 +12,18 @@ installed package.
 ## [Unreleased]
 
 ### Added
+- `qscat.linalg.ShiftInvertEigs`: the `k` eigenpairs of a sparse complex-symmetric
+  matrix nearest a complex shift (shift-invert Arnoldi with `SparseLU` as the inner
+  solve, so it inherits the MUMPS backend). Resonances are INTERIOR eigenvalues,
+  which a plain Krylov iteration cannot reach. Because `A - sigma*I` keeps its
+  sparsity pattern for every shift, repeated `near(sigma)` calls reuse the symbolic
+  analysis via `SparseLU.refactor` — the eigenvalue analogue of the time-independent
+  energy sweep. Validated in 1-D against dense `np.linalg.eig`, eigenvalues (rtol
+  1e-9) and eigenvectors (c-norm overlap), on synthetic complex-symmetric matrices
+  and on the real N₂ electronic FEM-DVR-ECS Hamiltonian, where the recovered pole
+  gives `E_res = 2.441 eV` / `Gamma = 0.4535 eV` against the published 2.445 /
+  0.455 eV. See docs/physics/shift-invert-eigensolver.md for the conventions (the
+  `A - sigma*I` sign, nearest-shift ordering) and the measured working range.
 - `qscat.core.lcp` BO/LCP resonance levels: `lcp_resonance_levels` diagonalizes the
   nuclear Hamiltonian `H_N = T(mu) + V_d(R) - i*Gamma(R)/2` in the LCP complex curve
   (`ResonanceLevels`: complex `energies`/`widths`, c-product-normalized `states`, a

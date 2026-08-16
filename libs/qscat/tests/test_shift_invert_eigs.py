@@ -212,6 +212,37 @@ def test_sparse_pole_carries_the_published_n2_resonance_parameters() -> None:
     assert 0.35 < gamma_ev < 0.55
 
 
+@pytest.mark.parametrize("offset", [0.001, 0.01, 0.05, 0.2])
+def test_pole_is_found_from_an_offset_shift(offset: float) -> None:
+    """How far may the seed shift sit from the pole and still find it at k=8?
+    The measured boundary is quoted in docs/physics/shift-invert-eigensolver.md."""
+    from qscat.dvr import eigen
+    from qscat.ecs import find_resonance_pole
+
+    _, Hd_a, Hs_a = _n2_electronic(35.0)
+    _, Hd_b, _ = _n2_electronic(44.0)
+    E_pole, _ = find_resonance_pole(eigen(Hd_a)[0], eigen(Hd_b)[0], _N2_WINDOW)
+    vals, _ = ShiftInvertEigs(Hs_a, k=8).near(E_pole + offset * (1.0 + 1.0j))
+    assert np.min(np.abs(vals - E_pole)) <= 1e-6 * abs(E_pole)
+
+
+def test_continuum_adjacent_shift_returns_angle_unstable_eigenvalues() -> None:
+    """The 1-D rehearsal of the selection stage 2 needs: a shift parked on the
+    rotated continuum returns eigenvalues that MOVE when the ECS angle changes,
+    while the pole does not. Nothing here selects; it demonstrates the signal."""
+    from qscat.ecs import match_angle_stable
+
+    _, _, Hs_a = _n2_electronic(35.0)
+    _, _, Hs_b = _n2_electronic(44.0)
+    sigma = -0.30 - 0.40j  # deep in the rotated continuum, far from the pole
+    va, _ = ShiftInvertEigs(Hs_a, k=10).near(sigma)
+    vb, _ = ShiftInvertEigs(Hs_b, k=10).near(sigma)
+    stable, _, _ = match_angle_stable(
+        va, vb, (-1.5, 0.5, -1.0, 0.0), rel_tol=1e-4, atol=1e-8
+    )
+    assert stable.size == 0  # continuum: nothing is angle-stable
+
+
 def test_sparse_eigenvectors_match_dense_on_the_electronic_hamiltonian() -> None:
     from qscat.dvr import eigen
 
