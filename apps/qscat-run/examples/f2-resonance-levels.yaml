@@ -1,0 +1,36 @@
+# Quasi-bound vibrational levels of the F2 anion in the LCP complex potential
+# V_res(R) = E_res(R) - (i/2) Gamma(R) -- the Born-Oppenheimer approximation to
+# the 2-D model's resonance energies (the thesis's omega_j, Vana 2017 Sec. 1.5).
+#
+# This is the cheapest run in the app: no energy sweep, no wavepacket, no
+# cross section. It solves the fixed-R electronic pole walk once, lays the
+# curve onto two nuclear grids differing only in ECS tail angle, and
+# diagonalizes.
+#
+#   uv run qscat-run run apps/qscat-run/examples/f2-resonance-levels.yaml --output runs/f2-levels
+#
+# Outputs: resonance_levels_lcp_resonance_levels.{csv,npz,png}
+#
+# See docs/physics/lcp-resonance-levels.md for what these levels are (and are
+# NOT -- they are complex-scaled ECS resonance eigenstates, not Siegert
+# pseudostates), including the actual F2 numbers this config produces.
+
+molecule: F2
+methods: [lcp]
+
+observables:
+  # `channels` is the number of levels to report; omit it for every
+  # angle-stable level inside the default window.
+  - kind: resonance_levels
+    channels: 6
+
+grid:
+  # The production F2 deck (electronic + fine nuclear grids); the `lcp`
+  # method has no explicit-grid form (see f2-da-lcp-vs-exact.yaml).
+  preset: emoscat
+  # Tail angle of the second nuclear grid, used only for the two-angle
+  # stability selection. Omit to use `angle_a - 10` degrees.
+  # nuclear_angle_b: 25.0
+
+backend: auto
+output_dir: runs/f2-levels

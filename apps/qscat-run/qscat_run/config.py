@@ -177,6 +177,11 @@ class GridSpec:
     preset: str | None = None
     electronic: SegmentSpec | None = None
     nuclear: SegmentSpec | None = None
+    # Tail ECS angle of the SECOND nuclear grid used for two-angle level
+    # selection. Defaults to `angle_a - 10` degrees (eMoScat's decks pair
+    # 44/35 and 40/30). Real segments and quadrature are always copied from
+    # grid a -- the shared real region is what makes the comparison valid.
+    nuclear_angle_b: float | None = None
 
 
 def _load_grid(raw: dict[str, Any] | None) -> GridSpec:
@@ -188,6 +193,9 @@ def _load_grid(raw: dict[str, Any] | None) -> GridSpec:
         preset=str(preset) if preset is not None else None,
         electronic=electronic,
         nuclear=nuclear,
+        nuclear_angle_b=(
+            float(raw["nuclear_angle_b"]) if raw.get("nuclear_angle_b") is not None else None
+        ),
     )
 
 
@@ -306,6 +314,10 @@ class ArtifactSpec:
     # Emit the target's vibrational energy levels + their eigenstate wavefunctions
     # (the eps/chi already diagonalized for the cross section) as an artifact.
     eigenstates: bool = False
+    # Emit the quasi-bound vibrational levels of the anion in the LCP complex
+    # potential (`qscat.core.lcp.resonance_levels`) -- the BO approximation to
+    # the resonance energies. LCP path only.
+    resonance_levels: bool = False
 
 
 def _load_artifacts(raw: dict[str, Any] | None) -> ArtifactSpec:
@@ -332,6 +344,7 @@ def _load_artifacts(raw: dict[str, Any] | None) -> ArtifactSpec:
         correlations=bool(raw.get("correlations", False)),
         wavefunction_snapshots=wf,
         eigenstates=bool(raw.get("eigenstates", False)),
+        resonance_levels=bool(raw.get("resonance_levels", False)),
     )
 
 
@@ -450,10 +463,13 @@ def validate_config(cfg: ExperimentConfig) -> None:
         # `da` observable, a molecule with an LCP path (F2/NO -- N2's DA is
         # closed, H2P is DR), and the preset grids (no explicit-grid schema for
         # the two ECS-angle electronic decks + fine nuclear deck).
-        if not any(obs.kind == "da" for obs in cfg.observables):
+        kinds = {obs.kind for obs in cfg.observables}
+        if "da" not in kinds and "resonance_levels" not in kinds:
             raise ConfigError(
-                "methods includes 'lcp' but no 'da' observable is requested; LCP "
-                "approximates the DA cross section -- add `{kind: da, channels: 1}`"
+                "methods includes 'lcp' but no 'da' or 'resonance_levels' observable "
+                "is requested; LCP approximates the DA cross section -- add "
+                "`{kind: da, channels: 1}` -- or ask for the quasi-bound levels with "
+                "`{kind: resonance_levels}`"
             )
         if cfg.grid.electronic is not None or cfg.grid.nuclear is not None:
             raise ConfigError(

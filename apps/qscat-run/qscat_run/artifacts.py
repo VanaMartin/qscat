@@ -35,7 +35,13 @@ import numpy.typing as npt  # noqa: E402
 import yaml  # noqa: E402
 
 from qscat_run.config import ExperimentConfig
-from qscat_run.runner import EigenStates, ExperimentResult, ResonanceState, WavefunctionSnapshot
+from qscat_run.runner import (
+    EigenStates,
+    ExperimentResult,
+    ResonanceLevelsRun,
+    ResonanceState,
+    WavefunctionSnapshot,
+)
 
 __all__ = ["write_artifacts"]
 
@@ -237,6 +243,158 @@ def _write_resonance_state(out_dir: Path, rs: ResonanceState) -> None:
     plt.close(fig)
 
 
+def _resonance_levels_real_mask(
+    R_axis: npt.NDArray[np.float64], R0: float
+) -> npt.NDArray[np.bool_]:
+    """Boolean mask selecting the physical real-region nodes of a
+    `ResonanceLevelsRun`'s `R_axis` (`R_axis <= R0`).
+
+    `R_axis`/`Vd`/`Gamma` all cover the grid's FULL node set (real nodes plus
+    the complex-rotated ECS tail) -- despite its name, `R_axis` is not
+    restricted to the real region, it is simply real-*valued* (the tail
+    nodes' real pre-image coordinate, not their complex ECS position). Past
+    `R0`, `Vd` is `model.v0` analytically continued at a complex argument (an
+    absorbing-boundary artifact, not physics) plotted against that real
+    pre-image -- which would stretch the figure's x-axis out to the tail's
+    far edge and squash the physically relevant curve into a sliver. Factored
+    out as its own function so the boundary logic is unit-testable without
+    rendering a figure.
+    """
+    return R_axis <= R0
+
+
+def _resonance_levels_ylim(
+    Vd: npt.NDArray[np.float64], re_e: npt.NDArray[np.float64]
+) -> tuple[float, float]:
+    """Physical y-limits for the levels figure: the well, not the wall.
+
+    `V_d(R)` runs from a well bottom around -0.15 Ha up a repulsive wall that
+    reaches ~200 Ha as `R -> 0`. Autoscaling on that range collapses the well,
+    every level bar and `Gamma(R)` onto a single line at `y ~ 0`. So the frame
+    is set from the physics instead: bottom just under the well minimum, top
+    just over the highest `Re E_v` (the wall then simply leaves the top of the
+    frame, which is what it should do). With no levels at all, the curve's own
+    outermost real value -- the anion dissociation limit, `Vd` at the largest
+    real `R` -- stands in for the top; that is where any level would have to
+    lie below, and unlike a percentile it does not depend on how the grid
+    happens to distribute its nodes across the wall.
+
+    Factored out so the choice is unit-testable without rendering a figure.
+    """
+    well = float(Vd.min())
+    top = float(re_e.max()) if re_e.size else float(Vd[-1])
+    span = top - well
+    if not np.isfinite(span) or span <= 0.0:
+        span = max(abs(well), 1.0)  # degenerate curve -- keep the frame finite
+    return well - 0.10 * span, top + 0.20 * span
+
+
+def _write_resonance_levels(out_dir: Path, run: ResonanceLevelsRun) -> None:
+    """`resonance_levels_{label}.{csv,npz,png}` -- the quasi-bound level table.
+
+    The csv/npz carry the full per-level data (energies, widths, residuals,
+    real-weight fractions, and the golden-rule comparator where available --
+    `golden_rule` legitimately may be all-`nan`, comparator unavailable or
+    disabled, or `nan` on individual levels a distance guard rejected; those
+    are written as literal `nan` text/values, not coerced to `0.0`). The png
+    draws each level as a horizontal bar across the REAL-REGION `V_d(R)`
+    curve at its `Re E_v`, with bar thickness proportional to `Gamma_v` -- so
+    a broad, short-lived level reads as a thick smear and a long-lived one as
+    a hairline. `golden_rule` never feeds the png (only `Re E_v`/`Gamma_v`
+    do), so a `nan` comparator value cannot distort or silently drop a level
+    bar there. The frame is set from the physical range
+    (`_resonance_levels_ylim`) rather than autoscaled, and `Gamma(R)` gets its
+    own right-hand axis -- otherwise `V_d`'s ~200 Ha repulsive wall at small
+    `R` flattens everything worth seeing onto one line.
+    """
+    stem = f"resonance_levels_{run.label.replace(':', '_')}"
+    lv = run.levels
+
+    with (out_dir / f"{stem}.csv").open("w", newline="") as fh:
+        w = csv.writer(fh)
+        # Atomic units throughout (energies/Gamma in hartree, v the
+        # vibrational quantum number); Re_E0/Gamma_v_1 are the golden-rule
+        # comparator's pole energy/width (nan where unavailable/rejected).
+        w.writerow(["v", "Re_E", "Gamma_v", "residual", "real_weight", "Re_E0", "Gamma_v_1"])
+        for v in range(lv.energies.size):
+            # `float(...)` before `!r` -- numpy>=2's scalar repr is
+            # `"np.float64(...)"`, not a bare float literal (NEP 51); casting
+            # to a plain Python float keeps the csv a clean, round-trippable
+            # number (including a literal `"nan"`, never a numpy wrapper).
+            w.writerow(
+                [
+                    v,
+                    f"{float(lv.energies[v].real)!r}",
+                    f"{float(lv.widths[v])!r}",
+                    f"{float(lv.residuals[v])!r}",
+                    f"{float(lv.real_weight[v])!r}",
+                    f"{float(lv.golden_rule[v].real)!r}",
+                    f"{float(-2.0 * lv.golden_rule[v].imag)!r}",
+                ]
+            )
+
+    np.savez(
+        out_dir / f"{stem}.npz",
+        energies=lv.energies,
+        widths=lv.widths,
+        states=lv.states,
+        residuals=lv.residuals,
+        real_weight=lv.real_weight,
+        golden_rule=lv.golden_rule,
+        R_axis=run.R_axis,
+        Vd=run.Vd,
+        Gamma=run.Gamma,
+        R0=np.array(run.R0),
+    )
+
+    real = _resonance_levels_real_mask(run.R_axis, run.R0)
+    R = run.R_axis[real]
+    Vd = run.Vd[real].real
+    Gamma = run.Gamma[real]
+
+    fig_h = 4.5
+    fig, ax = plt.subplots(figsize=(7.0, fig_h))
+    (line_vd,) = ax.plot(R, Vd, label=r"$V_d(R)$", color="tab:blue")
+
+    lo, hi = _resonance_levels_ylim(Vd, lv.energies.real)
+    ax.set_ylim(lo, hi)
+
+    # `Gamma(R)` gets its OWN axis: it is a width (typically 1e-15 to 1e-5 Ha
+    # here), not an energy on `V_d`'s scale, and sharing the left axis pins it
+    # to a flat line at the bottom of the frame.
+    ax_g = ax.twinx()
+    (line_g,) = ax_g.plot(R, Gamma, label=r"$\Gamma(R)$", color="tab:red", ls="--", lw=1.0)
+    ax_g.set_ylabel(r"$\Gamma(R)$ [hartree]", color="tab:red")
+    ax_g.tick_params(axis="y", labelcolor="tab:red", labelsize=8)
+    ax_g.set_ylim(bottom=0.0)
+
+    # Annotate greedily from the bottom up, skipping any label that would land
+    # within ~10 points of the previous one: with 40 levels in a 0.01 Ha window
+    # the labels otherwise overprint into an unreadable smear.
+    min_sep = (hi - lo) * 10.0 / (0.78 * fig_h * 72.0)
+    last_label = -np.inf
+    for v in range(lv.energies.size):
+        e_v = float(lv.energies[v].real)
+        ax.axhline(e_v, color="k", lw=max(0.6, 400.0 * float(lv.widths[v])), alpha=0.55)
+        if e_v - last_label >= min_sep:
+            ax.annotate(
+                rf"$\omega_{{{v}}}$",
+                xy=(R[-1], e_v),
+                xytext=(-24, 2),
+                textcoords="offset points",
+                fontsize=8,
+            )
+            last_label = e_v
+
+    ax.set_xlabel(r"$R$ [bohr]")
+    ax.set_ylabel("energy [hartree]")
+    ax.set_title(f"quasi-bound levels -- {run.label}")
+    ax.legend(handles=[line_vd, line_g], loc="best", fontsize=8)
+    fig.tight_layout()
+    fig.savefig(out_dir / f"{stem}.png", dpi=150)
+    plt.close(fig)
+
+
 def write_artifacts(
     result: ExperimentResult,
     cfg: ExperimentConfig,
@@ -289,6 +447,9 @@ def write_artifacts(
         rs_dir.mkdir(parents=True, exist_ok=True)
         for rs in result.resonance_states:
             _write_resonance_state(rs_dir, rs)
+
+    for run in result.resonance_levels:
+        _write_resonance_levels(out_dir, run)
 
     (out_dir / "config.resolved.yaml").write_text(
         yaml.safe_dump(_config_to_dict(result.resolved_cfg), sort_keys=False)

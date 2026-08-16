@@ -84,10 +84,12 @@ from qscat.core import (
     vibrational_states,
 )
 from qscat.core.lcp import (
+    ResonanceLevels,
     lcp_da_cross_section,
     local_complex_potential,
     resonance_eigenstate_at_peak_width,
 )
+from qscat.core.lcp import resonance_levels as lcp_resonance_levels_for_model
 from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
 from qscat.dvr import TensorGrid
 from qscat.linalg import set_default_backend
@@ -108,6 +110,7 @@ __all__ = [
     "WavefunctionSnapshot",
     "EigenStates",
     "ResonanceState",
+    "ResonanceLevelsRun",
     "ExperimentResult",
     "run_experiment",
 ]
@@ -116,6 +119,30 @@ __all__ = [
 # `Extractor`-protocol-conformant interface (`record`/`sigma`) plus the
 # `n_steps=` truncated read added for this task's moment-resolved artifact.
 type TdExtractor = TannorWeeks | Dirac | Flux
+
+# Re/Im half-width of the electronic pole-search window in the LCP walk
+# (`qscat.core.lcp.resonance_pole_walk`), for EVERY LCP observable this runner
+# produces -- one walk per run, so one setting.
+#
+# The library default is 0.05 Ha, which under-resolves the walk through the F2
+# V_d/v0 crossing near R = 2.6 (a spurious Gamma where it must be exactly zero);
+# the library's own tests pass 0.01 for F2 for that reason, and on THEIR grid it
+# drops the worst spurious value from 2.17e-5 to 3.0e-14.
+#
+# NOTE, measured on this runner's actual F2 preset deck (not the library test's
+# toy grid): 0.01 does NOT clear the crossing artifact here -- the worst spurious
+# Gamma stays 2.275e-5 at both 0.05 and 0.01, so the `resonance_levels`
+# UserWarning fires either way on every F2 levels run (a known rough edge, see
+# docs/physics/lcp-resonance-levels.md Sec. 8). It is still the right setting: it
+# never does worse than 0.05. The crossing sits at the anion curve's own inner
+# wall -- the edge of the bound (autodetachment-closed) region, where Vd(R) turns
+# steeply upward -- while the low-lying anion vibrational levels are localized far
+# outside it (<R> ~ 3.4-3.9 bohr for v=0..7, vs the crossing at R ~ 2.60 and even
+# the neutral Morse minimum at R0 = 2.6906): their density fraction inside the
+# R in [2.5976, 2.608] crossing window is ~1e-18 to ~1e-13 of the total. Both
+# physically and numerically negligible, which is why the levels/widths computed
+# at 0.05 vs 0.01 agree to ~1e-15 (round-off) regardless of which curve is used.
+_LCP_WALK_HALF_WIDTH = 0.01
 
 
 @dataclass(frozen=True)
@@ -181,6 +208,34 @@ class ResonanceState:
     axis: npt.NDArray[np.float64]
 
 
+@dataclass(frozen=True)
+class ResonanceLevelsRun:
+    """The anion's quasi-bound vibrational levels in the LCP complex potential.
+
+    The Born-Oppenheimer approximation to the 2-D model's resonance energies:
+    the thesis's `omega_j`, promoted from real levels of `Re V_res` to genuine
+    complex eigenvalues `E_v - i Gamma_v/2`. Wraps the library dataclass rather
+    than restating its fields, and carries the curve the levels sit in so the
+    artifact can draw them together.
+
+    `R_axis`, like `Vd`/`Gamma`, covers the grid's FULL node set (real nodes
+    plus the complex-rotated ECS tail) -- `FemDvrEcsGrid.real_points` is the
+    real-valued (not the complex-region-restricted) coordinate array, so all
+    three share the same length. `R0` is the ECS rotation origin
+    (`FemDvrEcsGrid.R0`): `R_axis <= R0` is the mask that actually selects the
+    physical real-region nodes, needed because `Vd`/`Gamma` beyond `R0` are
+    `model.v0` analytically continued at a complex argument (an ECS artifact,
+    not physics) plotted against its real pre-image coordinate.
+    """
+
+    label: str
+    levels: ResonanceLevels
+    R_axis: npt.NDArray[np.float64]
+    Vd: npt.NDArray[np.complex128]
+    Gamma: npt.NDArray[np.float64]
+    R0: float
+
+
 @dataclass
 class ExperimentResult:
     """Everything a config run produced, ready for `artifacts.write_artifacts`.
@@ -205,6 +260,7 @@ class ExperimentResult:
     correlations: dict[str, npt.NDArray[Any]] = field(default_factory=dict)
     eigenstates: list[EigenStates] = field(default_factory=list)
     resonance_states: list[ResonanceState] = field(default_factory=list)
+    resonance_levels: list[ResonanceLevelsRun] = field(default_factory=list)
 
 
 def _vprimes(obs: Observable) -> list[int]:
@@ -691,7 +747,12 @@ def _run_td(
 def _run_lcp(
     cfg: ExperimentConfig,
     timings: dict[str, float],
-) -> tuple[dict[str, npt.NDArray[np.float64]], list[EigenStates], list[ResonanceState]]:
+) -> tuple[
+    dict[str, npt.NDArray[np.float64]],
+    list[EigenStates],
+    list[ResonanceState],
+    list[ResonanceLevelsRun],
+]:
     """The LCP path: reduce the exact 2-D DA resonance to a 1-D local complex
     potential `(V_d(R), Gamma(R))` (`qscat.core.lcp.local_complex_potential`,
     two ECS-angle electronic decks + the fine nuclear deck), then solve the 1-D
@@ -702,11 +763,24 @@ def _run_lcp(
     Also emits (opt-in) the vibrational levels + the resonance electronic
     eigenstate at the width peak (`artifacts.eigenstates`) and the 1-D nuclear
     scattering states `psi_sc(R)` at the requested snapshot energies
-    (`artifacts.wavefunction_snapshots.full_field` + `ti_energies`).
+    (`artifacts.wavefunction_snapshots.full_field` + `ti_energies`), and the
+    anion's quasi-bound vibrational levels (opt-in via a `resonance_levels`
+    observable or `artifacts.resonance_levels` -- see `ResonanceLevelsRun`).
+
+    A run can ask for `resonance_levels` alone, with no energy sweep at all
+    (`cfg.energies is None`) -- the `energies` guard below only fires when a
+    `da` observable actually needs a sweep.
+
+    The electronic pole walk runs EXACTLY ONCE per run, at one half-width
+    setting (`_LCP_WALK_HALF_WIDTH`), and every observable below shares its
+    output -- so the `V_d`/`Gamma` written to the artifacts is always the very
+    curve the levels and cross sections were computed in.
     """
-    if cfg.energies is None:
+    kinds = {obs.kind for obs in cfg.observables}
+    wants_sigma = "da" in kinds
+    if wants_sigma and cfg.energies is None:
         raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
-    energies = cfg.energies.as_array()
+    energies = cfg.energies.as_array() if cfg.energies is not None else np.empty(0)
 
     t0 = time.time()
     g_R, elec_a, elec_b = presets.resolve_lcp_grids(cfg)
@@ -719,9 +793,62 @@ def _run_lcp(
     eps, chi = vibrational_states(g_R, model.mu, n_vib, model.v0)
     timings["lcp:vibrational_states"] = time.time() - t0
 
+    # The LCP curve (V_d, Gamma). The electronic pole walk behind it is the
+    # single most expensive step of this path (~25 s on the F2 preset deck), so
+    # it runs EXACTLY ONCE per run whatever mix of observables is requested: if
+    # levels are wanted, `resonance_levels(..., return_curve=True)` does the walk
+    # and hands back the very curve the levels were computed in; otherwise
+    # `local_complex_potential` does the same walk on its own. Everything below
+    # -- the DA cross section, the scattering snapshots, the npz/png curve --
+    # then shares that one curve, so what the artifacts show is always what the
+    # levels came out of.
+    levels_runs: list[ResonanceLevelsRun] = []
+    wants_levels = "resonance_levels" in kinds or cfg.artifacts.resonance_levels
     t0 = time.time()
-    v_d, gamma = local_complex_potential(model, g_R, elec_a, elec_b)
-    timings["lcp:local_complex_potential"] = time.time() - t0
+    if wants_levels:
+        # Omitted `channels` means "report every angle-stable level"
+        # (`presets._default_channels` leaves it None), i.e. `n_levels=None`.
+        n_req = next(
+            (
+                _n_channels(o)
+                for o in cfg.observables
+                if o.kind == "resonance_levels" and o.channels is not None
+            ),
+            None,
+        )
+        g_R_b = presets.nuclear_grid_at_angle(cfg, presets.nuclear_angle_b(cfg))
+        levels, v_d, gamma = lcp_resonance_levels_for_model(
+            model,
+            g_R,
+            g_R_b,
+            elec_a,
+            elec_b,
+            re_half_width=_LCP_WALK_HALF_WIDTH,
+            im_half_width=_LCP_WALK_HALF_WIDTH,
+            n_levels=n_req,
+            return_curve=True,
+        )
+        timings["lcp:resonance_levels"] = time.time() - t0
+        levels_runs.append(
+            ResonanceLevelsRun(
+                label="lcp:resonance_levels",
+                levels=levels,
+                R_axis=g_R.real_points,
+                Vd=v_d,
+                Gamma=gamma,
+                R0=g_R.R0,
+            )
+        )
+    else:
+        v_d, gamma = local_complex_potential(
+            model,
+            g_R,
+            elec_a,
+            elec_b,
+            re_half_width=_LCP_WALK_HALF_WIDTH,
+            im_half_width=_LCP_WALK_HALF_WIDTH,
+        )
+        timings["lcp:local_complex_potential"] = time.time() - t0
 
     cross_sections: dict[str, npt.NDArray[np.float64]] = {}
     for obs in cfg.observables:
@@ -747,9 +874,7 @@ def _run_lcp(
         # The resonance electronic eigenstate at the width peak (#1).
         t0 = time.time()
         try:
-            R_star, e_pole, phi_res = resonance_eigenstate_at_peak_width(
-                model, g_R, elec_a, elec_b
-            )
+            R_star, e_pole, phi_res = resonance_eigenstate_at_peak_width(model, g_R, elec_a, elec_b)
             resonance_states.append(
                 ResonanceState(
                     label="lcp:resonance",
@@ -787,7 +912,7 @@ def _run_lcp(
             )
         timings["lcp:scattering_states"] = time.time() - t0
 
-    return cross_sections, eigenstates, resonance_states
+    return cross_sections, eigenstates, resonance_states, levels_runs
 
 
 def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
@@ -812,6 +937,7 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     wavefunctions: list[WavefunctionSnapshot] = []
     eigenstates: list[EigenStates] = []
     resonance_states: list[ResonanceState] = []
+    resonance_levels: list[ResonanceLevelsRun] = []
     grids: dict[str, TensorGrid] = {}
     energies = np.zeros(0, dtype=np.float64)
 
@@ -843,10 +969,16 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
             energies = resolved.energies.as_array()
 
     if "lcp" in resolved.methods:
-        lcp_cross_sections, lcp_eigenstates, lcp_resonance_states = _run_lcp(resolved, timings)
+        (
+            lcp_cross_sections,
+            lcp_eigenstates,
+            lcp_resonance_states,
+            lcp_resonance_levels,
+        ) = _run_lcp(resolved, timings)
         cross_sections.update(lcp_cross_sections)
         eigenstates.extend(lcp_eigenstates)
         resonance_states.extend(lcp_resonance_states)
+        resonance_levels.extend(lcp_resonance_levels)
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
 
@@ -863,4 +995,5 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
         correlations=correlations,
         eigenstates=eigenstates,
         resonance_states=resonance_states,
+        resonance_levels=resonance_levels,
     )
