@@ -192,3 +192,29 @@ class ShiftInvertEigs:
     def n_factorizations(self) -> int:
         """How many shifted matrices have been factored (analysis + refactors)."""
         return self._n_factorizations
+
+    def _require_lu(self) -> SparseLU:
+        if self._lu is None:
+            raise RuntimeError(
+                "no factorization yet -- call near(sigma) before reading diagnostics"
+            )
+        return self._lu
+
+    @property
+    def backend_used(self) -> str:
+        """Which factorization engine ran (`"scipy"` or `"mumps"`)."""
+        return self._require_lu().backend_used
+
+    @property
+    def ordering_used(self) -> str:
+        """The ordering the factorization actually used."""
+        return self._require_lu().ordering_used
+
+    @property
+    def fill_factor(self) -> float:
+        """Factor nnz relative to the shifted matrix's nnz."""
+        return self._require_lu().fill_factor
+
+    def memory_bytes(self) -> int:
+        """Factor memory. NOT cheap -- a method, not a property, so the cost is opt-in."""
+        return self._require_lu().memory_bytes()
