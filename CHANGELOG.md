@@ -4,6 +4,11 @@ All notable changes to `qscat` are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+This file covers the whole qModeling monorepo, which is what the published
+`qscat` package links to. Entries naming `apps/qscat-run`, `docker/`,
+`projects/` or `validation/` describe the surrounding repository rather than the
+installed package.
+
 ## [Unreleased]
 
 ### Added

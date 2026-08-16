@@ -1,8 +1,15 @@
-"""Atomic-unit conversions. All physics in qModeling uses atomic units."""
+"""Energy-unit conversions.
+
+**Every quantity in qscat is in atomic units** (hbar = m_e = e = 1): energies
+in Hartree, lengths in bohr, times in hbar/Hartree. Nothing in the library
+converts units internally -- these helpers exist only for presenting results.
+"""
 
 from __future__ import annotations
 
 import numpy as np
+
+__all__ = ["HARTREE_TO_EV", "EV_TO_HARTREE", "hartree_to_ev", "ev_to_hartree"]
 
 # CODATA 2018
 HARTREE_TO_EV: float = 27.211386245988
