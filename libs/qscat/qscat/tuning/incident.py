@@ -152,12 +152,12 @@ def _interaction_extent(model: ResonanceModel) -> float:
 
 
 def tw_analysis(model: ResonanceModel, energy_range: tuple[float, float]) -> IncidentSpec:
-    """Auto-place the TD Gaussian wavepacket for `energy_range = (E_min,
-    E_max)` -- the design spec's "TW analysis", BEST-EFFORT and not
-    independently calibrated against the eMoScat decks: Task 8 calibrated
-    the mesh's de-Broglie phase constant `C` (`qscat.tuning.mesh.
-    _PHASE_COEFF`), not this placement heuristic, which remains a documented
-    follow-on (the design spec lists the TW auto-tune as best-effort).
+    """Auto-place the TD Gaussian wavepacket for `energy_range = (E_min, E_max)`
+    -- the design spec's "TW analysis", BEST-EFFORT and not independently
+    calibrated against the eMoScat decks: Task 8 calibrated the mesh's
+    de-Broglie phase constant `C` (`qscat.tuning.mesh._PHASE_COEFF`), not this
+    placement heuristic, which remains a documented follow-on (the design spec
+    lists the TW auto-tune as best-effort).
 
     Physics: `g(r) = exp(-(r-position)^2 / (2 sigma^2)) exp(i impulse r)`
     has mean energy `impulse**2 / 2` and, near the mean, an energy spread
