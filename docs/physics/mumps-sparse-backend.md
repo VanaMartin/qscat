@@ -6,9 +6,9 @@ implementation is `qscat.linalg._mumps_backend` (`_MumpsBackend`,
 `mumps_available`). **Provisioning:** `docker/base.Dockerfile` (system MUMPS +
 synthesized pkg-config files); the `qscat[mumps]` optional extra
 (`libs/qscat/pyproject.toml`). **Benchmark:** `benchmarks/mumps_vs_superlu.py`.
-**Origin:** sub-project #8; design plan at
-`docs/superpowers/specs/2026-07-2x-mumps-sparse-backend-*` and the task
-briefs/reports under `.superpowers/sdd/`. **Units:** atomic units throughout,
+**Origin:** the design rationale is recorded in
+`docs/superpowers/specs/2026-07-26-mumps-sparse-backend-design.md`.
+**Units:** atomic units throughout,
 as everywhere in the library.
 
 ## Why the sparse LU is the hot path
@@ -334,8 +334,8 @@ uv run python -m benchmarks.mumps_vs_superlu --grids working td              # 2
 uv run python -m benchmarks.mumps_vs_superlu --grids working td production   # + 143k deck (~4.5 min, ~7.4 GB for SuperLU)
 ```
 
-The driver measures each (grid, backend) in a fresh subprocess, writes the
-Markdown table to `.superpowers/sdd/task-4-benchmark-table.md`, and prints it.
+The driver measures each (grid, backend) in a fresh subprocess and prints the
+Markdown table; `--out PATH` also writes it to a file.
 
 ## See also
 
@@ -349,6 +349,6 @@ Markdown table to `.superpowers/sdd/task-4-benchmark-table.md`, and prints it.
   matrix this backend serves.
 - `docs/physics/femdvr-ecs.md` -- the 1-D FEM-DVR-ECS grid and the exterior
   complex scaling that makes the Hamiltonian complex symmetric.
-- `.superpowers/sdd/task-1-report.md` -- the verified MUMPS provisioning +
-  `SYM=2` recipe; `.superpowers/sdd/task-4-report.md` -- the benchmark
-  methodology and full results.
+- `docker/base.Dockerfile` -- the verified MUMPS provisioning and the
+  pkg-config shim the `SYM=2` build needs; the benchmark methodology and full
+  results are in the "Benchmark" section above.

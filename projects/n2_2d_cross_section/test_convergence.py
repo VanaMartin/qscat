@@ -1,7 +1,7 @@
 """The chosen working grid must actually be converged (V3).
 
 Tolerances below are set just above the MEASURED spreads recorded in
-`.superpowers/sdd/task-4-convergence-table.md`, not the ~1% acceptance
+the measured convergence table, not the ~1% acceptance
 criterion from the spec: sigma on this problem is converged to ~1e-6
 relative (four to six orders of magnitude tighter than 1%), so a 1%
 tolerance here would be a tolerance that can never fail and would not
@@ -37,7 +37,7 @@ def test_working_grid_is_theta_independent() -> None:
     the theta=35 deg value (sigma=1.256450927036e-01): theta=30 deg deviates
     by 5.521e-07, theta=40 deg by 1.911e-06 -- spread over {30, 35, 40} is
     1.911e-06. theta=25 deg deviates by 6.752e-05 (~35x worse) at this same
-    n_complex=5 grid, confirming `.superpowers/sdd/task-4-convergence-table
+    n_complex=5 grid, confirming the development notes
     .md`'s note that a shallow 25 deg contour combined with few complex
     tail elements under-resolves the rotated continuum -- 25 deg is
     deliberately excluded from this sweep for that documented reason, not
@@ -74,7 +74,7 @@ def test_working_grid_is_stable_under_refinement() -> None:
 
     Measured: WORKING_GRID's sigma (N=26857) deviates from the richer
     BASELINE grid's sigma (N=71476, ~2.7x larger) by 2.368e-06 relative
-    (`.superpowers/sdd/task-4-convergence-table.md`). This refinement test
+    (the measured convergence table). This refinement test
     goes further still (r_max*1.5, order+1, n_complex+3, nuc_quadrature+2,
     nuc_r_max+10, nuc_n_complex+3). Tolerance is 1e-5, ~4x above the
     measured 2.368e-06 deviation -- just above the measured spread, per

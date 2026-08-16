@@ -7,7 +7,7 @@ tests only check that the machinery is sound: the projected density is
 real, non-negative, integrates to a finite value, is restricted to the
 unscaled region, and peaks where the molecule actually is (R ~ 1.5-3 bohr).
 The actual comparison (centroids, widths, shapes) is reported as data, not
-gated -- see `.superpowers/sdd/task-6-report.md`.
+gated -- see the development notes.
 """
 
 from __future__ import annotations

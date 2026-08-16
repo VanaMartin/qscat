@@ -32,7 +32,7 @@ Run (in the Docker `test` image / a container with system MUMPS + qscat[mumps]):
     uv run python -m benchmarks.sweep_reuse --mumps-m 50 100 --scipy-m 8
 
 The driver writes a Markdown table to
-`.superpowers/sdd/sweep_reuse_table.md` and prints it.
+prints it; `--out PATH` also writes it to a file.
 """
 
 from __future__ import annotations
@@ -53,7 +53,6 @@ from projects.n2_2d_cross_section.hamiltonian2d import MU, build_h2d
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
-_TABLE_PATH = _REPO_ROOT / ".superpowers" / "sdd" / "sweep_reuse_table.md"
 
 # Physical open-channel energy window for the sweep (Ha): every energy is > 0
 # so every `A(E)` is actually factored -- the benchmark measures factorization
@@ -180,6 +179,11 @@ def main(argv: list[str] | None = None) -> int:
             "because each SuperLU factorization of this deck is seconds)"
         ),
     )
+    parser.add_argument(
+        "--out",
+        default=None,
+        help="also write the results table to this path (default: print only)",
+    )
     args = parser.parse_args(argv)
 
     print("Building N2 working-grid deck...", flush=True)
@@ -206,9 +210,11 @@ def main(argv: list[str] | None = None) -> int:
 
     table = _format_table(deck, rows)
     print("\n" + table, flush=True)
-    _TABLE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    _TABLE_PATH.write_text(table)
-    print(f"\nWrote table to {_TABLE_PATH}", flush=True)
+    if args.out is not None:
+        out = Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(table)
+        print(f"\nWrote table to {out}", flush=True)
     return 0
 
 

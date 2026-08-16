@@ -162,7 +162,7 @@ autodetachment picture the resonance model describes.
    would push both ratios the same direction. Bracketing, combined with the independent
    five-order-of-magnitude `F_out` discriminator above, is what the code review confirmed
    as evidence the transform is genuinely correct physics, not a fitted or tuned
-   agreement (`.superpowers/sdd/task-4-report.md`).
+   agreement.
 4. **Finite-T convergence** (the T-scan, `TD_WORKING_GRID`'s tuned configuration):
 
    | T | E=0.10 ratio | E=0.15 ratio |
@@ -379,8 +379,6 @@ to-rust-kernel`), to be taken up only once a hot path is proven and there is a r
 - `validation/n2/experiment.py` Group F: 2 recorded **NOTE** rows (never gating); harness
   totals with Group F added: **23 PASS, 0 PENDING, 6 NOTE, 0 FAIL**, exit code `0` — no
   regression of the pre-existing 23 PASS / 0 PENDING / 4 NOTE / 0 FAIL.
-- `.superpowers/sdd/task-1-report.md` through `task-7-report.md` (this sub-project's own
-  numbering): the full numeric record for each stage.
 
 ## No model parameter was tuned to improve agreement with anything
 

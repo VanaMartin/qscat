@@ -2,7 +2,7 @@
 (sub-project #3, Task 2).
 
 Cross-checks `vres.vres_on_grid` against sub-project #2's own validated
-pole-finder result (`.superpowers/sdd/task-2-report.md` for
+pole-finder result (the development notes for
 `projects/n2_resonance`): at R0 = 2.01943 bohr,
 `E_pole = 0.089850 - 0.008363i Ha`, i.e. `E_res ~= 0.0898 Ha`,
 `Gamma = -2*Im(E_pole) ~= 0.01673 Ha`. The nuclear grid's nearest real point

@@ -1,7 +1,7 @@
 """The full sigma(E) "boomerang" curve from ONE propagation, + the usable
 energy window (sub-project #7, Task 5).
 
-Task 4 (`.superpowers/sdd/task-4-report.md`) already did the convergence
+Task 4 (the development notes) already did the convergence
 work: the T-scan (E=0.10 settles to 0.93-0.95 for T>=1200; E=0.15 floors at
 [1.10, 1.20] across the whole T range -- the usable-window edge, not an
 unconverged transient), the wavepacket tuning (`p0` centers the incident
@@ -40,7 +40,7 @@ from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 
 __all__ = ["TD_WORKING_GRID", "td_working_tgrid", "sigma_curve", "usable_window"]
 
-# The converged configuration from Task 4 (`.superpowers/sdd/task-4-report.md`,
+# The converged configuration from Task 4 (the development notes,
 # "Converged configuration" + the T-scan table). Task 5 does not re-derive
 # this -- it only names it, per the controller's explicit instruction not to
 # redo a box/dt/T sweep. Every value is commented with its Task-4 measurement

@@ -1,7 +1,7 @@
 """Vibrationally-elastic/inelastic (VE) cross section via the
 resolvent/driven-equation (sub-project #3, Task 3 -- THE CRUX).
 
-`.superpowers/sdd/ti-cross-section-extraction.md` sections 3-4:
+the eMoScat TI extraction sections 3-4:
 
 - Doorway: `d_v(R) = sqrt(Gamma(R)/(2*pi)) * chi_v(R)`.
 - Driven equation, for collision energy `E` and initial vibrational channel
@@ -16,7 +16,7 @@ resolvent/driven-equation (sub-project #3, Task 3 -- THE CRUX).
   `xi` is a genuinely complex ECS-driven solution (not an eigenvector pair
   needing a Hermitian norm). This was verified empirically here: the
   c-product convention gives real, non-negative `sigma`; the Hermitian
-  (conjugated) convention does not (see `.superpowers/sdd/task-3-report.md`).
+  (conjugated) convention does not (see the development notes).
 - Cross section: `sigma_{v_init->v'}(E) = 4*pi**3*|S|**2/(2*E)`, set to 0
   if the final channel is energetically closed (`E_tot - eps_{v'} <= 0`).
 

@@ -107,8 +107,7 @@ def run_checks() -> list[Check]:
     # problem directly -- no local-complex-potential (LCP) approximation.
     # GATED anchors get a real PASS/FAIL against Houfek at GATED_RTOL=1e-3
     # (a differential-oracle tolerance derived from the measured deviations,
-    # see projects/n2_2d_cross_section/test_anchors.py and
-    # .superpowers/sdd/task-5-report.md -- 3-5 orders of magnitude tighter
+    # see projects/n2_2d_cross_section/test_anchors.py -- 3-5 orders of magnitude tighter
     # than the LCP's own cross-model ANCHOR_FACTOR=3.0 band, since exact-2D
     # vs. Houfek is the SAME model/method, just an independent
     # implementation). DOCUMENTED-LIMITED anchors (elastic, near-threshold)

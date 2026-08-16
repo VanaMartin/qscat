@@ -3,9 +3,10 @@
 **Location:** `qscat.dvr` (grid + kinetic + Hamiltonian/eigen helpers),
 `qscat.ecs` (the complex-scaling coordinate map).
 **Origin:** ported from eMoScat's `FemDvrEcsGrid.cpp` / `DvrGrid.cpp` /
-`KineticEnergy.cpp` / `DiscreteStates.cpp`; see the port-scout extraction at
-`.superpowers/sdd/femdvr-ecs-extraction.md` and the design spec at
-`docs/superpowers/specs/2026-07-21-femdvr-ecs-grid-design.md`.
+`KineticEnergy.cpp` / `DiscreteStates.cpp`. The method is Rescigno & McCurdy,
+Phys. Rev. A 62, 032706 (2000) -- see
+`reference/literature/rescigno-2000-pra62-032706.md`; the design rationale is
+recorded at `docs/superpowers/specs/2026-07-21-femdvr-ecs-grid-design.md`.
 **Units:** atomic units throughout (energy in Hartree, length in Bohr).
 
 ## Method
@@ -105,9 +106,7 @@ one, and sorts results by ascending `Re(E)`.
 
 ## Validation benchmarks
 
-All four live in `libs/qscat/tests/test_femdvr_ecs.py` (originally developed as
-`projects/femdvr_ecs/test_kinetic_benchmarks.py` and
-`test_ecs_benchmarks.py`, which remain as the origin/dev copy).
+All four live in `libs/qscat/tests/test_femdvr_ecs.py`.
 
 1. **B1 — particle in a box** (`theta = 0`). Exact analytic oracle
    `E_n = n^2 pi^2 / (2 * mass * L^2)`. Matched to `rtol <= 1e-6` for the

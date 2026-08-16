@@ -30,6 +30,11 @@ docs = [
 dev = [
     "pytest>=8",
     "pytest-benchmark>=4",
+    # Parallel test execution: `uv run pytest -n auto`. The suite is
+    # CPU-bound and process-isolated, so it scales well; note the numerics
+    # here are BLAS-threaded, so `-n` above the physical core count can slow
+    # things down rather than speed them up.
+    "pytest-xdist>=3",
     "hypothesis>=6",
     "ruff>=0.6",
     "mypy>=1.11",

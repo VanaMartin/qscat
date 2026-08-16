@@ -15,7 +15,6 @@ that departs from real N₂ spectroscopy. This model-vs-reality gap is
 inherited by, and folded into,
 the LCP-vs-Houfek-2D differences seen in the cross-section benchmark
 (`projects/n2_ti_cross_section/`). See
-`.superpowers/sdd/task1fix-report.md` and
 `docs/physics/n2-resonance.md`'s "Model caveat" section for the full
 analysis; validated by
 `projects/n2_ti_cross_section/test_vibrational.py`, which checks the

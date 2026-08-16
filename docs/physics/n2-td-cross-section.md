@@ -152,5 +152,3 @@ preserving the project's original import path.
   `rtol<=0.05`; resonance depletion, `norm_ratio<0.1`) -- **PASS**.
 - `validation/n2/experiment.py` Group D: all 4 GATED anchors, **PASS**;
   harness exit code `0`, 0 PENDING.
-- `.superpowers/sdd/task-1-report.md`, `task-2-report.md`, `task-3-report.md`
-  (this sub-project's own numbering): the full numeric record.

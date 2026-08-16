@@ -22,8 +22,7 @@ close to the LCP's factor-of-3 cross-model band.
 
 V5 (the scientific deliverable, `ratio_lcp_vs_exact`) and V6 (the two
 LCP NOTEs re-examined with a real oracle) are not separately gated here --
-they are reported in full in `.superpowers/sdd/task-5-report.md` and the
-task's chat reply -- but this file DOES check the qualitative V5 claim that
+they are not reported here -- but this file DOES check the qualitative V5 claim that
 motivates the whole sub-project: once gated, the exact solver is at least
 as trustworthy a comparison point as Houfek itself, so the LCP should never
 look *better* against Houfek than the exact solver does.

@@ -3,7 +3,7 @@
 **Location:** `qscat.linalg` (`kron_sum`, `SparseLU`, `c_product`), `qscat.dvr`
 (`kinetic_sparse`, `TensorGrid`, `kinetic_nd`, `potential_nd`, `hamiltonian_nd`).
 **Origin:** port-scout archaeology of eMoScat's 2-D e-N2 machinery
-(`.superpowers/sdd/n2-2d-exact-extraction.md`); design spec at
+(ported from eMoScat); the design rationale is recorded at
 `docs/superpowers/specs/2026-07-22-nd-sparse-hamiltonian-design.md`
 (sub-project #5). Consumed by sub-project #6, the exact 2-D electron-N2
 scattering solver.
@@ -349,9 +349,6 @@ eMoScat's own 2-D path was never GPU either).
 
 - `docs/superpowers/specs/2026-07-22-nd-sparse-hamiltonian-design.md` -- the
   design spec this sub-project implements.
-- `.superpowers/sdd/n2-2d-exact-extraction.md` -- the port-scout archaeology
-  of eMoScat's 2-D Hamiltonian assembly and production-scale measurements
-  this document's cost table is drawn from.
 - `docs/physics/femdvr-ecs.md` -- the 1-D FEM-DVR-ECS grid, kinetic
   assembly, and diagonal-potential approximation that each `T_d` and the
   D-dimensional `V` build on.
