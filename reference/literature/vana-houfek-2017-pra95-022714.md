@@ -103,6 +103,12 @@ paper's typesetting, not a physical sign change — the models, Table I values, 
 downstream Vres/LCP results are otherwise identical to PRA73 — but it is recorded here
 as a checked, real textual discrepancy rather than silently normalized away.
 
+The physics settles it independently of the typesetting: `λ(R)` is **positive**
+everywhere in these models (`λ∞ = 6.21066` for N₂, `18.8490` for F₂ — Table I,
+p. 022714-2), so `Vint = +λ e^{−αr²}` would be a purely **repulsive** interaction,
+which cannot bind the electron into the resonance whose cross sections this paper
+computes. The minus is required, and the repo's implementation is correct.
+
 ## Parameters and numeric values
 
 Table I, p. 022714-2 (atomic units) — identical N₂/NO columns to
