@@ -62,6 +62,7 @@ import scipy.sparse as sp
 
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic, kinetic_sparse
 from qscat.ecs import find_resonance_pole, match_angle_stable
+from qscat.exceptions import ConvergenceError
 from qscat.linalg import SparseLU, c_product
 
 from .dissociation import anion_electronic_states
@@ -130,7 +131,7 @@ def resonance_pole_walk(
     each accepted pole; on breakdown (residual `>= resid_tol` or a solver
     error) the LAST accepted `(shift, gamma)` is FROZEN for all remaining
     (inner) `R`. The freeze holds the electronic SHIFT `s = V_d - v0(R)`
-    constant, not the absolute pole. Raises `RuntimeError` if the finder
+    constant, not the absolute pole. Raises `ConvergenceError` if the finder
     fails already at the seed edge (no accepted pole to freeze).
     """
     window = seed_window
@@ -165,7 +166,9 @@ def resonance_pole_walk(
                     continue
             broken = True
         if last_s is None:
-            raise RuntimeError("resonance_pole_walk: pole finder failed at the seed edge")
+            raise ConvergenceError(
+                "resonance_pole_walk: pole finder failed at the seed edge"
+            )
         shift[j], gamma_w[j] = last_s, last_g
     return shift, gamma_w
 
@@ -224,7 +227,7 @@ def resonance_eigenstate_at_peak_width(
     consistent with the reported `V_d(R_star)`. Lands on the genuinely
     most-resonant geometry -- the natural single representative resonance state.
 
-    Raises `RuntimeError` if no real-`R` point has a resolvable, genuine width
+    Raises `ConvergenceError` if no real-`R` point has a resolvable, genuine width
     (`Gamma` ~ 0 everywhere, or every wide point is frozen).
     """
     Vd, gamma = local_complex_potential(
@@ -256,7 +259,7 @@ def resonance_eigenstate_at_peak_width(
         if abs(E_pole.real - e_re) > _FROZEN_TOL:
             continue  # frozen point: fresh pole disagrees with the stale V_d -- skip
         return R, E_pole, phi
-    raise RuntimeError(
+    raise ConvergenceError(
         "resonance_eigenstate_at_peak_width: no real-R point has a resolvable, "
         "genuine (non-frozen) resonance width"
     )

@@ -30,7 +30,7 @@ single-energy S-matrix element (`eMoScat TestFunction2d.cpp:298-307`):
 `eta_outgoing`, evaluated once per (E, v') pair in `td_cross_section.py`,
 while the (expensive) propagation against `Phi_{v'}` happens only once.
 
-`outgoing_channel_nuclear`/nuclear `eta_outgoing` (sub-project #4/SP2, Task 4)
+`outgoing_channel_nuclear`/nuclear `eta_outgoing`
 are the NUCLEAR-axis transpose of the above, for the `TannorWeeks(axis=
 "nuclear")` dissociative-attachment (DA) extractor (`qscat.core.
 td_extractors`): the outgoing Gaussian test packet moves to the NUCLEAR

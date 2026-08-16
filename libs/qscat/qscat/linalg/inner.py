@@ -6,7 +6,7 @@ the natural pairing is the bilinear `sum_i a_i b_i` with NO complex conjugate
 
 Getting this wrong is a recurring, quiet failure mode: it produces
 plausible-looking complex "cross sections" with the wrong phase rather than an
-obvious error. It has already bitten this repo once (sub-project #3's S-matrix,
+obvious error. It has already bitten this repo once (the N2 S-matrix,
 where the Hermitian convention gave negative sigma), and the reference C++ code
 uses `cblas_zdotc` here -- formally wrong, and correct in practice only because
 it zeroes every channel function on the complex-scaled tail. Naming the

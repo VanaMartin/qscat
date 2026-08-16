@@ -23,8 +23,7 @@ Construction (mirrors FemDvrEcsGrid.cpp:84-112 exactly):
     numerically identical to the original per-element complex-boundary
     (`az`) construction for the validated case of a single shared tail angle
     (see `qscat.ecs.ecs_map` and the `GridSpec` docstring caveat about
-    multiple different tail angles being rejected until validated in
-    sub-project #2).
+    multiple different tail angles being rejected as unvalidated).
   - The weight Jacobian `hz` (used only for `all_wz`, not point placement)
     still carries the per-element complex half-length directly: it is the
     local derivative dz/dxi of the ECS map's linear tail segment, which is

@@ -105,7 +105,7 @@ one, and sorts results by ascending `Re(E)`.
 
 ## Validation benchmarks
 
-All four live in `libs/qscat/tests/test_femdvr_ecs.py` (ported from
+All four live in `libs/qscat/tests/test_femdvr_ecs.py` (originally developed as
 `projects/femdvr_ecs/test_kinetic_benchmarks.py` and
 `test_ecs_benchmarks.py`, which remain as the origin/dev copy).
 
@@ -135,11 +135,19 @@ All four live in `libs/qscat/tests/test_femdvr_ecs.py` (ported from
    asymptote), giving `arg(E) = -57.25 deg` (vs. the `-60 deg` asymptote) —
    well inside a `+/-5 deg` window; the test asserts that most mid-spectrum,
    sizeable-`|E|` eigenvalues cluster there (edge-of-basis "junk" states and
-   near-zero eigenvalues are excluded from the selection). See the docstring
-   in `projects/femdvr_ecs/test_ecs_benchmarks.py` for the full derivation,
-   including a from-scratch check that a *uniform*-angle grid (no real
-   region) reproduces `E_n = n^2 pi^2 e^{-2i theta} / (2 m L^2)` to machine
-   precision.
+   near-zero eigenvalues are excluded from the selection).
+
+   **Why the grid is deliberately lopsided.** An *equal* real/complex split
+   (`R0 == Lt`) gives `arg(Z_eff) = theta/2` exactly — since
+   `1 + e^{i*theta} = 2*cos(theta/2)*e^{i*theta/2}`, independent of the common
+   length — so the spectrum clusters at `arg(E) = -theta`, not `-2*theta`. A
+   benchmark written that way fails its own assertion with *zero* eigenvalues
+   in the expected window, and looks like an ECS bug while being a
+   test-setup artifact. That it is an artifact was confirmed separately: a
+   *uniform*-angle grid (all elements rotated, no real region) reproduces the
+   exact scaled-box spectrum `E_n = n^2 pi^2 e^{-2i theta} / (2 m L^2)` to
+   machine precision, so the `e^{i*theta}` Jacobian in `kinetic` is right.
+   Hence `R0/Lt = 0.05`.
 4. **B4 — bound-state theta-independence**. A square well `V = -V0` on
    `[0, a]`, deep enough to support one bound state. The well edge `a = 3.0`
    is placed exactly on an element boundary (real region length 12, 4

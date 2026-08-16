@@ -75,8 +75,8 @@ class GridSpec:
         if len(distinct_nonzero_angles) > 1:
             raise GridError(
                 "a bent/graded ECS tail (more than one distinct nonzero "
-                "angle_deg among the elements) is rejected until validated "
-                "in sub-project #2; use a single uniform ECS tail angle"
+                "angle_deg among the elements) is not validated and is "
+                "rejected; use a single uniform ECS tail angle"
             )
 
         self.R0 = self.x_min + real_length_sum
