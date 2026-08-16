@@ -113,13 +113,13 @@ class WavefunctionArtist:
         ylabel: str = "axis 0",
         contours: bool | int | Sequence[float] = False,
         contour_field: Literal["magnitude", "potential"] = "magnitude",
-        contour_color: str = "white",
+        contour_color: str | None = None,
         contour_alpha: float = 0.6,
         contour_linewidth: float = 0.6,
         potential: Any = None,
         potential_levels: Sequence[float] | Literal["auto"] | None = None,
         potential_style: str = ":",
-        potential_color: str = "0.75",
+        potential_color: str | None = None,
         potential_alpha: float = 0.7,
         potential_linewidth: float = 0.6,
         potential_labels: bool = True,
@@ -137,6 +137,14 @@ class WavefunctionArtist:
         self.inverse = inverse
         self.contours = contours
         self.contour_field = contour_field
+        # Contours have to contrast with the ground they are drawn on, and
+        # `inverse` flips that ground from black to white. Defaulting them to a
+        # fixed colour left the inverse (print) mode drawing white on white.
+        # Both remain overridable; an explicit colour is honoured as given.
+        if contour_color is None:
+            contour_color = "black" if inverse else "white"
+        if potential_color is None:
+            potential_color = "0.25" if inverse else "0.75"
         self._contour_style = dict(
             colors=contour_color, alpha=contour_alpha, linewidths=contour_linewidth
         )

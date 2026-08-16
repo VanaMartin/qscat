@@ -171,6 +171,75 @@ def test_contours_magnitude_thin_white_06(tmp_path) -> None:
     plt.close("all")
 
 
+def test_contour_colour_follows_inverse(tmp_path) -> None:
+    """Contours must contrast with the ground `inverse` chooses.
+
+    The dark render draws them white; the inverse (print) render must draw them
+    black, or they are white on white and invisible. An explicit colour still
+    wins over both defaults.
+    """
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(40, 40))
+    rng = np.random.default_rng(0)
+    state = rng.standard_normal(tg.grids[0].n * tg.grids[1].n) + 0j
+
+    def _contour_rgb(**kwargs):
+        _, ax = plt.subplots()
+        plot_wavefunction_2d(proj, state, mag=0.05, ax=ax, contours=True, **kwargs)
+        cset = next(c for c in ax.get_children() if isinstance(c, QuadContourSet))
+        return np.asarray(cset.get_edgecolor()[0][:3])
+
+    assert np.allclose(_contour_rgb(inverse=False), [1.0, 1.0, 1.0])
+    assert np.allclose(_contour_rgb(inverse=True), [0.0, 0.0, 0.0])
+    assert np.allclose(_contour_rgb(inverse=True, contour_color="red"), [1.0, 0.0, 0.0])
+    plt.close("all")
+
+
+def test_potential_overlay_colour_follows_inverse() -> None:
+    """The dotted potential overlay flips the same way, light grey to dark."""
+    pytest.importorskip("matplotlib")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.contour import QuadContourSet
+    from qscat.viz import plot_wavefunction_2d
+
+    tg = _tgrid()
+    proj = EquidistantProjector(tg, samples=(30, 30), extent=((1.0, 6.0), (1.0, 4.0)))
+    state = np.zeros(tg.grids[0].n * tg.grids[1].n, dtype=complex)
+
+    def _potential_grey(inverse: bool) -> float:
+        # `potential_levels` (not contour_field="potential") is what enables the
+        # dedicated dotted overlay, and that is the path `potential_color`
+        # styles; `contours=False` leaves it as the only contour set on the axes.
+        _, ax = plt.subplots()
+        plot_wavefunction_2d(
+            proj,
+            state,
+            mag=0.05,
+            ax=ax,
+            inverse=inverse,
+            contours=False,
+            potential=lambda r, R: r + R,
+            potential_levels=[3.0, 5.0],
+        )
+        cset = next(c for c in ax.get_children() if isinstance(c, QuadContourSet))
+        return float(np.asarray(cset.get_edgecolor()[0][:3]).mean())
+
+    dark_ground, light_ground = _potential_grey(False), _potential_grey(True)
+    assert dark_ground > light_ground  # light grey on black, dark grey on white
+    plt.close("all")
+
+
 def test_contours_potential_array_and_callable_both_draw() -> None:
     pytest.importorskip("matplotlib")
     import matplotlib

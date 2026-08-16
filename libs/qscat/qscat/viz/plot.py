@@ -41,12 +41,12 @@ def plot_wavefunction_2d(
     potential: npt.NDArray[np.complex128]
     | Callable[[npt.NDArray[np.float64], npt.NDArray[np.float64]], npt.NDArray[np.float64]]
     | None = None,
-    contour_color: str = "white",
+    contour_color: str | None = None,
     contour_alpha: float = 0.6,
     contour_linewidth: float = 0.6,
     potential_levels: Sequence[float] | Literal["auto"] | None = None,
     potential_style: str = ":",
-    potential_color: str = "0.75",
+    potential_color: str | None = None,
     potential_alpha: float = 0.7,
     potential_linewidth: float = 0.6,
     potential_labels: bool = True,
@@ -100,13 +100,16 @@ def plot_wavefunction_2d(
         FULL 2-D PES pass ``model.surface`` (``v0(R) + ell(ell+1)/2r^2 +
         v_int(r,R)``), NOT ``v0`` or ``interaction_diag`` alone.
     contour_color, contour_alpha, contour_linewidth : optional
-        ``|psi|``-contour style; defaults thin white lines at 0.6 opacity.
+        ``|psi|``-contour style. The colour defaults to whatever contrasts
+        with the ground: white on the normal dark render, black under
+        ``inverse``. Pass a colour to override.
     potential_levels : sequence of float or "auto", optional
         Enables the dotted potential overlay (in addition to ``|psi|``) when this
         and ``potential`` are given. Explicit energies (Hartree) or ``"auto"``
         (turning surfaces via `energy_contour_levels` from ``eps``/``energies``).
     potential_style, potential_color, potential_alpha, potential_linewidth : optional
-        Potential-overlay style; defaults dotted grey at 0.7 alpha.
+        Potential-overlay style; dotted at 0.7 alpha, in a grey that follows
+        ``inverse`` (light on dark, dark on light).
     potential_labels : bool, optional
         Inline-label each dotted line with its energy (``potential_label_fmt``).
     eps, v_init, energies : optional
