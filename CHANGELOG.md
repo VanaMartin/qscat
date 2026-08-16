@@ -131,6 +131,12 @@ installed package.
   the package README.
 
 ### Fixed
+- `qscat.viz` contour colours now follow `inverse`. The `|psi|` contours and the
+  dotted potential overlay had fixed defaults (white, `0.75` grey), so the
+  `inverse` (light-ground) render drew white on white and the overlay was barely
+  visible. They now default to white / `0.75` grey on the dark render and black /
+  `0.25` grey under `inverse`; an explicit `contour_color` / `potential_color`
+  still wins, so no existing call changes behaviour.
 - `H2P.mu` (`qscat.model.library`): `918.25` → `918.076` (`m_p/2` for the modern
   proton mass, `1836.15267/2`). The old value was inherited from eMoScat's JSON
   deck; Vana 2017 Table 1.2 and Hvizdoš et al., Phys. Rev. A 97, 022704 (2018)
