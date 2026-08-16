@@ -15,7 +15,11 @@ members = ["libs/*", "native/*", "apps/*"]
 # reference/ holds read-only prior codebases (eMoScat, libXcuda), not part of
 # this workspace's test suite — their *_test.py files assume a different cwd
 # and fixture layout. Never collect them.
-norecursedirs = [".venv", ".git", ".hypothesis", "reference", "target", "*.egg-info"]
+# .claude/ can contain embedded git worktrees under .claude/worktrees/ (e.g.
+# live work checked out on another branch); their test modules share
+# basenames with the real tree and break collection with duplicate-module
+# errors. Never recurse into .claude/.
+norecursedirs = [".venv", ".git", ".hypothesis", "reference", "target", "*.egg-info", ".claude"]
 pythonpath = ["."]
 markers = [
     "slow: heavier checks (production-scale assembly); deselect with -m 'not slow'",
