@@ -53,9 +53,11 @@ A `reference:` entry keeps its own energy axis: it is never interpolated onto
 the run's energies, so it is written to `reference.{csv,npz}` rather than as
 extra columns in `cross_section.csv` (whose rows are the run's own energies).
 `path` resolves relative to the config file's own directory, not the current
-working directory. See `examples/n2-ve-vs-houfek.yaml` for the flagship case
-— N2 vibrational excitation overlaid on Karel Houfek's independent published
-data.
+working directory. `label`, when given, is what the PNG legend shows instead
+of the raw `ref:...` series key; with multiple `channels` from one reference,
+each gets its own `(chN)` suffix so the legend stays unambiguous. See
+`examples/n2-ve-vs-houfek.yaml` for the flagship case — N2 vibrational
+excitation overlaid on Karel Houfek's independent published data.
 
 Every run also writes `config.resolved.yaml` (the fully default-filled config)
 and `manifest.json` (qscat version, git SHA, timestamp, backend, timings) for

@@ -101,11 +101,30 @@ def _write_cross_section_npz(
     np.savez(path, energy=energies, **series)  # type: ignore[arg-type]
 
 
+def _disambiguated_labels(label: str | None, keys: list[str]) -> dict[str, str]:
+    """Map one reference spec's series keys to their legend labels.
+
+    `label` (from `ReferenceSpec.label`) is used verbatim when the spec
+    produced exactly one series (e.g. a single-channel reference). With
+    MULTIPLE channels from the same reference, the shared label alone would
+    put several identical legend entries on the plot, so each key's own
+    channel suffix (`"ch0"`, `"ch1"`, ...) is appended to keep them
+    distinguishable. `label is None` returns `{}` -- `_write_cross_section_png`
+    then falls back to the series key itself, same as a computed curve.
+    """
+    if label is None:
+        return {}
+    if len(keys) <= 1:
+        return dict.fromkeys(keys, label)
+    return {k: f"{label} ({k.rsplit(':', 1)[-1]})" for k in keys}
+
+
 def _write_cross_section_png(
     path: Path,
     energies: npt.NDArray[np.float64],
     series: dict[str, npt.NDArray[np.float64]],
     reference: dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]] | None = None,
+    reference_labels: dict[str, str] | None = None,
 ) -> None:
     fig, ax = plt.subplots(figsize=(8, 6))
     for key, sigma in series.items():
@@ -114,10 +133,13 @@ def _write_cross_section_png(
     # A reference dataset keeps ITS OWN energy axis (never interpolated onto
     # `energies`), so it is overlaid against that axis directly -- dashed and
     # thinner so it reads as "someone else's data", visually distinct from
-    # the computed curves above.
+    # the computed curves above. `reference_labels` (built from
+    # `ReferenceSpec.label` by `_disambiguated_labels`) takes precedence over
+    # the raw series key when the config named the reference.
     for key, (r_energy, r_sigma) in (reference or {}).items():
         masked_r = np.where(r_sigma > 0.0, r_sigma, np.nan)
-        ax.plot(r_energy, masked_r, "--", linewidth=1.0, alpha=0.8, label=key)
+        label = (reference_labels or {}).get(key, key)
+        ax.plot(r_energy, masked_r, "--", linewidth=1.0, alpha=0.8, label=label)
     ax.set_xlabel("E (Hartree)")
     ax.set_ylabel(r"$\sigma$ (bohr$^2$)")
     ax.set_yscale("log")
@@ -450,14 +472,19 @@ def write_artifacts(
     # artifacts are requested below.
     ref_base = Path(cfg.config_dir) if cfg.config_dir else Path.cwd()
     reference_series: dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]] = {}
+    reference_labels: dict[str, str] = {}
     for ref in cfg.reference:
-        reference_series.update(load_reference(ref, ref_base))
+        series_i = load_reference(ref, ref_base)
+        reference_series.update(series_i)
+        reference_labels.update(_disambiguated_labels(ref.label, list(series_i)))
 
     if cfg.artifacts.cross_section and result.cross_sections:
         e, series = result.energies, result.cross_sections
         _write_cross_section_csv(out_dir / "cross_section.csv", e, series)
         _write_cross_section_npz(out_dir / "cross_section.npz", e, series)
-        _write_cross_section_png(out_dir / "cross_section.png", e, series, reference_series)
+        _write_cross_section_png(
+            out_dir / "cross_section.png", e, series, reference_series, reference_labels
+        )
 
     _write_reference(out_dir, reference_series)
 
