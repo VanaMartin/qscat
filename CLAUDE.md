@@ -64,7 +64,8 @@ libs/       qscat — the standard library: validated, reusable QM code
               `qscat.dvr.eigen`; the conventions that bite (the `A − σ·I` sign,
               nearest-shift ordering, Euclidean vs c-product normalization) and
               the measured working range are in
-              docs/physics/shift-invert-eigensolver.md.
+              docs/physics/shift-invert-eigensolver.md. Its first consumer is
+              `qscat.core.exact_resonance_states` (below).
             - qscat.dvr: FEM-DVR-ECS radial grid (`FemDvrEcsGrid`), kinetic-
               energy assembly (`kinetic`), and diagonal-potential Hamiltonian
               + eigensolver helpers (`hamiltonian`, `eigen`) — see
@@ -179,6 +180,18 @@ libs/       qscat — the standard library: validated, reusable QM code
               reproduces what eMoScat/the thesis computed -- its divergence from the
               complex result is the non-perturbative signal. NOT Siegert
               pseudostates (see docs/physics/lcp-resonance-levels.md). Plus
+              `exact_resonance_states` (+ `ExactResonanceStates`) is the
+              approximation-free counterpart of those BO levels: poles of the FULL
+              2-D S-matrix, found by generalizing ECS angle stability to TWO angles
+              (three spectra — base, electronic-angle moved, nuclear-angle moved —
+              with a state accepted only if it survives both, and both residuals
+              reported). Seeds are passed in, so the exact solver never calls the
+              approximation it measures. On N2 the exact pole lies BELOW the BO/LCP
+              level in both position and width at every level; converged only for
+              v=0 (0.22 meV in position, 0.30 meV in width, over an electronic box
+              grown 24→72 bohr — order converges at 8, the real-region extent is the
+              limiting knob, and widths converge slower than positions) — see
+              docs/physics/exact-2d-resonances.md. Plus
               `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
               eMoScat's `(n_elem, endpoint)` deck format), `vibrational` (`v0`
@@ -457,6 +470,13 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     viz test run in the container and `@skipif`/`@skip`-absent on a bare Mac (no
     system MUMPS, no ffmpeg), so the Mac suite stays green while the same tests
     run + pass in Docker — see docs/physics/mumps-sparse-backend.md.
+  - **Where `qscat.viz` is actually tested.** GitHub CI runs
+    `uv sync --all-packages`, which does NOT install the `plot` extra, so every
+    test guarded by `pytest.importorskip("matplotlib")` — the whole `qscat.viz`
+    suite — SKIPS there. Those tests are exercised only by a local run with the
+    extra installed and by the Docker `test` image. A green CI run is therefore
+    not evidence that a viz change works; run `libs/qscat/tests/test_viz.py`
+    locally or in the container before believing one.
   - `docker/build.sh [test|runtime]` builds the base image then the
     requested app target. Verified working: `test` prints `5 passed`;
     `runtime` prints `qscat 0.0.0 ready`.

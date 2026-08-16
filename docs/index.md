@@ -40,6 +40,7 @@ physics/td-da
 physics/diatomic-ve-cross-sections
 physics/h2plus-dr
 physics/lcp-resonance-levels
+physics/exact-2d-resonances
 physics/angular-coupled-channels
 physics/optimization-targets
 ```
