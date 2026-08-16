@@ -48,7 +48,7 @@ small self-contained transform (like `Dirac`'s), not routed through
 `sigma_from_correlations`, so this task cannot perturb TW's byte-identical
 golden regression either.
 
-`Flux(axis="nuclear")` (sub-project #4/SP2, Task 2) is the SAME flow
+`Flux(axis="nuclear")` is the SAME flow
 extractor with the electronic/nuclear roles of eMoScat's `FluxTestFunction2d`
 `axis_=='y'` branch: the surface is a NUCLEAR node (`R = R_surface`, real
 region), and the "bound state" projected onto is not a single nuclear
@@ -81,10 +81,10 @@ off-diagonal/inelastic element, so `pi|S|^2/2E == 4 pi^3|T|^2/2E`): the flux
 Wronskian transform is a channel-agnostic way to extract "the" S-matrix
 element for ANY exit channel (electronic or nuclear), so it lands on the
 SAME `pi*|S|^2/2E` convention regardless of which axis carries the outgoing
-flux -- confirmed empirically by the TI-convergence gate (`task-2-report.md`),
-not merely asserted.
+flux -- confirmed empirically by the TI-convergence gate (see
+`docs/physics/td-da.md`), not merely asserted.
 
-`Dirac(axis="nuclear")` (sub-project #4/SP2, Task 3) is the delta (point-
+`Dirac(axis="nuclear")` is the delta (point-
 projection) sibling of `Flux(axis="nuclear")` -- the SAME anion-channel
 scaffolding (`n_channels`, `anion_electronic_states` at `R_inf =
 tgrid.grids[1].R0`), but `record` keeps only the point VALUE, no derivative:
@@ -103,7 +103,7 @@ the SAME `C_DA = pi` (no elastic free-reference subtraction: DA has no
 `v'==v_init` diagonal, `free != None` raises `ValueError`, matching
 `Flux(axis="nuclear")`).
 
-`TannorWeeks(axis="nuclear")` (sub-project #4/SP2, Task 4) is the NUCLEAR-
+`TannorWeeks(axis="nuclear")` is the NUCLEAR-
 axis TannorWeeks: the DA sibling of the electronic `TannorWeeks` above, the
 same `n_channels` anion-electronic-state scaffolding as `Flux(axis=
 "nuclear")`/`Dirac(axis="nuclear")`, but keeping TW's own defining trait --
@@ -167,23 +167,15 @@ _WpOut = dict[str, float]
 _AXES = ("electronic", "nuclear")
 
 
-def _check_axis(axis: str, cls_name: str, *, nuclear_implemented: bool = False) -> None:
-    """Validate `axis` and enforce the SP2 scaffolding: `"electronic"` is
-    always implemented (Task 1, byte-identical to the pre-refactor code);
-    `"nuclear"` is implemented for `Flux` (Task 2), `Dirac` (Task 3), and
-    `TannorWeeks` (Task 4, this task) -- all three now pass
-    `nuclear_implemented=True`. `ValueError` for anything outside `_AXES`."""
+def _check_axis(axis: str, cls_name: str) -> None:
+    """Validate `axis`. All three extractors implement both axes; anything
+    outside `_AXES` is a `ValueError`."""
     if axis not in _AXES:
         raise ValueError(f"{cls_name}: axis must be one of {_AXES}, got {axis!r}")
-    if axis == "nuclear" and not nuclear_implemented:
-        raise NotImplementedError(f"{cls_name}: nuclear axis is implemented in a later SP2 task")
 
 
 def _axis_grid_index(axis: str) -> int:
-    """`TensorGrid.grids` index for `axis` -- the seam Tasks 2-4 branch the
-    coordinate-grid selection on (`0` electronic, `1` nuclear). Only ever
-    reached with `axis="electronic"` today: `_check_axis` raises before any
-    caller gets here with `axis="nuclear"`."""
+    """`TensorGrid.grids` index for `axis` (`0` electronic, `1` nuclear)."""
     return 0 if axis == "electronic" else 1
 
 
@@ -308,7 +300,7 @@ class TannorWeeks:
         axis: str = "electronic",
         n_channels: int = 1,
     ) -> None:
-        _check_axis(axis, "TannorWeeks", nuclear_implemented=True)
+        _check_axis(axis, "TannorWeeks")
         self._axis = axis
         self._tgrid = tgrid
         self._model = model
@@ -663,7 +655,7 @@ class Dirac:
         axis: str = "electronic",
         n_channels: int = 1,
     ) -> None:
-        _check_axis(axis, "Dirac", nuclear_implemented=True)
+        _check_axis(axis, "Dirac")
         self._axis = axis
         grid = tgrid.grids[_axis_grid_index(axis)]
         region = "electronic" if axis == "electronic" else "nuclear"
@@ -1049,7 +1041,7 @@ class Flux:
         axis: str = "electronic",
         n_channels: int = 1,
     ) -> None:
-        _check_axis(axis, "Flux", nuclear_implemented=True)
+        _check_axis(axis, "Flux")
         self._axis = axis
         grid = tgrid.grids[_axis_grid_index(axis)]
         region = "electronic" if axis == "electronic" else "nuclear"

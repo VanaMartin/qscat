@@ -1,6 +1,6 @@
 """General two-spectrum resonance-pole matcher.
 
-Promoted from `projects/n2_resonance/pole.find_pole` (sub-project #2, Task 2)
+Promoted from `projects/n2_resonance/pole.find_pole`
 once validated there: the physics-specific part (assembling `H_el(R)` on the
 N2 grids) stays in `projects/n2_resonance/pole.py`, while the pure
 eigenvalue-matching core -- generic to any two-angle ECS resonance search --

@@ -3,8 +3,8 @@ transform, for any `model: qscat.model.ResonanceModel`.
 
 Merges `projects/n2_2d_td_cross_section/td_propagation.py` (the propagation
 engine: propagate `Psi(0)` under `H` and sample) and `td_cross_section.py`
-(the Tannor-Weeks transform) into one model-taking module (sub-project #A,
-Task 5). The only change from those two N2 project modules is where the
+(the Tannor-Weeks transform) into one model-taking module. The only change
+from those two N2 project modules is where the
 Hamiltonian and partial wave `l` come from: `model.hamiltonian(tgrid)` /
 `model.interaction_diag(tgrid)` / `model.ell` instead of a hardcoded N2
 `build_h2d`/`interaction_diag`/`ELL` import -- everything else (the Pade
@@ -56,7 +56,7 @@ normalization factor C(E) multiplies every channel's S, so a free-particle
 elastic channel subtracts the S-matrix of a `V_int=0` reference propagation
 (`_propagate(..., free=True)`), supplied via `free_result`; the literal-1
 fallback (`free_result=None`) leaves a large spurious elastic background. See
-`_sigma_one_energy` and the `td-elastic-wavepacket-normalization` note.
+`_sigma_one_energy` and `docs/physics/n2-2d-td-cross-section.md`.
 """
 
 from __future__ import annotations

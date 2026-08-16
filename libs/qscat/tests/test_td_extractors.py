@@ -125,7 +125,7 @@ def test_flow_method_requires_surface() -> None:
 # TW test packet is centered on within this short/tiny-grid propagation (a
 # position further out, e.g. r=10, undersamples the wavepacket entirely at
 # these step counts and gives a spuriously tiny, not-yet-arrived b_v'(t) --
-# see task-2-report.md).
+# see docs/physics/td-da.md).
 POSITION = 37
 
 
@@ -160,7 +160,7 @@ def _propagate_pair(
 # not, agree to machine precision. `N_STEPS_DIFF = 800` (T = 160 a.u., ~16s):
 # short runs (e.g. this file's own N_STEPS = 5 golden-regression config) give
 # wildly different magnitudes (the delta point hasn't been "reached" by the
-# packet yet -- see task-2-report.md); by n_steps=800 the two methods'
+# packet yet -- see docs/physics/td-da.md); by n_steps=800 the two methods'
 # sigma(E) ratios have settled to [0.81, 0.83, 0.90, 0.81] across
 # (E, v') in {0.10, 0.15}x{0, 1} (re-checked at n_steps=1500: [0.82, 0.84,
 # 0.91, 0.85] -- stable, not still drifting toward 1). `rtol=0.20` covers the
@@ -190,7 +190,7 @@ def test_delta_agrees_with_ti_oracle_one_anchor() -> None:
     This uses a shorter T=1000 (~240s, one propagation) and the
     INELASTIC-only channel `v'=1` (no free-reference run needed). Measured:
     `sigma_delta/sigma_ti = 0.971` at E=0.10 (`= 1.009` at E=0.15, checked but
-    not gated here -- see task-2-report.md) -- `rtol=0.10` covers the
+    not gated here -- see docs/physics/td-da.md) -- `rtol=0.10` covers the
     observed ~2.9% deviation with margin.
     """
     tg_oracle = TensorGrid(
@@ -721,7 +721,7 @@ def test_nuclear_dirac_da_converges_to_ti_oracle() -> None:
     failure modes it guards against).
 
     The sibling nuclear `Flux` gate plateaus at sigma_flux/sigma_ti ~
-    0.86-0.97 by n>=1350 on this same config (`task-2-report.md`/the test
+    0.86-0.97 by n>=1350 on this same config (`docs/physics/td-da.md`/the test
     above) -- `Dirac` is a different (point-value, not Wronskian-flux)
     transform of the identical propagation, so it need not land at the exact
     same ratio, but should land in the same general TD-vs-TI cross-method

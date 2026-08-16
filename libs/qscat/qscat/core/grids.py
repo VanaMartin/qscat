@@ -2,7 +2,7 @@
 
 Promoted verbatim from `projects/n2_2d_cross_section/electronic_grid.py`
 (`n2_electronic_grid`) and `projects/n2_ti_cross_section/nuclear_grid.py`
-(`n2_nuclear_grid`), sub-project #3 Task 3 -- see
+(`n2_nuclear_grid`) -- see
 `docs/superpowers/specs/2026-07-27-diatomic-ve-scattering-library-design.md`.
 Only the element LAYOUT (segment boundaries/lengths, ECS tail construction)
 moved here; nothing molecule-specific -- extents/orders are caller-supplied
@@ -12,8 +12,8 @@ parameters, not baked-in N2 constants.
 `input/experimental/N2-model.json` `grids.electronic` -- a finely-resolved
 region near the origin where the interaction `-lambda(R) exp(-alpha_c r^2)`
 lives, coarsening outward, then an ECS tail of exponentially growing
-elements at a single angle. EVERY parameter is exposed because sub-project
-#6's convergence study varies all of them.
+elements at a single angle. EVERY parameter is exposed because the 2-D
+convergence studies vary all of them.
 
 `nuclear_grid`: builds a `qscat.dvr.FemDvrEcsGrid` covering the nuclear
 coordinate R -- a real region segmented per `N2.json`'s nuclear layout

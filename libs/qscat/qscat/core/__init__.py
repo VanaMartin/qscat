@@ -8,7 +8,7 @@ vibrational-states solver (`vibrational`), the asymptotic channel functions
 the incident/outgoing wavepacket construction (`wavepacket`), the
 Tannor-Weeks deconvolution factors (`correlation`), the time-dependent
 Pade-propagation VE cross section (`time_dependent`), and generic sigma(E)
-plotting (`plot`), promoted from the N2 projects (sub-project #3, Tasks 4-5)
+plotting (`plot`), promoted from the N2 projects
 -- see
 `docs/superpowers/specs/2026-07-27-diatomic-ve-scattering-library-design.md`.
 

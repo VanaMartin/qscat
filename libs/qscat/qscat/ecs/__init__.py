@@ -11,8 +11,8 @@ This module is the single source of that transform: `qscat.dvr.grid` uses
 `ecs_map` to place its complex-tail quadrature points.
 
 It also carries `find_resonance_pole`, the general two-spectrum resonance-pole
-matcher promoted from the N2 resonance project (`projects/n2_resonance/pole.py`,
-sub-project #2) -- see `docs/physics/n2-resonance.md`.
+matcher promoted from the N2 resonance project
+(`projects/n2_resonance/pole.py`) -- see `docs/physics/n2-resonance.md`.
 
 `match_angle_stable` is its multi-state sibling: same acceptance criterion,
 but it returns EVERY angle-stable eigenvalue in a window (with the indices

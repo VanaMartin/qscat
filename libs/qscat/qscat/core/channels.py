@@ -6,7 +6,7 @@ factor is the ENERGY-NORMALIZED regular free radial solution
 `riccati_bessel_en` (`qscat.special`).
 
 Promoted from `projects/n2_2d_cross_section/cross_section_2d.py`'s
-`channel_vector` (sub-project #A, Task 4). ONE change from the original: `l`
+`channel_vector`. ONE change from the original: `l`
 is now a REQUIRED parameter (the original defaulted it to N2's fixed
 partial wave `ELL` -- `qscat.core` must never import anything N2-specific).
 Callers now pass `model.ell` explicitly.

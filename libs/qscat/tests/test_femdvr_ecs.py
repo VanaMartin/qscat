@@ -1,7 +1,7 @@
 """Analytic benchmark tests for the promoted FEM-DVR-ECS grid (`qscat.dvr`).
 
-Ported from `projects/femdvr_ecs/test_kinetic_benchmarks.py` and
-`test_ecs_benchmarks.py` once the modules were validated. Four benchmarks:
+Originally developed as a standalone toy model, then ported here once the
+modules were promoted into `qscat.dvr`. Four benchmarks:
 
   B1 (particle-in-box, theta=0) -- exact oracle E_n = n^2 pi^2 / (2 m L^2).
      Extremely sensitive to any assembly error (bridge-weight normalization,
@@ -11,9 +11,9 @@ Ported from `projects/femdvr_ecs/test_kinetic_benchmarks.py` and
      exercises the diagonal-potential DVR approximation.
   B3 (ECS continuum rotation) -- free-particle mid-spectrum eigenvalues
      cluster near arg(E) ~ -2*theta (R0 << Lt asymptote of the exact
-     Z_eff = R0 + Lt*e^{i theta} box-quantization formula; see the module
-     docstring in the origin copy, `projects/femdvr_ecs/test_ecs_benchmarks.py`,
-     for the full derivation of why this grid's R0/Lt ratio is used).
+     Z_eff = R0 + Lt*e^{i theta} box-quantization formula; `docs/physics/
+     femdvr-ecs.md` derives it and explains why this grid's R0/Lt ratio is
+     deliberately lopsided).
   B4 (bound-state theta-independence) -- a square-well bound state's energy
      must not depend on the ECS rotation angle theta.
 """
@@ -145,7 +145,7 @@ def test_B4_bound_state_theta_independence() -> None:
 
 def test_spec_rejects_bent_tail_with_multiple_distinct_angles() -> None:
     # more than one distinct nonzero angle_deg among the tail elements is a
-    # bent/graded ECS contour, rejected until validated in sub-project #2
+    # bent/graded ECS contour, rejected as unvalidated
     elements = [ElementSpec(1.0), ElementSpec(1.0, 30.0), ElementSpec(1.0, 45.0)]
     with pytest.raises(ValueError):
         GridSpec(quadrature=6, elements=elements)

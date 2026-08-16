@@ -91,7 +91,7 @@ def _small_resonance_elec_grids() -> tuple[object, object]:
 
 
 def test_resonant_nuclear_mesh_order_and_crossing_refinement():
-    # The crossing/order test (task-3-brief Step 3): the resonant nuclear
+    # The crossing/order test: the resonant nuclear
     # mesh's quadrature order matches order_for_wavenumber(K_exit, min_len)
     # (independently recomputed here from the SAME small elec_grids/
     # resonance_n_dense the grid itself used), and the finest real element
@@ -160,7 +160,7 @@ def test_resonant_nuclear_mesh_order_and_crossing_refinement():
 
 
 # rtol for the resonant nuclear grid's sigma_DA vs its own once-refined
-# solve -- the load-bearing convergence claim (task-3-brief Step 4): the
+# solve -- the load-bearing convergence claim: the
 # resonant a-priori grid should be converged on the FIRST pass, unlike the
 # plain v0-only grid (~5x off, see validation/tuning/
 # test_emoscat_decks.py::test_f2_2d_da_cross_section_spot_check).
@@ -173,7 +173,7 @@ _RESONANT_2D_LIFT_FLOOR = 1.0
 
 @pytest.mark.slow
 def test_resonant_nuclear_grid_converges_f2_da_cross_section():
-    """The LOAD-BEARING 2-D convergence gate (task-3-brief Step 4): the
+    """The LOAD-BEARING 2-D convergence gate: the
     resonance-aware nuclear mesh (crossing super-refine + exit-wave order)
     must give a sigma_DA CONVERGED on the first (unrefined) pass, in
     contrast to the plain v0-only grid's ~5x-off ~0.31 bohr^2
