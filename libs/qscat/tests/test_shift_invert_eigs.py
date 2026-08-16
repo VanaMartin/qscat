@@ -86,3 +86,40 @@ def test_non_square_raises() -> None:
     A = sp.csc_matrix((5, 7), dtype=complex)
     with pytest.raises(ValueError, match="square"):
         ShiftInvertEigs(A)
+
+
+def test_repeated_shifts_reuse_the_factorization_object() -> None:
+    """Reuse must be invisible in the results and visible in the diagnostics."""
+    A = _complex_symmetric(200, seed=4)
+    s1, s2 = 9.0 + 2.0j, 12.0 - 1.0j
+    solver = ShiftInvertEigs(A, k=4)
+    v1, _ = solver.near(s1)
+    v2, _ = solver.near(s2)
+    assert solver.n_factorizations == 2
+    fresh1, _ = ShiftInvertEigs(A, k=4).near(s1)
+    fresh2, _ = ShiftInvertEigs(A, k=4).near(s2)
+    assert np.allclose(v1, fresh1, rtol=1e-9, atol=1e-12)
+    assert np.allclose(v2, fresh2, rtol=1e-9, atol=1e-12)
+
+
+def test_diagnostics_delegate_to_the_factorization() -> None:
+    A = _complex_symmetric(100, seed=5)
+    solver = ShiftInvertEigs(A, k=3)
+    with pytest.raises(RuntimeError, match="near"):
+        _ = solver.backend_used  # nothing factored yet
+    solver.near(9.0 + 1.0j)
+    assert solver.backend_used in {"scipy", "mumps"}
+    assert solver.ordering_used
+    assert solver.fill_factor > 0.0
+    assert solver.memory_bytes() > 0
+    assert solver.shape == (100, 100)
+
+
+def test_non_convergence_raises_convergence_error() -> None:
+    """maxiter=1 is far too few restarts: ARPACK bails, and we translate."""
+    from qscat.exceptions import ConvergenceError
+
+    A = _complex_symmetric(300, seed=6)
+    solver = ShiftInvertEigs(A, k=8, ncv=10, maxiter=1)
+    with pytest.raises(ConvergenceError, match="ARPACK"):
+        solver.near(0.0 + 0.0j)
