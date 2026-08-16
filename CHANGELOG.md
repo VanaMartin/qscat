@@ -111,6 +111,12 @@ installed package.
   `py.typed` marker so downstream type-checkers see qscat's types.
 - `qscat[plot]` optional dependency for the matplotlib-based figure helpers.
 - Single-sourced version (`qscat.__version__`, read dynamically by the build).
+- `docs/related-work.md`: a survey of what this functionality already is and is
+  not published as code (PyPI, GitHub, Zenodo, Linux packages), the overlap with
+  `quantumgrid` (the one other released FEM-DVR-ECS package), how the *ab initio*
+  electron–molecule suites differ, what has no released counterpart, and the
+  limits of that claim. Summarized in a "Relation to existing work" section of
+  the package README.
 
 ### Fixed
 - `H2P.mu` (`qscat.model.library`): `918.25` → `918.076` (`m_p/2` for the modern

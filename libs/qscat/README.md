@@ -80,6 +80,25 @@ See the `docs/` tree in the repository for the theory notes and more examples
 | `qscat.tuning` | automatic FEM-DVR-ECS grid tuner |
 | `qscat.viz` | wavefunction rendering and animation (needs the `plot` extra) |
 
+## Relation to existing work
+
+The method is not new: qscat implements Rescigno & McCurdy's FEM-DVR with
+exterior complex scaling (Phys. Rev. A **62**, 032706, 2000) applied to the
+exactly-solvable two-dimensional resonant-collision model of Houfek, Rescigno &
+McCurdy (Phys. Rev. A **73**, 032721, 2006). What qscat adds is a released,
+validated implementation of the scattering observables built on it.
+
+The grid layer overlaps one other published package,
+[`quantumgrid`](https://pypi.org/project/quantumgrid/) (McCurdy, Streeter &
+Barbalinardo, MIT) — a teaching-oriented FEM-DVR-ECS package for the
+one-dimensional Schrödinger equation, with no scattering observables. The
+established *ab initio* electron–molecule suites (UKRmol+, ePolyScat, FERM3D,
+Quantemol-EC) solve a different problem by a different method and are complements
+rather than alternatives. A survey of what is and is not already published as
+code — including what appears to have no released counterpart, and the limits of
+that claim — is in
+[`docs/related-work.md`](https://github.com/VanaMartin/qscat/blob/main/docs/related-work.md).
+
 ## Citing qscat
 
 If you use qscat in research, please cite the software (see

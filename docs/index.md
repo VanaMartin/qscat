@@ -15,12 +15,14 @@ convergence study, or an independent reference.
 
 getting-started
 api
+related-work
 ```
 
 ## Quick links
 
 - **Install & first cross section:** {doc}`getting-started`
 - **API reference:** {doc}`api`
+- **How this relates to existing codes:** {doc}`related-work`
 - **Theory notes:** the `docs/physics/` directory in the repository
 - **Design decisions:** the `docs/adr/` directory (ADRs)
 
