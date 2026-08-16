@@ -42,6 +42,9 @@ record limitations and negative results as well as what works.
 - {doc}`h2plus-dr` — dissociative recombination for an ionic target.
 - {doc}`lcp-resonance-levels` — Born–Oppenheimer quasi-bound levels in the
   complex curve.
+- {doc}`exact-2d-resonances` — the same levels without the approximation: poles
+  of the full 2-D S-matrix, and what the Born–Oppenheimer error actually
+  measures on N₂.
 
 ## Open directions
 

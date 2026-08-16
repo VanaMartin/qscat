@@ -12,6 +12,23 @@ installed package.
 ## [Unreleased]
 
 ### Added
+- `qscat.core.exact_resonance_states` (+ `ExactResonanceStates`): poles of the FULL
+  2-D S-matrix — eigenvalues `E_r − iΓ/2` of the complex-scaled electronic × nuclear
+  Hamiltonian, with no Born-Oppenheimer separation, no discrete state and no local
+  approximation. These are what `resonance_levels` approximates, so the pair makes
+  the non-adiabatic error directly measurable. Identification generalizes ECS angle
+  stability to TWO angles: three spectra (base, electronic-angle moved,
+  nuclear-angle moved) with a state accepted only if it survives both comparisons,
+  and both residuals reported. Validated against the exact separable-limit oracle
+  (pole to 8.6e-15, width to the electronic width alone, eigenvector to the product
+  state). On N₂ it returns the anion vibrational ladder and quantifies the
+  non-adiabatic error: with the electronic grid converged (order converges at 8,
+  `r_max` swept 24→72 bohr), the `v=0` exact pole lies 0.22 meV BELOW the BO/LCP
+  level in position and 0.30 meV below in width. The exact pole is below BO in both
+  at every level and every box, but only `v=0`'s difference is converged — widths
+  converge more slowly than positions, and higher levels later than lower ones. Also
+  `qscat.core.plot_resonance_levels` (generic complex-level plotting) and committed
+  N₂ figures in the published convention. See docs/physics/exact-2d-resonances.md.
 - `qscat.linalg.ShiftInvertEigs`: the `k` eigenpairs of a sparse complex-symmetric
   matrix nearest a complex shift (shift-invert Arnoldi with `SparseLU` as the inner
   solve, so it inherits the MUMPS backend). Resonances are INTERIOR eigenvalues,
