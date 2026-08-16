@@ -20,7 +20,7 @@ from __future__ import annotations
 
 from .animate import animate_artists, animate_wavefunction
 from .artist import WavefunctionArtist
-from .coloring import complex_to_hsv, complex_to_rgb, hsv_to_rgb
+from .coloring import complex_to_hsv, complex_to_rgb, hsv_to_rgb, region_magnitudes
 from .levels import energy_contour_levels
 from .plot import plot_wavefunction_2d
 from .projector import EquidistantProjector
@@ -31,6 +31,7 @@ __all__ = [
     "complex_to_hsv",
     "complex_to_rgb",
     "hsv_to_rgb",
+    "region_magnitudes",
     "energy_contour_levels",
     "plot_wavefunction_2d",
     "animate_wavefunction",
