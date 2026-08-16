@@ -78,29 +78,45 @@ See the `docs/` tree in the repository for the theory notes and more examples
 | `qscat.core` | model-independent VE/DA/DR engine (TI + TD) |
 | `qscat.model` | molecule models (N₂, NO, F₂, H₂⁺) + the `ResonanceModel` protocol |
 | `qscat.tuning` | automatic FEM-DVR-ECS grid tuner |
+| `qscat.viz` | wavefunction rendering and animation (needs the `plot` extra) |
 
 ## Citing qscat
 
-**If you use qscat directly in research, citation is required.** Please cite the
-software (see [`CITATION.cff`](https://github.com/VanaMartin/qscat/blob/main/CITATION.cff))
-and the relevant papers below.
+If you use qscat in research, please cite the software (see
+[`CITATION.cff`](https://github.com/VanaMartin/qscat/blob/main/CITATION.cff))
+together with the papers below.
 
-*Method / software paper (in preparation — the paper to cite for the code
-itself; update this entry with the final reference on publication):*
+**The method this code implements:**
 
-- M. Vana et al., *"QSCAT: validated FEM-DVR-ECS numerics for electron–molecule
-  scattering,"* in preparation (2026). **[reference to be finalized]**
+- M. Váňa and K. Houfek, *Time-dependent formulation of the two-dimensional
+  model of resonant electron collisions with diatomic molecules and
+  interpretation of the vibrational excitation cross sections*,
+  Phys. Rev. A **95**, 022714 (2017).
+  [doi:10.1103/PhysRevA.95.022714](https://doi.org/10.1103/PhysRevA.95.022714)
 
-*Prior published work this code builds on / continues (fill in the exact
-citations you want required):*
+**The model itself:**
 
-- **[Add citation — prior article #1: title, authors, journal, year, DOI]**
-- **[Add citation — prior article #2: title, authors, journal, year, DOI]**
+- K. Houfek, T. N. Rescigno and C. W. McCurdy, *Numerically solvable model for
+  resonant collisions of electrons with diatomic molecules*,
+  Phys. Rev. A **73**, 032721 (2006).
+  [doi:10.1103/PhysRevA.73.032721](https://doi.org/10.1103/PhysRevA.73.032721)
 
-> Maintainers: keep this list and `CITATION.cff` in sync. The forthcoming
-> method paper is the canonical reference for the code; the prior articles are
-> the physics/method lineage a direct user is expected to cite.
+**The numerical methods**, if you use the grid or propagator directly:
+
+- T. N. Rescigno and C. W. McCurdy, *Numerical grid methods for
+  quantum-mechanical scattering problems*, Phys. Rev. A **62**, 032706 (2000)
+  — the FEM-DVR grid with exterior complex scaling.
+  [doi:10.1103/PhysRevA.62.032706](https://doi.org/10.1103/PhysRevA.62.032706)
+- D. J. Tannor and D. E. Weeks, *Wave packet correlation function formulation
+  of scattering theory*, J. Chem. Phys. **98**, 3884 (1993) — the
+  correlation-function energy extraction behind every time-dependent cross
+  section. [doi:10.1063/1.464016](https://doi.org/10.1063/1.464016)
+- W. van Dijk and F. M. Toyama, *Accurate numerical solutions of the
+  time-dependent Schrödinger equation*, Phys. Rev. E **75**, 036707 (2007) —
+  the order-N diagonal-Padé propagator.
+  [doi:10.1103/PhysRevE.75.036707](https://doi.org/10.1103/PhysRevE.75.036707)
 
 ## License
 
-BSD-3-Clause © 2026 Martin Vana. See [`LICENSE`](LICENSE).
+BSD-3-Clause © 2026 Martin Vana. See
+[`LICENSE`](https://github.com/VanaMartin/qscat/blob/main/LICENSE).

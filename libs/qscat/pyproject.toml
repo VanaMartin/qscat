@@ -52,7 +52,9 @@ plot = ["matplotlib>=3.9"]
 mumps = ["python-mumps>=0.0.6"]
 
 [build-system]
-requires = ["hatchling"]
+# >=1.27 is required for the PEP 639 SPDX `license` string and `license-files`
+# used above; an older cached backend fails the build.
+requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
