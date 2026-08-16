@@ -132,6 +132,7 @@ def test_write_artifacts_wires_the_reference_label_into_the_png_legend(
     `cfg.reference` must build and pass the label map through to the PNG
     writer."""
     closed: list[Figure] = []
+    real_close = plt.close
     monkeypatch.setattr(plt, "close", lambda fig: closed.append(fig))
 
     (tmp_path / "ref.dat").write_text("0.1 10.0 1.0\n0.2 20.0 2.0\n")
@@ -144,6 +145,8 @@ def test_write_artifacts_wires_the_reference_label_into_the_png_legend(
     _, legend_labels = closed[0].axes[0].get_legend_handles_labels()
     assert "Houfek (2006) (ch0)" in legend_labels
     assert "Houfek (2006) (ch1)" in legend_labels
+    for fig in closed:
+        real_close(fig)
 
 
 # --- legend labels -----------------------------------------------------------
@@ -176,6 +179,7 @@ def test_cross_section_png_legend_uses_the_disambiguated_reference_labels(
     legend text back off the axes -- `label: "Houfek (2006)"` must show up as
     a real, disambiguated legend entry, not just sit unused in the config."""
     closed: list[Figure] = []
+    real_close = plt.close
     monkeypatch.setattr(plt, "close", lambda fig: closed.append(fig))
 
     series = {"ti:ve:v0->0": np.array([1.0, 2.0])}
@@ -196,3 +200,5 @@ def test_cross_section_png_legend_uses_the_disambiguated_reference_labels(
     # not the raw, undisambiguated series keys
     assert "ref:ve:ch0" not in legend_labels
     assert "ref:ve:ch1" not in legend_labels
+    for f in closed:
+        real_close(f)

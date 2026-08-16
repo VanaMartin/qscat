@@ -73,6 +73,11 @@ def plot_wavefunction_2d(
         as the projected field, e.g. from `region_magnitudes`) gives a
         per-point scale, letting a weak region reach full brightness even
         when a strong region would otherwise saturate the whole colour map.
+        Note: magnitude contour levels (``contours=True``,
+        ``contour_field="magnitude"``) must be scalars, so with an array
+        `mag` they key off its MAXIMUM (the brightest region) -- weaker
+        regions get no meaningful contour lines even though their brightness
+        is still individually scaled.
     path : path-like, optional
         If given, the figure is saved here (PNG).
     inverse : bool, optional

@@ -18,7 +18,15 @@ from pathlib import Path
 import numpy as np
 import numpy.typing as npt
 
-__all__ = ["ReferenceSpec", "REFERENCE_FORMATS", "load_reference", "resolve_path"]
+__all__ = [
+    "ReferenceSpec",
+    "REFERENCE_FORMATS",
+    "load_reference",
+    "resolve_path",
+    "config_base_dir",
+    "peek_n_channels",
+    "bad_channels",
+]
 
 Series = dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]]
 
@@ -39,6 +47,46 @@ def resolve_path(spec: ReferenceSpec, base_dir: Path) -> Path:
     return p if p.is_absolute() else (Path(base_dir) / p)
 
 
+def config_base_dir(config_dir: str | None) -> Path:
+    """The directory a `reference.path` (or any other config-relative path)
+    resolves against: `config_dir` (the directory the config YAML itself
+    lives in) when set, else the process's current working directory.
+
+    Shared by `config.py` (validate-time) and `artifacts.py` (write-time) so
+    the two base-directory computations can never drift apart.
+    """
+    return Path(config_dir) if config_dir else Path.cwd()
+
+
+def peek_n_channels(path: Path) -> int:
+    """The number of data columns in a `"houfek"`-format reference file,
+    cheaply: reads only the first non-blank line rather than parsing the
+    whole table with `np.loadtxt`.
+
+    `validate_config` calls this at validate-time, which must stay fast and
+    solve-free -- it must not pay for a full parse of a potentially large
+    (e.g. 400-row) file just to bounds-check `channels`.
+    """
+    with path.open() as f:
+        for line in f:
+            fields = line.split()
+            if fields:
+                return len(fields) - 1
+    raise ValueError(f"{path}: file is empty, cannot determine its column count")
+
+
+def bad_channels(channels: tuple[int, ...] | None, n_channels: int) -> list[int]:
+    """The entries of `channels` that are out of bounds for a file with
+    `n_channels` data columns (empty when `channels` is `None` or every
+    index is valid). Shared by `_load_columns` (load-time) and
+    `validate_config` (validate-time) so the two bounds checks can never
+    drift apart.
+    """
+    if channels is None:
+        return []
+    return [c for c in channels if c < 0 or c >= n_channels]
+
+
 def _load_columns(path: Path, channels: tuple[int, ...] | None) -> Series:
     """Whitespace-delimited table: column 0 is energy (Hartree), columns 1..N
     are sigma (bohr^2) for successive final channels."""
@@ -50,13 +98,13 @@ def _load_columns(path: Path, channels: tuple[int, ...] | None) -> Series:
         )
     energy = raw[:, 0].astype(np.float64)
     n_channels = raw.shape[1] - 1
-    wanted = tuple(range(n_channels)) if channels is None else channels
-    bad = [c for c in wanted if c < 0 or c >= n_channels]
+    bad = bad_channels(channels, n_channels)
     if bad:
         raise ValueError(
             f"{path}: requested channel(s) {bad} but the file has {n_channels} "
             f"(valid 0..{n_channels - 1})"
         )
+    wanted = tuple(range(n_channels)) if channels is None else channels
     return {f"ref:ve:ch{c}": (energy, raw[:, c + 1].astype(np.float64)) for c in wanted}
 
 

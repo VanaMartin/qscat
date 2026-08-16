@@ -97,7 +97,8 @@ class WavefunctionArtist:
     construction. `update(state)` refreshes only the state-dependent layers (the
     domain-coloured image and the ``|psi|`` contours), so animation redraws the
     minimum per frame. See `plot_wavefunction_2d` for the parameter meanings; the
-    style kwargs are identical.
+    style kwargs are identical, including the caveat that an array ``mag``'s
+    magnitude contour levels key off its maximum, not its per-point values.
     """
 
     def __init__(

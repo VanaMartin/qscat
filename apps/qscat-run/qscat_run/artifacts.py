@@ -35,7 +35,7 @@ import numpy.typing as npt  # noqa: E402
 import yaml  # noqa: E402
 
 from qscat_run.config import ExperimentConfig
-from qscat_run.reference import load_reference
+from qscat_run.reference import config_base_dir, load_reference
 from qscat_run.runner import (
     EigenStates,
     ExperimentResult,
@@ -470,7 +470,7 @@ def write_artifacts(
     # docstring) -- resolved once here, then both overlaid on the PNG and
     # written to their own reference.{csv,npz}, whichever/however many
     # artifacts are requested below.
-    ref_base = Path(cfg.config_dir) if cfg.config_dir else Path.cwd()
+    ref_base = config_base_dir(cfg.config_dir)
     reference_series: dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]] = {}
     reference_labels: dict[str, str] = {}
     for ref in cfg.reference:
@@ -486,6 +486,12 @@ def write_artifacts(
             out_dir / "cross_section.png", e, series, reference_series, reference_labels
         )
 
+    # Unconditional (not gated on `cfg.artifacts.cross_section`), by design:
+    # a `reference:` block is its own independent artifact request, the same
+    # way `result.wavefunctions`/`result.resonance_states` below are written
+    # whenever the result carries them, regardless of any OTHER artifact
+    # flag. `_write_reference` is a no-op when no `reference:` is configured,
+    # so this costs nothing on every run that doesn't use the feature.
     _write_reference(out_dir, reference_series)
 
     cvt_spec = cfg.artifacts.cross_section_vs_time
