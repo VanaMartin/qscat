@@ -1199,7 +1199,7 @@ dev = [
     { name = "pytest", specifier = ">=8" },
     { name = "pytest-benchmark", specifier = ">=4" },
     { name = "pytest-xdist", specifier = ">=3" },
-    { name = "ruff", specifier = ">=0.6" },
+    { name = "ruff", specifier = ">=0.15.21" },
     { name = "scipy", specifier = ">=1.14" },
     { name = "scipy-stubs", specifier = ">=1.18.0.1" },
     { name = "types-pyyaml", specifier = ">=6" },
