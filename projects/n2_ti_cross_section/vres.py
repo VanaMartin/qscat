@@ -1,7 +1,7 @@
 """V_d(R) / Gamma(R) recomputed per nuclear-R via the sub-project #2
 electronic resonance pole finder (sub-project #3, Task 2).
 
-`.superpowers/sdd/ti-cross-section-extraction.md`'s "Efficiency note":
+the eMoScat TI extraction's "Efficiency note":
 V_d(R)/Gamma(R) is recomputed at *every* nuclear grid point R by an
 independent electronic-structure pole search (the user's choice, not
 interpolation from a coarse R-scan). At each R: `E_res(R) = Re(E_pole)`,

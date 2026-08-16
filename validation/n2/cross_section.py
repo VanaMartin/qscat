@@ -13,7 +13,7 @@ cross-import: `projects/n2_ti_cross_section/test_cross_section.py` already
 imports `validation.n2.reference` to get the anchor coordinates; this module
 closes the loop from the other side.
 
-Classification (per `.superpowers/sdd/task-4-brief.md`), decided GENERALLY
+Classification, decided GENERALLY
 from the anchor's `(energy, channel)`, never by hardcoding which of the 6
 coordinates is which:
 

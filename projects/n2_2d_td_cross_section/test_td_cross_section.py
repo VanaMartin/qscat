@@ -1,7 +1,7 @@
 """TD-matches-TI + convergence tests for the exact 2-D VE cross section
 (sub-project #7, Task 4 -- THE CRUX).
 
-`.superpowers/sdd/task-4-report.md` records the full tuning trail. Summary:
+the development notes records the full tuning trail. Summary:
 
 - Grid: electronic `n2_electronic_grid(r_max=50, order=8, n_complex=6)`
   (`R0 = 50`), nuclear `n2_nuclear_grid(quadrature=10, r_max=22, n_complex=5)`

@@ -2,7 +2,7 @@
 transform (sub-project #4, Task 2 -- THE CRUX).
 
 `docs/superpowers/specs/2026-07-22-n2-td-cross-section-design.md` ("Method")
-and `.superpowers/sdd/n2-lcp-model-extraction.md`:
+and the eMoScat LCP extraction:
 
 - Doorway `d_v(R) = sqrt(Gamma(R)/(2*pi)) * chi_v(R)` -- identical to
   `projects.n2_ti_cross_section.cross_section`'s doorway.

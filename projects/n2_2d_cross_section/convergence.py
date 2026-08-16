@@ -31,7 +31,7 @@ BASELINE: dict[str, Any] = {
     "nuc_r_max": 40.0, "nuc_quadrature": 14, "nuc_n_complex": 10,
 }
 
-# Chosen from the measured table (`.superpowers/sdd/task-4-convergence-table.md`):
+# Chosen from the measured table (the measured convergence table):
 # every axis is converged to <=3.4e-7 relative (individually, about BASELINE)
 # at N=71476 -- four to six orders of magnitude inside the ~1% criterion --
 # so the cheap end of each axis was combined and VERIFIED directly (sweeps

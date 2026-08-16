@@ -4,7 +4,7 @@ validates the FEM-DVR eigenvalues against the ANALYTIC Morse spectrum of
 eMoScat's own potential (model-consistent check -- see module note below),
 not against real N2 spectroscopy.
 
-Maintainer decision (see `.superpowers/sdd/task1fix-report.md`): eMoScat's
+Maintainer decision (see the model-caveat analysis): eMoScat's
 neutral N2 Morse (`D_0=0.75102` Ha =~ 20.4 eV) is accepted as-is -- it is a
 MODEL potential for the resonance study, not a spectroscopic fit to real N2
 (whose real dissociation energy is =~9.8 eV). Its vibrational spacing

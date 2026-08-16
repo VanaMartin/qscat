@@ -18,7 +18,7 @@ differential oracle, not a loose cross-model comparison.
   `rtol <= 0.05`; and `||psi(T)|| < 0.1*||psi(0)||` (the resonance has
   depleted, so the finite-time energy transform is not truncated).
 
-`dt`/`n_steps` tuning (see `.superpowers/sdd/task-2-report.md`): the
+`dt`/`n_steps` tuning (see the development notes): the
 resonance's own eigenmodes of `H_res` sit at `Re(E) ~ -0.7..-0.4 Ha`
 (v_init=0's `eps[0] ~ -0.745` shifted by the ~2.3-2.5 eV Pi_g resonance), and
 the Crank-Nicolson Cayley-transform phase error per step grows as
@@ -55,7 +55,7 @@ V_INIT = 0
 ANCHORS: list[tuple[float, int]] = [(0.1, 1), (0.2, 2)]
 
 # Converged propagation: T = n_steps*dt = 1500 a.u. See module docstring and
-# `.superpowers/sdd/task-2-report.md` for the tuning study.
+# the development notes for the tuning study.
 DT_CONVERGED = 0.025
 N_STEPS_CONVERGED = 60000  # T = 1500 a.u.
 # V2's "dt" reference point: same total T, half the time resolution.

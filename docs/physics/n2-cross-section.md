@@ -5,7 +5,7 @@
 wiring), `validation/n2/experiment.py` (Group C5).
 **Origin:** local complex potential (LCP) model, same source as
 `docs/physics/n2-resonance.md`; the resolvent/driven-equation formulation is
-specified in `.superpowers/sdd/ti-cross-section-extraction.md`.
+ported from eMoScat.
 **Units:** atomic units throughout (energy in Hartree, length in Bohr, cross section
 in bohr²).
 
@@ -51,8 +51,7 @@ data, `validation/n2/data/CSVE.V00.J00`).
    `S_{v'<-v_init} = sum_j d_{v'}[j] * xi[j]` (the DVR **c-product** — a plain
    coefficient dot product, no conjugation, since `xi` is a genuinely complex
    ECS-driven solution rather than a Hermitian-normalized eigenvector; verified
-   empirically to give real, non-negative `sigma` — see
-   `.superpowers/sdd/task-3-report.md`), and
+   empirically to give real, non-negative `sigma`), and
    `sigma_{v_init->v'}(E) = 4*pi^3*|S|^2/(2*E)`, set to 0 if `E_tot - eps_{v'} <=
    0` (the final channel is energetically closed).
 
@@ -74,7 +73,7 @@ The 6 `validation/n2/reference.ANCHOR_COORDS` anchors compare this 1D LCP-derive
 solver against Karel Houfek's independent, explicit 2D time-independent
 calculation (`validation/n2/data/CSVE.V00.J00`) — a genuinely different method, so
 agreement is expected to be loose ("quite close but not exact", per
-`.superpowers/sdd/ti-cross-section-extraction.md`), not a bitwise or even
+the eMoScat port), not a bitwise or even
 percent-level match.
 
 | E (Ha) | v' | computed (bohr²) | Houfek (bohr²) | ratio | gate |
@@ -151,8 +150,6 @@ defect.
   `validation/n2/cross_section.compute_anchor_results()` and reused across all
   anchors (the ~7s `vres_on_grid` cost is paid exactly once) — 4 **PASS**, 2
   **NOTE** (documented, non-failing), exit code `0`.
-- `.superpowers/sdd/task-3-report.md`, `.superpowers/sdd/task-4-report.md`: the
-  full numeric record of both.
 
 ## Model caveats carried over from `docs/physics/n2-resonance.md`
 

@@ -26,7 +26,7 @@ only the *neutral* vibrational ladder that departs from real N2
 spectroscopy. This gap is inherited by, and folded into, the
 LCP-vs-Houfek-2D differences seen in the cross-section benchmark
 (`projects/n2_ti_cross_section/`). See `docs/physics/n2-resonance.md`'s
-"Model caveat" section and `.superpowers/sdd/task1fix-report.md`.
+"Model caveat" section and the model-caveat analysis.
 """
 
 from __future__ import annotations

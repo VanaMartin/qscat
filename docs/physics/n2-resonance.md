@@ -6,7 +6,7 @@
 harness, Group B).
 **Origin:** LCP (local complex potential) model extracted from
 `reference/eMoScat/input/experimental/N2-model.json`; see
-`.superpowers/sdd/n2-lcp-model-extraction.md`. Builds on the FEM-DVR-ECS grid
+the eMoScat LCP model. Builds on the FEM-DVR-ECS grid
 (`docs/physics/femdvr-ecs.md`).
 **Units:** atomic units throughout (energy in Hartree, length in Bohr).
 

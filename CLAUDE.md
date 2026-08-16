@@ -482,6 +482,13 @@ uv sync --all-packages
 # Run the full test suite
 uv run pytest
 
+# In parallel (pytest-xdist) — the fast way to iterate. Measured on the
+# 12-core dev machine: libs/qscat non-slow goes 305s -> 133s at `-n 8`.
+# Do NOT bother pinning BLAS threads (OMP_NUM_THREADS=1 etc.): measured at
+# 136s, i.e. no gain. The suite is dominated by a few long tests, not by
+# thread contention, so `-n` beyond ~8 buys nothing here.
+uv run pytest -n 8
+
 # Right after a maturin build in the same step, skip the (already-satisfied)
 # sync to avoid a redundant resolve:
 uv run --no-sync pytest

@@ -39,8 +39,7 @@ __all__ = ["TDResult", "DT", "N_STEPS", "compute_td_results"]
 # gives sigma_TD within ~1-3.5% of the TI oracle at these energies and
 # depletes the resonance (||psi(T)||/||psi(0)|| ~ 1e-2 << 0.1) so the
 # finite-time energy transform is not truncated. Costs ~9s (one propagation,
-# amortized across all 4 gated anchors) -- see
-# `.superpowers/sdd/task-3-report.md` for the timing.
+# amortized across all 4 gated anchors).
 DT = 0.025
 N_STEPS = 60000
 

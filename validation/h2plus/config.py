@@ -4,7 +4,7 @@ The full deck transcribes eMoScat's `input/experimental/H2p.json` grid
 layout verbatim (electronic real region to 1300 bohr + a 5-degree
 exp-growth ECS tail; nuclear real region to 14 bohr + a 22-degree exp-growth
 ECS tail; order-8 quadrature throughout), built via
-`qscat.core.grids.fem_grid_exp_tail` -- see docs/superpowers/sdd/task-5-brief.md.
+`qscat.core.grids.fem_grid_exp_tail`.
 `full_grid()` is Docker/MUMPS-sized (the electronic grid alone runs to 1300
 bohr); `proxy_grid()` shrinks the electronic real region to ~60 bohr with a
 smaller ECS tail so a laptop SuperLU solve is feasible, keeping the nuclear

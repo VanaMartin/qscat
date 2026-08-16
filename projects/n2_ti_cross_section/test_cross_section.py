@@ -1,7 +1,7 @@
 """Failing-first tests for the VE cross section via the resolvent/driven
 equation (sub-project #3, Task 3 -- THE CRUX).
 
-`.superpowers/sdd/ti-cross-section-extraction.md` sections 3-4: doorway
+the eMoScat TI extraction sections 3-4: doorway
 `d_v(R) = sqrt(Gamma(R)/(2*pi)) * chi_v(R)`; driven equation
 `(E_tot - H_res) xi = d_{v_init}` with
 `H_res = T_nuc(mu) + diag(V_d(R) - i*Gamma(R)/2)`; S-matrix
@@ -44,7 +44,7 @@ MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.), 12766.36
 N_VIB = 6  # v=0..5, enough to cover vprimes up to 3 used by the anchors
 
 # Loose, documented cross-model bound (LCP 1D vs. Houfek's explicit 2D
-# time-independent model) -- see `.superpowers/sdd/ti-cross-section-extraction.md`
+# time-independent model) -- see the eMoScat TI extraction
 # "Key caveats". Anchors are a report-and-check, not an exact-match gate.
 ANCHOR_FACTOR = 3.0
 

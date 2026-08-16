@@ -142,7 +142,7 @@ and T-matrix construction **before** any comparison to Houfek's data is made
 `projects/n2_2d_cross_section/convergence.py` varies one grid axis at a time about a
 rich `BASELINE` (`r_max=30, angle_deg=35, order=8, n_complex=8, nuc_r_max=40,
 nuc_quadrature=14, nuc_n_complex=10`, `N=71476`), anchored at `E=0.2` Ha, `v=0->1` — the
-full table is in `.superpowers/sdd/task-4-convergence-table.md`:
+summary is:
 
 | axis | cheapest tested | rel. change (cheap end → BASELINE) | N range |
 |---|---|---|---|
@@ -335,8 +335,6 @@ for physics. This ripple does not affect the centroid/width comparison above
   reporting how far the exact model closes the LCP's own gap to Houfek). Harness
   totals with Group E added: **23 PASS, 0 PENDING, 4 NOTE, 0 FAIL**, exit code `0` —
   no regression of the pre-existing 19 PASS / 0 PENDING / 2 NOTE / 0 FAIL.
-- `.superpowers/sdd/task-1-report.md` through `task-6-report.md`: the full numeric
-  record for each stage of this sub-project.
 
 ## No model parameter was tuned to improve agreement with anything
 

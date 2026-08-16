@@ -14,9 +14,8 @@ sigma_TD/sigma_TI at ~0.93/1.10; the order-3 operator brings both anchors to
 extra factors, reinforcing the don't-run-live decision.) Group F therefore
 reports the ALREADY-VALIDATED sigma_TD as a literal,
 cited constant: no TD propagation runs when the harness executes this
-module. See `docs/physics/n2-2d-td-cross-section.md` for the full method
-and `.superpowers/sdd/task-4-report.md` / `task-6-report.md` for the
-underlying runs this constant is taken from verbatim.
+module. See `docs/physics/n2-2d-td-cross-section.md` for the full method and
+the underlying runs this constant is taken from verbatim.
 
 sigma_TI, by contrast, IS obtained live: it is cheap (sparse solves, ~seconds,
 not a ~250s propagation), so hardcoding it would be needless. It comes from

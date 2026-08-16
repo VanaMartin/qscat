@@ -28,7 +28,7 @@ Run (in the Docker `test` image / a container with system MUMPS + qscat[mumps]):
     uv run python -m benchmarks.mumps_vs_superlu --grids working
 
 The driver writes a Markdown table to
-`.superpowers/sdd/task-4-benchmark-table.md` (for the docs task) and prints it.
+prints it; `--out PATH` also writes it to a file.
 """
 
 from __future__ import annotations
@@ -49,7 +49,6 @@ from typing import Any
 # module is cheap.
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
-_TABLE_PATH = _REPO_ROOT / ".superpowers" / "sdd" / "task-4-benchmark-table.md"
 
 # Representative collision energy for the driven matrix A = (E_tot*I - H); the
 # same E=0.2 Ha the convergence study and Group E anchors use. E_tot = E +
@@ -254,6 +253,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="also benchmark the ~143k production deck (needs >~14 GB RAM for SuperLU)",
     )
+    parser.add_argument(
+        "--out",
+        default=None,
+        help="also write the results table to this path (default: print only)",
+    )
     args = parser.parse_args(argv)
 
     if args.worker is not None:
@@ -277,9 +281,11 @@ def main(argv: list[str] | None = None) -> int:
 
     table = _format_table(rows)
     print("\n" + table, flush=True)
-    _TABLE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    _TABLE_PATH.write_text(table)
-    print(f"\nWrote table to {_TABLE_PATH}", flush=True)
+    if args.out is not None:
+        out = Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(table)
+        print(f"\nWrote table to {out}", flush=True)
     return 0
 
 
