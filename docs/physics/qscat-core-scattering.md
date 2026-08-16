@@ -25,6 +25,15 @@ interchangeable routes on the same FEM-DVR-ECS grid:
   `S_free ≈ 2π² ≠ 1`). Matches the TI oracle to ~1–2 % across the resonance for all channels
   (see `docs/physics/n2-2d-td-cross-section.md`).
 
+`qscat.core.problem` (`ScatteringProblem`) is the **recommended entry point** and the stable
+API: it bundles grid + model + vibrational states so a caller does not assemble them by hand.
+
+Other solvers: `qscat.core.dissociation` (`da_cross_section` — exact TI dissociative
+attachment; `dr_cross_section` — dissociative recombination for the ionic H₂⁺;
+`anion_electronic_states`), `qscat.core.lcp` (the LCP approximation OF that DA, plus the
+BO/LCP quasi-bound `resonance_levels`), and `qscat.core.td_extractors` (the `TannorWeeks` /
+`Dirac` / `Flux` energy-extraction routes, each on an `electronic` or `nuclear` axis).
+
 Supporting modules: `qscat.core.channels` (`channel_vector` + threshold logic),
 `qscat.core.grids` (`electronic_grid`/`nuclear_grid` — the parameterized FEM-DVR-ECS layout),
 `qscat.core.vibrational` (`vibrational_states` — neutral bound states, `v0` passed in),
@@ -39,12 +48,17 @@ Supporting modules: `qscat.core.channels` (`channel_vector` + threshold logic),
   about which molecule is being solved. They build on the general primitives
   (`qscat.{units, linalg, dvr, ecs, special, evolution}`).
 - **`qscat.model`** — everything tied to a specific model, gathered in one place:
-  - `ResonanceModel` — a `@runtime_checkable Protocol` (`mu`, `ell`, `v0`, `lam`, `v_int`,
+  - `ResonanceModel` — a `@runtime_checkable Protocol` (`mu`, `ell`, `charge`, `v0`, `v_int`,
     `surface`, `hamiltonian(tgrid)`, `interaction_diag(tgrid)`). **This is the entire contract
-    `qscat.core` depends on.**
+    `qscat.core` depends on.** `charge` is 0 for a neutral target and −1 for a cation.
   - `DiatomicResonanceModel` — the shared Morse-`v0` + sigmoid-`λ(R)` + Gaussian-in-r-`V_int`
-    form (N₂/NO/F₂ differ only in parameters).
-  - `N2`, `NO`, `F2` — the per-molecule registry instances (from the eMoScat decks).
+    NEUTRAL form (N₂/NO/F₂ differ only in parameters).
+  - `IonicResonanceModel` — the H₂⁺ form: ion Morse + σ-capture + the `−1/r` Coulomb tail,
+    carrying `max_nuclear_ecs_angle_deg` (the rotation bound beyond which its interaction
+    diverges).
+  - `N2`, `NO`, `F2`, `H2P` — the per-molecule registry instances. The constants are
+    published (Houfek et al. PRA 73 (2006) and PRA 77 (2008); see
+    `reference/literature/`); the eMoScat decks agree with them.
 
 **Hard boundary — `qscat.core` never imports `qscat.model` (nor `projects.*`) at runtime.**
 `core` type-annotates against the `ResonanceModel` protocol under `TYPE_CHECKING` only; it is
