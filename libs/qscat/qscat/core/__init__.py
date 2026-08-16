@@ -112,7 +112,13 @@ from .dissociation import (
 )
 from .driven import ve_cross_section
 from .grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
-from .lcp import lcp_da_cross_section, local_complex_potential
+from .lcp import (
+    ResonanceLevels,
+    lcp_da_cross_section,
+    lcp_resonance_levels,
+    local_complex_potential,
+    resonance_levels,
+)
 from .plot import plot_cross_sections
 from .problem import ScatteringProblem
 from .td_extractors import Dirac, Flux, TannorWeeks
@@ -144,6 +150,9 @@ __all__ = [
     "dr_cross_section",
     "local_complex_potential",
     "lcp_da_cross_section",
+    "ResonanceLevels",
+    "lcp_resonance_levels",
+    "resonance_levels",
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",
