@@ -131,8 +131,12 @@ def resonance_pole_walk(
                     v0R = float(np.real(model.v0(np.asarray(R))))
                     last_s = E_pole.real - v0R
                     last_g = max(0.0, -2.0 * E_pole.imag)
-                    window = (E_pole.real - re_half_width, E_pole.real + re_half_width,
-                              E_pole.imag - im_half_width, E_pole.imag + im_half_width)
+                    window = (
+                        E_pole.real - re_half_width,
+                        E_pole.real + re_half_width,
+                        E_pole.imag - im_half_width,
+                        E_pole.imag + im_half_width,
+                    )
                     shift[j], gamma_w[j] = last_s, last_g
                     continue
             broken = True
@@ -200,8 +204,12 @@ def resonance_eigenstate_at_peak_width(
     (`Gamma` ~ 0 everywhere, or every wide point is frozen).
     """
     Vd, gamma = local_complex_potential(
-        model, nuclear_grid, elec_grid_a, elec_grid_b,
-        re_half_width=re_half_width, im_half_width=im_half_width,
+        model,
+        nuclear_grid,
+        elec_grid_a,
+        elec_grid_b,
+        re_half_width=re_half_width,
+        im_half_width=im_half_width,
     )
     pts = nuclear_grid.points
     real = np.flatnonzero(pts.imag == 0.0)
@@ -212,8 +220,10 @@ def resonance_eigenstate_at_peak_width(
         R = float(pts[j].real)
         e_re, g = float(Vd[j].real), float(gamma[j])
         window = (
-            e_re - re_half_width, e_re + re_half_width,
-            -0.5 * g - im_half_width, -0.5 * g + im_half_width,
+            e_re - re_half_width,
+            e_re + re_half_width,
+            -0.5 * g - im_half_width,
+            -0.5 * g + im_half_width,
         )
         try:
             E_pole, phi = resonance_eigenstate(model, elec_grid_a, elec_grid_b, R, window)
@@ -226,6 +236,39 @@ def resonance_eigenstate_at_peak_width(
         "resonance_eigenstate_at_peak_width: no real-R point has a resolvable, "
         "genuine (non-frozen) resonance width"
     )
+
+
+def _assemble_lcp(
+    model: ResonanceModel,
+    grid: FemDvrEcsGrid,
+    shift: npt.NDArray[np.float64],
+    gamma_w: npt.NDArray[np.float64],
+) -> tuple[npt.NDArray[np.complex128], npt.NDArray[np.float64]]:
+    """Place one `resonance_pole_walk` result onto `grid` as `(V_d, Gamma)`.
+
+    `shift`/`gamma_w` are indexed by DESCENDING real `R` (the walk order).
+    Real nodes get `V_d = v0(R) + shift`; the complex ECS tail gets the
+    analytic continuation `v0(z) + shift[0]` (the shift at the largest real `R`,
+    i.e. the asymptotic electronic shift) with `Gamma = 0`.
+
+    Factored out of `local_complex_potential` so `resonance_levels` can run the
+    expensive electronic walk ONCE and lay the same curve onto two nuclear grids
+    that differ only in their ECS tail angle.
+    """
+    pts = grid.points
+    real_idx = np.flatnonzero(pts.imag == 0.0)
+    order = np.argsort(pts[real_idx].real)[::-1]  # descending R: outer -> inner
+    walk = real_idx[order]
+
+    Vd = np.empty(grid.n, dtype=np.complex128)
+    Gamma = np.zeros(grid.n, dtype=np.float64)
+    Vd[walk] = model.v0(pts[walk].real) + shift
+    Gamma[walk] = gamma_w
+
+    tail = np.flatnonzero(pts.imag != 0.0)
+    if tail.size:
+        Vd[tail] = model.v0(pts[tail]) + shift[0]
+    return Vd, Gamma
 
 
 def local_complex_potential(
@@ -250,30 +293,30 @@ def local_complex_potential(
     R_inf = nuclear_grid.R0
     eps_e, _ = anion_electronic_states(elec_grid_a, model, R_inf, 1)
     seed_window = (
-        eps_e[0] - re_half_width, eps_e[0] + re_half_width, -im_half_width, im_half_width,
+        eps_e[0] - re_half_width,
+        eps_e[0] + re_half_width,
+        -im_half_width,
+        im_half_width,
     )
 
     pts = nuclear_grid.points
     real_idx = np.flatnonzero(pts.imag == 0.0)
-    order = np.argsort(pts[real_idx].real)[::-1]          # descending R: outer -> inner
+    order = np.argsort(pts[real_idx].real)[::-1]  # descending R: outer -> inner
     walk = real_idx[order]
     R_real = pts[walk].real
 
     shift, gamma_w = resonance_pole_walk(
-        model, R_real, elec_grid_a, elec_grid_b, seed_window,
-        re_half_width=re_half_width, im_half_width=im_half_width, resid_tol=resid_tol,
+        model,
+        R_real,
+        elec_grid_a,
+        elec_grid_b,
+        seed_window,
+        re_half_width=re_half_width,
+        im_half_width=im_half_width,
+        resid_tol=resid_tol,
     )
 
-    Vd = np.empty(nuclear_grid.n, dtype=np.complex128)
-    Gamma = np.zeros(nuclear_grid.n, dtype=np.float64)
-    Vd[walk] = model.v0(R_real) + shift
-    Gamma[walk] = gamma_w
-
-    tail = np.flatnonzero(pts.imag != 0.0)
-    if tail.size:
-        s_asym = shift[0]                                  # shift at the largest real R
-        Vd[tail] = model.v0(pts[tail]) + s_asym
-    return Vd, Gamma
+    return _assemble_lcp(model, nuclear_grid, shift, gamma_w)
 
 
 # Mirrors `driven.py`'s (private) `_Ordering` -- scipy's `splu`'s
