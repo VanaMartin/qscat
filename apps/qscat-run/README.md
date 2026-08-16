@@ -47,6 +47,15 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 | **resonance state** (LCP) | `artifacts.eigenstates: true` (LCP-capable molecule) | `resonance/resonance_lcp_resonance.{npz,png}` — complex pole `E_r−iΓ/2` + electronic eigenfunction at the width peak |
 | **LCP scattering states** `ψ_sc(R)` | `wavefunction_snapshots: {ti_energies:[...], full_field: true}` on an `lcp` run | `eigenstates/eigenstates_lcp_scattering.{npz,png}` |
 | **quasi-bound resonance levels** (BO/LCP) | `observables: [{kind: resonance_levels, channels: N}]` on `methods: [lcp]` — needs no `energies:` block — or `artifacts.resonance_levels: true` on an existing LCP run | `resonance_levels_{label}.{csv,npz,png}` — complex levels `E_v−iΓ_v/2`, DVR eigenvectors, the `V_d(R)`/`Γ(R)` curve, and a golden-rule comparator column |
+| **published reference overlay** | `reference: [{path: ..., format: houfek, channels: [...]}]` | `reference.{csv,npz}` + dashed overlay on `cross_section.png` (keys `ref:...`) |
+
+A `reference:` entry keeps its own energy axis: it is never interpolated onto
+the run's energies, so it is written to `reference.{csv,npz}` rather than as
+extra columns in `cross_section.csv` (whose rows are the run's own energies).
+`path` resolves relative to the config file's own directory, not the current
+working directory. See `examples/n2-ve-vs-houfek.yaml` for the flagship case
+— N2 vibrational excitation overlaid on Karel Houfek's independent published
+data.
 
 Every run also writes `config.resolved.yaml` (the fully default-filled config)
 and `manifest.json` (qscat version, git SHA, timestamp, backend, timings) for
