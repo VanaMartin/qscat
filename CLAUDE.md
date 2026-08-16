@@ -54,7 +54,17 @@ libs/       qscat — the standard library: validated, reusable QM code
               structure mismatch. On the N₂ working grid a reuse sweep is ~80% /
               ~5× faster than fresh-per-energy (the analysis dominates the cheap
               numeric factor there; the fraction shrinks for larger decks) — see
-              docs/physics/ti-energy-sweep-reuse.md.
+              docs/physics/ti-energy-sweep-reuse.md. `ShiftInvertEigs` is the
+              eigenvalue side of that same trick: the `k` eigenpairs nearest a
+              complex shift, via shift-invert Arnoldi with `SparseLU` as the inner
+              solve. Resonances are INTERIOR eigenvalues, which a plain Krylov
+              iteration cannot reach, and `A − σ·I` keeps one sparsity pattern for
+              every σ, so a sweep of shifts reuses the analysis exactly as an
+              energy sweep does. Validated in 1-D against the dense
+              `qscat.dvr.eigen`; the conventions that bite (the `A − σ·I` sign,
+              nearest-shift ordering, Euclidean vs c-product normalization) and
+              the measured working range are in
+              docs/physics/shift-invert-eigensolver.md.
             - qscat.dvr: FEM-DVR-ECS radial grid (`FemDvrEcsGrid`), kinetic-
               energy assembly (`kinetic`), and diagonal-potential Hamiltonian
               + eigensolver helpers (`hamiltonian`, `eigen`) — see

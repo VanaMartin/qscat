@@ -42,6 +42,23 @@ same discount the time-independent energy sweep gets from the identical trick
 factorization survives between shifts: the first `near(sigma)` factors, every
 later one refactors.
 
+## Why ARPACK rather than a complex-symmetric Lanczos
+
+An ECS Hamiltonian is complex **symmetric** (`A = Aᵀ`, not `A = A†`), and a
+Lanczos iteration built on the bilinear c-product exploits that with a
+three-term recurrence, where ARPACK's general non-Hermitian Arnoldi carries a
+full Hessenberg basis and ignores the symmetry.
+
+ARPACK is used anyway, for two reasons. The iteration is not the cost here — one
+sparse factorization dominates, and every Arnoldi step after it is a pair of
+triangular solves. And a complex-symmetric Lanczos can break down (the c-norm
+`vᵀv` can vanish for a non-null vector, which has no Hermitian analogue), so it
+needs look-ahead to be robust. Trading a robust library iteration for a fragile
+hand-rolled one to optimize the cheap half of the computation is the wrong
+trade until measurement says otherwise. If the iteration ever does dominate at
+2-D scale, ARPACK is then the oracle a c-product Lanczos would be validated
+against.
+
 ## Conventions
 
 Three choices that are easy to get wrong, and are pinned by tests.

@@ -227,9 +227,12 @@ def test_pole_is_found_from_an_offset_shift(offset: float) -> None:
 
 
 def test_continuum_adjacent_shift_returns_angle_unstable_eigenvalues() -> None:
-    """The 1-D rehearsal of the selection stage 2 needs: a shift parked on the
-    rotated continuum returns eigenvalues that MOVE when the ECS angle changes,
-    while the pole does not. Nothing here selects; it demonstrates the signal."""
+    """A shift parked on the rotated continuum returns eigenvalues that MOVE
+    when the ECS angle changes, while a pole does not.
+
+    This is what makes a shift-invert window on its own useless as a resonance
+    finder: the window is a local slice of the spectrum, and being in it says
+    nothing about being a pole. Only comparing two ECS angles does."""
     from qscat.ecs import match_angle_stable
 
     _, _, Hs_a = _n2_electronic(35.0)
