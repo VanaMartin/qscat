@@ -1,8 +1,8 @@
 """`Extractor` implementations for the shared propagate-once TD engine
 (`qscat.core.time_dependent.propagate`).
 
-`TannorWeeks` is the current (and, as of this task, only) energy-extraction
-route: it records `c_{v'}(t_n) = c_product(Phi_{v'}, Psi(t_n))` every step
+`TannorWeeks` (Tannor & Weeks, J. Chem. Phys. 98, 3884 (1993)) records
+`c_{v'}(t_n) = c_product(Phi_{v'}, Psi(t_n))` every step
 (the SAME per-step bookkeeping `time_dependent.propagate`'s legacy
 `out_channels` path performs) and its `sigma(E)` reproduces the existing
 Tannor-Weeks transform (`time_dependent.sigma_from_correlations` /
@@ -61,8 +61,7 @@ node `surface`) and `d_c(t) = <phi_c| d/dR psi(.,R=surface)>` (via
 `dvr_first_derivative_at_node` applied along the NUCLEAR axis, contracted
 into the electronic-axis vector BEFORE projecting onto `phi_c` -- bilinear,
 non-conjugated `c_product` makes this order interchangeable with "project
-then differentiate", eMoScat's literal order, see `port-scout confirmation`
-in `.superpowers/sdd/task-2-report.md`). The outgoing wave is the mass-`mu_R`
+then differentiate", eMoScat's literal order). The outgoing wave is the mass-`mu_R`
 Hankel half (`correlation.outgoing_surface_wave(..., mass=model.mu)`,
 `l=0`) at `K_R = sqrt(2 mu_R (E_tot - eps_e_c))`, `mu_R = model.mu`
 (eMoScat's `reduced_mass()` for `axis_=='y'`: `mu_y_ = mass`, NOT 1) -- the
@@ -963,8 +962,8 @@ def _flux_da_s_vector_one_energy(
 
 # The DA sigma prefactor: `pi`, NOT the TI oracle's literal `4 pi^3` -- see
 # the module docstring's `Flux(axis="nuclear")` section for the `S = 1 -
-# 2 pi i T` derivation and `.superpowers/sdd/task-2-report.md` for the
-# empirical TI-convergence confirmation.
+# 2 pi i T` derivation, and `docs/physics/td-da.md` for the empirical
+# TI-convergence confirmation.
 _C_DA = np.pi
 
 

@@ -1,12 +1,14 @@
 """Tannor-Weeks eta deconvolution factors and the outgoing test function.
 
-The correlation function `c_{v'}(t) = <Phi_{v'}|Psi(t)>` (Task 3's
-`PropagationResult.c`) carries the spectral content of BOTH the incident
-wavepacket `g(r)` and the outgoing test-function wavepacket `g_out(r)` --
-neither of which is a pure energy eigenstate. The `eta` factors here
-deconvolve that spectral content, leaving the pure single-energy S-matrix
-element, per `.superpowers/sdd/n2-2d-exact-extraction.md` section 5.3
-(`eMoScat TestFunction2d.cpp:298-307`):
+The method is Tannor & Weeks, J. Chem. Phys. 98, 3884 (1993); the `eta`
+factors are its Eq. (39) normalization, which is explicitly NOT unity -- see
+`docs/physics/td-extractors.md`.
+
+The correlation function `c_{v'}(t) = <Phi_{v'}|Psi(t)>` carries the spectral
+content of BOTH the incident wavepacket `g(r)` and the outgoing test-function
+wavepacket `g_out(r)` -- neither of which is a pure energy eigenstate. The
+`eta` factors here deconvolve that spectral content, leaving the pure
+single-energy S-matrix element (`eMoScat TestFunction2d.cpp:298-307`):
 
 - `eta_incident(E) = c_product(g_in_coeffs, F_{E,l}_coeffs)`: the incident
   Gaussian against the energy-normalized REGULAR free function
@@ -18,10 +20,10 @@ element, per `.superpowers/sdd/n2-2d-exact-extraction.md` section 5.3
   outgoing test-function Gaussian against the energy-normalized OUTGOING
   HALF of the free function, `h^{(1)}_{E',l}/2` (`j_l = (h_l^{(1)} +
   h_l^{(2)})/2`) -- per the extraction doc's `TestFunction2d.cpp:207`
-  (`sphHankel1En(...)/2.0`), and settled empirically here (debug order item
-  7): the REGULAR function for `F_out` gave `sigma_TD` five to six orders
-  of magnitude too small against the TI oracle; the outgoing Hankel half
-  brought it to within ~10-25% (see `.superpowers/sdd/task-4-report.md`).
+  (`sphHankel1En(...)/2.0`), and settled empirically here: the REGULAR
+  function for `F_out` gave `sigma_TD` five to six orders of magnitude too
+  small against the TI oracle; the outgoing Hankel half brought it to within
+  ~10-25%.
 
 `outgoing_channel` builds the energy-INDEPENDENT test function
 `Phi_{v'} = g_out(r) chi_{v'}(R)`: the k'-dependence lives entirely in

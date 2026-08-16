@@ -20,12 +20,15 @@ reference implementation):
   Hermitian dot here and is saved only by doing the same masking.
 
 Elastic and inelastic share one formula: with `S = 1 - 2 pi i T`,
-`|S - 1|^2 = 4 pi^2 |T|^2`, so Houfek's `pi |S-1|^2 / k^2` and our
-`4 pi^3 |T|^2 / k^2` are the same expression. Unlike the 1-D LCP model, this
-elastic T-matrix DOES contain the non-resonant background scattering.
+`|S - 1|^2 = 4 pi^2 |T|^2`, so `pi |S-1|^2 / k^2` and our `4 pi^3 |T|^2 / k^2`
+are the same expression. The normalization is Vana & Houfek, Phys. Rev. A 95,
+022714 (2017), Eqs. (38)-(39) -- NOT Houfek et al., Phys. Rev. A 73, 032721
+(2006), whose Eqs. (25)-(26) use a differently normalized T. Unlike the 1-D LCP
+model, this elastic T-matrix DOES contain the non-resonant background
+scattering.
 
 Promoted from `projects/n2_2d_cross_section/cross_section_2d.py`'s
-`ve_cross_section_2d` (sub-project #A, Task 4). The only change is that the
+`ve_cross_section_2d`. The only change is that the
 Hamiltonian and interaction diagonal now come from a caller-supplied
 `model: qscat.model.ResonanceModel` (`model.hamiltonian(tgrid)` /
 `model.interaction_diag(tgrid)` / `model.ell`) instead of a hardcoded N2

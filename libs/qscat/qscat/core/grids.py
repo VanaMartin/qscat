@@ -20,7 +20,7 @@ coordinate R -- a real region segmented per `N2.json`'s nuclear layout
 (`reference/eMoScat/input/experimental/N2.json`'s `grids.nuclear.real`), then
 a `n_complex`-element ECS tail at `angle_deg` out to `r_max`, giving the
 outgoing dissociative-attachment boundary condition (see
-`.superpowers/sdd/ti-cross-section-extraction.md` section 7). The default
+`docs/physics/diatomic-ve-cross-sections.md`). The default
 segment boundaries/lengths (1.5/3.0/4.0/12.0 bohr with 0.5/0.15/0.5/1.0
 element lengths) are an exact division (3, 10, 2, 8 elements respectively --
 23 real elements total), so no rounding/truncation occurs at the N2

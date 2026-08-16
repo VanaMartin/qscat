@@ -1,8 +1,8 @@
 """Grid specification dataclasses for the FEM-DVR-ECS radial grid.
 
-See .superpowers/sdd/femdvr-ecs-extraction.md sections 1-3 and
-docs/superpowers/specs/2026-07-21-femdvr-ecs-grid-design.md for the construction
-this mirrors (ported from eMoScat's FemDvrEcsGrid.cpp).
+See `docs/physics/femdvr-ecs.md` for the construction this mirrors (ported from
+eMoScat's FemDvrEcsGrid.cpp; the method is Rescigno & McCurdy, Phys. Rev. A 62,
+032706 (2000)).
 """
 
 from __future__ import annotations

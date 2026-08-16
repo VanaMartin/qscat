@@ -4,8 +4,8 @@ The ECS contour maps the real radial coordinate onto a path that runs
 straight out to a pivot `R0` and then bends into the complex plane at a
 fixed angle `theta`. Rotating the outgoing (continuum) coordinate this way
 turns divergent scattering states into decaying ones and exposes resonance
-poles, while leaving bound-state energies unchanged (see
-`docs/physics/femdvr-ecs.md` and `.superpowers/sdd/femdvr-ecs-extraction.md`).
+poles, while leaving bound-state energies unchanged (Rescigno & McCurdy,
+Phys. Rev. A 62, 032706 (2000); see `docs/physics/femdvr-ecs.md`).
 
 This module is the single source of that transform: `qscat.dvr.grid` uses
 `ecs_map` to place its complex-tail quadrature points.
