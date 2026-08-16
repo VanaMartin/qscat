@@ -18,12 +18,37 @@ api/index
 related-work
 ```
 
+```{toctree}
+:maxdepth: 1
+:caption: Theory
+
+physics/README
+physics/femdvr-ecs
+physics/nd-tensor-hamiltonian
+physics/discretisation-tuning
+physics/mumps-sparse-backend
+physics/ti-energy-sweep-reuse
+physics/qscat-core-scattering
+physics/n2-resonance
+physics/n2-cross-section
+physics/n2-2d-cross-section
+physics/n2-td-cross-section
+physics/n2-2d-td-cross-section
+physics/td-extractors
+physics/td-da
+physics/diatomic-ve-cross-sections
+physics/h2plus-dr
+physics/lcp-resonance-levels
+physics/angular-coupled-channels
+physics/optimization-targets
+```
+
 ## Quick links
 
 - **Install & first cross section:** {doc}`getting-started`
 - **API reference:** {doc}`api/index`
 - **How this relates to existing codes:** {doc}`related-work`
-- **Theory notes:** the `docs/physics/` directory in the repository
+- **Theory notes:** {doc}`physics/README`
 - **Design decisions:** the `docs/adr/` directory (ADRs)
 
 ## Citing

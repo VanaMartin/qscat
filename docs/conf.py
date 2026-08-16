@@ -46,14 +46,14 @@ intersphinx_mapping = {
 }
 
 templates_path = ["_templates"]
-# The site is index/getting-started/api only. physics/, adr/, and superpowers/
-# are repository docs (theory notes, ADRs, specs), not rendered site pages —
-# excluded so Sphinx doesn't warn about them being outside any toctree.
+# The site is index/getting-started/api/physics (Theory). physics/ is now
+# published as the site's Theory section; adr/ and superpowers/ remain
+# repository-only docs (ADRs, specs) — excluded so Sphinx doesn't warn about
+# them being outside any toctree.
 exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
-    "physics",
     "adr",
     "superpowers",
 ]
