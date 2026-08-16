@@ -1,108 +1,73 @@
 # reference/literature
 
-Local copies of the papers and theses the qModeling models are built from.
-**Nothing in this directory except this README is committed** (see `.gitignore`) —
-fetch what you need from the URLs below.
+The papers and theses qModeling is built on, and the **reference notes** that
+carry what the repository actually relies on from each.
 
-Like the rest of `reference/`, these are read-only: they are cited and read, never
-imported or built.
+**The PDFs are local copies only** — `*.pdf` and the `*.txt` extractions are
+gitignored, so they do not travel with a clone. **The `*.md` notes are tracked**,
+because they are what the repository cites. A note carries every published fact
+the repo depends on, each anchored to a page plus an equation, table or figure,
+so a reader can find it in the source in one jump.
+
+Like the rest of `reference/`, the sources are read, never imported or built.
+
+To write or update a note, use the `mastering-references` skill
+(`.claude/skills/mastering-references/`).
 
 ## Sources
 
-| File | Reference |
-|---|---|
-| `vana-2017-thesis.pdf` | M. Váňa, *A model of resonant collisions of electrons with molecules and molecular ions*, doctoral thesis, Charles University, Prague, 2017. <https://dspace.cuni.cz/handle/20.500.11956/92902> |
-| `vana-houfek-2017-pra95-022714.pdf` | M. Váňa, K. Houfek, *Time-dependent formulation of the two-dimensional model of resonant electron collisions with diatomic molecules and interpretation of the vibrational excitation cross sections*, Phys. Rev. A **95**, 022714 (2017). <https://doi.org/10.1103/PhysRevA.95.022714> |
-| `sieg.pdf` | D. Hvizdoš, M. Váňa, K. Houfek, C. H. Greene, T. N. Rescigno, C. W. McCurdy, R. Čurík, *Dissociative recombination by frame transformation to Siegert pseudostates: a comparison with a numerically solvable model*, Phys. Rev. A **97**, 022704 (2018). <https://arxiv.org/abs/1710.10333> |
-| `hvizdos-2016-thesis.pdf` | D. Hvizdoš, *Two-dimensional model of dissociative recombination*, master's thesis, Charles University, Prague, 2016. <https://dspace.cuni.cz/handle/20.500.11956/96080> |
+| Note | Source | Role here |
+|---|---|---|
+| [`rescigno-2000-pra62-032706.md`](rescigno-2000-pra62-032706.md) | T. N. Rescigno, C. W. McCurdy, *Numerical grid methods for quantum-mechanical scattering problems*, Phys. Rev. A **62**, 032706 (2000). [DOI](https://doi.org/10.1103/PhysRevA.62.032706) | The FEM-DVR + ECS method itself — the foundation of `qscat.dvr` and `qscat.ecs`. |
+| [`houfek-2006-pra73-032721.md`](houfek-2006-pra73-032721.md) | K. Houfek, T. N. Rescigno, C. W. McCurdy, *Numerically solvable model for resonant collisions of electrons with diatomic molecules*, Phys. Rev. A **73**, 032721 (2006). [DOI](https://doi.org/10.1103/PhysRevA.73.032721) | **The 2-D model this whole repository implements.** N₂/NO constants. |
+| [`houfek-2008-pra77-012710.md`](houfek-2008-pra77-012710.md) | K. Houfek, T. N. Rescigno, C. W. McCurdy, *Probing the nonlocal approximation to resonant collisions of electrons with diatomic molecules*, Phys. Rev. A **77**, 012710 (2008). [DOI](https://doi.org/10.1103/PhysRevA.77.012710) | The discrete-state choice, nonlocal vs LCP — and **F₂'s published constants**. |
+| [`vana-houfek-2017-pra95-022714.md`](vana-houfek-2017-pra95-022714.md) | M. Váňa, K. Houfek, *Time-dependent formulation of the two-dimensional model…*, Phys. Rev. A **95**, 022714 (2017). [DOI](https://doi.org/10.1103/PhysRevA.95.022714) | **This work's own publication.** The LCP curve, the Γ-support condition, the quasibound-state interpretation. |
+| [`vana-2017-thesis.md`](vana-2017-thesis.md) | M. Váňa, *A model of resonant collisions of electrons with molecules and molecular ions*, doctoral thesis, Charles University, Prague, 2017. [dspace](https://dspace.cuni.cz/handle/20.500.11956/92902) | The broadest single source: all four models, grids, the discrete-state projection. |
+| [`hvizdos-2016-thesis.md`](hvizdos-2016-thesis.md) | D. Hvizdoš, *Two-dimensional model of dissociative recombination*, master's thesis, Charles University, Prague, 2016. [dspace](https://dspace.cuni.cz/handle/20.500.11956/96080) | **The first time-independent solution of the H₂⁺ model**, which `dr_cross_section` descends from. |
+| [`hvizdos-2018-pra97-022704.md`](hvizdos-2018-pra97-022704.md) | D. Hvizdoš, M. Váňa, K. Houfek, C. H. Greene, T. N. Rescigno, C. W. McCurdy, R. Čurík, *Dissociative recombination by frame transformation to Siegert pseudostates…*, Phys. Rev. A **97**, 022704 (2018). [arXiv](https://arxiv.org/abs/1710.10333) | The Siegert-**pseudostate** construction qModeling's ECS resonance eigenstates are explicitly *not*. H₂⁺ parameters and ECS angle bounds. |
+
+## Fetching the sources
+
+The notes stand on their own; fetch a PDF only when you need the full text.
 
 ```bash
 mkdir -p reference/literature
 curl -L -o reference/literature/vana-2017-thesis.pdf \
   "https://dspace.cuni.cz/bitstream/handle/20.500.11956/92902/140060325.pdf?sequence=1"
+curl -L -o reference/literature/hvizdos-2016-thesis.pdf \
+  "https://dspace.cuni.cz/bitstream/handle/20.500.11956/96080/150040279.pdf"
 ```
 
-A plain-text extraction (`*.txt`, greppable) can be regenerated with:
+The APS articles are paywalled; obtain them through an institutional
+subscription and save them under the note's stem with a `.pdf` extension.
 
-```bash
-uv run --with pypdf python -c "
-from pypdf import PdfReader
-r = PdfReader('reference/literature/vana-2017-thesis.pdf')
-open('reference/literature/vana-2017-thesis.txt', 'w').write(
-    ''.join(f'\n===== PAGE {i+1} =====\n' + (p.extract_text() or '')
-            for i, p in enumerate(r.pages)))
-"
-```
+To regenerate a text extraction for searching, see
+`.claude/skills/mastering-references/references/extracting.md`.
 
-## What the thesis covers
+## Pagination caveats
 
-The published counterpart of `reference/eMoScat`, covering every model in
-`qscat.model`: the N₂/NO/F₂-like electron-molecule models (ch. 3) and the H₂⁺
-dissociative-recombination model (ch. 4).
+Locators in each note use the **printed** page, which is not always the
+extractor's page index. Each note states its own mapping; two are worth knowing
+up front:
 
-- Table 1.1 / Table 1.2 — model constants. The N₂/NO/F₂ values match
-  `qscat.model.library` exactly (verified 2026-08-15).
-- §1.4.4 Eq. 1.60 — `σ = 4π³/k² |T|²`, the normalization the TI oracle uses.
-- §1.5 Eq. 1.63/1.65 — the local complex potential
-  `V_res(R) = E_res(R) − (i/2)Γ(R)` and `H_LCP`. qscat's `Vd` is the thesis's
-  `E_res`.
-- §1.6 Eq. 1.69/1.70 — the discrete state `φ_d` and the projection `Ψ_d(R,t)`.
-- Tables 2.1/2.2 — the FEM-DVR-ECS grids. These **differ** from the eMoScat JSON
-  decks locked by `validation/diatomic/test_da_grid.py` (e.g. F₂ nuclear
-  `nq = 20`, θ = 35° here vs order 12, θ = 25° in the deck). Both are plausible
-  discretizations of the same model, and quantities computed on them are
-  grid-convergent, so the two are treated as a convergence check on each other
-  rather than one superseding the other.
-- §3.4 — the boomerang / quasi-bound-state interpretation of the cross-section
-  structure.
-- Bibliography — the canonical citations for this work.
+- **The theses** carry unnumbered front matter — Hvizdoš 2016 runs at
+  extractor = printed + 8, Váňa 2017 at + 8.
+- **`hvizdos-2018-pra97-022704.pdf` is a preprint copy**, self-paginated 1–26
+  rather than the journal's `022704-N`. Its note's locators follow the preprint;
+  a reader holding the published version must translate.
 
-## What Váňa & Houfek (2017) covers
+## Parity with the code
 
-**The peer-reviewed publication of this work's electron–molecule side** — the
-time-dependent formulation of the Houfek/Rescigno/McCurdy 2-D model, and the
-published counterpart of the thesis's ch. 3. Prefer it over the thesis when
-citing anything it contains.
+Every note states, for each published constant, whether it was checked against
+the repository and what the check found. Three findings so far came out of that
+discipline:
 
-- §II — the 2-D model and its parameters.
-- §IV Eqs. (40)/(41) — the local complex potential,
-  `V_res(R) = E_res(R) − (i/2)Γ(R)`, and the statement that **the imaginary part
-  is nonzero only where `V0(R) < E_res(R)`**. This is the peer-reviewed source
-  for the Γ-support condition; the thesis §1.5 repeats it.
-- §VIII — the quasibound-state interpretation: each narrow cross-section peak is
-  a quasibound vibrational state of the anion (an eigenstate in `V_res(R)`),
-  elastic boomerang maxima sit at roughly those energies while the VE 0→1 maxima
-  are displaced, and the NO lifetime estimates (first VE 0→1 peak forming at
-  t > 10 000; lowest state > 30 000 a.u.).
-
-## What Hvizdoš (2016) covers
-
-**The first time-independent solution of the H₂⁺ model** — the master's thesis
-this repo's `dr_cross_section` descends from, supervised by Houfek.
-
-- §1.2.1 and Table 1.1 — the `e⁻ + H₂⁺` model parameters. All match
-  `qscat.model.H2P`, **including µ = 918.076** — a third published source
-  agreeing with Váňa 2017 Table 1.2 and Hvizdoš et al. (2018) §II A against
-  eMoScat's 918.25.
-- §1.3 — FEM-DVR, exterior complex scaling, and the driven-equation solution
-  (solved in place of Lippmann–Schwinger), which is what `qscat.core.driven`
-  and `qscat.core.dissociation` implement.
-- §2.1-2.3 — DR cross sections, convergence tests, and the interpretation of
-  their structures via the Rydberg potential curves `V_n(R)`.
-
-## What Hvizdoš et al. (2018) covers
-
-The exact-2D benchmark for H₂⁺ dissociative recombination, and the reference for
-the frame-transformation / Siegert-pseudostate approximation tested against it.
-
-- §II A Eqs. (4)-(8) — the H₂⁺ model Hamiltonian and Hamilton's coupling
-  potential. Matches `qscat.model.library.H2P` **except** the reduced mass: the
-  paper and thesis Table 1.2 both give `M = 918.076` (= mₚ/2), qscat has 918.25.
-- §II Table I — a third H₂⁺ FEM-DVR-ECS grid parametrization (`nq = 6`, θ = 20°
-  on both coordinates).
-- §II — the hard ECS bending-angle bounds for this model: nuclear θ < π/8,
-  electronic θ < π/4, or `V(R,r)` diverges.
-- Appendix A Eqs. (A3)-(A5) — Siegert **pseudostates**: outgoing-wave boundary
-  condition at finite `a`, with the surface-corrected orthogonality relation.
-  Distinct from qscat's ECS complex-scaled resonance eigenstates; see the
-  terminology table in the resonance-levels spec.
+- **H₂⁺ reduced mass.** Váňa 2017 Table 1.2, Hvizdoš 2016 Table 1.1 and
+  Hvizdoš et al. 2018 §II A all give **918.076** = mₚ/2; eMoScat's deck carried
+  918.25. The repo was corrected to 918.076.
+- **F₂'s provenance.** Its constants are published in Houfek et al. (2008)
+  Table I, not merely transcribed from the eMoScat deck.
+- **Grid decks.** Váňa 2017 Tables 2.1/2.2 differ from the eMoScat decks locked
+  by `validation/diatomic/test_da_grid.py`. Both are plausible discretizations
+  of the same model and quantities on them are grid-convergent, so the two serve
+  as a convergence check on each other.
