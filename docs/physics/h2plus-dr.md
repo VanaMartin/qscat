@@ -47,8 +47,14 @@ not G+iF), and its wrappers ignored `coulcc`'s `ifail`.
 
 The model layer was generalized for ions: the `ResonanceModel` protocol gained a `charge`
 attribute (0 for the neutral diatomics — unchanged — and −1 for H₂⁺) and shed the engine-unused
-`lam`. `H2P` is an `IonicResonanceModel` with the extracted eMoScat form (μ=918.25, ℓ=1,
+`lam`. `H2P` is an `IonicResonanceModel` with the extracted eMoScat form (μ=918.076, ℓ=1,
 charge=−1):
+
+> **Reduced mass.** μ=918.076 is mₚ/2 for the modern proton mass (1836.15267/2), as given by
+> Váňa 2017 Table 1.2 and Hvizdoš et al., *Phys. Rev. A* **97**, 022704 (2018) §II A. eMoScat's
+> JSON deck carries 918.25, which both publications contradict; the port originally inherited
+> that value and it was corrected on 2026-08-15. The 0.019% shift moves H₂⁺ vibrational spacings
+> by ~1e-4 relative — immaterial qualitatively, but wrong for reproducing published numbers.
 
 - **ion Morse** `v0(R) = V₀(e^{−2α(R−R₀)} − 2e^{−α(R−R₀)})`, `V₀=0.1027, R₀=2.0, α=0.69` (the
   initial vibrational state lives here; the `1/R` proton repulsion is folded into this single

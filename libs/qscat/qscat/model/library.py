@@ -60,7 +60,10 @@ F2 = DiatomicResonanceModel(
 )
 
 H2P = IonicResonanceModel(
-    mu=918.25,
+    # m_p/2 for the modern proton mass (1836.15267/2), as given by Vana 2017
+    # Table 1.2 and Hvizdos et al., Phys. Rev. A 97, 022704 (2018) Sec. II A.
+    # eMoScat's JSON deck carries 918.25, which both publications contradict.
+    mu=918.076,
     ell=1,
     charge=-1,
     V0=0.1027,

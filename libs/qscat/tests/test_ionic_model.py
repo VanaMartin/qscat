@@ -8,7 +8,9 @@ from qscat.model import H2P, ResonanceModel
 
 def test_h2p_is_a_resonance_model_with_charge():
     assert isinstance(H2P, ResonanceModel)
-    assert H2P.charge == -1 and H2P.ell == 1 and H2P.mu == 918.25
+    assert H2P.charge == -1 and H2P.ell == 1
+    # m_p/2, per Vana 2017 Table 1.2 and Hvizdos et al. PRA 97, 022704 (2018).
+    assert H2P.mu == 918.076
 
 
 def test_h2p_v0_is_the_ion_morse():
