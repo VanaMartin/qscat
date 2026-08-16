@@ -91,6 +91,8 @@ Public API:
     ONE propagation driving all three nuclear extractors and returns
     `{"flow":, "delta":, "tw":}` -- see `docs/physics/td-da.md`.
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
+  - `plot_resonance_levels` -- generic complex-level plotting (position vs
+    width, plus per-level differences against a chosen baseline series).
 """
 
 from __future__ import annotations
@@ -119,8 +121,9 @@ from .lcp import (
     local_complex_potential,
     resonance_levels,
 )
-from .plot import plot_cross_sections
+from .plot import plot_cross_sections, plot_resonance_levels
 from .problem import ScatteringProblem
+from .resonance import ExactResonanceStates, exact_resonance_states
 from .td_extractors import Dirac, Flux, TannorWeeks
 from .time_dependent import (
     Extractor,
@@ -153,6 +156,8 @@ __all__ = [
     "ResonanceLevels",
     "lcp_resonance_levels",
     "resonance_levels",
+    "ExactResonanceStates",
+    "exact_resonance_states",
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",
@@ -172,4 +177,5 @@ __all__ = [
     "Dirac",
     "Flux",
     "plot_cross_sections",
+    "plot_resonance_levels",
 ]
