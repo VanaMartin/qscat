@@ -110,7 +110,7 @@ def match_angle_stable(
     rotation angles. An eigenvalue of `eigs_a` inside `window` is ACCEPTED when
     its nearest `eigs_b` partner satisfies
 
-        |E_a - E_b| < max(rel_tol * |E_a|, atol)
+        ``|E_a - E_b| < max(rel_tol * |E_a|, atol)``
 
     -- eMoScat's `DiscreteStates` criterion, vectorized. Discretized continuum
     eigenvalues rotate with the angle and fail it; bound and resonance states do
