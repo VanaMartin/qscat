@@ -58,6 +58,7 @@ class VibrationalBasis(NamedTuple):
     eps: npt.NDArray[np.float64]  # (n,) real vibrational energies (Ha), ascending
     chi: npt.NDArray[np.complex128]  # (n, grid.n) eigenvectors, one row per level
 
+
 # Bound-state signature: true bound levels have |Im(E)| ~ 1e-15 on this ECS
 # grid, while the discretized continuum/dissociative states jump to
 # |Im(E)| ~ 1e-7 or larger. This tolerance sits comfortably between the two.

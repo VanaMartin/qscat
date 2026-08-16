@@ -76,9 +76,7 @@ class EquidistantProjector:
         # P0 @ M @ P1.T  ->  (n0, n1); sparse @ dense @ sparse.T
         return np.asarray(self._p0 @ m @ self._p1.T)
 
-    def project_values(
-        self, field: npt.NDArray[np.complex128]
-    ) -> npt.NDArray[np.complex128]:
+    def project_values(self, field: npt.NDArray[np.complex128]) -> npt.NDArray[np.complex128]:
         """Project a nodal-VALUE field (e.g. a potential) on the same grid.
 
         `project` interpolates a √w-scaled DVR state (a wavefunction). A field

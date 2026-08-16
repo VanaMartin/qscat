@@ -13,7 +13,7 @@ def test_reproduces_emoscat_n2_nuclear_deck():
         angle_deg=35.0,
         quadrature=14,
     )
-    assert g.R0 == pytest.approx(12.0)            # ECS pivot = last real endpoint
+    assert g.R0 == pytest.approx(12.0)  # ECS pivot = last real endpoint
     # real region ends at 12, tail runs onto the complex plane past it
     # (Dirichlet drop removes the endpoint, so real_points.max() < 55.0)
     assert float(g.real_points.max()) == pytest.approx(55.0, rel=0.01)
@@ -23,7 +23,7 @@ def test_reproduces_emoscat_n2_nuclear_deck():
 def test_element_lengths_are_uniform_per_segment():
     # the 10 elements over [1.5, 3.0] are each 0.15 bohr
     g = segmented_grid([(1, 1.5), (10, 3.0)], [], angle_deg=35.0, quadrature=8)
-    assert g.R0 == pytest.approx(3.0)             # no complex tail -> pivot at real end
+    assert g.R0 == pytest.approx(3.0)  # no complex tail -> pivot at real end
     assert np.max(np.abs(g.points.imag)) == pytest.approx(0.0)  # pure real
 
 

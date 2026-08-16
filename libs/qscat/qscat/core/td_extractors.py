@@ -943,9 +943,7 @@ def _flux_da_s_vector_one_energy(
         if e_dr <= 0.0:
             continue  # closed dissociation channel
         k_r = float(np.sqrt(2.0 * mu_r * e_dr))
-        phi_out, dphi_out = outgoing_surface_wave(
-            g_nuc, R_surface, k_r, 0, model.charge, mass=mu_r
-        )
+        phi_out, dphi_out = outgoing_surface_wave(g_nuc, R_surface, k_r, 0, model.charge, mass=mu_r)
         wronskian = np.conj(phi_out) * d[:, c] - b[:, c] * np.conj(dphi_out)
         s_raw = np.sum(weights * wronskian * phase) * dt
         S[c] = (-1j / (2.0 * mu_r * eta_in)) * s_raw

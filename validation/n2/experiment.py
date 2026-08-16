@@ -43,17 +43,31 @@ def run_checks() -> list[Check]:
     try:
         E_pole, residual = resonance.e_res_at_R0()
     except Exception as e:
-        checks.append(("B resonance", "B1 E_res(R0) in literature window", "FAIL",
-                        f"pole computation failed: {e}"))
+        checks.append(
+            (
+                "B resonance",
+                "B1 E_res(R0) in literature window",
+                "FAIL",
+                f"pole computation failed: {e}",
+            )
+        )
     else:
         E_res_eV = E_pole.real * HARTREE_TO_EV
         b1_ok = lo <= E_res_eV <= hi and residual < residual_tol
-        detail = (f"E_res={E_res_eV:.3f} eV (expect {lo}-{hi} eV; "
-                  f"match residual={residual:.2e} Ha, expect <{residual_tol:.0e} Ha)")
+        detail = (
+            f"E_res={E_res_eV:.3f} eV (expect {lo}-{hi} eV; "
+            f"match residual={residual:.2e} Ha, expect <{residual_tol:.0e} Ha)"
+        )
         if not b1_ok and lo <= E_res_eV <= hi:
             detail += " -- residual too large for an angle-stable pole"
-        checks.append(("B resonance", "B1 E_res(R0) in literature window",
-                       "PASS" if b1_ok else "FAIL", detail))
+        checks.append(
+            (
+                "B resonance",
+                "B1 E_res(R0) in literature window",
+                "PASS" if b1_ok else "FAIL",
+                detail,
+            )
+        )
 
     # Group C5 — cross-section value anchors vs Houfek data, via the TI solver
     # (projects/n2_ti_cross_section). GATED anchors (a VE channel clear of its own
@@ -63,14 +77,17 @@ def run_checks() -> list[Check]:
     try:
         anchor_results = cross_section.compute_anchor_results()
     except Exception as e:
-        checks.append(("C anchors", "C5 sigma anchors (6, TI solver)", "FAIL",
-                        f"TI solver failed: {e}"))
+        checks.append(
+            ("C anchors", "C5 sigma anchors (6, TI solver)", "FAIL", f"TI solver failed: {e}")
+        )
     else:
         for r in anchor_results:
             lbl = "elastic" if r.channel == 0 else f"v=0->{r.channel}"
             name = f"C5 sigma({r.energy_ha:.4g} Ha, {lbl})"
-            core = (f"computed={r.sigma_computed:.4e} bohr^2, houfek={r.sigma_houfek:.4e} "
-                    f"bohr^2, ratio={r.ratio:.3f}")
+            core = (
+                f"computed={r.sigma_computed:.4e} bohr^2, houfek={r.sigma_houfek:.4e} "
+                f"bohr^2, ratio={r.ratio:.3f}"
+            )
             if r.gated:
                 ok = 1.0 / reference.ANCHOR_FACTOR <= r.ratio <= reference.ANCHOR_FACTOR
                 detail = f"{core} (LCP vs Houfek 2D, factor={reference.ANCHOR_FACTOR:.1f})"
@@ -88,17 +105,26 @@ def run_checks() -> list[Check]:
     try:
         td_results = td_check.compute_td_results()
     except Exception as e:
-        checks.append(("D time-dependent", "D1 TD cross sections", "FAIL",
-                        f"TD solver failed: {e}"))
+        checks.append(
+            ("D time-dependent", "D1 TD cross sections", "FAIL", f"TD solver failed: {e}")
+        )
     else:
         if not td_results:
-            checks.append(("D time-dependent", "D1 TD cross sections", "FAIL",
-                            "no GATED anchors available to check"))
+            checks.append(
+                (
+                    "D time-dependent",
+                    "D1 TD cross sections",
+                    "FAIL",
+                    "no GATED anchors available to check",
+                )
+            )
         for r in td_results:
             name = f"D1 sigma_TD(E={r.energy_ha:.4g} Ha, v=0->{r.channel})"
-            detail = (f"TD={r.sigma_td:.4e} bohr^2, TI={r.sigma_ti:.4e} bohr^2 "
-                      f"(ratio={r.ratio_td_ti:.3f}, tol=10%), houfek={r.sigma_houfek:.4e} bohr^2 "
-                      f"(ratio={r.ratio_td_houfek:.3f}, factor={reference.ANCHOR_FACTOR:.1f})")
+            detail = (
+                f"TD={r.sigma_td:.4e} bohr^2, TI={r.sigma_ti:.4e} bohr^2 "
+                f"(ratio={r.ratio_td_ti:.3f}, tol=10%), houfek={r.sigma_houfek:.4e} bohr^2 "
+                f"(ratio={r.ratio_td_houfek:.3f}, factor={reference.ANCHOR_FACTOR:.1f})"
+            )
             checks.append(("D time-dependent", name, "PASS" if r.ok else "FAIL", detail))
 
     # Group E — exact 2-D driven-equation (Lippmann-Schwinger) solver
@@ -119,8 +145,14 @@ def run_checks() -> list[Check]:
     try:
         exact2d_results = exact2d.compute_exact2d_results()
     except Exception as e:
-        checks.append(("E exact-2D", "E1 sigma anchors (6, exact 2-D solver)", "FAIL",
-                        f"exact 2-D solver failed: {e}"))
+        checks.append(
+            (
+                "E exact-2D",
+                "E1 sigma anchors (6, exact 2-D solver)",
+                "FAIL",
+                f"exact 2-D solver failed: {e}",
+            )
+        )
     else:
         for r2 in exact2d_results:
             lbl = "elastic" if r2.channel == 0 else f"v=0->{r2.channel}"
@@ -170,8 +202,14 @@ def run_checks() -> list[Check]:
     try:
         td_exact2d_results = td_exact2d.compute_td_exact2d_results()
     except Exception as e:
-        checks.append(("F time-dependent 2-D", "F1 sigma_TD (recorded) vs sigma_TI (live)", "FAIL",
-                        f"failed to load recorded TD results: {e}"))
+        checks.append(
+            (
+                "F time-dependent 2-D",
+                "F1 sigma_TD (recorded) vs sigma_TI (live)",
+                "FAIL",
+                f"failed to load recorded TD results: {e}",
+            )
+        )
     else:
         for r3 in td_exact2d_results:
             name = f"F1 sigma_TD(E={r3.energy_ha:.4g} Ha, v=0->{r3.channel}) [sigma_TD recorded]"

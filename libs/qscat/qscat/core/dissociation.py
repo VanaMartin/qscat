@@ -128,9 +128,7 @@ def v_dr_diag(tgrid: TensorGrid, model: ResonanceModel) -> npt.NDArray[np.comple
     pts_r, pts_R = tgrid.points()
     v0_term = np.broadcast_to(model.v0(pts_R), tgrid.shape).ravel()
     vint_inf = np.broadcast_to(model.v_int(pts_r, R_inf), tgrid.shape).ravel()
-    return np.asarray(
-        model.interaction_diag(tgrid) + v0_term - vint_inf, dtype=np.complex128
-    )
+    return np.asarray(model.interaction_diag(tgrid) + v0_term - vint_inf, dtype=np.complex128)
 
 
 @overload
@@ -201,8 +199,15 @@ def da_cross_section(
     sqrt_w_R = tgrid.sqrt_weights()[1].ravel()
 
     _, psis = ve_cross_section(
-        tgrid, model, eps, chi, v_init, [v_init], e_arr,
-        ordering=ordering, return_wavefunction=True,
+        tgrid,
+        model,
+        eps,
+        chi,
+        v_init,
+        [v_init],
+        e_arr,
+        ordering=ordering,
+        return_wavefunction=True,
     )
     psi_list = psis if isinstance(psis, list) else [psis]
 

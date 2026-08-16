@@ -17,14 +17,10 @@ from .kinetic import kinetic
 
 __all__ = ["hamiltonian", "eigen"]
 
-PotentialLike = (
-    Callable[[npt.NDArray[np.complex128]], npt.ArrayLike] | npt.ArrayLike
-)
+PotentialLike = Callable[[npt.NDArray[np.complex128]], npt.ArrayLike] | npt.ArrayLike
 
 
-def hamiltonian(
-    grid: FemDvrEcsGrid, V: PotentialLike, mass: float
-) -> npt.NDArray[np.complex128]:
+def hamiltonian(grid: FemDvrEcsGrid, V: PotentialLike, mass: float) -> npt.NDArray[np.complex128]:
     """Assemble H = T + diag(V) on the FEM-DVR basis (diagonal-potential approx)."""
     T = kinetic(grid, mass)
     raw_vals = V(grid.points) if callable(V) else V

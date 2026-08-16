@@ -26,9 +26,7 @@ def _dense_kron_sum(mats: list[np.ndarray]) -> np.ndarray:
 
 
 def _random_mats(rng: np.random.Generator, sizes: list[int]) -> list[np.ndarray]:
-    return [
-        rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n)) for n in sizes
-    ]
+    return [rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n)) for n in sizes]
 
 
 @pytest.mark.parametrize("sizes", [[4], [3, 4], [2, 3, 4], [2, 3, 2, 3]])
@@ -70,8 +68,8 @@ def test_kron_sum_rejects_non_square() -> None:
 def test_c_product_does_not_conjugate() -> None:
     """The whole point: c_product != vdot for complex vectors."""
     a = np.array([1j, 2.0])
-    assert c_product(a, a) == pytest.approx(3.0 + 0j)   # (1j)^2 + 4 = 3
-    assert np.vdot(a, a) == pytest.approx(5.0 + 0j)     # |1j|^2 + 4 = 5, NOT what we want
+    assert c_product(a, a) == pytest.approx(3.0 + 0j)  # (1j)^2 + 4 = 3
+    assert np.vdot(a, a) == pytest.approx(5.0 + 0j)  # |1j|^2 + 4 = 5, NOT what we want
 
 
 def test_c_product_is_symmetric() -> None:

@@ -309,7 +309,10 @@ def test_propose_grid_nuclear_extent_is_at_least_the_deck(name: str) -> None:
     # grid's real-region extent R0 is finite/sane (not degenerately short),
     # independent of the channel-representation subtleties.
     energy_ranges = {
-        "N2": (0.04, 0.18), "NO": (0.004, 0.12), "F2": (0.01, 0.05), "H2P": (0.0, 0.05)
+        "N2": (0.04, 0.18),
+        "NO": (0.004, 0.12),
+        "F2": (0.01, 0.05),
+        "H2P": (0.0, 0.05),
     }
     model = {"N2": N2, "NO": NO, "F2": F2, "H2P": H2P}[name]
     g = propose_grid(model, "nuclear", energy_ranges[name])

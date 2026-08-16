@@ -51,5 +51,5 @@ def test_f2_sigma_da_wellposed_on_emoscat_grid() -> None:
     E = np.array([0.03])
     s = da_cross_section(tg, cfg.model, eps, chi, 0, E)[:, 0]
     assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
-    assert s[0] > 0.0                      # exothermic -> open
-    assert s[0] < 50.0 * np.pi / (2.0 * E[0])   # soft unitarity
+    assert s[0] > 0.0  # exothermic -> open
+    assert s[0] < 50.0 * np.pi / (2.0 * E[0])  # soft unitarity

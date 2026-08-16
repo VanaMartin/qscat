@@ -36,8 +36,8 @@ def test_scalar_mag_leaves_the_weak_region_black() -> None:
     # This is the BUG, asserted so the fix has something to improve on.
     z = _two_region_field()
     hsv = complex_to_hsv(z, 1.0)
-    assert hsv[0, 0, 2] == pytest.approx(1.0)      # strong region: full brightness
-    assert hsv[0, 9, 2] < 1e-5                      # weak region: invisible
+    assert hsv[0, 0, 2] == pytest.approx(1.0)  # strong region: full brightness
+    assert hsv[0, 9, 2] < 1e-5  # weak region: invisible
 
 
 def test_region_magnitudes_rescales_each_region_independently() -> None:
@@ -70,11 +70,11 @@ def test_region_magnitudes_is_positive_even_for_an_all_zero_region() -> None:
 def test_region_magnitudes_rejects_bad_boundaries() -> None:
     m = np.ones((4, 6))
     with pytest.raises(ValueError):
-        region_magnitudes(m, axis=1, boundaries=[0])        # empty leading region
+        region_magnitudes(m, axis=1, boundaries=[0])  # empty leading region
     with pytest.raises(ValueError):
-        region_magnitudes(m, axis=1, boundaries=[6])        # empty trailing region
+        region_magnitudes(m, axis=1, boundaries=[6])  # empty trailing region
     with pytest.raises(ValueError):
-        region_magnitudes(m, axis=1, boundaries=[4, 2])     # not increasing
+        region_magnitudes(m, axis=1, boundaries=[4, 2])  # not increasing
 
 
 def test_complex_to_hsv_rejects_a_non_broadcastable_mag() -> None:
@@ -116,7 +116,10 @@ def test_artist_accepts_an_array_mag() -> None:
         # _IdentityProjector duck-types EquidistantProjector's interface
         # (project(), axis0/axis1) without subclassing it.
         artist = WavefunctionArtist(
-            ax, _IdentityProjector(z.shape), mag=mag, contours=3  # type: ignore[arg-type]
+            ax,
+            _IdentityProjector(z.shape),
+            mag=mag,
+            contours=3,  # type: ignore[arg-type]
         )
         changed = artist.update(z.ravel())
         assert changed, "update() returned no artists"

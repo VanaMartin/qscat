@@ -24,7 +24,7 @@ def _complex_symmetric(n: int, seed: int) -> sp.csc_matrix:
     cols = rng.integers(0, n, size=nnz)
     vals = rng.standard_normal(nnz) + 1j * rng.standard_normal(nnz)
     m = sp.coo_matrix((vals, (rows, cols)), shape=(n, n), dtype=complex).tocsr()
-    m = m + m.T                                             # complex SYMMETRIC, no conjugate
+    m = m + m.T  # complex SYMMETRIC, no conjugate
     m = m + sp.identity(n, format="csr", dtype=complex) * (10.0 + 3.0j)  # diagonally dominant
     return sp.csc_matrix(m)
 

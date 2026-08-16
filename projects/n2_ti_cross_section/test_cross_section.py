@@ -169,9 +169,7 @@ def test_houfek_anchor_agreement(system):
         i = int(np.argmin(np.abs(d.energy - e_ha)))
         e_row = float(d.energy[i])
         sigma_houfek = float(d.sigma[i, ch])
-        sigma_computed = float(
-            ve_cross_section(grid, MU, Vd, Gamma, eps, chi, 0, [ch], e_row)[0]
-        )
+        sigma_computed = float(ve_cross_section(grid, MU, Vd, Gamma, eps, chi, 0, [ch], e_row)[0])
         ratio = sigma_computed / sigma_houfek if sigma_houfek != 0 else float("inf")
         gated = (e_ha, ch) not in _KNOWN_MODEL_LIMITATION_ANCHORS
         ratios.append((e_row, e_ha, ch, sigma_computed, sigma_houfek, ratio, gated))
@@ -185,6 +183,5 @@ def test_houfek_anchor_agreement(system):
         if not gated:
             continue
         assert 1.0 / ANCHOR_FACTOR <= ratio <= ANCHOR_FACTOR, (
-            f"anchor (E={e_row}, v'={ch}) ratio {ratio:.3f} outside "
-            f"factor-of-{ANCHOR_FACTOR} band"
+            f"anchor (E={e_row}, v'={ch}) ratio {ratio:.3f} outside factor-of-{ANCHOR_FACTOR} band"
         )

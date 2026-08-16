@@ -23,9 +23,11 @@ def test_nonnegative_and_elastic_column():
 def test_threshold_ordering():
     # channel v=0->(j+1) opens at an energy >= where v=0->j opens (higher channels open later)
     d = loader.load()
+
     def first_open(j):
         nz = np.nonzero(d.sigma[:, j] > 0)[0]
         return d.energy[nz[0]] if nz.size else np.inf
+
     opens = [first_open(j) for j in range(1, 31)]  # skip elastic
     finite = [o for o in opens if np.isfinite(o)]
     assert finite == sorted(finite)

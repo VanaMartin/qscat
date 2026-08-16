@@ -6,9 +6,7 @@ from qscat.core.grids import _ecs_tail, fem_grid_exp_tail
 
 
 def test_real_endpoint_is_ecs_pivot():
-    g = fem_grid_exp_tail(
-        [(2, 1.0), (3, 4.0)], angle_deg=10.0, quadrature=8, tail_n=5
-    )
+    g = fem_grid_exp_tail([(2, 1.0), (3, 4.0)], angle_deg=10.0, quadrature=8, tail_n=5)
     assert g.R0 == pytest.approx(4.0)
 
 
@@ -52,9 +50,7 @@ def test_rejects_n_less_than_1():
 
 def test_rejects_non_increasing_endpoints():
     with pytest.raises(ValueError):
-        fem_grid_exp_tail(
-            [(2, 1.0), (1, 0.5)], angle_deg=10.0, quadrature=8, tail_n=5
-        )
+        fem_grid_exp_tail([(2, 1.0), (1, 0.5)], angle_deg=10.0, quadrature=8, tail_n=5)
 
 
 def test_rejects_low_quadrature():

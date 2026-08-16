@@ -119,9 +119,7 @@ class TensorGrid:
         """
         mask: npt.NDArray[np.bool_] | None = None
         for d, g in enumerate(self._grids):
-            md = np.asarray(g.real_points <= g.R0, dtype=bool).reshape(
-                self._broadcast_shape(d)
-            )
+            md = np.asarray(g.real_points <= g.R0, dtype=bool).reshape(self._broadcast_shape(d))
             mask = md if mask is None else (mask & md)
         assert mask is not None  # ndim >= 1 guaranteed by __init__
         return np.asarray(np.broadcast_to(mask, self.shape).ravel(), dtype=bool)
@@ -149,9 +147,7 @@ def kinetic_nd(tgrid: TensorGrid, masses: Sequence[float]) -> sp.csr_matrix:
     return kron_sum([kinetic_sparse(g, m) for g, m in zip(tgrid.grids, ms, strict=True)])
 
 
-def potential_nd(
-    tgrid: TensorGrid, V: Callable[..., npt.ArrayLike]
-) -> npt.NDArray[np.complex128]:
+def potential_nd(tgrid: TensorGrid, V: Callable[..., npt.ArrayLike]) -> npt.NDArray[np.complex128]:
     """Evaluate `V` at the D-dimensional COMPLEX points, flattened.
 
     `V` is called as `V(x_0, ..., x_{D-1})` with the broadcastable arrays from

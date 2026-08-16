@@ -214,9 +214,7 @@ def _format_table(rows: list[dict[str, Any]]) -> str:
         if "mumps" in per and "scipy" in per:
             m, s = per["mumps"], per["scipy"]
             fac = s["factor_s"] / m["factor_s"] if m["factor_s"] > 0 else float("inf")
-            mem = (
-                s["peak_rss_mb"] / m["peak_rss_mb"] if m["peak_rss_mb"] > 0 else float("inf")
-            )
+            mem = s["peak_rss_mb"] / m["peak_rss_mb"] if m["peak_rss_mb"] > 0 else float("inf")
             won = "MUMPS faster" if fac > 1.0 else "SuperLU faster"
             lines.append(
                 f"- **{grid}** (N={m['N']:,}): MUMPS mode {m.get('sym', '?')}; "

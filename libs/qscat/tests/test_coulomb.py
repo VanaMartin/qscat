@@ -23,7 +23,7 @@ def test_h1_en_reduces_to_riccati_hankel_at_zero_charge():
     # the load-bearing one for the DR incident wave) matches exactly with no
     # such factor, per test_f_en_reduces_to_riccati_bessel_at_zero_charge.
     r = np.linspace(0.5, 30.0, 40)
-    got = coulomb_h1_en(r, 1.0, 0.0, 1.0, 1)      # G + iF -> i * Riccati-Hankel h1
+    got = coulomb_h1_en(r, 1.0, 0.0, 1.0, 1)  # G + iF -> i * Riccati-Hankel h1
     assert np.allclose(got, 1j * riccati_hankel_en(r, 1.0, 1), rtol=1e-7, atol=1e-8)
 
 
@@ -36,7 +36,7 @@ def test_attractive_coulomb_known_value():
 
 
 def test_accepts_complex_ecs_argument():
-    r = np.array([3.0 + 0.4j, 10.0 + 2.0j])       # ECS-rotated points
+    r = np.array([3.0 + 0.4j, 10.0 + 2.0j])  # ECS-rotated points
     got = coulomb_f_en(r, 1.0, -1.0, 1.0, 1)
     assert got.shape == (2,) and np.all(np.isfinite(got))
 

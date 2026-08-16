@@ -77,9 +77,13 @@ def test_outgoing_surface_wave_dphi_matches_finite_difference_neutral() -> None:
     z, k, l = 10.0, 0.5, 2
     _, dphi = outgoing_surface_wave(GRID, z, k, l, 0)
     h = 1e-6
-    fd = complex(
-        riccati_hankel_en(np.asarray(z + h), k, l) - riccati_hankel_en(np.asarray(z - h), k, l)
-    ) / (2.0 * h) / 2.0  # /2 for the "outgoing half" convention
+    fd = (
+        complex(
+            riccati_hankel_en(np.asarray(z + h), k, l) - riccati_hankel_en(np.asarray(z - h), k, l)
+        )
+        / (2.0 * h)
+        / 2.0
+    )  # /2 for the "outgoing half" convention
     np.testing.assert_allclose(dphi, fd, rtol=1e-6)
 
 
@@ -89,9 +93,14 @@ def test_outgoing_surface_wave_dphi_several_l_and_k() -> None:
     for k, l, z in [(0.3, 0, 6.0), (0.7, 1, 8.0), (1.2, 3, 15.0), (0.5, 5, 20.0)]:
         _, dphi = outgoing_surface_wave(GRID, z, k, l, 0)
         h = 1e-6
-        fd = complex(
-            riccati_hankel_en(np.asarray(z + h), k, l) - riccati_hankel_en(np.asarray(z - h), k, l)
-        ) / (2.0 * h) / 2.0
+        fd = (
+            complex(
+                riccati_hankel_en(np.asarray(z + h), k, l)
+                - riccati_hankel_en(np.asarray(z - h), k, l)
+            )
+            / (2.0 * h)
+            / 2.0
+        )
         np.testing.assert_allclose(dphi, fd, rtol=1e-6, atol=1e-10)
 
 

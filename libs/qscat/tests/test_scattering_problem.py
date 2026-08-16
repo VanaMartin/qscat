@@ -10,10 +10,12 @@ from qscat.model import N2
 
 
 def _grid() -> TensorGrid:
-    return TensorGrid([
-        electronic_grid(r_max=16.0, order=7, n_complex=5),
-        nuclear_grid(r_max=22.0, quadrature=10, n_complex=5),
-    ])
+    return TensorGrid(
+        [
+            electronic_grid(r_max=16.0, order=7, n_complex=5),
+            nuclear_grid(r_max=22.0, quadrature=10, n_complex=5),
+        ]
+    )
 
 
 def test_problem_ve_matches_functional_api() -> None:

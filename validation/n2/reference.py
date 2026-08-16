@@ -23,8 +23,12 @@ LITERATURE = {"E_res_eV": (2.3, 2.5), "Gamma_eV": (0.35, 0.55)}
 # Anchor coordinates: (energy_Ha, channel_index). channel 0 = elastic, j = v=0->j.
 # Chosen near E=0.2 Ha (resonance region), one mid-range, one near-threshold.
 ANCHOR_COORDS = [
-    (0.2, 0), (0.2, 1), (0.2, 2), (0.2, 3),
-    (0.1, 1), (0.02, 1),
+    (0.2, 0),
+    (0.2, 1),
+    (0.2, 2),
+    (0.2, 3),
+    (0.1, 1),
+    (0.02, 1),
 ]
 
 # C5 gating constants (see `cross_section.py` for how they classify/gate each anchor).

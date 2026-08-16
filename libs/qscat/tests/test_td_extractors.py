@@ -60,8 +60,18 @@ _GOLDEN_TW_ARRAY = np.array(
 
 def test_tw_method_matches_prerefactor_golden_scalar_energy() -> None:
     sigma = td_ve_cross_section(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, 0.10,
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="tw",
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        0.10,
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        method="tw",
     )
     assert sigma.shape == (len(VPRIMES),)
     np.testing.assert_allclose(sigma, _GOLDEN_TW_SCALAR, rtol=0, atol=1e-12)
@@ -69,8 +79,18 @@ def test_tw_method_matches_prerefactor_golden_scalar_energy() -> None:
 
 def test_tw_method_matches_prerefactor_golden_array_energy() -> None:
     sigma = td_ve_cross_section(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="tw",
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        [0.10, 0.15],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        method="tw",
     )
     assert sigma.shape == (2, len(VPRIMES))
     np.testing.assert_allclose(sigma, _GOLDEN_TW_ARRAY, rtol=0, atol=1e-12)
@@ -80,12 +100,31 @@ def test_tw_method_is_the_default() -> None:
     """Omitting `method` must give the SAME result as `method="tw"` -- the
     refactor's default did not change from the caller's point of view."""
     sigma_default = td_ve_cross_section(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        [0.10, 0.15],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
     )
     sigma_tw = td_ve_cross_section(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="tw",
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        [0.10, 0.15],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        method="tw",
     )
     np.testing.assert_allclose(sigma_default, sigma_tw, rtol=0, atol=0)
 
@@ -93,8 +132,18 @@ def test_tw_method_is_the_default() -> None:
 def test_unknown_method_raises() -> None:
     with pytest.raises(ValueError, match="unknown method"):
         td_ve_cross_section(
-            TG, N2, EPS, CHI, V_INIT, VPRIMES, 0.10,
-            dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="bogus",
+            TG,
+            N2,
+            EPS,
+            CHI,
+            V_INIT,
+            VPRIMES,
+            0.10,
+            dt=DT,
+            n_steps=N_STEPS,
+            wp_in=WP_IN,
+            wp_out=WP_OUT,
+            method="bogus",
         )
 
 
@@ -104,16 +153,36 @@ def test_unknown_method_raises() -> None:
 def test_delta_method_requires_position() -> None:
     with pytest.raises(ValueError, match="requires `position`"):
         td_ve_cross_section(
-            TG, N2, EPS, CHI, V_INIT, VPRIMES, 0.10,
-            dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="delta",
+            TG,
+            N2,
+            EPS,
+            CHI,
+            V_INIT,
+            VPRIMES,
+            0.10,
+            dt=DT,
+            n_steps=N_STEPS,
+            wp_in=WP_IN,
+            wp_out=WP_OUT,
+            method="delta",
         )
 
 
 def test_flow_method_requires_surface() -> None:
     with pytest.raises(ValueError, match="requires `surface`"):
         td_ve_cross_section(
-            TG, N2, EPS, CHI, V_INIT, VPRIMES, 0.10,
-            dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method="flow",
+            TG,
+            N2,
+            EPS,
+            CHI,
+            V_INIT,
+            VPRIMES,
+            0.10,
+            dt=DT,
+            n_steps=N_STEPS,
+            wp_in=WP_IN,
+            wp_out=WP_OUT,
+            method="flow",
         )
 
 
@@ -129,9 +198,7 @@ def test_flow_method_requires_surface() -> None:
 POSITION = 37
 
 
-def _propagate_pair(
-    n_steps: int, dt: float
-) -> tuple[TannorWeeks, Dirac, TannorWeeks, Dirac]:
+def _propagate_pair(n_steps: int, dt: float) -> tuple[TannorWeeks, Dirac, TannorWeeks, Dirac]:
     """One full (`V_int` on) + one free (`V_int=0`) propagation, each driving
     a `TannorWeeks` AND a `Dirac` extractor from the SAME trajectory (the
     differential test's whole point: one propagate() call, two independent
@@ -141,14 +208,24 @@ def _propagate_pair(
     tw = TannorWeeks(TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT, wp_in=WP_IN, dt=dt)
     dirac = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
     propagate(
-        TG, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[tw, dirac],
     )
 
     tw_free = TannorWeeks(TG, N2, EPS, CHI, V_INIT, VPRIMES, WP_OUT, wp_in=WP_IN, dt=dt)
     dirac_free = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
     propagate(
-        TG, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=_free_hamiltonian(N2, TG),
+        TG,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=_free_hamiltonian(N2, TG),
         extractors=[tw_free, dirac_free],
     )
     return tw, dirac, tw_free, dirac_free
@@ -210,7 +287,12 @@ def test_delta_agrees_with_ti_oracle_one_anchor() -> None:
     psi0 = initial_state(tg_oracle, chi[v_init], **wp_in)
     dirac = Dirac(tg_oracle, N2, eps, chi, v_init, vprimes, position, wp_in=wp_in, dt=dt)
     propagate(
-        tg_oracle, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=N2.hamiltonian(tg_oracle),
+        tg_oracle,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=N2.hamiltonian(tg_oracle),
         extractors=[dirac],
     )
     e = 0.10
@@ -241,7 +323,12 @@ def _propagate_all_three(
     dirac = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
     flux = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
     propagate(
-        TG, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[tw, dirac, flux],
     )
 
@@ -249,7 +336,12 @@ def _propagate_all_three(
     dirac_free = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
     flux_free = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=dt)
     propagate(
-        TG, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=_free_hamiltonian(N2, TG),
+        TG,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=_free_hamiltonian(N2, TG),
         extractors=[tw_free, dirac_free, flux_free],
     )
     return tw, dirac, flux, tw_free, dirac_free, flux_free
@@ -319,7 +411,12 @@ def test_flux_agrees_with_ti_oracle_one_anchor() -> None:
     psi0 = initial_state(tg_oracle, chi[v_init], **wp_in)
     flux = Flux(tg_oracle, N2, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt)
     propagate(
-        tg_oracle, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=N2.hamiltonian(tg_oracle),
+        tg_oracle,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=N2.hamiltonian(tg_oracle),
         extractors=[flux],
     )
     e = 0.10
@@ -339,20 +436,40 @@ def test_flux_agrees_with_ti_oracle_one_anchor() -> None:
 
 def test_delta_method_matches_direct_dirac_construction() -> None:
     sigma_method = td_ve_cross_section(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
-        method="delta", position=POSITION,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        [0.10, 0.15],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        method="delta",
+        position=POSITION,
     )
 
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     dirac = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=N_STEPS,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[dirac],
     )
     dirac_free = Dirac(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=_free_hamiltonian(N2, TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=N_STEPS,
+        hamiltonian=_free_hamiltonian(N2, TG),
         extractors=[dirac_free],
     )
     sigma_direct = dirac.sigma([0.10, 0.15], free=dirac_free)
@@ -361,20 +478,40 @@ def test_delta_method_matches_direct_dirac_construction() -> None:
 
 def test_flow_method_matches_direct_flux_construction() -> None:
     sigma_method = td_ve_cross_section(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
-        method="flow", surface=POSITION,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        [0.10, 0.15],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        method="flow",
+        surface=POSITION,
     )
 
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     flux = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=N_STEPS,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[flux],
     )
     flux_free = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=_free_hamiltonian(N2, TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=N_STEPS,
+        hamiltonian=_free_hamiltonian(N2, TG),
         extractors=[flux_free],
     )
     sigma_direct = flux.sigma([0.10, 0.15], free=flux_free)
@@ -389,9 +526,19 @@ def test_cross_sections_all_matches_each_method_individually() -> None:
     trajectory changes nothing about what each individually records."""
     e = [0.10, 0.15]
     sigma_all = td_ve_cross_sections_all(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, e,
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
-        position=POSITION, surface=POSITION,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        e,
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        position=POSITION,
+        surface=POSITION,
     )
     assert set(sigma_all) == {"tw", "delta", "flow"}
     for key, method in (("tw", "tw"), ("delta", "delta"), ("flow", "flow")):
@@ -399,8 +546,19 @@ def test_cross_sections_all_matches_each_method_individually() -> None:
         if key == "flow":
             kwargs = {"surface": POSITION}
         sigma_individual = td_ve_cross_section(
-            TG, N2, EPS, CHI, V_INIT, VPRIMES, e,
-            dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, method=method, **kwargs,
+            TG,
+            N2,
+            EPS,
+            CHI,
+            V_INIT,
+            VPRIMES,
+            e,
+            dt=DT,
+            n_steps=N_STEPS,
+            wp_in=WP_IN,
+            wp_out=WP_OUT,
+            method=method,
+            **kwargs,
         )
         assert sigma_all[key].shape == (2, len(VPRIMES))
         np.testing.assert_allclose(sigma_all[key], sigma_individual, rtol=0, atol=0)
@@ -456,12 +614,26 @@ NUCLEAR_SURFACE = 90  # R=7.12 bohr on TG.grids[1] (nuclear_grid r_max=14, real 
 
 def _nuclear_flux_fixture(n_steps: int = N_STEPS) -> Flux:
     flux = Flux(
-        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
-        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        [],
+        NUCLEAR_SURFACE,
+        wp_in=WP_IN,
+        dt=DT,
+        axis="nuclear",
+        n_channels=1,
     )
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=n_steps,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[flux],
     )
     return flux
@@ -522,9 +694,7 @@ def test_nuclear_flux_rejects_free_reference() -> None:
 
 
 def test_nuclear_flux_n_channels_defaults_to_one() -> None:
-    flux = Flux(
-        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE, wp_in=WP_IN, dt=DT, axis="nuclear"
-    )
+    flux = Flux(TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE, wp_in=WP_IN, dt=DT, axis="nuclear")
     assert flux._n_channels == 1
 
 
@@ -573,9 +743,7 @@ def test_nuclear_flux_da_converges_to_ti_oracle() -> None:
     psi0 = initial_state(tg, chi[0], **wp_in)
     flux = Flux(tg, F2, eps, chi, 0, [], surface, wp_in=wp_in, dt=1.0, axis="nuclear", n_channels=1)
     # `propagate` records the t=0 state itself, then every step -> 1501 samples.
-    propagate(
-        tg, psi0, [], dt=1.0, n_steps=1500, hamiltonian=F2.hamiltonian(tg), extractors=[flux]
-    )
+    propagate(tg, psi0, [], dt=1.0, n_steps=1500, hamiltonian=F2.hamiltonian(tg), extractors=[flux])
     ratio = np.ravel(flux.sigma(e_probe)) / sigma_ti
     assert np.all(ratio > 0.7) and np.all(ratio < 1.25), (ratio, sigma_ti)
 
@@ -593,12 +761,26 @@ def test_nuclear_flux_da_converges_to_ti_oracle() -> None:
 
 def _nuclear_dirac_fixture(n_steps: int = N_STEPS) -> Dirac:
     dirac = Dirac(
-        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
-        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        [],
+        NUCLEAR_SURFACE,
+        wp_in=WP_IN,
+        dt=DT,
+        axis="nuclear",
+        n_channels=1,
     )
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=n_steps,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[dirac],
     )
     return dirac
@@ -658,9 +840,7 @@ def test_nuclear_dirac_rejects_free_reference() -> None:
 
 
 def test_nuclear_dirac_n_channels_defaults_to_one() -> None:
-    dirac = Dirac(
-        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE, wp_in=WP_IN, dt=DT, axis="nuclear"
-    )
+    dirac = Dirac(TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE, wp_in=WP_IN, dt=DT, axis="nuclear")
     assert dirac._n_channels == 1
 
 
@@ -687,16 +867,39 @@ def test_nuclear_dirac_agrees_with_nuclear_flux_same_trajectory() -> None:
     analyses of the identical trajectory."""
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     dirac = Dirac(
-        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
-        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        [],
+        NUCLEAR_SURFACE,
+        wp_in=WP_IN,
+        dt=DT,
+        axis="nuclear",
+        n_channels=1,
     )
     flux = Flux(
-        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_SURFACE,
-        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        [],
+        NUCLEAR_SURFACE,
+        wp_in=WP_IN,
+        dt=DT,
+        axis="nuclear",
+        n_channels=1,
     )
     propagate(
-        TG, psi0, [], dt=DT, n_steps=_NUCLEAR_DIRAC_FLUX_N_STEPS,
-        hamiltonian=N2.hamiltonian(TG), extractors=[dirac, flux],
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=_NUCLEAR_DIRAC_FLUX_N_STEPS,
+        hamiltonian=N2.hamiltonian(TG),
+        extractors=[dirac, flux],
     )
     e = [0.10, 0.6]
     s_dirac = dirac.sigma(e)
@@ -705,9 +908,7 @@ def test_nuclear_dirac_agrees_with_nuclear_flux_same_trajectory() -> None:
     assert np.all(np.isfinite(s_dirac))
     assert np.all(np.isfinite(s_flux))
     np.testing.assert_allclose(s_dirac[0], s_flux[0], rtol=0, atol=0)  # both closed -> exactly 0
-    np.testing.assert_allclose(
-        s_dirac[1], s_flux[1], rtol=_NUCLEAR_DIRAC_FLUX_RTOL, atol=1e-60
-    )
+    np.testing.assert_allclose(s_dirac[1], s_flux[1], rtol=_NUCLEAR_DIRAC_FLUX_RTOL, atol=1e-60)
 
 
 @pytest.mark.slow
@@ -781,12 +982,26 @@ NUCLEAR_WP_OUT = {"r0_out": 7.0, "p0_out": 5.0, "sigma_out": 1.0}
 
 def _nuclear_tw_fixture(n_steps: int = N_STEPS) -> TannorWeeks:
     tw = TannorWeeks(
-        TG, N2, EPS, CHI, V_INIT, [], NUCLEAR_WP_OUT,
-        wp_in=WP_IN, dt=DT, axis="nuclear", n_channels=1,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        [],
+        NUCLEAR_WP_OUT,
+        wp_in=WP_IN,
+        dt=DT,
+        axis="nuclear",
+        n_channels=1,
     )
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=n_steps, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=n_steps,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[tw],
     )
     return tw
@@ -908,9 +1123,7 @@ def test_nuclear_tw_da_converges_to_ti_oracle() -> None:
         tg, F2, eps, chi, 0, [], wp_out, wp_in=wp_in, dt=1.0, axis="nuclear", n_channels=1
     )
     # `propagate` records the t=0 state itself, then every step -> 1751 samples.
-    propagate(
-        tg, psi0, [], dt=1.0, n_steps=1750, hamiltonian=F2.hamiltonian(tg), extractors=[tw]
-    )
+    propagate(tg, psi0, [], dt=1.0, n_steps=1750, hamiltonian=F2.hamiltonian(tg), extractors=[tw])
     ratio = np.ravel(tw.sigma(e_probe)) / sigma_ti
     # TW is the noisiest/most test-packet-sensitive method -> wider order-~1 band
     # (controller-measured ~[1.21,1.26,1.42] at n=1750); see the docstring.
@@ -937,7 +1150,12 @@ def _fresh_extractors() -> tuple[TannorWeeks, Dirac, Flux]:
     flux = Flux(TG, N2, EPS, CHI, V_INIT, VPRIMES, POSITION, wp_in=WP_IN, dt=DT)
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     propagate(
-        TG, psi0, [], dt=DT, n_steps=N_STEPS, hamiltonian=N2.hamiltonian(TG),
+        TG,
+        psi0,
+        [],
+        dt=DT,
+        n_steps=N_STEPS,
+        hamiltonian=N2.hamiltonian(TG),
         extractors=[tw, dirac, flux],
     )
     return tw, dirac, flux

@@ -88,9 +88,7 @@ def _check_pattern(pattern: _Pattern, csc: sp.csc_matrix[np.complex128]) -> None
             f"differs from the analyzed pattern "
             f"(indptr {indptr.shape}, indices {indices.shape})"
         )
-    if not (
-        np.array_equal(canon.indptr, indptr) and np.array_equal(canon.indices, indices)
-    ):
+    if not (np.array_equal(canon.indptr, indptr) and np.array_equal(canon.indices, indices)):
         raise ValueError(
             "refactor pattern mismatch: nonzero structure differs from the "
             "analyzed matrix (reuse_analysis requires an identical pattern)"

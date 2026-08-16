@@ -29,21 +29,25 @@ def test_region_is_where_vint_is_still_transitioning() -> None:
 
 def _elec_grids():
     from qscat.core.grids import electronic_grid
-    return (electronic_grid(r_max=16.0, order=7, n_complex=6, angle_deg=35.0),
-            electronic_grid(r_max=16.0, order=7, n_complex=6, angle_deg=44.0))
+
+    return (
+        electronic_grid(r_max=16.0, order=7, n_complex=6, angle_deg=35.0),
+        electronic_grid(r_max=16.0, order=7, n_complex=6, angle_deg=44.0),
+    )
 
 
 def test_resonance_curve_dense_interaction_sparse_far():
     from qscat.model import F2
     from qscat.tuning import interaction_region, resonance_curve
+
     ga, gb = _elec_grids()
     R_lo, R_hi = interaction_region(F2)
     R, Vd, G = resonance_curve(F2, ga, gb, R_max=22.0, n_dense=20)
     # most samples land inside the interaction region; the far region is sparse (~1 pt near R_max)
     inside = (R >= R_lo) & (R <= R_hi)
     far = R > R_hi + 1.0
-    assert inside.sum() >= 15                     # dense inside
-    assert far.sum() <= 3                         # sparse far
+    assert inside.sum() >= 15  # dense inside
+    assert far.sum() <= 3  # sparse far
     assert np.all(np.isfinite(Vd)) and np.all(G >= 0.0)
     # Gamma peaks inside the interaction region (the resonance), ~0 far
     far_peak = G[far].max() if far.any() else 0.0

@@ -106,9 +106,7 @@ def refine_to_2d_convergence(
         else:
             g_r = refine(g_r)
             current = v_elec
-            iterations.append(
-                {"coordinate": "electronic", "value": v_elec, "rel_move": rel_elec}
-            )
+            iterations.append({"coordinate": "electronic", "value": v_elec, "rel_move": rel_elec})
         final_value = current
 
     detail: dict[str, Any] = {

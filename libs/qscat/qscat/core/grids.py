@@ -162,9 +162,7 @@ def nuclear_grid(
         span = end - start
         n_seg = round(span / length)
         if abs(n_seg * length - span) > 1e-9:
-            raise GridError(
-                f"segment [{start}, {end}] is not an exact multiple of length {length}"
-            )
+            raise GridError(f"segment [{start}, {end}] is not an exact multiple of length {length}")
         elements += [ElementSpec(length) for _ in range(n_seg)]
         start = end
 
@@ -208,18 +206,13 @@ def segmented_grid(
             if n < 1:
                 raise GridError(f"{label} segment ({n}, {end}) has n_elements < 1")
             if end <= start:
-                raise GridError(
-                    f"{label} endpoint {end} must exceed previous {start}"
-                )
+                raise GridError(f"{label} endpoint {end} must exceed previous {start}")
             h = (end - start) / n
             elements += [
-                ElementSpec(h) if angle is None else ElementSpec(h, angle)
-                for _ in range(n)
+                ElementSpec(h) if angle is None else ElementSpec(h, angle) for _ in range(n)
             ]
             start = end
-    return FemDvrEcsGrid(
-        GridSpec(quadrature=quadrature, elements=elements, x_min=x_min)
-    )
+    return FemDvrEcsGrid(GridSpec(quadrature=quadrature, elements=elements, x_min=x_min))
 
 
 # --- fem_grid_exp_tail layout -------------------------------------------------
@@ -268,6 +261,4 @@ def fem_grid_exp_tail(
         ElementSpec(length, angle_deg)
         for length in _ecs_tail(base, tail_n, skip=tail_skip, alpha=tail_alpha)
     ]
-    return FemDvrEcsGrid(
-        GridSpec(quadrature=quadrature, elements=elements, x_min=x_min)
-    )
+    return FemDvrEcsGrid(GridSpec(quadrature=quadrature, elements=elements, x_min=x_min))

@@ -141,19 +141,35 @@ def molecule_specs() -> list[MoleculeSpec]:
 
     return [
         MoleculeSpec(
-            "N2", N2, (0.04, 0.18), k_n2, deck_n2.n,
+            "N2",
+            N2,
+            (0.04, 0.18),
+            k_n2,
+            deck_n2.n,
             probe_channel_representation(deck_n2, k_n2, 0, mass=N2.mu).detail["rel_error"],
         ),
         MoleculeSpec(
-            "NO", NO, (0.004, 0.12), k_no, deck_no.n,
+            "NO",
+            NO,
+            (0.004, 0.12),
+            k_no,
+            deck_no.n,
             probe_channel_representation(deck_no, k_no, 0, mass=NO.mu).detail["rel_error"],
         ),
         MoleculeSpec(
-            "F2", F2, (0.01, 0.05), k_f2, deck_f2.n,
+            "F2",
+            F2,
+            (0.01, 0.05),
+            k_f2,
+            deck_f2.n,
             probe_channel_representation(deck_f2, k_f2, 0, mass=F2.mu).detail["rel_error"],
         ),
         MoleculeSpec(
-            "H2P", H2P, (0.0, 0.05), k_h2p, deck_h2p.n,
+            "H2P",
+            H2P,
+            (0.0, 0.05),
+            k_h2p,
+            deck_h2p.n,
             probe_channel_representation(deck_h2p, k_h2p, 0, mass=H2P.mu).detail["rel_error"],
         ),
     ]
@@ -216,9 +232,7 @@ def main() -> None:
     all_results = {s.name: sweep(s) for s in specs}
     print(f"\nSweep over {len(_C_CANDIDATES)} candidates took {time.time() - t0:.1f}s\n")
 
-    header = f"{'C':>6} | " + " | ".join(
-        f"{s.name:>28}" for s in specs
-    )
+    header = f"{'C':>6} | " + " | ".join(f"{s.name:>28}" for s in specs)
     print(header)
     print("-" * len(header))
     for i, c in enumerate(_C_CANDIDATES):

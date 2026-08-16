@@ -33,10 +33,12 @@ from qscat.model import N2
 
 
 def _problem(order: int, n_complex: int) -> ScatteringProblem:
-    grid = TensorGrid([
-        electronic_grid(r_max=16.0, order=order, n_complex=n_complex),
-        nuclear_grid(r_max=22.0, quadrature=10, n_complex=n_complex),
-    ])
+    grid = TensorGrid(
+        [
+            electronic_grid(r_max=16.0, order=order, n_complex=n_complex),
+            nuclear_grid(r_max=22.0, quadrature=10, n_complex=n_complex),
+        ]
+    )
     return ScatteringProblem(grid=grid, model=N2, n_vib=4, v_init=0)
 
 

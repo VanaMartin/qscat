@@ -51,9 +51,7 @@ def test_refine_already_converged_is_zero_iterations():
 
     g_r = propose_grid(F2, "electronic", (0.01, 0.05))
     g_R = propose_grid(F2, "nuclear", (0.01, 0.05))
-    _, _, detail = refine_to_2d_convergence(
-        lambda a, b: 3.14, g_r, g_R, rtol=1e-3, max_iter=4
-    )
+    _, _, detail = refine_to_2d_convergence(lambda a, b: 3.14, g_r, g_R, rtol=1e-3, max_iter=4)
     assert detail["converged"] and len(detail["iterations"]) == 0
     assert detail["final_value"] == pytest.approx(3.14)
 
@@ -92,8 +90,6 @@ def test_refine_converges_f2_da_from_coarse_guess():
         tg = TensorGrid([g_r, g_R])
         return float(da_cross_section(tg, F2, eps, chi, 0, e_probe)[0, 0])
 
-    _, _, detail = refine_to_2d_convergence(
-        observable, g_elec, g_nuc, rtol=0.02, max_iter=3
-    )
+    _, _, detail = refine_to_2d_convergence(observable, g_elec, g_nuc, rtol=0.02, max_iter=3)
     assert detail["converged"] or len(detail["iterations"]) == 3
     assert detail["final_value"] > 0.0

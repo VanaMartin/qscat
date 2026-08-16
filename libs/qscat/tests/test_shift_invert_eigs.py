@@ -237,9 +237,7 @@ def test_continuum_adjacent_shift_returns_angle_unstable_eigenvalues() -> None:
     sigma = -0.30 - 0.40j  # deep in the rotated continuum, far from the pole
     va, _ = ShiftInvertEigs(Hs_a, k=10).near(sigma)
     vb, _ = ShiftInvertEigs(Hs_b, k=10).near(sigma)
-    stable, _, _ = match_angle_stable(
-        va, vb, (-1.5, 0.5, -1.0, 0.0), rel_tol=1e-4, atol=1e-8
-    )
+    stable, _, _ = match_angle_stable(va, vb, (-1.5, 0.5, -1.0, 0.0), rel_tol=1e-4, atol=1e-8)
     assert stable.size == 0  # continuum: nothing is angle-stable
 
 

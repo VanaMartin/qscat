@@ -26,8 +26,9 @@ import numpy.typing as npt
 __all__ = ["coulomb_f_en", "coulomb_g_en", "coulomb_h1_en"]
 
 
-def _fg(x: npt.NDArray[np.complex128], k: float, z: float, m: float, l: int
-        ) -> tuple[npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
+def _fg(
+    x: npt.NDArray[np.complex128], k: float, z: float, m: float, l: int
+) -> tuple[npt.NDArray[np.complex128], npt.NDArray[np.complex128]]:
     if k <= 0.0:
         raise ValueError(f"k must be positive, got {k}")
     if m <= 0.0:

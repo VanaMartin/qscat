@@ -111,6 +111,7 @@ class Extractor(Protocol):
         self, E: float | npt.ArrayLike, *, free: Extractor | None = None
     ) -> npt.NDArray[np.float64]: ...
 
+
 # Wavepacket parameter dict keys `initial_state`/`outgoing_channel` accept
 # (r0/p0/sigma for the incident packet; r0_out/p0_out/sigma_out for the
 # outgoing test function).
@@ -616,9 +617,7 @@ def td_ve_cross_section(
         flux_free = None
         if subtract_free_reference and v_init in vprimes:
             free_ham = _free_hamiltonian(model, tgrid)
-            flux_free = Flux(
-                tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt
-            )
+            flux_free = Flux(tgrid, model, eps, chi, v_init, vprimes, surface, wp_in=wp_in, dt=dt)
             propagate(
                 tgrid,
                 psi0,
@@ -633,8 +632,7 @@ def td_ve_cross_section(
         return flux.sigma(E, free=flux_free)
 
     raise ValueError(
-        f"td_ve_cross_section: unknown method {method!r} "
-        "(must be one of 'tw', 'delta', 'flow')"
+        f"td_ve_cross_section: unknown method {method!r} (must be one of 'tw', 'delta', 'flow')"
     )
 
 
@@ -787,32 +785,64 @@ def td_da_cross_section(
         if surface is None:
             raise ValueError("td_da_cross_section: method='flow' requires `surface`")
         ext = Flux(
-            tgrid, model, eps, chi, v_init, [], surface,
-            wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+            tgrid,
+            model,
+            eps,
+            chi,
+            v_init,
+            [],
+            surface,
+            wp_in=wp_in,
+            dt=dt,
+            axis="nuclear",
+            n_channels=n_channels,
         )
     elif method == "delta":
         if position is None:
             raise ValueError("td_da_cross_section: method='delta' requires `position`")
         ext = Dirac(
-            tgrid, model, eps, chi, v_init, [], position,
-            wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+            tgrid,
+            model,
+            eps,
+            chi,
+            v_init,
+            [],
+            position,
+            wp_in=wp_in,
+            dt=dt,
+            axis="nuclear",
+            n_channels=n_channels,
         )
     elif method == "tw":
         if wp_out is None:
             raise ValueError("td_da_cross_section: method='tw' requires `wp_out`")
         ext = TannorWeeks(
-            tgrid, model, eps, chi, v_init, [], wp_out,
-            wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+            tgrid,
+            model,
+            eps,
+            chi,
+            v_init,
+            [],
+            wp_out,
+            wp_in=wp_in,
+            dt=dt,
+            axis="nuclear",
+            n_channels=n_channels,
         )
     else:
         raise ValueError(
-            f"td_da_cross_section: unknown method {method!r} "
-            "(must be one of 'flow', 'delta', 'tw')"
+            f"td_da_cross_section: unknown method {method!r} (must be one of 'flow', 'delta', 'tw')"
         )
 
     propagate(
-        tgrid, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=hamiltonian,
-        order=order, extractors=[ext],
+        tgrid,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=hamiltonian,
+        order=order,
+        extractors=[ext],
     )
     return ext.sigma(E)
 
@@ -858,20 +888,53 @@ def td_da_cross_sections_all(
     hamiltonian = model.hamiltonian(tgrid)
 
     flux = Flux(
-        tgrid, model, eps, chi, v_init, [], surface,
-        wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+        tgrid,
+        model,
+        eps,
+        chi,
+        v_init,
+        [],
+        surface,
+        wp_in=wp_in,
+        dt=dt,
+        axis="nuclear",
+        n_channels=n_channels,
     )
     dirac = Dirac(
-        tgrid, model, eps, chi, v_init, [], position,
-        wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+        tgrid,
+        model,
+        eps,
+        chi,
+        v_init,
+        [],
+        position,
+        wp_in=wp_in,
+        dt=dt,
+        axis="nuclear",
+        n_channels=n_channels,
     )
     tw = TannorWeeks(
-        tgrid, model, eps, chi, v_init, [], wp_out,
-        wp_in=wp_in, dt=dt, axis="nuclear", n_channels=n_channels,
+        tgrid,
+        model,
+        eps,
+        chi,
+        v_init,
+        [],
+        wp_out,
+        wp_in=wp_in,
+        dt=dt,
+        axis="nuclear",
+        n_channels=n_channels,
     )
     propagate(
-        tgrid, psi0, [], dt=dt, n_steps=n_steps, hamiltonian=hamiltonian,
-        order=order, extractors=[flux, dirac, tw],
+        tgrid,
+        psi0,
+        [],
+        dt=dt,
+        n_steps=n_steps,
+        hamiltonian=hamiltonian,
+        order=order,
+        extractors=[flux, dirac, tw],
     )
 
     return {

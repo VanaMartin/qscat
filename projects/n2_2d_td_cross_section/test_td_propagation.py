@@ -65,9 +65,7 @@ def test_snapshots_on_coarse_cadence_and_densities_nonneg() -> None:
 
 
 def test_full_psi_kept_only_at_requested_times() -> None:
-    res = propagate(
-        TG, PSI0, OUT, dt=1.0, n_steps=20, sample_period=5, keep_psi_at=[0.0, 10.0]
-    )
+    res = propagate(TG, PSI0, OUT, dt=1.0, n_steps=20, sample_period=5, keep_psi_at=[0.0, 10.0])
     kept = {s.time: s.psi for s in res.snapshots}
     assert kept[0.0] is not None and kept[10.0] is not None
     assert kept[5.0] is None
@@ -82,9 +80,7 @@ def test_explicit_snapshot_times() -> None:
 def test_keep_psi_at_off_grid_time_gets_own_snapshot() -> None:
     # t=7.0 is not on the sample_period=5 coarse grid (0,5,10,15,20); requesting
     # keep_psi_at there must still produce a snapshot with the full Psi kept.
-    res = propagate(
-        TG, PSI0, OUT, dt=1.0, n_steps=20, sample_period=5, keep_psi_at=[7.0]
-    )
+    res = propagate(TG, PSI0, OUT, dt=1.0, n_steps=20, sample_period=5, keep_psi_at=[7.0])
     kept = {s.time: s for s in res.snapshots}
     assert 7.0 in kept
     s = kept[7.0]

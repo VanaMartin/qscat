@@ -283,7 +283,5 @@ def test_reuse_swept_equals_per_energy_calls() -> None:
     swept = ve_cross_section_2d(TG, EPS, CHI, 0, vprimes, energies)
     assert swept.shape == (len(energies), len(vprimes))
 
-    per_energy = np.stack(
-        [ve_cross_section_2d(TG, EPS, CHI, 0, vprimes, e) for e in energies]
-    )
+    per_energy = np.stack([ve_cross_section_2d(TG, EPS, CHI, 0, vprimes, e) for e in energies])
     assert swept == pytest.approx(per_energy, rel=1e-9)
