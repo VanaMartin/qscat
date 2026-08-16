@@ -104,8 +104,22 @@ solvers above; see `docs/physics/diatomic-ve-cross-sections.md` and
    :members:
 ```
 
+## Exact resonance states
+
+Poles of the full 2-D S-matrix, with no Born–Oppenheimer separation and no
+local approximation — the objects `resonance_levels` above approximates.
+Identification is by ECS angle stability in *both* coordinates; see
+`docs/physics/exact-2d-resonances.md`.
+
+```{eval-rst}
+.. autofunction:: qscat.core.exact_resonance_states
+.. autoclass:: qscat.core.ExactResonanceStates
+   :members:
+```
+
 ## Plotting
 
 ```{eval-rst}
 .. autofunction:: qscat.core.plot_cross_sections
+.. autofunction:: qscat.core.plot_resonance_levels
 ```

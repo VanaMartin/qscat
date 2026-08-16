@@ -27,7 +27,7 @@ import os
 import numpy as np
 import numpy.typing as npt
 
-__all__ = ["plot_cross_sections"]
+__all__ = ["plot_cross_sections", "plot_resonance_levels"]
 
 _PathLike = str | os.PathLike[str]
 
@@ -132,4 +132,139 @@ def plot_cross_sections(
     ax.grid(True, which="both", alpha=0.2)
     fig.tight_layout()
     fig.savefig(path)
+    plt.close(fig)
+
+
+def plot_resonance_levels(
+    levels: dict[str, npt.NDArray[np.complex128]],
+    *,
+    path: _PathLike,
+    curves: dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]] | None = None,
+    band: tuple[npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]]
+    | None = None,
+    xlim: tuple[float, float] | None = None,
+    ylim: tuple[float, float] | None = None,
+    baseline: str | None = None,
+    title: str | None = None,
+    xlabel: str = "R (bohr)",
+    ylabel: str = "energy (Hartree)",
+) -> None:
+    """Plot complex resonance levels `omega_i = E_r - i*Gamma/2`, save to `path`.
+
+    The left panel is the level diagram in the conventional form: any `curves`
+    are drawn as solid lines against the internuclear coordinate, `band` shades
+    a width envelope around one of them, and every level in `levels` becomes a
+    horizontal dashed line at its `Re E`, one colour per series. The right panel
+    plots each series' difference from `baseline`, in meV, against level index.
+
+    Parameters
+    ----------
+    levels : dict of str to ndarray of complex
+        One entry per series, e.g. `{"exact 2-D": ..., "BO / LCP": ...}`.
+    curves : dict of str to (ndarray, ndarray), optional
+        Background potential curves as `(x, y)` pairs, e.g. the neutral `V0(R)`
+        and the resonance curve `E_res(R)`.
+    band : tuple of (ndarray, ndarray, ndarray), optional
+        `(x, centre, half_width)` shaded envelope — the `Gamma(R)/2` band around
+        a resonance curve.
+    baseline : str, optional
+        Series the others are differenced against. Omit for a single panel.
+        Series are paired level-by-level in ascending `Re E` and truncated to
+        the shortest, so a series that found fewer levels cannot silently shift
+        the pairing.
+
+    Notes
+    -----
+    No physics: it takes arrays and labels, so it serves any pair of level sets
+    on any coordinate.
+    """
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    from qscat.units import HARTREE_TO_EV
+
+    series = {k: np.sort_complex(np.asarray(v, dtype=np.complex128)) for k, v in levels.items()}
+    if not series:
+        raise ValueError("plot_resonance_levels: no series given")
+    if baseline is not None and baseline not in series:
+        raise ValueError(f"baseline {baseline!r} is not one of {sorted(series)}")
+
+    ncols = 1 if baseline is None else 2
+    fig, axes = plt.subplots(1, ncols, figsize=(6.0 * ncols, 4.6), squeeze=False)
+    ax = axes[0][0]
+
+    if band is not None:
+        x_b, centre, half = (np.asarray(a, dtype=np.float64) for a in band)
+        ax.fill_between(x_b, centre - half, centre + half, color="gold", alpha=0.45, zorder=1)
+    if curves is not None:
+        for label, (x_c, y_c) in curves.items():
+            ax.plot(np.asarray(x_c), np.asarray(y_c), linewidth=1.8, label=label, zorder=2)
+
+    x0, x1 = xlim if xlim is not None else ax.get_xlim()
+    for i, (label, w) in enumerate(series.items()):
+        style = ("--", "-.")[i % 2]
+        color = f"C{i + len(curves or {})}"
+        for j, e in enumerate(w):
+            ax.plot(
+                [x0, x1],
+                [e.real, e.real],
+                style,
+                color=color,
+                linewidth=1.0,
+                alpha=0.9,
+                zorder=3,
+                label=label if j == 0 else None,
+            )
+        # Index the levels once, off the first series. Labelling every series
+        # would just overprint: series that differ by less than a pixel are the
+        # normal case here, and saying so is the right panel's job.
+        if i == 0:
+            for j, e in enumerate(w):
+                ax.annotate(
+                    rf"$\omega_{{{j}}}$",
+                    xy=(x0, e.real),
+                    xytext=(3, 2),
+                    textcoords="offset points",
+                    fontsize="x-small",
+                    color=color,
+                )
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    if xlim is not None:
+        ax.set_xlim(*xlim)
+    if ylim is not None:
+        ax.set_ylim(*ylim)
+    ax.legend(fontsize="small", loc="lower right")
+    ax.grid(True, alpha=0.2)
+    if title:
+        ax.set_title(title)
+
+    if baseline is not None:
+        ax2 = axes[0][1]
+        base = series[baseline]
+        for label, w in series.items():
+            if label == baseline:
+                continue
+            m = min(w.size, base.size)
+            idx = np.arange(m)
+            d_e = (w[:m].real - base[:m].real) * HARTREE_TO_EV * 1000.0
+            d_g = (-2.0 * w[:m].imag + 2.0 * base[:m].imag) * HARTREE_TO_EV * 1000.0
+            ax2.plot(idx, d_e, marker="o", label=rf"$\Delta E_r$ ({label} − {baseline})")
+            ax2.plot(
+                idx,
+                d_g,
+                marker="s",
+                linestyle="--",
+                label=rf"$\Delta\Gamma$ ({label} − {baseline})",
+            )
+        ax2.axhline(0.0, color="0.6", linewidth=0.8)
+        ax2.set_xlabel("level index")
+        ax2.set_ylabel("difference (meV)")
+        ax2.legend(fontsize="small")
+        ax2.grid(True, alpha=0.2)
+
+    fig.tight_layout()
+    fig.savefig(path, dpi=150)
     plt.close(fig)
