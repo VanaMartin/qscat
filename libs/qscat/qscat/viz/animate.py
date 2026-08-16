@@ -73,7 +73,7 @@ def animate_wavefunction(
     projector: EquidistantProjector,
     frames: Iterable[npt.NDArray[np.complex128]],
     *,
-    mag: float,
+    mag: float | npt.NDArray[np.float64],
     times: Sequence[float] | None = None,
     time_fmt: str = "t = {:.1f}",
     phase_reference: float = 0.0,
@@ -93,8 +93,11 @@ def animate_wavefunction(
         Cached projector for the states' tensor grid.
     frames : iterable of ndarray
         The states ``psi(t)`` to animate, one per frame.
-    mag : float
-        Fixed brightness scale across all frames.
+    mag : float or ndarray
+        Fixed brightness scale across all frames. A scalar applies one scale
+        to the whole field; an array (same shape as the projected field, e.g.
+        from `region_magnitudes`) gives a per-point scale, held fixed across
+        frames along with the potential overlay.
     times : sequence of float, optional
         Per-frame times; when given the title shows ``time_fmt.format(t)`` and
         enable `phase_reference`.

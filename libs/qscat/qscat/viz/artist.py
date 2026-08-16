@@ -105,7 +105,7 @@ class WavefunctionArtist:
         ax: Any,
         projector: EquidistantProjector,
         *,
-        mag: float,
+        mag: float | npt.NDArray[np.float64],
         inverse: bool = False,
         title: str | None = None,
         xlabel: str = "axis 1",
@@ -130,6 +130,9 @@ class WavefunctionArtist:
         self.ax = ax
         self.projector = projector
         self.mag = mag
+        # Contour levels must be scalars, so they key off the brightest
+        # region's scale; the per-point array still drives the image.
+        self._contour_mag = float(np.max(np.asarray(mag, dtype=np.float64)))
         self.inverse = inverse
         self.contours = contours
         self.contour_field = contour_field
@@ -197,7 +200,7 @@ class WavefunctionArtist:
                 )
             else:
                 z = potential_surface(self.projector, self._potential, self._a0, self._a1)
-            levels = contour_levels(self.contours, self.contour_field, self.mag, z)
+            levels = contour_levels(self.contours, self.contour_field, self._contour_mag, z)
             if levels:
                 self._psi_contours = self.ax.contour(
                     self._a1, self._a0, z, levels=levels, zorder=_Z_PSI, **self._contour_style

@@ -29,7 +29,7 @@ def plot_wavefunction_2d(
     projector: EquidistantProjector,
     state: npt.NDArray[np.complex128],
     *,
-    mag: float,
+    mag: float | npt.NDArray[np.float64],
     path: _PathLike | None = None,
     inverse: bool = False,
     title: str | None = None,
@@ -67,8 +67,12 @@ def plot_wavefunction_2d(
         A cached projector for the state's tensor grid.
     state : ndarray
         The flat 2-D complex state to render.
-    mag : float
-        Magnitude mapping to full brightness (see `complex_to_hsv`).
+    mag : float or ndarray
+        Magnitude mapping to full brightness (see `complex_to_hsv`). A scalar
+        applies one brightness scale to the whole field; an array (same shape
+        as the projected field, e.g. from `region_magnitudes`) gives a
+        per-point scale, letting a weak region reach full brightness even
+        when a strong region would otherwise saturate the whole colour map.
     path : path-like, optional
         If given, the figure is saved here (PNG).
     inverse : bool, optional
