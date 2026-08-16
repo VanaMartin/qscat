@@ -54,12 +54,16 @@ def test_working_grid_is_theta_independent() -> None:
         tg = TensorGrid(
             [
                 n2_electronic_grid(
-                    r_max=params["r_max"], angle_deg=theta,
-                    order=params["order"], n_complex=params["n_complex"],
+                    r_max=params["r_max"],
+                    angle_deg=theta,
+                    order=params["order"],
+                    n_complex=params["n_complex"],
                 ),
                 n2_nuclear_grid(
-                    quadrature=params["nuc_quadrature"], r_max=params["nuc_r_max"],
-                    n_complex=params["nuc_n_complex"], angle_deg=theta,
+                    quadrature=params["nuc_quadrature"],
+                    r_max=params["nuc_r_max"],
+                    n_complex=params["nuc_n_complex"],
+                    angle_deg=theta,
                 ),
             ]
         )

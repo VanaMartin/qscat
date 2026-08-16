@@ -64,9 +64,19 @@ _TI_BAND = 10.0
 
 def test_three_way_mutual_agreement_and_ti_ballpark() -> None:
     sigma_all = td_ve_cross_sections_all(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, E_GRID,
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT,
-        position=POSITION, surface=POSITION,
+        TG,
+        N2,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        E_GRID,
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        position=POSITION,
+        surface=POSITION,
     )
     assert set(sigma_all) == {"tw", "delta", "flow"}
     tw, delta, flow = sigma_all["tw"], sigma_all["delta"], sigma_all["flow"]

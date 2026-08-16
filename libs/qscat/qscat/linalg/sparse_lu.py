@@ -263,8 +263,7 @@ class SparseLU:
             # rather than silently falling back to scipy -- and before doing
             # any (wasted) symmetry detection on this error path.
             raise BackendError(
-                "MUMPS backend requested but not available "
-                "(qscat[mumps] / system MUMPS missing)"
+                "MUMPS backend requested but not available (qscat[mumps] / system MUMPS missing)"
             )
 
         if symmetric is None:
@@ -385,7 +384,6 @@ class SparseLU:
             )
         if rhs.shape[0] != self._shape[0]:
             raise ValueError(
-                f"right-hand side has leading dimension {rhs.shape[0]}, "
-                f"expected {self._shape[0]}"
+                f"right-hand side has leading dimension {rhs.shape[0]}, expected {self._shape[0]}"
             )
         return self._impl.solve(rhs.astype(np.complex128, copy=False))

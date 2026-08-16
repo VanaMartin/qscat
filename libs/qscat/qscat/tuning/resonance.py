@@ -142,7 +142,11 @@ def resonance_curve(
     seed_window = (eps_e[0] - 0.05, eps_e[0] + 0.05, -0.05, 0.05)
 
     shift, gamma = resonance_pole_walk(
-        model, R_descending, elec_grid_a, elec_grid_b, seed_window,
+        model,
+        R_descending,
+        elec_grid_a,
+        elec_grid_b,
+        seed_window,
     )
 
     order = np.argsort(R_descending)

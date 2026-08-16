@@ -130,9 +130,7 @@ def animate_wavefunction(
     if not frame_list:
         raise ValueError("frames is empty; nothing to animate")
     if phase_reference != 0.0 and times is None:
-        raise ValueError(
-            "phase_reference needs times= (the per-frame phase is E_ref * times[i])"
-        )
+        raise ValueError("phase_reference needs times= (the per-frame phase is E_ref * times[i])")
 
     created = ax is None
     if created:

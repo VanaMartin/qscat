@@ -51,9 +51,9 @@ def test_cn_unitary_for_hermitian() -> None:
     A = rng.standard_normal((6, 6)) + 1j * rng.standard_normal((6, 6))
     H = A + A.conj().T
     step = make_cn_stepper(H, 0.1)
-    psi: npt.NDArray[np.complex128] = (
-        rng.standard_normal(6) + 1j * rng.standard_normal(6)
-    ).astype(np.complex128)
+    psi: npt.NDArray[np.complex128] = (rng.standard_normal(6) + 1j * rng.standard_normal(6)).astype(
+        np.complex128
+    )
     n0 = np.vdot(psi, psi).real
     for _ in range(50):
         psi = step(psi)

@@ -42,10 +42,12 @@ def test_complex_to_hsv_rejects_real_input() -> None:
 
 
 def _tgrid() -> TensorGrid:
-    return TensorGrid([
-        electronic_grid(r_max=16.0, order=7, n_complex=4),
-        nuclear_grid(r_max=22.0, quadrature=8, n_complex=4),
-    ])
+    return TensorGrid(
+        [
+            electronic_grid(r_max=16.0, order=7, n_complex=4),
+            nuclear_grid(r_max=22.0, quadrature=8, n_complex=4),
+        ]
+    )
 
 
 def test_projector_reproduces_separable_polynomial_exactly() -> None:
@@ -186,16 +188,27 @@ def test_contours_potential_array_and_callable_both_draw() -> None:
     V = np.outer(tg.grids[0].real_points, tg.grids[1].real_points).astype(complex)
     _, ax1 = plt.subplots()
     plot_wavefunction_2d(
-        proj, state, mag=0.05, ax=ax1, contours=6,
-        contour_field="potential", potential=V, contour_color="grey",
+        proj,
+        state,
+        mag=0.05,
+        ax=ax1,
+        contours=6,
+        contour_field="potential",
+        potential=V,
+        contour_color="grey",
     )
     assert len([c for c in ax1.get_children() if isinstance(c, QuadContourSet)]) == 1
 
     # Callable potential (analytic path): V(r, R) on the sampling meshgrid.
     _, ax2 = plt.subplots()
     plot_wavefunction_2d(
-        proj, state, mag=0.05, ax=ax2, contours=6,
-        contour_field="potential", potential=lambda r, R: r + R,
+        proj,
+        state,
+        mag=0.05,
+        ax=ax2,
+        contours=6,
+        contour_field="potential",
+        potential=lambda r, R: r + R,
     )
     assert len([c for c in ax2.get_children() if isinstance(c, QuadContourSet)]) == 1
     plt.close("all")
@@ -275,10 +288,16 @@ def test_combined_overlays_dotted_potential_plus_psi() -> None:
 
     _, ax = plt.subplots()
     plot_wavefunction_2d(
-        proj, state, mag=0.05, ax=ax,
+        proj,
+        state,
+        mag=0.05,
+        ax=ax,
         contours=True,  # solid white |psi|
-        potential=V, potential_levels="auto",  # dotted potential overlay
-        eps=np.array([2.5, 4.0, 6.0]), v_init=0, energies=[1.0, 2.0],
+        potential=V,
+        potential_levels="auto",  # dotted potential overlay
+        eps=np.array([2.5, 4.0, 6.0]),
+        v_init=0,
+        energies=[1.0, 2.0],
     )
     csets = [c for c in ax.get_children() if isinstance(c, QuadContourSet)]
     assert len(csets) == 2  # |psi| + potential
@@ -303,8 +322,13 @@ def test_combined_potential_only_overlay_independent_of_contours() -> None:
     _, ax = plt.subplots()
     # contours=False, but potential overlay still draws (independent).
     plot_wavefunction_2d(
-        proj, state, mag=0.05, ax=ax,
-        potential=V, potential_levels=[4.0, 6.0], potential_labels=False,
+        proj,
+        state,
+        mag=0.05,
+        ax=ax,
+        potential=V,
+        potential_levels=[4.0, 6.0],
+        potential_labels=False,
     )
     assert len([c for c in ax.get_children() if isinstance(c, QuadContourSet)]) == 1
     plt.close("all")
@@ -330,8 +354,13 @@ def test_wavefunction_artist_update_changes_image_keeps_static_potential() -> No
 
     _, ax = plt.subplots()
     artist = WavefunctionArtist(
-        ax, proj, mag=0.5, contours=True,
-        potential=V, potential_levels=[4.0, 6.0], potential_labels=False,
+        ax,
+        proj,
+        mag=0.5,
+        contours=True,
+        potential=V,
+        potential_levels=[4.0, 6.0],
+        potential_labels=False,
     )
     # static potential overlay drawn at construction (before any state)
     assert len([c for c in ax.get_children() if isinstance(c, QuadContourSet)]) == 1

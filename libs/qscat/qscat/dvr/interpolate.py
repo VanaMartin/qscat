@@ -40,9 +40,7 @@ def _element_boundaries(grid: FemDvrEcsGrid) -> npt.NDArray[np.float64]:
     return grid.spec.x_min + np.concatenate(([0.0], np.cumsum(lengths)))
 
 
-def dvr_interpolation_matrix(
-    grid: FemDvrEcsGrid, x: npt.ArrayLike
-) -> sp.csr_matrix:
+def dvr_interpolation_matrix(grid: FemDvrEcsGrid, x: npt.ArrayLike) -> sp.csr_matrix:
     """Sparse operator ``P`` s.t. ``(P @ state)[k]`` is the field value at ``x[k]``.
 
     Parameters
@@ -70,9 +68,7 @@ def dvr_interpolation_matrix(
     x_min, x_max = ar[0], ar[-1]
     tol = 1e-9 * max(1.0, abs(x_max))
     if np.any(xs < x_min - tol) or np.any(xs > x_max + tol):
-        raise GridError(
-            f"sample points must lie within [{x_min}, {x_max}] (the grid extent)"
-        )
+        raise GridError(f"sample points must lie within [{x_min}, {x_max}] (the grid extent)")
     xs = np.clip(xs, x_min, x_max)
 
     R0 = grid.R0

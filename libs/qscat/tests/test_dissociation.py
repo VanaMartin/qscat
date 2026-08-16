@@ -40,9 +40,9 @@ def test_thresholds_have_correct_signs():
         eps0, R0 = _eps0(model)
         eps_e, _ = anion_electronic_states(g_r, model, R0, 1)
         thr[name] = float(eps_e[0]) - eps0
-    assert thr["F2"] < 0.0            # exothermic: DA open at all E>0
-    assert thr["N2"] > 0.3            # closed in the measurement window
-    assert 0.10 < thr["NO"] < 0.25    # opens above the resonance
+    assert thr["F2"] < 0.0  # exothermic: DA open at all E>0
+    assert thr["N2"] > 0.3  # closed in the measurement window
+    assert 0.10 < thr["NO"] < 0.25  # opens above the resonance
 
 
 def test_raises_when_too_many_states_requested():
@@ -53,8 +53,12 @@ def test_raises_when_too_many_states_requested():
 
 
 def _tgrid():
-    return TensorGrid([electronic_grid(r_max=14.0, order=6, n_complex=4),
-                       nuclear_grid(r_max=20.0, n_complex=4, quadrature=8)])
+    return TensorGrid(
+        [
+            electronic_grid(r_max=14.0, order=6, n_complex=4),
+            nuclear_grid(r_max=20.0, n_complex=4, quadrature=8),
+        ]
+    )
 
 
 def test_v_dr_shape_and_dtype():
@@ -88,8 +92,9 @@ def test_v_dr_tends_to_v0_at_large_R():
 
 
 def _working():
-    tg = TensorGrid([_eg(r_max=16.0, order=8, n_complex=6),
-                     _ng(r_max=22.0, n_complex=8, quadrature=12)])
+    tg = TensorGrid(
+        [_eg(r_max=16.0, order=8, n_complex=6), _ng(r_max=22.0, n_complex=8, quadrature=12)]
+    )
     return tg
 
 

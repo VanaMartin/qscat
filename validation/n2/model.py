@@ -42,8 +42,7 @@ def v0(R):
 def lam(R):
     """Interaction strength λ(R); λ(R_c) == λ_c."""
     p = PARAMS["potential"]
-    li, l1, Rl, lc, Rc = (p["lambda_inf"], p["lambda_1"], p["R_lambda"],
-                          p["lambda_c"], p["R_c"])
+    li, l1, Rl, lc, Rc = (p["lambda_inf"], p["lambda_1"], p["R_lambda"], p["lambda_c"], p["R_c"])
     lam0 = (lc - li) * (1 + np.exp(l1 * (Rc - Rl)))
     return li + lam0 / (1 + np.exp(l1 * (R - Rl)))
 
@@ -88,6 +87,11 @@ def model_checks() -> list[tuple[str, bool, str]]:
         < 1e-12
     )
     decays = abs(float(v_int(10.0, R0))) < abs(float(v_int(1.0, R0)))
-    out.append(("A6 V_eff_el l=2 centrifugal + V_int r-decay", centrifugal_ok and decays,
-                f"l(l+1)/2r^2 at r={r_t}, l={ell}"))
+    out.append(
+        (
+            "A6 V_eff_el l=2 centrifugal + V_int r-decay",
+            centrifugal_ok and decays,
+            f"l(l+1)/2r^2 at r={r_t}, l={ell}",
+        )
+    )
     return out

@@ -27,8 +27,13 @@ __all__ = ["BASELINE", "WORKING_GRID", "build_tgrid", "working_tgrid", "converge
 STUDY_E, STUDY_VP, N_VIB = 0.2, 1, 4
 
 BASELINE: dict[str, Any] = {
-    "r_max": 30.0, "angle_deg": 35.0, "order": 8, "n_complex": 8,
-    "nuc_r_max": 40.0, "nuc_quadrature": 14, "nuc_n_complex": 10,
+    "r_max": 30.0,
+    "angle_deg": 35.0,
+    "order": 8,
+    "n_complex": 8,
+    "nuc_r_max": 40.0,
+    "nuc_quadrature": 14,
+    "nuc_n_complex": 10,
 }
 
 # Chosen from the measured table (the measured convergence table):
@@ -72,7 +77,7 @@ WORKING_GRID: dict[str, Any] = {
 
 SWEEPS: dict[str, list[Any]] = {
     "r_max": [16.0, 22.0, 30.0, 45.0],
-    "angle_deg": [25.0, 30.0, 35.0, 40.0],   # the sharpest check
+    "angle_deg": [25.0, 30.0, 35.0, 40.0],  # the sharpest check
     "order": [7, 8, 9],
     "n_complex": [5, 8, 11],
     "nuc_r_max": [20.0, 30.0, 40.0],
@@ -86,12 +91,16 @@ def build_tgrid(params: dict[str, Any]) -> TensorGrid:
     return TensorGrid(
         [
             n2_electronic_grid(
-                r_max=params["r_max"], angle_deg=params["angle_deg"],
-                order=params["order"], n_complex=params["n_complex"],
+                r_max=params["r_max"],
+                angle_deg=params["angle_deg"],
+                order=params["order"],
+                n_complex=params["n_complex"],
             ),
             n2_nuclear_grid(
-                r_max=params["nuc_r_max"], angle_deg=params["angle_deg"],
-                quadrature=params["nuc_quadrature"], n_complex=params["nuc_n_complex"],
+                r_max=params["nuc_r_max"],
+                angle_deg=params["angle_deg"],
+                quadrature=params["nuc_quadrature"],
+                n_complex=params["nuc_n_complex"],
             ),
         ]
     )
@@ -105,9 +114,7 @@ def _one(params: dict[str, Any], ordering: str = "COLAMD") -> dict[str, Any]:
     t0 = time.perf_counter()
     tg = build_tgrid(params)
     eps, chi = vibrational_states(tg.grids[1], MU, N_VIB)
-    sigma = float(
-        ve_cross_section_2d(tg, eps, chi, 0, [STUDY_VP], STUDY_E, ordering=ordering)[0]
-    )
+    sigma = float(ve_cross_section_2d(tg, eps, chi, 0, [STUDY_VP], STUDY_E, ordering=ordering)[0])
     return {"N": tg.size, "sigma": sigma, "seconds": time.perf_counter() - t0}
 
 
@@ -128,9 +135,7 @@ def convergence_table() -> list[dict[str, Any]]:
         for v in values:
             params = {**BASELINE, key: v}
             row = {"axis": key, "value": v, **_one(params)}
-            row["rel_change"] = (
-                None if prev is None else abs(row["sigma"] - prev) / abs(prev)
-            )
+            row["rel_change"] = None if prev is None else abs(row["sigma"] - prev) / abs(prev)
             prev = row["sigma"]
             rows.append(row)
     return rows

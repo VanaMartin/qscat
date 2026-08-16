@@ -55,9 +55,7 @@ N_STEPS = 6
 def _tiny_result() -> PropagationResult:
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     out_channels = [outgoing_channel(TG, CHI[vp], **WP_OUT) for vp in VPRIMES]
-    return propagate(
-        TG, psi0, out_channels, dt=DT, n_steps=N_STEPS, snapshot_times=[0.0, 3.0, 6.0]
-    )
+    return propagate(TG, psi0, out_channels, dt=DT, n_steps=N_STEPS, snapshot_times=[0.0, 3.0, 6.0])
 
 
 def _sigma_at(result: PropagationResult, e_grid: np.ndarray) -> np.ndarray:
@@ -95,15 +93,9 @@ def test_npz_round_trips(tmp_path: Path) -> None:
         np.testing.assert_array_equal(data["t"], result.t)
         np.testing.assert_array_equal(data["c"], result.c)
         np.testing.assert_array_equal(data["norm"], result.norm)
-        np.testing.assert_array_equal(
-            data["times"], np.array([s.time for s in result.snapshots])
-        )
-        np.testing.assert_array_equal(
-            data["rho_R"], np.stack([s.rho_R for s in result.snapshots])
-        )
-        np.testing.assert_array_equal(
-            data["rho_r"], np.stack([s.rho_r for s in result.snapshots])
-        )
+        np.testing.assert_array_equal(data["times"], np.array([s.time for s in result.snapshots]))
+        np.testing.assert_array_equal(data["rho_R"], np.stack([s.rho_R for s in result.snapshots]))
+        np.testing.assert_array_equal(data["rho_r"], np.stack([s.rho_r for s in result.snapshots]))
         np.testing.assert_array_equal(data["E_grid"], e_grid)
         np.testing.assert_array_equal(data["sigma_E"], sigma_e)
 
@@ -122,9 +114,7 @@ def test_v5_saved_c_reproduces_saved_sigma(tmp_path: Path) -> None:
     # Reload EVERYTHING the transform needs (incl. dt/wp_in/wp_out) purely
     # from the .npz -- proves the file is self-contained for re-transform.
     with np.load(out) as data:
-        reloaded = PropagationResult(
-            t=data["t"], c=data["c"], norm=data["norm"], snapshots=[]
-        )
+        reloaded = PropagationResult(t=data["t"], c=data["c"], norm=data["norm"], snapshots=[])
         reloaded_e_grid = data["E_grid"]
         reloaded_sigma = data["sigma_E"]
         reloaded_dt = float(data["dt"])

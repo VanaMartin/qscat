@@ -555,9 +555,7 @@ def validate_config(cfg: ExperimentConfig) -> None:
             )
         resolved = _reference.resolve_path(ref, base)
         if not resolved.is_file():
-            raise ConfigError(
-                f"reference[{i}]: no such file {ref.path!r} (looked at {resolved})"
-            )
+            raise ConfigError(f"reference[{i}]: no such file {ref.path!r} (looked at {resolved})")
         # Bounds-check `channels` here too (not just at `load_reference` time,
         # which `write_artifacts` only reaches AFTER `run_experiment` has
         # already solved) -- a typo'd channel index should fail fast, before

@@ -116,7 +116,6 @@ def load_reference(spec: ReferenceSpec, base_dir: Path) -> Series:
     loader = REFERENCE_FORMATS.get(spec.format)
     if loader is None:
         raise ValueError(
-            f"unknown reference format {spec.format!r}; "
-            f"choose one of {sorted(REFERENCE_FORMATS)}"
+            f"unknown reference format {spec.format!r}; choose one of {sorted(REFERENCE_FORMATS)}"
         )
     return loader(resolve_path(spec, base_dir), spec.channels)

@@ -85,9 +85,7 @@ def riccati_bessel_en_mass(
     if mu <= 0.0:
         raise ValueError(f"mu must be positive, got {mu}")
     rr = np.asarray(r, dtype=np.float64)
-    out: npt.NDArray[np.float64] = (
-        np.sqrt(2.0 * mu * k / np.pi) * rr * spherical_jn(l, k * rr)
-    )
+    out: npt.NDArray[np.float64] = np.sqrt(2.0 * mu * k / np.pi) * rr * spherical_jn(l, k * rr)
     return out
 
 

@@ -166,9 +166,7 @@ def resonance_pole_walk(
                     continue
             broken = True
         if last_s is None:
-            raise ConvergenceError(
-                "resonance_pole_walk: pole finder failed at the seed edge"
-            )
+            raise ConvergenceError("resonance_pole_walk: pole finder failed at the seed edge")
         shift[j], gamma_w[j] = last_s, last_g
     return shift, gamma_w
 

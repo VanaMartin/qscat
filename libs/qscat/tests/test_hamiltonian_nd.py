@@ -61,9 +61,7 @@ def _lowest_shift_invert(H: sp.csr_matrix, k: int, sigma: float) -> Floats:
     return np.asarray(np.sort(vals.real)[:k], dtype=np.float64)
 
 
-def _analytic_box_levels(
-    lengths: tuple[float, ...], masses: tuple[float, ...], k: int
-) -> Floats:
+def _analytic_box_levels(lengths: tuple[float, ...], masses: tuple[float, ...], k: int) -> Floats:
     """Lowest `k` levels of sum_d n_d^2 pi^2 / (2 m_d L_d^2)."""
     per_axis = [
         [n**2 * np.pi**2 / (2.0 * m * L**2) for n in range(1, k + 2)]
@@ -200,9 +198,7 @@ def test_d1_reproduces_existing_1d_hamiltonian_with_ecs() -> None:
 
 
 def test_d1_kinetic_nd_matches_dense_kinetic() -> None:
-    g = FemDvrEcsGrid(
-        GridSpec(quadrature=7, elements=[ElementSpec(1.0) for _ in range(3)])
-    )
+    g = FemDvrEcsGrid(GridSpec(quadrature=7, elements=[ElementSpec(1.0) for _ in range(3)]))
     dense = kinetic(g, 2.5)
     got = kinetic_nd(TensorGrid([g]), [2.5]).toarray()
     assert np.abs(got - dense).max() <= 1e-13 * np.abs(dense).max()

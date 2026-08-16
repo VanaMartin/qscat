@@ -26,7 +26,7 @@ def test_h2p_v_int_matches_sigma_capture():
     a1, a2, a3, a4 = 1.6435, 6.2, 0.0125, 1.15
     Q = (a2 - R - a3 * R**4) / 7.0
     S = np.tanh(R / a4) ** 4
-    E = np.exp(-r**2 / 3.0) / r
+    E = np.exp(-(r**2) / 3.0) / r
     expect = -a1 * (1 - np.tanh(Q)) * S * E
     assert np.allclose(H2P.v_int(r, R).real, expect, atol=1e-12)
 

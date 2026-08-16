@@ -25,8 +25,9 @@ def test_V2_pole_is_stable():
     E, resid = pole.find_pole(R0, ga, gb, WINDOW)
     assert resid < 1e-3, resid  # angle-stable (residual << Gamma)
     # resolution stability: coarser grid gives ~same pole (few %)
-    ga2, gb2 = n2_electronic_grid(35.0, n_real=6, n_complex=6), n2_electronic_grid(
-        44.0, n_real=6, n_complex=6
+    ga2, gb2 = (
+        n2_electronic_grid(35.0, n_real=6, n_complex=6),
+        n2_electronic_grid(44.0, n_real=6, n_complex=6),
     )
     E2, _ = pole.find_pole(R0, ga2, gb2, WINDOW)
     assert abs(E - E2) / abs(E) < 0.05, (E, E2)

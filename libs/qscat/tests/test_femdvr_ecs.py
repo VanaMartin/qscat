@@ -78,10 +78,9 @@ def _b3_grid(
     """Short real region (R0=real_len) + long complex tail (Lt=tail_len),
     R0/Lt = 0.05, so the mid-spectrum eigenvalues sit close to the
     R0->0 asymptote arg(E) = -2*theta (see module docstring)."""
-    els = (
-        [ElementSpec(real_len / nreal)] * nreal
-        + [ElementSpec(tail_len / ncomplex, theta_deg)] * ncomplex
-    )
+    els = [ElementSpec(real_len / nreal)] * nreal + [
+        ElementSpec(tail_len / ncomplex, theta_deg)
+    ] * ncomplex
     return FemDvrEcsGrid(GridSpec(quadrature=nq, elements=els))
 
 
@@ -95,10 +94,9 @@ def _b4_grid(
 ) -> FemDvrEcsGrid:
     """Well edge a=3.0 lands on an element boundary: real_len/nreal = 3.0
     (boundaries at 0, 3, 6, 9, 12); see module docstring."""
-    els = (
-        [ElementSpec(real_len / nreal)] * nreal
-        + [ElementSpec(tail_len / ncomplex, theta_deg)] * ncomplex
-    )
+    els = [ElementSpec(real_len / nreal)] * nreal + [
+        ElementSpec(tail_len / ncomplex, theta_deg)
+    ] * ncomplex
     return FemDvrEcsGrid(GridSpec(quadrature=nq, elements=els))
 
 

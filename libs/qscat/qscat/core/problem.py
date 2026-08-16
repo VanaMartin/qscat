@@ -85,9 +85,7 @@ class ScatteringProblem:
 
     # --- time-independent observables ---------------------------------------
 
-    def ve_cross_section(
-        self, vprimes: list[int], E: float | npt.ArrayLike, **kwargs: Any
-    ) -> Any:
+    def ve_cross_section(self, vprimes: list[int], E: float | npt.ArrayLike, **kwargs: Any) -> Any:
         """Vibrational-excitation cross section; see `qscat.core.ve_cross_section`."""
         return ve_cross_section(
             self.grid, self.model, self.eps, self.chi, self.v_init, vprimes, E, **kwargs
@@ -95,15 +93,11 @@ class ScatteringProblem:
 
     def da_cross_section(self, E: float | npt.ArrayLike, **kwargs: Any) -> Any:
         """Dissociative-attachment cross section; see `qscat.core.da_cross_section`."""
-        return da_cross_section(
-            self.grid, self.model, self.eps, self.chi, self.v_init, E, **kwargs
-        )
+        return da_cross_section(self.grid, self.model, self.eps, self.chi, self.v_init, E, **kwargs)
 
     def dr_cross_section(self, E: float | npt.ArrayLike, **kwargs: Any) -> Any:
         """Dissociative-recombination cross section; see `qscat.core.dr_cross_section`."""
-        return dr_cross_section(
-            self.grid, self.model, self.eps, self.chi, self.v_init, E, **kwargs
-        )
+        return dr_cross_section(self.grid, self.model, self.eps, self.chi, self.v_init, E, **kwargs)
 
     # --- time-dependent observables -----------------------------------------
 

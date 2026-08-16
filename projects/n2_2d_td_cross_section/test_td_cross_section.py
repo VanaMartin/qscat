@@ -84,8 +84,16 @@ SIGMA_TI = {
 def propagation() -> td.PropagationResult:
     """The ONE ~5-min order-3 Pade propagation this file reuses (module docstring)."""
     return td._propagate(
-        TG, EPS, CHI, V_INIT, VPRIMES,
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, order=PADE_ORDER,
+        TG,
+        EPS,
+        CHI,
+        V_INIT,
+        VPRIMES,
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        order=PADE_ORDER,
     )
 
 
@@ -199,12 +207,29 @@ def elastic_propagations() -> tuple[td.PropagationResult, td.PropagationResult]:
     free (`_propagate(..., free=True)`) reference on the SAME wavepacket/grid.
     """
     full = td._propagate(
-        TG, EPS, CHI, V_INIT, [V_INIT],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, order=PADE_ORDER,
+        TG,
+        EPS,
+        CHI,
+        V_INIT,
+        [V_INIT],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        order=PADE_ORDER,
     )
     free = td._propagate(
-        TG, EPS, CHI, V_INIT, [V_INIT],
-        dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT, free=True, order=PADE_ORDER,
+        TG,
+        EPS,
+        CHI,
+        V_INIT,
+        [V_INIT],
+        dt=DT,
+        n_steps=N_STEPS,
+        wp_in=WP_IN,
+        wp_out=WP_OUT,
+        free=True,
+        order=PADE_ORDER,
     )
     return full, free
 
@@ -224,8 +249,16 @@ def test_v2c_td_elastic_matches_ti_with_free_reference(
         sigma_ti = float(ve_cross_section_2d(TG, EPS, CHI, V_INIT, [V_INIT], e)[0])
         sigma_fixed = float(
             td.sigma_from_correlations(
-                TG, full, EPS, V_INIT, [V_INIT], e,
-                dt=DT, wp_in=WP_IN, wp_out=WP_OUT, free_result=free,
+                TG,
+                full,
+                EPS,
+                V_INIT,
+                [V_INIT],
+                e,
+                dt=DT,
+                wp_in=WP_IN,
+                wp_out=WP_OUT,
+                free_result=free,
             )[0]
         )
         sigma_literal1 = float(

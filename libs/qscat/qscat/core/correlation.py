@@ -277,17 +277,13 @@ def outgoing_surface_wave(
         pref = np.sqrt(2.0 * mass * k / np.pi)
         x = k * r
         h_l = spherical_jn(l, x) + 1j * spherical_yn(l, x)
-        h_l_prime = spherical_jn(l, x, derivative=True) + 1j * spherical_yn(
-            l, x, derivative=True
-        )
+        h_l_prime = spherical_jn(l, x, derivative=True) + 1j * spherical_yn(l, x, derivative=True)
         phi = pref * r * h_l / 2.0
         dphi = pref * (h_l + x * h_l_prime) / 2.0
         return complex(phi), complex(dphi)
 
     def _h1(rr: float) -> complex:
-        val = (
-            coulomb_h1_en(np.asarray(rr, dtype=np.complex128), k, float(charge), mass, l) / 2.0
-        )
+        val = coulomb_h1_en(np.asarray(rr, dtype=np.complex128), k, float(charge), mass, l) / 2.0
         return complex(np.asarray(val))
 
     phi = _h1(r)

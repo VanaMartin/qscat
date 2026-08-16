@@ -36,10 +36,12 @@ from qscat.model import N2
 
 
 def _propagation_matrix(order: int, n_complex: int, dt: float) -> sp.csr_matrix:
-    tg = TensorGrid([
-        electronic_grid(r_max=16.0, order=order, n_complex=n_complex),
-        nuclear_grid(r_max=22.0, quadrature=10, n_complex=n_complex),
-    ])
+    tg = TensorGrid(
+        [
+            electronic_grid(r_max=16.0, order=order, n_complex=n_complex),
+            nuclear_grid(r_max=22.0, quadrature=10, n_complex=n_complex),
+        ]
+    )
     H = N2.hamiltonian(tg).tocsr()
     n = H.shape[0]
     # One Crank-Nicolson / Padé-pole shift: complex-symmetric like H itself.
@@ -55,9 +57,7 @@ def _measure(A: sp.csr_matrix, backend: str, n_solves: int) -> dict[str, float]:
     factor_s = time.perf_counter() - t0
 
     # A fresh RHS each solve, mimicking a propagation (state changes every step).
-    rhs = [
-        rng.standard_normal(n) + 1j * rng.standard_normal(n) for _ in range(n_solves)
-    ]
+    rhs = [rng.standard_normal(n) + 1j * rng.standard_normal(n) for _ in range(n_solves)]
     t0 = time.perf_counter()
     for b in rhs:
         lu.solve(b)
@@ -100,8 +100,7 @@ def main(argv: list[str] | None = None) -> int:
         print()
         print(f"factor: MUMPS {'faster' if d_factor < 0 else 'slower'} by {abs(d_factor):.3f} s")
         print(
-            f"solve : MUMPS {'faster' if d_solve > 0 else 'SLOWER'} by "
-            f"{abs(d_solve):.3f} ms/solve"
+            f"solve : MUMPS {'faster' if d_solve > 0 else 'SLOWER'} by {abs(d_solve):.3f} ms/solve"
         )
         if d_factor <= 0 and d_solve >= 0:
             print("verdict: MUMPS wins outright (faster factor AND solve) -- default for TI and TD")

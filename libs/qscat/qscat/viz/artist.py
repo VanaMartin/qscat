@@ -159,9 +159,15 @@ class WavefunctionArtist:
             plevels = resolve_potential_levels(potential_levels, zp, eps, v_init, energies)
             if plevels:
                 pset = ax.contour(
-                    a1, a0, zp, levels=plevels, colors=potential_color,
-                    linestyles=potential_style, alpha=potential_alpha,
-                    linewidths=potential_linewidth, zorder=_Z_POTENTIAL,
+                    a1,
+                    a0,
+                    zp,
+                    levels=plevels,
+                    colors=potential_color,
+                    linestyles=potential_style,
+                    alpha=potential_alpha,
+                    linewidths=potential_linewidth,
+                    zorder=_Z_POTENTIAL,
                 )
                 if potential_labels:
                     ax.clabel(pset, fmt=potential_label_fmt, fontsize=7)

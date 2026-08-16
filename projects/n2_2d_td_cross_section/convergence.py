@@ -65,8 +65,8 @@ TD_WORKING_GRID: dict = {
         # checking sigma_TD is unchanged) -- that sweep is future work, out
         # of scope here.
         "r_max": 50.0,
-        "order": 8,       # unchanged from #6's TI working grid.
-        "n_complex": 6,   # unchanged from #6's TI working grid.
+        "order": 8,  # unchanged from #6's TI working grid.
+        "n_complex": 6,  # unchanged from #6's TI working grid.
     },
     "nuclear": {
         # Matches Task 1-4's test-scale nuclear grid (same as #6's TI
@@ -174,8 +174,17 @@ def sigma_curve(
 
     e_arr = np.atleast_1d(np.asarray(E_grid, dtype=np.float64))
     return td.td_ve_cross_section_2d(
-        tgrid, eps, chi, v_init, vprimes, e_arr,
-        dt=dt, n_steps=n_steps, wp_in=wp_in, wp_out=wp_out, order=order,
+        tgrid,
+        eps,
+        chi,
+        v_init,
+        vprimes,
+        e_arr,
+        dt=dt,
+        n_steps=n_steps,
+        wp_in=wp_in,
+        wp_out=wp_out,
+        order=order,
     )
 
 
