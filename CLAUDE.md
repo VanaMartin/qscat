@@ -155,7 +155,21 @@ libs/       qscat — the standard library: validated, reusable QM code
               ~11% away from threshold; documented departures near threshold
               (LCP misses the exact's spike) and in VE-elastic (LCP misses the
               non-resonant background) — see
-              docs/physics/diatomic-ve-cross-sections.md. Plus `channels`, `grids`
+              docs/physics/diatomic-ve-cross-sections.md. Also
+              `resonance_levels`/`lcp_resonance_levels` (+ `ResonanceLevels`): the
+              BORN-OPPENHEIMER approximation to the resonance energies -- the nuclear
+              eigenvalue problem IN the complex curve, `H_N = T(mu) + V_d -
+              i*Gamma/2` on the nuclear FEM-DVR-ECS grid, giving complex quasi-bound
+              levels `E_v - i*Gamma_v/2` (the thesis's `omega_j`, promoted from
+              eMoScat's real-part-only levels). Physical levels are picked by two
+              NUCLEAR ECS angles (`qscat.ecs.match_angle_stable`, the multi-state
+              sibling of `find_resonance_pole`); the electronic pole walk runs ONCE
+              since `E_res(R)` at real `R` is angle-independent. A golden-rule
+              comparator (`Gamma=0` levels + `<chi|Gamma|chi>`) rides along and
+              reproduces what eMoScat/the thesis computed -- its divergence from the
+              complex result is the non-perturbative signal. NOT Siegert
+              pseudostates (see docs/physics/lcp-resonance-levels.md). Plus
+              `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
               eMoScat's `(n_elem, endpoint)` deck format), `vibrational` (`v0`
               passed in), `wavepacket`, `correlation`, `plot`. **`qscat.core` never

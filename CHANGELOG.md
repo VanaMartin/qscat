@@ -7,6 +7,25 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `qscat.core.lcp` BO/LCP resonance levels: `lcp_resonance_levels` diagonalizes the
+  nuclear Hamiltonian `H_N = T(mu) + V_d(R) - i*Gamma(R)/2` in the LCP complex curve
+  (`ResonanceLevels`: complex `energies`/`widths`, c-product-normalized `states`, a
+  two-angle stability `residuals` diagnostic, `real_weight`, and a `golden_rule`
+  perturbative comparator), the Born-Oppenheimer approximation to the 2-D model's
+  resonance energies — the thesis's `omega_j`, promoted from eMoScat's real-part-only
+  levels to genuine complex quasi-bound states. `resonance_levels(model, ...)` runs
+  the electronic pole walk once and adds one extra nuclear diagonalization on a
+  second, differently-angled grid for the two-angle selection
+  (`qscat.ecs.match_angle_stable`, the multi-state sibling of `find_resonance_pole`).
+  `IonicResonanceModel.max_nuclear_ecs_angle_deg = 22.5` records the H₂⁺ nuclear ECS
+  divergence bound (Hvizdoš et al., Phys. Rev. A 97, 022704 (2018), Sec. II) that
+  `resonance_levels` now enforces. `qscat-run` exposes this as the `resonance_levels`
+  observable kind (no `energies:` block needed) and as an opt-in
+  `artifacts.resonance_levels` flag on an existing LCP run, writing
+  `resonance_levels_{label}.{csv,npz,png}`. These are complex-scaled (ECS) resonance
+  eigenstates, explicitly **not** Siegert pseudostates — see
+  docs/physics/lcp-resonance-levels.md for the terminology, normalization, and the
+  first F2 numbers.
 - `qscat.core.lcp` resonance/scattering observables: `lcp_da_cross_section(...,
   return_wavefunction=True)` returns the 1-D nuclear resolvent `psi_sc(R)` per
   energy (the DA scattering state; same overload convention as
@@ -87,6 +106,14 @@ follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `py.typed` marker so downstream type-checkers see qscat's types.
 - `qscat[plot]` optional dependency for the matplotlib-based figure helpers.
 - Single-sourced version (`qscat.__version__`, read dynamically by the build).
+
+### Fixed
+- `H2P.mu` (`qscat.model.library`): `918.25` → `918.076` (`m_p/2` for the modern
+  proton mass, `1836.15267/2`). The old value was inherited from eMoScat's JSON
+  deck; Vana 2017 Table 1.2 and Hvizdoš et al., Phys. Rev. A 97, 022704 (2018)
+  Sec. II A both give `918.076`. The 0.019% error shifted H₂⁺ vibrational
+  spacings by ~1e-4 relative — harmless qualitatively, but wrong for reproducing
+  published numbers.
 
 ### Changed
 - `qscat.core.plot_cross_sections` now imports matplotlib lazily, so importing
