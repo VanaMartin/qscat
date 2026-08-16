@@ -1,7 +1,6 @@
 """Hamiltonian assembly + eigensolver helpers for the FEM-DVR-ECS grid.
 
-See .superpowers/sdd/femdvr-ecs-extraction.md section 3 (Eigensolver) and
-task-2-brief.md. H = T + diag(V) is complex-symmetric but non-Hermitian in
+See `docs/physics/femdvr-ecs.md`. H = T + diag(V) is complex-symmetric but non-Hermitian in
 general (ECS elements), so we use the general eigensolver (np.linalg.eig,
 c.f. ZGEEV) rather than a Hermitian one, and sort by ascending Re(E).
 """

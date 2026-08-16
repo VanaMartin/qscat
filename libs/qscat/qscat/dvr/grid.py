@@ -2,7 +2,8 @@
 bridge-summed weights, and the Dirichlet endpoint drop.
 
 Ported from eMoScat's FemDvrEcsGrid.cpp (`initialize`, the real-`aa` overload)
-and DvrGrid.cpp; see .superpowers/sdd/femdvr-ecs-extraction.md sections 1-3.
+and DvrGrid.cpp. The underlying method is Rescigno & McCurdy, Phys. Rev. A 62,
+032706 (2000); see `docs/physics/femdvr-ecs.md`.
 
 Construction (mirrors FemDvrEcsGrid.cpp:84-112 exactly):
   - Per element i (0-indexed), with reference GLL nodes/weights (xi, w) on

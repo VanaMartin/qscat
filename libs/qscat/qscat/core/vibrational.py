@@ -1,8 +1,6 @@
 """Model-independent neutral-molecule vibrational states solver.
 
-Promoted from `projects/n2_ti_cross_section/vibrational.py` (sub-project #3,
-Task 1; promoted here sub-project #A, Task 3) -- see
-`.superpowers/sdd/ti-cross-section-extraction.md` section 2: diagonalize
+Promoted from `projects/n2_ti_cross_section/vibrational.py`: diagonalize
 `T_nuc(mu) + diag(v0(R))` -> (eps_v, chi_v). ONE change from the original:
 `v0` is a caller-supplied callable (the neutral molecule's potential-energy
 curve) rather than a hardcoded import -- this is what keeps `qscat.core`
@@ -25,10 +23,9 @@ eigenvectors built here, `chi` is real, so `chi_v^dagger chi_v` and
 `chi_v^T chi_v` are literally the same sum-of-squares -- they coincide to
 machine precision in the Hermitian-normalized output `eigen()` already hands
 back, so no extra c-product step is needed and `chi` is usable directly
-here, matching the DVR/ECS convention used throughout this repo (see
-`.superpowers/sdd/ti-cross-section-extraction.md` section 2's S-matrix
-formula "DVR basis pre-normalized by 1/sqrt(w) => inner product is plain dot
-of coeff vectors"). This coincidence does NOT generalize: downstream code
+here, matching the DVR/ECS convention used throughout this repo: the DVR
+basis is pre-normalized by `1/sqrt(w)`, so the inner product is a plain dot
+of coefficient vectors. This coincidence does NOT generalize: downstream code
 handling genuinely complex vectors (e.g. resonance eigenvectors, or the
 doorway/driven-equation solution) must apply the c-product convention
 explicitly per `eigen()`'s own note, since Hermitian and c-product norms

@@ -1,9 +1,17 @@
 """Per-molecule `DiatomicResonanceModel` parameter registry.
 
-Verbatim eMoScat deck parameters (`reference/eMoScat/input/{N2,NO,F2}/
-2D_model.txt`), transcribed exactly (no re-derivation) -- see
-`docs/superpowers/specs/2026-07-27-diatomic-ve-scattering-library-design.md`'s
-parameter table. `N2` reproduces `validation/n2/config.json`'s
+These constants are PUBLISHED, and the eMoScat decks
+(`reference/eMoScat/input/{N2,NO,F2}/2D_model.txt`) agree with them:
+
+- N2 and NO: Houfek, Rescigno & McCurdy, Phys. Rev. A 73, 032721 (2006),
+  Table I -- the paper that introduced this 2-D model.
+- F2: Houfek, Rescigno & McCurdy, Phys. Rev. A 77, 012710 (2008), Table I.
+- H2P: Hvizdos, master's thesis (Charles Univ., 2016) Table 1.1; Vana 2017
+  thesis Table 1.2; Hvizdos et al., Phys. Rev. A 97, 022704 (2018), Sec. II A
+  -- all three give the reduced mass 918.076 = m_p/2.
+
+(The GRIDS remain eMoScat-deck provenance; only the model constants are
+published.) `N2` reproduces `validation/n2/config.json`'s
 `reduced_mass`/`impulsemomentum`/`potential` block, and
 `projects/n2_2d_cross_section/hamiltonian2d.py`'s `MU`/`ELL`
 (`libs/qscat/tests/test_model.py` gates this). This is the single place a

@@ -32,8 +32,8 @@ a multi-thousand-step run); see `docs/physics/n2-2d-td-cross-section.md`.
 
 ## Energy transform (Tannor-Weeks)
 
-`.superpowers/sdd/n2-2d-exact-extraction.md` section 5.3
-(`eMoScat TestFunction2d.cpp:298-307`):
+Tannor & Weeks, J. Chem. Phys. 98, 3884 (1993), Eq. (39); implemented as in
+`eMoScat TestFunction2d.cpp:298-307`:
 
     S_{v->v'}(E) = [2*pi*conj(eta_out_{v'}(E))*eta_in_v(E)]^{-1}
                    * sum_n w_n exp(i*E_tot*t_n) c_{v'}(t_n) * dt
@@ -369,8 +369,10 @@ def _sigma_one_energy(
     when the transform happens to normalize `S_free -> 1`, which it does not
     here -- so callers wanting a correct elastic channel MUST pass
     `free_result` (`td_ve_cross_section` does by default). Off-diagonal
-    channels use `ref = 0` and are unaffected. See
-    `.superpowers/sdd/` and the `td-elastic-wavepacket-normalization` note.
+    channels use `ref = 0` and are unaffected. Tannor & Weeks state this
+    directly: the transform's normalization is the wavepacket's own momentum
+    amplitude, not 1 (J. Chem. Phys. 98, 3884 (1993), Eqs. 29-32). See
+    `docs/physics/n2-2d-td-cross-section.md`.
     """
     sigma = np.zeros(len(vprimes), dtype=np.float64)
     if E <= 0.0:

@@ -1,9 +1,7 @@
 """Analytic benchmark tests for the promoted FEM-DVR-ECS grid (`qscat.dvr`).
 
 Ported from `projects/femdvr_ecs/test_kinetic_benchmarks.py` and
-`test_ecs_benchmarks.py` once the modules were validated (see
-`.superpowers/sdd/femdvr-ecs-extraction.md` and `task-2-brief.md`/
-`task-3-brief.md`). Four benchmarks:
+`test_ecs_benchmarks.py` once the modules were validated. Four benchmarks:
 
   B1 (particle-in-box, theta=0) -- exact oracle E_n = n^2 pi^2 / (2 m L^2).
      Extremely sensitive to any assembly error (bridge-weight normalization,

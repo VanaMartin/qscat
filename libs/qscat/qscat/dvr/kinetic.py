@@ -1,8 +1,8 @@
 """FEM-DVR kinetic-energy operator assembly.
 
-Ported from eMoScat's KineticEnergy.cpp:15-87; see
-.superpowers/sdd/femdvr-ecs-extraction.md section 2 and task-2-brief.md. The
-sparse sibling `kinetic_sparse` (COO/CSR assembly) was added in task-3-brief.md.
+Ported from eMoScat's KineticEnergy.cpp:15-87; see `docs/physics/femdvr-ecs.md`.
+`kinetic_sparse` is the COO/CSR sibling, with the dense assembly as its
+differential oracle.
 
 T = -(1/2*mass) d^2/dz^2, assembled element-by-element on the global,
 Dirichlet-trimmed FEM-DVR basis exposed by `FemDvrEcsGrid`:

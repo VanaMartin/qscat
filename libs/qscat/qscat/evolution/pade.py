@@ -14,8 +14,13 @@ order 3 (`O(dt^7)`) is dramatically more accurate than Crank-Nicolson's
 cross section converge to the time-independent oracle (see
 `docs/physics/n2-2d-td-cross-section.md`).
 
+The scheme is van Dijk & Toyama, Phys. Rev. E 75, 036707 (2007), Sec. III
+(their Eqs. 3.3-3.7 and Table II); this module implements only that
+time-propagation half, not their Sec. II finite-difference spatial stencil.
+
 The roots are the roots of the diagonal-Pade denominator of `exp(z)`; the table
-below matches eMoScat's `Pade_Roots` (`FemDvrEcs/FemDvrFunctions.cpp`), and
+below matches both that Table II and eMoScat's `Pade_Roots`
+(`FemDvrEcs/FemDvrFunctions.cpp`), and
 `order=1` (`r=2`) reproduces `make_sparse_cn_stepper` bit-for-bit. Sign
 convention: for `exp(-i H dt)` we evaluate the `exp(z)` approximant at
 `z = -i H dt`, giving the numerator `(I - i H dt / r_i)` / denominator

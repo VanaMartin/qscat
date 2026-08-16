@@ -2,7 +2,7 @@
 
 Ported from the construction in eMoScat's FemDvrEcsGrid.cpp / DvrGrid.cpp, but built
 with numpy.polynomial.legendre instead of the reference's hand-rolled QL eigensolver.
-See .superpowers/sdd/femdvr-ecs-extraction.md sections 1-3.
+See `docs/physics/femdvr-ecs.md`.
 """
 
 from __future__ import annotations

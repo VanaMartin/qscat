@@ -21,9 +21,9 @@ Public API:
   - `kinetic_nd`, `potential_nd`, `hamiltonian_nd` -- the N-dimensional
     Kronecker-sum Hamiltonian assembled on a `TensorGrid`, sparse (CSR).
 
-See `docs/physics/femdvr-ecs.md` for the method and its validation
-benchmarks, and `.superpowers/sdd/femdvr-ecs-extraction.md` for the port-scout
-extraction from eMoScat this implementation is based on.
+See `docs/physics/femdvr-ecs.md` for the method and its validation benchmarks.
+The method is Rescigno & McCurdy, Phys. Rev. A 62, 032706 (2000); this
+implementation was ported from eMoScat.
 """
 
 from __future__ import annotations

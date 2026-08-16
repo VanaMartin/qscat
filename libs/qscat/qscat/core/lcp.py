@@ -36,7 +36,14 @@ Ha above threshold and the vibrational wavefunction has negligible density).
 The complex ECS tail (R.imag != 0) clamps `Gamma = 0` and freezes the shift
 at its outermost-real-R (asymptotic) value.
 
-See `docs/superpowers/specs/2026-07-27-da-cross-sections-design.md`.
+**Naming caution.** This module's `V_d` is the resonance pole's real part --
+the quantity Vana & Houfek, Phys. Rev. A 95, 022714 (2017) Eq. (41) call
+`E_res(R)`. It is NOT the `V_d(R)` of Houfek, Rescigno & McCurdy, Phys. Rev. A
+77, 012710 (2008) Eq. (20), which is the DISCRETE-STATE potential
+`<phi_d|H_el|phi_d>` of the nonlocal theory. The two only *almost* coincide,
+and only for that paper's "physical" choice of discrete state; this code never
+constructs a `phi_d` at all. See
+`reference/literature/houfek-2008-pra77-012710.md` for the terminology map.
 
 `qscat.core` never imports `qscat.model`/`projects.*` at runtime: `model` is
 typed against the `ResonanceModel` protocol under `TYPE_CHECKING` only,

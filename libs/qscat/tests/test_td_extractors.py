@@ -727,9 +727,8 @@ def test_nuclear_dirac_da_converges_to_ti_oracle() -> None:
     same ratio, but should land in the same general TD-vs-TI cross-method
     band, not at a wildly different constant (which would indicate a wrong
     `_C_DA` or a sign/prefactor error in the point-Hankel transform). Heavy
-    (~86k unknowns x 1500 steps, ~10 min) -- @slow, NOT executed by the
-    implementer (mirrors the already-validated `Flux` sibling; see
-    `.superpowers/sdd/task-3-report.md`).
+    (~86k unknowns x 1500 steps, ~10 min) -- @slow; mirrors the
+    already-validated `Flux` sibling.
     """
     from qscat.core.dissociation import da_cross_section
     from qscat.core.grids import segmented_grid
