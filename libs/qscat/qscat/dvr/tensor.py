@@ -142,7 +142,7 @@ class TensorGrid:
 
 
 def kinetic_nd(tgrid: TensorGrid, masses: Sequence[float]) -> sp.csr_matrix:
-    """`sum_d I x ... x T_d x ... x I`, with `T_d` built at mass `masses[d]`."""
+    """`sum_d I x … x T_d x … x I`, with `T_d` built at mass `masses[d]`."""
     ms = list(masses)
     if len(ms) != tgrid.ndim:
         raise ValueError(f"expected {tgrid.ndim} masses, got {len(ms)}")

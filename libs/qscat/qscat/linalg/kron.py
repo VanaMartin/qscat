@@ -28,7 +28,7 @@ __all__ = ["kron_sum"]
 
 
 def kron_sum(ops: Sequence[sp.spmatrix]) -> sp.csr_matrix:
-    """Assemble `sum_d I x ... x ops[d] x ... x I` as a CSR matrix.
+    """Assemble `sum_d I x … x ops[d] x … x I` as a CSR matrix.
 
     Each `ops[d]` must be square. The result is square with dimension
     `prod(n_d)`. `D == 1` returns `ops[0]` unchanged (as CSR).
