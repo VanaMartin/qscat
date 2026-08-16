@@ -29,3 +29,8 @@ outputs/
 
 # Sphinx build output
 docs/_build/
+
+# Literature (reference/literature): local copies only -- fetch from the URLs in
+# reference/literature/README.md rather than committing PDFs to the repo.
+reference/literature/*
+!reference/literature/README.md
