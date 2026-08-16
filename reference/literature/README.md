@@ -12,7 +12,9 @@ imported or built.
 | File | Reference |
 |---|---|
 | `vana-2017-thesis.pdf` | M. Váňa, *A model of resonant collisions of electrons with molecules and molecular ions*, doctoral thesis, Charles University, Prague, 2017. <https://dspace.cuni.cz/handle/20.500.11956/92902> |
+| `vana-houfek-2017-pra95-022714.pdf` | M. Váňa, K. Houfek, *Time-dependent formulation of the two-dimensional model of resonant electron collisions with diatomic molecules and interpretation of the vibrational excitation cross sections*, Phys. Rev. A **95**, 022714 (2017). <https://doi.org/10.1103/PhysRevA.95.022714> |
 | `sieg.pdf` | D. Hvizdoš, M. Váňa, K. Houfek, C. H. Greene, T. N. Rescigno, C. W. McCurdy, R. Čurík, *Dissociative recombination by frame transformation to Siegert pseudostates: a comparison with a numerically solvable model*, Phys. Rev. A **97**, 022704 (2018). <https://arxiv.org/abs/1710.10333> |
+| `hvizdos-2016-thesis.pdf` | D. Hvizdoš, *Two-dimensional model of dissociative recombination*, master's thesis, Charles University, Prague, 2016. <https://dspace.cuni.cz/handle/20.500.11956/96080> |
 
 ```bash
 mkdir -p reference/literature
@@ -54,6 +56,39 @@ dissociative-recombination model (ch. 4).
 - §3.4 — the boomerang / quasi-bound-state interpretation of the cross-section
   structure.
 - Bibliography — the canonical citations for this work.
+
+## What Váňa & Houfek (2017) covers
+
+**The peer-reviewed publication of this work's electron–molecule side** — the
+time-dependent formulation of the Houfek/Rescigno/McCurdy 2-D model, and the
+published counterpart of the thesis's ch. 3. Prefer it over the thesis when
+citing anything it contains.
+
+- §II — the 2-D model and its parameters.
+- §IV Eqs. (40)/(41) — the local complex potential,
+  `V_res(R) = E_res(R) − (i/2)Γ(R)`, and the statement that **the imaginary part
+  is nonzero only where `V0(R) < E_res(R)`**. This is the peer-reviewed source
+  for the Γ-support condition; the thesis §1.5 repeats it.
+- §VIII — the quasibound-state interpretation: each narrow cross-section peak is
+  a quasibound vibrational state of the anion (an eigenstate in `V_res(R)`),
+  elastic boomerang maxima sit at roughly those energies while the VE 0→1 maxima
+  are displaced, and the NO lifetime estimates (first VE 0→1 peak forming at
+  t > 10 000; lowest state > 30 000 a.u.).
+
+## What Hvizdoš (2016) covers
+
+**The first time-independent solution of the H₂⁺ model** — the master's thesis
+this repo's `dr_cross_section` descends from, supervised by Houfek.
+
+- §1.2.1 and Table 1.1 — the `e⁻ + H₂⁺` model parameters. All match
+  `qscat.model.H2P`, **including µ = 918.076** — a third published source
+  agreeing with Váňa 2017 Table 1.2 and Hvizdoš et al. (2018) §II A against
+  eMoScat's 918.25.
+- §1.3 — FEM-DVR, exterior complex scaling, and the driven-equation solution
+  (solved in place of Lippmann–Schwinger), which is what `qscat.core.driven`
+  and `qscat.core.dissociation` implement.
+- §2.1-2.3 — DR cross sections, convergence tests, and the interpretation of
+  their structures via the Rydberg potential curves `V_n(R)`.
 
 ## What Hvizdoš et al. (2018) covers
 

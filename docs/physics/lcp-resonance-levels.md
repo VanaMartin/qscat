@@ -20,8 +20,8 @@ by this work; this note covers step 2, the nuclear eigenvalue problem in that cu
 The thesis writes the LCP curve and the resulting nuclear Hamiltonian as
 
 ```
-V_res(R) = E_res(R) - (i/2) Gamma(R)                          (Vana 2017, Eq. 1.63)
-H_LCP    = -(1/2 mu) d^2/dR^2 + E_res(R) - (i/2) Gamma(R)      (Vana 2017, Eq. 1.65)
+V_res(R) = E_res(R) - (i/2) Gamma(R)          (Vana & Houfek 2017, PRA 95, Eq. 41)
+H_LCP    = -(1/2 mu) d^2/dR^2 + E_res(R) - (i/2) Gamma(R)      (ibid., Sec. IV)
 ```
 
 qscat's `Vd` **is** the thesis's `E_res` (both names appear in docstrings so the code
@@ -416,7 +416,8 @@ anion levels exist above the crossing is open, and the way to settle it is the
 **A known rough edge, stated plainly rather than smoothed over.** On this runner's
 real F2 preset grid, the electronic pole walk leaves a spurious `Gamma` ~2.3e-5 at
 R≈2.597, right where the anion curve crosses the neutral (`Vd = v0`) and `Gamma` must
-be exactly zero (Vana 2017, Sec. 1.5). This persists at **both** the default 0.05 and
+be exactly zero — the imaginary part is nonzero only where `v0(R) < E_res(R)`
+(Vana & Houfek 2017, PRA 95, Sec. IV). This persists at **both** the default 0.05 and
 the tightened 0.01 electronic-walk half-widths — it is grid-dependent, traced to the
 outer real-segment count, not simply a half-width setting (the library's own toy test
 grid *does* clear it at 0.01: 2.17e-5 -> 3.0e-14 there). Consequently **every F2
