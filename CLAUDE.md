@@ -511,10 +511,13 @@ uv run maturin develop --manifest-path native/qscat-kernels/Cargo.toml
 
 # Lint / type-check
 uv run ruff check .
-# mypy is type-clean over the qscat library (type stubs for the Rust
-# qscat_kernels extension are pending, so repo-wide strict mypy isn't
-# claimed to pass yet):
-uv run mypy libs/qscat
+# mypy is type-clean over the qscat PACKAGE. Point it at `libs/qscat/qscat`,
+# not `libs/qscat` -- the latter also collects `libs/qscat/tests`, where strict
+# mode reports a few hundred pre-existing errors (untyped test helpers), so it
+# looks alarmingly broken while the shipped code is fine. Type stubs for the
+# Rust qscat_kernels extension are pending, so repo-wide strict mypy isn't
+# claimed to pass yet either:
+uv run mypy libs/qscat/qscat
 
 # Build and test the CPU Docker images (base, then test target)
 docker/build.sh test
