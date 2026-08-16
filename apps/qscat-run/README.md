@@ -46,6 +46,7 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 | **energy levels + eigenstate wavefunctions** | `artifacts.eigenstates: true` | `eigenstates/eigenstates_{method}_vibrational.{npz,png}` |
 | **resonance state** (LCP) | `artifacts.eigenstates: true` (LCP-capable molecule) | `resonance/resonance_lcp_resonance.{npz,png}` — complex pole `E_r−iΓ/2` + electronic eigenfunction at the width peak |
 | **LCP scattering states** `ψ_sc(R)` | `wavefunction_snapshots: {ti_energies:[...], full_field: true}` on an `lcp` run | `eigenstates/eigenstates_lcp_scattering.{npz,png}` |
+| **quasi-bound resonance levels** (BO/LCP) | `observables: [{kind: resonance_levels, channels: N}]` on `methods: [lcp]` — needs no `energies:` block — or `artifacts.resonance_levels: true` on an existing LCP run | `resonance_levels_{label}.{csv,npz,png}` — complex levels `E_v−iΓ_v/2`, DVR eigenvectors, the `V_d(R)`/`Γ(R)` curve, and a golden-rule comparator column |
 
 Every run also writes `config.resolved.yaml` (the fully default-filled config)
 and `manifest.json` (qscat version, git SHA, timestamp, backend, timings) for
