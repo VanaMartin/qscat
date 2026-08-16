@@ -51,7 +51,10 @@ attribute (0 for the neutral diatomics — unchanged — and −1 for H₂⁺) a
 charge=−1):
 
 > **Reduced mass.** μ=918.076 is mₚ/2 for the modern proton mass (1836.15267/2), as given by
-> Váňa 2017 Table 1.2 and Hvizdoš et al., *Phys. Rev. A* **97**, 022704 (2018) §II A. eMoScat's
+> three independent published sources: D. Hvizdoš, *Two-dimensional model of dissociative
+> recombination*, master's thesis, Charles University 2016, Table 1.1 (the first time-independent
+> solution of this model, which the present `dr_cross_section` descends from); Váňa 2017
+> Table 1.2; and Hvizdoš et al., *Phys. Rev. A* **97**, 022704 (2018) §II A. eMoScat's
 > JSON deck carries 918.25, which both publications contradict; the port originally inherited
 > that value and it was corrected on 2026-08-15. The 0.019% shift moves H₂⁺ vibrational spacings
 > by ~1e-4 relative — immaterial qualitatively, but wrong for reproducing published numbers.
