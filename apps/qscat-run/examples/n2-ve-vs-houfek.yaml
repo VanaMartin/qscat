@@ -1,0 +1,24 @@
+# N2 vibrational excitation vs Karel Houfek's independent published data.
+#
+# The reference file is COMMITTED (validation/n2/data/CSVE.V00.J00), so this
+# comparison is reproducible from a bare clone. qscat-run reads it by path and
+# does not import `validation` -- the layering rule holds.
+#
+# This is a PRODUCTION deck: `grid: {preset: emoscat}` is the real,
+# convergence-tested grid, not the tiny fast grids the other examples use.
+# Run it under Docker: docker/run.sh apps/qscat-run/examples/n2-ve-vs-houfek.yaml runs/n2-ve
+molecule: N2
+methods: [ti]
+observables:
+  - {kind: ve, channels: [0, 1, 2]}
+energies: {min: 0.04, max: 0.18, step: 0.001}
+grid: {preset: emoscat}
+v_init: 0
+reference:
+  - path: ../../../validation/n2/data/CSVE.V00.J00
+    format: houfek
+    label: "Houfek (2006) CSVE.V00.J00"
+    channels: [0, 1, 2]
+artifacts: {cross_section: true}
+backend: auto
+output_dir: runs/n2-ve-vs-houfek

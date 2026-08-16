@@ -34,6 +34,9 @@ import numpy as np
 import numpy.typing as npt
 import yaml
 
+from qscat_run import reference as _reference
+from qscat_run.reference import ReferenceSpec
+
 __all__ = [
     "ConfigError",
     "Observable",
@@ -47,6 +50,7 @@ __all__ = [
     "CrossSectionVsTimeSpec",
     "WavefunctionSnapshotsSpec",
     "ArtifactSpec",
+    "ReferenceSpec",
     "ExperimentConfig",
     "load_config",
     "validate_config",
@@ -348,6 +352,28 @@ def _load_artifacts(raw: dict[str, Any] | None) -> ArtifactSpec:
     )
 
 
+# --- reference -----------------------------------------------------------
+
+
+def _load_reference(raw: list[Any] | None) -> tuple[ReferenceSpec, ...]:
+    if not raw:
+        return ()
+    out: list[ReferenceSpec] = []
+    for i, item in enumerate(raw):
+        if not isinstance(item, dict) or "path" not in item:
+            raise ConfigError(f"reference[{i}] must be a mapping with a 'path' key")
+        chans = item.get("channels")
+        out.append(
+            ReferenceSpec(
+                path=str(item["path"]),
+                format=str(item.get("format", "houfek")),
+                label=None if item.get("label") is None else str(item["label"]),
+                channels=None if chans is None else tuple(int(c) for c in chans),
+            )
+        )
+    return tuple(out)
+
+
 # --- the top-level config ----------------------------------------------------
 
 
@@ -371,7 +397,14 @@ class ExperimentConfig:
     v_init: int = 0
     td: TdSpec | None = None
     artifacts: ArtifactSpec = field(default_factory=ArtifactSpec)
+    reference: tuple[ReferenceSpec, ...] = ()
     backend: str = "auto"
+    # The directory the config YAML itself lives in, so relative `reference`
+    # paths resolve against the config file rather than the CWD `qscat-run`
+    # happens to be invoked from. Kept LAST so existing positional
+    # `ExperimentConfig(...)` construction (there is none left, but future
+    # callers) is unaffected by this field's addition.
+    config_dir: str | None = None
 
 
 _REQUIRED_KEYS = ("molecule", "methods", "observables", "output_dir")
@@ -396,7 +429,9 @@ def load_config(path: str | Path) -> ExperimentConfig:
         v_init=int(raw.get("v_init", 0)),
         td=_load_td(raw.get("td")),
         artifacts=_load_artifacts(raw.get("artifacts")),
+        reference=_load_reference(raw.get("reference")),
         backend=str(raw.get("backend", "auto")),
+        config_dir=str(Path(path).resolve().parent),
     )
 
 
@@ -409,7 +444,9 @@ def validate_config(cfg: ExperimentConfig) -> None:
     `{ti, td}` -> observables non-empty and each valid for the molecule ->
     `td` block present iff `"td" in methods` -> `td.extractors` all known ->
     an explicit grid supplies both `electronic` and `nuclear` -> a named
-    preset (if given, with no explicit grid) exists for the molecule.
+    preset (if given, with no explicit grid) exists for the molecule ->
+    each `reference` entry names a known `format` and resolves to a file
+    that actually exists.
     """
     from qscat_run import presets  # local import: breaks the config<->presets cycle
 
@@ -506,4 +543,17 @@ def validate_config(cfg: ExperimentConfig) -> None:
         if grid.preset not in available:
             raise ConfigError(
                 f"unknown preset {grid.preset!r} for {cfg.molecule}; available: {sorted(available)}"
+            )
+
+    base = Path(cfg.config_dir) if cfg.config_dir else Path.cwd()
+    for i, ref in enumerate(cfg.reference):
+        if ref.format not in _reference.REFERENCE_FORMATS:
+            raise ConfigError(
+                f"reference[{i}]: unknown format {ref.format!r}; "
+                f"choose one of {sorted(_reference.REFERENCE_FORMATS)}"
+            )
+        resolved = _reference.resolve_path(ref, base)
+        if not resolved.is_file():
+            raise ConfigError(
+                f"reference[{i}]: no such file {ref.path!r} (looked at {resolved})"
             )

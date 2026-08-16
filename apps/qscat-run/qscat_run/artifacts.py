@@ -35,6 +35,7 @@ import numpy.typing as npt  # noqa: E402
 import yaml  # noqa: E402
 
 from qscat_run.config import ExperimentConfig
+from qscat_run.reference import load_reference
 from qscat_run.runner import (
     EigenStates,
     ExperimentResult,
@@ -101,12 +102,22 @@ def _write_cross_section_npz(
 
 
 def _write_cross_section_png(
-    path: Path, energies: npt.NDArray[np.float64], series: dict[str, npt.NDArray[np.float64]]
+    path: Path,
+    energies: npt.NDArray[np.float64],
+    series: dict[str, npt.NDArray[np.float64]],
+    reference: dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]] | None = None,
 ) -> None:
     fig, ax = plt.subplots(figsize=(8, 6))
     for key, sigma in series.items():
         masked = np.where(sigma > 0.0, sigma, np.nan)
         ax.plot(energies, masked, "-", label=key)
+    # A reference dataset keeps ITS OWN energy axis (never interpolated onto
+    # `energies`), so it is overlaid against that axis directly -- dashed and
+    # thinner so it reads as "someone else's data", visually distinct from
+    # the computed curves above.
+    for key, (r_energy, r_sigma) in (reference or {}).items():
+        masked_r = np.where(r_sigma > 0.0, r_sigma, np.nan)
+        ax.plot(r_energy, masked_r, "--", linewidth=1.0, alpha=0.8, label=key)
     ax.set_xlabel("E (Hartree)")
     ax.set_ylabel(r"$\sigma$ (bohr$^2$)")
     ax.set_yscale("log")
@@ -115,6 +126,28 @@ def _write_cross_section_png(
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)
+
+
+def _write_reference(
+    out_dir: Path, series: dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]]
+) -> None:
+    """Reference datasets keep their OWN energy axis, so they get their own
+    files rather than columns in `cross_section.csv` (whose rows are the run's
+    energies). Interpolating published data onto our grid would fabricate
+    values and present them as the reference."""
+    if not series:
+        return
+    with (out_dir / "reference.csv").open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["series", "energy", "sigma"])
+        for key, (energy, sigma) in series.items():
+            for e, s in zip(energy, sigma, strict=True):
+                w.writerow([key, float(e), float(s)])
+    flat: dict[str, npt.NDArray[np.float64]] = {}
+    for key, (energy, sigma) in series.items():
+        flat[f"{key}:energy"] = energy
+        flat[f"{key}:sigma"] = sigma
+    np.savez(out_dir / "reference.npz", **flat)  # type: ignore[arg-type]
 
 
 def _write_correlations_npz(path: Path, correlations: dict[str, npt.NDArray[Any]]) -> None:
@@ -411,11 +444,22 @@ def write_artifacts(
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # Reference datasets keep their own energy axis (see `_write_reference`'s
+    # docstring) -- resolved once here, then both overlaid on the PNG and
+    # written to their own reference.{csv,npz}, whichever/however many
+    # artifacts are requested below.
+    ref_base = Path(cfg.config_dir) if cfg.config_dir else Path.cwd()
+    reference_series: dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]] = {}
+    for ref in cfg.reference:
+        reference_series.update(load_reference(ref, ref_base))
+
     if cfg.artifacts.cross_section and result.cross_sections:
         e, series = result.energies, result.cross_sections
         _write_cross_section_csv(out_dir / "cross_section.csv", e, series)
         _write_cross_section_npz(out_dir / "cross_section.npz", e, series)
-        _write_cross_section_png(out_dir / "cross_section.png", e, series)
+        _write_cross_section_png(out_dir / "cross_section.png", e, series, reference_series)
+
+    _write_reference(out_dir, reference_series)
 
     cvt_spec = cfg.artifacts.cross_section_vs_time
     if cvt_spec is not None and cvt_spec.moments and result.cross_section_vs_time:
