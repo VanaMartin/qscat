@@ -13,11 +13,15 @@ This module is the single source of that transform: `qscat.dvr.grid` uses
 It also carries `find_resonance_pole`, the general two-spectrum resonance-pole
 matcher promoted from the N2 resonance project (`projects/n2_resonance/pole.py`,
 sub-project #2) -- see `docs/physics/n2-resonance.md`.
+
+`match_angle_stable` is its multi-state sibling: same acceptance criterion,
+but it returns EVERY angle-stable eigenvalue in a window (with the indices
+needed to recover the eigenvectors), which is what a level spectrum needs.
 """
 
 from __future__ import annotations
 
 from .map import ecs_map
-from .pole import find_resonance_pole
+from .pole import find_resonance_pole, match_angle_stable
 
-__all__ = ["ecs_map", "find_resonance_pole"]
+__all__ = ["ecs_map", "find_resonance_pole", "match_angle_stable"]

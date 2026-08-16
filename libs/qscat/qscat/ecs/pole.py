@@ -19,15 +19,53 @@ from __future__ import annotations
 import numpy as np
 import numpy.typing as npt
 
-__all__ = ["find_resonance_pole"]
+__all__ = ["find_resonance_pole", "match_angle_stable"]
 
 
-def _filter_window(
+def _window_indices(
     E: npt.NDArray[np.complex128], window: tuple[float, float, float, float]
-) -> npt.NDArray[np.complex128]:
+) -> npt.NDArray[np.intp]:
     re_lo, re_hi, im_lo, im_hi = window
     mask = (E.real >= re_lo) & (E.real <= re_hi) & (E.imag >= im_lo) & (E.imag <= im_hi)
-    return E[mask]
+    return np.flatnonzero(mask)
+
+
+def _paired(
+    eigs_a: npt.ArrayLike,
+    eigs_b: npt.ArrayLike,
+    window: tuple[float, float, float, float],
+    caller: str,
+) -> tuple[
+    npt.NDArray[np.complex128],
+    npt.NDArray[np.complex128],
+    npt.NDArray[np.intp],
+    npt.NDArray[np.intp],
+    npt.NDArray[np.float64],
+]:
+    """Window-filter both spectra and pair each surviving `a` with its nearest `b`.
+
+    Returns `(fa, fb, ia, nearest, dist)`: the windowed values, `ia` their
+    indices into the ORIGINAL `eigs_a`, `nearest[k]` the index into `fb` closest
+    to `fa[k]`, and `dist[k]` that distance. Shared by `find_resonance_pole`
+    (which takes the global argmin) and `match_angle_stable` (which applies a
+    tolerance cut) so there is exactly one implementation of the criterion.
+    """
+    a = np.asarray(eigs_a, dtype=np.complex128)
+    b = np.asarray(eigs_b, dtype=np.complex128)
+    ia = _window_indices(a, window)
+    ib = _window_indices(b, window)
+    if ia.size == 0 or ib.size == 0:
+        raise ValueError(
+            f"{caller}: window {window} contains no eigenvalues in "
+            f"{'eigs_a' if ia.size == 0 else 'eigs_b'} "
+            f"(found {ia.size} in A, {ib.size} in B) -- window too tight "
+            "or spectrum too coarse."
+        )
+    fa, fb = a[ia], b[ib]
+    diffs = np.abs(fa[:, None] - fb[None, :])
+    nearest = np.asarray(np.argmin(diffs, axis=1), dtype=np.intp)
+    dist = np.asarray(diffs[np.arange(fa.size), nearest], dtype=np.float64)
+    return fa, fb, ia, nearest, dist
 
 
 def find_resonance_pole(
@@ -51,22 +89,49 @@ def find_resonance_pole(
     Raises `ValueError` if `window` contains no eigenvalues in either input
     spectrum (window too tight, or grid too coarse to resolve the pole).
     """
-    fa = _filter_window(np.asarray(eigs_a, dtype=np.complex128), window)
-    fb = _filter_window(np.asarray(eigs_b, dtype=np.complex128), window)
+    fa, fb, _ia, nearest, dist = _paired(eigs_a, eigs_b, window, "find_resonance_pole")
+    i = int(np.argmin(dist))
+    ea, eb = fa[i], fb[nearest[i]]
+    return complex(0.5 * (ea + eb)), float(np.abs(ea - eb))
 
-    if fa.size == 0 or fb.size == 0:
-        raise ValueError(
-            f"find_resonance_pole: window {window} contains no eigenvalues in "
-            f"{'eigs_a' if fa.size == 0 else 'eigs_b'} "
-            f"(found {fa.size} in A, {fb.size} in B) -- window too tight "
-            "or spectrum too coarse."
-        )
 
-    # For each candidate in A, distance to nearest candidate in B.
-    diffs = np.abs(fa[:, None] - fb[None, :])
-    idx = np.unravel_index(np.argmin(diffs), diffs.shape)
-    i, j = int(idx[0]), int(idx[1])
-    ea, eb = fa[i], fb[j]
-    residual = float(np.abs(ea - eb))
-    E_pole = complex(0.5 * (ea + eb))
-    return E_pole, residual
+def match_angle_stable(
+    eigs_a: npt.ArrayLike,
+    eigs_b: npt.ArrayLike,
+    window: tuple[float, float, float, float],
+    *,
+    rel_tol: float = 1e-4,
+    atol: float = 1e-8,
+) -> tuple[npt.NDArray[np.complex128], npt.NDArray[np.float64], npt.NDArray[np.intp]]:
+    """Every angle-stable eigenvalue shared by two ECS spectra, not just one.
+
+    The multi-state generalization of `find_resonance_pole`: `eigs_a`/`eigs_b`
+    are complex eigenvalue arrays of the same Hamiltonian at two different ECS
+    rotation angles. An eigenvalue of `eigs_a` inside `window` is ACCEPTED when
+    its nearest `eigs_b` partner satisfies
+
+        |E_a - E_b| < max(rel_tol * |E_a|, atol)
+
+    -- eMoScat's `DiscreteStates` criterion, vectorized. Discretized continuum
+    eigenvalues rotate with the angle and fail it; bound and resonance states do
+    not. Returns `(energies, residuals, indices)`, ascending in `Re E`:
+    `energies` the midpoints `(E_a + E_b)/2` (matching `find_resonance_pole`'s
+    convention), `residuals` the `|E_a - E_b|` per accepted state, and `indices`
+    the positions in the ORIGINAL `eigs_a` -- so a caller holding the grid-`a`
+    eigenvectors can pull the matching columns straight out.
+
+    An empty result is a normal outcome (no stable state in `window`), NOT an
+    error. `ValueError` is raised only when `window` catches nothing at all in
+    one of the two spectra, mirroring `find_resonance_pole`.
+    """
+    fa, fb, ia, nearest, dist = _paired(eigs_a, eigs_b, window, "match_angle_stable")
+    keep = dist < np.maximum(rel_tol * np.abs(fa), atol)
+    energies = 0.5 * (fa[keep] + fb[nearest[keep]])
+    residuals = dist[keep]
+    indices = ia[keep]
+    order = np.argsort(energies.real)
+    return (
+        np.asarray(energies[order], dtype=np.complex128),
+        np.asarray(residuals[order], dtype=np.float64),
+        np.asarray(indices[order], dtype=np.intp),
+    )
