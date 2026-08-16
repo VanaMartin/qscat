@@ -30,7 +30,11 @@ outputs/
 # Sphinx build output
 docs/_build/
 
-# Literature (reference/literature): local copies only -- fetch from the URLs in
-# reference/literature/README.md rather than committing PDFs to the repo.
-reference/literature/*
-!reference/literature/README.md
+# Literature (reference/literature): the SOURCES are local copies only -- fetch
+# them from the URLs in reference/literature/README.md rather than committing
+# PDFs. The extracted reference notes (*.md) ARE tracked: they are what the
+# repository cites, and they must travel with a clone.
+reference/literature/*.pdf
+reference/literature/*.txt
+reference/literature/*.djvu
+reference/literature/*.ps
