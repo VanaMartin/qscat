@@ -6,8 +6,7 @@ sigma-capture electron-molecule interaction `v_int(r, R)` (a `tanh`-gated,
 Gaussian-in-r form distinct from `DiatomicResonanceModel`'s sigmoid+Gaussian
 form), and a `surface` that adds the `charge/r` electron-core Coulomb tail on
 top of the neutral-diatomic terms. Ported (formula only) from the extracted
-H2+ dissociative-recombination model -- see
-`docs/superpowers/sdd/task-2-brief.md`.
+H2+ dissociative-recombination model -- see `docs/physics/h2plus-dr.md`.
 """
 
 from __future__ import annotations
@@ -41,6 +40,16 @@ class IonicResonanceModel:
     a2: float
     a3: float
     a4: float
+
+    # Hvizdos et al., Phys. Rev. A 97, 022704 (2018), Sec. II: the nuclear ECS
+    # angle must stay below pi/8 or the quartic `a3 * R**4` term in `v_int`
+    # diverges under the rotation (4*theta < pi/2). The electronic bound is
+    # pi/4 (from exp(-r^2/3), 2*theta < pi/2). Neutral diatomics have no such
+    # bound -- their Morse + Gaussian forms are entire -- so the `ResonanceModel`
+    # protocol does NOT declare this attribute at all; it is an ionic-only
+    # extension that consumers read with `getattr(model, ..., None)`
+    # (`qscat.core.lcp._check_angle_bound`), treating its absence as "no bound".
+    max_nuclear_ecs_angle_deg: float = 22.5
 
     def v0(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
         """Ion-core Morse potential (Hartree). Minimum -V0 at R0.
