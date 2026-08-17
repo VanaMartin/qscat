@@ -89,3 +89,58 @@ big win over the SuperLU fallback is already in hand.
 
 The Rust kernel crate (`native/qscat-kernels`) is currently a stub; per the
 lifecycle, the Python path stays as the differential oracle for every kernel.
+
+## Thread oversubscription costs ~300× on concurrent sweeps (2026-08-17)
+
+A dense figure-regeneration sweep that should take seconds took hours. The cause
+was not the solver, not the backend, and not the VE path: it was running several
+sweeps **concurrently** with unpinned multithreaded BLAS/MUMPS. Measured on the
+same machine (32 cores), same image, same `backend: auto` (MUMPS), same configs:
+
+| sweep | grid unknowns | energies | 3 concurrent, unpinned | 1 at a time, 8 threads | speedup |
+|---|---|---|---|---|---|
+| N₂ VE | 26 857 | 196 | 2899.8 s | **10.4 s** | **279×** |
+| F₂ VE | 128 568 | 97 | >6840 s (killed) | **26.4 s** | **>259×** |
+| NO VE | 78 804 | 117 | >6840 s (killed) | **20.8 s** | **>330×** |
+
+Three processes on 32 cores cannot cost 300× by fair sharing. Each container's
+BLAS/MUMPS sized its thread pool to the whole machine, so roughly 3 × 32 threads
+contended for 32 cores; spin-waiting and memory-bandwidth saturation degrade a
+sparse factorization catastrophically rather than proportionally. Load average
+sat at 50–80 throughout.
+
+**Operational rule: run sweeps one at a time, and pin the thread count.**
+
+```bash
+docker run --rm -e OMP_NUM_THREADS=8 -e OPENBLAS_NUM_THREADS=8 \
+  -e MKL_NUM_THREADS=8 -e NUMEXPR_NUM_THREADS=8 ...
+```
+
+Correctness was unaffected: the N₂ sweep reproduces Houfek identically either way
+(ratios 0.9996 / 1.0003 / 0.9994 at E = 0.10 from both the 2899 s and the 10.4 s
+run). The contention cost wall-clock, not accuracy.
+
+### Two hypotheses this disproved
+
+Both looked plausible from the slow numbers, and both were wrong:
+
+1. **"The VE path doesn't reuse the symbolic factorization."** It does.
+   Instrumenting `SparseLU` shows VE and DA are identical — 4 energies gives
+   `__init__` (full analysis) ×1 and `refactor` ×3 on *both* paths.
+2. **"VE is intrinsically ~130× slower than DA on the same grid."** An artefact
+   of the contention. Run properly, the per-energy costs are the same order:
+   F₂ VE 0.27 s vs F₂ DA 0.53 s (identical 128 568 grid); NO VE 0.18 s vs NO DA
+   0.37 s. VE is, if anything, cheaper per energy.
+
+The lesson worth keeping: a 300× wall-clock anomaly invited structural
+explanations, and two were constructed before the execution environment was
+ruled out. Vary the run conditions before concluding anything about the code.
+
+### Still open (small, and now much cheaper to test)
+
+- Per-energy cost is **flat** on SuperLU — measured 3.16 s/energy at n = 1, 2, 4
+  on the N₂ deck — because `scipy` re-runs `splu` with no reuse. That is
+  documented behaviour, but it means the default laptop backend gets nothing
+  from `SparseLU.refactor`, whose measured ~5× win is MUMPS-only.
+- The thread count was not tuned: 8 was chosen to leave headroom on a shared
+  machine, not measured as optimal.
