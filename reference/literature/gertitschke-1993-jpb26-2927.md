@@ -14,21 +14,28 @@ layer beyond OCR); many equations extract with substituted/garbled characters
 below are transcribed only where the OCR is unambiguous; where it is not, the
 content is described in prose instead of presented as a literal transcription.
 
-## Scope caveat — this is NOT the paper qModeling's docs currently cite as "Domcke"
+## Scope caveat — this is NOT the paper qModeling's docs cite as "Domcke 1991"
 
 `docs/superpowers/specs/2026-08-15-bo-lcp-resonance-levels-design.md` (and, by
 inheritance, other qModeling docs that cite "Domcke 1991" for the LCP
 formalism) refer to **W. Domcke, *Theory of resonance and threshold effects in
 electron-molecule collisions: the projection-operator approach*, Phys. Rep.
-**208**, 97 (1991)** — a review article. **That review is a different paper and
-is not held in this collection** (no PDF, no note). This note is for the
-*different*, later Gertitschke & Domcke *J. Phys. B* paper, which is a
-numerical companion: it repeatedly cites "Domcke 1991" itself (e.g. p. 2928,
-p. 2930, p. 2932) as the source of the time-dependent projection-operator
-formalism and the LCP/FOCLCP derivation, stating that formalism "has been
-outlined in detail previously (Domcke 1991)" (p. 2930) rather than re-deriving
-it here. Do not use this note as a substitute citation for Phys. Rep. 208, 97
-(1991); the two are related but distinct sources.
+**208**, 97 (1991)** — a review article. That review is a different paper, and
+it **is** now held in this collection: see
+[`domcke-1991-physrep208-97.md`](domcke-1991-physrep208-97.md). Cite that note
+for the formalism. This note is for the *different*, later Gertitschke & Domcke
+*J. Phys. B* paper, which is a numerical companion: it repeatedly cites "Domcke
+1991" itself (e.g. p. 2928, p. 2930, p. 2932) as the source of the
+time-dependent projection-operator formalism and the LCP/FOCLCP derivation,
+stating that formalism "has been outlined in detail previously (Domcke 1991)"
+(p. 2930) rather than re-deriving it here. Do not use this note as a substitute
+citation for Phys. Rep. 208, 97 (1991); the two are related but distinct
+sources.
+
+Note also that a **third** related paper is held: Gertitschke & Domcke,
+Phys. Rev. A **47**, 1031 (1993) — the *time-dependent* wave-packet treatment of
+DA ([`gertitschke-1993-pra47-1031.md`](gertitschke-1993-pra47-1031.md)). Same
+authors, same year, different journal and different content.
 
 ## Why this repository cares
 
@@ -188,8 +195,8 @@ checked against `qscat.model` because there is nothing to check.
   reference, for two illustrative 1-D nuclear models (N₂-like narrow/
   N₂-like-far-from-threshold vs H₂-like broad/near-threshold) — not a general
   theory paper (that role is filled by the Phys. Rep. 208, 97 (1991) review
-  it repeatedly cites and which this repo does not hold; see the scope
-  caveat above).
+  it repeatedly cites — `domcke-1991-physrep208-97.md`; see the scope caveat
+  above).
 
 ## Terminology map
 

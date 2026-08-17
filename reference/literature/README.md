@@ -30,7 +30,9 @@ To write or update a note, use the `mastering-references` skill
 | [`mccurdy-1991-pra43-5980.md`](mccurdy-1991-pra43-5980.md) | C. W. McCurdy, C. K. Stroud, M. K. Wisinski, *Solving the time-dependent Schrödinger equation using complex-coordinate contours*, Phys. Rev. A **43**, 5980 (1991). [DOI](https://doi.org/10.1103/PhysRevA.43.5980) | Origin of ECS + Crank-Nicolson propagation on complex-symmetric matrices — the ancestor of `qscat.evolution`. Carries a third, distinct ECS angle bound. |
 | [`mccurdy-1991-cpc63-323.md`](mccurdy-1991-cpc63-323.md) | C. W. McCurdy, C. K. Stroud, *Eliminating wavepacket reflection from grid boundaries using complex coordinate contours*, Comput. Phys. Commun. **63**, 323 (1991). [DOI](https://doi.org/10.1016/0010-4655(91)90259-N) | Precursor: where ECS-as-absorber for time propagation was first demonstrated. Background, not the repo's cited source. |
 | [`mccurdy-2004-jpb37-r137.md`](mccurdy-2004-jpb37-r137.md) | C. W. McCurdy, M. Baertschy, T. N. Rescigno, *Solving the three-body Coulomb breakup problem using exterior complex scaling*, J. Phys. B **37**, R137 (2004). [DOI](https://doi.org/10.1088/0953-4075/37/17/R01) | The general ECS contour formalism our sharp contour specializes from, and the Wronskian amplitude extraction behind `td_extractors.Flux`. |
-| [`gertitschke-1993-jpb26-2927.md`](gertitschke-1993-jpb26-2927.md) | P. L. Gertitschke, W. Domcke, *Systematically improved local complex potential approximation for the dynamics of electron-molecule collision complexes*, J. Phys. B **26**, 2927 (1993). [DOI](https://doi.org/10.1088/0953-4075/26/17/024) | Corroborating evidence on where LCP holds and fails. **Not** the Phys. Rep. 208 review the docs cite — see below. |
+| [`gertitschke-1993-jpb26-2927.md`](gertitschke-1993-jpb26-2927.md) | P. L. Gertitschke, W. Domcke, *Systematically improved local complex potential approximation for the dynamics of electron-molecule collision complexes*, J. Phys. B **26**, 2927 (1993). [DOI](https://doi.org/10.1088/0953-4075/26/17/024) | Corroborating evidence on where LCP holds and fails. **Not** the Phys. Rep. 208 review — that is `domcke-1991-physrep208-97.md`. |
+| [`domcke-1991-physrep208-97.md`](domcke-1991-physrep208-97.md) | W. Domcke, *Theory of resonance and threshold effects in electron-molecule collisions: the projection-operator approach*, Phys. Rep. **208**, 97 (1991). PII `0370-1573(91)90125-6` | **The canonical nonlocal resonance model.** The nuclear equation `qscat.core.nrm` solves, the LCP limit derived from it, and the Eq. (4.14) coupling PRA 77 disputes. |
+| [`gertitschke-1993-pra47-1031.md`](gertitschke-1993-pra47-1031.md) | P. L. Gertitschke, W. Domcke, *Time-dependent wave-packet description of dissociative electron attachment*, Phys. Rev. A **47**, 1031 (1993). [DOI](https://doi.org/10.1103/PhysRevA.47.1031) | The time-dependent nonlocal treatment of DA. Nothing cites it yet — ingested for the planned TD-NRM sub-project. Quantifies the LCP's e+H₂ failure (14×/23×) and its wave-packet-splitting mechanism. |
 | [`formanek-2010-aip1281-667.md`](formanek-2010-aip1281-667.md) | M. Formánek, M. Váňa, K. Houfek, *Comparison of the Chebyshev Method and the Generalized Crank-Nicholson Method for Time Propagation in Quantum Mechanics*, AIP Conf. Proc. **1281**, 667 (2010). [DOI](https://doi.org/10.1063/1.3498565) | Background: the authors' own efficiency comparison, context for why qscat propagates with Padé rather than Chebyshev. |
 
 ## Fetching the sources
@@ -62,8 +64,13 @@ up front:
 - **`hvizdos-2018-pra97-022704.pdf` is a preprint copy**, self-paginated 1–26
   rather than the journal's `022704-N`. Its note's locators follow the preprint;
   a reader holding the published version must translate.
-- **`mccurdy-1991-pra43-5980.pdf` is a scan with no text layer.** Its note was
-  written from rendered page images; there is no `.txt` extraction to grep.
+- **`mccurdy-1991-pra43-5980.pdf` and `gertitschke-1993-pra47-1031.pdf` are
+  scans with no text layer.** Their notes were written from rendered page
+  images; there is no `.txt` extraction to grep.
+- **`domcke-1991-physrep208-97.pdf` has an OCR text layer that garbles
+  equations.** The `.txt` is usable for locating an equation by number but not
+  for reading it; every equation in that note was verified against a rendered
+  page image. It is an offprint, so extractor page N = printed page `96 + N`.
 
 ## Parity with the code
 
