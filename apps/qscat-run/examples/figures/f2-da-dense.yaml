@@ -1,0 +1,15 @@
+# F2 dissociative attachment, exact 2-D TI vs the LCP approximation, on a DENSE
+# energy grid. Replaces the committed 13-point curves, whose 0.0033 Ha step
+# sampled F2's ~0.004 Ha boomerang features about once per feature -- the note
+# describing those figures states the feature width itself, so the old figures
+# could not support the claims made about them.
+molecule: F2
+methods: [ti, lcp]
+observables:
+  - {kind: da, channels: 1}
+v_init: 0
+energies: {min: 0.010, max: 0.050, step: 0.001}
+grid: {preset: emoscat}
+artifacts: {cross_section: true}
+backend: auto
+output_dir: runs/f2-da-dense
