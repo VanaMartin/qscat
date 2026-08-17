@@ -211,3 +211,53 @@ def test_single_state_matches_an_independent_loop_reference(nuc):
             expected[i, j] = v_dn[i] * g[i, j] * v_dn[j]  # no sqrt(W) anywhere
 
     assert np.allclose(f, expected, rtol=1e-9, atol=1e-14)
+
+
+@pytest.mark.slow
+def test_sigma_da_converges_in_the_state_sum():
+    """sigma_DA must be converged in the Eq. (60) sum over projected states.
+
+    Truncating the sum is how the sweep stays affordable; the number of states
+    is therefore a measured convergence parameter, not a guess.
+
+    The naive 25 -> 50 -> 100 doubling does NOT converge: on this deck (choice
+    B, E=0.03) sigma is still rising 33% from 50 to 100 states, because the
+    dominant contribution comes from a transition band around state index
+    45-90, not from the lowest few states (a genuine physical fact, measured
+    and recorded in task-8-report.md, not a fixture bug). So the ladder is
+    extended to the maximum available, `elec.n - 1 = 131`: sigma at 100 states
+    matches the full 131-state sum to 1e-14 (i.e. states 101-131 contribute
+    nothing on this deck), which IS the legitimate convergence statement --
+    "does the truncated sum reproduce the untruncated one" -- and it is a real
+    assertion: a ladder that stopped at 70 states (2% away from the full sum)
+    would fail it.
+    """
+    import numpy as np
+    from qscat.core.grids import electronic_grid, segmented_grid
+    from qscat.core.nrm import AsymptoticDiscreteState, nrm_da_cross_section
+    from qscat.core.nrm.ingredients import nrm_ingredients
+    from qscat.core.vibrational import vibrational_states
+    from qscat.model import F2
+
+    elec = electronic_grid(r_max=16.0, order=8, n_complex=6)
+    nuc = segmented_grid(
+        ((9, 1.8), (1, 2.0), (5, 2.5), (4, 2.7), (20, 10.7)),
+        ((1, 11.0), (1, 12.5), (1, 14.0), (3, 30.0)),
+        angle_deg=45.0,
+        quadrature=14,
+    )
+    ds = AsymptoticDiscreteState(elec, F2, R_inf=elec.R0)
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    real = nuc.points.imag == 0.0
+    ing = nrm_ingredients(elec, F2, ds, np.sort(nuc.points[real].real)[::-1])
+
+    n_max = elec.n - 1  # all states nonlocal_operator will accept
+    sigmas = [
+        float(
+            nrm_da_cross_section(nuc, elec, F2, ds, eps, chi, 0, 0.03, ingredients=ing, n_states=n)
+        )
+        for n in (25, 50, 100, n_max)
+    ]
+    assert all(np.isfinite(s) and s > 0.0 for s in sigmas)
+    rel = abs(sigmas[3] - sigmas[2]) / sigmas[3]
+    assert rel < 0.01, f"state sum not converged: sigmas={sigmas}, rel={rel:.3g}"
