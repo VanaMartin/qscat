@@ -161,6 +161,29 @@ check that catches a rotated-continuum eigenvalue sitting in a stable corner.
    :members:
 ```
 
+## Nonlocal resonance model
+
+`qscat.core.nrm` -- the Feshbach-projection nonlocal resonance model (NRM) for
+dissociative attachment (Houfek, Rescigno & McCurdy, Phys. Rev. A 77, 012710
+(2008)). It sits between the LCP approximation above and the exact 2-D
+solvers, and is kept as a subpackage that `qscat.core` does not import at
+runtime (see the hard boundary above) -- import it explicitly, e.g.
+`from qscat.core.nrm import nrm_da_cross_section`. See
+`docs/physics/nonlocal-resonance-model.md`.
+
+```{eval-rst}
+.. autoclass:: qscat.core.nrm.DiscreteState
+   :members:
+.. autoclass:: qscat.core.nrm.AsymptoticDiscreteState
+   :members:
+.. autoclass:: qscat.core.nrm.PhysicalDiscreteState
+   :members:
+.. autofunction:: qscat.core.nrm.nrm_ingredients
+.. autoclass:: qscat.core.nrm.NrmIngredients
+   :members:
+.. autofunction:: qscat.core.nrm.nrm_da_cross_section
+```
+
 ## Plotting
 
 ```{eval-rst}

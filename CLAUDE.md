@@ -223,6 +223,39 @@ libs/       qscat — the standard library: validated, reusable QM code
               means anything). N2's own poles are now overlap-verified: 6/6 clean,
               0/6 pairing disagreements -- see
               docs/physics/h2plus-resonance-states.md. Plus
+              Also `nrm` — the **NONLOCAL
+              RESONANCE MODEL** of DA (Houfek/Rescigno/McCurdy, PRA 77, 012710
+              (2008)): the rung between `lcp` and the exact solver, keeping the
+              energy dependence and the NONLOCALITY the LCP discards. Solves the
+              same 1-D nuclear equation but with a complex, energy-dependent
+              kernel `F(E,R,R')` (Eq. 55-61, a P-projected resolvent expanded in
+              the fixed-R electronic eigenbasis) in place of `−iΓ(R)/2`:
+              `scattering` (`φ_k⁺` at real energy), `discrete_state` (the two
+              `φ_d` choices), `coupling` (`V_dk⁺`, `Γ=2π|V_dk⁺|²`), `ingredients`
+              (`E_n(R)`, `V_dn(R)`, `V_d(R)`), `nonlocal_potential`, and
+              `nrm_da_cross_section`. The method is completely determined by the
+              discrete state, and BOTH of PRA 77's implementable choices are
+              provided: `PhysicalDiscreteState` (A, the R-dependent scattering
+              function at `Re E_res(R)`) and `AsymptoticDiscreteState` (B, the
+              R-independent bound state); choice C ("compact") is not
+              implemented. NOTE the naming collision: this package's
+              `v_d_discrete` is PRA 77's Eq. (20) `V_d = V_0 + <φ_d|H_el|φ_d>`,
+              NOT `qscat.core.lcp`'s `Vd` (which is `E_res(R)`) — they only
+              "almost coincide", and differ by 0.0053 Ha (F₂) / 0.0229 Ha (NO) at
+              the doorway. MEASURED: on F₂ choice B reproduces the exact
+              `da_cross_section` oracle to 0.06-0.33% at four of five anchors and
+              1.9% at the lowest (E=0.010, nearest threshold), against an oracle
+              floor of 5.4e-5 — beating the LCP by 39-758× at every anchor —
+              while choice A is degraded (ratio 0.29-0.90), the Born-Oppenheimer
+              breakdown PRA 77 predicts. On NO, which is BEYOND the paper's
+              tested range (PRA 77 publishes no DA cross section for NO at all —
+              NO's DA channel opens at +0.1719 Ha against the paper's plotted
+              0.01-0.08 Ha window, so it is energetically shut there), choice B
+              collapses by 5-8 orders — with NO located defect and NO confirmed
+              mechanism, and with all three approximations flat (LCP 1.04×, A
+              2.47×, B 127×) while the converged exact swings 9397×. DA only (VE
+              needs the background T-matrix, Eq. 37), TI only, F₂/NO only — see
+              docs/physics/nonlocal-resonance-model.md. Plus
               `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
               eMoScat's `(n_elem, endpoint)` deck format, plus `ecs_angle_family`

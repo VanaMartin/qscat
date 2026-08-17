@@ -39,6 +39,9 @@ record limitations and negative results as well as what works.
 
 - {doc}`diatomic-ve-cross-sections` — NO and F₂, and the local-complex-potential
   approximation measured against the exact oracle.
+- {doc}`nonlocal-resonance-model` — the rung above the LCP: a nonlocal,
+  energy-dependent kernel for dissociative attachment. Reproduces the oracle on
+  F₂; collapses on NO for reasons not established.
 - {doc}`h2plus-dr` — dissociative recombination for an ionic target.
 - {doc}`lcp-resonance-levels` — Born–Oppenheimer quasi-bound levels in the
   complex curve.

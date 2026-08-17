@@ -11,6 +11,15 @@ crossed.
 
 Checked in a FRESH interpreter (subprocess): importing `qscat.core` must leave
 `qscat.model` and every `projects.*` module absent from `sys.modules`.
+
+`qscat.core.__init__` does NOT import every submodule (e.g. the `nrm`
+subpackage is never pulled in by a plain `import qscat.core`), so checking
+`sys.modules` right after that bare import would only ever see the modules
+`__init__` happens to load and would pass trivially for anything it doesn't.
+The subprocess therefore walks EVERY submodule of `qscat.core` with
+`pkgutil.walk_packages` and imports each one explicitly before taking the
+`sys.modules` snapshot -- so a future subpackage (like `nrm`) is covered
+automatically, with no enumeration to keep in sync.
 """
 
 from __future__ import annotations
@@ -21,7 +30,10 @@ import sys
 
 def test_qscat_core_does_not_import_model_or_projects() -> None:
     code = (
-        "import qscat.core, sys\n"
+        "import importlib, pkgutil, sys\n"
+        "import qscat.core\n"
+        "for _info in pkgutil.walk_packages(qscat.core.__path__, qscat.core.__name__ + '.'):\n"
+        "    importlib.import_module(_info.name)\n"
         "bad = [m for m in sys.modules "
         "if m == 'qscat.model' or m.startswith('qscat.model.') "
         "or m == 'projects' or m.startswith('projects.')]\n"

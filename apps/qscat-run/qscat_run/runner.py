@@ -90,8 +90,15 @@ from qscat.core.lcp import (
     resonance_eigenstate_at_peak_width,
 )
 from qscat.core.lcp import resonance_levels as lcp_resonance_levels_for_model
+from qscat.core.nrm import (
+    AsymptoticDiscreteState,
+    DiscreteState,
+    PhysicalDiscreteState,
+    nrm_da_cross_section,
+    nrm_ingredients,
+)
 from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
-from qscat.dvr import TensorGrid
+from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.linalg import set_default_backend
 
 from qscat_run import presets
@@ -99,6 +106,7 @@ from qscat_run.config import (
     VALID_EXTRACTORS,
     ConfigError,
     ExperimentConfig,
+    NrmSpec,
     Observable,
     TestFunctionSpec,
 )
@@ -915,14 +923,104 @@ def _run_lcp(
     return cross_sections, eigenstates, resonance_states, levels_runs
 
 
+def _nrm_discrete_state(
+    choice: str,
+    elec: FemDvrEcsGrid,
+    elec_b: FemDvrEcsGrid,
+    nuc: FemDvrEcsGrid,
+    model: ResonanceModel,
+    R_desc: npt.NDArray[np.float64],
+) -> DiscreteState:
+    """PRA 77's discrete state for `choice`, built on this run's decks.
+
+    `R_inf` for choice B is a NUCLEAR coordinate, so it is `nuc.R0` and never
+    the electronic grid's ECS radius -- it must be the outermost node the
+    ingredients are built on, or `phi_d` is not an `H_el` eigenvector there and
+    `nonlocal_operator`'s tail-coupling guard rejects the whole set.
+    """
+    if choice == "b":
+        return AsymptoticDiscreteState(elec, model, R_inf=nuc.R0)
+    return PhysicalDiscreteState(elec, model, R_desc, elec_b)
+
+
+def _run_nrm(
+    cfg: ExperimentConfig,
+    timings: dict[str, float],
+) -> dict[str, npt.NDArray[np.float64]]:
+    """The NRM path: the nonlocal resonance model's DA cross section (PRA 77
+    Eq. 52-54), one series per requested discrete-state choice.
+
+    Keyed `"nrm-a:da:ch0"` / `"nrm-b:da:ch0"`, so `methods: [ti, lcp, nrm]`
+    with `nrm.choices: [a, b]` puts the exact oracle and all three
+    approximations of the SAME cross section on one `cross_section.png` -- the
+    comparison `docs/physics/nonlocal-resonance-model.md` reports.
+
+    Both choices share this run's grids and vibrational basis, and each builds
+    its (energy-independent, expensive) ingredients exactly once before the
+    energy sweep. The nuclear grid, the electronic grid and `v_init` are the
+    same objects the `ti` path uses, so the ratios a reader forms across method
+    prefixes are formed on one discretisation.
+    """
+    if cfg.energies is None:
+        raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
+    energies = cfg.energies.as_array()
+    spec = cfg.nrm or NrmSpec()
+
+    t0 = time.time()
+    nuc, elec, elec_b = presets.resolve_nrm_grids(cfg)
+    timings["nrm:grid"] = time.time() - t0
+
+    model = presets.MODELS[cfg.molecule]
+    n_vib = _n_vib(cfg, cfg.v_init + 1)
+
+    t0 = time.time()
+    eps, chi = vibrational_states(nuc, model.mu, n_vib, model.v0)
+    timings["nrm:vibrational_states"] = time.time() - t0
+
+    # `nonlocal_operator` requires the ingredient nodes to be exactly the
+    # nuclear grid's real nodes, descending.
+    real = nuc.points.imag == 0.0
+    R_desc = np.sort(nuc.points[real].real)[::-1]
+
+    cross_sections: dict[str, npt.NDArray[np.float64]] = {}
+    for choice in spec.choices:
+        t0 = time.time()
+        phi_d = _nrm_discrete_state(choice, elec, elec_b, nuc, model, R_desc)
+        ing = nrm_ingredients(elec, model, phi_d, R_desc)
+        timings[f"nrm-{choice}:ingredients"] = time.time() - t0
+
+        for obs in cfg.observables:
+            if obs.kind != "da":
+                continue  # the NRM produces the DA cross section only
+            t0 = time.time()
+            sigma = nrm_da_cross_section(
+                nuc,
+                elec,
+                model,
+                phi_d,
+                eps,
+                chi,
+                cfg.v_init,
+                energies,
+                ingredients=ing,
+                n_states=spec.n_states,
+            )
+            cross_sections[f"nrm-{choice}:da:ch0"] = np.asarray(sigma, dtype=np.float64)
+            key = f"nrm-{choice}:da"
+            timings[key] = timings.get(key, 0.0) + (time.time() - t0)
+
+    return cross_sections
+
+
 def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     """Resolve `cfg` fully (defaults, backend), run every requested method's
     observables on its own grid, and return the collected result.
 
-    `methods: [ti, td, lcp]` runs each and merges their `cross_sections`/
+    `methods: [ti, td, lcp, nrm]` runs each and merges their `cross_sections`/
     `wavefunctions`/`eigenstates` into one result -- their key prefixes
-    (`"ti:"`/`"td:"`/`"lcp:"`) never collide, so the merge is a plain dict
-    update and `cross_section.png` overlays exact vs approximation.
+    (`"ti:"`/`"td:"`/`"lcp:"`/`"nrm-a:"`/`"nrm-b:"`) never collide, so the
+    merge is a plain dict update and `cross_section.png` overlays exact vs
+    approximation.
     """
     t_start = time.time()
     resolved = presets.resolve_defaults(cfg)
@@ -979,6 +1077,11 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
         eigenstates.extend(lcp_eigenstates)
         resonance_states.extend(lcp_resonance_states)
         resonance_levels.extend(lcp_resonance_levels)
+        if resolved.energies is not None:
+            energies = resolved.energies.as_array()
+
+    if "nrm" in resolved.methods:
+        cross_sections.update(_run_nrm(resolved, timings))
         if resolved.energies is not None:
             energies = resolved.energies.as_array()
 

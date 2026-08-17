@@ -47,6 +47,7 @@ __all__ = [
     "IncidentSpec",
     "TestFunctionSpec",
     "TdSpec",
+    "NrmSpec",
     "CrossSectionVsTimeSpec",
     "WavefunctionSnapshotsSpec",
     "ArtifactSpec",
@@ -56,6 +57,7 @@ __all__ = [
     "validate_config",
     "VALID_METHODS",
     "VALID_EXTRACTORS",
+    "VALID_NRM_CHOICES",
 ]
 
 
@@ -69,8 +71,12 @@ class ConfigError(click.ClickException):
     """
 
 
-VALID_METHODS = frozenset({"ti", "td", "lcp"})
+VALID_METHODS = frozenset({"ti", "td", "lcp", "nrm"})
 VALID_EXTRACTORS = frozenset({"flow", "delta", "tw"})
+# PRA 77's two implemented discrete-state choices (Sec. VI A / VI B); the
+# paper's third, "compact" choice C is not implemented -- see
+# docs/physics/nonlocal-resonance-model.md.
+VALID_NRM_CHOICES = frozenset({"a", "b"})
 
 
 # --- observables -------------------------------------------------------------
@@ -291,6 +297,44 @@ def _load_td(raw: dict[str, Any] | None) -> TdSpec | None:
     )
 
 
+# --- nrm ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class NrmSpec:
+    """The `nrm` block -- optional even when `"nrm" in methods` (these
+    defaults then apply, and `presets.resolve_defaults` writes them into
+    `config.resolved.yaml`).
+
+    `choices` names PRA 77's discrete-state choices to run: `"a"` the
+    R-dependent "physical" state (Sec. VI A), `"b"` the R-independent
+    asymptotic bound state (Sec. VI B). Each requested choice gets its own
+    cross-section key (`nrm-a:da:ch0`, `nrm-b:da:ch0`), so one run overlays
+    both against `ti`/`lcp`. `"b"` alone is the default because it is the
+    choice PRA 77 shows reproducing the exact F2 DA cross section, and the
+    one this repo measured at 0.06-1.9 % of the exact oracle.
+
+    `n_states` truncates the Eq. (60) sum over projected electronic states.
+    100 is the measured value: the F2/NO x A/B ladders reproduce the
+    untruncated sum to numerical identity there, and the sum is NOT
+    front-loaded (n=50 is still 33 % off) -- see
+    docs/physics/nonlocal-resonance-model.md.
+    """
+
+    choices: tuple[str, ...] = ("b",)
+    n_states: int = 100
+
+
+def _load_nrm(raw: dict[str, Any] | None) -> NrmSpec | None:
+    if raw is None:
+        return None
+    choices = raw.get("choices")
+    return NrmSpec(
+        choices=("b",) if choices is None else tuple(str(c).lower() for c in choices),
+        n_states=int(raw.get("n_states", 100)),
+    )
+
+
 # --- artifacts ----------------------------------------------------------------
 
 
@@ -396,6 +440,7 @@ class ExperimentConfig:
     grid: GridSpec = field(default_factory=GridSpec)
     v_init: int = 0
     td: TdSpec | None = None
+    nrm: NrmSpec | None = None
     artifacts: ArtifactSpec = field(default_factory=ArtifactSpec)
     reference: tuple[ReferenceSpec, ...] = ()
     backend: str = "auto"
@@ -450,6 +495,7 @@ def load_config(path: str | Path) -> ExperimentConfig:
         grid=_load_grid(raw.get("grid")),
         v_init=int(raw.get("v_init", 0)),
         td=_load_td(raw.get("td")),
+        nrm=_load_nrm(raw.get("nrm")),
         artifacts=_load_artifacts(raw.get("artifacts")),
         reference=_load_reference(raw.get("reference")),
         backend=str(raw.get("backend", "auto")),
@@ -463,9 +509,10 @@ def validate_config(cfg: ExperimentConfig) -> None:
     combo (N2 `da`, closed-in-range).
 
     Checks, in order: molecule known -> methods are a non-empty subset of
-    `{ti, td}` -> observables non-empty and each valid for the molecule ->
-    `td` block present iff `"td" in methods` -> `td.extractors` all known ->
-    an explicit grid supplies both `electronic` and `nuclear` -> a named
+    `VALID_METHODS` -> observables non-empty and each valid for the molecule
+    -> `td` block present iff `"td" in methods` -> `lcp`/`nrm` each get the
+    observable, grid form and molecule they need -> `td.extractors` all known
+    -> an explicit grid supplies both `electronic` and `nuclear` -> a named
     preset (if given, with no explicit grid) exists for the molecule ->
     each `reference` entry names a known `format`, resolves to a file that
     actually exists, and (if `channels` is given) requests only channels
@@ -479,7 +526,7 @@ def validate_config(cfg: ExperimentConfig) -> None:
         )
 
     if not cfg.methods:
-        raise ConfigError("'methods' must list at least one of {'ti', 'td'}")
+        raise ConfigError(f"'methods' must list at least one of {sorted(VALID_METHODS)}")
     unknown_methods = sorted(set(cfg.methods) - VALID_METHODS)
     if unknown_methods:
         raise ConfigError(
@@ -544,6 +591,55 @@ def validate_config(cfg: ExperimentConfig) -> None:
                 f"the 'lcp' method is not available for {cfg.molecule}; LCP is "
                 "defined only for the DA molecules (F2, NO)"
             )
+
+    if "nrm" in cfg.methods:
+        # The nonlocal resonance model is the OTHER approximation of DA (PRA 77
+        # Eq. 52-54), so like `lcp` it needs a `da` observable and the preset's
+        # paired electronic + fine nuclear decks. It has no VE route at all --
+        # that would need the paper's background T-matrix (Eq. 37), which this
+        # repo does not implement.
+        kinds = {obs.kind for obs in cfg.observables}
+        if "da" not in kinds:
+            raise ConfigError(
+                "methods includes 'nrm' but no 'da' observable is requested; the "
+                "nonlocal resonance model approximates the DA cross section only "
+                "(its VE route needs the background T-matrix, which qscat does not "
+                "implement) -- add `{kind: da, channels: 1}`"
+            )
+        if cfg.grid.electronic is not None or cfg.grid.nuclear is not None:
+            raise ConfigError(
+                "the 'nrm' method does not support an explicit grid (it needs the "
+                "preset's electronic deck at two ECS angles + the fine nuclear "
+                "deck); use `grid: {preset: ...}` (or omit grid) with methods "
+                "including 'nrm'"
+            )
+        variant = cfg.grid.preset or presets.DEFAULT_PRESET
+        nrm_preset = presets.PRESETS.get(f"{cfg.molecule}:{variant}")
+        if nrm_preset is None or nrm_preset.lcp_grids is None:
+            raise ConfigError(
+                f"the 'nrm' method is not available for {cfg.molecule}; the nonlocal "
+                "resonance model is wired for the DA molecules (F2, NO)"
+            )
+        if cfg.nrm is not None:
+            if not cfg.nrm.choices:
+                raise ConfigError(
+                    "'nrm.choices' must name at least one discrete-state choice; "
+                    f"choose from {sorted(VALID_NRM_CHOICES)}"
+                )
+            bad_choices = sorted(set(cfg.nrm.choices) - VALID_NRM_CHOICES)
+            if bad_choices:
+                raise ConfigError(
+                    f"unknown nrm discrete-state choice(s) {bad_choices}; choose from "
+                    f"{sorted(VALID_NRM_CHOICES)} ('a' = the R-dependent physical "
+                    "state, 'b' = the R-independent asymptotic bound state; PRA 77's "
+                    "third 'compact' choice is not implemented)"
+                )
+            if cfg.nrm.n_states < 1:
+                raise ConfigError(
+                    f"'nrm.n_states' must be >= 1, got {cfg.nrm.n_states}; 100 is the "
+                    "measured converged value (see docs/physics/"
+                    "nonlocal-resonance-model.md)"
+                )
 
     if cfg.td is not None:
         bad_extractors = sorted(e for e in cfg.td.extractors if e not in VALID_EXTRACTORS)

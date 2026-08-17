@@ -38,6 +38,7 @@ physics/n2-2d-td-cross-section
 physics/td-extractors
 physics/td-da
 physics/diatomic-ve-cross-sections
+physics/nonlocal-resonance-model
 physics/h2plus-dr
 physics/lcp-resonance-levels
 physics/exact-2d-resonances

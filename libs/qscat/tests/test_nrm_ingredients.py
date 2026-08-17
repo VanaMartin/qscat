@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 import pytest
 from qscat.core.dissociation import anion_electronic_states
@@ -178,8 +180,16 @@ def test_v_dn_continuous_in_R(setup):
     assert np.max(ratio) < 1.0, f"V_dn jump ratio {np.max(ratio):.3g} looks like a sign flip"
 
 
-def test_states_are_c_normalized_via_v_dn_consistency(setup):
-    """V_dn is recomputable from the same quantities the builder used."""
+def test_v_dn_is_finite_and_decays_for_high_states(setup):
+    """V_dn stays finite and its magnitude falls off for the highest,
+    most-oscillatory states.
+
+    (c-normalization itself is checked directly, against an independent
+    Hermitian-normalized recomputation, by
+    `test_p_space_eigenvectors_are_c_normalized` and
+    `test_v_dn_reflects_c_normalized_eigenvectors` above -- this test does
+    not exercise that property.)
+    """
     g, ds, R = setup
     ing = nrm_ingredients(g, F2, ds, R)
     assert np.all(np.isfinite(ing.V_dn))
@@ -194,6 +204,45 @@ def test_coupling_decays_at_large_R(setup):
     inner = np.abs(ing.V_dn[-1, :20]).max()  # R = 1.8
     outer = np.abs(ing.V_dn[0, :20]).max()  # R = 6.0
     assert outer < 0.5 * inner
+
+
+def test_min_overlap_warns_on_a_synthetic_tracking_failure(setup, monkeypatch):
+    """`nrm_ingredients` must warn when `_sign_align`'s overlap looks like a
+    tracking failure (Task 2's fix: NO's physical discrete state hits
+    `min|c_product| = 3.3e-15` at the crossing -- see
+    docs/physics/nonlocal-resonance-model.md Sec. 10 -- and that failure
+    previously had no signal at all, only a docstring caveat).
+
+    Monkeypatching `_sign_align` to report a fabricated near-zero overlap,
+    while leaving its actual (correct) vectors untouched, isolates the
+    warning's WIRING in `nrm_ingredients` from needing a genuinely
+    pathological electronic structure to reproduce the failure here.
+    """
+    g, ds, R = setup
+    real_sign_align = ingredients_module._sign_align
+    calls = [0]
+
+    def fabricated_sign_align(prev_vecs, vecs):
+        out, _overlap = real_sign_align(prev_vecs, vecs)
+        calls[0] += 1
+        overlap = 1e-10 if calls[0] == 1 else _overlap
+        return out, overlap
+
+    monkeypatch.setattr(ingredients_module, "_sign_align", fabricated_sign_align)
+    with pytest.warns(UserWarning, match="tracking failure"):
+        ing = nrm_ingredients(g, F2, ds, R)
+    assert ing.min_overlap == pytest.approx(1e-10)
+
+
+def test_min_overlap_does_not_warn_on_a_clean_run(setup):
+    """The unmodified fixture must not warn -- `warnings.simplefilter("error")`
+    turns any warning into a failure, so this fails loudly if the threshold in
+    `_MIN_OVERLAP_WARN` is ever miscalibrated against a genuine, clean run."""
+    g, ds, R = setup
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        ing = nrm_ingredients(g, F2, ds, R)
+    assert ing.min_overlap > 0.5
 
 
 def test_rejects_ascending_R(setup):

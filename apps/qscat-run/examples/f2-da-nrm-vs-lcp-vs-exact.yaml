@@ -1,0 +1,55 @@
+# qscat-run example: F2 dissociative attachment computed FOUR ways in ONE run --
+# exactly (`ti`, the 2-D driven solve, the oracle), and by the three resonance
+# approximations under test: `lcp` (local complex potential) and `nrm` with both
+# of PRA 77's discrete-state choices (`a` = the R-dependent "physical" state,
+# `b` = the R-independent asymptotic bound state).
+#
+# The four cross sections land under disjoint keys -- `ti:da:ch0`, `lcp:da:ch0`,
+# `nrm-a:da:ch0`, `nrm-b:da:ch0` -- so `cross_section.png` is the whole
+# comparison on one axis. That figure is committed as
+# docs/physics/figures/f2-da-nrm-vs-lcp-vs-exact.png; the numbers behind it, and
+# what they mean, are in docs/physics/nonlocal-resonance-model.md.
+#
+# Like `lcp`, `nrm` has no explicit-grid form: it needs the preset's electronic
+# deck at two ECS angles plus the fine per-molecule nuclear deck, so it always
+# runs on `grid: {preset: emoscat}` (the production F2 deck). This is NOT a fast
+# example: measured 1002 s end to end on a 12-core laptop (SuperLU), of which
+# 780 s is the exact 2-D `ti` sweep alone, at ~14 GB peak RSS on F2's
+# 132 x 974 = 128,568-unknown factorization. Run it under Docker/MUMPS, or
+# locally with nothing else large running.
+#
+# Run:
+#   qscat-run validate apps/qscat-run/examples/f2-da-nrm-vs-lcp-vs-exact.yaml
+#   qscat-run run apps/qscat-run/examples/f2-da-nrm-vs-lcp-vs-exact.yaml \
+#       --output runs/f2-da-nrm
+
+molecule: F2
+methods: [ti, lcp, nrm]
+
+observables:
+  - {kind: da, channels: 1}   # 1 dissociation channel
+
+v_init: 0
+
+# 0.010 ... 0.050 Ha. F2's DA channel is exothermic (threshold -0.0691 Ha), so
+# it is open at every positive E; this window brackets the near-threshold rise
+# where the LCP's error changes sign.
+energies: {min: 0.010, max: 0.050, step: 0.005}
+
+grid: {preset: emoscat}
+
+nrm:
+  # Both discrete-state choices, so the figure carries the Born-Oppenheimer
+  # breakdown (choice A) next to the choice PRA 77 shows reproducing the exact
+  # F2 DA cross section (choice B).
+  choices: [a, b]
+  # The measured Eq. (60) state-sum truncation: n=100 reproduces the
+  # untruncated 131-state sum to numerical identity for both molecules and both
+  # choices. The sum is NOT front-loaded -- n=50 is still ~33% off.
+  n_states: 100
+
+artifacts:
+  cross_section: true
+
+backend: auto
+output_dir: runs/f2-da-nrm

@@ -25,6 +25,26 @@ from qscat_run.runner import run_experiment
 __all__ = ["main"]
 
 
+def _resolve_method_grids(cfg: Any, method: str) -> str:
+    """Build `method`'s grids and return a one-line description of them.
+
+    `ti`/`td` share the tensor-grid resolver; the two 1-D-nuclear
+    approximations do not. `lcp` and `nrm` both need the preset's paired
+    two-ECS-angle electronic decks plus the fine nuclear deck, which the
+    ti/td `TensorGrid` shape cannot express, so each has its own resolver --
+    routing them through `resolve_grid` would make `validate`/`--dry-run`
+    reject configs `run` supports.
+    """
+    if method in ("lcp", "nrm"):
+        # NOTE the order: both resolvers return (nuclear, elec_a, elec_b),
+        # nuclear FIRST.
+        resolver = presets.resolve_lcp_grids if method == "lcp" else presets.resolve_nrm_grids
+        g_nuc, g_ea, _g_eb = resolver(cfg)
+        return f"nuclear={g_nuc.points.size} electronic={g_ea.points.size} (x2 ECS angles)"
+    tg = presets.resolve_grid(cfg, method)
+    return f"shape={tg.shape} size={tg.size}"
+
+
 @click.group()
 def main() -> None:
     """qscat-run -- a config-driven CLI for 2-D electron-diatomic model experiments."""
@@ -46,14 +66,7 @@ def validate_cmd(config_path: str) -> None:
     resolved = presets.resolve_defaults(cfg)
     for method in resolved.methods:
         try:
-            # `lcp` has no ti/td-style tensor grid: it needs the preset's paired
-            # two-ECS-angle electronic decks plus the fine nuclear deck, so it
-            # has its own resolver. Routing it through `resolve_grid` made
-            # `validate` reject a committed example that `run` supports.
-            if method == "lcp":
-                presets.resolve_lcp_grids(resolved)
-            else:
-                presets.resolve_grid(resolved, method)
+            _resolve_method_grids(resolved, method)
         except ConfigError:
             raise
         except Exception as exc:  # noqa: BLE001 -- surface as an actionable ConfigError
@@ -159,7 +172,8 @@ def _scaffold_yaml(molecule: str, obs_kinds: list[str], methods: list[str]) -> s
     header = (
         f"# qscat-run starter config for {molecule}, scaffolded by `qscat-run init`.\n"
         f"# molecule: N2 | NO | F2 | H2P\n"
-        f"# methods: any subset of [ti, td, lcp] (lcp = local-complex-potential DA, F2/NO only)\n"
+        f"# methods: any subset of [ti, td, lcp, nrm] (lcp = local-complex-potential DA,\n"
+        f"#          nrm = nonlocal resonance model DA; both F2/NO only)\n"
         f"# observables: a list of {{kind, channels}}; {molecule} supports kind in {valid_kinds}\n"
         f"# grid.preset: one of {variants} (or an explicit {{electronic, nuclear}} grid)\n"
         "# See docs/superpowers/specs/2026-08-01-qscat-run-cli-design.md for the full schema.\n"
@@ -180,7 +194,7 @@ def _scaffold_yaml(molecule: str, obs_kinds: list[str], methods: list[str]) -> s
 @click.option(
     "--methods",
     default="ti",
-    help="Comma-separated methods, e.g. 'ti,td' or 'ti,lcp' (default: 'ti').",
+    help="Comma-separated methods, e.g. 'ti,td' or 'ti,lcp,nrm' (default: 'ti').",
 )
 @click.option(
     "-o",
@@ -248,23 +262,12 @@ def run_cmd(config_path: str, output_dir: str | None, backend: str | None, dry_r
         click.echo(f"energies: {n_energies}")
         for method in resolved.methods:
             try:
-                # See the same branch in `validate_cmd`: `lcp` uses its own
-                # grid resolver, not the ti/td tensor grid.
-                if method == "lcp":
-                    # NOTE the order: resolve_lcp_grids returns
-                    # (nuclear, elec_a, elec_b), nuclear FIRST.
-                    g_nuc, g_ea, _g_eb = presets.resolve_lcp_grids(resolved)
-                    click.echo(
-                        f"grid[lcp]: nuclear={g_nuc.points.size} "
-                        f"electronic={g_ea.points.size} (x2 ECS angles)"
-                    )
-                    continue
-                tg = presets.resolve_grid(resolved, method)
+                described = _resolve_method_grids(resolved, method)
             except ConfigError:
                 raise
             except Exception as exc:  # noqa: BLE001 -- surface as an actionable ConfigError
                 raise ConfigError(f"failed to build the {method!r} grid: {exc}") from exc
-            click.echo(f"grid[{method}]: shape={tg.shape} size={tg.size}")
+            click.echo(f"grid[{method}]: {described}")
         click.echo(f"output_dir: {resolved.output_dir}")
         click.echo(f"backend: {resolved.backend}")
         return

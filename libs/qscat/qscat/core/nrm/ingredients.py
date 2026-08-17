@@ -62,6 +62,7 @@ there is no open channel).
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
@@ -88,6 +89,16 @@ _MIN_NORM2 = 1e-12
 _NULL_ENERGY_RATIO = 1e-3
 _NULL_OVERLAP_MIN = 0.5
 
+# Below this, `_sign_align`'s overlap looks like a tracking failure (the
+# wrong P-space state paired between adjacent R), not a genuine sign flip --
+# `nrm_ingredients` warns rather than silently sign-flipping noise. Measured
+# legitimate minima on the production decks: 0.891 (F2/A), 0.996 (F2/B),
+# 0.99999 (NO/B) -- all comfortably above 0.5. The known-bad case, NO's
+# choice-A crossing (docs/physics/nonlocal-resonance-model.md Sec. 10), hits
+# 3.3e-15, ten-plus orders of magnitude below every legitimate value, so 0.5
+# has margin on both sides without being tuned to that one failure.
+_MIN_OVERLAP_WARN = 0.5
+
 
 @dataclass(frozen=True)
 class NrmIngredients:
@@ -107,12 +118,22 @@ class NrmIngredients:
     V_dn : ndarray
         `(n_R, n_states)` discrete-continuum couplings of Eq. (59), aligned
         with `E_n`.
+    min_overlap : float
+        Diagnostic: the minimum `|c_product(prev, cur)|` seen by `_sign_align`
+        across the whole `R` walk, over every tracked state. Near `1.0` means
+        `_track` paired the same physical P-space state at every adjacent
+        `(R_j, R_{j+1})`; a value near `0` means it did not -- a tracking
+        failure, silently sign-"corrected" rather than raised (see
+        `nrm_ingredients`, which warns below `_MIN_OVERLAP_WARN`). Defaults to
+        `1.0` for an `NrmIngredients` built directly (e.g. in tests) rather
+        than through `nrm_ingredients`, where no walk was performed.
     """
 
     R: npt.NDArray[np.float64]
     v_d_discrete: npt.NDArray[np.complex128]
     E_n: npt.NDArray[np.complex128]
     V_dn: npt.NDArray[np.complex128]
+    min_overlap: float = 1.0
 
 
 def _c_normalize_columns(
@@ -193,7 +214,7 @@ def _track(
 
 def _sign_align(
     prev_vecs: npt.NDArray[np.complex128], vecs: npt.NDArray[np.complex128]
-) -> npt.NDArray[np.complex128]:
+) -> tuple[npt.NDArray[np.complex128], float]:
     """Orient each (already order-tracked) eigenvector against its predecessor.
 
     c-normalization (`c_product(v, v) = 1`) fixes an eigenvector only up to
@@ -206,6 +227,17 @@ def _sign_align(
     bilinear in `V_dn(R_i)` and `V_dn(R_j)` for the SAME `n`. Columns must
     already be in `prev_vecs`'s state order (post-`_track`) before calling
     this -- it aligns sign only, not identity.
+
+    Returns
+    -------
+    tuple
+        The sign-aligned vectors, and `min(|overlap|)` across every tracked
+        state at this `R` step. A genuine same-state pair sits near `|+-1|`
+        regardless of sign; a value close to 0 means `_track`'s nearest-
+        eigenvalue match paired the WRONG physical state (a tracking
+        failure, not a sign flip) -- `_sign_align` cannot tell that apart
+        from a real sign flip, so the caller surfaces the magnitude
+        separately (`NrmIngredients.min_overlap`).
     """
     overlaps = np.array(
         [c_product(prev_vecs[:, i], vecs[:, i]) for i in range(vecs.shape[1])],
@@ -218,7 +250,7 @@ def _sign_align(
     signs = np.sign(overlaps.real)
     signs[signs == 0.0] = 1.0
     out: npt.NDArray[np.complex128] = vecs * signs
-    return out
+    return out, float(np.min(np.abs(overlaps)))
 
 
 def nrm_ingredients(
@@ -253,6 +285,13 @@ def nrm_ingredients(
     ConvergenceError
         If the `P H_el P` null mode cannot be identified unambiguously, or an
         eigenvector is c-product self-orthogonal.
+
+    Warns
+    -----
+    UserWarning
+        If the minimum `_sign_align` overlap across the `R` walk falls below
+        `_MIN_OVERLAP_WARN` -- a likely tracking failure (see
+        `NrmIngredients.min_overlap`).
     """
     R = np.asarray(R_values, dtype=np.float64)
     if R.size > 1 and np.any(np.diff(R) >= 0.0):
@@ -265,6 +304,7 @@ def nrm_ingredients(
     ident = np.eye(elec_grid.n, dtype=np.complex128)
     prev_evals: npt.NDArray[np.complex128] | None = None
     prev_vecs: npt.NDArray[np.complex128] | None = None
+    min_overlap = 1.0
 
     for j in range(R.size):
         d = phi_d.phi_d(float(R[j]))
@@ -277,11 +317,27 @@ def nrm_ingredients(
         if prev_evals is not None and prev_vecs is not None:
             order = _track(prev_evals, evals)
             evals, vecs = evals[order], vecs[:, order]
-            vecs = _sign_align(prev_vecs, vecs)  # identity tracked; sign not
+            vecs, step_min_overlap = _sign_align(prev_vecs, vecs)  # identity tracked; sign not
+            min_overlap = min(min_overlap, step_min_overlap)
         prev_evals, prev_vecs = evals, vecs
 
         v_d[j] = complex(model.v0(float(R[j]))) + d @ (h_el @ d)  # Eq. (20)
         e_n[j] = evals  # Eq. (56)
         v_dn[j] = d @ (h_el @ vecs)  # Eq. (59)
 
-    return NrmIngredients(R=R, v_d_discrete=v_d, E_n=e_n, V_dn=v_dn)
+    if min_overlap < _MIN_OVERLAP_WARN:
+        warnings.warn(
+            f"nrm_ingredients: minimum |_sign_align overlap| across the R "
+            f"walk is {min_overlap:.3g} (< {_MIN_OVERLAP_WARN}), which looks "
+            "like a tracking failure -- the wrong P-space state paired "
+            "between adjacent nuclear nodes -- rather than a genuine sign "
+            "flip. Eq. (60)/(61) will silently use the mispaired V_dn(R)/"
+            "E_n(R) as if they belonged to one physical state. A hard error "
+            "would be the better end state here (not raised: changing this "
+            "to ConvergenceError requires updating "
+            "validation/diatomic/nrm.py's gate too). See "
+            "docs/physics/nonlocal-resonance-model.md Sec. 5 and Sec. 10.",
+            stacklevel=2,
+        )
+
+    return NrmIngredients(R=R, v_d_discrete=v_d, E_n=e_n, V_dn=v_dn, min_overlap=min_overlap)
