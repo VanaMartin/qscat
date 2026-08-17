@@ -162,9 +162,14 @@ libs/       qscat — the standard library: validated, reusable QM code
               `V_d(R)/Γ(R)` via `qscat.ecs.find_resonance_pole`, seeded from the
               anion state) + `lcp_da_cross_section` (1-D TI resolvent, boundary-
               wavefunction-VALUE flux `ψ(X)=ψ_coeff[b]/√w_b`, on the fine
-              per-molecule nuclear grid). F₂ σ_DA agrees with the exact-2D to
-              ~11% away from threshold; documented departures near threshold
-              (LCP misses the exact's spike) and in VE-elastic (LCP misses the
+              per-molecule nuclear grid). The LCP's error is SYSTEMATIC and
+              ENERGY-DEPENDENT, not a fixed percentage: on F₂ the ratio
+              LCP/exact sweeps 0.263 → 1.736 across 0.010–0.050 Ha, crossing
+              unity near E≈0.032 (dense 41-energy sweep, 2026-08-17), so it
+              under-predicts below ~0.03 and over-predicts above. On NO it
+              fails outright away from threshold: the exact σ_DA decays 13
+              orders of magnitude while the LCP stays flat, reaching a ratio of
+              1.8e9. Documented departures also in VE-elastic (LCP misses the
               non-resonant background) — see
               docs/physics/diatomic-ve-cross-sections.md. Also
               `resonance_levels`/`lcp_resonance_levels` (+ `ResonanceLevels`): the
@@ -305,7 +310,8 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               (`wavepacket.py`/`td_propagation.py`/`correlation.py`/
               `td_cross_section.py`/`convergence.py`/`observation.py`),
               validated against the exact 2-D solver as an exact differential
-              oracle (σ_TD/σ_TI = 0.93 at E=0.10, 1.10 at E=0.15). The
+              oracle (σ_TD/σ_TI = 0.973 at E=0.10, 0.988 at E=0.15 — measured
+              2026-08-17 by `validation.n2.experiment` group F1). The
               ELASTIC (v'=v_init) channel subtracts a free-particle (V_int=0)
               reference S_free(E) instead of a literal 1 — the transform's
               outgoing normalization makes S_free≈2π²≠1, so |S−1|² left a ~500×
@@ -355,8 +361,9 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               solver code. The committed figures (`docs/physics/figures/{no,f2}-
               2d-ti-cross-section.png`, `{f2,no}-2d-ti-da-cross-section.png`,
               `{f2,no}-2d-da-lcp-vs-exact.png`) remain the sub-project-A/B
-              deliverables (LCP ~11% of exact away from threshold; documented
-              near-threshold departure). `config.py` remains, trimmed to its one
+              deliverables (the LCP's error is energy-dependent, not a fixed
+              percentage — see the qscat.core.lcp entry above). `config.py`
+              remains, trimmed to its one
               surviving job: the eMoScat per-molecule NUCLEAR deck definitions
               (`MoleculeConfig.da_grid()`) the **discretisation tuner** reads as
               its reproduce-and-beat reference; `test_da_grid.py::
