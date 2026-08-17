@@ -1,0 +1,12 @@
+# F2 vibrational excitation, exact 2-D TI, DENSE. Replaces a 25-point curve at
+# 0.004 Ha step -- about one sample per ~0.004 Ha boomerang feature.
+molecule: F2
+methods: [ti]
+observables:
+  - {kind: ve, channels: [0, 1, 2]}
+v_init: 0
+energies: {min: 0.004, max: 0.100, step: 0.001}
+grid: {preset: emoscat}
+artifacts: {cross_section: true}
+backend: auto
+output_dir: runs/f2-ve-dense

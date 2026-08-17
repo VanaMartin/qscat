@@ -5,6 +5,12 @@
 ARG BASE_IMAGE=qmodeling-base:latest
 
 FROM ${BASE_IMAGE} AS build
+# The build context excludes .git (.dockerignore), so `git rev-parse`
+# has no repo inside the image and qscat-run's manifest recorded
+# git_sha="unknown" for every containerised run. The host passes its SHA
+# in instead; qscat_run.artifacts reads QSCAT_GIT_SHA first.
+ARG GIT_SHA=unknown
+ENV QSCAT_GIT_SHA=${GIT_SHA}
 WORKDIR /app
 COPY . .
 # --all-packages installs qscat AND builds/installs the Rust qscat_kernels.

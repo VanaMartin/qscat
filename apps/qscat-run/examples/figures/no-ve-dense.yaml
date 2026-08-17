@@ -1,0 +1,13 @@
+# NO vibrational excitation, exact 2-D TI, DENSE, over the FULL range of the
+# figure it replaces (30 points at 0.004 Ha). NO's v'=1 is measured to swing
+# 5.7x across a single 0.002 Ha step, so this range genuinely needs 0.001.
+molecule: 'NO'   # QUOTED: YAML 1.1 reads bare NO as boolean false
+methods: [ti]
+observables:
+  - {kind: ve, channels: [0, 1, 2]}
+v_init: 0
+energies: {min: 0.004, max: 0.120, step: 0.001}
+grid: {preset: emoscat}
+artifacts: {cross_section: true}
+backend: auto
+output_dir: runs/no-ve-dense

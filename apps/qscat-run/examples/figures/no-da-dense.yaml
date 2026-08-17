@@ -1,0 +1,13 @@
+# NO dissociative attachment, exact 2-D TI vs LCP, DENSE energy grid.
+# Replaces the committed 12-point curves at a 0.0136 Ha step -- by far the
+# coarsest sampling in the documentation.
+molecule: 'NO'   # QUOTED: YAML 1.1 reads bare NO as boolean false
+methods: [ti, lcp]
+observables:
+  - {kind: da, channels: 1}
+v_init: 0
+energies: {min: 0.150, max: 0.300, step: 0.001}
+grid: {preset: emoscat}
+artifacts: {cross_section: true}
+backend: auto
+output_dir: runs/no-da-dense

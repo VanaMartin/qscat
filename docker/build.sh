@@ -32,6 +32,7 @@ if [ "$base" = "cpu" ]; then
 fi
 
 docker build --build-arg "BASE_IMAGE=${base_tag}" \
+  --build-arg "GIT_SHA=$(git rev-parse HEAD 2>/dev/null || echo unknown)" \
   --target "$target" -t "qmodeling:${target}-${base}" -f docker/Dockerfile .
 
 echo "built ${base_tag} and qmodeling:${target}-${base}"

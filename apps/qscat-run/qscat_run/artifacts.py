@@ -19,6 +19,7 @@ from __future__ import annotations
 import csv
 import dataclasses
 import json
+import os
 import platform
 import subprocess
 from importlib import metadata
@@ -56,6 +57,14 @@ def _git_sha() -> str:
     `qscat-run` is invoked from -- `git rev-parse` walks up from `cwd` to
     find the repo root, so any path inside the repo works.
     """
+    # Baked in at image build time. The Docker build context excludes `.git`
+    # (see .dockerignore), so `git rev-parse` inside a container has no repo to
+    # read and every containerised run recorded "unknown" -- defeating the one
+    # thing the manifest exists for. `docker/build.sh` and `docker/run.sh` pass
+    # the host's SHA as a build arg.
+    baked = os.environ.get("QSCAT_GIT_SHA", "").strip()
+    if baked:
+        return baked
     try:
         out = subprocess.run(
             ["git", "rev-parse", "HEAD"],

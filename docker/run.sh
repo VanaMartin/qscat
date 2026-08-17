@@ -24,12 +24,26 @@ mkdir -p "$output_dir"
 
 export DOCKER_BUILDKIT=0
 docker build -t qmodeling-base:latest -f docker/base.Dockerfile .
-docker build --target test -t qmodeling:test -f docker/Dockerfile .
+docker build --build-arg GIT_SHA="$(git rev-parse HEAD 2>/dev/null || echo unknown)" --target test -t qmodeling:test -f docker/Dockerfile .
+
+# Mount the config at the SAME path it occupies in the repo, so that any
+# RELATIVE path inside it (e.g. a `reference:` pointing at
+# ../../../validation/n2/data/...) resolves in the container exactly as it does
+# on the host. Mounting everything at /config.yaml made repo-relative configs
+# resolve against / and fail. Falls back to /config.yaml for a config that
+# lives outside the repo.
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null || echo "")"
+config_abs="$(realpath "$config")"
+if [[ -n "$repo_root" && "$config_abs" == "$repo_root"/* ]]; then
+  in_image="/app/${config_abs#"$repo_root"/}"
+else
+  in_image="/config.yaml"
+fi
 
 docker run --rm \
-  -v "$(realpath "$config")":/config.yaml:ro \
+  -v "$config_abs":"$in_image":ro \
   -v "$(realpath "$output_dir")":/out \
   qmodeling:test \
-  uv run --no-sync qscat-run run /config.yaml --output /out
+  uv run --no-sync qscat-run run "$in_image" --output /out
 
 echo "wrote artifacts to ${output_dir}"
