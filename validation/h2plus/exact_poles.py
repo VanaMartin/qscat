@@ -16,78 +16,96 @@ already).
 vibrational threshold ABOVE the level (not `eps[0]`). Levels above the cutoff
 are not isolated resonances in the first place -- Rydberg spacing falls as
 `n^-3`, so peaks merge before widths do -- and are deliberately excluded, not
-silently dropped. Of the 11 BO levels inside the three windows, exactly two
-are cut, both sitting just under a threshold: `Ry_2 v=7` (E = 0.017768 Ha,
-`n_eff` = 19.5) and `Ry_2 v=9` (E = 0.026313 Ha, `n_eff` = 18.0). `main()`
-prints both as DROPPED rows so a run states its own exclusions.
+silently dropped. Of the 28 BO levels inside the three windows, **six** are cut
+and `main()` prints each as a DROPPED row so a run states its own exclusions:
+`Ry_2 v=7` (`n_eff` 19.5), `Ry_5 v=3` (14.9), `Ry_5 v=4` (13.2) and the
+`Ry_11 v=1,2,3` trio (12.7-12.8). Note the cutoff's stated premise -- that
+near-threshold states are poorly described -- is NOT what the shift table
+below shows: the high-`n` levels are the best described of the set, so the
+`Ry_11` exclusions are a scope choice about which peaks are isolated enough to
+be worth calling resonances, not a numerical necessity.
 
-**Results at the r_max = 300 bohr electronic box.** Three BO levels seeded per
-window; the exact solver returned 18, 13 and 14 poles.
+**Results at the r_max = 300 bohr electronic box.** 22 in-scope BO levels
+seeded (8, 8 and 6 per window); the exact solver returned **19, 18 and 21**
+poles.
 
-**A withdrawn claim.** An earlier reading of that arithmetic said "18 poles for
-3 BO levels, so the BO level list is not a complete inventory of a window's
-resonances." That was an artifact of THIS module's own enumeration, not a
-result. `_bo_levels` was building curves 0-4 on a ~60-bohr electronic box which
-cannot hold an `n_eff >= 6` orbital, so every `Ry_5+` level was missing by
-construction. Enumerated on a box that holds them (see `_bo_levels`), the
-windows contain **9, 11 and 8** BO levels, not 3 each -- and the poles that
-still look unpaired sit where the `v=1` Rydberg series accumulates and pair to
-`Ry_12+` levels beyond even the widened cutoff. Every exact pole appears to have
-a BO partner once the series is enumerated far enough.
+**A withdrawn claim.** An earlier run seeded only 3 levels per window -- all
+this module's truncated enumeration could then find -- returned 18, 13 and 14
+poles, and that arithmetic was read as "18 poles for 3 BO levels, so the BO
+level list is not a complete inventory of a window's resonances." That was an
+artifact of the enumeration, not a result. `_bo_levels` was building curves 0-4
+on a ~60-bohr electronic box which cannot hold an `n_eff >= 6` orbital, so
+every `Ry_5+` level was missing by construction. Enumerated on a box that holds
+them, the windows contain **9, 11 and 8** BO levels, not 3 each.
 
-What survives is better than the withdrawn claim, because it is about physics
-rather than counting: **the shift depends on which regime the level is in.**
-High-`n` Rydberg levels are nearly BO-exact -- `Ry_6..Ry_11` at `v=1,2,3` shift
-by <= 0.5 meV -- while compact low-`n`, high-`v` levels shift by several meV
-(`Ry_3 v=3` +3.60, `Ry_4 v=2` -3.15, `Ry_2 v=6` -4.78, `Ry_4 v=4` -15.6). A
-distant Rydberg electron follows the nuclei adiabatically; a compact one
-overlapping the dissociative channel does not. `resonance_state_figures.py`
-shows the two regimes at the same energy, repelling.
+Seeding those properly also changed the poles, which is why the counts above
+differ from the earlier run: +1, +5 and +7. The under-seeding did lose real
+states, and window 0 (+1) is not representative of that.
 
-Each BO level paired to the pole nearest it:
+Each BO level paired to a pole ONE-TO-ONE (`pair_one_to_one`; see there for why
+nearest-neighbour is the wrong algorithm here). All 28 levels match -- 9, 11
+and 8 in the three windows -- with `gap` the distance from the assigned pole to
+the nearest OTHER level, i.e. how much room the assignment had:
 
-| window | BO level | E_BO (Ha) | E_exact (Ha) | shift (meV) | Gamma (meV) | ratio |
-|---|---|---|---|---|---|---|
-| 0 | `Ry_4 v=2` | -0.093564 | -0.093680 | **-3.161** | 0.0152 | 0.07 |
-| 0 | `Ry_3 v=3` | -0.092075 | -0.092097 | **-0.598** | 0.1822 | 0.03 |
-| 0 | `Ry_2 v=5` | -0.091428 | -0.091397 | **+0.832** | 0.1513 | 0.05 |
-| 1 | `Ry_2 v=6` | -0.085266 | -0.085237 | **+0.790** | 0.1900 | 0.10 |
-| 1 | `Ry_4 v=3` | -0.084948 | -0.084918 | **+0.815** | 0.6188 | 0.09 |
-| 1 | `Ry_3 v=4` | -0.084151 | -0.083785 | +9.966 | 0.4014 | 0.31 |
-| 2 | `Ry_2 v=8` | -0.075189 | -0.075173 | **+0.446** | 0.1568 | 0.01 |
-| 2 | `Ry_4 v=4` | -0.076875 | -0.076355 | (+14.155) | 0.9012 | **1.17** |
-| 2 | `Ry_3 v=5` | -0.076801 | -0.076355 | (+12.141) | 0.9012 | **0.86** |
+| window | level | E_BO (Ha) | E_exact (Ha) | shift (meV) | gap (meV) |
+|---|---|---|---|---|---|
+| 0 | `w^6_1` | -0.096041 | -0.096041 | -0.002 | 48.1 |
+| 0 | `w^7_1` | -0.094273 | -0.094305 | -0.871 | 20.1 |
+| 0 | `w^4_2` | -0.093566 | -0.093680 | **-3.097** | 16.1 |
+| 0 | `w^8_1` | -0.093019 | -0.092997 | +0.585 | 15.5 |
+| 0 | `w^9_1` | -0.092097 | -0.092097 | -0.003 | 0.5 |
+| 0 | `w^3_3` | -0.092078 | -0.091943 | **+3.670** | 4.2 |
+| 0 | `w^2_5` | -0.091431 | -0.091397 | (+0.921) | 0.1 |
+| 0 | `w^10_1` | -0.091399 | -0.091288 | +3.035 | 3.9 |
+| 0 | `w^11_1` | -0.090859 | -0.090859 | +0.010 | 14.7 |
+| 1 | `w^2_6` | -0.085270 | -0.085442 | **-4.680** | 11.3 |
+| 1 | `w^4_3` | -0.084951 | -0.084918 | +0.886 | 2.9 |
+| 1 | `w^3_4` | -0.084154 | -0.083785 | (+10.049) | 0.6 |
+| 1 | `w^8_2` | -0.083761 | -0.083578 | +4.984 | 15.7 |
+| 1 | `w^9_2` | -0.082833 | -0.082825 | +0.212 | 18.9 |
+| 2 | `w^4_4` | -0.076878 | -0.077449 | **-15.541** | 17.5 |
+| 2 | `w^7_3` | -0.076301 | -0.075902 | +10.870 | 23.8 |
+| 2 | `w^9_3` | -0.074090 | -0.074091 | -0.026 | 19.3 |
 
-Bold shifts are the ones worth quoting. They run **-3.2 to +0.8 meV**, an order
-of magnitude larger than the N2 result in `docs/physics/exact-2d-resonances.md`
-(0.22 meV) and, unlike N2's, **not one-signed** -- `Ry_4 v=2` and `Ry_3 v=3`
-move down while the rest move up, so the Born-Oppenheimer correction here is
-not a uniform lowering.
+(abridged; `pair_one_to_one` regenerates the full 28.) Parenthesised rows have
+a shift larger than half their gap, so the pairing itself is not safe there --
+`w^2_5` in particular sits 0.06 meV from its neighbour. 21 of the 28 pairs are
+clear of that test, and their shifts span **-4.68 to +10.87 meV**.
 
-The last two rows are **not individually assignable** and their shifts are
-parenthesised for that reason. `Ry_4 v=4` and `Ry_3 v=5` are the 74 uHa pair
-this module's `exact_poles` docstring flags in advance: both come out nearest
-to the SAME pole (-0.076355), and `Ry_4 v=4`'s `assignment_ratio` of 1.17
-exceeds 1, meaning that pole is closer to the OTHER BO level than to its own.
-`Ry_3 v=4`'s 0.31 is marginal rather than broken. Everything else is
-unambiguous at <= 0.10, with angle residuals at or below 1e-17.
+**The shift sorts by regime, and that is the result.** Median |shift| is
+**0.390 meV for the high-n Rydberg levels (Ry >= 6, 17 pairs)** against
+**3.097 meV for the compact low-n ones (Ry < 6, 11 pairs)** -- an eightfold
+separation. A distant Rydberg electron follows the nuclei adiabatically, so its
+level is nearly BO-exact; a compact low-n state overlapping the dissociative
+channel is not. Both regimes are an order of magnitude beyond N2's 0.22 meV
+(`docs/physics/exact-2d-resonances.md`) and neither is one-signed.
 
-**Where these poles have been checked against data**, and where that check
-fails, is in `dr_levels_figure.py`: in windows 0 and 1 they sit a median 0.2
-resonance widths from the published cross-section peaks, but in window 2 they
-are 13.9 widths off -- and so are the BO levels (15.5), which is why that is
-read as a problem with the window rather than with the approximation. Window
-2's per-level numbers should not be quoted.
+`w^9_1` and `w^3_3` are the two regimes meeting: 20 uHa apart in the BO
+picture, they come out -0.003 and +3.670 meV shifted, so the exact treatment
+splits a near-degeneracy eightfold and asymmetrically.
+`resonance_state_figures.py` shows the pair -- one diffuse, one compact.
+
+**Where these poles have been checked against data** is `dr_levels_figure.py`:
+against the published cross-section peaks they sit a median **0.2** resonance
+widths away in windows 0 and 1 and **3.3** in window 2 (the BO levels, for
+comparison, 0.8 / 3.7 / 30.4). Window 2 was 13.9 widths on the under-seeded
+run, so most of what looked like a window-2 anomaly was missing poles rather
+than the threshold proximity earlier drafts proposed. It remains the worst of
+the three and the closest to a threshold; that is a candidate for the residual,
+not an established cause.
 
 Pole widths across the window span 0.004-0.52 meV (1.4e-7 to 1.9e-5 Ha). That
 matches the resonance width scale measured independently from the published
 cross-section sweep (median FWHM 2e-5 Ha, docs/physics/h2plus-dr.md) -- and it
 is why that sweep cannot be compared pointwise.
 
-**Box convergence: the positions are converged, the COUNT is not.** Repeating
-every window at r_max = 600 leaves each pole found at 300 unmoved -- |dE| from
-2.8e-17 up to 3.8e-9 for the topmost, i.e. converged well past the precision
-anyone would quote. The shifts tabulated above are therefore box-converged.
+**Box convergence: the positions are converged, the COUNT is not.** Measured on
+the earlier 3-seed run (the 300-vs-600 comparison has not been repeated at full
+seeding, and does not need to be for the positions: it is the same operator).
+Repeating every window at r_max = 600 left each pole found at 300 unmoved --
+|dE| from 2.8e-17 up to 3.8e-9 for the topmost, i.e. converged well past the
+precision anyone would quote. The shifts tabulated above are therefore
+box-converged.
 
 The number of poles is not, and it does not even move in a consistent
 direction: 18 -> 22 in window 0, but 13 -> 10 in window 1 and 14 -> 13 in
@@ -130,11 +148,12 @@ from qscat.core.grids import fem_grid_exp_tail, nuclear_grid
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.model import H2P
 from qscat.units import HARTREE_TO_EV
+from scipy.optimize import linear_sum_assignment
 
 from validation.h2plus.config import full_grid
 from validation.h2plus.rydberg_levels import RydbergLevels, rydberg_levels
 
-__all__ = ["Seed", "PoleResult", "exact_poles", "main"]
+__all__ = ["Seed", "PoleResult", "exact_poles", "pair_one_to_one", "main"]
 
 # Published DR windows, electron energy E = e_tot - EPS0 (Ha).
 #
@@ -265,6 +284,43 @@ def _bo_levels() -> RydbergLevels:
         n_vib=8,
         allow_partial=True,
     )
+
+
+def pair_one_to_one(
+    pole_energy: npt.NDArray[np.float64],
+    level_energy: npt.NDArray[np.float64],
+    *,
+    max_distance: float = 1.0e-3,
+) -> dict[int, int]:
+    """Match poles to BO levels ONE-TO-ONE, minimising the total displacement.
+
+    Returns `{pole index: level index}`, omitting any pair further apart than
+    `max_distance` (default 1 mHa, comfortably wider than the largest credible
+    shift and narrower than the level spacing).
+
+    **Why not nearest-neighbour.** Assigning each pole to whichever level is
+    closest treats the poles independently, so two poles can claim one level
+    while another level goes unclaimed -- and it is worst exactly where the
+    physics is most interesting. At E ~ 0.0055 Ha the BO levels `omega_1^9` and
+    `omega_3^3` sit 20 uHa apart while the exact poles sit 154 uHa apart:
+    nearest-neighbour hands both poles to `omega_1^9` and reports the second
+    pairing at `assignment_ratio` 0.87, i.e. "ambiguous", when in fact it is
+    fully determined once you require the matching to be a bijection. On the
+    corrected (denser) BO level set 33 of 58 poles come out "ambiguous" that
+    way, which is a defect of the algorithm rather than of the data.
+
+    A minimum-total-cost assignment uses the constraint the physics supplies --
+    distinct states pair with distinct levels -- and resolves those cases. It
+    is not infallible: where a whole neighbourhood is denser than the shifts,
+    the global optimum can still permute members within it, so a pairing is
+    only as trustworthy as the local spacing. `report_shift_table` prints the
+    per-pair distance so that stays visible.
+    """
+    if pole_energy.size == 0 or level_energy.size == 0:
+        return {}
+    cost = np.abs(pole_energy[:, None] - level_energy[None, :])
+    rows, cols = linear_sum_assignment(cost)
+    return {int(r): int(c) for r, c in zip(rows, cols, strict=True) if cost[r, c] <= max_distance}
 
 
 def find_seeds() -> tuple[list[Seed], list[Seed]]:
