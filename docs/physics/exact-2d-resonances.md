@@ -100,6 +100,14 @@ resonance levels** — the differences are sub-meV throughout. Their precise siz
 is a convergence question, answered next; the numbers in the table above are the
 production deck's, and for `v >= 3` they are *not* converged.
 
+That verdict is specific to **this observable on this molecule**, and does not
+carry over. On σ_DA cross sections the same local approximation does poorly and
+in an energy-dependent way — on F₂ the LCP/exact ratio sweeps 0.263 → 1.736
+across 0.010–0.050 Ha, and on NO it misses the exponential decay away from
+threshold entirely (see `docs/physics/diatomic-ve-cross-sections.md`).
+Reproducing where a resonance *sits* is a weaker demand than reproducing how
+much flux leaves through a given exit channel.
+
 ### Converging the difference
 
 Both sides depend on the electronic discretization — the BO levels come from an
