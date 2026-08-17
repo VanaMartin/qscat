@@ -9,10 +9,17 @@ Both discrete-state choices of PRA 77 Sec. VI are run:
   A -- `PhysicalDiscreteState`, the scattering function at Re E_res(R)
   B -- `AsymptoticDiscreteState`, the R-independent bound state
 The paper predicts B near-exact for DA and A degraded by a Born-Oppenheimer
-breakdown, most severely for the wider resonances (NO, F2). Measured here,
-that holds on F2 (B within 1.9%, A down to 0.29 of exact) and INVERTS on NO
-(A within 1-2 orders, B five to eight orders below exact) -- see
-`test_nrm.py`, which records both halves as assertions.
+breakdown. Measured here, that holds on F2: B lands within 1.9% of the exact
+2-D oracle at the anchor nearest threshold and within 0.06-0.33% at the other
+four, while A falls to 0.29 of exact.
+
+PRA 77 PUBLISHES A DA CROSS SECTION FOR F2 ONLY. NO's DA channel opens at
++0.1719 Ha, above every NO window the paper plots (0.01-0.08 Ha), and N2's at
++0.5016 Ha -- both are energetically shut throughout the published data, so
+Sec. VI B's "gives exact results" for DA rests on the single F2 panel. NO is
+therefore an UNTESTED regime, not a counter-example: what the four routes do
+there is recorded by `test_nrm.py` as an observation, and choice B's absolute
+scale is unexplained.
 
 ENERGIES ARE PER MOLECULE. The DA channel opens at `E = eps_e - eps[v_init]`,
 measured here at **-0.069 Ha for F2** (open at every positive `E`) but at

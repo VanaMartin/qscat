@@ -92,6 +92,24 @@ _MIN_NORM2 = 1e-12
 # built on either production deck at all. 3e-5 keeps a 2.4x margin over both
 # measurements while staying two orders below a genuine resonance width there.
 #
+# WIDENING THIS CANNOT CHANGE WHICH STATE IS SELECTED, for a structural reason
+# rather than an empirical one. On an ECS grid the rotated continuum lies at
+# `Re(E) > 0`, so `Re(E) < 0` already restricts the candidates to genuine
+# bound states plus states straddling threshold; a DEEPLY bound state has
+# `|Im|` orders of magnitude below either tolerance and is admitted at both.
+# So relaxing the bound can only admit ADDITIONAL near-threshold states, whose
+# `Re(E)` is necessarily LESS negative than any state already admitted --
+# `eigen` returns ascending `Re(E)`, so they sort after the incumbent and
+# `bound[0]` is unchanged. The relaxation strictly turns former
+# `ConvergenceError`s into classifications; it cannot silently re-point an
+# existing one.
+#
+# SCOPE: this constant is read by `PhysicalDiscreteState` only (choice A).
+# `AsymptoticDiscreteState` (choice B) goes through
+# `dissociation.anion_electronic_states` and its own `_IM_TOL_HA`, so every
+# choice-B result -- including the headline F2 sigma_DA agreement -- is
+# independent of the value chosen here.
+#
 # KNOWN DESIGN LIMITATION: an ABSOLUTE |Im(E)| bound is intrinsically arbitrary
 # near a crossing, where the state passes continuously from bound to resonant
 # and both parts shrink together -- which is why it needed re-sizing per deck
