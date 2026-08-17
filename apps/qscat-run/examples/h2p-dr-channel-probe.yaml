@@ -1,0 +1,42 @@
+# H2+ DR: is the systematic channel-1 deficit a property of DIFFUSE exit states?
+#
+# Compared against a previously obtained reference sweep, sigma_DR0 here agrees
+# (geometric mean 0.98, scattering symmetrically) while sigma_DR1 sits a flat
+# ~30% low with no energy dependence -- see docs/physics/h2plus-dr.md.
+#
+# One mechanism fits a flat, channel-specific factor: the exit states differ
+# enormously in extent (ch0 is compact and deeply bound, n_eff 0.60; ch1 is the
+# n=2 Rydberg state, n_eff 2.00), so a normalization that is contaminated by the
+# electronic box or the ECS tail would bite the diffuse state and spare the
+# compact one, and would not vary with energy because the state does not.
+#
+# That mechanism makes a falsifiable prediction: ch2 (n_eff 3.02, more diffuse
+# still) should be off by MORE than ch1. If instead ch2 matches ch1's ~1.3, the
+# factor is not about diffuseness; if ch2 agrees while ch1 does not, it is
+# specific to the n=2 state and the mechanism is wrong either way.
+#
+# These are the three flattest energies in the range where all three channels
+# are open (the reference's DR_2 column turns on at 0.042803 Ha), each kept
+# 1e-3 Ha clear of a vibrational threshold -- threshold-adjacent energies are
+# independently unreliable here, see the same note.
+#
+# Full deck -> MUMPS/compute-host only.
+#
+#     docker/run.sh apps/qscat-run/examples/h2p-dr-channel-probe.yaml runs/h2p-dr-chan
+molecule: H2P
+methods: [ti]
+
+observables:
+  - {kind: dr, channels: 3}
+
+v_init: 0
+energies:
+  values: [0.045259, 0.047465, 0.049122]
+
+grid: {preset: emoscat}
+
+artifacts:
+  cross_section: true
+
+backend: mumps
+output_dir: runs/h2p-dr-chan

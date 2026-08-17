@@ -1,0 +1,38 @@
+# H2+ DR validation against a previously obtained reference sweep.
+#
+# The energies are chosen so the comparison is WELL CONDITIONED, which for this
+# observable is the whole difficulty. This repository's Rydberg level positions
+# agree with the reference's own table to ~3e-6 Ha, but the DR resonances riding
+# on those levels have a median FWHM of 2e-5 Ha -- and 54 of the reference's 80
+# prominent peaks are narrower than two of its 1e-5 Ha samples. On a resonance
+# flank a 3e-6 Ha position difference moves sigma by ~26%, so sampling sigma at
+# a structured energy measures the position agreement, not the cross section.
+#
+# So these six energies are the flattest in the sweep: each varies by under 15%
+# (the first, by under 2%) across +-6e-5 Ha -- a window 20x our position
+# agreement -- in BOTH open channels at once. There a position difference cannot
+# move sigma appreciably and what survives is the normalization.
+#
+# Reference values carry a 2*pi this repository does not (VE differs by
+# (2*pi)^2). See docs/physics/h2plus-dr.md.
+#
+# Full deck -> MUMPS/compute-host only, ~17.4 s per energy (measured).
+#
+#     docker/run.sh apps/qscat-run/examples/h2p-dr-validation.yaml runs/h2p-dr-val
+molecule: H2P
+methods: [ti]
+
+observables:
+  - {kind: dr, channels: 3}
+
+v_init: 0
+energies:
+  values: [0.009543, 0.011549, 0.024017, 0.028459, 0.031024, 0.036824]
+
+grid: {preset: emoscat}
+
+artifacts:
+  cross_section: true
+
+backend: mumps
+output_dir: runs/h2p-dr-val

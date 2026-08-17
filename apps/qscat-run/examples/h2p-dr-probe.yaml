@@ -1,0 +1,13 @@
+# Cost probe: two energies on the FULL deck, to measure per-energy cost and
+# confirm the analysis-reuse path holds at ~1.15M unknowns. Not a physics run.
+molecule: H2P
+methods: [ti]
+observables:
+  - {kind: dr, channels: 3}
+v_init: 0
+energies: {min: 0.0120, max: 0.0121, step: 0.0001}
+grid: {preset: emoscat}
+artifacts:
+  cross_section: true
+backend: mumps
+output_dir: runs/h2p-dr-probe
