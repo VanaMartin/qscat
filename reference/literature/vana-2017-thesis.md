@@ -43,6 +43,11 @@ side.
 | **Table 2.1** — N₂-like/NO-like FEM-DVR-ECS grids | p. 28 | reference grid, differs from the eMoScat deck (see Findings) |
 | **Table 2.2** — F₂-like/H₂⁺-like FEM-DVR-ECS grids | p. 29 | reference grid, differs from the eMoScat deck (see Findings) |
 | §3.4 boomerang / quasi-bound-state interpretation | p. 52–56 | `docs/physics/n2-resonance.md`'s narrative; conceptual basis for `qscat.ecs`'s resonance-eigenstate work |
+| **Table 4.1** — asymptotic electron energies of the Rydberg series `Ry_0/Ry_1/Ry_2` | p. 62 | `validation/h2plus/test_rydberg_levels.py::test_curve_asymptotes_match_table_4_1` (a GATE, not prose) |
+| **Fig. 4.3** — Rydberg electron-energy curves `E_Ry_j(R)` and their vibrational levels `ω_i^j`; its **caption fixes the index convention** | p. 64 | `validation/h2plus/rydberg_levels.py` (quoted there; settles `energies[j, i]` = `ω_i^j`) |
+| **Fig. 4.7** — DR₀/DR₁ cross sections over three energy windows with `ω_i^j` marked | p. 70 | the form `validation/h2plus/dr_levels_figure.py` reproduces |
+| **Fig. 4.10** — zoomed `σ_DR1` minima against `Re S_DR1` / `Im S_DR1` | p. 73 | not used yet — the S-matrix-zero reading of the minima |
+| **Table 4.2** — overlap `abs(<ω_i^j, Ψ⁺(R,r;E)>)` at two energies | p. 73 | not used yet — assignment of a cross-section feature to a quasi-bound state |
 
 ## Equations
 
@@ -151,6 +156,35 @@ Hvizdoš et al. (2018) §II A) agreeing on `µ = 918.076`, against eMoScat's own
 JSON deck value of `918.25` — see `libs/qscat/qscat/model/library.py:63-66`'s
 own comment on this discrepancy, already recorded in the Hvizdoš et al.
 (2018) note.
+
+**Table 4.1**, p. 62 — asymptotic (`R → ∞`) electron energies of the H₂⁺
+Rydberg series:
+
+| Curve | Published (Ha) |
+|---|---|
+| `Ry_0` | −1.384 927 76 |
+| `Ry_1` | −0.124 999 96 |
+| `Ry_2` | −0.054 810 37 |
+
+Reproduced by `validation/h2plus/rydberg_levels.py` to ~5e-5 Ha on its reduced
+electronic deck, and gated at `atol=2e-4` in
+`test_rydberg_levels.py::test_curve_asymptotes_match_table_4_1` (verified
+2026-08-17 by running that test). `Ry_1` and `Ry_2` are the hydrogenic `n = 2`
+and `n = 3` levels to the digits shown (−0.125, −0.0555); `Ry_0` is the
+model's deeply bound σ state and is not hydrogenic.
+
+**Fig. 4.3 caption**, p. 64 — the index convention, quoted because the repo's
+array layout depends on it: "the vibrational levels in the electron energy
+potential `E_Ry_j` [are] labeled with `omega_i^j`, where `i` is the vibrational
+level and `j` stands for the corresponding Rydberg state number." So `i` is
+vibrational and `j` is the curve. `validation/h2plus/rydberg_levels.py` stores
+`energies[j, i]` and says so (verified against this caption, 2026-08-17; an
+earlier draft had assumed the opposite).
+
+A separate computed level table for this model — the full `ω_i^j` ladder rather
+than the three asymptotes — is held as data at
+`validation/h2plus/data/omega_levels.asc`, with the repository's agreement
+against it recorded in `validation/h2plus/reference_levels.py`.
 
 ## Findings and limits
 
