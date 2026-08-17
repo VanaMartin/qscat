@@ -99,9 +99,10 @@ the resolvent #6 computes directly.
    reference; `sigma_from_correlations(..., free_result=...)` consumes it). This
    also cancels, to leading order, the small already-outgoing tail any displaced
    Gaussian carries (it evolves identically in the free reference). With the
-   reference subtracted, the elastic channel matches the exact TI solver to
-   within ~15% across the resolved usable window (elastic TD/TI = 1.03–1.14 for
-   E = 0.13–0.17 Ha on the working grid, from ~500x wrong). The residual
+   reference subtracted, the elastic channel matches the exact TI solver to a
+   few percent (measured elastic TD/TI ≈ 1.01 at E = 0.14 and ≈ 0.99 at
+   E = 0.15, gated at `rel=0.08` by `test_v2c_td_elastic_matches_ti_with_free_reference`
+   — from ~500× wrong before the reference was subtracted). The residual
    near-threshold elastic degradation (the `1/eta_out` deconvolution grows
    ill-conditioned as `k -> 0`: `sqrt(2k/pi) -> 0` and the outgoing Hankel's
    `y_l(kr) ~ (kr)^-(l+1)` diverges) is a documented low-E limit, not this bug —
@@ -117,18 +118,19 @@ candidates, the regular Riccati-Bessel function (`F = sqrt(2k/pi) r j_l(kr)`, th
 (`F^out = sqrt(2k/pi) r h_l^{(1)}(kr) / 2`, since `j_l = (h_l^{(1)}+h_l^{(2)})/2`).
 Measured directly against the exact-TI oracle:
 
-| T | E | F_out = regular | F_out = Hankel/2 |
-|---|---|---|---|
-| 1500 | 0.10 | ratio 0.00001 | ratio 1.101 |
-| 1500 | 0.15 | ratio 0.00000 | ratio 1.144 |
-| 1800 | 0.10 | ratio 0.00001 | ratio 1.113 |
-| 1800 | 0.15 | ratio 0.00000 | ratio 1.234 |
+the regular choice gives `sigma_TD/sigma_TI` of order `1e-5` — five to six orders of
+magnitude too small — at every `(T, E)` tried, while the Hankel half brings it to `O(1)`
+immediately, with no further normalization factor needed beyond the `/2`.
 
-The regular function gives `sigma_TD` five to six orders of magnitude too small; the
-Hankel half brings it to `O(1)` immediately, with no further normalization factor needed
-beyond the `/2`. A discriminator this large cannot be produced by tuning Gaussian
-wavepacket parameters — it settles a genuine physics question (which free function
-represents "outgoing flux") structurally, before any fitting could occur.
+A discriminator this large cannot be produced by tuning Gaussian wavepacket parameters, so
+it settles a genuine physics question (which free function represents "outgoing flux")
+structurally, before any fitting could occur — and, being a five-order-of-magnitude effect,
+it is entirely independent of propagator accuracy.
+
+(The specific `O(1)`-column ratios once tabulated here — 1.101/1.144/1.113/1.234 at
+`T = 1500/1800` — were order-1 Crank-Nicolson measurements and no longer describe the code;
+the current agreement is the few-percent figure measured below. The `1e-5`-vs-`O(1)`
+discriminator is unaffected by that correction, which is the whole point of relying on it.)
 
 **2. The resonance fully depletes — the literal "observe formation and decay" result.**
 `||Psi(t)||` drops from `1.0` at `t=0` to `0.024` by `T=1500` (measured profile:
@@ -150,33 +152,32 @@ autodetachment picture the resonance model describes.
 
    | E (Ha) | v' | sigma_TD (bohr²) | sigma_TI (bohr²) | ratio |
    |---|---|---|---|---|
-   | 0.10 | 1 | 5.6973 | 6.1228 | **0.9305** |
-   | 0.15 | 1 | 0.6904 | 0.6258 | **1.1033** |
+   | 0.10 | 1 | 5.9595 | 6.1228 | **0.9733** |
+   | 0.15 | 1 | 0.6185 | 0.6258 | **0.9884** |
 
-   (`test_td_cross_section.py`'s `@slow` V2a tests, rtol 0.10 / 0.15 respectively — the
-   E=0.15 tolerance is documented as a window-edge loosening, see below, not a masked
-   bug.)
-3. **The reviewer-confirmed genuineness check.** Both anchors' ratios **bracket 1.0**
-   (0.9305 below, 1.1033 above) rather than sitting consistently on one side — a
-   systematic normalization error (a wrong prefactor, a missing factor of 2, a sign error)
-   would push both ratios the same direction. Bracketing, combined with the independent
-   five-order-of-magnitude `F_out` discriminator above, is what the code review confirmed
-   as evidence the transform is genuinely correct physics, not a fitted or tuned
+   (`test_td_cross_section.py`'s `@slow` V2a tests, `rel=0.06` at both anchors. Earlier
+   versions of this note quoted 0.9305 / 1.1033 against tolerances of 0.10 / 0.15, with
+   the looser E=0.15 bound explained as a "window-edge loosening" — both the numbers and
+   the explanation were order-1 Crank-Nicolson artefacts and are gone.)
+3. **The genuineness check: the ratios bracket 1.0.** A systematic normalization error (a
+   wrong prefactor, a missing factor of 2, a sign error) would push every ratio the same
+   direction. They do not: across the six measured energies the ratios straddle unity —
+   0.9733, 1.0013, 0.9884, 0.9932, 1.0087, 1.0132 — three either side, spread 0.973–1.013.
+   That, combined with the independent five-order-of-magnitude `F_out` discriminator above,
+   is the evidence that the transform is genuinely correct physics rather than a fitted
    agreement.
-4. **Finite-T convergence** (the T-scan, `TD_WORKING_GRID`'s tuned configuration):
 
-   | T | E=0.10 ratio | E=0.15 ratio |
-   |---|---|---|
-   | 600  | 0.760 | 1.204 |
-   | 900  | 1.126 | 1.109 |
-   | 1200 | 0.950 | 1.148 |
-   | 1500 | **0.931** | **1.103** |
-   | 1800 | 0.945 | 1.145 |
-
-   E=0.10 settles to ~0.93-0.95 for `T >= 1200`; E=0.15 oscillates in `[1.10, 1.20]`
-   across the whole range and never tightens further — a floor, not a still-converging
-   transient, diagnostic of the usable-spectral-window effect (below), not
-   under-propagation.
+   (Note the two *anchors* alone now both sit slightly below 1.0, so the older form of this
+   argument — "0.9305 below, 1.1033 above" — no longer holds on the anchors by themselves.
+   The wider measurement is what carries it.)
+4. **Finite-T behaviour.** A `T`-scan table previously appeared here (ratios 0.760–1.204
+   across `T = 600…1800`) and was read as showing E=0.15 hitting "a floor, not a
+   still-converging transient, diagnostic of the usable-spectral-window effect." Those
+   numbers were order-1 Crank-Nicolson; the apparent floor was under-convergence of the
+   propagator, not a spectral-window effect. The table has been removed rather than
+   restated, because re-running the scan at order-3 Padé is a measurement nobody has made
+   — and a claim about `T`-convergence should rest on a `T`-scan, not on inference from a
+   single `T`.
 5. **`test_v4_finite_t_stability_and_depletion`**: transforming the SAME stored `c(t)`
    truncated at `T=1000` vs. the full `T=1500` changes `sigma_TD(E=0.10)` by only 2.8%
    (free — no second propagation needed), and `norm[-1] < 0.05` — the resonance has
@@ -194,19 +195,26 @@ truncation/discretization noise into something that looks like signal but isn't.
 `convergence.usable_window(frac=0.5)` computes `(E_lo, E_hi) = (0.06, 0.21)` directly from
 the measured `|eta_incident(E)|` curve — comfortably bracketing both anchors.
 
-**A SEPARATE, finite-T resolution limit — not the same effect as the usable window.**
-A dense TI-oracle scan (step 0.002 Ha) shows `sigma_TI(E)` has rapid boomerang-resonance
-sub-features (period ~0.01-0.02 Ha) for `E < 0.13` Ha, settling into a smooth monotone
-background for `E >= 0.14`. Those sub-features are as narrow as `~0.004` Ha — the same
-order as this propagation's implicit frequency resolution `2*pi/T ~ 0.0042` Ha at
-`T=1500` — so `sigma_TD` cannot cleanly resolve them pointwise **even where
-`|eta_incident(E)|` is large** (E=0.06/0.08/0.12 sit inside the usable window but show
-`sigma_TD/sigma_TI` ratios of 0.229/0.575/0.348 — off by 2-4×, not the ~10% seen at the two
-validated anchors). This is a *finite-propagation-time* limit, not a spectral-window
-limit: a longer `T` would sharpen `2*pi/T` and resolve more of the fine structure; it is
-not fixable by re-tuning the wavepacket. `plot_sigma_vs_ti` draws this sub-region with its
-own honest marker (dotted, "finite-T unresolved") distinct from both the well-converged
-region and the outside-the-window region — never presented as trustworthy signal.
+**A "finite-T resolution limit" this note used to claim, now withdrawn.** Earlier versions
+of this note described a second, separate reliability limit: that `sigma_TI(E)`'s boomerang
+sub-features (as narrow as ~0.004 Ha) were comparable to the propagation's implicit
+frequency resolution `2*pi/T ~ 0.0042` Ha at `T=1500`, so `sigma_TD` could not resolve them
+pointwise **even inside the usable window** — citing ratios of 0.229/0.575/0.348 at
+E=0.06/0.08/0.12. It further claimed the limit was intrinsic: fixable only by a longer `T`,
+"not by re-tuning the wavepacket."
+
+That was wrong, and it is worth stating plainly because it is the failure mode this note
+should have caught first. Those ratios were measured with the **order-1 Crank-Nicolson**
+propagator in use at the time, which under-converges badly over a long propagation. The
+error was a solver artefact; the note explained it as a property of the method. With
+order-3 Padé (the default since) the same energies track the exact oracle — see the measured
+table below, where nothing in the tested range departs by more than a few percent. The
+`plot_sigma_vs_ti` "finite-T unresolved" region that rendered this claim has been removed
+from `observation.py` along with the `validated_anchors` mechanism that existed only to
+except two energies from it.
+
+The usable spectral window above is real and remains; it is a genuine amplitude/SNR limit.
+It was the *second* region that never existed.
 
 **The `r_max = 50` box caveat.** The electronic grid's ECS pivot `r_max = 50` was sized by
 physical reasoning (`wp_in`'s `r0=25` and `wp_out`'s `r0_out=35` both fit comfortably
@@ -243,13 +251,19 @@ secondary peak near `t ~ 780` (a boomerang-like re-crossing) before decaying fur
 sub-project's stated goal, "observe formation in the correlation function," directly
 visualized. The bottom panel shows the rapid Re/Im oscillation inside that envelope.
 
-![sigma_TD(E) vs. the exact sigma_TI(E) oracle, three honestly-marked regions](figures/n2-2d-td-sigma.png)
+![sigma_TD(E) vs. the exact sigma_TI(E) oracle, 161 energies at 0.001 Ha](figures/n2-2d-td-sigma.png)
 
-`sigma_TD` (markers+line) overlaid on `sigma_TI` (solid, exact) across `E in [0.06, 0.22]`
-Ha: the usable spectral window `(0.06, 0.21)` shaded; points inside the window but below
-the finite-T resolution floor (`E < 0.13`, see above) drawn dotted/open, distinct from the
-well-converged solid points and from the single faded/dashed point (`E=0.22`) outside the
-usable window entirely.
+`sigma_TD` overlaid on the exact `sigma_TI` across `E in [0.06, 0.22]` Ha, **recomputed
+2026-08-17 at 161 energies (step 0.001 Ha)** from one order-3 Padé propagation — the
+transform of a single stored trajectory is free at any energy, so the density costs only the
+TI oracle sweep. The usable spectral window `(0.060, 0.216)` is shaded; the four points
+outside it are faded.
+
+Across the 157 in-window points the ratio `sigma_TD/sigma_TI` has **median 0.9984**, range
+`0.868–1.106`, with **93% of points inside 5%**. The previous version of this figure was
+computed with order-1 Crank-Nicolson on 11 energies and drew three "honesty regions",
+including the fictitious finite-T band withdrawn above; the dense curve simply tracks the
+oracle, and needs no regions to be honest about.
 
 ## The numeric-output deliverable
 
@@ -284,60 +298,66 @@ and the transform is deterministic.
 One propagation, `210.8s`; the `sigma_TI` oracle scan (11 energies, on the same box),
 `112.9s`; the `sigma_TD` transform of the stored trajectory at all 11 energies is free.
 
-| E (Ha) | sigma_TD | sigma_TI | ratio | region |
-|---|---|---|---|---|
-| 0.06 | 0.0658 | 0.2872 | 0.229 | usable window, finite-T unresolved |
-| 0.08 | 3.5399 | 6.1516 | 0.575 | usable window, finite-T unresolved |
-| 0.10 | 5.6973 | 6.1228 | **0.9305** | well-converged anchor |
-| 0.12 | 1.2700 | 3.6514 | 0.348 | usable window, finite-T unresolved |
-| 0.14 | 0.9155 | 1.0587 | 0.865 | well-converged |
-| 0.15 | 0.6904 | 0.6258 | **1.1033** | well-converged anchor |
-| 0.16 | 0.4932 | 0.4026 | 1.225 | well-converged |
-| 0.17 | 0.3568 | 0.2793 | 1.278 | well-converged |
-| 0.18 | 0.2688 | 0.2057 | 1.307 | well-converged |
-| 0.20 | 0.1524 | 0.1256 | 1.213 | well-converged |
-| 0.22 | 0.0956 | 0.0857 | 1.115 | outside usable window |
+Measured 2026-08-17 at the order-3 Padé default (one propagation, all 11 energies
+transformed from the same stored trajectory):
 
-0.10/0.15 exactly match the T-scan's own measurements — the same converged config,
-independently reproduced. 0.06/0.08/0.12 are the finite-T boomerang zone (above);
-`usable_window(frac=0.5)` on this 21-point scan gives `(0.06, 0.21)`, so only `E=0.22`
-falls genuinely outside the spectral window.
+| E (Ha) | sigma_TD | sigma_TI | ratio |
+|---|---|---|---|
+| 0.06 | 0.2864 | 0.2872 | 0.9974 |
+| 0.08 | 5.8958 | 6.1516 | 0.9584 |
+| 0.10 | 5.9595 | 6.1228 | **0.9733** |
+| 0.12 | 3.7078 | 3.6514 | 1.0154 |
+| 0.14 | 1.0601 | 1.0587 | 1.0013 |
+| 0.15 | 0.6185 | 0.6258 | **0.9884** |
+| 0.16 | 0.3999 | 0.4026 | 0.9932 |
+| 0.17 | 0.2817 | 0.2793 | 1.0087 |
+| 0.18 | 0.2084 | 0.2057 | 1.0132 |
+| 0.20 | 0.1236 | 0.1256 | 0.9834 |
+| 0.22 | 0.0866 | 0.0857 | 1.0099 |
 
-The "well-converged anchor" label at `E=0.10` and the finite-T caveat are consistent, not
-contradictory: although `E=0.10` lies in the boomerang energy range below the `~0.13` Ha
-finite-T-resolution heuristic, it lands near the resonance peak where the exact TI feature is
-broad enough to resolve at `2*pi/T`, so `sigma_TD(0.10)` agrees pointwise with the exact TI
-there (ratio `0.9305`) and is a valid gate anchor — whereas the *dense* boomerang curve
-*between* the anchors (e.g. `E=0.08`/`0.12`) is not pointwise-resolved and is not trustworthy.
-The figure reflects exactly this: `plot_sigma_vs_ti`'s `validated_anchors=(0.10, 0.15)` draws
-those two gate-validated points as starred "validated vs TI oracle" markers (trustworthy
-regardless of the resolution floor), while the other sub-floor boomerang points stay dotted
-"finite-T unresolved". Both validated anchors bracket ratio `1.0` (`0.9305` below, `1.1033`
-above), and both are now shown as trustworthy rather than one sitting in a "not-trustworthy"
-zone.
+Every energy agrees with the exact oracle to within 4.2%, worst case `E=0.08`; nine of the
+eleven are inside 2%. `usable_window(frac=0.5)` still gives `(0.06, 0.21)`, and the window
+remains the honest statement about where the deconvolution is trustworthy — but note that
+even `E=0.22`, just outside it, lands at 1.0099 here.
+
+**This table is the clearest evidence for the withdrawal above.** In its previous form, the
+same three energies read `0.229 / 0.575 / 0.348` at `E = 0.06 / 0.08 / 0.12` and were
+labelled "finite-T unresolved" — the observation that the whole invented resolution limit was
+built on. At order-3 Padé they are `0.9974 / 0.9584 / 1.0154`. Nothing about the propagation
+time, the wavepacket, or `sigma_TI`'s fine structure changed; only the propagator did. The
+"structure too narrow to resolve" was accumulated Crank-Nicolson error.
+
+A long passage used to sit here reconciling the "well-converged anchor" label at `E=0.10`
+with the finite-T caveat — arguing that `E=0.10` was an exception because it "lands near the
+resonance peak where the exact TI feature is broad enough to resolve", while the dense
+boomerang curve between the anchors was not trustworthy. There is nothing left to reconcile:
+the caveat was an artefact (above), and with order-3 Padé the curve tracks the oracle across
+the window without special-casing any energy. The figure no longer draws starred exceptions,
+because there is no rule for them to be exceptions to.
 
 ## Harness Group F: reported, not re-run live
 
 `validation/n2/td_exact2d.py` computes nothing at harness run time. A full propagation at
 `TD_WORKING_GRID` costs ~210-250s wall (measured above); timed directly for this decision,
-the sparse LU factorization alone costs ~7.8s and each Crank-Nicolson step ~0.064s, so even
-the *shortest* T on the sub-project's own T-scan (`T=600`, already the loosest, least-
-converged point measured — ratio 0.760 at E=0.10) costs `~7.8 + 1200*0.064 ~ 85s`, over the
-harness's ~60s-per-group budget. Going shorter than `T=600` would extrapolate outside the
-range ever validated (at `t=200` the norm has only decayed to `0.588` — the resonance has
-barely begun to deplete), which would require a tolerance so loose it would no longer test
-anything. Per the sub-project's decision rule, Group F therefore emits **NOTE** rows that
-report the already-validated Task 4/6 numbers as literal, cited constants — never a live
-gate, never counted toward PASS/FAIL:
+the sparse LU factorization alone costs ~7.8s and each propagation step ~0.064s, so even a
+short `T=600` run costs `~7.8 + 1200*0.064 ~ 85s`, over the harness's ~60s-per-group budget.
+Going shorter would extrapolate outside the range ever validated (at `t=200` the norm has
+barely begun to decay — the resonance has hardly formed), which would require a tolerance so
+loose it would no longer test anything. Per the sub-project's decision rule, Group F
+therefore emits **NOTE** rows that report the already-validated numbers as literal, cited
+constants — never a live gate, never counted toward PASS/FAIL:
 
 ```
-[NOTE] F time-dependent 2-D: F1 sigma_TD(E=0.1 Ha, v=0->1) [recorded]   ratio=0.9305 (validated rtol<=0.10 by
-       test_td_cross_section.py::test_v2a_td_matches_ti_at_e010 (@slow)); full TD propagation
-       (~210-250s at TD_WORKING_GRID) NOT run in-harness
-[NOTE] F time-dependent 2-D: F1 sigma_TD(E=0.15 Ha, v=0->1) [recorded]  ratio=1.1033 (validated rtol<=0.15 by
-       test_td_cross_section.py::test_v2a_td_matches_ti_at_e015_usable_window_edge (@slow)); full TD
-       propagation NOT run in-harness
+[NOTE] F time-dependent 2-D: F1 sigma_TD(E=0.1 Ha, v=0->1) [recorded]   sigma_TD=5.9595e+00, sigma_TI=6.1230e+00,
+       ratio=0.9733 (validated rtol<=0.06 by test_td_cross_section.py::test_v2a_td_matches_ti_at_e010
+       (@slow) / order-3 Pade TD_WORKING_GRID run); full TD propagation NOT run in-harness
+[NOTE] F time-dependent 2-D: F1 sigma_TD(E=0.15 Ha, v=0->1) [recorded]  sigma_TD=6.1850e-01, sigma_TI=6.2576e-01,
+       ratio=0.9884 (validated rtol<=0.06 by test_td_cross_section.py::test_v2a_td_matches_ti_at_e015
+       (@slow) / order-3 Pade TD_WORKING_GRID run); full TD propagation NOT run in-harness
 ```
+
+(Transcribed from an actual harness run on 2026-08-17. `validation/n2/td_exact2d.py` already
+carried these values; it was only this note's copy of its output that had gone stale.)
 
 The genuine, live PASS/FAIL gate on this comparison is
 `projects/n2_2d_td_cross_section/test_td_cross_section.py`'s `@pytest.mark.slow` tests,
