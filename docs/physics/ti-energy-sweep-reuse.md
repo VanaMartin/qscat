@@ -105,18 +105,23 @@ specific matrix. The scipy control shows ~0% as expected (no symbolic reuse).
 ## The dense exact-2-D σ(E) curve for N₂
 
 With the sweep cheap, the dense exact-2-D VE cross section is affordable to
-compute and display — which #6 (anchors only) and #7 (finite-T-limited TD
-curve) did not deliver. `validation.n2.ti_curve.compute_ti_curve` sweeps
-`ve_cross_section_2d` over a dense `E_grid` (60 energies over (0, 0.2] Ha on the
-working grid), and `plot_cross_sections` overlays it on Houfek's independent
-`CSVE.V00.J00` golden data:
+compute and display — which the anchors-only sub-project did not deliver.
+
+The committed figure is now produced from a `qscat-run` config
+(`apps/qscat-run/examples/figures/n2-ve-dense.yaml`) at **196 energies over
+0.005–0.200 Ha, step 0.001**, with Houfek's `CSVE.V00.J00` overlaid through the
+config's `reference:` block rather than by a bespoke script. (An earlier version
+of this figure was 60 energies at a 0.0033 Ha step;
+`validation.n2.ti_curve.compute_ti_curve` remains the Houfek-gating driver.)
 
 ![N₂ exact 2-D VE cross section vs Houfek](figures/n2-2d-ti-cross-section.png)
 
-The exact-2-D curve (solid) tracks Houfek (dashed markers) tightly across the
-entire resonance region for every channel v′ = 0…3, reproducing the boomerang
-oscillation structure peak-for-peak. At the gated anchors the agreement is the
-same tight differential-oracle bound #6 already established (e.g. E = 0.1 Ha,
+The exact-2-D curve (solid) tracks Houfek (dashed) tightly across the entire
+resonance region for every plotted channel, reproducing the boomerang
+oscillation structure peak-for-peak. Measured over the ~230 energies where the
+two grids coincide, the median exact/Houfek ratio is **1.0000** for each of
+v′ = 0, 1, 2. At the gated anchors the agreement is the same tight
+differential-oracle bound the anchor sub-project established (e.g. E = 0.1 Ha,
 v′ = 1: exact/Houfek = 1.000267, within `GATED_RTOL = 1e-3`); the two
 documented-limited anchors — the elastic background (v′ = 0) at high E and the
 near-threshold v′ = 1 point at E = 0.02 Ha — sit within the loose cross-model

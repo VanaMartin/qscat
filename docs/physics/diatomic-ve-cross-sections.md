@@ -38,10 +38,23 @@ NO and F₂ have **lower, sharper** resonances than N₂: NO's ²Π shape resona
 — weakly bound (D₀ = 0.06 Ha, ~1.6 eV), a strong dissociative-attachment system — has an
 extremely sharp near-threshold resonance with boomerang features only ~0.004 Ha wide.
 
-**Convergence:** the N₂-style FEM-DVR-ECS grid (electronic r_max = 16, nuclear r_max = 22) is
-converged for NO and F₂ as well — the exact-2D σ(E) is unchanged to <1 % at electronic
-r_max = 16/24/32 for NO, so the sharp low-E swings are *genuine* resonance structure, not grid
-noise.
+**Which grid these figures use.** The curves above are computed on each molecule's own
+**eMoScat production deck** (`grid: {preset: emoscat}`, what `apps/qscat-run` uses):
+NO `(132, 597)` and F₂ `(132, 974)` electronic × nuclear points. They are *not* on the
+N₂-style shared grid.
+
+**Convergence.** An earlier r_max study on the **shared N₂-style grid** (electronic
+r_max = 16, nuclear r_max = 22) found σ(E) unchanged to <1 % at electronic r_max = 16/24/32
+for NO — evidence that the sharp low-E swings are genuine resonance structure rather than grid
+noise. That measurement stands, but it was made on the shared grid and is *not* a convergence
+statement about the per-molecule decks these figures now use. No equivalent r_max sweep has
+been run on the production decks; the case for them rests instead on their being eMoScat's own
+convergence-tested decks and on the discretisation tuner's reproduce-and-beat comparison
+against them (`docs/physics/discretisation-tuning.md`).
+
+The structure is, independently, not a sampling artefact: these curves are sampled at
+0.001 Ha — 97 points for F₂, 117 for NO — against boomerang features this note measures at
+~0.004 Ha wide, so each feature carries several samples.
 
 ## The three molecules side by side
 
@@ -159,39 +172,80 @@ wavefunction **value** `ψ_sc(X) = ψ_sc_coeff[b]/√(w_b)`, NOT the raw DVR coe
 boundary-weight factor, ~27× in σ). These are the same lessons as the exact DA (per-molecule grid)
 plus a DVR-normalization one.
 
-**Result (F₂).** With both, the LCP is a **good approximation away from threshold**:
+**Result (F₂).** The LCP's error is **systematic and energy-dependent — there is no plateau of
+agreement.** Recomputed 2026-08-17 at 41 energies (0.010–0.050 Ha, step 0.001):
 
 ![F₂ σ_DA: LCP vs exact-2D oracle](figures/f2-2d-da-lcp-vs-exact.png)
 
 | E (Ha) | σ_DA LCP | σ_DA exact-2D | LCP/exact |
 |---|---|---|---|
-| 0.02 (near threshold) | 1.56 | **3.36** | 0.47 |
-| 0.03 | 1.47 | 1.66 | **0.89** |
-| 0.04 | 1.02 | 0.72 | 1.43 |
+| 0.010 (threshold) | 1.410 | **5.366** | 0.263 |
+| 0.020 | 1.56 | 3.36 | 0.47 |
+| 0.030 | 1.471 | 1.656 | **0.888** |
+| 0.040 | 1.02 | 0.72 | 1.43 |
+| 0.050 | 0.490 | 0.282 | 1.736 |
 
-Two **documented, physically-sensible LCP departures** (the point of the comparison — the exact
-solver is the oracle, the LCP is under test): (a) it **under-predicts the near-threshold spike** —
-the exact σ_DA rises sharply as E→threshold while the LCP stays smooth (ratio 0.47 at E=0.02);
+The exact σ_DA falls monotonically by a factor of 19 across this range while the LCP stays
+nearly flat, so the ratio sweeps **0.263 → 1.736**, crossing unity near E ≈ 0.032. Earlier
+versions of this note described the LCP here as "a good approximation away from threshold",
+and `CLAUDE.md` quoted "~11% of exact" — both were reading the single crossing point as if it
+were a characteristic agreement. It is not: the LCP under-predicts below ~0.03 and
+over-predicts above it, and only *passes through* good agreement on the way.
+
+(The older 13-point curve was not wrong — its endpoints match this dense run exactly — it was
+simply too sparse to show that the ratio never settles.)
+
+The **physically-sensible departures** the comparison exists to expose (the exact solver is
+the oracle, the LCP is under test): (a) it **under-predicts the near-threshold spike** — the
+exact σ_DA rises sharply as E→threshold while the LCP stays smooth (0.263 at E=0.010);
 (b) for the sibling VE channel, the LCP **elastic omits the non-resonant background** that the
 exact elastic T-matrix contains (`driven.py` documents this) — a known *qualitative* LCP
-limitation (the resonant inelastic channels are captured better). The LCP VE cross section itself
-is not computed in this sub-project (`lcp_ve_cross_section` is a documented follow-on), so no
-quantitative LCP-VE agreement is claimed here. N₂'s DA channel is closed (threshold +0.5 Ha),
-so LCP and exact both give ≈0 there — a consistency sanity, no figure.
+limitation. The LCP VE cross section itself is not computed in this sub-project
+(`lcp_ve_cross_section` is a documented follow-on), so no quantitative LCP-VE agreement is
+claimed here. N₂'s DA channel is closed (threshold +0.5 Ha), so LCP and exact both give ≈0
+there — a consistency sanity, no figure.
 
-**NO** is a harder, near-threshold-dominated case: its exact σ_DA is a sharp spike at the ~0.17 Ha
-threshold decaying to ~1e-14, so the LCP–exact comparison is dominated by that near-threshold
-region (where, as for F₂, the LCP departs) rather than a clean plateau — shown for completeness,
-not as a quantitative agreement claim.
+**NO — where the LCP fails outright.** Recomputed at 151 energies (0.150–0.300 Ha, step
+0.001). The exact σ_DA is a sharp spike at threshold (peak 0.0925 bohr² at E = 0.172) that then
+decays by **thirteen orders of magnitude**, to 1.8 × 10⁻¹⁴ at E = 0.300. The LCP does not decay:
+it stays near 10⁻⁴ across the whole range. The ratio therefore runs from 0.067 near the spike to
+**1.8 × 10⁹** at the top of the range.
 
 ![NO σ_DA: LCP vs exact-2D oracle](figures/no-2d-da-lcp-vs-exact.png)
+
+This is a far stronger statement than the "shown for completeness, not a quantitative agreement
+claim" hedge this note previously carried, and it is the more useful result: the local-complex-
+potential approximation does not reproduce the exponential suppression of dissociative
+attachment away from threshold at all. On a 12-point curve at a 0.0136 Ha step that behaviour
+was not visible; on the dense curve it is the dominant feature.
+
+**The LCP's verdict is observable-dependent — do not generalise either way.** The results above
+are about **σ_DA cross sections** for F₂ and NO, and they are unflattering. Measured on a
+different observable the same approximation does very well: for N₂'s **resonance levels**, the
+BO + local approximation agrees with the exact (non-BO) 2-D poles to sub-meV in both position
+and width (`docs/physics/exact-2d-resonances.md`). Neither result licenses the other. An
+approximation that reproduces where a resonance sits need not reproduce how much flux leaves
+through a particular exit channel, and here it does not.
 
 ## Time-dependent route (next)
 
 The N₂ time-dependent route (order-3 Padé + Tannor-Weeks, `qscat.core.time_dependent`) matches
-the exact TI to ~1–2 % across N₂'s broad resonance. For NO and especially F₂ the resonances are
-**much sharper and lower** — their ~0.004–0.01 Ha boomerang features are at or below the
-finite-time-propagation resolution `2π/T`, so a TD-vs-TI reproduction to the N₂-level tolerance
-needs a dedicated long-propagation convergence study (the near-threshold limit already documented
-for N₂'s own low-E edge — see `docs/physics/n2-2d-td-cross-section.md` and issue #1). That study
-is the natural follow-on; the exact-2D TI oracle delivered here is what it would be gated against.
+the exact TI oracle to a median of 0.2 % across 161 energies spanning 0.060–0.220 Ha, with 93 %
+of in-window points inside 5 % — see `docs/physics/n2-2d-td-cross-section.md`.
+
+NO and F₂ have **sharper, lower-lying** resonances than N₂, so a TD route for them has not been
+attempted and remains the natural follow-on, gated against the exact-2D TI oracle delivered here.
+
+**What this note used to say, and why it was withdrawn.** It previously argued that NO's and F₂'s
+"~0.004–0.01 Ha boomerang features are at or below the finite-time-propagation resolution `2π/T`",
+so TD-vs-TI agreement at the N₂ level should not be expected without a long-propagation study.
+That reasoning was inherited from a claimed finite-T resolution limit in the N₂ note which has
+since been **disproved**: those measurements came from an order-1 Crank-Nicolson propagator, and
+at order-3 Padé the same energies track the oracle (E = 0.06/0.08/0.12 moved from ratios of
+0.229/0.575/0.348 to 0.997/0.958/1.015). There is no established `2π/T` barrier to inherit, so
+this note no longer offers one as a reason to expect poor agreement — or as a reason not to try.
+
+A genuine caution does remain, and it is a different one: **NO's cross sections really do carry
+sharp structure.** Its v'=1 excitation is measured to swing 34.76 → 6.13 bohr² across a single
+0.002 Ha step (`validation/diatomic/test_diatomic.py`). Resolving *that* is a sampling question
+for whoever runs the TD study, not a predicted failure of the method.
