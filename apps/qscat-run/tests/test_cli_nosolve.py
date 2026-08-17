@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from click.testing import CliRunner
 from qscat_run.cli import main
 
@@ -50,3 +51,28 @@ def test_run_dry_run_prints_plan_and_solves_nothing(tmp_path: Path) -> None:
     assert "grid[ti]" in r.output
     # --dry-run never solves or writes any artifact.
     assert not output_dir.exists()
+
+
+EXAMPLES = sorted((Path(__file__).resolve().parent.parent / "examples").rglob("*.yaml"))
+
+
+def test_examples_directory_is_not_empty() -> None:
+    # Guard against a typo'd glob making the parametrized test below vacuous.
+    assert EXAMPLES, "no example configs found"
+
+
+@pytest.mark.parametrize("path", EXAMPLES, ids=lambda p: p.name)
+def test_every_example_passes_the_validate_COMMAND(path: Path) -> None:
+    """Every committed example must survive `qscat-run validate`, the command
+    its own header tells readers to run.
+
+    `tests/test_examples.py` calls `load_config` + `validate_config` directly,
+    which is strictly weaker: the CLI additionally RESOLVES each method's grid.
+    That gap let `f2-da-lcp-vs-exact.yaml` ship broken -- `validate_config`
+    accepted `methods: [ti, lcp]` (VALID_METHODS includes "lcp") while the CLI
+    routed `lcp` through `presets.resolve_grid`, which only knows ti/td and
+    raised "unknown method 'lcp'; choose 'ti' or 'td'". The example failed the
+    exact command documented in its own comments, and no test noticed.
+    """
+    r = CliRunner().invoke(main, ["validate", str(path)])
+    assert r.exit_code == 0, r.output

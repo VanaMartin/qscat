@@ -46,7 +46,14 @@ def validate_cmd(config_path: str) -> None:
     resolved = presets.resolve_defaults(cfg)
     for method in resolved.methods:
         try:
-            presets.resolve_grid(resolved, method)
+            # `lcp` has no ti/td-style tensor grid: it needs the preset's paired
+            # two-ECS-angle electronic decks plus the fine nuclear deck, so it
+            # has its own resolver. Routing it through `resolve_grid` made
+            # `validate` reject a committed example that `run` supports.
+            if method == "lcp":
+                presets.resolve_lcp_grids(resolved)
+            else:
+                presets.resolve_grid(resolved, method)
         except ConfigError:
             raise
         except Exception as exc:  # noqa: BLE001 -- surface as an actionable ConfigError
@@ -241,6 +248,17 @@ def run_cmd(config_path: str, output_dir: str | None, backend: str | None, dry_r
         click.echo(f"energies: {n_energies}")
         for method in resolved.methods:
             try:
+                # See the same branch in `validate_cmd`: `lcp` uses its own
+                # grid resolver, not the ti/td tensor grid.
+                if method == "lcp":
+                    # NOTE the order: resolve_lcp_grids returns
+                    # (nuclear, elec_a, elec_b), nuclear FIRST.
+                    g_nuc, g_ea, _g_eb = presets.resolve_lcp_grids(resolved)
+                    click.echo(
+                        f"grid[lcp]: nuclear={g_nuc.points.size} "
+                        f"electronic={g_ea.points.size} (x2 ECS angles)"
+                    )
+                    continue
                 tg = presets.resolve_grid(resolved, method)
             except ConfigError:
                 raise
