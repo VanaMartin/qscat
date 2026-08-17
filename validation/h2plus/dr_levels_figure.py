@@ -15,29 +15,35 @@ Two series are drawn over the published curves:
   resonance positions, which the published figure does not have. Where the two
   differ is the Born-Oppenheimer error, and it is the point of the comparison.
 
-**Measured result** (`report_peak_alignment`, distances in units of a resonance
-width, median FWHM 2e-5 Ha -- the only scale on which "lands on the peak" means
-anything):
+**Measured result** (`report_peak_alignment`, median distance to the nearest
+published peak in units of a resonance width -- FWHM 2e-5 Ha, the only scale on
+which "lands on the peak" means anything -- with the count landing inside one
+width):
 
 | series | window 0 | window 1 | window 2 |
 |---|---|---|---|
-| exact poles | **0.2** | **0.2** | 13.9 |
-| BO levels | 1.8 | 8.2 | 15.5 |
+| exact poles | **0.2** (11/13) | **0.2** (14/18) | 3.3 (10/20) |
+| BO levels | 0.8 (5/9) | 3.7 (2/11) | 30.4 (0/8) |
 
-In windows 0 and 1 the exact poles reproduce the peak positions of a sweep they
-were never fitted to, while the BO levels miss by 2-8 widths -- the
-Born-Oppenheimer error, measured against data.
+The exact poles reproduce the peak positions of a sweep they were never fitted
+to. The BO levels degrade steadily from window 0 to window 2, which is the
+Born-Oppenheimer error measured against data and is the point of the figure.
 
-**Window 2 is the exception and it is not explained.** There both series are
-comparably wrong (13.9 and 15.5 widths), so it is not the approximation
-failing. It is not peak sparsity either: window 2 holds 13-15 prominent peaks
-at normal spacing, and the poles are still 8.7 widths off when allowed to match
-a peak in EITHER channel. The one thing distinguishing it is threshold
-proximity -- its upper edge sits 8e-4 Ha below the `v=3` vibrational threshold,
-the closest of the three windows (1.1e-3 and 1.8e-3 for windows 1 and 0) -- and
-this repository's sigma_DR is independently known to misbehave within ~1e-3 Ha
-of a threshold (docs/physics/h2plus-dr.md). Suggestive, not established.
-Window 2's per-level numbers should not be quoted.
+**Both rows moved substantially once earlier mistakes were corrected, and the
+history is worth keeping in view when reading them.** The BO row was once
+1.8/8.2/15.5 -- measured against a level set truncated to 3-4 marks per window
+by an electronic box too small to hold `Ry_5+` (see `bo_levels`); the missing
+levels were exactly the ones sitting on the lower-window peaks. The pole row's
+window 2 was once 13.9 widths, on a campaign seeded at 3 levels per window
+instead of 8; proper seeding found 21 poles there rather than 14 and the figure
+dropped to 3.3. **Window 2's anomaly was therefore mostly under-seeding, not
+mostly the threshold proximity an earlier version of this docstring proposed.**
+
+Window 2 is still the worst of the three (3.3 against 0.2), and its upper edge
+is the closest to an ion vibrational threshold (0.9 mHa, against 1.1 and 1.8),
+where this repository's sigma_DR is independently known to misbehave
+(docs/physics/h2plus-dr.md). That remains a candidate for the residual, not an
+established cause.
 
 **Reduced mass.** The levels here are computed at `REFERENCE_MU = 918.25`, the
 value the published sweep was computed with, so that the marks and the curves
@@ -60,13 +66,14 @@ simply omitted from the figure if not.
 from __future__ import annotations
 
 import pathlib
+from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
 from qscat.core.grids import fem_grid_exp_tail
 
 from validation.h2plus.config import full_grid
-from validation.h2plus.exact_poles import EPS0, WINDOWS
+from validation.h2plus.exact_poles import EPS0, THRESHOLDS, WINDOWS
 from validation.h2plus.reference_sweep import (
     REFERENCE_MU,
     DrSweep,
@@ -78,11 +85,25 @@ from validation.h2plus.rydberg_levels import rydberg_levels
 FIGURES = pathlib.Path(__file__).resolve().parents[2] / "docs" / "physics" / "figures"
 LEVEL_CACHE = pathlib.Path(__file__).with_name("dr_levels_figure.levels.npz")
 
+# Curves at or above this index are the diffuse high-n Rydberg series whose
+# levels are labelled along the TOP; the compact low-n curves label along the
+# BOTTOM. Splitting on 6 reproduces the published figure's own arrangement and
+# separates the two physical regimes -- see the annotate() call in `main`.
+_HIGH_RYDBERG = 6
+
+
+def _CURVE_COLOR(j: int) -> str:
+    """One colour per Rydberg curve, as the published figure uses."""
+    palette = ("#1f77b4", "#9467bd", "#d62728", "#ff7f0e", "#2ca02c", "#8c564b")
+    return palette[j % len(palette)]
+
+
 # Exact 2-D pole positions (absolute energy, Ha) from the r_max=300 campaign,
 # keyed by window. Recorded rather than recomputed: each window is a ~10-30 min
 # multi-shift 2-D solve (see exact_poles.py), far too slow for a figure script.
 EXACT_POLES: dict[int, tuple[float, ...]] = {
     0: (
+        -0.097748890,
         -0.096041061,
         -0.094304949,
         -0.093680172,
@@ -116,6 +137,11 @@ EXACT_POLES: dict[int, tuple[float, ...]] = {
         -0.080850737,
         -0.080694597,
         -0.080508256,
+        -0.080288534,
+        -0.080097879,
+        -0.079935442,
+        -0.079877848,
+        -0.079796340,
     ),
     2: (
         -0.078166690,
@@ -132,12 +158,31 @@ EXACT_POLES: dict[int, tuple[float, ...]] = {
         -0.072593147,
         -0.072357456,
         -0.072040067,
+        -0.071764636,
+        -0.071538753,
+        -0.071534086,
+        -0.071378514,
+        -0.071340399,
+        -0.071176496,
+        -0.071036632,
     ),
 }
 
 
-def bo_levels(mu: float = REFERENCE_MU) -> npt.NDArray[np.float64]:
-    """BO level energies (absolute, Ha) at the given reduced mass, flattened.
+@dataclass(frozen=True)
+class BoLevels:
+    """BO levels with the identity each one needs to be labelled `omega^j_i`."""
+
+    energy: npt.NDArray[np.float64]  # (n,) absolute energy, Ha
+    curve: npt.NDArray[np.int_]  # (n,) Rydberg curve j -- the SUPERscript
+    vib: npt.NDArray[np.int_]  # (n,) vibrational level i -- the SUBscript
+
+    def label(self, k: int) -> str:
+        return rf"$\omega^{{{int(self.curve[k])}}}_{{{int(self.vib[k])}}}$"
+
+
+def bo_levels(mu: float = REFERENCE_MU) -> BoLevels:
+    """BO level energies (absolute, Ha) at the given reduced mass, with labels.
 
     Enumerated on a 300-bohr electronic box with twelve Rydberg curves, NOT
     the ~60-bohr proxy box with five that an earlier version used. That box
@@ -154,7 +199,8 @@ def bo_levels(mu: float = REFERENCE_MU) -> npt.NDArray[np.float64]:
     if model is None:
         raise ValueError("only REFERENCE_MU is wired up; pass mu=REFERENCE_MU")
     if LEVEL_CACHE.exists():
-        return np.asarray(np.load(LEVEL_CACHE)["levels"], dtype=np.float64)
+        z = np.load(LEVEL_CACHE)
+        return BoLevels(energy=z["energy"], curve=z["curve"], vib=z["vib"])
     g_r = fem_grid_exp_tail(
         [(10, 1.0), (10, 4.0), (16, 20.0), (20, 100.0), (20, 300.0)],
         angle_deg=5.0,
@@ -169,9 +215,16 @@ def bo_levels(mu: float = REFERENCE_MU) -> npt.NDArray[np.float64]:
         n_vib=8,
         allow_partial=True,
     )
-    e = res.energies.ravel()
-    out = np.asarray(e[np.isfinite(e)], dtype=np.float64)
-    np.savez(LEVEL_CACHE, levels=out)
+    j_idx, i_idx = np.meshgrid(
+        np.arange(res.energies.shape[0]), np.arange(res.energies.shape[1]), indexing="ij"
+    )
+    keep = np.isfinite(res.energies)
+    out = BoLevels(
+        energy=np.asarray(res.energies[keep], dtype=np.float64),
+        curve=np.asarray(j_idx[keep], dtype=np.int_),
+        vib=np.asarray(i_idx[keep], dtype=np.int_),
+    )
+    np.savez(LEVEL_CACHE, energy=out.energy, curve=out.curve, vib=out.vib)
     return out
 
 
@@ -185,32 +238,94 @@ def main() -> None:
     sweep = load()
     levels = bo_levels()
 
-    fig, axes = plt.subplots(len(WINDOWS), 1, figsize=(9.0, 10.5))
+    # Tall panels with generous gaps: each panel carries a row of rotated
+    # `omega^j_i` labels above AND below it, and those need vertical room that
+    # a default layout does not leave.
+    fig, axes = plt.subplots(len(WINDOWS), 1, figsize=(10.0, 13.0))
+    fig.subplots_adjust(hspace=0.55, top=0.94, bottom=0.10)
     for w, (lo, hi) in enumerate(WINDOWS):
         ax = axes[w]
         m = (sweep.energy >= lo) & (sweep.energy <= hi)
         ax.semilogy(sweep.energy[m], sweep.sigma[m, 0], lw=1.0, color="C0", label=r"$DR_0$")
         ax.semilogy(sweep.energy[m], sweep.sigma[m, 1], lw=1.0, color="C1", label=r"$DR_1$")
 
-        for e in levels - EPS0:
-            if lo <= e <= hi:
-                ax.axvline(e, color="0.45", ls="--", lw=0.9, zorder=0)
+        # Exact poles go UNDERNEATH the BO levels and lighter, so that where the
+        # two coincide the dashed BO line reads as sitting ON a pale solid one
+        # and the overlap stays visible. Drawn first, low zorder.
         for e_tot in EXACT_POLES.get(w, ()):
             e = e_tot - EPS0
             if lo <= e <= hi:
-                ax.axvline(e, color="C3", ls="-", lw=0.9, alpha=0.8, zorder=1)
+                ax.axvline(e, color="C3", ls="-", lw=1.6, alpha=0.30, zorder=0)
+
+        # BO levels on top, dashed, coloured by Rydberg curve and labelled
+        # `omega^j_i` as the published figure does.
+        ee = levels.energy - EPS0
+        for k in np.flatnonzero((ee >= lo) & (ee <= hi)):
+            e, j = float(ee[k]), int(levels.curve[k])
+            ax.axvline(e, color=_CURVE_COLOR(j), ls="--", lw=0.9, alpha=0.9, zorder=3)
+            # Top row for the high-n Rydberg series, bottom row for the compact
+            # low-n levels. That is the published figure's own split, and it is
+            # not merely cosmetic: those are the two regimes (adiabatic vs not),
+            # and separating them is what keeps a near-degenerate pair such as
+            # omega^9_1 / omega^3_3 legible at the same energy.
+            # Upright, INSIDE the axes, just to the right of its own line.
+            # High-n Rydberg labels ride high and compact low-n ones ride low --
+            # the published figure's split, which keeps a near-degenerate pair
+            # such as omega^9_1 / omega^3_3 legible at one energy, and which is
+            # the physical division (adiabatic vs not) besides.
+            top = j >= _HIGH_RYDBERG
+            ax.annotate(
+                levels.label(int(k)),
+                xy=(e, 0.955 if top else 0.045),
+                xycoords=("data", "axes fraction"),
+                xytext=(3, 0),
+                textcoords="offset points",
+                ha="left",
+                va="center",
+                fontsize=7,
+                color=_CURVE_COLOR(j),
+                clip_on=True,
+            )
 
         ax.set_xlim(lo, hi)
+        # Headroom at top and bottom so the two label rows sit in empty space
+        # rather than over the curves. Both ends, because the low-n labels ride
+        # along the bottom.
+        y0, y1 = ax.get_ylim()
+        ax.set_ylim(y0 / 12.0, y1 * 25.0)
         ax.set_ylabel(r"$\sigma_{DR}$ (bohr$^2$)")
-        ax.set_title(f"window {w}: {lo}–{hi} Ha", fontsize=10)
+
+        # The window caption sits OUTSIDE the axes, as a title. The labels are
+        # inside now, so nothing collides. The next ion vibrational threshold is
+        # named rather than drawn: it lies beyond the right edge (the window
+        # stops short of it deliberately), so a marker at the edge would claim
+        # the threshold is AT the edge.
+        thr = THRESHOLDS[w + 1] - EPS0
+        ax.set_title(
+            f"window {w}:  {lo}–{hi} Ha"
+            rf"      (next threshold $v_{w + 1}$ at {thr:.4f} Ha, "
+            rf"{(thr - hi) * 1e3:.1f} mHa beyond the right edge)",
+            fontsize=9,
+            color="0.25",
+            pad=6,
+        )
         if w == 0:
             handles, labels = ax.get_legend_handles_labels()
             handles += [
                 Line2D([], [], color="0.45", ls="--", lw=0.9),
-                Line2D([], [], color="C3", ls="-", lw=0.9),
+                Line2D([], [], color="C3", ls="-", lw=1.6, alpha=0.30),
             ]
-            labels += ["BO levels $\\omega_i^j$", "exact 2-D poles"]
-            ax.legend(handles, labels, fontsize=8, loc="best")
+            labels += [r"BO levels $\omega^j_i$", "exact 2-D poles"]
+            # Top-left, but anchored just under the high-n label row so the two
+            # do not overlap.
+            ax.legend(
+                handles,
+                labels,
+                fontsize=8,
+                loc="upper left",
+                bbox_to_anchor=(0.005, 0.90),
+                framealpha=0.92,
+            )
     axes[-1].set_xlabel("incident electron energy (Ha)")
 
     fig.suptitle(
@@ -235,17 +350,20 @@ def main() -> None:
         fontsize=7.0,
         wrap=True,
     )
-    fig.tight_layout(rect=(0, 0.045, 1, 0.97))
+    # NOT tight_layout: it recomputes spacing from artist extents and collapses
+    # the gaps the label rows need (the labels are annotations in axes-fraction
+    # coordinates, which it does not account for). The explicit
+    # `subplots_adjust` above is the layout.
 
     FIGURES.mkdir(parents=True, exist_ok=True)
     out = FIGURES / "h2p-dr-levels.png"
     fig.savefig(out, dpi=150)
     print(f"wrote {out}")
 
-    n_in = sum(1 for e in levels - EPS0 for lo, hi in WINDOWS if lo <= e <= hi)
+    n_in = sum(1 for e in levels.energy - EPS0 for lo, hi in WINDOWS if lo <= e <= hi)
     n_poles = sum(len(v) for v in EXACT_POLES.values())
     print(f"BO levels inside the three windows: {n_in}; exact poles drawn: {n_poles}")
-    report_peak_alignment(sweep, levels)
+    report_peak_alignment(sweep, levels.energy)
 
 
 def _peaks(
