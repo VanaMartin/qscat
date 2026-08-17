@@ -464,19 +464,25 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     python-mumps looks for) so the extra builds against the system library. It
     also installs **ffmpeg** — the matplotlib `FFMpegWriter` backend for
     `qscat.viz`'s `.mp4` animation output (the `.gif` path needs only pillow) —
-    which flows to the `build`/`test` stages so the ffmpeg-gated `.mp4` viz test
-    renders rather than skips.
-  - `docker/Dockerfile` is `FROM ${BASE_IMAGE}` and layers `build` → `test` →
-    `runtime` on top, using `uv sync --all-packages` for setup. The `build`
-    stage adds `--extra plot` (matplotlib) so `qscat.viz` animation works in
-    `runtime`, which copies `build`'s venv verbatim (no toolchain there to
-    re-sync/rebuild the Rust kernel); `runtime` also installs **ffmpeg** for the
-    `.mp4` writer. The `test` stage additionally adds `--extra mumps` so the
-    MUMPS backend is exercised; that extra is test-only (`runtime` omits it,
-    keeping python-mumps out of the production image). Both MUMPS and the `.mp4`
-    viz test run in the container and `@skipif`/`@skip`-absent on a bare Mac (no
-    system MUMPS, no ffmpeg), so the Mac suite stays green while the same tests
-    run + pass in Docker — see docs/physics/mumps-sparse-backend.md.
+    which flows to the `build`/`test-deps`/`test` stages so the ffmpeg-gated
+    `.mp4` viz test renders rather than skips.
+  - `docker/Dockerfile` is `FROM ${BASE_IMAGE}` and layers `build` →
+    `test-deps` → `test` → `runtime` on top, using `uv sync --all-packages`
+    for setup. The `build` stage adds `--extra plot` (matplotlib) so
+    `qscat.viz` animation works in `runtime`, which copies `build`'s venv
+    verbatim (no toolchain there to re-sync/rebuild the Rust kernel);
+    `runtime` also installs **ffmpeg** for the `.mp4` writer. `test-deps`
+    (`FROM build`) additionally adds `--extra mumps` so the MUMPS backend is
+    available but runs no tests; `test` is `FROM test-deps` and adds the
+    `pytest -q` run. `test-deps`/`test` are deliberately separate targets so
+    that pulling in MUMPS/plot for a compute run (`docker/run.sh`, which
+    builds `test-deps`) never also pays for, or is blocked by, a full suite
+    run (~38 min measured) — only `docker/build.sh test` reaches `test`. The
+    `mumps` extra stays test-only (`runtime` omits it, keeping python-mumps
+    out of the production image). Both MUMPS and the `.mp4` viz test run in
+    the container and `@skipif`/`@skip`-absent on a bare Mac (no system
+    MUMPS, no ffmpeg), so the Mac suite stays green while the same tests run
+    + pass in Docker — see docs/physics/mumps-sparse-backend.md.
   - **Where `qscat.viz` is actually tested.** GitHub CI runs
     `uv sync --all-packages`, which does NOT install the `plot` extra, so every
     test guarded by `pytest.importorskip("matplotlib")` — the whole `qscat.viz`
@@ -484,7 +490,7 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     extra installed and by the Docker `test` image. A green CI run is therefore
     not evidence that a viz change works; run `libs/qscat/tests/test_viz.py`
     locally or in the container before believing one.
-  - `docker/build.sh [test|runtime]` builds the base image then the
+  - `docker/build.sh [test|test-deps|runtime]` builds the base image then the
     requested app target. Verified working: `test` prints `5 passed`;
     `runtime` prints `qscat 0.0.0 ready`.
 - **GPU/CUDA and AWS deployment are deferred.** `reference/libXcuda` is kept
