@@ -1,4 +1,4 @@
-"""The sigma(E) "boomerang" curve + usable window (sub-project #7, Task 5).
+"""The sigma(E) "boomerang" curve + usable window (sub-project #7).
 
 ONE ~215s propagation at `TD_WORKING_GRID` (module-scope fixture, via
 `convergence.sigma_curve`) produces the correlation functions `c_{v'}(t_n)`;
@@ -110,6 +110,6 @@ def test_usable_window_is_nonempty_and_sensible() -> None:
     peak_e = float(e_scan[int(np.argmax(eta_abs))])
     assert peak_e == pytest.approx(0.125, abs=0.015)
 
-    # The window must bracket both of Task 4's validated anchors.
+    # The window must bracket both gate-validated anchors (E = 0.10, 0.15).
     assert e_lo <= 0.10
     assert e_hi >= 0.15

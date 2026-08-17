@@ -1,5 +1,5 @@
 """Numeric-output + visualization layer for the 2-D TD N2 VE cross section
-(sub-project #7, Task 6).
+(sub-project #7).
 
 The user's primary goal for this whole sub-project is *observing the
 transient anion form and decay from the correlation functions* -- the
@@ -10,7 +10,7 @@ them. This module does no physics of its own: it only serializes and plots
 objects Tasks 1-5 already produced --
 `projects.n2_2d_td_cross_section.td_propagation.PropagationResult` (the
 correlation functions and density/norm snapshots) and a `sigma(E)` curve
-(Task 4's `td_cross_section.td_ve_cross_section_2d` or Task 5's
+(`td_cross_section.td_ve_cross_section_2d` or
 `convergence.sigma_curve`), optionally overlaid on #6's exact TI oracle
 `projects.n2_2d_cross_section.cross_section_2d.ve_cross_section_2d`.
 
