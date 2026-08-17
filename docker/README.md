@@ -17,19 +17,26 @@ provision system MUMPS with the pkg-config `.pc` files Debian omits), so the bas
 swappable purely via `BASE_IMAGE`.
 
 **`docker/Dockerfile`** — `FROM ${BASE_IMAGE}` (default `qmodeling-base:latest`) and
-   layers `build` → `test` → `runtime` on top. Setup uses the canonical
+   layers `build` → `test-deps` → `test` → `runtime` on top. Setup uses the canonical
    `uv sync --all-packages`, which installs `qscat` and builds the Rust `qscat_kernels`
-   in one step. The `runtime` stage starts fresh from the upstream uv/Python image and
-   installs only the non-dev shared libs (`libopenblas0`, `libfftw3-double3`,
-   `liblapacke`) needed at runtime — no compilers, no `-dev` headers.
+   in one step. `test-deps` adds the `mumps`/`plot` extras only — no test execution;
+   `test` is `FROM test-deps` and runs the full `pytest -q` suite, so building/running
+   test dependencies never silently pays for (or is blocked by) a full suite run. The
+   `runtime` stage starts fresh from the upstream uv/Python image and installs only the
+   non-dev shared libs (`libopenblas0`, `libfftw3-double3`, `liblapacke`) needed at
+   runtime — no compilers, no `-dev` headers, no `mumps` extra.
 
 ## Build
 
 ```bash
-# docker/build.sh [test|runtime] [cpu|cpu-mkl|gpu]   (defaults: test cpu)
+# docker/build.sh [test|test-deps|runtime] [cpu|cpu-mkl|gpu]   (defaults: test cpu)
 
 # Build the CPU base, then the app test stage (fails the build if tests fail):
 docker/build.sh test
+
+# Build the CPU base, then just the test/compute dependencies (mumps + plot),
+# with no test execution -- this is what docker/run.sh uses:
+docker/build.sh test-deps
 
 # Build the CPU base, then the app runtime image, and run it:
 docker/build.sh runtime
@@ -46,9 +53,9 @@ base is never stale relative to the app image. The `cpu` base is also tagged
 
 ## Running a `qscat-run` experiment
 
-`docker/run.sh` builds the `test` image (has MUMPS — needed for the larger production
-decks, e.g. H2P's ~1.15M-unknown full grid) and runs a `qscat-run` YAML config inside it
-in one step:
+`docker/run.sh` builds the `test-deps` image (has MUMPS — needed for the larger
+production decks, e.g. H2P's ~1.15M-unknown full grid — but does NOT run the test suite)
+and runs a `qscat-run` YAML config inside it in one step:
 
 ```bash
 docker/run.sh CONFIG [OUTPUT_DIR]     # OUTPUT_DIR defaults to runs/<config-stem>
