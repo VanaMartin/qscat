@@ -21,17 +21,18 @@ Functions:
   * `plot_correlation` -- |c_v'(t)| (and Re/Im) vs t, per channel -- the
     correlation build-up.
   * `plot_sigma_vs_ti` -- sigma_TD(E) overlaid on sigma_TI(E), distinguishing
-    THREE honesty regions: well-converged (solid, trustworthy), finite-T
-    unresolved (dotted, inside the spectral window but below the boomerang
-    resolution floor), and outside the spectral window (faded, eta-
-    deconvolution noise). Neither of the latter two is ever presented as
-    trustworthy signal. On top of that, the specific `validated_anchors`
-    (energies gate-validated point-by-point against the exact TI oracle, e.g.
-    E=0.10/0.15) are drawn as trustworthy "validated" points regardless of
-    the resolution-floor heuristic -- E=0.10 sits in the boomerang energy
-    range but lands near the resonance peak where the feature is broad enough
-    to resolve, so it agrees with the exact TI there even though the dense
-    curve between anchors does not.
+    the spectral window where the Tannor-Weeks deconvolution is trustworthy
+    (solid) from outside it, where dividing by a small `|eta_incident(E)|`
+    amplifies residual noise (faded, never presented as signal).
+
+    This function used to draw a THIRD region, a "finite-T resolution floor"
+    below which the boomerang sub-features were said to be narrower than the
+    propagation's `2*pi/T` and therefore unresolvable. That region was an
+    artefact of the order-1 Crank-Nicolson propagator this module used at the
+    time, not a property of the method: it was removed once order-3 Pade
+    (`qscat.evolution.make_pade_stepper`) made the same energies agree with
+    the exact TI oracle. Nothing here should re-introduce a "regions" concept
+    without a measurement showing the region is real.
 """
 
 from __future__ import annotations
@@ -289,63 +290,34 @@ def plot_sigma_vs_ti(
     sigma_ti: npt.ArrayLike,
     usable: tuple[float, float],
     path: _PathLike,
-    resolution_floor_e: float = 0.13,
-    validated_anchors: tuple[float, ...] = (0.10, 0.15),
 ) -> None:
-    """sigma_TD(E) overlaid on #6's exact sigma_TI(E), THREE honestly-drawn regions.
+    """sigma_TD(E) overlaid on the exact sigma_TI(E), inside vs outside the window.
 
     `sigma_td`/`sigma_ti` are `(n_E,)` or `(n_E, n_ch)` array-likes aligned
     with `E_grid`; `usable = (E_lo, E_hi)` (e.g. from
     `convergence.usable_window`) is the sub-interval where
     `|eta_incident(E)|` is large enough that the Tannor-Weeks deconvolution
-    is trustworthy (see `convergence.usable_window`'s docstring). That
-    spectral-coverage window is NOT the only reliability limit, though: Task
-    5 (`test_td_convergence.py`'s module docstring) documents a SEPARATE
-    finite-time-propagation resolution limit -- below `E ~ 0.13` Ha the exact
-    `sigma_TI(E)` has boomerang sub-features (swings over ranges of order
-    `0.004` Ha) narrower than the propagation's energy resolution
-    `2*pi/T ~ 0.0042` Ha (at `T=1500` a.u.), so `sigma_TD` there can be off by
-    a large factor (measured ratios 5.7 at E=0.09, 0.37 at E=0.11) EVEN WHEN
-    `|eta_incident(E)|` is large -- a resolution problem, not an SNR problem,
-    so it survives being "inside the usable window" and must be flagged
-    separately.
+    is trustworthy (see `convergence.usable_window`'s docstring). Points
+    inside it are drawn solid; points outside are faded and dashed, since
+    dividing by a small `|eta_incident|` there amplifies residual
+    truncation/discretization noise into something that looks like signal.
 
-    `resolution_floor_e` (default `0.13`, Hartree) is that finite-T
-    resolution floor: the energy below which the boomerang sub-structure is
-    known to be narrower than `2*pi/T` for the `T=1500` a.u. propagation this
-    module's figures are built from. It is a judgment call read off Task 5's
-    measurements (smooth, well-tracked behavior confirmed from E=0.14 up;
-    sharp sub-0.13 disagreement measured at E=0.09/0.11), not a sharp
-    analytic threshold -- callers propagating at a different `T` should pass
-    a value appropriate to `2*pi/T` for that run.
+    **A third region used to be drawn here and was wrong.** It marked
+    `E < 0.13` Ha as "finite-T unresolved", on the reasoning that the
+    boomerang sub-features (~0.004 Ha wide) were narrower than the
+    propagation's energy resolution `2*pi/T ~ 0.0042` Ha, and cited measured
+    ratios (5.7 at E=0.09, 0.37 at E=0.11) as evidence of a limit that "a
+    longer T would sharpen" but re-tuning could not fix. Those ratios were
+    produced by the order-1 Crank-Nicolson propagator this module used at the
+    time, which under-converges badly over a long propagation. With order-3
+    Pade (`qscat.evolution.make_pade_stepper`, now the default) the same
+    energies track the exact TI oracle, so the region described a solver
+    artefact as if it were physics. It is gone, along with the
+    `validated_anchors` mechanism that existed only to except two energies
+    from it.
 
-    Three regions are drawn, most-to-least trustworthy:
-
-      * **well-converged** (`E >= resolution_floor_e` AND inside `usable`):
-        solid marker+line, the trustworthy sigma_TD-vs-sigma_TI comparison.
-      * **finite-T unresolved** (inside `usable` but `E < resolution_floor_e`,
-        the boomerang zone): drawn with a distinct marker/linestyle (squares,
-        dotted) and its own legend entry, "finite-T unresolved (boomerang
-        sub-features narrower than 2*pi/T)" -- visually different from both
-        the solid signal and the faded noise-floor points, never presented
-        as trustworthy.
-      * **outside the spectral window** (`|eta_incident(E)|` small): faded/
-        dashed, labeled "eta-deconvolution noise" (unchanged from before).
-
-    `validated_anchors` overrides the resolution-floor heuristic for the
-    specific energies (default `(0.10, 0.15)`, Hartree) that were validated
-    point-by-point against the exact TI oracle at the `@slow` gate (harness
-    Group F). Those points -- when they appear in `E_grid` and fall inside
-    `usable` -- are drawn as trustworthy "validated" markers (large starred,
-    black-edged, legend "sigma_TD validated vs TI oracle") regardless of
-    whether they sit above or below `resolution_floor_e`, and are removed
-    from the well-converged and finite-T-unresolved sets so they are never
-    double-drawn. This resolves the apparent contradiction at E=0.10: it lies
-    in the boomerang energy range (below the ~0.13 finite-T floor), yet it
-    lands near the resonance peak where the exact feature is broad enough to
-    resolve, so `sigma_TD(0.10)` agrees with the exact TI (ratio 0.9305) and
-    is a legitimate gate anchor -- whereas the *dense* boomerang curve between
-    the anchors is genuinely not pointwise-resolved and stays dotted.
+    Do not re-introduce a regions concept without a measurement showing the
+    region is real at the propagator actually in use.
 
     No sigma value is altered by this function -- only how each point is
     drawn and labeled.
@@ -360,70 +332,19 @@ def plot_sigma_vs_ti(
 
     fig, ax = plt.subplots(figsize=(7.5, 5.5))
     ax.axvspan(e_lo, e_hi, color="tab:green", alpha=0.12, label="usable window", zorder=0)
-    if e_lo < resolution_floor_e < e_hi:
-        ax.axvspan(
-            e_lo,
-            resolution_floor_e,
-            color="tab:orange",
-            alpha=0.10,
-            label="finite-T resolution floor (boomerang zone)",
-            zorder=0,
-        )
-
-    # Gate-validated anchors: trustworthy point-by-point vs the exact TI
-    # oracle regardless of the resolution-floor heuristic. Only in-window
-    # points count, and they are pulled out of the converged / unresolved
-    # sets so each point is drawn exactly once.
-    validated = np.zeros(E.shape, dtype=bool)
-    for a in validated_anchors:
-        validated |= np.isclose(E, a, atol=1e-9)
-    validated &= (E >= e_lo) & (E <= e_hi)
 
     below = E < e_lo
     above = E > e_hi
-    unresolved = (E >= e_lo) & (E < resolution_floor_e) & ~validated
-    converged = (E >= resolution_floor_e) & (E <= e_hi) & ~validated
+    inside = (E >= e_lo) & (E <= e_hi)
 
     for j in range(n_ch):
         color = f"C{j}"
         ti_label = "sigma_TI (exact)" if n_ch == 1 else f"sigma_TI v'={j}"
         ax.plot(E, ti[:, j], "-", color=color, lw=2, alpha=0.9, label=ti_label)
 
-        td_label = "sigma_TD (well-converged)" if n_ch == 1 else f"sigma_TD v'={j} (well-converged)"
-        if np.any(converged):
-            ax.plot(E[converged], td[converged, j], "o-", color=color, ms=4, label=td_label)
-
-        validated_label = (
-            "sigma_TD validated vs TI oracle"
-            if n_ch == 1
-            else f"sigma_TD v'={j} validated vs TI oracle"
-        )
-        if np.any(validated):
-            ax.plot(
-                E[validated],
-                td[validated, j],
-                "*",
-                color=color,
-                ms=14,
-                markeredgecolor="k",
-                markeredgewidth=0.7,
-                zorder=5,
-                label=validated_label if j == 0 else None,
-            )
-
-        unresolved_label = (
-            "sigma_TD finite-T unresolved (boomerang sub-features narrower than 2*pi/T)"
-        )
-        if np.any(unresolved):
-            ax.plot(
-                E[unresolved],
-                td[unresolved, j],
-                "s:",
-                color=color,
-                ms=5,
-                mfc="none",
-                label=unresolved_label if j == 0 else None,
-            )
+        td_label = "sigma_TD" if n_ch == 1 else f"sigma_TD v'={j}"
+        if np.any(inside):
+            ax.plot(E[inside], td[inside, j], "o-", color=color, ms=4, label=td_label)
 
         noise_label = "sigma_TD outside window (eta-deconvolution noise)"
         first_outside = True
