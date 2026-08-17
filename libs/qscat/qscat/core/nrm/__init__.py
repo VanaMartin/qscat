@@ -20,4 +20,10 @@ treated as correct and no code here is derived from it.
 
 from __future__ import annotations
 
-__all__: list[str] = []
+from .discrete_state import (
+    AsymptoticDiscreteState,
+    DiscreteState,
+    PhysicalDiscreteState,
+)
+
+__all__ = ["AsymptoticDiscreteState", "DiscreteState", "PhysicalDiscreteState"]
