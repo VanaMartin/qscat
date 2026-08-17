@@ -410,6 +410,28 @@ class ExperimentConfig:
 _REQUIRED_KEYS = ("molecule", "methods", "observables", "output_dir")
 
 
+def _molecule_name(raw: Any) -> str:
+    """`raw` as a molecule name, with a specific error for the YAML-1.1 trap.
+
+    PyYAML implements YAML 1.1, where a bare ``NO`` is the BOOLEAN false, not
+    the string "NO". A hand-written ``molecule: NO`` therefore arrives here as
+    ``False`` and, coerced with ``str()``, produced "unknown molecule 'False'"
+    -- an error that says nothing about the real cause. ``qscat-run init``
+    already quotes the name, so this only bites configs written by hand.
+    """
+    if isinstance(raw, bool):
+        return _raise_yaml_bool_molecule(raw)
+    return str(raw)
+
+
+def _raise_yaml_bool_molecule(raw: bool) -> str:
+    got = "true" if raw else "false"
+    raise ConfigError(
+        f"'molecule' parsed as the YAML boolean {got}, not a name. YAML 1.1 reads "
+        f"bare NO/No/no (and ON/OFF/YES) as booleans -- quote it: molecule: 'NO'"
+    )
+
+
 def load_config(path: str | Path) -> ExperimentConfig:
     """Parse a YAML config into an `ExperimentConfig`. Tolerant of every
     optional block being omitted; raises `ConfigError` only if one of the
@@ -420,7 +442,7 @@ def load_config(path: str | Path) -> ExperimentConfig:
         raise ConfigError(f"config is missing required key(s): {missing}")
 
     return ExperimentConfig(
-        molecule=str(raw["molecule"]),
+        molecule=_molecule_name(raw["molecule"]),
         methods=tuple(str(m) for m in raw["methods"]),
         observables=_load_observables(raw["observables"]),
         output_dir=str(raw["output_dir"]),

@@ -382,3 +382,26 @@ def test_omitted_channels_still_defaults_for_da(tmp_path):
     validate_config(cfg)
     resolved = presets.resolve_defaults(cfg)
     assert resolved.observables[0].channels == 1
+
+
+def test_bare_NO_molecule_gives_an_actionable_yaml_boolean_error(tmp_path: Path) -> None:
+    """PyYAML is YAML 1.1, where bare `NO` is the boolean false -- so a
+    hand-written `molecule: NO` used to fail with "unknown molecule 'False'",
+    which says nothing about the real cause. `qscat-run init` quotes the name,
+    so only hand-written configs hit this.
+    """
+    p = tmp_path / "no.yaml"
+    p.write_text(
+        "molecule: NO\nmethods: [ti]\nobservables: [{kind: da, channels: 1}]\noutput_dir: runs/x\n"
+    )
+    with pytest.raises(ConfigError, match="YAML boolean"):
+        load_config(p)
+
+
+def test_quoted_NO_molecule_loads(tmp_path: Path) -> None:
+    p = tmp_path / "no.yaml"
+    p.write_text(
+        "molecule: 'NO'\nmethods: [ti]\n"
+        "observables: [{kind: da, channels: 1}]\noutput_dir: runs/x\n"
+    )
+    assert load_config(p).molecule == "NO"
