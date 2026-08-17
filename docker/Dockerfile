@@ -23,16 +23,26 @@ COPY . .
 # .so) would bloat it with a nonfunctional package. That extra is test-only.
 RUN uv sync --all-packages --extra plot
 
-FROM build AS test
-# Add the mumps extra here so the complex-symmetric MUMPS backend is exercised
-# (not skipped) -- python-mumps links the system MUMPS provisioned in the base
-# image. `plot` is re-stated because `uv sync` reconciles to exactly the given
-# extras (omitting it would prune matplotlib). This stage is not copied by
-# `runtime`, so the mumps extra stays test-only. Then run the suite with
-# --no-sync (no re-resolve/prune of the just-built workspace members); the base
-# image's ffmpeg makes the ffmpeg-gated .mp4 viz test render rather than skip.
-RUN uv sync --all-packages --extra mumps --extra plot \
-    && uv run --no-sync pytest -q
+FROM build AS test-deps
+# Add the mumps extra here so the complex-symmetric MUMPS backend is available
+# -- python-mumps links the system MUMPS provisioned in the base image. `plot`
+# is re-stated because `uv sync` reconciles to exactly the given extras
+# (omitting it would prune matplotlib). Neither this stage nor `test` below is
+# copied by `runtime`, so the mumps extra stays test-only.
+#
+# This is the target `docker/run.sh` builds from: it needs the MUMPS backend
+# for large production decks (e.g. H2P's ~1.15M-unknown grid) but must NOT pay
+# for, or be blocked by, a full test-suite run on every compute invocation --
+# that coupling was the reason this stage was split out of `test`.
+RUN uv sync --all-packages --extra mumps --extra plot
+
+FROM test-deps AS test
+# Executes the suite -- reached only when explicitly requested
+# (`docker/build.sh test`), never as a side effect of building `test-deps` or
+# `runtime`. --no-sync skips a re-resolve/prune of the just-built workspace
+# members; the base image's ffmpeg makes the ffmpeg-gated .mp4 viz test render
+# rather than skip.
+RUN uv run --no-sync pytest -q
 
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS runtime
 # Runtime needs the shared numerical libs (no -dev headers, no toolchain) plus

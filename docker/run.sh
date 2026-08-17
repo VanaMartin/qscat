@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
-# Run a qscat-run experiment config end-to-end inside the CPU `test` image
-# (has MUMPS -- needed for large decks like H2P's full deck). Builds
-# qmodeling-base then the `test` app target (same pattern as
-# docker/run-n2.sh / docker/build.sh), then runs `qscat-run run` inside the
-# container, mounting CONFIG in read-only and OUTPUT_DIR out.
+# Run a qscat-run experiment config end-to-end inside the CPU `test-deps`
+# image (has MUMPS -- needed for large decks like H2P's full deck -- but does
+# NOT run the test suite). Builds qmodeling-base then the `test-deps` app
+# target (same pattern as docker/run-n2.sh / docker/build.sh), then runs
+# `qscat-run run` inside the container, mounting CONFIG in read-only and
+# OUTPUT_DIR out.
+#
+# Deliberately does NOT build the `test` target: that would run the full
+# pytest suite (measured ~38 min) before every compute invocation, and a
+# single failing test would block compute work that has nothing to do with
+# it. Run `docker/build.sh test` separately when you actually want the suite.
 #
 # Usage: docker/run.sh CONFIG [OUTPUT_DIR]
 #   CONFIG      path to a qscat-run YAML config (e.g. apps/qscat-run/examples/f2-da.yaml)
@@ -24,7 +30,7 @@ mkdir -p "$output_dir"
 
 export DOCKER_BUILDKIT=0
 docker build -t qmodeling-base:latest -f docker/base.Dockerfile .
-docker build --build-arg GIT_SHA="$(git rev-parse HEAD 2>/dev/null || echo unknown)" --target test -t qmodeling:test -f docker/Dockerfile .
+docker build --build-arg GIT_SHA="$(git rev-parse HEAD 2>/dev/null || echo unknown)" --target test-deps -t qmodeling:test-deps -f docker/Dockerfile .
 
 # Mount the config at the SAME path it occupies in the repo, so that any
 # RELATIVE path inside it (e.g. a `reference:` pointing at
@@ -43,7 +49,7 @@ fi
 docker run --rm \
   -v "$config_abs":"$in_image":ro \
   -v "$(realpath "$output_dir")":/out \
-  qmodeling:test \
+  qmodeling:test-deps \
   uv run --no-sync qscat-run run "$in_image" --output /out
 
 echo "wrote artifacts to ${output_dir}"
