@@ -93,6 +93,17 @@ Public API:
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
   - `plot_resonance_levels` -- generic complex-level plotting (position vs
     width, plus per-level differences against a chosen baseline series).
+
+`qscat.core.nrm` (a separate subpackage, NOT re-exported here) is the
+Feshbach-projection nonlocal resonance model (NRM) for dissociative
+attachment (Houfek, Rescigno & McCurdy, PRA 77, 012710 (2008)) -- it sits
+between `local_complex_potential`'s LCP reduction and the exact 2-D solvers
+above. It is left out of this module's own imports/`__all__` on purpose:
+importing it here would defeat the hard boundary above the moment `nrm` ever
+grew a runtime `qscat.model` import, since `import qscat.core` would then pull
+it in transitively. Import it explicitly:
+`from qscat.core.nrm import nrm_da_cross_section`. See
+`docs/physics/nonlocal-resonance-model.md`.
 """
 
 from __future__ import annotations

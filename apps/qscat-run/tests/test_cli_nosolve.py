@@ -35,6 +35,22 @@ def test_init_h2p_scaffolds_valid_config(tmp_path: Path) -> None:
     assert r2.exit_code == 0, r2.output
 
 
+def test_cli_validates_every_committed_example() -> None:
+    """Every committed example must pass the exact command its own header tells
+    readers to run.
+
+    `tests/test_examples.py` calls `load_config` + `validate_config` directly,
+    which is strictly weaker: it never resolves a grid. `lcp` and `nrm` have no
+    ti/td-style tensor grid, so a CLI that routed them through `resolve_grid`
+    would reject configs `run` supports -- and only this test would notice.
+    """
+    examples = sorted((Path(__file__).resolve().parent.parent / "examples").glob("*.yaml"))
+    assert examples, "no committed examples found -- the glob is stale"
+    for path in examples:
+        r = CliRunner().invoke(main, ["validate", str(path)])
+        assert r.exit_code == 0, f"{path.name}: {r.output}"
+
+
 def test_validate_rejects_bad(tmp_path: Path) -> None:
     bad = tmp_path / "bad.yaml"
     bad.write_text("molecule: XX\nmethods: [ti]\nobservables: []\noutput_dir: o\n")

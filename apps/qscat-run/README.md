@@ -33,6 +33,19 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
   `methods: [ti, lcp]` overlays the exact oracle and the approximation on one
   `cross_section.png` (keys `ti:da:ch0` vs `lcp:da:ch0`) — the "where does the
   approximation fail?" comparison, from one config.
+- **`nrm`** — the nonlocal resonance model of DA (F2/NO only): the rung above
+  `lcp`, keeping the energy dependence and the nonlocality the LCP discards.
+  Takes an optional `nrm:` block — `choices: [a, b]` (PRA 77's two
+  discrete-state choices, default `[b]`) and `n_states` (the Eq. 60 state-sum
+  truncation, default 100, a measured value). One series per choice, keyed
+  `nrm-a:da:ch0` / `nrm-b:da:ch0`, so `methods: [ti, lcp, nrm]` puts the exact
+  oracle and all three approximations on one axis — see
+  `examples/f2-da-nrm-vs-lcp-vs-exact.yaml` and
+  `docs/physics/nonlocal-resonance-model.md`.
+
+`lcp` and `nrm` both need a `da` observable and the preset's grids (neither has
+an explicit-grid form). `nrm` produces the DA cross section only — its VE route
+would need the paper's background T-matrix, which qscat does not implement.
 
 ## Observables → config knob → artifact
 
@@ -61,8 +74,8 @@ excitation overlaid on Karel Houfek's independent published data.
 
 Every run also writes `config.resolved.yaml` (the fully default-filled config)
 and `manifest.json` (qscat version, git SHA, timestamp, backend, timings) for
-reproducibility. `methods: [ti, td, lcp]` merges everything into one result
-under disjoint `ti:`/`td:`/`lcp:` key prefixes.
+reproducibility. `methods: [ti, td, lcp, nrm]` merges everything into one result
+under disjoint `ti:`/`td:`/`lcp:`/`nrm-a:`/`nrm-b:` key prefixes.
 
 ## Architecture
 
@@ -71,7 +84,7 @@ under disjoint `ti:`/`td:`/`lcp:` key prefixes.
   default energies/incident/test-functions, LCP grids. **The one place a new
   molecule is added.**
 - `runner.py` — `run_experiment(cfg)` → `ExperimentResult`; `_run_ti`/`_run_td`/
-  `_run_lcp` dispatch observables against `qscat.core` on their own grid.
+  `_run_lcp`/`_run_nrm` dispatch observables against `qscat.core` on their own grid.
 - `artifacts.py` — `write_artifacts(result, cfg, out_dir, timestamp=...)`.
 
 `qscat_run` depends on `qscat` (the library) and **must not import

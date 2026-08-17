@@ -269,7 +269,7 @@ Two *conventions* were checked against the code:
 | Paper symbol | qModeling name | Note |
 |---|---|---|
 | `φ_d(r;R)` | `qscat.core.nrm`'s discrete state | same object; PRA 77's `φ_d` too |
-| `V_d(R)` (Eq. 4.13/4.43, the discrete-state potential) | **not** `qscat.core.lcp`'s `V_d` | a genuine collision — `lcp.py:41` already flags that its `V_d` is not Houfek's; the same warning applies here. Domcke's `V_d` is the *unshifted* discrete-state curve; qscat's is `Re E_pole(R)`, which corresponds to Domcke's `V_d + Δ_L` |
+| `V_d(R)` (p. 134, Eq. (4.13); p. 140, Eq. (4.43) — the discrete-state potential) | **not** `qscat.core.lcp`'s `V_d` | a genuine collision — `lcp.py:41` already flags that its `V_d` is not Houfek's; the same warning applies here. Domcke's `V_d` is the *unshifted* discrete-state curve; qscat's is `Re E_pole(R)`, which corresponds to Domcke's `V_d + Δ_L` |
 | `Δ_L(R)` (Eq. 4.35) | never formed explicitly in qscat | absorbed into `Re E_pole(R)` |
 | `Γ_L(R)` (Eq. 4.33) | `Gamma(R)` in `qscat.core.lcp` | same quantity, different route: Domcke's is `2π\|V_{d,E_res}\|²`, qscat's is `−2 Im E_pole(R)` |
 | `V_eff^(L)(R)` (Eq. 4.36) | `V_d(R) − iΓ(R)/2` in `qscat.core.lcp` | same object |

@@ -103,6 +103,138 @@ def test_lcp_with_explicit_grid_rejected(tmp_path: Path) -> None:
         validate_config(cfg)
 
 
+def test_nrm_block_loads_with_both_choices(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [ti, lcp, nrm]
+        observables: [{kind: da, channels: 1}]
+        nrm: {choices: [a, b], n_states: 80}
+        output_dir: out
+    """,
+        )
+    )
+    validate_config(cfg)  # no raise
+    assert cfg.nrm is not None
+    assert cfg.nrm.choices == ("a", "b")
+    assert cfg.nrm.n_states == 80
+
+
+def test_nrm_defaults_are_materialized_by_resolve_defaults(tmp_path: Path) -> None:
+    """An omitted `nrm:` block still records what actually ran: `resolve_defaults`
+    fills the measured defaults so `config.resolved.yaml` is not `nrm: null`."""
+    from qscat_run import presets
+
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [nrm]
+        observables: [{kind: da, channels: 1}]
+        output_dir: out
+    """,
+        )
+    )
+    validate_config(cfg)
+    assert cfg.nrm is None
+    resolved = presets.resolve_defaults(cfg)
+    assert resolved.nrm is not None
+    assert resolved.nrm.choices == ("b",)
+    assert resolved.nrm.n_states == 100
+
+
+def test_nrm_rejected_for_n2(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: N2
+        methods: [nrm]
+        observables: [{kind: da, channels: 1}]
+        output_dir: out
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="nrm.*not available"):
+        validate_config(cfg)
+
+
+def test_nrm_without_da_observable_rejected(tmp_path: Path) -> None:
+    """The NRM has no VE route here -- that needs the paper's background
+    T-matrix -- so a `ve`-only config must be rejected, not silently no-op."""
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [nrm]
+        observables: [{kind: ve, channels: 2}]
+        output_dir: out
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="no 'da' observable"):
+        validate_config(cfg)
+
+
+def test_nrm_with_explicit_grid_rejected(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [nrm]
+        observables: [{kind: da, channels: 1}]
+        output_dir: out
+        grid:
+          electronic: {real: [[4, 2.0], [2, 8.0]], ecs: {angle: 30, elements: 3, quadrature: 5}}
+          nuclear: {real: [[3, 1.8], [3, 10.0]], ecs: {angle: 30, elements: 3, quadrature: 6}}
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="nrm.*does not support an explicit grid"):
+        validate_config(cfg)
+
+
+def test_nrm_unknown_choice_rejected(tmp_path: Path) -> None:
+    """PRA 77's third ('compact') discrete state is not implemented, so a `c`
+    must fail loudly rather than resolve to something else."""
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [nrm]
+        observables: [{kind: da, channels: 1}]
+        nrm: {choices: [c]}
+        output_dir: out
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="unknown nrm discrete-state choice"):
+        validate_config(cfg)
+
+
+def test_nrm_nonpositive_n_states_rejected(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: F2
+        methods: [nrm]
+        observables: [{kind: da, channels: 1}]
+        nrm: {n_states: 0}
+        output_dir: out
+    """,
+        )
+    )
+    with pytest.raises(ConfigError, match="n_states"):
+        validate_config(cfg)
+
+
 def test_dr_on_neutral_rejected(tmp_path: Path) -> None:
     cfg = load_config(
         _write(

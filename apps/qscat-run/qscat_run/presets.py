@@ -44,6 +44,7 @@ from qscat_run.config import (
     EnergySpec,
     ExperimentConfig,
     IncidentSpec,
+    NrmSpec,
     Observable,
     SegmentSpec,
     TdSpec,
@@ -60,6 +61,7 @@ __all__ = [
     "available_presets",
     "resolve_grid",
     "resolve_lcp_grids",
+    "resolve_nrm_grids",
     "nuclear_angle_b",
     "nuclear_grid_at_angle",
     "resolve_defaults",
@@ -429,6 +431,37 @@ def resolve_lcp_grids(
     return preset.lcp_grids()
 
 
+# The NRM's second electronic ECS angle. It is NOT the LCP's 44 deg: the NRM
+# runs its electronic Hamiltonian on the SAME deck the exact 2-D `ti` solve
+# uses (`_lcp_elec(_LCP_ANGLE_A)` == `_f2_ti_grid`'s electronic factor), and
+# `PhysicalDiscreteState`'s two-angle pole walk needs a second angle near it.
+# 40/35 is the pairing `validation/diatomic/nrm.py` measured every recorded
+# number on, so the app and the validation driver agree by construction.
+_NRM_ANGLE_B = 40.0
+
+
+def resolve_nrm_grids(
+    cfg: ExperimentConfig,
+) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]:
+    """The `(nuclear, elec_a, elec_b)` NRM grid triple for `cfg`'s molecule.
+
+    Shares the LCP path's nuclear deck and first electronic deck -- which is
+    also the exact `ti` solve's electronic factor, so `nrm` and `ti` results
+    in one run are computed on the same electronic discretisation -- and pairs
+    them with a second electronic angle at `_NRM_ANGLE_B` for choice A's
+    two-angle pole walk. Raises `ConfigError` if the molecule has no such deck.
+    """
+    variant = cfg.grid.preset or DEFAULT_PRESET
+    preset = PRESETS.get(f"{cfg.molecule}:{variant}")
+    if preset is None or preset.lcp_grids is None:
+        raise ConfigError(
+            f"the 'nrm' method is not available for {cfg.molecule} ({variant}); the "
+            "nonlocal resonance model is wired for the DA molecules (F2, NO)"
+        )
+    nuc, elec_a, _elec_b_lcp = preset.lcp_grids()
+    return nuc, elec_a, _lcp_elec(_NRM_ANGLE_B)
+
+
 _NUC_GRID_BUILDERS = {"NO": _no_nuc_grid, "F2": _f2_nuc_grid}
 
 # How far below grid a's tail angle grid b sits, when not set explicitly.
@@ -619,4 +652,12 @@ def resolve_defaults(cfg: ExperimentConfig) -> ExperimentConfig:
                 test_functions[kind] = tf
         td = replace(td, incident=incident, test_functions=test_functions or None)
 
-    return replace(cfg, energies=energies, observables=observables, td=td)
+    # `nrm` has no per-molecule preset data -- its defaults are the measured
+    # ones on `NrmSpec` itself. Materializing the block here is what puts the
+    # discrete-state choice and `n_states` actually used into
+    # `config.resolved.yaml`, rather than leaving a bare `nrm: null`.
+    nrm = cfg.nrm
+    if nrm is None and "nrm" in cfg.methods:
+        nrm = NrmSpec()
+
+    return replace(cfg, energies=energies, observables=observables, td=td, nrm=nrm)
