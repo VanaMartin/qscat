@@ -22,28 +22,29 @@ width):
 
 | series | window 0 | window 1 | window 2 |
 |---|---|---|---|
-| exact poles | **0.2** (11/13) | **0.2** (14/18) | 3.3 (10/20) |
+| exact poles | **0.2** (11/12) | **0.2** (14/18) | **0.3** (9/17) |
 | BO levels | 0.8 (5/9) | 3.7 (2/11) | 30.4 (0/8) |
 
-The exact poles reproduce the peak positions of a sweep they were never fitted
-to. The BO levels degrade steadily from window 0 to window 2, which is the
-Born-Oppenheimer error measured against data and is the point of the figure.
+**All three windows agree**: the exact poles reproduce, to within a third of a
+resonance width, the peak positions of a sweep they were never fitted to. The
+BO levels degrade steadily across the three, which is the Born-Oppenheimer
+error measured against data and is the point of the figure.
 
-**Both rows moved substantially once earlier mistakes were corrected, and the
-history is worth keeping in view when reading them.** The BO row was once
-1.8/8.2/15.5 -- measured against a level set truncated to 3-4 marks per window
-by an electronic box too small to hold `Ry_5+` (see `bo_levels`); the missing
-levels were exactly the ones sitting on the lower-window peaks. The pole row's
-window 2 was once 13.9 widths, on a campaign seeded at 3 levels per window
-instead of 8; proper seeding found 21 poles there rather than 14 and the figure
-dropped to 3.3. **Window 2's anomaly was therefore mostly under-seeding, not
-mostly the threshold proximity an earlier version of this docstring proposed.**
+**Both rows reached those numbers by correction, and the route matters, because
+each intermediate value was wrong in a way that looked like physics.**
 
-Window 2 is still the worst of the three (3.3 against 0.2), and its upper edge
-is the closest to an ion vibrational threshold (0.9 mHa, against 1.1 and 1.8),
-where this repository's sigma_DR is independently known to misbehave
-(docs/physics/h2plus-dr.md). That remains a candidate for the residual, not an
-established cause.
+The BO row was once 1.8 / 8.2 / 15.5, measured against a level set truncated to
+3-4 marks per window by an electronic box too small to hold `Ry_5+` (see
+`bo_levels`) -- and the missing levels were exactly the ones sitting on the
+lower-window peaks.
+
+The pole row's window 2 was once 13.9 widths, then 3.3, now 0.3. The first drop
+came from seeding the campaign at every BO level instead of three per window;
+the second from deleting four states that are not resonances at all
+(`bo_overlap`, and the note above `EXACT_POLES`). **There is no window-2
+anomaly.** Two explanations were offered for it along the way -- threshold
+proximity, then residual under-seeding -- and neither survived; it was
+contaminated input twice over.
 
 **Reduced mass.** The levels here are computed at `REFERENCE_MU = 918.25`, the
 value the published sweep was computed with, so that the marks and the curves
@@ -99,15 +100,27 @@ def _CURVE_COLOR(j: int) -> str:
 
 
 # Exact 2-D pole positions (absolute energy, Ha) from the r_max=300 campaign,
-# keyed by window. Recorded rather than recomputed: each window is a ~10-30 min
-# multi-shift 2-D solve (see exact_poles.py), far too slow for a figure script.
+# with the four states `bo_overlap` identifies as NOT resonances removed:
+# E = 0.004479, 0.021782, 0.022796 and 0.026065 have best BO overlaps of
+# 6e-4, 7e-4, 7e-3 and 7e-3 where genuine states score 0.87-0.99, and every
+# level energetically admissible at those energies is in the basis, so the
+# poor overlap is a fact about the state rather than about the basis. They
+# passed the two-angle ECS stability test that found them, which is the
+# point: stability is necessary and not sufficient.
+#
+# Removing them is what makes window 2 agree with the others -- its median
+# distance to a published peak falls from 3.3 resonance widths to 0.3. One
+# of the four sat 0.4 widths from a peak by coincidence and was flattering
+# the figure; the other three sat 6-32 widths away and were spoiling it.
+#
+# Keyed by window, and recorded rather than recomputed: each window is a
+# ~10-30 min multi-shift 2-D solve, far too slow for a figure script.
 EXACT_POLES: dict[int, tuple[float, ...]] = {
     0: (
         -0.097748890,
         -0.096041061,
         -0.094304949,
         -0.093680172,
-        -0.093125072,
         -0.092997199,
         -0.092096961,
         -0.091942982,
@@ -148,10 +161,8 @@ EXACT_POLES: dict[int, tuple[float, ...]] = {
         -0.077449152,
         -0.076354825,
         -0.075901901,
-        -0.075822041,
         -0.075172625,
         -0.074999717,
-        -0.074808161,
         -0.074091044,
         -0.073397529,
         -0.072877765,
@@ -159,7 +170,6 @@ EXACT_POLES: dict[int, tuple[float, ...]] = {
         -0.072357456,
         -0.072040067,
         -0.071764636,
-        -0.071538753,
         -0.071534086,
         -0.071378514,
         -0.071340399,
