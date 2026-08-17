@@ -17,7 +17,7 @@ DVR COEFFICIENTS, c-product-normalized to 1 and localized in the real
 electronic region. Because a DVR coefficient is `d_j = phi(r_j) sqrt(w_j)`,
 Eq. (58)'s projector is `outer(d, d)` with no further weights, and the
 c-product normalization already supplies the paper's `exp[-i delta(R)]`
-phase-fixing (p. 012710-7).
+phase-fixing (p. 012710-8).
 """
 
 from __future__ import annotations
@@ -128,7 +128,12 @@ class AsymptoticDiscreteState:
 
     def __init__(self, grid: FemDvrEcsGrid, model: ResonanceModel, R_inf: float) -> None:
         _eps, phi = anion_electronic_states(grid, model, R_inf, n_states=1)
-        d = truncate(np.asarray(phi[0], dtype=np.complex128), grid)
+        # Eq. (69)'s cutoff applies only to the SCATTERING-derived state
+        # (p. 012710-8): a bound state is already square-integrable, and
+        # truncating it breaks the exact eigenrelation `H_el phi_b = E_b
+        # phi_b` that Eq. (67)'s decoupling (`V_dk -> 0` by P-space
+        # orthogonality) relies on. Use the raw eigenvector.
+        d = np.asarray(phi[0], dtype=np.complex128)
         self._d = _c_normalize(d)
 
     def phi_d(self, R: float) -> npt.NDArray[np.complex128]:
@@ -144,16 +149,20 @@ class PhysicalDiscreteState:
     `s(R) = Re E_pole(R) - v0(R)`). Where `s(R) > 0` the state is the
     fixed-nuclei scattering function at that energy (Eq. 17's `H_el`); where
     `s(R) <= 0` the electron is bound and the state is the lowest GENUINELY
-    bound eigenvector of `H_el(R)` instead (p. 012710-7): `Re(E) < 0` and
+    bound eigenvector of `H_el(R)` instead (p. 012710-8): `Re(E) < 0` and
     `|Im(E)| < _BOUND_IM_TOL`. If no such eigenvalue exists, the walk's sign
     decision does not match the fresh spectrum at this `R` (most likely a
     frozen/stale continuation point from a `R_descending` too coarse for
     `resonance_pole_walk` to track -- see `re_half_width`/`im_half_width`
     below) and `ConvergenceError` is raised rather than silently returning
     whatever eigenvector happens to have the smallest real part -- that
-    eigenvector is not necessarily real or bound. Both branches are then
-    truncated by Eq. (69) and c-normalized, which supplies the paper's
-    `exp[-i delta(R)]`.
+    eigenvector is not necessarily real or bound. Only the SCATTERING branch
+    is then truncated by Eq. (69) (the paper's cutoff applies to the
+    scattering-derived state only, p. 012710-8); the bound branch is already
+    square-integrable and is used as-is, so its exact eigenrelation
+    `H_el phi_b = E_b phi_b` survives -- truncating it would spuriously
+    prevent `V_dk -> 0` at large `R` (Eq. 67). Both branches are then
+    c-normalized, which supplies the paper's `exp[-i delta(R)]`.
 
     `R_descending` must be descending -- the pole walk is seeded at large `R`
     and continued inward. States are precomputed on those nodes; `phi_d(R)`
@@ -228,6 +237,7 @@ class PhysicalDiscreteState:
             if e_res > 0.0:
                 raw = scattering_state(h_el, grid, e_res, model.ell)
                 self.used_scattering[j] = True
+                raw = truncate(raw, grid, r_d)
             else:
                 evals, evecs = eigen(h_el)  # ascending Re(E)
                 bound = np.flatnonzero((np.abs(evals.imag) < _BOUND_IM_TOL) & (evals.real < 0.0))
@@ -244,7 +254,9 @@ class PhysicalDiscreteState:
                         "im_half_width)."
                     )
                 raw = evecs[:, int(bound[0])].astype(np.complex128)
-            self._states[j] = _c_normalize(truncate(raw, grid, r_d))
+                # Bound branch: no Eq. (69) truncation (p. 012710-8) -- see
+                # AsymptoticDiscreteState's docstring note above.
+            self._states[j] = _c_normalize(raw)
 
     def phi_d(self, R: float) -> npt.NDArray[np.complex128]:
         """The discrete state at the precomputed node nearest `R`."""
