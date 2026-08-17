@@ -15,15 +15,37 @@ The headline measurement, sigma/sigma_exact at the anchors:
          A    6.4e-2 0.571  32.9   8.58   244
          B    4.7e-8 1.8e-7 4.7e-6 5.7e-7 3.4e-6
 
-so the paper's prediction (B near-exact for DA, A degraded by a Born-
-Oppenheimer breakdown) holds on F2 and INVERTS on NO. `test_nrm_b_beats_the_
-lcp_on_f2` and `test_nrm_b_does_not_beat_the_lcp_on_no` are the two halves of
-that finding, and both are load-bearing assertions.
+On F2 -- the only molecule for which PRA 77 publishes a DA cross section at
+all -- the paper's prediction holds exactly: choice B reproduces the exact 2-D
+oracle and choice A is degraded by the Born-Oppenheimer breakdown Sec. VI A
+describes. `test_nrm_b_beats_the_lcp_on_f2` is that claim, and it is the
+gate's one load-bearing physical assertion.
+
+NO IS OUTSIDE THE PAPER'S TESTED RANGE. Its DA channel opens at +0.1719 Ha,
+above every energy window PRA 77 plots for NO (0.01-0.08 Ha), so NO DA is
+energetically shut throughout the published data -- Fig. 6's DA panel and
+Fig. 8's DA panel are F2 only. Nothing measured here for NO contradicts the
+literature; the literature is silent. What NO shows is recorded as an
+observation (`test_no_approximations_are_all_flat_below_a_structured_exact`),
+not asserted as a law, and choice B's absolute scale there is unexplained.
 
 ENERGIES ARE PER MOLECULE because the DA thresholds are: measured
 `eps_e - eps[0]` is **-0.0691 Ha for F2** (open at every positive `E`) and
 **+0.1719 Ha for NO**. A shared grid would compare zeros for NO, and
 `test_the_da_channel_is_open` exists to keep that from ever passing silently.
+
+COVERAGE LIMIT worth knowing when reading a NO number here: the underlying
+discrete-continuum coupling `v_dk_plus` is gated against the LCP's independent
+ECS-pole width on **F2 only**
+(`libs/qscat/tests/test_nrm_coupling.py::test_gamma_matches_the_lcp_width`),
+and that gate's tight window -- `Gamma/E < 0.35` and `E_res > 0.02` Ha -- is
+EMPTY on NO. Measured over NO's 47 genuinely-tracked open points, `Gamma/E`
+rises monotonically inward from 0.124 and crosses 0.35 at R ~ 2.196 where
+`E_res` is still 0.0158 Ha, so the last narrow point (0.338 at E_res=0.0150)
+sits below the energy floor and the first point above the floor is already
+broad (0.409 at E_res=0.0202). The two cuts do not overlap: NO's resonance is
+narrow only where it is also near threshold. So on NO the coupling itself
+carries no tight cross-check, only the order-of-magnitude one.
 """
 
 from __future__ import annotations
@@ -62,23 +84,45 @@ ENERGIES: dict[str, npt.NDArray[np.float64]] = {
 N_STATES: dict[str, int] = {"F2": 100, "NO": 100}
 
 # RECORDED sigma_NRM/sigma_exact bands, choice B (`AsymptoticDiscreteState`).
-# F2: measured [0.998669, 1.018735]; the band keeps ~50% headroom on the 1.9%
-# maximum deviation. NO: measured [4.672e-8, 4.719e-6]; the band is the
-# enclosing decade pair, since the finding there is an order-of-magnitude
-# failure and pinning its mantissa would be false precision.
+#
+# F2: measured [0.998669, 1.018735] -- deviations from unity of 1.9% (E=0.010,
+# nearest threshold), 0.33% (0.020), then 0.059% / 0.13% / 0.097%. Those are
+# quotable as stated, because the oracle's own floor is known and far below
+# them: an INDEPENDENT 1000-point resonance-aware grid gives sigma_DA(F2, 0.03)
+# = 1.6562 against this 974-point deck's 1.65611 (docs/physics/
+# discretisation-tuning.md, validation/tuning/test_resonance_aware.py), i.e.
+# the exact reference is converged to ~5e-5 relative. The deviations above are
+# 11x to 340x that floor, so they are physics, not grid noise -- including
+# their rise toward threshold, which is the physically interesting part. The
+# band keeps ~50% headroom on the largest.
+#
+# NO: measured [4.672e-8, 4.719e-6]; the band is the enclosing decade pair,
+# since what it records is an unexplained order-of-magnitude offset in a
+# regime no published data covers, and pinning its mantissa would be false
+# precision.
 _BANDS_B: dict[str, tuple[float, float]] = {
     "F2": (0.99, 1.03),
     "NO": (1e-8, 1e-5),
 }
 
-# RECORDED sigma_NRM/sigma_exact bands, choice A (`PhysicalDiscreteState`).
-# F2: measured [0.292258, 0.900562] -- a systematic under-prediction that
-# worsens toward threshold. NO: measured [0.064085, 244.229] -- choice A is
-# nearly energy-independent (1.03e-3 -> 4.19e-4) while the exact sigma_DA falls
-# four decades across the anchors, so the ratio sweeps almost four decades.
+# RECORDED sigma_NRM/sigma_exact band, choice A (`PhysicalDiscreteState`).
+# F2 ONLY: measured [0.292258, 0.900562] -- a systematic under-prediction that
+# worsens toward threshold, the Born-Oppenheimer breakdown of PRA 77 Sec. VI A.
+#
+# NO IS DELIBERATELY ABSENT. Its choice-A ingredients are built on a `phi_d`
+# that is genuinely DISCONTINUOUS at R = 2.2657 bohr, the node where the state
+# switches from the scattering branch to the bound one -- and that node carries
+# the largest |chi_0| on the whole grid (0.1996). Eq. (60) is bilinear in
+# `V_dn(R_i) V_dn(R_j)`, so the tracked P-space basis is unusable across that
+# step (measured `|c_product(prev, cur)|` down to 3.3e-15, with 62 affected
+# states inside the n_states=100 truncation). Gating those numbers would assert
+# values the report says must not be quoted. F2 escapes this only because its
+# deck happens to place the two crossing nodes 0.0005 bohr apart, so its
+# `phi_d` barely changes across the switch (min overlap 0.891, nothing < 0.5).
+# The separate small-R pole freeze below R = 1.5187 is NOT the reason: |chi_0|
+# is 6.9e-16 there, so it cannot move sigma_DA.
 _BANDS_A: dict[str, tuple[float, float]] = {
     "F2": (0.25, 0.95),
-    "NO": (0.03, 500.0),
 }
 
 
@@ -149,45 +193,76 @@ def test_nrm_b_beats_the_lcp_on_f2() -> None:
 
 
 @pytest.mark.slow
-def test_nrm_b_does_not_beat_the_lcp_on_no() -> None:
-    """RECORDED NEGATIVE RESULT: on NO, choice B is worse than the LCP.
+def test_no_approximations_are_all_flat_below_a_structured_exact() -> None:
+    """RECORDED OBSERVATION on NO, in a regime no published data covers.
 
-    The mirror image of `test_nrm_b_beats_the_lcp_on_f2`, and the reason the
-    spec's primary claim is asserted for F2 alone. Measured with the same code
-    and the same `n_states`:
+    This is a measurement, NOT a requirement. Nothing here asserts that an
+    approximation *must* fail; if a later change makes one of them track the
+    exact answer, this test should be updated to record that, not treated as
+    a regression.
 
-        sigma_DA (bohr^2), E = 0.175 / 0.180 / 0.185 / 0.190 / 0.200 Ha
-          exact  1.614e-2  1.566e-3  2.266e-5  7.080e-5  1.718e-6
-          LCP    1.305e-4  1.330e-4  1.352e-4  1.347e-4  1.296e-4
-          B      7.540e-10 2.833e-10 1.069e-10 4.055e-11 5.921e-12
+    NO's DA channel opens at E = +0.1719 Ha. PRA 77 publishes no NO (or N2)
+    DA cross section at all -- its Fig. 6 DA panel and Fig. 8's DA panel are
+    F2 only, and the NO windows it plots (0.01-0.08 Ha) lie entirely below
+    that threshold, so NO DA is energetically shut throughout everything the
+    paper tested. The Sec. VI B claim that choice B "gives exact results" for
+    DA rests on the single F2 panel. Whatever happens here is therefore
+    outside the model's tested range and contradicts nothing published.
 
-    Choice B under-predicts by five to eight orders of magnitude. The
-    comparison is made on |log10(sigma/sigma_exact)| rather than the ratio
-    error above: over-prediction is unbounded there while under-prediction
-    saturates at 1, so the plain ratio error would score B (~1.0 everywhere)
-    as "better" than the LCP wherever the LCP over-predicts, which is an
-    artifact of the metric and not a result.
+    What is measured, sigma_DA (bohr^2) at E = 0.175 / 0.180 / 0.185 / 0.190
+    / 0.200 Ha:
 
-    NOT a discretisation artifact. sigma_B is converged in the electronic grid
-    to five significant figures (r_max 16 -> 24 bohr, DVR order 8 -> 10,
+        exact  1.614e-2  1.566e-3  2.266e-5  7.080e-5  1.718e-6
+        LCP    1.305e-4  1.330e-4  1.352e-4  1.347e-4  1.296e-4
+        A      1.034e-3  8.945e-4  7.446e-4  6.075e-4  4.195e-4
+        B      7.540e-10 2.833e-10 1.069e-10 4.055e-11 5.921e-12
+
+    ONE phenomenon, not three failures: the converged exact cross section
+    swings four orders of magnitude with real structure across a 0.025 Ha
+    span, while ALL THREE approximations are nearly flat over it -- the LCP
+    within a factor of 1.04, choice A within 2.5, choice B within 127 (and
+    127 over four orders of exact variation is still flat by comparison).
+    They differ in absolute scale, not in their inability to follow the
+    structure. That is one observation about local, nearly-energy-independent
+    resonance models in a steeply-varying near-threshold regime.
+
+    Choice B's absolute scale (5-8 orders below exact) is UNEXPLAINED. It is
+    not a discretisation artifact -- sigma_B is converged in the electronic
+    grid to five significant figures (r_max 16 -> 24 bohr, DVR order 8 -> 10,
     n_complex 6 -> 8: 7.540e-10 / 7.540e-10 / 7.543e-10 / 7.541e-10 at
     E=0.175) and in the state sum to numerical identity, on the same nuclear
-    deck the exact and LCP routes use. The mechanism is measured: NO's
-    doorway `chi_0` peaks at R=2.134 bohr, INSIDE the resonant region
-    (crossing at R_c=2.288, Gamma_LCP=1.32e-2 there), where the R-independent
-    `phi_b` is a poor discrete state -- |V_d(B) - V_d(LCP)| = 0.023 Ha at the
-    peak. F2's `chi_0` peaks at R=2.745, on the BOUND side of its own crossing
-    (R_c=2.597, Gamma_LCP=0), where `phi_b` is nearly the true discrete state
-    and the same difference is 0.0053 Ha.
+    deck the exact and LCP routes use, and the LCP local-limit bridge
+    reproduces `lcp_da_cross_section` to 2.3e-14 on that deck. An
+    equation-by-equation audit against Eq. (55)-(61) found no defect. A
+    doorway-position explanation was proposed and REFUTED: raising `v_init`
+    moves F2's doorway inside its own resonant region (overlap fraction
+    0.37 -> 0.71) and choice B stays exact there (0.9994-1.0004).
+
+    The assertion below records the flatness, which is the robust part of the
+    observation, rather than the ordering of the three errors.
     """
     c = _comparison("NO")
-    err_lcp = np.abs(np.log10(c.sigma_lcp / c.sigma_exact))
-    err_nrm = np.abs(np.log10(c.sigma_nrm_b / c.sigma_exact))
-    assert np.all(err_nrm > err_lcp), (
-        f"NO: NRM(B) is no longer worse than the LCP at every anchor -- the "
-        f"recorded negative result has changed and the physics note needs "
-        f"revisiting.\n  lcp log-errors: {err_lcp}\n  nrm log-errors: {err_nrm}"
+    exact_swing = c.sigma_exact.max() / c.sigma_exact.min()
+    assert exact_swing > 1e3, (
+        f"NO: the exact sigma_DA no longer varies by orders across these "
+        f"anchors (swing {exact_swing:.3g}); the observation this test "
+        "records is about a steeply-varying exact reference"
     )
+    for name, sigma, recorded in (
+        ("lcp", c.sigma_lcp, 1.04),
+        ("nrm_a", c.sigma_nrm_a, 2.5),
+        ("nrm_b", c.sigma_nrm_b, 127.0),
+    ):
+        swing = sigma.max() / sigma.min()
+        assert swing < 10.0 * recorded, (
+            f"NO/{name}: swing {swing:.4g} over the anchors, far above the "
+            f"recorded {recorded:.4g} -- this approximation is no longer flat "
+            "and the recorded observation needs revisiting"
+        )
+        assert swing < exact_swing / 10.0, (
+            f"NO/{name}: swing {swing:.4g} is no longer flat relative to the "
+            f"exact reference's {exact_swing:.4g}"
+        )
 
 
 @pytest.mark.slow
@@ -207,12 +282,16 @@ def test_nrm_b_ratio_band(molecule: str) -> None:
 
 
 @pytest.mark.slow
-@pytest.mark.parametrize("molecule", MOLECULES)
+@pytest.mark.parametrize("molecule", sorted(_BANDS_A))
 def test_nrm_a_ratio_band(molecule: str) -> None:
-    """RECORDED band for choice A's sigma_NRM/sigma_exact.
+    """RECORDED band for choice A's sigma_NRM/sigma_exact. F2 only.
 
     F2 measured: 0.292258 0.671111 0.843850 0.853668 0.900562
-    NO measured: 0.064085 0.571017 32.8576  8.58031  244.229
+
+    NO is excluded on purpose -- see `_BANDS_A`. Its choice-A numbers
+    (0.064085 0.571017 32.8576 8.58031 244.229) are recorded in the Task 9
+    report but are NOT gated, because the P-space basis they are built from is
+    untrackable across NO's `phi_d` branch discontinuity.
     """
     lo, hi = _BANDS_A[molecule]
     c = _comparison(molecule)
@@ -234,9 +313,11 @@ def test_choice_a_degrades_against_choice_b_on_f2() -> None:
         A  0.70774  0.32889  0.15615  0.14633  0.09944
         B  0.01873  0.00329  0.00059  0.00133  0.00097
 
-    Asserted for F2 only: on NO the ordering inverts (choice A lands within
-    1-2 orders of the exact answer while choice B is 5-8 orders below it), and
-    that inversion is recorded by the two ratio-band tests above.
+    Asserted for F2 only, which is the only molecule PRA 77 publishes a DA
+    cross section for. On NO both choices are flat against a four-decade exact
+    swing and neither tracks it, so ordering them by |sigma/sigma_exact - 1|
+    there would rank two approximations that fail the same way; see
+    `test_no_approximations_are_all_flat_below_a_structured_exact`.
     """
     c = _comparison("F2")
     err_a = np.abs(c.sigma_nrm_a / c.sigma_exact - 1.0)
