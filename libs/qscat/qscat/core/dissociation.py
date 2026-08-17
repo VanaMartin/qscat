@@ -58,6 +58,10 @@ _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 _Sigma = npt.NDArray[np.float64]
 _Psi = npt.NDArray[np.complex128] | None
 _PsiOut = _Psi | list[_Psi]
+# `return_amplitude` output: the complex T-matrix amplitude `t` itself, shaped
+# exactly like `sigma` -- `(n_channels,)` for scalar `E`, `(len(E), n_channels)`
+# for an array `E`. Zero for a closed channel, same as `sigma` there.
+_Amp = npt.NDArray[np.complex128]
 
 # Bound-state signature on an ECS grid: true bound levels have |Im(E)| ~ 1e-15,
 # ECS-continuum states jump to >= 1e-7. Same tolerance as `vibrational_states`.
@@ -248,6 +252,7 @@ def dr_cross_section(
     n_channels: int = ...,
     ordering: _Ordering = ...,
     return_wavefunction: Literal[False] = ...,
+    return_amplitude: Literal[False] = ...,
 ) -> _Sigma: ...
 
 
@@ -263,7 +268,40 @@ def dr_cross_section(
     n_channels: int = ...,
     ordering: _Ordering = ...,
     return_wavefunction: Literal[True],
+    return_amplitude: Literal[False] = ...,
 ) -> tuple[_Sigma, _PsiOut]: ...
+
+
+@overload
+def dr_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[False] = ...,
+    return_amplitude: Literal[True],
+) -> tuple[_Sigma, _Amp]: ...
+
+
+@overload
+def dr_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[True],
+    return_amplitude: Literal[True],
+) -> tuple[_Sigma, _PsiOut, _Amp]: ...
 
 
 def dr_cross_section(
@@ -277,7 +315,8 @@ def dr_cross_section(
     n_channels: int = 3,
     ordering: _Ordering = "COLAMD",
     return_wavefunction: bool = False,
-) -> _Sigma | tuple[_Sigma, _PsiOut]:
+    return_amplitude: bool = False,
+) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:
     """sigma_DR(E) in bohr^2, exact 2-D driven-equation dissociative-
     recombination cross section for a CHARGED target (e.g. H2+, `charge=-1`).
 
@@ -303,6 +342,19 @@ def dr_cross_section(
     If `return_wavefunction`, also returns the driven `Psi+` (`None` for
     `E <= 0`): one array for scalar `E`, one list entry per energy for an array
     `E` -- same convention as `ve_cross_section`/`da_cross_section`.
+
+    If `return_amplitude`, also returns the complex transition amplitude `t`
+    the T-matrix sum is built from, shaped exactly like `sigma` (`(n_channels,)`
+    for scalar `E`, `(len(E), n_channels)` for an array `E`, zero for a closed
+    channel): `sigma = 4*pi**3 * abs(t)**2 / (2*E)`. This is the amplitude the
+    solver already forms, NOT a literal unitary S-matrix element -- the
+    thesis's `S_DR` differs from it by the standard `S = -2*pi*i*T` factor and
+    its own normalization. That factor is a fixed rotation and rescale: it
+    changes neither the zeros nor the shape of `t`'s real/imaginary crossings,
+    so returning `t` as computed (rather than guessing a normalization to
+    synthesize an "S") is what downstream resonance-pole fitting needs.
+    If both `return_wavefunction` and `return_amplitude`, the return order is
+    `(sigma, psi, amplitude)`.
     """
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     mu = model.mu
@@ -321,6 +373,7 @@ def dr_cross_section(
     ident = sp.identity(tgrid.size, format="csc", dtype=np.complex128)
 
     out = np.zeros((len(e_arr), n_channels), dtype=np.float64)
+    amp = np.zeros((len(e_arr), n_channels), dtype=np.complex128)
     psi_list: list[_Psi] = [None] * len(e_arr)
     lu: SparseLU | None = None
     for ie, e in enumerate(e_arr):
@@ -349,10 +402,17 @@ def dr_cross_section(
             phi_f = tgrid.outer([phi_ryd[n], y_coeff])
             phi_f[~mask] = 0.0
             t = c_product(phi_f, v_psi)
+            amp[ie, n] = t
             out[ie, n] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
     sigma = np.asarray(out[0] if scalar else out, dtype=np.float64)
+    amplitude = np.asarray(amp[0] if scalar else amp, dtype=np.complex128)
+    psi_out = psi_list[0] if scalar else psi_list
+    if return_wavefunction and return_amplitude:
+        return sigma, psi_out, amplitude
+    if return_amplitude:
+        return sigma, amplitude
     if return_wavefunction:
-        return sigma, (psi_list[0] if scalar else psi_list)
+        return sigma, psi_out
     return sigma

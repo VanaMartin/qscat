@@ -248,3 +248,95 @@ def test_dr_cproduct_matches_conjugated_dot_on_proxy():
     assert sigma_c0 > 0.0 and np.isfinite(sigma_c0)
     assert sigma_conj0 > 0.0 and np.isfinite(sigma_conj0)
     assert abs(sigma_c0 - sigma_conj0) / sigma_c0 < 1e-2
+
+
+@pytest.mark.slow
+def test_dr_amplitude_reproduces_the_returned_sigma() -> None:
+    """The amplitude and sigma must not drift apart: sigma is 4pi^3|t|^2/2E."""
+    from qscat.core.dissociation import dr_cross_section
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
+    energies = np.array([0.012, 0.014])
+    sigma, amp = dr_cross_section(
+        tg, H2P, eps, chi, 0, energies, n_channels=2, return_amplitude=True
+    )
+    assert amp.shape == sigma.shape
+    assert amp.dtype == np.complex128
+    recomputed = 4.0 * np.pi**3 * np.abs(amp) ** 2 / (2.0 * energies[:, None])
+    open_channels = sigma > 0.0
+    assert np.allclose(recomputed[open_channels], sigma[open_channels], rtol=1e-12)
+    # A closed channel contributes exactly zero to both.
+    assert np.all(amp[~open_channels] == 0.0)
+
+
+@pytest.mark.slow
+def test_dr_amplitude_composes_with_the_wavefunction_return() -> None:
+    from qscat.core.dissociation import dr_cross_section
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
+    sigma, psi, amp = dr_cross_section(
+        tg,
+        H2P,
+        eps,
+        chi,
+        0,
+        0.012,
+        n_channels=2,
+        return_wavefunction=True,
+        return_amplitude=True,
+    )
+    assert psi is not None and psi.shape == (tg.size,)
+    assert amp.shape == sigma.shape
+
+
+@pytest.mark.slow
+def test_dr_amplitude_matches_conjugated_oracle_value_and_phase() -> None:
+    """`return_amplitude`'s `t` must equal the file's INDEPENDENT oracle
+    (`_dr_t_matrix_conjugated_channel0`, eMoScat's conjugated-dot `zdotc`
+    convention) in VALUE, not just modulus -- this is a stronger, independent
+    check than `test_dr_amplitude_reproduces_the_returned_sigma`, which only
+    confirms `amp` and `sigma` are filled from the same `t` inside
+    `dr_cross_section` and so cannot see a sign/phase bug in `t` itself.
+
+    The two conventions differ, in general, by whether `phi_f` (the exit
+    channel) is conjugated in the T-matrix dot. They coincide here because
+    `phi_f` is REAL-valued in the surviving (non-ECS-tail) region masked by
+    `real_mask()` -- it is built from a genuine bound Rydberg electronic
+    state and a real Riccati-Bessel radial factor, so conjugating it is a
+    no-op there. `test_dr_cproduct_matches_conjugated_dot_on_proxy` already
+    established this numerically for sigma (to a loose 1e-2 bound, "the
+    convention question is settled"); this test pins the SAME agreement for
+    the complex amplitude itself at a tight tolerance (~1e-13 relative in
+    practice, limited only by the sparse solve/normalization roundoff, not
+    by any convention gap) -- tight enough that a spurious conjugation of
+    `amp` (which would flip its imaginary part, moving it ~1e3x further from
+    the oracle, per `test_dr_cproduct_matches_conjugated_dot_on_proxy`'s own
+    `_dr_t_matrix_conjugated_channel0` reference) or a stray overall sign
+    would fail it outright.
+    """
+    from qscat.core.dissociation import dr_cross_section
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    E = 0.03
+    eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
+    sigma, amp = dr_cross_section(
+        tg, H2P, eps, chi, 0, E, n_channels=1, return_amplitude=True
+    )
+    assert sigma[0] > 0.0, "test picked a closed channel"
+
+    t = complex(amp[0])
+    t_oracle = _dr_t_matrix_conjugated_channel0(tg, E)
+
+    # VALUE and PHASE, not just modulus: a bare np.isclose on abs() would
+    # pass under a conjugation or sign error, which is exactly what this
+    # test exists to catch.
+    assert np.isclose(t, t_oracle, rtol=1e-8, atol=0.0)
+    # The conjugated relation must NOT also hold -- if it did, this test
+    # could not distinguish the correct convention from its conjugate, i.e.
+    # it would not be capable of failing on a spurious conjugation bug.
+    assert not np.isclose(t, t_oracle.conjugate(), rtol=1e-3, atol=0.0)
