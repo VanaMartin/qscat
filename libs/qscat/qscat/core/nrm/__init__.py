@@ -25,5 +25,14 @@ from .discrete_state import (
     DiscreteState,
     PhysicalDiscreteState,
 )
+from .dissociation import nrm_da_cross_section
+from .ingredients import NrmIngredients, nrm_ingredients
 
-__all__ = ["AsymptoticDiscreteState", "DiscreteState", "PhysicalDiscreteState"]
+__all__ = [
+    "AsymptoticDiscreteState",
+    "DiscreteState",
+    "NrmIngredients",
+    "PhysicalDiscreteState",
+    "nrm_da_cross_section",
+    "nrm_ingredients",
+]
