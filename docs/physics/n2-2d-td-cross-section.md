@@ -80,7 +80,7 @@ the resolvent #6 computes directly.
    pure single-energy `S`-matrix element. Because `c_{v'}(t)` does not depend on `E`, this
    transform can be evaluated at *any number* of energies from **one stored trajectory** —
    the whole `sigma(E)` "boomerang" curve is free once the single ~3.5-minute propagation
-   is done (`convergence.sigma_curve`, Task 5).
+   is done (`convergence.sigma_curve`).
 
    **The unscattered reference `S_ref` (the elastic subtraction).** For an
    inelastic channel (`v' != v_init`) `S_ref = 0` and `sigma = pi|S|^2/(2E)`.
@@ -106,7 +106,7 @@ the resolvent #6 computes directly.
    near-threshold elastic degradation (the `1/eta_out` deconvolution grows
    ill-conditioned as `k -> 0`: `sqrt(2k/pi) -> 0` and the outgoing Hankel's
    `y_l(kr) ~ (kr)^-(l+1)` diverges) is a documented low-E limit, not this bug —
-   see the `td-elastic-wavepacket-normalization` note and GitHub issue #1.
+   see the `td-elastic-wavepacket-normalization` note.
 
 ## The two physics facts settled by the exact-oracle gate
 
@@ -141,7 +141,7 @@ autodetachment picture the resonance model describes.
 
 ## The validation ladder
 
-1. **Sparse-CN-vs-dense** (Task 1): `make_sparse_cn_stepper` matches the dense
+1. **Sparse-CN-vs-dense**: `make_sparse_cn_stepper` matches the dense
    `make_cn_stepper` (`qscat.evolution`, promoted earlier for
    `docs/physics/n2-td-cross-section.md`) to round-off on a small test system —
    confirms the sparse factorization introduces no new numerics, only performance.
