@@ -42,57 +42,62 @@ Seeding those properly also changed the poles, which is why the counts above
 differ from the earlier run: +1, +5 and +7. The under-seeding did lose real
 states, and window 0 (+1) is not representative of that.
 
-Each BO level paired to a pole ONE-TO-ONE (`pair_one_to_one`; see there for why
-nearest-neighbour is the wrong algorithm here). All 28 levels match -- 9, 11
-and 8 in the three windows -- with `gap` the distance from the assigned pole to
-the nearest OTHER level, i.e. how much room the assignment had:
+Each pole is paired to a BO level BY OVERLAP (`bo_overlap.pair_by_overlap`),
+not by energy. Energy proximity cannot tell a resonance from a
+rotated-continuum eigenvalue that lands nearby, and the published work assigns
+a feature to a quasi-bound state the same way (Vana 2017, Table 4.2). The
+one-to-one energy assignment in `pair_one_to_one` is kept as a cross-check;
+where the two disagree, overlap wins.
 
-| window | level | E_BO (Ha) | E_exact (Ha) | shift (meV) | gap (meV) |
-|---|---|---|---|---|---|
-| 0 | `w^6_1` | -0.096041 | -0.096041 | -0.002 | 48.1 |
-| 0 | `w^7_1` | -0.094273 | -0.094305 | -0.871 | 20.1 |
-| 0 | `w^4_2` | -0.093566 | -0.093680 | **-3.097** | 16.1 |
-| 0 | `w^8_1` | -0.093019 | -0.092997 | +0.585 | 15.5 |
-| 0 | `w^9_1` | -0.092097 | -0.092097 | -0.003 | 0.5 |
-| 0 | `w^3_3` | -0.092078 | -0.091943 | **+3.670** | 4.2 |
-| 0 | `w^2_5` | -0.091431 | -0.091397 | (+0.921) | 0.1 |
-| 0 | `w^10_1` | -0.091399 | -0.091288 | +3.035 | 3.9 |
-| 0 | `w^11_1` | -0.090859 | -0.090859 | +0.010 | 14.7 |
-| 1 | `w^2_6` | -0.085270 | -0.085442 | **-4.680** | 11.3 |
-| 1 | `w^4_3` | -0.084951 | -0.084918 | +0.886 | 2.9 |
-| 1 | `w^3_4` | -0.084154 | -0.083785 | (+10.049) | 0.6 |
-| 1 | `w^8_2` | -0.083761 | -0.083578 | +4.984 | 15.7 |
-| 1 | `w^9_2` | -0.082833 | -0.082825 | +0.212 | 18.9 |
-| 2 | `w^4_4` | -0.076878 | -0.077449 | **-15.541** | 17.5 |
-| 2 | `w^7_3` | -0.076301 | -0.075902 | +10.870 | 23.8 |
-| 2 | `w^9_3` | -0.074090 | -0.074091 | -0.026 | 19.3 |
+Of the 57 poles across the three windows: **40 pair cleanly**, 5 are near-equal
+blends of two BO levels, 6 have their partner outside the enumerated basis, 2
+are weak matches, and **4 are not resonances at all** (see `bo_overlap`).
 
-(abridged; `pair_one_to_one` regenerates the full 28.) Parenthesised rows have
-a shift larger than half their gap, so the pairing itself is not safe there --
-`w^2_5` in particular sits 0.06 meV from its neighbour. 21 of the 28 pairs are
-clear of that test, and their shifts span **-4.68 to +10.87 meV**.
-
-**The shift sorts by regime, and that is the result.** Median |shift| is
-**0.390 meV for the high-n Rydberg levels (Ry >= 6, 17 pairs)** against
-**3.097 meV for the compact low-n ones (Ry < 6, 11 pairs)** -- an eightfold
-separation. A distant Rydberg electron follows the nuclei adiabatically, so its
-level is nearly BO-exact; a compact low-n state overlapping the dissociative
-channel is not. Both regimes are an order of magnitude beyond N2's 0.22 meV
+**The shift sorts by regime, and that is the result.** Over the 40 clean pairs,
+median |shift| is **0.264 meV for the high-n Rydberg levels (Ry >= 6, 32
+rows)** against **3.375 meV for the compact low-n ones (Ry < 6, 8 rows)** -- a
+thirteenfold separation. A distant Rydberg electron follows the nuclei
+adiabatically, so its level is nearly BO-exact; a compact low-n state
+overlapping the dissociative channel is not. Both regimes exceed N2's 0.22 meV
 (`docs/physics/exact-2d-resonances.md`) and neither is one-signed.
 
-`w^9_1` and `w^3_3` are the two regimes meeting: 20 uHa apart in the BO
-picture, they come out -0.003 and +3.670 meV shifted, so the exact treatment
-splits a near-degeneracy eightfold and asymmetrically.
-`resonance_state_figures.py` shows the pair -- one diffuse, one compact.
+The largest clean shifts, all with the overlap that justifies the label:
+
+| E (Ha) | level | overlap | shift (meV) |
+|---|---|---|---|
+| 0.014026 | `w^3_4` | 0.722 | **+15.586** |
+| 0.012162 | `w^2_6` | 0.706 | -4.778 |
+| 0.006316 | `w^2_5` | 0.870 | +3.809 |
+| 0.005661 | `w^3_3` | 0.783 | +3.596 |
+| 0.003924 | `w^4_2` | 0.878 | -3.154 |
+| 0.012686 | `w^7_2` | 0.828 | +2.860 |
+
+**No shift is quoted for a blended state.** At three crossings --
+`w^16_1`/`w^5_2`, `w^4_4`/`w^3_5` and `w^2_6`/`w^4_3` -- the exact state is a
+near-equal mixture of two BO levels (overlaps around 0.6-0.7 with BOTH), so
+there is no single level it is displaced from. That is a stronger statement
+than a large shift: past a certain coupling the BO labels stop describing the
+state at all.
+
+`w^9_1` and `w^3_3` are the same physics at its cleanest: 20 uHa apart in the
+BO picture, they come out -0.040 and +3.596 meV shifted, one nearly pure
+(overlap 0.970) and one strongly mixed (0.783). `resonance_state_figures.py`
+shows the pair -- one diffuse with a single nuclear node, one compact with
+three.
 
 **Where these poles have been checked against data** is `dr_levels_figure.py`:
-against the published cross-section peaks they sit a median **0.2** resonance
-widths away in windows 0 and 1 and **3.3** in window 2 (the BO levels, for
-comparison, 0.8 / 3.7 / 30.4). Window 2 was 13.9 widths on the under-seeded
-run, so most of what looked like a window-2 anomaly was missing poles rather
-than the threshold proximity earlier drafts proposed. It remains the worst of
-the three and the closest to a threshold; that is a candidate for the residual,
-not an established cause.
+against the published cross-section peaks the resonances sit a median **0.2,
+0.2 and 0.3** resonance widths away across the three windows (the BO levels,
+for comparison, 0.8 / 3.7 / 30.4). They reproduce the peak positions of a sweep
+they were never fitted to.
+
+**There is no window-2 anomaly**, though it took two corrections to see that.
+It read 13.9 widths on the under-seeded run and 3.3 after proper seeding, and
+each time an explanation was offered for the residual -- threshold proximity,
+then leftover under-seeding. Both were wrong. Deleting the four states that are
+not resonances takes it to 0.3, in line with the other two windows. The lesson
+is the ordering: input was cleaned twice and each intermediate number invited a
+physical explanation it did not deserve.
 
 Pole widths across the window span 0.004-0.52 meV (1.4e-7 to 1.9e-5 Ha). That
 matches the resonance width scale measured independently from the published
