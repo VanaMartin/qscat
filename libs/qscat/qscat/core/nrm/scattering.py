@@ -21,7 +21,12 @@ import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid, kinetic
 from qscat.special import riccati_bessel_en
 
-__all__ = ["free_hamiltonian", "incident_coefficients", "scattering_state"]
+__all__ = [
+    "free_hamiltonian",
+    "incident_coefficients",
+    "scattering_state",
+    "scattering_state_minus",
+]
 
 
 def free_hamiltonian(grid: FemDvrEcsGrid, ell: int) -> npt.NDArray[np.complex128]:
@@ -90,3 +95,49 @@ def scattering_state(
     phi_sc = np.linalg.solve(a, rhs)
     out: npt.NDArray[np.complex128] = inc + phi_sc
     return out
+
+
+def scattering_state_minus(
+    h: npt.NDArray[np.complex128],
+    grid: FemDvrEcsGrid,
+    energy: float,
+    ell: int,
+) -> npt.NDArray[np.complex128]:
+    """`phi^-`: the INCOMING-boundary partner of `scattering_state`.
+
+    PRA 77 Eq. (34) gives `phi_k^- = (phi_k^+)^*` for a real discrete state in
+    the radial case (Eq. 36 is the three-dimensional replacement and does not
+    apply here). Conjugation is the physics here -- it is what reverses the
+    boundary condition -- so this is the one place in `qscat.core.nrm` where
+    `np.conjugate` is correct rather than a c-product violation.
+
+    Under exterior complex scaling conjugation also conjugates the CONTOUR, so
+    the identity is used only on the real region and the ECS tail is zeroed.
+    That is sufficient for its consumer: Eq. (37)'s integrand carries
+    `V_int`, a Gaussian in `r`, which has no support on the tail.
+    `test_minus_state_is_purely_incoming_by_hankel_decomposition` gates the
+    identity rather than assuming it, by checking that -- beyond the
+    potential's support -- the scattered part carries no outgoing component.
+
+    Parameters
+    ----------
+    h : ndarray
+        The electronic Hamiltonian matrix to scatter off -- same argument
+        `scattering_state` takes.
+    grid : FemDvrEcsGrid
+        The electronic radial grid.
+    energy : float
+        The REAL electron energy `E = k^2/2` (hartree); must be positive.
+    ell : int
+        Partial wave.
+
+    Returns
+    -------
+    ndarray
+        The incoming-boundary scattering solution as DVR coefficients on the
+        full grid, zero on the ECS tail.
+    """
+    plus = scattering_state(h, grid, energy, ell)
+    out = np.conjugate(plus)
+    out[grid.points.imag != 0.0] = 0.0
+    return np.asarray(out, dtype=np.complex128)
