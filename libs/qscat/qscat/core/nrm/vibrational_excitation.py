@@ -50,7 +50,7 @@ from qscat.linalg import c_product
 from .discrete_state import DiscreteState
 from .scattering import incident_coefficients
 
-__all__ = ["j_dk"]
+__all__ = ["j_dk", "t_resonant"]
 
 
 def j_dk(
@@ -89,3 +89,52 @@ def j_dk(
     for j in range(R.size):
         out[j] = c_product(phi_d.phi_d(float(R[j])), inc)
     return out
+
+
+def t_resonant(
+    chi_f: npt.NDArray[np.complex128],
+    v_dk_f: npt.NDArray[np.complex128],
+    psi_d: npt.NDArray[np.complex128],
+) -> complex:
+    """`T^res` of Eq. (31): `<chi_vf| V^{-*}_{dk_f} |Psi_d^+>`.
+
+    All three arguments live on the full nuclear grid. `chi_f` and `psi_d`
+    are DVR coefficient vectors; `v_dk_f` is the coupling as a function of
+    `R` (`nonlocal_potential.continue_to_tail`'s output), so it multiplies
+    elementwise -- no explicit weights, per the module docstring.
+
+    The paper's `V^{-*}_{dk_f}` is not conjugated here: Eq. (34) is the
+    CONDITION (radial case, real discrete state, so `phi_k^- = (phi_k^+)^*`);
+    Eq. (35) is why that condition drops the conjugation off the COUPLING
+    FACTOR, collapsing it to `V^+_{dk_f}` by `H_el` Hermiticity ("we can use
+    the matrix element `Vdk^+` but *without complex conjugation*", p.
+    012710-4); p. 012710-6 is the separate reason the SCALAR PRODUCT itself
+    (`qscat.linalg.c_product`) carries no conjugation, since `P H_el P` is
+    complex symmetric, not Hermitian, under exterior complex scaling. The
+    paper warns this distinction "becomes important when the background
+    terms ... are added to the resonant T matrix, since `V^±_dk` are in
+    general complex even when the discrete state is real" (p. 012710-4) --
+    Eq. (37)'s background term must use the same non-conjugated convention.
+
+    Parameters
+    ----------
+    chi_f : ndarray
+        Final vibrational state, DVR coefficients on the nuclear grid.
+    v_dk_f : ndarray
+        `V^+_{dk_f}(R)`, the coupling continued to the tail, on the same
+        nuclear grid.
+    psi_d : ndarray
+        `Psi_d^+(R)` of Eq. (52) (the same solution the DA path computes),
+        DVR coefficients on the same nuclear grid.
+
+    Returns
+    -------
+    complex
+        `T^res_{vi->vf}`.
+    """
+    if not (chi_f.size == v_dk_f.size == psi_d.size):
+        raise ValueError(
+            "chi_f, v_dk_f and psi_d must have the same length, got "
+            f"{chi_f.size}, {v_dk_f.size}, {psi_d.size}"
+        )
+    return complex(c_product(chi_f, v_dk_f * psi_d))
