@@ -66,22 +66,17 @@ import time
 
 import numpy as np
 import numpy.typing as npt
-from qscat.core import ExactResonanceStates, exact_resonance_states, vibrational_states
-from qscat.dvr import TensorGrid, eigen, kinetic
+from qscat.core import (
+    ExactResonanceStates,
+    bo_basis,
+    electronic_curves,
+    exact_resonance_states,
+)
+from qscat.dvr import TensorGrid
 from qscat.model import H2P
 from qscat.viz import EquidistantProjector, plot_wavefunction_2d
 
-from validation.h2plus.exact_poles import (
-    _EL_BASE_DEG,
-    _EL_MOVED_DEG,
-    _NUC_BASE_DEG,
-    _NUC_MOVED_DEG,
-    EPS0,
-    K_SEARCH,
-    _electronic_box,
-    _nuclear_box,
-    find_seeds,
-)
+from validation.h2plus.exact_poles import EPS0, K_SEARCH, find_seeds, grid_family
 
 FIGURES = pathlib.Path(__file__).resolve().parents[2] / "docs" / "physics" / "figures"
 CACHE = pathlib.Path(__file__).with_suffix(".cache.npz")
@@ -103,81 +98,46 @@ BO_CURVE, BO_VIB = 4, 2
 def _solve() -> ExactResonanceStates:
     """Window-0 poles WITH their states, cached."""
     if CACHE.exists():
-        z = np.load(CACHE)
         print(f"loaded cached states from {CACHE}", flush=True)
-        return ExactResonanceStates(
-            energies=z["energies"],
-            widths=z["widths"],
-            states=z["states"],
-            residual_electronic=z["res_el"],
-            residual_nuclear=z["res_nuc"],
-        )
+        return ExactResonanceStates.load(CACHE)
 
     seeds = [s for s in find_seeds()[0] if s.window == 0]
-    el_a, el_b = _electronic_box(R_MAX, _EL_BASE_DEG), _electronic_box(R_MAX, _EL_MOVED_DEG)
-    nu_a, nu_b = _nuclear_box(_NUC_BASE_DEG), _nuclear_box(_NUC_MOVED_DEG)
+    base, moved_el, moved_nu = grid_family(R_MAX)
     lo = min(s.e_tot for s in seeds) - 0.01
     hi = max(s.e_tot for s in seeds) + 0.01
 
     t0 = time.perf_counter()
     res = exact_resonance_states(
         H2P,
-        TensorGrid([el_a, nu_a]),
-        TensorGrid([el_b, nu_a]),
-        TensorGrid([el_a, nu_b]),
+        base,
+        moved_el,
+        moved_nu,
         shifts=[complex(s.e_tot, -1e-4) for s in seeds],
         window=(lo, hi, -0.01, 0.0),
         k=K_SEARCH,
     )
     print(f"{res.energies.size} poles in {time.perf_counter() - t0:.0f}s", flush=True)
-    np.savez(
-        CACHE,
-        energies=res.energies,
-        widths=res.widths,
-        states=res.states,
-        res_el=res.residual_electronic,
-        res_nuc=res.residual_nuclear,
-    )
+    res.save(CACHE)
     return res
 
 
 def bo_product_state(tgrid: TensorGrid, curve: int, vib: int) -> npt.NDArray[np.complex128]:
-    """`phi_Ry<curve>(r; R) * chi_<vib>(R)` on `tgrid` -- the state the
-    Born-Oppenheimer approximation asserts the exact one is.
+    """`phi_Ry<curve>(r; R) * chi_<vib>(R)` -- what the BO picture asserts the
+    exact state is.
 
-    The electronic eigenvector's phase is arbitrary at each nuclear point, so
-    it is aligned by continuity: each column is rotated to make its overlap
-    with the previous column real and positive. Without that the product flips
-    sign at random `R` and the picture is noise rather than a wavefunction.
+    A thin call into `qscat.core.bo`, which owns the phase alignment this
+    picture depends on: the electronic eigenvector's phase is arbitrary at each
+    nuclear point, and without alignment the product flips sign at random `R`
+    and the figure is noise rather than a wavefunction.
     """
     g_r, g_R = tgrid.grids
-    phi = np.empty((g_r.n, g_R.n), dtype=np.complex128)
-    curves = np.empty((curve + 1, g_R.n), dtype=np.complex128)
-    prev: npt.NDArray[np.complex128] | None = None
-    for k, R in enumerate(g_R.points):
-        H_el = kinetic(g_r, 1.0) + np.diag(H2P.surface(g_r.points, complex(R)))
-        vals, vecs = eigen(H_el)
-        curves[:, k] = vals[: curve + 1]
-        v = vecs[:, curve]
-        if prev is not None:
-            ov = complex(np.vdot(prev, v))
-            if ov != 0:
-                v = v * (abs(ov) / ov)
-        prev = v
-        phi[:, k] = v
-
-    def v_n(_R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
-        return np.asarray(curves[curve], dtype=np.complex128)
-
-    chi = vibrational_states(g_R, H2P.mu, vib + 1, v_n).chi[vib]
-    psi = (phi * chi[None, :]).ravel()
-    return np.asarray(psi / np.linalg.norm(psi), dtype=np.complex128)
+    cur = electronic_curves(H2P, g_r, g_R, n_curves=curve + 1, with_states=True)
+    return bo_basis(cur, g_R, H2P.mu, n_vib=vib + 1, allow_partial=True)[(curve, vib)].psi
 
 
 def main() -> None:
     res = _solve()
-    el, nu = _electronic_box(R_MAX, _EL_BASE_DEG), _nuclear_box(_NUC_BASE_DEG)
-    base = TensorGrid([el, nu])
+    base, _, _ = grid_family(R_MAX)
     projector = EquidistantProjector(base, samples=(520, 320), extent=STATE_EXTENT)
     FIGURES.mkdir(parents=True, exist_ok=True)
 
