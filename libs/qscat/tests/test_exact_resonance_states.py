@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from qscat.core import exact_resonance_states
+from qscat.core import ExactResonanceStates, exact_resonance_states
 from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.dvr import TensorGrid, eigen, hamiltonian_nd, kinetic
 from qscat.linalg import c_product
@@ -262,3 +262,112 @@ def test_electronic_continuum_states_do_not_reach_the_result() -> None:
     assert rejected  # the raw spectrum really does contain interlopers
     for e in rejected:
         assert np.min(np.abs(res.energies - e)) > 1e-6
+
+
+# --- the grid-family guard ---------------------------------------------------
+#
+# `exact_resonance_states` accepted any three grids before this. Two failure
+# modes were reachable and neither announced itself: a partner identical to the
+# base makes every eigenvalue match itself with residual zero (so the search
+# accepts the whole rotated continuum while reporting perfect stability), and a
+# partner differing in the WRONG axis turns the residual into a discretization
+# difference. Both are caught here, at the door.
+
+
+def test_an_identical_partner_grid_is_rejected() -> None:
+    """The dangerous one: it would 'pass' every state instead of failing loudly."""
+    from qscat.exceptions import GridError
+
+    ga, _, gc = _three_grids()
+    with pytest.raises(GridError, match="identical to grid_base"):
+        exact_resonance_states(
+            _SeparableModel(), ga, ga, gc, shifts=[-0.6 - 0.001j], k=4, window=_WINDOW
+        )
+    ga, gb, _ = _three_grids()
+    with pytest.raises(GridError, match="identical to grid_base"):
+        exact_resonance_states(
+            _SeparableModel(), ga, gb, ga, shifts=[-0.6 - 0.001j], k=4, window=_WINDOW
+        )
+
+
+def test_a_partner_that_moved_the_wrong_axis_is_rejected() -> None:
+    """`grid_electronic` must move the ELECTRONIC angle, and only that."""
+    from qscat.exceptions import GridError
+
+    ga = _grids(35.0, 25.0)
+    both_moved = _grids(44.0, 30.0)
+    gc = _grids(35.0, 30.0)
+    with pytest.raises(GridError, match="ELECTRONIC ECS angle only"):
+        exact_resonance_states(
+            _SeparableModel(), ga, both_moved, gc, shifts=[-0.6 - 0.001j], k=4, window=_WINDOW
+        )
+
+
+def test_a_partner_with_a_different_real_mesh_is_rejected() -> None:
+    """Real-region error must cancel between the two spectra, or the test lies."""
+    from qscat.core.grids import electronic_grid
+    from qscat.exceptions import GridError
+
+    ga = _grids(35.0, 25.0)
+    coarser = TensorGrid(
+        [electronic_grid(r_max=14.0, order=5, n_complex=5, angle_deg=44.0), _nuc(25.0)]
+    )
+    gc = _grids(35.0, 30.0)
+    with pytest.raises(GridError, match="real nodes"):
+        exact_resonance_states(
+            _SeparableModel(), ga, coarser, gc, shifts=[-0.6 - 0.001j], k=4, window=_WINDOW
+        )
+
+
+def test_ecs_angle_family_builds_a_family_that_passes() -> None:
+    """The builder exists so callers stop assembling this triple by hand."""
+    from qscat.core.grids import ecs_angle_family
+
+    base, moved_el, moved_nu = ecs_angle_family(
+        _elec, _nuc, electronic_angles=(35.0, 44.0), nuclear_angles=(25.0, 30.0)
+    )
+    res = exact_resonance_states(
+        _SeparableModel(), base, moved_el, moved_nu, shifts=[-0.664 - 0.004j], k=8, window=_WINDOW
+    )
+    assert res.energies.size >= 1
+
+
+def test_ecs_angle_family_rejects_a_degenerate_angle_pair() -> None:
+    from qscat.core.grids import ecs_angle_family
+    from qscat.exceptions import GridError
+
+    with pytest.raises(GridError, match="electronic_angles must differ"):
+        ecs_angle_family(
+            _elec, _nuc, electronic_angles=(35.0, 35.0), nuclear_angles=(25.0, 30.0)
+        )
+    with pytest.raises(GridError, match="nuclear_angles must differ"):
+        ecs_angle_family(
+            _elec, _nuc, electronic_angles=(35.0, 44.0), nuclear_angles=(25.0, 25.0)
+        )
+
+
+# --- persistence -------------------------------------------------------------
+
+
+def test_save_load_round_trips_every_field(tmp_path) -> None:
+    """Field names are the dataclass's business, not each call site's.
+
+    Hand-rolled caches stored `res_el`/`res_nuc` where the dataclass says
+    `residual_electronic`/`residual_nuclear` -- one rename from silently loading
+    the wrong array into the wrong attribute.
+    """
+    from dataclasses import fields
+
+    res = _separable_search([-0.664 - 0.004j], k=8)
+    path = tmp_path / "poles.npz"
+    res.save(path)
+    back = ExactResonanceStates.load(path)
+    for f in fields(ExactResonanceStates):
+        assert np.array_equal(getattr(back, f.name), getattr(res, f.name)), f.name
+
+
+def test_load_rejects_a_foreign_archive(tmp_path) -> None:
+    path = tmp_path / "not-poles.npz"
+    np.savez(path, energies=np.zeros(3, dtype=np.complex128))
+    with pytest.raises(ValueError, match="missing"):
+        ExactResonanceStates.load(path)

@@ -23,6 +23,7 @@ and `tests/test_no_matplotlib_at_import.py`.
 from __future__ import annotations
 
 import os
+from collections.abc import Sequence
 
 import numpy as np
 import numpy.typing as npt
@@ -145,6 +146,7 @@ def plot_resonance_levels(
     xlim: tuple[float, float] | None = None,
     ylim: tuple[float, float] | None = None,
     baseline: str | None = None,
+    pairing: dict[str, Sequence[tuple[int, int]]] | None = None,
     title: str | None = None,
     xlabel: str = "R (bohr)",
     ylabel: str = "energy (Hartree)",
@@ -169,9 +171,19 @@ def plot_resonance_levels(
         a resonance curve.
     baseline : str, optional
         Series the others are differenced against. Omit for a single panel.
-        Series are paired level-by-level in ascending `Re E` and truncated to
-        the shortest, so a series that found fewer levels cannot silently shift
-        the pairing.
+    pairing : dict of str to sequence of (int, int), optional
+        Explicit `(series index, baseline index)` pairs per non-baseline series.
+        **Supply this whenever the difference panel is meant to be read as a
+        physical shift.** Without it the series are paired level-by-level in
+        ascending `Re E` and truncated to the shortest, which is only correct
+        when both sets are complete and ordered alike -- and that assumption
+        fails exactly where the physics is interesting. Measured on H2+: two BO
+        levels 20 uHa apart correspond to exact poles 154 uHa apart, so index
+        pairing crosses them and reports two shifts that belong to neither
+        level. `qscat.core.assignment.pair_by_overlap` produces a pairing that
+        is defensible; `pair_one_to_one` produces one that is at least a
+        bijection. When `pairing` is given the series are used in the order
+        supplied, NOT sorted.
 
     Notes
     -----
@@ -185,7 +197,16 @@ def plot_resonance_levels(
 
     from qscat.units import HARTREE_TO_EV
 
-    series = {k: np.sort_complex(np.asarray(v, dtype=np.complex128)) for k, v in levels.items()}
+    # A supplied pairing indexes the caller's own ordering; sorting would
+    # silently re-map every pair it names.
+    series = {
+        k: (
+            np.asarray(v, dtype=np.complex128)
+            if pairing is not None
+            else np.sort_complex(np.asarray(v, dtype=np.complex128))
+        )
+        for k, v in levels.items()
+    }
     if not series:
         raise ValueError("plot_resonance_levels: no series given")
     if baseline is not None and baseline not in series:
@@ -247,10 +268,19 @@ def plot_resonance_levels(
         for label, w in series.items():
             if label == baseline:
                 continue
-            m = min(w.size, base.size)
-            idx = np.arange(m)
-            d_e = (w[:m].real - base[:m].real) * HARTREE_TO_EV * 1000.0
-            d_g = (-2.0 * w[:m].imag + 2.0 * base[:m].imag) * HARTREE_TO_EV * 1000.0
+            if pairing is not None:
+                pairs = list(pairing.get(label, ()))
+                if not pairs:
+                    continue
+                left = np.array([w[i] for i, _ in pairs], dtype=np.complex128)
+                right = np.array([base[j] for _, j in pairs], dtype=np.complex128)
+                idx = np.arange(len(pairs))
+            else:
+                m = min(w.size, base.size)
+                left, right = w[:m], base[:m]
+                idx = np.arange(m)
+            d_e = (left.real - right.real) * HARTREE_TO_EV * 1000.0
+            d_g = (-2.0 * left.imag + 2.0 * right.imag) * HARTREE_TO_EV * 1000.0
             ax2.plot(idx, d_e, marker="o", label=rf"$\Delta E_r$ ({label} − {baseline})")
             ax2.plot(
                 idx,

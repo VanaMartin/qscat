@@ -31,14 +31,21 @@ construction.
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 
 import numpy as np
 
-from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
+from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec, TensorGrid
 from qscat.exceptions import GridError
 
-__all__ = ["electronic_grid", "fem_grid_exp_tail", "nuclear_grid", "segmented_grid"]
+__all__ = [
+    "assert_shared_real_nodes",
+    "ecs_angle_family",
+    "electronic_grid",
+    "fem_grid_exp_tail",
+    "nuclear_grid",
+    "segmented_grid",
+]
 
 # --- electronic_grid layout -------------------------------------------------
 
@@ -262,3 +269,94 @@ def fem_grid_exp_tail(
         for length in _ecs_tail(base, tail_n, skip=tail_skip, alpha=tail_alpha)
     ]
     return FemDvrEcsGrid(GridSpec(quadrature=quadrature, elements=elements, x_min=x_min))
+
+
+# --- two-angle ECS stability families ----------------------------------------
+
+
+def assert_shared_real_nodes(
+    grid_a: FemDvrEcsGrid, grid_b: FemDvrEcsGrid, *, what: str = "grid_a and grid_b"
+) -> None:
+    """Reject two grids that do not share every real node.
+
+    A two-angle ECS stability test compares eigenvalues of two discretizations
+    that must differ ONLY in their tail angle. A different real-region mesh
+    makes the residuals meaningless -- and, worse, meaningless in the flattering
+    direction: real-region discretization error no longer cancels between the
+    two spectra, so states that should match do not, and the test silently
+    becomes a convergence check rather than a stability check.
+
+    Raises `GridError` naming `what`, so a mismatch surfaces here rather than as
+    a downstream shape error.
+    """
+    ra, rb = grid_a.points, grid_b.points
+    if ra.size != rb.size or not np.array_equal(ra[ra.imag == 0.0], rb[rb.imag == 0.0]):
+        raise GridError(
+            f"{what} must share their real nodes (same real segments and "
+            "quadrature; only the ECS tail angle may differ) -- otherwise the "
+            "two spectra are not comparable"
+        )
+
+
+def ecs_angle_family(
+    electronic: Callable[[float], FemDvrEcsGrid],
+    nuclear: Callable[[float], FemDvrEcsGrid],
+    *,
+    electronic_angles: tuple[float, float],
+    nuclear_angles: tuple[float, float],
+) -> tuple[TensorGrid, TensorGrid, TensorGrid]:
+    """The three tensor grids `qscat.core.exact_resonance_states` needs.
+
+    That function takes a base grid plus two grids differing from it in exactly
+    one ECS angle each, and the correctness of its whole answer rests on that
+    "exactly one" -- which is easy to get wrong by hand and, until this builder,
+    was got right by copy-paste at five separate call sites. Build the family
+    here instead::
+
+        base, moved_el, moved_nu = ecs_angle_family(
+            lambda a: fem_grid_exp_tail(segments, angle_deg=a, quadrature=8, tail_n=25),
+            lambda a: nuclear_grid(angle_deg=a, r_max=14.0, n_complex=3, quadrature=8),
+            electronic_angles=(30.0, 40.0),
+            nuclear_angles=(18.0, 12.0),
+        )
+        res = exact_resonance_states(model, base, moved_el, moved_nu, ...)
+
+    Parameters
+    ----------
+    electronic, nuclear : callable
+        `angle_deg -> FemDvrEcsGrid`. Called twice each, with the two angles;
+        everything else about the grid must be identical between the two calls,
+        which is exactly what a one-argument closure guarantees.
+    electronic_angles, nuclear_angles : tuple of float
+        `(base, moved)` ECS angles in degrees. The two must differ.
+
+    Returns
+    -------
+    tuple of TensorGrid
+        `(base, electronic_moved, nuclear_moved)`, each `[electronic, nuclear]`.
+
+    Raises
+    ------
+    GridError
+        If either angle pair is degenerate, or if a builder returns grids that
+        do not share their real nodes.
+    """
+    for name, (a, b) in (
+        ("electronic_angles", electronic_angles),
+        ("nuclear_angles", nuclear_angles),
+    ):
+        if a == b:
+            raise GridError(
+                f"{name} must differ -- a stability test between two identical "
+                f"discretizations accepts every eigenvalue (got {a} twice)"
+            )
+
+    el_a, el_b = electronic(electronic_angles[0]), electronic(electronic_angles[1])
+    nu_a, nu_b = nuclear(nuclear_angles[0]), nuclear(nuclear_angles[1])
+    assert_shared_real_nodes(el_a, el_b, what="the two electronic grids")
+    assert_shared_real_nodes(nu_a, nu_b, what="the two nuclear grids")
+    return (
+        TensorGrid([el_a, nu_a]),
+        TensorGrid([el_b, nu_a]),
+        TensorGrid([el_a, nu_b]),
+    )
