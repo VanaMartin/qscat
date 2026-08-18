@@ -27,6 +27,7 @@ from .discrete_state import (
 )
 from .dissociation import nrm_da_cross_section
 from .ingredients import NrmIngredients, nrm_ingredients
+from .vibrational_excitation import nrm_ve_cross_section
 
 __all__ = [
     "AsymptoticDiscreteState",
@@ -35,4 +36,5 @@ __all__ = [
     "PhysicalDiscreteState",
     "nrm_da_cross_section",
     "nrm_ingredients",
+    "nrm_ve_cross_section",
 ]

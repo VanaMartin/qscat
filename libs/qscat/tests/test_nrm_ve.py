@@ -8,11 +8,15 @@ import pytest
 from qscat.core.grids import electronic_grid, segmented_grid
 from qscat.core.nrm.coupling import v_dk_plus
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
-from qscat.core.nrm.nonlocal_potential import continue_to_tail
+from qscat.core.nrm.dissociation import solve_nuclear
+from qscat.core.nrm.ingredients import nrm_ingredients
+from qscat.core.nrm.nonlocal_potential import continue_to_tail, nonlocal_operator
 from qscat.core.nrm.scattering import incident_coefficients
 from qscat.core.nrm.vibrational_excitation import (
+    _psi_d_for_energy,
     _t_background_term2,
     j_dk,
+    nrm_ve_cross_section,
     t_background,
     t_resonant,
 )
@@ -252,3 +256,136 @@ def test_t_background_rejects_non_positive_energies(elec, nuc):
             0.05,
             0.0,
         )
+
+
+def test_ve_closed_channel_is_zero(elec, nuc):
+    """A channel above the total energy cannot be excited."""
+    ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    sigma = nrm_ve_cross_section(nuc, elec, F2, ds, eps, chi, 0, [3], 1e-4, n_states=20)
+    assert float(sigma[0]) == 0.0
+
+
+def test_ve_background_changes_the_answer(elec, nuc):
+    """include_background must be load-bearing -- if the two agree, either the
+    background is not wired in or it is being computed as zero.
+    """
+    ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    ing = nrm_ingredients(elec, F2, ds, np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1])
+    with_bg = nrm_ve_cross_section(
+        nuc,
+        elec,
+        F2,
+        ds,
+        eps,
+        chi,
+        0,
+        [0],
+        0.05,
+        ingredients=ing,
+        n_states=20,
+        include_background=True,
+    )
+    without = nrm_ve_cross_section(
+        nuc,
+        elec,
+        F2,
+        ds,
+        eps,
+        chi,
+        0,
+        [0],
+        0.05,
+        ingredients=ing,
+        n_states=20,
+        include_background=False,
+    )
+    assert abs(float(with_bg[0]) - float(without[0])) > 1e-3 * float(with_bg[0])
+
+
+def test_ve_cross_term_pins_the_interference_sign_and_phase(elec, nuc):
+    """`sigma ~ |T^res + T^bg|^2 = |T^res|^2 + |T^bg|^2 + 2 Re(conj(T^res) T^bg)`
+    -- the cross term is exactly what a wrong sign inside `nrm_ve_cross_section`
+    (`t -= t_background(...)`) or a stray conjugate (`t += np.conj(t_background(...))`)
+    corrupts, and both mutations are INVISIBLE to
+    `test_ve_background_changes_the_answer` (which only checks that the two
+    sigmas differ, not by how much or in which direction -- a sign flip or a
+    conjugate still changes `sigma`, so that test alone cannot tell a correct
+    interference from a wrong one).
+
+    This test computes `T^res`/`T^bg` via the SAME production functions
+    `nrm_ve_cross_section`'s loop calls (`_psi_d_for_energy`, `t_resonant`,
+    `t_background`), combines them by hand the way Eq. (28) actually reads
+    (`T^res + T^bg`, no conjugation), and checks that the PRODUCTION
+    `nrm_ve_cross_section` output for the same channel equals that hand-built
+    `sigma` -- not just that some interference term is nonzero. A sign flip
+    inside the assembly changes the cross term from `+7.34e-4` to `-7.34e-4`
+    (the interference term is `~44%` of `|T|^2` here); a stray conjugate
+    changes it by `~3%` (`Im(T^bg) != 0`) -- both far outside this test's
+    tight tolerance.
+    """
+    ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
+    ing = nrm_ingredients(elec, F2, ds, R)
+    e_kin, v_init, vp, n_states = 0.05, 0, 0, 20
+    e_total = e_kin + float(eps[v_init])
+    excess = e_total - float(eps[vp])
+
+    psi_d = _psi_d_for_energy(nuc, elec, F2, ds, eps, chi, v_init, e_kin, ing, n_states)
+    v_dk_f = continue_to_tail(v_dk_plus(elec, F2, ds, ing.R, excess), ing.R, nuc)
+    t_res = t_resonant(chi[vp], v_dk_f, psi_d)
+    t_bg = t_background(elec, nuc, F2, ds, ing.R, chi[v_init], chi[vp], v_dk_f, e_kin, excess)
+
+    cross = 2.0 * (np.conj(t_res) * t_bg).real
+    assert abs(cross - 0.0007344414966875378) < 1e-6 * abs(cross)
+
+    expected_sigma = 4.0 * np.pi**3 * abs(t_res + t_bg) ** 2 / (2.0 * e_kin)
+    got_sigma = nrm_ve_cross_section(
+        nuc, elec, F2, ds, eps, chi, v_init, [vp], e_kin, ingredients=ing, n_states=n_states
+    )
+    assert abs(float(got_sigma[0]) - expected_sigma) < 1e-9 * expected_sigma
+
+
+def test_ve_array_and_scalar_energies_agree(elec, nuc):
+    """The scalar/array convention must match driven.py's."""
+    ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    ing = nrm_ingredients(elec, F2, ds, np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1])
+    one = nrm_ve_cross_section(
+        nuc, elec, F2, ds, eps, chi, 0, [0, 1], 0.05, ingredients=ing, n_states=20
+    )
+    many = nrm_ve_cross_section(
+        nuc,
+        elec,
+        F2,
+        ds,
+        eps,
+        chi,
+        0,
+        [0, 1],
+        np.array([0.05, 0.06]),
+        ingredients=ing,
+        n_states=20,
+    )
+    assert one.shape == (2,) and many.shape == (2, 2)
+    assert np.allclose(many[0], one, rtol=1e-12)
+
+
+def test_ve_and_da_share_one_psi_d(elec, nuc):
+    """The VE and DA paths solve the SAME Eq. (52). If they diverge, one of
+    them is mis-wiring the nuclear equation.
+    """
+    ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
+    ing = nrm_ingredients(elec, F2, ds, R)
+    e_kin = 0.05
+    e_tot = e_kin + eps[0]
+    v_full = continue_to_tail(ing.v_d_discrete, ing.R, nuc)
+    v_dk = continue_to_tail(v_dk_plus(elec, F2, ds, ing.R, e_kin), ing.R, nuc)
+    f = nonlocal_operator(ing, nuc, F2, e_tot, n_states=20)
+    psi_direct = solve_nuclear(nuc, F2.mu, v_full, f, v_dk * chi[0], e_tot)
+    psi_ve = _psi_d_for_energy(nuc, elec, F2, ds, eps, chi, 0, e_kin, ing, 20)
+    assert np.allclose(psi_ve, psi_direct, rtol=1e-12, atol=0.0)

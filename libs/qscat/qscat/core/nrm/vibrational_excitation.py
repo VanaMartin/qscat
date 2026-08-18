@@ -59,14 +59,17 @@ import numpy.typing as npt
 from qscat.dvr import FemDvrEcsGrid
 from qscat.linalg import c_product
 
+from .coupling import v_dk_plus
 from .discrete_state import DiscreteState, electronic_hamiltonian
-from .nonlocal_potential import continue_to_tail
+from .dissociation import solve_nuclear
+from .ingredients import NrmIngredients, nrm_ingredients
+from .nonlocal_potential import continue_to_tail, nonlocal_operator
 from .scattering import incident_coefficients, scattering_state
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["j_dk", "t_background", "t_resonant"]
+__all__ = ["j_dk", "nrm_ve_cross_section", "t_background", "t_resonant"]
 
 
 def j_dk(
@@ -265,3 +268,163 @@ def t_background(
     j_i = continue_to_tail(j_dk(elec_grid, phi_d, R, e_kin_i, model.ell), R, nuclear_grid)
     term2 = _t_background_term2(chi_i, chi_f, v_dk_f, j_i)
     return term1 - term2
+
+
+def _psi_d_for_energy(
+    nuclear_grid: FemDvrEcsGrid,
+    elec_grid: FemDvrEcsGrid,
+    model: ResonanceModel,
+    phi_d: DiscreteState,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    e_kin: float,
+    ing: NrmIngredients,
+    n_states: int | None,
+) -> npt.NDArray[np.complex128]:
+    """`Psi_d^+` at one incident energy -- the Eq. (52) solve, shared with DA.
+
+    Exposed (module-private) so `nrm_ve_cross_section` and
+    `dissociation.nrm_da_cross_section` are provably solving the SAME
+    equation rather than two independently-typed copies of it.
+
+    Parameters
+    ----------
+    nuclear_grid, elec_grid : FemDvrEcsGrid
+        The nuclear and electronic radial grids.
+    model : ResonanceModel
+        The molecule.
+    phi_d : DiscreteState
+        The discrete-state choice under test.
+    eps, chi : ndarray
+        Neutral vibrational energies and states (`qscat.core.vibrational`).
+    v_init : int
+        Initial vibrational level.
+    e_kin : float
+        Incident electron kinetic energy (hartree), positive.
+    ing : NrmIngredients
+        Precomputed ingredients (`ingredients.nrm_ingredients`).
+    n_states : int, optional
+        Truncate the sum over projected electronic states in `F(E)`. `None`
+        uses all.
+
+    Returns
+    -------
+    ndarray
+        `Psi_d^+(R)` as DVR coefficients on `nuclear_grid`.
+    """
+    e_total = float(e_kin) + float(eps[v_init])
+    v_d_full = continue_to_tail(ing.v_d_discrete, ing.R, nuclear_grid)
+    v_dk_i = continue_to_tail(
+        v_dk_plus(elec_grid, model, phi_d, ing.R, float(e_kin)), ing.R, nuclear_grid
+    )
+    f = nonlocal_operator(ing, nuclear_grid, model, e_total, n_states=n_states)
+    return solve_nuclear(nuclear_grid, model.mu, v_d_full, f, v_dk_i * chi[v_init], e_total)
+
+
+def nrm_ve_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    elec_grid: FemDvrEcsGrid,
+    model: ResonanceModel,
+    phi_d: DiscreteState,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    ingredients: NrmIngredients | None = None,
+    n_states: int | None = None,
+    include_background: bool = True,
+) -> npt.NDArray[np.float64]:
+    """`sigma_{v_init->v'}(E)` in the nonlocal resonance model (bohr^2).
+
+    `sigma = 4 pi^3 |T^res + T^bg|^2 / k_i^2`, Eq. (28)/(31)/(37), on
+    `qscat.core.driven`'s own normalization so the exact 2-D and nonlocal
+    curves compare directly rather than through two conventions that happen
+    to agree.
+
+    `T^res` (Eq. 31) is a contraction of the SAME `Psi_d^+` solution
+    `dissociation.nrm_da_cross_section` computes (`_psi_d_for_energy`, built
+    once per energy and reused across every `vprimes` entry). `T^bg`
+    (Eq. 37) is the non-resonant background PRA 77 shows a bare LCP curve is
+    missing -- largest for the broadest resonance.
+
+    `include_background=False` drops `T^bg`, giving the paper's "nonlocal"
+    curve as against its "nonlocal + bg" one (Figs. 4 and 8 plot both). That
+    difference is the method's own argument, not a debugging switch.
+
+    Parameters
+    ----------
+    nuclear_grid, elec_grid : FemDvrEcsGrid
+        The nuclear and electronic radial grids.
+    model : ResonanceModel
+        The molecule.
+    phi_d : DiscreteState
+        The discrete-state choice under test.
+    eps, chi : ndarray
+        Neutral vibrational energies and states (`qscat.core.vibrational`).
+    v_init : int
+        Initial vibrational level.
+    vprimes : list of int
+        Final vibrational levels.
+    E : float or array
+        Incident electron kinetic energy or energies (hartree).
+    ingredients : NrmIngredients, optional
+        Precomputed ingredients; built here if omitted. Pass them in when
+        sweeping energies or comparing discrete-state choices -- they are
+        energy-independent and dominate the cost.
+    n_states : int, optional
+        Truncate the sum over projected electronic states in `F(E)`. `None`
+        uses all.
+    include_background : bool, default True
+        Add `T^bg` (Eq. 37) to `T^res` before squaring. `True` is the
+        paper's "nonlocal + background" curve; `False` is its bare
+        "nonlocal" curve.
+
+    Returns
+    -------
+    ndarray
+        `sigma_{v_init->v'}` per energy; scalar `E` returns shape
+        `(len(vprimes),)`, array `E` returns `(len(E), len(vprimes))` --
+        `driven.ve_cross_section`'s convention. A closed channel
+        (`E_tot - eps_vf <= 0`, or `E <= 0`) contributes `0.0`.
+    """
+    real = nuclear_grid.points.imag == 0.0
+    R_desc = np.sort(nuclear_grid.points[real].real)[::-1]
+    ing = ingredients or nrm_ingredients(elec_grid, model, phi_d, R_desc)
+
+    e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+    out = np.zeros((e_arr.size, len(vprimes)), dtype=np.float64)
+    for ie, e_kin in enumerate(e_arr):
+        if float(e_kin) <= 0.0:
+            continue
+        e_total = float(e_kin) + float(eps[v_init])
+        psi_d = _psi_d_for_energy(
+            nuclear_grid, elec_grid, model, phi_d, eps, chi, v_init, float(e_kin), ing, n_states
+        )
+        for jv, vp in enumerate(vprimes):
+            excess = e_total - float(eps[vp])
+            if excess <= 0.0:
+                continue  # closed channel
+            v_dk_f = continue_to_tail(
+                v_dk_plus(elec_grid, model, phi_d, ing.R, excess), ing.R, nuclear_grid
+            )
+            t = t_resonant(chi[vp], v_dk_f, psi_d)
+            if include_background:
+                t += t_background(
+                    elec_grid,
+                    nuclear_grid,
+                    model,
+                    phi_d,
+                    ing.R,
+                    chi[v_init],
+                    chi[vp],
+                    v_dk_f,
+                    float(e_kin),
+                    excess,
+                )
+            out[ie, jv] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e_kin))
+
+    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+    return np.asarray(out[0] if scalar else out, dtype=np.float64)
