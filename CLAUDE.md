@@ -196,11 +196,44 @@ libs/       qscat — the standard library: validated, reusable QM code
               v=0 (0.22 meV in position, 0.30 meV in width, over an electronic box
               grown 24→72 bohr — order converges at 8, the real-region extent is the
               limiting knob, and widths converge slower than positions) — see
-              docs/physics/exact-2d-resonances.md. Plus
+              docs/physics/exact-2d-resonances.md -- but read that claim with the
+              overlap check below: on the finer 46k deck the POSITION difference
+              turns positive at v>=3, while the width difference stays negative.
+              Plus `bo` and `assignment`, the **verification layer** that says
+              whether a pole is a resonance at all. Angle stability is NECESSARY
+              AND NOT SUFFICIENT: on H2+ four of 57 angle-stable poles scored
+              overlaps of 6e-4..7e-3 against a Born-Oppenheimer basis where genuine
+              states score 0.87-0.99. `bo` builds the reference states
+              `phi_j(r;R) chi_v(R)` -- `electronic_curves` for the BOUND (ion /
+              Rydberg) case, `resonance_curve` for the RESONANT (neutral / anion)
+              one, `bo_basis`/`bo_basis_from_levels` putting a vibrational ladder
+              in either, all phase-aligned across R (without which the product
+              flips sign at random R and every overlap integrates to ~0).
+              `assignment` pairs a pole to a level BY OVERLAP (c-product, which is
+              BILINEAR -- values above 1 are legitimate and grow with the width:
+              N2's broad resonances score 1.02-1.19) and returns one of six
+              verdicts; `spurious` vs `basis-limited` is separated by the
+              CLOSED-CHANNEL energy constraint (`admissible_levels`/`basis_covers`,
+              `n_eff = 1/sqrt(2*binding)` to the nearest threshold ABOVE, so a
+              higher vibrational level admits only a LOWER Rydberg index and the
+              admissible set is finite and computable). Also `pair_one_to_one`
+              (Hungarian bijection, a cross-check) and `peak_positions`/
+              `peak_alignment` (distance to observed cross-section peaks IN UNITS
+              OF A RESONANCE WIDTH -- the only scale on which "lands on the peak"
+              means anything). N2's own poles are now overlap-verified: 6/6 clean,
+              0/6 pairing disagreements -- see
+              docs/physics/h2plus-resonance-states.md. Plus
               `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
-              eMoScat's `(n_elem, endpoint)` deck format), `vibrational` (`v0`
-              passed in), `wavepacket`, `correlation`, `plot`. **`qscat.core` never
+              eMoScat's `(n_elem, endpoint)` deck format, plus `ecs_angle_family`
+              -- the three-grid family `exact_resonance_states` needs, which now
+              VALIDATES that each partner moves exactly one ECS angle and shares
+              every real node; an identical partner grid used to be accepted and
+              would pass the whole rotated continuum), `vibrational` (`v0`
+              passed in), `wavepacket`, `correlation`, `plot`
+              (`plot_resonance_levels` takes an explicit `pairing` -- its default
+              sorted-index pairing is only correct when both level sets are
+              complete and ordered alike). **`qscat.core` never
               imports `qscat.model`/`projects` at runtime** (depends only on the
               `ResonanceModel` protocol; enforced by
               `test_core_no_model_import.py`) — see
@@ -350,6 +383,21 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               (validation may import projects; projects must not import
               validation), and `test_ti_curve.py` gates the dense curve against
               Houfek at the anchors — see docs/physics/ti-energy-sweep-reuse.md.
+              `pole_verification.py` (`python -m validation.n2.pole_verification`)
+              answers the question N₂'s exact 2-D poles were published without:
+              are they resonances, and is the sorted-index exact/BO pairing right?
+              Both yes — 6/6 clean overlaps, 0/6 pairing disagreements — using the
+              NEUTRAL basis path (`resonance_curve` + `resonance_levels` +
+              `bo_basis_from_levels`), the counterpart of H₂⁺'s Rydberg path.
+            - `validation/h2plus/`: the H₂⁺ DR exact-resonance campaign —
+              `rydberg_levels` (a thin shim over `qscat.core.bo` now), `exact_poles`
+              (the seeded pole campaign + `grid_family`), `bo_overlap` (the verdict
+              report), `dr_levels_figure` and `resonance_state_figures` (the five
+              committed figures), `reference_levels`/`reference_sweep` (the
+              published ω_i^j table as a gated oracle, and the σ_DR sweep). The
+              solver machinery moved into `qscat.core.bo`/`assignment`; what stays
+              is the campaign — which curves, which windows, which seeds — see
+              docs/physics/h2plus-resonance-states.md.
             - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross
               sections — the model port, the first consumers of sub-project A
               beyond N₂. The per-molecule *curve/figure drivers* were RETIRED in

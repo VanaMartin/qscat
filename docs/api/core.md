@@ -39,6 +39,8 @@ This module never imports `qscat.model` at runtime — it depends only on the
 .. autofunction:: qscat.core.nuclear_grid
 .. autofunction:: qscat.core.fem_grid_exp_tail
 .. autofunction:: qscat.core.segmented_grid
+.. autofunction:: qscat.core.ecs_angle_family
+.. autofunction:: qscat.core.assert_shared_real_nodes
 ```
 
 ## Channels
@@ -114,6 +116,48 @@ Identification is by ECS angle stability in *both* coordinates; see
 ```{eval-rst}
 .. autofunction:: qscat.core.exact_resonance_states
 .. autoclass:: qscat.core.ExactResonanceStates
+   :members:
+```
+
+## Born–Oppenheimer reference states
+
+The picture an exact pole departs from: electronic eigen-curves over a nuclear
+grid, and the product states `φ_j(r; R)·χ_v(R)` built on them.
+`electronic_curves` covers the bound (ion / Rydberg) case and `resonance_curve`
+the resonant (neutral / anion) one, so one comparator serves both. See
+`docs/physics/h2plus-resonance-states.md`.
+
+```{eval-rst}
+.. autofunction:: qscat.core.electronic_curves
+.. autofunction:: qscat.core.resonance_curve
+.. autofunction:: qscat.core.bo_basis
+.. autofunction:: qscat.core.bo_basis_from_levels
+.. autofunction:: qscat.core.n_eff
+.. autofunction:: qscat.core.admissible_levels
+.. autofunction:: qscat.core.basis_covers
+.. autoclass:: qscat.core.ElectronicCurves
+   :members:
+.. autoclass:: qscat.core.BoState
+   :members:
+.. autoclass:: qscat.core.BoBasis
+   :members:
+```
+
+## Assignment and verification
+
+Is a pole a resonance at all, and which quasi-bound state is it? Angle
+stability is necessary and not sufficient; overlap against a BO basis is the
+check that catches a rotated-continuum eigenvalue sitting in a stable corner.
+
+```{eval-rst}
+.. autofunction:: qscat.core.overlap
+.. autofunction:: qscat.core.pair_by_overlap
+.. autofunction:: qscat.core.pair_one_to_one
+.. autofunction:: qscat.core.peak_positions
+.. autofunction:: qscat.core.peak_alignment
+.. autoclass:: qscat.core.OverlapPair
+   :members:
+.. autoclass:: qscat.core.PeakAlignment
    :members:
 ```
 

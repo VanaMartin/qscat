@@ -45,6 +45,9 @@ record limitations and negative results as well as what works.
 - {doc}`exact-2d-resonances` — the same levels without the approximation: poles
   of the full 2-D S-matrix, and what the Born–Oppenheimer error actually
   measures on N₂.
+- {doc}`h2plus-resonance-states` — the same comparison on H₂⁺, against a σ_DR
+  sweep: the Born–Oppenheimer error sorted by regime, and the four "resonances"
+  that turned out not to be.
 
 ## Open directions
 
