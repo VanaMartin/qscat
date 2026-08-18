@@ -9,10 +9,11 @@ from qscat.core.nrm.scattering import (
     free_hamiltonian,
     incident_coefficients,
     scattering_state,
+    scattering_state_minus,
 )
 from qscat.dvr import kinetic
 from qscat.linalg import c_product
-from qscat.special import riccati_bessel_en
+from qscat.special import riccati_bessel_en, riccati_hankel_en
 
 
 @pytest.fixture(scope="module")
@@ -106,6 +107,98 @@ def test_scattering_is_unitary_for_a_real_potential(grid):
     t = c_product(inc, (h - h_free) @ phi)
     s = 1.0 - 2.0j * np.pi * t
     assert abs(abs(s) - 1.0) < 1e-6
+
+
+def test_minus_state_is_conjugate_on_the_real_region(grid):
+    """Eq. (34): phi^- = (phi^+)^* where the ECS contour is real."""
+    h_free = free_hamiltonian(grid, ell=1)
+    well = -5.0 * np.exp(-3.0 * grid.points**2)
+    h = h_free + np.diag(well)
+    e = 0.125
+    plus = scattering_state(h, grid, energy=e, ell=1)
+    minus = scattering_state_minus(h, grid, energy=e, ell=1)
+    real = grid.points.imag == 0.0
+    assert np.allclose(minus[real], np.conjugate(plus[real]), rtol=1e-12, atol=0.0)
+
+
+def test_minus_state_is_zero_on_the_ecs_tail(grid):
+    """The identity holds only where the contour is real, so the tail is not
+    claimed -- it is zeroed, and Eq. (37)'s integrand has no support there.
+    """
+    h_free = free_hamiltonian(grid, ell=1)
+    h = h_free + np.diag(-5.0 * np.exp(-3.0 * grid.points**2))
+    minus = scattering_state_minus(h, grid, energy=0.125, ell=1)
+    assert np.all(minus[grid.points.imag != 0.0] == 0.0)
+
+
+def _hankel_amplitudes(
+    phi: np.ndarray, inc: np.ndarray, grid, k: float, ell: int, r_probe: tuple[float, float]
+) -> np.ndarray:
+    """Decompose a scattering state's scattered part onto outgoing/incoming
+    Riccati-Hankel functions at two real probe points.
+
+    `phi_sc(r) = phi(r) - J_k(r) = a * h1(r) + b * h2(r)`, `h1` the OUTGOING
+    Riccati-Hankel function (`riccati_hankel_en`) and `h2 = conj(h1)` (valid
+    for real `r`) its INCOMING counterpart. Solved as a 2x2 linear system
+    from DVR coefficients converted to function values (`psi(r_j) =
+    c_j / sqrt(w_j)`, the inverse of `incident_coefficients`' convention).
+
+    This is the non-circular check Eq. (34) actually makes a claim about: a
+    purely outgoing/incoming boundary condition beyond the potential's
+    support, referenced against the analytic asymptotic forms directly
+    rather than against the other state's own extraction.
+    """
+    idx = [int(np.argmin(np.abs(grid.points.real - r))) for r in r_probe]
+    w = grid.weights
+    sc_vals = np.array([(phi[i] - inc[i]) / np.sqrt(w[i]) for i in idx])
+    r_arr = grid.points[idx].real
+    h1 = riccati_hankel_en(r_arr, k, ell)
+    h2 = np.conjugate(h1)
+    m = np.array([[h1[0], h2[0]], [h1[1], h2[1]]])
+    ab: np.ndarray = np.linalg.solve(m, sc_vals)
+    return ab
+
+
+def test_minus_state_is_purely_incoming_by_hankel_decomposition(grid):
+    """GATE: boundary condition, not a re-derivation of the other state's S.
+
+    Eq. (34)'s content is that beyond the potential's support, phi+'s
+    scattered part is purely OUTGOING (`h1`) and phi-'s is purely INCOMING
+    (`h2 = conj(h1)` for real r): decompose each scattered part onto both
+    Hankel functions directly and assert the wrong one is (numerically)
+    absent. This does not reference the other state's extraction at all, so
+    it cannot be circular the way testing `s_minus == conj(s_plus)` via the
+    SAME outgoing-referenced formula was (that reduced to `s_plus ==
+    conj(s_plus)`, i.e. Im(T) == 0 -- see the removed prior version of this
+    test / the task report).
+
+    Measured on this grid/well/e at r_probe=(8.19, 13.61) (well outside the
+    Gaussian well's support, inside R0=16): |b_plus/a_plus| ~ 2.95e-7 and
+    |a_minus/b_minus| ~ 2.95e-7 (identical, as the algebra predicts:
+    conjugating phi+'s scattered part swaps which Hankel function carries
+    the small residual). `1e-5` sits ~34x above that residual. A mutant
+    `scattering_state_minus` that omits the conjugate (returns phi+
+    unchanged, tail-zeroed) gives |a/b| ~ 3.4e6 for the "minus" decomposition
+    -- 11 orders of magnitude over the tolerance -- confirming the gate
+    discriminates a real sign/conjugation bug.
+    """
+    h_free = free_hamiltonian(grid, ell=1)
+    h = h_free + np.diag(-5.0 * np.exp(-3.0 * grid.points**2))
+    e = 0.125
+    ell = 1
+    k = float(np.sqrt(2.0 * e))
+    r_probe = (8.18605117, 13.61244973)
+
+    plus = scattering_state(h, grid, e, ell)
+    minus = scattering_state_minus(h, grid, e, ell)
+    inc = incident_coefficients(grid, k, ell)
+
+    a_plus, b_plus = _hankel_amplitudes(plus, inc, grid, k, ell, r_probe)
+    a_minus, b_minus = _hankel_amplitudes(minus, inc, grid, k, ell, r_probe)
+
+    tol = 1e-5
+    assert abs(b_plus) < tol * abs(a_plus)
+    assert abs(a_minus) < tol * abs(b_minus)
 
 
 def test_rejects_non_positive_energy(grid):
