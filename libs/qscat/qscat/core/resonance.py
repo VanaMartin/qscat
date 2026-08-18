@@ -27,15 +27,19 @@ See `docs/physics/exact-2d-resonances.md`.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import os
+from dataclasses import dataclass, fields
 from typing import TYPE_CHECKING
 
 import numpy as np
 import numpy.typing as npt
 
-from qscat.dvr import TensorGrid
+from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.ecs import match_angle_stable
+from qscat.exceptions import GridError
 from qscat.linalg import ShiftInvertEigs, c_product
+
+from .grids import assert_shared_real_nodes
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -75,10 +79,19 @@ class ExactResonanceStates:
     strictly more information: a state can be solidly bound in one coordinate
     and marginal in the other, which one number would hide.
 
-    A small residual is necessary evidence, not sufficient proof. It says the
-    eigenvalue did not move when the contour did; a grid too coarse to resolve
-    the state can produce that for the wrong reason. Convergence in the grid is
-    a separate question, answered by refining it.
+    A small residual is necessary evidence, **not sufficient proof**, and this
+    is not a theoretical caveat: on the H2+ DR windows 4 of 57 poles that passed
+    both angle tests turned out not to be resonances at all, scoring overlaps of
+    6e-4 to 7e-3 against a Born-Oppenheimer basis where genuine states score
+    0.87-0.99. Angle stability says the eigenvalue did not move when the contour
+    did; a rotated-continuum state that happens to sit in a stable corner
+    produces that too, and so can a grid too coarse to resolve the state.
+
+    Two separate checks answer the two separate questions. For "is this a
+    resonance at all, and which quasi-bound state is it", pair the state against
+    a BO basis with `qscat.core.assignment.pair_by_overlap`. For "is the grid
+    adequate", refine it and see whether the energy moves. Neither is implied by
+    the residuals here.
     """
 
     energies: npt.NDArray[np.complex128]
@@ -86,6 +99,29 @@ class ExactResonanceStates:
     states: npt.NDArray[np.complex128]
     residual_electronic: npt.NDArray[np.float64]
     residual_nuclear: npt.NDArray[np.float64]
+
+    def save(self, path: str | os.PathLike[str]) -> None:
+        """Write to a compressed `.npz` under the dataclass's own field names.
+
+        A 2-D pole search is minutes to tens of minutes of sparse
+        factorizations, so the result gets cached -- and hand-rolled caches
+        drifted: one call site stored `res_el`/`res_nuc` while the dataclass
+        calls them `residual_electronic`/`residual_nuclear`, a rename away from
+        silently loading garbage. Round-tripping through this pair keeps the
+        names the dataclass's business.
+        """
+        np.savez(path, **{f.name: getattr(self, f.name) for f in fields(self)})
+
+    @classmethod
+    def load(cls, path: str | os.PathLike[str]) -> ExactResonanceStates:
+        """Read back a `save()` file, checking every field is present."""
+        with np.load(path) as z:
+            missing = [f.name for f in fields(cls) if f.name not in z]
+            if missing:
+                raise ValueError(
+                    f"{path} is not an ExactResonanceStates archive: missing {missing}"
+                )
+            return cls(**{f.name: z[f.name] for f in fields(cls)})
 
 
 def _pooled_spectrum(
@@ -117,6 +153,64 @@ def _pooled_spectrum(
             keep.append(i)
     idx = np.asarray(keep, dtype=np.intp)
     return all_vals[idx], all_vecs[:, idx]
+
+
+def _same_grid(a: FemDvrEcsGrid, b: FemDvrEcsGrid) -> bool:
+    return a.points.shape == b.points.shape and bool(np.array_equal(a.points, b.points))
+
+
+def _check_family(
+    grid_base: TensorGrid, grid_electronic: TensorGrid, grid_nuclear: TensorGrid
+) -> None:
+    """Reject a grid family that does not isolate one ECS angle per partner.
+
+    The whole answer rests on each partner grid differing from the base in
+    EXACTLY one ECS angle. Two failure modes were reachable without this check
+    and neither announces itself:
+
+    - **A partner identical to the base.** Every eigenvalue then matches itself
+      with residual zero, so the search accepts the entire pooled spectrum --
+      continuum and all -- and reports perfect stability while testing nothing.
+    - **Both axes moved, or a different real mesh.** The residual stops being a
+      stability measure and becomes a discretization difference, which is
+      neither the question asked nor a bound on the answer.
+
+    Use `qscat.core.grids.ecs_angle_family` to build a family that passes by
+    construction.
+    """
+    if not (grid_base.ndim == grid_electronic.ndim == grid_nuclear.ndim == 2):
+        raise GridError(
+            "exact_resonance_states expects 2-D tensor grids [electronic, nuclear], got "
+            f"{grid_base.ndim}/{grid_electronic.ndim}/{grid_nuclear.ndim} dimensions"
+        )
+    el_0, nu_0 = grid_base.grids
+    el_1, nu_1 = grid_electronic.grids
+    el_2, nu_2 = grid_nuclear.grids
+
+    if not _same_grid(nu_0, nu_1):
+        raise GridError(
+            "grid_electronic must differ from grid_base in the ELECTRONIC ECS "
+            "angle only -- its nuclear grid is not the base's"
+        )
+    if not _same_grid(el_0, el_2):
+        raise GridError(
+            "grid_nuclear must differ from grid_base in the NUCLEAR ECS angle "
+            "only -- its electronic grid is not the base's"
+        )
+    if _same_grid(el_0, el_1):
+        raise GridError(
+            "grid_electronic is identical to grid_base: a stability test between "
+            "two identical discretizations accepts every eigenvalue, including "
+            "the whole rotated continuum"
+        )
+    if _same_grid(nu_0, nu_2):
+        raise GridError(
+            "grid_nuclear is identical to grid_base: a stability test between "
+            "two identical discretizations accepts every eigenvalue, including "
+            "the whole rotated continuum"
+        )
+    assert_shared_real_nodes(el_0, el_1, what="grid_base's and grid_electronic's electronic grids")
+    assert_shared_real_nodes(nu_0, nu_2, what="grid_base's and grid_nuclear's nuclear grids")
 
 
 def exact_resonance_states(
@@ -169,6 +263,10 @@ def exact_resonance_states(
         If `window` catches no eigenvalue at all in one of the three spectra,
         which means the window or the shifts are misplaced rather than that
         nothing is there.
+    GridError
+        If the three grids do not isolate exactly one ECS angle per partner --
+        see `_check_family`. `qscat.core.grids.ecs_angle_family` builds a family
+        that passes by construction.
 
     Notes
     -----
@@ -176,6 +274,7 @@ def exact_resonance_states(
     number of seeds. On a production 2-D deck that factorization dominates
     everything else, so keep the seed list short and prefer the MUMPS backend.
     """
+    _check_family(grid_base, grid_electronic, grid_nuclear)
     vals_a, vecs_a = _pooled_spectrum(model, grid_base, shifts, k)
     vals_b, _ = _pooled_spectrum(model, grid_electronic, shifts, k)
     vals_c, _ = _pooled_spectrum(model, grid_nuclear, shifts, k)

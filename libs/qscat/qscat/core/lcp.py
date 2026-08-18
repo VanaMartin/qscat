@@ -66,6 +66,7 @@ from qscat.exceptions import ConvergenceError
 from qscat.linalg import SparseLU, c_product
 
 from .dissociation import anion_electronic_states
+from .grids import assert_shared_real_nodes
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -563,13 +564,7 @@ def _check_shared_real_nodes(grid_a: FemDvrEcsGrid, grid_b: FemDvrEcsGrid) -> No
     grid, so a mismatch surfaces as this message rather than as a downstream
     numpy broadcast error.
     """
-    ra, rb = grid_a.points, grid_b.points
-    if ra.size != rb.size or not np.array_equal(ra[ra.imag == 0.0], rb[rb.imag == 0.0]):
-        raise ValueError(
-            "nuclear_grid_a and nuclear_grid_b must share their real nodes "
-            "(same real segments and quadrature; only the ECS tail angle may "
-            "differ) -- otherwise the two spectra are not comparable"
-        )
+    assert_shared_real_nodes(grid_a, grid_b, what="nuclear_grid_a and nuclear_grid_b")
 
 
 def _default_window(
