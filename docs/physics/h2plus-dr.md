@@ -350,6 +350,14 @@ The DR1 (n=0) channel peaks at **E ≈ 6.31×10⁻³ Ha, σ ≈ 1.54×10⁻³ bo
 background; DR2 (n=1) is ~10⁻⁶; DR3 (n=2) is closed in this window (threshold ≈ 0.0426 Ha). The
 solve runs in ~8 s/energy on the `sadaharu` host with the OpenMP MUMPS backend.
 
+## The resonance positions behind these peaks
+
+Where the peaks in this cross section come from -- the exact 2-D poles, the
+Born-Oppenheimer levels they are conventionally assigned to, the wavefunctions
+of both, and the four angle-stable states that turn out not to be resonances --
+is {doc}`h2plus-resonance-states`. That note also uses this sweep as its
+measuring instrument: the poles land on its peaks to 0.2-0.3 resonance widths.
+
 ## Follow-ons
 
 The π channel (`p_pi_potential`); optimizing the mpmath Coulomb functions (a Rust/COULCC port) if

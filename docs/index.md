@@ -41,6 +41,7 @@ physics/diatomic-ve-cross-sections
 physics/h2plus-dr
 physics/lcp-resonance-levels
 physics/exact-2d-resonances
+physics/h2plus-resonance-states
 physics/angular-coupled-channels
 physics/optimization-targets
 ```
