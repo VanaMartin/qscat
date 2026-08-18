@@ -96,6 +96,7 @@ from qscat.core.nrm import (
     PhysicalDiscreteState,
     nrm_da_cross_section,
     nrm_ingredients,
+    nrm_ve_cross_section,
 )
 from qscat.core.time_dependent import free_hamiltonian  # same helper td_ve_cross_sections_all uses
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
@@ -947,13 +948,15 @@ def _run_nrm(
     cfg: ExperimentConfig,
     timings: dict[str, float],
 ) -> dict[str, npt.NDArray[np.float64]]:
-    """The NRM path: the nonlocal resonance model's DA cross section (PRA 77
-    Eq. 52-54), one series per requested discrete-state choice.
+    """The NRM path: the nonlocal resonance model's vibrational-excitation
+    (PRA 77 Eq. 28/31/37) and dissociative-attachment (Eq. 52-54) cross
+    sections, one series per requested discrete-state choice.
 
-    Keyed `"nrm-a:da:ch0"` / `"nrm-b:da:ch0"`, so `methods: [ti, lcp, nrm]`
-    with `nrm.choices: [a, b]` puts the exact oracle and all three
-    approximations of the SAME cross section on one `cross_section.png` -- the
-    comparison `docs/physics/nonlocal-resonance-model.md` reports.
+    Keyed `"nrm-a:ve:v0->1"` / `"nrm-b:da:ch0"` -- the `ti` path's own key
+    shapes under a per-choice prefix -- so `methods: [ti, lcp, nrm]` with
+    `nrm.choices: [a, b]` puts the exact oracle and all three approximations of
+    the SAME cross section on one `cross_section.png`, the comparison
+    `docs/physics/nonlocal-resonance-model.md` reports.
 
     Both choices share this run's grids and vibrational basis, and each builds
     its (energy-independent, expensive) ingredients exactly once before the
@@ -971,7 +974,14 @@ def _run_nrm(
     timings["nrm:grid"] = time.time() - t0
 
     model = presets.MODELS[cfg.molecule]
-    n_vib = _n_vib(cfg, cfg.v_init + 1)
+    # A `ve` observable needs every requested final level in the basis, exactly
+    # as `_run_ti` does -- the two must diagonalize the SAME vibrational
+    # problem or their cross sections are not comparable.
+    required = cfg.v_init + 1
+    for obs in cfg.observables:
+        if obs.kind == "ve":
+            required = max(required, max(_vprimes(obs), default=-1) + 1)
+    n_vib = _n_vib(cfg, required)
 
     t0 = time.time()
     eps, chi = vibrational_states(nuc, model.mu, n_vib, model.v0)
@@ -990,23 +1000,44 @@ def _run_nrm(
         timings[f"nrm-{choice}:ingredients"] = time.time() - t0
 
         for obs in cfg.observables:
-            if obs.kind != "da":
-                continue  # the NRM produces the DA cross section only
+            if obs.kind not in ("ve", "da"):
+                continue  # the NRM approximates vibrational excitation and DA
             t0 = time.time()
-            sigma = nrm_da_cross_section(
-                nuc,
-                elec,
-                model,
-                phi_d,
-                eps,
-                chi,
-                cfg.v_init,
-                energies,
-                ingredients=ing,
-                n_states=spec.n_states,
-            )
-            cross_sections[f"nrm-{choice}:da:ch0"] = np.asarray(sigma, dtype=np.float64)
-            key = f"nrm-{choice}:da"
+            if obs.kind == "ve":
+                vprimes = _vprimes(obs)
+                sigma_ve = nrm_ve_cross_section(
+                    nuc,
+                    elec,
+                    model,
+                    phi_d,
+                    eps,
+                    chi,
+                    cfg.v_init,
+                    vprimes,
+                    energies,
+                    ingredients=ing,
+                    n_states=spec.n_states,
+                    include_background=spec.include_background,
+                )
+                for j, vp in enumerate(vprimes):
+                    cross_sections[f"nrm-{choice}:ve:v{cfg.v_init}->{vp}"] = np.asarray(
+                        sigma_ve, dtype=np.float64
+                    )[:, j]
+            else:
+                sigma = nrm_da_cross_section(
+                    nuc,
+                    elec,
+                    model,
+                    phi_d,
+                    eps,
+                    chi,
+                    cfg.v_init,
+                    energies,
+                    ingredients=ing,
+                    n_states=spec.n_states,
+                )
+                cross_sections[f"nrm-{choice}:da:ch0"] = np.asarray(sigma, dtype=np.float64)
+            key = f"nrm-{choice}:{obs.kind}"
             timings[key] = timings.get(key, 0.0) + (time.time() - t0)
 
     return cross_sections

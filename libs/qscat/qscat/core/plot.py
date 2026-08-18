@@ -23,12 +23,19 @@ and `tests/test_no_matplotlib_at_import.py`.
 from __future__ import annotations
 
 import os
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
+from typing import Any
 
 import numpy as np
 import numpy.typing as npt
 
-__all__ = ["plot_cross_sections", "plot_resonance_levels"]
+__all__ = [
+    "ComparisonPanel",
+    "plot_cross_sections",
+    "plot_resonance_levels",
+    "plot_route_comparison",
+]
 
 _PathLike = str | os.PathLike[str]
 
@@ -295,6 +302,129 @@ def plot_resonance_levels(
         ax2.legend(fontsize="small")
         ax2.grid(True, alpha=0.2)
 
+    fig.tight_layout()
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
+@dataclass(frozen=True)
+class ComparisonPanel:
+    """One panel of a `plot_route_comparison` grid.
+
+    `series` maps a legend label to a `(M,)` array on the shared `E_grid`;
+    every entry is drawn on the same axes in the order given. `ylim`/`yticks`
+    exist so a caller replicating a published panel can pin its axis rather
+    than letting matplotlib choose one -- the whole point of such a figure is
+    that a reader can lay it next to the printed panel.
+
+    No physics: this is a label, some arrays, and axis limits.
+    """
+
+    series: dict[str, npt.NDArray[np.float64]]
+    title: str | None = None
+    ylim: tuple[float, float] | None = None
+    yticks: npt.NDArray[np.float64] | None = None
+
+
+def plot_route_comparison(
+    E_grid: npt.NDArray[np.float64],
+    panels: Sequence[Sequence[ComparisonPanel]],
+    *,
+    styles: Mapping[str, Mapping[str, Any]] | None = None,
+    path: _PathLike,
+    xlim: tuple[float, float] | None = None,
+    xlabel: str = "E (Hartree)",
+    ylabel: str = r"$\sigma$ (bohr$^2$)",
+    suptitle: str | None = None,
+    panel_size: tuple[float, float] = (6.0, 4.2),
+) -> None:
+    """Plot a grid of panels, each overlaying several named `sigma(E)` routes.
+
+    `plot_cross_sections`' sibling for the other comparison shape: that one
+    puts one CHANNEL per curve on a single log-scaled axis; this one puts one
+    METHOD per curve on a LINEAR axis, and takes a grid of panels so several
+    transitions (or several model variants) can be read at once.
+
+    Parameters
+    ----------
+    E_grid : ndarray
+        `(M,)` shared abscissa; every series in every panel is drawn on it.
+    panels : sequence of sequence of ComparisonPanel
+        Row-major grid, `panels[row][col]`. Rows need not be equal length;
+        the figure is sized to the longest, and missing cells are left blank.
+    styles : mapping, optional
+        `{series label: matplotlib kwargs}`, applied to that label wherever
+        it appears. Labels with no entry fall back to matplotlib's own cycle.
+        This is how a caller reproduces a published figure's line styles.
+    xlim, xlabel, ylabel, suptitle, panel_size
+        Axis framing. `panel_size` is per panel, in inches.
+
+    Notes
+    -----
+    Linear y by design: an absolute difference on a linear axis is the scale
+    on which a published "the curves are practically the same" claim is made,
+    and a log axis would misrepresent it. Non-positive values are plotted as
+    they are (no masking) -- on a linear axis a zero is meaningful.
+
+    Requires the optional `qscat[plot]` extra (matplotlib); raises
+    `ModuleNotFoundError` with an actionable hint if it is not installed.
+    """
+    try:
+        import matplotlib
+
+        matplotlib.use("Agg")  # non-interactive backend, set before pyplot import
+        import matplotlib.pyplot as plt
+    except ModuleNotFoundError as exc:  # pragma: no cover - trivial guard
+        raise ModuleNotFoundError(
+            "qscat.core.plot_route_comparison requires matplotlib. "
+            "Install the plotting extra: pip install 'qscat[plot]'."
+        ) from exc
+
+    e = np.asarray(E_grid, dtype=np.float64)
+    n_rows = len(panels)
+    if n_rows == 0:
+        raise ValueError("plot_route_comparison: no panels given")
+    n_cols = max(len(row) for row in panels)
+    if n_cols == 0:
+        raise ValueError("plot_route_comparison: no panels given")
+
+    fig, axes = plt.subplots(
+        n_rows,
+        n_cols,
+        figsize=(panel_size[0] * n_cols, panel_size[1] * n_rows),
+        squeeze=False,
+    )
+    for ax_row in axes:
+        for ax in ax_row:
+            ax.set_visible(False)
+
+    for i, row in enumerate(panels):
+        for j, panel in enumerate(row):
+            ax = axes[i][j]
+            ax.set_visible(True)
+            for label, sigma in panel.series.items():
+                s = np.asarray(sigma, dtype=np.float64)
+                if s.shape != e.shape:
+                    raise ValueError(
+                        f"series {label!r} has shape {s.shape}, expected {e.shape} "
+                        "(every series shares E_grid)"
+                    )
+                ax.plot(e, s, label=label, **dict(styles.get(label, {}) if styles else {}))
+            if xlim is not None:
+                ax.set_xlim(*xlim)
+            if panel.ylim is not None:
+                ax.set_ylim(*panel.ylim)
+            if panel.yticks is not None:
+                ax.set_yticks(np.asarray(panel.yticks, dtype=np.float64))
+            if panel.title:
+                ax.set_title(panel.title, fontsize="medium")
+            ax.set_xlabel(xlabel)
+            ax.set_ylabel(ylabel)
+            ax.grid(True, alpha=0.2)
+            ax.legend(fontsize="small")
+
+    if suptitle:
+        fig.suptitle(suptitle)
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)

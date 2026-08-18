@@ -182,6 +182,7 @@ runtime (see the hard boundary above) -- import it explicitly, e.g.
 .. autoclass:: qscat.core.nrm.NrmIngredients
    :members:
 .. autofunction:: qscat.core.nrm.nrm_da_cross_section
+.. autofunction:: qscat.core.nrm.nrm_ve_cross_section
 ```
 
 ## Plotting
@@ -189,4 +190,7 @@ runtime (see the hard boundary above) -- import it explicitly, e.g.
 ```{eval-rst}
 .. autofunction:: qscat.core.plot_cross_sections
 .. autofunction:: qscat.core.plot_resonance_levels
+.. autoclass:: qscat.core.ComparisonPanel
+   :members:
+.. autofunction:: qscat.core.plot_route_comparison
 ```

@@ -128,6 +128,12 @@ class MoleculePreset:
     # nuclear deck). `None` for molecules with no LCP path (N2 -- DA closed;
     # H2P -- DR, not DA-LCP).
     lcp_grids: Callable[[], tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]] | None = None
+    # This molecule's electronic deck rebuilt at the NRM's SECOND ECS angle
+    # (choice A's two-angle resonance-pole walk). The NRM's other two grids are
+    # `ti_grid()`'s own factors, so `nrm` and `ti` in one run are computed on
+    # one discretisation and a ratio across method prefixes means something.
+    # `None` for molecules with no NRM path (H2P -- DR, not VE/DA).
+    nrm_elec_b: Callable[[], FemDvrEcsGrid] | None = None
 
 
 # --- N2 -----------------------------------------------------------------
@@ -135,10 +141,20 @@ class MoleculePreset:
 # `projects.n2_2d_td_cross_section.convergence.TD_WORKING_GRID` (TD).
 
 
+# N2's electronic deck, named because the NRM has to rebuild it at a second ECS
+# angle and must not drift from the one the exact `ti` solve runs on.
+_N2_ELEC: dict[str, float | int] = {
+    "r_max": 16.0,
+    "angle_deg": 35.0,
+    "order": 7,
+    "n_complex": 5,
+}
+
+
 def _n2_ti_grid() -> TensorGrid:
     return TensorGrid(
         [
-            electronic_grid(r_max=16.0, angle_deg=35.0, order=7, n_complex=5),
+            electronic_grid(**_N2_ELEC),  # type: ignore[arg-type]
             nuclear_grid(angle_deg=35.0, r_max=20.0, n_complex=5, quadrature=10),
         ]
     )
@@ -211,9 +227,27 @@ def _f2_td_grid() -> TensorGrid:
 # encodes (lcp_angle_a=35, lcp_angle_b=44).
 _LCP_ANGLE_A, _LCP_ANGLE_B = 35.0, 44.0
 
+# The NRM's second electronic ECS angle. It is NOT the LCP's 44 deg: the NRM
+# runs its electronic Hamiltonian on the SAME deck the exact 2-D `ti` solve
+# uses, and `PhysicalDiscreteState`'s two-angle pole walk needs a second angle
+# near it. 40/35 is the pairing `validation/diatomic/nrm.py` and
+# `validation/diatomic/ve_nrm.py` measured every recorded number on, so the app
+# and the validation drivers agree by construction.
+_NRM_ANGLE_B = 40.0
+
 
 def _lcp_elec(angle_deg: float) -> FemDvrEcsGrid:
     return electronic_grid(r_max=16.0, order=8, n_complex=6, angle_deg=angle_deg)
+
+
+def _diatomic_nrm_elec_b() -> FemDvrEcsGrid:
+    """NO/F2's electronic deck at the NRM's second ECS angle."""
+    return _lcp_elec(_NRM_ANGLE_B)
+
+
+def _n2_nrm_elec_b() -> FemDvrEcsGrid:
+    """N2's electronic deck at the NRM's second ECS angle."""
+    return electronic_grid(**{**_N2_ELEC, "angle_deg": _NRM_ANGLE_B})  # type: ignore[arg-type]
 
 
 def _f2_lcp_grids() -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]:
@@ -302,6 +336,7 @@ PRESETS: dict[str, MoleculePreset] = {
         ve_test_function=TestFunctionSpec(r0_out=35.0, p0_out=0.5, sigma_out=4.0),
         da_test_function=_F2_DA_TEST_FUNCTION,
         da_surface_R=_F2_DA_SURFACE_R,
+        nrm_elec_b=_n2_nrm_elec_b,
     ),
     "NO:emoscat": MoleculePreset(
         molecule="NO",
@@ -319,6 +354,7 @@ PRESETS: dict[str, MoleculePreset] = {
         da_test_function=_F2_DA_TEST_FUNCTION,
         da_surface_R=_F2_DA_SURFACE_R,
         lcp_grids=_no_lcp_grids,
+        nrm_elec_b=_diatomic_nrm_elec_b,
     ),
     "F2:emoscat": MoleculePreset(
         molecule="F2",
@@ -335,6 +371,7 @@ PRESETS: dict[str, MoleculePreset] = {
         da_test_function=_F2_DA_TEST_FUNCTION,
         da_surface_R=_F2_DA_SURFACE_R,
         lcp_grids=_f2_lcp_grids,
+        nrm_elec_b=_diatomic_nrm_elec_b,
     ),
     "H2P:emoscat": MoleculePreset(
         molecule="H2P",
@@ -431,35 +468,31 @@ def resolve_lcp_grids(
     return preset.lcp_grids()
 
 
-# The NRM's second electronic ECS angle. It is NOT the LCP's 44 deg: the NRM
-# runs its electronic Hamiltonian on the SAME deck the exact 2-D `ti` solve
-# uses (`_lcp_elec(_LCP_ANGLE_A)` == `_f2_ti_grid`'s electronic factor), and
-# `PhysicalDiscreteState`'s two-angle pole walk needs a second angle near it.
-# 40/35 is the pairing `validation/diatomic/nrm.py` measured every recorded
-# number on, so the app and the validation driver agree by construction.
-_NRM_ANGLE_B = 40.0
-
-
 def resolve_nrm_grids(
     cfg: ExperimentConfig,
 ) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]:
     """The `(nuclear, elec_a, elec_b)` NRM grid triple for `cfg`'s molecule.
 
-    Shares the LCP path's nuclear deck and first electronic deck -- which is
-    also the exact `ti` solve's electronic factor, so `nrm` and `ti` results
-    in one run are computed on the same electronic discretisation -- and pairs
-    them with a second electronic angle at `_NRM_ANGLE_B` for choice A's
-    two-angle pole walk. Raises `ConfigError` if the molecule has no such deck.
+    `elec_a` and `nuclear` are `ti_grid()`'s OWN factors, so `nrm` and `ti` in
+    one run are computed on one discretisation -- a `methods: [ti, nrm]` ratio
+    then measures the model reduction rather than two discretisations. (For
+    F2/NO those factors are also exactly the LCP path's decks: `_lcp_elec(
+    _LCP_ANGLE_A)` is `_f2_ti_grid`'s electronic factor and `_f2_nuc_grid()`
+    its nuclear one, so all three methods land on the same grid.) `elec_b` is
+    the same electronic deck rebuilt at `_NRM_ANGLE_B`, for choice A's
+    two-angle pole walk.
+
+    Raises `ConfigError` if the molecule has no NRM deck.
     """
     variant = cfg.grid.preset or DEFAULT_PRESET
     preset = PRESETS.get(f"{cfg.molecule}:{variant}")
-    if preset is None or preset.lcp_grids is None:
+    if preset is None or preset.nrm_elec_b is None:
         raise ConfigError(
             f"the 'nrm' method is not available for {cfg.molecule} ({variant}); the "
-            "nonlocal resonance model is wired for the DA molecules (F2, NO)"
+            "nonlocal resonance model is wired for the neutral diatomics (N2, NO, F2)"
         )
-    nuc, elec_a, _elec_b_lcp = preset.lcp_grids()
-    return nuc, elec_a, _lcp_elec(_NRM_ANGLE_B)
+    elec_a, nuc = preset.ti_grid().grids
+    return nuc, elec_a, preset.nrm_elec_b()
 
 
 _NUC_GRID_BUILDERS = {"NO": _no_nuc_grid, "F2": _f2_nuc_grid}

@@ -309,20 +309,29 @@ class NrmSpec:
     `choices` names PRA 77's discrete-state choices to run: `"a"` the
     R-dependent "physical" state (Sec. VI A), `"b"` the R-independent
     asymptotic bound state (Sec. VI B). Each requested choice gets its own
-    cross-section key (`nrm-a:da:ch0`, `nrm-b:da:ch0`), so one run overlays
-    both against `ti`/`lcp`. `"b"` alone is the default because it is the
-    choice PRA 77 shows reproducing the exact F2 DA cross section, and the
-    one this repo measured at 0.06-1.9 % of the exact oracle.
+    cross-section key (`nrm-a:da:ch0`, `nrm-b:ve:v0->1`, ...), so one run
+    overlays both against `ti`/`lcp`. `"b"` alone is the default because it is
+    the choice PRA 77 shows reproducing the exact F2 DA cross section, and the
+    one this repo measured at 0.06-1.9 % of the exact oracle for DA and within
+    0.7 % of it for vibrational excitation.
 
     `n_states` truncates the Eq. (60) sum over projected electronic states.
     100 is the measured value: the F2/NO x A/B ladders reproduce the
     untruncated sum to numerical identity there, and the sum is NOT
     front-loaded (n=50 is still 33 % off) -- see
     docs/physics/nonlocal-resonance-model.md.
+
+    `include_background` adds the Eq. (37) background T-matrix to the resonant
+    one before squaring -- PRA 77's "nonlocal + background" curve as against
+    its bare "nonlocal" one (Figs. 4-6 and 8 plot both, and the difference is
+    the paper's own argument for why a bare LCP curve is missing something).
+    It applies to `ve` only: `da` has no background term in this model, and a
+    `da` observable ignores the flag.
     """
 
     choices: tuple[str, ...] = ("b",)
     n_states: int = 100
+    include_background: bool = True
 
 
 def _load_nrm(raw: dict[str, Any] | None) -> NrmSpec | None:
@@ -332,6 +341,7 @@ def _load_nrm(raw: dict[str, Any] | None) -> NrmSpec | None:
     return NrmSpec(
         choices=("b",) if choices is None else tuple(str(c).lower() for c in choices),
         n_states=int(raw.get("n_states", 100)),
+        include_background=bool(raw.get("include_background", True)),
     )
 
 
@@ -593,18 +603,27 @@ def validate_config(cfg: ExperimentConfig) -> None:
             )
 
     if "nrm" in cfg.methods:
-        # The nonlocal resonance model is the OTHER approximation of DA (PRA 77
-        # Eq. 52-54), so like `lcp` it needs a `da` observable and the preset's
-        # paired electronic + fine nuclear decks. It has no VE route at all --
-        # that would need the paper's background T-matrix (Eq. 37), which this
-        # repo does not implement.
-        kinds = {obs.kind for obs in cfg.observables}
-        if "da" not in kinds:
+        # The nonlocal resonance model approximates the SAME two observables the
+        # exact `ti` solve gives: vibrational excitation (PRA 77 Eq. 28/31/37)
+        # and dissociative attachment (Eq. 52-54). Like `lcp` it needs the
+        # preset's electronic deck at two ECS angles plus the molecule's own
+        # nuclear deck, so it has no explicit-grid form.
+        variant = cfg.grid.preset or presets.DEFAULT_PRESET
+        nrm_preset = presets.PRESETS.get(f"{cfg.molecule}:{variant}")
+        if nrm_preset is None or nrm_preset.nrm_elec_b is None:
+            # Checked first: "not available for this molecule" is the more
+            # actionable message than "no ve/da observable" for a molecule
+            # (H2P) whose only observable the NRM could never serve anyway.
             raise ConfigError(
-                "methods includes 'nrm' but no 'da' observable is requested; the "
-                "nonlocal resonance model approximates the DA cross section only "
-                "(its VE route needs the background T-matrix, which qscat does not "
-                "implement) -- add `{kind: da, channels: 1}`"
+                f"the 'nrm' method is not available for {cfg.molecule}; the nonlocal "
+                "resonance model is wired for the neutral diatomics (N2, NO, F2)"
+            )
+        kinds = {obs.kind for obs in cfg.observables}
+        if not kinds & {"ve", "da"}:
+            raise ConfigError(
+                "methods includes 'nrm' but no 've' or 'da' observable is requested; "
+                "the nonlocal resonance model approximates those two cross sections "
+                "-- add `{kind: ve, channels: 2}` or `{kind: da, channels: 1}`"
             )
         if cfg.grid.electronic is not None or cfg.grid.nuclear is not None:
             raise ConfigError(
@@ -612,13 +631,6 @@ def validate_config(cfg: ExperimentConfig) -> None:
                 "preset's electronic deck at two ECS angles + the fine nuclear "
                 "deck); use `grid: {preset: ...}` (or omit grid) with methods "
                 "including 'nrm'"
-            )
-        variant = cfg.grid.preset or presets.DEFAULT_PRESET
-        nrm_preset = presets.PRESETS.get(f"{cfg.molecule}:{variant}")
-        if nrm_preset is None or nrm_preset.lcp_grids is None:
-            raise ConfigError(
-                f"the 'nrm' method is not available for {cfg.molecule}; the nonlocal "
-                "resonance model is wired for the DA molecules (F2, NO)"
             )
         if cfg.nrm is not None:
             if not cfg.nrm.choices:

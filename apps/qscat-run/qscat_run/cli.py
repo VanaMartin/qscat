@@ -173,7 +173,7 @@ def _scaffold_yaml(molecule: str, obs_kinds: list[str], methods: list[str]) -> s
         f"# qscat-run starter config for {molecule}, scaffolded by `qscat-run init`.\n"
         f"# molecule: N2 | NO | F2 | H2P\n"
         f"# methods: any subset of [ti, td, lcp, nrm] (lcp = local-complex-potential DA,\n"
-        f"#          nrm = nonlocal resonance model DA; both F2/NO only)\n"
+        f"#          F2/NO only; nrm = nonlocal resonance model VE + DA, N2/NO/F2)\n"
         f"# observables: a list of {{kind, channels}}; {molecule} supports kind in {valid_kinds}\n"
         f"# grid.preset: one of {variants} (or an explicit {{electronic, nuclear}} grid)\n"
         "# See docs/superpowers/specs/2026-08-01-qscat-run-cli-design.md for the full schema.\n"

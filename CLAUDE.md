@@ -222,9 +222,9 @@ libs/       qscat — the standard library: validated, reusable QM code
               OF A RESONANCE WIDTH -- the only scale on which "lands on the peak"
               means anything). N2's own poles are now overlap-verified: 6/6 clean,
               0/6 pairing disagreements -- see
-              docs/physics/h2plus-resonance-states.md. Plus
+              docs/physics/h2plus-resonance-states.md.
               Also `nrm` — the **NONLOCAL
-              RESONANCE MODEL** of DA (Houfek/Rescigno/McCurdy, PRA 77, 012710
+              RESONANCE MODEL** (Houfek/Rescigno/McCurdy, PRA 77, 012710
               (2008)): the rung between `lcp` and the exact solver, keeping the
               energy dependence and the NONLOCALITY the LCP discards. Solves the
               same 1-D nuclear equation but with a complex, energy-dependent
@@ -233,7 +233,20 @@ libs/       qscat — the standard library: validated, reusable QM code
               `scattering` (`φ_k⁺` at real energy), `discrete_state` (the two
               `φ_d` choices), `coupling` (`V_dk⁺`, `Γ=2π|V_dk⁺|²`), `ingredients`
               (`E_n(R)`, `V_dn(R)`, `V_d(R)`), `nonlocal_potential`, and
-              `nrm_da_cross_section`. The method is completely determined by the
+              `nrm_da_cross_section` — plus `vibrational_excitation`
+              (`j_dk`, `t_resonant`, `t_background`, `nrm_ve_cross_section`), the
+              VIBRATIONAL-EXCITATION route on the same `F(E)`/ingredients/`Ψ_d⁺`:
+              `σ = 4π³|T^res + T^bg|²/k_i²` from PRA 77's two-potential
+              decomposition (Eq. 28/31/37/38), with `include_background=False`
+              giving the paper's bare "nonlocal" curve against its "nonlocal +
+              bg" one. Eq. (34)/(35) (radial case, real `φ_d`, `H_el` Hermitian)
+              is what lets both T-matrix terms use the NON-conjugated `V_dk⁺`;
+              that is a separate argument from p. 012710-6's complex-symmetric
+              ECS c-product, and one citation must not do both jobs.
+              `scattering_state_minus` (`φ⁻`, gated by a Hankel decomposition
+              against analytic asymptotics) is the identity behind that choice,
+              not a consumer of it — Eq. (37)'s bra carries `(φ⁻)* = φ⁺` at the
+              FINAL channel energy. The method is completely determined by the
               discrete state, and BOTH of PRA 77's implementable choices are
               provided: `PhysicalDiscreteState` (A, the R-dependent scattering
               function at `Re E_res(R)`) and `AsymptoticDiscreteState` (B, the
@@ -253,8 +266,22 @@ libs/       qscat — the standard library: validated, reusable QM code
               0.01-0.08 Ha window, so it is energetically shut there), choice B
               collapses by 5-8 orders — with NO located defect and NO confirmed
               mechanism, and with all three approximations flat (LCP 1.04×, A
-              2.47×, B 127×) while the converged exact swings 9397×. DA only (VE
-              needs the background T-matrix, Eq. 37), TI only, F₂/NO only — see
+              2.47×, B 127×) while the converged exact swings 9397×. MEASURED
+              FOR VE, the channel PRA 77 plots for EVERY molecule in its study:
+              choice B + background reproduces the exact `driven.ve_cross_section`
+              oracle to better than 0.7% on BOTH N₂ (11 energies, 0.06-0.16 Ha)
+              and F₂ (6, 0.02-0.09 Ha), elastic and first-inelastic alike
+              (0.99623-1.00692 worst over all four molecule/transition pairs),
+              while choice A degrades to 0.565-1.140 — and the reason B is that
+              good is PHYSICS, not luck: an R-INDEPENDENT `φ_d` carries no `∂_R`
+              derivative couplings, so the model is FORMALLY EXACT and the
+              residual is discretization error. The comparison is DIFFERENTIAL
+              (both routes on the same grids), so it validates the model
+              reduction, NOT the grid — absolute normalization is anchored by
+              validation/n2/exact2d.py against Houfek. TI only; DA on F₂/NO, VE on
+              N₂/F₂ (NO VE not run, though the paper publishes it — the natural
+              follow-on); the NO DA collapse above REMAINS OPEN, narrowed but not
+              closed by the VE result — see
               docs/physics/nonlocal-resonance-model.md. Plus
               `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
@@ -443,7 +470,17 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               2d-ti-cross-section.png`, `{f2,no}-2d-ti-da-cross-section.png`,
               `{f2,no}-2d-da-lcp-vs-exact.png`) remain the sub-project-A/B
               deliverables (the LCP's error is energy-dependent, not a fixed
-              percentage — see the qscat.core.lcp entry above). `config.py`
+              percentage — see the qscat.core.lcp entry above). `ve_nrm.py` +
+              `test_ve_nrm.py` are the NRM-vs-LCP-vs-exact VIBRATIONAL-EXCITATION
+              gate (N₂ and F₂, four routes on one deck), and `ve_nrm_figure.py`
+              is the ONE surviving figure driver — a deliberate exception to the
+              retirement above, because its figure needs both
+              `include_background` settings AND the LCP's VE route, and neither
+              is reachable from a single qscat-run config (`apps/qscat-run/
+              examples/n2-ve-nrm-vs-exact.yaml` is the config form of the rest of
+              it). It writes `docs/physics/figures/n2-ve-nrm-vs-exact.png`, the
+              2x2 panel laid out to be compared by eye against PRA 77 Fig. 4
+              (choice A) and Fig. 8 (choice B). `config.py`
               remains, trimmed to its one
               surviving job: the eMoScat per-molecule NUCLEAR deck definitions
               (`MoleculeConfig.da_grid()`) the **discretisation tuner** reads as

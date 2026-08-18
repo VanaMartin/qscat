@@ -210,7 +210,7 @@ def test_min_overlap_warns_on_a_synthetic_tracking_failure(setup, monkeypatch):
     """`nrm_ingredients` must warn when `_sign_align`'s overlap looks like a
     tracking failure (Task 2's fix: NO's physical discrete state hits
     `min|c_product| = 3.3e-15` at the crossing -- see
-    docs/physics/nonlocal-resonance-model.md Sec. 10 -- and that failure
+    docs/physics/nonlocal-resonance-model.md Sec. 11 -- and that failure
     previously had no signal at all, only a docstring caveat).
 
     Monkeypatching `_sign_align` to report a fabricated near-zero overlap,
