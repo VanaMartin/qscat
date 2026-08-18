@@ -146,14 +146,17 @@ def test_nrm_defaults_are_materialized_by_resolve_defaults(tmp_path: Path) -> No
     assert resolved.nrm.n_states == 100
 
 
-def test_nrm_rejected_for_n2(tmp_path: Path) -> None:
+def test_nrm_rejected_for_the_ion(tmp_path: Path) -> None:
+    """H2+ has no NRM deck: the model's discrete state and Eq. (60) state sum
+    are set up for the neutral diatomics, so the config must say so rather
+    than fail deep inside a solve."""
     cfg = load_config(
         _write(
             tmp_path,
             """
-        molecule: N2
+        molecule: H2P
         methods: [nrm]
-        observables: [{kind: da, channels: 1}]
+        observables: [{kind: dr, channels: 1}]
         output_dir: out
     """,
         )
@@ -162,21 +165,43 @@ def test_nrm_rejected_for_n2(tmp_path: Path) -> None:
         validate_config(cfg)
 
 
-def test_nrm_without_da_observable_rejected(tmp_path: Path) -> None:
-    """The NRM has no VE route here -- that needs the paper's background
-    T-matrix -- so a `ve`-only config must be rejected, not silently no-op."""
+def test_nrm_accepts_a_ve_only_config(tmp_path: Path) -> None:
+    """The NRM approximates vibrational excitation as well as DA (PRA 77
+    Eq. 28/31/37), including for N2 -- the molecule the committed figure
+    compares against Figs. 4 and 8."""
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: N2
+        methods: [ti, nrm]
+        observables: [{kind: ve, channels: 2}]
+        nrm: {choices: [a, b], n_states: 100, include_background: false}
+        output_dir: out
+    """,
+        )
+    )
+    validate_config(cfg)
+    assert cfg.nrm is not None
+    assert cfg.nrm.choices == ("a", "b")
+    assert cfg.nrm.include_background is False
+
+
+def test_nrm_without_ve_or_da_observable_rejected(tmp_path: Path) -> None:
+    """The NRM approximates `ve` and `da` only, so a config asking for neither
+    must be rejected rather than silently produce no NRM series."""
     cfg = load_config(
         _write(
             tmp_path,
             """
         molecule: F2
-        methods: [nrm]
-        observables: [{kind: ve, channels: 2}]
+        methods: [lcp, nrm]
+        observables: [{kind: resonance_levels, channels: 2}]
         output_dir: out
     """,
         )
     )
-    with pytest.raises(ConfigError, match="no 'da' observable"):
+    with pytest.raises(ConfigError, match="no 've' or 'da' observable"):
         validate_config(cfg)
 
 

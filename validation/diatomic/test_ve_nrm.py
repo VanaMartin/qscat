@@ -6,8 +6,17 @@ measurement. The run that produced each one is written into the test that
 asserts it; their physical reading is in
 `docs/physics/nonlocal-resonance-model.md`.
 
-THE HEADLINE, `sigma_NRM(B)+bg / sigma_exact` over the whole window
-(`n_states=100`, 0->0 and 0->1 together):
+EVERY NUMBER IN THIS FILE IS MEASURED ON THIS GATE'S OWN ENERGY GRID, not on
+every energy in the plotted window. A denser sweep of the same window lands on
+N2's ~0.01 Ha boomerang peaks instead of straddling them, and the
+approximations are worst exactly there, so the dense bands are wider. The
+comments on `_BANDS`, `_BAND_N2_01` and `_N2_ABS_DEV_CEILING_01` carry the
+101-energy figure-grid values alongside each recorded one, and explain why the
+gate keeps its 11 energies rather than re-recording. Do not read a failure on
+a densified sweep as a regression.
+
+THE HEADLINE, `sigma_NRM(B)+bg / sigma_exact` (`n_states=100`, 0->0 and 0->1
+together):
 
     N2   [0.997062, 1.000647]     11 energies, 0.06-0.16 Ha
     F2   [0.996225, 1.006923]      6 energies, 0.02-0.09 Ha
@@ -38,6 +47,12 @@ wherever sigma exceeds half its peak, and the wide ratios come only from the
 wings. The 0->0 row is a genuine, visible failure at LARGE sigma, and it is
 this paper's own missing-background claim. See
 `test_n2_0to1_agrees_on_the_scale_fig_8_asserts`.
+
+On the 101-energy figure grid those two absolute deviations are 0.71 and
+11.65 bohr^2 -- the factor of 16 survives -- and the "within 5.2%" figure
+becomes 9.9% (23 energies clear the half-peak cut there), against the elastic
+channel's 61% under the identical cut. Quote the dense numbers when describing
+the printed figure; see docs/physics/nonlocal-resonance-model.md Sec. 8.6.
 
 VIBRATIONAL EXCITATION IS THE CHANNEL WITH PUBLISHED CURVES BEHIND IT. From
 PRA 77's own panel inventory (`reference/literature/houfek-2008-pra77-012710.md`):
@@ -143,6 +158,18 @@ _ENERGIES: dict[str, npt.NDArray[np.float64]] = {
 # equal because the two decks are not: F2's exact-2D reference carries the
 # coarser 6-point sweep and the larger grid, and its own deviations run about
 # twice N2's.
+#
+# THESE ARE ANCHOR-GRID BANDS, NOT WINDOW-WIDE BOUNDS. On the 101-energy grid
+# `validation/diatomic/ve_nrm_figure.py` renders (0.06-0.16 Ha, step 0.001),
+# N2's choice-B ratio spans [0.994539, 1.000647] -- below this band's 0.995
+# floor. That is a grid-SAMPLING difference, not a regression: an 11-point
+# sweep straddles N2's ~0.01 Ha boomerang peaks rather than landing on them,
+# and the approximations are worst exactly at the peaks. The band is kept at
+# the 11 energies the gate actually runs, where it is measured and sharp;
+# re-recording it on 101 energies would put a ~14 min sweep inside a test and
+# slacken the band on its own points for no gain in detection. If you densify
+# the sweep, widen the band with it -- do not read the failure as a defect.
+# See docs/physics/nonlocal-resonance-model.md Sec. 8.9.
 _BANDS: dict[str, tuple[float, float]] = {
     "N2": (0.995, 1.005),
     "F2": (0.990, 1.012),
@@ -154,10 +181,15 @@ _BANDS: dict[str, tuple[float, float]] = {
 # The LCP's RATIO leaves this band in the wings -- which is a statement about
 # small sigma, not a disagreement with Fig. 8; see
 # `test_n2_0to1_agrees_on_the_scale_fig_8_asserts`.
+#
+# ANCHOR-GRID BAND, same caveat as `_BANDS` above: on the 101-energy figure
+# grid choice A's 0->1 ratio spans [0.828515, 1.132600] and so runs past this
+# band's 1.10 ceiling. Kept at the gate's 11 energies for the same reasons.
 _BAND_N2_01: tuple[float, float] = (0.80, 1.10)
 
 # RECORDED N2 0->1 LCP ratios over the same 11 energies: [0.379276, 1.201764],
-# worst at E=0.06 where sigma_exact is 0.287 bohr^2 (2.8% of the 10.23 peak).
+# worst at E=0.06 where sigma_exact is 0.287 bohr^2 (2.8% of the 10.23 peak
+# ON THIS GRID; the dense grid resolves the peak at 11.48, making it 2.5%).
 _N2_01_LCP_WORST_RATIO = 0.379276
 
 # RECORDED max |sigma_LCP - sigma_exact| in bohr^2 on N2, the quantity Fig. 4's
@@ -166,6 +198,15 @@ _N2_01_LCP_WORST_RATIO = 0.379276
 # ~4% of it -- invisible in print, which is what lets the Fig. 8 caption say
 # the calculations are "practically the same" there. The elastic channel's
 # 8.71 bohr^2, against a 35 bohr^2 peak, is not invisible at all.
+#
+# GRID-SAMPLED, like the bands above. On the 101-energy figure grid the same
+# two quantities are 0.707 (0->1) and 11.65 (0->0) bohr^2 -- the factor of 16
+# survives, and both stay inside the ceiling/floor asserted here, but the
+# ABSOLUTE numbers in this comment are the coarse-sweep ones. Likewise the
+# "within 5.2% wherever sigma exceeds half its peak" figure in
+# `test_n2_0to1_agrees_on_the_scale_fig_8_asserts`: densely that criterion
+# covers 23 energies and the worst deviation is 9.9% (at E=0.073). Quote 9.9%
+# when describing the printed figure, 5.2% only for this grid.
 _N2_ABS_DEV_CEILING_01 = 1.0
 _N2_ABS_DEV_FLOOR_00 = 5.0
 
@@ -305,19 +346,25 @@ def test_n2_0to1_agrees_on_the_scale_fig_8_asserts() -> None:
     (p. 012710-8, Fig. 4 middle panel), NOT about a bounded ratio. Both are
     measured here, and only the first is what the caption asserts.
 
-    RECORDED, `sigma / sigma_exact` on N2 0->1 over 0.06-0.16 Ha:
+    RECORDED, `sigma / sigma_exact` on N2 0->1 AT THE 11 GATE ENERGIES over
+    0.06-0.16 Ha (the dense 101-energy figure grid in brackets -- see the
+    comments on `_BAND_N2_01` and `_N2_ABS_DEV_CEILING_01`):
 
-        A + bg    [0.85398, 1.05868]
-        B + bg    [0.99706, 1.00065]
-        LCP       [0.37928, 1.20176]
+        A + bg    [0.85398, 1.05868]   (dense [0.82852, 1.13260])
+        B + bg    [0.99706, 1.00065]   (dense [0.99454, 1.00065])
+        LCP       [0.37928, 1.20176]   (dense [0.37928, 1.32884])
 
     The LCP ratio looks alarming and is not. Per energy it runs 0.379, 0.948,
     0.955, 1.202, 1.009, 0.963, 0.924, 0.869, 0.801, 0.729, 0.659 -- and
     wherever sigma exceeds half its 10.23 bohr^2 peak the LCP is within
-    **5.2%** of exact. The 0.379 is at E=0.06, where sigma_exact is
+    **5.2%** of exact. (5.2% is an ANCHOR-GRID figure. On the 101-energy
+    figure grid the peak resolves to 11.48 bohr^2, the same criterion covers
+    23 energies, and the worst deviation is 9.9% -- still small next to the
+    ELASTIC channel's 61% under the identical cut. See the comment on
+    `_N2_ABS_DEV_CEILING_01`.) The 0.379 is at E=0.06, where sigma_exact is
     0.287 bohr^2, 2.8% of peak; the absolute miss there is 0.18 bohr^2, about
-    1% of the panel's axis. Across the whole window the LCP's worst ABSOLUTE
-    deviation is 0.53 bohr^2. Fig. 8's caption survives intact.
+    1% of the panel's axis. Across these 11 energies the LCP's worst ABSOLUTE
+    deviation is 0.53 bohr^2 (densely 0.71). Fig. 8's caption survives intact.
 
     The mechanism is the one the paper names at p. 012710-9: the bare LCP's
     resonance width `Gamma(R)` is energy INDEPENDENT, so it degrades where the

@@ -94,7 +94,7 @@ _NULL_OVERLAP_MIN = 0.5
 # `nrm_ingredients` warns rather than silently sign-flipping noise. Measured
 # legitimate minima on the production decks: 0.891 (F2/A), 0.996 (F2/B),
 # 0.99999 (NO/B) -- all comfortably above 0.5. The known-bad case, NO's
-# choice-A crossing (docs/physics/nonlocal-resonance-model.md Sec. 10), hits
+# choice-A crossing (docs/physics/nonlocal-resonance-model.md Sec. 11), hits
 # 3.3e-15, ten-plus orders of magnitude below every legitimate value, so 0.5
 # has margin on both sides without being tuned to that one failure.
 _MIN_OVERLAP_WARN = 0.5
@@ -336,7 +336,7 @@ def nrm_ingredients(
             "would be the better end state here (not raised: changing this "
             "to ConvergenceError requires updating "
             "validation/diatomic/nrm.py's gate too). See "
-            "docs/physics/nonlocal-resonance-model.md Sec. 5 and Sec. 10.",
+            "docs/physics/nonlocal-resonance-model.md Sec. 5 and Sec. 11.",
             stacklevel=2,
         )
 

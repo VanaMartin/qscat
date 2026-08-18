@@ -33,19 +33,27 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
   `methods: [ti, lcp]` overlays the exact oracle and the approximation on one
   `cross_section.png` (keys `ti:da:ch0` vs `lcp:da:ch0`) — the "where does the
   approximation fail?" comparison, from one config.
-- **`nrm`** — the nonlocal resonance model of DA (F2/NO only): the rung above
-  `lcp`, keeping the energy dependence and the nonlocality the LCP discards.
-  Takes an optional `nrm:` block — `choices: [a, b]` (PRA 77's two
-  discrete-state choices, default `[b]`) and `n_states` (the Eq. 60 state-sum
-  truncation, default 100, a measured value). One series per choice, keyed
-  `nrm-a:da:ch0` / `nrm-b:da:ch0`, so `methods: [ti, lcp, nrm]` puts the exact
-  oracle and all three approximations on one axis — see
-  `examples/f2-da-nrm-vs-lcp-vs-exact.yaml` and
+- **`nrm`** — the nonlocal resonance model (N2/NO/F2): the rung above `lcp`,
+  keeping the energy dependence and the nonlocality the LCP discards. It serves
+  **both** `ve` (PRA 77 Eq. 28/31/37) and `da` (Eq. 52–54). Takes an optional
+  `nrm:` block — `choices: [a, b]` (PRA 77's two discrete-state choices,
+  default `[b]`), `n_states` (the Eq. 60 state-sum truncation, default 100, a
+  measured value), and `include_background` (default `true`, the paper's
+  "nonlocal + background" curve; `false` is its bare "nonlocal" one — a `ve`
+  knob, ignored by `da`). One series per choice, keyed `nrm-a:da:ch0` /
+  `nrm-b:ve:v0->1`, so `methods: [ti, lcp, nrm]` puts the exact oracle and all
+  three approximations on one axis — see
+  `examples/f2-da-nrm-vs-lcp-vs-exact.yaml`,
+  `examples/n2-ve-nrm-vs-exact.yaml` and
   `docs/physics/nonlocal-resonance-model.md`.
 
-`lcp` and `nrm` both need a `da` observable and the preset's grids (neither has
-an explicit-grid form). `nrm` produces the DA cross section only — its VE route
-would need the paper's background T-matrix, which qscat does not implement.
+`lcp` and `nrm` both need the preset's grids (neither has an explicit-grid
+form). `lcp` needs a `da` or `resonance_levels` observable; `nrm` needs a `ve`
+or `da` one. `nrm` runs its electronic Hamiltonian on `ti_grid()`'s own
+factors, so a `methods: [ti, nrm]` ratio measures the model reduction rather
+than two discretisations. The LCP's own VE route is *not* exposed here (it
+lives in `projects/n2_ti_cross_section`), so `methods: [lcp]` with a `ve`
+observable is rejected.
 
 ## Observables → config knob → artifact
 
@@ -100,5 +108,10 @@ layering forbids a shared import.
 The per-molecule *curve/figure drivers* that used to live in
 `validation/{diatomic,h2plus}/` were retired into this tool (see
 `docs/superpowers/plans/2026-08-15-unified-experiment-observables.md` and the
-audit under `docs/superpowers/reviews/`). `validation/n2/ti_curve.py` is kept
-— it is the Houfek golden-data gate qscat-run has no reference overlay for.
+audit under `docs/superpowers/reviews/`). Two figure drivers are deliberately
+kept: `validation/n2/ti_curve.py`, the Houfek golden-data gate qscat-run has no
+reference overlay for; and `validation/diatomic/ve_nrm_figure.py`, whose figure
+needs both `include_background` settings (one flag per `nrm` block, so two runs)
+*and* the LCP's VE route (not a qscat-run method) — neither reachable from a
+single config. `examples/n2-ve-nrm-vs-exact.yaml` is the config form of the
+rest of it.

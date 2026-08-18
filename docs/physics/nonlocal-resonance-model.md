@@ -1,16 +1,18 @@
-# The nonlocal resonance model (NRM) — dissociative attachment
+# The nonlocal resonance model (NRM)
 
 **Location:** `qscat.core.nrm` (`libs/qscat/qscat/core/nrm/`: `scattering.py`,
 `discrete_state.py`, `coupling.py`, `ingredients.py`, `nonlocal_potential.py`,
-`dissociation.py`), `libs/qscat/tests/test_nrm_*.py`, `validation/diatomic/nrm.py` +
-`test_nrm.py`, `apps/qscat-run` (the `nrm` method,
-`tests/test_runner_nrm.py`, `examples/f2-da-nrm-vs-lcp-vs-exact.yaml`).
+`dissociation.py`, `vibrational_excitation.py`), `libs/qscat/tests/test_nrm_*.py`,
+`validation/diatomic/nrm.py` + `test_nrm.py` and `ve_nrm.py` + `test_ve_nrm.py` +
+`ve_nrm_figure.py`, `apps/qscat-run` (the `nrm` method,
+`tests/test_runner_nrm.py`, `examples/f2-da-nrm-vs-lcp-vs-exact.yaml` and
+`examples/n2-ve-nrm-vs-exact.yaml`).
 **Source:** K. Houfek, T. N. Rescigno, C. W. McCurdy, *Phys. Rev. A* **77**, 012710
 (2008) — `reference/literature/houfek-2008-pra77-012710.md`. Every equation number
 below is that paper's, with its printed-page locator.
-**Scope:** the time-independent nonlocal core and the dissociative-attachment cross
-section. The vibrational-excitation route and the time-dependent one are not
-implemented — see §10.
+**Scope:** the time-independent nonlocal core and two cross sections built on it —
+dissociative attachment (§7) and vibrational excitation (§8). The time-dependent route
+is not implemented — see §11.
 **Units:** atomic units throughout (hartree, bohr).
 
 ## 1. What this is, and why
@@ -29,9 +31,13 @@ approximation, still a 1-D nuclear equation, but with a complex, energy-dependen
 **nonlocal** kernel `F(E,R,R′)` in place of `−iΓ(R)/2`. The question it answers is
 how much of the LCP's error is bought back by nonlocality alone.
 
-The answer, measured here, is: on F₂ essentially all of it (choice B lands within
-0.06–1.9 % of the exact oracle where the LCP is off by 11–74 %), and on NO — outside
-anything the source paper tested — none of it. Sections 7 and 8 give both in full.
+The answer, measured here, has two halves. In **dissociative attachment**: on F₂
+essentially all of it (choice B lands within 0.06–1.9 % of the exact oracle where the
+LCP is off by 11–74 %), and on NO — outside anything the source paper tested — none of
+it. Sections 7 and 9 give both in full. In **vibrational excitation**, the channel the
+paper plots for every molecule in its study: choice B with the Eq. (37) background
+terms reproduces the exact 2-D solver to better than **0.7 %** on N₂ *and* F₂, in both
+the elastic and the first inelastic channel — §8.
 
 ## 2. The method
 
@@ -256,7 +262,7 @@ choice B: `min |c_product(prev,cur)| = 0.99998709` (NO) and `0.99629559` (F₂),
 pairs below 0.5, `max` relative `E_n` jump ~1e-3. (Provenance: unlike most numbers in
 this note, that pair is a **single-run** measurement — it costs ~15 min and ~14 GB, so
 it was not independently re-run. It is the one load-bearing datum behind "the choice-B
-collapse is not a tracking artifact"; anyone re-opening §8 should re-measure it first.)
+collapse is not a tracking artifact"; anyone re-opening §9 should re-measure it first.)
 
 **ECS-tail continuation (`nonlocal_potential.continue_to_tail`).** Ingredients are
 built on the nuclear grid's real nodes only, and the complex-scaled tail is filled with
@@ -395,12 +401,12 @@ production decks):
 | F₂ / B | 75 | 80 | 95 |
 | F₂ / A | 40 | 55 | 90 |
 | NO / B | 70 | 70 | 100 |
-| NO / A (not converged, see §10) | 40 | 55 | 90 |
+| NO / A (not converged, see §11) | 40 | 55 | 90 |
 
 Choice A converges faster on both molecules, consistent with `V_dn ≡ 0` on its bound
 branch — measured, not deduced from it.
 
-## 7. Measured results
+## 7. Measured results — dissociative attachment
 
 All numbers below are on each molecule's own eMoScat production deck: electronic
 `r_max = 16, order = 8, n_complex = 6` (n = 132) × the fine per-molecule nuclear deck
@@ -425,7 +431,7 @@ positive `E`.
 
 The figure is the same comparison on a nine-energy grid (0.010…0.050 Ha, step 0.005),
 produced in one `qscat-run` run from
-`apps/qscat-run/examples/f2-da-nrm-vs-lcp-vs-exact.yaml` (§11), which also writes the
+`apps/qscat-run/examples/f2-da-nrm-vs-lcp-vs-exact.yaml` (§12), which also writes the
 underlying `cross_section.csv`/`.npz` (gitignored, like every other figure's data in
 this repo — rerun the config to regenerate). The exact and
 choice-B curves are visually indistinguishable, the LCP crosses the exact near
@@ -474,7 +480,7 @@ removes that sign change.
 NO's DA channel opens at **+0.1719 Ha**, so the anchors sit just above it.
 
 **The NRM-A column below is not converged and must not be quoted as a property of
-choice A — see §10.** Its ingredient set is corrupted at the nuclear node carrying the
+choice A — see §11.** Its ingredient set is corrupted at the nuclear node carrying the
 largest `|χ₀|` on the grid. It is shown because the flatness argument that follows is
 about all three approximations together, and leaving it out would hide one of them.
 
@@ -524,7 +530,346 @@ and the threshold table; the claim that PRA 77 demonstrates exact DA "in all thr
 molecules" is the false premise that drove a substantial part of this investigation in
 the wrong direction.
 
-## 8. What is *not* explained
+## 8. Vibrational excitation
+
+DA is the observable PRA 77 plots for **one** molecule. Vibrational excitation is the
+one it plots for **all three**, so it is the channel where a claim about the nonlocal
+model can be checked against something published. This section is that comparison.
+
+**Location:** `qscat.core.nrm.vibrational_excitation` (`j_dk`, `t_resonant`,
+`t_background`, `nrm_ve_cross_section`) and `qscat.core.nrm.scattering`
+(`scattering_state_minus`); `libs/qscat/tests/test_nrm_ve.py`,
+`test_nrm_scattering.py`; `validation/diatomic/ve_nrm.py` + `test_ve_nrm.py` +
+`ve_nrm_figure.py`; `apps/qscat-run`'s `nrm` method on a `ve` observable.
+
+### 8.1 The decomposition, and which coupling it carries
+
+Everything expensive is shared with DA: the same `NrmIngredients`, the same
+`nonlocal_operator`, the same `Ψ_d⁺(R)` nuclear solution. What VE adds is a different
+way of reading `Ψ_d⁺` out, plus a second, non-resonant term.
+
+The paper's starting point is the **two-potential formula** (p. 012710-3, Eq. 28), not
+a numbered `T = T^bg + T^res` identity:
+
+```
+T^VE_{vi->vf} = <chi_vf phi_kf^-| V1 |chi_vi J^l_ki>          p. 012710-3, Eq. (28)
+              + <chi_vf phi_kf^-| V2 |Psi^+>
+```
+
+Its second term "corresponds to the resonant part of the T matrix" and its first "is
+generally called the background scattering T matrix" — both identifications are
+**prose** on p. 012710-4, which is why `T^VE = T^res + T^bg` is a consequence of
+Eq. (28) rather than an equation with a number. Developing them gives the two objects
+this package computes:
+
+```
+T^res_{vi->vf} = <chi_vf| Vdkf^-* |Psi_d^+>                   p. 012710-4, Eq. (31)
+
+T^bg_{vi->vf} = <chi_vf phi_kf^-| Vint |chi_vi J^l_ki>        p. 012710-4, Eq. (37)
+              - <chi_vf| Vdkf^-* J^l_{d ki} |chi_vi>
+
+J^l_{d ki}(R) = Int dr phi_d*(r;R) J^l_ki(r)                  p. 012710-4, Eq. (38)
+```
+
+`σ = 4π³|T^res + T^bg|²/(2E)`, on `qscat.core.driven`'s own normalization so the exact
+and nonlocal curves compare directly rather than through two conventions that happen
+to agree.
+
+**The coupling in Eq. (31) is `V^{−*}_{d k_f}`, not `V*_{d k_f}`, and that distinction
+is the paper's own correction to Domcke.** `V^-_{dk}` (Eq. 23) is built on the
+**incoming** background continuum state; Domcke's unsuperscripted `V_dk` is the
+**outgoing** `V^+_{dk}` of Eq. 21, which PRA 77 says "was, in our opinion, used
+incorrectly" (p. 012710-4). What makes the paper's form implementable here is
+**Eq. (34)**, whose condition is printed as "a special case of the real discrete state
+and … for the radial case": there `φ_k^- = (φ_k^+)*`, and **Eq. (35)** then collapses
+the matrix element,
+
+```
+<phi_kf^-| P Hel Q |phi_d> = <phi_d|Hel|phi_kf^+> = Vdkf^+    p. 012710-4, Eq. (35)
+```
+
+"where we assumed that `H_el` is a Hermitian operator. Note that in this special case
+we can use the matrix element `V_dk^+` but **without complex conjugation**" (the
+paper's own emphasis). qscat's model is radial, single fixed `l`, real `φ_d` — exactly
+that branch — so the implemented contraction is the **non-conjugating** one over
+`v_dk_plus`'s output. Eq. (36)'s three-dimensional replacement does not apply.
+
+Two independent arguments land on the same non-conjugated contraction, and the
+docstrings keep them apart because they rest on different premises:
+
+| the claim | the reason | the locator |
+|---|---|---|
+| Eq. (34) applies at all | radial case, real `φ_d` | p. 012710-4, Eq. (34) |
+| the coupling factor loses its conjugate | `H_el` is Hermitian (unscaled theory) | p. 012710-4, Eq. (35) |
+| the *scalar product* is bilinear | `P H_el P` is complex **symmetric** under ECS | p. 012710-6 |
+
+One citation must not do both jobs. The ECS argument is about `qscat.linalg.c_product`
+— why an inner product over complex-scaled states carries no conjugation at all — and
+it would hold even if Eq. (35) did not. Eq. (35) is about which matrix element the
+theory puts there in the first place. `t_resonant` and `t_background` use the same
+convention because they must: the paper warns that the Domcke discrepancy "becomes
+important when the background terms … are added to the resonant T matrix, since the
+coupling matrix elements `V_dk^±` are in general complex even when the discrete state
+is real" (p. 012710-4). A mismatch between the two terms is invisible in either term
+alone and wrong in their sum.
+
+### 8.2 `φ⁻`, and the gate that checks it
+
+`scattering.scattering_state_minus` builds the incoming-boundary continuum state as
+`conj(φ⁺)` masked to the real region, per Eq. (34). It is **not** consumed by the
+shipped assembly, and that is the correct outcome rather than dead code by accident:
+Eq. (37)'s first term is a *bra*, `⟨χ_vf φ_kf^-|`, so the object a non-conjugating
+c-product must carry is `(φ⁻)* = φ⁺` — evaluated at the **final** channel energy.
+`t_background` therefore calls `scattering_state(PHP, …, e_kin_f, ℓ)` directly. The
+`φ⁻` route would need the ECS tail zeroed by hand; the `φ⁺` route is analytic on the
+whole contour. `scattering_state_minus` remains as a gated, tested primitive because
+Eq. (34) is the identity the choice rests on, and a future 3-D (Eq. 36) branch would
+need it.
+
+**The gate on it is a Hankel decomposition, not a time-reversal comparison, and the
+first attempt at one was circular.** Comparing `conj(φ⁻)` against `φ⁺` through the same
+outgoing-referenced S-matrix extraction is algebraically forced to succeed: the
+assertion reduces to `Im T == 0`, true only when nothing scatters. Measured on that
+broken gate, `s_plus` and `s_minus` came out **identical** rather than conjugate, and
+`(H − H_free)@plus` and `(H − H_free)@conj(minus)` differed by exactly 0.0.
+
+What replaced it tests the actual content of Eq. (34) against analytic asymptotics.
+Beyond the potential's support `φ⁺`'s scattered part must be purely **outgoing** and
+`φ⁻`'s purely **incoming**, since `(j + a·h⁽¹⁾)* = j + ā·h⁽²⁾` for real `j` on real
+`r`. `test_nrm_scattering.py` decomposes `φ_sc = φ − J` onto `h⁽¹⁾`/`h⁽²⁾` at two real
+points outside the well and inside `R0` (converting DVR coefficients to values via
+`/√w_j`), then asserts the wrong component is absent. Measured
+`|b₊/a₊| = |a₋/b₋| = 2.9479e-07` at `r = (8.19, 13.61)` bohr, where the well is ~1e-87
+and ~1e-241 and `cond(M) = 3.74`; tolerance 1e-5, chosen for ~34× margin. Dropping the
+conjugation gives `|a₋/b₋| = 3.39e6` — eleven orders past the tolerance — and dropping
+the `/√w` conversion moves `|b₊/a₊|` from 2.95e-7 to 0.095, so neither bug cancels in
+the ratio.
+
+### 8.3 The state sum, for VE
+
+`n_states = 100` carries over from DA, but it was **re-laddered** for VE rather than
+inherited, because §6.2's lesson is that the convergence *shape* is molecule- and
+choice-dependent. Worst relative change per rung, over two energies per molecule, both
+channels, with the background included:
+
+| combo | n = 40 | 55 | 70 | 85 | 100 |
+|---|---|---|---|---|---|
+| N₂ / A | 2.1e-2 | 1.0e-4 | — | 3.0e-12 | 2.6e-15 |
+| N₂ / B | **1.9** | 1.1e-1 | 1.2e-5 | 1.8e-11 | 5.3e-15 |
+| F₂ / A | 2.0e-1 | 6.2e-4 | 5.5e-6 | — | 1.0e-10 |
+| F₂ / B | 1.1e-1 | 7.2e-2 | 2.5e-2 | 1.4e-3 | 5.3e-7 |
+
+(`—` means that rung was not recorded, not that it was zero; F₂/B was carried one rung
+further, to 1.2e-14 at `n = 120`.)
+
+N₂/B **overshoots by 190 %** at `n = 40` before collapsing to 1e-11 by 85; F₂/B is
+still at 1e-3 where N₂/B has finished. 100 is the smallest round value at which all
+eight (molecule × choice × background) combinations sit within 1e-6 of their own
+untruncated sum, and it fits inside N₂'s 106-state ceiling (`elec.n = 107`). At 100,
+N₂ is within 5e-15 of the untruncated sum.
+
+### 8.4 Measured: the nonlocal model reproduces the exact VE cross section
+
+Same decks as §7, `v_init = 0`, `n_states = 100`, SuperLU. The oracle is
+`qscat.core.driven.ve_cross_section`. N₂ was run at 11 energies over 0.06–0.16 Ha and
+F₂ at 6 over 0.02–0.09 Ha, both inside the paper's own plotted windows (N₂ VE is
+plotted over 0.05–0.17 Ha in Fig. 4; F₂ VE 0→1 over 0–0.10 Ha in Fig. 6).
+
+`σ_route / σ_exact`, as a band **over those energies** — not over every energy in the
+window; the denser figure grid widens two of them, and §8.9 says by how much:
+
+| route | N₂ 0→0 | N₂ 0→1 | F₂ 0→0 | F₂ 0→1 |
+|---|---|---|---|---|
+| **B (R-independent) + bg** | **0.99883–1.00019** | **0.99706–1.00065** | **0.99805–1.00044** | **0.99623–1.00692** |
+| A (physical) + bg | 0.93356–1.01208 | 0.85398–1.05868 | 0.82841–1.00192 | 0.56528–1.14013 |
+
+and the two contrast routes, pooled over both channels because that is how they were
+recorded:
+
+| route | N₂ | F₂ |
+|---|---|---|
+| B, **no** background | 0.51715–1.33786 | 0.04227–0.90109 |
+| LCP | 0.10629–4.56775 | 0.000177–0.35574 |
+
+**Choice B with the Eq. (37) background reproduces the exact 2-D solver to better than
+0.7 % on both molecules, in the elastic and the first inelastic channel.** Unlike the
+DA result of §7.1 that is not a one-molecule claim.
+
+**Why choice B reaches sub-0.7 %, as physics rather than luck.** With an
+R-**independent** `φ_d`, the Feshbach partitioning carries no `∂_R φ_d` derivative
+couplings. The nonlocal model with the full state sum and the Eq. (37) background is
+then **formally exact**, and the 0.1–0.7 % residual is discretization error, not model
+error. That is precisely why choice A degrades: an R-dependent `φ_d` reintroduces the
+neglected derivative terms, which is the paper's own Sec. VI A point (p. 012710-9) and
+the same Born–Oppenheimer breakdown §7.1 recorded in DA. Choice A's worst error is
+0.146 (N₂) and 0.435 (F₂), and it is worst in the *inelastic* channel — the harder one
+for a Born–Oppenheimer-flavoured approximation.
+
+**The comparison is differential, and here is what it does not prove.** Both routes run
+on the *same* grids, so their shared discretization error cancels; what the ratio
+measures is the model reduction, not the grid. The absolute normalization is anchored
+separately, by `validation/n2/exact2d.py` at `GATED_RTOL = 1e-3` against Houfek's
+published data. **This result validates the model reduction, not the discretisation.**
+The two routes are otherwise genuinely independent — `driven.ve_cross_section` is a 2-D
+sparse driven Lippmann–Schwinger solve; the NRM is a 1-D nuclear solve with a kernel
+built from per-`R` electronic eigenproblems. No solver is shared.
+
+### 8.5 Which pairs have a published anchor, and which do not
+
+From PRA 77's own panel inventory (`reference/literature/houfek-2008-pra77-012710.md`):
+
+| pair | choice A | choice B | external anchor? |
+|---|---|---|---|
+| N₂ 0→0 | Fig. 4 | Fig. 8 | yes, both |
+| F₂ 0→1 | Fig. 6 | Fig. 8 | yes, both |
+| N₂ 0→1 | Fig. 4 | **omitted from Fig. 8** | choice A only |
+| F₂ 0→0 | — | — | **none — not plotted at all** |
+
+All four are gated here against *our* exact 2-D solver, which exists for every
+transition. What **F₂ 0→0 lacks is external corroboration, not an oracle**, and this
+note does not claim otherwise for it.
+
+### 8.6 The N₂ 0→1 LCP departure does not contradict Fig. 8
+
+Fig. 8 omits the N₂ 0→1 panel "because results of all calculations are practically the
+same in this particular case" (p. 012710-10, Fig. 8 caption). Its caption opens
+"Comparison of the cross sections as in Figs. 4–6", and Fig. 4's caption defines
+exactly four curves — exact 2-D, LCP, nonlocal without background, nonlocal with
+background — so **"all calculations" genuinely includes the local one.** That is a
+testable claim, and our LCP ratio wanders — at the gate's 11 energies: 0.379, 0.948,
+0.955, 1.202, 1.009, 0.963, 0.924, 0.869, 0.801, 0.729, 0.659; over the 101 energies
+the figure is drawn on, 0.379–1.329.
+
+It is not a contradiction, because **the caption is a statement about a linear axis,
+not about a ratio.** The numbers below are measured on the **101-energy figure grid**,
+because this section is an argument about how the *printed panel* looks and that is the
+grid the printed panel is drawn on. The 11-energy gate values are given alongside; they
+are systematically milder, because a coarse sweep straddles the boomerang peaks rather
+than landing on them.
+
+Fig. 4's 0→1 panel runs 0…14 `a₀²` (p. 012710-8), and there the LCP's worst
+**absolute** deviation is **0.707 bohr²** (11-energy gate: 0.531), about 5 % of the
+axis, against the elastic channel where the same quantity is **11.65 bohr²** (gate:
+8.714) on a panel whose peak σ is 35 — a factor of **16** in visibility either way. The
+honest cut is **by σ, not by energy interval**: over the 23 dense energies where σ
+exceeds half its 11.48 bohr² peak, the LCP is within **9.9 %** (worst at `E = 0.073`).
+The 11-energy gate reports 5.2 % over that same criterion on its own coarser sample of
+the peaks, and **5.2 % is an anchor-grid figure, not a window-wide bound** — 9.9 % is
+what a reader looking at the figure should carry. The 0.379 outlier sits at `E = 0.06`,
+where σ_exact is 0.287 bohr² — 2.5 % of peak — so the absolute miss there is 0.18
+bohr², about 1 % of the panel. The mechanism is the one the paper names at
+p. 012710-9: the bare LCP's width `Γ(R)` is energy **independent**, so it degrades
+where the channel energy is far from `E_res` — i.e. in the wings, which is exactly
+where σ is small.
+
+**Contrast the elastic channel**, which is the counter-example that keeps the above
+from being an excuse: there the LCP drifts 4.57 → 0.106 monotonically **at large σ**,
+worst absolute deviation 11.65 bohr² against a 35 bohr² peak — and on the same
+"σ above half its peak" cut it is off by **61 %**, against the 0→1 channel's 9.9 %.
+That is plainly visible in print, and it is this paper's own missing-background claim
+seen from the side of the model that omits the background. A single ratio band cannot
+tell those two failures apart; `test_n2_0to1_agrees_on_the_scale_fig_8_asserts` asserts
+the 0→1 deviation below a ceiling **and** the elastic one above a floor, so neither
+half can go vacuous.
+
+None of this is an artifact of the driver: rebuilding the LCP through the project's own
+independent N₂ route (`projects.n2_ti_cross_section.vres.vres_on_grid` on its own
+428-point nuclear grid) reproduces it to ~0.1 %.
+
+### 8.7 The background matters more for elastic than inelastic — pointwise
+
+PRA 77 states the background terms are nonzero for inelastic VE too "but generally
+small when compared to the resonant part" (p. 012710-4), and largest for the broadest
+resonance (p. 012710-1, 012710-10). The ordered, stronger form — that the background's
+importance *decreases* with increasing inelasticity (p. 012710-8) — is measured here as
+the median relative change from dropping `T^bg`:
+
+| combo | 0→0 | 0→1 | ratio |
+|---|---|---|---|
+| N₂ / A | 0.7102 | 0.10655 | 6.7× |
+| N₂ / B | 0.2221 | 0.007233 | **30.7×** |
+| F₂ / A | 0.99844 | 0.93392 | 1.07× |
+| F₂ / B | 0.86964 | 0.23393 | 3.7× |
+
+It holds in all four combinations, and on N₂ it holds **pointwise at 10 of the 11
+energies** for both choices — it is not a median artifact. The magnitudes carry the
+second claim too: F₂'s background is essentially the whole cross section (dropping it
+costs 87 % of the elastic answer) while N₂'s costs 22 %.
+
+### 8.8 The N₂ `min_overlap` warning is benign, and the reason is specific
+
+`nrm_ingredients` warns on N₂'s deck (`min_overlap = 0.0148 < 0.5`, both choices) that
+`_sign_align` paired different P-space states between adjacent nuclear nodes. **This is
+not NO's choice-A pathology of §11, and N₂'s numbers are quotable.** Measured: the
+mispairing is **three R-steps involving five states, swapped in pairs** — `n` = (77, 78)
+at `R = 1.7608 → 1.7374`, (62, 63) at 1.3695 → 1.2913 and (63, 64) at 0.9799 → 0.9347
+bohr, identical for both discrete-state choices. Three independent reasons it cannot
+move the numbers above:
+
+1. Those states are **essentially decoupled**. Their largest `|V_dn|` anywhere on the
+   walk is 1.04e-4 (choice A) / 7.08e-4 (choice B) against deck maxima of 0.341 /
+   0.683. Eq. (60) is bilinear in `V_dn`, so they enter `F` at the ~1e-6 relative
+   level, orders below the agreement asserted in §8.4.
+2. Each swapped pair is **near-degenerate** — `E_n` = 212.6833/212.7180 and
+   41.2234/41.2333 and 41.5195/41.5493 hartree. Relabelling the two members of a
+   degenerate pair is very nearly a no-op in `F(E)`, which sums over the pair; only the
+   split can matter, and it is 1.6e-4 relative.
+3. Those `E_n` sit at 41–213 hartree against collision energies of 0.06–0.16 — 260× to
+   3500× — so `F(E)`'s energy denominators suppress them further.
+
+`φ_d` itself is continuous across N₂'s whole walk (minimum adjacent overlap 0.9895 for
+choice A, exactly 1.0 for choice B). NO's failure was a genuinely **discontinuous**
+`φ_d` at a branch switch; this is not that.
+
+### 8.9 The figure
+
+![N₂ VE: exact vs LCP vs NRM(A) vs NRM(B), with and without the background](figures/n2-ve-nrm-vs-exact.png)
+
+Rows are the transitions (0→0 top, 0→1 bottom); columns are the discrete-state choice —
+**left is choice A, which is what Fig. 4 plots; right is choice B, which is what Fig. 8
+plots.** The four curves per panel are the four Fig. 4's caption defines, in its line
+styles, on a **linear** axis with Fig. 4's own ticks (0…50 `a₀²` for 0→0, 0…14 for
+0→1) over its own 0.06–0.16 Ha range, so the panels can be laid directly next to the
+printed ones. Fig. 8 has no N₂ 0→1 panel, so the bottom-right panel has no published
+counterpart — read it against the exact 2-D curve in the same panel.
+
+**The line *styles* match the print; the colours do not.** PRA 77 draws the LCP blue
+short-dashed, the nonlocal-without-background green long-dashed and the +background
+crosses red; here they are red, blue and green respectively. Pair the curves by dash
+pattern and marker (and by the legend), not by colour.
+
+101 energies at 0.001 Ha, ten points per boomerang oscillation. Regenerate with
+
+```bash
+uv run python -m validation.diatomic.ve_nrm_figure
+```
+
+which writes both the PNG and the `.npz` of all six curves (~14 min; the exact 2-D
+sweep dominates). The `.npz` is gitignored, like every other figure's data in this
+repo — rerun the driver to regenerate it.
+
+**Every recorded band in `test_ve_nrm.py` is measured on the gate's own 11 energies, not
+on every energy in the window**, and two of them are visibly tighter than the dense
+sweep. Choice B widens from `_BANDS["N2"] = (0.995, 1.005)` to **0.99454–1.00065** —
+still inside the 0.7 % headline. Choice A's 0→1 ratio reaches **1.13260** densely,
+outside the recorded `_BAND_N2_01 = (0.80, 1.10)`. Both are grid-sampling differences,
+not regressions: a coarse sweep straddles the boomerang peaks where the approximations
+are worst. The gate deliberately keeps its 11 energies — the bands are sharp there, and
+re-recording on 101 would cost ~14 min inside a test for no gain in detection — so both
+dense values are carried as comments next to those two constants. The LCP's absolute
+deviations behave the same way (§8.6).
+
+### 8.10 Cost
+
+On the 12-core laptop, one `validation.diatomic.ve_nrm.compare` call — all six curves,
+both choices, both background settings — costs **94.9 s for N₂** at 11 energies (exact
+2-D sweep ~63 s, LCP pole walk 4 s, ~2.1–2.6 s per energy per NRM curve) and **745.9 s
+for F₂** at 6 (the exact 2-D sweep alone is ~77 s per energy at 128,568 unknowns and
+~10 GB peak RSS). Measured on the figure's own 101-energy run: 10.5 s of fixed setup
+plus 8.0 s per energy for all six curves. As with DA, the exact solve dominates and
+sets peak RSS; run the two molecules serially.
+
+## 9. What is *not* explained
 
 **No located defect, and no confirmed mechanism.** Choice B's five-to-eight-order
 collapse on NO is unresolved, and it is stated here as unresolved rather than
@@ -588,15 +933,19 @@ rather than diagnostic. F₂'s exit wave is fast (`K_DA ≈ 58` on this repo's d
 never passes through that gate. **The exponent has not been computed.** This is a
 hypothesis consistent with the verified facts, nothing more.
 
-**The cheapest remaining test is the VE channel.** It is `O(1)` rather than
+**The cheapest remaining test is NO's VE channel.** VE is `O(1)` rather than
 exponentially sensitive, and it is the thing PRA 77 *does* demonstrate for all three
-molecules (Fig. 8, with the background T-matrix terms of Eq. 37 included). Adding it
-would test `F`'s nonlocal structure without DA's amplification. It is out of scope here
-(§10).
+molecules (Fig. 5 and Fig. 8, with the background T-matrix terms of Eq. 37 included).
+§8 has now run it — but on **N₂ and F₂ only**, where it passes to better than 0.7 %.
+That result says the nonlocal machinery is sound in general; it says nothing about NO
+specifically, because NO VE has not been computed. Running it would test `F`'s nonlocal
+structure on *this molecule* without DA's amplification, against curves the paper
+actually publishes. It is out of scope here (§11) and is the natural follow-on.
 
-## 9. Cost, measured
+## 10. Cost, measured — dissociative attachment
 
-On a 12-core Darwin arm64 laptop, SuperLU backend, five energies:
+(The VE route's own cost is §8.10.) On a 12-core Darwin arm64 laptop, SuperLU backend,
+five energies:
 
 | step | F₂ (974 nuclear nodes) | NO (597) |
 |---|---|---|
@@ -615,7 +964,7 @@ n = 584 and ~31 ms at 974, under 1 % of the per-energy cost; `SparseLU.refactor`
 inapplicable in principle here because `F` is dense *and* energy-dependent, so the
 plain `np.linalg.solve` is not a missed optimization.
 
-The committed nine-energy figure run (§11), which does all four routes in one process,
+The committed nine-energy figure run (§12), which does all four routes in one process,
 took **1002 s** end to end on the same laptop: 780 s for the exact `ti:da` sweep, 22 s
 for the LCP pole walk, 46 s + 74 s for choice A's ingredients and sweep, 14 s + 63 s
 for choice B's. The exact solve is 78 % of it.
@@ -625,17 +974,22 @@ Peak RSS is set by the **exact** solve, not the NRM: ~14 GB for F₂'s
 concurrently on that laptop drove it into memory compression and neither finished;
 serialize them.
 
-## 10. Limits
+## 11. Limits
 
 Everything below is deliberate scope, not an oversight:
 
-- **DA only.** There is no VE cross section in this package. The nonlocal VE route
-  needs the resonant/background T-matrix decomposition (Eq. 28–37), which the repo
-  does not implement — the paper itself shows the background terms are *not*
-  negligible, especially for F₂. `qscat-run`'s `nrm` method therefore accepts a `da`
-  observable only.
-- **Time-independent only.** No time-dependent nonlocal propagation.
-- **F₂ and NO only.** N₂'s DA channel opens at +0.5016 Ha and is not run.
+- **DA and VE only**, and each on its own molecules. DA is run on F₂ and NO (N₂'s DA
+  channel opens at +0.5016 Ha and is not run); VE on N₂ and F₂ only — **NO VE is not
+  run**, even though PRA 77 publishes curves for it (Fig. 5, Fig. 8), and running it is
+  the natural next step. There is no VE result for the 0→8 transition the paper also
+  plots; §8 covers 0→0 and 0→1.
+- **A successful VE result does not close §9's NO DA question.** It narrows it: §8
+  shows the nonlocal potential, the coupling convention and the T-matrix machinery are
+  sound on two molecules and two channels, which removes a whole class of candidate
+  explanations for NO's DA collapse. It does not explain that collapse, and this note
+  does not claim it does. **§9 remains open.**
+- **Time-independent only.** No time-dependent nonlocal propagation, for either
+  observable.
 - **Discrete-state choices A and B only.** The paper's "compact" choice C is not
   implemented (§3).
 - **NO's choice-A numbers are not converged and must not be quoted.** Its ingredient
@@ -651,12 +1005,19 @@ Everything below is deliberate scope, not an oversight:
 - **`reference/eMoScat`'s NRM module is untrusted.** `module_NRM.cpp` was never
   delivered as a working capability there. Nothing in `qscat.core.nrm` is derived from
   it and nothing in it was treated as correct.
-- **Only F₂ has independent published data**, and only for the exact solver (via N₂'s
-  Houfek anchors, on which the 2-D solver is already gated). For NO the exact solver
-  *is* the oracle, so "choice B fails on NO" is a statement about this model, not about
-  nature.
+- **Independent published data is thin, and unevenly spread.** For **DA** only F₂ has
+  any, and only for the exact solver (via N₂'s Houfek anchors, on which the 2-D solver
+  is already gated); for NO the exact solver *is* the oracle, so "choice B fails on NO"
+  is a statement about this model, not about nature. For **VE** the paper plots N₂ 0→0
+  (Figs. 4 and 8) and F₂ 0→1 (Figs. 6 and 8); N₂ 0→1 appears in Fig. 4 only, and
+  **F₂ 0→0 is plotted nowhere** — see §8.5. Every pair is gated against our own exact
+  2-D solver regardless; what some of them lack is external corroboration.
+- **Every comparison in §7 and §8 is differential.** Both routes run on the same grids,
+  so the result validates the model reduction, not the discretisation; the absolute
+  normalization is anchored elsewhere (`validation/n2/exact2d.py`, `GATED_RTOL = 1e-3`
+  against Houfek).
 
-### 10.1 Two known-arbitrary numbers
+### 11.1 Two known-arbitrary numbers
 
 **`PhysicalDiscreteState`'s pole-search half-width (0.08 Ha) has a ceiling.** Widening
 it past ~0.2–0.3 Ha makes the walk latch onto a spurious root: demonstrated at 0.30 Ha,
@@ -679,10 +1040,10 @@ deck that samples a crossing more finely. A scale-free criterion
 **c = 0.074 (F₂)** and **c = 0.020 (NO)**, while the neighbouring resonance at those
 same `R` sits at `c ≈ 0.98` — over a decade of separation, so `c ≈ 0.2` would serve
 both decks with no recalibration. Not attempted here. Note the constant is read by
-choice A only; every choice-B number in §7, including the headline F₂ agreement, is
-independent of it.
+choice A only; every choice-B number in §7 and §8, including the headline F₂ DA
+agreement and the sub-0.7 % VE result, is independent of it.
 
-## 11. Running it
+## 12. Running it
 
 `nrm` is a first-class `qscat-run` method alongside `ti` and `lcp`, so the four-way
 comparison is a config rather than a script:
@@ -705,11 +1066,42 @@ qscat-run run      apps/qscat-run/examples/f2-da-nrm-vs-lcp-vs-exact.yaml --outp
 
 The four cross sections land under disjoint keys — `ti:da:ch0`, `lcp:da:ch0`,
 `nrm-a:da:ch0`, `nrm-b:da:ch0` — so `cross_section.png` is the whole comparison on one
-axis; that is how the figure in §7.1 is produced. Like `lcp`, `nrm` has no
-explicit-grid form (it needs the preset's electronic deck at two ECS angles plus the
-fine nuclear deck) and is defined for F₂ and NO only.
+axis; that is how the figure in §7.1 is produced.
 
-## 12. Literature
+Vibrational excitation is the same method on a `ve` observable, with one extra knob:
+
+```yaml
+molecule: N2
+methods: [ti, nrm]
+observables: [{kind: ve, channels: 2}]
+energies: {min: 0.060, max: 0.160, step: 0.010}
+grid: {preset: emoscat}
+nrm:
+  choices: [a, b]
+  n_states: 100
+  include_background: true   # PRA 77's "nonlocal + bg"; false is its bare "nonlocal"
+```
+
+```bash
+qscat-run validate apps/qscat-run/examples/n2-ve-nrm-vs-exact.yaml
+qscat-run run      apps/qscat-run/examples/n2-ve-nrm-vs-exact.yaml --output runs/n2-ve-nrm
+```
+
+keyed `ti:ve:v0->0`, `nrm-a:ve:v0->0`, `nrm-b:ve:v0->1`, and so on. Two limits of the
+config surface, stated because §8.9's figure needs both and one config cannot give
+them: `include_background` is one flag per `nrm` block, so the "with" and "without"
+curves are two runs; and qscat-run's `lcp` method serves `da`/`resonance_levels` only
+(the LCP's own VE route lives in `projects/n2_ti_cross_section`), so the figure is
+rendered by `validation/diatomic/ve_nrm_figure.py` instead.
+
+Like `lcp`, `nrm` has no explicit-grid form — it needs the preset's electronic deck at
+two ECS angles. Unlike `lcp` it is available for **N₂ as well as NO and F₂**: it takes
+its nuclear and first electronic decks from the preset's own `ti_grid()` factors (for
+F₂/NO those are byte-identical to the LCP decks), so `methods: [ti, nrm]` computes both
+routes on one discretisation and the ratio a reader forms across the two prefixes
+measures the model reduction rather than two grids.
+
+## 13. Literature
 
 - **PRA 77, 012710 (2008)** — `reference/literature/houfek-2008-pra77-012710.md`. The
   specification: Eq. (15)–(21), (52)–(61), (67)–(69), the three discrete-state choices,
@@ -729,8 +1121,8 @@ fine nuclear deck) and is defined for F₂ and NO only.
   throughout, consistent with the bilinear (non-conjugated) c-product that ECS forces
   on a complex-symmetric operator. The disagreement does not touch σ_DA, which is blind
   to the coupling phase (§6.1), but PRA 77 records that it "becomes important when the
-  background terms … are added to the resonant T matrix" — i.e. it would matter for the
-  VE route this package does not implement.
+  background terms … are added to the resonant T matrix" — i.e. it matters for the VE
+  route of §8, which is written against PRA 77's form throughout (§8.1).
 - **Gertitschke & Domcke, Phys. Rev. A 47, 1031 (1993)** —
   `reference/literature/gertitschke-1993-pra47-1031.md`. Time-dependent nonlocal
   dynamics; context for the deferred TD route, not used by this implementation.

@@ -1,0 +1,70 @@
+# qscat-run example: N2 VIBRATIONAL EXCITATION computed three ways in ONE run --
+# exactly (`ti`, the 2-D driven Lippmann-Schwinger solve, the oracle), and by
+# the nonlocal resonance model with both of PRA 77's discrete-state choices
+# (`a` = the R-dependent "physical" state of Fig. 4, `b` = the R-independent
+# asymptotic bound state of Fig. 8).
+#
+# This is the config form of docs/physics/figures/n2-ve-nrm-vs-exact.png, the
+# figure meant to be laid next to those two published panels. It is not the
+# whole figure: that also carries the LCP curve and the "nonlocal WITHOUT
+# background" curve, and neither is reachable from one config -- qscat-run's
+# `lcp` method serves `da`/`resonance_levels` only (the LCP's VE route lives in
+# `projects.n2_ti_cross_section`), and `include_background` is one flag per
+# `nrm` block. The figure is therefore rendered by
+# `uv run python -m validation.diatomic.ve_nrm_figure`. What this config gives
+# you from YAML is the comparison that matters most: the exact oracle against
+# the paper's headline "nonlocal + background" curve, for both choices.
+#
+# The cross sections land under disjoint keys -- `ti:ve:v0->0`,
+# `nrm-a:ve:v0->0`, `nrm-b:ve:v0->0`, and the same three for `v0->1` -- so
+# `cross_section.png` is the comparison on one axis (log-scaled there; the
+# committed figure is linear, the scale on which the paper's "practically the
+# same" claim is asserted).
+#
+# `nrm` has no explicit-grid form: it needs the preset's electronic deck at two
+# ECS angles, so it always runs on `grid: {preset: emoscat}` -- the production
+# N2 deck (107 electronic x 251 nuclear). Measured ~80 s end to end on a
+# 12-core laptop (SuperLU) at these 11 energies, most of it the exact 2-D
+# sweep; the committed figure's 101-energy version costs ~14 min.
+#
+# `nrm_ingredients` emits a `min_overlap` warning on N2. It is benign here and
+# the reason is specific -- see docs/physics/nonlocal-resonance-model.md.
+#
+# Run:
+#   qscat-run validate apps/qscat-run/examples/n2-ve-nrm-vs-exact.yaml
+#   qscat-run run apps/qscat-run/examples/n2-ve-nrm-vs-exact.yaml \
+#       --output runs/n2-ve-nrm
+
+molecule: N2
+methods: [ti, nrm]
+
+observables:
+  # v'=0 (elastic) and v'=1 -- the two transitions PRA 77's N2 panels plot
+  # in the window below.
+  - {kind: ve, channels: 2}
+
+v_init: 0
+
+# PRA 77 Fig. 4's own x range for the N2-like model. The step is coarse enough
+# to keep the example cheap; the boomerang oscillations need ~0.001 Ha to
+# resolve (what the committed figure uses).
+energies: {min: 0.060, max: 0.160, step: 0.010}
+
+grid: {preset: emoscat}
+
+nrm:
+  # Both discrete-state choices, so one run carries the Born-Oppenheimer
+  # breakdown (choice A, Fig. 4) next to the formally exact partitioning
+  # (choice B, Fig. 8 -- measured here within 0.7 % of the exact oracle).
+  choices: [a, b]
+  # The measured Eq. (60) state-sum truncation.
+  n_states: 100
+  # PRA 77's "nonlocal + background" curve. Set false for its bare "nonlocal"
+  # one -- the difference is the paper's own argument, not a debugging switch.
+  include_background: true
+
+artifacts:
+  cross_section: true
+
+backend: auto
+output_dir: runs/n2-ve-nrm
