@@ -1,4 +1,10 @@
-"""Is an exact pole a resonance at all? Ask its overlap with the BO states.
+"""Is an exact H2+ pole a resonance at all? Ask its overlap with the BO states.
+
+The machinery this module used to carry now lives in the library --
+`qscat.core.assignment` (overlap pairing, the verdicts, the closed-channel
+admissibility check) and `qscat.core.bo` (the BO product basis). What stays here
+is the H2+ campaign: which curves to build, which windows to solve, and the
+measured result below.
 
 Energy proximity cannot tell a genuine resonance from a rotated-continuum
 eigenvalue that happens to land nearby: both are just numbers on the same axis.
@@ -78,284 +84,65 @@ Run as::
 
     uv run python -m validation.h2plus.bo_overlap
 
-Reuses the cached window-0 states from `resonance_state_figures` (delete that
-cache to recompute). Building the BO basis is one pass of dense electronic
-eigensolves over the nuclear grid -- a few minutes -- shared across all
-`(curve, vib)` pairs rather than repeated per pair.
+Each window's poles are cached to a git-ignored npz (delete to recompute).
+Building the BO basis is one pass of dense electronic eigensolves over the
+nuclear grid -- a few minutes -- shared across all `(curve, vib)` pairs rather
+than repeated per pair.
 """
 
 from __future__ import annotations
 
 import pathlib
 import time
-from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
-from qscat.core import exact_resonance_states, vibrational_states
-from qscat.dvr import TensorGrid, eigen, kinetic
-from qscat.linalg import c_product
+from qscat.core import (
+    BoBasis,
+    bo_basis,
+    electronic_curves,
+    exact_resonance_states,
+    pair_by_overlap,
+)
+from qscat.dvr import TensorGrid
 from qscat.model import H2P
-from qscat.units import HARTREE_TO_EV
 
-__all__ = ["BoState", "OverlapPair", "bo_basis", "overlap", "pair_by_overlap", "main"]
+__all__ = ["CURVES", "N_VIB", "bo_basis_for", "solve_window", "main"]
 
-# An overlap below this is "no partner in this basis". It does NOT distinguish a
-# spurious state from a real one whose partner was never built -- see the module
-# docstring; both look identical here and only a deeper basis separates them.
-NO_PARTNER = 0.10
-
-# Between NO_PARTNER and this, the best match exists but is not an
-# identification: a genuine assignment scores 0.87-0.99 and even the strongly
-# mixed states reach 0.63-0.78, so anything under half is a state this basis
-# does not really describe.
-WEAK = 0.50
-
-# `second/best` above this means the state is a blend, not an assignment: at the
-# Ry_16 v=1 / omega_2^5 crossing the ratio reaches 0.95 and neither label fits.
-MIXED_RATIO = 0.70
-
-# A partner further than this in energy is reported even when the overlap is
-# high. Overlap alone would happily pair a state with a level several meV away,
-# and past a few meV that is a statement about mixing rather than a shift worth
-# quoting. Calibrated on the measured set: every clean pairing sits well inside
-# it, and the rows that exceed it are the known crossings.
-MAX_SHIFT_MEV = 20.0
+# Deep enough to reach the `Ry_16` the top of window 0 needs. The series
+# accumulates at the threshold, so this is a CUTOFF rather than a limit: poles
+# above it come back `basis-limited`, which is the honest verdict and not a
+# claim that they are spurious.
+CURVES = tuple(range(2, 17))
+N_VIB = 8
 
 
-@dataclass(frozen=True)
-class BoState:
-    """One Born-Oppenheimer product state and the energy its curve gives it."""
+def bo_basis_for(tgrid: TensorGrid, *, curves=CURVES, n_vib: int = N_VIB) -> BoBasis:
+    """The BO product basis for one window's grid.
 
-    psi: npt.NDArray[np.complex128]
-    energy: float
-
-
-@dataclass(frozen=True)
-class OverlapPair:
-    """One exact pole paired to a BO level BY OVERLAP, with the checks."""
-
-    pole_energy: float  # absolute, Ha
-    level: tuple[int, int] | None  # (curve, vib), None when nothing matched
-    overlap: float
-    second_level: tuple[int, int] | None
-    second_overlap: float
-    shift_mev: float
-    # "ok" | "spurious" | "basis-limited" | "weak" | "mixed" | "distant"
-    verdict: str
-
-    @property
-    def label(self) -> str:
-        return "-" if self.level is None else f"w^{self.level[0]}_{self.level[1]}"
-
-
-def bo_basis(tgrid: TensorGrid, curves: list[int], vibs: int) -> dict[tuple[int, int], BoState]:
-    """`{(curve, vib): phi_Rycurve(r; R) chi_vib(R)}` on `tgrid`, c-normalized.
-
-    One pass over the nuclear grid builds every requested curve's electronic
-    eigenvector, so the cost is a single sweep of dense eigensolves rather than
-    one per `(curve, vib)` pair.
-
-    Each curve's eigenvector is phase-aligned across `R` by continuity: the
-    phase is arbitrary at every nuclear point independently, and without
-    alignment the product flips sign at random `R`, which destroys the overlap
-    this module measures (the sign flips integrate to near zero against a smooth
-    partner).
+    One pass of dense electronic eigensolves over the nuclear grid, shared
+    across every `(curve, vib)` pair rather than repeated per pair. The
+    machinery is `qscat.core.bo`; H2+-specific here is only how deep to build.
     """
     g_r, g_R = tgrid.grids
-    top = max(curves) + 1
-    phi = {j: np.empty((g_r.n, g_R.n), dtype=np.complex128) for j in curves}
-    vals_all = np.empty((top, g_R.n), dtype=np.complex128)
-    prev: dict[int, npt.NDArray[np.complex128] | None] = {j: None for j in curves}
-    for k, R in enumerate(g_R.points):
-        H_el = kinetic(g_r, 1.0) + np.diag(H2P.surface(g_r.points, complex(R)))
-        vals, vecs = eigen(H_el)
-        vals_all[:, k] = vals[:top]
-        for j in curves:
-            vec = vecs[:, j]
-            p = prev[j]
-            if p is not None:
-                ov = complex(np.vdot(p, vec))
-                if ov != 0:
-                    vec = vec * (abs(ov) / ov)
-            prev[j] = vec
-            phi[j][:, k] = vec
-
-    out: dict[tuple[int, int], BoState] = {}
-    for j in curves:
-
-        def v_n(
-            _R: npt.ArrayLike, _c: npt.NDArray[np.complex128] = vals_all[j]
-        ) -> npt.NDArray[np.complex128]:
-            return np.asarray(_c, dtype=np.complex128)
-
-        basis = vibrational_states(g_R, H2P.mu, vibs, v_n)
-        for v in range(vibs):
-            psi = (phi[j] * basis.chi[v][None, :]).ravel()
-            nrm = complex(c_product(psi, psi))
-            out[(j, v)] = BoState(
-                psi=np.asarray(psi / np.sqrt(nrm), dtype=np.complex128),
-                energy=float(basis.eps[v]),
-            )
-    return out
-
-
-def overlap(a: npt.NDArray[np.complex128], b: npt.NDArray[np.complex128]) -> float:
-    """`|<a|b>|` under the c-product, with both sides c-normalized.
-
-    The c-product (bilinear, not conjugated) is the ECS-correct pairing -- the
-    same convention `qscat.core`'s cross sections use. A conjugated dot would
-    weight the exponentially growing ECS tail instead of cancelling it.
-    """
-    na = complex(c_product(a, a))
-    nb = complex(c_product(b, b))
-    if na == 0 or nb == 0:
-        return 0.0
-    return float(abs(complex(c_product(a, b)) / np.sqrt(na * nb)))
-
-
-def admissible_levels(e_tot: float, thresholds: npt.NDArray[np.float64]) -> list[tuple[int, int]]:
-    """The `(curve, vib)` levels that can exist AT this energy, from energy alone.
-
-    A Rydberg series is attached to a CLOSED channel: above `eps[v]` that
-    vibrational channel is open (the VE channel), and states attached to it are
-    continuum rather than bound. So only thresholds above `e_tot` contribute,
-    and each contributes one index:
-
-        binding = eps[v] - e_tot,  n_eff = 1/sqrt(2*binding),  curve ~ n_eff - 1
-
-    (the last from the measured series, where `Ry_j` has `n_eff ~ j+1`).
-
-    The consequence is a strong constraint and the reason this function exists:
-    at fixed energy a HIGHER vibrational level needs a LARGER binding and so a
-    LOWER Rydberg index. The admissible set is therefore finite and small, and
-    a basis can be checked for covering it -- which turns "is this state
-    spurious, or is its partner merely missing?" from a judgement call into a
-    computation. See `basis_covers`.
-
-    The set is finite only away from an accumulation region: as `e_tot ->
-    eps[v]` the binding tends to zero and the admissible index diverges. That
-    happens in the last ~1 mHa below each threshold, which the DR windows are
-    trimmed to exclude and the `n_eff <= 12` cutoff excludes again.
-    """
-    out: list[tuple[int, int]] = []
-    for v, thr in enumerate(thresholds):
-        if thr <= e_tot:
-            continue
-        n_eff = 1.0 / np.sqrt(2.0 * (thr - e_tot))
-        j = int(round(n_eff - 1.0))
-        if j >= 0:
-            out.append((j, v))
-    return out
-
-
-def basis_covers(
-    e_tot: float,
-    thresholds: npt.NDArray[np.float64],
-    basis: dict[tuple[int, int], BoState],
-) -> bool:
-    """Does `basis` contain every level energetically admissible at `e_tot`?
-
-    When it does, a low overlap means the state has no BO partner at all --
-    spurious. When it does not, a low overlap is uninformative. Without this
-    distinction the two are indistinguishable, and conflating them once nearly
-    cost eight genuine `Ry_12..Ry_16` states (see the module docstring).
-
-    Curves are checked with a +/-1 tolerance because the `n_eff ~ j+1` mapping
-    is the asymptotic hydrogenic one and the low curves depart from it.
-    """
-    for j, v in admissible_levels(e_tot, thresholds):
-        if not any((jj, v) in basis for jj in (j - 1, j, j + 1)):
-            return False
-    return True
-
-
-def pair_by_overlap(
-    pole_energy: complex,
-    pole_state: npt.NDArray[np.complex128],
-    basis: dict[tuple[int, int], BoState],
-    thresholds: npt.NDArray[np.float64] | None = None,
-) -> OverlapPair:
-    """Pair one exact pole to the BO level it most resembles, with checks.
-
-    Overlap is the PRIMARY criterion -- it tests physical identity, where energy
-    proximity only tests that two numbers are close and cannot tell a resonance
-    from a rotated-continuum state. Energy then enters as a CHECK rather than as
-    the assignment, because a large overlap with an energetically distant level
-    is real information: it means the state is mixing across a gap, not that it
-    is that level shifted.
-
-    Three verdicts other than "ok", in priority order:
-
-    - `no-partner` -- nothing in the basis reaches `NO_PARTNER`. Either the
-      state is spurious or its partner was never built; **this function cannot
-      tell those apart** and deliberately does not pretend to.
-    - `mixed` -- the second-best overlap is within `MIXED_RATIO` of the best, so
-      the state is a blend and neither label describes it.
-    - `distant` -- the identification is clear but the partner lies more than
-      `MAX_SHIFT_MEV` away, so the "shift" is a mixing statement.
-    """
-    ranked = sorted(
-        ((overlap(b.psi, pole_state), key) for key, b in basis.items()), key=lambda t: -t[0]
-    )
-    best_v, best_k = ranked[0]
-    second_v, second_k = ranked[1] if len(ranked) > 1 else (0.0, None)
-    shift = (float(pole_energy.real) - basis[best_k].energy) * 1000.0 * HARTREE_TO_EV
-
-    # Energy decides which reading a poor overlap supports. If every level that
-    # could exist at this energy is in the basis, a poor overlap is a fact about
-    # the STATE; otherwise it is a fact about the BASIS. This is checked for any
-    # weak identification, not only for a vanishing one: a state whose true
-    # partner is absent still scores moderately against a wrong partner --
-    # E = 0.008395 reaches 0.21 against `omega_2^5` while the `Ry_18 v=1` it
-    # actually is was never built.
-    covered = (
-        basis_covers(float(pole_energy.real), thresholds, basis)
-        if thresholds is not None
-        else False
-    )
-    if best_v < WEAK and not covered:
-        verdict, level = "basis-limited", None
-    elif best_v < NO_PARTNER:
-        verdict, level = "spurious", None
-    elif best_v < WEAK:
-        verdict, level = "weak", best_k
-    elif second_v / best_v > MIXED_RATIO:
-        verdict, level = "mixed", best_k
-    elif abs(shift) > MAX_SHIFT_MEV:
-        verdict, level = "distant", best_k
-    else:
-        verdict, level = "ok", best_k
-
-    return OverlapPair(
-        pole_energy=float(pole_energy.real),
-        level=level,
-        overlap=best_v,
-        second_level=second_k,
-        second_overlap=second_v,
-        shift_mev=shift,
-        verdict=verdict,
-    )
+    cur = electronic_curves(H2P, g_r, g_R, n_curves=max(curves) + 1, with_states=True)
+    return bo_basis(cur, g_R, H2P.mu, n_vib=n_vib, allow_partial=True)
 
 
 def solve_window(
     window: int, *, r_max: float = 300.0, cache_dir: pathlib.Path | None = None
 ) -> tuple[npt.NDArray[np.complex128], npt.NDArray[np.complex128], TensorGrid]:
-    """Exact poles WITH states for one DR window, cached to a git-ignored npz."""
-    from validation.h2plus.exact_poles import (
-        _EL_BASE_DEG,
-        _EL_MOVED_DEG,
-        _NUC_BASE_DEG,
-        _NUC_MOVED_DEG,
-        K_SEARCH,
-        _electronic_box,
-        _nuclear_box,
-        find_seeds,
-    )
+    """Exact poles WITH states for one DR window, cached to a git-ignored npz.
 
-    el_a, el_b = _electronic_box(r_max, _EL_BASE_DEG), _electronic_box(r_max, _EL_MOVED_DEG)
-    nu_a, nu_b = _nuclear_box(_NUC_BASE_DEG), _nuclear_box(_NUC_MOVED_DEG)
-    base = TensorGrid([el_a, nu_a])
+    The cache stores energies and states ONLY, not a whole
+    `ExactResonanceStates`. That is deliberate rather than legacy: overlap
+    pairing needs exactly those two, and the widths and angle residuals would
+    make each of these three files larger without a consumer. A caller that
+    wants the full record should use `exact_poles.exact_poles`, which keeps it.
+    """
+    from validation.h2plus.exact_poles import K_SEARCH, find_seeds, grid_family
+
+    base, moved_el, moved_nu = grid_family(r_max)
 
     cache = (cache_dir or pathlib.Path(__file__).parent) / f"bo_overlap.w{window}.npz"
     if cache.exists():
@@ -369,8 +156,8 @@ def solve_window(
     res = exact_resonance_states(
         H2P,
         base,
-        TensorGrid([el_b, nu_a]),
-        TensorGrid([el_a, nu_b]),
+        moved_el,
+        moved_nu,
         shifts=[complex(s.e_tot, -1e-4) for s in seeds],
         window=(lo, hi, -0.01, 0.0),
         k=K_SEARCH,
@@ -383,15 +170,12 @@ def solve_window(
 def main(windows: tuple[int, ...] = (0, 1, 2)) -> None:
     from validation.h2plus.exact_poles import EPS0, THRESHOLDS
 
-    # Deep enough to reach the Ry_16 the top of window 0 needs; the series
-    # accumulates, so this is a cutoff rather than a limit (see the docstring).
-    curves = list(range(2, 17))
     tally: dict[str, int] = {}
     for w in windows:
         energies, states, base = solve_window(w)
         print(f"\n=== window {w}: {energies.size} poles ===", flush=True)
-        print(f"building BO basis, curves {curves[0]}..{curves[-1]} ...", flush=True)
-        basis = bo_basis(base, curves, 8)
+        print(f"building BO basis, curves {CURVES[0]}..{CURVES[-1]} ...", flush=True)
+        basis = bo_basis_for(base)
 
         print(
             f"{'E (Ha)':>10} {'level':>9} {'overlap':>8} {'2nd':>9} "
@@ -400,9 +184,12 @@ def main(windows: tuple[int, ...] = (0, 1, 2)) -> None:
         for i in np.argsort(energies.real):
             p = pair_by_overlap(energies[i], states[:, i], basis, THRESHOLDS)
             tally[p.verdict] = tally.get(p.verdict, 0) + 1
-            second = "-" if p.second_level is None else f"w^{p.second_level[0]}_{p.second_level[1]}"
+            lvl = "-" if p.level is None else f"w^{p.level[0]}_{p.level[1]}"
+            second = (
+                "-" if p.second_level is None else f"w^{p.second_level[0]}_{p.second_level[1]}"
+            )
             print(
-                f"{p.pole_energy - EPS0:>10.6f} {p.label:>9} {p.overlap:>8.4f} "
+                f"{p.pole_energy - EPS0:>10.6f} {lvl:>9} {p.overlap:>8.4f} "
                 f"{second:>9} {p.second_overlap:>8.4f} {p.shift_mev:>11.3f}  {p.verdict}"
             )
     print(f"\nverdict tally across {len(windows)} window(s): {tally}")

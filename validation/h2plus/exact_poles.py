@@ -46,8 +46,11 @@ Each pole is paired to a BO level BY OVERLAP (`bo_overlap.pair_by_overlap`),
 not by energy. Energy proximity cannot tell a resonance from a
 rotated-continuum eigenvalue that lands nearby, and the published work assigns
 a feature to a quasi-bound state the same way (Vana 2017, Table 4.2). The
-one-to-one energy assignment in `pair_one_to_one` is kept as a cross-check;
-where the two disagree, overlap wins.
+one-to-one energy assignment (`qscat.core.pair_one_to_one`) is kept as a
+cross-check; where the two disagree, overlap wins. That pairing, the overlap
+verdicts, and the BO basis they need were all promoted into
+`qscat.core.assignment` / `qscat.core.bo` after this campaign; what remains in
+this file is the campaign itself.
 
 Of the 57 poles across the three windows: **40 pair cleanly**, 5 are near-equal
 blends of two BO levels, 6 have their partner outside the enumerated basis, 2
@@ -148,17 +151,24 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
-from qscat.core import exact_resonance_states
+from qscat.core import ecs_angle_family, exact_resonance_states, n_eff
 from qscat.core.grids import fem_grid_exp_tail, nuclear_grid
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.model import H2P
 from qscat.units import HARTREE_TO_EV
-from scipy.optimize import linear_sum_assignment
 
 from validation.h2plus.config import full_grid
 from validation.h2plus.rydberg_levels import RydbergLevels, rydberg_levels
 
-__all__ = ["Seed", "PoleResult", "exact_poles", "pair_one_to_one", "main"]
+__all__ = [
+    "Seed",
+    "PoleResult",
+    "electronic_box",
+    "nuclear_box",
+    "grid_family",
+    "exact_poles",
+    "main",
+]
 
 # Published DR windows, electron energy E = e_tot - EPS0 (Ha).
 #
@@ -193,13 +203,11 @@ N_EFF_CUTOFF = 12.0
 
 # Electronic ECS angle pair (base/moved): both comfortably under the model's
 # own 45 deg bound, matching `pole_box_probe.py`'s tested values.
-_EL_BASE_DEG = 30.0
-_EL_MOVED_DEG = 40.0
+EL_ANGLES = (30.0, 40.0)
 
 # Nuclear ECS angle pair (base/moved): both under H2P's
 # `max_nuclear_ecs_angle_deg = 22.5`, matching `pole_box_probe.py`.
-_NUC_BASE_DEG = 18.0
-_NUC_MOVED_DEG = 12.0
+NUC_ANGLES = (18.0, 12.0)
 
 # Search width per shift (eigenpairs per shift per grid). pole_box_probe.py's
 # k=8 SATURATED as the box grew (8 -> 6 -> 3 states survived at one seed as
@@ -237,19 +245,6 @@ class PoleResult:
     # unambiguous; approaching 1 the pole sits midway between two BO levels and
     # nearest-Re pairing is a coin toss -- see `exact_poles`' margin note.
     assignment_ratio: float
-
-
-def _n_eff(e_tot: float) -> float:
-    """Hydrogenic n_eff from the binding below the nearest threshold ABOVE
-    `e_tot` -- NOT `eps[0]`. The per-level threshold is the physically
-    relevant one: a Rydberg state is bound against the ion level it sits
-    below, not against the incident channel. See the module docstring.
-    """
-    above = THRESHOLDS[THRESHOLDS > e_tot]
-    if above.size == 0:
-        raise ValueError(f"e_tot={e_tot} sits above every known cation threshold")
-    binding = float(above[0] - e_tot)
-    return float(1.0 / np.sqrt(2.0 * binding))
 
 
 def _bo_levels() -> RydbergLevels:
@@ -291,43 +286,6 @@ def _bo_levels() -> RydbergLevels:
     )
 
 
-def pair_one_to_one(
-    pole_energy: npt.NDArray[np.float64],
-    level_energy: npt.NDArray[np.float64],
-    *,
-    max_distance: float = 1.0e-3,
-) -> dict[int, int]:
-    """Match poles to BO levels ONE-TO-ONE, minimising the total displacement.
-
-    Returns `{pole index: level index}`, omitting any pair further apart than
-    `max_distance` (default 1 mHa, comfortably wider than the largest credible
-    shift and narrower than the level spacing).
-
-    **Why not nearest-neighbour.** Assigning each pole to whichever level is
-    closest treats the poles independently, so two poles can claim one level
-    while another level goes unclaimed -- and it is worst exactly where the
-    physics is most interesting. At E ~ 0.0055 Ha the BO levels `omega_1^9` and
-    `omega_3^3` sit 20 uHa apart while the exact poles sit 154 uHa apart:
-    nearest-neighbour hands both poles to `omega_1^9` and reports the second
-    pairing at `assignment_ratio` 0.87, i.e. "ambiguous", when in fact it is
-    fully determined once you require the matching to be a bijection. On the
-    corrected (denser) BO level set 33 of 58 poles come out "ambiguous" that
-    way, which is a defect of the algorithm rather than of the data.
-
-    A minimum-total-cost assignment uses the constraint the physics supplies --
-    distinct states pair with distinct levels -- and resolves those cases. It
-    is not infallible: where a whole neighbourhood is denser than the shifts,
-    the global optimum can still permute members within it, so a pairing is
-    only as trustworthy as the local spacing. `report_shift_table` prints the
-    per-pair distance so that stays visible.
-    """
-    if pole_energy.size == 0 or level_energy.size == 0:
-        return {}
-    cost = np.abs(pole_energy[:, None] - level_energy[None, :])
-    rows, cols = linear_sum_assignment(cost)
-    return {int(r): int(c) for r, c in zip(rows, cols, strict=True) if cost[r, c] <= max_distance}
-
-
 def find_seeds() -> tuple[list[Seed], list[Seed]]:
     """Every (curve, vib) BO level inside a published window, split into
     (in-scope, out-of-scope) by the `n_eff <= 12` cutoff. Both lists are
@@ -344,13 +302,13 @@ def find_seeds() -> tuple[list[Seed], list[Seed]]:
             e_el = e_tot - EPS0
             for w, (lo, hi) in enumerate(WINDOWS):
                 if lo <= e_el <= hi:
-                    n_eff = _n_eff(e_tot)
-                    seed = Seed(w, curve, vib, e_el, e_tot, n_eff, n_eff <= N_EFF_CUTOFF)
+                    n_eff_ = n_eff(e_tot, THRESHOLDS)
+                    seed = Seed(w, curve, vib, e_el, e_tot, n_eff_, n_eff_ <= N_EFF_CUTOFF)
                     (survivors if seed.in_scope else dropped).append(seed)
     return survivors, dropped
 
 
-def _electronic_box(r_max: float, angle_deg: float) -> FemDvrEcsGrid:
+def electronic_box(r_max: float, angle_deg: float) -> FemDvrEcsGrid:
     """H2+ electronic grid at box `r_max`: `full_grid()`'s inner-segment
     resolution (0.1/0.3/1.0/4.0 bohr out to 100 bohr) with only the outer
     segment (100 -> r_max) and ECS pivot varying -- copied from
@@ -366,13 +324,29 @@ def _electronic_box(r_max: float, angle_deg: float) -> FemDvrEcsGrid:
     )
 
 
-def _nuclear_box(angle_deg: float) -> FemDvrEcsGrid:
+def nuclear_box(angle_deg: float) -> FemDvrEcsGrid:
     """Reduced nuclear grid (n_complex=3), matching `pole_box_probe.py`'s
     helper -- this campaign targets the ELECTRONIC box (the DR-window levels'
     diffuse Rydberg orbitals), so the nuclear side is held fixed and cheap,
     not itself re-converged here.
     """
     return nuclear_grid(angle_deg=angle_deg, r_max=14.0, n_complex=3, quadrature=8)
+
+
+def grid_family(r_max: float = 300.0) -> tuple[TensorGrid, TensorGrid, TensorGrid]:
+    """The `(base, electronic-moved, nuclear-moved)` triple for this campaign.
+
+    Built through `qscat.core.ecs_angle_family`, which enforces what the whole
+    two-angle stability argument rests on: each partner differs from the base in
+    EXACTLY one ECS angle, and both share every real node. Assembled by hand at
+    three separate call sites here, that invariant was upheld by copy-paste.
+    """
+    return ecs_angle_family(
+        lambda a: electronic_box(r_max, a),
+        nuclear_box,
+        electronic_angles=EL_ANGLES,
+        nuclear_angles=NUC_ANGLES,
+    )
 
 
 def exact_poles(seeds: list[Seed], r_max: float) -> list[PoleResult]:
@@ -397,14 +371,7 @@ def exact_poles(seeds: list[Seed], r_max: float) -> list[PoleResult]:
     window_idx = seeds[0].window
     assert all(s.window == window_idx for s in seeds)
 
-    el_base = _electronic_box(r_max, _EL_BASE_DEG)
-    el_moved = _electronic_box(r_max, _EL_MOVED_DEG)
-    nu_base = _nuclear_box(_NUC_BASE_DEG)
-    nu_moved = _nuclear_box(_NUC_MOVED_DEG)
-
-    grid_base = TensorGrid([el_base, nu_base])
-    grid_electronic = TensorGrid([el_moved, nu_base])
-    grid_nuclear = TensorGrid([el_base, nu_moved])
+    grid_base, grid_electronic, grid_nuclear = grid_family(r_max)
 
     shifts = [complex(s.e_tot, -1e-4) for s in seeds]
     e_lo = min(s.e_tot for s in seeds) - 0.01

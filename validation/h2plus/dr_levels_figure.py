@@ -71,6 +71,7 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
+from qscat.core import peak_alignment, peak_positions
 from qscat.core.grids import fem_grid_exp_tail
 
 from validation.h2plus.config import full_grid
@@ -376,21 +377,6 @@ def main() -> None:
     report_peak_alignment(sweep, levels.energy)
 
 
-def _peaks(
-    energy: npt.NDArray[np.float64], sigma: npt.NDArray[np.float64]
-) -> npt.NDArray[np.float64]:
-    """Energies of prominent local maxima in a channel of the published sweep."""
-    out = []
-    for i in range(2, len(energy) - 2):
-        if (
-            sigma[i] > sigma[i - 1]
-            and sigma[i] > sigma[i + 1]
-            and sigma[i] > 10.0 * min(sigma[i - 2], sigma[i + 2])
-        ):
-            out.append(energy[i])
-    return np.asarray(out, dtype=np.float64)
-
-
 def report_peak_alignment(sweep: DrSweep, levels: npt.NDArray[np.float64]) -> None:
     """How close do the marks sit to the published peaks they should explain?
 
@@ -400,7 +386,7 @@ def report_peak_alignment(sweep: DrSweep, levels: npt.NDArray[np.float64]) -> No
     "lands on the peak" means anything.
     """
     fwhm = 2.0e-5
-    peaks = _peaks(sweep.energy, sweep.sigma[:, 1])
+    peaks = peak_positions(sweep.energy, sweep.sigma[:, 1])
     print(f"\nprominent DR_1 peaks in the published sweep: {peaks.size}")
     for label, marks in (
         ("BO levels", levels - EPS0),
@@ -411,12 +397,7 @@ def report_peak_alignment(sweep: DrSweep, levels: npt.NDArray[np.float64]) -> No
             p = peaks[(peaks >= lo) & (peaks <= hi)]
             if m.size == 0 or p.size == 0:
                 continue
-            d = np.array([np.min(np.abs(p - x)) for x in m])
-            print(
-                f"  {label:<12} window {w}: {m.size:>2} marks, "
-                f"median distance to nearest peak {np.median(d) / fwhm:>6.1f} widths, "
-                f"within 1 width: {int(np.sum(d <= fwhm))}/{m.size}"
-            )
+            print(f"  {label:<12} window {w}: {peak_alignment(m, p, width=fwhm)}")
 
 
 if __name__ == "__main__":

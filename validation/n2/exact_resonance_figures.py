@@ -81,14 +81,7 @@ def main(cache: pathlib.Path | None = None) -> None:
     # on; caching it keeps a restyle from costing a resolve. Delete the file to
     # force a recompute.
     if cache is not None and cache.exists():
-        z = np.load(cache)
-        res = ExactResonanceStates(
-            energies=z["energies"],
-            widths=z["widths"],
-            states=z["states"],
-            residual_electronic=z["res_el"],
-            residual_nuclear=z["res_nuc"],
-        )
+        res = ExactResonanceStates.load(cache)
         print(f"loaded cached states from {cache}", flush=True)
     else:
         res = exact_resonance_states(
@@ -101,14 +94,7 @@ def main(cache: pathlib.Path | None = None) -> None:
             window=WINDOW,
         )
         if cache is not None:
-            np.savez(
-                cache,
-                energies=res.energies,
-                widths=res.widths,
-                states=res.states,
-                res_el=res.residual_electronic,
-                res_nuc=res.residual_nuclear,
-            )
+            res.save(cache)
     print(
         f"n2d={el_a.n * nu_a.n}  exact={res.energies.size} levels  "
         f"BO={bo.energies.size}  {time.perf_counter() - t0:.0f}s",

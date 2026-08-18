@@ -53,9 +53,8 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
-from qscat.core import vibrational_states
-from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
-from qscat.exceptions import GridError
+from qscat.core.bo import bo_basis, electronic_curves
+from qscat.dvr import FemDvrEcsGrid
 from qscat.model import ResonanceModel
 
 __all__ = ["RydbergLevels", "rydberg_levels"]
@@ -78,80 +77,21 @@ def rydberg_levels(
 ) -> RydbergLevels:
     """`E_Ryn(R)` and the vibrational levels each curve supports.
 
-    For each nuclear grid point `R` (including the complex ECS-tail points,
-    NOT just the real region), this diagonalizes the frozen-nucleus
-    electronic problem `-1/2 d^2/dr^2 + surface(r, R_inf=R)` (electron mass
-    1) on `g_r` and takes the `n_curves` lowest-Re(E) eigenvalues -- the
-    Rydberg series `E_Ry0(R) < E_Ry1(R) < ...` at that R. Stacking those
-    across `g_R.points` gives each curve tabulated on the nuclear grid.
+    A thin adapter over `qscat.core.bo`: `electronic_curves` builds the Rydberg
+    series over the nuclear grid and `bo_basis` puts a vibrational ladder in
+    each. Both were promoted out of this module -- nothing here is specific to
+    H2+ except the published index convention documented above, which is why
+    this shim survives while the numerics moved.
 
-    This reproduces `qscat.core.anion_electronic_states` bit-for-bit
-    (verified to ~1e-14) everywhere that function's own "genuinely bound"
-    gate (`|Im(E)| < 1e-6` AND `Re(E) < v0(R_inf)`) succeeds -- the real
-    nuclear region, where `R_inf` is real. It does NOT reuse that gate,
-    because it fails on the ECS tail: feeding a COMPLEX `R_inf` into
-    `surface` makes `v0(R_inf)`/`v_int(r, R_inf)` complex, so every
-    eigenvalue there -- including genuinely Rydberg-like ones -- picks up an
-    O(Im(v0(R_inf))) imaginary shift (measured ~1.8e-6 Ha at the first tail
-    point, i.e. already past the library's 1e-6 tolerance a hair's width
-    into the tail). That shift is a curve-parametrization artifact of the
-    nuclear ECS rotation -- exactly like `model.v0(R)` itself going complex
-    on the tail everywhere else in this codebase -- NOT a resonance width;
-    gating on it would raise spuriously and is why this function composes
-    `kinetic`/`eigen` directly instead of calling the library gate.
+    Levels are returned REAL. These curves are genuinely bound, so their levels
+    carry no width; the library keeps them complex because the same function
+    also serves resonance curves, where the width is part of the answer.
 
-    `n_vib` is a per-curve count, and the curves do NOT all support the same
-    one: measured on `proxy_grid()`'s electronic grid with `full_grid()`'s
-    real nuclear grid, curve 0 supports 5 clean bound levels while curves 1-4
-    each support at least 12. A single `n_vib` that fits the shallowest curve
-    therefore truncates the others, and one that fits the others makes
-    `vibrational_states` raise on the shallowest. `allow_partial=True` asks
-    each curve for as many of `n_vib` as it can supply, padding the rest of
-    that row with `NaN`; callers must skip non-finite entries. The default
-    keeps the strict behaviour -- every curve supplies all `n_vib` or the
-    call raises -- so a caller that assumes a full rectangular table still
-    finds out when it is wrong.
-
-    Each curve is then fed to `vibrational_states` as the nuclear potential.
-    `vibrational_states` builds `T_nuc(mu) + diag(v0(grid.points))`, calling
-    `v0` with EXACTLY `grid.points` (`qscat/core/vibrational.py`) -- so a
-    closure that ignores its argument and returns the curve already
-    tabulated on those same points is an exact lookup, not an
-    approximation/interpolation.
+    `n_vib` is a per-curve REQUEST -- see `bo_basis` on `allow_partial`.
     """
-    pts = g_R.points
-    curves = np.empty((n_curves, pts.size), dtype=np.complex128)
-    for j, R in enumerate(pts):
-        H_el = kinetic(g_r, 1.0) + np.diag(model.surface(g_r.points, complex(R)))
-        E, _ = eigen(H_el)  # ascending Re(E), same formula as anion_electronic_states
-        curves[:, j] = E[:n_curves]
-
-    energies = np.full((n_curves, n_vib), np.nan, dtype=np.float64)
-    for n in range(n_curves):
-        curve = curves[n]
-
-        def v_n(
-            _R: npt.ArrayLike, _curve: npt.NDArray[np.complex128] = curve
-        ) -> npt.NDArray[np.complex128]:
-            # Exact lookup, not interpolation -- see the docstring above.
-            return _curve
-
-        if not allow_partial:
-            basis = vibrational_states(g_R, model.mu, n_vib, v_n)
-            energies[n] = np.asarray(basis.eps, dtype=np.float64)
-            continue
-
-        # Walk down from n_vib to the deepest count this curve actually
-        # supports. `vibrational_states` selects the n lowest-Re(E)
-        # eigenvalues and rejects the batch if ANY is quasi-continuum, so a
-        # smaller n is a strictly cleaner subset -- there is no n where it
-        # raises and n-1 contains a level n did not.
-        for count in range(n_vib, 0, -1):
-            try:
-                basis = vibrational_states(g_R, model.mu, count, v_n)
-            except GridError:
-                continue
-            energies[n, :count] = np.asarray(basis.eps, dtype=np.float64)
-            break
-
-    return RydbergLevels(curves=curves, energies=energies)
+    curves = electronic_curves(model, g_r, g_R, n_curves=n_curves, with_states=False)
+    basis = bo_basis(curves, g_R, model.mu, n_vib=n_vib, allow_partial=allow_partial)
+    return RydbergLevels(
+        curves=curves.energies,
+        energies=np.asarray(basis.energies.real, dtype=np.float64),
+    )

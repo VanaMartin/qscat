@@ -206,9 +206,9 @@ from __future__ import annotations
 import time
 
 import numpy as np
-from qscat.core import exact_resonance_states
+from qscat.core import ecs_angle_family, exact_resonance_states
 from qscat.core.grids import fem_grid_exp_tail, nuclear_grid
-from qscat.dvr import FemDvrEcsGrid, TensorGrid
+from qscat.dvr import FemDvrEcsGrid
 from qscat.model import H2P
 
 from validation.h2plus.config import full_grid, proxy_grid
@@ -276,18 +276,17 @@ def main() -> None:
     seeds = _seeds()
     print(f"seeds: {[f'{s:.6f}' for s in seeds]}", flush=True)
 
-    nu_base = _nuclear_box(_NUC_BASE_DEG)
-    nu_moved = _nuclear_box(_NUC_MOVED_DEG)
-
     results: dict[float, tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]] = {}
 
     for r_max in (150.0, 300.0, 600.0):
-        el_base = _electronic_box(r_max, _EL_BASE_DEG)
-        el_moved = _electronic_box(r_max, _EL_MOVED_DEG)
-
-        grid_base = TensorGrid([el_base, nu_base])
-        grid_electronic = TensorGrid([el_moved, nu_base])
-        grid_nuclear = TensorGrid([el_base, nu_moved])
+        # `ecs_angle_family` enforces the invariant this probe rests on: each
+        # partner grid moves exactly one ECS angle and shares every real node.
+        grid_base, grid_electronic, grid_nuclear = ecs_angle_family(
+            lambda a, _r=r_max: _electronic_box(_r, a),
+            _nuclear_box,
+            electronic_angles=(_EL_BASE_DEG, _EL_MOVED_DEG),
+            nuclear_angles=(_NUC_BASE_DEG, _NUC_MOVED_DEG),
+        )
 
         t0 = time.perf_counter()
         res = exact_resonance_states(
@@ -301,6 +300,7 @@ def main() -> None:
         )
         dt = time.perf_counter() - t0
 
+        el_base, nu_base = grid_base.grids
         n2d = el_base.n * nu_base.n
         print(
             f"r_max={r_max:6.0f}  n_r={el_base.n:5d}  n_R={nu_base.n:4d}  "
