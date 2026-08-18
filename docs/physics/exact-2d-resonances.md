@@ -156,7 +156,8 @@ first.
 | claim | status |
 |---|---|
 | `v = 0`: ΔE_r = **−0.22 meV**, ΔΓ = **−0.30 meV** | converged over `r_max` 24→72 |
-| the exact pole lies **below** BO/LCP in *both* position and width | robust: negative at every level, on every box |
+| the exact pole lies **below** BO/LCP in *both* position and width | **width: yes, every level, every box. Position: NOT general** — on the finer 46 428-unknown deck ΔE_r turns positive at `v >= 3` (see the overlap-check section) |
+| the poles are genuine resonances, and the index pairing is correct | verified by overlap on the 46 428-unknown deck: 6/6 clean, 0/6 pairing disagreements |
 | \|ΔE_r\| ≲ 0.25 meV and \|ΔΓ\| ≈ 0.3–0.75 meV throughout | robust in magnitude |
 | per-level values for `v >= 1` | **not converged** — do not cite |
 | any trend of the difference with `v` | **not established** |
@@ -172,6 +173,49 @@ one; it is largely the electronic box. The second: on boxes up to 40 bohr
 `v = 1` appeared converged to ≲0.01 meV, and it is not — extending the box to 72
 moved it by 0.04 meV in position and 0.12 meV in width. Only `v = 0` survives
 the full sweep.
+
+### Are these poles resonances? The overlap check
+
+Everything above rests on the poles being resonances and on the exact/BO pairing
+being right — and until the H₂⁺ campaign, neither was tested. Angle stability
+found them; angle stability is *necessary and not sufficient*. On H₂⁺ the same
+procedure produced four non-resonances out of 57
+({doc}`h2plus-resonance-states`), so this is not a hypothetical.
+
+`validation/n2/pole_verification.py` runs the check with the machinery promoted
+out of that campaign. **The result is clean:**
+
+| question | answer |
+|---|---|
+| are the poles resonances? | **yes** — all 6 pair cleanly, no `spurious`, no `weak` |
+| does the sorted-index pairing hold? | **yes** — overlap agrees at every level, 0/6 disagreements |
+| does a bijection by energy agree? | **yes** — Hungarian assignment gives the same map |
+
+The reference basis is *not* a Rydberg series here. N₂'s anion state is a
+resonance, so the electronic factor comes from `qscat.core.bo.resonance_curve`
+(the two-angle pole walk, keeping the eigenvector `local_complex_potential`
+discards) and the nuclear factor from `resonance_levels`, combined by
+`bo_basis_from_levels`. Same comparator, different builder.
+
+Two things the check turned up that the pole table does not show.
+
+**The overlap exceeds 1, legitimately.** The c-product is a *bilinear form*, not
+an inner product, so Cauchy–Schwarz does not bound it and the normalized
+magnitude is a similarity measure rather than a projection coefficient. The six
+identifications score 1.02, 1.05, 1.08, 1.11, 1.15, 1.19 — **rising
+monotonically with Γ**. H₂⁺'s narrow Rydberg resonances stay at 0.87–0.99
+because they are nearly real; N₂'s are broad (Γ ≈ 5–7 × 10⁻³ Ha) and the
+departure from 1 tracks that. Read distance from 1 in *either* direction as "the
+BO picture describes this state less well".
+
+**The sign claim below needs narrowing.** This run uses the
+`exact_resonance_figures.py` deck (46 428 unknowns), which is *finer* than the
+26 857-unknown deck the table above was computed on. On it, ΔE_r reads −0.217,
+−0.212, −0.210, **+0.017, +0.081, +0.081** meV — the sign flips at `v = 3`. ΔΓ
+stays negative throughout. This is consistent with the existing warning that
+per-level values for `v >= 1` are not converged, but it is a direct
+counterexample to "negative at every level, on every box" as stated, and that
+row is qualified accordingly.
 
 ### Figures
 
@@ -270,13 +314,18 @@ qualification (see `docs/physics/lcp-resonance-levels.md`).
 
 ## Limits
 
-- **Validated on N₂ only.** F₂/NO (where the dissociative channel is open, so the
-  nuclear residual becomes the informative one) and H₂⁺ (Coulomb, with an
-  infinite Rydberg series accumulating at each threshold) have not been run.
+- **Validated on N₂ and H₂⁺.** H₂⁺ (Coulomb, with a Rydberg series accumulating
+  at each threshold) is covered in {doc}`h2plus-resonance-states`. F₂/NO — where
+  the dissociative channel is open, so the nuclear residual becomes the
+  informative one — have not been run.
 - **The two-angle test is necessary, not sufficient.** A small residual says the
-  eigenvalue did not move when the contour did. A grid too coarse to resolve a
-  state can produce that for the wrong reason; convergence is the separate
-  question answered above.
+  eigenvalue did not move when the contour did — and a rotated-continuum state
+  sitting in a stable corner produces that too, as four of H₂⁺'s 57 poles did. A
+  grid too coarse to resolve a state can produce it for a third reason.
+  Three separate checks answer three separate questions: overlap against a BO
+  basis (`qscat.core.assignment.pair_by_overlap`) for "is this a resonance",
+  grid refinement for "is the discretization adequate", and the residuals here
+  for "did the contour move it".
 - **Seed placement matters more than it looks.** `k` eigenpairs nearest a shift
   is a *local* window: with a vibrational spacing of ~0.0096 Ha, a seed one
   quantum away returns `v = 1` and `v = 2` while `v = 0` falls off the end of the
