@@ -97,6 +97,27 @@ Public API:
 
 from __future__ import annotations
 
+from .assignment import (
+    OverlapPair,
+    PeakAlignment,
+    overlap,
+    pair_by_overlap,
+    pair_one_to_one,
+    peak_alignment,
+    peak_positions,
+)
+from .bo import (
+    BoBasis,
+    BoState,
+    ElectronicCurves,
+    admissible_levels,
+    basis_covers,
+    bo_basis,
+    bo_basis_from_levels,
+    electronic_curves,
+    n_eff,
+    resonance_curve,
+)
 from .channels import channel_vector
 from .correlation import (
     eta_incident,
@@ -113,7 +134,14 @@ from .dissociation import (
     v_dr_diag,
 )
 from .driven import ve_cross_section
-from .grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
+from .grids import (
+    assert_shared_real_nodes,
+    ecs_angle_family,
+    electronic_grid,
+    fem_grid_exp_tail,
+    nuclear_grid,
+    segmented_grid,
+)
 from .lcp import (
     ResonanceLevels,
     lcp_da_cross_section,
@@ -138,6 +166,8 @@ from .vibrational import VibrationalBasis, vibrational_states
 from .wavepacket import gaussian_coeffs, initial_state
 
 __all__ = [
+    "assert_shared_real_nodes",
+    "ecs_angle_family",
     "electronic_grid",
     "fem_grid_exp_tail",
     "nuclear_grid",
@@ -158,6 +188,23 @@ __all__ = [
     "resonance_levels",
     "ExactResonanceStates",
     "exact_resonance_states",
+    "ElectronicCurves",
+    "electronic_curves",
+    "resonance_curve",
+    "BoState",
+    "BoBasis",
+    "bo_basis",
+    "bo_basis_from_levels",
+    "n_eff",
+    "admissible_levels",
+    "basis_covers",
+    "OverlapPair",
+    "overlap",
+    "pair_by_overlap",
+    "pair_one_to_one",
+    "PeakAlignment",
+    "peak_positions",
+    "peak_alignment",
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",
