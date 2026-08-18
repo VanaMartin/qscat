@@ -84,10 +84,11 @@ Measured on window 0 the two classes separate by three orders of magnitude:
 | 0.008180 | `ω₁¹⁶` | 0.6828 | `ω₂⁵` 0.65 | genuine, maximally mixed |
 | 0.008260 | `ω₁¹⁶` | 0.7252 | `ω₂⁵` 0.60 | genuine, maximally mixed |
 
-Across all three windows, of 57 poles: **40 pair cleanly**, 5 are near-equal
-blends of two BO levels, 6 have their partner outside the enumerated basis, 2
-are weak, and **4 are not resonances** (E = 0.004479, 0.021782, 0.022796,
-0.026065; best overlaps 6 × 10⁻⁴ to 7 × 10⁻³).
+Across all three windows, of 57 poles: **24 pair cleanly**, **18 are
+box-limited** (below), 3 are near-equal blends of two BO levels, 6 have their
+partner outside the enumerated basis, 2 are weak, and **4 are not resonances**
+(E = 0.004479, 0.021782, 0.022796, 0.026065; best overlaps 6 × 10⁻⁴ to
+7 × 10⁻³).
 
 Removing those four is what makes window 2 agree with the others: **13.9 → 3.3 →
 0.3 widths**. One of them sat 0.4 widths from a peak by coincidence and was
@@ -120,23 +121,50 @@ poles passed as clean identifications on overlaps of 0.21 and 0.11 simply
 because nothing competed with them, until the check was widened to fire on any
 weak match rather than only a vanishing one.
 
+## A third of the poles have left the box
+
+**The overlap cannot see a state that no longer fits its grid, and is not
+supposed to.** The c-product cancels the rotated ECS tail by construction —
+that is what makes it the correct pairing — so a state with 97 % of its
+probability outside the unscaled region still pairs at 0.99 with the BO product
+it genuinely *is*. The identification is right; the summary is misleading.
+
+`real_weight` (the fraction of |Ψ|² inside the unscaled region) measures what
+the overlap cannot. Across window 0 it collapses as the Rydberg series climbs:
+
+| level | `Ry₁₁` | `Ry₁₂` | `Ry₁₃` | `Ry₁₄` | `Ry₁₅` | `Ry₁₆` |
+|---|---|---|---|---|---|---|
+| overlap | 0.990 | 0.990 | 0.990 | 0.987 | 0.966 | 0.683 |
+| `real_weight` | 0.682 | 0.286 | 0.116 | 0.031 | 0.008 | 0.010 |
+
+Those orbitals (`n_eff` ≈ 12–17, ⟨r⟩ ~ n²) are simply larger than the 300-bohr
+box. **18 of the 57 poles are `box-limited`** on a 0.5 threshold, and nothing
+about them is quotable — not their shift, not their width. They are reported,
+not deleted: the identification stands, and a larger box is what would settle
+them.
+
+This was not caught until `real_weight` was added, and it moved every statistic
+computed over the surviving population. What follows is the corrected version.
+
 ## The BO error sorts by regime
 
-Over the 40 clean pairs, median |shift|:
+Over the 24 quotable pairs, median |shift|:
 
-| regime | levels | median \|shift\| |
-|---|---|---|
-| high-`n` Rydberg (`Ry ≥ 6`) | 32 | **0.264 meV** |
-| compact low-`n` (`Ry < 6`) | 8 | **3.375 meV** |
+| regime | levels | median \|shift\| | max |
+|---|---|---|---|
+| high-`n` Rydberg (`Ry ≥ 6`) | 18 | **0.457 meV** | 2.860 |
+| compact low-`n` (`Ry < 6`) | 6 | **3.702 meV** | 15.586 |
 
-A thirteenfold separation. A distant Rydberg electron follows the nuclei
+An eightfold separation. A distant Rydberg electron follows the nuclei
 adiabatically, so its level is nearly BO-exact; a compact one overlapping the
 dissociative channel does not. Both regimes exceed N₂'s 0.22 meV
 ({doc}`exact-2d-resonances`) and neither is one-signed.
 
-The overlap confirms the same split on an independent measure: high-`n` states
-are nearly **pure** BO products (0.96–0.99) while low-`n` ones are **mixed**
-(0.63–0.88).
+The overlap shows the same ordering on an independent measure — high-`n` states
+score 0.83–0.99 against low-`n`'s 0.71–0.88 — though the two bands now overlap,
+where the earlier (contaminated) population separated them cleanly at 0.96–0.99
+versus 0.63–0.88. The purity claim was partly carried by the box-limited states;
+the shift claim survives on its own.
 
 The largest clean shifts:
 
@@ -149,12 +177,14 @@ The largest clean shifts:
 | 0.003924 | `ω₂⁴` | 0.878 | −3.154 |
 | 0.012686 | `ω₂⁷` | 0.828 | +2.860 |
 
-**No shift is quoted for a blended state.** At three crossings —
-`ω₁¹⁶`/`ω₂⁵`, `ω₄⁴`/`ω₅³` and `ω₆²`/`ω₃⁴` — the exact state is a near-equal
-mixture of two BO levels (overlaps around 0.6–0.7 with *both*). That is a
-stronger statement than a large shift: past a certain coupling the BO labels
-stop describing the state at all, and "displacement from level X" has no
-referent.
+**No shift is quoted for a blended state.** At the `ω₅³`/`ω₄⁴` crossing (both
+poles) and at `ω₆²`/`ω₃⁴`, the exact state is a near-equal mixture of two BO
+levels (overlaps 0.63–0.68 against 0.55–0.63). That is a stronger statement than
+a large shift: past a certain coupling the BO labels stop describing the state
+at all, and "displacement from level X" has no referent. The `ω₁¹⁶`/`ω₂⁵`
+crossing reported earlier is now `box-limited` instead — those two poles sit at
+`real_weight` 0.010 and 0.004, so the blend was being measured on states the
+grid does not hold.
 
 ## The states themselves
 
@@ -230,18 +260,25 @@ levels to ~10⁻⁷ Ha (`validation/h2plus/reference_levels.py`, gated).
 |---|---|
 | exact poles land on the published peaks, 0.2–0.3 widths, all three windows | measured against data the poles were not fitted to |
 | 4 of 57 angle-stable poles are not resonances | overlaps 6e-4…7e-3 against a basis proven complete at those energies |
-| the BO shift splits by regime, 0.264 vs 3.375 meV median | 40 clean pairs; confirmed independently by the overlap split |
+| the BO shift splits by regime, 0.457 vs 3.702 meV median | 24 quotable pairs; the overlap orders the same way but its bands now touch |
+| 18 of 57 poles are `box-limited` (`real_weight` < 0.5) | the high-`n` Rydberg orbitals are larger than the 300-bohr box; nothing about them is quotable |
 | pole POSITIONS are box-converged | `r_max` 300 → 600 moved them 3e-9 or less |
 | the pole COUNT is **not** converged | 18→22, 13→10, 14→13 across the three windows — and not even monotone |
 | per-level shifts for the 6 `basis-limited` poles | **not quoted** — their partner is outside the basis |
 | σ_DR near a threshold | **wrong**, 100–700× too large — see {doc}`h2plus-dr`, issue #25 |
 
-The box-convergence claim carries a qualification. `electronic_box` keeps the
-inner segments fixed and lays the outer region out in 10-bohr elements
-regardless of `r_max`, so 100–300 bohr is discretized *identically* in both runs
-and the extension only appends elements beyond 300. The physical content is
-therefore "these states have no support past 300 bohr", not a general claim that
-any two boxes agree to 10⁻⁹.
+The box-convergence claim carries a qualification, and `real_weight` sharpens it
+into a warning. `electronic_box` keeps the inner segments fixed and lays the
+outer region out in 10-bohr elements regardless of `r_max`, so 100–300 bohr is
+discretized *identically* in both runs and the extension only appends elements
+beyond 300. The physical content is therefore "these states have no support past
+300 bohr", not a general claim that any two boxes agree to 10⁻⁹.
+
+**For 18 of the poles that premise is false** — they have most of their support
+past 300 bohr. The 300-vs-600 comparison was run on the earlier 3-seed campaign,
+which never contained them, so the states where box size matters most are
+exactly the ones it did not test. Repeating it at full seeding is the open
+item.
 
 The pole at the top of each window carries the largest electronic angle residual
 (up to 5 × 10⁻⁸) and is the least trustworthy of the set.

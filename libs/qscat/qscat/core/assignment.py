@@ -40,6 +40,7 @@ state is mixing across a gap, not that it is that level shifted.
 | `ok` | a clean identification; `shift_ev` is quotable |
 | `spurious` | no partner, and the basis provably covers this energy -- not a resonance |
 | `basis-limited` | no partner, but the basis does NOT cover this energy -- verdict withheld |
+| `box-limited` | identified, but most of the state lies outside the unscaled region |
 | `weak` | a best match too poor to call an identification |
 | `mixed` | a near-equal blend of two levels; neither label describes it |
 | `distant` | a clear identification whose partner lies further than a shift should |
@@ -50,6 +51,26 @@ argument rather than a threshold, and it comes from
 channel, so the set of levels that can exist at a given energy is finite and
 computable. Without that split the two are indistinguishable -- and conflating
 them once nearly discarded eight genuine states.
+
+## The overlap is blind to a state leaving the box
+
+The c-product cancels the rotated ECS tail by construction. That is what makes
+it the right pairing -- and it means a state with 97 % of its probability
+outside the unscaled region still pairs at 0.99 with the BO product it
+genuinely is. The overlap answers "which state is this" correctly and says
+nothing about whether the grid holds it.
+
+On H2+ window 0 the two diverge sharply as the Rydberg series climbs toward its
+threshold: `real_weight` falls 0.998 -> 0.68 -> 0.29 -> 0.12 -> 0.031 -> 0.008
+-> 0.0003 while every overlap stays near 0.99. Those orbitals are larger than
+the 300-bohr box. `real_weight` measures it and the `box-limited` verdict
+reports it; supply `localization=` or the check does not run.
+
+Across the three H2+ DR windows this reclassifies **18 of 57 poles**, and every
+statistic computed over the survivors moves with it: the measured regime split
+in the Born-Oppenheimer shift went from 0.264 / 3.375 meV over 40 rows to
+0.457 / 3.702 meV over 24. N2's poles sit at `real_weight` 0.96 and are
+untouched.
 
 ## Thresholds are calibrated, not derived
 
@@ -67,6 +88,7 @@ import numpy as np
 import numpy.typing as npt
 from scipy.optimize import linear_sum_assignment
 
+from qscat.dvr import TensorGrid
 from qscat.linalg import c_product
 from qscat.units import HARTREE_TO_EV
 
@@ -77,9 +99,11 @@ __all__ = [
     "WEAK",
     "MIXED_RATIO",
     "MAX_SHIFT_EV",
+    "MIN_LOCALIZATION",
     "OverlapPair",
     "PeakAlignment",
     "overlap",
+    "real_weight",
     "pair_by_overlap",
     "pair_one_to_one",
     "peak_positions",
@@ -102,6 +126,12 @@ WEAK = 0.50
 # label fits.
 MIXED_RATIO = 0.70
 
+# Below this fraction of |psi|^2 inside the unscaled region, a state has left
+# the box and nothing about it is quotable -- however well it pairs. Half is a
+# deliberately generous floor: the H2+ states this catches sit at 0.29 and
+# below, and the ones it clears at 0.68 and above.
+MIN_LOCALIZATION = 0.5
+
 # A partner further than this in energy is flagged even when the overlap is
 # high. Overlap alone would happily pair a state with a level several meV away,
 # and past a few meV that is a statement about mixing rather than a shift worth
@@ -120,7 +150,8 @@ class OverlapPair:
     second_level: tuple[int, int] | None
     second_overlap: float
     shift_ev: float  # Re E - level energy, in eV (NaN when level is None)
-    verdict: str  # ok | spurious | basis-limited | weak | mixed | distant
+    # ok | spurious | basis-limited | box-limited | weak | mixed | distant
+    verdict: str
 
     @property
     def shift_mev(self) -> float:
@@ -132,6 +163,11 @@ class OverlapPair:
         if self.level is None:
             return "-"
         return rf"$\omega^{{{self.level[0]}}}_{{{self.level[1]}}}$"
+
+    @property
+    def is_quotable(self) -> bool:
+        """True only for `ok`. Every other verdict withholds something."""
+        return self.verdict == "ok"
 
     @property
     def is_resonance(self) -> bool:
@@ -153,15 +189,38 @@ def overlap(a: npt.NDArray[np.complex128], b: npt.NDArray[np.complex128]) -> flo
     rotated grid that is not a small difference.
 
     **This can exceed 1, and that is not a bug.** The c-product is a bilinear
-    form, not an inner product: Cauchy-Schwarz does not apply, so the normalized
-    magnitude is a similarity measure rather than a projection coefficient. It
-    stays at or below 1 for near-real states -- H2+'s narrow Rydberg resonances
-    score 0.87-0.99 -- and drifts above 1 as a state becomes genuinely complex.
-    Measured on N2's broad anion resonances (`Gamma` 4.9e-3 to 7.2e-3 Ha), the
-    six clean identifications score 1.02, 1.05, 1.08, 1.11, 1.15 and 1.19,
-    rising monotonically with the width. Read the value as "how much like this
-    BO state", and read a value far from 1 in EITHER direction as a state the BO
-    picture describes poorly.
+    form, so Cauchy-Schwarz does not bound it. With both states c-normalized the
+    value is exactly `|c(a, b)|`, and the inflation over the Hermitian intuition
+    is `1/sqrt(rho_a rho_b)`, where::
+
+        rho = |c(psi, psi)| / ||psi||^2
+
+    measures how close to REAL-VALUED (up to one global phase) a state is: 1 for
+    a real vector, falling as the state acquires an internal phase profile.
+    Measured on N2's broad anion resonances the six clean identifications score
+    1.02 to 1.19, rising monotonically with `Gamma` as `rho` falls 0.66 to 0.42;
+    H2+'s narrow Rydberg resonances stay at 0.87-0.99 because they are nearly
+    real.
+
+    `rho` is NOT `real_weight`, and substituting one for the other is wrong.
+    N2's poles have `rho` of 0.42-0.66 while sitting 96 % inside the unscaled
+    region -- well localized, and genuinely complex where they live, because a
+    broad resonance is. H2+'s high Rydberg poles have both collapse together,
+    for the different reason that their orbitals leave the box. `rho` explains
+    the inflation; `real_weight` catches the escape.
+
+    **Do NOT "fix" this by dividing by the Euclidean norms.** `|c(a,b)| /
+    (||a|| ||b||)` is bounded by 1 and is WRONG here, which was measured rather
+    than argued. Its denominator weights the exponentially growing ECS tail --
+    reintroducing exactly the contamination the c-product's numerator cancels,
+    which is the same error as using `vdot`. On H2+ window 0 it collapses to
+    0.03, 0.008 and 0.006 for three states whose node counts identify them
+    unambiguously as `Ry_14..Ry_16 v=1`, and it re-ranks all three onto the
+    wrong (compact) partner. It penalizes diffuse states for being diffuse.
+
+    The right response to a state whose `real_weight` is small is not a
+    different overlap: it is to report the localization and treat the state as
+    box-limited. `pair_by_overlap` does that.
 
     Returns `0.0` when either vector is (numerically) self-orthogonal, which is
     the honest answer: the normalization it would need does not exist.
@@ -171,6 +230,38 @@ def overlap(a: npt.NDArray[np.complex128], b: npt.NDArray[np.complex128]) -> flo
     if na == 0 or nb == 0:
         return 0.0
     return float(abs(complex(c_product(a, b)) / np.sqrt(na * nb)))
+
+
+def real_weight(psi: npt.NDArray[np.complex128], tgrid: TensorGrid) -> float:
+    """Fraction of `|psi|^2` inside the UNSCALED region of `tgrid`.
+
+    How much of a state the grid actually holds, as opposed to pushes into the
+    rotated tail. `qscat.core.lcp.ResonanceLevels` reports exactly this for 1-D
+    levels; the 2-D path had no equivalent, and the gap hid a real defect.
+
+    Distinct from the `rho = |c(psi,psi)| / ||psi||^2` that inflates `overlap`
+    above 1 (see there): `rho` measures how close to real-valued a state is,
+    this measures where it lives. N2's poles sit at `real_weight` 0.96 with
+    `rho` 0.42-0.66 -- localized, and genuinely complex where they live. The two
+    move together only when the cause is a tail.
+
+    **The overlap cannot see this and is not supposed to.** The c-product
+    cancels the rotated tail by construction, so a state that is 97 % tail still
+    pairs at 0.99 with the BO product it genuinely is -- a correct answer to the
+    question asked, and a badly misleading summary of the state. Measured on H2+
+    window 0, `real_weight` falls 0.998 -> 0.68 -> 0.29 -> 0.12 -> 0.031 ->
+    0.008 -> 0.0003 as the Rydberg series climbs toward its threshold: those
+    orbitals are simply larger than the 300-bohr box, and their overlaps stay at
+    0.99 throughout.
+
+    Returns a value in `[0, 1]`. Near 1 the grid holds the state; small values
+    mean the answer is about the box, not the physics.
+    """
+    p2 = np.abs(np.asarray(psi, dtype=np.complex128)) ** 2
+    total = float(p2.sum())
+    if total == 0.0:
+        return 0.0
+    return float(p2[tgrid.real_mask()].sum() / total)
 
 
 def pair_by_overlap(
@@ -185,6 +276,8 @@ def pair_by_overlap(
     max_shift_ev: float = MAX_SHIFT_EV,
     n_eff_max: float | None = None,
     basis_complete: bool | None = None,
+    localization: float | None = None,
+    min_localization: float = MIN_LOCALIZATION,
 ) -> OverlapPair:
     """Pair one exact pole to the BO level it most resembles, with checks.
 
@@ -214,6 +307,12 @@ def pair_by_overlap(
         all its vibrational levels are built. **It is a claim, not a check** --
         asserting it wrongly converts every `basis-limited` verdict into
         `spurious`, which is the one verdict that rejects a pole.
+    localization : float, optional
+        This pole's `real_weight`. Supply it: the overlap is blind to a state
+        that has left the box, by design, so without this a `box-limited` pole
+        is reported as a clean identification.
+    min_localization : float, optional
+        Below this `real_weight`, the verdict is `box-limited`.
 
     Returns
     -------
@@ -256,6 +355,12 @@ def pair_by_overlap(
         verdict, level = "basis-limited", None
     elif best_v < no_partner:
         verdict, level = "spurious", None
+    elif localization is not None and localization < min_localization:
+        # Ordered ahead of the match-quality verdicts deliberately: a state the
+        # grid does not hold can still pair beautifully, and saying "ok" about
+        # it is the failure this verdict exists to prevent. The label is kept
+        # (the identification may well be right) but nothing is quotable.
+        verdict, level = "box-limited", best_k
     elif best_v < weak:
         verdict, level = "weak", best_k
     elif best_v > 0 and second_v / best_v > mixed_ratio:

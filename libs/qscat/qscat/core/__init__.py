@@ -105,6 +105,7 @@ from .assignment import (
     pair_one_to_one,
     peak_alignment,
     peak_positions,
+    real_weight,
 )
 from .bo import (
     BoBasis,
@@ -205,6 +206,7 @@ __all__ = [
     "PeakAlignment",
     "peak_positions",
     "peak_alignment",
+    "real_weight",
     "gaussian_coeffs",
     "initial_state",
     "outgoing_channel",

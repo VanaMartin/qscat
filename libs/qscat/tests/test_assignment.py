@@ -435,3 +435,106 @@ def test_basis_complete_lets_a_neutral_caller_assert_coverage():
         ).verdict
         == "basis-limited"
     )
+
+
+# --- real_weight and the box-limited verdict ---------------------------------
+
+
+def test_real_weight_measures_the_unscaled_fraction():
+    """1 when the state lives entirely in the real region, 0 when entirely out."""
+    from qscat.core.assignment import real_weight
+    from qscat.dvr import TensorGrid
+
+    tg = TensorGrid([_elec(35.0), _nuc(25.0)])
+    mask = tg.real_mask()
+    inside = np.zeros(tg.size, dtype=np.complex128)
+    inside[mask] = 1.0
+    outside = np.zeros(tg.size, dtype=np.complex128)
+    outside[~mask] = 1.0
+
+    assert real_weight(inside, tg) == pytest.approx(1.0)
+    assert real_weight(outside, tg) == pytest.approx(0.0)
+    assert real_weight(inside + outside, tg) == pytest.approx(
+        mask.sum() / tg.size, rel=1e-12
+    )
+    assert real_weight(np.zeros(tg.size, dtype=np.complex128), tg) == 0.0
+
+
+def test_the_overlap_is_blind_to_a_state_leaving_the_box():
+    """The failure `box-limited` exists to catch, in miniature.
+
+    The c-product cancels the rotated tail by construction, so scaling a state's
+    tail amplitude leaves its overlap untouched while `real_weight` collapses.
+    On H2+ this is not a toy effect: window 0's top states pair at 0.99 with
+    `real_weight` of 0.03 and below, because those Rydberg orbitals are larger
+    than the 300-bohr box.
+    """
+    from qscat.core.assignment import real_weight
+    from qscat.dvr import TensorGrid
+
+    tg = TensorGrid([_elec(35.0), _nuc(25.0)])
+    mask = tg.real_mask()
+    a = np.zeros(tg.size, dtype=np.complex128)
+    b = np.zeros(tg.size, dtype=np.complex128)
+    a[mask] = 1.0
+    b[mask] = 1.0
+    # Tail amplitude in a c-product-cancelling pair (+z on one side, ∓z the
+    # other): the bilinear pairing sums to zero over the tail, as ECS intends.
+    tail = np.flatnonzero(~mask)
+    half = tail.size // 2
+    for v, sign in ((a, +1.0), (b, +1.0)):
+        v[tail[:half]] = sign * 30.0
+        v[tail[half : 2 * half]] = -sign * 30.0
+
+    assert overlap(a, b) == pytest.approx(overlap(a[mask], b[mask]), rel=1e-9)
+    assert real_weight(a, tg) < 0.01, "the tail dominates the probability"
+
+
+def test_a_delocalized_state_is_box_limited_not_ok():
+    basis = _toy_basis()
+    psi = basis[(1, 0)].psi
+    assert pair_by_overlap(-0.098 + 0j, psi, basis).verdict == "ok"
+
+    p = pair_by_overlap(-0.098 + 0j, psi, basis, localization=0.03)
+    assert p.verdict == "box-limited"
+    assert p.level == (1, 0), "the identification is kept -- it may well be right"
+    assert p.is_resonance, "box-limited is about the grid, not about the pole"
+    assert not p.is_quotable
+
+
+def test_box_limited_outranks_the_match_quality_verdicts():
+    """A state that has left the box must not be reported as merely `mixed`.
+
+    `box-limited` is the actionable defect; `mixed` would send a reader looking
+    for a curve crossing that is not the problem.
+    """
+    basis = _toy_basis()
+    blend = (basis[(0, 0)].psi + basis[(1, 1)].psi) / np.sqrt(2.0)
+    assert pair_by_overlap(-0.099 + 0j, blend, basis).verdict == "mixed"
+    assert (
+        pair_by_overlap(-0.099 + 0j, blend, basis, localization=0.1).verdict == "box-limited"
+    )
+
+
+def test_identity_verdicts_still_outrank_box_limited():
+    """`spurious` is about whether there is a state at all -- it comes first."""
+    basis = _toy_basis()
+    orphan = np.zeros(6, dtype=np.complex128)
+    orphan[5] = 1.0
+    p = pair_by_overlap(
+        -0.098 + 0j, orphan, basis, basis_complete=True, localization=0.01
+    )
+    assert p.verdict == "spurious"
+    assert not p.is_resonance
+
+
+def test_localization_is_opt_in():
+    """Omitting it must not silently pass a delocalized state as clean."""
+    basis = _toy_basis()
+    psi = basis[(0, 0)].psi
+    assert pair_by_overlap(-0.100 + 0j, psi, basis).verdict == "ok"
+    assert pair_by_overlap(-0.100 + 0j, psi, basis, localization=1.0).verdict == "ok"
+    assert (
+        pair_by_overlap(-0.100 + 0j, psi, basis, localization=0.6, min_localization=0.8).verdict
+        == "box-limited"
+    )
