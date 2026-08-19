@@ -1601,37 +1601,45 @@ invisible one."
 
 ## Rollout: notes awaiting conversion
 
-Three pilot notes are converted — `femdvr-ecs`, `nonlocal-resonance-model` and
-`n2-2d-cross-section`. The rest convert as each is next touched. A transcription
-error in an equation is invisible to every test in this repository, so a single
-380 KB sweep would trade a visible defect for an invisible one.
+All twenty are converted. The staging this section described -- convert as
+each note is next touched -- was overtaken: the whole rollout was carried out
+in one branch after the pilot landed, group by group along the sidebar's own
+sections, with a numeric-token multiset diff run per file so that no measured
+value could change under cover of a notation change.
 
-A note is done when `tests/test_docs_portability.py` passes and no ASCII equation
-remains outside a code fence. Every note below already has its fenced blocks
-language-tagged (commit `e92b933`), so what remains is the mathematics itself.
+- [x] nd-tensor-hamiltonian
+- [x] discretisation-tuning
+- [x] mumps-sparse-backend
+- [x] ti-energy-sweep-reuse
+- [x] shift-invert-eigensolver
+- [x] qscat-core-scattering
+- [x] n2-resonance
+- [x] n2-cross-section
+- [x] n2-td-cross-section
+- [x] n2-2d-td-cross-section
+- [x] td-extractors
+- [x] td-da
+- [x] diatomic-ve-cross-sections
+- [x] h2plus-dr
+- [x] lcp-resonance-levels
+- [x] exact-2d-resonances
+- [x] h2plus-resonance-states
+- [x] angular-coupled-channels
+- [x] optimization-targets (no mathematics to convert; its fences are
+      profiler output and stay `text`)
+- [x] validation-harnesses
 
-- [ ] nd-tensor-hamiltonian
-- [ ] discretisation-tuning
-- [ ] mumps-sparse-backend
-- [ ] ti-energy-sweep-reuse
-- [ ] shift-invert-eigensolver
-- [ ] qscat-core-scattering
-- [ ] n2-resonance
-- [ ] n2-cross-section
-- [ ] n2-td-cross-section
-- [ ] n2-2d-td-cross-section
-- [ ] td-extractors
-- [ ] td-da
-- [ ] diatomic-ve-cross-sections
-- [ ] h2plus-dr
-- [ ] lcp-resonance-levels
-- [ ] exact-2d-resonances
-- [ ] h2plus-resonance-states
-- [ ] angular-coupled-channels
-- [ ] optimization-targets
-- [ ] validation-harnesses
+Two conventions were settled during the rollout and belong with the others in
+the `qscat-conventions` skill:
 
-Flagged during the fence audit for a second look when their turn comes:
-`optimization-targets` and `angular-coupled-channels` hold ASCII-art and
-pseudo-code currently tagged `text`, which may read better as mathematics once
-those notes are converted.
+- **Headings stay plain unicode.** A heading also renders in the sidebar and
+  in `toctree` entries, where MathJax does not run, so `$^2\Pi_g$` in a title
+  would show as literal source there.
+- **Level labels in table cells stay backticked.** `v = 0`, `v = 1` read as
+  labels rather than equations, and a table cell is where an unescaped pipe
+  inside maths silently drops content -- the defect the NRM note had to fix.
+
+One gap in the earlier fence audit was found and closed here: it matched
+fences at line start, so three fences indented inside list items
+(`angular-coupled-channels`, `n2-2d-td-cross-section`, `n2-cross-section`)
+were never counted. All three held equations and are now display maths.

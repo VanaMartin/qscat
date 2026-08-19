@@ -38,6 +38,14 @@ handle.
   github.com, so it is a deliberate cost.
 - **No custom macros.** Spell out `\Psi^{(+)}`, `\sigma_\mathrm{DA}`.
 - Atomic units are stated once per note, not per equation.
+- **Headings stay plain unicode.** A heading also renders in the sidebar and in
+  `toctree` entries, where MathJax does not run — `$^2\Pi_g$` in a title shows
+  as literal source there. Write `²Π_g` in the heading and use maths in the body.
+- **Inside a Markdown table cell, never write a bare `|` in maths** — it is
+  read as a column separator, which splits the row and silently drops a cell
+  from the built page without any build warning. Use `\vert` (or `\lvert` /
+  `\rvert`). Short level labels like `v = 0` are better left as plain text in
+  table cells for the same reason.
 - `sphinx-design` directives (`{dropdown}`, `{grid}`, `{tab-set}`) are for
   site-first pages only — `docs/molecules/` and the section index pages.
 
