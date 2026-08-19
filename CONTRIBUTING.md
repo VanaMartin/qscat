@@ -30,6 +30,19 @@ uv run pytest                  # full suite incl. @slow (production-scale)
 
 CI runs the same on 3.12/3.13, plus a clean-venv import check and `twine check`.
 
+## Writing documentation
+
+Physics notes live in `docs/physics/`, one per method. They are read both as
+files in a clone and as pages on <https://vanamartin.github.io/qscat>, so
+they are restricted to Markdown and LaTeX that renders in both — see the
+"Mathematics in Documentation" section of the `qscat-conventions` skill for
+the rules and the canonical symbol table.
+
+```bash
+uv run pytest tests/test_docs_portability.py    # enforces those rules
+uv run sphinx-build -b html -W --keep-going docs docs/_build/html
+```
+
 ## The method lifecycle
 
 Every numerical capability moves through five stages (enforced by the
