@@ -152,7 +152,7 @@ from .dissociation import anion_electronic_states
 from .time_dependent import (
     Extractor,
     PropagationResult,
-    _quadrature_weights,
+    quadrature_weights,
     sigma_from_correlations,
 )
 
@@ -206,7 +206,7 @@ def _tw_da_s_vector_one_energy(
     S = np.zeros(n_channels, dtype=np.complex128)
     if E <= 0.0:
         return S
-    weights = _quadrature_weights(result.t.size)
+    weights = quadrature_weights(result.t.size)
     e_tot = E + eps[v_init]
     k = float(np.sqrt(2.0 * E))
     eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
@@ -465,7 +465,7 @@ def _dirac_s_vector_one_energy(
     S = np.zeros(len(vprimes), dtype=np.complex128)
     if E <= 0.0:
         return S
-    weights = _quadrature_weights(result.t.size)
+    weights = quadrature_weights(result.t.size)
     e_tot = E + eps[v_init]
     k = float(np.sqrt(2.0 * E))
     eta_in = eta_incident(grid, k, model.ell, **wp_in)
@@ -549,7 +549,7 @@ def _dirac_da_s_vector_one_energy(
     S = np.zeros(n_channels, dtype=np.complex128)
     if E <= 0.0:
         return S
-    weights = _quadrature_weights(result.t.size)
+    weights = quadrature_weights(result.t.size)
     e_tot = E + eps[v_init]
     k = float(np.sqrt(2.0 * E))
     eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
@@ -848,7 +848,7 @@ def _flux_s_vector_one_energy(
     if E <= 0.0:
         return S
     mu_e = 1.0
-    weights = _quadrature_weights(t.size)
+    weights = quadrature_weights(t.size)
     e_tot = E + eps[v_init]
     k = float(np.sqrt(2.0 * E))
     eta_in = eta_incident(grid, k, model.ell, **wp_in)
@@ -933,7 +933,7 @@ def _flux_da_s_vector_one_energy(
     S = np.zeros(n_channels, dtype=np.complex128)
     if E <= 0.0:
         return S
-    weights = _quadrature_weights(t.size)
+    weights = quadrature_weights(t.size)
     e_tot = E + eps[v_init]
     k = float(np.sqrt(2.0 * E))
     eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
