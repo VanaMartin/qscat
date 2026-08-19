@@ -13,20 +13,26 @@ observable, `docs/superpowers/specs/2026-07-22-n2-td-cross-section-design.md`.
 
 ## Physical picture
 
-`docs/physics/n2-cross-section.md` computes `sigma_{v_init->v'}(E)` by solving
-the driven (resolvent) equation `(E_tot*I - H_res) @ xi = d_{v_init}` directly
+`docs/physics/n2-cross-section.md` computes $\sigma_{v_\mathrm{init} \to v'}(E)$ by solving
+the driven (resolvent) equation $(E_\mathrm{tot}\mathbb{1} - H_\mathrm{res})\,\xi = d_{v_\mathrm{init}}$ directly
 for each collision energy `E` -- a **time-independent (TI)** approach. This
 document is a **time-dependent (TD)** route to the identical observable:
-prepare the doorway state as a wavepacket at `t=0`, propagate it forward under
+prepare the doorway state as a wavepacket at $t=0$, propagate it forward under
 the same non-Hermitian nuclear Hamiltonian `H_res`, record its correlation
 with each doorway function `d_v'(R)` over time, and Fourier-transform that
 correlation function into the energy domain. The two methods are related by
 
-```text
-S_TD(E) = (1/i) * integral_0^inf exp(i*E_tot*t) * <d_v'|exp(-i*H_res*t)|d_v_init> dt
-        = <d_v'|(E_tot*I - H_res)^-1|d_v_init>
-        = S_TI(E)
-```
+$$
+\begin{aligned}
+S_\mathrm{TD}(E)
+  &= \frac{1}{i} \int_0^{\infty} e^{\,i E_\mathrm{tot} t}\,
+     \langle d_{v'} | e^{-i H_\mathrm{res} t} | d_{v_\mathrm{init}} \rangle
+     \,\mathrm{d}t \\
+  &= \langle d_{v'} | (E_\mathrm{tot}\mathbb{1} - H_\mathrm{res})^{-1}
+     | d_{v_\mathrm{init}} \rangle \\
+  &= S_\mathrm{TI}(E)
+\end{aligned}
+$$
 
 in the long-propagation-time limit -- the Laplace transform of the propagator
 is exactly the resolvent. TD and TI are not two different physical models;
@@ -39,37 +45,41 @@ modes.
 ## Method
 
 1. **Crank-Nicolson propagator** (`qscat.evolution.make_cn_stepper(H, dt)`):
-   the general, N₂-independent primitive. Advances `psi_{n+1}` from `psi_n`
-   via the Cayley form `(I + i*H*dt/2) @ psi_{n+1} = (I - i*H*dt/2) @ psi_n`,
-   exact to `O(dt^3)` per step, unconditionally stable, unitary for Hermitian
+   the general, N₂-independent primitive. Advances $\psi_{n+1}$ from $\psi_n$
+   via the Cayley form
+   $(\mathbb{1} + \tfrac{i}{2}H\,\mathrm{d}t)\,\psi_{n+1}
+   = (\mathbb{1} - \tfrac{i}{2}H\,\mathrm{d}t)\,\psi_n$,
+   exact to $O(\mathrm{d}t^3)$ per step, unconditionally stable, unitary for Hermitian
    `H`, and norm-decaying when `H` has a negative-imaginary-part
    (absorbing/optical) component. `H` may be a general complex,
    non-Hermitian matrix; the LHS matrix is LU-factored once per call, and
    each `stepper(psi)` call reuses that factorization
    (`scipy.linalg.lu_factor`/`lu_solve`).
-2. **Initial wavepacket**: `psi(0) = d_{v_init}(R)`, the same doorway function
-   `d_v(R) = sqrt(Gamma(R)/(2*pi)) * chi_v(R)` as the TI solver
+2. **Initial wavepacket**: $\psi(0) = d_{v_\mathrm{init}}(R)$, the same doorway
+   function $d_v(R) = \sqrt{\Gamma(R)/2\pi}\;\chi_v(R)$ as the TI solver
    (`docs/physics/n2-cross-section.md`).
-3. **Propagation**: `psi(t)` evolves under the *time-independent*, non-
-   Hermitian `H_res = T_nuc(mu) + diag(V_d(R) - i*Gamma(R)/2)` -- identical
+3. **Propagation**: $\psi(t)$ evolves under the *time-independent*, non-
+   Hermitian $H_\mathrm{res} = T_\mathrm{nuc}(\mu)
+   + \mathrm{diag}(V_d(R) - \tfrac{i}{2}\Gamma(R))$ -- identical
    to the TI solver's `H_res`, just propagated rather than resolvent-solved.
-   The `-i*Gamma/2` term makes `||psi(t)||` decay: the resonance depletes
+   The $-\tfrac{i}{2}\Gamma$ term makes $\|\psi(t)\|$ decay: the resonance depletes
    into the dissociative-attachment/autodetachment channels as the ECS
    nuclear grid absorbs outgoing flux.
-4. **Correlation function**: `c_{v'}(t_n) = <d_{v'}|psi(t_n)>` recorded at
+4. **Correlation function**: $c_{v'}(t_n) = \langle d_{v'} | \psi(t_n) \rangle$ recorded at
    each time step -- the DVR **c-product** (a plain coefficient dot, no
    conjugate), matching the TI solver's S-matrix convention (the DVR basis
-   is already `1/sqrt(weight)`-normalized, and `psi(t_n)` is a genuinely
+   is already $1/\sqrt{w}$-normalized, and $\psi(t_n)$ is a genuinely
    complex ECS-driven state, not a Hermitian-normalized eigenvector).
 5. **Energy transform**:
-   `S_{v'}(E) = (1/i) * sum_n w_n * exp(i*(E + eps[v_init])*t_n) * c_{v'}(t_n) * dt`,
+   $$S_{v'}(E) = \frac{1}{i} \sum_n w_n\,
+e^{\,i(E + \varepsilon_{v_\mathrm{init}})t_n}\,c_{v'}(t_n)\,\mathrm{d}t,$$
    with composite Simpson weights `w_n` (trapezoidal fallback for an even
    sample count), then
-   `sigma_{v_init->v'}(E) = 4*pi^3*|S|^2/(2*E)`, zero if `E<=0` or the final
+   $\sigma_{v_\mathrm{init} \to v'}(E) = 4\pi^3 |S|^2 / 2E$, zero if $E \le 0$ or the final
    channel is energetically closed.
 
 Because the correlation functions `c_v'(t_n)` are `E`-independent, ONE
-propagation from `v_init=0` yields `sigma_TD` at every `(E, v')` pair of
+propagation from `v_init=0` yields $\sigma_\mathrm{TD}$ at every $(E, v')$ pair of
 interest -- not one propagation per anchor (`td_cross_section.td_ve_cross_section`
 accepts `E` and `vprimes` as arrays/lists for exactly this reason).
 
@@ -77,19 +87,20 @@ accepts `E` and `vprimes` as arrays/lists for exactly this reason).
 
 The resonance's own eigenmodes of `H_res` sit at `Re(E) ~ -0.7..-0.4` Ha
 (`eps[0] ~ -0.745` Ha shifted by the ~2.3-2.4 eV Π_g resonance), and the
-Crank-Nicolson Cayley-transform phase error per step grows as `~(E*dt)^3`,
+Crank-Nicolson Cayley-transform phase error per step grows as $\sim (E\,\mathrm{d}t)^3$,
 accumulating over `n_steps` steps -- so accuracy requires `dt` small relative
-to `1/|E|`, not just `n_steps` large.
+to $1/|E|$, not just `n_steps` large.
 
-- `T = n_steps*dt = 1500` a.u. is long enough to deplete the resonance
-  (`Gamma(R0) ~ 0.017` Ha gives a decay time `~1/(Gamma/2) ~ 120` a.u., so
-  `T=1500` is >10 decay times) -- confirmed empirically:
-  `||psi(T)||/||psi(0)|| ~ 1e-2`, comfortably `< 0.1`.
+- $T = n_\mathrm{steps}\,\mathrm{d}t = 1500$ a.u. is long enough to deplete the
+  resonance ($\Gamma(R_0) \sim 0.017$ Ha gives a decay time
+  $\sim 1/(\Gamma/2) \sim 120$ a.u., so $T=1500$ is more than 10 decay times) --
+  confirmed empirically:
+  $\|\psi(T)\| / \|\psi(0)\| \sim 10^{-2}$, comfortably $< 0.1$.
 - `dt = 0.025` a.u. (`n_steps = 60000`) keeps the per-step Cayley phase error
   for these modes under ~1e-4 rad/step.
 - **Convergence check** (`test_td_cross_section.py`'s V2): halving `dt` (same
   total `T`, so `n_steps` doubles to 120000) changes `sigma_TD` at
-  `(E=0.1, v'=1)` by `< 5%` -- the discretization is in the converged regime,
+  $(E=0.1,\, v'=1)$ by $< 5\%$ -- the discretization is in the converged regime,
   not still drifting.
 
 This same `(dt, n_steps) = (0.025, 60000)` config is reused, unchanged, for
@@ -104,8 +115,8 @@ cost the harness already pays once for Group C5 (`_build_system` is
 Unlike the TI-vs-Houfek comparison in `docs/physics/n2-cross-section.md`
 (genuinely different methods/dimensionality, so only loose, factor-of-3
 agreement is expected), TD and TI solve for the *same* `S`-matrix by
-construction (see "Physical picture" above) -- so `sigma_TD` is checked
-against `sigma_TI` as an **exact differential oracle**, gated at `rtol <=
+construction (see "Physical picture" above) -- so $\sigma_\mathrm{TD}$ is checked
+against $\sigma_\mathrm{TI}$ as an **exact differential oracle**, gated at `rtol <=
 0.10` (the residual is entirely the finite-`dt`/finite-`T` discretization,
 already shown converged by the V2 check above).
 
@@ -119,7 +130,7 @@ converged config:
 
 `validation/n2/td_check.py` extends this to all 4 GATED C5 anchors (Group D
 of the harness), also checking the same Houfek factor-3 bound C5 uses (since
-TD shares the TI solver's `V_d(R)`/`Gamma(R)`/doorway machinery, it inherits
+TD shares the TI solver's $V_d(R)$ / $\Gamma(R)$ / doorway machinery, it inherits
 the same 2 documented LCP-model limitations for the elastic/near-threshold
 anchors -- so only the 4 GATED anchors are re-checked under Group D, not the
 2 DOCUMENTED-LIMITED ones):
@@ -131,7 +142,7 @@ anchors -- so only the 4 GATED anchors are re-checked under Group D, not the
 | 0.2 | 3 | 1.876e-3 | 1.812e-3 | 1.035 | 2.193e-3 | 0.855 |
 | 0.1 | 1 | 6.223 | 6.182 | 1.007 | 6.121 | 1.017 |
 
-All 4 within `rtol=0.10` of `sigma_TI` and within the factor-3 Houfek bound
+All 4 within `rtol=0.10` of $\sigma_\mathrm{TI}$ and within the factor-3 Houfek bound
 -- **Group D is PASS**, harness now 0 PENDING.
 
 ## Promotion note
@@ -148,7 +159,7 @@ preserving the project's original import path.
   `dt`, unitarity (norm conservation) for Hermitian `H`, norm decay for
   non-Hermitian (absorbing) `H` -- **PASS**.
 - `projects/n2_td_cross_section/test_td_cross_section.py`: V1 (TD ~= TI at
-  two anchors, `rtol<=0.10`, physical `sigma`), V2 (convergence in `dt`,
+  two anchors, `rtol<=0.10`, physical $\sigma$), V2 (convergence in `dt`,
   `rtol<=0.05`; resonance depletion, `norm_ratio<0.1`) -- **PASS**.
 - `validation/n2/experiment.py` Group D: all 4 GATED anchors, **PASS**;
   harness exit code `0`, 0 PENDING.

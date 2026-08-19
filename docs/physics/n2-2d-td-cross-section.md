@@ -28,11 +28,17 @@ domain. This is the **time-domain twin** of #6: two structurally unrelated compu
 to the same number is a strong, non-trivial cross-check — not a restatement of #6, and not
 a new physical model.
 
-```text
-S_TD(E) = (1/i) * integral_0^inf exp(i*E_tot*t) * <Phi_out|exp(-i*H_2D*t)|Psi_i(0)> dt
-        = <Phi_out|(E_tot*I - H_2D)^{-1}|Psi_i(0)>
-        = S_TI(E)                                          [the exact-oracle relation]
-```
+$$
+\begin{aligned}
+S_\mathrm{TD}(E)
+  &= \frac{1}{i} \int_0^{\infty} e^{\,i E_\mathrm{tot} t}\,
+     \langle \Phi_\mathrm{out} | e^{-i H_\mathrm{2D} t} | \Psi_i(0) \rangle
+     \,\mathrm{d}t \\
+  &= \langle \Phi_\mathrm{out} |
+     (E_\mathrm{tot}\mathbb{1} - H_\mathrm{2D})^{-1} | \Psi_i(0) \rangle \\
+  &= S_\mathrm{TI}(E) &&\text{the exact-oracle relation}
+\end{aligned}
+$$
 
 in the long-propagation-time limit — the Laplace transform of the propagator is exactly
 the resolvent #6 computes directly.
@@ -70,14 +76,21 @@ the resolvent #6 computes directly.
    (`correlation.outgoing_channel`).
 4. **Tannor-Weeks energy transform** (`td_cross_section.sigma_from_correlations` /
    `td_ve_cross_section_2d`):
-   ```
-   S_{v->v'}(E) = [2*pi * conj(eta_out_{v'}(E)) * eta_in_v(E)]^{-1}
-                  * sum_n w_n exp(i*E_tot*t_n) c_{v'}(t_n) * dt
-   sigma_{v->v'}(E) = pi |S - S_ref|^2 / (2E)               [bohr^2, = #6's 4 pi^3 |T|^2 / (2E)]
-   ```
-   `E_tot = E + eps[v_init]`, `w_n` composite Simpson weights (trapezoid fallback), and
+
+   $$
+   \begin{aligned}
+   S_{v \to v'}(E) &= \left[2\pi\,
+       \overline{\eta^\mathrm{out}_{v'}(E)}\;\eta^\mathrm{in}_v(E)\right]^{-1}
+       \sum_n w_n\, e^{\,i E_\mathrm{tot} t_n}\, c_{v'}(t_n)\,\mathrm{d}t \\
+   \sigma_{v \to v'}(E) &= \frac{\pi\,|S - S_\mathrm{ref}|^2}{2E}
+       &&\text{bohr}^2,\ =\ \text{\#6's } 4\pi^3|T|^2/2E
+   \end{aligned}
+   $$
+
+   $E_\mathrm{tot} = E + \varepsilon_{v_\mathrm{init}}$, $w_n$ composite Simpson
+   weights (trapezoid fallback), and
    `eta_in`/`eta_out` **deconvolve** the wavepacket's own spectral content, leaving the
-   pure single-energy `S`-matrix element. Because `c_{v'}(t)` does not depend on `E`, this
+   pure single-energy $S$-matrix element. Because $c_{v'}(t)$ does not depend on $E$, this
    transform can be evaluated at *any number* of energies from **one stored trajectory** —
    the whole `sigma(E)` "boomerang" curve is free once the single ~3.5-minute propagation
    is done (`convergence.sigma_curve`).
