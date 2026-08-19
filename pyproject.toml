@@ -30,6 +30,11 @@ docs = [
     "sphinx>=8",
     "myst-parser>=4",
     "furo>=2024.8",
+    # Copy button on code blocks; card/dropdown/tab directives for the
+    # site-first molecule guides; OpenGraph tags so shared links preview.
+    "sphinx-copybutton>=0.5.2",
+    "sphinx-design>=0.7",
+    "sphinxext-opengraph>=0.13",
 ]
 dev = [
     "pytest>=8",
