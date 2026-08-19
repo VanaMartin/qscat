@@ -24,7 +24,7 @@ back-substitution behind it is a rounding error by comparison.
 The structure of the physics makes this worse, not better, in the way that
 matters for planning. In a driven-equation (Lippmann-Schwinger / T-matrix)
 scattering calculation, **every** final channel at a single collision energy
-shares the same matrix `A = (E_tot·I − H)`: one factorization serves all
+shares the same matrix $A = E_\mathrm{tot}\mathbb{1} - H$: one factorization serves all
 right-hand sides at that energy, so total cost scales with the number of
 *energies* sampled, not the number of channels. `SparseLU` exists precisely to
 factor once and solve many. That makes the per-energy factorization the one
@@ -42,31 +42,31 @@ hour for all of N₂/NO/F₂" bar this sub-project was chartered to clear.
 Under exterior complex scaling (ECS; see `docs/physics/femdvr-ecs.md` and the
 "ECS consequences" section of `docs/physics/nd-tensor-hamiltonian.md`), the
 assembled Hamiltonian `H` is **complex symmetric but never Hermitian**:
-`H = Hᵀ ≠ H†`. Both matrices this backend is asked to factor inherit that
+$H = H^{T} \neq H^{\dagger}$. Both matrices this backend is asked to factor inherit that
 property directly, because both are `H` plus a scalar multiple of the identity:
 
-- the **driven / resolvent matrix** `A = (E_tot·I − H)` of sub-project #6
-  (`n2_2d_cross_section`): `Aᵀ = E_tot·I − Hᵀ = E_tot·I − H = A`.
-- the **Crank-Nicolson propagation matrix** `A = (I + iH·dt/2)` of sub-project
+- the **driven / resolvent matrix** $A = E_\mathrm{tot}\mathbb{1} - H$ of sub-project #6
+  (`n2_2d_cross_section`): $A^{T} = E_\mathrm{tot}\mathbb{1} - H^{T} = E_\mathrm{tot}\mathbb{1} - H = A$.
+- the **Crank-Nicolson propagation matrix** $A = \mathbb{1} + \tfrac{i}{2}H\,\mathrm{d}t$ of sub-project
   #7 (`n2_2d_td_cross_section`, via `make_sparse_cn_stepper`):
-  `Aᵀ = I + iHᵀ·dt/2 = A`.
+  $A^{T} = \mathbb{1} + \tfrac{i}{2}H^{T}\,\mathrm{d}t = A$.
 
 Adding a scalar diagonal preserves symmetry, so both are complex-symmetric,
-`A = Aᵀ`. They are *not* Hermitian (the ECS tail and, for CN, the `i` see to
+$A = A^{T}$. They are *not* Hermitian (the ECS tail and, for CN, the $i$ see to
 that), so none of the usual Hermitian/positive-definite fast paths apply -- only
 the plain complex-symmetric one.
 
-SuperLU is a general **unsymmetric** LU solver. It has no notion of `A = Aᵀ`: it
+SuperLU is a general **unsymmetric** LU solver. It has no notion of $A = A^{T}$: it
 stores and factors both the `L` and the `U` triangle independently and computes
 a fill-reducing ordering (COLAMD by default) that targets a general sparsity
 pattern. Handing it a complex-symmetric matrix throws away, silently, exactly
 the structure that would halve the work and the storage. There is no SuperLU
-option that recovers it; exploiting `A = Aᵀ` requires a solver written for the
+option that recovers it; exploiting $A = A^{T}$ requires a solver written for the
 symmetric case.
 
 ## The MUMPS `SYM=2` backend
 
-MUMPS is that solver. Its `SYM=2` matrix type is *general symmetric* (`A = Aᵀ`,
+MUMPS is that solver. Its `SYM=2` matrix type is *general symmetric* ($A = A^{T}$,
 no definiteness assumed) -- exactly the complex-symmetric case here, as opposed
 to `SYM=1` (symmetric positive definite, which these matrices are not) or
 `SYM=0` (general unsymmetric). The backend drives it through python-mumps'
@@ -94,9 +94,9 @@ triangle handling were wrong.
 
 **The auto-detect must use a scaled tolerance, not exact equality -- or `SYM=2`
 never engages on real physics.** This is a subtle and important point. The real
-N₂ matrices are `A = Aᵀ` *mathematically*, but they are assembled by
+N₂ matrices are $A = A^{T}$ *mathematically*, but they are assembled by
 Kronecker-sum reordering of float arrays, so `A - Aᵀ` is not bit-zero: on the
-working deck, `max|A − Aᵀ| = 4.5e-13` against `max|A| = 1.3e4`, a **relative
+working deck, $\max|A - A^{T}| = 4.5 \times 10^{-13}$ against $\max|A| = 1.3 \times 10^{4}$, a **relative
 asymmetry of ~3.6e-17** -- one ULP, pure round-off. An *exact*-equality detect
 (`(abs(A − Aᵀ)).max() == 0`) therefore returns **False on every real N₂
 matrix**, silently routing the MUMPS backend onto `SYM=0` (general unsymmetric,
@@ -147,7 +147,7 @@ present.
 ## The benchmark
 
 `benchmarks/mumps_vs_superlu.py` builds the **real** N₂ 2-D driven matrix
-`A = (E_tot·I − H_2D)` (`H_2D` from
+$A = E_\mathrm{tot}\mathbb{1} - H_\mathrm{2D}$ (`H_2D` from
 `projects.n2_2d_cross_section.hamiltonian2d.build_h2d`, `E = 0.2 Ha`,
 complex-symmetric) at three grids and factors + solves it under each backend.
 The script **asserts nothing** about the speedup -- it measures. Each (grid,
@@ -225,7 +225,7 @@ still uses MUMPS's SCOTCH ordering but stores **both** triangles, so its
    Switching the *same* SCOTCH-ordered factorization from `SYM=0` to `SYM=2`
    drops the `fill_factor` by **roughly half** at every grid -- 6.89 → 3.54,
    7.26 → 3.68, 7.95 → 4.00 -- because `SYM=2` factors only the upper triangle
-   of `A = Aᵀ`. This is the ~**2× factor** in arithmetic and storage that
+   of $A = A^{T}$. This is the ~**2× factor** in arithmetic and storage that
    SuperLU structurally cannot recover (it has no symmetric mode), and it is now
    measured directly rather than asserted, by comparing the two MUMPS runs on
    identical matrices with identical ordering.
@@ -340,7 +340,7 @@ Markdown table; `--out PATH` also writes it to a file.
 ## See also
 
 - `docs/physics/nd-tensor-hamiltonian.md` -- `SparseLU`, the Kronecker-sum
-  Hamiltonian, the ECS complex-symmetry that makes `A = Aᵀ`, and the historical
+  Hamiltonian, the ECS complex-symmetry that makes $A = A^{T}$, and the historical
   SuperLU-only production cost this backend improves on.
 - `docs/physics/n2-2d-cross-section.md` -- sub-project #6, the driven
   `(E_tot·I − H)` solver whose factorization is the hot path.
