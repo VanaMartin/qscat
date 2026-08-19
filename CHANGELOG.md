@@ -12,6 +12,33 @@ installed package.
 ## [Unreleased]
 
 ### Added
+- **Rendered mathematics in the documentation.** `docs/conf.py` gained
+  `sphinx-copybutton`, `sphinx-design`, `sphinxext-opengraph` and
+  `sphinx.ext.githubpages`, plus equation numbering (`numfig`,
+  `math_eqref_format`) and Furo source links. `sphinx.ext.mathjax` and MyST
+  `dollarmath` had been loaded and unused since the site was created — every
+  physics note contained zero `$` characters. Three pilot notes are now
+  typeset (`femdvr-ecs`, `nonlocal-resonance-model`, `n2-2d-cross-section`);
+  the remaining nineteen convert as they are next touched, tracked in
+  `docs/superpowers/plans/2026-08-19-docs-latex-and-theory-ia.md`.
+- **A portability rule the notes are held to.** Notes under `docs/physics/`
+  are read both as files in a clone and as pages on the site, so they use only
+  what GitHub's renderer and MathJax both understand: plain `$...$`/`$$...$$`,
+  `\begin{aligned}` inside `$$`, `\tag{n}` for published equation numbers —
+  no MathJax macros, no `sphinx-design` directives. `tests/test_docs_portability.py`
+  enforces it; the convention and a canonical symbol table live in the
+  `qscat-conventions` skill.
+- **A navigable Theory section.** The sidebar's flat 22-entry list became seven
+  collapsible groups behind new index pages, plus `docs/physics/validation-harnesses.md`
+  as a flat entry recording what each harness under `validation/` gates, against
+  which oracle, at what tolerance. No note moved — 443 lines across 165 tracked
+  files cite those paths.
+- **Per-molecule guides** (`docs/molecules/{n2,no-f2,h2plus}.md`): what is known
+  about each molecule, the headline numbers with their caveats, and links into
+  the method notes. Nothing on the site previously answered "what do we know
+  about F₂".
+
+### Added
 - `qscat.core.exact_resonance_states` (+ `ExactResonanceStates`): poles of the FULL
   2-D S-matrix — eigenvalues `E_r − iΓ/2` of the complex-scaled electronic × nuclear
   Hamiltonian, with no Born-Oppenheimer separation, no discrete state and no local
