@@ -36,7 +36,13 @@ from .ingredients import NrmIngredients
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["continue_to_tail", "nonlocal_operator"]
+__all__ = [
+    "TAIL_COUPLING_MAX",
+    "check_nodes_coincide",
+    "check_tail_coupling",
+    "continue_to_tail",
+    "nonlocal_operator",
+]
 
 # The ECS tail must carry no appreciable coupling. Measured on F2/NO with
 # AsymptoticDiscreteState built at R_inf = R0 (the production choice):
@@ -50,7 +56,7 @@ __all__ = ["continue_to_tail", "nonlocal_operator"]
 # R_inf=10.7 but the ingredient range only sampled out to R=6.0): measured
 # 7.2e-7 there, within a factor of ~1.4 of this threshold and ~1e6x the
 # genuine R0 value above. See task-6-report.md for the full measurement.
-_TAIL_COUPLING_MAX = 1e-6
+TAIL_COUPLING_MAX = 1e-6
 
 
 def continue_to_tail(
@@ -73,7 +79,7 @@ def continue_to_tail(
     return out
 
 
-def _check_nodes_coincide(ing_R: npt.NDArray[np.float64], nuclear_grid: FemDvrEcsGrid) -> None:
+def check_nodes_coincide(ing_R: npt.NDArray[np.float64], nuclear_grid: FemDvrEcsGrid) -> None:
     """Require `ing_R` to be exactly the nuclear grid's real DVR nodes.
 
     `continue_to_tail` maps by NEAREST real R, which degrades silently rather
@@ -98,6 +104,31 @@ def _check_nodes_coincide(ing_R: npt.NDArray[np.float64], nuclear_grid: FemDvrEc
             "otherwise be silently piecewise-constant-continued rather than "
             "rejected (see nrm_ingredients, which must be called with "
             "R_values = this same nuclear_grid's real points)"
+        )
+
+
+def check_tail_coupling(
+    v_dn: npt.NDArray[np.complex128], tail: npt.NDArray[np.bool_], n: int
+) -> None:
+    """Require state `n`'s continued coupling `v_dn` to vanish on the ECS tail.
+
+    Eq. (67): a discrete state that has genuinely decoupled by `R0` leaves
+    `V_dn` ~0 there (see `continue_to_tail`'s "outermost-real value" rule and
+    the `TAIL_COUPLING_MAX` measurements above it). A nonzero tail value means
+    either `phi_d` does not satisfy Eq. (67) on this grid, or `ing.R`'s
+    outermost node is not actually where `phi_d` has decoupled (e.g. a
+    truncated ingredient range) -- shared by `nonlocal_operator` and
+    `extended_hamiltonian` so the same threshold and diagnosis apply to both.
+    """
+    tail_coupling = np.max(np.abs(v_dn[tail])) if np.any(tail) else 0.0
+    if tail_coupling > TAIL_COUPLING_MAX:
+        raise ValueError(
+            f"state {n} carries coupling {tail_coupling:.3g} into the "
+            "ECS tail; either the discrete state does not satisfy Eq. "
+            "(67) at ing.R's outermost node, or that node is not "
+            "actually where phi_d has decoupled (e.g. a truncated "
+            "ingredient range) -- F would pick up an unphysical tail "
+            "contribution either way"
         )
 
 
@@ -149,7 +180,7 @@ def nonlocal_operator(
     n_use = n_avail if n_states is None else int(n_states)
     if n_use > n_avail or n_use < 0:
         raise ValueError(f"n_states={n_states} outside the available range [0, {n_avail}]")
-    _check_nodes_coincide(ing.R, nuclear_grid)
+    check_nodes_coincide(ing.R, nuclear_grid)
 
     t_nuc = kinetic(nuclear_grid, model.mu)
     v0 = np.asarray(model.v0(nuclear_grid.points), dtype=np.complex128)
@@ -159,16 +190,7 @@ def nonlocal_operator(
     out = np.zeros((nuclear_grid.n, nuclear_grid.n), dtype=np.complex128)
     for n in range(n_use):
         v_dn = continue_to_tail(ing.V_dn[:, n], ing.R, nuclear_grid)
-        tail_coupling = np.max(np.abs(v_dn[tail])) if np.any(tail) else 0.0
-        if tail_coupling > _TAIL_COUPLING_MAX:
-            raise ValueError(
-                f"state {n} carries coupling {tail_coupling:.3g} into the "
-                "ECS tail; either the discrete state does not satisfy Eq. "
-                "(67) at ing.R's outermost node, or that node is not "
-                "actually where phi_d has decoupled (e.g. a truncated "
-                "ingredient range) -- F would pick up an unphysical tail "
-                "contribution either way"
-            )
+        check_tail_coupling(v_dn, tail, n)
         e_n = continue_to_tail(ing.E_n[:, n], ing.R, nuclear_grid)
         m = e_total * ident - t_nuc - np.diag(v0 + e_n)  # Eq. (61)
         g = np.linalg.inv(m)
