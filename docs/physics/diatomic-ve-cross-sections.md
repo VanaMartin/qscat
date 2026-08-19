@@ -76,8 +76,9 @@ measures it with a second test function on the nuclear coordinate (`Model2d/Mult
 where **φ_e(r) is the anion's bound electronic state at the dissociation limit** — the bound
 eigenstate of the electronic Hamiltonian `−½∂²_r + v0(R_∞) + l(l+1)/2r² − λ(R_∞)e^{−α_c r²}`
 (`Neutral2dPotential` at the outer nuclear edge; λ(R_∞) → λ_inf) — and `F^out_R(R)` is the
-outgoing nuclear wave `√(μ/2πk_R)·e^{ik_R R}`, `k_R = √(2μ(E_tot − ε_e))`. The cross section is
-`σ_DA = π|S_DA|²/2E` with S_DA from the same Tannor-Weeks transform / driven-equation projection
+outgoing nuclear wave $\sqrt{\mu/2\pi k_R}\;e^{i k_R R}$, with
+$k_R = \sqrt{2\mu(E_\mathrm{tot} - \varepsilon_e)}$. The cross section is
+$\sigma_\mathrm{DA} = \pi|S_\mathrm{DA}|^2/2E$ with $S_\mathrm{DA}$ from the same Tannor-Weeks transform / driven-equation projection
 as VE. This is the eMoScat convention (deck: the first, nuclear-coordinate test function; "1
 transversal eigenstate" = the single bound anion electronic state).
 
@@ -96,21 +97,24 @@ closed channel are the key physical validations of the setup.**
 
 **The DA cross section — a TIME-INDEPENDENT driven-equation T-matrix (eMoScat
 `time_independent_model.cpp`).** eMoScat computes DA (and H₂⁺ DR) exactly and time-*in*dependently,
-via the SAME driven equation as VE (`Ψ₊ = Ψ_i + (E−H)⁻¹ V_int Ψ_i`) but projected onto the DA
+via the SAME driven equation as VE ($\Psi_+ = \Psi_i + (E-H)^{-1} V_\mathrm{int} \Psi_i$) but projected onto the DA
 exit channel with the **rearrangement interaction**
 
-  `V_DR(r,R) = V_int(r,R) + v0(R) − V_int(r, R→∞)`  (i.e. `H − H_final`, NOT `V_int`),
+  $$V_\mathrm{DR}(r,R) = V_\mathrm{int}(r,R) + v_0(R) - V_\mathrm{int}(r, R\to\infty)$$
 
-and the DA T-matrix `T_DA = ⟨φ_e(r) · F^nuc_{K_R,0}(R) | V_DR | Ψ₊⟩`, `σ_DA = 4π³|T_DA|²/(2E)` —
+i.e. $H - H_\mathrm{final}$, NOT `V_int`,
+
+and the DA T-matrix
+$T_\mathrm{DA} = \langle \phi_e(r)\,F^\mathrm{nuc}_{K_R,0}(R) \,\vert\, V_\mathrm{DR} \,\vert\, \Psi_+ \rangle$, $\sigma_\mathrm{DA} = 4\pi^3|T_\mathrm{DA}|^2/2E$ —
 where `φ_e` is the anion bound electronic state at the dissociation limit and `F^nuc` is the
-energy-normalized regular nuclear Bessel (l=0, mass μ), `K_R = √(2μ(E_tot − ε_e))`. (An earlier
+energy-normalized regular nuclear Bessel ($l=0$, mass $\mu$), $K_R = \sqrt{2\mu(E_\mathrm{tot} - \varepsilon_e)}$. (An earlier
 prototype of mine used `V_int` instead of `V_DR` and got a ~10⁶ unitarity violation — that was
 the bug, NOT a structural obstacle to a TI DA.) With `V_DR`, σ_DA is O(1) bohr² and within the
 unitarity cap `π/2E` for F₂; N₂/NO closed (correct). Implemented in
 `qscat.core.dissociation` (`anion_electronic_states`, `v_dr_diag`, `da_cross_section`).
 
 **The discretisation must be per-molecule.** DA's outgoing flux is in the NUCLEAR coordinate, and
-the heavy nuclei make the exit wave `F^nuc = √(2μ/πK)·sin(K_R R)` oscillate fast (F₂:
+the heavy nuclei make the exit wave $F^\mathrm{nuc} = \sqrt{2\mu/\pi K}\,\sin(K_R R)$ oscillate fast (F₂:
 `K_R ≈ 58`, wavelength ~0.107 bohr). On the single N₂-style nuclear grid (1.0-bohr outer
 elements) σ_DA did NOT converge — it swung `0.16 → 26 → 0.54 → 2.3 → 4.0` bohr² as the nuclear
 *quadrature* was raised, because increasing points-per-element (p-refinement) cannot resolve an
@@ -155,20 +159,22 @@ channels instead of 1."
 The exact-2D DA above is the ORACLE. The **local-complex-potential (LCP)** model is the
 *approximation*: it reduces the full electron–nuclear problem to a **1-D nuclear** problem on a
 complex potential `V_d(R) − iΓ(R)/2`, where the fixed-R electronic resonance pole gives
-`V_d(R) = Re(E_pole(R))`, `Γ(R) = max(0, −2 Im(E_pole(R)))`. Implemented model-independently in
+$V_d(R) = \operatorname{Re} E_\mathrm{pole}(R)$, $\Gamma(R) = \max(0, -2\operatorname{Im} E_\mathrm{pole}(R))$. Implemented model-independently in
 `qscat.core.lcp`: `local_complex_potential` finds `E_pole(R)` by two-angle ECS matching
 (`qscat.ecs.find_resonance_pole`) of `−½∂²_r + model.surface(r,R)`, **seeded from the bound anion
 state at R_inf** (`anion_electronic_states`) and continued inward (validated against the N₂
 `vres_on_grid` oracle to ~1e-5). `lcp_da_cross_section` is the **time-independent resolvent** form
 (the T→∞ limit of eMoScat's `ModelLCP/SMatrix.cpp` doorway propagation, cheaper and
-confound-free): from the doorway `d = √(Γ/2π)·χ_{v₀}`, solve `ψ_sc = (E_tot·I − H_res)⁻¹ d`, and
-the DA amplitude is the outgoing flux at the boundary `X`, `S_DA = √(K/2πμ)·ψ_sc(X)`,
-`σ_DA = 4π³|S_DA|²/2E`.
+confound-free): from the doorway $d = \sqrt{\Gamma/2\pi}\;\chi_{v_0}$, solve
+$\psi_\mathrm{sc} = (E_\mathrm{tot}\mathbb{1} - H_\mathrm{res})^{-1} d$, and the
+DA amplitude is the outgoing flux at the boundary $X$,
+$S_\mathrm{DA} = \sqrt{K/2\pi\mu}\;\psi_\mathrm{sc}(X)$,
+$\sigma_\mathrm{DA} = 4\pi^3|S_\mathrm{DA}|^2/2E$.
 
 **Two subtleties are decisive** (each collapsed σ_DA by many orders when wrong): (1) the nuclear
 grid must be the **fine per-molecule eMoScat deck** — the K≈58 outgoing dissociation wave is
 unresolved on the coarse shared grid (σ_DA drops ~36 orders); (2) the boundary observable is the
-wavefunction **value** `ψ_sc(X) = ψ_sc_coeff[b]/√(w_b)`, NOT the raw DVR coefficient (a √w
+wavefunction **value** $\psi_\mathrm{sc}(X) = \psi_\mathrm{sc}^\mathrm{coeff}[b]/\sqrt{w_b}$, NOT the raw DVR coefficient (a √w
 boundary-weight factor, ~27× in σ). These are the same lessons as the exact DA (per-molecule grid)
 plus a DVR-normalization one.
 

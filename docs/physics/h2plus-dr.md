@@ -31,12 +31,15 @@ analytically and on a reduced proxy.
 ## Coulomb special functions (`qscat.special.coulomb`)
 
 The charge-z generalization of `riccati_bessel_en`/`riccati_hankel_en`. Energy-normalized regular /
-irregular / outgoing Coulomb functions, Sommerfeld parameter `η = m·z/k`, argument `ρ = k·x`:
+irregular / outgoing Coulomb functions, Sommerfeld parameter $\eta = m z / k$, argument $\rho = k x$:
 
-  `F_en(x,k,z,m,l) = √(2m/(πk))·F_l(η,ρ)`,  `G_en` likewise,  `H1_en = √(2m/(πk))·(G_l + i F_l)`.
+  $$F^\mathrm{en}(x,k,z,m,l) = \sqrt{2m/\pi k}\;F_l(\eta,\rho), \qquad
+H_1^\mathrm{en} = \sqrt{2m/\pi k}\;(G_l + i F_l)$$
+
+with $G^\mathrm{en}$ defined likewise.
 
 Backed by **mpmath** (`coulombf`/`coulombg`), which accepts **complex** ρ — required for
-ECS-rotated arguments. At **z=0**, `F_l(0,ρ) = ρ·j_l(ρ)`, so `coulomb_f_en(·,·,0,m,l)` reduces
+ECS-rotated arguments. At $z=0$, $F_l(0,\rho) = \rho\,j_l(\rho)$, so `coulomb_f_en(·,·,0,m,l)` reduces
 EXACTLY to `riccati_bessel_en` (mass m) — the direct differential-test hook, verified to ~1e-16.
 (Note: `coulomb_h1_en(z=0) = i·riccati_hankel_en`, since `G_l(0,ρ)=−ρ y_l(ρ)` while `F_l=+ρ j_l(ρ)`
 give `G+iF = i(j_l+i y_l)ρ` — the code keeps the physical `H⁺=G+iF`; only the *test* carries the
@@ -59,12 +62,13 @@ charge=−1):
 > that value and it was corrected on 2026-08-15. The 0.019% shift moves H₂⁺ vibrational spacings
 > by ~1e-4 relative — immaterial qualitatively, but wrong for reproducing published numbers.
 
-- **ion Morse** `v0(R) = V₀(e^{−2α(R−R₀)} − 2e^{−α(R−R₀)})`, `V₀=0.1027, R₀=2.0, α=0.69` (the
+- **ion Morse** $v_0(R) = V_0\left(e^{-2\alpha(R-R_0)} - 2e^{-\alpha(R-R_0)}\right)$, with
+  `V0=0.1027, R0=2.0, alpha=0.69` (the
   initial vibrational state lives here; the `1/R` proton repulsion is folded into this single
   Morse, not explicit);
 - **σ-capture** `v_int(r,R) = −a₁(1−tanh Q(R))·S(R)·(e^{−r²/3}/r)`, `Q=(a₂−R−a₃R⁴)/7`, `S=tanh(R/a₄)⁴`,
   `a₁=1.6435, a₂=6.2, a₃=0.0125, a₄=1.15`;
-- **surface** `= v0(R) + v_int(r,R) + ℓ(ℓ+1)/(2r²) + charge/r` — the `charge/r = −1/r` is the ionic
+- **surface** $= v_0(R) + v_\mathrm{int}(r,R) + \ell(\ell+1)/2r^2 + \mathrm{charge}/r$ — the `charge/r = −1/r` is the ionic
   electron–core Coulomb attraction.
 
 Adding an ion is data + validation, no engine changes (the same lesson as the neutral molecules).
@@ -76,13 +80,14 @@ Adding an ion is data + validation, no engine changes (the same lesson as the ne
 only new physics is (a) a **Coulomb incident** (`channel_vector(..., charge=−1)`) and (b) a **loop**
 over the Rydberg exit channels instead of one anion state:
 
-1. `Ψ₊ = Ψ_i − (E_tot·I − H_2D)⁻¹ V_int Ψ_i`, `E_tot = E + eps[v_init]`, Coulomb `Ψ_i` (potentials
+1. $\Psi_+ = \Psi_i - (E_\mathrm{tot}\mathbb{1} - H_\mathrm{2D})^{-1} V_\mathrm{int} \Psi_i$, $E_\mathrm{tot} = E + \varepsilon_{v_\mathrm{init}}$, Coulomb $\Psi_i$ (potentials
    on the **complex** ECS coordinate — eMoScat's real-part `// FIXME` is fixed);
 2. Rydberg states `φ_e^(n)`, `E_ryd(n) = eps_e^(n)` from `anion_electronic_states(…, n_states=N)`
    (they are bound below the −1/r continuum — the same bound-state solver);
-3. `V_DR = V_int + v0(R) − V_int(r,R_inf)` (the rearrangement interaction);
-4. per open channel n (`E_tot > E_ryd(n)`): `T_n = ⟨φ_e^(n)·F^nuc_{K_n,0} | V_DR | Ψ₊⟩` (c-product),
-   `σ_n = 4π³|T_n|²/2E`.
+3. $V_\mathrm{DR} = V_\mathrm{int} + v_0(R) - V_\mathrm{int}(r,R_\infty)$ (the rearrangement interaction);
+4. per open channel $n$ ($E_\mathrm{tot} > E_\mathrm{ryd}(n)$):
+   $T_n = \langle \phi_e^{(n)} F^\mathrm{nuc}_{K_n,0} \,\vert\, V_\mathrm{DR} \,\vert\, \Psi_+ \rangle$ (c-product),
+   $\sigma_n = 4\pi^3|T_n|^2/2E$.
 
 **The c-product is the ECS-correct choice** where eMoScat used a conjugated dot (`zdotc`); the
 port validates they agree — the relative difference is **≈3.4×10⁻¹²** on the proxy (the
@@ -137,7 +142,7 @@ validated at all.
 
 **The reference σ values carry a `2π` this repository does not.** That was
 measured, not assumed: the ratio reference/computed is 5.3–7.2 on DR₀, clustering
-on `2π = 6.283` — not on 1, and not on `(2π)² = 39.5`. Across the sampled points
+on $2\pi = 6.283$ — not on 1, and not on $(2\pi)^2 = 39.5$. Across the sampled points
 its geometric mean on DR₀ is **1.001**, so the constant is confirmed to ~0.1%.
 (The corresponding VE convention differs by `(2π)²`.)
 

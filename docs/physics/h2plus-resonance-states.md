@@ -107,9 +107,9 @@ argument rather than a threshold, and it is the **closed-channel energy
 constraint**: a Rydberg series is attached to a *closed* channel, so only
 thresholds above a state contribute, and each contributes exactly one index via
 
-```text
-binding = ε_v − E_tot,    n_eff = 1/√(2·binding),    j ≈ n_eff − 1
-```
+$$\mathrm{binding} = \varepsilon_v - E_\mathrm{tot}, \qquad
+n_\mathrm{eff} = \frac{1}{\sqrt{2\,\mathrm{binding}}}, \qquad
+j \approx n_\mathrm{eff} - 1$$
 
 At fixed energy a higher vibrational level needs a larger binding and therefore
 a **lower** Rydberg index. The admissible set is finite and computable, so a

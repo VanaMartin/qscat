@@ -17,7 +17,7 @@ the identical exact cross section.
 
 ## Framing (read this before the numbers)
 
-`docs/physics/n2-2d-cross-section.md` solves `(E_tot I - H_2D)^{-1} V_int Psi_i` directly
+`docs/physics/n2-2d-cross-section.md` solves $(E_\mathrm{tot}\mathbb{1} - H_\mathrm{2D})^{-1} V_\mathrm{int} \Psi_i$ directly
 — one sparse LU factorization per collision energy — and calls that the **exact 2-D**
 result. This document computes the **same** exact `S`-matrix a different way: prepare an
 incident wavepacket at `t=0`, propagate it forward under the full 2-D Hamiltonian with a
@@ -28,18 +28,24 @@ domain. This is the **time-domain twin** of #6: two structurally unrelated compu
 to the same number is a strong, non-trivial cross-check — not a restatement of #6, and not
 a new physical model.
 
-```text
-S_TD(E) = (1/i) * integral_0^inf exp(i*E_tot*t) * <Phi_out|exp(-i*H_2D*t)|Psi_i(0)> dt
-        = <Phi_out|(E_tot*I - H_2D)^{-1}|Psi_i(0)>
-        = S_TI(E)                                          [the exact-oracle relation]
-```
+$$
+\begin{aligned}
+S_\mathrm{TD}(E)
+  &= \frac{1}{i} \int_0^{\infty} e^{\,i E_\mathrm{tot} t}\,
+     \langle \Phi_\mathrm{out} | e^{-i H_\mathrm{2D} t} | \Psi_i(0) \rangle
+     \,\mathrm{d}t \\
+  &= \langle \Phi_\mathrm{out} |
+     (E_\mathrm{tot}\mathbb{1} - H_\mathrm{2D})^{-1} | \Psi_i(0) \rangle \\
+  &= S_\mathrm{TI}(E) &&\text{the exact-oracle relation}
+\end{aligned}
+$$
 
 in the long-propagation-time limit — the Laplace transform of the propagator is exactly
 the resolvent #6 computes directly.
 
 ## Method
 
-1. **Incident wavepacket.** `Psi(0) = g(r) chi_0(R)`: a Gaussian in the electronic
+1. **Incident wavepacket.** $\Psi(0) = g(r)\,\chi_0(R)$: a Gaussian in the electronic
    coordinate, `g(r) = exp(-(r-r0)^2/(2 sigma^2)) exp(i p0 r)` (`wavepacket.py`), tensored
    with the neutral-N₂ ground vibrational eigenvector `chi_0(R)` (the same
    `vibrational_states` output #6 uses), masked to the real (unscaled) grid region. Unlike
@@ -49,7 +55,7 @@ the resolvent #6 computes directly.
 2. **Order-3 Padé propagation** (`qscat.evolution.make_pade_stepper(H, dt, order=3)`): the
    diagonal [3,3] Padé approximant of `exp(-i H dt)`, `exp(-iHdt) ~ prod_i (I - iHdt/r_i)
    (I + iHdt/r_i)^{-1}` over the Padé roots `r_i`, accurate to `O(dt^7)` per step. Order 1
-   is ordinary Crank-Nicolson (`make_sparse_cn_stepper`, `O(dt^3)`) — and order-1 CN
+   is ordinary Crank-Nicolson (`make_sparse_cn_stepper`, $O(\mathrm{d}t^3)$) — and order-1 CN
    **under-converges catastrophically** over a multi-thousand-step run: ~100% accumulated
    propagation error at `dt = 0.5-1.0` (verified against `scipy.linalg.expm`), which capped
    the earlier `sigma_TD/sigma_TI` at ~0.93/1.10 and left the boomerang oscillations
@@ -59,25 +65,32 @@ the resolvent #6 computes directly.
    `(I + iHdt/r_i)` is LU-factored **once** (via `SparseLU`) and reused for every step —
    the same "factor once, reuse many times" structure #6 uses per-energy, applied across
    time. `H = H_2D` (built once via `hamiltonian2d.build_h2d`) is time-independent.
-   `H_2D`'s absorbing ECS tail makes `||psi(t)||` genuinely decay: this is
+   `H_2D`'s absorbing ECS tail makes $\lVert\psi(t)\rVert$ genuinely decay: this is
    the mechanism by which the transient N₂⁻ resonance "leaks away" into the numerically
    absorbed continuum, exactly mirroring the physical autodetachment/dissociative-
    attachment decay.
-3. **Correlation function.** `c_{v'}(t_n) = <Phi_{v'}|psi(t_n)>` (the DVR **c-product**,
+3. **Correlation function.** $c_{v'}(t_n) = \langle \Phi_{v'} \vert \psi(t_n) \rangle$ (the DVR **c-product**,
    no conjugation — matching #6's and `docs/physics/n2-td-cross-section.md`'s convention
    under exterior complex scaling), recorded at *every* time step against an
    energy-independent outgoing test function `Phi_{v'} = g_out(r) chi_{v'}(R)`
    (`correlation.outgoing_channel`).
 4. **Tannor-Weeks energy transform** (`td_cross_section.sigma_from_correlations` /
    `td_ve_cross_section_2d`):
-   ```
-   S_{v->v'}(E) = [2*pi * conj(eta_out_{v'}(E)) * eta_in_v(E)]^{-1}
-                  * sum_n w_n exp(i*E_tot*t_n) c_{v'}(t_n) * dt
-   sigma_{v->v'}(E) = pi |S - S_ref|^2 / (2E)               [bohr^2, = #6's 4 pi^3 |T|^2 / (2E)]
-   ```
-   `E_tot = E + eps[v_init]`, `w_n` composite Simpson weights (trapezoid fallback), and
+
+   $$
+   \begin{aligned}
+   S_{v \to v'}(E) &= \left[2\pi\,
+       \overline{\eta^\mathrm{out}_{v'}(E)}\;\eta^\mathrm{in}_v(E)\right]^{-1}
+       \sum_n w_n\, e^{\,i E_\mathrm{tot} t_n}\, c_{v'}(t_n)\,\mathrm{d}t \\
+   \sigma_{v \to v'}(E) &= \frac{\pi\,|S - S_\mathrm{ref}|^2}{2E}
+       &&\text{bohr}^2,\ =\ \text{\#6's } 4\pi^3|T|^2/2E
+   \end{aligned}
+   $$
+
+   $E_\mathrm{tot} = E + \varepsilon_{v_\mathrm{init}}$, $w_n$ composite Simpson
+   weights (trapezoid fallback), and
    `eta_in`/`eta_out` **deconvolve** the wavepacket's own spectral content, leaving the
-   pure single-energy `S`-matrix element. Because `c_{v'}(t)` does not depend on `E`, this
+   pure single-energy $S$-matrix element. Because $c_{v'}(t)$ does not depend on $E$, this
    transform can be evaluated at *any number* of energies from **one stored trajectory** —
    the whole `sigma(E)` "boomerang" curve is free once the single ~3.5-minute propagation
    is done (`convergence.sigma_curve`).
@@ -88,10 +101,10 @@ the resolvent #6 computes directly.
    (the Kronecker delta) — but that is only correct if the transform normalizes
    the free/unscattered S-matrix to *exactly* 1, which THIS transform does not.
    The outgoing normalization factor `C(E)` multiplies every channel's `S`
-   equally, so the inelastic `|S|^2` silently absorbs it (that is why the
+   equally, so the inelastic $|S|^2$ silently absorbs it (that is why the
    excitation channels matched the TI oracle all along); but a free-particle
-   (`V_int = 0`) propagation gives `|S_free(E)| = C(E) ~ 2*pi^2`, NOT 1, so the
-   diagonal `|S - 1|^2` leaves a **~500x spurious elastic background**. The fix
+   (`V_int = 0`) propagation gives $|S_\mathrm{free}(E)| = C(E) \sim 2\pi^2$, NOT 1, so the
+   diagonal $|S - 1|^2$ leaves a **~500x spurious elastic background**. The fix
    is to subtract the actual unscattered value: `S_ref = S_free(E)`, the
    S-matrix of a `V_int = 0` reference propagation run with the **same**
    wavepacket and grid (`td_ve_cross_section_2d(..., subtract_free_reference=
@@ -105,7 +118,7 @@ the resolvent #6 computes directly.
    — from ~500× wrong before the reference was subtracted). The residual
    near-threshold elastic degradation (the `1/eta_out` deconvolution grows
    ill-conditioned as `k -> 0`: `sqrt(2k/pi) -> 0` and the outgoing Hankel's
-   `y_l(kr) ~ (kr)^-(l+1)` diverges) is a documented low-E limit, not this bug —
+   $y_l(kr) \sim (kr)^{-(l+1)}$ diverges) is a documented low-E limit, not this bug —
    see the `td-elastic-wavepacket-normalization` note.
 
 ## The two physics facts settled by the exact-oracle gate

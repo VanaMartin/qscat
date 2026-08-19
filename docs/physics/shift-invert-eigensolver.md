@@ -1,7 +1,7 @@
 # Sparse shift-invert eigensolver
 
 `qscat.linalg.ShiftInvertEigs` — the `k` eigenvalues and eigenvectors of a large
-sparse complex-symmetric matrix nearest a complex shift `sigma`.
+sparse complex-symmetric matrix nearest a complex shift $\sigma$.
 
 Validated in **1-D only**. Nothing here is a claim about 2-D grids.
 
@@ -19,8 +19,8 @@ The standard remedy is the shift-invert spectral transform. Run Arnoldi on
 OP = (A - sigma*I)^-1
 ```
 
-whose extremal eigenvalues `1/(E - sigma)` correspond to `A`'s eigenvalues `E`
-**nearest** `sigma`. ARPACK returns Ritz values of `OP`; SciPy converts them
+whose extremal eigenvalues $1/(E - \sigma)$ correspond to $A$'s eigenvalues $E$
+**nearest** $\sigma$. ARPACK returns Ritz values of `OP`; SciPy converts them
 back, so what comes out are eigenvalues of `A`.
 
 ## Why it is cheap here
@@ -30,7 +30,7 @@ exactly `qscat.linalg.SparseLU`'s job, so this inherits the complex-symmetric
 MUMPS `SYM=2` backend and its SuperLU fallback for free
 (`docs/physics/mumps-sparse-backend.md`).
 
-More usefully: `sigma*I` touches only the diagonal, so **`A - sigma*I` has the
+More usefully: $\sigma\mathbb{1}$ touches only the diagonal, so **$A - \sigma\mathbb{1}$ has the
 same sparsity pattern for every shift**. `SparseLU.refactor` therefore applies —
 on the MUMPS backend it reuses the symbolic analysis and skips the SCOTCH
 ordering; on the scipy backend it re-runs `splu` (correct, but with no reuse).
@@ -39,12 +39,12 @@ same discount the time-independent energy sweep gets from the identical trick
 (`docs/physics/ti-energy-sweep-reuse.md`).
 
 `ShiftInvertEigs` is a class rather than a function precisely so that the
-factorization survives between shifts: the first `near(sigma)` factors, every
+factorization survives between shifts: the first `near(sigma)` call factors, every
 later one refactors.
 
 ## Why ARPACK rather than a complex-symmetric Lanczos
 
-An ECS Hamiltonian is complex **symmetric** (`A = Aᵀ`, not `A = A†`), and a
+An ECS Hamiltonian is complex **symmetric** ($A = A^{T}$, not $A = A^{\dagger}$), and a
 Lanczos iteration built on the bilinear c-product exploits that with a
 three-term recurrence, where ARPACK's general non-Hermitian Arnoldi carries a
 full Hessenberg basis and ignores the symmetry.
@@ -63,26 +63,26 @@ against.
 
 Three choices that are easy to get wrong, and are pinned by tests.
 
-**The shift sign is `A - sigma*I`.** SciPy's `OPinv` must solve
-`(A - sigma*I) x = b` — *not* the driven solver's `E*I - H`. The wrong sign does
+**The shift sign is $A - \sigma\mathbb{1}$.** SciPy's `OPinv` must solve
+$(A - \sigma\mathbb{1})\,x = b$ — *not* the driven solver's $E\mathbb{1} - H$. The wrong sign does
 not raise; it returns eigenvalues **reflected about the shift**. Measured on a
-diagonal spectrum `[0, 1, 2, 3, 10, 11, 12]` with `sigma = 9`:
+diagonal spectrum `[0, 1, 2, 3, 10, 11, 12]` with $\sigma = 9$:
 
 | `OPinv` built from | returned |
 |---|---|
-| `A - sigma*I` (correct) | `10, 11` |
-| `sigma*I - A` (wrong) | `7, 8` |
+| $A - \sigma\mathbb{1}$ (correct) | `10, 11` |
+| $\sigma\mathbb{1} - A$ (wrong) | `7, 8` |
 
 Both look entirely plausible. `test_shift_sign_convention_is_A_minus_sigma_I`
 exists for this reason, and was itself verified to fail under the wrong sign.
 
-**Eigenvalues come back sorted by `|E - sigma|`, nearest first** — not by
+**Eigenvalues come back sorted by $|E - \sigma|$, nearest first** — not by
 `Re E`. A shift-invert result is a local window around the shift, so distance
 from the shift is its meaningful order. `qscat.dvr.eigen` returns a *whole*
 spectrum and keeps its ascending-`Re E` order; neither convention should be
 changed to match the other.
 
-**Eigenvectors come back Euclidean-normalized** (`v†v = 1`), exactly as
+**Eigenvectors come back Euclidean-normalized** ($v^{\dagger}v = 1$), exactly as
 `qscat.dvr.eigen` returns them. ECS observables need the bilinear
 `qscat.linalg.c_product` normalization instead, and the region to normalize over
 is the caller's decision (the LCP code, for instance, normalizes over the real
@@ -94,7 +94,7 @@ The oracle is dense `np.linalg.eig` on the same matrix.
 
 - **Synthetic**: sparse complex-symmetric matrices (`n = 150`–`300`).
   Eigenvalues match to `rtol = 1e-9`; eigenvectors match to
-  `|vᵀw| = 1` within `1e-6` after normalizing both to unit c-norm `sqrt(vᵀv)`
+  $|v^{T}w| = 1$ within `1e-6` after normalizing both to unit c-norm $\sqrt{v^{T}v}$
   (the right notion of "equal up to scale" for a complex-symmetric operator).
 - **Physical**: the N₂ electronic FEM-DVR-ECS Hamiltonian at fixed `R = 2.02`
   (`T + diag(V_surface)`, `n = 113`, the same build `qscat.core.lcp` uses).
@@ -107,22 +107,22 @@ through a sparse factorization, and pinning sparse-solve agreement tighter has
 failed CI on a different BLAS.
 
 **The pole found this way is the physical one.** At `R = 2.02` the sparse
-two-angle pole is `E = -0.661315 - 0.008333j` Ha, i.e.
+two-angle pole is $E = -0.661315 - 0.008333i$ Ha, i.e.
 
 | quantity | this solver | `docs/physics/n2-resonance.md` |
 |---|---|---|
 | `E_res` (relative to `v0`) | 2.441 eV | 2.445 eV |
-| `Gamma` | 0.4535 eV | 0.455 eV |
+| $\Gamma$ | 0.4535 eV | 0.455 eV |
 
 Note the subtraction: an ECS eigenvalue is **absolute**, carrying
-`v0(R) = -0.751 Ha`, while the literature quotes `E_res` measured from the
+$v_0(R) = -0.751$ Ha, while the literature quotes $E_\mathrm{res}$ measured from the
 neutral curve. A shift seeded at the literature value rather than at
 `v0 + E_res` finds nothing.
 
 ## Measured working range
 
 On that N₂ electronic Hamiltonian (`n = 113`), seeding at
-`sigma = E_pole + offset·(1+i)` and asking whether the pole appears among the
+$\sigma = E_\mathrm{pole} + \mathrm{offset}\,(1+i)$ and asking whether the pole appears among the
 `k` returned:
 
 | offset (Ha) | k=2 | k=4 | k=6 | k=8 | k=16 |
@@ -139,7 +139,7 @@ On that N₂ electronic Hamiltonian (`n = 113`), seeding at
 Three things this says:
 
 1. The seed is forgiving. A shift `0.2 Ha` away — an order of magnitude larger
-   than `Gamma = 0.0167 Ha` — still finds the pole at any `k >= 2`. A BO/LCP
+   than $\Gamma = 0.0167$ Ha — still finds the pole at any `k >= 2`. A BO/LCP
    level is a far better guess than that, which is what makes the 2-D plan's
    "seed from `resonance_levels`" step credible.
 2. When it fails, it **raises**. The failure mode at a distant shift with a small
@@ -161,13 +161,13 @@ from these 1-D numbers.
   N₂ electronic matrix is `n = 113`; the N₂ 2-D working deck is ~143k and H₂⁺ is
   ~1.15M, where the factorization, not ARPACK, is expected to dominate.
 - **Selection is not solved here.** Within a single shift-invert window several
-  rotated-continuum eigenvalues are *narrower* in `|Im E|` than the pole itself,
+  rotated-continuum eigenvalues are *narrower* in $|\operatorname{Im} E|$ than the pole itself,
   so "the narrowest state" is not a selector. Only the two-angle criterion
   (`qscat.ecs.find_resonance_pole` / `match_angle_stable`) separates them, and
   the tests here use it exactly that way. A shift parked in the rotated continuum
-  at `sigma = -0.30 - 0.40j` yields **no** angle-stable state, which is the
+  at $\sigma = -0.30 - 0.40i$ yields **no** angle-stable state, which is the
   correct and useful negative.
-- **Near-singularity was not observed to be a problem.** `A - sigma*I` is
+- **Near-singularity was not observed to be a problem.** $A - \sigma\mathbb{1}$ is
   ill-conditioned by construction — that is the amplification mechanism — and at
   every offset tested down to `0.001 Ha` the results matched dense to `1e-9`.
   MUMPS `SYM=2` behaviour at a shift pathologically close to an eigenvalue has

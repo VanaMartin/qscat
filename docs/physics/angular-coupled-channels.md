@@ -38,11 +38,15 @@ nothing — it is a symmetry, not an approximation. Within that block, expanding
 the interaction in Legendre components and projecting onto spherical harmonics
 gives
 
-```text
-V(r, theta_e, R) = sum_lambda v_lambda(r, R) * P_lambda(cos theta_e)
-
-V_{l l'}(r, R)   = sum_lambda <Y_{l Lambda}| P_lambda |Y_{l' Lambda}> * v_lambda(r, R)
-```
+$$
+\begin{aligned}
+V(r, \theta_e, R) &= \sum_\lambda v_\lambda(r, R)\,
+  P_\lambda(\cos\theta_e) \\
+V_{l l'}(r, R) &= \sum_\lambda
+  \langle Y_{l\Lambda} \vert P_\lambda \vert Y_{l'\Lambda} \rangle\,
+  v_\lambda(r, R)
+\end{aligned}
+$$
 
 which is **exact until the sum over `l` is truncated**. For the ²Π_g resonance,
 `Lambda = 1` and `l = 2, 4, 6, ...`. The truncation order `N_l` then becomes an
@@ -82,9 +86,10 @@ accurate number — and it is invisible to every model currently in the repo.
    channel index enters as a dimension carrying a zero kinetic operator), so
    the shape is
 
-   ```
-   H = I_l (x) (T_r (+) T_R) + sum_{l,l'} E_{l l'} (x) diag(V_{l l'}(r, R))
-   ```
+
+   $$H = \mathbb{1}_l \otimes (T_r \oplus T_R)
+   + \sum_{l,l'} E_{l l'} \otimes \mathrm{diag}\,V_{l l'}(r, R)$$
+
 
    i.e. a **block/channel-coupled assembler alongside** the diagonal one —
    still sparse, still Kronecker-structured. An addition, not a rewrite, but

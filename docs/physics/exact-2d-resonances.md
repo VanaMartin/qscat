@@ -28,7 +28,7 @@ Three spectra are computed on the same model:
 Each spectrum comes from `qscat.linalg.ShiftInvertEigs` — resonances are
 interior eigenvalues, unreachable by a plain Krylov iteration
 (`docs/physics/shift-invert-eigensolver.md`). A state is accepted only if
-`|E_base − E_partner| < max(rel_tol·|E|, atol)` holds for **both** partners, and
+$\lvert E_\mathrm{base} - E_\mathrm{partner}\rvert < \max(\mathrm{rel\_tol}\,\lvert E\rvert,\ \mathrm{atol})$ holds for **both** partners, and
 the two residuals are reported separately rather than combined into one
 midpoint: with two independent partners there is no single midpoint, and a state
 can be solid in one coordinate while marginal in the other.
@@ -49,13 +49,11 @@ but the exact solver never calls the approximation it exists to measure.
 Switch the electronic-nuclear coupling off and the tensor Hamiltonian becomes an
 exact Kronecker sum,
 
-```text
-H = (T_r + diag v_el) ⊕ (T_R + diag v_nuc),
-```
+$$H = (T_r + \mathrm{diag}\,v_\mathrm{el}) \oplus (T_R + \mathrm{diag}\,v_\mathrm{nuc}),$$
 
-whose eigenvalues are exactly the pairwise sums `ε_el + ε_vib` of the 1-D
+whose eigenvalues are exactly the pairwise sums $\varepsilon_\mathrm{el} + \varepsilon_\mathrm{vib}$ of the 1-D
 eigenvalues **on the same grids**, and whose eigenvectors are exactly the
-products `φ(r)·χ(R)`. That is a 2-D resonance with a known position, a known
+products $\phi(r)\,\chi(R)$. That is a 2-D resonance with a known position, a known
 width, and a known wavefunction — an oracle that a coarse grid does not weaken,
 because the oracle is evaluated on the identical discretization.
 
@@ -201,7 +199,7 @@ Two things the check turned up that the pole table does not show.
 
 **The overlap exceeds 1, legitimately.** The c-product is a *bilinear form*, so
 Cauchy–Schwarz does not bound it. With both states c-normalized the value is
-just `|c(a,b)|`, inflated by `1/√(ρ_a ρ_b)` where `ρ = |c(ψ,ψ)|/‖ψ‖²` measures
+just $\lvert c(a,b)\rvert$, inflated by $1/\sqrt{\rho_a \rho_b}$ where $\rho = \lvert c(\psi,\psi)\rvert / \lVert\psi\rVert^2$ measures
 how close to real-valued a state is. The six identifications score 1.02, 1.05,
 1.08, 1.11, 1.15, 1.19 — **rising monotonically with Γ** as ρ falls 0.66 → 0.42.
 H₂⁺'s narrow Rydberg resonances stay at 0.87–0.99 because they are nearly real.
@@ -277,7 +275,7 @@ different things are in the picture, and only one of them is phase variation.
 across a node, which is exactly what the `v = 1` and `v = 2` nuclear factors do.
 
 **Where the phase does wind, it must.** A constant-phase wavefunction carries no
-probability current (`j ∝ Im(ψ*∇ψ)`), and a resonance decays — `Γ = 0.0049` Ha
+probability current ($j \propto \operatorname{Im}(\psi^*\nabla\psi)$), and a resonance decays — $\Gamma = 0.0049$ Ha
 here, a lifetime of ~200 a.u. — so it has to carry outgoing electronic flux, and
 flux requires a phase gradient. A resonance eigenstate of constant phase would
 be a bound state.

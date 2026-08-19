@@ -13,16 +13,17 @@ The exact 2-D electron–diatomic vibrational-excitation (VE) cross section, by 
 interchangeable routes on the same FEM-DVR-ECS grid:
 
 - **Time-independent (`qscat.core.driven.ve_cross_section`)** — the exact driven
-  Lippmann-Schwinger solve `(E_tot·I − H)Ψ_sc = V_int·Ψ_i`, T-matrix projection, σ = π|S−δ|²/2E.
+  Lippmann-Schwinger solve $(E_\mathrm{tot}\mathbb{1} - H)\Psi_\mathrm{sc} = V_\mathrm{int}\Psi_i$,
+  T-matrix projection, $\sigma = \pi|S-\delta|^2/2E$.
   One sparse factorization per collision energy, reused across channels; the energy sweep
   analyzes once and `SparseLU.refactor`s per energy (constant sparsity pattern).
 - **Time-dependent (`qscat.core.time_dependent.td_ve_cross_section`)** — an incident Gaussian
   wavepacket propagated under `H` with the **order-3 diagonal-Padé** operator
-  (`qscat.evolution.make_pade_stepper`, `O(dt⁷)`/step — order-1 Crank-Nicolson under-converges
+  (`qscat.evolution.make_pade_stepper`, $O(\mathrm{d}t^7)$ per step — order-1 Crank-Nicolson under-converges
   ~100 % over a multi-thousand-step run), then the Tannor-Weeks energy transform of the stored
-  correlation `c_{v'}(t)`. The elastic (diagonal) channel subtracts the free-particle reference
-  `S_free(E)` from a `V_int=0` propagation (not a literal 1 — the outgoing normalization makes
-  `S_free ≈ 2π² ≠ 1`). Matches the TI oracle to ~1–2 % across the resonance for all channels
+  correlation $c_{v'}(t)$. The elastic (diagonal) channel subtracts the free-particle reference
+  $S_\mathrm{free}(E)$ from a `V_int=0` propagation (not a literal 1 — the outgoing
+  normalization makes $S_\mathrm{free} \approx 2\pi^2 \neq 1$). Matches the TI oracle to ~1–2 % across the resonance for all channels
   (see `docs/physics/n2-2d-td-cross-section.md`).
 
 `qscat.core.problem` (`ScatteringProblem`) is the **recommended entry point** and the stable
@@ -51,9 +52,9 @@ Supporting modules: `qscat.core.channels` (`channel_vector` + threshold logic),
   - `ResonanceModel` — a `@runtime_checkable Protocol` (`mu`, `ell`, `charge`, `v0`, `v_int`,
     `surface`, `hamiltonian(tgrid)`, `interaction_diag(tgrid)`). **This is the entire contract
     `qscat.core` depends on.** `charge` is 0 for a neutral target and −1 for a cation.
-  - `DiatomicResonanceModel` — the shared Morse-`v0` + sigmoid-`λ(R)` + Gaussian-in-r-`V_int`
+  - `DiatomicResonanceModel` — the shared Morse-`v0` + sigmoid-$\lambda(R)$ + Gaussian-in-$r$ `V_int`
     NEUTRAL form (N₂/NO/F₂ differ only in parameters).
-  - `IonicResonanceModel` — the H₂⁺ form: ion Morse + σ-capture + the `−1/r` Coulomb tail,
+  - `IonicResonanceModel` — the H₂⁺ form: ion Morse + $\sigma$-capture + the $-1/r$ Coulomb tail,
     carrying `max_nuclear_ecs_angle_deg` (the rotation bound beyond which its interaction
     diverges).
   - `N2`, `NO`, `F2`, `H2P` — the per-molecule registry instances. The constants are

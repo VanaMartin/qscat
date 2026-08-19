@@ -19,7 +19,7 @@ time-dependent (TD) vibrational-excitation cross section: propagate a
 Gaussian wavepacket under the full 2-D Hamiltonian, correlate it against a
 propagated OUTGOING Gaussian test packet per channel (`c_{v'}(t) =
 c_product(Phi_{v'}, Psi(t))`), and Fourier/Tannor-Weeks-transform the
-correlation function into `sigma(E)`. eMoScat's C++ reference implements
+correlation function into $\sigma(E)$. eMoScat's C++ reference implements
 **three** distinct ways to extract the same energy-domain information from
 one propagated trajectory, differing only in what the "test function" is:
 
@@ -33,7 +33,7 @@ one propagated trajectory, differing only in what the "test function" is:
   electronic surface — a SURFACE-CURRENT measurement.
 
 All three are legitimate, independent ways to read off the same asymptotic
-S-matrix from the identical propagated `Psi(t)`; they are not three
+S-matrix from the identical propagated $\Psi(t)$; they are not three
 different approximations of the physics, they are three different
 **instruments** pointed at the same trajectory. This sub-project promotes
 all three into `qscat.core` as siblings behind one `Extractor` protocol, and
@@ -78,7 +78,7 @@ bookkeeping next to the O(N) linear solve per step.
 delta-distribution test function instead of the Gaussian test packet":
 `record` is a fixed-point line projection converted from a DVR coefficient
 to a wavefunction VALUE via `/sqrt(w[position])` (the same convention
-`qscat.core.lcp`'s boundary flux uses); `sigma` is TW's transform with
+`qscat.core.lcp`'s boundary flux uses); $\sigma$ is TW's transform with
 `eta_out_i -> hankel_point_value(z_position, k'_i, l)` — the outgoing-Hankel
 -half VALUE at a single point rather than an integral against a Gaussian.
 
@@ -87,7 +87,7 @@ transform of the probability flux projected onto the outgoing channel, at a
 fixed electronic surface": `record` appends BOTH the value `b_{v'}(t)`
 (Dirac's projection) and its electronic-coordinate derivative `d_{v'}(t)`
 (via the new `qscat.dvr.dvr_first_derivative_at_node` primitive, validated
-to `rtol=1e-8` against analytic derivatives on 7 unit tests); `sigma` is the
+to `rtol=1e-8` against analytic derivatives on 7 unit tests); $\sigma$ is the
 Wronskian flux transform,
 
     S_i = -i/(2*mu_e*eta_in) * sum_j w_j *
