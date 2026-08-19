@@ -18,6 +18,55 @@ not a process to follow, just facts to check.
   `ev_to_hartree`, using CODATA 2018 constants). Convert at the boundary
   (I/O, reporting) — keep internal computation in atomic units.
 
+## Mathematics in Documentation
+
+The notes under `docs/physics/` are read in two renderers: as files in a
+clone, and as pages on the published site. So they use only what both
+handle.
+
+- **Backticks are for code identifiers only** — `ve_cross_section`,
+  `SparseLU`, `backend="mumps"`. A backticked `sigma` that means σ is a
+  defect; write `$\sigma$`.
+- **Inline mathematics:** `$\sigma_{v\to v'}$`.
+- **Display mathematics:** `$$...$$` on its own lines. Multi-line goes
+  inside, as `$$ \begin{aligned} ... \end{aligned} $$` — a *bare*
+  `\begin{align}` does not render on github.com.
+- **Published equation numbers** use `\tag{15}`, with the page locator in
+  the surrounding prose (see `mastering-references`).
+- **Labelled equations** (`$$...$$ (eq-name)` plus the `{eq}` role) only
+  where the note genuinely writes "Eq. (3)" — the label is literal text on
+  github.com, so it is a deliberate cost.
+- **No custom macros.** Spell out `\Psi^{(+)}`, `\sigma_\mathrm{DA}`.
+- Atomic units are stated once per note, not per equation.
+- `sphinx-design` directives (`{dropdown}`, `{grid}`, `{tab-set}`) are for
+  site-first pages only — `docs/molecules/` and the section index pages.
+
+`tests/test_docs_portability.py` enforces all of this.
+
+### Canonical symbols
+
+| Symbol | Meaning |
+|---|---|
+| $\theta$ | ECS rotation angle |
+| $R_0$ | ECS pivot radius (always on an element boundary). **Reserved for this sense only** — the per-molecule equilibrium bond length shares the bare name `R0` as a `qscat.model.N2`-style model attribute (alongside `mu`, `ell`, `D0`, `alpha0`); it is a CODE IDENTIFIER, stays in backticks as `R0`, and must never be typeset as $R_0$. If a display symbol for the bond length is ever wanted, use $R_\mathrm{e}$, not $R_0$. |
+| $z(x)$ | the ECS coordinate map |
+| $x$ | the unscaled radial coordinate |
+| $r$ | electronic coordinate |
+| $R$ | internuclear coordinate |
+| $\mu$ | reduced mass |
+| $E$ | total energy |
+| $k$ | wavenumber |
+| $\Psi^{(+)}$ | the outgoing-wave driven solution |
+| $\chi_v$ | vibrational state $v$ of the neutral |
+| $\phi_d$ | the discrete (resonant) electronic state |
+| $V_d(R)$ | the resonance curve |
+| $\Gamma(R)$ | the resonance width |
+| $\sigma_{v\to v'}$ | vibrational-excitation cross section |
+| $\sigma_\mathrm{DA}$, $\sigma_\mathrm{DR}$ | dissociative attachment / recombination |
+| $\mathbb{1}$ | identity operator/matrix (written as $\mathbb{1}$ rather than $I$ to avoid ambiguity with indices or current) |
+| $T$ | **overloaded three ways — disambiguate by CONTEXT, not by shape.** (1) the kinetic-energy operator/matrix: bare $T$, or coordinate-subscripted $T_R$; (2) a T-matrix: bare $T$, channel-subscripted $T_{v\to v'}$, or superscripted by contribution $T^\mathrm{bg}$, $T^\mathrm{res}$ (as in $T = T^\mathrm{bg} + T^\mathrm{res}$); (3) a matrix transpose, as the superscript in $H^{T}$. A bare $T$ is therefore ambiguous on its own: a note that uses more than one sense must say which it means in prose at first use. In practice each note uses one sense throughout — kinetic in `femdvr-ecs`, T-matrix in `n2-2d-cross-section` and `nonlocal-resonance-model` |
+| $S$ | S-matrix elements |
+
 ## FEM-DVR-ECS Notation
 
 - **DVR** (Discrete Variable Representation) — grid-based basis where the
