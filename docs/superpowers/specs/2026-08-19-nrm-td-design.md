@@ -341,10 +341,58 @@ shows including "no new information".
 ## 10. Convergence knobs and defaults
 
 Swept and documented per molecule, not guessed: `dt`, `n_steps` (through
-`t_max`), Padé `order`, and `n_states`. `n_states` has a TI precedent
-(`_N_STATES = 100`) and should transfer, which is itself a check. `t_max` is
+`t_max`), Padé `order`, and `rank_tol`.
+
+**`n_states` is NOT among them — the complete arm set is mandatory.** Measured
+2026-08-19 (Task 4): truncating the arms makes `H_ext` NON-DISSIPATIVE. Modes
+acquire `Im(E) > 0` and the propagation diverges exponentially in `t`
+(dense `eig`: `max Im(E) = +2.787e-3` at `n_states=3` on the N₂ gate deck,
+`+5.84e-4` on the F₂ production fixture). That the divergence is identical to
+five digits across `dt = 4/2/1/0.5/0.25` and Padé order 3 and 4 proves it is
+the operator, not the propagator.
+
+The effect is NON-MONOTONIC — a truncated set that decays has been observed —
+so the rule is not "more arms is safer". It is that **any** truncation may
+leave growing modes, and establishing that a particular one does not requires
+a spectral check; `n_states=None` is the only value that needs no check.
+
+**Spectral claims here require a DENSE eigensolver.** These matrices are
+strongly non-normal and ARPACK `eigs(which="LI")` under-reports the largest
+imaginary part: on the same 716-dimensional `n_states=3` matrix, dense `eig`
+gives `+2.787e-3` against ARPACK's `+4.639e-4`, six times low. Sparse results
+here are lower bounds, not measurements.
+
+The asymmetry with the TI route is the point: truncating `F(E)` perturbs a
+RESOLVENT by a bounded amount — which is why the TI campaign runs happily at
+`_N_STATES = 100` — whereas a single eigenvalue crossing into the upper
+half-plane grows without bound in a PROPAGATOR. The same truncation is benign
+in one route and fatal in the other, so the TI precedent does not transfer and
+an `n_states` convergence study is unavailable to the TD route.
+
+Note the complete set is only MARGINALLY stable (`max Im(E) ≈ 0`), not strictly
+decaying. That is correct — genuinely bound nuclear states do not decay — but
+it means a packet with bound components never fully leaves, and its half-Fourier
+transform is then truncated at ANY `t_max`. `centroid(t)` distinguishes the two
+cases: linear growth is a dissociating packet (raise `t_max`), oscillation about
+a fixed `R` is a bound component (no `t_max` fixes it). `t_max` is
 determined by the residual criterion of §7 — the packet must be absorbed before
 the transform is truncated — and gets a runtime warning, not a silent default.
+
+**That criterion cannot be an absolute threshold.** Measured on F₂ (Task 4
+review): `V_d(R)` has a 0.0223 Ha well (minimum −0.149264 Ha at R = 3.363
+against the F+F⁻ asymptote −0.126931) supporting ≥24 near-real modes with
+`|Im E| = 1.5e-7 … 7.7e-6`. The launch populates them with 5.08e-3 of its
+real-region norm, so `S(t)` PLATEAUS rather than decaying, and no affordable
+`t_max` removes their ≈2.0e-2 relative contribution to the transform (it would
+take `T ≳ 1e7`, 2500× the N₂ gate). A loop or warning keyed to an absolute
+`S/S(0) ≲ 1e-7` would spin or warn permanently on every F₂ DA run. Use a
+PLATEAU detector, or a per-molecule floor derived from the bound population.
+Since a finer nuclear grid resolves MORE such levels, the 24 / 5.08e-3 / 2.0e-2
+figures are lower bounds and this is a property of the F₂ model potential, not
+of a particular discretisation.
+
+**Do not carry N₂'s tolerances to F₂.** N₂'s gate reaches 1.7e-4; F₂'s floor is
+~2e-2, about 100× looser. Budget 2–5% for any F₂ time-dependent gate.
 
 Cost risk: the arrow LU may fill in through the head at `n_states ≈ 100`. If
 measured to be the bottleneck, the fix is a Schur complement onto the `d`-block
