@@ -12,57 +12,68 @@ in bohr²).
 ## Physical picture
 
 `docs/physics/n2-resonance.md` establishes the *electronic* (fixed-nuclei) half of
-the LCP model: at each bond length `R`, the ²Π_g shape resonance is a complex pole
-`E_res(R) - i*Gamma(R)/2` of the fixed-R electronic scattering problem. This
-document covers the *nuclear* half: given `V_d(R) = v0(R) + E_res(R)` (the
-anion/resonance potential energy curve) and `Gamma(R)` (the local, R-dependent
-autodetachment width) as functions of the N₂ bond length, a **time-independent (TI)
-nuclear scattering solve** turns them into vibrationally-elastic (v'=0) and
--inelastic (v'>=1) electron-impact cross sections `sigma_{v=0->v'}(E)`, the
+the LCP model: at each bond length $R$, the $^2\Pi_g$ shape resonance is a complex
+pole $E_\mathrm{res}(R) - i\Gamma(R)/2$ of the fixed-$R$ electronic scattering
+problem. This document covers the *nuclear* half: given
+$V_d(R) = v_0(R) + E_\mathrm{res}(R)$ (the anion/resonance potential energy curve)
+and $\Gamma(R)$ (the local, $R$-dependent autodetachment width) as functions of the
+N₂ bond length, a **time-independent (TI) nuclear scattering solve** turns them into
+vibrationally-elastic ($v'=0$) and -inelastic ($v'\ge 1$) electron-impact cross
+sections $\sigma_{v=0\to v'}(E)$, the
 observable actually measured/tabulated in the literature (e.g. Houfek's golden
 data, `validation/n2/data/CSVE.V00.J00`).
 
 ## Method: resolvent (Green's function) / driven equation on the nuclear FEM-DVR-ECS grid
 
 1. **Nuclear grid** (`nuclear_grid.n2_nuclear_grid`): a `qscat.dvr.FemDvrEcsGrid`
-   covering the bond length `R` — a real region `[0, 12]` bohr (finely resolved,
+   covering the bond length $R$ — a real region `[0, 12]` bohr (finely resolved,
    0.15 bohr elements, around the N₂ equilibrium `R0 = 2.01943` bohr) plus a 35°
    ECS tail out to `r_max = 40` bohr, giving the outgoing dissociative-attachment
    boundary condition.
 2. **Neutral vibrational states** (`vibrational.vibrational_states`): diagonalize
-   `T_nuc(mu) + diag(V0(R))` (`mu` = N₂ nuclear reduced mass) to get the bound
-   levels `(eps_v, chi_v(R))`, `v = 0, 1, 2, ...`. These live entirely in the real
+   $T_\mathrm{nuc}(\mu) + \mathrm{diag}\,V_0(R)$ ($\mu$ = N₂ nuclear reduced mass)
+   to get the bound levels $(\varepsilon_v, \chi_v(R))$, $v = 0, 1, 2, \ldots$.
+   These live entirely in the real
    region (bound states are real and angle-independent on this ECS grid).
-3. **`V_d(R)`, `Gamma(R)` per nuclear point** (`vres.vres_on_grid`): re-run the
+3. **$V_d(R)$, $\Gamma(R)$ per nuclear point** (`vres.vres_on_grid`): re-run the
    *electronic* two-angle pole search (`docs/physics/n2-resonance.md`) at every
    nuclear grid point `R` (real or ECS-complex), continuing the pole by window
    tracking rather than interpolating from a coarse scan. Costs ~7s for the full
    ~300-point grid — computed once and reused everywhere downstream.
-4. **Doorway function**: `d_v(R) = sqrt(Gamma(R)/(2*pi)) * chi_v(R)` — the overlap
+4. **Doorway function**: $d_v(R) = \sqrt{\Gamma(R)/2\pi}\;\chi_v(R)$ — the overlap
    of a neutral vibrational level with the resonance's decay amplitude.
-5. **Driven (resolvent) equation**, for collision energy `E` and initial channel
-   `v_init` (always `v_init=0` here, i.e. ground-state N₂ + e⁻): with
-   `E_tot = E + eps_{v_init}`,
-   ```
-   H_res = T_nuc(mu) + diag(V_d(R) - i*Gamma(R)/2)
-   (E_tot*I - H_res) @ xi = d_{v_init}          # np.linalg.solve
-   ```
-6. **S-matrix and cross section**:
-   `S_{v'<-v_init} = sum_j d_{v'}[j] * xi[j]` (the DVR **c-product** — a plain
-   coefficient dot product, no conjugation, since `xi` is a genuinely complex
-   ECS-driven solution rather than a Hermitian-normalized eigenvector; verified
-   empirically to give real, non-negative `sigma`), and
-   `sigma_{v_init->v'}(E) = 4*pi^3*|S|^2/(2*E)`, set to 0 if `E_tot - eps_{v'} <=
-   0` (the final channel is energetically closed).
+5. **Driven (resolvent) equation**, for collision energy $E$ and initial channel
+   $v_\mathrm{init}$ (always `v_init=0` here, i.e. ground-state N₂ + e⁻): with
+   $E_\mathrm{tot} = E + \varepsilon_{v_\mathrm{init}}$,
 
-`xi` depends only on `(E, v_init)`, not `v'`, so it is solved once per energy and
+   $$
+   \begin{aligned}
+   H_\mathrm{res} &= T_\mathrm{nuc}(\mu)
+       + \mathrm{diag}\!\left(V_d(R) - \tfrac{i}{2}\Gamma(R)\right)\\
+   (E_\mathrm{tot}\mathbb{1} - H_\mathrm{res})\,\xi
+       &= d_{v_\mathrm{init}} &&\text{solved with \texttt{np.linalg.solve}}
+   \end{aligned}
+   $$
+6. **S-matrix and cross section**:
+   $S_{v' \leftarrow v_\mathrm{init}} = \sum_j d_{v'}[j]\,\xi[j]$ (the DVR
+   **c-product** — a plain coefficient dot product, no conjugation, since $\xi$ is
+   a genuinely complex ECS-driven solution rather than a Hermitian-normalized
+   eigenvector; verified empirically to give real, non-negative $\sigma$), and
+
+   $$\sigma_{v_\mathrm{init} \to v'}(E) = \frac{4\pi^3 |S|^2}{2E},$$
+
+   set to 0 if $E_\mathrm{tot} - \varepsilon_{v'} \le 0$ (the final channel is
+   energetically closed).
+
+$\xi$ depends only on $(E, v_\mathrm{init})$, not $v'$, so it is solved once per
+energy and
 reused for every open channel (`projects/n2_ti_cross_section/cross_section.py`'s
 `ve_cross_section`).
 
 ## Validation: internal checks (the correctness gate)
 
 `projects/n2_ti_cross_section/test_cross_section.py`'s model-independent checks —
-`sigma` real and `>=0`; a closed channel gives exactly `0`; `sigma_{0->1}` is
+$\sigma$ real and $\ge 0$; a closed channel gives exactly $0$; $\sigma_{0\to1}$ is
 resonance-enhanced (~53x) in the ~2–3 eV ²Π_g region relative to near threshold —
 all **PASS**. These, not the Houfek comparison below, are the actual correctness
 gate for the numerics.
@@ -90,7 +101,7 @@ percent-level match.
 **ratio 1.010** — near-unity at this anchor, not a single fortuitous point:
 note that E=0.1 Ha (2.72 eV) sits somewhat above the ²Π_g resonance maximum
 itself (~2.44 eV), so this is not literally the resonance peak. Scanning
-`sigma_{0->1}(E)` across the whole resonance region (E=0.06–0.2 Ha) gives
+$\sigma_{0\to1}(E)$ across the whole resonance region (E=0.06–0.2 Ha) gives
 ratios spanning ~0.38–1.2 throughout, consistent with the anchor's good
 agreement rather than an isolated coincidence.
 
@@ -106,7 +117,7 @@ localized numerical bug. `validation/n2/cross_section.py` implements the exclusi
 
 1. **Elastic (v'=0) channel omits non-resonant background scattering.** The
    doorway/driven-equation formula above is built entirely from the resonance's
-   `V_d(R)`/`Gamma(R)`; it has no term for direct/potential (non-resonant)
+   $V_d(R)$ and $\Gamma(R)$; it has no term for direct/potential (non-resonant)
    electron scattering, which dominates the elastic channel away from the
    resonance. Confirmed: scanning v'=0 across E=0.02–0.2 Ha gives ratio ≈
    0.83–1.17 right at/near the resonance peak (E=0.08–0.1 Ha), diverging
@@ -114,11 +125,11 @@ localized numerical bug. `validation/n2/cross_section.py` implements the exclusi
    already by E<0.05 or E>0.12 Ha) — this discrepancy is *not bounded*, it keeps
    growing the further one samples from the resonance.
 2. **No electron-energy dependence in the local width ⇒ wrong (non-Wigner)
-   threshold law.** `Gamma(R)` is a function of nuclear geometry only, evaluated
+   threshold law.** $\Gamma(R)$ is a function of nuclear geometry only, evaluated
    once via the fixed-R electronic pole search — a genuinely energy-dependent
    width (as in a full non-local/multichannel treatment) would vanish at exactly
    the right rate as a channel's threshold is approached from above. Because
-   this LCP's width does not, `sigma` diverges as **~1/E toward EVERY channel's
+   this LCP's width does not, $\sigma$ diverges as **$\sim 1/E$ toward EVERY channel's
    own threshold** — a structural property of the model, not specific to v'=1.
    Confirmed: at E=0.02 Ha (only ~0.0076 Ha above the v'=1 threshold, `eps1-eps0
    ~= 0.0124` Ha), Houfek's data itself rises ~4 orders of magnitude across
@@ -143,7 +154,7 @@ defect.
 ## Validation
 
 - `projects/n2_ti_cross_section/test_cross_section.py`: internal correctness
-  checks (real/non-negative `sigma`, exact-zero closed channel, resonance
+  checks (real/non-negative $\sigma$, exact-zero closed channel, resonance
   enhancement) — **PASS**; Houfek anchor comparison — 4/6 anchors gated and
   **PASS** at factor-of-3, 2/6 reported as known LCP-vs-2D limitations.
 - `validation/n2/experiment.py` Group C5: the same 6 anchors, computed once via
@@ -153,7 +164,7 @@ defect.
 
 ## Model caveats carried over from `docs/physics/n2-resonance.md`
 
-The model's neutral vibrational spacing (`eps1-eps0 ~= 0.0124` Ha) is ~16% larger
+The model's neutral vibrational spacing ($\varepsilon_1 - \varepsilon_0 \approx 0.0124$ Ha) is ~16% larger
 than real N₂'s spectroscopic value, shifting where thresholds fall relative to
 Houfek's data — folded into the ratios above (see `n2-resonance.md`'s "Model
 caveat" section for the underlying `D_0`/Morse discussion). This is a deliberate,
