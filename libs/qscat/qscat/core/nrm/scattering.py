@@ -112,9 +112,15 @@ def scattering_state_minus(
     `np.conjugate` is correct rather than a c-product violation.
 
     Under exterior complex scaling conjugation also conjugates the CONTOUR, so
-    the identity is used only on the real region and the ECS tail is zeroed.
-    That is sufficient for its consumer: Eq. (37)'s integrand carries
-    `V_int`, a Gaussian in `r`, which has no support on the tail.
+    Eq. (34)'s identity holds only on the real region; the ECS tail is zeroed
+    because the identity itself does not extend there, independent of what
+    any consumer needs. This function currently has **no production
+    consumer** -- Eq. (37)'s first term is a bra, `<... phi_kf^-|`, and Eq.
+    (34) collapses `(phi_k^-)^* = phi_k^+`, so `t_background` calls
+    `scattering_state` directly at the final-channel energy rather than
+    conjugating this function's output. `scattering_state_minus` remains as
+    the repo's executable statement of Eq. (34), exercised by
+    `test_nrm_scattering.py`.
     `test_minus_state_is_purely_incoming_by_hankel_decomposition` gates the
     identity rather than assuming it, by checking that -- beyond the
     potential's support -- the scattered part carries no outgoing component.

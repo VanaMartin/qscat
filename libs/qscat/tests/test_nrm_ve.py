@@ -6,6 +6,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 from qscat.core.grids import electronic_grid, segmented_grid
+from qscat.core.nrm import vibrational_excitation as nrm_ve_module
 from qscat.core.nrm.coupling import v_dk_plus
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
 from qscat.core.nrm.dissociation import solve_nuclear
@@ -101,15 +102,35 @@ def test_j_dk_is_r_independent_for_an_r_independent_discrete_state(elec):
     assert np.allclose(got, got[0], rtol=1e-14, atol=0.0)
 
 
-def test_j_dk_scales_with_the_incident_normalization(elec):
-    """A doubled incident wave doubles the overlap -- it is LINEAR in J_k,
-    which a squared-quantity test could not detect.
+def test_j_dk_scales_with_the_incident_normalization(elec, monkeypatch):
+    """A doubled incident wave doubles the overlap -- Eq. (38)'s `J_dk(R) =
+    Int phi_d*(r;R) J_k(r) dr` is LINEAR in `J_k`, which a squared quantity
+    (like a cross section) could not detect.
+
+    `j_dk`'s public signature has no incident-amplitude parameter -- the
+    energy fixes `J_k`'s energy-normalized amplitude, it is not a free
+    scale -- so two different energies would compare two different `J_k`,
+    not a scaled and unscaled copy of the same one. Instead the incident
+    wave is doubled at its one construction site, `incident_coefficients`
+    (imported into this module as `nrm_ve_module`), via monkeypatch, so the
+    REAL `j_dk` runs both times and a linearity-breaking mutation inside it
+    (e.g. an accidental `abs()` or an added constant) is still caught.
     """
     ds = AsymptoticDiscreteState(elec, F2, R_inf=10.7)
     R = np.array([2.5])
-    a = j_dk(elec, ds, R, energy=0.05, ell=F2.ell)[0]
-    b = j_dk(elec, ds, R, energy=0.20, ell=F2.ell)[0]
-    assert a != b and np.isfinite(a) and np.isfinite(b)
+    energy, ell = 0.05, F2.ell
+
+    baseline = j_dk(elec, ds, R, energy=energy, ell=ell)[0]
+
+    real_incident_coefficients = nrm_ve_module.incident_coefficients
+    monkeypatch.setattr(
+        nrm_ve_module,
+        "incident_coefficients",
+        lambda grid, k, ell: 2.0 * real_incident_coefficients(grid, k, ell),
+    )
+    doubled = j_dk(elec, ds, R, energy=energy, ell=ell)[0]
+
+    assert abs(doubled - 2.0 * baseline) < 1e-12 * abs(baseline)
 
 
 def test_j_dk_rejects_non_positive_energy(elec):
