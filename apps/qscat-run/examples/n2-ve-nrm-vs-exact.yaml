@@ -54,8 +54,11 @@ grid: {preset: emoscat}
 
 nrm:
   # Both discrete-state choices, so one run carries the Born-Oppenheimer
-  # breakdown (choice A, Fig. 4) next to the formally exact partitioning
-  # (choice B, Fig. 8 -- measured here within 0.7 % of the exact oracle).
+  # breakdown (choice A, Fig. 4) next to choice B (Fig. 8 -- measured here
+  # within 0.7 % of the exact oracle). Choice B is only a formally exact
+  # partitioning of the T matrix WITH the full Eq. (60) state sum AND the
+  # Eq. (37) background included (both true of this run: `n_states: 100`,
+  # `include_background: true` below) -- drop either and it stops being one.
   choices: [a, b]
   # The measured Eq. (60) state-sum truncation.
   n_states: 100

@@ -579,7 +579,16 @@ to agree.
 is the paper's own correction to Domcke.** `V^-_{dk}` (Eq. 23) is built on the
 **incoming** background continuum state; Domcke's unsuperscripted `V_dk` is the
 **outgoing** `V^+_{dk}` of Eq. 21, which PRA 77 says "was, in our opinion, used
-incorrectly" (p. 012710-4). What makes the paper's form implementable here is
+incorrectly" (p. 012710-4).
+
+*(A naming note, since `qscat.core.nrm.scattering`/`vibrational_excitation.py` call
+`phi_k^+` OUTGOING while PRA 77's own text calls its boundary condition "determined by
+the incoming wave `J^l_k`" -- both are standard scattering-theory usage for the same
+object, naming different aspects of it: the paper names `phi_k^+` by its SOURCE term
+(the incident wave `J_k` that drives it), the code by its asymptotic SCATTERED
+behavior, `phi+ = J_k + (outgoing scattered wave)`. Not a disagreement.)*
+
+What makes the paper's form implementable here is
 **Eq. (34)**, whose condition is printed as "a special case of the real discrete state
 and … for the radial case": there `φ_k^- = (φ_k^+)*`, and **Eq. (35)** then collapses
 the matrix element,
@@ -623,8 +632,11 @@ c-product must carry is `(φ⁻)* = φ⁺` — evaluated at the **final** channe
 `t_background` therefore calls `scattering_state(PHP, …, e_kin_f, ℓ)` directly. The
 `φ⁻` route would need the ECS tail zeroed by hand; the `φ⁺` route is analytic on the
 whole contour. `scattering_state_minus` remains as a gated, tested primitive because
-Eq. (34) is the identity the choice rests on, and a future 3-D (Eq. 36) branch would
-need it.
+Eq. (34) is the identity the choice rests on — it is the repo's executable statement
+of that identity, kept and gated even though nothing in the shipped assembly calls
+it. (A future 3-D branch would need Eq. (36), `φ_kvec⁻ = (φ_{−kvec}⁺)*` — conjugation
+at the *reversed* wavevector, not the same-k conjugation `scattering_state_minus`
+computes — so it would need a different function, not a reuse of this one.)
 
 **The gate on it is a Hankel decomposition, not a time-reversal comparison, and the
 first attempt at one was circular.** Comparing `conj(φ⁻)` against `φ⁺` through the same
