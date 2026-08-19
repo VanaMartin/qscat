@@ -14,7 +14,7 @@ driven solver) and #8 (the MUMPS backend, see
 
 ## The idea: one symbolic analysis, many numeric factorizations
 
-A driven-equation cross-section sweep factors `A(E) = E_tot·I − H` once per
+A driven-equation cross-section sweep factors $A(E) = E_\mathrm{tot}\mathbb{1} - H$ once per
 collision energy and solves against the driving term. Across the sweep only the
 scalar diagonal shift `E_tot·I` changes — `H` is fixed, and the identity merely
 shifts the already-populated diagonal — so **every `A(E)` has an identical
@@ -66,7 +66,7 @@ below-threshold energies (`E ≤ 0`) return zeros with **no factorization at
 all** (there is no scattering solution below threshold). The returned σ, its
 scalar/array shape contract, and the `return_wavefunction` behavior are
 **unchanged** — the physics is identical, only the factorization path differs.
-The per-energy `e_tot = E + eps[v_init]` fed to `refactor` is exactly the value
+The per-energy $E_\mathrm{tot} = E + \varepsilon_{v_\mathrm{init}}$ (the `e_tot` argument) fed to `refactor` is exactly the value
 the solve uses internally, so the reused solver always factors the right
 matrix. A differential test asserts the reuse-swept σ equals the same σ
 computed one energy at a time, to round-off, on both backends.
@@ -77,7 +77,7 @@ The original design spec estimated the analysis at "~10–30% of a MUMPS
 factorization," so it predicted a *bounded, modest* sweep saving. **The
 measured saving on the working grid is ~80% (a ~5× wall-clock speedup)** —
 substantially larger. The benchmark (`benchmarks/sweep_reuse.py`, on the N₂
-working grid `N = 26,857`, `H` nnz = 476,377):
+working grid $N = 26{,}857$, $H$ nnz = 476,377):
 
 | backend | M energies | reuse total | no-reuse total | fraction saved |
 |---|---|---|---|---|
