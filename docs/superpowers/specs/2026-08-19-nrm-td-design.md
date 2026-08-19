@@ -192,7 +192,7 @@ hardcoded constant.
 
 The half-Fourier transform is accumulated **on the fly**: each propagated
 column carries an `(N_R, n_E)` accumulator, so no snapshot history is stored.
-Quadrature reuses the weighting `time_dependent._quadrature_weights` already
+Quadrature reuses the weighting `time_dependent.quadrature_weights` already
 applies to the Tannor-Weeks correlation transform.
 
 ## 6. The Markovian (LCP) limit

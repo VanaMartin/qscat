@@ -89,6 +89,7 @@ __all__ = [
     "td_ve_cross_sections_all",
     "td_da_cross_section",
     "td_da_cross_sections_all",
+    "quadrature_weights",
 ]
 
 
@@ -222,7 +223,7 @@ def propagate(
     return PropagationResult(t=t, c=c, norm=norm, snapshots=snapshots)
 
 
-def _quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
+def quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
     """Composite Simpson weights (unscaled by `dt`) for `n_t` samples.
 
     Requires an odd `n_t` (even `n_steps`) for the standard composite Simpson
@@ -323,7 +324,7 @@ def _s_vector_one_energy(
     S = np.zeros(len(vprimes), dtype=np.complex128)
     if E <= 0.0:
         return S
-    weights = _quadrature_weights(result.t.size)
+    weights = quadrature_weights(result.t.size)
     e_tot = E + eps[v_init]
     k = float(np.sqrt(2.0 * E))
     eta_in = eta_incident(tgrid.grids[0], k, model.ell, **wp_in)
