@@ -17,7 +17,7 @@ channel) to DA (dissociative attachment, a NUCLEAR-axis outgoing channel).
 `docs/physics/td-extractors.md` established three independent ways to read
 an energy-domain S-matrix off one propagated Gaussian-wavepacket trajectory
 (`TannorWeeks`/`Dirac`/`Flux`), for the VE cross section
-`sigma_{v_init->v'}(E)` -- an ELECTRONIC-axis outgoing channel (the electron
+$\sigma_{v_\mathrm{init} \to v'}(E)$ -- an ELECTRONIC-axis outgoing channel (the electron
 re-emerges, the molecule stays bound in vibrational level `v'`).
 Dissociative attachment is the other exit channel of the same 2-D
 (electron-`r` x nuclear-`R`) collision: the electron is captured, the
@@ -39,20 +39,21 @@ one-for-one (all three `axis="nuclear"`, `qscat.core.td_extractors`):
 
 In every case the roles of the two axes swap: the exit "channel index" is no
 longer a neutral vibrational level `v'` but one of `n_channels` ANION
-electronic bound states `phi_c` at the dissociation limit `R_inf =
+electronic bound states $\phi_c$ at the dissociation limit `R_inf =
 tgrid.grids[1].R0` (`qscat.core.dissociation.anion_electronic_states`), and
 the outgoing test function/surface/point moves from the electronic
-coordinate `r` to the nuclear coordinate `R` (mass `mu_R = model.mu`,
-partial wave `l=0`, since the nuclear motion is s-wave along the bond).
+coordinate $r$ to the nuclear coordinate $R$ (mass $\mu_R$ = `model.mu`,
+partial wave $l=0$, since the nuclear motion is s-wave along the bond).
 The INCIDENT side is unchanged in all three: `eta_incident` stays on the
 electronic axis (the electron is still what comes in).
 
-## The DA sigma normalization: reconciling `C_DA = pi` with the TI oracle's `4*pi^3`
+## The DA sigma normalization: reconciling C_DA = pi with the TI oracle's 4 pi^3
 
-Every nuclear extractor's `sigma(E)` uses `sigma_DA,c(E) = C_DA * |S_c(E)|^2
-/ (2E)` with `C_DA = pi` -- the SAME prefactor the electronic extractors use
+Every nuclear extractor's `sigma(E)` uses
+$\sigma_{\mathrm{DA},c}(E) = C_\mathrm{DA}\,|S_c(E)|^2 / 2E$
+with $C_\mathrm{DA} = \pi$ -- the SAME prefactor the electronic extractors use
 for an INELASTIC VE channel. This looks inconsistent with
-`da_cross_section`'s literal `4*pi^3 |T|^2 / 2E`, but the two are the SAME
+`da_cross_section`'s literal $4\pi^3 |T|^2 / 2E$, but the two are the SAME
 formula in different variables. The general partial-wave S/T relation is
 
     S = 1 - 2*pi*i*T   =>   |S|^2 = 4*pi^2*|T|^2   (off-diagonal / no-`1`-term)
@@ -64,9 +65,9 @@ so
 identically. The TD extractors compute an S-matrix element (`S = raw
 correlation / (2*pi*eta_out*eta_in)`, the SAME Tannor-Weeks deconvolution
 used everywhere in this stack); the TI oracle computes a T-matrix element
-(a driven-equation projection). `C_DA = pi` is therefore not a separate
+(a driven-equation projection). $C_\mathrm{DA} = \pi$ is therefore not a separate
 constant to tune -- it is dictated by the S/T identity, and a WRONG value
-(e.g. an extra `4*pi^2` from conflating the two conventions) would show up
+(e.g. an extra $4\pi^2$ from conflating the two conventions) would show up
 as the converged ratio landing at a wildly different constant, not ~1. The
 `@slow` TI-convergence gates below are the empirical confirmation of this,
 not merely an algebraic assertion.
