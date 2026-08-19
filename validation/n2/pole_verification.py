@@ -42,6 +42,7 @@ from qscat.core import (
     exact_resonance_states,
     pair_by_overlap,
     pair_one_to_one,
+    real_weight,
     resonance_curve,
     resonance_levels,
 )
@@ -107,8 +108,17 @@ def verify(n_levels: int = 8):
     )
 
     order = np.argsort(res.energies.real)
+    # `localization` is supplied because the overlap cannot see a state that has
+    # left the box -- the c-product cancels the rotated tail by construction. On
+    # H2+ that blindness hid 18 poles whose orbitals are larger than their grid.
     pairs = [
-        pair_by_overlap(res.energies[i], res.states[:, i], basis, basis_complete=True)
+        pair_by_overlap(
+            res.energies[i],
+            res.states[:, i],
+            basis,
+            basis_complete=True,
+            localization=real_weight(res.states[:, i], base),
+        )
         for i in order
     ]
     return res, bo, basis, pairs, order
@@ -117,9 +127,15 @@ def verify(n_levels: int = 8):
 def main() -> None:
     res, bo, basis, pairs, order = verify()
 
+    base, _, _ = ecs_angle_family(
+        lambda a: electronic_grid(angle_deg=a, **EL),
+        lambda a: nuclear_grid(angle_deg=a, **NU),
+        electronic_angles=EL_ANGLES,
+        nuclear_angles=NU_ANGLES,
+    )
     print(
         f"\n{'E_r (Ha)':>12} {'Gamma (Ha)':>11} {'level':>8} {'overlap':>8} "
-        f"{'2nd':>8} {'2nd val':>8} {'shift(meV)':>11}  verdict"
+        f"{'2nd':>8} {'2nd val':>8} {'shift(meV)':>11} {'real_wt':>8}  verdict"
     )
     tally: dict[str, int] = {}
     for p, i in zip(pairs, order, strict=True):
@@ -128,7 +144,8 @@ def main() -> None:
         second = "-" if p.second_level is None else f"w_{p.second_level[1]}"
         print(
             f"{p.pole_energy:>12.6f} {res.widths[i]:>11.3e} {lvl:>8} {p.overlap:>8.4f} "
-            f"{second:>8} {p.second_overlap:>8.4f} {p.shift_mev:>11.3f}  {p.verdict}"
+            f"{second:>8} {p.second_overlap:>8.4f} {p.shift_mev:>11.3f} "
+            f"{real_weight(res.states[:, i], base):>8.4f}  {p.verdict}"
         )
     print(f"\nverdict tally: {tally}")
 

@@ -49,7 +49,7 @@ but the exact solver never calls the approximation it exists to measure.
 Switch the electronic-nuclear coupling off and the tensor Hamiltonian becomes an
 exact Kronecker sum,
 
-```
+```text
 H = (T_r + diag v_el) ⊕ (T_R + diag v_nuc),
 ```
 
@@ -187,7 +187,7 @@ out of that campaign. **The result is clean:**
 
 | question | answer |
 |---|---|
-| are the poles resonances? | **yes** — all 6 pair cleanly, no `spurious`, no `weak` |
+| are the poles resonances? | **yes** — all 6 pair cleanly, no `spurious`, no `weak`, no `box-limited` |
 | does the sorted-index pairing hold? | **yes** — overlap agrees at every level, 0/6 disagreements |
 | does a bijection by energy agree? | **yes** — Hungarian assignment gives the same map |
 
@@ -199,14 +199,25 @@ discards) and the nuclear factor from `resonance_levels`, combined by
 
 Two things the check turned up that the pole table does not show.
 
-**The overlap exceeds 1, legitimately.** The c-product is a *bilinear form*, not
-an inner product, so Cauchy–Schwarz does not bound it and the normalized
-magnitude is a similarity measure rather than a projection coefficient. The six
-identifications score 1.02, 1.05, 1.08, 1.11, 1.15, 1.19 — **rising
-monotonically with Γ**. H₂⁺'s narrow Rydberg resonances stay at 0.87–0.99
-because they are nearly real; N₂'s are broad (Γ ≈ 5–7 × 10⁻³ Ha) and the
-departure from 1 tracks that. Read distance from 1 in *either* direction as "the
-BO picture describes this state less well".
+**The overlap exceeds 1, legitimately.** The c-product is a *bilinear form*, so
+Cauchy–Schwarz does not bound it. With both states c-normalized the value is
+just `|c(a,b)|`, inflated by `1/√(ρ_a ρ_b)` where `ρ = |c(ψ,ψ)|/‖ψ‖²` measures
+how close to real-valued a state is. The six identifications score 1.02, 1.05,
+1.08, 1.11, 1.15, 1.19 — **rising monotonically with Γ** as ρ falls 0.66 → 0.42.
+H₂⁺'s narrow Rydberg resonances stay at 0.87–0.99 because they are nearly real.
+
+**Dividing by the Euclidean norms to bound it at 1 is wrong**, which was
+measured rather than argued. That denominator weights the exponentially growing
+ECS tail — reintroducing exactly what the c-product's numerator cancels, the
+same error as using `vdot`. On H₂⁺ it collapses to 0.03, 0.008 and 0.006 for
+three states whose node counts identify them unambiguously, and re-ranks all
+three onto the wrong partner. It penalizes diffuse states for being diffuse.
+
+**These poles are well localized**, which is the separate question. `real_weight`
+— the fraction of |Ψ|² inside the unscaled region — is 0.96 for all six, so ρ's
+fall is about the states being *genuinely complex where they live*, not about
+them leaking out of the box. On H₂⁺ the two quantities collapse together for a
+different reason and 18 of 57 poles come back `box-limited`; N₂'s do not.
 
 **The sign claim below needs narrowing.** This run uses the
 `exact_resonance_figures.py` deck (46 428 unknowns), which is *finer* than the
@@ -322,10 +333,13 @@ qualification (see `docs/physics/lcp-resonance-levels.md`).
   eigenvalue did not move when the contour did — and a rotated-continuum state
   sitting in a stable corner produces that too, as four of H₂⁺'s 57 poles did. A
   grid too coarse to resolve a state can produce it for a third reason.
-  Three separate checks answer three separate questions: overlap against a BO
+  Four separate checks answer four separate questions: overlap against a BO
   basis (`qscat.core.assignment.pair_by_overlap`) for "is this a resonance",
-  grid refinement for "is the discretization adequate", and the residuals here
-  for "did the contour move it".
+  `real_weight` for "does the box still hold it", grid refinement for "is the
+  discretization adequate", and the residuals here for "did the contour move
+  it". The overlap is blind to the second by construction — the c-product
+  cancels the rotated tail — so a state 97 % outside the box still pairs at
+  0.99. On H₂⁺ that blindness hid 18 poles.
 - **Seed placement matters more than it looks.** `k` eigenpairs nearest a shift
   is a *local* window: with a vibrational spacing of ~0.0096 Ha, a seed one
   quantum away returns `v = 1` and `v = 2` while `v = 0` falls off the end of the

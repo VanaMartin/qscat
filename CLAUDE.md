@@ -210,9 +210,20 @@ libs/       qscat — the standard library: validated, reusable QM code
               in either, all phase-aligned across R (without which the product
               flips sign at random R and every overlap integrates to ~0).
               `assignment` pairs a pole to a level BY OVERLAP (c-product, which is
-              BILINEAR -- values above 1 are legitimate and grow with the width:
-              N2's broad resonances score 1.02-1.19) and returns one of six
-              verdicts; `spurious` vs `basis-limited` is separated by the
+              BILINEAR -- values above 1 are legitimate, inflated by
+              `1/sqrt(rho_a rho_b)` with `rho = |c(psi,psi)|/||psi||^2`: N2's broad
+              resonances score 1.02-1.19. Do NOT "fix" this by dividing by the
+              Euclidean norms -- that denominator reweights the rotated tail the
+              c-product exists to cancel, and it re-ranks H2+'s diffuse states onto
+              the wrong partner; measured, not argued) and returns one of SEVEN
+              verdicts. `real_weight` is the check the overlap CANNOT make: the
+              c-product cancels the rotated tail by construction, so a state 97%
+              outside the box still pairs at 0.99 with the BO product it genuinely
+              is -- on H2+ that blindness hid 18 of 57 poles whose Rydberg orbitals
+              are larger than the 300-bohr box (`box-limited`; it moved the measured
+              BO regime split from 0.264/3.375 meV over 40 rows to 0.457/3.702 over
+              24). N2's poles sit at `real_weight` 0.96 and are untouched.
+              Separately, `spurious` vs `basis-limited` is separated by the
               CLOSED-CHANNEL energy constraint (`admissible_levels`/`basis_covers`,
               `n_eff = 1/sqrt(2*binding)` to the nearest threshold ABOVE, so a
               higher vibrational level admits only a LOWER Rydberg index and the
