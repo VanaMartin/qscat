@@ -11,7 +11,7 @@ kind + `artifacts.resonance_levels` flag, `runner.ResonanceLevelsRun`,
 `apps/qscat-run/examples/f2-resonance-levels.yaml`.
 **Origin:** step 2 of the Born-Oppenheimer/LCP approximation to the 2-D model's
 resonance energies. Step 1 (the fixed-`R` electronic pole, giving the complex curve
-`V_d(R) - i*Gamma(R)/2`) already existed as `local_complex_potential` and is unchanged
+$V_d(R) - \tfrac{i}{2}\Gamma(R)$) already existed as `local_complex_potential` and is unchanged
 by this work; this note covers step 2, the nuclear eigenvalue problem in that curve.
 **Units:** atomic units throughout (energy in Hartree, length in bohr).
 
@@ -19,26 +19,29 @@ by this work; this note covers step 2, the nuclear eigenvalue problem in that cu
 
 The thesis writes the LCP curve and the resulting nuclear Hamiltonian as
 
-```text
-V_res(R) = E_res(R) - (i/2) Gamma(R)          (Vana & Houfek 2017, PRA 95, Eq. 41)
-H_LCP    = -(1/2 mu) d^2/dR^2 + E_res(R) - (i/2) Gamma(R)      (ibid., Sec. IV)
-```
+Eq. (41) and Sec. IV of Váňa & Houfek 2017, PRA 95:
 
-qscat's `Vd` **is** the thesis's `E_res` (both names appear in docstrings so the code
+$$
+\begin{aligned}
+V_\mathrm{res}(R) &= E_\mathrm{res}(R) - \tfrac{i}{2}\Gamma(R) \tag{41}\\
+H_\mathrm{LCP} &= -\frac{1}{2\mu}\frac{\mathrm{d}^2}{\mathrm{d}R^2}
+  + E_\mathrm{res}(R) - \tfrac{i}{2}\Gamma(R)
+\end{aligned}
+$$
+
+qscat's `Vd` **is** the thesis's $E_\mathrm{res}$ (both names appear in docstrings so the code
 reads against the thesis). `lcp_resonance_levels` builds exactly this operator on a
 nuclear FEM-DVR-ECS grid,
 
-```text
-H_N = T(mu) + diag(W),        W(R) = Vd(R) - i*Gamma(R)/2
-```
+$$H_N = T(\mu) + \mathrm{diag}\,W, \qquad
+W(R) = V_d(R) - \tfrac{i}{2}\Gamma(R)$$
 
 using the same `qscat.dvr.kinetic(grid, mu)` kinetic-energy assembly as every other
 nuclear problem in the library, and diagonalizes it (complex-symmetric, not Hermitian).
 The eigenvalues are the quasi-bound levels
 
-```text
-E_v - i*Gamma_v/2,     Gamma_v = max(0, -2 Im E_v)
-```
+$$E_v - \tfrac{i}{2}\Gamma_v, \qquad
+\Gamma_v = \max(0,\, -2\operatorname{Im} E_v)$$
 
 `resonance_levels(model, nuclear_grid_a, nuclear_grid_b, elec_grid_a, elec_grid_b)`
 is the model-facing convenience: it runs `resonance_pole_walk` once to get `Vd`/`Gamma`,
@@ -48,10 +51,10 @@ the array-taking numeric core (no `ResonanceModel` dependency — `qscat.core` n
 imports `qscat.model`).
 
 In the ECS tail, `local_complex_potential` already sets `Vd = model.v0(z) + s_asym`
-(the analytic continuation of the anion curve) and `Gamma = 0`. Consequently levels
+(the analytic continuation of the anion curve) and $\Gamma = 0$. Consequently levels
 above the anion dissociation limit pick up a genuine **nuclear (dissociative)** width
 from the ECS rotation, while levels below it carry only the **electronic
-autodetachment** width baked into `Gamma(R)`. Both come out of one diagonalization —
+autodetachment** width baked into $\Gamma(R)$. Both come out of one diagonalization —
 the reason for doing this complex rather than perturbatively (see Section 7 for when
 the perturbative version fails).
 
@@ -62,18 +65,18 @@ There is no step-2 analog anywhere in the reference implementation. At
 `source/module_LCP.cpp:295-308`), the code executes `vRes[i] <- Re(vRes[i])` —
 **it discards the imaginary part of the curve** — diagonalizes `T(mu) + Re(V_res)`,
 and keeps the 15 lowest-`Re E` states blindly, with no angle-stability selection. Those
-real-only states are the thesis's `omega_j`: they are used as vertical markers against
+real-only states are the thesis's $\omega_j$: they are used as vertical markers against
 cross-section peaks (thesis Fig. 3.26, for NO) and as a projection basis for the
-populations `|<omega_i|Psi_d(t)>|^2` (thesis Fig. 3.27). The thesis reports their
+populations $\left|\langle \omega_i \vert \Psi_d(t) \rangle\right|^2$ (thesis Fig. 3.27). The thesis reports their
 *widths* only qualitatively — "the lower the energy of the state, the smaller its
 width, the larger its lifetime and the narrower the corresponding structure" — with
 lifetimes **estimated from time-dependent peak-formation times**, never computed
 directly.
 
-`ResonanceLevels.golden_rule` reproduces exactly this: it is the `Gamma = 0`
+`ResonanceLevels.golden_rule` reproduces exactly this: it is the $\Gamma = 0$
 diagonalization (`Re(Vd)` implicitly, since setting `Gamma` to the literal array `0`
 rather than taking `Vd.real` preserves the ECS-tail analytic continuation) plus the
-first-order perturbative width `<chi_v|Gamma|chi_v>_c`. Where `golden_rule` agrees
+first-order perturbative width $\langle \chi_v \vert \Gamma \vert \chi_v \rangle_c$. Where `golden_rule` agrees
 with the full complex `energies`, this run reproduces what eMoScat/the thesis actually
 computed; the complex `energies`/`widths` columns are the genuine extension — the
 widths and lifetimes the thesis could only estimate from propagation.
@@ -92,7 +95,7 @@ not be conflated:
 | Purpose | a complete basis for an MQDT frame transformation | the physical quasi-bound levels themselves |
 
 Docstrings and this note call these **complex-scaled (ECS) resonance eigenstates** or,
-following the thesis, **quasi-bound vibrational states `omega_j`** — "Siegert
+following the thesis, **quasi-bound vibrational states $\omega_j$** — "Siegert
 pseudostate" is reserved for the Hvizdoš et al. construction.
 
 ## 4. Normalization
@@ -153,9 +156,9 @@ for every LCP observable it produces.
 **The default window's `Im` band is sized for autodetachment only.** With no explicit
 `window`, `lcp_resonance_levels` spans `Re` over the anion curve at the real nodes and
 `Im` down to `-max_R Gamma(R)`. That floor is correct for a level *below* the anion
-dissociation limit (`Gamma_v = <chi_v|Gamma|chi_v> <= max Gamma`), but it is **not** a
+dissociation limit ($\Gamma_v = \langle \chi_v \vert \Gamma \vert \chi_v \rangle \le \max \Gamma$), but it is **not** a
 bound on the nuclear (dissociative) width of a level *above* it: that width is generated
-by the ECS rotation of the tail and bears no relation to `Gamma(R)` — for a barrierless
+by the ECS rotation of the tail and bears no relation to $\Gamma(R)$ — for a barrierless
 curve it is `~1e-3` Ha, orders of magnitude below the default floor. Such levels fall
 outside the default window and are simply absent from the result. Pass an explicit
 `window` with a low enough `im_lo` to look for them. The degenerate case — `Gamma ~ 0`
