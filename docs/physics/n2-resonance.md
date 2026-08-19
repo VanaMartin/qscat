@@ -12,35 +12,37 @@ the eMoScat LCP model. Builds on the FEM-DVR-ECS grid
 
 ## Physical picture
 
-Electron scattering off N₂ near ~2 eV is dominated by the ²Π_g shape
+Electron scattering off N₂ near ~2 eV is dominated by the $^2\Pi_g$ shape
 resonance — a metastable N₂⁻ state (the well-known "boomerang" resonance)
 that decays back to N₂ + e⁻. In the local complex potential model, the
 electron sees a fixed-nuclei ("clamped-R") effective potential
-`V_eff_el(r, R) = v_int(r, R) + l(l+1)/(2r²)` (`l = 2`), and the resonance
-shows up as a complex pole `E(R) = E_res(R) - i*Γ(R)/2` of the associated
-scattering problem: `E_res(R)` is the resonance position (vertical
-attachment energy) and `Γ(R)` the autodetachment width, both functions of
-the N₂ bond length `R`.
+$$V_\mathrm{eff}^\mathrm{el}(r, R) = v_\mathrm{int}(r, R) + \frac{l(l+1)}{2r^2}, \qquad l = 2$$
+
+and the resonance shows up as a complex pole
+$E(R) = E_\mathrm{res}(R) - i\Gamma(R)/2$ of the associated scattering
+problem: $E_\mathrm{res}(R)$ is the resonance position (vertical attachment
+energy) and $\Gamma(R)$ the autodetachment width, both functions of the N₂
+bond length $R$.
 
 `v0(R)`, `lam(R)`, `v_int(r, R)`, `v_eff_el(r, R)` are closed-form (Morse
-neutral curve, Gaussian well in `r` scaled by an R-dependent strength — see
+neutral curve, Gaussian well in $r$ scaled by an $R$-dependent strength — see
 `validation/n2/model.py`, the validated "single source" these formulas are
-kept in lockstep with). `E_res(R)`/`Γ(R)` are *not* closed-form: they require
-diagonalizing the fixed-R electronic Hamiltonian
-`H_el(R) = T + diag(V_eff_el(r, R))` on an ECS-rotated radial grid and
-locating the pole in its spectrum.
+kept in lockstep with). $E_\mathrm{res}(R)$ and $\Gamma(R)$ are *not*
+closed-form: they require diagonalizing the fixed-$R$ electronic Hamiltonian
+$H_\mathrm{el}(R) = T + \mathrm{diag}\,V_\mathrm{eff}^\mathrm{el}(r, R)$ on an
+ECS-rotated radial grid and locating the pole in its spectrum.
 
 ## Method: two-angle ECS pole matching
 
 Exterior complex scaling (`docs/physics/femdvr-ecs.md`) turns the divergent
 continuum wavefunctions of the unscaled problem into decaying ones by
-rotating the radial coordinate beyond a pivot `R0` into the complex plane at
-angle `theta`. A resonance pole becomes (nearly) `theta`-independent once
-`theta` is large enough to fully expose it, while the *discretized* continuum
-eigenvalues keep rotating with `theta`.
+rotating the radial coordinate beyond a pivot $R_0$ into the complex plane at
+angle $\theta$. A resonance pole becomes (nearly) $\theta$-independent once
+$\theta$ is large enough to fully expose it, while the *discretized* continuum
+eigenvalues keep rotating with $\theta$.
 
 This gives a direct way to find the pole without a `theta`-stabilization
-scan: diagonalize the *same* `H_el(R)` on two grids built at two different
+scan: diagonalize the *same* $H_\mathrm{el}(R)$ on two grids built at two different
 (but both "large enough") ECS angles, restrict both spectra to a search
 window, and find the pair of eigenvalues — one from each spectrum — that
 agree most closely. That pair is the angle-stable pole; nearby discretized
@@ -48,15 +50,19 @@ continuum eigenvalues, having rotated by different amounts on the two grids,
 do not match this closely. Formalized in
 `qscat.ecs.find_resonance_pole(eigs_a, eigs_b, window)`:
 
-```text
-E_pole  = 0.5 * (ea + eb)      # ea, eb: the closest-matching pair
-residual = |ea - eb|            # small (<< Gamma) => genuine angle-stable pole
-E_res   = Re(E_pole)
-Gamma   = max(0, -2 * Im(E_pole))
-```
+$$
+\begin{aligned}
+E_\mathrm{pole} &= 0.5\,(e_a + e_b)
+ &&\text{$e_a$, $e_b$: the closest-matching pair}\\
+\mathrm{residual} &= |e_a - e_b|
+ &&\text{small } (\ll \Gamma) \Rightarrow \text{genuine angle-stable pole}\\
+E_\mathrm{res} &= \operatorname{Re} E_\mathrm{pole} \\
+\Gamma &= \max(0,\, -2\operatorname{Im} E_\mathrm{pole})
+\end{aligned}
+$$
 
 `projects/n2_resonance/pole.find_pole(R, grid_a, grid_b, window)` assembles
-`H_el(R)` on each grid (`electronic_hamiltonian`, `qscat.dvr.hamiltonian` +
+$H_\mathrm{el}(R)$ on each grid (`electronic_hamiltonian`, `qscat.dvr.hamiltonian` +
 `eigen`) and calls `find_resonance_pole` on the resulting spectra; it is the
 thin, physics-specific caller of the promoted general matcher.
 `validation/n2/resonance.py` mirrors the same grid construction and calls
@@ -66,21 +72,19 @@ harness (Group B) does not import from `projects/`.
 ## R0 result (validated)
 
 At the N₂ equilibrium bond length `R0 = 2.01943` Bohr, with grids built at
-`theta = 35°` and `44°` (`grid_n2.n2_electronic_grid`, `r_pivot=10`,
+$\theta = 35°$ and $44°$ (`grid_n2.n2_electronic_grid`, `r_pivot=10`,
 `n_real=n_complex=8`, `quadrature=8`) and search window
-`Re in [0.04, 0.16]` Ha, `Im in [-0.05, 0]` Ha:
+$\operatorname{Re} \in [0.04, 0.16]$ Ha, $\operatorname{Im} \in [-0.05, 0]$ Ha:
 
-```text
-E_res(R0) = 2.445 eV   Gamma(R0) = 0.455 eV   residual ~ 3e-6 Ha
-```
+$$E_\mathrm{res}(R_0) = 2.445\ \text{eV}, \qquad \Gamma(R_0) = 0.455\ \text{eV}, \qquad \text{residual} \sim 3 \times 10^{-6}\ \text{Ha}$$
 
 Both lie inside the literature plausibility bands
-(`E_res ∈ [2.3, 2.5]` eV, `Gamma ∈ [0.35, 0.55]` eV — Schulz; Berman/Domcke;
+($E_\mathrm{res} \in [2.3, 2.5]$ eV, $\Gamma \in [0.35, 0.55]$ eV — Schulz; Berman/Domcke;
 see `validation/n2/reference.py`), and the match residual (~1e-6 to 1e-5 Ha)
-is far smaller than `Gamma` (~0.017 Ha), the signature of a genuine
+is far smaller than $\Gamma$ (~0.017 Ha), the signature of a genuine
 angle-stable pole rather than an accidental near-miss between rotating
 continuum states. The pole is also resolution-stable: a coarser grid
-(`n_real=n_complex=6`) reproduces `E_pole` to within a few percent
+(`n_real=n_complex=6`) reproduces $E_\mathrm{pole}$ to within a few percent
 (`projects/n2_resonance/test_pole.py`, V1/V2).
 
 ## R-scan: `E_res(R)`, `Gamma(R)`, `V_d(R)`
