@@ -63,7 +63,7 @@ the perturbative version fails).
 There is no step-2 analog anywhere in the reference implementation. At
 `reference/eMoScat/source/Model2d/TimeDependentModel2d.cpp:58-79` (and identically
 `source/module_LCP.cpp:295-308`), the code executes `vRes[i] <- Re(vRes[i])` —
-**it discards the imaginary part of the curve** — diagonalizes `T(mu) + Re(V_res)`,
+**it discards the imaginary part of the curve** — diagonalizes $T(\mu) + \operatorname{Re} V_\mathrm{res}$,
 and keeps the 15 lowest-`Re E` states blindly, with no angle-stability selection. Those
 real-only states are the thesis's $\omega_j$: they are used as vertical markers against
 cross-section peaks (thesis Fig. 3.26, for NO) and as a projection basis for the
@@ -89,7 +89,7 @@ not be conflated:
 
 | | Siegert pseudostates (Hvizdoš et al., App. A) | This work |
 |---|---|---|
-| Operator | `H_N = -1/(2M) d^2/dR^2 + V0(R)` — the **ion/neutral** curve, real | `H_N = T(mu) + V_res(R)` — the **anion** curve, complex |
+| Operator | `H_N = -1/(2M) d^2/dR^2 + V0(R)` — the **ion/neutral** curve, real | $H_N = T(\mu) + V_\mathrm{res}(R)$ — the **anion** curve, complex |
 | Boundary | outgoing-wave at a **finite** radius `a`: `(d/dR - i K_j) phi_j\|_a = 0` (their Eq. A4) | ECS rotation of the tail; Dirichlet at both ends |
 | Orthogonality | bilinear **plus a surface term**, `int_0^a phi_j phi_j' dR + i phi_j(a) phi_j'(a)/(K_j + K_j') = delta` (their Eq. A5) | plain bilinear c-product over the whole rotated grid |
 | Purpose | a complete basis for an MQDT frame transformation | the physical quasi-bound levels themselves |
@@ -100,7 +100,7 @@ pseudostate" is reserved for the Hvizdoš et al. construction.
 
 ## 4. Normalization
 
-`ResonanceLevels.states` are c-product-normalized: `sum_i c_i^2 = 1` under
+`ResonanceLevels.states` are c-product-normalized: $\sum_i c_i^2 = 1$ under
 `qscat.linalg.c_product` (the bilinear, non-conjugated inner product), computed over
 the **whole rotated grid**, never `np.vdot`/`.conj()`/`np.linalg.norm`.
 
@@ -155,13 +155,13 @@ for every LCP observable it produces.
 
 **The default window's `Im` band is sized for autodetachment only.** With no explicit
 `window`, `lcp_resonance_levels` spans `Re` over the anion curve at the real nodes and
-`Im` down to `-max_R Gamma(R)`. That floor is correct for a level *below* the anion
+`Im` down to $-\max_R \Gamma(R)$. That floor is correct for a level *below* the anion
 dissociation limit ($\Gamma_v = \langle \chi_v \vert \Gamma \vert \chi_v \rangle \le \max \Gamma$), but it is **not** a
 bound on the nuclear (dissociative) width of a level *above* it: that width is generated
 by the ECS rotation of the tail and bears no relation to $\Gamma(R)$ — for a barrierless
 curve it is `~1e-3` Ha, orders of magnitude below the default floor. Such levels fall
 outside the default window and are simply absent from the result. Pass an explicit
-`window` with a low enough `im_lo` to look for them. The degenerate case — `Gamma ~ 0`
+`window` with a low enough `im_lo` to look for them. The degenerate case — $\Gamma \sim 0$
 over the whole grid, so the band collapses to `+-atol` and *no* dissociative level
 whatsoever can be represented — now emits a `UserWarning` rather than silently returning
 a bound-states-only spectrum.
@@ -177,7 +177,7 @@ the autodetachment width has died off. It does not fire on the F2 preset deck.
 
 Hvizdoš et al. (§II) show that for the H₂⁺ model potential the ECS rotation angles
 must satisfy `theta_nuclear < pi/8` (22.5 deg) and `theta_electronic < pi/4` (45 deg);
-otherwise `V(R,r)` **diverges** at large `R`/`r` under the rotation. The `a3*R^4` term
+otherwise `V(R,r)` **diverges** at large `R`/`r` under the rotation. The $a_3 R^4$ term
 in their potential (their Eq. 8) needs `4*theta < pi/2` to stay bounded; the electronic
 `exp(-r^2/3)` factor needs `2*theta < pi/2`. `IonicResonanceModel.max_nuclear_ecs_angle_deg
 = 22.5` records the nuclear bound (eMoScat's own H₂⁺ nuclear deck uses 22.0 degrees —
