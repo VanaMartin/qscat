@@ -19,32 +19,27 @@ related-work
 ```
 
 ```{toctree}
-:maxdepth: 1
-:caption: Theory
+:maxdepth: 2
+:caption: Theory — technical
 
 physics/README
-physics/femdvr-ecs
-physics/nd-tensor-hamiltonian
-physics/discretisation-tuning
-physics/mumps-sparse-backend
-physics/ti-energy-sweep-reuse
-physics/shift-invert-eigensolver
-physics/qscat-core-scattering
-physics/n2-resonance
-physics/n2-cross-section
-physics/n2-2d-cross-section
-physics/n2-td-cross-section
-physics/n2-2d-td-cross-section
-physics/td-extractors
-physics/td-da
-physics/diatomic-ve-cross-sections
-physics/nonlocal-resonance-model
-physics/h2plus-dr
-physics/lcp-resonance-levels
-physics/exact-2d-resonances
-physics/h2plus-resonance-states
-physics/angular-coupled-channels
-physics/optimization-targets
+physics/validation-harnesses
+physics/discretisation
+physics/solvers
+physics/engine
+physics/time-dependent
+physics/dissociation
+physics/resonances
+physics/open-directions
+```
+
+```{toctree}
+:maxdepth: 1
+:caption: Theory — molecules
+
+molecules/n2
+molecules/no-f2
+molecules/h2plus
 ```
 
 ## Quick links
