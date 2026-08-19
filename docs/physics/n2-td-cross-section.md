@@ -22,7 +22,7 @@ the same non-Hermitian nuclear Hamiltonian `H_res`, record its correlation
 with each doorway function `d_v'(R)` over time, and Fourier-transform that
 correlation function into the energy domain. The two methods are related by
 
-```
+```text
 S_TD(E) = (1/i) * integral_0^inf exp(i*E_tot*t) * <d_v'|exp(-i*H_res*t)|d_v_init> dt
         = <d_v'|(E_tot*I - H_res)^-1|d_v_init>
         = S_TI(E)

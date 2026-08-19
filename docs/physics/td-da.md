@@ -181,7 +181,7 @@ widens slightly to `(0.7, 1.3)` from `(0.7, 1.25)`).
 
 **Measured (controller, 2026-07-31), F2, launch-box grid:**
 
-```
+```text
 sigma_flux/sigma_ti   (E=0.02,0.03,0.04): STABLE plateau ~0.86-0.97 by n>=1350
 sigma_delta/sigma_ti: STABLE plateau ~0.87-0.96 by n>=1350 (mirrors flux)
 sigma_tw/sigma_ti:    converges to the RIGHT MAGNITUDE (order ~1) but does NOT

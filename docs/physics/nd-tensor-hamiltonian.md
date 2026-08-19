@@ -31,7 +31,7 @@ linear algebra.
 A Hamiltonian on a tensor product of D coordinate grids is separable in its
 kinetic energy and diagonal in its potential exactly when it has the form
 
-```
+```text
 H(x_0, ..., x_{D-1}) = sum_d T_d(x_d)  +  V(x_0, ..., x_{D-1})
 ```
 
@@ -40,7 +40,7 @@ the coordinates but never differentiates between them. Discretized on a
 tensor-product basis (the outer product of D 1-D FEM-DVR-ECS bases, one per
 coordinate), this becomes a **Kronecker sum plus a diagonal**:
 
-```
+```text
 H = sum_d  I x ... x T_d x ... x I  +  diag(V(x_0, ..., x_{D-1}))
 ```
 

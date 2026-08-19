@@ -336,7 +336,7 @@ exactly. Run the full 1300-bohr deck under MUMPS via
 `apps/qscat-run/examples/h2p-dr-ti.yaml` (`methods: [ti]`, `observables: [{kind: dr, channels: 3}]`,
 `grid: {preset: emoscat}`):
 
-```
+```bash
 docker/run.sh apps/qscat-run/examples/h2p-dr-ti.yaml runs/h2p-dr-ti
 ```
 

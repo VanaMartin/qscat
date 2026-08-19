@@ -19,7 +19,7 @@ by this work; this note covers step 2, the nuclear eigenvalue problem in that cu
 
 The thesis writes the LCP curve and the resulting nuclear Hamiltonian as
 
-```
+```text
 V_res(R) = E_res(R) - (i/2) Gamma(R)          (Vana & Houfek 2017, PRA 95, Eq. 41)
 H_LCP    = -(1/2 mu) d^2/dR^2 + E_res(R) - (i/2) Gamma(R)      (ibid., Sec. IV)
 ```
@@ -28,7 +28,7 @@ qscat's `Vd` **is** the thesis's `E_res` (both names appear in docstrings so the
 reads against the thesis). `lcp_resonance_levels` builds exactly this operator on a
 nuclear FEM-DVR-ECS grid,
 
-```
+```text
 H_N = T(mu) + diag(W),        W(R) = Vd(R) - i*Gamma(R)/2
 ```
 
@@ -36,7 +36,7 @@ using the same `qscat.dvr.kinetic(grid, mu)` kinetic-energy assembly as every ot
 nuclear problem in the library, and diagonalizes it (complex-symmetric, not Hermitian).
 The eigenvalues are the quasi-bound levels
 
-```
+```text
 E_v - i*Gamma_v/2,     Gamma_v = max(0, -2 Im E_v)
 ```
 
@@ -266,7 +266,7 @@ node), so its two eigenvalues agree to round-off and it is accepted at residual 
 whether or not it corresponds to anything physical. Demonstrated directly on the shipped
 Morse fixture: an accepted "level" at
 
-```
+```text
 Re E = +2.615e-2 Ha,  Gamma = 0,  residual = 3.8e-16,  real_weight = 1.000
 ```
 
@@ -344,7 +344,7 @@ Config: `apps/qscat-run/examples/f2-resonance-levels.yaml` — `molecule: F2`,
 `grid: {preset: emoscat}` (the production F2 deck; nuclear angle pair 35/25 degrees,
 via `presets.resolve_lcp_grids`).
 
-```
+```bash
 uv run qscat-run run apps/qscat-run/examples/f2-resonance-levels.yaml --output runs/f2-levels
 ```
 

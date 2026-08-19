@@ -48,7 +48,7 @@ continuum eigenvalues, having rotated by different amounts on the two grids,
 do not match this closely. Formalized in
 `qscat.ecs.find_resonance_pole(eigs_a, eigs_b, window)`:
 
-```
+```text
 E_pole  = 0.5 * (ea + eb)      # ea, eb: the closest-matching pair
 residual = |ea - eb|            # small (<< Gamma) => genuine angle-stable pole
 E_res   = Re(E_pole)
@@ -70,7 +70,7 @@ At the N₂ equilibrium bond length `R0 = 2.01943` Bohr, with grids built at
 `n_real=n_complex=8`, `quadrature=8`) and search window
 `Re in [0.04, 0.16]` Ha, `Im in [-0.05, 0]` Ha:
 
-```
+```text
 E_res(R0) = 2.445 eV   Gamma(R0) = 0.455 eV   residual ~ 3e-6 Ha
 ```
 
