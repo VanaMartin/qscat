@@ -31,31 +31,28 @@ linear algebra.
 A Hamiltonian on a tensor product of D coordinate grids is separable in its
 kinetic energy and diagonal in its potential exactly when it has the form
 
-```text
-H(x_0, ..., x_{D-1}) = sum_d T_d(x_d)  +  V(x_0, ..., x_{D-1})
-```
+$$H(x_0, \ldots, x_{D-1}) = \sum_d T_d(x_d) + V(x_0, \ldots, x_{D-1})$$
 
 i.e. each kinetic term acts on one coordinate only, and the potential couples
 the coordinates but never differentiates between them. Discretized on a
 tensor-product basis (the outer product of D 1-D FEM-DVR-ECS bases, one per
 coordinate), this becomes a **Kronecker sum plus a diagonal**:
 
-```text
-H = sum_d  I x ... x T_d x ... x I  +  diag(V(x_0, ..., x_{D-1}))
-```
+$$H = \sum_d \mathbb{1} \otimes \cdots \otimes T_d \otimes \cdots \otimes \mathbb{1} \;+\; \mathrm{diag}\,V(x_0, \ldots, x_{D-1})$$
 
-where `T_d` is the 1-D kinetic-energy matrix on grid `d` (`qscat.dvr.kinetic`
+where $T_d$ is the 1-D kinetic-energy matrix on grid $d$ (`qscat.dvr.kinetic`
 or its sparse sibling `kinetic_sparse`) sandwiched between identity matrices
 of every other grid's dimension, and `V` is evaluated pointwise at the tensor
-grid's D-dimensional coordinate points and placed on the diagonal.
+grid's $D$-dimensional coordinate points and placed on the diagonal.
 
 Two conditions make this valid, and both must hold or the construction is
 simply the wrong matrix for the physics:
 
 1. **Separable kinetic energy.** The kinetic operator must have no
-   cross-derivative terms (`d^2/dx_i dx_j`, `i != j`); each `T_d` depends on
-   coordinate `d` alone. This holds for the electron-N2 problem (independent
-   radial coordinates `r` and `R`, each with its own reduced mass) but would
+   cross-derivative terms ($\partial^2/\partial x_i \partial x_j$, $i \neq j$);
+   each $T_d$ depends on coordinate $d$ alone. This holds for the electron-N₂
+   problem (independent radial coordinates $r$ and $R$, each with its own
+   reduced mass) but would
    fail for, e.g., a genuinely coupled bending/stretching normal-mode
    Hamiltonian.
 2. **Diagonal (DVR) potential.** `V` must act as a pointwise multiplication in
@@ -85,7 +82,7 @@ def kron_sum(ops: Sequence[sp.spmatrix]) -> sp.csr_matrix:
 It knows nothing about FEM-DVR, ECS, or physics -- only that each operand is
 square and that the Kronecker-sum algebra applies. `D == 1` returns the single
 operator unchanged (no special case is needed: with only one factor, the
-identity blocks on either side both have dimension 1, so `I_1 x T_0 x I_1`
+identity blocks on either side both have dimension 1, so $\mathbb{1}_1 \otimes T_0 \otimes \mathbb{1}_1$
 collapses to `T_0` by construction of the same loop that handles `D > 1`).
 
 This has a concrete consequence beyond tidiness: a future angular-DVR,
@@ -134,7 +131,7 @@ transposed relative to the C++ output.
 
 Whenever any grid factor carries an exterior-complex-scaled (ECS) tail
 (see `docs/physics/femdvr-ecs.md` for the 1-D theory), the assembled `H` is
-**complex symmetric but never Hermitian**: `H = H^T != H^dagger`. Every
+**complex symmetric but never Hermitian**: $H = H^{T} \neq H^{\dagger}$. Every
 routine in this layer is written for that case unconditionally -- there is no
 Hermitian fast path to fall into by accident, and no eigensolver or linear
 solve in this library assumes conjugate symmetry.
@@ -142,7 +139,7 @@ solve in this library assumes conjugate symmetry.
 Two things follow directly from `H` being merely symmetric, not Hermitian:
 
 - **The c-product.** The natural inner product paired with a complex
-  symmetric operator is the bilinear `c_product(a, b) = sum_i a_i b_i`, with
+  symmetric operator is the bilinear $c(a, b) = \sum_i a_i b_i$ (`c_product`), with
   **no** complex conjugation -- not NumPy's `vdot`, which conjugates its
   first argument and is the correct pairing only for a Hermitian operator.
   Using `vdot` under ECS produces a complex value with a plausible-looking
@@ -198,7 +195,7 @@ the dense-vs-sparse differential test still exercises two genuinely
 different implementations of the bug-prone part -- bridge bookkeeping -- not
 one implementation checked against itself. The two agree to round-off, and
 `kinetic_sparse`'s nonzero count matches the analytic formula
-`nnz = q^2 * tnel - 4q + 3 - tnel` (eMoScat `KineticEnergy.cpp:95`,
+$\mathrm{nnz} = q^2\,t_\mathrm{nel} - 4q + 3 - t_\mathrm{nel}$ (eMoScat `KineticEnergy.cpp:95`,
 independently re-derived here) for every grid spec tested.
 
 **V3 -- analytic separable benchmarks at D = 1, 2, 3.** Generality is
@@ -208,12 +205,12 @@ oscillator) frequencies, so a transposed-axis bug cannot hide behind two
 axes that happen to look alike.
 
 - **D-dimensional particle in a box**, eigenvalues
-  `sum_d n_d^2 pi^2 / (2 m_d L_d^2)`, checked via `kinetic_nd` alone (no
+  $\sum_d n_d^2 \pi^2 / (2 m_d L_d^2)$, checked via `kinetic_nd` alone (no
   potential). Measured relative error against the analytic sum, at the basis
   sizes actually used: **D=1: 3.4e-9**, **D=2: 3.8e-12**, **D=3: 5.4e-5**.
   The D=3 figure looks like an outlier next to D=1/D=2, but it is not a
   method problem: D=3 deliberately uses a coarse 2-element, 6-point-per-axis
-  grid to keep a *dense* eigensolve of the full `N = n_0*n_1*n_2` matrix
+  grid to keep a *dense* eigensolve of the full $N = n_0 n_1 n_2$ matrix
   tractable in a routine test run. A convergence study (quadrature order
   q = 6 -> 8 -> 10, same element count) confirms the error is
   **grid-limited, not method-limited**: it falls from 5.4e-5 to 4.1e-8 to
@@ -294,7 +291,7 @@ analytic potential (`1/(1+r^2) + 1/(1+R^2)`) rather than the real N2
 potential surface, since `libs/qscat` must not import from `validation/` or
 `projects/` and the N2-specific assembly is sub-project #6's job. It checks
 matrix dimension, `nnz == 3,276,450` (matching eMoScat's own nonzero-count
-formula, independently re-derived), and `max|H - H^T| < 1e-10`
+formula, independently re-derived), and $\max|H - H^{T}| < 10^{-10}$
 (measured: `1.7e-13`) -- all **without factorizing** (see below for why).
 Assembly alone costs about 0.1 s.
 

@@ -26,14 +26,14 @@ probes** validate it:
 
 1. **Equidistribution mesh + h/p sweep** (`qscat.tuning.mesh`). Place real-region element
    boundaries so each element carries a constant de-Broglie phase
-   `∫ k(x) dx ≈ C·(order − 1)`, `k(x) = sqrt(2·mass·max(E_max − V(x), 0))` — a GLL-DVR element
+   $\int k(x)\,\mathrm{d}x \approx C\,(\mathrm{order} - 1)$ with $k(x) = \sqrt{2\,\mathrm{mass}\,\max(E_\mathrm{max} - V(x),\, 0)}$ — a GLL-DVR element
    of order `q` resolves ~`(q−1)/2` wavelengths, so this keeps every element "the same number
    of oscillations wide." In classically forbidden stretches, element length is instead
    capped by the local decay length `1/kappa`; elements adjacent to a turning point or
    singularity are halved. `optimal_real_mesh` sweeps `order ∈ {6, 8, 10, 14}` and keeps
    the `(mesh, order)` combination with the fewest total DVR points — the h/p optimum.
 2. **ECS tail — a separate, exp-growth regime** (`qscat.tuning.ecs`). The rotated outgoing
-   wave decays as `exp(−K(x−R0)sinθ)`, so the tail uses growing elements, not the
+   wave decays as $\exp[-K(x - R_0)\sin\theta]$, so the tail uses growing elements, not the
    oscillatory equidistribution mesh. `max_stable_angle` scans θ up to the ~35° double-ECS
    cap (the binding limit is the 2-D corner where both coordinates sit on their complex
    tails at once, not either potential alone); `tune_ecs_tail` sizes exponentially-growing
@@ -46,7 +46,7 @@ probes** validate it:
    - `probe_electronic` — the anion bound electronic-state energy stable under refinement
      (a cheap proxy for the full two-angle resonance-pole match).
    - `probe_channel_representation` — THE cheapest and most diagnostic: no eigensolve at
-     all. Compares the grid's own quadrature estimate of `∫|F|² dr` (a channel function at
+     all. Compares the grid's own quadrature estimate of $\int |F|^2\,\mathrm{d}r$ (a channel function at
      wavenumber `k`, partial wave `l`) against a fine-uniform-grid reference over the same
      span. A grid whose elements are large compared to `1/k` aliases this badly — exactly
      the failure mode that cost F₂ its ~36 orders.
@@ -60,7 +60,7 @@ example); `qscat.tuning` itself is pure, deterministic primitives with no judgme
 ## Task 8: calibrating the phase constant `C`
 
 The equidistribution mesh has exactly one free numerical knob, the phase-per-element
-constant `C` in `phase_per_element = C·(order − 1)` — smaller `C` means a finer mesh.
+constant $C$ in $\mathrm{phase\ per\ element} = C\,(\mathrm{order} - 1)$ — smaller $C$ means a finer mesh.
 `validation/tuning/calibrate.py` (`uv run python -m validation.tuning.calibrate`) measures
 it by sweeping `C` and checking whether `propose_grid`'s nuclear grid for N₂/NO/F₂/H₂⁺
 (proxy) reproduces-or-beats the corresponding committed eMoScat/proxy deck.
@@ -68,8 +68,9 @@ it by sweeping `C` and checking whether `propose_grid`'s nuclear grid for N₂/N
 **F₂ is the decisive case.** F₂ has a genuinely OPEN dissociative-attachment channel within
 its tested range (`(0.01, 0.05)` Ha): its anion bound electronic state
 (`anion_electronic_states`, at the eMoScat deck's dissociation limit `R_inf = 10.7` bohr) sits
-at `eps_e ≈ −0.127` Ha, an exothermic threshold, so `E_DR = E_max − eps_e > E_max` and the
-outgoing nuclear wavenumber `K = sqrt(2·mu·E_DR) ≈ 78` at `E_max = 0.05` — the same wave
+at $\varepsilon_e \approx -0.127$ Ha, an exothermic threshold, so
+$E_\mathrm{DR} = E_\mathrm{max} - \varepsilon_e > E_\mathrm{max}$ and the outgoing
+nuclear wavenumber $K = \sqrt{2\mu E_\mathrm{DR}} \approx 78$ at $E_\mathrm{max} = 0.05$ — the same wave
 whose under-resolution on the coarse shared grid cost ~36 orders of magnitude (see
 `docs/physics/diatomic-ve-cross-sections.md`). The calibrated `C` is the SMALLEST value at
 which `propose_grid`'s F₂ nuclear mesh represents that wave to `rtol = 1e-3`
@@ -85,7 +86,7 @@ found:
 | F₂ eps_e (anion bound state) | −0.12694 Ha |
 | F₂ K_DA at E_max=0.05 | 78.28 |
 
-**Per-molecule result at `C = 0.10`:**
+**Per-molecule result at $C = 0.10$:**
 
 | Molecule | proposed n | deck n | ratio | channel rel_error | deck's own rel_error | vib converged |
 |---|---|---|---|---|---|---|
@@ -103,10 +104,10 @@ deck is likewise a clean reproduce-and-beat (see "H₂⁺" below).
 N₂ and NO do NOT have an open DA channel in their tested (VE-scale) energy ranges — N₂'s
 is closed within the whole +0.5 Ha window; NO's opens at ~0.17 Ha, above the tested
 `(0.004, 0.12)` range. Lacking an `eps_e` threshold for a closed channel, their
-channel-representation check uses the conservative FLOOR `K = sqrt(2·mu·E_max)` (treating
+channel-representation check uses the conservative FLOOR $K = \sqrt{2\mu E_\mathrm{max}}$ (treating
 the entire incident electron energy as if converted to nuclear translational energy — a
 generous over-estimate, never actually reached since the true threshold is far more
-negative). The sweep shows this floor is not met at `rtol = 1e-3` by ANY sane `C` —
+negative). The sweep shows this floor is not met at `rtol = 1e-3` by ANY sane $C$ —
 **not even by the eMoScat decks themselves** (N₂'s own deck: rel_error ≈ 0.029; NO's own
 deck: rel_error ≈ 0.037, both `≫ rtol`). This is not a calibration failure: it means the
 floor is a deliberately conservative bound these decks were never tuned to resolve, and an
@@ -118,14 +119,14 @@ comfortably (17× and 7× better than their decks respectively). Their REAL requ
 vibrational spectrum (`probe_nuclear`), converges cleanly at every `C` tried.
 
 **H₂⁺ (proxy nuclear deck) is reported alongside N₂/NO, and is a clean case.** Like N₂/NO,
-H₂⁺'s DR channel wavenumber uses the `sqrt(2·mu·E_max)` floor rather than a pinned `eps_e`
+H₂⁺'s DR channel wavenumber uses the $\sqrt{2\mu E_\mathrm{max}}$ floor rather than a pinned $\varepsilon_e$
 (its exit channel is a Rydberg SERIES, not one bound state, so pinning a single threshold
 the way F₂'s DA `eps_e` is pinned is awkward). Unlike N₂/NO, though, H₂⁺ converges
 absolutely: its much lighter reduced mass (918 vs 13000–17000 for N₂/NO/F₂) keeps even the
-floor modest (K≈9.6 at `E_max = 0.05`), and its proxy deck's real-region extent (14.0 bohr)
+floor modest ($K \approx 9.6$ at $E_\mathrm{max} = 0.05$), and its proxy deck's real-region extent (14.0 bohr)
 sits much closer to the fixed `_NUCLEAR_X_MAX_DEFAULT = 18.0` bohr than N₂'s (12.0) or NO's
 (9.0) — so its point-count ratio (1.15×) fits the standard 1.3× margin without widening.
-Both the proxy deck and the proposed grid represent the K≈9.6 wave to `rtol = 1e-3`.
+Both the proxy deck and the proposed grid represent the $K \approx 9.6$ wave to `rtol = 1e-3`.
 
 **Second finding: N₂/NO's point counts exceed their decks' (1.0–1.5×).** Traced to
 `qscat.tuning.propose`'s fixed `_NUCLEAR_X_MAX_DEFAULT = 18.0` bohr real-region default,
@@ -134,7 +135,7 @@ which is LARGER than N₂'s (12.0 bohr) and NO's (9.0 bohr) committed nuclear re
 per-molecule-INDEPENDENT constant from Task 5's a-priori adapter, not derived from the
 potential profile itself (e.g. "where has the interaction died"). More real-region span at
 comparable density costs more points, independent of `C`. This is a Task-5 a-priori-adapter
-limitation that Task 8's `C`-calibration cannot fix (`C` controls density, not extent) — a
+limitation that Task 8's $C$-calibration cannot fix ($C$ controls density, not extent) — a
 documented follow-on (deriving `x_max` from the potential rather than a fixed constant),
 not addressed here.
 
@@ -145,7 +146,7 @@ tensor-product grid delivers the claimed precision) is `test_f2_2d_da_cross_sect
 spot_check` (`@pytest.mark.slow`, ~2.5 min on SuperLU, run on F₂ — the molecule that
 reproduces-and-beats on the 1-D probes). It is NOT a rubber stamp: `propose_grid`'s F₂
 nuclear grid (609 points — the SAME grid that passes both 1-D probes and "beats" the deck's
-974 points) gives `sigma_DA(E=0.03) = 0.308` bohr² — but ONE h-refinement of that same
+974 points) gives $\sigma_\mathrm{DA}(E=0.03) = 0.308$ bohr² — but ONE h-refinement of that same
 nuclear grid (1189 points) gives `1.644` bohr², and a SECOND refinement (2369 points) gives
 `1.658` bohr² (agreeing with the first refinement to 0.85%, and with the eMoScat deck's own
 reference value, 1.66 bohr², to ~0.7%). Refining the ELECTRONIC grid instead (nuclear held
@@ -157,7 +158,7 @@ for this observable — that was the standing gap. The cause: eMoScat's own F₂
 hand-places extra-fine sub-0.1-bohr elements specifically around R≈2.5–2.7 bohr — a narrow
 feature in the ELECTRON-NUCLEAR INTERACTION (`v_int`/`lambda(R)`, concretely the
 adiabatic resonance curve `V_d(R)`), not in `v0` alone. The plain a-priori equidistribution
-mesh is built purely from `v0`'s classical `k(x)` profile (`_nuclear_adapter`/
+mesh is built purely from `v0`'s classical $k(x)$ profile (`_nuclear_adapter`/
 `analyze_potential`), so it has no way to see a feature that lives only in the coupling
 term.
 
@@ -170,7 +171,7 @@ aware of exactly the structure the plain `v0`-only pass cannot see, via
 `qscat.ecs.find_resonance_pole`, sampled densely inside `interaction_region` and once at
 the asymptote):
 
-1. **Exit-wave DVR order.** `K_exit = sqrt(2·mu·max(E_max − Re(V_d)_asym, E_max))` — the
+1. **Exit-wave DVR order.** $K_\mathrm{exit} = \sqrt{2\mu\,\max(E_\mathrm{max} - \operatorname{Re} V_d^\mathrm{asym},\; E_\mathrm{max})}$ — the
    fast outgoing dissociation wavenumber the ECS tail must absorb — sizes the quadrature
    order directly via `order_for_wavenumber(K_exit, min_len, target_ppw=6)`, instead of
    letting the h/p sweep pick an order from `v0` alone.
