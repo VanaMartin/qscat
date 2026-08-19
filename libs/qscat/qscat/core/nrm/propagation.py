@@ -30,9 +30,11 @@ Differentiate `e^{iEt} Psi(t)` and integrate by parts, using
         = iE Psi_hat(E) + Int_0^infty dt e^{iEt} (-i H_ext Psi)
         = iE Psi_hat(E) - i H_ext Psi_hat(E).
 
-Every eigenmode of `H_ext` decays under ECS absorption (or is killed by the
-`+i0` regularization if it does not), so the `t -> infty` boundary term
-vanishes; the `t = 0` term is `-Psi(0)`. Hence
+The `t -> infty` boundary term vanishes PROVIDED every eigenmode of `H_ext`
+decays. That is a condition on the ingredients, not a free gift of ECS: it
+holds for the COMPLETE projected-state sum and can fail for a truncated one
+(`_warn_if_diverging` carries the measurements and checks it at runtime).
+Granting it, the `t = 0` term is `-Psi(0)`, hence
 
     -Psi(0) = i(E - H_ext) Psi_hat(E)   =>   (E - H_ext) Psi_hat(E) = i Psi(0).
 
@@ -58,6 +60,7 @@ diagnostics -- no per-step snapshot history is stored.
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 
 import numpy as np
@@ -194,6 +197,73 @@ def _record(
         )
 
 
+def _warn_if_diverging(survival: npt.NDArray[np.float64]) -> None:
+    """Warn if the packet ENDS heavier than it started -- `H_ext` had a
+    growing eigenmode and `psi_d` is exponentially wrong.
+
+    The half-Fourier transform this module inverts assumes every eigenmode of
+    `H_ext` decays. That holds for the COMPLETE projected-state sum
+    (`n_states=None`) and can fail for a truncated one: `V_dn` and `E_n` are
+    complex (electronic ECS), so the arrow matrix's anti-Hermitian part is
+    indefinite and eigenvalues can leave the lower half-plane even though
+    every diagonal block on its own is dissipative. Measured 2026-08-19 by
+    dense `eig` (see the transform-identity tests): F2's production
+    ingredients give `max Im(E)` = +5.29e-05 / +2.48e-04 / +5.84e-04 /
+    +1.59e-03 at `n_states` = 1 / 2 / 3 / 6 against +1.07e-14 at
+    `n_states=0`, and the complete sum comes back marginally stable
+    (+2.4e-12, i.e. zero to solver tolerance). The failure is not monotone in
+    `n_states` -- a small fixture measured here loses its growing modes again
+    by `n_states=12` -- so a truncated set is not reliably safe OR reliably
+    unsafe, which is exactly why this is a runtime check and not a
+    precondition on `n_states`.
+
+    Without this, a truncated run returns a plausible-looking `psi_d` whose
+    error is O(1) or worse: on F2 at `n_states=3` the relative vector error
+    against the time-independent solve walks 1.23 at T=2000 to 1.4e3 at
+    T=64000, with nothing in the returned object flagging it.
+
+    TWO CONDITIONS, because neither alone is enough. `survival` legitimately
+    RISES early (the arms feed amplitude back into the discrete state), so
+    the first test is against the FIRST sample: a converged run ends orders
+    below where it started. But a growing mode can still leave the final
+    sample below the initial one if the physical packet absorbed first --
+    measured on F2 at `n_states=3`, `S(T)/S(0)` reads 1.12 / 0.48 / 0.59 /
+    2.92 at T = 2e3 / 4e3 / 8e3 / 16e3, i.e. the T=8000 run is diverging
+    (`rel = 2.3`) while ending at 0.59 of its start. So the second test is
+    against the MINIMUM over the run: growth after the minimum is the actual
+    signature, and it reads 1.47 (T=8000) / 7.22 (T=16000) there against
+    exactly 1.0000 for every converging run measured (F2 `n_states=0` at
+    T=8000 and T=16000, and the N2 deck of the transform-identity test at
+    T=1000 and T=4000 -- all four decay monotonically to their last sample).
+    The 1.2 factor is slack against a round-off-noisy floor, sized on that
+    gap; a false alarm costs a warning, a missed divergence costs a silently
+    wrong answer.
+
+    A run can still slip through -- F2 at T=4000 ends exactly at its own
+    minimum, having neither absorbed nor yet visibly grown -- so a silent
+    return is not a certificate. It is a cheap alarm on the failure that
+    would otherwise be invisible, not a proof of stability.
+    """
+    first, last = survival[0], survival[-1]
+    floor = survival.min(axis=0)
+    grew = (last > first) | (last > 1.2 * floor)
+    if bool(np.any(grew)):
+        safe_first = np.where(first > 0.0, first, np.inf)
+        safe_floor = np.where(floor > 0.0, floor, np.inf)
+        warnings.warn(
+            f"propagate_nrm: the packet grew rather than decayed in at least "
+            f"one energy column (final/initial survival "
+            f"{float(np.max(last / safe_first)):.3g}, final/minimum "
+            f"{float(np.max(last / safe_floor)):.3g}), so H_ext has a growing "
+            "eigenmode and psi_d is exponentially wrong rather than merely "
+            "under-converged. The usual cause is a TRUNCATED arm set: "
+            "n_states must be None (the complete projected-state sum) for "
+            "the time-dependent route -- any truncation needs its own dense "
+            "eig check that max Im(eigenvalue) <= 0.",
+            stacklevel=2,
+        )
+
+
 def propagate_nrm(
     h_ext: sp.spmatrix,
     launch: LaunchBasis,
@@ -276,6 +346,7 @@ def propagate_nrm(
         if m < n_steps:
             psi = step(psi)
 
+    _warn_if_diverging(survival)
     return TdNrmResult(
         psi_d=-1j * acc,
         time=t,
