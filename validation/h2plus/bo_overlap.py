@@ -103,6 +103,7 @@ from qscat.core import (
     electronic_curves,
     exact_resonance_states,
     pair_by_overlap,
+    real_weight,
 )
 from qscat.dvr import TensorGrid
 from qscat.model import H2P
@@ -115,6 +116,10 @@ __all__ = ["CURVES", "N_VIB", "bo_basis_for", "solve_window", "main"]
 # claim that they are spurious.
 CURVES = tuple(range(2, 17))
 N_VIB = 8
+
+# The boundary between the diffuse Rydberg regime and the compact one, as the
+# published figure's own top/bottom label split uses.
+_HIGH_RYDBERG = 6
 
 
 def bo_basis_for(tgrid: TensorGrid, *, curves=CURVES, n_vib: int = N_VIB) -> BoBasis:
@@ -171,6 +176,7 @@ def main(windows: tuple[int, ...] = (0, 1, 2)) -> None:
     from validation.h2plus.exact_poles import EPS0, THRESHOLDS
 
     tally: dict[str, int] = {}
+    quotable: list[tuple[int, float, float]] = []  # (curve, |shift| meV, overlap)
     for w in windows:
         energies, states, base = solve_window(w)
         print(f"\n=== window {w}: {energies.size} poles ===", flush=True)
@@ -179,20 +185,46 @@ def main(windows: tuple[int, ...] = (0, 1, 2)) -> None:
 
         print(
             f"{'E (Ha)':>10} {'level':>9} {'overlap':>8} {'2nd':>9} "
-            f"{'2nd val':>8} {'shift(meV)':>11}  verdict"
+            f"{'2nd val':>8} {'shift(meV)':>11} {'real_wt':>8}  verdict"
         )
         for i in np.argsort(energies.real):
-            p = pair_by_overlap(energies[i], states[:, i], basis, THRESHOLDS)
+            rw = real_weight(states[:, i], base)
+            p = pair_by_overlap(
+                energies[i], states[:, i], basis, THRESHOLDS, localization=rw
+            )
             tally[p.verdict] = tally.get(p.verdict, 0) + 1
+            if p.is_quotable and p.level is not None:
+                quotable.append((p.level[0], abs(p.shift_mev), p.overlap))
             lvl = "-" if p.level is None else f"w^{p.level[0]}_{p.level[1]}"
             second = (
                 "-" if p.second_level is None else f"w^{p.second_level[0]}_{p.second_level[1]}"
             )
             print(
                 f"{p.pole_energy - EPS0:>10.6f} {lvl:>9} {p.overlap:>8.4f} "
-                f"{second:>9} {p.second_overlap:>8.4f} {p.shift_mev:>11.3f}  {p.verdict}"
+                f"{second:>9} {p.second_overlap:>8.4f} {p.shift_mev:>11.3f} "
+                f"{rw:>8.4f}  {p.verdict}"
             )
     print(f"\nverdict tally across {len(windows)} window(s): {tally}")
+
+    # The regime split, over the QUOTABLE rows only. Computed here rather than
+    # tallied by hand, because the `box-limited` verdict moved 18 rows out of
+    # this population and every published number over it had to be redone.
+    if quotable:
+        print(f"\nregime split over the {len(quotable)} `ok` rows "
+              f"(HIGH = Ry >= {_HIGH_RYDBERG}):")
+        for label, rows in (
+            ("high-n", [q for q in quotable if q[0] >= _HIGH_RYDBERG]),
+            ("low-n ", [q for q in quotable if q[0] < _HIGH_RYDBERG]),
+        ):
+            if not rows:
+                continue
+            shifts = np.array([r[1] for r in rows])
+            ov = np.array([r[2] for r in rows])
+            print(
+                f"  {label}: {len(rows):>2} rows, median |shift| "
+                f"{np.median(shifts):>7.3f} meV, max {shifts.max():>7.3f}, "
+                f"overlap {ov.min():.2f}-{ov.max():.2f}"
+            )
 
 
 if __name__ == "__main__":

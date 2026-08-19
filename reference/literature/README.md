@@ -87,3 +87,30 @@ discipline:
   by `validation/diatomic/test_da_grid.py`. Both are plausible discretizations
   of the same model and quantities on them are grid-convergent, so the two serve
   as a convergence check on each other.
+
+## Known gaps
+
+Conventions the repository leans on that no note here anchors to a page.
+
+- **The c-product.** `qscat.linalg.c_product` — the bilinear, non-conjugated
+  pairing `sum_i a_i b_i` — is used for every T-matrix projection, correlation
+  function, state normalization and overlap in `qscat.core`. What the notes DO
+  anchor is that `H` is complex **symmetric** under ECS (McCurdy et al. 1991,
+  Phys. Rev. A 43, p. 5985, Eqs. (21)-(32); the CPC 63 note carries the explicit
+  "conjugate -> transpose" for the propagator). The step from there to the
+  *inner product* is inferred, not cited: no note says in so many words that the
+  pairing is `int psi^2` without a conjugate.
+
+  The inference is sound and independently corroborated — the Hermitian
+  convention gives a negative sigma on N2's S-matrix, and eMoScat's `cblas_zdotc`
+  agrees with the c-product to 3.4e-12 only because it zeroes every channel
+  function on the scaled tail. But it is the convention the repo relies on most
+  heavily with the weakest citation, and a reader cannot follow it to a page.
+
+  **Wanted:** a source that states the bilinear pairing for complex-scaled /
+  non-Hermitian quantum mechanics directly. Moiseyev's *Non-Hermitian Quantum
+  Mechanics* (or his Phys. Rep. **302**, 212 (1998) review) is the obvious
+  candidate; drop the PDF in and write the note per the `mastering-references`
+  skill. Do not write the note without the source — every locator has to be
+  checked against a page, and this file exists because that discipline has
+  already caught three real discrepancies.
