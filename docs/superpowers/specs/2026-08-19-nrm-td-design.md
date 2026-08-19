@@ -142,10 +142,26 @@ of the electronic problem enters through the single scalar `λ(R)` —
 scalars. Measured on the production windows (2026-08-19, choice B, singular
 values of `M[R,E_j] = ξ(R;E_j)` normalized to the first):
 
-| window | σ₂/σ₁ | σ₃/σ₁ | σ₄/σ₁ | shape overlap across the window |
-|---|---|---|---|---|
-| F₂ DA, 0.010–0.050 Ha, 9 energies | 5.7e-3 | 2.4e-4 | 5.3e-7 | 0.999605 |
-| N₂ VE, 0.060–0.160 Ha, 9 energies | 9.8e-4 | 1.2e-6 | 1.1e-8 | 0.999994 |
+| window | choice | σ₂/σ₁ | σ₃/σ₁ | σ₄/σ₁ | rank @1e-6 |
+|---|---|---|---|---|---|
+| F₂ DA, 0.010–0.050 Ha, 9 energies | B | 5.7e-3 | 2.4e-4 | 5.3e-7 | 3 |
+| F₂ DA, 0.010–0.050 Ha, 9 energies | A | 3.3e-1 | 9.0e-2 | 1.9e-3 | 7 |
+| N₂ VE, 0.060–0.160 Ha, 9 energies | B | 9.8e-4 | 1.2e-6 | 1.1e-8 | 1 |
+| N₂ VE, 0.060–0.160 Ha, 9 energies | A | 1.5e-1 | 6.2e-3 | 3.3e-4 | 5 |
+
+Choice B's shape overlap across the window is 0.999605 (F₂) / 0.999994 (N₂).
+
+**The near-rank-1 behaviour is a choice-B property, and there is a reason.**
+With an R-independent `φ_d` the launch state's R-dependence enters only through
+the single scalar `λ(R)`, so `V_dk⁺(R;E) = g(λ(R), E)` and the matrix is almost
+separable by construction. Choice A's `φ_d(·;R)` varies with R independently,
+injecting genuine two-variable structure: its singular values fall an order of
+magnitude more slowly and, at 1e-9 on F₂, it is effectively full rank over the
+sampled energies. So PRA 47's "single energy-independent wave packet" is
+essentially exact for choice B and materially approximate for choice A — the
+same discrete state the paper's Sec. VI A and this repo's TI campaign both find
+degraded. The economy survives for both (7 columns still beats 41 energies) but
+**cost accounting must not budget choice A as if it were choice B.**
 
 **The scheme.** SVD the launch matrix, propagate the left singular vectors as
 `r` columns, and reconstruct by linearity of the resolvent:
@@ -233,15 +249,28 @@ class LaunchBasis:
     coeffs: NDArray      # (r, n_E) -- sigma_m * conj(V[m, j])
     energies: NDArray    # (n_E,) incident kinetic energies
     e_total: NDArray     # (n_E,) transform frequencies
-    residual: float      # sigma_{r+1}/sigma_1 -- the truncation error, reported
+    truncation_error: float  # sigma_{r+1}/sigma_1 -- a sigma_1-relative
+                             # bound, NOT a per-energy one (see below)
 
 initial_packet(nuclear_grid, elec_grid, model, phi_d, ing, eps, chi, v_init,
                energies, *, n_states=None, rank_tol=1e-6) -> LaunchBasis
 ```
 
 `r` comes from `rank_tol`, never from a constant. `r == 1` is PRA 47
-Eq. (2.17); `residual` is what the propagation reports so a reader can see
-the economy's cost.
+Eq. (2.17).
+
+**`truncation_error` is normalized to the largest column, so it under-reports
+the weakest one.** Measured on F₂'s 9-energy DA window at `rank_tol=1e-6`: it
+reads 5.26e-7 while the worst per-energy relative reconstruction error is
+1.15e-6, 2.2× higher — benign only because those column norms span 0.40–1.00.
+σ_DA varies by orders of magnitude across a window on both F₂ and NO, and there
+a σ₁-relative bound is dominated by the strongest energy while hiding a far
+larger error at the weakest. **Anything gating on truncation accuracy must gate
+on the per-column error**, `max_j ||recon[:,j] − M[:,j]|| / ||M[:,j]||`, not on
+this field. Neither this nor `TdNrmResult.unabsorbed` is called `residual`,
+deliberately: two identically-named floats with unrelated meanings in one call
+chain — one of them gating a not-converged warning — is a defect waiting to
+happen, and both names now say what they measure.
 
 **`propagation.py`**
 
@@ -253,7 +282,8 @@ class TdNrmResult:
     survival: NDArray       # (n_steps+1, n_E)
     centroid: NDArray
     momentum: NDArray
-    residual: NDArray       # (n_E,) survival at t_max
+    unabsorbed: NDArray     # (n_E,) packet norm still in the real region
+                            # at t_max -- NOT LaunchBasis.truncation_error
     rank: int               # columns actually propagated
 
 propagate_nrm(h_ext, launch, nuclear_grid, *, dt, n_steps, order=3) -> TdNrmResult

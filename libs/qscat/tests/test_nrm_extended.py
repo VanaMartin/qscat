@@ -6,10 +6,13 @@ import numpy as np
 import pytest
 import scipy.sparse as sp
 from qscat.core.grids import electronic_grid, segmented_grid
+from qscat.core.nrm.coupling import v_dk_plus
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
+from qscat.core.nrm.dissociation import _boundary_node
 from qscat.core.nrm.extended import extended_hamiltonian
 from qscat.core.nrm.ingredients import NrmIngredients, nrm_ingredients
 from qscat.core.nrm.nonlocal_potential import continue_to_tail, nonlocal_operator
+from qscat.core.vibrational import vibrational_states
 from qscat.dvr import kinetic
 from qscat.model import F2
 from scipy.sparse.linalg import spsolve
@@ -58,12 +61,7 @@ def test_eliminating_the_arms_reproduces_the_nonlocal_operator(nuc, ing):
 
     f = nonlocal_operator(ing, nuc, F2, e_total, n_states=N_STATES)
     v_d = continue_to_tail(ing.v_d_discrete, ing.R, nuc)
-    a_ti = (
-        e_total * np.eye(n_r, dtype=np.complex128)
-        - kinetic(nuc, F2.mu)
-        - np.diag(v_d)
-        - f
-    )
+    a_ti = e_total * np.eye(n_r, dtype=np.complex128) - kinetic(nuc, F2.mu) - np.diag(v_d) - f
     want = np.linalg.inv(a_ti)
     # Scale-consistent: an EXACT identity, so gate on the achieved relative
     # error (measured 4.45e-14, six orders of headroom) rather than an
@@ -127,3 +125,121 @@ def test_rejects_a_discrete_state_that_leaks_into_the_ecs_tail(nuc):
     leaky = NrmIngredients(R=R, v_d_discrete=F2.v0(R).astype(np.complex128), E_n=e_n, V_dn=v_dn)
     with pytest.raises(ValueError, match="tail"):
         extended_hamiltonian(leaky, nuc, F2)
+
+
+def test_launch_state_drives_the_time_independent_solve(nuc, elec, ing):
+    """The launch state reconstructs Eq. (52)'s right-hand side.
+
+    Feed the reconstruction to the shipped `solve_nuclear` and the shipped
+    sigma_DA must come back -- a tautology-free check that the launch basis
+    matches the TI route, not just that it round-trips through itself.
+    """
+    from qscat.core.nrm.dissociation import (
+        da_sigma_from_psi,
+        nrm_da_cross_section,
+        solve_nuclear,
+    )
+    from qscat.core.nrm.extended import initial_packet
+
+    phi_d = AsymptoticDiscreteState(elec, F2, R_inf=nuc.R0)
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    e_kin, v_init = 0.03, 0
+
+    launch = initial_packet(
+        nuc,
+        elec,
+        F2,
+        phi_d,
+        ing,
+        eps,
+        chi,
+        v_init,
+        np.array([e_kin]),
+        n_states=N_STATES,
+        rank_tol=1e-10,
+    )
+    assert launch.vectors.shape[0] == (1 + N_STATES) * nuc.n
+    assert np.allclose(launch.vectors[nuc.n :, :], 0.0)  # the arms start empty
+
+    xi = (launch.vectors @ launch.coeffs)[: nuc.n, 0]
+    e_total = e_kin + float(eps[v_init])
+    f = nonlocal_operator(ing, nuc, F2, e_total, n_states=N_STATES)
+    v_d = continue_to_tail(ing.v_d_discrete, ing.R, nuc)
+    psi_d = solve_nuclear(nuc, F2.mu, v_d, f, xi, e_total)
+
+    # Same expression `nrm_da_cross_section` uses for the anion electronic
+    # threshold -- not re-derived here.
+    v_d_full = continue_to_tail(ing.v_d_discrete, ing.R, nuc)
+    eps_e = float(v_d_full[_boundary_node(nuc)].real)
+    got = da_sigma_from_psi(nuc, F2.mu, psi_d, e_total, eps_e, e_kin)
+    want = float(
+        nrm_da_cross_section(
+            nuc, elec, F2, phi_d, eps, chi, v_init, e_kin, ingredients=ing, n_states=N_STATES
+        )
+    )
+    assert got == pytest.approx(want, rel=1e-10)
+
+
+def test_the_launch_matrix_is_numerically_low_rank(nuc, elec, ing):
+    """The economy of Task 3 rests on this; measure it, do not assume it.
+
+    `truncation_error` (`sigma_{r+1}/sigma_1`) bounds error relative to the
+    LARGEST column, not to each energy's own -- see
+    `LaunchBasis.truncation_error`'s docstring. Task 3's accuracy depends on
+    the actual PER-COLUMN reconstruction error, so gate on that directly
+    rather than trusting `truncation_error` as a per-energy bound (it can't
+    be one: `keep` is chosen so `sv[keep] <= rank_tol * sv[0]` by
+    construction, so `truncation_error < rank_tol` holds regardless of
+    whether the truncation is actually accurate).
+    """
+    from qscat.core.nrm.extended import initial_packet
+
+    phi_d = AsymptoticDiscreteState(elec, F2, R_inf=nuc.R0)
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    energies = np.linspace(0.010, 0.050, 9)
+    launch = initial_packet(
+        nuc, elec, F2, phi_d, ing, eps, chi, 0, energies, n_states=N_STATES, rank_tol=1e-6
+    )
+    assert launch.rank <= 4
+    assert launch.truncation_error < 1e-6
+
+    # Exact (rank_tol=0.0) reconstruction as the per-column reference --
+    # test_full_rank_reconstructs_every_column_exactly already gates that it
+    # matches the direct v_dk_plus construction to round-off, so comparing
+    # the truncated reconstruction against it (rather than against a second
+    # direct build) isolates the truncation's own error.
+    exact = initial_packet(
+        nuc, elec, F2, phi_d, ing, eps, chi, 0, energies, n_states=N_STATES, rank_tol=0.0
+    )
+    m_exact = (exact.vectors @ exact.coeffs)[: nuc.n, :]
+    m_trunc = (launch.vectors @ launch.coeffs)[: nuc.n, :]
+    col_err = np.linalg.norm(m_trunc - m_exact, axis=0) / np.linalg.norm(m_exact, axis=0)
+    # Measured worst-column error 1.15e-6, 2.2x above `truncation_error`
+    # (5.26e-7) -- gated with headroom above the measurement, not at the
+    # `truncation_error` value (which would pass trivially, per this test's
+    # own docstring above).
+    assert col_err.max() < 5e-6
+
+
+def test_full_rank_reconstructs_every_column_exactly(nuc, elec, ing):
+    """`rank_tol=0.0` must reproduce the per-energy launch vectors to
+    round-off, so the truncation is the ONLY approximation the factorization
+    introduces."""
+    from qscat.core.nrm.extended import initial_packet
+
+    phi_d = AsymptoticDiscreteState(elec, F2, R_inf=nuc.R0)
+    eps, chi = vibrational_states(nuc, F2.mu, 4, F2.v0)
+    energies = np.array([0.015, 0.025, 0.035])
+    launch = initial_packet(
+        nuc, elec, F2, phi_d, ing, eps, chi, 0, energies, n_states=N_STATES, rank_tol=0.0
+    )
+    assert launch.rank == energies.size
+    assert launch.truncation_error == 0.0
+
+    recon = launch.vectors @ launch.coeffs
+    for j, e_kin in enumerate(energies):
+        direct = (
+            continue_to_tail(v_dk_plus(elec, F2, phi_d, ing.R, float(e_kin)), ing.R, nuc) * chi[0]
+        )
+        got = recon[: nuc.n, j]
+        assert np.linalg.norm(got - direct) / np.linalg.norm(direct) < 1e-10
