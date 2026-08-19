@@ -16,25 +16,34 @@ radial coordinate into a sequence of elements, each carrying its own
 Gauss-Lobatto-Legendre (GLL) quadrature nodes and Lagrange interpolating
 basis functions. Adjacent elements share their boundary node ("bridge"
 function), and the two outermost grid points are dropped to enforce a
-Dirichlet (psi=0) boundary condition at both ends. On the shared-quadrature
-GLL basis, the kinetic and (diagonal) potential operators are simple to
-assemble and the resulting matrix eigenproblem gives bound and (with ECS)
-resonance/continuum states directly, without an explicit numerical
-integration of the Schrodinger equation.
+Dirichlet ($\psi = 0$) boundary condition at both ends. On the
+shared-quadrature GLL basis, the kinetic and (diagonal) potential operators
+are simple to assemble and the resulting matrix eigenproblem gives bound and
+(with ECS) resonance/continuum states directly, without an explicit
+numerical integration of the Schrodinger equation.
 
 Exterior Complex Scaling (ECS) extends this to scattering problems: beyond a
-pivot radius `R0` (chosen to sit exactly on an element boundary), the radial
-coordinate is rotated into the complex plane by a fixed angle `theta`. This
-turns the oscillatory, non-normalizable continuum wavefunctions of the
+pivot radius $R_0$ (chosen to sit exactly on an element boundary), the radial
+coordinate is rotated into the complex plane by a fixed angle $\theta$:
+
+$$
+z(x) = \begin{cases}
+x & x \le R_0 \\
+R_0 + (x - R_0)\,e^{i\theta} & x > R_0
+\end{cases}
+$$
+
+This turns the oscillatory, non-normalizable continuum wavefunctions of the
 unscaled problem into square-integrable, decaying functions, which:
 
-- exposes resonances as isolated, `theta`-stationary complex poles of the
+- exposes resonances as isolated, $\theta$-stationary complex poles of the
   discretized Hamiltonian, and
-- rotates the true continuum spectrum by `arg(E) ~ -2*theta` (an asymptotic
-  statement, sharper for a pivot far out on the tail — see Benchmark 3),
+- rotates the true continuum spectrum by $\arg(E) \sim -2\theta$ (an
+  asymptotic statement, sharper for a pivot far out on the tail — see
+  Benchmark 3),
 
 while leaving true bound-state energies (which lie under the rotated
-continuum) numerically unchanged for any `theta` in a "stable" window.
+continuum) numerically unchanged for any $\theta$ in a "stable" window.
 
 ## Grid construction (`qscat.dvr.grid.FemDvrEcsGrid`)
 
@@ -46,7 +55,7 @@ list of `ElementSpec(length, angle_deg)`, and an inner boundary `x_min`):
   computed once in `GridSpec.__post_init__` and is guaranteed to land on an
   element boundary by construction.
 - Each element's node positions are built from the reference GLL nodes
-  `xi` on `(-1, 1)` (`gll.gll_nodes_weights`), first placed in real
+  $\xi$ on $(-1, 1)$ (`gll.gll_nodes_weights`), first placed in real
   (unscaled) space, then passed through `qscat.ecs.ecs_map(x, R0, angle_deg)`
   to get the actual (possibly complex) grid point. This is the ECS map's
   only use in the grid: **`ecs_map` is the single source of the coordinate
@@ -70,9 +79,9 @@ does not forbid it, but no benchmark exercises it.
 
 ## Kinetic-energy assembly (`qscat.dvr.kinetic.kinetic`)
 
-`T = -(1/2*mass) d^2/dz^2` is assembled element-by-element:
+$T = -\dfrac{1}{2\,\mathrm{mass}}\dfrac{d^2}{dz^2}$ is assembled element-by-element:
 
-```
+```text
 wze[l]    = hz * wl[l]                      # scaled GLL quadrature weight
 dBF[a, l] = dLp[l, a] / hz                  # scaled Lagrange derivative
 dBF[a, :] /= sqrt(weights[global_idx(a)])   # normalize by the GLOBAL
@@ -90,71 +99,73 @@ normalizing by the wrong (local vs. global) weight — this is why Benchmark 1
 
 ## Diagonal-potential approximation (`qscat.dvr.operators.hamiltonian`)
 
-`H = T + diag(V(points))`. Because the DVR basis functions are (by
-construction) orthonormal under the same Lobatto quadrature that builds `T`,
-the potential-energy matrix element `V_ij` is well approximated by
-`V(x_i) * delta_ij` — no explicit off-diagonal quadrature is needed. This is
-an approximation (not exact quadrature of `<i|V|j>`), and it degrades if `V`
-has structure the grid can't resolve — in particular, a potential
-discontinuity should land exactly on an element boundary (see Benchmark 4)
-rather than inside an element, or the diagonal approximation smears it.
+$H = T + \operatorname{diag}\!\big(V(\text{points})\big)$. Because the DVR
+basis functions are (by construction) orthonormal under the same Lobatto
+quadrature that builds `T`, the potential-energy matrix element $V_{ij}$ is
+well approximated by $V(x_i)\,\delta_{ij}$ — no explicit off-diagonal
+quadrature is needed. This is an approximation (not exact quadrature of
+$\langle i|V|j\rangle$), and it degrades if $V$ has structure the grid can't
+resolve — in particular, a potential discontinuity should land exactly on an
+element boundary (see Benchmark 4) rather than inside an element, or the
+diagonal approximation smears it.
 
-`H` is complex-symmetric but non-Hermitian in general (once any element is
+$H$ is complex-symmetric but non-Hermitian in general (once any element is
 ECS-rotated), so `qscat.dvr.operators.eigen` uses the general eigensolver
 (`np.linalg.eig`, corresponding to LAPACK `zgeev`) rather than a Hermitian
-one, and sorts results by ascending `Re(E)`.
+one, and sorts results by ascending $\mathrm{Re}(E)$.
 
 ## Validation benchmarks
 
 All four live in `libs/qscat/tests/test_femdvr_ecs.py`.
 
-1. **B1 — particle in a box** (`theta = 0`). Exact analytic oracle
-   `E_n = n^2 pi^2 / (2 * mass * L^2)`. Matched to `rtol <= 1e-6` for the
-   first five levels, imaginary parts `~0` to `1e-9`. A companion
+1. **B1 — particle in a box** ($\theta = 0$). Exact analytic oracle
+   $E_n = n^2\pi^2 / (2\,\mathrm{mass}\,L^2)$. Matched to `rtol <= 1e-6` for
+   the first five levels, imaginary parts `~0` to `1e-9`. A companion
    spectral-convergence check (`nq = 4, 5, 6`) confirms the ground-state
    error falls monotonically (exponentially) as quadrature order increases —
    the signature of a correct spectral (FEM-DVR) discretization. This
    benchmark is the primary arbiter of kinetic-assembly correctness because
    it is maximally sensitive to bridge-weight normalization, the Dirichlet
    trim, and scatter bookkeeping errors.
-2. **B2 — harmonic oscillator** (`theta = 0`). Analytic oracle
-   `E_n = omega * (n + 1/2)`. Matched to `rtol <= 1e-6` for the first five
+2. **B2 — harmonic oscillator** ($\theta = 0$). Analytic oracle
+   $E_n = \omega\,(n + 1/2)$. Matched to `rtol <= 1e-6` for the first five
    levels. Exercises the diagonal-potential DVR approximation on a smooth,
    everywhere-differentiable potential.
-3. **B3 — ECS continuum rotation**. For a free particle (`V = 0`) on a grid
-   with a real region of length `R0` followed by a single complex tail of
-   length `Lt` at angle `theta`, matching `psi` and `psi'` at `z = R0` gives
-   the *exact* (not asymptotic) quantization condition
-   `k * (R0 + Lt * e^{i*theta}) = n*pi`, i.e.
-   `E_n = n^2 * pi^2 / (2 * mass * Z_eff^2)` with
-   `Z_eff = R0 + Lt * e^{i*theta}`; `arg(E_n) = -2*arg(Z_eff)` for *every*
-   `n`. The textbook "continuum rotates by `-2*theta`" picture is the
-   `R0 << Lt` limit of this (`arg(Z_eff) -> theta`). The benchmark grid uses
-   `R0 / Lt = 0.05` so `arg(Z_eff) = 28.63 deg` (vs. the `theta = 30 deg`
-   asymptote), giving `arg(E) = -57.25 deg` (vs. the `-60 deg` asymptote) —
-   well inside a `+/-5 deg` window; the test asserts that most mid-spectrum,
-   sizeable-`|E|` eigenvalues cluster there (edge-of-basis "junk" states and
-   near-zero eigenvalues are excluded from the selection).
+3. **B3 — ECS continuum rotation**. For a free particle ($V = 0$) on a grid
+   with a real region of length $R_0$ followed by a single complex tail of
+   length $L_t$ at angle $\theta$, matching $\psi$ and $\psi'$ at $z = R_0$
+   gives the *exact* (not asymptotic) quantization condition
+   $k\,(R_0 + L_t e^{i\theta}) = n\pi$, i.e.
+   $E_n = n^2\pi^2 / (2\,\mathrm{mass}\,Z_\mathrm{eff}^2)$ with
+   $Z_\mathrm{eff} = R_0 + L_t e^{i\theta}$; $\arg(E_n) = -2\arg(Z_\mathrm{eff})$
+   for *every* $n$. The textbook "continuum rotates by $-2\theta$" picture is
+   the $R_0 \ll L_t$ limit of this ($\arg(Z_\mathrm{eff}) \to \theta$). The
+   benchmark grid uses `R0 / Lt = 0.05` so `arg(Z_eff) = 28.63 deg` (vs. the
+   `theta = 30 deg` asymptote), giving `arg(E) = -57.25 deg` (vs. the
+   `-60 deg` asymptote) — well inside a `+/-5 deg` window; the test asserts
+   that most mid-spectrum, sizeable-$|E|$ eigenvalues cluster there
+   (edge-of-basis "junk" states and near-zero eigenvalues are excluded from
+   the selection).
 
    **Why the grid is deliberately lopsided.** An *equal* real/complex split
-   (`R0 == Lt`) gives `arg(Z_eff) = theta/2` exactly — since
-   `1 + e^{i*theta} = 2*cos(theta/2)*e^{i*theta/2}`, independent of the common
-   length — so the spectrum clusters at `arg(E) = -theta`, not `-2*theta`. A
-   benchmark written that way fails its own assertion with *zero* eigenvalues
-   in the expected window, and looks like an ECS bug while being a
-   test-setup artifact. That it is an artifact was confirmed separately: a
-   *uniform*-angle grid (all elements rotated, no real region) reproduces the
-   exact scaled-box spectrum `E_n = n^2 pi^2 e^{-2i theta} / (2 m L^2)` to
-   machine precision, so the `e^{i*theta}` Jacobian in `kinetic` is right.
-   Hence `R0/Lt = 0.05`.
-4. **B4 — bound-state theta-independence**. A square well `V = -V0` on
-   `[0, a]`, deep enough to support one bound state. The well edge `a = 3.0`
+   ($R_0 = L_t$) gives $\arg(Z_\mathrm{eff}) = \theta/2$ exactly — since
+   $1 + e^{i\theta} = 2\cos(\theta/2)\,e^{i\theta/2}$, independent of the
+   common length — so the spectrum clusters at $\arg(E) = -\theta$, not
+   $-2\theta$. A benchmark written that way fails its own assertion with
+   *zero* eigenvalues in the expected window, and looks like an ECS bug
+   while being a test-setup artifact. That it is an artifact was confirmed
+   separately: a *uniform*-angle grid (all elements rotated, no real region)
+   reproduces the exact scaled-box spectrum
+   $E_n = n^2\pi^2 e^{-2i\theta} / (2mL^2)$ to machine precision, so the
+   $e^{i\theta}$ Jacobian in `kinetic` is right. Hence `R0/Lt = 0.05`.
+4. **B4 — bound-state $\theta$-independence**. A square well $V = -V_0$ on
+   $[0, a]$, deep enough to support one bound state. The well edge `a = 3.0`
    is placed exactly on an element boundary (real region length 12, 4
    elements of length 3 each) so the diagonal-potential DVR represents the
    discontinuity cleanly. The bound-state energy is computed at two
    different ECS angles (`theta = 20 deg` and `35 deg`); physically a true
    bound state (lying below the rotated continuum) must not depend on
-   `theta`, and the two energies are required to agree to `< 1e-4`.
+   $\theta$, and the two energies are required to agree to `< 1e-4`.
 
 ## Known limitations / out of scope
 
@@ -168,7 +179,7 @@ All four live in `libs/qscat/tests/test_femdvr_ecs.py`.
 - The diagonal-potential approximation assumes the potential is smooth
   within each element (or that any discontinuity is placed on an element
   boundary, as in Benchmark 4).
-- Resonance identification via a `theta`-stabilization scan (finding the
+- Resonance identification via a $\theta$-stabilization scan (finding the
   angle range where a complex eigenvalue is stationary) is not automated —
   eMoScat only automated bound-state stability checks (`prec 1e-4`, mirrored
   by Benchmark 4).
