@@ -5,54 +5,20 @@ One note per method: the derivation, the equations, the unit conventions
 comes from. These are the working notes behind the implementation, so they
 record limitations and negative results as well as what works.
 
-## Discretisation
+The notes are grouped into seven sections in the sidebar:
 
-- {doc}`femdvr-ecs` — the FEM-DVR grid with an exterior-complex-scaled tail,
-  and the four analytic benchmarks that pin it down.
-- {doc}`nd-tensor-hamiltonian` — the N-dimensional sparse tensor Hamiltonian.
-- {doc}`discretisation-tuning` — deriving a grid from the potential instead of
-  hand-picking element lengths, and where the 1-D probes are not sufficient.
-- {doc}`mumps-sparse-backend` — the complex-symmetric MUMPS backend.
-- {doc}`ti-energy-sweep-reuse` — reusing the symbolic factorization across an
-  energy sweep.
-- {doc}`shift-invert-eigensolver` — the eigenpairs nearest a complex shift, for
-  resonances that sit in the interior of the spectrum. Validated in 1-D only.
+- {doc}`discretisation` — turning a coordinate into a matrix, and choosing the
+  grid.
+- {doc}`solvers` — the sparse factorizations and eigensolves underneath.
+- {doc}`engine` — the model-independent solver and the time-independent routes.
+- {doc}`time-dependent` — the wavepacket route to the same answers.
+- {doc}`dissociation` — the channels where the molecule comes apart, and the
+  reduced models measured against the exact solver.
+- {doc}`resonances` — quasi-bound states, exactly and approximately.
+- {doc}`open-directions` — designed but parked.
 
-## The scattering engine
+{doc}`validation-harnesses` cuts across all of them: what each harness in
+`validation/` gates, and how to run it.
 
-- {doc}`qscat-core-scattering` — the model-independent engine and the
-  model/engine split it enforces.
-- {doc}`n2-resonance` — locating the resonance pole.
-- {doc}`n2-cross-section` — the one-dimensional time-independent route.
-- {doc}`n2-2d-cross-section` — the exact two-dimensional driven solve, gated
-  against independent published data.
-
-## Time-dependent routes
-
-- {doc}`n2-td-cross-section` — wavepacket propagation in one dimension.
-- {doc}`n2-2d-td-cross-section` — the exact two-dimensional time-dependent
-  route, including why order-1 Crank–Nicolson was not enough.
-- {doc}`td-extractors` — three energy extractors sharing one propagation.
-- {doc}`td-da` — the dissociative-attachment generalization.
-
-## Molecules and approximations
-
-- {doc}`diatomic-ve-cross-sections` — NO and F₂, and the local-complex-potential
-  approximation measured against the exact oracle.
-- {doc}`nonlocal-resonance-model` — the rung above the LCP: a nonlocal,
-  energy-dependent kernel for dissociative attachment. Reproduces the oracle on
-  F₂; collapses on NO for reasons not established.
-- {doc}`h2plus-dr` — dissociative recombination for an ionic target.
-- {doc}`lcp-resonance-levels` — Born–Oppenheimer quasi-bound levels in the
-  complex curve.
-- {doc}`exact-2d-resonances` — the same levels without the approximation: poles
-  of the full 2-D S-matrix, and what the Born–Oppenheimer error actually
-  measures on N₂.
-- {doc}`h2plus-resonance-states` — the same comparison on H₂⁺, against a σ_DR
-  sweep: the Born–Oppenheimer error sorted by regime, and the four "resonances"
-  that turned out not to be.
-
-## Open directions
-
-- {doc}`angular-coupled-channels` — the parked angular extension.
-- {doc}`optimization-targets` — where the remaining hot paths are.
+For a per-molecule view — what has been computed on N₂, NO, F₂ and H₂⁺, and
+which notes report it — start from the Molecules section of the sidebar.
