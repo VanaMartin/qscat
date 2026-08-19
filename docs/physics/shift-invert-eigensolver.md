@@ -15,7 +15,7 @@ spectrum and never the pole.
 
 The standard remedy is the shift-invert spectral transform. Run Arnoldi on
 
-```
+```text
 OP = (A - sigma*I)^-1
 ```
 

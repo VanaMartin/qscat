@@ -38,7 +38,7 @@ nothing — it is a symmetry, not an approximation. Within that block, expanding
 the interaction in Legendre components and projecting onto spherical harmonics
 gives
 
-```
+```text
 V(r, theta_e, R) = sum_lambda v_lambda(r, R) * P_lambda(cos theta_e)
 
 V_{l l'}(r, R)   = sum_lambda <Y_{l Lambda}| P_lambda |Y_{l' Lambda}> * v_lambda(r, R)

@@ -8,7 +8,7 @@ does that. This note records what it measured and the resulting plan.
 `uv run python -m benchmarks.profile_hotpaths` on a representative N2 2-D problem
 (electronic r_max=16 × nuclear R=22, order 6, 9-energy VE sweep):
 
-```
+```text
 21368 function calls in 14.313 seconds (cumulative)
   14.312  core/driven.py ve_cross_section
   14.083  scipy .../linsolve.py splu
@@ -28,7 +28,7 @@ cost, exactly as the roadmap assumed.
 `profile_hotpaths.py --td` on the same problem (an 800-step order-3 Padé
 propagation) tells the same story, with a twist:
 
-```
+```text
 51.6 s total
   42.2 s (82%)  {method 'solve' of 'SuperLU' objects}   <-- per-step solve
    8.6 s (17%)  SparseLU factorization (Padé poles)

@@ -42,7 +42,7 @@ N₂.
 
 ## The `Extractor` architecture: propagate-once, record-all
 
-```
+```text
 propagate(tgrid, psi0, out_channels, *, dt, n_steps, hamiltonian, order,
           extractors=[ex1, ex2, ex3])
 ```
@@ -151,7 +151,7 @@ different dynamics.
 reduced N₂ grid (same tiny grid `libs/qscat/tests/test_td_extractors.py`'s
 golden test uses), `n_steps=800`, `E in {0.10, 0.15}`. Measured:
 
-```
+```text
 delta/tw in [0.814, 0.898],  flow/tw in [0.766, 0.891]
 ```
 

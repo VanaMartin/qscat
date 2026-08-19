@@ -28,7 +28,7 @@ domain. This is the **time-domain twin** of #6: two structurally unrelated compu
 to the same number is a strong, non-trivial cross-check — not a restatement of #6, and not
 a new physical model.
 
-```
+```text
 S_TD(E) = (1/i) * integral_0^inf exp(i*E_tot*t) * <Phi_out|exp(-i*H_2D*t)|Psi_i(0)> dt
         = <Phi_out|(E_tot*I - H_2D)^{-1}|Psi_i(0)>
         = S_TI(E)                                          [the exact-oracle relation]
@@ -347,7 +347,7 @@ loose it would no longer test anything. Per the sub-project's decision rule, Gro
 therefore emits **NOTE** rows that report the already-validated numbers as literal, cited
 constants — never a live gate, never counted toward PASS/FAIL:
 
-```
+```text
 [NOTE] F time-dependent 2-D: F1 sigma_TD(E=0.1 Ha, v=0->1) [recorded]   sigma_TD=5.9595e+00, sigma_TI=6.1230e+00,
        ratio=0.9733 (validated rtol<=0.06 by test_td_cross_section.py::test_v2a_td_matches_ti_at_e010
        (@slow) / order-3 Pade TD_WORKING_GRID run); full TD propagation NOT run in-harness
