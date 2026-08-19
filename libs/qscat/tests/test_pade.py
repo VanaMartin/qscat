@@ -89,3 +89,20 @@ def test_pade_order3_convergence_rate() -> None:
         errs.append(float(np.linalg.norm(x - ref) / np.linalg.norm(ref)))
     slope = np.log(errs[0] / errs[1]) / np.log(dts[0] / dts[1])
     assert slope > 6.0
+
+
+def test_stepper_propagates_a_block_of_states_columnwise():
+    """A (N, k) state must step exactly as k independent (N,) states.
+
+    The TD-NRM route propagates one column per incident energy against a
+    single factorization; this is the property that makes that legal.
+    """
+    rng = np.random.default_rng(4)
+    n = 24
+    a = rng.normal(size=(n, n)) + 1j * rng.normal(size=(n, n))
+    h = sp.csr_matrix(a + a.T)  # complex symmetric, as ECS gives
+    step = make_pade_stepper(h, dt=0.05, order=3)
+    block = (rng.normal(size=(n, 3)) + 1j * rng.normal(size=(n, 3))).astype(np.complex128)
+    together = step(block)
+    for j in range(3):
+        assert np.allclose(together[:, j], step(block[:, j]), rtol=1e-12, atol=1e-14)
