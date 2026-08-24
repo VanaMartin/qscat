@@ -49,6 +49,7 @@ def test_gamma_positive_in_resonance_region():
     assert Gamma[band].max() > 1e-4  # genuine width somewhere
 
 
+@pytest.mark.slow
 def test_matches_n2_vres_oracle():
     # `projects.*` lives in the monorepo, not in the sdist. Skip rather than
     # error for anyone running this suite from an installed source dist.

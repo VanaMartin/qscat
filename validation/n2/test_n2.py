@@ -1,6 +1,9 @@
+import pytest
+
 from validation.n2 import experiment
 
 
+@pytest.mark.slow
 def test_green_groups_pass_pending_never_fail():
     checks = experiment.run_checks()
     statuses = {c[2] for c in checks}
@@ -15,5 +18,6 @@ def test_green_groups_pass_pending_never_fail():
     # near-threshold)
 
 
+@pytest.mark.slow
 def test_main_exits_zero():
     assert experiment.main() == 0

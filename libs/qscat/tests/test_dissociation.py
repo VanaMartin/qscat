@@ -98,6 +98,7 @@ def _working():
     return tg
 
 
+@pytest.mark.slow
 def test_da_shape_scalar_and_array():
     tg = _working()
     eps, chi = vibrational_states(tg.grids[1], F2.mu, 3, F2.v0)
@@ -108,6 +109,7 @@ def test_da_shape_scalar_and_array():
     assert np.all(sN >= 0.0) and np.all(np.isfinite(sN))
 
 
+@pytest.mark.slow
 def test_da_return_wavefunction_parity_and_shape():
     # return_wavefunction must not change sigma (byte-identical), and must hand
     # back the driven Psi+ (full tensor field) per energy -- the R6 hook that
@@ -129,6 +131,7 @@ def test_da_return_wavefunction_parity_and_shape():
     assert psi0 is None
 
 
+@pytest.mark.slow
 def test_n2_channel_closed_is_zero():
     # N2's DA threshold is +0.5 Ha -> sigma_DA == 0 across the whole VE window.
     tg = _working()

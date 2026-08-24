@@ -287,6 +287,7 @@ def test_ve_closed_channel_is_zero(elec, nuc):
     assert float(sigma[0]) == 0.0
 
 
+@pytest.mark.slow
 def test_ve_background_changes_the_answer(elec, nuc):
     """include_background must be load-bearing -- if the two agree, either the
     background is not wired in or it is being computed as zero.
@@ -325,6 +326,7 @@ def test_ve_background_changes_the_answer(elec, nuc):
     assert abs(float(with_bg[0]) - float(without[0])) > 1e-3 * float(with_bg[0])
 
 
+@pytest.mark.slow
 def test_ve_cross_term_pins_the_interference_sign_and_phase(elec, nuc):
     """`sigma ~ |T^res + T^bg|^2 = |T^res|^2 + |T^bg|^2 + 2 Re(conj(T^res) T^bg)`
     -- the cross term is exactly what a wrong sign inside `nrm_ve_cross_section`
@@ -369,6 +371,7 @@ def test_ve_cross_term_pins_the_interference_sign_and_phase(elec, nuc):
     assert abs(float(got_sigma[0]) - expected_sigma) < 1e-9 * expected_sigma
 
 
+@pytest.mark.slow
 def test_ve_array_and_scalar_energies_agree(elec, nuc):
     """The scalar/array convention must match driven.py's."""
     ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
@@ -394,6 +397,7 @@ def test_ve_array_and_scalar_energies_agree(elec, nuc):
     assert np.allclose(many[0], one, rtol=1e-12)
 
 
+@pytest.mark.slow
 def test_ve_and_da_share_one_psi_d(elec, nuc):
     """The VE and DA paths solve the SAME Eq. (52). If they diverge, one of
     them is mis-wiring the nuclear equation.

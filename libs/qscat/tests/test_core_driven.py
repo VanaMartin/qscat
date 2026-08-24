@@ -68,6 +68,7 @@ _SIGMA_REF = np.array(
 )
 
 
+@pytest.mark.slow
 def test_ve_cross_section_matches_pre_promotion_reference() -> None:
     sigma = ve_cross_section(TG, N2, EPS, CHI, 0, [0, 1, 2], _E_ARR)
     assert sigma.shape == (3, 3)
@@ -119,6 +120,7 @@ def test_closed_channels_are_zero() -> None:
     assert np.all(sigma[~open_[:4]] == 0.0)
 
 
+@pytest.mark.slow
 def test_array_of_energies_matches_scalar_calls() -> None:
     energies = [0.1, 0.2]
     both = ve_cross_section(TG, N2, EPS, CHI, 0, [1], energies)
