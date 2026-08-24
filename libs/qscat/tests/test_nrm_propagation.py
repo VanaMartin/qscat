@@ -12,7 +12,8 @@ from qscat.core.nrm.propagation import propagate_nrm
 
 def _launch(psi0: np.ndarray, e_total: np.ndarray) -> LaunchBasis:
     """A raw-column `LaunchBasis` with `coeffs = I` -- exercises propagation
-    and the transform, not the SVD factorization Task 2 already gates."""
+    and the transform, not the SVD factorization `test_nrm_extended.py`
+    already gates."""
     r = psi0.shape[1]
     return LaunchBasis(
         vectors=psi0.astype(np.complex128),

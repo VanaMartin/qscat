@@ -161,7 +161,9 @@ def nonlocal_operator(
         only (not `|E_n|` or any width-aware criterion), so "lowest
         `n_states`" means lowest real part at the outermost node, not
         necessarily lowest at every `R`. `None` (default) sums over all of
-        them. The convergence knob Task 8 sweeps.
+        them. The convergence knob for the time-INDEPENDENT route; the
+            time-dependent one cannot truncate at all (see
+            `extended.extended_hamiltonian`).
 
     Returns
     -------

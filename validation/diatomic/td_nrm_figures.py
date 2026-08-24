@@ -604,9 +604,9 @@ def _render_packet(
 # nothing: these are the numbers the shipped gates were set from.
 #
 # N2 vector-gate `rel` and `S(T)/S(0)` vs `T` at `dt = 1`, on
-# `n2_gate_deck()`: `.superpowers/sdd/2026-08-19-nrm-td/task-4-report.md`,
-# "Refinement tables on the converging fixture" (measured 2026-08-19; the
-# T = 4000 row is the shipped gate, 1.7264e-04).
+# `n2_gate_deck()`, measured 2026-08-19. The T = 4000 row is the shipped gate
+# in `libs/qscat/tests/test_nrm_propagation.py`, and the same table is recorded
+# in `docs/physics/nrm-time-dependent.md` Sec. 3.
 _N2_T = np.array([500.0, 1000.0, 2000.0, 3000.0, 4000.0, 5000.0])
 _N2_REL = np.array([2.8955e-01, 4.0175e-02, 3.9963e-03, 6.4580e-04, 1.7264e-04, 1.4390e-04])
 _N2_SURVIVAL = np.array([1.08e-01, 4.96e-03, 1.05e-04, 2.63e-06, 6.68e-08, 1.69e-09])
@@ -616,8 +616,9 @@ _N2_BUDGET = (0.40, 1.43e-4)  # truncation(T) = 0.40*sqrt(S(T)/S(0)); propagatio
 
 # F2 DA worst-of-three-energies `max |sigma_TD/sigma_TI - 1|` and `S(T)/S(0)`
 # vs `T` at `dt = 2`, on `f2_fine_deck()`:
-# `.superpowers/sdd/2026-08-19-nrm-td/task-5-report.md`, "Convergence in T"
-# (measured 2026-08-19; T = 12000 is the shipped gate's setting).
+# measured 2026-08-19; T = 12000 is the setting the shipped gate in
+# `libs/qscat/tests/test_nrm_td_cross_section.py` uses, and the same table is
+# recorded in `docs/physics/nrm-time-dependent.md` Sec. 3.
 _F2_T = np.array([4000.0, 6000.0, 8000.0, 10000.0, 12000.0, 14000.0])
 _F2_SIGMA = np.array([0.29, 0.13, 0.065, 0.024, 0.014, 0.022])
 _F2_SURVIVAL = np.array([0.25, 0.045, 0.018, 0.011, 0.009, 0.008])

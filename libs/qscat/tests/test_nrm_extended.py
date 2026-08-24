@@ -181,11 +181,12 @@ def test_launch_state_drives_the_time_independent_solve(nuc, elec, ing):
 
 
 def test_the_launch_matrix_is_numerically_low_rank(nuc, elec, ing):
-    """The economy of Task 3 rests on this; measure it, do not assume it.
+    """The propagate-once economy rests on this; measure it, do not assume it.
 
     `truncation_error` (`sigma_{r+1}/sigma_1`) bounds error relative to the
     LARGEST column, not to each energy's own -- see
-    `LaunchBasis.truncation_error`'s docstring. Task 3's accuracy depends on
+    `LaunchBasis.truncation_error`'s docstring. The propagation's accuracy
+    depends on
     the actual PER-COLUMN reconstruction error, so gate on that directly
     rather than trusting `truncation_error` as a per-energy bound (it can't
     be one: `keep` is chosen so `sv[keep] <= rank_tol * sv[0]` by
