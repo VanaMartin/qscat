@@ -1120,7 +1120,15 @@ def render_vector(smoke: bool = False) -> dict[str, Any]:
     r = r[order]
     ti = np.asarray(want)[real][order]
     td = got[real][order]
-    diff = np.abs(td - ti)
+    # The difference panel plots VALUES too. Plotting |c_j^TD - c_j^TI| carries
+    # the same sqrt(w_j) discontinuities the top panel had -- the notches at the
+    # element bridges are the weights, not the disagreement. Dividing both sides
+    # by sqrt(w_j) removes them without touching what is being compared. The
+    # gate's `rel` is still the COEFFICIENT-space norm (that is the space the
+    # c-product lives in) and the title says so; the panel shows the physical
+    # quantity, which is what a reader reads off it.
+    sqrt_w = np.sqrt(deck.nuc.weights[real].real[order])
+    diff = np.abs(td / sqrt_w - ti / sqrt_w)
 
     # `Psi_d` is a resonance wavefunction: on this grid it is confined to
     # R ~ 1.7-3.2 bohr and is flat zero over the rest of the 0-8 bohr real
@@ -1185,10 +1193,10 @@ def render_vector(smoke: bool = False) -> dict[str, Any]:
     ax0.set_title(rf"$E = {VECTOR_ENERGY:g}$ Ha,  $T = {dt * n_steps:g}$,  $\Delta t = {dt:g}$")
 
     ax1.semilogy(r, np.maximum(diff, 1e-30), color="tab:red")
-    ax1.set_ylabel(r"$|\Psi_d^{\mathrm{TD}} - \Psi_d^{\mathrm{TI}}|$  (coeffs)")
+    ax1.set_ylabel(r"$|\Psi_d^{\mathrm{TD}} - \Psi_d^{\mathrm{TI}}|$  (bohr$^{-1/2}$)")
     ax1.set_xlabel(r"internuclear distance  $R$  (bohr)")
     ax1.set_title(
-        f"pointwise difference, DVR coefficients -- relative vector error {rel:.3e},\n"
+        f"pointwise difference of wavefunction VALUES -- relative vector error {rel:.3e},\n"
         "the same coefficient-space norm the gate uses (whole vector)"
     )
     ax1.set_xlim(lo, hi)
