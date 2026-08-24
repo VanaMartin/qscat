@@ -17,6 +17,17 @@ and still look like a passing test, which is why `eps_e` here is read from
 the same `continue_to_tail(ing.v_d_discrete, ...)` at the same
 `_boundary_node` rather than recomputed.
 
+`markovian=True` runs the LOCAL sibling of all this: PRA 47 Eq. (2.11) collapses
+the memory kernel to `i[Delta_L - (i/2)Gamma_L] delta(R-R') delta(t)`, so the LCP
+IS the Markovian approximation to the nonlocal model, and Eq. (2.15) is what
+remains. `extended.lcp_limit_hamiltonian` + `extended.lcp_initial_packet` replace
+`extended_hamiltonian` + `initial_packet`; everything downstream is unchanged. It
+takes `qscat.core.lcp.local_complex_potential`'s `(Vd, Gamma)` -- NOT
+`ing.v_d_discrete`, which is missing the level shift `Delta_L` and measurably does
+not reproduce `lcp_da_cross_section` (`lcp_limit_hamiltonian`'s docstring). With
+no arms the propagated matrix is `N_R` square rather than `(1 + n_states) * N_R`,
+which on F2's deck is 974 against 53570 and 4 s against ~30 min.
+
 WHY DISSOCIATIVE ATTACHMENT IS THE HARD CHANNEL FOR THIS ROUTE. In the
 vibrational-excitation case the packet decays IN PLACE -- autodetachment
 empties the discrete state and `S(t)` falls to round-off. In DA the packet
@@ -66,7 +77,12 @@ from qscat.dvr import FemDvrEcsGrid
 
 from .discrete_state import DiscreteState
 from .dissociation import _boundary_node, da_sigma_from_psi
-from .extended import extended_hamiltonian, initial_packet
+from .extended import (
+    extended_hamiltonian,
+    initial_packet,
+    lcp_initial_packet,
+    lcp_limit_hamiltonian,
+)
 from .ingredients import NrmIngredients, nrm_ingredients
 from .nonlocal_potential import continue_to_tail
 from .propagation import propagate_nrm
@@ -88,6 +104,43 @@ __all__ = ["td_nrm_da_cross_section"]
 _UNABSORBED_TOL = 1e-2
 
 
+def _check_markovian_arguments(
+    markovian: bool,
+    Vd: npt.NDArray[np.complex128] | None,
+    Gamma: npt.NDArray[np.float64] | None,
+    n_states: int | None,
+) -> None:
+    """Reject argument sets whose failure would otherwise be a silent wrong answer.
+
+    Passing `Vd`/`Gamma` WITHOUT `markovian` is the dangerous direction: the
+    nonlocal branch would ignore them and return a perfectly plausible
+    nonlocal cross section under a call that reads as a local one. The
+    reverse (`markovian` without them) cannot be defaulted -- the local
+    complex potential is an electronic-structure computation
+    (`qscat.core.lcp.local_complex_potential`), not something this module
+    can reconstruct from `ing`. `n_states` is rejected rather than ignored
+    because the local Hamiltonian has no arms at all, so any value for it
+    describes something this call does not do.
+    """
+    if markovian:
+        if Vd is None or Gamma is None:
+            raise ValueError(
+                "markovian=True needs both Vd and Gamma (qscat.core.lcp."
+                "local_complex_potential's two returns) -- the local complex "
+                "potential cannot be derived from the nonlocal ingredients"
+            )
+        if n_states is not None:
+            raise ValueError(
+                f"n_states={n_states} is meaningless with markovian=True: the "
+                "local limit has no projected-state arms to truncate"
+            )
+    elif Vd is not None or Gamma is not None:
+        raise ValueError(
+            "Vd/Gamma are the markovian=True arguments; passing them to the "
+            "nonlocal route would silently ignore them"
+        )
+
+
 def td_nrm_da_cross_section(
     nuclear_grid: FemDvrEcsGrid,
     elec_grid: FemDvrEcsGrid,
@@ -100,6 +153,9 @@ def td_nrm_da_cross_section(
     *,
     ingredients: NrmIngredients | None = None,
     n_states: int | None = None,
+    markovian: bool = False,
+    Vd: npt.NDArray[np.complex128] | None = None,
+    Gamma: npt.NDArray[np.float64] | None = None,
     dt: float,
     n_steps: int,
     order: int = 3,
@@ -143,7 +199,22 @@ def td_nrm_da_cross_section(
         `E_n` are complex, so a truncated arm set can leave `H_ext` with a
         growing eigenmode, the transform's premise fails, and `psi_d` comes
         back exponentially wrong rather than under-converged.
-        `propagate_nrm` warns at runtime when that happens.
+        `propagate_nrm` warns at runtime when that happens. Rejected with
+        `markovian=True`, which has no arms to truncate.
+    markovian : bool, optional
+        Propagate the LOCAL (LCP) limit instead -- PRA 47 Eq. (2.11)/(2.15),
+        `lcp_limit_hamiltonian` plus `lcp_initial_packet`'s doorway. Requires
+        `Vd`/`Gamma` and ignores `elec_grid`, `phi_d`, `ingredients`,
+        `n_states` and `rank_tol` (none of them enter the local model; no
+        ingredients are built). Default `False`.
+    Vd, Gamma : ndarray, optional
+        The local complex potential, on the full nuclear grid -- exactly
+        `qscat.core.lcp.local_complex_potential`'s two returns, under the
+        names `lcp_da_cross_section` gives them. Required when `markovian`,
+        rejected otherwise. `Vd` is the RESONANCE POSITION `E_res(R)` (plus
+        `V_0`), NOT `NrmIngredients.v_d_discrete` -- see
+        `lcp_limit_hamiltonian` for why Eq. (2.14) forces that reading and
+        what the other one measures.
     dt, n_steps, order : float, int, int
         Propagation step, number of steps, and diagonal-Pade order
         (`qscat.evolution.make_pade_stepper`). The total propagation error
@@ -162,6 +233,13 @@ def td_nrm_da_cross_section(
     ndarray
         `sigma_DA` per energy; scalar-shaped for a scalar `E`.
 
+    Raises
+    ------
+    ValueError
+        If `markovian` is set without both `Vd` and `Gamma`, if either is
+        passed without `markovian`, or if `markovian` is combined with an
+        explicit `n_states`.
+
     Warns
     -----
     UserWarning
@@ -174,17 +252,30 @@ def td_nrm_da_cross_section(
         convergence evidence has to come from `sigma_DA` itself being
         stationary in `T`, not from `unabsorbed`.
     """
-    real = nuclear_grid.points.imag == 0.0
-    R_desc = np.sort(nuclear_grid.points[real].real)[::-1]
-    ing = ingredients or nrm_ingredients(elec_grid, model, phi_d, R_desc)
-
-    v_d_full = continue_to_tail(ing.v_d_discrete, ing.R, nuclear_grid)
-    eps_e = float(v_d_full[_boundary_node(nuclear_grid)].real)
+    _check_markovian_arguments(markovian, Vd, Gamma, n_states)
 
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     out = np.zeros(e_arr.size, dtype=np.float64)
+    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
     open_idx = np.flatnonzero(e_arr > 0.0)
-    if open_idx.size:
+    if open_idx.size == 0:
+        return np.asarray(out[0] if scalar else out, dtype=np.float64)
+
+    if markovian:
+        assert Vd is not None and Gamma is not None  # narrowed by the check above
+        gamma = np.asarray(Gamma, dtype=np.float64)
+        v_res = np.asarray(Vd, dtype=np.complex128) - 0.5j * gamma
+        # Identical to lcp_da_cross_section's `eps_e = Vd[b].real`: the
+        # -(i/2)Gamma term is purely imaginary and cannot move it.
+        eps_e = float(v_res[_boundary_node(nuclear_grid)].real)
+        launch = lcp_initial_packet(nuclear_grid, gamma, eps, chi, v_init, e_arr[open_idx])
+        h_ext = lcp_limit_hamiltonian(nuclear_grid, model, v_res)
+    else:
+        real = nuclear_grid.points.imag == 0.0
+        R_desc = np.sort(nuclear_grid.points[real].real)[::-1]
+        ing = ingredients or nrm_ingredients(elec_grid, model, phi_d, R_desc)
+        v_d_full = continue_to_tail(ing.v_d_discrete, ing.R, nuclear_grid)
+        eps_e = float(v_d_full[_boundary_node(nuclear_grid)].real)
         launch = initial_packet(
             nuclear_grid,
             elec_grid,
@@ -199,30 +290,30 @@ def td_nrm_da_cross_section(
             rank_tol=rank_tol,
         )
         h_ext = extended_hamiltonian(ing, nuclear_grid, model, n_states=n_states)
-        res = propagate_nrm(h_ext, launch, nuclear_grid, dt=dt, n_steps=n_steps, order=order)
 
-        left = res.unabsorbed / np.where(res.survival[0] > 0.0, res.survival[0], np.inf)
-        if bool(np.any(left > unabsorbed_tol)):
-            warnings.warn(
-                f"td_nrm_da_cross_section: the packet still holds "
-                f"{float(np.max(left)):.3g} of its initial real-region norm at "
-                f"T={dt * n_steps:g} (tolerance {unabsorbed_tol:g}), so the "
-                "half-Fourier transform is truncated and sigma_DA may be "
-                "confidently wrong rather than merely noisy. Propagate longer, "
-                "or -- if S(t) has plateaued rather than still falling -- "
-                "establish convergence by showing sigma_DA is stationary in T.",
-                stacklevel=2,
-            )
+    res = propagate_nrm(h_ext, launch, nuclear_grid, dt=dt, n_steps=n_steps, order=order)
 
-        for col, ie in enumerate(open_idx):
-            out[ie] = da_sigma_from_psi(
-                nuclear_grid,
-                model.mu,
-                res.psi_d[:, col],
-                float(launch.e_total[col]),
-                eps_e,
-                float(e_arr[ie]),
-            )
+    left = res.unabsorbed / np.where(res.survival[0] > 0.0, res.survival[0], np.inf)
+    if bool(np.any(left > unabsorbed_tol)):
+        warnings.warn(
+            f"td_nrm_da_cross_section: the packet still holds "
+            f"{float(np.max(left)):.3g} of its initial real-region norm at "
+            f"T={dt * n_steps:g} (tolerance {unabsorbed_tol:g}), so the "
+            "half-Fourier transform is truncated and sigma_DA may be "
+            "confidently wrong rather than merely noisy. Propagate longer, "
+            "or -- if S(t) has plateaued rather than still falling -- "
+            "establish convergence by showing sigma_DA is stationary in T.",
+            stacklevel=2,
+        )
 
-    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+    for col, ie in enumerate(open_idx):
+        out[ie] = da_sigma_from_psi(
+            nuclear_grid,
+            model.mu,
+            res.psi_d[:, col],
+            float(launch.e_total[col]),
+            eps_e,
+            float(e_arr[ie]),
+        )
+
     return np.asarray(out[0] if scalar else out, dtype=np.float64)
