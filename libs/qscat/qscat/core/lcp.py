@@ -134,6 +134,24 @@ def resonance_pole_walk(
     (inner) `R`. The freeze holds the electronic SHIFT `s = V_d - v0(R)`
     constant, not the absolute pole. Raises `ConvergenceError` if the finder
     fails already at the seed edge (no accepted pole to freeze).
+
+    Warns
+    -----
+    UserWarning
+        When the walk freezes, with the breakdown `R` and how many nodes are
+        held constant. The freeze is DELIBERATE and usually harmless -- at
+        small `R` the neutral curve is already hartrees above threshold and
+        the vibrational wavefunction has negligible density there -- but it is
+        an EXTRAPOLATION, and how far in it starts depends on the electronic
+        grid. Measured on F2's production nuclear deck (2026-08-24): a
+        55-point electronic grid breaks down at `R = 2.5033` and holds
+        `Gamma = 0.00949256` over the inner 198 of 819 real nodes, while a
+        132-point one runs on to `R = 1.8657` and gives `Gamma` = 0.0104 /
+        0.140 / 0.539 at R = 2.49 / 2.20 / 1.51 -- 57x the frozen value at the
+        innermost of those. Anything that reads
+        `Gamma(R)` inside the frozen region (a doorway, a packet's turning
+        point) is reading a constant, not the molecule, and silence about
+        that is how it goes unnoticed.
     """
     window = seed_window
     shift = np.empty(R_descending.size, dtype=np.float64)  # s = V_d - v0(R)
@@ -166,6 +184,20 @@ def resonance_pole_walk(
                     shift[j], gamma_w[j] = last_s, last_g
                     continue
             broken = True
+            if last_s is None:
+                raise ConvergenceError("resonance_pole_walk: pole finder failed at the seed edge")
+            warnings.warn(
+                f"resonance_pole_walk: the pole finder broke down at R = "
+                f"{R:.4f}; the electronic shift and Gamma are FROZEN at their "
+                f"last accepted values (shift = {last_s:.6g}, Gamma = "
+                f"{last_g:.6g}) for the remaining "
+                f"{R_descending.size - j} of {R_descending.size} nodes. That "
+                "region is an extrapolation, not a computed curve, and how far "
+                "in it starts depends on the electronic grid -- refine it if "
+                "anything you care about (a doorway, a turning point) lives "
+                "inside the frozen range.",
+                stacklevel=2,
+            )
         if last_s is None:
             raise ConvergenceError("resonance_pole_walk: pole finder failed at the seed edge")
         shift[j], gamma_w[j] = last_s, last_g

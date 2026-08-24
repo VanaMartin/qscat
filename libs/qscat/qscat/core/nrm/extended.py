@@ -162,15 +162,30 @@ def lcp_limit_hamiltonian(
     `model.surface` already carries `v0`), NOT this package's
     `NrmIngredients.v_d_discrete` (PRA 77 Eq. 20, which is `V_d` WITHOUT the
     level shift `Delta_L`). The two differ by 0.0053 Ha on F2 and 0.0229 Ha on
-    NO at the doorway (`docs/physics/nonlocal-resonance-model.md` sec. 4), and
-    that difference is not cosmetic: substituting `v_d_discrete` for
-    `qscat.core.lcp`'s `Vd` here does NOT reproduce
-    `lcp_da_cross_section` (measured ratios in
-    `docs/physics/nrm-time-dependent.md` sec. 6). Callers therefore build
-    `v_res = Vd - (i/2) Gamma` from `qscat.core.lcp.local_complex_potential`.
-    Passing `v_res` in rather than computing it keeps `qscat.core.nrm` from
-    depending on `qscat.core.lcp`, and keeps that measurement reproducible
-    from outside.
+    NO -- but WHERE that is measured is worth a factor of 70, so read the
+    numbers with their definition attached. `docs/physics/nonlocal-resonance-
+    model.md` sec. 4's 0.0053 Ha (F2) is at the NRM doorway `argmax |chi_0|`
+    (R = 2.745); at the LCP doorway `argmax sqrt(Gamma/2pi)|chi_0|`
+    (R = 2.486, 0.26 bohr further in) it is 0.0423 Ha instead, and over
+    the region where `|chi_0|` exceeds 5% of its maximum the difference sweeps
+    0.00095 -> 0.067 Ha. The DECK is worth 1.3x by comparison (0.04231 on a
+    55-point electronic grid against 0.03283 on the 132-point production one,
+    same nuclear deck; at the NRM doorway 0.00535 against 0.00534, i.e.
+    deck-stable to three figures).
+
+    The difference is not cosmetic: substituting `v_d_discrete` for
+    `qscat.core.lcp`'s `Vd` here does NOT reproduce `lcp_da_cross_section`
+    (measured ratios in `docs/physics/nrm-time-dependent.md` sec. 6). It decays
+    over the same `R`-range as `Gamma` -- but NOT only where `Gamma` is nonzero:
+    `Gamma_L(R)` is `Gamma` at ONE energy while `Delta_L(R) = P Int (dE'/2pi)
+    Gamma(E',R)/(E_res - E')` (Eq. 2.12a/2.13b) integrates over ALL `E'`, so
+    `Delta_L` is free to be nonzero where `Gamma_L` vanishes, and measurably is
+    (9.5e-4 Ha at R = 3.01, where `Gamma = 0`).
+
+    Callers therefore build `v_res = Vd - (i/2) Gamma` from
+    `qscat.core.lcp.local_complex_potential`. Passing `v_res` in rather than
+    computing it keeps `qscat.core.nrm` from depending on `qscat.core.lcp`, and
+    keeps that measurement reproducible from outside.
 
     Parameters
     ----------
@@ -413,8 +428,9 @@ def lcp_initial_packet(
     ------
     ValueError
         If any energy is non-positive, if `gamma` is not one entry per
-        nuclear node, or if the doorway vanishes identically (a `Gamma`
-        that is zero everywhere describes no resonance at all).
+        nuclear node, if any entry of `gamma` is negative, or if the doorway
+        vanishes identically (a `Gamma` that is zero everywhere describes no
+        resonance at all).
     """
     e = np.atleast_1d(np.asarray(energies, dtype=np.float64))
     if np.any(e <= 0.0):
@@ -423,6 +439,15 @@ def lcp_initial_packet(
     if g.shape != (nuclear_grid.n,):
         raise ValueError(
             f"gamma has shape {g.shape}, expected ({nuclear_grid.n},) -- one entry per nuclear node"
+        )
+    # A width is non-negative, and `local_complex_potential` clamps it. Left
+    # unchecked, one negative entry makes `sqrt` NaN, the NaN survives the
+    # propagation and the transform, and `sigma_DA` comes back NaN with
+    # nothing saying where it started.
+    if np.any(g < 0.0):
+        raise ValueError(
+            f"gamma has {int(np.sum(g < 0.0))} negative entries (min {float(g.min()):.3g}); "
+            "a width cannot be negative and sqrt(Gamma/2pi) would be NaN"
         )
 
     doorway = np.sqrt(g / (2.0 * np.pi)).astype(np.complex128) * chi[v_init]

@@ -1,6 +1,6 @@
 """The committed figure set for the TIME-DEPENDENT nonlocal resonance model.
 
-    uv run --no-sync python -m validation.diatomic.td_nrm_figures            # all six
+    uv run --no-sync python -m validation.diatomic.td_nrm_figures            # all seven
     uv run --no-sync python -m validation.diatomic.td_nrm_figures launch-rank  # one
     uv run --no-sync python -m validation.diatomic.td_nrm_figures --smoke      # cheap
 
@@ -10,7 +10,7 @@
 sparse arrow block Hamiltonian, and half-Fourier-transforms the propagated
 packet back to the SAME `Psi_d(R;E)` the time-independent route
 (Houfek/Rescigno/McCurdy, PRA 77, 012710 (2008) Eq. 52) solves for per
-energy. That identity is gated in `libs/qscat/tests/`; these six figures are
+energy. That identity is gated in `libs/qscat/tests/`; these seven figures are
 what it LOOKS like, which is a different deliverable -- a reader deciding by
 eye whether the two routes agree and whether the dynamics are physical.
 
@@ -22,6 +22,7 @@ Each figure writes `docs/physics/figures/<name>.png` and a sibling
     convergence   nrm-td-convergence.png
     launch-rank   nrm-td-launch-rank.png
     truncation    nrm-td-truncation-diverges.png
+    markovian     nrm-td-markovian-vs-lcp.png
     vector        n2-nrm-td-vs-ti-vector.png
 
 `td-vs-ti` renders TWO figures from ONE propagation on purpose: the cross
@@ -40,10 +41,13 @@ noisy figure, it produces an empty one.
 COST (12-core dev machine, `OMP_NUM_THREADS=8`): `td-vs-ti` ~50 min, of
 which 39 min is the fine-deck propagation (6000 steps at 0.39 s on a
 53570-square `H_ext`) and ~7 min the coarse-deck overlay; `vector` ~3 min;
-`launch-rank` ~1 min; `truncation` ~3 min; `convergence` is instant (it
-plots recorded numbers, see `_N2_BUDGET`/`_F2_SIGMA`). Run them ONE AT A
-TIME with a pinned thread count -- concurrent unpinned sweeps cost ~300x
-here (`docs/physics/optimization-targets.md`).
+`launch-rank` ~1 min; `truncation` ~3 min; `markovian` ~9 min (of which
+~8 min is its two NONLOCAL propagations -- its local ones are ~1 s each,
+since the Markovian limit has no arms and its matrix is 974 square rather
+than 53570); `convergence` is instant (it plots recorded numbers, see
+`_N2_BUDGET`/`_F2_SIGMA`). Run them ONE AT A TIME with a pinned thread
+count -- concurrent unpinned sweeps cost ~300x here
+(`docs/physics/optimization-targets.md`).
 
 MEMORY IS THE BINDING CONSTRAINT, NOT TIME, AND `td-vs-ti` DOES NOT FIT ON A
 LAPTOP. What dominates is the SPARSE LU OF THE PADE DENOMINATORS: an order-3
@@ -81,6 +85,7 @@ from typing import Any
 import numpy as np
 import numpy.typing as npt
 from qscat.core.grids import electronic_grid, nuclear_grid, segmented_grid
+from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
 from qscat.core.nrm import (
     AsymptoticDiscreteState,
     NrmIngredients,
@@ -88,6 +93,7 @@ from qscat.core.nrm import (
     nrm_da_cross_section,
     nrm_ingredients,
 )
+from qscat.core.nrm.coupling import v_dk_plus
 from qscat.core.nrm.discrete_state import DiscreteState
 
 # `da_sigma_from_psi` and `_boundary_node` are how `td_nrm_da_cross_section`
@@ -98,12 +104,20 @@ from qscat.core.nrm.discrete_state import DiscreteState
 # Importing the private `_boundary_node` keeps `eps_e` byte-identical to both
 # routes' own; recomputing it here is exactly the kind of second definition
 # that would make the comparison quietly meaningless.
-from qscat.core.nrm.dissociation import _boundary_node, da_sigma_from_psi
-from qscat.core.nrm.extended import LaunchBasis, extended_hamiltonian, initial_packet
+from qscat.core.nrm.dissociation import _boundary_node, da_sigma_from_psi, solve_nuclear
+from qscat.core.nrm.extended import (
+    LaunchBasis,
+    extended_hamiltonian,
+    initial_packet,
+    lcp_initial_packet,
+    lcp_limit_hamiltonian,
+)
 from qscat.core.nrm.nonlocal_potential import continue_to_tail
 from qscat.core.nrm.propagation import TdNrmResult, propagate_nrm
+from qscat.core.nrm.td_cross_section import td_nrm_da_cross_section
 from qscat.core.vibrational import vibrational_states
 from qscat.dvr import FemDvrEcsGrid, dvr_interpolation_matrix
+from qscat.evolution import make_pade_stepper
 from qscat.model import F2, N2, ResonanceModel
 
 __all__ = [
@@ -112,6 +126,7 @@ __all__ = [
     "main",
     "render_convergence",
     "render_launch_rank",
+    "render_markovian",
     "render_td_vs_ti",
     "render_truncation",
     "render_vector",
@@ -1229,6 +1244,306 @@ def render_vector(smoke: bool = False) -> dict[str, Any]:
     return {"relative_error": rel}
 
 
+# --- figure 6: the Markovian (LCP) limit ------------------------------------
+
+#: The three shipped gate anchors, so this figure reads against
+#: `test_nrm_td_cross_section.py`'s recorded ratios without interpolation.
+MARKOVIAN_ENERGIES = np.array([0.020, 0.030, 0.050])
+
+#: `T = 12000` at `dt = 2` -- the same settings the nonlocal gate uses, and
+#: converged for the local route with room to spare (max |ratio-1| = 2.2e-4).
+MARKOVIAN_DT, MARKOVIAN_STEPS = 2.0, 6000
+
+#: Packet window. The moments run to `T = 4000` (through the absorber); the
+#: density snapshots stop at `T = 800` = 19.4 fs, which already covers PRA 47's
+#: 2-5 fs splitting window four times over and costs a quarter as much.
+PACKET_STEPS, SNAPSHOT_STEPS, SNAPSHOT_EVERY = 2000, 400, 10
+
+#: 1 fs in atomic units of time -- PRA 47 works in fs, this repository in a.u.
+_FS = 41.341
+
+
+def _peak_count(value_density: npt.NDArray[np.float64], floor: float = 0.10) -> int:
+    """Local maxima above `floor` of this snapshot's own maximum.
+
+    Taken in wavefunction-VALUE space: on a non-uniform DVR grid the
+    coefficient density `|c_i|^2` carries the quadrature weight `w_i`, which
+    jumps at element boundaries, so counting peaks there finds the mesh rather
+    than the packet.
+    """
+    hi = value_density.max() * floor
+    inner = value_density[1:-1]
+    return int(np.sum((inner > value_density[:-2]) & (inner > value_density[2:]) & (inner > hi)))
+
+
+def _width(coeff_density: npt.NDArray[np.float64], r: npt.NDArray[np.float64]) -> float:
+    """`sqrt(<R^2> - <R>^2)` on the COEFFICIENT-space density.
+
+    The opposite convention to `_peak_count`, and deliberately: `|c_i|^2` is
+    already the probability in DVR quadrature, so a moment taken over it needs
+    no weights, while the same moment taken over the value density silently
+    drops `w_i` from the integrand -- the error `propagation._record`'s UNITS
+    NOTE documents for `<P>_t`, which here inverts the trend rather than just
+    rescaling it.
+    """
+    p = coeff_density / coeff_density.sum()
+    mean = float((r * p).sum())
+    return float(np.sqrt(max(0.0, float((r**2 * p).sum()) - mean**2)))
+
+
+def _snapshots(
+    h: Any, launch: LaunchBasis, deck: Deck, n_steps: int
+) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]]:
+    """Propagate and keep `|Psi_d(R,t)|^2` every `SNAPSHOT_EVERY` steps.
+
+    `propagate_nrm` stores no snapshots -- it accumulates the transform and
+    the Eq. (4.4)-(4.6) moments and discards the packet, which is right for
+    every other consumer. Modality is the one question that needs the packet
+    itself, so this steps the same `make_pade_stepper` by hand. It returns
+    BOTH densities (value and coefficient) because `_peak_count` and `_width`
+    want different ones.
+    """
+    real = deck.nuc.points.imag == 0.0
+    w = deck.nuc.weights[real].real
+    psi = launch.vectors.astype(np.complex128)
+    step = make_pade_stepper(h, MARKOVIAN_DT, 3)
+    times, value, coeff = [], [], []
+    for m in range(n_steps + 1):
+        if m % SNAPSHOT_EVERY == 0:
+            c = (psi[: deck.nuc.n, :] @ launch.coeffs)[:, 0][real]
+            times.append(MARKOVIAN_DT * m)
+            coeff.append(np.abs(c) ** 2)
+            value.append(np.abs(c) ** 2 / w)
+        if m < n_steps:
+            psi = step(psi)
+    return np.array(times), np.array(value), np.array(coeff)
+
+
+def render_markovian(smoke: bool = False) -> dict[str, Any]:
+    """Figure 6 -- PRA 47 Eq. (2.11)'s local limit, and what it costs.
+
+    This is the reproduction behind `docs/physics/nrm-time-dependent.md` sec. 6.
+    Four panels, all on `f2_fine_deck` at `v_init = 0`:
+
+    1. **Which `V_d` Eq. (2.15) takes.** `sigma/sigma_LCP` for both candidates
+       -- `qscat.core.lcp`'s `Vd` (`E_res + V_0`) and
+       `NrmIngredients.v_d_discrete` (PRA 77 Eq. 20) -- against the shipped
+       `lcp_da_cross_section`. Eq. (2.14) predicts the first; the figure is the
+       measurement, not the prediction.
+    2. **Three models, one deck, all time-INDEPENDENT.** The nonlocal solve,
+       the local kernel driven by Eq. (2.5)'s launch state, and the full LCP.
+       The middle one is not a shipped route -- it is what isolates the kernel
+       from the doorway -- so it is assembled here from `solve_nuclear` with
+       `F -> diag(-i Gamma/2)`.
+    3. **`S(t)`** for the nonlocal packet, the local packet launched from the
+       SAME Eq. (2.5) state, and the shipped LCP packet.
+    4. **Modality and width**, the two things `TdNrmResult` does not carry, and
+       the reason sec. 6.4 can say "no splitting" rather than "the moments look
+       similar".
+
+    COST ~9 min, almost all of it the two nonlocal propagations (T = 4000 for
+    the moments, T = 800 for the snapshots). The local runs are ~1 s each: with
+    no arms the matrix is `N_R` square, 974 against 53570.
+    """
+    plt = _plt()
+    deck = f2_fine_deck()
+    energies = MARKOVIAN_ENERGIES
+    n_steps = 40 if smoke else MARKOVIAN_STEPS
+    packet_steps = 20 if smoke else PACKET_STEPS
+    snap_steps = 20 if smoke else SNAPSHOT_STEPS
+
+    elec_b = electronic_grid(r_max=13.0, order=5, n_complex=2, angle_deg=40.0)
+    with warnings.catch_warnings(record=True) as warned:
+        warnings.simplefilter("always")
+        v_d_lcp, gamma = local_complex_potential(deck.model, deck.nuc, deck.elec, elec_b)
+    _report(warned)  # the pole walk freezes on this deck -- sec. 6.1
+    v_d_eq20 = continue_to_tail(deck.ing.v_d_discrete, deck.ing.R, deck.nuc)
+    eps_e = float(v_d_lcp[_boundary_node(deck.nuc)].real)
+
+    # --- panel 1: the two V_d readings ------------------------------------
+    sigma_lcp = lcp_da_cross_section(
+        deck.nuc, deck.model.mu, v_d_lcp, gamma, deck.eps, deck.chi, _V_INIT, energies
+    )
+    ratios = {}
+    for label, v_d in (("E_res + V_0", v_d_lcp), ("v_d_discrete (Eq. 20)", v_d_eq20)):
+        with warnings.catch_warnings(record=True) as warned:
+            warnings.simplefilter("always")
+            got = td_nrm_da_cross_section(
+                deck.nuc,
+                deck.elec,
+                deck.model,
+                deck.phi_d,
+                deck.eps,
+                deck.chi,
+                _V_INIT,
+                energies,
+                markovian=True,
+                Vd=v_d,
+                Gamma=gamma,
+                dt=MARKOVIAN_DT,
+                n_steps=n_steps,
+            )
+        _report(warned)
+        ratios[label] = got / sigma_lcp
+        print(f"  markovian [{label}]: sigma/sigma_LCP = {ratios[label]}", flush=True)
+
+    # --- panel 2: three models, time-independently ------------------------
+    sigma_nonlocal = nrm_da_cross_section(
+        deck.nuc,
+        deck.elec,
+        deck.model,
+        deck.phi_d,
+        deck.eps,
+        deck.chi,
+        _V_INIT,
+        energies,
+        ingredients=deck.ing,
+    )
+    f_local = np.diag(-0.5j * gamma).astype(np.complex128)
+    sigma_hybrid = np.array(
+        [
+            da_sigma_from_psi(
+                deck.nuc,
+                deck.model.mu,
+                solve_nuclear(
+                    deck.nuc,
+                    deck.model.mu,
+                    v_d_lcp,
+                    f_local,
+                    continue_to_tail(
+                        v_dk_plus(deck.elec, deck.model, deck.phi_d, deck.ing.R, float(e)),
+                        deck.ing.R,
+                        deck.nuc,
+                    )
+                    * deck.chi[_V_INIT],
+                    float(e) + float(deck.eps[_V_INIT]),
+                ),
+                float(e) + float(deck.eps[_V_INIT]),
+                eps_e,
+                float(e),
+            )
+            for e in energies
+        ]
+    )
+    print(f"  TI sigma: nonlocal {sigma_nonlocal}", flush=True)
+    print(f"  TI sigma: local kernel + Eq. (2.5) launch {sigma_hybrid}", flush=True)
+    print(f"  TI sigma: LCP {sigma_lcp}", flush=True)
+
+    # --- panels 3 and 4: the packets --------------------------------------
+    one = np.array([PACKET_ENERGY])
+    launch_arms = initial_packet(
+        deck.nuc, deck.elec, deck.model, deck.phi_d, deck.ing, deck.eps, deck.chi, _V_INIT, one
+    )
+    launch_flat = initial_packet(
+        deck.nuc,
+        deck.elec,
+        deck.model,
+        deck.phi_d,
+        deck.ing,
+        deck.eps,
+        deck.chi,
+        _V_INIT,
+        one,
+        n_states=0,
+    )
+    launch_door = lcp_initial_packet(deck.nuc, gamma, deck.eps, deck.chi, _V_INIT, one)
+    h_local = lcp_limit_hamiltonian(deck.nuc, deck.model, v_d_lcp - 0.5j * gamma)
+    h_ext = extended_hamiltonian(deck.ing, deck.nuc, deck.model)
+
+    runs, snaps = {}, {}
+    real = deck.nuc.points.imag == 0.0
+    r_real = deck.nuc.points[real].real
+    for label, h, launch in (
+        ("nonlocal", h_ext, launch_arms),
+        ("local, Eq. (2.5) launch", h_local, launch_flat),
+        ("LCP (local doorway)", h_local, launch_door),
+    ):
+        t0 = time.time()
+        with warnings.catch_warnings(record=True) as warned:
+            warnings.simplefilter("always")
+            runs[label] = propagate_nrm(
+                h, launch, deck.nuc, dt=MARKOVIAN_DT, n_steps=packet_steps, order=3
+            )
+        _report(warned)
+        snaps[label] = _snapshots(h, launch, deck, snap_steps)
+        print(f"  packet [{label}]: {time.time() - t0:.0f} s", flush=True)
+
+    fig, axes = plt.subplots(2, 2, figsize=(11.5, 8.2))
+    ax = axes[0, 0]
+    width = 0.35
+    pos = np.arange(energies.size)
+    for k, (label, r) in enumerate(ratios.items()):
+        ax.bar(pos + (k - 0.5) * width, r, width, label=label)
+    ax.axhline(1.0, color="k", lw=1.0, ls="--")
+    ax.set_yscale("log")
+    ax.set_xticks(pos, [f"{e:.3g}" for e in energies])
+    ax.set_xlabel("incident energy (Ha)")
+    ax.set_ylabel(r"$\sigma_{\rm TD}/\sigma_{\rm LCP}$")
+    ax.set_title("Which $V_d$ enters PRA 47 Eq. (2.15)")
+    ax.legend()
+
+    ax = axes[0, 1]
+    for label, sig in (
+        ("nonlocal", sigma_nonlocal),
+        ("local kernel + Eq. (2.5) launch", sigma_hybrid),
+        ("LCP", sigma_lcp),
+    ):
+        ax.plot(energies, sig, "o-", label=label)
+    ax.set_yscale("log")
+    ax.set_xlabel("incident energy (Ha)")
+    ax.set_ylabel(r"$\sigma_{\rm DA}$ (bohr$^2$)")
+    ax.set_title("Three models, one deck (all time-independent)")
+    ax.legend()
+
+    ax = axes[1, 0]
+    for label, res in runs.items():
+        ax.plot(res.time / _FS, res.survival[:, 0] / res.survival[0, 0], label=label)
+    ax.set_yscale("log")
+    ax.set_xlabel("t (fs)")
+    ax.set_ylabel("$S(t)/S(0)$")
+    ax.set_title(f"Survival, E = {PACKET_ENERGY} Ha")
+    ax.legend()
+
+    ax = axes[1, 1]
+    twin = ax.twinx()
+    for label, (t_s, value, coeff) in snaps.items():
+        widths = np.array([_width(c, r_real) for c in coeff])
+        counts = np.array([_peak_count(v) for v in value])
+        (line,) = ax.plot(t_s / _FS, widths, label=label)
+        twin.plot(t_s / _FS, counts, ls=":", color=line.get_color())
+    ax.axvspan(2.0, 5.0, color="0.85", zorder=0)
+    ax.set_xlabel("t (fs)")
+    ax.set_ylabel(r"$\Delta R$ (bohr), solid")
+    twin.set_ylabel("density peaks > 10% of max, dotted")
+    twin.grid(False)
+    ax.set_title("PRA 47's 2-5 fs splitting window (shaded)")
+    ax.legend(fontsize=8)
+
+    fig.suptitle("The Markovian (LCP) limit of the nonlocal resonance model -- F$_2$ DA")
+    fig.tight_layout()
+    _save(
+        fig,
+        "nrm-td-markovian-vs-lcp",
+        energies=energies,
+        sigma_lcp=sigma_lcp,
+        sigma_nonlocal=sigma_nonlocal,
+        sigma_hybrid=sigma_hybrid,
+        ratio_e_res=ratios["E_res + V_0"],
+        ratio_v_d_discrete=ratios["v_d_discrete (Eq. 20)"],
+        v_d_lcp=v_d_lcp,
+        v_d_eq20=v_d_eq20,
+        gamma=gamma,
+        R=r_real,
+        **{
+            f"{k.split(',')[0].split(' (')[0]}_{f}": getattr(v, f)
+            for k, v in runs.items()
+            for f in ("time", "survival", "centroid", "momentum")
+        },
+    )
+    plt.close(fig)
+    return {"ratios": ratios, "sigma_hybrid": sigma_hybrid}
+
+
 # --- driver -----------------------------------------------------------------
 
 _FIGURES = {
@@ -1236,6 +1551,7 @@ _FIGURES = {
     "convergence": render_convergence,
     "launch-rank": render_launch_rank,
     "truncation": render_truncation,
+    "markovian": render_markovian,
     "vector": render_vector,
 }
 
