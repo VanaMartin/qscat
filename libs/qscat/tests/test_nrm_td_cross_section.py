@@ -711,3 +711,85 @@ def test_markovian_ve_reproduces_the_local_cross_section(f2_deck, f2_lcp):
     assert np.all(want > 0.0), "the LCP reference is zero -- pick open channels"
     rel = np.abs(got - want) / want
     assert np.all(rel < 5e-5), f"sigma_TD/sigma_LCP = {got / want}"
+
+
+@pytest.mark.slow
+def test_td_ve_matches_the_time_independent_cross_section_on_f2(f2_deck):
+    """GATE: the same VE comparison on the molecule whose DA channel is OPEN.
+
+    N2's VE packet decays by autodetachment alone. F2's also DISSOCIATES -- at
+    these energies the DA channel is open, and this is the same `Psi_d` the
+    31-minute DA gate above propagates, on the same fixture. So this is not a
+    second copy of the N2 test: it asks whether the VE contraction converges
+    while the DA one, from the very same packet, is still nowhere near
+    converged.
+
+    It does. Measured 2026-08-24 at `dt = 2, T = 2000`, E = 0.03/0.05 Ha,
+    v' = 0/1:
+
+        include_background=True   1.000034  1.000027  1.000039  1.000059
+        include_background=False  1.000059  1.000022  1.000098  1.000061
+
+    against this deck's DA gate at 0.29 (T = 4000) and 1.4e-2 (T = 12000).
+    And it is NOT because the packet has left: `unabsorbed/S(0)` here is
+    0.938, so the truncation warning fires (expected -- `_UNABSORBED_TOL` is
+    calibrated on DA, where the observable IS the far-field amplitude). What
+    has decayed is the amplitude under `chi_f`, which is all `t_resonant`
+    integrates.
+
+    WHY THE GATE IS 1e-2 AND NOT 1e-4. The residual does NOT keep falling: at
+    T = 4000 it reads 2.5e-3 against T = 2000's 5.9e-5. That is not a
+    regression, it is the OSCILLATION F2's near-real modes leave in the
+    transform -- the >=24 modes with `|Im E| = 1.5e-7 ... 7.7e-6` living in
+    the `V_d` well at R ~ 3.36 (module docstring, sec. 4.2 of
+    `docs/physics/nrm-time-dependent.md`), which sit UNDER `chi_f` and
+    contribute a term that oscillates in `T` rather than decaying. No
+    affordable `T` removes them. So the defensible statement about F2 is an
+    AMPLITUDE, <= 2.5e-3 over the measured range, and the gate is 4x that
+    rather than a multiple of whichever phase T = 2000 happened to land on.
+    N2, which has no such well, converges monotonically and is gated at 1e-3
+    accordingly.
+
+    COST: ~10-20 min, two 1000-step propagations of the 53570-square `H_ext`
+    (plus ~22 s per `include_background` setting for the time-independent
+    oracle, whose `t_background` runs an electronic scattering solve at each
+    of 819 real nuclear nodes).
+    """
+    nuc, elec, phi_d, ing, eps, chi = f2_deck
+    energies = np.array([0.03, 0.05])
+    vprimes = [0, 1]
+
+    for include_background in (True, False):
+        want = nrm_ve_cross_section(
+            nuc,
+            elec,
+            F2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            vprimes,
+            energies,
+            ingredients=ing,
+            include_background=include_background,
+        )
+        got = td_nrm_ve_cross_section(
+            nuc,
+            elec,
+            F2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            vprimes,
+            energies,
+            ingredients=ing,
+            include_background=include_background,
+            dt=2.0,
+            n_steps=1000,
+        )
+        assert np.all(want > 0.0), "the TI oracle is zero -- pick open channels"
+        rel = np.abs(got - want) / want
+        assert np.all(rel < 1e-2), (
+            f"include_background={include_background}: sigma_TD/sigma_TI = {got / want}"
+        )
