@@ -189,8 +189,8 @@ def initial_packet(
     incident electron kinetic energy in `energies` and continued onto the
     full (real + ECS-tail) nuclear grid, so this is the exact right-hand
     side `nrm_da_cross_section`/`nrm_ve_cross_section` build per energy --
-    Task 3's propagation only saves work if this launch state matches theirs
-    exactly, which `test_launch_state_drives_the_time_independent_solve`
+    `propagation.propagate_nrm` only saves work if this launch state matches
+    theirs exactly, which `test_launch_state_drives_the_time_independent_solve`
     checks by feeding the reconstruction straight into `solve_nuclear`.
 
     Eq. (2.17) removes the energy dependence analytically, but only under
@@ -198,7 +198,7 @@ def initial_packet(
     they satisfy it *numerically* (module docstring's measured singular
     values). The launch matrix `M[R, j] = V_dk(R; E_j) chi_{v_init}(R)` --
     one column per incident energy `E_j` -- is SVD'd and truncated at
-    `rank_tol`; the kept left singular vectors are what Task 3 propagates
+    `rank_tol`; the kept left singular vectors are what `propagate_nrm` steps
     (embedded in the `d`-block, arms zero, since the launch state lives
     entirely in the discrete-state block), and `coeffs` reconstructs every
     energy from them by linearity of the resolvent that eventually solves

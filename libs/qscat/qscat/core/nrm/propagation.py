@@ -10,8 +10,8 @@ propagate under
 
 This module runs that propagation and inverts it -- recovers the SAME
 `Psi_d^TI(R;E)` Eq. (52) solves for directly, for a whole batch of energies
-at once, from one propagation of `initial_packet`'s low-rank launch basis
-(Task 2). `extended.py`'s module docstring is the RESUMMATION argument
+at once, from one propagation of `initial_packet`'s low-rank launch basis.
+`extended.py`'s module docstring is the RESUMMATION argument
 (eliminating the arms from `(E - H_ext)^-1` reproduces `F(E)` exactly); this
 module is the other half -- the time-domain route to that same resolvent.
 
@@ -50,8 +50,9 @@ is the smallest possible check of this identity -- a 1x1 "Hamiltonian" whose
 propagated state and transformed resolvent can both be written in closed
 form.
 
-`r` singular-vector columns are stepped per energy WINDOW (Task 2's
-`LaunchBasis`); the per-energy packet `Psi_d(R,t;E_j) = sum_m coeffs[m,j]
+`r` singular-vector columns are stepped per energy WINDOW
+(`extended.LaunchBasis`); the per-energy packet
+`Psi_d(R,t;E_j) = sum_m coeffs[m,j]
 U_m(R,t)` is reconstructed at every step from the shared propagation (legal
 because `H_ext` is energy-independent, so the superposition commutes with
 the propagator) and fed to both the transform accumulator and the
