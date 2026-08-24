@@ -73,7 +73,21 @@ during ordinary work.
    serially, because the slow decks would OOM a container long before
    concurrency saved wall-clock.
 
-6. **When a test crosses the boundary, prefer shrinking the deck.** If what is
+6. **Pin BLAS to one thread per worker wherever `-n` is used on Linux.** The
+   first parallel CI run was *slower* than the serial one it replaced — the step
+   ran past 22 min, against 24.7 min serially and 123 s for the identical
+   command locally at `-n 4`. The runner has 4 vCPU, `-n auto` starts 4 workers,
+   and OpenBLAS defaults to one thread per core in each: 16 threads for 4 cores.
+   With `OMP_NUM_THREADS=1` / `OPENBLAS_NUM_THREADS=1` / `MKL_NUM_THREADS=1` the
+   step takes 186 s.
+
+   This does not reproduce on macOS, where scipy links Accelerate: pinning there
+   changed nothing (74.6 s vs 76.1 s at a saturating `-n 12`). A local
+   measurement of threading behaviour does not transfer to the Linux runners,
+   and CLAUDE.md's older note that pinning "is not worth bothering with" was one
+   of those.
+
+7. **When a test crosses the boundary, prefer shrinking the deck.** If what is
    under test is plumbing — shapes, cadences, dispatch, bookkeeping — it should
    assert that on a toy deck and stay in the gate. Reserve the marker for tests
    whose *assertion* genuinely depends on the production deck. A tolerance
@@ -82,10 +96,11 @@ during ordinary work.
 
 ## Consequences
 
-- The CI gate drops from ~24.7 min to roughly 2 min per Python version, and no
-  longer depends on a developer noticing that a new test is expensive.
+- The CI gate drops from 24.7 min to a measured 186 s (3.12) / 239 s (3.13) for
+  the pytest step, and no longer depends on a developer noticing that a new test
+  is expensive.
 - Both Python versions keep running the *full* fast tier. The earlier argument
-  for trimming the matrix was the 50 runner-minutes it cost; at ~2 min a job
+  for trimming the matrix was the 50 runner-minutes it cost; at ~4 min a job
   that argument no longer holds.
 - The slow tier is not run by any automation on GitHub. It is therefore possible
   to merge a change that breaks it. That is an accepted trade: the tier exists

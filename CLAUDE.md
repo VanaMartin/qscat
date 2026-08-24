@@ -685,8 +685,13 @@ uv run pytest
 # binding constraint, not CPU. Several modules build their grid at module
 # scope, and per-test distribution makes every worker touching the module
 # build its own copy; keeping a file on one worker bounds that to one copy.
-# Do NOT bother pinning BLAS threads (OMP_NUM_THREADS=1 etc.): measured at
-# 136s vs 133s on the 12-core dev machine, i.e. no gain.
+# BLAS threads: pinning (OMP_NUM_THREADS=1 etc.) buys nothing ON THIS MAC --
+# measured 136s vs 133s at `-n 8`, and 76.1s vs 74.6s at a saturating `-n 12`,
+# because scipy here links Accelerate. That result does NOT transfer to Linux:
+# on the 4-vCPU GitHub runner, OpenBLAS starts one thread per core in EACH
+# xdist worker, and the unpinned parallel run went SLOWER than the serial one
+# it replaced (>22 min vs 24.7 min; 186s once pinned). CI pins all three
+# variables — see docs/adr/0005 point 6.
 
 # Right after a maturin build in the same step, skip the (already-satisfied)
 # sync to avoid a redundant resolve:
