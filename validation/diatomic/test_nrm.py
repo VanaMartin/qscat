@@ -8,12 +8,22 @@ asserts it; their physical reading is in
 
 The headline measurement, sigma/sigma_exact at the anchors:
 
-    F2   LCP  0.263  0.465  0.889  1.425  1.733
-         A    0.292  0.671  0.844  0.854  0.901
-         B    1.019  1.003  0.9994 0.9987 0.9990
-    NO   LCP  8.1e-3 8.5e-2 5.97   1.90   75.4
-         A    6.4e-2 0.571  32.9   8.58   244
-         B    4.7e-8 1.8e-7 4.7e-6 5.7e-7 3.4e-6
+    F2   LCP  0.263  0.466  0.890  1.425  1.734
+         A    0.292  0.672  0.844  0.854  0.901
+         B    1.019  1.004  1.000  0.9991 0.9995
+    NO   LCP  1.8e5  4.8e5  1.3e6  3.4e6  2.2e7
+         A    1.4e6  3.2e6  7.1e6  1.5e7  7.2e7
+         B    1.015  1.016  1.016  1.017  1.019
+
+**The NO rows above are NOT what this file used to record.** Until the
+`da_cross_section` extraction was fixed (2026-08-24) the NO oracle was a
+volume-integral T-matrix whose answer was 1e4-1e7 times too large, and the
+recorded choice-B ratios were 4.7e-8 to 4.7e-6 -- an "unexplained collapse"
+of the nonlocal model that was in fact the oracle's own error. Choice B was
+right on NO all along, to 1.5-1.9%: exactly the quality PRA 77 predicts and
+exactly what it already delivered on F2. See
+`validation/diatomic/test_no_da_thesis.py` and
+`docs/physics/diatomic-ve-cross-sections.md`.
 
 On F2 -- the only molecule for which PRA 77 publishes a DA cross section at
 all -- the paper's prediction holds exactly: choice B reproduces the exact 2-D
@@ -25,9 +35,13 @@ NO IS OUTSIDE THE PAPER'S TESTED RANGE. Its DA channel opens at +0.1719 Ha,
 above every energy window PRA 77 plots for NO (0.01-0.08 Ha), so NO DA is
 energetically shut throughout the published data -- Fig. 6's DA panel and
 Fig. 8's DA panel are F2 only. Nothing measured here for NO contradicts the
-literature; the literature is silent. What NO shows is recorded as an
-observation (`test_no_approximations_are_all_flat_below_a_structured_exact`),
-not asserted as a law, and choice B's absolute scale there is unexplained.
+literature; the literature is silent. NO's own published anchor is a different
+source -- the Vana 2017 thesis Fig. 3.14, gated by
+`validation/diatomic/test_no_da_thesis.py` -- and against the corrected oracle
+choice B reproduces NO's exact sigma_DA to 1.5-1.9%, recorded by
+`test_nrm_b_tracks_the_exact_da_on_no`. So the paper's DA prediction holds on
+BOTH molecules here; NO extends it beyond the paper's range rather than
+straining it.
 
 ENERGIES ARE PER MOLECULE because the DA thresholds are: measured
 `eps_e - eps[0]` is **-0.0691 Ha for F2** (open at every positive `E`) and
@@ -96,13 +110,13 @@ N_STATES: dict[str, int] = {"F2": 100, "NO": 100}
 # their rise toward threshold, which is the physically interesting part. The
 # band keeps ~50% headroom on the largest.
 #
-# NO: measured [4.672e-8, 4.719e-6]; the band is the enclosing decade pair,
-# since what it records is an unexplained order-of-magnitude offset in a
-# regime no published data covers, and pinning its mantissa would be false
-# precision.
+# NO: measured [1.01518, 1.01935] -- a uniform ~1.6% over-prediction, the same
+# order of agreement as F2's. This band replaced a recorded [1e-8, 1e-5] that
+# was an artifact of the old `da_cross_section` extraction, not a property of
+# the model; the band here keeps ~2x headroom on the measured deviation.
 _BANDS_B: dict[str, tuple[float, float]] = {
     "F2": (0.99, 1.03),
-    "NO": (1e-8, 1e-5),
+    "NO": (0.97, 1.05),
 }
 
 # RECORDED sigma_NRM/sigma_exact band, choice A (`PhysicalDiscreteState`).
@@ -193,75 +207,60 @@ def test_nrm_b_beats_the_lcp_on_f2() -> None:
 
 
 @pytest.mark.slow
-def test_no_approximations_are_all_flat_below_a_structured_exact() -> None:
-    """RECORDED OBSERVATION on NO, in a regime no published data covers.
+def test_nrm_b_tracks_the_exact_da_on_no() -> None:
+    """RECORDED: choice B reproduces the exact NO sigma_DA, as it does on F2.
 
-    This is a measurement, NOT a requirement. Nothing here asserts that an
-    approximation *must* fail; if a later change makes one of them track the
-    exact answer, this test should be updated to record that, not treated as
-    a regression.
+    THIS TEST REPLACES A RECORDED NON-RESULT. It used to be
+    `test_no_approximations_are_all_flat_below_a_structured_exact`, asserting
+    that all three approximations were flat while "the converged exact" swung
+    9397x, and that choice B collapsed 5-8 orders below it for reasons an
+    equation-by-equation audit could not find. Its own docstring said that if
+    a later change made an approximation track the exact answer, the test
+    should be updated to record that rather than treated as a regression.
+    That is what happened, and the reason is that the exact reference was
+    wrong: `da_cross_section` extracted sigma from a post-form volume-integral
+    T-matrix that, on a cross section this small, returns the residue of a
+    ~1e6-fold cancellation rather than the physics (see that function's note
+    and `validation/diatomic/test_no_da_thesis.py`). Every number in the old
+    docstring's exact row was 1e4-1e7 times too large. The audits found no
+    defect in the nonlocal model because there was none.
 
-    NO's DA channel opens at E = +0.1719 Ha. PRA 77 publishes no NO (or N2)
-    DA cross section at all -- its Fig. 6 DA panel and Fig. 8's DA panel are
-    F2 only, and the NO windows it plots (0.01-0.08 Ha) lie entirely below
-    that threshold, so NO DA is energetically shut throughout everything the
-    paper tested. The Sec. VI B claim that choice B "gives exact results" for
-    DA rests on the single F2 panel. Whatever happens here is therefore
-    outside the model's tested range and contradicts nothing published.
+    What is measured now, sigma_DA (bohr^2) at E = 0.175 / 0.180 / 0.185 /
+    0.190 / 0.200 Ha, on the same decks:
 
-    What is measured, sigma_DA (bohr^2) at E = 0.175 / 0.180 / 0.185 / 0.190
-    / 0.200 Ha:
-
-        exact  1.614e-2  1.566e-3  2.266e-5  7.080e-5  1.718e-6
+        exact  7.429e-10 2.789e-10 1.052e-10 3.986e-11 5.810e-12
+        B      7.540e-10 2.833e-10 1.069e-10 4.055e-11 5.921e-12
         LCP    1.305e-4  1.330e-4  1.352e-4  1.347e-4  1.296e-4
         A      1.034e-3  8.945e-4  7.446e-4  6.075e-4  4.195e-4
-        B      7.540e-10 2.833e-10 1.069e-10 4.055e-11 5.921e-12
 
-    ONE phenomenon, not three failures: the converged exact cross section
-    swings four orders of magnitude with real structure across a 0.025 Ha
-    span, while ALL THREE approximations are nearly flat over it -- the LCP
-    within a factor of 1.04, choice A within 2.5, choice B within 127 (and
-    127 over four orders of exact variation is still flat by comparison).
-    They differ in absolute scale, not in their inability to follow the
-    structure. That is one observation about local, nearly-energy-independent
-    resonance models in a steeply-varying near-threshold regime.
+    Choice B is within 1.5-1.9% at every anchor, and its swing across them
+    (127.3) matches the exact swing (127.9) to better than 1% -- it is not
+    "flat against a structured exact", it follows the structure. The LCP and
+    choice A over-predict by 1.8e5-2.2e7 and ARE flat (1.04x and 2.47x across
+    the same span).
 
-    Choice B's absolute scale (5-8 orders below exact) is UNEXPLAINED. It is
-    not a discretisation artifact -- sigma_B is converged in the electronic
-    grid to five significant figures (r_max 16 -> 24 bohr, DVR order 8 -> 10,
-    n_complex 6 -> 8: 7.540e-10 / 7.540e-10 / 7.543e-10 / 7.541e-10 at
-    E=0.175) and in the state sum to numerical identity, on the same nuclear
-    deck the exact and LCP routes use, and the LCP local-limit bridge
-    reproduces `lcp_da_cross_section` to 2.3e-14 on that deck. An
-    equation-by-equation audit against Eq. (55)-(61) found no defect. A
-    doorway-position explanation was proposed and REFUTED: raising `v_init`
-    moves F2's doorway inside its own resonant region (overlap fraction
-    0.37 -> 0.71) and choice B stays exact there (0.9994-1.0004).
-
-    The assertion below records the flatness, which is the robust part of the
-    observation, rather than the ordering of the three errors.
+    That the LCP is ~1e5 too large on NO DA is independently published: Vana
+    2017 Fig. 3.14's bottom panel plots the LCP curve **scaled by 1e-5** to
+    share an axis with the TI reference. Measured here at E=0.175, 1.757e5.
     """
     c = _comparison("NO")
-    exact_swing = c.sigma_exact.max() / c.sigma_exact.min()
-    assert exact_swing > 1e3, (
-        f"NO: the exact sigma_DA no longer varies by orders across these "
-        f"anchors (swing {exact_swing:.3g}); the observation this test "
-        "records is about a steeply-varying exact reference"
+    ratio_b = c.sigma_nrm_b / c.sigma_exact
+    assert np.all(np.abs(ratio_b - 1.0) < 0.05), (
+        f"NO: choice B no longer tracks the exact sigma_DA; ratios {ratio_b}"
     )
-    for name, sigma, recorded in (
-        ("lcp", c.sigma_lcp, 1.04),
-        ("nrm_a", c.sigma_nrm_a, 2.5),
-        ("nrm_b", c.sigma_nrm_b, 127.0),
-    ):
+    # It tracks the SHAPE too, not just the scale at one point.
+    swing_exact = c.sigma_exact.max() / c.sigma_exact.min()
+    swing_b = c.sigma_nrm_b.max() / c.sigma_nrm_b.min()
+    assert abs(swing_b / swing_exact - 1.0) < 0.05, (
+        f"NO: choice B's swing {swing_b:.4g} no longer matches the exact "
+        f"reference's {swing_exact:.4g}"
+    )
+    # The other two remain flat over a span the exact reference sweeps by ~130x.
+    for name, sigma in (("lcp", c.sigma_lcp), ("nrm_a", c.sigma_nrm_a)):
         swing = sigma.max() / sigma.min()
-        assert swing < 10.0 * recorded, (
-            f"NO/{name}: swing {swing:.4g} over the anchors, far above the "
-            f"recorded {recorded:.4g} -- this approximation is no longer flat "
-            "and the recorded observation needs revisiting"
-        )
-        assert swing < exact_swing / 10.0, (
+        assert swing < swing_exact / 10.0, (
             f"NO/{name}: swing {swing:.4g} is no longer flat relative to the "
-            f"exact reference's {exact_swing:.4g}"
+            f"exact reference's {swing_exact:.4g} -- re-record this observation"
         )
 
 
@@ -271,7 +270,7 @@ def test_nrm_b_ratio_band(molecule: str) -> None:
     """RECORDED band for choice B's sigma_NRM/sigma_exact.
 
     F2 measured: 1.018735 1.003286 0.999413 0.998669 0.999032
-    NO measured: 4.672e-8 1.809e-7 4.719e-6 5.727e-7 3.447e-6
+    NO measured: 1.015176 1.015705 1.016485 1.017307 1.019149
     """
     lo, hi = _BANDS_B[molecule]
     c = _comparison(molecule)
@@ -314,10 +313,11 @@ def test_choice_a_degrades_against_choice_b_on_f2() -> None:
         B  0.01873  0.00329  0.00059  0.00133  0.00097
 
     Asserted for F2 only, which is the only molecule PRA 77 publishes a DA
-    cross section for. On NO both choices are flat against a four-decade exact
-    swing and neither tracks it, so ordering them by |sigma/sigma_exact - 1|
-    there would rank two approximations that fail the same way; see
-    `test_no_approximations_are_all_flat_below_a_structured_exact`.
+    cross section for. The same ordering does hold on NO -- and far more
+    starkly, choice B landing within 1.6% where choice A is 1e6-1e7 times too
+    large -- but NO's choice-A ingredients are built on a discontinuous
+    `phi_d` (see `_BANDS_A`), so that ordering is not gated here; see
+    `test_nrm_b_tracks_the_exact_da_on_no`.
     """
     c = _comparison("F2")
     err_a = np.abs(c.sigma_nrm_a / c.sigma_exact - 1.0)
