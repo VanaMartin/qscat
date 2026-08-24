@@ -73,11 +73,16 @@ N_STEPS = 1500  # T = 1500 a.u., order-3 Pade (see module docstring)
 N_STEPS_SHORT = 1000  # T = 1000 a.u., V4's shorter-truncation comparison point
 PADE_ORDER = 3
 
-# `ve_cross_section_2d` at the two anchors, computed once (cheap: one sparse
-# LU solve per energy, not a propagation).
-SIGMA_TI = {
-    e: float(ve_cross_section_2d(TG, EPS, CHI, V_INIT, VPRIMES, e)[0]) for e in (0.10, 0.15)
-}
+@pytest.fixture(scope="module")
+def sigma_ti() -> dict[float, float]:
+    """`ve_cross_section_2d` at the two anchors -- one sparse LU solve per
+    energy, not a propagation, but still a production-grid solve. A FIXTURE
+    rather than a module constant so that a `-m "not slow"` run, which needs
+    none of it, does not pay for it at import time.
+    """
+    return {
+        e: float(ve_cross_section_2d(TG, EPS, CHI, V_INIT, VPRIMES, e)[0]) for e in (0.10, 0.15)
+    }
 
 
 @pytest.fixture(scope="module")
@@ -98,7 +103,9 @@ def propagation() -> td.PropagationResult:
 
 
 @pytest.mark.slow
-def test_v2a_td_matches_ti_at_e010(propagation: td.PropagationResult) -> None:
+def test_v2a_td_matches_ti_at_e010(
+    propagation: td.PropagationResult, sigma_ti: dict[float, float]
+) -> None:
     sigma_td = float(
         td.sigma_from_correlations(
             TG, propagation, EPS, V_INIT, VPRIMES, 0.10, dt=DT, wp_in=WP_IN, wp_out=WP_OUT
@@ -107,11 +114,13 @@ def test_v2a_td_matches_ti_at_e010(propagation: td.PropagationResult) -> None:
     assert sigma_td >= 0.0
     # Order-3 Pade: measured ratio ~0.97 (was 0.931 with order-1 CN) -- the
     # rel=0.06 gate reflects the converged accuracy, not the old CN residual.
-    assert sigma_td == pytest.approx(SIGMA_TI[0.10], rel=0.06)
+    assert sigma_td == pytest.approx(sigma_ti[0.10], rel=0.06)
 
 
 @pytest.mark.slow
-def test_v2a_td_matches_ti_at_e015(propagation: td.PropagationResult) -> None:
+def test_v2a_td_matches_ti_at_e015(
+    propagation: td.PropagationResult, sigma_ti: dict[float, float]
+) -> None:
     """With the order-3 Pade operator the E=0.15 point is no longer a
     usable-window outlier (order-1 CN gave 1.103 here); measured ratio ~0.99.
     """
@@ -121,7 +130,7 @@ def test_v2a_td_matches_ti_at_e015(propagation: td.PropagationResult) -> None:
         )[0]
     )
     assert sigma_td >= 0.0
-    assert sigma_td == pytest.approx(SIGMA_TI[0.15], rel=0.06)
+    assert sigma_td == pytest.approx(sigma_ti[0.15], rel=0.06)
 
 
 @pytest.mark.slow
@@ -175,14 +184,30 @@ def test_public_api_shape_contract() -> None:
     with a throwaway few-step propagation (not a physically converged one;
     only the outer plumbing is under test here, the transform itself is
     covered above).
+
+    On its OWN small grid, not the module's production `TG`. Only the return
+    shape is asserted, and shape does not depend on the deck -- but two
+    `n_steps=2` calls on `TG` each pay a full 2-D sparse factorization, which
+    measured at 49.9 s and a 3.83 GB peak, the largest single allocation in
+    the whole fast gate. The small grid keeps the same assertions at ~1 s.
     """
+    tg = TensorGrid(
+        [
+            n2_electronic_grid(r_max=16.0, order=6, n_complex=3),
+            n2_nuclear_grid(quadrature=6, r_max=16.0, n_complex=2),
+        ]
+    )
+    eps, chi = vibrational_states(tg.grids[1], MU, 4)
+    wp_in = {"r0": 8.0, "p0": -0.5, "sigma": 2.0}
+    wp_out = {"r0_out": 11.0, "p0_out": 0.5, "sigma_out": 1.5}
+
     sigma_scalar = td.td_ve_cross_section_2d(
-        TG, EPS, CHI, V_INIT, VPRIMES, 0.10, dt=0.1, n_steps=2, wp_in=WP_IN, wp_out=WP_OUT
+        tg, eps, chi, V_INIT, VPRIMES, 0.10, dt=0.1, n_steps=2, wp_in=wp_in, wp_out=wp_out
     )
     assert sigma_scalar.shape == (len(VPRIMES),)
 
     sigma_array = td.td_ve_cross_section_2d(
-        TG, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15], dt=0.1, n_steps=2, wp_in=WP_IN, wp_out=WP_OUT
+        tg, eps, chi, V_INIT, VPRIMES, [0.10, 0.15], dt=0.1, n_steps=2, wp_in=wp_in, wp_out=wp_out
     )
     assert sigma_array.shape == (2, len(VPRIMES))
 
