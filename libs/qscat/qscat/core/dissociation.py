@@ -1,25 +1,37 @@
 """Exact 2-D TI dissociative attachment (DA) cross section.
 
 DA is the transient anion's second exit channel -- `e- + AB(v=0) -> AB-* ->
-A + B-`, outgoing flux in the NUCLEAR coordinate. It is computed by the SAME
+A + B-`, outgoing flux in the NUCLEAR coordinate. It is computed from the SAME
 driven Lippmann-Schwinger solve as VE (`qscat.core.driven.ve_cross_section`,
-`return_wavefunction=True`) but projected onto the dissociation channel with
-the REARRANGEMENT interaction
+`return_wavefunction=True`); the two cross sections here differ only in how
+they read an amplitude out of that `Psi+`.
+
+`da_cross_section` reads the **outgoing flux**: project `Psi+` onto the anion
+bound electronic state `phi_e^(n)` (at the dissociation limit `R_inf`) to get
+the channel's nuclear wave `psi_n(R)`, take its VALUE at the outermost real
+nuclear node `X`, and
+
+    S_n = sqrt(K_n / 2 pi mu) psi_n(X),   sigma_n = 4 pi^3 |S_n|^2 / (2E).
+
+`dr_cross_section` instead uses the post-form **volume T-matrix** against the
+REARRANGEMENT interaction
 
     V_DR(r, R) = V_int(r, R) + v0(R) - V_int(r, R_inf)    (= H - H_final),
 
-NOT V_int. The exit channel is Phi_n(r,R) = phi_e^(n)(r) F^nuc_{K_n,0}(R),
-phi_e the anion bound electronic state at the dissociation limit R_inf and
-F^nuc the mass-mu energy-normalized regular nuclear Bessel; the T-matrix is
-T_n = <Phi_n | V_DR | Psi+> (c-product, masked), sigma_n = 4 pi^3 |T_n|^2/(2E).
+with the exit channel Phi_n(r,R) = phi_e^(n)(r) F^nuc_{K_n,0}(R) (`F^nuc` the
+mass-mu energy-normalized regular nuclear Bessel), T_n = <Phi_n | V_DR | Psi+>
+(c-product, masked), sigma_n = 4 pi^3 |T_n|^2/(2E). That is eMoScat's
+`time_independent_model.cpp` method, GENERALIZED for H2+ over the neutral's
+Rydberg electronic series with a Coulomb incident
+(`channel_vector(..., charge=model.charge)`) (sub-project D).
 
-This is eMoScat's `time_independent_model.cpp` method (an earlier prototype
-that used V_int instead of V_DR gave a ~1e6 unitarity violation -- that was
-the bug, not a structural obstacle to a TI DA). `dr_cross_section` is the
-same T-matrix GENERALIZED for H2+: looped over the neutral's Rydberg
-electronic series (`n_channels` states of the same bound-electronic-state
-solver) with a Coulomb incident (`channel_vector(..., charge=model.charge)`)
-(sub-project D). See docs/physics/diatomic-ve-cross-sections.md and
+The two routes are algebraically the same amplitude and agree to 5e-4 on F2.
+**They are not interchangeable numerically**, which is why DA uses the flux
+one: the volume integral delivers `sigma_DA` as the residue of a cancellation
+whose depth is set by how small `sigma_DA` is, and on NO (~1e-9 bohr^2, a
+~1e6-fold cancellation) it returned answers 1e4-1e7 times too large until BOTH
+integration edges were pushed far out. See `da_cross_section`'s note,
+docs/physics/diatomic-ve-cross-sections.md, and
 docs/superpowers/specs/2026-07-27-da-cross-sections-design.md.
 
 `qscat.core` never imports `qscat.model` at runtime: `model` is typed against
@@ -180,27 +192,66 @@ def da_cross_section(
     """sigma_DA(E) in bohr^2, exact 2-D driven-equation DA cross section.
 
     Reuses `ve_cross_section(..., return_wavefunction=True)` for `Psi+` (one
-    `SparseLU.refactor` sweep across `E`), then projects onto each of
-    `n_channels` anion dissociation channels with `V_DR`. `E` may be scalar
+    `SparseLU.refactor` sweep across `E`), then reads the outgoing dissociation
+    flux out of it, one `n_channels` anion channel at a time. `E` may be scalar
     (returns `(n_channels,)`) or an array (returns `(len(E), n_channels)`).
     `sigma = 0` for a closed channel (`E <= 0` or `E_DR = E_tot - eps_e <= 0`).
 
+    The extraction projects `Psi+` onto the anion electronic state to get the
+    channel's nuclear wave, then takes its VALUE at the outermost real nuclear
+    node `X` (the DVR coefficient divided by `sqrt(w_b)`, never the coefficient
+    itself)::
+
+        psi_n(R) = <phi_e^(n) | Psi+>_r      [c-product over the electronic axis]
+        S_n      = sqrt(K_n / 2 pi mu) psi_n(X)
+        sigma_n  = 4 pi^3 |S_n|^2 / 2E
+
+    -- algebraically the same amplitude `qscat.core.lcp.lcp_da_cross_section`
+    takes off its 1-D nuclear wave, so the exact solver and the LCP are compared
+    through identical arithmetic.
+
+    .. note::
+       **Why not the post-form volume T-matrix.** The textbook alternative,
+       `T = <phi_e^(n) F_K | V_DR | Psi+>` with the rearrangement interaction
+       `V_DR = V_int(r,R) + v0(R) - V_int(r,R_inf)` (still available as
+       `v_dr_diag`, and what `dr_cross_section` uses), is formally exact and
+       agrees with the flux above to 5e-4 on F2. It is nonetheless the WRONG
+       tool whenever `sigma_DA` is small: `V_DR` does not decay in `r`, so the
+       integrand's magnitude is set by the interaction region while the answer
+       is set by how completely that region cancels. On NO -- `sigma_DA ~ 1e-9`
+       bohr^2 against an integrand summing to ~2.6 -- the required cancellation
+       is ~1e6-fold, and whatever has not decayed at either edge of the
+       integration region survives instead of the physics. Both edges did:
+       measured on the shipped decks, the T-matrix answer moved by four orders
+       when the electronic real region went 16 -> 48 bohr and by a further ~800x
+       when the nuclear `R_inf` went 9.0 -> 15.0 bohr (where NO's Morse `v0`
+       finally reaches 1e-9 Ha), converging only there onto the flux value.
+       The flux extraction needs no cancellation and is invariant under both to
+       4 digits. See `docs/physics/diatomic-ve-cross-sections.md` and
+       `validation/diatomic/test_no_da_thesis.py`.
+
     If `return_wavefunction`, also returns the driven `Psi+` (the SAME solution
-    the T-matrix is built from; `None` for `E <= 0`): one array for scalar `E`,
+    the flux is read from; `None` for `E <= 0`): one array for scalar `E`,
     one list entry per energy for an array `E` -- same convention as
     `ve_cross_section`.
     """
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     mu = model.mu
-    g_R = tgrid.grids[1]
+    g_r, g_R = tgrid.grids[0], tgrid.grids[1]
     R_inf = g_R.R0
 
-    eps_e, phi = anion_electronic_states(
-        g_r=tgrid.grids[0], model=model, R_inf=R_inf, n_states=n_channels
-    )
-    v_dr = v_dr_diag(tgrid, model)
-    mask = tgrid.real_mask()
-    sqrt_w_R = tgrid.sqrt_weights()[1].ravel()
+    eps_e, phi = anion_electronic_states(g_r=g_r, model=model, R_inf=R_inf, n_states=n_channels)
+    # `phi` is c-product-normalized over the ELECTRONIC real region, so the
+    # projection that reads the channel amplitude has to be masked the same way.
+    phi_real = phi.copy()
+    phi_real[:, g_r.points.imag != 0.0] = 0.0
+
+    # `b` is the outermost real NUCLEAR node -- the boundary X at which the
+    # outgoing flux is read, and `sqrt(w_b)` turns its DVR coefficient into the
+    # wavefunction value there. Same node `lcp_da_cross_section` uses.
+    real_R = np.flatnonzero(g_R.points.imag == 0.0)
+    b = int(real_R[np.argmax(g_R.points[real_R].real)])
+    sqrt_w_b = np.sqrt(complex(g_R.weights[b]))
 
     _, psis = ve_cross_section(
         tgrid,
@@ -221,17 +272,18 @@ def da_cross_section(
         if psi_plus is None:  # E <= 0
             continue
         e_tot = float(e) + eps[v_init]
-        v_psi = v_dr * psi_plus
+        psi_2d = psi_plus.reshape(g_r.n, g_R.n)
         for n in range(n_channels):
             e_dr = e_tot - eps_e[n]
             if e_dr <= 0.0:
                 continue
             k_r = float(np.sqrt(2.0 * mu * e_dr))
-            y_coeff = riccati_bessel_en_mass(g_R.real_points, k_r, 0, mu) * sqrt_w_R
-            phi_f = tgrid.outer([phi[n], y_coeff])
-            phi_f[~mask] = 0.0
-            t = c_product(phi_f, v_psi)
-            out[ie, n] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e))
+            # c-product over the electronic axis: both factors are already DVR
+            # coefficients, so the plain (non-conjugated) contraction IS the
+            # quadrature integral -- the ECS convention, as everywhere else here.
+            psi_n = phi_real[n] @ psi_2d
+            s_da = np.sqrt(k_r / (2.0 * np.pi * mu)) * (psi_n[b] / sqrt_w_b)
+            out[ie, n] = 4.0 * np.pi**3 * abs(s_da) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
     sigma = np.asarray(out[0] if scalar else out, dtype=np.float64)
