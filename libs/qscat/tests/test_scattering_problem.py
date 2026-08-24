@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 from qscat.core import ScatteringProblem, ve_cross_section, vibrational_states
 from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.dvr import TensorGrid
@@ -18,6 +19,7 @@ def _grid() -> TensorGrid:
     )
 
 
+@pytest.mark.slow
 def test_problem_ve_matches_functional_api() -> None:
     tg = _grid()
     E = np.array([0.10, 0.15, 0.20])
@@ -39,8 +41,6 @@ def test_problem_exposes_basis_and_is_frozen() -> None:
     assert np.array_equal(prob.basis.eps, prob.eps)
     # Frozen: cannot rebind fields.
     import dataclasses
-
-    import pytest
 
     with pytest.raises(dataclasses.FrozenInstanceError):
         prob.n_vib = 5  # type: ignore[misc]

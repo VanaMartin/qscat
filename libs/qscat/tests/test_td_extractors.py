@@ -247,6 +247,7 @@ N_STEPS_DIFF = 800
 _DELTA_TW_RTOL = 0.20
 
 
+@pytest.mark.slow
 def test_delta_agrees_with_tw_same_trajectory() -> None:
     tw, dirac, tw_free, dirac_free = _propagate_pair(N_STEPS_DIFF, DT)
     e = [0.10, 0.15]
@@ -365,6 +366,7 @@ def _propagate_all_three(
 _FLUX_TW_RTOL = 0.25
 
 
+@pytest.mark.slow
 def test_flux_agrees_with_tw_same_trajectory() -> None:
     tw, dirac, flux, tw_free, dirac_free, flux_free = _propagate_all_three(N_STEPS_DIFF, DT)
     e = [0.10, 0.15]

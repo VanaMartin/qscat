@@ -186,6 +186,7 @@ def test_separable_limit_eigenvector_is_the_product_state() -> None:
     assert abs(abs(c_product(psi, product)) - 1.0) < 1e-6
 
 
+@pytest.mark.slow
 def test_electronic_continuum_is_rejected_by_the_electronic_angle_only() -> None:
     """The diagnostic the three-spectrum design buys.
 

@@ -254,6 +254,7 @@ def test_channel_vector_is_masked_to_the_unscaled_region() -> None:
     assert np.abs(psi[TG.real_mask()]).max() > 0.0
 
 
+@pytest.mark.slow
 def test_array_of_energies_matches_scalar_calls() -> None:
     energies = [0.1, 0.2]
     both = ve_cross_section_2d(TG, EPS, CHI, 0, [1], energies)
@@ -264,6 +265,7 @@ def test_array_of_energies_matches_scalar_calls() -> None:
         )
 
 
+@pytest.mark.slow
 def test_reuse_swept_equals_per_energy_calls() -> None:
     """V2 gate: analyze-once/refactor-per-energy reuse must not change the
     physics. An array `E` builds ONE `SparseLU` and `refactor`s it per open

@@ -62,6 +62,7 @@ _CROSS_METHOD_RTOL = 0.25
 _TI_BAND = 10.0
 
 
+@pytest.mark.slow
 def test_three_way_mutual_agreement_and_ti_ballpark() -> None:
     sigma_all = td_ve_cross_sections_all(
         TG,

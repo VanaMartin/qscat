@@ -26,6 +26,7 @@ from validation.h2plus.rydberg_levels import rydberg_levels
 _N_VIB_PROXY = 3
 
 
+@pytest.mark.slow
 def test_curves_are_ordered_and_below_the_ion() -> None:
     tg = proxy_grid()
     res = rydberg_levels(H2P, tg.grids[0], tg.grids[1], n_curves=3, n_vib=_N_VIB_PROXY)
@@ -36,6 +37,7 @@ def test_curves_are_ordered_and_below_the_ion() -> None:
     assert np.all(ordered > 0.0)
 
 
+@pytest.mark.slow
 def test_levels_are_real_and_ascending() -> None:
     tg = proxy_grid()
     res = rydberg_levels(H2P, tg.grids[0], tg.grids[1], n_curves=2, n_vib=_N_VIB_PROXY)
@@ -44,6 +46,7 @@ def test_levels_are_real_and_ascending() -> None:
     assert np.all(np.diff(res.energies, axis=1) > 0.0)  # vibrational ladder
 
 
+@pytest.mark.slow
 def test_allow_partial_pads_the_curve_that_cannot_supply_n_vib() -> None:
     """A count curve 0 cannot meet must raise by default, and must come back
     NaN-padded under `allow_partial` -- with the curves that CAN meet it
