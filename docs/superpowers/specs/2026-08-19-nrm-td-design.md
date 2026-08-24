@@ -6,6 +6,31 @@
 attachment), `2026-08-18-nrm-ve-design.md` (vibrational excitation). Both are
 implemented and merged; this spec extends the same model into the time domain.
 
+## 0. Why a time-dependent route at all
+
+**Not for speed.** Measured on F₂'s production nuclear deck, one propagation is
+~0.3–0.8 s per step over ~6000 steps; the time-independent route answers the
+same energies in a fraction of that. The time-dependent route is expected to be
+the more expensive one and is not justified on cost.
+
+It is justified on what it alone can show. A resolvent returns `Ψ_d(R;E)` and
+nothing about how the collision complex got there; a propagation returns
+`Ψ_d(R,t)`, and with it the survival `S(t)`, the centroid `⟨R⟩_t` and the mean
+momentum `⟨P⟩_t`. Those are what turn a cross-section feature into a mechanism —
+the quasibound-state correspondence with individual peaks, the interference of
+several time-separated contributions behind an asymmetric peak, and the
+formation-time argument that explains NO's long-lived structure (Váňa & Houfek,
+Phys. Rev. A **95**, 022714 (2017), pp. 022714-13, -15, -16). Gertitschke &
+Domcke's own contribution is of exactly this kind: their account of why the LCP
+fails for H₂⁻ is a *temporary packet splitting between ≈2 and ≈5 fs*, visible
+only in time (PRA 47, p. 1041).
+
+PRA 95 closes by proposing precisely this work — that similar time-dependent
+calculations "could be performed within the LCP approximation or the nonlocal
+resonance model and thus interpret the results in the same way", offered as a
+future direction and not executed there (p. 022714-16). This sub-project
+executes it.
+
 ## 1. Goal
 
 Compute `σ_DA(E)` and `σ_{v→v'}(E)` for N₂, F₂ and NO in the nonlocal resonance
@@ -86,9 +111,8 @@ Structural properties that matter:
   uncoupled. The matrix is arrow-shaped.
 - **Complex symmetric**, as everything under ECS is — `SparseLU` detects and
   exploits it per Padé factor.
-- **Energy-independent.** One factorization serves every incident energy. The
-  TI route must rebuild and invert `F(E)` at each energy; this is where the
-  time-dependent route can be cheaper for a dense sweep.
+- **Energy-independent.** One factorization and one propagation serve every
+  incident energy (§5), so the sweep is not the cost driver.
 
 ## 4. From the propagated packet back to the existing extraction
 
