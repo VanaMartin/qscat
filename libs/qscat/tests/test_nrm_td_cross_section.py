@@ -13,12 +13,16 @@ import pytest
 from qscat.core.grids import electronic_grid, segmented_grid
 from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
-from qscat.core.nrm.dissociation import nrm_da_cross_section
+from qscat.core.nrm.dissociation import nrm_da_cross_section, solve_nuclear
 from qscat.core.nrm.ingredients import nrm_ingredients
 from qscat.core.nrm.nonlocal_potential import continue_to_tail
-from qscat.core.nrm.td_cross_section import td_nrm_da_cross_section
+from qscat.core.nrm.td_cross_section import (
+    td_nrm_da_cross_section,
+    td_nrm_ve_cross_section,
+)
+from qscat.core.nrm.vibrational_excitation import nrm_ve_cross_section, t_resonant
 from qscat.core.vibrational import vibrational_states
-from qscat.model import F2
+from qscat.model import F2, N2
 
 # The eMoScat F2 NUCLEAR deck (`reference/eMoScat/input/F2/grids.txt`, 2nd
 # declaration), transcribed as literals for the same reason
@@ -387,3 +391,323 @@ def test_the_discrete_state_potential_does_not_reproduce_the_lcp(f2_deck, f2_lcp
     )
     ratio = got / want
     assert np.all(np.abs(ratio - 1.0) > 0.3), f"sigma/sigma_LCP = {ratio}"
+
+
+# --- vibrational excitation -------------------------------------------------
+#
+# The N2 deck below is the one `test_nrm_propagation.py` gates the
+# vector-to-vector identity on (179 nuclear x 74 electronic, all 73 projected
+# states), transcribed rather than imported because these test modules are not
+# an importable package. Using the SAME deck is the point: the VE cross
+# section is a contraction of the very vector that gate checks, so the two
+# residuals are directly comparable.
+#
+# VE and DA differ in WHERE the observable lives, and it shows in what `T`
+# each needs. `t_resonant` contracts `Psi_d` against `chi_f`, which sits in
+# the interaction region, so the transform converges as the amplitude THERE
+# decays; `da_sigma_from_psi` reads the wavefunction value at the outermost
+# real node, so its packet has to cross the whole box first. On F2's deck
+# below that is worth two orders at a sixth of the propagation: VE converges
+# by T = 2000 while DA needs T = 12000 -- and at T = 2000 that packet still
+# holds 94% of its initial real-region norm, so nothing has LEFT.
+
+_N2_REAL = ((3, 1.5), (8, 3.0), (2, 4.0), (4, 8.0))
+_N2_COMPLEX = ((3, 20.0),)
+
+
+@pytest.fixture(scope="module")
+def n2_deck():
+    """N2 on a small-but-COMPLETE deck: 179 nuclear x 74 electronic, 73 arms.
+
+    Deliberately coarser than the production `N2:emoscat` deck. Every
+    comparison below is DIFFERENTIAL -- both routes run on the same `ing` on
+    the same grids -- so it does not need a physically converged
+    discretisation, only one where the packet decays inside an affordable
+    propagation. The absolute cross sections here are NOT converged N2
+    numbers and must not be quoted as such; `validation/diatomic/ve_nrm.py`
+    owns those.
+
+    `n_states` is left at `None`: the COMPLETE projected-state sum is a
+    correctness requirement of the time-dependent route, not a performance
+    knob (`propagation._warn_if_diverging`).
+    """
+    nuc = segmented_grid(_N2_REAL, _N2_COMPLEX, angle_deg=35.0, quadrature=10)
+    elec = electronic_grid(r_max=11.0, order=6, n_complex=3)
+    phi_d = AsymptoticDiscreteState(elec, N2, R_inf=nuc.R0)
+    r_values = nuc.points[nuc.points.imag == 0.0].real[::-1]
+    ing = nrm_ingredients(elec, N2, phi_d, r_values)
+    eps, chi = vibrational_states(nuc, N2.mu, 4, N2.v0)
+    return nuc, elec, phi_d, ing, eps, chi
+
+
+def test_ve_non_positive_energies_are_zero_like_the_time_independent_route(small_deck):
+    """`E <= 0` gives a row of zeros on both routes, and costs no propagation."""
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    got = td_nrm_ve_cross_section(
+        nuc,
+        elec,
+        F2,
+        phi_d,
+        eps,
+        chi,
+        0,
+        [0, 1],
+        np.array([-0.01, 0.0]),
+        ingredients=ing,
+        dt=1.0,
+        n_steps=4,
+    )
+    assert got.shape == (2, 2)
+    assert np.array_equal(got, np.zeros((2, 2)))
+
+
+def test_ve_a_scalar_energy_returns_one_entry_per_final_channel(small_deck):
+    """`driven.ve_cross_section`'s shape convention, which `nrm_ve_cross_section`
+    follows and this route must too: scalar `E` drops the energy axis."""
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    with pytest.warns(UserWarning):
+        got = td_nrm_ve_cross_section(
+            nuc, elec, F2, phi_d, eps, chi, 0, [0, 1], 0.03, ingredients=ing, dt=1.0, n_steps=4
+        )
+    assert got.shape == (2,)
+    assert np.all(got > 0.0)
+
+
+def test_ve_a_closed_final_channel_is_zero(small_deck):
+    """A `v'` above the total energy contributes `0.0`, not a negative-`k` value.
+
+    The open channels of the same call are unaffected, which is what a
+    mis-slotted `vprimes` loop would break while still returning finite,
+    positive, plausible numbers.
+    """
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    e_kin = 0.5 * float(eps[2] - eps[0])  # opens v'=1, leaves v'=2 shut
+    with pytest.warns(UserWarning):
+        got = td_nrm_ve_cross_section(
+            nuc, elec, F2, phi_d, eps, chi, 0, [0, 1, 2], e_kin, ingredients=ing, dt=1.0, n_steps=4
+        )
+    assert got[2] == 0.0
+    assert np.all(got[:2] > 0.0)
+
+
+def test_markovian_ve_rejects_the_background(small_deck):
+    """`T^bg` is built from `phi_d`, which the local model does not have.
+
+    Allowing it would silently assemble a third model -- a local resonant
+    term plus a nonlocal background -- and return it under a call that reads
+    as the LCP.
+    """
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    with pytest.raises(ValueError, match="include_background=False"):
+        td_nrm_ve_cross_section(
+            nuc,
+            elec,
+            F2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            [0, 1],
+            0.03,
+            markovian=True,
+            Vd=np.zeros(nuc.n, dtype=np.complex128),
+            Gamma=np.ones(nuc.n),
+            dt=1.0,
+            n_steps=2,
+        )
+
+
+def test_markovian_ve_requires_the_local_potential(small_deck):
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    with pytest.raises(ValueError, match="needs both Vd and Gamma"):
+        td_nrm_ve_cross_section(
+            nuc,
+            elec,
+            F2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            [0, 1],
+            0.03,
+            markovian=True,
+            include_background=False,
+            dt=1.0,
+            n_steps=2,
+        )
+
+
+@pytest.mark.slow
+def test_td_ve_matches_the_time_independent_cross_section(n2_deck):
+    """GATE: same model, same grids, two routes -- `sigma_VE` must agree.
+
+    EXPENSIVE: ~8-11 min, almost all of it TWO 4000-step propagations (one per
+    `include_background` setting; the propagation cannot be shared between
+    them through the public API). The time-independent oracle costs ~4 s and
+    the deck ~1 s.
+
+    BOTH `include_background` settings are checked, and that pair is a
+    diagnostic rather than a duplicate. `T^bg` (Eq. 37) contains no `Psi_d`:
+    it is energy-domain, static, and produced by the SAME `t_background` call
+    on both routes, so it is bit-identical between them. A discrepancy that
+    appeared only with `include_background=True` could therefore not be a
+    background error -- it would mean the resonant term is being combined
+    with it wrongly (a sign, a conjugation, a channel energy).
+
+    Measured 2026-08-24 at these settings, `sigma_TD/sigma_TI` over
+    E = 0.06 / 0.10 / 0.15 Ha and v' = 0 / 1:
+
+        include_background=True   0.999765  0.999793
+                                  1.000073  0.999828
+                                  0.999932  1.000271
+        include_background=False  0.999786  0.999794
+                                  1.000098  0.999830
+                                  0.999911  1.000268
+
+    i.e. agreement to 2.71e-4 (background) and 2.68e-4 (no
+    background), against a gate at 1e-3 -- 3.7x the achieved error.
+
+    WHY `T = 4000`. Worst-of-six `max |ratio - 1|` against `T` on this deck
+    (dt = 1, `include_background=True`):
+
+        T = 1000   4.2e-1        T = 4000   2.7e-4
+        T = 2000   5.0e-2
+
+    The residual at T = 4000 sits at the level of the vector-to-vector
+    identity gate (`test_nrm_propagation.py`, 1.73e-4 on this same deck at
+    the same `T`/`dt`), which is what it should be: the cross section is a
+    contraction of that vector, and the two worst channels here are the
+    E = 0.06 ones -- the near-threshold final channels converge slowest.
+
+    WHY `dt = 1` AND NOT 2, unlike the DA gate. The error budget measured in
+    `test_nrm_propagation.py` -- `truncation(T) = 0.40*sqrt(S(T)/S(0))` and
+    `propagation(dt=1) = 1.43e-4`, adding in quadrature -- makes the two
+    terms COMPARABLE here, so the `dt^6` term is no longer negligible:
+    dt = 2 costs a factor 64 in it. Measured on this fixture at T = 4000,
+    `include_background=True`: max |ratio - 1| = 1.52e-2 at dt = 2 against
+    2.71e-4 at dt = 1 -- a factor of 56 where `dt^6` predicts 64. The F2 DA gate can afford dt = 2
+    because its truncation floor is 1.4e-2, two orders above its own
+    propagation error; this one cannot.
+    """
+    nuc, elec, phi_d, ing, eps, chi = n2_deck
+    energies = np.array([0.06, 0.10, 0.15])
+    vprimes = [0, 1]
+
+    for include_background in (True, False):
+        want = nrm_ve_cross_section(
+            nuc,
+            elec,
+            N2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            vprimes,
+            energies,
+            ingredients=ing,
+            include_background=include_background,
+        )
+        got = td_nrm_ve_cross_section(
+            nuc,
+            elec,
+            N2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            vprimes,
+            energies,
+            ingredients=ing,
+            include_background=include_background,
+            dt=1.0,
+            n_steps=4000,
+        )
+        assert np.all(want > 0.0), "the TI oracle is zero -- pick open channels"
+        rel = np.abs(got - want) / want
+        assert np.all(rel < 1e-3), (
+            f"include_background={include_background}: sigma_TD/sigma_TI = {got / want}"
+        )
+
+
+@pytest.mark.slow
+def test_markovian_ve_reproduces_the_local_cross_section(f2_deck, f2_lcp):
+    """GATE: PRA 47 Eq. (2.11) for VE -- the LCP *is* the Markovian limit.
+
+    The DA sibling of this test
+    (`test_markovian_limit_reproduces_the_lcp_cross_section`) compares against
+    the shipped `lcp_da_cross_section`. There is no `lcp_ve_cross_section` in
+    `qscat` -- the repository's LCP VE route lives in
+    `projects/n2_ti_cross_section/cross_section.py`, which `libs/qscat` must
+    not import -- so the reference is assembled here from shipped `qscat`
+    pieces: `solve_nuclear` with `F -> diag(-(i/2)Gamma)` (the substitution
+    `dissociation`'s module docstring documents `solve_nuclear` as being
+    public FOR), the doorway `sqrt(Gamma/2pi) chi_v` on both ends, and
+    `sigma = 4 pi^3 |S|^2 / 2E`. That is the same formula the projects module
+    implements, verified equal to every printed digit (2026-08-24, this deck,
+    ratio 1.000000000000 at all six entries).
+
+    THE DOORWAY IS SUBSTITUTED AT BOTH ENDS, which is the whole content of
+    `markovian=True` for VE. Eq. (2.11) localizes the kernel; the LCP this
+    repository ships also localizes the DOORWAY (`lcp_initial_packet`), and
+    for VE that doorway appears twice -- as the launch state AND as the
+    coupling the exit channel is contracted against. Keeping the nonlocal
+    `V^+_dk_f` at the exit while localizing the kernel would be a third
+    model, and it would NOT reproduce this reference.
+
+    Measured 2026-08-24 at `dt = 2, T = 4000`: every one of the six
+    `sigma_TD/sigma_LCP` entries lies within 3.4e-6 of 1 (E = 0.02/0.03/0.05
+    Ha, v' = 0/1). It is converged well before that and stays there --
+    max |ratio-1| = 5.6e-6 / 3.3e-6 / 4.3e-6 at T = 2000 / 4000 / 12000 --
+    against the DA Markovian gate on this SAME deck needing T = 12000 to
+    reach 2.2e-4. That gap is the point of `td_nrm_ve_cross_section`'s
+    docstring: `T^res` weights `Psi_d` by `chi_f`, which lives in the
+    interaction region, so the transform converges as the packet decays out
+    of that region rather than waiting for it to cross the whole box.
+
+    The gate sits at 5e-5, ~15x the worst residual in the stationary range,
+    matching the DA Markovian gate's own headroom philosophy: this comparison
+    contains no model difference at all, so it can be gated far tighter than
+    the nonlocal route's.
+
+    CHEAP: no arms means `H_ext` is `N_R` square (974) rather than 53570, so
+    2000 steps cost a few seconds. It carries `@slow` for the fixtures it
+    shares (the deck build and the electronic pole walk), not for the
+    propagation.
+    """
+    nuc, elec, phi_d, _, eps, chi = f2_deck
+    Vd, Gamma = f2_lcp
+    energies = np.array([0.02, 0.03, 0.05])
+    vprimes = [0, 1]
+
+    doorway = np.sqrt(Gamma / (2.0 * np.pi)).astype(np.complex128)
+    no_kernel = np.zeros((nuc.n, nuc.n), dtype=np.complex128)
+    want = np.zeros((energies.size, len(vprimes)), dtype=np.float64)
+    for ie, e_kin in enumerate(energies):
+        e_total = float(e_kin) + float(eps[0])
+        psi = solve_nuclear(nuc, F2.mu, Vd - 0.5j * Gamma, no_kernel, doorway * chi[0], e_total)
+        for jv, vp in enumerate(vprimes):
+            if e_total - float(eps[vp]) <= 0.0:
+                continue
+            t = t_resonant(chi[vp], doorway, psi)
+            want[ie, jv] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * float(e_kin))
+
+    got = td_nrm_ve_cross_section(
+        nuc,
+        elec,
+        F2,
+        phi_d,
+        eps,
+        chi,
+        0,
+        vprimes,
+        energies,
+        markovian=True,
+        include_background=False,
+        Vd=Vd,
+        Gamma=Gamma,
+        dt=2.0,
+        n_steps=2000,
+    )
+    assert np.all(want > 0.0), "the LCP reference is zero -- pick open channels"
+    rel = np.abs(got - want) / want
+    assert np.all(rel < 5e-5), f"sigma_TD/sigma_LCP = {got / want}"
