@@ -10,6 +10,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint:
+    name: lint + type-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Rust toolchain (for the native qscat_kernels member)
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Sync workspace
+        run: uv sync --all-packages
+      - name: Lint (ruff)
+        run: uv run ruff check .
+      - name: Type-check (mypy, qscat library)
+        run: uv run mypy libs/qscat/qscat
+
   test:
     name: test (py${{ matrix.python-version }})
     runs-on: ubuntu-latest
@@ -28,12 +47,15 @@ jobs:
           enable-cache: true
       - name: Sync workspace
         run: uv sync --all-packages
-      - name: Lint (ruff)
-        run: uv run ruff check .
-      - name: Type-check (mypy, qscat library)
-        run: uv run mypy libs/qscat/qscat
+      # `-m "not slow"` is the tier boundary: production-scale physics runs
+      # locally and in the Docker `test` image, never here (docs/adr/0005).
+      #
+      # `--dist loadfile`, NOT the default `--dist load`: several test modules
+      # build a multi-GB grid at module scope, and per-test distribution makes
+      # every worker that touches the module build its own copy. Keeping a file
+      # on one worker bounds that to one copy per file.
       - name: Test (fast suite; MUMPS tests skip without a system MUMPS)
-        run: uv run --no-sync pytest -q -m "not slow"
+        run: uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile
 
   build:
     name: build + clean-venv import + twine check

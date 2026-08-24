@@ -42,7 +42,18 @@ FROM test-deps AS test
 # `runtime`. --no-sync skips a re-resolve/prune of the just-built workspace
 # members; the base image's ffmpeg makes the ffmpeg-gated .mp4 viz test render
 # rather than skip.
-RUN uv run --no-sync pytest -q
+#
+# This image is where the `slow` tier actually runs (CI never runs it -- see
+# docs/adr/0005), so it runs BOTH tiers, but not the same way:
+#
+#   fast  -- parallel, `--dist loadfile` so a module's grid is built once per
+#            file rather than once per worker.
+#   slow  -- SERIAL, deliberately. These are the production-scale decks; the
+#            H2+ DR example alone was measured at ~19 GB peak RSS, so running
+#            them concurrently would OOM a container long before it saved
+#            wall-clock.
+RUN uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile
+RUN uv run --no-sync pytest -q -m slow
 
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS runtime
 # Runtime needs the shared numerical libs (no -dev headers, no toolchain) plus

@@ -664,15 +664,29 @@ the underlying math/algorithm so it can be reimplemented cleanly in Python.
 # Plain `uv sync` is NOT sufficient: it prunes the qscat/qscat_kernels members.
 uv sync --all-packages
 
-# Run the full test suite
+# The fast tier — the CI gate, and the one to run while iterating.
+# See docs/adr/0005-test-tiers-fast-and-slow.md for what the tiers mean.
+uv run pytest -m "not slow" -n auto --dist loadfile
+
+# The production-scale tier: real decks, converged grids, published-value
+# comparisons. SERIAL, deliberately — these are measured in minutes and
+# gigabytes (the H2+ DR example peaks at ~19 GB on its own), so running them
+# concurrently OOMs a laptop long before it saves wall-clock. GitHub CI never
+# runs this tier; run it before merging anything that touches the solvers.
+uv run pytest -m slow
+
+# The whole suite. Note there is no `-n` here: a bare `pytest -n 8` (no
+# `-m` filter) schedules the multi-GB slow decks against each other with
+# nothing bounding the total, which is how a routine parallel run reaches
+# tens of GB. Parallelise the fast tier or nothing.
 uv run pytest
 
-# In parallel (pytest-xdist) — the fast way to iterate. Measured on the
-# 12-core dev machine: libs/qscat non-slow goes 305s -> 133s at `-n 8`.
+# On `--dist loadfile` rather than the default `--dist load`: memory is the
+# binding constraint, not CPU. Several modules build their grid at module
+# scope, and per-test distribution makes every worker touching the module
+# build its own copy; keeping a file on one worker bounds that to one copy.
 # Do NOT bother pinning BLAS threads (OMP_NUM_THREADS=1 etc.): measured at
-# 136s, i.e. no gain. The suite is dominated by a few long tests, not by
-# thread contention, so `-n` beyond ~8 buys nothing here.
-uv run pytest -n 8
+# 136s vs 133s on the 12-core dev machine, i.e. no gain.
 
 # Right after a maturin build in the same step, skip the (already-satisfied)
 # sync to avoid a redundant resolve:

@@ -21,8 +21,21 @@ members = ["libs/*", "native/*", "apps/*"]
 # errors. Never recurse into .claude/.
 norecursedirs = [".venv", ".git", ".hypothesis", "reference", "target", "*.egg-info", ".claude"]
 pythonpath = ["."]
+# The two tiers (docs/adr/0005-test-tiers-fast-and-slow.md):
+#
+#   default -- toy-scale. Every test proves a piece of library behaviour on the
+#              smallest deck that can still fail for the right reason. This tier
+#              is the CI gate and must stay quick enough to run on every push.
+#   slow    -- production-scale physics: real molecule decks, converged grids,
+#              multi-thousand-step propagations, published-value comparisons.
+#              Run locally (`-m slow`) and by the Docker `test` image. NOT run
+#              by GitHub CI.
+#
+# The boundary is cost, not importance: a `slow` test is often the more
+# valuable one. If a test needs more than a few seconds or more than ~0.5 GB,
+# it belongs in `slow` -- or it wants a smaller deck.
 markers = [
-    "slow: heavier checks (production-scale assembly); deselect with -m 'not slow'",
+    "slow: production-scale physics; local + Docker only, never CI. -m 'not slow' deselects",
 ]
 
 [dependency-groups]
@@ -38,11 +51,17 @@ docs = [
 ]
 dev = [
     "pytest>=8",
-    "pytest-benchmark>=4",
-    # Parallel test execution: `uv run pytest -n auto`. The suite is
-    # CPU-bound and process-isolated, so it scales well; note the numerics
-    # here are BLAS-threaded, so `-n` above the physical core count can slow
-    # things down rather than speed them up.
+    # Parallel test execution: `uv run pytest -n auto --dist loadfile`. The
+    # suite is CPU-bound and process-isolated, so it scales well; note the
+    # numerics here are BLAS-threaded, so `-n` above the physical core count
+    # can slow things down rather than speed them up.
+    #
+    # Use `--dist loadfile`, not the default `--dist load`. Memory, not CPU, is
+    # the binding constraint: several test modules build their grid at module
+    # scope, and per-test distribution makes every worker that touches the
+    # module build its own copy. Keeping a file on one worker bounds that to
+    # one copy per file. ALWAYS pair a parallel run with `-m "not slow"` --
+    # the slow tier includes decks measured at ~19 GB peak RSS on their own.
     "pytest-xdist>=3",
     "hypothesis>=6",
     # Keep in step with the ruff-pre-commit `rev:` in .pre-commit-config.yaml --
