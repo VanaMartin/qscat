@@ -132,22 +132,44 @@ VPRIMES = [0, 1]
 # ceiling.
 _N_STATES = 100
 
-# RECORDED energy grids, inside the paper's own plotted windows (module
-# docstring). N2's is the 11-point 0.06-0.16 Ha sweep that resolves the
-# boomerang structure; F2's is 6 points over 0.02-0.09 Ha -- fewer because
-# F2's exact-2D deck is 128568 unknowns against N2's 26857, and one `compare`
-# call already costs 746 s there against N2's 95 s.
+# Energy grids, inside the paper's own plotted windows (module docstring).
 #
-# F2's spacing is 0.01 up to 0.05 and 0.02 above it. That is a COST choice made
-# BEFORE the run, not a selection made after: F2's sigma_VE varies smoothly and
-# monotonically over 0.02-0.09 (no boomerang structure to resolve, unlike N2),
-# so the sweep is denser at the low-energy end where choice A degrades fastest
-# (its 0->1 ratio runs 0.565 -> 0.789 -> 0.890 -> 0.905 across the four
-# closely-spaced points) and sparser where every route has flattened. NO F2
-# ENERGY WAS COMPUTED AND THEN DROPPED -- these six are the six that were run.
+# N2 keeps the full 11-point 0.06-0.16 Ha sweep. It is not the expensive one
+# (95 s against F2's 746 s), and `test_n2_0to1_agrees_on_the_scale_fig_8_asserts`
+# genuinely needs the CURVE: its claim is about where sigma sits relative to its
+# own peak, which two points cannot locate.
+#
+# F2 is GATED AT TWO ANCHORS, reduced from the six that were originally run
+# (0.02, 0.03, 0.04, 0.05, 0.07, 0.09 -- all six recorded in the docstrings
+# below and in docs/physics/nonlocal-resonance-model.md). Nothing here needs
+# F2's curve: sigma_VE varies smoothly and monotonically over the window, with
+# no boomerang structure, and every F2 assertion in this module is either a
+# per-energy band or a worst-over-energies extreme.
+#
+# The two are chosen so that every BINDING extreme survives -- the gate is as
+# tight at two points as it was at six, not merely cheaper:
+#
+#   0.02  choice B's band MAXIMUM      (0->1 ratio 1.00692, the 0.006923 that
+#                                       sets _CHOICE_A_ERROR_FLOOR's B side)
+#         choice A's WORST error       (0->1 ratio 0.56528, i.e. 0.43472 --
+#                                       the floor `test_choice_a_is_worse_
+#                                       than_choice_b` pins)
+#   0.04  choice B's band MINIMUM      (0->1 ratio 0.99623)
+#
+# 0.03/0.05/0.07/0.09 each sat strictly inside the bands those two define, so
+# dropping them removes cost and no constraint. Re-measuring the full sweep is
+# a deliberate act (widen this array), not something CI does on every run.
+#
+# MEASURED, both grids run back to back on the same machine with nothing else
+# on it: six energies 1818 s, two energies 705 s -- 61% off, a factor of 2.58.
+# That decomposes as ~278 s per energy against ~149 s of fixed setup (grid,
+# LCP pole walk, ingredients), i.e. this really is per-energy work and the
+# saving scales with the count. Note the 746 s in `_comparison`'s docstring is
+# an older figure that did NOT reproduce here; treat 1818 s as the current
+# six-energy cost on this hardware.
 _ENERGIES: dict[str, npt.NDArray[np.float64]] = {
     "N2": np.array([0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16]),
-    "F2": np.array([0.02, 0.03, 0.04, 0.05, 0.07, 0.09]),
+    "F2": np.array([0.02, 0.04]),
 }
 
 # RECORDED `sigma_NRM(B)+bg / sigma_exact` bands (0->0 and 0->1 pooled).
