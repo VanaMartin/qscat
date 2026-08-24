@@ -198,6 +198,10 @@ def resonance_pole_walk(
                 "inside the frozen range.",
                 stacklevel=2,
             )
+        # Repeated deliberately: the first check above already raised, so this
+        # branch is unreachable at runtime -- it is here so mypy can narrow
+        # `last_s` for the return below. Removing it as dead code breaks the
+        # type check.
         if last_s is None:
             raise ConvergenceError("resonance_pole_walk: pole finder failed at the seed edge")
         shift[j], gamma_w[j] = last_s, last_g

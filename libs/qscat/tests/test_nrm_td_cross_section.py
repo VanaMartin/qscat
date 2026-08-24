@@ -506,6 +506,31 @@ def test_ve_a_closed_final_channel_is_zero(small_deck):
     assert np.all(got[:2] > 0.0)
 
 
+def test_ve_a_closed_entry_does_not_disturb_the_open_ones(small_deck):
+    """The VE twin of `test_a_closed_entry_does_not_disturb_the_open_ones`.
+
+    `td_nrm_ve_cross_section` re-implements the open-column mapping the DA
+    route does, but against a 2-D `out[ie, jv]` rather than a 1-D one, so the
+    DA test does not cover it. Every other VE test either passes a scalar
+    energy or a batch that is entirely open or entirely closed -- and with an
+    all-open batch `open_idx == arange(n)`, which makes the output index and
+    the propagation column coincide. Swapping them would then pass every test
+    in this file, including the slow gates, and fail only for a caller whose
+    energy grid dips to or below zero, as a silent per-energy shift.
+    """
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    kw = {"ingredients": ing, "dt": 1.0, "n_steps": 6}
+    with pytest.warns(UserWarning):
+        mixed = td_nrm_ve_cross_section(
+            nuc, elec, F2, phi_d, eps, chi, 0, [0, 1], np.array([-0.01, 0.03, 0.05]), **kw
+        )
+        alone = td_nrm_ve_cross_section(
+            nuc, elec, F2, phi_d, eps, chi, 0, [0, 1], np.array([0.03, 0.05]), **kw
+        )
+    assert np.all(mixed[0] == 0.0)
+    assert np.allclose(mixed[1:], alone, rtol=1e-10)
+
+
 def test_markovian_ve_rejects_the_background(small_deck):
     """`T^bg` is built from `phi_d`, which the local model does not have.
 
@@ -693,7 +718,8 @@ def test_markovian_ve_reproduces_the_local_cross_section(f2_deck, f2_lcp):
     interaction region, so the transform converges as the packet decays out
     of that region rather than waiting for it to cross the whole box.
 
-    The gate sits at 5e-5, ~15x the worst residual in the stationary range,
+    The gate sits at 5e-5, 8.9x the worst residual in the stationary range
+    (5.6e-6 at T = 2000; the 3.3e-6 below is this test's own T, not the worst),
     matching the DA Markovian gate's own headroom philosophy: this comparison
     contains no model difference at all, so it can be gated far tighter than
     the nonlocal route's.
