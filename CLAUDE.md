@@ -317,18 +317,18 @@ libs/       qscat — the standard library: validated, reusable QM code
               claim, generalized). The route is SLOWER than the resolvent (773 s
               vs 246 s on F₂'s deck) and is justified by `S(t)`/`⟨R⟩_t`/`⟨P⟩_t`,
               not cost. `td_nrm_ve_cross_section` is the VE sibling (N₂ 2.7e-4,
-              F₂ 5.9e-5 against the TI route; `T^bg` is energy-domain so only
+              F₂ 9.8e-5 against the TI route; `T^bg` is energy-domain so only
               `T^res` changes route), and `markovian=True` on either entry point
               propagates PRA 47 Eq. (2.15)'s LOCAL limit — the same solve with
               the arms removed, so `N_R` square instead of `(1+n_states)·N_R`,
-              seconds instead of ~45 min. **Eq. (2.15) takes `qscat.core.lcp`'s
+              seconds instead of ~30 min. **Eq. (2.15) takes `qscat.core.lcp`'s
               `Vd` (= `E_res`), NOT `v_d_discrete`** — measured, 1.0002 against
               0.346/0.419/7.14, because Eq. (2.14) makes `V_d + Δ_L = E_res + V_0`
               and Eq. (20)'s `V_d` is short by the level shift; the wrong choice
               is locked out by a test. `markovian` substitutes the local doorway
               at BOTH ends (that is what reproduces the LCP rather than a hybrid)
               and REFUSES `include_background=True`, since Eq. (37)'s background
-              needs a `φ_d` the local model has not. Measured on F₂, the nonlocal
+              needs a `φ_d` the local model does not have. Measured on F₂, the nonlocal
               and local packets are nearly identical (`⟨R⟩` within 0.01 bohr,
               both unimodal) — **no packet splitting**, unlike PRA 47's H₂⁻; the
               shipped LCP's packet differs because of its DOORWAY, not its
@@ -523,8 +523,12 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               percentage — see the qscat.core.lcp entry above). `ve_nrm.py` +
               `test_ve_nrm.py` are the NRM-vs-LCP-vs-exact VIBRATIONAL-EXCITATION
               gate (N₂ and F₂, four routes on one deck), and `ve_nrm_figure.py`
-              is the ONE surviving figure driver — a deliberate exception to the
-              retirement above, because its figure needs both
+              is one of THREE surviving figure drivers — deliberate exceptions
+              to the retirement above (the others are `td_nrm_figures.py`, whose
+              panels need packet diagnostics no config exposes, and
+              `da_figure.py`, whose LCP/exact ratio panel and published-reference
+              overlay on a DA observable are likewise unreachable from
+              `qscat_run.artifacts`) — because its figure needs both
               `include_background` settings AND the LCP's VE route, and neither
               is reachable from a single qscat-run config (`apps/qscat-run/
               examples/n2-ve-nrm-vs-exact.yaml` is the config form of the rest of

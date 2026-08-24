@@ -147,8 +147,8 @@ of the discrete-state choice, not of the model.
 | **`σ_TD/σ_TI`, F₂ DA, E = 0.02/0.03/0.05 Ha** | **1.0097 / 1.0138 / 1.0102** | `test_nrm_td_cross_section.py` |
 | **Markovian limit vs `qscat.core.lcp`, same F₂ deck** | **1.000215 / 1.000198 / 0.999892** | `test_nrm_td_cross_section.py` |
 | **`σ_TD/σ_TI`, N₂ VE, 0.06/0.10/0.15 Ha, v' = 0/1** | **envelope ≤2.5e-3** (2.7e-4 at T = 4000, a null — §7.1.1) | `test_nrm_td_cross_section.py` |
-| **`σ_TD/σ_TI`, F₂ VE, 0.03/0.05 Ha, v' = 0/1** | **5.9e-5, flat over T = 1600–2400** | `test_nrm_td_cross_section.py` |
-| **Markovian VE vs the LCP VE route, same F₂ deck** | **within 3.3e-6** | `test_nrm_td_cross_section.py` |
+| **`σ_TD/σ_TI`, F₂ VE, 0.03/0.05 Ha, v' = 0/1** | **9.8e-5** (5.9e-5 with the background, 9.8e-5 without — the gate asserts both), flat over T = 1600–2400 | `test_nrm_td_cross_section.py` |
+| **Markovian VE vs a local VE reference assembled in-test** | **within 5.6e-6** over T = 2000–12000 | `test_nrm_td_cross_section.py` |
 
 ![TD vs TI cross section](figures/f2-da-nrm-td-vs-ti.png)
 
@@ -490,7 +490,8 @@ that is the doorway of §6.3, not the kernel.
 
 **And it is not unimodal**: 9 / 8 / 10 / 9 / 7 peaks at t = 2.4 / 2.9 / 3.4 /
 3.9 / 4.8 fs, collapsing back to 1 by 6.8 fs, with `ΔR` climbing monotonically
-0.047 → 0.185 bohr. The claim above is about (a) and (b) only. This transient
+0.047 → 0.185 bohr. The claim above is about the **nonlocal and Markovian packets** only, not about
+this one. This transient
 structure is almost certainly the launch state ringing off the step in `√Γ` at
 §6.1's freeze boundary (R = 2.5033, essentially on top of the LCP doorway peak
 at 2.4864), not a physical splitting — it is a reason to distrust that packet on
@@ -530,7 +531,7 @@ deck, from one propagation**:
 
 | deck | observable | dt | T | max\|σ_TD/σ_TI − 1\| |
 |---|---|---|---|---|
-| F₂, 974 nuclear × 55 electronic | VE, 0.03/0.05 Ha, v' = 0/1 | 2 | 2000 | **5.9e-5** |
+| F₂, 974 nuclear × 55 electronic | VE, 0.03/0.05 Ha, v' = 0/1 | 2 | 2000 | **9.8e-5** (5.9e-5 with background) |
 | F₂, same deck | DA, 0.02/0.03/0.05 Ha | 2 | 4000 | 0.29 |
 | F₂, same deck | DA, same energies | 2 | 12000 | 1.4e-2 |
 | N₂, 179 nuclear × 74 electronic | VE, 0.06/0.10/0.15 Ha, v' = 0/1 | 1 | 4000 | 2.7e-4 *(a null — below)* |
@@ -574,8 +575,11 @@ a *plateau*, not a phase:
 and all four channel ratios carry the **same sign** there (+3e-5 … +7e-5) — a
 systematic discretisation offset, not a zero crossing. F₂'s oscillation starts
 later and **grows**: 1.9e-4 (T = 2800), 3.2e-4 (3000), 9.6e-4 (3400), 1.5e-3
-(3800), 2.5e-3 (4000). So the shipped F₂ gate is 1e-3, 17× the plateau it
-actually runs on, rather than a multiple of an envelope the test never reaches.
+(3800), 2.5e-3 (4000). So the shipped F₂ gate is 1e-3, 10× the worst of the two
+`include_background` settings it asserts (9.8e-5; the T scan above is the
+`include_background=True` curve, whose plateau is 5.9e-5 and 17× under the gate).
+Either way the gate is sized to the plateau it actually runs on, rather than to a
+multiple of an envelope the test never reaches.
 
 The general lesson is the one this section exists for: **a `T`-convergence
 claim from three sampled points is not a convergence claim.** Sample finely
@@ -607,12 +611,18 @@ model, so it is not offered. `include_background=True` is **refused** with
 `markovian=True` for the same reason: Eq. (37)'s background is built from `φ_d`
 and the P-space scattering states, which the local model does not have.
 
-Measured against that route on the F₂ fixture deck of §6 (`dt = 2`, v = 0,
+Measured against a reference assembled in-test from `solve_nuclear` +
+`t_resonant` (`libs/qscat` may not import `projects`); that assembly is
+term-for-term `projects/n2_ti_cross_section/cross_section.py`'s doorway, `H_res`
+and `S`, and the test records the shipped route agreeing to twelve digits on the F₂ fixture deck of §6 (`dt = 2`, v = 0,
 E = 0.02/0.03/0.05 Ha, v' = 0/1):
 
 | T | 2000 | 4000 | 12000 |
 |---|---|---|---|
 | max\|σ_TD/σ_LCP − 1\| | 5.6e-6 | **3.3e-6** | 4.3e-6 |
+
+The gate sits at 5e-5, **8.9× the worst residual in that range** (5.6e-6, not the
+3.3e-6 at the test's own `T`).
 
 Converged by T = 2000 and flat thereafter — on the same deck whose *DA*
 Markovian comparison needed T = 12000 to reach 2.2e-4 (§6.2). Same model, same
