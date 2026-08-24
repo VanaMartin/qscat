@@ -145,6 +145,7 @@ of the discrete-state choice, not of the model.
 | `⟨P⟩_t` vs analytic Gaussian (`p = 1.7`) | **1.6999999999999842** | `test_nrm_propagation.py` |
 | **`Ψ_d^TD(R;E)` vs `Ψ_d^TI(R;E)`, vector to vector** (N₂) | **1.73e-04** | `test_nrm_propagation.py` |
 | **`σ_TD/σ_TI`, F₂ DA, E = 0.02/0.03/0.05 Ha** | **1.0097 / 1.0138 / 1.0102** | `test_nrm_td_cross_section.py` |
+| **Markovian limit vs `qscat.core.lcp`, same F₂ deck** | **1.000215 / 1.000198 / 0.999892** | `test_nrm_td_cross_section.py` |
 
 ![TD vs TI cross section](figures/f2-da-nrm-td-vs-ti.png)
 
@@ -295,7 +296,132 @@ reaches 10 by `T = 4000` at `n_states = 3` while the complete set falls to ~0.6.
 ![Truncation diverges](figures/nrm-td-truncation-diverges.png)
 
 
-## 6. Limits — what this does not establish
+## 6. The Markovian limit — and which `V_d` it takes
+
+PRA 47 Eq. (2.11): in the Markovian limit the memory kernel of Eq. (2.1)
+collapses to `i[Δ_L(R) − (i/2)Γ_L(R)] δ(R−R') δ(t)`, i.e. **the local complex
+potential *is* the Markovian approximation to the nonlocal model**. What
+remains is Eq. (2.15),
+
+```
+i ∂_t Ψ_d = [T_N + V_d(R) + Δ_L(R) − (i/2)Γ_L(R)] Ψ_d
+```
+
+with no arms at all, so the propagated matrix is `N_R` square — 974 on F₂'s
+production nuclear deck, against 53570 for the nonlocal one — and a converged
+run costs **4 s** against ~30 min. `td_nrm_da_cross_section(..., markovian=True,
+Vd=…, Gamma=…)` selects it; `nrm.extended.lcp_limit_hamiltonian` and
+`nrm.extended.lcp_initial_packet` are the two pieces.
+
+### 6.1 Which `V_d` enters Eq. (2.15) — measured, not argued
+
+The repository has two candidates and they are not interchangeable:
+`NrmIngredients.v_d_discrete` (PRA 77 Eq. 20, `V_0 + ⟨φ_d|H_el|φ_d⟩`) and
+`qscat.core.lcp`'s `Vd` (`E_res(R)`, with `V_0` already inside `model.surface`).
+Eq. (2.14), `E_res − V_d + V_0 − Δ_L = 0`, rearranges to `V_d + Δ_L = E_res +
+V_0` — so Eq. (2.15)'s bracket is the *second* one, and the first is short by
+the level shift `Δ_L`. Both were run against the shipped
+`lcp_da_cross_section` on the F₂ fixture deck (`dt = 2`, `T = 12000`):
+
+| `V_d` in Eq. (2.15) | `σ/σ_LCP` at E = 0.02 | 0.03 | 0.05 Ha |
+|---|---|---|---|
+| `qscat.core.lcp`'s `Vd` = `E_res + V_0` | **1.000215** | **1.000198** | **0.999892** |
+| `NrmIngredients.v_d_discrete` (Eq. 20) | 0.346 | 0.419 | 7.14 |
+
+Decisive, and the failure of the second is not a normalization anyone could
+absorb — it changes sign of direction with energy. `E_res + V_0` is what is
+shipped.
+
+The two potentials agree exactly where `Γ = 0` and separate only where it does
+not, which is `Δ_L`'s own support — measured on this deck:
+
+| R (bohr) | 3.99 | 3.50 | 3.01 | 2.49 | 2.20 | 1.51 |
+|---|---|---|---|---|---|---|
+| `V_d(Eq.20) − V_d(LCP)` (Ha) | 2e-6 | 4.1e-5 | 9.5e-4 | 0.0423 | 0.268 | 1.171 |
+| `Γ` (Ha) | 0 | 0 | 0 | 0.0095 | 0.0095 | 0.0095 |
+
+(0.0423 Ha at the doorway peak `argmax √(Γ/2π)|χ_0|`, R = 2.4864. §4 of
+`nonlocal-resonance-model.md` quotes 0.0053 Ha for F₂ from the production
+electronic deck; this is the reduced 55-point fixture deck, so the two are not
+the same measurement.)
+
+### 6.2 The gate, and why it is tighter than the nonlocal one
+
+`σ_TD/σ_LCP` = 1.000215 / 1.000198 / 0.999892 at E = 0.02/0.03/0.05 Ha. The
+residual is transform truncation **and nothing else** — `dt` = 1, 2 and 4
+reproduce all three ratios to six digits, so the `dt⁶` propagation error is far
+below it:
+
+| T | 4000 | 8000 | 12000 | 16000 | 20000 |
+|---|---|---|---|---|---|
+| max\|ratio−1\| | 2.4e-2 | 1.3e-3 | **2.2e-4** | 3.6e-4 | 7.7e-5 |
+
+The gate sits at **5e-3**, an order tighter than the nonlocal route's 5e-2,
+because there is no model difference in this comparison at all: same deck, same
+`(V_d, Γ)`, same Eq. (54) extraction, only the frequency-domain solve replaced
+by a propagation.
+
+### 6.3 The doorway, not the kernel, is most of the LCP's error on F₂
+
+Eq. (2.11) localizes the *kernel*. Read strictly it leaves Eq. (2.5)'s launch
+state `V_dk_i(R) χ_v(R)` alone, while the LCP this repository ships launches
+`√(Γ_L(R)/2π) χ_v(R)` — `Γ_L = Γ(E_res(R), R)`, evaluated at the resonance
+position rather than the incident energy, and therefore energy-independent.
+Those are not the same vector: measured overlap **0.569**, norm ratio **4.03**.
+So there are three models, not two, and running all three on one deck separates
+what the kernel costs from what the doorway costs (TI values, `σ_DA` in bohr²):
+
+| E (Ha) | nonlocal | local kernel + Eq. (2.5) launch | LCP (local kernel + local doorway) |
+|---|---|---|---|
+| 0.02 | 3.443 | 4.118 | 1.433 |
+| 0.03 | 1.559 | 1.862 | 1.116 |
+| 0.05 | 0.296 | 0.0423 | 0.0586 |
+
+At 0.02 and 0.03 Ha, localizing the kernel alone moves `σ` by ~20% while the
+full LCP is off by 2.4× and 1.4× — i.e. **most of the LCP's error on F₂ comes
+from the local doorway, not from the Markovian kernel**. At 0.05 Ha the ordering
+inverts and both approximations are wrong in different directions. This is a
+one-deck, one-molecule measurement on a reduced electronic grid, not a general
+claim.
+
+`lcp_initial_packet` implements the LCP doorway, because reproducing
+`qscat.core.lcp` is what `markovian=True` is *for*; the hybrid above is a
+measurement, not a shipped option.
+
+### 6.4 The packet: no splitting on F₂
+
+PRA 47's mechanism for the H₂⁻ LCP failure is a **temporary splitting of the
+nonlocal packet between ≈2 and ≈5 fs** that a single complex curve cannot
+reproduce (p. 1041). On F₂ at E = 0.03 Ha, propagating the nonlocal and the
+local Hamiltonians **from the same Eq. (2.5) launch state** — the comparison
+that isolates the kernel — there is no such thing:
+
+| t (fs) | 0 | 2.4 | 2.9 | 3.4 | 3.9 | 4.8 | 6.8 | 9.7 |
+|---|---|---|---|---|---|---|---|---|
+| nonlocal, density peaks >10% of max | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| local, density peaks >10% of max | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| nonlocal, `ΔR` (bohr) | 0.059 | 0.066 | 0.082 | 0.086 | 0.064 | 0.062 | 0.072 | 0.098 |
+| local, `ΔR` (bohr) | 0.059 | 0.071 | 0.089 | 0.100 | 0.086 | 0.074 | 0.074 | 0.093 |
+
+Both stay unimodal; both show the *same* transient width bulge peaking near
+3.4 fs and then contracting, which is a breathing motion of one packet rather
+than two. Over the full run the two are nearly indistinguishable in the
+Eq. (4.5)/(4.6) moments — `⟨R⟩` agrees to ≤0.01 bohr and `⟨P⟩` to ≤0.15 a.u. at
+every sample through T = 4000 — and differ only in an early, one-off norm loss:
+`S(t)/S(0)` plateaus at **0.9368** for the nonlocal against **0.9733** for the
+local, the whole gap opening inside the first ~4 fs and nothing changing after.
+
+The shipped LCP's packet *does* look different — `S/S₀` drops to 0.663 at once,
+`⟨P⟩` runs ~55 against ~40, and it reaches the absorber ~10 fs earlier — but
+that is the doorway of §6.3, not the kernel.
+
+**This is a negative result about F₂, not about PRA 47.** F₂ is the molecule
+where the nonlocal model reproduces the exact oracle to 0.06–0.33%
+(`nonlocal-resonance-model.md` §7.1); a mechanism the paper found in a system
+whose LCP fails by 14× is not expected to show up here, and the honest reading
+is that F₂ is a poor place to look for it.
+
+## 7. Limits — what this does not establish
 
 - **The TD/TI agreement validates the propagation, not the model.** Both routes
   run on the same grids with the same ingredients, so shared discretisation error
@@ -308,11 +434,16 @@ reaches 10 by `T = 4000` at `n_states = 3` while the complete set falls to ~0.6.
   insensitive to it (3–4 significant figures), but the fixture's absolute `σ_TI`
   is **not** the converged F₂ cross section.
 - **No production-electronic-deck data point exists** on any molecule yet.
-- **Vibrational excitation is not yet implemented** in the time domain, nor the
-  Markovian (LCP) limit — so the comparison Gertitschke & Domcke's paper is built
-  around is not yet reproducible here.
+- **Vibrational excitation is not yet implemented** in the time domain.
+- **§6's packet comparison is F₂ at one energy on the reduced electronic deck.**
+  It says what the Markovian collapse does *there*; PRA 47's H₂⁻ is a different
+  molecule with a 14× LCP failure, and nothing here contradicts or reproduces it.
+- **The Markovian gate validates the propagation, not the LCP.** It shows the
+  time-domain and frequency-domain routes to `qscat.core.lcp`'s own model agree;
+  how good that model is remains
+  `docs/physics/nonlocal-resonance-model.md`'s question.
 
-## 7. Literature
+## 8. Literature
 
 - **PRA 47, 1031 (1993)** — `reference/literature/gertitschke-1993-pra47-1031.md`.
   The time-dependent nonlocal equation of motion Eq. (2.1)–(2.5), the amplitude

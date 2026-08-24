@@ -72,7 +72,13 @@ from .nonlocal_potential import (
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["LaunchBasis", "extended_hamiltonian", "initial_packet"]
+__all__ = [
+    "LaunchBasis",
+    "extended_hamiltonian",
+    "initial_packet",
+    "lcp_initial_packet",
+    "lcp_limit_hamiltonian",
+]
 
 
 def extended_hamiltonian(
@@ -129,6 +135,69 @@ def extended_hamiltonian(
     diag_arms = cast("sp.csr_matrix", sp.block_diag(arms, format="csr", dtype=np.complex128))
     blocks: list[list[sp.csr_matrix | None]] = [[h_d, coup], [off_diag, diag_arms]]
     out = cast("sp.csr_matrix", sp.bmat(blocks, format="csr"))
+    return out
+
+
+def lcp_limit_hamiltonian(
+    nuclear_grid: FemDvrEcsGrid,
+    model: ResonanceModel,
+    v_res: npt.NDArray[np.complex128],
+) -> sp.csr_matrix:
+    """PRA 47 Eq. (2.15): the `d`-block alone, with a LOCAL complex potential.
+
+        i d/dt Psi_d = [T_N + V_d(R) + Delta_L(R) - (i/2) Gamma_L(R)] Psi_d
+
+    Eq. (2.11) is the statement this builds on: the memory kernel of Eq. (2.1)
+    collapses to `i[Delta_L(R) - (i/2)Gamma_L(R)] delta(R-R') delta(t)`, i.e.
+    the local complex potential IS the Markovian approximation to the nonlocal
+    model. Localizing the kernel removes the arms entirely, so this is
+    `extended_hamiltonian` with `n_states=0` and a different diagonal -- and
+    `N_R` square instead of `(1 + n_states) * N_R`, which is why the local
+    route costs seconds where the nonlocal one costs tens of minutes.
+
+    WHICH `V_d` GOES IN `v_res`, AND WHY IT IS NOT THIS PACKAGE'S. Eq. (2.14),
+    `E_res(R) - V_d(R) + V_0(R) - Delta(E_res(R),R) = 0`, rearranges to
+    `V_d + Delta_L = E_res + V_0`, so Eq. (2.15)'s bracket is the RESONANCE
+    POSITION plus the neutral curve -- exactly `qscat.core.lcp`'s `Vd` (whose
+    `model.surface` already carries `v0`), NOT this package's
+    `NrmIngredients.v_d_discrete` (PRA 77 Eq. 20, which is `V_d` WITHOUT the
+    level shift `Delta_L`). The two differ by 0.0053 Ha on F2 and 0.0229 Ha on
+    NO at the doorway (`docs/physics/nonlocal-resonance-model.md` sec. 4), and
+    that difference is not cosmetic: substituting `v_d_discrete` for
+    `qscat.core.lcp`'s `Vd` here does NOT reproduce
+    `lcp_da_cross_section` (measured ratios in
+    `docs/physics/nrm-time-dependent.md` sec. 6). Callers therefore build
+    `v_res = Vd - (i/2) Gamma` from `qscat.core.lcp.local_complex_potential`.
+    Passing `v_res` in rather than computing it keeps `qscat.core.nrm` from
+    depending on `qscat.core.lcp`, and keeps that measurement reproducible
+    from outside.
+
+    Parameters
+    ----------
+    nuclear_grid : FemDvrEcsGrid
+        The nuclear radial grid.
+    model : ResonanceModel
+        Consumed only for `model.mu`.
+    v_res : ndarray
+        `V_d + Delta_L - (i/2) Gamma_L` on the FULL nuclear grid (real nodes
+        and ECS tail), `nuclear_grid.n` entries.
+
+    Returns
+    -------
+    sp.csr_matrix
+        `T_N + diag(v_res)`, `(N_R, N_R)`, complex symmetric.
+
+    Raises
+    ------
+    ValueError
+        If `v_res` does not have one entry per nuclear grid point.
+    """
+    v = np.asarray(v_res, dtype=np.complex128)
+    if v.shape != (nuclear_grid.n,):
+        raise ValueError(
+            f"v_res has shape {v.shape}, expected ({nuclear_grid.n},) -- one entry per nuclear node"
+        )
+    out: sp.csr_matrix = (kinetic_sparse(nuclear_grid, model.mu) + sp.diags(v)).tocsr()
     return out
 
 
@@ -282,4 +351,89 @@ def initial_packet(
         energies=e,
         e_total=e + float(eps[v_init]),
         truncation_error=truncation_error,
+    )
+
+
+def lcp_initial_packet(
+    nuclear_grid: FemDvrEcsGrid,
+    gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    energies: npt.ArrayLike,
+) -> LaunchBasis:
+    """The LOCAL launch state `sqrt(Gamma_L(R)/2pi) chi_v(R)`, as a rank-1 basis.
+
+    The Markovian counterpart of `initial_packet`, and the doorway
+    `qscat.core.lcp.lcp_da_cross_section` already solves with. It is
+    ENERGY-INDEPENDENT -- `Gamma_L(R) = Gamma(E_res(R), R)` (PRA 47 Eq. 2.12a)
+    is evaluated at the R-dependent resonance position, not at the incident
+    energy -- so the launch matrix is EXACTLY rank 1 and no SVD is taken: the
+    single column is the normalized doorway and `coeffs` is its norm repeated
+    across energies. Rank 1 is what Eq. (2.17) claims for the nonlocal launch
+    state under Eq. (2.16)'s separability; here it is not an approximation but
+    the shape of the local model.
+
+    WHY THIS DOORWAY AND NOT `initial_packet`'s. Eq. (2.11) localizes the
+    KERNEL; read strictly, Eq. (2.5)'s launch state `V_dk_i(R) chi_v(R)` is
+    untouched by it, and `V_dk_i` carries the INCIDENT energy `E_i` where
+    `Gamma_L` carries `E_res(R)`. The two coincide only under Eq. (2.16)'s
+    separability with an `E`-independent `Gamma(E)`, which these models do not
+    have. `qscat.core.lcp` -- the local model this repository ships, measures,
+    and calls "the LCP" -- uses `sqrt(Gamma_L/2pi) chi_v`, so that is what the
+    Markovian route must use to be comparable to it at all. Keeping Eq. (2.5)'s
+    launch against the local kernel is a THIRD model, neither the shipped LCP
+    nor the nonlocal one; it is measured and reported in
+    `docs/physics/nrm-time-dependent.md` sec. 6 rather than offered as an
+    option here.
+
+    Parameters
+    ----------
+    nuclear_grid : FemDvrEcsGrid
+        The nuclear radial grid.
+    gamma : ndarray
+        `Gamma_L(R) >= 0` on the full nuclear grid (`qscat.core.lcp.
+        local_complex_potential`'s second return), `nuclear_grid.n` entries.
+    eps, chi : ndarray
+        Neutral vibrational energies and states (`qscat.core.vibrational`),
+        exactly as on `initial_packet`.
+    v_init : int
+        Initial vibrational level.
+    energies : array_like
+        Incident electron kinetic energies (hartree), all strictly positive.
+        They enter only through `e_total`; the launch column itself is the
+        same for every one of them.
+
+    Returns
+    -------
+    LaunchBasis
+        `rank == 1`, `truncation_error == 0.0` (exact, not truncated).
+
+    Raises
+    ------
+    ValueError
+        If any energy is non-positive, if `gamma` is not one entry per
+        nuclear node, or if the doorway vanishes identically (a `Gamma`
+        that is zero everywhere describes no resonance at all).
+    """
+    e = np.atleast_1d(np.asarray(energies, dtype=np.float64))
+    if np.any(e <= 0.0):
+        raise ValueError("incident energies must be positive")
+    g = np.asarray(gamma, dtype=np.float64)
+    if g.shape != (nuclear_grid.n,):
+        raise ValueError(
+            f"gamma has shape {g.shape}, expected ({nuclear_grid.n},) -- one entry per nuclear node"
+        )
+
+    doorway = np.sqrt(g / (2.0 * np.pi)).astype(np.complex128) * chi[v_init]
+    norm = float(np.linalg.norm(doorway))
+    if norm == 0.0:
+        raise ValueError("the LCP doorway sqrt(Gamma/2pi)*chi is identically zero")
+
+    return LaunchBasis(
+        vectors=(doorway / norm)[:, None],
+        coeffs=np.full((1, e.size), norm, dtype=np.complex128),
+        energies=e,
+        e_total=e + float(eps[v_init]),
+        truncation_error=0.0,
     )

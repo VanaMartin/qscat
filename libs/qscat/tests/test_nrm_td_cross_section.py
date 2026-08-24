@@ -11,9 +11,11 @@ from __future__ import annotations
 import numpy as np
 import pytest
 from qscat.core.grids import electronic_grid, segmented_grid
+from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
 from qscat.core.nrm.dissociation import nrm_da_cross_section
 from qscat.core.nrm.ingredients import nrm_ingredients
+from qscat.core.nrm.nonlocal_potential import continue_to_tail
 from qscat.core.nrm.td_cross_section import td_nrm_da_cross_section
 from qscat.core.vibrational import vibrational_states
 from qscat.model import F2
@@ -220,3 +222,168 @@ def test_td_da_matches_the_time_independent_cross_section(f2_deck):
     assert np.all(want > 0.0), "the TI oracle is zero -- pick open energies"
     rel = np.abs(got - want) / want
     assert np.all(rel < 5e-2), f"sigma_TD/sigma_TI = {got / want}"
+
+
+@pytest.fixture(scope="module")
+def f2_lcp(f2_deck):
+    """`(V_d(R), Gamma(R))` for the same F2 deck the nonlocal route uses.
+
+    Built on the fixture's own REDUCED electronic grid, plus a second copy of
+    it at a different ECS angle (`local_complex_potential` needs two to match
+    the pole). That is not a compromise here: every comparison below is
+    DIFFERENTIAL -- the shipped `lcp_da_cross_section` and the Markovian
+    propagation consume this same curve -- so the curve only has to be a
+    curve, not a converged one. It costs ~3 s.
+    """
+    nuc, elec, _, _, _, _ = f2_deck
+    elec_b = electronic_grid(r_max=13.0, order=5, n_complex=2, angle_deg=40.0)
+    return local_complex_potential(F2, nuc, elec, elec_b)
+
+
+def test_markovian_requires_the_local_potential(small_deck):
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    with pytest.raises(ValueError, match="needs both Vd and Gamma"):
+        td_nrm_da_cross_section(
+            nuc, elec, F2, phi_d, eps, chi, 0, 0.03, markovian=True, dt=1.0, n_steps=2
+        )
+
+
+def test_the_local_potential_is_rejected_without_markovian(small_deck):
+    """Silently ignoring `Vd`/`Gamma` would return a nonlocal answer to a local call."""
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    with pytest.raises(ValueError, match="markovian=True arguments"):
+        td_nrm_da_cross_section(
+            nuc,
+            elec,
+            F2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            0.03,
+            Vd=np.zeros(nuc.n, dtype=np.complex128),
+            Gamma=np.zeros(nuc.n),
+            dt=1.0,
+            n_steps=2,
+        )
+
+
+def test_markovian_rejects_an_arm_count(small_deck):
+    nuc, elec, phi_d, ing, eps, chi = small_deck
+    with pytest.raises(ValueError, match="no projected-state arms"):
+        td_nrm_da_cross_section(
+            nuc,
+            elec,
+            F2,
+            phi_d,
+            eps,
+            chi,
+            0,
+            0.03,
+            markovian=True,
+            n_states=3,
+            Vd=np.zeros(nuc.n, dtype=np.complex128),
+            Gamma=np.ones(nuc.n),
+            dt=1.0,
+            n_steps=2,
+        )
+
+
+@pytest.mark.slow
+def test_markovian_limit_reproduces_the_lcp_cross_section(f2_deck, f2_lcp):
+    """GATE: PRA 47 Eq. (2.11) -- the LCP *is* the Markovian limit.
+
+    Eq. (2.11) collapses the memory kernel to `i[Delta_L - (i/2)Gamma_L]
+    delta(R-R') delta(t)`, leaving Eq. (2.15)'s one-curve propagation. That is
+    the model `qscat.core.lcp.lcp_da_cross_section` already solves in the
+    frequency domain, so the two must return the same number -- and the
+    agreement is a DIFFERENTIAL one (same deck, same `(V_d, Gamma)`, same
+    Eq. (54) extraction), which is why it can be gated tightly.
+
+    Measured 2026-08-24 at `dt=2, T=12000`: `sigma_TD/sigma_TI` =
+    1.000215 / 1.000198 / 0.999892 at E = 0.02 / 0.03 / 0.05 Ha. The residual
+    is transform truncation and nothing else -- dt = 1, 2 and 4 reproduce
+    those three ratios to all six digits printed, so the `dt^6` propagation
+    error is far below it, and extending `T` shrinks it (max |ratio-1| =
+    2.4e-2 / 1.3e-3 / 2.2e-4 / 3.6e-4 / 7.7e-5 at T = 4000 / 8000 / 12000 /
+    16000 / 20000, the last two being oscillation about the converged value).
+    The gate sits at 5e-3, ~14x the worst measured residual in that
+    stationary range -- far tighter than the nonlocal route's 5e-2, which it
+    should be: this comparison has no model difference in it at all.
+
+    It is CHEAP, unlike the nonlocal gate: no arms means `H_ext` is `N_R`
+    square (974) rather than `(1 + n_states) * N_R` (53570), so 6000 steps
+    cost ~4 s against ~30 min. It carries `@slow` for the fixtures it shares
+    (the electronic pole walk and the deck build), not for the propagation.
+    """
+    nuc, elec, phi_d, _, eps, chi = f2_deck
+    Vd, Gamma = f2_lcp
+    energies = np.array([0.02, 0.03, 0.05])
+
+    want = lcp_da_cross_section(nuc, F2.mu, Vd, Gamma, eps, chi, 0, energies)
+    got = td_nrm_da_cross_section(
+        nuc,
+        elec,
+        F2,
+        phi_d,
+        eps,
+        chi,
+        0,
+        energies,
+        markovian=True,
+        Vd=Vd,
+        Gamma=Gamma,
+        dt=2.0,
+        n_steps=6000,
+    )
+    assert np.all(want > 0.0), "the LCP reference is zero -- pick open energies"
+    rel = np.abs(got - want) / want
+    assert np.all(rel < 5e-3), f"sigma_TD/sigma_LCP = {got / want}"
+
+
+@pytest.mark.slow
+def test_the_discrete_state_potential_does_not_reproduce_the_lcp(f2_deck, f2_lcp):
+    """The OTHER `V_d` -- and why Eq. (2.15) cannot be read as taking it.
+
+    PRA 77 Eq. (20)'s `V_d = V_0 + <phi_d|H_el|phi_d>` (`NrmIngredients.
+    v_d_discrete`) and `qscat.core.lcp`'s `Vd` (`E_res(R) + V_0`) are the two
+    candidates for Eq. (2.15)'s bracket, and the paper's own Eq. (2.14),
+    `V_d + Delta_L = E_res + V_0`, says the second one is what belongs there:
+    the first is missing the level shift `Delta_L`. Measured rather than
+    argued -- swapping it in gives `sigma/sigma_LCP` = 0.346 / 0.419 / 7.14 at
+    E = 0.02 / 0.03 / 0.05 Ha (2026-08-24, this fixture, dt=2, T=12000), a
+    disagreement that is large AND energy-dependent, i.e. not a normalization
+    anyone could absorb.
+
+    The two potentials agree exactly where `Gamma = 0` and separate only where
+    it does not, which is `Delta_L`'s own support: measured on this deck,
+    `V_d(Eq.20) - V_d(LCP)` = 2e-6 / 4e-5 / 9.5e-4 / 0.042 / 0.27 / 1.17 Ha at
+    R = 3.99 / 3.50 / 3.01 / 2.49 / 2.20 / 1.51 bohr, against `Gamma` = 0 for
+    the first three and 0.0095 for the last three.
+
+    This test exists so that reading is not re-litigated by a later
+    "simplification" that reaches for the `ing` already in scope.
+    """
+    nuc, elec, phi_d, ing, eps, chi = f2_deck
+    Vd, Gamma = f2_lcp
+    energies = np.array([0.02, 0.03, 0.05])
+
+    want = lcp_da_cross_section(nuc, F2.mu, Vd, Gamma, eps, chi, 0, energies)
+    vd_eq20 = continue_to_tail(ing.v_d_discrete, ing.R, nuc)
+    got = td_nrm_da_cross_section(
+        nuc,
+        elec,
+        F2,
+        phi_d,
+        eps,
+        chi,
+        0,
+        energies,
+        markovian=True,
+        Vd=vd_eq20,
+        Gamma=Gamma,
+        dt=2.0,
+        n_steps=6000,
+    )
+    ratio = got / want
+    assert np.all(np.abs(ratio - 1.0) > 0.3), f"sigma/sigma_LCP = {ratio}"

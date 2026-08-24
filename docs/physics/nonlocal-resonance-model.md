@@ -281,6 +281,17 @@ The paper states the two "almost coincide" for the *physical* discrete state
 molecule's doorway peak, `|V_d(B) − V_d(LCP)|` is 0.0053 Ha for F₂ and 0.0229 Ha for
 NO. Anything that reads one for the other is wrong by that much.
 
+**How much that is, on an observable.** Gertitschke & Domcke, Phys. Rev. A **47**,
+1031 (1993) Eq. (2.15) propagates `T_N + V_d + Δ_L − (i/2)Γ_L`, and its Eq. (2.14)
+fixes which of the two goes in: `V_d + Δ_L = E_res + V_0`, i.e. the LCP `Vd`, with
+`v_d_discrete` short by the level shift `Δ_L`. Substituting `v_d_discrete` there
+anyway and running the resulting propagation against `lcp_da_cross_section` on one
+F₂ deck gives `σ/σ_LCP` = **0.346 / 0.419 / 7.14** at E = 0.02 / 0.03 / 0.05 Ha,
+against **1.000215 / 1.000198 / 0.999892** for the correct reading — so the
+confusion is worth orders, not percent, and it changes direction with energy.
+Details and the `Γ`-supported `V_d` difference profile:
+`docs/physics/nrm-time-dependent.md` §6.1.
+
 ## 5. What the implementation adds that the paper does not describe
 
 Two things, both necessary, and they are where a molecule-specific corruption could

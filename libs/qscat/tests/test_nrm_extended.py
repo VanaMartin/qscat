@@ -9,11 +9,15 @@ from qscat.core.grids import electronic_grid, segmented_grid
 from qscat.core.nrm.coupling import v_dk_plus
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
 from qscat.core.nrm.dissociation import _boundary_node
-from qscat.core.nrm.extended import extended_hamiltonian
+from qscat.core.nrm.extended import (
+    extended_hamiltonian,
+    lcp_initial_packet,
+    lcp_limit_hamiltonian,
+)
 from qscat.core.nrm.ingredients import NrmIngredients, nrm_ingredients
 from qscat.core.nrm.nonlocal_potential import continue_to_tail, nonlocal_operator
 from qscat.core.vibrational import vibrational_states
-from qscat.dvr import kinetic
+from qscat.dvr import kinetic, kinetic_sparse
 from qscat.model import F2
 from scipy.sparse.linalg import spsolve
 
@@ -244,3 +248,87 @@ def test_full_rank_reconstructs_every_column_exactly(nuc, elec, ing):
         )
         got = recon[: nuc.n, j]
         assert np.linalg.norm(got - direct) / np.linalg.norm(direct) < 1e-10
+
+
+def _lcp_like(grid):
+    """A synthetic `(V_d, Gamma)` pair with the shape a real LCP curve has.
+
+    `local_complex_potential`'s own curve costs an electronic pole walk and
+    would make these conventions tests slow for no gain: nothing below depends
+    on the curve being physical, only on it being a full-grid `(complex, real
+    >= 0)` pair whose `Gamma` vanishes on the ECS tail.
+    """
+    pts = grid.points
+    v_d = F2.v0(pts).astype(np.complex128)
+    gamma = np.where(pts.imag == 0.0, 0.01 * np.exp(-((pts.real - 2.5) ** 2)), 0.0)
+    return v_d, np.asarray(gamma.real, dtype=np.float64)
+
+
+def test_lcp_limit_hamiltonian_is_the_local_nuclear_operator(nuc):
+    """PRA 47 Eq. (2.15): `T_N + diag(V_d + Delta_L - (i/2)Gamma_L)`, nothing else.
+
+    Byte-for-byte the operator `qscat.core.lcp.lcp_da_cross_section` builds as
+    its `H_res`, which is what makes the two routes comparable at all -- so it
+    is checked against that assembly, not against a paraphrase of it.
+    """
+    v_d, gamma = _lcp_like(nuc)
+    v_res = v_d - 0.5j * gamma
+    h = lcp_limit_hamiltonian(nuc, F2, v_res)
+    assert h.shape == (nuc.n, nuc.n)
+    want = (kinetic_sparse(nuc, F2.mu) + sp.diags(v_res)).tocsr()
+    assert np.allclose(h.toarray(), want.toarray(), rtol=0.0, atol=0.0)
+
+
+def test_lcp_limit_hamiltonian_is_complex_symmetric(nuc):
+    """ECS makes it symmetric, never Hermitian -- `.T`, not `.conj().T`.
+
+    A local complex potential is a plain diagonal, so this cannot fail through
+    the potential; it fails if the kinetic assembly is ever swapped for a
+    Hermitian one, which would quietly reinstate `Gamma` as a real absorber.
+    """
+    v_d, gamma = _lcp_like(nuc)
+    h = lcp_limit_hamiltonian(nuc, F2, v_d - 0.5j * gamma).toarray()
+    assert np.allclose(h, h.T, rtol=1e-14, atol=1e-14)
+    assert not np.allclose(h, h.conj().T)
+
+
+def test_lcp_limit_hamiltonian_rejects_a_mismatched_potential(nuc):
+    with pytest.raises(ValueError, match="one entry per nuclear node"):
+        lcp_limit_hamiltonian(nuc, F2, np.zeros(nuc.n - 1, dtype=np.complex128))
+
+
+def test_lcp_initial_packet_is_exactly_rank_one(nuc):
+    """The local doorway is energy-INDEPENDENT, so the launch basis is rank 1.
+
+    Not "numerically low rank" like `initial_packet`'s -- `Gamma_L(R) =
+    Gamma(E_res(R), R)` carries no incident energy at all, so every column of
+    the launch matrix is the same vector and the reconstruction is exact by
+    construction rather than by truncation. `truncation_error` must say so:
+    a nonzero value here would mean an SVD was taken of a matrix that did not
+    need one, and would misreport round-off as model error.
+    """
+    _, gamma = _lcp_like(nuc)
+    eps, chi = vibrational_states(nuc, F2.mu, 3, F2.v0)
+    energies = np.array([0.02, 0.03, 0.05])
+    launch = lcp_initial_packet(nuc, gamma, eps, chi, 0, energies)
+
+    assert launch.rank == 1
+    assert launch.truncation_error == 0.0
+    assert np.allclose(launch.e_total, energies + eps[0])
+
+    want = np.sqrt(gamma / (2.0 * np.pi)).astype(np.complex128) * chi[0]
+    got = launch.vectors @ launch.coeffs
+    assert got.shape == (nuc.n, energies.size)
+    for j in range(energies.size):
+        assert np.allclose(got[:, j], want, rtol=1e-13, atol=0.0)
+
+
+def test_lcp_initial_packet_rejects_bad_input(nuc):
+    _, gamma = _lcp_like(nuc)
+    eps, chi = vibrational_states(nuc, F2.mu, 3, F2.v0)
+    with pytest.raises(ValueError, match="energies must be positive"):
+        lcp_initial_packet(nuc, gamma, eps, chi, 0, np.array([0.03, -0.01]))
+    with pytest.raises(ValueError, match="one entry per nuclear node"):
+        lcp_initial_packet(nuc, gamma[:-1], eps, chi, 0, np.array([0.03]))
+    with pytest.raises(ValueError, match="identically zero"):
+        lcp_initial_packet(nuc, np.zeros(nuc.n), eps, chi, 0, np.array([0.03]))
