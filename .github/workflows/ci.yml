@@ -55,6 +55,18 @@ jobs:
       # every worker that touches the module build its own copy. Keeping a file
       # on one worker bounds that to one copy per file.
       - name: Test (fast suite; MUMPS tests skip without a system MUMPS)
+        # One BLAS thread per worker. The runner has 4 vCPU, `-n auto` starts 4
+        # workers, and OpenBLAS defaults to one thread per core in EACH of them
+        # -- 16 threads contending for 4 cores. Measured: without this, the step
+        # ran past 22 min (SLOWER than the 24.7 min it took serially before any
+        # of this work) while the identical command takes 123 s locally at
+        # `-n 4`. It does not reproduce on macOS because scipy there links
+        # Accelerate, which does not oversubscribe the same way -- pinning
+        # changed nothing locally (74.6 s vs 76.1 s at a saturating `-n 12`).
+        env:
+          OMP_NUM_THREADS: "1"
+          OPENBLAS_NUM_THREADS: "1"
+          MKL_NUM_THREADS: "1"
         run: uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile
 
   build:
