@@ -24,11 +24,48 @@ uv sync --all-packages   # NOT plain `uv sync` — that prunes the workspace mem
 uv run ruff check .            # lint
 uv run ruff format .           # format
 uv run mypy libs/qscat/qscat   # types (strict, clean over the library)
-uv run pytest -m "not slow"    # fast test suite
-uv run pytest                  # full suite incl. @slow (production-scale)
+
+# The fast tier -- toy-scale, and the one CI gates on.
+uv run pytest -m "not slow" -n auto --dist loadfile
 ```
 
 CI runs the same on 3.12/3.13, plus a clean-venv import check and `twine check`.
+
+### The two test tiers
+
+The suite is tiered by COST, not by importance — see
+`docs/adr/0005-test-tiers-fast-and-slow.md`. The default tier is toy-scale and
+runs on every push; `@pytest.mark.slow` is production-scale physics (real
+molecule decks, converged grids, multi-thousand-step propagations) and runs
+only locally, in the Docker `test` image, or on demand in CI.
+
+```bash
+uv run pytest -m slow          # the production tier: SERIAL, minutes and gigabytes
+docker/build.sh test           # both tiers, with MUMPS
+```
+
+Two rules worth knowing before you add a test:
+
+- **A test needing more than a few seconds or ~0.5 GB belongs in `slow` — or
+  wants a smaller deck.** Ask which applies. If what is under test is plumbing
+  (shapes, cadences, dispatch), assert it on a toy deck and keep it in the gate.
+- **Never pair `-n` with the full suite.** Parallelising the slow tier
+  schedules multi-GB decks against each other with nothing bounding the total;
+  one example alone peaks near 19 GB. Parallelise the fast tier or nothing.
+
+### Asking CI to run the production tier
+
+CI does not run the slow tier by default, so a change that moves a number can
+merge green. When reviewing, apply the label covering what changed and the
+**Validation** workflow runs that suite:
+
+`validate:core` · `validate:n2` · `validate:diatomic` · `validate:h2plus` ·
+`validate:tuning` · `validate:run` · `validate:all`
+
+A path filter cannot make this judgement — a one-line kernel edit can
+invalidate every cross section while a large refactor changes nothing — so the
+workflow only nudges: when calculation-bearing source changes with no label, it
+writes an advisory note to the run summary and does not fail the build.
 
 ## Writing documentation
 

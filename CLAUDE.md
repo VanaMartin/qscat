@@ -602,11 +602,15 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     verbatim (no toolchain there to re-sync/rebuild the Rust kernel);
     `runtime` also installs **ffmpeg** for the `.mp4` writer. `test-deps`
     (`FROM build`) additionally adds `--extra mumps` so the MUMPS backend is
-    available but runs no tests; `test` is `FROM test-deps` and adds the
-    `pytest -q` run. `test-deps`/`test` are deliberately separate targets so
-    that pulling in MUMPS/plot for a compute run (`docker/run.sh`, which
-    builds `test-deps`) never also pays for, or is blocked by, a full suite
-    run (~38 min measured) — only `docker/build.sh test` reaches `test`. The
+    available but runs no tests; `test` is `FROM test-deps` and adds BOTH
+    tiers, run differently (docs/adr/0005): the fast tier in parallel
+    (`-m "not slow" -n auto --dist loadfile`) and the slow tier SERIAL, since
+    those decks are sized in gigabytes and concurrency would OOM a container
+    before it saved wall-clock. Measured on a 32-core x86 host: fast 31 s,
+    slow 13m31s at `-n 4`. `test-deps`/`test` are deliberately separate
+    targets so that pulling in MUMPS/plot for a compute run (`docker/run.sh`,
+    which builds `test-deps`) never also pays for, or is blocked by, a full
+    suite run — only `docker/build.sh test` reaches `test`. The
     `mumps` extra stays test-only (`runtime` omits it, keeping python-mumps
     out of the production image). Both MUMPS and the `.mp4` viz test run in
     the container and `@skipif`/`@skip`-absent on a bare Mac (no system

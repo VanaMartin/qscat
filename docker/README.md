@@ -20,8 +20,13 @@ swappable purely via `BASE_IMAGE`.
    layers `build` → `test-deps` → `test` → `runtime` on top. Setup uses the canonical
    `uv sync --all-packages`, which installs `qscat` and builds the Rust `qscat_kernels`
    in one step. `test-deps` adds the `mumps`/`plot` extras only — no test execution;
-   `test` is `FROM test-deps` and runs the full `pytest -q` suite, so building/running
-   test dependencies never silently pays for (or is blocked by) a full suite run. The
+   `test` is `FROM test-deps` and runs BOTH test tiers (`docs/adr/0005`), but not the
+   same way: the fast tier in parallel (`-m "not slow" -n auto --dist loadfile`) and the
+   slow tier SERIAL, because those decks are sized in gigabytes and running them
+   concurrently would OOM a container long before it saved wall-clock. This image is
+   where the slow tier actually runs — GitHub CI never runs it except on a
+   `validate:*` label. Building `test-deps` alone therefore never silently pays for (or
+   is blocked by) a full suite run. The
    `runtime` stage starts fresh from the upstream uv/Python image and installs only the
    non-dev shared libs (`libopenblas0`, `libfftw3-double3`, `liblapacke`) needed at
    runtime — no compilers, no `-dev` headers, no `mumps` extra.
