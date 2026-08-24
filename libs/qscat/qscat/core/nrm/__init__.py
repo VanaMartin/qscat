@@ -27,6 +27,7 @@ from .discrete_state import (
 )
 from .dissociation import nrm_da_cross_section
 from .ingredients import NrmIngredients, nrm_ingredients
+from .td_cross_section import td_nrm_da_cross_section
 from .vibrational_excitation import nrm_ve_cross_section
 
 __all__ = [
@@ -37,4 +38,5 @@ __all__ = [
     "nrm_da_cross_section",
     "nrm_ingredients",
     "nrm_ve_cross_section",
+    "td_nrm_da_cross_section",
 ]
