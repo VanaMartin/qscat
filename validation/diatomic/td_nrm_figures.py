@@ -103,7 +103,7 @@ from qscat.core.nrm.extended import LaunchBasis, extended_hamiltonian, initial_p
 from qscat.core.nrm.nonlocal_potential import continue_to_tail
 from qscat.core.nrm.propagation import TdNrmResult, propagate_nrm
 from qscat.core.vibrational import vibrational_states
-from qscat.dvr import FemDvrEcsGrid
+from qscat.dvr import FemDvrEcsGrid, dvr_interpolation_matrix
 from qscat.model import F2, N2, ResonanceModel
 
 __all__ = [
@@ -1134,37 +1134,62 @@ def render_vector(smoke: bool = False) -> dict[str, Any]:
     every = max(1, int(window.sum()) // 30)
     mark = np.flatnonzero(window)[::every]
 
+    # `ti`/`td` above are raw DVR COEFFICIENTS, c_j = psi(x_j) * sqrt(w_j), not
+    # wavefunction values -- correct for the difference panel below (the gate's
+    # rel = 1.7264e-4 is a coefficient-space norm), wrong to plot directly
+    # against R. On this nuclear deck the quadrature weight w_j varies 39x
+    # across this window (spacing ratio 21.9 grid-wide), so sqrt(w_j) alone
+    # manufactures visible cusps at the FEM element bridges even though
+    # `Psi_d` itself is smooth (confirmed by a leave-one-out neighbour-
+    # interpolation check and by the curvature of the projection below, ~10 --
+    # a genuine cusp reads in the hundreds). The fix is to evaluate the DVR
+    # INTERPOLANT between nodes rather than rescale node values:
+    # `dvr_interpolation_matrix` is exactly that operator and, being built for
+    # the sqrt(w)-scaled coefficient vector `qscat.viz` states are stored as,
+    # consumes `want`/`got` directly. The TD curve stays at the propagation's
+    # own checkpoints (values c_j / sqrt(w_j) at the nodes) rather than being
+    # interpolated too, so the overlay shows one smooth reference (TI) against
+    # the actual discrete samples (TD) instead of two interpolants that could
+    # hide a disagreement between them.
+    axis = np.linspace(lo, hi, 400)
+    ti_proj = np.asarray(dvr_interpolation_matrix(deck.nuc, axis) @ want)
+    w_nodes = deck.nuc.weights[real][order]
+    td_value = td / np.sqrt(w_nodes)
+
     fig, (ax0, ax1) = plt.subplots(
         2, 1, figsize=(7.6, 6.6), sharex=True, gridspec_kw={"height_ratios": [2.0, 1.0]}
     )
-    ax0.plot(r, ti.real, "-", color="tab:blue", label=r"TI  $\mathrm{Re}\,\Psi_d$")
-    ax0.plot(r, ti.imag, "-", color="tab:orange", label=r"TI  $\mathrm{Im}\,\Psi_d$")
+    ax0.plot(axis, ti_proj.real, "-", color="tab:blue", label=r"TI  $\mathrm{Re}\,\Psi_d$")
+    ax0.plot(axis, ti_proj.imag, "-", color="tab:orange", label=r"TI  $\mathrm{Im}\,\Psi_d$")
     ax0.plot(
         r[mark],
-        td.real[mark],
+        td_value.real[mark],
         "o",
         color="tab:blue",
         markerfacecolor="none",
         markersize=6.0,
-        label=r"TD  $\mathrm{Re}\,\Psi_d$",
+        label=r"TD  $\mathrm{Re}\,\Psi_d$ (nodal values)",
     )
     ax0.plot(
         r[mark],
-        td.imag[mark],
+        td_value.imag[mark],
         "s",
         color="tab:orange",
         markerfacecolor="none",
         markersize=6.0,
-        label=r"TD  $\mathrm{Im}\,\Psi_d$",
+        label=r"TD  $\mathrm{Im}\,\Psi_d$ (nodal values)",
     )
-    ax0.set_ylabel(r"$\Psi_d(R; E)$  (DVR coefficient, a.u.)")
+    ax0.set_ylabel(r"$\Psi_d(R; E)$  (bohr$^{-1/2}$)")
     ax0.legend(loc="upper right", ncol=2)
     ax0.set_title(rf"$E = {VECTOR_ENERGY:g}$ Ha,  $T = {dt * n_steps:g}$,  $\Delta t = {dt:g}$")
 
     ax1.semilogy(r, np.maximum(diff, 1e-30), color="tab:red")
-    ax1.set_ylabel(r"$|\Psi_d^{\mathrm{TD}} - \Psi_d^{\mathrm{TI}}|$")
+    ax1.set_ylabel(r"$|\Psi_d^{\mathrm{TD}} - \Psi_d^{\mathrm{TI}}|$  (coeffs)")
     ax1.set_xlabel(r"internuclear distance  $R$  (bohr)")
-    ax1.set_title(rf"pointwise difference (relative vector error {rel:.3e}, whole vector)")
+    ax1.set_title(
+        f"pointwise difference, DVR coefficients -- relative vector error {rel:.3e},\n"
+        "the same coefficient-space norm the gate uses (whole vector)"
+    )
     ax1.set_xlim(lo, hi)
     top = float(diff[window].max())
     ax1.set_ylim(top * 1e-4, top * 5.0)
@@ -1187,6 +1212,9 @@ def render_vector(smoke: bool = False) -> dict[str, Any]:
         energy=np.asarray(VECTOR_ENERGY),
         dt=np.asarray(dt),
         n_steps=np.asarray(n_steps),
+        R_projected=axis,
+        psi_ti_projected=ti_proj,
+        psi_td_nodal_values=td_value,
     )
     plt.close(fig)
     return {"relative_error": rel}
