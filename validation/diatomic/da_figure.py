@@ -198,7 +198,6 @@ def write_figures(
     # A zero sigma means a closed channel, not a small one: drop it rather than
     # letting a log axis clip it to the bottom of the frame.
     ex = np.where(sigma_exact > 0.0, sigma_exact, np.nan)
-    _lo, _hi, worst = lcp_envelope(sigma_lcp)
     shipped = np.where(sigma_lcp[SHIPPED_RMAX] > 0.0, sigma_lcp[SHIPPED_RMAX], np.nan)
     outdir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
@@ -328,7 +327,6 @@ def main() -> None:
     energies = energies_for(args.molecule)
     sigma_exact, sigma_lcp = compute(args.molecule, energies, ladder=args.ladder)
     open_ = sigma_exact > 0.0
-    _lo, _hi, worst = lcp_envelope(sigma_lcp)
     shipped = sigma_lcp[SHIPPED_RMAX]
     print(
         f"{args.molecule}: {energies.size} energies, {int(open_.sum())} above the DA threshold; "
@@ -339,13 +337,25 @@ def main() -> None:
         f"[{(shipped[open_] / sigma_exact[open_]).min():.4g}, "
         f"{(shipped[open_] / sigma_exact[open_]).max():.4g}]"
     )
-    print(
-        f"  LCP r_max spread over {list(LCP_RMAX_LADDER)}: worst hi/lo = {worst:.4g} "
-        f"({'NOT converged -- reported, not plotted' if worst > 1.05 else 'converged'})"
-    )
-    for r in LCP_RMAX_LADDER:
-        v = sigma_lcp[r][open_]
-        print(f"    r_max={r:5g}: sigma_LCP in [{v.min():.4e}, {v.max():.4e}]")
+    if args.ladder:
+        # Only meaningful when the rungs were actually computed: over a single
+        # rung `lcp_envelope` returns 1 by construction, which would read as
+        # "converged" and assert the opposite of what the ladder measures.
+        _lo, _hi, worst = lcp_envelope(sigma_lcp)
+        print(
+            f"  LCP r_max spread over {list(LCP_RMAX_LADDER)}: worst hi/lo = {worst:.4g} "
+            f"({'UNDETERMINED -- reported, not plotted' if worst > 1.05 else 'converged'})"
+        )
+        for r in LCP_RMAX_LADDER:
+            v = sigma_lcp[r][open_]
+            print(f"    r_max={r:5g}: sigma_LCP in [{v.min():.4e}, {v.max():.4e}]")
+    else:
+        recorded = LCP_RMAX_SPREAD.get(args.molecule)
+        if recorded is not None:
+            print(
+                f"  LCP r_max spread (RECORDED 2026-08-24, not recomputed): "
+                f"{recorded:.3g}x over {list(LCP_RMAX_LADDER)} -- rerun with --ladder to refresh"
+            )
     for path in write_figures(args.molecule, energies, sigma_exact, sigma_lcp, args.outdir):
         print(f"wrote {path}")
 
