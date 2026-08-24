@@ -33,7 +33,7 @@ state is mixing across a gap, not that it is that level shifted.
 
 ## What the verdicts mean
 
-`pair_by_overlap` returns one of six, in priority order:
+`pair_by_overlap` returns one of seven, in priority order:
 
 | verdict | meaning |
 |---|---|
