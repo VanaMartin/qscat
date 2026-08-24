@@ -198,19 +198,27 @@ and `CLAUDE.md` quoted "~11% of exact" — both were reading the single crossing
 were a characteristic agreement. It is not: the LCP under-predicts below ~0.03 and
 over-predicts above it, and only *passes through* good agreement on the way.
 
-**That sweep is a real property of F₂'s deck, and the figure now shows why we can say
-so.** The LCP is drawn as its `r_max` ladder (16/32/48/64/80/96) rather than as a single
-curve, because NO's pole walk does not converge in the electronic box. On F₂ **five of
-the six walks agree to ~1.8 %**, so the shipped deck's curve is determined; only
-`r_max = 96` breaks, to a ratio range of [0.027, 3.51], and it is the stray line on
-that figure. On NO the spread is **3.98 × 10⁴** and the larger boxes produce deep
-oscillatory minima spanning 1e-6 to 1e-1 where the shipped deck is smooth and flat.
+**That sweep is a real property of F₂'s deck, and it was checked rather than assumed.**
+The LCP's `V_d`/`Γ` come from an ECS resonance-pole walk, which is not guaranteed to be
+independent of the electronic box, so the walk was rerun at
+`r_max` = 16/32/48/64/80/96 on both molecules. On F₂ **five of the six agree to ~1.8 %**
+— the shipped deck's curve is determined, and only `r_max = 96` breaks, to a ratio range
+of [0.027, 3.51]. On NO the spread is **3.98 × 10⁴**, non-monotone across the whole
+range, with the larger boxes producing deep oscillatory minima spanning 1e-6 to 1e-1
+where the shipped deck is smooth and flat.
 
-The distinction is worth stating precisely, because the two failures are not the same
-kind: **on F₂ the LCP's `V_d`/`Γ` are determined and wrong** by the documented
-energy-dependent factor; **on NO they are undetermined.** A single curve, or an
-envelope band, would have flattened that difference — an envelope in particular would
-have made F₂ look as undetermined as NO on the strength of one failed walk.
+The distinction matters, because the two failures are not the same kind: **on F₂ the
+LCP's `V_d`/`Γ` are determined and wrong** by the documented energy-dependent factor;
+**on NO they are undetermined** — a second defect, in NO's pole walk, independent of the
+volume-T-matrix one and still unfixed.
+
+**Those extra walks are not plotted, deliberately.** They are not alternative estimates
+of the same quantity: on NO the walk does not converge, so they are failed computations,
+and drawing them beside a real curve would invite a reader to average them or to read
+the spread as an uncertainty band. What the ladder establishes is a yes/no — whether the
+method determines `V_d`/`Γ` on that molecule at all — which is a sentence, not a curve.
+Each figure's legend carries its own verdict, and
+`validation/diatomic/da_figure.py --ladder` recomputes the spread on demand.
 
 (The older 13-point curve was not wrong — its endpoints match this dense run exactly — it was
 simply too sparse to show that the ratio never settles.)
@@ -248,7 +256,8 @@ to 5–6 significant figures even at 8.4568e-20 (E = 0.300), where the volume ro
 two boxes differ by 5460×.
 
 The LCP curve on the figure below carries its own, separate caveat — NO's ECS pole
-walk does not converge in `r_max` — see the figure's caption.
+walk does not converge in `r_max`, so that curve is one member of a family the method
+does not pin down. Its legend says so.
 
 ![NO σ_DA: LCP vs exact-2D oracle](figures/no-2d-da-lcp-vs-exact.png)
 
