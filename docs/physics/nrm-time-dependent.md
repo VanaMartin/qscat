@@ -146,6 +146,9 @@ of the discrete-state choice, not of the model.
 | **`Ψ_d^TD(R;E)` vs `Ψ_d^TI(R;E)`, vector to vector** (N₂) | **1.73e-04** | `test_nrm_propagation.py` |
 | **`σ_TD/σ_TI`, F₂ DA, E = 0.02/0.03/0.05 Ha** | **1.0097 / 1.0138 / 1.0102** | `test_nrm_td_cross_section.py` |
 | **Markovian limit vs `qscat.core.lcp`, same F₂ deck** | **1.000215 / 1.000198 / 0.999892** | `test_nrm_td_cross_section.py` |
+| **`σ_TD/σ_TI`, N₂ VE, 0.06/0.10/0.15 Ha, v' = 0/1** | **within 2.7e-4** | `test_nrm_td_cross_section.py` |
+| **`σ_TD/σ_TI`, F₂ VE, 0.03/0.05 Ha, v' = 0/1** | **within 1.0e-4, oscillating to 2.5e-3** | `test_nrm_td_cross_section.py` |
+| **Markovian VE vs the LCP VE route, same F₂ deck** | **within 3.3e-6** | `test_nrm_td_cross_section.py` |
 
 ![TD vs TI cross section](figures/f2-da-nrm-td-vs-ti.png)
 
@@ -421,7 +424,111 @@ where the nonlocal model reproduces the exact oracle to 0.06–0.33%
 whose LCP fails by 14× is not expected to show up here, and the honest reading
 is that F₂ is a poor place to look for it.
 
-## 7. Limits — what this does not establish
+## 7. Vibrational excitation
+
+`td_nrm_ve_cross_section` is the second consumer of the same `Ψ_d`, and all of
+it is a contraction. `T^res` is `vibrational_excitation.t_resonant(χ_f,
+V⁺_dk_f, Ψ_d)` and `T^bg` is `t_background`, both called **unchanged**, so
+PRA 77 Eq. (34)/(35)'s non-conjugated `V⁺_dk` and Eq. (37)'s `φ⁺` at the
+*final* channel energy are inherited from the time-independent route rather
+than re-derived. `T^bg` contains no `Ψ_d` at all — it is energy-domain and
+static — so it is bit-identical between the two routes. That is what makes
+running both `include_background` settings a diagnostic rather than a
+duplicate: a discrepancy appearing *only* with the background could not be a
+background error, it would mean the resonant term is being combined with it
+wrongly.
+
+One propagation serves every energy *and* every final channel: `H_ext` is
+energy-independent (§2.4) and `Ψ_d^+` does not depend on `v'`.
+
+### 7.1 VE converges long before DA does, and the observable is why
+
+`T^res` weights `Ψ_d` by `χ_f`, which lives in the interaction region, so the
+transform converges as the packet decays **out of that region**. `σ_DA` reads
+the wavefunction *value* at the outermost real node, so its packet has to
+cross the whole box first (§4.1). Measured on the two decks this note already
+uses, worst channel of each set:
+
+| deck | observable | dt | T | max\|σ_TD/σ_TI − 1\| |
+|---|---|---|---|---|
+| N₂, 179 nuclear × 74 electronic | VE, 0.06/0.10/0.15 Ha, v' = 0/1 | 1 | 4000 | **2.7e-4** |
+| F₂, 974 nuclear × 55 electronic | VE, 0.03/0.05 Ha, v' = 0/1 | 2 | 2000 | **5.9e-5** |
+| F₂, same deck | VE, same channels | 2 | 4000 | 2.5e-3 |
+| F₂, same deck | DA, 0.02/0.03/0.05 Ha | 2 | 12000 | 1.4e-2 (§3) |
+
+The F₂ rows are the sharp ones: **on one and the same deck, VE at T = 2000 is
+two orders better than DA at T = 12000, where DA at T = 4000 is 0.29** — and at
+T = 2000 that VE packet still holds **93.8%** of its initial real-region norm.
+Nothing has left; what has decayed is the amplitude under `χ_f`.
+
+F₂'s VE residual then **stops improving and oscillates** — 5.9e-5 at T = 2000
+against 2.5e-3 at T = 4000 — which is §4.2's trapped modes seen from the other
+observable. Those ≥24 near-real modes (`|Im E| = 1.5e-7 … 7.7e-6`, carrying
+5.08e-3 of the launch norm) sit in the `V_d` well at R ≈ 3.36, i.e. *under*
+`χ_f`, and each contributes a term that oscillates in `T` rather than decaying,
+on a molecule where no affordable `T` removes it. So F₂'s honest VE statement is
+an *amplitude* — ≤2.5e-3 over the measured range — not a monotone limit, and
+T = 2000's 5.9e-5 is where the phase happened to land. N₂ has no such well and
+does converge monotonically.
+
+N₂'s convergence in `T` (dt = 1, worst of six channels):
+
+| T | 1000 | 2000 | 4000 |
+|---|---|---|---|
+| max\|ratio − 1\|, `include_background=True` | 4.2e-1 | 5.0e-2 | **2.7e-4** |
+| max\|ratio − 1\|, `include_background=False` | 4.2e-1 | 5.0e-2 | **2.7e-4** |
+
+The T = 4000 residual sits at the level of the vector-to-vector identity gate
+on the same deck at the same `T`/`dt` (1.73e-4, §3), which is what it should
+be: the cross section is a contraction of that vector. The two slowest
+channels are the E = 0.06 ones — near-threshold final channels converge last.
+
+**N₂ needs `dt = 1`; F₂ does not.** §3's budget makes truncation and
+propagation error *comparable* on the N₂ deck at T = 4000, so the `dt⁶` term is
+no longer negligible: measured on that fixture at T = 4000,
+max|ratio − 1| = **1.52e-2** at dt = 2 against **2.71e-4** at dt = 1, a factor
+of **56** where `dt⁶` predicts 64. Neither F₂ run needs the correction — the
+DA gate's truncation floor is 1.4e-2, two orders above its own propagation
+error, and the VE run's *total* dt = 2 error is 5.9e-5 at T = 2000, which bounds its
+propagation term below that.
+
+### 7.2 The Markovian VE limit substitutes the doorway at BOTH ends
+
+Eq. (2.11) localizes the kernel; §6.3's point was that the shipped LCP also
+replaces the *doorway*. For VE that doorway appears **twice** — as the launch
+state and as the coupling the exit channel is contracted against — and
+`markovian=True` replaces both with `√(Γ_L/2π)`, which is exactly the
+`S_{v'←v} = ⟨√(Γ_L/2π)·χ_v' | Ψ_d⟩` the repository's own LCP VE route
+(`projects/n2_ti_cross_section/cross_section.py`) computes. Keeping the
+nonlocal `V⁺_dk_f` at the exit while localizing the kernel would be a third
+model, so it is not offered. `include_background=True` is **refused** with
+`markovian=True` for the same reason: Eq. (37)'s background is built from `φ_d`
+and the P-space scattering states, which the local model does not have.
+
+Measured against that route on the F₂ fixture deck of §6 (`dt = 2`, v = 0,
+E = 0.02/0.03/0.05 Ha, v' = 0/1):
+
+| T | 2000 | 4000 | 12000 |
+|---|---|---|---|
+| max\|σ_TD/σ_LCP − 1\| | 5.6e-6 | **3.3e-6** | 4.3e-6 |
+
+Converged by T = 2000 and flat thereafter — on the same deck whose *DA*
+Markovian comparison needed T = 12000 to reach 2.2e-4 (§6.2). Same model, same
+packet, same propagation, two observables: §7.1's argument with every model
+difference removed.
+
+### 7.3 The `unabsorbed` warning is a DA criterion, and it over-warns on VE
+
+`td_nrm_ve_cross_section` applies the same `unabsorbed/S(0) > 1e-2` test
+`td_nrm_da_cross_section` uses, and on VE it fires while the cross section is
+already converged — F₂ at T = 2000 warns at 0.938 and is right to 6e-5. Read
+it as what it says, "the packet is still in the box"; it is not evidence that
+`σ_VE` is wrong. Convergence here is `σ_VE` stationary in `T`, exactly as in
+§4.2. The threshold is not retuned for VE: a warning that is conservative for
+one observable and calibrated for the other is better than two thresholds, and
+`_UNABSORBED_TOL`'s calibration is a DA measurement (`td_cross_section.py`).
+
+## 8. Limits — what this does not establish
 
 - **The TD/TI agreement validates the propagation, not the model.** Both routes
   run on the same grids with the same ingredients, so shared discretisation error
@@ -434,7 +541,15 @@ is that F₂ is a poor place to look for it.
   insensitive to it (3–4 significant figures), but the fixture's absolute `σ_TI`
   is **not** the converged F₂ cross section.
 - **No production-electronic-deck data point exists** on any molecule yet.
-- **Vibrational excitation is not yet implemented** in the time domain.
+- **VE is N₂ and F₂, choice B, 0→0 and 0→1.** NO is not run — its
+  time-INDEPENDENT VE is not run either (`nonlocal-resonance-model.md` §8.5) —
+  no higher final channel is, and choice A is not: every VE number here is
+  `AsymptoticDiscreteState`.
+- **The VE agreement is differential, like every other number in this note.**
+  It says the propagation reproduces the resolvent on one deck; how well the
+  nonlocal model reproduces the *exact* VE cross section is
+  `nonlocal-resonance-model.md` §8.4's measurement (better than 0.7%), not
+  this one's.
 - **§6's packet comparison is F₂ at one energy on the reduced electronic deck.**
   It says what the Markovian collapse does *there*; PRA 47's H₂⁻ is a different
   molecule with a 14× LCP failure, and nothing here contradicts or reproduces it.
@@ -443,7 +558,7 @@ is that F₂ is a poor place to look for it.
   how good that model is remains
   `docs/physics/nonlocal-resonance-model.md`'s question.
 
-## 8. Literature
+## 9. Literature
 
 - **PRA 47, 1031 (1993)** — `reference/literature/gertitschke-1993-pra47-1031.md`.
   The time-dependent nonlocal equation of motion Eq. (2.1)–(2.5), the amplitude
