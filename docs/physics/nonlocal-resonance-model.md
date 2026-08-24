@@ -33,8 +33,9 @@ how much of the LCP's error is bought back by nonlocality alone.
 
 The answer, measured here, has two halves. In **dissociative attachment**: on F₂
 essentially all of it (choice B lands within 0.06–1.9 % of the exact oracle where the
-LCP is off by 11–74 %), and on NO — outside anything the source paper tested — none of
-it. Sections 7 and 9 give both in full. In **vibrational excitation**, the channel the
+LCP is off by 11–74 %), and on NO, within **1.5–1.9 %**, where the LCP over-predicts
+by **1.8e5 to 2.2e7**. NO read as a total failure until 2026-08-24; that was the
+oracle's error, not the model's (§7.2). Sections 7 and 9 give both in full. In **vibrational excitation**, the channel the
 paper plots for every molecule in its study: choice B with the Eq. (37) background
 terms reproduces the exact 2-D solver to better than **0.7 %** on N₂ *and* F₂, in both
 the elastic and the first inelastic channel — §8.
@@ -522,38 +523,81 @@ percentage**: the ratio sweeps 0.263 → 1.733 across this window, crossing unit
 `E ≈ 0.032` (see `docs/physics/diatomic-ve-cross-sections.md`). Nonlocality is what
 removes that sign change.
 
-### 7.2 NO — beyond the paper's tested range, and unexplained
+### 7.2 NO — the nonlocal model was right, and the oracle was wrong
 
 NO's DA channel opens at **+0.1719 Ha**, so the anchors sit just above it.
 
-**The NRM-A column below is not converged and must not be quoted as a property of
+**This section previously recorded an unexplained collapse of choice B by 5–8
+orders. That collapse does not exist.** It was the exact 2-D oracle's own error,
+charged to the model. Corrected 2026-08-24; the history is kept below because the
+way it hid is more instructive than the numbers.
+
+| E (Ha) | σ exact | σ LCP | σ NRM-A (not converged) | σ NRM-B | LCP/ex | **B/ex** |
+|---|---|---|---|---|---|---|
+| 0.175 | 7.429e-10 | 1.30498e-4 | 1.03427e-3 | 7.540e-10 | 1.76e5 | **1.0152** |
+| 0.180 | 2.789e-10 | 1.32975e-4 | 8.94472e-4 | 2.833e-10 | 4.77e5 | **1.0157** |
+| 0.185 | 1.052e-10 | 1.35174e-4 | 7.44567e-4 | 1.069e-10 | 1.28e6 | **1.0165** |
+| 0.190 | 3.986e-11 | 1.34727e-4 | 6.07468e-4 | 4.055e-11 | 3.38e6 | **1.0173** |
+| 0.200 | 5.810e-12 | 1.29558e-4 | 4.19477e-4 | 5.921e-12 | 2.23e7 | **1.0191** |
+
+**Choice B reproduces the exact NO σ_DA to 1.5–1.9 %** — the same quality it already
+has on F₂ (§7.1) — and its swing across the anchors (127.3) matches the exact swing
+(127.9) to 0.5 %. The LCP over-predicts by 1.8e5 → 2.2e7 and choice A by 1.4e6 →
+7.2e7, both flat against a curve that falls two orders. That is the
+Born–Oppenheimer breakdown PRA 77's Sec. VI A predicts, previously buried under an
+oracle error.
+
+**The NRM-A column is still not converged and must not be quoted as a property of
 choice A — see §11.** Its ingredient set is corrupted at the nuclear node carrying the
-largest $|\chi_0|$ on the grid. It is shown because the flatness argument that follows is
-about all three approximations together, and leaving it out would hide one of them.
+largest $|\chi_0|$ on the grid.
 
-| E (Ha) | σ exact | σ LCP | σ NRM-A (not converged) | σ NRM-B | LCP/ex | A/ex | B/ex |
-|---|---|---|---|---|---|---|---|
-| 0.175 | 1.61389e-2 | 1.30498e-4 | 1.03427e-3 | 7.54001e-10 | 8.1e-3 | 6.4e-2 | 4.7e-8 |
-| 0.180 | 1.56645e-3 | 1.32975e-4 | 8.94472e-4 | 2.83314e-10 | 8.5e-2 | 0.571 | 1.8e-7 |
-| 0.185 | 2.26604e-5 | 1.35174e-4 | 7.44567e-4 | 1.06926e-10 | 5.97 | 32.9 | 4.7e-6 |
-| 0.190 | 7.07979e-5 | 1.34727e-4 | 6.07468e-4 | 4.05467e-11 | 1.90 | 8.58 | 5.7e-7 |
-| 0.200 | 1.71756e-6 | 1.29558e-4 | 4.19477e-4 | 5.92119e-12 | 75.4 | 244 | 3.4e-6 |
+#### 7.2.1 The defect, because the mechanism generalizes
 
-**This is one observation, not three failures.** The converged exact σ_DA swings
-**9397×** across these five anchors, with real structure (it is not monotone: 2.27e-5
-at 0.185 against 7.08e-5 at 0.190, reproducibly). Every approximation is flat over the
-same span:
+`da_cross_section` extracted σ from the post-form **volume** T-matrix
+$\langle \phi_e F_K | V_{DR} | \Psi^{+}\rangle$. That is formally exact, but
+$V_{DR} = V_\mathrm{int}(r,R) + v_0(R) - V_\mathrm{int}(r,R_\infty)$ **does not decay
+in $r$.** The integrand's size is set by the interaction region while σ_DA is set by
+how completely that region *cancels*, so the required cancellation is
+`integrand / answer`: **×2.7 on F₂** (σ ~ 1 $a_0^2$) and **×1.5×10⁶ on NO**
+(σ ~ 1e-9 $a_0^2$). At that depth every box edge leaks, and two did — the electronic
+extent `r_max = 16` bohr (eMoScat's own NO deck runs the electronic real region to
+90 bohr) and the nuclear `R_inf = 9.0`, where NO's Morse $v_0$ is still −1.0e-5 Ha
+against a true $|T|$ of 1.4e-6.
 
-| route | σ range (bohr²) | swing |
-|---|---|---|
-| exact | 1.614e-2 → 1.718e-6 | **9397** |
-| LCP | 1.352e-4 → 1.296e-4 | 1.04 |
-| NRM-A (not converged) | 1.034e-3 → 4.195e-4 | 2.47 |
-| NRM-B | 7.540e-10 → 5.921e-12 | 127 |
+That is why fixing one edge was not enough: `r_max` 16→64 moved σ(0.175) from 1.61e-2
+to 5.78e-7, and `R_inf` 9→15 then moved it to 7.43e-10. A ladder in one parameter
+looked converged while the other was wide open.
 
-They differ in absolute scale, not in their ability to follow the structure — 127
-against 9397 is still flat by comparison. `validation/diatomic/test_nrm.py` records
-exactly this, as a measurement rather than a requirement.
+**The fix reads the outgoing flux instead** — the extraction `lcp_da_cross_section` has
+always used — applied to the exact $\Psi^{+}$: $\psi_n(R) = \langle\phi_e|\Psi^{+}\rangle_r$,
+$S = \sqrt{K/2\pi\mu}\,\psi_n(X)$ at the outermost real nuclear node,
+$\sigma = 4\pi^3|S|^2/2E$. No cancellation, hence no edge sensitivity: invariant to 4
+digits over `r_max` 16→96, 6 digits over `R_inf` 9→15, 7 digits over DVR order 8→12,
+and identical under SuperLU and MUMPS.
+
+#### 7.2.2 Why it survived an equation-by-equation audit
+
+Every check ran against the approximation. The oracle was the fixed point of the
+comparison and was never itself compared to anything — and on F₂, where the required
+cancellation is only ×2.7, it was right, which made the shared code look validated.
+
+Four things would each have caught it, and all four were cheap:
+
+- **Run both extractions where both exist.** Flux and volume agree to **5e-4** on F₂ at
+  every energy and at `r_max` 16/32/64. One such comparison on NO would have found this
+  in minutes.
+- **Ladder every box parameter, not one.** A plateau in `r_max` was mistaken for
+  convergence while `R_inf` was untested.
+- **Compare the required cancellation to the answer.** ×1.5e6 is a warning in itself;
+  no formally-exact expression survives that numerically by luck.
+- **Read the sources for what they contain, not for what a note extracted.** The
+  campaign concluded no published NO DA reference existed, on the strength of PRA 77's
+  panel inventory. Váňa 2017 Fig. 3.14 (p. 46) had one all along — and its axis
+  annotation, an LCP curve drawn ×10⁻⁵, states LCP/exact ≈ 1e5 as a datum. The old code
+  gave 8.1e-3; the corrected code gives 1.757e5.
+
+`validation/diatomic/test_nrm.py` now gates NO σ_DA against that figure, and the old
+flatness assertion — which encoded the oracle's error as a requirement — is gone.
 
 **This does not contradict PRA 77.** The paper contains **no NO or N₂ dissociative-
 attachment cross section at all**, for any discrete-state choice. Its two DA panels —
@@ -939,11 +983,27 @@ for F₂** at 6 (the exact 2-D sweep alone is ~77 s per energy at 128,568 unknow
 plus 8.0 s per energy for all six curves. As with DA, the exact solve dominates and
 sets peak RSS; run the two molecules serially.
 
-## 9. What is *not* explained
+## 9. What was not explained, and what it turned out to be
 
-**No located defect, and no confirmed mechanism.** Choice B's five-to-eight-order
-collapse on NO is unresolved, and it is stated here as unresolved rather than
-attributed. What has been ruled out:
+**Resolved 2026-08-24.** This section recorded choice B's five-to-eight-order collapse
+on NO as unresolved — no located defect, no confirmed mechanism — after an
+equation-by-equation audit against Eq. (55)–(61), eight killed hypotheses and two
+killed mechanisms. All of that work was sound and none of it could have succeeded,
+because **the defect was not in the model. It was in the oracle** (§7.2.1): a post-form
+volume T-matrix whose required cancellation is `integrand/answer`, ×1.5e6 on NO, so
+every box edge leaked. Choice B was within 1.5–1.9 % of the truth the whole time.
+
+The ruled-out list below is retained because it remains correct, and it is what makes
+the conclusion airtight in hindsight: the model's ingredients, doorway, coupling
+convention and T-matrix machinery were all verified sound — exactly what one would
+expect of a model being blamed for someone else's error.
+
+**The methodological lesson, which is the part that generalizes.** Every check ran
+against the approximation. The oracle was the fixed point of the comparison and was
+never itself compared to anything. §7.2.2 lists the four cheap checks that would each
+have caught it.
+
+What was ruled out, all of it still valid:
 
 - **An equation-level defect.** An equation-by-equation audit against Eq. (55)–(61)
   found none: $E_n$ is R-dependent as required, the $\sqrt{W}$ omission is correct
@@ -1058,11 +1118,11 @@ Everything below is deliberate scope, not an oversight:
   run**, even though PRA 77 publishes curves for it (Fig. 5, Fig. 8), and running it is
   the natural next step. There is no VE result for the 0→8 transition the paper also
   plots; §8 covers 0→0 and 0→1.
-- **A successful VE result does not close §9's NO DA question.** It narrows it: §8
-  shows the nonlocal potential, the coupling convention and the T-matrix machinery are
-  sound on two molecules and two channels, which removes a whole class of candidate
-  explanations for NO's DA collapse. It does not explain that collapse, and this note
-  does not claim it does. **§9 remains open.**
+- **§8's VE result pointed the right way and was read too narrowly at the time.** It
+  showed the nonlocal potential, the coupling convention and the T-matrix machinery
+  sound on two molecules and two channels. That was recorded as "narrowing" the NO DA
+  question; with hindsight it was evidence the model was not where the fault lay. The
+  fault was in the oracle (§7.2.1), and **§9 is closed.**
 - **Time-dependent: dissociative attachment only, F₂ only.** The time-domain route
   is now implemented and gated — see
   [`nrm-time-dependent.md`](nrm-time-dependent.md), which resums Eq. (2.1)'s memory
