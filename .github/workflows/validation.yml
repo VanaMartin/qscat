@@ -1,0 +1,169 @@
+name: Validation
+
+# The `slow` tier -- production-scale physics (docs/adr/0005). CI does NOT run
+# it by default, and this workflow does not change that: it runs only when a
+# reviewer explicitly asks for it with a label, or on a manual dispatch.
+#
+# Why a label and not a path filter. Path filters answer "did these files
+# change", which is not the question. The question is "could this change move a
+# number", and that is a judgement about physics -- a one-line edit to a kernel
+# can invalidate every cross section while a large refactor of the same file
+# changes nothing. So the trigger is a human decision. `advise` below exists to
+# make sure that decision is *taken*, not to take it.
+#
+# Labels (apply any number; `validate:all` implies the lot):
+#
+#   validate:core      libs/qscat -- solvers, linalg, evolution, tuning
+#   validate:n2        the N2 sub-projects + their validation harness
+#   validate:diatomic  NO / F2 -- NRM, DA, LCP-vs-exact
+#   validate:h2plus    H2+ -- DR, Rydberg levels, exact resonance states
+#   validate:tuning    the discretisation tuner's own gate
+#   validate:run       qscat-run -- the CLI's end-to-end example configs
+#   validate:all       every suite above
+#
+# The suite map must COVER every `slow` test: one that no suite selects would
+# never run anywhere but a developer's laptop, which is the failure this whole
+# workflow exists to prevent. `tests/test_validation_suites.py` asserts the
+# cover, so adding a slow test in a new directory fails the fast gate until the
+# map is updated.
+#
+# Cost is real: these are minutes-and-gigabytes runs, which is the whole reason
+# they are not in the default gate. Ask for the suite that covers the change,
+# not for `validate:all` by reflex.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  workflow_dispatch:
+    inputs:
+      suites:
+        description: 'Space-separated suite names, or "all"'
+        required: true
+        default: 'all'
+
+concurrency:
+  group: validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  select:
+    name: select suites
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+      any: ${{ steps.pick.outputs.any }}
+    steps:
+      - id: pick
+        env:
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ' ') }}
+          DISPATCH: ${{ github.event.inputs.suites }}
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+
+          # suite -> the paths that suite owns
+          SUITES = {
+              "core":     "libs/qscat/tests",
+              "n2":       "validation/n2 projects",
+              "diatomic": "validation/diatomic",
+              "h2plus":   "validation/h2plus",
+              "tuning":   "validation/tuning",
+              "run":      "apps/qscat-run/tests",
+          }
+
+          labels = set(os.environ.get("LABELS", "").split())
+          dispatch = (os.environ.get("DISPATCH") or "").split()
+
+          if dispatch:
+              wanted = set(SUITES) if "all" in dispatch else {d for d in dispatch if d in SUITES}
+          elif "validate:all" in labels:
+              wanted = set(SUITES)
+          else:
+              wanted = {s for s in SUITES if f"validate:{s}" in labels}
+
+          include = [{"suite": s, "paths": SUITES[s]} for s in sorted(wanted)]
+          print("matrix=" + json.dumps({"include": include}))
+          print("any=" + ("true" if include else "false"))
+          PY
+
+  validate:
+    name: validate:${{ matrix.suite }}
+    needs: select
+    if: needs.select.outputs.any == 'true'
+    runs-on: ubuntu-latest
+    # These runs are long by construction. The cap is a runaway guard, not a
+    # budget -- a suite that hits it has hung, not merely taken its time.
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.select.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Rust toolchain (for the native qscat_kernels member)
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Sync workspace
+        run: uv sync --all-packages
+      # SERIAL, unlike the fast gate. The slow decks are sized in gigabytes and
+      # a hosted runner has 16 GB, so concurrency here buys a memory failure,
+      # not wall-clock (docs/adr/0005 point 5). Threads are still pinned: with
+      # one worker OpenBLAS would otherwise take all four cores per solve,
+      # which is fine, but pinning keeps the timings comparable to the local
+      # measurements the tolerances were set from.
+      - name: Run the slow tier for this suite
+        env:
+          OMP_NUM_THREADS: "1"
+          OPENBLAS_NUM_THREADS: "1"
+          MKL_NUM_THREADS: "1"
+        run: uv run --no-sync pytest -q -m slow --durations=15 ${{ matrix.paths }}
+
+  advise:
+    name: advise on validation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      # Advisory ONLY -- never fails the build. A path filter cannot tell
+      # whether a change moves a number; it can only notice that the reviewer
+      # has not yet decided. That is what this says, once, in the run summary.
+      - name: Note whether a validation label is warranted
+        env:
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ' ') }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          changed=$(git diff --name-only "$BASE" "$HEAD" || true)
+          core=$(echo "$changed" | grep -E '^(libs/qscat/qscat/|native/|projects/|apps/qscat-run/qscat_run/)' || true)
+          if [ -z "$core" ]; then
+            echo "No calculation-bearing paths changed; no validation label needed." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if echo "$LABELS" | grep -q 'validate:'; then
+            echo "Calculation-bearing paths changed and a validation label is applied." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          {
+            echo "### Validation suite not requested"
+            echo
+            echo "This PR touches code that produces numbers, but carries no \`validate:*\` label,"
+            echo "so the production-scale tier did not run. If the change could move a cross"
+            echo "section, a resonance position, or a grid, apply the suite that covers it:"
+            echo
+            echo '`validate:core` `validate:n2` `validate:diatomic` `validate:h2plus` `validate:tuning` `validate:run` `validate:all`'
+            echo
+            echo "If it cannot, no label is needed -- this note is advisory and does not fail the build."
+            echo
+            echo "<details><summary>Paths that triggered this note</summary>"
+            echo
+            echo '```'
+            echo "$core"
+            echo '```'
+            echo
+            echo "</details>"
+          } >> "$GITHUB_STEP_SUMMARY"
