@@ -1063,8 +1063,14 @@ Everything below is deliberate scope, not an oversight:
   sound on two molecules and two channels, which removes a whole class of candidate
   explanations for NO's DA collapse. It does not explain that collapse, and this note
   does not claim it does. **§9 remains open.**
-- **Time-independent only.** No time-dependent nonlocal propagation, for either
-  observable.
+- **Time-dependent: dissociative attachment only, F₂ only.** The time-domain route
+  is now implemented and gated — see
+  [`nrm-time-dependent.md`](nrm-time-dependent.md), which resums Eq. (2.1)'s memory
+  integral into propagation under an arrow block Hamiltonian and reproduces `Ψ_d(R;E)`
+  from this note's own solve to 1.7e-4 (N₂, vector to vector) and `σ_DA` to 1.4% (F₂).
+  **Vibrational excitation is not yet propagated**, nor the Markovian (LCP) limit, so
+  the nonlocal-vs-local packet comparison PRA 47 is built around is not yet available
+  here.
 - **Discrete-state choices A and B only.** The paper's "compact" choice C is not
   implemented (§3).
 - **NO's choice-A numbers are not converged and must not be quoted.** Its ingredient

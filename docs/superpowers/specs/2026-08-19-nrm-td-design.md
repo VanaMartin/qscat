@@ -170,7 +170,7 @@ values of `M[R,E_j] = ξ(R;E_j)` normalized to the first):
 |---|---|---|---|---|---|
 | F₂ DA, 0.010–0.050 Ha, 9 energies | B | 5.7e-3 | 2.4e-4 | 5.3e-7 | 3 |
 | F₂ DA, 0.010–0.050 Ha, 9 energies | A | 3.3e-1 | 9.0e-2 | 1.9e-3 | 7 |
-| N₂ VE, 0.060–0.160 Ha, 9 energies | B | 9.8e-4 | 1.2e-6 | 1.1e-8 | 1 |
+| N₂ VE, 0.060–0.160 Ha, 9 energies | B | 9.8e-4 | 1.2e-6 | 1.1e-8 | 3 |
 | N₂ VE, 0.060–0.160 Ha, 9 energies | A | 1.5e-1 | 6.2e-3 | 3.3e-4 | 5 |
 
 Choice B's shape overlap across the window is 0.999605 (F₂) / 0.999994 (N₂).
