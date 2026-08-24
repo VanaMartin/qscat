@@ -31,7 +31,6 @@ look *better* against Houfek than the exact solver does.
 from __future__ import annotations
 
 import numpy as np
-import pytest
 
 from validation.n2.exact2d import GATED_RTOL, compute_exact2d_results
 
@@ -41,7 +40,6 @@ from validation.n2.exact2d import GATED_RTOL, compute_exact2d_results
 # drift apart.
 
 
-@pytest.mark.slow
 def test_sigma_real_and_nonnegative() -> None:
     for r in compute_exact2d_results():
         assert np.isfinite(r.sigma_exact)
