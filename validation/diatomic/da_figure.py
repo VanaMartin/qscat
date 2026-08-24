@@ -67,6 +67,28 @@ REFERENCE: Final[dict[str, tuple[str, str]]] = {
     ),
 }
 
+# Electronic real-region extents the LCP curve is recomputed over.
+#
+# NOT a convergence study for its own sake -- it is what the LCP curve on these
+# figures HAS to be drawn as. The exact route is edge-insensitive (it reads a
+# boundary flux), but the LCP's `V_d`/`Gamma` come from an ECS resonance-pole
+# walk, and on NO that walk does NOT converge in `r_max`: measured at E=0.175 it
+# gives 1.30e-4, 9.36e-5, 4.30e-2, 1.04e-2, 7.16e-3, 9.33e-4 across the ladder
+# below, non-monotone, with the asymptotic width Gamma(R->R_inf) shrinking as
+# the box grows instead of settling. Drawing one of those six as a line would
+# present an undetermined quantity as a result.
+#
+# F2 is measured on the same ladder rather than assumed converged, and it fails
+# DIFFERENTLY: five of the six walks agree to ~1.8% (sigma_LCP spans
+# [0.48945, 1.5794] at r_max=16 against [0.49841, 1.5514] at 80), and only the
+# r_max=96 walk breaks, to [0.027386, 3.5123]. So F2's documented 0.263 -> 1.734
+# sweep is a real property of its shipped deck; NO has no such property to quote.
+LCP_RMAX_LADDER: Final[tuple[float, ...]] = (16.0, 32.0, 48.0, 64.0, 80.0, 96.0)
+
+# The deck the rest of the repo runs on, and the member of the ladder drawn as a
+# line inside the envelope.
+SHIPPED_RMAX: Final[float] = 16.0
+
 _FIGURE_DIR = Path("docs/physics/figures")
 
 
@@ -88,31 +110,53 @@ def reference_for(molecule: str) -> tuple[npt.NDArray[np.float64], npt.NDArray[n
 
 def compute(
     molecule: str, energies: npt.NDArray[np.float64]
-) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
-    """`(sigma_exact, sigma_lcp)` on `molecule`'s eMoScat production deck.
+) -> tuple[npt.NDArray[np.float64], dict[float, npt.NDArray[np.float64]]]:
+    """`(sigma_exact, {r_max: sigma_lcp})` on `molecule`'s eMoScat nuclear deck.
 
-    Both routes run on the SAME nuclear deck and the same electronic grid the
-    committed figures used, so the comparison is differential.
+    The exact route runs once, on the shipped deck: it reads a boundary flux, so
+    it is invariant under the electronic box to 4 digits over 16 -> 96 bohr
+    (`validation/diatomic/test_no_da_thesis.py` gates that). The LCP route runs
+    once per `LCP_RMAX_LADDER` entry, because its pole walk is not.
+
+    Every route shares the same nuclear deck and the same vibrational basis, so
+    the comparison is differential.
     """
     cfg: MoleculeConfig = CONFIGS[molecule]
     tgrid: TensorGrid = cfg.da_grid()
-    elec, nuc = tgrid.grids
+    nuc = tgrid.grids[1]
     eps, chi = vibrational_states(nuc, cfg.model.mu, cfg.n_vib, cfg.model.v0)
 
     sigma_exact = np.asarray(
         da_cross_section(tgrid, cfg.model, eps, chi, 0, energies), dtype=np.float64
     )[:, 0]
 
-    # The LCP needs the second ECS-angle electronic grid for its pole walk;
-    # `validation.diatomic.nrm.setup` is the one place that pairing is defined.
-    s = setup(molecule)
-    vd, gamma = local_complex_potential(s.model, s.nuc, s.elec, s.elec_b)
-    sigma_lcp = np.asarray(
-        lcp_da_cross_section(s.nuc, s.model.mu, vd, gamma, s.eps, s.chi, 0, energies),
-        dtype=np.float64,
-    )
-    assert elec.n == s.elec.n, "the LCP and exact routes must share the electronic deck"
+    # `setup` is the one place the LCP's paired two-ECS-angle electronic decks
+    # are defined; `_ANGLE_B_DEG` rides along with whatever `r_max` it is given.
+    sigma_lcp: dict[float, npt.NDArray[np.float64]] = {}
+    for r_max in LCP_RMAX_LADDER:
+        s = setup(molecule, e_r_max=r_max)
+        vd, gamma = local_complex_potential(s.model, s.nuc, s.elec, s.elec_b)
+        sigma_lcp[r_max] = np.asarray(
+            lcp_da_cross_section(s.nuc, s.model.mu, vd, gamma, s.eps, s.chi, 0, energies),
+            dtype=np.float64,
+        )
     return sigma_exact, sigma_lcp
+
+
+def lcp_envelope(
+    sigma_lcp: dict[float, npt.NDArray[np.float64]],
+) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64], float]:
+    """`(lo, hi, worst_spread)` over the `r_max` ladder, per energy.
+
+    `worst_spread` is the largest `hi/lo` at any energy where the channel is
+    open -- the single number that says whether the LCP curve is determined.
+    """
+    stack = np.vstack([sigma_lcp[r] for r in sorted(sigma_lcp)])
+    lo = stack.min(axis=0)
+    hi = stack.max(axis=0)
+    open_ = lo > 0.0
+    worst = float((hi[open_] / lo[open_]).max()) if open_.any() else float("nan")
+    return lo, hi, worst
 
 
 def _title_suffix(energies: npt.NDArray[np.float64], step: float) -> str:
@@ -123,7 +167,7 @@ def write_figures(
     molecule: str,
     energies: npt.NDArray[np.float64],
     sigma_exact: npt.NDArray[np.float64],
-    sigma_lcp: npt.NDArray[np.float64],
+    sigma_lcp: dict[float, npt.NDArray[np.float64]],
     outdir: Path,
 ) -> list[Path]:
     import matplotlib
@@ -137,7 +181,8 @@ def write_figures(
     # A zero sigma means a closed channel, not a small one: drop it rather than
     # letting a log axis clip it to the bottom of the frame.
     ex = np.where(sigma_exact > 0.0, sigma_exact, np.nan)
-    lcp = np.where(sigma_lcp > 0.0, sigma_lcp, np.nan)
+    _lo, _hi, worst = lcp_envelope(sigma_lcp)
+    shipped = np.where(sigma_lcp[SHIPPED_RMAX] > 0.0, sigma_lcp[SHIPPED_RMAX], np.nan)
     outdir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
 
@@ -166,11 +211,11 @@ def write_figures(
     ax.grid(True, which="both", alpha=0.2)
 
     if axz is not None:
-        lo, hi = float(ref_e.min()) - 0.002, float(ref_e.max()) + 0.010
-        sel = (energies >= lo) & (energies <= hi)
+        zlo, zhi = float(ref_e.min()) - 0.002, float(ref_e.max()) + 0.010
+        sel = (energies >= zlo) & (energies <= zhi)
         axz.plot(energies[sel], ex[sel] * 1e9, "-", color="tab:blue", label="exact 2-D TI")
         axz.plot(ref_e, ref_s * 1e9, "o--", color="k", markersize=5, linewidth=1.0, label=ref_label)
-        axz.set_xlim(lo, hi)
+        axz.set_xlim(zlo, zhi)
         axz.set_ylim(0.0, 2.0)
         axz.set_xlabel("E (Hartree)")
         axz.set_ylabel(r"$\sigma_{DA}$ ($10^{-9}$ bohr$^2$)")
@@ -189,7 +234,39 @@ def write_figures(
         2, 1, figsize=(9, 8), sharex=True, gridspec_kw={"height_ratios": [3, 1]}
     )
     ax.plot(energies, ex, "-", color="tab:blue", label="exact 2-D TI (oracle)")
-    ax.plot(energies, lcp, "--", color="tab:red", label="LCP approximation")
+    # The LCP is drawn as ONE THIN LINE PER `r_max`, not as a single curve and
+    # not as an aggregated band. Its `V_d`/`Gamma` come from an ECS pole walk
+    # that is not box-independent, so a single curve would assert a value the
+    # method does not determine -- but an envelope would mislead the other way,
+    # because the two molecules fail differently: NO's walk is non-monotone
+    # across the whole ladder, while F2's agrees to ~1.8% over 16-80 bohr and
+    # then breaks only at 96. Overplotting the individual walks shows which of those
+    # is happening at a glance, and hides neither.
+    others = [r for r in sorted(sigma_lcp) if r != SHIPPED_RMAX]
+    ladder_label = (
+        rf"LCP at other $r_{{max}}$ ({int(min(others))}-{int(max(others))} $a_0$; "
+        rf"walk spread {worst:.3g}x)"
+    )
+    for r in others:
+        curve = np.where(sigma_lcp[r] > 0.0, sigma_lcp[r], np.nan)
+        ax.plot(
+            energies,
+            curve,
+            "-",
+            color="tab:red",
+            linewidth=0.8,
+            alpha=0.45,
+            label=ladder_label,
+        )
+        ladder_label = "_nolegend_"  # one legend entry for the whole ladder
+    ax.plot(
+        energies,
+        shipped,
+        "--",
+        color="tab:red",
+        linewidth=1.6,
+        label=rf"LCP at the shipped deck ($r_{{max}}$ = {int(SHIPPED_RMAX)} $a_0$)",
+    )
     if ref_e.size:
         ax.plot(ref_e, ref_s, "o--", color="k", markersize=5, linewidth=1.0, label=ref_label)
     ax.set_ylabel(r"$\sigma_{DA}$ (bohr$^2$)")
@@ -198,8 +275,17 @@ def write_figures(
     ax.legend(fontsize="small")
     ax.grid(True, which="both", alpha=0.2)
 
-    ratio = np.where(np.isfinite(ex) & (ex > 0.0), lcp / ex, np.nan)
-    axr.plot(energies, ratio, "-", color="tab:green")
+    good = np.isfinite(ex) & (ex > 0.0)
+    for r in others:
+        axr.plot(
+            energies,
+            np.where(good & (sigma_lcp[r] > 0.0), sigma_lcp[r] / ex, np.nan),
+            "-",
+            color="tab:green",
+            linewidth=0.8,
+            alpha=0.45,
+        )
+    axr.plot(energies, np.where(good, shipped / ex, np.nan), "-", color="tab:green", linewidth=1.6)
     axr.axhline(1.0, color="k", linestyle=":", linewidth=1.0)
     axr.set_yscale("log")
     axr.set_xlabel("E (Hartree)")
@@ -208,7 +294,17 @@ def write_figures(
     fig.tight_layout()
     fig.savefig(stem.with_suffix(".png"), dpi=120)
     plt.close(fig)
-    np.savez(stem.with_suffix(".npz"), E=energies, sigma_exact=sigma_exact, sigma_lcp=sigma_lcp)
+    # `sigma_lcp` keeps its shipped-deck meaning for any existing reader; the
+    # per-r_max columns are what the envelope on the figure is drawn from.
+    columns: dict[str, npt.NDArray[np.float64]] = {
+        "E": energies,
+        "sigma_exact": sigma_exact,
+        "sigma_lcp": sigma_lcp[SHIPPED_RMAX],
+    }
+    columns.update({f"sigma_lcp_rmax{int(r)}": v for r, v in sigma_lcp.items()})
+    # numpy types savez's second positional as `allow_pickle`, so a **kwargs
+    # splat of arrays trips the stub; same ignore `qscat_run.artifacts` uses.
+    np.savez(stem.with_suffix(".npz"), **columns)  # type: ignore[arg-type]
     written += [stem.with_suffix(".png"), stem.with_suffix(".npz")]
     return written
 
@@ -222,12 +318,24 @@ def main() -> None:
     energies = energies_for(args.molecule)
     sigma_exact, sigma_lcp = compute(args.molecule, energies)
     open_ = sigma_exact > 0.0
+    _lo, _hi, worst = lcp_envelope(sigma_lcp)
+    shipped = sigma_lcp[SHIPPED_RMAX]
     print(
         f"{args.molecule}: {energies.size} energies, {int(open_.sum())} above the DA threshold; "
-        f"sigma_exact in [{sigma_exact[open_].min():.4e}, {sigma_exact[open_].max():.4e}], "
-        f"LCP/exact in [{(sigma_lcp[open_] / sigma_exact[open_]).min():.4g}, "
-        f"{(sigma_lcp[open_] / sigma_exact[open_]).max():.4g}]"
+        f"sigma_exact in [{sigma_exact[open_].min():.4e}, {sigma_exact[open_].max():.4e}]"
     )
+    print(
+        f"  LCP at the shipped deck (r_max={SHIPPED_RMAX:g}): sigma/exact in "
+        f"[{(shipped[open_] / sigma_exact[open_]).min():.4g}, "
+        f"{(shipped[open_] / sigma_exact[open_]).max():.4g}]"
+    )
+    print(
+        f"  LCP r_max spread over {list(LCP_RMAX_LADDER)}: worst hi/lo = {worst:.4g} "
+        f"({'NOT converged -- drawn as an envelope' if worst > 1.05 else 'converged'})"
+    )
+    for r in LCP_RMAX_LADDER:
+        v = sigma_lcp[r][open_]
+        print(f"    r_max={r:5g}: sigma_LCP in [{v.min():.4e}, {v.max():.4e}]")
     for path in write_figures(args.molecule, energies, sigma_exact, sigma_lcp, args.outdir):
         print(f"wrote {path}")
 
