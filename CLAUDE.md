@@ -289,11 +289,29 @@ libs/       qscat — the standard library: validated, reusable QM code
               residual is discretization error. The comparison is DIFFERENTIAL
               (both routes on the same grids), so it validates the model
               reduction, NOT the grid — absolute normalization is anchored by
-              validation/n2/exact2d.py against Houfek. TI only; DA on F₂/NO, VE on
+              validation/n2/exact2d.py against Houfek. DA on F₂/NO, VE on
               N₂/F₂ (NO VE not run, though the paper publishes it — the natural
               follow-on); the NO DA collapse above REMAINS OPEN, narrowed but not
               closed by the VE result — see
-              docs/physics/nonlocal-resonance-model.md. Plus
+              docs/physics/nonlocal-resonance-model.md. The nrm package also has
+              a TIME-DEPENDENT half (`extended`, `propagation`,
+              `td_cross_section`): Gertitschke & Domcke PRA 47's memory integral
+              is RESUMMED — one auxiliary nuclear packet per projected electronic
+              state turns it into time-local propagation under a sparse arrow
+              block Hamiltonian `H_ext`, whose auxiliary blocks eliminate back to
+              PRA 77 Eq. (52) exactly (gated at 4.4e-14). The half-Fourier
+              transform of the propagated packet IS the TI `Ψ_d(R;E)`
+              (`Ψ_d^TI = −i∫₀^∞ e^{iEt}Ψ_d(t)dt`), so `da_sigma_from_psi` /
+              `t_resonant` / `t_background` are reused unchanged: N₂ vector-to-
+              vector 1.7e-4, F₂ σ_DA 0.986–1.014. **`n_states=None` is MANDATORY
+              here** — truncating the arms makes `H_ext` non-dissipative and the
+              propagation diverges exponentially, non-monotonically, which is
+              benign for the TI RESOLVENT but fatal for a PROPAGATOR;
+              `propagate_nrm` warns when a packet grows. Energies are propagated
+              ONCE via an SVD of the launch matrix (PRA 47 Eq. 2.17's rank-1
+              claim, generalized). The route is SLOWER than the resolvent (773 s
+              vs 246 s on F₂'s deck) and is justified by `S(t)`/`⟨R⟩_t`/`⟨P⟩_t`,
+              not cost — see docs/physics/nrm-time-dependent.md. Plus
               `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
               eMoScat's `(n_elem, endpoint)` deck format, plus `ecs_angle_family`
