@@ -564,28 +564,41 @@ def test_td_ve_matches_the_time_independent_cross_section(n2_deck):
                                   1.000098  0.999830
                                   0.999911  1.000268
 
-    i.e. agreement to 2.71e-4 (background) and 2.68e-4 (no
-    background), against a gate at 1e-3 -- 3.7x the achieved error.
+    i.e. 2.71e-4 (background) and 2.68e-4 (no background) -- but READ THE
+    NEXT PARAGRAPH BEFORE QUOTING EITHER AS THIS DECK'S ACCURACY.
 
-    WHY `T = 4000`. Worst-of-six `max |ratio - 1|` against `T` on this deck
-    (dt = 1, `include_background=True`):
+    THE RESIDUAL OSCILLATES, AND `T = 4000` SITS ALMOST EXACTLY ON A NULL.
+    Coarse sampling (T = 1000 / 2000 / 4000 -> 4.2e-1 / 5.0e-2 / 2.7e-4)
+    looks like clean convergence and is not. A fine scan in `T`
+    (dt = 1, `include_background=True`, worst of six channels) reads
 
-        T = 1000   4.2e-1        T = 4000   2.7e-4
-        T = 2000   5.0e-2
+        T   3600     3640     3680     3720     3760     3800
+          2.43e-3  1.21e-3  1.01e-3  1.15e-3  1.96e-3  2.40e-3
+        T   3840     3880     3920     3960     4000
+          2.45e-3  2.15e-3  1.60e-3  9.11e-4  2.71e-4
 
-    The residual at T = 4000 sits at the level of the vector-to-vector
-    identity gate (`test_nrm_propagation.py`, 1.73e-4 on this same deck at
-    the same `T`/`dt`), which is what it should be: the cross section is a
-    contraction of that vector, and the two worst channels here are the
-    E = 0.06 ones -- the near-threshold final channels converge slowest.
+    -- the E = 0.06, v' = 1 channel tracing a clean sinusoid (1.002433 ->
+    0.997553 -> 0.999793) of period ~450-500 a.u. and amplitude ~2.4e-3 that
+    happens to cross 1 at T = 4000. So the defensible statement about this
+    deck is an ENVELOPE, <= 2.5e-3, and NOT the 2.71e-4 this particular `T`
+    returns. The gate is 5e-3, 2x that envelope. A gate at 1e-3 would pass
+    here and FAIL BY 2.4x at T = 3800 -- a gate that works at one `T` only,
+    and that would turn a cost-saving trim of `n_steps` into a spurious
+    failure. 5e-3 still catches a 1% error in `T^res` by a wide margin,
+    which is what the gate is for.
 
-    WHY `dt = 1` AND NOT 2, unlike the DA gate. The error budget measured in
-    `test_nrm_propagation.py` -- `truncation(T) = 0.40*sqrt(S(T)/S(0))` and
-    `propagation(dt=1) = 1.43e-4`, adding in quadrature -- makes the two
-    terms COMPARABLE here, so the `dt^6` term is no longer negligible:
-    dt = 2 costs a factor 64 in it. Measured on this fixture at T = 4000,
-    `include_background=True`: max |ratio - 1| = 1.52e-2 at dt = 2 against
-    2.71e-4 at dt = 1 -- a factor of 56 where `dt^6` predicts 64. The F2 DA gate can afford dt = 2
+    That the residual has an oscillatory floor at all is the same physics
+    the F2 gate below documents, and it is NOT peculiar to a dissociating
+    packet: any long-lived component of `Psi_d` under `chi_f` contributes a
+    term that oscillates in `T` rather than decaying.
+
+    WHY `dt = 1` AND NOT 2, unlike the DA gate. The dt = 2 residual is
+    1.52e-2 here at T = 4000 and FLAT at that value across T = 3000-4000 --
+    an order above the dt = 1 envelope and not oscillating, i.e. a genuine
+    propagation error rather than a phase. dt = 2 is inadequate on this
+    deck. (Do NOT read 1.52e-2 / 2.71e-4 = 56 as `dt^6`'s predicted 64
+    confirmed: the denominator is the null, and the agreement is a
+    coincidence of where that null fell.) The F2 DA gate can afford dt = 2
     because its truncation floor is 1.4e-2, two orders above its own
     propagation error; this one cannot.
     """
@@ -624,7 +637,7 @@ def test_td_ve_matches_the_time_independent_cross_section(n2_deck):
         )
         assert np.all(want > 0.0), "the TI oracle is zero -- pick open channels"
         rel = np.abs(got - want) / want
-        assert np.all(rel < 1e-3), (
+        assert np.all(rel < 5e-3), (
             f"include_background={include_background}: sigma_TD/sigma_TI = {got / want}"
         )
 
@@ -724,7 +737,8 @@ def test_td_ve_matches_the_time_independent_cross_section_on_f2(f2_deck):
     while the DA one, from the very same packet, is still nowhere near
     converged.
 
-    It does. Measured 2026-08-24 at `dt = 2, T = 2000`, E = 0.03/0.05 Ha,
+    It does, and on a flat plateau rather than at a lucky `T` (below).
+    Measured 2026-08-24 at `dt = 2, T = 2000`, E = 0.03/0.05 Ha,
     v' = 0/1:
 
         include_background=True   1.000034  1.000027  1.000039  1.000059
@@ -737,23 +751,38 @@ def test_td_ve_matches_the_time_independent_cross_section_on_f2(f2_deck):
     has decayed is the amplitude under `chi_f`, which is all `t_resonant`
     integrates.
 
-    WHY THE GATE IS 1e-2 AND NOT 1e-4. The residual does NOT keep falling: at
-    T = 4000 it reads 2.5e-3 against T = 2000's 5.9e-5. That is not a
-    regression, it is the OSCILLATION F2's near-real modes leave in the
-    transform -- the >=24 modes with `|Im E| = 1.5e-7 ... 7.7e-6` living in
-    the `V_d` well at R ~ 3.36 (module docstring, sec. 4.2 of
-    `docs/physics/nrm-time-dependent.md`), which sit UNDER `chi_f` and
-    contribute a term that oscillates in `T` rather than decaying. No
-    affordable `T` removes them. So the defensible statement about F2 is an
-    AMPLITUDE, <= 2.5e-3 over the measured range, and the gate is 4x that
-    rather than a multiple of whichever phase T = 2000 happened to land on.
-    N2, which has no such well, converges monotonically and is gated at 1e-3
-    accordingly.
+    WHY THE GATE IS 1e-3, AND WHY IT IS NOT SET BY THE OSCILLATION. Where
+    this test operates the residual is a PLATEAU, not a phase. A fine scan
+    (dt = 2, `include_background=True`, worst of four channels, T in steps
+    of 80) reads
 
-    COST: ~10-20 min, two 1000-step propagations of the 53570-square `H_ext`
-    (plus ~22 s per `include_background` setting for the time-independent
-    oracle, whose `t_background` runs an electronic scattering solve at each
-    of 819 real nuclear nodes).
+        T   1600     1680     1760     1840     1920     2000
+          7.21e-5  7.04e-5  6.31e-5  6.34e-5  5.98e-5  5.95e-5
+        T   2080     2160     2240     2320     2400
+          6.61e-5  6.70e-5  5.75e-5  4.88e-5  7.47e-5
+
+    and all four channel ratios carry the SAME SIGN there (+3e-5 ... +7e-5),
+    which is a systematic discretisation offset rather than a zero crossing.
+    The gate is 17x that plateau, and ~40x run-to-run reproducibility.
+
+    The oscillation F2's near-real modes leave in the transform is real --
+    the >=24 modes with `|Im E| = 1.5e-7 ... 7.7e-6` living in the `V_d` well
+    at R ~ 3.36 (module docstring, sec. 4.2 of
+    `docs/physics/nrm-time-dependent.md`) sit UNDER `chi_f` and contribute a
+    term that oscillates in `T` instead of decaying, and no affordable `T`
+    removes them. But it lives BEYOND this test, and it GROWS rather than
+    ringing at a fixed amplitude: 1.9e-4 (T = 2800), 3.2e-4 (3000), 9.6e-4
+    (3400), 1.5e-3 (3800), 2.5e-3 (4000). Gating at 1e-2 against an envelope
+    the test never evaluates would let a ~1% error in `T^res` straight
+    through -- and catching exactly that, in the case where the DA channel is
+    open, is this gate's whole reason to exist. Do NOT raise the gate on the
+    strength of the T >= 2800 numbers without also moving `n_steps` there.
+
+    COST: 549 s for the call plus 19 s of fixtures, measured 2026-08-24 on a
+    32-core host (`1 passed in 569.48s`). That is two 1000-step propagations
+    of the 53570-square `H_ext`, plus ~22 s per `include_background` setting
+    for the time-independent oracle, whose `t_background` runs an electronic
+    scattering solve at each of 819 real nuclear nodes.
     """
     nuc, elec, phi_d, ing, eps, chi = f2_deck
     energies = np.array([0.03, 0.05])
@@ -790,6 +819,6 @@ def test_td_ve_matches_the_time_independent_cross_section_on_f2(f2_deck):
         )
         assert np.all(want > 0.0), "the TI oracle is zero -- pick open channels"
         rel = np.abs(got - want) / want
-        assert np.all(rel < 1e-2), (
+        assert np.all(rel < 1e-3), (
             f"include_background={include_background}: sigma_TD/sigma_TI = {got / want}"
         )

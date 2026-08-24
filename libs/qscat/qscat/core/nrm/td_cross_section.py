@@ -458,15 +458,22 @@ def td_nrm_ve_cross_section(
     WHY VE IS THE EASY CHANNEL FOR THIS ROUTE, where
     `td_nrm_da_cross_section` documents DA as the hard one. `T^res` is a
     contraction of `Psi_d` against `chi_f`, which lives in the INTERACTION
-    region: the packet decays IN PLACE by autodetachment and the transform
-    converges as `S(t)` falls, with no requirement that anything traverse
-    the grid. DA instead reads the wavefunction VALUE at the outermost real
-    node, so its packet must physically cross the box before the transform
-    means anything. On N2 that is the difference between a converged run at
-    `T = 4000` and one at `T = 12000` on a nuclear deck five times finer.
-    A molecule whose DA channel is OPEN (F2 above threshold) pays the DA
-    cost even when the observable is VE, because the same `Psi_d` must
-    converge either way.
+    region, so the transform converges once the amplitude THERE has decayed
+    -- whether it decayed by autodetachment or simply moved outward, and
+    with no requirement that anything traverse the grid. DA instead reads
+    the wavefunction VALUE at the outermost real node, so its packet must
+    physically cross the box before the transform means anything.
+
+    The clean measurement of that gap is F2, where BOTH observables run on
+    ONE deck and one propagation: `sigma_VE` is converged at `T = 2000`
+    (with 93.8% of the packet still in the real region) while `sigma_DA`
+    still reads 0.29 at `T = 4000` and needs `T = 12000`
+    (`test_nrm_td_cross_section.py`). So a molecule whose DA channel is OPEN
+    does NOT pay the DA cost for a VE observable -- `chi_f` stops weighting
+    the packet long before the packet reaches the flux surface. Do not read
+    N2's VE run against F2's DA run as if it were the same comparison: those
+    differ in molecule and nuclear deck as well as in channel, and N2 DA has
+    never been run here.
 
     Parameters
     ----------
