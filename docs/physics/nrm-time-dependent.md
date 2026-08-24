@@ -146,8 +146,8 @@ of the discrete-state choice, not of the model.
 | **`Ψ_d^TD(R;E)` vs `Ψ_d^TI(R;E)`, vector to vector** (N₂) | **1.73e-04** | `test_nrm_propagation.py` |
 | **`σ_TD/σ_TI`, F₂ DA, E = 0.02/0.03/0.05 Ha** | **1.0097 / 1.0138 / 1.0102** | `test_nrm_td_cross_section.py` |
 | **Markovian limit vs `qscat.core.lcp`, same F₂ deck** | **1.000215 / 1.000198 / 0.999892** | `test_nrm_td_cross_section.py` |
-| **`σ_TD/σ_TI`, N₂ VE, 0.06/0.10/0.15 Ha, v' = 0/1** | **within 2.7e-4** | `test_nrm_td_cross_section.py` |
-| **`σ_TD/σ_TI`, F₂ VE, 0.03/0.05 Ha, v' = 0/1** | **within 1.0e-4, oscillating to 2.5e-3** | `test_nrm_td_cross_section.py` |
+| **`σ_TD/σ_TI`, N₂ VE, 0.06/0.10/0.15 Ha, v' = 0/1** | **envelope ≤2.5e-3** (2.7e-4 at T = 4000, a null — §7.1.1) | `test_nrm_td_cross_section.py` |
+| **`σ_TD/σ_TI`, F₂ VE, 0.03/0.05 Ha, v' = 0/1** | **5.9e-5, flat over T = 1600–2400** | `test_nrm_td_cross_section.py` |
 | **Markovian VE vs the LCP VE route, same F₂ deck** | **within 3.3e-6** | `test_nrm_td_cross_section.py` |
 
 ![TD vs TI cross section](figures/f2-da-nrm-td-vs-ti.png)
@@ -444,53 +444,77 @@ energy-independent (§2.4) and `Ψ_d^+` does not depend on `v'`.
 ### 7.1 VE converges long before DA does, and the observable is why
 
 `T^res` weights `Ψ_d` by `χ_f`, which lives in the interaction region, so the
-transform converges as the packet decays **out of that region**. `σ_DA` reads
-the wavefunction *value* at the outermost real node, so its packet has to
-cross the whole box first (§4.1). Measured on the two decks this note already
-uses, worst channel of each set:
+transform converges once the amplitude **there** has decayed — whether by
+autodetachment or by simply moving outward. `σ_DA` reads the wavefunction
+*value* at the outermost real node, so its packet has to cross the whole box
+first (§4.1). The clean measurement is F₂, where **both observables run on one
+deck, from one propagation**:
 
 | deck | observable | dt | T | max\|σ_TD/σ_TI − 1\| |
 |---|---|---|---|---|
-| N₂, 179 nuclear × 74 electronic | VE, 0.06/0.10/0.15 Ha, v' = 0/1 | 1 | 4000 | **2.7e-4** |
 | F₂, 974 nuclear × 55 electronic | VE, 0.03/0.05 Ha, v' = 0/1 | 2 | 2000 | **5.9e-5** |
-| F₂, same deck | VE, same channels | 2 | 4000 | 2.5e-3 |
-| F₂, same deck | DA, 0.02/0.03/0.05 Ha | 2 | 12000 | 1.4e-2 (§3) |
+| F₂, same deck | DA, 0.02/0.03/0.05 Ha | 2 | 4000 | 0.29 |
+| F₂, same deck | DA, same energies | 2 | 12000 | 1.4e-2 |
+| N₂, 179 nuclear × 74 electronic | VE, 0.06/0.10/0.15 Ha, v' = 0/1 | 1 | 4000 | 2.7e-4 *(a null — below)* |
 
-The F₂ rows are the sharp ones: **on one and the same deck, VE at T = 2000 is
-two orders better than DA at T = 12000, where DA at T = 4000 is 0.29** — and at
-T = 2000 that VE packet still holds **93.8%** of its initial real-region norm.
-Nothing has left; what has decayed is the amplitude under `χ_f`.
+VE is converged at a sixth of DA's `T`, on the same packet, while **93.8%** of
+it is still in the real region. Nothing has left; what decayed is the amplitude
+under `χ_f`. A molecule whose DA channel is open therefore does **not** pay the
+DA cost for a VE observable.
 
-F₂'s VE residual then **stops improving and oscillates** — 5.9e-5 at T = 2000
-against 2.5e-3 at T = 4000 — which is §4.2's trapped modes seen from the other
-observable. Those ≥24 near-real modes (`|Im E| = 1.5e-7 … 7.7e-6`, carrying
-5.08e-3 of the launch norm) sit in the `V_d` well at R ≈ 3.36, i.e. *under*
-`χ_f`, and each contributes a term that oscillates in `T` rather than decaying,
-on a molecule where no affordable `T` removes it. So F₂'s honest VE statement is
-an *amplitude* — ≤2.5e-3 over the measured range — not a monotone limit, and
-T = 2000's 5.9e-5 is where the phase happened to land. N₂ has no such well and
-does converge monotonically.
+### 7.1.1 Both residuals have an oscillatory floor — and sampling `T` coarsely hides it
 
-N₂'s convergence in `T` (dt = 1, worst of six channels):
+Neither molecule converges monotonically to round-off, and neither single
+number above should be quoted as "the accuracy". §4.2's long-lived components
+of `Ψ_d` — anything under `χ_f` that does not decay within the propagation —
+each contribute a term that **oscillates in `T`** instead of decaying. Where a
+given run lands on that oscillation is a matter of phase.
 
-| T | 1000 | 2000 | 4000 |
-|---|---|---|---|
-| max\|ratio − 1\|, `include_background=True` | 4.2e-1 | 5.0e-2 | **2.7e-4** |
-| max\|ratio − 1\|, `include_background=False` | 4.2e-1 | 5.0e-2 | **2.7e-4** |
+**N₂, dt = 1, worst of six channels.** Coarse sampling looks like clean
+convergence (4.2e-1 → 5.0e-2 → 2.7e-4 at T = 1000/2000/4000, and the same to
+one figure without the background). A fine scan says otherwise:
 
-The T = 4000 residual sits at the level of the vector-to-vector identity gate
-on the same deck at the same `T`/`dt` (1.73e-4, §3), which is what it should
-be: the cross section is a contraction of that vector. The two slowest
-channels are the E = 0.06 ones — near-threshold final channels converge last.
+| T | 3600 | 3640 | 3680 | 3720 | 3760 | 3800 | 3840 | 3880 | 3920 | 3960 | 4000 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| max\|ratio − 1\| | 2.43e-3 | 1.21e-3 | 1.01e-3 | 1.15e-3 | 1.96e-3 | 2.40e-3 | 2.45e-3 | 2.15e-3 | 1.60e-3 | 9.11e-4 | **2.71e-4** |
 
-**N₂ needs `dt = 1`; F₂ does not.** §3's budget makes truncation and
-propagation error *comparable* on the N₂ deck at T = 4000, so the `dt⁶` term is
-no longer negligible: measured on that fixture at T = 4000,
-max|ratio − 1| = **1.52e-2** at dt = 2 against **2.71e-4** at dt = 1, a factor
-of **56** where `dt⁶` predicts 64. Neither F₂ run needs the correction — the
-DA gate's truncation floor is 1.4e-2, two orders above its own propagation
-error, and the VE run's *total* dt = 2 error is 5.9e-5 at T = 2000, which bounds its
-propagation term below that.
+The E = 0.06, v' = 1 channel traces a clean sinusoid (1.002433 → 0.997553 →
+0.999793) of period ≈450–500 a.u. and amplitude ≈2.4e-3 which crosses 1 almost
+exactly at T = 4000. **The honest N₂ statement is an envelope, ≤2.5e-3**, and
+the shipped gate is 5e-3 — twice it. (A 1e-3 gate passes at T = 4000 and fails
+by 2.4× at T = 3800; the T = 3800 point was re-run independently and reads
+2.399e-3.) The T = 4000 value coinciding with the vector-to-vector identity
+gate's 1.73e-4 (§3) is likewise a coincidence of phase, not a confirmation.
+
+**F₂, dt = 2, worst of four channels.** Where its gate operates the residual is
+a *plateau*, not a phase:
+
+| T | 1600 | 1680 | 1760 | 1840 | 1920 | 2000 | 2080 | 2160 | 2240 | 2320 | 2400 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| max\|ratio − 1\| | 7.21e-5 | 7.04e-5 | 6.31e-5 | 6.34e-5 | 5.98e-5 | **5.95e-5** | 6.61e-5 | 6.70e-5 | 5.75e-5 | 4.88e-5 | 7.47e-5 |
+
+and all four channel ratios carry the **same sign** there (+3e-5 … +7e-5) — a
+systematic discretisation offset, not a zero crossing. F₂'s oscillation starts
+later and **grows**: 1.9e-4 (T = 2800), 3.2e-4 (3000), 9.6e-4 (3400), 1.5e-3
+(3800), 2.5e-3 (4000). So the shipped F₂ gate is 1e-3, 17× the plateau it
+actually runs on, rather than a multiple of an envelope the test never reaches.
+
+The general lesson is the one this section exists for: **a `T`-convergence
+claim from three sampled points is not a convergence claim.** Sample finely
+enough to see the period, then gate on the envelope if you are on one and on
+the plateau if you are on that.
+
+### 7.1.2 `dt = 1` on N₂, `dt = 2` on F₂
+
+The N₂ deck's dt = 2 residual is **1.52e-2** at T = 4000 and flat at that value
+across T = 3000–4000 — an order above the dt = 1 envelope and *not* oscillating,
+i.e. a genuine propagation error rather than a phase. dt = 2 is inadequate
+there. Do **not** read 1.52e-2 / 2.71e-4 = 56 as `dt⁶`'s predicted 64 confirmed:
+the denominator is the null of §7.1.1, and the agreement is arithmetic on a
+coincidence. Neither F₂ run needs the correction — the DA gate's truncation
+floor is 1.4e-2, two orders above its own propagation error, and the VE run's
+*total* dt = 2 error is 5.9e-5 on the plateau, which bounds its propagation term
+below that.
 
 ### 7.2 The Markovian VE limit substitutes the doorway at BOTH ends
 
