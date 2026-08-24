@@ -113,23 +113,40 @@ class NrmComparison:
     sigma_nrm_b: npt.NDArray[np.float64]
 
 
-def setup(molecule: str) -> NrmSetup:
+def setup(molecule: str, *, e_r_max: float | None = None) -> NrmSetup:
     """Build the shared grids and vibrational basis for `molecule`.
 
     Parameters
     ----------
     molecule : str
         A `validation.diatomic.config.CONFIGS` key (`"F2"` or `"NO"`).
+    e_r_max : float, optional
+        Electronic real-region extent (bohr), overriding the deck's own
+        `cfg.e_r_max`. BOTH electronic grids move together -- the pole walk
+        needs its two ECS angles on grids that differ only in angle, so
+        overriding one and not the other would silently compare different
+        discretisations. Used by `da_figure.py` to measure how far the LCP's
+        pole walk moves with the box; leave it `None` for the shipped deck.
 
     Returns
     -------
     NrmSetup
     """
     cfg = CONFIGS[molecule]
-    tgrid = cfg.da_grid()
+    r_max = cfg.e_r_max if e_r_max is None else e_r_max
+    tgrid = (
+        cfg.da_grid()
+        if e_r_max is None
+        else TensorGrid(
+            [
+                electronic_grid(r_max=r_max, order=cfg.e_order, n_complex=cfg.e_n_complex),
+                cfg.da_grid().grids[1],
+            ]
+        )
+    )
     elec, nuc = tgrid.grids
     elec_b = electronic_grid(
-        r_max=cfg.e_r_max,
+        r_max=r_max,
         order=cfg.e_order,
         n_complex=cfg.e_n_complex,
         angle_deg=_ANGLE_B_DEG,
