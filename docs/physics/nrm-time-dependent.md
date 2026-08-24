@@ -316,6 +316,20 @@ run costs **4 s** against ~30 min. `td_nrm_da_cross_section(..., markovian=True,
 Vd=…, Gamma=…)` selects it; `nrm.extended.lcp_limit_hamiltonian` and
 `nrm.extended.lcp_initial_packet` are the two pieces.
 
+Everything measured in this section is reproduced end to end by
+
+```
+uv run --no-sync python -m validation.diatomic.td_nrm_figures markovian
+```
+
+(~9 min, almost all of it the two nonlocal propagations), which writes
+`figures/nrm-td-markovian-vs-lcp.png` and its `.npz`.
+
+![The Markovian limit](figures/nrm-td-markovian-vs-lcp.png)
+
+(In its lower-right panel the nonlocal peak-count trace lies exactly under the
+local one at 1 — that coincidence is §6.4's result, not a missing curve.)
+
 ### 6.1 Which `V_d` enters Eq. (2.15) — measured, not argued
 
 The repository has two candidates and they are not interchangeable:
@@ -335,18 +349,49 @@ Decisive, and the failure of the second is not a normalization anyone could
 absorb — it changes sign of direction with energy. `E_res + V_0` is what is
 shipped.
 
-The two potentials agree exactly where `Γ = 0` and separate only where it does
-not, which is `Δ_L`'s own support — measured on this deck:
+The difference between the two decays over the same `R`-range as `Γ` — measured
+on this deck:
 
 | R (bohr) | 3.99 | 3.50 | 3.01 | 2.49 | 2.20 | 1.51 |
 |---|---|---|---|---|---|---|
 | `V_d(Eq.20) − V_d(LCP)` (Ha) | 2e-6 | 4.1e-5 | 9.5e-4 | 0.0423 | 0.268 | 1.171 |
-| `Γ` (Ha) | 0 | 0 | 0 | 0.0095 | 0.0095 | 0.0095 |
+| `Γ` (Ha), **frozen below R = 2.5033** | 0 | 0 | 0 | 0.0095* | 0.0095* | 0.0095* |
 
-(0.0423 Ha at the doorway peak `argmax √(Γ/2π)|χ_0|`, R = 2.4864. §4 of
-`nonlocal-resonance-model.md` quotes 0.0053 Ha for F₂ from the production
-electronic deck; this is the reduced 55-point fixture deck, so the two are not
-the same measurement.)
+It does **not** vanish wherever `Γ` does — R = 3.01 has `Γ = 0` and a difference
+of 9.5e-4 Ha, 500× the R = 3.99 value — and that is expected, not anomalous:
+`Γ_L(R)` is `Γ` at *one* energy while
+`Δ_L(R) = P∫(dE′/2π) Γ(E′,R)/(E_res−E′)` (Eq. 2.12a/2.13b) integrates `Γ` over
+*all* `E′`, so `Δ_L` is free to be nonzero where `Γ_L` vanishes.
+
+**The starred `Γ` values are a frozen extrapolation, not F₂'s width.**
+`qscat.core.lcp.resonance_pole_walk` freezes the last accepted `(shift, Γ)` when
+the pole finder breaks down. On this reduced 55-point electronic deck it breaks
+at **R = 2.5033** and holds `Γ = 0.00949256` over the inner **198 of 819** real
+nodes; the 132-point production deck runs on to R = 1.8657 and gives
+`Γ` = 0.0104 / 0.140 / 0.539 at R = 2.49 / 2.20 / 1.51 — **57× the frozen value**
+at the innermost. The LCP doorway peak at R = 2.4864 is just *inside* the
+freeze, so on this deck the local kernel driving §6.3 and §6.4 is a frozen
+extrapolation across the whole region where the dynamics happen. Every
+comparison in §6 is differential — both sides consume the same curve — so no
+verdict here depends on it, but nothing in §6.3/§6.4 should be read as F₂'s
+converged physics. The walk now warns when it freezes.
+
+### 6.1.1 "The doorway peak" names two different points
+
+§4 of `nonlocal-resonance-model.md` records `|V_d(Eq.20) − V_d(LCP)|` = 0.0053 Ha
+for F₂ "at the doorway peak", and §6.1 above reads 0.0423 Ha at "the doorway
+peak". Both are right; the phrase is overloaded, and *which point* is worth a
+factor of 70 while the electronic deck is worth 1.3×:
+
+| `|V_d(Eq.20) − V_d(LCP)|` at | reduced elec (55) | production elec (132) |
+|---|---|---|
+| `argmax √(Γ/2π)·|χ₀|` — the **LCP** doorway (R = 2.486 / 2.478) | 0.04231 | 0.03283 |
+| `argmax |χ₀|` ≡ `argmax |V_dk⁺χ₀|` — the **NRM** doorway, R = 2.745 | 0.00535 | 0.00534 |
+
+The two points are 0.26 bohr apart, and over the region where `|χ₀|` exceeds 5%
+of its maximum the difference sweeps **0.00095 → 0.067 Ha**. §4's number is the
+NRM doorway and is deck-stable to three significant figures; §6.1's is the LCP
+doorway. Neither is a statement about `Δ_L` being deck-sensitive — it is not.
 
 ### 6.2 The gate, and why it is tighter than the nonlocal one
 
@@ -376,16 +421,30 @@ what the kernel costs from what the doorway costs (TI values, `σ_DA` in bohr²)
 
 | E (Ha) | nonlocal | local kernel + Eq. (2.5) launch | LCP (local kernel + local doorway) |
 |---|---|---|---|
-| 0.02 | 3.443 | 4.118 | 1.433 |
-| 0.03 | 1.559 | 1.862 | 1.116 |
-| 0.05 | 0.296 | 0.0423 | 0.0586 |
+| 0.02 | 3.443 | 4.082 | 1.433 |
+| 0.03 | 1.559 | 1.837 | 1.116 |
+| 0.05 | 0.296 | 0.0415 | 0.0586 |
 
-At 0.02 and 0.03 Ha, localizing the kernel alone moves `σ` by ~20% while the
+All three are **time-independent** — the middle column is `solve_nuclear` with
+`F → diag(−iΓ/2)` and the Eq. (2.5) right-hand side, not a propagation. (Its TD
+counterpart reads 4.118 / 1.862 / 0.0423, i.e. 1.0087 / 1.0139 / 1.0188 of these
+— this route's own transform-truncation offset at `T = 12000`, and the reason
+the columns must not be mixed.)
+
+At 0.02 and 0.03 Ha, localizing the kernel alone moves `σ` by ~18–19% while the
 full LCP is off by 2.4× and 1.4× — i.e. **most of the LCP's error on F₂ comes
 from the local doorway, not from the Markovian kernel**. At 0.05 Ha the ordering
 inverts and both approximations are wrong in different directions. This is a
 one-deck, one-molecule measurement on a reduced electronic grid, not a general
 claim.
+
+**What this is measured *against* matters.** The reference column here is the
+*nonlocal* model, not the exact 2-D oracle, so strictly this decomposes the
+LCP's error relative to the NRM. That is legitimate on F₂ only because NRM
+choice B tracks the exact oracle to 0.06–0.33% there
+(`nonlocal-resonance-model.md` §7.1) — on NO, where the NRM's DA collapses by
+5–8 orders (§7.2), the same decomposition would be measured against a broken
+reference and would mean nothing.
 
 `lcp_initial_packet` implements the LCP doorway, because reproducing
 `qscat.core.lcp` is what `markovian=True` is *for*; the hybrid above is a
@@ -403,12 +462,23 @@ that isolates the kernel — there is no such thing:
 |---|---|---|---|---|---|---|---|---|
 | nonlocal, density peaks >10% of max | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
 | local, density peaks >10% of max | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| nonlocal, `ΔR` (bohr) | 0.059 | 0.066 | 0.082 | 0.086 | 0.064 | 0.062 | 0.072 | 0.098 |
-| local, `ΔR` (bohr) | 0.059 | 0.071 | 0.089 | 0.100 | 0.086 | 0.074 | 0.074 | 0.093 |
+| nonlocal, `ΔR` (bohr) | 0.083 | 0.069 | 0.066 | 0.063 | 0.061 | 0.058 | 0.066 | 0.101 |
+| local, `ΔR` (bohr) | 0.083 | 0.074 | 0.072 | 0.069 | 0.067 | 0.064 | 0.067 | 0.096 |
 
-Both stay unimodal; both show the *same* transient width bulge peaking near
-3.4 fs and then contracting, which is a breathing motion of one packet rather
-than two. Over the full run the two are nearly indistinguishable in the
+Two different weightings are in play here and only one is right for each row.
+The peak count is taken on the density in **wavefunction-value** space
+(`|ψ_i|² = |c_i|²/w_i`), which is what a shape looks like on a non-uniform grid —
+counting peaks in coefficient space would find element boundaries. `ΔR` is
+`√(⟨R²⟩−⟨R⟩²)` on the probability density in **DVR coefficient** space, where
+`|c_i|²` already carries the quadrature weight, the same convention
+`propagation._record` uses for `⟨R⟩` and `⟨P⟩`; taking that moment in value
+space instead drops `w_i` from the integrand and produces a *different and
+inverted* trend (an earlier draft of this table did exactly that).
+
+Both stay unimodal, and both **contract** monotonically to ≈4.8 fs before
+re-expanding — one breathing packet, not two, and the nonlocal and local widths
+never differ by more than 0.007 bohr. Over the full run the two are nearly
+indistinguishable in the
 Eq. (4.5)/(4.6) moments — `⟨R⟩` agrees to ≤0.01 bohr and `⟨P⟩` to ≤0.15 a.u. at
 every sample through T = 4000 — and differ only in an early, one-off norm loss:
 `S(t)/S(0)` plateaus at **0.9368** for the nonlocal against **0.9733** for the
@@ -417,6 +487,14 @@ local, the whole gap opening inside the first ~4 fs and nothing changing after.
 The shipped LCP's packet *does* look different — `S/S₀` drops to 0.663 at once,
 `⟨P⟩` runs ~55 against ~40, and it reaches the absorber ~10 fs earlier — but
 that is the doorway of §6.3, not the kernel.
+
+**And it is not unimodal**: 9 / 8 / 10 / 9 / 7 peaks at t = 2.4 / 2.9 / 3.4 /
+3.9 / 4.8 fs, collapsing back to 1 by 6.8 fs, with `ΔR` climbing monotonically
+0.047 → 0.185 bohr. The claim above is about (a) and (b) only. This transient
+structure is almost certainly the launch state ringing off the step in `√Γ` at
+§6.1's freeze boundary (R = 2.5033, essentially on top of the LCP doorway peak
+at 2.4864), not a physical splitting — it is a reason to distrust that packet on
+this deck, not evidence for PRA 47's mechanism.
 
 **This is a negative result about F₂, not about PRA 47.** F₂ is the molecule
 where the nonlocal model reproduces the exact oracle to 0.06–0.33%

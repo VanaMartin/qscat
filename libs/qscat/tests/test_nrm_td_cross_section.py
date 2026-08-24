@@ -238,6 +238,11 @@ def f2_lcp(f2_deck):
     DIFFERENTIAL -- the shipped `lcp_da_cross_section` and the Markovian
     propagation consume this same curve -- so the curve only has to be a
     curve, not a converged one. It costs ~3 s.
+
+    It DOES warn: the pole walk freezes at R = 2.5033 on this deck (the
+    production 132-point electronic grid runs on to R = 1.8657). The warning
+    is expected here and is not suppressed, because suppressing it in a
+    fixture is how it would stop being noticed everywhere else.
     """
     nuc, elec, _, _, _, _ = f2_deck
     elec_b = electronic_grid(r_max=13.0, order=5, n_complex=2, angle_deg=40.0)
@@ -359,11 +364,22 @@ def test_the_discrete_state_potential_does_not_reproduce_the_lcp(f2_deck, f2_lcp
     disagreement that is large AND energy-dependent, i.e. not a normalization
     anyone could absorb.
 
-    The two potentials agree exactly where `Gamma = 0` and separate only where
-    it does not, which is `Delta_L`'s own support: measured on this deck,
-    `V_d(Eq.20) - V_d(LCP)` = 2e-6 / 4e-5 / 9.5e-4 / 0.042 / 0.27 / 1.17 Ha at
-    R = 3.99 / 3.50 / 3.01 / 2.49 / 2.20 / 1.51 bohr, against `Gamma` = 0 for
-    the first three and 0.0095 for the last three.
+    The difference decays over the same `R`-range as `Gamma` -- measured on
+    this deck, `V_d(Eq.20) - V_d(LCP)` = 2e-6 / 4.1e-5 / 9.5e-4 / 0.0423 /
+    0.268 / 1.171 Ha at R = 3.99 / 3.50 / 3.01 / 2.49 / 2.20 / 1.51 bohr. It
+    does NOT vanish wherever `Gamma` does: `Gamma = 0` at R = 3.01 and the
+    difference there is 9.5e-4 Ha, 500x its R = 3.99 value. That is expected
+    rather than anomalous -- `Gamma_L(R)` is `Gamma` at ONE energy while
+    `Delta_L(R) = P Int (dE'/2pi) Gamma(E',R)/(E_res - E')` (Eq. 2.12a/2.13b)
+    integrates over ALL `E'`.
+
+    Note also that `Gamma` on the inner half of that range is a FROZEN
+    extrapolation, not a computed curve: `resonance_pole_walk` breaks down at
+    R = 2.5033 on this reduced electronic deck and holds `Gamma = 0.00949256`
+    over the inner 198 of 819 real nodes (it now warns when it does).
+    Everything here is differential -- both sides consume the same curve -- so
+    the verdict is unaffected, but the `Gamma` values quoted above for
+    R <= 2.49 are that constant and not F2's width.
 
     This test exists so that reading is not re-litigated by a later
     "simplification" that reaches for the `ing` already in scope.

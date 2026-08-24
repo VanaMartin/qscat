@@ -6,6 +6,7 @@ import numpy as np
 import pytest
 import scipy.sparse as sp
 from qscat.core.grids import electronic_grid, segmented_grid
+from qscat.core.lcp import lcp_da_cross_section
 from qscat.core.nrm.coupling import v_dk_plus
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
 from qscat.core.nrm.dissociation import _boundary_node
@@ -17,7 +18,7 @@ from qscat.core.nrm.extended import (
 from qscat.core.nrm.ingredients import NrmIngredients, nrm_ingredients
 from qscat.core.nrm.nonlocal_potential import continue_to_tail, nonlocal_operator
 from qscat.core.vibrational import vibrational_states
-from qscat.dvr import kinetic, kinetic_sparse
+from qscat.dvr import kinetic
 from qscat.model import F2
 from scipy.sparse.linalg import spsolve
 
@@ -267,16 +268,39 @@ def _lcp_like(grid):
 def test_lcp_limit_hamiltonian_is_the_local_nuclear_operator(nuc):
     """PRA 47 Eq. (2.15): `T_N + diag(V_d + Delta_L - (i/2)Gamma_L)`, nothing else.
 
-    Byte-for-byte the operator `qscat.core.lcp.lcp_da_cross_section` builds as
-    its `H_res`, which is what makes the two routes comparable at all -- so it
-    is checked against that assembly, not against a paraphrase of it.
+    `lcp.py` exposes no assembly function to import, so this checks the
+    operator through the only thing that observes it: resolving
+    `lcp_da_cross_section`'s own doorway against `lcp_limit_hamiltonian` must
+    return the wavefunction that function returns. That is a check against
+    lcp's assembly rather than against a re-spelling of it -- a
+    `kinetic_sparse(...) + sp.diags(...)` written out here would agree with a
+    wrong `H_res` just as happily.
     """
     v_d, gamma = _lcp_like(nuc)
     v_res = v_d - 0.5j * gamma
     h = lcp_limit_hamiltonian(nuc, F2, v_res)
     assert h.shape == (nuc.n, nuc.n)
-    want = (kinetic_sparse(nuc, F2.mu) + sp.diags(v_res)).tocsr()
-    assert np.allclose(h.toarray(), want.toarray(), rtol=0.0, atol=0.0)
+    assert h.dtype == np.complex128
+
+    eps, chi = vibrational_states(nuc, F2.mu, 3, F2.v0)
+    eps_e = float(v_d[_boundary_node(nuc)].real)
+    e_kin = eps_e - float(eps[0]) + 0.03  # open by construction
+    _, psi_lcp = lcp_da_cross_section(
+        nuc, F2.mu, v_d, gamma, eps, chi, 0, e_kin, return_wavefunction=True
+    )
+    assert psi_lcp is not None, "the DA channel is shut -- pick an open energy"
+
+    doorway = np.sqrt(gamma / (2.0 * np.pi)).astype(np.complex128) * chi[0]
+    a = (e_kin + float(eps[0])) * np.eye(nuc.n, dtype=np.complex128) - h.toarray()
+    got = np.linalg.solve(a, doorway)
+    # Vector-norm relative, not elementwise: this resolvent's entries span
+    # ~1e-46 to ~1e-36 and the two sides use different factorizations (dense
+    # LAPACK here, SuperLU inside `lcp_da_cross_section`), so `allclose`'s
+    # per-entry test measures the conditioning of the smallest entries rather
+    # than whether the two operators are the same (cond(A) ~ 4.8e5 here).
+    # Measured relative vector difference: 1.8e-14.
+    rel = np.linalg.norm(got - psi_lcp) / np.linalg.norm(psi_lcp)
+    assert rel < 1e-10, f"relative vector difference {rel:.3g}"
 
 
 def test_lcp_limit_hamiltonian_is_complex_symmetric(nuc):
@@ -332,3 +356,10 @@ def test_lcp_initial_packet_rejects_bad_input(nuc):
         lcp_initial_packet(nuc, gamma[:-1], eps, chi, 0, np.array([0.03]))
     with pytest.raises(ValueError, match="identically zero"):
         lcp_initial_packet(nuc, np.zeros(nuc.n), eps, chi, 0, np.array([0.03]))
+    # A width cannot be negative, and unchecked it turns the doorway NaN --
+    # which survives the propagation and the transform and surfaces only as a
+    # NaN sigma_DA, with nothing pointing back here.
+    bad = gamma.copy()
+    bad[10] = -1e-12
+    with pytest.raises(ValueError, match="negative entries"):
+        lcp_initial_packet(nuc, bad, eps, chi, 0, np.array([0.03]))
