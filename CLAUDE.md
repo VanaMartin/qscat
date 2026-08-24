@@ -316,7 +316,23 @@ libs/       qscat — the standard library: validated, reusable QM code
               ONCE via an SVD of the launch matrix (PRA 47 Eq. 2.17's rank-1
               claim, generalized). The route is SLOWER than the resolvent (773 s
               vs 246 s on F₂'s deck) and is justified by `S(t)`/`⟨R⟩_t`/`⟨P⟩_t`,
-              not cost — see docs/physics/nrm-time-dependent.md. Plus
+              not cost. `td_nrm_ve_cross_section` is the VE sibling (N₂ 2.7e-4,
+              F₂ 5.9e-5 against the TI route; `T^bg` is energy-domain so only
+              `T^res` changes route), and `markovian=True` on either entry point
+              propagates PRA 47 Eq. (2.15)'s LOCAL limit — the same solve with
+              the arms removed, so `N_R` square instead of `(1+n_states)·N_R`,
+              seconds instead of ~45 min. **Eq. (2.15) takes `qscat.core.lcp`'s
+              `Vd` (= `E_res`), NOT `v_d_discrete`** — measured, 1.0002 against
+              0.346/0.419/7.14, because Eq. (2.14) makes `V_d + Δ_L = E_res + V_0`
+              and Eq. (20)'s `V_d` is short by the level shift; the wrong choice
+              is locked out by a test. `markovian` substitutes the local doorway
+              at BOTH ends (that is what reproduces the LCP rather than a hybrid)
+              and REFUSES `include_background=True`, since Eq. (37)'s background
+              needs a `φ_d` the local model has not. Measured on F₂, the nonlocal
+              and local packets are nearly identical (`⟨R⟩` within 0.01 bohr,
+              both unimodal) — **no packet splitting**, unlike PRA 47's H₂⁻; the
+              shipped LCP's packet differs because of its DOORWAY, not its
+              kernel — see docs/physics/nrm-time-dependent.md. Plus
               `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
               eMoScat's `(n_elem, endpoint)` deck format, plus `ecs_angle_family`
