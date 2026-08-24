@@ -67,16 +67,15 @@ REFERENCE: Final[dict[str, tuple[str, str]]] = {
     ),
 }
 
-# Electronic real-region extents the LCP curve is recomputed over.
+# Electronic real-region extents the `--ladder` DIAGNOSTIC recomputes the LCP
+# over. These curves are NOT PLOTTED -- see LCP_RMAX_SPREAD below for why.
 #
-# NOT a convergence study for its own sake -- it is what the LCP curve on these
-# figures HAS to be drawn as. The exact route is edge-insensitive (it reads a
-# boundary flux), but the LCP's `V_d`/`Gamma` come from an ECS resonance-pole
-# walk, and on NO that walk does NOT converge in `r_max`: measured at E=0.175 it
-# gives 1.30e-4, 9.36e-5, 4.30e-2, 1.04e-2, 7.16e-3, 9.33e-4 across the ladder
-# below, non-monotone, with the asymptotic width Gamma(R->R_inf) shrinking as
-# the box grows instead of settling. Drawing one of those six as a line would
-# present an undetermined quantity as a result.
+# The exact route is edge-insensitive (it reads a boundary flux), but the LCP's
+# `V_d`/`Gamma` come from an ECS resonance-pole walk, and on NO that walk does
+# NOT converge in `r_max`: measured at E=0.175 it gives 1.30e-4, 9.36e-5,
+# 4.30e-2, 1.04e-2, 7.16e-3, 9.33e-4 across the ladder below, non-monotone, with
+# the asymptotic width Gamma(R->R_inf) shrinking as the box grows instead of
+# settling.
 #
 # F2 is measured on the same ladder rather than assumed converged, and it fails
 # DIFFERENTLY: five of the six walks agree to ~1.8% (sigma_LCP spans
@@ -85,9 +84,21 @@ REFERENCE: Final[dict[str, tuple[str, str]]] = {
 # sweep is a real property of its shipped deck; NO has no such property to quote.
 LCP_RMAX_LADDER: Final[tuple[float, ...]] = (16.0, 32.0, 48.0, 64.0, 80.0, 96.0)
 
-# The deck the rest of the repo runs on, and the member of the ladder drawn as a
-# line inside the envelope.
+# The deck the rest of the repo runs on, and the ONLY LCP curve these figures
+# draw.
 SHIPPED_RMAX: Final[float] = 16.0
+
+# Worst per-energy `hi/lo` over LCP_RMAX_LADDER, measured 2026-08-24 with
+# `--ladder`. Recorded rather than recomputed because the figure does not draw
+# the ladder and each rung costs a pole walk; rerun with `--ladder` to refresh.
+#
+# The two numbers mean different things, which is why neither figure plots the
+# ladder and why an aggregated band would have been worse than useless: NO's
+# walk is non-monotone across the whole range, so its LCP is UNDETERMINED; F2's
+# agrees to ~1.8% over 16-80 bohr and breaks only at 96, so its documented
+# 0.263 -> 1.734 sweep is a real property of the shipped deck and the 45x is one
+# bad rung, not an uncertainty.
+LCP_RMAX_SPREAD: Final[dict[str, float]] = {"NO": 3.98e4, "F2": 45.0}
 
 _FIGURE_DIR = Path("docs/physics/figures")
 
@@ -109,14 +120,19 @@ def reference_for(molecule: str) -> tuple[npt.NDArray[np.float64], npt.NDArray[n
 
 
 def compute(
-    molecule: str, energies: npt.NDArray[np.float64]
+    molecule: str, energies: npt.NDArray[np.float64], *, ladder: bool = False
 ) -> tuple[npt.NDArray[np.float64], dict[float, npt.NDArray[np.float64]]]:
     """`(sigma_exact, {r_max: sigma_lcp})` on `molecule`'s eMoScat nuclear deck.
 
     The exact route runs once, on the shipped deck: it reads a boundary flux, so
     it is invariant under the electronic box to 4 digits over 16 -> 96 bohr
-    (`validation/diatomic/test_no_da_thesis.py` gates that). The LCP route runs
-    once per `LCP_RMAX_LADDER` entry, because its pole walk is not.
+    (`validation/diatomic/test_no_da_thesis.py` gates that).
+
+    `ladder=False` (the default) runs the LCP once, on the shipped deck -- the
+    only curve the figure draws. `ladder=True` additionally runs it at every
+    `LCP_RMAX_LADDER` entry, which is a DIAGNOSTIC: it answers whether the pole
+    walk determines `V_d`/`Gamma` on this molecule at all. It costs one extra
+    pole walk per entry and nothing in the figure depends on it, so it is opt-in.
 
     Every route shares the same nuclear deck and the same vibrational basis, so
     the comparison is differential.
@@ -133,7 +149,8 @@ def compute(
     # `setup` is the one place the LCP's paired two-ECS-angle electronic decks
     # are defined; `_ANGLE_B_DEG` rides along with whatever `r_max` it is given.
     sigma_lcp: dict[float, npt.NDArray[np.float64]] = {}
-    for r_max in LCP_RMAX_LADDER:
+    rungs = LCP_RMAX_LADDER if ladder else (SHIPPED_RMAX,)
+    for r_max in rungs:
         s = setup(molecule, e_r_max=r_max)
         vd, gamma = local_complex_potential(s.model, s.nuc, s.elec, s.elec_b)
         sigma_lcp[r_max] = np.asarray(
@@ -234,38 +251,30 @@ def write_figures(
         2, 1, figsize=(9, 8), sharex=True, gridspec_kw={"height_ratios": [3, 1]}
     )
     ax.plot(energies, ex, "-", color="tab:blue", label="exact 2-D TI (oracle)")
-    # The LCP is drawn as ONE THIN LINE PER `r_max`, not as a single curve and
-    # not as an aggregated band. Its `V_d`/`Gamma` come from an ECS pole walk
-    # that is not box-independent, so a single curve would assert a value the
-    # method does not determine -- but an envelope would mislead the other way,
-    # because the two molecules fail differently: NO's walk is non-monotone
-    # across the whole ladder, while F2's agrees to ~1.8% over 16-80 bohr and
-    # then breaks only at 96. Overplotting the individual walks shows which of those
-    # is happening at a glance, and hides neither.
-    others = [r for r in sorted(sigma_lcp) if r != SHIPPED_RMAX]
-    ladder_label = (
-        rf"LCP at other $r_{{max}}$ ({int(min(others))}-{int(max(others))} $a_0$; "
-        rf"walk spread {worst:.3g}x)"
-    )
-    for r in others:
-        curve = np.where(sigma_lcp[r] > 0.0, sigma_lcp[r], np.nan)
-        ax.plot(
-            energies,
-            curve,
-            "-",
-            color="tab:red",
-            linewidth=0.8,
-            alpha=0.45,
-            label=ladder_label,
-        )
-        ladder_label = "_nolegend_"  # one legend entry for the whole ladder
+    # ONLY the shipped deck's LCP is drawn. The `r_max` ladder is COMPUTED (see
+    # `lcp_rmax_spread`, reported in the caption and in
+    # `docs/physics/diatomic-ve-cross-sections.md`) but deliberately NOT PLOTTED:
+    # on NO the pole walk does not converge, so those curves are not alternative
+    # estimates of the same quantity, they are failed computations. Drawing them
+    # beside a real curve invites a reader to average them or to read a spread as
+    # an uncertainty band, when what the ladder actually establishes is a yes/no
+    # -- whether the method determines `V_d`/`Gamma` on this molecule at all.
+    # That belongs in prose, and it is there.
     ax.plot(
         energies,
         shipped,
         "--",
         color="tab:red",
         linewidth=1.6,
-        label=rf"LCP at the shipped deck ($r_{{max}}$ = {int(SHIPPED_RMAX)} $a_0$)",
+        label=(
+            rf"LCP, shipped deck ($r_{{max}}$ = {int(SHIPPED_RMAX)} $a_0$)"
+            + (
+                rf" — undetermined: {LCP_RMAX_SPREAD[molecule]:.3g}$\times$ over "
+                rf"$r_{{max}}$ = {int(min(LCP_RMAX_LADDER))}-{int(max(LCP_RMAX_LADDER))} $a_0$"
+                if LCP_RMAX_SPREAD.get(molecule, 1.0) > 1.05
+                else ""
+            )
+        ),
     )
     if ref_e.size:
         ax.plot(ref_e, ref_s, "o--", color="k", markersize=5, linewidth=1.0, label=ref_label)
@@ -276,15 +285,6 @@ def write_figures(
     ax.grid(True, which="both", alpha=0.2)
 
     good = np.isfinite(ex) & (ex > 0.0)
-    for r in others:
-        axr.plot(
-            energies,
-            np.where(good & (sigma_lcp[r] > 0.0), sigma_lcp[r] / ex, np.nan),
-            "-",
-            color="tab:green",
-            linewidth=0.8,
-            alpha=0.45,
-        )
     axr.plot(energies, np.where(good, shipped / ex, np.nan), "-", color="tab:green", linewidth=1.6)
     axr.axhline(1.0, color="k", linestyle=":", linewidth=1.0)
     axr.set_yscale("log")
@@ -313,10 +313,20 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("molecule", choices=sorted(ENERGY_GRIDS), help="which molecule to plot")
     p.add_argument("--outdir", type=Path, default=_FIGURE_DIR)
+    p.add_argument(
+        "--ladder",
+        action="store_true",
+        help=(
+            "also run the LCP at every LCP_RMAX_LADDER entry and report the spread. "
+            "A diagnostic -- it says whether the pole walk determines V_d/Gamma at "
+            "all -- and it is NOT drawn: on NO those walks do not converge, so they "
+            "are failed computations rather than alternative estimates."
+        ),
+    )
     args = p.parse_args()
 
     energies = energies_for(args.molecule)
-    sigma_exact, sigma_lcp = compute(args.molecule, energies)
+    sigma_exact, sigma_lcp = compute(args.molecule, energies, ladder=args.ladder)
     open_ = sigma_exact > 0.0
     _lo, _hi, worst = lcp_envelope(sigma_lcp)
     shipped = sigma_lcp[SHIPPED_RMAX]
@@ -331,7 +341,7 @@ def main() -> None:
     )
     print(
         f"  LCP r_max spread over {list(LCP_RMAX_LADDER)}: worst hi/lo = {worst:.4g} "
-        f"({'NOT converged -- drawn as an envelope' if worst > 1.05 else 'converged'})"
+        f"({'NOT converged -- reported, not plotted' if worst > 1.05 else 'converged'})"
     )
     for r in LCP_RMAX_LADDER:
         v = sigma_lcp[r][open_]
