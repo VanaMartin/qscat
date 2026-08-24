@@ -33,6 +33,8 @@ gated by `test_no_da_is_invariant_under_the_electronic_box` below.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 import pytest
 from qscat.core.dissociation import da_cross_section
@@ -42,21 +44,23 @@ from qscat.dvr import TensorGrid
 
 from validation.diatomic.config import CONFIGS
 
-# Energies (Ha) and the Fig. 3.14 values read off the panel, in a0^2. The
-# tolerance is per-point and deliberately generous: these are read from a
-# 4 cm linear panel, so the peak is good to ~10% and the tail -- where the
-# curve is a few percent of full scale -- only to a factor of ~2.5. What the
-# gate has to catch is the four-to-seven-order error that was there before,
-# and a factor-2.5 band does that with enormous margin while claiming no
-# precision the figure cannot support.
-THESIS_FIG_314: tuple[tuple[float, float, float], ...] = (
-    # (E, sigma_read_off, allowed factor)
-    (0.1720, 1.35e-9, 1.4),
-    (0.1730, 1.15e-9, 1.4),
-    (0.1750, 0.95e-9, 1.6),
-    (0.1800, 0.55e-9, 2.5),
-    (0.1850, 0.25e-9, 2.5),
-    (0.1900, 0.10e-9, 3.0),
+# The read-off values live in ONE place, `data/vana-2017-fig3.14-no-da.dat`
+# (which also carries the provenance and the reading-uncertainty caveat), so
+# this gate and the committed figure's overlay
+# (`validation/diatomic/da_figure.py`) can never quote the panel differently.
+_REFERENCE = np.loadtxt(Path(__file__).parent / "data/vana-2017-fig3.14-no-da.dat")
+
+# Per-point tolerance, deliberately generous and deliberately NOT uniform: the
+# panel is a ~4 cm LINEAR axis, so its peak is readable to ~10% while its tail,
+# at a few percent of full scale, is only good to a factor of ~2.5. What the
+# gate has to catch is the four-to-seven-order error that was there before, and
+# these bands do that with enormous margin while claiming no precision the
+# figure cannot support.
+_FACTORS: tuple[float, ...] = (1.4, 1.4, 1.6, 2.5, 2.5, 3.0)
+
+THESIS_FIG_314: tuple[tuple[float, float, float], ...] = tuple(
+    (float(e), float(sigma), factor)
+    for (e, sigma), factor in zip(_REFERENCE, _FACTORS, strict=True)
 )
 
 

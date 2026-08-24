@@ -1,0 +1,31 @@
+# NO-like model, dissociative-attachment cross section, TIME-INDEPENDENT 2-D
+# reference curve.
+#
+# Source: M. Vana, doctoral thesis, Charles University (2017), **Fig. 3.14,
+# printed p. 46** (extractor p. 54 of reference/literature/vana-2017-thesis.pdf;
+# printed = extractor - 8, the constant offset stated in
+# reference/literature/vana-2017-thesis.md). Bottom panel, "VE: 0 -> DA",
+# cutoff time t_c = 35000, the black "Time independent reference" curve.
+#
+# THESE VALUES ARE READ OFF A FIGURE, NOT TABULATED BY THE SOURCE. The panel is
+# a ~4 cm LINEAR axis in units of 1e-9 a0^2 spanning 0 to 2.0, over 0.170-0.200
+# Ha. The peak is therefore readable to roughly 10%; the tail, where the curve
+# sits at a few percent of full scale, only to a factor of ~2. Treat every
+# number here as an order-of-magnitude-plus-shape anchor, never as a precise
+# datum -- which is exactly the job it does: it is the ONLY published DA cross
+# section for this model, and it is what caught the volume-T-matrix defect in
+# `qscat.core.dissociation.da_cross_section` (see
+# validation/diatomic/test_no_da_thesis.py, which carries the same six points
+# with explicit per-point tolerance bands).
+#
+# The same panel draws the LCP curve SCALED BY 1e-5 to share the axis, i.e. the
+# published LCP over-predicts by ~5 orders. That annotation is an independent
+# check on the scale here and is not reproduced as data.
+#
+# Columns: E (hartree)   sigma_DA (bohr^2)
+0.1720   1.35e-9
+0.1730   1.15e-9
+0.1750   0.95e-9
+0.1800   0.55e-9
+0.1850   0.25e-9
+0.1900   0.10e-9

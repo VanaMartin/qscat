@@ -169,7 +169,7 @@ libs/       qscat — the standard library: validated, reusable QM code
               under-predicts below ~0.03 and over-predicts above. On NO it
               fails outright away from threshold: the exact σ_DA decays 13
               orders of magnitude while the LCP stays flat, reaching a ratio of
-              1.8e9. Documented departures also in VE-elastic (LCP misses the
+              1.8e5-2.2e7 (corrected 2026-08-24). Documented departures also in VE-elastic (LCP misses the
               non-resonant background) — see
               docs/physics/diatomic-ve-cross-sections.md. Also
               `resonance_levels`/`lcp_resonance_levels` (+ `ResonanceLevels`): the
@@ -275,9 +275,14 @@ libs/       qscat — the standard library: validated, reusable QM code
               tested range (PRA 77 publishes no DA cross section for NO at all —
               NO's DA channel opens at +0.1719 Ha against the paper's plotted
               0.01-0.08 Ha window, so it is energetically shut there), choice B
-              collapses by 5-8 orders — with NO located defect and NO confirmed
-              mechanism, and with all three approximations flat (LCP 1.04×, A
-              2.47×, B 127×) while the converged exact swings 9397×. MEASURED
+              reproduces the exact oracle to 1.5-1.9% — the SAME quality as F2.
+              The "5-8 order collapse" this entry used to record was the exact
+              2-D oracle's own error: `da_cross_section` used a post-form VOLUME
+              T-matrix whose required cancellation is integrand/answer (x2.7 on
+              F2, x1.5e6 on NO), so every box edge leaked. FIXED 2026-08-24 by
+              reading the outgoing flux instead; gated against Vana 2017
+              Fig. 3.14. `dr_cross_section` (H2+) still uses the volume form and
+              is FLAGGED, not audited. MEASURED
               FOR VE, the channel PRA 77 plots for EVERY molecule in its study:
               choice B + background reproduces the exact `driven.ve_cross_section`
               oracle to better than 0.7% on BOTH N₂ (11 energies, 0.06-0.16 Ha)
@@ -291,8 +296,8 @@ libs/       qscat — the standard library: validated, reusable QM code
               reduction, NOT the grid — absolute normalization is anchored by
               validation/n2/exact2d.py against Houfek. DA on F₂/NO, VE on
               N₂/F₂ (NO VE not run, though the paper publishes it — the natural
-              follow-on); the NO DA collapse above REMAINS OPEN, narrowed but not
-              closed by the VE result — see
+              follow-on); the NO DA question is CLOSED — it was the oracle, not the
+              model — see
               docs/physics/nonlocal-resonance-model.md. The nrm package also has
               a TIME-DEPENDENT half (`extended`, `propagation`,
               `td_cross_section`): Gertitschke & Domcke PRA 47's memory integral

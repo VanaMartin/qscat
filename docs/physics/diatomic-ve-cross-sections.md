@@ -211,11 +211,30 @@ limitation. The LCP VE cross section itself is not computed in this sub-project
 claimed here. N₂'s DA channel is closed (threshold +0.5 Ha), so LCP and exact both give ≈0
 there — a consistency sanity, no figure.
 
-**NO — where the LCP fails outright.** Recomputed at 151 energies (0.150–0.300 Ha, step
-0.001). The exact σ_DA is a sharp spike at threshold (peak 0.0925 bohr² at E = 0.172) that then
-decays by **thirteen orders of magnitude**, to 1.8 × 10⁻¹⁴ at E = 0.300. The LCP does not decay:
-it stays near 10⁻⁴ across the whole range. The ratio therefore runs from 0.067 near the spike to
-**1.8 × 10⁹** at the top of the range.
+**NO — where the LCP fails outright.** 151 energies (0.150–0.300 Ha, step 0.001),
+recomputed 2026-08-24 with the flux extraction. The exact σ_DA peaks at
+**1.349 × 10⁻⁹ bohr² at E = 0.1720** and decays **smoothly, by ten orders of
+magnitude**, to 8.47 × 10⁻²⁰ at E = 0.300. The LCP does not decay: it stays near
+10⁻⁴ across the whole range. The ratio therefore runs from **9.70 × 10⁴** near the
+peak to **4.84 × 10¹⁴** at the top of the range, **never crossing unity** — unlike
+F₂, where it sweeps through 1 near E ≈ 0.032.
+
+Three earlier claims about this curve are withdrawn, all of them artefacts of the
+volume-form extraction (`nonlocal-resonance-model.md` §7.2.1):
+
+- the "sharp spike at threshold, peak 0.0925 bohr²" — there is no spike; the true
+  peak is 1.349e-9 and the curve is smooth;
+- "thirteen orders of magnitude" and the ratio "1.8 × 10⁹" — both were reading the
+  cancellation residue, not the cross section;
+- **the oscillations**, which this note previously read as structure. They were
+  structure in the residue. The converged curve has none.
+
+The far tail is real, not a floor: flux extraction at `r_max` 16 against 48 agrees
+to 5–6 significant figures even at 8.4568e-20 (E = 0.300), where the volume route's
+two boxes differ by 5460×.
+
+The LCP curve on the figure below carries its own, separate caveat — NO's ECS pole
+walk does not converge in `r_max` — see the figure's caption.
 
 ![NO σ_DA: LCP vs exact-2D oracle](figures/no-2d-da-lcp-vs-exact.png)
 
