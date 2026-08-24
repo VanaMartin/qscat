@@ -100,6 +100,16 @@ SHIPPED_RMAX: Final[float] = 16.0
 # bad rung, not an uncertainty.
 LCP_RMAX_SPREAD: Final[dict[str, float]] = {"NO": 3.98e4, "F2": 45.0}
 
+# The VERDICT that spread supports, per molecule. Not derivable from the number:
+# F2's 45x and NO's 3.98e4 both exceed any threshold, but they mean opposite
+# things, and a single `spread > tol` test would label F2 undetermined -- which
+# is precisely the distinction `docs/physics/diatomic-ve-cross-sections.md`
+# draws and the figure must not contradict.
+LCP_RMAX_VERDICT: Final[dict[str, str]] = {
+    "NO": r"undetermined: {spread:.3g}$\times$ over $r_{{max}}$ = {lo}-{hi} $a_0$",
+    "F2": r"determined to ~1.8% over $r_{{max}}$ = {lo}-80 $a_0$; the {hi} $a_0$ walk breaks",
+}
+
 _FIGURE_DIR = Path("docs/physics/figures")
 
 
@@ -268,9 +278,13 @@ def write_figures(
         label=(
             rf"LCP, shipped deck ($r_{{max}}$ = {int(SHIPPED_RMAX)} $a_0$)"
             + (
-                rf" — undetermined: {LCP_RMAX_SPREAD[molecule]:.3g}$\times$ over "
-                rf"$r_{{max}}$ = {int(min(LCP_RMAX_LADDER))}-{int(max(LCP_RMAX_LADDER))} $a_0$"
-                if LCP_RMAX_SPREAD.get(molecule, 1.0) > 1.05
+                " — "
+                + LCP_RMAX_VERDICT[molecule].format(
+                    spread=LCP_RMAX_SPREAD[molecule],
+                    lo=int(min(LCP_RMAX_LADDER)),
+                    hi=int(max(LCP_RMAX_LADDER)),
+                )
+                if molecule in LCP_RMAX_VERDICT
                 else ""
             )
         ),
