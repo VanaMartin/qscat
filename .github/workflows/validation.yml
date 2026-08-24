@@ -139,7 +139,14 @@ jobs:
           HEAD: ${{ github.event.pull_request.head.sha }}
         run: |
           changed=$(git diff --name-only "$BASE" "$HEAD" || true)
-          core=$(echo "$changed" | grep -E '^(libs/qscat/qscat/|native/|projects/|apps/qscat-run/qscat_run/)' || true)
+          # Calculation-bearing SOURCE only. Test files under these trees are
+          # excluded deliberately: a PR that only edits tests cannot move a
+          # number, and an advisory that fires on those is one reviewers learn
+          # to scroll past. (Caught by watching this job fire on the PR that
+          # introduced it, which touches only tests and workflows.)
+          core=$(echo "$changed" \
+            | grep -E '^(libs/qscat/qscat/|native/|projects/|apps/qscat-run/qscat_run/)' \
+            | grep -vE '(^|/)tests?/|(^|/)test_[^/]*\.py$|_test\.py$' || true)
           if [ -z "$core" ]; then
             echo "No calculation-bearing paths changed; no validation label needed." >> "$GITHUB_STEP_SUMMARY"
             exit 0
