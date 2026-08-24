@@ -6,10 +6,12 @@
 # `qscat-run run` inside the container, mounting CONFIG in read-only and
 # OUTPUT_DIR out.
 #
-# Deliberately does NOT build the `test` target: that would run the full
-# pytest suite (measured ~38 min) before every compute invocation, and a
-# single failing test would block compute work that has nothing to do with
-# it. Run `docker/build.sh test` separately when you actually want the suite.
+# Deliberately does NOT build the `test` target: that would run both test
+# tiers -- including the production-scale one, measured at 13m31s on a
+# 32-core x86 host and considerably longer on fewer cores -- before every
+# compute invocation, and a single failing test would block compute work that
+# has nothing to do with it. Run `docker/build.sh test` separately when you
+# actually want the suite.
 #
 # Usage: docker/run.sh CONFIG [OUTPUT_DIR]
 #   CONFIG      path to a qscat-run YAML config (e.g. apps/qscat-run/examples/f2-da.yaml)
