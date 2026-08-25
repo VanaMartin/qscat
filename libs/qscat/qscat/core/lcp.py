@@ -1,6 +1,6 @@
 """Model-independent local complex potential `(V_d(R), Gamma(R))`.
 
-Sub-project B: the local-complex-potential (LCP) approximation of
+The local-complex-potential (LCP) approximation of
 dissociative attachment (and vibrational excitation) reduces the full 2-D
 (electronic r x nuclear R) resonance problem to a 1-D nuclear problem by
 replacing the fixed-R electronic resonance with a single complex number at
@@ -8,8 +8,7 @@ each R -- eMoScat's `ModelLCP` (`v0(R) + E_res(R)` real part, width
 `-2*Im(E_res(R))`). This is the RESEARCH-PROGRAM "approximation under test":
 the exact 2-D solver (`qscat.core.dissociation`/`driven`) is the oracle, and
 `local_complex_potential` is the reduction whose accuracy against that oracle
-is what sub-project B is built to measure -- not a description of the "real"
-physics.
+is the thing being measured -- not a description of the "real" physics.
 
 `V_d(R) = Re(E_pole(R))`, `Gamma(R) = max(0, -2*Im(E_pole(R)))`, where
 `E_pole(R)` is the two-ECS-angle-matched resonance pole (`qscat.ecs.
@@ -106,6 +105,19 @@ _JUNCTION_GAMMA_TOL = 1e-8
 # quantity is <= 1 and equals 1 for a real vector; a value near 0 means the state
 # is (numerically) self-orthogonal and `c / sqrt(sum c^2)` blows it up into noise.
 _C_NORM_TOL = 1e-8
+
+# `resonance_eigenstate_at_peak_width`: smallest `Gamma(R)` still worth
+# re-solving a pole at. The search walks real `R` widest-first, so once it
+# reaches a width this small every remaining point is narrower still, and a
+# pole that narrow is not separable from the discretized continuum by the
+# two-angle match -- the loop stops rather than grinding through them.
+_MIN_RESOLVABLE_GAMMA = 1e-4
+
+# `resonance_levels`: largest `Gamma(R)` tolerated, without warning, in the
+# region where the anion curve lies BELOW the neutral one and autodetachment
+# is energetically closed (Vana 2017, Sec. 1.5) -- there Gamma must vanish, so
+# anything above this is pole-finder noise leaking into a closed region.
+_CLOSED_REGION_GAMMA_TOL = 1e-6
 
 
 def _h_el(model: ResonanceModel, R: complex, g: FemDvrEcsGrid) -> npt.NDArray[np.complex128]:
@@ -277,7 +289,7 @@ def resonance_eigenstate_at_peak_width(
     real = np.flatnonzero(pts.imag == 0.0)
     order = real[np.argsort(gamma[real])[::-1]]  # widest first
     for j in order:
-        if gamma[j] < 1e-4:
+        if gamma[j] < _MIN_RESOLVABLE_GAMMA:
             break
         R = float(pts[j].real)
         e_re, g = float(Vd[j].real), float(gamma[j])
@@ -960,7 +972,7 @@ def resonance_levels(
     pts = nuclear_grid_a.points
     real = pts.imag == 0.0
     bound_region = Vd_a[real].real < np.asarray(model.v0(pts[real].real)).real
-    if np.any(Gamma[real][bound_region] > 1e-6):
+    if np.any(Gamma[real][bound_region] > _CLOSED_REGION_GAMMA_TOL):
         warnings.warn(
             "resonance_levels: Gamma(R) is nonzero where the anion curve lies "
             "BELOW the neutral (v0 > E_res), where autodetachment is closed "

@@ -10,7 +10,9 @@ Public API:
   - `IonicResonanceModel` -- the H2+ Morse + sigma-capture + Coulomb-tail form.
   - `N2`, `NO`, `F2`, `H2P` -- the registry instances.
 
-See `docs/superpowers/specs/2026-07-27-diatomic-ve-scattering-library-design.md`.
+Adding a molecule means adding a registry entry (parameters) plus its
+validation -- never solver code, which lives model-free in `qscat.core`. See
+`docs/physics/qscat-core-scattering.md`.
 """
 
 from __future__ import annotations

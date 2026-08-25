@@ -35,6 +35,12 @@ def free_hamiltonian(grid: FemDvrEcsGrid, ell: int) -> npt.NDArray[np.complex128
     The Hamiltonian whose regular energy-normalized solution is
     `qscat.special.riccati_bessel_en`; the reference against which
     `scattering_state`'s driven source term is formed.
+
+    NAME COLLISION: `qscat.core.time_dependent.free_hamiltonian` is a
+    different function. That one is the FULL 2-D `model.hamiltonian` with
+    only the electron-molecule interaction removed (the elastic
+    free-reference propagation); this one is the bare 1-D electronic
+    kinetic-plus-centrifugal operator, carrying no molecular potential.
     """
     cent = ell * (ell + 1) / (2.0 * grid.points**2)
     out: npt.NDArray[np.complex128] = kinetic(grid, 1.0) + np.diag(cent)

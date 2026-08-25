@@ -7,8 +7,8 @@ Mac). `mumps_available()` reports whether the real backend can actually run;
 MUMPS is absent. All MUMPS execution happens in the Docker ``test`` image where
 the system MUMPS libraries and the ``qscat[mumps]`` extra are installed.
 
-Recipe (verified in Task 1 against SuperLU to machine precision, rel err
-7.25e-16 on an N=400 complex-symmetric system)::
+Recipe (verified against SuperLU to machine precision, rel err 7.25e-16 on
+an N=400 complex-symmetric system)::
 
     ctx = mumps.Context()
     ctx.set_matrix(sp.triu(A).tocsc(), symmetric=True)   # SYM=2: UPPER TRIANGLE

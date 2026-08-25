@@ -282,11 +282,15 @@ def _psi_d_for_energy(
     ing: NrmIngredients,
     n_states: int | None,
 ) -> npt.NDArray[np.complex128]:
-    """`Psi_d^+` at one incident energy -- the Eq. (52) solve, shared with DA.
+    """`Psi_d^+` at one incident energy -- the Eq. (52) solve, as DA does it.
 
-    Exposed (module-private) so `nrm_ve_cross_section` and
-    `dissociation.nrm_da_cross_section` are provably solving the SAME
-    equation rather than two independently-typed copies of it.
+    `dissociation.nrm_da_cross_section` assembles the same equation inline
+    (importing this helper there would cycle), so the two are parallel
+    assemblies rather than one shared call. What keeps them aligned is a
+    test, not the type system:
+    `libs/qscat/tests/test_nrm_ve.py::test_ve_and_da_share_one_psi_d` builds
+    the DA side by hand from the same ingredients and requires it to match
+    this helper to `rtol=1e-12`. Any change here must be mirrored there.
 
     Parameters
     ----------

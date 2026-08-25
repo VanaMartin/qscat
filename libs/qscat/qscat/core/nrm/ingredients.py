@@ -42,7 +42,8 @@ since one side is an eigenvector and the other is not. Choice B
 (`AsymptoticDiscreteState`, R-independent by construction) has no such step
 and varies smoothly across the same span. This is the per-`R` ingredient
 layer's instance of the paper's own choice-A breakdown diagnosis
-(p. 012710-8); Task 9 measures whether it drives the DA discrepancy.
+(p. 012710-8), and it is the mechanism to suspect first when choice A
+degrades against choice B (see docs/physics/nonlocal-resonance-model.md).
 
 **On the bound branch, `V_dn == 0` is exact, not a numerical artifact.** A
 bound `phi_d` is (to numerical precision) an eigenvector of the FULL `H_el`,

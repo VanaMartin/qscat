@@ -324,9 +324,9 @@ class SparseLU:
 
         Auto-detected from `A` (to the scaled `_SYM_RTOL` tolerance) when
         `symmetric=None` was passed (the default), or the explicit override.
-        Informational on the scipy path; the MUMPS path (Task 3) uses it to
-        select the complex-symmetric (`SYM=2`) matrix type instead of the
-        general unsymmetric one.
+        Informational on the scipy path; the MUMPS path uses it to select
+        the complex-symmetric (`SYM=2`) matrix type instead of the general
+        unsymmetric one.
         """
         return self._symmetric
 

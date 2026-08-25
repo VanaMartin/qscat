@@ -11,10 +11,9 @@ non-Hermitian matrix. The left-hand-side matrix A = I + i H dt/2 is
 LU-factored once per call to `make_cn_stepper`, and each returned
 `stepper(psi)` reuses that factorization via `scipy.linalg.lu_solve`.
 
-Promoted from `projects/n2_td_cross_section/propagator.py` (Task 1 of the
-N2 time-dependent cross-section sub-project) as the general primitive: it
-has no dependency on FEM-DVR-ECS or any N2-specific structure, so it lives
-here as a reusable `qscat.evolution` propagator. See
+Promoted from `projects/n2_td_cross_section/propagator.py` as the general
+primitive: it has no dependency on FEM-DVR-ECS or any N2-specific structure,
+so it lives here as a reusable `qscat.evolution` propagator. See
 `docs/physics/n2-td-cross-section.md` for the physics application (the
 N2 resonance's non-Hermitian H_res = T_nuc + diag(V_d - i*Gamma/2)).
 """

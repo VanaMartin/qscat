@@ -1,20 +1,20 @@
 """The one-shot a-priori grid assembler: `analyze` -> `mesh` -> `ecs`, wired
 into a complete `FemDvrEcsGrid`.
 
-`propose_grid` is the a-priori HALF of the hybrid tuner design (see
-`docs/superpowers/specs/2026-07-28-discretisation-tuner-design.md`): given a
-`ResonanceModel`, a coordinate ("nuclear" or "electronic"), and a target
-energy range, it builds the potential-adaptive grid directly from the
-potential curve -- no eigensolve, no probing. The `discretisation-tuner`
-skill runs the probe/refine loop ON TOP of this a-priori starting point; this
-module owns only the a-priori half.
+`propose_grid` is the a-priori HALF of the hybrid tuner (see
+`docs/physics/discretisation-tuning.md`): given a `ResonanceModel`, a
+coordinate ("nuclear" or "electronic"), and a target energy range, it builds
+the potential-adaptive grid directly from the potential curve -- no
+eigensolve, no probing. The `discretisation-tuner` skill runs the
+probe/refine loop ON TOP of this a-priori starting point; this module owns
+only the a-priori half.
 
 The MODEL ADAPTER (`_nuclear_adapter`/`_electronic_adapter`) is the only
 model-aware code here: it picks the per-coordinate 1-D potential, mass, real
 extent, and channel wavenumber from the model + energy range. Everything
 downstream (`analyze_potential` -> `optimal_real_mesh` -> `max_stable_angle`
-+ `tune_ecs_tail`) is the same model-independent pipeline already validated
-in Tasks 1-3.
++ `tune_ecs_tail`) is the same model-independent pipeline the `analyze`,
+`mesh`, and `ecs` modules validate on their own.
 """
 
 from __future__ import annotations
@@ -42,24 +42,23 @@ __all__ = ["propose_grid"]
 
 Coordinate = Literal["nuclear", "electronic"]
 
-# Sane real-region cutoff defaults (bohr) -- see the design spec's per-
-# coordinate guidance ("14-22 bohr" nuclear, "~16-30 bohr" electronic); a
-# fixed default here, refined by the h/p mesh sweep and (Task 6) extended by
-# an `incident` requirement. Task 8 calibrated the mesh's phase constant `C`
-# against the eMoScat decks but did NOT retune these fixed extents: they are
-# a per-molecule-INDEPENDENT default, which Task 8's calibration found
-# exceeds N2's (12 bohr) / NO's (9 bohr) committed nuclear real regions --
-# the reason those two molecules' proposed grids cost more DVR points than
-# their decks even at the calibrated C (see docs/physics/
-# discretisation-tuning.md). Deriving x_max from the potential profile itself
-# (rather than this fixed constant) is a follow-on, not done here.
+# Real-region cutoff defaults (bohr), in the ranges the eMoScat decks use
+# (14-22 bohr nuclear, ~16-30 bohr electronic). Each is a fixed starting
+# value, refined by the h/p mesh sweep and extended when an `incident`
+# requires more room. The mesh's phase constant `C` is calibrated against the
+# eMoScat decks (`validation.tuning.calibrate`); these extents are NOT -- they
+# are one molecule-independent default, and it exceeds N2's (12 bohr) / NO's
+# (9 bohr) committed nuclear real regions, which is why those two molecules'
+# proposed grids cost more DVR points than their decks even at the calibrated
+# C (see docs/physics/discretisation-tuning.md). Deriving x_max from the
+# potential profile itself is a follow-on, not done here.
 _NUCLEAR_X_MAX_DEFAULT = 18.0
 _ELECTRONIC_X_MAX_DEFAULT = 20.0
 
 # Element-length bounds (bohr) fed to `optimal_real_mesh`'s equidistribution
-# sweep -- sane, not independently calibrated (Task 8 calibrated only the
-# phase constant `C`). The nuclear floor is deliberately not tiny: a heavy
-# reduced mass mu inflates the local
+# sweep -- reasonable, but not independently calibrated (the calibration
+# targets only the phase constant `C`). The nuclear floor is deliberately not
+# tiny: a heavy reduced mass mu inflates the local
 # wavenumber k = sqrt(2*mu*(e_max-V)) deep in the classically-forbidden well
 # wall, which (via the kappa-decay-length branch) would otherwise carve that
 # region into far more sub-min_len elements than the physics needs -- 0.15
@@ -144,11 +143,10 @@ class _CoordinateSpec:
 
     `charge` is not consumed by this pipeline (the potential callable `V`
     already embeds any Coulomb tail for a charged residual channel -- see
-    `qscat.model.IonicResonanceModel`); it is exposed here only because the
-    design spec's per-coordinate adapter names it as one of the quantities
-    the adapter picks, for a future consumer (e.g. a channel-representation
-    probe run on top of this grid) to read off the same model without
-    re-deriving it.
+    `qscat.model.IonicResonanceModel`). It is carried here so a future
+    consumer (e.g. a channel-representation probe run on top of this grid)
+    can read it off the same adapter output rather than re-deriving it from
+    the model.
     """
 
     V: PotentialFn
@@ -163,8 +161,9 @@ class _CoordinateSpec:
 
 def _nuclear_adapter(model: ResonanceModel, e_max: float) -> _CoordinateSpec:
     """Nuclear coordinate: `V = model.v0`, `m = model.mu`, real region [0,
-    x_max], outgoing dissociation wavenumber `K = sqrt(2*mu*e_max)` (heavy
-    reduced mass -> large K, per the design spec's nuclear-adapter note).
+    x_max], outgoing dissociation wavenumber `K = sqrt(2*mu*e_max)` -- the
+    heavy reduced mass makes this K large, which is what forces the fine
+    exit-wave resolution the nuclear grids need.
     """
     return _CoordinateSpec(
         V=model.v0,
@@ -384,8 +383,8 @@ def propose_grid(
     `optimal_real_mesh` at its own calibrated default; ordinary callers never
     need to pass this.
 
-    `incident` (`qscat.tuning.incident.IncidentSpec`, Task 6) is accepted
-    here as BOTH an extent floor AND a resolution floor:
+    `incident` (`qscat.tuning.incident.IncidentSpec`) is accepted here as
+    BOTH an extent floor AND a resolution floor:
 
     - EXTENT: `getattr(incident, "required_extent", lambda: 0.0)()` extends
       the real-region cutoff to at least that value before the mesh/ECS
@@ -434,12 +433,12 @@ def propose_grid(
       ECS tail. The narrow resonance CROSSING `R*` (the outermost
       `Re(V_d) - v0` sign change) is then LOCALLY super-refined
       (`refine_elements_in_window`, overriding `min_len` only inside a
-      Gamma-closing-width window around `R*`) -- replacing the prior
-      worst-case-`k`-merge design (`qscat.tuning.mesh.combined_profile`,
-      now removed), which was inert: the merge's finer elements were
-      floored right back up by the shared global `min_len`.
-      `"dissociation"` with `coordinate="electronic"` raises `ValueError`
-      (this resonant path is nuclear-only in this sub-project).
+      Gamma-closing-width window around `R*`). The local override is the
+      point: merging the resonance's wavenumber into the global profile
+      instead would be inert, because the merged profile's finer elements
+      get floored right back up by the shared global `min_len`.
+      `"dissociation"` with `coordinate="electronic"` raises `ValueError` --
+      the resonance-aware path is nuclear-only.
     - any other value raises `ValueError`.
     """
     del rtol  # interface parity with the probe/refine loop; unused here

@@ -10,9 +10,11 @@ For a diatomic like N2 whose neutral potential well is entirely inside the
 real region of the grid (bound states, R ~ 1.5-3 bohr), the eigenvalues are
 real and angle-independent on the ECS grid -- the complex tail only affects
 the discretized continuum/dissociative states, not these low-lying bound
-ones. We select the `n` eigenpairs with the smallest |Im(E)| (the
-bound-state signature) among the lowest-Re(E) eigenvalues, ordered ascending
-in Re(E).
+ones. Selection is therefore positional, not a search: we take the `n`
+lowest-Re(E) eigenpairs as they come out of `eigen()` and then CHECK each
+one against the bound-state signature, raising `GridError` if any has
+`|Im(E)| > _IM_TOL_HA`. Asking for more levels than the well holds is an
+error rather than something silently worked around by skipping states.
 
 Normalization convention: `qscat.dvr.eigen()` returns eigenvectors with
 numpy's Hermitian normalization (`v^dagger v = 1`); c-product

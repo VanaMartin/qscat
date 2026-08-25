@@ -23,16 +23,15 @@ mass-mu energy-normalized regular nuclear Bessel), T_n = <Phi_n | V_DR | Psi+>
 (c-product, masked), sigma_n = 4 pi^3 |T_n|^2/(2E). That is eMoScat's
 `time_independent_model.cpp` method, GENERALIZED for H2+ over the neutral's
 Rydberg electronic series with a Coulomb incident
-(`channel_vector(..., charge=model.charge)`) (sub-project D).
+(`channel_vector(..., charge=model.charge)`).
 
 The two routes are algebraically the same amplitude and agree to 5e-4 on F2.
 **They are not interchangeable numerically**, which is why DA uses the flux
 one: the volume integral delivers `sigma_DA` as the residue of a cancellation
 whose depth is set by how small `sigma_DA` is, and on NO (~1e-9 bohr^2, a
 ~1e6-fold cancellation) it returned answers 1e4-1e7 times too large until BOTH
-integration edges were pushed far out. See `da_cross_section`'s note,
-docs/physics/diatomic-ve-cross-sections.md, and
-docs/superpowers/specs/2026-07-27-da-cross-sections-design.md.
+integration edges were pushed far out. See `da_cross_section`'s note and
+docs/physics/diatomic-ve-cross-sections.md.
 
 `qscat.core` never imports `qscat.model` at runtime: `model` is typed against
 the `ResonanceModel` protocol under `TYPE_CHECKING` only, exactly like

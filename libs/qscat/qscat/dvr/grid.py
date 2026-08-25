@@ -41,7 +41,7 @@ Local-to-global index mapping (`element_maps`):
   Adjacent elements deliberately share their boundary global index (the last
   entry of element i's global_idx equals the first entry of element i+1's
   global_idx), which is what makes a `+=` scatter-accumulate assemble the
-  bridge coupling correctly in the kinetic-operator build (Task 2).
+  bridge coupling correctly in the kinetic-operator build (`kinetic`).
 
   Worked example (nq=3, tnel=2, single-element-local nodes = [0, 1, 2]):
     element 0 (first): drop local 0            -> local_idx=[1, 2], global_idx=[0, 1]

@@ -8,9 +8,8 @@ vibrational-states solver (`vibrational`), the asymptotic channel functions
 the incident/outgoing wavepacket construction (`wavepacket`), the
 Tannor-Weeks deconvolution factors (`correlation`), the time-dependent
 Pade-propagation VE cross section (`time_dependent`), and generic sigma(E)
-plotting (`plot`), promoted from the N2 projects
--- see
-`docs/superpowers/specs/2026-07-27-diatomic-ve-scattering-library-design.md`.
+plotting (`plot`) -- promoted from the N2 projects. See
+docs/physics/qscat-core-scattering.md.
 
 **Hard boundary: `qscat.core` must never import `qscat.model` (nor any
 `projects.*`) at runtime.** Anything molecule-specific (a potential-energy
@@ -26,10 +25,19 @@ Public API:
     -- FEM-DVR-ECS radial grid builders; `segmented_grid` takes eMoScat's
     per-molecule `grids.txt` format (segment-based, uniform-per-segment
     element layout); `fem_grid_exp_tail` is the same real-region layout with
-    an EXPONENTIALLY growing ECS tail (H2+'s deck). Parameterized
-    (extents/orders are config, not baked in).
-  - `vibrational_states` -- the `n` lowest bound eigenpairs of
-    `T_nuc(mu) + diag(v0(R))` on a nuclear grid.
+    an EXPONENTIALLY growing ECS tail (H2+'s deck). Extents/orders are
+    parameters; the real-region element layout is not (see `grids`).
+  - `ecs_angle_family`, `assert_shared_real_nodes` -- the three-grid family
+    (base grid plus one partner per rotated ECS angle) that
+    `exact_resonance_states` needs, and the check that two grids share every
+    real node while differing only in ECS angle.
+  - `vibrational_states`, `VibrationalBasis` -- the `n` lowest bound
+    eigenpairs of `T_nuc(mu) + diag(v0(R))` on a nuclear grid, returned as a
+    named `(eps, chi)` tuple.
+  - `ScatteringProblem` -- the high-level object API bundling
+    `(grid, model, n_vib)` once and exposing each observable below as a
+    method. The recommended entry point; the functional solvers are the
+    low-level layer it delegates to (ADR 0004).
   - `channel_vector` -- DVR coefficients of the asymptotic channel function
     `F_{E,l}(r) chi_v(R)`, masked to the unscaled region.
   - `ve_cross_section` -- the exact TI driven Lippmann-Schwinger VE cross
@@ -46,6 +54,36 @@ Public API:
   - `lcp_da_cross_section` -- the LCP dissociative-attachment cross section
     `sigma_DA(E)` via the TI resolvent (1-D nuclear doorway, boundary-value
     outgoing flux; the approximation under test vs. `da_cross_section`).
+  - `resonance_levels`, `lcp_resonance_levels`, `ResonanceLevels` -- the
+    BORN-OPPENHEIMER quasi-bound levels `E_v - i*Gamma_v/2`: the nuclear
+    eigenvalue problem in the complex curve `V_d - i*Gamma/2`, with the
+    golden-rule comparator riding along. NOT Siegert pseudostates -- see
+    docs/physics/lcp-resonance-levels.md.
+  - `exact_resonance_states`, `ExactResonanceStates` -- the
+    approximation-free counterpart of those levels: poles of the FULL 2-D
+    S-matrix, accepted only if stable under BOTH ECS angles moved
+    independently (docs/physics/exact-2d-resonances.md). Seeds are passed
+    in, so it never calls the approximation it measures.
+  - `electronic_curves`, `resonance_curve`, `ElectronicCurves`, `bo_basis`,
+    `bo_basis_from_levels`, `BoState`, `BoBasis` -- the Born-Oppenheimer
+    reference states `phi_j(r;R) chi_v(R)` a pole is verified against:
+    `electronic_curves` for a BOUND (ion/Rydberg) electronic curve,
+    `resonance_curve` for a RESONANT (neutral/anion) one, and the two
+    `bo_basis*` builders putting a vibrational ladder in either, phase-
+    aligned across R.
+  - `n_eff`, `admissible_levels`, `basis_covers` -- the closed-channel energy
+    constraint that separates a SPURIOUS pole from a merely BASIS-LIMITED
+    one: `n_eff = 1/sqrt(2*binding)` to the nearest threshold above, so a
+    higher vibrational level admits only a lower Rydberg index.
+  - `overlap`, `pair_by_overlap`, `pair_one_to_one`, `real_weight`,
+    `OverlapPair` -- pairing a pole to a BO level BY OVERLAP (the c-product,
+    which is bilinear, so values above 1 are legitimate), the Hungarian
+    bijection cross-check, and the box-containment check the overlap cannot
+    make. Together they return one of seven verdicts -- see
+    docs/physics/h2plus-resonance-states.md.
+  - `peak_positions`, `peak_alignment`, `PeakAlignment` -- the distance from
+    a level to an observed cross-section peak IN UNITS OF A RESONANCE WIDTH,
+    the only scale on which "lands on the peak" means anything.
   - `gaussian_coeffs`, `initial_state`, `outgoing_channel` -- the incident
     Gaussian electron wavepacket and the 2-D initial/outgoing states.
   - `outgoing_channel_nuclear` -- the NUCLEAR-axis transpose of
@@ -85,15 +123,16 @@ Public API:
     coordinate R, projecting onto `n_channels` anion electronic bound states
     (`anion_electronic_states`) instead of neutral vibrational levels; no
     elastic free-reference subtraction (DA is a pure rearrangement channel).
-  - `td_da_cross_section(method="flow"|"delta"|"tw")` -- the DA sibling of
+  - `td_da_cross_section` (`method="flow"|"delta"|"tw"`) -- the DA sibling of
     `td_ve_cross_section`: builds the requested `axis="nuclear"` extractor,
     propagates once, returns `sigma_DA(E)`. `td_da_cross_sections_all` runs
     ONE propagation driving all three nuclear extractors and returns
     `{"flow":, "delta":, "tw":}` -- see `docs/physics/td-da.md`.
   - `plot_cross_sections` -- generic sigma(E) plotting (no physics baked in).
-  - `plot_route_comparison` -- generic LINEAR-scale grid of panels, one
-    curve per METHOD (`plot_cross_sections`' sibling, which is log-scale with
-    one curve per CHANNEL).
+  - `plot_route_comparison`, `ComparisonPanel` -- generic LINEAR-scale grid
+    of panels, one curve per METHOD (`plot_cross_sections`' sibling, which is
+    log-scale with one curve per CHANNEL); `ComparisonPanel` is one panel's
+    labelled series plus optional pinned axis limits.
   - `plot_resonance_levels` -- generic complex-level plotting (position vs
     width, plus per-level differences against a chosen baseline series).
 

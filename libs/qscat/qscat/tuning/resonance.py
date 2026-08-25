@@ -4,9 +4,9 @@ tuner (the resonance-aware nuclear mesh follow-on).
 `interaction_region` finds the R-window over which the electron-molecule
 interaction `V_int(r, R)` is still TRANSITIONING between its low-R and
 high-R regimes -- the window a later, denser resonance-curve sampling step
-confines itself to, freezing at a single asymptotic value outside it (see
-`docs/superpowers/specs/2026-07-28-resonance-aware-mesh-design.md`: "only
-in `[R_lo, R_hi]` does `V_d` differ from the asymptote"). It uses only
+confines itself to, freezing at a single asymptotic value outside it --
+only inside `[R_lo, R_hi]` does `V_d` differ from its asymptote (see
+docs/physics/discretisation-tuning.md). It uses only
 `model.v_int` (the `ResonanceModel` protocol), so it works for any
 registered model (diatomic or ionic), not just the shared
 Morse+sigmoid+Gaussian-in-r form.
@@ -126,6 +126,12 @@ def resonance_curve(
     its freeze (see `resonance_pole_walk`) correctly holds `V_d` constant
     across the big `R_max -> R_hi` gap, since `Gamma` has already saturated
     to ~0 out there.
+
+    NAME COLLISION: `qscat.core.bo.resonance_curve` shares this name and the
+    same underlying pole walk, but returns an `ElectronicCurves` carrying the
+    eigenVECTORS, for building Born-Oppenheimer basis states. This one returns
+    plain `(R, V_d, Gamma)` arrays and exists only to size a grid, so it
+    discards the states and samples as sparsely as it can.
 
     Seeded from the bound anion state at `R_max`
     (`qscat.core.dissociation.anion_electronic_states`). Returns arrays
