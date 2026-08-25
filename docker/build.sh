@@ -2,15 +2,18 @@
 # Build the qModeling images: a base (arch/BLAS-vendor/GPU layer) then the app
 # (build/test-deps/test/runtime) FROM that base. `test-deps` installs the
 # test/compute extras (mumps, plot) without running anything; `test` is FROM
-# `test-deps` and adds the pytest run -- kept as a distinct, explicitly-opt-in
+# `test-deps` and adds the pytest run -- both tiers, the fast one parallel and
+# the slow one serial (docs/adr/0005) -- kept as a distinct, explicitly-opt-in
 # target so building compute/test dependencies never silently pays for (or is
-# blocked by) a full suite run. See docker/run.sh, which builds `test-deps`
+# blocked by) that run. See docker/run.sh, which builds `test-deps`
 # only.
 #
 # Usage: docker/build.sh [test|test-deps|runtime] [cpu|cpu-mkl|gpu]
 #   arg1  app target   (default: test)
 #     test-deps  install extras (mumps, plot) only -- no test execution
-#     test       test-deps, then run the full pytest suite (~38 min)
+#     test       test-deps, then run BOTH test tiers: the fast tier in parallel
+#                and the slow (production-scale) tier serial -- measured at 31 s
+#                and 13m31s respectively on a 32-core x86 host
 #     runtime    the production image (no mumps)
 #   arg2  base variant (default: cpu)
 #     cpu      portable OpenBLAS + FFTW3 + system MUMPS (ARM/Graviton-friendly)

@@ -286,7 +286,8 @@ libs/       qscat — the standard library: validated, reusable QM code
               FOR VE, the channel PRA 77 plots for EVERY molecule in its study:
               choice B + background reproduces the exact `driven.ve_cross_section`
               oracle to better than 0.7% on BOTH N₂ (11 energies, 0.06-0.16 Ha)
-              and F₂ (6, 0.02-0.09 Ha), elastic and first-inelastic alike
+              and F₂ (gated at 2 anchors, 0.02 and 0.04 Ha; recorded sweep:
+              6 energies, 0.02-0.09 Ha), elastic and first-inelastic alike
               (0.99623-1.00692 worst over all four molecule/transition pairs),
               while choice A degrades to 0.565-1.140 — and the reason B is that
               good is PHYSICS, not luck: an R-INDEPENDENT `φ_d` carries no `∂_R`
@@ -671,11 +672,11 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     tiers, run differently (docs/adr/0005): the fast tier in parallel
     (`-m "not slow" -n auto --dist loadfile`) and the slow tier SERIAL, since
     those decks are sized in gigabytes and concurrency would OOM a container
-    before it saved wall-clock. Measured on a 32-core x86 host: fast 31 s,
-    slow 13m31s at `-n 4`. `test-deps`/`test` are deliberately separate
-    targets so that pulling in MUMPS/plot for a compute run (`docker/run.sh`,
-    which builds `test-deps`) never also pays for, or is blocked by, a full
-    suite run — only `docker/build.sh test` reaches `test`. The
+    before it saved wall-clock. Measured on a 32-core x86 host: the fast tier
+    31 s in parallel, the slow tier 13m31s serial. `test-deps`/`test` are
+    deliberately separate targets so that pulling in MUMPS/plot for a compute
+    run (`docker/run.sh`, which builds `test-deps`) never also pays for, or is
+    blocked by, a full suite run — only `docker/build.sh test` reaches `test`. The
     `mumps` extra stays test-only (`runtime` omits it, keeping python-mumps
     out of the production image). Both MUMPS and the `.mp4` viz test run in
     the container and `@skipif`/`@skip`-absent on a bare Mac (no system
@@ -689,8 +690,9 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     not evidence that a viz change works; run `libs/qscat/tests/test_viz.py`
     locally or in the container before believing one.
   - `docker/build.sh [test|test-deps|runtime]` builds the base image then the
-    requested app target. Verified working: `test` prints `5 passed`;
-    `runtime` prints `qscat 0.0.0 ready`.
+    requested app target. A `test` build runs both tiers and fails the build if
+    either does; `runtime`'s `CMD` prints `qscat <version> ready` (currently
+    `0.1.0.dev0` — the version is read from the package, not pinned here).
 - **GPU/CUDA and AWS deployment are deferred.** `reference/libXcuda` is kept
   as future-GPU-kernel reference only.
 
@@ -741,8 +743,11 @@ uv run pytest -m "not slow" -n auto --dist loadfile
 # The production-scale tier: real decks, converged grids, published-value
 # comparisons. SERIAL, deliberately — these are measured in minutes and
 # gigabytes (the H2+ DR example peaks at ~19 GB on its own), so running them
-# concurrently OOMs a laptop long before it saves wall-clock. GitHub CI never
-# runs this tier; run it before merging anything that touches the solvers.
+# concurrently OOMs a laptop long before it saves wall-clock. CI does not run
+# this tier by default -- it runs on demand, when a reviewer puts a `validate:*`
+# label on the PR or dispatches .github/workflows/validation.yml by hand. Run it
+# locally before merging anything that touches the solvers rather than relying
+# on that.
 uv run pytest -m slow
 
 # The whole suite. Note there is no `-n` here: a bare `pytest -n 8` (no
@@ -756,9 +761,9 @@ uv run pytest
 # scope, and per-test distribution makes every worker touching the module
 # build its own copy; keeping a file on one worker bounds that to one copy.
 # BLAS threads: pinning (OMP_NUM_THREADS=1 etc.) buys nothing ON THIS MAC --
-# measured 136s vs 133s at `-n 8`, and 76.1s vs 74.6s at a saturating `-n 12`,
-# because scipy here links Accelerate. That result does NOT transfer to Linux:
-# on the 4-vCPU GitHub runner, OpenBLAS starts one thread per core in EACH
+# measured 136s pinned vs 133s unpinned at `-n 8`, and 76.1s pinned vs 74.6s
+# unpinned at a saturating `-n 12`, because scipy here links Accelerate. That
+# result does NOT transfer to Linux: on the 4-vCPU GitHub runner, OpenBLAS starts one thread per core in EACH
 # xdist worker, and the unpinned parallel run went SLOWER than the serial one
 # it replaced (>22 min vs 24.7 min; 186s once pinned). CI pins all three
 # variables — see docs/adr/0005 point 6.

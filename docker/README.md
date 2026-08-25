@@ -1,8 +1,9 @@
 # docker/
 
 Images split into two layers: a rarely-rebuilt **base** (architecture / BLAS-FFT
-vendor / GPU) and the **app** (`build` → `test` → `runtime`) that is `FROM` it. The
-app layer never changes when you swap the base — it reads `ARG BASE_IMAGE`.
+vendor / GPU) and the **app** (`build` → `test-deps` → `test` → `runtime`) that is
+`FROM` it. The app layer never changes when you swap the base — it reads
+`ARG BASE_IMAGE`.
 
 ## Base variants
 
@@ -69,10 +70,14 @@ docker/run.sh CONFIG [OUTPUT_DIR]     # OUTPUT_DIR defaults to runs/<config-stem
 docker/run.sh apps/qscat-run/examples/h2p-dr.yaml runs/h2p-dr
 ```
 
-It mounts `CONFIG` into the container read-only at `/config.yaml` and `OUTPUT_DIR` out
-at `/out`, then runs `uv run --no-sync qscat-run run /config.yaml --output /out` — a
-general entry point for any `qscat-run` config (it supersedes the old molecule-specific
-`run-n2.sh`). See the top-level `README.md` for the full `qscat-run` walkthrough.
+It mounts `OUTPUT_DIR` out at `/out` and `CONFIG` in read-only **at the same path it
+occupies in the repo** — `/app/<repo-relative-path>`, so a relative path *inside* the
+config (a `reference:` pointing at `../../../validation/n2/data/...`, say) resolves in
+the container exactly as it does on the host. A config living outside the repo falls
+back to `/config.yaml`. It then runs `uv run --no-sync qscat-run run <that path>
+--output /out` — a general entry point for any `qscat-run` config (it supersedes the old
+molecule-specific `run-n2.sh`). See the top-level `README.md` for the full `qscat-run`
+walkthrough.
 
 ## AWS deploy
 

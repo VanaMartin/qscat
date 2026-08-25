@@ -6,6 +6,7 @@ no per-experiment Python. Adding a molecule is a `MoleculePreset` entry
 (`qscat_run/presets.py`), never solver code.
 
 ```bash
+qscat-run list                                                      # molecules, presets, valid observables
 qscat-run init F2 --observables ve,da --methods ti,lcp -o f2.yaml   # scaffold
 qscat-run validate f2.yaml                                          # actionable schema check
 qscat-run run f2.yaml --output runs/f2                              # solve + write artifacts
@@ -20,8 +21,8 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 | molecule | charge | valid observables | preset variants |
 |---|---|---|---|
 | `N2` | 0 | `ve` (`da` closed-in-range) | `emoscat` |
-| `NO` | 0 | `ve`, `da` | `emoscat` |
-| `F2` | 0 | `ve`, `da` | `emoscat` |
+| `NO` | 0 | `ve`, `da`, `resonance_levels` | `emoscat` |
+| `F2` | 0 | `ve`, `da`, `resonance_levels` | `emoscat` |
 | `H2P` | −1 | `dr` | `emoscat`, `proxy` |
 
 ## Methods (`methods: [...]`)
@@ -59,7 +60,7 @@ observable is rejected.
 
 | observable | how to request | artifact |
 |---|---|---|
-| **cross sections** | `observables: [{kind: ve\|da\|dr, channels: N}]` | `cross_section.{csv,npz,png}` (keys `{method}:{kind}:{chan}`) |
+| **cross sections** | `observables: [{kind: ve\|da\|dr, channels: N}]` | `cross_section.{csv,npz,png}` (keys `{method}:{kind}:{chan}` — e.g. `ti:ve:v0->1`, `nrm-b:da:ch0`. TD adds the extractor as a fourth part, `td:{kind}:{extractor}:{chan}`, so `td:ve:tw:v0->1`, since one run can carry all three extractors) |
 | **σ vs time** (TD) | `artifacts.cross_section_vs_time.moments: [t1,...]` | `cross_section_vs_time.{npz,png}` |
 | **correlations** (TD) | `artifacts.correlations: true` | `correlations.npz` (raw per-step series) |
 | **wavefunctions** (Ψ⁺/Ψ(t)) | `artifacts.wavefunction_snapshots: {ti_energies:[...], td_times:[...]}` | `wavefunction/psi_*.{npz,png}` (per-axis density) |
@@ -108,10 +109,25 @@ layering forbids a shared import.
 The per-molecule *curve/figure drivers* that used to live in
 `validation/{diatomic,h2plus}/` were retired into this tool (see
 `docs/superpowers/plans/2026-08-15-unified-experiment-observables.md` and the
-audit under `docs/superpowers/reviews/`). Two figure drivers are deliberately
-kept: `validation/n2/ti_curve.py`, the Houfek golden-data gate qscat-run has no
-reference overlay for; and `validation/diatomic/ve_nrm_figure.py`, whose figure
-needs both `include_background` settings (one flag per `nrm` block, so two runs)
-*and* the LCP's VE route (not a qscat-run method) — neither reachable from a
-single config. `examples/n2-ve-nrm-vs-exact.yaml` is the config form of the
-rest of it.
+audit under `docs/superpowers/reviews/`). The plain σ(E) curves genuinely are
+configs now — see `examples/figures/`. Four drivers are deliberately kept, and
+*not* because qscat-run lacks a reference overlay: it has one (`reference:`, see
+the table above, and `examples/n2-ve-vs-houfek.yaml` overlays the very Houfek
+data in question). They are kept because:
+
+- `validation/n2/ti_curve.py` is the driver behind the Houfek anchor **gate**
+  (`validation/n2/test_ti_curve.py`), and it drives the `projects/`-side exact-2D
+  solver — sharing `_build_system` verbatim with `validation/n2/exact2d.py`, so
+  the same grid and vibrational states are exercised. qscat-run runs the
+  `qscat.core` engine instead, a different code path, so it cannot stand in for
+  that gate.
+- `validation/diatomic/ve_nrm_figure.py`'s figure needs both `include_background`
+  settings (one flag per `nrm` block, so two runs) *and* the LCP's VE route (not
+  a qscat-run method) — neither reachable from a single config.
+- `validation/diatomic/da_figure.py`'s LCP/exact ratio panel and its
+  published-reference overlay on a `da` observable are not reachable from
+  `qscat_run.artifacts`.
+- `validation/diatomic/td_nrm_figures.py`'s seven panels need packet diagnostics
+  no config exposes.
+
+`examples/n2-ve-nrm-vs-exact.yaml` is the config form of the rest of it.
