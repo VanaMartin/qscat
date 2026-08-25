@@ -119,40 +119,35 @@ def outgoing_channel_nuclear(
     return psi
 
 
-def _regular_coeffs(grid: FemDvrEcsGrid, k: float, l: int) -> npt.NDArray[np.complex128]:
-    """`riccati_bessel_en(r, k, l) * sqrt(w_r)`, masked to the unscaled region.
-
-    The SAME conversion `channel_vector` applies -- `F` is a function, so it
-    picks up `sqrt(w_r)` to become a DVR coefficient vector; `chi_v` is
-    already one and is not touched here.
-    """
-    f_vals = riccati_bessel_en(grid.real_points, k, l)
+def _masked_coeffs(
+    grid: FemDvrEcsGrid, f_vals: npt.NDArray[np.complex128] | npt.NDArray[np.float64]
+) -> npt.NDArray[np.complex128]:
+    """Function VALUES -> masked DVR coefficients: multiply by `sqrt(w)`
+    (the bridge-summed complex weight -- the same conversion
+    `channel_vector` applies; a coefficient vector like `chi_v` is never
+    passed through here) and zero everything past the ECS pivot `R0`."""
     sqrt_w = np.sqrt(np.asarray(grid.weights, dtype=np.complex128))
     coeffs = (f_vals * sqrt_w).astype(np.complex128)
     coeffs[grid.real_points > grid.R0] = 0.0
     return coeffs
+
+
+def _regular_coeffs(grid: FemDvrEcsGrid, k: float, l: int) -> npt.NDArray[np.complex128]:
+    """`riccati_bessel_en(r, k, l) * sqrt(w_r)`, masked to the unscaled region
+    (`_masked_coeffs`) -- the regular-function side of `eta_incident`."""
+    return _masked_coeffs(grid, riccati_bessel_en(grid.real_points, k, l))
 
 
 def _outgoing_coeffs(
     grid: FemDvrEcsGrid, k: float, l: int, *, mass: float = 1.0
 ) -> npt.NDArray[np.complex128]:
-    """`h^{(1)}_{E,l}(r)/2 * sqrt(w_r)`, masked to the unscaled region.
-
-    `h^{(1)}_{E,l}(r) = sqrt(2*mass*k/pi) r h_l^{(1)}(kr)` (energy-normalized,
-    mass `mass`), `h_l^{(1)} = j_l + i*y_l`, halved -- see module docstring
-    for why this (not the regular function) is `F_out`. `mass` defaults to
-    `1.0` -- `riccati_hankel_en_mass(..., 1.0)` reproduces `riccati_hankel_en`
-    bit-for-bit (`qscat.special.radial.riccati_hankel_en_mass`'s docstring),
-    so every existing (electronic) call site is untouched; a nuclear (DA)
-    caller passes `mass=model.mu`.
-    """
-    r = grid.real_points
-    riccati_h1 = riccati_hankel_en_mass(r, k, l, mass)
-    f_vals = riccati_h1 / 2.0
-    sqrt_w = np.sqrt(np.asarray(grid.weights, dtype=np.complex128))
-    coeffs = (f_vals * sqrt_w).astype(np.complex128)
-    coeffs[grid.real_points > grid.R0] = 0.0
-    return coeffs
+    """`h^{(1)}_{E,l}(r)/2 * sqrt(w_r)`, masked to the unscaled region
+    (`_masked_coeffs`). `h^{(1)}` is the energy-normalized mass-`mass`
+    outgoing Hankel half -- see the module docstring for why this (not the
+    regular function) is `F_out`; `mass=1.0` reproduces the electronic path
+    bit-for-bit (`riccati_hankel_en_mass`'s docstring), a nuclear (DA)
+    caller passes `mass=model.mu`."""
+    return _masked_coeffs(grid, riccati_hankel_en_mass(grid.real_points, k, l, mass) / 2.0)
 
 
 def eta_incident(
@@ -200,9 +195,8 @@ def hankel_point_value(
     (charged target) -- but evaluated at ONE point rather than converted to a
     `sqrt(w_r)`-scaled, masked DVR coefficient VECTOR: a delta-distribution
     test function needs the outgoing function's VALUE, not an integral
-    against it. `grid` is accepted (unused) to keep this call-compatible
-    with `_regular_coeffs`/`_outgoing_coeffs` and make "a value on THIS
-    grid's real axis" explicit at call sites.
+    against it. `grid` is forwarded to `hankel_point_value` (which itself ignores it,
+    keeping the call-site symmetry both docstrings describe).
 
     `mass` defaults to `1.0` (the electronic reduced mass, a.u.) -- every
     existing (electronic) call site is untouched: `riccati_hankel_en_mass(
@@ -211,7 +205,6 @@ def hankel_point_value(
     the pre-`mass` code passed. A nuclear (dissociation) caller passes
     `mass=model.mu`.
     """
-    del grid  # unused: kept for call-site symmetry with _regular_coeffs/_outgoing_coeffs
     if charge == 0:
         val = riccati_hankel_en_mass(np.asarray(z_position, dtype=np.float64), k, l, mass) / 2.0
     else:
@@ -250,17 +243,19 @@ def outgoing_surface_wave(
     bit (`2.0*1.0 == 2.0` exactly). A nuclear (dissociation) caller passes
     `mass=model.mu`.
 
-    Neutral (`charge == 0`): computed ANALYTICALLY via the product rule,
+    Neutral (`charge == 0`): the VALUE is computed via `hankel_point_value`
+    (same multiplication order as the old inline formula -- bit-identical);
+    only the DERIVATIVE is computed analytically here via the product rule,
 
         dF/dr = sqrt(2 mass k/pi) * [h_l(kr) + kr * h_l'(kr)]
 
     using `scipy.special.spherical_jn`/`spherical_yn`'s `derivative=True`
     option for `h_l^{(1)}{}'(x) = j_l'(x) + i y_l'(x)` -- `qscat.special.
-    radial` does not itself expose a derivative primitive (only the two
-    VALUE functions), but the underlying scipy pieces it is built on already
-    support one, so no finite difference is needed for this branch (checked
-    against a finite difference of `riccati_hankel_en`/`riccati_hankel_en_mass`
-    in `test_correlation.py`, confirming the analytic formula).
+    radial` does not itself expose a derivative primitive, but the underlying
+    scipy pieces it is built on already support one, so no finite difference
+    is needed for this branch (checked against a finite difference of
+    `riccati_hankel_en`/`riccati_hankel_en_mass` in `test_correlation.py`,
+    confirming the analytic formula).
 
     Charged (`charge != 0`, `coulomb_h1_en`): `qscat.special.coulomb` has no
     derivative primitive for the Coulomb functions (mpmath's `coulombf`/
@@ -271,15 +266,18 @@ def outgoing_surface_wave(
     charged target (e.g. H2+); N2/F2 are neutral, so only the analytic
     branch is exercised by the neutral-molecule gates.
     """
-    del grid  # unused: kept for call-site symmetry with hankel_point_value
     r = float(z_surface)
     if charge == 0:
-        pref = np.sqrt(2.0 * mass * k / np.pi)
+        # The VALUE is exactly the outgoing-Hankel-half `hankel_point_value`
+        # already provides (same multiplication order as the old inline
+        # formula -- bit-identical); only the DERIVATIVE still needs
+        # scipy's `derivative=True` pieces, because `qscat.special.radial`
+        # exposes no derivative primitive (module docstring of `radial`).
+        phi = hankel_point_value(grid, r, k, l, 0, mass=mass)
         x = k * r
         h_l = spherical_jn(l, x) + 1j * spherical_yn(l, x)
         h_l_prime = spherical_jn(l, x, derivative=True) + 1j * spherical_yn(l, x, derivative=True)
-        phi = pref * r * h_l / 2.0
-        dphi = pref * (h_l + x * h_l_prime) / 2.0
+        dphi = np.sqrt(2.0 * mass * k / np.pi) * (h_l + x * h_l_prime) / 2.0
         return complex(phi), complex(dphi)
 
     def _h1(rr: float) -> complex:
