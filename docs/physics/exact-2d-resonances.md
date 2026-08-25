@@ -81,7 +81,7 @@ Seven angle-stable states were found — a vibrational ladder of N₂⁻ with wi
 growing as it climbs, which is the boomerang picture recovered with no
 approximation at all.
 
-| exact `E_r` (Ha) | exact `Γ` (Ha) | BO/LCP `E_r` | BO/LCP `Γ` | `ΔE_r` (meV) | `ΔΓ` (meV) |
+| exact $E_r$ (Ha) | exact $\Gamma$ (Ha) | BO/LCP $E_r$ | BO/LCP $\Gamma$ | $\Delta E_r$ (meV) | $\Delta\Gamma$ (meV) |
 |---|---|---|---|---|---|
 | −0.673968 | 0.004902 | −0.673960 | 0.004914 | −0.22 | −0.33 |
 | −0.664238 | 0.005425 | −0.664231 | 0.005439 | −0.19 | −0.38 |
@@ -178,7 +178,7 @@ Everything above rests on the poles being resonances and on the exact/BO pairing
 being right — and until the H₂⁺ campaign, neither was tested. Angle stability
 found them; angle stability is *necessary and not sufficient*. On H₂⁺ the same
 procedure produced four non-resonances out of 57
-({doc}`h2plus-resonance-states`), so this is not a hypothetical.
+([`h2plus-resonance-states.md`](h2plus-resonance-states.md)), so this is not a hypothetical.
 
 `validation/n2/pole_verification.py` runs the check with the machinery promoted
 out of that campaign. **The result is clean:**
@@ -324,7 +324,7 @@ qualification (see `docs/physics/lcp-resonance-levels.md`).
 ## Limits
 
 - **Validated on N₂ and H₂⁺.** H₂⁺ (Coulomb, with a Rydberg series accumulating
-  at each threshold) is covered in {doc}`h2plus-resonance-states`. F₂/NO — where
+  at each threshold) is covered in [`h2plus-resonance-states.md`](h2plus-resonance-states.md). F₂/NO — where
   the dissociative channel is open, so the nuclear residual becomes the
   informative one — have not been run.
 - **The two-angle test is necessary, not sufficient.** A small residual says the

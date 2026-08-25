@@ -26,7 +26,10 @@ time, and Fourier-transform (Tannor-Weeks) that correlation function into the en
 domain. This is the **time-domain twin** of #6: two structurally unrelated computations
 (one direct linear solve per energy vs. one propagation covering every energy) converging
 to the same number is a strong, non-trivial cross-check — not a restatement of #6, and not
-a new physical model.
+a new physical model. Concretely, nothing here introduces new potential physics, a new
+partial wave, or a new grid convention: every physical input — the potential surface, the
+reduced mass, `l=2`, the FEM-DVR-ECS grids — is carried over from #6 unchanged, and the
+two routes are validated against each other as an exact differential oracle.
 
 $$
 \begin{aligned}
@@ -377,15 +380,9 @@ The genuine, live PASS/FAIL gate on this comparison is
 run explicitly (`uv run pytest projects/n2_2d_td_cross_section -m slow`), not as part of
 the default harness.
 
-## Framing: what this sub-project does and does not claim
+## Deferred: the optimize-in-Rust target
 
-This sub-project reaches the **same exact cross section** `docs/physics/n2-2d-cross-
-section.md` computes, by a structurally different route (time propagation +
-Fourier/Tannor-Weeks transform instead of a direct energy-domain linear solve), and
-validates the two against each other as an exact differential oracle. It does **not**
-introduce new potential physics, a new partial wave, or a new grid convention — every
-physical input (potential surface, reduced mass, `l=2`, the FEM-DVR-ECS grids) is carried
-over unchanged from #6. **The sparse LU factorization / back-substitution is the eventual
+**The sparse LU factorization / back-substitution is the eventual
 optimize-in-Rust lifecycle target — explicitly NOT done in this sub-project.** eMoScat's
 own production runs report MKL PARDISO completing full N₂/NO/F₂ time-dependent
 calculations in under an hour; this sub-project's ~210s single-energy-equivalent

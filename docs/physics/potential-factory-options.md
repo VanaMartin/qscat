@@ -3,7 +3,7 @@
 **Status:** the survey behind the factory — methods, data sources, one
 feasibility spike, and the decisions taken on it (last section). The first
 implementation stage, the fitter round-tripped on N₂/NO/F₂, is
-{doc}`potential-factory`; the sensitivity budget and the O₂ fit are not built.
+[`potential-factory.md`](potential-factory.md); the sensitivity budget and the O₂ fit are not built.
 **Relates to:** `qscat.model` (`DiatomicResonanceModel`, `IonicResonanceModel`),
 `qscat.core.lcp` (the fixed-`R` pole walk that would be the forward model),
 `qscat.core.nrm` (the nonlocal model whose *inputs* are the natural target

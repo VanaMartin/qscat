@@ -1,18 +1,28 @@
 # NO and F₂ exact-2D VE cross sections (the model port)
 
-**Location:** `validation/diatomic/` (`config.py` — per-molecule grid/energy config;
-`curves.py` — the exact-2D TI oracle driver + committed figures; `test_diatomic.py`).
+**Location:** `validation/diatomic/` (`config.py` — the per-molecule eMoScat nuclear
+decks; `test_diatomic.py` — the cross-section gate). The per-molecule *curve and figure*
+drivers this note's committed figures came from were retired into `apps/qscat-run`, so
+the curves are now produced from a config (e.g.
+`apps/qscat-run/examples/f2-da-lcp-vs-exact.yaml`) rather than from solver code here.
 **Computed entirely through the promoted library** `qscat.core` + `qscat.model` — the first
 consumers of the generalization beyond N₂ (sub-project A). **Origin:** sub-projects B (NO) and
 C (F₂) of the diatomic VE-scattering spec. **Units:** atomic units.
 
 ## What this is
 
-The exact 2-D time-independent vibrational-excitation cross section σ_{0→v'}(E) for **NO** and
-**F₂** — the same model and method as N₂ (`H = −½∂²_r − (1/2μ)∂²_R + v0(R) + l(l+1)/2r² −
-λ(R)e^{−α_c r²}`), differing only in parameters (`qscat.model.{NO,F2}`). Adding each molecule
+The exact 2-D time-independent vibrational-excitation cross section
+$\sigma_{0\to v'}(E)$ for **NO** and **F₂** — the same model and method as N₂,
+
+$$
+H_\mathrm{2D} = -\frac{1}{2}\frac{\mathrm{d}^2}{\mathrm{d}r^2}
+  - \frac{1}{2\mu}\frac{\mathrm{d}^2}{\mathrm{d}R^2}
+  + v_0(R) + \frac{l(l+1)}{2r^2} - \lambda(R)\,e^{-\alpha_c r^2}
+$$
+
+differing only in parameters (`qscat.model.{NO,F2}`). Adding each molecule
 was **data + validation, no new solver code**: a `qscat.model` registry entry + a
-`validation/diatomic/config.MoleculeConfig` grid/energy entry + `compute_ti_curve` calling
+`validation/diatomic/config.MoleculeConfig` grid/energy entry + a driver calling
 `qscat.core.driven.ve_cross_section`.
 
 ## The oracle (no independent golden data)
@@ -228,10 +238,13 @@ the oracle, the LCP is under test): (a) it **under-predicts the near-threshold s
 exact σ_DA rises sharply as E→threshold while the LCP stays smooth (0.263 at E=0.010);
 (b) for the sibling VE channel, the LCP **elastic omits the non-resonant background** that the
 exact elastic T-matrix contains (`driven.py` documents this) — a known *qualitative* LCP
-limitation. The LCP VE cross section itself is not computed in this sub-project
-(`lcp_ve_cross_section` is a documented follow-on), so no quantitative LCP-VE agreement is
-claimed here. N₂'s DA channel is closed (threshold +0.5 Ha), so LCP and exact both give ≈0
-there — a consistency sanity, no figure.
+limitation. The LCP VE cross section itself is not computed in *this* sub-project, so no
+quantitative LCP-VE band is recorded in this note. It is computed elsewhere:
+`validation/diatomic/ve_nrm.py` runs it (as `lcp_ve_cross_section`, the 1-D
+`projects.n2_ti_cross_section` solver) alongside the exact and nonlocal routes, and
+`docs/physics/nonlocal-resonance-model.md` §8.4 publishes the measured
+LCP-over-exact bands for N₂ and F₂. N₂'s DA channel is closed (threshold +0.5 Ha), so
+LCP and exact both give ≈0 there — a consistency sanity, no figure.
 
 **NO — where the LCP fails outright.** 151 energies (0.150–0.300 Ha, step 0.001),
 recomputed 2026-08-24 with the flux extraction. The exact σ_DA peaks at
@@ -275,7 +288,7 @@ and width (`docs/physics/exact-2d-resonances.md`). Neither result licenses the o
 approximation that reproduces where a resonance sits need not reproduce how much flux leaves
 through a particular exit channel, and here it does not.
 
-## Time-dependent route (next)
+## Time-dependent route — validated on N₂, not attempted for NO or F₂
 
 The N₂ time-dependent route (order-3 Padé + Tannor-Weeks, `qscat.core.time_dependent`) matches
 the exact TI oracle to a median of 0.2 % across 161 energies spanning 0.060–0.220 Ha, with 93 %

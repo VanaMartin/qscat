@@ -48,10 +48,10 @@ V_{l l'}(r, R) &= \sum_\lambda
 \end{aligned}
 $$
 
-which is **exact until the sum over `l` is truncated**. For the ²Π_g resonance,
-`Lambda = 1` and `l = 2, 4, 6, ...`. The truncation order `N_l` then becomes an
-ordinary convergence parameter, studied exactly like box size `R_max`, the ECS
-radius `R_0`, and the ECS angle `theta` already are — which is the standard
+which is **exact until the sum over $l$ is truncated**. For the ²Π_g resonance,
+$\Lambda = 1$ and $l = 2, 4, 6, \dots$. The truncation order $N_l$ then becomes an
+ordinary convergence parameter, studied exactly like box size $R_\mathrm{max}$, the ECS
+radius $R_0$, and the ECS angle $\theta$ already are — which is the standard
 this repo already holds itself to.
 
 ## The truncation criterion — the one thing to get right
@@ -64,8 +64,8 @@ them would reintroduce precisely the deficiency the exact-2-D work exists to
 expose — a missing elastic background is one of the two documented NOTEs
 against LCP.
 
-The criterion must be **observable convergence**: keep adding `l` until
-`sigma_{0->v'}(E)` stops moving by more than tolerance. The two criteria give
+The criterion must be **observable convergence**: keep adding $l$ until
+$\sigma_{0\to v'}(E)$ stops moving by more than tolerance. The two criteria give
 different answers, and the resonance-hosting one quietly bakes in an
 approximation *of the same character as the one under test*, which would make
 the result circular.

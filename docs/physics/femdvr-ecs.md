@@ -140,9 +140,9 @@ All four live in `libs/qscat/tests/test_femdvr_ecs.py`.
    $Z_\mathrm{eff} = R_0 + L_t e^{i\theta}$; $\arg(E_n) = -2\arg(Z_\mathrm{eff})$
    for *every* $n$. The textbook "continuum rotates by $-2\theta$" picture is
    the $R_0 \ll L_t$ limit of this ($\arg(Z_\mathrm{eff}) \to \theta$). The
-   benchmark grid uses `R0 / Lt = 0.05` so `arg(Z_eff) = 28.63 deg` (vs. the
-   `theta = 30 deg` asymptote), giving `arg(E) = -57.25 deg` (vs. the
-   `-60 deg` asymptote) — well inside a `+/-5 deg` window; the test asserts
+   benchmark grid uses $R_0 / L_t = 0.05$, so $\arg(Z_\mathrm{eff}) = 28.63°$ (vs. the
+   $\theta = 30°$ asymptote), giving $\arg(E) = -57.25°$ (vs. the
+   $-60°$ asymptote) — well inside a $\pm 5°$ window; the test asserts
    that most mid-spectrum, sizeable-$|E|$ eigenvalues cluster there
    (edge-of-basis "junk" states and near-zero eigenvalues are excluded from
    the selection).
