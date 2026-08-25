@@ -91,8 +91,8 @@ tgrid.grids[1].R0`), but `record` keeps only the point VALUE, no derivative:
 `b_c(t) = <phi_c|psi(.,R=position)> / sqrt(w_R[position])` (a c-product on
 the ELECTRONIC axis at fixed nuclear node `position`) -- the direct nuclear-
 axis transpose of the electronic `Dirac`'s `b_{v'}(t) = <chi_{v'}|
-psi(position,.)> / sqrt(w_r[position])`. Its `sigma` is `_dirac_s_vector_
-one_energy`'s nuclear-axis twin: `eta_out_c -> hankel_point_value(g_nuc,
+psi(position,.)> / sqrt(w_r[position])`. Its `sigma` is the electronic
+delta transform's nuclear-axis twin: `eta_out_c -> hankel_point_value(g_nuc,
 R_position, K_R, l=0, model.charge, mass=mu_R)` (the point-VALUE half-Hankel,
 not `outgoing_surface_wave`'s Wronskian pair -- a delta test function has no
 derivative side), `K_R = sqrt(2 mu_R (E_tot - eps_e_c))`, `mu_R = model.mu`,
@@ -116,8 +116,9 @@ level. `record` keeps the IDENTICAL per-channel c-product loop the
 electronic path already uses (`c_c(t) = c_product(Phi_c, psi)`) -- only the
 channel vectors differ, so this needed no change. `sigma(E)` is the DA
 analog of `_s_vector_one_energy`/`_sigma_one_energy` (this module's own
-`_tw_da_s_vector_one_energy`/`_tw_da_sigma_one_energy`, defined below, NOT
-routed through `sigma_from_correlations`: that helper is hardwired to
+`_tw_da_sigma_one_energy`, an assembly of `time_dependent`'s shared
+`s_vector_transform`/`sigma_from_s` kernels, NOT routed through
+`sigma_from_correlations`: that helper is hardwired to
 electronic vibrational levels/axis, see its own docstring in
 `time_dependent.py`): the outgoing deconvolution factor is `eta_outgoing`
 on the NUCLEAR axis (`tgrid.grids[1]`, mass `mu_R = model.mu`, `l=0`,
@@ -141,7 +142,6 @@ from qscat.dvr import FemDvrEcsGrid, TensorGrid, dvr_first_derivative_at_node
 from qscat.linalg import c_product
 
 from .correlation import (
-    eta_incident,
     eta_outgoing,
     hankel_point_value,
     outgoing_channel,
@@ -152,8 +152,11 @@ from .dissociation import anion_electronic_states
 from .time_dependent import (
     Extractor,
     PropagationResult,
-    quadrature_weights,
+    correlation_channel_s,
+    flux_channel_s,
+    s_vector_transform,
     sigma_from_correlations,
+    sigma_from_s,
 )
 
 if TYPE_CHECKING:
@@ -170,6 +173,7 @@ _AXES = ("electronic", "nuclear")
 # the module docstring's `Flux(axis="nuclear")` section for the `S = 1 -
 # 2 pi i T` derivation, and `docs/physics/td-da.md` for the empirical
 # TI-convergence confirmation.
+# The shared sigma_from_s kernel realizes this constant as its np.pi prefactor.
 _C_DA = np.pi
 
 
@@ -183,49 +187,6 @@ def _check_axis(axis: str, cls_name: str) -> None:
 def _axis_grid_index(axis: str) -> int:
     """`TensorGrid.grids` index for `axis` (`0` electronic, `1` nuclear)."""
     return 0 if axis == "electronic" else 1
-
-
-def _tw_da_s_vector_one_energy(
-    g_elec: FemDvrEcsGrid,
-    g_nuc: FemDvrEcsGrid,
-    model: ResonanceModel,
-    mu_r: float,
-    result: PropagationResult,
-    eps: npt.NDArray[np.float64],
-    v_init: int,
-    eps_e: npt.NDArray[np.float64],
-    wp_out: _WpOut,
-    E: float,
-    dt: float,
-    wp_in: _WpIn,
-) -> npt.NDArray[np.complex128]:
-    """The raw DA Tannor-Weeks S-matrix, per anion dissociation channel --
-    `_s_vector_one_energy`'s (`time_dependent.py`) nuclear-axis twin (module
-    docstring's `TannorWeeks(axis="nuclear")` section): the outgoing
-    deconvolution factor is `eta_outgoing` evaluated on the NUCLEAR axis
-    (mass `mu_r`, `l=0`) against the PROPAGATED test-packet correlation
-    `result.c[:, c]` itself (unlike `Flux`'s Wronskian pair or `Dirac`'s
-    point value); the incident deconvolution `eta_in` stays on the
-    ELECTRONIC incident axis.
-    """
-    n_channels = len(eps_e)
-    S = np.zeros(n_channels, dtype=np.complex128)
-    if E <= 0.0:
-        return S
-    weights = quadrature_weights(result.t.size)
-    e_tot = E + eps[v_init]
-    k = float(np.sqrt(2.0 * E))
-    eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
-    phase = np.exp(1j * e_tot * result.t)
-    for c in range(n_channels):
-        e_dr = e_tot - eps_e[c]
-        if e_dr <= 0.0:
-            continue  # closed dissociation channel
-        k_r = float(np.sqrt(2.0 * mu_r * e_dr))
-        eta_out = eta_outgoing(g_nuc, k_r, 0, mass=mu_r, **wp_out)
-        s_raw = np.sum(weights * phase * result.c[:, c]) * dt
-        S[c] = s_raw / (2.0 * np.pi * np.conj(eta_out) * eta_in)
-    return S
 
 
 def _tw_da_sigma_one_energy(
@@ -243,23 +204,19 @@ def _tw_da_sigma_one_energy(
     wp_in: _WpIn,
 ) -> npt.NDArray[np.float64]:
     """`sigma_DA,c(E)` (bohr^2) per anion dissociation channel `c`, via the
-    nuclear-axis Tannor-Weeks transform -- no elastic free-reference
-    subtraction (DA is a pure rearrangement channel, no `v'==v_init`
-    diagonal), the SAME `_C_DA = pi` convention `_flux_da_sigma_one_energy`/
-    `_dirac_da_sigma_one_energy` use."""
-    n_channels = len(eps_e)
-    sigma = np.zeros(n_channels, dtype=np.float64)
-    if E <= 0.0:
-        return sigma
-    s_full = _tw_da_s_vector_one_energy(
-        g_elec, g_nuc, model, mu_r, result, eps, v_init, eps_e, wp_out, E, dt, wp_in
+    nuclear-axis Tannor-Weeks transform: the shared `s_vector_transform`
+    skeleton with `eta_outgoing` moved to the NUCLEAR axis (mass `mu_r`,
+    `l=0`) as the outgoing factor, then the shared `sigma_from_s` with
+    `elastic=None` -- DA is a pure rearrangement channel with no
+    `v'==v_init` diagonal, and its `pi*|S|^2/(2E)` prefactor is the same
+    `_C_DA = pi` convention (see the module docstring)."""
+    channel_s = correlation_channel_s(
+        lambda k_r: eta_outgoing(g_nuc, k_r, 0, mass=mu_r, **wp_out), result.c, dt
     )
-    e_tot = E + eps[v_init]
-    for c in range(n_channels):
-        if e_tot - eps_e[c] <= 0.0:
-            continue  # closed dissociation channel
-        sigma[c] = _C_DA * abs(s_full[c]) ** 2 / (2.0 * E)
-    return sigma
+    s_full = s_vector_transform(
+        g_elec, model.ell, wp_in, result.t, float(eps[v_init]), eps_e, E, mu_r, channel_s
+    )
+    return sigma_from_s(s_full, None, eps_e, float(eps[v_init]), E, None)
 
 
 class TannorWeeks:
@@ -453,39 +410,6 @@ class TannorWeeks:
         )
 
 
-def _dirac_s_vector_one_energy(
-    grid: FemDvrEcsGrid,
-    model: ResonanceModel,
-    result: PropagationResult,
-    eps: npt.NDArray[np.float64],
-    v_init: int,
-    vprimes: list[int],
-    z_position: float,
-    E: float,
-    dt: float,
-    wp_in: _WpIn,
-) -> npt.NDArray[np.complex128]:
-    """The raw delta-transform S-matrix, `TannorWeeks._s_vector_one_energy`'s
-    twin with `eta_out_i -> hankel_point_value(...)` (module docstring)."""
-    S = np.zeros(len(vprimes), dtype=np.complex128)
-    if E <= 0.0:
-        return S
-    weights = quadrature_weights(result.t.size)
-    e_tot = E + eps[v_init]
-    k = float(np.sqrt(2.0 * E))
-    eta_in = eta_incident(grid, k, model.ell, **wp_in)
-    phase = np.exp(1j * e_tot * result.t)
-    for j, vp in enumerate(vprimes):
-        excess = e_tot - eps[vp]
-        if excess <= 0.0:
-            continue  # closed channel
-        kp = float(np.sqrt(2.0 * excess))
-        f_i = hankel_point_value(grid, z_position, kp, model.ell, model.charge)
-        s_raw = np.sum(weights * phase * result.c[:, j]) * dt
-        S[j] = s_raw / (2.0 * np.pi * np.conj(f_i) * eta_in)
-    return S
-
-
 def _dirac_sigma_one_energy(
     grid: FemDvrEcsGrid,
     model: ResonanceModel,
@@ -499,75 +423,30 @@ def _dirac_sigma_one_energy(
     wp_in: _WpIn,
     free_result: PropagationResult | None,
 ) -> npt.NDArray[np.float64]:
-    """`sigma_{v_init->v'}(E)` (bohr^2) via the delta transform, one energy.
+    """`sigma_{v_init->v'}(E)` (bohr^2) via the delta transform, one energy:
+    the shared `s_vector_transform` skeleton with `hankel_point_value` (the
+    outgoing-Hankel-half VALUE at the fixed analysis point -- a delta test
+    function's `F_out` is unintegrated) as the outgoing factor, then the
+    shared `sigma_from_s`. Same elastic free-reference contract as
+    `time_dependent._sigma_one_energy` (see that docstring): `S_free(E)`
+    from a companion `V_int=0` propagation subtracts on the diagonal
+    (`v'==v_init`) channel instead of a literal 1."""
+    thresholds = np.asarray([eps[vp] for vp in vprimes], dtype=np.float64)
+    elastic = np.asarray([vp == v_init for vp in vprimes], dtype=np.bool_)
 
-    Same elastic free-reference pattern as `time_dependent._sigma_one_energy`
-    (see that function's docstring): `S_free(E)` from a companion `V_int=0`
-    propagation subtracts on the diagonal (`v'==v_init`) channel instead of a
-    literal 1.
-    """
-    sigma = np.zeros(len(vprimes), dtype=np.float64)
-    if E <= 0.0:
-        return sigma
-    s_full = _dirac_s_vector_one_energy(
-        grid, model, result, eps, v_init, vprimes, z_position, E, dt, wp_in
-    )
-    s_free = None
-    if free_result is not None:
-        s_free = _dirac_s_vector_one_energy(
-            grid, model, free_result, eps, v_init, vprimes, z_position, E, dt, wp_in
+    def s_vec(res: PropagationResult) -> npt.NDArray[np.complex128]:
+        channel_s = correlation_channel_s(
+            lambda kp: hankel_point_value(grid, z_position, kp, model.ell, model.charge),
+            res.c,
+            dt,
         )
-    e_tot = E + eps[v_init]
-    for j, vp in enumerate(vprimes):
-        if e_tot - eps[vp] <= 0.0:
-            continue  # closed channel
-        if vp == v_init:
-            ref = complex(s_free[j]) if s_free is not None else 1.0 + 0.0j
-        else:
-            ref = 0.0 + 0.0j
-        sigma[j] = np.pi * abs(s_full[j] - ref) ** 2 / (2.0 * E)
-    return sigma
+        return s_vector_transform(
+            grid, model.ell, wp_in, res.t, float(eps[v_init]), thresholds, E, 1.0, channel_s
+        )
 
-
-def _dirac_da_s_vector_one_energy(
-    g_elec: FemDvrEcsGrid,
-    g_nuc: FemDvrEcsGrid,
-    model: ResonanceModel,
-    mu_r: float,
-    result: PropagationResult,
-    eps: npt.NDArray[np.float64],
-    v_init: int,
-    eps_e: npt.NDArray[np.float64],
-    R_position: float,
-    E: float,
-    dt: float,
-    wp_in: _WpIn,
-) -> npt.NDArray[np.complex128]:
-    """The raw DA delta-transform S-matrix, per anion dissociation channel --
-    `_dirac_s_vector_one_energy`'s nuclear-axis twin (module docstring's
-    `Flux(axis="nuclear")` section, adapted to a point VALUE rather than a
-    Wronskian): the outgoing test function moves to the nuclear axis at mass
-    `mu_r` (`l=0`, `hankel_point_value` instead of `outgoing_surface_wave`),
-    the incident deconvolution `eta_in` stays on the ELECTRONIC incident axis.
-    """
-    n_channels = len(eps_e)
-    S = np.zeros(n_channels, dtype=np.complex128)
-    if E <= 0.0:
-        return S
-    weights = quadrature_weights(result.t.size)
-    e_tot = E + eps[v_init]
-    k = float(np.sqrt(2.0 * E))
-    eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
-    phase = np.exp(1j * e_tot * result.t)
-    for c in range(n_channels):
-        e_dr = e_tot - eps_e[c]
-        if e_dr <= 0.0:
-            continue  # closed dissociation channel
-        k_r = float(np.sqrt(2.0 * mu_r * e_dr))
-        f_c = hankel_point_value(g_nuc, R_position, k_r, 0, model.charge, mass=mu_r)
-        s_raw = np.sum(weights * phase * result.c[:, c]) * dt
-        S[c] = s_raw / (2.0 * np.pi * np.conj(f_c) * eta_in)
-    return S
+    s_full = s_vec(result)
+    s_free = s_vec(free_result) if free_result is not None else None
+    return sigma_from_s(s_full, s_free, thresholds, float(eps[v_init]), E, elastic)
 
 
 def _dirac_da_sigma_one_energy(
@@ -585,22 +464,19 @@ def _dirac_da_sigma_one_energy(
     wp_in: _WpIn,
 ) -> npt.NDArray[np.float64]:
     """`sigma_DA,c(E)` (bohr^2) per anion dissociation channel `c`, via the
-    nuclear-axis delta transform -- no elastic free-reference subtraction
-    (DA is a pure rearrangement channel, no `v'==v_init` diagonal), the SAME
-    `_C_DA = pi` convention `_flux_da_sigma_one_energy` uses."""
-    n_channels = len(eps_e)
-    sigma = np.zeros(n_channels, dtype=np.float64)
-    if E <= 0.0:
-        return sigma
-    s_full = _dirac_da_s_vector_one_energy(
-        g_elec, g_nuc, model, mu_r, result, eps, v_init, eps_e, R_position, E, dt, wp_in
+    nuclear-axis delta transform: `_dirac_sigma_one_energy`'s outgoing
+    factor moved to the nuclear axis (`hankel_point_value` at mass `mu_r`,
+    `l=0`); `elastic=None` (no free-reference -- DA has no `v'==v_init`
+    diagonal), same `_C_DA = pi` convention."""
+    channel_s = correlation_channel_s(
+        lambda k_r: hankel_point_value(g_nuc, R_position, k_r, 0, model.charge, mass=mu_r),
+        result.c,
+        dt,
     )
-    e_tot = E + eps[v_init]
-    for c in range(n_channels):
-        if e_tot - eps_e[c] <= 0.0:
-            continue  # closed dissociation channel
-        sigma[c] = _C_DA * abs(s_full[c]) ** 2 / (2.0 * E)
-    return sigma
+    s_full = s_vector_transform(
+        g_elec, model.ell, wp_in, result.t, float(eps[v_init]), eps_e, E, mu_r, channel_s
+    )
+    return sigma_from_s(s_full, None, eps_e, float(eps[v_init]), E, None)
 
 
 class Dirac:
@@ -824,51 +700,6 @@ class Dirac:
         return out
 
 
-def _flux_s_vector_one_energy(
-    grid: FemDvrEcsGrid,
-    model: ResonanceModel,
-    t: npt.NDArray[np.float64],
-    b: npt.NDArray[np.complex128],
-    d: npt.NDArray[np.complex128],
-    eps: npt.NDArray[np.float64],
-    v_init: int,
-    vprimes: list[int],
-    z_surface: float,
-    E: float,
-    dt: float,
-    wp_in: _WpIn,
-) -> npt.NDArray[np.complex128]:
-    """The raw flux-transform S-matrix (module docstring's Wronskian formula):
-
-        S_i = -i/(2*mu_e*ifc_i) * sum_j w_j *
-              (conj(phi_out_i)*d_j - b_j*conj(dphi_out_i)) * exp(i*E_tot*t_j) * dt
-
-    `mu_e = 1.0` (electronic reduced mass, a.u.); `phi_out_i`/`dphi_out_i` are
-    `outgoing_surface_wave`'s pair at the channel's outgoing momentum `k' =
-    sqrt(2*(E_tot - eps[v']))` -- the SAME per-channel momentum `TannorWeeks`/
-    `Dirac` use for their own outgoing deconvolution factor.
-    """
-    S = np.zeros(len(vprimes), dtype=np.complex128)
-    if E <= 0.0:
-        return S
-    mu_e = 1.0
-    weights = quadrature_weights(t.size)
-    e_tot = E + eps[v_init]
-    k = float(np.sqrt(2.0 * E))
-    eta_in = eta_incident(grid, k, model.ell, **wp_in)
-    phase = np.exp(1j * e_tot * t)
-    for j, vp in enumerate(vprimes):
-        excess = e_tot - eps[vp]
-        if excess <= 0.0:
-            continue  # closed channel
-        kp = float(np.sqrt(2.0 * excess))
-        phi_out, dphi_out = outgoing_surface_wave(grid, z_surface, kp, model.ell, model.charge)
-        wronskian = np.conj(phi_out) * d[:, j] - b[:, j] * np.conj(dphi_out)
-        s_raw = np.sum(weights * wronskian * phase) * dt
-        S[j] = (-1j / (2.0 * mu_e * eta_in)) * s_raw
-    return S
-
-
 def _flux_sigma_one_energy(
     grid: FemDvrEcsGrid,
     model: ResonanceModel,
@@ -885,73 +716,34 @@ def _flux_sigma_one_energy(
     free: tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128], npt.NDArray[np.complex128]]
     | None,
 ) -> npt.NDArray[np.float64]:
-    """`sigma_{v_init->v'}(E)` (bohr^2) via the flux transform, one energy --
-    same elastic free-reference pattern as `time_dependent._sigma_one_energy`
-    / `_dirac_sigma_one_energy`."""
-    sigma = np.zeros(len(vprimes), dtype=np.float64)
-    if E <= 0.0:
-        return sigma
-    s_full = _flux_s_vector_one_energy(
-        grid, model, t, b, d, eps, v_init, vprimes, z_surface, E, dt, wp_in
-    )
-    s_free = None
-    if free is not None:
-        t_free, b_free, d_free = free
-        s_free = _flux_s_vector_one_energy(
-            grid, model, t_free, b_free, d_free, eps, v_init, vprimes, z_surface, E, dt, wp_in
+    """`sigma_{v_init->v'}(E)` (bohr^2) via the flux transform, one energy:
+    the shared `s_vector_transform` skeleton with the Wronskian element
+    (`flux_channel_s` + `outgoing_surface_wave`'s `(phi_out, dphi_out)`
+    pair, electronic mass 1.0), then the shared `sigma_from_s` -- same
+    elastic free-reference pattern as `time_dependent._sigma_one_energy` /
+    `_dirac_sigma_one_energy`."""
+    thresholds = np.asarray([eps[vp] for vp in vprimes], dtype=np.float64)
+    elastic = np.asarray([vp == v_init for vp in vprimes], dtype=np.bool_)
+
+    def s_vec(
+        t_a: npt.NDArray[np.float64],
+        b_a: npt.NDArray[np.complex128],
+        d_a: npt.NDArray[np.complex128],
+    ) -> npt.NDArray[np.complex128]:
+        channel_s = flux_channel_s(
+            lambda kp: outgoing_surface_wave(grid, z_surface, kp, model.ell, model.charge),
+            b_a,
+            d_a,
+            dt,
+            1.0,
         )
-    e_tot = E + eps[v_init]
-    for j, vp in enumerate(vprimes):
-        if e_tot - eps[vp] <= 0.0:
-            continue  # closed channel
-        if vp == v_init:
-            ref = complex(s_free[j]) if s_free is not None else 1.0 + 0.0j
-        else:
-            ref = 0.0 + 0.0j
-        sigma[j] = np.pi * abs(s_full[j] - ref) ** 2 / (2.0 * E)
-    return sigma
+        return s_vector_transform(
+            grid, model.ell, wp_in, t_a, float(eps[v_init]), thresholds, E, 1.0, channel_s
+        )
 
-
-def _flux_da_s_vector_one_energy(
-    g_elec: FemDvrEcsGrid,
-    g_nuc: FemDvrEcsGrid,
-    model: ResonanceModel,
-    mu_r: float,
-    t: npt.NDArray[np.float64],
-    b: npt.NDArray[np.complex128],
-    d: npt.NDArray[np.complex128],
-    eps: npt.NDArray[np.float64],
-    v_init: int,
-    eps_e: npt.NDArray[np.float64],
-    R_surface: float,
-    E: float,
-    dt: float,
-    wp_in: _WpIn,
-) -> npt.NDArray[np.complex128]:
-    """The raw DA flux-transform S-matrix, per anion dissociation channel --
-    `_flux_s_vector_one_energy`'s nuclear-axis twin (module docstring): the
-    outgoing wave moves to the nuclear axis at mass `mu_r` (`l=0`), the
-    incident deconvolution `eta_in` stays on the ELECTRONIC incident axis.
-    """
-    n_channels = len(eps_e)
-    S = np.zeros(n_channels, dtype=np.complex128)
-    if E <= 0.0:
-        return S
-    weights = quadrature_weights(t.size)
-    e_tot = E + eps[v_init]
-    k = float(np.sqrt(2.0 * E))
-    eta_in = eta_incident(g_elec, k, model.ell, **wp_in)
-    phase = np.exp(1j * e_tot * t)
-    for c in range(n_channels):
-        e_dr = e_tot - eps_e[c]
-        if e_dr <= 0.0:
-            continue  # closed dissociation channel
-        k_r = float(np.sqrt(2.0 * mu_r * e_dr))
-        phi_out, dphi_out = outgoing_surface_wave(g_nuc, R_surface, k_r, 0, model.charge, mass=mu_r)
-        wronskian = np.conj(phi_out) * d[:, c] - b[:, c] * np.conj(dphi_out)
-        s_raw = np.sum(weights * wronskian * phase) * dt
-        S[c] = (-1j / (2.0 * mu_r * eta_in)) * s_raw
-    return S
+    s_full = s_vec(t, b, d)
+    s_free = s_vec(*free) if free is not None else None
+    return sigma_from_s(s_full, s_free, thresholds, float(eps[v_init]), E, elastic)
 
 
 def _flux_da_sigma_one_energy(
@@ -971,21 +763,20 @@ def _flux_da_sigma_one_energy(
     wp_in: _WpIn,
 ) -> npt.NDArray[np.float64]:
     """`sigma_DA,c(E)` (bohr^2) per anion dissociation channel `c`, via the
-    nuclear-axis flux transform -- no elastic free-reference subtraction
-    (DA is a pure rearrangement channel, no `v'==v_init` diagonal)."""
-    n_channels = len(eps_e)
-    sigma = np.zeros(n_channels, dtype=np.float64)
-    if E <= 0.0:
-        return sigma
-    s_full = _flux_da_s_vector_one_energy(
-        g_elec, g_nuc, model, mu_r, t, b, d, eps, v_init, eps_e, R_surface, E, dt, wp_in
+    nuclear-axis flux transform: `_flux_sigma_one_energy`'s Wronskian
+    element with the outgoing wave moved to the nuclear axis (mass `mu_r`,
+    `l=0`); `elastic=None` (DA has no `v'==v_init` diagonal)."""
+    channel_s = flux_channel_s(
+        lambda k_r: outgoing_surface_wave(g_nuc, R_surface, k_r, 0, model.charge, mass=mu_r),
+        b,
+        d,
+        dt,
+        mu_r,
     )
-    e_tot = E + eps[v_init]
-    for c in range(n_channels):
-        if e_tot - eps_e[c] <= 0.0:
-            continue  # closed dissociation channel
-        sigma[c] = _C_DA * abs(s_full[c]) ** 2 / (2.0 * E)
-    return sigma
+    s_full = s_vector_transform(
+        g_elec, model.ell, wp_in, t, float(eps[v_init]), eps_e, E, mu_r, channel_s
+    )
+    return sigma_from_s(s_full, None, eps_e, float(eps[v_init]), E, None)
 
 
 class Flux:
