@@ -2,8 +2,8 @@ cff-version: 1.2.0
 title: qscat
 message: >-
   If you use qscat directly in research, citation is REQUIRED. Please cite the
-  software (this file) and the references listed below. The forthcoming method
-  paper (preferred-citation) is the canonical reference for the code itself.
+  software itself (preferred-citation) and the published work it implements
+  (the references below).
 type: software
 abstract: >-
   Validated, CPU-first FEM-DVR-ECS numerics for electron-diatomic scattering:
@@ -15,6 +15,8 @@ authors:
     email: martin@qscat.com
     # More collaborators (and eventually an organisation) will be added here as
     # the project grows.
+# Keep in step with `qscat.__version__` (libs/qscat/qscat/__init__.py),
+# which is the single source of truth for the package version.
 version: 0.1.0.dev0
 license: BSD-3-Clause
 repository-code: "https://github.com/VanaMartin/qscat"
@@ -26,31 +28,51 @@ keywords:
   - exterior complex scaling
   - cross section
 
-# The canonical reference for the CODE. In preparation — replace the placeholder
-# fields (journal, volume, doi, year) with the final citation on publication.
+# The canonical reference for the CODE. qscat has no method paper of its own
+# yet, so this cites the software: the repository, this version. Replace it with
+# the article once one is published, and keep the references below either way.
 preferred-citation:
-  type: article
-  title: "QSCAT: validated FEM-DVR-ECS numerics for electron-molecule scattering"
+  type: software
+  title: "qscat: validated FEM-DVR-ECS numerics for electron-molecule scattering"
   authors:
     - family-names: Vana
       given-names: Martin
       email: martin@qscat.com
-  year: 2026
-  notes: "In preparation — reference to be finalized on publication."
+  version: 0.1.0.dev0
+  license: BSD-3-Clause
+  repository-code: "https://github.com/VanaMartin/qscat"
+  url: "https://github.com/VanaMartin/qscat"
 
-# Prior published work this code builds on / continues. A direct user is
-# expected to cite these. Fill in the exact citations (title, authors, journal,
-# volume, pages, year, doi) you want to require.
+# The prior published work this code implements and continues. A direct user is
+# expected to cite these alongside the software. Metadata transcribed from the
+# tracked reference notes under reference/literature/ (the PDFs themselves are
+# gitignored): vana-houfek-2017-pra95-022714.md and vana-2017-thesis.md.
 references:
   - type: article
-    title: "[Prior article #1 — fill in title]"
+    title: >-
+      Time-dependent formulation of the two-dimensional model of resonant
+      electron collisions with diatomic molecules and interpretation of the
+      vibrational excitation cross sections
     authors:
-      - name: "To be added"
-    year: 2026
-    notes: "Fill in the exact citation (authors, journal, volume, pages, doi)."
-  - type: article
-    title: "[Prior article #2 — fill in title]"
+      - family-names: Váňa
+        given-names: Martin
+      # The reference note records the initial only ("K. Houfek").
+      - family-names: Houfek
+        given-names: "K."
+    journal: "Physical Review A"
+    volume: 95
+    start: "022714"  # article number, not a page range
+    year: 2017
+    doi: 10.1103/PhysRevA.95.022714
+  - type: thesis
+    title: >-
+      A model of resonant collisions of electrons with molecules and molecular
+      ions
     authors:
-      - name: "To be added"
-    year: 2026
-    notes: "Fill in the exact citation (authors, journal, volume, pages, doi)."
+      - family-names: Váňa
+        given-names: Martin
+    thesis-type: "Doctoral thesis"
+    institution:
+      name: "Charles University, Prague"
+    year: 2017
+    url: "https://dspace.cuni.cz/handle/20.500.11956/92902"

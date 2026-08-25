@@ -26,8 +26,14 @@ jobs:
         run: uv sync --all-packages
       - name: Lint (ruff)
         run: uv run ruff check .
-      - name: Type-check (mypy, qscat library)
-        run: uv run mypy libs/qscat/qscat
+      # The pre-commit hook formats with the same ruff pinned in the `dev`
+      # group, so this only fires on a commit that bypassed the hook.
+      - name: Format check (ruff)
+        run: uv run ruff format --check .
+      # Both are strict-clean; `libs/qscat` alone would leave the CLI that
+      # drives every observable unchecked.
+      - name: Type-check (mypy, qscat library + qscat-run)
+        run: uv run mypy libs/qscat/qscat apps/qscat-run/qscat_run
 
   test:
     name: test (py${{ matrix.python-version }})
@@ -62,7 +68,7 @@ jobs:
         # of this work) while the identical command takes 123 s locally at
         # `-n 4`. It does not reproduce on macOS because scipy there links
         # Accelerate, which does not oversubscribe the same way -- pinning
-        # changed nothing locally (74.6 s vs 76.1 s at a saturating `-n 12`).
+        # changed nothing locally (76.1 s pinned vs 74.6 s unpinned at a saturating `-n 12`).
         env:
           OMP_NUM_THREADS: "1"
           OPENBLAS_NUM_THREADS: "1"
