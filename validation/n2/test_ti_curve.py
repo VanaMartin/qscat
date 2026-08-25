@@ -1,18 +1,20 @@
 """Task 3 (sub-project #9): tests for `validation.n2.ti_curve` and the
 generic `projects.n2_2d_cross_section.cross_section_plot.plot_cross_sections`.
 
-Two speed tiers, deliberately:
+Both solving tests run on the PRODUCTION working grid; what is kept small is
+the number of solves, not the deck:
 
-- `test_compute_ti_curve_shape_and_physical` uses a SMALL/COARSE grid (the
-  same magnitude as `test_cross_section_2d.py`'s own fast fixture) purely to
-  check shape/dtype/realness/non-negativity -- it does NOT need to be
-  physically converged for that.
 - `test_v4_dense_curve_matches_houfek_at_anchors` needs the REAL,
   physically-converged `working_tgrid()` (it is checking numbers against
   Houfek's golden data), so instead of shrinking the grid it shrinks the
   *energy count*: `E_grid` is just the 3 distinct anchor energies
   (0.02, 0.1, 0.2 Ha), not a dense sweep -- 3 sparse-LU solves on the
-  working grid, seconds, not the minutes a full dense curve costs.
+  working grid (measured 26.6 s), not the minutes a full dense curve costs.
+- `test_compute_ti_curve_shape_and_physical` checks only
+  shape/dtype/realness/non-negativity, which does not depend on convergence,
+  and is cheaper (measured 9.5 s) only because it asks for fewer channels --
+  it too builds `_WORKING_TGRID` (see its comment below). Do not read its
+  name as a promise of a toy deck.
 
 V4 tolerance: gated anchors (clear of their own vibrational threshold, see
 `validation.n2.reference.ANCHOR_MARGIN_HA`) use `GATED_RTOL` -- the same
@@ -43,11 +45,26 @@ from validation.n2 import reference
 from validation.n2.exact2d import GATED_RTOL, compute_exact2d_results
 from validation.n2.ti_curve import compute_ti_curve, houfek_reference
 
-# Small, physically-unconverged grid (matches
-# `projects/n2_2d_cross_section/test_cross_section_2d.py`'s own fast
-# fixture) -- fine for a shape/finiteness/non-negativity check, which does
-# not depend on convergence.
-_SMALL_TGRID = TensorGrid(
+import pytest
+
+# Both solving tests below consume the production WORKING_GRID (N=26857;
+# measured 26.6 s + 9.5 s), and the Houfek anchor gate's GATED_RTOL is
+# calibrated to that grid's round-off floor, so the deck cannot shrink
+# without the gate passing while measuring nothing -- the same
+# docs/adr/0005 point 7 case as validation/n2/test_anchors.py, and the same
+# resolution: the whole module is `slow`. It still runs in the Docker `test`
+# image and on a `validate:n2` (or `validate:all`) pull-request label.
+pytestmark = pytest.mark.slow
+
+# These are `convergence.WORKING_GRID`'s parameters -- this is the PRODUCTION
+# deck (N=26857), not a reduced one, despite being built by hand here. The
+# only nominal difference, nuc_r_max 22.0 vs 20.0, changes the length of the
+# ECS tail elements and not the nuclear point count (see WORKING_GRID's own
+# comment on that axis), so both spellings give the identical 107 x 251 grid.
+# Built explicitly rather than via `working_tgrid()` so this module states the
+# parameters it exercises; if it is ever made cheap, shrink it deliberately
+# and rename it, do not assume it is already small.
+_WORKING_TGRID = TensorGrid(
     [
         n2_electronic_grid(r_max=16.0, order=7, n_complex=5),
         n2_nuclear_grid(quadrature=10, r_max=22.0, n_complex=5),
@@ -58,7 +75,7 @@ _SMALL_TGRID = TensorGrid(
 def test_compute_ti_curve_shape_and_physical() -> None:
     E_grid = np.array([0.05, 0.1, 0.15])
     vprimes = [0, 1]
-    sigma = compute_ti_curve(E_grid, vprimes, tgrid=_SMALL_TGRID)
+    sigma = compute_ti_curve(E_grid, vprimes, tgrid=_WORKING_TGRID)
 
     assert sigma.shape == (len(E_grid), len(vprimes))
     assert np.all(np.isfinite(sigma))

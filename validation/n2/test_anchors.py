@@ -31,8 +31,19 @@ look *better* against Houfek than the exact solver does.
 from __future__ import annotations
 
 import numpy as np
+import pytest
 
 from validation.n2.exact2d import GATED_RTOL, compute_exact2d_results
+
+# Every test here consumes the same cached exact-2D solve on the production
+# WORKING_GRID (N=26857), measured at 24 s -- and that deck cannot shrink:
+# GATED_RTOL is calibrated to this grid's round-off floor, so a smaller grid
+# would leave the gate passing while measuring nothing. That is precisely the
+# case docs/adr/0005 point 7 reserves the marker for, so the whole module is
+# `slow` rather than only the tests that look expensive. It still runs in the
+# Docker `test` image and on a `validate:n2` (or `validate:all`) pull-request
+# label, which is where a solver change is expected to be gated.
+pytestmark = pytest.mark.slow
 
 # GATED_RTOL is defined once in `validation.n2.exact2d` (see its module-level
 # docstring for the derivation from the measured deviations) and imported

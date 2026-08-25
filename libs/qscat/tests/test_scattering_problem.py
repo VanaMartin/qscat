@@ -11,15 +11,23 @@ from qscat.model import N2
 
 
 def _grid() -> TensorGrid:
+    """A toy deck (59 x 129 = 7611), not the production working grid.
+
+    Nothing in this module is a physics assertion: the facade check below is
+    `array_equal` between two routes through the SAME solver, which holds on
+    any grid the solver accepts, and the other two tests only read shapes.
+    So per docs/adr/0005 point 7 the deck shrinks and the tests stay in the
+    fast gate -- on the working grid (107 x 251) the facade check measured
+    24.4 s, here 0.9 s.
+    """
     return TensorGrid(
         [
-            electronic_grid(r_max=16.0, order=7, n_complex=5),
-            nuclear_grid(r_max=22.0, quadrature=10, n_complex=5),
+            electronic_grid(r_max=12.0, order=5, n_complex=3),
+            nuclear_grid(r_max=14.0, quadrature=6, n_complex=3),
         ]
     )
 
 
-@pytest.mark.slow
 def test_problem_ve_matches_functional_api() -> None:
     tg = _grid()
     E = np.array([0.10, 0.15, 0.20])

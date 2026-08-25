@@ -6,14 +6,16 @@ is a generic analytic function: `libs/qscat` must not depend on `validation/`
 or `projects/`, and the N2-specific assembly belongs to sub-project #6.
 
 Deliberately does NOT factorize. A measured spike put that at 128 s and
-13.6 GB peak RSS -- real, and no business in a routine test run.
+13.6 GB peak RSS -- real, and no business in a routine test run. Assembly
+alone is cheap (measured 0.12 s, 0.44 GB), so this stays in the fast tier:
+per docs/adr/0005 the marker follows the measured cost, and the cost the
+marker was originally sized for left with the factorization.
 """
 
 from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
-import pytest
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec, TensorGrid, hamiltonian_nd
 
 MU = 12766.36
@@ -41,7 +43,6 @@ def _build(
     return FemDvrEcsGrid(GridSpec(quadrature=order, elements=els, x_min=0.0))
 
 
-@pytest.mark.slow
 def test_production_scale_2d_assembly() -> None:
     g_el = _build([(1.0, 0.2), (5.0, 1.0), (7.0, 2.0), (10.0, 3.0), (98.0, 4.0)], 8, 4.0, 15)
     g_nu = _build([(1.5, 0.5), (3.0, 0.15), (4.0, 0.5), (12.0, 1.0)], 14, 1.0, 10)

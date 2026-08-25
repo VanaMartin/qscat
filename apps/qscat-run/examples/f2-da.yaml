@@ -6,8 +6,8 @@
 # Like n2-ve.yaml, this uses a deliberately tiny, hand-written explicit grid
 # (F2 has no laptop-sized "proxy" preset -- only H2P does) so it stays fast
 # for local iteration; it is a plumbing smoke test, not a converged cross
-# section (`apps/qscat-run/tests/test_examples.py` only schema-validates this
-# file, it does not run it in the fast gate).
+# section (`apps/qscat-run/tests/test_examples.py` runs it end to end in the
+# fast gate -- it costs about a second).
 #
 # For the real, validated F2 DA/VE cross sections (the sub-project's actual
 # deliverable, exact-2D oracle against the eMoScat deck), swap the explicit

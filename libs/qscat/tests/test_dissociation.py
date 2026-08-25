@@ -233,8 +233,8 @@ def _dr_t_matrix_conjugated_channel0(tg, E: float) -> complex:
 
 @pytest.mark.slow
 def test_dr_cproduct_matches_conjugated_dot_on_proxy():
-    """The CONVENTION check (promoted from validation/h2plus/test_dr.py when the
-    h2+ driver was retired): `dr_cross_section`'s c-product T-matrix (no conjugate,
+    """The CONVENTION check (promoted from the retired validation/h2plus TD-DR
+    driver, removed in the qscat-run consolidation): `dr_cross_section`'s c-product T-matrix (no conjugate,
     the ECS-correct choice) agrees with eMoScat's conjugated-dot (`zdotc`)
     convention to <1e-2 relative on the proxy -- the rotated-nuclear-tail
     contribution is negligible there, so the convention question is settled."""
