@@ -195,8 +195,9 @@ def hankel_point_value(
     (charged target) -- but evaluated at ONE point rather than converted to a
     `sqrt(w_r)`-scaled, masked DVR coefficient VECTOR: a delta-distribution
     test function needs the outgoing function's VALUE, not an integral
-    against it. `grid` is forwarded to `hankel_point_value` (which itself ignores it,
-    keeping the call-site symmetry both docstrings describe).
+    against it. `grid` is accepted (unused) to keep this call-compatible
+    with `_regular_coeffs`/`_outgoing_coeffs` and because `outgoing_surface_wave`
+    forwards its own `grid` argument here.
 
     `mass` defaults to `1.0` (the electronic reduced mass, a.u.) -- every
     existing (electronic) call site is untouched: `riccati_hankel_en_mass(
