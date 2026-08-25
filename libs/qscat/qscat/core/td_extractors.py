@@ -16,7 +16,7 @@ second one for the `V_int=0` free-reference propagation, then calls
 `full.sigma(E, free=free_extractor)` -- see `time_dependent.py`'s module
 docstring for the full physics writeup.
 
-`Dirac` (this task) is the delta-distribution sibling: eMoScat's
+`Dirac` is the delta-distribution sibling: eMoScat's
 `DiracTestFunction2d` -- "Tannor-Weeks with a delta-distribution test
 function instead of the Gaussian test packet". Its `record` is a LINE
 PROJECTION of `psi` onto `chi_{v'}` at a FIXED electronic DVR index
@@ -29,10 +29,10 @@ hankel_point_value(...)` (a delta test function's `F_out` is unintegrated,
 so the deconvolution factor is the raw outgoing-Hankel-half VALUE at
 `position`, not an overlap with a Gaussian) -- a small self-contained
 transform (not routed through `sigma_from_correlations`, which is TW-
-specific) so this task cannot perturb TW's byte-identical golden regression
+specific) so nothing here can perturb TW's byte-identical golden regression
 (`test_td_extractors.py::test_tw_method_matches_prerefactor_golden_*`).
 
-`Flux` (this task) is the flow (flux) sibling: eMoScat's `FluxTestFunction2d`
+`Flux` is the flow (flux) sibling: eMoScat's `FluxTestFunction2d`
 -- "the time-energy Fourier transform of the probability flux projected to
 the outgoing state". Its `record` appends BOTH the value `b_{v'}(t) =
 <chi_{v'}|psi(surface,.)>` (`Dirac`'s line projection, at a FIXED electronic
@@ -45,8 +45,8 @@ outgoing_surface_wave`): `S_i = -i/(2*mu_e*ifc_i) * sum_j w_j *
 (conj(phi_out_i)*d_{v'}(t_j) - b_{v'}(t_j)*conj(dphi_out_i)) *
 exp(i*E_tot*t_j)*dt`, `mu_e = 1` (electronic reduced mass, a.u.) -- again a
 small self-contained transform (like `Dirac`'s), not routed through
-`sigma_from_correlations`, so this task cannot perturb TW's byte-identical
-golden regression either.
+`sigma_from_correlations`, so it cannot perturb TW's byte-identical golden
+regression either.
 
 `Flux(axis="nuclear")` is the SAME flow
 extractor with the electronic/nuclear roles of eMoScat's `FluxTestFunction2d`
@@ -166,6 +166,12 @@ _WpOut = dict[str, float]
 
 _AXES = ("electronic", "nuclear")
 
+# The DA sigma prefactor: `pi`, NOT the TI oracle's literal `4 pi^3` -- see
+# the module docstring's `Flux(axis="nuclear")` section for the `S = 1 -
+# 2 pi i T` derivation, and `docs/physics/td-da.md` for the empirical
+# TI-convergence confirmation.
+_C_DA = np.pi
+
 
 def _check_axis(axis: str, cls_name: str) -> None:
     """Validate `axis`. All three extractors implement both axes; anything
@@ -240,8 +246,7 @@ def _tw_da_sigma_one_energy(
     nuclear-axis Tannor-Weeks transform -- no elastic free-reference
     subtraction (DA is a pure rearrangement channel, no `v'==v_init`
     diagonal), the SAME `_C_DA = pi` convention `_flux_da_sigma_one_energy`/
-    `_dirac_da_sigma_one_energy` use (defined further below in this module;
-    referenced here by name, resolved at call time)."""
+    `_dirac_da_sigma_one_energy` use."""
     n_channels = len(eps_e)
     sigma = np.zeros(n_channels, dtype=np.float64)
     if E <= 0.0:
@@ -380,9 +385,9 @@ class TannorWeeks:
         `free_result` -- the elastic (`v'==v_init`) channel then subtracts
         the free-particle `S_free(E)` instead of a literal 1 (see
         `time_dependent._sigma_one_energy`). Leave `None` to reproduce the
-        literal-1 fallback. `free` is typed via the `Extractor` protocol
-        (SP1 tech-debt lift) but only a `TannorWeeks` is meaningful here;
-        anything else raises `TypeError`.
+        literal-1 fallback. `free` is typed as the general `Extractor` protocol
+        so all three extractors share one `sigma` signature, but only a
+        `TannorWeeks` is meaningful here; anything else raises `TypeError`.
 
         Nuclear: DA has no elastic diagonal to subtract a reference from --
         `free` must be `None` (`ValueError` otherwise).
@@ -582,8 +587,7 @@ def _dirac_da_sigma_one_energy(
     """`sigma_DA,c(E)` (bohr^2) per anion dissociation channel `c`, via the
     nuclear-axis delta transform -- no elastic free-reference subtraction
     (DA is a pure rearrangement channel, no `v'==v_init` diagonal), the SAME
-    `_C_DA = pi` convention `_flux_da_sigma_one_energy` uses (defined further
-    below in this module; referenced here by name, resolved at call time)."""
+    `_C_DA = pi` convention `_flux_da_sigma_one_energy` uses."""
     n_channels = len(eps_e)
     sigma = np.zeros(n_channels, dtype=np.float64)
     if E <= 0.0:
@@ -741,9 +745,9 @@ class Dirac:
 
         Electronic: `free`, when given, must be a companion `Dirac` extractor
         recorded from a SEPARATE `V_int=0` propagation -- same elastic
-        free-reference contract as `TannorWeeks.sigma`. `free` is typed via
-        the `Extractor` protocol (SP1 tech-debt lift) but only a `Dirac` is
-        meaningful here; anything else raises `TypeError`.
+        free-reference contract as `TannorWeeks.sigma`. `free` is typed as the
+        general `Extractor` protocol (one shared `sigma` signature) but only
+        a `Dirac` is meaningful here; anything else raises `TypeError`.
 
         Nuclear: DA has no elastic diagonal to subtract a reference from --
         `free` must be `None` (`ValueError` otherwise).
@@ -950,13 +954,6 @@ def _flux_da_s_vector_one_energy(
     return S
 
 
-# The DA sigma prefactor: `pi`, NOT the TI oracle's literal `4 pi^3` -- see
-# the module docstring's `Flux(axis="nuclear")` section for the `S = 1 -
-# 2 pi i T` derivation, and `docs/physics/td-da.md` for the empirical
-# TI-convergence confirmation.
-_C_DA = np.pi
-
-
 def _flux_da_sigma_one_energy(
     g_elec: FemDvrEcsGrid,
     g_nuc: FemDvrEcsGrid,
@@ -1137,8 +1134,9 @@ class Flux:
         Electronic: `free`, when given, must be a companion `Flux` extractor
         recorded from a SEPARATE `V_int=0` propagation -- same elastic
         free-reference contract as `TannorWeeks.sigma`/`Dirac.sigma`. `free`
-        is typed via the `Extractor` protocol (SP1 tech-debt lift) but only
-        a `Flux` is meaningful here; anything else raises `TypeError`.
+        is typed as the general `Extractor` protocol (one shared `sigma`
+        signature) but only a `Flux` is meaningful here; anything else
+        raises `TypeError`.
 
         Nuclear: DA has no elastic diagonal to subtract a reference from --
         `free` must be `None` (`ValueError` otherwise).

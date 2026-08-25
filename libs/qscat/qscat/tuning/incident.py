@@ -1,12 +1,10 @@
 """Incident-state + test-function placement for the FEM-DVR-ECS
-discretisation tuner (design spec: "the TW analysis").
+discretisation tuner -- "the TW analysis".
 
 The grid must CONTAIN and RESOLVE not just the potential's eigenstates but
 the incident state and the test functions (the outgoing-channel
 projections / flux-extraction points) -- these can dominate the required
-extent and resolution (see
-`docs/superpowers/specs/2026-07-28-discretisation-tuner-design.md`'s
-"Incident state + test-function placement" section):
+extent and resolution (see docs/physics/discretisation-tuning.md):
 
 - **TI route**: the incident is the channel function (Bessel/Coulomb) and
   the test functions are the exit-channel projections, both set directly
@@ -153,11 +151,12 @@ def _interaction_extent(model: ResonanceModel) -> float:
 
 def tw_analysis(model: ResonanceModel, energy_range: tuple[float, float]) -> IncidentSpec:
     """Auto-place the TD Gaussian wavepacket for `energy_range = (E_min, E_max)`
-    -- the design spec's "TW analysis", BEST-EFFORT and not independently
-    calibrated against the eMoScat decks: Task 8 calibrated the mesh's
-    de-Broglie phase constant `C` (`qscat.tuning.mesh._PHASE_COEFF`), not this
-    placement heuristic, which remains a documented follow-on (the design spec
-    lists the TW auto-tune as best-effort).
+    -- the "TW analysis". BEST-EFFORT and not independently calibrated
+    against the eMoScat decks: the calibration
+    (`validation.tuning.calibrate`) targets the mesh's de-Broglie phase
+    constant `C` (`qscat.tuning.mesh._PHASE_COEFF`), not this placement
+    heuristic. Calibrating the placement itself is a documented follow-on
+    (docs/physics/discretisation-tuning.md).
 
     Physics: `g(r) = exp(-(r-position)^2 / (2 sigma^2)) exp(i impulse r)`
     has mean energy `impulse**2 / 2` and, near the mean, an energy spread

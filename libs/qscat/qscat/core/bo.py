@@ -230,6 +230,12 @@ def resonance_curve(
     exactly as `qscat.core.lcp.resonance_pole_walk` does -- and this function
     keeps the eigenvector that walk discards.
 
+    NAME COLLISION: `qscat.tuning.resonance.resonance_curve` shares this name
+    and the same underlying pole walk, but returns something else and for a
+    different purpose -- plain `(R, V_d, Gamma)` arrays, sampled sparsely, to
+    size a grid. This one returns an `ElectronicCurves` WITH the eigenvectors,
+    because its consumers build Born-Oppenheimer basis states out of them.
+
     `energies[0]` is `V_d(R) - i Gamma(R)/2`, so
     `qscat.core.lcp.local_complex_potential`'s curve and this one are the same
     object viewed with and without its eigenfunctions.

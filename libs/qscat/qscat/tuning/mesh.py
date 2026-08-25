@@ -29,15 +29,15 @@ from .analyze import PotentialProfile
 FloatArray = NDArray[np.float64]
 
 # Phase-per-(order-1) coefficient `C` in `phase_per_element = C * (order -
-# 1)`. Calibrated Task 8 against eMoScat N2/NO/F2 decks
+# 1)`. Calibrated against the eMoScat N2/NO/F2 decks
 # (`validation.tuning.calibrate`): the smallest C making F2's nuclear grid
 # reproduce-and-beat the eMoScat DA deck (probe_channel_representation on the
 # K~78 dissociative-attachment wave converges at rtol=1e-3 with 609 points vs
 # the deck's 974) -- see docs/physics/discretisation-tuning.md for the full
 # sweep and the N2/NO findings (their nuclear grids cost more points than
 # their decks at this C, traced to `_NUCLEAR_X_MAX_DEFAULT` exceeding their
-# per-molecule real-region extent, a Task-5 a-priori-adapter limitation, not
-# a miscalibration of C).
+# per-molecule real-region extent -- a limitation of the a-priori adapter's
+# fixed extent default, not a miscalibration of C).
 _PHASE_COEFF = 0.10
 
 # How many kappa-decay-lengths (1/kappa) a forbidden-region element may

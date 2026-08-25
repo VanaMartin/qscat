@@ -102,8 +102,8 @@ class Extractor(Protocol):
     `v'`); `sigma` transforms the accumulated series into a cross section,
     shape `(len(E), len(vprimes))`. Letting `propagate` drive a LIST of these
     means one Pade trajectory can feed several alternative energy-extraction
-    routes (Tannor-Weeks, and the delta/flow methods of Tasks 2-3) without
-    re-propagating.
+    routes (Tannor-Weeks, and the delta/flow methods -- `TannorWeeks`,
+    `Dirac`, `Flux` in `td_extractors.py`) without re-propagating.
     """
 
     def record(self, psi: npt.NDArray[np.complex128]) -> None: ...
@@ -257,12 +257,19 @@ def free_hamiltonian(model: ResonanceModel, tgrid: TensorGrid) -> sp.spmatrix:
     `propagate(..., hamiltonian=...)` free-reference run (e.g. the
     `qscat-run` CLI) reuses the exact same reference this module does,
     rather than reaching into a private helper.
+
+    NAME COLLISION: `qscat.core.nrm.scattering.free_hamiltonian` is a
+    different function. That one is the 1-D electronic `T_r + centrifugal`
+    operator with NO molecular potential at all; this one is the FULL 2-D
+    `model.hamiltonian` with only the electron-molecule interaction removed.
     """
     return (model.hamiltonian(tgrid) - sp.diags(model.interaction_diag(tgrid))).tocsr()
 
 
-# Internal alias: this module and its tests refer to the helper by its
-# original private name; the public `free_hamiltonian` is the same function.
+# Alias for the same function under its original private name. This module's
+# own call sites (`_propagate`, the `td_*_cross_section` free-reference paths)
+# and `libs/qscat/tests/test_td_extractors.py` both import it by this name;
+# keeping the alias saves churning them all for no behavioral gain.
 _free_hamiltonian = free_hamiltonian
 
 

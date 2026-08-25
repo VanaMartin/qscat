@@ -59,8 +59,8 @@ class ResonanceModel(Protocol):
     which a frozen dataclass field can never be; `qscat.core.driven`'s
     `model: ResonanceModel` parameter is the first real static consumer of
     this protocol (earlier code only used `isinstance` at runtime, which
-    does not distinguish read-only from settable), so this mismatch was
-    latent until Task 4.
+    does not distinguish read-only from settable), so the mismatch stayed
+    latent until a solver first took `model: ResonanceModel` statically.
     """
 
     @property

@@ -1,12 +1,22 @@
-"""Model-independent FEM-DVR-ECS radial grid builders.
+"""FEM-DVR-ECS radial grid builders with an N2-derived element layout.
 
-Promoted verbatim from `projects/n2_2d_cross_section/electronic_grid.py`
+Promoted from `projects/n2_2d_cross_section/electronic_grid.py`
 (`n2_electronic_grid`) and `projects/n2_ti_cross_section/nuclear_grid.py`
-(`n2_nuclear_grid`) -- see
-`docs/superpowers/specs/2026-07-27-diatomic-ve-scattering-library-design.md`.
-Only the element LAYOUT (segment boundaries/lengths, ECS tail construction)
-moved here; nothing molecule-specific -- extents/orders are caller-supplied
-parameters, not baked-in N2 constants.
+(`n2_nuclear_grid`).
+
+What is a parameter and what is baked in: extents, DVR order, ECS angle and
+tail growth are caller-supplied; the element LAYOUT of the real region is
+NOT. `electronic_grid`'s inner segment table (`_INNER_SEGMENTS`) and
+`nuclear_grid`'s real segment table (`_REAL_SEGMENTS`) both transcribe
+eMoScat's N2 deck and are module constants consumed unconditionally; neither
+builder exposes a way to override them.
+
+That layout is reused for other diatomics because their interaction regions
+sit at comparable radii, not because it is molecule-independent; a molecule
+whose potential varies on a different scale needs its own layout, either
+built with `segmented_grid` from that molecule's own deck or proposed by
+`qscat.tuning.propose_grid`. `qscat.core` itself imports no model, so these
+builders stay usable for any of them -- but the numbers below came from N2.
 
 `electronic_grid`: layout follows eMoScat's
 `input/experimental/N2-model.json` `grids.electronic` -- a finely-resolved
@@ -20,11 +30,11 @@ coordinate R -- a real region segmented per `N2.json`'s nuclear layout
 (`reference/eMoScat/input/experimental/N2.json`'s `grids.nuclear.real`), then
 a `n_complex`-element ECS tail at `angle_deg` out to `r_max`, giving the
 outgoing dissociative-attachment boundary condition (see
-`docs/physics/diatomic-ve-cross-sections.md`). The default
+`docs/physics/diatomic-ve-cross-sections.md`). The fixed
 segment boundaries/lengths (1.5/3.0/4.0/12.0 bohr with 0.5/0.15/0.5/1.0
 element lengths) are an exact division (3, 10, 2, 8 elements respectively --
-23 real elements total), so no rounding/truncation occurs at the N2
-defaults; a caller passing non-default `r_max` still divides exactly since
+23 real elements total), so no rounding/truncation occurs; a caller passing
+a non-default `r_max` still divides exactly since
 `n_complex` uniform elements tile the remaining [R0, r_max] span exactly by
 construction.
 """

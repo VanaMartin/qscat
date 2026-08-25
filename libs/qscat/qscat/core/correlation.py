@@ -269,7 +269,7 @@ def outgoing_surface_wave(
     to a high-accuracy CENTRAL finite difference (4th-order, 5-point
     stencil) of `coulomb_h1_en(..., mass, l)` itself. Kept structurally for a
     charged target (e.g. H2+); N2/F2 are neutral, so only the analytic
-    branch is exercised by this sub-project's gate.
+    branch is exercised by the neutral-molecule gates.
     """
     del grid  # unused: kept for call-site symmetry with hankel_point_value
     r = float(z_surface)

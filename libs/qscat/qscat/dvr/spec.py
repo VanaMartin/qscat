@@ -34,14 +34,14 @@ class GridSpec:
 
     Validates that complex (ECS) elements form a contiguous tail at the end
     of the element list -- eMoScat's `complex_negative` (ECS at the inner
-    boundary) is out of scope for this port (see design spec, Out of scope).
+    boundary) is deliberately not supported here.
     Computes the ECS pivot `R0 = x_min + sum(real element lengths)`, which by
     construction sits exactly on an element boundary.
 
     Caveat: using multiple *different* nonzero `angle_deg` values across tail
-    elements (a bent/graded ECS contour) is REJECTED UNTIL VALIDATED IN
-    SUB-PROJECT #2 -- the validated, actually-used case is a single ECS tail
-    angle shared by all complex elements.
+    elements (a bent/graded ECS contour) is REJECTED because it has never
+    been validated here -- the validated, actually-used case is a single ECS
+    tail angle shared by all complex elements.
     """
 
     quadrature: int
