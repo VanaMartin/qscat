@@ -12,6 +12,7 @@ not by this test module (see the development notes).
 
 from __future__ import annotations
 
+import functools
 import json
 from pathlib import Path
 
@@ -52,7 +53,15 @@ DT = 1.0
 N_STEPS = 6
 
 
+@functools.cache
 def _tiny_result() -> PropagationResult:
+    """The one propagation every test here shares.
+
+    Seven tests need this result and none of them mutate it, so it is
+    computed once (measured ~5 s) instead of seven times -- the repeated-
+    recomputation anti-pattern docs/adr/0005 names. Read-only by contract:
+    anything that would modify a `PropagationResult` must copy first.
+    """
     psi0 = initial_state(TG, CHI[V_INIT], **WP_IN)
     out_channels = [outgoing_channel(TG, CHI[vp], **WP_OUT) for vp in VPRIMES]
     return propagate(TG, psi0, out_channels, dt=DT, n_steps=N_STEPS, snapshot_times=[0.0, 3.0, 6.0])

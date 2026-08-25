@@ -2,12 +2,13 @@
 
 Every example must schema-validate (fast, no solve) -- these are the
 newcomer-facing sample configs the README points at, so a stale/broken
-example would be a silent doc regression. `n2-ve.yaml` is additionally run
-end-to-end (`run_experiment` + `write_artifacts`): it uses a deliberately
-tiny explicit grid (see the file's own comments) so this costs a fraction of
-a second, unlike `f2-da.yaml`/`h2p-dr.yaml` which are documented,
-runnable-in-Docker examples on a real (if reduced) preset deck -- schema-
-validated here but not solved, per the module docstring's `@slow` guidance.
+example would be a silent doc regression. `n2-ve.yaml` and `f2-da.yaml` are
+additionally run end-to-end (`run_experiment` + `write_artifacts` for the
+former, `run_experiment` for the latter): both use a deliberately tiny
+explicit grid (see each file's own comments), so together they cost ~1 s and
+stay in the fast gate. `h2p-dr.yaml` is the exception -- a multi-hundred-step
+propagation on a real (if reduced) preset deck -- so it is schema-validated
+here and solved only under `@slow`.
 """
 
 from __future__ import annotations
@@ -74,11 +75,13 @@ def test_n2_ve_example_is_the_fast_end_to_end() -> None:
         shutil.rmtree(out_dir, ignore_errors=True)
 
 
-@pytest.mark.slow
 def test_f2_da_example_runs_end_to_end() -> None:
-    """The heavier mixed VE+DA, TI+TD example -- documented `@slow` (not run
-    in the fast gate; run explicitly with `pytest -m slow` or via
-    `docker/run.sh`)."""
+    """The mixed VE+DA, TI+TD example: the one config that exercises both
+    observable kinds and both methods in a single run, including the
+    per-kind `test_function` mapping a mixed run needs. Like `n2-ve.yaml`
+    it is a plumbing smoke test on a deliberately tiny explicit grid, not a
+    converged cross section, so it solves in ~1 s and belongs in the fast
+    gate (docs/adr/0005 point 7)."""
     cfg = load_config(EXAMPLES_DIR / "f2-da.yaml")
     validate_config(cfg)
     result = run_experiment(cfg)

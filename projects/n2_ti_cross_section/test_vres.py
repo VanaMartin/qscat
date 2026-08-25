@@ -12,6 +12,8 @@ R0), so a several-percent tolerance is used rather than exact equality.
 
 from __future__ import annotations
 
+import functools
+
 import numpy as np
 
 from projects.n2_resonance.potential import v0
@@ -23,13 +25,23 @@ E_RES_R0 = 0.0898  # Ha, sub-project #2 result
 GAMMA_R0 = 0.0167  # Ha, sub-project #2 result (2 * 0.00836)
 
 
-def _grid():
-    return n2_nuclear_grid()
+@functools.cache
+def _vres():
+    """The nuclear grid and ONE pole walk over it, shared by all three tests.
+
+    `vres_on_grid` re-solves the electronic eigenproblem at every nuclear
+    node, which measured ~8 s; all three tests below want the same curve and
+    none of them mutate it, so it is walked once rather than three times (the
+    repeated-recomputation anti-pattern docs/adr/0005 names). Read-only by
+    contract: copy before modifying `Vd`/`Gamma`.
+    """
+    grid = n2_nuclear_grid()
+    Vd, Gamma = vres_on_grid(grid)
+    return grid, Vd, Gamma
 
 
 def test_vres_shapes_finite_and_gamma_nonnegative():
-    grid = _grid()
-    Vd, Gamma = vres_on_grid(grid)
+    grid, Vd, Gamma = _vres()
     assert Vd.shape == (grid.n,)
     assert Gamma.shape == (grid.n,)
     assert np.all(np.isfinite(Vd.real)) and np.all(np.isfinite(Vd.imag))
@@ -38,8 +50,7 @@ def test_vres_shapes_finite_and_gamma_nonnegative():
 
 
 def test_vres_matches_pole_finder_at_R0():
-    grid = _grid()
-    Vd, Gamma = vres_on_grid(grid)
+    grid, Vd, Gamma = _vres()
 
     real_mask = grid.points.imag == 0.0
     real_idx = np.flatnonzero(real_mask)
@@ -52,8 +63,7 @@ def test_vres_matches_pole_finder_at_R0():
 
 
 def test_gamma_closes_beyond_crossing_and_on_complex_tail():
-    grid = _grid()
-    Vd, Gamma = vres_on_grid(grid)
+    grid, Vd, Gamma = _vres()
 
     real_mask = grid.points.imag == 0.0
     real_idx = np.flatnonzero(real_mask)

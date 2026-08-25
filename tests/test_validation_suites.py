@@ -10,15 +10,20 @@ locally, and it silently never gates anything. (When this test was written it
 found exactly that: `apps/qscat-run/tests` held 12 slow tests and no suite
 named it.)
 
-Collection runs ONCE, for the whole repo, and suites are resolved by path
-prefix in-process. Collecting per suite instead cost 37 s, which is over the
-budget this same ADR sets for the fast tier -- a guard that polices the tiering
-should not need an exemption from it.
+Collection runs ONCE, for the whole repo (`_all_slow_node_ids` is cached), and
+suites are resolved by path prefix in-process. Measured on this tree: one
+whole-repo `--collect-only -m slow` costs 1.7 s and finds every slow id, while
+running the same collection once per suite costs 5.35 s in total (six
+subprocesses, each re-paying interpreter start-up and conftest import) for the
+same answer. Neither number is alarming on its own -- the point is that a guard
+policing the tiering should be the cheapest thing in the tier, not something
+that needs an exemption from it.
 """
 
 from __future__ import annotations
 
 import ast
+import functools
 import json
 import re
 import subprocess
@@ -38,7 +43,14 @@ def _suite_map() -> dict[str, str]:
     return suites
 
 
-def _all_slow_node_ids() -> list[str]:
+@functools.cache
+def _all_slow_node_ids() -> tuple[str, ...]:
+    """Every `slow` node id in the repo, collected once per test session.
+
+    Cached because two tests below need the same answer and the collection is
+    a subprocess: without this it ran twice for one identical result. A tuple
+    rather than a list so a caller cannot mutate the cached value.
+    """
     proc = subprocess.run(
         [
             sys.executable,
@@ -56,7 +68,7 @@ def _all_slow_node_ids() -> list[str]:
         text=True,
     )
     assert proc.returncode in (0, 5), f"collection failed:\n{proc.stdout}\n{proc.stderr}"
-    ids = [ln.strip() for ln in proc.stdout.splitlines() if "::" in ln]
+    ids = tuple(ln.strip() for ln in proc.stdout.splitlines() if "::" in ln)
     assert ids, "no slow tests collected at all -- the marker or the run is broken"
     return ids
 

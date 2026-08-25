@@ -16,21 +16,43 @@ def _elec_grids():
     )
 
 
-def test_vd_gamma_shapes_and_gamma_nonneg():
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
-    ga, gb = _elec_grids()
-    Vd, Gamma = local_complex_potential(F2, g_R, ga, gb)
+# The F2 pole walk below is what every coarse-grid test here is built on, and
+# it measured ~3.5 s each time it was repeated. It is the same walk on the
+# same three grids in all of them, and no test mutates its output, so it runs
+# once per module instead of once per test -- the repeated-recomputation
+# anti-pattern docs/adr/0005 names. Read-only by contract: copy `Vd`/`Gamma`
+# before modifying them. The two `@slow` tests below use their own, different
+# grids and deliberately do not share these.
+@pytest.fixture(scope="module")
+def elec_grids():
+    return _elec_grids()
+
+
+@pytest.fixture(scope="module")
+def coarse_nuc():
+    return nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
+
+
+@pytest.fixture(scope="module")
+def coarse_lcp(coarse_nuc, elec_grids):
+    ga, gb = elec_grids
+    return local_complex_potential(F2, coarse_nuc, ga, gb)
+
+
+def test_vd_gamma_shapes_and_gamma_nonneg(coarse_nuc, coarse_lcp):
+    g_R = coarse_nuc
+    Vd, Gamma = coarse_lcp
     assert Vd.shape == (g_R.n,) and Gamma.shape == (g_R.n,)
     assert Vd.dtype == np.complex128 and Gamma.dtype == np.float64
     assert np.all(Gamma >= 0.0)
 
 
-def test_gamma_closes_and_vd_matches_anion_at_large_R():
+def test_gamma_closes_and_vd_matches_anion_at_large_R(coarse_nuc, elec_grids, coarse_lcp):
     # As R -> R_inf the pole closes to the bound anion: Gamma -> ~0 and
     # V_d(R_inf) == eps_e (the exact-DA threshold from anion_electronic_states).
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
-    ga, gb = _elec_grids()
-    Vd, Gamma = local_complex_potential(F2, g_R, ga, gb)
+    g_R = coarse_nuc
+    ga, _gb = elec_grids
+    Vd, Gamma = coarse_lcp
     R = g_R.points
     real = R.imag == 0.0
     i_outer = np.flatnonzero(real)[np.argmax(R[real].real)]  # largest real R
@@ -39,12 +61,10 @@ def test_gamma_closes_and_vd_matches_anion_at_large_R():
     assert abs(Vd[i_outer].real - eps_e[0]) < 5e-3  # == anion asymptote
 
 
-def test_gamma_positive_in_resonance_region():
+def test_gamma_positive_in_resonance_region(coarse_nuc, coarse_lcp):
     # At smaller R (inside the crossing) the anion is a real resonance: Gamma>0.
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
-    ga, gb = _elec_grids()
-    Vd, Gamma = local_complex_potential(F2, g_R, ga, gb)
-    R = g_R.points.real
+    _Vd, Gamma = coarse_lcp
+    R = coarse_nuc.points.real
     band = (R > 1.5) & (R < 2.5)
     assert Gamma[band].max() > 1e-4  # genuine width somewhere
 
@@ -94,18 +114,26 @@ def _lcp_inputs(g_R, n_vib=3):
     return Vd, Gamma, eps, chi
 
 
-def test_lcp_da_shape_and_nonneg():
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)  # coarse ok: shape only
-    Vd, Gamma, eps, chi = _lcp_inputs(g_R)
+@pytest.fixture(scope="module")
+def coarse_lcp_inputs(coarse_nuc, coarse_lcp):
+    """`_lcp_inputs` on the coarse grid, reusing the shared pole walk."""
+    Vd, Gamma = coarse_lcp
+    eps, chi = vibrational_states(coarse_nuc, F2.mu, 3, F2.v0)
+    return Vd, Gamma, eps, chi
+
+
+def test_lcp_da_shape_and_nonneg(coarse_nuc, coarse_lcp_inputs):
+    g_R = coarse_nuc  # coarse ok: shape only
+    Vd, Gamma, eps, chi = coarse_lcp_inputs
     s = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, np.array([0.02, 0.03, 0.04]))
     assert s.shape == (3,) and np.all(np.isfinite(s)) and np.all(s >= 0.0)
     assert lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, 0.03).shape == ()  # scalar
 
 
-def test_lcp_da_closed_channel_is_zero():
+def test_lcp_da_closed_channel_is_zero(coarse_nuc, coarse_lcp_inputs):
     # A below-threshold collision energy is closed -> sigma == 0 exactly.
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
-    Vd, Gamma, eps, chi = _lcp_inputs(g_R)
+    g_R = coarse_nuc
+    Vd, Gamma, eps, chi = coarse_lcp_inputs
     eps_e = float(
         Vd[np.flatnonzero(g_R.points.imag == 0.0)][
             np.argmax(g_R.points.real[g_R.points.imag == 0.0])
@@ -133,11 +161,11 @@ def test_lcp_da_f2_magnitude_matches_exact_order():
     assert 0.5 < s[1] < 5.0  # sigma_DA(0.03) ~ 1.47 (exact ~1.66); within ~2x
 
 
-def test_lcp_da_return_wavefunction_parity_and_shape():
+def test_lcp_da_return_wavefunction_parity_and_shape(coarse_nuc, coarse_lcp_inputs):
     # #2: return_wavefunction exposes the 1-D nuclear resolvent psi_sc(R) without
     # changing sigma; None for a closed channel.
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
-    Vd, Gamma, eps, chi = _lcp_inputs(g_R)
+    g_R = coarse_nuc
+    Vd, Gamma, eps, chi = coarse_lcp_inputs
     E = np.array([0.02, 0.03])
     s_plain = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, E)
     s2, psis = lcp_da_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, E, return_wavefunction=True)
@@ -156,22 +184,22 @@ def test_lcp_da_return_wavefunction_parity_and_shape():
     assert psi0 is None
 
 
-def test_resonance_eigenstate_at_peak_width():
+def test_resonance_eigenstate_at_peak_width(coarse_nuc, elec_grids, coarse_lcp):
     # #1: the resonance eigenstate at the width peak -- a genuine resonance
     # (Gamma>0), a c-product-normalized electronic eigenfunction, and Re(E_pole)
     # consistent with local_complex_potential's V_d at that R.
     from qscat.core.lcp import resonance_eigenstate_at_peak_width
     from qscat.linalg import c_product
 
-    g_R = nuclear_grid(r_max=22.0, n_complex=6, quadrature=10)
-    ga, gb = _elec_grids()
+    g_R = coarse_nuc
+    ga, gb = elec_grids
     R_star, E_pole, phi = resonance_eigenstate_at_peak_width(F2, g_R, ga, gb)
 
     assert 1.0 < R_star < 3.0  # F2 resonance is inside the crossing
     assert phi.shape == (ga.n,) and phi.dtype == np.complex128
     assert -2.0 * E_pole.imag > 1e-4  # genuine width (Gamma>0)
     # Re(E_pole) reproduces local_complex_potential's V_d at R_star
-    Vd, _ = local_complex_potential(F2, g_R, ga, gb)
+    Vd, _ = coarse_lcp
     j = int(
         np.flatnonzero(g_R.points.imag == 0.0)[
             np.argmin(np.abs(g_R.points.real[g_R.points.imag == 0.0] - R_star))
