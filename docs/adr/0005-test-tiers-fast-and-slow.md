@@ -60,10 +60,15 @@ during ordinary work.
    more valuable one. Nothing about this tiering says the fast tier is what
    matters.
 
-4. **CI runs the fast tier only.** GitHub runs `-m "not slow"`. The slow tier
-   runs locally (`pytest -m slow`) and in the Docker `test` image. This is
-   deliberate: these are research-grade physics runs whose cost is measured in
-   minutes and gigabytes, and a hosted runner is the wrong place for them.
+4. **CI runs the fast tier on every push, and the slow tier on demand.**
+   `ci.yml` runs `-m "not slow"` on every push and pull request. The slow tier
+   runs in three places: on GitHub when a reviewer asks for it — a `validate:*`
+   label on a pull request, or a manual `workflow_dispatch`, both handled by
+   `.github/workflows/validation.yml` — in the Docker `test` image, and locally
+   (`pytest -m slow`). Keeping it out of the *default* gate is deliberate: these
+   are research-grade physics runs whose cost is measured in minutes and
+   gigabytes, and paying that on every push is the wrong trade. Asking for it
+   per change is not.
 
 5. **Parallel runs use `--dist loadfile` and always pair with `-m "not slow"`.**
    Memory is the binding constraint, not CPU. Several modules build their grid
@@ -82,10 +87,10 @@ during ordinary work.
    step takes 186 s.
 
    This does not reproduce on macOS, where scipy links Accelerate: pinning there
-   changed nothing (74.6 s vs 76.1 s at a saturating `-n 12`). A local
-   measurement of threading behaviour does not transfer to the Linux runners,
-   and CLAUDE.md's older note that pinning "is not worth bothering with" was one
-   of those.
+   changed nothing (76.1 s pinned vs 74.6 s unpinned, at a saturating `-n 12`).
+   A local measurement of threading behaviour does not transfer to the Linux
+   runners, and CLAUDE.md's older note that pinning "is not worth bothering with"
+   was one of those.
 
 7. **When a test crosses the boundary, prefer shrinking the deck.** If what is
    under test is plumbing — shapes, cadences, dispatch, bookkeeping — it should
@@ -102,11 +107,15 @@ during ordinary work.
 - Both Python versions keep running the *full* fast tier. The earlier argument
   for trimming the matrix was the 50 runner-minutes it cost; at ~4 min a job
   that argument no longer holds.
-- The slow tier is not run by any automation on GitHub. It is therefore possible
-  to merge a change that breaks it. That is an accepted trade: the tier exists
-  because these runs are expensive, and the mitigation is to run
-  `pytest -m slow`, or `docker/build.sh test`, before merging anything touching
-  the solvers.
-- Point 6 creates ongoing work. Every test that gets marked `slow` should first
+- The slow tier runs on GitHub only when someone asks for it. An unlabelled pull
+  request can therefore still merge without it, and that residual risk is
+  accepted rather than solved: the tier exists because these runs are expensive.
+  Two things narrow it. The validation workflow's `advise` job writes a line into
+  every pull request's run summary saying whether a `validate:*` label is
+  warranted for the paths that changed — advisory only, never failing the build,
+  because a path filter can notice that the decision has not been taken but
+  cannot take it. And the standing advice remains to run `pytest -m slow`, or
+  `docker/build.sh test`, before merging anything touching the solvers.
+- Point 7 creates ongoing work. Every test that gets marked `slow` should first
   be examined for whether a smaller deck would do; the audit found roughly half
   of the offenders were in that category.

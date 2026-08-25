@@ -17,9 +17,13 @@ installed package.
   `sphinx.ext.githubpages`, plus equation numbering (`numfig`,
   `math_eqref_format`) and Furo source links. `sphinx.ext.mathjax` and MyST
   `dollarmath` had been loaded and unused since the site was created — every
-  physics note contained zero `$` characters. Three pilot notes are now
-  typeset (`femdvr-ecs`, `nonlocal-resonance-model`, `n2-2d-cross-section`);
-  the remaining nineteen convert as they are next touched, tracked in
+  physics note contained zero `$` characters. Every note is now typeset: three
+  converted as pilots (`femdvr-ecs`, `nonlocal-resonance-model`,
+  `n2-2d-cross-section`), and the remaining twenty followed in the same branch
+  rather than the staged "as they are next touched" rollout first planned —
+  group by group along the sidebar's sections, each file checked with a
+  numeric-token multiset diff so no measured value could change under cover of
+  a notation change. The checklist is in
   `docs/superpowers/plans/2026-08-19-docs-latex-and-theory-ia.md`.
 - **A portability rule the notes are held to.** Notes under `docs/physics/`
   are read both as files in a clone and as pages on the site, so they use only

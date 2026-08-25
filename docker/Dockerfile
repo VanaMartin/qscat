@@ -43,8 +43,10 @@ FROM test-deps AS test
 # members; the base image's ffmpeg makes the ffmpeg-gated .mp4 viz test render
 # rather than skip.
 #
-# This image is where the `slow` tier actually runs (CI never runs it -- see
-# docs/adr/0005), so it runs BOTH tiers, but not the same way:
+# This is where the `slow` tier runs unconditionally. CI runs it only on
+# demand -- a `validate:*` label or a manual dispatch of
+# .github/workflows/validation.yml (docs/adr/0005) -- so this image is the one
+# place a full slow run is guaranteed. It runs BOTH tiers, but not the same way:
 #
 #   fast  -- parallel, `--dist loadfile` so a module's grid is built once per
 #            file rather than once per worker.

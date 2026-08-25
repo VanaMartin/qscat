@@ -44,10 +44,10 @@ shows every molecule, its preset variants, and which observables are valid for i
 ```bash
 $ uv run qscat-run list
 Molecules (preset variants -- valid observables):
-  F2   presets=['emoscat'] observables=['da', 've']
+  F2   presets=['emoscat'] observables=['da', 'resonance_levels', 've']
   H2P  presets=['emoscat', 'proxy'] observables=['dr']
   N2   presets=['emoscat'] observables=['da', 've']  (closed-in-range: ['da'])
-  NO   presets=['emoscat'] observables=['da', 've']
+  NO   presets=['emoscat'] observables=['da', 'resonance_levels', 've']
 ```
 
 Check a config is well-formed (schema + molecule/observable validity + grid
@@ -59,9 +59,10 @@ uv run qscat-run validate f2.yaml
 
 ### Run locally (small/fast grid)
 
-`apps/qscat-run/examples/` has three committed, `validate`-clean example
-configs. `n2-ve.yaml` uses a tiny hand-written grid and runs in a fraction of a
-second — good for a first local run:
+`apps/qscat-run/examples/` has seventeen committed, `validate`-clean example
+configs (twelve at the top level, five under `examples/figures/` that drive the
+dense committed curves). `n2-ve.yaml` uses a tiny hand-written grid and runs in a
+fraction of a second — good for a first local run:
 
 ```bash
 uv run qscat-run run apps/qscat-run/examples/n2-ve.yaml --output runs/n2-ve
@@ -79,18 +80,20 @@ uv run qscat-run run f2.yaml --dry-run
 
 The molecule presets' `emoscat` variant is the real, validated deck (up to
 ~1.15M unknowns for H2P) — solving it, especially with the MUMPS sparse-LU
-backend, wants the `test` Docker image (it has MUMPS built in; the `runtime`
-image deliberately doesn't, to keep it lean). `docker/run.sh` builds that image
-and runs a config inside it in one step:
+backend, wants a Docker image with MUMPS built in (the `runtime` image
+deliberately has none, to keep it lean). `docker/run.sh` builds one and runs a
+config inside it in one step:
 
 ```bash
 docker/run.sh apps/qscat-run/examples/h2p-dr.yaml runs/h2p-dr
 ```
 
-This builds `qmodeling-base` then the `test` app image (same as
-`docker/build.sh test`), then runs `qscat-run run` inside the container with
-your config mounted read-only and the output directory mounted out. Default
-output directory is `runs/<config-stem>` if you omit it. See `docker/README.md`
+This builds `qmodeling-base` then the `test-deps` app image — deliberately not
+`test`, which would run both test tiers (the slow one is measured in minutes)
+before every compute invocation. It then runs `qscat-run run` inside the
+container with your config mounted read-only and the output directory mounted
+out. Default output directory is `runs/<config-stem>` if you omit it. Use
+`docker/build.sh test` when you actually want the suite; see `docker/README.md`
 for the image layering.
 
 ### Reproducing a validated cross section
@@ -101,8 +104,10 @@ grid for fast local iteration (their own YAML comments explain why); swap in
 convergence-tested deck and reproduce the committed reference curves:
 
 - **F2 DA/VE**: `docs/physics/figures/f2-2d-ti-da-cross-section.png` /
-  `f2-2d-ti-cross-section.png`, computed by `validation/diatomic/da_curves.py` /
-  `curves.py` — see `docs/physics/diatomic-ve-cross-sections.md`.
+  `f2-2d-ti-cross-section.png`, computed from the dense configs in
+  `apps/qscat-run/examples/figures/` (`f2-da-dense.yaml` / `f2-ve-dense.yaml`);
+  the per-molecule curve drivers they replaced were retired into this CLI — see
+  `docs/physics/diatomic-ve-cross-sections.md`.
 - **N2 VE**: `docs/physics/figures/n2-2d-ti-cross-section.png`, validated against
   Karel Houfek's independent `CSVE.V00.J00` data — see
   `docs/physics/n2-2d-cross-section.md` / `docs/physics/ti-energy-sweep-reuse.md`.
@@ -129,7 +134,7 @@ Every `qscat-run run` writes into `output_dir` (or `--output DIR`):
 
 ```yaml
 molecule: F2                     # N2 | NO | F2 | H2P
-methods: [ti, td]                # any subset of {ti, td}
+methods: [ti, td]                # any subset of {ti, td, lcp, nrm}
 observables:                     # a LIST -- VE and DA/DR can be requested together
   - {kind: ve, channels: [0, 1, 2]}   # final vibrational states (list) or a count (int)
   - {kind: da, channels: 1}           # dissociation channels (usually 1; dr for H2P)
@@ -149,11 +154,11 @@ output_dir: runs/f2-da
 ```
 
 Only `molecule`, `methods`, `observables`, `output_dir` are required — everything
-else is filled from the molecule's preset. The full schema, the per-molecule
-observable validity matrix, and the explicit-grid format are documented in
-`docs/superpowers/specs/2026-08-01-qscat-run-cli-design.md`; `qscat-run list`
-gives the validity matrix at the command line, and `apps/qscat-run/qscat_run/config.py`
-is the schema's dataclass source of truth.
+else is filled from the molecule's preset. `apps/qscat-run/qscat_run/config.py`
+is the source of truth for the full schema — the frozen dataclasses and
+`validate_config`'s checks — and `apps/qscat-run/README.md` walks through the
+methods and the observable-to-artifact mapping in prose. `qscat-run list` gives
+the per-molecule observable validity matrix at the command line.
 
 ## The key lesson: TD needs a launch-box grid
 
@@ -175,6 +180,10 @@ Padé propagation, the elastic free-reference subtraction).
 - `CLAUDE.md` — the full repo map, lifecycle, and tech decisions.
 - `docs/physics/` — the physics notes behind every validated method (FEM-DVR-ECS,
   MUMPS backend, N2/NO/F2/H2+ cross sections, the discretisation tuner, ...).
-- `docs/superpowers/specs/2026-08-01-qscat-run-cli-design.md` — the `qscat-run`
-  design spec (full config schema, architecture, validation plan).
-- `docker/README.md` — the Docker image layering (base/build/test/runtime).
+- `apps/qscat-run/README.md` — the `qscat-run` methods, the mapping from each
+  observable to its config knob and artifact, and the architecture. Its dated
+  design record is
+  `docs/superpowers/specs/2026-08-01-qscat-run-cli-design.md`, which captures the
+  original intent rather than the current schema.
+- `docker/README.md` — the Docker image layering
+  (base/build/test-deps/test/runtime).
