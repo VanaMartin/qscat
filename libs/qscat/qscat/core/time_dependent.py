@@ -61,6 +61,7 @@ fallback (`free_result=None`) leaves a large spurious elastic background. See
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Protocol
 
@@ -68,7 +69,7 @@ import numpy as np
 import numpy.typing as npt
 import scipy.sparse as sp
 
-from qscat.dvr import TensorGrid
+from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.evolution import make_pade_stepper
 from qscat.linalg import c_product
 
@@ -246,6 +247,154 @@ def quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
     return w
 
 
+# --- Shared S-matrix / sigma transform kernels (kernel consolidation,
+# 2026-08-25). Every TD energy-extraction route -- Tannor-Weeks, Dirac
+# (delta), Flux (flow), on either the electronic (VE) or nuclear (DA) exit
+# axis -- runs the same skeleton: zeros-init, E<=0 early return, Simpson/
+# trapezoid quadrature weights, `e_tot = E + eps[v_init]`, the incident
+# deconvolution `eta_in` (ALWAYS on the electronic incident axis, even for
+# the nuclear DA extractors), `phase = exp(i*e_tot*t)`, then a per-channel
+# loop that skips closed channels and forms one S-matrix element from the
+# recorded series. Only the per-channel element differs, in two shapes
+# (`correlation_channel_s` for TW/Dirac, `flux_channel_s` for Flux); the
+# exit-axis mass enters ONLY through `kp = sqrt(2*exit_mass*excess)` and
+# the strategy's own outgoing factor. `sigma_from_s` is the matching
+# shared |S - ref|^2 step: the elastic (v'==v_init) reference applies on
+# the electronic VE axis only (`elastic` mask); DA passes `elastic=None`
+# and its prefactor is the SAME `pi` (the historical `_C_DA` -- see
+# td_extractors.py's module docstring for the `S = 1 - 2*pi*i*T`
+# reconciliation with the TI oracle's `4*pi^3`).
+#
+# Not in `__all__`: consumed by this module and `td_extractors.py`, kept
+# out of the advertised public surface.
+
+ChannelS = Callable[
+    [int, float, npt.NDArray[np.float64], npt.NDArray[np.complex128], complex],
+    complex,
+]
+"""Per-channel strategy for `s_vector_transform`, called as
+`channel_s(j, kp, weights, phase, eta_in)` for each OPEN exit channel `j`
+with its outgoing momentum `kp`; returns the S-matrix element `S_j`."""
+
+
+def s_vector_transform(
+    g_in: FemDvrEcsGrid,
+    l_in: int,
+    wp_in: _WpIn,
+    t: npt.NDArray[np.float64],
+    eps_init: float,
+    thresholds: npt.NDArray[np.float64],
+    E: float,
+    exit_mass: float,
+    channel_s: ChannelS,
+) -> npt.NDArray[np.complex128]:
+    """The shared raw-S-matrix skeleton (block comment above): one element
+    per exit channel, `0` for closed channels (`E + eps_init -
+    thresholds[j] <= 0`) and for `E <= 0`. `g_in`/`l_in`/`wp_in` are the
+    incident electron's grid, partial wave and Gaussian parameters
+    (`eta_incident` is always electronic); `thresholds` are the exit-channel
+    threshold energies (`eps[vprimes]` for VE, `eps_e` for DA);
+    `exit_mass` is the exit-axis reduced mass (1.0 electronic, `model.mu`
+    nuclear), entering only `kp = sqrt(2*exit_mass*(e_tot - threshold))`."""
+    S = np.zeros(len(thresholds), dtype=np.complex128)
+    if E <= 0.0:
+        return S
+    weights = quadrature_weights(t.size)
+    e_tot = E + eps_init
+    k = float(np.sqrt(2.0 * E))
+    eta_in = eta_incident(g_in, k, l_in, **wp_in)
+    phase = np.exp(1j * e_tot * t)
+    for j in range(len(thresholds)):
+        excess = e_tot - thresholds[j]
+        if excess <= 0.0:
+            continue  # closed exit channel
+        kp = float(np.sqrt(2.0 * exit_mass * excess))
+        S[j] = channel_s(j, kp, weights, phase, eta_in)
+    return S
+
+
+def correlation_channel_s(
+    outgoing_factor: Callable[[float], complex],
+    c: npt.NDArray[np.complex128],
+    dt: float,
+) -> ChannelS:
+    """The TW/Dirac-shaped per-channel element: `S_j = (sum_n w_n
+    e^{i*e_tot*t_n} c_j(t_n)) * dt / (2*pi * conj(F_out(kp)) * eta_in)`.
+    `outgoing_factor(kp)` is the method's outgoing deconvolution scalar --
+    `eta_outgoing(...)` for Tannor-Weeks, `hankel_point_value(...)` for
+    Dirac, on whichever axis/mass the caller closed over."""
+
+    def s_element(
+        j: int,
+        kp: float,
+        weights: npt.NDArray[np.float64],
+        phase: npt.NDArray[np.complex128],
+        eta_in: complex,
+    ) -> complex:
+        s_raw = np.sum(weights * phase * c[:, j]) * dt
+        return complex(s_raw / (2.0 * np.pi * np.conj(outgoing_factor(kp)) * eta_in))
+
+    return s_element
+
+
+def flux_channel_s(
+    outgoing_pair: Callable[[float], tuple[complex, complex]],
+    b: npt.NDArray[np.complex128],
+    d: npt.NDArray[np.complex128],
+    dt: float,
+    exit_mass: float,
+) -> ChannelS:
+    """The Flux-shaped per-channel element (the Wronskian transform --
+    td_extractors.py's module docstring): `S_j = -i/(2*exit_mass*eta_in) *
+    (sum_n w_n (conj(phi_out)*d_j(t_n) - b_j(t_n)*conj(dphi_out))
+    e^{i*e_tot*t_n}) * dt`. `outgoing_pair(kp)` is `outgoing_surface_wave`'s
+    `(phi_out, dphi_out)` on whichever axis/mass the caller closed over."""
+
+    def s_element(
+        j: int,
+        kp: float,
+        weights: npt.NDArray[np.float64],
+        phase: npt.NDArray[np.complex128],
+        eta_in: complex,
+    ) -> complex:
+        phi_out, dphi_out = outgoing_pair(kp)
+        wronskian = np.conj(phi_out) * d[:, j] - b[:, j] * np.conj(dphi_out)
+        s_raw = np.sum(weights * wronskian * phase) * dt
+        return complex((-1j / (2.0 * exit_mass * eta_in)) * s_raw)
+
+    return s_element
+
+
+def sigma_from_s(
+    s_full: npt.NDArray[np.complex128],
+    s_free: npt.NDArray[np.complex128] | None,
+    thresholds: npt.NDArray[np.float64],
+    eps_init: float,
+    E: float,
+    elastic: npt.NDArray[np.bool_] | None,
+) -> npt.NDArray[np.float64]:
+    """The shared `sigma = pi*|S - ref|^2/(2E)` step, zeros for `E <= 0`
+    and closed channels. `elastic` marks the diagonal (v'==v_init) VE
+    channel(s), whose `ref` is `s_free[j]` when a free-reference S-vector
+    is supplied, else the literal 1 (see `_sigma_one_energy`'s docstring
+    for why callers should supply `s_free`); every other channel -- and
+    every DA channel (`elastic=None`, DA has no diagonal) -- uses `ref=0`,
+    where `pi*|S|^2/(2E)` is the historical `_C_DA = pi` convention."""
+    sigma = np.zeros(len(thresholds), dtype=np.float64)
+    if E <= 0.0:
+        return sigma
+    e_tot = E + eps_init
+    for j in range(len(thresholds)):
+        if e_tot - thresholds[j] <= 0.0:
+            continue  # closed exit channel
+        if elastic is not None and elastic[j]:
+            ref = complex(s_free[j]) if s_free is not None else 1.0 + 0.0j
+        else:
+            ref = 0.0 + 0.0j
+        sigma[j] = np.pi * abs(s_full[j] - ref) ** 2 / (2.0 * E)
+    return sigma
+
+
 def free_hamiltonian(model: ResonanceModel, tgrid: TensorGrid) -> sp.spmatrix:
     """`model.hamiltonian(tgrid)` with the interaction `V_int` removed.
 
@@ -323,28 +472,29 @@ def _s_vector_one_energy(
 ) -> npt.NDArray[np.complex128]:
     """The complex S-matrix `S_{v_init->v'}(E)` for each `v'`, shape `(len(vprimes),)`.
 
-    `0` for closed channels (`E_tot - eps[v'] <= 0`) and for `E <= 0`. This is
-    the raw Tannor-Weeks transform (module docstring) BEFORE the `|S - ref|^2`
-    step, factored out so the full run and the elastic free reference share
-    one code path.
+    `0` for closed channels (`E_tot - eps[v'] <= 0`) and for `E <= 0`. This
+    is the raw Tannor-Weeks transform (module docstring) BEFORE the
+    `|S - ref|^2` step -- now a thin assembly of the shared
+    `s_vector_transform` skeleton with the TW outgoing factor
+    (`correlation_channel_s` + `eta_outgoing` on the electronic axis).
+    Kept under its original name/signature: the N2 project shim
+    (`projects.n2_2d_td_cross_section.td_cross_section`) imports it.
     """
-    S = np.zeros(len(vprimes), dtype=np.complex128)
-    if E <= 0.0:
-        return S
-    weights = quadrature_weights(result.t.size)
-    e_tot = E + eps[v_init]
-    k = float(np.sqrt(2.0 * E))
-    eta_in = eta_incident(tgrid.grids[0], k, model.ell, **wp_in)
-    phase = np.exp(1j * e_tot * result.t)
-    for j, vp in enumerate(vprimes):
-        excess = e_tot - eps[vp]
-        if excess <= 0.0:
-            continue  # closed channel
-        kp = float(np.sqrt(2.0 * excess))
-        eta_out = eta_outgoing(tgrid.grids[0], kp, model.ell, **wp_out)
-        s_raw = np.sum(weights * phase * result.c[:, j]) * dt
-        S[j] = s_raw / (2.0 * np.pi * np.conj(eta_out) * eta_in)
-    return S
+    g_elec = tgrid.grids[0]
+    channel_s = correlation_channel_s(
+        lambda kp: eta_outgoing(g_elec, kp, model.ell, **wp_out), result.c, dt
+    )
+    return s_vector_transform(
+        g_elec,
+        model.ell,
+        wp_in,
+        result.t,
+        float(eps[v_init]),
+        np.asarray([eps[vp] for vp in vprimes], dtype=np.float64),
+        E,
+        1.0,
+        channel_s,
+    )
 
 
 def _sigma_one_energy(
@@ -383,25 +533,15 @@ def _sigma_one_energy(
     amplitude, not 1 (J. Chem. Phys. 98, 3884 (1993), Eqs. 29-32). See
     `docs/physics/n2-2d-td-cross-section.md`.
     """
-    sigma = np.zeros(len(vprimes), dtype=np.float64)
-    if E <= 0.0:
-        return sigma
+    thresholds = np.asarray([eps[vp] for vp in vprimes], dtype=np.float64)
+    elastic = np.asarray([vp == v_init for vp in vprimes], dtype=np.bool_)
     s_full = _s_vector_one_energy(tgrid, model, result, eps, v_init, vprimes, E, dt, wp_in, wp_out)
     s_free = None
     if free_result is not None:
         s_free = _s_vector_one_energy(
             tgrid, model, free_result, eps, v_init, vprimes, E, dt, wp_in, wp_out
         )
-    e_tot = E + eps[v_init]
-    for j, vp in enumerate(vprimes):
-        if e_tot - eps[vp] <= 0.0:
-            continue  # closed channel
-        if vp == v_init:
-            ref = complex(s_free[j]) if s_free is not None else 1.0 + 0.0j
-        else:
-            ref = 0.0 + 0.0j
-        sigma[j] = np.pi * abs(s_full[j] - ref) ** 2 / (2.0 * E)
-    return sigma
+    return sigma_from_s(s_full, s_free, thresholds, float(eps[v_init]), E, elastic)
 
 
 def sigma_from_correlations(
