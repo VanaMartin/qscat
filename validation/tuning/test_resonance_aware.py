@@ -22,8 +22,9 @@ the per-test docstrings for the cost budget each one paid):**
   (`validation.h2plus.config.proxy_grid().grids[1]`) = 510 points (order
   8). Ratio 489/510 = 0.959x -- ~4% SMALLER. Convergence is NOT
   laptop-verifiable (the full 2-D DR problem is ~1.15M unknowns --
-  Docker/MUMPS-sized, consistent with `validation/h2plus/test_dr.py`'s
-  existing small-proxy-only laptop gate); size + successful build is the
+  Docker/MUMPS-sized, consistent with the existing small-proxy-only laptop
+  gate for DR, `libs/qscat/tests/test_dissociation.py::
+  test_dr_wellposed_and_threshold_ordered`); size + successful build is the
   laptop-verifiable part here.
 
 **The honest finding (state plainly, not spun):** the "10-20% smaller than
@@ -152,12 +153,14 @@ def test_f2_resonant_nuclear_grid_2d_da_cross_section_converges() -> None:
 # ~1.15M unknowns at production size (electronic real region to 1300 bohr --
 # see `validation.h2plus.config.full_grid`), Docker/MUMPS-sized. Even the
 # laptop-feasible `proxy_grid` is too heavy for a routine gate (192k
-# unknowns; `validation/h2plus/test_dr.py` runs its own @slow tests on a
-# SMALLER ad hoc grid instead, not `proxy_grid`, for exactly this reason).
+# unknowns; the surviving H2+ DR @slow tests, in
+# `libs/qscat/tests/test_dissociation.py`, run on a SMALLER ad hoc grid
+# instead of `proxy_grid`, for exactly this reason).
 # There is no laptop-feasible way to 2-D-converge-check the resonance-aware
 # H2+ nuclear grid against a real DR cross section without that same
 # Docker/MUMPS budget; the SIZE gate above (
 # `test_h2p_resonant_nuclear_grid_is_no_larger_than_proxy_deck`) is the
 # laptop-verifiable half of this molecule's story. A Docker-scale 2-D H2+
 # DR convergence check is a follow-on, consistent with the existing H2+
-# 2-D handling (`validation/h2plus/test_dr.py`, `docs/physics/h2plus-dr.md`).
+# 2-D handling (`libs/qscat/tests/test_dissociation.py`'s @slow DR tests,
+# `docs/physics/h2plus-dr.md`).

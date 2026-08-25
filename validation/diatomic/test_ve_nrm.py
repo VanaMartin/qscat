@@ -6,8 +6,13 @@ measurement. The run that produced each one is written into the test that
 asserts it; their physical reading is in
 `docs/physics/nonlocal-resonance-model.md`.
 
-EVERY NUMBER IN THIS FILE IS MEASURED ON THIS GATE'S OWN ENERGY GRID, not on
-every energy in the plotted window. A denser sweep of the same window lands on
+EVERY NUMBER IN THIS FILE IS MEASURED ON A GATE ENERGY GRID, not on every
+energy in the plotted window. For N2 that grid is the one the gate still runs
+(11 energies). For F2 the recorded numbers come from the ORIGINAL SIX-ENERGY
+sweep; the gate now runs only the two binding anchors of it (0.02, 0.04 -- see
+`_ENERGIES` for why those two hold the bands). Every F2 figure below is
+labelled with the grid it was recorded on. A denser sweep of the same window
+lands on
 N2's ~0.01 Ha boomerang peaks instead of straddling them, and the
 approximations are worst exactly there, so the dense bands are wider. The
 comments on `_BANDS`, `_BAND_N2_01` and `_N2_ABS_DEV_CEILING_01` carry the
@@ -18,8 +23,10 @@ a densified sweep as a regression.
 THE HEADLINE, `sigma_NRM(B)+bg / sigma_exact` (`n_states=100`, 0->0 and 0->1
 together):
 
-    N2   [0.997062, 1.000647]     11 energies, 0.06-0.16 Ha
-    F2   [0.996225, 1.006923]      6 energies, 0.02-0.09 Ha
+    N2   [0.997062, 1.000647]     11 energies, 0.06-0.16 Ha (the gate's grid)
+    F2   [0.996225, 1.006923]      6 energies, 0.02-0.09 Ha (recorded sweep;
+                                   the gate runs its two binding anchors,
+                                   0.02 and 0.04, which define this band)
 
 i.e. the nonlocal model with the R-independent discrete state and the Eq. (37)
 background terms reproduces the exact 2-D solver to better than 0.7% on both
@@ -177,9 +184,9 @@ _ENERGIES: dict[str, npt.NDArray[np.float64]] = {
 # E=0.09, 0->1) and F2 [0.996225, 1.006923] (max deviation 0.692%, at E=0.02,
 # 0->1). Each band keeps roughly 50-70% headroom on that largest deviation,
 # matching the convention `test_nrm.py` set for the DA gate. They are NOT
-# equal because the two decks are not: F2's exact-2D reference carries the
-# coarser 6-point sweep and the larger grid, and its own deviations run about
-# twice N2's.
+# equal because the two decks are not: F2's band was recorded on the
+# six-energy sweep (the gate now runs its two binding anchors) against a
+# larger exact-2D grid, and its own deviations run about twice N2's.
 #
 # THESE ARE ANCHOR-GRID BANDS, NOT WINDOW-WIDE BOUNDS. On the 101-energy grid
 # `validation/diatomic/ve_nrm_figure.py` renders (0.06-0.16 Ha, step 0.001),
@@ -247,10 +254,13 @@ def _comparison(molecule: str) -> VeComparison:
 
     One `compare` call is expensive -- MEASURED end to end on the 12-core dev
     machine: **N2 94.9 s** (11 energies; exact-2D sweep ~63 s, LCP pole walk
-    4 s, four NRM curves ~2.1-2.6 s per energy each) and **F2 745.9 s**
-    (6 energies; the exact-2D sweep alone is ~77 s per energy at 128568
-    unknowns and ~10 GB peak RSS, plus a 22 s LCP pole walk, 33 s of grid
-    setup, 2 x 14 s of ingredients and ~10-12 s per energy per NRM curve).
+    4 s, four NRM curves ~2.1-2.6 s per energy each) and, for F2, **705 s at
+    the two anchors the gate runs** -- against 1818 s for the full six-energy
+    sweep (see `_ENERGIES`, where both were re-measured back to back; an
+    earlier 745.9 s six-energy figure did NOT reproduce and is superseded).
+    F2's cost is dominated by the exact-2D sweep at 128568 unknowns and ~10 GB
+    peak RSS, on top of a 22 s LCP pole walk, 33 s of grid setup, 2 x 14 s of
+    ingredients and ~10-12 s per energy per NRM curve.
     Every test in this module therefore shares one result per molecule rather
     than recomputing it.
     """
@@ -292,7 +302,10 @@ def test_nrm_with_background_reproduces_the_exact_oracle(molecule: str) -> None:
     Choice B (`AsymptoticDiscreteState`, the R-independent bound state) plus
     the Eq. (37) background terms, against `qscat.core.driven.ve_cross_section`.
 
-    RECORDED (`n_states=100`), `sigma_NRM(B)+bg / sigma_exact`:
+    RECORDED (`n_states=100`), `sigma_NRM(B)+bg / sigma_exact`. N2's rows are
+    the 11 energies the gate runs; F2's rows are the ORIGINAL SIX-ENERGY
+    measurement (0.02, 0.03, 0.04, 0.05, 0.07, 0.09), of which the gate now
+    runs the first and third -- the two that define the band asserted below:
 
         N2  0->0  1.00019 0.99978 0.99953 0.99916 0.99886 0.99882
                   0.99902 0.99928 0.99950 0.99966 0.99977
@@ -461,8 +474,9 @@ def test_nrm_b_beats_the_lcp_everywhere(molecule: str) -> None:
         F2   LCP 0.99982  B 0.006923    factor  144
 
     On F2 the gap is not close: the LCP elastic cross section is three to four
-    orders of magnitude below exact across the whole window (ratio 1.8e-4 to
-    2.1e-2), which is PRA 77's "largest for the broadest resonance" statement
+    orders of magnitude below exact at every energy measured -- ratio 1.8e-4
+    to 2.1e-2 over the recorded six-energy sweep, of which the gate now checks
+    the two anchors -- which is PRA 77's "largest for the broadest resonance" statement
     about the background terms, seen from the side of the model that omits
     them.
     """

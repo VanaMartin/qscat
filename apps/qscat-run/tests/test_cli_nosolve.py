@@ -35,22 +35,6 @@ def test_init_h2p_scaffolds_valid_config(tmp_path: Path) -> None:
     assert r2.exit_code == 0, r2.output
 
 
-def test_cli_validates_every_committed_example() -> None:
-    """Every committed example must pass the exact command its own header tells
-    readers to run.
-
-    `tests/test_examples.py` calls `load_config` + `validate_config` directly,
-    which is strictly weaker: it never resolves a grid. `lcp` and `nrm` have no
-    ti/td-style tensor grid, so a CLI that routed them through `resolve_grid`
-    would reject configs `run` supports -- and only this test would notice.
-    """
-    examples = sorted((Path(__file__).resolve().parent.parent / "examples").glob("*.yaml"))
-    assert examples, "no committed examples found -- the glob is stale"
-    for path in examples:
-        r = CliRunner().invoke(main, ["validate", str(path)])
-        assert r.exit_code == 0, f"{path.name}: {r.output}"
-
-
 def test_validate_rejects_bad(tmp_path: Path) -> None:
     bad = tmp_path / "bad.yaml"
     bad.write_text("molecule: XX\nmethods: [ti]\nobservables: []\noutput_dir: o\n")
@@ -69,12 +53,12 @@ def test_run_dry_run_prints_plan_and_solves_nothing(tmp_path: Path) -> None:
     assert not output_dir.exists()
 
 
+# `rglob`, not `glob`: `examples/figures/` holds the dense-curve configs, and a
+# top-level-only sweep would skip every one of them. Asserted at collection
+# time so a typo'd pattern cannot make the parametrized test below vacuous
+# (`tests/test_examples.py` owns the test-shaped non-empty check).
 EXAMPLES = sorted((Path(__file__).resolve().parent.parent / "examples").rglob("*.yaml"))
-
-
-def test_examples_directory_is_not_empty() -> None:
-    # Guard against a typo'd glob making the parametrized test below vacuous.
-    assert EXAMPLES, "no example configs found"
+assert EXAMPLES, "no example configs found -- the rglob is stale"
 
 
 @pytest.mark.parametrize("path", EXAMPLES, ids=lambda p: p.name)
@@ -83,9 +67,11 @@ def test_every_example_passes_the_validate_COMMAND(path: Path) -> None:
     its own header tells readers to run.
 
     `tests/test_examples.py` calls `load_config` + `validate_config` directly,
-    which is strictly weaker: the CLI additionally RESOLVES each method's grid.
-    That gap let `f2-da-lcp-vs-exact.yaml` ship broken -- `validate_config`
-    accepted `methods: [ti, lcp]` (VALID_METHODS includes "lcp") while the CLI
+    which is strictly weaker: the CLI additionally RESOLVES each method's grid,
+    so it is also what catches a `resolve_grid` that rejects a method `run`
+    supports (`lcp` and `nrm` have no ti/td-style tensor grid). That gap let
+    `f2-da-lcp-vs-exact.yaml` ship broken -- `validate_config` accepted
+    `methods: [ti, lcp]` (VALID_METHODS includes "lcp") while the CLI
     routed `lcp` through `presets.resolve_grid`, which only knows ti/td and
     raised "unknown method 'lcp'; choose 'ti' or 'td'". The example failed the
     exact command documented in its own comments, and no test noticed.

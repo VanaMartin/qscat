@@ -315,9 +315,11 @@ def _h2p_proxy_grid() -> TensorGrid:
 _F2_DA_TEST_FUNCTION = TestFunctionSpec(r0_out=8.0, p0_out=72.0, sigma_out=0.07)
 _F2_DA_SURFACE_R = 6.0
 
-# The VALIDATED H2+ nuclear (DR) outgoing test packet + surface
-# (`validation/h2plus/td_dr.py`'s `WP_OUT_DR`/`SURFACE_R` -- copied by VALUE,
-# never imported, see module docstring).
+# The VALIDATED H2+ nuclear (DR) outgoing test packet + surface. These values
+# come from the TD-DR driver that lived under `validation/h2plus/`, which was
+# removed in the qscat-run consolidation; they were copied by VALUE and no
+# longer have a source to be checked against -- there is no lock test tying
+# them to anything, so treat this block as the definition, not as a copy.
 _H2P_DR_TEST_FUNCTION = TestFunctionSpec(r0_out=12.0, p0_out=15.0, sigma_out=0.4)
 _H2P_DR_SURFACE_R = 12.0
 
@@ -393,7 +395,10 @@ PRESETS: dict[str, MoleculePreset] = {
         default_energies=EnergySpec(min=0.001, max=0.050, step=0.001),
         # r0 scaled DOWN from the full deck's 800 to fit inside the proxy
         # grid's ~60-bohr electronic real region (an off-box incident lands
-        # in the ECS tail and diverges -- see validation/h2plus/td_dr.py).
+        # in the ECS tail and diverges -- a finding of the retired
+        # `validation/h2plus/` TD-DR driver, removed in the qscat-run
+        # consolidation; the reasoning is recorded in
+        # docs/physics/td-da.md, the code is not in the tree).
         default_incident=IncidentSpec(r0=40.0, p0=-0.25, sigma=8.0),
         valid_observables=VALIDITY["H2P"],
         n_vib=4,

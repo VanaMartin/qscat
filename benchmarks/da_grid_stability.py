@@ -1,10 +1,11 @@
 """sigma_DA refinement stability check on eMoScat's per-molecule nuclear
 deck (F2).
 
-`benchmarks/da_nuclear_convergence.py` showed sigma_DA does NOT converge on
-the shared N2-style nuclear grid by raising quadrature alone -- the K_R~58
-dissociation wave in the [2.7, 10.7] bohr outer region is under-resolved by
-the grid's ELEMENT SIZE, not its quadrature order. eMoScat's per-molecule
+An earlier quadrature ladder (docs/physics/diatomic-ve-cross-sections.md,
+"The discretisation must be per-molecule") showed sigma_DA does NOT converge on the shared
+N2-style nuclear grid by raising quadrature alone -- the K_R~58 dissociation
+wave in the [2.7, 10.7] bohr outer region is under-resolved by the grid's
+ELEMENT SIZE, not its quadrature order. eMoScat's per-molecule
 deck (`MoleculeConfig.da_grid`, sub-project Task 6) fixes the element size
 directly (~0.2 bohr/element there). This benchmark is the refinement
 convergence evidence on that deck.

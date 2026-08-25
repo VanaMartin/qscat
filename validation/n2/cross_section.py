@@ -3,15 +3,18 @@ time-independent (TI) VE cross-section solver (`projects/n2_ti_cross_section`),
 GENERALLY classified as GATED (real PASS/FAIL) or DOCUMENTED-LIMITED (an
 informational NOTE naming the mechanism, never a FAIL).
 
-Cross-import note: unlike `resonance.py` (which reimplements the electronic
-grid in-line so Group B stays independent of `projects/`), this module
-imports the TI solver itself, package-absolute
-(`projects.n2_ti_cross_section`) -- the object under test for C5 *is* that
+Layering note: the rule is one-directional -- `validation/` may import
+`projects/`, `projects/` must not import `validation/`. This module takes the
+allowed direction, importing the TI solver package-absolute
+(`projects.n2_ti_cross_section`); the object under test for C5 *is* that
 project's resolvent/driven-equation solver, so there is nothing to keep
-independent of it here. This mirrors the already-established reverse
-cross-import: `projects/n2_ti_cross_section/test_cross_section.py` already
-imports `validation.n2.reference` to get the anchor coordinates; this module
-closes the loop from the other side.
+independent of it here. Note the KNOWN EXCEPTIONS in the other direction:
+`projects/n2_ti_cross_section/test_cross_section.py` imports
+`validation.n2.reference`/`loader` for the anchor coordinates and the golden
+data, and `projects/n2_resonance/test_potential.py` imports
+`validation.n2.model`. Those are projects -> validation imports the rule
+forbids; they are tolerated because they are confined to TEST modules rather
+than shipped ones, and they are not a precedent to follow.
 
 Classification, decided GENERALLY
 from the anchor's `(energy, channel)`, never by hardcoding which of the 6
