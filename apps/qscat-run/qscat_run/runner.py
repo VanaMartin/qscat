@@ -68,7 +68,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 import numpy as np
 import numpy.typing as npt
@@ -1043,6 +1043,21 @@ def _run_nrm(
     return cross_sections
 
 
+# `qscat.linalg.set_default_backend` takes a Literal, but a config's `backend`
+# arrives as an arbitrary string from YAML. These are the values it accepts.
+_VALID_BACKENDS: tuple[Literal["auto", "scipy", "mumps"], ...] = ("auto", "scipy", "mumps")
+
+
+def _as_backend(name: str) -> Literal["auto", "scipy", "mumps"]:
+    """`name` as a `qscat.linalg` backend, or a `ConfigError` naming the
+    alternatives -- reached from a hand-written `backend:` key, so the message
+    is the user's only clue."""
+    for backend in _VALID_BACKENDS:
+        if name == backend:
+            return backend
+    raise ConfigError(f"unknown backend {name!r}; expected one of {sorted(_VALID_BACKENDS)}")
+
+
 def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     """Resolve `cfg` fully (defaults, backend), run every requested method's
     observables on its own grid, and return the collected result.
@@ -1056,8 +1071,9 @@ def run_experiment(cfg: ExperimentConfig) -> ExperimentResult:
     t_start = time.time()
     resolved = presets.resolve_defaults(cfg)
 
-    if resolved.backend != "auto":
-        set_default_backend(resolved.backend)
+    backend = _as_backend(resolved.backend)
+    if backend != "auto":
+        set_default_backend(backend)
 
     timings: dict[str, float] = {}
     cross_sections: dict[str, npt.NDArray[np.float64]] = {}

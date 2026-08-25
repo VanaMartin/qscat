@@ -42,4 +42,8 @@ jobs:
           name: qscat-dist
           path: dist
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+        # Pinned to a release TAG, not the mutable `release/v1` branch: this
+        # job holds `id-token: write`, so whatever this action resolves to can
+        # mint a PyPI OIDC token. v1.14.2 was the latest release on 2026-08-25;
+        # bump it deliberately.
+        uses: pypa/gh-action-pypi-publish@v1.14.2

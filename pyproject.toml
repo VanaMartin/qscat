@@ -28,14 +28,15 @@ pythonpath = ["."]
 #              is the CI gate and must stay quick enough to run on every push.
 #   slow    -- production-scale physics: real molecule decks, converged grids,
 #              multi-thousand-step propagations, published-value comparisons.
-#              Run locally (`-m slow`) and by the Docker `test` image. NOT run
-#              by GitHub CI.
+#              Run locally (`-m slow`), by the Docker `test` image, and on
+#              demand in CI -- .github/workflows/validation.yml runs this tier
+#              when a PR carries a `validate:*` label. Never on every push.
 #
 # The boundary is cost, not importance: a `slow` test is often the more
 # valuable one. If a test needs more than a few seconds or more than ~0.5 GB,
 # it belongs in `slow` -- or it wants a smaller deck.
 markers = [
-    "slow: production-scale physics; local + Docker only, never CI. -m 'not slow' deselects",
+    "slow: production-scale physics; local + Docker + on-demand CI (validate:* labels). -m 'not slow' deselects",
 ]
 
 [dependency-groups]
@@ -88,7 +89,7 @@ target-version = "py312"
 extend-exclude = ["reference"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "NPY"]
+select = ["E", "F", "I", "UP", "B", "NPY", "RUF"]
 
 [tool.ruff.lint.per-file-ignores]
 # `l` is the standard physics symbol for the orbital angular momentum quantum
