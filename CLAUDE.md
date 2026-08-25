@@ -516,6 +516,20 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               solver machinery moved into `qscat.core.bo`/`assignment`; what stays
               is the campaign — which curves, which windows, which seeds — see
               docs/physics/h2plus-resonance-states.md.
+            - `validation/factory/`: the potential factory's base experiments
+              (`python -m validation.factory.base_experiments --molecule N2|NO|F2
+              --stage curves|fit|xs|all`): the published models' resonant
+              curves `E_res(R)`/`Γ(R)`/`V_ion(R)` on a four-grid electronic
+              ladder (converged to 1e-9..1e-7 Ha; the crossing node is gated
+              out by design), the factory's refit from those curves, and the
+              exact 2-D VE (+ DA for NO/F₂) cross sections on the `emoscat`
+              decks for the published vs the refitted model — agree to 1e-9
+              (NO's 1e-19-bohr² DA tail to 4e-7). Results under `results/`,
+              figures `docs/physics/figures/{n2,no,f2}-factory-*.png`. Run it
+              in the MUMPS container with `OMP_NUM_THREADS=1` — a 32-thread
+              OpenBLAS is ~400× SLOWER on the tiny electronic eigenproblems.
+              Nothing is compared with experiment — see
+              docs/physics/potential-factory.md.
             - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross
               sections — the model port, the first consumers of sub-project A
               beyond N₂. The per-molecule *curve/figure drivers* were RETIRED in

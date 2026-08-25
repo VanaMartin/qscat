@@ -1,0 +1,62 @@
+{
+  "molecule": "NO",
+  "R_c_published": 2.285,
+  "grids": [
+    {
+      "label": "r16_o7_c6",
+      "r_max": 16.0,
+      "order": 7,
+      "n_complex": 6,
+      "n_points": 113,
+      "nodes": 43,
+      "seconds": 0.405712254003447
+    },
+    {
+      "label": "r24_o9_c8",
+      "r_max": 24.0,
+      "order": 9,
+      "n_complex": 8,
+      "n_points": 183,
+      "nodes": 44,
+      "seconds": 0.8131918040016899
+    },
+    {
+      "label": "r32_o11_c8",
+      "r_max": 32.0,
+      "order": 11,
+      "n_complex": 8,
+      "n_points": 249,
+      "nodes": 44,
+      "seconds": 1.6483414719987195
+    },
+    {
+      "label": "r40_o13_c10",
+      "r_max": 40.0,
+      "order": 13,
+      "n_complex": 10,
+      "n_points": 347,
+      "nodes": 44,
+      "seconds": 3.675761386999511
+    }
+  ],
+  "convergence": [
+    {
+      "from": "r16_o7_c6",
+      "to": "r24_o9_c8",
+      "max_dE_res_Ha": 0.00016831297224034758,
+      "max_dGamma_Ha": 0.0002860478561308999
+    },
+    {
+      "from": "r24_o9_c8",
+      "to": "r32_o11_c8",
+      "max_dE_res_Ha": 8.510322077118215e-07,
+      "max_dGamma_Ha": 2.5925761520792165e-06
+    },
+    {
+      "from": "r32_o11_c8",
+      "to": "r40_o13_c10",
+      "max_dE_res_Ha": 3.5457469343101733e-07,
+      "max_dGamma_Ha": 1.173734944468277e-06
+    }
+  ]
+}

@@ -286,6 +286,75 @@ grid): N₂ ≈ 4.1 s, NO ≈ 4.5 s, F₂ ≈ 3.7 s. The full
 plus the `fit_neutral`/`fit_resonance`/`fit_coupling` slow tests — measures
 31.6 s on the same default grid.
 
+## Base experiments — converged curves and the observable-level round trip
+
+`validation/factory/base_experiments.py` (`python -m
+validation.factory.base_experiments --molecule N2|NO|F2 --stage
+curves|fit|xs|all`) runs the factory on each published model at production
+quality and asks the question the toy-grid round trip cannot: **what does
+curve-level agreement buy at the level of the exact 2-D cross sections?**
+Nothing here is compared with experiment. The runs below were made on
+2026-08-25 in the MUMPS container (single-threaded BLAS — on tiny 113×113
+electronic eigenproblems a 32-thread OpenBLAS is ~400× slower than one
+thread, so the ladder below takes seconds, not minutes); the CSVs,
+convergence summaries and `FitReport`s are committed under
+`validation/factory/results/`.
+
+**Converged resonant curves.** `walk_t1` extracts `E_res(R)`, `Γ(R)` and
+`V_ion = V_0 + E_res` on 45 nuclear nodes over the whole crossing region for a
+ladder of four electronic grids (`r_max` 16→40 bohr, DVR order 7→13, 6→10 tail
+elements; 113→347 points). The grid-to-grid differences on the finest step
+(`r32_o11_c8 → r40_o13_c10`) are the convergence statement:
+
+| | N₂ | NO | F₂ |
+|---|---|---|---|
+| scan `R` (bohr) | 3.2 → 1.5 | 3.4 → 1.6 | 4.2 → 1.9 |
+| max `ΔE_res`, finest step (Ha) | 5.5e-9 | 3.6e-7 | 6.2e-7 |
+| max `ΔΓ`, finest step (Ha) | 4.1e-9 | 1.2e-6 | 2.9e-5 |
+| nodes with a gated pole | 44/45 | 44/45 | 44/45 |
+| `Γ` at the innermost node (eV) | 4.5 | — | 14.1 |
+
+The one node without a gated pole is, for every molecule, the one inside the
+crossing slice where the pole sits below the gate's threshold floor. Away from
+that slice the curves converge to 1e-12–1e-14 Ha on the bound side; the
+residual differences on the resonant side come from the very short-`R` end,
+where the width is several eV and the real-region extent still matters
+(F₂'s `Γ` reaches 14 eV at 1.9 bohr). The crossing found by the factory agrees
+with the published `R_c` to 3e-4–2e-3 bohr (N₂ 2.4048 vs 2.405, NO 2.2845 vs
+2.285, F₂ 2.5970 vs 2.595). Figures:
+`docs/physics/figures/{n2,no,f2}-factory-curves.png`.
+
+**Refit at production quality.** The factory refits each model from its own
+converged curves (24 nodes, `n_eps = 8`, the finest grid) from the perturbed
+seed of the round-trip test. All three meet all three tiers; the T1 `E_res`
+rms is 1.7e-12 Ha (N₂), 2.3e-12 Ha (NO) and 6.7e-7 Ha (F₂ — the largest,
+from the two crossing-slice nodes the tracker drops and re-verifies by
+interpolation), the T3 log-width rms 1e-9–7e-9. The DA-threshold signs come
+out `+` for N₂ and NO (endothermic) and `−` for F₂ (exothermic).
+
+**Cross sections, published vs refitted.** Exact 2-D `σ_{0→v'}(E)` for
+`v' = 0, 1, 2` on each molecule's `emoscat` production deck over its preset
+window, and `σ_DA` where the channel exists — F₂ over the same window, NO on a
+window above its DA threshold (`E = 0.175–0.30` Ha; the channel opens at
+`+0.172` Ha, above the whole VE sweep):
+
+| | N₂ | NO | F₂ |
+|---|---|---|---|
+| deck (unknowns) | 26,857 | 78,804 | 128,568 |
+| VE energies (sweep, s) | 40 (2) | 30 (10) | 25 (15) |
+| max \|σ_refit/σ_pub − 1\|, VE `0→0/1/2` | 1.9e-10 / 3.3e-10 / 5.2e-10 | 5.2e-10 / 1.5e-10 / 1.4e-9 | 9.0e-9 / 8.9e-9 / 8.7e-9 |
+| max \|σ_refit/σ_pub − 1\|, DA | — | 4.3e-7 (σ ≤ 7.4e-10 bohr², 4.7–8.2 eV) | 4.3e-9 (σ up to 5.6 bohr²) |
+
+So a model rebuilt from curves that agree to 1e-12 Ha reproduces the exact
+observables to 1e-9 — including N₂'s boomerang structure point by point and
+F₂'s DA over three orders of magnitude — and the 1e-7 on NO's DA is the
+exponentially small (1e-10–1e-19 bohr²) tail of a closed-at-threshold channel
+where the cross section itself is at the solver's floor. Curve-level agreement
+at this level is *sufficient*; how much curve-level *dis*agreement the
+observables tolerate is the sensitivity budget, still to be measured. Figures:
+`docs/physics/figures/{n2,no,f2}-factory-ve.png`,
+`{no,f2}-factory-da.png`.
+
 ## Limitations
 
 **The sigmoid-constant degeneracy.** N₂'s own published `λ(R)` sigmoid has

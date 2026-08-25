@@ -1,0 +1,54 @@
+{
+  "target_name": "F2 (published model, r40_o13_c10)",
+  "parameters": {
+    "D_e": 0.0598,
+    "R_e": 2.6906,
+    "beta0": 1.5161,
+    "lam.f_inf": 18.84899984951793,
+    "lam.f_0": -8.87459781136814,
+    "lam.f_1": 3.2130000011731896,
+    "lam.R_f": 1.8319999997931158,
+    "alpha.f_inf": 2.9999999752325426,
+    "alpha.f_0": 0.0,
+    "alpha.f_1": 1.0,
+    "alpha.R_f": 0.0
+  },
+  "tiers": [
+    {
+      "name": "T0",
+      "status": "met",
+      "rms": 2.3279144507199692e-17,
+      "max": 1.1102230246251565e-16,
+      "detail": "EMO with 1 beta(s) on 24 points; omega_e (v=0->1) fit=3.851721e-03 target=3.851743e-03 Ha, omega_e_rel=5.84e-06 vs tol 1.00e-02 [table [1.9, 4.2] (leak=1.4e-30)]"
+    },
+    {
+      "name": "T1",
+      "status": "met",
+      "rms": 6.68993290078994e-07,
+      "max": 3.114373942927161e-05,
+      "detail": "nodes: table 24/24; tracked 23/24 (6 resonant), re-tracked 22/24 nodes; re-walk verified 24/24 nodes; E_res rms=6.69e-07 max=3.28e-06 Ha; Gamma rel rms=0.000 max=0.000; smooth_rms_lam=3.92e-07 smooth_rms_alpha=1.20e-07; polish_rms=9.84e-11 Ha (analytic Jacobian); polish skipped 0/22 nodes; least_squares status=1 nfev=2/100; EA constraint skipped (no bracket)"
+    },
+    {
+      "name": "T3",
+      "status": "met",
+      "rms": 1.1978709494188822e-08,
+      "max": 7.888417030699202e-08,
+      "detail": "log Gamma~ on table nodes 8x8 (eps, R); shell not needed; seed_rms=1.198e-08"
+    }
+  ],
+  "ecs_bounds_deg": {
+    "electronic_max_deg": 45.0,
+    "nuclear_max_deg": 90.0,
+    "probed_electronic_deg": 35.0,
+    "probed_nuclear_deg": 35.0,
+    "tail_growth": 0.011532389196585023
+  },
+  "crossing_R": 2.596987748393705,
+  "da_threshold_sign": -1,
+  "provenance": {
+    "all": {
+      "source": "extract_target(F2 (published model, r40_o13_c10))",
+      "locator": "computed, not published"
+    }
+  }
+}
