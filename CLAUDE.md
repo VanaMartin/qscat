@@ -468,6 +468,14 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               boomerang oscillations resolved point-by-point — see
               docs/physics/n2-2d-td-cross-section.md and the
               td-elastic-wavepacket-normalization note.
+            - `potential_factory`: the toy-stage POTENTIAL FACTORY — fits a
+              `FlexibleDiatomicModel` (EMO `v0` + Gaussian well with `lam(R)`
+              AND `alpha(R)` + optional shell; embeds N2/NO/F2 exactly) to a
+              tiered `Target` (T0 neutral curve, T1 pole curves, T3 the
+              published energy-dependent width) in stages that stop-and-report.
+              Proven by round-tripping the existing models' OWN calculated
+              curves (`extract_target`) back to their constants/curves. Nothing
+              is fitted to experiment — see docs/physics/potential-factory.md.
 validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
               anchors this solver's σ_{0→v'}(E) against Karel Houfek's
