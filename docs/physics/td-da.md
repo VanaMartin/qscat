@@ -4,8 +4,8 @@
 `td_da_cross_sections_all`), `qscat.core.td_extractors` (`Flux`, `Dirac`,
 `TannorWeeks`, all `axis="nuclear"`), `qscat.core.dissociation`
 (`da_cross_section` -- the exact TI oracle this converges to,
-`anion_electronic_states`), `validation/diatomic/td_da.py` +
-`validation/diatomic/test_td_da.py` (the F2/NO validation harness).
+`anion_electronic_states`), `libs/qscat/tests/test_td_extractors.py` (the
+three `@slow` F2 convergence gates -- see *F2 three-way validation* below).
 **Origin:** sub-project #4 "TD extractors" (branch `td-alternative-extractors`,
 SP1: `docs/physics/td-extractors.md`) generalized in sub-project SP2 (branch
 `td-da-route`) from VE (vibrational excitation, an electronic-axis outgoing
@@ -131,7 +131,7 @@ first nuclear `Flux` gate, as two distinct, real failure modes:
    `n=1000`.
 2. **Coarse nuclear.** Fixing the electronic box (launch-box, `r_max=25`,
    `r0=12` well inside) but keeping a COARSE shared nuclear grid (~139 pts,
-   the N2-style grid `docs/physics/per-molecule-discretisation.md` already
+   the N2-style grid `docs/physics/discretisation-tuning.md` already
    flags as under-resolved for DA) gives a numerically STABLE propagation
    (no divergence, `|psi|` well-behaved) but `sigma_flux ~ 1e-21` --
    essentially zero. The coarse grid cannot represent the K_R~72
@@ -145,40 +145,46 @@ order=6, n_complex=3, angle_deg=40.0)`, clean enough to hold the incident
 eMoScat fine nuclear deck (`MoleculeConfig.da_grid().grids[1]` --
 `segmented_grid` reproduces the exact per-molecule `(n_elements, endpoint)`
 deck the TI oracle already uses for the same reason: it resolves the fast
-dissociation wave). `validation/diatomic/td_da.py`'s `td_launch_grid(cfg)`
-builds exactly this pairing; do not substitute `cfg.da_grid()` wholesale for
-a TD run.
+dissociation wave). Each of the three `@slow` gates below builds exactly
+this pairing inline; do not substitute a molecule's whole `da_grid()` for a
+TD run, and do not substitute the TD run's electronic grid for the TI one.
 
-## F2/NO three-way validation
+## F2 three-way validation
 
-**Fast gate** (`validation/diatomic/test_td_da.py`, not `@slow`): shape/
-contract tests on a tiny F2 grid (`electronic_grid(r_max=12, order=5,
-n_complex=3)` x `nuclear_grid(quadrature=6, r_max=14, n_complex=3)`, mirroring
-`libs/qscat/tests/test_td_extractors.py`'s own tiny config), `n_steps=5` --
-NOT a converged cross section, just "builds, propagates, returns the right
-shape, `method=`/`ValueError` wiring correct, `td_da_cross_sections_all`
-matches calling `td_da_cross_section` per method to machine precision".
+**The gates** are the three `@slow` per-extractor tests in
+`libs/qscat/tests/test_td_extractors.py` --
+`test_nuclear_flux_da_converges_to_ti_oracle`,
+`test_nuclear_dirac_da_converges_to_ti_oracle` and
+`test_nuclear_tw_da_converges_to_ti_oracle`. Each builds the launch-box
+pairing above inline (`electronic_grid(r_max=25, order=6, n_complex=3,
+angle_deg=40.0)` x the eMoScat F2 nuclear deck via `segmented_grid(...,
+angle_deg=35.0, quadrature=14)`), launches one trajectory at `dt=1.0` from
+`wp_in={r0:12, p0:-0.5, sigma:3}`, and compares its own extractor's
+`sigma(E)` against `qscat.core.dissociation.da_cross_section` on the SAME
+grid at `E = 0.03, 0.04` Ha. Running both routes on one grid is what makes
+this a DIFFERENTIAL test: they must agree even where that grid is not
+physically converged, so what is under test is the extractor, not the
+discretisation.
 
-**`@slow` gate** (`validation/diatomic/test_td_da.py`, F2 and NO): the
-launch-box grid above, `wp_in={r0:12, p0:-0.5, sigma:3}`, `surface`/
-`position` at `R~6` bohr (converted from bohr to the nearest real-region
-nuclear DVR index), `wp_out={r0_out:8.0, p0_out:72.0, sigma_out:0.07}`
-(eMoScat's F2 nuclear test packet: a NARROW, wide-K packet placed inward of
-the surface/position analysis points -- needed to resolve the fast K_R~72
-wave; a wide/slow packet undersamples it entirely, see `td_extractors.py`'s
-module docstring), `n_steps=1800` (~86k unknowns, ~10 min per molecule).
-`td_da_cross_sections_all` is asserted within `(0.7, 1.3)` of `da_cross_
-section` (TI) per method, at each molecule's own anchor energies.
+`Flux` and `Dirac` share the configuration exactly -- `surface`/`position`
+at the real-region nuclear DVR node nearest `R = 6` bohr, `n_steps=1500` --
+and each asserts `sigma/sigma_ti` inside `(0.7, 1.25)`. `TannorWeeks`
+instead propagates its own outgoing test packet, `wp_out={r0_out:8.0,
+p0_out:72.0, sigma_out:0.07}` (eMoScat's F2 nuclear test packet: a NARROW,
+wide-K packet placed inward of the flux/delta analysis points -- needed to
+resolve the fast K_R~72 wave; a wide/slow packet undersamples it entirely,
+see `td_extractors.py`'s module docstring), runs `n_steps=1750`, and asserts
+the deliberately wider order-~1 band `(0.4, 1.7)`. Each gate is ~86k
+unknowns x 1500-1750 steps, ~10-12 min -- hence `@slow`.
 
-Per-extractor `@slow` gates already validated the identical launch-box
-config in `libs/qscat/tests/test_td_extractors.py`
-(`test_nuclear_flux_da_converges_to_ti_oracle`,
-`test_nuclear_dirac_da_converges_to_ti_oracle`,
-`test_nuclear_tw_da_converges_to_ti_oracle`) at `n_steps=1500`; this
-sub-project's `test_td_da.py` gate is the SAME physics run through the
-propagate-ONCE `td_da_cross_sections_all` helper at `n_steps=1800` (a small
-margin over the per-extractor gates' 1500, since the assertion tolerance
-widens slightly to `(0.7, 1.3)` from `(0.7, 1.25)`).
+**What is not gated.** The propagate-ONCE helpers `td_da_cross_section` and
+`td_da_cross_sections_all` are shipped, but nothing tests them: the
+`validation/diatomic` harness that did -- and the NO anchors it carried --
+was retired when the per-molecule curve drivers moved into `apps/qscat-run`,
+and qscat-run drives the TI `da_cross_section` rather than the TD one. F2 is
+therefore the only molecule with a live TD-DA convergence gate, and the
+three-way comparison rests on the three per-extractor tests above rather than
+on one shared propagation.
 
 **Measured (controller, 2026-07-31), F2, launch-box grid:**
 
@@ -237,7 +243,8 @@ additive rather than a rewrite.
 
 The committed three-way comparison FIGURE (sigma_DA-vs-TI per method for F2/NO)
 was NOT produced in-session -- generating it needs the `@slow` per-molecule
-propagations (~10 min each), which exceed the harness run window. The gates
-(`validation/diatomic/test_td_da.py`, `@slow`) encode the numeric comparison;
-the figure is a Docker/overnight follow-on, alongside the full eMoScat 90-bohr-
-electronic-grid convergence run.
+propagations (~10 min each), which exceed the harness run window. The three
+`@slow` gates in `libs/qscat/tests/test_td_extractors.py` encode the numeric
+comparison for F2; the figure, an NO gate, and a gate over the propagate-once
+`td_da_cross_sections_all` helper are all Docker/overnight follow-ons,
+alongside the full eMoScat 90-bohr-electronic-grid convergence run.

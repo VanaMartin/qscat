@@ -19,18 +19,18 @@ Three results come out of it, and the third was not anticipated:
    two-angle ECS stability test that found them, which is the point —
    stability is necessary and not sufficient.
 
-Companion notes: {doc}`h2plus-dr` for the σ_DR solver itself and its open
-defects, {doc}`exact-2d-resonances` for the method and its N₂ application,
-{doc}`lcp-resonance-levels` for the BO levels this is measured against.
+Companion notes: [`h2plus-dr.md`](h2plus-dr.md) for the σ_DR solver itself and its open
+defects, [`exact-2d-resonances.md`](exact-2d-resonances.md) for the method and its N₂ application,
+[`lcp-resonance-levels.md`](lcp-resonance-levels.md) for the BO levels this is measured against.
 
 ## The result
 
-```{figure} figures/h2p-dr-levels.png
+![H2+ DR levels on the sigma_DR sweep](figures/h2p-dr-levels.png)
+
 The previously computed σ_DR(E) sweep across the three published energy
 windows, with the BO levels `ω_i^j` (dashed, labelled) and the exact 2-D poles
 (solid, lighter, drawn beneath) marked on it. Levels computed at
 `μ = 918.25`, the reduced mass the sweep itself used — see *Reduced mass* below.
-```
 
 Distances to the nearest peak in the sweep, in units of a resonance width
 (median FWHM 2 × 10⁻⁵ Ha — the only scale on which "lands on the peak" means
@@ -158,7 +158,7 @@ Over the 24 quotable pairs, median |shift|:
 An eightfold separation. A distant Rydberg electron follows the nuclei
 adiabatically, so its level is nearly BO-exact; a compact one overlapping the
 dissociative channel does not. Both regimes exceed N₂'s 0.22 meV
-({doc}`exact-2d-resonances`) and neither is one-signed.
+([`exact-2d-resonances.md`](exact-2d-resonances.md)) and neither is one-signed.
 
 The overlap shows the same ordering on an independent measure — high-`n` states
 score 0.83–0.99 against low-`n`'s 0.71–0.88 — though the two bands now overlap,
@@ -200,16 +200,16 @@ At E ≈ 0.0055 Ha two BO levels sit 20 µHa (0.5 meV) apart — `ω₁⁹` (`Ry
 **154 µHa (4.2 meV) apart**. The near-degeneracy is split about eightfold, and
 asymmetrically: `ω₁⁹` moves −0.04 meV while `ω₃³` moves +3.60 meV.
 
-```{figure} figures/h2p-exact-2d-resonance-state-pair-a.png
+![Resonance state omega_1^9](figures/h2p-exact-2d-resonance-state-pair-a.png)
+
 `ω₁⁹` (`Ry₉`, `v=1`): diffuse, ~9 radial lobes reaching past 250 bohr, one node
 in `R`. Overlap with its BO product 0.970 — nearly pure, and it barely moves.
-```
 
-```{figure} figures/h2p-exact-2d-resonance-state-pair-b.png
+![Resonance state omega_3^3](figures/h2p-exact-2d-resonance-state-pair-b.png)
+
 `ω₃³` (`Ry₃`, `v=3`): compact, confined inside ~70 bohr, three nodes in `R`.
 Overlap 0.783 — strongly mixed, and it carries almost the whole 4.2 meV
 splitting.
-```
 
 The node counts confirm the assignment independently of the overlap: the two
 states differ in both Rydberg index and vibrational quantum number, so they
@@ -221,14 +221,14 @@ labels without contradicting the pictures.
 The pair above localises the effect *between* two states. This pair localises it
 *inside one*: the same pole drawn beside the BO product it is supposed to be.
 
-```{figure} figures/h2p-exact-2d-resonance-state-vs-bo-exact.png
-The exact 2-D pole at `E_tot = −0.093680` Ha (E ≈ 0.0039 Ha), Γ = 5.6 × 10⁻⁷ Ha.
-```
+![Exact 2-D resonance state](figures/h2p-exact-2d-resonance-state-vs-bo-exact.png)
 
-```{figure} figures/h2p-exact-2d-resonance-state-vs-bo-product.png
+The exact 2-D pole at `E_tot = −0.093680` Ha (E ≈ 0.0039 Ha), Γ = 5.6 × 10⁻⁷ Ha.
+
+![The Born-Oppenheimer product it is compared against](figures/h2p-exact-2d-resonance-state-vs-bo-product.png)
+
 The BO product `φ_Ry4(r;R)·χ_v=2(R)` at `E_BO = −0.093564` Ha — the state the
 approximation asserts the one above is.
-```
 
 They share a core: five radial lobes, two nodes in `R`, the same turning
 surface. The difference is the extra amplitude the exact state carries near
@@ -265,7 +265,7 @@ levels to ~10⁻⁷ Ha (`validation/h2plus/reference_levels.py`, gated).
 | pole POSITIONS are box-converged | `r_max` 300 → 600 moved them 3e-9 or less |
 | the pole COUNT is **not** converged | 18→22, 13→10, 14→13 across the three windows — and not even monotone |
 | per-level shifts for the 6 `basis-limited` poles | **not quoted** — their partner is outside the basis |
-| σ_DR near a threshold | **wrong**, 100–700× too large — see {doc}`h2plus-dr`, issue #25 |
+| σ_DR near a threshold | **wrong**, 100–700× too large — see [`h2plus-dr.md`](h2plus-dr.md), issue #25 |
 
 The box-convergence claim carries a qualification, and `real_weight` sharpens it
 into a warning. `electronic_box` keeps the inner segments fixed and lays the

@@ -354,7 +354,7 @@ for physics. This ripple does not affect the centroid/width comparison above
   $\theta$-independence and refinement-stability at `WORKING_GRID`, tolerance `1e-5`
   (measured
   spreads 1.9e-06 / 2.4e-06, ~5× headroom) — **PASS**.
-- `projects/n2_2d_cross_section/test_anchors.py`: internal sanity, the V4 Houfek gate
+- `validation/n2/test_anchors.py`: internal sanity, the V4 Houfek gate
   (`GATED_RTOL=1e-3`), "exact is never worse than the LCP at gated anchors," and the
   V6 measurement that the exact model closes both LCP NOTEs — **PASS** (4 tests).
 - `projects/n2_2d_cross_section/test_nuclear_density.py`: density projection machinery

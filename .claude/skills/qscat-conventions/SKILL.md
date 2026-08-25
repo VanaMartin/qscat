@@ -33,9 +33,11 @@ handle.
   `\begin{align}` does not render on github.com.
 - **Published equation numbers** use `\tag{15}`, with the page locator in
   the surrounding prose (see `mastering-references`).
-- **Labelled equations** (`$$...$$ (eq-name)` plus the `{eq}` role) only
-  where the note genuinely writes "Eq. (3)" — the label is literal text on
-  github.com, so it is a deliberate cost.
+- **No `{eq}` cross-references in a note.** The `$$...$$ (eq-name)` label and
+  the `{eq}` role both show as literal text on github.com, and the portability
+  test flags the role. Where a note genuinely writes "Eq. (3)", use `\tag{3}`
+  on the equation and refer to it in prose. Labelled equations are available on
+  site-first pages, where nobody reads the source.
 - **No custom macros.** Spell out `\Psi^{(+)}`, `\sigma_\mathrm{DA}`.
 - Atomic units are stated once per note, not per equation.
 - **Headings stay plain unicode.** A heading also renders in the sidebar and in
@@ -44,12 +46,41 @@ handle.
 - **Inside a Markdown table cell, never write a bare `|` in maths** — it is
   read as a column separator, which splits the row and silently drops a cell
   from the built page without any build warning. Use `\vert` (or `\lvert` /
-  `\rvert`). Short level labels like `v = 0` are better left as plain text in
-  table cells for the same reason.
-- `sphinx-design` directives (`{dropdown}`, `{grid}`, `{tab-set}`) are for
-  site-first pages only — `docs/molecules/` and the section index pages.
+  `\rvert`).
+- **Short level labels stay backticked** — `v = 0`, `v'=1`, `Ry₄`. This is a
+  deliberate exception to the backticks-are-for-code rule and the dominant
+  practice in the notes (`exact-2d-resonances.md` alone carries ~20 of them).
+  A backticked label needs no MathJax, so it survives a table cell without a
+  `\vert` hazard and reads identically in both renderers. Use maths for a level
+  only when it appears inside a larger expression.
+- **MyST directives and roles are for site-first pages only** — `docs/molecules/`
+  and the section index pages. That covers `{toctree}`, `{figure}` and the
+  `sphinx-design` set (`{dropdown}`, `{grid}`, `{tab-set}`) as well as inline
+  roles like `{doc}`. In a note, embed a figure as a plain markdown image with
+  the caption as ordinary prose, and link to a sibling note with a relative
+  markdown link — ``[`other-note.md`](other-note.md)`` — which resolves in a
+  clone and on the site alike.
 
-`tests/test_docs_portability.py` enforces all of this.
+### What is enforced, and what is convention-by-review
+
+`tests/test_docs_portability.py` scans every `docs/physics/*.md` outside its
+`SITE_FIRST_PAGES` allowlist and **mechanically enforces five** of the rules
+above:
+
+| rule | detector |
+|---|---|
+| no MyST directives (any name, ` ``` ` or `:::` form) | `find_myst_directives` |
+| no MyST inline roles (`{doc}`, `{ref}`, …) | `find_myst_roles` |
+| no `$` in a heading | `find_math_in_headings` |
+| no bare `\begin{align\|gather\|equation}` outside `$$` | `find_bare_math_environments` |
+| no LaTeX macro definitions, in a note **or** in `docs/conf.py` | `find_macro_definitions`, `test_conf_py_defines_no_mathjax_macros` |
+
+Everything else on this page is **convention, checked by review**: backticks
+reserved for code identifiers, `$...$` vs `$$...$$` placement, `\tag{}` for
+published equation numbers, bare `|` inside a table cell, level labels staying
+backticked, and stating atomic units once per note. Backticked unicode that is really maths
+(`` `sigma` ``, `` `Gamma(R)` ``) is deliberately **not** detected — the false-
+positive rate against legitimate identifiers is too high to gate on.
 
 ### Canonical symbols
 

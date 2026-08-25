@@ -228,7 +228,7 @@ adjacent-node overlaps `c_product(φ_d(R_j), φ_d(R_{j+1}))` are positive, minim
 one: at each `R`, the fixed-nuclei electron scattering function at the *real part* of
 the ECS resonance energy, smoothly truncated by Eq. (69). Where the anion is genuinely
 bound the pole walk reports a negative shift and the state is the bound eigenvector
-instead, used raw. This is exactly the quantity `qscat.ecs.resonance_pole_walk`
+instead, used raw. This is exactly the quantity `qscat.core.lcp.resonance_pole_walk`
 computes and `qscat.core.lcp` uses directly as its $V_d$/$\Gamma$ curve — so choice A
 is the nonlocal model's counterpart of the LCP's own discrete state.
 
@@ -267,7 +267,7 @@ $F \equiv 0$ wherever either argument is on the bound branch is likewise intende
 open continuum means no autodetachment, and the DA exit channel propagates on the
 real $V_d(R)$.
 
-## 4. Naming: PRA 77's $V_d$ is *not* qscat's LCP `Vd`
+## 4. Naming: PRA 77's V_d is *not* qscat's LCP `Vd`
 
 A genuine collision, and worth stating plainly because both appear in this repo:
 
@@ -627,8 +627,8 @@ Sec. VI B's "gives exact results" sentence for DA rests on the single F₂ panel
 NO run here is an **extension beyond the paper's tested range**, at more than twice the
 highest energy the paper studied for NO — not a comparison against it. The reference
 note `reference/literature/houfek-2008-pra77-012710.md` was corrected for exactly this
-over-generalization (commits `4725fd9`, `c0fa799`) and now carries the panel inventory
-and the threshold table; the claim that PRA 77 demonstrates exact DA "in all three
+over-generalization and now carries the panel inventory and the threshold table;
+the claim that PRA 77 demonstrates exact DA "in all three
 molecules" is the false premise that drove a substantial part of this investigation in
 the wrong direction.
 
@@ -729,7 +729,7 @@ coupling matrix elements $V_{dk}^{\pm}$ are in general complex even when the dis
 state is real" (p. 012710-4). A mismatch between the two terms is invisible in either
 term alone and wrong in their sum.
 
-### 8.2 $\phi^{-}$, and the gate that checks it
+### 8.2 φ⁻, and the gate that checks it
 
 `scattering.scattering_state_minus` builds the incoming-boundary continuum state as
 $\overline{\phi^{+}}$ masked to the real region, per Eq. (34). It is **not** consumed
@@ -793,10 +793,21 @@ N₂ is within 5e-15 of the untruncated sum.
 
 ### 8.4 Measured: the nonlocal model reproduces the exact VE cross section
 
-Same decks as §7, `v_init = 0`, `n_states = 100`, SuperLU. The oracle is
-`qscat.core.driven.ve_cross_section`. N₂ was run at 11 energies over 0.06–0.16 Ha and
-F₂ at 6 over 0.02–0.09 Ha, both inside the paper's own plotted windows (N₂ VE is
-plotted over 0.05–0.17 Ha in Fig. 4; F₂ VE 0→1 over 0–0.10 Ha in Fig. 6).
+`v_init = 0`, `n_states = 100`, SuperLU. The oracle is
+`qscat.core.driven.ve_cross_section`. **The decks are not both §7's.** F₂ runs §7's
+own deck exactly — `validation.diatomic.config`'s `da_grid()`, electronic
+`r_max = 16, order = 8, n_complex = 6` (n = 132) × the 974-point nuclear deck. N₂ has
+no `validation/` deck of its own and runs `qscat_run.presets`' `N2:emoscat` TI grid
+instead: electronic `r_max = 16, order = 7, n_complex = 5` (n = 107) × 251 nuclear
+points — a coarser electronic factor than §7's. Both are read off
+`validation/diatomic/ve_nrm.py`'s `_ELEC_PARAMS`/`_deck`, and `setup` asserts the
+second-ECS-angle rebuild reproduces each deck's electronic factor node-for-node, so a
+drift between the two cannot pass silently.
+
+N₂ was run at 11 energies over 0.06–0.16 Ha and F₂ at 6 over 0.02–0.09 Ha, both inside
+the paper's own plotted windows (N₂ VE is plotted over 0.05–0.17 Ha in Fig. 4; F₂ VE
+0→1 over 0–0.10 Ha in Fig. 6). The bands below are what those runs recorded; the gate
+reruns all 11 of N₂'s but only the two of F₂'s six that bind its band (§8.9).
 
 $\sigma_\mathrm{route}/\sigma_\mathrm{exact}$, as a band **over those energies** — not over every energy in the
 window; the denser figure grid widens two of them, and §8.9 says by how much:
@@ -973,9 +984,16 @@ which writes both the PNG and the `.npz` of all six curves (~14 min; the exact 2
 sweep dominates). The `.npz` is gitignored, like every other figure's data in this
 repo — rerun the driver to regenerate it.
 
-**Every recorded band in `test_ve_nrm.py` is measured on the gate's own 11 energies, not
-on every energy in the window**, and two of them are visibly tighter than the dense
-sweep. Choice B widens from `_BANDS["N2"] = (0.995, 1.005)` to **0.99454–1.00065** —
+**Every recorded band in `test_ve_nrm.py` is measured on an anchor grid, not on every
+energy in the window**, and two of them are visibly tighter than the dense sweep. The
+anchor grid is not the same for both molecules: N₂'s bands are measured on the 11
+energies the gate runs, but F₂'s were recorded on the original six-energy sweep and the
+gate now runs only the two anchors that bind them (`E = 0.02`, choice B's band maximum
+and choice A's worst error; `E = 0.04`, choice B's band minimum — the other four sat
+strictly inside, so dropping them removed cost and no constraint, and cut the run from
+1818 s to 705 s). Widening `_ENERGIES["F2"]` back to six is a deliberate act.
+
+Choice B widens from `_BANDS["N2"] = (0.995, 1.005)` to **0.99454–1.00065** —
 still inside the 0.7 % headline. Choice A's 0→1 ratio reaches **1.13260** densely,
 outside the recorded `_BAND_N2_01 = (0.80, 1.10)`. Both are grid-sampling differences,
 not regressions: a coarse sweep straddles the boomerang peaks where the approximations
@@ -988,10 +1006,17 @@ deviations behave the same way (§8.6).
 
 On the 12-core laptop, one `validation.diatomic.ve_nrm.compare` call — all six curves,
 both choices, both background settings — costs **94.9 s for N₂** at 11 energies (exact
-2-D sweep ~63 s, LCP pole walk 4 s, ~2.1–2.6 s per energy per NRM curve) and **745.9 s
-for F₂** at 6 (the exact 2-D sweep alone is ~77 s per energy at 128,568 unknowns and
-~10 GB peak RSS). Measured on the figure's own 101-energy run: 10.5 s of fixed setup
-plus 8.0 s per energy for all six curves. As with DA, the exact solve dominates and
+2-D sweep ~63 s, LCP pole walk 4 s, ~2.1–2.6 s per energy per NRM curve) and, for F₂,
+**705 s at the two anchors the gate runs** against **1818 s** for the full six-energy
+sweep. (An earlier 745.9 s figure for that six-energy sweep is **superseded**: it did
+not reproduce when `test_ve_nrm.py` re-measured both grids back to back on the same
+idle machine, and `_ENERGIES` records 1818 s as the current cost on this hardware.
+That decomposes as ~278 s per energy against ~149 s of fixed setup, so the saving
+really does scale with the energy count.) F₂'s cost is dominated by the exact 2-D
+sweep at 128,568 unknowns and ~10 GB peak RSS, on top of a 22 s LCP pole walk, 33 s
+of grid setup, 2 × 14 s of ingredients and ~10–12 s per energy per NRM curve.
+Measured on the figure's own 101-energy run: 10.5 s of fixed setup plus 8.0 s per
+energy for all six curves. As with DA, the exact solve dominates and
 sets peak RSS; run the two molecules serially.
 
 ## 9. What was not explained, and what it turned out to be

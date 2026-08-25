@@ -360,7 +360,7 @@ solve runs in ~8 s/energy on the `sadaharu` host with the OpenMP MUMPS backend.
 Where the peaks in this cross section come from -- the exact 2-D poles, the
 Born-Oppenheimer levels they are conventionally assigned to, the wavefunctions
 of both, and the four angle-stable states that turn out not to be resonances --
-is {doc}`h2plus-resonance-states`. That note also uses this sweep as its
+is [`h2plus-resonance-states.md`](h2plus-resonance-states.md). That note also uses this sweep as its
 measuring instrument: the poles land on its peaks to 0.2-0.3 resonance widths.
 
 ## Follow-ons

@@ -17,9 +17,11 @@ by this work; this note covers step 2, the nuclear eigenvalue problem in that cu
 
 ## 1. What this computes
 
-The thesis writes the LCP curve and the resulting nuclear Hamiltonian as
+The thesis and its published counterpart write the LCP curve and the resulting
+nuclear Hamiltonian as
 
-Eq. (41) and Sec. IV of Váňa & Houfek 2017, PRA 95:
+Eq. (41) and Sec. IV of M. Váňa & K. Houfek, Phys. Rev. A **95**, 022714 (2017),
+p. 022714-4:
 
 $$
 \begin{aligned}
@@ -89,9 +91,9 @@ not be conflated:
 
 | | Siegert pseudostates (Hvizdoš et al., App. A) | This work |
 |---|---|---|
-| Operator | `H_N = -1/(2M) d^2/dR^2 + V0(R)` — the **ion/neutral** curve, real | $H_N = T(\mu) + V_\mathrm{res}(R)$ — the **anion** curve, complex |
-| Boundary | outgoing-wave at a **finite** radius `a`: `(d/dR - i K_j) phi_j\|_a = 0` (their Eq. A4) | ECS rotation of the tail; Dirichlet at both ends |
-| Orthogonality | bilinear **plus a surface term**, `int_0^a phi_j phi_j' dR + i phi_j(a) phi_j'(a)/(K_j + K_j') = delta` (their Eq. A5) | plain bilinear c-product over the whole rotated grid |
+| Operator | $H_N = -\frac{1}{2M}\frac{\mathrm{d}^2}{\mathrm{d}R^2} + V_0(R)$ — the **ion/neutral** curve, real | $H_N = T(\mu) + V_\mathrm{res}(R)$ — the **anion** curve, complex |
+| Boundary | outgoing-wave at a **finite** radius $a$: $\left(\frac{\mathrm{d}}{\mathrm{d}R} - iK_j\right)\phi_j\rvert_{R=a} = 0$ (their Eq. A4) | ECS rotation of the tail; Dirichlet at both ends |
+| Orthogonality | bilinear **plus a surface term**, $\int_0^a \phi_j\phi_{j'}\,\mathrm{d}R + i\,\phi_j(a)\phi_{j'}(a)/(K_j + K_{j'}) = \delta_{jj'}$ (their Eq. A5) | plain bilinear c-product over the whole rotated grid |
 | Purpose | a complete basis for an MQDT frame transformation | the physical quasi-bound levels themselves |
 
 Docstrings and this note call these **complex-scaled (ECS) resonance eigenstates** or,
@@ -168,7 +170,7 @@ a bound-states-only spectrum.
 
 **The real/ECS-tail junction in `Gamma`.** `_assemble_lcp` force-zeroes `Gamma` in the
 rotated tail. If the walk's `Gamma` is not already ~0 at the outermost *real* node, the
-local complex potential `W = V_d - i Gamma/2` **steps** at the junction and the tail
+local complex potential $W(R) = V_d(R) - \tfrac{i}{2}\Gamma(R)$ **steps** at the junction and the tail
 reflects the outgoing dissociative wave instead of absorbing it. That condition now
 warns (`_JUNCTION_GAMMA_TOL = 1e-8`); the fix is to extend the real region outward until
 the autodetachment width has died off. It does not fire on the F2 preset deck.
@@ -420,7 +422,8 @@ anion levels exist above the crossing is open, and the way to settle it is the
 real F2 preset grid, the electronic pole walk leaves a spurious `Gamma` ~2.3e-5 at
 R≈2.597, right where the anion curve crosses the neutral (`Vd = v0`) and `Gamma` must
 be exactly zero — the imaginary part is nonzero only where `v0(R) < E_res(R)`
-(Vana & Houfek 2017, PRA 95, Sec. IV). This persists at **both** the default 0.05 and
+(Váňa & Houfek 2017, PRA **95**, 022714, Sec. IV, p. 022714-4, the sentence
+immediately after Eq. (41)). This persists at **both** the default 0.05 and
 the tightened 0.01 electronic-walk half-widths — it is grid-dependent, traced to the
 outer real-segment count, not simply a half-width setting (the library's own toy test
 grid *does* clear it at 0.01: 2.17e-5 -> 3.0e-14 there). Consequently **every F2
