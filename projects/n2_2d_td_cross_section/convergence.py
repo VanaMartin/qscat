@@ -65,15 +65,24 @@ TD_WORKING_GRID: dict = {
         # checking sigma_TD is unchanged) -- that sweep is future work, out
         # of scope here.
         "r_max": 50.0,
-        "order": 8,  # unchanged from #6's TI working grid.
-        "n_complex": 6,  # unchanged from #6's TI working grid.
+        # order=8 and n_complex=6 are each one step ABOVE #6's TI working
+        # grid (order=7, n_complex=5). The TI grid's own sweep measured
+        # order 7->8 as its largest single-axis change (3.4e-7 relative)
+        # and n_complex 5->8 as 4.1e-8, so the extra element and the extra
+        # order are cheap insurance for a propagated wavepacket rather
+        # than a convergence requirement measured here.
+        "order": 8,
+        "n_complex": 6,
     },
     "nuclear": {
-        # Matches Task 1-4's test-scale nuclear grid (same as #6's TI
-        # working grid, `quadrature=10, r_max=22, n_complex=5`); the
-        # vibrational bound states (R ~ 1.5-3 bohr) sit entirely inside the
-        # real region, so nothing about the TD propagation needs a bigger
-        # nuclear box.
+        # Task 1-4's test-scale nuclear grid: `quadrature=10` and
+        # `n_complex=5` match #6's TI working grid; `r_max=22` is 2 bohr
+        # wider than the TI grid's `nuc_r_max=20`. That difference costs
+        # nothing -- the TI sweep measured nuc_r_max 20->30->40 at 6.2e-13
+        # relative and it does not change the nuclear point count at all
+        # (only the ECS tail element length). The vibrational bound states
+        # (R ~ 1.5-3 bohr) sit entirely inside the real region, so nothing
+        # about the TD propagation needs a bigger nuclear box.
         "quadrature": 10,
         "r_max": 22.0,
         "n_complex": 5,
@@ -90,8 +99,8 @@ TD_WORKING_GRID: dict = {
     "pade_order": 3,
     "wp_in": {
         # r0=25: launched well inside the box (see r_max's comment above),
-        # far enough out that dt=0.5/n_steps=3000 is enough time to travel
-        # in, interact, and let the resonance decay.
+        # far enough out that dt=1.0/n_steps=1500 (T=1500 a.u.) is enough
+        # time to travel in, interact, and let the resonance decay.
         "r0": 25.0,
         # p0=-0.5 (inward): p0**2/2 = 0.125 Ha sits BETWEEN the two TI
         # anchor energies (0.10, 0.15), so the incident spectral weight

@@ -14,11 +14,12 @@ the same `N_VIB` the anchor tables use, so results here are directly
 comparable to `exact2d.compute_exact2d_results()` at any shared
 `(energy, channel)` coordinate.
 
-`projects/` must not import `validation/` -- this module is the one place
-allowed to do the reverse (validation importing projects is fine, same
-rationale as `exact2d.py`'s own docstring), so it is also the only place
-that reads Houfek's file (`houfek_reference`) and hands the resulting plain
-arrays to the generic, Houfek-agnostic `plot_cross_sections`.
+The layering rule is one-directional: `validation/` may import `projects/`
+(several modules here do, `exact2d.py` among them), while `projects/` must
+not import `validation/`. That is why the Houfek data stays on this side --
+this module reads the golden file (`houfek_reference`) and hands the
+resulting plain arrays to the generic, Houfek-agnostic
+`plot_cross_sections`, which knows nothing about the reference.
 
 Run: `uv run python -m validation.n2.ti_curve` (Task 3, Step 3) -- full
 density over the working grid costs MINUTES (one sparse LU per energy on

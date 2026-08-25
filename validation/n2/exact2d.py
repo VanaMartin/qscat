@@ -77,7 +77,7 @@ __all__ = ["GATED_RTOL", "Exact2dResult", "build_system", "compute_exact2d_resul
 # run-to-run solver/BLAS variation, while remaining orders of magnitude
 # tighter than the LCP's own cross-model `reference.ANCHOR_FACTOR = 3.0`
 # band. Defined ONCE here and imported by both
-# `projects/n2_2d_cross_section/test_anchors.py` and
+# `validation/n2/test_anchors.py` and
 # `validation/n2/experiment.py` (Group E) so the two cannot drift apart.
 GATED_RTOL = 1e-3
 

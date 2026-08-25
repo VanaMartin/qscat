@@ -20,10 +20,15 @@ the eMoScat TI extraction sections 3-4:
 - Cross section: `sigma_{v_init->v'}(E) = 4*pi**3*|S|**2/(2*E)`, set to 0
   if the final channel is energetically closed (`E_tot - eps_{v'} <= 0`).
 
-Efficiency: `xi` depends only on `(E, v_init)`, not on `v'`, so it is solved
-for once per `E` and then reused (a single dot product per `v'`) for every
-channel in `vprimes` -- the "reuse the LU across vprimes at fixed E" of the
-task brief.
+Efficiency, precisely: `xi` depends only on `(E, v_init)`, not on `v'`, so
+one dense `np.linalg.solve` per energy serves every channel in `vprimes` --
+each `v'` costs only a dot product against the same `xi`. That is the whole
+of the reuse here. NOTHING is reused ACROSS energies: `_sigma_at_one_energy`
+rebuilds `T`, `H_res` and `M` and re-solves from scratch at every `E`, and no
+factorization object is kept (`np.linalg.solve` returns none). Sweep-level
+reuse -- factoring once and refactoring the diagonal shift `E_tot*I - H` per
+energy -- is `qscat.linalg.SparseLU.refactor`'s job, used by the sparse 2-D
+solvers; this 1-D toy model deliberately stays dense and simple.
 """
 
 from __future__ import annotations
