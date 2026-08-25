@@ -42,3 +42,4 @@ reference/literature/*.ps
 # Claude Code worktrees (embedded checkouts, never part of this repo)
 .claude/worktrees/
 .worktrees/
+.superpowers/
