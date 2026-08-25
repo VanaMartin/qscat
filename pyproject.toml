@@ -132,6 +132,8 @@ ignore = ["RUF001", "RUF002", "RUF003"]
 # `l` is the standard physics symbol for the orbital angular momentum quantum
 # number (see libs/qscat/qscat/core/correlation.py's own E741 ignore above).
 "libs/qscat/tests/test_correlation.py" = ["E741"]
+# Same rationale -- transcribes the radial functions' `l` parameter verbatim.
+"libs/qscat/tests/test_kernel_consolidation_oracle.py" = ["E741"]
 
 [tool.mypy]
 python_version = "3.12"
