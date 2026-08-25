@@ -23,14 +23,14 @@ from qscat.dvr import TensorGrid, hamiltonian_nd, potential_nd
 from qscat.model import DiatomicResonanceModel
 
 __all__ = [
-    "y_p",
-    "SmoothR",
     "FlexibleDiatomicModel",
+    "SmoothR",
     "from_diatomic",
-    "params",
-    "with_params",
     "pack",
+    "params",
     "unpack",
+    "with_params",
+    "y_p",
 ]
 
 

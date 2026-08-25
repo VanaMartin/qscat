@@ -35,8 +35,8 @@ from scipy.special import spherical_jn, spherical_yn
 
 __all__ = [
     "riccati_bessel_en",
-    "riccati_hankel_en",
     "riccati_bessel_en_mass",
+    "riccati_hankel_en",
     "riccati_hankel_en_mass",
 ]
 

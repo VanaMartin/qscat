@@ -33,7 +33,7 @@ import scipy.sparse as sp
 
 from qscat.dvr import TensorGrid, hamiltonian_nd, potential_nd
 
-__all__ = ["ResonanceModel", "DiatomicResonanceModel"]
+__all__ = ["DiatomicResonanceModel", "ResonanceModel"]
 
 
 @runtime_checkable

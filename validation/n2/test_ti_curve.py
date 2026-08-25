@@ -36,6 +36,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
+import pytest
 from qscat.dvr import TensorGrid
 
 from projects.n2_2d_cross_section.cross_section_plot import plot_cross_sections
@@ -44,8 +45,6 @@ from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 from validation.n2 import reference
 from validation.n2.exact2d import GATED_RTOL, compute_exact2d_results
 from validation.n2.ti_curve import compute_ti_curve, houfek_reference
-
-import pytest
 
 # Both solving tests below consume the production WORKING_GRID (N=26857;
 # measured 26.6 s + 9.5 s), and the Houfek anchor gate's GATED_RTOL is

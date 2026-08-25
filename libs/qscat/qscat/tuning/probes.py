@@ -68,10 +68,10 @@ if TYPE_CHECKING:
 
 __all__ = [
     "ProbeResult",
-    "refine",
-    "probe_nuclear",
-    "probe_electronic",
     "probe_channel_representation",
+    "probe_electronic",
+    "probe_nuclear",
+    "refine",
 ]
 
 

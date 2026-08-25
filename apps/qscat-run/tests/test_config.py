@@ -64,7 +64,7 @@ def test_lcp_rejected_for_n2(tmp_path: Path) -> None:
     """,
         )
     )
-    with pytest.raises(ConfigError, match="lcp.*not available"):
+    with pytest.raises(ConfigError, match=r"lcp.*not available"):
         validate_config(cfg)
 
 
@@ -99,7 +99,7 @@ def test_lcp_with_explicit_grid_rejected(tmp_path: Path) -> None:
     """,
         )
     )
-    with pytest.raises(ConfigError, match="lcp.*does not support an explicit grid"):
+    with pytest.raises(ConfigError, match=r"lcp.*does not support an explicit grid"):
         validate_config(cfg)
 
 
@@ -161,7 +161,7 @@ def test_nrm_rejected_for_the_ion(tmp_path: Path) -> None:
     """,
         )
     )
-    with pytest.raises(ConfigError, match="nrm.*not available"):
+    with pytest.raises(ConfigError, match=r"nrm.*not available"):
         validate_config(cfg)
 
 
@@ -220,7 +220,7 @@ def test_nrm_with_explicit_grid_rejected(tmp_path: Path) -> None:
     """,
         )
     )
-    with pytest.raises(ConfigError, match="nrm.*does not support an explicit grid"):
+    with pytest.raises(ConfigError, match=r"nrm.*does not support an explicit grid"):
         validate_config(cfg)
 
 
@@ -272,7 +272,7 @@ def test_dr_on_neutral_rejected(tmp_path: Path) -> None:
     """,
         )
     )
-    with pytest.raises(ConfigError, match="dr.*H2P|not valid for F2"):
+    with pytest.raises(ConfigError, match=r"dr.*H2P|not valid for F2"):
         validate_config(cfg)
 
 

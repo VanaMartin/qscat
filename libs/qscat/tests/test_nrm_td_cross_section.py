@@ -250,7 +250,7 @@ def f2_lcp(f2_deck):
 
 
 def test_markovian_requires_the_local_potential(small_deck):
-    nuc, elec, phi_d, ing, eps, chi = small_deck
+    nuc, elec, phi_d, _ing, eps, chi = small_deck
     with pytest.raises(ValueError, match="needs both Vd and Gamma"):
         td_nrm_da_cross_section(
             nuc, elec, F2, phi_d, eps, chi, 0, 0.03, markovian=True, dt=1.0, n_steps=2
@@ -259,7 +259,7 @@ def test_markovian_requires_the_local_potential(small_deck):
 
 def test_the_local_potential_is_rejected_without_markovian(small_deck):
     """Silently ignoring `Vd`/`Gamma` would return a nonlocal answer to a local call."""
-    nuc, elec, phi_d, ing, eps, chi = small_deck
+    nuc, elec, phi_d, _ing, eps, chi = small_deck
     with pytest.raises(ValueError, match="markovian=True arguments"):
         td_nrm_da_cross_section(
             nuc,
@@ -278,7 +278,7 @@ def test_the_local_potential_is_rejected_without_markovian(small_deck):
 
 
 def test_markovian_rejects_an_arm_count(small_deck):
-    nuc, elec, phi_d, ing, eps, chi = small_deck
+    nuc, elec, phi_d, _ing, eps, chi = small_deck
     with pytest.raises(ValueError, match="no projected-state arms"):
         td_nrm_da_cross_section(
             nuc,
@@ -538,7 +538,7 @@ def test_markovian_ve_rejects_the_background(small_deck):
     term plus a nonlocal background -- and return it under a call that reads
     as the LCP.
     """
-    nuc, elec, phi_d, ing, eps, chi = small_deck
+    nuc, elec, phi_d, _ing, eps, chi = small_deck
     with pytest.raises(ValueError, match="include_background=False"):
         td_nrm_ve_cross_section(
             nuc,
@@ -559,7 +559,7 @@ def test_markovian_ve_rejects_the_background(small_deck):
 
 
 def test_markovian_ve_requires_the_local_potential(small_deck):
-    nuc, elec, phi_d, ing, eps, chi = small_deck
+    nuc, elec, phi_d, _ing, eps, chi = small_deck
     with pytest.raises(ValueError, match="needs both Vd and Gamma"):
         td_nrm_ve_cross_section(
             nuc,

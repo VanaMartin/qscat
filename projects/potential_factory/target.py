@@ -9,7 +9,7 @@ import numpy as np
 import numpy.typing as npt
 from scipy.interpolate import CubicSpline, RegularGridInterpolator
 
-__all__ = ["Curve", "NeutralTarget", "ResonanceTarget", "CouplingTarget", "Provenance", "Target"]
+__all__ = ["CouplingTarget", "Curve", "NeutralTarget", "Provenance", "ResonanceTarget", "Target"]
 
 FArr = npt.NDArray[np.float64]
 

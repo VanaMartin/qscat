@@ -26,7 +26,7 @@ def test_scalar_mag_is_unchanged() -> None:
     # Regression guard: the widening must not alter existing scalar behaviour.
     z = np.array([[1 + 1j, 0.5], [0.0, 2.0]], dtype=np.complex128)
     hsv = complex_to_hsv(z, 2.0)
-    assert hsv.shape == z.shape + (3,)
+    assert hsv.shape == (*z.shape, 3)
     assert np.all((hsv >= 0.0) & (hsv <= 1.0))
     # |z|=2 at mag=2 saturates value to exactly 1.0
     assert hsv[1, 1, 2] == pytest.approx(1.0)

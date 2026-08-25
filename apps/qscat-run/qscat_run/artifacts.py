@@ -28,12 +28,12 @@ from typing import Any
 
 import matplotlib
 
-matplotlib.use("Agg")  # noqa: E402 -- must precede pyplot import
+matplotlib.use("Agg")
 
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import numpy.typing as npt  # noqa: E402
-import yaml  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import numpy.typing as npt
+import yaml
 
 from qscat_run.config import ExperimentConfig
 from qscat_run.reference import config_base_dir, load_reference
@@ -75,7 +75,7 @@ def _git_sha() -> str:
             cwd=Path(__file__).resolve().parent,
         )
         return out.stdout.strip() or "unknown"
-    except Exception:  # noqa: BLE001 -- provenance is best-effort, never fatal
+    except Exception:
         return "unknown"
 
 

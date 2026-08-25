@@ -71,14 +71,14 @@ if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
 __all__ = [
-    "local_complex_potential",
+    "ResonanceLevels",
     "lcp_da_cross_section",
-    "resonance_pole_walk",
+    "lcp_resonance_levels",
+    "local_complex_potential",
     "resonance_eigenstate",
     "resonance_eigenstate_at_peak_width",
-    "ResonanceLevels",
-    "lcp_resonance_levels",
     "resonance_levels",
+    "resonance_pole_walk",
 ]
 
 # `return_wavefunction` output types (same convention as driven/dissociation):

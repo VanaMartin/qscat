@@ -53,21 +53,21 @@ from validation.figures import FIGURE_DIR
 from validation.n2 import loader
 
 __all__ = [
-    "FIGURE_PATH",
-    "V_INIT",
-    "VPRIMES",
-    "WP_IN",
-    "WP_OUT",
     "DT",
+    "E_LIVE",
+    "FIGURE_PATH",
     "N_STEPS",
     "POSITION",
     "SURFACE",
-    "E_LIVE",
+    "VPRIMES",
+    "V_INIT",
+    "WP_IN",
+    "WP_OUT",
     "ThreeWayResult",
-    "converged_tgrid",
     "compute_live_result",
-    "recorded_note_result",
+    "converged_tgrid",
     "main",
+    "recorded_note_result",
 ]
 
 FIGURE_PATH = FIGURE_DIR / "n2-td-extractors-comparison.png"

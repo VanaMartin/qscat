@@ -22,11 +22,11 @@ from .ionic import IonicResonanceModel
 from .library import F2, H2P, N2, NO
 
 __all__ = [
-    "ResonanceModel",
-    "DiatomicResonanceModel",
-    "IonicResonanceModel",
-    "N2",
-    "NO",
     "F2",
     "H2P",
+    "N2",
+    "NO",
+    "DiatomicResonanceModel",
+    "IonicResonanceModel",
+    "ResonanceModel",
 ]

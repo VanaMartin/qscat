@@ -23,7 +23,7 @@ from __future__ import annotations
 from .diatomic import DiatomicResonanceModel
 from .ionic import IonicResonanceModel
 
-__all__ = ["N2", "NO", "F2", "H2P"]
+__all__ = ["F2", "H2P", "N2", "NO"]
 
 N2 = DiatomicResonanceModel(
     mu=12766.36,

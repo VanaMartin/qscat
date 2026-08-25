@@ -21,7 +21,7 @@ from projects.n2_2d_cross_section.hamiltonian2d import MU
 from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 
-__all__ = ["BASELINE", "WORKING_GRID", "build_tgrid", "working_tgrid", "convergence_table"]
+__all__ = ["BASELINE", "WORKING_GRID", "build_tgrid", "convergence_table", "working_tgrid"]
 
 # The anchor the study is run at: the resonance region, a well-behaved VE channel.
 STUDY_E, STUDY_VP, N_VIB = 0.2, 1, 4

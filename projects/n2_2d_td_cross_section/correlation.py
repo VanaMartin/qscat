@@ -12,4 +12,4 @@ from __future__ import annotations
 
 from qscat.core.correlation import eta_incident, eta_outgoing, outgoing_channel
 
-__all__ = ["outgoing_channel", "eta_incident", "eta_outgoing"]
+__all__ = ["eta_incident", "eta_outgoing", "outgoing_channel"]

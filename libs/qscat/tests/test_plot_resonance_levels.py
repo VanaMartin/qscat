@@ -18,7 +18,7 @@ import pytest
 
 pytest.importorskip("matplotlib")
 
-from qscat.core import plot_resonance_levels  # noqa: E402
+from qscat.core import plot_resonance_levels
 
 # Two series in the crossing geometry, deliberately NOT in matching order:
 # `exact[0]` belongs with `bo[1]` and vice versa.

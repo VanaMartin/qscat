@@ -424,15 +424,11 @@ def test_basis_complete_lets_a_neutral_caller_assert_coverage():
     orphan = np.zeros(6, dtype=np.complex128)
     orphan[5] = 1.0
     assert pair_by_overlap(-0.098 + 0j, orphan, basis).verdict == "basis-limited"
-    assert (
-        pair_by_overlap(-0.098 + 0j, orphan, basis, basis_complete=True).verdict == "spurious"
-    )
+    assert pair_by_overlap(-0.098 + 0j, orphan, basis, basis_complete=True).verdict == "spurious"
     # And it overrides thresholds rather than being combined with them.
     covering = np.array([-0.20])
     assert (
-        pair_by_overlap(
-            -0.098 + 0j, orphan, basis, covering, basis_complete=False
-        ).verdict
+        pair_by_overlap(-0.098 + 0j, orphan, basis, covering, basis_complete=False).verdict
         == "basis-limited"
     )
 
@@ -454,9 +450,7 @@ def test_real_weight_measures_the_unscaled_fraction():
 
     assert real_weight(inside, tg) == pytest.approx(1.0)
     assert real_weight(outside, tg) == pytest.approx(0.0)
-    assert real_weight(inside + outside, tg) == pytest.approx(
-        mask.sum() / tg.size, rel=1e-12
-    )
+    assert real_weight(inside + outside, tg) == pytest.approx(mask.sum() / tg.size, rel=1e-12)
     assert real_weight(np.zeros(tg.size, dtype=np.complex128), tg) == 0.0
 
 
@@ -511,9 +505,7 @@ def test_box_limited_outranks_the_match_quality_verdicts():
     basis = _toy_basis()
     blend = (basis[(0, 0)].psi + basis[(1, 1)].psi) / np.sqrt(2.0)
     assert pair_by_overlap(-0.099 + 0j, blend, basis).verdict == "mixed"
-    assert (
-        pair_by_overlap(-0.099 + 0j, blend, basis, localization=0.1).verdict == "box-limited"
-    )
+    assert pair_by_overlap(-0.099 + 0j, blend, basis, localization=0.1).verdict == "box-limited"
 
 
 def test_identity_verdicts_still_outrank_box_limited():
@@ -521,9 +513,7 @@ def test_identity_verdicts_still_outrank_box_limited():
     basis = _toy_basis()
     orphan = np.zeros(6, dtype=np.complex128)
     orphan[5] = 1.0
-    p = pair_by_overlap(
-        -0.098 + 0j, orphan, basis, basis_complete=True, localization=0.01
-    )
+    p = pair_by_overlap(-0.098 + 0j, orphan, basis, basis_complete=True, localization=0.01)
     assert p.verdict == "spurious"
     assert not p.is_resonance
 

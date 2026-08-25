@@ -38,7 +38,7 @@ from projects.n2_2d_td_cross_section import td_cross_section as td
 from projects.n2_2d_td_cross_section.correlation import eta_incident
 from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 
-__all__ = ["TD_WORKING_GRID", "td_working_tgrid", "sigma_curve", "usable_window"]
+__all__ = ["TD_WORKING_GRID", "sigma_curve", "td_working_tgrid", "usable_window"]
 
 # The converged configuration from Task 4 (the development notes,
 # "Converged configuration" + the T-scan table). Task 5 does not re-derive

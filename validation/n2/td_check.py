@@ -31,7 +31,7 @@ import numpy as np
 from projects.n2_td_cross_section.td_cross_section import td_ve_cross_section
 from validation.n2 import cross_section, reference
 
-__all__ = ["TDResult", "DT", "N_STEPS", "compute_td_results"]
+__all__ = ["DT", "N_STEPS", "TDResult", "compute_td_results"]
 
 # Propagation config: T = n_steps*dt = 1500 a.u., dt = 0.025 a.u. -- the same
 # (dt, n_steps) tuned and validated in

@@ -57,7 +57,7 @@ from qscat.exceptions import BackendError
 
 from ._mumps_backend import _check_pattern, _MumpsBackend, _pattern_of, mumps_available
 
-__all__ = ["SparseLU", "set_default_backend", "get_default_backend", "default_backend"]
+__all__ = ["SparseLU", "default_backend", "get_default_backend", "set_default_backend"]
 
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 _Backend = Literal["auto", "scipy", "mumps"]

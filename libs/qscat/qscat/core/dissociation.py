@@ -56,7 +56,7 @@ from .driven import ve_cross_section
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["anion_electronic_states", "v_dr_diag", "da_cross_section", "dr_cross_section"]
+__all__ = ["anion_electronic_states", "da_cross_section", "dr_cross_section", "v_dr_diag"]
 
 # Mirrors driven.py's re-declaration of SparseLU's private ordering Literal,
 # so `ordering` passes through to ve_cross_section type-clean.

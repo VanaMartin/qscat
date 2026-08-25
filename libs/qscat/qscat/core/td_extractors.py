@@ -159,7 +159,7 @@ from .time_dependent import (
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
-__all__ = ["TannorWeeks", "Dirac", "Flux"]
+__all__ = ["Dirac", "Flux", "TannorWeeks"]
 
 _WpIn = dict[str, float]
 _WpOut = dict[str, float]

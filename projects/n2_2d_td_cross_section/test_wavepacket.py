@@ -56,7 +56,7 @@ def test_initial_state_is_unit_hermitian_norm_and_separable() -> None:
     assert abs(float(np.linalg.norm(psi)) - 1.0) < 1e-10
     # separable: reshape factorizes to outer(g_coeff, chi) up to scale
     block = psi.reshape(TG.shape)
-    u, s, vh = np.linalg.svd(block)
+    _u, s, _vh = np.linalg.svd(block)
     assert s[0] / s.sum() > 0.999  # essentially rank-1
 
 

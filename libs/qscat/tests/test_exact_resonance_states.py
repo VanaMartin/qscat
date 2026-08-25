@@ -338,13 +338,9 @@ def test_ecs_angle_family_rejects_a_degenerate_angle_pair() -> None:
     from qscat.exceptions import GridError
 
     with pytest.raises(GridError, match="electronic_angles must differ"):
-        ecs_angle_family(
-            _elec, _nuc, electronic_angles=(35.0, 35.0), nuclear_angles=(25.0, 30.0)
-        )
+        ecs_angle_family(_elec, _nuc, electronic_angles=(35.0, 35.0), nuclear_angles=(25.0, 30.0))
     with pytest.raises(GridError, match="nuclear_angles must differ"):
-        ecs_angle_family(
-            _elec, _nuc, electronic_angles=(35.0, 44.0), nuclear_angles=(25.0, 25.0)
-        )
+        ecs_angle_family(_elec, _nuc, electronic_angles=(35.0, 44.0), nuclear_angles=(25.0, 25.0))
 
 
 # --- persistence -------------------------------------------------------------

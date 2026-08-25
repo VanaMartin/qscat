@@ -15,7 +15,7 @@ import numpy.typing as npt
 from .grid import FemDvrEcsGrid
 from .kinetic import kinetic
 
-__all__ = ["hamiltonian", "eigen"]
+__all__ = ["eigen", "hamiltonian"]
 
 PotentialLike = Callable[[npt.NDArray[np.complex128]], npt.ArrayLike] | npt.ArrayLike
 

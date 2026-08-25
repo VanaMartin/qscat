@@ -19,13 +19,13 @@ import numpy as np
 import numpy.typing as npt
 
 __all__ = [
-    "ReferenceSpec",
     "REFERENCE_FORMATS",
-    "load_reference",
-    "resolve_path",
-    "config_base_dir",
-    "peek_n_channels",
+    "ReferenceSpec",
     "bad_channels",
+    "config_base_dir",
+    "load_reference",
+    "peek_n_channels",
+    "resolve_path",
 ]
 
 Series = dict[str, tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]]

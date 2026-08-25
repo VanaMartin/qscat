@@ -78,7 +78,7 @@ def test_shift_sign_convention_is_A_minus_sigma_I() -> None:
 
 def test_k_too_large_raises_and_points_at_the_dense_route() -> None:
     A = _complex_symmetric(20, seed=3)
-    with pytest.raises(ValueError, match="qscat.dvr.eigen"):
+    with pytest.raises(ValueError, match=r"qscat\.dvr\.eigen"):
         ShiftInvertEigs(A, k=19).near(1.0 + 0.0j)
 
 

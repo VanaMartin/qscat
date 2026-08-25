@@ -16,7 +16,7 @@ import qscat
 
 project = "qscat"
 author = "Martin Vana"
-copyright = "2026, Martin Vana"  # noqa: A001 - Sphinx expects this name
+copyright = "2026, Martin Vana"
 release = qscat.__version__
 version = ".".join(release.split(".")[:2])
 

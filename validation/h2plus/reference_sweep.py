@@ -38,7 +38,7 @@ import numpy as np
 import numpy.typing as npt
 from qscat.model import H2P, ResonanceModel
 
-__all__ = ["REFERENCE_MU", "DrSweep", "load", "mu_matched_model", "DATA_PATH"]
+__all__ = ["DATA_PATH", "REFERENCE_MU", "DrSweep", "load", "mu_matched_model"]
 
 DATA_PATH = Path(__file__).parent / "data" / "dr_cross_sections.txt"
 

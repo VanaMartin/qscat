@@ -73,7 +73,7 @@ from qscat.tuning import grid_cost, probe_channel_representation, probe_nuclear,
 from validation.diatomic.config import CONFIGS
 from validation.h2plus.config import proxy_grid
 
-__all__ = ["MoleculeSpec", "molecule_specs", "sweep", "main"]
+__all__ = ["MoleculeSpec", "main", "molecule_specs", "sweep"]
 
 # The sweep range: `_PHASE_COEFF_PROVISIONAL`'s replacement was found well
 # inside this window (see the module docstring); wide enough on both sides
