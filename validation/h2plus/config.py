@@ -27,7 +27,7 @@ import numpy.typing as npt
 from qscat.core.grids import fem_grid_exp_tail
 from qscat.dvr import TensorGrid
 
-__all__ = ["full_grid", "proxy_grid", "energy_grid", "N_CHANNELS", "E_LO", "E_HI", "E_STEP"]
+__all__ = ["E_HI", "E_LO", "E_STEP", "N_CHANNELS", "energy_grid", "full_grid", "proxy_grid"]
 
 N_CHANNELS = 3
 

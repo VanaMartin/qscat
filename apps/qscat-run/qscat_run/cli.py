@@ -69,7 +69,7 @@ def validate_cmd(config_path: str) -> None:
             _resolve_method_grids(resolved, method)
         except ConfigError:
             raise
-        except Exception as exc:  # noqa: BLE001 -- surface as an actionable ConfigError
+        except Exception as exc:
             raise ConfigError(f"failed to build the {method!r} grid: {exc}") from exc
 
     click.echo(f"OK: {config_path} is valid (molecule={cfg.molecule}, methods={list(cfg.methods)})")
@@ -265,7 +265,7 @@ def run_cmd(config_path: str, output_dir: str | None, backend: str | None, dry_r
                 described = _resolve_method_grids(resolved, method)
             except ConfigError:
                 raise
-            except Exception as exc:  # noqa: BLE001 -- surface as an actionable ConfigError
+            except Exception as exc:
                 raise ConfigError(f"failed to build the {method!r} grid: {exc}") from exc
             click.echo(f"grid[{method}]: {described}")
         click.echo(f"output_dir: {resolved.output_dir}")

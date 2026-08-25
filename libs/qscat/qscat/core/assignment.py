@@ -95,19 +95,19 @@ from qscat.units import HARTREE_TO_EV
 from .bo import BoBasis, basis_covers
 
 __all__ = [
-    "NO_PARTNER",
-    "WEAK",
-    "MIXED_RATIO",
     "MAX_SHIFT_EV",
     "MIN_LOCALIZATION",
+    "MIXED_RATIO",
+    "NO_PARTNER",
+    "WEAK",
     "OverlapPair",
     "PeakAlignment",
     "overlap",
-    "real_weight",
     "pair_by_overlap",
     "pair_one_to_one",
-    "peak_positions",
     "peak_alignment",
+    "peak_positions",
+    "real_weight",
 ]
 
 # An overlap below this is "no partner in this basis". On its own it does NOT

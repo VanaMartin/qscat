@@ -58,7 +58,7 @@ from projects.n2_2d_cross_section.hamiltonian2d import MU
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 from projects.n2_ti_cross_section.vres import vres_on_grid
 
-__all__ = ["nuclear_density", "lcp_driven_solution", "compare_to_lcp"]
+__all__ = ["compare_to_lcp", "lcp_driven_solution", "nuclear_density"]
 
 # Enough bound vibrational states to cover any reasonable v_init, matching
 # the N_VIB used elsewhere in this sub-project (`convergence.STUDY_VP`'s

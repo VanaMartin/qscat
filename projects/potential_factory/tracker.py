@@ -16,19 +16,19 @@ from qscat.exceptions import ConvergenceError
 from qscat.linalg import c_product
 
 __all__ = [
-    "Pole",
-    "Window",
-    "ElectronicPair",
-    "DEFAULT_RES_WINDOW",
     "DEFAULT_BOUND_WINDOW",
+    "DEFAULT_RES_WINDOW",
     "MAX_STEP",
-    "pole_vector",
-    "pole_sensitivity",
-    "WellParams",
-    "well_potential",
-    "solve_pole_params",
+    "ElectronicPair",
+    "Pole",
     "TrackResult",
+    "WellParams",
+    "Window",
+    "pole_sensitivity",
+    "pole_vector",
+    "solve_pole_params",
     "track_curve",
+    "well_potential",
 ]
 
 Window = tuple[float, float, float, float]

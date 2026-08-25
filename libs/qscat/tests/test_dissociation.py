@@ -124,7 +124,7 @@ def test_da_return_wavefunction_parity_and_shape():
     for psi in psis:
         assert psi is not None and psi.shape == (tg.size,) and psi.dtype == np.complex128
     # scalar E -> a single array (None only below threshold)
-    s1, psi1 = da_cross_section(tg, F2, eps, chi, 0, 0.05, return_wavefunction=True)
+    _s1, psi1 = da_cross_section(tg, F2, eps, chi, 0, 0.05, return_wavefunction=True)
     assert psi1 is not None and psi1.shape == (tg.size,)
     # E <= 0 -> closed, Psi+ is None
     _, psi0 = da_cross_section(tg, F2, eps, chi, 0, -0.01, return_wavefunction=True)
@@ -234,7 +234,8 @@ def _dr_t_matrix_conjugated_channel0(tg, E: float) -> complex:
 @pytest.mark.slow
 def test_dr_cproduct_matches_conjugated_dot_on_proxy():
     """The CONVENTION check (promoted from the retired validation/h2plus TD-DR
-    driver, removed in the qscat-run consolidation): `dr_cross_section`'s c-product T-matrix (no conjugate,
+    driver, removed in the qscat-run consolidation): `dr_cross_section`'s
+    c-product T-matrix (no conjugate,
     the ECS-correct choice) agrees with eMoScat's conjugated-dot (`zdotc`)
     convention to <1e-2 relative on the proxy -- the rotated-nuclear-tail
     contribution is negligible there, so the convention question is settled."""
@@ -327,9 +328,7 @@ def test_dr_amplitude_matches_conjugated_oracle_value_and_phase() -> None:
     tg = _h2p_proxy()
     E = 0.03
     eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
-    sigma, amp = dr_cross_section(
-        tg, H2P, eps, chi, 0, E, n_channels=1, return_amplitude=True
-    )
+    sigma, amp = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=1, return_amplitude=True)
     assert sigma[0] > 0.0, "test picked a closed channel"
 
     t = complex(amp[0])

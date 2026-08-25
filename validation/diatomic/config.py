@@ -24,7 +24,7 @@ from qscat.core.grids import electronic_grid, segmented_grid
 from qscat.dvr import TensorGrid
 from qscat.model import F2, NO, DiatomicResonanceModel
 
-__all__ = ["MoleculeConfig", "CONFIGS"]
+__all__ = ["CONFIGS", "MoleculeConfig"]
 
 
 @dataclass(frozen=True)

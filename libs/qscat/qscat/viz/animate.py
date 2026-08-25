@@ -25,7 +25,7 @@ import numpy.typing as npt
 from .artist import WavefunctionArtist
 from .projector import EquidistantProjector
 
-__all__ = ["animate_wavefunction", "animate_artists"]
+__all__ = ["animate_artists", "animate_wavefunction"]
 
 _PathLike = str | os.PathLike[str]
 

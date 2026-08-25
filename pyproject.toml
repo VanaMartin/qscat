@@ -90,6 +90,10 @@ extend-exclude = ["reference"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "NPY", "RUF"]
+# RUF001-003 (ambiguous unicode) are off: the docstrings and comments here
+# deliberately use unicode maths characters (sigma, multiplication sign, en
+# dash) that these rules would flag as confusable with ASCII.
+ignore = ["RUF001", "RUF002", "RUF003"]
 
 [tool.ruff.lint.per-file-ignores]
 # `l` is the standard physics symbol for the orbital angular momentum quantum

@@ -18,11 +18,11 @@ wrapper around every raise.
 from __future__ import annotations
 
 __all__ = [
-    "QscatError",
-    "GridError",
-    "ModelError",
     "BackendError",
     "ConvergenceError",
+    "GridError",
+    "ModelError",
+    "QscatError",
 ]
 
 

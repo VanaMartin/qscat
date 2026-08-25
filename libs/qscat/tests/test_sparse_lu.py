@@ -367,7 +367,7 @@ def test_refactor_rejects_pattern_mismatch() -> None:
     lu = SparseLU(A0, backend="scipy")
     with pytest.raises(ValueError, match="pattern"):
         lu.refactor(B)
-    with pytest.raises(ValueError, match="shape|pattern"):
+    with pytest.raises(ValueError, match=r"shape|pattern"):
         lu.refactor(_complex_symmetric(70, seed=44))  # different shape too
 
 

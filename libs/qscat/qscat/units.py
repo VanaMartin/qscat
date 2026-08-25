@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import numpy as np
 
-__all__ = ["HARTREE_TO_EV", "EV_TO_HARTREE", "hartree_to_ev", "ev_to_hartree"]
+__all__ = ["EV_TO_HARTREE", "HARTREE_TO_EV", "ev_to_hartree", "hartree_to_ev"]
 
 # CODATA 2018
 HARTREE_TO_EV: float = 27.211386245988

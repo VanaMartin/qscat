@@ -33,11 +33,11 @@ from .sparse_lu import (
 )
 
 __all__ = [
-    "kron_sum",
-    "c_product",
-    "SparseLU",
     "ShiftInvertEigs",
+    "SparseLU",
+    "c_product",
     "default_backend",
-    "set_default_backend",
     "get_default_backend",
+    "kron_sum",
+    "set_default_backend",
 ]

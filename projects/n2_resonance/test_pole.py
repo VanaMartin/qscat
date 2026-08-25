@@ -13,7 +13,7 @@ WINDOW = (0.04, 0.16, -0.05, 0.0)  # Re in [0.04,0.16] Ha, Im in [-0.05,0]
 
 def test_V1_resonance_at_equilibrium():
     ga, gb = n2_electronic_grid(35.0), n2_electronic_grid(44.0)
-    E, resid = pole.find_pole(R0, ga, gb, WINDOW)
+    E, _resid = pole.find_pole(R0, ga, gb, WINDOW)
     Eres_eV = E.real * HARTREE_TO_EV
     Gamma_eV = max(0.0, -2 * E.imag) * HARTREE_TO_EV
     assert 2.3 <= Eres_eV <= 2.5, Eres_eV

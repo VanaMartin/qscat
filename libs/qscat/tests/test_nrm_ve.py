@@ -37,7 +37,7 @@ class _ZeroInteraction:
     it stays correct for any `model.ell`.
     """
 
-    def __init__(self, model) -> None:  # noqa: ANN001 -- test double, any ResonanceModel
+    def __init__(self, model) -> None:
         self._model = model
 
     @property
@@ -52,20 +52,20 @@ class _ZeroInteraction:
     def charge(self) -> int:
         return self._model.charge
 
-    def v0(self, R):  # noqa: ANN001, ANN201 -- test double
+    def v0(self, R):
         return self._model.v0(R)
 
-    def v_int(self, r, R):  # noqa: ANN001, ANN201 -- test double
+    def v_int(self, r, R):
         r = np.asarray(r)
         return np.zeros_like(r, dtype=np.complex128)
 
-    def surface(self, r, R):  # noqa: ANN001, ANN201 -- test double
+    def surface(self, r, R):
         return self._model.surface(r, R) - self._model.v_int(r, R)
 
-    def hamiltonian(self, tgrid):  # noqa: ANN001, ANN201 -- test double
+    def hamiltonian(self, tgrid):
         raise NotImplementedError
 
-    def interaction_diag(self, tgrid):  # noqa: ANN001, ANN201 -- test double
+    def interaction_diag(self, tgrid):
         raise NotImplementedError
 
 
@@ -194,7 +194,7 @@ def test_t_background_vanishes_with_no_interaction(elec, nuc):
     """
     ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
     R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
-    eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
+    _eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
     zero_v = np.zeros(nuc.n, dtype=np.complex128)
     t = t_background(elec, nuc, _ZeroInteraction(F2), ds, R, chi[0], chi[0], zero_v, 0.05, 0.05)
     assert abs(t) < 1e-12
@@ -210,7 +210,7 @@ def test_t_background_term1_alone_is_nonzero_for_the_real_interaction(elec, nuc)
     """
     ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
     R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
-    eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
+    _eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
     zero_v = np.zeros(nuc.n, dtype=np.complex128)
     t = t_background(elec, nuc, F2, ds, R, chi[0], chi[0], zero_v, 0.05, 0.05)
     assert abs(t) > 1e-3
@@ -226,7 +226,7 @@ def test_t_background_distinguishes_initial_from_final_energy(elec, nuc):
     """
     ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
     R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
-    eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
+    _eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
     v = continue_to_tail(v_dk_plus(elec, F2, ds, R, 0.04), R, nuc)
     a = t_background(elec, nuc, F2, ds, R, chi[0], chi[1], v, 0.05, 0.04)
     b = t_background(elec, nuc, F2, ds, R, chi[0], chi[1], v, 0.04, 0.05)
@@ -240,7 +240,7 @@ def test_t_background_is_linear_in_the_final_channel(elec, nuc):
     """
     ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
     R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
-    eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
+    _eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
     v = v_dk_plus(elec, F2, ds, R, 0.04)
     v_full = continue_to_tail(v, R, nuc)
     a = t_background(elec, nuc, F2, ds, R, chi[0], chi[1], v_full, 0.05, 0.04)
@@ -252,7 +252,7 @@ def test_t_background_term2_matches_an_independent_assembly(elec, nuc):
     """The second term of Eq. (37), built term by term from j_dk and v_dk."""
     ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
     R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
-    eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
+    _eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
     j = continue_to_tail(j_dk(elec, ds, R, 0.05, F2.ell), R, nuc)
     v = continue_to_tail(v_dk_plus(elec, F2, ds, R, 0.04), R, nuc)
     expected_term2 = c_product(chi[1], v * j * chi[0])
@@ -263,7 +263,7 @@ def test_t_background_term2_matches_an_independent_assembly(elec, nuc):
 def test_t_background_rejects_non_positive_energies(elec, nuc):
     ds = AsymptoticDiscreteState(elec, F2, R_inf=float(nuc.R0))
     R = np.sort(nuc.points[nuc.points.imag == 0.0].real)[::-1]
-    eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
+    _eps, chi = vibrational_states(nuc, F2.mu, 2, F2.v0)
     with pytest.raises(ValueError, match="positive"):
         t_background(
             elec,

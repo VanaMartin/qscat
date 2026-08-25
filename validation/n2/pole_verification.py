@@ -65,16 +65,18 @@ SEEDS = [
 ]
 WINDOW = (-0.85, -0.45, -0.08, 0.0)
 
-__all__ = ["verify", "main"]
+__all__ = ["main", "verify"]
 
 
 def verify(n_levels: int = 8):
     """Pair every N2 exact pole to a BO level by overlap. Returns the pairs."""
-    el_a, el_b = electronic_grid(angle_deg=EL_ANGLES[0], **EL), electronic_grid(
-        angle_deg=EL_ANGLES[1], **EL
+    el_a, el_b = (
+        electronic_grid(angle_deg=EL_ANGLES[0], **EL),
+        electronic_grid(angle_deg=EL_ANGLES[1], **EL),
     )
-    nu_a, nu_b = nuclear_grid(angle_deg=NU_ANGLES[0], **NU), nuclear_grid(
-        angle_deg=NU_ANGLES[1], **NU
+    nu_a, nu_b = (
+        nuclear_grid(angle_deg=NU_ANGLES[0], **NU),
+        nuclear_grid(angle_deg=NU_ANGLES[1], **NU),
     )
     base, moved_el, moved_nu = ecs_angle_family(
         lambda a: electronic_grid(angle_deg=a, **EL),
@@ -99,9 +101,7 @@ def verify(n_levels: int = 8):
     basis = bo_basis_from_levels(cur, bo.energies, bo.states)
 
     t0 = time.perf_counter()
-    res = exact_resonance_states(
-        N2, base, moved_el, moved_nu, shifts=SEEDS, k=8, window=WINDOW
-    )
+    res = exact_resonance_states(N2, base, moved_el, moved_nu, shifts=SEEDS, k=8, window=WINDOW)
     print(
         f"exact poles: {res.energies.size} in {time.perf_counter() - t0:.0f}s",
         flush=True,
@@ -125,7 +125,7 @@ def verify(n_levels: int = 8):
 
 
 def main() -> None:
-    res, bo, basis, pairs, order = verify()
+    res, _bo, basis, pairs, order = verify()
 
     base, _, _ = ecs_angle_family(
         lambda a: electronic_grid(angle_deg=a, **EL),

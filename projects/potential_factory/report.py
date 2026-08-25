@@ -9,7 +9,7 @@ from typing import Literal
 
 import numpy as np
 
-__all__ = ["TierResult", "Tolerances", "FitReport", "ecs_bounded"]
+__all__ = ["FitReport", "TierResult", "Tolerances", "ecs_bounded"]
 
 Status = Literal["met", "not met", "not attempted"]
 

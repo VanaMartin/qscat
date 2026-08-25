@@ -52,7 +52,7 @@ from qscat.dvr import TensorGrid
 
 from projects.n2_2d_td_cross_section.td_propagation import PropagationResult
 
-__all__ = ["save_numeric_outputs", "plot_snapshots", "plot_correlation", "plot_sigma_vs_ti"]
+__all__ = ["plot_correlation", "plot_sigma_vs_ti", "plot_snapshots", "save_numeric_outputs"]
 
 _PathLike = str | os.PathLike[str]
 

@@ -31,7 +31,7 @@ from qscat.linalg import kron_sum
 from .grid import FemDvrEcsGrid
 from .kinetic import kinetic_sparse
 
-__all__ = ["TensorGrid", "kinetic_nd", "potential_nd", "hamiltonian_nd"]
+__all__ = ["TensorGrid", "hamiltonian_nd", "kinetic_nd", "potential_nd"]
 
 
 class TensorGrid:

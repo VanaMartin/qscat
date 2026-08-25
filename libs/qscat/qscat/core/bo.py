@@ -78,16 +78,16 @@ if TYPE_CHECKING:  # pragma: no cover - typing only
     from qscat.model import ResonanceModel
 
 __all__ = [
-    "ElectronicCurves",
-    "BoState",
     "BoBasis",
-    "electronic_curves",
-    "resonance_curve",
-    "bo_basis",
-    "bo_basis_from_levels",
-    "n_eff",
+    "BoState",
+    "ElectronicCurves",
     "admissible_levels",
     "basis_covers",
+    "bo_basis",
+    "bo_basis_from_levels",
+    "electronic_curves",
+    "n_eff",
+    "resonance_curve",
 ]
 
 
@@ -667,7 +667,7 @@ def admissible_levels(
         n = 1.0 / np.sqrt(2.0 * float(t - e_tot))
         if n_eff_max is not None and n > n_eff_max:
             continue
-        j = int(round(n - 1.0))
+        j = round(n - 1.0)
         if j >= 0:
             out.append((j, v))
     return out

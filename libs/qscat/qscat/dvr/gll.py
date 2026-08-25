@@ -11,7 +11,7 @@ import numpy as np
 import numpy.typing as npt
 from numpy.polynomial import legendre as L
 
-__all__ = ["gll_nodes_weights", "diff_matrix"]
+__all__ = ["diff_matrix", "gll_nodes_weights"]
 
 
 def gll_nodes_weights(n: int) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:

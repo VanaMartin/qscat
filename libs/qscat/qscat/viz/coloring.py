@@ -28,6 +28,7 @@ readable). Deferred to a follow-on; see the roadmap.
 from __future__ import annotations
 
 from collections.abc import Sequence
+from itertools import pairwise
 
 import numpy as np
 import numpy.typing as npt
@@ -84,12 +85,12 @@ def region_magnitudes(
     # bounds/bounds[1:] and edges/edges[1:] are sliding-window pairs, always
     # one element shorter on the right by construction -- strict=False, not
     # an omission.
-    if any(b >= c for b, c in zip(bounds, bounds[1:], strict=False)):
+    if any(b >= c for b, c in pairwise(bounds)):
         raise ValueError(f"boundaries must be strictly increasing; got {bounds}")
 
     edges = [0, *bounds, n]
     out = np.empty_like(m)
-    for lo, hi in zip(edges, edges[1:], strict=False):
+    for lo, hi in pairwise(edges):
         sl: list[slice] = [slice(None)] * m.ndim
         sl[axis] = slice(lo, hi)
         block = m[tuple(sl)]
@@ -106,7 +107,7 @@ def complex_to_hsv(
     if not np.iscomplexobj(c):
         raise ValueError(f"input must be complex, got dtype {c.dtype}")
 
-    hsv = np.zeros(c.shape + (3,), dtype=np.float64)
+    hsv = np.zeros((*c.shape, 3), dtype=np.float64)
     # Hue from the phase, wrapped from [-pi, pi) to [0, 1).
     h = np.angle(c) / (2.0 * np.pi)
     hsv[..., 0] = np.where(h < 0.0, 1.0 + h, h)

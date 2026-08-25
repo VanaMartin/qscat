@@ -42,7 +42,7 @@ from projects.potential_factory.tracker import (
     well_potential,
 )
 
-__all__ = ["fit_neutral", "fit_resonance", "fit_coupling", "model_gamma_tilde", "fit"]
+__all__ = ["fit", "fit_coupling", "fit_neutral", "fit_resonance", "model_gamma_tilde"]
 
 _R_INF = 10.0
 # What one node of `_joint_polish` costs when it yields no gated pole
@@ -239,7 +239,7 @@ def _smooth_reparam(
         # rails against float64 `exp` overflow during a multi-start, never
         # physically motivated ones.
         f1_cap = 700.0 / max(1.0, (R_max - R_min) + 20.0)
-        x0 = np.array([s.f_inf, log_amp0, s.f_1, s.R_f] + list(s.coeffs), dtype=np.float64)
+        x0 = np.array([s.f_inf, log_amp0, s.f_1, s.R_f, *list(s.coeffs)], dtype=np.float64)
         lo = [-np.inf, log_amp0 - 40.0, 1e-6, -np.inf] + [-np.inf] * n_c
         hi = [np.inf, log_amp0 + 40.0, f1_cap, np.inf] + [np.inf] * n_c
 
@@ -254,7 +254,7 @@ def _smooth_reparam(
                 coeffs=tuple(float(c) for c in x[4 : 4 + n_c]),
             )
     else:
-        x0 = np.array([s.f_inf] + list(s.coeffs), dtype=np.float64)
+        x0 = np.array([s.f_inf, *list(s.coeffs)], dtype=np.float64)
         lo = [-np.inf] * (1 + n_c)
         hi = [np.inf] * (1 + n_c)
 

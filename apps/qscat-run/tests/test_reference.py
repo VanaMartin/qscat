@@ -71,7 +71,7 @@ def test_missing_file_fails_at_validate_time_not_at_plot_time(tmp_path: Path) ->
     cfg = load_config(
         _write(tmp_path, BASE + "\nreference:\n  - path: no/such/file.dat\n    format: houfek\n")
     )
-    with pytest.raises(ConfigError, match="no/such/file.dat"):
+    with pytest.raises(ConfigError, match=r"no/such/file\.dat"):
         validate_config(cfg)
 
 

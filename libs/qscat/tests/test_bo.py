@@ -22,6 +22,8 @@ the identical discretization.
 
 from __future__ import annotations
 
+from itertools import pairwise
+
 import numpy as np
 import pytest
 from qscat.core import anion_electronic_states, vibrational_states
@@ -359,7 +361,7 @@ def test_resonance_curve_states_are_phase_aligned_and_frozen_on_the_tail(grids):
     pts = g_R.points
     real = np.flatnonzero(pts.imag == 0.0)
     order = real[np.argsort(pts[real].real)]
-    for a, b in zip(order[:-1], order[1:], strict=True):
+    for a, b in pairwise(order):
         ov = complex(np.vdot(cur.states[0, :, a], cur.states[0, :, b]))
         assert ov.real > 0, "adjacent columns flipped phase"
 

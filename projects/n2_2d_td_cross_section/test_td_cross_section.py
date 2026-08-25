@@ -73,6 +73,7 @@ N_STEPS = 1500  # T = 1500 a.u., order-3 Pade (see module docstring)
 N_STEPS_SHORT = 1000  # T = 1000 a.u., V4's shorter-truncation comparison point
 PADE_ORDER = 3
 
+
 @pytest.fixture(scope="module")
 def sigma_ti() -> dict[float, float]:
     """`ve_cross_section_2d` at the two anchors -- one sparse LU solve per

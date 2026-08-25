@@ -29,6 +29,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from itertools import pairwise
 from pathlib import Path
 
 import numpy as np
@@ -121,7 +122,7 @@ def run_curves(mol: str, out: Path, *, n_nodes: int = 45, ladder: list[dict] | N
 
     # grid-to-grid differences on the common nodes
     conv = []
-    for a, b in zip(results[:-1], results[1:], strict=False):
+    for a, b in pairwise(results):
         common = np.intersect1d(a["R"], b["R"])
         ia = np.searchsorted(a["R"][::-1], common)
         ib = np.searchsorted(b["R"][::-1], common)
@@ -270,7 +271,7 @@ def run_fit(
         n_eps=n_eps,
         name=f"{mol} (published model, {_grid_label(g)})",
     )
-    fitted, report = fit(target, _seed(model), pair=pair, n_nodes=n_nodes)
+    _fitted, report = fit(target, _seed(model), pair=pair, n_nodes=n_nodes)
     report.to_json(out / f"{mol}-fit-report.json")
     for t in report.tiers:
         print(

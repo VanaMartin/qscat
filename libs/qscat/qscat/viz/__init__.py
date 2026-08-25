@@ -28,12 +28,12 @@ from .projector import EquidistantProjector
 __all__ = [
     "EquidistantProjector",
     "WavefunctionArtist",
+    "animate_artists",
+    "animate_wavefunction",
     "complex_to_hsv",
     "complex_to_rgb",
-    "hsv_to_rgb",
-    "region_magnitudes",
     "energy_contour_levels",
+    "hsv_to_rgb",
     "plot_wavefunction_2d",
-    "animate_wavefunction",
-    "animate_artists",
+    "region_magnitudes",
 ]

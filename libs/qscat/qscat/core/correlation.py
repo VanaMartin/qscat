@@ -65,11 +65,11 @@ from qscat.special import (
 from .wavepacket import gaussian_coeffs
 
 __all__ = [
-    "outgoing_channel",
-    "outgoing_channel_nuclear",
     "eta_incident",
     "eta_outgoing",
     "hankel_point_value",
+    "outgoing_channel",
+    "outgoing_channel_nuclear",
     "outgoing_surface_wave",
 ]
 

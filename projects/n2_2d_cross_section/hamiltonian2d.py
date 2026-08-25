@@ -33,12 +33,12 @@ from qscat.dvr import TensorGrid
 from qscat.model import N2
 
 __all__ = [
-    "MU",
     "ELL",
-    "potential_2d",
-    "interaction_2d",
+    "MU",
     "build_h2d",
+    "interaction_2d",
     "interaction_diag",
+    "potential_2d",
 ]
 
 MU: float = N2.mu  # N2 nuclear reduced mass (a.u.)

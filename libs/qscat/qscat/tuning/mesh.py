@@ -19,6 +19,7 @@ a LOCAL super-refinement of the narrow resonance-crossing region (overriding
 from __future__ import annotations
 
 import math
+from itertools import pairwise
 
 import numpy as np
 from numpy.typing import NDArray
@@ -298,7 +299,7 @@ def _subdivide_forbidden_gaps(
     where `kappa_local` is the mean `kappa` sampled over that gap.
     """
     out = [boundaries[0]]
-    for lo, hi in zip(boundaries[:-1], boundaries[1:], strict=True):
+    for lo, hi in pairwise(boundaries):
         gap = hi - lo
         mask = (x >= lo) & (x <= hi)
         kappa_local = float(np.mean(kappa[mask])) if np.any(mask) else 0.0
@@ -335,7 +336,7 @@ def _refine_near_features(
         changed = False
         passes += 1
         new_out = [out[0]]
-        for lo, hi in zip(out[:-1], out[1:], strict=True):
+        for lo, hi in pairwise(out):
             length = hi - lo
             near = np.any(
                 (features >= lo - _REFINE_FRACTION * length)

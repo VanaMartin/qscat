@@ -73,7 +73,7 @@ def tensor_cost(g_r: FemDvrEcsGrid, g_R: FemDvrEcsGrid) -> dict[str, Any]:
     footprint.
     """
     n_unknowns = g_r.n * g_R.n
-    est_nnz = int(round(n_unknowns * _NNZ_PER_ROW))
+    est_nnz = round(n_unknowns * _NNZ_PER_ROW)
     est_factor_gib = _GIB_COEFF * float(n_unknowns) ** _GIB_EXPONENT
     est_factor_seconds = _SECONDS_COEFF * float(n_unknowns) ** _SECONDS_EXPONENT
     return {

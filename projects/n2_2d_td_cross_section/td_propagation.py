@@ -22,7 +22,7 @@ from qscat.dvr import TensorGrid
 
 from projects.n2_2d_cross_section.hamiltonian2d import build_h2d
 
-__all__ = ["Snapshot", "PropagationResult", "propagate"]
+__all__ = ["PropagationResult", "Snapshot", "propagate"]
 
 
 def propagate(
