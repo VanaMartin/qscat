@@ -255,3 +255,23 @@ def test_resonance_eigenstate_at_peak_width(coarse_nuc, elec_grids, coarse_lcp):
     p = phi.copy()
     p[~(ga.real_points <= ga.R0)] = 0.0
     assert abs(complex(c_product(p, p)) - 1.0) < 1e-6
+
+
+def test_lcp_public_surface_survives_the_split() -> None:
+    """lib-M11: every documented qscat.core.lcp name keeps its import path."""
+    import qscat.core.lcp as lcp
+
+    expected = {
+        "ResonanceLevels",
+        "lcp_da_cross_section",
+        "lcp_resonance_levels",
+        "lcp_ve_cross_section",
+        "local_complex_potential",
+        "resonance_eigenstate",
+        "resonance_eigenstate_at_peak_width",
+        "resonance_levels",
+        "resonance_pole_walk",
+    }
+    assert set(lcp.__all__) == expected
+    for name in expected:
+        assert callable(getattr(lcp, name)) or isinstance(getattr(lcp, name), type)
