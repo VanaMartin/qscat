@@ -37,6 +37,15 @@ def _read(name: str) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
     return arr[order, 0], arr[order, 1] / EV
 
 
+def load_so_split() -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
+    """`(R, Delta_SO)` in bohr / Hartree: the paper's Gaussian fit of the
+    spin-orbit splitting of the 2Pi_g curve (Fig. 1, `extract_fig1.py`). The
+    2Pi_{1/2} / 2Pi_{3/2} curves lie at `V_ion -/+ Delta_SO(R)/2`."""
+    arr = np.loadtxt(_DATA / "so_split.csv", delimiter=",", comments="#")
+    order = np.argsort(arr[:, 0])
+    return arr[order, 0], arr[order, 1] * 1e-3 / EV
+
+
 def load_o2() -> O2Curves:
     R0, v0 = _read("v0")
     Rb, vb = _read("v_ion_bound")

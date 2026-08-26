@@ -39,6 +39,17 @@ own ladder, not the spectroscopic constant.
 figure marks (−1.461 eV); the factory's electron-affinity constraint uses
 Table I's EA(O), not this curve's last point.
 
+## Fig. 1 — the spin–orbit splitting of the ²Π_g curve
+
+`so_split.csv` (`R_bohr, split_meV`, 426 points, 1–16 bohr) is the paper's
+own Gaussian fit of the total spin–orbit splitting Δ_SO(R) of the O₂⁻ ²Π_g
+curve (Fig. 1, p. 032829-3; 19.7 meV at 2.1 bohr, a 12.2 meV plateau beyond
+9 bohr), vector-extracted by `validation/factory/extract_fig1.py` (median of
+the outline's edges per 0.4-pt bin, ~0.05 meV). It is what the paper used to
+build the ²Π_{1/2} and ²Π_{3/2} curves at ∓Δ_SO(R)/2 around ²Π_g (§III A),
+and what `targets/o2.py::o2_target(so=±1)` uses for the same purpose. Only
+the fit curve is taken, not the MOLPRO points it was fitted to.
+
 ## Fig. 5 — the paper's VE cross sections (theory only)
 
 `fig5_ve_0{v}_{nrm,lcp}.csv` (`E_eV, sigma_a0^2`), v' = 0…5, are the

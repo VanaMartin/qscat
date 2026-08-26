@@ -50,6 +50,7 @@ __all__ = [
     "fit_neutral",
     "fit_resonance",
     "model_gamma_tilde",
+    "refine_resonance",
 ]
 
 # How many polish/verification nodes are laid between the table's far end
@@ -849,26 +850,14 @@ def _t1_nodes(target: ResonanceTarget, n_nodes: int) -> tuple[np.ndarray, str]:
     return np.asarray(sel, dtype=np.float64), f"table {sel.size}/{nodes.size}"
 
 
-def fit_resonance(
-    target: ResonanceTarget,
-    model: FlexibleDiatomicModel,
-    *,
-    pair: ElectronicPair,
-    n_nodes: int = 24,
-    tol: Tolerances,
-    lam_coeffs: int = 0,
-    alpha_coeffs: int = 0,
-    polish_nfev: int = 100,
-) -> tuple[FlexibleDiatomicModel, TierResult]:
-    R_desc, node_source = _t1_nodes(target, n_nodes)
-    # Every denominator below counts the nodes ACTUALLY used (a table target
-    # may hold fewer than `n_nodes`), not the requested `n_nodes`.
-    n_used = R_desc.size
-    model = replace(
-        model,
-        lam=_grow_coeffs(model.lam, lam_coeffs),
-        alpha=_grow_coeffs(model.alpha, alpha_coeffs),
-    )
+def _pole_target_fn(
+    target: ResonanceTarget, model: FlexibleDiatomicModel, tol: Tolerances
+) -> Callable[[float], complex]:
+    """The per-node T1 target on the electronic-shift scale: `V_ion - V_0`
+    with `Im = -Gamma/2` on the resonant branch, real (bound) below
+    `tol.gamma_floor`, NaN where the table has no value or at a crossing-slice
+    node (`E_res > 0` with a width under the floor -- neither bound nor a
+    resolvable resonance)."""
 
     def pole_target(R: float) -> complex:
         # The target curve is NaN outside its table (or in a gap);
@@ -894,6 +883,227 @@ def fit_resonance(
             # no target at this node, exactly as a NaN table point.
             return complex(s, 0.0) if s < 0.0 else complex(np.nan, np.nan)
         return complex(s, -0.5 * g)
+
+    return pole_target
+
+
+def _asymptote_setup(
+    target: ResonanceTarget,
+    model: FlexibleDiatomicModel,
+    pair: ElectronicPair,
+    R_desc: np.ndarray,
+    R_pol: np.ndarray,
+    seed_poles: list,
+    extra_of_R: Callable[[float], object] | None,
+    tol: Tolerances,
+    pole_target: Callable[[float], complex],
+) -> tuple:
+    """The electron-affinity asymptote goes in BEFORE the polish, and then
+    INTO it as bound pole nodes from `R_inf` outward (`_asymptotic_nodes`,
+    targets `target.v_ion_asymptotic - V_0`): applied afterwards it would
+    move `lam.f_inf` and with it lam(R) at every R, undoing the polish
+    (measured on O2: a 1 eV drift of V_ion on the bound side); one node at
+    `R_inf` alone let the sigmoid's inflection run off and miss `-EA` by
+    0.2 eV at 20 bohr (measured). Returns the model with the EA constraint
+    applied, the polish node set `(R_pol, gamma_t, resonant, seed_poles)`
+    extended by the asymptotic nodes, the polish target function, and the
+    EA status string."""
+    gamma_t = np.array([float(target.gamma(Rj)) for Rj in R_pol])
+    resonant = gamma_t >= tol.gamma_floor
+    R_end = float(R_desc[0])
+    reaches_asymptote = (
+        abs(float(target.v_ion(R_end)) - float(target.v_ion_asymptotic(R_end))) < 0.05
+    )
+    ea_status = "skipped (table short of asymptote)"
+    R_asym = np.zeros(0)
+    if reaches_asymptote:
+        model, applied = _apply_ea_constraint(model, pair, target.ea, float(target.R_inf))
+        ea_status = "applied, held by the polish" if applied else "skipped (no bracket)"
+        if applied:
+            R_asym = _asymptotic_nodes(target)
+    polish_target = pole_target
+    if R_asym.size:
+        asym_poles: list[Pole] = []
+        asym_R: list[float] = []
+        for Ra in R_asym:
+            extra_a = extra_of_R(float(Ra)) if extra_of_R is not None else None
+            p_a = pair.pole(
+                well_potential(
+                    model.ell,
+                    float(model.lam_R(Ra).real),
+                    float(model.alpha_R(Ra).real),
+                    extra_a,
+                ),
+                DEFAULT_BOUND_WINDOW,
+            )
+            if p_a is not None:
+                asym_poles.append(p_a)
+                asym_R.append(float(Ra))
+        if asym_R:
+            R_pol = np.concatenate([asym_R, R_pol])
+            gamma_t = np.concatenate([np.zeros(len(asym_R)), gamma_t])
+            resonant = np.concatenate([np.zeros(len(asym_R), dtype=bool), resonant])
+            seed_poles = [*asym_poles, *seed_poles]
+            # The electronic-shift target at an asymptotic node: the
+            # theoretical anion curve minus the (already fitted) neutral.
+            asym_target = {
+                Ra: complex(float(target.v_ion_asymptotic(Ra) - model.v0(Ra).real), 0.0)
+                for Ra in asym_R
+            }
+
+            def polish_target(R: float, _t: dict[float, complex] = asym_target) -> complex:
+                return _t[float(R)] if float(R) in _t else pole_target(R)
+
+    return model, R_pol, gamma_t, resonant, seed_poles, polish_target, ea_status
+
+
+def _verify_t1(
+    target: ResonanceTarget,
+    model: FlexibleDiatomicModel,
+    pair: ElectronicPair,
+    R_desc: np.ndarray,
+    tol: Tolerances,
+    pole_target: Callable[[float], complex],
+    node_source: str,
+    tracked: str,
+    n_polished: int,
+    extra: str,
+) -> tuple[FlexibleDiatomicModel, TierResult]:
+    """Re-verify the polished model with the package's own gated per-node
+    walk (`qscat.core.lcp.resonance_pole_walk` freezes at the crossing on
+    this grid and silently zeroes Gamma over the whole resonant region,
+    measured; `walk_t1` drops, not freezes). "met" needs the residuals AND
+    coverage: a curve verified on a shrinking sliver of the requested grid
+    must not read as met because the sliver agrees."""
+    n_used = R_desc.size
+    try:
+        R_w, shift_w, gamma_w = walk_t1(
+            model, pair, R_desc, seed_energy=pole_target(float(R_desc[0]))
+        )
+    except ValueError as e:
+        return model, TierResult(
+            "T1", "not met", np.inf, np.inf, f"nodes: {node_source}; {tracked}; re-walk failed: {e}"
+        )
+    v_t = target.v_ion(R_w)
+    g_t = target.gamma(R_w)
+    valid = ~np.isnan(v_t) & ~np.isnan(g_t)
+    n_valid = int(valid.sum())
+    if n_valid < 4:
+        return model, TierResult(
+            "T1",
+            "not met",
+            np.inf,
+            np.inf,
+            f"nodes: {node_source}; {tracked}; re-walk verified only "
+            f"{n_valid}/{n_used} nodes against the target",
+        )
+    e_err = (model.v0(R_w[valid]).real + shift_w[valid]) - v_t[valid]
+    g_target = g_t[valid]
+    g_gate = g_target > tol.gamma_floor
+    g_rel = (
+        (gamma_w[valid][g_gate] - g_target[g_gate]) / g_target[g_gate]
+        if g_gate.any()
+        else np.zeros(0)
+    )
+    e_rms, e_max = float(np.sqrt(np.mean(e_err**2))), float(np.max(np.abs(e_err)))
+    g_rms = float(np.sqrt(np.mean(g_rel**2))) if g_rel.size else 0.0
+    g_max = float(np.max(np.abs(g_rel))) if g_rel.size else 0.0
+    coverage_ok = n_polished >= 0.75 * n_used and n_valid >= 0.75 * n_used
+    met = e_rms <= tol.e_res_rms and g_max <= tol.gamma_rel and coverage_ok
+    detail = (
+        f"nodes: {node_source}; {tracked}; re-walk verified {n_valid}/{n_used} nodes; "
+        f"E_res rms={e_rms:.2e} max={e_max:.2e} Ha; Gamma rel rms={g_rms:.3f} max={g_max:.3f}; "
+        f"{extra}"
+    )
+    return model, TierResult("T1", "met" if met else "not met", e_rms, max(e_max, g_max), detail)
+
+
+def refine_resonance(
+    target: ResonanceTarget,
+    model: FlexibleDiatomicModel,
+    *,
+    pair: ElectronicPair,
+    n_nodes: int = 24,
+    tol: Tolerances,
+    polish_nfev: int = 100,
+) -> tuple[FlexibleDiatomicModel, TierResult]:
+    """T1 for a model that is ALREADY near `target` -- a spin-orbit component
+    of a fitted model (the anion curve moved by +-10 meV), a re-run with a
+    moved asymptote: polish only. `fit_resonance`'s tracking + smoothing
+    from a seed is the wrong tool there -- re-tracking a curve that differs
+    from the model's by a shift far under the fit's own residual re-fits the
+    smooth forms from scratch and can land in a different basin (measured on
+    O2's 2Pi_1/2: E_res rms 31 mHa from a 10 meV shift). Here every node's
+    pole is seeded from the model's own gated walk, the asymptote nodes are
+    attached exactly as in `fit_resonance`, and the joint polish moves the
+    coefficients from where they are; the re-verify is the same."""
+    R_desc, node_source = _t1_nodes(target, n_nodes)
+    n_used = R_desc.size
+    pole_target = _pole_target_fn(target, model, tol)
+    extra_of_R = _shell_extra_of_R(model)
+    R_w, shift_w, gamma_w = walk_t1(model, pair, R_desc, seed_energy=pole_target(float(R_desc[0])))
+    has_target = ~np.isnan(np.array([pole_target(float(R)).real for R in R_w]))
+    R_pol = R_w[has_target]
+    seed_poles = [
+        Pole(complex(s, -0.5 * g), 0.0)
+        for s, g in zip(shift_w[has_target], gamma_w[has_target], strict=True)
+    ]
+    n_seeded = int(R_pol.size)
+    if n_seeded < 4:
+        return model, TierResult(
+            "T1", "not met", np.inf, np.inf, f"nodes: {node_source}; only {n_seeded} seeded"
+        )
+    model, R_pol, gamma_t, resonant, seed_poles, polish_target, ea_status = _asymptote_setup(
+        target, model, pair, R_desc, R_pol, seed_poles, extra_of_R, tol, pole_target
+    )
+    model, polish_detail = _joint_polish(
+        model,
+        pair,
+        R_pol,
+        polish_target,
+        gamma_t,
+        resonant,
+        seed_poles,
+        extra_of_R,
+        max_nfev=polish_nfev,
+    )
+    tracked = f"seeded {n_seeded}/{n_used} nodes from the model's own walk (polish only)"
+    return _verify_t1(
+        target,
+        model,
+        pair,
+        R_desc,
+        tol,
+        pole_target,
+        node_source,
+        tracked,
+        n_seeded,
+        f"{polish_detail}; EA constraint {ea_status}",
+    )
+
+
+def fit_resonance(
+    target: ResonanceTarget,
+    model: FlexibleDiatomicModel,
+    *,
+    pair: ElectronicPair,
+    n_nodes: int = 24,
+    tol: Tolerances,
+    lam_coeffs: int = 0,
+    alpha_coeffs: int = 0,
+    polish_nfev: int = 100,
+) -> tuple[FlexibleDiatomicModel, TierResult]:
+    R_desc, node_source = _t1_nodes(target, n_nodes)
+    # Every denominator below counts the nodes ACTUALLY used (a table target
+    # may hold fewer than `n_nodes`), not the requested `n_nodes`.
+    n_used = R_desc.size
+    model = replace(
+        model,
+        lam=_grow_coeffs(model.lam, lam_coeffs),
+        alpha=_grow_coeffs(model.alpha, alpha_coeffs),
+    )
+
+    pole_target = _pole_target_fn(target, model, tol)
 
     # Tracking and re-verify must see the same
     # potential. `walk_t1` re-verifies against `model.surface`, which already
@@ -989,71 +1199,10 @@ def fit_resonance(
         )
     model, lam_rel_rms = _fit_smooth(model, "lam", tr2.R[ok2], tr2.lam[ok2])
 
-    # The electron-affinity asymptote goes in BEFORE the polish, and then INTO
-    # it as one more (bound) pole node at R_inf: applied afterwards it would
-    # move `lam.f_inf`, the sigmoid's asymptote, and with it lam(R) at every
-    # R -- undoing the polish (measured on O2: a 1 eV drift of V_ion on the
-    # bound side). Exactly one of the three statuses describes what happened.
-    # `R_asym`: the nodes from `R_inf` outward on which the polish pins the
-    # anion curve to its theoretical form `target.v_ion_asymptotic` -- `-EA`
-    # plus the tail the operator declared (e.g. the ion--atom polarisation).
-    # One node at `R_inf` alone proved insufficient: the sigmoid's inflection
-    # ran off to large R, held `-EA` at 10 bohr and missed it by 0.2 eV at 20
-    # (measured on O2).
-    R_end = float(R_desc[0])
-    reaches_asymptote = (
-        abs(float(target.v_ion(R_end)) - float(target.v_ion_asymptotic(R_end))) < 0.05
-    )
-    ea_status = "skipped (table short of asymptote)"
-    R_asym = np.zeros(0)
-    if reaches_asymptote:
-        model, applied = _apply_ea_constraint(model, pair, target.ea, float(target.R_inf))
-        ea_status = "applied, held by the polish" if applied else "skipped (no bracket)"
-        if applied:
-            R_asym = _asymptotic_nodes(target)
-
-    # Joint polish of lam(R)/alpha(R) TOGETHER
-    # against the poles themselves (not the per-node tracked sample -- see
-    # `_joint_polish`'s docstring), on exactly the second-pass converged
-    # nodes, using the SAME resonant/gamma_target weighting as the alpha fit
-    # above. `tr2.poles` is index-aligned with `tr2.R`/`ok2`.
-    R_pol = tr2.R[ok2]
-    gamma_t2 = np.array([float(target.gamma(Rj)) for Rj in R_pol])
-    resonant2 = gamma_t2 >= tol.gamma_floor
     seed_poles = [p for p, keep in zip(tr2.poles, ok2, strict=True) if keep]
-    polish_target = pole_target
-    if R_asym.size:
-        asym_poles: list[Pole] = []
-        asym_R: list[float] = []
-        for Ra in R_asym:
-            extra_a = extra_of_R(float(Ra)) if extra_of_R is not None else None
-            p_a = pair.pole(
-                well_potential(
-                    model.ell,
-                    float(model.lam_R(Ra).real),
-                    float(model.alpha_R(Ra).real),
-                    extra_a,
-                ),
-                DEFAULT_BOUND_WINDOW,
-            )
-            if p_a is not None:
-                asym_poles.append(p_a)
-                asym_R.append(float(Ra))
-        if asym_R:
-            R_pol = np.concatenate([asym_R, R_pol])
-            gamma_t2 = np.concatenate([np.zeros(len(asym_R)), gamma_t2])
-            resonant2 = np.concatenate([np.zeros(len(asym_R), dtype=bool), resonant2])
-            seed_poles = [*asym_poles, *seed_poles]
-            # The electronic-shift target at an asymptotic node: the
-            # theoretical anion curve minus the (already fitted) neutral.
-            asym_target = {
-                Ra: complex(float(target.v_ion_asymptotic(Ra) - model.v0(Ra).real), 0.0)
-                for Ra in asym_R
-            }
-
-            def polish_target(R: float, _t: dict[float, complex] = asym_target) -> complex:
-                return _t[float(R)] if float(R) in _t else pole_target(R)
-
+    model, R_pol, gamma_t2, resonant2, seed_poles, polish_target, ea_status = _asymptote_setup(
+        target, model, pair, R_desc, tr2.R[ok2], seed_poles, extra_of_R, tol, pole_target
+    )
     model, polish_detail = _joint_polish(
         model,
         pair,
@@ -1066,79 +1215,17 @@ def fit_resonance(
         max_nfev=polish_nfev,
     )
 
-    # Re-verify on the SMOOTHED model with the package's own gated per-node
-    # walk: `qscat.core.lcp.resonance_pole_walk` freezes at the
-    # crossing on this grid and silently zeroes Gamma over the whole
-    # resonant region (measured). `walk_t1` drops (not freezes) a node
-    # with no gated pole, exactly like the tracking step above.
-    try:
-        R_w, shift_w, gamma_w = walk_t1(
-            model, pair, R_desc, seed_energy=pole_target(float(R_desc[0]))
-        )
-    except ValueError as e:
-        return model, TierResult(
-            "T1",
-            "not met",
-            np.inf,
-            np.inf,
-            f"nodes: {node_source}; "
-            f"tracked {int(ok.sum())}/{n_used} ({int(resonant.sum())} resonant), "
-            f"re-tracked {int(ok2.sum())}/{n_used} nodes; re-walk failed: {e}",
-        )
-
-    v_t = target.v_ion(R_w)
-    g_t = target.gamma(R_w)
-    # Residuals only on nodes where BOTH the target curve is
-    # defined (not NaN) and the re-walk found a gated pole (already true of
-    # every R_w, since walk_t1 only returns survivors).
-    valid = ~np.isnan(v_t) & ~np.isnan(g_t)
-    n_valid = int(valid.sum())
-    if n_valid < 4:
-        return model, TierResult(
-            "T1",
-            "not met",
-            np.inf,
-            np.inf,
-            f"nodes: {node_source}; "
-            f"tracked {int(ok.sum())}/{n_used} ({int(resonant.sum())} resonant), "
-            f"re-tracked {int(ok2.sum())}/{n_used} nodes; re-walk verified only "
-            f"{n_valid}/{n_used} nodes against the target",
-        )
-
-    e_err = (model.v0(R_w[valid]).real + shift_w[valid]) - v_t[valid]
-    g_target = g_t[valid]
-    g_gate = g_target > tol.gamma_floor
-    g_rel = (
-        (gamma_w[valid][g_gate] - g_target[g_gate]) / g_target[g_gate]
-        if g_gate.any()
-        else np.zeros(0)
-    )
-
-    e_rms, e_max = float(np.sqrt(np.mean(e_err**2))), float(np.max(np.abs(e_err)))
-    g_rms = float(np.sqrt(np.mean(g_rel**2))) if g_rel.size else 0.0
-    g_max = float(np.max(np.abs(g_rel))) if g_rel.size else 0.0
-    # "met" also requires COVERAGE, not just accuracy where nodes
-    # survived -- a curve verified on a shrinking sliver of the requested
-    # grid (nodes silently gated out along the way) must not read as "met"
-    # just because the sliver that's left agrees well.
-    coverage_ok = int(ok2.sum()) >= 0.75 * n_used and n_valid >= 0.75 * n_used
-    # "met" is decided by the RE-VERIFY
-    # residuals + coverage alone -- the joint polish above puts the loss on
-    # the poles themselves, so `smooth_rms_lam` (the per-node-sample
-    # residual) no longer needs to be independently gated; it is still
-    # reported in `detail` as a diagnostic, alongside `polish_rms`/status.
-    met = e_rms <= tol.e_res_rms and g_max <= tol.gamma_rel and coverage_ok
-    detail = (
-        f"nodes: {node_source}; "
+    tracked = (
         f"tracked {int(ok.sum())}/{n_used} ({int(resonant.sum())} resonant), "
-        f"re-tracked {int(ok2.sum())}/{n_used} nodes; "
-        f"re-walk verified {n_valid}/{n_used} nodes; "
-        f"E_res rms={e_rms:.2e} max={e_max:.2e} Ha; Gamma rel rms={g_rms:.3f} max={g_max:.3f}; "
-        f"smooth_rms_lam={lam_rel_rms:.2e} smooth_rms_alpha={alpha_rel_rms:.2e}; "
-        f"{polish_detail}; "
-        f"EA constraint {ea_status}"
+        f"re-tracked {int(ok2.sum())}/{n_used} nodes"
     )
-    return model, TierResult("T1", "met" if met else "not met", e_rms, max(e_max, g_max), detail)
+    extra = (
+        f"smooth_rms_lam={lam_rel_rms:.2e} smooth_rms_alpha={alpha_rel_rms:.2e}; "
+        f"{polish_detail}; EA constraint {ea_status}"
+    )
+    return _verify_t1(
+        target, model, pair, R_desc, tol, pole_target, node_source, tracked, int(ok2.sum()), extra
+    )
 
 
 def _coupling_eval_grid(

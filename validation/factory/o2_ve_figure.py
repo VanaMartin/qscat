@@ -51,24 +51,65 @@ def load_run(run_dir: Path) -> tuple[np.ndarray, dict[int, np.ndarray]]:
     return E, out
 
 
-def figure(run_dir: Path, out: Path = FIGURE) -> Path:
+def load_split_run(run_so12: Path, run_so32: Path) -> tuple[np.ndarray, dict[int, np.ndarray]]:
+    """The spin-orbit-resolved cross section: `1/3 sigma(2Pi_1/2) + 1/3
+    sigma(2Pi_3/2)` (p. 032829-4), each component on its own energy mesh
+    (its levels sit +-Delta_SO/2 apart), summed on the union of the meshes
+    by linear interpolation -- fine against 41 points per peak."""
+    E1, s1 = load_run(run_so12)
+    E2, s2 = load_run(run_so32)
+    E = np.unique(np.concatenate([E1, E2]))
+    out = {}
+    for v in sorted(set(s1) & set(s2)):
+        # load_run applied g = 2/3 to each; a component carries 1/3
+        out[v] = 0.5 * (np.interp(E, E1, s1[v]) + np.interp(E, E2, s2[v]))
+    return E, out
+
+
+def doublet_separation(E: np.ndarray, sigma: np.ndarray, e0: float, half: float = 0.025) -> float:
+    """Distance (eV) between the two tallest local maxima within `e0 +- half`."""
+    m = (E > e0 - half) & (E < e0 + half)
+    Ew, sw = E[m], sigma[m]
+    peaks = [i for i in range(1, sw.size - 1) if sw[i] > sw[i - 1] and sw[i] > sw[i + 1]]
+    top = sorted(peaks, key=lambda i: -sw[i])[:2]
+    if len(top) < 2:
+        return float("nan")
+    return float(abs(Ew[top[0]] - Ew[top[1]]))
+
+
+def figure(
+    run_dir: Path | None,
+    out: Path = FIGURE,
+    *,
+    split: tuple[Path, Path] | None = None,
+) -> Path:
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    E, sig = load_run(run_dir)
+    E, sig = load_run(run_dir) if run_dir is not None else (np.zeros(0), {})
+    E_so, sig_so = load_split_run(*split) if split is not None else (np.zeros(0), {})
     fig, axes = plt.subplots(3, 2, figsize=(11, 12))
     for v, ax in enumerate(axes.ravel()[:N_PANELS]):
         for name, colour, ls in (("nrm", "tab:blue", "-"), ("lcp", "tab:green", "--")):
             d = np.loadtxt(DATA / f"fig5_ve_0{v}_{name}.csv", delimiter=",")
             ax.plot(d[:, 0], d[:, 1], ls, color=colour, lw=0.9, label=f"A&H {name.upper()}")
         unsplit = DATA / f"fig7_ve_0{v}_nrm.csv"
-        if unsplit.exists():  # Fig. 7: the NRM without spin-orbit splitting
+        if split is None and unsplit.exists():  # Fig. 7: the NRM without spin-orbit splitting
             d = np.loadtxt(unsplit, delimiter=",")
             ax.plot(d[:, 0], d[:, 1], ":", color="k", lw=0.9, label="A&H NRM, no spin-orbit")
         if v in sig:
             ax.plot(E, sig[v], "-", color="tab:red", lw=0.9, label="exact 2-D, factory ($g=2/3$)")
+        if v in sig_so:
+            ax.plot(
+                E_so,
+                sig_so[v],
+                "-",
+                color="tab:red",
+                lw=0.9,
+                label="exact 2-D, factory, $\\frac{1}{3}\\Pi_{1/2}+\\frac{1}{3}\\Pi_{3/2}$",
+            )
         nrm = np.loadtxt(DATA / f"fig5_ve_0{v}_nrm.csv", delimiter=",")
         ax.set(xlim=(nrm[0, 0], nrm[-1, 0]), xlabel="E (eV)", ylabel="$\\sigma$ ($a_0^2$)")
         ax.set_title(f"VE 0 $\\to$ {v}")
@@ -87,10 +128,21 @@ def figure(run_dir: Path, out: Path = FIGURE) -> Path:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--run", type=Path, required=True, help="qscat-run output directory")
+    ap.add_argument("--run", type=Path, default=None, help="qscat-run output dir, unsplit O2")
+    ap.add_argument("--so12", type=Path, default=None, help="qscat-run output dir, O2_SO12")
+    ap.add_argument("--so32", type=Path, default=None, help="qscat-run output dir, O2_SO32")
     ap.add_argument("--out", type=Path, default=FIGURE)
     a = ap.parse_args()
-    print(f"[O2] wrote {figure(a.run, a.out)}")
+    split = (a.so12, a.so32) if a.so12 is not None and a.so32 is not None else None
+    if a.run is None and split is None:
+        ap.error("give --run, or both --so12 and --so32")
+    print(f"[O2] wrote {figure(a.run, a.out, split=split)}")
+    if split is not None:
+        E, s = load_split_run(*split)
+        # Allan's v'=9 doublet in 0->1 sits at ~1.05 eV (p. 032829-5); the
+        # paper's model gives 17.8 meV, the measurement 19.6 +- 1.0.
+        sep = doublet_separation(E, s[1], 1.037)
+        print(f"[O2] 0->1 doublet separation near 1.04 eV: {sep * 1e3:.1f} meV")
 
 
 if __name__ == "__main__":

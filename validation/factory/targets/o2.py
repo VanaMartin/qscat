@@ -11,6 +11,8 @@ from __future__ import annotations
 
 from dataclasses import replace
 
+import numpy as np
+
 from projects.potential_factory.ansatz import FlexibleDiatomicModel, SmoothR, TailR, with_params
 from projects.potential_factory.report import FitReport
 from projects.potential_factory.target import (
@@ -22,7 +24,7 @@ from projects.potential_factory.target import (
     Target,
     polarisation_tail,
 )
-from validation.factory.targets.o2_data import EV, load_o2
+from validation.factory.targets.o2_data import EV, load_o2, load_so_split
 
 __all__ = ["O2_MU", "O2_R_INF", "ALPHA_D_O", "o2_target", "o2_seed", "o2_model_from_report"]
 
@@ -47,10 +49,27 @@ ALPHA_D_O = 5.3
 O2_R_INF = 14.0
 
 
-def o2_target(R_range: tuple[float, float] = (1.85, 6.0)) -> Target:
+def o2_target(R_range: tuple[float, float] = (1.85, 6.0), so: int = 0) -> Target:
+    """The O2 target; `so = -1 / +1` selects the 2Pi_{1/2} / 2Pi_{3/2}
+    spin-orbit component, whose anion curve lies at `V_ion + so * Delta_SO(R)/2`
+    with the paper's Fig. 1 splitting (Sec. III A: the two curves lie
+    symmetrically around 2Pi_g; the width is the same for both, and the
+    atom + ion asymptote moves with the curve, by `so * Delta_SO(inf)/2`).
+    `so = 0` is the unsplit 2Pi_g curve (statistical factor 2/3; each
+    component carries 1/3)."""
     c = load_o2()
+    v_ion = c.v_ion
+    ea = _EA_O
+    label = ""
+    if so:
+        if so not in (-1, 1):
+            raise ValueError(f"so must be -1, 0 or +1, got {so}")
+        R_so, d_so = load_so_split()
+        v_ion = v_ion + so * 0.5 * np.interp(c.R, R_so, d_so)
+        ea = _EA_O - so * 0.5 * float(d_so[-1])  # the curve's own asymptote
+        label = f", 2Pi_{'1/2' if so < 0 else '3/2'} component (Fig. 1 splitting)"
     return Target(
-        name="O2 (Alt & Houfek 2021, Fig. 2 vector extraction)",
+        name=f"O2 (Alt & Houfek 2021, Fig. 2 vector extraction){label}",
         mu=O2_MU,
         ell=2,
         charge=0,
@@ -64,9 +83,9 @@ def o2_target(R_range: tuple[float, float] = (1.85, 6.0)) -> Target:
             R_range,
         ),
         resonance=ResonanceTarget(
-            Curve.from_table(c.R, c.v_ion),
+            Curve.from_table(c.R, v_ion),
             Curve.from_table(c.R, c.gamma),
-            _EA_O,
+            ea,
             R_range,
             R_inf=O2_R_INF,
             tail=polarisation_tail(ALPHA_D_O),

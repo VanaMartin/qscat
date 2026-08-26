@@ -13,7 +13,8 @@ Public API:
     optional shell; embeds the `DiatomicResonanceModel`s exactly
     (`from_diatomic`) -- see docs/physics/potential-factory.md.
   - `N2`, `NO`, `F2`, `H2P`, `O2` -- the registry instances (`O2` is the
-    first FITTED model, not a published parameter set).
+    first FITTED model, not a published parameter set), plus `O2_SO12` /
+    `O2_SO32`, its two spin-orbit components (statistical factor 1/3 each).
 
 Adding a molecule means adding a registry entry (parameters) plus its
 validation -- never solver code, which lives model-free in `qscat.core`. See
@@ -25,7 +26,7 @@ from __future__ import annotations
 from .diatomic import DiatomicResonanceModel, ResonanceModel
 from .flexible import FlexibleDiatomicModel, SmoothR, TailR, from_diatomic
 from .ionic import IonicResonanceModel
-from .library import F2, H2P, N2, NO, O2
+from .library import F2, H2P, N2, NO, O2, O2_SO12, O2_SO32
 
 __all__ = [
     "F2",
@@ -33,6 +34,8 @@ __all__ = [
     "N2",
     "NO",
     "O2",
+    "O2_SO12",
+    "O2_SO32",
     "DiatomicResonanceModel",
     "FlexibleDiatomicModel",
     "IonicResonanceModel",

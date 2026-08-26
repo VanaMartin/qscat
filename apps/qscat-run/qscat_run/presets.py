@@ -37,7 +37,7 @@ from dataclasses import dataclass, replace
 
 from qscat.core.grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
-from qscat.model import F2, H2P, N2, NO, O2, ResonanceModel
+from qscat.model import F2, H2P, N2, NO, O2, O2_SO12, O2_SO32, ResonanceModel
 
 from qscat_run.config import (
     ConfigError,
@@ -69,7 +69,15 @@ __all__ = [
     "resolve_test_function",
 ]
 
-MODELS: dict[str, ResonanceModel] = {"N2": N2, "NO": NO, "F2": F2, "H2P": H2P, "O2": O2}
+MODELS: dict[str, ResonanceModel] = {
+    "N2": N2,
+    "NO": NO,
+    "F2": F2,
+    "H2P": H2P,
+    "O2": O2,
+    "O2_SO12": O2_SO12,
+    "O2_SO32": O2_SO32,
+}
 
 # The (molecule, observable.kind) validity matrix from the design spec.
 # N2 "da" is CLOSED-IN-RANGE -- allowed, not rejected, but flagged
@@ -83,6 +91,8 @@ VALIDITY: dict[str, frozenset[str]] = {
     # O2 (the fitted model): DA is closed until 3.7 eV, above the whole
     # window the model was fitted for (0-2.7 eV) -- VE only.
     "O2": frozenset({"ve"}),
+    "O2_SO12": frozenset({"ve"}),
+    "O2_SO32": frozenset({"ve"}),
 }
 WARN_OBSERVABLES: dict[str, frozenset[str]] = {"N2": frozenset({"da"})}
 
@@ -521,6 +531,32 @@ PRESETS: dict[str, MoleculePreset] = {
         default_energies=EnergySpec(min=0.002, max=0.100, step=0.001),
         default_incident=IncidentSpec(r0=12.0, p0=-0.5, sigma=3.0),
         valid_observables=VALIDITY["O2"],
+        n_vib=12,
+        ve_test_function=TestFunctionSpec(r0_out=14.0, p0_out=0.5, sigma_out=3.0),
+    ),
+    # The spin-orbit components share O2's deck: their anion curves differ
+    # from O2's by +-10 meV, far under anything the discretisation resolves
+    # differently. The level-aware mesh is per component (their levels sit
+    # +-Delta_SO/2 apart).
+    "O2_SO12:tuner": MoleculePreset(
+        molecule="O2_SO12",
+        variant="tuner",
+        ti_grid=_o2_ti_grid,
+        td_grid=_o2_ti_grid,
+        default_energies=EnergySpec(min=0.002, max=0.100, step=0.001),
+        default_incident=IncidentSpec(r0=12.0, p0=-0.5, sigma=3.0),
+        valid_observables=VALIDITY["O2_SO12"],
+        n_vib=12,
+        ve_test_function=TestFunctionSpec(r0_out=14.0, p0_out=0.5, sigma_out=3.0),
+    ),
+    "O2_SO32:tuner": MoleculePreset(
+        molecule="O2_SO32",
+        variant="tuner",
+        ti_grid=_o2_ti_grid,
+        td_grid=_o2_ti_grid,
+        default_energies=EnergySpec(min=0.002, max=0.100, step=0.001),
+        default_incident=IncidentSpec(r0=12.0, p0=-0.5, sigma=3.0),
+        valid_observables=VALIDITY["O2_SO32"],
         n_vib=12,
         ve_test_function=TestFunctionSpec(r0_out=14.0, p0_out=0.5, sigma_out=3.0),
     ),

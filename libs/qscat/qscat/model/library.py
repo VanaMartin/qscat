@@ -24,7 +24,7 @@ from .diatomic import DiatomicResonanceModel
 from .flexible import FlexibleDiatomicModel, SmoothR, TailR
 from .ionic import IonicResonanceModel
 
-__all__ = ["F2", "H2P", "N2", "NO", "O2"]
+__all__ = ["F2", "H2P", "N2", "NO", "O2", "O2_SO12", "O2_SO32"]
 
 N2 = DiatomicResonanceModel(
     mu=12766.36,
@@ -137,6 +137,111 @@ O2 = FlexibleDiatomicModel(
     # T3's shell fit left a zero-strength shell (1e-9); it is carried so the
     # parameter set matches the report key for key, and contributes nothing.
     shell=SmoothR(f_inf=1e-09, f_0=1e-09, f_1=1.0, R_f=2.05, R_e=_O2_Y_REF),
+    alpha_b=2.0,
+    r_b=3.0,
+)
+
+# The two spin-orbit components of O2: the same fit with the anion curve moved
+# by -/+ Delta_SO(R)/2 (Alt & Houfek Fig. 1, Sec. III A -- the 2Pi_1/2 and 2Pi_3/2
+# curves lie symmetrically around 2Pi_g, same width, asymptotes at
+# -EA(O) +/- Delta_SO(inf)/2), obtained by polishing O2's lam(R)/alpha(R) only
+# (`validation/factory/fit_o2_so.py`; reports o2-so12-/o2-so32-fit-report.json,
+# locked by test_o2_report.py). Each carries the statistical factor 1/3; their
+# sum is the spin-orbit-resolved VE cross section (p. 032829-4).
+O2_SO12 = FlexibleDiatomicModel(
+    mu=15.99491461956 * 1822.888486 / 2.0,
+    ell=2,
+    D_e=0.19331866564928865,
+    R_e=2.268012257109915,
+    betas=(
+        1.4523575847133374,
+        0.10381040322431209,
+        -0.004015128162685024,
+        0.3910799122325903,
+        1.9183648370285529,
+    ),
+    p=3,
+    lam=TailR(
+        f_inf=5.025820694299848,
+        coeffs=(
+            -0.20746494863175372,
+            0.811406107431042,
+            0.10120916277113931,
+            0.5537703046708998,
+            -1.308995528994924,
+            3.2579374412303177,
+            32.862701258238495,
+            -73.13157294390486,
+            37.36870749341204,
+        ),
+        R_e=_O2_Y_REF,
+        p=3,
+        q=4,
+    ),
+    alpha=SmoothR(
+        f_inf=0.35836239142537873,
+        f_0=0.0,
+        f_1=1.0,
+        R_f=0.0,
+        coeffs=(0.0, 0.0, 0.0),
+        R_e=_O2_Y_REF,
+    ),
+    shell=SmoothR(
+        f_inf=1e-09,
+        f_0=1e-09,
+        f_1=1.0,
+        R_f=2.05,
+        R_e=_O2_Y_REF,
+    ),
+    alpha_b=2.0,
+    r_b=3.0,
+)
+
+O2_SO32 = FlexibleDiatomicModel(
+    mu=15.99491461956 * 1822.888486 / 2.0,
+    ell=2,
+    D_e=0.19331866564928865,
+    R_e=2.268012257109915,
+    betas=(
+        1.4523575847133374,
+        0.10381040322431209,
+        -0.004015128162685024,
+        0.3910799122325903,
+        1.9183648370285529,
+    ),
+    p=3,
+    lam=TailR(
+        f_inf=5.102921705841919,
+        coeffs=(
+            -0.2089645731643405,
+            0.8118910038742814,
+            0.10394620036618253,
+            0.535378201217016,
+            -1.2986782171831563,
+            3.3593321281929445,
+            32.728595606603704,
+            -73.18273419451207,
+            37.455649430870515,
+        ),
+        R_e=_O2_Y_REF,
+        p=3,
+        q=4,
+    ),
+    alpha=SmoothR(
+        f_inf=0.3642029360689995,
+        f_0=0.0,
+        f_1=1.0,
+        R_f=0.0,
+        coeffs=(0.0, 0.0, 0.0),
+        R_e=_O2_Y_REF,
+    ),
+    shell=SmoothR(
+        f_inf=1e-09,
+        f_0=1e-09,
+        f_1=1.0,
+        R_f=2.05,
+        R_e=_O2_Y_REF,
+    ),
     alpha_b=2.0,
     r_b=3.0,
 )
