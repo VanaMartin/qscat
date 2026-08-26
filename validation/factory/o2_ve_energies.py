@@ -27,7 +27,12 @@ __all__ = ["level_aware_energies", "main"]
 LEVELS = Path("validation/factory/results/o2-anion-levels.csv")
 E_WINDOW = (0.002, 0.100)  # Ha
 BACKGROUND_STEP = 0.001  # Ha (27 meV)
-N_WINDOW = 15
+# 41 points across +-5 widths puts the mesh Gamma/4 apart, so a Lorentzian
+# peak is caught within Gamma/8 of its maximum (height to 6 %); the first
+# sweep's 15 points (Gamma/1.5 apart) read every height 0.6-0.9x the paper's
+# unsplit NRM -- a Gamma/3 miss is a factor 0.69, i.e. the mesh, not the
+# model. ~1300 energies: 8 min with MUMPS, not a laptop job.
+N_WINDOW = 41
 HALF_WIDTHS = 5.0
 GAMMA_FLOOR = 0.3e-3 * EV_TO_HARTREE  # 0.3 meV
 
