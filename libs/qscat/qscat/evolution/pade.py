@@ -80,7 +80,7 @@ def pade_roots(order: int) -> npt.NDArray[np.complex128]:
 
 
 def make_pade_stepper(
-    H: sp.spmatrix, dt: float, order: int = 1
+    H: sp.spmatrix, dt: float, order: int = 3
 ) -> Callable[[npt.NDArray[np.complexfloating[Any, Any]]], npt.NDArray[np.complex128]]:
     """Build an order-`order` diagonal-Pade stepper for `d/dt psi = -i H psi`.
 
@@ -90,6 +90,10 @@ def make_pade_stepper(
     applies the product `prod_i (I + iHdt/r_i)^{-1} (I - iHdt/r_i)` in one pass.
     `order=1` is exactly `make_sparse_cn_stepper`. The factors commute (all are
     rational functions of `H`), so their application order is immaterial.
+
+    Default order 3: order 1 (Crank-Nicolson) is documented above to
+    under-converge long propagations; pass order=1 (or use make_sparse_cn_stepper)
+    to get CN explicitly.
     """
     n = H.shape[0]
     # Concrete complex128 csc, mirroring make_sparse_cn_stepper's conversion so

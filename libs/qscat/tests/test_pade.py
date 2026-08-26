@@ -106,3 +106,11 @@ def test_stepper_propagates_a_block_of_states_columnwise():
     together = step(block)
     for j in range(3):
         assert np.allclose(together[:, j], step(block[:, j]), rtol=1e-12, atol=1e-14)
+
+
+def test_default_order_is_three() -> None:
+    """lib-m10: the default must be the order the TD validation needed,
+    not the CN order the module docstring warns under-converges."""
+    import inspect
+
+    assert inspect.signature(make_pade_stepper).parameters["order"].default == 3
