@@ -174,6 +174,57 @@ def _h2p_proxy():
 
 @pytest.mark.slow
 def test_dr_wellposed_and_threshold_ordered():
+    from qscat.core.dissociation import dr_solve
+    from qscat.core.vibrational import vibrational_states
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
+    E = np.array([0.01, 0.03])
+    s = dr_solve(tg, H2P, eps, chi, 0, E, n_channels=2).sigma
+    assert s.shape == (2, 2)
+    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
+
+    # R6: store_wavefunction hands back the driven Psi+ without changing sigma.
+    res2 = dr_solve(tg, H2P, eps, chi, 0, E, n_channels=2, store_wavefunction=True)
+    assert np.array_equal(s, res2.sigma)
+    psis = res2.psi
+    assert isinstance(psis, list) and len(psis) == 2
+    for psi in psis:
+        assert psi is not None and psi.shape == (tg.size,) and psi.dtype == np.complex128
+
+
+def test_dr_solve_returns_dataclass_result() -> None:
+    """lib-m14: one result object instead of four flag-shaped tuples."""
+    from qscat.core.dissociation import DrResult, dr_solve
+    from qscat.core.vibrational import vibrational_states
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
+    E = np.array([0.01, 0.03])
+
+    res = dr_solve(tg, H2P, eps, chi, 0, E, n_channels=2)
+    assert isinstance(res, DrResult)
+    assert res.psi is None and res.amplitude is None
+
+    full = dr_solve(
+        tg,
+        H2P,
+        eps,
+        chi,
+        0,
+        E,
+        n_channels=2,
+        store_wavefunction=True,
+        store_amplitude=True,
+    )
+    np.testing.assert_array_equal(full.sigma, res.sigma)
+    assert full.psi is not None and full.amplitude is not None
+    assert full.amplitude.shape == full.sigma.shape
+
+
+def test_dr_cross_section_flags_deprecated_but_working() -> None:
     from qscat.core.dissociation import dr_cross_section
     from qscat.core.vibrational import vibrational_states
     from qscat.model import H2P
@@ -181,16 +232,11 @@ def test_dr_wellposed_and_threshold_ordered():
     tg = _h2p_proxy()
     eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
     E = np.array([0.01, 0.03])
-    s = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2)
-    assert s.shape == (2, 2)
-    assert np.all(np.isfinite(s)) and np.all(s >= 0.0)
 
-    # R6: return_wavefunction hands back the driven Psi+ without changing sigma.
-    s2, psis = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2, return_wavefunction=True)
-    assert np.array_equal(s, s2)
-    assert isinstance(psis, list) and len(psis) == 2
-    for psi in psis:
-        assert psi is not None and psi.shape == (tg.size,) and psi.dtype == np.complex128
+    s = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2)  # silent
+    with pytest.warns(DeprecationWarning, match="dr_solve"):
+        s2, _psi = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2, return_wavefunction=True)
+    np.testing.assert_array_equal(s, s2)
 
 
 def _dr_t_matrix_conjugated_channel0(tg, E: float) -> complex:
@@ -257,15 +303,15 @@ def test_dr_cproduct_matches_conjugated_dot_on_proxy():
 @pytest.mark.slow
 def test_dr_amplitude_reproduces_the_returned_sigma() -> None:
     """The amplitude and sigma must not drift apart: sigma is 4pi^3|t|^2/2E."""
-    from qscat.core.dissociation import dr_cross_section
+    from qscat.core.dissociation import dr_solve
     from qscat.model import H2P
 
     tg = _h2p_proxy()
     eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
     energies = np.array([0.012, 0.014])
-    sigma, amp = dr_cross_section(
-        tg, H2P, eps, chi, 0, energies, n_channels=2, return_amplitude=True
-    )
+    res = dr_solve(tg, H2P, eps, chi, 0, energies, n_channels=2, store_amplitude=True)
+    sigma, amp = res.sigma, res.amplitude
+    assert amp is not None
     assert amp.shape == sigma.shape
     assert amp.dtype == np.complex128
     recomputed = 4.0 * np.pi**3 * np.abs(amp) ** 2 / (2.0 * energies[:, None])
@@ -277,12 +323,12 @@ def test_dr_amplitude_reproduces_the_returned_sigma() -> None:
 
 @pytest.mark.slow
 def test_dr_amplitude_composes_with_the_wavefunction_return() -> None:
-    from qscat.core.dissociation import dr_cross_section
+    from qscat.core.dissociation import dr_solve
     from qscat.model import H2P
 
     tg = _h2p_proxy()
     eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
-    sigma, psi, amp = dr_cross_section(
+    res = dr_solve(
         tg,
         H2P,
         eps,
@@ -290,10 +336,12 @@ def test_dr_amplitude_composes_with_the_wavefunction_return() -> None:
         0,
         0.012,
         n_channels=2,
-        return_wavefunction=True,
-        return_amplitude=True,
+        store_wavefunction=True,
+        store_amplitude=True,
     )
+    sigma, psi, amp = res.sigma, res.psi, res.amplitude
     assert psi is not None and psi.shape == (tg.size,)
+    assert amp is not None
     assert amp.shape == sigma.shape
 
 
@@ -322,13 +370,15 @@ def test_dr_amplitude_matches_conjugated_oracle_value_and_phase() -> None:
     `_dr_t_matrix_conjugated_channel0` reference) or a stray overall sign
     would fail it outright.
     """
-    from qscat.core.dissociation import dr_cross_section
+    from qscat.core.dissociation import dr_solve
     from qscat.model import H2P
 
     tg = _h2p_proxy()
     E = 0.03
     eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
-    sigma, amp = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=1, return_amplitude=True)
+    res = dr_solve(tg, H2P, eps, chi, 0, E, n_channels=1, store_amplitude=True)
+    sigma, amp = res.sigma, res.amplitude
+    assert amp is not None
     assert sigma[0] > 0.0, "test picked a closed channel"
 
     t = complex(amp[0])

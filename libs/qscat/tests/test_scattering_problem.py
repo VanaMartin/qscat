@@ -115,15 +115,17 @@ def test_problem_da_matches_functional_api() -> None:
 def test_problem_dr_delegates_exact_arguments(monkeypatch) -> None:
     """dr's real solve is slow-tier (mpmath Coulomb channels), so delegation
     is checked by argument capture instead of a re-solve."""
+    from qscat.core.dissociation import DrResult
+
     prob, _, _, tg = _problem_and_basis()
     sentinel = np.zeros((2, 2))
     seen: dict[str, object] = {}
 
-    def fake_dr(tgrid, model, eps, chi, v_init, E, **kw):
+    def fake_dr_solve(tgrid, model, eps, chi, v_init, E, **kw):
         seen.update(tgrid=tgrid, model=model, eps=eps, chi=chi, v_init=v_init, E=E, **kw)
-        return sentinel
+        return DrResult(sigma=sentinel, psi=None, amplitude=None)
 
-    monkeypatch.setattr("qscat.core.problem.dr_cross_section", fake_dr)
+    monkeypatch.setattr("qscat.core.problem.dr_solve", fake_dr_solve)
     got = prob.dr_cross_section([0.01, 0.03], n_channels=2)
     assert got is sentinel
     assert seen["tgrid"] is tg
@@ -133,8 +135,8 @@ def test_problem_dr_delegates_exact_arguments(monkeypatch) -> None:
     assert np.array_equal(seen["chi"], prob.chi)
     assert seen["n_channels"] == 2
     assert seen["ordering"] == "COLAMD"
-    assert seen["return_wavefunction"] is False
-    assert seen["return_amplitude"] is False
+    assert seen["store_wavefunction"] is False
+    assert seen["store_amplitude"] is False
 
 
 def test_problem_td_ve_matches_functional_api() -> None:
