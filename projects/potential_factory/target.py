@@ -9,7 +9,15 @@ import numpy as np
 import numpy.typing as npt
 from scipy.interpolate import CubicSpline, RegularGridInterpolator
 
-__all__ = ["CouplingTarget", "Curve", "NeutralTarget", "Provenance", "ResonanceTarget", "Target"]
+__all__ = [
+    "CouplingTarget",
+    "Curve",
+    "NeutralTarget",
+    "Provenance",
+    "ResonanceTarget",
+    "Target",
+    "polarisation_tail",
+]
 
 FArr = npt.NDArray[np.float64]
 
@@ -48,10 +56,40 @@ class NeutralTarget:
 
 @dataclass(frozen=True)
 class ResonanceTarget:
+    """The anion curve `v_ion(R)`, its local width `gamma(R)`, and how the
+    curve ENDS: `-ea` is the atom + ion energy `V_ion(R -> inf)` (an ATOMIC
+    constant, not read off the curve), `R_inf` is the radius beyond which the
+    curve is at that asymptote to within the fit tolerance -- a per-molecule
+    judgement the operator makes from the literature (the anion's charge-
+    resonance/exchange tail decays as `exp(-sqrt(2 EA) R)`, so `R_inf` is where
+    that has died, NOT where the table happens to stop), and `tail(R)` is the
+    theoretical long-range correction still present at finite `R`, e.g. the
+    ion--atom polarisation `-alpha_d / (2 R^4)` (`polarisation_tail`), so that
+    `V_ion(R) = -ea + tail(R)` for `R >= R_inf`. `tail=None` means the
+    asymptote is reached exactly. The fitter pins the model to this form on
+    nodes from the table's end out to `R_inf`, and the report's `asymptote`
+    tier verifies it at `R_inf` and far beyond."""
+
     v_ion: Curve
     gamma: Curve
     ea: float
     R_range: tuple[float, float]
+    R_inf: float = 10.0
+    tail: Curve | None = None
+
+    def v_ion_asymptotic(self, R: npt.ArrayLike) -> FArr:
+        """`-ea + tail(R)`: the theoretical anion curve beyond the table."""
+        Rv = np.asarray(R, dtype=np.float64)
+        out = np.full_like(Rv, -self.ea)
+        if self.tail is not None:
+            out = out + self.tail(Rv)
+        return out
+
+
+def polarisation_tail(alpha_d: float) -> Curve:
+    """The ion--atom charge--induced-dipole tail `-alpha_d / (2 R^4)` (atomic
+    units), `alpha_d` the neutral partner atom's static dipole polarisability."""
+    return Curve.from_callable(lambda R: -alpha_d / (2.0 * R**4))
 
 
 @dataclass(frozen=True)

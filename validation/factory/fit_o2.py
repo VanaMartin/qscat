@@ -38,11 +38,11 @@ def run(
     out: Path,
     *,
     n_nodes: int = 40,
-    polish_nfev: int = 300,
+    polish_nfev: int = 400,
     grid: dict | None = None,
     R_max: float = 6.0,
-    lam_coeffs: int = 2,
-    alpha_coeffs: int = 2,
+    lam_coeffs: int = 9,
+    alpha_coeffs: int = 3,
 ) -> FitReport:
     g = grid or GRID
     pair = ElectronicPair(
@@ -113,7 +113,10 @@ def _figure(model, target, pair, out: Path) -> None:
     ax[1, 0].legend(fontsize=7)
     eps = np.geomspace(*target.coupling.eps_window, 40)
     try:  # needs a bound anion at R_inf; a fit that misses the asymptote has none
-        gt = {R: model_gamma_tilde(model, pair, eps, np.array([R]))[:, 0] for R in (1.9, 2.1)}
+        gt = {
+            R: model_gamma_tilde(model, pair, eps, np.array([R]), target.resonance.R_inf)[:, 0]
+            for R in (1.9, 2.1)
+        }
     except ValueError as err:
         gt = {}
         ax[1, 1].set_title(f"no factory width: {str(err)[:60]}...", fontsize=7)
@@ -137,10 +140,10 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("runs/factory-o2"))
     ap.add_argument("--n-nodes", type=int, default=40)
-    ap.add_argument("--polish-nfev", type=int, default=300)
+    ap.add_argument("--polish-nfev", type=int, default=400)
     ap.add_argument("--r-max", type=float, default=6.0, help="upper end of the fitted R range")
-    ap.add_argument("--lam-coeffs", type=int, default=2)
-    ap.add_argument("--alpha-coeffs", type=int, default=2)
+    ap.add_argument("--lam-coeffs", type=int, default=9)
+    ap.add_argument("--alpha-coeffs", type=int, default=3)
     a = ap.parse_args()
     run(
         a.out,

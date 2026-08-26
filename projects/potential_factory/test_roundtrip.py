@@ -63,9 +63,8 @@ def test_round_trip_recovers_the_published_model(name, tmp_path):
         },
     )
     fitted, report = fit(target, seed, pair=pair, n_nodes=10)
-    assert [t.status for t in report.tiers] == ["met", "met", "met"], [
-        t.detail for t in report.tiers
-    ]
+    assert [t.name for t in report.tiers] == ["T0", "T1", "asymptote", "T3"]
+    assert [t.status for t in report.tiers] == ["met"] * 4, [t.detail for t in report.tiers]
     assert abs(fitted.D_e - model.D0) < 1e-8 and abs(fitted.R_e - model.R0) < 1e-8
     np.testing.assert_allclose(fitted.lam_R(R_desc).real, model.lam(R_desc).real, rtol=3e-3)
     np.testing.assert_allclose(fitted.alpha_R(R_desc).real, model.alpha_c, rtol=3e-3)

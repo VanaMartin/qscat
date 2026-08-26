@@ -25,6 +25,7 @@ from qscat.model import DiatomicResonanceModel
 __all__ = [
     "FlexibleDiatomicModel",
     "SmoothR",
+    "TailR",
     "from_diatomic",
     "pack",
     "params",
@@ -68,6 +69,38 @@ class SmoothR:
 
 
 @dataclass(frozen=True)
+class TailR:
+    """`f(R) = f_inf + (1 - y_q(R)) * sum_k coeffs[k] y_p(R)^k`.
+
+    The long-range-correct alternative to `SmoothR`: every term carries the
+    factor `1 - y_q(R) ~ 2 (R_e/R)^q` as `R -> inf`, so `f(inf) == f_inf`
+    EXACTLY and the approach is the power law `R^-q` -- with `q = 4` the
+    ion--atom polarisation form the anion curve must follow (the
+    `polarisation_tail` of `target.py`). Inside, `P(y_p)` is a plain
+    polynomial in Le Roy's bounded variable `y_p in (-1, 1)`, so the fit is
+    linear in `coeffs` and well conditioned -- no sigmoid inflection to run
+    off to large `R`, which is how the `SmoothR` form held `-EA` at one
+    node and missed it by 0.2 eV beyond (measured on O2). `SmoothR` stays
+    for the published models, whose `lam(R)` IS a sigmoid.
+    """
+
+    f_inf: float
+    coeffs: tuple[float, ...]
+    R_e: float = 2.0
+    p: int = 3
+    q: int = 4
+
+    def __call__(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        Rc = np.asarray(R, dtype=np.complex128)
+        poly = np.zeros_like(Rc)
+        if self.coeffs:
+            y = y_p(Rc, self.R_e, self.p)
+            poly = poly + sum(c * y**k for k, c in enumerate(self.coeffs))
+        tail = 1.0 - y_p(Rc, self.R_e, self.q)
+        return np.asarray(self.f_inf + tail * poly, dtype=np.complex128)
+
+
+@dataclass(frozen=True)
 class FlexibleDiatomicModel:
     """EMO neutral curve + Gaussian well with `lam(R)`, `alpha(R)` + optional shell."""
 
@@ -77,8 +110,8 @@ class FlexibleDiatomicModel:
     R_e: float
     betas: tuple[float, ...]
     p: int
-    lam: SmoothR
-    alpha: SmoothR
+    lam: SmoothR | TailR
+    alpha: SmoothR | TailR
     shell: SmoothR | None
     alpha_b: float
     r_b: float
@@ -163,20 +196,23 @@ def from_diatomic(model: DiatomicResonanceModel) -> FlexibleDiatomicModel:
     )
 
 
-def _smooth_params(prefix: str, s: SmoothR) -> dict[str, float]:
-    out = {
-        f"{prefix}.f_inf": s.f_inf,
-        f"{prefix}.f_0": s.f_0,
-        f"{prefix}.f_1": s.f_1,
-        f"{prefix}.R_f": s.R_f,
-    }
+def _smooth_params(prefix: str, s: SmoothR | TailR) -> dict[str, float]:
+    out = {f"{prefix}.f_inf": s.f_inf}
+    if isinstance(s, SmoothR):
+        out[f"{prefix}.f_0"] = s.f_0
+        out[f"{prefix}.f_1"] = s.f_1
+        out[f"{prefix}.R_f"] = s.R_f
     for i, c in enumerate(s.coeffs):
         out[f"{prefix}.c{i}"] = c
     return out
 
 
-def _smooth_update(s: SmoothR, prefix: str, upd: Mapping[str, float]) -> SmoothR:
-    kw = {"f_inf": s.f_inf, "f_0": s.f_0, "f_1": s.f_1, "R_f": s.R_f}
+def _smooth_update(s: SmoothR | TailR, prefix: str, upd: Mapping[str, float]) -> SmoothR | TailR:
+    kw = (
+        {"f_inf": s.f_inf, "f_0": s.f_0, "f_1": s.f_1, "R_f": s.R_f}
+        if isinstance(s, SmoothR)
+        else {"f_inf": s.f_inf}
+    )
     coeffs = list(s.coeffs)
     for key, val in upd.items():
         if not key.startswith(prefix + "."):
