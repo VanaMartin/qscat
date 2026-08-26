@@ -1,7 +1,10 @@
 """Thin N2-binding shim over the model-agnostic, promoted implementation in
 `qscat.core.time_dependent` (sub-project #A, Task 5) -- `_propagate`,
 `_s_vector_one_energy`, `_sigma_one_energy`, `sigma_from_correlations`, and
-`td_ve_cross_section_2d` here just fix `model=N2` and delegate. See
+`td_ve_cross_section_2d` here just fix `model=N2` and delegate (the
+`qscat.core.time_dependent` names they wrap are `propagate_wavepacket`,
+`s_vector_one_energy`, `sigma_one_energy` -- promoted to public, `eps`
+dropped from `propagate_wavepacket`, lib-m7/lib-M16). See
 `qscat.core.time_dependent`'s module docstring for the full physics/
 convention writeup (the Tannor-Weeks energy transform, the elastic
 free-reference fix) -- unchanged by this promotion.
@@ -16,10 +19,10 @@ from __future__ import annotations
 import numpy as np
 import numpy.typing as npt
 from qscat.core.time_dependent import PropagationResult
-from qscat.core.time_dependent import _propagate as _core_propagate
-from qscat.core.time_dependent import _s_vector_one_energy as _core_s_vector_one_energy
-from qscat.core.time_dependent import _sigma_one_energy as _core_sigma_one_energy
+from qscat.core.time_dependent import propagate_wavepacket as _core_propagate
+from qscat.core.time_dependent import s_vector_one_energy as _core_s_vector_one_energy
 from qscat.core.time_dependent import sigma_from_correlations as _core_sigma_from_correlations
+from qscat.core.time_dependent import sigma_one_energy as _core_sigma_one_energy
 from qscat.core.time_dependent import td_ve_cross_section as _core_td_ve_cross_section
 from qscat.dvr import TensorGrid
 from qscat.model import N2
@@ -35,7 +38,6 @@ _WpOut = dict[str, float]
 
 def _propagate(
     tgrid: TensorGrid,
-    eps: npt.NDArray[np.float64],
     chi: npt.NDArray[np.complex128],
     v_init: int,
     vprimes: list[int],
@@ -47,12 +49,11 @@ def _propagate(
     free: bool = False,
     order: int = 3,
 ) -> PropagationResult:
-    """N2-binding shim over `qscat.core.time_dependent._propagate`; see there
-    for the full docstring."""
+    """N2-binding shim over `qscat.core.time_dependent.propagate_wavepacket`;
+    see there for the full docstring."""
     return _core_propagate(
         tgrid,
         N2,
-        eps,
         chi,
         v_init,
         vprimes,
@@ -76,7 +77,7 @@ def _s_vector_one_energy(
     wp_in: _WpIn,
     wp_out: _WpOut,
 ) -> npt.NDArray[np.complex128]:
-    """N2-binding shim over `qscat.core.time_dependent._s_vector_one_energy`;
+    """N2-binding shim over `qscat.core.time_dependent.s_vector_one_energy`;
     see there for the full docstring."""
     return _core_s_vector_one_energy(tgrid, N2, result, eps, v_init, vprimes, E, dt, wp_in, wp_out)
 
@@ -93,7 +94,7 @@ def _sigma_one_energy(
     wp_out: _WpOut,
     free_result: PropagationResult | None = None,
 ) -> npt.NDArray[np.float64]:
-    """N2-binding shim over `qscat.core.time_dependent._sigma_one_energy`;
+    """N2-binding shim over `qscat.core.time_dependent.sigma_one_energy`;
     see there for the full docstring."""
     return _core_sigma_one_energy(
         tgrid, N2, result, eps, v_init, vprimes, E, dt, wp_in, wp_out, free_result

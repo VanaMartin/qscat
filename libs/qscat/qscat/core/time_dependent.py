@@ -54,13 +54,14 @@ unscattered S-matrix to exactly 1. THIS transform does not: the outgoing
 normalization factor C(E) multiplies every channel's S, so a free-particle
 (`V_int=0`) propagation gives `S_free(E) = C(E) ~ 2*pi^2`, not 1. So the
 elastic channel subtracts the S-matrix of a `V_int=0` reference propagation
-(`_propagate(..., free=True)`), supplied via `free_result`; the literal-1
+(`propagate_wavepacket(..., free=True)`), supplied via `free_result`; the literal-1
 fallback (`free_result=None`) leaves a large spurious elastic background. See
-`_sigma_one_energy` and `docs/physics/n2-2d-td-cross-section.md`.
+`sigma_one_energy` and `docs/physics/n2-2d-td-cross-section.md`.
 """
 
 from __future__ import annotations
 
+import warnings
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal, Protocol
@@ -85,8 +86,11 @@ __all__ = [
     "Snapshot",
     "free_hamiltonian",
     "propagate",
+    "propagate_wavepacket",
     "quadrature_weights",
+    "s_vector_one_energy",
     "sigma_from_correlations",
+    "sigma_one_energy",
     "td_da_cross_section",
     "td_da_cross_sections_all",
     "td_ve_cross_section",
@@ -200,7 +204,7 @@ def propagate(
     model-agnostic engine has no default to fall back to; the caller supplies
     `model.hamiltonian(tgrid)`, or `model.hamiltonian(tgrid) -
     diag(model.interaction_diag(tgrid))` for the elastic free-reference path,
-    see `_propagate`'s `free` argument).
+    see `propagate_wavepacket`'s `free` argument).
 
     `order` is the diagonal-Pade order of the evolution operator
     (`qscat.evolution.make_pade_stepper`): `O(dt^(2*order+1))` per step. The
@@ -408,7 +412,7 @@ def sigma_from_s(
     """The shared `sigma = pi*|S - ref|^2/(2E)` step, zeros for `E <= 0`
     and closed channels. `elastic` marks the diagonal (v'==v_init) VE
     channel(s), whose `ref` is `s_free[j]` when a free-reference S-vector
-    is supplied, else the literal 1 (see `_sigma_one_energy`'s docstring
+    is supplied, else the literal 1 (see `sigma_one_energy`'s docstring
     for why callers should supply `s_free`); every other channel -- and
     every DA channel (`elastic=None`, DA has no diagonal) -- uses `ref=0`,
     where `pi*|S|^2/(2E)` is the historical `_C_DA = pi` convention."""
@@ -431,9 +435,9 @@ def free_hamiltonian(model: ResonanceModel, tgrid: TensorGrid) -> sp.spmatrix:
     """`model.hamiltonian(tgrid)` with the interaction `V_int` removed.
 
     The unscattered (`V_int=0`) reference Hamiltonian used by the elastic
-    free-reference propagation (`_propagate`'s `free=True` and
+    free-reference propagation (`propagate_wavepacket`'s `free=True` and
     `td_ve_cross_section`'s `subtract_free_reference` path) -- see
-    `_sigma_one_energy` for why the elastic channel needs this reference
+    `sigma_one_energy` for why the elastic channel needs this reference
     instead of a literal `1`. Public so a caller assembling its own
     `propagate(..., hamiltonian=...)` free-reference run (e.g. the
     `qscat-run` CLI) reuses the exact same reference this module does,
@@ -450,16 +454,15 @@ def free_hamiltonian(model: ResonanceModel, tgrid: TensorGrid) -> sp.spmatrix:
 
 
 # Alias for the same function under its original private name. This module's
-# own call sites (`_propagate`, the `td_*_cross_section` free-reference paths)
+# own call sites (`propagate_wavepacket`, the `td_*_cross_section` free-reference paths)
 # and `libs/qscat/tests/test_td_extractors.py` both import it by this name;
 # keeping the alias saves churning them all for no behavioral gain.
 _free_hamiltonian = free_hamiltonian
 
 
-def _propagate(
+def propagate_wavepacket(
     tgrid: TensorGrid,
     model: ResonanceModel,
-    eps: npt.NDArray[np.float64],
     chi: npt.NDArray[np.complex128],
     v_init: int,
     vprimes: list[int],
@@ -471,13 +474,14 @@ def _propagate(
     free: bool = False,
     order: int = 3,
 ) -> PropagationResult:
-    """Propagate the incident packet and record `c_{v'}(t)` for each `v'`.
+    """Propagate the incident packet and record `c_{v'}(t)` for each `v'` --
+    a public building block consumed by `projects/n2_2d_td_cross_section`.
 
     `free=True` propagates under `model.hamiltonian(tgrid)` with the
     interaction `V_int` removed (`model.hamiltonian(tgrid) -
     diag(model.interaction_diag(tgrid))`) -- the unscattered reference whose
     S-matrix `S_free(E)` the elastic channel subtracts instead of a literal 1
-    (see `_sigma_one_energy`). Everything else -- the incident packet, the
+    (see `sigma_one_energy`). Everything else -- the incident packet, the
     outgoing test functions, the grid -- is identical to the full run, so the
     spurious direct/unscattered content cancels in `S_full - S_free`.
 
@@ -492,7 +496,7 @@ def _propagate(
     )
 
 
-def _s_vector_one_energy(
+def s_vector_one_energy(
     tgrid: TensorGrid,
     model: ResonanceModel,
     result: PropagationResult,
@@ -504,15 +508,16 @@ def _s_vector_one_energy(
     wp_in: _WpIn,
     wp_out: _WpOut,
 ) -> npt.NDArray[np.complex128]:
-    """The complex S-matrix `S_{v_init->v'}(E)` for each `v'`, shape `(len(vprimes),)`.
+    """The complex S-matrix `S_{v_init->v'}(E)` for each `v'`, shape `(len(vprimes),)`
+    -- a public building block consumed by `projects/n2_2d_td_cross_section`.
 
     `0` for closed channels (`E_tot - eps[v'] <= 0`) and for `E <= 0`. This
     is the raw Tannor-Weeks transform (module docstring) BEFORE the
     `|S - ref|^2` step -- now a thin assembly of the shared
     `s_vector_transform` skeleton with the TW outgoing factor
-    (`correlation_channel_s` + `eta_outgoing` on the electronic axis).
-    Kept under its original name/signature: the N2 project shim
-    (`projects.n2_2d_td_cross_section.td_cross_section`) imports it.
+    (`correlation_channel_s` + `eta_outgoing` on the electronic axis). The N2
+    project shim (`projects.n2_2d_td_cross_section.td_cross_section`) imports
+    this public name.
     """
     g_elec = tgrid.grids[0]
     channel_s = correlation_channel_s(
@@ -531,7 +536,7 @@ def _s_vector_one_energy(
     )
 
 
-def _sigma_one_energy(
+def sigma_one_energy(
     tgrid: TensorGrid,
     model: ResonanceModel,
     result: PropagationResult,
@@ -544,7 +549,8 @@ def _sigma_one_energy(
     wp_out: _WpOut,
     free_result: PropagationResult | None = None,
 ) -> npt.NDArray[np.float64]:
-    """`sigma_{v_init->v'}(E)` (bohr^2) at a single scalar `E`, shape `(len(vprimes),)`.
+    """`sigma_{v_init->v'}(E)` (bohr^2) at a single scalar `E`, shape `(len(vprimes),)`
+    -- a public building block consumed by `projects/n2_2d_td_cross_section`.
 
     The per-energy transform of an already-computed `PropagationResult` --
     the single-energy kernel both `sigma_from_correlations` (which adds the
@@ -569,10 +575,10 @@ def _sigma_one_energy(
     """
     thresholds = np.asarray([eps[vp] for vp in vprimes], dtype=np.float64)
     elastic = np.asarray([vp == v_init for vp in vprimes], dtype=np.bool_)
-    s_full = _s_vector_one_energy(tgrid, model, result, eps, v_init, vprimes, E, dt, wp_in, wp_out)
+    s_full = s_vector_one_energy(tgrid, model, result, eps, v_init, vprimes, E, dt, wp_in, wp_out)
     s_free = None
     if free_result is not None:
-        s_free = _s_vector_one_energy(
+        s_free = s_vector_one_energy(
             tgrid, model, free_result, eps, v_init, vprimes, E, dt, wp_in, wp_out
         )
     return sigma_from_s(s_full, s_free, thresholds, float(eps[v_init]), E, elastic)
@@ -611,16 +617,16 @@ def sigma_from_correlations(
     not validate that consistency, it trusts the caller.
 
     `free_result` is the `V_int=0` reference propagation (same wavepacket/grid,
-    from `_propagate(..., free=True)`); when supplied, the diagonal/elastic
+    from `propagate_wavepacket(..., free=True)`); when supplied, the diagonal/elastic
     channel subtracts its `S_free(E)` instead of a literal 1 (see
-    `_sigma_one_energy`). Leave `None` to reproduce the old behavior (correct
+    `sigma_one_energy`). Leave `None` to reproduce the old behavior (correct
     for the inelastic channels; the elastic channel then needs `S_free -> 1`,
     which this transform does not satisfy).
     """
     e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
     out = np.stack(
         [
-            _sigma_one_energy(
+            sigma_one_energy(
                 tgrid,
                 model,
                 result,
@@ -701,7 +707,7 @@ def td_ve_cross_section(
     channel is requested (`v_init in vprimes`), a SECOND `V_int=0` propagation
     is run to supply the free-particle reference `S_free(E)` that the elastic
     channel subtracts (instead of a literal 1) -- required for a correct
-    elastic cross section, see `_sigma_one_energy`. It doubles the propagation
+    elastic cross section, see `sigma_one_energy`. It doubles the propagation
     cost and is a no-op (skipped) when the elastic channel is not requested;
     set `False` to force the old literal-1 behavior. The inelastic channels
     are identical either way.
@@ -1085,3 +1091,64 @@ def td_da_cross_sections_all(
         "delta": dirac.sigma(E),
         "tw": tw.sigma(E),
     }
+
+
+# One deprecation cycle for the pre-promotion private names (lib-m7). The
+# public defs above are the real objects; this only serves old imports.
+_DEPRECATED_ALIASES = {
+    "_s_vector_one_energy": "s_vector_one_energy",
+    "_sigma_one_energy": "sigma_one_energy",
+}
+
+
+def _propagate_legacy(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    *,
+    dt: float,
+    n_steps: int,
+    wp_in: _WpIn,
+    wp_out: _WpOut,
+    free: bool = False,
+    order: int = 3,
+) -> PropagationResult:
+    """Old `_propagate` call shape; `eps` was never read."""
+    del eps
+    return propagate_wavepacket(
+        tgrid,
+        model,
+        chi,
+        v_init,
+        vprimes,
+        dt=dt,
+        n_steps=n_steps,
+        wp_in=wp_in,
+        wp_out=wp_out,
+        free=free,
+        order=order,
+    )
+
+
+def __getattr__(name: str) -> object:
+    if name == "_propagate":
+        warnings.warn(
+            "qscat.core.time_dependent._propagate is deprecated; use the "
+            "public propagate_wavepacket (note: the unused eps argument "
+            "is gone from the new signature)",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return _propagate_legacy
+    if name in _DEPRECATED_ALIASES:
+        new = _DEPRECATED_ALIASES[name]
+        warnings.warn(
+            f"qscat.core.time_dependent.{name} is deprecated; use the public {new}",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return globals()[new]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

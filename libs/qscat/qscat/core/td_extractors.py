@@ -6,7 +6,7 @@
 (the SAME per-step bookkeeping `time_dependent.propagate`'s legacy
 `out_channels` path performs) and its `sigma(E)` reproduces the existing
 Tannor-Weeks transform (`time_dependent.sigma_from_correlations` /
-`_sigma_one_energy`) VERBATIM -- eta_out/eta_in deconvolution, the elastic
+`sigma_one_energy`) VERBATIM -- eta_out/eta_in deconvolution, the elastic
 free-reference subtraction, `sigma = pi*|S - S_ref|^2 / (2E)` -- by building
 an ad hoc `PropagationResult` from its own recorded series and delegating to
 `sigma_from_correlations` (least churn: no transform logic is duplicated
@@ -115,7 +115,7 @@ states (`R_inf = tgrid.grids[1].R0`) instead of a nuclear vibrational
 level. `record` keeps the IDENTICAL per-channel c-product loop the
 electronic path already uses (`c_c(t) = c_product(Phi_c, psi)`) -- only the
 channel vectors differ, so this needed no change. `sigma(E)` is the DA
-analog of `_s_vector_one_energy`/`_sigma_one_energy` (this module's own
+analog of `s_vector_one_energy`/`sigma_one_energy` (this module's own
 `_tw_da_sigma_one_energy`, an assembly of `time_dependent`'s shared
 `s_vector_transform`/`sigma_from_s` kernels, NOT routed through
 `sigma_from_correlations`: that helper is hardwired to
@@ -234,7 +234,7 @@ class TannorWeeks:
     extractors=[tw])`. `sigma(E, free=...)` accepts the companion free-
     reference `TannorWeeks` (built from ITS OWN, separately propagated,
     run) so the elastic channel can subtract `S_free(E)` exactly as
-    `_sigma_one_energy` documents -- this is the "second TannorWeeks" the
+    `sigma_one_energy` documents -- this is the "second TannorWeeks" the
     `time_dependent.propagate` design notes describe.
 
     Nuclear (`axis="nuclear"`): the DISSOCIATIVE ATTACHMENT (DA) sibling of
@@ -346,7 +346,7 @@ class TannorWeeks:
         wavepacket/grid); its series supplies `sigma_from_correlations`'s
         `free_result` -- the elastic (`v'==v_init`) channel then subtracts
         the free-particle `S_free(E)` instead of a literal 1 (see
-        `time_dependent._sigma_one_energy`). Leave `None` to reproduce the
+        `time_dependent.sigma_one_energy`). Leave `None` to reproduce the
         literal-1 fallback. `free` is typed as the general `Extractor` protocol
         so all three extractors share one `sigma` signature, but only a
         `TannorWeeks` is meaningful here; anything else raises `TypeError`.
@@ -433,7 +433,7 @@ def _dirac_sigma_one_energy(
     outgoing-Hankel-half VALUE at the fixed analysis point -- a delta test
     function's `F_out` is unintegrated) as the outgoing factor, then the
     shared `sigma_from_s`. Same elastic free-reference contract as
-    `time_dependent._sigma_one_energy` (see that docstring): `S_free(E)`
+    `time_dependent.sigma_one_energy` (see that docstring): `S_free(E)`
     from a companion `V_int=0` propagation subtracts on the diagonal
     (`v'==v_init`) channel instead of a literal 1."""
     thresholds = np.asarray([eps[vp] for vp in vprimes], dtype=np.float64)
@@ -725,7 +725,7 @@ def _flux_sigma_one_energy(
     the shared `s_vector_transform` skeleton with the Wronskian element
     (`flux_channel_s` + `outgoing_surface_wave`'s `(phi_out, dphi_out)`
     pair, electronic mass 1.0), then the shared `sigma_from_s` -- same
-    elastic free-reference pattern as `time_dependent._sigma_one_energy` /
+    elastic free-reference pattern as `time_dependent.sigma_one_energy` /
     `_dirac_sigma_one_energy`."""
     thresholds = np.asarray([eps[vp] for vp in vprimes], dtype=np.float64)
     elastic = np.asarray([vp == v_init for vp in vprimes], dtype=np.bool_)

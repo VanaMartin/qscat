@@ -91,7 +91,6 @@ def propagation() -> td.PropagationResult:
     """The ONE ~5-min order-3 Pade propagation this file reuses (module docstring)."""
     return td._propagate(
         TG,
-        EPS,
         CHI,
         V_INIT,
         VPRIMES,
@@ -234,7 +233,6 @@ def elastic_propagations() -> tuple[td.PropagationResult, td.PropagationResult]:
     """
     full = td._propagate(
         TG,
-        EPS,
         CHI,
         V_INIT,
         [V_INIT],
@@ -246,7 +244,6 @@ def elastic_propagations() -> tuple[td.PropagationResult, td.PropagationResult]:
     )
     free = td._propagate(
         TG,
-        EPS,
         CHI,
         V_INIT,
         [V_INIT],
