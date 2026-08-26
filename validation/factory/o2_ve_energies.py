@@ -29,10 +29,10 @@ E_WINDOW = (0.002, 0.100)  # Ha
 BACKGROUND_STEP = 0.0005  # Ha (13.6 meV)
 # 121 points across +-6 widths puts the mesh Gamma/10 apart, so every peak's
 # shape is drawn, not just its maximum (height to 1 %). The history that
-# set it: 15 points (Gamma/1.5 apart) read every height 0.6-0.9x the paper's
-# unsplit NRM -- a Gamma/3 miss on a Lorentzian is a factor 0.69, i.e. the
-# mesh, not the model -- and 41 points (Gamma/4) gave the heights to ~10 %.
-# ~3800 energies per model: ~25 min with MUMPS, not a laptop job.
+# set it: 15 points (Gamma/1.5 apart) read every peak height 0.6-0.9x its
+# converged value -- a Gamma/3 miss on a Lorentzian is a factor 0.69, i.e.
+# the mesh, not the model -- and 41 points (Gamma/4) gave them to ~10 %.
+# ~3300 energies per model: ~22 min with MUMPS, not a laptop job.
 N_WINDOW = 121
 HALF_WIDTHS = 6.0
 GAMMA_FLOOR = 0.3e-3 * EV_TO_HARTREE  # 0.3 meV

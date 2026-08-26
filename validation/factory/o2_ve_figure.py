@@ -1,18 +1,20 @@
-"""The O2 VE overlay: the factory model's exact 2-D cross sections against the
-paper's own nonlocal (NRM) and local (LCP) curves -- theory against theory.
+"""The O2 VE overlay: the factory model's spin-orbit-resolved exact 2-D cross
+section against the paper's own nonlocal (NRM) and local (LCP) curves --
+theory against theory.
 
-`python -m validation.factory.o2_ve_figure --run runs/o2-ve [--out PNG]`
-(default `docs/physics/figures/o2-2d-ti-ve-vs-alt-houfek.png`)
+`python -m validation.factory.o2_ve_figure --so12 runs/o2-so12-ve --so32 runs/o2-so32-ve`
+(`--out`, default `docs/physics/figures/o2-2d-ti-ve-spin-orbit-vs-alt-houfek.png`)
 
-Reads `cross_section.csv` written by `qscat-run` for `apps/qscat-run/examples/
-o2-ve.yaml` (columns `energy`, `ti:ve:v0->0` ...), applies the statistical
-factor `g(2Pi_g) = 2/3` of Alt & Houfek, PRA 103, 032829 (2021), p. 032829-4
-(the model is one electronic symmetry; the paper's total sums two spin-orbit
-components of 1/3 each, or takes 2/3 without the splitting), and overlays
-each 0 -> v' panel on the vector-extracted Fig. 5 curves
-(`validation/factory/data/o2/fig5_ve_0{v}_{nrm,lcp}.csv`).
+Reads the two components' `cross_section.csv` written by `qscat-run` for
+`apps/qscat-run/examples/o2-so{12,32}-ve.yaml` (columns `energy`,
+`ti:ve:v0->0` ...), sums them with the statistical factor 1/3 each (Alt &
+Houfek, PRA 103, 032829 (2021), p. 032829-4 -- the same composition as the
+paper's own curves, whose every peak is a doublet), and overlays each
+0 -> v' panel on the vector-extracted Fig. 5 curves
+(`validation/factory/data/o2/fig5_ve_0{v}_{nrm,lcp}.csv`). It also reports
+the separation of the 0 -> 1 doublet near 1.04 eV, Allan's v' = 9 pair.
 
-Read it as two questions, not one: do the exact 2-D peaks of the fitted
+Read it as two questions, not one: do the exact 2-D doublets of the fitted
 potential land where the paper's nonlocal comb has them (positions are the
 fit, to the spectral check's +-7 meV), and does the paper's LCP fail the
 same way this repository's own LCP does. Nothing here is experiment: the
@@ -32,7 +34,7 @@ __all__ = ["G_STAT", "load_run", "figure", "main"]
 
 G_STAT = 2.0 / 3.0  # p. 032829-4
 DATA = Path(__file__).parent / "data" / "o2"
-FIGURE = Path("docs/physics/figures/o2-2d-ti-ve-vs-alt-houfek.png")
+FIGURE = Path("docs/physics/figures/o2-2d-ti-ve-spin-orbit-vs-alt-houfek.png")
 N_PANELS = 6
 
 
@@ -77,30 +79,18 @@ def doublet_separation(E: np.ndarray, sigma: np.ndarray, e0: float, half: float 
     return float(abs(Ew[top[0]] - Ew[top[1]]))
 
 
-def figure(
-    run_dir: Path | None,
-    out: Path = FIGURE,
-    *,
-    split: tuple[Path, Path] | None = None,
-) -> Path:
+def figure(run_so12: Path, run_so32: Path, out: Path = FIGURE) -> Path:
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    E, sig = load_run(run_dir) if run_dir is not None else (np.zeros(0), {})
-    E_so, sig_so = load_split_run(*split) if split is not None else (np.zeros(0), {})
+    E_so, sig_so = load_split_run(run_so12, run_so32)
     fig, axes = plt.subplots(3, 2, figsize=(11, 12))
     for v, ax in enumerate(axes.ravel()[:N_PANELS]):
         for name, colour, ls in (("nrm", "tab:blue", "-"), ("lcp", "tab:green", "--")):
             d = np.loadtxt(DATA / f"fig5_ve_0{v}_{name}.csv", delimiter=",")
             ax.plot(d[:, 0], d[:, 1], ls, color=colour, lw=0.9, label=f"A&H {name.upper()}")
-        unsplit = DATA / f"fig7_ve_0{v}_nrm.csv"
-        if split is None and unsplit.exists():  # Fig. 7: the NRM without spin-orbit splitting
-            d = np.loadtxt(unsplit, delimiter=",")
-            ax.plot(d[:, 0], d[:, 1], ":", color="k", lw=0.9, label="A&H NRM, no spin-orbit")
-        if v in sig:
-            ax.plot(E, sig[v], "-", color="tab:red", lw=0.9, label="exact 2-D, factory ($g=2/3$)")
         if v in sig_so:
             ax.plot(
                 E_so,
@@ -128,21 +118,16 @@ def figure(
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--run", type=Path, default=None, help="qscat-run output dir, unsplit O2")
-    ap.add_argument("--so12", type=Path, default=None, help="qscat-run output dir, O2_SO12")
-    ap.add_argument("--so32", type=Path, default=None, help="qscat-run output dir, O2_SO32")
+    ap.add_argument("--so12", type=Path, required=True, help="qscat-run output dir, O2_SO12")
+    ap.add_argument("--so32", type=Path, required=True, help="qscat-run output dir, O2_SO32")
     ap.add_argument("--out", type=Path, default=FIGURE)
     a = ap.parse_args()
-    split = (a.so12, a.so32) if a.so12 is not None and a.so32 is not None else None
-    if a.run is None and split is None:
-        ap.error("give --run, or both --so12 and --so32")
-    print(f"[O2] wrote {figure(a.run, a.out, split=split)}")
-    if split is not None:
-        E, s = load_split_run(*split)
-        # Allan's v'=9 doublet in 0->1 sits at ~1.05 eV (p. 032829-5); the
-        # paper's model gives 17.8 meV, the measurement 19.6 +- 1.0.
-        sep = doublet_separation(E, s[1], 1.037)
-        print(f"[O2] 0->1 doublet separation near 1.04 eV: {sep * 1e3:.1f} meV")
+    print(f"[O2] wrote {figure(a.so12, a.so32, a.out)}")
+    E, s = load_split_run(a.so12, a.so32)
+    # Allan's v'=9 doublet in 0->1 sits at ~1.05 eV (p. 032829-5); the
+    # paper's model gives 17.8 meV, the measurement 19.6 +- 1.0.
+    sep = doublet_separation(E, s[1], 1.037)
+    print(f"[O2] 0->1 doublet separation near 1.04 eV: {sep * 1e3:.1f} meV")
 
 
 if __name__ == "__main__":

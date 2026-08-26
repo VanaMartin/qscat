@@ -1,9 +1,8 @@
-"""Vector-extract the VE cross sections of Alt & Houfek, PRA 103, 032829 (2021):
-Fig. 5 (p. 032829-6), the paper's own NONLOCAL (NRM) and LOCAL (LCP) curves
-for 0 -> v', v' = 0..5, and the NRM WITHOUT spin-orbit splitting of Fig. 7
-(p. 032829-7), v' = 0..3 -- theory curves, for a theory-vs-theory overlay of
-the factory model's exact 2-D cross section. Fig. 7's dashed experimental
-traces (Higgins et al.) are deliberately NOT extracted.
+"""Vector-extract the VE cross sections of Alt & Houfek, PRA 103, 032829 (2021),
+Fig. 5 (p. 032829-6): the paper's own NONLOCAL (NRM) and LOCAL (LCP) curves
+for 0 -> v', v' = 0..5, spin-orbit resolved -- theory curves, for the
+theory-vs-theory overlay of the factory model's spin-orbit-resolved exact 2-D
+cross section. Nothing experimental is on this page.
 
 `uv run --with pymupdf python -m validation.factory.extract_fig5`
 
@@ -176,43 +175,7 @@ def _mask_legend(P: np.ndarray, frame) -> np.ndarray:
     return P[~(in_x & in_rows)]
 
 
-# Fig. 7 (p. 032829-7, zero-based page 6): the NRM WITHOUT the spin-orbit
-# splitting, 0 -> v' for v' = 0..3 -- the right height reference for a
-# single-symmetry model, since every Fig. 5 peak is the sum of two 1/3-weight
-# components 18.8 meV apart. Only the blue NRM curve is taken; the dashed
-# teal traces are Higgins et al.'s EXPERIMENT and are never extracted.
-PAGE_FIG7 = 6
-PANELS_FIG7: tuple[dict[str, object], ...] = (
-    {
-        "v": 0,
-        "frame": (133.52, 290.89, 449.62, 545.81),
-        "x": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
-        "y": [200.0 * k for k in range(10)],
-    },
-    {
-        "v": 1,
-        "frame": (339.91, 508.0, 449.62, 545.81),
-        "x": [0.4, 0.6, 0.8, 1.0, 1.2],
-        "y": [10.0 * k for k in range(7)],
-    },
-    {
-        "v": 2,
-        "frame": (117.49, 290.9, 601.02, 697.25),
-        "x": [0.4, 0.6, 0.8, 1.0, 1.2, 1.4],
-        "y": [1.0 * k for k in range(9)],
-    },
-    {
-        "v": 3,
-        "frame": (345.26, 507.97, 601.03, 697.25),
-        "x": [0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8],
-        "y": [0.2 * k for k in range(8)],
-    },
-)
-
-FIGURES = (
-    ("fig5", PAGE, "Fig. 5 (p. 032829-6)", PANELS, (("nrm", BLUE), ("lcp", GREEN))),
-    ("fig7", PAGE_FIG7, "Fig. 7 (p. 032829-7), no spin-orbit", PANELS_FIG7, (("nrm", BLUE),)),
-)
+FIGURES = (("fig5", PAGE, "Fig. 5 (p. 032829-6)", PANELS, (("nrm", BLUE), ("lcp", GREEN))),)
 
 
 def extract(pdf: Path = PDF, out: Path = OUT) -> dict[str, np.ndarray]:

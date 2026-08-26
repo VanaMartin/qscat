@@ -36,20 +36,6 @@ def test_committed_curves_are_sane(v, peak, ymax):
     assert abs(nrm[:, 1].max() - peak) < 0.02 * ymax
 
 
-# Fig. 7, the NRM without spin-orbit splitting: (v', tallest peak, y range).
-# Its 0->0 peak is 1.7x Fig. 5's -- the split halves every peak there.
-_PANELS_FIG7 = ((0, 1628.0, 1800.0), (1, 46.7, 60.0), (2, 7.42, 8.0), (3, 1.095, 1.4))
-
-
-@pytest.mark.parametrize("v,peak,ymax", _PANELS_FIG7)
-def test_committed_unsplit_curves_are_sane(v, peak, ymax):
-    d = np.loadtxt(DATA / f"fig7_ve_0{v}_nrm.csv", delimiter=",")
-    assert np.all(np.diff(d[:, 0]) > 0)
-    assert d[:, 1].min() >= -0.01 * ymax and abs(d[:, 1].max() - peak) < 0.02 * ymax
-    split = np.loadtxt(DATA / f"fig5_ve_0{v}_nrm.csv", delimiter=",")
-    assert d[:, 1].max() > 1.3 * split[:, 1].max()  # the unsplit peak is the taller one
-
-
 @pytest.mark.skipif(not PDF.exists(), reason="the source PDF is gitignored")
 def test_extractor_reproduces_the_committed_tables(tmp_path):
     pytest.importorskip("pymupdf")
