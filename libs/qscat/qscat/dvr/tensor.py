@@ -45,18 +45,22 @@ class TensorGrid:
 
     @property
     def grids(self) -> tuple[FemDvrEcsGrid, ...]:
+        """The per-dimension `FemDvrEcsGrid`s, in tensor order."""
         return self._grids
 
     @property
     def ndim(self) -> int:
+        """Number of tensor dimensions `D`."""
         return len(self._grids)
 
     @property
     def shape(self) -> tuple[int, ...]:
+        """Per-dimension point counts `(n_1, ..., n_D)`."""
         return tuple(g.n for g in self._grids)
 
     @property
     def size(self) -> int:
+        """Total number of tensor-product points, `prod(shape)`."""
         return int(np.prod(self.shape))
 
     def _broadcast_shape(self, d: int) -> tuple[int, ...]:

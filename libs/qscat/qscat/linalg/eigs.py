@@ -186,6 +186,7 @@ class ShiftInvertEigs:
 
     @property
     def shape(self) -> tuple[int, int]:
+        """Operator shape `(n, n)`."""
         return (self._n, self._n)
 
     @property
