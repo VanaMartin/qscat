@@ -1,11 +1,15 @@
 [package]
 name = "qscat-kernels"
 version = "0.0.0"
-edition = "2021"
+edition = "2024"
+rust-version = "1.85"
+description = "QSCAT compiled kernels (Rust/PyO3). Currently a stub: l2_norm exists to validate the maturin/PyO3 toolchain end-to-end; real kernels arrive via the qm-method-lifecycle optimize stage."
+license = "BSD-3-Clause"
+repository = "https://github.com/VanaMartin/qscat"
 
 [lib]
 name = "qscat_kernels"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = { version = "0.22", features = ["extension-module"] }
+pyo3 = { version = "0.29", features = ["extension-module"] }
