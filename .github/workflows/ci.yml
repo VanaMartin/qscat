@@ -42,6 +42,11 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12", "3.13"]
+        include:
+          # Coverage is collected on one cell only: it costs measurable
+          # overhead and the number is the same on every row.
+          - python-version: "3.12"
+            coverage: "--cov=qscat --cov-report=term"
     steps:
       - uses: actions/checkout@v5
       - name: Install Rust toolchain (for the native qscat_kernels member)
@@ -73,7 +78,15 @@ jobs:
           OMP_NUM_THREADS: "1"
           OPENBLAS_NUM_THREADS: "1"
           MKL_NUM_THREADS: "1"
-        run: uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile
+        run: uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile ${{ matrix.coverage }}
+      - name: Coverage summary
+        if: matrix.coverage != ''
+        run: |
+          {
+            echo "### Coverage — qscat, fast tier (report-only; no fail-under until a baseline exists)"
+            echo
+            uv run --no-sync python -m coverage report --format=markdown
+          } >> "$GITHUB_STEP_SUMMARY"
 
   build:
     name: build + clean-venv import + twine check
