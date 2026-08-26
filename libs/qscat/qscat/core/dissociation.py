@@ -174,6 +174,24 @@ def da_cross_section(
 ) -> tuple[_Sigma, _PsiOut]: ...
 
 
+# bool catch-all (open()-style): callers holding a runtime flag forward it
+# directly; the union return is narrowed by the Literal overloads above when
+# the flag is literal.
+@overload
+def da_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: bool = ...,
+) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
+
+
 def da_cross_section(
     tgrid: TensorGrid,
     model: ResonanceModel,
@@ -355,6 +373,25 @@ def dr_cross_section(
     return_wavefunction: Literal[True],
     return_amplitude: Literal[True],
 ) -> tuple[_Sigma, _PsiOut, _Amp]: ...
+
+
+# bool catch-all (open()-style): callers holding a runtime flag forward it
+# directly; the union return is narrowed by the Literal overloads above when
+# the flag is literal.
+@overload
+def dr_cross_section(
+    tgrid: TensorGrid,
+    model: ResonanceModel,
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    n_channels: int = ...,
+    ordering: _Ordering = ...,
+    return_wavefunction: bool = ...,
+    return_amplitude: bool = ...,
+) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]: ...
 
 
 def dr_cross_section(
