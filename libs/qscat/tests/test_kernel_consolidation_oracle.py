@@ -22,6 +22,12 @@ justification):
   sparse-LU solves route through a multi-threaded BLAS with a measured
   ~4e-9 cross-process drift (see `test_core_td.py`'s module docstring), so
   1e-12 is physically unattainable here and 1e-6 is the established bound.
+  This layer also carries a floor, `_ATOL_PROPAGATED`: the DA golden values
+  at N2's closed channel (E=0.10 Ha, below its ~0.3 Ha DA threshold) are
+  exponentially-suppressed denormal-scale noise rather than exact zeros, so
+  a pure relative comparison (`atol=0.0`) fails across architectures even
+  though both sides are physically zero -- see the module's regenerated-
+  golden inventory for the affected keys.
 
 Regenerating the golden (only legitimate BEFORE the refactor starts, or
 when a deliberate, documented physics change lands):
@@ -75,6 +81,12 @@ GOLDEN_PATH = Path(__file__).with_name("kernel_consolidation_golden.npz")
 _WRITE = os.environ.get("QSCAT_KERNEL_ORACLE_WRITE") == "1"
 _RTOL = float(os.environ.get("QSCAT_KERNEL_ORACLE_RTOL", "1e-7"))
 _RTOL_PROPAGATED = max(_RTOL, 1e-6)
+# Below ~1e-30 bohr^2 a computed sigma is numerical zero -- exponentially-
+# suppressed noise from a closed DA channel (E=0.10 Ha, below N2's ~0.3 Ha DA
+# threshold), whose cross-architecture RELATIVE deviation is large while its
+# absolute value is negligible. No physical cross section in this suite
+# approaches this floor, so it cannot mask a real regression.
+_ATOL_PROPAGATED = 1e-30
 
 _STAGED: dict[str, npt.NDArray[np.complex128] | npt.NDArray[np.float64]] = {}
 _GOLDEN_CACHE: dict[str, np.ndarray] | None = None
@@ -93,14 +105,14 @@ def _golden() -> dict[str, np.ndarray]:
     return _GOLDEN_CACHE
 
 
-def _check(key: str, value: npt.ArrayLike, *, rtol: float) -> None:
+def _check(key: str, value: npt.ArrayLike, *, rtol: float, atol: float = 0.0) -> None:
     arr = np.asarray(value)
     if _WRITE:
         _STAGED[key] = arr
         return
     golden = _golden()
     assert key in golden, f"{key!r} missing from {GOLDEN_PATH.name} -- regenerate"
-    np.testing.assert_allclose(arr, golden[key], rtol=rtol, atol=0.0)
+    np.testing.assert_allclose(arr, golden[key], rtol=rtol, atol=atol)
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -338,12 +350,12 @@ def test_radial_golden_and_mu1_identity() -> None:
 
 def test_ti_ve_golden() -> None:
     sigma = ve_cross_section(TG, N2, EPS, CHI, V_INIT, VPRIMES, [0.10, 0.15])
-    _check("ti_ve_sigma", sigma, rtol=_RTOL_PROPAGATED)
+    _check("ti_ve_sigma", sigma, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
 
 
 def test_ti_da_golden() -> None:
     sigma = da_cross_section(TG, N2, EPS, CHI, V_INIT, E_DA, n_channels=1)
-    _check("ti_da_sigma", sigma, rtol=_RTOL_PROPAGATED)
+    _check("ti_da_sigma", sigma, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
 
 
 @pytest.mark.parametrize("method", ["tw", "delta", "flow"])
@@ -364,7 +376,7 @@ def test_td_ve_end_to_end_golden(method: str) -> None:
         position=POSITION,
         surface=POSITION,
     )
-    _check(f"td_ve_{method}", sigma, rtol=_RTOL_PROPAGATED)
+    _check(f"td_ve_{method}", sigma, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
 
 
 @pytest.mark.parametrize("method", ["flow", "delta", "tw"])
@@ -385,7 +397,7 @@ def test_td_da_end_to_end_golden(method: str) -> None:
         wp_out=NUCLEAR_WP_OUT,
         n_channels=1,
     )
-    _check(f"td_da_{method}", sigma, rtol=_RTOL_PROPAGATED)
+    _check(f"td_da_{method}", sigma, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
 
 
 @pytest.mark.slow
@@ -403,5 +415,5 @@ def test_dr_golden() -> None:
     sigma, amp = dr_cross_section(
         tg, H2P, eps, chi, 0, np.array([0.01, 0.03]), n_channels=2, return_amplitude=True
     )
-    _check("dr_sigma", sigma, rtol=_RTOL_PROPAGATED)
-    _check("dr_amp", amp, rtol=_RTOL_PROPAGATED)
+    _check("dr_sigma", sigma, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
+    _check("dr_amp", amp, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
