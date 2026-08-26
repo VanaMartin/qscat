@@ -184,6 +184,71 @@ def test_lcp_da_return_wavefunction_parity_and_shape(coarse_nuc, coarse_lcp_inpu
     assert psi0 is None
 
 
+def test_lcp_ve_matches_dense_reference(coarse_nuc, coarse_lcp_inputs):
+    # Differential oracle: the same driven equation assembled densely and
+    # solved with np.linalg.solve -- the projects toy model's formulation.
+    from qscat.core.lcp import lcp_ve_cross_section
+    from qscat.dvr import kinetic
+
+    g_R = coarse_nuc
+    Vd, Gamma, eps, chi = coarse_lcp_inputs
+    E, vprimes = 0.05, [0, 1, 2]
+    sigma = lcp_ve_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, vprimes, E)
+
+    doorway = np.sqrt(Gamma / (2.0 * np.pi))[None, :] * chi
+    H = kinetic(g_R, F2.mu) + np.diag(Vd - 0.5j * Gamma)
+    M = (E + eps[0]) * np.eye(g_R.n, dtype=np.complex128) - H
+    xi = np.linalg.solve(M, doorway[0])
+    e_tot = E + eps[0]
+    expected = np.zeros(len(vprimes))
+    for k, vp in enumerate(vprimes):
+        if e_tot - eps[vp] > 0.0:
+            S = np.dot(doorway[vp], xi)  # c-product: no conjugate
+            expected[k] = 4.0 * np.pi**3 * np.abs(S) ** 2 / (2.0 * E)
+    np.testing.assert_allclose(sigma, expected, rtol=1e-9)
+
+
+def test_lcp_ve_shapes_closed_channels_and_sweep_reuse(coarse_nuc, coarse_lcp_inputs):
+    from qscat.core.lcp import lcp_ve_cross_section
+
+    g_R = coarse_nuc
+    Vd, Gamma, eps, chi = coarse_lcp_inputs
+    # scalar E -> (len(vprimes),); array E -> (len(E), len(vprimes))
+    s1 = lcp_ve_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, [0, 1], 0.05)
+    assert s1.shape == (2,) and np.all(np.isfinite(s1)) and np.all(s1 >= 0.0)
+    E = np.array([0.02, 0.05])
+    s2 = lcp_ve_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, [0, 1], E)
+    assert s2.shape == (2, 2)
+    # the refactor sweep must equal fresh per-energy solves
+    for i, e in enumerate(E):
+        fresh = lcp_ve_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, [0, 1], float(e))
+        np.testing.assert_allclose(s2[i], fresh, rtol=1e-12)
+    # E <= 0 is closed -> exactly zero; a closed v' channel -> exactly zero
+    assert np.all(lcp_ve_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, [0, 1], -0.01) == 0.0)
+    s3 = lcp_ve_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, [2], 1e-4)
+    assert s3[0] == 0.0  # eps[2]-eps[0] >> 1e-4: channel closed
+
+
+def test_lcp_ve_return_wavefunction_parity(coarse_nuc, coarse_lcp_inputs):
+    from qscat.core.lcp import lcp_ve_cross_section
+
+    g_R = coarse_nuc
+    Vd, Gamma, eps, chi = coarse_lcp_inputs
+    E = np.array([0.02, 0.05])
+    s_plain = lcp_ve_cross_section(g_R, F2.mu, Vd, Gamma, eps, chi, 0, [0, 1], E)
+    s2, xis = lcp_ve_cross_section(
+        g_R, F2.mu, Vd, Gamma, eps, chi, 0, [0, 1], E, return_wavefunction=True
+    )
+    assert np.array_equal(s_plain, s2)
+    assert isinstance(xis, list) and len(xis) == 2
+    for xi in xis:
+        assert xi is not None and xi.shape == (g_R.n,) and xi.dtype == np.complex128
+    _s, xi0 = lcp_ve_cross_section(
+        g_R, F2.mu, Vd, Gamma, eps, chi, 0, [0], -0.01, return_wavefunction=True
+    )
+    assert xi0 is None
+
+
 def test_resonance_eigenstate_at_peak_width(coarse_nuc, elec_grids, coarse_lcp):
     # #1: the resonance eigenstate at the width peak -- a genuine resonance
     # (Gamma>0), a c-product-normalized electronic eigenfunction, and Re(E_pole)

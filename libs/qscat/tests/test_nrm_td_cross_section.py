@@ -689,10 +689,11 @@ def test_markovian_ve_reproduces_the_local_cross_section(f2_deck, f2_lcp):
 
     The DA sibling of this test
     (`test_markovian_limit_reproduces_the_lcp_cross_section`) compares against
-    the shipped `lcp_da_cross_section`. There is no `lcp_ve_cross_section` in
-    `qscat` -- the repository's LCP VE route lives in
-    `projects/n2_ti_cross_section/cross_section.py`, which `libs/qscat` must
-    not import -- so the reference is assembled here from shipped `qscat`
+    the shipped `lcp_da_cross_section`. `qscat.core.lcp.lcp_ve_cross_section`
+    exists, but the reference here stays hand-assembled from `solve_nuclear`
+    + the doorway on purpose: an INDEPENDENT assembly of the same formula is
+    an oracle; comparing the shipped function to itself would not be. So the
+    reference is assembled here from shipped `qscat`
     pieces: `solve_nuclear` with `F -> diag(-(i/2)Gamma)` (the substitution
     `dissociation`'s module docstring documents `solve_nuclear` as being
     public FOR), the doorway `sqrt(Gamma/2pi) chi_v` on both ends, and

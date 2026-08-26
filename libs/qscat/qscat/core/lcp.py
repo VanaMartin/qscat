@@ -74,6 +74,7 @@ __all__ = [
     "ResonanceLevels",
     "lcp_da_cross_section",
     "lcp_resonance_levels",
+    "lcp_ve_cross_section",
     "local_complex_potential",
     "resonance_eigenstate",
     "resonance_eigenstate_at_peak_width",
@@ -568,6 +569,111 @@ def lcp_da_cross_section(
         val = psi_sc[b] / sqrt_wb
         s_da = np.sqrt(k_r / (2.0 * np.pi * mu)) * val
         out[ie] = 4.0 * np.pi**3 * abs(s_da) ** 2 / (2.0 * float(e))
+
+    scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
+    sigma = np.asarray(out[0] if scalar else out, dtype=np.float64)
+    if return_wavefunction:
+        return sigma, (psi_list[0] if scalar else psi_list)
+    return sigma
+
+
+@overload
+def lcp_ve_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[False] = ...,
+) -> _Sigma: ...
+
+
+@overload
+def lcp_ve_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    ordering: _Ordering = ...,
+    return_wavefunction: Literal[True],
+) -> tuple[_Sigma, _PsiOut]: ...
+
+
+def lcp_ve_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    ordering: _Ordering = "COLAMD",
+    return_wavefunction: bool = False,
+) -> _Sigma | tuple[_Sigma, _PsiOut]:
+    """LCP vibrational-excitation sigma_{v_init->v'}(E) (bohr^2), TI resolvent form.
+
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release.
+
+    Solve `(E_tot I - H_res) xi = d_{v_init}`, `H_res = T_nuc(mu) + diag(V_d
+    - i Gamma/2)`, doorway `d_v = sqrt(Gamma/2pi) chi_v`; S-matrix element
+    `S_{v'<-v_init} = <d_{v'}|xi>` by the DVR c-product (no conjugate);
+    `sigma = 4 pi^3 |S|^2 / 2E`, exactly zero for `E <= 0` and for a closed
+    final channel (`E_tot - eps[v'] <= 0`).
+
+    Graduated from `projects/n2_ti_cross_section/cross_section.py`'s
+    `ve_cross_section` (the deliberately dense 1-D toy model). This version
+    is SPARSE and sweep-reusing: `A(E) = E_tot I - H_res` has an
+    E-independent sparsity pattern, so the symbolic analysis is done once
+    and `SparseLU.refactor` re-runs only the numeric factor per energy --
+    the same structure as `lcp_da_cross_section` and `driven.ve_cross_section`.
+    `xi` depends only on `(E, v_init)`, so one solve per energy serves every
+    channel in `vprimes`.
+
+    If `return_wavefunction`, also returns `xi(R)` per energy (`None` when
+    `E <= 0`): one array for scalar `E`, one list entry per energy for array
+    `E` -- the driven solution `nuclear_density.lcp_driven_solution` consumes.
+    """
+    doorway = np.sqrt(Gamma / (2.0 * np.pi)).astype(np.complex128)[None, :] * chi
+    H_res = (kinetic_sparse(nuclear_grid, mu) + sp.diags(Vd - 0.5j * Gamma)).tocsc()
+    ident = sp.identity(nuclear_grid.n, format="csc", dtype=np.complex128)
+
+    e_arr = np.atleast_1d(np.asarray(E, dtype=np.float64))
+    out = np.zeros((e_arr.size, len(vprimes)), dtype=np.float64)
+    psi_list: list[_Psi] = [None] * e_arr.size
+    lu: SparseLU | None = None
+    for ie, e in enumerate(e_arr):
+        if float(e) <= 0.0:
+            continue
+        e_tot = float(e) + eps[v_init]
+        a = (e_tot * ident - H_res).tocsc()
+        if lu is None:
+            lu = SparseLU(a, ordering=ordering)
+        else:
+            lu.refactor(a)
+        xi = lu.solve(doorway[v_init])
+        psi_list[ie] = np.asarray(xi, dtype=np.complex128)
+        for k, vp in enumerate(vprimes):
+            if e_tot - eps[vp] <= 0.0:
+                continue  # closed channel
+            s_el = np.dot(doorway[vp], xi)  # c-product: no conjugate
+            out[ie, k] = 4.0 * np.pi**3 * np.abs(s_el) ** 2 / (2.0 * float(e))
 
     scalar = np.isscalar(E) or (isinstance(E, np.ndarray) and np.ndim(E) == 0)
     sigma = np.asarray(out[0] if scalar else out, dtype=np.float64)
