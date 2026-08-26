@@ -73,6 +73,7 @@ def _sigma_at_one_energy(
     E: float,
     l: int,
     *,
+    charge: int = 0,
     want_psi: bool,
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.complex128] | None]:
     sigma = np.zeros(len(vprimes), dtype=np.float64)
@@ -91,7 +92,7 @@ def _sigma_at_one_energy(
     # above. The assert makes that cross-function invariant explicit (and
     # narrows the `SparseLU | None` type for the `.solve` below).
     assert lu is not None
-    psi_i = channel_vector(tgrid, k, chi[v_init], l)
+    psi_i = channel_vector(tgrid, k, chi[v_init], l, charge=charge)
     psi_plus = psi_i + lu.solve(v_diag * psi_i)
     v_psi = v_diag * psi_plus
 
@@ -100,7 +101,7 @@ def _sigma_at_one_energy(
         if excess <= 0.0:
             continue  # closed channel
         kp = float(np.sqrt(2.0 * excess))
-        phi_f = channel_vector(tgrid, kp, chi[vp], l)
+        phi_f = channel_vector(tgrid, kp, chi[vp], l, charge=charge)
         t = c_product(phi_f, v_psi)
         sigma[j] = 4.0 * np.pi**3 * abs(t) ** 2 / (2.0 * E)
 
@@ -173,6 +174,13 @@ def ve_cross_section(
     interaction diagonal (`model.interaction_diag(tgrid)`) and the fixed
     partial wave (`model.ell`) -- the entire molecule-specific input.
 
+    `model.charge` is forwarded to `channel_vector`, so an IONIC target's
+    entrance/exit channels are the energy-normalized Coulomb functions
+    (`coulomb_f_en`) rather than the free `riccati_bessel_en`; `charge == 0`
+    (every neutral model) takes the identical pre-existing free-function
+    branch. This is what lets `dissociation.dr_cross_section` reuse this
+    solver's driven sweep for H2+ instead of re-inlining it.
+
     `E` may be scalar or an array; scalar returns shape `(len(vprimes),)`,
     array returns `(len(E), len(vprimes))`. One sparse LU per energy is
     reused across all `vprimes`.
@@ -217,6 +225,7 @@ def ve_cross_section(
             vprimes,
             float(e),
             model.ell,
+            charge=model.charge,
             want_psi=return_wavefunction,
         )
         out.append(s)
