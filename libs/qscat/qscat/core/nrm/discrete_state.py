@@ -230,7 +230,7 @@ class PhysicalDiscreteState:
     The pole walk's seed window is centered on the bound ANION electronic
     state at the outermost (largest) `R` in `R_descending`
     (`qscat.core.dissociation.anion_electronic_states`), mirroring
-    `qscat.core.lcp._walk_from_anion_seed`: at that `R` the discrete state is
+    `qscat.core.lcp.curve._walk_from_anion_seed`: at that `R` the discrete state is
     expected to already be essentially the asymptotic bound state (Eq. 67), so
     its energy is a reliable seed for the pole finder. `seed_window` overrides
     this and is passed straight to `resonance_pole_walk` if given.

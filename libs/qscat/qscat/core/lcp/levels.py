@@ -97,7 +97,7 @@ class ResonanceLevels:
     golden_rule: npt.NDArray[np.complex128]
 
     def save(self, path: str | os.PathLike[str]) -> None:
-        """Write to a compressed `.npz` under the dataclass's own field names.
+        """Write to an `.npz` archive under the dataclass's own field names.
 
         Mirrors `ExactResonanceStates.save` -- the field names stay the
         dataclass's business, so a rename cannot silently desynchronize a

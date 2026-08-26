@@ -245,8 +245,8 @@ def resonance_curve(
     **The ECS tail is frozen, not walked.** `find_resonance_pole` needs a real
     `R`. Tail points therefore take the outermost real node's eigenvector and
     that node's electronic shift added to `v0(z)` -- the same analytic
-    continuation `qscat.core.lcp._assemble_lcp` applies to the potential, for
-    the same reason. A product state's tail behaviour is carried by `chi_v`,
+    continuation `qscat.core.lcp.curve._assemble_lcp` applies to the
+    potential, for the same reason. A product state's tail behaviour is carried by `chi_v`,
     not by `phi_res`, so this is where the approximation belongs.
 
     **On breakdown the last accepted state is frozen inward**, matching

@@ -46,9 +46,12 @@ Public API:
     bound electronic state(s) at `R_inf`, the `V_DR` rearrangement
     interaction, and the exact TI driven-equation dissociative-attachment
     (DA) cross section `sigma_DA(E)`, for any `model`.
-  - `dr_cross_section` -- `da_cross_section` generalized for a CHARGED target
-    (H2+): a Coulomb incident channel and a loop over `n_channels` Rydberg
-    electronic exit states, `sigma_DR(E)`.
+  - `dr_solve`, `DrResult` -- `da_cross_section` generalized for a CHARGED
+    target (H2+): a Coulomb incident channel and a loop over `n_channels`
+    Rydberg electronic exit states, `sigma_DR(E)`, returned as one `DrResult`
+    (`sigma`, plus `psi`/`amplitude` when requested). `dr_cross_section` is a
+    thin flag-shaped-tuple wrapper kept for one deprecation cycle; `dr_solve`
+    is the recommended route.
   - `local_complex_potential` -- the LCP reduction `(V_d(R), Gamma(R))` of the
     fixed-R electronic resonance to a single complex number per R.
   - `lcp_da_cross_section` -- the LCP dissociative-attachment cross section
