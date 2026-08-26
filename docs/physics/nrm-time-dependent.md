@@ -605,7 +605,7 @@ replaces the *doorway*. For VE that doorway appears **twice** — as the launch
 state and as the coupling the exit channel is contracted against — and
 `markovian=True` replaces both with `√(Γ_L/2π)`, which is exactly the
 `S_{v'←v} = ⟨√(Γ_L/2π)·χ_v' | Ψ_d⟩` the repository's own LCP VE route
-(`projects/n2_ti_cross_section/cross_section.py`) computes. Keeping the
+(`qscat.core.lcp.lcp_ve_cross_section`) computes. Keeping the
 nonlocal `V⁺_dk_f` at the exit while localizing the kernel would be a third
 model, so it is not offered. `include_background=True` is **refused** with
 `markovian=True` for the same reason: Eq. (37)'s background is built from `φ_d`
@@ -613,7 +613,7 @@ and the P-space scattering states, which the local model does not have.
 
 Measured against a reference assembled in-test from `solve_nuclear` +
 `t_resonant` (`libs/qscat` may not import `projects`); that assembly is
-term-for-term `projects/n2_ti_cross_section/cross_section.py`'s doorway, `H_res`
+term-for-term `qscat.core.lcp.lcp_ve_cross_section`'s doorway, `H_res`
 and `S`, and the test records the shipped route agreeing to twelve digits on the F₂ fixture deck of §6 (`dt = 2`, v = 0,
 E = 0.02/0.03/0.05 Ha, v' = 0/1):
 
