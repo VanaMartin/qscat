@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import inspect
+
 import pytest
 from qscat.model import N2
 from qscat.tuning import (
@@ -10,6 +12,13 @@ from qscat.tuning import (
     tw_analysis,
 )
 from qscat.tuning.incident import _interaction_extent
+
+
+def test_propose_grid_incident_parameter_is_typed_incident_spec() -> None:
+    """lib-M15: the parameter is `IncidentSpec | None`, not a duck-typed
+    `object | None` read through silent getattr defaults."""
+    ann = inspect.signature(propose_grid).parameters["incident"].annotation
+    assert ann == "IncidentSpec | None"
 
 
 def test_required_extent_grows_past_the_wavepacket_and_its_tail():
