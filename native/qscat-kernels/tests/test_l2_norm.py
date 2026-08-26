@@ -1,5 +1,9 @@
 import numpy as np
-import qscat_kernels
+import pytest
+
+# CI builds the kernel only when native/** changes (docs/adr/0006); on jobs
+# that skipped the build this module must skip, not fail collection.
+qscat_kernels = pytest.importorskip("qscat_kernels")
 
 
 def test_l2_norm_matches_numpy():

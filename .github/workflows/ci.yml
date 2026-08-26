@@ -10,20 +10,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: what changed
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      native: ${{ steps.filter.outputs.native }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          # On push events (main) the filter diffs against the previous push
+          # to this base; on PRs, against the PR base.
+          base: ${{ github.ref_name }}
+          filters: |
+            native:
+              - 'native/**'
+              - 'uv.lock'
+              - '.github/workflows/ci.yml'
+
   lint:
     name: lint + type-check
+    needs: changes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Install Rust toolchain (for the native qscat_kernels member)
+      - name: Install Rust toolchain (only when native/** changed — docs/adr/0006)
+        if: needs.changes.outputs.native == 'true'
         uses: dtolnay/rust-toolchain@stable
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
           enable-cache: true
-      - name: Sync workspace
-        run: uv sync --all-packages
+      - name: Sync workspace (kernel build skipped unless native/** changed — docs/adr/0006)
+        run: uv sync --all-packages ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels' || '' }}
       - name: Lint (ruff)
         run: uv run ruff check .
       # The pre-commit hook formats with the same ruff pinned in the `dev`
@@ -37,6 +60,7 @@ jobs:
 
   test:
     name: test (py${{ matrix.python-version }})
+    needs: changes
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -49,15 +73,16 @@ jobs:
             coverage: "--cov=qscat --cov-report=term"
     steps:
       - uses: actions/checkout@v5
-      - name: Install Rust toolchain (for the native qscat_kernels member)
+      - name: Install Rust toolchain (only when native/** changed — docs/adr/0006)
+        if: needs.changes.outputs.native == 'true'
         uses: dtolnay/rust-toolchain@stable
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
-      - name: Sync workspace
-        run: uv sync --all-packages
+      - name: Sync workspace (kernel build skipped unless native/** changed — docs/adr/0006)
+        run: uv sync --all-packages ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels' || '' }}
       # `-m "not slow"` is the tier boundary: production-scale physics runs
       # locally and in the Docker `test` image, never here (docs/adr/0005).
       #
