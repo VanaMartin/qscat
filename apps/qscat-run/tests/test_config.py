@@ -575,3 +575,63 @@ def test_quoted_NO_molecule_loads(tmp_path: Path) -> None:
         "observables: [{kind: da, channels: 1}]\noutput_dir: runs/x\n"
     )
     assert load_config(p).molecule == "NO"
+
+
+class TestMissingSubkeys:
+    """A typo'd or missing sub-key must produce an actionable ConfigError
+    naming the block and the key -- never a bare KeyError (exp-M4)."""
+
+    def _load(self, tmp_path: Path, body: str):
+        return load_config(_write(tmp_path, body))
+
+    def test_observable_missing_kind_is_actionable(self, tmp_path: Path) -> None:
+        # the reproduced `{kine: ve}` typo
+        with pytest.raises(ConfigError, match=r"observables\[0\].*'kind'"):
+            self._load(
+                tmp_path,
+                """
+            molecule: F2
+            methods: [ti]
+            observables: [{kine: ve}]
+            output_dir: out
+        """,
+            )
+
+    def test_td_missing_n_steps_is_actionable(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError, match=r"'td'.*'n_steps'"):
+            self._load(
+                tmp_path,
+                """
+            molecule: F2
+            methods: [ti, td]
+            observables: [{kind: ve, channels: 2}]
+            td: {dt: 0.5}
+            output_dir: out
+        """,
+            )
+
+    def test_energies_missing_step_is_actionable(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError, match=r"'energies'.*'step'"):
+            self._load(
+                tmp_path,
+                """
+            molecule: F2
+            methods: [ti]
+            observables: [{kind: ve, channels: 2}]
+            energies: {min: 0.01, max: 0.05}
+            output_dir: out
+        """,
+            )
+
+    def test_td_incident_missing_sigma_is_actionable(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError, match=r"'td.incident'.*'sigma'"):
+            self._load(
+                tmp_path,
+                """
+            molecule: F2
+            methods: [ti, td]
+            observables: [{kind: ve, channels: 2}]
+            td: {dt: 0.5, n_steps: 10, incident: {r0: 20.0, p0: -0.4}}
+            output_dir: out
+        """,
+            )

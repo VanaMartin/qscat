@@ -100,11 +100,23 @@ def _parse_channels(raw: Any) -> int | tuple[int, ...] | None:
     return int(raw)
 
 
+def _require(raw: dict[str, Any], key: str, where: str) -> Any:
+    """`raw[key]`, or a ConfigError naming the block and the missing key --
+    a hand-written config's KeyError names the key but not where it was
+    expected, which is the difference between actionable and not."""
+    if key not in raw:
+        raise ConfigError(f"'{where}' is missing required key '{key}'")
+    return raw[key]
+
+
 def _load_observables(raw: list[Any]) -> tuple[Observable, ...]:
-    return tuple(
-        Observable(kind=str(item["kind"]), channels=_parse_channels(item.get("channels")))
-        for item in raw
-    )
+    observables = []
+    for i, item in enumerate(raw):
+        if not isinstance(item, dict):
+            raise ConfigError(f"observables[{i}] must be a mapping with a 'kind' key")
+        kind = str(_require(item, "kind", f"observables[{i}]"))
+        observables.append(Observable(kind=kind, channels=_parse_channels(item.get("channels"))))
+    return tuple(observables)
 
 
 # --- energies ----------------------------------------------------------------
@@ -140,7 +152,11 @@ def _load_energies(raw: dict[str, Any] | None) -> EnergySpec | None:
         return None
     if "values" in raw:
         return EnergySpec(values=tuple(float(v) for v in raw["values"]))
-    return EnergySpec(min=float(raw["min"]), max=float(raw["max"]), step=float(raw["step"]))
+    return EnergySpec(
+        min=float(_require(raw, "min", "energies")),
+        max=float(_require(raw, "max", "energies")),
+        step=float(_require(raw, "step", "energies")),
+    )
 
 
 # --- grid ----------------------------------------------------------------
@@ -167,13 +183,14 @@ class SegmentSpec:
     ecs: EcsSpec
 
 
-def _load_segment(raw: dict[str, Any]) -> SegmentSpec:
-    real = tuple((int(n), float(end)) for n, end in raw["real"])
-    ecs_raw = raw["ecs"]
+def _load_segment(raw: dict[str, Any], where: str) -> SegmentSpec:
+    real = tuple((int(n), float(end)) for n, end in _require(raw, "real", where))
+    ecs_raw = _require(raw, "ecs", where)
+    ecs_where = f"{where}.ecs"
     ecs = EcsSpec(
-        angle=float(ecs_raw["angle"]),
-        elements=int(ecs_raw["elements"]),
-        quadrature=int(ecs_raw["quadrature"]),
+        angle=float(_require(ecs_raw, "angle", ecs_where)),
+        elements=int(_require(ecs_raw, "elements", ecs_where)),
+        quadrature=int(_require(ecs_raw, "quadrature", ecs_where)),
     )
     return SegmentSpec(real=real, ecs=ecs)
 
@@ -196,8 +213,10 @@ class GridSpec:
 
 def _load_grid(raw: dict[str, Any] | None) -> GridSpec:
     raw = raw or {}
-    electronic = _load_segment(raw["electronic"]) if "electronic" in raw else None
-    nuclear = _load_segment(raw["nuclear"]) if "nuclear" in raw else None
+    electronic = (
+        _load_segment(raw["electronic"], "grid.electronic") if "electronic" in raw else None
+    )
+    nuclear = _load_segment(raw["nuclear"], "grid.nuclear") if "nuclear" in raw else None
     preset = raw.get("preset")
     return GridSpec(
         preset=str(preset) if preset is not None else None,
@@ -266,29 +285,33 @@ def _load_td(raw: dict[str, Any] | None) -> TdSpec | None:
     incident = None
     if "incident" in raw:
         ir = raw["incident"]
-        incident = IncidentSpec(r0=float(ir["r0"]), p0=float(ir["p0"]), sigma=float(ir["sigma"]))
+        incident = IncidentSpec(
+            r0=float(_require(ir, "r0", "td.incident")),
+            p0=float(_require(ir, "p0", "td.incident")),
+            sigma=float(_require(ir, "sigma", "td.incident")),
+        )
     test_function = None
     test_functions = None
     if "test_function" in raw:
         tr = raw["test_function"]
         if "r0_out" in tr:
             test_function = TestFunctionSpec(
-                r0_out=float(tr["r0_out"]),
-                p0_out=float(tr["p0_out"]),
-                sigma_out=float(tr["sigma_out"]),
+                r0_out=float(_require(tr, "r0_out", "td.test_function")),
+                p0_out=float(_require(tr, "p0_out", "td.test_function")),
+                sigma_out=float(_require(tr, "sigma_out", "td.test_function")),
             )
         else:
-            test_functions = {
-                str(kind): TestFunctionSpec(
-                    r0_out=float(block["r0_out"]),
-                    p0_out=float(block["p0_out"]),
-                    sigma_out=float(block["sigma_out"]),
+            test_functions = {}
+            for kind, block in tr.items():
+                block_where = f"td.test_function.{kind}"
+                test_functions[str(kind)] = TestFunctionSpec(
+                    r0_out=float(_require(block, "r0_out", block_where)),
+                    p0_out=float(_require(block, "p0_out", block_where)),
+                    sigma_out=float(_require(block, "sigma_out", block_where)),
                 )
-                for kind, block in tr.items()
-            }
     return TdSpec(
-        dt=float(raw["dt"]),
-        n_steps=int(raw["n_steps"]),
+        dt=float(_require(raw, "dt", "td")),
+        n_steps=int(_require(raw, "n_steps", "td")),
         order=int(raw.get("order", 3)),
         extractors=tuple(str(e) for e in raw.get("extractors", ())),
         incident=incident,
