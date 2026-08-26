@@ -5,7 +5,7 @@ transform (sub-project #4, Task 2 -- THE CRUX).
 and the eMoScat LCP extraction:
 
 - Doorway `d_v(R) = sqrt(Gamma(R)/(2*pi)) * chi_v(R)` -- identical to
-  `projects.n2_ti_cross_section.cross_section`'s doorway.
+  `qscat.core.lcp.lcp_ve_cross_section`'s doorway.
 - Initial wavepacket `psi(0) = d_{v_init}`, propagated under the
   time-independent, non-Hermitian
   `H_res = T_nuc(mu) + diag(V_d(R) - i*Gamma(R)/2)` via the Crank-Nicolson
@@ -25,7 +25,7 @@ and the eMoScat LCP extraction:
 Because `S_TD(E) = (1/i) * integral_0^inf exp(i*E_tot*t) * <d_v'|exp(-i*H_res*t)|d_v> dt
 = <d_v'|(E_tot - H_res)^-1|d_v> = S_TI(E)` in the long-time limit, TD sigma
 converges to the TI oracle's sigma
-(`projects.n2_ti_cross_section.cross_section.ve_cross_section`) as
+(`qscat.core.lcp.lcp_ve_cross_section`) as
 `dt -> 0` and `n_steps -> infinity` (equivalently, as the propagation time
 `T = n_steps*dt` grows long enough for the correlation function to decay --
 see `test_td_cross_section.py`'s V1/V2).
@@ -155,7 +155,7 @@ def td_ve_cross_section(
     `E` (collision energy, Hartree) may be a scalar or an array; scalar `E`
     returns shape `(len(vprimes),)`, array `E` returns shape
     `(len(E), len(vprimes))` -- matching
-    `projects.n2_ti_cross_section.cross_section.ve_cross_section`, the
+    `qscat.core.lcp.lcp_ve_cross_section`, the
     exact differential oracle this converges to as `dt -> 0` and
     `n_steps -> infinity` (see module docstring).
 

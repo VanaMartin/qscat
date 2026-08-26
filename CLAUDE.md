@@ -162,7 +162,11 @@ libs/       qscat — the standard library: validated, reusable QM code
               `V_d(R)/Γ(R)` via `qscat.ecs.find_resonance_pole`, seeded from the
               anion state) + `lcp_da_cross_section` (1-D TI resolvent, boundary-
               wavefunction-VALUE flux `ψ(X)=ψ_coeff[b]/√w_b`, on the fine
-              per-molecule nuclear grid). The LCP's error is SYSTEMATIC and
+              per-molecule nuclear grid). Also `lcp_ve_cross_section` — the
+              VIBRATIONAL-EXCITATION sibling on the same doorway/driven-equation
+              formula (sparse `A(E) = E_tot·I − H_res` with `SparseLU.refactor`
+              sweep reuse), graduated from the `n2_ti_cross_section` toy model
+              — see docs/physics/n2-cross-section.md. The LCP's error is SYSTEMATIC and
               ENERGY-DEPENDENT, not a fixed percentage: on F₂ the ratio
               LCP/exact sweeps 0.263 → 1.736 across 0.010–0.050 Ha, crossing
               unity near E≈0.032 (dense 41-energy sweep, 2026-08-17), so it
@@ -416,10 +420,11 @@ native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
             - `n2_ti_cross_section`: time-independent (resolvent/driven-
-              equation) N₂ vibrational-excitation cross-section solver
-              (`nuclear_grid.py`/`vibrational.py`/`vres.py`/`cross_section.py`),
-              built on `qscat.dvr`/`qscat.ecs` and the N₂ resonance pole
-              finder — see docs/physics/n2-cross-section.md.
+              equation) N₂ vibrational-excitation cross-section inputs
+              (`nuclear_grid.py`/`vibrational.py`/`vres.py`), built on
+              `qscat.dvr`/`qscat.ecs` and the N₂ resonance pole finder; the
+              solver itself graduated to `qscat.core.lcp.lcp_ve_cross_section`
+              — see docs/physics/n2-cross-section.md.
             - `n2_td_cross_section`: time-dependent (Crank-Nicolson
               propagation + energy transform) route to the same N₂
               vibrational-excitation cross section (`propagator.py` — thin

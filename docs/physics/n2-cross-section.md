@@ -1,7 +1,8 @@
 # N₂ vibrationally-elastic/inelastic cross section: TI resolvent/driven-equation method
 
 **Location:** `projects/n2_ti_cross_section/` (`nuclear_grid.py`, `vibrational.py`,
-`vres.py`, `cross_section.py`), `validation/n2/cross_section.py` (the harness's C5
+`vres.py`) for the model inputs; `qscat.core.lcp.lcp_ve_cross_section` for the
+graduated solver; `validation/n2/cross_section.py` (the harness's C5
 wiring), `validation/n2/experiment.py` (Group C5).
 **Origin:** local complex potential (LCP) model, same source as
 `docs/physics/n2-resonance.md`; the resolvent/driven-equation formulation is
@@ -67,12 +68,11 @@ data, `validation/n2/data/CSVE.V00.J00`).
 
 $\xi$ depends only on $(E, v_\mathrm{init})$, not $v'$, so it is solved once per
 energy and
-reused for every open channel (`projects/n2_ti_cross_section/cross_section.py`'s
-`ve_cross_section`).
+reused for every open channel (`qscat.core.lcp.lcp_ve_cross_section`).
 
 ## Validation: internal checks (the correctness gate)
 
-`projects/n2_ti_cross_section/test_cross_section.py`'s model-independent checks —
+`validation/n2/test_lcp_ve.py`'s model-independent checks —
 $\sigma$ real and $\ge 0$; a closed channel gives exactly $0$; $\sigma_{0\to1}$ is
 resonance-enhanced (~53x) in the ~2–3 eV ²Π_g region relative to near threshold —
 all **PASS**. These, not the Houfek comparison below, are the actual correctness
@@ -153,7 +153,7 @@ defect.
 
 ## Validation
 
-- `projects/n2_ti_cross_section/test_cross_section.py`: internal correctness
+- `validation/n2/test_lcp_ve.py`: internal correctness
   checks (real/non-negative $\sigma$, exact-zero closed channel, resonance
   enhancement) — **PASS**; Houfek anchor comparison — 4/6 anchors gated and
   **PASS** at factor-of-3, 2/6 reported as known LCP-vs-2D limitations.
