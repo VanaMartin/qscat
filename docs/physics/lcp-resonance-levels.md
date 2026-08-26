@@ -1,7 +1,7 @@
 # BO/LCP resonance levels — quasi-bound vibrational states of the anion
 
 **Location:** `qscat.core.lcp.ResonanceLevels`/`lcp_resonance_levels`/`resonance_levels`
-(`libs/qscat/qscat/core/lcp.py`), `qscat.ecs.match_angle_stable`
+(`libs/qscat/qscat/core/lcp/levels.py`), `qscat.ecs.match_angle_stable`
 (`libs/qscat/qscat/ecs/pole.py`), `IonicResonanceModel.max_nuclear_ecs_angle_deg`
 (`libs/qscat/qscat/model/ionic.py`), `apps/qscat-run` (`resonance_levels` observable
 kind + `artifacts.resonance_levels` flag, `runner.ResonanceLevelsRun`,
