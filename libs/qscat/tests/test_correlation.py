@@ -8,6 +8,7 @@ deconvolution factors.
 from __future__ import annotations
 
 import numpy as np
+import pytest
 from qscat.core.correlation import (
     eta_outgoing,
     hankel_point_value,
@@ -238,3 +239,21 @@ def test_eta_outgoing_nuclear_mass_is_finite_and_nonzero() -> None:
     got = eta_outgoing(grid, k, l, mass=mu, **NUCLEAR_WP_OUT)
     assert np.isfinite(got)
     assert got != 0.0
+
+
+# --- lib-M16: the documented-unused `grid` parameter is dropped ------------
+
+
+def test_point_value_functions_drop_grid_param() -> None:
+    """lib-M16: the grid argument was documented-unused; the new signature
+    drops it, the old grid-first form warns for one cycle."""
+    k, l = 0.7, 0
+    new = hankel_point_value(3.0, k, l)
+    with pytest.warns(DeprecationWarning, match="grid"):
+        old = hankel_point_value(GRID, 3.0, k, l)  # legacy call form
+    assert new == old
+
+    pv, dv = outgoing_surface_wave(3.0, k, l)
+    with pytest.warns(DeprecationWarning, match="grid"):
+        pv2, dv2 = outgoing_surface_wave(GRID, 3.0, k, l)
+    assert (pv, dv) == (pv2, dv2)

@@ -50,6 +50,8 @@ sections).
 
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 import numpy.typing as npt
 from scipy.special import spherical_jn, spherical_yn
@@ -181,8 +183,25 @@ def eta_outgoing(
     return c_product(g_coeff, f_coeff)
 
 
+def _hankel_point_value(z_position: float, k: float, l: int, charge: int, mass: float) -> complex:
+    if charge == 0:
+        val = riccati_hankel_en_mass(np.asarray(z_position, dtype=np.float64), k, l, mass) / 2.0
+    else:
+        val = (
+            coulomb_h1_en(np.asarray(z_position, dtype=np.complex128), k, float(charge), mass, l)
+            / 2.0
+        )
+    return complex(np.asarray(val))
+
+
 def hankel_point_value(
-    grid: FemDvrEcsGrid, z_position: float, k: float, l: int, charge: int = 0, *, mass: float = 1.0
+    z_position: float | FemDvrEcsGrid,
+    k: float,
+    l: float | int = 0,
+    charge: float | int = 0,
+    _legacy_charge: float | int = 0,
+    *,
+    mass: float = 1.0,
 ) -> complex:
     """`H^{(1)}_{E,l}(z_position)/2` -- the outgoing-Hankel-half VALUE at a
     single physical (real, unscaled) coordinate, e.g. `z_position =
@@ -195,9 +214,7 @@ def hankel_point_value(
     (charged target) -- but evaluated at ONE point rather than converted to a
     `sqrt(w_r)`-scaled, masked DVR coefficient VECTOR: a delta-distribution
     test function needs the outgoing function's VALUE, not an integral
-    against it. `grid` is accepted (unused) to keep this call-compatible
-    with `_regular_coeffs`/`_outgoing_coeffs` and because `outgoing_surface_wave`
-    forwards its own `grid` argument here.
+    against it.
 
     `mass` defaults to `1.0` (the electronic reduced mass, a.u.) -- every
     existing (electronic) call site is untouched: `riccati_hankel_en_mass(
@@ -205,23 +222,59 @@ def hankel_point_value(
     2.0` exactly), and `coulomb_h1_en(..., 1.0, l)` is the same literal `1.0`
     the pre-`mass` code passed. A nuclear (dissociation) caller passes
     `mass=model.mu`.
+
+    Deprecated: the previous signature took an unused leading `grid`
+    argument (`hankel_point_value(grid, z_position, k, l, charge=0, *,
+    mass=1.0)`); that form still works for one release cycle but warns.
     """
-    if charge == 0:
-        val = riccati_hankel_en_mass(np.asarray(z_position, dtype=np.float64), k, l, mass) / 2.0
-    else:
-        val = (
-            coulomb_h1_en(np.asarray(z_position, dtype=np.complex128), k, float(charge), mass, l)
-            / 2.0
+    if isinstance(z_position, FemDvrEcsGrid):
+        warnings.warn(
+            "hankel_point_value no longer takes a grid argument (it was "
+            "documented-unused); drop the first argument",
+            DeprecationWarning,
+            stacklevel=2,
         )
-    return complex(np.asarray(val))
+        # legacy form: (grid, z_position, k, l, charge=0, *, mass=1.0) --
+        # every argument sits one slot to the right of its new home.
+        # `_legacy_charge` is positional-or-keyword (not keyword-only) so
+        # the old 5-positional call still binds its trailing `charge`.
+        return _hankel_point_value(float(k), float(l), int(charge), int(_legacy_charge), mass)
+    return _hankel_point_value(float(z_position), float(k), int(l), int(charge), mass)
+
+
+def _outgoing_surface_wave(
+    z_surface: float, k: float, l: int, charge: float, mass: float
+) -> tuple[complex, complex]:
+    r = float(z_surface)
+    if charge == 0:
+        # The VALUE is exactly the outgoing-Hankel-half `hankel_point_value`
+        # already provides (same multiplication order as the old inline
+        # formula -- bit-identical); only the DERIVATIVE still needs
+        # scipy's `derivative=True` pieces, because `qscat.special.radial`
+        # exposes no derivative primitive (module docstring of `radial`).
+        phi = _hankel_point_value(r, k, l, 0, mass)
+        x = k * r
+        h_l = spherical_jn(l, x) + 1j * spherical_yn(l, x)
+        h_l_prime = spherical_jn(l, x, derivative=True) + 1j * spherical_yn(l, x, derivative=True)
+        dphi = np.sqrt(2.0 * mass * k / np.pi) * (h_l + x * h_l_prime) / 2.0
+        return complex(phi), complex(dphi)
+
+    def _h1(rr: float) -> complex:
+        val = coulomb_h1_en(np.asarray(rr, dtype=np.complex128), k, float(charge), mass, l) / 2.0
+        return complex(np.asarray(val))
+
+    phi = _h1(r)
+    h = 1e-4 * max(1.0, abs(r))
+    dphi = (-_h1(r + 2 * h) + 8 * _h1(r + h) - 8 * _h1(r - h) + _h1(r - 2 * h)) / (12.0 * h)
+    return phi, dphi
 
 
 def outgoing_surface_wave(
-    grid: FemDvrEcsGrid,
-    z_surface: float,
+    z_surface: float | FemDvrEcsGrid,
     k: float,
     l: int,
     charge: float = 0.0,
+    _legacy_charge: float = 0.0,
     *,
     mass: float = 1.0,
 ) -> tuple[complex, complex]:
@@ -266,26 +319,21 @@ def outgoing_surface_wave(
     stencil) of `coulomb_h1_en(..., mass, l)` itself. Kept structurally for a
     charged target (e.g. H2+); N2/F2 are neutral, so only the analytic
     branch is exercised by the neutral-molecule gates.
+
+    Deprecated: the previous signature took an unused leading `grid`
+    argument (`outgoing_surface_wave(grid, z_surface, k, l, charge=0.0, *,
+    mass=1.0)`); that form still works for one release cycle but warns.
     """
-    r = float(z_surface)
-    if charge == 0:
-        # The VALUE is exactly the outgoing-Hankel-half `hankel_point_value`
-        # already provides (same multiplication order as the old inline
-        # formula -- bit-identical); only the DERIVATIVE still needs
-        # scipy's `derivative=True` pieces, because `qscat.special.radial`
-        # exposes no derivative primitive (module docstring of `radial`).
-        phi = hankel_point_value(grid, r, k, l, 0, mass=mass)
-        x = k * r
-        h_l = spherical_jn(l, x) + 1j * spherical_yn(l, x)
-        h_l_prime = spherical_jn(l, x, derivative=True) + 1j * spherical_yn(l, x, derivative=True)
-        dphi = np.sqrt(2.0 * mass * k / np.pi) * (h_l + x * h_l_prime) / 2.0
-        return complex(phi), complex(dphi)
-
-    def _h1(rr: float) -> complex:
-        val = coulomb_h1_en(np.asarray(rr, dtype=np.complex128), k, float(charge), mass, l) / 2.0
-        return complex(np.asarray(val))
-
-    phi = _h1(r)
-    h = 1e-4 * max(1.0, abs(r))
-    dphi = (-_h1(r + 2 * h) + 8 * _h1(r + h) - 8 * _h1(r - h) + _h1(r - 2 * h)) / (12.0 * h)
-    return phi, dphi
+    if isinstance(z_surface, FemDvrEcsGrid):
+        warnings.warn(
+            "outgoing_surface_wave no longer takes a grid argument (it was "
+            "documented-unused); drop the first argument",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        # legacy form: (grid, z_surface, k, l, charge=0.0, *, mass=1.0) --
+        # every argument sits one slot to the right of its new home.
+        # `_legacy_charge` is positional-or-keyword (not keyword-only) so
+        # the old 5-positional call still binds its trailing `charge`.
+        return _outgoing_surface_wave(float(k), float(l), int(charge), float(_legacy_charge), mass)
+    return _outgoing_surface_wave(float(z_surface), float(k), int(l), float(charge), mass)
