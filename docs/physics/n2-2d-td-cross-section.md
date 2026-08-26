@@ -292,10 +292,15 @@ computed with order-1 Crank-Nicolson on 11 energies and drew three "honesty regi
 including the fictitious finite-T band withdrawn above; the dense curve simply tracks the
 oracle, and needs no regions to be honest about.
 
-## The numeric-output deliverable
+## The numeric-output deliverable (historical record)
 
-`observation.save_numeric_outputs` writes a `.npz` — the primary "observe formation"
-artifact, not the figures (which are drawn from it). Confirmed array keys/shapes from the
+This section records what the retired `observation.py` (see the retirement note and
+capability→replacement table above) produced for the committed `TD_WORKING_GRID` run, and
+how that output was verified at the time; the module and its test are gone, replaced by
+`qscat_run.artifacts`.
+
+`observation.save_numeric_outputs` wrote a `.npz` — the primary "observe formation"
+artifact, not the figures (which were drawn from it). Confirmed array keys/shapes from the
 committed `TD_WORKING_GRID` run:
 
 | key | shape | dtype | meaning |
@@ -309,13 +314,13 @@ committed `TD_WORKING_GRID` run:
 | `E_grid` | `(11,)` | float64 | `[0.06 ... 0.22]` Ha |
 | `sigma_E` | `(11, 1)` | float64 | `sigma_{0->1}(E)`, bohr² |
 
-`rho_R`/`rho_r` are the *full* axis length, unmasked to the ECS tail (`plot_snapshots`
-masks to the real region itself when given the grid). **Self-consistency** is checked
-directly: `test_v5_saved_c_reproduces_saved_sigma` saves a small propagation's `c(t)` and
-computed `sigma_E` to `.npz`, reloads both, and re-runs the public transform
-(`sigma_from_correlations`) on the reloaded `t`/`c` — reproduces the saved `sigma_E` via
-`assert_allclose(rtol=1e-12, atol=1e-14)`, bit-for-bit — the `.npz` round-trip is lossless
-and the transform is deterministic.
+`rho_R`/`rho_r` were the *full* axis length, unmasked to the ECS tail (`plot_snapshots`
+masked to the real region itself when given the grid). **Self-consistency** was checked
+directly: the (now-retired) `test_v5_saved_c_reproduces_saved_sigma` saved a small
+propagation's `c(t)` and computed `sigma_E` to `.npz`, reloaded both, and re-ran the public
+transform (`sigma_from_correlations`) on the reloaded `t`/`c` — it reproduced the saved
+`sigma_E` via `assert_allclose(rtol=1e-12, atol=1e-14)`, bit-for-bit, confirming the `.npz`
+round-trip was lossless and the transform deterministic.
 
 ## The real run: sigma(E) across the boomerang curve
 
