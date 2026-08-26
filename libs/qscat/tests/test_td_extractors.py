@@ -147,6 +147,19 @@ def test_unknown_method_raises() -> None:
         )
 
 
+def test_extractor_protocol_declares_n_steps() -> None:
+    """lib-m9: the protocol must carry the n_steps parameter all three
+    implementations added, so a caller typed against Extractor can use it."""
+    import inspect
+
+    from qscat.core.time_dependent import Extractor
+
+    params = inspect.signature(Extractor.sigma).parameters
+    assert "n_steps" in params
+    assert params["n_steps"].default is None
+    assert params["n_steps"].kind is inspect.Parameter.KEYWORD_ONLY
+
+
 # --- Task 4: method="delta"/"flow" wiring + required position/surface ------
 
 

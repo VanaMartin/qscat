@@ -107,11 +107,17 @@ class Extractor(Protocol):
     `Dirac`, `Flux` in `td_extractors.py`) without re-propagating.
     """
 
-    def record(self, psi: npt.NDArray[np.complex128]) -> None: ...
+    def record(self, psi: npt.NDArray[np.complex128]) -> None:
+        """Accumulate this step's datum from the current `psi(t_n)` (called at every propagation step)."""
 
     def sigma(
-        self, E: float | npt.ArrayLike, *, free: Extractor | None = None
-    ) -> npt.NDArray[np.float64]: ...
+        self,
+        E: float | npt.ArrayLike,
+        *,
+        free: Extractor | None = None,
+        n_steps: int | None = None,
+    ) -> npt.NDArray[np.float64]:
+        """Transform the recorded series into a cross section, shape `(len(E), n_channels)`. `free` supplies the free-reference extractor for the elastic subtraction; `n_steps` truncates the transform to the first `n_steps` recorded samples (a convergence probe — both runs must share the step schedule)."""
 
 
 # Wavepacket parameter dict keys `initial_state`/`outgoing_channel` accept
