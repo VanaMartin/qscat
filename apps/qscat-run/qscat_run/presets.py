@@ -125,8 +125,8 @@ class MoleculePreset:
     dr_surface_R: float | None = None
     # `(nuclear, elec_a, elec_b)` grid builder for the LCP method (the two
     # ECS-angle electronic decks the resonance-pole match needs + the fine
-    # nuclear deck). `None` for molecules with no LCP path (N2 -- DA closed;
-    # H2P -- DR, not DA-LCP).
+    # nuclear deck). `None` for molecules with no LCP path (H2P -- DR, not
+    # DA/VE-LCP).
     lcp_grids: Callable[[], tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]] | None = None
     # This molecule's electronic deck rebuilt at the NRM's SECOND ECS angle
     # (choice A's two-angle resonance-pole walk). The NRM's other two grids are
@@ -236,6 +236,21 @@ _LCP_ANGLE_A, _LCP_ANGLE_B = 35.0, 44.0
 _NRM_ANGLE_B = 40.0
 
 
+def _n2_lcp_grids() -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, FemDvrEcsGrid]:
+    """(nuclear, elec_a, elec_b) for N2 LCP -- the TI deck's own factors plus
+    the electronic deck rebuilt at the eMoScat LCP partner angle. 35/44 is
+    the pairing F2/NO use here AND the pairing the projects N2 pole walk
+    itself uses (`projects/n2_ti_cross_section/vres.py`: _ANGLE_A_DEG=35,
+    _ANGLE_B_DEG=44). N2's LCP observable is VE (its DA is
+    closed-in-range); the partner angle only gates two-angle pole
+    STABILITY -- accepted pole values come from grid a's spectrum."""
+    return (
+        nuclear_grid(angle_deg=35.0, r_max=20.0, n_complex=5, quadrature=10),
+        electronic_grid(**_N2_ELEC),  # type: ignore[arg-type]
+        electronic_grid(**{**_N2_ELEC, "angle_deg": _LCP_ANGLE_B}),  # type: ignore[arg-type]
+    )
+
+
 def _lcp_elec(angle_deg: float) -> FemDvrEcsGrid:
     return electronic_grid(r_max=16.0, order=8, n_complex=6, angle_deg=angle_deg)
 
@@ -338,6 +353,7 @@ PRESETS: dict[str, MoleculePreset] = {
         ve_test_function=TestFunctionSpec(r0_out=35.0, p0_out=0.5, sigma_out=4.0),
         da_test_function=_F2_DA_TEST_FUNCTION,
         da_surface_R=_F2_DA_SURFACE_R,
+        lcp_grids=_n2_lcp_grids,
         nrm_elec_b=_n2_nrm_elec_b,
     ),
     "NO:emoscat": MoleculePreset(
@@ -468,7 +484,7 @@ def resolve_lcp_grids(
     if preset is None or preset.lcp_grids is None:
         raise ConfigError(
             f"the 'lcp' method is not available for {cfg.molecule} ({variant}); "
-            "LCP is defined only for the DA molecules (F2, NO)"
+            "LCP is wired for the neutral diatomics (N2, F2, NO); H2P's observable is DR"
         )
     return preset.lcp_grids()
 

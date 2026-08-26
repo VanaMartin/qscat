@@ -521,7 +521,7 @@ def validate_config(cfg: ExperimentConfig) -> None:
     Checks, in order: molecule known -> methods are a non-empty subset of
     `VALID_METHODS` -> observables non-empty and each valid for the molecule
     -> `td` block present iff `"td" in methods` -> `lcp`/`nrm` each get the
-    observable, grid form and molecule they need -> `td.extractors` all known
+    grid form and molecule they need -> `td.extractors` all known
     -> an explicit grid supplies both `electronic` and `nuclear` -> a named
     preset (if given, with no explicit grid) exists for the molecule ->
     each `reference` entry names a known `format`, resolves to a file that
@@ -576,18 +576,14 @@ def validate_config(cfg: ExperimentConfig) -> None:
         )
 
     if "lcp" in cfg.methods:
-        # LCP is the local-complex-potential APPROXIMATION of DA, so it needs a
-        # `da` observable, a molecule with an LCP path (F2/NO -- N2's DA is
-        # closed, H2P is DR), and the preset grids (no explicit-grid schema for
-        # the two ECS-angle electronic decks + fine nuclear deck).
-        kinds = {obs.kind for obs in cfg.observables}
-        if "da" not in kinds and "resonance_levels" not in kinds:
-            raise ConfigError(
-                "methods includes 'lcp' but no 'da' or 'resonance_levels' observable "
-                "is requested; LCP approximates the DA cross section -- add "
-                "`{kind: da, channels: 1}` -- or ask for the quasi-bound levels with "
-                "`{kind: resonance_levels}`"
-            )
+        # LCP is the local-complex-potential APPROXIMATION of the exact 2-D
+        # solve, so it needs a molecule with an LCP path (N2/F2/NO -- H2P is
+        # DR, not DA/VE-LCP) and the preset grids (no explicit-grid schema for
+        # the two ECS-angle electronic decks + fine nuclear deck). No
+        # per-observable-kind check is needed here: every kind that survives
+        # the per-molecule validity check above (`ve`/`da` for N2, plus
+        # `resonance_levels` for F2/NO) is one LCP can serve, so a run that
+        # reaches this point already requests only LCP-servable observables.
         if cfg.grid.electronic is not None or cfg.grid.nuclear is not None:
             raise ConfigError(
                 "the 'lcp' method does not support an explicit grid (it needs the "
@@ -599,7 +595,7 @@ def validate_config(cfg: ExperimentConfig) -> None:
         if lcp_preset is None or lcp_preset.lcp_grids is None:
             raise ConfigError(
                 f"the 'lcp' method is not available for {cfg.molecule}; LCP is "
-                "defined only for the DA molecules (F2, NO)"
+                "wired for the neutral diatomics (N2, F2, NO); H2P's observable is DR"
             )
 
     if "nrm" in cfg.methods:
