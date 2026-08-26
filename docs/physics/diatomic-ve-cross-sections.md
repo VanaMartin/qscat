@@ -240,8 +240,8 @@ exact σ_DA rises sharply as E→threshold while the LCP stays smooth (0.263 at 
 exact elastic T-matrix contains (`driven.py` documents this) — a known *qualitative* LCP
 limitation. The LCP VE cross section itself is not computed in *this* sub-project, so no
 quantitative LCP-VE band is recorded in this note. It is computed elsewhere:
-`validation/diatomic/ve_nrm.py` runs it (as `lcp_ve_cross_section`, the 1-D
-`projects.n2_ti_cross_section` solver) alongside the exact and nonlocal routes, and
+`validation/diatomic/ve_nrm.py` runs it (as `qscat.core.lcp.
+lcp_ve_cross_section`, the graduated 1-D solver) alongside the exact and nonlocal routes, and
 `docs/physics/nonlocal-resonance-model.md` §8.4 publishes the measured
 LCP-over-exact bands for N₂ and F₂. N₂'s DA channel is closed (threshold +0.5 Ha), so
 LCP and exact both give ≈0 there — a consistency sanity, no figure.
