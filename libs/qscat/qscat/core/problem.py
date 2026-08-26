@@ -115,6 +115,19 @@ class ScatteringProblem:
         """Vibrational eigenvectors, one row per level."""
         return self.basis.chi
 
+    @property
+    def _bundle(
+        self,
+    ) -> tuple[
+        TensorGrid,
+        ResonanceModel,
+        npt.NDArray[np.float64],
+        npt.NDArray[np.complex128],
+        int,
+    ]:
+        """The `(grid, model, eps, chi, v_init)` group every solver takes first."""
+        return (self.grid, self.model, self.eps, self.chi, self.v_init)
+
     # --- time-independent observables ---------------------------------------
 
     @overload
@@ -151,29 +164,13 @@ class ScatteringProblem:
         """Vibrational-excitation cross section; same parameters, defaults and
         return convention as `qscat.core.ve_cross_section` (which this
         delegates to with the bundled grid/model/basis)."""
-        if return_wavefunction:
-            return ve_cross_section(
-                self.grid,
-                self.model,
-                self.eps,
-                self.chi,
-                self.v_init,
-                vprimes,
-                E,
-                ordering=ordering,
-                lam_scale=lam_scale,
-                return_wavefunction=True,
-            )
         return ve_cross_section(
-            self.grid,
-            self.model,
-            self.eps,
-            self.chi,
-            self.v_init,
+            *self._bundle,
             vprimes,
             E,
             ordering=ordering,
             lam_scale=lam_scale,
+            return_wavefunction=return_wavefunction,
         )
 
     @overload
@@ -205,27 +202,12 @@ class ScatteringProblem:
         return_wavefunction: bool = False,
     ) -> _Sigma | tuple[_Sigma, _PsiOut]:
         """Dissociative-attachment cross section; see `qscat.core.da_cross_section`."""
-        if return_wavefunction:
-            return da_cross_section(
-                self.grid,
-                self.model,
-                self.eps,
-                self.chi,
-                self.v_init,
-                E,
-                n_channels=n_channels,
-                ordering=ordering,
-                return_wavefunction=True,
-            )
         return da_cross_section(
-            self.grid,
-            self.model,
-            self.eps,
-            self.chi,
-            self.v_init,
+            *self._bundle,
             E,
             n_channels=n_channels,
             ordering=ordering,
+            return_wavefunction=return_wavefunction,
         )
 
     @overload
@@ -283,52 +265,13 @@ class ScatteringProblem:
     ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:
         """Dissociative-recombination cross section (ionic target); see
         `qscat.core.dr_cross_section`."""
-        if return_wavefunction and return_amplitude:
-            return dr_cross_section(
-                self.grid,
-                self.model,
-                self.eps,
-                self.chi,
-                self.v_init,
-                E,
-                n_channels=n_channels,
-                ordering=ordering,
-                return_wavefunction=True,
-                return_amplitude=True,
-            )
-        if return_wavefunction:
-            return dr_cross_section(
-                self.grid,
-                self.model,
-                self.eps,
-                self.chi,
-                self.v_init,
-                E,
-                n_channels=n_channels,
-                ordering=ordering,
-                return_wavefunction=True,
-            )
-        if return_amplitude:
-            return dr_cross_section(
-                self.grid,
-                self.model,
-                self.eps,
-                self.chi,
-                self.v_init,
-                E,
-                n_channels=n_channels,
-                ordering=ordering,
-                return_amplitude=True,
-            )
         return dr_cross_section(
-            self.grid,
-            self.model,
-            self.eps,
-            self.chi,
-            self.v_init,
+            *self._bundle,
             E,
             n_channels=n_channels,
             ordering=ordering,
+            return_wavefunction=return_wavefunction,
+            return_amplitude=return_amplitude,
         )
 
     # --- time-dependent observables -----------------------------------------
@@ -351,11 +294,7 @@ class ScatteringProblem:
         """Time-dependent VE cross section; see `qscat.core.td_ve_cross_section`
         (same method/`wp_out`/`position`/`surface` contract)."""
         return td_ve_cross_section(
-            self.grid,
-            self.model,
-            self.eps,
-            self.chi,
-            self.v_init,
+            *self._bundle,
             vprimes,
             E,
             dt=dt,
@@ -386,11 +325,7 @@ class ScatteringProblem:
         """All three TD-VE extractors from ONE propagation; see
         `qscat.core.td_ve_cross_sections_all`."""
         return td_ve_cross_sections_all(
-            self.grid,
-            self.model,
-            self.eps,
-            self.chi,
-            self.v_init,
+            *self._bundle,
             vprimes,
             E,
             dt=dt,
@@ -419,11 +354,7 @@ class ScatteringProblem:
     ) -> npt.NDArray[np.float64]:
         """Time-dependent DA cross section; see `qscat.core.td_da_cross_section`."""
         return td_da_cross_section(
-            self.grid,
-            self.model,
-            self.eps,
-            self.chi,
-            self.v_init,
+            *self._bundle,
             E,
             dt=dt,
             n_steps=n_steps,
@@ -452,11 +383,7 @@ class ScatteringProblem:
         """All three TD-DA extractors from ONE propagation; see
         `qscat.core.td_da_cross_sections_all`."""
         return td_da_cross_sections_all(
-            self.grid,
-            self.model,
-            self.eps,
-            self.chi,
-            self.v_init,
+            *self._bundle,
             E,
             dt=dt,
             n_steps=n_steps,
@@ -509,22 +436,8 @@ class ScatteringProblem:
         the functional signature's documented argument-order exception
         (docs/adr/0007). The LCP magnitude needs the FINE per-molecule nuclear
         deck -- construct the problem on it for physical numbers."""
-        g_R = self.grid.grids[1]
-        if return_wavefunction:
-            return lcp_da_cross_section(
-                g_R,
-                self.model.mu,
-                Vd,
-                Gamma,
-                self.eps,
-                self.chi,
-                self.v_init,
-                E,
-                ordering=ordering,
-                return_wavefunction=True,
-            )
         return lcp_da_cross_section(
-            g_R,
+            self.grid.grids[1],
             self.model.mu,
             Vd,
             Gamma,
@@ -533,6 +446,7 @@ class ScatteringProblem:
             self.v_init,
             E,
             ordering=ordering,
+            return_wavefunction=return_wavefunction,
         )
 
     # EXTENSION POINT: when `qscat.core.lcp.lcp_ve_cross_section` (the LCP
@@ -600,23 +514,6 @@ class ScatteringProblem:
         tail angle -- `qscat.core.grids.ecs_angle_family` builds a valid
         family). `return_curve=True` also returns the `(Vd, Gamma)` curve the
         levels were computed in -- the input `lcp_da_cross_section` needs."""
-        if return_curve:
-            return resonance_levels(
-                self.model,
-                self.grid.grids[1],
-                nuclear_grid_b,
-                self.grid.grids[0],
-                elec_grid_b,
-                re_half_width=re_half_width,
-                im_half_width=im_half_width,
-                resid_tol=resid_tol,
-                window=window,
-                n_levels=n_levels,
-                rel_tol=rel_tol,
-                atol=atol,
-                golden_rule=golden_rule,
-                return_curve=True,
-            )
         return resonance_levels(
             self.model,
             self.grid.grids[1],
@@ -631,7 +528,7 @@ class ScatteringProblem:
             rel_tol=rel_tol,
             atol=atol,
             golden_rule=golden_rule,
-            return_curve=False,
+            return_curve=return_curve,
         )
 
     def exact_resonance_states(

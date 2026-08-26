@@ -133,6 +133,8 @@ def test_problem_dr_delegates_exact_arguments(monkeypatch) -> None:
     assert np.array_equal(seen["chi"], prob.chi)
     assert seen["n_channels"] == 2
     assert seen["ordering"] == "COLAMD"
+    assert seen["return_wavefunction"] is False
+    assert seen["return_amplitude"] is False
 
 
 def test_problem_td_ve_matches_functional_api() -> None:
