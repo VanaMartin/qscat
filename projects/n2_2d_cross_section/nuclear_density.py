@@ -36,21 +36,20 @@ number for a genuine driven solution -- see `test_nuclear_density.py`.
 `np.trapz` was deprecated in numpy 2.0 and is unavailable here (numpy
 2.5.1 pinned); `np.trapezoid` is used throughout instead.
 
-The 1-D LCP driven solution `xi(R)` faithfully reproduces sub-project #3's
-`ve_cross_section` (`projects/n2_ti_cross_section/cross_section.py`): that
-module's `_sigma_at_one_energy` solves `M @ xi = doorway[v_init]` internally
-but returns only `sigma`, never `xi`. No helper anywhere already exposes
-`xi`, so `lcp_driven_solution` below inlines the SAME minimal driven solve
-using the SAME building blocks (`vres_on_grid`, `kinetic`, the doorway
-`sqrt(Gamma/2pi) * chi_v`) documented in that module's own docstring --
-`cross_section.py` itself is not modified.
+The 1-D LCP driven solution `xi(R)` is now the graduated solver's own
+output: `lcp_driven_solution` below simply calls `qscat.core.lcp.
+lcp_ve_cross_section(..., return_wavefunction=True)` and returns its `xi`,
+using this project's `vres_on_grid` for the `(V_d, Gamma)` inputs. The
+graduated function exposes `xi` directly, so this module no longer inlines
+a re-solve of `M @ xi = doorway[v_init]` from scratch.
 """
 
 from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
-from qscat.dvr import FemDvrEcsGrid, TensorGrid, kinetic
+from qscat.core.lcp import lcp_ve_cross_section
+from qscat.dvr import FemDvrEcsGrid, TensorGrid
 
 from projects.n2_2d_cross_section.convergence import working_tgrid
 from projects.n2_2d_cross_section.cross_section_2d import ve_cross_section_2d
@@ -101,23 +100,25 @@ def lcp_driven_solution(
     v_init: int,
     E: float,
 ) -> npt.NDArray[np.complex128]:
-    """The 1-D LCP driven solution `xi(R)` at collision energy `E`, channel
-    `v_init` -- the same `xi` sub-project #3's `ve_cross_section` solves
-    internally (`M @ xi = doorway[v_init]`, `M = E_tot*I - H_res`) but never
-    returns. Inlined here from the SAME building blocks
-    (`vres_on_grid`, `kinetic`, the doorway `sqrt(Gamma/2pi) * chi_v`)
-    documented in `cross_section.py`'s module docstring, so this is a
-    faithful re-exposure, not a reimplementation with different physics.
-    """
+    """The 1-D LCP driven solution `xi(R)` at collision energy `E` -- now the
+    graduated solver's own `return_wavefunction` output (`qscat.core.lcp.
+    lcp_ve_cross_section`), no longer an inlined re-solve. `vres_on_grid`
+    still supplies this project's `(V_d, Gamma)`."""
     Vd, Gamma = vres_on_grid(grid)
-    doorway_v_init = np.sqrt(Gamma / (2.0 * np.pi)) * chi[v_init]
-
-    T = kinetic(grid, mu)
-    H_res = T + np.diag(Vd - 1j * Gamma / 2.0)
-
-    e_tot = E + eps[v_init]
-    M = e_tot * np.eye(grid.n, dtype=np.complex128) - H_res
-    xi = np.linalg.solve(M, doorway_v_init)
+    _sigma, xi = lcp_ve_cross_section(
+        grid,
+        mu,
+        Vd,
+        Gamma,
+        eps,
+        chi,
+        v_init,
+        [v_init],
+        float(E),
+        return_wavefunction=True,
+    )
+    if xi is None:
+        raise ValueError(f"lcp_driven_solution: E={E} Ha <= 0, no driven solve")
     return np.asarray(xi, dtype=np.complex128)
 
 
