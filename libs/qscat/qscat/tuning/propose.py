@@ -33,7 +33,7 @@ from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
 from .analyze import analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
 from .mesh import optimal_real_mesh, order_for_wavenumber, refine_elements_in_window
-from .resonance import interaction_region, resonance_curve
+from .resonance import interaction_region, resonance_curve_arrays
 
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
@@ -133,7 +133,7 @@ _ANGLE_PROBE_TAIL_EXTENT = 40.0
 PotentialFn = Callable[[npt.ArrayLike], npt.NDArray[np.complexfloating]]
 
 # Default two-angle electronic grids for the resonance-pole match
-# (`qscat.tuning.resonance.resonance_curve`) driving the resonant nuclear
+# (`qscat.tuning.resonance.resonance_curve_arrays`) driving the resonant nuclear
 # path (`channel="dissociation"`) -- two different ECS rotation angles are
 # needed so `find_resonance_pole` can triangulate the pole across them.
 # Overridable via `propose_grid`'s `elec_grids` so tests can inject small
@@ -247,7 +247,7 @@ def _crossing_half_width(
     clamped to `[_CROSSING_DELTA_MIN, _CROSSING_DELTA_MAX]`.
 
     Restricts to `R >= R_lo` (`interaction_region`) to exclude the walk's
-    frozen inner plateau (see `resonance_curve`/`resonance_pole_walk`'s
+    frozen inner plateau (see `resonance_curve_arrays`/`resonance_pole_walk`'s
     docstrings: on breakdown the LAST accepted `Gamma` freezes for all
     remaining -- smaller -- `R`, an artifact, not physics), then takes the
     `R`-span where `Gamma` clears `_GAMMA_SIGNIFICANT_FRAC` of its
@@ -281,7 +281,7 @@ def _resonant_nuclear_mesh(
     channel_k)`.
 
     Builds the adiabatic resonance curve `(R, V_d(R), Gamma(R))`
-    (`resonance_curve`; the (expensive) two-angle pole match -- callers
+    (`resonance_curve_arrays`; the (expensive) two-angle pole match -- callers
     needing this cheap may inject small `elec_grids`, as `propose_grid`
     does), then:
 
@@ -317,7 +317,7 @@ def _resonant_nuclear_mesh(
     else:
         ga, gb = elec_grids
 
-    R, Vd, Gamma = resonance_curve(model, ga, gb, R_max=x_max, n_dense=resonance_n_dense)
+    R, Vd, Gamma = resonance_curve_arrays(model, ga, gb, R_max=x_max, n_dense=resonance_n_dense)
     Vd_real = np.real(Vd)
 
     vd_asym = float(Vd_real[-1])  # R ascending -> the largest sampled R
@@ -426,7 +426,7 @@ def propose_grid(
     - `"dissociation"`, `coordinate="nuclear"` only: the resonance-aware
       nuclear path (see `_resonant_nuclear_mesh`). Builds the adiabatic
       resonance curve `(R, V_d(R), Gamma(R))`
-      (`qscat.tuning.resonance.resonance_curve`, via a two-angle ECS pole
+      (`qscat.tuning.resonance.resonance_curve_arrays`, via a two-angle ECS pole
       match -- `elec_grids`, if given, overrides the default electronic
       grids used for that match, and `resonance_n_dense` overrides its
       dense-sampling point count; both exist so tests can inject

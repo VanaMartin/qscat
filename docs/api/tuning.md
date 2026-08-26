@@ -29,7 +29,7 @@ documented limits of the 1-D convergence probes.
    refine_elements_in_window
    refine_to_2d_convergence
    required_extent
-   resonance_curve
+   resonance_curve_arrays
    tensor_cost
    tune_ecs_tail
    tw_analysis

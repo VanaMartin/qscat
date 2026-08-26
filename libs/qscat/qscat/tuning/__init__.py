@@ -48,9 +48,9 @@ Public API:
   - `interaction_region` -- the R-window where the electron-molecule
     interaction `V_int(r, R)` is non-negligible, from `model.v_int` alone
     -- see `qscat.tuning.resonance`.
-  - `resonance_curve` -- the efficient adiabatic resonance-curve sampler
-    `(R, V_d(R), Gamma(R))`: dense inside `interaction_region`, a single far
-    point at the asymptote -- see `qscat.tuning.resonance`.
+  - `resonance_curve_arrays` -- the efficient adiabatic resonance-curve
+    sampler `(R, V_d(R), Gamma(R))`: dense inside `interaction_region`, a
+    single far point at the asymptote -- see `qscat.tuning.resonance`.
   - `refine_to_2d_convergence` -- the general, model-agnostic 2-D-convergence
     FALLBACK: given any scalar observable closing over a real cross-section
     (or a synthetic test function), iteratively `refine`s whichever of the
@@ -61,6 +61,8 @@ Public API:
 """
 
 from __future__ import annotations
+
+import warnings
 
 from .analyze import PotentialProfile, analyze_potential
 from .ecs import max_stable_angle, tune_ecs_tail
@@ -81,7 +83,7 @@ from .probes import (
 )
 from .propose import propose_grid
 from .refine2d import refine_to_2d_convergence
-from .resonance import interaction_region, resonance_curve
+from .resonance import interaction_region, resonance_curve_arrays
 
 __all__ = [
     "IncidentSpec",
@@ -102,8 +104,32 @@ __all__ = [
     "refine_elements_in_window",
     "refine_to_2d_convergence",
     "required_extent",
-    "resonance_curve",
+    "resonance_curve_arrays",
     "tensor_cost",
     "tune_ecs_tail",
     "tw_analysis",
 ]
+
+
+# --- Deprecated aliases (2026-08-25 API surface pass) ------------------------
+# One release cycle per ADR 0004, then delete this block. Not in `__all__`:
+# the public surface is the new name; the alias only keeps old imports alive.
+# `from qscat.tuning import resonance_curve` resolves against THIS namespace,
+# so the package needs its own copy of the shim -- resonance.py's __getattr__
+# only covers `qscat.tuning.resonance.resonance_curve`.
+
+_DEPRECATED = {"resonance_curve": "resonance_curve_arrays"}
+
+
+def __getattr__(name: str) -> object:
+    if name in _DEPRECATED:
+        new = _DEPRECATED[name]
+        warnings.warn(
+            f"{__name__}.{name} was renamed to {new} in the 2026-08-25 API "
+            "surface pass; the old name is a deprecated alias for one release "
+            "cycle (docs/adr/0004-public-api-stability-policy.md)",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return globals()[new]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

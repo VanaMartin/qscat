@@ -31,6 +31,7 @@ resolve densely.
 
 from __future__ import annotations
 
+import warnings
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -43,7 +44,7 @@ if TYPE_CHECKING:
     from qscat.dvr import FemDvrEcsGrid
     from qscat.model import ResonanceModel
 
-__all__ = ["interaction_region", "resonance_curve"]
+__all__ = ["interaction_region", "resonance_curve_arrays"]
 
 FloatArray = NDArray[np.float64]
 
@@ -105,7 +106,7 @@ def interaction_region(
     return float(R_lo), float(R_hi)
 
 
-def resonance_curve(
+def resonance_curve_arrays(
     model: ResonanceModel,
     elec_grid_a: FemDvrEcsGrid,
     elec_grid_b: FemDvrEcsGrid,
@@ -127,11 +128,13 @@ def resonance_curve(
     across the big `R_max -> R_hi` gap, since `Gamma` has already saturated
     to ~0 out there.
 
-    NAME COLLISION: `qscat.core.bo.resonance_curve` shares this name and the
-    same underlying pole walk, but returns an `ElectronicCurves` carrying the
-    eigenVECTORS, for building Born-Oppenheimer basis states. This one returns
-    plain `(R, V_d, Gamma)` arrays and exists only to size a grid, so it
-    discards the states and samples as sparsely as it can.
+    Renamed from `resonance_curve` (2026-08-25 API surface pass) to end the
+    collision with `qscat.core.bo.resonance_curve`, which shares the same
+    underlying pole walk but returns an `ElectronicCurves` carrying the
+    eigenVECTORS, for building Born-Oppenheimer basis states. This one
+    returns plain `(R, V_d, Gamma)` arrays -- the name says so -- and exists
+    only to size a grid, so it discards the states and samples as sparsely
+    as it can.
 
     Seeded from the bound anion state at `R_max`
     (`qscat.core.dissociation.anion_electronic_states`). Returns arrays
@@ -160,3 +163,24 @@ def resonance_curve(
     Vd = np.real(model.v0(R)) + shift[order]
     Gamma = gamma[order]
     return R, Vd, Gamma
+
+
+# --- Deprecated aliases (2026-08-25 API surface pass) ------------------------
+# One release cycle per ADR 0004, then delete this block. Not in `__all__`:
+# the public surface is the new name; the alias only keeps old imports alive.
+
+_DEPRECATED = {"resonance_curve": "resonance_curve_arrays"}
+
+
+def __getattr__(name: str) -> object:
+    if name in _DEPRECATED:
+        new = _DEPRECATED[name]
+        warnings.warn(
+            f"{__name__}.{name} was renamed to {new} in the 2026-08-25 API "
+            "surface pass; the old name is a deprecated alias for one release "
+            "cycle (docs/adr/0004-public-api-stability-policy.md)",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return globals()[new]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

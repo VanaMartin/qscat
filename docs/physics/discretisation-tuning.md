@@ -167,7 +167,7 @@ term.
 `propose_grid(model, "nuclear", energy_range, channel="dissociation")` (nuclear-only;
 `channel="ve"` remains the byte-identical default for every other path) makes the mesh
 aware of exactly the structure the plain `v0`-only pass cannot see, via
-`qscat.tuning.resonance.resonance_curve` (the two-angle ECS pole match already used by
+`qscat.tuning.resonance.resonance_curve_arrays` (the two-angle ECS pole match already used by
 `qscat.ecs.find_resonance_pole`, sampled densely inside `interaction_region` and once at
 the asymptote):
 
