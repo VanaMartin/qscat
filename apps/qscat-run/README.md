@@ -30,10 +30,11 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 - **`ti`** — exact time-independent driven Lippmann–Schwinger solve.
 - **`td`** — time-dependent wavepacket propagation (order-3 Padé), with the
   Tannor–Weeks / Dirac / Flux energy extractors (`td.extractors: [tw,delta,flow]`).
-- **`lcp`** — the local-complex-potential *approximation* of DA (F2/NO only).
-  `methods: [ti, lcp]` overlays the exact oracle and the approximation on one
-  `cross_section.png` (keys `ti:da:ch0` vs `lcp:da:ch0`) — the "where does the
-  approximation fail?" comparison, from one config.
+- **`lcp`** — the local-complex-potential *approximation* of DA **and VE**
+  (N2/F2/NO). `methods: [ti, lcp]` overlays the exact oracle and the
+  approximation on one `cross_section.png` (keys `ti:da:ch0` vs `lcp:da:ch0`,
+  or `ti:ve:v0->1` vs `lcp:ve:v0->1`) — the "where does the approximation
+  fail?" comparison, from one config.
 - **`nrm`** — the nonlocal resonance model (N2/NO/F2): the rung above `lcp`,
   keeping the energy dependence and the nonlocality the LCP discards. It serves
   **both** `ve` (PRA 77 Eq. 28/31/37) and `da` (Eq. 52–54). Takes an optional
@@ -49,12 +50,10 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
   `docs/physics/nonlocal-resonance-model.md`.
 
 `lcp` and `nrm` both need the preset's grids (neither has an explicit-grid
-form). `lcp` needs a `da` or `resonance_levels` observable; `nrm` needs a `ve`
-or `da` one. `nrm` runs its electronic Hamiltonian on `ti_grid()`'s own
+form). `lcp` needs a `ve`, `da` or `resonance_levels` observable; `nrm` needs a
+`ve` or `da` one. `nrm` runs its electronic Hamiltonian on `ti_grid()`'s own
 factors, so a `methods: [ti, nrm]` ratio measures the model reduction rather
-than two discretisations. The LCP's own VE route is *not* exposed here (it
-lives in `projects/n2_ti_cross_section`), so `methods: [lcp]` with a `ve`
-observable is rejected.
+than two discretisations.
 
 ## Observables → config knob → artifact
 
@@ -122,8 +121,8 @@ data in question). They are kept because:
   `qscat.core` engine instead, a different code path, so it cannot stand in for
   that gate.
 - `validation/diatomic/ve_nrm_figure.py`'s figure needs both `include_background`
-  settings (one flag per `nrm` block, so two runs) *and* the LCP's VE route (not
-  a qscat-run method) — neither reachable from a single config.
+  settings (one flag per `nrm` block, so two runs) — not reachable from a
+  single config.
 - `validation/diatomic/da_figure.py`'s LCP/exact ratio panel and its
   published-reference overlay on a `da` observable are not reachable from
   `qscat_run.artifacts`.

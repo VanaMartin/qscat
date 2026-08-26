@@ -123,3 +123,29 @@ def test_ti_and_lcp_overlay_disjoint_keys(tmp_path: Path) -> None:
     result = run_experiment(cfg)
     assert "ti:da:ch0" in result.cross_sections
     assert "lcp:da:ch0" in result.cross_sections
+
+
+@pytest.mark.slow
+def test_lcp_run_produces_ve_cross_section_for_n2(tmp_path: Path) -> None:
+    out_dir = tmp_path / "out"
+    cfg = load_config(
+        _write(
+            tmp_path,
+            f"""
+        molecule: N2
+        methods: [lcp]
+        observables: [{{kind: ve, channels: [0, 1]}}]
+        energies: {{values: [0.05, 0.1]}}
+        output_dir: {out_dir}
+    """,
+        )
+    )
+    validate_config(cfg)
+    result = run_experiment(cfg)
+    for key in ("lcp:ve:v0->0", "lcp:ve:v0->1"):
+        assert key in result.cross_sections
+        sigma = result.cross_sections[key]
+        assert sigma.shape == (2,)
+        assert np.all(np.isfinite(sigma)) and np.all(sigma >= 0.0)
+    # the Pi_g resonance region beats near-threshold on 0->1
+    assert result.cross_sections["lcp:ve:v0->1"][1] > result.cross_sections["lcp:ve:v0->1"][0]

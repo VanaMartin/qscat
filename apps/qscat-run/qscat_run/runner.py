@@ -86,6 +86,7 @@ from qscat.core import (
 from qscat.core.lcp import (
     ResonanceLevels,
     lcp_da_cross_section,
+    lcp_ve_cross_section,
     local_complex_potential,
     resonance_eigenstate_at_peak_width,
 )
@@ -151,7 +152,22 @@ type TdExtractor = TannorWeeks | Dirac | Flux
 # R in [2.5976, 2.608] crossing window is ~1e-18 to ~1e-13 of the total. Both
 # physically and numerically negligible, which is why the levels/widths computed
 # at 0.05 vs 0.01 agree to ~1e-15 (round-off) regardless of which curve is used.
-_LCP_WALK_HALF_WIDTH = 0.01
+#
+# N2 needs the OPPOSITE override, and for the opposite reason: at 0.01 the walk
+# (seeded from the near-threshold "anion" state at the nuclear grid's R0=12 --
+# N2 has no genuine bound anion, so `anion_electronic_states` returns a barely-
+# bound numerical artifact there) loses the pole on its very first recentered
+# step and freezes Gamma at ~3e-15 for the ENTIRE walk, including the
+# vibrationally relevant R ~ 1.8-2.5 region -- silently zeroing out the VE
+# cross section (measured: sigma ~ 1e-54, see the `presets._n2_lcp_grids`
+# docstring). At 0.05 -- the library default, and the half-width
+# `projects/n2_ti_cross_section/vres.py`'s OWN retired N2 pole walk used
+# (`_RE_HALF_WIDTH = _IM_HALF_WIDTH = 0.05`) -- the walk tracks the genuine
+# 2Πg shape resonance inward from R0=12, giving Gamma ~ 0.01-0.03 Ha near the
+# R ~ 2.0 equilibrium (consistent with the resonance's known width) before
+# breaking down deep in the repulsive wall at R ~ 1.56.
+_LCP_WALK_HALF_WIDTH: dict[str, float] = {"N2": 0.05}
+_LCP_WALK_HALF_WIDTH_DEFAULT = 0.01
 
 
 @dataclass(frozen=True)
@@ -762,12 +778,13 @@ def _run_lcp(
     list[ResonanceState],
     list[ResonanceLevelsRun],
 ]:
-    """The LCP path: reduce the exact 2-D DA resonance to a 1-D local complex
+    """The LCP path: reduce the exact 2-D resonance to a 1-D local complex
     potential `(V_d(R), Gamma(R))` (`qscat.core.lcp.local_complex_potential`,
     two ECS-angle electronic decks + the fine nuclear deck), then solve the 1-D
-    driven equation (`lcp_da_cross_section`) per requested `da` observable.
-    Keyed `"lcp:da:ch0"` so a `methods: [ti, lcp]` run overlays the exact and
-    approximate DA cross sections on the SAME figure (disjoint key prefixes).
+    driven equation per requested `da` (`lcp_da_cross_section`) or `ve`
+    (`lcp_ve_cross_section`) observable. Keyed `"lcp:da:ch0"` /
+    `"lcp:ve:v{v_init}->{vp}"` so a `methods: [ti, lcp]` run overlays the exact
+    and approximate cross sections on the SAME figure (disjoint key prefixes).
 
     Also emits (opt-in) the vibrational levels + the resonance electronic
     eigenstate at the width peak (`artifacts.eigenstates`) and the 1-D nuclear
@@ -781,12 +798,13 @@ def _run_lcp(
     `da` observable actually needs a sweep.
 
     The electronic pole walk runs EXACTLY ONCE per run, at one half-width
-    setting (`_LCP_WALK_HALF_WIDTH`), and every observable below shares its
+    setting (this molecule's entry in `_LCP_WALK_HALF_WIDTH`, else
+    `_LCP_WALK_HALF_WIDTH_DEFAULT`), and every observable below shares its
     output -- so the `V_d`/`Gamma` written to the artifacts is always the very
     curve the levels and cross sections were computed in.
     """
     kinds = {obs.kind for obs in cfg.observables}
-    wants_sigma = "da" in kinds
+    wants_sigma = bool(kinds & {"da", "ve"})
     if wants_sigma and cfg.energies is None:
         raise ConfigError("no energies resolved for this config (missing 'energies' block?)")
     energies = cfg.energies.as_array() if cfg.energies is not None else np.empty(0)
@@ -796,7 +814,12 @@ def _run_lcp(
     timings["lcp:grid"] = time.time() - t0
 
     model = presets.MODELS[cfg.molecule]
-    n_vib = _n_vib(cfg, cfg.v_init + 1)
+    required = cfg.v_init + 1
+    for obs in cfg.observables:
+        if obs.kind == "ve":
+            required = max(required, max(_vprimes(obs), default=-1) + 1)
+    n_vib = _n_vib(cfg, required)
+    half_width = _LCP_WALK_HALF_WIDTH.get(cfg.molecule, _LCP_WALK_HALF_WIDTH_DEFAULT)
 
     t0 = time.time()
     eps, chi = vibrational_states(g_R, model.mu, n_vib, model.v0)
@@ -832,8 +855,8 @@ def _run_lcp(
             g_R_b,
             elec_a,
             elec_b,
-            re_half_width=_LCP_WALK_HALF_WIDTH,
-            im_half_width=_LCP_WALK_HALF_WIDTH,
+            re_half_width=half_width,
+            im_half_width=half_width,
             n_levels=n_req,
             return_curve=True,
         )
@@ -854,15 +877,27 @@ def _run_lcp(
             g_R,
             elec_a,
             elec_b,
-            re_half_width=_LCP_WALK_HALF_WIDTH,
-            im_half_width=_LCP_WALK_HALF_WIDTH,
+            re_half_width=half_width,
+            im_half_width=half_width,
         )
         timings["lcp:local_complex_potential"] = time.time() - t0
 
     cross_sections: dict[str, npt.NDArray[np.float64]] = {}
     for obs in cfg.observables:
-        if obs.kind != "da":
-            continue  # LCP only produces the DA cross section
+        if obs.kind not in ("da", "ve"):
+            continue
+        if obs.kind == "ve":
+            t0 = time.time()
+            vprimes = _vprimes(obs)
+            sigma_ve = lcp_ve_cross_section(
+                g_R, model.mu, v_d, gamma, eps, chi, cfg.v_init, vprimes, energies
+            )
+            for j, vp in enumerate(vprimes):
+                cross_sections[f"lcp:ve:v{cfg.v_init}->{vp}"] = np.asarray(
+                    sigma_ve, dtype=np.float64
+                )[:, j]
+            timings["lcp:ve"] = timings.get("lcp:ve", 0.0) + (time.time() - t0)
+            continue
         t0 = time.time()
         sigma = lcp_da_cross_section(g_R, model.mu, v_d, gamma, eps, chi, cfg.v_init, energies)
         cross_sections["lcp:da:ch0"] = np.asarray(sigma, dtype=np.float64)

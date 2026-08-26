@@ -52,14 +52,29 @@ def test_lcp_method_accepted_for_f2_with_da(tmp_path: Path) -> None:
     assert "lcp" in cfg.methods
 
 
-def test_lcp_rejected_for_n2(tmp_path: Path) -> None:
+def test_lcp_ve_accepted_for_n2(tmp_path: Path) -> None:
     cfg = load_config(
         _write(
             tmp_path,
             """
         molecule: N2
         methods: [lcp]
-        observables: [{kind: da, channels: 1}]
+        observables: [{kind: ve, channels: 2}]
+        output_dir: out
+    """,
+        )
+    )
+    validate_config(cfg)  # no raise
+
+
+def test_lcp_rejected_for_h2p(tmp_path: Path) -> None:
+    cfg = load_config(
+        _write(
+            tmp_path,
+            """
+        molecule: H2P
+        methods: [lcp]
+        observables: [{kind: dr, channels: 1}]
         output_dir: out
     """,
         )
@@ -68,7 +83,7 @@ def test_lcp_rejected_for_n2(tmp_path: Path) -> None:
         validate_config(cfg)
 
 
-def test_lcp_without_da_observable_rejected(tmp_path: Path) -> None:
+def test_lcp_with_ve_observable_accepted_for_f2(tmp_path: Path) -> None:
     cfg = load_config(
         _write(
             tmp_path,
@@ -80,8 +95,7 @@ def test_lcp_without_da_observable_rejected(tmp_path: Path) -> None:
     """,
         )
     )
-    with pytest.raises(ConfigError, match="no 'da' or 'resonance_levels' observable"):
-        validate_config(cfg)
+    validate_config(cfg)  # no raise
 
 
 def test_lcp_with_explicit_grid_rejected(tmp_path: Path) -> None:
@@ -455,17 +469,16 @@ def test_resonance_levels_is_rejected_for_n2(tmp_path):
         validate_config(load_config(cfg_path))
 
 
-def test_lcp_without_da_is_still_rejected_when_no_levels_requested(tmp_path):
-    from qscat_run.config import ConfigError, load_config, validate_config
+def test_lcp_with_ve_only_and_energies_accepted(tmp_path):
+    from qscat_run.config import load_config, validate_config
 
-    cfg_path = tmp_path / "bad2.yaml"
+    cfg_path = tmp_path / "ok2.yaml"
     cfg_path.write_text(
         "molecule: F2\nmethods: [lcp]\nobservables: [{kind: ve, channels: 2}]\n"
         "energies: {min: 0.01, max: 0.05, step: 0.02}\n"
         "output_dir: out\n"
     )
-    with pytest.raises(ConfigError, match="no 'da' or 'resonance_levels' observable"):
-        validate_config(load_config(cfg_path))
+    validate_config(load_config(cfg_path))  # no raise
 
 
 def test_artifacts_resonance_levels_flag_parses(tmp_path):
