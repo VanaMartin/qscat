@@ -89,11 +89,21 @@ target-version = "py312"
 extend-exclude = ["reference"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "NPY", "RUF"]
+select = ["E", "F", "I", "UP", "B", "NPY", "RUF", "D", "ANN"]
 # RUF001-003 (ambiguous unicode) are off: the docstrings and comments here
 # deliberately use unicode maths characters (sigma, multiplication sign, en
 # dash) that these rules would flag as confusable with ASCII.
-ignore = ["RUF001", "RUF002", "RUF003"]
+# D205/D209/D400/D401/D403 are off: the library's house style opens with
+# multi-sentence summary paragraphs (measured 198 hits, all deliberate
+# prose); D here enforces docstring PRESENCE, not summary-line shape.
+# ANN401 is off: the 17 remaining `Any` uses are all in qscat.viz's
+# lazily-imported-matplotlib boundary (animate.py/artist.py/plot.py), where
+# the concrete type is only importable behind a runtime check; mypy --strict
+# polices annotations everywhere else.
+ignore = ["RUF001", "RUF002", "RUF003", "D205", "D209", "D400", "D401", "D403", "ANN401"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
 
 [tool.ruff.lint.per-file-ignores]
 # `l` is the standard physics symbol for the orbital angular momentum quantum
@@ -134,6 +144,10 @@ ignore = ["RUF001", "RUF002", "RUF003"]
 "libs/qscat/tests/test_correlation.py" = ["E741"]
 # Same rationale -- transcribes the radial functions' `l` parameter verbatim.
 "libs/qscat/tests/test_kernel_consolidation_oracle.py" = ["E741"]
+# Docstring presence (D) is a shipped-library contract; tests, research
+# projects, validation harnesses and app internals are exempt. ANN beyond
+# the annotations mypy --strict already enforces is likewise lib-only.
+"!libs/qscat/qscat/**" = ["D", "ANN"]
 
 [tool.mypy]
 python_version = "3.12"

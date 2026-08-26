@@ -38,7 +38,10 @@ extensions = [
 autosummary_generate = True
 autodoc_typehints = "description"
 autodoc_member_order = "bysource"
-napoleon_google_docstring = True
+# numpydoc is the ONE docstring dialect (ruff D convention = "numpy");
+# google-style parsing off so a stray google-section renders wrong loudly
+# instead of silently working.
+napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 
 # dollarmath: $...$ and $$...$$. colon_fence: ::: directives. deflist:

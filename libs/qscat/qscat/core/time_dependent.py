@@ -158,7 +158,10 @@ Method = Literal["tw", "delta", "flow"]
 
 @dataclass(frozen=True)
 class Snapshot:
-    """One observation of the propagated state at `time`: the two marginal densities, plus the full `psi` when requested (see `propagate`'s `snapshot_times`)."""
+    """One observation of the propagated state at `time`: the two marginal
+    densities, plus the full `psi` when requested (see `propagate`'s
+    `snapshot_times`).
+    """
 
     time: float
     rho_R: npt.NDArray[np.float64]  # nuclear density, sum_r |Psi|^2 (unscaled)
@@ -168,7 +171,9 @@ class Snapshot:
 
 @dataclass(frozen=True)
 class PropagationResult:
-    """What `propagate` records per step: sample times, channel projections `c_{v'}(t_n)`, Hermitian norms, and any snapshots."""
+    """What `propagate` records per step: sample times, channel projections
+    `c_{v'}(t_n)`, Hermitian norms, and any snapshots.
+    """
 
     t: npt.NDArray[np.float64]  # (n_t,)  sample times n*dt
     c: npt.NDArray[np.complex128]  # (n_t, n_channels)  c_{v'}(t_n)
