@@ -41,6 +41,20 @@ installed package.
   about each molecule, the headline numbers with their caveats, and links into
   the method notes. Nothing on the site previously answered "what do we know
   about F₂".
+- `qscat.core.Verdict`: the `Literal` of the seven legal `assignment` verdict
+  strings is now exported from `qscat.core`, so callers can type-check an
+  `AssignmentResult.verdict` without reaching into `qscat.core.assignment`.
+
+### Changed
+- Two public names renamed to end collisions with an identically-named
+  sibling elsewhere in `qscat.core`/`qscat.tuning` (api-surface-pass,
+  2026-08-25): `qscat.core.nrm.scattering.free_hamiltonian` →
+  `electronic_free_hamiltonian` (was shadowed by
+  `qscat.core.time_dependent.free_hamiltonian`), and
+  `qscat.tuning.resonance_curve` → `resonance_curve_arrays` (was shadowed by
+  `qscat.core.bo.resonance_curve`). Both old names remain as deprecated
+  aliases (`DeprecationWarning`, one release cycle per ADR 0004) at every
+  import path they were previously reachable from.
 
 ### Added
 - `qscat.core.exact_resonance_states` (+ `ExactResonanceStates`): poles of the FULL
