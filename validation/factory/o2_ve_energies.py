@@ -26,14 +26,15 @@ __all__ = ["level_aware_energies", "main"]
 
 LEVELS = Path("validation/factory/results/o2-anion-levels.csv")
 E_WINDOW = (0.002, 0.100)  # Ha
-BACKGROUND_STEP = 0.001  # Ha (27 meV)
-# 41 points across +-5 widths puts the mesh Gamma/4 apart, so a Lorentzian
-# peak is caught within Gamma/8 of its maximum (height to 6 %); the first
-# sweep's 15 points (Gamma/1.5 apart) read every height 0.6-0.9x the paper's
-# unsplit NRM -- a Gamma/3 miss is a factor 0.69, i.e. the mesh, not the
-# model. ~1300 energies: 8 min with MUMPS, not a laptop job.
-N_WINDOW = 41
-HALF_WIDTHS = 5.0
+BACKGROUND_STEP = 0.0005  # Ha (13.6 meV)
+# 121 points across +-6 widths puts the mesh Gamma/10 apart, so every peak's
+# shape is drawn, not just its maximum (height to 1 %). The history that
+# set it: 15 points (Gamma/1.5 apart) read every height 0.6-0.9x the paper's
+# unsplit NRM -- a Gamma/3 miss on a Lorentzian is a factor 0.69, i.e. the
+# mesh, not the model -- and 41 points (Gamma/4) gave the heights to ~10 %.
+# ~3800 energies per model: ~25 min with MUMPS, not a laptop job.
+N_WINDOW = 121
+HALF_WIDTHS = 6.0
 GAMMA_FLOOR = 0.3e-3 * EV_TO_HARTREE  # 0.3 meV
 
 
@@ -74,7 +75,7 @@ def main() -> None:
 # mesh: a {BACKGROUND_STEP * 1e3:.0f} mHa background grid plus {N_WINDOW} points across
 # +-{HALF_WIDTHS:.0f} widths of every level in the window, from the model's own
 # levels (`validation/factory/results/{a.levels.name}`); {E.size} energies.
-# Elastic + 0->1..4, the paper's Figs. 5-6.
+# Elastic + 0->1..5, the six panels of the paper's Fig. 5.
 #
 # The `tuner` preset is the discretisation tuner's deck, nuclear grid refined
 # once by the 2-D spot check (178k unknowns): minutes per energy with SuperLU
@@ -89,7 +90,7 @@ molecule: {a.molecule}
 methods: [ti]
 
 observables:
-  - {{kind: ve, channels: 5}}
+  - {{kind: ve, channels: 6}}
 
 energies:
   values: [{values}]
