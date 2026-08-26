@@ -487,6 +487,10 @@ def lcp_da_cross_section(
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """LCP dissociative-attachment sigma_DA(E) (bohr^2), TI resolvent form.
 
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.lcp_da_cross_section` is the stable route.
+
     Solve `(E_tot I - H_res) psi_sc = d`, `H_res = T_nuc + diag(V_d - i Gamma/2)`,
     doorway `d = sqrt(Gamma/2pi) chi_{v_init}`; the DA amplitude is the outgoing
     dissociation flux at the boundary `X` (outermost real point):

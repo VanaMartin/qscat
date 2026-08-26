@@ -188,6 +188,10 @@ def da_cross_section(
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """sigma_DA(E) in bohr^2, exact 2-D driven-equation DA cross section.
 
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.da_cross_section` is the stable route.
+
     Reuses `ve_cross_section(..., return_wavefunction=True)` for `Psi+` (one
     `SparseLU.refactor` sweep across `E`), then reads the outgoing dissociation
     flux out of it, one `n_channels` anion channel at a time. `E` may be scalar
@@ -368,6 +372,10 @@ def dr_cross_section(
 ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:
     """sigma_DR(E) in bohr^2, exact 2-D driven-equation dissociative-
     recombination cross section for a CHARGED target (e.g. H2+, `charge=-1`).
+
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.dr_cross_section` is the stable route.
 
     `da_cross_section` GENERALIZED two ways: (1) the incident channel is
     Coulomb rather than free -- `channel_vector(..., charge=model.charge)`;

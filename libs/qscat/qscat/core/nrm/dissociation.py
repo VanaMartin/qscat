@@ -128,6 +128,10 @@ def nrm_da_cross_section(
 ) -> npt.NDArray[np.float64]:
     """`sigma_DA(E)` in the nonlocal resonance model (bohr^2).
 
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.nrm_da_cross_section` is the stable route.
+
     Parameters
     ----------
     nuclear_grid, elec_grid : FemDvrEcsGrid

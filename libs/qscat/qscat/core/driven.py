@@ -164,6 +164,10 @@ def ve_cross_section(
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """sigma_{v_init->v'}(E) in bohr^2, exact 2-D driven-equation solution.
 
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.ve_cross_section` is the stable route.
+
     .. note::
        **Provisional signature.** The ``(tgrid, model, eps, chi, v_init)``
        argument group is slated to be bundled into a single context object
