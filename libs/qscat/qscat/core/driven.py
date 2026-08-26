@@ -47,7 +47,7 @@ import numpy.typing as npt
 import scipy.sparse as sp
 
 from qscat.dvr import TensorGrid
-from qscat.linalg import SparseLU, c_product
+from qscat.linalg import Ordering, SparseLU, c_product
 
 from .channels import channel_vector
 
@@ -55,11 +55,6 @@ if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
 __all__ = ["ve_cross_section"]
-
-# Mirrors `qscat.linalg.sparse_lu`'s (private) `_Ordering` -- scipy's
-# `splu`'s `permc_spec`. Not imported directly: that name is an internal
-# detail of `SparseLU`, not part of its public API.
-_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 
 
 def _sigma_at_one_energy(
@@ -127,7 +122,7 @@ def ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     lam_scale: float = ...,
     return_wavefunction: Literal[False] = ...,
 ) -> _Sigma: ...
@@ -143,7 +138,7 @@ def ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     lam_scale: float = ...,
     return_wavefunction: Literal[True],
 ) -> tuple[_Sigma, _PsiOut]: ...
@@ -162,7 +157,7 @@ def ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     lam_scale: float = ...,
     return_wavefunction: bool = ...,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
@@ -177,7 +172,7 @@ def ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = "COLAMD",
+    ordering: Ordering = "COLAMD",
     lam_scale: float = 1.0,
     return_wavefunction: bool = False,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:

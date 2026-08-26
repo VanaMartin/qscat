@@ -24,7 +24,7 @@ import scipy.sparse.linalg as spla
 
 from qscat.exceptions import ConvergenceError
 
-from .sparse_lu import SparseLU, _Backend, _Ordering
+from .sparse_lu import Ordering, SparseLU, _Backend
 
 __all__ = ["ShiftInvertEigs"]
 
@@ -83,7 +83,7 @@ class ShiftInvertEigs:
         A: sp.spmatrix,
         *,
         k: int = 6,
-        ordering: _Ordering = "COLAMD",
+        ordering: Ordering = "COLAMD",
         backend: _Backend = "auto",
         symmetric: bool | None = None,
         ncv: int | None = None,
@@ -96,7 +96,7 @@ class ShiftInvertEigs:
         self._n = int(self._A.shape[0])
         self._eye = sp.identity(self._n, format="csc", dtype=np.complex128)
         self._k = int(k)
-        self._ordering: _Ordering = ordering
+        self._ordering: Ordering = ordering
         self._backend: _Backend = backend
         self._symmetric = symmetric
         self._ncv = ncv

@@ -38,6 +38,20 @@ def test_solve_residual_is_at_round_off() -> None:
     assert np.linalg.norm(A @ x - b) / np.linalg.norm(b) < 1e-12
 
 
+def test_ordering_literal_is_public_and_single_sourced() -> None:
+    """lib-M12: one public Ordering type; the solver modules import it."""
+    from typing import get_args
+
+    from qscat import linalg
+    from qscat.core import dissociation, driven, lcp, problem
+
+    assert "Ordering" in linalg.__all__
+    assert get_args(linalg.Ordering) == ("NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD")
+    # the four former private copies are gone
+    for mod in (driven, dissociation, lcp, problem):
+        assert not hasattr(mod, "_Ordering"), mod.__name__
+
+
 def test_matrix_is_complex_symmetric_not_hermitian() -> None:
     """Guard the fixture itself -- a Hermitian matrix would not exercise the point."""
     A = _complex_symmetric(50, seed=1)
