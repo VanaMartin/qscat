@@ -472,6 +472,25 @@ def lcp_da_cross_section(
 ) -> tuple[_Sigma, _PsiOut]: ...
 
 
+# bool catch-all (open()-style): callers holding a runtime flag forward it
+# directly; the union return is narrowed by the Literal overloads above when
+# the flag is literal.
+@overload
+def lcp_da_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    E: float | npt.ArrayLike,
+    *,
+    ordering: _Ordering = ...,
+    return_wavefunction: bool = ...,
+) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
+
+
 def lcp_da_cross_section(
     nuclear_grid: FemDvrEcsGrid,
     mu: float,
@@ -924,6 +943,31 @@ def resonance_levels(
     golden_rule: bool = ...,
     return_curve: Literal[True],
 ) -> tuple[ResonanceLevels, npt.NDArray[np.complex128], npt.NDArray[np.float64]]: ...
+
+
+# bool catch-all (open()-style): callers holding a runtime flag forward it
+# directly; the union return is narrowed by the Literal overloads above when
+# the flag is literal.
+@overload
+def resonance_levels(
+    model: ResonanceModel,
+    nuclear_grid_a: FemDvrEcsGrid,
+    nuclear_grid_b: FemDvrEcsGrid,
+    elec_grid_a: FemDvrEcsGrid,
+    elec_grid_b: FemDvrEcsGrid,
+    *,
+    re_half_width: float = ...,
+    im_half_width: float = ...,
+    resid_tol: float = ...,
+    window: tuple[float, float, float, float] | None = ...,
+    n_levels: int | None = ...,
+    rel_tol: float = ...,
+    atol: float = ...,
+    golden_rule: bool = ...,
+    return_curve: bool = ...,
+) -> (
+    ResonanceLevels | tuple[ResonanceLevels, npt.NDArray[np.complex128], npt.NDArray[np.float64]]
+): ...
 
 
 def resonance_levels(
