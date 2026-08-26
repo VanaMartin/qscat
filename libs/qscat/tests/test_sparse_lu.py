@@ -310,6 +310,32 @@ def test_default_backend_override_is_scoped_and_restored() -> None:
     assert get_default_backend() == before  # restored
 
 
+def test_default_backend_is_context_local() -> None:
+    """lib-m18: a default_backend(...) block in one thread must not leak
+    into a concurrently running thread's "auto" resolution."""
+    import threading
+
+    from qscat.linalg import default_backend, get_default_backend
+
+    seen: list[str] = []
+    inside = threading.Event()
+    release = threading.Event()
+
+    def forcer() -> None:
+        with default_backend("scipy"):
+            inside.set()
+            release.wait(timeout=10.0)
+
+    t = threading.Thread(target=forcer)
+    t.start()
+    assert inside.wait(timeout=10.0)
+    seen.append(get_default_backend())  # main thread, while forcer holds "scipy"
+    release.set()
+    t.join()
+    assert seen == ["auto"]  # a process-global would have leaked "scipy"
+    assert get_default_backend() == "auto"
+
+
 def test_default_backend_override_restored_on_exception() -> None:
     before = get_default_backend()
     with pytest.raises(ValueError, match="boom"):

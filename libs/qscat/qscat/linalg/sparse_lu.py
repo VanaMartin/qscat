@@ -46,6 +46,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from contextlib import contextmanager
+from contextvars import ContextVar
 from typing import Literal, cast
 
 import numpy as np
@@ -85,7 +86,7 @@ _Backend = Literal["auto", "scipy", "mumps"]
 # override the auto-detect with an explicit `symmetric=True`/`False`.
 _SYM_RTOL = 1e-12
 
-# Process-wide default that `backend="auto"` resolves against. Lets a caller
+# Context-local default that `backend="auto"` resolves against. Lets a caller
 # force every internal `SparseLU(...)` -- e.g. the ones `ve_cross_section_2d`
 # creates without exposing a `backend=` kwarg -- onto one engine, for
 # differential backend-equivalence checks. An EXPLICIT `backend="scipy"` /
@@ -93,49 +94,57 @@ _SYM_RTOL = 1e-12
 # `"auto"` sites (the default, and every call that does not name a backend)
 # consult it. Itself defaults to `"auto"` (prefer MUMPS when available, else
 # SuperLU), so absent any override the behaviour is exactly as before.
-# Caveat: this is a plain process-global, not thread-local -- fine for the
-# intended single-threaded, scoped `default_backend(...)` use, but concurrent
-# threads flipping the default would race. Pass an explicit `backend=` at the
-# call site if you need per-thread control.
-_DEFAULT_BACKEND: _Backend = "auto"
+# A ContextVar rather than a module global so a scoped `default_backend(...)`
+# block in one thread (or async task) cannot leak into another's `"auto"`
+# resolution: a fresh `threading.Thread` copies the context at start, and
+# `ContextVar.set`/`.reset` only ever mutate the CURRENT context -- concurrent
+# threads flipping the default no longer race each other.
+_DEFAULT_BACKEND: ContextVar[_Backend] = ContextVar(
+    "qscat_sparse_lu_default_backend", default="auto"
+)
+
+
+def _validate_backend(name: _Backend) -> None:
+    if name not in ("auto", "scipy", "mumps"):
+        raise ValueError(f"unknown backend {name!r}; expected auto/scipy/mumps")
 
 
 def set_default_backend(name: _Backend) -> None:
-    """Set the process-wide backend that `SparseLU(backend="auto")` resolves to.
+    """Set the default backend `SparseLU(backend="auto")` resolves to.
 
-    `name` is `"auto"` (prefer MUMPS when available, else SuperLU -- the
-    original behaviour), `"scipy"`, or `"mumps"`. Only `"auto"` call sites
-    consult this; an explicit `backend="scipy"`/`"mumps"` argument always
-    overrides it. Prefer the `default_backend` context manager for scoped,
-    exception-safe changes.
+    HAZARD: this mutates the CURRENT context for the rest of the process
+    (or thread/task) lifetime and is easy to leave flipped -- prefer the
+    `default_backend` context manager, which restores the previous value
+    on exit (including on exception). Only `"auto"` call sites consult
+    this; an explicit `backend="scipy"`/`"mumps"` argument always wins.
     """
-    global _DEFAULT_BACKEND
-    if name not in ("auto", "scipy", "mumps"):
-        raise ValueError(f"unknown backend {name!r}; expected auto/scipy/mumps")
-    _DEFAULT_BACKEND = name
+    _validate_backend(name)
+    _DEFAULT_BACKEND.set(name)
 
 
 def get_default_backend() -> _Backend:
-    """The current process-wide default backend (see `set_default_backend`)."""
-    return _DEFAULT_BACKEND
+    """The current default backend (see `set_default_backend`)."""
+    return _DEFAULT_BACKEND.get()
 
 
 @contextmanager
 def default_backend(name: _Backend) -> Iterator[None]:
     """Temporarily force the `"auto"` backend to `name` within a `with` block.
 
-    Restores the previous default on exit (including on exception). Used to
-    force a whole computation that builds `SparseLU` internally -- e.g.
-    `projects.n2_2d_cross_section.ve_cross_section_2d` -- through one specific
-    factorization backend, so the two backends can be compared for physics
+    The recommended way to steer internal `SparseLU(...)` construction --
+    e.g. forcing a whole computation that builds `SparseLU` internally
+    (`projects.n2_2d_cross_section.ve_cross_section_2d`) through one specific
+    factorization backend, so two backends can be compared for physics
     equivalence without threading a `backend=` kwarg through every call site.
+    Scoped, exception-safe, and context-local, so concurrent threads cannot
+    race each other's defaults.
     """
-    prev = get_default_backend()
-    set_default_backend(name)
+    _validate_backend(name)
+    token = _DEFAULT_BACKEND.set(name)
     try:
         yield
     finally:
-        set_default_backend(prev)
+        _DEFAULT_BACKEND.reset(token)
 
 
 class _ScipyBackend:
@@ -218,7 +227,7 @@ class SparseLU:
     absent); `"auto"` (the default) prefers MUMPS when available and falls back
     to scipy otherwise, so on a MUMPS-less box `"auto"` and `"scipy"` are
     identical in every observable way. `backend_used` reports which one
-    actually ran. An `"auto"` call site also consults the process-wide
+    actually ran. An `"auto"` call site also consults the context-local
     override set by `set_default_backend` / the `default_backend` context
     manager (an explicit `"scipy"`/`"mumps"` here overrides it) -- the seam
     used to force an entire computation that builds `SparseLU` internally
@@ -253,7 +262,7 @@ class SparseLU:
         self._nnz: int = int(csc.nnz)
         self._ordering = ordering
 
-        # Resolve `"auto"` against the process-wide default; an explicit
+        # Resolve `"auto"` against the context-local default; an explicit
         # `"scipy"`/`"mumps"` at the call site is honored verbatim and never
         # consults the override.
         resolved: _Backend = get_default_backend() if backend == "auto" else backend
