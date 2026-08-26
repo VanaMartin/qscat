@@ -96,9 +96,10 @@ class IncidentSpec:
         and its observation boundary: `max(position + N*sigma,
         observation)`, `N = _TAIL_SIGMAS`.
 
-        A METHOD (not a free function) so `propose_grid`'s existing
-        `getattr(incident, "required_extent", lambda: 0.0)()` call works
-        against an `IncidentSpec` unchanged.
+        A METHOD on the spec (`propose_grid` calls it directly on its typed
+        `incident: IncidentSpec | None` parameter); the module-level
+        `required_extent(spec)` below remains for callers who prefer a free
+        function.
         """
         tail = self.position + _TAIL_SIGMAS * self.sigma
         observation = self.observation if self.observation is not None else 0.0

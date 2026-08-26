@@ -38,6 +38,8 @@ from .resonance import interaction_region, resonance_curve
 if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
+    from .incident import IncidentSpec
+
 __all__ = ["propose_grid"]
 
 Coordinate = Literal["nuclear", "electronic"]
@@ -361,7 +363,7 @@ def propose_grid(
     energy_range: tuple[float, float],
     *,
     rtol: float = 1e-3,
-    incident: object | None = None,
+    incident: IncidentSpec | None = None,
     phase_coeff: float | None = None,
     channel: Channel = "ve",
     elec_grids: tuple[FemDvrEcsGrid, FemDvrEcsGrid] | None = None,
@@ -392,30 +394,28 @@ def propose_grid(
     `incident` (`qscat.tuning.incident.IncidentSpec`) is accepted here as
     BOTH an extent floor AND a resolution floor:
 
-    - EXTENT: `getattr(incident, "required_extent", lambda: 0.0)()` extends
-      the real-region cutoff to at least that value before the mesh/ECS
-      steps run.
-    - RESOLUTION: `getattr(incident, "incident_energy", lambda: 0.0)()`
-      raises the effective `E_max` fed to `analyze_potential`/
-      `optimal_real_mesh` to `max(E_max, incident_energy)`. Without this, a
-      HAND-BUILT `IncidentSpec` whose `impulse` implies an energy above
-      `energy_range`'s own `E_max` would still get a mesh sized only for the
-      (lower) `energy_range`'s local wavenumber -- silently under-resolving
-      the incident's actual wave. (A `tw_analysis`-produced `IncidentSpec`
-      never triggers this: its energy is bounded by `energy_range` by
-      construction, so `max(...)` is then a no-op.) The ECS-tail
-      `channel_k` is deliberately left keyed to `energy_range`'s own
-      `E_max` alone, not this raised value: the incident wavepacket is a
-      TD object CONTAINED in the real region by the extent floor above, not
-      an outgoing wave the tail need absorb -- widening `channel_k` too is
-      a plausible future refinement, not required by this baseline.
+    - EXTENT: `incident.required_extent()` extends the real-region cutoff to
+      at least that value before the mesh/ECS steps run.
+    - RESOLUTION: `incident.incident_energy()` raises the effective `E_max`
+      fed to `analyze_potential`/`optimal_real_mesh` to `max(E_max,
+      incident_energy)`. Without this, a HAND-BUILT `IncidentSpec` whose
+      `impulse` implies an energy above `energy_range`'s own `E_max` would
+      still get a mesh sized only for the (lower) `energy_range`'s local
+      wavenumber -- silently under-resolving the incident's actual wave. (A
+      `tw_analysis`-produced `IncidentSpec` never triggers this: its energy
+      is bounded by `energy_range` by construction, so `max(...)` is then a
+      no-op.) The ECS-tail `channel_k` is deliberately left keyed to
+      `energy_range`'s own `E_max` alone, not this raised value: the
+      incident wavepacket is a TD object CONTAINED in the real region by the
+      extent floor above, not an outgoing wave the tail need absorb --
+      widening `channel_k` too is a plausible future refinement, not
+      required by this baseline.
 
-    Both getattrs default to `0.0` (a no-op) for any duck-typed `incident`
-    that does not define the corresponding method; `IncidentSpec` defines
-    both, precisely so these duck-typed calls work against it unchanged --
-    see `qscat.tuning.incident`'s docstring for the reconciliation. The
-    placement logic itself (impulse/width/observation boundary,
-    `tw_analysis`) lives there; this is only the extent/resolution floor.
+    The parameter is a real `IncidentSpec` (no duck typing -- a wrong object
+    now fails loudly at the call instead of silently contributing `0.0`);
+    the placement logic itself (impulse/width/observation boundary,
+    `tw_analysis`) lives in `qscat.tuning.incident` -- this is only the
+    extent/resolution floor.
 
     `channel` selects which physical channel the mesh targets:
 
@@ -469,10 +469,8 @@ def propose_grid(
     x_max = _RESONANT_NUCLEAR_X_MAX_DEFAULT if channel == "dissociation" else spec.x_max
     e_max_mesh = e_max
     if incident is not None:
-        required_extent = getattr(incident, "required_extent", lambda: 0.0)()
-        x_max = max(x_max, float(required_extent))
-        incident_energy = getattr(incident, "incident_energy", lambda: 0.0)()
-        e_max_mesh = max(e_max_mesh, float(incident_energy))
+        x_max = max(x_max, float(incident.required_extent()))
+        e_max_mesh = max(e_max_mesh, float(incident.incident_energy()))
 
     if channel == "dissociation":
         real_lengths, order, channel_k = _resonant_nuclear_mesh(
