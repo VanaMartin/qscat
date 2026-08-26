@@ -19,9 +19,17 @@ per-call arguments (`vprimes`, `E`, and the keyword options):
     )
     sigma = prob.ve_cross_section(vprimes=[0, 1, 2], E=[0.10, 0.15, 0.20])
 
-This is the recommended entry point. The functional solvers remain public (they
-are the low-level layer this delegates to, and are marked provisional pending any
-future signature change — see ADR 0004); `ScatteringProblem` is stable API.
+This is the recommended entry point for every observable it carries: the TI
+and TD cross sections (VE/DA/DR), the LCP DA cross section, the BO resonance
+levels, the exact 2-D resonance states, and the NRM VE/DA cross sections. The
+functional solvers remain public (they are the low-level layer this delegates
+to, and each carries ADR 0004's *provisional* marker pending the pre-1.0
+signature freeze); `ScatteringProblem` is the stable API. Deliberately NOT on
+the facade: `lcp_resonance_levels` (its inputs are hand-built curves on
+angle-paired grids -- `resonance_levels` here is the model-first route that
+computes them internally), the `td_nrm_*` solvers (knob surface still
+settling), and the curve/state builders (`local_complex_potential`,
+`resonance_pole_walk`, `qscat.core.bo.*` -- ingredients, not observables).
 
 The vibrational basis (`eps`, `chi`) is solved once, on construction, from
 `model.mu`/`model.v0` on the nuclear grid, and reused across every observable.
@@ -37,6 +45,8 @@ import numpy.typing as npt
 
 from .dissociation import da_cross_section, dr_cross_section
 from .driven import ve_cross_section
+from .lcp import lcp_da_cross_section, resonance_levels
+from .resonance import exact_resonance_states
 from .time_dependent import (
     Method,
     td_da_cross_section,
@@ -47,8 +57,12 @@ from .time_dependent import (
 from .vibrational import VibrationalBasis, vibrational_states
 
 if TYPE_CHECKING:
-    from qscat.dvr import TensorGrid
+    from qscat.dvr import FemDvrEcsGrid, TensorGrid
     from qscat.model import ResonanceModel
+
+    from .lcp import ResonanceLevels
+    from .nrm import DiscreteState, NrmIngredients
+    from .resonance import ExactResonanceStates
 
 __all__ = ["ScatteringProblem"]
 
@@ -57,6 +71,7 @@ __all__ = ["ScatteringProblem"]
 # them into a public `qscat.linalg.Ordering`; if that has already landed,
 # import that name here instead of redefining.
 _Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
+_Window = tuple[float, float, float, float]
 
 # Return/parameter conventions, identical to the functional solvers mirrored
 # below (see driven.py / dissociation.py / time_dependent.py).
@@ -450,4 +465,259 @@ class ScatteringProblem:
             wp_out=wp_out,
             n_channels=n_channels,
             order=order,
+        )
+
+    # --- LCP / resonance observables ----------------------------------------
+
+    @overload
+    def lcp_da_cross_section(
+        self,
+        E: float | npt.ArrayLike,
+        *,
+        Vd: npt.NDArray[np.complex128],
+        Gamma: npt.NDArray[np.float64],
+        ordering: _Ordering = ...,
+        return_wavefunction: Literal[False] = ...,
+    ) -> _Sigma: ...
+
+    @overload
+    def lcp_da_cross_section(
+        self,
+        E: float | npt.ArrayLike,
+        *,
+        Vd: npt.NDArray[np.complex128],
+        Gamma: npt.NDArray[np.float64],
+        ordering: _Ordering = ...,
+        return_wavefunction: Literal[True],
+    ) -> tuple[_Sigma, _PsiOut]: ...
+
+    def lcp_da_cross_section(
+        self,
+        E: float | npt.ArrayLike,
+        *,
+        Vd: npt.NDArray[np.complex128],
+        Gamma: npt.NDArray[np.float64],
+        ordering: _Ordering = "COLAMD",
+        return_wavefunction: bool = False,
+    ) -> _Sigma | tuple[_Sigma, _PsiOut]:
+        """LCP dissociative-attachment cross section on this problem's NUCLEAR
+        grid; see `qscat.core.lcp_da_cross_section`. The curve `(Vd, Gamma)`
+        is per-call (compute it with `resonance_levels(..., return_curve=True)`
+        -- see that docstring for why not `local_complex_potential` directly);
+        `mu`/`eps`/`chi`/`v_init` come from the bundle, which is what pays down
+        the functional signature's documented argument-order exception
+        (docs/adr/0007). The LCP magnitude needs the FINE per-molecule nuclear
+        deck -- construct the problem on it for physical numbers."""
+        g_R = self.grid.grids[1]
+        if return_wavefunction:
+            return lcp_da_cross_section(
+                g_R,
+                self.model.mu,
+                Vd,
+                Gamma,
+                self.eps,
+                self.chi,
+                self.v_init,
+                E,
+                ordering=ordering,
+                return_wavefunction=True,
+            )
+        return lcp_da_cross_section(
+            g_R,
+            self.model.mu,
+            Vd,
+            Gamma,
+            self.eps,
+            self.chi,
+            self.v_init,
+            E,
+            ordering=ordering,
+        )
+
+    # EXTENSION POINT: when `qscat.core.lcp.lcp_ve_cross_section` (the LCP
+    # VIBRATIONAL-EXCITATION route, currently a validation-layer driver)
+    # graduates into qscat.core.lcp, add the matching typed method here,
+    # mirroring `lcp_da_cross_section` above: the bundle supplies
+    # grid/mu/eps/chi/v_init, the curve arrives as `Vd`/`Gamma` keywords.
+
+    @overload
+    def resonance_levels(
+        self,
+        nuclear_grid_b: FemDvrEcsGrid,
+        elec_grid_b: FemDvrEcsGrid,
+        *,
+        re_half_width: float = ...,
+        im_half_width: float = ...,
+        resid_tol: float = ...,
+        window: _Window | None = ...,
+        n_levels: int | None = ...,
+        rel_tol: float = ...,
+        atol: float = ...,
+        golden_rule: bool = ...,
+        return_curve: Literal[False] = ...,
+    ) -> ResonanceLevels: ...
+
+    @overload
+    def resonance_levels(
+        self,
+        nuclear_grid_b: FemDvrEcsGrid,
+        elec_grid_b: FemDvrEcsGrid,
+        *,
+        re_half_width: float = ...,
+        im_half_width: float = ...,
+        resid_tol: float = ...,
+        window: _Window | None = ...,
+        n_levels: int | None = ...,
+        rel_tol: float = ...,
+        atol: float = ...,
+        golden_rule: bool = ...,
+        return_curve: Literal[True],
+    ) -> tuple[ResonanceLevels, npt.NDArray[np.complex128], npt.NDArray[np.float64]]: ...
+
+    def resonance_levels(
+        self,
+        nuclear_grid_b: FemDvrEcsGrid,
+        elec_grid_b: FemDvrEcsGrid,
+        *,
+        re_half_width: float = 0.05,
+        im_half_width: float = 0.05,
+        resid_tol: float = 1e-3,
+        window: _Window | None = None,
+        n_levels: int | None = None,
+        rel_tol: float = 1e-4,
+        atol: float = 1e-8,
+        golden_rule: bool = True,
+        return_curve: bool = False,
+    ) -> (
+        ResonanceLevels
+        | tuple[ResonanceLevels, npt.NDArray[np.complex128], npt.NDArray[np.float64]]
+    ):
+        """Born-Oppenheimer quasi-bound levels of this problem's anion; see
+        `qscat.core.resonance_levels`. This problem's own electronic/nuclear
+        grids are the `_a` partners; `nuclear_grid_b`/`elec_grid_b` are the
+        angle-moved partners (share every real node, differ only in the ECS
+        tail angle -- `qscat.core.grids.ecs_angle_family` builds a valid
+        family). `return_curve=True` also returns the `(Vd, Gamma)` curve the
+        levels were computed in -- the input `lcp_da_cross_section` needs."""
+        if return_curve:
+            return resonance_levels(
+                self.model,
+                self.grid.grids[1],
+                nuclear_grid_b,
+                self.grid.grids[0],
+                elec_grid_b,
+                re_half_width=re_half_width,
+                im_half_width=im_half_width,
+                resid_tol=resid_tol,
+                window=window,
+                n_levels=n_levels,
+                rel_tol=rel_tol,
+                atol=atol,
+                golden_rule=golden_rule,
+                return_curve=True,
+            )
+        return resonance_levels(
+            self.model,
+            self.grid.grids[1],
+            nuclear_grid_b,
+            self.grid.grids[0],
+            elec_grid_b,
+            re_half_width=re_half_width,
+            im_half_width=im_half_width,
+            resid_tol=resid_tol,
+            window=window,
+            n_levels=n_levels,
+            rel_tol=rel_tol,
+            atol=atol,
+            golden_rule=golden_rule,
+            return_curve=False,
+        )
+
+    def exact_resonance_states(
+        self,
+        grid_electronic: TensorGrid,
+        grid_nuclear: TensorGrid,
+        *,
+        shifts: npt.ArrayLike,
+        window: _Window,
+        k: int = 8,
+        rel_tol: float = 1e-4,
+        atol: float = 1e-8,
+    ) -> ExactResonanceStates:
+        """Exact 2-D resonance states by two-angle ECS stability; see
+        `qscat.core.exact_resonance_states`. This problem's grid is the base;
+        `grid_electronic`/`grid_nuclear` are the one-angle-moved partner
+        TensorGrids (`ecs_angle_family` builds all three consistently).
+        Seeds (`shifts`) are passed in -- typically `resonance_levels`'s
+        output -- so the exact solver never depends on the approximation it
+        measures."""
+        return exact_resonance_states(
+            self.model,
+            self.grid,
+            grid_electronic,
+            grid_nuclear,
+            shifts=shifts,
+            window=window,
+            k=k,
+            rel_tol=rel_tol,
+            atol=atol,
+        )
+
+    # --- nonlocal resonance model (NRM) observables --------------------------
+
+    def nrm_ve_cross_section(
+        self,
+        phi_d: DiscreteState,
+        vprimes: list[int],
+        E: float | npt.ArrayLike,
+        *,
+        ingredients: NrmIngredients | None = None,
+        n_states: int | None = None,
+        include_background: bool = True,
+    ) -> npt.NDArray[np.float64]:
+        """NRM vibrational-excitation cross section; see
+        `qscat.core.nrm.nrm_ve_cross_section` (this problem's nuclear and
+        electronic grids fill its leading NUCLEAR-grid-first pair)."""
+        # Deferred import: `import qscat.core` must never pull `nrm` in
+        # (the hard boundary documented in qscat.core.__init__).
+        from .nrm import nrm_ve_cross_section
+
+        return nrm_ve_cross_section(
+            self.grid.grids[1],
+            self.grid.grids[0],
+            self.model,
+            phi_d,
+            self.eps,
+            self.chi,
+            self.v_init,
+            vprimes,
+            E,
+            ingredients=ingredients,
+            n_states=n_states,
+            include_background=include_background,
+        )
+
+    def nrm_da_cross_section(
+        self,
+        phi_d: DiscreteState,
+        E: float | npt.ArrayLike,
+        *,
+        ingredients: NrmIngredients | None = None,
+        n_states: int | None = None,
+    ) -> npt.NDArray[np.float64]:
+        """NRM dissociative-attachment cross section; see
+        `qscat.core.nrm.nrm_da_cross_section`."""
+        from .nrm import nrm_da_cross_section  # deferred: see nrm_ve_cross_section
+
+        return nrm_da_cross_section(
+            self.grid.grids[1],
+            self.grid.grids[0],
+            self.model,
+            phi_d,
+            self.eps,
+            self.chi,
+            self.v_init,
+            E,
+            ingredients=ingredients,
+            n_states=n_states,
         )
