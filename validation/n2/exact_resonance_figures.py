@@ -137,7 +137,7 @@ def main(cache: pathlib.Path | None = None) -> None:
 
     projector = EquidistantProjector(base, samples=(420, 300), extent=STATE_EXTENT)
     for i in range(min(3, res.energies.size)):
-        psi = res.states[:, i]
+        psi = res.states[i]
         e, g = res.energies[i], res.widths[i]
         plot_wavefunction_2d(
             projector,

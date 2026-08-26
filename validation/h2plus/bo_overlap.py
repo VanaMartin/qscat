@@ -99,6 +99,7 @@ import numpy as np
 import numpy.typing as npt
 from qscat.core import (
     BoBasis,
+    ExactResonanceStates,
     bo_basis,
     electronic_curves,
     exact_resonance_states,
@@ -139,11 +140,13 @@ def solve_window(
 ) -> tuple[npt.NDArray[np.complex128], npt.NDArray[np.complex128], TensorGrid]:
     """Exact poles WITH states for one DR window, cached to a git-ignored npz.
 
-    The cache stores energies and states ONLY, not a whole
-    `ExactResonanceStates`. That is deliberate rather than legacy: overlap
-    pairing needs exactly those two, and the widths and angle residuals would
-    make each of these three files larger without a consumer. A caller that
-    wants the full record should use `exact_poles.exact_poles`, which keeps it.
+    Cached via `ExactResonanceStates.save`/`load` (the whole record -- widths
+    and angle residuals included, not just energies and states) rather than a
+    hand-rolled two-field archive. That round trip is exactly the hazard the
+    row-per-state flip (lib-M9) needs: `load` raises loudly on a pre-flip
+    (or pre-round-trip, two-field) archive instead of silently handing back
+    transposed states, and a caught `ValueError` here means "delete and
+    regenerate", not "corrupt".
     """
     from validation.h2plus.exact_poles import K_SEARCH, find_seeds, grid_family
 
@@ -151,8 +154,12 @@ def solve_window(
 
     cache = (cache_dir or pathlib.Path(__file__).parent) / f"bo_overlap.w{window}.npz"
     if cache.exists():
-        z = np.load(cache)
-        return z["energies"], z["states"], base
+        try:
+            cached = ExactResonanceStates.load(cache)
+        except ValueError:
+            cache.unlink()  # pre-flip or pre-round-trip archive: regenerate
+        else:
+            return cached.energies, cached.states, base
 
     seeds = [s for s in find_seeds()[0] if s.window == window]
     lo = min(s.e_tot for s in seeds) - 0.01
@@ -168,7 +175,7 @@ def solve_window(
         k=K_SEARCH,
     )
     print(f"window {window}: {res.energies.size} poles in {time.perf_counter() - t0:.0f}s")
-    np.savez(cache, energies=res.energies, states=res.states)
+    res.save(cache)
     return res.energies, res.states, base
 
 
@@ -188,8 +195,8 @@ def main(windows: tuple[int, ...] = (0, 1, 2)) -> None:
             f"{'2nd val':>8} {'shift(meV)':>11} {'real_wt':>8}  verdict"
         )
         for i in np.argsort(energies.real):
-            rw = real_weight(states[:, i], base)
-            p = pair_by_overlap(energies[i], states[:, i], basis, THRESHOLDS, localization=rw)
+            rw = real_weight(states[i], base)
+            p = pair_by_overlap(energies[i], states[i], basis, THRESHOLDS, localization=rw)
             tally[p.verdict] = tally.get(p.verdict, 0) + 1
             if p.is_quotable and p.level is not None:
                 quotable.append((p.level[0], abs(p.shift_mev), p.overlap))

@@ -114,10 +114,10 @@ def verify(n_levels: int = 8):
     pairs = [
         pair_by_overlap(
             res.energies[i],
-            res.states[:, i],
+            res.states[i],
             basis,
             basis_complete=True,
-            localization=real_weight(res.states[:, i], base),
+            localization=real_weight(res.states[i], base),
         )
         for i in order
     ]
@@ -145,7 +145,7 @@ def main() -> None:
         print(
             f"{p.pole_energy:>12.6f} {res.widths[i]:>11.3e} {lvl:>8} {p.overlap:>8.4f} "
             f"{second:>8} {p.second_overlap:>8.4f} {p.shift_mev:>11.3f} "
-            f"{real_weight(res.states[:, i], base):>8.4f}  {p.verdict}"
+            f"{real_weight(res.states[i], base):>8.4f}  {p.verdict}"
         )
     print(f"\nverdict tally: {tally}")
 

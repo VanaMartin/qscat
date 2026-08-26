@@ -179,11 +179,36 @@ def test_separable_limit_eigenvector_is_the_product_state() -> None:
 
     res = _separable_search([expected + _SEED_OFFSET])
     i = int(np.argmin(np.abs(res.energies - expected)))
-    psi = res.states[:, i]
+    psi = res.states[i]
     product = np.outer(phi, chi).ravel()
     product = product / np.sqrt(c_product(product, product))
     psi = psi / np.sqrt(c_product(psi, psi))
     assert abs(abs(c_product(psi, product)) - 1.0) < 1e-6
+
+
+def test_states_are_row_per_state_and_load_rejects_column_caches(tmp_path) -> None:
+    """lib-M9: one orientation convention (rows, like chi/phi); pre-flip
+    caches must fail loudly, not load transposed."""
+    e_el, _, e_vib, _ = _one_d_reference()
+    expected = e_el + e_vib
+    res = _separable_search([expected + _SEED_OFFSET])
+    assert res.energies.size >= 1
+    assert res.states.shape[0] == res.energies.size
+    assert res.energies.size != res.states.shape[1]
+
+    p = tmp_path / "states.npz"
+    res.save(p)
+    loaded = ExactResonanceStates.load(p)
+    np.testing.assert_array_equal(loaded.states, res.states)
+
+    # forge a pre-flip archive: transpose states
+    from dataclasses import fields
+
+    legacy = {f.name: getattr(res, f.name) for f in fields(res)}
+    legacy["states"] = legacy["states"].T
+    np.savez(tmp_path / "legacy.npz", **legacy)
+    with pytest.raises(ValueError, match="column-per-state"):
+        ExactResonanceStates.load(tmp_path / "legacy.npz")
 
 
 @pytest.mark.slow
