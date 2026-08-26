@@ -18,7 +18,11 @@ def test_divergence_rejection_caps_gaussian_when_cap_is_high():
     # With a high angle_cap the scan reaches the Gaussian's ~45deg critical angle,
     # so the divergence-rejection branch MUST fire and cap below the cap -- this
     # actually exercises the logic (unlike the 35deg default, which returns the cap).
-    gauss = lambda z: -np.exp(-0.4 * np.asarray(z) ** 2)
+    # The Gaussian sits at the pivot (centre 11, so |V(R0)| ~ 0.7): a Gaussian
+    # centred at 0 is 1e-25 at R0 = 12, under the absolute round-off floor,
+    # and its beyond-45deg blow-up never climbs above that floor within the
+    # tail -- physically it IS bounded there, which is what the floor says.
+    gauss = lambda z: -np.exp(-0.4 * (np.asarray(z) - 11.0) ** 2)
     ang = max_stable_angle(gauss, R0=12.0, tail_extent=40.0, angle_cap=60.0)
     assert ang < 60.0  # divergence rejection fired (not just the cap)
     assert 40.0 <= ang <= 55.0  # near the ~45deg Gaussian critical angle

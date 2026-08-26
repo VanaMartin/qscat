@@ -34,7 +34,7 @@ from validation.factory.targets.o2_data import EV, load_o2
 __all__ = ["LevelTable", "anion_levels", "main"]
 
 REPORT = Path("validation/factory/results/o2-fit-report.json")
-_N_LEVELS = 25
+_N_LEVELS = 30  # reaches ~2.7 eV above the neutral v=0, the top of the VE window
 _R_GRID = (1.3, 7.5, 0.1, 12)  # real FEM-DVR: [x_min, x_max], element length, quadrature
 
 

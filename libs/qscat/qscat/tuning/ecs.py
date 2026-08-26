@@ -43,6 +43,12 @@ _N_TAIL_SAMPLES = 400
 # guards against float round-off flagging a flat/monotonically-decaying
 # profile as diverging.
 _GROWTH_RELTOL = 1e-6
+# Absolute floor (Hartree) under which |V| is "zero" for the growth check: a
+# potential that has already decayed to round-off on the tail (O2's EMO
+# neutral, beta(inf) = 3.9, is at 1e-17 by the pivot) otherwise shows
+# noise-level "growth" against a running minimum of 1e-18 and reads as
+# diverging at EVERY angle, returning 0 degrees (measured).
+_GROWTH_ABS_FLOOR = 1e-12
 
 
 def max_stable_angle(
@@ -59,8 +65,10 @@ def max_stable_angle(
     (ascending); at each, evaluates `V` on the rotated contour over
     `_N_TAIL_SAMPLES` points spanning `[R0, R0 + tail_extent]`. The first
     angle at which `|V|` grows anywhere along the tail (relative to its
-    running minimum, beyond `_GROWTH_RELTOL`) stops the scan; the last
-    angle that did NOT diverge is returned. Never exceeds `angle_cap`.
+    running minimum, beyond `_GROWTH_RELTOL`; a minimum below
+    `_GROWTH_ABS_FLOOR` counts as that floor, so a potential already at
+    round-off cannot "grow") stops the scan; the last angle that did NOT
+    diverge is returned. Never exceeds `angle_cap`.
     """
     if n_probe < 1:
         raise ValueError(f"n_probe must be >= 1, got {n_probe}")
@@ -72,7 +80,7 @@ def max_stable_angle(
     for theta in angles:
         z = ecs_map(x, R0, float(theta))
         mag = np.abs(np.asarray(V(z), dtype=np.complex128))
-        running_min = np.minimum.accumulate(mag)
+        running_min = np.maximum(np.minimum.accumulate(mag), _GROWTH_ABS_FLOOR)
         diverges = bool(np.any(mag > running_min * (1.0 + _GROWTH_RELTOL)))
         if diverges:
             break

@@ -8,7 +8,12 @@ Public API:
   - `DiatomicResonanceModel` -- the shared Morse + sigmoid + Gaussian-in-r
     form (N2/NO/F2 differ only in parameters).
   - `IonicResonanceModel` -- the H2+ Morse + sigma-capture + Coulomb-tail form.
-  - `N2`, `NO`, `F2`, `H2P` -- the registry instances.
+  - `FlexibleDiatomicModel` (+ `SmoothR`/`TailR`) -- the potential factory's
+    fitted form: EMO neutral + Gaussian well with `lam(R)`, `alpha(R)` and an
+    optional shell; embeds the `DiatomicResonanceModel`s exactly
+    (`from_diatomic`) -- see docs/physics/potential-factory.md.
+  - `N2`, `NO`, `F2`, `H2P`, `O2` -- the registry instances (`O2` is the
+    first FITTED model, not a published parameter set).
 
 Adding a molecule means adding a registry entry (parameters) plus its
 validation -- never solver code, which lives model-free in `qscat.core`. See
@@ -18,15 +23,21 @@ validation -- never solver code, which lives model-free in `qscat.core`. See
 from __future__ import annotations
 
 from .diatomic import DiatomicResonanceModel, ResonanceModel
+from .flexible import FlexibleDiatomicModel, SmoothR, TailR, from_diatomic
 from .ionic import IonicResonanceModel
-from .library import F2, H2P, N2, NO
+from .library import F2, H2P, N2, NO, O2
 
 __all__ = [
     "F2",
     "H2P",
     "N2",
     "NO",
+    "O2",
     "DiatomicResonanceModel",
+    "FlexibleDiatomicModel",
     "IonicResonanceModel",
     "ResonanceModel",
+    "SmoothR",
+    "TailR",
+    "from_diatomic",
 ]

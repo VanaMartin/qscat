@@ -21,9 +21,10 @@ new molecule is added to the registry.
 from __future__ import annotations
 
 from .diatomic import DiatomicResonanceModel
+from .flexible import FlexibleDiatomicModel, SmoothR, TailR
 from .ionic import IonicResonanceModel
 
-__all__ = ["F2", "H2P", "N2", "NO"]
+__all__ = ["F2", "H2P", "N2", "NO", "O2"]
 
 N2 = DiatomicResonanceModel(
     mu=12766.36,
@@ -81,4 +82,61 @@ H2P = IonicResonanceModel(
     a2=6.2,
     a3=0.0125,
     a4=1.15,
+)
+
+# O2: NOT a published parameter set but the potential factory's FIT to the
+# curves of Alt & Houfek, Phys. Rev. A 103, 032829 (2021), Fig. 2 (vector-
+# extracted, ~0.02 eV) -- the 2-D model whose fixed-R resonance curve
+# E_res(R), width Gamma(R) and anion curve reproduce the paper's to the
+# extraction floor (E_res rms 20 meV, Gamma 8 %/14 %, crossing 2.289 bohr),
+# with the anion ending at O + O^- (-EA(O) = -1.4611 eV) through the
+# polarisation tail -alpha_d(O)/(2R^4) from R_inf = 14 bohr. Every constant
+# below is the committed report `validation/factory/results/o2-fit-report.json`
+# verbatim (`validation/factory/test_o2_report.py` locks them); the fit is
+# described in docs/physics/potential-factory.md. The 2Pi_g resonance is a
+# d-wave (ell = 2) like N2's. Nothing here is fitted to an observable.
+_O2_R_E = 2.268012257109915  # the FITTED equilibrium (EMO R_e)
+# The y_p reference radius inside lam/alpha/shell is a FRAME constant, not a
+# fitted parameter: it stays at the seed's Huber & Herzberg R_e = 2.2819 bohr
+# (`validation/factory/targets/o2.py::o2_seed`), and the report does not
+# record it -- the surface-equality lock in test_o2_report.py is what holds it.
+_O2_Y_REF = 2.2819
+O2 = FlexibleDiatomicModel(
+    mu=15.99491461956 * 1822.888486 / 2.0,  # m(16O)/2 in electron masses = 14578.47
+    ell=2,
+    D_e=0.19331866564928865,
+    R_e=_O2_R_E,
+    betas=(
+        1.4523575847133374,
+        0.10381040322431209,
+        -0.004015128162685024,
+        0.3910799122325903,
+        1.9183648370285529,
+    ),
+    p=3,
+    lam=TailR(
+        f_inf=5.064307074513824,
+        coeffs=(
+            -0.20821474894387013,
+            0.8116574159293211,
+            0.10252797159229596,
+            0.5444402680526038,
+            -1.3026360633646719,
+            3.3083561788901363,
+            32.788738338929384,
+            -73.14541076473161,
+            37.40650902876745,
+        ),
+        R_e=_O2_Y_REF,
+        p=3,
+        q=4,
+    ),
+    alpha=SmoothR(
+        f_inf=0.3612778078765902, f_0=0.0, f_1=1.0, R_f=0.0, coeffs=(0.0, 0.0, 0.0), R_e=_O2_Y_REF
+    ),
+    # T3's shell fit left a zero-strength shell (1e-9); it is carried so the
+    # parameter set matches the report key for key, and contributes nothing.
+    shell=SmoothR(f_inf=1e-09, f_0=1e-09, f_1=1.0, R_f=2.05, R_e=_O2_Y_REF),
+    alpha_b=2.0,
+    r_b=3.0,
 )
