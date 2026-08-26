@@ -44,13 +44,11 @@ from typing import TYPE_CHECKING, Literal, overload
 
 import numpy as np
 import numpy.typing as npt
-import scipy.sparse as sp
 
 from qscat.dvr import FemDvrEcsGrid, TensorGrid, eigen, kinetic
-from qscat.linalg import SparseLU, c_product
+from qscat.linalg import c_product
 from qscat.special import riccati_bessel_en_mass
 
-from .channels import channel_vector
 from .driven import ve_cross_section
 
 if TYPE_CHECKING:
@@ -380,11 +378,13 @@ def dr_cross_section(
     continuum). `V_DR` (the rearrangement interaction, NOT `V_int`) is
     unchanged from DA.
 
-    The driven Lippmann-Schwinger solve for `Psi+` is replicated inline
-    (rather than reusing `ve_cross_section`) because that helper cannot pass
-    `charge` through to `channel_vector`; the sparse LU is still built once
-    and `refactor`-ed across the energy sweep exactly as `ve_cross_section`
-    does.
+    The driven Lippmann-Schwinger solve for `Psi+` reuses
+    `ve_cross_section(..., return_wavefunction=True)` -- the same
+    analyze-once / `SparseLU.refactor`-per-energy sweep, with `model.charge`
+    forwarded to `channel_vector` so the incident channel is Coulomb --
+    exactly as `da_cross_section` does. Only the exit-channel read differs:
+    DR projects the post-form volume T-matrix against `V_DR` (below), DA
+    reads a boundary flux.
 
     `E` may be scalar (returns `(n_channels,)`) or an array (returns
     `(len(E), n_channels)`). `sigma_n = 0` for a closed channel (`E <= 0` or
@@ -419,29 +419,33 @@ def dr_cross_section(
     mask = tgrid.real_mask()
     sqrt_w_R = tgrid.sqrt_weights()[1].ravel()
 
-    H = model.hamiltonian(tgrid)
-    v_diag = model.interaction_diag(tgrid)
-    ident = sp.identity(tgrid.size, format="csc", dtype=np.complex128)
+    # The driven Psi+ sweep is ve_cross_section's (analyze-once,
+    # `SparseLU.refactor` per energy; `model.charge` forwarded to the
+    # incident `channel_vector`, so H2+'s Coulomb entrance is built there)
+    # -- exactly the reuse `da_cross_section` already performs. Its VE
+    # sigma for the [v_init] channel is discarded; the extra cost is one
+    # exit `channel_vector` + c-product per energy, marginal next to the
+    # factorization.
+    _, psis = ve_cross_section(
+        tgrid,
+        model,
+        eps,
+        chi,
+        v_init,
+        [v_init],
+        e_arr,
+        ordering=ordering,
+        return_wavefunction=True,
+    )
+    psi_list = psis if isinstance(psis, list) else [psis]
 
     out = np.zeros((len(e_arr), n_channels), dtype=np.float64)
     amp = np.zeros((len(e_arr), n_channels), dtype=np.complex128)
-    psi_list: list[_Psi] = [None] * len(e_arr)
-    lu: SparseLU | None = None
     for ie, e in enumerate(e_arr):
-        if float(e) <= 0.0:
-            continue  # below threshold: no driven-equation solve, sigma == 0
-
+        psi_plus = psi_list[ie]
+        if psi_plus is None:  # E <= 0: below threshold, sigma == 0
+            continue
         e_tot = float(e) + eps[v_init]
-        a = (e_tot * ident - H).tocsc()
-        if lu is None:
-            lu = SparseLU(a, ordering=ordering)
-        else:
-            lu.refactor(a)
-
-        k = float(np.sqrt(2.0 * float(e)))
-        psi_i = channel_vector(tgrid, k, chi[v_init], model.ell, charge=model.charge)
-        psi_plus = psi_i + lu.solve(v_diag * psi_i)
-        psi_list[ie] = psi_plus
         v_psi = v_dr * psi_plus
 
         for n in range(n_channels):
