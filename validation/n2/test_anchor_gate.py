@@ -15,7 +15,7 @@ from validation.n2 import reference
 from validation.n2.cross_section import compute_anchor_results
 
 
-def test_gated_anchors_within_factor_band():
+def test_gated_anchors_within_factor_band() -> None:
     results = compute_anchor_results()
     assert len(results) == 6
     gated = [r for r in results if r.gated]
@@ -27,7 +27,7 @@ def test_gated_anchors_within_factor_band():
         )
 
 
-def test_documented_limited_anchors_carry_a_mechanism():
+def test_documented_limited_anchors_carry_a_mechanism() -> None:
     for r in compute_anchor_results():
         if not r.gated:
             assert r.mechanism  # never silently excluded
