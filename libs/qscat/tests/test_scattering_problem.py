@@ -221,3 +221,122 @@ def test_problem_td_da_all_matches_functional_api() -> None:
     assert set(got) == {"flow", "delta", "tw"}
     for key in expected:
         assert np.array_equal(got[key], expected[key])
+
+
+def test_problem_lcp_da_matches_functional_api() -> None:
+    """Synthetic curve arrays: delegation equality needs a well-posed solve,
+    not converged physics (docs/adr/0005 point 7)."""
+    from qscat.core import lcp_da_cross_section
+
+    prob, eps, chi, tg = _problem_and_basis()
+    g_R = tg.grids[1]
+    Vd = (0.2 * (1.0 - np.exp(-(g_R.points - 2.0))) ** 2 + 0.05).astype(np.complex128)
+    Gamma = 0.01 * np.exp(-(np.abs(g_R.points - 2.4) ** 2)).astype(np.float64)
+    E = np.array([0.02, 0.05])
+    expected = lcp_da_cross_section(g_R, N2.mu, Vd, Gamma, eps, chi, 0, E)
+    got = prob.lcp_da_cross_section(E, Vd=Vd, Gamma=Gamma)
+    assert np.array_equal(got, expected)
+
+
+def test_problem_resonance_levels_delegates_exact_arguments(monkeypatch) -> None:
+    """The electronic pole walk is minutes-scale; delegation is checked by
+    argument capture (the walk's own gates live in test_lcp_resonance_levels
+    and the validation harness)."""
+    prob, _, _, tg = _problem_and_basis()
+    nuc_b = nuclear_grid(r_max=14.0, quadrature=6, n_complex=3, angle_deg=25.0)
+    elec_b = electronic_grid(r_max=12.0, order=5, n_complex=3, angle_deg=25.0)
+    sentinel = object()
+    seen: dict[str, object] = {}
+
+    def fake_levels(model, nuclear_grid_a, nuclear_grid_b, elec_grid_a, elec_grid_b, **kw):
+        seen.update(
+            model=model,
+            nuc_a=nuclear_grid_a,
+            nuc_b=nuclear_grid_b,
+            elec_a=elec_grid_a,
+            elec_b=elec_grid_b,
+            **kw,
+        )
+        return sentinel
+
+    monkeypatch.setattr("qscat.core.problem.resonance_levels", fake_levels)
+    got = prob.resonance_levels(nuc_b, elec_b, n_levels=3)
+    assert got is sentinel
+    assert seen["model"] is N2
+    assert seen["nuc_a"] is tg.grids[1] and seen["elec_a"] is tg.grids[0]
+    assert seen["nuc_b"] is nuc_b and seen["elec_b"] is elec_b
+    assert seen["n_levels"] == 3 and seen["return_curve"] is False
+
+
+def test_problem_exact_resonance_states_delegates_exact_arguments(monkeypatch) -> None:
+    """2-D pole searches are minutes of sparse factorizations; argument
+    capture checks the wiring (the solver's own gates live in
+    test_exact_resonance_states.py)."""
+    prob, _, _, tg = _problem_and_basis()
+    g_elec = TensorGrid(
+        [electronic_grid(r_max=12.0, order=5, n_complex=3, angle_deg=40.0), tg.grids[1]]
+    )
+    g_nuc = TensorGrid(
+        [tg.grids[0], nuclear_grid(r_max=14.0, quadrature=6, n_complex=3, angle_deg=25.0)]
+    )
+    sentinel = object()
+    seen: dict[str, object] = {}
+
+    def fake_exact(model, grid_base, grid_electronic, grid_nuclear, **kw):
+        seen.update(model=model, base=grid_base, ge=grid_electronic, gn=grid_nuclear, **kw)
+        return sentinel
+
+    monkeypatch.setattr("qscat.core.problem.exact_resonance_states", fake_exact)
+    got = prob.exact_resonance_states(
+        g_elec, g_nuc, shifts=[-0.66 - 0.004j], window=(-0.75, -0.55, -0.05, 0.0)
+    )
+    assert got is sentinel
+    assert seen["model"] is N2 and seen["base"] is tg
+    assert seen["ge"] is g_elec and seen["gn"] is g_nuc
+    assert seen["shifts"] == [-0.66 - 0.004j]
+    assert seen["k"] == 8
+
+
+def test_problem_nrm_methods_delegate_exact_arguments(monkeypatch) -> None:
+    """The NRM ingredient build (fixed-R electronic eigenbases) is the
+    expensive part and its physics gates are validation/diatomic's; argument
+    capture checks the facade wiring, including the NUCLEAR-grid-first
+    argument order nrm uses."""
+    import qscat.core.nrm as nrm_pkg
+
+    prob, _, _, tg = _problem_and_basis()
+    phi_d = object()  # any DiscreteState; never touched by the fake
+    sentinel = object()
+    seen: dict[str, object] = {}
+
+    def fake_ve(nuclear_grid, elec_grid, model, phi_d_got, eps, chi, v_init, vprimes, E, **kw):
+        seen.update(
+            nuc=nuclear_grid,
+            elec=elec_grid,
+            model=model,
+            phi_d=phi_d_got,
+            v_init=v_init,
+            vprimes=vprimes,
+            E=E,
+            **kw,
+        )
+        return sentinel
+
+    monkeypatch.setattr(nrm_pkg, "nrm_ve_cross_section", fake_ve)
+    got = prob.nrm_ve_cross_section(phi_d, [0, 1], 0.05, n_states=20)
+    assert got is sentinel
+    assert seen["nuc"] is tg.grids[1] and seen["elec"] is tg.grids[0]
+    assert seen["model"] is N2 and seen["phi_d"] is phi_d
+    assert seen["vprimes"] == [0, 1] and seen["n_states"] == 20
+    assert seen["include_background"] is True
+
+    def fake_da(nuclear_grid, elec_grid, model, phi_d_got, eps, chi, v_init, E, **kw):
+        seen.clear()
+        seen.update(nuc=nuclear_grid, elec=elec_grid, phi_d=phi_d_got, E=E, **kw)
+        return sentinel
+
+    monkeypatch.setattr(nrm_pkg, "nrm_da_cross_section", fake_da)
+    got = prob.nrm_da_cross_section(phi_d, 0.05)
+    assert got is sentinel
+    assert seen["nuc"] is tg.grids[1] and seen["elec"] is tg.grids[0]
+    assert seen["phi_d"] is phi_d and seen["ingredients"] is None

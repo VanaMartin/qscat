@@ -2,7 +2,8 @@
 
 The model-independent electron–diatomic scattering engine. `ScatteringProblem`
 is the recommended entry point: it bundles the grid, model, and vibrational
-basis once and exposes every observable as a method. The functional solvers
+basis once and exposes the supported observables as methods (the class
+docstring lists what is deliberately functional-only). The functional solvers
 below are the low-level layer those methods call.
 
 This module never imports `qscat.model` at runtime — it depends only on the
