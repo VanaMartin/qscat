@@ -31,11 +31,9 @@ per-step Cayley phase error for these modes under ~1e-4 rad/step.
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
-
 import numpy as np
 import pytest
+from qscat.model import N2
 
 from projects.n2_td_cross_section.td_cross_section import td_ve_cross_section
 from projects.n2_ti_cross_section.cross_section import ve_cross_section
@@ -43,10 +41,7 @@ from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 from projects.n2_ti_cross_section.vres import vres_on_grid
 
-_CONFIG = json.loads(
-    (Path(__file__).resolve().parents[2] / "validation" / "n2" / "config.json").read_text()
-)
-MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.), 12766.36
+MU = N2.mu  # N2 nuclear reduced mass (a.u.), 12766.36
 N_VIB = 6  # v=0..5, matches the TI oracle's test setup
 
 V_INIT = 0
