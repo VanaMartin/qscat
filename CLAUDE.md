@@ -534,6 +534,13 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               figures `docs/physics/figures/{n2,no,f2}-factory-*.png`. Run it
               in the MUMPS container with `OMP_NUM_THREADS=1` — a 32-thread
               OpenBLAS is ~400× SLOWER on the tiny electronic eigenproblems.
+              Also the O₂ IMAGE MATCH (`fit_o2.py`, `targets/o2.py`,
+              `extract_fig2.py`): Alt & Houfek 2021's Fig. 2 is vector-extracted
+              from the PDF (precision ~0.02 eV, no digitising), and the factory
+              fits it to T0 met / T1 E_res rms 74 meV, Γ 7 % / crossing 2.289
+              / T3 open — the T3 width comparison is not discrete-state-
+              consistent (choice B vs the paper's Breit–Wigner pole width),
+              and O₂'s bound branch needs a better-conditioned λ(R) form.
               Nothing is compared with experiment — see
               docs/physics/potential-factory.md.
             - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross

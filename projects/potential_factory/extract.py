@@ -33,7 +33,11 @@ __all__ = ["extract_target", "walk_t1"]
 
 
 def walk_t1(
-    model: ResonanceModel, pair: ElectronicPair, R: npt.NDArray[np.float64]
+    model: ResonanceModel,
+    pair: ElectronicPair,
+    R: npt.NDArray[np.float64],
+    *,
+    seed_energy: complex | None = None,
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64], npt.NDArray[np.float64]]:
     """A per-node gated pole walk, rather than `resonance_pole_walk`
     (which freezes permanently on the first breakdown, measured).
@@ -42,6 +46,11 @@ def walk_t1(
     node leaves the last found pole in place for the next node to recentre
     on), falling back to the two default windows if that finds nothing. A
     node with no gated pole anywhere is DROPPED, not frozen.
+
+    `seed_energy` (electronic shift scale) recentres the FIRST node's search
+    on a known pole -- the target's own -- so that a well holding more than
+    one angle-stable state is walked on the intended one rather than on the
+    default window's global residual-argmin.
 
     A fallback-window candidate is subject to the same continuity
     guard as the recentred window (only accepted if within `MAX_STEP` of the
@@ -62,7 +71,13 @@ def walk_t1(
             return np.asarray(model.surface(r, Rj) - v0Rj, dtype=np.complex128)
 
         pole: Pole | None = None
-        if last_pole is not None:
+        if last_pole is None and seed_energy is not None and not np.isnan(seed_energy.real):
+            E0 = complex(seed_energy)
+            pole = pair.pole(
+                v_fn,
+                (E0.real - MAX_STEP, E0.real + MAX_STEP, min(E0.imag - MAX_STEP, -MAX_STEP), 1e-6),
+            )
+        if pole is None and last_pole is not None:
             E = last_pole.energy
             window: Window = (
                 E.real - MAX_STEP,

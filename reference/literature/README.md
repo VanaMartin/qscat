@@ -34,6 +34,7 @@ To write or update a note, use the `mastering-references` skill
 | [`domcke-1991-physrep208-97.md`](domcke-1991-physrep208-97.md) | W. Domcke, *Theory of resonance and threshold effects in electron-molecule collisions: the projection-operator approach*, Phys. Rep. **208**, 97 (1991). PII `0370-1573(91)90125-6` | **The canonical nonlocal resonance model.** The nuclear equation `qscat.core.nrm` solves, the LCP limit derived from it, and the Eq. (4.14) coupling PRA 77 disputes. |
 | [`gertitschke-1993-pra47-1031.md`](gertitschke-1993-pra47-1031.md) | P. L. Gertitschke, W. Domcke, *Time-dependent wave-packet description of dissociative electron attachment*, Phys. Rev. A **47**, 1031 (1993). [DOI](https://doi.org/10.1103/PhysRevA.47.1031) | The time-dependent nonlocal treatment of DA. Nothing cites it yet — ingested for the planned TD-NRM sub-project. Quantifies the LCP's e+H₂ failure (14×/23×) and its wave-packet-splitting mechanism. |
 | [`formanek-2010-aip1281-667.md`](formanek-2010-aip1281-667.md) | M. Formánek, M. Váňa, K. Houfek, *Comparison of the Chebyshev Method and the Generalized Crank-Nicholson Method for Time Propagation in Quantum Mechanics*, AIP Conf. Proc. **1281**, 667 (2010). [DOI](https://doi.org/10.1063/1.3498565) | Background: the authors' own efficiency comparison, context for why qscat propagates with Padé rather than Chebyshev. |
+| [`alt-houfek-2021-pra103-032829.md`](alt-houfek-2021-pra103-032829.md) | V. Alt, K. Houfek, *Resonant collisions of electrons with O₂ via the lowest-lying ²Π_g state of O₂⁻*, Phys. Rev. A **103**, 032829 (2021). [DOI](https://doi.org/10.1103/PhysRevA.103.032829) | **The O₂ target of the potential factory**: the complete published nonlocal-model construction (MRCI curves + R-matrix eigenphase sums → `Γ̃(ε,R)` with Table II's constants), and Fig. 2, from which the curves are vector-extracted. |
 
 ## Fetching the sources
 
@@ -45,6 +46,8 @@ curl -L -o reference/literature/vana-2017-thesis.pdf \
   "https://dspace.cuni.cz/bitstream/handle/20.500.11956/92902/140060325.pdf?sequence=1"
 curl -L -o reference/literature/hvizdos-2016-thesis.pdf \
   "https://dspace.cuni.cz/bitstream/handle/20.500.11956/96080/150040279.pdf"
+curl -L -o reference/literature/alt-houfek-2021-pra103-032829.pdf \
+  "https://utf.mff.cuni.cz/librtfy/papers/0000842/physreva.103.032829_alt.houfek.pdf"
 ```
 
 The APS articles are paywalled; obtain them through an institutional

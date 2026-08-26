@@ -355,6 +355,77 @@ observables tolerate is the sensitivity budget, still to be measured. Figures:
 `docs/physics/figures/{n2,no,f2}-factory-ve.png`,
 `{no,f2}-factory-da.png`.
 
+## O₂ — the first real-molecule target, phase 1 (image match)
+
+`validation/factory/fit_o2.py` fits the factory to O₂ as published by Alt &
+Houfek, Phys. Rev. A **103**, 032829 (2021) (`reference/literature/
+alt-houfek-2021-pra103-032829.md`). The target is *not* digitised by eye: the
+paper's Fig. 2 is embedded as vector graphics, and `validation/factory/
+extract_fig2.py` recovers `V_0(R)`, the anion curve `V_ion(R)` (the dashed real
+part of the resonance energy below the crossing, the bound curve above it)
+and `Γ(R)` from the PDF's paths — axes calibrated from the tick marks
+(residuals 3e-4 bohr, 1.4e-3 eV), each curve's centreline as the median of
+its filled outline's two edges per bin — to a vertical precision of ~0.02 eV
+(`validation/factory/data/o2/README.md`). The extracted `V_0` has its minimum
+at −5.259 eV, Table I's calculated D₀ plus the zero-point energy, and its
+ladder `G(1)−G(0)` = 1607 cm⁻¹ against the spectroscopic 1551 (the paper's
+MRCI curve is ~3 % stiffer than experiment; the T0 check therefore uses the
+curve's own ladder). The energy-dependent width comes from Table II's
+`Γ̃(ε,R) = 2π ε^{5/2} A(R) e^{−B(R)ε}`; the electron-affinity asymptote from
+Table I's EA(O) = 1.4611 eV. Because the data are a figure, the tolerances of
+this phase are the extraction floor (`IMAGE_TOL`: 20 meV on `V_0`, 40 meV on
+`E_res`, 20 % on `Γ`), not the sensitivity budget; `fit()` runs with
+`continue_on_miss` so every tier reports.
+
+**Result (2026-08-25, range 1.85–4.5 bohr, 40 nodes, 5-term EMO, `λ(R)` with
+three and `α(R)` with two polynomial terms, r32/order-11 electronic pair,
+430 s on the laptop; `validation/factory/results/o2-fit-report.json`,
+`docs/physics/figures/o2-factory-fit.png`):**
+
+| tier | status | measured |
+|---|---|---|
+| T0 neutral curve | **met** | rms 14 meV, max 87 meV (the wall); ladder to 0.4 % of the curve's own |
+| T1 pole curves | not met (by the 40 meV gate) | `E_res` rms **74 meV**, max 161 meV; `Γ` rel rms 7 %, max 18 %; 38/40 nodes tracked, 40/40 re-walked; crossing 2.2893 vs 2.289 bohr; DA endothermic (+) |
+| T3 energy-dependent width | not met | log-rms 1.1 against Table II; the shell fit cannot move it (see below) |
+
+The T1 miss is the wall: below 2.0 bohr the extracted `E_res` itself scatters
+by ±0.1 eV (the dashed curve's polyline), and that region dominates the rms;
+over the well and the bound branch the fitted `V_ion` lies on the target
+points (figure). The whole fitted `λ(R)` runs from 4.3 at 1.85 bohr to ~6.4 on
+the bound branch with `α ≈ 0.37` — a d-wave well of N₂'s kind, as expected for
+the same `²Π_g` symmetry.
+
+**What O₂ forced on the fitter** (all now in `fit.py`/`extract.py`): the shell
+is bounded repulsive — free, it dug a second well at large `R` that bound a
+state of its own and the verification walk followed that state instead; every
+verification walk is *seeded* on the target's own pole, because the default
+window's global residual-argmin picks the deepest angle-stable state in a
+well that holds more than one; the electron-affinity asymptote is a *node of
+the polish* (a bound pole at `R_inf` with energy −EA) rather than a shift of
+`lam.f_inf` applied afterwards, which moved `λ(R)` at every `R` and undid a
+polish that had reached 1.3 mHa; T3 re-walks the T1 nodes after the shell is
+fitted and fails if the shell broke them; a crossing-slice node (`E_res > 0`
+with `Γ` under the floor) is "no target" rather than an impossible bound
+state; and the EMO's `β(R)` is kept positive by bounds and a penalty, since
+a 5-term EMO free to go negative at small `R` produced a curve binding no
+levels at all.
+
+**Two open findings.** (1) Over the full 1.85–6.0 bohr range the sigmoid ×
+polynomial `λ(R)` falls into a wrong basin (`E_res` rms 28 mHa with four
+polynomial terms; the fitted constants on the 4.5-bohr range already show the
+sigmoid collapsed to a constant with polynomial coefficients of order 10²) —
+O₂'s bound branch needs a better-conditioned `λ(R)` form (a plain polynomial
+in `y_p`, or a piecewise fit joined at the crossing). (2) The T3 comparison is
+not discrete-state-consistent: the factory's `Γ̃(ε,R)` is built on the
+R-independent discrete state (choice B), while Table II is a Breit–Wigner fit
+of R-matrix eigenphase sums, i.e. the width of the resonance *pole* as a
+function of energy — their energy dependences differ (the factory's is too
+flat: ~ε^{1.5} over 0.05–0.5 eV where Table II goes as ε^{2.5}e^{−Bε}), and the
+repulsive shell cannot reconcile them. A real-molecule T3 target should be
+compared through the physical, R-dependent discrete state (choice A) or
+through the pole width `Γ(R) = Γ̃(E_res(R), R)` alone, which T1 already gates.
+Both belong to the O₂ plan's next phase, together with the authors' tables.
+
 ## Limitations
 
 **The sigmoid-constant degeneracy.** N₂'s own published $\lambda(R)$ sigmoid has
