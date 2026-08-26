@@ -499,6 +499,13 @@ def lcp_da_cross_section(
     `ModelLCP/SMatrix.cpp`. The approximation under test vs the exact-2D
     `da_cross_section` oracle -- validated at sigma_DA(F2,0.03)=1.47 vs ~1.66.
 
+    Argument-order note (docs/adr/0007): this solver deliberately takes
+    `(nuclear_grid, mu, Vd, Gamma, ...)` rather than a `model` -- the LCP
+    equation contains no model; its physics input IS the curve, which may come
+    from `resonance_levels(return_curve=True)`, a fit, or a file.
+    `ScatteringProblem.lcp_da_cross_section` supplies `mu`/`eps`/`chi`/`v_init`
+    from its bundle.
+
     If `return_wavefunction`, also returns the 1-D nuclear resolvent
     `psi_sc(R) = (E_tot I - H_res)^-1 d` per energy (`None` when the DA channel
     is closed -- `E <= 0` or `E_tot <= eps_e`): one array for scalar `E`, one

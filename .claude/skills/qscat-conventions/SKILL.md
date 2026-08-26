@@ -146,6 +146,11 @@ Only validated, reusable code lives here (see `qm-method-lifecycle` step 5) —
 
 - Python: `snake_case` for functions/modules, matching `libs/qscat/qscat/`
   (e.g. `hartree_to_ev`, `l2_norm`).
+- **Solver argument order** (docs/adr/0007): observable solvers take the
+  discretisation first — `f(grid(s), model, eps, chi, v_init, <per-call
+  physics>, *, options)` — while model-derived builders (curves, level
+  pipelines, tuning) take the model first. `lcp_da_cross_section` is the one
+  documented exception (curve-first, no model — see the ADR).
 - Rust kernel crates live under `native/<crate-name>/` and compile to a
   Python module conventionally named `<crate>_kernels` (e.g. the
   `qscat-kernels` crate builds the `qscat_kernels` Python module — see
