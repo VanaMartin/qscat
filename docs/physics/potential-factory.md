@@ -544,26 +544,28 @@ LCP fails the way this repository's own LCP does. The paper's measured traces
 **Result (2026-08-26; `validation/factory/results/o2-ve/cross_section.csv`,
 `docs/physics/figures/o2-2d-ti-ve-vs-alt-houfek.png`).** The sweep on the
 178k-unknown deck runs at **0.38 s per energy** in the MUMPS container on a
-32-core host (489 energies in 188 s; 1165 in 449 s). The same 80-energy
-slice took 61 min on the laptop with SuperLU, 46 s per energy — this is what
-the sparse-LU hot path costs without MUMPS. The exact 2-D comb of the
-*fitted* potential lands on the paper's nonlocal comb in every channel
-0 → 0…4: peak positions agree to 2–6 meV across the forty-odd peaks in the
-window (0.326/0.451/0.573/0.692 eV against 0.328/0.454/0.576/0.696 in
-0 → 1 — the spectral check's ±7 meV made visible), and the paper's LCP is
-offset from both by 10–40 meV in the inelastic channels exactly as this
-repository's own LCP is on N₂ and F₂. Heights need two facts to read.
-First, Fig. 5's curves are the sum of two spin–orbit components of weight
-1/3 each, split by 18.8 meV, so every printed peak is about half an unsplit
-one; the single-symmetry model at g = 2/3 must be read against the *unsplit*
-NRM of Fig. 7 (its 0 → 0 peak is 1620 a₀² where Fig. 5's is 940). Second,
-the mesh has to catch the maxima: at 15 points across ±5Γ (spacing Γ/1.5)
-every height read 0.6–0.9× — a Γ/3 miss on a Lorentzian is exactly ×0.69 —
-and at 41 points (spacing Γ/4) the heights are the paper's: peak by peak,
-1.05/0.99/1.02/0.90/0.88/0.84 in 0 → 1 over 0.33–0.92 eV, 1.07/1.01/0.93/
-0.91/0.98 in 0 → 2, 1.00/1.02/1.14 in 0 → 3 at its three strongest, 0.93/
-0.89/0.89 in 0 → 0 (its first peak at 0.199 eV, a 0.02-meV level, cannot be
-height-resolved by any time-independent sampling and reads 0.14). The
+32-core host (489 energies in 188 s; the committed 3343-energy, six-channel
+sweep in 1293 s). The same 80-energy slice took 61 min on the laptop with
+SuperLU, 46 s per energy — this is what the sparse-LU hot path costs without
+MUMPS. The exact 2-D comb of the *fitted* potential lands on the paper's
+nonlocal comb in every channel 0 → 0…5: peak positions agree to 2–6 meV
+across the fifty-odd peaks in the window (0.326/0.451/0.573/0.692 eV against
+0.328/0.454/0.576/0.696 in 0 → 1 — the spectral check's ±7 meV made
+visible), and the paper's LCP is offset from both by 10–40 meV in the
+inelastic channels exactly as this repository's own LCP is on N₂ and F₂.
+Heights need two facts to read. First, Fig. 5's curves are the sum of two
+spin–orbit components of weight 1/3 each, split by 18.8 meV, so every
+printed peak is about half an unsplit one; the single-symmetry model at
+g = 2/3 must be read against the *unsplit* NRM of Fig. 7 (its 0 → 0 peak is
+1620 a₀² where Fig. 5's is 940). Second, the mesh has to draw the peaks: at
+15 points across ±5Γ (spacing Γ/1.5) every height read 0.6–0.9× — a Γ/3 miss
+on a Lorentzian is exactly ×0.69 — at 41 points (Γ/4) the heights came to
+~10 %, and at the committed 121 points across ±6Γ (Γ/10; 3343 energies per
+model) the peaks are drawn in full. Peak by peak against Fig. 7:
+1.14/1.09/1.02/0.94/0.88/0.87 in 0 → 1 over 0.33–0.92 eV, 1.14/1.01/0.95/
+0.96/1.00 in 0 → 2, 1.10/1.04/1.06/1.14 in 0 → 3, 1.00/1.01/0.97/0.89 in
+0 → 0 from 0.2 eV up — the 0.199 eV elastic peak, a 0.02-meV level, is now
+resolved; only the 0.069 eV one (a 0.004-meV level) is not, at 0.27. The
 weakest peak of each inelastic channel, at its threshold, is where the
 fitted model runs high (1.4× at 0.573 eV in 0 → 2, 2× at 0.809 eV in
 0 → 3) — the honest exact-vs-nonlocal and fitted-vs-published residual to
@@ -597,16 +599,18 @@ doublet near 1.04 eV — Allan's v' = 9 pair, which the paper's model puts at
 
 **Result (2026-08-26; `validation/factory/results/o2-so{12,32}-ve/`,
 `docs/physics/figures/o2-2d-ti-ve-spin-orbit-vs-alt-houfek.png`).** Two
-sweeps of 1165 energies each, 450 s apiece with MUMPS. Summed at ⅓ each, the
-exact 2-D doublets sit on Fig. 5's: both members of every doublet in 0 → 1…3
-within 1–8 meV of the paper's (0.3166/0.4604/0.5821/0.6822/0.7018 eV
-against 0.3186/0.4666/0.5888/0.6858/0.7039 in 0 → 1), with heights 0.9–1.1
-of the paper's on the main peaks (0 → 1: 1.13/1.07/1.02/0.87/0.90) — the
-same agreement as the unsplit comparison, now including the splitting. The
-doublet separation is 19.0–19.6 meV across the 0 → 1 comb (19.0 meV at the
-v' = 9 pair near 1.04 eV), against the paper's 17.8 and Allan's measured
-19.6 ± 1.0 — our components are separated by Δ_SO(R) at the levels' own
-⟨R⟩ ≈ 2.3–2.6 bohr, where Fig. 1 reads 18–19.5 meV. That the number lands
+sweeps of 3343 energies each (six channels, Γ/10 mesh), ~1290 s apiece with
+MUMPS. Summed at ⅓ each, the exact 2-D doublets sit on Fig. 5's in all six
+panels: both members of every doublet in 0 → 1…3 within 1–8 meV of the
+paper's (0.3166/0.4604/0.5821/0.6822/0.7018 eV against 0.3186/0.4666/
+0.5888/0.6858/0.7039 in 0 → 1), with heights 0.9–1.1 of the paper's on the
+main peaks — the same agreement as the unsplit comparison, now including the
+splitting; the weak 0 → 5 channel (peaks of 0.005–0.017 a₀²) reads
+0.8–0.96 on its stronger members. The doublet separation is 19.0–19.3 meV
+across the 0 → 1 comb (19.0 meV at the v' = 9 pair near 1.04 eV), against
+the paper's 17.8 and Allan's measured 19.6 ± 1.0 — our components are
+separated by Δ_SO(R) at the levels' own ⟨R⟩ ≈ 2.3–2.6 bohr, where Fig. 1
+reads 18–19.5 meV. That the number lands
 nearer the measurement than the paper's own is noted, not claimed: it is a
 theory-vs-theory comparison of two nuclear-dynamics treatments of one
 splitting curve, and nothing here was tuned to it.

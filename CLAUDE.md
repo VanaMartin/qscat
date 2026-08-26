@@ -585,15 +585,17 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               key line) and `o2_ve_figure.py` overlays the exact 2-D result
               (× g = 2/3) on them — theory against theory. RESULT
               (`results/o2-ve/`, `docs/physics/figures/o2-2d-ti-ve-vs-alt-
-              houfek.png`): 0.38 s/energy with MUMPS on sadaharu (1165
-              energies in 449 s; 46 s/energy with SuperLU on the laptop); the
-              exact 2-D comb of the FITTED potential lands on the paper's
-              nonlocal comb in 0→0..4 — positions 2–6 meV over forty-odd
-              peaks, heights within ~10 % of the UNSPLIT NRM of Fig. 7 (Fig.
-              5's peaks are spin–orbit halves; and the mesh must sample Γ/4
-              apart — at Γ/1.5 every height read ×0.69, a Lorentzian missed
-              by Γ/3). Each inelastic channel's weakest threshold peak runs
-              1.4–2× high — the residual to chase with the authors' tables.
+              houfek.png`): 0.38 s/energy with MUMPS on sadaharu (3343
+              energies × six channels in 1293 s; 46 s/energy with SuperLU on
+              the laptop); the exact 2-D comb of the FITTED potential lands on
+              the paper's nonlocal comb in 0→0..5 — positions 2–6 meV over
+              fifty-odd peaks, heights within ~10 % of the UNSPLIT NRM of
+              Fig. 7 (Fig. 5's peaks are spin–orbit halves; and the mesh must
+              DRAW the peaks — at Γ/1.5 spacing every height read ×0.69, a
+              Lorentzian missed by Γ/3; the committed mesh is Γ/10, 121
+              points across ±6Γ). Each inelastic channel's weakest threshold
+              peak runs 1.4–2× high — the residual to chase with the
+              authors' tables.
               SPIN–ORBIT: `extract_fig1.py` pulls the paper's Δ_SO(R) (Fig.
               1), `o2_target(so=±1)` moves the anion curve ∓Δ_SO/2, and
               `fit_o2_so.py` makes `qscat.model.O2_SO12`/`O2_SO32` from `O2`
@@ -604,7 +606,7 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               sums them at ⅓ each against Fig. 5's doublets (`results/
               o2-so{12,32}-ve/`, figure `o2-2d-ti-ve-spin-orbit-vs-alt-
               houfek.png`): both members within 1–8 meV, heights 0.9–1.1,
-              doublet separation 19.0–19.6 meV (paper's model 17.8, Allan's
+              doublet separation 19.0–19.3 meV (paper's model 17.8, Allan's
               measurement 19.6 ± 1.0 — noted, not claimed). Nothing is
               compared with experiment — see
               docs/physics/potential-factory.md.

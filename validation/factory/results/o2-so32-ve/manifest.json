@@ -1,13 +1,13 @@
 {
   "qscat_version": "0.1.0.dev0",
   "git_sha": "unknown",
-  "timestamp": "2026-08-26T08:18:23.541499+00:00",
+  "timestamp": "2026-08-26T09:27:27.390054+00:00",
   "backend": "mumps",
   "timings": {
-    "ti:grid": 0.0035245418548583984,
-    "ti:vibrational_states": 0.17623615264892578,
-    "ti:ve": 450.6902241706848,
-    "total": 450.8700511455536
+    "ti:grid": 0.00351715087890625,
+    "ti:vibrational_states": 0.17584633827209473,
+    "ti:ve": 1285.7988784313202,
+    "total": 1285.978367805481
   },
   "platform": "Linux-6.12.95+deb13-amd64-x86_64-with-glibc2.36"
 }
