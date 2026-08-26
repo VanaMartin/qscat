@@ -19,7 +19,7 @@ Re(E_pole)` directly -- adding `v0(R)` again would double-count it. (Contrast
 `projects/n2_ti_cross_section/vres.py`, whose `v_eff_el` EXCLUDES `v0`, so
 that code adds `v0(R) + E_res(R)` separately; the two bookkeeping schemes
 must and do agree on the observable `V_d(R)`, checked in
-`test_lcp.py::test_matches_n2_vres_oracle`.)
+`validation/n2/test_lcp_vres_parity.py::test_matches_n2_vres_oracle`.)
 
 The continuation is seeded from the bound anion state at `R_inf =
 nuclear_grid.R0` (`qscat.core.dissociation.anion_electronic_states`, the

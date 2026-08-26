@@ -6,7 +6,7 @@ from qscat.core.dissociation import anion_electronic_states
 from qscat.core.grids import electronic_grid, nuclear_grid, segmented_grid
 from qscat.core.lcp import lcp_da_cross_section, local_complex_potential
 from qscat.core.vibrational import vibrational_states
-from qscat.model import F2, N2
+from qscat.model import F2
 
 
 def _elec_grids():
@@ -67,26 +67,6 @@ def test_gamma_positive_in_resonance_region(coarse_nuc, coarse_lcp):
     R = coarse_nuc.points.real
     band = (R > 1.5) & (R < 2.5)
     assert Gamma[band].max() > 1e-4  # genuine width somewhere
-
-
-@pytest.mark.slow
-def test_matches_n2_vres_oracle():
-    # `projects.*` lives in the monorepo, not in the sdist. Skip rather than
-    # error for anyone running this suite from an installed source dist.
-    pytest.importorskip("projects.n2_ti_cross_section")
-    from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
-    from projects.n2_ti_cross_section.vres import vres_on_grid
-
-    g_R = n2_nuclear_grid()
-    ga, gb = _elec_grids()
-    Vd, Gamma = local_complex_potential(N2, g_R, ga, gb)
-    Vd_ref, Gamma_ref = vres_on_grid(g_R)
-    real = g_R.points.imag == 0.0
-    # compare on the resonance region where both are well-defined (R in [1.5,3.5])
-    R = g_R.points.real
-    band = real & (R > 1.5) & (R < 3.5)
-    assert np.allclose(Vd[band].real, Vd_ref[band].real, atol=5e-3)
-    assert np.allclose(Gamma[band], Gamma_ref[band], atol=5e-3)
 
 
 # eMoScat F2 nuclear deck (verbatim from reference/eMoScat/input/F2/grids.txt, 2nd decl)
