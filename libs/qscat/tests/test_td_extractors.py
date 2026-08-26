@@ -150,6 +150,23 @@ def test_unknown_method_raises() -> None:
 # --- Task 4: method="delta"/"flow" wiring + required position/surface ------
 
 
+def test_tw_method_requires_wp_out() -> None:
+    with pytest.raises(ValueError, match="requires `wp_out`"):
+        td_ve_cross_section(
+            TG,
+            N2,
+            EPS,
+            CHI,
+            V_INIT,
+            VPRIMES,
+            0.10,
+            dt=DT,
+            n_steps=N_STEPS,
+            wp_in=WP_IN,
+            method="tw",
+        )
+
+
 def test_delta_method_requires_position() -> None:
     with pytest.raises(ValueError, match="requires `position`"):
         td_ve_cross_section(
@@ -163,7 +180,6 @@ def test_delta_method_requires_position() -> None:
             dt=DT,
             n_steps=N_STEPS,
             wp_in=WP_IN,
-            wp_out=WP_OUT,
             method="delta",
         )
 
@@ -181,7 +197,6 @@ def test_flow_method_requires_surface() -> None:
             dt=DT,
             n_steps=N_STEPS,
             wp_in=WP_IN,
-            wp_out=WP_OUT,
             method="flow",
         )
 
@@ -448,7 +463,6 @@ def test_delta_method_matches_direct_dirac_construction() -> None:
         dt=DT,
         n_steps=N_STEPS,
         wp_in=WP_IN,
-        wp_out=WP_OUT,
         method="delta",
         position=POSITION,
     )
@@ -490,7 +504,6 @@ def test_flow_method_matches_direct_flux_construction() -> None:
         dt=DT,
         n_steps=N_STEPS,
         wp_in=WP_IN,
-        wp_out=WP_OUT,
         method="flow",
         surface=POSITION,
     )

@@ -627,7 +627,7 @@ def td_ve_cross_section(
     dt: float,
     n_steps: int,
     wp_in: _WpIn,
-    wp_out: _WpOut,
+    wp_out: _WpOut | None = None,
     order: int = 3,
     subtract_free_reference: bool = True,
     method: Method = "tw",
@@ -650,8 +650,10 @@ def td_ve_cross_section(
     `wp_in = {"r0": ..., "p0": ..., "sigma": ...}` are the SAME incident
     Gaussian parameters used to build `Psi(0)` (via `initial_state`) and
     `eta_incident`; `wp_out = {"r0_out": ..., "p0_out": ..., "sigma_out": ...}`
-    are the outgoing test function's parameters -- used only by `method="tw"`
-    (`outgoing_channel`/`eta_outgoing`); ignored by `"delta"`/`"flow"`. The
+    are the outgoing test function's parameters -- required by `method="tw"`
+    (omitting them raises `ValueError`, mirroring `td_da_cross_section`'s
+    contract) and unused by `"delta"`/`"flow"`, which need no propagated
+    test packet. The
     propagation (the expensive part) happens ONCE regardless of how many
     energies `E` are requested, since the recorded per-step series does not
     depend on `E`.
@@ -690,6 +692,8 @@ def td_ve_cross_section(
         # One construction site for both the full run and the free-reference
         # run -- the two runs must use identically-configured extractors.
         if method == "tw":
+            if wp_out is None:
+                raise ValueError("td_ve_cross_section: method='tw' requires `wp_out`")
             return TannorWeeks(tgrid, model, eps, chi, v_init, vprimes, wp_out, wp_in=wp_in, dt=dt)
         if method == "delta":
             if position is None:
