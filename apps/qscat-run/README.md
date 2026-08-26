@@ -29,6 +29,7 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 | `F2` | 0 | `ve`, `da`, `resonance_levels` | `emoscat` |
 | `H2P` | −1 | `dr` | `emoscat`, `proxy` |
 | `O2` | 0 | `ve` (DA closed below 3.7 eV) | `tuner` — the fitted model (`qscat.model.O2`, potential factory) on the discretisation tuner's deck; no eMoScat deck exists |
+| `O2_SO12`, `O2_SO32` | 0 | `ve` | `tuner` — O₂'s two spin–orbit components (²Π_{1/2}, ²Π_{3/2}; statistical factor ⅓ each, summed by `validation/factory/o2_ve_figure.py`) on the same deck |
 
 ## Methods (`methods: [...]`)
 

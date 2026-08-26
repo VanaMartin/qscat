@@ -366,7 +366,8 @@ libs/       qscat — the standard library: validated, reusable QM code
               embeds N2/NO/F2 exactly) + the `O2` registry entry — the first
               FITTED model (the potential factory's fit to Alt & Houfek 2021's
               curves, its constants locked to the committed report by
-              `validation/factory/test_o2_report.py`). `qscat.model.N2`
+              `validation/factory/test_o2_report.py`) and its spin–orbit
+              components `O2_SO12`/`O2_SO32` (⅓ each). `qscat.model.N2`
               is the single source of truth for the N2 model (the N2 projects
               consume it via thin shims). Adding a molecule = a registry entry +
               validation, never solver code — see
@@ -593,7 +594,19 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               apart — at Γ/1.5 every height read ×0.69, a Lorentzian missed
               by Γ/3). Each inelastic channel's weakest threshold peak runs
               1.4–2× high — the residual to chase with the authors' tables.
-              Nothing is compared with experiment — see
+              SPIN–ORBIT: `extract_fig1.py` pulls the paper's Δ_SO(R) (Fig.
+              1), `o2_target(so=±1)` moves the anion curve ∓Δ_SO/2, and
+              `fit_o2_so.py` makes `qscat.model.O2_SO12`/`O2_SO32` from `O2`
+              by POLISH ONLY (`refine_resonance` — the full re-track/re-smooth
+              pipeline against a 10 meV shift fell into a wrong basin, E_res
+              rms 31 mHa; the polish keeps the parent's 0.74 mHa); each
+              component gets its own mesh and `o2_ve_figure.py --so12 --so32`
+              sums them at ⅓ each against Fig. 5's doublets (`results/
+              o2-so{12,32}-ve/`, figure `o2-2d-ti-ve-spin-orbit-vs-alt-
+              houfek.png`): both members within 1–8 meV, heights 0.9–1.1,
+              doublet separation 19.0–19.6 meV (paper's model 17.8, Allan's
+              measurement 19.6 ± 1.0 — noted, not claimed). Nothing is
+              compared with experiment — see
               docs/physics/potential-factory.md.
             - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross
               sections — the model port, the first consumers of sub-project A

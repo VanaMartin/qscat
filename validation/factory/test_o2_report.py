@@ -6,11 +6,15 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
-from qscat.model import O2
+import pytest
+from qscat.core.dissociation import anion_electronic_states
+from qscat.model import O2, O2_SO12, O2_SO32
 from qscat.model.flexible import TailR, params
 
 from projects.potential_factory.report import FitReport
+from projects.potential_factory.tracker import ElectronicPair
 from validation.factory.targets.o2 import O2_MU, O2_R_INF, o2_model_from_report
+from validation.factory.targets.o2_data import load_so_split
 
 REPORT = Path(__file__).parent / "results" / "o2-fit-report.json"
 
@@ -36,6 +40,28 @@ def test_committed_o2_model_rebuilds_from_its_report():
     # the asymptote the report claims: lam settles to f_inf as R^-4
     R = np.array([O2_R_INF, 5 * O2_R_INF])
     assert abs(float(m.lam(R[1]).real) - m.lam.f_inf) < 1e-4
+
+
+@pytest.mark.parametrize(
+    "name,model,so",
+    [("o2-so12", O2_SO12, -1), ("o2-so32", O2_SO32, +1)],
+)
+def test_spin_orbit_components_are_their_reports_and_stay_met(name, model, so):
+    rep = FitReport.from_json(REPORT.parent / f"{name}-fit-report.json")
+    status = {t.name: t.status for t in rep.tiers}
+    assert status == {"T1": "met", "asymptote": "met"}
+    assert params(model) == rep.parameters
+    # only the well moved: the neutral curve is the parent's, exactly
+    assert model.D_e == O2.D_e and model.betas == O2.betas and model.R_e == O2.R_e
+    # and it moved the right way, by the right amount: on the bound branch
+    # the anion's electronic energy sits so * Delta_SO(R)/2 from the parent's
+    # (Fig. 1: 18 meV at 3 bohr -> +-9 meV = +-3.3e-4 Ha)
+    g = ElectronicPair().grid_a
+    e_par, _ = anion_electronic_states(g, O2, 3.0, 1)
+    e_so, _ = anion_electronic_states(g, model, 3.0, 1)
+    R_so, d_so = load_so_split()
+    expect = so * 0.5 * float(np.interp(3.0, R_so, d_so))
+    assert abs((e_so[0] - e_par[0]) - expect) < 0.3 * abs(expect)
 
 
 def test_registry_o2_is_the_committed_report_verbatim():

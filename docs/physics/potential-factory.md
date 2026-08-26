@@ -570,6 +570,47 @@ fitted model runs high (1.4× at 0.573 eV in 0 → 2, 2× at 0.809 eV in
 chase with the authors' tables. Everything else in the figure is the paper's
 comb, from a potential fitted to a figure.
 
+**The spin–orbit splitting.** The paper's Fig. 5 doublets come from the
+²Π_g curve being two curves: the ab-initio splitting Δ_SO(R) (their Fig. 1 —
+19.7 meV at 2.1 bohr, a 12.2 meV atomic plateau beyond 9 bohr; a Gaussian
+fit the paper used directly) puts ²Π_{1/2} and ²Π_{3/2} symmetrically at
+∓Δ_SO(R)/2, each is run independently with the same width, and the cross
+sections are summed with the statistical factor 1/3 each (§III A, p.
+032829-4). The factory does the same thing to the *potential*: Fig. 1 is
+vector-extracted (`extract_fig1.py`, ~0.05 meV), `o2_target(so=±1)` moves the
+anion curve and its atom + ion asymptote by ∓Δ_SO/2, and `fit_o2_so.py`
+produces `qscat.model.O2_SO12`/`O2_SO32` from `O2` by **polishing only**
+(`refine_resonance`: every node's pole seeded from the model's own gated
+walk, the asymptote nodes attached, the joint polish moved from where the
+coefficients are). That last point was measured, not assumed: re-running the
+full T1 pipeline — tracking from a seed and re-fitting the smooth forms —
+against a curve shifted by 10 meV landed ²Π_{1/2} in a wrong basin (`E_res`
+rms 31 mHa, asymptote 28 mHa off), while the polish reproduces the parent's
+quality on both components to the digit (T1 rms 0.739 mHa, asymptote 0.05
+mHa, 77 s and 50 s; the spectral check ±7 meV on each against its own
+shifted curve). The components share `O2`'s deck (their curves differ by far
+less than the discretisation resolves) and get their own level-aware meshes;
+`o2_ve_figure.py --so12 --so32` sums the two sweeps at ⅓ each and overlays
+Fig. 5 directly, doublets included, and reports the separation of the 0 → 1
+doublet near 1.04 eV — Allan's v' = 9 pair, which the paper's model puts at
+17.8 meV against a measured 19.6 ± 1.0.
+
+**Result (2026-08-26; `validation/factory/results/o2-so{12,32}-ve/`,
+`docs/physics/figures/o2-2d-ti-ve-spin-orbit-vs-alt-houfek.png`).** Two
+sweeps of 1165 energies each, 450 s apiece with MUMPS. Summed at ⅓ each, the
+exact 2-D doublets sit on Fig. 5's: both members of every doublet in 0 → 1…3
+within 1–8 meV of the paper's (0.3166/0.4604/0.5821/0.6822/0.7018 eV
+against 0.3186/0.4666/0.5888/0.6858/0.7039 in 0 → 1), with heights 0.9–1.1
+of the paper's on the main peaks (0 → 1: 1.13/1.07/1.02/0.87/0.90) — the
+same agreement as the unsplit comparison, now including the splitting. The
+doublet separation is 19.0–19.6 meV across the 0 → 1 comb (19.0 meV at the
+v' = 9 pair near 1.04 eV), against the paper's 17.8 and Allan's measured
+19.6 ± 1.0 — our components are separated by Δ_SO(R) at the levels' own
+⟨R⟩ ≈ 2.3–2.6 bohr, where Fig. 1 reads 18–19.5 meV. That the number lands
+nearer the measurement than the paper's own is noted, not claimed: it is a
+theory-vs-theory comparison of two nuclear-dynamics treatments of one
+splitting curve, and nothing here was tuned to it.
+
 ## Limitations
 
 **The sigmoid-constant degeneracy.** N₂'s own published $\lambda(R)$ sigmoid has

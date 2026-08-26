@@ -1,0 +1,74 @@
+{
+  "target_name": "O2 (Alt & Houfek 2021, Fig. 2 vector extraction), 2Pi_3/2 component (Fig. 1 splitting)",
+  "parameters": {
+    "D_e": 0.19331866564928865,
+    "R_e": 2.268012257109915,
+    "beta0": 1.4523575847133374,
+    "beta1": 0.10381040322431209,
+    "beta2": -0.004015128162685024,
+    "beta3": 0.3910799122325903,
+    "beta4": 1.9183648370285529,
+    "lam.f_inf": 5.102921705841919,
+    "lam.c0": -0.2089645731643405,
+    "lam.c1": 0.8118910038742814,
+    "lam.c2": 0.10394620036618253,
+    "lam.c3": 0.535378201217016,
+    "lam.c4": -1.2986782171831563,
+    "lam.c5": 3.3593321281929445,
+    "lam.c6": 32.728595606603704,
+    "lam.c7": -73.18273419451207,
+    "lam.c8": 37.455649430870515,
+    "alpha.f_inf": 0.3642029360689995,
+    "alpha.f_0": 0.0,
+    "alpha.f_1": 1.0,
+    "alpha.R_f": 0.0,
+    "alpha.c0": 0.0,
+    "alpha.c1": 0.0,
+    "alpha.c2": 0.0,
+    "shell.f_inf": 1e-09,
+    "shell.f_0": 1e-09,
+    "shell.f_1": 1.0,
+    "shell.R_f": 2.05,
+    "alpha_b": 2.0,
+    "r_b": 3.0
+  },
+  "tiers": [
+    {
+      "name": "T1",
+      "status": "met",
+      "rms": 0.000739351935846884,
+      "max": 0.1402929526359983,
+      "detail": "nodes: table 40/401; seeded 39/40 nodes from the model's own walk (polish only); re-walk verified 40/40 nodes; E_res rms=7.39e-04 max=2.15e-03 Ha; Gamma rel rms=0.085 max=0.140; polish_rms=6.12e-04 Ha (analytic Jacobian); polish skipped 0/42 nodes; least_squares status=1 nfev=14/400; EA constraint applied, held by the polish"
+    },
+    {
+      "name": "asymptote",
+      "status": "met",
+      "rms": 4.9009916524040484e-05,
+      "max": 7.86656226943877e-05,
+      "detail": "R_inf=14; V_0(R_inf)=+0.000e+00 mHa (tol 7.35e-01); V_ion - (-EA + tail) on 3 nodes: rms=0.049 mHa (tol 1.47) [R=14: -0.079 mHa, R=31.3: -0.024 mHa, R=70: -0.022 mHa]; declared tail -0.069 mHa at R_inf"
+    }
+  ],
+  "ecs_bounds_deg": {
+    "electronic_max_deg": 45.0,
+    "nuclear_max_deg": 90.0,
+    "probed_electronic_deg": 35.0,
+    "probed_nuclear_deg": 35.0,
+    "tail_growth": 0.006792522678471537
+  },
+  "crossing_R": null,
+  "da_threshold_sign": null,
+  "provenance": {
+    "neutral": {
+      "source": "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)",
+      "locator": "Fig. 2 p. 032829-3 (vector-extracted); Table I p. 032829-3"
+    },
+    "resonance": {
+      "source": "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)",
+      "locator": "Fig. 2 p. 032829-3 (vector-extracted); EA(O) Table I"
+    },
+    "coupling": {
+      "source": "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)",
+      "locator": "Table II p. 032829-4; Eqs. (24)-(27) p. 032829-4"
+    }
+  }
+}

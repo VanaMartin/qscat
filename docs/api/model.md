@@ -26,6 +26,8 @@ set. Adding a molecule is a registry entry plus validation, never solver code.
    F2
    H2P
    O2
+   O2_SO12
+   O2_SO32
 ```
 
 ```{eval-rst}

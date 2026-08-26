@@ -58,7 +58,7 @@ def _levels(T: npt.NDArray[np.complex128], V: npt.NDArray[np.complex128], n: int
     return np.asarray(E[:n], dtype=np.complex128)
 
 
-def anion_levels(report: FitReport, *, n_levels: int = _N_LEVELS) -> LevelTable:
+def anion_levels(report: FitReport, *, n_levels: int = _N_LEVELS, so: int = 0) -> LevelTable:
     model = o2_model_from_report(report)
     g = GRID
     pair = ElectronicPair(
@@ -67,7 +67,7 @@ def anion_levels(report: FitReport, *, n_levels: int = _N_LEVELS) -> LevelTable:
         order=int(g["order"]),
         n_complex=int(g["n_complex"]),
     )
-    target = o2_target()
+    target = o2_target(so=so)
     assert target.resonance is not None
     c = load_o2()
     grid = _nuclear_grid()
@@ -111,11 +111,15 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--report", type=Path, default=REPORT)
     ap.add_argument("--out", type=Path, default=Path("validation/factory/results"))
+    ap.add_argument(
+        "--name", default="o2", help="output stem: o2, o2-so12, o2-so32 (the SO components)"
+    )
+    ap.add_argument("--so", type=int, default=0, help="target component, -1/0/+1, as the report")
     a = ap.parse_args()
-    t = anion_levels(FitReport.from_json(a.report))
+    t = anion_levels(FitReport.from_json(a.report), so=a.so)
     a.out.mkdir(parents=True, exist_ok=True)
     np.savetxt(
-        a.out / "o2-anion-levels.csv",
+        a.out / f"{a.name}-anion-levels.csv",
         np.column_stack(
             [t.v, t.E_target * EV, t.E_fit * EV, t.gamma_target * EV, t.gamma_fit * EV]
         ),
