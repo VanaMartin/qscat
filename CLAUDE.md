@@ -575,8 +575,26 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               `O2:tuner` preset to it) and `o2_ve_energies.py` writes the
               LEVEL-AWARE energy mesh (background grid + 15 points across ±5
               widths of each level) into `apps/qscat-run/examples/o2-ve.yaml`
-              — a uniform sweep walks past 0.01–8 meV peaks. Nothing is
-              compared with experiment — see docs/physics/potential-factory.md.
+              — a uniform sweep walks past 0.01–8 meV peaks. `extract_fig5.py`
+              vector-extracts the paper's OWN NRM/LCP VE curves (Fig. 5, six
+              panels; tick labels are glyph outlines so the ranges are fixed
+              in `PANELS`; upper-envelope centreline keeps meV peaks; the
+              legend key samples are stroked INSIDE the curve paths and are
+              masked by position — unmasked, every panel's "maximum" was the
+              key line) and `o2_ve_figure.py` overlays the exact 2-D result
+              (× g = 2/3) on them — theory against theory. RESULT
+              (`results/o2-ve/`, `docs/physics/figures/o2-2d-ti-ve-vs-alt-
+              houfek.png`): 0.38 s/energy with MUMPS on sadaharu (1165
+              energies in 449 s; 46 s/energy with SuperLU on the laptop); the
+              exact 2-D comb of the FITTED potential lands on the paper's
+              nonlocal comb in 0→0..4 — positions 2–6 meV over forty-odd
+              peaks, heights within ~10 % of the UNSPLIT NRM of Fig. 7 (Fig.
+              5's peaks are spin–orbit halves; and the mesh must sample Γ/4
+              apart — at Γ/1.5 every height read ×0.69, a Lorentzian missed
+              by Γ/3). Each inelastic channel's weakest threshold peak runs
+              1.4–2× high — the residual to chase with the authors' tables.
+              Nothing is compared with experiment — see
+              docs/physics/potential-factory.md.
             - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross
               sections — the model port, the first consumers of sub-project A
               beyond N₂. The per-molecule *curve/figure drivers* were RETIRED in

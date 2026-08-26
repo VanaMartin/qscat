@@ -516,6 +516,60 @@ every anion level from the spectral check's own table (489 energies) —
 because O₂'s peaks are 0.01–8 meV wide and any uniform sweep one can afford
 walks past them.
 
+**The comparison is theory against theory.** The paper's Fig. 5 (p. 032829-6)
+— its own nonlocal-model and LCP cross sections for 0 → v', v' = 0…5 — is
+vector graphics like Fig. 2, and `validation/factory/extract_fig5.py` pulls
+both curves of every panel out of it (`validation/factory/data/o2/
+fig5_ve_0{v}_{nrm,lcp}.csv`). Two things differ from Fig. 2: the tick labels
+are glyph outlines rather than text, so each panel's ranges are read off the
+rendered page once and fixed in the extractor while the tick *rectangles* do
+the calibration; and the centreline is the outline's upper envelope per
+0.15-pt bin minus half the stroke width (0.25 pt, 0.3–0.7 % of a panel's
+range; energy resolution 0.9–1.4 meV), because a comb of meV-wide peaks is
+exactly where the median-of-edges centreline fails — an x-bin on a peak holds
+both walls. One trap is worth recording: gnuplot strokes the legend key
+samples *inside* the curve paths, so unmasked they appear as tall spikes at
+the top right of every panel, and every panel's "maximum" but the first was
+the key line at 0.94 of the range; they are masked by their measured position
+(a real peak crossing the two thin bands keeps its top to 0.0002 of the
+range). `validation/factory/o2_ve_figure.py` overlays the exact 2-D cross
+section of the fitted model, times the statistical factor g(²Π_g) = 2/3 of
+p. 032829-4, on those curves. The overlay answers two separate questions:
+whether the exact 2-D comb of the *fitted potential* lands where the paper's
+nonlocal comb does (positions are the fit's, to the spectral check's ±7 meV;
+heights are where the discrete-state choice shows), and whether the paper's
+LCP fails the way this repository's own LCP does. The paper's measured traces
+(its Figs. 7–9) are not extracted; nothing is compared with experiment.
+
+**Result (2026-08-26; `validation/factory/results/o2-ve/cross_section.csv`,
+`docs/physics/figures/o2-2d-ti-ve-vs-alt-houfek.png`).** The sweep on the
+178k-unknown deck runs at **0.38 s per energy** in the MUMPS container on a
+32-core host (489 energies in 188 s; 1165 in 449 s). The same 80-energy
+slice took 61 min on the laptop with SuperLU, 46 s per energy — this is what
+the sparse-LU hot path costs without MUMPS. The exact 2-D comb of the
+*fitted* potential lands on the paper's nonlocal comb in every channel
+0 → 0…4: peak positions agree to 2–6 meV across the forty-odd peaks in the
+window (0.326/0.451/0.573/0.692 eV against 0.328/0.454/0.576/0.696 in
+0 → 1 — the spectral check's ±7 meV made visible), and the paper's LCP is
+offset from both by 10–40 meV in the inelastic channels exactly as this
+repository's own LCP is on N₂ and F₂. Heights need two facts to read.
+First, Fig. 5's curves are the sum of two spin–orbit components of weight
+1/3 each, split by 18.8 meV, so every printed peak is about half an unsplit
+one; the single-symmetry model at g = 2/3 must be read against the *unsplit*
+NRM of Fig. 7 (its 0 → 0 peak is 1620 a₀² where Fig. 5's is 940). Second,
+the mesh has to catch the maxima: at 15 points across ±5Γ (spacing Γ/1.5)
+every height read 0.6–0.9× — a Γ/3 miss on a Lorentzian is exactly ×0.69 —
+and at 41 points (spacing Γ/4) the heights are the paper's: peak by peak,
+1.05/0.99/1.02/0.90/0.88/0.84 in 0 → 1 over 0.33–0.92 eV, 1.07/1.01/0.93/
+0.91/0.98 in 0 → 2, 1.00/1.02/1.14 in 0 → 3 at its three strongest, 0.93/
+0.89/0.89 in 0 → 0 (its first peak at 0.199 eV, a 0.02-meV level, cannot be
+height-resolved by any time-independent sampling and reads 0.14). The
+weakest peak of each inelastic channel, at its threshold, is where the
+fitted model runs high (1.4× at 0.573 eV in 0 → 2, 2× at 0.809 eV in
+0 → 3) — the honest exact-vs-nonlocal and fitted-vs-published residual to
+chase with the authors' tables. Everything else in the figure is the paper's
+comb, from a potential fitted to a figure.
+
 ## Limitations
 
 **The sigmoid-constant degeneracy.** N₂'s own published $\lambda(R)$ sigmoid has
