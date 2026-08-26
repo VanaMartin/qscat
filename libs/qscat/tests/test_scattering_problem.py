@@ -332,7 +332,17 @@ def test_problem_nrm_methods_delegate_exact_arguments(monkeypatch) -> None:
 
     def fake_da(nuclear_grid, elec_grid, model, phi_d_got, eps, chi, v_init, E, **kw):
         seen.clear()
-        seen.update(nuc=nuclear_grid, elec=elec_grid, phi_d=phi_d_got, E=E, **kw)
+        seen.update(
+            nuc=nuclear_grid,
+            elec=elec_grid,
+            model=model,
+            phi_d=phi_d_got,
+            eps=eps,
+            chi=chi,
+            v_init=v_init,
+            E=E,
+            **kw,
+        )
         return sentinel
 
     monkeypatch.setattr(nrm_pkg, "nrm_da_cross_section", fake_da)
@@ -340,3 +350,6 @@ def test_problem_nrm_methods_delegate_exact_arguments(monkeypatch) -> None:
     assert got is sentinel
     assert seen["nuc"] is tg.grids[1] and seen["elec"] is tg.grids[0]
     assert seen["phi_d"] is phi_d and seen["ingredients"] is None
+    assert np.array_equal(seen["eps"], prob.eps)
+    assert np.array_equal(seen["chi"], prob.chi)
+    assert seen["v_init"] == 0

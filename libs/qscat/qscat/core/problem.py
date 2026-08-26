@@ -20,8 +20,9 @@ per-call arguments (`vprimes`, `E`, and the keyword options):
     sigma = prob.ve_cross_section(vprimes=[0, 1, 2], E=[0.10, 0.15, 0.20])
 
 This is the recommended entry point for every observable it carries: the TI
-and TD cross sections (VE/DA/DR), the LCP DA cross section, the BO resonance
-levels, the exact 2-D resonance states, and the NRM VE/DA cross sections. The
+cross sections (VE/DA/DR) and TD cross sections (VE/DA), the LCP DA cross
+section, the BO resonance levels, the exact 2-D resonance states, and the
+NRM VE/DA cross sections. The
 functional solvers remain public (they are the low-level layer this delegates
 to, and each carries ADR 0004's *provisional* marker pending the pre-1.0
 signature freeze); `ScatteringProblem` is the stable API. Deliberately NOT on

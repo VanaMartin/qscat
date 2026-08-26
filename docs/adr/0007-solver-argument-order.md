@@ -41,7 +41,11 @@ rule was never written down, so every new solver re-derived it.
    walk inside a cross-section call or carry a redundant argument. The
    `ScatteringProblem.lcp_da_cross_section` method supplies
    `mu`/`eps`/`chi`/`v_init` from its bundle, so the exception costs facade
-   users nothing.
+   users nothing. The exception is scoped to the LCP family — curve-input
+   solvers with no model to lead their argument list — not to this one
+   function; `lcp_resonance_levels` is the same case (it diagonalizes a
+   supplied `Vd`/`Gamma` curve, not a model) and follows the same order for
+   the same reason.
 
 4. New solvers follow (1) or (2); a new exception needs its own recorded
    reason, in its docstring and here.

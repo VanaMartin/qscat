@@ -43,20 +43,7 @@ installed package.
   about F₂".
 - `qscat.core.Verdict`: the `Literal` of the seven legal `assignment` verdict
   strings is now exported from `qscat.core`, so callers can type-check an
-  `AssignmentResult.verdict` without reaching into `qscat.core.assignment`.
-
-### Changed
-- Two public names renamed to end collisions with an identically-named
-  sibling elsewhere in `qscat.core`/`qscat.tuning` (api-surface-pass,
-  2026-08-25): `qscat.core.nrm.scattering.free_hamiltonian` →
-  `electronic_free_hamiltonian` (was shadowed by
-  `qscat.core.time_dependent.free_hamiltonian`), and
-  `qscat.tuning.resonance_curve` → `resonance_curve_arrays` (was shadowed by
-  `qscat.core.bo.resonance_curve`). Both old names remain as deprecated
-  aliases (`DeprecationWarning`, one release cycle per ADR 0004) at every
-  import path they were previously reachable from.
-
-### Added
+  `OverlapPair.verdict` without reaching into `qscat.core.assignment`.
 - `qscat.core.exact_resonance_states` (+ `ExactResonanceStates`): poles of the FULL
   2-D S-matrix — eigenvalues `E_r − iΓ/2` of the complex-scaled electronic × nuclear
   Hamiltonian, with no Born-Oppenheimer separation, no discrete state and no local
@@ -192,6 +179,23 @@ installed package.
   limits of that claim. Summarized in a "Relation to existing work" section of
   the package README.
 
+### Changed
+- Two public names renamed to end collisions with an identically-named
+  sibling elsewhere in `qscat.core`/`qscat.tuning` (api-surface-pass,
+  2026-08-25): `qscat.core.nrm.scattering.free_hamiltonian` →
+  `electronic_free_hamiltonian` (was shadowed by
+  `qscat.core.time_dependent.free_hamiltonian`), and
+  `qscat.tuning.resonance_curve` → `resonance_curve_arrays` (was shadowed by
+  `qscat.core.bo.resonance_curve`). Both old names remain as deprecated
+  aliases (`DeprecationWarning`, one release cycle per ADR 0004) at every
+  import path they were previously reachable from.
+- `qscat.core.plot_cross_sections` now imports matplotlib lazily, so importing
+  `qscat.core` / `qscat.tuning` no longer requires matplotlib (it is the
+  optional `plot` extra). Previously a clean install without matplotlib crashed
+  on `import qscat.core`.
+- `qscat.core.time_dependent.free_hamiltonian` and `qscat.core.Flux.series` are
+  now public (were `_free_hamiltonian` / `Flux._arrays`).
+
 ### Fixed
 - `qscat.viz` contour colours now follow `inverse`. The `|psi|` contours and the
   dotted potential overlay had fixed defaults (white, `0.75` grey), so the
@@ -205,13 +209,5 @@ installed package.
   Sec. II A both give `918.076`. The 0.019% error shifted H₂⁺ vibrational
   spacings by ~1e-4 relative — harmless qualitatively, but wrong for reproducing
   published numbers.
-
-### Changed
-- `qscat.core.plot_cross_sections` now imports matplotlib lazily, so importing
-  `qscat.core` / `qscat.tuning` no longer requires matplotlib (it is the
-  optional `plot` extra). Previously a clean install without matplotlib crashed
-  on `import qscat.core`.
-- `qscat.core.time_dependent.free_hamiltonian` and `qscat.core.Flux.series` are
-  now public (were `_free_hamiltonian` / `Flux._arrays`).
 
 [Unreleased]: https://github.com/VanaMartin/qscat/compare/main...HEAD
