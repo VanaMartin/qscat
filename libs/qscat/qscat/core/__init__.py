@@ -54,6 +54,9 @@ Public API:
   - `lcp_da_cross_section` -- the LCP dissociative-attachment cross section
     `sigma_DA(E)` via the TI resolvent (1-D nuclear doorway, boundary-value
     outgoing flux; the approximation under test vs. `da_cross_section`).
+  - `lcp_ve_cross_section` -- the LCP vibrational-excitation cross section
+    `sigma_{v_init->v'}(E)` via the same 1-D nuclear resolvent (doorway in,
+    doorway out; the approximation under test vs. `ve_cross_section`).
   - `resonance_levels`, `lcp_resonance_levels`, `ResonanceLevels` -- the
     BORN-OPPENHEIMER quasi-bound levels `E_v - i*Gamma_v/2`: the nuclear
     eigenvalue problem in the complex curve `V_d - i*Gamma/2`, with the
@@ -201,6 +204,7 @@ from .lcp import (
     ResonanceLevels,
     lcp_da_cross_section,
     lcp_resonance_levels,
+    lcp_ve_cross_section,
     local_complex_potential,
     resonance_levels,
 )
@@ -262,6 +266,7 @@ __all__ = [
     "initial_state",
     "lcp_da_cross_section",
     "lcp_resonance_levels",
+    "lcp_ve_cross_section",
     "local_complex_potential",
     "n_eff",
     "nuclear_grid",

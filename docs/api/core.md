@@ -101,6 +101,7 @@ solvers above; see `docs/physics/diatomic-ve-cross-sections.md` and
 ```{eval-rst}
 .. autofunction:: qscat.core.local_complex_potential
 .. autofunction:: qscat.core.lcp_da_cross_section
+.. autofunction:: qscat.core.lcp_ve_cross_section
 .. autofunction:: qscat.core.resonance_levels
 .. autofunction:: qscat.core.lcp_resonance_levels
 .. autoclass:: qscat.core.ResonanceLevels
