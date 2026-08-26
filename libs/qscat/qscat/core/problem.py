@@ -46,7 +46,7 @@ import numpy.typing as npt
 
 from qscat.linalg import Ordering
 
-from .dissociation import da_cross_section, dr_cross_section
+from .dissociation import da_cross_section, dr_solve
 from .driven import ve_cross_section
 from .lcp import lcp_da_cross_section, resonance_levels
 from .resonance import exact_resonance_states
@@ -183,18 +183,29 @@ class ScatteringProblem:
         return_amplitude: bool = False,
     ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:
         """Dissociative-recombination cross section (ionic target); see
-        `qscat.core.dr_cross_section`. Returns the plain sigma array unless
-        the `return_*` flag is set (see the union in the signature);
-        literal-flag callers who want the narrowed type can call the
-        functional `qscat.core.dr_cross_section` directly."""
-        return dr_cross_section(
+        `qscat.core.dr_solve`. Returns the plain sigma array unless the
+        `return_*` flag is set (see the union in the signature); literal-flag
+        callers who want the narrowed type can call the functional
+        `qscat.core.dr_solve` directly (it returns one `DrResult` regardless
+        of flags)."""
+        res = dr_solve(
             *self._bundle,
             E,
             n_channels=n_channels,
             ordering=ordering,
-            return_wavefunction=return_wavefunction,
-            return_amplitude=return_amplitude,
+            store_wavefunction=return_wavefunction,
+            store_amplitude=return_amplitude,
         )
+        if return_wavefunction and return_amplitude:
+            # store_amplitude=True (== return_amplitude) guarantees this at
+            # runtime; the assert narrows past DrResult.amplitude's static Optional.
+            assert res.amplitude is not None
+            return res.sigma, res.psi, res.amplitude
+        if return_amplitude:
+            return res.sigma, res.amplitude
+        if return_wavefunction:
+            return res.sigma, res.psi
+        return res.sigma
 
     # --- time-dependent observables -----------------------------------------
 

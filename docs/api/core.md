@@ -22,6 +22,9 @@ This module never imports `qscat.model` at runtime — it depends only on the
 .. autofunction:: qscat.core.ve_cross_section
 .. autofunction:: qscat.core.da_cross_section
 .. autofunction:: qscat.core.dr_cross_section
+.. autofunction:: qscat.core.dr_solve
+.. autoclass:: qscat.core.DrResult
+   :members:
 ```
 
 ## Cross sections (time-dependent)

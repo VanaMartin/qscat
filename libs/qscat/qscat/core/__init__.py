@@ -186,9 +186,11 @@ from .correlation import (
     outgoing_surface_wave,
 )
 from .dissociation import (
+    DrResult,
     anion_electronic_states,
     da_cross_section,
     dr_cross_section,
+    dr_solve,
     v_dr_diag,
 )
 from .driven import ve_cross_section
@@ -234,6 +236,7 @@ __all__ = [
     "BoState",
     "ComparisonPanel",
     "Dirac",
+    "DrResult",
     "ElectronicCurves",
     "ExactResonanceStates",
     "Extractor",
@@ -254,6 +257,7 @@ __all__ = [
     "channel_vector",
     "da_cross_section",
     "dr_cross_section",
+    "dr_solve",
     "ecs_angle_family",
     "electronic_curves",
     "electronic_grid",
