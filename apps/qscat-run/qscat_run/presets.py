@@ -37,7 +37,7 @@ from dataclasses import dataclass, replace
 
 from qscat.core.grids import electronic_grid, fem_grid_exp_tail, nuclear_grid, segmented_grid
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
-from qscat.model import F2, H2P, N2, NO, ResonanceModel
+from qscat.model import F2, H2P, N2, NO, O2, ResonanceModel
 
 from qscat_run.config import (
     ConfigError,
@@ -69,7 +69,7 @@ __all__ = [
     "resolve_test_function",
 ]
 
-MODELS: dict[str, ResonanceModel] = {"N2": N2, "NO": NO, "F2": F2, "H2P": H2P}
+MODELS: dict[str, ResonanceModel] = {"N2": N2, "NO": NO, "F2": F2, "H2P": H2P, "O2": O2}
 
 # The (molecule, observable.kind) validity matrix from the design spec.
 # N2 "da" is CLOSED-IN-RANGE -- allowed, not rejected, but flagged
@@ -80,6 +80,9 @@ VALIDITY: dict[str, frozenset[str]] = {
     "NO": frozenset({"ve", "da", "resonance_levels"}),
     "F2": frozenset({"ve", "da", "resonance_levels"}),
     "H2P": frozenset({"dr"}),
+    # O2 (the fitted model): DA is closed until 3.7 eV, above the whole
+    # window the model was fitted for (0-2.7 eV) -- VE only.
+    "O2": frozenset({"ve"}),
 }
 WARN_OBSERVABLES: dict[str, frozenset[str]] = {"N2": frozenset({"da"})}
 
@@ -219,6 +222,120 @@ def _f2_ti_grid() -> TensorGrid:
 
 def _f2_td_grid() -> TensorGrid:
     return TensorGrid([electronic_grid(r_max=30.0, order=8, n_complex=6), _f2_nuc_grid()])
+
+
+# --- O2 (fitted model; discretisation-tuner deck) --------------------------
+# Both grids are `qscat.tuning.propose_grid(O2, ..., (0.002, 0.10))` -- the
+# tuner's a-priori mesh for the 0-2.7 eV VE window, NOT an eMoScat deck (there
+# is none: O2 is the factory's fit, docs/physics/potential-factory.md). The
+# nuclear real region is the tuner's, cut at 8 bohr with the tuner's own ECS
+# tail re-attached there: the VE path's fixed 18-bohr extent spent 62
+# elements on empty space (DA closed until 3.7 eV; the anion's outer turning
+# point at 2.3 eV is 4.0 bohr) -- and then h-REFINED ONCE (every real
+# element halved): the 2-D spot check found one nuclear refinement moving
+# sigma(0->1) at 1.36 eV by 69 %, after which the pair is converged (< 2 %).
+# A comb of 1-8 meV peaks needs its levels far tighter than the 1-D probe's
+# 1e-3. `validation/factory/o2_grids.py` regenerates and probes both, and
+# `validation/factory/test_o2_grids.py` locks these numbers to it.
+# 324 x 549 = 178k unknowns: MUMPS territory.
+_O2_ELEC_REAL = (
+    (26, 1.335887),
+    (1, 1.713557),
+    (1, 2.200777),
+    (1, 2.477971),
+    (1, 2.616568),
+    (4, 2.893762),
+    (1, 3.032359),
+    (1, 3.309552),
+    (3, 4.972715),
+    (1, 5.249909),
+    (1, 5.388506),
+    (4, 5.665699),
+    (1, 5.804296),
+    (1, 6.081490),
+    (1, 6.635877),
+    (1, 8.298146),
+    (1, 9.709861),
+    (1, 11.027766),
+    (1, 12.294768),
+    (1, 13.529715),
+    (1, 14.742692),
+    (1, 15.939749),
+    (1, 17.124803),
+    (1, 18.300528),
+    (1, 19.468831),
+    (1, 19.99998),
+)
+_O2_ELEC_COMPLEX = (
+    (2, 46.929626),
+    (1, 63.375598),
+    (1, 83.462753),
+    (1, 107.997261),
+    (1, 137.963775),
+)
+_O2_NUC_REAL = (
+    (22, 1.650755),
+    (2, 1.804038),
+    (2, 1.954796),
+    (2, 2.109889),
+    (2, 2.262361),
+    (2, 2.414378),
+    (2, 2.569938),
+    (2, 2.725830),
+    (2, 2.877165),
+    (2, 3.030356),
+    (2, 3.185877),
+    (2, 3.336426),
+    (2, 3.488046),
+    (2, 3.639623),
+    (2, 3.798035),
+    (2, 3.953462),
+    (2, 4.103964),
+    (2, 4.257053),
+    (2, 4.411877),
+    (2, 4.567795),
+    (2, 4.724370),
+    (2, 4.881324),
+    (2, 5.038491),
+    (2, 5.195774),
+    (2, 5.353120),
+    (2, 5.510500),
+    (2, 5.667897),
+    (2, 5.825303),
+    (2, 5.982714),
+    (2, 6.140127),
+    (2, 6.297541),
+    (2, 6.454956),
+    (2, 6.612371),
+    (2, 6.769787),
+    (2, 6.927202),
+    (2, 7.084618),
+    (2, 7.242034),
+    (2, 7.399449),
+    (2, 7.556865),
+    (2, 7.714281),
+    (4, 8.029112),
+)
+_O2_NUC_COMPLEX = (
+    (2, 8.252148),
+    (1, 8.388356),
+    (1, 8.554721),
+    (1, 8.757920),
+    (1, 9.006108),
+)
+_O2_ANGLE, _O2_QUAD = 35.0, 6
+
+
+def _o2_elec_grid() -> FemDvrEcsGrid:
+    return segmented_grid(_O2_ELEC_REAL, _O2_ELEC_COMPLEX, angle_deg=_O2_ANGLE, quadrature=_O2_QUAD)
+
+
+def _o2_nuc_grid() -> FemDvrEcsGrid:
+    return segmented_grid(_O2_NUC_REAL, _O2_NUC_COMPLEX, angle_deg=_O2_ANGLE, quadrature=_O2_QUAD)
+
+
+def _o2_ti_grid() -> TensorGrid:
+    return TensorGrid([_o2_elec_grid(), _o2_nuc_grid()])
 
 
 # LCP (local-complex-potential) pole-matching uses TWO fixed-R electronic grids
@@ -390,6 +507,22 @@ PRESETS: dict[str, MoleculePreset] = {
         da_surface_R=_F2_DA_SURFACE_R,
         lcp_grids=_f2_lcp_grids,
         nrm_elec_b=_diatomic_nrm_elec_b,
+    ),
+    "O2:tuner": MoleculePreset(
+        molecule="O2",
+        variant="tuner",
+        ti_grid=_o2_ti_grid,
+        # TD on O2 is NOT validated; the TI deck stands in and the incident /
+        # test-function packets are N2's scaled to the 20-bohr electronic box.
+        td_grid=_o2_ti_grid,
+        # A uniform sweep is a placeholder for O2: its VE peaks are 0.01-8
+        # meV wide, so a real run uses the level-aware `energies: {values}`
+        # list `validation/factory/o2_ve_energies.py` writes.
+        default_energies=EnergySpec(min=0.002, max=0.100, step=0.001),
+        default_incident=IncidentSpec(r0=12.0, p0=-0.5, sigma=3.0),
+        valid_observables=VALIDITY["O2"],
+        n_vib=12,
+        ve_test_function=TestFunctionSpec(r0_out=14.0, p0_out=0.5, sigma_out=3.0),
     ),
     "H2P:emoscat": MoleculePreset(
         molecule="H2P",

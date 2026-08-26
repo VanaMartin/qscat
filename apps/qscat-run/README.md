@@ -28,6 +28,7 @@ Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 | `NO` | 0 | `ve`, `da`, `resonance_levels` | `emoscat` |
 | `F2` | 0 | `ve`, `da`, `resonance_levels` | `emoscat` |
 | `H2P` | −1 | `dr` | `emoscat`, `proxy` |
+| `O2` | 0 | `ve` (DA closed below 3.7 eV) | `tuner` — the fitted model (`qscat.model.O2`, potential factory) on the discretisation tuner's deck; no eMoScat deck exists |
 
 ## Methods (`methods: [...]`)
 

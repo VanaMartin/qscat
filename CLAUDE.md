@@ -359,7 +359,14 @@ libs/       qscat — the standard library: validated, reusable QM code
               `DiatomicResonanceModel` (the shared Morse+sigmoid+Gaussian
               NEUTRAL form) + the `N2`/`NO`/`F2` registry, and
               `IonicResonanceModel` (the H₂⁺ Morse + σ-capture + `−1/r` Coulomb
-              form) + the `H2P` registry entry (the first ION). `qscat.model.N2`
+              form) + the `H2P` registry entry (the first ION), and
+              `FlexibleDiatomicModel` (`qscat.model.flexible`: EMO neutral +
+              Gaussian well with `lam(R)`/`alpha(R)` as `SmoothR` sigmoids or
+              long-range-correct `TailR` forms + optional shell; `from_diatomic`
+              embeds N2/NO/F2 exactly) + the `O2` registry entry — the first
+              FITTED model (the potential factory's fit to Alt & Houfek 2021's
+              curves, its constants locked to the committed report by
+              `validation/factory/test_o2_report.py`). `qscat.model.N2`
               is the single source of truth for the N2 model (the N2 projects
               consume it via thin shims). Adding a molecule = a registry entry +
               validation, never solver code — see
@@ -554,8 +561,21 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               choice B vs the paper's Breit–Wigner pole width). `o2_levels.py`
               is the SPECTRAL CHECK, the metric that predicts the VE figure:
               the anion's quasi-bound levels in the fitted vs the extracted
-              curve — peak positions within ±7 meV over v = 0..24 (0–2.3 eV),
-              widths within ~10 % (`results/o2-anion-levels.csv`). Nothing is
+              curve — peak positions within ±7 meV over v = 0..29 (0–2.6 eV),
+              widths within ~10 % (`results/o2-anion-levels.csv`). The fitted
+              model is `qscat.model.O2` (locked to the report by
+              `test_o2_report.py`, including the y_p FRAME radius the report
+              does not record); `o2_grids.py` builds its decks with the
+              discretisation tuner (electronic as proposed; nuclear cut at 8
+              bohr — DA is closed, the tuner's 18-bohr default is empty
+              space — then h-REFINED ONCE: the 2-D spot check moved σ(0→1)
+              at 1.36 eV by 69 % on one refinement, converged < 2 % after;
+              a comb of meV peaks needs levels far tighter than the probe's
+              1e-3; 324 × 549 = 178k unknowns; `test_o2_grids.py` locks the
+              `O2:tuner` preset to it) and `o2_ve_energies.py` writes the
+              LEVEL-AWARE energy mesh (background grid + 15 points across ±5
+              widths of each level) into `apps/qscat-run/examples/o2-ve.yaml`
+              — a uniform sweep walks past 0.01–8 meV peaks. Nothing is
               compared with experiment — see docs/physics/potential-factory.md.
             - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross
               sections — the model port, the first consumers of sub-project A

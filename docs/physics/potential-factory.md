@@ -479,6 +479,43 @@ It belongs to the O₂ plan's next phase, together with the authors' tables;
 it does not stand between this model and its VE cross section, which the
 exact 2-D solver computes from the potential surface alone.
 
+**From the fit to the run surface.** The ansatz is promoted to
+`qscat.model.flexible` (`FlexibleDiatomicModel`, `SmoothR`, `TailR`,
+`from_diatomic`; `projects/potential_factory/ansatz.py` re-exports it), and
+the fitted model is the registry entry `qscat.model.O2` — the first entry that
+is a fit rather than a published parameter set, its constants copied from the
+committed report key for key and locked to it by
+`validation/factory/test_o2_report.py`. That lock caught a real gap: the
+`y_p` reference radius inside `λ(R)`/`α(R)` is a *frame* constant the report
+does not record (it stays at the seed's 2.2819 bohr, not the fitted `R_e` of
+2.268), and a registry built from the report alone was 1e-2 Ha off in the
+well. Its decks come from the discretisation tuner (`validation/factory/
+o2_grids.py`): the electronic grid as proposed (324 points, real region to
+20 bohr, 35° tail to 138); the nuclear grid's mesh as proposed but its real
+region cut at 8 bohr with the tuner's tail re-attached — the VE path's fixed
+18-bohr extent put 62 elements where nothing lives (DA is closed until 3.7 eV;
+the anion's outer turning point at 2.3 eV is 4.0 bohr) — 289 points. All
+three 1-D probes pass at the window's top (0.10 Ha): channel representation
+4e-5, the anion bound state to 2e-10, the 12 lowest neutral levels to 1.2e-3
+(the last level marginal). **The 2-D spot check overruled them**, exactly as
+it did for F₂: one nuclear h-refinement moved `σ_{0→1}` at 1.36 eV by
+**69 %**, after which both further refinements move it under 2 %. The reason
+is the observable, not the mesh: the cross section *at* an energy sits on a
+comb of 1–8 meV peaks, so a level shift of 3 meV — the 1e-3 the probe
+tolerates — is most of a width. The carried nuclear deck is therefore the
+tuner's mesh refined once (549 points, 324 × 549 = 178k unknowns — MUMPS
+territory, 440 s for the whole refine loop on the laptop with SuperLU). Two
+small things the tuner needed for a fitted model: `max_stable_angle` read round-off as growth on
+O₂'s fast-decaying EMO (`|V_0|` is 1e-17 at the pivot; β(∞) = 3.9 against
+N₂'s 1.15) and returned 0°, so growth below an absolute 1e-12 Ha floor no
+longer counts. The `apps/qscat-run` preset `O2:tuner` carries the decks
+verbatim (`test_o2_grids.py` locks them), VE only, and the example
+`o2-ve.yaml` is *generated* by `validation/factory/o2_ve_energies.py` with a
+level-aware mesh — a 1 mHa background grid plus 15 points across ±5 widths of
+every anion level from the spectral check's own table (489 energies) —
+because O₂'s peaks are 0.01–8 meV wide and any uniform sweep one can afford
+walks past them.
+
 ## Limitations
 
 **The sigmoid-constant degeneracy.** N₂'s own published $\lambda(R)$ sigmoid has
