@@ -57,9 +57,10 @@ from qscat.exceptions import BackendError
 
 from ._mumps_backend import _check_pattern, _MumpsBackend, _pattern_of, mumps_available
 
-__all__ = ["SparseLU", "default_backend", "get_default_backend", "set_default_backend"]
+__all__ = ["Ordering", "SparseLU", "default_backend", "get_default_backend", "set_default_backend"]
 
-_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
+# scipy splu's permc_spec -- the public name solver modules re-use.
+Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 _Backend = Literal["auto", "scipy", "mumps"]
 
 # Relative tolerance for the `symmetric=None` auto-detect: `A` is treated as
@@ -149,7 +150,7 @@ class _ScipyBackend:
 
     name = "scipy"
 
-    def __init__(self, csc: sp.csc_matrix[np.complex128], ordering: _Ordering) -> None:
+    def __init__(self, csc: sp.csc_matrix[np.complex128], ordering: Ordering) -> None:
         self._ordering = ordering
         # Store the analyzed pattern for the `refactor` guard. scipy has no
         # symbolic-reuse hook, so `refactor` re-runs `splu`; the guard still
@@ -241,7 +242,7 @@ class SparseLU:
         self,
         A: sp.spmatrix,
         *,
-        ordering: _Ordering = "COLAMD",
+        ordering: Ordering = "COLAMD",
         backend: _Backend = "auto",
         symmetric: bool | None = None,
     ) -> None:

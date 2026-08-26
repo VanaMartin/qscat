@@ -46,7 +46,7 @@ import numpy as np
 import numpy.typing as npt
 
 from qscat.dvr import FemDvrEcsGrid, TensorGrid, eigen, kinetic
-from qscat.linalg import c_product
+from qscat.linalg import Ordering, c_product
 from qscat.special import riccati_bessel_en_mass
 
 from .driven import ve_cross_section
@@ -55,10 +55,6 @@ if TYPE_CHECKING:
     from qscat.model import ResonanceModel
 
 __all__ = ["anion_electronic_states", "da_cross_section", "dr_cross_section", "v_dr_diag"]
-
-# Mirrors driven.py's re-declaration of SparseLU's private ordering Literal,
-# so `ordering` passes through to ve_cross_section type-clean.
-_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 
 # `return_wavefunction` output types, same convention as driven.py: the driven
 # Psi+ per energy (`None` below threshold), one array for scalar `E`, one list
@@ -154,7 +150,7 @@ def da_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[False] = ...,
 ) -> _Sigma: ...
 
@@ -169,7 +165,7 @@ def da_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[True],
 ) -> tuple[_Sigma, _PsiOut]: ...
 
@@ -187,7 +183,7 @@ def da_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: bool = ...,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
 
@@ -201,7 +197,7 @@ def da_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = 1,
-    ordering: _Ordering = "COLAMD",
+    ordering: Ordering = "COLAMD",
     return_wavefunction: bool = False,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """sigma_DA(E) in bohr^2, exact 2-D driven-equation DA cross section.
@@ -321,7 +317,7 @@ def dr_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[False] = ...,
     return_amplitude: Literal[False] = ...,
 ) -> _Sigma: ...
@@ -337,7 +333,7 @@ def dr_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[True],
     return_amplitude: Literal[False] = ...,
 ) -> tuple[_Sigma, _PsiOut]: ...
@@ -353,7 +349,7 @@ def dr_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[False] = ...,
     return_amplitude: Literal[True],
 ) -> tuple[_Sigma, _Amp]: ...
@@ -369,7 +365,7 @@ def dr_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[True],
     return_amplitude: Literal[True],
 ) -> tuple[_Sigma, _PsiOut, _Amp]: ...
@@ -388,7 +384,7 @@ def dr_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = ...,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: bool = ...,
     return_amplitude: bool = ...,
 ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]: ...
@@ -403,7 +399,7 @@ def dr_cross_section(
     E: float | npt.ArrayLike,
     *,
     n_channels: int = 3,
-    ordering: _Ordering = "COLAMD",
+    ordering: Ordering = "COLAMD",
     return_wavefunction: bool = False,
     return_amplitude: bool = False,
 ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:

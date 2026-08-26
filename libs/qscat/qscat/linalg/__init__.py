@@ -9,6 +9,9 @@ Public API:
   - `c_product` -- the bilinear (non-conjugated) ECS inner product.
   - `SparseLU` -- cached sparse LU factorization (factor once, solve many),
     with fill-in and memory diagnostics and a SuperLU/MUMPS backend switch.
+  - `Ordering` -- the `SparseLU`/`splu` fill-reducing ordering literal
+    (`"NATURAL"`/`"MMD_ATA"`/`"MMD_AT_PLUS_A"`/`"COLAMD"`), re-used by every
+    `qscat.core` solver's `ordering:` kwarg.
   - `ShiftInvertEigs` -- the k eigenpairs nearest a complex shift (sparse
     shift-invert Arnoldi on top of `SparseLU`, reusing its symbolic analysis
     across shifts).
@@ -26,6 +29,7 @@ from .eigs import ShiftInvertEigs
 from .inner import c_product
 from .kron import kron_sum
 from .sparse_lu import (
+    Ordering,
     SparseLU,
     default_backend,
     get_default_backend,
@@ -33,6 +37,7 @@ from .sparse_lu import (
 )
 
 __all__ = [
+    "Ordering",
     "ShiftInvertEigs",
     "SparseLU",
     "c_product",

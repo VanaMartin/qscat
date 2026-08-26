@@ -39,10 +39,12 @@ The vibrational basis (`eps`, `chi`) is solved once, on construction, from
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
 import numpy as np
 import numpy.typing as npt
+
+from qscat.linalg import Ordering
 
 from .dissociation import da_cross_section, dr_cross_section
 from .driven import ve_cross_section
@@ -67,11 +69,6 @@ if TYPE_CHECKING:
 
 __all__ = ["ScatteringProblem"]
 
-# Mirrors the private copies in driven.py / dissociation.py / lcp.py (scipy
-# splu's permc_spec). The library-structure pass (lib-M12) consolidates all of
-# them into a public `qscat.linalg.Ordering`; if that has already landed,
-# import that name here instead of redefining.
-_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
 _Window = tuple[float, float, float, float]
 
 # Return/parameter conventions, identical to the functional solvers mirrored
@@ -135,7 +132,7 @@ class ScatteringProblem:
         vprimes: list[int],
         E: float | npt.ArrayLike,
         *,
-        ordering: _Ordering = "COLAMD",
+        ordering: Ordering = "COLAMD",
         lam_scale: float = 1.0,
         return_wavefunction: bool = False,
     ) -> _Sigma | tuple[_Sigma, _PsiOut]:
@@ -159,7 +156,7 @@ class ScatteringProblem:
         E: float | npt.ArrayLike,
         *,
         n_channels: int = 1,
-        ordering: _Ordering = "COLAMD",
+        ordering: Ordering = "COLAMD",
         return_wavefunction: bool = False,
     ) -> _Sigma | tuple[_Sigma, _PsiOut]:
         """Dissociative-attachment cross section; see `qscat.core.da_cross_section`.
@@ -180,7 +177,7 @@ class ScatteringProblem:
         E: float | npt.ArrayLike,
         *,
         n_channels: int = 3,
-        ordering: _Ordering = "COLAMD",
+        ordering: Ordering = "COLAMD",
         return_wavefunction: bool = False,
         return_amplitude: bool = False,
     ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:
@@ -327,7 +324,7 @@ class ScatteringProblem:
         *,
         Vd: npt.NDArray[np.complex128],
         Gamma: npt.NDArray[np.float64],
-        ordering: _Ordering = "COLAMD",
+        ordering: Ordering = "COLAMD",
         return_wavefunction: bool = False,
     ) -> _Sigma | tuple[_Sigma, _PsiOut]:
         """LCP dissociative-attachment cross section on this problem's NUCLEAR

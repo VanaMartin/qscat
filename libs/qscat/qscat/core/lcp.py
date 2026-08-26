@@ -62,7 +62,7 @@ import scipy.sparse as sp
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic, kinetic_sparse
 from qscat.ecs import find_resonance_pole, match_angle_stable
 from qscat.exceptions import ConvergenceError
-from qscat.linalg import SparseLU, c_product
+from qscat.linalg import Ordering, SparseLU, c_product
 
 from .dissociation import anion_electronic_states
 from .grids import assert_shared_real_nodes
@@ -435,12 +435,6 @@ def local_complex_potential(
     return _assemble_lcp(model, nuclear_grid, shift, gamma_w)
 
 
-# Mirrors `driven.py`'s (private) `_Ordering` -- scipy's `splu`'s
-# `permc_spec`. Not imported directly: that name is an internal detail of
-# `SparseLU`, not part of its public API.
-_Ordering = Literal["NATURAL", "MMD_ATA", "MMD_AT_PLUS_A", "COLAMD"]
-
-
 @overload
 def lcp_da_cross_section(
     nuclear_grid: FemDvrEcsGrid,
@@ -452,7 +446,7 @@ def lcp_da_cross_section(
     v_init: int,
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[False] = ...,
 ) -> _Sigma: ...
 
@@ -468,7 +462,7 @@ def lcp_da_cross_section(
     v_init: int,
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[True],
 ) -> tuple[_Sigma, _PsiOut]: ...
 
@@ -487,7 +481,7 @@ def lcp_da_cross_section(
     v_init: int,
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: bool = ...,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
 
@@ -502,7 +496,7 @@ def lcp_da_cross_section(
     v_init: int,
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = "COLAMD",
+    ordering: Ordering = "COLAMD",
     return_wavefunction: bool = False,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """LCP dissociative-attachment sigma_DA(E) (bohr^2), TI resolvent form.
@@ -589,7 +583,7 @@ def lcp_ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[False] = ...,
 ) -> _Sigma: ...
 
@@ -606,7 +600,7 @@ def lcp_ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: Literal[True],
 ) -> tuple[_Sigma, _PsiOut]: ...
 
@@ -626,7 +620,7 @@ def lcp_ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = ...,
+    ordering: Ordering = ...,
     return_wavefunction: bool = ...,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
 
@@ -642,7 +636,7 @@ def lcp_ve_cross_section(
     vprimes: list[int],
     E: float | npt.ArrayLike,
     *,
-    ordering: _Ordering = "COLAMD",
+    ordering: Ordering = "COLAMD",
     return_wavefunction: bool = False,
 ) -> _Sigma | tuple[_Sigma, _PsiOut]:
     """LCP vibrational-excitation sigma_{v_init->v'}(E) (bohr^2), TI resolvent form.
