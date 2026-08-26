@@ -153,6 +153,7 @@ from __future__ import annotations
 from .assignment import (
     OverlapPair,
     PeakAlignment,
+    Verdict,
     overlap,
     pair_by_overlap,
     pair_one_to_one,
@@ -238,6 +239,7 @@ __all__ = [
     "ResonanceLevels",
     "ScatteringProblem",
     "TannorWeeks",
+    "Verdict",
     "VibrationalBasis",
     "admissible_levels",
     "anion_electronic_states",

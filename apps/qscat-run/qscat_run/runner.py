@@ -473,7 +473,7 @@ def _build_extractor(
     dt: float,
     position: int,
     surface: int,
-    axis: str,
+    axis: Literal["electronic", "nuclear"],
     n_channels: int,
 ) -> TdExtractor:
     """The one factory shared by every (observable kind, extractor name,

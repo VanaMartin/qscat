@@ -133,7 +133,7 @@ subtraction (DA has no `v'==v_init` diagonal; `free != None` raises
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal, get_args
 
 import numpy as np
 import numpy.typing as npt
@@ -167,7 +167,12 @@ __all__ = ["Dirac", "Flux", "TannorWeeks"]
 _WpIn = dict[str, float]
 _WpOut = dict[str, float]
 
-_AXES = ("electronic", "nuclear")
+# The two exit axes every extractor implements (electronic = VE, nuclear =
+# DA; module docstring). The Literal is the single source: `_AXES` is derived
+# from it, so `_check_axis`'s runtime raise and the type checker can never
+# disagree. Not in `__all__` (same reasoning as `time_dependent.Method`).
+Axis = Literal["electronic", "nuclear"]
+_AXES = get_args(Axis)
 
 # The DA sigma prefactor: `pi`, NOT the TI oracle's literal `4 pi^3` -- see
 # the module docstring's `Flux(axis="nuclear")` section for the `S = 1 -
@@ -259,7 +264,7 @@ class TannorWeeks:
         *,
         wp_in: _WpIn,
         dt: float,
-        axis: str = "electronic",
+        axis: Axis = "electronic",
         n_channels: int = 1,
     ) -> None:
         _check_axis(axis, "TannorWeeks")
@@ -532,7 +537,7 @@ class Dirac:
         *,
         wp_in: _WpIn,
         dt: float,
-        axis: str = "electronic",
+        axis: Axis = "electronic",
         n_channels: int = 1,
     ) -> None:
         _check_axis(axis, "Dirac")
@@ -824,7 +829,7 @@ class Flux:
         *,
         wp_in: _WpIn,
         dt: float,
-        axis: str = "electronic",
+        axis: Axis = "electronic",
         n_channels: int = 1,
     ) -> None:
         _check_axis(axis, "Flux")

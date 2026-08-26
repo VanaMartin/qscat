@@ -152,6 +152,7 @@ check that catches a rotated-continuum eigenvalue sitting in a stable corner.
 ```{eval-rst}
 .. autofunction:: qscat.core.overlap
 .. autofunction:: qscat.core.real_weight
+.. autodata:: qscat.core.Verdict
 .. autofunction:: qscat.core.pair_by_overlap
 .. autofunction:: qscat.core.pair_one_to_one
 .. autofunction:: qscat.core.peak_positions
