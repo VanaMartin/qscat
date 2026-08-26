@@ -82,7 +82,6 @@ class FemDvrEcsGrid:
     real_points: npt.NDArray[np.float64]
     dLp: npt.NDArray[np.float64]
     hz: npt.NDArray[np.complex128]
-    element_ranges: list[tuple[int, int]]
     element_maps: list[tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]]
 
     def __init__(self, spec: GridSpec) -> None:
@@ -131,19 +130,6 @@ class FemDvrEcsGrid:
         weights = all_wz[1 : nall - 1]
         real_points = all_xr[1 : nall - 1]
 
-        # element_ranges: half-open [start, stop) slices into the global basis
-        # spanned by each element, INCLUSIVE of shared boundary indices with
-        # neighbors (i.e. adjacent ranges overlap by one index). This is a
-        # coarse, position-independent summary kept for backward-compat /
-        # quick range checks; it does NOT say which local index maps to which
-        # global index, so a kinetic-assembly consumer should use
-        # `element_maps` instead (see module docstring).
-        element_ranges: list[tuple[int, int]] = []
-        for s, e in element_span_all:
-            gs = max(0, s - 1)
-            ge = min(nb - 1, e - 1)
-            element_ranges.append((gs, ge + 1))  # half-open [start, stop)
-
         # element_maps: explicit per-element (local_idx, global_idx) pairs.
         # local_idx = retained local GLL node indices (0..nq-1), dropping the
         # Dirichlet endpoint(s): local 0 for the first element, local nq-1 for
@@ -169,7 +155,6 @@ class FemDvrEcsGrid:
         self.real_points = real_points
         self.dLp = dLp
         self.hz = hz
-        self.element_ranges = element_ranges
         self.element_maps = element_maps
 
     def real_index_near(self, r_value: float) -> int:

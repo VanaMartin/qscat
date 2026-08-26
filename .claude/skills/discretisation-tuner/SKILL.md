@@ -44,7 +44,7 @@ from qscat.tuning import (
 )
 ```
 
-`propose_grid(model, coordinate, energy_range, *, rtol=1e-3, incident=None)` is the a-priori
+`propose_grid(model, coordinate, energy_range, *, incident=None)` is the a-priori
 half of the hybrid — it already runs analyze → mesh → ECS and returns a `FemDvrEcsGrid`. Your
 job is to VALIDATE and MINIMISE it with the probes.
 
@@ -63,7 +63,7 @@ Create a todo per step.
    `E_max`). For TI, `incident=None`.
 
 3. **Propose the a-priori grid, per coordinate.** For each of `"nuclear"` and `"electronic"`:
-   `g = propose_grid(model, coordinate, energy_range, rtol=rtol, incident=incident)`.
+   `g = propose_grid(model, coordinate, energy_range, incident=incident)`.
    **For a DA/DR (dissociation) observable, propose the NUCLEAR grid with
    `channel="dissociation"`** — the resonance-aware path that sizes the DVR order to the fast
    exit wave `K_exit`, super-refines the anion/neutral crossing `R*` (`Re(V_d)−v0` sign-change),

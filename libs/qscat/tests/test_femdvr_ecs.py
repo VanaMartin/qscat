@@ -147,3 +147,10 @@ def test_spec_rejects_bent_tail_with_multiple_distinct_angles() -> None:
     elements = [ElementSpec(1.0), ElementSpec(1.0, 30.0), ElementSpec(1.0, 45.0)]
     with pytest.raises(ValueError):
         GridSpec(quadrature=6, elements=elements)
+
+
+def test_element_ranges_removed() -> None:
+    """lib-M16: element_ranges had zero consumers; element_maps is the API."""
+    g = _box(L=4.0, nel=1, nq=5)
+    assert not hasattr(g, "element_ranges")
+    assert len(g.element_maps) == 1
