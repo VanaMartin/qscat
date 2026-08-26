@@ -923,6 +923,7 @@ __all__ = [
     "ResonanceLevels",
     "lcp_da_cross_section",
     "lcp_resonance_levels",
+    "lcp_ve_cross_section",
     "local_complex_potential",
     "resonance_eigenstate",
     "resonance_eigenstate_at_peak_width",
@@ -932,17 +933,17 @@ __all__ = [
 ```
 
 Verified consumer import surface (2026-08-25) — every one keeps working unchanged because a package named `qscat.core.lcp` answers the same `from qscat.core.lcp import X` statements:
-`core/__init__.py:199` (5 names), `core/nrm/discrete_state.py:31` (`resonance_pole_walk`), `tuning/resonance.py:40` (`resonance_pole_walk`), `apps/qscat-run/qscat_run/runner.py:86-92` (4 names + `resonance_levels` alias), `validation/diatomic/{da_figure,nrm,td_nrm_figures,ve_nrm}.py`, and the seven test modules. No consumer imports a private `lcp._name` (verified: `grep -rn "lcp\._\|_walk_from_anion_seed\|_assemble_lcp\|_levels_from" libs/qscat/tests apps validation projects` is empty), so no `__getattr__` shim is needed — the split is invisible.
+`core/__init__.py:199` (5 names), `core/nrm/discrete_state.py:31` (`resonance_pole_walk`), `tuning/resonance.py:40` (`resonance_pole_walk`), `apps/qscat-run/qscat_run/runner.py:86-93` (5 names + `resonance_levels` alias), `validation/diatomic/{da_figure,nrm,td_nrm_figures,ve_nrm}.py`, `validation/n2/cross_section.py`, `validation/n2/test_lcp_ve.py`, `projects/n2_2d_cross_section/nuclear_density.py`, `projects/n2_td_cross_section/test_td_cross_section.py`, and the seven test modules. No consumer imports a private `lcp._name` (verified: `grep -rn "lcp\._\|_walk_from_anion_seed\|_assemble_lcp\|_levels_from" libs/qscat/tests apps validation projects` is empty), so no `__getattr__` shim is needed — the split is invisible.
 
 **Module split (each item lands with its constants, helpers, and docstrings):**
 
 - `curve.py` — capability (a), the fixed-R electronic pole machinery: module docstring = the bulk of today's (the continuation-walk narrative, the freeze semantics, the Naming caution paragraph); `_FROZEN_TOL`, `_JUNCTION_GAMMA_TOL`, `_MIN_RESOLVABLE_GAMMA`; `_h_el`, `resonance_pole_walk`, `resonance_eigenstate`, `resonance_eigenstate_at_peak_width`, `_assemble_lcp`, `_walk_from_anion_seed`, `local_complex_potential`. Imports: `FemDvrEcsGrid, eigen, kinetic` from `qscat.dvr`; `find_resonance_pole` from `qscat.ecs`; `ConvergenceError`; `c_product`; `anion_electronic_states` from `..dissociation`.
-- `cross_section.py` — capability (b), the 1-D TI resolvent solver: `_Sigma`/`_Psi`/`_PsiOut` aliases (with their comment block) and `lcp_da_cross_section` (post-Task-1 it imports `Ordering` from `qscat.linalg`). Imports: `kinetic_sparse`, `SparseLU`, scipy.sparse.
+- `cross_section.py` — capability (b), the 1-D TI resolvent solver: `_Sigma`/`_Psi`/`_PsiOut` aliases (with their comment block) and `lcp_da_cross_section`/`lcp_ve_cross_section` (post-Task-1 it imports `Ordering` from `qscat.linalg`). Imports: `kinetic_sparse`, `SparseLU`, scipy.sparse.
 - `levels.py` — capability (c), the BO nuclear eigenproblem: `_C_NORM_TOL`, `_CLOSED_REGION_GAMMA_TOL`; `ResonanceLevels` (with Task 13's save/load), `_check_shared_real_nodes`, `_default_window`, `_levels_from`, `lcp_resonance_levels`, `_check_angle_bound`, `resonance_levels` (+ its two overloads). Imports: `kinetic`, `eigen`, `match_angle_stable` from `qscat.ecs`, `c_product`, `assert_shared_real_nodes` from `..grids`, and `from .curve import _assemble_lcp, _walk_from_anion_seed`.
 - `__init__.py` — a SHORT module docstring (what the LCP approximation is, the research-program "approximation under test" framing, one pointer per submodule and to `docs/physics/lcp-resonance-levels.md` / `diatomic-ve-cross-sections.md`) followed by:
 
   ```python
-  from .cross_section import lcp_da_cross_section
+  from .cross_section import lcp_da_cross_section, lcp_ve_cross_section
   from .curve import (
       local_complex_potential,
       resonance_eigenstate,
@@ -953,6 +954,11 @@ Verified consumer import surface (2026-08-25) — every one keeps working unchan
 
   __all__ = [ ... exactly the list above ... ]
   ```
+
+  The split must carry the bool catch-all `@overload` (open()-style, one per
+  `return_wavefunction`/`return_curve` flag) verbatim into the new modules:
+  `lcp_da_cross_section` and `lcp_ve_cross_section` land in `cross_section.py`
+  with theirs intact, and `resonance_levels` lands in `levels.py` with its own.
 
 **Steps:**
 
@@ -966,9 +972,9 @@ Verified consumer import surface (2026-08-25) — every one keeps working unchan
 
       expected = {
           "ResonanceLevels", "lcp_da_cross_section", "lcp_resonance_levels",
-          "local_complex_potential", "resonance_eigenstate",
-          "resonance_eigenstate_at_peak_width", "resonance_levels",
-          "resonance_pole_walk",
+          "lcp_ve_cross_section", "local_complex_potential",
+          "resonance_eigenstate", "resonance_eigenstate_at_peak_width",
+          "resonance_levels", "resonance_pole_walk",
       }
       assert set(lcp.__all__) == expected
       for name in expected:
