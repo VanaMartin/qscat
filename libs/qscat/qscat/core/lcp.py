@@ -611,6 +611,26 @@ def lcp_ve_cross_section(
 ) -> tuple[_Sigma, _PsiOut]: ...
 
 
+# bool catch-all (open()-style): callers holding a runtime flag forward it
+# directly; the union return is narrowed by the Literal overloads above when
+# the flag is literal.
+@overload
+def lcp_ve_cross_section(
+    nuclear_grid: FemDvrEcsGrid,
+    mu: float,
+    Vd: npt.NDArray[np.complex128],
+    Gamma: npt.NDArray[np.float64],
+    eps: npt.NDArray[np.float64],
+    chi: npt.NDArray[np.complex128],
+    v_init: int,
+    vprimes: list[int],
+    E: float | npt.ArrayLike,
+    *,
+    ordering: _Ordering = ...,
+    return_wavefunction: bool = ...,
+) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
+
+
 def lcp_ve_cross_section(
     nuclear_grid: FemDvrEcsGrid,
     mu: float,
