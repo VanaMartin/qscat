@@ -8,8 +8,9 @@ REGULAR Riccati-Bessel function
     F_{E,l}(r) = sqrt(2/(pi k)) (k r) j_l(k r) = sqrt(2 k / pi) r j_l(k r)
 
 (`riccati_bessel_en`, eMoScat's `sphBesselJEn` -- `source/bessel.cpp:50`,
-equivalently `sF_en` -- `source/coulomb.cpp:75` with charge 0) and its
-OUTGOING Riccati-Hankel sibling
+equivalently `sF_en` -- `source/coulomb.cpp:75` with charge 0), with an
+optional reduced mass `mu` entering only the normalization prefactor --
+`mu=1.0` is the electron case and its OUTGOING Riccati-Hankel sibling
 
     F^{(1)}_{E,l}(r) = sqrt(2 k / pi) r h_l^{(1)}(k r),  h_l^{(1)} = j_l + i y_l
 
@@ -41,44 +42,20 @@ __all__ = [
 ]
 
 
-def riccati_bessel_en(r: npt.NDArray[np.float64], k: float, l: int) -> npt.NDArray[np.float64]:
-    """`F_{E,l}(r) = sqrt(2k/pi) r j_l(k r)`, energy-normalized at mass 1.
-
-    `r` must be REAL (see module docstring); `k = sqrt(2E) > 0`.
-    """
-    if k <= 0.0:
-        raise ValueError(f"k must be positive, got {k}")
-    rr = np.asarray(r, dtype=np.float64)
-    out: npt.NDArray[np.float64] = np.sqrt(2.0 * k / np.pi) * rr * spherical_jn(l, k * rr)
-    return out
-
-
-def riccati_hankel_en(r: npt.NDArray[np.float64], k: float, l: int) -> npt.NDArray[np.complex128]:
-    """`F^{(1)}_{E,l}(r) = sqrt(2k/pi) r h_l^{(1)}(k r)`, energy-normalized, mass 1.
-
-    `h_l^{(1)} = j_l + i y_l` is the OUTGOING spherical Hankel function, so
-    `Re(F^{(1)}) == riccati_bessel_en` and `Im(F^{(1)}) = sqrt(2k/pi) r y_l(k r)`.
-    `r` must be REAL (see module docstring); `k = sqrt(2E) > 0`.
-    """
-    if k <= 0.0:
-        raise ValueError(f"k must be positive, got {k}")
-    rr = np.asarray(r, dtype=np.float64)
-    h1_l = spherical_jn(l, k * rr) + 1j * spherical_yn(l, k * rr)
-    out: npt.NDArray[np.complex128] = np.sqrt(2.0 * k / np.pi) * rr.astype(np.complex128) * h1_l
-    return out
-
-
-def riccati_bessel_en_mass(
-    r: npt.NDArray[np.float64], k: float, l: int, mu: float
+def riccati_bessel_en(
+    r: npt.NDArray[np.float64], k: float, l: int, mu: float = 1.0
 ) -> npt.NDArray[np.float64]:
     """`F_{E,l}(r) = sqrt(2 mu k / pi) r j_l(k r)`, energy-normalized at mass `mu`.
 
-    The mass-`mu` generalization of `riccati_bessel_en` (which is the `mu=1`
-    case): the energy-normalized (`<F_E|F_E'> = delta(E-E')`) regular radial
-    solution for a particle of reduced mass `mu` and momentum `k = sqrt(2 mu E)`.
-    Used for the OUTGOING NUCLEAR dissociation wave in the DA/DR exit channel
-    (eMoScat `bessel::s_jEn(R, K, mu, l)`). `r` must be REAL (channel
-    projections are masked to the unscaled region); `k>0`, `mu>0`.
+    The energy-normalized (`<F_E|F_E'> = delta(E-E')`) REGULAR radial
+    solution for a particle of reduced mass `mu` and momentum
+    `k = sqrt(2 mu E)`. `mu=1.0` (the default) is the electron case --
+    bit-for-bit the historical mass-1 function, since `2.0*1.0 == 2.0`
+    exactly and `mu` enters ONLY the normalization prefactor, never the
+    momentum argument `k r`. `mu != 1` is the nuclear case, used for the
+    OUTGOING NUCLEAR dissociation wave in the DA/DR exit channel (eMoScat
+    `bessel::s_jEn(R, K, mu, l)`). `r` must be REAL (see module docstring);
+    `k > 0`, `mu > 0`.
     """
     if k <= 0.0:
         raise ValueError(f"k must be positive, got {k}")
@@ -89,25 +66,23 @@ def riccati_bessel_en_mass(
     return out
 
 
-def riccati_hankel_en_mass(
-    r: npt.NDArray[np.float64], k: float, l: int, mu: float
+def riccati_hankel_en(
+    r: npt.NDArray[np.float64], k: float, l: int, mu: float = 1.0
 ) -> npt.NDArray[np.complex128]:
-    """`F^{(1)}_{E,l}(r) = sqrt(2 mu k / pi) r h_l^{(1)}(k r)`, energy-normalized,
-    mass `mu`.
+    """`F^{(1)}_{E,l}(r) = sqrt(2 mu k / pi) r h_l^{(1)}(k r)`, energy-normalized
+    at mass `mu`, `h_l^{(1)} = j_l + i y_l` the OUTGOING spherical Hankel
+    function.
 
-    The mass-`mu` generalization of `riccati_hankel_en` (which is the `mu=1`
-    case, reproduced bit-for-bit here since `2.0*1.0 == 2.0` exactly), the
-    same way `riccati_bessel_en_mass` generalizes `riccati_bessel_en`: only
-    the overall `sqrt(mu)` energy-normalization prefactor changes, since
-    `h_l^{(1)}(k r) = j_l(k r) + i y_l(k r)` does not itself depend on `mu`
-    (the momentum argument is `k r`, not `mu k r` -- same convention
-    `riccati_bessel_en_mass` uses). `Re(F^{(1)}) == riccati_bessel_en_mass`
-    at the same `(r, k, l, mu)`; `Im(F^{(1)}) = sqrt(2 mu k/pi) r y_l(k r)`.
-    Used for the OUTGOING NUCLEAR dissociation wave in the DA/DR exit
-    channel's flux (Wronskian) extractor (eMoScat `bessel::sphHankel1En(R,
-    K, mu, l)` -- the nuclear-axis analog of `FluxTestFunction2d`'s `phi_out_`
-    -- see `qscat.core.td_extractors.Flux`). `r` must be REAL (channel
-    projections are masked to the unscaled region); `k>0`, `mu>0`.
+    The outgoing sibling of `riccati_bessel_en`, with the same mass
+    convention: `mu` enters only the `sqrt(mu)` normalization prefactor
+    (`2.0*1.0 == 2.0` exactly, so `mu=1.0` is bit-for-bit the historical
+    mass-1 function), never the momentum argument `k r`. So
+    `Re(F^{(1)}) == riccati_bessel_en` and `Im(F^{(1)}) = sqrt(2 mu k/pi)
+    r y_l(k r)` at the same `(r, k, l, mu)`. `mu != 1` drives the OUTGOING
+    NUCLEAR dissociation wave in the DA/DR flux (Wronskian) extractor
+    (eMoScat `bessel::sphHankel1En(R, K, mu, l)` -- see
+    `qscat.core.td_extractors.Flux`). `r` must be REAL (module docstring);
+    `k > 0`, `mu > 0`.
     """
     if k <= 0.0:
         raise ValueError(f"k must be positive, got {k}")
@@ -119,3 +94,21 @@ def riccati_hankel_en_mass(
         np.sqrt(2.0 * mu * k / np.pi) * rr.astype(np.complex128) * h1_l
     )
     return out
+
+
+def riccati_bessel_en_mass(
+    r: npt.NDArray[np.float64], k: float, l: int, mu: float
+) -> npt.NDArray[np.float64]:
+    """Deprecated alias for `riccati_bessel_en(r, k, l, mu)`: the mass
+    generalization lives on the base name now. Kept so existing imports
+    keep working; new code should call `riccati_bessel_en` directly."""
+    return riccati_bessel_en(r, k, l, mu)
+
+
+def riccati_hankel_en_mass(
+    r: npt.NDArray[np.float64], k: float, l: int, mu: float
+) -> npt.NDArray[np.complex128]:
+    """Deprecated alias for `riccati_hankel_en(r, k, l, mu)`: the mass
+    generalization lives on the base name now. Kept so existing imports
+    keep working; new code should call `riccati_hankel_en` directly."""
+    return riccati_hankel_en(r, k, l, mu)
