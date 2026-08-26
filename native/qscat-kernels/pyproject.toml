@@ -2,6 +2,7 @@
 name = "qscat-kernels"
 version = "0.0.0"
 description = "QSCAT compiled kernels (Rust/PyO3)"
+license = "BSD-3-Clause"
 requires-python = ">=3.12"
 
 [build-system]
