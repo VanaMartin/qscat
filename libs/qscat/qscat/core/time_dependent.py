@@ -192,8 +192,9 @@ def propagate(
     `out_channels` correlation bookkeeping that fills `PropagationResult.c`
     (kept for the existing callers/tests that read `.c` directly -- e.g. the
     N2 project's `td_propagation`/`td_cross_section` shims and
-    `observation.py`). Pass `out_channels=[]` when only `extractors` are
-    wanted (e.g. `td_ve_cross_section`'s `method="tw"` route).
+    `qscat_run.artifacts`, the serialization layer). Pass `out_channels=[]`
+    when only `extractors` are wanted (e.g. `td_ve_cross_section`'s
+    `method="tw"` route).
     """
     step = make_pade_stepper(hamiltonian, dt, order=order)
 

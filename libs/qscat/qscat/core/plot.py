@@ -8,10 +8,10 @@ Houfek's `CSVE.V00.J00` lives in `validation/n2/ti_curve.py` and calls this
 function; this module would be equally happy plotting a different
 molecule's channels, or no reference at all.
 
-`Agg` is selected before `pyplot` is imported (mirrors
-`projects/n2_2d_td_cross_section/observation.py`) so this module never
-requires a display, works headlessly in CI/tests, and never leaks a figure
-window across test runs (every call closes its `Figure`).
+`Agg` is selected before `pyplot` is imported (mirrors the serialization
+layer in `qscat_run.artifacts`) so this module never requires a display,
+works headlessly in CI/tests, and never leaks a figure window across test
+runs (every call closes its `Figure`).
 
 matplotlib is imported LAZILY inside `plot_cross_sections`, not at module
 scope: it is an OPTIONAL dependency (the `qscat[plot]` extra), so merely
