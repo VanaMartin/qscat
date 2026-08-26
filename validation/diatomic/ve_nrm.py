@@ -27,7 +27,7 @@ itself is small. `test_ve_nrm.py` measures both and keeps them apart.
 FOUR ROUTES per (molecule, v'):
   exact  -- `qscat.core.driven.ve_cross_section`, the 2-D oracle
   lcp    -- `qscat.core.lcp.local_complex_potential` +
-            `projects.n2_ti_cross_section.ve_cross_section`
+            `qscat.core.lcp.lcp_ve_cross_section`
   A      -- NRM, `PhysicalDiscreteState` (the scattering function at
             Re E_res(R)), with and without the Eq. (37) background
   B      -- NRM, `AsymptoticDiscreteState` (the R-independent bound state),
@@ -55,7 +55,7 @@ import numpy as np
 import numpy.typing as npt
 from qscat.core.driven import ve_cross_section as exact_ve_cross_section
 from qscat.core.grids import electronic_grid
-from qscat.core.lcp import local_complex_potential
+from qscat.core.lcp import lcp_ve_cross_section, local_complex_potential
 from qscat.core.nrm import (
     AsymptoticDiscreteState,
     DiscreteState,
@@ -68,10 +68,6 @@ from qscat.core.vibrational import vibrational_states
 from qscat.dvr import FemDvrEcsGrid, TensorGrid
 from qscat.model import ResonanceModel
 from qscat_run.presets import MODELS, PRESETS
-
-from projects.n2_ti_cross_section.cross_section import (
-    ve_cross_section as lcp_ve_cross_section,
-)
 
 from .config import CONFIGS
 

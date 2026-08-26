@@ -6,9 +6,9 @@ and the task brief: because
 `S_TD(E) = (1/i)*integral_0^inf exp(i*E_tot*t)*<d_v'|exp(-i*H_res*t)|d_v> dt`
 equals `S_TI(E) = <d_v'|(E_tot-H_res)^-1|d_v>` in the long-time limit, TD sigma
 (`projects.n2_td_cross_section.td_cross_section.td_ve_cross_section`) is
-checked against the already-validated TI oracle
-(`projects.n2_ti_cross_section.cross_section.ve_cross_section`) -- an EXACT
-differential oracle, not a loose cross-model comparison.
+checked against the already-validated TI oracle, the graduated
+`qscat.core.lcp.lcp_ve_cross_section` -- an EXACT differential oracle, not a
+loose cross-model comparison.
 
 - **V1 (TD ~= TI):** at (E=0.1 Ha, v'=1) and (E=0.2 Ha, v'=2), sigma_TD at a
   tuned, converged (dt, n_steps) matches sigma_TI to `rtol <= 0.10`; sigma_TD
@@ -33,10 +33,10 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from qscat.core.lcp import lcp_ve_cross_section as ve_cross_section
 from qscat.model import N2
 
 from projects.n2_td_cross_section.td_cross_section import td_ve_cross_section
-from projects.n2_ti_cross_section.cross_section import ve_cross_section
 from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 from projects.n2_ti_cross_section.vres import vres_on_grid

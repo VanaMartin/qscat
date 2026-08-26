@@ -4,14 +4,15 @@ GENERALLY classified as GATED (real PASS/FAIL) or DOCUMENTED-LIMITED (an
 informational NOTE naming the mechanism, never a FAIL).
 
 Layering note: the rule is one-directional -- `validation/` may import
-`projects/`, `projects/` must not import `validation/`. This module takes the
-allowed direction, importing the TI solver package-absolute
-(`projects.n2_ti_cross_section`); the object under test for C5 *is* that
-project's resolvent/driven-equation solver, so there is nothing to keep
-independent of it here. The FORBIDDEN direction -- `projects/` importing
-`validation/` -- is the one kept clean, enforced by
-`tests/test_layering.py`: no module under `projects/` imports
-`validation/`.
+`projects/`, `projects/` must not import `validation/`. The object under
+test for C5 is the graduated LCP VE solver, `qscat.core.lcp.
+lcp_ve_cross_section` (imported here as `ve_cross_section`); the `V_d(R)`/
+`Gamma(R)` pole-walk inputs it consumes still come from this project's own
+`vres_on_grid` (`projects.n2_ti_cross_section.vres`), so this module still
+takes the allowed `validation/` -> `projects/` direction for that piece. The
+FORBIDDEN direction -- `projects/` importing `validation/` -- is the one
+kept clean, enforced by `tests/test_layering.py`: no module under
+`projects/` imports `validation/`.
 
 Classification, decided GENERALLY
 from the anchor's `(energy, channel)`, never by hardcoding which of the 6
@@ -52,9 +53,9 @@ from pathlib import Path
 
 import numpy as np
 import numpy.typing as npt
+from qscat.core.lcp import lcp_ve_cross_section as ve_cross_section
 from qscat.dvr import FemDvrEcsGrid
 
-from projects.n2_ti_cross_section.cross_section import ve_cross_section
 from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 from projects.n2_ti_cross_section.vres import vres_on_grid
