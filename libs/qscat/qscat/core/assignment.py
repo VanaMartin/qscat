@@ -33,7 +33,9 @@ state is mixing across a gap, not that it is that level shifted.
 
 ## What the verdicts mean
 
-`pair_by_overlap` returns one of seven, in priority order:
+`pair_by_overlap` returns one of seven, in priority order. The seven strings
+are the `Verdict` Literal (this module's single source of the legal values);
+the table below explains them.
 
 | verdict | meaning |
 |---|---|
@@ -83,6 +85,7 @@ separate cleanly before trusting the verdicts.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal
 
 import numpy as np
 import numpy.typing as npt
@@ -102,12 +105,27 @@ __all__ = [
     "WEAK",
     "OverlapPair",
     "PeakAlignment",
+    "Verdict",
     "overlap",
     "pair_by_overlap",
     "pair_one_to_one",
     "peak_alignment",
     "peak_positions",
     "real_weight",
+]
+
+# The seven verdicts `pair_by_overlap` can return, in priority order -- THE
+# single source of the legal values. The module docstring's table ("What the
+# verdicts mean") explains each one; `OverlapPair.verdict` is typed with this
+# and the assignment chain in `pair_by_overlap` is checked against it.
+Verdict = Literal[
+    "ok",
+    "spurious",
+    "basis-limited",
+    "box-limited",
+    "weak",
+    "mixed",
+    "distant",
 ]
 
 # An overlap below this is "no partner in this basis". On its own it does NOT
@@ -151,7 +169,7 @@ class OverlapPair:
     second_overlap: float
     shift_ev: float  # Re E - level energy, in eV (NaN when level is None)
     # ok | spurious | basis-limited | box-limited | weak | mixed | distant
-    verdict: str
+    verdict: Verdict
 
     @property
     def shift_mev(self) -> float:
@@ -351,6 +369,8 @@ def pair_by_overlap(
     else:
         covered = False
 
+    verdict: Verdict
+    level: tuple[int, int] | None
     if best_v < weak and not covered:
         verdict, level = "basis-limited", None
     elif best_v < no_partner:

@@ -22,7 +22,7 @@ from __future__ import annotations
 import math
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, get_args
 
 import numpy as np
 import numpy.typing as npt
@@ -41,6 +41,12 @@ if TYPE_CHECKING:
 __all__ = ["propose_grid"]
 
 Coordinate = Literal["nuclear", "electronic"]
+
+# The two physical channels the mesh can target (propose_grid's docstring).
+# Same style/status as `Coordinate` above: an annotation vocabulary, not in
+# `__all__`. The runtime check in propose_grid validates against get_args of
+# this Literal so the two layers cannot drift.
+Channel = Literal["ve", "dissociation"]
 
 # Real-region cutoff defaults (bohr), in the ranges the eMoScat decks use
 # (14-22 bohr nuclear, ~16-30 bohr electronic). Each is a fixed starting
@@ -357,7 +363,7 @@ def propose_grid(
     rtol: float = 1e-3,
     incident: object | None = None,
     phase_coeff: float | None = None,
-    channel: str = "ve",
+    channel: Channel = "ve",
     elec_grids: tuple[FemDvrEcsGrid, FemDvrEcsGrid] | None = None,
     resonance_n_dense: int = 25,
 ) -> FemDvrEcsGrid:
@@ -443,7 +449,7 @@ def propose_grid(
     """
     del rtol  # interface parity with the probe/refine loop; unused here
 
-    if channel not in ("ve", "dissociation"):
+    if channel not in get_args(Channel):
         raise ValueError(f"channel must be 've' or 'dissociation', got {channel!r}")
     if channel == "dissociation" and coordinate != "nuclear":
         raise ValueError(f"channel='dissociation' is nuclear-only, got coordinate={coordinate!r}")

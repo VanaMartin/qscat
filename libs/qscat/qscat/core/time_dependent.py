@@ -63,7 +63,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Protocol
+from typing import TYPE_CHECKING, Literal, Protocol
 
 import numpy as np
 import numpy.typing as npt
@@ -119,6 +119,13 @@ class Extractor(Protocol):
 # outgoing test function).
 _WpIn = dict[str, float]
 _WpOut = dict[str, float]
+
+# The three TD energy-extraction methods (see td_extractors.py's module
+# docstring for the transforms). The Literal is the mypy/IDE layer; the
+# dispatch `raise ValueError` paths in td_ve_cross_section /
+# td_da_cross_section stay as the runtime layer for callers holding a plain
+# str. Not in `__all__`: an annotation vocabulary, not an advertised name.
+Method = Literal["tw", "delta", "flow"]
 
 
 @dataclass(frozen=True)
@@ -623,7 +630,7 @@ def td_ve_cross_section(
     wp_out: _WpOut,
     order: int = 3,
     subtract_free_reference: bool = True,
-    method: str = "tw",
+    method: Method = "tw",
     position: int | None = None,
     surface: int | None = None,
 ) -> npt.NDArray[np.float64]:
@@ -816,7 +823,7 @@ def td_da_cross_section(
     dt: float,
     n_steps: int,
     wp_in: _WpIn,
-    method: str = "flow",
+    method: Method = "flow",
     surface: int | None = None,
     position: int | None = None,
     wp_out: _WpOut | None = None,
