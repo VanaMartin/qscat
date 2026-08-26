@@ -544,7 +544,8 @@ def validate_config(cfg: ExperimentConfig) -> None:
     Checks, in order: molecule known -> methods are a non-empty subset of
     `VALID_METHODS` -> observables non-empty and each valid for the molecule
     -> `td` block present iff `"td" in methods` -> `lcp`/`nrm` each get the
-    grid form and molecule they need -> `td.extractors` all known
+    grid form and molecule they need, `nrm` additionally requiring a `ve`/`da`
+    observable -> `td.extractors` all known
     -> an explicit grid supplies both `electronic` and `nuclear` -> a named
     preset (if given, with no explicit grid) exists for the molecule ->
     each `reference` entry names a known `format`, resolves to a file that
