@@ -20,6 +20,7 @@ downstream (`analyze_potential` -> `optimal_real_mesh` -> `max_stable_angle`
 from __future__ import annotations
 
 import math
+import warnings
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal, get_args
@@ -147,19 +148,10 @@ _RESONANCE_ELEC_ANGLE_B = 44.0
 
 @dataclass(frozen=True)
 class _CoordinateSpec:
-    """What the model adapter hands the coordinate-independent pipeline.
-
-    `charge` is not consumed by this pipeline (the potential callable `V`
-    already embeds any Coulomb tail for a charged residual channel -- see
-    `qscat.model.IonicResonanceModel`). It is carried here so a future
-    consumer (e.g. a channel-representation probe run on top of this grid)
-    can read it off the same adapter output rather than re-deriving it from
-    the model.
-    """
+    """What the model adapter hands the coordinate-independent pipeline."""
 
     V: PotentialFn
     mass: float
-    charge: int
     x_min: float
     x_max: float
     channel_k: float
@@ -176,7 +168,6 @@ def _nuclear_adapter(model: ResonanceModel, e_max: float) -> _CoordinateSpec:
     return _CoordinateSpec(
         V=model.v0,
         mass=model.mu,
-        charge=0,  # the nuclear channel itself carries no Coulomb charge
         x_min=0.0,
         x_max=_NUCLEAR_X_MAX_DEFAULT,
         channel_k=math.sqrt(2.0 * model.mu * e_max),
@@ -202,8 +193,8 @@ def _electronic_adapter(model: ResonanceModel, e_max: float) -> _CoordinateSpec:
     `V(r) = model.surface(r, R_eq) - model.v0(R_eq)` at the neutral-curve
     well minimum `R_eq` (subtracting off the R-dependent neutral-curve
     constant so the profile reflects only the centrifugal + interaction
-    terms an electron at fixed R_eq feels), mass 1, incident wavenumber
-    `k = sqrt(2*e_max)`, and the model's residual-channel `charge`.
+    terms an electron at fixed R_eq feels), mass 1, and incident wavenumber
+    `k = sqrt(2*e_max)`.
     """
     r_eq = _well_minimum(model)
 
@@ -213,7 +204,6 @@ def _electronic_adapter(model: ResonanceModel, e_max: float) -> _CoordinateSpec:
     return _CoordinateSpec(
         V=v_elec,
         mass=1.0,
-        charge=model.charge,
         x_min=0.0,
         x_max=_ELECTRONIC_X_MAX_DEFAULT,
         channel_k=math.sqrt(2.0 * e_max),
@@ -362,7 +352,7 @@ def propose_grid(
     coordinate: Coordinate,
     energy_range: tuple[float, float],
     *,
-    rtol: float = 1e-3,
+    rtol: float | None = None,
     incident: IncidentSpec | None = None,
     phase_coeff: float | None = None,
     channel: Channel = "ve",
@@ -380,9 +370,8 @@ def propose_grid(
     the resulting real + tail `ElementSpec` list becomes a `GridSpec` /
     `FemDvrEcsGrid`.
 
-    `rtol` is accepted for interface parity with the probe/refine loop this
-    feeds (the `discretisation-tuner` skill); this a-priori assembler itself
-    does not probe or refine -- it has no eigensolve to converge.
+    `rtol` is deprecated: it was never consumed (this a-priori assembler has
+    no eigensolve to converge) and will be removed in a future release.
 
     `phase_coeff`, if given, overrides `optimal_real_mesh`'s calibrated
     default de-Broglie phase-per-`(order-1)` constant `C` -- the knob
@@ -447,7 +436,14 @@ def propose_grid(
       the resonance-aware path is nuclear-only.
     - any other value raises `ValueError`.
     """
-    del rtol  # interface parity with the probe/refine loop; unused here
+    if rtol is not None:
+        warnings.warn(
+            "propose_grid(rtol=...) was never consumed (the a-priori assembler "
+            "has no eigensolve to converge) and will be removed; pass rtol to "
+            "the probe/refine loop instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
     if channel not in get_args(Channel):
         raise ValueError(f"channel must be 've' or 'dissociation', got {channel!r}")
