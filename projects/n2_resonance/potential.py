@@ -1,14 +1,13 @@
 """N2 electronic potentials for the ²Π_g resonance pole search (sub-project #2).
 
-Same physics as the already-validated `validation/n2/model.py`: closed-form
-LCP potentials extracted from reference/eMoScat, verified there against
-`model_checks()`. This module re-implements the same formulas (not shared
-code) but loads parameters from the same `validation/n2/config.json`.
-Consistency between the two independent implementations is NOT guaranteed
-by construction -- the formulas could still silently drift apart on edit --
-it is guaranteed BY TEST: `test_potential.py::test_matches_reference_model_to_1e_12`
-cross-checks this module against `validation/n2/model.py` to 1e-12 on every
-change.
+Same physics as `qscat.model.N2`: closed-form LCP potentials extracted from
+reference/eMoScat, verified there against `libs/qscat/tests/test_model.py`.
+This module re-implements the same formulas (not shared code) but builds its
+`PARAMS` from the same `qscat.model.N2` deck constants. Consistency between
+the two independent implementations is NOT guaranteed by construction -- the
+formulas could still silently drift apart on edit -- it is guaranteed BY
+TEST: `test_potential.py::test_matches_library_model_to_1e_12` cross-checks
+this module against `qscat.model.N2` to 1e-12 on every change.
 
 E_res(R)/Gamma(R) are NOT closed form (ECS eigenvalue pole) and are out of
 scope here -- that's the pole finder built on top of this potential + the
@@ -31,14 +30,29 @@ LCP-vs-Houfek-2D differences seen in the cross-section benchmark
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
-
 import numpy as np
+from qscat.model import N2
 
-PARAMS: dict = json.loads(
-    (Path(__file__).resolve().parents[2] / "validation" / "n2" / "config.json").read_text()
-)
+# The N2 deck constants, read from the layer-neutral single source
+# `qscat.model.N2` (locked to the eMoScat deck by
+# libs/qscat/tests/test_model.py). The dict shape mirrors the historical
+# validation/n2/config.json layout so existing PARAMS consumers are
+# unaffected.
+PARAMS: dict = {
+    "reduced_mass": N2.mu,
+    "impulsemomentum": N2.ell,
+    "potential": {
+        "D_0": N2.D0,
+        "alpha_0": N2.alpha0,
+        "R_0": N2.R0,
+        "lambda_inf": N2.lambda_inf,
+        "lambda_1": N2.lambda_1,
+        "R_lambda": N2.R_lambda,
+        "lambda_c": N2.lambda_c,
+        "R_c": N2.R_c,
+        "alpha_c": N2.alpha_c,
+    },
+}
 
 
 def v0(R):
