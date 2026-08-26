@@ -457,7 +457,7 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               `n2_2d_cross_section` — an incident Gaussian wavepacket
               `g(r) chi_0(R)` propagated under `H_2D`
               (`wavepacket.py`/`td_propagation.py`/`correlation.py`/
-              `td_cross_section.py`/`convergence.py`/`observation.py`),
+              `td_cross_section.py`/`convergence.py`),
               validated against the exact 2-D solver as an exact differential
               oracle (σ_TD/σ_TI = 0.973 at E=0.10, 0.988 at E=0.15 — measured
               2026-08-17 by `validation.n2.experiment` group F1). The

@@ -2,7 +2,7 @@
 
 **Location:** `qscat.evolution.make_sparse_cn_stepper` (the general sparse propagator),
 `projects/n2_2d_td_cross_section/` (`wavepacket.py`, `td_propagation.py`, `correlation.py`,
-`td_cross_section.py`, `convergence.py`, `observation.py`), `validation/n2/td_exact2d.py`
+`td_cross_section.py`, `convergence.py`), `validation/n2/td_exact2d.py`
 (the harness's Group F wiring), `validation/n2/experiment.py` (Group F).
 **Origin:** the same 2-D (electronic `r` × nuclear `R`) electron-N₂ ²Π_g shape-resonance
 model as `docs/physics/n2-2d-cross-section.md` (sub-project #6) — same potential surface
@@ -226,11 +226,22 @@ error was a solver artefact; the note explained it as a property of the method. 
 order-3 Padé (the default since) the same energies track the exact oracle — see the measured
 table below, where nothing in the tested range departs by more than a few percent. The
 `plot_sigma_vs_ti` "finite-T unresolved" region that rendered this claim has been removed
-from `observation.py` along with the `validated_anchors` mechanism that existed only to
-except two energies from it.
+along with the `validated_anchors` mechanism that existed only to except two energies from
+it.
 
 The usable spectral window above is real and remains; it is a genuine amplitude/SNR limit.
 It was the *second* region that never existed.
+
+**`observation.py` has been retired into `qscat_run.artifacts`.** Every capability it
+provided now has a home in the `qscat-run` config/artifact pipeline, with two losses
+accepted along the way:
+
+| `observation.py` capability | Replacement in `qscat_run` |
+|---|---|
+| `save_numeric_outputs` (`t`/`c`/`sigma_E` npz + dt/wp metadata) | `artifacts.py`: `cross_section.{csv,npz}` (sigma per key), `correlations.npz` (raw per-step `t`/`c` — `artifacts.correlations: true`), `config.resolved.yaml` + `manifest.json` (dt/wp/grid provenance) |
+| `plot_snapshots` (rho(R,t)/rho(r,t) panels, real-region-masked, R0 marked) | `artifacts.py`: `wavefunction/psi_*.{npz,png}` via `artifacts.wavefunction_snapshots.td_times` |
+| `plot_correlation` (per-channel c(t) figure) | `correlations.npz` raw series (npz only — no committed figure; accepted, the arrays are the deliverable) |
+| `plot_sigma_vs_ti` (TD-vs-TI overlay + usable-window shading) | `cross_section.png` overlays `ti:`/`td:` keys from a `methods: [ti, td]` run + `reference:` overlays. NOT replaced: the `usable_window` shading (the function itself survives in `projects/n2_2d_td_cross_section/convergence.py`) and the `norm(t)` decay panel — both recorded as accepted losses |
 
 **The `r_max = 50` box caveat.** The electronic grid's ECS pivot `r_max = 50` was sized by
 physical reasoning (`wp_in`'s `r0=25` and `wp_out`'s `r0_out=35` both fit comfortably
@@ -404,8 +415,6 @@ to-rust-kernel`), to be taken up only once a hot path is proven and there is a r
 - `projects/n2_2d_td_cross_section/test_td_convergence.py` (`@pytest.mark.slow` x1 + 1
   cheap): the full `sigma(E)` curve from one propagation matches `sigma_TI` on the smooth
   branch — **PASS**.
-- `projects/n2_2d_td_cross_section/test_observation.py` (9 fast tests, ~12s): `.npz`
-  round-trip self-consistency (V5), figure-generation smoke tests — **PASS**.
 - `validation/n2/experiment.py` Group F: 2 recorded **NOTE** rows (never gating); harness
   totals with Group F added: **23 PASS, 0 PENDING, 6 NOTE, 0 FAIL**, exit code `0` — no
   regression of the pre-existing 23 PASS / 0 PENDING / 4 NOTE / 0 FAIL.
