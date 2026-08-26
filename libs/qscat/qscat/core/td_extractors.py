@@ -92,7 +92,7 @@ tgrid.grids[1].R0`), but `record` keeps only the point VALUE, no derivative:
 the ELECTRONIC axis at fixed nuclear node `position`) -- the direct nuclear-
 axis transpose of the electronic `Dirac`'s `b_{v'}(t) = <chi_{v'}|
 psi(position,.)> / sqrt(w_r[position])`. Its `sigma` is the electronic
-delta transform's nuclear-axis twin: `eta_out_c -> hankel_point_value(g_nuc,
+delta transform's nuclear-axis twin: `eta_out_c -> hankel_point_value(
 R_position, K_R, l=0, model.charge, mass=mu_R)` (the point-VALUE half-Hankel,
 not `outgoing_surface_wave`'s Wronskian pair -- a delta test function has no
 derivative side), `K_R = sqrt(2 mu_R (E_tot - eps_e_c))`, `mu_R = model.mu`,
@@ -441,7 +441,7 @@ def _dirac_sigma_one_energy(
 
     def s_vec(res: PropagationResult) -> npt.NDArray[np.complex128]:
         channel_s = correlation_channel_s(
-            lambda kp: hankel_point_value(grid, z_position, kp, model.ell, model.charge),
+            lambda kp: hankel_point_value(z_position, kp, model.ell, model.charge),
             res.c,
             dt,
         )
@@ -474,7 +474,7 @@ def _dirac_da_sigma_one_energy(
     `l=0`); `elastic=None` (no free-reference -- DA has no `v'==v_init`
     diagonal), same `_C_DA = pi` convention."""
     channel_s = correlation_channel_s(
-        lambda k_r: hankel_point_value(g_nuc, R_position, k_r, 0, model.charge, mass=mu_r),
+        lambda k_r: hankel_point_value(R_position, k_r, 0, model.charge, mass=mu_r),
         result.c,
         dt,
     )
@@ -736,7 +736,7 @@ def _flux_sigma_one_energy(
         d_a: npt.NDArray[np.complex128],
     ) -> npt.NDArray[np.complex128]:
         channel_s = flux_channel_s(
-            lambda kp: outgoing_surface_wave(grid, z_surface, kp, model.ell, model.charge),
+            lambda kp: outgoing_surface_wave(z_surface, kp, model.ell, model.charge),
             b_a,
             d_a,
             dt,
@@ -772,7 +772,7 @@ def _flux_da_sigma_one_energy(
     element with the outgoing wave moved to the nuclear axis (mass `mu_r`,
     `l=0`); `elastic=None` (DA has no `v'==v_init` diagonal)."""
     channel_s = flux_channel_s(
-        lambda k_r: outgoing_surface_wave(g_nuc, R_surface, k_r, 0, model.charge, mass=mu_r),
+        lambda k_r: outgoing_surface_wave(R_surface, k_r, 0, model.charge, mass=mu_r),
         b,
         d,
         dt,
