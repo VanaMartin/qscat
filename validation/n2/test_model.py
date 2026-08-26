@@ -1,6 +1,33 @@
 import numpy as np
+from qscat.model import N2
 
 from validation.n2 import model
+
+
+def test_model_is_the_library_model():
+    """Identity, not lockstep: re-introducing a local copy makes these stop
+    BEING the library methods and fails immediately (the test_resonance.py
+    pattern; bound-method == compares function and instance)."""
+    assert model.v0 == N2.v0
+    assert model.lam == N2.lam
+    assert model.v_int == N2.v_int
+
+
+def test_params_match_the_library_fields_exactly():
+    p = model.PARAMS
+    assert p["reduced_mass"] == N2.mu
+    assert p["impulsemomentum"] == N2.ell
+    assert p["potential"] == {
+        "D_0": N2.D0,
+        "alpha_0": N2.alpha0,
+        "R_0": N2.R0,
+        "lambda_inf": N2.lambda_inf,
+        "lambda_1": N2.lambda_1,
+        "R_lambda": N2.R_lambda,
+        "lambda_c": N2.lambda_c,
+        "R_c": N2.R_c,
+        "alpha_c": N2.alpha_c,
+    }
 
 
 def test_morse_minimum_and_depth():
