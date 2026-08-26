@@ -9,6 +9,8 @@ __pycache__/
 .ruff_cache/
 dist/
 build/
+.coverage
+htmlcov/
 # Rust
 target/
 Cargo.lock
