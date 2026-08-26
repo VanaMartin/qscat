@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 from qscat.model import F2, N2
 from qscat.tuning import interaction_region
 
@@ -38,11 +39,11 @@ def _elec_grids():
 
 def test_resonance_curve_dense_interaction_sparse_far():
     from qscat.model import F2
-    from qscat.tuning import interaction_region, resonance_curve
+    from qscat.tuning import interaction_region, resonance_curve_arrays
 
     ga, gb = _elec_grids()
     R_lo, R_hi = interaction_region(F2)
-    R, Vd, G = resonance_curve(F2, ga, gb, R_max=22.0, n_dense=20)
+    R, Vd, G = resonance_curve_arrays(F2, ga, gb, R_max=22.0, n_dense=20)
     # most samples land inside the interaction region; the far region is sparse (~1 pt near R_max)
     inside = (R >= R_lo) & (R <= R_hi)
     far = R > R_hi + 1.0
@@ -52,3 +53,17 @@ def test_resonance_curve_dense_interaction_sparse_far():
     # Gamma peaks inside the interaction region (the resonance), ~0 far
     far_peak = G[far].max() if far.any() else 0.0
     assert G[inside].max() > 10 * far_peak + 1e-12
+
+
+def test_resonance_curve_is_a_deprecated_alias_at_both_import_paths():
+    """lib-C3 rename (2026-08-25): both public paths to the old name warn and
+    resolve to `resonance_curve_arrays` for one release cycle (ADR 0004)."""
+    import qscat.tuning
+    from qscat.tuning import resonance
+
+    with pytest.warns(DeprecationWarning, match="resonance_curve_arrays"):
+        old_mod = resonance.resonance_curve
+    with pytest.warns(DeprecationWarning, match="resonance_curve_arrays"):
+        old_pkg = qscat.tuning.resonance_curve
+    assert old_mod is resonance.resonance_curve_arrays
+    assert old_pkg is resonance.resonance_curve_arrays

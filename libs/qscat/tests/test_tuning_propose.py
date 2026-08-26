@@ -15,7 +15,7 @@ from qscat.tuning import (
     propose_grid,
     refine,
 )
-from qscat.tuning.resonance import resonance_curve
+from qscat.tuning.resonance import resonance_curve_arrays
 
 
 def test_propose_grid_nuclear_n2_is_a_valid_grid_in_a_sane_range():
@@ -117,7 +117,7 @@ def test_resonant_nuclear_mesh_order_and_crossing_refinement():
 
     # Independently reproduce K_exit/order the same way propose_grid does
     # internally, from the SAME (small, fast) resonance curve.
-    R, Vd, _Gamma = resonance_curve(F2, *small_elec, R_max=12.0, n_dense=resonance_n_dense)
+    R, Vd, _Gamma = resonance_curve_arrays(F2, *small_elec, R_max=12.0, n_dense=resonance_n_dense)
     Vd_real = np.real(Vd)
     vd_asym = float(Vd_real[-1])
     K_exit = math.sqrt(2.0 * F2.mu * max(e_max - vd_asym, e_max))
