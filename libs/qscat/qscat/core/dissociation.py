@@ -425,7 +425,8 @@ def dr_cross_section(
     # -- exactly the reuse `da_cross_section` already performs. Its VE
     # sigma for the [v_init] channel is discarded; the extra cost is one
     # exit `channel_vector` + c-product per energy, marginal next to the
-    # factorization.
+    # factorization at production scale -- on the small H2+ proxy deck the
+    # mpmath Coulomb builds inside `channel_vector` dominate instead.
     _, psis = ve_cross_section(
         tgrid,
         model,
