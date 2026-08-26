@@ -477,8 +477,18 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
             - `potential_factory`: the toy-stage POTENTIAL FACTORY — fits a
               `FlexibleDiatomicModel` (EMO `v0` + Gaussian well with `lam(R)`
               AND `alpha(R)` + optional shell; embeds N2/NO/F2 exactly) to a
-              tiered `Target` (T0 neutral curve, T1 pole curves, T3 the
-              published energy-dependent width) in stages that stop-and-report.
+              tiered `Target` (T0 neutral curve, T1 pole curves, `asymptote`,
+              T3 the published energy-dependent width) in stages that
+              stop-and-report. `lam(R)` is either Houfek's sigmoid `SmoothR`
+              (the published models) or the long-range-correct `TailR`
+              (`f_inf + (1 − y_q)·P(y_p)`, dies as `R^−q`; O₂ needs it — the
+              sigmoid could hold the table OR the asymptote, not both). The
+              ASYMPTOTE is theory, not the figure: `V_0(∞) = 0`, `V_ion(∞) =
+              −EA` (atomic) through a declared tail (`polarisation_tail`,
+              `−α_d/2R⁴`), valid from a PER-MOLECULE `ResonanceTarget.R_inf`
+              the operator sets from the literature; pinned at `R_inf`,
+              2.2 `R_inf`, 5 `R_inf` in the polish and gated as its own tier
+              (one node at 10 bohr used to leave V_ion 0.2 eV off at 20).
               Proven by round-tripping the existing models' OWN calculated
               curves (`extract_target`) back to their constants/curves. Nothing
               is fitted to experiment — see docs/physics/potential-factory.md.
@@ -537,12 +547,16 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               Also the O₂ IMAGE MATCH (`fit_o2.py`, `targets/o2.py`,
               `extract_fig2.py`): Alt & Houfek 2021's Fig. 2 is vector-extracted
               from the PDF (precision ~0.02 eV, no digitising), and the factory
-              fits it to T0 met / T1 E_res rms 74 meV, Γ 7 % / crossing 2.289
-              / T3 open — the T3 width comparison is not discrete-state-
-              consistent (choice B vs the paper's Breit–Wigner pole width),
-              and O₂'s bound branch needs a better-conditioned λ(R) form.
-              Nothing is compared with experiment — see
-              docs/physics/potential-factory.md.
+              fits it over the FULL 1.85–6 bohr range to T0 met / T1 MET
+              (E_res rms 20 meV = the extraction floor, Γ 8 %/14 %) / asymptote
+              met (R_inf = 14 bohr, α_d(O) = 5.3 a.u.) / crossing 2.289 — in
+              87 s on the laptop — with T3 open (not discrete-state-consistent:
+              choice B vs the paper's Breit–Wigner pole width). `o2_levels.py`
+              is the SPECTRAL CHECK, the metric that predicts the VE figure:
+              the anion's quasi-bound levels in the fitted vs the extracted
+              curve — peak positions within ±7 meV over v = 0..24 (0–2.3 eV),
+              widths within ~10 % (`results/o2-anion-levels.csv`). Nothing is
+              compared with experiment — see docs/physics/potential-factory.md.
             - `validation/diatomic/`: the NO and F₂ exact-2D VE/DA/LCP cross
               sections — the model port, the first consumers of sub-project A
               beyond N₂. The per-molecule *curve/figure drivers* were RETIRED in

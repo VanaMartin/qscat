@@ -20,6 +20,7 @@ from scipy.special import expit
 from projects.potential_factory.ansatz import (
     FlexibleDiatomicModel,
     SmoothR,
+    TailR,
     pack,
     params,
     unpack,
@@ -42,9 +43,22 @@ from projects.potential_factory.tracker import (
     well_potential,
 )
 
-__all__ = ["fit", "fit_coupling", "fit_neutral", "fit_resonance", "model_gamma_tilde"]
+__all__ = [
+    "check_asymptote",
+    "fit",
+    "fit_coupling",
+    "fit_neutral",
+    "fit_resonance",
+    "model_gamma_tilde",
+]
 
-_R_INF = 10.0
+# How many polish/verification nodes are laid between the table's far end
+# and the target's `R_inf` (geometrically spaced), and how far beyond
+# `R_inf` the asymptote is VERIFIED -- a sigmoid whose inflection has run
+# off to large R can hold `-EA` at `R_inf` and still be 0.2 eV off at
+# `5 R_inf` (measured on O2 with a single node at 10 bohr).
+_N_ASYMPTOTIC_NODES = 3
+_FAR_FACTOR = 5.0
 # What one node of `_joint_polish` costs when it yields no gated pole
 # at all. ~1000x a converged per-node residual, so a
 # trial that loses nodes is rejected outright -- see `_joint_polish`.
@@ -211,7 +225,7 @@ def fit_neutral(
     )
 
 
-def _grow_coeffs(s: SmoothR, n: int) -> SmoothR:
+def _grow_coeffs(s: SmoothR | TailR, n: int) -> SmoothR | TailR:
     c = list(s.coeffs) + [0.0] * max(0, n - len(s.coeffs))
     return replace(s, coeffs=tuple(c[:n]))
 
@@ -227,8 +241,8 @@ def _smooth_rel_rms(resid_arr: np.ndarray, y: np.ndarray) -> float:
 
 
 def _smooth_reparam(
-    s: SmoothR, R_min: float, R_max: float
-) -> tuple[np.ndarray, list[float], list[float], Callable[[np.ndarray], SmoothR]]:
+    s: SmoothR | TailR, R_min: float, R_max: float
+) -> tuple[np.ndarray, list[float], list[float], Callable[[np.ndarray], SmoothR | TailR]]:
     """The log-amplitude reparametrization of ONE `SmoothR`:
     `(x0, lo, hi, decode)` where `decode(x) -> SmoothR` maps a flat vector
     back to the dataclass. `f_0 == 0` (an R-INDEPENDENT term -- every
@@ -244,15 +258,25 @@ def _smooth_reparam(
     `least_squares`); keep the two in step.
     """
     n_c = len(s.coeffs)
-    if s.f_0 != 0.0:
+    if isinstance(s, SmoothR) and s.f_0 != 0.0:
         sign0 = 1.0 if s.f_0 >= 0.0 else -1.0
         log_amp0 = float(np.log(abs(s.f_0)))
         # See `_fit_smooth`'s docstring: these bounds are generous safety
         # rails against float64 `exp` overflow during a multi-start, never
         # physically motivated ones.
         f1_cap = 700.0 / max(1.0, (R_max - R_min) + 20.0)
-        x0 = np.array([s.f_inf, log_amp0, s.f_1, s.R_f, *list(s.coeffs)], dtype=np.float64)
-        lo = [-np.inf, log_amp0 - 40.0, 1e-6, -np.inf] + [-np.inf] * n_c
+        # The sigmoid must switch over no more than the node range: below
+        # `1/(R_max - R_min)` it is a constant over the data, degenerate
+        # with `f_inf`, and the optimizer parks there with the polynomial
+        # carrying the whole curve on O(100) coefficients (measured on
+        # O2: `f_1 = 1e-6`, `R_f = 25`). Every published lam(R) here has
+        # `f_1 >= 1.06` over a range under 1.5 bohr, well above the floor.
+        f1_floor = min(1.0 / max(R_max - R_min, 1e-9), f1_cap)
+        x0 = np.array(
+            [s.f_inf, log_amp0, float(np.clip(s.f_1, f1_floor, f1_cap)), s.R_f, *s.coeffs],
+            dtype=np.float64,
+        )
+        lo = [-np.inf, log_amp0 - 40.0, f1_floor, -np.inf] + [-np.inf] * n_c
         hi = [np.inf, log_amp0 + 40.0, f1_cap, np.inf] + [np.inf] * n_c
 
         def decode(x: np.ndarray) -> SmoothR:
@@ -270,13 +294,13 @@ def _smooth_reparam(
         lo = [-np.inf] * (1 + n_c)
         hi = [np.inf] * (1 + n_c)
 
-        def decode(x: np.ndarray) -> SmoothR:
+        def decode(x: np.ndarray) -> SmoothR | TailR:
             return replace(s, f_inf=float(x[0]), coeffs=tuple(float(c) for c in x[1 : 1 + n_c]))
 
     return x0, lo, hi, decode
 
 
-def _smooth_grad(s: SmoothR, R: float) -> np.ndarray:
+def _smooth_grad(s: SmoothR | TailR, R: float) -> np.ndarray:
     """`d f(R) / d x` for a `SmoothR` decoded at the current `x`, in exactly
     `_smooth_reparam`'s layout -- `[f_inf, u=log|f_0|, f_1, R_f, *coeffs]`
     when `f_0 != 0`, else `[f_inf, *coeffs]`.
@@ -299,8 +323,15 @@ def _smooth_grad(s: SmoothR, R: float) -> np.ndarray:
     are legitimately zero -- the model genuinely does not depend on them,
     which is exactly why `_smooth_reparam` holds the sigmoid constants fixed
     there.
+
+    For a `TailR` (`f = f_inf + (1 - y_q) sum_k c_k y_p^k`, layout
+    `[f_inf, *coeffs]`): `df/df_inf = 1`, `df/dc_k = (1 - y_q) y_p^k`.
     """
     n_c = len(s.coeffs)
+    if isinstance(s, TailR):
+        yq = float(y_p(R, s.R_e, s.q).real)
+        yp = float(y_p(R, s.R_e, s.p).real)
+        return np.array([1.0, *((1.0 - yq) * yp**k for k in range(n_c))], dtype=np.float64)
     poly = 1.0
     y = 0.0
     if n_c:
@@ -383,7 +414,7 @@ def _fit_smooth(
     s = getattr(model, prefix)
     R_min, R_max = float(np.min(R)), float(np.max(R))
     x0, lo, hi, decode = _smooth_reparam(s, R_min, R_max)
-    fit_sigmoid = s.f_0 != 0.0
+    fit_sigmoid = isinstance(s, SmoothR) and s.f_0 != 0.0
     sqrt_w = (
         np.ones_like(y)
         if weights is None
@@ -478,8 +509,21 @@ def _shell_extra_of_R(model: FlexibleDiatomicModel):
     return extra_of_R
 
 
+def _asymptotic_nodes(target: ResonanceTarget) -> np.ndarray:
+    """The radii on which the anion curve is pinned to its theoretical form
+    `target.v_ion_asymptotic`: `_N_ASYMPTOTIC_NODES` geometrically spaced
+    from `R_inf` -- the radius the operator declared that form valid from --
+    out to `_FAR_FACTOR * R_inf`, so the asymptote is the model's true limit
+    and not a value it merely passes through. Nothing is placed between the
+    table's end and `R_inf`: there the curve is neither tabulated nor
+    asymptotic (O2's charge-resonance tail lives exactly there), and the
+    model is left to interpolate smoothly."""
+    R_inf = float(target.R_inf)
+    return np.geomspace(R_inf, _FAR_FACTOR * R_inf, _N_ASYMPTOTIC_NODES)
+
+
 def _apply_ea_constraint(
-    model: FlexibleDiatomicModel, pair: ElectronicPair, ea: float
+    model: FlexibleDiatomicModel, pair: ElectronicPair, ea: float, R_inf: float
 ) -> tuple[FlexibleDiatomicModel, bool]:
     """Returns `(model, applied)`. This must
     NEVER raise out of the fit -- `anion_electronic_states` can raise when
@@ -492,8 +536,8 @@ def _apply_ea_constraint(
 
     def g(f_inf: float) -> float:
         m = with_params(model, {"lam.f_inf": f_inf})
-        eps_e, _ = anion_electronic_states(pair.grid_a, m, _R_INF, 1)
-        return float(eps_e[0] - m.v0(_R_INF).real + ea)
+        eps_e, _ = anion_electronic_states(pair.grid_a, m, R_inf, 1)
+        return float(eps_e[0] - m.v0(R_inf).real + ea)
 
     def safe_g(f_inf: float) -> float:
         # an UNBOUND anion sits above every negative -ea: count it as "positive",
@@ -725,7 +769,7 @@ def _joint_polish(
         wells = cache["wells"]
         lam_s, alpha_s = cache["lam_s"], cache["alpha_s"]
         assert isinstance(poles, list) and isinstance(wells, np.ndarray)
-        assert isinstance(lam_s, SmoothR) and isinstance(alpha_s, SmoothR)
+        assert isinstance(lam_s, SmoothR | TailR) and isinstance(alpha_s, SmoothR | TailR)
         r_pts = pair.grid_a.points
         n_res = int(resonant_mask.sum())
         out = np.zeros((R_nodes.size + n_res, x.size))
@@ -906,7 +950,7 @@ def fit_resonance(
     # ~3.64 (22% off) and cascading into 6/10 nodes surviving re-tracking.
     # The general sigmoid case (f_0 != 0) keeps the original >=4 threshold
     # (4 shape parameters need >=4 points to be well-posed).
-    n_free_alpha = (1 if model.alpha.f_0 == 0.0 else 4) + len(model.alpha.coeffs)
+    n_free_alpha = (1 if getattr(model.alpha, "f_0", 0.0) == 0.0 else 4) + len(model.alpha.coeffs)
     alpha_nodes = resonant if int(resonant.sum()) >= n_free_alpha else ok
     # Weight the alpha fit by gamma_target(R_j), normalized to
     # max 1 -- `d(chi^2)/d(alpha)` vanishes as Gamma -> 0 at fixed E_res
@@ -950,15 +994,23 @@ def fit_resonance(
     # move `lam.f_inf`, the sigmoid's asymptote, and with it lam(R) at every
     # R -- undoing the polish (measured on O2: a 1 eV drift of V_ion on the
     # bound side). Exactly one of the three statuses describes what happened.
+    # `R_asym`: the nodes from `R_inf` outward on which the polish pins the
+    # anion curve to its theoretical form `target.v_ion_asymptotic` -- `-EA`
+    # plus the tail the operator declared (e.g. the ion--atom polarisation).
+    # One node at `R_inf` alone proved insufficient: the sigmoid's inflection
+    # ran off to large R, held `-EA` at 10 bohr and missed it by 0.2 eV at 20
+    # (measured on O2).
+    R_end = float(R_desc[0])
     reaches_asymptote = (
-        abs(float(target.v_ion(R_desc[0]) - model.v0(R_desc[0]).real) + target.ea) < 0.05
+        abs(float(target.v_ion(R_end)) - float(target.v_ion_asymptotic(R_end))) < 0.05
     )
     ea_status = "skipped (table short of asymptote)"
-    ea_node = False
+    R_asym = np.zeros(0)
     if reaches_asymptote:
-        model, applied = _apply_ea_constraint(model, pair, target.ea)
+        model, applied = _apply_ea_constraint(model, pair, target.ea, float(target.R_inf))
         ea_status = "applied, held by the polish" if applied else "skipped (no bracket)"
-        ea_node = applied
+        if applied:
+            R_asym = _asymptotic_nodes(target)
 
     # Joint polish of lam(R)/alpha(R) TOGETHER
     # against the poles themselves (not the per-node tracked sample -- see
@@ -970,26 +1022,37 @@ def fit_resonance(
     resonant2 = gamma_t2 >= tol.gamma_floor
     seed_poles = [p for p, keep in zip(tr2.poles, ok2, strict=True) if keep]
     polish_target = pole_target
-    if ea_node:
-        extra_inf = extra_of_R(_R_INF) if extra_of_R is not None else None
-        p_inf = pair.pole(
-            well_potential(
-                model.ell,
-                float(model.lam_R(_R_INF).real),
-                float(model.alpha_R(_R_INF).real),
-                extra_inf,
-            ),
-            DEFAULT_BOUND_WINDOW,
-        )
-        if p_inf is not None:
-            R_pol = np.concatenate([[_R_INF], R_pol])
-            gamma_t2 = np.concatenate([[0.0], gamma_t2])
-            resonant2 = np.concatenate([[False], resonant2])
-            seed_poles = [p_inf, *seed_poles]
-            ea = float(target.ea)
+    if R_asym.size:
+        asym_poles: list[Pole] = []
+        asym_R: list[float] = []
+        for Ra in R_asym:
+            extra_a = extra_of_R(float(Ra)) if extra_of_R is not None else None
+            p_a = pair.pole(
+                well_potential(
+                    model.ell,
+                    float(model.lam_R(Ra).real),
+                    float(model.alpha_R(Ra).real),
+                    extra_a,
+                ),
+                DEFAULT_BOUND_WINDOW,
+            )
+            if p_a is not None:
+                asym_poles.append(p_a)
+                asym_R.append(float(Ra))
+        if asym_R:
+            R_pol = np.concatenate([asym_R, R_pol])
+            gamma_t2 = np.concatenate([np.zeros(len(asym_R)), gamma_t2])
+            resonant2 = np.concatenate([np.zeros(len(asym_R), dtype=bool), resonant2])
+            seed_poles = [*asym_poles, *seed_poles]
+            # The electronic-shift target at an asymptotic node: the
+            # theoretical anion curve minus the (already fitted) neutral.
+            asym_target = {
+                Ra: complex(float(target.v_ion_asymptotic(Ra) - model.v0(Ra).real), 0.0)
+                for Ra in asym_R
+            }
 
-            def polish_target(R: float, _ea: float = ea) -> complex:
-                return complex(-_ea, 0.0) if R == _R_INF else pole_target(R)
+            def polish_target(R: float, _t: dict[float, complex] = asym_target) -> complex:
+                return _t[float(R)] if float(R) in _t else pole_target(R)
 
     model, polish_detail = _joint_polish(
         model,
@@ -1114,10 +1177,15 @@ def _coupling_eval_grid(
 
 
 def model_gamma_tilde(
-    model: FlexibleDiatomicModel, pair: ElectronicPair, eps: np.ndarray, R_asc: np.ndarray
+    model: FlexibleDiatomicModel,
+    pair: ElectronicPair,
+    eps: np.ndarray,
+    R_asc: np.ndarray,
+    R_inf: float = 10.0,
 ) -> np.ndarray:
-    """The model's own 2 pi |V_dk+(eps, R)|^2 with the R-independent discrete state."""
-    phi_d = AsymptoticDiscreteState(pair.grid_a, model, _R_INF)
+    """The model's own 2 pi |V_dk+(eps, R)|^2 with the R-independent discrete
+    state, taken at the target's asymptote radius `R_inf`."""
+    phi_d = AsymptoticDiscreteState(pair.grid_a, model, R_inf)
     out = np.empty((eps.size, R_asc.size))
     for i, e in enumerate(eps):
         out[i] = gamma_from_coupling(v_dk_plus(pair.grid_a, model, phi_d, R_asc, float(e)))
@@ -1157,6 +1225,7 @@ def fit_coupling(
     tol: Tolerances,
     r_b: float = 3.0,
     alpha_b: float = 2.0,
+    R_inf: float = 10.0,
 ) -> tuple[FlexibleDiatomicModel, TierResult]:
     out_of_scope = _threshold_exponent_mismatch(target, model)
     if out_of_scope is not None:
@@ -1174,7 +1243,7 @@ def fit_coupling(
     def resid(x):
         m = unpack(model, names, x)
         try:
-            g = model_gamma_tilde(m, pair, eps, R_asc)
+            g = model_gamma_tilde(m, pair, eps, R_asc, R_inf)
         except ValueError:
             # a trial shell that unbinds the anion at R_inf has no discrete
             # state; a large residual sends the optimizer back, no exception
@@ -1239,6 +1308,57 @@ def _crossing(target: Target, model: FlexibleDiatomicModel) -> float | None:
         return None
     i = int(idx[0])
     return float(R[i] - d[i] * (R[i + 1] - R[i]) / (d[i + 1] - d[i]))
+
+
+def check_asymptote(
+    target: ResonanceTarget,
+    model: FlexibleDiatomicModel,
+    pair: ElectronicPair,
+    tol: Tolerances,
+) -> TierResult:
+    """The `asymptote` tier: does the fitted model END the way the physics
+    says it must? The neutral must be at its free-atom limit (`V_0 = 0` by
+    the EMO form, checked at `R_inf` against `tol.v0_rms`) and the anion
+    curve must follow `target.v_ion_asymptotic` -- the atom + ion energy
+    `-EA` plus the declared long-range tail -- on `_asymptotic_nodes`, from
+    `R_inf` out to `_FAR_FACTOR * R_inf`, where a curve that merely passes
+    through `-EA` at `R_inf` is caught (rms against `tol.e_res_rms`). The
+    anion energy at each node is the well's bound state
+    (`anion_electronic_states`), so an unbound anion anywhere out there is a
+    miss, not an exception."""
+    nodes = _asymptotic_nodes(target)
+    want = target.v_ion_asymptotic(nodes)
+    got = np.full(nodes.size, np.nan)
+    for j, Ra in enumerate(nodes):
+        try:
+            eps_e, _ = anion_electronic_states(pair.grid_a, model, float(Ra), 1)
+            got[j] = float(eps_e[0])
+        except ValueError:
+            pass  # unbound anion at this node: stays NaN
+    err = got - want
+    found = ~np.isnan(err)
+    v0_inf = float(model.v0(float(target.R_inf)).real)
+    per_node = ", ".join(
+        f"R={Ra:.4g}: {'unbound' if not ok else f'{e * 1e3:+.3f} mHa'}"
+        for Ra, e, ok in zip(nodes, err, found, strict=True)
+    )
+    if found.all():
+        rms = float(np.sqrt(np.mean(err**2)))
+        mx = float(np.max(np.abs(err)))
+    else:
+        rms = mx = np.inf
+    met = found.all() and rms <= tol.e_res_rms and abs(v0_inf) <= tol.v0_rms
+    tail = (
+        "none"
+        if target.tail is None
+        else f"{float(target.tail(target.R_inf)) * 1e3:+.3f} mHa at R_inf"
+    )
+    detail = (
+        f"R_inf={target.R_inf:g}; V_0(R_inf)={v0_inf * 1e3:+.3e} mHa (tol {tol.v0_rms * 1e3:.2e}); "
+        f"V_ion - (-EA + tail) on {nodes.size} nodes: rms={rms * 1e3:.3f} mHa "
+        f"(tol {tol.e_res_rms * 1e3:.2f}) [{per_node}]; declared tail {tail}"
+    )
+    return TierResult("asymptote", "met" if met else "not met", rms, max(mx, abs(v0_inf)), detail)
 
 
 def _da_sign(target: Target, model: FlexibleDiatomicModel) -> int | None:
@@ -1330,8 +1450,23 @@ def fit(
                 polish_nfev=polish_nfev,
             ),
         ),
-        ("T3", target.coupling, lambda m: fit_coupling(target.coupling, m, pair=pair, tol=tol)),
+        (
+            "T3",
+            target.coupling,
+            lambda m: fit_coupling(
+                target.coupling,
+                m,
+                pair=pair,
+                tol=tol,
+                R_inf=float(target.resonance.R_inf) if target.resonance is not None else 10.0,
+            ),
+        ),
     ]
+
+    def asymptote_tier(m: FlexibleDiatomicModel) -> TierResult:
+        assert target.resonance is not None
+        return check_asymptote(target.resonance, m, pair, tol)
+
     for name, present, stage in stages:
         if present is None:
             tiers.append(TierResult(name, "not attempted", np.nan, np.nan, "no target data"))
@@ -1353,6 +1488,19 @@ def fit(
             )
         tiers.append(res)
         halted = res.status == "not met" and not continue_on_miss
+        # The asymptote is a tier of its own, verified on the model T1 left
+        # behind (and again on the final model once T3's shell is in, since
+        # the shell moves the well at every R).
+        if name == "T1" and target.resonance is not None:
+            asym = asymptote_tier(model)
+            tiers.append(asym)
+            halted = halted or (asym.status == "not met" and not continue_on_miss)
+        if name == "T3" and target.resonance is not None and res.status != "not attempted":
+            idx = next(i for i, t in enumerate(tiers) if t.name == "asymptote")
+            final = asymptote_tier(model)
+            tiers[idx] = TierResult(
+                final.name, final.status, final.rms, final.max, f"final model: {final.detail}"
+            )
     # The nuclear probe tail: a pivot at R = 12 bohr with a straight ECS ray
     # off it. The angle is named rather than inlined so the tail and the
     # angle `ecs_bounded` reports as PROBED cannot drift apart.

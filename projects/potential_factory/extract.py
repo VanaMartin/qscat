@@ -170,7 +170,11 @@ def extract_target(
         coordinates=("R",),
         neutral=NeutralTarget(Curve.from_table(R, v0), {}, rng),
         resonance=ResonanceTarget(
-            Curve.from_table(R_ok, v_ion_ok), Curve.from_table(R_ok, gamma_ok), float(ea), rng_ok
+            Curve.from_table(R_ok, v_ion_ok),
+            Curve.from_table(R_ok, gamma_ok),
+            float(ea),
+            rng_ok,
+            R_inf=float(R_inf),
         ),
         coupling=CouplingTarget.from_table(eps, R_asc, table, alpha=model.ell + 0.5),
         provenance={"all": Provenance(f"extract_target({name})", "computed, not published")},

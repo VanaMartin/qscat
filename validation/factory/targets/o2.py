@@ -9,7 +9,10 @@ the nonlocal model's energy-dependent width. Spectroscopic constants of 16O2
 
 from __future__ import annotations
 
-from projects.potential_factory.ansatz import FlexibleDiatomicModel, SmoothR
+from dataclasses import replace
+
+from projects.potential_factory.ansatz import FlexibleDiatomicModel, SmoothR, TailR, with_params
+from projects.potential_factory.report import FitReport
 from projects.potential_factory.target import (
     CouplingTarget,
     Curve,
@@ -17,10 +20,11 @@ from projects.potential_factory.target import (
     Provenance,
     ResonanceTarget,
     Target,
+    polarisation_tail,
 )
 from validation.factory.targets.o2_data import EV, load_o2
 
-__all__ = ["O2_MU", "o2_target", "o2_seed"]
+__all__ = ["O2_MU", "O2_R_INF", "ALPHA_D_O", "o2_target", "o2_seed", "o2_model_from_report"]
 
 _PAPER = "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)"
 O2_MU = 15.99491461956 * 1822.888486 / 2.0  # m(16O)/2 in electron masses = 14578.4
@@ -28,6 +32,19 @@ _EA_O = 1.4611 / EV  # Table I (expt.), p. 032829-3
 _D0 = 5.165 / EV  # Table I (expt.), p. 032829-3
 _OMEGA_E = 1580.19 / 219474.63  # cm^-1 -> Ha, Huber & Herzberg
 _R_E = 2.2819  # bohr (1.20752 A), Huber & Herzberg
+# The asymptotic form of the anion curve is THEORY, not the figure: O + O^-
+# at -EA(O), approached through the ion--atom polarisation -alpha_d/(2 R^4)
+# with the neutral atom's static dipole polarisability alpha_d(O) = 5.3(2)
+# a.u. (Schwerdtfeger & Nagle, Mol. Phys. 117, 1200 (2019), Table 1, Z = 8;
+# reference/literature/schwerdtfeger-nagle-2019-molphys117-1200.md).
+ALPHA_D_O = 5.3
+# Where the anion curve is at that form: the remaining binding at finite R
+# is the O^- <-> O charge resonance, decaying as exp(-kappa R) with
+# kappa = sqrt(2 EA(O)) = 0.33/bohr. Fig. 2 still shows 0.15 eV of it at
+# 6 bohr beyond the polarisation term, so it is under the 0.02 eV extraction
+# floor from ~12 bohr and under 5 meV from ~16; 14 bohr is the operator's
+# choice here -- a per-molecule judgement, not a library constant.
+O2_R_INF = 14.0
 
 
 def o2_target(R_range: tuple[float, float] = (1.85, 6.0)) -> Target:
@@ -47,7 +64,12 @@ def o2_target(R_range: tuple[float, float] = (1.85, 6.0)) -> Target:
             R_range,
         ),
         resonance=ResonanceTarget(
-            Curve.from_table(c.R, c.v_ion), Curve.from_table(c.R, c.gamma), _EA_O, R_range
+            Curve.from_table(c.R, c.v_ion),
+            Curve.from_table(c.R, c.gamma),
+            _EA_O,
+            R_range,
+            R_inf=O2_R_INF,
+            tail=polarisation_tail(ALPHA_D_O),
         ),
         coupling=CouplingTarget.from_alt_houfek(
             a0=13.836690,
@@ -70,7 +92,16 @@ def o2_target(R_range: tuple[float, float] = (1.85, 6.0)) -> Target:
 
 
 def o2_seed() -> FlexibleDiatomicModel:
-    """A d-wave well of N2-like depth on O2's frame; the fit moves everything."""
+    """A d-wave well of N2-like depth on O2's frame; the fit moves everything.
+
+    `lam(R)` is the long-range-correct `TailR` form (`q = 4`, the polarisation
+    power), NOT a sigmoid: O2's anion curve has to rise from the resonant
+    wall, peak on the bound branch and settle onto `-EA - alpha_d/(2R^4)`,
+    and the sigmoid x polynomial form could hold the table or the asymptote
+    but not both (measured: pinning the asymptote cost T1 20 meV and 30 %
+    of Gamma, and still missed by 3.5 mHa). Five polynomial coefficients
+    are carried from the start (`fit_o2.py` keeps them: `lam_coeffs=5`).
+    """
     return FlexibleDiatomicModel(
         mu=O2_MU,
         ell=2,
@@ -78,9 +109,31 @@ def o2_seed() -> FlexibleDiatomicModel:
         R_e=_R_E,
         betas=(1.4,),
         p=3,
-        lam=SmoothR(f_inf=6.0, f_0=1.5, f_1=5.0, R_f=2.3, R_e=_R_E),
+        lam=TailR(f_inf=5.3, coeffs=(1.0, 1.5, 0.0, 0.0, 0.0), R_e=_R_E, p=3, q=4),
         alpha=SmoothR(f_inf=0.45, f_0=0.0, f_1=1.0, R_f=0.0, R_e=_R_E),
         shell=None,
         alpha_b=2.0,
         r_b=3.0,
     )
+
+
+def o2_model_from_report(report: FitReport) -> FlexibleDiatomicModel:
+    """The fitted O2 model, rebuilt from a `FitReport`'s flat parameters on
+    the seed's frame: the polynomial lengths of `lam`/`alpha` and the presence
+    of a shell are read off the parameter names, then every value is set."""
+    p = report.parameters
+    m = o2_seed()
+    n_lam = sum(1 for k in p if k.startswith("lam.c"))
+    n_alpha = sum(1 for k in p if k.startswith("alpha.c"))
+    n_beta = sum(1 for k in p if k.startswith("beta"))
+    m = replace(
+        m,
+        betas=tuple(0.0 for _ in range(n_beta)),
+        lam=replace(m.lam, coeffs=tuple(0.0 for _ in range(n_lam))),
+        alpha=replace(m.alpha, coeffs=tuple(0.0 for _ in range(n_alpha))),
+    )
+    if "shell.f_inf" in p:
+        m = m.with_shell(
+            SmoothR(f_inf=0.0, f_0=0.0, f_1=1.0, R_f=m.R_e, R_e=m.R_e), p["alpha_b"], p["r_b"]
+        )
+    return with_params(m, p)

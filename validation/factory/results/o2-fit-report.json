@@ -1,26 +1,30 @@
 {
   "target_name": "O2 (Alt & Houfek 2021, Fig. 2 vector extraction)",
   "parameters": {
-    "D_e": 0.19334217522548347,
-    "R_e": 2.2678256573785673,
-    "beta0": 1.454427020276278,
-    "beta1": 0.10296543725265193,
-    "beta2": -0.03211097057916265,
-    "beta3": 0.38748236395339114,
-    "beta4": 1.9999999999999998,
-    "lam.f_inf": 4.9597117338146095,
-    "lam.f_0": 0.003977056526330602,
-    "lam.f_1": 1.0000001465608077e-06,
-    "lam.R_f": 25.428607959637333,
-    "lam.c0": 562.8528908806016,
-    "lam.c1": -326.3404245909293,
-    "lam.c2": -141.82287404202856,
-    "alpha.f_inf": 0.3698568219986617,
+    "D_e": 0.19331866564928865,
+    "R_e": 2.268012257109915,
+    "beta0": 1.4523575847133374,
+    "beta1": 0.10381040322431209,
+    "beta2": -0.004015128162685024,
+    "beta3": 0.3910799122325903,
+    "beta4": 1.9183648370285529,
+    "lam.f_inf": 5.064307074513824,
+    "lam.c0": -0.20821474894387013,
+    "lam.c1": 0.8116574159293211,
+    "lam.c2": 0.10252797159229596,
+    "lam.c3": 0.5444402680526038,
+    "lam.c4": -1.3026360633646719,
+    "lam.c5": 3.3083561788901363,
+    "lam.c6": 32.788738338929384,
+    "lam.c7": -73.14541076473161,
+    "lam.c8": 37.40650902876745,
+    "alpha.f_inf": 0.3612778078765902,
     "alpha.f_0": 0.0,
     "alpha.f_1": 1.0,
     "alpha.R_f": 0.0,
     "alpha.c0": 0.0,
     "alpha.c1": 0.0,
+    "alpha.c2": 0.0,
     "shell.f_inf": 1e-09,
     "shell.f_0": 1e-09,
     "shell.f_1": 1.0,
@@ -32,23 +36,30 @@
     {
       "name": "T0",
       "status": "met",
-      "rms": 0.0005003310455459164,
-      "max": 0.003181829928156854,
-      "detail": "EMO with 5 beta(s) on 284 points; omega_e (v=0->1) fit=7.356747e-03 target=7.324399e-03 Ha, omega_e_rel=4.42e-03 vs tol 2.00e-02 [table [1.82, 6] (leak=4.6e-13)]"
+      "rms": 0.0005227251245122856,
+      "max": 0.003166995841567072,
+      "detail": "EMO with 5 beta(s) on 380 points; omega_e (v=0->1) fit=7.347760e-03 target=7.324399e-03 Ha, omega_e_rel=3.19e-03 vs tol 2.00e-02 [table [1.82, 6] (leak=4.6e-13)]"
     },
     {
       "name": "T1",
-      "status": "not met",
-      "rms": 0.00271923260165657,
-      "max": 0.17571779160358228,
-      "detail": "nodes: table 40/401; tracked 38/40 (12 resonant), re-tracked 38/40 nodes; re-walk verified 40/40 nodes; E_res rms=2.72e-03 max=5.91e-03 Ha; Gamma rel rms=0.073 max=0.176; smooth_rms_lam=3.61e-02 smooth_rms_alpha=6.54e-02; polish_rms=2.42e-03 Ha (analytic Jacobian); polish skipped 0/39 nodes; least_squares status=2 nfev=122/300; EA constraint applied, held by the polish"
+      "status": "met",
+      "rms": 0.0007391286708177108,
+      "max": 0.13631745694355415,
+      "detail": "nodes: table 40/401; tracked 39/40 (9 resonant), re-tracked 39/40 nodes; re-walk verified 40/40 nodes; E_res rms=7.39e-04 max=2.15e-03 Ha; Gamma rel rms=0.082 max=0.136; smooth_rms_lam=1.84e-02 smooth_rms_alpha=5.80e-02; polish_rms=6.11e-04 Ha (analytic Jacobian); polish skipped 0/42 nodes; least_squares status=1 nfev=18/400; EA constraint applied, held by the polish"
+    },
+    {
+      "name": "asymptote",
+      "status": "met",
+      "rms": 4.915209799861847e-05,
+      "max": 7.911549709347515e-05,
+      "detail": "final model: R_inf=14; V_0(R_inf)=+0.000e+00 mHa (tol 7.35e-01); V_ion - (-EA + tail) on 3 nodes: rms=0.049 mHa (tol 1.47) [R=14: -0.079 mHa, R=31.3: -0.023 mHa, R=70: -0.021 mHa]; declared tail -0.069 mHa at R_inf"
     },
     {
       "name": "T3",
       "status": "not met",
-      "rms": 1.12394523537762,
-      "max": 2.7712820274276466,
-      "detail": "log Gamma~ on geomspace/linspace 8x8 (eps, R); shell fitted; seed_rms=1.124e+00; post-T3 T1 re-walk 40/40 nodes: E_res rms=2.72e-03 Ha, Gamma rel max=0.176 -- the shell breaks T1"
+      "rms": 1.115876414068031,
+      "max": 2.776441184995243,
+      "detail": "log Gamma~ on geomspace/linspace 8x8 (eps, R); shell fitted; seed_rms=1.116e+00; post-T3 T1 re-walk 40/40 nodes: E_res rms=7.39e-04 Ha, Gamma rel max=0.136"
     }
   ],
   "ecs_bounds_deg": {
@@ -56,9 +67,9 @@
     "nuclear_max_deg": 90.0,
     "probed_electronic_deg": 35.0,
     "probed_nuclear_deg": 35.0,
-    "tail_growth": 0.0068083937155802065
+    "tail_growth": 0.006784070969580073
   },
-  "crossing_R": 2.289302746067388,
+  "crossing_R": 2.2889572483178,
   "da_threshold_sign": 1,
   "provenance": {
     "neutral": {
