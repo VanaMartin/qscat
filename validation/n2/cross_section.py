@@ -8,13 +8,9 @@ Layering note: the rule is one-directional -- `validation/` may import
 allowed direction, importing the TI solver package-absolute
 (`projects.n2_ti_cross_section`); the object under test for C5 *is* that
 project's resolvent/driven-equation solver, so there is nothing to keep
-independent of it here. Note the KNOWN EXCEPTIONS in the other direction:
-`projects/n2_ti_cross_section/test_cross_section.py` imports
-`validation.n2.reference`/`loader` for the anchor coordinates and the golden
-data, and `projects/n2_resonance/test_potential.py` imports
-`validation.n2.model`. Those are projects -> validation imports the rule
-forbids; they are tolerated because they are confined to TEST modules rather
-than shipped ones, and they are not a precedent to follow.
+independent of it here. The boundary is now clean in both directions and
+enforced by `tests/test_layering.py`: no module under `projects/` imports
+`validation/`.
 
 Classification, decided GENERALLY
 from the anchor's `(energy, channel)`, never by hardcoding which of the 6
