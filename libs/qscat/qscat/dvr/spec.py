@@ -50,6 +50,7 @@ class GridSpec:
     R0: float = field(init=False)
 
     def __post_init__(self) -> None:
+        """Validate the spec (quadrature >= 2, ordered elements) and derive `R0`."""
         if self.quadrature < 2:
             raise GridError("quadrature must be >= 2")
         if not self.elements:

@@ -64,9 +64,13 @@ class ResonanceModel(Protocol):
     """
 
     @property
-    def mu(self) -> float: ...
+    def mu(self) -> float:
+        """Nuclear reduced mass (a.u.)."""
+        ...
     @property
-    def ell(self) -> int: ...
+    def ell(self) -> int:
+        """Resonance partial-wave angular momentum `l`."""
+        ...
     @property
     def charge(self) -> int:
         """The Coulomb charge z for the channel functions; 0 for neutral

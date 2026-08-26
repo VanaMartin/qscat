@@ -322,10 +322,12 @@ class SparseLU:
 
     @property
     def shape(self) -> tuple[int, int]:
+        """Shape of the factored matrix."""
         return self._shape
 
     @property
     def ordering(self) -> str:
+        """The `permc_spec` column ordering this factorization was built with."""
         return self._ordering
 
     @property
