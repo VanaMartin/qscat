@@ -50,7 +50,7 @@ td_ve_cross_sections_all`: a matching free extractor is built per (ve
 observable, extractor name) and driven by that second propagation, then
 `ext.sigma(E, free=free_ext)` subtracts the free-particle `S_free(E)` on the
 diagonal channel instead of the less-accurate literal-`S_ref=1` fallback
-(see `qscat.core.time_dependent._sigma_one_energy`'s docstring). This only
+(see `qscat.core.time_dependent.sigma_one_energy`'s docstring). This only
 runs when an elastic VE channel is actually requested (a no-op skip
 otherwise -- no extra propagation cost). DA/DR extractors take no free
 reference (a pure rearrangement channel, no elastic diagonal to subtract

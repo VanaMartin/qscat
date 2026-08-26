@@ -14,9 +14,9 @@ on a deliberately tiny/unconverged grid with a handful of propagation steps
     to specific regression values captured from a run of this exact code (not
     independently re-derived -- a bit-identical regression pin, `rtol=1e-10`);
   * `propagate`'s `keep_psi_at` contract (psi kept only at requested times);
-  * `sigma_from_correlations` reproduces looping `_sigma_one_energy` by hand,
+  * `sigma_from_correlations` reproduces looping `sigma_one_energy` by hand,
     per energy -- i.e. the public batch entry point is not doing anything
-    different from the private single-energy kernel it wraps;
+    different from the single-energy kernel it wraps;
   * the free-reference elastic path returns a finite, non-negative sigma, and
     is dramatically smaller than the (physically wrong) literal-1 fallback --
     the same invariant `test_td_cross_section.py::test_v2c_...` gates at
@@ -34,10 +34,10 @@ import pytest
 from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.core.time_dependent import (
     PropagationResult,
-    _propagate,
-    _sigma_one_energy,
     propagate,
+    propagate_wavepacket,
     sigma_from_correlations,
+    sigma_one_energy,
     td_ve_cross_section,
 )
 from qscat.core.vibrational import vibrational_states
@@ -139,15 +139,14 @@ def test_propagate_keep_psi_at_contract() -> None:
 @pytest.fixture(scope="module")
 def propagation_pair() -> tuple[PropagationResult, PropagationResult]:
     """One full + one `V_int=0` free-reference propagation, reused across the
-    `sigma_from_correlations`-vs-`_sigma_one_energy` and elastic-path tests
+    `sigma_from_correlations`-vs-`sigma_one_energy` and elastic-path tests
     below (built once, not re-run per test)."""
-    full = _propagate(
-        TG, N2, EPS, CHI, V_INIT, VPRIMES, dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT
+    full = propagate_wavepacket(
+        TG, N2, CHI, V_INIT, VPRIMES, dt=DT, n_steps=N_STEPS, wp_in=WP_IN, wp_out=WP_OUT
     )
-    free = _propagate(
+    free = propagate_wavepacket(
         TG,
         N2,
-        EPS,
         CHI,
         V_INIT,
         VPRIMES,
@@ -164,7 +163,7 @@ def test_sigma_from_correlations_matches_sigma_one_energy_per_energy(
     propagation_pair: tuple[PropagationResult, PropagationResult],
 ) -> None:
     """`sigma_from_correlations`'s array-`E` batching reproduces looping the
-    private single-energy kernel `_sigma_one_energy` by hand -- the public
+    single-energy kernel `sigma_one_energy` by hand -- the public
     entry point does not do anything different from its documented
     per-energy transform."""
     full, free = propagation_pair
@@ -184,7 +183,7 @@ def test_sigma_from_correlations_matches_sigma_one_energy_per_energy(
     )
     manual = np.stack(
         [
-            _sigma_one_energy(TG, N2, full, EPS, V_INIT, VPRIMES, float(e), DT, WP_IN, WP_OUT, free)
+            sigma_one_energy(TG, N2, full, EPS, V_INIT, VPRIMES, float(e), DT, WP_IN, WP_OUT, free)
             for e in e_arr
         ]
     )
@@ -219,3 +218,16 @@ def test_free_reference_elastic_path_finite_and_nonnegative(
     assert np.all(sigma_fixed >= 0.0)
     assert np.all(np.isfinite(sigma_literal1))
     assert sigma_literal1[0] > 100.0 * sigma_fixed[0]  # the bug the free reference fixes
+
+
+def test_td_building_blocks_are_public() -> None:
+    """lib-m7: the names the n2_2d_td project consumes must be public;
+    the old private names warn for one cycle."""
+    from qscat.core import time_dependent as td
+
+    for name in ("propagate_wavepacket", "s_vector_one_energy", "sigma_one_energy"):
+        assert name in td.__all__
+        assert callable(getattr(td, name))
+    with pytest.warns(DeprecationWarning, match="_propagate"):
+        legacy = td._propagate
+    assert callable(legacy)
