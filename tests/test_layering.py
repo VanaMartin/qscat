@@ -71,7 +71,11 @@ def test_projects_never_reference_validation_paths() -> None:
                 isinstance(node, ast.Constant)
                 and isinstance(node.value, str)
                 and id(node) not in doc_ids
-                and ("validation/" in node.value or node.value == "validation")
+                and (
+                    "validation/" in node.value
+                    or node.value == "validation"
+                    or node.value.startswith("validation.")
+                )
             ):
                 offenders.append(f"{path.relative_to(REPO)}:{node.lineno} {node.value!r}")
     assert not offenders, (

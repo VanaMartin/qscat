@@ -36,8 +36,8 @@ ANCHOR_COORDS = [
 # ANCHOR_FACTOR: loose, documented cross-model bound between our 1D LCP-derived TI
 # formula and Houfek's independent, explicit 2D time-independent calculation -- an
 # anchor is a real PASS iff 1/ANCHOR_FACTOR <= sigma_computed/sigma_houfek <=
-# ANCHOR_FACTOR. Matches `projects/n2_ti_cross_section/test_cross_section.py`'s
-# `ANCHOR_FACTOR` (kept in lockstep).
+# ANCHOR_FACTOR. The gate that consumes this constant is
+# `validation/n2/test_anchor_gate.py::test_gated_anchors_within_factor_band`.
 ANCHOR_FACTOR = 3.0
 #
 # ANCHOR_MARGIN_HA: an anchor's VE channel (v'>=1) is only GATED (subject to

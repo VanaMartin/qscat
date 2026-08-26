@@ -8,8 +8,9 @@ Layering note: the rule is one-directional -- `validation/` may import
 allowed direction, importing the TI solver package-absolute
 (`projects.n2_ti_cross_section`); the object under test for C5 *is* that
 project's resolvent/driven-equation solver, so there is nothing to keep
-independent of it here. The boundary is now clean in both directions and
-enforced by `tests/test_layering.py`: no module under `projects/` imports
+independent of it here. The FORBIDDEN direction -- `projects/` importing
+`validation/` -- is the one kept clean, enforced by
+`tests/test_layering.py`: no module under `projects/` imports
 `validation/`.
 
 Classification, decided GENERALLY
@@ -129,13 +130,20 @@ def classify(e_ha: float, channel: int, eps: npt.NDArray[np.float64]) -> tuple[b
     return True, ""
 
 
-def compute_anchor_results() -> list[AnchorResult]:
+@functools.lru_cache(maxsize=1)
+def compute_anchor_results() -> tuple[AnchorResult, ...]:
     """Compute sigma at all 6 C5 anchors and classify each GATED/DOCUMENTED-LIMITED.
 
     Uses `reference.anchors()` to resolve each `(energy_ha, channel)` anchor
     coordinate to Houfek's nearest tabulated energy row and sigma value (the
     golden-data lookup, never hardcoded), then evaluates the TI solver at
-    that same row energy so the comparison is apples-to-apples.
+    that same row energy so the comparison is apples-to-apples. `lru_cache`d
+    (no arguments, so this is a plain memoize-once): both
+    `test_anchor_gate.py` tests, `experiment.run_checks()`, and downstream
+    consumers (`exact2d.py`, `td_check.py`) call this, and re-running the TI
+    solve at all 6 anchors is not free. Returns a tuple rather than a list
+    since the cached result is shared by reference -- callers only iterate
+    it, never mutate it.
     """
     grid, eps, chi, Vd, Gamma = _build_system()
 
@@ -157,4 +165,4 @@ def compute_anchor_results() -> list[AnchorResult]:
                 mechanism=mechanism,
             )
         )
-    return results
+    return tuple(results)
