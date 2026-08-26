@@ -1,13 +1,11 @@
 """N2 electronic potentials for the ²Π_g resonance pole search (sub-project #2).
 
-Same physics as `qscat.model.N2`: closed-form LCP potentials extracted from
-reference/eMoScat, verified there against `libs/qscat/tests/test_model.py`.
-This module re-implements the same formulas (not shared code) but builds its
-`PARAMS` from the same `qscat.model.N2` deck constants. Consistency between
-the two independent implementations is NOT guaranteed by construction -- the
-formulas could still silently drift apart on edit -- it is guaranteed BY
-TEST: `test_potential.py::test_matches_library_model_to_1e_12` cross-checks
-this module against `qscat.model.N2` to 1e-12 on every change.
+`v0`/`lam`/`v_int` below ARE `qscat.model.N2`'s bound methods (the single
+runtime source) -- not a lockstep copy -- so this module cannot drift from
+the library: `test_potential.py::test_potential_is_the_library_model` fails
+immediately if a local copy is reintroduced. `PARAMS` still mirrors
+`qscat.model.N2`'s deck constants (see below) for existing consumers of the
+historical dict shape.
 
 E_res(R)/Gamma(R) are NOT closed form (ECS eigenvalue pole) and are out of
 scope here -- that's the pole finder built on top of this potential + the
@@ -55,40 +53,20 @@ PARAMS: dict = {
 }
 
 
-def v0(R):
-    """Neutral N2 Morse potential (Hartree). Minimum -D_0 at R_0."""
-    p = PARAMS["potential"]
-    a, R0, D0 = p["alpha_0"], p["R_0"], p["D_0"]
-    return D0 * (np.exp(-2 * a * (R - R0)) - 2 * np.exp(-a * (R - R0)))
-
-
-def lam(R):
-    """Interaction strength lambda(R); lambda(R_c) == lambda_c."""
-    p = PARAMS["potential"]
-    li, l1, Rl, lc, Rc = (
-        p["lambda_inf"],
-        p["lambda_1"],
-        p["R_lambda"],
-        p["lambda_c"],
-        p["R_c"],
-    )
-    lam0 = (lc - li) * (1 + np.exp(l1 * (Rc - Rl)))
-    return li + lam0 / (1 + np.exp(l1 * (R - Rl)))
-
-
-def v_int(r, R):
-    """Electron-molecule interaction potential (Hartree)."""
-    return -lam(R) * np.exp(-PARAMS["potential"]["alpha_c"] * np.asarray(r) ** 2)
+v0 = N2.v0
+lam = N2.lam
+v_int = N2.v_int
 
 
 def v_eff_el(r, R):
     """Fixed-R electronic effective potential incl. l(l+1)/2r^2 centrifugal term.
 
-    `r` may be complex (ECS-rotated tail points): both `v_int` and the
-    centrifugal term are analytic in `r`, so this must NOT coerce to
-    `dtype=float` -- doing so silently discards Im(r) and corrupts the
-    analytic continuation the exterior-complex-scaling method relies on.
+    `N2.surface` includes `v0(R)`; this deliberately does NOT, so it is
+    `N2.v_int` plus the centrifugal term. `r` may be complex (ECS-rotated
+    tail points): both `v_int` and the centrifugal term are analytic in `r`,
+    so this must use `dtype=complex128` -- coercing to `dtype=float` would
+    silently discard Im(r) and corrupt the analytic continuation the
+    exterior-complex-scaling method relies on.
     """
-    ell = PARAMS["impulsemomentum"]
-    r = np.asarray(r)
-    return v_int(r, R) + ell * (ell + 1) / (2 * r**2)
+    rc = np.asarray(r, dtype=np.complex128)
+    return N2.v_int(rc, R) + N2.ell * (N2.ell + 1) / (2 * rc**2)

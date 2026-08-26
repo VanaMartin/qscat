@@ -96,7 +96,10 @@ def resonance_curve(
             E_pole, _residual = find_pole(float(R), grid_a, grid_b, window)
             E_res[idx] = E_pole.real
             Gamma[idx] = max(0.0, -2.0 * E_pole.imag)
-            V_d[idx] = float(v0(R)) + E_pole.real
+            # v0 is qscat.model.N2.v0, which computes in complex128 (ECS-
+            # safe); float() on a 0-d complex raises TypeError even though R
+            # is real here and v0(R) is real to round-off.
+            V_d[idx] = float(np.real(v0(R))) + E_pole.real
             window = (
                 E_pole.real - re_half_width,
                 E_pole.real + re_half_width,

@@ -1,4 +1,15 @@
-"""Closed-form N₂ LCP potentials (extracted from reference/eMoScat, verified).
+"""N₂ LCP potentials: a thin consumer of `qscat.model.N2` (the single-source
+runtime implementation) plus the validation-side provenance record.
+
+`v0`/`lam`/`v_int` below are `qscat.model.N2`'s bound methods themselves --
+not lockstep copies -- so this module cannot drift from the library
+(`test_model.py::test_model_is_the_library_model` fails immediately if a
+local copy is reintroduced). `PARAMS`, parsed from `config.json`, stays as
+the validation-side provenance record (`config.json`'s `provenance` field
+names the eMoScat deck; its `note` field carries the model-vs-reality
+caveat) and continues to drive `model_checks()`;
+`test_params_match_the_library_fields_exactly` makes `PARAMS` and
+`qscat.model.library.N2`'s fields un-driftable against each other too.
 
 E_res(R)/Γ(R) are NOT closed form (ECS eigenvalue pole) and are out of scope here.
 
@@ -28,65 +39,68 @@ import json
 from pathlib import Path
 
 import numpy as np
+from qscat.model import N2
 
 PARAMS: dict = json.loads((Path(__file__).parent / "config.json").read_text())
 
-
-def v0(R):
-    """Neutral N₂ Morse potential (Hartree). Minimum -D_0 at R_0."""
-    p = PARAMS["potential"]
-    a, R0, D0 = p["alpha_0"], p["R_0"], p["D_0"]
-    return D0 * (np.exp(-2 * a * (R - R0)) - 2 * np.exp(-a * (R - R0)))
-
-
-def lam(R):
-    """Interaction strength λ(R); λ(R_c) == λ_c."""
-    p = PARAMS["potential"]
-    li, l1, Rl, lc, Rc = (p["lambda_inf"], p["lambda_1"], p["R_lambda"], p["lambda_c"], p["R_c"])
-    lam0 = (lc - li) * (1 + np.exp(l1 * (Rc - Rl)))
-    return li + lam0 / (1 + np.exp(l1 * (R - Rl)))
-
-
-def v_int(r, R):
-    """Electron–molecule interaction potential (Hartree)."""
-    return -lam(R) * np.exp(-PARAMS["potential"]["alpha_c"] * np.asarray(r) ** 2)
+v0 = N2.v0
+lam = N2.lam
+v_int = N2.v_int
 
 
 def v_eff_el(r, R):
     """Fixed-R electronic effective potential incl. l(l+1)/2r² centrifugal term.
 
-    `r` may be complex (ECS-rotated tail points): both `v_int` and the
-    centrifugal term are analytic in `r`, so this must NOT coerce to
-    `dtype=float` -- doing so silently discards Im(r) and corrupts the
-    analytic continuation the exterior-complex-scaling method relies on
-    (see `projects/n2_resonance/potential.v_eff_el`, the lockstep copy this
-    is the single source for).
+    `N2.surface` includes `v0(R)`; this deliberately does NOT, so it is
+    `N2.v_int` plus the centrifugal term. `r` may be complex (ECS-rotated
+    tail points): both `v_int` and the centrifugal term are analytic in `r`,
+    so this must use `dtype=complex128` -- coercing to `dtype=float` would
+    silently discard Im(r) and corrupt the analytic continuation the
+    exterior-complex-scaling method relies on (see
+    `projects/n2_resonance/potential.v_eff_el`, the sibling copy).
     """
-    l = PARAMS["impulsemomentum"]
-    r = np.asarray(r)
-    return v_int(r, R) + l * (l + 1) / (2 * r**2)
+    rc = np.asarray(r, dtype=np.complex128)
+    return N2.v_int(rc, R) + N2.ell * (N2.ell + 1) / (2 * rc**2)
 
 
 def model_checks() -> list[tuple[str, bool, str]]:
     p = PARAMS["potential"]
     R0, D0, Rc, lc = p["R_0"], p["D_0"], p["R_c"], p["lambda_c"]
     out: list[tuple[str, bool, str]] = []
-    out.append(("A1 V0(R0) == -D_0", abs(float(v0(R0)) + D0) < 1e-12, f"{float(v0(R0)):.6f} Ha"))
+    out.append(
+        (
+            "A1 V0(R0) == -D_0",
+            abs(float(np.real(v0(R0))) + D0) < 1e-12,
+            f"{float(np.real(v0(R0))):.6f} Ha",
+        )
+    )
     Rg = np.linspace(1.0, 6.0, 200001)
     out.append(("A2 Morse minimum at R0", abs(Rg[np.argmin(v0(Rg))] - R0) < 1e-3, f"R0={R0}"))
-    out.append(("A3 V0(inf) -> 0", abs(float(v0(20.0))) < 1e-6, f"{float(v0(20.0)):.2e}"))
+    v0_inf = float(np.real(v0(20.0)))
+    out.append(("A3 V0(inf) -> 0", abs(v0_inf) < 1e-6, f"{v0_inf:.2e}"))
     out.append(
-        ("A4 lambda(Rc) == lambda_c", abs(float(lam(Rc)) - lc) < 1e-12, f"{float(lam(Rc)):.6f}")
+        (
+            "A4 lambda(Rc) == lambda_c",
+            abs(float(np.real(lam(Rc))) - lc) < 1e-12,
+            f"{float(np.real(lam(Rc))):.6f}",
+        )
     )
     out.append(
-        ("A5 V_int negative well", float(v_int(1.0, R0)) < 0.0, f"{float(v_int(1.0, R0)):.4f} Ha")
+        (
+            "A5 V_int negative well",
+            float(np.real(v_int(1.0, R0))) < 0.0,
+            f"{float(np.real(v_int(1.0, R0))):.4f} Ha",
+        )
     )
     r_t, ell = 2.0, PARAMS["impulsemomentum"]
     centrifugal_ok = (
-        abs(float(v_eff_el(r_t, R0)) - (float(v_int(r_t, R0)) + ell * (ell + 1) / (2 * r_t**2)))
+        abs(
+            float(np.real(v_eff_el(r_t, R0)))
+            - (float(np.real(v_int(r_t, R0))) + ell * (ell + 1) / (2 * r_t**2))
+        )
         < 1e-12
     )
-    decays = abs(float(v_int(10.0, R0))) < abs(float(v_int(1.0, R0)))
+    decays = abs(float(np.real(v_int(10.0, R0)))) < abs(float(np.real(v_int(1.0, R0))))
     out.append(
         (
             "A6 V_eff_el l=2 centrifugal + V_int r-decay",
