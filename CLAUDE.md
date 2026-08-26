@@ -583,19 +583,14 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               legend key samples are stroked INSIDE the curve paths and are
               masked by position — unmasked, every panel's "maximum" was the
               key line) and `o2_ve_figure.py` overlays the exact 2-D result
-              (× g = 2/3) on them — theory against theory. RESULT
-              (`results/o2-ve/`, `docs/physics/figures/o2-2d-ti-ve-vs-alt-
-              houfek.png`): 0.38 s/energy with MUMPS on sadaharu (3343
-              energies × six channels in 1293 s; 46 s/energy with SuperLU on
-              the laptop); the exact 2-D comb of the FITTED potential lands on
-              the paper's nonlocal comb in 0→0..5 — positions 2–6 meV over
-              fifty-odd peaks, heights within ~10 % of the UNSPLIT NRM of
-              Fig. 7 (Fig. 5's peaks are spin–orbit halves; and the mesh must
-              DRAW the peaks — at Γ/1.5 spacing every height read ×0.69, a
-              Lorentzian missed by Γ/3; the committed mesh is Γ/10, 121
-              points across ±6Γ). Each inelastic channel's weakest threshold
-              peak runs 1.4–2× high — the residual to chase with the
-              authors' tables.
+              on them — theory against theory, and only spin–orbit resolved
+              (Fig. 5's peaks are doublets of two ⅓-weight components; an
+              unsplit-vs-Fig. 5 comparison means nothing). Sweeps cost 0.38
+              s/energy with MUMPS on sadaharu (3343 energies × six channels
+              in ~1290 s; 46 s/energy with SuperLU on the laptop), and the
+              mesh must DRAW the peaks — at Γ/1.5 spacing every height read
+              ×0.69, a Lorentzian missed by Γ/3; the committed mesh is Γ/10,
+              121 points across ±6Γ.
               SPIN–ORBIT: `extract_fig1.py` pulls the paper's Δ_SO(R) (Fig.
               1), `o2_target(so=±1)` moves the anion curve ∓Δ_SO/2, and
               `fit_o2_so.py` makes `qscat.model.O2_SO12`/`O2_SO32` from `O2`

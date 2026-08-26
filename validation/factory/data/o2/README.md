@@ -63,14 +63,7 @@ envelope** per 0.15-pt bin minus half the stroke width — a comb of meV-wide
 peaks is exactly where a median-of-edges centreline fails, while the
 envelope keeps every peak's height to 0.25 pt (0.3–0.7 % of a panel's range)
 at an energy resolution of one bin, 0.9–1.4 meV. Their only use is the
-theory-vs-theory overlay against the factory model's exact 2-D cross section;
-nothing is fitted to them, and the experimental traces of Figs. 7–9 are not
-extracted.
-
-`fig7_ve_0{v}_nrm.csv`, v' = 0…3, are the same paper's NRM **without the
-spin–orbit splitting** from Fig. 7 (p. 032829-7), extracted the same way —
-the height reference for a single-symmetry model, since every Fig. 5 peak is
-the sum of two 1/3-weight components 18.8 meV apart (its 0 → 0 peak is 1620
-a₀² where Fig. 5's is 940). Only the blue NRM curves are taken; the dashed
-teal traces on that figure are Higgins et al.'s measurement and stay in the
-paper.
+theory-vs-theory overlay against the factory model's spin–orbit-resolved
+exact 2-D cross section (⅓ ²Π_{1/2} + ⅓ ²Π_{3/2}, the same composition as
+the paper's curves); nothing is fitted to them, and the experimental traces
+of Figs. 7–9 are not extracted.
