@@ -103,7 +103,7 @@ class ExactResonanceStates:
     residual_nuclear: npt.NDArray[np.float64]
 
     def save(self, path: str | os.PathLike[str]) -> None:
-        """Write to a compressed `.npz` under the dataclass's own field names.
+        """Write to an `.npz` archive under the dataclass's own field names.
 
         A 2-D pole search is minutes to tens of minutes of sparse
         factorizations, so the result gets cached -- and hand-rolled caches

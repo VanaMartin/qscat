@@ -20,9 +20,9 @@ per-call arguments (`vprimes`, `E`, and the keyword options):
     sigma = prob.ve_cross_section(vprimes=[0, 1, 2], E=[0.10, 0.15, 0.20])
 
 This is the recommended entry point for every observable it carries: the TI
-cross sections (VE/DA/DR) and TD cross sections (VE/DA), the LCP DA cross
-section, the BO resonance levels, the exact 2-D resonance states, and the
-NRM VE/DA cross sections. The
+cross sections (VE/DA/DR) and TD cross sections (VE/DA), the LCP DA and VE
+cross sections, the BO resonance levels, the exact 2-D resonance states, and
+the NRM VE/DA cross sections. The
 functional solvers remain public (they are the low-level layer this delegates
 to, and each carries ADR 0004's *provisional* marker pending the pre-1.0
 signature freeze); `ScatteringProblem` is the stable API. Deliberately NOT on
@@ -48,7 +48,7 @@ from qscat.linalg import Ordering
 
 from .dissociation import da_cross_section, dr_solve
 from .driven import ve_cross_section
-from .lcp import lcp_da_cross_section, resonance_levels
+from .lcp import lcp_da_cross_section, lcp_ve_cross_section, resonance_levels
 from .resonance import exact_resonance_states
 from .time_dependent import (
     Method,
@@ -363,11 +363,40 @@ class ScatteringProblem:
             return_wavefunction=return_wavefunction,
         )
 
-    # EXTENSION POINT: when `qscat.core.lcp.lcp_ve_cross_section` (the LCP
-    # VIBRATIONAL-EXCITATION route, currently a validation-layer driver)
-    # graduates into qscat.core.lcp, add the matching typed method here,
-    # mirroring `lcp_da_cross_section` above: the bundle supplies
-    # grid/mu/eps/chi/v_init, the curve arrives as `Vd`/`Gamma` keywords.
+    def lcp_ve_cross_section(
+        self,
+        vprimes: list[int],
+        E: float | npt.ArrayLike,
+        *,
+        Vd: npt.NDArray[np.complex128],
+        Gamma: npt.NDArray[np.float64],
+        ordering: Ordering = "COLAMD",
+        return_wavefunction: bool = False,
+    ) -> _Sigma | tuple[_Sigma, _PsiOut]:
+        """LCP vibrational-excitation cross section on this problem's NUCLEAR
+        grid; see `qscat.core.lcp_ve_cross_section`. The curve `(Vd, Gamma)`
+        is per-call (compute it with `resonance_levels(..., return_curve=True)`
+        -- see that docstring for why not `local_complex_potential` directly);
+        `mu`/`eps`/`chi`/`v_init` come from the bundle, which is what pays down
+        the functional signature's documented argument-order exception
+        (docs/adr/0007). The LCP magnitude needs the FINE per-molecule nuclear
+        deck -- construct the problem on it for physical numbers. Returns the
+        plain sigma array unless `return_wavefunction` is set (see the union
+        in the signature); literal-flag callers who want the narrowed type
+        can call the functional `qscat.core.lcp_ve_cross_section` directly."""
+        return lcp_ve_cross_section(
+            self.grid.grids[1],
+            self.model.mu,
+            Vd,
+            Gamma,
+            self.eps,
+            self.chi,
+            self.v_init,
+            vprimes,
+            E,
+            ordering=ordering,
+            return_wavefunction=return_wavefunction,
+        )
 
     def resonance_levels(
         self,

@@ -31,7 +31,7 @@ def test_hankel_point_value_matches_riccati_hankel_en_neutral() -> None:
     position = 43  # r = 10.0, in the real (unscaled) region, past the interaction
     z_position = float(GRID.real_points[position])
     k, l = 0.5, 2
-    got = hankel_point_value(GRID, z_position, k, l, 0)
+    got = hankel_point_value(z_position, k, l, 0)
     want = complex(riccati_hankel_en(np.asarray(z_position), k, l) / 2.0)
     assert got == want
 
@@ -41,7 +41,7 @@ def test_hankel_point_value_matches_coulomb_h1_en_charged() -> None:
     position = 43
     z_position = float(GRID.real_points[position])
     k, l, charge = 0.5, 1, -1
-    got = hankel_point_value(GRID, z_position, k, l, charge)
+    got = hankel_point_value(z_position, k, l, charge)
     want = complex(
         coulomb_h1_en(np.asarray(z_position, dtype=complex), k, float(charge), 1.0, l) / 2.0
     )
@@ -52,7 +52,7 @@ def test_hankel_point_value_is_a_plain_scalar() -> None:
     """No `sqrt(w)` factor, no masking -- just the function's value."""
     position = 43
     z_position = float(GRID.real_points[position])
-    got = hankel_point_value(GRID, z_position, 0.3, 2, 0)
+    got = hankel_point_value(z_position, 0.3, 2, 0)
     assert isinstance(got, complex)
     assert got != 0.0
 
@@ -65,8 +65,8 @@ def test_outgoing_surface_wave_phi_matches_hankel_point_value_neutral() -> None:
     position = 43  # r = 10.0, real region
     z = float(GRID.real_points[position])
     k, l = 0.5, 2
-    phi, _ = outgoing_surface_wave(GRID, z, k, l, 0)
-    want = hankel_point_value(GRID, z, k, l, 0)
+    phi, _ = outgoing_surface_wave(z, k, l, 0)
+    want = hankel_point_value(z, k, l, 0)
     assert phi == want
 
 
@@ -76,7 +76,7 @@ def test_outgoing_surface_wave_dphi_matches_finite_difference_neutral() -> None:
     difference of `riccati_hankel_en` itself -- confirms the analytic
     formula (module docstring)."""
     z, k, l = 10.0, 0.5, 2
-    _, dphi = outgoing_surface_wave(GRID, z, k, l, 0)
+    _, dphi = outgoing_surface_wave(z, k, l, 0)
     h = 1e-6
     fd = (
         complex(
@@ -92,7 +92,7 @@ def test_outgoing_surface_wave_dphi_several_l_and_k() -> None:
     """Sanity sweep: analytic dphi_out matches an independent FD at several
     (k, l, z) combinations, not just one lucky point."""
     for k, l, z in [(0.3, 0, 6.0), (0.7, 1, 8.0), (1.2, 3, 15.0), (0.5, 5, 20.0)]:
-        _, dphi = outgoing_surface_wave(GRID, z, k, l, 0)
+        _, dphi = outgoing_surface_wave(z, k, l, 0)
         h = 1e-6
         fd = (
             complex(
@@ -110,10 +110,10 @@ def test_outgoing_surface_wave_charged_branch_is_finite_and_matches_value() -> N
     check it returns finite values and that `phi_out` matches
     `hankel_point_value`'s charged branch (same underlying value)."""
     z, k, l, charge = 10.0, 0.5, 1, -1
-    phi, dphi = outgoing_surface_wave(GRID, z, k, l, charge)
+    phi, dphi = outgoing_surface_wave(z, k, l, charge)
     assert np.isfinite(phi)
     assert np.isfinite(dphi)
-    want = hankel_point_value(GRID, z, k, l, charge)
+    want = hankel_point_value(z, k, l, charge)
     assert phi == want
 
 
@@ -128,7 +128,7 @@ def test_hankel_point_value_mass_default_is_byte_identical() -> None:
     position = 43
     z_position = float(GRID.real_points[position])
     k, l = 0.5, 2
-    got = hankel_point_value(GRID, z_position, k, l, 0)
+    got = hankel_point_value(z_position, k, l, 0)
     want = complex(riccati_hankel_en(np.asarray(z_position), k, l) / 2.0)
     assert got == want
 
@@ -137,23 +137,23 @@ def test_hankel_point_value_nuclear_mass_matches_riccati_hankel_en_mass() -> Non
     position = 43
     z_position = float(GRID.real_points[position])
     k, l, mu = 0.5, 0, 918.25
-    got = hankel_point_value(GRID, z_position, k, l, 0, mass=mu)
+    got = hankel_point_value(z_position, k, l, 0, mass=mu)
     want = complex(riccati_hankel_en_mass(np.asarray(z_position), k, l, mu) / 2.0)
     assert got == want
 
 
 def test_outgoing_surface_wave_mass_default_is_byte_identical() -> None:
     z, k, l = 10.0, 0.5, 2
-    phi_default, dphi_default = outgoing_surface_wave(GRID, z, k, l, 0)
-    phi_explicit, dphi_explicit = outgoing_surface_wave(GRID, z, k, l, 0, mass=1.0)
+    phi_default, dphi_default = outgoing_surface_wave(z, k, l, 0)
+    phi_explicit, dphi_explicit = outgoing_surface_wave(z, k, l, 0, mass=1.0)
     assert phi_default == phi_explicit
     assert dphi_default == dphi_explicit
 
 
 def test_outgoing_surface_wave_nuclear_mass_phi_matches_hankel_point_value() -> None:
     z, k, l, mu = 12.0, 0.6, 0, 918.25
-    phi, _ = outgoing_surface_wave(GRID, z, k, l, 0, mass=mu)
-    want = hankel_point_value(GRID, z, k, l, 0, mass=mu)
+    phi, _ = outgoing_surface_wave(z, k, l, 0, mass=mu)
+    want = hankel_point_value(z, k, l, 0, mass=mu)
     assert phi == want
 
 
@@ -161,7 +161,7 @@ def test_outgoing_surface_wave_nuclear_mass_dphi_matches_finite_difference() -> 
     """Same analytic-vs-FD check as the electronic (`mass=1.0`) case, at a
     nuclear-scale reduced mass."""
     z, k, l, mu = 12.0, 0.6, 0, 918.25
-    _, dphi = outgoing_surface_wave(GRID, z, k, l, 0, mass=mu)
+    _, dphi = outgoing_surface_wave(z, k, l, 0, mass=mu)
     h = 1e-6
     fd = (
         complex(

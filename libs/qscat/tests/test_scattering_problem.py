@@ -242,6 +242,21 @@ def test_problem_lcp_da_matches_functional_api() -> None:
     assert np.array_equal(got, expected)
 
 
+def test_problem_lcp_ve_matches_functional_api() -> None:
+    """Synthetic curve arrays: delegation equality needs a well-posed solve,
+    not converged physics (docs/adr/0005 point 7)."""
+    from qscat.core import lcp_ve_cross_section
+
+    prob, eps, chi, tg = _problem_and_basis()
+    g_R = tg.grids[1]
+    Vd = (0.2 * (1.0 - np.exp(-(g_R.points - 2.0))) ** 2 + 0.05).astype(np.complex128)
+    Gamma = 0.01 * np.exp(-(np.abs(g_R.points - 2.4) ** 2)).astype(np.float64)
+    E = np.array([0.02, 0.05])
+    expected = lcp_ve_cross_section(g_R, N2.mu, Vd, Gamma, eps, chi, 0, [0, 1], E)
+    got = prob.lcp_ve_cross_section([0, 1], E, Vd=Vd, Gamma=Gamma)
+    assert np.array_equal(got, expected)
+
+
 def test_problem_resonance_levels_delegates_exact_arguments(monkeypatch) -> None:
     """The electronic pole walk is minutes-scale; delegation is checked by
     argument capture (the walk's own gates live in test_lcp_resonance_levels

@@ -48,7 +48,7 @@ class IonicResonanceModel:
     # bound -- their Morse + Gaussian forms are entire -- so the `ResonanceModel`
     # protocol does NOT declare this attribute at all; it is an ionic-only
     # extension that consumers read with `getattr(model, ..., None)`
-    # (`qscat.core.lcp._check_angle_bound`), treating its absence as "no bound".
+    # (`qscat.core.lcp.levels._check_angle_bound`), treating its absence as "no bound".
     max_nuclear_ecs_angle_deg: float = 22.5
 
     def v0(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:

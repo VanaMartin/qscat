@@ -194,6 +194,7 @@ def test_dr_wellposed_and_threshold_ordered():
         assert psi is not None and psi.shape == (tg.size,) and psi.dtype == np.complex128
 
 
+@pytest.mark.slow
 def test_dr_solve_returns_dataclass_result() -> None:
     """lib-m14: one result object instead of four flag-shaped tuples."""
     from qscat.core.dissociation import DrResult, dr_solve
@@ -224,6 +225,7 @@ def test_dr_solve_returns_dataclass_result() -> None:
     assert full.amplitude.shape == full.sigma.shape
 
 
+@pytest.mark.slow
 def test_dr_cross_section_flags_deprecated_but_working() -> None:
     from qscat.core.dissociation import dr_cross_section
     from qscat.core.vibrational import vibrational_states
@@ -237,6 +239,47 @@ def test_dr_cross_section_flags_deprecated_but_working() -> None:
     with pytest.warns(DeprecationWarning, match="dr_solve"):
         s2, _psi = dr_cross_section(tg, H2P, eps, chi, 0, E, n_channels=2, return_wavefunction=True)
     np.testing.assert_array_equal(s, s2)
+
+
+def test_dr_cross_section_flags_deprecated_and_delegates(monkeypatch) -> None:
+    """The deprecated flag-shaped tuple return warns and assembles its tuple
+    from `dr_solve`'s `DrResult` -- checked by monkeypatch (a real DR solve
+    is slow-tier, see `test_dr_cross_section_flags_deprecated_but_working`
+    above), mirroring `test_scattering_problem.py::
+    test_problem_dr_delegates_exact_arguments`.
+    """
+    from qscat.core.dissociation import DrResult, dr_cross_section
+    from qscat.model import H2P
+
+    tg = _h2p_proxy()
+    sentinel_sigma = np.zeros((2, 2))
+    sentinel_psi = ["psi0", "psi1"]
+    seen: dict[str, object] = {}
+
+    def fake_dr_solve(tgrid, model, eps, chi, v_init, E, **kw):
+        seen.update(tgrid=tgrid, model=model, v_init=v_init, E=E, **kw)
+        return DrResult(sigma=sentinel_sigma, psi=sentinel_psi, amplitude=None)
+
+    monkeypatch.setattr("qscat.core.dissociation.dr_solve", fake_dr_solve)
+    with pytest.warns(DeprecationWarning, match="dr_solve"):
+        sigma, psi = dr_cross_section(
+            tg,
+            H2P,
+            np.zeros(1),
+            np.zeros((1, 1)),
+            0,
+            [0.01, 0.03],
+            n_channels=2,
+            return_wavefunction=True,
+        )
+    assert sigma is sentinel_sigma
+    assert psi is sentinel_psi
+    assert seen["tgrid"] is tg
+    assert seen["model"] is H2P
+    assert seen["v_init"] == 0
+    assert seen["n_channels"] == 2
+    assert seen["store_wavefunction"] is True
+    assert seen["store_amplitude"] is False
 
 
 def _dr_t_matrix_conjugated_channel0(tg, E: float) -> complex:
