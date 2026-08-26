@@ -159,8 +159,8 @@ type TdExtractor = TannorWeeks | Dirac | Flux
 # bound numerical artifact there) loses the pole on its very first recentered
 # step and freezes Gamma at ~3e-15 for the ENTIRE walk, including the
 # vibrationally relevant R ~ 1.8-2.5 region -- silently zeroing out the VE
-# cross section (measured: sigma ~ 1e-54, see the `presets._n2_lcp_grids`
-# docstring). At 0.05 -- the library default, and the half-width
+# cross section (measured: sigma ~ 1e-54, from the frozen Gamma ~3e-15 walk
+# at half-width 0.01). At 0.05 -- the library default, and the half-width
 # `projects/n2_ti_cross_section/vres.py`'s OWN retired N2 pole walk used
 # (`_RE_HALF_WIDTH = _IM_HALF_WIDTH = 0.05`) -- the walk tracks the genuine
 # 2Πg shape resonance inward from R0=12, giving Gamma ~ 0.01-0.03 Ha near the

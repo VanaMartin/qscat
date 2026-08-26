@@ -155,8 +155,10 @@ defect.
 
 - `validation/n2/test_lcp_ve.py`: internal correctness
   checks (real/non-negative $\sigma$, exact-zero closed channel, resonance
-  enhancement) — **PASS**; Houfek anchor comparison — 4/6 anchors gated and
-  **PASS** at factor-of-3, 2/6 reported as known LCP-vs-2D limitations.
+  enhancement) — **PASS**.
+- `validation/n2/test_anchor_gate.py`: Houfek anchor comparison — 4/6 anchors
+  gated and **PASS** at factor-of-3, 2/6 reported as known LCP-vs-2D
+  limitations.
 - `validation/n2/experiment.py` Group C5: the same 6 anchors, computed once via
   `validation/n2/cross_section.compute_anchor_results()` and reused across all
   anchors (the ~7s `vres_on_grid` cost is paid exactly once) — 4 **PASS**, 2

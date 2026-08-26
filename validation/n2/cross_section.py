@@ -65,7 +65,7 @@ __all__ = ["AnchorResult", "build_system", "compute_anchor_results"]
 
 _CONFIG = json.loads((Path(__file__).parent / "config.json").read_text())
 MU = _CONFIG["reduced_mass"]  # N2 nuclear reduced mass (a.u.); matches
-# `projects/n2_ti_cross_section/test_cross_section.py`.
+# `validation/n2/test_lcp_ve.py`'s value.
 N_VIB = 6  # v=0..5 -- enough to cover vprimes up to 3 used by the anchors.
 
 

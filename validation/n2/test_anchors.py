@@ -1,8 +1,9 @@
 """Task 5: the six C5/C4 anchors, run through the exact 2-D solver, compared
 three ways (`validation.n2.exact2d.compute_exact2d_results`).
 
-Two families of checks, mirroring `projects/n2_ti_cross_section/test_cross_section.py`
-and `validation/n2/cross_section.py`'s own split:
+Two families of checks, mirroring `validation/n2/test_anchor_gate.py` (which
+replaced `projects/n2_ti_cross_section/test_cross_section.py`) and
+`validation/n2/cross_section.py`'s own split:
 
 - INTERNAL (model-independent): sigma is real and >=0 at every anchor.
 - V4, the GATE: the 4 GATED anchors (VE channels clear of their own
