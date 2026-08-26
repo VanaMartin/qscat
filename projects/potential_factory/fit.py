@@ -13,8 +13,8 @@ from qscat.core.grids import nuclear_grid
 from qscat.core.nrm.coupling import gamma_from_coupling, v_dk_plus
 from qscat.core.nrm.discrete_state import AsymptoticDiscreteState
 from qscat.core.vibrational import vibrational_states
-from qscat.exceptions import ConvergenceError
-from scipy.optimize import brentq, least_squares
+from qscat.exceptions import ConvergenceError, GridError
+from scipy.optimize import least_squares
 from scipy.special import expit
 
 from projects.potential_factory.ansatz import (
@@ -139,7 +139,10 @@ def _check_omega_e(
     ref, src = _omega_e_reference(target, fitted)
     if ref is None:
         return True, f"omega_e: not checked ({src})"
-    fit_w, _, _ = _omega_e_10(fitted.mu, fitted.v0)
+    try:
+        fit_w, _, _ = _omega_e_10(fitted.mu, fitted.v0)
+    except (GridError, ValueError) as err:
+        return False, f"omega_e: fitted curve binds no v=0,1 on the nuclear grid ({str(err)[:80]})"
     rel = abs(fit_w - ref) / abs(ref)
     return rel <= tol.omega_e_rel, (
         f"omega_e (v=0->1) fit={fit_w:.6e} target={ref:.6e} Ha, "
@@ -182,15 +185,24 @@ def fit_neutral(
     y = target.curve(R)
     names = ["D_e", "R_e"] + [f"beta{i}" for i in range(n_beta)]
 
+    # The EMO's beta(R) must stay positive everywhere the nuclear grid reaches,
+    # or the curve blows up at small R and binds nothing: bounds on the
+    # constants plus a soft penalty on beta(R) < 0 over [0.3, R_e].
+    R_pen = np.linspace(0.3, max(lo, 0.31), 12)
+    lower = [1e-4, 0.5, 0.05] + [-2.0] * (n_beta - 1)
+    upper = [2.0, 10.0, 10.0] + [2.0] * (n_beta - 1)
+
     def resid(x):
         m = unpack(model, names, x)
-        return m.v0(R).real - y
+        pen = 10.0 * np.maximum(0.0, -m.beta_R(R_pen).real)
+        return np.concatenate([m.v0(R).real - y, pen])
 
+    x0 = np.clip(pack(model, names), np.array(lower) + 1e-9, np.array(upper) - 1e-9)
     sol = least_squares(
-        resid, pack(model, names), xtol=1e-14, ftol=1e-14, gtol=1e-14, max_nfev=2000
+        resid, x0, bounds=(lower, upper), xtol=1e-14, ftol=1e-14, gtol=1e-14, max_nfev=2000
     )
     fitted = unpack(model, names, sol.x)
-    r = resid(sol.x)
+    r = resid(sol.x)[: R.size]
     rms, mx = float(np.sqrt(np.mean(r**2))), float(np.max(np.abs(r)))
     ok_w, w_detail = _check_omega_e(target, fitted, tol)
     status = "met" if (rms <= tol.v0_rms and ok_w) else "not met"
@@ -483,22 +495,33 @@ def _apply_ea_constraint(
         eps_e, _ = anion_electronic_states(pair.grid_a, m, _R_INF, 1)
         return float(eps_e[0] - m.v0(_R_INF).real + ea)
 
-    def safe_g(f_inf: float) -> float | None:
+    def safe_g(f_inf: float) -> float:
+        # an UNBOUND anion sits above every negative -ea: count it as "positive",
+        # so the unbinding edge is just where the sign of g changes
         try:
             return g(f_inf)
         except (ValueError, ConvergenceError):
-            return None
+            return abs(ea) if ea != 0.0 else 1.0
 
     f0 = model.lam.f_inf
-    lo, hi = 0.5 * f0, 1.5 * f0
-    glo, ghi = safe_g(lo), safe_g(hi)
-    if glo is None or ghi is None or glo * ghi > 0:
-        return model, False  # no bracket: leave lam.f_inf; the re-verification will report it
-    try:
-        f_star = brentq(g, lo, hi, xtol=1e-10)
-    except (ValueError, ConvergenceError):
+    lo = 0.5 * f0
+    if safe_g(lo) <= 0.0:  # still bound below -ea at half depth: no bracket on this side
         return model, False
-    return with_params(model, {"lam.f_inf": f_star}), True
+    hi = 1.5 * f0
+    while safe_g(hi) > 0.0 and hi < 4.0 * f0:
+        hi *= 1.5
+    if safe_g(hi) > 0.0:
+        return model, False
+    # bisection (g may be discontinuous at the unbinding edge, so not brentq)
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        if safe_g(mid) > 0.0:
+            lo = mid
+        else:
+            hi = mid
+        if hi - lo < 1e-9 * f0:
+            break
+    return with_params(model, {"lam.f_inf": hi}), True
 
 
 def _polish_window_about(E: complex, bound: bool) -> Window:
@@ -791,6 +814,7 @@ def fit_resonance(
     tol: Tolerances,
     lam_coeffs: int = 0,
     alpha_coeffs: int = 0,
+    polish_nfev: int = 100,
 ) -> tuple[FlexibleDiatomicModel, TierResult]:
     R_desc, node_source = _t1_nodes(target, n_nodes)
     # Every denominator below counts the nodes ACTUALLY used (a table target
@@ -819,7 +843,13 @@ def fit_resonance(
         # negligible, effectively noise) is both cheaper and consistent. F2's
         # first-pass Newton failures land EXACTLY in the old gap between
         # 1e-6 and gamma_floor (gamma_target = 1.05e-5, 1.26e-4, 1.12e-3).
-        return complex(s, 0.0) if g < tol.gamma_floor else complex(s, -0.5 * g)
+        if g < tol.gamma_floor:
+            # A width under the floor with E_res ABOVE the neutral is the crossing
+            # slice: neither a bound state (no real eigenvalue exists there) nor a
+            # resolvable resonance (its Im is below what the gate can certify) --
+            # no target at this node, exactly as a NaN table point.
+            return complex(s, 0.0) if s < 0.0 else complex(np.nan, np.nan)
+        return complex(s, -0.5 * g)
 
     # Tracking and re-verify must see the same
     # potential. `walk_t1` re-verifies against `model.surface`, which already
@@ -915,26 +945,63 @@ def fit_resonance(
         )
     model, lam_rel_rms = _fit_smooth(model, "lam", tr2.R[ok2], tr2.lam[ok2])
 
+    # The electron-affinity asymptote goes in BEFORE the polish, and then INTO
+    # it as one more (bound) pole node at R_inf: applied afterwards it would
+    # move `lam.f_inf`, the sigmoid's asymptote, and with it lam(R) at every
+    # R -- undoing the polish (measured on O2: a 1 eV drift of V_ion on the
+    # bound side). Exactly one of the three statuses describes what happened.
+    reaches_asymptote = (
+        abs(float(target.v_ion(R_desc[0]) - model.v0(R_desc[0]).real) + target.ea) < 0.05
+    )
+    ea_status = "skipped (table short of asymptote)"
+    ea_node = False
+    if reaches_asymptote:
+        model, applied = _apply_ea_constraint(model, pair, target.ea)
+        ea_status = "applied, held by the polish" if applied else "skipped (no bracket)"
+        ea_node = applied
+
     # Joint polish of lam(R)/alpha(R) TOGETHER
     # against the poles themselves (not the per-node tracked sample -- see
     # `_joint_polish`'s docstring), on exactly the second-pass converged
     # nodes, using the SAME resonant/gamma_target weighting as the alpha fit
     # above. `tr2.poles` is index-aligned with `tr2.R`/`ok2`.
-    gamma_t2 = np.array([float(target.gamma(Rj)) for Rj in tr2.R[ok2]])
+    R_pol = tr2.R[ok2]
+    gamma_t2 = np.array([float(target.gamma(Rj)) for Rj in R_pol])
     resonant2 = gamma_t2 >= tol.gamma_floor
     seed_poles = [p for p, keep in zip(tr2.poles, ok2, strict=True) if keep]
-    model, polish_detail = _joint_polish(
-        model, pair, tr2.R[ok2], pole_target, gamma_t2, resonant2, seed_poles, extra_of_R
-    )
+    polish_target = pole_target
+    if ea_node:
+        extra_inf = extra_of_R(_R_INF) if extra_of_R is not None else None
+        p_inf = pair.pole(
+            well_potential(
+                model.ell,
+                float(model.lam_R(_R_INF).real),
+                float(model.alpha_R(_R_INF).real),
+                extra_inf,
+            ),
+            DEFAULT_BOUND_WINDOW,
+        )
+        if p_inf is not None:
+            R_pol = np.concatenate([[_R_INF], R_pol])
+            gamma_t2 = np.concatenate([[0.0], gamma_t2])
+            resonant2 = np.concatenate([[False], resonant2])
+            seed_poles = [p_inf, *seed_poles]
+            ea = float(target.ea)
 
-    reaches_asymptote = (
-        abs(float(target.v_ion(R_desc[0]) - model.v0(R_desc[0]).real) + target.ea) < 0.05
+            def polish_target(R: float, _ea: float = ea) -> complex:
+                return complex(-_ea, 0.0) if R == _R_INF else pole_target(R)
+
+    model, polish_detail = _joint_polish(
+        model,
+        pair,
+        R_pol,
+        polish_target,
+        gamma_t2,
+        resonant2,
+        seed_poles,
+        extra_of_R,
+        max_nfev=polish_nfev,
     )
-    # Exactly one of these three describes what happened.
-    ea_status = "skipped (table short of asymptote)"
-    if reaches_asymptote:
-        model, applied = _apply_ea_constraint(model, pair, target.ea)
-        ea_status = "applied" if applied else "skipped (no bracket)"
 
     # Re-verify on the SMOOTHED model with the package's own gated per-node
     # walk: `qscat.core.lcp.resonance_pole_walk` freezes at the
@@ -942,7 +1009,9 @@ def fit_resonance(
     # resonant region (measured). `walk_t1` drops (not freezes) a node
     # with no gated pole, exactly like the tracking step above.
     try:
-        R_w, shift_w, gamma_w = walk_t1(model, pair, R_desc)
+        R_w, shift_w, gamma_w = walk_t1(
+            model, pair, R_desc, seed_energy=pole_target(float(R_desc[0]))
+        )
     except ValueError as e:
         return model, TierResult(
             "T1",
@@ -1104,11 +1173,21 @@ def fit_coupling(
 
     def resid(x):
         m = unpack(model, names, x)
-        g = model_gamma_tilde(m, pair, eps, R_asc)
+        try:
+            g = model_gamma_tilde(m, pair, eps, R_asc)
+        except ValueError:
+            # a trial shell that unbinds the anion at R_inf has no discrete
+            # state; a large residual sends the optimizer back, no exception
+            return np.full(y.size, 10.0)
         return (np.log(np.maximum(g, 1e-300)) - y).ravel()
 
     x0 = pack(model, names)
-    r0 = resid(x0)
+    try:
+        r0 = resid(x0)
+    except ValueError as err:  # no bound anion at R_inf: T1 missed the asymptote
+        return model, TierResult(
+            "T3", "not met", np.nan, np.nan, f"no discrete state: {str(err)[:100]}"
+        )
     rms0 = float(np.sqrt(np.mean(r0**2)))
     if rms0 <= 0.5 * tol.coupling_log_rms:
         # No fit was needed: hand back the CALLER's model, not the
@@ -1121,7 +1200,13 @@ def fit_coupling(
             float(np.max(np.abs(r0))),
             f"{grid_detail}; shell not needed; seed_rms={rms0:.3e}",
         )
-    sol = least_squares(resid, x0, diff_step=1e-3, xtol=1e-8, ftol=1e-8, max_nfev=60)
+    # The shell is a REPULSIVE barrier by design: amplitudes >= 0 keep it from
+    # turning into a second well that binds a state of its own.
+    lower, upper = [0.0, 0.0, 0.5], [5.0, 5.0, 12.0]
+    x0 = np.clip(x0, np.array(lower) + 1e-9, np.array(upper) - 1e-9)
+    sol = least_squares(
+        resid, x0, bounds=(lower, upper), diff_step=1e-3, xtol=1e-8, ftol=1e-8, max_nfev=60
+    )
     fitted = unpack(model, names, sol.x)
     r = resid(sol.x)
     rms, mx = float(np.sqrt(np.mean(r**2))), float(np.max(np.abs(r)))
@@ -1169,6 +1254,42 @@ def _da_sign(target: Target, model: FlexibleDiatomicModel) -> int | None:
     return int(np.sign(threshold)) if threshold != 0.0 else 0
 
 
+def _t1_recheck(
+    target: Target,
+    model: FlexibleDiatomicModel,
+    pair: ElectronicPair,
+    n_nodes: int,
+    tol: Tolerances,
+) -> tuple[bool, str]:
+    """Re-walk the T1 nodes on the FINAL model (after T3's shell) and report
+    whether T1's tolerances still hold -- the shell moves the poles, so a T3
+    that breaks T1 is not a met tier."""
+    assert target.resonance is not None
+    R_desc, _ = _t1_nodes(target.resonance, n_nodes)
+    s0 = float(target.resonance.v_ion(R_desc[0]) - model.v0(R_desc[0]).real)
+    seed = complex(s0, -0.5 * float(target.resonance.gamma(R_desc[0])))
+    try:
+        R_w, shift_w, gamma_w = walk_t1(model, pair, R_desc, seed_energy=seed)
+    except ValueError as err:
+        return False, f"post-T3 T1 re-walk failed: {err}"
+    v_t, g_t = target.resonance.v_ion(R_w), target.resonance.gamma(R_w)
+    valid = ~np.isnan(v_t) & ~np.isnan(g_t)
+    e_err = (model.v0(R_w[valid]).real + shift_w[valid]) - v_t[valid]
+    mask = g_t[valid] > tol.gamma_floor
+    g_rel = (
+        np.abs(gamma_w[valid][mask] - g_t[valid][mask]) / g_t[valid][mask]
+        if mask.any()
+        else np.zeros(0)
+    )
+    e_rms = float(np.sqrt(np.mean(e_err**2))) if e_err.size else np.inf
+    g_max = float(np.max(g_rel)) if g_rel.size else 0.0
+    ok = e_rms <= tol.e_res_rms and g_max <= tol.gamma_rel and valid.sum() >= 0.75 * R_desc.size
+    return ok, (
+        f"post-T3 T1 re-walk {int(valid.sum())}/{R_desc.size} nodes: "
+        f"E_res rms={e_rms:.2e} Ha, Gamma rel max={g_max:.3f}"
+    )
+
+
 def fit(
     target: Target,
     seed: FlexibleDiatomicModel,
@@ -1179,6 +1300,8 @@ def fit(
     n_nodes: int = 24,
     lam_coeffs: int = 0,
     alpha_coeffs: int = 0,
+    continue_on_miss: bool = False,
+    polish_nfev: int = 100,
 ) -> tuple[FlexibleDiatomicModel, FitReport]:
     """T0 -> T1 -> T3 in order over the tiers present in `target`, stopping
     after the first "not met" (later tiers report "not attempted" without
@@ -1204,6 +1327,7 @@ def fit(
                 tol=tol,
                 lam_coeffs=lam_coeffs,
                 alpha_coeffs=alpha_coeffs,
+                polish_nfev=polish_nfev,
             ),
         ),
         ("T3", target.coupling, lambda m: fit_coupling(target.coupling, m, pair=pair, tol=tol)),
@@ -1218,8 +1342,17 @@ def fit(
             )
             continue
         model, res = stage(model)
+        if name == "T3" and target.resonance is not None and res.status != "not attempted":
+            ok_t1, note = _t1_recheck(target, model, pair, n_nodes, tol)
+            res = TierResult(
+                res.name,
+                res.status if ok_t1 else "not met",
+                res.rms,
+                res.max,
+                f"{res.detail}; {note}" + ("" if ok_t1 else " -- the shell breaks T1"),
+            )
         tiers.append(res)
-        halted = res.status == "not met"
+        halted = res.status == "not met" and not continue_on_miss
     # The nuclear probe tail: a pivot at R = 12 bohr with a straight ECS ray
     # off it. The angle is named rather than inlined so the tail and the
     # angle `ecs_bounded` reports as PROBED cannot drift apart.

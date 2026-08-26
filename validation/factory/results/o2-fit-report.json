@@ -1,0 +1,77 @@
+{
+  "target_name": "O2 (Alt & Houfek 2021, Fig. 2 vector extraction)",
+  "parameters": {
+    "D_e": 0.19334217522548347,
+    "R_e": 2.2678256573785673,
+    "beta0": 1.454427020276278,
+    "beta1": 0.10296543725265193,
+    "beta2": -0.03211097057916265,
+    "beta3": 0.38748236395339114,
+    "beta4": 1.9999999999999998,
+    "lam.f_inf": 4.9597117338146095,
+    "lam.f_0": 0.003977056526330602,
+    "lam.f_1": 1.0000001465608077e-06,
+    "lam.R_f": 25.428607959637333,
+    "lam.c0": 562.8528908806016,
+    "lam.c1": -326.3404245909293,
+    "lam.c2": -141.82287404202856,
+    "alpha.f_inf": 0.3698568219986617,
+    "alpha.f_0": 0.0,
+    "alpha.f_1": 1.0,
+    "alpha.R_f": 0.0,
+    "alpha.c0": 0.0,
+    "alpha.c1": 0.0,
+    "shell.f_inf": 1e-09,
+    "shell.f_0": 1e-09,
+    "shell.f_1": 1.0,
+    "shell.R_f": 2.05,
+    "alpha_b": 2.0,
+    "r_b": 3.0
+  },
+  "tiers": [
+    {
+      "name": "T0",
+      "status": "met",
+      "rms": 0.0005003310455459164,
+      "max": 0.003181829928156854,
+      "detail": "EMO with 5 beta(s) on 284 points; omega_e (v=0->1) fit=7.356747e-03 target=7.324399e-03 Ha, omega_e_rel=4.42e-03 vs tol 2.00e-02 [table [1.82, 6] (leak=4.6e-13)]"
+    },
+    {
+      "name": "T1",
+      "status": "not met",
+      "rms": 0.00271923260165657,
+      "max": 0.17571779160358228,
+      "detail": "nodes: table 40/401; tracked 38/40 (12 resonant), re-tracked 38/40 nodes; re-walk verified 40/40 nodes; E_res rms=2.72e-03 max=5.91e-03 Ha; Gamma rel rms=0.073 max=0.176; smooth_rms_lam=3.61e-02 smooth_rms_alpha=6.54e-02; polish_rms=2.42e-03 Ha (analytic Jacobian); polish skipped 0/39 nodes; least_squares status=2 nfev=122/300; EA constraint applied, held by the polish"
+    },
+    {
+      "name": "T3",
+      "status": "not met",
+      "rms": 1.12394523537762,
+      "max": 2.7712820274276466,
+      "detail": "log Gamma~ on geomspace/linspace 8x8 (eps, R); shell fitted; seed_rms=1.124e+00; post-T3 T1 re-walk 40/40 nodes: E_res rms=2.72e-03 Ha, Gamma rel max=0.176 -- the shell breaks T1"
+    }
+  ],
+  "ecs_bounds_deg": {
+    "electronic_max_deg": 45.0,
+    "nuclear_max_deg": 90.0,
+    "probed_electronic_deg": 35.0,
+    "probed_nuclear_deg": 35.0,
+    "tail_growth": 0.0068083937155802065
+  },
+  "crossing_R": 2.289302746067388,
+  "da_threshold_sign": 1,
+  "provenance": {
+    "neutral": {
+      "source": "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)",
+      "locator": "Fig. 2 p. 032829-3 (vector-extracted); Table I p. 032829-3"
+    },
+    "resonance": {
+      "source": "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)",
+      "locator": "Fig. 2 p. 032829-3 (vector-extracted); EA(O) Table I"
+    },
+    "coupling": {
+      "source": "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)",
+      "locator": "Table II p. 032829-4; Eqs. (24)-(27) p. 032829-4"
+    }
+  }
+}
