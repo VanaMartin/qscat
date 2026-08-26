@@ -51,8 +51,9 @@ exactly like `driven.py`/`dissociation.py`.
 
 from __future__ import annotations
 
+import os
 import warnings
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from typing import TYPE_CHECKING, Literal, overload
 
 import numpy as np
@@ -709,10 +710,14 @@ class ResonanceLevels:
     is the complete inner product here.
 
     - `energies`: `E_v - i Gamma_v/2` (Hartree), ascending in `Re E`.
-    - `widths`: `Gamma_v = max(0, -2 Im E_v)` (Hartree). A level below the anion
-      dissociation limit carries only the ELECTRONIC autodetachment width; one
-      above it also carries a NUCLEAR (dissociative) width. Both come out of the
-      one diagonalization.
+    - `widths`: `Gamma_v = -2 Im E_v` (Hartree), UNCLAMPED -- after the
+      `Im E <= atol` physicality filter the most negative representable value
+      is `-2*atol`; a small negative width is a round-off diagnostic, and
+      hiding it behind a clamp is how it goes unnoticed. Same convention as
+      `ExactResonanceStates.widths`. A level below the anion dissociation
+      limit carries only the ELECTRONIC autodetachment width; one above it
+      also carries a NUCLEAR (dissociative) width. Both come out of the one
+      diagonalization.
     - `states`: shape `(n_levels, grid.n)` DVR COEFFICIENTS `c_i`
       (`psi(R_i) = c_i / sqrt(w_i)`), c-product-normalized: `sum_i c_i^2 = 1`.
     - `residuals`: the two-angle ECS-TAIL stability residual per level,
@@ -751,6 +756,24 @@ class ResonanceLevels:
     residuals: npt.NDArray[np.float64]
     real_weight: npt.NDArray[np.float64]
     golden_rule: npt.NDArray[np.complex128]
+
+    def save(self, path: str | os.PathLike[str]) -> None:
+        """Write to a compressed `.npz` under the dataclass's own field names.
+
+        Mirrors `ExactResonanceStates.save` -- the field names stay the
+        dataclass's business, so a rename cannot silently desynchronize a
+        hand-rolled cache.
+        """
+        np.savez(path, **{f.name: getattr(self, f.name) for f in fields(self)})
+
+    @classmethod
+    def load(cls, path: str | os.PathLike[str]) -> ResonanceLevels:
+        """Read back a `save()` file, checking every field is present."""
+        with np.load(path) as z:
+            missing = [f.name for f in fields(cls) if f.name not in z]
+            if missing:
+                raise ValueError(f"{path} is not a ResonanceLevels archive: missing {missing}")
+            return cls(**{f.name: z[f.name] for f in fields(cls)})
 
 
 def _check_shared_real_nodes(grid_a: FemDvrEcsGrid, grid_b: FemDvrEcsGrid) -> None:
@@ -926,7 +949,7 @@ def lcp_resonance_levels(
     if n_levels is not None:
         energies, residuals, states = (energies[:n_levels], residuals[:n_levels], states[:n_levels])
 
-    widths = np.maximum(0.0, -2.0 * energies.imag)
+    widths = -2.0 * energies.imag
     real_mask = nuclear_grid_a.points.imag == 0.0
     dens = np.abs(states) ** 2
     total = dens.sum(axis=1)

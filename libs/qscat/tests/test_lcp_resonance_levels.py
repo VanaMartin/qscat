@@ -57,6 +57,29 @@ def test_zero_width_reproduces_the_analytic_morse_spectrum():
     assert np.all(out.real_weight > 0.999)
 
 
+def test_widths_are_raw_minus_two_im(tmp_path) -> None:
+    """lib-M9: widths unclamped (match ExactResonanceStates), and the
+    result round-trips through save/load."""
+    from qscat.core.lcp import ResonanceLevels
+
+    ga, gb = grid_pair()
+    Vd_a, Vd_b = morse(ga.points), morse(gb.points)
+    Gamma = np.zeros(ga.n, dtype=np.float64)
+    out = lcp_resonance_levels(ga, gb, MU, Vd_a, Vd_b, Gamma, window=WINDOW)
+
+    np.testing.assert_array_equal(out.widths, -2.0 * out.energies.imag)
+
+    p = tmp_path / "levels.npz"
+    out.save(p)
+    back = ResonanceLevels.load(p)
+    for name in ("energies", "widths", "states", "residuals", "real_weight", "golden_rule"):
+        np.testing.assert_array_equal(getattr(back, name), getattr(out, name))
+
+    with pytest.raises(ValueError, match="missing"):
+        np.savez(tmp_path / "bad.npz", energies=out.energies)
+        ResonanceLevels.load(tmp_path / "bad.npz")
+
+
 def test_constant_width_shifts_the_spectrum_rigidly():
     ga, gb = grid_pair()
     Vd_a, Vd_b = morse(ga.points), morse(gb.points)
@@ -242,7 +265,7 @@ def test_f2_levels_are_bound_and_narrow():
 
     assert out.energies.size > 0
     assert np.all(np.diff(out.energies.real) > 0)  # ascending, non-degenerate
-    assert np.all(out.widths >= 0.0)  # clamped
+    assert np.all(out.widths >= -2.0 * 1e-8)  # unclamped: bounded below by the Im-filter's -2*atol
     assert np.all(out.residuals < 1e-3)  # genuinely angle-stable
     assert np.all(out.real_weight > 0.5)  # localized, not continuum
     # The comparator must agree with the complex result on the narrow levels:
