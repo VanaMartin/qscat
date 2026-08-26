@@ -59,18 +59,26 @@ jobs:
         run: uv run mypy libs/qscat/qscat apps/qscat-run/qscat_run
 
   test:
-    name: test (py${{ matrix.python-version }})
+    name: test (${{ matrix.os }}, py${{ matrix.python-version }})
     needs: changes
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12", "3.13"]
+        os: [ubuntu-latest]
+        python-version: ["3.12", "3.13", "3.14"]
         include:
           # Coverage is collected on one cell only: it costs measurable
           # overhead and the number is the same on every row.
-          - python-version: "3.12"
+          - os: ubuntu-latest
+            python-version: "3.12"
             coverage: "--cov=qscat --cov-report=term"
+          # One macOS row: catches Accelerate-vs-OpenBLAS numeric divergence
+          # and BSD-vs-GNU path assumptions. The BLAS pins below are a
+          # measured no-op here (Accelerate; see the env comment) and are
+          # kept for uniformity.
+          - os: macos-latest
+            python-version: "3.13"
     steps:
       - uses: actions/checkout@v5
       - name: Install Rust toolchain (only when native/** changed — docs/adr/0006)
@@ -99,6 +107,10 @@ jobs:
         # `-n 4`. It does not reproduce on macOS because scipy there links
         # Accelerate, which does not oversubscribe the same way -- pinning
         # changed nothing locally (76.1 s pinned vs 74.6 s unpinned at a saturating `-n 12`).
+        # The pins stay on the macOS row too: they are a measured no-op there
+        # (Accelerate), kept so the workflow has no per-OS env conditional --
+        # and they become load-bearing again if a future macOS scipy wheel
+        # ever links OpenBLAS instead.
         env:
           OMP_NUM_THREADS: "1"
           OPENBLAS_NUM_THREADS: "1"
@@ -112,6 +124,35 @@ jobs:
             echo
             uv run --no-sync python -m coverage report --format=markdown
           } >> "$GITHUB_STEP_SUMMARY"
+
+  min-versions:
+    name: test (lowest direct deps)
+    needs: changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Rust toolchain (only when native/** changed — docs/adr/0006)
+        if: needs.changes.outputs.native == 'true'
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      # Floors under test (from the pyprojects): numpy 2.0.0, scipy 1.14.0,
+      # mpmath 1.3.0, matplotlib 3.9.0 (plot extra) / 3.0 (qscat-run --
+      # resolver reconciles upward), click 8.0, pyyaml 6.0, pytest 8.0,
+      # pytest-xdist 3.0, hypothesis 6.0. If this job fails while the normal
+      # rows pass, either fix the code or RAISE the floor -- never let the
+      # floor claim a version the suite cannot run on.
+      - name: Sync at the declared floors
+        run: uv sync --all-packages --resolution lowest-direct ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels' || '' }}
+      - name: Test (fast suite at the floors)
+        env:
+          OMP_NUM_THREADS: "1"
+          OPENBLAS_NUM_THREADS: "1"
+          MKL_NUM_THREADS: "1"
+        run: uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile
 
   build:
     name: build + clean-venv import + twine check
