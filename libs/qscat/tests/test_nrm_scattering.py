@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from qscat.core.grids import electronic_grid
 from qscat.core.nrm.scattering import (
-    free_hamiltonian,
+    electronic_free_hamiltonian,
     incident_coefficients,
     scattering_state,
     scattering_state_minus,
@@ -23,7 +23,7 @@ def grid():
 
 def test_free_hamiltonian_is_kinetic_plus_centrifugal(grid):
     """H_free = T_r + l(l+1)/2r^2, nothing else."""
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     cent = 1.0 * 2.0 / (2.0 * grid.points**2)
     expected = kinetic(grid, 1.0) + np.diag(cent)
     assert np.allclose(h_free, expected, rtol=1e-12, atol=0.0)
@@ -47,13 +47,13 @@ def test_free_potential_gives_back_the_incident_wave(grid):
     h == h_free the right-hand side `(h - h_free) @ inc` is identically zero
     regardless of the sign in front of either `(E*I - h)` or the source term,
     so `phi_sc = 0` (and this test passes) for every sign combination. What it
-    does check is that `free_hamiltonian` and `incident_coefficients` are
+    does check is that `electronic_free_hamiltonian` and `incident_coefficients` are
     mutually consistent -- `H_free`'s regular solution really is
     `riccati_bessel_en` on this grid. See
     `test_scattering_is_unitary_for_a_real_potential` for the test that
     actually discriminates the sign.
     """
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     k = 0.5
     phi = scattering_state(h_free, grid, energy=0.5 * k**2, ell=1)
     inc = incident_coefficients(grid, k=k, ell=1)
@@ -69,7 +69,7 @@ def test_attractive_well_scatters(grid):
     `|phi - inc|`, and `|phi_sc|` is identical whichever sign phi_sc carries
     (`|x| == |-x|`). See `test_scattering_is_unitary_for_a_real_potential`.
     """
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     well = -5.0 * np.exp(-3.0 * grid.points**2)
     h = h_free + np.diag(well)
     k = 0.5
@@ -98,7 +98,7 @@ def test_scattering_is_unitary_for_a_real_potential(grid):
     ~6e-11 for the correct sign and ~1.4e-4 for either single-sided flip, a
     4-order-of-magnitude gap that `atol=1e-6` sits cleanly inside.
     """
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     well = -5.0 * np.exp(-3.0 * grid.points**2)
     h = h_free + np.diag(well)
     k = 0.5
@@ -111,7 +111,7 @@ def test_scattering_is_unitary_for_a_real_potential(grid):
 
 def test_minus_state_is_conjugate_on_the_real_region(grid):
     """Eq. (34): phi^- = (phi^+)^* where the ECS contour is real."""
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     well = -5.0 * np.exp(-3.0 * grid.points**2)
     h = h_free + np.diag(well)
     e = 0.125
@@ -125,7 +125,7 @@ def test_minus_state_is_zero_on_the_ecs_tail(grid):
     """The identity holds only where the contour is real, so the tail is not
     claimed -- it is zeroed, and Eq. (37)'s integrand has no support there.
     """
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     h = h_free + np.diag(-5.0 * np.exp(-3.0 * grid.points**2))
     minus = scattering_state_minus(h, grid, energy=0.125, ell=1)
     assert np.all(minus[grid.points.imag != 0.0] == 0.0)
@@ -182,7 +182,7 @@ def test_minus_state_is_purely_incoming_by_hankel_decomposition(grid):
     -- 11 orders of magnitude over the tolerance -- confirming the gate
     discriminates a real sign/conjugation bug.
     """
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     h = h_free + np.diag(-5.0 * np.exp(-3.0 * grid.points**2))
     e = 0.125
     ell = 1
@@ -202,6 +202,17 @@ def test_minus_state_is_purely_incoming_by_hankel_decomposition(grid):
 
 
 def test_rejects_non_positive_energy(grid):
-    h_free = free_hamiltonian(grid, ell=1)
+    h_free = electronic_free_hamiltonian(grid, ell=1)
     with pytest.raises(ValueError, match="positive"):
         scattering_state(h_free, grid, energy=0.0, ell=1)
+
+
+def test_free_hamiltonian_is_a_deprecated_alias_for_electronic_free_hamiltonian():
+    """lib-C3 rename (2026-08-25): the old name warns and resolves to the new
+    function for one release cycle (ADR 0004)."""
+    from qscat.core.nrm import scattering
+
+    with pytest.warns(DeprecationWarning, match="electronic_free_hamiltonian"):
+        old = scattering.free_hamiltonian
+
+    assert old is scattering.electronic_free_hamiltonian

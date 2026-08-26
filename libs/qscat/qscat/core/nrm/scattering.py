@@ -15,6 +15,8 @@ passes in, so the right-hand side has finite support in the real region.
 
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 import numpy.typing as npt
 
@@ -22,22 +24,23 @@ from qscat.dvr import FemDvrEcsGrid, kinetic
 from qscat.special import riccati_bessel_en
 
 __all__ = [
-    "free_hamiltonian",
+    "electronic_free_hamiltonian",
     "incident_coefficients",
     "scattering_state",
     "scattering_state_minus",
 ]
 
 
-def free_hamiltonian(grid: FemDvrEcsGrid, ell: int) -> npt.NDArray[np.complex128]:
+def electronic_free_hamiltonian(grid: FemDvrEcsGrid, ell: int) -> npt.NDArray[np.complex128]:
     """`H_free = T_r + ell(ell+1)/(2 r^2)` on the electronic grid (mass 1).
 
     The Hamiltonian whose regular energy-normalized solution is
     `qscat.special.riccati_bessel_en`; the reference against which
     `scattering_state`'s driven source term is formed.
 
-    NAME COLLISION: `qscat.core.time_dependent.free_hamiltonian` is a
-    different function. That one is the FULL 2-D `model.hamiltonian` with
+    Renamed from `free_hamiltonian` (2026-08-25 API surface pass) to end the
+    collision with `qscat.core.time_dependent.free_hamiltonian`, which is a
+    different function: that one is the FULL 2-D `model.hamiltonian` with
     only the electron-molecule interaction removed (the elastic
     free-reference propagation); this one is the bare 1-D electronic
     kinetic-plus-centrifugal operator, carrying no molecular potential.
@@ -77,8 +80,8 @@ def scattering_state(
     h : ndarray
         The electronic Hamiltonian matrix to scatter off -- the full `H_el`
         (Eq. 17) for the physical discrete state, or `P H_el P` (Eq. 18) for
-        the background continuum. Must differ from `free_hamiltonian` only by
-        a short-ranged operator.
+        the background continuum. Must differ from `electronic_free_hamiltonian`
+        only by a short-ranged operator.
     grid : FemDvrEcsGrid
         The electronic radial grid.
     energy : float
@@ -95,7 +98,7 @@ def scattering_state(
         raise ValueError(f"energy must be positive, got {energy}")
     k = float(np.sqrt(2.0 * energy))
     inc = incident_coefficients(grid, k, ell)
-    h_free = free_hamiltonian(grid, ell)
+    h_free = electronic_free_hamiltonian(grid, ell)
     rhs = (h - h_free) @ inc
     a = energy * np.eye(grid.n, dtype=np.complex128) - h
     phi_sc = np.linalg.solve(a, rhs)
@@ -153,3 +156,24 @@ def scattering_state_minus(
     out = np.conjugate(plus)
     out[grid.points.imag != 0.0] = 0.0
     return np.asarray(out, dtype=np.complex128)
+
+
+# --- Deprecated aliases (2026-08-25 API surface pass) ------------------------
+# One release cycle per ADR 0004, then delete this block. Not in `__all__`:
+# the public surface is the new name; the alias only keeps old imports alive.
+
+_DEPRECATED = {"free_hamiltonian": "electronic_free_hamiltonian"}
+
+
+def __getattr__(name: str) -> object:
+    if name in _DEPRECATED:
+        new = _DEPRECATED[name]
+        warnings.warn(
+            f"{__name__}.{name} was renamed to {new} in the 2026-08-25 API "
+            "surface pass; the old name is a deprecated alias for one release "
+            "cycle (docs/adr/0004-public-api-stability-policy.md)",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return globals()[new]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

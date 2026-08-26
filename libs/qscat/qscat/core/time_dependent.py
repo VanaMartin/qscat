@@ -414,10 +414,12 @@ def free_hamiltonian(model: ResonanceModel, tgrid: TensorGrid) -> sp.spmatrix:
     `qscat-run` CLI) reuses the exact same reference this module does,
     rather than reaching into a private helper.
 
-    NAME COLLISION: `qscat.core.nrm.scattering.free_hamiltonian` is a
-    different function. That one is the 1-D electronic `T_r + centrifugal`
-    operator with NO molecular potential at all; this one is the FULL 2-D
-    `model.hamiltonian` with only the electron-molecule interaction removed.
+    Not to be confused with `qscat.core.nrm.scattering.electronic_free_hamiltonian`
+    (renamed from `free_hamiltonian` in the 2026-08-25 API surface pass
+    precisely to end this collision): that one is the bare 1-D electronic
+    kinetic-plus-centrifugal operator with NO molecular potential at all;
+    this one is the FULL 2-D `model.hamiltonian` with only the
+    electron-molecule interaction removed.
     """
     return (model.hamiltonian(tgrid) - sp.diags(model.interaction_diag(tgrid))).tocsr()
 
