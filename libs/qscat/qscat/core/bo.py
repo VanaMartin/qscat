@@ -128,10 +128,12 @@ class ElectronicCurves:
 
     @property
     def n_curves(self) -> int:
+        """Number of electronic curves (rows of `energies`)."""
         return int(self.energies.shape[0])
 
     @property
     def has_states(self) -> bool:
+        """True when the curves were built `with_states=True`."""
         return bool(self.states.size)
 
 
@@ -393,19 +395,24 @@ class BoBasis:
     states: dict[tuple[int, int], BoState]
 
     def __contains__(self, key: object) -> bool:
+        """`(curve, v) in basis` membership test."""
         return key in self.states
 
     def __getitem__(self, key: tuple[int, int]) -> BoState:
+        """The `BoState` stored under `(curve, v)`."""
         return self.states[key]
 
     def __len__(self) -> int:
+        """Number of BO product states in the basis."""
         return len(self.states)
 
     def items(self) -> list[tuple[tuple[int, int], BoState]]:
+        """All `((curve, v), BoState)` pairs, dict-style."""
         return list(self.states.items())
 
     @property
     def has_states(self) -> bool:
+        """True when the basis holds at least one state."""
         return bool(self.states)
 
     def levels(self) -> list[tuple[int, int]]:

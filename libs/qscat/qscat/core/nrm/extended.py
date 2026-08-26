@@ -250,6 +250,7 @@ class LaunchBasis:
 
     @property
     def rank(self) -> int:
+        """Number of separable-expansion vectors (columns of `vectors`)."""
         return int(self.vectors.shape[1])
 
 

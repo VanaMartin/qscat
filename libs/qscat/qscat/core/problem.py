@@ -99,6 +99,7 @@ class ScatteringProblem:
     basis: VibrationalBasis = field(init=False, repr=False, compare=False)
 
     def __post_init__(self) -> None:
+        """Solve the vibrational basis once at construction (frozen dataclass)."""
         basis = vibrational_states(self.grid.grids[1], self.model.mu, self.n_vib, self.model.v0)
         object.__setattr__(self, "basis", basis)  # frozen dataclass: set via object
 

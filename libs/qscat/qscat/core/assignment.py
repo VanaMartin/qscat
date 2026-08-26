@@ -173,6 +173,7 @@ class OverlapPair:
 
     @property
     def shift_mev(self) -> float:
+        """`shift_ev` in milli-eV -- the unit the reference tables quote."""
         return 1000.0 * self.shift_ev
 
     @property
@@ -486,6 +487,7 @@ class PeakAlignment:
     distances: npt.NDArray[np.float64]  # per mark, in widths
 
     def __str__(self) -> str:
+        """One-line summary: marks vs peaks and the median distance in widths."""
         return (
             f"{self.n_marks} marks vs {self.n_peaks} peaks: median "
             f"{self.median_widths:.1f} widths, within 1 width "
