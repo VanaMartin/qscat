@@ -343,6 +343,10 @@ def nrm_ve_cross_section(
 ) -> npt.NDArray[np.float64]:
     """`sigma_{v_init->v'}(E)` in the nonlocal resonance model (bohr^2).
 
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.nrm_ve_cross_section` is the stable route.
+
     `sigma = 4 pi^3 |T^res + T^bg|^2 / k_i^2`, Eq. (28)/(31)/(37), on
     `qscat.core.driven`'s own normalization so the exact 2-D and nonlocal
     curves compare directly rather than through two conventions that happen

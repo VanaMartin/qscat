@@ -643,6 +643,10 @@ def td_ve_cross_section(
     eMoScat's `FluxTestFunction2d`) -- see `td_extractors.py` for the three
     `Extractor` implementations and their formulas.
 
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.td_ve_cross_section` is the stable route.
+
     `E` (collision energy, Hartree) may be scalar or array-like; scalar `E`
     returns shape `(len(vprimes),)`, array `E` returns `(len(E), len(vprimes))`
     -- matching `qscat.core.driven.ve_cross_section`, the exact differential
@@ -759,6 +763,10 @@ def td_ve_cross_sections_all(
     """`{"tw": sigma, "delta": sigma, "flow": sigma}` (each bohr^2, same shape
     convention as `td_ve_cross_section`) from ONE shared propagation.
 
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.td_ve_cross_sections_all` is the stable route.
+
     This is the HONEST three-way comparison: `TannorWeeks`, `Dirac`, and
     `Flux` are all built up front and driven by a SINGLE `propagate(...,
     extractors=[tw, dirac, flux])` call (and a single companion `V_int=0`
@@ -841,6 +849,10 @@ def td_da_cross_section(
     sibling of `td_ve_cross_section`, built on the SAME propagation engine
     but the `axis="nuclear"` `Flux`/`Dirac`/`TannorWeeks` extractors
     (`td_extractors.py`) instead of the electronic-axis ones.
+
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.td_da_cross_section` is the stable route.
 
     `method="flow"` (default, eMoScat's `FluxTestFunction2d` `axis_=='y'`
     branch -- the natural DA extractor: a fixed-surface Wronskian flux
@@ -969,6 +981,10 @@ def td_da_cross_sections_all(
     """`{"flow": sigma_DA, "delta": sigma_DA, "tw": sigma_DA}` (each bohr^2,
     per anion channel, same shape convention as `td_da_cross_section`) from
     ONE shared propagation -- the DA sibling of `td_ve_cross_sections_all`.
+
+    *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
+    functional signature is the layer the context-object refactor targets and
+    may change in a minor release; `ScatteringProblem.td_da_cross_sections_all` is the stable route.
 
     `Flux`, `Dirac`, and `TannorWeeks` (all `axis="nuclear"`) are built up
     front and driven by a SINGLE `propagate(..., extractors=[flux, dirac,
