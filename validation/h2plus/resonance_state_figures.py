@@ -170,7 +170,7 @@ def main() -> None:
         i = int(np.argmin(np.abs(res.energies.real - e_tot)))
         e, g = res.energies[i], res.widths[i]
         draw(
-            res.states[:, i],
+            res.states[i],
             f"h2p-exact-2d-resonance-state-pair-{tag}.png",
             rf"{label}: exact pole at $E={e.real - EPS0:.6f}$ Ha, "
             rf"BO at ${bo_e:.6f}$ — shift ${shift:+.2f}$ meV"
@@ -183,7 +183,7 @@ def main() -> None:
     i = int(np.argmin(np.abs(res.energies.real - BO_PARTNERED)))
     e, g = res.energies[i], res.widths[i]
     draw(
-        res.states[:, i],
+        res.states[i],
         "h2p-exact-2d-resonance-state-vs-bo-exact.png",
         rf"EXACT 2-D pole, $E_{{\rm tot}}={e.real:.6f}$ Ha, $\Gamma={g:.2e}$ Ha"
         "\n"

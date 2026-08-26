@@ -62,9 +62,11 @@ class ExactResonanceStates:
         `E_r - i*Gamma/2`, ascending in `Re E`, taken from the base grid.
     widths : ndarray of float64, shape (m,)
         `Gamma = -2 Im E`.
-    states : ndarray of complex128, shape (n, m)
-        `states[:, i]` is the 2-D eigenvector of `energies[i]` on the base
-        grid, flattened in `TensorGrid` order and c-product normalized.
+    states : ndarray of complex128, shape (m, n)
+        `states[i]` is the 2-D eigenvector of `energies[i]` on the base grid,
+        flattened in `TensorGrid` order and c-product normalized --
+        row-per-state, the same orientation as `chi`, `anion_electronic_states`,
+        and `ResonanceLevels.states`.
     residual_electronic : ndarray of float64, shape (m,)
         `|E_base - E_theta_r|`: how far the eigenvalue moved when the
         ELECTRONIC ECS angle changed. Small means the state does not live in
@@ -120,6 +122,11 @@ class ExactResonanceStates:
             if missing:
                 raise ValueError(
                     f"{path} is not an ExactResonanceStates archive: missing {missing}"
+                )
+            if z["states"].shape[:1] != z["energies"].shape:
+                raise ValueError(
+                    f"{path} stores states column-per-state (an archive from before "
+                    "the row-per-state layout); delete and regenerate it"
                 )
             return cls(**{f.name: z[f.name] for f in fields(cls)})
 
@@ -295,7 +302,7 @@ def exact_resonance_states(
         return ExactResonanceStates(
             energies=empty_c,
             widths=empty_f,
-            states=np.empty((vecs_a.shape[0], 0), dtype=np.complex128),
+            states=np.empty((0, vecs_a.shape[0]), dtype=np.complex128),
             residual_electronic=empty_f,
             residual_nuclear=empty_f,
         )
@@ -306,9 +313,9 @@ def exact_resonance_states(
     idx = idx[order]
     energies = energies[order]
 
-    states = vecs_a[:, idx]
-    for i in range(states.shape[1]):
-        states[:, i] /= np.sqrt(c_product(states[:, i], states[:, i]))
+    states = vecs_a[:, idx].T.copy()
+    for i in range(states.shape[0]):
+        states[i] /= np.sqrt(c_product(states[i], states[i]))
 
     return ExactResonanceStates(
         energies=np.asarray(energies, dtype=np.complex128),

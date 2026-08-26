@@ -141,7 +141,7 @@ def test_every_exact_pole_pairs_to_its_bo_state_with_unit_overlap(separable_basi
 
     matched = 0
     for i in range(res.energies.size):
-        pair = pair_by_overlap(res.energies[i], res.states[:, i], basis)
+        pair = pair_by_overlap(res.energies[i], res.states[i], basis)
         if pair.verdict == "basis-limited":
             continue  # a pole above the three levels built here
         assert pair.verdict == "ok", f"{pair.pole_energy}: {pair.verdict} @ {pair.overlap}"
@@ -163,8 +163,7 @@ def test_the_pairing_is_a_bijection_on_the_separable_model(separable_basis, sepa
     claimed = [
         p.level
         for p in (
-            pair_by_overlap(res.energies[i], res.states[:, i], basis)
-            for i in range(res.energies.size)
+            pair_by_overlap(res.energies[i], res.states[i], basis) for i in range(res.energies.size)
         )
         if p.level is not None
     ]
@@ -184,7 +183,7 @@ def test_overlap_agrees_with_the_energy_pairing_where_both_are_defined(
     level_e, keys = basis.flat()
     by_energy = pair_one_to_one(res.energies.real, level_e)
     for pole_i, level_i in by_energy.items():
-        pair = pair_by_overlap(res.energies[pole_i], res.states[:, pole_i], basis)
+        pair = pair_by_overlap(res.energies[pole_i], res.states[pole_i], basis)
         if pair.level is not None:
             assert pair.level == keys[level_i]
 
