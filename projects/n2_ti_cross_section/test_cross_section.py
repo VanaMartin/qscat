@@ -15,11 +15,9 @@ Two families of checks:
 - INTERNAL (model-independent, non-negotiable): sigma real & >=0; a closed
   channel gives exactly 0; the v=0->1 cross section is resonance-enhanced
   in the ~2-3 eV region relative to near threshold.
-- HOUFEK anchors (loose, cross-model: our 1D LCP-derived TI formulas vs.
-  Houfek's explicit 2D time-independent calculation): the 6 C5 anchor
-  coordinates from `validation/n2/reference.ANCHOR_COORDS`, compared
-  against `CSVE.V00.J00` within a documented factor-of-~3 band. Ratios are
-  printed so the actual agreement is visible regardless of pass/fail.
+
+the Houfek anchor comparison lives in `validation/n2/test_anchor_gate.py`
+(validation may import projects; not the reverse).
 """
 
 from __future__ import annotations
@@ -32,16 +30,9 @@ from projects.n2_ti_cross_section.cross_section import ve_cross_section
 from projects.n2_ti_cross_section.nuclear_grid import n2_nuclear_grid
 from projects.n2_ti_cross_section.vibrational import vibrational_states
 from projects.n2_ti_cross_section.vres import vres_on_grid
-from validation.n2 import loader
-from validation.n2.reference import ANCHOR_COORDS
 
 MU = N2.mu  # N2 nuclear reduced mass (a.u.), 12766.36
 N_VIB = 6  # v=0..5, enough to cover vprimes up to 3 used by the anchors
-
-# Loose, documented cross-model bound (LCP 1D vs. Houfek's explicit 2D
-# time-independent model) -- see the eMoScat TI extraction
-# "Key caveats". Anchors are a report-and-check, not an exact-match gate.
-ANCHOR_FACTOR = 3.0
 
 
 @pytest.fixture(scope="module")
@@ -96,87 +87,3 @@ def test_v0_to_v1_resonance_enhancement(system):
     print(f"sigma_0->1(E={e_resonance_ha} Ha) = {sigma_res:.6e} bohr^2")
 
     assert sigma_res > sigma_near
-
-
-# Two of the six C5 anchors sit in regimes where the *derived* 1D LCP
-# formula is known -- on physical grounds, not just empirically -- to
-# diverge from Houfek's full 2D close-coupling calculation, independent of
-# any implementation bug. Both are instances of a GENERAL rule, not a
-# property of these two specific coordinates: any anchor whose channel is
-# the elastic (v'=0) channel, OR whose collision energy sits within about
-# one vibrational quantum of that channel's OWN threshold, is excluded from
-# the gate for a *structural* reason (see `validation/n2/cross_section.py`,
-# which implements this exclusion generally from `(energy, channel)` rather
-# than by hardcoding these two coordinates):
-#
-#   (0.2, 0) elastic (v'=0): far from the resonance (E=0.2 Ha ~ 5.4 eV is
-#       well above the ~2.3-2.5 eV Pi_g resonance), the elastic channel is
-#       dominated by *non-resonant background* (direct/potential)
-#       scattering, which the doorway/driven-equation formula -- built
-#       purely from the resonance's V_d/Gamma -- structurally does not
-#       include. Confirmed by scanning E=0.02..0.2 Ha for this channel: the
-#       computed/Houfek ratio is O(1) right at and near the resonance peak
-#       (E=0.08-0.1 Ha, ratio 0.83-1.17) and diverges progressively further
-#       from it in *both* directions -- e.g. ratio 0.04-11.8 already by
-#       E<0.05 or E>0.12 -- a smooth, monotonic trend consistent with a
-#       missing background term, not a localized bug. This is not a bounded
-#       discrepancy: as E moves further from the peak the mismatch keeps
-#       growing (in the low-E direction compounding with the next bullet's
-#       ~1/E threshold divergence, since elastic's own threshold is E=0),
-#       it just isn't sampled further here.
-#   (0.02, 1) v'=1 extremely close to its own threshold (eps1-eps0 ~ 0.0125
-#       Ha; E=0.02 Ha is only ~0.0075 Ha above it): the LCP's local width
-#       Gamma(R) has no explicit electron-energy dependence, so the model
-#       gives every channel the wrong (non-Wigner) threshold power law --
-#       sigma diverges as ~1/E toward EVERY channel's own opening, not just
-#       this one. Houfek's sigma there rises over ~4 orders of magnitude
-#       across E=0.0125..0.03 Ha (a steep Wigner threshold power law tied to
-#       the resonance's partial-wave character), so a tiny difference in the
-#       *local* model's effective near-threshold shape gets amplified
-#       enormously in the ratio; the computed/Houfek ratio is not bounded by
-#       any fixed factor as E -> the threshold from above, it grows without
-#       limit. Confirmed clear of this regime by scanning the same channel
-#       at E=0.05..0.2 Ha (well clear of threshold): ratio is 0.11-1.2, i.e.
-#       good agreement resumes as soon as the threshold-law regime is left.
-#
-# Both are reported (ratio printed, never hidden) but excluded from the
-# factor-of-ANCHOR_FACTOR gate; the remaining four anchors -- which include
-# the exact resonance peak (E=0.1, v'=1, ratio 1.01) -- are the real
-# cross-model gate and all satisfy it comfortably.
-_KNOWN_MODEL_LIMITATION_ANCHORS = {(0.2, 0), (0.02, 1)}
-
-
-def test_houfek_anchor_agreement(system):
-    """Loose, cross-model comparison at the 6 C5 anchor coordinates.
-
-    Prints the per-anchor ratio sigma_computed/sigma_houfek so the actual
-    agreement is visible even if the factor-of-~3 assertion is loosened
-    later. This is NOT the correctness gate -- the internal checks above
-    are -- but a documented sanity check against Houfek's independent 2D
-    time-independent calculation.
-    """
-    grid, eps, chi, Vd, Gamma = system
-    d = loader.load()
-
-    print("\nHoufek anchor comparison (LCP-derived 1D TI vs. Houfek 2D TI):")
-    ratios = []
-    for e_ha, ch in ANCHOR_COORDS:
-        i = int(np.argmin(np.abs(d.energy - e_ha)))
-        e_row = float(d.energy[i])
-        sigma_houfek = float(d.sigma[i, ch])
-        sigma_computed = float(ve_cross_section(grid, MU, Vd, Gamma, eps, chi, 0, [ch], e_row)[0])
-        ratio = sigma_computed / sigma_houfek if sigma_houfek != 0 else float("inf")
-        gated = (e_ha, ch) not in _KNOWN_MODEL_LIMITATION_ANCHORS
-        ratios.append((e_row, e_ha, ch, sigma_computed, sigma_houfek, ratio, gated))
-        tag = "" if gated else "  [known LCP-vs-2D limitation, not gated]"
-        print(
-            f"  E={e_row:.4f} Ha, v'={ch}: computed={sigma_computed:.4e}  "
-            f"houfek={sigma_houfek:.4e}  ratio={ratio:.3f}{tag}"
-        )
-
-    for e_row, _e_ha, ch, _sigma_computed, _sigma_houfek, ratio, gated in ratios:
-        if not gated:
-            continue
-        assert 1.0 / ANCHOR_FACTOR <= ratio <= ANCHOR_FACTOR, (
-            f"anchor (E={e_row}, v'={ch}) ratio {ratio:.3f} outside factor-of-{ANCHOR_FACTOR} band"
-        )
