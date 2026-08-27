@@ -2,7 +2,10 @@
 # qmodeling-base — architecture / BLAS-FFT vendor layer + toolchains.
 # Rebuilt rarely. Default vendor: OpenBLAS + LAPACK(E) + FFTW3 (portable, ARM-friendly).
 # Code targets the standard CBLAS / LAPACKE / FFTW3 ABIs, so this layer is swappable.
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+# Tag kept for humans, digest is what builds: `docker buildx imagetools
+# inspect ghcr.io/astral-sh/uv:python3.12-bookworm-slim` to refresh, and
+# dependabot's docker ecosystem watches it.
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim@sha256:e5b65587bce7de595f299855d7385fe7fca39b8a74baa261ba1b7147afa78e58
 
 # System numerical libraries (standard ABIs) + build toolchain.
 # MUMPS (qscat.linalg's optional backend, complex-symmetric SYM=2) is NOT taken

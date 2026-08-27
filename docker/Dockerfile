@@ -57,7 +57,10 @@ FROM test-deps AS test
 RUN uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile
 RUN uv run --no-sync pytest -q -m slow
 
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS runtime
+# Tag kept for humans, digest is what builds: `docker buildx imagetools
+# inspect ghcr.io/astral-sh/uv:python3.12-bookworm-slim` to refresh, and
+# dependabot's docker ecosystem watches it.
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim@sha256:e5b65587bce7de595f299855d7385fe7fca39b8a74baa261ba1b7147afa78e58 AS runtime
 # Runtime needs the shared numerical libs (no -dev headers, no toolchain) plus
 # ffmpeg -- the matplotlib FFMpegWriter backend for qscat.viz's .mp4 animation
 # output (matplotlib itself arrives in the copied venv via the build stage's
