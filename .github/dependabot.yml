@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      python-deps:
+        patterns: ["*"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo"
+    directory: "/native/qscat-kernels"
+    schedule:
+      interval: "weekly"
+  # Keeps the digest-pinned base images (docker/base.Dockerfile,
+  # docker/Dockerfile -- see the style-N7 task) from rotting.
+  - package-ecosystem: "docker"
+    directory: "/docker"
+    schedule:
+      interval: "weekly"

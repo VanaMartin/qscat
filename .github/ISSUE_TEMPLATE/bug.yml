@@ -1,0 +1,38 @@
+name: Bug report
+description: A reproducible defect in qscat, qscat-run, or the build.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproducer
+      description: >-
+        The smallest input that shows the problem — a small grid config is
+        ideal (see CONTRIBUTING.md). For numeric issues, include the number
+        you got and the number you expected, with the tolerance you judge
+        them by.
+      placeholder: |
+        uv run qscat-run run bug.yaml --output /tmp/bug
+        # bug.yaml: ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit SHA
+      description: "`git rev-parse HEAD` — qscat is distributed repo-only, so the SHA is the version."
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      placeholder: "macOS 15 arm64 / Ubuntu 24.04 x86-64 / Docker qmodeling-base"
+    validations:
+      required: true
