@@ -58,21 +58,22 @@ class ExactResonanceStates:
 
     Attributes
     ----------
-    energies : ndarray of complex128, shape (m,)
-        `E_r - i*Gamma/2`, ascending in `Re E`, taken from the base grid.
-    widths : ndarray of float64, shape (m,)
-        `Gamma = -2 Im E`.
-    states : ndarray of complex128, shape (m, n)
-        `states[i]` is the 2-D eigenvector of `energies[i]` on the base grid,
-        flattened in `TensorGrid` order and c-product normalized --
+    energies : ndarray of complex128
+        ``(m,)``. `E_r - i*Gamma/2`, ascending in `Re E`, taken from the base
+        grid.
+    widths : ndarray of float64
+        ``(m,)``. `Gamma = -2 Im E`.
+    states : ndarray of complex128
+        ``(m, n)``. `states[i]` is the 2-D eigenvector of `energies[i]` on the
+        base grid, flattened in `TensorGrid` order and c-product normalized --
         row-per-state, the same orientation as `chi`, `anion_electronic_states`,
         and `ResonanceLevels.states`.
-    residual_electronic : ndarray of float64, shape (m,)
-        `|E_base - E_theta_r|`: how far the eigenvalue moved when the
-        ELECTRONIC ECS angle changed. Small means the state does not live in
-        the electronic continuum.
-    residual_nuclear : ndarray of float64, shape (m,)
-        `|E_base - E_theta_R|`: the same for the NUCLEAR angle.
+    residual_electronic : ndarray of float64
+        ``(m,)``. `|E_base - E_theta_r|`: how far the eigenvalue moved when
+        the ELECTRONIC ECS angle changed. Small means the state does not live
+        in the electronic continuum.
+    residual_nuclear : ndarray of float64
+        ``(m,)``. `|E_base - E_theta_R|`: the same for the NUCLEAR angle.
 
     Notes
     -----

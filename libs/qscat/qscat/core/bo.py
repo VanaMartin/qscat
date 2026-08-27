@@ -568,12 +568,12 @@ def bo_basis_from_levels(
     ----------
     curves : ElectronicCurves
         Must carry states. Only index `curve` is used.
-    level_energies : array_like of complex, shape (n_levels,)
-        `E_v - i Gamma_v / 2`.
-    level_states : ndarray of complex, shape (n_levels, n_R)
-        Nuclear eigenvectors, one row per level, on the SAME nuclear grid the
-        curve is tabulated on. `ResonanceLevels.states` has exactly this shape
-        and normalization.
+    level_energies : array_like of complex
+        ``(n_levels,)``. `E_v - i Gamma_v / 2`.
+    level_states : ndarray of complex
+        ``(n_levels, n_R)``. Nuclear eigenvectors, one row per level, on the
+        SAME nuclear grid the curve is tabulated on. `ResonanceLevels.states`
+        has exactly this shape and normalization.
     curve : int, optional
         Which electronic curve to multiply in (default 0, the only one a
         `resonance_curve` family has).
