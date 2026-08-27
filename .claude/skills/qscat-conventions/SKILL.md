@@ -106,6 +106,29 @@ positive rate against legitimate identifiers is too high to gate on.
 | $T$ | **overloaded three ways — disambiguate by CONTEXT, not by shape.** (1) the kinetic-energy operator/matrix: bare $T$, or coordinate-subscripted $T_R$; (2) a T-matrix: bare $T$, channel-subscripted $T_{v\to v'}$, or superscripted by contribution $T^\mathrm{bg}$, $T^\mathrm{res}$ (as in $T = T^\mathrm{bg} + T^\mathrm{res}$); (3) a matrix transpose, as the superscript in $H^{T}$. A bare $T$ is therefore ambiguous on its own: a note that uses more than one sense must say which it means in prose at first use. In practice each note uses one sense throughout — kinetic in `femdvr-ecs`, T-matrix in `n2-2d-cross-section` and `nonlocal-resonance-model` |
 | $S$ | S-matrix elements |
 
+## Physics-note structure
+
+A note under `docs/physics/` opens with the standard header block
+(**Location** / **Origin** or **Source** / **Units**), then follows this
+top-level spine:
+
+1. **Key result** — 5–10 lines, the measured numbers and the one-sentence
+   claim first. A reader who stops here leaves with the result and where
+   it was measured.
+2. **Physical picture** — what the method is and why it exists here.
+3. **Method** — the equations, conventions, and implementation choices.
+4. **Validation** — what was measured against what, with the evidence
+   (and the negative results; the notes record limitations too).
+
+This is the rule for NEW notes. Existing notes migrate opportunistically —
+when a note is being edited anyway — never as a big-bang re-heading.
+Already conforming: `n2-resonance`, `n2-cross-section`,
+`n2-td-cross-section`, `nd-tensor-hamiltonian`, `femdvr-ecs`,
+`exact-2d-resonances`; results-first retrofits (Key result prepended,
+bodies untouched): `discretisation-tuning`, `mumps-sparse-backend`,
+`h2plus-dr`, `optimization-targets`, and the split-out
+`nrm-vibrational-excitation`.
+
 ## FEM-DVR-ECS Notation
 
 - **DVR** (Discrete Variable Representation) — grid-based basis where the
