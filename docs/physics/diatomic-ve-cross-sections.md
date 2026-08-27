@@ -84,7 +84,7 @@ measures it with a second test function on the nuclear coordinate (`Model2d/Mult
   Φ_DA(r,R) = φ_e(r) · F^out_R(R),
 
 where **φ_e(r) is the anion's bound electronic state at the dissociation limit** — the bound
-eigenstate of the electronic Hamiltonian `−½∂²_r + v0(R_∞) + l(l+1)/2r² − λ(R_∞)e^{−α_c r²}`
+eigenstate of the electronic Hamiltonian $-\tfrac{1}{2}\partial_r^2 + v_0(R_\infty) + l(l+1)/2r^2 - \lambda(R_\infty)e^{-\alpha_c r^2}$
 (`Neutral2dPotential` at the outer nuclear edge; λ(R_∞) → λ_inf) — and `F^out_R(R)` is the
 outgoing nuclear wave $\sqrt{\mu/2\pi k_R}\;e^{i k_R R}$, with
 $k_R = \sqrt{2\mu(E_\mathrm{tot} - \varepsilon_e)}$. The cross section is
@@ -92,7 +92,7 @@ $\sigma_\mathrm{DA} = \pi|S_\mathrm{DA}|^2/2E$ with $S_\mathrm{DA}$ from the sam
 as VE. This is the eMoScat convention (deck: the first, nuclear-coordinate test function; "1
 transversal eigenstate" = the single bound anion electronic state).
 
-**Thresholds (computed here, validated against the physics):** `ε_e(R_∞) − eps[0]` in collision
+**Thresholds (computed here, validated against the physics):** $\varepsilon_e(R_\infty)$ minus `eps[0]` in collision
 energy —
 
 | | anion ε_e (Ha) | DA threshold (E_coll) | status |
@@ -116,11 +116,11 @@ i.e. $H - H_\mathrm{final}$, NOT `V_int`,
 
 and the DA T-matrix
 $T_\mathrm{DA} = \langle \phi_e(r)\,F^\mathrm{nuc}_{K_R,0}(R) \,\vert\, V_\mathrm{DR} \,\vert\, \Psi_+ \rangle$, $\sigma_\mathrm{DA} = 4\pi^3|T_\mathrm{DA}|^2/2E$ —
-where `φ_e` is the anion bound electronic state at the dissociation limit and `F^nuc` is the
+where $\phi_e$ is the anion bound electronic state at the dissociation limit and `F^nuc` is the
 energy-normalized regular nuclear Bessel ($l=0$, mass $\mu$), $K_R = \sqrt{2\mu(E_\mathrm{tot} - \varepsilon_e)}$. (An earlier
 prototype of mine used `V_int` instead of `V_DR` and got a ~10⁶ unitarity violation — that was
 the bug, NOT a structural obstacle to a TI DA.) With `V_DR`, σ_DA is O(1) bohr² and within the
-unitarity cap `π/2E` for F₂; N₂/NO closed (correct). Implemented in
+unitarity cap $\pi/2E$ for F₂; N₂/NO closed (correct). Implemented in
 `qscat.core.dissociation` (`anion_electronic_states`, `v_dr_diag`, `da_cross_section`).
 
 **The discretisation must be per-molecule.** DA's outgoing flux is in the NUCLEAR coordinate, and
@@ -168,7 +168,7 @@ channels instead of 1."
 
 The exact-2D DA above is the ORACLE. The **local-complex-potential (LCP)** model is the
 *approximation*: it reduces the full electron–nuclear problem to a **1-D nuclear** problem on a
-complex potential `V_d(R) − iΓ(R)/2`, where the fixed-R electronic resonance pole gives
+complex potential $V_d(R) - i\Gamma(R)/2$, where the fixed-R electronic resonance pole gives
 $V_d(R) = \operatorname{Re} E_\mathrm{pole}(R)$, $\Gamma(R) = \max(0, -2\operatorname{Im} E_\mathrm{pole}(R))$. Implemented model-independently in
 `qscat.core.lcp`: `local_complex_potential` finds `E_pole(R)` by two-angle ECS matching
 (`qscat.ecs.find_resonance_pole`) of `−½∂²_r + model.surface(r,R)`, **seeded from the bound anion
@@ -209,7 +209,7 @@ were a characteristic agreement. It is not: the LCP under-predicts below ~0.03 a
 over-predicts above it, and only *passes through* good agreement on the way.
 
 **That sweep is a real property of F₂'s deck, and it was checked rather than assumed.**
-The LCP's `V_d`/`Γ` come from an ECS resonance-pole walk, which is not guaranteed to be
+The LCP's `V_d`/$\Gamma$ come from an ECS resonance-pole walk, which is not guaranteed to be
 independent of the electronic box, so the walk was rerun at
 `r_max` = 16/32/48/64/80/96 on both molecules. On F₂ **five of the six agree to ~1.8 %**
 — the shipped deck's curve is determined, and only `r_max = 96` breaks, to a ratio range
@@ -218,7 +218,7 @@ range, with the larger boxes producing deep oscillatory minima spanning 1e-6 to 
 where the shipped deck is smooth and flat.
 
 The distinction matters, because the two failures are not the same kind: **on F₂ the
-LCP's `V_d`/`Γ` are determined and wrong** by the documented energy-dependent factor;
+LCP's `V_d`/$\Gamma$ are determined and wrong** by the documented energy-dependent factor;
 **on NO they are undetermined** — a second defect, in NO's pole walk, independent of the
 volume-T-matrix one and still unfixed.
 
@@ -226,7 +226,7 @@ volume-T-matrix one and still unfixed.
 of the same quantity: on NO the walk does not converge, so they are failed computations,
 and drawing them beside a real curve would invite a reader to average them or to read
 the spread as an uncertainty band. What the ladder establishes is a yes/no — whether the
-method determines `V_d`/`Γ` on that molecule at all — which is a sentence, not a curve.
+method determines `V_d`/$\Gamma$ on that molecule at all — which is a sentence, not a curve.
 Each figure's legend carries its own verdict, and
 `validation/diatomic/da_figure.py --ladder` recomputes the spread on demand.
 
@@ -298,12 +298,12 @@ NO and F₂ have **sharper, lower-lying** resonances than N₂, so a TD route fo
 attempted and remains the natural follow-on, gated against the exact-2D TI oracle delivered here.
 
 **What this note used to say, and why it was withdrawn.** It previously argued that NO's and F₂'s
-"~0.004–0.01 Ha boomerang features are at or below the finite-time-propagation resolution `2π/T`",
+"~0.004–0.01 Ha boomerang features are at or below the finite-time-propagation resolution $2\pi/T$",
 so TD-vs-TI agreement at the N₂ level should not be expected without a long-propagation study.
 That reasoning was inherited from a claimed finite-T resolution limit in the N₂ note which has
 since been **disproved**: those measurements came from an order-1 Crank-Nicolson propagator, and
 at order-3 Padé the same energies track the oracle (E = 0.06/0.08/0.12 moved from ratios of
-0.229/0.575/0.348 to 0.997/0.958/1.015). There is no established `2π/T` barrier to inherit, so
+0.229/0.575/0.348 to 0.997/0.958/1.015). There is no established $2\pi/T$ barrier to inherit, so
 this note no longer offers one as a reason to expect poor agreement — or as a reason not to try.
 
 A genuine caution does remain, and it is a different one: **NO's cross sections really do carry

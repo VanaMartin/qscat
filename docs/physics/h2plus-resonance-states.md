@@ -1,7 +1,7 @@
 # Exact resonance states of H₂⁺, against the Born–Oppenheimer picture
 
 The Born–Oppenheimer (BO) picture assigns every dissociative-recombination (DR)
-peak to a quasi-bound level `ω_i^j` — vibrational level `i` of Rydberg curve
+peak to a quasi-bound level $\omega_i^j$ — vibrational level `i` of Rydberg curve
 `j`. This note drops that approximation. It reports the poles of the **full 2-D
 S-matrix** for the H₂⁺ model, compares them to the BO levels they are supposed
 to be, and checks both against a previously computed σ_DR sweep of the same
@@ -28,9 +28,9 @@ defects, [`exact-2d-resonances.md`](exact-2d-resonances.md) for the method and i
 ![H2+ DR levels on the sigma_DR sweep](figures/h2p-dr-levels.png)
 
 The previously computed σ_DR(E) sweep across the three published energy
-windows, with the BO levels `ω_i^j` (dashed, labelled) and the exact 2-D poles
+windows, with the BO levels $\omega_i^j$ (dashed, labelled) and the exact 2-D poles
 (solid, lighter, drawn beneath) marked on it. Levels computed at
-`μ = 918.25`, the reduced mass the sweep itself used — see *Reduced mass* below.
+$\mu = 918.25$, the reduced mass the sweep itself used — see *Reduced mass* below.
 
 Distances to the nearest peak in the sweep, in units of a resonance width
 (median FWHM 2 × 10⁻⁵ Ha — the only scale on which "lands on the peak" means
@@ -74,15 +74,15 @@ Measured on window 0 the two classes separate by three orders of magnitude:
 
 | E (Ha) | best BO | overlap | second | reading |
 |---|---|---|---|---|
-| 0.001563 | `ω₁⁶` | 0.9870 | `ω₂⁴` 0.10 | genuine; too narrow to show a peak |
-| 0.003924 | `ω₂⁴` | 0.8777 | `ω₃³` 0.33 | genuine, mixed |
-| **0.004479** | `ω₅²` | **0.0006** | 0.0001 | **not a resonance** |
-| 0.004607 | `ω₁⁸` | 0.9769 | `ω₂⁴` 0.14 | genuine |
-| 0.005661 | `ω₃³` | 0.7831 | `ω₅²` 0.46 | genuine, strongly mixed |
-| 0.006316 | `ω₅²` | 0.8700 | `ω₃³` 0.44 | genuine, strongly mixed |
-| 0.007171 | `ω₁¹²` | 0.9901 | `ω₂⁵` 0.07 | genuine |
-| 0.008180 | `ω₁¹⁶` | 0.6828 | `ω₂⁵` 0.65 | genuine, maximally mixed |
-| 0.008260 | `ω₁¹⁶` | 0.7252 | `ω₂⁵` 0.60 | genuine, maximally mixed |
+| 0.001563 | $\omega_1^6$ | 0.9870 | $\omega_2^4$ 0.10 | genuine; too narrow to show a peak |
+| 0.003924 | $\omega_2^4$ | 0.8777 | $\omega_3^3$ 0.33 | genuine, mixed |
+| **0.004479** | $\omega_5^2$ | **0.0006** | 0.0001 | **not a resonance** |
+| 0.004607 | $\omega_1^8$ | 0.9769 | $\omega_2^4$ 0.14 | genuine |
+| 0.005661 | $\omega_3^3$ | 0.7831 | $\omega_5^2$ 0.46 | genuine, strongly mixed |
+| 0.006316 | $\omega_5^2$ | 0.8700 | $\omega_3^3$ 0.44 | genuine, strongly mixed |
+| 0.007171 | $\omega_1^{12}$ | 0.9901 | $\omega_2^5$ 0.07 | genuine |
+| 0.008180 | $\omega_1^{16}$ | 0.6828 | $\omega_2^5$ 0.65 | genuine, maximally mixed |
+| 0.008260 | $\omega_1^{16}$ | 0.7252 | $\omega_2^5$ 0.60 | genuine, maximally mixed |
 
 Across all three windows, of 57 poles: **24 pair cleanly**, **18 are
 box-limited** (below), 3 are near-equal blends of two BO levels, 6 have their
@@ -170,18 +170,18 @@ The largest clean shifts:
 
 | E (Ha) | level | overlap | shift (meV) |
 |---|---|---|---|
-| 0.014026 | `ω₄³` | 0.722 | **+15.586** |
-| 0.012162 | `ω₆²` | 0.706 | −4.778 |
-| 0.006316 | `ω₅²` | 0.870 | +3.809 |
-| 0.005661 | `ω₃³` | 0.783 | +3.596 |
-| 0.003924 | `ω₂⁴` | 0.878 | −3.154 |
-| 0.012686 | `ω₂⁷` | 0.828 | +2.860 |
+| 0.014026 | $\omega_4^3$ | 0.722 | **+15.586** |
+| 0.012162 | $\omega_6^2$ | 0.706 | −4.778 |
+| 0.006316 | $\omega_5^2$ | 0.870 | +3.809 |
+| 0.005661 | $\omega_3^3$ | 0.783 | +3.596 |
+| 0.003924 | $\omega_2^4$ | 0.878 | −3.154 |
+| 0.012686 | $\omega_2^7$ | 0.828 | +2.860 |
 
-**No shift is quoted for a blended state.** At the `ω₅³`/`ω₄⁴` crossing (both
-poles) and at `ω₆²`/`ω₃⁴`, the exact state is a near-equal mixture of two BO
+**No shift is quoted for a blended state.** At the $\omega_5^3$/$\omega_4^4$ crossing (both
+poles) and at $\omega_6^2$/$\omega_3^4$, the exact state is a near-equal mixture of two BO
 levels (overlaps 0.63–0.68 against 0.55–0.63). That is a stronger statement than
 a large shift: past a certain coupling the BO labels stop describing the state
-at all, and "displacement from level X" has no referent. The `ω₁¹⁶`/`ω₂⁵`
+at all, and "displacement from level X" has no referent. The $\omega_1^{16}$/$\omega_2^5$
 crossing reported earlier is now `box-limited` instead — those two poles sit at
 `real_weight` 0.010 and 0.004, so the blend was being measured on states the
 grid does not hold.
@@ -195,19 +195,19 @@ overlaid.
 
 ### A near-degeneracy split asymmetrically
 
-At E ≈ 0.0055 Ha two BO levels sit 20 µHa (0.5 meV) apart — `ω₁⁹` (`Ry₉`,
-`v=1`) and `ω₃³` (`Ry₃`, `v=3`) — and the exact solver returns two poles
+At E ≈ 0.0055 Ha two BO levels sit 20 µHa (0.5 meV) apart — $\omega_1^9$ (`Ry₉`,
+`v=1`) and $\omega_3^3$ (`Ry₃`, `v=3`) — and the exact solver returns two poles
 **154 µHa (4.2 meV) apart**. The near-degeneracy is split about eightfold, and
-asymmetrically: `ω₁⁹` moves −0.04 meV while `ω₃³` moves +3.60 meV.
+asymmetrically: $\omega_1^9$ moves −0.04 meV while $\omega_3^3$ moves +3.60 meV.
 
 ![Resonance state omega_1^9](figures/h2p-exact-2d-resonance-state-pair-a.png)
 
-`ω₁⁹` (`Ry₉`, `v=1`): diffuse, ~9 radial lobes reaching past 250 bohr, one node
+$\omega_1^9$ (`Ry₉`, `v=1`): diffuse, ~9 radial lobes reaching past 250 bohr, one node
 in `R`. Overlap with its BO product 0.970 — nearly pure, and it barely moves.
 
 ![Resonance state omega_3^3](figures/h2p-exact-2d-resonance-state-pair-b.png)
 
-`ω₃³` (`Ry₃`, `v=3`): compact, confined inside ~70 bohr, three nodes in `R`.
+$\omega_3^3$ (`Ry₃`, `v=3`): compact, confined inside ~70 bohr, three nodes in `R`.
 Overlap 0.783 — strongly mixed, and it carries almost the whole 4.2 meV
 splitting.
 
@@ -227,7 +227,7 @@ The exact 2-D pole at `E_tot = −0.093680` Ha (E ≈ 0.0039 Ha), Γ = 5.6 × 10
 
 ![The Born-Oppenheimer product it is compared against](figures/h2p-exact-2d-resonance-state-vs-bo-product.png)
 
-The BO product `φ_Ry4(r;R)·χ_v=2(R)` at `E_BO = −0.093564` Ha — the state the
+The BO product $\phi_{\mathrm{Ry}_4}(r;R)\cdot\chi_{v=2}(R)$ at `E_BO = −0.093564` Ha — the state the
 approximation asserts the one above is.
 
 They share a core: five radial lobes, two nodes in `R`, the same turning
@@ -249,7 +249,7 @@ which the eMoScat deck contradicts). Every figure caption says which mass
 produced it, and the full sweep is to be recomputed at the corrected value.
 
 That the residual *is* the mass constant was measured, not assumed: against the
-published `ω_i^j` table all 53 levels agree to ≤ 4 × 10⁻⁶ Ha, and substituting
+published $\omega_i^j$ table all 53 levels agree to ≤ 4 × 10⁻⁶ Ha, and substituting
 918.25 for 918.076 drops the mean difference to **1.1 × 10⁻⁷ Ha**, a 23×
 improvement. At matched constants this implementation reproduces the published
 levels to ~10⁻⁷ Ha (`validation/h2plus/reference_levels.py`, gated).
