@@ -26,7 +26,12 @@ handle.
 
 - **Backticks are for code identifiers only** — `ve_cross_section`,
   `SparseLU`, `backend="mumps"`. A backticked `sigma` that means σ is a
-  defect; write `$\sigma$`.
+  defect; so is a backticked Greek letter — `` `Γ(R)` `` and
+  `` `μ = 918.25` `` are maths and are written `$\Gamma(R)$`,
+  `$\mu = 918.25$`. A symbol is either code or maths, never Greek dressed
+  in backticks. (Enforced: `tests/test_docs_portability.py` flags any
+  backtick span containing a Greek letter — zero false positives, because
+  this repository's identifiers are ASCII.)
 - **Inline mathematics:** `$\sigma_{v\to v'}$`.
 - **Display mathematics:** `$$...$$` on its own lines. Multi-line goes
   inside, as `$$ \begin{aligned} ... \end{aligned} $$` — a *bare*
@@ -74,13 +79,18 @@ above:
 | no `$` in a heading | `find_math_in_headings` |
 | no bare `\begin{align\|gather\|equation}` outside `$$` | `find_bare_math_environments` |
 | no LaTeX macro definitions, in a note **or** in `docs/conf.py` | `find_macro_definitions`, `test_conf_py_defines_no_mathjax_macros` |
+| no Greek letters inside backtick spans | `find_greek_in_backticks` |
 
 Everything else on this page is **convention, checked by review**: backticks
 reserved for code identifiers, `$...$` vs `$$...$$` placement, `\tag{}` for
 published equation numbers, bare `|` inside a table cell, level labels staying
-backticked, and stating atomic units once per note. Backticked unicode that is really maths
-(`` `sigma` ``, `` `Gamma(R)` ``) is deliberately **not** detected — the false-
-positive rate against legitimate identifiers is too high to gate on.
+backticked, and stating atomic units once per note. Backticked maths is detected for the **Greek-letter subset** only
+(`find_greek_in_backticks`): a Greek letter inside a backtick span is
+always maths here, since the repository's identifiers are ASCII. The
+broader family — superscript/subscript unicode in a span — stays
+convention-by-review, because it collides with legitimate spans: molecule
+names in real paths (`reference/eMoScat/input/{NO,F₂}/grids.txt`),
+reaction equations, and the level-label exception above (`Ry₄`).
 
 ### Canonical symbols
 
@@ -150,6 +160,10 @@ bodies untouched): `discretisation-tuning`, `mumps-sparse-backend`,
 | `evolution` | Time evolution / propagators                            |
 | `linalg`    | Linear algebra helpers                                  |
 | `units`     | Atomic-unit conversions (`units.py`, not a subpackage dir)|
+| `core`      | Model-independent electron–diatomic scattering engine (driven/TI, TD, DA/DR, LCP, NRM, resonance verification) |
+| `model`     | The `ResonanceModel` protocol + the per-molecule registry (`N2`, `NO`, `F2`, `H2P`) |
+| `tuning`    | Automatic FEM-DVR-ECS discretisation tuner                |
+| `viz`       | Wavefunction rendering and animation (plot extra)         |
 
 Only validated, reusable code lives here (see `qm-method-lifecycle` step 5) —
 `projects/<name>/` is for in-progress toy models.
@@ -164,6 +178,13 @@ Only validated, reusable code lives here (see `qm-method-lifecycle` step 5) —
   identical inputs, as in `native/qscat-kernels/tests/test_l2_norm.py`);
   looser (`1e-6` or method-dependent) for convergence-study error bounds,
   since the point there is a trend, not a fixed target.
+- **Cross-arch BLAS floor:** a golden value produced *through a sparse
+  solve* is compared at `rtol=1e-9`, never `1e-12`. The identical solve on
+  a different BLAS (CI's Linux OpenBLAS vs a Mac's Accelerate) differs at
+  ~1e-10–1e-11, and a `1e-12` gate on such a golden has already failed in
+  CI for exactly this reason. The `1e-12` band above is for two
+  implementations of the *same deterministic arithmetic* on the same
+  machine, not for cross-architecture goldens.
 
 ## Naming
 
