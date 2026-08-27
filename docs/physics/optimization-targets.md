@@ -3,6 +3,22 @@
 Roadmap Part 5 says "profile before cutting." `benchmarks/profile_hotpaths.py`
 does that. This note records what it measured and the resulting plan.
 
+## Key result
+
+Three measured findings set the agenda. **(1) The sparse LU is the whole
+story:** ~98% of the TI cost is the SuperLU numeric factorization, and the
+TD propagation is ~82% per-step triangular solves. **(2) MUMPS fixes
+both:** 8.2× on the factor and 4.6× on the per-solve at N=20328, so MUMPS
+is the correct default backend for TI and TD alike — and
+`SparseLU(backend="auto")` already selects it where provisioned. On the
+current direct-solver architecture that is near the practical optimum;
+PARDISO and GPU cuDSS are incremental beyond it, not step changes.
+**(3) There is NO pure-Python hot loop worth a first Rust kernel:** the
+`c_product`/extractor loops the first-kernel spec targeted are ~0.1% of
+runtime, so that spec's premise is invalidated. Separately: thread
+oversubscription cost ~300× on a concurrent sweep — pin BLAS threads per
+worker whenever processes are multiplied.
+
 ## Measured hot path (TI)
 
 `uv run python -m benchmarks.profile_hotpaths` on a representative N2 2-D problem
