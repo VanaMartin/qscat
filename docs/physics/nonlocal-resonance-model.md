@@ -189,7 +189,7 @@ exact eigenrelation $H_\mathrm{el}(\infty)\phi_b = E_b\phi_b$ on which Eq. (67)'
 decoupling rests: the identity $V_{dk} = E_b\langle\phi_b|\phi_k^{+}\rangle = 0$ holds
 *because* of P-space orthogonality. Applying the cutoff to the bound branches was a
 real defect during development — it left $|V_{dk}|$ on a spurious plateau of `2.47e-3`
-for every $R \geq 5$ (identical to eight digits), i.e. a nonzero `Γ(R→∞) ≈ 3.8e-5` Ha
+for every $R \geq 5$ (identical to eight digits), i.e. a nonzero $\Gamma(R\to\infty)$ ≈ 3.8e-5 Ha
 exceeding the physical width everywhere beyond `R ≈ 2.6`. With the cutoff restricted
 to the scattering branch, $|V_{dk}|$ at `R = 5 / 9 / 14 / 20` drops from
 `2.481e-3 / 2.466e-3 / 2.466e-3 / 2.466e-3` to `1.801e-5 / 3.390e-5 / 3.390e-5 /
@@ -221,7 +221,7 @@ branch on which $\phi_d$'s sign is arbitrary (the bound one, whose eigenvector c
 from `np.linalg.eig`) is exactly the branch where $V_{dn} \equiv 0$. Measured for
 choice A on F₂'s production deck: `max |V_dn|` is 6.1e-12 on the 572 bound nodes
 against 0.543 on the 247 scattering ones, and $\phi_d$ in fact never flips — all 818
-adjacent-node overlaps `c_product(φ_d(R_j), φ_d(R_{j+1}))` are positive, minimum
+adjacent-node overlaps `c_product` of $\phi_d(R_j)$ with $\phi_d(R_{j+1})$ are positive, minimum
 0.985. Choice B stores one vector, so the question does not arise for it at all.
 
 **Choice A — `PhysicalDiscreteState` (Sec. VI A, p. 012710-7–8).** The "intuitive"
@@ -238,7 +238,7 @@ calculation; Eq. (67) holds trivially. `R_inf` is a **nuclear** coordinate — t
 outermost real node of the nuclear deck (F₂ 10.7, NO 9.0 bohr), never the electronic
 grid's ECS radius, or $\phi_d$ is not an $H_\mathrm{el}$ eigenvector there and the
 tail-coupling guard rejects the ingredient set. $\phi_b$ is verifiably asymptotic at
-that radius: its c-product overlap with `φ_b(R_inf = 30)` is 1.00000000 and $E_b$ is
+that radius: its c-product overlap with $\phi_b$ at `R_inf = 30` is 1.00000000 and $E_b$ is
 stable to 1e-7 relative from 14 to 30 bohr.
 
 Choice C, the paper's "compact" tuned state (Sec. VI C, Eq. 70–72), is **not**
@@ -282,14 +282,14 @@ molecule's doorway peak, `|V_d(B) − V_d(LCP)|` is 0.0053 Ha for F₂ and 0.022
 NO. Anything that reads one for the other is wrong by that much.
 
 **How much that is, on an observable.** Gertitschke & Domcke, Phys. Rev. A **47**,
-1031 (1993) Eq. (2.15) propagates `T_N + V_d + Δ_L − (i/2)Γ_L`, and its Eq. (2.14)
-fixes which of the two goes in: `V_d + Δ_L = E_res + V_0`, i.e. the LCP `Vd`, with
-`v_d_discrete` short by the level shift `Δ_L`. Substituting `v_d_discrete` there
+1031 (1993) Eq. (2.15) propagates $T_N + V_d + \Delta_L - (i/2)\Gamma_L$, and its Eq. (2.14)
+fixes which of the two goes in: $V_d + \Delta_L = E_\mathrm{res} + V_0$, i.e. the LCP `Vd`, with
+`v_d_discrete` short by the level shift $\Delta_L$. Substituting `v_d_discrete` there
 anyway and running the resulting propagation against `lcp_da_cross_section` on one
-F₂ deck gives `σ/σ_LCP` = **0.346 / 0.419 / 7.14** at E = 0.02 / 0.03 / 0.05 Ha,
+F₂ deck gives $\sigma/\sigma_\mathrm{LCP}$ = **0.346 / 0.419 / 7.14** at E = 0.02 / 0.03 / 0.05 Ha,
 against **1.000215 / 1.000198 / 0.999892** for the correct reading — so the
 confusion is worth orders, not percent, and it changes direction with energy.
-Details and the `Γ`-supported `V_d` difference profile:
+Details and the $\Gamma$-supported `V_d` difference profile:
 `docs/physics/nrm-time-dependent.md` §6.1.
 
 ## 5. What the implementation adds that the paper does not describe
@@ -372,7 +372,7 @@ cross-check.
 **(b) The local limit of $F$.** With $\mu \to \infty$, $T_R \to 0$ and Eq. (60) must
 collapse to the analytic second-order level shift
 $F_{ij} = \delta_{ij}\sum_n V_{dn}^2/(E - V_0 - E_n)$. Measured relative error: 5.6e-1
-at physical $\mu$, then 2.4e-6 / 2.4e-9 / 2.4e-12 at `1e6 / 1e9 / 1e12 × μ` — clean
+at physical $\mu$, then 2.4e-6 / 2.4e-9 / 2.4e-12 at 1e6 / 1e9 / 1e12 × $\mu$ — clean
 $1/\mu$ convergence, with the off-diagonal part vanishing at the same rate. This pins
 the assembly, the $E\cdot I - T_R - V_0 - E_n$ sign convention **and** the weights
 (the nuclear grid weights span 0.0074–0.74, so a double-apply would show as a 1e-2…1
@@ -511,7 +511,7 @@ deviations from the oracle are
 | × the oracle's own floor | 340 | 61 | 11 | 25 | 18 |
 
 The oracle's floor is measurable in-repo: an independent 1000-point resonance-aware
-grid gives `σ_DA(F₂, 0.03) = 1.6562` against this 974-point deck's `1.65611`
+grid gives $\sigma_\mathrm{DA}$(F₂, 0.03) = 1.6562 against this 974-point deck's `1.65611`
 (`docs/physics/discretisation-tuning.md:193`,
 `validation/tuning/test_resonance_aware.py`), i.e. **5.4e-5 relative**. Every
 deviation above is 11–340× that, so all of them are physics rather than grid noise and
@@ -1162,8 +1162,8 @@ Everything below is deliberate scope, not an oversight:
 - **Time-dependent: dissociative attachment only, F₂ only.** The time-domain route
   is now implemented and gated — see
   [`nrm-time-dependent.md`](nrm-time-dependent.md), which resums Eq. (2.1)'s memory
-  integral into propagation under an arrow block Hamiltonian and reproduces `Ψ_d(R;E)`
-  from this note's own solve to 1.7e-4 (N₂, vector to vector) and `σ_DA` to 1.4% (F₂).
+  integral into propagation under an arrow block Hamiltonian and reproduces $\Psi_d(R;E)$
+  from this note's own solve to 1.7e-4 (N₂, vector to vector) and $\sigma_\mathrm{DA}$ to 1.4% (F₂).
   **Vibrational excitation is not yet propagated**, nor the Markovian (LCP) limit, so
   the nonlocal-vs-local packet comparison PRA 47 is built around is not yet available
   here.
@@ -1177,7 +1177,7 @@ Everything below is deliberate scope, not an oversight:
   $V_{dn}(R_i)\,V_{dn}(R_j)$. Consequently `validation/diatomic/test_nrm.py` gates
   choice A on F₂ only; NO/A is computed and asserted finite and positive, but its
   *value* is not gated. (A separate defect — `resonance_pole_walk` freezing below
-  `R = 1.5187` — is **harmless**: `|χ₀| = 6.9e-16` there, so it cannot
+  `R = 1.5187` — is **harmless**: $|\chi_0|$ = 6.9e-16 there, so it cannot
   move $\sigma_\mathrm{DA}$. It is still wrong, just not consequential.)
 - **`reference/eMoScat`'s NRM module is untrusted.** `module_NRM.cpp` was never
   delivered as a working capability there. Nothing in `qscat.core.nrm` is derived from
@@ -1198,7 +1198,7 @@ Everything below is deliberate scope, not an oversight:
 
 **`PhysicalDiscreteState`'s pole-search half-width (0.08 Ha) has a ceiling.** Widening
 it past ~0.2–0.3 Ha makes the walk latch onto a spurious root: demonstrated at 0.30 Ha,
-where it jumps to `shift = 0.185, Γ = 0.140` at `R = 2.2` and snaps back at `R = 1.8`.
+where it jumps to a shift of 0.185 and $\Gamma$ = 0.140 at `R = 2.2` and snaps back at `R = 1.8`.
 The margin to failure is roughly 4×, and **the failure is silent** — a wrong shift, no
 exception. At 0.08 Ha the walk matches an independent 43-point dense sweep to six
 decimals at every sampled `R`.

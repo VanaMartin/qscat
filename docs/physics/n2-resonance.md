@@ -113,7 +113,7 @@ V3):
 
 - `E_res(R)` decreases smoothly and monotonically from `~5.7 eV` (R=1.6) to
   `~-2.9 eV` (R=3.0) — a well-behaved, mode-hop-free curve (curvature
-  `|ΔΔE_res|` stays a small multiple of the local step throughout).
+  $|\Delta\Delta E_\mathrm{res}|$ stays a small multiple of the local step throughout).
 - `Gamma(R)` decreases monotonically from `~3.2 eV` (R=1.6) to exactly 0 for
   `R ≳ 2.4` Bohr, matching the expected resonance-to-bound-state closure.
 - `Gamma(R) >= 0` everywhere by construction (`Gamma = max(0, -2*Im(E_pole))`).
@@ -133,8 +133,8 @@ This is a deliberate, accepted property of the model (maintainer decision),
 not a bug: the FEM-DVR-ECS vibrational solver is verified correct against
 the *analytic* Morse spectrum of this same potential (residuals ~1e-14 Ha),
 so the gap lives entirely in the model's `D_0`/`alpha_0` choice, not in the
-numerics. Meanwhile the model's resonance parameters `E_res(R0)`/`Γ(R0)`
-(=~2.44 eV / 0.46 eV, see the "R0 result" section above) DO match real N₂
+numerics. Meanwhile the model's resonance parameters `E_res(R0)` and $\Gamma$ at
+`R0` (=~2.44 eV / 0.46 eV, see the "R0 result" section above) DO match real N₂
 electron-scattering data — only the *neutral* vibrational ladder departs
 from real N₂ spectroscopy. This model-vs-reality gap is folded into the
 LCP-vs-Houfek-2D differences seen in the time-independent (TI) cross-section
@@ -157,7 +157,7 @@ and the two structural LCP limitations are documented in
   window guess). Automating that is future work, as noted in
   `docs/physics/femdvr-ecs.md`'s limitations.
 - **Fixed reduced-mass / no nuclear dynamics here**: this is the *electronic*
-  (fixed-R) problem only. `E_res(R)`/`Γ(R)`/`V_d(R)` are inputs to a
+  (fixed-R) problem only. `E_res(R)`/$\Gamma(R)$/`V_d(R)` are inputs to a
   nuclear-motion (vibrational excitation, dissociative attachment) solve; the
   time-independent version of that solve is now implemented and validated
   (`docs/physics/n2-cross-section.md`, `validation/n2/README.md` Group C5 —
@@ -188,5 +188,5 @@ and the two structural LCP limitations are documented in
   independently via `validation/n2/resonance.py` against the literature
   window — **PASS**.
 - The nuclear-motion time-independent cross-section solve built on top of
-  `E_res(R)`/`Γ(R)` (Group C5) is documented separately in
+  `E_res(R)`/$\Gamma(R)$ (Group C5) is documented separately in
   `docs/physics/n2-cross-section.md`.

@@ -41,8 +41,8 @@ with $G^\mathrm{en}$ defined likewise.
 Backed by **mpmath** (`coulombf`/`coulombg`), which accepts **complex** ρ — required for
 ECS-rotated arguments. At $z=0$, $F_l(0,\rho) = \rho\,j_l(\rho)$, so `coulomb_f_en(·,·,0,m,l)` reduces
 EXACTLY to `riccati_bessel_en` (mass m) — the direct differential-test hook, verified to ~1e-16.
-(Note: `coulomb_h1_en(z=0) = i·riccati_hankel_en`, since `G_l(0,ρ)=−ρ y_l(ρ)` while `F_l=+ρ j_l(ρ)`
-give `G+iF = i(j_l+i y_l)ρ` — the code keeps the physical `H⁺=G+iF`; only the *test* carries the
+(Note: `coulomb_h1_en(z=0) = i·riccati_hankel_en`, since $G_l(0,\rho) = -\rho\, y_l(\rho)$ while $F_l = +\rho\, j_l(\rho)$
+give $G + iF = i(j_l + i y_l)\rho$ — the code keeps the physical `H⁺=G+iF`; only the *test* carries the
 `i`.) Two eMoScat gotchas were NOT replicated: its `sH1` wrapper had a copy-paste bug (returned F,
 not G+iF), and its wrappers ignored `coulcc`'s `ifail`.
 
@@ -82,7 +82,7 @@ over the Rydberg exit channels instead of one anion state:
 
 1. $\Psi_+ = \Psi_i - (E_\mathrm{tot}\mathbb{1} - H_\mathrm{2D})^{-1} V_\mathrm{int} \Psi_i$, $E_\mathrm{tot} = E + \varepsilon_{v_\mathrm{init}}$, Coulomb $\Psi_i$ (potentials
    on the **complex** ECS coordinate — eMoScat's real-part `// FIXME` is fixed);
-2. Rydberg states `φ_e^(n)`, `E_ryd(n) = eps_e^(n)` from `anion_electronic_states(…, n_states=N)`
+2. Rydberg states $\phi_e^{(n)}$, `E_ryd(n) = eps_e^(n)` from `anion_electronic_states(…, n_states=N)`
    (they are bound below the −1/r continuum — the same bound-state solver);
 3. $V_\mathrm{DR} = V_\mathrm{int} + v_0(R) - V_\mathrm{int}(r,R_\infty)$ (the rearrangement interaction);
 4. per open channel $n$ ($E_\mathrm{tot} > E_\mathrm{ryd}(n)$):
@@ -140,11 +140,11 @@ validated at all.
 
 ### The normalization
 
-**The reference σ values carry a `2π` this repository does not.** That was
+**The reference σ values carry a $2\pi$ this repository does not.** That was
 measured, not assumed: the ratio reference/computed is 5.3–7.2 on DR₀, clustering
 on $2\pi = 6.283$ — not on 1, and not on $(2\pi)^2 = 39.5$. Across the sampled points
 its geometric mean on DR₀ is **1.001**, so the constant is confirmed to ~0.1%.
-(The corresponding VE convention differs by `(2π)²`.)
+(The corresponding VE convention differs by $(2\pi)^2$.)
 
 ### DR₁ carries a systematic deficit — an open discrepancy
 
@@ -272,7 +272,7 @@ comparison, is what the repository gates on.
 
 ### Where the agreement is readable: the levels
 
-The well-conditioned check is against the published `ω_i^j` level table, which is
+The well-conditioned check is against the published $\omega_i^j$ level table, which is
 the same physics without the amplification. All **53 published levels — 5 for
 `Ry_0`, 12 each for `Ry_1`…`Ry_4` — agree to ≤4e-6 Ha**, gated in
 `validation/h2plus/test_rydberg_levels.py` against

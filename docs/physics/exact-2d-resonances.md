@@ -1,7 +1,7 @@
 # Exact (non-Born-Oppenheimer) resonance states of the 2-D model
 
 `qscat.core.exact_resonance_states` computes poles of the **full 2-D S-matrix**:
-eigenvalues `E_r − iΓ/2` of the complex-scaled electronic × nuclear Hamiltonian,
+eigenvalues $E_r - i\Gamma/2$ of the complex-scaled electronic × nuclear Hamiltonian,
 with outgoing boundary conditions in both coordinates. No Born-Oppenheimer
 separation, no discrete state, no local approximation.
 
@@ -62,9 +62,9 @@ nuclear well):
 
 | quantity | result |
 |---|---|
-| pole vs `ε_el + ε_vib` | agrees to **8.6e-15** |
+| pole vs $\varepsilon_\mathrm{el} + \varepsilon_\mathrm{vib}$ | agrees to **8.6e-15** |
 | width vs the electronic width alone | agrees to `rel = 1e-6` |
-| eigenvector vs `φ⊗χ` (c-product overlap) | `1` to within `1e-6` |
+| eigenvector vs $\phi \otimes \chi$ (c-product overlap) | `1` to within `1e-6` |
 | electronic residual vs the 1-D pole's own | **2.31e-07**, identical |
 | nuclear residual | `~1e-17` (a bound factor cannot move) |
 
@@ -141,7 +141,7 @@ Two things are worth reading off that.
 The **widths converge more slowly than the positions**, systematically. That is
 expected rather than anomalous: a width measures coupling to the continuum, and
 growing the box changes the density of discretized continuum states the
-resonance is embedded in, so `Γ` keeps feeling the discretization after `E_r`
+resonance is embedded in, so $\Gamma$ keeps feeling the discretization after `E_r`
 has stopped.
 
 And **higher levels converge later**, which is also the expected ordering: a
@@ -232,8 +232,8 @@ row is qualified accordingly.
 
 The level diagram, in the form the published version of this model uses
 (M. Váňa, doctoral thesis, Charles University 2017, Fig. 3.2): the neutral
-`V0(R)`, the resonance curve `E_res(R)` with its `Γ(R)/2` envelope shaded, and
-the levels `ω_i` drawn in that well. The published figure shows the LCP levels
+`V0(R)`, the resonance curve `E_res(R)` with its $\Gamma(R)/2$ envelope shaded, and
+the levels $\omega_i$ drawn in that well. The published figure shows the LCP levels
 alone; here the exact 2-D levels are overlaid, and **they are indistinguishable
 from the LCP ones at this scale** — a fifth of a meV against a 0.2 Ha axis.
 That is the finding, not a defect of the plot; the right panel is where the
@@ -243,14 +243,14 @@ difference lives. Both level sets come from the `r_max = 24` grid, so only
 ![v=0 resonance state](figures/n2-exact-2d-resonance-state-v0.png)
 ![v=1 resonance state](figures/n2-exact-2d-resonance-state-v1.png)
 
-The exact resonance states `Ψ(r, R)` in the interaction zone, framed as the
+The exact resonance states $\Psi(r, R)$ in the interaction zone, framed as the
 thesis's Fig. 3.3 frames its wave-function panels (`R` horizontal, `r` vertical
 increasing downward, complex phase as hue, magnitude as brightness, potential
 contours in grey). `v = 0` is a single lobe of the trapped electron at
 `r ≈ 1–3`, `R ≈ 2.2`; `v = 1` has the expected nuclear node, visible both as two
 lobes in `R` and as the phase flip across them. `v = 2` (not shown inline)
 carries two nodes. These are the states the BO picture approximates as products
-`φ_res(r; R)·χ_v(R)`, and they are visibly close to that form here — which is
+$\phi_\mathrm{res}(r; R)\cdot\chi_v(R)$, and they are visibly close to that form here — which is
 the same story the 0.22 meV difference tells, in a different currency.
 
 Brightness is one global scale across each panel, so it means the same thing
@@ -282,10 +282,10 @@ be a bound state.
 
 Both statements are measurable. Rotating each state by the single global phase
 that makes it maximally real and then measuring the residual imaginary weight
-`‖Im ψ‖ / ‖ψ‖` in shells of `r` (0 means real up to a constant phase, `1/√2`
+$\|\mathrm{Im}\,\psi\| / \|\psi\|$ in shells of `r` (0 means real up to a constant phase, `1/√2`
 means a pure traveling wave):
 
-| state | `Γ` (Ha) | `r` ∈ [0,4) | [4,10) | [10,16) | [16,24) |
+| state | $\Gamma$ (Ha) | `r` ∈ [0,4) | [4,10) | [10,16) | [16,24) |
 |---|---|---|---|---|---|
 | `v = 0` | 0.00490 | **0.146** | 0.434 | 0.799 | 0.702 |
 | `v = 1` | 0.00542 | 0.249 | 0.502 | 0.718 | 0.707 |
@@ -307,17 +307,17 @@ findable at all: `Im k ≈ −0.006` means that outgoing tail grows as
 turns that growth into decay, so the state becomes a square-integrable
 eigenvector.
 
-One convention note: after c-product normalization (`ψᵀψ = 1`, not `ψ†ψ = 1`)
+One convention note: after c-product normalization ($\psi^T\psi = 1$, not $\psi^\dagger\psi = 1$)
 the residual freedom is only `±1`, so relative phase across the panel is
 meaningful but the absolute hue is not.
 
 The reality defect also tracks the widths — 14.6%, 24.9%, 30.9% against
-`Γ` = 0.00490, 0.00542, 0.00593. Higher levels are more strongly coupled to the
+$\Gamma$ = 0.00490, 0.00542, 0.00593. Higher levels are more strongly coupled to the
 continuum, so they are less quasi-bound and less real, which is the same physics
 that makes their BO/exact differences converge more slowly than `v = 0`'s.
 
 A caveat on the BO side: `resonance_levels` emits a warning for this model that
-`Γ(R)` is nonzero where the anion curve lies below the neutral, i.e. where
+$\Gamma(R)$ is nonzero where the anion curve lies below the neutral, i.e. where
 autodetachment is closed, so the BO widths carry their own documented
 qualification (see `docs/physics/lcp-resonance-levels.md`).
 
