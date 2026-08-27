@@ -135,8 +135,8 @@ when a note is being edited anyway — never as a big-bang re-heading.
 Closest to the spine today (results-first content early, though not yet
 under these exact headings): `n2-resonance`, `n2-cross-section`,
 `n2-td-cross-section`, `nd-tensor-hamiltonian`, `femdvr-ecs`,
-`exact-2d-resonances`; results-first retrofits (Key result prepended,
-body prose unchanged, though a section may have moved up):
+`exact-2d-resonances`; results-first retrofits (a Key result opening
+prepended or moved up, body prose otherwise unchanged):
 `discretisation-tuning`, `mumps-sparse-backend`,
 `h2plus-dr`, `optimization-targets`, and the split-out
 `nrm-vibrational-excitation`.
