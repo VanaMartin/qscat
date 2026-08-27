@@ -57,6 +57,9 @@ jobs:
       # drives every observable unchecked.
       - name: Type-check (mypy, qscat library + qscat-run)
         run: uv run mypy libs/qscat/qscat apps/qscat-run/qscat_run
+      - name: CITATION.cff version matches qscat.__version__
+        run: |
+          uv run --no-sync python -c "import sys, yaml, qscat; v = yaml.safe_load(open('CITATION.cff'))['version']; sys.exit(0 if v == qscat.__version__ else f'CITATION.cff version {v!r} != qscat.__version__ {qscat.__version__!r} -- update CITATION.cff (both top-level version: and preferred-citation.version)')"
 
   test:
     name: test (${{ matrix.os }}, py${{ matrix.python-version }})
