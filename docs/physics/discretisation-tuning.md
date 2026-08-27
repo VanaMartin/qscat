@@ -8,6 +8,26 @@ future-work note in `docs/physics/diatomic-ve-cross-sections.md`
 ("Future: automatic discretisation").
 **Units:** atomic units throughout (energy in Hartree, length in Bohr).
 
+## Key result
+
+Calibrated once against F₂'s genuinely-open dissociative-attachment channel
+($C = 0.10$), the tuner reproduces-and-beats the hand-tuned eMoScat F₂ deck
+on the 1-D probes (37% fewer points, clean absolute convergence) and
+correctly flags the coarse shared N₂-style grid's historical
+under-resolution of the same K≈58–78 wave — the two things this
+sub-project set out to prove — and the same clean result holds for H₂⁺'s
+proxy deck. The resonance-aware `channel="dissociation"` nuclear path
+converges F₂'s 2-D $\sigma_\mathrm{DA}$ on the FIRST a-priori pass
+(1.6562 bohr², matching the eMoScat deck and finding #3's own refine²
+value) at deck-parity size (1.027×), and sizes H₂⁺'s resonant grid ~4%
+under its proxy deck. Two honest caveats carry the same weight as the
+result: reaching convergence costs approximately deck-sized resolution —
+the deliverable is convergence + automation at deck-competitive size, not
+the "10–20% smaller" grid originally hoped for — and N₂/NO's proposed
+nuclear grids cost more points than their decks (root-caused to a fixed
+real-region extent default, not to $C$), a documented limitation for a
+follow-on.
+
 ## Why
 
 Discretisation errors have been the single most expensive class of bug in this repo: the
@@ -258,26 +278,6 @@ H₂⁺ DR's low incident `k` (long de-Broglie wavelength), `probe_channel_repre
 failure mode on a truncated Coulomb electronic grid is dominated by real-region EXTENT, not
 element density, and neither a 30-bohr nor the 60-bohr proxy grid gave a clean converged/
 not-converged split — not a clean regression gate the way the F₂ DA case is.
-
-## Key result
-
-The tuner, calibrated once against F₂'s genuinely-open DA channel, reproduces-and-beats
-that deck on the 1-D probes (37% fewer points, clean absolute convergence) and correctly
-flags the coarse shared grid's historical under-resolution of the same wave — the two
-things this whole sub-project set out to prove — and the same clean result holds for H₂⁺'s
-proxy deck. N₂/NO's nuclear grids are comparatively good (vibrational spectra converge;
-channel representation beats their own decks by 7-17×) but cost more points than their
-decks, root-caused to a fixed real-region extent default, not to `C` — a genuine, documented
-limitation for a follow-on, not silently hidden. **Finding #3 — the 1-D probes passing while
-the 2-D observable was not converged — is now RESOLVED:** the resonance-aware
-`channel="dissociation"` nuclear path sizes the DVR order to the exit wave and locally
-super-refines the resonance crossing, converging F₂'s σ_DA on the FIRST a-priori pass
-(1.6562 bohr², matching the eMoScat deck and finding #3's own refine² value) at
-deck-parity size (1.027×), with the same mechanism giving H₂⁺'s resonant grid at ~4%
-under its proxy deck's size. The honest caveat carries forward, restated rather than
-dropped: reaching that convergence costs approximately deck-sized resolution, not less — the
-original "10–20% smaller" hope did not survive contact with F₂'s own near-optimal hand
-deck, and the real deliverable is convergence + automation at deck-competitive size.
 
 See also: `docs/superpowers/specs/2026-07-28-discretisation-tuner-design.md` (the design),
 the `discretisation-tuner` skill (the supervised loop + worked example),
