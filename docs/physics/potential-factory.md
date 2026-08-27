@@ -7,14 +7,14 @@ exists, the target-tier survey it is built from, and the decisions taken on
 it), `docs/physics/nonlocal-resonance-model.md` (the T3 forward model
 — the same `AsymptoticDiscreteState`/`v_dk_plus`/`gamma_from_coupling` chain
 this package fits against), `docs/physics/n2-resonance.md` (the published
-`E_res(R_0)`/`Γ(R_0)` values this package's pole solver reproduces).
+`E_res(R_0)`/$\Gamma(R_0)$ values this package's pole solver reproduces).
 **Units:** atomic units.
 
 ## What it does
 
 Every model in `qscat.model` (N₂, NO, F₂) is a hand-tuned testbed: a Morse-like
 neutral curve plus a Gaussian electron–molecule well `V_int(r,R) = −λ(R)
-e^{−α_c r²}` with a *single* free function of `R` (`λ`) and a constant `α_c`.
+e^{−α_c r²}` with a *single* free function of `R` ($\lambda$) and a constant `α_c`.
 `projects/potential_factory/` builds a strictly richer ansatz,
 `FlexibleDiatomicModel` (`ansatz.py`), and a tiered `Target` format
 (`target.py`) plus an extractor (`extract.py`) and a staged fitter
@@ -24,20 +24,20 @@ The ansatz has three pieces:
 
 - **Neutral curve.** An Expanded Morse Oscillator (EMO, Le Roy's form) in the
   dimensionless radial variable `y_p(R) = (R^p − R_e^p)/(R^p + R_e^p)`:
-  `v0(R) = D_e [(1 − e^{−β(R)(R − R_e)})² − 1]` with `β(R) = Σ_i β_i y_p(R)^i`.
-  One `β` reduces this exactly to a Morse curve.
+  $v_0(R) = D_e[(1 - e^{-\beta(R)(R - R_e)})^2 - 1]$ with $\beta(R) = \sum_i \beta_i\, y_p(R)^i$.
+  One $\beta$ reduces this exactly to a Morse curve.
 - **Interaction.** A Gaussian well whose depth **and** range are both smooth
-  functions of `R`: `V_int(r,R) = −λ(R) e^{−α(R) r²}`, where `λ(R)` and `α(R)`
+  functions of `R`: $V_{int}(r,R) = -\lambda(R)\,e^{-\alpha(R) r^2}$, where $\lambda(R)$ and $\alpha(R)$
   are each a `SmoothR` — a sigmoid `f_inf + f_0/(1 + e^{f_1(R − R_f)})` times
   an optional polynomial correction in `y_p(R)`. With `coeffs == ()` this is
-  exactly Houfek's own sigmoid form for `λ(R)`; the existing models fix `α`
-  constant, which is the special case `α.f_0 = 0`.
+  exactly Houfek's own sigmoid form for $\lambda(R)$; the existing models fix $\alpha$
+  constant, which is the special case $\alpha$.`f_0` $= 0$.
 - **Optional shell.** A repulsive Gaussian barrier `shell(R) e^{−α_b(r −
   r_b)²}` added to the well, used only when the T3 (coupling) tier needs to
-  reshape the off-resonance background that `λ(R)`/`α(R)` alone cannot reach.
+  reshape the off-resonance background that $\lambda(R)$/$\alpha(R)$ alone cannot reach.
 
 `from_diatomic` embeds an existing `DiatomicResonanceModel` (N₂/NO/F₂) into
-this family exactly — `λ(R)`'s sigmoid constants and `α(R)`'s constant term
+this family exactly — $\lambda(R)$'s sigmoid constants and $\alpha(R)$'s constant term
 are read off the published model's own `lambda_inf`/`lambda_1`/`R_lambda`/
 `alpha_c`, so every published model is a *point* in `FlexibleDiatomicModel`'s
 parameter space with zero embedding error. That is what makes the round-trip
@@ -48,12 +48,12 @@ published constants is a real test of the fitter, not a tautology.
 each fitted in order:
 
 - **T0 — neutral curve.** `NeutralTarget`: either a table (`Curve.from_table`,
-  a cubic spline) or the constants `R_e`, `D_e`, `ω_e`, `ω_e x_e` directly.
+  a cubic spline) or the constants `R_e`, `D_e`, $\omega_e$, $\omega_e x_e$ directly.
 - **T1 — resonance curve.** `ResonanceTarget`: `V_ion(R) = V_0(R) + E_res(R)`
-  and `Γ(R)` as `Curve`s over the range where a pole was actually found, plus
+  and $\Gamma(R)$ as `Curve`s over the range where a pole was actually found, plus
   the electron affinity `EA` (the `R → ∞` asymptote).
 - **T3 — energy-dependent width.** `CouplingTarget`: the nonlocal model's own
-  `Γ̃(ε,R) = 2π ε^α |V_{dk}⁺(ε,R)|²` — either Alt & Houfek's closed-form Eq.
+  $\tilde\Gamma(\varepsilon,R) = 2\pi\, \varepsilon^\alpha\, |V_{dk}^+(\varepsilon,R)|^2$ — either Alt & Houfek's closed-form Eq.
   (25)–(27) (`from_alt_houfek`) or a table (`from_table`, log-space
   interpolated — see Limitations).
 
@@ -71,21 +71,21 @@ It holds two electronic FEM-DVR-ECS grids that differ only in ECS angle
 window)` calls `qscat.ecs.find_resonance_pole` on the two grids' Hamiltonians
 and *gates* the match: a bound candidate is accepted only if `Re E < 0` and
 `|Im E|` is at round-off; a resonant candidate only if its two-angle residual
-clears both an absolute tolerance and `residual < gate_frac · Γ` (default 5%
+clears both an absolute tolerance and `residual` < `gate_frac` · $\Gamma$ (default 5%
 of the width). This rejects angle-stable matches that are numerical
 coincidences rather than physical poles — a fake `ℓ = 1` well's spike matches
 across the two angles with residual `3.9e-3`, but that is `2.7×` its own
-`0.05·Γ` gate and is correctly rejected, not just caught as an exception. The
+$0.05\cdot\Gamma$ gate and is correctly rejected, not just caught as an exception. The
 package's convention throughout is the **bare well**: every window and every
 target the fitters build is on the electronic-shift energy scale (`v_int(r,R)
 + ℓ(ℓ+1)/2r²`, without `v0(R)`), since `v0(R)` is a separate, additive term
 that the pole solver never needs to see.
 
-**`pole_sensitivity(H, E) = ψ_i²`** is the exact gradient of a pole energy
+**`pole_sensitivity(H, E)` $= \psi_i^2$** is the exact gradient of a pole energy
 with respect to every potential value at once. For a complex-symmetric
 Hamiltonian the Hellmann–Feynman theorem holds under the bilinear c-product
-(`qscat.linalg.c_product`, `ψᵀψ` not `ψ†ψ`) rather than the usual Hermitian
-inner product: `∂E/∂V_i = ψ_i²` for the c-normalized eigenvector `ψ` (`ψᵀψ =
+(`qscat.linalg.c_product`, $\psi^T\psi$ not $\psi^\dagger\psi$) rather than the usual Hermitian
+inner product: $\partial E/\partial V_i = \psi_i^2$ for the c-normalized eigenvector $\psi$ (`ψᵀψ =
 1`). This is verified against a finite difference referenced to the
 Hamiltonian's *own* matched eigenvalue (not the two-angle midpoint
 `find_resonance_pole` returns, which sits `~residual/2` away from either
@@ -94,17 +94,17 @@ term into the difference quotient): at `h = 1e-5` the absolute error is
 `2.22e-7`, relative `2.24e-6` — genuine round-off, not a sign or conjugation
 defect.
 
-**`solve_pole_params`** is damped Newton in `(λ, α)` on a target pole energy,
-built entirely from that one gradient: `∂E/∂λ = Σ_i ψ_i² (−e^{−α r_i²})`,
-`∂E/∂α = Σ_i ψ_i² (λ r_i² e^{−α r_i²})`. A **resonant** target solves the full
+**`solve_pole_params`** is damped Newton in $(\lambda, \alpha)$ on a target pole energy,
+built entirely from that one gradient: $\partial E/\partial\lambda = \sum_i \psi_i^2\,(-e^{-\alpha r_i^2})$,
+$\partial E/\partial\alpha = \sum_i \psi_i^2\,(\lambda r_i^2 e^{-\alpha r_i^2})$. A **resonant** target solves the full
 complex 2×2 system; a **bound** target has one real equation in one unknown
-(the true energy has no width to constrain a second parameter), so only `λ`
-moves and `α` is held at whatever the seed carried — a single real bound-state
+(the true energy has no width to constrain a second parameter), so only $\lambda$
+moves and $\alpha$ is held at whatever the seed carried — a single real bound-state
 energy genuinely cannot pin two parameters. Recovering N₂'s true well
 parameters converges cleanly from a perturbed seed in both regimes: a
-resonant target seeded at `(λ, α) = (4.5, 0.5)` against the true `(4.9624,
+resonant target seeded at $(\lambda, \alpha) = (4.5, 0.5)$ against the true `(4.9624,
 0.4)` (λ off by ~9.3%, α by 25%) converges in 8 Newton iterations with no
-damping ever triggered; a bound target seeded ~8.7% off in `λ` (`α` fixed,
+damping ever triggered; a bound target seeded ~8.7% off in $\lambda$ ($\alpha$ fixed,
 per the single-equation reduction above) converges in 4. Two structural
 difficulties surface only
 once continuation is layered on top of this solver (below): a **classification
@@ -120,9 +120,9 @@ more angle-stable but unrelated pole elsewhere in the wide bridging window can
 never be silently substituted for the one actually being tracked.
 
 **`track_curve`** continues `solve_pole_params` over an `R` grid, seeding each
-node from the previous node's converged `(λ, α)`. A node whose Newton solve
+node from the previous node's converged $(\lambda, \alpha)$. A node whose Newton solve
 fails or whose target is undefined (`NaN`) is dropped, not treated as an
-error: its `(λ, α)` are carried forward unchanged so the walk can resume past
+error: its $(\lambda, \alpha)$ are carried forward unchanged so the walk can resume past
 it. On N₂'s R = 3.0 → 1.6 continuation (15 nodes crossing the bound/resonant
 threshold), 14/15 converge to a maximum relative error of `1.9e-7`; the one
 dropped node sits inside the ~0.02-bohr-wide slice around `R ≈ 2.4` where the
@@ -134,16 +134,16 @@ the angle-stability gate itself, not a tracker defect.
 nodes (a `CubicSpline` passes exactly through its input data, so an off-node
 probe grid would inherit its `O(h⁴)` interpolation error as a systematic
 residual floor), then checks the **vibrational ladder** the fitted curve
-implies: `ε_1 − ε_0` from `qscat.core.vibrational.vibrational_states` on
+implies: $\varepsilon_1 - \varepsilon_0$ from `qscat.core.vibrational.vibrational_states` on
 `qscat.core.grids.nuclear_grid()`, against the target's own. `"met"` requires
-`|Δω_e| / ω_e ≤ tol.omega_e_rel` as well as the curve residual, and the
+$\lvert\Delta\omega_e\rvert / \omega_e \le$ `tol.omega_e_rel` as well as the curve residual, and the
 comparison always appears in `TierResult.detail`.
 
 Two details make that comparison honest. First, a spectroscopic table quotes
-the **harmonic** constant `ω_e`, which is not the `0 → 1` spacing; for the
+the **harmonic** constant $\omega_e$, which is not the `0 → 1` spacing; for the
 Morse curve this branch builds from those constants the exact spacing is
-`G(1) − G(0) = ω_e − 2 ω_e x_e` with `ω_e x_e = ω_e² / 4D_e`. Comparing
-against the bare `ω_e` would report a fixed anharmonic offset as fit error —
+$G(1) - G(0) = \omega_e - 2\,\omega_e x_e$ with $\omega_e x_e = \omega_e^2 / 4D_e$. Comparing
+against the bare $\omega_e$ would report a fixed anharmonic offset as fit error —
 0.83 % (N₂), 1.96 % (NO), 3.33 % (F₂), two of the three over the 1 % default
 for a curve reproduced to `1e-13`. Second, a **table**-backed target is
 NaN outside its own span and real-argument only, while the nuclear grid runs
@@ -158,21 +158,21 @@ meaningless number (measured leak on the round-trip tables: `6e-16` N₂,
 **`fit_resonance`'s T1 pipeline** chains these into a staged fit. Its `R`
 nodes are the target's own table nodes when it has them (see Limitations).
 Each node is first classified bound or resonant by a Γ floor
-(`Γ_target < tol.gamma_floor`, the same threshold used to pick the
+($\Gamma_{\text{target}} <$ `tol.gamma_floor`, the same threshold used to pick the
 resonant-node mask below) rather than an exact-zero test, matching what the
 Newton bridging logic above already treats as "genuinely bound." The nodes
-are tracked once; `α(R)` is then fit from the **resonant nodes only**,
-Γ-weighted (weight ∝ `Γ_target`, normalized to max 1) — a bound node's single
-real eigenvalue cannot determine `α` at all (`∂E/∂α` never enters a
-lam-only Newton step there), and the near-degeneracy `∂E/∂α ≈ −6.06·∂E/∂λ`
+are tracked once; $\alpha(R)$ is then fit from the **resonant nodes only**,
+Γ-weighted (weight ∝ $\Gamma_{\text{target}}$, normalized to max 1) — a bound node's single
+real eigenvalue cannot determine $\alpha$ at all ($\partial E/\partial\alpha$ never enters a
+lam-only Newton step there), and the near-degeneracy $\partial E/\partial\alpha \approx -6.06\cdot\partial E/\partial\lambda$
 (quantified below) means even resonant nodes need down-weighting toward the
 more open, more informative ones. The nodes are then **re-tracked** with the
-just-fitted `α(R)` supplied as the per-node seed (not merely the first
-node's value), so the corrected `α` also governs the bound branch before
-`λ(R)` is fit against this second track — both smoothing fits run in the
+just-fitted $\alpha(R)$ supplied as the per-node seed (not merely the first
+node's value), so the corrected $\alpha$ also governs the bound branch before
+$\lambda(R)$ is fit against this second track — both smoothing fits run in the
 log-amplitude reparametrized coordinates described under Limitations. A
 **joint polish** (`_joint_polish`) follows: a single least-squares over
-`λ`'s and `α`'s free constants together, minimizing the pole residual (the
+$\lambda$'s and $\alpha$'s free constants together, minimizing the pole residual (the
 real part at every node, the Γ-weighted imaginary part at resonant nodes
 only) using the analytic c-product Jacobian — `pole_sensitivity` chained
 through the reparametrization, not a finite difference — which is what
@@ -188,7 +188,7 @@ every later iteration on it. A node with no admissible candidate is scored as
 a miss (the penalty above), not latched. An electron-affinity (EA)
 asymptotic constraint is applied if the node range reaches far enough
 toward `R → ∞` to bracket it. Finally the fitted model is re-verified by a
-fresh gated walk (`walk_t1`); `"met"` requires the resulting `E_res`/`Γ`
+fresh gated walk (`walk_t1`); `"met"` requires the resulting `E_res`/$\Gamma$
 residuals to clear `tol.e_res_rms`/`tol.gamma_rel` **and** at least 75% of
 the requested nodes to have survived tracking, re-tracking, and re-walking
 — a curve that reads accurate only on a handful of surviving nodes does not
@@ -199,10 +199,10 @@ count as fit.
 Every term in the ansatz is entire in `r` and in `R` (aside from `y_p`'s
 poles at `|R| = R_e`, which an ECS tail pivoted at `R_0 > R_e` never
 reaches), so each has an **analytic** bound on how far it can be rotated
-before its ECS tail stops decaying. Under `r → r e^{iθ}` the Gaussian well's
-exponent becomes `−α r² e^{2iθ}`, which decays iff `cos 2θ > 0`, i.e.
-`θ < 45°`; the EMO neutral curve's exponentials pick up only `e^{iθ}` and
-stay bounded iff `cos θ > 0`, i.e. `θ < 90°`. These caps
+before its ECS tail stops decaying. Under $r \to r\, e^{i\theta}$ the Gaussian well's
+exponent becomes $-\alpha r^2 e^{2i\theta}$, which decays iff $\cos 2\theta > 0$, i.e.
+$\theta < 45^\circ$; the EMO neutral curve's exponentials pick up only $e^{i\theta}$ and
+stay bounded iff $\cos\theta > 0$, i.e. $\theta < 90^\circ$. These caps
 (`electronic_max_deg = 45`, `nuclear_max_deg = 90`) hold for every member of
 the ansatz family, independent of any grid — they are a property of the
 functional form, not a measurement.
@@ -224,8 +224,8 @@ report records both what the ansatz *can* tolerate and what a specific fit
 ## Round-trip oracle — measured
 
 The acceptance test (`test_roundtrip.py`) round-trips each of N₂, NO, F₂:
-seed a perturbed `FlexibleDiatomicModel` (`D_e ×1.2`, `R_e ×1.05`, `β_0 ×0.9`,
-`λ.f_inf ×1.1`, `α.f_inf ×1.3` from the published model), fit it against
+seed a perturbed `FlexibleDiatomicModel` (`D_e ×1.2`, `R_e ×1.05`, $\beta_0 \times 0.9$,
+$\lambda$.`f_inf` $\times 1.1$, $\alpha$.`f_inf` $\times 1.3$ from the published model), fit it against
 `extract_target`'s own tiered `Target` built from the *unperturbed* published
 model, and check the recovered curves and constants. All three currently pass
 all three tiers ("met") through `fit()`'s T0 → T1 → T3 pipeline:
@@ -236,36 +236,36 @@ all three tiers ("met") through `fit()`'s T0 → T1 → T3 pipeline:
 | T1 (resonance curve) | met | met | met |
 | T3 (coupling / width) | met | met | met |
 
-**T0** recovers `D_e`, `R_e`, `β_0` to round-off on every molecule (rms
+**T0** recovers `D_e`, `R_e`, $\beta_0$ to round-off on every molecule (rms
 `~7e-17`, max `~2e-16` — the least-squares problem is well-posed independent
 of the T1 seed).
 
 **T1**, per molecule:
 
-- **N₂** (9/9 target nodes, 5 resonant): `λ(R)`/`α(R)` curve relative error
-  `1.8e-13`/`1.2e-13`; `E_res` rms `2.10e-14` Ha, max `3.49e-14` Ha; `Γ`
+- **N₂** (9/9 target nodes, 5 resonant): $\lambda(R)$/$\alpha(R)$ curve relative error
+  `1.8e-13`/`1.2e-13`; `E_res` rms `2.10e-14` Ha, max `3.49e-14` Ha; $\Gamma$
   relative rms and max `0.000`; the fitted crossing radius lands within 0.1
   bohr of the published `R_c = 2.405`.
 - **NO** (10/10, 4 resonant): curve relative error `4.3e-10`/`3.6e-10`;
-  `E_res` rms `1.59e-11` Ha, max `3.58e-11` Ha; `Γ` relative rms and max
+  `E_res` rms `1.59e-11` Ha, max `3.58e-11` Ha; $\Gamma$ relative rms and max
   `0.000`; fitted `R_c` within 0.1 bohr of the published `R_c = 2.285`.
 - **F₂** (8/8, 3 resonant): curve relative error `1.2e-9`/`8.8e-10`; `E_res`
-  rms `1.01e-11` Ha, max `2.24e-11` Ha; `Γ` relative rms and max `0.000`. The
+  rms `1.01e-11` Ha, max `2.24e-11` Ha; $\Gamma$ relative rms and max `0.000`. The
   recovered `SmoothR` constants match the published ones to 8–9 significant
   figures:
 
   | constant | recovered | published |
   |---|---|---|
-  | `λ.f_inf` | 18.848999984001 | 18.849 |
-  | `λ.f_0` | −8.874597817145 | −8.874597806914 |
-  | `λ.f_1` | 3.212999999418 | 3.213 |
-  | `λ.R_f` | 1.831999999437 | 1.832 |
-  | `α.f_inf` | 2.999999997362 | 3.0 |
+  | $\lambda$.`f_inf` | 18.848999984001 | 18.849 |
+  | $\lambda$.`f_0` | −8.874597817145 | −8.874597806914 |
+  | $\lambda$.`f_1` | 3.212999999418 | 3.213 |
+  | $\lambda$.`R_f` | 1.831999999437 | 1.832 |
+  | $\alpha$.`f_inf` | 2.999999997362 | 3.0 |
 
 F₂'s clean result depends on one condition its window was chosen to satisfy,
 explained below under Limitations: enough of the surviving nodes must be
-genuinely resonant (not bound, where `α` is frozen) to break a near-degeneracy
-between `λ` and `α`. It no longer depends on the fit's `R` grid happening to
+genuinely resonant (not bound, where $\alpha$ is frozen) to break a near-degeneracy
+between $\lambda$ and $\alpha$. It no longer depends on the fit's `R` grid happening to
 coincide with `extract_target`'s survivors — T1 now reads the target **on**
 those nodes.
 
@@ -278,7 +278,7 @@ curve replaced by exact constants (`NeutralTarget.constants`) the same check
 reads `1.5e-13`.
 
 **T3** is met on all three by the same `fit_coupling` least-squares over
-`log Γ̃(ε,R)` described below.
+$\log\tilde\Gamma(\varepsilon,R)$ described below.
 
 Wall time for one full round trip (T0+T1+T3, `ElectronicPair()`'s default
 grid): N₂ ≈ 4.1 s, NO ≈ 4.5 s, F₂ ≈ 3.7 s. The full
@@ -300,7 +300,7 @@ thread, so the ladder below takes seconds, not minutes); the CSVs,
 convergence summaries and `FitReport`s are committed under
 `validation/factory/results/`.
 
-**Converged resonant curves.** `walk_t1` extracts `E_res(R)`, `Γ(R)` and
+**Converged resonant curves.** `walk_t1` extracts `E_res(R)`, $\Gamma(R)$ and
 `V_ion = V_0 + E_res` on 45 nuclear nodes over the whole crossing region for a
 ladder of four electronic grids (`r_max` 16→40 bohr, DVR order 7→13, 6→10 tail
 elements; 113→347 points). The grid-to-grid differences on the finest step
@@ -309,17 +309,17 @@ elements; 113→347 points). The grid-to-grid differences on the finest step
 | | N₂ | NO | F₂ |
 |---|---|---|---|
 | scan `R` (bohr) | 3.2 → 1.5 | 3.4 → 1.6 | 4.2 → 1.9 |
-| max `ΔE_res`, finest step (Ha) | 5.5e-9 | 3.6e-7 | 6.2e-7 |
-| max `ΔΓ`, finest step (Ha) | 4.1e-9 | 1.2e-6 | 2.9e-5 |
+| max $\Delta E_{res}$, finest step (Ha) | 5.5e-9 | 3.6e-7 | 6.2e-7 |
+| max $\Delta\Gamma$, finest step (Ha) | 4.1e-9 | 1.2e-6 | 2.9e-5 |
 | nodes with a gated pole | 44/45 | 44/45 | 44/45 |
-| `Γ` at the innermost node (eV) | 4.5 | — | 14.1 |
+| $\Gamma$ at the innermost node (eV) | 4.5 | — | 14.1 |
 
 The one node without a gated pole is, for every molecule, the one inside the
 crossing slice where the pole sits below the gate's threshold floor. Away from
 that slice the curves converge to 1e-12–1e-14 Ha on the bound side; the
 residual differences on the resonant side come from the very short-`R` end,
 where the width is several eV and the real-region extent still matters
-(F₂'s `Γ` reaches 14 eV at 1.9 bohr). The crossing found by the factory agrees
+(F₂'s $\Gamma$ reaches 14 eV at 1.9 bohr). The crossing found by the factory agrees
 with the published `R_c` to 3e-4–2e-3 bohr (N₂ 2.4048 vs 2.405, NO 2.2845 vs
 2.285, F₂ 2.5970 vs 2.595). Figures:
 `docs/physics/figures/{n2,no,f2}-factory-curves.png`.
@@ -332,9 +332,9 @@ from the two crossing-slice nodes the tracker drops and re-verifies by
 interpolation), the T3 log-width rms 1e-9–7e-9. The DA-threshold signs come
 out `+` for N₂ and NO (endothermic) and `−` for F₂ (exothermic).
 
-**Cross sections, published vs refitted.** Exact 2-D `σ_{0→v'}(E)` for
+**Cross sections, published vs refitted.** Exact 2-D $\sigma_{0\to v'}(E)$ for
 `v' = 0, 1, 2` on each molecule's `emoscat` production deck over its preset
-window, and `σ_DA` where the channel exists — F₂ over the same window, NO on a
+window, and $\sigma_{DA}$ where the channel exists — F₂ over the same window, NO on a
 window above its DA threshold (`E = 0.175–0.30` Ha; the channel opens at
 `+0.172` Ha, above the whole VE sweep):
 
@@ -357,7 +357,7 @@ observables tolerate is the sensitivity budget, still to be measured. Figures:
 
 ## Limitations
 
-**The sigmoid-constant degeneracy.** N₂'s own published `λ(R)` sigmoid has
+**The sigmoid-constant degeneracy.** N₂'s own published $\lambda(R)$ sigmoid has
 extreme raw constants (`R_f = −27.98`, `f_0 ≈ −7×10¹³`) — the sigmoid's
 midpoint sits far outside the physical `R` range, so the curve is shaped by
 the *ratio* of huge, nearly-cancelling terms. Fitting those constants directly
@@ -367,18 +367,18 @@ that still leaves a multi-percent residual against the very tracked data
 being fit. The fit therefore reparametrizes in log-amplitude coordinates
 (`u = log|f_0|`, sign frozen from the seed) with Jacobian-scaled steps before
 optimizing, and — the more fundamental point — the fitter is judged, and
-`"met"` is decided, by the **curve** `λ(R_desc)`/`α(R_desc)` the constants
+`"met"` is decided, by the **curve** $\lambda(R_{\text{desc}})$/$\alpha(R_{\text{desc}})$ the constants
 reproduce, never by how close the raw constants land to the published ones.
 Two sigmoid parameterizations can differ substantially in every constant and
 still trace the same curve to round-off.
 
-**The `λ`/`α` near-degeneracy.** On the single-Gaussian well, the two
-Hellmann-Feynman gradients `∂E/∂λ` and `∂E/∂α` are nearly parallel: measured
-on F₂ at `(λ, α) = (17.46, 3.0)`, `∂E/∂α ≈ −6.06 · ∂E/∂λ`. A single pole
-therefore barely constrains `λ` and `α` independently — the per-node 2×2
+**The $\lambda$/$\alpha$ near-degeneracy.** On the single-Gaussian well, the two
+Hellmann-Feynman gradients $\partial E/\partial\lambda$ and $\partial E/\partial\alpha$ are nearly parallel: measured
+on F₂ at $(\lambda, \alpha) = (17.46, 3.0)$, $\partial E/\partial\alpha \approx -6.06 \cdot \partial E/\partial\lambda$. A single pole
+therefore barely constrains $\lambda$ and $\alpha$ independently — the per-node 2×2
 Newton Jacobian is close to singular along that direction — and a **bound**
-node cannot help at all (`α` is frozen there, contributing no equation in
-`α`). Enough genuinely resonant nodes are needed to break the degeneracy from
+node cannot help at all ($\alpha$ is frozen there, contributing no equation in
+$\alpha$). Enough genuinely resonant nodes are needed to break the degeneracy from
 several different points along the near-null direction; two were not enough
 for F₂, three were.
 
@@ -400,9 +400,9 @@ walk, and `TierResult.detail` reports which was used (`nodes: table 8/8` /
 `target.curve.x`) and T3 (`_coupling_eval_grid`, subsampling
 `eps_nodes`/`R_nodes`) already followed. Measured effect on the F₂ round trip
 at the `(3.6, 1.8)` window, which drops one extraction node: with an
-independent `linspace` grid T1 was **not met** (`E_res` rms `4.6e-3` Ha, `Γ`
-relative max `0.51`, `λ` 65 % off, T3 never attempted, 12.1 s); on the
-target's own nodes it is met at `E_res` rms `1.01e-11` Ha with `λ`/`α`
+independent `linspace` grid T1 was **not met** (`E_res` rms `4.6e-3` Ha, $\Gamma$
+relative max `0.51`, $\lambda$ 65 % off, T3 never attempted, 12.1 s); on the
+target's own nodes it is met at `E_res` rms `1.01e-11` Ha with $\lambda$/$\alpha$
 recovered to `~1e-9`, in 3.8 s.
 
 **`Tolerances` (`report.py`) are placeholders** — `v0_rms`, `omega_e_rel`,
@@ -424,7 +424,7 @@ tolerance), but is not a proof that every spurious near-threshold match is
 caught.
 
 **Polar targets are out of scope, and T3 says so.** A polar molecule's
-threshold exponent `ε^{√(d+¼)}` (a dipole-coupling law) cannot be produced by
+threshold exponent $\varepsilon^{\sqrt{d+\frac14}}$ (a dipole-coupling law) cannot be produced by
 a centrifugal barrier of any integer `ℓ`; matching it needs an explicit
 long-range term the current ansatz does not have. `fit_coupling` therefore
 compares `CouplingTarget.alpha_exponent` against the ansatz's own `ℓ + ½`
@@ -442,7 +442,7 @@ the three round-trip windows reaches the `R → ∞` asymptote where it would
 fire. There is no guard against a `Target` table with fewer nodes than the
 ansatz has free parameters at a given tier — an under-determined fit would
 currently proceed rather than raise. A node whose target is `NaN` (dropped by
-`track_curve`) carries forward its *raw*, un-refit `(λ, α)[j]` rather than an
+`track_curve`) carries forward its *raw*, un-refit $(\lambda, \alpha)[j]$ rather than an
 interpolated value; this is a deliberate, documented choice (continuation
 needs *some* seed to resume from) but means a caller inspecting `TrackResult`
 directly should not read a frozen node's parameters as a fit result.
