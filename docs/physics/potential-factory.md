@@ -13,8 +13,8 @@ this package fits against), `docs/physics/n2-resonance.md` (the published
 ## What it does
 
 Every model in `qscat.model` (N₂, NO, F₂) is a hand-tuned testbed: a Morse-like
-neutral curve plus a Gaussian electron–molecule well `V_int(r,R) = −λ(R)
-e^{−α_c r²}` with a *single* free function of `R` ($\lambda$) and a constant `α_c`.
+neutral curve plus a Gaussian electron–molecule well $V_{int}(r,R) = -\lambda(R)\,
+e^{-\alpha_c r^2}$ with a *single* free function of `R` ($\lambda$) and a constant $\alpha_c$.
 `projects/potential_factory/` builds a strictly richer ansatz,
 `FlexibleDiatomicModel` (`ansatz.py`), and a tiered `Target` format
 (`target.py`) plus an extractor (`extract.py`) and a staged fitter
@@ -32,8 +32,8 @@ The ansatz has three pieces:
   an optional polynomial correction in `y_p(R)`. With `coeffs == ()` this is
   exactly Houfek's own sigmoid form for $\lambda(R)$; the existing models fix $\alpha$
   constant, which is the special case $\alpha$.`f_0` $= 0$.
-- **Optional shell.** A repulsive Gaussian barrier `shell(R) e^{−α_b(r −
-  r_b)²}` added to the well, used only when the T3 (coupling) tier needs to
+- **Optional shell.** A repulsive Gaussian barrier `shell(R)` $e^{-\alpha_b(r -
+  r_b)^2}$ added to the well, used only when the T3 (coupling) tier needs to
   reshape the off-resonance background that $\lambda(R)$/$\alpha(R)$ alone cannot reach.
 
 `from_diatomic` embeds an existing `DiatomicResonanceModel` (N₂/NO/F₂) into
@@ -85,8 +85,8 @@ that the pole solver never needs to see.
 with respect to every potential value at once. For a complex-symmetric
 Hamiltonian the Hellmann–Feynman theorem holds under the bilinear c-product
 (`qscat.linalg.c_product`, $\psi^T\psi$ not $\psi^\dagger\psi$) rather than the usual Hermitian
-inner product: $\partial E/\partial V_i = \psi_i^2$ for the c-normalized eigenvector $\psi$ (`ψᵀψ =
-1`). This is verified against a finite difference referenced to the
+inner product: $\partial E/\partial V_i = \psi_i^2$ for the c-normalized eigenvector $\psi$ ($\psi^T\psi =
+1$). This is verified against a finite difference referenced to the
 Hamiltonian's *own* matched eigenvalue (not the two-angle midpoint
 `find_resonance_pole` returns, which sits `~residual/2` away from either
 grid's true eigenvalue and would otherwise leak a spurious, non-vanishing
