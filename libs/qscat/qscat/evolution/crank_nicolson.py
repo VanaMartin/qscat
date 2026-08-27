@@ -40,8 +40,8 @@ def make_cn_stepper(
 
     Parameters
     ----------
-    H : ndarray, shape (n, n)
-        Hamiltonian matrix (complex, possibly non-Hermitian).
+    H : ndarray
+        ``(n, n)``. Hamiltonian matrix (complex, possibly non-Hermitian).
     dt : float
         Time step.
 
