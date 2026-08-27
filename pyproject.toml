@@ -68,7 +68,7 @@ dev = [
     # Report-only for now -- no fail-under until a baseline month of numbers
     # exists (decision 2026-08-25, revisit ~2026-09-25).
     "pytest-cov>=6",
-    "hypothesis>=6",
+    "hypothesis>=6.20",
     # Keep in step with the ruff-pre-commit `rev:` in .pre-commit-config.yaml --
     # the formatter's output changes between releases, so a mismatch makes
     # `ruff format` and the pre-commit hook disagree.

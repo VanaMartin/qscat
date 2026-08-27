@@ -141,10 +141,16 @@ jobs:
           enable-cache: true
       # Floors under test (from the pyprojects): numpy 2.0.0, scipy 1.14.0,
       # mpmath 1.3.0, matplotlib 3.9.0 (plot extra) / 3.0 (qscat-run --
-      # resolver reconciles upward), click 8.0, pyyaml 6.0, pytest 8.0,
-      # pytest-xdist 3.0, hypothesis 6.0. If this job fails while the normal
-      # rows pass, either fix the code or RAISE the floor -- never let the
-      # floor claim a version the suite cannot run on.
+      # resolver reconciles upward), click 8.0, pyyaml 6.0.1 (6.0's sdist
+      # build breaks under current setuptools -- AttributeError: 'build_ext'
+      # object has no attribute 'cython_sources'; raised, not worked around,
+      # per the rule below), pytest 8.0, pytest-xdist 3.0, hypothesis 6.20
+      # (6.0-6.10 call the pre-3.10 `importlib.metadata.entry_points().get()`
+      # dict API unconditionally, which Python 3.12's `EntryPoints` no longer
+      # has -- raised past the fix, with a small margin, for the same reason
+      # as pyyaml above). If this job fails while the normal rows pass,
+      # either fix the code or RAISE the floor -- never let the floor claim a
+      # version the suite cannot run on.
       - name: Sync at the declared floors
         run: uv sync --all-packages --resolution lowest-direct ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels' || '' }}
       - name: Test (fast suite at the floors)
