@@ -16,8 +16,10 @@ h2plus-dr
 - {doc}`nonlocal-resonance-model` — the rung above the LCP: a nonlocal,
   energy-dependent kernel that keeps the energy dependence and the nonlocality
   the LCP throws away. On **vibrational excitation** it reproduces the exact
-  oracle to better than 0.7 % on both N₂ and F₂, elastic and first-inelastic
-  alike, and the note argues that is physics rather than luck — an R-independent
+  oracle to better than 0.7 % on both N₂ and F₂ (now its own note,
+  {doc}`nrm-vibrational-excitation`, filed under the engine section), elastic
+  and first-inelastic alike, and the note argues that is physics rather than
+  luck — an R-independent
   discrete state carries no derivative couplings, so the model is formally exact
   and the residual is discretization error. On **dissociative attachment** it
   reproduces the oracle on F₂ and on NO; the five-to-eight-order NO "collapse"
