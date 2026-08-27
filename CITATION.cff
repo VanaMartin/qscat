@@ -16,7 +16,9 @@ authors:
     # More collaborators (and eventually an organisation) will be added here as
     # the project grows.
 # Keep in step with `qscat.__version__` (libs/qscat/qscat/__init__.py),
-# which is the single source of truth for the package version.
+# which is the single source of truth for the package version; the ci.yml
+# lint job enforces this version against qscat.__version__ and fails the PR
+# if they drift.
 version: 0.1.0.dev0
 license: BSD-3-Clause
 repository-code: "https://github.com/VanaMartin/qscat"
