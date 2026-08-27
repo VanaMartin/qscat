@@ -11,6 +11,20 @@ the qscat-run deck-parity guard `test_config.py`; the exact σ_DR curves now run
 `docs/superpowers/specs/2026-07-28-h2plus-dr-design.md` and ported from eMoScat via port-scout.
 **Units:** atomic units.
 
+## Key result
+
+The exact-2D TI $\sigma_\mathrm{DR}(E)$ for e⁻ + H₂⁺ is delivered at full
+deck size — ~1.15 M unknowns on the 1300-bohr Coulomb electronic grid —
+through `apps/qscat-run` under Docker/MUMPS at ~8 s/energy: the DR1 (n=0)
+channel peaks at E ≈ 6.31×10⁻³ Ha, σ ≈ 1.54×10⁻³ bohr² above a ~10⁻¹⁰
+background; DR2 (n=1) is ~10⁻⁶; DR3 (n=2) is closed in the window
+(threshold ≈ 0.0426 Ha). Against a previously obtained reference sweep,
+DR₀ agrees once a measured 2π normalization convention is accounted for
+(geometric mean 1.001), while DR₁ carries a systematic ~1.3× deficit that
+remains an OPEN, documented discrepancy — the narrative below records what
+was ruled out, and why the Born-Oppenheimer levels are where the agreement
+is genuinely readable.
+
 ## What this is — and why it is different
 
 Everything before H₂⁺ was **neutral** electron–diatomic scattering. **H₂⁺ is an ion**: the
@@ -129,6 +143,30 @@ Two caveats worth carrying. Earlier ad-hoc sweeps on the same host recorded
 the memory figure is comfortable only because MUMPS is used: the SuperLU path on
 a deck an order of magnitude smaller already needed 7.4 GB
 (`docs/physics/mumps-sparse-backend.md`).
+
+## The converged full-size σ_DR(E) curve (delivered)
+
+The exact-2D TI σ_DR(E) now runs through **`apps/qscat-run`** (config-driven — the per-molecule DR
+driver was retired in the qscat-run consolidation). The H2P `emoscat` preset grid is byte-identical
+to the retired driver's `full_grid` (locked by
+`validation/h2plus/test_config.py::test_h2p_decks_match_presets`), so qscat-run reproduces its data
+exactly. Run the full 1300-bohr deck under MUMPS via
+`apps/qscat-run/examples/h2p-dr-ti.yaml` (`methods: [ti]`, `observables: [{kind: dr, channels: 3}]`,
+`grid: {preset: emoscat}`):
+
+```bash
+docker/run.sh apps/qscat-run/examples/h2p-dr-ti.yaml runs/h2p-dr-ti
+```
+
+The committed figure `docs/physics/figures/h2plus-dr-cross-section-shortrange.png` is the log–log
+short-range accuracy view (narrow the config's `energies` to a fine sweep across the DR1 resonance
+in [0.005, 0.007] Ha to reproduce it):
+
+![H2+ DR cross section, short range (log–log)](figures/h2plus-dr-cross-section-shortrange.png)
+
+The DR1 (n=0) channel peaks at **E ≈ 6.31×10⁻³ Ha, σ ≈ 1.54×10⁻³ bohr²** above a ~10⁻¹⁰
+background; DR2 (n=1) is ~10⁻⁶; DR3 (n=2) is closed in this window (threshold ≈ 0.0426 Ha). The
+solve runs in ~8 s/energy on the `sadaharu` host with the OpenMP MUMPS backend.
 
 ## Against a previously obtained reference sweep
 
@@ -329,31 +367,7 @@ zero until 0.042803.
 - **Docker/MUMPS**: the exact σ_DR(E) is a full-deck (~1.15 M unknown) solve — Docker/MUMPS only.
   No independent golden data ships (eMoScat's `output/H2+/sigma.txt` is absent from the snapshot),
   so — as for the neutral DA — the exact solver is the oracle. The converged curve is delivered —
-  see the next section.
-
-## The converged full-size σ_DR(E) curve (delivered)
-
-The exact-2D TI σ_DR(E) now runs through **`apps/qscat-run`** (config-driven — the per-molecule DR
-driver was retired in the qscat-run consolidation). The H2P `emoscat` preset grid is byte-identical
-to the retired driver's `full_grid` (locked by
-`validation/h2plus/test_config.py::test_h2p_decks_match_presets`), so qscat-run reproduces its data
-exactly. Run the full 1300-bohr deck under MUMPS via
-`apps/qscat-run/examples/h2p-dr-ti.yaml` (`methods: [ti]`, `observables: [{kind: dr, channels: 3}]`,
-`grid: {preset: emoscat}`):
-
-```bash
-docker/run.sh apps/qscat-run/examples/h2p-dr-ti.yaml runs/h2p-dr-ti
-```
-
-The committed figure `docs/physics/figures/h2plus-dr-cross-section-shortrange.png` is the log–log
-short-range accuracy view (narrow the config's `energies` to a fine sweep across the DR1 resonance
-in [0.005, 0.007] Ha to reproduce it):
-
-![H2+ DR cross section, short range (log–log)](figures/h2plus-dr-cross-section-shortrange.png)
-
-The DR1 (n=0) channel peaks at **E ≈ 6.31×10⁻³ Ha, σ ≈ 1.54×10⁻³ bohr²** above a ~10⁻¹⁰
-background; DR2 (n=1) is ~10⁻⁶; DR3 (n=2) is closed in this window (threshold ≈ 0.0426 Ha). The
-solve runs in ~8 s/energy on the `sadaharu` host with the OpenMP MUMPS backend.
+  see "The converged full-size σ_DR(E) curve (delivered)" above.
 
 ## The resonance positions behind these peaks
 
