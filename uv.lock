@@ -1341,7 +1341,7 @@ source = { editable = "native/qscat-kernels" }
 
 [[package]]
 name = "qscat-run"
-version = "0.0.0"
+version = "0.1.0.dev0"
 source = { editable = "apps/qscat-run" }
 dependencies = [
     { name = "click" },

@@ -1,8 +1,16 @@
 [project]
 name = "qscat-run"
-version = "0.0.0"
+# Kept in step with qscat.__version__ by hand (the CLI is a thin surface
+# over the library and is versioned with it). Repo-only: this package is
+# deliberately NOT published to PyPI -- and will not be until the qscat
+# citation article is out; install it via `uv sync --all-packages` from a
+# clone.
+version = "0.1.0.dev0"
 description = "qscat-run — a config-driven CLI for 2-D electron-diatomic model experiments"
+readme = "README.md"
 requires-python = ">=3.12"
+license = "BSD-3-Clause"
+authors = [{ name = "Martin Vana", email = "martin@qscat.com" }]
 dependencies = [
     "qscat",
     "click>=8",

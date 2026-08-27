@@ -5,6 +5,10 @@ molecule or ion into all the common observables across all three methods —
 no per-experiment Python. Adding a molecule is a `MoleculePreset` entry
 (`qscat_run/presets.py`), never solver code.
 
+qscat-run is **repo-only**: it is not published to PyPI (and will not be
+until the qscat citation article is out). Install it from a clone with
+`uv sync --all-packages`.
+
 ```bash
 qscat-run list                                                      # molecules, presets, valid observables
 qscat-run init F2 --observables ve,da --methods ti,lcp -o f2.yaml   # scaffold
