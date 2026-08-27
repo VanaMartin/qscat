@@ -156,3 +156,12 @@ convention = "numpy"
 [tool.mypy]
 python_version = "3.12"
 strict = true
+
+# Strict-clean scope is libs/qscat/qscat + apps/qscat-run/qscat_run -- the
+# two trees CI checks. projects/, validation/ and benchmarks/ are research
+# code with untyped helpers; running strict mypy there reports hundreds of
+# pre-existing errors that nothing gates on. These overrides make the config
+# say so, instead of `strict = true` overstating a repo-wide claim.
+[[tool.mypy.overrides]]
+module = ["projects.*", "validation.*", "benchmarks.*"]
+ignore_errors = true
