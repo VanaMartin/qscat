@@ -21,4 +21,6 @@ potential-factory
   sweep: the Born–Oppenheimer error sorted by regime, and the four "resonances"
   that turned out not to be.
 - {doc}`potential-factory` — fitting a richer model surface to a tiered target
-  curve, round-tripped against N₂/NO/F₂'s own published parameters.
+  curve: round-tripped against N₂/NO/F₂'s own published parameters, then O₂
+  from Alt & Houfek's published curves to its spin–orbit-resolved VE cross
+  section on the paper's own nonlocal-model comb ({doc}`../molecules/o2`).

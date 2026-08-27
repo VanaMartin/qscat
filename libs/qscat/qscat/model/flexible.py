@@ -25,15 +25,15 @@ from qscat.dvr import TensorGrid, hamiltonian_nd, potential_nd
 from .diatomic import DiatomicResonanceModel
 
 __all__ = [
-    "y_p",
+    "FlexibleDiatomicModel",
     "SmoothR",
     "TailR",
-    "FlexibleDiatomicModel",
     "from_diatomic",
-    "params",
-    "with_params",
     "pack",
+    "params",
     "unpack",
+    "with_params",
+    "y_p",
 ]
 
 
@@ -61,6 +61,7 @@ class SmoothR:
     p: int = 3
 
     def __call__(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """Evaluate `f(R)` on `R` (complex-safe, so the ECS tail works)."""
         Rc = np.asarray(R, dtype=np.complex128)
         sig = self.f_0 / (1.0 + np.exp(self.f_1 * (Rc - self.R_f)))
         poly = np.ones_like(Rc)
@@ -93,6 +94,7 @@ class TailR:
     q: int = 4
 
     def __call__(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """Evaluate `f(R)` on `R` (complex-safe, so the ECS tail works)."""
         Rc = np.asarray(R, dtype=np.complex128)
         poly = np.zeros_like(Rc)
         if self.coeffs:
@@ -121,6 +123,7 @@ class FlexibleDiatomicModel:
 
     # -- neutral curve -------------------------------------------------------
     def beta_R(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """EMO exponent `beta(R) = sum_i betas[i] y_p(R)^i`, a polynomial in Le Roy's `y_p`."""
         Rc = np.asarray(R, dtype=np.complex128)
         y = y_p(Rc, self.R_e, self.p)
         out = sum(b * y**i for i, b in enumerate(self.betas))
@@ -134,18 +137,23 @@ class FlexibleDiatomicModel:
 
     # -- interaction ---------------------------------------------------------
     def lam_R(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """Well depth `lam(R)` of the interaction (`SmoothR` or `TailR`)."""
         return self.lam(R)
 
     def alpha_R(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """Well width parameter `alpha(R)` of the interaction."""
         return self.alpha(R)
 
     def shell_R(self, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """Repulsive-shell amplitude at `R`; zero everywhere when there is no shell."""
         Rc = np.asarray(R, dtype=np.complex128)
         if self.shell is None:
             return np.zeros_like(Rc)
         return self.shell(Rc)
 
     def v_int(self, r: npt.ArrayLike, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """Electron--molecule interaction `-lam(R) e^{-alpha(R) r^2}` plus the optional shell
+        `shell(R) e^{-alpha_b (r - r_b)^2}` (the `ResonanceModel` contract)."""
         rr = np.asarray(r, dtype=np.complex128)
         Rc = np.asarray(R, dtype=np.complex128)
         well = -self.lam_R(Rc) * np.exp(-self.alpha_R(Rc) * rr**2)
@@ -155,19 +163,23 @@ class FlexibleDiatomicModel:
         return np.asarray(well + barrier, dtype=np.complex128)
 
     def surface(self, r: npt.ArrayLike, R: npt.ArrayLike) -> npt.NDArray[np.complex128]:
+        """Full 2-D potential `v0(R) + l(l+1)/(2 r^2) + v_int(r, R)`."""
         rr = np.asarray(r, dtype=np.complex128)
         out = self.v0(R) + self.ell * (self.ell + 1) / (2.0 * rr**2) + self.v_int(rr, R)
         return np.asarray(out, dtype=np.complex128)
 
     def hamiltonian(self, tgrid: TensorGrid) -> sp.csr_matrix:
+        """Sparse 2-D Hamiltonian on `tgrid` (electron mass 1, nuclear mass `mu`)."""
         return hamiltonian_nd(tgrid, [1.0, self.mu], self.surface)
 
     def interaction_diag(self, tgrid: TensorGrid) -> npt.NDArray[np.complex128]:
+        """`v_int` sampled on `tgrid`'s nodes, in the grid's flattened order."""
         return potential_nd(tgrid, self.v_int)
 
     def with_shell(
         self, shell: SmoothR | None, alpha_b: float, r_b: float
     ) -> FlexibleDiatomicModel:
+        """A copy carrying the repulsive shell `shell(R) e^{-alpha_b (r - r_b)^2}`."""
         return replace(self, shell=shell, alpha_b=alpha_b, r_b=r_b)
 
 
@@ -284,6 +296,7 @@ def with_params(
 
 
 def pack(model: FlexibleDiatomicModel, names: Sequence[str]) -> npt.NDArray[np.float64]:
+    """The parameters `names` of `model` as one float vector (the optimizer's view)."""
     p = params(model)
     return np.array([p[n] for n in names], dtype=np.float64)
 
@@ -291,5 +304,6 @@ def pack(model: FlexibleDiatomicModel, names: Sequence[str]) -> npt.NDArray[np.f
 def unpack(
     model: FlexibleDiatomicModel, names: Sequence[str], x: npt.ArrayLike
 ) -> FlexibleDiatomicModel:
+    """Inverse of `pack`: `model` with the parameters `names` set from `x`."""
     xs = np.asarray(x, dtype=np.float64)
     return with_params(model, dict(zip(names, xs.tolist(), strict=True)))

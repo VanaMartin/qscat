@@ -13,6 +13,8 @@ optimization-targets
 - {doc}`angular-coupled-channels` — the parked angular extension.
 - {doc}`potential-factory-options` — building model surfaces that match real
   molecules: the target hierarchy, the inverse-scattering options, the data
-  sources, and one feasibility spike. The first implementation stage is
-  {doc}`potential-factory`, round-tripped against N₂/NO/F₂.
+  sources, and one feasibility spike. The implementation is
+  {doc}`potential-factory`: round-tripped against N₂/NO/F₂, and delivered on
+  O₂ ({doc}`../molecules/o2`); still open there are the T3 tier and the
+  authors' tables in place of the figures.
 - {doc}`optimization-targets` — where the remaining hot paths are.

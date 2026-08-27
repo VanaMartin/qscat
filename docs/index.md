@@ -39,6 +39,7 @@ physics/open-directions
 
 molecules/n2
 molecules/no-f2
+molecules/o2
 molecules/h2plus
 ```
 

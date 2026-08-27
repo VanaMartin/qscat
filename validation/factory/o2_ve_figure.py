@@ -30,7 +30,7 @@ from pathlib import Path
 import numpy as np
 from qscat.units import HARTREE_TO_EV
 
-__all__ = ["G_STAT", "load_run", "figure", "main"]
+__all__ = ["G_STAT", "figure", "load_run", "main"]
 
 G_STAT = 2.0 / 3.0  # p. 032829-4
 DATA = Path(__file__).parent / "data" / "o2"
@@ -57,7 +57,7 @@ def load_split_run(run_so12: Path, run_so32: Path) -> tuple[np.ndarray, dict[int
     """The spin-orbit-resolved cross section: `1/3 sigma(2Pi_1/2) + 1/3
     sigma(2Pi_3/2)` (p. 032829-4), each component on its own energy mesh
     (its levels sit +-Delta_SO/2 apart), summed on the union of the meshes
-    by linear interpolation -- fine against 41 points per peak."""
+    by linear interpolation -- fine against 121 points per peak."""
     E1, s1 = load_run(run_so12)
     E2, s2 = load_run(run_so32)
     E = np.unique(np.concatenate([E1, E2]))

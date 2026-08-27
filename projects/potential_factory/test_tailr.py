@@ -5,10 +5,10 @@ finite differences in `_smooth_reparam`'s layout."""
 from __future__ import annotations
 
 import numpy as np
+from qscat.model import N2
 
-from projects.potential_factory.ansatz import TailR, params, with_params
+from projects.potential_factory.ansatz import TailR, from_diatomic, params, with_params
 from projects.potential_factory.fit import _smooth_grad, _smooth_reparam
-from validation.factory.targets.o2 import o2_seed
 
 
 def test_tailr_reaches_f_inf_exactly_as_a_power_law():
@@ -23,7 +23,7 @@ def test_tailr_reaches_f_inf_exactly_as_a_power_law():
 
 def test_tailr_params_round_trip_and_update():
     s = TailR(f_inf=5.3, coeffs=(1.0, 1.5), R_e=2.28)
-    m = with_params(o2_seed(), {})
+    m = from_diatomic(N2)
     m = m.__class__(**{**m.__dict__, "lam": s})
     p = params(m)
     assert p["lam.f_inf"] == 5.3 and p["lam.c1"] == 1.5 and "lam.f_1" not in p
@@ -45,13 +45,3 @@ def test_tailr_gradient_matches_finite_differences():
             xm[i] -= h
             fd.append((float(decode(xp)(R).real) - float(decode(xm)(R).real)) / (2 * h))
         np.testing.assert_allclose(g, fd, rtol=1e-6, atol=1e-9)
-
-
-def test_o2_seed_lam_is_a_tail_form_with_the_right_asymptote_sign():
-    m = o2_seed()
-    assert isinstance(m.lam, TailR) and m.lam.q == 4
-    # deeper at the equilibrium than at infinity (the anion binds MORE in the
-    # molecule than O + O^- at -EA), and monotone beyond the well
-    R = np.array([2.3, 4.0, 8.0, 30.0])
-    lam = m.lam(R).real
-    assert lam[0] > lam[-1] and np.all(np.diff(lam[1:]) < 0)

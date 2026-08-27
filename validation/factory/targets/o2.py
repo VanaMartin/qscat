@@ -26,7 +26,7 @@ from projects.potential_factory.target import (
 )
 from validation.factory.targets.o2_data import EV, load_o2, load_so_split
 
-__all__ = ["O2_MU", "O2_R_INF", "ALPHA_D_O", "o2_target", "o2_seed", "o2_model_from_report"]
+__all__ = ["ALPHA_D_O", "O2_MU", "O2_R_INF", "o2_model_from_report", "o2_seed", "o2_target"]
 
 _PAPER = "Alt & Houfek, Phys. Rev. A 103, 032829 (2021)"
 O2_MU = 15.99491461956 * 1822.888486 / 2.0  # m(16O)/2 in electron masses = 14578.4
