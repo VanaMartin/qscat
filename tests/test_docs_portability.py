@@ -60,6 +60,15 @@ _ROLE_RE = re.compile(r"(?<![\w^_\\])\{([a-z][a-z0-9_-]*)\}`")
 # A markdown ATX heading.
 _HEADING_RE = re.compile(r"^#{1,6} +(.*)$", re.MULTILINE)
 
+# A code span, wrap-tolerant: CommonMark allows a soft line break inside a
+# code span (the newline reads as a space), so a naive `[^`\n]` span misses
+# a Greek letter that lands right after the wrap. A blank line still ends a
+# span -- two spans in different paragraphs must never pair across one --
+# so the content alternates ordinary characters with single newlines, never
+# two in a row.
+_BACKTICK_SPAN_RE = re.compile(r"`((?:[^`\n]|\n(?!\n))+)`")
+_GREEK_RE = re.compile(r"[Ͱ-Ͽἀ-῿]")
+
 
 def _strip_fences(text: str) -> str:
     return _FENCE_RE.sub("", text)
@@ -100,6 +109,25 @@ def find_macro_definitions(text: str) -> list[str]:
     """Return every LaTeX macro definition; none may appear in a note."""
     pattern = re.compile(r"\\(newcommand|renewcommand|def)\b")
     return [m.group(0) for m in pattern.finditer(text)]
+
+
+def find_greek_in_backticks(text: str) -> list[str]:
+    """Return every backtick span containing a Greek letter.
+
+    A Greek letter inside backticks is always maths dressed as code in this
+    repository -- identifiers are ASCII -- so this subset gates at zero
+    false positives. A span may wrap a single soft line break, matching
+    CommonMark's own code-span rule, but never a blank line -- that always
+    separates two spans, not one. Superscript/subscript unicode is
+    deliberately NOT flagged: it appears in legitimate spans (level labels
+    like ``Ry₄``, molecule names inside real paths) and stays
+    convention-by-review.
+    """
+    return [
+        m.group(1)
+        for m in _BACKTICK_SPAN_RE.finditer(_strip_fences(text))
+        if _GREEK_RE.search(m.group(1))
+    ]
 
 
 def _notes() -> list[Path]:
@@ -191,6 +219,37 @@ def test_find_macro_definitions_passes_plain_latex():
     assert find_macro_definitions(text) == []
 
 
+def test_find_greek_in_backticks_flags_a_backticked_gamma():
+    assert find_greek_in_backticks("the width `Γ(R)` is frozen\n") == ["Γ(R)"]
+
+
+def test_find_greek_in_backticks_passes_code_and_labels():
+    text = "the attribute `R0`, the level `Ry₄`, and `$\\Gamma(R)$` prose\n"
+    assert find_greek_in_backticks(text) == []
+
+
+def test_find_greek_in_backticks_ignores_fenced_blocks():
+    text = "```python\n# σ_DA printed here\n```\n"
+    assert find_greek_in_backticks(text) == []
+
+
+def test_find_greek_in_backticks_wraps_a_soft_break_not_a_blank_line():
+    """A soft-wrapped span IS one span; a blank line always splits two.
+
+    The first pair wraps a single newline mid-span, as CommonMark allows,
+    and must be flagged whole. The second pair is two separate stray
+    backticks either side of a blank line; if the detector paired them as
+    one span (the naive `[^`\\n]` regex's blind spot -- see Task 4), the
+    stray Greek letter sitting between them would leak into the result.
+    """
+    text = (
+        "the width `Γ(R)\nis frozen` today\n\n"
+        "a stray ` mark ends a paragraph\n\n"
+        "Γ starts a new one with another stray ` mark\n"
+    )
+    assert find_greek_in_backticks(text) == ["Γ(R)\nis frozen"]
+
+
 # --- tree scan -----------------------------------------------------------
 
 
@@ -239,6 +298,16 @@ def test_note_defines_no_macros(note: Path):
     found = find_macro_definitions(note.read_text())
     assert not found, (
         f"{note.name} defines a LaTeX macro {found}; macros do not render on github.com."
+    )
+
+
+@pytest.mark.parametrize("note", _notes(), ids=lambda p: p.name)
+def test_note_has_no_greek_in_backticks(note: Path):
+    found = find_greek_in_backticks(note.read_text())
+    assert not found, (
+        f"{note.name} backticks maths {found}. A symbol is either code "
+        f"(`R0`) or maths ($\\Gamma(R)$) -- never Greek in backticks. "
+        f"See the qscat-conventions skill, Mathematics in Documentation."
     )
 
 

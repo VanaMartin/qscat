@@ -199,8 +199,9 @@ gap this whole finding is about.) The gate is
 `validation/tuning/test_resonance_aware.py`: `@pytest.mark.slow` SIZE tests assert
 `F2_resonant.n <= 1.05·F2_deck.n` and `H2P_resonant.n <= H2P_proxy_deck.n` (both pass, plus
 an order-floor sanity check), and an `@pytest.mark.slow` CONVERGENCE test reruns the 2-D DA
-spot-check harness with `channel="dissociation"` and asserts `|σ_base − σ_refined| /
-σ_refined < 0.15` with `σ_base > 1.0` bohr².
+spot-check harness with `channel="dissociation"` and asserts
+$|\sigma_\mathrm{base} - \sigma_\mathrm{refined}| / \sigma_\mathrm{refined} < 0.15$ with
+$\sigma_\mathrm{base} > 1.0$ bohr².
 
 **The honest finding (stated plainly, not spun): the "10–20% smaller than the hand deck"
 expectation this sub-project set out with does NOT hold for F₂.** eMoScat's F₂ DA deck is
