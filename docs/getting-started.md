@@ -42,7 +42,7 @@ and vibrational basis once and exposes every observable as a method:
 ## Choosing a grid
 
 Grids are per-potential FEM-DVR-ECS tensor products. For a first pass, use the
-`qscat.model` molecules (`N2`, `NO`, `F2`, `H2P`) with grids sized like the
+`qscat.model` molecules (`N2`, `NO`, `F2`, `H2P`, the fitted `O2`) with grids sized like the
 example above; for production, the `qscat.tuning` module derives a minimal grid
 at a target precision from the potential and energy range.
 

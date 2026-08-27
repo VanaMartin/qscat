@@ -138,7 +138,7 @@ under these exact headings): `n2-resonance`, `n2-cross-section`,
 `exact-2d-resonances`; results-first retrofits (a Key result opening
 prepended or moved up, body prose otherwise unchanged):
 `discretisation-tuning`, `mumps-sparse-backend`,
-`h2plus-dr`, `optimization-targets`, and the split-out
+`h2plus-dr`, `optimization-targets`, `potential-factory`, and the split-out
 `nrm-vibrational-excitation`.
 
 ## FEM-DVR-ECS Notation
