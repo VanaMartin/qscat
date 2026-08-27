@@ -14,17 +14,17 @@ must stay compatible with).
 ## The question
 
 Every model in `qscat.model` is a **given** testbed — a Morse neutral curve, a
-sigmoid interaction strength `λ(R)` and a Gaussian electron–molecule well
-`V_int(r,R) = −λ(R) e^{−α_c r²}` — whose constants were *hand-chosen* so that
+sigmoid interaction strength $\lambda(R)$ and a Gaussian electron–molecule well
+$V_{int}(r,R) = -\lambda(R)\,e^{-\alpha_c r^2}$ — whose constants were *hand-chosen* so that
 the fixed-`R` resonance resembles a real molecule's (Houfek, Rescigno & McCurdy
 2006 for N₂/NO, 2008 for F₂; see `reference/literature/`). The resemblance is
 qualitative: the N₂-like model's `D_0` is ≈2× real N₂'s, its vibrational
-spacing is off, and only `E_res(R_0) ≈ 2.4 eV`, `Γ(R_0) ≈ 0.46 eV` were matched
+spacing is off, and only `E_res(R_0) ≈ 2.4 eV`, $\Gamma(R_0) \approx 0.46\text{ eV}$ were matched
 (`docs/physics/n2-resonance.md`).
 
 The direction is a **factory**: given a real diatomic (or diatomic ion) and
 published data about it, produce a `ResonanceModel` whose neutral curve
-`V_0(R)` and resonance curve `V_res(R) = E_res(R) − iΓ(R)/2` match that
+`V_0(R)` and resonance curve $V_{res}(R) = E_{res}(R) - i\Gamma(R)/2$ match that
 molecule as closely as the two-dimensional model form permits — first in the
 existing 2-D `(r, R)` form, later in a 3-D form. The purpose is unchanged from
 the rest of the program: the exact 2-D solution stays the oracle and the
@@ -37,21 +37,21 @@ an observable.
 
 The 2-D model is a one-electron, single-partial-wave, *local* potential. A real
 molecule's fixed-`R` electron scattering has many partial waves mixed by the
-non-spherical field, exchange, a polarisation tail `−α_d/2r⁴`, and (for polar
+non-spherical field, exchange, a polarisation tail $-\alpha_d/2r^4$, and (for polar
 molecules) a dipole tail. "As close as possible" therefore means: match the
 **single-channel projection** the nonlocal resonance theory itself works
 with. In increasing richness:
 
 | Tier | Target | Source of data | What in the model it constrains |
 |---|---|---|---|
-| T0 | Neutral curve `V_0(R)`: `R_e`, `D_e`, `ω_e`, `ω_e x_e`, or a full RKR / *ab initio* curve | Spectroscopy (NIST, Huber–Herzberg); Le Roy-style EMO/MLR fits; MRCI curves | `v0(R)` — needs a form richer than Morse (Morse fits 3 constants) |
-| T1 | Anion / resonance curve: `V_ion(R) = V_0 + E_res(R)` and local width `Γ(R)`; the asymptote `V_ion(∞) = V_0(∞) − EA(atom)`; the crossing `R_c` where `Γ → 0` | *Ab initio* bound-state curves (MRCI/CCSD(T)) for the bound region; R-matrix / complex-Kohn / CAP resonance curves for the metastable region | `V_int(r,R)` at each `R`: at least two free parameters per `R` (see the spike) |
-| T2 | The fixed-`R` **eigenphase sum** `δ(ε; R)` of the resonant symmetry over an energy window, i.e. the energy-dependent width `Γ̃(ε,R)`, its threshold exponent `ε^{l+1/2}` (Wigner) and the background phase | R-matrix (UKRmol) eigenphase sums — the exact input Alt & Houfek (2021) used for O₂ | `V_int(r,R)`'s *shape* in `r`, not just its depth/range; the model's `l` |
-| T3 | The full nonlocal-model functions `V_d(R)`, `V_{dε}(R)` (or `A(R)`, `B(R)`, `α`) | Published NRM fits (N₂, H₂, HCl, HBr, HF, F₂, O₂, …) | Same as T2, but already reduced to smooth functions of `R` — the most convenient published format |
+| T0 | Neutral curve `V_0(R)`: `R_e`, `D_e`, $\omega_e$, $\omega_e x_e$, or a full RKR / *ab initio* curve | Spectroscopy (NIST, Huber–Herzberg); Le Roy-style EMO/MLR fits; MRCI curves | `v0(R)` — needs a form richer than Morse (Morse fits 3 constants) |
+| T1 | Anion / resonance curve: `V_ion(R) = V_0 + E_res(R)` and local width $\Gamma(R)$; the asymptote `V_ion(∞) = V_0(∞) − EA(atom)`; the crossing `R_c` where $\Gamma \to 0$ | *Ab initio* bound-state curves (MRCI/CCSD(T)) for the bound region; R-matrix / complex-Kohn / CAP resonance curves for the metastable region | `V_int(r,R)` at each `R`: at least two free parameters per `R` (see the spike) |
+| T2 | The fixed-`R` **eigenphase sum** $\delta(\varepsilon; R)$ of the resonant symmetry over an energy window, i.e. the energy-dependent width $\tilde\Gamma(\varepsilon,R)$, its threshold exponent $\varepsilon^{l+1/2}$ (Wigner) and the background phase | R-matrix (UKRmol) eigenphase sums — the exact input Alt & Houfek (2021) used for O₂ | `V_int(r,R)`'s *shape* in `r`, not just its depth/range; the model's `l` |
+| T3 | The full nonlocal-model functions `V_d(R)`, $V_{d\varepsilon}(R)$ (or `A(R)`, `B(R)`, $\alpha$) | Published NRM fits (N₂, H₂, HCl, HBr, HF, F₂, O₂, …) | Same as T2, but already reduced to smooth functions of `R` — the most convenient published format |
 | T4 | Observables (VE/DA cross sections) | Experiment | **Not a target.** Matching observables is circular with the program's purpose |
 
 T3 is the sweet spot: the published NRM literature has already done the hard
-reduction from many-electron scattering to `(V_0, V_d, V_{dε})`, and the 2-D
+reduction from many-electron scattering to $(V_0, V_d, V_{d\varepsilon})$, and the 2-D
 model's fixed-`R` electronic problem is *exactly* the single-channel picture
 those functions describe. T1 is what the current models were tuned to by eye;
 T2 is what T3 was fitted from.
@@ -64,30 +64,28 @@ survey; not yet a `reference/literature` note) builds the O₂ nonlocal model as
 1. `V_0(R)` and the bound anion curve from CASSCF/MRCI (aug-cc-pVQZ), the anion
    curve **shifted** so the asymptote reproduces the experimental EA(O) =
    1.461 eV (Table I).
-2. Fixed-nuclei R-matrix (UKRmol) eigenphase sums `δ_sum(ε; R)` at
+2. Fixed-nuclei R-matrix (UKRmol) eigenphase sums $\delta_{\text{sum}}(\varepsilon; R)$ at
    `R = 1.80 … 2.25 a₀` (Fig. 3), fitted with RESON to a Breit–Wigner form
-   for `E_res(R)`, `Γ(R)` (Eq. 20–21).
+   for `E_res(R)`, $\Gamma(R)$ (Eq. 20–21).
 3. The nonlocal model fitted to the same eigenphase sums with
-   `δ = δ_bg + δ_res`, `δ_bg = c ε^α`, `Γ̃(ε,R) = 2π ε^α A(R) e^{−B(R) ε}`,
-   `A(R) = (a₀ + a₁R) e^{a₂R}`, `B(R) = b₀ + b₁R`, `α = l + ½` with `l = 2`
+   $\delta = \delta_{bg} + \delta_{res}$, $\delta_{bg} = c\,\varepsilon^\alpha$, $\tilde\Gamma(\varepsilon,R) = 2\pi\,\varepsilon^\alpha A(R)\, e^{-B(R)\,\varepsilon}$,
+   `A(R) = (a₀ + a₁R) e^{a₂R}`, `B(R) = b₀ + b₁R`, $\alpha = l + \tfrac12$ with `l = 2`
    (Eq. 22–27), by Nelder–Mead on the mean-squared eigenphase error;
-   `V_d(R) = V_0 + E_res − Δ̃(E_res, R)` (Eq. 29). Table II lists the seven
+   $V_d(R) = V_0 + E_{res} - \tilde\Delta(E_{res}, R)$ (Eq. 29). Table II lists the seven
    fitted constants.
 
-That is a complete, published target-data format for a factory: `(V_0(R),
-V_ion(R), A(R), B(R), α, c)`. Čížek & Houfek's review chapter (*Low-Energy
+That is a complete, published target-data format for a factory: $(V_0(R), V_{ion}(R), A(R), B(R), \alpha, c)$. Čížek & Houfek's review chapter (*Low-Energy
 Electron Scattering from Molecules, Biomolecules and Surfaces*, ch. 4, §4.3.2,
-also read) states the same parametrisation generally — `V_{dk}(R) = Σ_i
-f_i(ε) g_i(R)`, threshold law `Γ_l(ε) ∝ ε^{l+1/2}` (Eq. 4.114), dipole
-exponent `α = √(d + ¼)` for polar targets (Eq. 4.115–4.116) — and notes that
-direct *ab initio* `V_d`, `V_{dk}` over the full `(ε, R)` range exist only for
+also read) states the same parametrisation generally — $V_{dk}(R) = \sum_i f_i(\varepsilon) g_i(R)$, threshold law $\Gamma_l(\varepsilon) \propto \varepsilon^{l+1/2}$ (Eq. 4.114), dipole
+exponent $\alpha = \sqrt{d + \tfrac14}$ for polar targets (Eq. 4.115–4.116) — and notes that
+direct *ab initio* `V_d`, `V_{dk}` over the full $(\varepsilon, R)$ range exist only for
 H₂ and HeH⁺.
 
 ## The inverse step: from target curves to `V_int(r; R)`
 
 At fixed `R` the electronic problem is one-dimensional radial scattering at a
 single `l` in `V_int(r;R) + l(l+1)/2r²`. Its complete scattering data is the
-phase shift `δ_l(k)` for all `k > 0` plus the bound states, and the **fixed-`l`
+phase shift $\delta_l(k)$ for all `k > 0` plus the bound states, and the **fixed-`l`
 inverse problem is well posed** (Gel'fand–Levitan / Marchenko). That is the
 right frame; the fixed-*energy* inverse problem (Newton–Sabatier) is both the
 wrong data type (many `l`, one `E`) and mathematically unsound (Ramm 2001, see
@@ -97,42 +95,42 @@ references). Six routes, in decreasing directness:
 
 Keep an analytic, ECS-safe form — Gaussians and exponentials, entire in `r` —
 and fit its parameters per `R` (or as smooth functions of `R`) so the pole of
-the fixed-`R` problem lands on the target `E_res(R) − iΓ(R)/2`, optionally
-also fitting `δ(ε;R)` over a window. The forward model already exists
+the fixed-`R` problem lands on the target $E_{res}(R) - i\Gamma(R)/2$, optionally
+also fitting $\delta(\varepsilon;R)$ over a window. The forward model already exists
 (`qscat.core.lcp.resonance_pole_walk` → `qscat.ecs.find_resonance_pole`);
 the fit needs a *continuation* tracker in parameter space rather than a
 bracket scan (the spike below shows why).
 
 **Feasibility spike (2026-08-24, throwaway script, not repo code).** For the
-pure Gaussian well `−λ e^{−αr²}` on the `electronic_grid(r_max=16, order=7,
-n_complex=6)` pair at 35°/44°, root-finding `λ` at fixed `α` so that
-`E_res` hits a target, and reading off `Γ`:
+pure Gaussian well $-\lambda\, e^{-\alpha r^2}$ on the `electronic_grid(r_max=16, order=7,
+n_complex=6)` pair at 35°/44°, root-finding $\lambda$ at fixed $\alpha$ so that
+`E_res` hits a target, and reading off $\Gamma$:
 
-| `l` | `E_res` (eV) | `α` → `Γ` (eV) |
+| `l` | `E_res` (eV) | $\alpha$ → $\Gamma$ (eV) |
 |---|---|---|
 | 2 | 2.3 | 0.20 → 1.67, 0.30 → 0.57, 0.40 → 0.40, 0.60 → 0.23, 0.80 → 0.16 |
 | 2 | 4.0 | 0.20 → 3.82, 0.30 → 2.07, 0.40 → 1.41, 0.60 → 0.83, 0.80 → 0.57 |
 | 2 | 1.0 | 0.20 → 0.24, 0.30 → 0.08, 0.80 → 0.02 |
-| 1 | 0.3 / 1.0 / 2.3 / 4.0 | `α = 2.0`: 0.06 / 0.38 / 1.39 / 3.38 |
+| 1 | 0.3 / 1.0 / 2.3 / 4.0 | $\alpha = 2.0$: 0.06 / 0.38 / 1.39 / 3.38 |
 
-So at fixed `E_res` the range `α` tunes `Γ` over an order of magnitude —
-`(λ, α)` is a genuine two-parameter family covering real N₂'s
-`(2.3 eV, 0.4 eV)` at `(λ, α) ≈ (5.0, 0.4)` (Houfek's values) and F₂/NO-like
+So at fixed `E_res` the range $\alpha$ tunes $\Gamma$ over an order of magnitude —
+$(\lambda, \alpha)$ is a genuine two-parameter family covering real N₂'s
+`(2.3 eV, 0.4 eV)` at $(\lambda, \alpha) \approx (5.0, 0.4)$ (Houfek's values) and F₂/NO-like
 `p`-wave pairs. Two consequences for the design:
 
-- Houfek's one-free-function form (`λ(R)` with constant `α_c`) can follow
-  `E_res(R)` **or** `Γ(R)`, not both. A factory needs at least two free
-  functions of `R` — `λ(R)` and `α(R)` — and probably a third term (a
+- Houfek's one-free-function form ($\lambda(R)$ with constant $\alpha_c$) can follow
+  `E_res(R)` **or** $\Gamma(R)$, not both. A factory needs at least two free
+  functions of `R` — $\lambda(R)$ and $\alpha(R)$ — and probably a third term (a
   repulsive Gaussian shell or a polarisation-like tail) to shape the
   off-resonance phase (T2) and to give `s`-wave (`l = 0`) systems a barrier at
   all: a bare Gaussian well has **no** `l = 0` resonance, and the probe's
   apparent `l = 0`/`l = 1` "poles" at `(0.11 eV, 0.26 eV)` were a spurious
   angle-stable match near threshold, the known weakness of
   `find_resonance_pole` (`docs/physics/h2plus-resonance-states.md`).
-- Empty cells in the spike were bracket failures of the crude `λ` scan (for
-  `α ≥ 1.2` the `d`-wave well must be much deeper than the scanned `λ ≤ 14`),
+- Empty cells in the spike were bracket failures of the crude $\lambda$ scan (for
+  $\alpha \ge 1.2$ the `d`-wave well must be much deeper than the scanned $\lambda \le 14$),
   not physical limits. The production tool must track the pole by continuation
-  in `(λ, α)` — the same discipline as the `R`-walk.
+  in $(\lambda, \alpha)$ — the same discipline as the `R`-walk.
 
 **Pros:** cheapest; reuses the pole walk, the `ResonanceModel` protocol, the
 tuner; the result is a small dataclass a reader can print. **Cons:** the
@@ -145,12 +143,12 @@ A potential whose Jost function is a prescribed rational function of `k` can be
 written in closed form (Bargmann 1949; Marchenko with a degenerate kernel); the
 modern constructive route is a chain of supersymmetric (Darboux)
 transformations, each adding one `S`-matrix pole — bound, virtual, or a
-resonance pair `±k_r − iκ` — with the threshold behaviour of the chosen `l`
+resonance pair $\pm k_r - i\kappa$ — with the threshold behaviour of the chosen `l`
 built in and singular `r^{−2}` cores handled explicitly (Sparenberg & Baye,
 Phys. Rev. C **55**, 2175 (1997); Baye & Sparenberg, J. Phys. A **37**, 10223
 (2004)). This gives, at each `R`, an **exact** local potential with the target
 pole and a controlled background — a mathematically clean answer to T1 and a
-constructive one to T2 (a rational fit of `δ(ε;R)` → poles → potential).
+constructive one to T2 (a rational fit of $\delta(\varepsilon;R)$ → poles → potential).
 
 **Pros:** exact; analytic (rational-exponential) hence ECS-continuable;
 a strong *oracle* for checking how much of T2 an ansatz in A actually captures.
@@ -160,7 +158,7 @@ the *pole trajectories*, and the form does not drop into `DiatomicResonanceModel
 without a new model class. Best used as a reference/seed for A, not as the
 shipped surface.
 
-### C. Numerical fixed-`l` inversion (Marchenko / Gel'fand–Levitan) from `δ(ε;R)`
+### C. Numerical fixed-`l` inversion (Marchenko / Gel'fand–Levitan) from δ(ε;R)
 
 Take the R-matrix eigenphase sum as data, extend it to all `k` with a
 Jost-function / R-matrix-pole parametrisation (Fabrikant's single-pole
@@ -180,7 +178,7 @@ activations — and minimise a loss over the tiers with gradients. The essential
 observation is that **no autodiff framework is needed**: for the
 complex-symmetric ECS Hamiltonian the pole's sensitivity is the
 Hellmann–Feynman formula with the bilinear c-product,
-`∂E_pole/∂V(r_i) = ψ_i² / (ψᵀψ)` (`qscat.linalg.c_product`), so one
+$\partial E_{pole}/\partial V(r_i) = \psi_i^2 / (\psi^T\psi)$ (`qscat.linalg.c_product`), so one
 eigenvector gives the exact gradient with respect to *every* potential value at
 once, and the gradient with respect to any parameter follows by the chain rule.
 Phase shifts at real energy have the analogous formula through the scattering
@@ -208,7 +206,7 @@ the same cost and the right global optimiser for A's start.
 
 Requires phase shifts for *all* `l` at one energy, and the scheme is shown
 inconsistent in general (Ramm, math-ph/0105021). The model fixes one `l`; the
-data varies `ε`. Wrong on both counts.
+data varies $\varepsilon$. Wrong on both counts.
 
 ## Constraints the repo imposes on any surface
 
@@ -217,13 +215,13 @@ data varies `ε`. Wrong on both counts.
   `IonicResonanceModel` already documents an angle bound forced by an `R⁴`
   term (`max_nuclear_ecs_angle_deg = 22.5`); a factory must compute and
   publish the same bound for whatever it emits, and prefer forms with none.
-- **Threshold law.** The model's `l` sets `Γ ∝ ε^{l+1/2}`; it must be chosen
+- **Threshold law.** The model's `l` sets $\Gamma \propto \varepsilon^{l+1/2}$; it must be chosen
   from the resonance's symmetry (N₂ ²Π_g → `l = 2`; NO ³Σ⁻, F₂ ²Σ_u⁺, H₂
   ²Σ_u⁺ → `l = 1`; HCl ²Σ⁺ → `l = 0`, a virtual state, needs a barrier term or
-  a dipole-like tail to exist at all). A polar target's `ε^{√(d+¼)}` exponent
+  a dipole-like tail to exist at all). A polar target's $\varepsilon^{\sqrt{d+\tfrac14}}$ exponent
   cannot be produced by a centrifugal barrier; matching it needs an explicit
   long-range term and is out of scope for the first version.
-- **The `Γ`-support condition.** `Γ(R) ≠ 0` only where `V_0(R) < V_ion(R)`
+- **The $\Gamma$-support condition.** $\Gamma(R) \neq 0$ only where `V_0(R) < V_ion(R)`
   (Váňa & Houfek 2017); the crossing `R_c` is a *derived* quantity of the fit,
   and its position relative to the neutral turning points decides whether DA
   is open — a fitted model must reproduce the molecule's DA threshold sign.
@@ -242,18 +240,18 @@ before it is used as a target.
 
 | System | Resonance / symmetry | `l` | Tier available | Published source of target data |
 |---|---|---|---|---|
-| N₂ / N₂⁻ | ²Π_g shape, ≈2.3 eV, Γ ≈ 0.4 eV at `R_e` | 2 | T3 | Berman, Estrada, Cederbaum & Domcke, Phys. Rev. A **28**, 1363 (1983) — the first full NRM; R-matrix `E_res(R)`, `Γ(R)` in later work (Laporta et al. 2014, arXiv:1402.3814) |
+| N₂ / N₂⁻ | ²Π_g shape, ≈2.3 eV, Γ ≈ 0.4 eV at `R_e` | 2 | T3 | Berman, Estrada, Cederbaum & Domcke, Phys. Rev. A **28**, 1363 (1983) — the first full NRM; R-matrix `E_res(R)`, $\Gamma(R)$ in later work (Laporta et al. 2014, arXiv:1402.3814) |
 | O₂ / O₂⁻ | ²Π_g, bound at `R_e`, resonant at short `R` | 2 | **T3, complete** | Alt & Houfek, PRA **103**, 032829 (2021), Table II + Figs. 2–4 |
-| CO / CO⁻ | ²Π shape ≈ 1.5–2 eV, broad | 1 | T1 | Laporta, Cassidy, Tennyson & Celiberto (2012), arXiv:1206.2268 — R-matrix `E_res(R)`, `Γ(R)` |
+| CO / CO⁻ | ²Π shape ≈ 1.5–2 eV, broad | 1 | T1 | Laporta, Cassidy, Tennyson & Celiberto (2012), arXiv:1206.2268 — R-matrix `E_res(R)`, $\Gamma(R)$ |
 | H₂ / H₂⁻ | ²Σ_u⁺, ≈3 eV, very broad; DA to H⁻ | 1 | T3 | Čížek, Horáček & Domcke, J. Phys. B **31**, 2571 (1998); Horáček et al., PRA **70**, 052712 (2004), PRA **73**, 022701 (2006) |
 | HCl / HCl⁻ (also HBr, HF) | ²Σ⁺ virtual state + dipole; DA to Cl⁻ | 0 (dipole) | T3 | Čížek, Horáček & Domcke, PRA **60**, 2873 (1999); HF: J. Phys. B **36**, 2837 (2003) |
 | F₂ / F₂⁻ | ²Σ_u⁺, bound at `R_e`, resonant at short `R`; exothermic DA | 1 | T3 | Brems, Beyer, Nestmann, Peyerimhoff & Domcke, J. Chem. Phys. **117**, 10635 (2002) |
 | NO / NO⁻ | ³Σ⁻ (also ¹Δ, ¹Σ⁺), near-threshold | 1 | T1–T3 | Trevisan, Houfek, Zhang, Orel, McCurdy & Rescigno, PRA **71**, 052714 (2005) |
-| H₂⁺ / H₂ (ion, DR) | Rydberg series, quantum defects `μ(R)` | 0/2 | T0 + defects | exact ion curve; Hvizdoš et al. 2018 (already in `reference/literature`) |
+| H₂⁺ / H₂ (ion, DR) | Rydberg series, quantum defects $\mu(R)$ | 0/2 | T0 + defects | exact ion curve; Hvizdoš et al. 2018 (already in `reference/literature`) |
 | HeH⁺ (ion, DR) | Rydberg series | 0 | T3 | Movre & Meyer 1997 (cited by Čížek & Houfek §4.3.2 as one of two systems with *ab initio* `V_{dk}` over the full range) |
 
 For an **ion**, the target changes: `v0` is the ion core, and the
-`σ`-capture well must reproduce the neutral's Rydberg quantum defects `μ(R)`
+$\sigma$-capture well must reproduce the neutral's Rydberg quantum defects $\mu(R)$
 (equivalently the bound Rydberg curves), not a resonance width. The
 `IonicResonanceModel` form and `qscat.core.bo.electronic_curves` already give
 the forward model; the same fitter applies with a different loss.
@@ -266,7 +264,7 @@ produce them here — either by vendoring/depending on an R-matrix suite
 (UKRmol+ is the one Alt & Houfek used) or by an own implementation, at least
 for one-electron model targets. Until then the factory's `Target.eigenphase`
 slot is a loader for externally computed tables. The model-side counterpart —
-the 2-D model's own fixed-`R` phase `δ(ε;R)` — is cheap from
+the 2-D model's own fixed-`R` phase $\delta(\varepsilon;R)$ — is cheap from
 `qscat.core.nrm.scattering.scattering_state` and is what a T2 loss would
 compare against.
 
@@ -274,14 +272,14 @@ compare against.
 
 "3-D" has two different meanings, and the factory's target format differs:
 
-1. **Electron angle `θ_e`** (`docs/physics/angular-coupled-channels.md`):
-   `V(r, θ_e, R) = Σ_λ v_λ(r,R) P_λ(cosθ_e)`. The single-`l` model becomes the
+1. **Electron angle $\theta_e$** (`docs/physics/angular-coupled-channels.md`):
+   $V(r, \theta_e, R) = \sum_\lambda v_\lambda(r,R) P_\lambda(\cos\theta_e)$. The single-`l` model becomes the
    approximation under test. The target then is the fixed-`R` **`K`-matrix in
-   the `Λ` block** (several `l`), or at least the eigenphase sum with its
+   the $\Lambda$ block** (several `l`), or at least the eigenphase sum with its
    partial-wave composition — R-matrix codes provide exactly that. Route A/D
-   generalise by fitting `v_λ(r,R)` for `λ = 0, 2, …`.
+   generalise by fitting $v_\lambda(r,R)$ for $\lambda = 0, 2, \ldots$.
 2. **Two nuclear coordinates** (a triatomic, or a diatomic with rotation): the
-   target becomes a resonance *surface* `E_res(R₁,R₂)`, `Γ(R₁,R₂)`; CO₂'s
+   target becomes a resonance *surface* `E_res(R₁,R₂)`, $\Gamma(R_1,R_2)$; CO₂'s
    ²Π_u is the classic case. Data are sparser and the exact solver's cost
    climbs steeply (dense eigensolves are already out; sparse shift-invert is
    the path).
@@ -305,7 +303,7 @@ the two-dimensional model can carry at all.
 ## Decisions taken on this survey (2026-08-24)
 
 - **Target tier: T3**, the published nonlocal-model functions (`V_0`,
-  `V_ion = V_0 + E_res`, `Γ̃(ε,R) = 2π ε^α A(R) e^{−B(R)ε}`). They are the
+  `V_ion = V_0 + E_res`, $\tilde\Gamma(\varepsilon,R) = 2\pi\,\varepsilon^\alpha A(R)\, e^{-B(R)\varepsilon}$). They are the
   richest data already reduced to smooth functions of `R`, and the 2-D model's
   fixed-`R` electronic problem is exactly the single-channel picture they
   describe. T2 (raw R-matrix eigenphase sums) stays a reserved slot in the
