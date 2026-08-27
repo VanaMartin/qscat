@@ -59,7 +59,7 @@ On the 101-energy figure grid those two absolute deviations are 0.71 and
 11.65 bohr^2 -- the factor of 16 survives -- and the "within 5.2%" figure
 becomes 9.9% (23 energies clear the half-peak cut there), against the elastic
 channel's 61% under the identical cut. Quote the dense numbers when describing
-the printed figure; see docs/physics/nonlocal-resonance-model.md Sec. 8.6.
+the printed figure; see docs/physics/nrm-vibrational-excitation.md Sec. 6.
 
 VIBRATIONAL EXCITATION IS THE CHANNEL WITH PUBLISHED CURVES BEHIND IT. From
 PRA 77's own panel inventory (`reference/literature/houfek-2008-pra77-012710.md`):
@@ -198,7 +198,7 @@ _ENERGIES: dict[str, npt.NDArray[np.float64]] = {
 # re-recording it on 101 energies would put a ~14 min sweep inside a test and
 # slacken the band on its own points for no gain in detection. If you densify
 # the sweep, widen the band with it -- do not read the failure as a defect.
-# See docs/physics/nonlocal-resonance-model.md Sec. 8.9.
+# See docs/physics/nrm-vibrational-excitation.md Sec. 9.
 _BANDS: dict[str, tuple[float, float]] = {
     "N2": (0.995, 1.005),
     "F2": (0.990, 1.012),

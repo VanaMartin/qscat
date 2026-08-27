@@ -654,13 +654,13 @@ one observable and calibrated for the other is better than two thresholds, and
   is **not** the converged F₂ cross section.
 - **No production-electronic-deck data point exists** on any molecule yet.
 - **VE is N₂ and F₂, choice B, 0→0 and 0→1.** NO is not run — its
-  time-INDEPENDENT VE is not run either (`nonlocal-resonance-model.md` §8.5) —
+  time-INDEPENDENT VE is not run either (`nrm-vibrational-excitation.md` §5) —
   no higher final channel is, and choice A is not: every VE number here is
   `AsymptoticDiscreteState`.
 - **The VE agreement is differential, like every other number in this note.**
   It says the propagation reproduces the resolvent on one deck; how well the
   nonlocal model reproduces the *exact* VE cross section is
-  `nonlocal-resonance-model.md` §8.4's measurement (better than 0.7%), not
+  `nrm-vibrational-excitation.md` §4's measurement (better than 0.7%), not
   this one's.
 - **§6's packet comparison is F₂ at one energy on the reduced electronic deck.**
   It says what the Markovian collapse does *there*; PRA 47's H₂⁻ is a different
