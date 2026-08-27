@@ -18,7 +18,7 @@ jobs:
     outputs:
       native: ${{ steps.filter.outputs.native }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -36,7 +36,7 @@ jobs:
     needs: changes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install Rust toolchain (only when native/** changed — docs/adr/0006)
         if: needs.changes.outputs.native == 'true'
         uses: dtolnay/rust-toolchain@stable
@@ -83,7 +83,7 @@ jobs:
           - os: macos-latest
             python-version: "3.13"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install Rust toolchain (only when native/** changed — docs/adr/0006)
         if: needs.changes.outputs.native == 'true'
         uses: dtolnay/rust-toolchain@stable
@@ -133,7 +133,7 @@ jobs:
     needs: changes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install Rust toolchain (only when native/** changed — docs/adr/0006)
         if: needs.changes.outputs.native == 'true'
         uses: dtolnay/rust-toolchain@stable
@@ -167,7 +167,7 @@ jobs:
     name: build + clean-venv import + twine check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
