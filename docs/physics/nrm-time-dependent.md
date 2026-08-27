@@ -335,8 +335,8 @@ local one at 1 — that coincidence is §6.4's result, not a missing curve.)
 The repository has two candidates and they are not interchangeable:
 `NrmIngredients.v_d_discrete` (PRA 77 Eq. 20, $V_0 + \langle\phi_d|H_{el}|\phi_d\rangle$) and
 `qscat.core.lcp`'s `Vd` (`E_res(R)`, with `V_0` already inside `model.surface`).
-Eq. (2.14), $E_{res} - V_d + V_0 - \Delta_L = 0$, rearranges to `V_d + Δ_L = E_res +
-V_0` — so Eq. (2.15)'s bracket is the *second* one, and the first is short by
+Eq. (2.14), $E_{res} - V_d + V_0 - \Delta_L = 0$, rearranges to $V_d + \Delta_L = E_{res} +
+V_0$ — so Eq. (2.15)'s bracket is the *second* one, and the first is short by
 the level shift $\Delta_L$. Both were run against the shipped
 `lcp_da_cross_section` on the F₂ fixture deck (`dt = 2`, `T = 12000`):
 
@@ -506,8 +506,8 @@ is that F₂ is a poor place to look for it.
 ## 7. Vibrational excitation
 
 `td_nrm_ve_cross_section` is the second consumer of the same $\Psi_d$, and all of
-it is a contraction. `T^res` is `vibrational_excitation.t_resonant(χ_f,
-V⁺_dk_f, Ψ_d)` and `T^bg` is `t_background`, both called **unchanged**, so
+it is a contraction. `T^res` is `vibrational_excitation.t_resonant`($\chi_f,
+V_{dk_f}^+, \Psi_d$) and `T^bg` is `t_background`, both called **unchanged**, so
 PRA 77 Eq. (34)/(35)'s non-conjugated `V⁺_dk` and Eq. (37)'s $\phi^+$ at the
 *final* channel energy are inherited from the time-independent route rather
 than re-derived. `T^bg` contains no $\Psi_d$ at all — it is energy-domain and
