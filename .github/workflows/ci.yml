@@ -172,6 +172,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
+          enable-cache: true
       - name: Build sdist + wheel (qscat)
         run: uv build --package qscat --out-dir dist
       - name: Import in a CLEAN venv WITHOUT extras (guards the matplotlib break)

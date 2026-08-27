@@ -17,18 +17,26 @@ convergence study, or an independent reference implementation before it ships.
 
 ## Installation
 
+`qscat` is **repo-only**: it is not published to PyPI (and will not be until
+the qscat citation article is out). Install it from a clone:
+
 ```bash
-pip install qscat                 # core (numpy, scipy, mpmath only)
-pip install "qscat[plot]"         # + matplotlib, for the figure helpers
+uv sync --all-packages
 ```
 
-`qscat` imports with only numpy/scipy/mpmath; matplotlib is an optional extra
-used lazily by `qscat.core.plot_cross_sections`.
+`qscat` imports with only numpy/scipy/mpmath. `plot` (matplotlib, for the
+figure helpers used lazily by `qscat.core.plot_cross_sections`) and `mumps`
+are optional extras, pulled in by name:
+
+```bash
+uv sync --all-packages --extra plot
+uv sync --all-packages --extra mumps
+```
 
 **Optional MUMPS backend.** `qscat.linalg.SparseLU` can use a complex-symmetric
 MUMPS solver (much faster and lighter than SuperLU on the large ECS matrices).
-It builds against a *system* MUMPS, so `pip install "qscat[mumps]"` only works
-where one is present; the supported route is a prebuilt MUMPS (e.g. conda-forge).
+It builds against a *system* MUMPS, so the `mumps` extra only works where one
+is present; the supported route is a prebuilt MUMPS (e.g. conda-forge).
 Without it, the SciPy SuperLU backend is used automatically.
 
 ## Quickstart
