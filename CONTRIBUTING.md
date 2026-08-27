@@ -59,8 +59,8 @@ CI does not run the slow tier by default, so a change that moves a number can
 merge green. When reviewing, apply the label covering what changed and the
 **Validation** workflow runs that suite:
 
-`validate:core` · `validate:n2` · `validate:diatomic` · `validate:h2plus` ·
-`validate:tuning` · `validate:run` · `validate:all`
+`validate:core` · `validate:n2` · `validate:diatomic` · `validate:factory` ·
+`validate:h2plus` · `validate:tuning` · `validate:run` · `validate:all`
 
 A path filter cannot make this judgement — a one-line kernel edit can
 invalidate every cross section while a large refactor changes nothing — so the
