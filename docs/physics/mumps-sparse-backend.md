@@ -11,6 +11,20 @@ synthesized pkg-config files); the `qscat[mumps]` optional extra
 **Units:** atomic units throughout,
 as everywhere in the library.
 
+## Key result
+
+On the real complex-symmetric N₂ 2-D matrices, MUMPS `SYM=2` beats SuperLU
+at every size, and by more the larger the deck: at the 143k-unknown
+production deck the factorization is **81.3× faster (3.2 s vs 258 s)** and
+peak RSS is **11.9× smaller (0.6 GB vs 7.4 GB)**; the 47k TD deck measures
+23.4× / 6.6×, the 27k working deck 12.0× / 3.3×. Residuals agree across
+backends to ~1e-12 — the two engines compute the same solution, only the
+cost differs — which puts a multi-hundred-point energy sweep comfortably
+inside the "under an hour" bar. `SparseLU(backend="auto")` picks MUMPS
+whenever it is importable; SuperLU stays the fallback and the differential
+oracle. (Earlier citations of 72.6× / 9.2× are the pre-fix `SYM=0` numbers
+— see the historical note under The benchmark.)
+
 ## Why the sparse LU is the hot path
 
 `docs/physics/nd-tensor-hamiltonian.md` already established the shape of the
