@@ -178,12 +178,13 @@ N₂ is within 5e-15 of the untruncated sum.
 ## 4. Measured: the nonlocal model reproduces the exact VE cross section
 
 `v_init = 0`, `n_states = 100`, SuperLU. The oracle is
-`qscat.core.driven.ve_cross_section`. **The decks are not both [`nonlocal-resonance-model.md`](nonlocal-resonance-model.md) §7's.** F₂ runs [`nonlocal-resonance-model.md`](nonlocal-resonance-model.md) §7's
-own deck exactly — `validation.diatomic.config`'s `da_grid()`, electronic
+`qscat.core.driven.ve_cross_section`. **The decks are not both the parent
+note's §7 deck ([`nonlocal-resonance-model.md`](nonlocal-resonance-model.md)).**
+F₂ runs that §7 deck exactly — `validation.diatomic.config`'s `da_grid()`, electronic
 `r_max = 16, order = 8, n_complex = 6` (n = 132) × the 974-point nuclear deck. N₂ has
 no `validation/` deck of its own and runs `qscat_run.presets`' `N2:emoscat` TI grid
 instead: electronic `r_max = 16, order = 7, n_complex = 5` (n = 107) × 251 nuclear
-points — a coarser electronic factor than [`nonlocal-resonance-model.md`](nonlocal-resonance-model.md) §7's. Both are read off
+points — a coarser electronic factor than the §7 deck's. Both are read off
 `validation/diatomic/ve_nrm.py`'s `_ELEC_PARAMS`/`_deck`, and `setup` asserts the
 second-ECS-angle rebuild reproduces each deck's electronic factor node-for-node, so a
 drift between the two cannot pass silently.

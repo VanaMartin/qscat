@@ -38,7 +38,8 @@ by **1.8e5 to 2.2e7**. NO read as a total failure until 2026-08-24; that was the
 oracle's error, not the model's (§7.2). Sections 7 and 9 give both in full. In **vibrational excitation**, the channel the
 paper plots for every molecule in its study: choice B with the Eq. (37) background
 terms reproduces the exact 2-D solver to better than **0.7 %** on N₂ *and* F₂, in both
-the elastic and the first inelastic channel — §8.
+the elastic and the first inelastic channel —
+[`nrm-vibrational-excitation.md`](nrm-vibrational-excitation.md).
 
 ## 2. The method
 

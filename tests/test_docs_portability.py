@@ -239,8 +239,8 @@ def test_find_greek_in_backticks_wraps_a_soft_break_not_a_blank_line():
     The first pair wraps a single newline mid-span, as CommonMark allows,
     and must be flagged whole. The second pair is two separate stray
     backticks either side of a blank line; if the detector paired them as
-    one span (the naive `[^`\\n]` regex's blind spot -- see Task 4), the
-    stray Greek letter sitting between them would leak into the result.
+    one span (the naive `[^`\\n]` regex's blind spot), the stray Greek
+    letter sitting between them would leak into the result.
     """
     text = (
         "the width `Γ(R)\nis frozen` today\n\n"
