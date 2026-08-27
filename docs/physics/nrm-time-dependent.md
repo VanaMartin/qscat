@@ -84,7 +84,7 @@ PRA 77 Eq. (52) with exactly the `F(E)` above. Verified numerically: the
 
 ### 2.3 Back to the frequency domain
 
-For $i\,\partial_t\Psi = H_{ext}\Psi$ with $\Psi(0)$ given, integrating `∫_0^∞ dt e^{i(E+i0)t}` by
+For $i\,\partial_t\Psi = H_\mathrm{ext}\Psi$ with $\Psi(0)$ given, integrating `∫_0^∞ dt e^{i(E+i0)t}` by
 parts and killing the `t→∞` boundary term by ECS absorption,
 
 ```
@@ -100,7 +100,7 @@ for Eq. (52) — the `d`-block gives
 ```
 
 The `−i` is derived here and confirmed independently by PRA 47 Eq. (2.6), whose
-`(1/i)` makes $T_{v'v}(E) = \langle \chi_{v'} V_{dk_f} | \Psi_d^{TI} \rangle$ — precisely the shipped
+`(1/i)` makes $T_{v'v}(E) = \langle \chi_{v'} V_{dk_f} | \Psi_d^\mathrm{TI} \rangle$ — precisely the shipped
 `vibrational_excitation.t_resonant`.
 
 **The consequence is the design.** The time-dependent route produces *the same
@@ -119,8 +119,8 @@ $[\Gamma(E_i)/2\pi]^{-1/2}$, under the separability $\Gamma(E,R) = \Gamma(E)\,g(
 — which the Houfek models do not satisfy exactly.
 
 They satisfy it *numerically*. Because $\alpha_c$ is a constant in
-$V_{int}(r,R) = -\lambda(R)e^{-\alpha_c r^2}$, the whole `R`-dependence of the electronic
-problem enters through the single scalar $\lambda(R)$ — $H_{el}(R) = H_0 + \lambda(R) W$ — so
+$V_\mathrm{int}(r,R) = -\lambda(R)e^{-\alpha_c r^2}$, the whole `R`-dependence of the electronic
+problem enters through the single scalar $\lambda(R)$ — $H_\mathrm{el}(R) = H_0 + \lambda(R) W$ — so
 $V_{dk}^+(R;E) = g(\lambda(R), E)$, a smooth function of two scalars. The launch matrix
 $M[R,E_j] = \xi(R;E_j)$ is therefore numerically low rank, and the scheme is to
 SVD it, propagate the left singular vectors, and reconstruct every energy by
@@ -143,11 +143,11 @@ of the discrete-state choice, not of the model.
 | Elimination identity ⇒ `nonlocal_operator`'s `F(E)` | **4.4e-14** relative | `test_nrm_extended.py` |
 | Half-Fourier transform vs closed-form finite-`T` | **1.8e-13**, converging as `dt⁶` | `test_nrm_propagation.py` |
 | `⟨P⟩_t` vs analytic Gaussian (`p = 1.7`) | **1.6999999999999842** | `test_nrm_propagation.py` |
-| **$\Psi_d^{TD}(R;E)$ vs $\Psi_d^{TI}(R;E)$, vector to vector** (N₂) | **1.73e-04** | `test_nrm_propagation.py` |
-| **$\sigma_{TD}/\sigma_{TI}$, F₂ DA, E = 0.02/0.03/0.05 Ha** | **1.0097 / 1.0138 / 1.0102** | `test_nrm_td_cross_section.py` |
+| **$\Psi_d^\mathrm{TD}(R;E)$ vs $\Psi_d^\mathrm{TI}(R;E)$, vector to vector** (N₂) | **1.73e-04** | `test_nrm_propagation.py` |
+| **$\sigma_\mathrm{TD}/\sigma_\mathrm{TI}$, F₂ DA, E = 0.02/0.03/0.05 Ha** | **1.0097 / 1.0138 / 1.0102** | `test_nrm_td_cross_section.py` |
 | **Markovian limit vs `qscat.core.lcp`, same F₂ deck** | **1.000215 / 1.000198 / 0.999892** | `test_nrm_td_cross_section.py` |
-| **$\sigma_{TD}/\sigma_{TI}$, N₂ VE, 0.06/0.10/0.15 Ha, v' = 0/1** | **envelope ≤2.5e-3** (2.7e-4 at T = 4000, a null — §7.1.1) | `test_nrm_td_cross_section.py` |
-| **$\sigma_{TD}/\sigma_{TI}$, F₂ VE, 0.03/0.05 Ha, v' = 0/1** | **9.8e-5** (5.9e-5 with the background, 9.8e-5 without — the gate asserts both), flat over T = 1600–2400 | `test_nrm_td_cross_section.py` |
+| **$\sigma_\mathrm{TD}/\sigma_\mathrm{TI}$, N₂ VE, 0.06/0.10/0.15 Ha, v' = 0/1** | **envelope ≤2.5e-3** (2.7e-4 at T = 4000, a null — §7.1.1) | `test_nrm_td_cross_section.py` |
+| **$\sigma_\mathrm{TD}/\sigma_\mathrm{TI}$, F₂ VE, 0.03/0.05 Ha, v' = 0/1** | **9.8e-5** (5.9e-5 with the background, 9.8e-5 without — the gate asserts both), flat over T = 1600–2400 | `test_nrm_td_cross_section.py` |
 | **Markovian VE vs a local VE reference assembled in-test** | **within 5.6e-6** over T = 2000–12000 | `test_nrm_td_cross_section.py` |
 
 ![TD vs TI cross section](figures/f2-da-nrm-td-vs-ti.png)
@@ -208,10 +208,10 @@ near-real modes with `|Im E| = 1.5e-7 … 7.7e-6`. The launch populates them wit
 `T ≈ 12000` and **no absolute survival floor is reachable on this molecule**;
 removing their ≈2e-2 contribution to the transform would need `T ≳ 1e7`.
 
-$\sigma_{DA}$ converges regardless, because it reads the wavefunction *value* at the
+$\sigma_\mathrm{DA}$ converges regardless, because it reads the wavefunction *value* at the
 outermost real node, where those well-localized modes have almost no amplitude.
 **The observable converges while the norm does not**, so convergence here is
-defined as $\sigma_{DA}$ stationary in `T` — not as `S(T)/S(0)` below a threshold. A
+defined as $\sigma_\mathrm{DA}$ stationary in `T` — not as `S(T)/S(0)` below a threshold. A
 convergence check written the obvious way would warn permanently on every F₂ run.
 
 ### 4.3 The launch basis, and what it says about the two discrete states
@@ -333,14 +333,14 @@ local one at 1 — that coincidence is §6.4's result, not a missing curve.)
 ### 6.1 Which `V_d` enters Eq. (2.15) — measured, not argued
 
 The repository has two candidates and they are not interchangeable:
-`NrmIngredients.v_d_discrete` (PRA 77 Eq. 20, $V_0 + \langle\phi_d|H_{el}|\phi_d\rangle$) and
+`NrmIngredients.v_d_discrete` (PRA 77 Eq. 20, $V_0 + \langle\phi_d|H_\mathrm{el}|\phi_d\rangle$) and
 `qscat.core.lcp`'s `Vd` (`E_res(R)`, with `V_0` already inside `model.surface`).
-Eq. (2.14), $E_{res} - V_d + V_0 - \Delta_L = 0$, rearranges to $V_d + \Delta_L = E_{res} +
+Eq. (2.14), $E_\mathrm{res} - V_d + V_0 - \Delta_L = 0$, rearranges to $V_d + \Delta_L = E_\mathrm{res} +
 V_0$ — so Eq. (2.15)'s bracket is the *second* one, and the first is short by
 the level shift $\Delta_L$. Both were run against the shipped
 `lcp_da_cross_section` on the F₂ fixture deck (`dt = 2`, `T = 12000`):
 
-| `V_d` in Eq. (2.15) | $\sigma/\sigma_{LCP}$ at E = 0.02 | 0.03 | 0.05 Ha |
+| `V_d` in Eq. (2.15) | $\sigma/\sigma_\mathrm{LCP}$ at E = 0.02 | 0.03 | 0.05 Ha |
 |---|---|---|---|
 | `qscat.core.lcp`'s `Vd` = `E_res + V_0` | **1.000215** | **1.000198** | **0.999892** |
 | `NrmIngredients.v_d_discrete` (Eq. 20) | 0.346 | 0.419 | 7.14 |
@@ -360,11 +360,11 @@ on this deck:
 It does **not** vanish wherever $\Gamma$ does — R = 3.01 has $\Gamma = 0$ and a difference
 of 9.5e-4 Ha, 500× the R = 3.99 value — and that is expected, not anomalous:
 $\Gamma_L(R)$ is $\Gamma$ at *one* energy while
-$\Delta_L(R) = P\!\int (dE'/2\pi)\, \Gamma(E',R)/(E_{res}-E')$ (Eq. 2.12a/2.13b) integrates $\Gamma$ over
+$\Delta_L(R) = P\!\int (dE'/2\pi)\, \Gamma(E',R)/(E_\mathrm{res}-E')$ (Eq. 2.12a/2.13b) integrates $\Gamma$ over
 *all* `E′`, so $\Delta_L$ is free to be nonzero where $\Gamma_L$ vanishes.
 
 **The starred $\Gamma$ values are a frozen extrapolation, not F₂'s width.**
-`qscat.core.lcp.resonance_pole_walk` freezes the last accepted $(\text{shift},\ \Gamma)$ when
+`qscat.core.lcp.resonance_pole_walk` freezes the last accepted $(\mathrm{shift},\ \Gamma)$ when
 the pole finder breaks down. On this reduced 55-point electronic deck it breaks
 at **R = 2.5033** and holds $\Gamma = 0.00949256$ over the inner **198 of 819** real
 nodes; the 132-point production deck runs on to R = 1.8657 and gives
@@ -395,7 +395,7 @@ doorway. Neither is a statement about $\Delta_L$ being deck-sensitive — it is 
 
 ### 6.2 The gate, and why it is tighter than the nonlocal one
 
-$\sigma_{TD}/\sigma_{LCP}$ = 1.000215 / 1.000198 / 0.999892 at E = 0.02/0.03/0.05 Ha. The
+$\sigma_\mathrm{TD}/\sigma_\mathrm{LCP}$ = 1.000215 / 1.000198 / 0.999892 at E = 0.02/0.03/0.05 Ha. The
 residual is transform truncation **and nothing else** — `dt` = 1, 2 and 4
 reproduce all three ratios to six digits, so the `dt⁶` propagation error is far
 below it:
@@ -413,11 +413,11 @@ by a propagation.
 
 Eq. (2.11) localizes the *kernel*. Read strictly it leaves Eq. (2.5)'s launch
 state $V_{dk_i}(R)\,\chi_v(R)$ alone, while the LCP this repository ships launches
-$\sqrt{\Gamma_L(R)/2\pi}\,\chi_v(R)$ — $\Gamma_L = \Gamma(E_{res}(R), R)$, evaluated at the resonance
+$\sqrt{\Gamma_L(R)/2\pi}\,\chi_v(R)$ — $\Gamma_L = \Gamma(E_\mathrm{res}(R), R)$, evaluated at the resonance
 position rather than the incident energy, and therefore energy-independent.
 Those are not the same vector: measured overlap **0.569**, norm ratio **4.03**.
 So there are three models, not two, and running all three on one deck separates
-what the kernel costs from what the doorway costs (TI values, $\sigma_{DA}$ in bohr²):
+what the kernel costs from what the doorway costs (TI values, $\sigma_\mathrm{DA}$ in bohr²):
 
 | E (Ha) | nonlocal | local kernel + Eq. (2.5) launch | LCP (local kernel + local doorway) |
 |---|---|---|---|
@@ -524,7 +524,7 @@ energy-independent (§2.4) and $\Psi_d^+$ does not depend on `v'`.
 
 `T^res` weights $\Psi_d$ by $\chi_f$, which lives in the interaction region, so the
 transform converges once the amplitude **there** has decayed — whether by
-autodetachment or by simply moving outward. $\sigma_{DA}$ reads the wavefunction
+autodetachment or by simply moving outward. $\sigma_\mathrm{DA}$ reads the wavefunction
 *value* at the outermost real node, so its packet has to cross the whole box
 first (§4.1). The clean measurement is F₂, where **both observables run on one
 deck, from one propagation**:
@@ -635,7 +635,7 @@ difference removed.
 `td_nrm_da_cross_section` uses, and on VE it fires while the cross section is
 already converged — F₂ at T = 2000 warns at 0.938 and is right to 6e-5. Read
 it as what it says, "the packet is still in the box"; it is not evidence that
-$\sigma_{VE}$ is wrong. Convergence here is $\sigma_{VE}$ stationary in `T`, exactly as in
+$\sigma_\mathrm{VE}$ is wrong. Convergence here is $\sigma_\mathrm{VE}$ stationary in `T`, exactly as in
 §4.2. The threshold is not retuned for VE: a warning that is conservative for
 one observable and calibrated for the other is better than two thresholds, and
 `_UNABSORBED_TOL`'s calibration is a DA measurement (`td_cross_section.py`).
@@ -650,7 +650,7 @@ one observable and calibrated for the other is better than two thresholds, and
   (`docs/physics/nonlocal-resonance-model.md` §7.2), so a TD run there would be
   measuring an already-broken oracle.
 - **The DA fixture uses a reduced 55-point electronic grid.** The TD/TI ratio is
-  insensitive to it (3–4 significant figures), but the fixture's absolute $\sigma_{TI}$
+  insensitive to it (3–4 significant figures), but the fixture's absolute $\sigma_\mathrm{TI}$
   is **not** the converged F₂ cross section.
 - **No production-electronic-deck data point exists** on any molecule yet.
 - **VE is N₂ and F₂, choice B, 0→0 and 0→1.** NO is not run — its

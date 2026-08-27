@@ -15,7 +15,7 @@ must stay compatible with).
 
 Every model in `qscat.model` is a **given** testbed — a Morse neutral curve, a
 sigmoid interaction strength $\lambda(R)$ and a Gaussian electron–molecule well
-$V_{int}(r,R) = -\lambda(R)\,e^{-\alpha_c r^2}$ — whose constants were *hand-chosen* so that
+$V_\mathrm{int}(r,R) = -\lambda(R)\,e^{-\alpha_c r^2}$ — whose constants were *hand-chosen* so that
 the fixed-`R` resonance resembles a real molecule's (Houfek, Rescigno & McCurdy
 2006 for N₂/NO, 2008 for F₂; see `reference/literature/`). The resemblance is
 qualitative: the N₂-like model's `D_0` is ≈2× real N₂'s, its vibrational
@@ -24,7 +24,7 @@ spacing is off, and only `E_res(R_0) ≈ 2.4 eV`, $\Gamma(R_0) \approx 0.46\text
 
 The direction is a **factory**: given a real diatomic (or diatomic ion) and
 published data about it, produce a `ResonanceModel` whose neutral curve
-`V_0(R)` and resonance curve $V_{res}(R) = E_{res}(R) - i\Gamma(R)/2$ match that
+`V_0(R)` and resonance curve $V_\mathrm{res}(R) = E_\mathrm{res}(R) - i\Gamma(R)/2$ match that
 molecule as closely as the two-dimensional model form permits — first in the
 existing 2-D `(r, R)` form, later in a 3-D form. The purpose is unchanged from
 the rest of the program: the exact 2-D solution stays the oracle and the
@@ -64,17 +64,17 @@ survey; not yet a `reference/literature` note) builds the O₂ nonlocal model as
 1. `V_0(R)` and the bound anion curve from CASSCF/MRCI (aug-cc-pVQZ), the anion
    curve **shifted** so the asymptote reproduces the experimental EA(O) =
    1.461 eV (Table I).
-2. Fixed-nuclei R-matrix (UKRmol) eigenphase sums $\delta_{\text{sum}}(\varepsilon; R)$ at
+2. Fixed-nuclei R-matrix (UKRmol) eigenphase sums $\delta_{\mathrm{sum}}(\varepsilon; R)$ at
    `R = 1.80 … 2.25 a₀` (Fig. 3), fitted with RESON to a Breit–Wigner form
    for `E_res(R)`, $\Gamma(R)$ (Eq. 20–21).
 3. The nonlocal model fitted to the same eigenphase sums with
-   $\delta = \delta_{bg} + \delta_{res}$, $\delta_{bg} = c\,\varepsilon^\alpha$, $\tilde\Gamma(\varepsilon,R) = 2\pi\,\varepsilon^\alpha A(R)\, e^{-B(R)\,\varepsilon}$,
+   $\delta = \delta_\mathrm{bg} + \delta_\mathrm{res}$, $\delta_\mathrm{bg} = c\,\varepsilon^\alpha$, $\tilde\Gamma(\varepsilon,R) = 2\pi\,\varepsilon^\alpha A(R)\, e^{-B(R)\,\varepsilon}$,
    `A(R) = (a₀ + a₁R) e^{a₂R}`, `B(R) = b₀ + b₁R`, $\alpha = l + \tfrac12$ with `l = 2`
    (Eq. 22–27), by Nelder–Mead on the mean-squared eigenphase error;
-   $V_d(R) = V_0 + E_{res} - \tilde\Delta(E_{res}, R)$ (Eq. 29). Table II lists the seven
+   $V_d(R) = V_0 + E_\mathrm{res} - \tilde\Delta(E_\mathrm{res}, R)$ (Eq. 29). Table II lists the seven
    fitted constants.
 
-That is a complete, published target-data format for a factory: $(V_0(R), V_{ion}(R), A(R), B(R), \alpha, c)$. Čížek & Houfek's review chapter (*Low-Energy
+That is a complete, published target-data format for a factory: $(V_0(R), V_\mathrm{ion}(R), A(R), B(R), \alpha, c)$. Čížek & Houfek's review chapter (*Low-Energy
 Electron Scattering from Molecules, Biomolecules and Surfaces*, ch. 4, §4.3.2,
 also read) states the same parametrisation generally — $V_{dk}(R) = \sum_i f_i(\varepsilon) g_i(R)$, threshold law $\Gamma_l(\varepsilon) \propto \varepsilon^{l+1/2}$ (Eq. 4.114), dipole
 exponent $\alpha = \sqrt{d + \tfrac14}$ for polar targets (Eq. 4.115–4.116) — and notes that
@@ -95,7 +95,7 @@ references). Six routes, in decreasing directness:
 
 Keep an analytic, ECS-safe form — Gaussians and exponentials, entire in `r` —
 and fit its parameters per `R` (or as smooth functions of `R`) so the pole of
-the fixed-`R` problem lands on the target $E_{res}(R) - i\Gamma(R)/2$, optionally
+the fixed-`R` problem lands on the target $E_\mathrm{res}(R) - i\Gamma(R)/2$, optionally
 also fitting $\delta(\varepsilon;R)$ over a window. The forward model already exists
 (`qscat.core.lcp.resonance_pole_walk` → `qscat.ecs.find_resonance_pole`);
 the fit needs a *continuation* tracker in parameter space rather than a
@@ -178,7 +178,7 @@ activations — and minimise a loss over the tiers with gradients. The essential
 observation is that **no autodiff framework is needed**: for the
 complex-symmetric ECS Hamiltonian the pole's sensitivity is the
 Hellmann–Feynman formula with the bilinear c-product,
-$\partial E_{pole}/\partial V(r_i) = \psi_i^2 / (\psi^T\psi)$ (`qscat.linalg.c_product`), so one
+$\partial E_\mathrm{pole}/\partial V(r_i) = \psi_i^2 / (\psi^T\psi)$ (`qscat.linalg.c_product`), so one
 eigenvector gives the exact gradient with respect to *every* potential value at
 once, and the gradient with respect to any parameter follows by the chain rule.
 Phase shifts at real energy have the analogous formula through the scattering

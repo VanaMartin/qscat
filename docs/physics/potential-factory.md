@@ -13,7 +13,7 @@ this package fits against), `docs/physics/n2-resonance.md` (the published
 ## What it does
 
 Every model in `qscat.model` (N₂, NO, F₂) is a hand-tuned testbed: a Morse-like
-neutral curve plus a Gaussian electron–molecule well $V_{int}(r,R) = -\lambda(R)\,
+neutral curve plus a Gaussian electron–molecule well $V_\mathrm{int}(r,R) = -\lambda(R)\,
 e^{-\alpha_c r^2}$ with a *single* free function of `R` ($\lambda$) and a constant $\alpha_c$.
 `projects/potential_factory/` builds a strictly richer ansatz,
 `FlexibleDiatomicModel` (`ansatz.py`), and a tiered `Target` format
@@ -27,7 +27,7 @@ The ansatz has three pieces:
   $v_0(R) = D_e[(1 - e^{-\beta(R)(R - R_e)})^2 - 1]$ with $\beta(R) = \sum_i \beta_i\, y_p(R)^i$.
   One $\beta$ reduces this exactly to a Morse curve.
 - **Interaction.** A Gaussian well whose depth **and** range are both smooth
-  functions of `R`: $V_{int}(r,R) = -\lambda(R)\,e^{-\alpha(R) r^2}$, where $\lambda(R)$ and $\alpha(R)$
+  functions of `R`: $V_\mathrm{int}(r,R) = -\lambda(R)\,e^{-\alpha(R) r^2}$, where $\lambda(R)$ and $\alpha(R)$
   are each a `SmoothR` — a sigmoid `f_inf + f_0/(1 + e^{f_1(R − R_f)})` times
   an optional polynomial correction in `y_p(R)`. With `coeffs == ()` this is
   exactly Houfek's own sigmoid form for $\lambda(R)$; the existing models fix $\alpha$
@@ -158,11 +158,11 @@ meaningless number (measured leak on the round-trip tables: `6e-16` N₂,
 **`fit_resonance`'s T1 pipeline** chains these into a staged fit. Its `R`
 nodes are the target's own table nodes when it has them (see Limitations).
 Each node is first classified bound or resonant by a Γ floor
-($\Gamma_{\text{target}} <$ `tol.gamma_floor`, the same threshold used to pick the
+($\Gamma_{\mathrm{target}} <$ `tol.gamma_floor`, the same threshold used to pick the
 resonant-node mask below) rather than an exact-zero test, matching what the
 Newton bridging logic above already treats as "genuinely bound." The nodes
 are tracked once; $\alpha(R)$ is then fit from the **resonant nodes only**,
-Γ-weighted (weight ∝ $\Gamma_{\text{target}}$, normalized to max 1) — a bound node's single
+Γ-weighted (weight ∝ $\Gamma_{\mathrm{target}}$, normalized to max 1) — a bound node's single
 real eigenvalue cannot determine $\alpha$ at all ($\partial E/\partial\alpha$ never enters a
 lam-only Newton step there), and the near-degeneracy $\partial E/\partial\alpha \approx -6.06\cdot\partial E/\partial\lambda$
 (quantified below) means even resonant nodes need down-weighting toward the
@@ -309,7 +309,7 @@ elements; 113→347 points). The grid-to-grid differences on the finest step
 | | N₂ | NO | F₂ |
 |---|---|---|---|
 | scan `R` (bohr) | 3.2 → 1.5 | 3.4 → 1.6 | 4.2 → 1.9 |
-| max $\Delta E_{res}$, finest step (Ha) | 5.5e-9 | 3.6e-7 | 6.2e-7 |
+| max $\Delta E_\mathrm{res}$, finest step (Ha) | 5.5e-9 | 3.6e-7 | 6.2e-7 |
 | max $\Delta\Gamma$, finest step (Ha) | 4.1e-9 | 1.2e-6 | 2.9e-5 |
 | nodes with a gated pole | 44/45 | 44/45 | 44/45 |
 | $\Gamma$ at the innermost node (eV) | 4.5 | — | 14.1 |
@@ -334,7 +334,7 @@ out `+` for N₂ and NO (endothermic) and `−` for F₂ (exothermic).
 
 **Cross sections, published vs refitted.** Exact 2-D $\sigma_{0\to v'}(E)$ for
 `v' = 0, 1, 2` on each molecule's `emoscat` production deck over its preset
-window, and $\sigma_{DA}$ where the channel exists — F₂ over the same window, NO on a
+window, and $\sigma_\mathrm{DA}$ where the channel exists — F₂ over the same window, NO on a
 window above its DA threshold (`E = 0.175–0.30` Ha; the channel opens at
 `+0.172` Ha, above the whole VE sweep):
 
@@ -367,7 +367,7 @@ that still leaves a multi-percent residual against the very tracked data
 being fit. The fit therefore reparametrizes in log-amplitude coordinates
 (`u = log|f_0|`, sign frozen from the seed) with Jacobian-scaled steps before
 optimizing, and — the more fundamental point — the fitter is judged, and
-`"met"` is decided, by the **curve** $\lambda(R_{\text{desc}})$/$\alpha(R_{\text{desc}})$ the constants
+`"met"` is decided, by the **curve** $\lambda(R_{\mathrm{desc}})$/$\alpha(R_{\mathrm{desc}})$ the constants
 reproduce, never by how close the raw constants land to the published ones.
 Two sigmoid parameterizations can differ substantially in every constant and
 still trace the same curve to round-off.
