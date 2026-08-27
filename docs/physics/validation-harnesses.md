@@ -107,25 +107,40 @@ clear at `rtol=1e-3` — reported as a finding, not silently loosened.
 
 ## Where the `@slow` boundary falls
 
-Groups within `validation/n2/experiment.py` share a per-group time budget of
-roughly 60 seconds. A full time-dependent 2-D propagation at
-`TD_WORKING_GRID` costs `~210-250s` (`validation/n2/experiment.py:189`) —
-even the *shortest* configuration on the sub-project's own T-scan (T=600)
-costs `~85s`, over budget, and is also the least-converged point that scan
-measured (sigma_TD/sigma_TI = 0.760 there vs 0.931 at the converged T=1500).
-So Group F1 (`validation/n2/td_exact2d.py`) does not run a TD propagation at
-all: it reports the already-validated $\sigma_\mathrm{TD}$ as a cited, literal
-constant, recomputing only the cheap $\sigma_\mathrm{TI}$ side live every harness run.
-The genuine PASS/FAIL gate on the TD-vs-TI agreement this NOTE row reports
-lives outside the harness, in
+The boundary is ADR 0005's cost rule, not a judgement of importance: a test
+needing more than a few seconds or ~0.5 GB belongs in the `slow` tier — or
+wants a smaller deck, which is often the better answer
+(`docs/adr/0005-test-tiers-fast-and-slow.md`, points 2 and 7). The default
+tier is toy-scale and is the CI gate on every push; the `slow` tier is
+production-scale physics and runs in three places: locally
+(`uv run pytest -m slow`, serial — the decks are sized in gigabytes), in
+the Docker `test` image, and on demand in CI, where a reviewer applies the
+`validate:*` label that covers the change and
+`.github/workflows/validation.yml` runs that suite (or a manual
+`workflow_dispatch` names it). The label is a human judgement — a path
+filter cannot tell whether a change can move a number — and the workflow's
+advisory note exists only to point out when that judgement has not been
+taken.
+
+The harness groups in `validation/n2/experiment.py` sit under the same cost
+rule with a per-group budget of roughly 60 seconds. A full time-dependent
+2-D propagation at `TD_WORKING_GRID` costs `~210-250s`
+(`validation/n2/experiment.py:189`) — even the *shortest* configuration on
+the sub-project's own T-scan (T=600) costs `~85s`, over budget, and is also
+the least-converged point that scan measured (sigma_TD/sigma_TI = 0.760
+there vs 0.931 at the converged T=1500). So Group F1
+(`validation/n2/td_exact2d.py`) does not run a TD propagation at all: it
+reports the already-validated $\sigma_\mathrm{TD}$ as a cited, literal
+constant, recomputing only the cheap $\sigma_\mathrm{TI}$ side live every
+harness run. The genuine PASS/FAIL gate on the TD-vs-TI agreement lives in
+the `slow` tier where ADR 0005 puts costs of this size:
 `projects/n2_2d_td_cross_section/test_td_cross_section.py`'s
-`@pytest.mark.slow` tests, run explicitly with
-`uv run pytest projects/n2_2d_td_cross_section -m slow` rather than as part
-of a default harness pass. The same pattern — a cheap, always-live check in
-the harness paired with an expensive, opt-in `@slow` pytest gate elsewhere —
-recurs in `validation/tuning`, whose 2-D spot-checks and convergence tests
-(`test_emoscat_decks.py`, `test_resonance_aware.py`) are both
-`@pytest.mark.slow` and excluded from a default `not slow` pytest run.
+`@pytest.mark.slow` tests, covered by the `validate:n2` label. The same
+pattern — a cheap, always-live check in the harness paired with an
+expensive, opt-in `@slow` pytest gate elsewhere — recurs in
+`validation/tuning`, whose 2-D spot-checks and convergence tests
+(`test_emoscat_decks.py`, `test_resonance_aware.py`) are `@pytest.mark.slow`
+and run under the `validate:tuning` label.
 
 ## Reading a NOTE row
 
