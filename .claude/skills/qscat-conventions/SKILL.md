@@ -69,7 +69,7 @@ handle.
 ### What is enforced, and what is convention-by-review
 
 `tests/test_docs_portability.py` scans every `docs/physics/*.md` outside its
-`SITE_FIRST_PAGES` allowlist and **mechanically enforces five** of the rules
+`SITE_FIRST_PAGES` allowlist and **mechanically enforces six** of the rules
 above:
 
 | rule | detector |
@@ -132,7 +132,8 @@ top-level spine:
 
 This is the rule for NEW notes. Existing notes migrate opportunistically —
 when a note is being edited anyway — never as a big-bang re-heading.
-Already conforming: `n2-resonance`, `n2-cross-section`,
+Closest to the spine today (results-first content early, though not yet
+under these exact headings): `n2-resonance`, `n2-cross-section`,
 `n2-td-cross-section`, `nd-tensor-hamiltonian`, `femdvr-ecs`,
 `exact-2d-resonances`; results-first retrofits (Key result prepended,
 bodies untouched): `discretisation-tuning`, `mumps-sparse-backend`,
@@ -181,7 +182,7 @@ Only validated, reusable code lives here (see `qm-method-lifecycle` step 5) —
 - **Cross-arch BLAS floor:** a golden value produced *through a sparse
   solve* is compared at `rtol=1e-9`, never `1e-12`. The identical solve on
   a different BLAS (CI's Linux OpenBLAS vs a Mac's Accelerate) differs at
-  ~1e-10–1e-11, and a `1e-12` gate on such a golden has already failed in
+  ~1e-12 (2–3 ULPs), and a `1e-12` gate on such a golden has already failed in
   CI for exactly this reason. The `1e-12` band above is for two
   implementations of the *same deterministic arithmetic* on the same
   machine, not for cross-architecture goldens.
