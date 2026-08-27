@@ -15,7 +15,7 @@
 #
 # CUDA ships cuBLAS/cuSPARSE/cuSOLVER in the -devel image; cuDSS (the sparse
 # direct solver) would be added here when the GPU SparseLU backend lands.
-FROM nvidia/cuda:12.4.1-devel-ubuntu22.04
+FROM nvidia/cuda:13.3.1-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
