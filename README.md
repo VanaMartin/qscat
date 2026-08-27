@@ -48,6 +48,9 @@ Molecules (preset variants -- valid observables):
   H2P  presets=['emoscat', 'proxy'] observables=['dr']
   N2   presets=['emoscat'] observables=['da', 've']  (closed-in-range: ['da'])
   NO   presets=['emoscat'] observables=['da', 'resonance_levels', 've']
+  O2   presets=['tuner'] observables=['ve']
+  O2_SO12 presets=['tuner'] observables=['ve']
+  O2_SO32 presets=['tuner'] observables=['ve']
 ```
 
 Check a config is well-formed (schema + molecule/observable validity + grid
@@ -133,7 +136,7 @@ Every `qscat-run run` writes into `output_dir` (or `--output DIR`):
 ## Config schema (summary)
 
 ```yaml
-molecule: F2                     # N2 | NO | F2 | H2P
+molecule: F2                     # N2 | NO | F2 | H2P | O2 (+ O2_SO12/O2_SO32)
 methods: [ti, td]                # any subset of {ti, td, lcp, nrm}
 observables:                     # a LIST -- VE and DA/DR can be requested together
   - {kind: ve, channels: [0, 1, 2]}   # final vibrational states (list) or a count (int)

@@ -84,7 +84,7 @@ See the `docs/` tree in the repository for the theory notes and more examples
 | `qscat.ecs` | exterior-complex-scaling map + resonance-pole finder |
 | `qscat.evolution` | Crank–Nicolson and diagonal-Padé time propagators |
 | `qscat.core` | model-independent VE/DA/DR engine (TI + TD) |
-| `qscat.model` | molecule models (N₂, NO, F₂, H₂⁺) + the `ResonanceModel` protocol |
+| `qscat.model` | molecule models (N₂, NO, F₂, H₂⁺, the fitted O₂) + the `ResonanceModel` protocol |
 | `qscat.tuning` | automatic FEM-DVR-ECS grid tuner |
 | `qscat.viz` | wavefunction rendering and animation (needs the `plot` extra) |
 
