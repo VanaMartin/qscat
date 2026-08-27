@@ -45,7 +45,7 @@ class TensorGrid:
 
     @property
     def grids(self) -> tuple[FemDvrEcsGrid, ...]:
-        """The per-dimension `FemDvrEcsGrid`s, in tensor order."""
+        """The per-dimension `FemDvrEcsGrid` objects, in tensor order."""
         return self._grids
 
     @property
