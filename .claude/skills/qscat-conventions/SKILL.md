@@ -163,7 +163,7 @@ prepended or moved up, body prose otherwise unchanged):
 | `linalg`    | Linear algebra helpers                                  |
 | `units`     | Atomic-unit conversions (`units.py`, not a subpackage dir)|
 | `core`      | Model-independent electron–diatomic scattering engine (driven/TI, TD, DA/DR, LCP, NRM, resonance verification) |
-| `model`     | The `ResonanceModel` protocol + the per-molecule registry (`N2`, `NO`, `F2`, `H2P`) |
+| `model`     | The `ResonanceModel` protocol + the per-molecule registry (`N2`, `NO`, `F2`, `H2P`, and the fitted `O2`/`O2_SO12`/`O2_SO32` via `qscat.model.flexible`) |
 | `tuning`    | Automatic FEM-DVR-ECS discretisation tuner                |
 | `viz`       | Wavefunction rendering and animation (plot extra)         |
 

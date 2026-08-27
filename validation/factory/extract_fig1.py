@@ -39,7 +39,7 @@ def _merge(v: np.ndarray) -> np.ndarray:
 
 
 def _calibrate(draw) -> tuple[float, float, float, float]:
-    x0, x1, y0, y1 = FRAME
+    x0, _x1, _y0, y1 = FRAME
     rects = []
     for d in draw:
         if d.get("fill") != (0.0, 0.0, 0.0) or d["rect"].y1 > y1 + 20:

@@ -1,7 +1,11 @@
 # Potential factory — fitting model surfaces to target curves
 
-**Status:** toy stage (`projects/potential_factory/`); promotion to
-`qscat.factory` waits for the first real-molecule (O₂) fit.
+**Location:** `projects/potential_factory/` (the fitter: `target`, `extract`,
+`tracker`, `fit`, `report`), `qscat.model.flexible` (the promoted ansatz),
+`validation/factory/` (the round trips, the O₂ campaign and its results).
+**Origin:** `docs/superpowers/specs/2026-08-24-potential-factory-design.md`.
+**Status:** the fitter is toy-stage; the ansatz and the fitted `qscat.model.O2`
+(+ `O2_SO12`/`O2_SO32`) are promoted.
 **Relates to:** `docs/physics/potential-factory-options.md` (why the factory
 exists, the target-tier survey it is built from, and the decisions taken on
 it), `docs/physics/nonlocal-resonance-model.md` (the T3 forward model
@@ -9,6 +13,27 @@ it), `docs/physics/nonlocal-resonance-model.md` (the T3 forward model
 this package fits against), `docs/physics/n2-resonance.md` (the published
 `E_res(R_0)`/$\Gamma(R_0)$ values this package's pole solver reproduces).
 **Units:** atomic units.
+
+## Key result
+
+The factory fits a `FlexibleDiatomicModel` — EMO neutral curve, Gaussian well
+with $\lambda(R)$ and $\alpha(R)$, optional repulsive shell — to a tiered
+`Target` (T0 neutral curve, T1 pole curves, `asymptote`, T3 energy-dependent
+width) and stops-and-reports per tier. It round-trips the three published
+models' own curves to 1e-3–1e-4 relative (N₂ 9.9e-4, NO 2.1e-3, F₂ 1.5e-3),
+and the observable-level check on the `emoscat` decks reproduces the
+published models' VE/DA cross sections to 1e-9. Its first real-molecule
+target, O₂ from the vector-extracted figures of Alt & Houfek (2021), is met
+at the extraction floor over the full 1.85–6 bohr range (T1 rms 20 meV,
+$\Gamma$ 8 %/14 %, asymptote to −0.08 mHa at 14 bohr; 87 s on a laptop) once
+$\lambda(R)$ takes the long-range-correct `TailR` form, and the exact 2-D VE
+cross section of the fitted potential — spin–orbit components summed at ⅓
+each, 3343 energies × six channels each with MUMPS — sits on the paper's own
+nonlocal-model doublets in all six 0 → v' panels (positions within 1–8 meV,
+heights 0.9–1.1 on the main peaks, doublet separation 19.0–19.3 meV). The
+metric that predicted that figure was not the curve rms but the anion's
+quasi-bound levels (±7 meV over v = 0…24); the open item is T3, which is not
+discrete-state-consistent. Nothing is fitted to or compared with experiment.
 
 ## What it does
 
@@ -132,7 +157,7 @@ the angle-stability gate itself, not a tracker defect.
 
 **`fit_neutral`'s T0 stage** fits the EMO curve at the target table's own
 nodes (a `CubicSpline` passes exactly through its input data, so an off-node
-probe grid would inherit its `O(h⁴)` interpolation error as a systematic
+probe grid would inherit its $O(h^4)$ interpolation error as a systematic
 residual floor), then checks the **vibrational ladder** the fitted curve
 implies: $\varepsilon_1 - \varepsilon_0$ from `qscat.core.vibrational.vibrational_states` on
 `qscat.core.grids.nuclear_grid()`, against the target's own. `"met"` requires
@@ -355,7 +380,7 @@ observables tolerate is the sensitivity budget, still to be measured. Figures:
 `docs/physics/figures/{n2,no,f2}-factory-ve.png`,
 `{no,f2}-factory-da.png`.
 
-## O₂ — the first real-molecule target, phase 1 (image match)
+## O₂ — the first real-molecule target, from the figure to its VE cross section
 
 `validation/factory/fit_o2.py` fits the factory to O₂ as published by Alt &
 Houfek, Phys. Rev. A **103**, 032829 (2021) (`reference/literature/
@@ -363,7 +388,7 @@ alt-houfek-2021-pra103-032829.md`). The target is *not* digitised by eye: the
 paper's Fig. 2 is embedded as vector graphics, and `validation/factory/
 extract_fig2.py` recovers `V_0(R)`, the anion curve `V_ion(R)` (the dashed real
 part of the resonance energy below the crossing, the bound curve above it)
-and `Γ(R)` from the PDF's paths — axes calibrated from the tick marks
+and $\Gamma(R)$ from the PDF's paths — axes calibrated from the tick marks
 (residuals 3e-4 bohr, 1.4e-3 eV), each curve's centreline as the median of
 its filled outline's two edges per bin — to a vertical precision of ~0.02 eV
 (`validation/factory/data/o2/README.md`). The extracted `V_0` has its minimum
@@ -371,18 +396,18 @@ at −5.259 eV, Table I's calculated D₀ plus the zero-point energy, and its
 ladder `G(1)−G(0)` = 1607 cm⁻¹ against the spectroscopic 1551 (the paper's
 MRCI curve is ~3 % stiffer than experiment; the T0 check therefore uses the
 curve's own ladder). The energy-dependent width comes from Table II's
-`Γ̃(ε,R) = 2π ε^{5/2} A(R) e^{−B(R)ε}`; the electron-affinity asymptote from
+$\tilde\Gamma(\varepsilon,R) = 2\pi\,\varepsilon^{5/2} A(R)\,e^{-B(R)\varepsilon}$; the electron-affinity asymptote from
 Table I's EA(O) = 1.4611 eV. Because the data are a figure, the tolerances of
 this phase are the extraction floor (`IMAGE_TOL`: 20 meV on `V_0`, 40 meV on
-`E_res`, 20 % on `Γ`), not the sensitivity budget; `fit()` runs with
+`E_res`, 20 % on $\Gamma$), not the sensitivity budget; `fit()` runs with
 `continue_on_miss` so every tier reports.
 
 **The asymptote is theory, not the figure.** Both curves end at energies
 that are atomic constants, and the fitter treats them as such rather than
 reading them off a table that stops at 6 bohr: `V_0(R→∞) = 0` (free atoms; the
 EMO form has it built in) and `V_ion(R→∞) = −EA(O)` (O + O⁻; Table I),
-approached through the ion–atom polarisation `−α_d/(2R⁴)` with `α_d(O) =
-5.3(2)` a.u. (`reference/literature/schwerdtfeger-nagle-2019-molphys117-1200.md`).
+approached through the ion–atom polarisation $-\alpha_d/(2R^4)$ with $\alpha_d(\mathrm{O}) =
+5.3(2)$ a.u. (`reference/literature/schwerdtfeger-nagle-2019-molphys117-1200.md`).
 Two things in that sentence are the operator's per-molecule judgement,
 declared on the `ResonanceTarget` (`R_inf`, `tail`) and not library
 constants: *which* tail applies, and *from where* the curve follows it. For
@@ -399,21 +424,21 @@ exists because one node at 10 bohr proved worthless: the sigmoid's inflection
 ran off to large `R`, held `−EA` at 10 and sat 0.2 eV above it at 20 (measured
 on the first O₂ fit).
 
-**The `λ(R)` form.** With the asymptote pinned, the sigmoid × polynomial
+**The $\lambda(R)$ form.** With the asymptote pinned, the sigmoid × polynomial
 `SmoothR` could hold the table *or* the tail but not both (pinning it cost
-T1 20 meV and 30 % of `Γ` and still missed by 3.5 mHa), and over the full
-1.85–6.0 bohr range it fell into a wrong basin (`λ` flat at 3.55, `α` 0.245)
-regardless. `TailR` replaces it for O₂: `λ(R) = λ_∞ + (1 − y_q(R))·P(y_p(R))`
+T1 20 meV and 30 % of $\Gamma$ and still missed by 3.5 mHa), and over the full
+1.85–6.0 bohr range it fell into a wrong basin ($\lambda$ flat at 3.55, $\alpha$ 0.245)
+regardless. `TailR` replaces it for O₂: $\lambda(R) = \lambda_\infty + (1 - y_q(R))\,P(y_p(R))$
 with `q = 4`, so every term dies as `R^{−4}` — the polarisation power — and
-`λ(∞) = λ_∞` exactly; `P` is a plain polynomial in Le Roy's bounded `y_p`, so
+$\lambda(\infty) = \lambda_\infty$ exactly; `P` is a plain polynomial in Le Roy's bounded `y_p`, so
 the fit is linear in its coefficients and has no inflection to run away. The
 published models keep their sigmoid (`from_diatomic` embeds them exactly),
 and a floor `f_1 ≥ 1/(R_max − R_min)` now stops a sigmoid from degenerating
-into a constant under the polynomial (the O₂ fits had reached `f_1 = 10⁻⁶`,
+into a constant under the polynomial (the O₂ fits had reached $f_1 = 10^{-6}$,
 `R_f = 25`, coefficients of order 10²).
 
 **Result (2026-08-25, range 1.85–6.0 bohr, 40 nodes, 5-term EMO, `TailR`
-`λ(R)` with nine and `α(R)` with three polynomial terms, r32/order-11
+$\lambda(R)$ with nine and $\alpha(R)$ with three polynomial terms, r32/order-11
 electronic pair, `R_inf = 14`, **87 s** on the laptop;
 `validation/factory/results/o2-fit-report.json`,
 `docs/physics/figures/o2-factory-fit.png`):**
@@ -421,15 +446,15 @@ electronic pair, `R_inf = 14`, **87 s** on the laptop;
 | tier | status | measured |
 |---|---|---|
 | T0 neutral curve | **met** | rms 14 meV, max 86 meV (the wall); ladder to 0.3 % of the curve's own |
-| T1 pole curves | **met** | `E_res` rms **20 meV** (the extraction floor), max 59 meV; `Γ` rel rms 8 %, max 14 %; 39/40 nodes tracked, 40/40 re-walked; crossing 2.2890 vs 2.289 bohr; DA endothermic (+) |
-| asymptote | **met** | `V_ion − (−EA − α_d/2R⁴)` = −0.08 / −0.02 / −0.02 mHa at 14 / 31 / 70 bohr; `V_0(14) = 0` |
+| T1 pole curves | **met** | `E_res` rms **20 meV** (the extraction floor), max 59 meV; $\Gamma$ rel rms 8 %, max 14 %; 39/40 nodes tracked, 40/40 re-walked; crossing 2.2890 vs 2.289 bohr; DA endothermic (+) |
+| asymptote | **met** | $V_\mathrm{ion} - (-\mathrm{EA} - \alpha_d/2R^4)$ = −0.08 / −0.02 / −0.02 mHa at 14 / 31 / 70 bohr; `V_0(14) = 0` |
 | T3 energy-dependent width | not met | log-rms 1.1 against Table II; the shell fit cannot move it (see below) |
 
 Beyond the table the model is monotone: `V_ion + EA` = −89, −44, −15, −4,
 −1.4 meV at 7, 8, 10, 14, 20 bohr, the charge-resonance-plus-polarisation
-approach one expects. The fitted `λ(R)` runs from ~4.3 at 1.85 bohr through a
-maximum of 5.23 near 3.5 to `λ_∞ = 5.06` with `α ≈ 0.36` — a d-wave well of
-N₂'s kind, as expected for the same `²Π_g` symmetry. The whole run is 13×
+approach one expects. The fitted $\lambda(R)$ runs from ~4.3 at 1.85 bohr through a
+maximum of 5.23 near 3.5 to $\lambda_\infty = 5.06$ with $\alpha \approx 0.36$ — a d-wave well of
+N₂'s kind, as expected for the same $^2\Pi_g$ symmetry. The whole run is 13×
 faster than the sigmoid fits (85–87 s vs 430–1164 s) because the polish now
 converges in under twenty evaluations.
 
@@ -437,13 +462,13 @@ converges in under twenty evaluations.
 vibrational-excitation cross section is a comb of narrow peaks at the anion's
 quasi-bound levels, so the number that matters is not an rms over the curve
 but the levels: `validation/factory/o2_levels.py` solves the 1-D nuclear
-problem in `V_ion(R) − iΓ(R)/2` once in the extracted curves and once in the
+problem in $V_\mathrm{ion}(R) - i\Gamma(R)/2$ once in the extracted curves and once in the
 fitted model's (a seeded `walk_t1`), and compares `E_v − E_0(neutral)` — where
-each peak sits — and `Γ_v` — how wide it is
+each peak sits — and $\Gamma_v$ — how wide it is
 (`validation/factory/results/o2-anion-levels.csv`). On the committed model
 the peak positions agree to **±7 meV over v = 0…24** (0–2.3 eV, the paper's
 whole Fig. 5 window) and the widths to ~10 % from v ≈ 7 up; the sub-0.1 meV
-widths of v = 2–5 are 30–50 % over, set by `Γ(R)` right at the crossing where
+widths of v = 2–5 are 30–50 % over, set by $\Gamma(R)$ right at the crossing where
 the extracted curve is at its precision floor. Two earlier fits make the point
 that this check is not redundant with T1: the 4.5-bohr sigmoid fit (T1 rms 74
 meV) put every level −20 meV low with widths 10–25 % broad, and the first
@@ -459,22 +484,22 @@ verification walk is *seeded* on the target's own pole, because the default
 window's global residual-argmin picks the deepest angle-stable state in a
 well that holds more than one; the electron-affinity asymptote is a set of
 *nodes of the polish* (bound poles at `R_inf` and beyond, see above) rather
-than a shift of `lam.f_inf` applied afterwards, which moved `λ(R)` at every
+than a shift of `lam.f_inf` applied afterwards, which moved $\lambda(R)$ at every
 `R` and undid a polish that had reached 1.3 mHa; T3 re-walks the T1 nodes after the shell is
 fitted and fails if the shell broke them; a crossing-slice node (`E_res > 0`
-with `Γ` under the floor) is "no target" rather than an impossible bound
-state; and the EMO's `β(R)` is kept positive by bounds and a penalty, since
+with $\Gamma$ under the floor) is "no target" rather than an impossible bound
+state; and the EMO's $\beta(R)$ is kept positive by bounds and a penalty, since
 a 5-term EMO free to go negative at small `R` produced a curve binding no
 levels at all.
 
-**One open finding.** The T3 comparison is not discrete-state-consistent: the factory's `Γ̃(ε,R)` is built on the
+**One open finding.** The T3 comparison is not discrete-state-consistent: the factory's $\tilde\Gamma(\varepsilon,R)$ is built on the
 R-independent discrete state (choice B), while Table II is a Breit–Wigner fit
 of R-matrix eigenphase sums, i.e. the width of the resonance *pole* as a
 function of energy — their energy dependences differ (the factory's is too
 flat: ~ε^{1.5} over 0.05–0.5 eV where Table II goes as ε^{2.5}e^{−Bε}), and the
 repulsive shell cannot reconcile them. A real-molecule T3 target should be
 compared through the physical, R-dependent discrete state (choice A) or
-through the pole width `Γ(R) = Γ̃(E_res(R), R)` alone, which T1 already gates.
+through the pole width $\Gamma(R) = \tilde\Gamma(E_\mathrm{res}(R), R)$ alone, which T1 already gates.
 It belongs to the O₂ plan's next phase, together with the authors' tables;
 it does not stand between this model and its VE cross section, which the
 exact 2-D solver computes from the potential surface alone.
@@ -486,7 +511,7 @@ the fitted model is the registry entry `qscat.model.O2` — the first entry that
 is a fit rather than a published parameter set, its constants copied from the
 committed report key for key and locked to it by
 `validation/factory/test_o2_report.py`. That lock caught a real gap: the
-`y_p` reference radius inside `λ(R)`/`α(R)` is a *frame* constant the report
+`y_p` reference radius inside $\lambda(R)$/$\alpha(R)$ is a *frame* constant the report
 does not record (it stays at the seed's 2.2819 bohr, not the fitted `R_e` of
 2.268), and a registry built from the report alone was 1e-2 Ha off in the
 well. Its decks come from the discretisation tuner (`validation/factory/
@@ -498,7 +523,7 @@ the anion's outer turning point at 2.3 eV is 4.0 bohr) — 289 points. All
 three 1-D probes pass at the window's top (0.10 Ha): channel representation
 4e-5, the anion bound state to 2e-10, the 12 lowest neutral levels to 1.2e-3
 (the last level marginal). **The 2-D spot check overruled them**, exactly as
-it did for F₂: one nuclear h-refinement moved `σ_{0→1}` at 1.36 eV by
+it did for F₂: one nuclear h-refinement moved $\sigma_{0\to 1}$ at 1.36 eV by
 **69 %**, after which both further refinements move it under 2 %. The reason
 is the observable, not the mesh: the cross section *at* an energy sits on a
 comb of 1–8 meV peaks, so a level shift of 3 meV — the 1e-3 the probe
@@ -511,8 +536,8 @@ N₂'s 1.15) and returned 0°, so growth below an absolute 1e-12 Ha floor no
 longer counts. The `apps/qscat-run` preset `O2:tuner` carries the decks
 verbatim (`test_o2_grids.py` locks them), VE only, and the example
 `o2-ve.yaml` is *generated* by `validation/factory/o2_ve_energies.py` with a
-level-aware mesh — a 1 mHa background grid plus 15 points across ±5 widths of
-every anion level from the spectral check's own table (489 energies) —
+level-aware mesh — a 0.5 mHa background grid plus 121 points across ±6 widths
+of every anion level from the spectral check's own table (3343 energies) —
 because O₂'s peaks are 0.01–8 meV wide and any uniform sweep one can afford
 walks past them.
 
@@ -608,7 +633,7 @@ splitting curve, and nothing here was tuned to it.
 ## Limitations
 
 **The sigmoid-constant degeneracy.** N₂'s own published $\lambda(R)$ sigmoid has
-extreme raw constants (`R_f = −27.98`, `f_0 ≈ −7×10¹³`) — the sigmoid's
+extreme raw constants ($R_f = -27.98$, $f_0 \approx -7\times 10^{13}$) — the sigmoid's
 midpoint sits far outside the physical `R` range, so the curve is shaped by
 the *ratio* of huge, nearly-cancelling terms. Fitting those constants directly
 with an unscaled least squares is catastrophically ill-conditioned: it can

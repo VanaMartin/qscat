@@ -34,7 +34,7 @@ from qscat.tuning import (
     refine_to_2d_convergence,
 )
 
-__all__ = ["deck", "o2_grids", "o2_decks", "truncate_real", "NUCLEAR_R_CUT", "main"]
+__all__ = ["NUCLEAR_R_CUT", "deck", "main", "o2_decks", "o2_grids", "truncate_real"]
 
 E_WINDOW = (0.002, 0.10)  # Ha: 0.05-2.7 eV, the paper's Fig. 5 window
 N_VIB = 12

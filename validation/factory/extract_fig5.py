@@ -167,7 +167,7 @@ def _mask_legend(P: np.ndarray, frame) -> np.ndarray:
     dashes `KEY_ROWS_PT[1]` below the top edge (measured on the page). Only
     two thin bands are removed, so a real peak crossing them keeps its top
     to within a band's half-height (0.0002 of a panel's range)."""
-    x0, x1, y0, y1 = frame
+    _x0, x1, y0, _y1 = frame
     in_x = (P[:, 0] >= x1 - KEY_X_PT[0]) & (P[:, 0] <= x1 - KEY_X_PT[1])
     in_rows = np.zeros(P.shape[0], dtype=bool)
     for row in KEY_ROWS_PT:

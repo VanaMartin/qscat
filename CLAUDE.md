@@ -574,7 +574,7 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               a comb of meV peaks needs levels far tighter than the probe's
               1e-3; 324 × 549 = 178k unknowns; `test_o2_grids.py` locks the
               `O2:tuner` preset to it) and `o2_ve_energies.py` writes the
-              LEVEL-AWARE energy mesh (background grid + 15 points across ±5
+              LEVEL-AWARE energy mesh (background grid + 121 points across ±6
               widths of each level) into `apps/qscat-run/examples/o2-ve.yaml`
               — a uniform sweep walks past 0.01–8 meV peaks. `extract_fig5.py`
               vector-extracts the paper's OWN NRM/LCP VE curves (Fig. 5, six
