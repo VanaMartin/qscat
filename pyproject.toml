@@ -148,6 +148,9 @@ convention = "numpy"
 "libs/qscat/tests/test_correlation.py" = ["E741"]
 # Same rationale -- transcribes the radial functions' `l` parameter verbatim.
 "libs/qscat/tests/test_kernel_consolidation_oracle.py" = ["E741"]
+# `l` is the partial-wave angular momentum quantum number in coupled-partial-wave
+# models; the no_coupled_channels project transcribes channel couplings using it.
+"projects/no_coupled_channels/*" = ["E741"]
 # Docstring presence (D) is a shipped-library contract; tests, research
 # projects, validation harnesses and app internals are exempt. ANN beyond
 # the annotations mypy --strict already enforces is likewise lib-only.
