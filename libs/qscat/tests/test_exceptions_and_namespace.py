@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import warnings
+
 import pytest
 import qscat
 from qscat.exceptions import (
@@ -45,3 +47,16 @@ def test_lazy_namespace_exposes_submodules() -> None:
         assert name in dir(qscat)
     with pytest.raises(AttributeError):
         _ = qscat.not_a_submodule
+
+
+def test_lazy_submodule_import_does_not_warn() -> None:
+    # `qscat.__getattr__` is a lazy submodule importer (PEP 562), not a
+    # deprecation shim, and must resolve submodules silently.
+    #
+    # Call `qscat.__getattr__` directly (rather than `qscat.dvr`) so the test
+    # still exercises the hook even if some other test already imported and
+    # cached the submodule as a real module attribute.
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", DeprecationWarning)
+        module = qscat.__getattr__("dvr")
+    assert module.__name__ == "qscat.dvr"

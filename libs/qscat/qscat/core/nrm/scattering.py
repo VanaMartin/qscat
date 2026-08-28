@@ -15,8 +15,6 @@ passes in, so the right-hand side has finite support in the real region.
 
 from __future__ import annotations
 
-import warnings
-
 import numpy as np
 import numpy.typing as npt
 
@@ -156,24 +154,3 @@ def scattering_state_minus(
     out = np.conjugate(plus)
     out[grid.points.imag != 0.0] = 0.0
     return np.asarray(out, dtype=np.complex128)
-
-
-# --- Deprecated aliases (2026-08-25 API surface pass) ------------------------
-# One release cycle per ADR 0004, then delete this block. Not in `__all__`:
-# the public surface is the new name; the alias only keeps old imports alive.
-
-_DEPRECATED = {"free_hamiltonian": "electronic_free_hamiltonian"}
-
-
-def __getattr__(name: str) -> object:
-    if name in _DEPRECATED:
-        new = _DEPRECATED[name]
-        warnings.warn(
-            f"{__name__}.{name} was renamed to {new} in the 2026-08-25 API "
-            "surface pass; the old name is a deprecated alias for one release "
-            "cycle (docs/adr/0004-public-api-stability-policy.md)",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return globals()[new]
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -50,8 +50,6 @@ sections).
 
 from __future__ import annotations
 
-import warnings
-
 import numpy as np
 import numpy.typing as npt
 from scipy.special import spherical_jn, spherical_yn
@@ -195,11 +193,10 @@ def _hankel_point_value(z_position: float, k: float, l: int, charge: int, mass: 
 
 
 def hankel_point_value(
-    z_position: float | FemDvrEcsGrid,
+    z_position: float,
     k: float,
     l: float | int = 0,
     charge: float | int = 0,
-    _legacy_charge: float | int = 0,
     *,
     mass: float = 1.0,
 ) -> complex:
@@ -222,23 +219,7 @@ def hankel_point_value(
     2.0` exactly), and `coulomb_h1_en(..., 1.0, l)` is the same literal `1.0`
     the pre-`mass` code passed. A nuclear (dissociation) caller passes
     `mass=model.mu`.
-
-    Deprecated: the previous signature took an unused leading `grid`
-    argument (`hankel_point_value(grid, z_position, k, l, charge=0, *,
-    mass=1.0)`); that form still works for one release cycle but warns.
     """
-    if isinstance(z_position, FemDvrEcsGrid):
-        warnings.warn(
-            "hankel_point_value no longer takes a grid argument (it was "
-            "documented-unused); drop the first argument",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        # legacy form: (grid, z_position, k, l, charge=0, *, mass=1.0) --
-        # every argument sits one slot to the right of its new home.
-        # `_legacy_charge` is positional-or-keyword (not keyword-only) so
-        # the old 5-positional call still binds its trailing `charge`.
-        return _hankel_point_value(float(k), float(l), int(charge), int(_legacy_charge), mass)
     return _hankel_point_value(float(z_position), float(k), int(l), int(charge), mass)
 
 
@@ -270,11 +251,10 @@ def _outgoing_surface_wave(
 
 
 def outgoing_surface_wave(
-    z_surface: float | FemDvrEcsGrid,
+    z_surface: float,
     k: float,
     l: int,
     charge: float = 0.0,
-    _legacy_charge: float = 0.0,
     *,
     mass: float = 1.0,
 ) -> tuple[complex, complex]:
@@ -319,21 +299,5 @@ def outgoing_surface_wave(
     stencil) of `coulomb_h1_en(..., mass, l)` itself. Kept structurally for a
     charged target (e.g. H2+); N2/F2 are neutral, so only the analytic
     branch is exercised by the neutral-molecule gates.
-
-    Deprecated: the previous signature took an unused leading `grid`
-    argument (`outgoing_surface_wave(grid, z_surface, k, l, charge=0.0, *,
-    mass=1.0)`); that form still works for one release cycle but warns.
     """
-    if isinstance(z_surface, FemDvrEcsGrid):
-        warnings.warn(
-            "outgoing_surface_wave no longer takes a grid argument (it was "
-            "documented-unused); drop the first argument",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        # legacy form: (grid, z_surface, k, l, charge=0.0, *, mass=1.0) --
-        # every argument sits one slot to the right of its new home.
-        # `_legacy_charge` is positional-or-keyword (not keyword-only) so
-        # the old 5-positional call still binds its trailing `charge`.
-        return _outgoing_surface_wave(float(k), float(l), int(charge), float(_legacy_charge), mass)
     return _outgoing_surface_wave(float(z_surface), float(k), int(l), float(charge), mass)

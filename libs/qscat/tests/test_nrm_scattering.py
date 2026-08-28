@@ -205,14 +205,3 @@ def test_rejects_non_positive_energy(grid):
     h_free = electronic_free_hamiltonian(grid, ell=1)
     with pytest.raises(ValueError, match="positive"):
         scattering_state(h_free, grid, energy=0.0, ell=1)
-
-
-def test_free_hamiltonian_is_a_deprecated_alias_for_electronic_free_hamiltonian():
-    """lib-C3 rename (2026-08-25): the old name warns and resolves to the new
-    function for one release cycle (ADR 0004)."""
-    from qscat.core.nrm import scattering
-
-    with pytest.warns(DeprecationWarning, match="electronic_free_hamiltonian"):
-        old = scattering.free_hamiltonian
-
-    assert old is scattering.electronic_free_hamiltonian

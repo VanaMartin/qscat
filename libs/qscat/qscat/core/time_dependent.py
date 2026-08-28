@@ -61,7 +61,6 @@ fallback (`free_result=None`) leaves a large spurious elastic background. See
 
 from __future__ import annotations
 
-import warnings
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal, Protocol
@@ -292,12 +291,11 @@ def quadrature_weights(n_t: int) -> npt.NDArray[np.float64]:
     return w
 
 
-# --- Shared S-matrix / sigma transform kernels (kernel consolidation,
-# 2026-08-25). Every TD energy-extraction route -- Tannor-Weeks, Dirac
-# (delta), Flux (flow), on either the electronic (VE) or nuclear (DA) exit
-# axis -- runs the same skeleton: zeros-init, E<=0 early return, Simpson/
-# trapezoid quadrature weights, `e_tot = E + eps[v_init]`, the incident
-# deconvolution `eta_in` (ALWAYS on the electronic incident axis, even for
+# --- Shared S-matrix / sigma transform kernels. Every TD energy-extraction
+# route -- Tannor-Weeks, Dirac (delta), Flux (flow), on either the electronic
+# (VE) or nuclear (DA) exit axis -- runs the same skeleton: zeros-init, E<=0
+# early return, Simpson/trapezoid quadrature weights, `e_tot = E + eps[v_init]`,
+# the incident deconvolution `eta_in` (ALWAYS on the electronic incident axis, even for
 # the nuclear DA extractors), `phase = exp(i*e_tot*t)`, then a per-channel
 # loop that skips closed channels and forms one S-matrix element from the
 # recorded series. Only the per-channel element differs, in two shapes
@@ -1100,64 +1098,3 @@ def td_da_cross_sections_all(
         "delta": dirac.sigma(E),
         "tw": tw.sigma(E),
     }
-
-
-# One deprecation cycle for the pre-promotion private names (lib-m7). The
-# public defs above are the real objects; this only serves old imports.
-_DEPRECATED_ALIASES = {
-    "_s_vector_one_energy": "s_vector_one_energy",
-    "_sigma_one_energy": "sigma_one_energy",
-}
-
-
-def _propagate_legacy(
-    tgrid: TensorGrid,
-    model: ResonanceModel,
-    eps: npt.NDArray[np.float64],
-    chi: npt.NDArray[np.complex128],
-    v_init: int,
-    vprimes: list[int],
-    *,
-    dt: float,
-    n_steps: int,
-    wp_in: _WpIn,
-    wp_out: _WpOut,
-    free: bool = False,
-    order: int = 3,
-) -> PropagationResult:
-    """Old `_propagate` call shape; `eps` was never read."""
-    del eps
-    return propagate_wavepacket(
-        tgrid,
-        model,
-        chi,
-        v_init,
-        vprimes,
-        dt=dt,
-        n_steps=n_steps,
-        wp_in=wp_in,
-        wp_out=wp_out,
-        free=free,
-        order=order,
-    )
-
-
-def __getattr__(name: str) -> object:
-    if name == "_propagate":
-        warnings.warn(
-            "qscat.core.time_dependent._propagate is deprecated; use the "
-            "public propagate_wavepacket (note: the unused eps argument "
-            "is gone from the new signature)",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return _propagate_legacy
-    if name in _DEPRECATED_ALIASES:
-        new = _DEPRECATED_ALIASES[name]
-        warnings.warn(
-            f"qscat.core.time_dependent.{name} is deprecated; use the public {new}",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return globals()[new]
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

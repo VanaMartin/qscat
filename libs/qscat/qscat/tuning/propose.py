@@ -20,7 +20,6 @@ downstream (`analyze_potential` -> `optimal_real_mesh` -> `max_stable_angle`
 from __future__ import annotations
 
 import math
-import warnings
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal, get_args
@@ -352,7 +351,6 @@ def propose_grid(
     coordinate: Coordinate,
     energy_range: tuple[float, float],
     *,
-    rtol: float | None = None,
     incident: IncidentSpec | None = None,
     phase_coeff: float | None = None,
     channel: Channel = "ve",
@@ -369,9 +367,6 @@ def propose_grid(
     -> `tune_ecs_tail` sizes the absorbing tail for the channel wavenumber ->
     the resulting real + tail `ElementSpec` list becomes a `GridSpec` /
     `FemDvrEcsGrid`.
-
-    `rtol` is deprecated: it was never consumed (this a-priori assembler has
-    no eigensolve to converge) and will be removed in a future release.
 
     `phase_coeff`, if given, overrides `optimal_real_mesh`'s calibrated
     default de-Broglie phase-per-`(order-1)` constant `C` -- the knob
@@ -436,15 +431,6 @@ def propose_grid(
       the resonance-aware path is nuclear-only.
     - any other value raises `ValueError`.
     """
-    if rtol is not None:
-        warnings.warn(
-            "propose_grid(rtol=...) was never consumed (the a-priori assembler "
-            "has no eigensolve to converge) and will be removed; pass rtol to "
-            "the probe/refine loop instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
     if channel not in get_args(Channel):
         raise ValueError(f"channel must be 've' or 'dissociation', got {channel!r}")
     if channel == "dissociation" and coordinate != "nuclear":
