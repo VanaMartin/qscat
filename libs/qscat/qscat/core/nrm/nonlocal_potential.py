@@ -55,7 +55,8 @@ __all__ = [
 # outermost node isn't genuinely the phi_d's R_inf (e.g. phi_d pinned at
 # R_inf=10.7 but the ingredient range only sampled out to R=6.0): measured
 # 7.2e-7 there, within a factor of ~1.4 of this threshold and ~1e6x the
-# genuine R0 value above. See task-6-report.md for the full measurement.
+# genuine R0 value above. See docs/physics/nonlocal-resonance-model.md Sec. 5.1
+# for the full measurement.
 TAIL_COUPLING_MAX = 1e-6
 
 

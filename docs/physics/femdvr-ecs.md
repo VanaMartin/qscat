@@ -167,6 +167,34 @@ All four live in `libs/qscat/tests/test_femdvr_ecs.py`.
    bound state (lying below the rotated continuum) must not depend on
    $\theta$, and the two energies are required to agree to `< 1e-4`.
 
+## Bound-versus-continuum separation on this grid
+
+**Key result:** measured on N2's production grid
+(`nuclear_grid(quadrature=10, r_max=22.0, n_complex=5)`, `qscat.model.N2`'s
+`v0`/`mu`, diagonalised with `qscat.dvr.hamiltonian` + `eigen`), the last bound
+level's imaginary part is 1.573e-10 Ha and the first discretized continuum
+level's is 3.016e-06 Ha — a gap of about four orders of magnitude.
+`qscat.core.vibrational`'s `_IM_TOL_HA = 1e-6` sits inside that gap: about
+6000x above the bound ceiling and about 3x below the continuum floor.
+
+On that same grid, true bound vibrational levels range from
+$|\mathrm{Im}(E)| \sim 10^{-16}$ to $10^{-19}$ Ha (deeply bound) up to
+1.573e-10 Ha (the last, least-bound level), while the first discretized
+continuum/dissociative level jumps to 3.016e-06 Ha. `vibrational_states`
+(`qscat.core.vibrational`) uses `_IM_TOL_HA = 1e-6` Ha to separate the two
+populations when selecting the `n` lowest-Re(E) states — comfortably above
+the bound-state ceiling and comfortably below the continuum floor.
+
+A related self-normalization figure justifies a second tolerance one layer up, in
+`qscat.core.channels`. `channel_vector` divides by $\sqrt{c\text{-product}(\chi,\chi)}$
+for a vibrational eigenvector $\chi$ returned by `vibrational_states`; in practice that
+c-product is within $\sim 7 \times 10^{-15}$ of 1.0 for every vibrational state this
+repo uses (an observed round-trip figure; the deck it was measured on is not
+recorded, and the eigenvectors are Hermitian-normalized by `qscat.dvr.eigen`, which
+coincides with the c-product norm for these real bound-state vectors). `channels.py`'s
+`_MIN_NORM2 = 1e-12` guards the division against a near-null vector without ever being
+tripped by a normal one.
+
 ## Known limitations / out of scope
 
 - Only a single, contiguous ECS tail at one shared angle is validated;

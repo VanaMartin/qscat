@@ -61,9 +61,16 @@ class VibrationalBasis(NamedTuple):
     chi: npt.NDArray[np.complex128]  # (n, grid.n) eigenvectors, one row per level
 
 
-# Bound-state signature: true bound levels have |Im(E)| ~ 1e-15 on this ECS
-# grid, while the discretized continuum/dissociative states jump to
-# |Im(E)| ~ 1e-7 or larger. This tolerance sits comfortably between the two.
+# Bound-state signature: measured on N2's production grid
+# (nuclear_grid(quadrature=10, r_max=22.0, n_complex=5), qscat.model.N2's
+# v0/mu, diagonalised with qscat.dvr.hamiltonian + eigen), true bound levels
+# run |Im(E)| ~ 1e-16 to 1e-19 (deeply bound) up to 1.573e-10 (the last,
+# least-bound level), while the first discretized continuum level jumps to
+# |Im(E)| ~ 3.016e-06 -- a gap of about four orders of magnitude. This
+# tolerance sits inside that gap: ~6000x above the bound ceiling and ~3x
+# below the continuum floor.
+# See docs/physics/femdvr-ecs.md, "Bound-versus-continuum separation on this
+# grid".
 _IM_TOL_HA = 1e-6
 
 

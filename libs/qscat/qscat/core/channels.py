@@ -27,8 +27,9 @@ __all__ = ["channel_vector"]
 # `channel_vector` divides by `sqrt(c_product(chi, chi))`; guard against a
 # (near-)null vibrational vector producing a divide-by-(near-)zero rather
 # than a clear error. In practice `c_product(chi, chi)` is within ~7e-15 of
-# 1.0 for every vibrational state this repo uses (see `vibrational_states`'s
-# docstring), so this threshold is cheap insurance, not a normal code path.
+# 1.0 for every vibrational state this repo uses (see
+# docs/physics/femdvr-ecs.md, "Bound-versus-continuum separation on this
+# grid"), so this threshold is cheap insurance, not a normal code path.
 _MIN_NORM2 = 1e-12
 
 

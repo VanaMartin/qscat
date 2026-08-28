@@ -53,44 +53,16 @@ _MIN_NORM2 = 1e-12
 # `PhysicalDiscreteState`'s bound branch: an eigenvalue of `H_el(R)` counts as
 # "genuinely bound" if `Re(E) < 0` and `|Im(E)|` is below this bound. Looser
 # than `dissociation.anion_electronic_states`' `_IM_TOL_HA = 1e-6` (calibrated
-# for a state resolved at an asymptotic, well-separated R) because this branch
-# is evaluated at ARBITRARY R along a continuation walk, including right at
-# the bound/resonant crossing, where a state can carry a small but genuine
-# width even while `Re(E) < 0` -- a true near-threshold Feshbach state, not
-# numerical noise. F2's crossing sampled on the coarse test fixture (R ~ 2.6
-# bohr) has such a state with `|Im(E)| ~ 5.6e-6`, three orders of magnitude
-# below a genuine resonance's width (~1e-3) there. The gate exists to catch the
-# OTHER failure -- no negative-Re eigenvalue at all, i.e. the walk's bound/
-# resonant sign decision was simply wrong for this R -- not to demand
-# asymptotic-grade purity.
-#
-# SIZED ON THE PRODUCTION DECKS, not on that fixture -- WHY 3e-5 AND NOT A
-# NUMBER SOMEONE LIKED. eMoScat's F2 deck has an ELEMENT BOUNDARY at
-# R = 2.596908 (`validation.diatomic.config`'s `nuc_real`, hand-placed on the
-# crossing), so it puts a DVR node 0.0005 bohr from it -- far closer than the
-# coarse fixture above. NO's deck has no such boundary but its uniform
-# 37-element segment still lands a node ~0.005 bohr from its own crossing.
-# The near-threshold state at those nodes carries a width just over 1e-5.
-# Measured spectra of `electronic_hamiltonian`, four lowest by Re(E):
-#
-#   F2, R = 2.5974:  -1.432236e-4 - 1.059e-5j   <- the state, |Im|/|Re| = 0.074
-#                    +4.527175e-3 - 4.435e-3j
-#                    +1.338226e-2 - 1.310e-2j
-#                    +2.666222e-2 - 2.609e-2j
-#   NO, R = 2.2884:  -6.288891e-4 - 1.272e-5j   <- the state, |Im|/|Re| = 0.020
-#                    +4.559187e-3 - 4.551e-3j
-#
-# The neighbouring F2 nodes bracket the crossing and behave: R = 2.60 gives
-# -9.300079e-4 - 5.585e-6j (bound, passes even at 1e-5) and R = 2.59 gives
-# +2.069295e-3 - 5.458e-5j (positive shift, scattering branch, never reaches
-# this guard). Only the node ON the crossing trips it.
-#
-# In both molecules the classification is unambiguous: the next eigenvalue up
-# sits at Re(E) ~ +4.5e-3 with |Im(E)| ~ 4.4e-3, i.e. 7-32x further out in
-# |Re(E)| with a width 358-419x larger. So at 1e-5 the guard was rejecting the
-# very state it exists to accept, and `PhysicalDiscreteState` could not be
-# built on either production deck at all. 3e-5 keeps a 2.4x margin over both
-# measurements while staying two orders below a genuine resonance width there.
+# for a state well-separated from threshold) because this branch runs at
+# ARBITRARY R along a continuation walk, including AT the bound/resonant
+# crossing, where a state can carry a small but genuine width while
+# `Re(E) < 0` -- a true near-threshold Feshbach state, not numerical noise.
+# Sized on eMoScat's F2/NO production decks, whose element boundaries land a
+# DVR node right on the crossing; at the old 1e-5 the guard rejected the very
+# state it exists to accept and `PhysicalDiscreteState` could not be built on
+# either deck. Measured spectra, node distances, and margin:
+# docs/physics/nonlocal-resonance-model.md sec. 11.1 -- do not re-derive them
+# here.
 #
 # WIDENING THIS CANNOT CHANGE WHICH STATE IS SELECTED, for a structural reason
 # rather than an empirical one. On an ECS grid the rotated continuum lies at
@@ -104,18 +76,15 @@ _MIN_NORM2 = 1e-12
 # `ConvergenceError`s into classifications; it cannot silently re-point an
 # existing one.
 #
-# SCOPE: this constant is read by `PhysicalDiscreteState` only (choice A).
-# `AsymptoticDiscreteState` (choice B) goes through
-# `dissociation.anion_electronic_states` and its own `_IM_TOL_HA`, so every
-# choice-B result -- including the headline F2 sigma_DA agreement -- is
-# independent of the value chosen here.
+# SCOPE: read by `PhysicalDiscreteState` only (choice A) -- choice B goes
+# through `dissociation.anion_electronic_states`' own `_IM_TOL_HA`, so every
+# choice-B result (incl. the headline F2 sigma_DA agreement) is independent
+# of this value.
 #
-# KNOWN DESIGN LIMITATION: an ABSOLUTE |Im(E)| bound is intrinsically arbitrary
-# near a crossing, where the state passes continuously from bound to resonant
-# and both parts shrink together -- which is why it needed re-sizing per deck
-# at all. A scale-free criterion (`|Im(E)| < c |Re(E)|`, satisfied by both
-# points above at c = 0.074 and 0.020) would not. Not attempted here; see
-# docs/physics/nonlocal-resonance-model.md.
+# DESIGN LIMITATION: an absolute `|Im(E)|` bound is arbitrary near a crossing,
+# where the state passes continuously from bound to resonant and both parts
+# shrink together -- why it needed re-sizing per deck. A scale-free criterion
+# (`|Im(E)| < c |Re(E)|`) would not; see docs/physics/nonlocal-resonance-model.md.
 _BOUND_IM_TOL = 3e-5
 
 

@@ -333,6 +333,23 @@ electronic shift and evaluates `v0` itself on the contour). Measured harmless:
 `|v0(tail) − v0(R0)| ≤ 6.5e-7` Ha (F₂) and `≤ 1.1e-5` Ha (NO) across every tail node,
 against exit energies of 0.077 and 0.0031 Ha.
 
+### 5.1 What `TAIL_COUPLING_MAX` actually catches
+
+**Key result:** shrinking the ECS pivot does not walk `check_tail_coupling` toward
+tripping — the guard is flat against genuine ingredient sets and fires only on a
+structurally malformed one, six orders of magnitude away.
+
+For `AsymptoticDiscreteState` built at `R_inf = R0` (the production choice), $\phi_d$
+is by construction an exact eigenvector of $H_\mathrm{el}(R_0)$, so $V_{dn}(R_0)$ is
+zero identically regardless of how large or small the box is. Measured on F₂/NO:
+`max |V_dn(R0)|` is 1.8e-12 at `R0 = 6.0` and 2.4e-12 at `R0 = 10.7` for F₂, and 6.8e-13
+at `R0 = 6.0` and 1.0e-12 at `R0 = 10.7` for NO — order $10^{-13}$–$10^{-12}$ Ha across
+every case tried, and flat in `R0`. What the guard actually catches is a truncated or
+otherwise malformed ingredient set — one whose outermost node is not genuinely
+$\phi_d$'s `R_inf` (e.g. $\phi_d$ pinned at `R_inf = 10.7` but the ingredient range
+only sampled out to `R = 6.0`): measured `7.2e-7` there, within a factor of ~1.4 of
+`TAIL_COUPLING_MAX = 1e-6` and ~$10^6$ times the genuine `R0` values above.
+
 ## 6. Validation
 
 Four independent checks, none of which is a restatement of the code's own formula.
@@ -853,6 +870,32 @@ dependence: the two production points satisfy it at **c = 0.074 (F₂)** and
 recalibration. Not attempted here. Note the constant is read by choice A only; every
 choice-B number in §7 and §8, including the headline F₂ DA agreement and the
 sub-0.7 % VE result, is independent of it.
+
+The two measured spectra behind those numbers — `electronic_hamiltonian`'s four lowest
+eigenvalues by Re(E), verbatim:
+
+| Molecule, `R` | Re(E) | Im(E) | note |
+|---|---|---|---|
+| F₂, `R = 2.5974` | -1.432236e-4 | -1.059e-5 | the state, \|Im\|/\|Re\| = 0.074 |
+| F₂, `R = 2.5974` | +4.527175e-3 | -4.435e-3 | |
+| F₂, `R = 2.5974` | +1.338226e-2 | -1.310e-2 | |
+| F₂, `R = 2.5974` | +2.666222e-2 | -2.609e-2 | |
+| NO, `R = 2.2884` | -6.288891e-4 | -1.272e-5 | the state, \|Im\|/\|Re\| = 0.020 |
+| NO, `R = 2.2884` | +4.559187e-3 | -4.551e-3 | |
+
+The two F₂ nodes bracketing the crossing behave: `R = 2.60` gives
+`-9.300079e-4 - 5.585e-6j` (bound, passes even at the old 1e-5 bound) and `R = 2.59`
+gives `+2.069295e-3 - 5.458e-5j` (positive shift, scattering branch, never reaching
+this guard). Only the node landing on the crossing itself, `R = 2.5974`, trips it. A
+coarser test fixture that samples the same F₂ crossing near `R ~ 2.6` bohr independently
+shows a state at `|Im E| ~ 5.6e-6` — three orders of magnitude below a genuine
+resonance's width (`~1e-3`) there.
+
+In both molecules the classification is unambiguous: the next eigenvalue up sits at
+`Re(E) ~ +4.5e-3` with `|Im(E)| ~ 4.4e-3`, i.e. 7-32x further out in `|Re(E)|` with a
+width 358-419x larger than the state being classified. 3e-5 keeps a 2.4x margin over
+both production measurements (1.06e-5 and 1.27e-5) while staying two orders of
+magnitude below that neighbouring width.
 
 ## 12. Running it
 
