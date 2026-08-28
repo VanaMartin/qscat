@@ -1,0 +1,14 @@
+{
+ "summary": {
+  "max_relative_gamma_shift": 0.5935583197046471,
+  "median_relative_sigma_shift": 0.30613743871671084,
+  "max_relative_sigma_shift": 30.655457129388427,
+  "max_n_poles": 1.0,
+  "gamma_s": 0.5,
+  "sigma_s": 0.1
+ },
+ "verdict": {
+  "open": true,
+  "reason": "Gamma moved 59.4% > 5%; sigma_VE moved 30.6% (median) > 5%"
+ }
+}
