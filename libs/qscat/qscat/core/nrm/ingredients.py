@@ -327,16 +327,16 @@ def nrm_ingredients(
         v_dn[j] = d @ (h_el @ vecs)  # Eq. (59)
 
     if min_overlap < _MIN_OVERLAP_WARN:
+        # A hard error would be the better end state here (not raised:
+        # changing this to ConvergenceError requires updating
+        # validation/diatomic/nrm.py's gate too).
         warnings.warn(
             f"nrm_ingredients: minimum |_sign_align overlap| across the R "
             f"walk is {min_overlap:.3g} (< {_MIN_OVERLAP_WARN}), which looks "
             "like a tracking failure -- the wrong P-space state paired "
             "between adjacent nuclear nodes -- rather than a genuine sign "
             "flip. Eq. (60)/(61) will silently use the mispaired V_dn(R)/"
-            "E_n(R) as if they belonged to one physical state. A hard error "
-            "would be the better end state here (not raised: changing this "
-            "to ConvergenceError requires updating "
-            "validation/diatomic/nrm.py's gate too). See "
+            "E_n(R) as if they belonged to one physical state. See "
             "docs/physics/nonlocal-resonance-model.md Sec. 5 and Sec. 11.",
             stacklevel=2,
         )

@@ -2,9 +2,10 @@
 
 `g(r) = (2 pi sigma^2)^{-1/4} exp(-(r-r0)^2/(4 sigma^2)) exp(i p0 r)`
 (eMoScat `input.cpp:240`), converted to FEM-DVR coefficients on the unscaled
-electronic region (`c_j = g(r_j) sqrt(w_j)`, same convention as #6's
-`channel_vector`). `p0 < 0` launches the packet inward, toward the molecule;
-the ECS tail (not evaluated here) absorbs whatever leaves during propagation.
+electronic region (`c_j = g(r_j) sqrt(w_j)`, same convention as
+`qscat.core.channels.channel_vector`). `p0 < 0` launches the packet inward,
+toward the molecule; the ECS tail (not evaluated here) absorbs whatever
+leaves during propagation.
 """
 
 from __future__ import annotations
