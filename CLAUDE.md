@@ -782,10 +782,16 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
 | `discretisation-tuner` | skill | Setting up (or distrusting) a FEM-DVR-ECS grid — supervises the `qscat.tuning` loop (analyze the potential → adaptive equidistribution mesh + h/p + double-ECS-safe tail → convergence probes at the energy extremes → 2-D spot-check → minimal-cost grid at a target precision), instead of hand-picking element lengths. |
 | `mastering-github` | skill | Preparing a branch for review, or deciding whether a file may cite a spec/plan/issue/PR. Holds the rule that **main must stand alone** — a reader with only the clone must understand every shipped file — and the two procedures built on it: `/review-ready` (dissolve working-file content into permanent homes, prune references that don't travel with a clone, self-audit, tidy, flip draft → ready) and `/tidy-history` (rewrite a fix-on-fix branch into logical commits without changing the end state). |
 | `mastering-references` | skill | Adding a paper to `reference/literature/`, writing or updating its reference note, or citing a published result from code or docs. The source PDFs are gitignored, so the TRACKED `*.md` notes are what the repository cites: every extracted fact carries a locator, and every locator carries a **page**. Enforces a page-offset check before any locator is written, and requires parity checks against the code to be run rather than asserted — that discipline has already caught three real discrepancies. |
-| `release-review` | skill | A harsh whole-repo or release-readiness review, or a consistency audit after a multi-commit campaign — parallel read-only review tracks plus the drift checks (prose-vs-code, N-places, all-branches) that single-commit review misses. |
+| `release-review` | skill | A harsh whole-repo or release-readiness review, a consistency audit after a multi-commit campaign (audit mode), or a structural pass over code quality, duplication and placement (structure mode). |
+| `code-mapping` | skill | Structure must be known as measured fact — the AST inventory behind release-review's structure mode. |
+| `code-quality-judging` | skill | Grading files and functions against a fixed rubric: whose chair a comment is written from, unit size, naming, annotation. |
+| `code-consolidation` | skill | Ruling on whether code that looks alike is the same thing twice, and what replaces it. |
 | `port-scout` | agent | Before porting anything from `reference/eMoScat` or `reference/libXcuda` — read-only archaeologist that extracts the math/algorithm, not the C++. |
 | `physics-reviewer` | agent | Before promoting a method into `qscat` — reviews for physical/numerical correctness (units, conservation, boundary conditions, ECS handling, convergence), not style. |
 | `rust-kernel-engineer` | agent | During the optimize-in-Rust stage — builds PyO3/Rust kernels in `native/` mirroring a validated Python API, with benchmarks and differential tests. |
+| `symbol-classifier` | agent | Classifying symbols by measured reach against their stated home; confirming candidate orphans before anything is called dead. |
+| `file-quality-judge` | agent | Grading one review unit against the code-quality-judging rubric, read-only, one instance per unit. |
+| `consolidation-analyst` | agent | Ruling on clone, homonym and holder clusters from the map tables alone. |
 
 For general engineering workflow — brainstorming, TDD, systematic debugging,
 writing/executing plans, requesting code review — use the **Superpowers**
