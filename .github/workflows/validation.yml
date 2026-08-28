@@ -17,6 +17,7 @@ name: Validation
 #   validate:n2        the N2 sub-projects (validation/n2 + projects/n2_*)
 #   validate:diatomic  NO / F2 -- NRM, DA, LCP-vs-exact
 #   validate:factory   the potential-factory project (fits, round trips, targets)
+#   validate:coupled   the NO coupled-partial-wave screen (projects/no_coupled_channels)
 #   validate:h2plus    H2+ -- DR, Rydberg levels, exact resonance states
 #   validate:tuning    the discretisation tuner's own gate
 #   validate:run       qscat-run -- the CLI's end-to-end example configs
@@ -68,6 +69,7 @@ jobs:
               "n2":       "validation/n2 projects/n2_resonance projects/n2_ti_cross_section projects/n2_td_cross_section projects/n2_2d_cross_section projects/n2_2d_td_cross_section",
               "diatomic": "validation/diatomic",
               "factory":  "projects/potential_factory validation/factory",
+              "coupled":  "projects/no_coupled_channels validation/coupled",
               "h2plus":   "validation/h2plus",
               "tuning":   "validation/tuning",
               "run":      "apps/qscat-run/tests",
@@ -164,7 +166,7 @@ jobs:
             echo "so the production-scale tier did not run. If the change could move a cross"
             echo "section, a resonance position, or a grid, apply the suite that covers it:"
             echo
-            echo '`validate:core` `validate:n2` `validate:diatomic` `validate:factory` `validate:h2plus` `validate:tuning` `validate:run` `validate:all`'
+            echo '`validate:core` `validate:n2` `validate:diatomic` `validate:factory` `validate:coupled` `validate:h2plus` `validate:tuning` `validate:run` `validate:all`'
             echo
             echo "If it cannot, no label is needed -- this note is advisory and does not fail the build."
             echo
