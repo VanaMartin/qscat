@@ -107,8 +107,8 @@ def _real_derivative_matrix(
     needed -- `_record` reads `deriv @ d` straight, no further row masking --
     so this returns the thin real-rows-only matrix rather than a dense
     `(n, n)` one with unused ECS-tail rows. Built once per `propagate_nrm`
-    call -- `O(n_real * n)`, the "simpler" option the task brief prefers over
-    an `lru_cache` keyed on `id(grid)`.
+    call -- `O(n_real * n)`, cheap enough that caching it (e.g. an
+    `lru_cache` keyed on `id(grid)`) is not worth the complexity.
     """
     n = grid.n
     mat = np.zeros((real_idx.size, n), dtype=np.complex128)
@@ -127,8 +127,9 @@ def _diagnostics_setup(
 ]:
     """Everything `_record` needs, computed ONCE (not per step): the
     real-region mask, the real-rows-only derivative matrix, the per-real-node
-    `sqrt(w)` DVR weight (Important-1 fix below), and the real node
-    positions. `grid=None` returns all-`None` (the diagnostics-off path).
+    `sqrt(w)` DVR weight (see the UNITS NOTE in `_record`'s docstring for why
+    this factor matters), and the real node positions. `grid=None` returns
+    all-`None` (the diagnostics-off path).
     """
     if grid is None:
         return None, None, None, None
