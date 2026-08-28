@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import os
 import warnings
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal, overload
 
 import numpy as np
@@ -17,6 +17,7 @@ from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
 from qscat.ecs import match_angle_stable
 from qscat.linalg import c_product
 
+from .._archive import load_dataclass_npz, save_dataclass_npz
 from ..grids import assert_shared_real_nodes
 from .curve import _assemble_lcp, _walk_from_anion_seed
 
@@ -99,20 +100,16 @@ class ResonanceLevels:
     def save(self, path: str | os.PathLike[str]) -> None:
         """Write to an `.npz` archive under the dataclass's own field names.
 
-        Mirrors `ExactResonanceStates.save` -- the field names stay the
-        dataclass's business, so a rename cannot silently desynchronize a
-        hand-rolled cache.
+        Shares its mechanism with `ExactResonanceStates.save` -- see
+        `qscat.core._archive` for why the pair round-trips through the
+        dataclass's own field names rather than a hand-rolled cache.
         """
-        np.savez(path, **{f.name: getattr(self, f.name) for f in fields(self)})
+        save_dataclass_npz(self, path)
 
     @classmethod
     def load(cls, path: str | os.PathLike[str]) -> ResonanceLevels:
         """Read back a `save()` file, checking every field is present."""
-        with np.load(path) as z:
-            missing = [f.name for f in fields(cls) if f.name not in z]
-            if missing:
-                raise ValueError(f"{path} is not a ResonanceLevels archive: missing {missing}")
-            return cls(**{f.name: z[f.name] for f in fields(cls)})
+        return cls(**load_dataclass_npz(cls, path))
 
 
 def _check_shared_real_nodes(grid_a: FemDvrEcsGrid, grid_b: FemDvrEcsGrid) -> None:

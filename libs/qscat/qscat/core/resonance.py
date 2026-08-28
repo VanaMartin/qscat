@@ -28,7 +28,7 @@ See `docs/physics/exact-2d-resonances.md`.
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -39,6 +39,7 @@ from qscat.ecs import match_angle_stable
 from qscat.exceptions import GridError
 from qscat.linalg import ShiftInvertEigs, c_product
 
+from ._archive import load_dataclass_npz, save_dataclass_npz
 from .grids import assert_shared_real_nodes
 
 if TYPE_CHECKING:
@@ -106,30 +107,30 @@ class ExactResonanceStates:
     def save(self, path: str | os.PathLike[str]) -> None:
         """Write to an `.npz` archive under the dataclass's own field names.
 
-        A 2-D pole search is minutes to tens of minutes of sparse
-        factorizations, so the result gets cached -- and hand-rolled caches
-        drifted: one call site stored `res_el`/`res_nuc` while the dataclass
-        calls them `residual_electronic`/`residual_nuclear`, a rename away from
-        silently loading garbage. Round-tripping through this pair keeps the
-        names the dataclass's business.
+        Shares its mechanism with `ResonanceLevels.save` -- see
+        `qscat.core._archive` for why the pair round-trips through the
+        dataclass's own field names rather than a hand-rolled cache (one call
+        site once stored `res_el`/`res_nuc` where this dataclass calls them
+        `residual_electronic`/`residual_nuclear`, a rename away from silently
+        loading garbage).
         """
-        np.savez(path, **{f.name: getattr(self, f.name) for f in fields(self)})
+        save_dataclass_npz(self, path)
 
     @classmethod
     def load(cls, path: str | os.PathLike[str]) -> ExactResonanceStates:
-        """Read back a `save()` file, checking every field is present."""
-        with np.load(path) as z:
-            missing = [f.name for f in fields(cls) if f.name not in z]
-            if missing:
-                raise ValueError(
-                    f"{path} is not an ExactResonanceStates archive: missing {missing}"
-                )
-            if z["states"].shape[:1] != z["energies"].shape:
-                raise ValueError(
-                    f"{path} stores states column-per-state (an archive from before "
-                    "the row-per-state layout); delete and regenerate it"
-                )
-            return cls(**{f.name: z[f.name] for f in fields(cls)})
+        """Read back a `save()` file, checking every field is present.
+
+        Also rejects an archive written before the row-per-state layout flip
+        (`states` stored column-per-state) -- a guard specific to this class,
+        not shared with `ResonanceLevels.load`, which never had it.
+        """
+        data = load_dataclass_npz(cls, path)
+        if data["states"].shape[:1] != data["energies"].shape:
+            raise ValueError(
+                f"{path} stores states column-per-state (an archive from before "
+                "the row-per-state layout); delete and regenerate it"
+            )
+        return cls(**data)
 
 
 def _pooled_spectrum(
