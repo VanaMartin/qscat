@@ -186,15 +186,45 @@ installed package.
   `electronic_free_hamiltonian` (was shadowed by
   `qscat.core.time_dependent.free_hamiltonian`), and
   `qscat.tuning.resonance_curve` → `resonance_curve_arrays` (was shadowed by
-  `qscat.core.bo.resonance_curve`). Both old names remain as deprecated
-  aliases (`DeprecationWarning`, one release cycle per ADR 0004) at every
-  import path they were previously reachable from.
+  `qscat.core.bo.resonance_curve`). The old names were kept briefly as
+  deprecated aliases and have since been removed — see Removed, below.
 - `qscat.core.plot_cross_sections` now imports matplotlib lazily, so importing
   `qscat.core` / `qscat.tuning` no longer requires matplotlib (it is the
   optional `plot` extra). Previously a clean install without matplotlib crashed
   on `import qscat.core`.
 - `qscat.core.time_dependent.free_hamiltonian` and `qscat.core.Flux.series` are
   now public (were `_free_hamiltonian` / `Flux._arrays`).
+
+### Removed
+- All deprecation and legacy-compatibility machinery, per ADR 0004 point 2
+  (pre-1.0 minor releases may break the public API) — the package is still
+  `0.1.0.dev0`, so the one-release-cycle grace period these existed to serve
+  never applies. The last commit where each removed name/behaviour existed is
+  `ccb3fa2`.
+  - `qscat._deprecation` (the shared `deprecated_alias_getattr` `__getattr__`
+    factory) — deleted outright; nothing replaces it, its only callers were
+    the aliases below.
+  - `qscat.core.nrm.scattering.free_hamiltonian` (deprecated alias) — use
+    `electronic_free_hamiltonian`.
+  - `qscat.tuning.resonance_curve` / `qscat.tuning.resonance.resonance_curve`
+    (deprecated aliases) — use `resonance_curve_arrays`.
+  - `qscat.core.time_dependent._propagate` (deprecated alias) — use
+    `propagate_wavepacket`.
+  - `qscat.core.time_dependent._s_vector_one_energy` /
+    `_sigma_one_energy` (deprecated aliases) — use `s_vector_one_energy` /
+    `sigma_one_energy`.
+  - `qscat.core.correlation.hankel_point_value`'s legacy grid-first calling
+    form (`hankel_point_value(grid, z_position, k, l, charge=0, *, mass=1.0)`)
+    — call `hankel_point_value(z_position, k, l, charge=0, *, mass=1.0)`.
+  - `qscat.core.correlation.outgoing_surface_wave`'s legacy grid-first calling
+    form — call `outgoing_surface_wave(z_surface, k, l, charge=0.0, *,
+    mass=1.0)`.
+  - `qscat.core.dissociation.dr_cross_section`'s `return_wavefunction` /
+    `return_amplitude` flag-shaped tuple return — call `dr_solve(...,
+    store_wavefunction=..., store_amplitude=...)` and read the `DrResult`
+    fields.
+  - `qscat.tuning.propose_grid`'s `rtol` parameter — it was never consumed;
+    simply omit it.
 
 ### Fixed
 - `qscat.viz` contour colours now follow `inverse`. The `|psi|` contours and the

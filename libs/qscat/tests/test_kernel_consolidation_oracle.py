@@ -57,7 +57,7 @@ from qscat.core.correlation import (
     hankel_point_value,
     outgoing_surface_wave,
 )
-from qscat.core.dissociation import da_cross_section, dr_cross_section
+from qscat.core.dissociation import da_cross_section, dr_solve
 from qscat.core.driven import ve_cross_section
 from qscat.core.grids import electronic_grid, nuclear_grid
 from qscat.core.td_extractors import Dirac, Flux, TannorWeeks
@@ -315,12 +315,12 @@ def test_correlation_factor_golden() -> None:
             eta_incident(g_e, 0.45, N2.ell, **WP_IN),
             eta_outgoing(g_e, 0.45, N2.ell, **WP_OUT),
             eta_outgoing(g_n, 1.7, 0, mass=N2.mu, **NUCLEAR_WP_OUT),
-            hankel_point_value(g_e, 7.5, 0.45, N2.ell, 0),
-            hankel_point_value(g_n, 7.12, 1.7, 0, 0, mass=N2.mu),
-            *outgoing_surface_wave(g_e, 7.5, 0.45, N2.ell, 0),
-            *outgoing_surface_wave(g_n, 7.12, 1.7, 0, 0, mass=N2.mu),
-            *outgoing_surface_wave(g_e, 7.5, 0.45, 0, -1, mass=1.0),  # charged (mpmath)
-            hankel_point_value(g_e, 7.5, 0.45, 0, -1, mass=1.0),  # charged (mpmath)
+            hankel_point_value(7.5, 0.45, N2.ell, 0),
+            hankel_point_value(7.12, 1.7, 0, 0, mass=N2.mu),
+            *outgoing_surface_wave(7.5, 0.45, N2.ell, 0),
+            *outgoing_surface_wave(7.12, 1.7, 0, 0, mass=N2.mu),
+            *outgoing_surface_wave(7.5, 0.45, 0, -1, mass=1.0),  # charged (mpmath)
+            hankel_point_value(7.5, 0.45, 0, -1, mass=1.0),  # charged (mpmath)
         ],
         dtype=np.complex128,
     )
@@ -412,8 +412,7 @@ def test_dr_golden() -> None:
         ]
     )
     eps, chi = vibrational_states(tg.grids[1], H2P.mu, 3, H2P.v0)
-    sigma, amp = dr_cross_section(
-        tg, H2P, eps, chi, 0, np.array([0.01, 0.03]), n_channels=2, return_amplitude=True
-    )
-    _check("dr_sigma", sigma, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
-    _check("dr_amp", amp, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
+    res = dr_solve(tg, H2P, eps, chi, 0, np.array([0.01, 0.03]), n_channels=2, store_amplitude=True)
+    assert res.amplitude is not None
+    _check("dr_sigma", res.sigma, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)
+    _check("dr_amp", res.amplitude, rtol=_RTOL_PROPAGATED, atol=_ATOL_PROPAGATED)

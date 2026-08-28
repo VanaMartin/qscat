@@ -31,7 +31,6 @@ resolve densely.
 
 from __future__ import annotations
 
-import warnings
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -163,24 +162,3 @@ def resonance_curve_arrays(
     Vd = np.real(model.v0(R)) + shift[order]
     Gamma = gamma[order]
     return R, Vd, Gamma
-
-
-# --- Deprecated aliases (2026-08-25 API surface pass) ------------------------
-# One release cycle per ADR 0004, then delete this block. Not in `__all__`:
-# the public surface is the new name; the alias only keeps old imports alive.
-
-_DEPRECATED = {"resonance_curve": "resonance_curve_arrays"}
-
-
-def __getattr__(name: str) -> object:
-    if name in _DEPRECATED:
-        new = _DEPRECATED[name]
-        warnings.warn(
-            f"{__name__}.{name} was renamed to {new} in the 2026-08-25 API "
-            "surface pass; the old name is a deprecated alias for one release "
-            "cycle (docs/adr/0004-public-api-stability-policy.md)",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return globals()[new]
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

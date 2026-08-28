@@ -40,7 +40,6 @@ the `ResonanceModel` protocol under `TYPE_CHECKING` only, exactly like
 
 from __future__ import annotations
 
-import warnings
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal, overload
 
@@ -459,89 +458,6 @@ def dr_solve(
     )
 
 
-@overload
-def dr_cross_section(
-    tgrid: TensorGrid,
-    model: ResonanceModel,
-    eps: npt.NDArray[np.float64],
-    chi: npt.NDArray[np.complex128],
-    v_init: int,
-    E: float | npt.ArrayLike,
-    *,
-    n_channels: int = ...,
-    ordering: Ordering = ...,
-    return_wavefunction: Literal[False] = ...,
-    return_amplitude: Literal[False] = ...,
-) -> _Sigma: ...
-
-
-@overload
-def dr_cross_section(
-    tgrid: TensorGrid,
-    model: ResonanceModel,
-    eps: npt.NDArray[np.float64],
-    chi: npt.NDArray[np.complex128],
-    v_init: int,
-    E: float | npt.ArrayLike,
-    *,
-    n_channels: int = ...,
-    ordering: Ordering = ...,
-    return_wavefunction: Literal[True],
-    return_amplitude: Literal[False] = ...,
-) -> tuple[_Sigma, _PsiOut]: ...
-
-
-@overload
-def dr_cross_section(
-    tgrid: TensorGrid,
-    model: ResonanceModel,
-    eps: npt.NDArray[np.float64],
-    chi: npt.NDArray[np.complex128],
-    v_init: int,
-    E: float | npt.ArrayLike,
-    *,
-    n_channels: int = ...,
-    ordering: Ordering = ...,
-    return_wavefunction: Literal[False] = ...,
-    return_amplitude: Literal[True],
-) -> tuple[_Sigma, _Amp]: ...
-
-
-@overload
-def dr_cross_section(
-    tgrid: TensorGrid,
-    model: ResonanceModel,
-    eps: npt.NDArray[np.float64],
-    chi: npt.NDArray[np.complex128],
-    v_init: int,
-    E: float | npt.ArrayLike,
-    *,
-    n_channels: int = ...,
-    ordering: Ordering = ...,
-    return_wavefunction: Literal[True],
-    return_amplitude: Literal[True],
-) -> tuple[_Sigma, _PsiOut, _Amp]: ...
-
-
-# bool catch-all (open()-style): callers holding a runtime flag forward it
-# directly; the union return is narrowed by the Literal overloads above when
-# the flag is literal.
-@overload
-def dr_cross_section(
-    tgrid: TensorGrid,
-    model: ResonanceModel,
-    eps: npt.NDArray[np.float64],
-    chi: npt.NDArray[np.complex128],
-    v_init: int,
-    E: float | npt.ArrayLike,
-    *,
-    n_channels: int = ...,
-    ordering: Ordering = ...,
-    return_wavefunction: bool = ...,
-    return_amplitude: bool = ...,
-) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]: ...
-
-
 def dr_cross_section(
     tgrid: TensorGrid,
     model: ResonanceModel,
@@ -552,34 +468,18 @@ def dr_cross_section(
     *,
     n_channels: int = 3,
     ordering: Ordering = "COLAMD",
-    return_wavefunction: bool = False,
-    return_amplitude: bool = False,
-) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:
+) -> _Sigma:
     """sigma_DR(E) in bohr^2, exact 2-D driven-equation dissociative-
     recombination cross section for a CHARGED target (e.g. H2+, `charge=-1`).
-    See `dr_solve` for the physics; this is a thin flag-shaped-tuple wrapper
-    around it.
+    See `dr_solve` for the physics; this is a thin sigma-only wrapper around
+    it -- a caller that also wants the wavefunction or T-matrix amplitude
+    calls `dr_solve` directly and reads the `DrResult` fields.
 
     *Provisional API* (docs/adr/0004-public-api-stability-policy.md): this wide
     functional signature is the layer the context-object refactor targets and
     may change in a minor release; `ScatteringProblem.dr_cross_section` is the stable route.
-
-    .. deprecated::
-       `return_wavefunction`/`return_amplitude`'s flag-shaped tuple returns
-       are deprecated in favor of `dr_solve`, which returns one `DrResult`
-       object (`store_wavefunction`/`store_amplitude`) regardless of how many
-       fields are populated. The plain `sigma`-only call (both flags `False`,
-       the undisputed base case) is unaffected and stays silent.
     """
-    if return_wavefunction or return_amplitude:
-        warnings.warn(
-            "dr_cross_section's flag-shaped tuple returns are deprecated; "
-            "call dr_solve(..., store_wavefunction=..., store_amplitude=...) "
-            "and read the DrResult fields",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-    res = dr_solve(
+    return dr_solve(
         tgrid,
         model,
         eps,
@@ -588,16 +488,4 @@ def dr_cross_section(
         E,
         n_channels=n_channels,
         ordering=ordering,
-        store_wavefunction=return_wavefunction,
-        store_amplitude=return_amplitude,
-    )
-    if return_wavefunction and return_amplitude:
-        # store_amplitude=True (== return_amplitude) guarantees this at runtime;
-        # the assert narrows the type past DrResult.amplitude's static Optional.
-        assert res.amplitude is not None
-        return res.sigma, res.psi, res.amplitude
-    if return_amplitude:
-        return res.sigma, res.amplitude
-    if return_wavefunction:
-        return res.sigma, res.psi
-    return res.sigma
+    ).sigma

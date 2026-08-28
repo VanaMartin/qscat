@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import numpy as np
-import pytest
 from qscat.model import F2, N2
 from qscat.tuning import interaction_region
 
@@ -53,17 +52,3 @@ def test_resonance_curve_dense_interaction_sparse_far():
     # Gamma peaks inside the interaction region (the resonance), ~0 far
     far_peak = G[far].max() if far.any() else 0.0
     assert G[inside].max() > 10 * far_peak + 1e-12
-
-
-def test_resonance_curve_is_a_deprecated_alias_at_both_import_paths():
-    """lib-C3 rename (2026-08-25): both public paths to the old name warn and
-    resolve to `resonance_curve_arrays` for one release cycle (ADR 0004)."""
-    import qscat.tuning
-    from qscat.tuning import resonance
-
-    with pytest.warns(DeprecationWarning, match="resonance_curve_arrays"):
-        old_mod = resonance.resonance_curve
-    with pytest.warns(DeprecationWarning, match="resonance_curve_arrays"):
-        old_pkg = qscat.tuning.resonance_curve
-    assert old_mod is resonance.resonance_curve_arrays
-    assert old_pkg is resonance.resonance_curve_arrays

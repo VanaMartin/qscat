@@ -221,27 +221,9 @@ def test_free_reference_elastic_path_finite_and_nonnegative(
 
 
 def test_td_building_blocks_are_public() -> None:
-    """lib-m7: the names the n2_2d_td project consumes must be public;
-    the old private names warn for one cycle."""
+    """lib-m7: the names the n2_2d_td project consumes must be public."""
     from qscat.core import time_dependent as td
 
     for name in ("propagate_wavepacket", "s_vector_one_energy", "sigma_one_energy"):
         assert name in td.__all__
         assert callable(getattr(td, name))
-    with pytest.warns(DeprecationWarning, match="_propagate"):
-        legacy = td._propagate
-    assert callable(legacy)
-
-
-def test_td_deprecated_aliases_warn_and_resolve() -> None:
-    """lib-m7: `_s_vector_one_energy`/`_sigma_one_energy` warn once and
-    resolve to the public objects, mirroring the `_propagate` check above."""
-    from qscat.core import time_dependent as td
-
-    with pytest.warns(DeprecationWarning, match="_s_vector_one_energy"):
-        legacy_s = td._s_vector_one_energy
-    assert legacy_s is td.s_vector_one_energy
-
-    with pytest.warns(DeprecationWarning, match="_sigma_one_energy"):
-        legacy_sigma = td._sigma_one_energy
-    assert legacy_sigma is td.sigma_one_energy

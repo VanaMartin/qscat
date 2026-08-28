@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import math
-import warnings
 
 import numpy as np
 import pytest
@@ -68,17 +67,6 @@ def test_ve_channel_default_unchanged():
     g_ve = propose_grid(F2, "nuclear", (0.01, 0.05), channel="ve")
     assert g_default.n == g_ve.n
     assert np.allclose(g_default.points, g_ve.points)
-
-
-def test_rtol_is_deprecated_noop() -> None:
-    """lib-M16: propose_grid never consumed rtol (`del rtol`); passing it
-    now warns, omitting it is silent."""
-    with pytest.warns(DeprecationWarning, match="rtol"):
-        g1 = propose_grid(F2, "nuclear", (0.01, 0.05), rtol=1e-3)
-    with warnings.catch_warnings():
-        warnings.simplefilter("error")
-        g2 = propose_grid(F2, "nuclear", (0.01, 0.05))
-    assert np.array_equal(g1.points, g2.points)  # a no-op either way
 
 
 def test_propose_grid_rejects_unknown_channel():
