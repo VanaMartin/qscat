@@ -90,7 +90,9 @@ target-version = "py312"
 # reference/ is a read-only snapshot of prior codebases (eMoScat, libXcuda) that
 # we must never edit — linting it produces ~124 unfixable diagnostics and makes
 # `ruff check .` permanently red. pytest already skips it via norecursedirs.
-extend-exclude = ["reference"]
+# tests/fixtures/ holds deliberate-defect trees for the structure-audit mapper:
+# their clones, missing docstrings and dead code ARE the assertions.
+extend-exclude = ["reference", "tests/fixtures"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "NPY", "RUF", "D", "ANN"]
