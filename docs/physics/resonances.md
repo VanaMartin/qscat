@@ -10,6 +10,7 @@ lcp-resonance-levels
 exact-2d-resonances
 h2plus-resonance-states
 potential-factory
+coupled-partial-waves
 ```
 
 - {doc}`lcp-resonance-levels` — Born–Oppenheimer quasi-bound levels in the
@@ -24,3 +25,9 @@ potential-factory
   curve: round-tripped against N₂/NO/F₂'s own published parameters, then O₂
   from Alt & Houfek's published curves to its spin–orbit-resolved VE cross
   section on the paper's own nonlocal-model comb ({doc}`../molecules/o2`).
+- {doc}`coupled-partial-waves` — the parked
+  {doc}`angular-coupled-channels <angular-coupled-channels>` direction,
+  delivered: does NO's single-partial-wave shape resonance stay a single pole
+  and a good approximation once it is allowed to couple to neighbouring
+  partial waves? The gate opens on the width and cross section criteria, not
+  on a genuine second pole.

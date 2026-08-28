@@ -10,7 +10,8 @@ potential-factory-options
 optimization-targets
 ```
 
-- {doc}`angular-coupled-channels` — the parked angular extension.
+- {doc}`angular-coupled-channels` — the parked angular extension. Delivered on
+  NO: {doc}`coupled-partial-waves`.
 - {doc}`potential-factory-options` — building model surfaces that match real
   molecules: the target hierarchy, the inverse-scattering options, the data
   sources, and one feasibility spike. The implementation is

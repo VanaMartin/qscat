@@ -500,6 +500,27 @@ projects/   per-problem research and toy models — lifecycle stages 1-2
               Proven by round-tripping the existing models' OWN calculated
               curves (`extract_target`) back to their constants/curves. Nothing
               is fitted to experiment — see docs/physics/potential-factory.md.
+            - `no_coupled_channels`: the ANGULAR coupled-partial-wave extension
+              of `qscat.model.NO` — asks whether the shipped model's fixed-`l`
+              (single partial wave) reduction of the anion shape resonance
+              survives once a physically motivated, non-spherical interaction
+              couples it to neighbouring `l`. `TwoCentreWell`
+              (`anisotropy.py`) splits the shipped isotropic Gaussian well
+              into two off-centre wells parameterised by an offset `s`
+              (`s = 0` collapses back to the shipped well for any `kappa`,
+              structurally, by construction) and an amplitude asymmetry
+              `kappa` (homonuclear at `kappa = 0`, only even Legendre
+              components survive); `angular.py` (`theta_lm`, the orthonormal
+              associated-Legendre angular factor) and `blocks.py`
+              (`assemble_coupled`, channel-outermost `sp.bmat` assembly, so
+              zero anisotropy is exactly block-diagonal) support it.
+              `CoupledModel` (`model.py`) assembles the `N_l`-channel block
+              Hamiltonian for `l = Lambda, ..., Lambda + N_l - 1` on a
+              fixed-`R` electronic grid or the full 2-D tensor grid;
+              `n_channels = 1` is not a degenerate case, it IS the fixed-`l`
+              model under test, run through the same code as every coupled
+              model so the comparison with `validation/coupled/` (below) is
+              differential — see docs/physics/coupled-partial-waves.md.
 validation/ analytic benchmarks, golden datasets, convergence studies
             - `validation/n2/`: N₂ electron-scattering harness; its C5 group
               anchors this solver's σ_{0→v'}(E) against Karel Houfek's
@@ -668,6 +689,26 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               (refine¹ vs refine² agree to 2%), gated as such rather than
               forcing a false base-vs-refined match — see
               docs/physics/discretisation-tuning.md.
+            - `validation/coupled/`: the coupled-partial-wave campaign for NO's
+              anion shape resonance (`screen.py` — the fixed-R electronic pole
+              walk over anisotropy strength `s` and channel count `N_l`, by
+              two-angle ECS stability on `projects.no_coupled_channels`'
+              `CoupledModel`; `observable.py` — the curve difference turned into
+              a `qscat.core.lcp.lcp_ve_cross_section` (VE, never DA) difference
+              and the three-criterion gate; `figures.py` — the pole-trajectory
+              and width-shift figure). Run via
+              `python -m validation.coupled.screen` (~36 min, results already
+              committed at `results/screen.json`) then
+              `python -m validation.coupled.observable`, and
+              `python -m validation.coupled.figures` to redraw the committed
+              figure. GATED OPEN: no
+              genuine second pole ever appears (criterion (a) never fires),
+              but the fixed-l reduction misses the width by 59% at `s=0.5`
+              and the VE cross section by a 31% MEDIAN relative shift at
+              `s=0.1` (the two criteria are evaluated at different `s`,
+              since the cross-section route is only valid while the curve
+              difference stays a perturbation of the shipped width) — see
+              docs/physics/coupled-partial-waves.md.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo

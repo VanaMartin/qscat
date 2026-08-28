@@ -117,6 +117,17 @@ automatic discretisation tuner reproduces-and-beats eMoScat's hand-tuned per-mol
 deck once it is told to look at the resonance curve, not just the potential.
 :::
 
+:::{grid-item-card} Does the fixed-partial-wave reduction hold?
+:link: ../physics/coupled-partial-waves
+:link-type: doc
+
+NO's shape resonance is shipped as a single partial wave. Coupling it to
+neighbouring partial waves through a physically motivated, non-spherical
+interaction: the resonance stays a single pole, but the fixed-wave width and
+VE cross section miss the coupled result by tens of percent once the
+anisotropy is strong.
+:::
+
 ::::
 
 ## The LCP approximation — systematic and energy-dependent error
