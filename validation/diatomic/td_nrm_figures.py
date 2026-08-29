@@ -31,7 +31,8 @@ running it twice would cost another ~40 minutes for nothing.
 
 **`td-vs-ti` HAS NEVER BEEN RUN TO COMPLETION, so its two PNGs are absent
 from `docs/physics/figures/` rather than stale.** Three attempts were killed
-for memory (see COST below). Do not judge the code by that: the path is
+for memory (see COST below -- and read the correction there: the size was not
+the problem, the concurrency was). Do not judge the code by that: the path is
 exercised end to end by `--smoke`, and every other figure here is a real
 measurement. It also cannot be cheapened into fitting -- at `T = 40` instead
 of `T = 12000` the transform is so far from converged that `sigma_TD` reads
@@ -49,21 +50,29 @@ than 53570); `convergence` is instant (it plots recorded numbers, see
 count -- concurrent unpinned sweeps cost ~300x here
 (`docs/physics/optimization-targets.md`).
 
-MEMORY IS THE BINDING CONSTRAINT, NOT TIME, AND `td-vs-ti` DOES NOT FIT ON A
-LAPTOP. What dominates is the SPARSE LU OF THE PADE DENOMINATORS: an order-3
-diagonal Pade stepper factors three shifted copies of `H_ext` and holds all
-three factorizations for the whole propagation. `H_ext` is
-`(1 + n_states) * N_R` square, so F2's DA deck is 53570 with the reduced
-55-point electronic grid used here and 128568 with the production 132-point
-one -- and SuperLU's fill-in on these complex-symmetric ECS matrices is what
-sets peak RSS, not the 9e5 stored nonzeros. Measured 2026-08-24: three
-attempts at the 53570 case were killed by the OS on a 12-core laptop, one of
-them while a 6210-square dense `eigvals` (~0.6 GB) ran alongside it. Treat
-`td-vs-ti` as a batch job for a machine with room, run it ALONE, and prefer
-the MUMPS backend (`qscat[mumps]`, ~9x lower peak RSS at 143k unknowns --
-`docs/physics/mumps-sparse-backend.md`) over the SuperLU fallback a bare Mac
-gives you. `truncation`'s dense `numpy.linalg.eigvals` is the other memory
-item and is why its fixture is kept small.
+MEMORY IS WHAT KILLED `td-vs-ti`, BUT NOT BY ITSELF -- CORRECTED 2026-08-27.
+What dominates is the SPARSE LU OF THE PADE DENOMINATORS: an order-3 diagonal
+Pade stepper factors three shifted copies of `H_ext` and holds all three
+factorizations for the whole propagation. `H_ext` is `(1 + n_states) * N_R`
+square, so F2's DA deck is 53570 with the reduced 55-point electronic grid used
+here and 128568 with the production 132-point one -- and SuperLU's fill-in on
+these complex-symmetric ECS matrices is what sets peak RSS, not the 9e5 stored
+nonzeros. Measured 2026-08-24: three attempts at the 53570 case were killed by
+the OS on a 12-core laptop, one of them while a 6210-square dense `eigvals`
+(~0.6 GB) ran alongside it.
+
+That paragraph used to end "DOES NOT FIT ON A LAPTOP", and that inference from
+those kills was WRONG. `validation/diatomic/memory_observables.py` propagates an
+81816-square `H_ext` -- LARGER than the 53570 above -- on the same 12-core /
+68.7 GB laptop with the SuperLU fallback, at a **measured peak RSS of 5.82 GB**
+(`resource.getrusage`, 2026-08-27). The binding constraint was the CONCURRENCY,
+not the size: those three attempts shared the machine, one of them with the
+dense `eigvals`. Run it ALONE. The MUMPS backend (`qscat[mumps]`, ~9x lower peak
+RSS at 143k unknowns -- `docs/physics/mumps-sparse-backend.md`) is still the
+right choice where it is available, but it is not a prerequisite at this size
+and a remote host is not needed for it. `truncation`'s dense
+`numpy.linalg.eigvals` is the other memory item and is why its fixture is kept
+small.
 
 EVERY PROPAGATION USES THE COMPLETE ARM SET (`n_states=None`). Truncating it
 leaves `H_ext` with growing eigenmodes, the transform's premise fails, and
