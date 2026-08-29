@@ -73,6 +73,7 @@ from qscat.dvr import FemDvrEcsGrid, dvr_first_derivative_at_node
 from qscat.evolution import make_pade_stepper
 
 from .extended import LaunchBasis
+from .memory import MemoryRecorder, MemorySpec
 
 __all__ = ["TdNrmResult", "propagate_nrm"]
 
@@ -97,6 +98,25 @@ class TdNrmResult:
     unabsorbed: npt.NDArray[np.float64]  # (n_E,) -- survival[-1], packet norm
     # still in the real region at t_max (what ECS absorption has NOT eaten)
     rank: int  # number of columns actually stepped (LaunchBasis.rank)
+
+    # --- the memory observables: `None` unless `memory=` was given ----------
+    #
+    # `qscat.core.nrm.memory.MemoryRecorder` is where these are defined and
+    # what their caveats are; the one that has to travel with every mention is
+    # that `arm_norm` is a RELATIVE CHANNEL DECOMPOSITION, not a population.
+    # `H_ext` is complex symmetric under ECS, nothing conserves the conjugating
+    # norm, and the arms were measured gaining it O(1) faster than `Psi_d`
+    # loses it -- so these two curves do not partition anything. `exchange` is
+    # untouched by that: it is a rate, and its sign is the result.
+    arm_norm: npt.NDArray[np.float64] | None = None  # (n_steps+1, n_E), all arms
+    arm_norm_by_channel: npt.NDArray[np.float64] | None = None  # (n_steps+1, k, n_E)
+    # (n_arm, n_E) running max per channel -- EVERY channel, whatever
+    # `n_channels` did to the time series above, so a truncated run can be read
+    # honestly rather than assumed to have kept the right blocks.
+    arm_peak: npt.NDArray[np.float64] | None = None
+    exchange: npt.NDArray[np.float64] | None = None  # (n_steps+1, n_E) nonlocal
+    exchange_local: npt.NDArray[np.float64] | None = None  # (n_steps+1, n_E) Markovian
+    imbalance: npt.NDArray[np.float64] | None = None  # (n_steps+1, n_E), the ECS residual
 
 
 def _real_derivative_matrix(
@@ -266,6 +286,38 @@ def _warn_if_diverging(survival: npt.NDArray[np.float64]) -> None:
         )
 
 
+def _memory_setup(
+    h_ext: sp.spmatrix,
+    nuclear_grid: FemDvrEcsGrid | None,
+    memory: MemorySpec | None,
+    n_steps: int,
+    n_energies: int,
+) -> MemoryRecorder | None:
+    """Build the `MemoryRecorder`, or `None` for the default (off) path.
+
+    Separated from the loop so that "memory is off" is a single `None` and the
+    hot loop pays one `is not None` per step for it.
+
+    Raises
+    ------
+    ValueError
+        If `memory` is given without a `nuclear_grid`: the observables are all
+        restricted to the REAL nuclear region, which is a property of the grid,
+        so there is nothing to restrict to without one. The synthetic unit
+        tests that pass `nuclear_grid=None` are the only callers that ever hit
+        this, and they are better told than silently given the full grid.
+    """
+    if memory is None:
+        return None
+    if nuclear_grid is None:
+        raise ValueError(
+            "memory= requires a nuclear_grid: the memory observables are "
+            "restricted to the real nuclear region, which nuclear_grid=None "
+            "does not define"
+        )
+    return MemoryRecorder(h_ext, nuclear_grid, memory, n_steps=n_steps, n_energies=n_energies)
+
+
 def propagate_nrm(
     h_ext: sp.spmatrix,
     launch: LaunchBasis,
@@ -274,6 +326,7 @@ def propagate_nrm(
     dt: float,
     n_steps: int,
     order: int = 3,
+    memory: MemorySpec | None = None,
 ) -> TdNrmResult:
     """Propagate `launch.vectors` under `h_ext` and transform back to energy.
 
@@ -296,6 +349,14 @@ def propagate_nrm(
     dt, n_steps, order
         Passed to `qscat.evolution.make_pade_stepper`; `n_steps + 1` samples
         (`t = 0, dt, ..., n_steps*dt`) are taken.
+    memory : MemorySpec or None
+        Opt-in recording of the memory observables (`qscat.core.nrm.memory`).
+        `None` (the default) leaves the loop exactly as it was and returns
+        `TdNrmResult` with all six memory fields `None`; every existing gate
+        in the suite propagates, so the default path is kept untouched rather
+        than merely equivalent. Requires `nuclear_grid` -- the observables are
+        restricted to the real nuclear region and there is no such region
+        without a grid.
 
     Returns
     -------
@@ -309,7 +370,8 @@ def propagate_nrm(
         `h_ext`'s size -- a cheap guard against propagating a `LaunchBasis`
         against a mismatched `h_ext`/`nuclear_grid` pair (e.g. a refined
         grid against a stale cached `h_ext`), rather than silently slicing
-        the wrong block out of `psi`.
+        the wrong block out of `psi`. Also if `memory` is given without a
+        `nuclear_grid`.
     """
     e = launch.e_total
     psi = np.asarray(launch.vectors, dtype=np.complex128)  # (N_ext, r)
@@ -328,6 +390,13 @@ def propagate_nrm(
             "h_ext was built from"
         )
 
+    # BEFORE `make_pade_stepper`, which factors `order` sparse LUs of a
+    # (1 + n_arm) * N_R matrix -- 2.5 s on the N2 gate deck and minutes on a
+    # production one. A wrong-length `gamma_local`, or `memory=` with no
+    # `nuclear_grid`, is a caller mistake that must be reported before that
+    # bill is paid, not after.
+    recorder = _memory_setup(h_ext, nuclear_grid, memory, n_steps, e.size)
+
     step = make_pade_stepper(h_ext, dt, order)
     w = quadrature_weights(n_steps + 1)
     t = dt * np.arange(n_steps + 1, dtype=np.float64)
@@ -345,6 +414,11 @@ def propagate_nrm(
         d = psi[:n_r, :] @ coeffs  # (N_R, n_E)
         acc += (w[m] * dt) * np.exp(1j * e * t[m])[None, :] * d
         _record(m, d, mask, deriv, sqrt_w_real, r_real, survival, centroid, momentum)
+        if recorder is not None:
+            # The arm blocks are reconstructed ONLY when recording, and `d`
+            # above is left exactly as it was, so `psi_d` and every existing
+            # diagnostic are bit-identical with the recorder on or off.
+            recorder.record(m, d, psi[n_r:, :] @ coeffs)
         if m < n_steps:
             psi = step(psi)
 
@@ -357,4 +431,10 @@ def propagate_nrm(
         momentum=momentum,
         unabsorbed=survival[-1].copy(),
         rank=launch.rank,
+        arm_norm=None if recorder is None else recorder.arm_norm,
+        arm_norm_by_channel=None if recorder is None else recorder.arm_norm_by_channel,
+        arm_peak=None if recorder is None else recorder.arm_peak,
+        exchange=None if recorder is None else recorder.exchange,
+        exchange_local=None if recorder is None else recorder.exchange_local,
+        imbalance=None if recorder is None else recorder.imbalance,
     )
