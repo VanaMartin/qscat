@@ -75,5 +75,12 @@ WORKDIR /app
 # (not just .venv) must be copied. Do not reduce this to copying only
 # .venv without first switching qscat to a non-editable/wheel install.
 COPY --from=build /app /app
+# `ENV` does not cross a `FROM` boundary and `COPY --from=` copies files, not
+# environment -- so `runtime`, which starts from a fresh upstream base rather
+# than `FROM build`, needs its own pair. Measured: a built `qmodeling:runtime`
+# had no QSCAT_GIT_SHA while `qmodeling:test-deps` had it, which would make
+# every manifest written from the runtime image unciteable.
+ARG GIT_SHA=unknown
+ENV QSCAT_GIT_SHA=${GIT_SHA}
 ENV PATH="/app/.venv/bin:${PATH}"
 CMD ["python", "-c", "import qscat, qscat_kernels; print('qscat', qscat.__version__, 'ready')"]

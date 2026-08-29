@@ -21,6 +21,7 @@ import dataclasses
 import json
 import os
 import platform
+import re
 import subprocess
 from importlib import metadata
 from pathlib import Path
@@ -45,25 +46,45 @@ from qscat_run.runner import (
     WavefunctionSnapshot,
 )
 
-__all__ = ["write_artifacts"]
+__all__ = ["UnknownGitShaError", "write_artifacts"]
+
+
+class UnknownGitShaError(RuntimeError):
+    """Raised when the commit SHA cannot be determined and the caller has not
+    explicitly accepted an unciteable run."""
+
+
+# `git rev-parse` walks up from `cwd` to find the repo root, so pinning the
+# probe to this file's own location (rather than inheriting the caller's
+# working directory) finds the SHA wherever `qscat-run` is invoked from.
+# Overridden in tests to simulate "no repo here".
+_REPO_PROBE_DIR = Path(__file__).resolve().parent
+
+_SHA_RE = re.compile(r"\A[0-9a-f]{40}\Z")
 
 
 def _git_sha() -> str:
-    """The current commit SHA, best-effort: `"unknown"` if `git` is absent,
-    this isn't a repo, or anything else goes wrong.
+    """The commit SHA the run's artifacts belong to.
 
-    `cwd` is pinned to this file's own location (rather than inherited from
-    the caller's working directory) so the SHA is found regardless of where
-    `qscat-run` is invoked from -- `git rev-parse` walks up from `cwd` to
-    find the repo root, so any path inside the repo works.
+    This is the binding between a published artifact and the code that made
+    it -- the artifact store addresses downloads by it -- so it is a hard
+    failure rather than a defaulted string. Set `QSCAT_ALLOW_UNKNOWN_SHA=1`
+    to accept `"unknown"` when running from an unpacked tarball or any other
+    tree with no provenance to record.
     """
-    # Baked in at image build time. The Docker build context excludes `.git`
-    # (see .dockerignore), so `git rev-parse` inside a container has no repo to
-    # read and every containerised run recorded "unknown" -- defeating the one
-    # thing the manifest exists for. `docker/build.sh` and `docker/run.sh` pass
-    # the host's SHA as a build arg.
-    baked = os.environ.get("QSCAT_GIT_SHA", "").strip()
-    if baked:
+    # Baked in at image build time: the Docker build context excludes `.git`
+    # (see .dockerignore), so `git rev-parse` inside a container has no repo
+    # to read. `docker/build.sh` and `docker/run.sh` pass the host's SHA as a
+    # build arg.
+    #
+    # Only a real SHA is honoured. `ARG GIT_SHA=unknown` in the Dockerfile
+    # means an image built without `--build-arg GIT_SHA` carries the literal
+    # string "unknown" here; treating any non-empty value as authoritative
+    # let that sentinel outrank the working fallback below, silently. That is
+    # how three O2 sweeps recorded "unknown" from a machine whose repo was
+    # readable the whole time.
+    baked = os.environ.get("QSCAT_GIT_SHA", "").strip().lower()
+    if _SHA_RE.match(baked):
         return baked
     try:
         out = subprocess.run(
@@ -72,11 +93,22 @@ def _git_sha() -> str:
             text=True,
             check=True,
             timeout=10,
-            cwd=Path(__file__).resolve().parent,
+            cwd=_REPO_PROBE_DIR,
         )
-        return out.stdout.strip() or "unknown"
+        probed = out.stdout.strip().lower()
+        if _SHA_RE.match(probed):
+            return probed
     except Exception:
+        pass
+    if os.environ.get("QSCAT_ALLOW_UNKNOWN_SHA", "").strip():
         return "unknown"
+    raise UnknownGitShaError(
+        "cannot determine the commit SHA for this run, so its artifacts would "
+        "not be traceable to the code that produced them. Pass the host SHA in "
+        "as QSCAT_GIT_SHA (docker/build.sh and docker/run.sh do this via "
+        "--build-arg GIT_SHA), or set QSCAT_ALLOW_UNKNOWN_SHA=1 to record "
+        '"unknown" deliberately.'
+    )
 
 
 def _qscat_version() -> str:
