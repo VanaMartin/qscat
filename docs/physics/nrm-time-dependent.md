@@ -640,7 +640,273 @@ $\sigma_\mathrm{VE}$ is wrong. Convergence here is $\sigma_\mathrm{VE}$ stationa
 one observable and calibrated for the other is better than two thresholds, and
 `_UNABSORBED_TOL`'s calibration is a DA measurement (`td_cross_section.py`).
 
-## 8. Limits — what this does not establish
+## 8. What the kernel is doing while it runs
+
+The resolvent route returns $\Psi_d(R;E)$ and nothing about how it was reached.
+The extended-space propagation of §2.2 carries one auxiliary nuclear packet
+$\varphi_n$ per projected electronic state, and those packets **are** the
+memory: PRA 77 Eq. (55)'s kernel $F(E)$ is what you get by eliminating them.
+So they can be watched, and `qscat.core.nrm.memory` watches them.
+
+Three series, recorded during the same propagation that produces the cross
+section, at a cost measured identical to not recording them:
+
+$$
+A(t) = \sum_n \lVert\varphi_n(t)\rVert^2 , \qquad
+X(t) = 2\,\mathrm{Im}\,\langle \Psi_d(t) | \textstyle\sum_n V_{dn}\varphi_n(t)\rangle ,
+$$
+
+$$
+X_{\mathrm{loc}}(t) = -\langle \Psi_d(t) | \Gamma_{\mathrm{loc}} | \Psi_d(t)\rangle .
+$$
+
+$A$ is `arm_norm` (with `arm_norm_by_channel` and `arm_peak` resolving it by
+block), $X$ is `exchange` — the rate at which the arms feed the discrete state —
+and $X_{\mathrm{loc}}$ is `exchange_local`, the **same rate in the Markovian
+limit**, with $\Gamma_{\mathrm{loc}}$ read off the kernel itself by
+`local_width`, $\Gamma_{\mathrm{loc}}(R_i) = -2\,\mathrm{Im}[(F\sqrt{w})_i/\sqrt{w_i}]$.
+
+The comparison $X$ against $X_{\mathrm{loc}}$ is the point. $X_{\mathrm{loc}}$
+is **non-positive wherever $\Gamma_{\mathrm{loc}} \ge 0$**: a local model can only
+drain the discrete state. $X > 0$ is amplitude coming *back*, which the LCP
+cannot represent at all.
+
+That condition is not free, and `local_width` deliberately does **not** clamp:
+$\Gamma_{\mathrm{loc}}$ is a width only where the channel is open, and outside
+that window it decays to round-off and comes back signed either way — 32 of N₂'s
+179 nodes are negative at $-3.8\times10^{-9}$ against a peak of $2.5\times10^{-2}$.
+Not clamping is what keeps that visible. `test_the_markovian_limit_can_only_lose`
+gates $X_{\mathrm{loc}} \le 0$ on a real deck rather than in the algebra, **but it
+gates N₂ only**; the campaign measured it strictly negative on all three, and F₂
+is the one to watch, since its packet dissociates into exactly the region where
+$\Gamma_{\mathrm{loc}}$ is round-off-signed.
+
+**Every number below carries its normalization in its name**, because the two
+in use differ by orders: on the N₂ gate deck a raw positive maximum of
+$+8.776\times10^{-7}$ is $+2.420\times10^{-4}$ divided by $S_d(0)$ and
+$+1.64\times10^{-3}$ divided by $S_d(t)$.
+
+### 8.1 `arm_norm` is not a population
+
+Under ECS $H_{\mathrm{ext}}$ is complex symmetric, so no conjugating norm is
+conserved and $A$ is not a probability that $\lVert\Psi_d\rVert^2$ gives up. The
+size of that gap is measured rather than assumed: `imbalance` compares the
+coupling's two one-sided rates, and their difference is a **median 0.822 of the
+larger** on the gate deck — the same size as the transfer, not a correction to
+it. Per molecule the medians are 0.871 (N₂), 0.938 (NO), 0.080 (F₂).
+
+`arm_norm` is therefore a **relative channel decomposition**: read across
+channels, and against itself over time. The figure's partition curves do not sum
+to anything conserved and are not drawn as if they did.
+
+`arm_peak` ranks the blocks by their own maximum, which is what a truncation
+would have to respect. It does not favour low indices: the four largest blocks
+are **3, 4, 2, 5** on N₂, **2, 3, 4, 1** on F₂ and **1, 0, 2, 3** on NO. The
+percentages beside them in the driver — 33.7 %, 47.3 %, 89.6 % — are
+`arm_first_four_share`, the share carried by blocks **0–3**, which is what a
+positional truncation would actually keep; the two sets coincide only on NO.
+**Keeping "the first few" arms would be wrong on two of the three** — a second,
+independent reason for `n_states=None` beyond §5's.
+
+### 8.2 The campaign
+
+Three molecules on their existing gate decks, each on the electronic box its own
+`E_BOX_LADDER` rung converges at (N₂ $r_{\max}=16$, NO 16, F₂ 20), `n_states=None`,
+order-3 Padé at $dt = 1$ to $T = 4000$.
+
+**That ladder converges $\Gamma_{\mathrm{loc}}$, not the observables below.** It
+is the right criterion for `exchange_local`, which divides the run by that array,
+and it is not a convergence study of `nonlocality` or of the returning flux in
+the electronic box — no such study has been run. **N₂ is the case to be careful
+with**: 16 is the only rung where the adiabatic tracking is usable
+(`min_overlap` 0.820, against 0.374 / 0.216 / 0.015 at 14 / 20 / 24), so N₂'s
+per-block numbers in §8.1 rest on a box with no converged neighbour to check them
+against.
+
+![Memory observables](figures/nrm-td-memory-observables.png)
+
+| | N₂ | NO | F₂ |
+|---|---|---|---|
+| $E$ (Ha) | 0.100 | 0.200 | 0.030 |
+| $N_R$ (real) / arms / $H_{\mathrm{ext}}$ | 179 (153) / 83 / 15036 | 597 (507) / 83 / 50148 | 974 (819) / 83 / 81816 |
+| peak RSS | 0.76 GB | 3.4 GB | 5.82 GB |
+| $S_d(0)$ | 3.482e−3 | 3.879e−3 | 5.203e−4 |
+| $\Gamma_{\mathrm{eff}}$ (a.u.) | 2.318e−2 | 2.696e−2 | 4.060e−3 |
+| arm peak / $S_d(0)$, at $t$ | 0.1364 at 18 | 0.1334 at 55 | 0.0451 at 40 |
+| max positive / own peak $\lvert X\rvert$ | 6.402e−6 | 1.982e−2 | 1.590e−1 |
+| first return at $t$ | 1453 | 157 | 25 |
+| $S_d/S_d(0)$ **there** | 0.000 | 0.411 | 0.918 |
+| nonlocality | 0.507 | 0.813 | 0.946 |
+| $S/S_0 = 0.5$ at $t$ | 28 | 75 | 3371 |
+| …over $\exp(-\Gamma_{\mathrm{eff}}t)$ | 0.947 | 3.76 | 4.393e5 |
+| imbalance, median | 0.871 | 0.938 | 0.080 |
+
+Every row is that molecule **at that energy**. All of them except
+`nonlocality` are energy-independent (§8.4), so only that row needs the
+qualifier — and it needs it: these three energies are all inside the window
+where §8.4 finds the observable valid, but `nonlocality` does move with energy
+and inflates near a threshold.
+
+**The whole thing fits on a laptop.** F₂ is the largest at $H_{\mathrm{ext}} =
+81816$ and peaks at 5.82 GB. An earlier note in this repository stated that
+53570 "does not fit on a laptop" on the strength of three OS kills; those kills
+were concurrency, not size, and that claim is withdrawn.
+
+### 8.3 The returning flux: what it shows, and where it cannot be read
+
+At their campaign energies the nonlocality integral
+$\int\lvert X - X_{\mathrm{loc}}\rvert \,/\, \int\lvert X_{\mathrm{loc}}\rvert$
+reads N₂ 0.507, NO 0.813, F₂ 0.946, and every return-flux comparator in the
+table ranks the three the same way. That ordering is what this sub-project set
+out to establish, and only one of the two columns turned out able to carry it.
+Separating them took most of the work.
+
+**The pointwise sign of $X$ is not a converged quantity on any of the three.**
+Halving $dt$ does not lengthen the sign-flip period in atomic units — it shrinks
+it, so the period stays at roughly two steps whatever the step is: F₂
+$2.09 \to 0.84 \to 0.52$ a.u. at $dt = 1 / 0.5 / 0.25$, N₂ $7.33 \to 1.34 \to
+0.72$, NO $34.5 \to 3.19$. A structure that sits at the step scale at *every*
+step size is being measured at the wrong resolution.
+
+Those periods, and the per-refinement `nonlocality` spreads quoted below, come
+from the refinement runs recorded in `N2_RESOLUTION` and re-measured 2026-08-28
+on sadaharu (x86, MUMPS) against the committed campaign `.npz`; the driver
+reprints both from the `.npz` under `resolution --against <molecule>`.
+
+That this is time discretisation and nothing else was checked rather than
+assumed. Each campaign deck was re-propagated on a different CPU, BLAS and
+sparse factorisation (x86 + MUMPS against arm64 + SuperLU): the runs agree to
+**1.9e−13 (N₂), 1.3e−12 (NO), 8.4e−13 (F₂)** with 100 % sign agreement.
+
+So the returns are compared on **time-averaged bins**, at four widths (5, 10, 20,
+50 a.u.) so that the width cannot be doing the work, against every refinement
+available per molecule. Two columns are read, because agreeing about the *sign*
+of a bin says nothing about its *size*:
+
+| | N₂ | F₂ | NO |
+|---|---|---|---|
+| lift of returning bins over chance | 0.000–0.122 | 0.048–0.162 | **0.613–0.650** |
+| median magnitude disagreement there | 125–148 % | 84–520 % | **2–19 %** |
+| max positive / own returning-window floor | 0.07, 0.17 | 0.65, 1.02 | 2.23, 2.58 |
+
+**Lift, not raw concordance.** The concordance is conditional — "of the bins
+this run calls returning, how many does the finer one?" — so its null is the
+finer run's own positive-bin rate, not one half. That rate is ~0.59 on F₂ and
+~0.35 on NO, so raw numbers of 0.65 and 0.98 mean opposite things. An earlier
+reading of this table quoted the raw values and put F₂ in a middle band; **that
+band was the missing null, not a finding.**
+
+**So there are two bands, not three**, and the magnitude row is what settles it,
+because it involves no choice of metric: NO's binned returns agree to 2–19 %
+where N₂'s and F₂'s differ by more than they are worth. N₂ and F₂ are **not**
+ranked against each other here — their lifts are both small and positive, and
+which of the two looks larger depends on whether the comparison is pointwise or
+binned (it reverses). One molecule of three carries a readable returning flux;
+the other two are not ordered by this observable.
+
+**This retracts a claim this sub-project made.** The design document's headline
+returning flux does not hold on N₂, and does not hold on F₂ either. N₂'s lift is
+zero at three of four widths and its binned returns differ in size by more than
+they are; the physics agrees with the arithmetic, since N₂'s first return is at
+$t = 1453$, by which time $S_d/S_d(0)$ has fallen below $10^{-3}$ (the table's
+cell rounds to 0.000) and there is
+nothing left to return to. The prototype's $+8.776\times10^{-7}$ is withdrawn
+twice over: it is below this floor, and it was measured on an $r_{\max} = 11$ box
+that `E_BOX_LADDER` shows is 22 % wrong in $\Gamma_{\mathrm{loc}}$ before
+resolution is considered.
+
+The bin metric was introduced *after* the pointwise one failed, which is how a
+claim gets rescued rather than tested. Note which way it cut: it did not raise
+N₂, and once its null was supplied it removed F₂ as well.
+
+**So the returning flux cannot carry a comparison between molecules**, being
+readable on one of them. `nonlocality` can be measured on all three and
+converges under refinement — N₂ 0.5068–0.5097 over four runs (0.6 %), NO
+0.8131–0.8134 (0.04 %), F₂ 0.9398–0.9576 (1.9 %) — so the ordering is read off
+it instead. §8.4 is what qualifies that, since converging under refinement and
+being meaningful at a given energy are different things.
+
+### 8.4 The ordering, and the window it is measured over
+
+The three molecules run at three different energies, each set by where that
+molecule's channel is open. So the comparison across them has to survive the
+possibility that it is a comparison in energy. All three were laddered —
+seventeen rungs — with everything else held fixed.
+
+**Every column the campaign reads as a return is frozen.** Over a 4–6× change in
+$\Gamma_{\mathrm{eff}}$ the onset does not move at all and `max positive / peak`
+moves in the fifth figure. Those are properties of the molecule.
+
+**`nonlocality` is not frozen, and over the full run it is not even the right
+integral.** With the arms empty $X = 0$, so $\lvert X - X_{\mathrm{loc}}\rvert =
+\lvert X_{\mathrm{loc}}\rvert$ *identically* and the ratio is pinned near 1
+whatever the kernel is doing. Every propagation passes through that window. Near
+a threshold it dominates, because the **denominator collapses**: $\int\lvert
+X_{\mathrm{loc}}\rvert$ falls **46×** across N₂'s ladder and **35×** across F₂'s,
+while the numerator cannot fall below that floor.
+
+What collapses is $\Gamma_{\mathrm{loc}}$'s **magnitude** over the doorway —
+$\max \Gamma_{\mathrm{loc}}$ moves 5.5× on N₂ and 11.8× on F₂ — not its extent:
+the nodes carrying it go only 89 → 95 of 153 on N₂ and 291 → 360 of 819 on F₂.
+The reference dies in size, not in reach.
+
+**The contamination is a window, so the fix is a window.** Integrating from the
+arm-norm peak onwards (`nonlocality_post_peak`) removes it from every rung,
+rather than discarding whole propagations for containing it. $t_{\mathrm{peak}}$
+is not a tuned knob — it is identical at every energy within a molecule
+(18 / 55 / 40 a.u.), and starting at $2t$ or $3t$ gives the same verdict.
+
+**The only rungs excluded are the two this ladder added outside the molecules'
+own declared energy windows** — N₂ at 0.05 Ha and NO at 0.40 Ha — by a criterion
+this module has carried since before the ladder existed, applied to both.
+
+| | N₂ | NO | F₂ |
+|---|---|---|---|
+| in-window rungs | 6 | 4 | 5 |
+| nonlocality (post-peak) | 0.224–0.773 | 0.870–0.872 | 1.055–1.341 |
+| margin to the next band | — | +12.5 % | +21.0 % |
+
+**N₂ < NO < F₂.** Of the three inequalities, **`NO < F₂` is the one to quote if
+only one can be**: it holds on the raw full-run column too, over all seventeen
+rungs (NO's max 0.8134 against F₂'s min 0.9246), needing no argument about
+windows at all. `N₂ < F₂` holds with a wide margin. `N₂ < NO` is the narrowest at
+12.5 % and the first to re-examine.
+
+**An honesty note, because this section has said three different things.** It
+first reported the ordering, then retracted it outright, and now states it again
+on a different integral. The retraction was made on the full-run column with
+near-threshold rungs in it and was an over-reaction to a real problem. The first
+repair excluded four rungs by a share cut invented after the ladder was run —
+better, but open to the charge that a criterion had been fitted to the answer,
+and it could not support `N₂ < NO` at all, since N₂'s in-window 0.06 Ha rung read
+0.848 there, *above* NO. Integrating post-peak removes the contaminated window
+instead of the contaminated rungs; that rung reads 0.416 post-peak, and no
+after-the-fact criterion remains.
+
+### 8.5 What does not follow, and one negative result
+
+**NO's flatness is not a measurement.** Its `nonlocality` varies by 0.3 % over
+its entire declared window — but so does everything feeding it:
+$\Gamma_{\mathrm{eff}}$ spans 1.02× and $\int\lvert X_{\mathrm{loc}}\rvert$ 1.06×,
+against 4–6× and 35–46× on the other two. The perturbation that moved N₂ and F₂
+was never applied to NO. "NO's memory is energy-independent" would be reading an
+output that did not move under an input that did not move either; the honest
+statement is that **NO's Markovian reference does not vary on this deck**, so its
+nonlocality has no energy dependence available to show.
+
+**NO's returning flux is resolved, and it is the only one that is.** Its returns
+come in periodic bursts, begin at $t = 157$ with the discrete state still 41 %
+intact, reproduce at a lift of +0.61 to +0.65 over chance, and agree in magnitude
+to 2–19 %. Bursts on that timescale are what boomerang recurrences look like in
+the memory kernel — the packet re-entering the autodetachment region on each
+swing. That is a connection to the published interpretation of NO's long-lived
+structure, not a new claim about it.
+
+**N₂ and F₂ are not ranked against each other by the returning flux.** Both lifts
+are small and positive, and which looks larger reverses between the pointwise and
+binned metrics. Only the ordering on `nonlocality` above is claimed.
+
+## 9. Limits — what this does not establish
 
 - **The TD/TI agreement validates the propagation, not the model.** Both routes
   run on the same grids with the same ingredients, so shared discretisation error
@@ -669,8 +935,38 @@ one observable and calibrated for the other is better than two thresholds, and
   time-domain and frequency-domain routes to `qscat.core.lcp`'s own model agree;
   how good that model is remains
   `docs/physics/nonlocal-resonance-model.md`'s question.
+- **§8's observables are diagnostics of a model already gated, not evidence
+  for it.** Every §8 number is read off a propagation whose cross section is
+  validated in §3 and §7; none of them validates anything in turn. A molecule
+  scoring high in `nonlocality` is a statement about this model's kernel, not a
+  measurement of how wrong the LCP is on that molecule.
+- **§8's ordering is read from the post-peak integral over each molecule's
+  declared energy window**, not from the full-run integral, and two of the
+  seventeen rungs are excluded for falling outside those windows. `NO < F₂`
+  needs neither and holds on the raw column; the other two inequalities do.
+- **`N₂ < NO` rests on a 12.5 % margin** between six N₂ rungs and four NO ones.
+  It is the first of the three to fail if any does.
+- **`nonlocality` is a function of energy as well as molecule.** A single value
+  quoted without an energy means nothing, and over the full run it inflates
+  near a threshold because its Markovian reference collapses in magnitude
+  rather than because the kernel is more nonlocal.
+- **NO's flat nonlocality is not evidence of anything**: its
+  $\Gamma_{\mathrm{eff}}$ and Markovian reference are flat across its whole
+  declared window too, so the perturbation was never applied.
+- **The returning flux is readable only on NO.** Read against their own nulls,
+  N₂'s and F₂'s binned returns lift 0.00–0.12 and 0.05–0.16 over chance and
+  their magnitudes differ by 125–148 % and 84–520 %; neither is quoted as a
+  measurement, and the two are not ranked against each other.
+- **NO's own LCP remains undetermined, and §8 does not fix it.** Its pole walk
+  still does not converge in the electronic box; §8 ranks NO by a route that
+  never calls the pole walk, which is a way around that failure and not a
+  repair of it.
+- **O₂ is absent by choice.** `qscat.model` registers `O2`, `O2_SO12` and
+  `O2_SO32`, but those are the potential factory's fit rather than a published
+  parameter set, so there is no external LCP comparison and §8's comparative
+  question is undefined for them.
 
-## 9. Literature
+## 10. Literature
 
 - **PRA 47, 1031 (1993)** — `reference/literature/gertitschke-1993-pra47-1031.md`.
   The time-dependent nonlocal equation of motion Eq. (2.1)–(2.5), the amplitude

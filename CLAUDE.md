@@ -337,7 +337,41 @@ libs/       qscat — the standard library: validated, reusable QM code
               and local packets are nearly identical (`⟨R⟩` within 0.01 bohr,
               both unimodal) — **no packet splitting**, unlike PRA 47's H₂⁻; the
               shipped LCP's packet differs because of its DOORWAY, not its
-              kernel — see docs/physics/nrm-time-dependent.md. Plus
+              kernel — see docs/physics/nrm-time-dependent.md. The TD half also
+              carries `memory` (`MemorySpec`/`MemoryRecorder`/`local_width`):
+              the auxiliary packets ARE PRA 77's kernel, so a propagation can
+              record where the amplitude sits (`arm_norm`, a RELATIVE channel
+              decomposition — NOT a population, the coupling's two one-sided
+              rates differ by a median 0.822 of the larger under ECS) and the
+              rate at which it feeds the discrete state (`exchange`) against
+              that rate's Markovian limit (`exchange_local`, non-positive by
+              construction — so `exchange > 0` is amplitude the LCP cannot
+              represent at all). The three-molecule campaign
+              (`validation/diatomic/memory_observables.py`) answers the
+              ordering question YES, on the INTEGRAL and not on the flux, and
+              CONDITIONALLY. The returning flux is resolved on NO alone (binned
+              lift over its own null +0.61..+0.65 and magnitudes 2-19% apart,
+              against N₂ 0.00-0.12 / 125-148% and F₂ 0.05-0.16 / 84-520%), so
+              it cannot carry a three-way comparison; the pointwise sign is
+              unconverged on all three (refining `dt` keeps the sign-flip
+              period at ~2 steps rather than fixing it in a.u.). `nonlocality`
+              can: it converges under refinement on all three and orders them
+              **N₂ 0.224-0.773 < NO 0.870-0.872 < F₂ 1.055-1.341**, strictly,
+              over the 15 in-window rungs of 17, margins 12.5%/21.0%. `NO < F₂`
+              is the one to quote if only one can be: it also holds on the raw
+              full-run integral over ALL 17 rungs, needing no window argument.
+              **The condition is that `nonlocality` INFLATES near a threshold**
+              -- with empty arms `|X-X_loc| = |X_loc|` identically, and the
+              Markovian REFERENCE collapses 46x (N₂) / 35x (F₂) toward
+              threshold while that floor does not -- so the ordering holds only
+              when integrated from the ARM-NORM PEAK onward, which drops the
+              window where empty arms pin the ratio at 1; the only rungs
+              excluded are the 2 outside the molecules' own pre-existing
+              declared energy windows. A single `nonlocality` quoted without an energy means
+              nothing. NO's flatness across its whole window is NOT evidence:
+              its `Gamma_eff` and reference are flat too, so the perturbation
+              was never applied — see
+              docs/physics/nrm-time-dependent.md sec. 8. Plus
               `channels`, `grids`
               (parameterized FEM-DVR-ECS builders + `segmented_grid` for
               eMoScat's `(n_elem, endpoint)` deck format, plus `ecs_angle_family`
