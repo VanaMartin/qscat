@@ -14,7 +14,7 @@ FIGURE = "docs/physics/figures/no-coupled-pole-trajectory.png"
 R_MARK = 2.4  # bohr, inside NO's resonant region
 
 
-def main() -> str:
+def pole_trajectory_figure() -> str:
     import matplotlib
 
     matplotlib.use("Agg")
@@ -88,6 +88,65 @@ def main() -> str:
     plt.close(fig)
     print(f"[coupled] wrote {FIGURE}")
     return FIGURE
+
+
+CROSS_SECTION_FIGURE = "docs/physics/figures/no-coupled-cross-section.png"
+
+
+def cross_section_figure() -> str:
+    """Fixed-l against coupled, one panel per channel, thresholds marked.
+
+    The thin vertical lines are the vibrational thresholds: with them a reader
+    can tell a cusp (pinned to a line) from a resonance (not), which is the
+    whole reason the mesh clusters where it does.
+    """
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    from validation.coupled.energies import E_HI, E_LO, vibrational_thresholds
+
+    d = json.loads((RESULTS / "cross_section.json").read_text())
+    E = np.asarray(d["sigma"]["1"]["E"], dtype=float)
+    thresholds = [t for t in vibrational_thresholds() if E_LO < t < E_HI]
+
+    fig, axes = plt.subplots(2, 3, figsize=(15, 8), sharex=True)
+    vprimes = d["vprimes"]
+    for j, (vp, ax) in enumerate(zip(vprimes, axes.ravel(), strict=False)):
+        for n_ch, style, colour in (("1", "--", "tab:orange"), ("4", "-", "tab:blue")):
+            sig = np.asarray(d["sigma"][n_ch]["total"], dtype=float)[:, j]
+            ax.plot(E, sig, style, color=colour, lw=1.0, label=f"$N_l$ = {n_ch}")
+        for t in thresholds:
+            ax.axvline(t, color="0.85", lw=0.5, zorder=0)
+        ax.set(ylabel="$\\sigma$ ($a_0^2$)", title=f"$0 \\to {vp}$")
+        ax.legend(fontsize=8)
+    for ax in axes.ravel()[len(vprimes) :]:
+        ax.set_visible(False)
+    for ax in axes[-1]:
+        ax.set_xlabel("$E$ (Ha)")
+    # axes.ravel()[2] (the v'=2 panel) is the only visible axis in the third
+    # column -- its bottom neighbour is the hidden sixth axis, so `sharex`
+    # suppresses its tick labels and the loop above never reaches it to set
+    # its own xlabel. Restore both explicitly.
+    orphan = axes.ravel()[len(vprimes) - axes.shape[1]]
+    orphan.tick_params(labelbottom=True)
+    orphan.set_xlabel("$E$ (Ha)")
+    fig.suptitle(
+        "NO vibrational excitation: coupled against fixed-$l$, "
+        f"$s$ = {d['s']}, $\\kappa$ = {d['kappa']}",
+        fontsize=10,
+    )
+    fig.tight_layout()
+    fig.savefig(CROSS_SECTION_FIGURE, dpi=130)
+    plt.close(fig)
+    print(f"[coupled] wrote {CROSS_SECTION_FIGURE}")
+    return CROSS_SECTION_FIGURE
+
+
+def main() -> None:
+    pole_trajectory_figure()
+    cross_section_figure()
 
 
 if __name__ == "__main__":
