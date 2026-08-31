@@ -12,6 +12,22 @@ installed package.
 ## [Unreleased]
 
 ### Added
+- **Computed artifacts move out of git, and `qscat-run fetch` brings them
+  back.** 37% of every byte this repository had ever stored was computed
+  output — 23.7 MB of blobs under `docs/physics/figures` and `validation`
+  against a 39 MB packed clone — none of it source, none of it read by a
+  human. Converged sweeps are now published to public object storage and the
+  run directory keeps a KB-sized `artifacts.json` naming a URL prefix and a
+  sha256 per file; `qscat-run fetch DIR` downloads what it names and verifies
+  every byte, leaving nothing on disk that fails its digest. Reads are
+  anonymous HTTPS, so a URL works from a notebook or a `curl` with no account
+  and no client library, and published paths are immutable so a number a note
+  cites keeps resolving. What stays in git is what a test or a note needs in
+  order to stand alone: golden inputs, fit reports, cited figures. The
+  classification and the measurements behind it are in
+  `docs/adr/0008-computed-artifacts-live-in-public-object-storage.md`; the
+  reader's side is `docs/artifacts.md`. Nothing is migrated yet — this adds
+  the machinery and the rule.
 - **Rendered mathematics in the documentation.** `docs/conf.py` gained
   `sphinx-copybutton`, `sphinx-design`, `sphinxext-opengraph` and
   `sphinx.ext.githubpages`, plus equation numbering (`numfig`,
@@ -227,6 +243,20 @@ installed package.
     simply omit it.
 
 ### Fixed
+- **`manifest.json` records a real commit, or the run fails.** Three committed
+  O₂ sweeps carried `"git_sha": "unknown"`, so the artifacts behind the
+  spin–orbit VE figure could not be tied to the code that produced them.
+  Three independent causes, each sufficient alone: `ARG GIT_SHA=unknown` put
+  the literal string into the environment, where it outranked the
+  `git rev-parse` fallback written for exactly that case; the Docker
+  `runtime` stage never received the variable at all (`ENV` does not cross a
+  `FROM`, and `COPY --from=` copies files, not environment); and nothing
+  tested any of it. Only a real 40-hex SHA is now honoured, an undeterminable
+  one raises rather than writing a plausible-looking manifest
+  (`QSCAT_ALLOW_UNKNOWN_SHA=1` opts out deliberately), and a Dockerfile guard
+  fails if a stage starting from a fresh base omits the `ARG`/`ENV` pair. The
+  three sweeps were re-run: cross sections bit-identical across all 3343 × 7
+  values, so the repair carries no physics change.
 - `qscat.viz` contour colours now follow `inverse`. The `|psi|` contours and the
   dotted potential overlay had fixed defaults (white, `0.75` grey), so the
   `inverse` (light-ground) render drew white on white and the overlay was barely
