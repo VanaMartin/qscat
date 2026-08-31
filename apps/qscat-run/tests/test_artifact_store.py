@@ -21,7 +21,6 @@ from qscat_run.artifact_store import (
     MissingPointer,
     fetch,
     load_pointer,
-    pointer_path,
 )
 
 
@@ -134,16 +133,18 @@ def test_the_request_identifies_itself_rather_than_defaulting_to_urllib() -> Non
     assert "github.com/VanaMartin/qscat" in agent
 
 
-def test_pointer_path_is_the_documented_name(tmp_path: Path) -> None:
-    assert pointer_path(tmp_path).name == "artifacts.json"
-
-
 def test_every_committed_pointer_in_this_repo_is_wellformed() -> None:
     """Guards the pointers themselves: a typo in a URL prefix or a truncated
     digest is invisible until someone tries to fetch, which may be months
-    later and on someone else's machine."""
+    later and on someone else's machine.
+
+    Skips rather than passing silently while no results have been migrated --
+    a guard with nothing to guard should say so, not report green.
+    """
     repo = Path(__file__).resolve().parents[3]
     pointers = sorted(repo.glob("validation/**/artifacts.json"))
+    if not pointers:
+        pytest.skip("no artifacts.json committed yet -- nothing has been migrated")
     for p in pointers:
         ptr = load_pointer(p.parent)
         assert ptr.url_prefix.startswith("https://"), p

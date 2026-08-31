@@ -14,11 +14,35 @@ qscat-run list                                                      # molecules,
 qscat-run init F2 --observables ve,da --methods ti,lcp -o f2.yaml   # scaffold
 qscat-run validate f2.yaml                                          # actionable schema check
 qscat-run run f2.yaml --output runs/f2                              # solve + write artifacts
+qscat-run fetch validation/factory/results/o2-ve                    # download published results
 ```
 
 The production preset decks are `O(10^4–10^6)` unknowns — run those under
 Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 `examples/*.yaml` use tiny explicit grids for fast local iteration.
+
+A run directory records the commit it came from. `manifest.json`'s `git_sha`
+is a hard requirement, not a best effort: a run that cannot determine it
+fails rather than writing `"unknown"`, because an artifact that cannot be
+tied to code is not citable. Inside a container, where the build context
+excludes `.git`, the host passes it in (`docker/run.sh` and `docker/build.sh`
+do this via `--build-arg GIT_SHA`); set `QSCAT_ALLOW_UNKNOWN_SHA=1` to run
+from a tree with no provenance to report.
+
+## Results that are not in the repository
+
+Converged sweeps are a few hundred kilobytes of CSV costing minutes to hours
+of MUMPS solves, so they are published to object storage rather than
+committed, and the run directory carries a small `artifacts.json` naming
+them. `qscat-run fetch DIR` downloads what it names and verifies every byte
+against the digest recorded at publication; a directory with no
+`artifacts.json` keeps its results in git and needs no fetching.
+
+Reads are anonymous HTTPS — no account, no credentials. Publishing is
+maintainer-only and lives outside this repository. What stays in git is
+everything a test or a note depends on; see
+`docs/adr/0008-computed-artifacts-live-in-public-object-storage.md` for where
+the line is drawn, and `docs/artifacts.md` for the reader's side.
 
 ## Registry
 
