@@ -8,8 +8,10 @@ object storage; what is committed is a small pointer beside them.
 
 Everything a claim *depends* on stays in git: the golden inputs tests read, the
 fit reports that lock model constants, the figures the physics notes discuss.
-See {doc}`adr/0008-computed-artifacts-live-in-public-object-storage` for the
-classification and why it is drawn there.
+The classification, the measurements behind it, and why the line is drawn there
+are recorded in `docs/adr/0008-computed-artifacts-live-in-public-object-storage.md`
+— a repository-only document, so it is named by path rather than linked: `adr/`
+is excluded from this site.
 
 ## Fetching
 
