@@ -126,6 +126,29 @@ class CoupledModel:
         ]
         return assemble_coupled(diagonal, self._coupling_table(r, R))
 
+    def interaction_matrix(self, tgrid: TensorGrid) -> sp.csr_matrix:
+        """The coupled interaction `V_{ll'}` on `tgrid`, sparse, channel-outermost.
+
+        The PERTURBATION alone: no kinetic energy, no `v0(R)` and no
+        centrifugal term. Those belong to the free channel Hamiltonian, whose
+        solutions `channel_vector` already supplies -- putting them here would
+        drive the Lippmann-Schwinger equation with the wrong operator and
+        silently produce a plausible wrong T-matrix.
+
+        The single-channel sibling is `DiagonalChannelModel.interaction_diag`,
+        which returns a flat array because one channel's interaction really is
+        diagonal. Coupled it is not: the off-diagonal blocks ARE the coupling.
+        """
+        r, R = tgrid.points()
+        diagonal = [
+            sp.diags(
+                np.asarray(self.well.v_block(l, l, r, R), dtype=np.complex128).ravel(),
+                format="csr",
+            )
+            for l in self.channel_ells()
+        ]
+        return assemble_coupled(diagonal, self._coupling_table(r, R))
+
     def hamiltonian(self, tgrid: TensorGrid) -> sp.csr_matrix:
         """The coupled `H_2D` on `tgrid` (axis 0 electronic `r`, axis 1 `R`)."""
         diagonal = [
