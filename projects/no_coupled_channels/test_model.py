@@ -137,3 +137,51 @@ def test_diagonal_channel_model_matches_the_shipped_surface_at_s0() -> None:
     assert dm.ell == NO.ell
     assert dm.mu == NO.mu
     assert dm.charge == NO.charge
+
+
+def test_interaction_matrix_is_the_perturbation_alone() -> None:
+    """At s = 0 the coupled interaction must be block-diagonal, and its l = 1
+    block must be exactly the shipped model's interaction -- v0 and the
+    centrifugal term belong to the free Hamiltonian, not to the perturbation."""
+    well = TwoCentreWell(base=NO, s=0.0, kappa=0.3)
+    tg = _tensor_grid()
+    n = tg.size
+    V = sp.csr_matrix(CoupledModel(well=well, n_channels=3).interaction_matrix(tg))
+    assert V.shape == (3 * n, 3 * n)
+
+    # RELATIVE to the interaction's own magnitude, not absolute. The
+    # off-diagonal blocks vanish by quadrature exactness, so what survives is
+    # round-off on the potential -- measured, 2.9e-15 against a magnitude of
+    # 6.0, i.e. 4.8e-16 relative. An absolute bound would silently tighten or
+    # loosen with lambda(R), and on a weaker interaction it would start
+    # rejecting a correct implementation.
+    scale = float(np.max(np.abs(NO.interaction_diag(tg))))
+    for i in range(3):
+        for j in range(3):
+            if i != j:
+                blk = _block(V, i, j, n)
+                assert blk.nnz == 0 or float(np.max(np.abs(blk.data))) < 1e-13 * scale
+
+    got = np.asarray(_block(V, 0, 0, n).diagonal())
+    np.testing.assert_allclose(got, NO.interaction_diag(tg), rtol=0, atol=1e-14)
+
+
+def test_interaction_matrix_is_complex_symmetric() -> None:
+    """Every operator here is complex symmetric, never Hermitian -- the ECS
+    contour makes it so, and a Hermitian-only routine downstream would be
+    silently wrong rather than loudly."""
+    well = TwoCentreWell(base=NO, s=0.6, kappa=0.5)
+    tg = _tensor_grid()
+    V = sp.csr_matrix(CoupledModel(well=well, n_channels=3).interaction_matrix(tg))
+    diff = (V - V.T).tocoo()
+    assert diff.nnz == 0 or float(np.max(np.abs(diff.data))) < 1e-14
+
+
+def test_interaction_matrix_couples_once_the_anisotropy_is_on() -> None:
+    well = TwoCentreWell(base=NO, s=1.0, kappa=0.3)
+    tg = _tensor_grid()
+    n = tg.size
+    V = sp.csr_matrix(CoupledModel(well=well, n_channels=2).interaction_matrix(tg))
+    off = _block(V, 0, 1, n)
+    assert off.nnz > 0
+    assert float(np.max(np.abs(off.data))) > 1e-6
