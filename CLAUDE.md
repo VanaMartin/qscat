@@ -735,14 +735,44 @@ validation/ analytic benchmarks, golden datasets, convergence studies
               committed at `results/screen.json`) then
               `python -m validation.coupled.observable`, and
               `python -m validation.coupled.figures` to redraw the committed
-              figure. GATED OPEN: no
-              genuine second pole ever appears (criterion (a) never fires),
-              but the fixed-l reduction misses the width by 59% at `s=0.5`
-              and the VE cross section by a 31% MEDIAN relative shift at
-              `s=0.1` (the two criteria are evaluated at different `s`,
-              since the cross-section route is only valid while the curve
-              difference stays a perturbation of the shipped width) — see
-              docs/physics/coupled-partial-waves.md.
+              figure. RESULT (consolidated 2026-08-29): for the
+              ANGLE-INTEGRATED VE cross section the fixed-l reduction is a
+              good approximation, because a low-energy electron cannot
+              resolve the anisotropy -- k*d ~ 0.15 at resonance energies, and
+              measured, under 0.1% of the cross section leaves the entrance
+              partial wave. ONLY l=1 hosts a resonance at all (l=2..5 contain
+              no angle-stable pole anywhere), which is the atomic physics
+              showing through -- O- has one bound orbital, 2p -- and which
+              EXPLAINS the single-pole null rather than merely observing it.
+              The higher waves are inert leakage channels. Splitting the well
+              destroys the dissociation limit (the deeper centre keeps only
+              `(1+kappa)/2` of `lam`, so the anion unbinds beyond `R ~ 0.7/s`
+              for ANY `s>0`); `renormalise.py` solves a per-R rescaling `f(R)`
+              that pins the shipped anion curve, reaching the analytic
+              `2/(1+kappa)`, with the channel cutoff `N_l ~ max(4, 7d)` a
+              function of the well separation `d=sR/2` ALONE. The fixed-l
+              model CANNOT reach the correct dissociation limit at any well
+              depth (`f_1` diverges) -- the asymptotic state is atomic, and no
+              finite molecule-centred partial-wave set represents a state
+              centred elsewhere. That is a defect of THIS construction, not of
+              partial-wave truncation: the shipped model's well is centred at
+              `r=0` for every R, so its asymptotic anion is described exactly
+              by l=1 and one wave suffices -- the two-centre form MANUFACTURES
+              a representation problem its parent did not have. l is a good
+              quantum number wherever it is defined about the centre the state
+              sits on; O- has one bound orbital (2p) and none above.
+              MEASURED: the truncation effect on the integrated VE cross
+              section is 2-7% (sigma-weighted), ~1% above 0.05 Ha rising to
+              6.6% near threshold, against a reference converged to 0.3-0.5%
+              (N_l=4 -> 6) -- resolved, the effect exceeding the convergence
+              by 5-20x. The angle-integrated cross section remains the WRONG
+              observable anyway --
+              it sums over exit partial waves, which is what the anisotropy
+              produces; the differential cross section is ~30x more sensitive
+              and has not been computed. The earlier 58%-width and 11.8x
+              cross-section headlines are WITHDRAWN (measured on a model whose
+              anion is unbound at every R) and archived under "Superseded
+              results" -- see docs/physics/coupled-partial-waves.md.
 
 `projects/` and `validation/` (and their sub-project directories) are real
 Python packages (`__init__.py` present at every level); all intra-repo

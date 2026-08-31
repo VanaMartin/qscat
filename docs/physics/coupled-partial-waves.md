@@ -1,9 +1,13 @@
 # Coupled partial waves in the NO shape resonance: does the fixed-l reduction hold?
 
 **Location:** `projects/no_coupled_channels/` (`anisotropy.py`, `model.py`,
-`blocks.py`, `angular.py`) for the coupled-channel model; `validation/coupled/`
-(`screen.py`, `observable.py`, `figures.py`) for the campaign, the gate, and
-the figure.
+`blocks.py`, `angular.py`, `scattering.py`) for the coupled-channel model
+and its cross-section solver, plus `renormalised.py` (the well whose `lam` is
+rescaled to preserve the anion curve); `validation/coupled/` (`screen.py`,
+`observable.py`, `energies.py`, `cross_section.py`, `figures.py`,
+`renormalise.py`, `per_ell_curves.py`, `s0_control.py`, `bound_count.py`,
+`renormalised_campaign.py`, `symmetric_run.py`) for the pole campaign, the
+normalisation solve, the per-wave scan, the controls and the figures.
 **Origin:** a coupled-channel extension of `qscat.model.NO`'s local complex
 potential (LCP) model — the shipped model represents the anion shape resonance
 with a single partial wave (`Lambda = 1`), and this project asks whether that
@@ -15,64 +19,157 @@ Hermitian.
 
 ## Key result
 
-The gate is **OPEN**, but not on the criterion the whole project was built to
-test. Across the entire campaign — every $R$, every anisotropy strength
-$s$, every channel count $N_l = 1 \ldots 5$ — the widest angle-stable window
-never contains more than one state that passes the residual cut: **the
-resonance stays a single pole under coupling**, so criterion (a) (a genuine
-second pole) never fires (`max n_poles = 1` everywhere). That null is only as
-good as the cut it rests on: `resid_max = 1e-5` (`validation/coupled/screen.py`),
-against a worst *genuine* residual on this sample of 9.8e-6 — within about 2%
-of the cut, not the comfortable margin a smaller number would suggest, so the
-accepted population reaches essentially to the cut itself — a search window
-of only $\pm 0.15$ Ha, and at most 2 angle-stable states ever found at any
-point on the campaign. A genuinely split second pole would typically be broad
-and marginal, which is exactly the population most at risk of being rejected
-by the residual cut as spurious.
-No overlap verification against a reference basis (the discriminator this
-repository otherwise relies on for exactly this question, see
-[`h2plus-resonance-states.md`](h2plus-resonance-states.md)) was run here — angle stability alone is
-documented elsewhere in this repository to admit fake poles, so this null
-result should be read as "no second pole survived this screen's detection
-floor," not as a proof that none exists. What does fire are the other two
-criteria, each at its own $\kappa = 0.5$ comparison point, because each is
-only trustworthy up to a different anisotropy strength (see Method):
-criterion (b), the width, at $s = 0.5$ (the largest $s$ both the coupled and
-the fixed-$l$ walk reached) — the fixed-$l$ reduction misses $\Gamma(R)$ by
-up to 59% there (measured over the 21 of 41 $R$ points where both curves
-still have a pole at that $s$; see below for why $s=0.3$, where all 41 are
-comparable, is the better headline), far past the 5% gate. Criterion (c), the
-vibrationally-elastic/inelastic cross section, at $s = 0.1$ (the largest $s$
-at which the curve-difference construction is still a small perturbation of
-the shipped width; see Method) — the median relative shift across the swept
-energies and channels is 31%, also far past 5%. The pointwise *maximum*
-shift at that same $s$ reaches ~3100%, but that number is a diagnostic, not
-the criterion: it is the resonance lineshape being under-sampled by the
-energy grid (three points across a width of 0.006 Ha), not a larger physical
-effect, and is recorded only so the record shows the peaks moved, not just
-that the curves differ.
+**The question.** The shipped NO model represents the anion shape resonance
+with a single partial wave. Does that reduction survive once a non-spherical
+interaction couples it to neighbouring waves?
 
-Averaged over the resonant part of the curve rather than taken at the single
-worst $R$, the width effect is just as large and better resolved: at
-$s = 0.3$ the median relative $\Gamma$ difference across 41 comparable $R$
-points is 58%, while the model itself (the $N_l = 4$ vs. $N_l = 5$ check) is
-converged to 0.2% there — a large, well-resolved discrepancy, not
-discretisation noise. At $s = 0.5$ the same comparison gives 55%, with the
-model converged to 2.8%. Nothing here is compared with experiment: $s$ and
-$\kappa$ are geometric knobs on a well shape, not fit parameters, and the
-measured effect is confined to $R \in [1.6, 6.0]$ bohr by construction (see
-Method).
+**The answer, for the vibrational-excitation cross section: yes, and for a
+reason that is not specific to this model.** A low-energy electron cannot
+resolve the anisotropy. At the resonance energies here the wavenumber is
+$k \approx 0.45$ a.u., so the electron's wavelength is about 14 bohr against a
+well displacement $d = sR/2 \approx 0.33$ bohr at equilibrium — a factor of
+40. Measured, less than **0.1 %** of the cross section leaves the entrance
+partial wave (max 0.19 %, at the top of the energy range where $kd$ is
+largest). Coupling that weak cannot move an angle-integrated cross section
+much, and the residual effect is being measured now (see *Open* below).
+
+**Six things are established.**
+
+1. **Only $l = 1$ hosts a resonance.** Over eight values of $R$, three
+   different wells, and a window reaching 3.8 Ha above the neutral with
+   $\Gamma$ up to 1.2 Ha, the $l = 2, 3, 4, 5$ blocks contain no angle-stable
+   pole at all (`validation/coupled/per_ell_curves.py`). This is the atomic
+   physics showing through: O$^-$ has exactly one bound orbital, $2p$, and
+   binds nothing in $s$ (no Coulomb tail, so no Rydberg series) or in $d$ (the
+   centrifugal barrier against a neutral core). The higher waves are INERT —
+   the $l = 1$ resonance can only leak into them and back out.
+
+2. **That explains the single-pole null.** No second pole ever appears in the
+   screen because no channel is able to host one. This is a mechanism, which
+   is a stronger statement than a search that found nothing.
+
+3. **Splitting the well destroys the dissociation limit.** The two centres
+   share `lam` as $(1\pm\kappa)/2$, so the deeper well keeps only part of it
+   and the anion unbinds beyond $R \approx 0.7/s$ for ANY $s > 0$. Verified
+   against an external oracle that shares almost no machinery with the coupled
+   solver — a one-dimensional radial eigenproblem, no partial waves, no ECS:
+   the full well binds at $-0.059800$ Ha (matching the coupled model to six
+   digits), and $(1+\kappa)/2$ of it is **unbound**. The loss is a property of
+   the split well, not a truncation artefact.
+
+4. **The fix is a per-$R$ rescaling of `lam`, and its limit is analytic.**
+   Solving $f(R)$ so the coupled model reproduces the shipped $E_{\rm res}(R)$
+   pins the curve, the crossing and the asymptote by construction. At large
+   separation $f$ must approach $2/(1+\kappa)$, the inverse of the deeper
+   well's share — measured, it does, to 4 parts in $10^4$. Both $f$ and the
+   channel cutoff turn out to depend on the well separation $d = sR/2$ ALONE,
+   not on $s$ and $R$ separately, and $f$ is independent of $N_l$ to
+   $3\times10^{-4}$. At $s = 0$ it returns exactly 1.
+
+5. **The channel cutoff is $N_l \approx \max(4,\,7d)$.** A cutoff validated at
+   small $R$ says nothing at large $R$: $N_l = 4$ is wrong by a factor of two
+   in the required rescaling at $d = 3$, and by five at $d = 5$.
+
+6. **The two-centre construction breaks its own basis at large $R$.** Solving
+   $f_1(R)$ for the one-channel model, it diverges — 1.60 at $R = 6$, 2.66 at
+   $R = 9$ — never approaching the $2/(1+\kappa)$ the coupled model reaches.
+   The cause is the construction, not the physics of dissociation: setting
+   $d = sR/2$ moves the well a distance growing without bound AWAY FROM THE
+   COORDINATE ORIGIN the partial waves are defined about, and no finite
+   molecule-centred set represents a state centred somewhere else. Measured
+   from the well itself the same state is one clean $l = 1$ orbital.
+
+   **This is a defect the shipped model does not have.** Its interaction,
+   $-\lambda(R)\,e^{-\alpha r^2}$, is centred at $r = 0$ for EVERY $R$ — the
+   well never moves, so its asymptotic anion is described exactly by $l = 1$
+   and one partial wave suffices. The two-centre model therefore does not
+   merely fail to describe NO's anisotropy; it MANUFACTURES a representation
+   problem its parent did not have. That is an argument against the
+   construction, not a finding about partial-wave truncation.
+
+7. **The truncation costs 2-7 % on the integrated cross section, and it is
+   resolved.** $\sigma$-weighted over each open channel, $N_l = 1$ against
+   $N_l = 4$ differs by 7.1 %, 2.5 %, 3.0 %, 2.3 % for $v' = 0 \ldots 3$,
+   against a reference converged to 0.32-0.52 % ($N_l = 4$ against $N_l = 6$,
+   1008 energies, peak positions identical and peak heights within
+   0.02-0.08 % on the inelastic channels). The effect exceeds the convergence
+   by 5-20x, so it is a measurement rather than noise.
+
+   It is **not uniform in energy**, and the distribution is the physics: above
+   0.05 Ha the cost is a flat ~1.1 %, while below 0.02 Ha it reaches 6.6 % on
+   the elastic channel. Near a threshold the outgoing wave's $l$-composition
+   matters far more than elsewhere, because different $l$ carry different
+   Wigner exponents ($\sigma \sim k^{2l+1}$), so a small admixture changes the
+   ENERGY DEPENDENCE rather than only the magnitude. The $\sigma$-weighted
+   totals are dominated by $v'=0$ for the same reason — its peak sits at
+   0.0098 Ha, inside the band where the discrepancy is largest. Quoting a
+   single percentage for this effect is therefore misleading; the band
+   breakdown is the result.
+
+   The $N_l = 3 \to 4$ step is large (6-10 %) and the $N_l = 4 \to 6$ step
+   twenty times smaller, so $l = 4$ is the last significant contributor rather
+   than a sign of slow convergence.
+
+**The organising principle, stated carefully.** $l$ is a good quantum number
+wherever it is defined about the centre the state actually sits on. In the
+NO$(v)$ + e$^-$ channels the electron is free and centred on the molecule, so
+molecule-centred waves are the right basis. In the N + O$^-$ channel the
+electron is bound to oxygen, and about THAT centre it is again a single clean
+$l = 1$ orbital — O$^-$ has exactly one bound orbital, $2p$, and none at
+$l > 1$. Neither limit intrinsically needs many partial waves. A multi-$l$
+expansion is forced only when the basis is centred somewhere the state is not,
+which is what $d = sR/2$ does and what the shipped central well avoids.
+
+**Where the angular momentum goes.** An electron leaving with $l' \ne l$ must
+be balanced by molecular rotation, since the conserved quantity is
+$\vec J = \vec l + \vec N$. The fixed-nuclei treatment clamps the axis, so
+that angular momentum is absorbed by the frame at zero energy cost. The
+approximation is excellent here: NO's rotational constant is
+$\approx 7.8\times10^{-6}$ Ha against a vibrational quantum of
+$8.8\times10^{-3}$ Ha and collision energies of 0.002-0.15 Ha, so the neglected
+cost is of order $10^{-3}$ relative. What is computed is the rotationally
+summed cross section, which is the appropriate object.
+
+**Open.**
+
+- **The angle-integrated cross section is the wrong observable for this
+  question.** It sums over exit partial waves — exactly what the anisotropy
+  produces. The differential cross section keeps the interference, where a
+  0.1 % flux transfer appears at order $\sqrt{0.001} \approx 3\%$ because
+  interference goes as the amplitude rather than the intensity. That is where
+  this model's anisotropy would be visible, and it has not been computed.
+- **The crossing region is not handled.** Near $R \approx 2.3$ neither the
+  bound-state filter nor the pole walk classifies the state cleanly, so two of
+  41 grid points return no root.
+
+**A methodological rule this campaign paid for three times.** On a resonance
+curve, an aggregate statistic hides as much as it shows, and it misleads in
+BOTH directions. A median relative difference of 17-27 % concealed a peak
+ratio of 11.8; a 58 % median width difference was a position shift, not a
+width error; and a 21 % "peak error" was a one-mesh-point displacement of a
+steep peak. Always separate POSITION from MAGNITUDE, and report the peak
+alongside any median — the two answer different questions and either alone
+can be read as the other.
+
+**Limits.** $s$ and $\kappa$ are geometric knobs, never fitted; nothing here
+is compared with experiment. Pinning the curve isolates angular coupling AT
+FIXED RESONANCE — a genuinely anisotropic molecule would also have a different
+curve, and that part of the effect is deliberately removed. $\Lambda = 1$ is
+itself an addition: the shipped model has no angular structure at all, only a
+centrifugal $l = 1$, so this work adds structure rather than restoring
+something omitted. The $\Sigma$ component of the asymptotic anion lies outside
+the model space entirely.
+
+Results computed before the normalisation requirement was understood are
+recorded under *Superseded results* at the end, with the reason each was
+withdrawn.
 
 ![NO coupled pole trajectory](figures/no-coupled-pole-trajectory.png)
 
-Left: the pole in the complex plane at $R = 2.4$ bohr as $s$ is walked from 0
-(the shipped model, star) up through every channel count $N_l = 1 \ldots 4$,
-at $\kappa = 0.3$ — one pole per curve at every $s$, the picture behind
-criterion (a)'s null. Right: $\Gamma(R)$ for the fully coupled ($N_l = 4$,
-solid) and fixed-$l$ ($N_l = 1$, dashed) models at the criterion-(b)
-comparison point $(s, \kappa) = (0.5, 0.5)$, with the pointwise relative
-shift (dotted, right axis) against the 5% gate line — the picture behind
-criterion (b) firing.
+The pole in the complex plane at $R = 2.4$ bohr as $s$ is walked from 0 (the
+shipped model, star) through every channel count, at $\kappa = 0.3$ — one pole
+per curve at every $s$, the picture behind the single-pole null. The right
+panel's width comparison is superseded; see below.
 
 ## Physical picture
 
@@ -197,9 +294,9 @@ exceeds 5%, evaluated at the largest $s$ both the fully coupled ($N_l=4$) and
 fixed-$l$ ($N_l=1$) walks reached at $\kappa=0.5$ ($s=0.5$ in this
 campaign) — this criterion compares two computed curves directly, with no
 construction in between, so it is sound wherever both curves exist and needs
-no perturbation limit, and it is also exactly as specified. (c) is not: the
-spec declared it as the *pointwise maximum* relative shift in
-$\sigma_{\rm VE}(E)$ exceeding 5% at any sampled energy. What is reported
+no perturbation limit, and it is also exactly as specified. (c) is not:
+criterion (c) as originally conceived was the *pointwise maximum* relative
+shift in $\sigma_{\rm VE}(E)$ exceeding 5% at any sampled energy. What is reported
 below is the *median* relative shift, evaluated at an $s$ chosen by the
 perturbation limit above — and both of those changes were made **after**
 the first campaign run had already produced numbers, not declared ahead of
@@ -217,7 +314,12 @@ evaluated at different $s$ for two distinct reasons, they are reported with
 the $s$ each used, and a reader must not assume they refer to the same
 point on the ladder. Any one criterion firing opens the gate; a shut gate
 would have been reported as prominently as the open one it turned out to
-be.
+be. Criteria (b) and (c) are both WITHDRAWN — see *Superseded
+results*. Criterion (b) measured a position shift rather than a width error,
+and criterion (c) was evaluated through the curve-difference construction on a
+width the unrenormalised model had already destroyed. Criterion (a), the
+single-pole null, stands and is now explained by the absence of any higher
+partial wave able to host a resonance.
 
 ## Validation
 
@@ -239,3 +341,76 @@ headline 58% median $\Gamma$ discrepancy is quoted, that check agrees to
 orders of magnitude tighter than the effect being reported. At $s=0.5$ the
 same check is looser (2.8%), so the $s=0.5$ number is corroboration for the
 $s=0.3$ result, not the headline on its own.
+
+## Superseded results
+
+Everything in this section was computed on the BARE two-centre well, before
+the normalisation requirement was understood. At $s = 0.3$ with `lam`
+unrescaled, none of the 41 $R$ points binds the anion, against 34 in the
+shipped model. Those runs therefore describe a model that has lost the state
+it was built to represent, and their numbers are not properties of
+partial-wave coupling. The measurements were real and are kept here so the
+record is auditable; the interpretations are withdrawn.
+
+**Withdrawn: the 58 % width discrepancy** (and 59 % at $s = 0.5$). The
+measurement is faithful but compares the two truncations at DIFFERENT points
+on the resonance curve — 5-10 mHa apart in $E_{\rm res}$ — and $\Gamma$ falls
+steeply with $E_{\rm res}$ (0.130 to 0.064 Ha as $E_{\rm res}$ falls 0.112 to
+0.074), so the position difference manufactures the width difference with no
+angular physics involved. Pinning both models to the same $E_{\rm res}$ gives
+a **median width difference of 0.56 %** against 14.2 % unpinned, over the
+seven $R$ points in $[1.6, 2.2]$ where the correctly normalised model still
+has a resonance:
+
+| $R$ (bohr) | $\Gamma$ ($N_l{=}1$) | $\Gamma$ ($N_l{=}4$) | ratio | unpinned |
+|---|---|---|---|---|
+| 1.6 | 0.103528 | 0.103069 | 0.9956 | 0.075 |
+| 1.8 | 0.077123 | 0.076715 | 0.9947 | 0.110 |
+| 2.0 | 0.037609 | 0.037387 | 0.9941 | 0.194 |
+| 2.2 | 0.005475 | 0.005440 | 0.9936 | 0.423 |
+
+The truncation moves the resonance POSITION; it barely touches the WIDTH.
+Renormalised, the two-centre model reproduces the shipped $\Gamma(R)$ to
+0.1-1.7 %, and recovers 33 bound points of 41 (34 modulo the two crossing
+points that do not solve) against the unrenormalised model's 0. At $R = 2.15$:
+shipped $\Gamma = 0.011064$, renormalised 0.011244 (+1.6 %), unrenormalised
+0.055500 — five times too wide.
+
+**Withdrawn: the entire bare cross-section campaign at $s = 0.3$.** It
+reported that the prediction of added structure was falsified (one peak per
+curve at two prominence floors, total variation within 1-6 %), that the peak
+moved a near-constant $-16$ to $-20$ mHa, and that the fixed-$l$ model
+under-predicted the peak inelastic cross section by a factor climbing to 11.8
+at $v' = 4$. All of it describes the unbound-anion model. Renormalised, the
+same deck and mesh recover the shipped model's cross section closely
+($\sigma_{\max}$ 37.101 against the control's 37.089 at $v' = 1$; 16.709
+against 16.716 at $v' = 2$), with the boomerang structure present and the peak
+counts matching.
+
+**Withdrawn: criterion (c)'s 31 % cross-section shift** at $s = 0.1$, and the
+GATE OPEN verdict resting on criteria (b) and (c). Criterion (b) is the
+withdrawn width claim. Criterion (c) was evaluated through the curve-difference
+construction on the unrenormalised width. Criterion (a) — no second pole —
+stands, and is now explained rather than merely observed.
+
+**Withdrawn: the $s = 0.1$ bare campaign** as a source of numbers. It does
+recover the boomerang structure, since the anion is still bound near
+equilibrium, but its $E_{\rm res}$ is displaced by 174 meV at the crossing and
+343-572 meV further out, against a vibrational quantum of 239.5 meV — roughly
+one vibrational level, right where the Franck-Condon factors live. The
+qualitative observation that structure returns is sound; the peak positions
+and channel ratios are not quotable.
+
+**Why $s = 0.3$ was chosen, and why that criterion was wrong.** It was picked
+as the anisotropy at which all 41 $R$ points are resonant, giving a complete
+set of comparable widths. Restated, that criterion selects the anisotropy at
+which the anion is nowhere bound — it required destroying the physics in order
+to make the comparison tidy. A separate perturbation limit in the Method
+section independently put the usable range at $s \le 0.1$; both diagnostics
+were pointing at the same boundary.
+
+**Retained from these runs.** The single-pole null, the embedding identity at
+$s = 0$, the deck and mesh (validated independently: at $s = 0$ the solver
+reproduces the published NO cross section on this deck, with $v'=0$ peaking at
+514 bohr² near 0.010 Ha and 9 resolved oscillations), and every piece of
+method documentation above.
