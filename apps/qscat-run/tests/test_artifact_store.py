@@ -120,6 +120,20 @@ def test_a_pointer_may_not_send_the_fetcher_at_the_local_filesystem(tmp_path: Pa
         fetch(d)
 
 
+def test_the_request_identifies_itself_rather_than_defaulting_to_urllib() -> None:
+    """Cloudflare answers `Python-urllib/3.x` with 403 in front of the bucket,
+    so the default agent makes every fetch fail for every reader. Measured, not
+    assumed: curl sent with that agent is refused and urllib sent with curl's
+    is served."""
+    from qscat_run.artifact_store import _user_agent
+
+    agent = _user_agent()
+    assert agent.startswith("qscat-run/")
+    assert "urllib" not in agent.lower()
+    # Says who is calling and where to complain, rather than posing as a browser.
+    assert "github.com/VanaMartin/qscat" in agent
+
+
 def test_pointer_path_is_the_documented_name(tmp_path: Path) -> None:
     assert pointer_path(tmp_path).name == "artifacts.json"
 

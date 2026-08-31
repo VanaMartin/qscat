@@ -63,6 +63,27 @@ POINTER_NAME = "artifacts.json"
 _TIMEOUT = 120
 
 
+def _user_agent() -> str:
+    """Identify this tool by name and version.
+
+    LOAD-BEARING, not politeness. `urllib` defaults to `Python-urllib/3.x`,
+    which Cloudflare answers with **403** in front of the artifact bucket --
+    measured: `curl` sent with that agent is refused too, and `urllib` sent
+    with curl's is served, so it is the agent and not the object or the client.
+    Left at the default, every `qscat-run fetch` fails for every reader.
+
+    The value says what it is and where to complain, rather than impersonating
+    a browser: an operator reading the logs should be able to tell who called.
+    """
+    try:
+        from importlib import metadata
+
+        version = metadata.version("qscat-run")
+    except Exception:
+        version = "unknown"
+    return f"qscat-run/{version} (+https://github.com/VanaMartin/qscat)"
+
+
 class ArtifactStoreError(RuntimeError):
     """Base class for artifact-store failures."""
 
@@ -121,7 +142,8 @@ def _download(url: str) -> bytes:
     # JSON field asked us to is never what a fetch means.
     if not url.startswith("https://"):
         raise ArtifactStoreError(f"refusing to fetch a non-https URL: {url!r}")
-    with urllib.request.urlopen(url, timeout=_TIMEOUT) as response:
+    request = urllib.request.Request(url, headers={"User-Agent": _user_agent()})
+    with urllib.request.urlopen(request, timeout=_TIMEOUT) as response:
         return bytes(response.read())
 
 
