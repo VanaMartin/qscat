@@ -1,0 +1,26 @@
+{
+  "artifacts": {
+    "config.resolved.yaml": {
+      "bytes": 43090,
+      "sha256": "c623676f52e32189095123b380cb1131b351850475a3ebd88effc89383cbdb96"
+    },
+    "cross_section.csv": {
+      "bytes": 397298,
+      "sha256": "feb4b8eaf29b0a6c22a5a5aeb4e9a82485f430112e89f808bb0ed3f5e6cbd08c"
+    },
+    "cross_section.npz": {
+      "bytes": 188998,
+      "sha256": "5864d6f7ad2804f0d1ba8b238f0f954f0f9d71c22ed60fdf4ca9b049152b231f"
+    },
+    "cross_section.png": {
+      "bytes": 137103,
+      "sha256": "48c52e1785e9fb5ffd1aee122eff8bf19d275b3b745dc0a230ca3604cb3cff63"
+    },
+    "manifest.json": {
+      "bytes": 401,
+      "sha256": "421be4784662ded1edc0a84f73fb3ae781655f6bff52de2c53496317b1a5b219"
+    }
+  },
+  "git_sha": "69742d84ea22829fc0927adceb26473845cd4f14",
+  "url_prefix": "https://data.qscat.org/main/69742d8/o2-so12-ve/"
+}

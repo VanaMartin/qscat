@@ -1,0 +1,26 @@
+{
+  "artifacts": {
+    "config.resolved.yaml": {
+      "bytes": 43087,
+      "sha256": "e3a2d2aa3203be5cc8c5781e1ba1a6fee322e3af6e3056ceeebe74d0ccf7d70d"
+    },
+    "cross_section.csv": {
+      "bytes": 399052,
+      "sha256": "830cffb8a044dbbc21102a426a2e71c6c7770a4398ef6264ddb3b29f0837c1ac"
+    },
+    "cross_section.npz": {
+      "bytes": 188998,
+      "sha256": "927f86a1ff2f0a48c07c74a6403639de7cd44b2aa9ff4c5e8ace069689b730d3"
+    },
+    "cross_section.png": {
+      "bytes": 137569,
+      "sha256": "f8808b6e63555d5971685d750a2b48ae3dbb876bf143e60037884c53a4e1a674"
+    },
+    "manifest.json": {
+      "bytes": 402,
+      "sha256": "edcf292d07f685df2d3587f70430c94a3fc1d535fd46d7043de62dd5282e1463"
+    }
+  },
+  "git_sha": "69742d84ea22829fc0927adceb26473845cd4f14",
+  "url_prefix": "https://data.qscat.org/main/69742d8/o2-ve/"
+}

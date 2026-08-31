@@ -1,0 +1,26 @@
+{
+  "artifacts": {
+    "config.resolved.yaml": {
+      "bytes": 43092,
+      "sha256": "677364c39a6a8a33d9a1ebff9f052918bb160e387ccd477bce4f6ac4a786eeec"
+    },
+    "cross_section.csv": {
+      "bytes": 399607,
+      "sha256": "c2996513df31bf000953ed40ac3cf04fe1c67a2809c75a8f778a5cb32d77b276"
+    },
+    "cross_section.npz": {
+      "bytes": 188998,
+      "sha256": "444974aa221d67d38d72793f4b2acd14166f10a8166b4e556a30c7abd293bb97"
+    },
+    "cross_section.png": {
+      "bytes": 141079,
+      "sha256": "52951dd41e1bc9ffe5ec809f79c577265f3f0acdce10eac79c792209d57c80fd"
+    },
+    "manifest.json": {
+      "bytes": 403,
+      "sha256": "ecbdbd2ff355db042707df005862ad51c5148554875537c8f914cd1aa7219614"
+    }
+  },
+  "git_sha": "69742d84ea22829fc0927adceb26473845cd4f14",
+  "url_prefix": "https://data.qscat.org/main/69742d8/o2-so32-ve/"
+}

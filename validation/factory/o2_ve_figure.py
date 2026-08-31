@@ -39,7 +39,20 @@ N_PANELS = 6
 
 
 def load_run(run_dir: Path) -> tuple[np.ndarray, dict[int, np.ndarray]]:
-    """`(E_eV, {v': sigma_a0^2 * g})` from `run_dir/cross_section.csv`."""
+    """`(E_eV, {v': sigma_a0^2 * g})` from `run_dir/cross_section.csv`.
+
+    The sweeps behind this figure are ~390 kB each and are published rather
+    than committed, so a fresh clone has the pointer but not the numbers.
+    Run `qscat-run fetch <run_dir>` first; the error below says so rather
+    than reporting a missing file, because the file is not missing so much
+    as not yet downloaded.
+    """
+    csv_path = run_dir / "cross_section.csv"
+    if not csv_path.is_file() and (run_dir / "artifacts.json").is_file():
+        raise FileNotFoundError(
+            f"{csv_path} is published, not committed. Download it with:\n"
+            f"    qscat-run fetch {run_dir}"
+        )
     with (run_dir / "cross_section.csv").open() as f:
         rows = list(csv.reader(f))
     head, body = rows[0], np.array(rows[1:], dtype=float)
