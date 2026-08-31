@@ -1,4 +1,4 @@
-"""The `qscat-run` click command group: `validate`, `list`, `init`, `run`.
+"""The `qscat-run` click command group: `validate`, `list`, `init`, `run`, `fetch`.
 
 `run` resolves a config, runs it (`runner.run_experiment`), and writes its
 artifacts (`artifacts.write_artifacts`) -- both `ti` and `td` methods (any
@@ -18,6 +18,7 @@ import click
 import yaml
 
 from qscat_run import presets
+from qscat_run.artifact_store import ArtifactStoreError, fetch, load_pointer
 from qscat_run.artifacts import write_artifacts
 from qscat_run.config import ConfigError, load_config, validate_config
 from qscat_run.runner import run_experiment
@@ -277,3 +278,37 @@ def run_cmd(config_path: str, output_dir: str | None, backend: str | None, dry_r
     timestamp = datetime.now(UTC).isoformat()
     write_artifacts(result, resolved, out_dir, timestamp=timestamp)
     click.echo(f"wrote artifacts to {out_dir}")
+
+
+@main.command("fetch")
+@click.argument("directory", metavar="DIR", type=click.Path(exists=True, file_okay=False), nargs=-1)
+@click.option("--list", "list_only", is_flag=True, help="Print the URLs without downloading.")
+def fetch_cmd(directory: tuple[str, ...], list_only: bool) -> None:
+    """Download the published artifacts DIR points at.
+
+    Large run outputs are not committed: a sweep is reproducible from its
+    `config.resolved.yaml`, but reproducing costs minutes to hours, so the
+    bytes live in public object storage and DIR carries a small
+    `artifacts.json` naming them. Reads are anonymous -- no account, no
+    credentials.
+
+    Every file is verified against the digest recorded at publication; one
+    already present and correct is skipped, so re-running is free.
+    """
+    if not directory:
+        raise click.UsageError("give at least one run directory")
+    for d in directory:
+        try:
+            pointer = load_pointer(d)
+            if list_only:
+                click.echo(f"{d}  (from {pointer.git_sha[:7]})")
+                for name in sorted(pointer.artifacts):
+                    click.echo(f"  {pointer.url_for(name)}")
+                continue
+            written = fetch(d)
+        except ArtifactStoreError as exc:
+            raise click.ClickException(str(exc)) from exc
+        if written:
+            click.echo(f"{d}: fetched {len(written)} file(s)")
+        else:
+            click.echo(f"{d}: already complete")

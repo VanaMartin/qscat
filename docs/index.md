@@ -15,6 +15,7 @@ convergence study, or an independent reference.
 
 getting-started
 api/index
+artifacts
 related-work
 ```
 
@@ -48,6 +49,7 @@ molecules/h2plus
 - **Install & first cross section:** {doc}`getting-started`
 - **API reference:** {doc}`api/index`
 - **How this relates to existing codes:** {doc}`related-work`
+- **Fetching published sweep results:** {doc}`artifacts`
 - **Theory notes:** {doc}`physics/README`
 - **Design decisions:** the `docs/adr/` directory (ADRs)
 
