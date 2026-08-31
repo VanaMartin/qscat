@@ -58,7 +58,7 @@ R_ECS_NUCLEAR = 9.0
 
 def load_table(results: Path = RESULTS) -> ScaleTable:
     """The tabulated `f(R)` from `renormalise.py`, truncated at the ECS radius."""
-    d = np.load(results / "f_table_s03.npz")
+    d = json.loads((results / "f_table_s03.json").read_text())
     return ScaleTable.for_ecs_grid(
         np.asarray(d["R"], dtype=float),
         np.asarray(d["f"], dtype=float),
