@@ -45,7 +45,7 @@ __all__ = ["main"]
 
 
 def main(results: Path = RESULTS) -> dict[str, object]:
-    d = np.load(results / "f_table_s03_nl1.npz")
+    d = json.loads((results / "f_table_s03_nl1.json").read_text())
     table = ScaleTable.for_ecs_grid(
         np.asarray(d["R"], dtype=float),
         np.asarray(d["f"], dtype=float),

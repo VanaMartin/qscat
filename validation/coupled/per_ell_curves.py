@@ -86,7 +86,7 @@ def channel_poles(
 
 
 def main(results: Path = RESULTS) -> dict[str, object]:
-    d = np.load(results / "f_table_s03.npz")
+    d = json.loads((results / "f_table_s03.json").read_text())
     table = ScaleTable(R=np.asarray(d["R"], dtype=float), f=np.asarray(d["f"], dtype=float))
     ones = ScaleTable(R=np.array([0.0, 60.0]), f=np.array([1.0, 1.0]))
 
