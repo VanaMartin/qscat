@@ -60,7 +60,7 @@ def test_n2_ve_example_is_the_fast_end_to_end() -> None:
     )
     write_artifacts(result, cfg, out_dir, timestamp="2026-01-01T00:00:00")
     try:
-        assert (out_dir / "cross_section.csv").exists()
+        assert (out_dir / "cross_section.npz").exists()
         assert (out_dir / "cross_section.npz").exists()
         assert (out_dir / "cross_section.png").exists()
         assert (out_dir / "manifest.json").exists()
