@@ -8,26 +8,45 @@ The pointer is a KB-sized `artifacts.json` written by the maintainer at
 publication time, next to the run's `config.resolved.yaml` and `manifest.json`:
 
     {
-      "git_sha": "c884f51...",
-      "url_prefix": "https://data.qscat.org/main/c884f51/o2-ve/",
-      "artifacts": {"cross_section.csv": {"sha256": "...", "bytes": 399052}}
+      "git_sha": "69742d8...",
+      "url_prefix": "https://data.qscat.org/o2-ve/",
+      "artifacts": {"cross_section.csv": {"sha256": "830cffb8...", "bytes": 399052}}
     }
 
-Reads are anonymous HTTPS -- no account, no credentials, no client library.
-Writes are not possible over that hostname at all; publishing goes through the
-S3 API with a maintainer token, from the private qscat-infra repository.
+Objects are addressed BY CONTENT: the digest goes into the filename, so
+`cross_section.csv` above lives at
 
-Two properties this module exists to guarantee:
+    https://data.qscat.org/o2-ve/cross_section.830cffb8a044.csv
+
+The folder is a human label, not an identity -- it keeps a URL readable
+enough to paste into a paper, while the hash decides what the URL means.
+
+Addressing by content rather than by commit is what makes the scheme hold
+still. An earlier version put the producing commit in the path, and every
+rebase orphaned it: three times, because a branch commit is not a stable
+address. It also stored the same bytes repeatedly -- publishing one
+experiment from a branch and then from main left 25% of the bucket as exact
+duplicates, since the commit changed and the content did not. Under content
+addressing a re-run that reproduces its numbers republishes to the same key
+and costs nothing, which is the common case here: the O2 sweeps came out
+bit-identical on all three runs.
+
+Two properties this module guarantees:
 
 * **The bytes are the published bytes.** Every file is checked against the
   recorded digest, and a mismatch raises rather than leaving a plausible file
   on disk. Without this the pointer would only be a hint, and a truncated
   download would read as data.
-* **The URL is immutable.** Published paths are never overwritten (the
-  publisher refuses, and has no `--force`), so a pointer committed today
-  resolves to the same bytes indefinitely. Corrected numbers arrive as a new
-  commit with a new pointer, and the old URL keeps the old values -- which is
-  what a note that cites a number needs.
+* **A URL means one thing.** Not by policy -- by construction. Different
+  content hashes differently and therefore lives elsewhere, so a link in a
+  note cannot quietly come to mean something else. Correcting a number
+  produces a new key and a new pointer; the old URL keeps the old value for
+  as long as it is kept, which is what a cited number needs.
+
+`git_sha` stays in the manifest, but it is a RECORD, not an address. It
+answers "what produced these bytes"; `git blame` on the pointer answers "when
+did this repository start citing them". Those are different questions and the
+first one deserves an answer that does not depend on history staying still.
 
 The repository still stands alone in the sense that matters: the *inputs* a
 test or a claim depends on stay in git, and `config.resolved.yaml` records how
@@ -102,6 +121,14 @@ class ArtifactEntry:
     bytes: int
 
 
+#: Hex characters of the sha256 that go into a published filename. 12 gives a
+#: ~1e-18 collision chance across any plausible number of artifacts, and keeps
+#: the URL short enough to read aloud. The pointer always carries the FULL
+#: digest, which is what the download is verified against -- the truncation
+#: only names the object.
+_URL_DIGEST_CHARS = 12
+
+
 @dataclass(frozen=True)
 class ArtifactPointer:
     git_sha: str
@@ -109,7 +136,17 @@ class ArtifactPointer:
     artifacts: dict[str, ArtifactEntry]
 
     def url_for(self, name: str) -> str:
-        return f"{self.url_prefix}{name}"
+        """The content-addressed URL for `name`.
+
+        Derived rather than stored: the digest is already in the pointer, so a
+        second copy of the address could only ever disagree with it.
+        """
+        entry = self.artifacts[name]
+        stem, _, suffix = name.rpartition(".")
+        digest = entry.sha256[:_URL_DIGEST_CHARS]
+        if not stem:  # a name with no extension at all
+            return f"{self.url_prefix}{name}.{digest}"
+        return f"{self.url_prefix}{stem}.{digest}.{suffix}"
 
 
 def pointer_path(directory: str | Path) -> Path:

@@ -26,12 +26,12 @@ from qscat_run.artifact_store import (
 
 def _pointer(tmp_path: Path, payload: bytes = b"energy,sigma\n0.1,2.0\n") -> Path:
     d = tmp_path / "o2-ve"
-    d.mkdir()
+    d.mkdir(parents=True)
     (d / "artifacts.json").write_text(
         json.dumps(
             {
                 "git_sha": "0" * 40,
-                "url_prefix": "https://data.qscat.org/main/abc1234/o2-ve/",
+                "url_prefix": "https://data.qscat.org/o2-ve/",
                 "artifacts": {
                     "cross_section.csv": {
                         "sha256": hashlib.sha256(payload).hexdigest(),
@@ -44,13 +44,51 @@ def _pointer(tmp_path: Path, payload: bytes = b"energy,sigma\n0.1,2.0\n") -> Pat
     return d
 
 
-def test_load_pointer_reads_the_published_locations(tmp_path: Path) -> None:
-    p = load_pointer(_pointer(tmp_path))
+def test_the_url_carries_the_content_digest(tmp_path: Path) -> None:
+    """The digest goes in the filename, so the address is a function of the
+    bytes. This is what makes the scheme hold still: an earlier version put
+    the producing commit in the path and every rebase orphaned it."""
+    payload = b"energy,sigma\n0.1,2.0\n"
+    p = load_pointer(_pointer(tmp_path, payload))
     assert isinstance(p, ArtifactPointer)
     assert p.git_sha == "0" * 40
+    digest12 = hashlib.sha256(payload).hexdigest()[:12]
     assert p.url_for("cross_section.csv") == (
-        "https://data.qscat.org/main/abc1234/o2-ve/cross_section.csv"
+        f"https://data.qscat.org/o2-ve/cross_section.{digest12}.csv"
     )
+
+
+def test_the_extension_survives_so_a_browser_still_knows_what_it_got(tmp_path: Path) -> None:
+    url = load_pointer(_pointer(tmp_path)).url_for("cross_section.csv")
+    assert url.endswith(".csv")
+
+
+def test_identical_bytes_address_identically_whatever_produced_them(tmp_path: Path) -> None:
+    """Republishing a reproducible run is a no-op rather than a second copy.
+    Measured on the real bucket before this change: publishing one experiment
+    from a branch and then from main left 25% of it as exact duplicates,
+    because the commit differed and the content did not."""
+    payload = b"energy,sigma\n0.1,2.0\n"
+    a = load_pointer(_pointer(tmp_path / "run-a", payload))
+    b = load_pointer(_pointer(tmp_path / "run-b", payload))
+    assert a.url_for("cross_section.csv") == b.url_for("cross_section.csv")
+
+
+def test_a_name_without_an_extension_still_gets_its_digest(tmp_path: Path) -> None:
+    d = tmp_path / "run"
+    d.mkdir(parents=True)
+    payload = b"x"
+    sha = hashlib.sha256(payload).hexdigest()
+    (d / "artifacts.json").write_text(
+        json.dumps(
+            {
+                "git_sha": "0" * 40,
+                "url_prefix": "https://data.qscat.org/run/",
+                "artifacts": {"LICENSE": {"sha256": sha, "bytes": 1}},
+            }
+        )
+    )
+    assert load_pointer(d).url_for("LICENSE") == f"https://data.qscat.org/run/LICENSE.{sha[:12]}"
 
 
 def test_a_directory_without_a_pointer_says_so(tmp_path: Path) -> None:

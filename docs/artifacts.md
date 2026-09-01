@@ -25,11 +25,12 @@ see what a directory would pull without pulling it:
 
 ```console
 $ qscat-run fetch validation/factory/results/o2-ve --list
-validation/factory/results/o2-ve  (from c884f51)
-  https://data.qscat.org/main/c884f51/o2-ve/config.resolved.yaml
-  https://data.qscat.org/main/c884f51/o2-ve/cross_section.csv
-  https://data.qscat.org/main/c884f51/o2-ve/cross_section.npz
-  https://data.qscat.org/main/c884f51/o2-ve/manifest.json
+validation/factory/results/o2-ve  (from 69742d8)
+  https://data.qscat.org/o2-ve/config.resolved.e3a2d2aa3203.yaml
+  https://data.qscat.org/o2-ve/cross_section.830cffb8a044.csv
+  https://data.qscat.org/o2-ve/cross_section.927f86a1ff2f.npz
+  https://data.qscat.org/o2-ve/cross_section.f8808b6e6355.png
+  https://data.qscat.org/o2-ve/manifest.edcf292d07f6.json
 ```
 
 Every file is checked against the sha256 recorded when it was published. A
@@ -47,36 +48,39 @@ notebook, a script in another language, a `curl` in a shell, a colleague who
 has never cloned this repository:
 
 ```console
-$ curl -O https://data.qscat.org/main/c884f51/o2-ve/cross_section.csv
+$ curl -O https://data.qscat.org/o2-ve/cross_section.830cffb8a044.csv
 ```
 
 ```python
 import pandas as pd
-df = pd.read_csv("https://data.qscat.org/main/c884f51/o2-ve/cross_section.csv")
+df = pd.read_csv("https://data.qscat.org/o2-ve/cross_section.830cffb8a044.csv")
 ```
 
 The path is the addressing scheme:
 
 ```
-https://data.qscat.org/<scope>/<sha7>/<experiment>/<file>
-                       main | branch | tag
+https://data.qscat.org/<experiment>/<name>.<sha256[:12]>.<ext>
 ```
 
-`<sha7>` is the commit the run was made from, so a URL names both the numbers
-and the code that produced them. **Published paths are immutable**: a key is
-never overwritten. If a result is later corrected, the correction is published
-under the new commit's path and the old URL keeps the old values — so a note
-that cites a number keeps citing the number it was written about, and you can
-always compare the two.
+The folder is a readable label; the **digest is the address**. That is what
+makes such a URL safe to paste into a paper, an issue or a message: different
+content hashes differently and therefore lives somewhere else, so a link
+cannot quietly come to mean something other than what you cited. If a result
+is corrected, the correction gets its own URL and the old one keeps the old
+value for as long as it is kept, so the two remain comparable.
 
-That immutability is why these URLs are safe to paste into a paper, an issue,
-or a message. What it does not give you is a "latest" alias; there is
-deliberately no such thing. Follow the pointer in the repository at the commit
-you care about.
+It also means a re-run that reproduces its numbers republishes to the same
+address and changes nothing — which is the usual outcome here.
 
-Artifacts under `main/` and `tag/` are permanent. Artifacts under `branch/`
-expire after 90 days — fine for sharing a work-in-progress number, not for
-citing one.
+There is deliberately no "latest" alias; that would be the one URL whose
+meaning could change. To find the current bytes for an experiment, read
+`artifacts.json` in the repository at the commit you care about — or fetch
+`https://data.qscat.org/<experiment>/index.json`, the one object addressed by
+name rather than by content, which is why it may be replaced.
+
+Nothing expires today. Blobs are shared between pointers once two runs produce
+the same bytes, so deleting by age is unsafe; the eventual mechanism is
+reachability — dropping blobs no pointer names — rather than a clock.
 
 ## Publishing
 

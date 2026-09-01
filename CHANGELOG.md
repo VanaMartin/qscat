@@ -21,8 +21,10 @@ installed package.
   sha256 per file; `qscat-run fetch DIR` downloads what it names and verifies
   every byte, leaving nothing on disk that fails its digest. Reads are
   anonymous HTTPS, so a URL works from a notebook or a `curl` with no account
-  and no client library, and published paths are immutable so a number a note
-  cites keeps resolving. What stays in git is what a test or a note needs in
+  and no client library. Objects are addressed by CONTENT — the sha256 goes
+  into the filename — so a cited URL cannot come to mean something else, and
+  a re-run that reproduces its numbers republishes to the same key and costs
+  nothing. What stays in git is what a test or a note needs in
   order to stand alone: golden inputs, fit reports, cited figures. The
   classification and the measurements behind it are in
   `docs/adr/0008-computed-artifacts-live-in-public-object-storage.md`; the
@@ -252,9 +254,11 @@ installed package.
   `runtime` stage never received the variable at all (`ENV` does not cross a
   `FROM`, and `COPY --from=` copies files, not environment); and nothing
   tested any of it. Only a real 40-hex SHA is now honoured, an undeterminable
-  one raises rather than writing a plausible-looking manifest
-  (`QSCAT_ALLOW_UNKNOWN_SHA=1` opts out deliberately), and a Dockerfile guard
-  fails if a stage starting from a fresh base omits the `ARG`/`ENV` pair. The
+  one warns rather than writing a plausible-looking manifest in silence
+  (`QSCAT_ALLOW_UNKNOWN_SHA=1` silences it where there is genuinely no
+  provenance), and a Dockerfile guard fails if a stage starting from a fresh
+  base omits the `ARG`/`ENV` pair. Publishing is where the strictness sits:
+  the publisher refuses a manifest that cannot name its commit. The
   three sweeps were re-run: cross sections bit-identical across all 3343 × 7
   values, so the repair carries no physics change.
 - `qscat.viz` contour colours now follow `inverse`. The `|psi|` contours and the

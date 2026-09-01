@@ -458,15 +458,21 @@ apps/       qscat-run — THE single execution surface: one YAML config runs
             artifacts. Per-molecule curve drivers were retired into it, so a
             new figure is a config, not a script. See apps/qscat-run/README.md
             for the observables matrix and the config schema.
-            Every run records the commit it came from: `manifest.json`'s
-            `git_sha` is a hard requirement (an undeterminable SHA raises
-            rather than writing `"unknown"`, since an artifact that cannot be
-            tied to code is not citable), with `QSCAT_ALLOW_UNKNOWN_SHA=1` as
-            the deliberate opt-out. `qscat-run fetch DIR` is the read side of
+            Every run records the commit it came from in `manifest.json`'s
+            `git_sha` -- a RECORD of what produced the numbers, not an address
+            for them, so an undeterminable SHA warns rather than failing
+            (`QSCAT_ALLOW_UNKNOWN_SHA=1` silences it); the publisher is where
+            the strictness sits, refusing a manifest that cannot name its
+            commit. `qscat-run fetch DIR` is the read side of
             the artifact store: converged sweeps are published to public
             object storage instead of committed, and the run directory keeps a
             KB-sized `artifacts.json` naming a URL prefix and a sha256 per
-            file. Fetching verifies every byte and refuses to leave failing
+            file. Objects are addressed BY CONTENT (the digest goes in the
+            filename), which is what makes a cited URL hold still and makes a
+            reproducible re-run republish to the same key for free -- an
+            earlier commit-addressed scheme was orphaned by three separate
+            rebases and stored 25% of the bucket twice.
+            Fetching verifies every byte and refuses to leave failing
             bytes on disk. What stays in git is what a test or a note needs to
             stand alone -- golden inputs, fit reports, cited figures -- see
             docs/adr/0008-computed-artifacts-live-in-public-object-storage.md
