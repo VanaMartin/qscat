@@ -12,10 +12,11 @@ nothing here covered any of it.
 from __future__ import annotations
 
 import re
+import warnings
 from pathlib import Path
 
 import pytest
-from qscat_run.artifacts import UnknownGitShaError, _git_sha
+from qscat_run.artifacts import _git_sha
 
 _HEX40 = re.compile(r"\A[0-9a-f]{40}\Z")
 
@@ -48,24 +49,36 @@ def test_a_non_sha_in_the_environment_does_not_defeat_the_fallback(
     assert _HEX40.match(_git_sha())
 
 
-def test_raises_when_the_sha_is_genuinely_undeterminable(
+def test_warns_but_proceeds_when_the_sha_is_genuinely_undeterminable(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
-    """No baked SHA and no repo to read: the run is unciteable, and the caller
-    must hear about it rather than find `"unknown"` in the manifest later."""
+    """No baked SHA and no repo to read.
+
+    This used to raise, because published artifacts were addressed by commit
+    and a run without one could not be published at all. They are addressed by
+    content digest now, so a missing SHA costs traceability and breaks
+    nothing -- a local figure should not fail over forty bytes of metadata.
+    The caller still has to hear about it, or this regresses to the silence
+    that let three sweeps ship `"unknown"` unnoticed.
+    """
     monkeypatch.setenv("QSCAT_GIT_SHA", "unknown")
+    monkeypatch.delenv("QSCAT_ALLOW_UNKNOWN_SHA", raising=False)
     monkeypatch.setattr("qscat_run.artifacts._REPO_PROBE_DIR", tmp_path)
-    with pytest.raises(UnknownGitShaError):
-        _git_sha()
+    with pytest.warns(RuntimeWarning, match="cannot determine the commit SHA"):
+        assert _git_sha() == "unknown"
 
 
-def test_the_escape_hatch_is_explicit(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    """Running from an unpacked tarball is legitimate; it just may not pretend
-    to provenance it does not have."""
+def test_the_warning_can_be_silenced_deliberately(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Running from an unpacked tarball is legitimate; the opt-out says so
+    once rather than warning on every run."""
     monkeypatch.setenv("QSCAT_GIT_SHA", "unknown")
     monkeypatch.setenv("QSCAT_ALLOW_UNKNOWN_SHA", "1")
     monkeypatch.setattr("qscat_run.artifacts._REPO_PROBE_DIR", tmp_path)
-    assert _git_sha() == "unknown"
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert _git_sha() == "unknown"
 
 
 def test_every_dockerfile_stage_that_can_run_qscat_run_stamps_the_sha() -> None:

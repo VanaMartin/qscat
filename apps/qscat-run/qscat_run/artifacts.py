@@ -23,6 +23,7 @@ import os
 import platform
 import re
 import subprocess
+import warnings
 from importlib import metadata
 from pathlib import Path
 from typing import Any
@@ -46,12 +47,7 @@ from qscat_run.runner import (
     WavefunctionSnapshot,
 )
 
-__all__ = ["UnknownGitShaError", "write_artifacts"]
-
-
-class UnknownGitShaError(RuntimeError):
-    """Raised when the commit SHA cannot be determined and the caller has not
-    explicitly accepted an unciteable run."""
+__all__ = ["write_artifacts"]
 
 
 # `git rev-parse` walks up from `cwd` to find the repo root, so pinning the
@@ -64,13 +60,16 @@ _SHA_RE = re.compile(r"\A[0-9a-f]{40}\Z")
 
 
 def _git_sha() -> str:
-    """The commit SHA the run's artifacts belong to.
+    """The commit SHA the run's artifacts belong to, or `"unknown"`.
 
-    This is the binding between a published artifact and the code that made
-    it -- the artifact store addresses downloads by it -- so it is a hard
-    failure rather than a defaulted string. Set `QSCAT_ALLOW_UNKNOWN_SHA=1`
-    to accept `"unknown"` when running from an unpacked tarball or any other
-    tree with no provenance to record.
+    A RECORD of what produced the numbers, not an address for them: published
+    artifacts are addressed by content digest, so a missing SHA costs
+    traceability but breaks nothing. It therefore warns rather than raising --
+    a local figure should not fail over forty missing bytes of metadata.
+
+    Publishing is where provenance actually matters, and that is where the
+    strictness lives instead: the publisher refuses a manifest whose `git_sha`
+    is not a commit, so nothing reaches the store unciteable.
     """
     # Baked in at image build time: the Docker build context excludes `.git`
     # (see .dockerignore), so `git rev-parse` inside a container has no repo
@@ -100,15 +99,18 @@ def _git_sha() -> str:
             return probed
     except Exception:
         pass
-    if os.environ.get("QSCAT_ALLOW_UNKNOWN_SHA", "").strip():
-        return "unknown"
-    raise UnknownGitShaError(
-        "cannot determine the commit SHA for this run, so its artifacts would "
-        "not be traceable to the code that produced them. Pass the host SHA in "
-        "as QSCAT_GIT_SHA (docker/build.sh and docker/run.sh do this via "
-        "--build-arg GIT_SHA), or set QSCAT_ALLOW_UNKNOWN_SHA=1 to record "
-        '"unknown" deliberately.'
-    )
+    if not os.environ.get("QSCAT_ALLOW_UNKNOWN_SHA", "").strip():
+        warnings.warn(
+            "cannot determine the commit SHA for this run; its manifest will "
+            'record "unknown" and the artifacts will not be traceable to the '
+            "code that produced them. Inside a container pass the host SHA as "
+            "QSCAT_GIT_SHA (docker/build.sh and docker/run.sh do this via "
+            "--build-arg GIT_SHA). Set QSCAT_ALLOW_UNKNOWN_SHA=1 to silence "
+            "this when there is genuinely no provenance to record.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+    return "unknown"
 
 
 def _qscat_version() -> str:

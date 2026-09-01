@@ -21,13 +21,15 @@ The production preset decks are `O(10^4–10^6)` unknowns — run those under
 Docker (`docker/run.sh <config> <out>`), which provides MUMPS. The committed
 `examples/*.yaml` use tiny explicit grids for fast local iteration.
 
-A run directory records the commit it came from. `manifest.json`'s `git_sha`
-is a hard requirement, not a best effort: a run that cannot determine it
-fails rather than writing `"unknown"`, because an artifact that cannot be
-tied to code is not citable. Inside a container, where the build context
-excludes `.git`, the host passes it in (`docker/run.sh` and `docker/build.sh`
-do this via `--build-arg GIT_SHA`); set `QSCAT_ALLOW_UNKNOWN_SHA=1` to run
-from a tree with no provenance to report.
+A run directory records the commit it came from in `manifest.json`'s
+`git_sha`. It is a record of what produced the numbers, not an address for
+them — published artifacts are addressed by content digest — so a run that
+cannot determine it warns and carries on rather than failing. Inside a
+container, where the build context excludes `.git`, the host passes it in
+(`docker/run.sh` and `docker/build.sh` do this via `--build-arg GIT_SHA`);
+`QSCAT_ALLOW_UNKNOWN_SHA=1` silences the warning where there is genuinely no
+provenance to report. Publishing is stricter: the publisher refuses a
+manifest that cannot name its commit.
 
 ## Results that are not in the repository
 
