@@ -5,8 +5,8 @@ theory against theory.
 `python -m validation.factory.o2_ve_figure --so12 runs/o2-so12-ve --so32 runs/o2-so32-ve`
 (`--out`, default `docs/physics/figures/o2-2d-ti-ve-spin-orbit-vs-alt-houfek.png`)
 
-Reads the two components' `cross_section.csv` written by `qscat-run` for
-`apps/qscat-run/examples/o2-so{12,32}-ve.yaml` (columns `energy`,
+Reads the two components' `cross_section.npz` written by `qscat-run` for
+`apps/qscat-run/examples/o2-so{12,32}-ve.yaml` (arrays `energy`,
 `ti:ve:v0->0` ...), sums them with the statistical factor 1/3 each (Alt &
 Houfek, PRA 103, 032829 (2021), p. 032829-4 -- the same composition as the
 paper's own curves, whose every peak is a doublet), and overlays each
@@ -24,7 +24,6 @@ paper's measured traces (its Figs. 7-9) are not extracted.
 from __future__ import annotations
 
 import argparse
-import csv
 from pathlib import Path
 
 import numpy as np
@@ -39,30 +38,32 @@ N_PANELS = 6
 
 
 def load_run(run_dir: Path) -> tuple[np.ndarray, dict[int, np.ndarray]]:
-    """`(E_eV, {v': sigma_a0^2 * g})` from `run_dir/cross_section.csv`.
+    """`(E_eV, {v': sigma_a0^2 * g})` from `run_dir/cross_section.npz`.
 
-    The sweeps behind this figure are ~390 kB each and are published rather
-    than committed, so a fresh clone has the pointer but not the numbers.
-    Run `qscat-run fetch <run_dir>` first; the error below says so rather
-    than reporting a missing file, because the file is not missing so much
-    as not yet downloaded.
+    The sweeps behind this figure are published rather than committed, so a
+    fresh clone has the pointer but not the numbers. Run
+    `qscat-run fetch <run_dir>` first; the error below says so rather than
+    reporting a missing file, because the file is not missing so much as not
+    yet downloaded.
+
+    Sigma arrives as float32 (the machine tier -- see `qscat_run.artifacts`)
+    and is widened here, so the interpolation and peak-finding below run in
+    double as they always did.
     """
-    csv_path = run_dir / "cross_section.csv"
-    if not csv_path.is_file() and (run_dir / "artifacts.json").is_file():
+    npz_path = run_dir / "cross_section.npz"
+    if not npz_path.is_file() and (run_dir / "artifacts.json").is_file():
         raise FileNotFoundError(
-            f"{csv_path} is published, not committed. Download it with:\n"
+            f"{npz_path} is published, not committed. Download it with:\n"
             f"    qscat-run fetch {run_dir}"
         )
-    with (run_dir / "cross_section.csv").open() as f:
-        rows = list(csv.reader(f))
-    head, body = rows[0], np.array(rows[1:], dtype=float)
-    E = body[:, 0] * HARTREE_TO_EV
+    data = np.load(npz_path)
+    E = np.asarray(data["energy"], dtype=float) * HARTREE_TO_EV
     out: dict[int, np.ndarray] = {}
-    for j, key in enumerate(head[1:], start=1):
+    for key in data.files:
         if key.startswith("ti:ve:v0->"):
-            out[int(key.split("->")[1])] = G_STAT * body[:, j]
+            out[int(key.split("->")[1])] = G_STAT * np.asarray(data[key], dtype=float)
     if not out:
-        raise ValueError(f"no `ti:ve:v0->v'` columns in {run_dir / 'cross_section.csv'}")
+        raise ValueError(f"no `ti:ve:v0->v'` arrays in {npz_path}")
     return E, out
 
 

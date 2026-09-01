@@ -68,7 +68,7 @@ def test_ti_run_writes_cross_section_and_manifest(tmp_path: Path) -> None:
     assert result.cross_sections  # ve + da series present
     write_artifacts(result, cfg, out_dir, timestamp="2026-01-01T00:00:00")
 
-    assert (out_dir / "cross_section.csv").exists()
+    assert (out_dir / "cross_section.npz").exists()
     assert (out_dir / "cross_section.png").exists()
     assert (out_dir / "manifest.json").exists()
     assert (out_dir / "config.resolved.yaml").exists()

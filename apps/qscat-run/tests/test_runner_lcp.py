@@ -48,7 +48,7 @@ def test_lcp_run_produces_da_cross_section(tmp_path: Path) -> None:
     assert np.all(np.isfinite(sigma)) and np.all(sigma >= 0.0)
 
     write_artifacts(result, cfg, out_dir, timestamp="2026-01-01T00:00:00")
-    assert (out_dir / "cross_section.csv").exists()
+    assert (out_dir / "cross_section.npz").exists()
     arr = np.load(out_dir / "cross_section.npz")
     assert "lcp:da:ch0" in arr
 

@@ -94,7 +94,7 @@ def test_td_run_writes_all_td_artifacts(tmp_path: Path) -> None:
     for key, arr in result.cross_sections.items():
         assert np.all(np.isfinite(arr)), key
 
-    assert (out_dir / "cross_section.csv").exists()
+    assert (out_dir / "cross_section.npz").exists()
     assert (out_dir / "cross_section.png").exists()
 
     # Moment-resolved cross_section_vs_time: one entry per (cross-section

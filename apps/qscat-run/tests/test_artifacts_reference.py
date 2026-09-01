@@ -71,9 +71,11 @@ def test_write_artifacts_keeps_the_references_own_energy_axis(tmp_path: Path) ->
     np.testing.assert_allclose(npz["ref:ve:ch0:sigma"], [10.0, 20.0, 30.0])
 
 
-def test_cross_section_csv_has_no_reference_columns(tmp_path: Path) -> None:
-    """The own-axis rule, pinned: a reference must never show up as extra
-    columns in `cross_section.csv`, whose rows are the run's energies."""
+def test_the_run_sweep_has_no_reference_arrays(tmp_path: Path) -> None:
+    """The own-axis rule, pinned: a reference keeps its own energy axis and
+    must never be interleaved into the run's own sweep, whose rows are the
+    run's energies. (This guarded `cross_section.csv` until sweeps moved to
+    the machine tier and stopped being written as text at all.)"""
     (tmp_path / "ref.dat").write_text("0.1 10.0\n0.2 20.0\n")
     cfg = _cfg(tmp_path, ref_path="ref.dat", channels=(0,), label=None)
     result = _fake_result(cfg)
@@ -81,10 +83,9 @@ def test_cross_section_csv_has_no_reference_columns(tmp_path: Path) -> None:
 
     write_artifacts(result, cfg, out_dir, timestamp="2026-01-01T00:00:00")
 
-    with (out_dir / "cross_section.csv").open() as f:
-        header = next(csv.reader(f))
-    assert header == ["energy", "ti:ve:v0->0"]
-    assert not any(col.startswith("ref:") for col in header)
+    keys = list(np.load(out_dir / "cross_section.npz").files)
+    assert keys == ["energy", "ti:ve:v0->0"]
+    assert not any(k.startswith("ref:") for k in keys)
 
 
 def test_relative_reference_path_resolves_against_config_dir_not_cwd(tmp_path: Path) -> None:

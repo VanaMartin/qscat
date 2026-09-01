@@ -124,24 +124,30 @@ def _config_to_dict(cfg: ExperimentConfig) -> dict[str, Any]:
     return dataclasses.asdict(cfg)
 
 
-def _write_cross_section_csv(
-    path: Path, energies: npt.NDArray[np.float64], series: dict[str, npt.NDArray[np.float64]]
-) -> None:
-    keys = list(series)
-    with path.open("w", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(["energy", *keys])
-        for i, e in enumerate(energies):
-            w.writerow([e, *(float(series[k][i]) for k in keys)])
-
-
 def _write_cross_section_npz(
     path: Path, energies: npt.NDArray[np.float64], series: dict[str, npt.NDArray[np.float64]]
 ) -> None:
+    """The sweep itself, in the machine tier: compressed, single-precision.
+
+    A sweep is read by plotting code and by comparisons, never by a person, so
+    it does not pay for decimal digits nobody looks at. Measured on the O2
+    deck: float32 costs a relative 5.9e-8 on sigma, against the tightest gate
+    anything here is held to (1e-3), and takes the file from 390 kB of CSV to
+    74 kB.
+
+    The ENERGY AXIS stays float64, and that asymmetry is the point. Values
+    tolerate rounding independently; an axis does not, because rounding two
+    neighbouring mesh points onto the same float turns a curve into a
+    multivalued one. The O2 mesh has 134x margin at its finest (1e-6 Ha
+    spacing against a 7.5e-9 float32 ulp) and loses no points -- but the
+    level-aware meshes exist precisely to resolve peaks a few meV wide, so the
+    margin is not one to spend for 13 kB.
+    """
+    compact = {k: v.astype(np.float32) for k, v in series.items()}
     # mypy false-positive: unpacking a `dict[str, ndarray]` here makes it
     # (over-cautiously) check the values against `savez`'s unrelated
     # `allow_pickle: bool` keyword too, and complain about the mismatch.
-    np.savez(path, energy=energies, **series)  # type: ignore[arg-type]
+    np.savez_compressed(path, energy=energies, **compact)  # type: ignore[arg-type]
 
 
 def _disambiguated_labels(label: str | None, keys: list[str]) -> dict[str, str]:
@@ -523,7 +529,11 @@ def write_artifacts(
 
     if cfg.artifacts.cross_section and result.cross_sections:
         e, series = result.energies, result.cross_sections
-        _write_cross_section_csv(out_dir / "cross_section.csv", e, series)
+        # No CSV here, deliberately. A sweep is thousands of rows feeding a
+        # plot or a comparison -- nobody reads it, so it goes in the machine
+        # tier and only there. CSV is reserved for the short tables that ARE
+        # read: resonance positions, BO levels, anion levels, each written by
+        # its own writer below.
         _write_cross_section_npz(out_dir / "cross_section.npz", e, series)
         _write_cross_section_png(
             out_dir / "cross_section.png", e, series, reference_series, reference_labels

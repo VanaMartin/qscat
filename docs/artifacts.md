@@ -6,6 +6,25 @@ produce — reproducible from a committed config, but expensive enough that
 recomputing it to look at a number would be absurd. Those bytes live in public
 object storage; what is committed is a small pointer beside them.
 
+## Three tiers, by who reads the number
+
+Format follows audience, not habit:
+
+| tier | what | format |
+|---|---|---|
+| **machine** | sweeps, calibration runs, packet histories — read by plotting code and comparisons, never by a person | compressed `.npz`, values **float32**, energy axis float64 |
+| **published** | short tables meant to be read: resonance positions, BO levels, anion levels | CSV |
+| **quoted** | numbers a note or a model states: fitted parameters, fit reports | JSON, full precision |
+
+float32 in the machine tier is measured, not assumed: on the O₂ deck it costs a
+relative 5.9e-8 on σ, against the tightest tolerance anything here is held to
+(1e-3), and takes a sweep from 390 kB of CSV to 74 kB. The **energy axis stays
+float64** — values tolerate rounding independently, an axis does not, because
+rounding two neighbouring mesh points onto the same float turns a curve into a
+multivalued one. The O₂ mesh has 134× margin at its finest spacing and loses no
+points, but level-aware meshes exist to resolve peaks a few meV wide, so that
+margin is not worth spending for 13 kB.
+
 Everything a claim *depends* on stays in git: the golden inputs tests read, the
 fit reports that lock model constants, the figures the physics notes discuss.
 The classification, the measurements behind it, and why the line is drawn there
@@ -48,13 +67,18 @@ notebook, a script in another language, a `curl` in a shell, a colleague who
 has never cloned this repository:
 
 ```console
-$ curl -O https://data.qscat.org/o2-ve/cross_section.830cffb8a044.csv
+$ curl -O https://data.qscat.org/o2-ve/cross_section.<digest>.npz
 ```
 
 ```python
-import pandas as pd
-df = pd.read_csv("https://data.qscat.org/o2-ve/cross_section.830cffb8a044.csv")
+import io, urllib.request, numpy as np
+url = "https://data.qscat.org/o2-ve/cross_section.<digest>.npz"
+d = np.load(io.BytesIO(urllib.request.urlopen(url).read()))
+E, sigma = d["energy"], d["ti:ve:v0->0"]
 ```
+
+Take the digest from the run's `artifacts.json`, or from
+`https://data.qscat.org/<experiment>/index.json`.
 
 The path is the addressing scheme:
 
