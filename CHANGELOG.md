@@ -245,6 +245,22 @@ installed package.
     simply omit it.
 
 ### Fixed
+- **`qscat.core`'s installed API inventory describes the `dr_cross_section`
+  that ships.** Removing the flag-shaped tuple returns (see Removed, above)
+  left the module docstring still calling `dr_cross_section` "a thin
+  flag-shaped-tuple wrapper kept for one deprecation cycle" — prose promising
+  a grace period the package had already dropped, in the one place a reader
+  with only the installed package looks before reading a signature. The
+  inventory now describes the sigma-only callable as it is, including its
+  `n_channels` and `ordering` keywords and the shape and channel ordering of
+  what it returns, and points at `dr_solve`/`DrResult` for a wavefunction, a
+  T-matrix amplitude, or any other detailed result — noting that the object-API
+  method `ScatteringProblem.dr_cross_section`, a separate callable, does still
+  carry flags. Nothing executes a docstring, which is how it fell behind; a new
+  `libs/qscat/tests/test_public_api_prose.py` ties the inventory to
+  `inspect.signature`, so a keyword the prose omits, a keyword it invents, and
+  a promise of deprecation machinery the package does not carry each fail a
+  fast test rather than a user's call.
 - **`manifest.json` records a real commit, or the run fails.** Three committed
   O₂ sweeps carried `"git_sha": "unknown"`, so the artifacts behind the
   spin–orbit VE figure could not be tied to the code that produced them.

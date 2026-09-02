@@ -49,9 +49,17 @@ Public API:
   - `dr_solve`, `DrResult` -- `da_cross_section` generalized for a CHARGED
     target (H2+): a Coulomb incident channel and a loop over `n_channels`
     Rydberg electronic exit states, `sigma_DR(E)`, returned as one `DrResult`
-    (`sigma`, plus `psi`/`amplitude` when requested). `dr_cross_section` is a
-    thin flag-shaped-tuple wrapper kept for one deprecation cycle; `dr_solve`
-    is the recommended route.
+    (`sigma`, plus `psi` under `store_wavefunction` and `amplitude` under
+    `store_amplitude`). This is the route to a wavefunction, a T-matrix
+    amplitude, or any other detailed result.
+  - `dr_cross_section` -- the SIGMA-ONLY wrapper around that solve:
+    `dr_cross_section(tgrid, model, eps, chi, v_init, E, *, n_channels=3,
+    ordering="COLAMD")` returns `DrResult.sigma` and nothing else -- shaped
+    `(n_channels,)` for scalar `E` and `(len(E), n_channels)` for an array
+    `E`, the Rydberg exit channels in ascending-energy order. It takes no
+    result-selecting flags; call `dr_solve` and read the `DrResult` fields
+    instead. (The object-API method `ScatteringProblem.dr_cross_section` is
+    a separate callable and does carry flags -- see `problem`.)
   - `local_complex_potential` -- the LCP reduction `(V_d(R), Gamma(R))` of the
     fixed-R electronic resonance to a single complex number per R.
   - `lcp_da_cross_section` -- the LCP dissociative-attachment cross section
