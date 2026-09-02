@@ -9,6 +9,11 @@ license-files = ["LICENSE"]
 # Copyright holder: Martin Vana, for now. More collaborators (and eventually an
 # organisation) may be added here as the project grows — see CONTRIBUTING /
 # CITATION.cff.
+#
+# The contact mailbox is martin@qscat.com and stays there. The project's WEBSITE
+# moved to qscat.org (see [project.urls] below); the mailbox did not move with
+# it, so this address is deliberately not `@qscat.org` and must not be
+# "corrected" to match the domain.
 authors = [{ name = "Martin Vana", email = "martin@qscat.com" }]
 maintainers = [{ name = "Martin Vana", email = "martin@qscat.com" }]
 keywords = [
@@ -37,7 +42,14 @@ classifiers = [
 dependencies = ["numpy>=2", "scipy>=1.14", "mpmath>=1.3"]
 
 [project.urls]
-Homepage = "https://github.com/VanaMartin/qscat"
+# The four public locations, kept distinct on purpose: qscat.org is the landing
+# page, the API reference is built by .github/workflows/docs.yml and published
+# to GitHub Pages (NOT to qscat.org -- the landing page links out to it), and
+# the source, issues and changelog stay on GitHub. The published artifact store
+# is https://data.qscat.org (see docs/artifacts.md); it is a data endpoint
+# rather than a project URL, so it is not listed here.
+Homepage = "https://qscat.org"
+Documentation = "https://vanamartin.github.io/qscat/"
 Repository = "https://github.com/VanaMartin/qscat"
 Issues = "https://github.com/VanaMartin/qscat/issues"
 Changelog = "https://github.com/VanaMartin/qscat/blob/main/CHANGELOG.md"
@@ -47,9 +59,10 @@ Changelog = "https://github.com/VanaMartin/qscat/blob/main/CHANGELOG.md"
 # lazily, so it is NOT required to import qscat.core; only to render figures.
 plot = ["matplotlib>=3.9"]
 # MUMPS complex-symmetric sparse backend for qscat.linalg.SparseLU. Builds
-# against a SYSTEM MUMPS (see docker/base.Dockerfile), so `pip install
-# "qscat[mumps]"` fails on a machine without it — the supported route is a
-# prebuilt MUMPS (e.g. conda-forge). See docs/physics/mumps-sparse-backend.md.
+# against a SYSTEM MUMPS (see docker/base.Dockerfile), so
+# `uv sync --all-packages --extra mumps` fails on a machine without it — the
+# supported route is a prebuilt MUMPS (e.g. conda-forge). See
+# docs/physics/mumps-sparse-backend.md.
 mumps = ["python-mumps>=0.0.6"]
 
 [build-system]

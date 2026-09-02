@@ -40,8 +40,8 @@ def _lazy_mpl() -> Any:
         return plt
     except ModuleNotFoundError as exc:  # pragma: no cover - trivial guard
         raise ModuleNotFoundError(
-            "qscat.viz animation requires matplotlib. Install the plotting extra: "
-            "pip install 'qscat[plot]'."
+            "qscat.viz animation requires matplotlib. Install the plotting "
+            "extra: uv sync --all-packages --extra plot."
         ) from exc
 
 

@@ -12,6 +12,9 @@ abstract: >-
 authors:
   - family-names: Vana
     given-names: Martin
+    # The contact mailbox is martin@qscat.com and stays there. The project's
+    # WEBSITE is qscat.org (`url:` below); the mailbox did not move with it, so
+    # this address is deliberately not `@qscat.org`.
     email: martin@qscat.com
     # More collaborators (and eventually an organisation) will be added here as
     # the project grows.
@@ -21,8 +24,10 @@ authors:
 # if they drift.
 version: 0.1.0.dev0
 license: BSD-3-Clause
+# In CFF, `repository-code` is the source and `url` is the project's landing
+# page. They are deliberately different now that qscat.org exists.
 repository-code: "https://github.com/VanaMartin/qscat"
-url: "https://github.com/VanaMartin/qscat"
+url: "https://qscat.org"
 keywords:
   - quantum scattering
   - electron-molecule scattering
@@ -43,7 +48,7 @@ preferred-citation:
   version: 0.1.0.dev0
   license: BSD-3-Clause
   repository-code: "https://github.com/VanaMartin/qscat"
-  url: "https://github.com/VanaMartin/qscat"
+  url: "https://qscat.org"
 
 # The prior published work this code implements and continues. A direct user is
 # expected to cite these alongside the software. Metadata transcribed from the

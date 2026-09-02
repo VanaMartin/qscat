@@ -159,12 +159,14 @@ survey date, not about what exists.
 
 ## On the name
 
-`qscat` here is *quantum scattering*, and the project's domain is `qscat.com`.
-The acronym is used elsewhere for unrelated things — most visibly the
+`qscat` here is *quantum scattering*, and the project's domain is `qscat.org` —
+<https://qscat.org> is the project's landing page and `data.qscat.org` serves the
+published artifacts. The acronym is used elsewhere for unrelated things — most
+visibly the
 [QGIS Shoreline Change Analysis Tool](https://github.com/qscat/qscat)
 (<https://doi.org/10.1016/j.envsoft.2024.106263>) and, historically, as shorthand
 for NASA's QuikSCAT scatterometer mission. There is no functional overlap and no
-packaging collision: the PyPI distribution name `qscat` was unregistered as of
-2026-08-16 and is claimed by this project, and the QGIS tool ships through the
-QGIS plugin repository rather than PyPI. Readers searching literature or code for
-"QSCAT" should expect all three.
+packaging collision: this project is repo-only and publishes nothing to PyPI,
+the PyPI distribution name `qscat` was unregistered as of 2026-08-16, and the
+QGIS tool ships through the QGIS plugin repository rather than PyPI. Readers
+searching literature or code for "QSCAT" should expect all three.

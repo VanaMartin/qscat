@@ -9,6 +9,12 @@ by time-independent and time-dependent routes. Everything is in atomic units, an
 every method is validated against an analytic benchmark, a conservation law, a
 convergence study, or an independent reference.
 
+This site is the API reference and the theory notes. For the project overview —
+what the methods are and what they have measured — see <https://qscat.org>; the
+source, issues and changelog are at
+<https://github.com/VanaMartin/qscat>, and the published computed artifacts are
+served from <https://data.qscat.org>.
+
 ```{toctree}
 :maxdepth: 2
 :caption: Contents

@@ -129,7 +129,7 @@ def plot_wavefunction_2d(
     Raises
     ------
     ModuleNotFoundError
-        If matplotlib is not installed (`pip install 'qscat[plot]'`).
+        If matplotlib is not installed (`uv sync --all-packages --extra plot`).
     """
     try:
         import matplotlib
@@ -139,7 +139,7 @@ def plot_wavefunction_2d(
     except ModuleNotFoundError as exc:  # pragma: no cover - trivial guard
         raise ModuleNotFoundError(
             "qscat.viz.plot_wavefunction_2d requires matplotlib. "
-            "Install the plotting extra: pip install 'qscat[plot]'."
+            "Install the plotting extra: uv sync --all-packages --extra plot."
         ) from exc
 
     created = ax is None

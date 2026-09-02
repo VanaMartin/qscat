@@ -88,7 +88,7 @@ def plot_cross_sections(
     except ModuleNotFoundError as exc:  # pragma: no cover - trivial guard
         raise ModuleNotFoundError(
             "qscat.core.plot_cross_sections requires matplotlib. "
-            "Install the plotting extra: pip install 'qscat[plot]'."
+            "Install the plotting extra: uv sync --all-packages --extra plot."
         ) from exc
 
     e = np.asarray(E_grid, dtype=np.float64)
@@ -377,7 +377,7 @@ def plot_route_comparison(
     except ModuleNotFoundError as exc:  # pragma: no cover - trivial guard
         raise ModuleNotFoundError(
             "qscat.core.plot_route_comparison requires matplotlib. "
-            "Install the plotting extra: pip install 'qscat[plot]'."
+            "Install the plotting extra: uv sync --all-packages --extra plot."
         ) from exc
 
     e = np.asarray(E_grid, dtype=np.float64)

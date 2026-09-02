@@ -477,6 +477,14 @@ apps/       qscat-run — THE single execution surface: one YAML config runs
             stand alone -- golden inputs, fit reports, cited figures -- see
             docs/adr/0008-computed-artifacts-live-in-public-object-storage.md
             for the classification and docs/artifacts.md for the reader's side.
+            NOT here: the project's public face. `qscat.org` (the landing page)
+            and `data.qscat.org` (the artifact bucket) are provisioned and
+            deployed from a separate, private infrastructure repository that
+            holds the Terraform, the publish script and the site itself. The
+            split is by who owns the resource, not by what is secret -- this
+            repository never provisions infrastructure, and a website does not
+            belong in a research monorepo. A change to the landing page's copy
+            or its numbers is made there, not here.
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
