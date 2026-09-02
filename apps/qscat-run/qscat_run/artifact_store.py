@@ -52,6 +52,15 @@ The repository still stands alone in the sense that matters: the *inputs* a
 test or a claim depends on stay in git, and `config.resolved.yaml` records how
 to regenerate any fetched artifact from scratch. What moves out is only the
 expensive, reproducible output.
+
+So a pointer lists only files that are NOT in git. `config.resolved.yaml` and
+`manifest.json` sit beside it, tracked, and never appear among its artifacts:
+they are kilobytes, they are the input and the provenance rather than the
+result, and behind a download they would be missing exactly when someone
+without a network wants to know what a published number came from. Nothing
+here can enforce that at runtime -- a directory whose config arrived by fetch
+is indistinguishable from one whose config was cloned -- so it is enforced by
+a guard over the committed pointers instead.
 """
 
 from __future__ import annotations

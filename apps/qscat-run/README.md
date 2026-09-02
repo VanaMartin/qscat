@@ -40,6 +40,10 @@ them. `qscat-run fetch DIR` downloads what it names and verifies every byte
 against the digest recorded at publication; a directory with no
 `artifacts.json` keeps its results in git and needs no fetching.
 
+Only outputs are published. The run's `config.resolved.yaml` and
+`manifest.json` stay committed beside the pointer, so a clone with no network
+still has the input and the provenance for every published number.
+
 Reads are anonymous HTTPS — no account, no credentials. Publishing is
 maintainer-only and lives outside this repository. What stays in git is
 everything a test or a note depends on; see

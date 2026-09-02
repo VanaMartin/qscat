@@ -473,7 +473,13 @@ apps/       qscat-run — THE single execution surface: one YAML config runs
             earlier commit-addressed scheme was orphaned by three separate
             rebases and stored 25% of the bucket twice.
             Fetching verifies every byte and refuses to leave failing
-            bytes on disk. What stays in git is what a test or a note needs to
+            bytes on disk. A pointer names only OUTPUT: the run's
+            `config.resolved.yaml` and `manifest.json` stay tracked beside it,
+            so an offline clone has the input and the provenance for every
+            published number (guarded by
+            `apps/qscat-run/tests/test_artifact_store.py`, since a fetched
+            config and a cloned one are indistinguishable on disk).
+            What stays in git is what a test or a note needs to
             stand alone -- golden inputs, fit reports, cited figures -- see
             docs/adr/0008-computed-artifacts-live-in-public-object-storage.md
             for the classification and docs/artifacts.md for the reader's side.

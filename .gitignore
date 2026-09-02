@@ -47,18 +47,24 @@ reference/literature/*.ps
 .worktrees/
 .superpowers/
 
-# Published run artifacts (see docs/adr/0008). Only the two KB-sized records
-# are tracked -- `manifest.json` (what the run was) and `artifacts.json` (where
-# its bytes live and what they hash to). Everything else in these directories
-# arrives via `qscat-run fetch` and must NOT come back: listing what to ignore
-# would miss whatever a future artifact kind adds, and one `git add -A` after a
-# fetch puts the whole sweep back in git. Allow-list instead.
+# Published run artifacts (see docs/adr/0008). Only the three KB-sized records
+# are tracked -- `config.resolved.yaml` (the input the sweep is a function of),
+# `manifest.json` (what produced it) and `artifacts.json` (where the expensive
+# bytes live and what they hash to). Together those are what lets a clone with
+# no network say exactly what it would have to re-run. Everything else in these
+# directories arrives via `qscat-run fetch` and must NOT come back: listing what
+# to ignore would miss whatever a future artifact kind adds, and one
+# `git add -A` after a fetch puts the whole sweep back in git. Allow-list
+# instead.
 validation/factory/results/o2-ve/*
+!validation/factory/results/o2-ve/config.resolved.yaml
 !validation/factory/results/o2-ve/manifest.json
 !validation/factory/results/o2-ve/artifacts.json
 validation/factory/results/o2-so12-ve/*
+!validation/factory/results/o2-so12-ve/config.resolved.yaml
 !validation/factory/results/o2-so12-ve/manifest.json
 !validation/factory/results/o2-so12-ve/artifacts.json
 validation/factory/results/o2-so32-ve/*
+!validation/factory/results/o2-so32-ve/config.resolved.yaml
 !validation/factory/results/o2-so32-ve/manifest.json
 !validation/factory/results/o2-so32-ve/artifacts.json

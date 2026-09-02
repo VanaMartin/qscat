@@ -5,12 +5,18 @@ minutes-to-hours to recompute, so it lives at `data.qscat.org` rather than in
 git. What stays in git is a KB-sized `artifacts.json` pointer, and these tests
 cover what that pointer has to guarantee: that a reader gets the bytes the
 maintainer published, or a clear error -- never silently different bytes.
+
+They also guard the OTHER half of the bargain, which has no runtime code to
+fail loudly: only the expensive OUTPUT moves out. The resolved config and the
+manifest are inputs and provenance, they are kilobytes, and a clone with no
+network that lacks either cannot say what it would have to re-run.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -22,6 +28,19 @@ from qscat_run.artifact_store import (
     fetch,
     load_pointer,
 )
+
+_REPO = Path(__file__).resolve().parents[3]
+
+#: Records a published run directory must carry IN GIT rather than fetch. The
+#: resolved config is the input the sweep is a function of; the manifest says
+#: what produced it. Both are KB-sized, so neither is what the store exists
+#: for, and putting them behind a download is what makes an offline clone
+#: unable to reproduce a published number.
+_TRACKED_RECORDS = ("config.resolved.yaml", "manifest.json")
+
+
+def _committed_pointers() -> list[Path]:
+    return sorted(_REPO.glob("validation/**/artifacts.json"))
 
 
 def _pointer(tmp_path: Path, payload: bytes = b"energy,sigma\n0.1,2.0\n") -> Path:
@@ -179,8 +198,7 @@ def test_every_committed_pointer_in_this_repo_is_wellformed() -> None:
     Skips rather than passing silently while no results have been migrated --
     a guard with nothing to guard should say so, not report green.
     """
-    repo = Path(__file__).resolve().parents[3]
-    pointers = sorted(repo.glob("validation/**/artifacts.json"))
+    pointers = _committed_pointers()
     if not pointers:
         pytest.skip("no artifacts.json committed yet -- nothing has been migrated")
     for p in pointers:
@@ -192,3 +210,66 @@ def test_every_committed_pointer_in_this_repo_is_wellformed() -> None:
         for name, entry in ptr.artifacts.items():
             assert len(entry.sha256) == 64, f"{p}: {name}"
             assert entry.bytes > 0, f"{p}: {name}"
+
+
+def test_a_published_run_keeps_its_inputs_beside_the_pointer() -> None:
+    """The store holds expensive output; the inputs stay in the clone.
+
+    A reader with no network still has to be able to say what the published
+    numbers are a function of, and to re-run it. That takes two kilobyte-sized
+    records -- the resolved config and the manifest -- and if either is only
+    reachable over HTTPS, the offline half of the design is a claim rather
+    than a property. Reading the pointer is not enough on its own: the file
+    has to be THERE, and it has to not be listed as something to download.
+    """
+    pointers = _committed_pointers()
+    if not pointers:
+        pytest.skip("no artifacts.json committed yet -- nothing has been migrated")
+    for p in pointers:
+        directory = p.parent
+        artifacts = load_pointer(directory).artifacts
+        for name in _TRACKED_RECORDS:
+            assert (directory / name).is_file(), (
+                f"{directory} publishes artifacts but has no {name}; a clone "
+                "with no network cannot say what produced them or how to re-run it"
+            )
+            assert name not in artifacts, (
+                f"{p} lists {name} as a fetch-only artifact. It belongs in git: "
+                "it is kilobytes, it is an input rather than an output, and "
+                "behind a download it is unavailable exactly when it is needed"
+            )
+
+
+def test_the_records_a_published_run_ships_are_tracked_not_merely_present() -> None:
+    """Present on a developer's disk is not the same as present in a clone.
+
+    These directories are ignored wholesale and re-populated by `qscat-run
+    fetch`, so a resolved config sitting in a working tree looks identical
+    whether it was committed or downloaded five minutes ago. Only `git
+    ls-files` can tell the difference, and that difference is the whole
+    invariant -- the fetched copy is exactly what a fresh clone will not have.
+    """
+    pointers = _committed_pointers()
+    if not pointers:
+        pytest.skip("no artifacts.json committed yet -- nothing has been migrated")
+    if not (_REPO / ".git").exists():
+        # An unpacked tarball or the Docker build context, which excludes
+        # `.git`. Nothing to read; the pointer-content half above still runs.
+        pytest.skip("no git repository here -- cannot ask what is tracked")
+    tracked = set(
+        subprocess.run(
+            ["git", "ls-files", "-z", "--", "validation"],
+            cwd=_REPO,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.split("\0")
+    )
+    for p in pointers:
+        directory = p.parent.relative_to(_REPO)
+        for name in _TRACKED_RECORDS:
+            assert f"{directory}/{name}" in tracked, (
+                f"{directory}/{name} exists but is not tracked -- the .gitignore "
+                "allow-list for this directory has to name it, or it reaches "
+                "nobody who clones"
+            )
