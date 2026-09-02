@@ -162,9 +162,13 @@ def nuclear_grid(
     angle_deg : float, optional
         ECS rotation angle of the complex tail, in degrees.
     r_max : float, optional
-        Outer edge of the complex tail (bohr).
+        Outer edge of the complex tail (bohr). Must be finite and strictly
+        greater than the 12.0 bohr real-region endpoint, so the tail spans a
+        positive length.
     n_complex : int, optional
-        Number of complex (ECS-tail) elements tiling ``[12, r_max]``.
+        Number of complex (ECS-tail) elements tiling ``[12, r_max]``. Must be
+        an integer of at least 1: without a complex element the grid carries
+        no ECS tail, hence no outgoing boundary condition.
     quadrature : int, optional
         DVR quadrature order (points per element).
 
@@ -172,7 +176,22 @@ def nuclear_grid(
     -------
     FemDvrEcsGrid
         The assembled nuclear radial grid.
+
+    Raises
+    ------
+    GridError
+        If ``n_complex`` is not an integer of at least 1, or ``r_max`` is not
+        finite and beyond the real-region endpoint.
     """
+    r_pivot = _REAL_SEGMENTS[-1][0]
+    if not isinstance(n_complex, int | np.integer) or n_complex < 1:
+        raise GridError(f"n_complex must be an integer >= 1, got {n_complex!r}")
+    if not np.isfinite(r_max) or r_max <= r_pivot:
+        raise GridError(
+            f"r_max must be finite and exceed the real-region endpoint "
+            f"{r_pivot} bohr, got {r_max!r}"
+        )
+
     elements: list[ElementSpec] = []
     start = 0.0
     for end, length in _REAL_SEGMENTS:
@@ -183,7 +202,7 @@ def nuclear_grid(
         elements += [ElementSpec(length) for _ in range(n_seg)]
         start = end
 
-    r_pivot = start  # == 12.0
+    # `start` now equals `r_pivot`: the real segments tile [0, r_pivot] exactly.
     complex_length = (r_max - r_pivot) / n_complex
     elements += [ElementSpec(complex_length, angle_deg) for _ in range(n_complex)]
 

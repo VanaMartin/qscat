@@ -303,6 +303,20 @@ installed package.
   `inspect.signature`, so a keyword the prose omits, a keyword it invents, and
   a promise of deprecation machinery the package does not carry each fail a
   fast test rather than a user's call.
+- **`qscat.core.grids.nuclear_grid` rejects impossible geometry at its own
+  boundary.** `r_max` and `n_complex` are public knobs, but invalid values used
+  to fail somewhere else, or not at all: `n_complex=0` raised
+  `ZeroDivisionError` from the element-length arithmetic, a negative count
+  silently produced a grid with NO ECS tail (a purely real grid, so no outgoing
+  boundary condition), `r_max` at or inside the 12.0 bohr real-region endpoint
+  surfaced as a low-level "element length must be positive", and a non-finite
+  `r_max` built a 428-node grid of NaNs that only misbehaved much later. Both
+  parameters are now checked before any arithmetic, raising `GridError` naming
+  the parameter and the constraint it violated, in the style `electronic_grid`
+  next to it already used; the endpoint in the message is derived from
+  `_REAL_SEGMENTS`, so the check and the layout cannot drift apart. The default
+  and every in-repo grid is byte-identical to before (nodes, weights and pivot).
+  Closes #65.
 - **`manifest.json` records a real commit, or the run fails.** Three committed
   O₂ sweeps carried `"git_sha": "unknown"`, so the artifacts behind the
   spin–orbit VE figure could not be tied to the code that produced them.
