@@ -198,6 +198,28 @@ installed package.
   the package README.
 
 ### Changed
+- **`qscat.org` is the project's canonical identity, and the install route is a
+  clone.** The landing page went live, which turned two long-standing
+  inaccuracies load-bearing. The package metadata and `CITATION.cff` named
+  GitHub as the homepage because there was nothing else to name; `Homepage` is
+  now `https://qscat.org`, a `Documentation` URL points at the GitHub Pages API
+  reference for the first time, and `Repository`/`Issues`/`Changelog` stay on
+  GitHub — four public locations, named distinctly, with `data.qscat.org`
+  serving the published artifacts. `docs/related-work.md` called `qscat.com` the
+  project's domain, in the very section teaching a reader to tell this `qscat`
+  apart from the QGIS shoreline tool and NASA's QuikSCAT, where a wrong domain
+  is worse than none. The maintainer's `martin@qscat.com` mailbox is
+  deliberately unchanged — a website moving is not a mailbox moving — and both
+  metadata files now say so where the address is written, so the mismatch does
+  not read as a defect. Separately, the install instructions told readers to
+  `pip install` a distribution that does not exist and will not until the
+  citation article is out, contradicting `libs/qscat/README.md`; that had six
+  sites, not the two first noticed — `docs/getting-started.md`, `docs/api/viz.md`,
+  and four error messages and a docstring in the shipped library, which reach a
+  user at the moment their import fails. All six now name the
+  `uv sync --all-packages [--extra plot]` route. Nothing asserted on any of
+  those strings; `tests/test_project_identity.py` now does, over the shipped
+  sources, the published docs and both metadata files.
 - Two public names renamed to end collisions with an identically-named
   sibling elsewhere in `qscat.core`/`qscat.tuning` (api-surface-pass,
   2026-08-25): `qscat.core.nrm.scattering.free_hamiltonian` →

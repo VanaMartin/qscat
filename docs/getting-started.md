@@ -2,14 +2,26 @@
 
 ## Install
 
+`qscat` is **repo-only**: it is not published to PyPI (and will not be until
+the qscat citation article is out). Install it from a clone:
+
 ```bash
-pip install qscat            # core (numpy, scipy, mpmath)
-pip install "qscat[plot]"    # + matplotlib figure helpers
+git clone https://github.com/VanaMartin/qscat
+cd qscat
+uv sync --all-packages
 ```
 
-qscat imports with only numpy/scipy/mpmath; matplotlib is optional. An optional
-MUMPS sparse backend (`qscat[mumps]`) needs a system MUMPS — see the package
-README.
+`qscat` imports with only numpy/scipy/mpmath. `plot` (matplotlib, for the
+figure helpers) and `mumps` are optional extras, pulled in by name:
+
+```bash
+uv sync --all-packages --extra plot
+uv sync --all-packages --extra mumps
+```
+
+The MUMPS backend builds against a *system* MUMPS, so that extra only works
+where one is present — see the [package
+README](https://github.com/VanaMartin/qscat/blob/main/libs/qscat/README.md).
 
 ## Your first cross section
 

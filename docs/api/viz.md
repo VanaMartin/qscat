@@ -2,7 +2,7 @@
 
 Rendering wavefunctions: a cached sparse projector onto an equidistant grid,
 complex-plane domain colouring, and static or animated 2-D field plots. Needs
-the `plot` extra (`pip install "qscat[plot]"`).
+the `plot` extra (`uv sync --all-packages --extra plot`).
 
 ```{eval-rst}
 .. currentmodule:: qscat.viz
