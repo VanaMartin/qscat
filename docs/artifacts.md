@@ -36,7 +36,7 @@ is excluded from this site.
 
 ```console
 $ qscat-run fetch validation/factory/results/o2-ve
-validation/factory/results/o2-ve: fetched 4 file(s)
+validation/factory/results/o2-ve: fetched 3 file(s)
 ```
 
 No account, no credentials, no extra package — reads are anonymous HTTPS. To
@@ -45,12 +45,17 @@ see what a directory would pull without pulling it:
 ```console
 $ qscat-run fetch validation/factory/results/o2-ve --list
 validation/factory/results/o2-ve  (from 69742d8)
-  https://data.qscat.org/o2-ve/config.resolved.e3a2d2aa3203.yaml
   https://data.qscat.org/o2-ve/cross_section.830cffb8a044.csv
   https://data.qscat.org/o2-ve/cross_section.927f86a1ff2f.npz
   https://data.qscat.org/o2-ve/cross_section.f8808b6e6355.png
-  https://data.qscat.org/o2-ve/manifest.edcf292d07f6.json
 ```
+
+Only outputs are on that list. Every published run directory also carries a
+committed `config.resolved.yaml` and `manifest.json` — the input the sweep is a
+function of, and the record of what produced it — so a clone with no network
+can still say exactly what a published number came from and how to re-run it.
+Both are kilobytes; putting them behind a download would make them unavailable
+precisely when they are wanted.
 
 Every file is checked against the sha256 recorded when it was published. A
 mismatch is an error, and the bad bytes are not written — a truncated download

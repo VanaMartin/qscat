@@ -287,6 +287,22 @@ installed package.
   low-energy electron cannot resolve the anisotropy. No physics code, result
   data or analysis section changed; the full account was already in
   `docs/physics/coupled-partial-waves.md`.
+- **A published run's inputs stay in git, so an offline clone can reproduce
+  it.** The artifact store exists to move expensive *output* out of the
+  repository, but the three published O₂ sweeps had also pushed out their
+  `config.resolved.yaml` — 43 kB of resolved input, ignored by `.gitignore`
+  and listed as fetch-only — so a clone with no network could see that a sweep
+  existed and not what it was a run of, while
+  `docs/adr/0008-computed-artifacts-live-in-public-object-storage.md` and the
+  `artifact_store` docstring both promised otherwise. The three resolved
+  configs are now tracked, and `config.resolved.yaml` and `manifest.json` are
+  no longer named in any pointer; the remaining entries and their digests are
+  untouched, so every published URL still resolves. Nothing failed before,
+  because nothing can: a directory whose config arrived by fetch looks exactly
+  like one whose config was cloned. The invariant is therefore held by a guard
+  over the committed pointers (`apps/qscat-run/tests/test_artifact_store.py`),
+  which fails if a published directory lacks either record, if a pointer lists
+  one of them, or if the allow-list lets one exist untracked.
 - **`qscat.core`'s installed API inventory describes the `dr_cross_section`
   that ships.** Removing the flag-shaped tuple returns (see Removed, above)
   left the module docstring still calling `dr_cross_section` "a thin

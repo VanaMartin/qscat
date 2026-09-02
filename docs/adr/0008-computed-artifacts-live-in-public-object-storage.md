@@ -41,6 +41,7 @@ Classify by **what reads the file**, not by size or file type.
 | golden / oracle inputs | `validation/n2/data/CSVE.V00.J00` | **git** — hand-verified, tests depend on them, changing one is a physics decision that must be reviewed |
 | fit reports, locked constants, gate files | `results/*-fit-report.json` | **git** — KB-sized, lock tests read them |
 | figures a note discusses | `docs/physics/figures/*.png` | **git** — the notes read like papers and are unreadable without them |
+| a published run's input and provenance | `results/o2-ve/config.resolved.yaml`, `manifest.json` | **git** — KB-sized, and they are what says how to reproduce the output; behind a download they are missing exactly when they are needed |
 | sweep results, run outputs | `results/o2-ve/cross_section.csv` | **object storage** — reproducible from a committed config; nothing in the fast tier reads them |
 
 The line: *the repository keeps what a test or a note needs in order to stand
@@ -95,8 +96,27 @@ fetched. A network outage may not turn into a red build.
 
 The repository still stands alone in the sense that matters. The *inputs* a
 claim depends on stay in git, and every published directory carries its
-`config.resolved.yaml`, so a clone with no network can regenerate any fetched
-artifact — slowly. What moved out is only the expensive, reproducible output.
+`config.resolved.yaml` and its `manifest.json`, so a clone with no network can
+regenerate any fetched artifact — slowly. What moved out is only the expensive,
+reproducible output.
+
+That is a rule about the pointer as much as about the directory: **a published
+`artifacts.json` lists only files that are not in git.** The first three
+published directories violated it — the resolved config was ignored and
+fetch-only, so an offline clone could read that a sweep existed and not what it
+was a run of, while the ADR said otherwise. Nothing failed, because there is no
+runtime path on which a missing input raises: the directory looks complete to
+whoever has just fetched it. The invariant therefore lives in a test
+(`apps/qscat-run/tests/test_artifact_store.py`), which fails if a published
+directory lacks either record, if a pointer lists one of them, or if the
+`.gitignore` allow-list lets one exist untracked — the last being the failure
+mode nothing else can see, since a fetched copy and a committed one are
+indistinguishable in a working tree.
+
+Removing those two names from a pointer leaves their bytes in the bucket
+unreferenced. That is correct and deliberate: nothing is deleted from storage,
+retention is reachability-based rather than a clock, and an object no pointer
+names is exactly what a future sweep would collect.
 
 Existing history is **not** rewritten. The 23.7 MB stays where it is: SHAs are
 cited in notes and pull requests, and rewriting them to reclaim ~20 MB is a
