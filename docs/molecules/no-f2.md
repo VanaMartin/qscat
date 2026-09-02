@@ -123,9 +123,12 @@ deck once it is told to look at the resonance curve, not just the potential.
 
 NO's shape resonance is shipped as a single partial wave. Coupling it to
 neighbouring partial waves through a physically motivated, non-spherical
-interaction: the resonance stays a single pole, but the fixed-wave width and
-VE cross section miss the coupled result by tens of percent once the
-anisotropy is strong.
+interaction: only `l = 1` hosts a resonance at all — O⁻ has one bound orbital,
+2p — so the single pole is explained rather than merely observed. For the
+angle-integrated VE cross section the fixed-wave reduction is a good
+approximation, because a low-energy electron cannot resolve the anisotropy:
+the truncation costs 2–7 % (σ-weighted) against a reference converged to
+0.3–0.5 %.
 :::
 
 ::::

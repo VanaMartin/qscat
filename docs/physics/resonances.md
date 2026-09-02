@@ -29,5 +29,10 @@ coupled-partial-waves
   {doc}`angular-coupled-channels <angular-coupled-channels>` direction,
   delivered: does NO's single-partial-wave shape resonance stay a single pole
   and a good approximation once it is allowed to couple to neighbouring
-  partial waves? The gate opens on the width and cross section criteria, not
-  on a genuine second pole.
+  partial waves? Yes to both. Only `l = 1` hosts a resonance at all — O⁻ has
+  one bound orbital, 2p — which explains the single pole rather than merely
+  observing it, and the truncation costs 2–7 % on the angle-integrated VE
+  cross section against a reference converged to 0.3–0.5 %. That observable is
+  the wrong one for the question anyway, since it sums over the exit partial
+  waves the anisotropy produces; the differential cross section has not been
+  computed.

@@ -267,6 +267,26 @@ installed package.
     simply omit it.
 
 ### Fixed
+- **The coupled-partial-wave summaries no longer assert the withdrawn 58 %
+  width result.** The molecule guide (`docs/molecules/no-f2.md`), the
+  resonance index (`docs/physics/resonances.md`) and
+  `validation/coupled/cross_section.py`'s module docstring still said the
+  fixed-wave width and cross section miss the coupled result by tens of
+  percent — the headline the physics note itself had already withdrawn. That
+  58 % was a POSITION artifact: the two truncations were compared at points
+  5-10 mHa apart on `E_res(R)`, where `Gamma` falls steeply with `E_res`, so
+  the position difference manufactured a width difference with no angular
+  physics in it; pinned to the same `E_res`, the median difference over
+  R in [1.6, 2.2] is 0.56 %. The companion 11.8x cross-section factor was
+  measured on a model whose anion is unbound at every R, because splitting the
+  well hands the deeper centre only `(1+kappa)/2` of `lam`. The three pages
+  now carry the surviving result: only `l = 1` hosts a resonance at all (O⁻
+  has one bound orbital, 2p), which EXPLAINS the single pole, and the
+  truncation costs 2-7 % on the angle-integrated VE cross section against a
+  reference converged to 0.3-0.5 % — resolved, but small, because a
+  low-energy electron cannot resolve the anisotropy. No physics code, result
+  data or analysis section changed; the full account was already in
+  `docs/physics/coupled-partial-waves.md`.
 - **`qscat.core`'s installed API inventory describes the `dr_cross_section`
   that ships.** Removing the flag-shaped tuple returns (see Removed, above)
   left the module docstring still calling `dr_cross_section` "a thin

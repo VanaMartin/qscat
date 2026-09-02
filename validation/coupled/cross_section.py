@@ -1,9 +1,18 @@
 """The coupled VE cross section: does the fixed-l reduction change the observable?
 
 Runs the exact 2-D driven solve at (s, kappa) = (0.3, 0.5) -- the anisotropy
-where the preceding phase's channel truncation is converged to 0.2 % and the
-width difference is 58 % over all 41 comparable R -- for N_l = 1 (fixed-l), 3
-and 4, on one deck and one energy mesh.
+at which the preceding phase's channel truncation is converged to 0.2 % --
+for N_l = 1 (fixed-l), 3 and 4, on one deck and one energy mesh.
+
+This campaign uses the BARE two-centre well, whose anion is unbound at every
+R, so its cross sections are ARCHIVED rather than current: the
+`renormalised_campaign` and `symmetric_run` modules repeat the comparison with
+`lam` rescaled per R.
+
+The 58 % width difference that once made this (s, kappa) look decisive is a
+position artifact -- the two truncations sat 5-10 mHa apart on E_res(R), and
+pinned to the same E_res the median width difference is 0.56 %. See
+docs/physics/coupled-partial-waves.md.
 
 N_l = 2 is deliberately absent from the sweep: it was measured 30 % from
 converged against N_l = 4 at (s, kappa) = (0.3, 0.5), so it would be neither
