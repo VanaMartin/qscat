@@ -105,3 +105,56 @@ html_theme_options = {
         "color-brand-content": "#7cb3e8",
     },
 }
+
+# Intersphinx fetches each project's `objects.inv` over the network at build
+# time, so a third party's uptime is part of this repository's docs gate: when
+# `docs.scipy.org` times out, intersphinx logs `failed to reach any of the
+# inventories`, `-W` turns that one warning into an error, and a pull request
+# that never touched the docs goes red. It has done so on unrelated branches
+# and on `main`.
+#
+# The links are worth keeping -- the Python inventory alone resolves ~1050
+# references in the built site, every `float`/`int`/`tuple` in an autodoc
+# signature -- so the fix is not to drop intersphinx. Nor can the warning be
+# silenced with `suppress_warnings`: Sphinx logs it with no warning type
+# (`sphinx/ext/intersphinx/_load.py`), and `suppress_warnings` matches only
+# typed warnings. Deciding reachability ourselves before intersphinx runs does
+# not work either: a `HEAD` probe answers a different question than the fetch
+# does, and measurably disagrees with it -- `numpy.org` returns 403 to plain
+# urllib while intersphinx succeeds, and `docs.scipy.org` times out on HEAD
+# while GET returns in ~4 s.
+#
+# So the fetch is left to intersphinx, and only its unreachable-inventory
+# record is demoted, on the handler that `-W` promotes from. An unreachable
+# inventory costs cross-links into that project's documentation and nothing
+# else: unresolved references are not errors unless `nitpicky` is on, and it is
+# not. Every other warning still fails the build.
+_UNREACHABLE_INVENTORIES = "failed to reach any of the inventories"
+
+
+def setup(app: object) -> None:
+    """Stop a third party's downtime from failing this repository's docs gate."""
+    import logging
+
+    class _NetworkIsNotAnError(logging.Filter):
+        reported = False
+
+        def filter(self, record: logging.LogRecord) -> bool:
+            if _UNREACHABLE_INVENTORIES not in record.getMessage():
+                return True
+            if not self.reported:  # one instance, three handlers -- say it once
+                self.reported = True
+                print(
+                    "conf.py: intersphinx could not fetch an inventory; cross-links "
+                    "into it will be absent from this build, which is not an error"
+                )
+            return False
+
+    # On the handlers, not the logger: a record logged by a child logger reaches
+    # this one only through its parent's handlers. And at the FRONT of the
+    # filter chain, not appended -- Sphinx's own `WarningSuppressor` runs first
+    # and increments the warning count that `-W` fails on, so a filter added
+    # behind it drops the message and still loses the build.
+    dropper = _NetworkIsNotAnError()
+    for handler in logging.getLogger("sphinx").handlers:
+        handler.filters.insert(0, dropper)

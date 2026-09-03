@@ -297,6 +297,24 @@ installed package.
     simply omit it.
 
 ### Fixed
+- **A third party's downtime no longer fails the docs gate.** Intersphinx
+  fetches each project's `objects.inv` over the network at build time, so when
+  `docs.scipy.org` timed out, `sphinx-build -W` turned that one warning into a
+  failed build — on pull requests that never touched the docs, and on `main`.
+  The links are worth keeping (the Python inventory alone resolves ~1050
+  references in the built site, every `float`/`int`/`tuple` in an autodoc
+  signature), so `docs/conf.py` now demotes just that record and leaves every
+  other warning fatal. It cannot be done with `suppress_warnings`, which
+  matches only typed warnings, and Sphinx logs this one untyped; nor by
+  deciding reachability up front, because a `HEAD` probe measurably disagrees
+  with the fetch — `numpy.org` returns 403 to plain urllib and
+  `docs.scipy.org` times out on `HEAD` while `GET` returns in ~4 s. The filter
+  goes at the FRONT of the handler chain, since Sphinx's own
+  `WarningSuppressor` runs first and increments the count `-W` fails on.
+  Verified both ways: with an unreachable inventory the build succeeds and says
+  which links are missing, and with a deliberately broken cross-reference it
+  still fails with exactly one warning.
+
 - **`config.resolved.yaml` can be loaded back.** Every run writes the fully
   default-filled config beside its results, and the artifact-store design leans
   on that file: expensive outputs live in object storage precisely because the
