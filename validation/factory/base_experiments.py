@@ -74,8 +74,10 @@ def _grid_label(g: dict[str, float | int]) -> str:
     return f"r{int(g['r_max'])}_o{g['order']}_c{g['n_complex']}"
 
 
-def _energies(spec) -> np.ndarray:  # EnergySpec(min, max, step)
-    return np.arange(spec.min, spec.max + 0.5 * spec.step, spec.step)
+def _energies(spec) -> np.ndarray:
+    # `EnergySpec` owns how a sweep expands; re-deriving it here is how the two
+    # drift apart.
+    return spec.as_array()
 
 
 # --------------------------------------------------------------------------- curves

@@ -29,6 +29,18 @@ installed package.
   within 0.014 meV of the published axis everywhere. The axis a run actually
   solved is stored in its own `cross_section.npz` regardless, so the config
   records the recipe and the artifact records the result.
+- **Every committed config now writes its sweep as `ranges`.** The eleven
+  examples that used `min`/`max`/`step`, the eight molecule presets, and the
+  `qscat-run init` scaffold were ported; every mesh is byte-identical to
+  before the port, checked point by point. `min`/`max`/`step` still LOADS --
+  it is inclusive of `max` and pads the half step for you, which is the right
+  thing for a hand-written sweep -- but it is now a spelling that normalises
+  to one range, not a second representation. That matters because the two
+  forms disagreed about their endpoint: `max` was inclusive, `stop` is not,
+  and having both conventions live in one config file is a trap rather than a
+  convenience. `EnergySpec` accordingly stores one computed form, and
+  `validation.factory.base_experiments` stopped re-deriving the expansion by
+  hand and calls the accessor.
 
 - **Computed artifacts move out of git, and `qscat-run fetch` brings them
   back.** 37% of every byte this repository had ever stored was computed

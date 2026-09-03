@@ -6,7 +6,10 @@ methods: [ti]
 observables:
   - {kind: ve, channels: [0, 1, 2]}
 v_init: 0
-energies: {min: 0.005, max: 0.200, step: 0.001}
+energies:
+  # one uniform sweep: np.arange(start, stop, step), stop exclusive --
+  # padded by half a step so 0.2 is included
+  ranges: [{start: 0.005, stop: 0.2005, step: 0.001}]
 grid: {preset: emoscat}
 reference:
   - path: ../../../../validation/n2/data/CSVE.V00.J00

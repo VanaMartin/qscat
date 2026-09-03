@@ -48,7 +48,10 @@ v_init: 0
 # PRA 77 Fig. 4's own x range for the N2-like model. The step is coarse enough
 # to keep the example cheap; the boomerang oscillations need ~0.001 Ha to
 # resolve (what the committed figure uses).
-energies: {min: 0.060, max: 0.160, step: 0.010}
+energies:
+  # one uniform sweep: np.arange(start, stop, step), stop exclusive --
+  # padded by half a step so 0.16 is included
+  ranges: [{start: 0.06, stop: 0.165, step: 0.01}]
 
 grid: {preset: emoscat}
 
