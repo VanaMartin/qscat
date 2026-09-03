@@ -19,28 +19,24 @@ installed package.
   behind it; they are now the exported `TypedDict`s `GridCost`, `TensorCost`,
   `Refine2dStep` and `Refine2dReport` (plus `RefinementCoordinate`, the two
   names a recorded refinement step can carry). And `ScatteringProblem` —
-  documented as the stable facade, against provisional functional solvers —
-  returned a broad union from every flagged method even when the caller
-  passed a literal, so the object API was strictly worse typed than the
-  low-level layer it delegates to. `ve_cross_section`, `da_cross_section`,
-  `dr_cross_section`, both LCP cross sections and `resonance_levels` now
-  carry the same `Literal` overloads the functional solvers do:
-  `return_wavefunction=True` gives the tuple, omitted or `False` gives the
-  bare array, and a runtime `bool` still gives the honest union a caller has
-  to discriminate. `dr_cross_section` is the one that gains most — the free
-  `dr_cross_section` is sigma-only and `dr_solve` hands back an `Optional`
-  amplitude whatever it was asked for, so the facade's literal flag is the
-  only route to a statically non-`Optional` DR amplitude. Nothing narrows a
+  documented as the stable facade — returned bare `Any`-ish shapes from its
+  flagged methods; each now declares the union of what it can return, built
+  from four exported aliases (`CrossSection`, `Wavefunction`, `Amplitude`, and
+  `DrCrossSection` for the one method whose two independent flags make four
+  shapes). Each docstring says which flag selects which shape. Naming the
+  parts is what keeps a union readable, and it gives a caller something to
+  annotate with — the other half of shipping `py.typed`. Nothing narrows a
   below-threshold wavefunction: a closed channel has none, and the `None`
-  stays in the type. Runtime behaviour is unchanged — every report is the
-  same plain `dict` and every method returns the same object as before,
-  checked field by field across all twenty surfaces. `ProbeResult.detail`
-  deliberately stays `dict[str, Any]`: one result type is shared by three
-  probes whose payloads have disjoint key sets, so a `TypedDict` there would
-  promise a shape that does not exist. Static fixtures under
-  `libs/qscat/tests/static_typing/` assert each inferred type with
+  stays in the type. Runtime behaviour is unchanged — every report is the same
+  plain `dict` and every method returns the same object as before, checked
+  field by field across all twenty surfaces. `ProbeResult.detail` deliberately
+  stays `dict[str, Any]`: one result type is shared by three probes whose
+  payloads have disjoint key sets, so a `TypedDict` there would promise a
+  shape that does not exist. Static fixtures under
+  `libs/qscat/tests/static_typing/` assert the inferred types with
   `typing.assert_type`, and `test_static_types.py` runs a type checker over
-  them — narrowing is invisible at run time, so only a checker can gate it.
+  them — a declared return type is invisible at run time, so only a checker
+  can gate it.
 - **`energies: {ranges: [...]}` — a sweep written as `np.arange` segments.**
   A level-aware mesh is a coarse background sweep plus a dense window around
   each resonance level: a union of uniform segments, and nothing more. Written

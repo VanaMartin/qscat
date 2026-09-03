@@ -1,17 +1,15 @@
 """The static-typing fixtures must type-check clean.
 
 `libs/qscat/tests/static_typing/` holds modules that are never imported or
-executed. They record, with `typing.assert_type` and with deliberately
-suppressed errors, what a type checker infers at each public surface this
-package promises to narrow: the `ScatteringProblem` detail flags and the
-tuner's fixed-shape reports.
+executed. They record, with `typing.assert_type`, what a
+type checker infers at the public surfaces this package types: the
+`ScatteringProblem` return unions and the tuner's fixed-shape reports.
 
 Those assertions are worth nothing unless a type checker actually reads them,
-and no runtime test can stand in: `return_wavefunction=True` and a runtime
-`bool` that happens to be `True` produce the same object at run time, so only
-a checker can tell the two calls apart. This test is therefore the gate --
-it runs mypy over the fixture directory under the repository's own
-configuration and fails on the first diagnostic.
+and no runtime test can stand in -- a call returns the same object whatever
+its annotation says, so only a checker sees the declared type. This test is
+therefore the gate: it runs mypy over the fixture directory under the
+repository's own configuration and fails on the first diagnostic.
 
 Skipped when mypy is not installed (it is a dev-group tool, not a runtime
 dependency of `qscat`).
