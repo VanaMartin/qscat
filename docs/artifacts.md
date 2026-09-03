@@ -117,10 +117,15 @@ https://data.qscat.org/<experiment>/<name>.<sha256[:12]>.<ext>
 
 The folder is a readable label; the **digest is the address**. That is what
 makes such a URL safe to paste into a paper, an issue or a message: different
-content hashes differently and therefore lives somewhere else, so a link
-cannot quietly come to mean something other than what you cited. If a result
-is corrected, the correction gets its own URL and the old one keeps the old
-value for as long as it is kept, so the two remain comparable.
+content almost certainly hashes to a different key, and where it does not, the
+mismatch is caught rather than served. The key carries 12 of the 64 digest
+characters — 48 bits, so a collision runs at ~1.8e-9 across a thousand objects
+— while the run's `artifacts.json` records the **full** digest and every fetch
+is verified against it. A link therefore cannot quietly come to mean something
+other than what you cited: it either resolves to the bytes you cited, or it
+fails loudly. If a result is corrected, the correction gets its own URL and the
+old one keeps the old value for as long as it is kept, so the two remain
+comparable.
 
 It also means a re-run that reproduces its numbers republishes to the same
 address and changes nothing — which is the usual outcome here.
