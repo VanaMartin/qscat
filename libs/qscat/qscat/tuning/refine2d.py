@@ -24,6 +24,12 @@ repeats until the larger of the two relative moves is below `rtol` or
   meeting `rtol`: a real, reported signal that the observable has not settled
   in the refinement budget, not a silent cap.
 
+- `Refine2dReport`, `Refine2dStep`, `RefinementCoordinate` -- the fixed shape
+  of the third return value. The report is a plain `dict` (subscripted and
+  iterated exactly as before); the `TypedDict`s name its keys and their types,
+  so a caller storing or forwarding a report can annotate it and a mistyped
+  key is a type error rather than a `KeyError` at run time.
+
 This module imports only `qscat.tuning.refine` and `qscat.dvr.FemDvrEcsGrid`
 -- no model, no specific observable -- so it stays usable for any 2-D
 cross-section (or any other coordinate-pair-dependent scalar) the caller
@@ -33,13 +39,59 @@ closes over.
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import Any
+from typing import Literal, TypedDict
 
 from qscat.dvr import FemDvrEcsGrid
 
 from .probes import refine
 
-__all__ = ["refine_to_2d_convergence"]
+__all__ = [
+    "Refine2dReport",
+    "Refine2dStep",
+    "RefinementCoordinate",
+    "refine_to_2d_convergence",
+]
+
+RefinementCoordinate = Literal["electronic", "nuclear"]
+"""Which of the two grids a refinement step was adopted on: the electronic
+(`g_r`) or the nuclear (`g_R`) coordinate. This alias is the single source of
+those two spellings -- a caller dispatching on `step["coordinate"]` has both
+checked, and neither can drift from what the loop records."""
+
+
+class Refine2dStep(TypedDict):
+    """One ADOPTED refinement step recorded by `refine_to_2d_convergence`.
+
+    - `coordinate`: which of the two grids was refined at this step.
+    - `value`: the observable on the newly adopted grid pair.
+    - `rel_move`: `|value - previous| / max(|previous|, tiny)`, the relative
+      move that made this coordinate the one adopted (it was the larger of
+      the two candidate moves).
+    """
+
+    coordinate: RefinementCoordinate
+    value: float
+    rel_move: float
+
+
+class Refine2dReport(TypedDict):
+    """`refine_to_2d_convergence`'s third return value.
+
+    - `converged`: `True` when the larger of the two candidate relative moves
+      fell below `rtol`; `False` when `max_iter` adopted steps were taken
+      without ever meeting it -- a real "did not settle" signal, not a
+      silently accepted best effort.
+    - `iterations`: the adopted steps, in order. Empty when the input pair was
+      already converged.
+    - `final_value`: the observable on the returned grid pair -- the last
+      adopted value, or the initial `observable(g_r, g_R)` if no step was
+      adopted.
+    """
+
+    converged: bool
+    iterations: list[Refine2dStep]
+    final_value: float
+
 
 # Floor for the relative-move denominator, avoiding a division by ~0 when the
 # observable's current value is itself (numerically) zero.
@@ -53,7 +105,7 @@ def refine_to_2d_convergence(
     *,
     rtol: float = 1e-2,
     max_iter: int = 4,
-) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, dict[str, Any]]:
+) -> tuple[FemDvrEcsGrid, FemDvrEcsGrid, Refine2dReport]:
     """Iteratively refine whichever of `g_r` (electronic) / `g_R` (nuclear)
     grid is under-resolved for `observable`, until it stops moving.
 
@@ -77,14 +129,14 @@ def refine_to_2d_convergence(
     step 3, `converged=False` -- a genuine "did not settle" signal, not a
     silently accepted best-effort result.
 
-    Returns `(g_r, g_R, detail)`: the (possibly refined) grid pair, and
-    `detail` with exactly `"converged"` (bool), `"iterations"` (the list of
-    adopted-step dicts, in order), and `"final_value"` (the last adopted
-    value, or the initial `observable(g_r, g_R)` if no step was adopted).
+    Returns `(g_r, g_R, detail)`: the (possibly refined) grid pair, and a
+    `Refine2dReport` -- a plain dict with exactly `"converged"`,
+    `"iterations"` (a list of `Refine2dStep`, in order) and `"final_value"`;
+    see those two definitions for each key's meaning and type.
     """
     current = observable(g_r, g_R)
     final_value = current
-    iterations: list[dict[str, Any]] = []
+    iterations: list[Refine2dStep] = []
     converged = False
 
     for _ in range(max_iter):
@@ -109,7 +161,7 @@ def refine_to_2d_convergence(
             iterations.append({"coordinate": "electronic", "value": v_elec, "rel_move": rel_elec})
         final_value = current
 
-    detail: dict[str, Any] = {
+    detail: Refine2dReport = {
         "converged": converged,
         "iterations": iterations,
         "final_value": final_value,

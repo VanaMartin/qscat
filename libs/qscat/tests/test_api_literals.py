@@ -27,6 +27,16 @@ def test_channel_literal_names_the_two_mesh_channels() -> None:
     assert get_args(Channel) == ("ve", "dissociation")
 
 
+def test_refinement_coordinate_literal_names_the_two_grids() -> None:
+    # Public through the package, since it is the vocabulary a recorded
+    # refinement step speaks (`Refine2dStep["coordinate"]`).
+    from qscat.tuning import RefinementCoordinate
+    from qscat.tuning.refine2d import RefinementCoordinate as module_coordinate
+
+    assert RefinementCoordinate is module_coordinate
+    assert get_args(RefinementCoordinate) == ("electronic", "nuclear")
+
+
 def test_verdict_literal_is_public_and_names_the_seven_verdicts() -> None:
     # Public through both the module and the qscat.core re-export (it is the
     # vocabulary `OverlapPair.verdict` speaks; typed user code needs it).

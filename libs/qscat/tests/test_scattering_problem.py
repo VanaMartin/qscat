@@ -139,6 +139,47 @@ def test_problem_dr_delegates_exact_arguments(monkeypatch) -> None:
     assert seen["store_amplitude"] is False
 
 
+def test_problem_dr_flag_combinations_shape_the_return(monkeypatch) -> None:
+    """The facade -- not the free function -- is what carries the DR flags.
+
+    `qscat.core.dr_cross_section` is sigma-only and `dr_solve` returns one
+    `DrResult` whatever it was asked for, so this method is the only DR route
+    where a flag changes the shape of what comes back. All four combinations
+    are checked here, against the same argument-capture stub the delegation
+    test uses (a real DR solve is slow-tier).
+    """
+    from qscat.core.dissociation import DrResult
+
+    prob, _, _, _ = _problem_and_basis()
+    sigma = np.zeros((2, 2))
+    psi = np.zeros(3, dtype=np.complex128)
+    amp = np.ones((2, 2), dtype=np.complex128)
+
+    def fake_dr_solve(tgrid, model, eps, chi, v_init, E, **kw):
+        return DrResult(
+            sigma=sigma,
+            psi=psi if kw["store_wavefunction"] else None,
+            amplitude=amp if kw["store_amplitude"] else None,
+        )
+
+    monkeypatch.setattr("qscat.core.problem.dr_solve", fake_dr_solve)
+    E = [0.01, 0.03]
+
+    # Identity, not equality: these are arrays, and `is` says which field of
+    # the `DrResult` landed in which slot without any elementwise comparison.
+    assert prob.dr_cross_section(E) is sigma
+
+    got_psi = prob.dr_cross_section(E, return_wavefunction=True)
+    assert len(got_psi) == 2 and got_psi[0] is sigma and got_psi[1] is psi
+
+    got_amp = prob.dr_cross_section(E, return_amplitude=True)
+    assert len(got_amp) == 2 and got_amp[0] is sigma and got_amp[1] is amp
+
+    got_both = prob.dr_cross_section(E, return_wavefunction=True, return_amplitude=True)
+    assert len(got_both) == 3
+    assert got_both[0] is sigma and got_both[1] is psi and got_both[2] is amp
+
+
 def test_problem_td_ve_matches_functional_api() -> None:
     prob, eps, chi, tg = _problem_and_basis()
     E = [0.10, 0.15]

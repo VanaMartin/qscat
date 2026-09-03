@@ -43,6 +43,10 @@ def test_refine_caps_at_max_iter_when_never_converging():
 
     _, _, detail = refine_to_2d_convergence(obs, g_r, g_R, rtol=1e-3, max_iter=3)
     assert detail["converged"] is False and len(detail["iterations"]) == 3
+    for step in detail["iterations"]:
+        assert type(step) is dict
+        assert set(step) == {"coordinate", "value", "rel_move"}
+        assert step["coordinate"] in ("electronic", "nuclear")
 
 
 def test_refine_already_converged_is_zero_iterations():
@@ -54,6 +58,11 @@ def test_refine_already_converged_is_zero_iterations():
     _, _, detail = refine_to_2d_convergence(lambda a, b: 3.14, g_r, g_R, rtol=1e-3, max_iter=4)
     assert detail["converged"] and len(detail["iterations"]) == 0
     assert detail["final_value"] == pytest.approx(3.14)
+    # `Refine2dReport`/`Refine2dStep` name the keys for a type checker and
+    # construct nothing at run time: the report is still an ordinary dict, and
+    # so is every recorded step.
+    assert type(detail) is dict
+    assert set(detail) == {"converged", "iterations", "final_value"}
 
 
 @pytest.mark.slow

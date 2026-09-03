@@ -81,6 +81,20 @@ class ProbeResult(NamedTuple):
     `< rtol`), the discretisation `cost` (grid point count) it was computed
     at, and a `detail` dict with the raw numbers behind the verdict (refined
     value, relative error, reference value, ...) for diagnostics/reporting.
+
+    `value` and `detail` stay deliberately broad, unlike the fixed-shape
+    tuner reports in `qscat.tuning.metrics`/`refine2d`. One `ProbeResult` type
+    is shared by three probes that measure different things, so neither field
+    has one shape: `value` is a vibrational-energy ARRAY from
+    `probe_nuclear` but a scalar energy from `probe_electronic` and a scalar
+    norm from `probe_channel_representation`, and the three `detail` payloads
+    have DISJOINT key sets (`eps_refined`/`max_rel_delta`/`refined_cost`,
+    `e0_refined`/`rel_delta`/`refined_cost`, `reference`/`rel_error`). A
+    `TypedDict` here would either be a union a caller has to re-discriminate
+    by probe anyway, or -- with every key optional -- a shape that promises
+    nothing. `detail` is a diagnostic bag read by the supervising tuner loop
+    and by reports, never a contract a solver depends on; the CONTRACT is
+    `converged` and `cost`, which are precisely typed.
     """
 
     value: Any
