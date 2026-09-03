@@ -126,9 +126,9 @@ def _load_observables(raw: list[Any]) -> tuple[Observable, ...]:
 class EnergyRange:
     """One uniform segment of a sweep, read as `np.arange(start, stop, step)`.
 
-    `stop` is EXCLUSIVE, exactly as in numpy -- a segment meant to include its
-    upper end pads `stop` by half a step, and `EnergySpec.min/max/step` does
-    that padding for you.
+    `stop` is EXCLUSIVE, exactly as in numpy. A segment meant to include its
+    upper end pads `stop` by half a step -- `EnergySpec.sweep` does that for
+    you, and is how the `min`/`max`/`step` config spelling is built.
     """
 
     start: float
@@ -141,53 +141,58 @@ class EnergyRange:
 
 @dataclass(frozen=True)
 class EnergySpec:
-    """A sweep, written in exactly one of three forms.
+    """A sweep: either `ranges` (computed) or `values` (written out).
 
-    `min`/`max`/`step` is one inclusive uniform sweep; `ranges` is a list of
-    `np.arange` segments whose UNION is the mesh; `values` is the mesh written
-    out point by point.
+    `ranges` is a list of `np.arange` segments whose UNION is the mesh. It is
+    the only computed form -- a plain uniform sweep is one segment, which
+    `EnergySpec.sweep` builds -- so there is a single endpoint convention in
+    play rather than two that disagree.
 
-    `ranges` exists because a level-aware mesh -- a coarse background sweep
-    plus a dense window around each resonance level -- is a union of uniform
-    segments and nothing more. Written as `values` it becomes thousands of
-    lines generated from a couple of dozen numbers, which no longer records
-    the intent: a reader cannot see the background step, the window width, or
-    which level a point belongs to. The segments say all three.
+    It exists because a level-aware mesh (a coarse background sweep plus a
+    dense window around each resonance level) is a union of uniform segments
+    and nothing more. Written as `values` that becomes thousands of lines
+    generated from a couple of dozen numbers, and stops recording the intent:
+    a reader cannot see the background step, the window width, or which level
+    a point belongs to. The segments say all three.
+
+    `values` remains for a mesh that genuinely is not uniform -- a handful of
+    published anchor energies, say, where the list IS the specification.
     """
 
-    min: float | None = None
-    max: float | None = None
-    step: float | None = None
     values: tuple[float, ...] | None = None
     ranges: tuple[EnergyRange, ...] | None = None
+
+    @classmethod
+    def sweep(cls, minimum: float, maximum: float, step: float) -> EnergySpec:
+        """One uniform sweep INCLUSIVE of `maximum`.
+
+        The half-step pad is what makes it inclusive despite `arange`'s
+        exclusive upper bound and float round-off, and doing it here means no
+        caller has to remember to. This is what the `min`/`max`/`step` config
+        spelling resolves to.
+        """
+        return cls(ranges=(EnergyRange(minimum, maximum + 0.5 * step, step),))
 
     def as_array(self) -> npt.NDArray[np.float64]:
         """The concrete energy sweep.
 
-        `values` is returned verbatim. `min`/`max`/`step` becomes
-        `np.arange(min, max + step/2, step)` -- the half-step pad makes the
-        sweep inclusive of `max` despite `arange`'s exclusive upper bound and
-        float round-off. `ranges` is the SORTED UNION of its segments, which
-        is what makes overlap between the background sweep and a level window
-        harmless: an energy reached by two segments is solved once, not twice.
+        `values` is returned verbatim; `ranges` is the SORTED UNION of its
+        segments. The union is what makes overlap harmless -- a background
+        sweep and a level window overlap by construction, and an energy both
+        reach is solved once, not twice.
 
-        Both computed forms are rounded to 10 decimals, which removes the
-        last-ULP noise `arange` accumulates over many steps -- without it two
-        segments could reach "the same" energy and differ in the 16th digit,
-        so the union would keep both and the sweep would carry a duplicate
-        that no one wrote.
+        Segments are rounded to 10 decimals before the union, which removes
+        the last-ULP noise `arange` accumulates over many steps. Without it
+        two segments could reach "the same" energy and differ in the 16th
+        digit, so the union would keep both and the sweep would carry a
+        duplicate nobody wrote.
         """
         if self.values is not None:
             return np.asarray(self.values, dtype=np.float64)
-        if self.ranges is not None:
-            parts = [r.as_array() for r in self.ranges]
-            return np.unique(np.round(np.concatenate(parts), decimals=10))
-        if self.min is None or self.max is None or self.step is None:
-            raise ConfigError(
-                "EnergySpec.as_array() needs 'values', 'ranges', or all of 'min'/'max'/'step'"
-            )
-        arr = np.arange(self.min, self.max + 0.5 * self.step, self.step, dtype=np.float64)
-        return np.round(arr, decimals=10)
+        if self.ranges is None:
+            raise ConfigError("EnergySpec.as_array() needs either 'ranges' or 'values'")
+        parts = [r.as_array() for r in self.ranges]
+        return np.unique(np.round(np.concatenate(parts), decimals=10))
 
 
 def _load_energy_range(raw: dict[str, Any], index: int) -> EnergyRange:
@@ -224,10 +229,14 @@ def _load_energies(raw: dict[str, Any] | None) -> EnergySpec | None:
         return EnergySpec(ranges=tuple(_load_energy_range(e, i) for i, e in enumerate(entries)))
     if raw.get("values") is not None:
         return EnergySpec(values=tuple(float(v) for v in raw["values"]))
-    return EnergySpec(
-        min=float(_require(raw, "min", "energies")),
-        max=float(_require(raw, "max", "energies")),
-        step=float(_require(raw, "step", "energies")),
+    # `min`/`max`/`step` is a spelling, not a third representation: it resolves
+    # to one inclusive segment. Keeping it means a hand-written uniform sweep
+    # does not have to pad its own upper bound; normalising it here means the
+    # resolved config, and every consumer, sees only `ranges`.
+    return EnergySpec.sweep(
+        float(_require(raw, "min", "energies")),
+        float(_require(raw, "max", "energies")),
+        float(_require(raw, "step", "energies")),
     )
 
 

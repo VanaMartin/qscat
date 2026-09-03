@@ -99,6 +99,25 @@ def test_h2p_dr_example_runs_end_to_end() -> None:
     assert result.cross_sections
 
 
+def test_no_example_specifies_a_sweep_as_min_max_step() -> None:
+    """The committed examples are the templates people copy, so they all speak
+    one form. `min`/`max`/`step` still LOADS -- it is a spelling, and a
+    hand-written uniform sweep should not have to pad its own upper bound --
+    but a config that ships in this repository shows the stored form, so a
+    generated config, a committed one and a resolved one can be diffed against
+    each other.
+    """
+    import yaml
+
+    examples = Path(__file__).resolve().parents[1] / "examples"
+    offenders = []
+    for path in sorted(examples.rglob("*.yaml")):
+        energies = yaml.safe_load(path.read_text()).get("energies") or {}
+        if any(k in energies for k in ("min", "max", "step")):
+            offenders.append(path.name)
+    assert not offenders, f"port these to `ranges:`: {offenders}"
+
+
 def test_the_o2_examples_specify_their_mesh_as_ranges_not_as_points() -> None:
     """The O2 sweeps are the reason `ranges` exists, so they are pinned to it.
 

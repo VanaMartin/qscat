@@ -5,7 +5,10 @@ methods: [ti]
 observables:
   - {kind: dr, channels: 3}
 v_init: 0
-energies: {min: 0.0120, max: 0.0121, step: 0.0001}
+energies:
+  # one uniform sweep: np.arange(start, stop, step), stop exclusive --
+  # padded by half a step so 0.0121 is included
+  ranges: [{start: 0.012, stop: 0.01215, step: 0.0001}]
 grid: {preset: emoscat}
 artifacts:
   cross_section: true

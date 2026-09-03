@@ -473,7 +473,7 @@ PRESETS: dict[str, MoleculePreset] = {
         td_grid=_n2_td_grid,
         # Approximates the dense curve's np.linspace(0.005, 0.2, 60)
         # (validation/n2/ti_curve.py) as a min/max/step sweep.
-        default_energies=EnergySpec(min=0.005, max=0.20, step=0.005),
+        default_energies=EnergySpec.sweep(0.005, 0.20, 0.005),
         default_incident=IncidentSpec(r0=25.0, p0=-0.5, sigma=5.0),
         valid_observables=VALIDITY["N2"],
         n_vib=6,
@@ -488,7 +488,7 @@ PRESETS: dict[str, MoleculePreset] = {
         variant="emoscat",
         ti_grid=_no_ti_grid,
         td_grid=_no_td_grid,
-        default_energies=EnergySpec(min=0.004, max=0.120, step=0.004),
+        default_energies=EnergySpec.sweep(0.004, 0.120, 0.004),
         # NO has no validated TD experiment yet (see CLAUDE.md's diatomic
         # note) -- these incident/test-function defaults are a reasonable,
         # UNVALIDATED scaling of N2's (see module docstring's caveat).
@@ -506,7 +506,7 @@ PRESETS: dict[str, MoleculePreset] = {
         variant="emoscat",
         ti_grid=_f2_ti_grid,
         td_grid=_f2_td_grid,
-        default_energies=EnergySpec(min=0.004, max=0.100, step=0.004),
+        default_energies=EnergySpec.sweep(0.004, 0.100, 0.004),
         # Same caveat as NO: unvalidated TD VE defaults, scaled from N2's
         # (the DA packet below IS validated -- see the module note above).
         default_incident=IncidentSpec(r0=20.0, p0=-0.4, sigma=4.0),
@@ -528,7 +528,7 @@ PRESETS: dict[str, MoleculePreset] = {
         # A uniform sweep is a placeholder for O2: its VE peaks are 0.01-8
         # meV wide, so a real run uses the level-aware `energies: {values}`
         # list `validation/factory/o2_ve_energies.py` writes.
-        default_energies=EnergySpec(min=0.002, max=0.100, step=0.001),
+        default_energies=EnergySpec.sweep(0.002, 0.100, 0.001),
         default_incident=IncidentSpec(r0=12.0, p0=-0.5, sigma=3.0),
         valid_observables=VALIDITY["O2"],
         n_vib=12,
@@ -543,7 +543,7 @@ PRESETS: dict[str, MoleculePreset] = {
         variant="tuner",
         ti_grid=_o2_ti_grid,
         td_grid=_o2_ti_grid,
-        default_energies=EnergySpec(min=0.002, max=0.100, step=0.001),
+        default_energies=EnergySpec.sweep(0.002, 0.100, 0.001),
         default_incident=IncidentSpec(r0=12.0, p0=-0.5, sigma=3.0),
         valid_observables=VALIDITY["O2_SO12"],
         n_vib=12,
@@ -554,7 +554,7 @@ PRESETS: dict[str, MoleculePreset] = {
         variant="tuner",
         ti_grid=_o2_ti_grid,
         td_grid=_o2_ti_grid,
-        default_energies=EnergySpec(min=0.002, max=0.100, step=0.001),
+        default_energies=EnergySpec.sweep(0.002, 0.100, 0.001),
         default_incident=IncidentSpec(r0=12.0, p0=-0.5, sigma=3.0),
         valid_observables=VALIDITY["O2_SO32"],
         n_vib=12,
@@ -565,7 +565,7 @@ PRESETS: dict[str, MoleculePreset] = {
         variant="emoscat",
         ti_grid=_h2p_full_grid,
         td_grid=_h2p_full_grid,
-        default_energies=EnergySpec(min=0.001, max=0.050, step=0.001),
+        default_energies=EnergySpec.sweep(0.001, 0.050, 0.001),
         default_incident=IncidentSpec(r0=800.0, p0=-0.25, sigma=8.0),
         valid_observables=VALIDITY["H2P"],
         n_vib=4,
@@ -577,7 +577,7 @@ PRESETS: dict[str, MoleculePreset] = {
         variant="proxy",
         ti_grid=_h2p_proxy_grid,
         td_grid=_h2p_proxy_grid,
-        default_energies=EnergySpec(min=0.001, max=0.050, step=0.001),
+        default_energies=EnergySpec.sweep(0.001, 0.050, 0.001),
         # r0 scaled DOWN from the full deck's 800 to fit inside the proxy
         # grid's ~60-bohr electronic real region (an off-box incident lands
         # in the ECS tail and diverges -- a finding of the retired

@@ -127,10 +127,13 @@ def _scaffold_yaml(molecule: str, obs_kinds: list[str], methods: list[str]) -> s
         "molecule": molecule,
         "methods": methods,
         "observables": observables,
+        # Scaffolded in the same form the schema stores, so a generated config
+        # and a resolved one look alike and can be diffed against each other.
         "energies": {
-            "min": preset.default_energies.min,
-            "max": preset.default_energies.max,
-            "step": preset.default_energies.step,
+            "ranges": [
+                {"start": r.start, "stop": r.stop, "step": r.step}
+                for r in (preset.default_energies.ranges or ())
+            ]
         },
         "grid": {"preset": preset.variant},
         "v_init": 0,

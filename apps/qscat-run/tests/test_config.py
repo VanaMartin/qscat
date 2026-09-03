@@ -740,3 +740,36 @@ class TestEnergyRanges:
     def test_an_empty_ranges_list_is_rejected(self, tmp_path: Path) -> None:
         with pytest.raises(ConfigError, match="at least one"):
             _ranges_cfg(tmp_path, "          ranges: []")
+
+    def test_min_max_step_is_a_spelling_and_resolves_to_one_range(self, tmp_path: Path) -> None:
+        """`min`/`max`/`step` stays writable -- padding one's own upper bound by
+        half a step is a poor thing to ask of a hand-written sweep -- but it is
+        a SPELLING, not a second representation. It normalises at load, so
+        every consumer and every resolved config sees one form, and there are
+        not two endpoint conventions loose in the same file.
+        """
+        cfg = load_config(
+            _write(
+                tmp_path,
+                """
+            molecule: F2
+            methods: [ti]
+            observables: [{kind: ve, channels: 2}]
+            energies: {min: 0.01, max: 0.05, step: 0.01}
+            output_dir: out
+        """,
+            )
+        )
+        assert cfg.energies is not None
+        assert cfg.energies.values is None
+        assert cfg.energies.ranges is not None and len(cfg.energies.ranges) == 1
+        # `max` is INCLUSIVE in this spelling -- that is the whole point of it
+        np.testing.assert_allclose(cfg.energies.as_array(), [0.01, 0.02, 0.03, 0.04, 0.05])
+
+    def test_sweep_is_inclusive_of_its_upper_bound(self) -> None:
+        """The half-step pad lives in one place; this is that place's test."""
+        from qscat_run.config import EnergySpec
+
+        np.testing.assert_allclose(
+            EnergySpec.sweep(0.002, 0.100, 0.0005).as_array()[[0, -1]], [0.002, 0.100]
+        )

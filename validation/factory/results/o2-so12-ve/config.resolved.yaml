@@ -6,9 +6,6 @@ observables:
   channels: 6
 output_dir: /out
 energies:
-  min: null
-  max: null
-  step: null
   values: null
   ranges:
   - start: 0.002

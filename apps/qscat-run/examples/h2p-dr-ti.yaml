@@ -24,7 +24,10 @@ observables:
   - {kind: dr, channels: 3}   # eMoScat's 3 Rydberg exit channels
 
 v_init: 0
-energies: {min: 0.001, max: 0.050, step: 0.001}
+energies:
+  # one uniform sweep: np.arange(start, stop, step), stop exclusive --
+  # padded by half a step so 0.05 is included
+  ranges: [{start: 0.001, stop: 0.0505, step: 0.001}]
 
 grid: {preset: emoscat}
 

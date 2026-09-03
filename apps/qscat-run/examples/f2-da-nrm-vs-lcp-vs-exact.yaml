@@ -34,7 +34,10 @@ v_init: 0
 # 0.010 ... 0.050 Ha. F2's DA channel is exothermic (threshold -0.0691 Ha), so
 # it is open at every positive E; this window brackets the near-threshold rise
 # where the LCP's error changes sign.
-energies: {min: 0.010, max: 0.050, step: 0.005}
+energies:
+  # one uniform sweep: np.arange(start, stop, step), stop exclusive --
+  # padded by half a step so 0.05 is included
+  ranges: [{start: 0.01, stop: 0.052500000000000005, step: 0.005}]
 
 grid: {preset: emoscat}
 

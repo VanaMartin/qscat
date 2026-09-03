@@ -118,28 +118,40 @@ excitation overlaid on Karel Houfek's independent published data.
 
 ## The energy sweep (`energies:`)
 
-Three forms, exactly one per config:
+A sweep is stored in one of two forms:
 
 ```yaml
-energies: {min: 0.02, max: 0.09, step: 0.01}   # one uniform sweep, max INCLUSIVE
-energies: {values: [0.03, 0.04, 0.05]}         # the mesh, point by point
-energies:                                       # a union of np.arange segments
+energies:                                       # computed: a union of segments
   ranges:
     - {start: 0.002, stop: 0.10025, step: 0.0005}
     - {start: 0.0025467, stop: 0.0026796, step: 1.1025e-06}
+
+energies: {values: [0.009543, 0.011549, 0.024017]}   # written out, point by point
 ```
 
-`ranges` exists for level-aware meshes — a coarse background sweep plus a dense
-window around each resonance level. Segments may overlap; the mesh is their
-**union**, so an energy two segments both reach is solved once. Following
-`np.arange`, `stop` is **exclusive**: pad it by half a step to include the
-upper end, as the `min`/`max`/`step` form does for you.
+Each range is read exactly as `np.arange(start, stop, step)`, so **`stop` is
+exclusive**. Segments may overlap; the mesh is their **union**, so an energy
+two segments both reach is solved once, not twice.
 
-Prefer `ranges` over `values` for anything a script generates. O₂'s VE mesh is
-27 segments and 3343 energies; written out point by point it is a 3343-line
-file in which the background step, the window width and the level a point
-belongs to are all invisible. The segments record the intent, and the exact
-axis a run actually solved is stored in its `cross_section.npz` regardless.
+`min`/`max`/`step` is still accepted and is the natural way to hand-write a
+plain sweep, since it is inclusive of `max` and pads the half-step for you:
+
+```yaml
+energies: {min: 0.04, max: 0.18, step: 0.001}   # == one range, stop 0.1805
+```
+
+It is a *spelling*, not a third form — it normalises to a single range at
+load, so every consumer and every `config.resolved.yaml` sees `ranges`. The
+committed examples all show the stored form so that a scaffolded config, a
+committed one and a resolved one can be diffed against each other.
+
+Reach for `values` only when the mesh genuinely is not uniform — a handful of
+published anchor energies, where the list *is* the specification. For anything
+generated, use `ranges`: O₂'s VE mesh is 27 segments and 3343 energies, and
+written out point by point it was a 3343-line file in which the background
+step, the window width and the level each point belongs to were all invisible.
+The segments record the intent; the exact axis a run actually solved is stored
+in its own `cross_section.npz` regardless.
 
 Every run also writes `config.resolved.yaml` (the fully default-filled config)
 and `manifest.json` (qscat version, git SHA, timestamp, backend, timings) for
