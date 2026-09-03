@@ -33,10 +33,12 @@ Public API:
     bound-state energy, and the cheap/diagnostic channel-representation
     check that catches an unresolved fast outgoing wave) -- see
     `qscat.tuning.probes`.
-  - `grid_cost`, `tensor_cost` -- the cost model: exact DVR point counts,
-    plus ROUGH anchored estimates (nnz, factor memory/time) of the tensor-
-    product problem's sparse-LU cost, for RELATIVE ranking of candidate
-    grids -- see `qscat.tuning.metrics`.
+  - `grid_cost`, `tensor_cost`, `GridCost`, `TensorCost` -- the cost model:
+    exact DVR point counts, plus ROUGH anchored estimates (nnz, factor
+    memory/time) of the tensor-product problem's sparse-LU cost, for
+    RELATIVE ranking of candidate grids. The two `TypedDict`s are the fixed
+    shape of the reports, for annotating a report a caller keeps or passes
+    on -- see `qscat.tuning.metrics`.
   - `propose_grid` -- the one-shot a-priori grid assembler: model adapter ->
     `analyze_potential` -> `optimal_real_mesh` -> `max_stable_angle` +
     `tune_ecs_tail` -> a complete `FemDvrEcsGrid`, the a-priori half of the
@@ -58,6 +60,9 @@ Public API:
     relative move is under `rtol` or `max_iter` adopted steps is hit -- the
     step-6 spot-check's supervised loop, generalized -- see
     `qscat.tuning.refine2d`.
+  - `Refine2dReport`, `Refine2dStep`, `RefinementCoordinate` -- the fixed
+    shape of that loop's report dict and of one adopted step within it, and
+    the two coordinate names a step can carry.
 """
 
 from __future__ import annotations
@@ -71,7 +76,7 @@ from .mesh import (
     order_for_wavenumber,
     refine_elements_in_window,
 )
-from .metrics import grid_cost, tensor_cost
+from .metrics import GridCost, TensorCost, grid_cost, tensor_cost
 from .probes import (
     ProbeResult,
     probe_channel_representation,
@@ -80,13 +85,23 @@ from .probes import (
     refine,
 )
 from .propose import propose_grid
-from .refine2d import refine_to_2d_convergence
+from .refine2d import (
+    Refine2dReport,
+    Refine2dStep,
+    RefinementCoordinate,
+    refine_to_2d_convergence,
+)
 from .resonance import interaction_region, resonance_curve_arrays
 
 __all__ = [
+    "GridCost",
     "IncidentSpec",
     "PotentialProfile",
     "ProbeResult",
+    "Refine2dReport",
+    "Refine2dStep",
+    "RefinementCoordinate",
+    "TensorCost",
     "analyze_potential",
     "equidistribution_elements",
     "grid_cost",

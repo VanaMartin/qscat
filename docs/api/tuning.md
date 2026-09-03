@@ -11,9 +11,14 @@ documented limits of the 1-D convergence probes.
 .. autosummary::
    :nosignatures:
 
+   GridCost
    IncidentSpec
    PotentialProfile
    ProbeResult
+   Refine2dReport
+   Refine2dStep
+   RefinementCoordinate
+   TensorCost
    analyze_potential
    equidistribution_elements
    grid_cost
