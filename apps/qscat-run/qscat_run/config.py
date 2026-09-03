@@ -100,6 +100,19 @@ def _parse_channels(raw: Any) -> int | tuple[int, ...] | None:
     return int(raw)
 
 
+def _block(raw: dict[str, Any], key: str) -> Any:
+    """A sub-block, or `None` when it is absent OR explicitly null.
+
+    `config.resolved.yaml` is `dataclasses.asdict` output, so every optional
+    field a run did not use is present and NULL rather than missing. A loader
+    that asks `key in raw` reads those nulls as "provided" and hands `None` to
+    a parser expecting a mapping, which is how a file this package writes
+    itself became a file it could not read. Absent and null mean the same
+    thing in a config: not given.
+    """
+    return raw.get(key)
+
+
 def _require(raw: dict[str, Any], key: str, where: str) -> Any:
     """`raw[key]`, or a ConfigError naming the block and the missing key --
     a hand-written config's KeyError names the key but not where it was
@@ -294,10 +307,9 @@ class GridSpec:
 
 def _load_grid(raw: dict[str, Any] | None) -> GridSpec:
     raw = raw or {}
-    electronic = (
-        _load_segment(raw["electronic"], "grid.electronic") if "electronic" in raw else None
-    )
-    nuclear = _load_segment(raw["nuclear"], "grid.nuclear") if "nuclear" in raw else None
+    e_raw, n_raw = _block(raw, "electronic"), _block(raw, "nuclear")
+    electronic = _load_segment(e_raw, "grid.electronic") if e_raw is not None else None
+    nuclear = _load_segment(n_raw, "grid.nuclear") if n_raw is not None else None
     preset = raw.get("preset")
     return GridSpec(
         preset=str(preset) if preset is not None else None,
@@ -364,8 +376,8 @@ def _load_td(raw: dict[str, Any] | None) -> TdSpec | None:
     if raw is None:
         return None
     incident = None
-    if "incident" in raw:
-        ir = raw["incident"]
+    ir = _block(raw, "incident")
+    if ir is not None:
         incident = IncidentSpec(
             r0=float(_require(ir, "r0", "td.incident")),
             p0=float(_require(ir, "p0", "td.incident")),
@@ -373,8 +385,14 @@ def _load_td(raw: dict[str, Any] | None) -> TdSpec | None:
         )
     test_function = None
     test_functions = None
-    if "test_function" in raw:
-        tr = raw["test_function"]
+    # `test_function` is the written form; `test_functions` is the per-kind
+    # mapping this loader RESOLVES it into, and which `asdict` then emits. Both
+    # are read, or a resolved config silently loses its per-observable-kind
+    # packets -- the very disambiguation a mixed ve+da run needs.
+    tr = _block(raw, "test_function")
+    if tr is None:
+        tr = _block(raw, "test_functions")
+    if tr is not None:
         if "r0_out" in tr:
             test_function = TestFunctionSpec(
                 r0_out=float(_require(tr, "r0_out", "td.test_function")),

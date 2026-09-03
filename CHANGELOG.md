@@ -297,6 +297,21 @@ installed package.
     simply omit it.
 
 ### Fixed
+- **`config.resolved.yaml` can be loaded back.** Every run writes the fully
+  default-filled config beside its results, and the artifact-store design leans
+  on that file: expensive outputs live in object storage precisely because the
+  inputs needed to regenerate them stay in git. Handed back to `load_config`,
+  it raised `TypeError` — for 19 of the 21 committed example configs. The file
+  is `dataclasses.asdict` output, so every optional field a run did not use is
+  present and NULL rather than missing, while the loaders asked `key in raw`
+  and so read those nulls as "provided", passing `None` to a parser expecting a
+  mapping. Absent and null now mean the same thing: not given. Found with it: a
+  resolved config silently lost its per-observable-kind TD test packets, since
+  `test_functions` is written but only `test_function` was read — the very
+  disambiguation a mixed `ve`+`da` run needs. The round trip is now pinned over
+  every committed example, and twice over, because the first pass is what turns
+  absent keys into explicit nulls.
+
 - **The coupled-partial-wave summaries no longer assert the withdrawn 58 %
   width result.** The molecule guide (`docs/molecules/no-f2.md`), the
   resonance index (`docs/physics/resonances.md`) and
