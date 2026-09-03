@@ -574,3 +574,68 @@ def test_every_committed_pointer_points_at_the_published_store() -> None:
     for p in pointers:
         host = urlsplit(load_pointer(p.parent).url_prefix).hostname
         assert host == "data.qscat.org", f"{p} fetches from {host}"
+
+
+# --- what a truncated key does and does not promise ---------------------------
+
+
+_PREFIX = "abcdef012345"  # the 12 hex characters that reach the URL
+_TWIN_A = _PREFIX + "a" * 52
+_TWIN_B = _PREFIX + "b" * 52
+
+
+def test_two_digests_sharing_a_prefix_produce_the_same_url(tmp_path: Path) -> None:
+    """The truncated key does NOT separate all distinct content, and the
+    documentation must not claim it does.
+
+    Twelve hex characters is 48 bits: ~1.8e-9 across a thousand objects, small
+    but not zero. This pins the consequence with digests built to collide, so
+    the claim in `docs/adr/0008` stays the measured one rather than the
+    comfortable one.
+    """
+    d = tmp_path / "run"
+    d.mkdir()
+    (d / "artifacts.json").write_text(
+        json.dumps(
+            {
+                "git_sha": "0" * 40,
+                "url_prefix": "https://data.qscat.org/run/",
+                "artifacts": {
+                    "a.npz": {"sha256": _TWIN_A, "bytes": 1},
+                    "b.npz": {"sha256": _TWIN_B, "bytes": 1},
+                },
+            }
+        )
+    )
+    pointer = load_pointer(d)
+    assert pointer.url_for("a.npz").rsplit("/", 1)[1] == f"a.{_PREFIX}.npz"
+    assert pointer.url_for("b.npz").rsplit("/", 1)[1] == f"b.{_PREFIX}.npz"
+    assert _TWIN_A != _TWIN_B
+    assert pointer.artifacts["a.npz"].sha256[:12] == pointer.artifacts["b.npz"].sha256[:12]
+
+
+def test_a_key_collision_is_caught_by_the_full_digest_not_served(tmp_path: Path) -> None:
+    """The safety property that replaces "cannot collide".
+
+    If two objects ever shared a key, a reader asking for one would be handed
+    the other's bytes. That must fail loudly rather than quietly substituting a
+    different result under a cited URL -- so the pointer keeps all 64
+    characters and `fetch` verifies against them.
+    """
+    d = tmp_path / "run"
+    d.mkdir()
+    (d / "artifacts.json").write_text(
+        json.dumps(
+            {
+                "git_sha": "0" * 40,
+                "url_prefix": "https://data.qscat.org/run/",
+                "artifacts": {"a.npz": {"sha256": _TWIN_A, "bytes": 7}},
+            }
+        )
+    )
+    impostor = b"someone else's bytes"
+
+    with pytest.raises(ChecksumMismatch):
+        fetch(d, opener=lambda _url: impostor)
+
+    assert not (d / "a.npz").exists(), "bytes that failed their digest must not be written"

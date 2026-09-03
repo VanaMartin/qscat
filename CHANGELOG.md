@@ -322,6 +322,22 @@ installed package.
     simply omit it.
 
 ### Fixed
+- **The artifact store's immutability claim now matches its arithmetic.** The
+  object key carries 12 hex characters of the sha256 — 48 bits — and the code
+  comment claimed that gave a "~1e-18 collision chance across any plausible
+  number of artifacts". The real figure is 2^-48 = 3.6e-15 per pair, and by the
+  birthday bound ~1.8e-9 across a thousand objects and ~1.8e-7 across ten
+  thousand: the old number understated it by nine orders of magnitude, and
+  `docs/adr/0008` called the resulting URLs unique "by construction", which a
+  truncated digest cannot promise. The key length is deliberately unchanged —
+  lengthening it re-addresses every published object and orphans the old keys,
+  which is a storage migration rather than an edit. What changes is the claim:
+  the guarantee is not that a collision cannot happen but that it cannot pass
+  unnoticed, because the pointer records all 64 characters and every fetched
+  byte is verified against them, so a collision surfaces as a checksum failure
+  rather than as the wrong result served quietly under a cited link. Pinned by
+  two tests built on digests that share a prefix by construction.
+
 - **A third party's downtime no longer fails the docs gate.** Intersphinx
   fetches each project's `objects.inv` over the network at build time, so when
   `docs.scipy.org` timed out, `sphinx-build -W` turned that one warning into a

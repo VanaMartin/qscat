@@ -69,10 +69,21 @@ disagree with the first.
 
 Two properties follow, neither of which is a policy anyone has to enforce:
 
-1. **A URL means one thing, by construction.** Different content hashes
-   differently and lands elsewhere, so a link in a note cannot quietly come to
-   mean something else, and the one-year `immutable` cache header is simply
-   true. Re-publishing is idempotent rather than forbidden.
+1. **A URL keeps meaning one thing, and is checked rather than trusted.** The
+   key carries 12 hex characters of the digest — 48 bits — so two different
+   objects share a key with probability 2^-48 = 3.6e-15 per pair, or ~1.8e-9
+   across a thousand-object store and ~1.8e-7 across ten thousand. That is
+   small but not zero, so the property is probabilistic, not "by construction":
+   a truncated digest cannot promise that distinct content lands elsewhere.
+
+   What carries the weight is the full digest. The pointer records all 64
+   characters and `qscat-run fetch` verifies every downloaded byte against
+   them, so a collision surfaces as a checksum failure on the second object,
+   never as the wrong bytes served quietly under a cited link. The one-year
+   `immutable` cache header is safe on the same basis: a reader who is served
+   a stale or wrong object detects it rather than believing it.
+
+   Re-publishing is idempotent rather than forbidden.
 2. **A reproducible re-run costs nothing.** Identical bytes produce an
    identical key, so publishing the same result twice stores it once.
 

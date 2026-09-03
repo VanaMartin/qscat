@@ -271,11 +271,21 @@ class ArtifactEntry:
             raise ArtifactStoreError(f"{self.bytes!r} is not a byte count")
 
 
-#: Hex characters of the sha256 that go into a published filename. 12 gives a
-#: ~1e-18 collision chance across any plausible number of artifacts, and keeps
-#: the URL short enough to read aloud. The pointer always carries the FULL
-#: digest, which is what the download is verified against -- the truncation
-#: only names the object.
+#: Hex characters of the sha256 that go into a published filename. 12 hex
+#: characters is 48 bits, so two DIFFERENT objects share a key with probability
+#: 2^-48 = 3.6e-15 per pair; across a whole store the birthday bound gives
+#: ~1.8e-9 at a thousand objects and ~1.8e-7 at ten thousand, reaching even odds
+#: only near 2e7. Small, and NOT zero -- a truncated digest does not make
+#: distinct content land elsewhere "by construction", and an earlier version of
+#: this comment claimed ~1e-18, understating it by nine orders of magnitude.
+#:
+#: What makes the truncation safe is not the odds but the check: the pointer
+#: carries the FULL 64-character digest and `fetch` verifies every downloaded
+#: byte against it. Two objects colliding on a key therefore surface as a loud
+#: `ChecksumMismatch` on the second one, never as the wrong bytes served
+#: quietly in place of the ones a reader cited. Lengthening this constant
+#: changes future URLs and orphans every published object at the old key, so it
+#: is a storage migration, not an edit.
 _URL_DIGEST_CHARS = 12
 
 
