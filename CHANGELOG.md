@@ -310,8 +310,8 @@ installed package.
   the guarantee is not that a collision cannot happen but that it cannot pass
   unnoticed, because the pointer records all 64 characters and every fetched
   byte is verified against them, so a collision surfaces as a checksum failure
-  rather than as the wrong result served quietly under a cited link. Pinned by
-  two tests built on digests that share a prefix by construction.
+  rather than as the wrong result served quietly under a cited link, which the
+  suite already covers.
 
 - **A third party's downtime no longer fails the docs gate.** Intersphinx
   fetches each project's `objects.inv` over the network at build time, so when
