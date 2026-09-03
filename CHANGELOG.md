@@ -407,4 +407,32 @@ installed package.
   spacings by ~1e-4 relative — harmless qualitatively, but wrong for reproducing
   published numbers.
 
+### Security
+- **`artifacts.json` is validated as untrusted input, and a fetch cannot leave
+  the directory it was asked for.** The pointer is a JSON file that decides,
+  on the reader's machine, which host is contacted and which paths are
+  written, and `fetch` acted on it: `directory / name` with an artifact name
+  of `../../x` is a path outside the run directory, and the URL check was
+  `startswith("https://")`, which `https://evil.example/@data.qscat.org/x`
+  passes. The checksum was never that boundary — it says the bytes are the
+  published bytes and says nothing about where they land. Names are now
+  relative paths to a plain file below the run directory, each component
+  restricted to characters that need no escaping in a URL either, so the file
+  on disk and the object in the store cannot be two different names; nested
+  names stay supported, because a run writes its wavefunction, eigenstate and
+  resonance snapshots into subdirectories and a pointer has to be able to
+  name them. Every destination is resolved and proved to be inside the
+  requested directory before the first download, which is also what catches a
+  symlink already in the directory pointing out of it — a plain name whose
+  write would land elsewhere. URLs are parsed rather than string-matched, and
+  the host must be `data.qscat.org`: exactly the read-only bucket
+  `docs/adr/0008-computed-artifacts-live-in-public-object-storage.md` binds,
+  matched exactly and case-insensitively rather than by suffix. Digests must
+  be 64 lower-case hex characters (the first twelve ARE the object key, so a
+  malformed one addresses the wrong object rather than merely failing to
+  verify) and byte counts non-negative integers (`true` is not one, though
+  `isinstance(x, int)` says it is). A malformed pointer now reports itself as
+  a bad pointer instead of raising a decoder error through the CLI. Seventy
+  adversarial tests were written first and watched fail. Closes #63.
+
 [Unreleased]: https://github.com/VanaMartin/qscat/compare/main...HEAD

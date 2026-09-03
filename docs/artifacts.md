@@ -65,6 +65,30 @@ is skipped, so re-running costs nothing and an interrupted fetch resumes.
 Directories without an `artifacts.json` keep their results in git and need no
 fetching.
 
+## What a pointer may say
+
+A pointer is a file, and a fetch acts on it: it decides which host is
+contacted and which paths are written on the reader's machine. So it is read
+as untrusted input, and a pointer that breaks any of these is refused whole,
+before a byte is requested or written — the digest is no help here, since it
+describes the bytes and not where they land.
+
+- **Names are relative paths to a file below the run directory.** Nested names
+  (`wavefunction/psi_E0.05.npz`) are supported, because a run writes its
+  wavefunction, eigenstate and resonance snapshots into subdirectories.
+  Absolute names, `..`, and anything that would have to be escaped to appear
+  in a URL are not: the file on disk and the object in the store must be the
+  same name. Each destination is resolved before any download and must lie
+  inside the directory that was asked for, which also refuses a write that a
+  symlink would carry out of it.
+- **URLs are parsed, and must be HTTPS at `data.qscat.org`** — the one
+  read-only hostname the bucket is published at. A string that merely starts
+  with `https://` is not a check: `https://evil.example/@data.qscat.org/x`
+  does too.
+- **Digests are 64 lower-case hex characters and byte counts are non-negative
+  integers.** The first twelve characters of the digest *are* the object key,
+  so a malformed digest names the wrong object rather than failing later.
+
 ## Referencing an artifact directly
 
 The URL is stable, so anything that can read a URL can use one — a plotting
