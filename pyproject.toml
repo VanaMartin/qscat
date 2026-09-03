@@ -37,6 +37,7 @@ pythonpath = ["."]
 # it belongs in `slow` -- or it wants a smaller deck.
 markers = [
     "slow: production-scale physics; local + Docker + on-demand CI (validate:* labels). -m 'not slow' deselects",
+    "wip: scaffolding written to develop a change, not to be kept. Never reaches main -- tests/test_no_wip_tests.py fails if one does",
 ]
 
 [dependency-groups]

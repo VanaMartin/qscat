@@ -12,6 +12,17 @@ installed package.
 ## [Unreleased]
 
 ### Added
+- **A `wip` marker for tests that are scaffolding, and a guard that stops them
+  merging.** Developing a change means writing far more tests than it should
+  keep — probes that pin behaviour long enough to understand it, duplicates of
+  coverage that turns out to already exist, checks of properties that cannot
+  regress. Writing them is right; committing them is a separate decision, and
+  the default is no. `@pytest.mark.wip` records that decision at the moment
+  the test is written, while its author still knows which kind it is, and
+  `tests/test_no_wip_tests.py` fails if one reaches `main` — so scaffolding is
+  dropped deliberately rather than by forgetting, and removing the marker is
+  the act of claiming a test earns its keep.
+
 - **`energies: {ranges: [...]}` — a sweep written as `np.arange` segments.**
   A level-aware mesh is a coarse background sweep plus a dense window around
   each resonance level: a union of uniform segments, and nothing more. Written

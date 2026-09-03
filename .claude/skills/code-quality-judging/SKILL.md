@@ -124,6 +124,35 @@ shape is documented only in the docstring. A flag whose docstring does not say
 which shape it selects is `docstring-contradicts-code` — the signature admits
 several shapes and the prose names none.
 
+## Tests that do not earn their place
+
+A test is not free because it passes. It is paid for on every run, in every
+review, and by whoever later changes the code it over-specifies. Judge one by
+asking: **what would break, silently, if it did not exist?** "Nothing --
+another test already fails on that" is the finding, and its kind is
+`duplicate-coverage`.
+
+Two tells, both from real reviews here:
+
+- **The distinguishing content is the docstring.** Same fixture, same call,
+  same assertions as a test already present, with a different story attached.
+  Quote both in `evidence`; the fix names the test that already covers it.
+- **It asserts a logical consequence rather than a behaviour.** A test that two
+  digests sharing a prefix produce the same object key restates truncation. It
+  cannot fail unless the key length changes, and the existing URL test already
+  fails on that.
+
+`@pytest.mark.wip` is the project's marker for scaffolding its author has
+already declared disposable (`tests/test_no_wip_tests.py` blocks it from
+`main`). Seeing one is not a judgement call -- report it as
+`commented-out-code`'s sibling, `duplicate-coverage`, with the marker as
+evidence.
+
+Do NOT report a test as duplicate on resemblance alone. Two tests exercising
+the same function through different inputs, states or failure modes are
+distinct coverage. The claim is that ONE ALREADY FAILS on what the other
+checks -- so name that test, or do not file it.
+
 ## Verdicts and defects
 
 **The report file is ONE object with exactly four top-level keys**, however many files
@@ -159,7 +188,7 @@ Per defect, one record:
 `provenance-at-risk`, `duplicate-logic`, `dead`, `commented-out-code`,
 `misplaced-layer`, `oversized-unit`, `param-soup`, `unclear-name`,
 `stringly-typed`, `docstring-contradicts-code`, `untyped-public`,
-`redundant-overload`, `speculative-generality`.
+`redundant-overload`, `duplicate-coverage`, `speculative-generality`.
 
 `dead` is for a symbol nothing reaches; `commented-out-code` is for lines
 disabled by commenting rather than deleted. There is deliberately no kind for a

@@ -37,12 +37,39 @@ removed or kept with the reason it survived the test.
 Delete, do not tidy:
 
 - scratch scripts, `/tmp` outputs, debug prints, commented-out code
-- tests that assert nothing, or that only restate the implementation
 - files added "to be safe" that nothing imports — check with `grep -rn`
 - `docs/` files that duplicate content now living elsewhere
 
 Deleting a whole unit is usually right where trimming it is wrong. If you are
 unsure whether something ships, that uncertainty is the answer: it does not.
+
+### Every test the branch adds is judged individually
+
+Developing a change means writing far more tests than it should keep: probes
+that pin behaviour long enough to understand it, duplicates of coverage that
+turns out to already exist, checks of a property that cannot regress. **Writing
+them is right; committing them is a separate decision, and the default is no.**
+
+Ask of each one: **what would break, silently, if this test did not exist?** If
+the answer is "nothing — another test already fails on that", delete it. A
+kept test is paid for on every run, in every review, and by whoever later
+changes the code it over-specifies.
+
+Two tells, both seen in this repository:
+
+- **Its distinguishing content is its docstring.** Same fixture, same call,
+  same assertions as a test already present, with a new story attached. That is
+  one test and two names.
+- **It asserts a logical consequence rather than a behaviour.** A test that two
+  digests sharing a prefix produce the same key restates truncation; it cannot
+  fail unless the key length changes, which the existing URL test already
+  catches.
+
+Mark scaffolding `@pytest.mark.wip` **when you write it**, while you still know
+which it is — `tests/test_no_wip_tests.py` then refuses to let it merge, so the
+decision is made deliberately rather than by forgetting. Dropping the marker is
+the act of claiming a test earns its keep. Unmarked tests get the same
+judgement; they are simply not caught by a grep.
 
 ## Step 4 — Comment and docstring durability
 
