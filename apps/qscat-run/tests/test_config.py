@@ -10,7 +10,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from qscat_run.config import ConfigError, load_config, validate_config
+from qscat_run.config import ConfigError, _load_energies, load_config, validate_config
 
 
 def _write(tmp_path: Path, text: str) -> Path:
@@ -635,3 +635,108 @@ class TestMissingSubkeys:
             output_dir: out
         """,
             )
+
+
+# --- energy ranges -----------------------------------------------------------
+
+
+def _ranges_cfg(tmp_path: Path, ranges_yaml: str) -> object:
+    return load_config(
+        _write(
+            tmp_path,
+            f"""
+        molecule: F2
+        methods: [ti]
+        observables: [{{kind: ve, channels: 2}}]
+        energies:
+{ranges_yaml}
+        output_dir: out
+    """,
+        )
+    )
+
+
+class TestEnergyRanges:
+    """`energies.ranges` -- a list of `np.arange(start, stop, step)` segments.
+
+    A level-aware mesh is a union of uniform segments: one coarse background
+    sweep plus a dense window around each resonance level. Written out point by
+    point that is a 3343-line config built from 27 numbers, and a file that long
+    is not read, only scrolled past. The segments ARE the specification.
+    """
+
+    def test_a_single_range_expands_like_arange(self, tmp_path: Path) -> None:
+        cfg = _ranges_cfg(tmp_path, "          ranges: [{start: 0.01, stop: 0.05, step: 0.01}]")
+        np.testing.assert_allclose(cfg.energies.as_array(), [0.01, 0.02, 0.03, 0.04])
+
+    def test_the_upper_bound_is_exclusive_as_arange_documents(self, tmp_path: Path) -> None:
+        """`stop` is not a sample. That is the one thing about `arange` that
+        surprises people, so it is pinned here rather than left to be
+        discovered: 0.05 is absent above, and a caller who wants it pads
+        `stop` itself -- exactly as they would when calling numpy."""
+        cfg = _ranges_cfg(tmp_path, "          ranges: [{start: 0.01, stop: 0.055, step: 0.01}]")
+        np.testing.assert_allclose(cfg.energies.as_array(), [0.01, 0.02, 0.03, 0.04, 0.05])
+
+    def test_overlapping_ranges_are_merged_sorted_and_deduplicated(self, tmp_path: Path) -> None:
+        """A background sweep and a level window overlap by construction, so
+        the mesh is their UNION, not their concatenation. A duplicated energy
+        is solved twice and drawn as a vertical segment."""
+        cfg = _ranges_cfg(
+            tmp_path,
+            "          ranges:\n"
+            "            - {start: 0.01, stop: 0.045, step: 0.01}\n"
+            "            - {start: 0.02, stop: 0.065, step: 0.01}",
+        )
+        got = cfg.energies.as_array()
+        np.testing.assert_allclose(got, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06])
+        assert got.size == np.unique(got).size
+
+    def test_ranges_survive_the_yaml_round_trip_config_resolved_performs(
+        self, tmp_path: Path
+    ) -> None:
+        """`config.resolved.yaml` is written by dumping the dataclass, so the
+        ranges must survive that dump and reload to the same mesh -- it is the
+        offline reproduction path, and a recipe that does not round-trip is
+        worse than no recipe.
+
+        Scoped to the `energies` block on purpose. Reloading a WHOLE resolved
+        config is separately broken (`_load_segment` rejects the `ecs: null`
+        that `asdict` emits for a segment without an ECS tail), for the
+        `values` form just as much as this one, so asserting on the whole file
+        here would fail for a reason that has nothing to do with ranges.
+        """
+        import dataclasses
+
+        import yaml
+
+        cfg = _ranges_cfg(
+            tmp_path, "          ranges: [{start: 0.002, stop: 0.0105, step: 0.0005}]"
+        )
+        dumped = yaml.safe_dump(dataclasses.asdict(cfg.energies), sort_keys=False)
+        reloaded = _load_energies(yaml.safe_load(dumped))
+        np.testing.assert_array_equal(reloaded.as_array(), cfg.energies.as_array())
+
+    def test_a_non_positive_step_is_rejected_by_name(self, tmp_path: Path) -> None:
+        """`np.arange` with step 0 raises ZeroDivisionError from inside numpy,
+        and with a negative step returns an empty sweep in silence. Neither
+        names the config line that is wrong."""
+        with pytest.raises(ConfigError, match=r"step.*positive"):
+            _ranges_cfg(tmp_path, "          ranges: [{start: 0.01, stop: 0.05, step: 0}]")
+
+    def test_a_stop_below_start_is_rejected_by_name(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError, match=r"stop.*start"):
+            _ranges_cfg(tmp_path, "          ranges: [{start: 0.05, stop: 0.01, step: 0.01}]")
+
+    def test_mixing_ranges_with_values_is_rejected(self, tmp_path: Path) -> None:
+        """Two meshes in one block have no defined answer; picking one would
+        silently run a sweep the author did not write."""
+        with pytest.raises(ConfigError, match="exactly one"):
+            _ranges_cfg(
+                tmp_path,
+                "          values: [0.01]\n"
+                "          ranges: [{start: 0.01, stop: 0.05, step: 0.01}]",
+            )
+
+    def test_an_empty_ranges_list_is_rejected(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError, match="at least one"):
+            _ranges_cfg(tmp_path, "          ranges: []")

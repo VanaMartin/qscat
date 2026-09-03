@@ -12,6 +12,24 @@ installed package.
 ## [Unreleased]
 
 ### Added
+- **`energies: {ranges: [...]}` — a sweep written as `np.arange` segments.**
+  A level-aware mesh is a coarse background sweep plus a dense window around
+  each resonance level: a union of uniform segments, and nothing more. Written
+  out point by point, O₂'s VE mesh was 3343 lines generated from 27 numbers —
+  a file long enough that nobody reads it, and in which the background step,
+  the window width and the level a point belongs to are all invisible. The
+  segments record all three, and the three O₂ configs drop from 42 kB to
+  2.9 kB. Segments may overlap; the mesh is their union, so an energy two
+  segments both reach is solved once. `stop` is exclusive, as in numpy.
+  Rewriting the O₂ mesh this way also repaired it: those configs had been
+  rounded to 6 decimals, a 1.0e-6 Ha grid against their own finest step of
+  1.1e-6 Ha — a ratio of 1.10, so the rounding was nearly as coarse as the
+  mesh it was quantising. That collapsed 12 energies onto duplicates of their
+  neighbours. Expanded from segments the mesh carries no duplicates and sits
+  within 0.014 meV of the published axis everywhere. The axis a run actually
+  solved is stored in its own `cross_section.npz` regardless, so the config
+  records the recipe and the artifact records the result.
+
 - **Computed artifacts move out of git, and `qscat-run fetch` brings them
   back.** 37% of every byte this repository had ever stored was computed
   output — 23.7 MB of blobs under `docs/physics/figures` and `validation`

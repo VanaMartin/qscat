@@ -10,8 +10,8 @@ check's own output): widths run from 0.01 meV near the bottom to ~8 meV at
 mesh here is a coarse background grid over the whole window plus a dense
 window of `N_WINDOW` points spanning `+-HALF_WIDTHS * max(Gamma_v, GAMMA_FLOOR)`
 around each level (the floor keeps a sub-0.1-meV peak visible at all;
-resolving its true shape would need the TD route). The list is what
-`qscat-run`'s `energies: {values: [...]}` takes.
+resolving its true shape would need the TD route). The segments are what
+`qscat-run`'s `energies: {ranges: [...]}` takes.
 """
 
 from __future__ import annotations
@@ -21,8 +21,9 @@ from pathlib import Path
 
 import numpy as np
 from qscat.units import EV_TO_HARTREE
+from qscat_run.config import EnergyRange, EnergySpec
 
-__all__ = ["level_aware_energies", "main"]
+__all__ = ["level_aware_energies", "level_aware_ranges", "main"]
 
 LEVELS = Path("validation/factory/results/o2-anion-levels.csv")
 E_WINDOW = (0.002, 0.100)  # Ha
@@ -38,17 +39,46 @@ HALF_WIDTHS = 6.0
 GAMMA_FLOOR = 0.3e-3 * EV_TO_HARTREE  # 0.3 meV
 
 
-def level_aware_energies(levels_csv: Path = LEVELS) -> np.ndarray:
+def level_aware_ranges(levels_csv: Path = LEVELS) -> list[EnergyRange]:
+    """The mesh as `np.arange` segments: the background sweep, then one dense
+    window per level inside the studied range.
+
+    The mesh has always BEEN a union of uniform segments -- this returns them
+    instead of the points they generate, which is the same specification in
+    two dozen numbers rather than several thousand lines. `stop` carries the
+    usual half-step pad, because `arange` excludes its upper bound and a
+    window is meant to be symmetric about its level.
+
+    A window that would run past the studied range is trimmed rather than
+    dropped: `start` advances by whole steps, so the points that survive are
+    exactly the ones the untrimmed window would have put there.
+    """
     table = np.loadtxt(levels_csv, delimiter=",", skiprows=1)
     E_v = table[:, 2] * EV_TO_HARTREE  # the fitted model's own levels
     G_v = np.maximum(table[:, 4] * EV_TO_HARTREE, GAMMA_FLOOR)
     lo, hi = E_WINDOW
-    E = [np.arange(lo, hi + 0.5 * BACKGROUND_STEP, BACKGROUND_STEP)]
+    ranges = [EnergyRange(lo, hi + 0.5 * BACKGROUND_STEP, BACKGROUND_STEP)]
     for e, g in zip(E_v, G_v, strict=True):
-        if lo < e < hi:
-            E.append(np.linspace(e - HALF_WIDTHS * g, e + HALF_WIDTHS * g, N_WINDOW))
-    allE = np.unique(np.round(np.concatenate(E), 8))
-    return allE[(allE >= lo) & (allE <= hi)]
+        if not lo < e < hi:
+            continue
+        step = 2.0 * HALF_WIDTHS * g / (N_WINDOW - 1)
+        start, stop = e - HALF_WIDTHS * g, e + HALF_WIDTHS * g + 0.5 * step
+        if start < lo:  # keep the phase: advance by whole steps, never clamp
+            start += np.ceil((lo - start) / step) * step
+        stop = min(stop, hi + 0.5 * step)
+        if stop > start:
+            ranges.append(EnergyRange(float(start), float(stop), float(step)))
+    return ranges
+
+
+def level_aware_energies(levels_csv: Path = LEVELS) -> np.ndarray:
+    """The concrete mesh those ranges expand to.
+
+    Expanded through `EnergySpec` -- the same accessor `qscat-run` uses -- so
+    the count this module reports is the count the run will solve, rather than
+    a second implementation that can drift from it.
+    """
+    return EnergySpec(ranges=tuple(level_aware_ranges(levels_csv))).as_array()
 
 
 def main() -> None:
@@ -57,8 +87,11 @@ def main() -> None:
     ap.add_argument("--levels", type=Path, default=LEVELS, help="the component's level table")
     ap.add_argument("--molecule", default="O2", help="O2, O2_SO12 or O2_SO32")
     a = ap.parse_args()
-    E = level_aware_energies(a.levels)
-    values = ", ".join(f"{e:.6f}" for e in E)
+    ranges = level_aware_ranges(a.levels)
+    E = EnergySpec(ranges=tuple(ranges)).as_array()
+    rendered = "\n".join(
+        f"    - {{start: {r.start!r}, stop: {r.stop!r}, step: {r.step!r}}}" for r in ranges
+    )
     which = {
         "O2": "the unsplit 2Pi_g model (`qscat.model.O2`)",
         "O2_SO12": "the 2Pi_{1/2} spin-orbit component (`qscat.model.O2_SO12`)",
@@ -74,7 +107,8 @@ def main() -> None:
 # quasi-bound levels (widths 0.01-8 meV), so the energies are a level-aware
 # mesh: a {BACKGROUND_STEP * 1e3:.0f} mHa background grid plus {N_WINDOW} points across
 # +-{HALF_WIDTHS:.0f} widths of every level in the window, from the model's own
-# levels (`validation/factory/results/{a.levels.name}`); {E.size} energies.
+# levels (`validation/factory/results/{a.levels.name}`);
+# {len(ranges)} ranges expanding to {E.size} energies.
 # Elastic + 0->1..5, the six panels of the paper's Fig. 5.
 #
 # The `tuner` preset is the discretisation tuner's deck, nuclear grid refined
@@ -93,7 +127,10 @@ observables:
   - {{kind: ve, channels: 6}}
 
 energies:
-  values: [{values}]
+  # One `np.arange(start, stop, step)` per line; the mesh is their union. The
+  # first is the background sweep, the rest one window per level.
+  ranges:
+{rendered}
 
 v_init: 0
 
@@ -106,7 +143,10 @@ backend: auto
 output_dir: runs/{a.out.stem}
 """
     a.out.write_text(text)
-    print(f"[O2] wrote {a.out}: {E.size} energies in [{E[0]:.4f}, {E[-1]:.4f}] Ha")
+    print(
+        f"[O2] wrote {a.out}: {len(ranges)} ranges -> {E.size} energies "
+        f"in [{E[0]:.4f}, {E[-1]:.4f}] Ha"
+    )
 
 
 if __name__ == "__main__":

@@ -123,34 +123,106 @@ def _load_observables(raw: list[Any]) -> tuple[Observable, ...]:
 
 
 @dataclass(frozen=True)
+class EnergyRange:
+    """One uniform segment of a sweep, read as `np.arange(start, stop, step)`.
+
+    `stop` is EXCLUSIVE, exactly as in numpy -- a segment meant to include its
+    upper end pads `stop` by half a step, and `EnergySpec.min/max/step` does
+    that padding for you.
+    """
+
+    start: float
+    stop: float
+    step: float
+
+    def as_array(self) -> npt.NDArray[np.float64]:
+        return np.arange(self.start, self.stop, self.step, dtype=np.float64)
+
+
+@dataclass(frozen=True)
 class EnergySpec:
-    """Either a `min/max/step` sweep or an explicit `values` list."""
+    """A sweep, written in exactly one of three forms.
+
+    `min`/`max`/`step` is one inclusive uniform sweep; `ranges` is a list of
+    `np.arange` segments whose UNION is the mesh; `values` is the mesh written
+    out point by point.
+
+    `ranges` exists because a level-aware mesh -- a coarse background sweep
+    plus a dense window around each resonance level -- is a union of uniform
+    segments and nothing more. Written as `values` it becomes thousands of
+    lines generated from a couple of dozen numbers, which no longer records
+    the intent: a reader cannot see the background step, the window width, or
+    which level a point belongs to. The segments say all three.
+    """
 
     min: float | None = None
     max: float | None = None
     step: float | None = None
     values: tuple[float, ...] | None = None
+    ranges: tuple[EnergyRange, ...] | None = None
 
     def as_array(self) -> npt.NDArray[np.float64]:
-        """The concrete energy sweep: `values` verbatim if given, else
-        `np.arange(min, max + step/2, step)` (the half-step pad makes the
-        sweep inclusive of `max` despite `arange`'s exclusive upper bound
-        and float round-off), rounded to 10 decimals to kill the last-ULP
-        noise `arange` accumulates over many steps."""
+        """The concrete energy sweep.
+
+        `values` is returned verbatim. `min`/`max`/`step` becomes
+        `np.arange(min, max + step/2, step)` -- the half-step pad makes the
+        sweep inclusive of `max` despite `arange`'s exclusive upper bound and
+        float round-off. `ranges` is the SORTED UNION of its segments, which
+        is what makes overlap between the background sweep and a level window
+        harmless: an energy reached by two segments is solved once, not twice.
+
+        Both computed forms are rounded to 10 decimals, which removes the
+        last-ULP noise `arange` accumulates over many steps -- without it two
+        segments could reach "the same" energy and differ in the 16th digit,
+        so the union would keep both and the sweep would carry a duplicate
+        that no one wrote.
+        """
         if self.values is not None:
             return np.asarray(self.values, dtype=np.float64)
+        if self.ranges is not None:
+            parts = [r.as_array() for r in self.ranges]
+            return np.unique(np.round(np.concatenate(parts), decimals=10))
         if self.min is None or self.max is None or self.step is None:
             raise ConfigError(
-                "EnergySpec.as_array() needs either 'values' or all of 'min'/'max'/'step'"
+                "EnergySpec.as_array() needs 'values', 'ranges', or all of 'min'/'max'/'step'"
             )
         arr = np.arange(self.min, self.max + 0.5 * self.step, self.step, dtype=np.float64)
         return np.round(arr, decimals=10)
 
 
+def _load_energy_range(raw: dict[str, Any], index: int) -> EnergyRange:
+    where = f"energies.ranges[{index}]"
+    start = float(_require(raw, "start", where))
+    stop = float(_require(raw, "stop", where))
+    step = float(_require(raw, "step", where))
+    # numpy answers both of these badly rather than loudly: step 0 raises
+    # ZeroDivisionError from inside arange, and a backwards range returns an
+    # empty sweep in silence -- a run that solves nothing and reports success.
+    if step <= 0:
+        raise ConfigError(f"{where}: 'step' must be positive, got {step}")
+    if stop <= start:
+        raise ConfigError(f"{where}: 'stop' ({stop}) must be above 'start' ({start})")
+    return EnergyRange(start=start, stop=stop, step=step)
+
+
 def _load_energies(raw: dict[str, Any] | None) -> EnergySpec | None:
     if raw is None:
         return None
-    if "values" in raw:
+    # `min`/`max`/`step` is one form, not three keys, so it counts once.
+    forms = [k for k in ("values", "ranges") if raw.get(k) is not None]
+    if any(raw.get(k) is not None for k in ("min", "max", "step")):
+        forms.append("min/max/step")
+    if len(forms) > 1:
+        raise ConfigError(
+            f"'energies' takes exactly one of 'values', 'ranges' or 'min'/'max'/'step'; "
+            f"got {' and '.join(forms)}"
+        )
+    if raw.get("ranges") is not None:
+        entries = raw["ranges"]
+        if not entries:
+            raise ConfigError("'energies.ranges' needs at least one range")
+        return EnergySpec(ranges=tuple(_load_energy_range(e, i) for i, e in enumerate(entries)))
+    if raw.get("values") is not None:
         return EnergySpec(values=tuple(float(v) for v in raw["values"]))
     return EnergySpec(
         min=float(_require(raw, "min", "energies")),
