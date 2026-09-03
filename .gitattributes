@@ -1,0 +1,19 @@
+# Merge policy for the changelog.
+#
+# Every branch adds its entry at the top of a section in `CHANGELOG.md`, so two
+# concurrent branches insert different text at the same anchor. Git has no basis
+# on which to order them and stops with a conflict -- even though both sides are
+# pure additions and the resolution is always "keep both".
+#
+# `union` tells git to do exactly that: concatenate both sides rather than stop.
+#
+# Two things to know before relying on it:
+#
+#   * It is safe only while this file stays APPEND-ONLY. An entry EDITED on two
+#     branches is silently duplicated instead of raising a conflict. Correct an
+#     existing entry on one branch only, and read the result afterwards.
+#   * It applies to merges and rebases run by git -- which is to say, locally.
+#     GitHub's merge button does not read this file, so a pull request still
+#     reports a changelog conflict in the web UI; what changes is that rebasing
+#     the branch onto main resolves it without anyone editing anything.
+CHANGELOG.md merge=union
