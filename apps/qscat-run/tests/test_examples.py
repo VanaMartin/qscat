@@ -97,3 +97,25 @@ def test_h2p_dr_example_runs_end_to_end() -> None:
     validate_config(cfg)
     result = run_experiment(cfg)
     assert result.cross_sections
+
+
+def test_the_o2_examples_specify_their_mesh_as_ranges_not_as_points() -> None:
+    """The O2 sweeps are the reason `ranges` exists, so they are pinned to it.
+
+    Point-by-point these three configs were 34 kB each and 3343 lines of
+    energies -- a file nobody reads, in which the background step, the window
+    width and the level each point belongs to are all invisible. Nothing stops
+    a future regeneration from emitting `values` again, and the file would look
+    plausible; this notices.
+    """
+    import yaml
+
+    examples = Path(__file__).resolve().parents[1] / "examples"
+    o2 = sorted(examples.glob("o2*-ve.yaml"))
+    assert o2, "expected the O2 VE example configs"
+    for path in o2:
+        energies = yaml.safe_load(path.read_text())["energies"]
+        assert "ranges" in energies, f"{path.name} should specify ranges"
+        assert "values" not in energies, f"{path.name} should not list energies point by point"
+        # the background sweep plus one window per level in the studied range
+        assert len(energies["ranges"]) > 1, f"{path.name}: a level-aware mesh is not one segment"

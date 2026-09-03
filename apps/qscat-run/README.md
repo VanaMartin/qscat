@@ -116,6 +116,31 @@ each gets its own `(chN)` suffix so the legend stays unambiguous. See
 `examples/n2-ve-vs-houfek.yaml` for the flagship case — N2 vibrational
 excitation overlaid on Karel Houfek's independent published data.
 
+## The energy sweep (`energies:`)
+
+Three forms, exactly one per config:
+
+```yaml
+energies: {min: 0.02, max: 0.09, step: 0.01}   # one uniform sweep, max INCLUSIVE
+energies: {values: [0.03, 0.04, 0.05]}         # the mesh, point by point
+energies:                                       # a union of np.arange segments
+  ranges:
+    - {start: 0.002, stop: 0.10025, step: 0.0005}
+    - {start: 0.0025467, stop: 0.0026796, step: 1.1025e-06}
+```
+
+`ranges` exists for level-aware meshes — a coarse background sweep plus a dense
+window around each resonance level. Segments may overlap; the mesh is their
+**union**, so an energy two segments both reach is solved once. Following
+`np.arange`, `stop` is **exclusive**: pad it by half a step to include the
+upper end, as the `min`/`max`/`step` form does for you.
+
+Prefer `ranges` over `values` for anything a script generates. O₂'s VE mesh is
+27 segments and 3343 energies; written out point by point it is a 3343-line
+file in which the background step, the window width and the level a point
+belongs to are all invisible. The segments record the intent, and the exact
+axis a run actually solved is stored in its `cross_section.npz` regardless.
+
 Every run also writes `config.resolved.yaml` (the fully default-filled config)
 and `manifest.json` (qscat version, git SHA, timestamp, backend, timings) for
 reproducibility. `methods: [ti, td, lcp, nrm]` merges everything into one result
