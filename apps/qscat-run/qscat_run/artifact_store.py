@@ -37,11 +37,14 @@ Two properties this module guarantees:
   recorded digest, and a mismatch raises rather than leaving a plausible file
   on disk. Without this the pointer would only be a hint, and a truncated
   download would read as data.
-* **A URL means one thing.** Not by policy -- by construction. Different
-  content hashes differently and therefore lives elsewhere, so a link in a
-  note cannot quietly come to mean something else. Correcting a number
-  produces a new key and a new pointer; the old URL keeps the old value for
-  as long as it is kept, which is what a cited number needs.
+* **A URL cannot quietly come to mean something else.** Not because a
+  collision is impossible -- the key carries 12 of the 64 digest characters,
+  so it is merely very unlikely (see `_URL_DIGEST_CHARS`) -- but because the
+  full digest is what the bytes are checked against, so a collision would
+  surface as a mismatch rather than as the wrong result served under a cited
+  link. Correcting a number produces a new key and a new pointer; the old URL
+  keeps the old value for as long as it is kept, which is what a cited number
+  needs.
 
 `git_sha` stays in the manifest, but it is a RECORD, not an address. It
 answers "what produced these bytes"; `git blame` on the pointer answers "when
