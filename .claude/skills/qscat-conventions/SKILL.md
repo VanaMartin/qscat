@@ -205,6 +205,42 @@ Only validated, reusable code lives here (see `qm-method-lifecycle` step 5) —
   `reference/libXcuda`) are read-only — never edited, only read for
   algorithms/expected outputs.
 
+## Public API Shape
+
+- **One signature per function, returning a `|` union** of the shapes it can
+  produce. Do NOT add `@overload` stubs to narrow on a literal flag: each stub
+  restates a parameter list the implementation already states, so a signature
+  change must be made four times and can drift three ways.
+  `ScatteringProblem` carried 20 such stubs across 6 methods — 221 lines
+  saying what the implementation signatures already said.
+- **Name the union when it earns a name.** Two members read fine inline
+  (`CrossSection | tuple[CrossSection, Wavefunction]`); four do not.
+  `qscat.core.problem` exports `CrossSection`, `Wavefunction`, `Amplitude`,
+  and `DrCrossSection` — the last because two independent flags make four
+  shapes. Named parts are also what a caller annotates with, which is the
+  other half of shipping `py.typed`.
+- **A flag that changes the returned shape is documented in the docstring** —
+  which flag selects which shape. Without overloads that docstring is the only
+  place a reader finds out, so omitting it is now a defect rather than a
+  redundancy.
+- **A fixed-shape dict is a `TypedDict`**, exported: `qscat.tuning`'s
+  `GridCost`, `TensorCost`, `Refine2dStep`, `Refine2dReport`. A genuinely open
+  payload stays `dict[str, Any]` **and says why** — `ProbeResult.detail` serves
+  three probes whose key sets are disjoint, so a `TypedDict` there would
+  promise a shape that does not exist.
+- **A repeated parameter group becomes a frozen dataclass**, not a longer
+  argument list: `EnergySpec`/`EnergyRange`, `GridSpec`, `SegmentSpec`,
+  `TdSpec` in `qscat_run.config`. `@dataclass(frozen=True)` is the project's
+  config idiom — deliberately **not pydantic**, which is not a dependency and
+  would put runtime validation into a `py.typed` library whose configs are
+  already validated once at YAML load, where the error can name the offending
+  line.
+- **Not yet converted:** the functional solvers still carry 15 `@overload`
+  stubs across `core/driven.py`, `core/dissociation.py`,
+  `core/lcp/cross_section.py` and `core/lcp/levels.py`. The facade was
+  converted first because it is the documented stable surface. These are
+  known work, not a decision to keep them — reporting them is correct.
+
 ## CPU-First
 
 Everything in qModeling runs on CPU and is containerizable (see

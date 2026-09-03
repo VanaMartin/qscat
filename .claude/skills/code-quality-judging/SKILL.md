@@ -1,6 +1,6 @@
 ---
 name: code-quality-judging
-description: Use when grading source files and functions against a fixed rubric — whether a comment serves its reader, whether a unit is too large to hold, whether a name misleads, whether a public symbol is annotated. Not for correctness, physics, or anything a linter already gates.
+description: Use when grading source files and functions against a fixed rubric — whether a comment serves its reader, whether a unit is too large to hold, whether a name misleads, whether a public symbol is annotated or over-annotated with type machinery that restates the implementation. Not for correctness, physics, or anything a linter already gates.
 ---
 
 # Code Quality Judging
@@ -97,6 +97,33 @@ A measured number or citation that exists in exactly one comment is load-bearing
 Filing it for deletion without first securing it elsewhere is the worst outcome
 this rubric permits, and the one it is written to prevent.
 
+## Type machinery that costs more than it states
+
+`untyped-public` catches a surface that says too little. This catches the
+opposite: machinery that restates what the implementation already declares.
+
+**The rule the project holds** (see `qscat-conventions`): one signature per
+function, returning the `|` union of the shapes it can produce. `@overload`
+stubs that differ only in a `Literal` flag are `redundant-overload` — each
+restates a parameter list the implementation already states, so a signature
+change has to be made in every copy and can drift in all but one. Twenty such
+stubs across six methods once cost 221 lines to say what six implementation
+signatures already said.
+
+Two things this kind does NOT cover, so do not stretch it:
+
+- **A union that is genuinely hard to read is not fixed by overloading it.**
+  It is fixed by naming it — a type alias, or a dataclass when the shapes
+  differ in more than arity. Report the unreadable union as `unclear-name`
+  if it has no name and needs one.
+- **Overloads that select on argument TYPE rather than on a literal flag**
+  are not redundant; they express something a single signature cannot.
+
+And its companion defect: with no overloads, a flag that changes the returned
+shape is documented only in the docstring. A flag whose docstring does not say
+which shape it selects is `docstring-contradicts-code` — the signature admits
+several shapes and the prose names none.
+
 ## Verdicts and defects
 
 **The report file is ONE object with exactly four top-level keys**, however many files
@@ -132,7 +159,7 @@ Per defect, one record:
 `provenance-at-risk`, `duplicate-logic`, `dead`, `commented-out-code`,
 `misplaced-layer`, `oversized-unit`, `param-soup`, `unclear-name`,
 `stringly-typed`, `docstring-contradicts-code`, `untyped-public`,
-`speculative-generality`.
+`redundant-overload`, `speculative-generality`.
 
 `dead` is for a symbol nothing reaches; `commented-out-code` is for lines
 disabled by commenting rather than deleted. There is deliberately no kind for a
