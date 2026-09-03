@@ -18,6 +18,7 @@ import hashlib
 import json
 import subprocess
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import pytest
 from qscat_run.artifact_store import (
@@ -273,3 +274,303 @@ def test_the_records_a_published_run_ships_are_tracked_not_merely_present() -> N
                 "allow-list for this directory has to name it, or it reaches "
                 "nobody who clones"
             )
+
+
+# --- The pointer as untrusted input -----------------------------------------
+#
+# `artifacts.json` is a file: reviewed when it is committed, but review is not
+# validation, and a fetch acts on whatever it says. Everything below is an
+# attack on that -- a name that walks out of the run directory, a digest that
+# cannot be a digest, a URL that only LOOKS like the published store -- and
+# every one of them has to fail before a byte is requested or written.
+
+_ANY_DIGEST = "0" * 64
+
+
+def _write_pointer(
+    directory: Path,
+    artifacts: dict[str, object],
+    *,
+    url_prefix: str = "https://data.qscat.org/o2-ve/",
+    git_sha: str = "0" * 40,
+) -> Path:
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / "artifacts.json").write_text(
+        json.dumps({"git_sha": git_sha, "url_prefix": url_prefix, "artifacts": artifacts})
+    )
+    return directory
+
+
+def _explode(url: str) -> bytes:
+    raise AssertionError(f"a rejected pointer still reached the network: {url}")
+
+
+#: Names that must never become a destination. Traversal in both separators,
+#: because a POSIX `Path` reads `..\..\x` as one harmless component and a
+#: publisher on another platform does not; the dot names, which address a
+#: directory rather than a file; an absolute path; the empty name; and forms
+#: that would have to be escaped to appear in a URL, where the escaped and the
+#: unescaped spelling name different things.
+_REFUSED_NAMES = [
+    "../escape.csv",
+    "../../escape.csv",
+    "sub/../../escape.csv",
+    "/etc/passwd",
+    "",
+    ".",
+    "..",
+    "..\\..\\escape.csv",
+    "sub\\escape.csv",
+    "cross section.csv",
+    "cross%2e%2e%2fsection.csv",
+    "escape.csv\x00.png",
+    "sub//escape.csv",
+    ".hidden.csv",
+]
+
+
+@pytest.mark.parametrize("name", _REFUSED_NAMES)
+def test_a_name_that_is_not_a_plain_file_below_the_directory_is_refused(
+    tmp_path: Path, name: str
+) -> None:
+    """Reading the pointer is where this has to fail: `--list` derives a URL
+    from every name, so a name that cannot be a destination must not survive
+    long enough to become an address either."""
+    d = _write_pointer(tmp_path / "run", {name: {"sha256": _ANY_DIGEST, "bytes": 1}})
+    with pytest.raises(ArtifactStoreError):
+        load_pointer(d)
+
+
+@pytest.mark.parametrize("name", _REFUSED_NAMES)
+def test_a_refused_name_downloads_nothing_and_writes_nothing(tmp_path: Path, name: str) -> None:
+    """The checksum is not the boundary. It says the bytes are the published
+    bytes; it says nothing about where they land, and a file written outside
+    the run directory has already done its damage by the time it verifies."""
+    d = _write_pointer(tmp_path / "run", {name: {"sha256": _ANY_DIGEST, "bytes": 1}})
+    with pytest.raises(ArtifactStoreError):
+        fetch(d, opener=_explode)
+    assert sorted(p.name for p in tmp_path.rglob("*") if p.is_file()) == ["artifacts.json"]
+
+
+def test_the_traversal_name_this_guards_against_would_otherwise_have_escaped(
+    tmp_path: Path,
+) -> None:
+    """States the defect in one line: `directory / "../../escape.csv"` is a
+    path OUTSIDE `directory`, and joining is where that happened -- not
+    downloading, and not verifying."""
+    assert (tmp_path / "run" / "../../escape.csv").resolve() == (
+        tmp_path.parent / "escape.csv"
+    ).resolve()
+
+
+@pytest.mark.parametrize(
+    "digest", ["0" * 63, "0" * 65, "g" * 64, "", "830cffb8a044", "A" * 64, 12345, None]
+)
+def test_a_field_that_cannot_be_a_sha256_is_refused(tmp_path: Path, digest: object) -> None:
+    """A digest is what makes a URL mean one thing, and its first twelve
+    characters ARE the object key -- so a short, non-hex or upper-case digest
+    does not merely fail to verify later, it addresses the wrong object now."""
+    d = _write_pointer(tmp_path / "run", {"cross_section.csv": {"sha256": digest, "bytes": 1}})
+    with pytest.raises(ArtifactStoreError):
+        load_pointer(d)
+
+
+@pytest.mark.parametrize("count", [-1, 1.5, "399052", True, None])
+def test_a_byte_count_that_is_not_a_count_is_refused(tmp_path: Path, count: object) -> None:
+    """`True` is in the list on purpose: `bool` is a subclass of `int`, so the
+    obvious `isinstance(n, int)` accepts it and a pointer would record an
+    artifact of one byte."""
+    d = _write_pointer(
+        tmp_path / "run", {"cross_section.csv": {"sha256": _ANY_DIGEST, "bytes": count}}
+    )
+    with pytest.raises(ArtifactStoreError):
+        load_pointer(d)
+
+
+#: URL prefixes that must not be fetched from. The first two are other
+#: protocols. Most of the rest begin with the eight characters `https://`,
+#: which is why a string prefix check is not a check: only parsing says which
+#: host the connection would actually go to.
+_REFUSED_PREFIXES = [
+    "http://data.qscat.org/o2-ve/",
+    "file:///etc/",
+    "https://evil.example/@data.qscat.org/o2-ve/",
+    "https://data.qscat.org@evil.example/o2-ve/",
+    "https://data.qscat.org.evil.example/o2-ve/",
+    "https://notdata.qscat.org/o2-ve/",
+    "https:/\\/\\evil.example/o2-ve/",
+    "https://data.qscat.org:8443/o2-ve/",
+    "https://data.qscat.org/o2-ve/?token=x",
+    "https://data.qscat.org/o2-ve/#frag",
+    "https://data.qscat.org/../o2-ve/",
+    "https://data.qscat.org/o2-ve",
+    "https:///o2-ve/",
+]
+
+
+@pytest.mark.parametrize("prefix", _REFUSED_PREFIXES)
+def test_a_url_prefix_that_is_not_the_published_store_is_refused(
+    tmp_path: Path, prefix: str
+) -> None:
+    d = _write_pointer(
+        tmp_path / "run",
+        {"cross_section.csv": {"sha256": _ANY_DIGEST, "bytes": 1}},
+        url_prefix=prefix,
+    )
+    with pytest.raises(ArtifactStoreError):
+        load_pointer(d)
+
+
+def test_the_deceptive_prefixes_all_pass_the_check_they_replace() -> None:
+    """Why parsing, and not `startswith`. Each of these reads as HTTPS and
+    mentions the right hostname somewhere in the string, and each of them
+    would connect somewhere else."""
+    for prefix in [
+        "https://evil.example/@data.qscat.org/o2-ve/",
+        "https://data.qscat.org@evil.example/o2-ve/",
+        "https://data.qscat.org.evil.example/o2-ve/",
+    ]:
+        assert prefix.startswith("https://")
+
+
+def test_a_refused_prefix_downloads_nothing(tmp_path: Path) -> None:
+    d = _write_pointer(
+        tmp_path / "run",
+        {"cross_section.csv": {"sha256": _ANY_DIGEST, "bytes": 1}},
+        url_prefix="https://data.qscat.org.evil.example/o2-ve/",
+    )
+    with pytest.raises(ArtifactStoreError):
+        fetch(d, opener=_explode)
+
+
+def test_the_host_is_matched_case_insensitively(tmp_path: Path) -> None:
+    """Hostnames are case-insensitive, so refusing a capitalised one would be
+    a bug rather than a boundary."""
+    payload = b"energy,sigma\n0.1,2.0\n"
+    d = _write_pointer(
+        tmp_path / "run",
+        {
+            "cross_section.csv": {
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "bytes": len(payload),
+            }
+        },
+        url_prefix="https://DATA.QSCAT.ORG/o2-ve/",
+    )
+    assert fetch(d, opener=lambda url: payload) == [d / "cross_section.csv"]
+
+
+def test_a_nested_name_lands_in_its_subdirectory(tmp_path: Path) -> None:
+    """Nested names are supported: a run writes its wavefunction, eigenstate
+    and resonance snapshots into subdirectories of the run directory, so a
+    pointer published for such a run has to be able to name them."""
+    payload = b"\x93NUMPY-ish"
+    d = _write_pointer(
+        tmp_path / "run",
+        {
+            "wavefunction/psi_E0.05.npz": {
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "bytes": len(payload),
+            }
+        },
+    )
+    written = fetch(d, opener=lambda url: payload)
+    assert written == [d / "wavefunction" / "psi_E0.05.npz"]
+    assert (d / "wavefunction" / "psi_E0.05.npz").read_bytes() == payload
+
+
+def test_a_nested_name_keeps_its_directory_in_the_published_url(tmp_path: Path) -> None:
+    """The key in the store mirrors the path in the run directory, and the
+    digest goes before the extension of the FILE -- not before whatever
+    follows the last dot in the whole name."""
+    d = _write_pointer(
+        tmp_path / "run", {"wavefunction/psi_E0.05.npz": {"sha256": _ANY_DIGEST, "bytes": 1}}
+    )
+    assert load_pointer(d).url_for("wavefunction/psi_E0.05.npz") == (
+        f"https://data.qscat.org/o2-ve/wavefunction/psi_E0.05.{_ANY_DIGEST[:12]}.npz"
+    )
+
+
+def test_fetch_refuses_to_write_through_a_symlink_that_leaves_the_directory(
+    tmp_path: Path,
+) -> None:
+    """A name can be a plain file and the destination still be elsewhere:
+    `resolve()` follows symlinks, so the check has to be made on what the
+    write would actually open, not on what the name looks like."""
+    outside = tmp_path / "outside.csv"
+    outside.write_bytes(b"do not touch")
+    payload = b"energy,sigma\n0.1,2.0\n"
+    d = _write_pointer(
+        tmp_path / "run",
+        {
+            "cross_section.csv": {
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "bytes": len(payload),
+            }
+        },
+    )
+    (d / "cross_section.csv").symlink_to(outside)
+    with pytest.raises(ArtifactStoreError):
+        fetch(d, opener=_explode)
+    assert outside.read_bytes() == b"do not touch"
+
+
+def test_one_escaping_target_stops_the_whole_fetch_before_any_of_it(tmp_path: Path) -> None:
+    """Containment is proved for every wanted artifact before the first
+    download, so a pointer cannot deliver half a run and then escape."""
+    outside = tmp_path / "outside.npz"
+    outside.write_bytes(b"do not touch")
+    payload = b"energy,sigma\n0.1,2.0\n"
+    sha = hashlib.sha256(payload).hexdigest()
+    d = _write_pointer(
+        tmp_path / "run",
+        {
+            "cross_section.csv": {"sha256": sha, "bytes": len(payload)},
+            "cross_section.npz": {"sha256": sha, "bytes": len(payload)},
+        },
+    )
+    (d / "cross_section.npz").symlink_to(outside)
+    with pytest.raises(ArtifactStoreError):
+        fetch(d, opener=lambda url: payload)
+    assert not (d / "cross_section.csv").exists()
+    assert outside.read_bytes() == b"do not touch"
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "{not json",
+        "[]",
+        '{"url_prefix": "https://data.qscat.org/o2-ve/", "artifacts": {}}',
+        '{"git_sha": "0", "url_prefix": "https://data.qscat.org/o2-ve/", "artifacts": {}}',
+        '{"git_sha": "' + "0" * 40 + '", "url_prefix": 7, "artifacts": {}}',
+        '{"git_sha": "'
+        + "0" * 40
+        + '", "url_prefix": "https://data.qscat.org/o2-ve/", "artifacts": []}',
+        '{"git_sha": "'
+        + "0" * 40
+        + '", "url_prefix": "https://data.qscat.org/o2-ve/", "artifacts": {"a.csv": 3}}',
+    ],
+)
+def test_a_malformed_pointer_says_so_instead_of_raising_a_decoding_error(
+    tmp_path: Path, text: str
+) -> None:
+    """The CLI turns `ArtifactStoreError` into a message and anything else
+    into a traceback, so a hand-edited pointer has to fail as a pointer."""
+    d = tmp_path / "run"
+    d.mkdir()
+    (d / "artifacts.json").write_text(text)
+    with pytest.raises(ArtifactStoreError):
+        load_pointer(d)
+
+
+def test_every_committed_pointer_points_at_the_published_store() -> None:
+    """The hostname policy, stated over the real pointers: this repository
+    fetches from the one read-only bucket `docs/adr/0008` binds, and from
+    nowhere else."""
+    pointers = _committed_pointers()
+    if not pointers:
+        pytest.skip("no artifacts.json committed yet -- nothing has been migrated")
+    for p in pointers:
+        host = urlsplit(load_pointer(p.parent).url_prefix).hostname
+        assert host == "data.qscat.org", f"{p} fetches from {host}"
