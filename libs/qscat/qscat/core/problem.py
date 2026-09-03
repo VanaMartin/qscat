@@ -39,7 +39,7 @@ The vibrational basis (`eps`, `chi`) is solved once, on construction, from
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Literal, overload
+from typing import TYPE_CHECKING
 
 import numpy as np
 import numpy.typing as npt
@@ -67,24 +67,46 @@ if TYPE_CHECKING:
     from .nrm import DiscreteState, NrmIngredients
     from .resonance import ExactResonanceStates
 
-__all__ = ["ScatteringProblem"]
+__all__ = [
+    "Amplitude",
+    "CrossSection",
+    "DrCrossSection",
+    "ScatteringProblem",
+    "Wavefunction",
+]
 
 _Window = tuple[float, float, float, float]
 
 # Return/parameter conventions, identical to the functional solvers mirrored
 # below (see driven.py / dissociation.py / time_dependent.py).
 #
-# Each method carrying a detail flag is `@overload`ed the same way those
-# solvers are: one signature per LITERAL flag value, then a `bool` catch-all
-# (open()-style) returning the honest union. A caller writing the documented
-# `return_wavefunction=True` gets the tuple, one writing `False` or omitting
-# it gets the bare array, and one forwarding a runtime `bool` gets the union
-# and must narrow it -- so the stable facade preserves exactly the narrowing
-# the functional layer already provides, rather than flattening it.
-_Sigma = npt.NDArray[np.float64]
-_Psi = npt.NDArray[np.complex128] | None
-_PsiOut = _Psi | list[_Psi]
-_Amp = npt.NDArray[np.complex128]
+# A method whose flag changes the SHAPE of the result declares one signature
+# returning the union of the shapes it can produce, and its docstring says
+# which flag selects which. Naming the parts is what keeps the union readable
+# -- `CrossSection | tuple[CrossSection, Wavefunction]` says what it is, where
+# the spelled-out arrays would not -- and it gives a caller something to
+# annotate with, which is the other half of shipping `py.typed`.
+CrossSection = npt.NDArray[np.float64]
+"""Sigma, in bohr^2: one value per energy."""
+
+Wavefunction = npt.NDArray[np.complex128] | None | list[npt.NDArray[np.complex128] | None]
+"""A driven solution, or a list of them for a swept energy. `None` where the
+energy lies below threshold and there is no solution to return."""
+
+Amplitude = npt.NDArray[np.complex128]
+"""Channel amplitudes behind a cross section."""
+
+DrCrossSection = (
+    CrossSection
+    | tuple[CrossSection, Wavefunction]
+    | tuple[CrossSection, Amplitude]
+    | tuple[CrossSection, Wavefunction, Amplitude]
+)
+"""What `ScatteringProblem.dr_cross_section` returns: sigma alone, or sigma
+paired with whichever details were asked for. Two independent flags make
+four shapes -- the one place here where the union is worth a name rather
+than being spelled out at the signature."""
+
 _WpIn = dict[str, float]
 _WpOut = dict[str, float]
 
@@ -136,39 +158,6 @@ class ScatteringProblem:
 
     # --- time-independent observables ---------------------------------------
 
-    @overload
-    def ve_cross_section(
-        self,
-        vprimes: list[int],
-        E: float | npt.ArrayLike,
-        *,
-        ordering: Ordering = ...,
-        lam_scale: float = ...,
-        return_wavefunction: Literal[False] = ...,
-    ) -> _Sigma: ...
-
-    @overload
-    def ve_cross_section(
-        self,
-        vprimes: list[int],
-        E: float | npt.ArrayLike,
-        *,
-        ordering: Ordering = ...,
-        lam_scale: float = ...,
-        return_wavefunction: Literal[True],
-    ) -> tuple[_Sigma, _PsiOut]: ...
-
-    @overload
-    def ve_cross_section(
-        self,
-        vprimes: list[int],
-        E: float | npt.ArrayLike,
-        *,
-        ordering: Ordering = ...,
-        lam_scale: float = ...,
-        return_wavefunction: bool = ...,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
-
     def ve_cross_section(
         self,
         vprimes: list[int],
@@ -177,7 +166,7 @@ class ScatteringProblem:
         ordering: Ordering = "COLAMD",
         lam_scale: float = 1.0,
         return_wavefunction: bool = False,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]:
+    ) -> CrossSection | tuple[CrossSection, Wavefunction]:
         """Vibrational-excitation cross section; same parameters, defaults and
         return convention as `qscat.core.ve_cross_section` (which this
         delegates to with the bundled grid/model/basis). Returns the plain
@@ -192,36 +181,6 @@ class ScatteringProblem:
             return_wavefunction=return_wavefunction,
         )
 
-    @overload
-    def da_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[False] = ...,
-    ) -> _Sigma: ...
-
-    @overload
-    def da_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[True],
-    ) -> tuple[_Sigma, _PsiOut]: ...
-
-    @overload
-    def da_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: bool = ...,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
-
     def da_cross_section(
         self,
         E: float | npt.ArrayLike,
@@ -229,7 +188,7 @@ class ScatteringProblem:
         n_channels: int = 1,
         ordering: Ordering = "COLAMD",
         return_wavefunction: bool = False,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]:
+    ) -> CrossSection | tuple[CrossSection, Wavefunction]:
         """Dissociative-attachment cross section; see `qscat.core.da_cross_section`.
         Returns the plain sigma array, or `(sigma, psi)` when
         `return_wavefunction=True`; the wavefunction is `None` per energy
@@ -242,66 +201,9 @@ class ScatteringProblem:
             return_wavefunction=return_wavefunction,
         )
 
-    # Two independent flags, so four literal combinations plus the bool
-    # catch-all. This method is the ONLY flag-shaped DR route that ships: the
-    # free `qscat.core.dr_cross_section` is sigma-only and `dr_solve` returns
-    # one `DrResult` whose `psi`/`amplitude` are Optional regardless of what
-    # was asked for. Passing a literal here is therefore the only way to get
-    # a statically non-Optional amplitude out of the DR solver.
-    @overload
-    def dr_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[False] = ...,
-        return_amplitude: Literal[False] = ...,
-    ) -> _Sigma: ...
-
-    @overload
-    def dr_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[True],
-        return_amplitude: Literal[False] = ...,
-    ) -> tuple[_Sigma, _PsiOut]: ...
-
-    @overload
-    def dr_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[False] = ...,
-        return_amplitude: Literal[True],
-    ) -> tuple[_Sigma, _Amp]: ...
-
-    @overload
-    def dr_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[True],
-        return_amplitude: Literal[True],
-    ) -> tuple[_Sigma, _PsiOut, _Amp]: ...
-
-    @overload
-    def dr_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        n_channels: int = ...,
-        ordering: Ordering = ...,
-        return_wavefunction: bool = ...,
-        return_amplitude: bool = ...,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]: ...
+    # The only flag-shaped DR route that ships: the free
+    # `qscat.core.dr_cross_section` is sigma-only, and `dr_solve` returns one
+    # `DrResult` whose `psi`/`amplitude` stay Optional whatever was asked for.
 
     def dr_cross_section(
         self,
@@ -311,7 +213,7 @@ class ScatteringProblem:
         ordering: Ordering = "COLAMD",
         return_wavefunction: bool = False,
         return_amplitude: bool = False,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut] | tuple[_Sigma, _Amp] | tuple[_Sigma, _PsiOut, _Amp]:
+    ) -> DrCrossSection:
         """Dissociative-recombination cross section (ionic target); see
         `qscat.core.dr_solve` for the physics. Returns the plain sigma array,
         `(sigma, psi)` under `return_wavefunction=True`, `(sigma, amplitude)`
@@ -462,39 +364,6 @@ class ScatteringProblem:
 
     # --- LCP / resonance observables ----------------------------------------
 
-    @overload
-    def lcp_da_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        Vd: npt.NDArray[np.complex128],
-        Gamma: npt.NDArray[np.float64],
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[False] = ...,
-    ) -> _Sigma: ...
-
-    @overload
-    def lcp_da_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        Vd: npt.NDArray[np.complex128],
-        Gamma: npt.NDArray[np.float64],
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[True],
-    ) -> tuple[_Sigma, _PsiOut]: ...
-
-    @overload
-    def lcp_da_cross_section(
-        self,
-        E: float | npt.ArrayLike,
-        *,
-        Vd: npt.NDArray[np.complex128],
-        Gamma: npt.NDArray[np.float64],
-        ordering: Ordering = ...,
-        return_wavefunction: bool = ...,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
-
     def lcp_da_cross_section(
         self,
         E: float | npt.ArrayLike,
@@ -503,7 +372,7 @@ class ScatteringProblem:
         Gamma: npt.NDArray[np.float64],
         ordering: Ordering = "COLAMD",
         return_wavefunction: bool = False,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]:
+    ) -> CrossSection | tuple[CrossSection, Wavefunction]:
         """LCP dissociative-attachment cross section on this problem's NUCLEAR
         grid; see `qscat.core.lcp_da_cross_section`. The curve `(Vd, Gamma)`
         is per-call (compute it with `resonance_levels(..., return_curve=True)`
@@ -527,42 +396,6 @@ class ScatteringProblem:
             return_wavefunction=return_wavefunction,
         )
 
-    @overload
-    def lcp_ve_cross_section(
-        self,
-        vprimes: list[int],
-        E: float | npt.ArrayLike,
-        *,
-        Vd: npt.NDArray[np.complex128],
-        Gamma: npt.NDArray[np.float64],
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[False] = ...,
-    ) -> _Sigma: ...
-
-    @overload
-    def lcp_ve_cross_section(
-        self,
-        vprimes: list[int],
-        E: float | npt.ArrayLike,
-        *,
-        Vd: npt.NDArray[np.complex128],
-        Gamma: npt.NDArray[np.float64],
-        ordering: Ordering = ...,
-        return_wavefunction: Literal[True],
-    ) -> tuple[_Sigma, _PsiOut]: ...
-
-    @overload
-    def lcp_ve_cross_section(
-        self,
-        vprimes: list[int],
-        E: float | npt.ArrayLike,
-        *,
-        Vd: npt.NDArray[np.complex128],
-        Gamma: npt.NDArray[np.float64],
-        ordering: Ordering = ...,
-        return_wavefunction: bool = ...,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]: ...
-
     def lcp_ve_cross_section(
         self,
         vprimes: list[int],
@@ -572,7 +405,7 @@ class ScatteringProblem:
         Gamma: npt.NDArray[np.float64],
         ordering: Ordering = "COLAMD",
         return_wavefunction: bool = False,
-    ) -> _Sigma | tuple[_Sigma, _PsiOut]:
+    ) -> CrossSection | tuple[CrossSection, Wavefunction]:
         """LCP vibrational-excitation cross section on this problem's NUCLEAR
         grid; see `qscat.core.lcp_ve_cross_section`. The curve `(Vd, Gamma)`
         is per-call (compute it with `resonance_levels(..., return_curve=True)`
@@ -596,60 +429,6 @@ class ScatteringProblem:
             ordering=ordering,
             return_wavefunction=return_wavefunction,
         )
-
-    @overload
-    def resonance_levels(
-        self,
-        nuclear_grid_b: FemDvrEcsGrid,
-        elec_grid_b: FemDvrEcsGrid,
-        *,
-        re_half_width: float = ...,
-        im_half_width: float = ...,
-        resid_tol: float = ...,
-        window: _Window | None = ...,
-        n_levels: int | None = ...,
-        rel_tol: float = ...,
-        atol: float = ...,
-        golden_rule: bool = ...,
-        return_curve: Literal[False] = ...,
-    ) -> ResonanceLevels: ...
-
-    @overload
-    def resonance_levels(
-        self,
-        nuclear_grid_b: FemDvrEcsGrid,
-        elec_grid_b: FemDvrEcsGrid,
-        *,
-        re_half_width: float = ...,
-        im_half_width: float = ...,
-        resid_tol: float = ...,
-        window: _Window | None = ...,
-        n_levels: int | None = ...,
-        rel_tol: float = ...,
-        atol: float = ...,
-        golden_rule: bool = ...,
-        return_curve: Literal[True],
-    ) -> tuple[ResonanceLevels, npt.NDArray[np.complex128], npt.NDArray[np.float64]]: ...
-
-    @overload
-    def resonance_levels(
-        self,
-        nuclear_grid_b: FemDvrEcsGrid,
-        elec_grid_b: FemDvrEcsGrid,
-        *,
-        re_half_width: float = ...,
-        im_half_width: float = ...,
-        resid_tol: float = ...,
-        window: _Window | None = ...,
-        n_levels: int | None = ...,
-        rel_tol: float = ...,
-        atol: float = ...,
-        golden_rule: bool = ...,
-        return_curve: bool = ...,
-    ) -> (
-        ResonanceLevels
-        | tuple[ResonanceLevels, npt.NDArray[np.complex128], npt.NDArray[np.float64]]
-    ): ...
 
     def resonance_levels(
         self,
