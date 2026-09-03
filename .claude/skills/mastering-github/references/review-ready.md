@@ -79,8 +79,8 @@ is. If you did not run something, say which and why — never imply coverage you
 do not have.
 
 Known-clean baselines, so you do not chase them: `mypy libs/qscat` *including*
-tests has ~205 pre-existing findings, and the repo is not `ruff format`-clean at
-HEAD (a repo-wide run rewrites 44 untouched files — format only what you edited).
+tests has ~205 pre-existing findings. The repo IS `ruff format`-clean —
+a repo-wide run is a no-op, so a file it wants to rewrite is one of yours.
 
 ## Step 6 — Decision point
 
