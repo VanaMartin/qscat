@@ -37,6 +37,9 @@ installed package.
   `typing.assert_type`, and `test_static_types.py` runs a type checker over
   them — a declared return type is invisible at run time, so only a checker
   can gate it.
+- **OpenCode project configuration, six specialist agents, and two slash
+  commands**, adapted from the Claude setup with native permissions and reuse
+  of existing skills and repository instructions.
 - **`energies: {ranges: [...]}` — a sweep written as `np.arange` segments.**
   A level-aware mesh is a coarse background sweep plus a dense window around
   each resonance level: a union of uniform segments, and nothing more. Written
