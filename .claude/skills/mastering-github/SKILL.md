@@ -80,9 +80,12 @@ still earns its place.
 - Tests: `uv run --no-sync pytest`. `libs/qscat/tests -m "not slow"` ≈ 5 min;
   the slow group ≈ 60 min; `apps/qscat-run/tests` ≈ 20 min with slow.
 - Gates: `uv run ruff check .`; `uv run mypy libs/qscat/qscat` (clean).
-  **`mypy libs/qscat` including tests has ~205 pre-existing findings, and the
-  repo is NOT `ruff format`-clean at HEAD** — a repo-wide `ruff format` rewrites
-  44 untouched files. Format only files you edited.
+  **`mypy libs/qscat` including tests has ~205 pre-existing findings**, so do
+  not chase those. `ruff format` IS clean repo-wide — a full run is a no-op, so
+  a file it reformats is one you touched. Markdown is excluded from the
+  formatter on purpose (`[tool.ruff.format]`): ruff formats code blocks inside
+  `.md`, and the notes' snippets are illustrations whose alignment is the
+  teaching.
 - Backgrounded `pytest` in this environment returns exit 0 with an empty output
   file. Run verification in the foreground.
 - Commit trailers are required — see `references/tidy-history.md` before any

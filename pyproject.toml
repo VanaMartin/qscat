@@ -94,6 +94,22 @@ target-version = "py312"
 # their clones, missing docstrings and dead code ARE the assertions.
 extend-exclude = ["reference", "tests/fixtures"]
 
+[tool.ruff.format]
+# ruff 0.16 began formatting Python code blocks INSIDE Markdown. Every one of
+# the 57 files it wanted to rewrite was a `.md`; not one `.py` changed, so the
+# code style this repository is held to did not move -- only the reach of the
+# formatter did.
+#
+# Docs are excluded because their snippets are illustrations, not programs.
+# They carry aligned inline comments that explain a call column by column,
+# partial signatures, and `...` where a body would go. Reformatting rewrites
+# the alignment and reflows lines whose shape is the teaching. The notes are
+# also read in two renderers (GitHub and Sphinx), so their source is not free
+# to move for a linter's convenience.
+#
+# `ruff check` still reads them; this is a formatting exclusion only.
+exclude = ["*.md"]
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "NPY", "RUF", "D", "ANN"]
 # RUF001-003 (ambiguous unicode) are off: the docstrings and comments here
