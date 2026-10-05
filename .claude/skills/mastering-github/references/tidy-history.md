@@ -1,150 +1,143 @@
 # /tidy-history
 
-Rewrite a fix-on-fix branch into a short chain of logical, readable commits
-re-homed on current `origin/main` — without changing the settled end state.
+Rebuild a settled fix-on-fix branch as logical commits on its original base,
+prove that reconstruction preserves its tree, then integrate current `origin/main`.
+History reconstruction and upstream integration have different verification gates.
 
-For branches that accreted "fix review comment", "oops typo", "actually revert
-that" while iterating. The tree is right; the history is not.
+## Preconditions
 
-## Preconditions — hard refusals
+Stop if on `main`, the working tree is dirty, relevant verification is failing,
+or the commits are already logical units. Obtain explicit approval before rewriting
+published history or a branch containing another contributor's work. Never rewrite
+commits already on the target base.
 
-Refuse, and say which one, if:
+## 1. Establish scope and recovery points
 
-- **On `main`.** Never rewrite the default branch.
-- **Uncommitted changes.** Settle the tree first — Step 2 depends on the end
-  state being final.
-- **Tests failing.** Rewriting a broken branch produces broken commits.
-- **The branch is already clean.** If every commit is already a logical unit,
-  say so and stop. Rewriting for its own sake destroys review anchors and
-  invalidates any review comments already attached to those SHAs.
-- **Someone else has commits on the branch,** unless your human partner
-  explicitly says to proceed. Force-pushing over a collaborator is not yours to
-  decide.
-
-## Step 1 — Back up first, always
-
-```bash
-git branch backup/$(git branch --show-current)-$(git rev-parse --short HEAD)
-git rev-parse HEAD          # record this; it is the recovery point
-```
-
-Do this even when confident. Especially then.
-
-## Step 2 — Freeze the end state
-
-```bash
-MB=$(git merge-base main HEAD)
-git rev-parse HEAD > /tmp/tidy-end-state
-git diff $MB..HEAD > /tmp/tidy-end-state.diff
-```
-
-The final tree is the specification. Whatever you build in Step 4, it must
-reproduce this diff exactly. Nothing in the working tree may change.
-
-## Step 3 — Collapse onto the ORIGINAL merge-base
-
-```bash
-git reset --soft $MB
-```
-
-One staged snapshot on the base the branch actually started from. Collapse
-*before* re-homing — mixing the two turns every unrelated upstream change into
-a conflict inside your own rewrite.
-
-## Step 4 — Rebuild as logical commits
-
-Stage and commit in units a reviewer can hold in their head. Aim for units that
-are individually reviewable and individually revertible; a good branch is
-usually 1–6 of them, but let the work decide, not the number.
-
-Split by **what changed and why**, never by file type or by task number:
-
-| Good unit | Bad unit |
-|---|---|
-| "add the two-angle pole matcher" | "changes to pole.py" |
-| "wire the CLI surface" | "task 6" |
-| "fix the golden-rule crash on an empty comparator window" | "review fixes" |
-| "correct the H2+ reduced mass to m_p/2" | "misc fixes" |
-
-Rules:
-
-- A pure refactor is its own commit, never mixed with behaviour.
-- A fix that only repairs a defect introduced earlier *on this branch* belongs
-  folded into the commit that introduced it — that defect never reached `main`,
-  so its history has no audit value.
-- A fix that corrects something already on `main` stays its own commit — that
-  one is real history.
-- Docs may ride with the code they document, or stand alone if substantial.
-
-**Preserve the commit trailers.** This repo's commits carry
-`Co-Authored-By:` and `Claude-Session:` lines. Rewriting drops them silently
-unless you re-add them to every new message. Check with
-`git log -1 --format=%b` on a pre-rewrite commit and reproduce the same
-trailers.
-
-## Step 5 — Re-home onto current main, by rebase
+Run the command blocks in one shell so their variables remain available. Record
+the values and commands in an isolated temporary directory for recovery; do not
+use shared fixed filenames across worktrees.
 
 ```bash
 git fetch origin
-git rebase origin/main
+BRANCH=$(git branch --show-current)
+OLD_HEAD=$(git rev-parse HEAD)
+NEW_MAIN=$(git rev-parse origin/main)
+MB=$(git merge-base "$NEW_MAIN" "$OLD_HEAD")
+BACKUP="backup/${BRANCH}-$(git rev-parse --short HEAD)"
+git branch "$BACKUP" "$OLD_HEAD"
+STATE_DIR=$(mktemp -d "${TMPDIR:-/tmp}/qscat-tidy.XXXXXX")
+git diff --binary "$MB" "$OLD_HEAD" > "$STATE_DIR/original.diff"
+printf '%s\n' "$BRANCH" "$OLD_HEAD" "$NEW_MAIN" "$MB" "$BACKUP" > "$STATE_DIR/refs"
+REMOTE_HEAD=$(git ls-remote origin "refs/heads/$BRANCH" | cut -f1)
+printf '%s\n' "$REMOTE_HEAD" > "$STATE_DIR/remote-head"
+git log --oneline "$MB..$OLD_HEAD"
 ```
 
-Rebase — never `reset --hard origin/main`, which discards your work while
-looking like it worked. Resolve conflicts against *upstream's* intent, not by
-reflexively keeping your side.
+Check each command succeeded before proceeding. Confirm this commit set is the
+intended PR scope; inherited unrelated work needs a base/scope decision first.
+If the backup name already exists, choose a fresh name rather than overwriting it.
+The recorded remote head is the lease for publication; fetching later must not
+silently replace it.
 
-## Step 6 — Verify before claiming done
+Inspect persistent references to branch SHAs, including manifests and published
+artifacts. A digest identifies content; a commit records provenance. If rewriting
+would make required provenance unreachable, resolve its retention/publication with
+the owner before proceeding. Do not change scientific records merely to hide an
+orphaned SHA.
+
+## 2. Rebuild on the original base
 
 ```bash
-git diff $(cat /tmp/tidy-end-state) HEAD    # MUST be empty
+git reset --soft "$MB"
+git restore --staged -- .
 ```
 
-**An empty diff is the whole gate.** Non-empty means the rewrite changed the
-result: stop, restore from the backup branch, and start over. Do not
-"reconcile" the difference — that is how a rewrite silently ships something
-nobody wrote.
+The snapshot is now in the working tree, unstaged. Stage and commit logical units,
+using explicit paths or hunks, not an indiscriminate `git add -A`. Include intended
+new files and deletions when rebuilding. Split by behavior and rationale rather
+than file type or task number. Pure refactors are separate from behavior changes;
+fixes to already-shipped defects retain their own rationale. Preserve applicable
+`Co-Authored-By:` and `Claude-Session:` trailers from the commits being regrouped.
 
-Then re-run verification, foreground (backgrounded `pytest` here returns exit 0
-with empty output):
+If staged/worktree state is unexpected, stop and inspect the backup. Recovery may
+require discarding reconstruction changes; obtain approval before a destructive
+reset and keep the backup and state directory until verification is complete.
+
+## 3. Prove reconstruction identity before integration
 
 ```bash
-uv run --no-sync pytest libs/qscat/tests -q -m "not slow"
-uv run ruff check . && uv run mypy libs/qscat/qscat
+git status --short
+git diff --exit-code "$OLD_HEAD" HEAD
+git rev-parse "$OLD_HEAD^{tree}" "HEAD^{tree}"
+REBUILT_HEAD=$(git rev-parse HEAD)
+printf '%s\n' "$REBUILT_HEAD" > "$STATE_DIR/rebuilt-head"
 ```
 
-Rebasing onto a moved `main` can break a passing branch. The pre-rewrite pass
-does not carry over.
+Require a clean working tree, an empty diff, and identical tree IDs. This compares
+all tracked content, including file modes and deletions. A mismatch means the
+reconstruction is incomplete or altered the result: stop and recover from the
+backup, rather than explaining away the difference.
 
-## Step 7 — Push
+## 4. Integrate the recorded current main
 
 ```bash
-git push --force-with-lease
+git rebase --onto "$NEW_MAIN" "$MB"
 ```
 
-`--force-with-lease`, never `--force`: it refuses if the remote moved under
-you. If it refuses, someone else pushed — stop and ask, do not override.
+Resolve conflicts against both the branch contract and upstream intent, rather
+than reflexively keeping one side. Record every conflict resolution. On an
+unexpected conflict or scope change, stop; `git rebase --abort` returns to the
+verified reconstruction while a rebase is in progress.
 
-## Anti-patterns
+## 5. Verify the integration separately
 
-| Miss | Consequence |
-|---|---|
-| Rebasing onto new `main` *before* collapsing | Every upstream change becomes a conflict inside your rewrite |
-| `reset --hard origin/main` to "re-home" | Silently discards the branch |
-| Skipping the end-state diff check | Ships a tree nobody authored |
-| Squashing everything to one commit | Throws away the review structure this command exists to create |
-| Rewriting an already-clean branch | Destroys review anchors, orphans existing review comments |
-| Dropping the commit trailers | Loses attribution on every commit |
-| `--force` instead of `--force-with-lease` | Overwrites a collaborator |
+```bash
+git range-diff "$MB..$REBUILT_HEAD" "$NEW_MAIN..HEAD"
+git diff --stat "$REBUILT_HEAD" HEAD
+git diff "$REBUILT_HEAD" HEAD
+git diff --check "$NEW_MAIN...HEAD"
+git status --short
+```
 
-## What this does NOT do
+Explain range-diff changes and inspect the integrated tree delta against upstream
+changes and recorded conflict resolutions. Whole-tree equality with `OLD_HEAD`
+is not required here: legitimate upstream changes are now present. An unexpected
+branch behavior change is a failure, not an accepted consequence of rebasing.
 
-- It does not change the tree. If the end-state diff is non-empty, you broke it.
-- It does not merge or flip a PR — see `review-ready.md`.
-- It does not fix tests or review findings.
-- It does not rewrite commits already on `main`.
+Re-run verification affected by integration. Use the current CI targets:
 
-## Output shape
+```bash
+uv run --no-sync pytest -m "not slow" -n auto --dist loadfile
+uv run ruff check .
+uv run ruff format --check .
+uv run mypy libs/qscat/qscat apps/qscat-run/qscat_run
+```
 
-Report: backup branch name → before/after commit counts → the new commit
-subjects in order → end-state diff empty (yes/no) → verification numbers →
-pushed (yes/no).
+Pin Linux BLAS threads to one per worker. Run relevant production tests serially
+when numerical behavior can change; record actual counts, skips, exit status,
+and any justified exclusions. Await completion and retain output. A pre-rebase
+pass does not establish correctness of the integrated tree.
+
+## 6. Publish with the recorded lease
+
+After approval and passing verification, push to the explicit remote branch:
+
+```bash
+if [ -n "$REMOTE_HEAD" ]; then
+  git push "--force-with-lease=refs/heads/$BRANCH:$REMOTE_HEAD" origin "HEAD:refs/heads/$BRANCH"
+else
+  git push -u origin "$BRANCH"
+fi
+```
+
+Never substitute `--force`. If the lease rejects, stop for a decision; do not
+refresh it and retry automatically. Keep recovery points until publication is
+confirmed. This procedure does not merge, change PR visibility, or fix review
+findings as part of history reconstruction.
+
+## Report
+
+Report the backup/state location, original/base/upstream refs, before/after commit
+counts and subjects, reconstruction identity result, integration/conflict review,
+verification results, and publication status. Distinguish preserved branch content
+from changes incorporated from upstream.

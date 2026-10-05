@@ -9,19 +9,23 @@ Refuse and say why if any hold:
 
 - On `main` — this operates on a branch.
 - Uncommitted changes — settle the tree first; you cannot audit a moving target.
-- Tests not yet passing — this is a cleanup pass, not a debugging pass. Use
-  `superpowers:systematic-debugging`.
+- Relevant checks not yet passing — settle failures before the cleanup pass.
+  Use `superpowers:systematic-debugging` when available; otherwise reproduce and
+  diagnose the failure directly.
 
 ## Step 1 — Establish state
 
 ```bash
+git fetch origin
 git branch --show-current && git status --short
-git log --oneline $(git merge-base main HEAD)..HEAD
-gh pr view --json number,state,isDraft,title 2>/dev/null || echo "no PR yet"
+git log --oneline origin/main..HEAD
+gh pr view --json number,state,isDraft,title,baseRefName,headRefName
 ```
 
-Report: branch, commit count, PR state. If a PR already exists and is *not* a
-draft, say so — the flip step is then a no-op and the rest still applies.
+Report the branch, intended PR base, commit scope, and PR state. Confirm inherited
+commits belong in that scope before publication. If the PR targets a different
+base, inspect its delta against that base. Distinguish a missing PR from a failed
+GitHub/authentication request. A non-draft PR makes the flip a no-op.
 
 ## Step 2 — Dissolve and prune
 
@@ -38,11 +42,15 @@ Delete, do not tidy:
 
 - scratch scripts, `/tmp` outputs, debug prints, commented-out code
 - tests that assert nothing, or that only restate the implementation
-- files added "to be safe" that nothing imports — check with `grep -rn`
+- files whose lack of use is confirmed by the five dynamic-reference checks in
+  `code-mapping`, not merely an import search
 - `docs/` files that duplicate content now living elsewhere
 
-Deleting a whole unit is usually right where trimming it is wrong. If you are
-unsure whether something ships, that uncertainty is the answer: it does not.
+Before deleting code or prose, apply `code-quality-judging`'s provenance check:
+preserve unique rationale, assumptions, and measurements in their durable home.
+An unresolved orphan or uncertain purpose is a finding to investigate, not
+permission to delete. For a supposedly redundant test, identify the existing
+test that covers the same realistic regression before removing it.
 
 ## Step 4 — Comment and docstring durability
 
@@ -63,24 +71,30 @@ A number in a comment must say what it establishes, not where it came from.
 
 ## Step 5 — Verify
 
-Foreground only — backgrounded `pytest` here returns exit 0 with empty output.
+Choose checks from the actual change and current CI contracts. Await completion,
+retain output, and report real exit status, counts, skips, and missing capabilities;
+a launched process or an empty capture is not verification evidence. Run numerical
+jobs centrally so parallel reviewers do not contend for memory or output paths.
 
 ```bash
-uv run --no-sync pytest libs/qscat/tests -q -m "not slow"   # ~5 min
-uv run --no-sync pytest apps/qscat-run/tests -q             # ~20 min with slow
+uv run --no-sync pytest -q -m "not slow" -n auto --dist loadfile
 uv run ruff check .
-uv run mypy libs/qscat/qscat
+uv run ruff format --check .
+uv run mypy libs/qscat/qscat apps/qscat-run/qscat_run
 ```
 
-Run the slow library group (~60 min) when the branch touched `libs/qscat`.
+Pin Linux BLAS threads to one per worker. Select relevant production suites when
+the change could move a number and run them serially. For guidance-only changes,
+verify affected paths, commands, and instruction contracts instead of running
+unrelated numerical calculations. State which checks were selected and why.
 
 **Report actual numbers.** "Tests pass" is not a result; "374 passed, 9 skipped"
 is. If you did not run something, say which and why — never imply coverage you
 do not have.
 
-Known-clean baselines, so you do not chase them: `mypy libs/qscat` *including*
-tests has ~205 pre-existing findings, and the repo is not `ruff format`-clean at
-HEAD (a repo-wide run rewrites 44 untouched files — format only what you edited).
+Type-check shipped package paths, not `libs/qscat` including tests. Format only
+edited files; the read-only repository format check matches CI. Do not assume
+historical finding counts or formatting exceptions describe the current baseline.
 
 ## Step 6 — Decision point
 
@@ -121,6 +135,10 @@ plan for details."
 
 If the branch's provenance genuinely matters (a port, a correction to published
 values), state the finding itself, not a pointer to where it was discussed.
+
+Reconcile the PR body with the final diff and verification results after the last
+edit or history integration. Remove descriptions of implementations or tests that
+were subsequently removed.
 
 ## Step 9 — Flip
 

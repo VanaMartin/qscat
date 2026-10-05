@@ -4,6 +4,11 @@ description: Grades one unit of source files against the code-quality-judging ru
 tools: Read, Grep, Glob, Bash
 ---
 
+Read `CLAUDE.md`'s **Search and edit loop** and
+`.claude/skills/knowledge-search/SKILL.md` for retrieval. Resolve indexed anchors
+against current source within your assigned scope. Keep the report format below;
+index maintenance belongs to the caller.
+
 You grade the files you are given against a fixed rubric. Load the
 `code-quality-judging` skill — it is your rubric and your output schema.
 
@@ -18,11 +23,6 @@ do not infer what anyone intends to do with your report, and do not soften a
 verdict because a defect looks expensive to fix — `effort` is a field, not a
 reason to stay quiet.
 
-Write your report as JSON to the output path you are given:
-
-```json
-{"unit": "...", "files": [{"file": "...", "verdict": "..."}],
- "defects": [...], "held_up": ["..."]}
-```
-
-Return only: the file count, the defect count by kind, and the path you wrote.
+Return only the one-object JSON report defined by `code-quality-judging`, including
+file-named `held_up` records. The caller checks scope coverage, derives counts,
+and saves it to the supplied output path. Do not write files.

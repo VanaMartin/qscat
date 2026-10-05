@@ -1,5 +1,15 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "lancedb": {
+        "type": "local",
+        "cwd": ".",
+        "command": ["uv", "run", "--project", ".opencode/search", "--python", "3.12", "--frozen", "python", "-m", "tools.agent_search.mcp"],
+        "timeout": { "startup": 900000 }
+      }
+    }
+  },
   "permissions": [
     { "action": "shell", "resource": "*", "effect": "ask" },
     { "action": "shell", "resource": "uv sync --all-packages", "effect": "allow" },
@@ -10,5 +20,17 @@
     { "action": "shell", "resource": "docker build *", "effect": "allow" },
     { "action": "shell", "resource": "git status *", "effect": "allow" },
     { "action": "shell", "resource": "git diff *", "effect": "allow" }
-  ]
+  ],
+  "agents": {
+    "explore": {
+      "permissions": [
+        { "action": "skill", "resource": "knowledge-search", "effect": "allow" },
+        { "action": "execute", "resource": "*", "effect": "allow" },
+        { "action": "lancedb_query_table", "resource": "*", "effect": "allow" },
+        { "action": "lancedb_table_details", "resource": "*", "effect": "allow" },
+        { "action": "lancedb-articles_query_table", "resource": "*", "effect": "allow" },
+        { "action": "lancedb-articles_table_details", "resource": "*", "effect": "allow" }
+      ]
+    }
+  }
 }

@@ -14,10 +14,32 @@ permissions:
   - action: glob
     resource: "*"
     effect: allow
+  - action: skill
+    resource: knowledge-search
+    effect: allow
+  - action: execute
+    resource: "*"
+    effect: allow
+  - action: lancedb_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb_table_details
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_table_details
+    resource: "*"
+    effect: allow
   - action: shell
     resource: "*"
     effect: ask
 ---
+
+Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval.
+Resolve anchors against current source; retain the reference-only evidence scope
+and report format below. Index maintenance belongs to the caller.
 
 Use only `reference/` as a read-only porting oracle. Given a target method or module,
 extract its mathematical formulation and equations, control flow, inputs/outputs and

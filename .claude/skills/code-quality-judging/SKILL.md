@@ -126,7 +126,7 @@ several shapes and the prose names none.
 
 ## Verdicts and defects
 
-**The report file is ONE object with exactly four top-level keys**, however many files
+**The returned report is ONE object with exactly four top-level keys**, however many files
 the unit contains:
 
 ```json
@@ -175,3 +175,10 @@ report noise instead of findings.
 Every report ends with `held_up`: the things in this unit that are good, and why.
 This is not politeness — without it, severity has no scale, and a report that finds
 only faults is indistinguishable from a reviewer who was determined to find them.
+
+Each `held_up` record has `file`, `evidence` (a source quote), and `reason` (what
+the quoted code establishes). It is an object, not a bare string.
+
+The read-only judge returns only this JSON object. The caller checks the supplied
+file list is fully covered, derives counts, and persists the report. Output paths
+in dispatches describe caller-owned destinations, not permission for a judge to edit.

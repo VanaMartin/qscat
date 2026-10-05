@@ -11,7 +11,7 @@ Hand-tuned FEM-DVR-ECS grids have been the single most expensive class of bug in
 repo — a coarse shared nuclear grid under-resolved the K≈58 dissociative-attachment wave
 (σ off by ~36 orders); the H₂⁺ Coulomb tail needed 1300 bohr. This skill replaces the
 human "good eye" for element lengths with the `qscat.tuning` primitives: it computes the
-**minimal-DVR-point grid that holds a target precision** for a given model, coordinate, and
+**lowest-cost tested grid that holds a target precision** for a given model, coordinate, and
 energy range — an adaptive equidistribution mesh (each element carrying a ~constant de
 Broglie phase), the h/p-optimal quadrature, and a double-ECS-safe absorbing tail.
 
@@ -53,7 +53,8 @@ job is to VALIDATE and MINIMISE it with the probes.
 Create a todo per step.
 
 1. **Frame the problem.** Fix the `model`, the target `energy_range = (E_min, E_max)`, the target
-   `rtol` (default 1e-3), and the observable (VE/DA/DR). Note whether it's the TI route (incident =
+   `rtol` (default 1e-3), an explicit absolute error floor for near-zero observables,
+   and the observable (VE/DA/DR). Note whether it's the TI route (incident =
    channel function) or the TD route (incident = a Gaussian wavepacket).
 
 2. **Incident / test-function placement (TW analysis) — if TD.** Either take a caller-supplied
@@ -67,9 +68,10 @@ Create a todo per step.
    **For a DA/DR (dissociation) observable, propose the NUCLEAR grid with
    `channel="dissociation"`** — the resonance-aware path that sizes the DVR order to the fast
    exit wave `K_exit`, super-refines the anion/neutral crossing `R*` (`Re(V_d)−v0` sign-change),
-   and trims the extent. This is what makes the a-priori nuclear grid 2-D-CONVERGE for σ_DA on
-   the first pass (it closes "finding #3" — the plain `v0`-only nuclear grid under-resolves the
-   crossing and gives σ_DA ~5× too low; see `docs/physics/discretisation-tuning.md`). VE keeps
+   and trims the extent. This produced first-pass σ_DA convergence in the measured
+   F₂ case; it is not a guarantee for a new DA/DR model or energy range. The plain
+   `v0`-only grid missed the crossing feature in that case; see
+   `docs/physics/discretisation-tuning.md`. VE keeps
    the default `channel="ve"`. It does a per-R resonance scan (two electronic diagonalizations
    per sample), so it is not free — pass small `elec_grids`/`resonance_n_dense` for a quick look.
 
@@ -77,8 +79,9 @@ Create a todo per step.
    largest extent is near-threshold `E_min`. At each extreme:
    - Nuclear: `probe_nuclear(model, g_R, n_vib, rtol=rtol)` (vibrational eigenvalues stable under
      one `refine`).
-   - Electronic: `probe_electronic(model, g_r, R_eq, window=..., rtol=rtol)` (bound/resonance energy
-     stable).
+   - Electronic: `probe_electronic(model, g_r, R_eq, window=..., rtol=rtol)` checks
+     the lowest anion bound-state energy. It is a proxy, not resonance-position
+     or width convergence; the current implementation does not use `window`.
    - **Channel representation — the cheap, decisive one:** `probe_channel_representation(g, k, l,
      charge=model.charge, mass=..., rtol=rtol)` where `k` is the largest channel wavenumber the
      observable needs — the incident `k=√(2E_max)`, and for a dissociation channel the OUTGOING
@@ -96,33 +99,64 @@ Create a todo per step.
    under the h/p sweep (a higher order can win with fewer, denser elements), so rank by the probe +
    `tensor_cost`, not by element count alone.
 
-6. **Final 2-D spot-check.** Build `TensorGrid([g_r, g_R])` and run the ACTUAL observable
-   (`ve_cross_section` / `da_cross_section` / `dr_cross_section`) at the HARDEST energy, and confirm
-   it agrees with a once-refined grid to `rtol`. For a non-laptop deck (H₂⁺-scale), run this on a
-   reduced proxy or under Docker/MUMPS and SAY SO — do not silently skip it. Instead of a single
+6. **Final actual-observable 2-D check.** Build `TensorGrid([g_r, g_R])` and run the
+   ACTUAL observable (`ve_cross_section` / `da_cross_section` / `dr_cross_section`)
+   on the final emitted grids and separately nuclear- and electronic-refined grids.
+   Select and justify the hardest energies, including relevant interior resonances
+   or threshold neighborhoods as well as endpoints. Record the values and compare
+   them with the explicit relative/absolute error budget. A spot-check establishes
+   convergence only for its stated observable, parameters, and sampled energies.
+   For a non-laptop deck (H₂⁺-scale), use Docker/MUMPS or report a reduced proxy as
+   `proxy_only`; an unperformed production check is `deferred`, not a pass. Instead of a single
    manual once-refined comparison, you may call the general fallback directly: define `observable`
    as a closure over the real cross-section at that hardest energy (`observable(g_r, g_R) ->
    float`) and call `refine_to_2d_convergence(observable, g_r, g_R, rtol=..., max_iter=...)` — it
    iterates, adopting whichever coordinate (nuclear or electronic) moves the observable more, until
    both relative moves are under `rtol` or `max_iter` is hit. If `detail["iterations"]` is
-   non-empty, the a-priori grid from step 3 was under-resolved in 2-D even though it may have
-   passed every 1-D probe (exactly the F2 DA finding above) — report the converged grid pair
-   in place of the original, plus the cost delta (`grid_cost`/`tensor_cost` before vs after).
+   non-empty, the a-priori grid from step 3 required refinement even though it may
+   have passed every 1-D probe. Require `detail["converged"]` before calling the
+   result converged; reaching `max_iter` with a returned grid is not a pass. This
+   helper takes `rtol`, not `atol`; evaluate any required absolute-error checks
+   separately using recorded observable values. Recheck all selected energies and
+   applicable probes on the final grid pair, plus the cost delta
+   (`grid_cost`/`tensor_cost` before vs after).
+
+   Real-element h-refinement preserves domain endpoints, DVR order, and the ECS
+   tail. It cannot establish convergence of those fixed choices. For a production
+   claim, also check applicable real-region extent, order, tail length/resolution,
+   and admissible ECS-angle variations against the actual observable. Near-threshold
+   channels can need a longer absorbing tail than an `E_max`-based proposal.
+   Use at least three resolutions for the limiting refinements, or an independently
+   justified error bound. Treat the helper's convergence flag as a local stopping
+   diagnostic; record its terminal candidate values separately because its report
+   does not retain them. If boundary/contour checks are deferred, limit the claim
+   to real-region h-convergence on the fixed domain/contour.
 
 7. **Emit the config + report.** Output the per-coordinate grid (the `ElementSpec` lists / the built
    `FemDvrEcsGrid`, expressible as a committed deck) and a report:
    - the achieved precision (each probe's convergence number),
    - the cost (`grid_cost`/`tensor_cost`) vs the previous/hand grid,
    - the tuning decisions (which knobs moved and why),
-   - any deferrals (the 2-D check on Docker; an uncalibrated constant).
+   - the actual-observable values, refinement moves, sampled energies, and explicit
+     error budget on the final grid;
+   - status: `production_converged`, `proxy_only`, `deferred`, or `not_converged`,
+     with limitations and the remaining production check when applicable.
 
 ## Stop criteria
 
-STOP and emit when **every** probe (both extremes, both coordinates, the channel wavenumber) holds
-`rtol` under one refinement AND no single knob can be coarsened without breaking a probe. STOP and
-ESCALATE if a probe cannot reach `rtol` at any feasible grid (a genuine finding — report the numbers,
-don't loosen `rtol`), or if the ECS angle the potential allows can't absorb the fastest wave (report
-it — the model may need a different tail representation).
+Emit `production_converged` only when all applicable probes pass AND the actual
+production observable on the emitted grids passes step 6 at the declared sampled
+energies, including the refinement sequence and applicable extent/tail/contour
+checks. A proxy does not establish production convergence. A diagnostic for a
+closed/nonexistent channel may be inapplicable; record the physical reason rather
+than silently relaxing its tolerance or treating it as evidence for an open channel.
+
+For a lowest-cost claim, record the coarsening candidates tested. Any accepted
+coarsening must retain both the probe and actual-observable checks. Do not claim
+a global minimum from a local search. Stop with `not_converged` and escalate if
+the required checks fail within feasible resources or iteration limits; emit the
+measured failure and best tested candidate without loosening the error budget.
+Use `proxy_only` or `deferred` when resource limits prevent the production check.
 
 ## Worked example — the N₂ nuclear grid
 

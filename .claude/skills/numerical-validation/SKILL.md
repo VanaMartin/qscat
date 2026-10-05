@@ -14,8 +14,9 @@ checking physical invariants the math guarantees, and/or matching an
 independent reference implementation. Use one or more of the four techniques
 below depending on what the method is; most methods need at least two.
 
-**REQUIRED BACKGROUND:** `superpowers:test-driven-development` — write these
-checks as tests before/alongside the implementation, not after the fact.
+Write validation checks before or alongside the implementation. Use
+`superpowers:test-driven-development` when available; its absence does not remove
+the requirement to establish the expected result independently of the code.
 
 ## When to Use
 
@@ -42,37 +43,53 @@ import numpy as np
 
 def test_harmonic_oscillator_ground_state():
     E0 = solve_ho_eigenvalue(n=0)
-    np.testing.assert_allclose(E0, 0.5, rtol=1e-8)
+    np.testing.assert_allclose(E0, 0.5, rtol=1e-8, atol=0.0)
 ```
 
 ### (b) Convergence studies
 
-Refine the discretization (grid spacing, number of basis functions, DVR
-points) across a few resolutions and assert the error decreases monotonically
-toward the known convergence rate (e.g. spectral methods should show
-super-algebraic decay; finite differences should show the expected power
-law). A single high-resolution pass proves nothing about correctness of the
-discretization — you need at least 3 resolutions to see the trend.
+Refine the discretization (grid spacing, basis size, DVR order, time step, or
+domain extent) across at least three resolutions. Track the actual observable
+and, where available, its error against an independent result. State the expected
+trend or convergence rate and the regime in which it applies.
 
-```python
-errors = [abs(compute(n) - exact) for n in (8, 16, 32, 64)]
-assert all(e2 < e1 for e1, e2 in zip(errors, errors[1:])), errors
-```
+Strict monotonic decrease is appropriate only when the method and refinement
+family justify it. Resonance tracking, competing error sources, and roundoff can
+produce non-monotone sequences or a plateau. Explain these with resolved states,
+separate refinement knobs, and an error floor; do not turn an unexplained plateau
+into a pass. Report the sequence and confirm the final observable meets the stated
+error budget. A single high-resolution pass or one small successive difference
+does not establish convergence.
 
 ### (c) Conservation checks
 
-For time evolution, assert the invariants the physics guarantees: norm
-preservation (`||psi(t)|| == ||psi(0)||`) and unitarity of the propagator
-(`U @ U.conj().T ≈ I`). A propagator that drifts in norm over long
-integration is a correctness bug even if short-time results look fine.
+Choose invariants from the Hamiltonian, boundary conditions, and inner product:
 
-```python
-np.testing.assert_allclose(np.linalg.norm(psi_t), 1.0, atol=1e-10)
-```
+- **Closed Hermitian systems:** test physical norm preservation and propagator
+  unitarity in the appropriate metric. For a time-independent Hamiltonian, also
+  check energy conservation when applicable. Quantify integration error over the
+  relevant propagation interval; short-time agreement can hide accumulated drift.
+- **ECS, absorbing boundaries, or other non-Hermitian systems:** ordinary norm
+  preservation and unitarity are not general requirements. Check the applicable
+  continuity/flux balance, real-region observables, stability, and convergence
+  against an independent propagation or scattering oracle. Loss can be physical;
+  apparent growth needs investigation but is not classified solely by its sign.
+  Monotone decay requires additional dissipativity assumptions and is not a
+  universal ECS invariant.
+
+Preserve the bilinear, non-conjugated c-product for ECS complex-symmetric algebra;
+it is not an ordinary probability norm. State explicitly which product and region
+each measurement uses. Apply `assert_allclose` only to an invariant justified by
+these assumptions, with both `rtol` and `atol` supplied.
 
 ### (d) Differential testing
 
-Compare against an independent implementation:
+State what is independent about the oracle and what the comparison establishes.
+Two routes sharing a grid or ingredient can validate their agreement while sharing
+the same discretization or normalization error. Separate model approximation,
+discretization, and reference uncertainty in the error budget.
+
+Possible comparisons:
 - vs. `reference/` (`reference/eMoScat`, `reference/libXcuda`) — read-only
   oracles; never edit them, only read outputs/algorithms to compare against.
 - vs. `mpmath` high-precision arithmetic for special functions or anywhere
@@ -100,8 +117,7 @@ Compare against an independent implementation:
   running a convergence study.
 - Comparing against `reference/` output but not pinning down what tolerance
   is acceptable given the reference's own precision.
-- Skipping conservation checks for time-evolution code because "the energy
-  looked right" — energy accuracy and norm conservation are independent
-  failure modes.
-- Writing the validation after the implementation instead of alongside it —
-  follow `superpowers:test-driven-development`.
+- Applying closed-system norm or unitarity checks to ECS/open systems, or skipping
+  the balance and stability checks justified by the actual problem.
+- Writing validation after the implementation instead of alongside it, or deriving
+  both the expected value and implementation from the same unverified assumption.

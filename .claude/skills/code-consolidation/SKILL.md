@@ -68,7 +68,7 @@ A homonym cluster has four common explanations, and they get different rulings:
 | pattern | ruling |
 |---|---|
 | a protocol method and its implementations | `keep-separate` — that is what a protocol is |
-| a thin re-export or shim over one real definition | `unify` — collapse to the real one |
+| a thin re-export or shim over one real definition | `unify` only if it carries no required compatibility boundary; otherwise `keep-separate` with that boundary stated |
 | the same logic written twice | `unify` |
 | unrelated code that happens to share a word | `keep-separate` |
 
@@ -90,5 +90,6 @@ share a `save` trades a small duplication for a large false abstraction.
  "proposal": "keep a.py:212 as qscat.core.x.f, add an optional clamp argument"}
 ```
 
-`difference` is required on `unify` and `investigate`. On `keep-separate` it holds
-the reason they stay apart.
+`difference` is nonempty on every ruling. On `keep-separate` it holds the reason
+they stay apart. Return only the JSON array; the caller checks cluster coverage,
+derives counts, and saves it to the requested path. The analyst remains read-only.

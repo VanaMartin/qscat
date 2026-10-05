@@ -1,0 +1,23 @@
+[project]
+name = "qmodeling-agent-search"
+version = "0.1.0"
+description = "Isolated tooling for qModeling's derived agent-search index"
+requires-python = ">=3.12"
+dependencies = [
+    "lancedb==0.21.2",
+    "pandas==2.2.3",
+    "mcp[cli]==1.6.0",
+    "sentence-transformers==4.1.0",
+    "torch==2.7.0",
+    "tree-sitter>=0.25,<0.26",
+    "tree-sitter-rust>=0.24,<0.25",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = []

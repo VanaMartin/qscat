@@ -3,7 +3,8 @@
 The repository supports OpenCode V2 with:
 
 - `opencode.json`: the routine shell-command allowlist adapted from
-  `.claude/settings.json`. Other shell commands ask for approval.
+  `.claude/settings.json`, plus the local code-search MCP mount. Other shell
+  commands ask for approval.
 - `.opencode/agents/`: the six specialist agents adapted from `.claude/agents/`.
   Ask the primary agent to use a specialist by name, for example:
   `Use physics-reviewer to review this method and its validation evidence.`
@@ -14,10 +15,33 @@ The repository supports OpenCode V2 with:
 - `.claude/skills/`: the existing skills, discovered automatically by OpenCode.
 
 Agents inherit the session's model. Read-only specialists cannot use edit tools;
-the three structured-report agents return their JSON for the caller to save.
+the three structured-report agents return only JSON for the caller to check and
+save. The caller derives counts and keeps unresolved symbol decisions separate.
 Shell access for specialists that need it asks for approval, except the Rust
 engineer's routine development commands. Shell approval does not enforce a
 read-only filesystem; only approve inspection commands for read-only agents.
 
 Maintain the Claude and OpenCode specialist prompts together when changing their
 roles. Shared workflow instructions belong in `.claude/skills/` or `CLAUDE.md`.
+
+For repository and processed-article retrieval, use `knowledge-search` and read
+[`docs/agent-search.md`](../docs/agent-search.md). `search/profiles.json` describes
+the corpus/chunking policies consumed by the MCP/indexer; it is not native
+OpenCode configuration.
+Every coding/review agent follows `CLAUDE.md`'s **Search and edit loop**. Specialist
+prompts point to that shared contract; lookup permissions include Code Mode and
+the two LanceDB query/inspection tools. Read-only specialists leave index
+maintenance to the caller. The built-in `explore` adapter also permits these
+lookups; exact searches and source reads remain available when indexes are absent.
+
+OpenCode mounts `tools.agent_search.mcp` from the isolated `search/` Python
+environment. `uv run --frozen` installs its locked dependencies on a fresh clone.
+The startup hook populates an absent/empty code table in the background, with
+automatic per-worktree table selection. `table_details` reports bootstrap state;
+queries await initial population. Populated tables are skipped on later mounts.
+The code reader supports vector, FTS, and hybrid lookup with freshness metadata.
+
+Use `uv run --project .opencode/search --no-sync python -m tools.agent_search status`
+at edit/test checkpoints, and substitute `sync` for explicit catch-up. `bootstrap`
+fires the same empty-only operation manually. See the linked guide for explicit
+new files, worktree ownership, and verification.

@@ -14,6 +14,24 @@ permissions:
   - action: glob
     resource: "*"
     effect: allow
+  - action: skill
+    resource: knowledge-search
+    effect: allow
+  - action: execute
+    resource: "*"
+    effect: allow
+  - action: lancedb_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb_table_details
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_table_details
+    resource: "*"
+    effect: allow
   - action: shell
     resource: "*"
     effect: ask
@@ -21,6 +39,10 @@ permissions:
     resource: code-quality-judging
     effect: allow
 ---
+
+Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval.
+Resolve indexed anchors against current source within your assigned scope. Keep
+the report format below; index maintenance belongs to the caller.
 
 Load `code-quality-judging`; it defines the fixed rubric and exact JSON report
 schema. You are read-only.
@@ -30,5 +52,6 @@ read source for facts the map does not provide. Judge only the supplied files. D
 not speculate about intent or suppress a defect because it is expensive: `effort`
 describes the cost, not whether to report it.
 
-Return the one-object JSON report, the file count, defect counts by kind, and the
-supplied output path. The caller writes the report to that path.
+Return only the one-object JSON report defined by `code-quality-judging`, including
+file-named `held_up` records. The caller checks scope coverage, derives counts,
+and saves it to the supplied output path. Do not write files.
