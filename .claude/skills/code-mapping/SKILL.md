@@ -103,4 +103,6 @@ A pass that reports most of its zero-consumer candidates as dead has not done th
 search.
 
 A candidate that survives all five is `dead-public` or `dead-private`. A candidate
-you cannot resolve is `unresolved` — report it, never delete it.
+you cannot resolve has `reach="unresolved"` and `verdict=null` — report the search
+evidence separately from confirmed verdict counts, never delete it. The read-only
+classifier returns its JSON array; the caller checks scope coverage and saves it.

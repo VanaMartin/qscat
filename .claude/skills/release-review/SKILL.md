@@ -45,7 +45,7 @@ Workspace: `.superpowers/audit/<timestamp>/`, git-ignored, never committed.
 ### Intent isolation is the load-bearing rule
 
 A dispatch for phases 1, 2 or 3 states a scope, the input artifact paths, and an
-output path. **Nothing else.** No goal, no campaign context, no earlier phase's
+caller-owned output path. **Nothing else.** No goal, no campaign context, no earlier phase's
 conclusions.
 
 A judge told "we are trying to make this compact" will find things to compact,
@@ -56,6 +56,12 @@ opinion.
 
 Each agent loads its own rubric from its own skill. Rubrics are never pasted into a
 dispatch.
+
+Read-only specialists return their JSON reports to the orchestrator. The
+orchestrator checks report shape and scope coverage before deriving counts,
+synthesizing findings, or saving artifacts. Unresolved symbol decisions use a
+null verdict and remain separate from confirmed verdict counts. Do not ask an
+agent without write tools to persist its own report.
 
 ### Review units
 
@@ -117,7 +123,9 @@ set produces an empty diff that means *nothing was measured*, not *nothing chang
 Measured on the 2026-08-28 run: both refactors touched `qscat.core` and `qscat.tuning`,
 which no case covers, so their empty diffs were vacuous and the real evidence was the
 suite plus behaviour tests written for the change. When you edit outside the case set,
-either add a case or say plainly in the report that the gate did not cover it.
+either add a case or supply relevant alternative numerical evidence and state
+explicitly which paths the capture did not cover. An uncovered empty diff alone
+cannot satisfy lane B.
 
 ### Phase 6
 
@@ -128,7 +136,10 @@ either add a case or say plainly in the report that the gate did not cover it.
    still present is reported, not dropped.
 3. Re-run the prose-drift check (audit mode, check 1) over every touched file.
    Moving code is the standard way to strand a `path/to/file.py` reference.
-4. Delete the workspace.
+4. Preserve the final findings, measured delta, and verification evidence in the
+   caller's report or retained artifacts before removing temporary workspace data.
+   Durable method rationale belongs in permanent documentation; scratch paths must
+   not become its only source.
 
 ## Track split
 
@@ -181,8 +192,10 @@ structure mode's orchestration is in the Structure mode section above.
   finding cites `file:line` and quotes **both sides** of any contradiction; no
   nitpicks a linter already gates; and a required **"what held up"** section —
   verified strengths calibrate the harshness and catch one-sided reviewers.
-- Agents idle without delivering. Tell them to `SendMessage` the report to
-  `"main"`; on a bare idle notification, request the report explicitly.
+- Use the runtime's supported foreground return or background completion delivery.
+  If it provides a messaging tool, name the actual recipient; do not assume a
+  `SendMessage` tool or a recipient named `"main"` exists. A completion notification
+  without a report is not a completed review.
 - Synthesize by theme, not concatenation: name the one pattern behind the
   findings, lead with the verdict, end with a prioritized fix order sized by
   effort. Publish the report as an artifact and give the link.

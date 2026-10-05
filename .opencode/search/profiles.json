@@ -1,0 +1,104 @@
+{
+  "format": "qmodeling-search-profiles-v1",
+  "purpose": "Indexing policy consumed by tools.agent_search and agents; not native OpenCode configuration",
+  "embedding": {
+    "registry": "sentence-transformers",
+    "model": "all-MiniLM-L6-v2",
+    "device": "cpu",
+    "dimensions": 384,
+    "max_input_tokens": 256,
+    "chunk_target_tokens": 160,
+    "chunk_max_tokens": 220,
+    "total_input_max_tokens": 256,
+    "overlap_tokens": 24,
+    "token_budget_includes_provenance_header": true,
+    "model_change_requires_new_table_and_reembedding": true
+  },
+  "repository": {
+    "server": "lancedb",
+    "table": "qscat_knowledge",
+    "table_selection": "reuse the owned base table; otherwise qscat_knowledge_<16-character SHA256 of resolved worktree root>; --table overrides",
+    "include": [
+      "libs/**", "apps/**", "projects/**", "validation/**", "benchmarks/**",
+      "tests/**", "native/**", "docs/**", "tools/**",
+      "docker/**", ".github/**", ".claude/skills/**", ".claude/agents/**",
+      ".opencode/agents/**", ".opencode/README.md", ".opencode/search/*.json", ".opencode/search/*.toml", "opencode.json",
+      "README.md", "AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "pyproject.toml"
+    ],
+    "extensions": [".py", ".rs", ".md", ".rst", ".toml", ".yaml", ".yml", ".json", ".jsonc", ".sh"],
+    "extensionless_files": ["docker/Dockerfile", "docker/*.Dockerfile"],
+    "tracked_files_only": true,
+    "exclude": [
+      "reference/eMoScat/**", "reference/libXcuda/**", "reference/literature/**",
+      "docs/superpowers/**", ".superpowers/**", ".claude/worktrees/**",
+      ".git/**", ".venv/**", "**/target/**", "**/__pycache__/**",
+      "docs/_build/**", "runs/**", "**/results/**", "tests/fixtures/**",
+      "uv.lock", "Cargo.lock"
+    ],
+    "chunking": "Python/Rust symbols and Markdown headings; split large units without losing parent context",
+    "freshness": "worktree-selected manifest, file SHA256, stable symbol/heading anchor, content and embedding hashes; line ranges are derived hints",
+    "document_identity": {
+      "fields": ["repo_id", "relative_path", "language", "symbol_or_heading_kind", "qualified_anchor", "duplicate_disambiguator"],
+      "line_numbers_in_identity": false,
+      "rename_or_move": "replace old anchor with new path/name; preserve reusable content embeddings when payloads match",
+      "ambiguous_anchor": "resolve explicitly; do not choose by old line number"
+    },
+    "embedding_cache": {
+      "key_fields": ["embedding_model_revision_and_parameters", "embedding_payload_sha256"],
+      "excluded_from_payload": ["line_ranges", "file_sha256", "snapshot_id", "worktree_id", "timestamps"],
+      "unchanged_payload": "reuse vector; update source-location metadata",
+      "chunker_change": "rechunk under the new version/settings; reconcile membership and reuse identical payloads"
+    },
+    "edit_lifecycle": {
+      "authority": "current working-tree source",
+      "writer": "one incremental indexer; agents query and request supported catch-up",
+      "refresh_boundary": "watcher catch-up and coherent edit/test checkpoints",
+      "refresh_scope": "reparse affected added/changed/renamed/deleted files; reconcile locations and dependency links",
+      "worktree_isolation": "select a worktree-specific manifest or overlay; publish only after reconciliation succeeds",
+      "untracked_files": "explicit task-owned additions may enter a worktree overlay; never recursively ingest untracked files",
+      "read_only_agents": "caller checks freshness and owns any refresh request",
+      "unavailable_refresh": "use local source; caller reports unsynchronised paths"
+    },
+    "implementation": {
+      "writer": "python -m tools.agent_search sync",
+      "status": "python -m tools.agent_search status",
+      "mode": "checkpoint reconciliation; no background watcher",
+      "ownership": "one manifest and table per worktree; reject cross-worktree writes",
+      "embedding_cache": "reuse exact payload/model keys from the owned table",
+      "query_modes": ["vector", "fts", "hybrid"],
+      "mcp_mode": "project-local reader honors vector/fts/hybrid and reports freshness",
+      "mount_hook": "tools.agent_search.mcp lifespan runs bootstrap asynchronously for absent/empty tables under the writer lock; populated tables are skipped"
+    },
+    "implementation_candidate": {
+      "engine": "CocoIndex with its LanceDB target connector",
+      "reference": "https://github.com/cocoindex-io/cocoindex/tree/main/examples/code_embedding_lancedb",
+      "status": "deferred: current CocoIndex LanceDB extra requires LanceDB >=0.34 and Python >=3.11; checkpoint writer uses server-compatible LanceDB 0.21.2"
+    },
+    "lookup": {"current_mode": "vector_fts_or_hybrid_plus_local_exact_search", "target_mode": "hybrid", "top_k": 5},
+    "index": {"initial_vector_index": "none_exact_scan", "target_fts": "identifier_preserving_BM25", "target_metric": "cosine"}
+  },
+  "articles": {
+    "server": "lancedb-articles",
+    "table": "qscat_articles",
+    "include": ["reference/literature/*.md"],
+    "processed_full_text": "explicit external source root with a provenance manifest; not recursive PDF discovery",
+    "chunking": "paper/section/page units, preserving equations and table/figure captions with their context",
+    "freshness": "paper ID, source edition/version, source SHA256, extraction version, verified locators",
+    "required_metadata": [
+      "paper_id", "title", "doi_or_url", "source_kind", "source_sha256",
+      "printed_page", "extraction_page", "locator", "note_path", "verification_status"
+    ],
+    "lookup": {"current_mode": "vector_plus_local_locator_search", "target_mode": "hybrid", "top_k": 8},
+    "index": {"initial_vector_index": "none_exact_scan", "target_fts": "locator_preserving_BM25", "target_metric": "cosine"}
+  },
+  "connector_upgrade": {
+    "required": [
+      "honor query_type", "honor table_details table/db selection",
+      "structured provenance columns and scores", "repository/snapshot and paper prefilters",
+      "stable document anchors, content-keyed embedding reuse, and changed/deleted source replacement",
+      "worktree-scoped manifests/overlays and metadata-only location updates",
+      "FTS index maintenance and health reporting"
+    ],
+    "ann_policy": "Benchmark exact scan first; introduce a version-supported ANN index only for measured latency, and compare recall against exact results"
+  }
+}

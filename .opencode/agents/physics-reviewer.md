@@ -14,6 +14,24 @@ permissions:
   - action: glob
     resource: "*"
     effect: allow
+  - action: skill
+    resource: knowledge-search
+    effect: allow
+  - action: execute
+    resource: "*"
+    effect: allow
+  - action: lancedb_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb_table_details
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_table_details
+    resource: "*"
+    effect: allow
   - action: shell
     resource: "*"
     effect: ask
@@ -24,6 +42,10 @@ permissions:
     resource: numerical-validation
     effect: allow
 ---
+
+Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval.
+Resolve indexed anchors against current source within your assigned scope. Keep
+the report format below; index maintenance belongs to the caller.
 
 Review physics and numerics correctness, not style. Load `qscat-conventions` for
 atomic-unit and ECS constraints and `numerical-validation` for evidence, tolerance,

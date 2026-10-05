@@ -865,16 +865,17 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
     LAPACKE / FFTW3 ABIs, so this layer is swappable. Default vendor choice
     (OpenBLAS/FFTW3) keeps ARM/Graviton open; an MKL x86-64 variant is a
     planned future alternative, not implemented yet. It also provisions system
-    **MUMPS** (`libmumps-seq-dev` + `libscotch-dev`, the sequential build) for
-    `qscat.linalg`'s optional MUMPS backend, and **synthesizes the pkg-config
-    `.pc` files** Debian omits (the conda-forge `{d,z,c,s}mumps_seq` names
-    python-mumps looks for) so the extra builds against the system library. It
+    **MUMPS** built from source in sequential/non-MPI mode with OpenMP and
+    SCOTCH ordering for `qscat.linalg`'s optional backend; Debian's sequential
+    package lacks the required OpenMP build. It synthesizes pkg-config `.pc`
+    files for the `{d,z,c,s}mumps_seq` names python-mumps uses. It
     also installs **ffmpeg** — the matplotlib `FFMpegWriter` backend for
     `qscat.viz`'s `.mp4` animation output (the `.gif` path needs only pillow) —
     which flows to the `build`/`test-deps`/`test` stages so the ffmpeg-gated
     `.mp4` viz test renders rather than skips.
   - `docker/Dockerfile` is `FROM ${BASE_IMAGE}` and layers `build` →
-    `test-deps` → `test` → `runtime` on top, using `uv sync --all-packages`
+    `test-deps` → `test` on top, with a separate fresh-image `runtime` stage
+    copying from `build`, using `uv sync --all-packages`
     for setup. The `build` stage adds `--extra plot` (matplotlib) so
     `qscat.viz` animation works in `runtime`, which copies `build`'s venv
     verbatim (no toolchain there to re-sync/rebuild the Rust kernel);
@@ -908,6 +909,40 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
 - **GPU/CUDA and AWS deployment are deferred.** `reference/libXcuda` is kept
   as future-GPU-kernel reference only.
 
+## Search and edit loop
+
+Every coding and review agent follows this contract, including delegated specialists.
+Use `.claude/skills/knowledge-search/SKILL.md` for the detailed retrieval procedure
+and `docs/agent-search.md` for the index design and implementation references.
+
+1. **Discover.** Search known paths/symbols locally; use semantic retrieval for
+   conceptual discovery when the intended corpus is available. Stay within the
+   task's assigned scope. Index hits are pointers into source, not edit targets.
+2. **Resolve and read.** Locate the path and qualified symbol or heading in the
+   current working tree. Indexed line ranges are snapshot-specific hints; get fresh
+   locations before citing or editing. A file-hash mismatch prompts re-resolution,
+   because an unrelated edit may have left the retrieved symbol unchanged. Resolve
+   ambiguous anchors explicitly; discard deleted hits and read changed bodies live.
+3. **Edit and validate.** Edit current source using freshly read context. After a
+   change, treat earlier excerpts and positions in the affected files as stale.
+   Read the resulting source/diff and perform the appropriate verification. Search
+   dependants and tests when the change affects their contract.
+4. **Check freshness and hand off.** At a coherent edit/test checkpoint, check the
+   supported indexer's reconciliation status for added, changed, renamed, and
+   deleted files in this worktree; request catch-up if available and needed.
+   The indexer reuses unchanged embedding payloads and updates location metadata.
+   Read-only specialists leave maintenance to the caller. If refresh is unavailable
+   or fails, continue with local source and identify the unsynchronised paths in
+   the caller's handoff; do not claim the index is current or append replacement
+   snapshots through the basic ingestion tool.
+
+Logical documents use repository/path plus a qualified symbol or heading anchor.
+Content/model keys identify reusable embeddings; line numbers are derived locations.
+Agents edit source files; one incremental indexer owns derived search documents.
+Use watcher catch-up or batched checkpoints rather than agent-managed embedding
+after every edit. Before an edit or final handoff, re-read relevant source if
+another agent or tool may have changed it.
+
 ## Skills & agents
 
 | Name | Kind | Use when |
@@ -915,7 +950,7 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
 | `qm-method-lifecycle` | skill | Adding or porting any QM method/capability — enforces design → toy → validate → optimize-in-Rust → promote-to-qscat. |
 | `numerical-validation` | skill | Validating quantum/numerical code where exact equality doesn't apply: analytic benchmarks, convergence studies, conservation checks, differential testing. |
 | `python-to-rust-kernel` | skill | A validated Python method has a proven hot path — scaffolding a PyO3/maturin crate under `native/`, mirroring the API, benchmarking, keeping Python as the oracle. |
-| `containerize-and-run` | skill | Packaging a capability to run in Docker locally or prep it for AWS — reproducible multi-stage `uv` + `maturin` builds, CPU-only. |
+| `containerize-and-run` | skill | Packaging or validating a capability in the layered CPU Docker images — choose compute versus test targets and check runtime capabilities. |
 | `qscat-conventions` | skill | Unsure how the project names or measures things — atomic units, FEM-DVR-ECS notation, tolerance defaults, standard-library layout. |
 | `discretisation-tuner` | skill | Setting up (or distrusting) a FEM-DVR-ECS grid — supervises the `qscat.tuning` loop (analyze the potential → adaptive equidistribution mesh + h/p + double-ECS-safe tail → convergence probes at the energy extremes → 2-D spot-check → minimal-cost grid at a target precision), instead of hand-picking element lengths. |
 | `mastering-github` | skill | Preparing a branch for review, or deciding whether a file may cite a spec/plan/issue/PR. Holds the rule that **main must stand alone** — a reader with only the clone must understand every shipped file — and the two procedures built on it: `/review-ready` (dissolve working-file content into permanent homes, prune references that don't travel with a clone, self-audit, tidy, flip draft → ready) and `/tidy-history` (rewrite a fix-on-fix branch into logical commits without changing the end state). |
@@ -924,6 +959,7 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
 | `code-mapping` | skill | Structure must be known as measured fact — the AST inventory behind release-review's structure mode. |
 | `code-quality-judging` | skill | Grading files and functions against a fixed rubric: whose chair a comment is written from, unit size, naming, annotation. |
 | `code-consolidation` | skill | Ruling on whether code that looks alike is the same thing twice, and what replaces it. |
+| `knowledge-search` | skill | Source discovery, edit-time index freshness, and processed-article evidence; routes exact/semantic searches, resolves current anchors, and checks checkpoint handoffs. |
 | `port-scout` | agent | Before porting anything from `reference/eMoScat` or `reference/libXcuda` — read-only archaeologist that extracts the math/algorithm, not the C++. |
 | `physics-reviewer` | agent | Before promoting a method into `qscat` — reviews for physical/numerical correctness (units, conservation, boundary conditions, ECS handling, convergence), not style. |
 | `rust-kernel-engineer` | agent | During the optimize-in-Rust stage — builds PyO3/Rust kernels in `native/` mirroring a validated Python API, with benchmarks and differential tests. |
@@ -937,6 +973,10 @@ skills (`superpowers:brainstorming`, `superpowers:test-driven-development`,
 `superpowers:systematic-debugging`, `superpowers:writing-plans`,
 `superpowers:executing-plans`, `superpowers:requesting-code-review`, etc.).
 These are general-purpose and complement the qModeling-specific skills above.
+Use them when the runtime provides them; otherwise perform the design, planning,
+validation-first implementation, and review directly. Their absence does not waive
+the lifecycle gates. Read-only structured-report agents return JSON; the caller
+checks report shape and coverage, derives summaries, and saves the artifacts.
 
 ## Reference oracles
 
@@ -1001,7 +1041,7 @@ uv run ruff check .
 # looks alarmingly broken while the shipped code is fine. Type stubs for the
 # Rust qscat_kernels extension are pending, so repo-wide strict mypy isn't
 # claimed to pass yet either:
-uv run mypy libs/qscat/qscat
+uv run mypy libs/qscat/qscat apps/qscat-run/qscat_run
 
 # Build and test the CPU Docker images (base, then test target)
 docker/build.sh test

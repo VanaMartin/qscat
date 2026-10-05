@@ -187,6 +187,8 @@ Padé propagation, the elastic free-reference subtraction).
 ## Further reading
 
 - `CLAUDE.md` — the full repo map, lifecycle, and tech decisions.
+- [Agent search setup](docs/agent-search.md) — repository and processed-article
+  retrieval, LanceDB corpus policies, and source verification.
 - `docs/physics/` — the physics notes behind every validated method (FEM-DVR-ECS,
   MUMPS backend, N2/NO/F2/H2+ cross sections, the discretisation tuner, ...).
 - `apps/qscat-run/README.md` — the `qscat-run` methods, the mapping from each

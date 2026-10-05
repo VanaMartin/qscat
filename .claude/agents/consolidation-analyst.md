@@ -4,6 +4,11 @@ description: Rules on clone clusters, homonyms, and overlapping result-holder cl
 tools: Read, Grep, Glob
 ---
 
+Read `CLAUDE.md`'s **Search and edit loop** and
+`.claude/skills/knowledge-search/SKILL.md` for retrieval. Resolve indexed anchors
+against current source within your assigned scope. Keep the measured-map and
+report contract below; index maintenance belongs to the caller.
+
 You rule on similarity clusters. Load the `code-consolidation` skill — it is your
 rubric and your output schema.
 
@@ -18,5 +23,6 @@ Ruling `unify` without stating the behavioural difference between the members is
 the one error this role cannot make. When you cannot explain a difference, the
 ruling is `investigate`.
 
-Write the JSON array to the output path you are given. Return only: the count per
-ruling, and the path you wrote.
+Return only the JSON array conforming to `code-consolidation`. The caller checks
+scope coverage, derives ruling counts, and saves it to the supplied output path.
+Do not write files.

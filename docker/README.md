@@ -1,9 +1,9 @@
 # docker/
 
 Images split into two layers: a rarely-rebuilt **base** (architecture / BLAS-FFT
-vendor / GPU) and the **app** (`build` → `test-deps` → `test` → `runtime`) that is
-`FROM` it. The app layer never changes when you swap the base — it reads
-`ARG BASE_IMAGE`.
+vendor) and the **app** (`build` → `test-deps` → `test`) that is `FROM` it.
+The separate fresh-image `runtime` stage copies from `build`. The app consumes
+`ARG BASE_IMAGE`; GPU variants remain deferred scaffolds.
 
 ## Base variants
 
@@ -18,7 +18,9 @@ provision system MUMPS with the pkg-config `.pc` files Debian omits), so the bas
 swappable purely via `BASE_IMAGE`.
 
 **`docker/Dockerfile`** — `FROM ${BASE_IMAGE}` (default `qmodeling-base:latest`) and
-   layers `build` → `test-deps` → `test` → `runtime` on top. Setup uses the canonical
+   layers `build` → `test-deps` → `test` on top, with runtime branching from build.
+   The CPU base builds sequential/non-MPI MUMPS from source with OpenMP and SCOTCH,
+   rather than using Debian's non-OpenMP sequential package. Setup uses the canonical
    `uv sync --all-packages`, which installs `qscat` and builds the Rust `qscat_kernels`
    in one step. `test-deps` adds the `mumps`/`plot` extras only — no test execution;
    `test` is `FROM test-deps` and runs BOTH test tiers (`docs/adr/0005`), but not the
@@ -79,8 +81,7 @@ back to `/config.yaml`. It then runs `uv run --no-sync qscat-run run <that path>
 molecule-specific `run-n2.sh`). See the top-level `README.md` for the full `qscat-run`
 walkthrough.
 
-## AWS deploy
+## AWS deploy (deferred)
 
-AWS deployment pushes `qmodeling-base` to ECR once (it changes only when the
-architecture/vendor choice changes) and reuses it across app builds — only the `build`/
-`test`/`runtime` layers rebuild on ordinary code changes.
+These CPU images do not implement AWS deployment. Infrastructure provisioning and
+public-site deployment belong to the separate infrastructure repository.

@@ -17,6 +17,24 @@ permissions:
   - action: glob
     resource: "*"
     effect: allow
+  - action: skill
+    resource: knowledge-search
+    effect: allow
+  - action: execute
+    resource: "*"
+    effect: allow
+  - action: lancedb_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb_table_details
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_table_details
+    resource: "*"
+    effect: allow
   - action: shell
     resource: "*"
     effect: ask
@@ -42,6 +60,10 @@ permissions:
     resource: numerical-validation
     effect: allow
 ---
+
+Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval
+and edit-time freshness. Resolve indexed anchors against current source. Check
+catch-up at edit/test checkpoints; hand maintenance to the caller when unavailable.
 
 Load `python-to-rust-kernel` for the entry gate, mirrored-API, build, benchmark, and
 fallback contract; use `numerical-validation` for differential-test tolerances.

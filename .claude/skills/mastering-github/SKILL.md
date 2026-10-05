@@ -60,7 +60,8 @@ load-bearing for understanding the code.
   content where they already are.
 - "The design rationale is in the plan, no need to repeat it"
 - "I'll reference the issue for context"
-- "History tidying is the branch owner's call" — it is part of review-ready
+- "History tidying needs no approval" — review-ready recommends it, but the owner
+  decides whether published history is rewritten
 - "The spec explains why, so the docstring can be short"
 
 All of these mean: dissolve the content first, then decide whether a pointer
@@ -71,19 +72,21 @@ still earns its place.
 - Mid-implementation. Dissolving and de-referencing belong at the end, once
   the content has settled; doing it early means doing it twice.
 - On `main` directly. Both procedures assume a branch.
-- For the design work itself — that is `superpowers:brainstorming` and
-  `superpowers:writing-plans`. This skill is what happens *after* them.
+- For design work itself. Use `superpowers:brainstorming` and
+  `superpowers:writing-plans` when available, or record the design and plan directly.
+  This skill applies after implementation settles.
 
 ## Repository facts these procedures rely on
 
 - Default branch `main`; remote `origin` is `VanaMartin/qscat`.
-- Tests: `uv run --no-sync pytest`. `libs/qscat/tests -m "not slow"` ≈ 5 min;
-  the slow group ≈ 60 min; `apps/qscat-run/tests` ≈ 20 min with slow.
-- Gates: `uv run ruff check .`; `uv run mypy libs/qscat/qscat` (clean).
-  **`mypy libs/qscat` including tests has ~205 pre-existing findings, and the
-  repo is NOT `ruff format`-clean at HEAD** — a repo-wide `ruff format` rewrites
-  44 untouched files. Format only files you edited.
-- Backgrounded `pytest` in this environment returns exit 0 with an empty output
-  file. Run verification in the foreground.
-- Commit trailers are required — see `references/tidy-history.md` before any
-  rewrite, because rewriting drops them silently.
+- CI checks both shipped packages with
+  `uv run mypy libs/qscat/qscat apps/qscat-run/qscat_run`, plus
+  `uv run ruff check .` and `uv run ruff format --check .`. Format edited files
+  only; read `.github/workflows/ci.yml` for current targets and capabilities.
+- Parallel tests require `-m "not slow" -n auto --dist loadfile`; pin Linux BLAS
+  threads to one per worker. Production suites run serially. Select verification
+  by changed contracts and report actual results, rather than historical timings.
+- Await verification completion and record real exit status/output. Background
+  execution is not itself evidence of success; avoid competing numerical runs.
+- Preserve existing attribution/session trailers during rewrites; see
+  `references/tidy-history.md` for recovery, provenance, and integration gates.

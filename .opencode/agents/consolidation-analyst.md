@@ -15,9 +15,31 @@ permissions:
     resource: "*"
     effect: allow
   - action: skill
+    resource: knowledge-search
+    effect: allow
+  - action: execute
+    resource: "*"
+    effect: allow
+  - action: lancedb_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb_table_details
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_query_table
+    resource: "*"
+    effect: allow
+  - action: lancedb-articles_table_details
+    resource: "*"
+    effect: allow
+  - action: skill
     resource: code-consolidation
     effect: allow
 ---
+
+Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval.
+Resolve indexed anchors against current source within your assigned scope. Keep
+the measured-map and report contract below; index maintenance belongs to the caller.
 
 Load `code-consolidation`; it defines the rulings and JSON schema. You are read-only.
 
@@ -26,5 +48,6 @@ cited source cluster. Treat the tables as a lower bound and check documented des
 decisions before ruling. Every ruling needs a non-empty behavioural `difference`;
 an unexplained difference is `investigate`, never `unify`.
 
-Return the JSON array, the count per ruling, and the supplied output path. The
-caller writes the report to that path.
+Return only the JSON array conforming to `code-consolidation`. The caller checks
+scope coverage, derives ruling counts, and saves it to the supplied output path.
+Do not write files.

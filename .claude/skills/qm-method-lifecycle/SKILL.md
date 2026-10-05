@@ -24,31 +24,42 @@ into todos at the start of the work and check them off in order.
 
 ## The Lifecycle Checklist
 
-1. **Design** — Write or point to a spec under `docs/superpowers/specs/`.
+1. **Design** — Record durable mathematics, algorithm, and API rationale under
+   `docs/physics/`. A working spec may live under `docs/superpowers/specs/`, but
+   shipped code and documentation must stand without it.
    State: the physics being modeled, the unit system (atomic units — Hartree
-   for energy, Bohr for length, unless the spec says otherwise), the public
+   for energy, Bohr for length; convert only at the boundary), the public
    interface (function signatures, inputs/outputs), and concrete success
    criteria (what numerical result proves correctness). Use
-   `superpowers:brainstorming` first if the approach itself is still open.
+   `superpowers:brainstorming` when available if the approach is still open.
+   For ports from `reference/eMoScat` or `reference/libXcuda`, invoke `port-scout`
+   before implementation and resolve source ambiguities in the design. Never edit,
+   build, or import the reference trees as dependencies.
 
 2. **Toy model** — Implement a pure-Python version under `projects/<name>/`.
-   Optimize for correctness and readability, not speed. This is throwaway
-   scaffolding; it does not need to be production quality, but it must be
-   numerically right — it becomes the differential-test oracle in step 4.
+   Optimize for correctness and readability, not speed. Experimental scaffolding
+   can be retired once its purpose is served; the validated Python implementation
+   used as a Rust differential oracle is retained permanently.
 
 3. **Validate** — Invoke the `numerical-validation` skill. Do not proceed to
    optimization until validation passes: analytic benchmarks, convergence
    studies, conservation checks, and/or differential tests vs. `reference/`
-   or `mpmath`, as appropriate to the method.
+   or `mpmath`, as appropriate to the method. Record the tested regime, error
+   budget, convergence evidence, and unresolved limitations before advancing.
 
 4. **Optimize (only if warranted)** — Only move to Rust if profiling
    (`pytest-benchmark` or `cProfile`) shows an actual hot path. If so, invoke
    the `python-to-rust-kernel` skill. If nothing is measurably slow, skip this
    stage — pure Python that meets its accuracy bar is a valid end state.
 
-5. **Promote** — Move the validated, reusable implementation into
+5. **Promote** — First invoke the independent `physics-reviewer` with the
+   implementation and validation evidence. Resolve blocking findings with evidence;
+   a deferred check is a limitation, not an approval. If the reviewer is unavailable,
+   obtain an independent physics review before declaring promotion complete.
+   Move the validated, reusable implementation into
    `libs/qscat/qscat/<subpackage>/` (`special`, `dvr`, `ecs`, `evolution`,
-   `linalg`, or `units`, per `qscat-conventions`). Bring its tests with it,
+   `linalg`, `core`, `model`, or `units`, per `qscat-conventions`). Keep `core`
+   model-independent and molecule-specific behavior in `model`. Bring its tests with it,
    and update `CLAUDE.md`/docs to describe the new capability and where it
    lives.
 
@@ -69,6 +80,6 @@ regression in the compiled kernel.
 - Promoting straight from the toy model in `projects/<name>/` into
   `libs/qscat/` without running `numerical-validation`.
 - Deleting the Python implementation after a Rust kernel ships.
-- Treating this skill as a substitute for `superpowers:test-driven-development`
-  — TDD governs how each stage's code gets written; this skill governs which
-  stage you're in and when to advance.
+- Treating this skill as a substitute for validation-first implementation. Use
+  `superpowers:test-driven-development` when available; this skill governs stage
+  transitions, not the availability of a particular workflow tool.

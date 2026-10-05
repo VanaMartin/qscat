@@ -11,8 +11,9 @@ Check the preconditions and refuse if one holds, especially if the branch is
 already clean. Back up before touching anything. Collapse onto the original
 merge-base before re-homing, in that order.
 
-The end-state diff must be empty. If it is not, restore from the backup and
-start over; never reconcile the difference by hand.
+Prove reconstruction tree identity before upstream integration. If it fails,
+stop and recover from the backup. Review upstream changes and conflict resolutions
+separately after integration; the resulting whole tree need not match the old base.
 
 Preserve existing `Co-Authored-By:` and `Claude-Session:` commit trailers.
 
