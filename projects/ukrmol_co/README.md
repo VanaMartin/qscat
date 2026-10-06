@@ -30,7 +30,7 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 | Are the tested SA numerical controls stable? | Equilibrium l=3/4/5 stays within 3.18 meV, 0.585% width and 0.02615 rad; stretched 0.020/0.010/0.005-eV grids give a finest-pair width change of 0.0041% | Passes chosen angular/grid gates for these models |
 | Is the electronic model converged? | Basis, starting subspace, active space and orbital ensemble change target properties and scattering; projected aug-DZ/TZ widths differ by 6.36% | Further qualification required |
 | Is the entire geometry curve qualified? | SA compressed/stretched scattering passes pipeline checks; compressed fit widths remain background-sensitive and feature identity across geometry is unresolved | Extraction, continuity and threshold diagnostics required |
-| Can these data constrain a production potential? | No tested electronic configuration is qualified; a correlated neutral curve is still missing | Preserve as calibration evidence |
+| Can these data constrain a production potential? | No tested electronic configuration or correlated neutral curve is qualified | Preserve as calibration evidence |
 
 We have a reproducible execution platform and identified the dominant accuracy
 problem. The resonance values have **not** settled onto an electronically
@@ -475,10 +475,20 @@ singular values exceed 0.99999999999992. Forty-six of 48 fixed-orbital
 root-count/trial-space probes converge completely; the eighth singlet B1/B2
 root fails at space 40 and converges at 80/160. All five ensemble roots converge
 in every probe. The completed refinements support stability of this fixed
-orbital model; the tighter independent UKRmol import check is still running.
+orbital model. Its tightened independent UKRmol import now passes all 40 roots
+within 5.33e-10 Hartree and the ground dipole within 7.95e-11 a.u., with a final
+gradient of 2.92e-8. It took 97.75 minutes at an 18.42-GiB kernel memory peak;
+the subsequent equilibrium scattering pilot is running.
 `qualification-results.json` and
 [`qualification-evidence/`](qualification-evidence/README.md) preserve the
 completed target/neutral supplement and its verified public archive.
+
+The eighteen-attempt supplement also preserves four rejected serial-Davidson
+targets and two passing small-model SLEPc targets. The latter reproduce all
+40 required roots within 4.98e-10 Hartree and dipoles within 5.62e-11 a.u.,
+including extra-root/tighter-tolerance checks, using about 0.12 GiB in
+49.53/46.91 seconds. The CAS(10,11) comparison against the dense reference is
+running; larger-space feasibility depends on its full density/import pass.
 
 The neutral pilot uses `python -m projects.ukrmol_co.neutral` or the existing
 batch launcher with `--runner neutral`. Its aug-TZ/aug-QZ recipes are in
@@ -504,10 +514,23 @@ Each relative curve is referenced to its own R=2.1323 energy. Basis changes
 shift the sentinel relative energies by 76.04/68.47 meV; the stretched
 amplitude diagnostics increase. Basis and correlation-treatment checks remain
 open, and the dipoles are CCSD lambda-density values, not CCSD(T) derivatives.
+`calibration-neutral-5z.json` adds the same three sentinels in aug-cc-pV5Z;
+its finite worker is queued behind the CAS(10,12) RHF-start CPU slot on Sadaharu.
 See [the qualification method](../../docs/physics/co-electronic-qualification.md)
 for the numerical contract and the CAS(10,12) workspace audit. Its valid
 eight-/sixteen-rank array floors are about 149 GiB, exceeding the current
 host RAM; the four-rank triplet query is undersized.
+
+The prepared larger-memory campaign is documented in
+[`LARGE_HOST.md`](LARGE_HOST.md), with matched QC recipes, ten CAS(10,12) target
+imports and the prerequisites for the first scattering pilot. The selected
+Frankfurt `r8a.16xlarge` has 64 physical x86-64 cores and 512 GiB RAM. Its initial
+full-campaign forecast is 168 instance-hours, with a provisional 96–216-hour planning range;
+the documented forecast separates measured stages from unmeasured MPI and
+larger-space costs. Paid provisioning is deferred: qualification continues on
+Sadaharu, and the first external-host experiment must fit approximately $200,
+at least 80% below that earlier forecast. Selected-root target diagonalization
+is being investigated against dense controls before claiming local feasibility.
 
 ### Scattering model costs
 
@@ -645,6 +668,16 @@ the common-orbital ensemble, individual energies, spin diagnostics, **ground
 root** dipole, MO inventory and source hash. Logs retain the upstream slot name
 `target.psi4.out`; successful records explicitly identify PySCF as the backend.
 See the [method and verification contract](../../docs/physics/co-state-averaged-target.md).
+
+The default `--target-diagonalizer auto` uses the upstream target dispatch.
+Experimental `--target-diagonalizer slepc` requires an image built with
+`--build-arg WITH_SLEPC=ON`; it selects distributed Krylov–Schur for the target
+while retaining the existing scattering solver. `--target-diagonalizer-tolerance`
+and `--target-diagonalizer-max-cycles` default to 1e-12 and 500.
+The raw-log analyzer checks the solver identity and completed sectors before
+the usual root/dipole import gates. `davidson-serial` preserves the rejected
+controls; it failed the required spectrum even with additional roots and a
+tighter tolerance. See [the selected-root contract](../../docs/physics/co-electronic-qualification.md#selected-root-target-experiment).
 
 Optimization controls are `--target-energy-tolerance` (default 1e-9 Hartree),
 `--target-gradient-tolerance` (1e-5), `--target-ci-tolerance` (1e-10),

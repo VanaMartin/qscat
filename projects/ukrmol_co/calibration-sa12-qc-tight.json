@@ -1,0 +1,10 @@
+[
+  {
+    "name": "co-eq-ccdz-sa12-qc-tight-restart",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "6", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-memory-mb", "16000", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa12-40-target-memp6/output/CO/geom1/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-ccdz-sa12-qc-tight-hf-start",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "6", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-memory-mb", "16000", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  }
+]

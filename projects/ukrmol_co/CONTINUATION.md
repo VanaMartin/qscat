@@ -229,10 +229,21 @@ The tightened restart checkpoint is
 `64131e79fab6e1a55c1489646555f090cb5186530a66babfe39fd46bbbfcb402`.
 `calibration-sa11-tight-import.json` starts
 `co-eq-ccdz-sa11-tight-import` from this checkpoint. The full independent
-UKRmol target check is running on CPUs 8–11 in a 32-GiB container; its earlier
-model cost was 127.80 minutes, not a guaranteed duration for this retry.
-Wait for its final batch/analyzer records before launching the equilibrium
-scattering pilot. The active SSH job has an attached background supervisor.
+UKRmol target check completed on CPUs 8–11 in a 32-GiB container in 97.75
+minutes (97.76 minutes including launch/analysis). Independent raw reanalysis
+passes all 40 averaged roots within 5.33e-10 Hartree and the ground dipole
+within 7.95e-11 a.u.; its kernel memory peak is 18.42 GiB. The final gradient
+is 2.92e-8, and fresh-CI energies agree within 1.14e-13 Hartree. The imported
+checkpoint is `runs/co-eq-ccdz-sa11-tight-import/output/CO/geom1/co.casscf.chk`,
+SHA256 `3480f6127549d963596e67c3592550f533f7a6e30db0d6343d336a7d9e794554`.
+
+`calibration-sa11-tight-scattering.json` now runs
+`co-eq-ccdz-sa11-tight-cc40` from that imported checkpoint, on CPUs 8–11 in a
+48-GiB container, with 6-GiB internal SCATCI matrix budgets. It retains the
+tight QC controls, 40 channels, 18-bohr/l=4 continuum, deletion 1e-6 and
+99 native energies over 0.1–5.0 eV. Launch output is
+`launch-sa11-tight-scattering.log`; the attached supervisor is
+`sh_112ad1252001dZHiXMnz7jPTuw`. Final phases, dimensions and runtime are pending.
 
 `diagnostics/cas11-tight-ci-coverage/` completed 48 fixed-orbital probes in
 116.91 seconds on CPUs 4–7 and 12–15: five/eight roots at trial-space sizes
@@ -267,12 +278,16 @@ checks remain necessary before selecting a full neutral curve.
 
 The completed supplement is published through
 [`qualification-evidence/`](qualification-evidence/README.md).
-`qualification-results.json` contains eleven attempts in four completed batches:
+`qualification-results.json` contains eighteen attempts in eight completed batches:
 three passing QC targets, seven passing neutral records and one failed neutral
-runner. Its public archive retains 48 CI probes and the four completed diagnostic
-directories. Verification checked 728 payload digests, 62 batch-source hashes,
-17 image-source hashes, all ten successful records and both aggregates;
-repackaging is byte-identical. The active target-import job is excluded.
+runner, the tightened all-root/dipole target import, four rejected Davidson
+controls and two passing small-model SLEPc controls. Its public archive
+retains 48 CI probes and seven completed diagnostic directories. Verification
+checked 1786 payload digests, 127 batch-source hashes, 17 image-source hashes,
+all thirteen successes, all four Davidson rejections and both aggregates;
+repackaging is byte-identical. Live scattering, QC and larger-space SLEPc
+imports are excluded. The earlier eleven-/twelve-attempt supplements remain
+available through the manifest's prior-snapshot pointers.
 
 The refreshed standalone image is `qmodeling/ukrmol-co:electronic-qualification`,
 ID `sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08`.
@@ -282,10 +297,11 @@ all 17 embedded Python/Perl/Fortran source digests. Numerical jobs retain their
 earlier image IDs and immutable source snapshots.
 
 Repository handoff: analysis/packaging code is pinned at
-`443b27fbc9bc021e812a64f8c49fececc56e9540`. The committed-main index is complete
+`012bd12eb86ca4ad1c0f08065bdfc4fb5cd7475a`. The committed-main index is complete
 and upstream-current at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; the branch
 adds state-averaged/fresh-CI work plus the QC-only, correlated-neutral and
-workspace qualification tools and their evidence. Source anchors and local
+workspace qualification tools, selected-root configuration/solver checks,
+optional SLEPc source build and their evidence. Source anchors and local
 changes were resolved against that baseline before editing and publication.
 
 ### Published evidence and collection
@@ -324,8 +340,108 @@ sync can overwrite locally refreshed summaries with older host records.
 
 ### Remaining gates
 
-1. **Qualify the larger-active-space targets.** Finish the tightened CAS(10,11)
-   import check, retaining the completed start and root-count refinements.
+The larger-host preparation is recorded in [`LARGE_HOST.md`](LARGE_HOST.md).
+The retained hardware candidate is Frankfurt `r8a.16xlarge` (AMD x86_64,
+64 physical cores, 512 GiB). Its earlier **168-hour** full-campaign estimate
+and provisional **96–216-hour** range cover ten imports plus one scattering pilot. The
+official 6 October Linux On-Demand price is $6.16704/hour, recorded in
+`large-host-pricing.json`; this is approximately $1036 for seven days of compute.
+**Paid provisioning is deferred:** the first external-host experiment must be
+reduced by at least 80%, to approximately $200, while qualification continues
+on Sadaharu. Keep the full queue and estimate as documentation. Investigate
+selected-root UKRmol target diagonalization against the existing dense
+controls; only residual memory/time bottlenecks should motivate a paid job.
+The same audited x86-64 execution bundle can be used on other supplied hardware.
+
+The nine CAS(10,11) entries from `calibration-large-host-qc.json` are running
+on CPUs 4–7 in one 32-GiB worker. Their derived manifest and selection/hash
+record are under `prepared/calibration-large-host-cas11-qc{,.provenance}.json`;
+batch records are `batches/calibration-large-host-cas11-qc/`. Launch output is
+`launch-large-host-cas11-qc.log`; supervisor `sh_112adc835001cNIQlav3d6Gp81`.
+The complementary CAS(10,12) ladder awaits its tightened start/coverage checks.
+`calibration-tz-qc-fresh-starts.json` adds four equilibrium RHF-start controls
+for CAS(10,11)/(10,12) in cc-pVTZ and aug-cc-pVTZ. They are queued behind the
+whole nine-job CAS(10,11) ladder on CPUs 4–7, with 32-GiB limits and a frozen
+source at `prepared/tz-fresh-starts-source/`. Supervisor
+`sh_112e5e5b6001xMjUai178wgBYx` uses a Linux process-exit notification for
+ladder PID 898757, rather than waiting for only its current container.
+The next launch log is `launch-tz-qc-fresh-starts.log`. These starts preserve
+the same 40-component objective and need root/dipole/subspace comparison
+against the projected starts before the basis sequence can be qualified.
+
+`calibration-sa12-qc-tight.json` runs the equilibrium restart/RHF-start
+QC checks on CPUs 0–3 and 12–15, two 32-GiB containers, using the
+`electronic-qualification` image. Launch output is `launch-sa12-qc-tight.log`;
+the attached supervisor is `sh_112a1235b001TlaKHQwphj8Oi5`. These checks precede
+the prepared eighteen-job matched QC ladder and ten-job large-host target queue.
+The restart has completed in 21.18 minutes, with gradient 5.64e-8, ensemble
+energy −112.3847060392213 Hartree, ground energy −112.92724051225153 Hartree
+and dipole z 0.0175118735858473 a.u. Its RHF-start comparison is still pending;
+the final two-job batch is not yet collected.
+The new `diagnostics/cas12-large-host-workspaces/` audit passed thirteen queries
+covering all target-sector dimensions on 16-/32-rank grids, including both
+32-rank orientations for the largest sector. Maximum array floors are
+149.78/149.91 GiB, before engine overhead. `large-host-resources.json` retains
+their summary and the stage-scaled forecasting assumptions. The extended
+diagnostic is included in the eighteen-attempt supplement; live QC attempts are excluded.
+
+### Local selected-root and neutral continuation
+
+`calibration-target-davidson-small.json` and
+`calibration-target-davidson-coverage.json` completed four rejected CAS(10,8)
+targets on CPUs 0–3 with 8-GiB limits. All eight sectors report native Davidson
+success, yet 5/8/16/32 requested roots give maximum required-root errors of
+0.13931/0.07915/0.05290/0.02823 Hartree. The 32-root control also tightens
+`crite` to 1e-13. Keep the original nonzero analysis/batch exits and raw logs.
+`diagnostics/target-davidson-controls/` retains the small stored singlet-A1
+Hamiltonian and its independent NumPy/SciPy reconstruction: lowest five roots
+agree with QC within 3.69e-13 Hartree, residuals below 1.61e-13 Hartree.
+Larger serial-Davidson jobs are gated out.
+
+The SLEPc-enabled source build is `qmodeling/ukrmol-co:selected-roots`, image
+ID `sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666`.
+`build-selected-roots.log` records a fresh pinned engine build and 12/12
+upstream checks. Runtime linking/import checks pass. Source provenance records
+PETSc/SLEPc library digests from the same pinned toolchain; this image is a
+separate configuration from the dense source images.
+`calibration-target-slepc-small.json` completed on CPUs 0–3, one 8-GiB slot,
+with five roots, then eight roots and a tighter tolerance. Its launch log is
+`launch-target-slepc-small.log`. Both controls pass all forty averaged roots
+within 4.98e-10 Hartree and the dipoles within 5.62e-11 a.u.; eight raw sectors
+identify Krylov–Schur in each run. Walls are 49.53/46.91 seconds, peaks
+0.1122/0.1120 GiB. Common first-five roots agree to the printed precision.
+The raw-log analyzer rejects solver fallback/incomplete sectors before applying
+the usual all-averaged-root/dipole gates. `calibration-target-slepc-cas11.json`
+is now running on CPUs 0–3 with a 16-GiB limit, supervisor
+`sh_112d036710018xEwempAilQec9`, log `launch-target-slepc-cas11.log`.
+Its dense differential gate precedes `calibration-target-slepc-cas12.json`
+and fixed-orbital coverage checks. The final density stage can still dominate
+runtime even if selected-root diagonalization is inexpensive.
+
+`calibration-neutral-5z.json` prepares aug-cc-pV5Z CCSD(T) at the existing
+three sentinel geometries for a TZ/QZ/5Z basis sequence. Its finite worker
+is queued on CPUs 12–15 with a 24-GiB limit in the neutral evidence root,
+using the selected-root image by ID and a frozen source copy at
+`prepared/neutral-5z-source/`. Supervisor `sh_112e0abf3001S8k4V3u0CJgThH`
+blocks on the exact RHF-start container's exit, then runs all three jobs;
+it does not depend on that orbital start passing. Its log will be
+`/home/kooza/ukrmol/co-neutral-20261006/launch-neutral-5z.log`.
+Correlation-treatment convergence remains a separate open gate.
+
+The CAS(10,12) restart's 48 fixed-orbital CI probes are also queued on CPUs
+0–3 with an 8-GiB limit, supervisor `sh_112e25f9e001jXYdP8JvH67gD6`.
+`prepared/cas12-coverage-followup.py` waits for the exact CAS(10,11) SLEPc
+container to exit, independently rechecks its all-root/dipole import and dense
+reference agreement, then scans five/eight roots and trial spaces 40/80/160
+in all eight sectors. It retains individual exits and gates every ensemble
+root; failed extra-root controls remain evidence. Resources and source hashes
+are preserved under `diagnostics/cas12-tight-ci-coverage/`; launch output is
+`launch-cas12-tight-ci-coverage.log`. This does not select the restart over the
+still-running RHF start or qualify an independent CAS(10,12) import.
+
+1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)
+   import passes; retain its completed start and root-count refinements and
+   finish the running equilibrium scattering and matched QC controls.
    CAS(10,12) needs a larger-RAM dense execution host or
    separately gated eigensolver configuration; the installed-library audit rules
    out the current dense layouts on this host. Compare
