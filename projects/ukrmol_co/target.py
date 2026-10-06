@@ -19,6 +19,14 @@ import numpy as np
 IRREPS = ("A1", "B1", "B2", "A2")
 
 
+def ci_trial_space(roots: int, override: int | None) -> int:
+    """Size the CI search space independently of the orbital ensemble."""
+    space = max(40, 8 * roots) if override is None else override
+    if roots < 1 or space <= roots:
+        raise ValueError("CI trial space must exceed the requested ensemble roots")
+    return space
+
+
 def _fresh_ci_kernel(kernel):
     def solve(h1e, eri, norb, nelec, ci0=None, **kwargs):
         return kernel(h1e, eri, norb, nelec, ci0=None, **kwargs)
@@ -94,6 +102,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
             "source": config.get("target_initial_source_checkpoint", str(checkpoint)),
         }
     solvers = []
+    sectors = []
     labels = []
     for spin, counts in ((0, config["sa_singlet_roots"]), (2, config["sa_triplet_roots"])):
         for irrep, roots in zip(IRREPS, counts, strict=True):
@@ -108,11 +117,12 @@ def build_target(config: dict, molden_path: Path) -> dict:
             if config.get("target_ci_residual_tolerance") is not None:
                 solver.conv_tol_residual = config["target_ci_residual_tolerance"]
             solver.max_cycle = 200
-            solver.max_space = max(40, 8 * roots)
+            solver.max_space = ci_trial_space(roots, config.get("target_ci_max_space"))
             # M_s alone does not exclude higher-spin eigenstates. Penalize them
             # and verify every resulting root's S^2 before exporting anything.
             solver = fci.addons.fix_spin_(solver, shift=1.0, ss=spin * (spin + 2) / 4)
             solvers.append(solver)
+            sectors.append(f"{'singlet' if spin == 0 else 'triplet'}.{irrep}")
             labels.extend((spin, irrep, root + 1) for root in range(roots))
     weights = np.full(len(labels), 1 / len(labels))
     # The mixed solver always returns a CI list; PySCF's Newton code expects
@@ -156,6 +166,9 @@ def build_target(config: dict, molden_path: Path) -> dict:
     diagnostics = {
         "orbital_converged": bool(mc.converged),
         "ci_converged": [bool(np.all(s.converged)) for s in solvers],
+        "ci_max_space_by_sector": {
+            sector: solver.max_space for sector, solver in zip(sectors, solvers, strict=True)
+        },
         "state_energies_hartree": [float(e) for e in state_energies],
         "iterations": list(history.values()),
     }

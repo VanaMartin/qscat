@@ -24,6 +24,24 @@ ground dipole and active-subspace overlaps; do not select solely by one energy.
 Final-orbital root-count/trial-space probes retain that orbital objective.
 Passing finalists receive the full independent UKRmol import/dipole checks.
 
+The matched CAS(10,11) ladder exposes CI convergence failures at stretched DZ
+and equilibrium TZ after orbital convergence. `--target-ci-max-space` refines
+the PySCF Davidson trial space without changing the five-root-per-sector
+orbital ensemble, its weights or convergence tolerances. The default remains
+`max(40, 8*roots)` in each sector; an override must exceed every ensemble root
+count. Actual sector limits are retained in `target-diagnostics.json` and
+checked by the QC-only analyzer when an override is requested. The completed
+nine-job ladder has two QC passes, three CI failures and four projection setup
+failures. PySCF 2.11.0's `project_init_guess` rejects simultaneous changes in
+geometry and basis. Stage those starts through a passing same-geometry DZ
+checkpoint, then change basis at fixed geometry; retain the rejected attempts.
+
+Validate the override at 80/160 trial vectors against the passing CAS(10,8)
+dense root/dipole control, then reoptimize each rejected final checkpoint in
+fresh directories with those spaces. Compare root coverage, objective, dipole
+and active subspaces; preserve the original failures. A fixed-orbital CI repair
+alone does not establish minimization of the intended lowest-root ensemble.
+
 ## Independently correlated neutral pilot
 
 The neutral pilot uses conventional spherical-basis RHF followed by
@@ -54,6 +72,14 @@ CCSD density. Reference each basis's relative curve to its own equilibrium
 energy; report both successive shifts before attempting extrapolation. This
 tests basis refinement, while stretched correlation-treatment checks remain
 a separate requirement.
+
+The completed 5Z sentinels reduce QZ-to-5Z relative-energy changes to
+17.24/15.82 meV at R=1.9/2.5, versus 76.04/68.47 meV for TZ-to-QZ. This is
+basis-refinement evidence, not a full-curve qualification. Further aug-TZ/QZ
+checks at R=3.0 and 4.0 converge RHF but fail **external reference stability**
+in all four cases. The conventional restricted CCSD(T) route stops at that
+gate; those geometries need a separately designed and validated correlation
+treatment before their neutral energies are used.
 
 All calculations retain finite CPU/memory limits, persistent scratch, input
 configs, raw logs, checkpoints, stage timings, source/image hashes and failures.
@@ -132,7 +158,27 @@ Docker build argument `WITH_SLEPC=ON`. Those shared libraries and Fortran
 modules come from the same digest-pinned toolchain; record their byte digests
 in build provenance and repeat the upstream/reference gates. The runner's
 `--target-diagonalizer slepc` selects `igh=-1, forse=0` and the upstream
-distributed Krylov–Schur backend. Its sparse matrix storage and selected
-eigenvectors may fit locally, subject to actual peak measurements. Reject a
+distributed Krylov–Schur backend. In this pinned **target** path,
+`CI_Hamiltonian_module` initializes `MAT_DENSE`, and `SLEPCMatrix_module`
+calls `MatCreateDense`. It retains an O(N²) distributed real Hamiltonian,
+while avoiding the all-spectrum ScaLAPACK workspace and full eigenvector
+matrix. The generic engine's sparse-storage support does not make these target
+jobs sparse. Reject a
 silent dense fallback in raw-log analysis. The backend warns about degeneracy;
 all-root import, Pi and root-count refinement checks remain mandatory.
+
+The completed five-root CAS(10,11) comparison passes all 40 imported roots
+within 5.34e-10 Hartree and the ground dipole within 8.04e-11 a.u. Its complete
+wall/peak are 3152.81 seconds / 5.25 GiB, versus 5865.15 seconds / 18.42 GiB
+for the dense control. Eight SCATCI stages total 351.70 versus 3248.81 seconds
+(89.17% lower), but DENPROP takes 2365.46 seconds, limiting the observed full
+wall reduction to 46.25%. Different concurrent workloads/CPU placement make
+these observed comparisons, not controlled MPI scaling.
+
+For the largest CAS(10,12) target dimension 70860, one dense Hamiltonian alone
+requires `8*N² = 40169116800 bytes` (37.41 GiB), or about 9.35 GiB per rank
+on four ranks. The local trial therefore uses a 64-GiB container and 16-GiB
+internal matrix budgets, conditional on 80 GiB available host RAM, 20 GiB
+free scratch and the full extra-root/import gates. This is a matrix floor,
+not a measured total-job peak. The all-spectrum scattering route still needs
+its own actual CONGEN dimensions and workspace audit.

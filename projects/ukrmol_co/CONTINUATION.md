@@ -1,5 +1,23 @@
 # CO experiment: resources and continuation
 
+## Live qualification handoff
+
+The five-root CAS(10,11) SLEPc import, both tight CAS(10,12) QC starts, the
+CAS(10,12) restart coverage scan, the nine-job CAS(10,11) QC ladder and the
+neutral 5Z/stretched batches have completed. The next decisions depend on
+these active or queued finite workers:
+
+| Physical CPUs | Active work | Follow-on dependency |
+|---|---|---|
+| 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Five base jobs; passing same-geometry DZ seeds release two basis jobs each |
+| 4–7 | Four fresh equilibrium TZ RHF starts, 32-GiB containers | Aug-TZ CI-space retries and four staged CAS(10,11) basis starts await these starts and the numerical controls |
+| 8–11 | Tight CAS(10,11) scattering, 48-GiB container | CI-space controls/retries, all-64-root verification, then gated 64-GiB CAS(10,12) target import |
+| 12–15 | Eight-root/tighter CAS(10,11) SLEPc target, 16-GiB container | Its final import releases the independent extra-root verification |
+
+The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
+`/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
+experiment ceiling remains deferred; all launches here use Sadaharu.
+
 ## Saved campaign — 6 October 2026
 
 The calculation host is **Sadaharu**, reached with `ssh sadaharu` as `kooza`.
@@ -353,12 +371,14 @@ selected-root UKRmol target diagonalization against the existing dense
 controls; only residual memory/time bottlenecks should motivate a paid job.
 The same audited x86-64 execution bundle can be used on other supplied hardware.
 
-The nine CAS(10,11) entries from `calibration-large-host-qc.json` are running
-on CPUs 4–7 in one 32-GiB worker. Their derived manifest and selection/hash
+The nine CAS(10,11) entries from `calibration-large-host-qc.json` completed
+on CPUs 4–7 in one 32-GiB worker in 133.62 minutes, with two QC passes and
+seven preserved failures. Their derived manifest and selection/hash
 record are under `prepared/calibration-large-host-cas11-qc{,.provenance}.json`;
 batch records are `batches/calibration-large-host-cas11-qc/`. Launch output is
 `launch-large-host-cas11-qc.log`; supervisor `sh_112adc835001cNIQlav3d6Gp81`.
-The complementary CAS(10,12) ladder awaits its tightened start/coverage checks.
+The complementary CAS(10,12) ladder now uses the completed start/coverage gates
+and staged projection procedure below.
 `calibration-tz-qc-fresh-starts.json` adds four equilibrium RHF-start controls
 for CAS(10,11)/(10,12) in cc-pVTZ and aug-cc-pVTZ. They are queued behind the
 whole nine-job CAS(10,11) ladder on CPUs 4–7, with 32-GiB limits and a frozen
@@ -374,10 +394,16 @@ QC checks on CPUs 0–3 and 12–15, two 32-GiB containers, using the
 `electronic-qualification` image. Launch output is `launch-sa12-qc-tight.log`;
 the attached supervisor is `sh_112a1235b001TlaKHQwphj8Oi5`. These checks precede
 the prepared eighteen-job matched QC ladder and ten-job large-host target queue.
-The restart has completed in 21.18 minutes, with gradient 5.64e-8, ensemble
+The restart completed in 21.17 minutes, with gradient 5.64e-8, ensemble
 energy −112.3847060392213 Hartree, ground energy −112.92724051225153 Hartree
-and dipole z 0.0175118735858473 a.u. Its RHF-start comparison is still pending;
-the final two-job batch is not yet collected.
+and dipole z 0.0175118735858473 a.u. The RHF start passes in 152.18 minutes
+at gradient 4.20e-8. Their objectives differ by 2.84e-14 Hartree, roots by at
+most 4.17e-8 Hartree and dipoles by 6.27e-8 a.u. The final active-subspace
+minimum overlap singular value is 0.999999999999496; the comparison is in
+`diagnostics/cas12-tight-start-comparison/`. The restart checkpoint SHA256 is
+`9451c7baed762ab674e9d36111cc220202972703ac52346e1ce13dcdc5ac55a0`;
+the RHF-start digest is
+`05acb847b242c5a93da0fec9015a281bcff056915fe4355f255453820b91677a`.
 The new `diagnostics/cas12-large-host-workspaces/` audit passed thirteen queries
 covering all target-sector dimensions on 16-/32-rank grids, including both
 32-rank orientations for the largest sector. Maximum array floors are
@@ -412,23 +438,38 @@ identify Krylov–Schur in each run. Walls are 49.53/46.91 seconds, peaks
 0.1122/0.1120 GiB. Common first-five roots agree to the printed precision.
 The raw-log analyzer rejects solver fallback/incomplete sectors before applying
 the usual all-averaged-root/dipole gates. `calibration-target-slepc-cas11.json`
-is now running on CPUs 0–3 with a 16-GiB limit, supervisor
+completed on CPUs 0–3 with a 16-GiB limit, supervisor
 `sh_112d036710018xEwempAilQec9`, log `launch-target-slepc-cas11.log`.
-Its dense differential gate precedes `calibration-target-slepc-cas12.json`
-and fixed-orbital coverage checks. The final density stage can still dominate
-runtime even if selected-root diagonalization is inexpensive.
+Its full independent import passes all 40 roots within 5.34e-10 Hartree and
+the ground dipole within 8.04e-11 a.u. Complete wall/peak are 3152.81 seconds /
+5.25 GiB, versus the dense reference's 5865.15 seconds / 18.42 GiB. SCATCI
+totals are 351.70 versus 3248.81 seconds (89.17% reduction), but DENPROP takes
+2365.46 seconds, limiting the observed full-wall reduction to 46.25%.
+Concurrent workloads and CPU placement differ; this is not MPI scaling evidence.
+`diagnostics/cas11-selected-root-comparison/` independently reconstructs the
+comparison, verifies raw logs and retains the pinned target source showing
+dense PETSc Hamiltonian storage.
 
-`calibration-neutral-5z.json` prepares aug-cc-pV5Z CCSD(T) at the existing
+`calibration-neutral-5z.json` completed aug-cc-pV5Z CCSD(T) at the existing
 three sentinel geometries for a TZ/QZ/5Z basis sequence. Its finite worker
-is queued on CPUs 12–15 with a 24-GiB limit in the neutral evidence root,
+used CPUs 12–15 with a 24-GiB limit in the neutral evidence root,
 using the selected-root image by ID and a frozen source copy at
 `prepared/neutral-5z-source/`. Supervisor `sh_112e0abf3001S8k4V3u0CJgThH`
 blocks on the exact RHF-start container's exit, then runs all three jobs;
 it does not depend on that orbital start passing. Its log will be
 `/home/kooza/ukrmol/co-neutral-20261006/launch-neutral-5z.log`.
-Correlation-treatment convergence remains a separate open gate.
+All three records pass in 18.97 minutes. Their own-reference relative energies
+at R=1.9/2.5 are 1.26565/1.41165 eV; QZ-to-5Z shifts are −17.24/+15.82 meV.
+Memory peaks reach the 24-GiB cgroup limit including page cache, with about
+17.14-GiB anonymous peaks and 12.81–14.24-GiB run-disk peaks. The subsequent
+`calibration-neutral-stretched.json` batch tests R=3.0/4.0 in aug-TZ/QZ on the
+same CPUs, with 16-GiB limits. All four references converge RHF but fail external
+stability in 15.74 seconds total; retain the original exits and diagnostics.
+Supervisor `sh_11364c06f0016E0feSb5dQSaXI` and `launch-neutral-stretched.log`
+identify that completed rejection batch. The restricted neutral route is
+blocked there pending a different validated correlation treatment.
 
-The CAS(10,12) restart's 48 fixed-orbital CI probes are also queued on CPUs
+The CAS(10,12) restart's original coverage launch used CPUs
 0–3 with an 8-GiB limit, supervisor `sh_112e25f9e001jXYdP8JvH67gD6`.
 `prepared/cas12-coverage-followup.py` waits for the exact CAS(10,11) SLEPc
 container to exit, independently rechecks its all-root/dipole import and dense
@@ -437,7 +478,109 @@ in all eight sectors. It retains individual exits and gates every ensemble
 root; failed extra-root controls remain evidence. Resources and source hashes
 are preserved under `diagnostics/cas12-tight-ci-coverage/`; launch output is
 `launch-cas12-tight-ci-coverage.log`. This does not select the restart over the
-still-running RHF start or qualify an independent CAS(10,12) import.
+RHF start or qualify an independent CAS(10,12) import. Its child process failed
+before any probes because the diagnostic working directory could not import
+`projects`; the original exit/resources/source are preserved. The repaired
+launch explicitly binds the frozen package and sets `PYTHONPATH=/opt/qmodeling`
+for all children. Supervisor `sh_1130398bb001eNc4f7Em2WfdMf`, script
+`prepared/cas12-coverage-pathfix.py`, log
+`launch-cas12-tight-ci-coverage-pathfix.log` and
+`diagnostics/cas12-tight-ci-coverage-pathfix/` retain the fresh retry.
+It completes all 48 probes in 705.79 seconds: all five ensemble roots pass
+within 2.85e-13 Hartree, 46 probes converge fully, and the extra eighth singlet
+A1 and seventh/eighth singlet A2 roots fail at space 40 and converge at 80/160.
+Independent raw CASCI energies and every recorded spin have been verified.
+
+### CI convergence refinement and gated local CAS(10,12) trial
+
+The first three CAS(10,11) ladder observations, recorded before the whole
+batch completed, are saved at `prepared/cas11-qc-initial-observations.json`:
+
+| Job | Outcome | Wall (min) | Kernel memory peak (GiB) |
+|---|---|---:|---:|
+| Compressed DZ, R=1.9 | QC passes: gradient 5.67e-8, fresh-CI agreement 1.14e-13 Hartree | 12.52 | 0.301 |
+| Stretched DZ, R=2.5 | Orbital convergence passes; triplet A1 CI fails | 16.47 | 0.303 |
+| Equilibrium TZ | Orbital convergence passes; singlet B1/B2 CI fails | 23.31 | 0.327 |
+
+The compressed ground/ensemble energies are −112.86483724227091 /
+−112.21029375789468 Hartree, dipole z 0.18617598314225828 a.u., Pi splitting
+6.96e-13 Hartree and MO orthogonality error 2.55e-15. It remains a QC-only
+record pending fixed-orbital coverage and independent import. The two failures
+are preserved with original exits and checkpoints; neither is a passing target.
+The completed batch additionally passes the equilibrium 50-component DZ
+ensemble (52.74 minutes), fails equilibrium aug-TZ singlet B1/B2 CI (28.49
+minutes), and rejects all four combined geometry/basis projections before
+optimization. The pinned PySCF helper does not support changing both at once.
+The 50-component ground energy/dipole are −112.90750858551057 Hartree /
+0.0624155060260635 a.u.; compared with the 40-component ensemble, the ground
+root rises 0.45651 eV and the dipole changes +0.0346869 a.u. (+125.09%). This
+is an orbital-ensemble dependence, not a channel-retention result.
+
+`--target-ci-max-space` now exposes the PySCF trial-vector limit independently
+of ensemble roots/weights. The default is still `max(40,8*roots)`; limits 80
+and 160 are experimental refinements, with recorded actual sector values.
+`calibration-ci-trial-space-control.json` first tests both limits against the
+passing small-model dense spectrum/dipole. Only passing controls release
+`calibration-cas11-ci-space-retries.json`, four fresh reoptimizations from the
+two rejected final checkpoints. Existing convergence/spin/Pi/MO gates remain
+required. The live frozen source is `prepared/ci-space-and-cas12-source-v3/`.
+
+Supervisor `sh_11366e4ab001aML66KbDnQqQ6e` queues this finite continuation
+behind the exact tight-scattering container on CPUs 8–11, with 32-GiB limits
+for controls/retries and 64 GiB for the gated CAS(10,12) import.
+Its script is `prepared/ci-space-and-cas12-followup-v3.py`, log
+`launch-ci-space-and-cas12-followup-v3.log`; per-step commands, original exits,
+source hashes and stop reasons are recorded in the frozen source's
+`execution.json`. After the CI-space controls/retries, it independently
+rechecks the five-root CAS(10,11) SLEPc/dense comparison and waits for
+`calibration-target-slepc-cas11-coverage.json`: eight UKRmol roots per sector
+with `crite=1e-13`, retaining the same 40-component orbital ensemble. This
+independent control now runs concurrently on the freed neutral CPUs 12–15,
+with a 16-GiB limit, supervisor `sh_11366bf60001sviokgYA0SUSuq`. Its log is
+`launch-cas11-extra-root-parallel.log`; the recorded batch PID/command are in
+`prepared/cas11-extra-root-parallel-launch.json`. Pre-launch supervisor revisions
+v1/v2 were superseded before running any experiment; their records and exits
+remain under the original frozen source directories.
+Sixteen fixed-orbital PySCF probes then check **all 64 requested roots**, using
+trial spaces 80/160, and retain evidence under
+`diagnostics/cas11-slepc-extra-root-coverage/`.
+
+Only that all-root/dipole/extra-root gate, plus the completed 48-probe
+CAS(10,12) restart coverage gate and unchanged checkpoint hash, can release
+`calibration-target-slepc-cas12.json`. The supervisor also requires at least
+80 GiB available RAM and 20 GiB free scratch before that launch. The target
+uses 16-GiB internal budgets because its largest dense PETSc matrix alone
+requires 37.41 GiB (9.35 GiB per rank on four ranks). This is an
+independent **tight-restart import trial**; it does not select that start over
+the RHF start or establish basis/model/scattering convergence. No paid host
+is provisioned by this continuation.
+
+### Staged projection ladders
+
+Supervisor `sh_113359889001lD3ePn6nKY7Yfi` runs
+`prepared/cas12-qc-staged-followup.py` on CPUs 0–3, with frozen source
+`prepared/cas12-qc-staged-source/` and log `launch-cas12-qc-staged-followup.log`.
+It checks the completed restart/RHF subspaces and 48-probe restart coverage,
+then runs five base QC entries: compressed/stretched DZ, equilibrium TZ/aug-TZ
+and the equilibrium 50-component DZ ensemble. Its base batch is
+`calibration-large-host-cas12-qc-base`. Each passing sentinel DZ checkpoint
+releases two same-geometry basis projections, with derived manifests
+`calibration-large-host-cas12-qc-r1900-basis` and
+`calibration-large-host-cas12-qc-r2500-basis`. A rejected seed stops only its
+dependent geometry; all source/checkpoint/manifest hashes and exits are retained.
+
+Supervisor `sh_113674883001zx4Z2Cxt7WwKT5` queues
+`prepared/cas11-qc-staged-followup-v2.py` on CPUs 4–7, using
+`prepared/cas11-qc-staged-source-v2/` and log
+`launch-cas11-qc-staged-followup-v2.log`. It waits for the whole fresh-TZ batch
+and live v3 continuation, requires both small CI-space controls to pass, then
+runs two aug-TZ 80/160-vector retries and four staged basis starts. The compressed
+DZ seed is the passing host-preparation checkpoint; stretched starts require a
+passing 80/160-vector DZ retry. Derived manifests and exact checkpoint hashes
+are recorded in the frozen source and each batch. All such records remain QC
+qualification work until coverage/import/start/basis checks pass.
+
+### Scientific decisions still pending
 
 1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)
    import passes; retain its completed start and root-count refinements and

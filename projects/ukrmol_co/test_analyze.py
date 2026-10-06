@@ -94,9 +94,10 @@ def test_state_average_checks_excited_roots_not_ensemble_energy(
 
 
 @pytest.mark.parametrize(
-    "defect", [None, "gradient", "fresh-root", "spin", "weights", "export", "ensemble"]
+    "defect", [None, "gradient", "fresh-root", "spin", "weights", "export", "ensemble", "ci-space"]
 )
-def test_qc_only_does_not_accept_reported_convergence_without_its_gates(tmp_path, defect):
+@pytest.mark.parametrize("ci_space", [None, 80])
+def test_qc_only_does_not_accept_reported_convergence_without_its_gates(tmp_path, defect, ci_space):
     """A successful optimizer flag must not hide a missed root or broken export."""
     molden = tmp_path / "co.molden"
     molden.write_text("orbital export")
@@ -150,6 +151,13 @@ def test_qc_only_does_not_accept_reported_convergence_without_its_gates(tmp_path
         "sa_triplet_roots": [0, 1, 1, 0],
         "target_gradient_tolerance": 1e-7,
     }
+    if ci_space is not None:
+        config["target_ci_max_space"] = ci_space
+        report["optimization"]["ci_max_space_by_sector"] = {
+            "singlet.A1": ci_space,
+            "triplet.B1": ci_space,
+            "triplet.B2": ci_space,
+        }
     if defect == "gradient":
         report["optimization"]["iterations"][0]["orbital_gradient_norm"] = 1e-6
     elif defect == "fresh-root":
@@ -162,6 +170,8 @@ def test_qc_only_does_not_accept_reported_convergence_without_its_gates(tmp_path
         molden.write_text("changed orbitals")
     elif defect == "ensemble":
         config["sa_triplet_roots"] = [0, 2, 2, 0]
+    elif defect == "ci-space":
+        config["target_ci_max_space"] = 160
     (tmp_path / "target.json").write_text(json.dumps(report))
     if defect:
         with pytest.raises((ValueError, AssertionError)):

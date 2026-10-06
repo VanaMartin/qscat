@@ -483,12 +483,33 @@ the subsequent equilibrium scattering pilot is running.
 [`qualification-evidence/`](qualification-evidence/README.md) preserve the
 completed target/neutral supplement and its verified public archive.
 
-The eighteen-attempt supplement also preserves four rejected serial-Davidson
+The qualification supplement also preserves four rejected serial-Davidson
 targets and two passing small-model SLEPc targets. The latter reproduce all
 40 required roots within 4.98e-10 Hartree and dipoles within 5.62e-11 a.u.,
 including extra-root/tighter-tolerance checks, using about 0.12 GiB in
-49.53/46.91 seconds. The CAS(10,11) comparison against the dense reference is
-running; larger-space feasibility depends on its full density/import pass.
+49.53/46.91 seconds. The full five-root CAS(10,11) SLEPc import now passes all
+40 roots within 5.34e-10 Hartree and dipole within 8.04e-11 a.u., in 52.55
+minutes at a 5.25-GiB kernel peak. Its dense-reference excitation energies
+match at printed precision. The observed SCATCI/full-wall reductions are
+89.17%/46.25%; DENPROP still takes 39.42 minutes. Eight-root/tighter controls
+and an independent all-64-root check precede the local CAS(10,12) import.
+This target route stores a dense PETSc Hamiltonian; its largest CAS(10,12)
+matrix floor is 37.41 GiB. The prepared local limit is 64 GiB, with 16-GiB
+internal budgets and an 80-GiB available-host-memory gate.
+
+Both tight CAS(10,12) QC starts pass: restart/RHF walls are 21.17/152.18
+minutes. Objectives differ by 2.84e-14 Hartree, roots by at most 4.17e-8
+Hartree and dipoles by 6.27e-8 a.u.; the minimum active-subspace overlap
+singular value is 0.999999999999496. All five ensemble roots converge in all
+48 fixed-orbital probes; extra singlet A1/A2 roots fail at space 40 and
+converge at 80/160. Independent import remains required.
+
+The first nine-job CAS(10,11) ladder has two QC passes and seven failures:
+three CI-convergence failures and four simultaneous geometry/basis projection
+rejections. The 50-component DZ ensemble raises the ground root by 0.45651
+eV and changes the dipole by +0.0346869 a.u. (+125.09%). This is an orbital
+objective change, distinct from channel retention. Staged same-geometry basis
+projections and CI-space refinements are recorded in `CONTINUATION.md`.
 
 The neutral pilot uses `python -m projects.ukrmol_co.neutral` or the existing
 batch launcher with `--runner neutral`. Its aug-TZ/aug-QZ recipes are in
@@ -514,8 +535,15 @@ Each relative curve is referenced to its own R=2.1323 energy. Basis changes
 shift the sentinel relative energies by 76.04/68.47 meV; the stretched
 amplitude diagnostics increase. Basis and correlation-treatment checks remain
 open, and the dipoles are CCSD lambda-density values, not CCSD(T) derivatives.
-`calibration-neutral-5z.json` adds the same three sentinels in aug-cc-pV5Z;
-its finite worker is queued behind the CAS(10,12) RHF-start CPU slot on Sadaharu.
+`calibration-neutral-5z.json` completes the same three aug-cc-pV5Z sentinels
+in 18.97 minutes on one four-core worker. Relative 5Z energies at R=1.9/2.5
+are 1.26565/1.41165 eV, each referenced to its own equilibrium energy.
+QZ-to-5Z shifts are −17.24/+15.82 meV. The all-memory peaks reach the 24-GiB
+container limit, including page cache; sampled anonymous peaks are about
+17.14 GiB and run-disk peaks 12.81–14.24 GiB.
+`calibration-neutral-stretched.json` tests R=3.0/4.0 in aug-TZ/QZ. All four
+attempts fail external RHF stability, preserving converged RHF diagnostics and
+original exits; a different correlation treatment is required for that region.
 See [the qualification method](../../docs/physics/co-electronic-qualification.md)
 for the numerical contract and the CAS(10,12) workspace audit. Its valid
 eight-/sixteen-rank array floors are about 149 GiB, exceeding the current
@@ -696,6 +724,18 @@ orbital/CI gradient; compare it with the correct requested tolerance.
 `--target-ci-lindep` (1e-14) controls removal of CI residual trial vectors;
 tight residual tolerances need a compatible squared-norm cutoff. The cutoff
 retry recipe is in `calibration-sa-ci-cutoff.json`.
+`--target-ci-max-space` separately refines the PySCF CI trial-vector space;
+its default remains `max(40,8*ensemble roots)` per sector. The trial-space
+override must exceed every ensemble root count and is recorded by sector.
+The matched CAS(10,11) ladder's stretched DZ triplet-A1 and equilibrium TZ
+singlet-B1/B2 CI failures motivate 80/160-vector controls and fresh retries.
+These change a numerical solver limit, while retaining the orbital objective
+and its import/convergence gates. Recipes and queued checks are recorded in
+[`CONTINUATION.md`](CONTINUATION.md).
+For geometry/basis changes together, stage through a passing DZ checkpoint at
+the requested geometry, then change basis at fixed geometry. The pinned PySCF
+projection helper rejects a simultaneous change; the original four rejections
+remain calibration evidence.
 The saved Newton controls do not meet their gradient tolerances. Use that
 option for optimizer diagnostics; the successful continuation uses `one-step`.
 `--target-ah-tolerance` (1e-12) sets the inner augmented-Hessian eigensolver

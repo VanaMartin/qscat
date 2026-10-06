@@ -219,6 +219,17 @@ def qc_properties(workdir: Path, config: dict) -> dict:
     states = report["states"]
     if [(s["spin"], s["irrep"], s["root"]) for s in states] != expected:
         raise ValueError("QC-only roots differ from the requested orbital ensemble")
+    if config.get("target_ci_max_space") is not None:
+        spaces = {
+            f"{spin}.{irrep}": config["target_ci_max_space"]
+            for spin in ("singlet", "triplet")
+            for irrep, count in zip(
+                ("A1", "B1", "B2", "A2"), config[f"sa_{spin}_roots"], strict=True
+            )
+            if count
+        }
+        if diagnostics.get("ci_max_space_by_sector") != spaces:
+            raise ValueError("QC-only CI trial spaces differ from the requested configuration")
     energies = np.array([s["energy_hartree"] for s in states])
     if not np.all(np.isfinite(energies)) or not np.all(np.isfinite(report["ground_dipole_au"])):
         raise ValueError("Nonfinite QC-only target properties")
