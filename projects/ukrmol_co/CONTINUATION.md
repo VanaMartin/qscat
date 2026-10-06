@@ -106,7 +106,7 @@ The latest standalone source layer is tagged
 `sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19`.
 `build-ci-coverage.log` records its cached engine gate and refreshed
 embedded source. PySCF/h5py/target/archive/ci_probe imports passed; all 13 Python/Perl
-source digests match the current checkout. Recorded jobs continue to name their original
+source digests matched the 55-attempt publication checkout. Recorded jobs name their original
 image IDs and immutable source snapshots.
 
 ### Completed snapshot
@@ -208,9 +208,85 @@ Both runs use their requested default 1e-5 orbital-gradient tolerance.
 | Maximum fresh-CI energy difference (Hartree) | 1.14e-13 | 8.88e-11 |
 | Maximum Pi splitting (Hartree) | 5.29e-11 | 6.70e-9 |
 
-All continuation batch CPU allocations are released. Recheck topology,
-competing workloads, RAM and disk before allocating them. No further
-continuation calculation is running at this checkpoint.
+Those batches released their CPU allocations. The following qualification
+continuation uses new run names and immutable source snapshots.
+
+### Tight-target and neutral qualification continuation
+
+`calibration-sa11-qc-tight.json` runs CAS(10,11) at energy/gradient tolerances
+1e-11/1e-7, with a fixed 40-component ensemble and fresh CI. The successful
+checkpoint, original rejected-checkpoint and RHF starts pass QC reanalysis in
+6.08/13.13/61.89 minutes, at gradients 3.22e-8/6.22e-8/8.30e-8. Across the
+three starts, maximum root/dipole differences are 7.69e-9 Hartree / 5.13e-8
+a.u.; the final active-subspace minimum overlap singular value is
+0.999999999999924. Their common ensemble objective is −112.370969232576
+Hartree. This supports start stability for the fixed ensemble/active space,
+not global orbital optimality or electronic-model convergence. The completed
+QC batch released CPUs 0–7.
+
+The tightened restart checkpoint is
+`runs/co-eq-ccdz-sa11-qc-tight-restart/co.casscf.chk`, SHA256
+`64131e79fab6e1a55c1489646555f090cb5186530a66babfe39fd46bbbfcb402`.
+`calibration-sa11-tight-import.json` starts
+`co-eq-ccdz-sa11-tight-import` from this checkpoint. The full independent
+UKRmol target check is running on CPUs 8–11 in a 32-GiB container; its earlier
+model cost was 127.80 minutes, not a guaranteed duration for this retry.
+Wait for its final batch/analyzer records before launching the equilibrium
+scattering pilot. The active SSH job has an attached background supervisor.
+
+`diagnostics/cas11-tight-ci-coverage/` completed 48 fixed-orbital probes in
+116.91 seconds on CPUs 4–7 and 12–15: five/eight roots at trial-space sizes
+40/80/160 in all eight sectors. Forty-six probes converge completely; the
+eighth singlet B1/B2 roots fail at space 40 and converge at 80/160. Every
+ensemble root converges in every probe. Converged first-five energies agree
+with the target within 1.28e-13 Hartree, with maximum common-root spread
+1.71e-13 Hartree. Raw CASCI logs and spins were independently checked. The
+original nonzero campaign exit remains preserved. Final checkpoint subspace
+comparison of all three starts is in `diagnostics/cas11-tight-start-comparison/`.
+
+The CAS(10,12) workspace audit is complete:
+`diagnostics/cas12-scalapack-workspace-audit/` preserves raw installed-library
+queries and the upstream source/licence; `diagnostics/cas12-scalapack-guard/`
+verifies the shipped utility, including explicit rejection (exit 5) of the
+undersized four-rank triplet query. Valid eight-/sixteen-rank queries require
+148.92/148.99 GiB for the main arrays alone. This exceeds host RAM; do not
+repeat the current dense calculation by increasing only `memp`. See
+[the qualification method](../../docs/physics/co-electronic-qualification.md)
+for the included/excluded arrays and overflow signature.
+
+The independent neutral pilot is complete under
+`/home/kooza/ukrmol/co-neutral-20261006`. Three batches retain eight attempts:
+seven passing RHF/frozen-core CCSD(T) records and the initial failed Psi4
+Python import. The executable-based cc-pVDZ PySCF/Psi4 control agrees within
+8.3e-11 Hartree. Six aug-TZ/QZ calculations at R=1.9/2.1323/2.5 took 90.93
+seconds on two four-core workers. `neutral-results.json` and
+`neutral-provenance.json` retain the aggregate and method/reference convention.
+The basis change shifts the sentinel relative energies by 76.04/68.47 meV;
+the R=2.5 amplitude diagnostics increase, so further basis and correlation
+checks remain necessary before selecting a full neutral curve.
+
+The completed supplement is published through
+[`qualification-evidence/`](qualification-evidence/README.md).
+`qualification-results.json` contains eleven attempts in four completed batches:
+three passing QC targets, seven passing neutral records and one failed neutral
+runner. Its public archive retains 48 CI probes and the four completed diagnostic
+directories. Verification checked 728 payload digests, 62 batch-source hashes,
+17 image-source hashes, all ten successful records and both aggregates;
+repackaging is byte-identical. The active target-import job is excluded.
+
+The refreshed standalone image is `qmodeling/ukrmol-co:electronic-qualification`,
+ID `sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08`.
+`build-electronic-qualification.log` and `electronic-qualification-image.json`
+record the cached engine gate, runtime imports, pinned dependency versions and
+all 17 embedded Python/Perl/Fortran source digests. Numerical jobs retain their
+earlier image IDs and immutable source snapshots.
+
+Repository handoff: analysis/packaging code is pinned at
+`443b27fbc9bc021e812a64f8c49fececc56e9540`. The committed-main index is complete
+and upstream-current at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; the branch
+adds state-averaged/fresh-CI work plus the QC-only, correlated-neutral and
+workspace qualification tools and their evidence. Source anchors and local
+changes were resolved against that baseline before editing and publication.
 
 ### Published evidence and collection
 
@@ -221,7 +297,8 @@ client verified all 6,616 payload digests and exactly reconstructed twelve
 comparisons. All 29 successful runs passed raw-output reanalysis, six fixed-CI
 probes match the independent UKRmol roots, and repackaging is byte-identical.
 The prior 37/41/52/53-attempt archives were publicly fetched with matching
-digests. Every launched continuation batch is complete and included.
+digests. Every batch in that historical snapshot is complete and included. The
+newer qualification continuation above has separate completed evidence and live jobs.
 The immutable current archive is
 `https://data.qscat.org/ukrmol-co-state-averaged-2026-10-06/state-averaged-evidence.tar.99d79a4bfdf2.gz`,
 SHA256 `99d79a4bfdf2433f4c90e3f549b8f7eb84ba3af16c7b1e6f70b87759f3fd7a54`.
@@ -247,10 +324,11 @@ sync can overwrite locally refreshed summaries with older host records.
 
 ### Remaining gates
 
-1. **Qualify the larger-active-space targets.** Tighten CAS(10,11) optimizer
-   controls and compare starts/root-count refinements; retain the successful
-   fresh-CI/import checks. Establish a measured process/container memory plan
-   for CAS(10,12), including its larger triplet sector, before retrying. Compare
+1. **Qualify the larger-active-space targets.** Finish the tightened CAS(10,11)
+   import check, retaining the completed start and root-count refinements.
+   CAS(10,12) needs a larger-RAM dense execution host or
+   separately gated eigensolver configuration; the installed-library audit rules
+   out the current dense layouts on this host. Compare
    against the smaller active spaces before adopting a target for scattering.
 2. **Qualify the common orbitals.** The `state-averaged` backend constructs
    multi-spin/multi-irrep CAS targets. The existing `natural` option optimizes
@@ -265,9 +343,10 @@ sync can overwrite locally refreshed summaries with older host records.
    background for the new electronic model. Use the provisional 0.05 eV,
    5% width (0.001 eV floor) and 0.05 rad modulo-π criteria from the README.
    Diagnose poles/bound states at threshold and track the same physical feature.
-5. **Calculate a correlated neutral curve.** RHF pilot energies are not adequate
-   nuclear-dynamics inputs. Keep the relative scattering resonance and the
-   neutral curve's reference convention explicit.
+5. **Qualify the correlated neutral curve.** Extend the completed CCSD(T) pilot's
+   basis sequence and test the stretched correlation treatment before computing
+   a full curve. Keep the relative scattering resonance and the neutral curve's
+   reference convention explicit.
 6. **Remeasure cost, then cover geometry/energy.** Qualify the electronic model
    before the tentative 25–40-geometry, 300–800-energy campaign. Multi-day
    execution is acceptable. Use adaptive windows where fits narrow, and measure

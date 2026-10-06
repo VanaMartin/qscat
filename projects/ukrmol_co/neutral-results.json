@@ -1,0 +1,1101 @@
+{
+  "date": "2026-10-06",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-neutral-20261006",
+  "cpu": "AMD Ryzen 9 9950X3D",
+  "physical_cores": 16,
+  "ram_gib": 123.5,
+  "image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
+  "source_scope": "Each batch binds its own immutable source snapshot; the image supplies the gated engine and pinned dependencies",
+  "method": "Conventional spherical RHF and frozen-core CCSD(T), with two frozen occupied spatial orbitals",
+  "geometry_units": "bohr",
+  "energy_units": "Hartree",
+  "dipole_units": "atomic units",
+  "dipole_method": "CCSD lambda density, not CCSD(T) energy derivative",
+  "relative_curve_reference_bond_length_bohr": 2.1323,
+  "scope": "Independent neutral pilot and PySCF/Psi4 energy control; basis and single-reference convergence remain open",
+  "hartree_to_ev": 27.211386245988,
+  "status": "Calibration evidence; electronic model convergence not established",
+  "batches": [
+    {
+      "wall_seconds": 90.9292110898532,
+      "image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
+      "source_sha256": {
+        "neutral.py": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "run.py": "00e797ebd926e1a2f5216a25941763383d6b5866028ae08875a43c3faeaf1683",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "test_collect.py": "c0f22ddc89ae3e5593723147809c58fff861786807ff5bcd6edbdc5c62e43864",
+        "refit.py": "88b63f55328192ce8c7085ae6a3db0b03ebfde90dcbac7d08190153f48427b6f",
+        "test_neutral.py": "6ea33307e521f9ed4645135b6a6c2e9cea699e4adb010b575301b7b4d7d6095c",
+        "collect.py": "285fadeeef9f1ecd2f2da3cc9902dadcfac662029911e582ab4eee7e5ef5396c",
+        "archive.py": "bfbabf41eaf2fe3111dbe2bde05ec8fc85377718c2dc74a750f543f1a87c21b9",
+        "ci_probe.py": "3fc112ca6efec01d04fe18c5531fa9320ed7284164c71c47a4b2f92b78aeb1c3",
+        "analyze.py": "15983e5d03e487f94a4a089dc153afb6003d33726647309aa1ea68dc194278ac",
+        "target.py": "e54458d239405ba72c252302cb8cad2cda9b604611a9979e78f00ed7ecb73bb6",
+        "test_analyze.py": "11f68a6090fe7c8a0dd8ecd6f5646379edd61892bac1916c5be82e811a04651f",
+        "batch.py": "036ca3b08a22f317767cdfcde63b8591fde506b41364ea3396124db21c2af2fb",
+        "test_profile.py": "fdb27f1fb5916c996d86eec66c37dd88847e9001749e80a0b8c3e586977afb9d",
+        "co.pl": "5abac1b437e701f5eacd54b71869f3f20bb2268519502afd8b11a152320b93b4",
+        "state_average.pm": "9cd33999930723bc500b80d5847df1d658b36dd13e152b094f2683f8d53708e4"
+      },
+      "cpu_groups": [
+        "8-11",
+        "12-15"
+      ],
+      "memory_limit_per_job": "24g",
+      "jobs": [
+        {
+          "name": "co-eq-aug-tz-neutral",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 5.875137513969094
+        },
+        {
+          "name": "co-r19-aug-tz-neutral",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 5.6212928290478885
+        },
+        {
+          "name": "co-r19-aug-qz-neutral",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 38.894758518086746
+        },
+        {
+          "name": "co-eq-aug-qz-neutral",
+          "cpus": "12-15",
+          "exit_code": 0,
+          "container_wall_seconds": 41.62354525621049
+        },
+        {
+          "name": "co-r25-aug-tz-neutral",
+          "cpus": "12-15",
+          "exit_code": 0,
+          "container_wall_seconds": 7.624503578990698
+        },
+        {
+          "name": "co-r25-aug-qz-neutral",
+          "cpus": "12-15",
+          "exit_code": 0,
+          "container_wall_seconds": 41.68054409092292
+        }
+      ],
+      "name": "calibration-neutral-pilot"
+    },
+    {
+      "wall_seconds": 1.0732310928869992,
+      "image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
+      "source_sha256": {
+        "neutral.py": "8416e5b34a74c0c0209b1069cbd99ee19d6200c3d3c65d06366a2993d95bf128",
+        "run.py": "00e797ebd926e1a2f5216a25941763383d6b5866028ae08875a43c3faeaf1683",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "test_collect.py": "c0f22ddc89ae3e5593723147809c58fff861786807ff5bcd6edbdc5c62e43864",
+        "refit.py": "88b63f55328192ce8c7085ae6a3db0b03ebfde90dcbac7d08190153f48427b6f",
+        "test_neutral.py": "6ea33307e521f9ed4645135b6a6c2e9cea699e4adb010b575301b7b4d7d6095c",
+        "collect.py": "285fadeeef9f1ecd2f2da3cc9902dadcfac662029911e582ab4eee7e5ef5396c",
+        "archive.py": "bfbabf41eaf2fe3111dbe2bde05ec8fc85377718c2dc74a750f543f1a87c21b9",
+        "ci_probe.py": "3fc112ca6efec01d04fe18c5531fa9320ed7284164c71c47a4b2f92b78aeb1c3",
+        "analyze.py": "15983e5d03e487f94a4a089dc153afb6003d33726647309aa1ea68dc194278ac",
+        "target.py": "e54458d239405ba72c252302cb8cad2cda9b604611a9979e78f00ed7ecb73bb6",
+        "test_analyze.py": "11f68a6090fe7c8a0dd8ecd6f5646379edd61892bac1916c5be82e811a04651f",
+        "batch.py": "036ca3b08a22f317767cdfcde63b8591fde506b41364ea3396124db21c2af2fb",
+        "test_profile.py": "fdb27f1fb5916c996d86eec66c37dd88847e9001749e80a0b8c3e586977afb9d",
+        "co.pl": "5abac1b437e701f5eacd54b71869f3f20bb2268519502afd8b11a152320b93b4",
+        "state_average.pm": "9cd33999930723bc500b80d5847df1d658b36dd13e152b094f2683f8d53708e4"
+      },
+      "cpu_groups": [
+        "8-11"
+      ],
+      "memory_limit_per_job": "16g",
+      "jobs": [
+        {
+          "name": "co-eq-ccdz-neutral-reference",
+          "cpus": "8-11",
+          "exit_code": 1,
+          "container_wall_seconds": 1.0729684310499579
+        }
+      ],
+      "name": "calibration-neutral-reference"
+    },
+    {
+      "wall_seconds": 1.705981292994693,
+      "image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
+      "source_sha256": {
+        "neutral.py": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "run.py": "00e797ebd926e1a2f5216a25941763383d6b5866028ae08875a43c3faeaf1683",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "test_collect.py": "c0f22ddc89ae3e5593723147809c58fff861786807ff5bcd6edbdc5c62e43864",
+        "refit.py": "88b63f55328192ce8c7085ae6a3db0b03ebfde90dcbac7d08190153f48427b6f",
+        "test_neutral.py": "6ea33307e521f9ed4645135b6a6c2e9cea699e4adb010b575301b7b4d7d6095c",
+        "collect.py": "285fadeeef9f1ecd2f2da3cc9902dadcfac662029911e582ab4eee7e5ef5396c",
+        "archive.py": "bfbabf41eaf2fe3111dbe2bde05ec8fc85377718c2dc74a750f543f1a87c21b9",
+        "ci_probe.py": "3fc112ca6efec01d04fe18c5531fa9320ed7284164c71c47a4b2f92b78aeb1c3",
+        "analyze.py": "15983e5d03e487f94a4a089dc153afb6003d33726647309aa1ea68dc194278ac",
+        "target.py": "e54458d239405ba72c252302cb8cad2cda9b604611a9979e78f00ed7ecb73bb6",
+        "test_analyze.py": "11f68a6090fe7c8a0dd8ecd6f5646379edd61892bac1916c5be82e811a04651f",
+        "batch.py": "036ca3b08a22f317767cdfcde63b8591fde506b41364ea3396124db21c2af2fb",
+        "test_profile.py": "fdb27f1fb5916c996d86eec66c37dd88847e9001749e80a0b8c3e586977afb9d",
+        "co.pl": "5abac1b437e701f5eacd54b71869f3f20bb2268519502afd8b11a152320b93b4",
+        "state_average.pm": "9cd33999930723bc500b80d5847df1d658b36dd13e152b094f2683f8d53708e4"
+      },
+      "cpu_groups": [
+        "8-11"
+      ],
+      "memory_limit_per_job": "16g",
+      "jobs": [
+        {
+          "name": "co-eq-ccdz-neutral-reference-cli",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 1.7057074308395386
+        }
+      ],
+      "name": "calibration-neutral-reference-retry"
+    }
+  ],
+  "runs": {
+    "co-eq-aug-tz-neutral": {
+      "config": {
+        "workdir": "/work/runs/co-eq-aug-tz-neutral",
+        "bond_length": 2.1323,
+        "basis": "aug-cc-pVTZ",
+        "ranks": 4,
+        "memory_mb": 12000,
+        "reference_check": false,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 5.222970091039315,
+        "sampled_peak_container_memory_bytes": 430850048,
+        "baseline_container_memory_bytes": 20209664,
+        "sampled_peak_container_anon_bytes": 424054784,
+        "kernel_peak_container_memory_bytes": 526274560,
+        "container_cpu_seconds": 17.287834,
+        "sampled_peak_run_allocated_bytes": 29122560,
+        "sampled_peak_scratch_allocated_bytes": 27549696,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-pilot",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVTZ",
+        "bond_length_bohr": 2.1323,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.2179590659183732
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.9143409340816266
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.78142802521967,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.14451982057798,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.018244711677927485,
+        "t1_largest_singular_value": 0.0379979543733472,
+        "triples_correction_hartree": -0.01754872928076679,
+        "neutral_energy_hartree": -113.16206854985874,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000014,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.05516602620097191
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative"
+      },
+      "initial_batch_exit_code": 0,
+      "result": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVTZ",
+        "bond_length_bohr": 2.1323,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.2179590659183732
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.9143409340816266
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.78142802521967,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.14451982057798,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.018244711677927485,
+        "t1_largest_singular_value": 0.0379979543733472,
+        "triples_correction_hartree": -0.01754872928076679,
+        "neutral_energy_hartree": -113.16206854985874,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000014,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.05516602620097191
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "neutral_only": true,
+        "analyzer_source_sha256": "8d2c5cc96b6fd70c8157689ee22139bc99f257197a7a0bcc2f66d3070e8c2434",
+        "validation_scope": "Correlated neutral pilot; basis and single-reference convergence not established"
+      },
+      "status": "neutral_validated",
+      "stage_totals_seconds": {
+        "neutral.rhf": 0.16306429612450302,
+        "neutral.rhf_stability": 0.4875120259821415,
+        "neutral.ccsd": 1.9408788261935115,
+        "neutral.triples": 0.5949995601549745,
+        "neutral.lambda": 1.6554176229983568
+      },
+      "refits": []
+    },
+    "co-r19-aug-tz-neutral": {
+      "config": {
+        "workdir": "/work/runs/co-r19-aug-tz-neutral",
+        "bond_length": 1.9,
+        "basis": "aug-cc-pVTZ",
+        "ranks": 4,
+        "memory_mb": 12000,
+        "reference_check": false,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 5.027308845892549,
+        "sampled_peak_container_memory_bytes": 424349696,
+        "baseline_container_memory_bytes": 20103168,
+        "sampled_peak_container_anon_bytes": 389169152,
+        "kernel_peak_container_memory_bytes": 531849216,
+        "container_cpu_seconds": 16.710863,
+        "sampled_peak_run_allocated_bytes": 29122560,
+        "sampled_peak_scratch_allocated_bytes": 27549696,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-pilot",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVTZ",
+        "bond_length_bohr": 1.9,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.0852704709679262
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.8147295290320737
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.74968409366366,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.09800126886883,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.012640991278560464,
+        "t1_largest_singular_value": 0.025150548760076472,
+        "triples_correction_hartree": -0.014127505310652863,
+        "neutral_energy_hartree": -113.11212877417948,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000002,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.20921486875619477
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative"
+      },
+      "initial_batch_exit_code": 0,
+      "result": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVTZ",
+        "bond_length_bohr": 1.9,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.0852704709679262
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.8147295290320737
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.74968409366366,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.09800126886883,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.012640991278560464,
+        "t1_largest_singular_value": 0.025150548760076472,
+        "triples_correction_hartree": -0.014127505310652863,
+        "neutral_energy_hartree": -113.11212877417948,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000002,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.20921486875619477
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "neutral_only": true,
+        "analyzer_source_sha256": "8d2c5cc96b6fd70c8157689ee22139bc99f257197a7a0bcc2f66d3070e8c2434",
+        "validation_scope": "Correlated neutral pilot; basis and single-reference convergence not established"
+      },
+      "status": "neutral_validated",
+      "stage_totals_seconds": {
+        "neutral.rhf": 0.13523448910564184,
+        "neutral.rhf_stability": 0.4912477901671082,
+        "neutral.ccsd": 1.6495393558871,
+        "neutral.triples": 0.614710743073374,
+        "neutral.lambda": 1.7770656049251556
+      },
+      "refits": []
+    },
+    "co-r19-aug-qz-neutral": {
+      "config": {
+        "workdir": "/work/runs/co-r19-aug-qz-neutral",
+        "bond_length": 1.9,
+        "basis": "aug-cc-pVQZ",
+        "ranks": 4,
+        "memory_mb": 12000,
+        "reference_check": false,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 38.326851692050695,
+        "sampled_peak_container_memory_bytes": 3438780416,
+        "baseline_container_memory_bytes": 20287488,
+        "sampled_peak_container_anon_bytes": 3422703616,
+        "kernel_peak_container_memory_bytes": 3449266176,
+        "container_cpu_seconds": 133.84177300000002,
+        "sampled_peak_run_allocated_bytes": 157741056,
+        "sampled_peak_scratch_allocated_bytes": 152788992,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-pilot",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVQZ",
+        "bond_length_bohr": 1.9,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.0852704709679262
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.8147295290320737
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.75891677103675,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.12794758245386,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.01239695873060242,
+        "t1_largest_singular_value": 0.024727290014779458,
+        "triples_correction_hartree": -0.015252281737036013,
+        "neutral_energy_hartree": -113.14319986419089,
+        "lambda_converged": true,
+        "density_electrons": 13.999999999999996,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.2055392789397975
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative"
+      },
+      "initial_batch_exit_code": 0,
+      "result": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVQZ",
+        "bond_length_bohr": 1.9,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.0852704709679262
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.8147295290320737
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.75891677103675,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.12794758245386,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.01239695873060242,
+        "t1_largest_singular_value": 0.024727290014779458,
+        "triples_correction_hartree": -0.015252281737036013,
+        "neutral_energy_hartree": -113.14319986419089,
+        "lambda_converged": true,
+        "density_electrons": 13.999999999999996,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.2055392789397975
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "neutral_only": true,
+        "analyzer_source_sha256": "8d2c5cc96b6fd70c8157689ee22139bc99f257197a7a0bcc2f66d3070e8c2434",
+        "validation_scope": "Correlated neutral pilot; basis and single-reference convergence not established"
+      },
+      "status": "neutral_validated",
+      "stage_totals_seconds": {
+        "neutral.rhf": 1.2196163451299071,
+        "neutral.rhf_stability": 4.9484151809010655,
+        "neutral.ccsd": 12.206394765991718,
+        "neutral.triples": 6.705797686940059,
+        "neutral.lambda": 12.911254503997043
+      },
+      "refits": []
+    },
+    "co-eq-aug-qz-neutral": {
+      "config": {
+        "workdir": "/work/runs/co-eq-aug-qz-neutral",
+        "bond_length": 2.1323,
+        "basis": "aug-cc-pVQZ",
+        "ranks": 4,
+        "memory_mb": 12000,
+        "reference_check": false,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 40.96111600007862,
+        "sampled_peak_container_memory_bytes": 3326025728,
+        "baseline_container_memory_bytes": 20111360,
+        "sampled_peak_container_anon_bytes": 3314716672,
+        "kernel_peak_container_memory_bytes": 3446149120,
+        "container_cpu_seconds": 142.259735,
+        "sampled_peak_run_allocated_bytes": 157749248,
+        "sampled_peak_scratch_allocated_bytes": 152788992,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-pilot",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVQZ",
+        "bond_length_bohr": 2.1323,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.2179590659183732
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.9143409340816266
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.78903090152488,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.17160909907659,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.017868375222938895,
+        "t1_largest_singular_value": 0.037206763657680095,
+        "triples_correction_hartree": -0.01873614498121961,
+        "neutral_energy_hartree": -113.19034524405781,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000009,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.05010848353998426
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative"
+      },
+      "initial_batch_exit_code": 0,
+      "result": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVQZ",
+        "bond_length_bohr": 2.1323,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.2179590659183732
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.9143409340816266
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.78903090152488,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.17160909907659,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.017868375222938895,
+        "t1_largest_singular_value": 0.037206763657680095,
+        "triples_correction_hartree": -0.01873614498121961,
+        "neutral_energy_hartree": -113.19034524405781,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000009,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.05010848353998426
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "neutral_only": true,
+        "analyzer_source_sha256": "8d2c5cc96b6fd70c8157689ee22139bc99f257197a7a0bcc2f66d3070e8c2434",
+        "validation_scope": "Correlated neutral pilot; basis and single-reference convergence not established"
+      },
+      "status": "neutral_validated",
+      "stage_totals_seconds": {
+        "neutral.rhf": 1.1608733129687607,
+        "neutral.rhf_stability": 4.384894287912175,
+        "neutral.ccsd": 14.87593615311198,
+        "neutral.triples": 6.82409759494476,
+        "neutral.lambda": 13.3426369051449
+      },
+      "refits": []
+    },
+    "co-r25-aug-tz-neutral": {
+      "config": {
+        "workdir": "/work/runs/co-r25-aug-tz-neutral",
+        "bond_length": 2.5,
+        "basis": "aug-cc-pVTZ",
+        "ranks": 4,
+        "memory_mb": 12000,
+        "reference_check": false,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 7.0402548420242965,
+        "sampled_peak_container_memory_bytes": 464867328,
+        "baseline_container_memory_bytes": 20156416,
+        "sampled_peak_container_anon_bytes": 458039296,
+        "kernel_peak_container_memory_bytes": 526422016,
+        "container_cpu_seconds": 23.601882,
+        "sampled_peak_run_allocated_bytes": 29126656,
+        "sampled_peak_scratch_allocated_bytes": 27549696,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-pilot",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVTZ",
+        "bond_length_bohr": 2.5,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.427987461799903
+          ],
+          [
+            "O",
+            0,
+            0,
+            1.072012538200097
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.70080886907841,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.08830228694885,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.03231390512095624,
+        "t1_largest_singular_value": 0.06901347345087115,
+        "triples_correction_hartree": -0.024986643279639804,
+        "neutral_energy_hartree": -113.11328893022849,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000005,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          -0.1839711756129743
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative"
+      },
+      "initial_batch_exit_code": 0,
+      "result": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVTZ",
+        "bond_length_bohr": 2.5,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.427987461799903
+          ],
+          [
+            "O",
+            0,
+            0,
+            1.072012538200097
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.70080886907841,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.08830228694885,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.03231390512095624,
+        "t1_largest_singular_value": 0.06901347345087115,
+        "triples_correction_hartree": -0.024986643279639804,
+        "neutral_energy_hartree": -113.11328893022849,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000005,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          -0.1839711756129743
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "neutral_only": true,
+        "analyzer_source_sha256": "8d2c5cc96b6fd70c8157689ee22139bc99f257197a7a0bcc2f66d3070e8c2434",
+        "validation_scope": "Correlated neutral pilot; basis and single-reference convergence not established"
+      },
+      "status": "neutral_validated",
+      "stage_totals_seconds": {
+        "neutral.rhf": 0.1829075408168137,
+        "neutral.rhf_stability": 0.5074129388667643,
+        "neutral.ccsd": 3.065834118053317,
+        "neutral.triples": 0.6817792269866914,
+        "neutral.lambda": 2.2552248931024224
+      },
+      "refits": []
+    },
+    "co-r25-aug-qz-neutral": {
+      "config": {
+        "workdir": "/work/runs/co-r25-aug-qz-neutral",
+        "bond_length": 2.5,
+        "basis": "aug-cc-pVQZ",
+        "ranks": 4,
+        "memory_mb": 12000,
+        "reference_check": false,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 41.13944210787304,
+        "sampled_peak_container_memory_bytes": 3440787456,
+        "baseline_container_memory_bytes": 20262912,
+        "sampled_peak_container_anon_bytes": 3424542720,
+        "kernel_peak_container_memory_bytes": 3447078912,
+        "container_cpu_seconds": 141.804524,
+        "sampled_peak_run_allocated_bytes": 157749248,
+        "sampled_peak_scratch_allocated_bytes": 152788992,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-pilot",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVQZ",
+        "bond_length_bohr": 2.5,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.427987461799903
+          ],
+          [
+            "O",
+            0,
+            0,
+            1.072012538200097
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.70719501021249,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.11274384681495,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.03166582471228238,
+        "t1_largest_singular_value": 0.06752335749212003,
+        "triples_correction_hartree": -0.026305521876415407,
+        "neutral_energy_hartree": -113.13904936869136,
+        "lambda_converged": true,
+        "density_electrons": 13.999999999999986,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          -0.19255590282330917
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative"
+      },
+      "initial_batch_exit_code": 0,
+      "result": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "aug-cc-pVQZ",
+        "bond_length_bohr": 2.5,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.427987461799903
+          ],
+          [
+            "O",
+            0,
+            0,
+            1.072012538200097
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.70719501021249,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.11274384681495,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.03166582471228238,
+        "t1_largest_singular_value": 0.06752335749212003,
+        "triples_correction_hartree": -0.026305521876415407,
+        "neutral_energy_hartree": -113.13904936869136,
+        "lambda_converged": true,
+        "density_electrons": 13.999999999999986,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          -0.19255590282330917
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "neutral_only": true,
+        "analyzer_source_sha256": "8d2c5cc96b6fd70c8157689ee22139bc99f257197a7a0bcc2f66d3070e8c2434",
+        "validation_scope": "Correlated neutral pilot; basis and single-reference convergence not established"
+      },
+      "status": "neutral_validated",
+      "stage_totals_seconds": {
+        "neutral.rhf": 1.2277453010901809,
+        "neutral.rhf_stability": 4.516886222874746,
+        "neutral.ccsd": 17.08526257891208,
+        "neutral.triples": 5.892268966883421,
+        "neutral.lambda": 12.007749349810183
+      },
+      "refits": []
+    },
+    "co-eq-ccdz-neutral-reference": {
+      "config": {
+        "workdir": "/work/runs/co-eq-ccdz-neutral-reference",
+        "bond_length": 2.1323,
+        "basis": "cc-pVDZ",
+        "ranks": 4,
+        "memory_mb": 8000,
+        "reference_check": true,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 1,
+        "wall_seconds": 0.6027475369628519,
+        "sampled_peak_container_memory_bytes": 106188800,
+        "baseline_container_memory_bytes": 20074496,
+        "sampled_peak_container_anon_bytes": 101011456,
+        "kernel_peak_container_memory_bytes": 109895680,
+        "container_cpu_seconds": 0.9608570000000001,
+        "sampled_peak_run_allocated_bytes": 155648,
+        "sampled_peak_scratch_allocated_bytes": 0,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-reference",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "cc-pVDZ",
+        "bond_length_bohr": 2.1323,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.2179590659183732
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.9143409340816266
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "8416e5b34a74c0c0209b1069cbd99ee19d6200c3d3c65d06366a2993d95bf128",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.74927741543317,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.0437372138157,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.019294756888541705,
+        "t1_largest_singular_value": 0.04124600429015309,
+        "triples_correction_hartree": -0.010654109536924755,
+        "neutral_energy_hartree": -113.05439132335263,
+        "lambda_converged": true,
+        "density_electrons": 14.000000000000007,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.09913068172304712
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative"
+      },
+      "initial_batch_exit_code": 1,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "neutral.rhf": 0.028983694035559893,
+        "neutral.rhf_stability": 0.04670238588005304,
+        "neutral.ccsd": 0.05987347196787596,
+        "neutral.triples": 0.008956497069448233,
+        "neutral.lambda": 0.044619733933359385,
+        "neutral.psi4_reference": 0.00010206992737948895
+      },
+      "refits": []
+    },
+    "co-eq-ccdz-neutral-reference-cli": {
+      "config": {
+        "workdir": "/work/runs/co-eq-ccdz-neutral-reference-cli",
+        "bond_length": 2.1323,
+        "basis": "cc-pVDZ",
+        "ranks": 4,
+        "memory_mb": 8000,
+        "reference_check": true,
+        "model": "neutral-ccsd(t)",
+        "neutral_only": true
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 1.2026566320564598,
+        "sampled_peak_container_memory_bytes": 261505024,
+        "baseline_container_memory_bytes": 20242432,
+        "sampled_peak_container_anon_bytes": 250458112,
+        "kernel_peak_container_memory_bytes": 299892736,
+        "container_cpu_seconds": 1.784067,
+        "sampled_peak_run_allocated_bytes": 212992,
+        "sampled_peak_scratch_allocated_bytes": 0,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-neutral-reference-retry",
+      "neutral_diagnostics": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "cc-pVDZ",
+        "bond_length_bohr": 2.1323,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.2179590659183732
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.9143409340816266
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.74927741543323,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.04373721381583,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.019294756888220133,
+        "t1_largest_singular_value": 0.041246004289397224,
+        "triples_correction_hartree": -0.010654109536929118,
+        "neutral_energy_hartree": -113.05439132335276,
+        "lambda_converged": true,
+        "density_electrons": 14.0,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.09913068172045492
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "independent_reference": {
+          "psi4_version": "1.10",
+          "rhf_energy_hartree": -112.74927741543337,
+          "neutral_energy_hartree": -113.05439132343562,
+          "method": "independent Psi4 conventional RHF/CCSD(T), frozen core",
+          "comparison_tolerance_hartree": 1e-07
+        }
+      },
+      "initial_batch_exit_code": 0,
+      "result": {
+        "method": "frozen-core conventional RHF/CCSD(T)",
+        "pyscf_version": "2.11.0",
+        "basis": "cc-pVDZ",
+        "bond_length_bohr": 2.1323,
+        "atoms_bohr": [
+          [
+            "C",
+            0,
+            0,
+            -1.2179590659183732
+          ],
+          [
+            "O",
+            0,
+            0,
+            0.9143409340816266
+          ]
+        ],
+        "frozen_spatial_orbitals": 2,
+        "correlated_electrons": 10,
+        "source_sha256": "713f46a436e170bc95166ae8588fbcf35260dc3b5844bea34b906fce0530e445",
+        "rhf_converged": true,
+        "rhf_energy_hartree": -112.74927741543323,
+        "rhf_internally_stable": true,
+        "rhf_externally_stable": true,
+        "ccsd_converged": true,
+        "ccsd_energy_hartree": -113.04373721381583,
+        "t1_frobenius_over_sqrt_correlated_electrons": 0.019294756888220133,
+        "t1_largest_singular_value": 0.041246004289397224,
+        "triples_correction_hartree": -0.010654109536929118,
+        "neutral_energy_hartree": -113.05439132335276,
+        "lambda_converged": true,
+        "density_electrons": 14.0,
+        "ccsd_dipole_au": [
+          0.0,
+          0.0,
+          0.09913068172045492
+        ],
+        "dipole_method": "CCSD lambda density; not a CCSD(T) energy derivative",
+        "independent_reference": {
+          "psi4_version": "1.10",
+          "rhf_energy_hartree": -112.74927741543337,
+          "neutral_energy_hartree": -113.05439132343562,
+          "method": "independent Psi4 conventional RHF/CCSD(T), frozen core",
+          "comparison_tolerance_hartree": 1e-07
+        },
+        "neutral_only": true,
+        "analyzer_source_sha256": "8d2c5cc96b6fd70c8157689ee22139bc99f257197a7a0bcc2f66d3070e8c2434",
+        "validation_scope": "Correlated neutral pilot; basis and single-reference convergence not established"
+      },
+      "status": "neutral_validated",
+      "stage_totals_seconds": {
+        "neutral.rhf": 0.02894159290008247,
+        "neutral.rhf_stability": 0.04438746301457286,
+        "neutral.ccsd": 0.05655462900176644,
+        "neutral.triples": 0.008724394952878356,
+        "neutral.lambda": 0.04437956307083368,
+        "neutral.psi4_reference": 0.7035234910435975
+      },
+      "refits": []
+    }
+  },
+  "comparisons": []
+}

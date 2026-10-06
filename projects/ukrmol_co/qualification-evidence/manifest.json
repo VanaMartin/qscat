@@ -1,0 +1,36 @@
+{
+  "git_sha": "443b27fbc9bc021e812a64f8c49fececc56e9540",
+  "git_sha_scope": "Committed qualification tools, analyzer, collector and archive utility; each numerical batch/diagnostic retains its actual source snapshot and hashes",
+  "record_type": "co-electronic-qualification-supplement",
+  "campaign_date": "2026-10-06",
+  "completed_attempts": 11,
+  "completed_batches": 4,
+  "archive": "qualification-evidence.tar.gz",
+  "archive_sha256": "0e005f8650500e920d0d22d8996ef8c050ca27500c5416adabaf8a1de7f5d98f",
+  "archive_bytes": 7019629,
+  "archive_layout": "state-averaged-evidence/ contains four completed batches, eight neutral attempts, three completed QC targets, four diagnostic directories, source snapshots, licences and file-index.json",
+  "neutral_attempts": 8,
+  "neutral_validated_records": 7,
+  "failed_neutral_records": 1,
+  "completed_qc_targets": 3,
+  "fixed_orbital_ci_probes": 48,
+  "fully_converged_ci_probes": 46,
+  "ci_failed_controls": "Eighth singlet B1/B2 root at trial-space size 40; converged at sizes 80/160. Every ensemble root converged in all probes",
+  "archive_verification": {
+    "indexed_payload_files": 728,
+    "batch_source_hashes": 62,
+    "standalone_image_source_hashes": 17,
+    "independently_reanalyzed_successful_records": 10,
+    "all_payload_sizes_and_sha256_verified": true,
+    "full_and_neutral_aggregates_reconstructed_exactly": true,
+    "raw_ci_spectra_and_spin_checks_passed": true,
+    "repacked_archive_is_byte_identical": true
+  },
+  "validation_scope": "QC/root-coverage and correlated-neutral pilot checks; electronic model, basis and correlation convergence remain open",
+  "ongoing_jobs_excluded": [
+    "co-eq-ccdz-sa11-tight-import"
+  ],
+  "prior_target_evidence": "../sa-evidence/manifest.json",
+  "standalone_image_id": "sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08",
+  "standalone_image_verification": "Cached engine gates reused; PySCF/h5py versions and runtime-module imports pass; all 17 embedded Python/Perl/Fortran source digests match the deployed checkout"
+}

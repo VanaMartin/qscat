@@ -21,7 +21,9 @@ diagonalization, then failed the triplet-A1 matrix allocation (9.31 GiB per rank
 Its complete failure, resources and source snapshot are included. CAS(10,11)
 fresh-CI reoptimization passes every averaged-root import and the dipole check;
 its batch also preserves an A1-only control rejected for computed Pi splitting.
-Every launched continuation batch is complete and included. Active-space target
+Every batch in this historical snapshot is complete and included. Newer
+qualification work is recorded in [`../CONTINUATION.md`](../CONTINUATION.md).
+Active-space target
 properties remain model-sensitive; import agreement does not establish
 electronic-model convergence.
 

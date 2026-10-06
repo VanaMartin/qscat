@@ -14,3 +14,4 @@ projects/ukrmol_co/runs
 projects/ukrmol_co/.scripts-cache
 projects/ukrmol_co/evidence/*.tar.gz
 projects/ukrmol_co/sa-evidence/*.tar.gz
+projects/ukrmol_co/qualification-evidence/*.tar.gz
