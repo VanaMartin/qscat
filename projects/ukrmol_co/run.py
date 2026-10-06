@@ -89,6 +89,24 @@ def enable_state_average(library: Path) -> None:
     library.write_text(source + "\n" + Path(__file__).with_name("state_average.pm").read_text())
 
 
+def select_target_diagonalizer(
+    template: Path, solver: str, tolerance: float, max_cycles: int
+) -> None:
+    """Select the pinned target path explicitly without changing scattering."""
+    igh, force_serial = {"davidson-serial": (0, 1), "slepc": (-1, 0)}[solver]
+    source = template.read_text()
+    before = ">>>IGHT<<<igh = >>>IGH<<<,"
+    if source.count(before) != 1:
+        raise ValueError("No unique target diagonalizer setting in the pinned template")
+    template.write_text(
+        source.replace(
+            before,
+            f"  igh = {igh}, forse = {force_serial}, "
+            f"crite = {tolerance:.16g}, maxiter = {max_cycles},",
+        )
+    )
+
+
 def allocated_bytes(directory: Path) -> int:
     """Count allocated file blocks once, excluding symlinks and hardlink duplicates."""
     seen = set()
@@ -253,6 +271,14 @@ def main() -> None:
     )
     parser.add_argument("--scatci-memory-gib", type=float, default=2.5)
     parser.add_argument(
+        "--target-diagonalizer",
+        choices=["auto", "davidson-serial", "slepc"],
+        default="auto",
+        help="UKRmol target solver; selected-root paths are experimental",
+    )
+    parser.add_argument("--target-diagonalizer-tolerance", type=float, default=1e-12)
+    parser.add_argument("--target-diagonalizer-max-cycles", type=int, default=500)
+    parser.add_argument(
         "--basis",
         choices=["cc-pVDZ", "cc-pVTZ", "aug-cc-pVDZ", "aug-cc-pVTZ", "aug-cc-pVQZ"],
         default="aug-cc-pVDZ",
@@ -279,6 +305,8 @@ def main() -> None:
     args = parser.parse_args()
     if args.qc_only and (args.target_only or args.orbitals != "state-averaged"):
         parser.error("QC-only requires state-averaged orbitals and excludes target-only")
+    if args.target_diagonalizer != "auto" and (args.qc_only or args.model != "CAS-A"):
+        parser.error("Selected-root diagonalization requires a UKRmol CAS target")
     positive = (
         args.bond_length,
         args.ranks,
@@ -289,6 +317,8 @@ def main() -> None:
         args.propagation_radius,
         args.congen_workspace,
         args.scatci_memory_gib,
+        args.target_diagonalizer_tolerance,
+        args.target_diagonalizer_max_cycles,
         args.target_memory_mb,
         args.target_max_cycles,
         args.target_energy_tolerance,
@@ -388,6 +418,13 @@ def main() -> None:
         if source.count("memp = 2.5,") != 1:
             raise ValueError(f"No unique MPI-SCATCI memory setting in {name}")
         template.write_text(source.replace("memp = 2.5,", f"memp = {args.scatci_memory_gib},"))
+    if args.target_diagonalizer != "auto":
+        select_target_diagonalizer(
+            workdir / "templates/target.scatci.inp",
+            args.target_diagonalizer,
+            args.target_diagonalizer_tolerance,
+            args.target_diagonalizer_max_cycles,
+        )
     psi4_template = workdir / "templates/psi4.inp"
     psi4_template.write_text(
         "set scf_type pk\nset e_convergence 1e-10\nset d_convergence 1e-10\n"
