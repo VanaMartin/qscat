@@ -175,6 +175,20 @@ for the dense control. Eight SCATCI stages total 351.70 versus 3248.81 seconds
 wall reduction to 46.25%. Different concurrent workloads/CPU placement make
 these observed comparisons, not controlled MPI scaling.
 
+The eight-root-per-sector CAS(10,11) refinement at `crite=1e-13` also passes
+all 40 ensemble-root imports within 5.33e-10 Hartree and the dipole within
+7.90e-11 a.u. Complete wall/peak are 3086.61 seconds / 5.27 GiB; the 299.95-second
+SCATCI total and 2409.43-second DENPROP total again have different CPU placement
+and concurrent workloads from the earlier controls. Common excitations match
+the dense and five-root SLEPc references at printed precision.
+Sixteen independent fixed-orbital PySCF probes, eight roots at trial spaces
+80/160 in all sectors, fully converge and check **every one of the 64 requested
+UKRmol roots** within 5.34e-10 Hartree. Raw CASCI energies, root ordering and
+spins are verified. The repaired scan takes 128.22 seconds at a 0.280-GiB peak;
+its failed pre-probe process-identity guard and repaired launch remain evidence.
+This completes the CAS(10,11) extra-root solver gate for a larger target trial;
+active-space/basis/ensemble convergence and the scattering path remain separate.
+
 For the largest CAS(10,12) target dimension 70860, one dense Hamiltonian alone
 requires `8*N² = 40169116800 bytes` (37.41 GiB), or about 9.35 GiB per rank
 on four ranks. The local trial therefore uses a 64-GiB container and 16-GiB

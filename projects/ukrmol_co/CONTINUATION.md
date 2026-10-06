@@ -4,7 +4,8 @@
 
 The five-root CAS(10,11) SLEPc import, both tight CAS(10,12) QC starts, the
 CAS(10,12) restart coverage scan, the nine-job CAS(10,11) QC ladder and the
-neutral 5Z/stretched batches have completed. The fresh CAS(10,11) TZ start
+neutral 5Z/stretched batches have completed. The eight-root/tighter CAS(10,11)
+SLEPc import and independent all-64-root verification also pass. The fresh CAS(10,11) TZ start
 passes QC; its aug-TZ start fails the fresh-CI audit, and the compressed
 CAS(10,12) DZ seed fails singlet-A1 CI convergence. Their whole batches are
 still active. The next decisions depend on these active or queued finite workers:
@@ -14,7 +15,7 @@ still active. The next decisions depend on these active or queued finite workers
 | 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
 | 4–7 | Fresh equilibrium CAS(10,12) TZ/aug-TZ starts, 32-GiB containers | The first two CAS(10,11) starts have finished; projected aug-TZ retries and staged CAS(10,11) basis starts await the whole batch and numerical controls |
 | 8–11 | Tight CAS(10,11) scattering, 48-GiB container | CI-space controls/retries, all-64-root verification, then gated 64-GiB CAS(10,12) target import |
-| 12–15 | Eight-root/tighter CAS(10,11) SLEPc target, 16-GiB container | A new finite queue checks fresh-TZ root coverage, repairs eligible fresh-start CI failures, then runs l=3/l=5 scattering controls and fit replays |
+| 12–15 | Extra-root import and all-64-root verification completed; queued worker waits for the whole fresh-TZ batch | Fresh-TZ root coverage, eligible fresh-start CI repairs, then l=3/l=5 scattering controls and fit replays |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -310,23 +311,24 @@ checks remain necessary before selecting a full neutral curve.
 
 The completed supplement is published through
 [`qualification-evidence/`](qualification-evidence/README.md).
-`qualification-results.json` contains 37 attempts in thirteen completed batches:
+`qualification-results.json` contains 38 attempts in fourteen completed batches:
 seven passing QC targets, ten passing neutral records and five neutral failures,
-dense/SLEPc tight CAS(10,11) all-root/dipole imports, four rejected Davidson
+dense and five/eight-root SLEPc tight CAS(10,11) all-root/dipole imports, four rejected Davidson
 controls, two passing small-model SLEPc controls and seven rejected CAS(10,11)
-ladder entries. Its public archive retains 96 CI probes and eleven diagnostic
-directories, including a failed pre-probe launch and its repaired retry.
-Verification checked 2837 payload digests, 210 batch-source hashes, 17 image-source
-hashes, all 21 successes, all four Davidson rejections, both aggregates, the
+ladder entries. Its public archive retains 112 CI probes and twelve diagnostic
+directories, including the independent all-64-root check and both preserved
+pre-probe launch failures with repaired retries.
+Verification checked 3012 payload digests, 228 batch-source hashes, 17 image-source
+hashes, all 22 successes, all four Davidson rejections, both aggregates, the
 ladder/reference failures and dense/SLEPc resource/storage comparison;
-repackaging is byte-identical. Live scattering, extra-root SLEPc, staged QC and
-the full CAS(10,12) import are excluded. The earlier eleven-/twelve-/eighteen-attempt supplements remain
+repackaging is byte-identical. Live scattering, staged QC and
+the full CAS(10,12) import are excluded. The earlier eleven-/twelve-/eighteen-/thirty-seven-attempt supplements remain
 available through the manifest's prior-snapshot pointers.
 
 The immutable current supplement is
-`https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.7fc64b2c0bf3.gz`,
-SHA256 `7fc64b2c0bf357dcffed50e5f13c5038ed9f0a70a16b42a079f1bb08a7bfa2ab`,
-24,418,027 bytes. The public client fetched and verified those bytes, and the
+`https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.c8f331096096.gz`,
+SHA256 `c8f3310960961c0269e0dafdb19ed70a9b0a014782e4b5b30bf8445ae8e90e7f`,
+24,853,692 bytes. The public client fetched and verified those bytes, and the
 extracted verifier reproduced all checks and byte-identical repackaging.
 
 The refreshed standalone image is `qmodeling/ukrmol-co:electronic-qualification`,
@@ -557,7 +559,7 @@ source hashes and stop reasons are recorded in the frozen source's
 rechecks the five-root CAS(10,11) SLEPc/dense comparison and waits for
 `calibration-target-slepc-cas11-coverage.json`: eight UKRmol roots per sector
 with `crite=1e-13`, retaining the same 40-component orbital ensemble. This
-independent control now runs concurrently on the freed neutral CPUs 12–15,
+independent control ran concurrently on the freed neutral CPUs 12–15,
 with a 16-GiB limit, supervisor `sh_11366bf60001sviokgYA0SUSuq`. Its log is
 `launch-cas11-extra-root-parallel.log`; the recorded batch PID/command are in
 `prepared/cas11-extra-root-parallel-launch.json`. Pre-launch supervisor revisions
@@ -566,6 +568,8 @@ remain under the original frozen source directories.
 Sixteen fixed-orbital PySCF probes then check **all 64 requested roots**, using
 trial spaces 80/160, and retain evidence under
 `diagnostics/cas11-slepc-extra-root-coverage/`.
+The completed early independent scan is recorded below; the original v3
+supervisor retains its own scheduled verification before the larger import.
 
 Only that all-root/dipole/extra-root gate, plus the completed 48-probe
 CAS(10,12) restart coverage gate and unchanged checkpoint hash, can release
@@ -604,11 +608,12 @@ qualification work until coverage/import/start/basis checks pass.
 
 ### Local continuation — 7 October 2026
 
-The latest inspection finds approximately 100 GiB available RAM and 158 GiB
-free on `/home`; all sixteen physical cores have assigned work. SMT partners
+The latest resource inspection finds approximately 100 GiB available RAM and
+158 GiB free on `/home`. CPUs 0–11 have active work; the CPU-12–15 worker is
+waiting for its fresh-TZ dependency after the extra-root checks completed. SMT partners
 remain outside the experiment's CPU allocation. The following **completed
 individual attempts belong to unfinished batches**, so they are observations
-outside the published 37-attempt supplement:
+outside the published 38-attempt supplement:
 
 | Run | Outcome | Wall (min) | Kernel memory peak (GiB) |
 |---|---|---:|---:|
@@ -644,7 +649,7 @@ the supervisor SHA256 is
 `1185613f615a8221174cd8e386ff39fab0eb608e66e2e610ddc0d99eb4ca0cc2`.
 These are finite campaign drivers retained with the experimental evidence.
 
-The CPU-12–15 queue waits for the whole extra-root SLEPc and fresh-TZ batches
+The CPU-12–15 queue requires the whole extra-root SLEPc and fresh-TZ batches
 to release their allocations. It reanalyzes every passing fresh TZ checkpoint
 and performs 48 independent fixed-orbital probes: five/eight roots at spaces
 40/80/160 in all eight sectors. A failed extra root remains evidence; every
@@ -680,6 +685,36 @@ different-basis negative control is rejected. Commands, original exits, source
 hash and logs remain in
 `diagnostics/local-followup-checkpoint-comparison-smoke/`.
 
+The eight-root/tighter CAS(10,11) SLEPc batch completes successfully in
+3086.61 seconds (51.44 minutes) at a 5.27-GiB kernel peak. All eight raw sectors
+report Krylov–Schur with eight requested eigenpairs, and all forty ensemble
+root/dipole imports pass within 5.33e-10 Hartree / 7.90e-11 a.u. Common
+excitation energies agree exactly at printed precision with both dense and
+five-root SLEPc references; ground dipole differences are −1.54e-11 /
++8.00e-13 a.u. SCATCI/DENPROP totals are 299.95/2409.43 seconds. These timings
+retain their distinct CPU placement and concurrent-workload conditions.
+
+`diagnostics/cas11-slepc-extra-root-coverage-early/` uses the released CPU slot
+to complete sixteen independent fixed-orbital probes: all eight requested
+roots at spaces 80/160 in every sector. All probes fully converge and check all
+64 requested roots within 5.34e-10 Hartree, with verified raw CASCI energies,
+root order and spins. Its profiled wall/peak are 128.22 seconds / 0.280 GiB.
+The final imported checkpoint SHA256 is
+`658ae6e4758c641524983372bfeb30aa8b33be09f9fc54609755d2ecbde8a4d7`.
+
+The first early-scan controller stops before any probes because its command
+guard compared space-separated arguments against Linux's NUL-separated
+`/proc/<pid>/cmdline`. The repaired controller normalizes the separator and
+checks that the queued slot owner is paused and no calculation occupies the
+CPU group. It resumes that waiting worker on exit. Original source/hash,
+exit 1, zero-probe failure record, repaired command, exact pause/resume times
+and resource records are retained in the completed diagnostic. Attached
+repaired supervisor: `sh_11399be0e001NHvOpBDG2vNqYQ`; script:
+`prepared/launch-early-slepc-coverage-pathfix.py`.
+The 38-attempt public supplement includes this complete gate and its failed
+launch. The original v3 queue still rechecks its own all-64-root gate before
+the local CAS(10,12) import; the larger import remains pending.
+
 Finally, the CPU-12–15 queue runs
 [`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):
 two equilibrium CAS(10,11)/40-channel calculations at **l=3 and l=5**, using
@@ -702,8 +737,9 @@ Every queue stops at a missing dependency or failed qualification/resource gate;
 individual rejected QC attempts retain their original exits and permit the
 other independent finite entries to be inspected.
 
-The continuation is currently at a **pending-results dependency**: all four
-physical-core groups are occupied, and further launches are handled by the
+The continuation is currently at a **pending-results dependency**: the three
+active physical-core groups and the waiting fourth group have finite follow-ons,
+and further launches are handled by the
 recorded finite queues. The restricted neutral route at R=3.0/4.0 still needs
 a separately designed and validated correlation treatment. Production fitting,
 the full CAS(10,12) import and actual CAS(10,12) scattering resources remain

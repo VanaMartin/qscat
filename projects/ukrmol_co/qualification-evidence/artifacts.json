@@ -3,8 +3,8 @@
   "url_prefix": "https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/",
   "artifacts": {
     "qualification-evidence.tar.gz": {
-      "sha256": "7fc64b2c0bf357dcffed50e5f13c5038ed9f0a70a16b42a079f1bb08a7bfa2ab",
-      "bytes": 24418027
+      "sha256": "c8f3310960961c0269e0dafdb19ed70a9b0a014782e4b5b30bf8445ae8e90e7f",
+      "bytes": 24853692
     }
   }
 }
