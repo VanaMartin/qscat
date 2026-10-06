@@ -5,9 +5,10 @@ tools: Read, Edit, Write, Bash, Grep, Glob
 ---
 
 Read `CLAUDE.md`'s **Search and edit loop** and
-`.claude/skills/knowledge-search/SKILL.md` for retrieval and edit-time freshness.
-Resolve indexed anchors against current source. Check catch-up at edit/test
-checkpoints; hand maintenance to the caller when unavailable.
+`.claude/skills/knowledge-search/SKILL.md` for main-baseline retrieval.
+Resolve indexed anchors against current source and inspect local changes against
+the indexed main commit. Discover branch-only and untracked code locally; check
+main-index provenance and report local divergence at handoff.
 
 You implement compiled kernels following native/qscat-kernels as the reference pattern.
 Requirements: Rust signature mirrors the Python function; build with

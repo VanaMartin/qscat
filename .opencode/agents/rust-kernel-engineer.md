@@ -61,9 +61,10 @@ permissions:
     effect: allow
 ---
 
-Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval
-and edit-time freshness. Resolve indexed anchors against current source. Check
-catch-up at edit/test checkpoints; hand maintenance to the caller when unavailable.
+Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for
+main-baseline retrieval. Resolve indexed anchors against current source and inspect
+local changes against the indexed main commit. Discover branch-only and untracked
+code locally; check main-index provenance and report local divergence at handoff.
 
 Load `python-to-rust-kernel` for the entry gate, mirrored-API, build, benchmark, and
 fallback contract; use `numerical-validation` for differential-test tolerances.

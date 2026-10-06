@@ -12,6 +12,12 @@ installed package.
 ## [Unreleased]
 
 ### Changed
+- **Code search now indexes committed upstream `main` only.** Clones share an
+  upstream-owned corpus; the MCP refreshes on mount and at bounded intervals.
+  Source and policy come from pinned Git blobs, and completed generations are
+  published atomically with explicit commit provenance, integrity, and upstream
+  currency. Branch changes are resolved through local source and Git; legacy
+  payload/model vectors can be reused during migration.
 - **Assistant skill contracts** now distinguish Hermitian conservation from ECS
   validation, history reconstruction from upstream integration, production grid
   convergence from proxy evidence, and read-only reports from caller-owned storage.
@@ -21,19 +27,18 @@ installed package.
 ### Added
 - **Checkpoint code-index writer** in `tools/agent_search`, with an isolated
   Python environment, Python/Rust/Markdown anchors, complete tokenizer budgets,
-  payload-keyed embedding reuse, changed/deleted row reconciliation, worktree
-  ownership, freshness inspection, and vector/BM25/hybrid CLI queries. Provenance
-  excerpts are compatible with the existing vector-only LanceDB MCP reader.
-- **Code-search MCP mount hook** automatically populates absent/empty indexes on
-  fresh clones, with locked dependency setup, background initial indexing,
-  per-worktree table selection, concurrent-mount deduplication, and observable
-  bootstrap failures. The project reader reports freshness and supports all three
-  query modes; populated indexes continue using checkpoint refresh.
+  payload-keyed embedding reuse, changed/deleted source reconciliation, upstream
+  ownership, main-snapshot provenance, and vector/BM25/hybrid CLI queries.
+- **Code-search MCP mount hook** ensures committed main is indexed on fresh clones
+  and existing corpora, with locked dependency setup, background refresh,
+  shared-upstream selection, concurrent-mount deduplication, and visible failures.
+  The project reader reports snapshot integrity and upstream currency and supports
+  all three query modes.
 - **Repository and processed-article search guidance**, with a `knowledge-search`
   skill and separate LanceDB corpus policies, tokenizer-aware chunk budgets, and
   source/locator verification requirements. Coding agents share a live-source
   search/edit contract with stable symbol anchors, derived line locations, and
-  incremental-index freshness handoffs; the design cites existing implementations.
+  main-baseline/local-delta handoffs; the design cites existing implementations.
 - **The recommended public surfaces keep the types they already knew.**
   `qscat` ships `py.typed`, but two of the surfaces it recommends threw type
   information away at the door. `qscat.tuning`'s fixed-shape reports were

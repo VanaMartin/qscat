@@ -1,157 +1,124 @@
 # Repository and article search for coding agents
 
 Use local exact search for known identifiers and LanceDB for conceptual discovery.
-Read current source before acting on an indexed result. The `knowledge-search`
-skill defines this routing; `.opencode/search/profiles.json` records the two corpus
-policies. The MCP reader and checkpoint indexer in `tools/agent_search/` consume
-the repository profile. OpenCode's project configuration mounts the code reader
-automatically; its startup lifecycle bootstraps an absent/empty code table.
+Code retrieval is a shared baseline of **committed upstream `main`**. Read current
+source and inspect its local delta before acting on a result. The `knowledge-search`
+skill defines agent routing; `.opencode/search/profiles.json` describes the corpus
+policies consumed by `tools.agent_search`.
 
 ## Corpus boundaries
 
-The repository profile includes owned source, tests, example configs, durable
-physics/API/architecture documentation, and operating guidance. Exclude working
-plans/specs, generated outputs, build directories, fixtures containing deliberate
-defects, and legacy reference trees from ordinary retrieval. These can be searched
-explicitly with local tools when the task requires them.
+The code corpus includes owned source, tests, example configs, durable
+physics/API/architecture documentation, and operating guidance. It excludes
+working plans/specs, generated outputs, build directories, fixtures containing
+deliberate defects, legacy reference trees, and literature notes. Search those
+locally when the task requires them.
 
-Keep processed scientific articles in `qscat_articles`, separate from repository
-search in `qscat_knowledge` and its worktree-scoped variants. Start with tracked
-`reference/literature/*.md` notes.
-Add processed full text only from an explicit source root with provenance. Notes
-and extractions are different source kinds; an extraction is not automatically a
-verified reference claim. Local article data does not replace the tracked notes.
+Processed scientific articles belong to `qscat_articles`, with a separate
+connection and provenance contract. Start with tracked `reference/literature/*.md`
+notes; add processed full text only from an explicit source root with provenance.
+A full-text extraction is not automatically a verified reference claim. The
+main-only code contract does not ingest article files or populate the article table.
 
-## Basic external connector
+## The committed-main source contract
 
-The basic external LanceDB MCP server, retained for the article connection, uses
-environment variables `LANCEDB_URI`, `TABLE_NAME`,
-`EMBEDDING_FUNCTION`, and `MODEL_NAME`. It creates a two-column `doc`/`vector` table
-on first ingestion and appends strings. It does not read filenames or URLs passed
-as strings. Supply actual chunk content, not a path to be embedded as if it were
-the document.
+Every published code snapshot derives from one exact commit fetched from the
+configured upstream's `main`. The default remote is `origin`; `--remote upstream`
+selects another configured remote for a fork. Local `main`, the current branch,
+staged files, dirty files, and untracked files are never indexing inputs.
 
-Its current `query_table` always performs vector search even when `query_type`
-requests another mode. `table_details` opens the configured table regardless of
-its arguments. A connected server therefore proves neither a populated table nor
-working hybrid retrieval. Table inspection and queries fail until a table exists.
+The writer performs a bounded, noninteractive fetch of
+`refs/heads/main` into `refs/remotes/<remote>/main`, resolves the commit and tree,
+enumerates regular blobs with `git ls-tree`, and reads source through batched
+`git cat-file` calls. Symlinks and submodules are excluded. File bytes do not pass
+through checkout filters. The indexing profile is read from that same commit;
+branch policy edits cannot change the shared corpus. A successful fetch is
+required before publishing, so a stale offline clone cannot overwrite a newer
+shared snapshot with its cached remote-tracking ref.
 
-Use the CPU `all-MiniLM-L6-v2` baseline already configured. Its installed model has
-384 dimensions and a 256-token input limit. Budget with the model's tokenizer:
-target 160-token content units, cap at 220, and ensure the complete embedded text
-including the provenance header and special tokens fits 256. Overlap up to 24
-tokens only when splitting a large unit; do not duplicate whole adjacent symbols.
-These are starting settings to evaluate, not demonstrated optimal chunk sizes.
+Fetching updates the remote-tracking ref, not the task's branch, staging area,
+or working files. Published provenance records the upstream identity, main commit,
+tree, profile hash, selected blob IDs and file SHA256s, chunker, and model spec.
+Returned hits carry path, qualified anchor, declaration disambiguator, file/blob
+hashes, and snapshot-specific line spans; their response names the main commit.
 
-With the basic connector, put a compact chunk ID, path, and qualified anchor in
-each `doc` string and keep snapshot/hash/location provenance in a local manifest
-keyed by that ID. This provides leads but cannot substitute for server-side
-filtering or incremental reconciliation. Avoid appending successive repository
-snapshots to the same unfiltered table: stale matches would compete with current
-code. Rebuild an explicitly owned derived table or use immutable snapshot tables
-with explicit server selection; never erase another corpus to refresh one checkout.
+## Shared identity and publication
 
-## Stable documents and moving locations
+The default logical corpus is
+`qscat_knowledge_main_<16-character identity SHA256>`. Its identity contains the
+normalized upstream URL, `main`, and repository-relative committed profile path.
+SSH and HTTPS URLs for the same upstream normalize to the same identity;
+credentials are excluded. GitHub repository-name case is normalized. Forks and
+other upstreams remain separate. Absolute checkout paths are not owners.
 
-Code has three distinct keys:
+Clones and branches with the same upstream share a logical corpus and writer
+lock. `--table` explicitly selects another logical name, retaining ownership
+checks; use a new name when changing the embedding model/configuration. Ownership
+rejects different upstream/profile identities and legacy manifest formats.
 
-| Key | Depends on | Used for |
-|---|---|---|
-| Logical document anchor | repository, relative path, language/kind, qualified symbol or heading, duplicate disambiguator | Resolving the unit in current source |
-| Chunk/content key | exact chunk text plus any deliberately embedded parent context | Deduplicating content and reconciling changed fragments |
-| Embedding cache key | complete embedding payload, model revision, document/query parameters | Reusing expensive vectors |
+Each changed corpus is built as an immutable physical generation named
+`<logical-name>_g_<unique-id>`. The writer constructs rows and the native BM25
+index, validates table version and row count, then atomically replaces
+`<logical-name>.manifest.json`. That manifest is the publication pointer.
+Queries capture it once and pin its physical table version. A failed build or
+interrupted publication leaves the previous completed snapshot available. Readers
+in other processes can finish using their captured older generation.
 
-Line ranges, whole-file hashes, snapshot/worktree IDs, and timestamps belong to
-location/freshness metadata. Keep them outside the embedded text and its cache
-key. An edit earlier in a file then changes positions and the file fingerprint,
-while an unchanged function's payload and embedding remain reusable. Context that
-is actually embedded, such as a signature or module name, remains part of the
-payload: changing it can legitimately require a new vector.
+Generations are retained because another mounted reader may still hold one.
+Failed builds can leave unpublished generations, also excluded from search.
+Reclaim obsolete generations only with readers disconnected and the published
+manifest preserved; automatic cross-process generation reclamation is not supplied.
 
-Store module headers, functions/methods, compact classes/result holders, and
-fragments of large units. Keep each fragment attached to its parent anchor. Reuse
-content keys rather than making a global chunk ordinal the sole row identity;
-inserting an earlier function must not renumber unrelated documents. Identical
-fragments still need distinct source locations. Repeated declarations and headings
-need an explicit disambiguator; an ambiguous match must be resolved against source.
-Renames/moves create new path/name anchors and retire the old ones, with embedding
-reuse only when the complete payload still matches.
+## Mount and ongoing refresh
 
-### Worked editing example
-
-Suppose `SparseLU.refactor` moves from line 300 to line 320 because a helper is
-added above it. The logical anchor is still the file plus `SparseLU.refactor`.
-The indexer reparses that file, updates its source fingerprint and the method's
-span, and reuses the vector if the payload is identical. These line numbers are
-illustrative, not source locators for this checkout.
-
-The agent resolves `SparseLU.refactor` locally and reads its current body before
-editing. If that body subsequently changes, its changed fragments get new content
-keys and embeddings. A symbol-level content match does not prove its dependencies
-or behavior are unchanged: imports, callees, configuration, and tests still need
-the usual change-impact review.
-
-### Index maintenance during editing
-
-Use one incremental writer with per-file change detection, embedding caching,
-and idempotent reconciliation. A filesystem watcher can update saved files; a
-checkpoint catch-up covers changes made by shell commands, Git operations, and
-other agents. Verify selected worktree and catch-up status before relying on
-freshness. Parser errors in partially edited files must leave their results
-explicitly stale/unavailable until a successful reconciliation.
-
-Agents follow `CLAUDE.md`'s **Search and edit loop**: discover, resolve/read live
-source, edit/validate, then check catch-up at a coherent checkpoint. Read-only
-specialists keep their assigned evidence/report scope and leave maintenance to
-the caller. If the writer is unavailable, local source remains usable and the
-caller records the affected unsynchronised paths. Agents do not hand-maintain
-vectors or derived document copies.
-
-Keep worktrees isolated through separate selected manifests/tables or overlays.
-An overlay must mask base locations for changed/deleted paths before adding the
-working versions. Explicit task-owned new files can enter that overlay; the
-tracked-files-only base policy still excludes arbitrary untracked outputs.
-
-## MCP mount-time population
-
-`opencode.json` configures the project-local `lancedb` server to run
-`python -m tools.agent_search.mcp` through `uv run --project .opencode/search
---python 3.12 --frozen`. Opening a fresh clone in OpenCode installs the locked
-search environment and starts this reader. The startup timeout allows dependency
-setup on a new machine; embedding-model loading and indexing run after mount in a
-background task so the MCP handshake and tool catalog are available immediately.
-
-The server's lifespan invokes the indexer's `bootstrap` operation under the
-exclusive writer lock. It populates an absent or empty selected table, and can
-adopt an empty table with the basic connector's schema. A populated table is
-skipped, including when its source is stale: the editing caller still owns
-checkpoint `sync`. Concurrent mounts recheck emptiness after acquiring the same
-lock, so only one performs initial ingestion. Ownership checks remain effective.
-
-`table_details` exposes the selected table, root, bootstrap `pending`/`running`/
-`complete`/`failed` state, row count, schema, and source freshness. `query_table`
-awaits the mount job and supports `vector`, `fts`, and `hybrid`; results include
-freshness, source metadata, excerpts, and scores. Bootstrap errors are reported by
-inspection and queries. A stale result remains a lead requiring live-source
-resolution; absent or incomplete indexes are not queried. The reader exposes
-lookup/inspection tools; the single indexer owns derived writes.
-
-The same operation can be fired manually:
+`opencode.json` mounts the project-local reader with:
 
 ```bash
-uv run --project .opencode/search --no-sync python -m tools.agent_search bootstrap
+uv run --project .opencode/search --python 3.12 --frozen \
+  python -m tools.agent_search.mcp
 ```
 
-Other MCP clients can mount the same module from the repository root with this
-command and startup allowance. The implementation uses the MCP server's lifespan
-rather than a client-specific plugin hook.
+The frozen lockfile installs the isolated search environment in a fresh clone.
+The startup allowance covers dependency setup. The MCP lifespan starts the
+ensure-main job in the background so its handshake and tool catalog can become
+available before embedding and indexing finish.
 
-## Populate, refresh, and inspect the code index
+Every mount ensures main is indexed, including when the corpus is populated.
+While mounted, the server checks upstream every 300 seconds; `--check-interval`
+sets a positive interval in seconds. The shared writer lock and attempt timestamp
+rate-limit concurrent mounts. Explicit CLI `sync` forces an immediate fetch and
+reconciliation. This is a Git-upstream refresh loop, not a filesystem watcher.
 
-The repository includes a checkpoint writer compatible with the connected
-LanceDB 0.21.2 server. Its isolated Python 3.12 environment keeps indexing
-dependencies outside the numerical workspace. Run these commands from the
-repository root:
+With no prior snapshot, the first query waits for initial population or a reported
+failure. With a completed snapshot, queries remain available while a refresh runs
+or fails. No complete snapshot means unavailable semantic retrieval, so use local
+source. A fetch failure exposes unknown upstream currency; a failed build after
+observing a newer main exposes the old snapshot as behind. Neither is called current.
+
+`table_details` and query responses distinguish:
+
+| Field | Meaning |
+|---|---|
+| `source_commit` | Exact main commit represented by the returned snapshot |
+| `integrity` | `complete`, `absent`, or `incomplete` published generation |
+| `upstream.state` | `current`, `behind`, or `unknown` relative to a recent successful upstream check |
+| `upstream.checked_at` | When the upstream commit was successfully observed |
+| `refresh.state` | `pending`, `checking`, `indexing`, `complete`, or `failed` |
+| `refresh.error` | Visible failure reason, when present |
+| `state` | Summary: `current`, `stale`, `absent`, or `incomplete` |
+
+The inspection tool's `maintainer_error` also exposes local failures when the
+writer cannot create a persisted refresh record, such as an invalid database path.
+
+`stale` can therefore mean a complete, usable older main snapshot or unknown remote
+currency. Local branch divergence does not change main-index freshness. Once a
+successful check ages beyond the interval, currency becomes unknown until checked
+again. `status` and CLI queries inspect this information without fetching; the
+mounted maintainer and explicit `sync` own refreshes.
+
+## Commands and migration
+
+Run from a checkout with the intended upstream configured:
 
 ```bash
 uv sync --project .opencode/search --python 3.12
@@ -162,172 +129,154 @@ uv run --project .opencode/search --no-sync python -m tools.agent_search query \
   "sparse factorization symbolic analysis reuse" --mode hybrid --limit 5
 ```
 
-`sync` is the supported caller-owned catch-up operation at edit/test checkpoints.
-It fingerprints selected files, reparses only changed files under the same profile
-and chunker version, reuses exact payload/model embeddings, and reconciles removed
-rows by ID. Python AST, Rust Tree-sitter items, and Markdown headings supply
-anchors; other text/config formats use bounded file fragments. It checks the
-complete payload with the installed MiniLM tokenizer before embedding. Empty
-files are represented in the freshness manifest without searchable chunks.
+`plan` fetches main and reports the prospective corpus without publishing it.
+`bootstrap` is a compatibility alias for the same ensure-main operation as `sync`;
+it refreshes populated corpora. `--root`, `--remote`, `--db`, `--table`, and
+`--profile` provide explicit selections. The profile must be a committed,
+repository-relative path. The database defaults to
+`~/.local/share/opencode/lancedb`, or `LANCEDB_URI`. The MCP also accepts
+`TABLE_NAME` for an explicit logical name. There is no untracked-file ingestion flag.
 
-The default database is `~/.local/share/opencode/lancedb`, or `LANCEDB_URI` when
-set. MCP and CLI use the same automatic selection: reuse `qscat_knowledge` when
-its manifest already belongs to this resolved worktree root; otherwise select
-`qscat_knowledge_<16-character root SHA256>`. A newly cloned copy on the same
-machine therefore selects an independent table. `--db`, `--table`, and `--root`
-select explicit locations; the MCP module also accepts `TABLE_NAME`. Every table
-has a sibling `<table>.manifest.json` and an exclusive writer lock. Ownership
-checks reject reuse by another worktree. Changing the embedding model/configuration
-requires a new table.
+The main-only manifest format is `qmodeling-main-search-v2`. First migration builds
+source membership and provenance afresh from fetched main. A healthy legacy
+`qmodeling-search-v1` table from the same upstream can supply self-consistent
+payload/model-keyed vectors. Legacy checkout locations, file membership, and
+ownership are not copied into the new snapshot. Previously indexed branch content
+can only contribute a cached vector when the exact payload/model pair is also
+required by committed main.
 
-Tracked files form the base corpus. Include an explicit task-owned new source with
-`sync --include-new relative/path.py`; this selection persists in the manifest.
-Excluded sources remain excluded. Ordinary untracked outputs never enter through
-a recursive directory scan. Parsed chunks, vectors, and manifests are derived
-local data; source files are the editing surface.
+## Agent workflow for branch work
 
-`status` reports `current`, `stale`, `incomplete`, or `absent`, and lists changed
-paths. Parse failures preserve the previous committed rows; the changed source
-fingerprint reports their staleness. Interrupted publication and external table
-mutations are detected through manifest state, table version, and row count.
-Retry `sync` after a coherent source checkpoint. CLI queries verify ownership and
-freshness first. The project MCP reader verifies ownership and includes freshness
-in each result; its mount job handles initial population, while caller checkpoints
-handle subsequent source changes.
+Use main retrieval to discover candidate files, then resolve each anchor in current
+source. Indexed line numbers are hints for the named commit, not current edit
+locations. Include local branch additions and changes in discovery:
 
-The writer stores a tokenizer-bounded `text` embedding source separately from the
-`doc` excerpt returned by the existing MCP reader. `doc` carries path, anchor,
-declaration disambiguator, lines, worktree root, file hash, and chunk ID. Those
-moving locations are not embedded. Structured columns carry the same provenance
-for metadata-aware consumers. The companion CLI supports vector, native BM25 FTS,
-and reciprocal-rank-fused hybrid search, also supported by the code MCP reader.
-The external article connector remains vector-only. Exact scans remain the vector
-baseline.
+```bash
+git diff --name-status <indexed-commit> -- <scope>
+git diff --cached --name-status -- <scope>
+git diff --name-status -- <scope>
+git ls-files --others --exclude-standard -- <scope>
+```
 
-Run the isolated integration checks with:
+The first diff covers committed branch changes and tracked working-tree changes
+relative to the indexed main commit. The next two expose staging and dirty state;
+the last lists relevant untracked source. Read relevant diffs and source bodies.
+Resolve renames/moves locally and omit deleted hits. If the named commit is missing
+in this clone, fetch it through the configured upstream or report the unresolved
+delta and continue with local discovery.
+
+After editing, re-read affected source and review dependencies/tests. An unchanged
+symbol's embedding says nothing about changed imports or callees. At handoff,
+record the indexed commit, its main-index status, and relevant local divergence.
+Branches do not refresh their own edits into the shared index. Read-only specialists
+retain their assigned scope/report contract and leave explicit maintenance to the
+caller. The basic append-only `ingest_docs` tool cannot refresh this corpus.
+
+## Chunking, identity, and embedding reuse
+
+Python AST functions/methods and class/module context, Rust Tree-sitter items, and
+Markdown headings provide qualified anchors. Other text/config formats use bounded
+file fragments. Repeated declarations and headings have a disambiguator; oversized
+units are split while keeping their parent anchor. Empty files appear in the
+manifest without searchable chunks.
+
+Three keys have different jobs:
+
+| Key | Depends on | Used for |
+|---|---|---|
+| Logical document anchor | Repository, path, language/kind, qualified anchor, declaration | Resolving a unit in source |
+| Chunk/content key | Exact content and deliberately embedded context | Reconciling fragments |
+| Embedding cache key | Complete payload and model revision/parameters | Reusing vectors |
+
+Commits, blob/file hashes, timestamps, and line ranges are metadata outside the
+embedded payload. If a helper moves `SparseLU.refactor` down several lines, the
+writer reparses that changed main file, updates locations/hashes, and reuses the
+method's vector if its full payload is unchanged. Renames/moves retire the old
+locations; path context inside the payload can legitimately require new vectors.
+Unchanged blob IDs skip parsing. A main commit changing only excluded content
+advances commit provenance without rewriting rows or rebuilding the generation.
+
+The CPU baseline is normalized `all-MiniLM-L6-v2`, with 384 dimensions and a
+256-token limit. Budget with the installed model's tokenizer: target 160 content
+tokens, cap at 220, and require the complete payload including headers and special
+tokens to fit 256. Use up to 24 overlap tokens only when splitting oversized units.
+These are starting settings, not demonstrated optimal chunk sizes.
+
+The code MCP and CLI support vector, native BM25, and reciprocal-rank-fused hybrid
+search. Lexical indexing starts with stemming and stop-word removal disabled,
+preserving identifiers and small physics variables. Vector queries use cosine
+distance and exact scans. Results are bounded to 1–50 and omit embeddings; local
+exact search remains necessary for punctuation-sensitive identifiers and formulas.
+
+## Verification and evaluation
+
+The isolated environment exercises real parsers, embeddings, LanceDB writes, local
+Git remotes, and stdio MCP connections:
 
 ```bash
 uv run --project .opencode/search --no-sync python -m pytest tests/test_agent_search.py -q
 ```
 
-They exercise real embeddings and LanceDB writes, unchanged-symbol line moves,
-edits, deletions/renames, parse failure, explicit new-file selection, worktree
-ownership, external mutations, and all three CLI query modes. MCP protocol checks
-exercise concurrent mounts, automatic bootstrap, fresh-clone isolation, empty
-schema adoption, and visible bootstrap failures. The numerical
-workspace can run the parser-only checks without installing search dependencies.
+Checks cover branch/staged/dirty/untracked exclusion, committed policy, main
+advancement, unchanged refreshes, line-shift vector reuse, edits/deletions/renames,
+shared-clone identity, atomic publication, pinned older readers, interrupted builds,
+upstream outages, external mutation recovery, legacy migration, and periodic and
+concurrent MCP mounts. The numerical workspace can run parser-only checks without
+installing search dependencies.
 
-## Target index design
+Use known repository retrieval questions: outgoing-flux DA extraction, ECS
+c-product, sparse symbolic reuse, resolved-config TD packet round trips, and grid
+convergence versus proxy evidence. Measure relevant-source recall, stale/superseded
+hit rate, locator accuracy, latency, result tokens, and total memory. Compare local,
+vector, FTS, and hybrid retrieval on the same set. Article evaluation remains
+separate and uses verified printed-page locators.
 
-The metadata-aware design needs the following capabilities in the MCP server or
-a companion indexer:
+An ANN index is an optimization with a recall cost. Benchmark exact scans first;
+add ANN only for measured latency/memory need and compare recall against exact
+results. LanceDB 0.21.2 supports `IVF_FLAT`, `IVF_PQ`, `IVF_HNSW_SQ`, and
+`IVF_HNSW_PQ`; newer names may not exist in the installed SDK. Keep metrics aligned
+and reembed into a new logical corpus when model/configuration changes.
 
-1. **Symbol/section chunking.** Use Python AST boundaries, Rust item boundaries,
-   Markdown headings, and configuration units. Attach parent class/module or
-   heading context. Split oversized units with source line ranges.
-2. **Structured identity.** Repository rows carry repository/worktree identity,
-   snapshot ID, path, language, qualified symbol/heading anchor, derived line
-   range, file hash, chunk/payload hashes, embedding model/revision/parameters,
-   chunker version, and source kind. Article rows additionally
-   carry paper identity/edition, printed and extraction pages, locators, note
-   path, extraction version, and verification status. Missing article locators
-   remain explicitly unverified; do not manufacture them.
-3. **Incremental updates.** Reuse embeddings for unchanged content, replace all
-   locations/chunks of changed files, remove deleted files, and publish the new
-   snapshot manifest after the update succeeds. Update spans without reembedding
-   identical payloads. Dirty worktrees need a distinct overlay or direct local
-   search. Identify snapshots by their content manifest, not branch name alone.
-4. **Hybrid retrieval.** Add BM25 to semantic search, fuse with reciprocal-rank
-   fusion, and prefilter repository/snapshot or paper/version before ranking.
-   Preserve identifiers, one-letter physics variables, Greek symbols, equation
-   numbers, and DOI tokens in lexical text. Start with stemming and stop-word
-   removal disabled for these corpora; retain exact local search for punctuation-
-   sensitive identifiers and formulas.
-5. **Bounded results.** Return source metadata, a short excerpt, and scores;
-   suppress embeddings and full files. Retrieve a small candidate set, deduplicate,
-   then read selected source regions. Group article hits by paper and repository
-   hits by file so one long document cannot fill the answer.
+## Implementation research
 
-### Vector index choice
+These primary sources support the design; they are not qModeling retrieval results:
 
-Start with exact scans for both corpora. A few thousand 384-dimensional vectors
-have a modest raw footprint; an ANN index is an optimization with a recall cost,
-not a prerequisite for vector search. Add a vector index only after measuring
-warm/cold latency and filtered recall against an exact-search baseline.
-
-The inspected connector environment uses LanceDB 0.21.2. Its `create_index` supports
-`IVF_FLAT`, `IVF_PQ`, `IVF_HNSW_SQ`, and `IVF_HNSW_PQ`; newer documentation also
-describes indexes absent from that signature. Select by the installed SDK rather
-than copying a new index name blindly. For a recall-first trial, evaluate
-`IVF_FLAT` with cosine distance; tune partition/probe counts using the actual corpus.
-Consider compression only when measured memory or latency warrants it. Keep index
-and query metrics identical. Model changes require reembedding into a new table,
-even when dimensions happen to match.
-
-The existing connector cannot enable this target design through environment
-variables alone. It needs query-mode handling, provenance fields, metadata
-filters, replacement semantics, FTS/index maintenance, and health/score reporting.
-
-## Existing implementations to build on
-
-The following primary sources support the design; they are implementation
-references, not measured retrieval results for qModeling.
-
-- **CocoIndex's LanceDB code example** uses Tree-sitter-aware splitting, a row
-  containing code/path/span/vector, content-dependent ID generation, and managed
-  incremental writes. It embeds `chunk.text` and stores start/end lines separately.
-  Its [source](https://github.com/cocoindex-io/cocoindex/blob/main/examples/code_embedding_lancedb/main.py)
-  and [walkthrough](https://github.com/cocoindex-io/cocoindex/tree/main/examples/code_embedding_lancedb)
-  are the preferred starting point for evaluating an incremental writer.
-- **CocoIndex's memoization and LanceDB target docs** explain separating stable
-  identity from freshness, reusing computations, and reconciling upserts/deletions.
-  The target connector also owns compaction/index maintenance; keep external
-  connections read-only while it owns writes.
-  See [memoization keys](https://cocoindex.io/docs/advanced_topics/memoization_keys/),
+- [CocoIndex's LanceDB code example](https://github.com/cocoindex-io/cocoindex/tree/main/examples/code_embedding_lancedb)
+  uses Tree-sitter-aware splitting, separate code/path/span/vector fields, and
+  content-dependent IDs with managed incremental writes.
+- CocoIndex documents [memoization keys](https://cocoindex.io/docs/advanced_topics/memoization_keys/),
   [ID generation](https://cocoindex.io/docs/common_resources/id_generation/), and
-  [LanceDB connector](https://cocoindex.io/docs/connectors/lancedb/).
-- **Continue's LanceDB implementation** separates cached content/vectors from
-  workspace/branch index selection and handles compute/add/remove/delete changes.
-  It corroborates content caching and location isolation, although its update
-  granularity and IDs differ from the proposed symbol anchors.
-  See [LanceDbIndex](https://github.com/continuedev/continue/blob/main/core/indexing/LanceDbIndex.ts)
-  and [CodebaseIndexer](https://github.com/continuedev/continue/blob/main/core/indexing/CodebaseIndexer.ts).
-- **Aider's repository map** combines signatures with dependency-based ranking
-  to select useful context. Use our measured code map for structural/impact facts;
+  [LanceDB reconciliation](https://cocoindex.io/docs/connectors/lancedb/).
+- Continue's [LanceDbIndex](https://github.com/continuedev/continue/blob/main/core/indexing/LanceDbIndex.ts)
+  and [CodebaseIndexer](https://github.com/continuedev/continue/blob/main/core/indexing/CodebaseIndexer.ts)
+  separate cached vectors from workspace/branch selection and compute/add/remove/delete
+  changes. Content reuse remains useful even though our source policy is main-only.
+- [Aider's repository map](https://aider.chat/docs/repomap.html) combines signatures
+  and dependency ranking. Use the measured code map for structural/impact facts;
   vector similarity cannot establish caller coverage.
-  See [repository map](https://aider.chat/docs/repomap.html).
-- **LanceDB's update and reindexing docs** distinguish updating row data from
-  maintaining FTS/ANN indexes. Reconciliation must retire removed source rows;
-  compaction/index optimization alone does not find deleted source files.
-  See [table updates](https://docs.lancedb.com/tables/update) and
-  [reindexing](https://docs.lancedb.com/indexing/reindexing).
+- LanceDB's [table updates](https://docs.lancedb.com/tables/update) and
+  [reindexing](https://docs.lancedb.com/indexing/reindexing) distinguish data changes
+  from FTS/ANN maintenance. Index optimization alone cannot find deleted sources.
 
-CocoIndex's current LanceDB extra requires Python >=3.11 and LanceDB >=0.34,
-whereas the existing database uses LanceDB 0.21.2. The repository reader/writer
-uses Python 3.12 with that database version; the external article connector uses
-Python 3.10. Revisit CocoIndex for managed watching/reconciliation when upgrading the
-reader/writer stack together. Adapt its source patterns, provenance, tokenizer
-budget, and worktree selection to this repository. The example's generic chunk
-sizes need tokenizer verification for MiniLM; its demo score conversion is not a
-calibrated similarity measure.
+Current CocoIndex's LanceDB extra requires Python >=3.11 and LanceDB >=0.34.
+The repository reader/writer uses Python 3.12 with LanceDB 0.21.2, while the
+external article connector uses Python 3.10. Upgrade coordinated readers/writers
+before adopting that integration. `cocoindex-code` currently uses SQLite, so
+installing it is not a LanceDB configuration. No CocoIndex writer is installed.
 
-The packaged `cocoindex-code` tool currently uses SQLite for its search target
-(see its [indexer](https://github.com/cocoindex-io/cocoindex-code/blob/main/src/cocoindex_code/indexer.py)).
-Its MCP refresh-on-search and agent workflow are useful references, but installing
-it is not a LanceDB configuration. No CocoIndex writer is installed by these
-profiles. Its watcher and refresh-on-search behavior are not supplied by our
-checkpoint CLI; MCP metadata filters and article ingestion remain future work.
+## Article connection
 
-## Secondary OpenCode connection
+The basic external connector used for articles takes `LANCEDB_URI`, `TABLE_NAME`,
+`EMBEDDING_FUNCTION`, and `MODEL_NAME`. It appends actual text strings into a
+`doc`/`vector` table; a supplied path or URL is embedded literally, not read.
+Its query mode and inspection selection arguments are ignored: it is vector-only
+and selects its configured table. Connection alone proves neither populated data
+nor working hybrid retrieval.
 
-Configure a second local MCP server named `lancedb-articles`, using the basic
-external server command and database URI with `TABLE_NAME=qscat_articles`. This isolates
-scientific retrieval without changing the primary server's table. Native OpenCode
-V2 config uses `mcp.servers`:
+A separate OpenCode V2 connection can use:
 
 ```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "lancedb-articles": {
@@ -345,28 +294,11 @@ V2 config uses `mcp.servers`:
 }
 ```
 
-Set the machine-local paths in the environment available to the OpenCode service,
-or configure absolute paths in global configuration. Preserve the original server
-settings; do not put workstation paths in tracked project config. A second server
-loads another model process, so measure total RSS alongside numerical workloads.
-A future corpus-selecting server could multiplex both tables in one process.
-
-Use `opencode mcp list` to confirm connection. Discover tools through OpenCode's
-catalog; the article server has its own namespace. Read-only lookup needs query
-and inspection access, not ingestion access. Specialist agents with deny-by-default
-permissions also need explicit access to the search skill, MCP lookup tools, and
-Code Mode when applicable; do not grant write/ingestion tools merely for retrieval.
-
-## Evaluate before calling it optimal
-
-Use repository questions with known relevant sources: outgoing-flux DA extraction,
-ECS c-product, sparse symbolic reuse, resolved-config TD packet round trips, and
-grid convergence versus proxy evidence. Use article questions with verified
-printed pages and locators in tracked notes. Measure relevant-source recall, stale
-or superseded hit rate, locator accuracy, latency, result tokens, and total memory.
-Compare local search, vector-only retrieval, and hybrid retrieval on the same set.
-Tune chunk size/model/ANN settings from those results, keeping paper and repository
-evaluations separate.
+Keep workstation paths in machine-local environment/configuration. Use
+`opencode mcp list` and the runtime tool catalog to verify connection and capabilities.
+Read-only agents need query/inspection access and Code Mode access, not ingestion.
+Each connector loads a model process; measure total memory with numerical workloads.
+Metadata filters, corpus multiplexing, and article ingestion remain separate work.
 
 ## Software documentation
 

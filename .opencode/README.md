@@ -36,12 +36,16 @@ lookups; exact searches and source reads remain available when indexes are absen
 
 OpenCode mounts `tools.agent_search.mcp` from the isolated `search/` Python
 environment. `uv run --frozen` installs its locked dependencies on a fresh clone.
-The startup hook populates an absent/empty code table in the background, with
-automatic per-worktree table selection. `table_details` reports bootstrap state;
-queries await initial population. Populated tables are skipped on later mounts.
-The code reader supports vector, FTS, and hybrid lookup with freshness metadata.
+The startup hook fetches and indexes committed upstream `main` in the background,
+sharing one logical corpus across clones and branches of the same upstream.
+Source bytes and indexing policy come from pinned Git objects. It refreshes
+populated corpora and checks upstream every five minutes while mounted.
+`table_details` reports the indexed commit, integrity, upstream currency, and
+refresh state. Queries await first population; later refreshes retain the last
+complete main snapshot. The reader supports vector, FTS, and hybrid lookup.
 
 Use `uv run --project .opencode/search --no-sync python -m tools.agent_search status`
-at edit/test checkpoints, and substitute `sync` for explicit catch-up. `bootstrap`
-fires the same empty-only operation manually. See the linked guide for explicit
-new files, worktree ownership, and verification.
+to inspect main-index status, and substitute `sync` for an immediate upstream-main
+refresh. `bootstrap` is an alias for this ensure-main operation. Resolve retrieved
+anchors locally and inspect `git diff <indexed-commit>` plus relevant untracked
+files for branch work. See the guide for identity, migration, and verification.

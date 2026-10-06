@@ -44,7 +44,8 @@ permissions:
 ---
 
 Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval.
-Resolve indexed anchors against current source within your assigned scope. Keep
+Resolve indexed anchors against current source and inspect local changes against
+the indexed main commit within your assigned scope. Keep
 the report format below; index maintenance belongs to the caller.
 
 Review physics and numerics correctness, not style. Load `qscat-conventions` for

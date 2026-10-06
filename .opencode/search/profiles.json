@@ -16,8 +16,9 @@
   },
   "repository": {
     "server": "lancedb",
-    "table": "qscat_knowledge",
-    "table_selection": "reuse the owned base table; otherwise qscat_knowledge_<16-character SHA256 of resolved worktree root>; --table overrides",
+    "table": "qscat_knowledge_main_<upstream-and-profile-identity>",
+    "table_selection": "shared logical corpus from normalized upstream URL, main, and committed profile path; --table overrides with ownership checks",
+    "source": "Git tree and blobs at an exact commit fetched from the configured upstream main; source and policy never read from working-tree files",
     "include": [
       "libs/**", "apps/**", "projects/**", "validation/**", "benchmarks/**",
       "tests/**", "native/**", "docs/**", "tools/**",
@@ -36,7 +37,7 @@
       "uv.lock", "Cargo.lock"
     ],
     "chunking": "Python/Rust symbols and Markdown headings; split large units without losing parent context",
-    "freshness": "worktree-selected manifest, file SHA256, stable symbol/heading anchor, content and embedding hashes; line ranges are derived hints",
+    "freshness": "published main commit/tree, Git blob IDs, file SHA256, immutable generation and atomic manifest pointer; report integrity separately from bounded upstream currency",
     "document_identity": {
       "fields": ["repo_id", "relative_path", "language", "symbol_or_heading_kind", "qualified_anchor", "duplicate_disambiguator"],
       "line_numbers_in_identity": false,
@@ -45,29 +46,29 @@
     },
     "embedding_cache": {
       "key_fields": ["embedding_model_revision_and_parameters", "embedding_payload_sha256"],
-      "excluded_from_payload": ["line_ranges", "file_sha256", "snapshot_id", "worktree_id", "timestamps"],
+      "excluded_from_payload": ["line_ranges", "file_sha256", "source_commit", "source_blob", "snapshot_id", "timestamps"],
       "unchanged_payload": "reuse vector; update source-location metadata",
       "chunker_change": "rechunk under the new version/settings; reconcile membership and reuse identical payloads"
     },
     "edit_lifecycle": {
-      "authority": "current working-tree source",
-      "writer": "one incremental indexer; agents query and request supported catch-up",
-      "refresh_boundary": "watcher catch-up and coherent edit/test checkpoints",
-      "refresh_scope": "reparse affected added/changed/renamed/deleted files; reconcile locations and dependency links",
-      "worktree_isolation": "select a worktree-specific manifest or overlay; publish only after reconciliation succeeds",
-      "untracked_files": "explicit task-owned additions may enter a worktree overlay; never recursively ingest untracked files",
-      "read_only_agents": "caller checks freshness and owns any refresh request",
-      "unavailable_refresh": "use local source; caller reports unsynchronised paths"
+      "authority": "indexed main is the discovery baseline; current task checkout is authoritative for edits and reviews",
+      "writer": "one managed writer per shared upstream corpus; agents query and resolve locally",
+      "refresh_boundary": "MCP mount and five-minute upstream checks; explicit sync fetches main",
+      "refresh_scope": "selected committed main files; reuse unchanged payloads and reconcile additions, edits, renames, and deletions",
+      "branch_delta": "inspect git diff <indexed-commit>, staged/unstaged edits, renames/deletions, and relevant untracked files; search/read current source",
+      "untracked_files": "local discovery only; never enter the shared main corpus",
+      "read_only_agents": "resolve main hits and branch deltas within assigned scope; report unavailable retrieval to the caller",
+      "unavailable_refresh": "serve last complete main snapshot with explicit upstream unknown/behind status; use local source when no complete snapshot exists"
     },
     "implementation": {
       "writer": "python -m tools.agent_search sync",
       "status": "python -m tools.agent_search status",
-      "mode": "checkpoint reconciliation; no background watcher",
-      "ownership": "one manifest and table per worktree; reject cross-worktree writes",
-      "embedding_cache": "reuse exact payload/model keys from the owned table",
+      "mode": "committed-main reconciliation on mount and bounded periodic fetch; no filesystem watcher",
+      "ownership": "shared normalized upstream/main/profile identity, writer lock, immutable physical generations, and atomic publication pointer",
+      "embedding_cache": "reuse exact payload/model keys from the published generation or validated legacy vector cache",
       "query_modes": ["vector", "fts", "hybrid"],
       "mcp_mode": "project-local reader honors vector/fts/hybrid and reports freshness",
-      "mount_hook": "tools.agent_search.mcp lifespan runs bootstrap asynchronously for absent/empty tables under the writer lock; populated tables are skipped"
+      "mount_hook": "tools.agent_search.mcp lifespan ensures fetched main is indexed, including populated corpora; refresh every 300 seconds while mounted"
     },
     "implementation_candidate": {
       "engine": "CocoIndex with its LanceDB target connector",
@@ -96,7 +97,7 @@
       "honor query_type", "honor table_details table/db selection",
       "structured provenance columns and scores", "repository/snapshot and paper prefilters",
       "stable document anchors, content-keyed embedding reuse, and changed/deleted source replacement",
-      "worktree-scoped manifests/overlays and metadata-only location updates",
+      "committed-main snapshot provenance, atomic publication, and local branch-delta resolution",
       "FTS index maintenance and health reporting"
     ],
     "ann_policy": "Benchmark exact scan first; introduce a version-supported ANN index only for measured latency, and compare recall against exact results"

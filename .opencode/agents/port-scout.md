@@ -38,8 +38,10 @@ permissions:
 ---
 
 Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval.
-Resolve anchors against current source; retain the reference-only evidence scope
-and report format below. Index maintenance belongs to the caller.
+Resolve anchors against current source and inspect relevant local changes against
+the indexed main commit. Use local discovery for reference trees excluded from the
+code index; retain the reference-only scope and report format below. Explicit index
+maintenance belongs to the caller.
 
 Use only `reference/` as a read-only porting oracle. Given a target method or module,
 extract its mathematical formulation and equations, control flow, inputs/outputs and
