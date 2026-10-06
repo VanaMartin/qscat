@@ -202,8 +202,8 @@ positions 3.5109–3.5191 eV and widths 2.0529–2.4573 eV; the width spread fai
 the extraction criterion. The 1.79–5.31 eV window contains the fitted candidate;
 a second detection near 6.65–6.75 eV is rejected by RESON.
 The active-space batch is still in progress. Its CAS(10,11) QC stage passed
-in 301.7 seconds; the
-independent UKRmol target diagonalizations take much longer than CAS(10,10),
+in 301.7 seconds; the independent UKRmol target diagonalizations take much
+longer than CAS(10,10),
 and its density-property stage is still running. A QC-only result does not yet
 pass the import/dipole contract.
 `calibration-sa-ah-accuracy.json` completed on slots 8–11 and 12–15. Both
@@ -222,9 +222,12 @@ CI and orbital gates and the improved inner Hessian tolerance.
 equilibrium DZ CAS(10,10)/40-channel scattering at l=3/4/5, holding the orbital
 ensemble, checkpoint start, target controls, sphere, deletion threshold and
 99-point grid fixed. Collect its equal-grid comparisons only after completion.
-The completed evidence is published through
-[`sa-evidence/`](sa-evidence/README.md). Its manifest names the exact attempt,
-comparison and payload counts. In-progress batches stay outside the snapshot.
+The completed 41-attempt evidence is published through
+[`sa-evidence/`](sa-evidence/README.md). The public fetch client verified all
+4,383 payload digests and exactly reconstructed the aggregate and six paired
+comparisons. All 20 successful pipelines were reanalyzed from raw outputs;
+repackaging produced byte-identical archives. In-progress batches stay outside
+the snapshot.
 
 Collect fresh completed artifacts outside the checkout, then use:
 

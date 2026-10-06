@@ -9,9 +9,10 @@ ground-state-CASSCF archive remains in [`../evidence/`](../evidence/README.md).
 The published snapshot contains **41 completed attempts**: 20 validated
 pipelines (14 target-only and six scattering), 20 failed runner stages and
 one pre-run setup rejection. It includes six paired comparisons and 60 native
-RESON replays. The publication manifest records payload-digest verification,
-exact aggregate reconstruction, reanalysis of all successful runs from raw
-outputs and byte-identical repackaging.
+RESON replays. Public-client verification checked all **4,383 payload digests**
+and exactly reconstructed the aggregate. All 20 successful runs were reanalyzed
+from raw outputs, and repackaging produced identical archive bytes. The
+publication manifest retains the previous 37-attempt archive's immutable URL.
 
 Fetch the checksum-verified archive from a cloned QSCAT workspace, then extract
 outside the checkout to avoid duplicate historical Python test packages:
