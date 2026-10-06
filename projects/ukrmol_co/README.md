@@ -493,6 +493,13 @@ minutes at a 5.25-GiB kernel peak. Its dense-reference excitation energies
 match at printed precision. The observed SCATCI/full-wall reductions are
 89.17%/46.25%; DENPROP still takes 39.42 minutes. Eight-root/tighter controls
 and an independent all-64-root check precede the local CAS(10,12) import.
+The finite continuation also queues `calibration-sa11-tight-continuum.json`:
+l=3/l=5 controls against the running tight l=4 scattering baseline, using the
+qualified selected-root target solver and the existing scattering diagonalizer.
+These await completed baseline/extra-root gates and release of the large-memory
+import worker. Each passing run receives saved-K-matrix background/detection
+replays; [the live handoff](CONTINUATION.md#local-continuation--7-october-2026)
+records the exact queues, resource gates and new fresh-TZ/CI observations.
 This target route stores a dense PETSc Hamiltonian; its largest CAS(10,12)
 matrix floor is 37.41 GiB. The prepared local limit is 64 GiB, with 16-GiB
 internal budgets and an 80-GiB available-host-memory gate.
