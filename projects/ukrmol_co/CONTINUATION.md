@@ -4,19 +4,22 @@
 
 The five-root CAS(10,11) SLEPc import, both tight CAS(10,12) QC starts, the
 CAS(10,12) restart coverage scan, the nine-job CAS(10,11) QC ladder and the
-neutral 5Z/stretched batches have completed. The next decisions depend on
-these active or queued finite workers:
+neutral 5Z/stretched batches have completed. The fresh CAS(10,11) TZ start
+passes QC; its aug-TZ start fails the fresh-CI audit, and the compressed
+CAS(10,12) DZ seed fails singlet-A1 CI convergence. Their whole batches are
+still active. The next decisions depend on these active or queued finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Five base jobs; passing same-geometry DZ seeds release two basis jobs each |
-| 4–7 | Four fresh equilibrium TZ RHF starts, 32-GiB containers | Aug-TZ CI-space retries and four staged CAS(10,11) basis starts await these starts and the numerical controls |
+| 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
+| 4–7 | Fresh equilibrium CAS(10,12) TZ/aug-TZ starts, 32-GiB containers | The first two CAS(10,11) starts have finished; projected aug-TZ retries and staged CAS(10,11) basis starts await the whole batch and numerical controls |
 | 8–11 | Tight CAS(10,11) scattering, 48-GiB container | CI-space controls/retries, all-64-root verification, then gated 64-GiB CAS(10,12) target import |
-| 12–15 | Eight-root/tighter CAS(10,11) SLEPc target, 16-GiB container | Its final import releases the independent extra-root verification |
+| 12–15 | Eight-root/tighter CAS(10,11) SLEPc target, 16-GiB container | A new finite queue checks fresh-TZ root coverage, repairs eligible fresh-start CI failures, then runs l=3/l=5 scattering controls and fit replays |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
 experiment ceiling remains deferred; all launches here use Sadaharu.
+The new queues are detailed under [Local continuation — 7 October](#local-continuation--7-october-2026).
 
 ## Saved campaign — 6 October 2026
 
@@ -598,6 +601,113 @@ DZ seed is the passing host-preparation checkpoint; stretched starts require a
 passing 80/160-vector DZ retry. Derived manifests and exact checkpoint hashes
 are recorded in the frozen source and each batch. All such records remain QC
 qualification work until coverage/import/start/basis checks pass.
+
+### Local continuation — 7 October 2026
+
+The latest inspection finds approximately 100 GiB available RAM and 158 GiB
+free on `/home`; all sixteen physical cores have assigned work. SMT partners
+remain outside the experiment's CPU allocation. The following **completed
+individual attempts belong to unfinished batches**, so they are observations
+outside the published 37-attempt supplement:
+
+| Run | Outcome | Wall (min) | Kernel memory peak (GiB) |
+|---|---|---:|---:|
+| `co-eq-cctz-sa11-qc-tight-hf-start` | QC passes; final gradient 6.81e-8, fresh-CI root agreement 9.95e-14 Hartree | 39.75 | 0.323 |
+| `co-eq-aug-tz-sa11-qc-tight-hf-start` | Orbital/optimization CI flags pass; fresh singlet-A1 CI audit fails | 22.80 | 0.428 |
+| `co-r1900-ccdz-sa12-qc-hostprep` | Orbital flag passes; singlet-A1 CI fails at trial space 40 | 59.20 | 0.716 |
+
+`prepared/live-qc-observations-20261007.json` retains their original exits,
+resource records, final iterations and input/log/checkpoint hashes. The passing
+fresh TZ target has ensemble/ground energies −112.38809524704945 /
+−112.90185648989254 Hartree and dipole z 0.143618428763436 a.u. Its Pi splitting
+is 2.22e-11 Hartree and MO metric error 8.13e-15, but the smallest initial/final
+active-overlap singular value is 0.171594: scalar convergence does not establish
+active-space continuity or the preferable orbital solution. Its checkpoint SHA256
+is `c41b08888d05483c6845f894c94c568ce9fadb7adc831fdefc57382c32d2a73a`.
+The rejected fresh aug-TZ audit has energy agreement at 1.42e-13 Hartree;
+the unconverged CI flag still rejects it. A small energy difference cannot
+replace the CI convergence gate.
+
+Two additional finite supervisors have been launched, each using a fresh source
+copy and the pinned selected-root image. They block on Linux PID-exit
+notifications and complete predecessor records, retaining generated manifests,
+checkpoint/source hashes, commands, original exits and explicit stop reasons:
+
+| Queue | CPU group | Frozen source / execution record | Launch log / attached supervisor |
+|---|---|---|---|
+| Fresh-start coverage, repairs and continuum | 12–15 | `prepared/local-coverage-scattering-source/` | `launch-local-coverage-scattering.log`; `sh_1137e33f1001jM36cG30kdTCeG` |
+| CAS(10,12) base-seed repairs and staged projections | 0–3 | `prepared/local-cas12-repairs-source/` | `launch-local-cas12-repairs.log`; `sh_1137e33f8001btj40rUlpPyXW8` |
+
+Each source directory contains `sadaharu-followup.py`, `compare-checkpoints.py`,
+`dependencies.json` and `execution.json`. Recorded host PIDs are 918330/918331;
+the supervisor SHA256 is
+`1185613f615a8221174cd8e386ff39fab0eb608e66e2e610ddc0d99eb4ca0cc2`.
+These are finite campaign drivers retained with the experimental evidence.
+
+The CPU-12–15 queue waits for the whole extra-root SLEPc and fresh-TZ batches
+to release their allocations. It reanalyzes every passing fresh TZ checkpoint
+and performs 48 independent fixed-orbital probes: five/eight roots at spaces
+40/80/160 in all eight sectors. A failed extra root remains evidence; every
+ensemble root must converge with the correct spin and agree within 1e-7 Hartree
+in every probe. Diagnostics are `diagnostics/lowest-roots-<run>/`.
+
+After the live v3 supervisor finishes and both small trial-space controls pass,
+eligible fresh-start CI failures receive **freshly named 80/160-vector
+reoptimizations**, including a failed lowest-root coverage check on an otherwise
+passing fresh start. Only an orbital-converged checkpoint with a CI-convergence
+failure or measured coverage failure is retried. Other failures are recorded
+for review. Passing repairs receive the same 48-probe scan, and paired passing
+repairs have their roots, ensemble objective, dipoles and core/active subspaces
+compared. The derived batch is `calibration-tz-fresh-ci-space-repairs`.
+
+The CPU-0–3 queue waits for the whole existing CAS(10,12) staged supervisor and
+the live v3 controls/import supervisor. It makes 80/160-vector reoptimizations
+of eligible CI failures in `calibration-large-host-cas12-qc-base`, preserving
+the original requested orbital ensemble. Its derived batch is
+`calibration-cas12-base-ci-space-repairs`. A failed sentinel DZ seed releases
+the previously blocked same-geometry TZ/aug-TZ pair only when **both repaired
+DZ seeds pass QC and the 48-probe coverage scan**, then agree within
+1e-7 Hartree in roots/objective, 1e-5 a.u. in dipole and 1e-8 in core/active
+subspace singular-value distance from unity. The first passing trial-space seed
+is then a provisional projection input, not a selected production orbital model.
+Derived basis batches are `calibration-cas12-r1900-basis-repaired` and
+`calibration-cas12-r2500-basis-repaired`.
+
+The checkpoint-comparison helper was exercised against the already-qualified
+CAS(10,11) tight restart/RHF pair: it reproduces the 7.69e-9-Hartree root,
+5.13e-8-a.u. dipole and 0.999999999999924 active-subspace agreement. A
+different-basis negative control is rejected. Commands, original exits, source
+hash and logs remain in
+`diagnostics/local-followup-checkpoint-comparison-smoke/`.
+
+Finally, the CPU-12–15 queue runs
+[`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):
+two equilibrium CAS(10,11)/40-channel calculations at **l=3 and l=5**, using
+the exact tight imported DZ checkpoint and the unchanged 40-component ensemble,
+18-bohr sphere, deletion 1e-6 and 99-point 0.1–5.0-eV grid. They use the
+qualified SLEPc target route with the existing all-spectrum scattering solver.
+The completed l=4 baseline, all-64-root SLEPc verification and unchanged seed
+hash are prerequisites; each new run's imported roots, threshold and dipole
+are checked against the baseline. The baseline plus passing controls receive
+twelve native saved-K-matrix replays each (background orders 1–4 and detection
+thresholds 0.7/1.0/1.3). Phase/fit comparisons and actual contracted dimensions
+still need analysis before declaring the larger model's numerical stability.
+
+QC batches use 32-GiB containers, with at least 40 GiB available host RAM and
+20 GiB free scratch required at launch. The two scattering jobs run serially
+in 48-GiB containers with 6-GiB internal budgets, requiring at least 64 GiB
+available RAM and 20 GiB scratch. They wait for the live v3 CAS(10,12) import
+supervisor to finish, so this new large-memory work does not overlap that trial.
+Every queue stops at a missing dependency or failed qualification/resource gate;
+individual rejected QC attempts retain their original exits and permit the
+other independent finite entries to be inspected.
+
+The continuation is currently at a **pending-results dependency**: all four
+physical-core groups are occupied, and further launches are handled by the
+recorded finite queues. The restricted neutral route at R=3.0/4.0 still needs
+a separately designed and validated correlation treatment. Production fitting,
+the full CAS(10,12) import and actual CAS(10,12) scattering resources remain
+unqualified.
 
 ### Scientific decisions still pending
 
