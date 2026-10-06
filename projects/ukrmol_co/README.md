@@ -519,7 +519,7 @@ failed Psi4 Python import and the passing executable-based control. Psi4 has
 its own Python environment in the pinned toolchain.
 
 The independent cc-pVDZ control agrees in RHF/CCSD(T) energy within
-1.5e-13/8.3e-11 Hartree. Seven neutral records pass convergence, reference
+1.5e-13/8.3e-11 Hartree. The original seven neutral records pass convergence, reference
 stability and CCSD-density checks; this is not a qualified neutral curve.
 The six basis-pilot calculations finished in 90.93 seconds on two disjoint
 four-core workers. Aug-TZ/QZ jobs take about 5–7/38–41 seconds, with kernel
@@ -544,6 +544,8 @@ container limit, including page cache; sampled anonymous peaks are about
 `calibration-neutral-stretched.json` tests R=3.0/4.0 in aug-TZ/QZ. All four
 attempts fail external RHF stability, preserving converged RHF diagnostics and
 original exits; a different correlation treatment is required for that region.
+The current neutral aggregate retains fifteen attempts: ten passing records,
+the initial failed import and four rejected unstable stretched references.
 See [the qualification method](../../docs/physics/co-electronic-qualification.md)
 for the numerical contract and the CAS(10,12) workspace audit. Its valid
 eight-/sixteen-rank array floors are about 149 GiB, exceeding the current

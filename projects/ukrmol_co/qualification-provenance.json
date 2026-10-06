@@ -8,7 +8,7 @@
   "cpu": "AMD Ryzen 9 9950X3D",
   "physical_cores": 16,
   "ram_gib": 123.5,
-  "analysis_source_commit": "012bd12eb86ca4ad1c0f08065bdfc4fb5cd7475a",
+  "analysis_source_commit": "d4155fef9b598fb5c5bf6217ac9b215ab7ec5841",
   "analysis_source_commit_scope": "Committed qualification tools and analysis/packaging code; numerical batches retain their actual immutable source snapshots",
   "numerical_image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
   "standalone_image_id": "sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08",
@@ -25,8 +25,12 @@
     "cas12-scalapack-guard",
     "cas12-large-host-workspaces",
     "target-davidson-controls",
-    "selected-root-engine-build"
+    "selected-root-engine-build",
+    "cas11-selected-root-comparison",
+    "cas12-tight-ci-coverage",
+    "cas12-tight-ci-coverage-pathfix",
+    "cas12-tight-start-comparison"
   ],
   "selected_root_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
-  "scope": "Completed QC/neutral pilots, independently validated tightened CAS(10,11) target import, workspace queries, four rejected Davidson controls and two passing small-model SLEPc controls. Electronic-model, basis and correlation convergence remain open; live scattering and further QC/import preparation are excluded"
+  "scope": "Completed QC/neutral pilots, dense and SLEPc CAS(10,11) imports, both tight CAS(10,12) starts and restart coverage, the nine-entry CAS(10,11) QC ladder, workspace queries, four rejected Davidson controls and three passing SLEPc controls. Includes 5Z neutral sentinels and four rejected externally unstable stretched RHF references. Electronic-model, basis and correlation convergence remain open; live scattering, extra-root SLEPc and staged QC/import follow-ons are excluded"
 }
