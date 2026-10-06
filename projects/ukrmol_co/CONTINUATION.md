@@ -111,13 +111,13 @@ image IDs and immutable source snapshots.
 
 ### Completed snapshot
 
-`sa-results.json` contains **52 completed attempts in 22 batches**:
+`sa-results.json` contains **53 completed attempts in 23 batches**:
 
 | Outcome | Count |
 |---|---:|
 | Validated target-only pipelines | 16 |
 | Validated scattering pipelines | 12 |
-| Engine/runner failures | 22 |
+| Engine/runner failures | 23 |
 | Failed target-import analysis | 1 |
 | Pre-run setup rejection | 1 |
 | Paired comparisons | 12 |
@@ -171,20 +171,25 @@ mass. Projected starts retain copied binary checkpoints and their hashes.
 - **CAS(10,12) needs an explicit engine memory budget.** Its original QC
   target passed, but its 43194-dimensional singlet-A1 matrix exhausted the
   2.5-GiB SCATCI per-process limit. A larger container alone does not change
-  that limit; the current retry uses `--scatci-memory-gib 6`.
+  that limit. The 6-GiB-per-process retry completed singlet-A1 diagonalization,
+  then failed the 70674-dimensional triplet-A1 matrix allocation: 9.31 GiB
+  per rank. Total wall time was 98.80 minutes and kernel memory peaked at
+  56.10 GiB in its 80-GiB container. Preserve this as a second engine-memory
+  failure; full root-import/dipole checks remain incomplete.
 
-### Running jobs — latest host check
+### Latest larger-active-space jobs
 
-Both retries passed QC and the early fresh-CI audit. Neither batch has a final
-`result.json`; their independent UKRmol checks are still running.
+Both retries passed QC and the early fresh-CI audit. CAS(10,11) still has no
+final batch `result.json`; CAS(10,12) completed with engine exit code 25.
 
 | Manifest / run | CPUs | Container limit | Latest observed progress |
 |---|---|---:|---|
 | `calibration-sa-fresh-ci-retry.json` / `co-eq-ccdz-sa11-40-target-fresh-ci-mixfix` | 0–3 | 32 GiB | Independent target SCATCI checks; A1 sectors and B1 diagonalizations completed |
-| `calibration-sa-active-memory.json` / `co-eq-ccdz-sa12-40-target-memp6` | 8–11 | 80 GiB | Target singlet-A1 SCATCI; enlarged internal budget has reached diagonalization |
+| `calibration-sa-active-memory.json` / `co-eq-ccdz-sa12-40-target-memp6` | 8–11 | 80 GiB | Completed failure: singlet-A1 passed; triplet-A1 exceeded the 6-GiB per-process budget |
 
-Interim QC values below are in the remote runs' `target.json`. They are **not
-completed import-qualified targets** and are outside the completed archive.
+QC values below are in the remote runs' `target.json`. They are **not
+completed import-qualified targets**. The CAS(10,12) failure is included in
+the completed archive; the unfinished CAS(10,11) batch is excluded.
 Both runs use their requested default 1e-5 orbital-gradient tolerance.
 
 | QC quantity | CAS(10,11), fresh-CI restart | CAS(10,12), memory retry |
@@ -195,25 +200,25 @@ Both runs use their requested default 1e-5 orbital-gradient tolerance.
 | Maximum fresh-CI energy difference (Hartree) | 1.14e-13 | 8.88e-11 |
 | Maximum Pi splitting (Hartree) | 5.29e-11 | 6.70e-9 |
 
-Slots 4–7 and 12–15 were released by the completed batches. Recheck topology,
-competing workloads, RAM and disk before allocating them. Await completion
-notifications, then preserve and analyze the final records before another
-larger-active-space scattering calculation.
+Slots 4–7, 8–11 and 12–15 were released by the completed batches. Recheck
+topology, competing workloads, RAM and disk before allocating them. Await
+the CAS(10,11) completion notification, then preserve and analyze its final
+records before another larger-active-space scattering calculation.
 
 ### Published evidence and collection
 
 Completed evidence is published through [`sa-evidence/`](sa-evidence/README.md).
-The 52-attempt snapshot has 28 validated pipelines, 22 engine failures, one
+The 53-attempt snapshot has 28 validated pipelines, 23 engine failures, one
 failed target-import analysis and one pre-run setup rejection. The public
-client verified all 6,227 payload digests and exactly reconstructed twelve
+client verified all 6,362 payload digests and exactly reconstructed twelve
 comparisons. All 28 successful runs passed raw-output reanalysis, six fixed-CI
 probes match the independent UKRmol roots, and repackaging is byte-identical.
-The prior 37/41-attempt archives were publicly fetched again with matching
+The prior 37/41/52-attempt archives were publicly fetched again with matching
 digests. In-progress batches, including the failed two-spin control in the
 ongoing CAS(10,11) retry batch, stay outside this snapshot.
 The immutable current archive is
-`https://data.qscat.org/ukrmol-co-state-averaged-2026-10-06/state-averaged-evidence.tar.c304c953e818.gz`,
-SHA256 `c304c953e818b298273ac9aa2f38558873779174ff27e254ddde7463fe26da51`.
+`https://data.qscat.org/ukrmol-co-state-averaged-2026-10-06/state-averaged-evidence.tar.ba34c7a9b42f.gz`,
+SHA256 `ba34c7a9b42f13af2724682f65d8ca47f79534040223002a2cbe2ff4536406fa`.
 
 Collect fresh completed artifacts outside the checkout, then use:
 
@@ -236,10 +241,11 @@ sync can overwrite locally refreshed summaries with older host records.
 
 ### Remaining gates
 
-1. **Finish larger-active-space import checks.** Collect the two running
-   batches after completion; check every averaged root, Pi partner and ground
-   dipole. Compare against the smaller active spaces before adopting a target,
-   then tighten orbital/CI controls for the selected model.
+1. **Finish larger-active-space import checks.** Collect CAS(10,11) after
+   completion; check every averaged root, Pi partner and ground dipole.
+   Establish a measured process/container memory plan for CAS(10,12), including
+   its larger triplet sector, before retrying. Compare against the smaller active
+   spaces before adopting a target, then tighten controls for the selected model.
 2. **Qualify the common orbitals.** The `state-averaged` backend constructs
    multi-spin/multi-irrep CAS targets. The existing `natural` option optimizes
    only the ground singlet. Verify ensemble completeness, excited energies,

@@ -11,12 +11,13 @@ The completed evidence preserves the first pilot and two calibration snapshots:
 | Campaign | Attempts | Validated pipelines | Preserved failures | Comparisons | Public evidence |
 |---|---:|---:|---:|---:|---|
 | Original SEP/ground-state-CASSCF calibration | 40 | 30 | 10 | 21 | [`evidence/`](evidence/README.md) |
-| Multi-spin/multi-irrep state-averaged continuation | 52 | 28 (16 target-only, 12 scattering) | 24 | 12 | [`sa-evidence/`](sa-evidence/README.md) |
+| Multi-spin/multi-irrep state-averaged continuation | 53 | 28 (16 target-only, 12 scattering) | 25 | 12 | [`sa-evidence/`](sa-evidence/README.md) |
 
 The continuation also includes 96 native RESON replays and six fixed-orbital
 CI coverage probes. “Validated” means solver/import and pipeline consistency,
-not electronic-model convergence. The ongoing CAS(10,11)/(10,12) target retries
-have passed QC and fresh-CI checks; independent UKRmol checks are still running.
+not electronic-model convergence. The CAS(10,11) fresh-CI restart is running
+independent UKRmol checks. The CAS(10,12) memory retry passed QC/fresh-CI checks
+and singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
 ## Convergence verdict
@@ -213,8 +214,8 @@ passed the acceptance criteria.
 
 The PySCF multi-spin/multi-irrep continuation has completed independent target
 import checks at equilibrium. [`sa-results.json`](sa-results.json) preserves
-52 completed attempts: sixteen successful target-only pipelines, twelve successful
-scattering pipelines, and 24 preserved setup/diagnostic failures. One rejected
+53 completed attempts: sixteen successful target-only pipelines, twelve successful
+scattering pipelines, and 25 preserved setup/diagnostic failures. One rejected
 CLI configuration failed before creating a run directory; its request and
 batch log remain part of the aggregate and archive. Passing these
 pipeline checks is distinct from electronic-model qualification.
@@ -420,9 +421,15 @@ diagonalization: its 43194-dimensional singlet-A1 matrix needed a 3.74-GB
 local block, exceeding the template's 2.5-GiB internal budget per process.
 The 32-GiB container limit does not enlarge that budget. `--scatci-memory-gib`
 sets `memp` in both target and scattering templates; its default remains 2.5.
-The checkpoint-based retry uses 6 GiB per process in an 80-GiB container,
-allowing headroom for the later density-property stage. Choose and measure
-the process/container budgets together rather than inferring them from host RAM.
+The checkpoint-based retry used 6 GiB per process in an 80-GiB container. QC
+and the fresh-CI audit passed; singlet-A1 diagonalization completed in 95.86
+minutes. Triplet-A1 then failed its internal budget: its dimension is 70674
+and each of four ranks requested a 9,994,717,728-byte (9.31-GiB) matrix block.
+The run exited with code 25 after 98.80 minutes, with a 56.10-GiB kernel
+memory peak and a 144.79-MiB sampled run-disk peak. It remains an engine
+failure, without full target-import/dipole validation. Choose and measure
+the process/container budgets together, including diagonalization workspace;
+the matrix allocation alone is not a total-memory estimate.
 
 ## Measured cost and parallel execution
 
