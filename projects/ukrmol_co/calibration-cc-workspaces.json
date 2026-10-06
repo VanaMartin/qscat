@@ -1,0 +1,5 @@
+[
+  {"name": "co-eq-cas10-casscf-cc40-v0-ws", "args": ["--model", "CAS-A", "--orbitals", "natural", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--energy-step-ev", "0.05", "--energies", "99"]},
+  {"name": "co-eq-cas10-casscf-cc40-v10-ws", "args": ["--model", "CAS-A", "--orbitals", "natural", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "4", "2", "2", "2", "--energy-step-ev", "0.05", "--energies", "99"]},
+  {"name": "co-eq-tz-cas10-casscf-cc40-v0-ws", "args": ["--basis", "aug-cc-pVTZ", "--model", "CAS-A", "--orbitals", "natural", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--energy-step-ev", "0.05", "--energies", "99"]}
+]

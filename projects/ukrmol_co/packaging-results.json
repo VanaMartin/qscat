@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-06",
+  "host": "sadaharu",
+  "artifact_host_root": "/home/kooza/ukrmol/co-packaging-coldcache",
+  "image_tag": "qmodeling/ukrmol-co:packaged-validation",
+  "image_id": "sha256:2c53ffb8648d4fe9dfb387bb990fd891790bd40c004b17b8ca033e13065aae4c",
+  "build_file_sha256": {
+    "docker/ukrmol-plus/Dockerfile": "f3e08774204ddc5249940ce36c2a4a48ea396db72f1068f54041d070253364b7",
+    "docker/ukrmol-plus/source-build.sh": "575e911fc851b3d3f3b1643be6dc0557d1b0ea111d6ff2d5d1f6e83305d61034"
+  },
+  "upstream_tests": {
+    "passed": 12,
+    "failed": 0,
+    "wall_seconds": 84.33,
+    "host_build_log": "/home/kooza/ukrmol/co-pilot/packaged-build-coldcache.log"
+  },
+  "target_smoke_checks": {
+    "runtime": "Source-built generic engine resolves psi4/scatci and the CA bundle",
+    "co-pilot": "Reference CO image starts the runner with --help",
+    "co-source": "Fresh-container cold-cache CO calculation and analysis pass"
+  },
+  "cold_cache_fix": {
+    "initial_batch_root": "/home/kooza/ukrmol/co-packaging-validation",
+    "initial_exit_code": 1,
+    "failure": "Python SSL certificate verification failed before the engine ran",
+    "correction": "Install ca-certificates in the runtime dependency layer and set SSL_CERT_FILE to /etc/ssl/certs/ca-certificates.crt",
+    "verification": "Successful scripts download and checksum verification from a fresh cache; TLS verification remains enabled"
+  },
+  "co_differential_check": {
+    "run": "co-packaged-coldcache-f4-sep39-np1",
+    "reference_run": "co-eq-f4-sep39-np1",
+    "model": "SEP",
+    "basis": "aug-cc-pVDZ",
+    "frozen_orbitals": 4,
+    "virtual_orbitals": [17, 9, 9, 4],
+    "ranks": 1,
+    "physical_cpu_ids": [12],
+    "memory_limit_gib": 8,
+    "energy_points": 491,
+    "position_difference_ev": 0.0,
+    "width_difference_ev": 0.0,
+    "max_phase_difference_rad_mod_pi": 1.0000000028043132e-7,
+    "comparison_scope": "Native text-output precision; does not establish electronic-model convergence",
+    "calculation_wall_seconds": 61.73304004385136,
+    "batch_wall_seconds": 64.96531856688671,
+    "kernel_peak_container_memory_bytes": 1776291840
+  }
+}

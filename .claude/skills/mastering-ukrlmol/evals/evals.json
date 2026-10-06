@@ -1,0 +1,27 @@
+{
+  "skill_name": "mastering-ukrlmol",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have a clean Linux x86-64 Docker server reached as ssh compute. I want the source-built UKRmol+ environment for a new molecule, with persistent calculations under /home/research/ukrmol. Give me build and environment-check commands and explain what I need to record and validate. Plan only; do not contact the server or launch a calculation.",
+      "expected_output": "Use the generic runtime target with the source/test gate, an explicit persistent root, UID/GID checks, CPU/memory/shared-memory controls, and image/source provenance. No dependence on a private host or the CO deck.",
+      "files": [],
+      "assertions": [
+        "Builds docker/ukrmol-plus/Dockerfile with target runtime and explains the upstream test dependency.",
+        "Uses the requested host/root, checks container-user write access and pins CPU/memory/shared-memory resources.",
+        "Records immutable image/source provenance and distinguishes engine validation from molecule-model qualification."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our UKRmol+ equilibrium SEP resonance barely changes with l or propagation radius, but changes by 0.4 eV when we enlarge the virtual space. Ground-state CASSCF CC puts the first triplet excitation at 8 eV instead of approximately 6.4 eV. The stretched geometry has no RESON fit. Can we call the potential-fitting data converged and fill the missing width with zero? Also, CONGEN says CDIMX TOO SMALL despite lots of RAM. Explain the next actions; do not run anything.",
+      "expected_output": "Reject physical convergence and the invented zero width; identify target balance and state-averaged orbitals, threshold/pole diagnostics and model-dependent numerical rechecks. Treat CONGEN workspace limits as input values, including CDIMX/NODIMX as well as NDIMX.",
+      "files": [],
+      "assertions": [
+        "Distinguishes continuum stability from unresolved electronic-model convergence and ground-state orbitals from a multi-spin/multi-irrep state average.",
+        "Does not invent a zero width or infer a bound anion from a missing automatic fit; recommends threshold/pole diagnostics.",
+        "Identifies CONGEN input workspace limits including CDIMX/NODIMX rather than host RAM or an immediate engine rebuild."
+      ]
+    }
+  ]
+}

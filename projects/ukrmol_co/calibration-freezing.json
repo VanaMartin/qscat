@@ -1,0 +1,6 @@
+[
+  {"name": "co-eq-f4-sep20", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "10", "4", "4", "2"]},
+  {"name": "co-eq-f4-sep30", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "14", "6", "6", "4"]},
+  {"name": "co-eq-f4-sep39", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4"]},
+  {"name": "co-eq-f2-sep39", "args": ["--virtual-orbitals", "17", "9", "9", "4"]}
+]

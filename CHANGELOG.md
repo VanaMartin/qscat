@@ -67,6 +67,14 @@ installed package.
 - **OpenCode project configuration, six specialist agents, and two slash
   commands**, adapted from the Claude setup with native permissions and reuse
   of existing skills and repository instructions.
+- **Reproducible UKRmol+ CO scattering experiment.** `docker/ukrmol-plus/`
+  builds checksum-pinned UKRmol-in/out sources, including bundled GBTOlib, on
+  the digest-pinned upstream CPU/Psi4 toolchain and gates the engine with
+  serial/MPI reference comparisons. `projects/ukrmol_co/` preserves the input
+  deck, profiled Docker batches, resonance replays and 40 calibration attempts
+  with measured costs. The `mastering-ukrlmol` skill documents reusable remote
+  execution. Continuum stability is demonstrated for the compact equilibrium
+  SEP model; electronic-model convergence for potential fitting remains open.
 - **`energies: {ranges: [...]}` — a sweep written as `np.arange` segments.**
   A level-aware mesh is a coarse background sweep plus a dense window around
   each resonance level: a union of uniform segments, and nothing more. Written

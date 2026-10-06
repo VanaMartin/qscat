@@ -1,0 +1,4 @@
+[
+  {"name": "co-eq-cas8-hf-cc40-v36", "args": ["--model", "CAS-A", "--virtual-orbitals", "16", "8", "8", "4"]},
+  {"name": "co-eq-cas8-hf-cc80-v36", "args": ["--model", "CAS-A", "--target-roots", "10", "--virtual-orbitals", "16", "8", "8", "4"]}
+]

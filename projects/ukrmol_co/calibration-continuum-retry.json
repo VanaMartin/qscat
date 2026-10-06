@@ -1,0 +1,5 @@
+[
+  {"name": "co-eq-f4-sep39-l5-d6", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--maxl", "5", "--deletion-threshold", "1e-6"]},
+  {"name": "co-eq-f4-sep39-r15-d6", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--radius", "15", "--deletion-threshold", "1e-6"]},
+  {"name": "co-eq-tz-f4-sep85-d6", "args": ["--basis", "aug-cc-pVTZ", "--frozen-orbitals", "4", "--virtual-orbitals", "33", "21", "21", "10", "--deletion-threshold", "1e-6"]}
+]

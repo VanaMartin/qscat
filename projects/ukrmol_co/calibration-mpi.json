@@ -1,0 +1,5 @@
+[
+  {"name": "co-eq-f4-sep39-np1", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--ranks", "1"]},
+  {"name": "co-eq-f4-sep39-np2", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--ranks", "2"]},
+  {"name": "co-eq-f4-sep39-np4", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--ranks", "4"]}
+]

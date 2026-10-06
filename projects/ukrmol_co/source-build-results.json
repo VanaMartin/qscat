@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-06",
+  "host": "sadaharu",
+  "image_tag": "qmodeling/ukrmol-co:source",
+  "image_id": "sha256:599eeee919f56a27e6a0a4e214c5fc80a2f5780752f07b654b21fe1339f61ae6",
+  "ukrmol_in": "3.3.0",
+  "ukrmol_out": "3.3.0.1",
+  "gbtolib": "Sources bundled inside the pinned UKRmol-in archive",
+  "precision": "double",
+  "integer_bytes": 8,
+  "compiler": "GNU Fortran (GCC) 15.2.0",
+  "cmake": "cmake version 4.2.0",
+  "toolchain_image": "zdenekmasin/ukrmol_plus@sha256:1cef2ee6aeaca2a4d5b813ff31e7d28bef4436a4282398c8933a1c047a8ec76c",
+  "sources": [
+    {
+      "url": "https://zenodo.org/records/18340340/files/ukrmol-in-3.3.0.tar.gz?download=1",
+      "sha256": "1b81e423b7e2a5a530c336cfc7f7ab50d6f2705abf771c71d6119fc065d9cac2"
+    },
+    {
+      "url": "https://zenodo.org/records/18538198/files/ukrmol-out-3.3.0.1.tar.gz?download=1",
+      "sha256": "6fecd651d1b953004926bcd2485d18a1645f2a13fca93e176458b0d48f556a9b"
+    }
+  ],
+  "upstream_tests": {
+    "ctest_pattern": "C2v_target_HF.*_(serial|parallel)$",
+    "passed": 12,
+    "failed": 0,
+    "wall_seconds": 88.14,
+    "comparison_program": "numdiff",
+    "shared_memory_bytes": 1073741824,
+    "host_build_log": "/home/kooza/ukrmol/co-pilot/source-build-v5.log",
+    "runtime_logs": "/opt/ukrmolp/source-tests/"
+  },
+  "co_differential_check": {
+    "reference_run": "co-eq-f4-sep39-np1",
+    "source_run": "co-eq-f4-sep39-source",
+    "position_difference_ev": 0.0,
+    "width_difference_ev": 0.0,
+    "max_phase_difference_rad_mod_pi": 1.0000000028043132e-7,
+    "comparison_scope": "Native text-output precision on 491 energies from 0.1 to 5 eV",
+    "result_snapshot": "projects/ukrmol_co/calibration-results.json"
+  }
+}

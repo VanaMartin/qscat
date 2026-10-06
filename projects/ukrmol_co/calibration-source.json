@@ -1,0 +1,3 @@
+[
+  {"name": "co-eq-f4-sep39-source", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--ranks", "1"]}
+]
