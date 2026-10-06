@@ -1,0 +1,6 @@
+[
+  {
+    "name": "co-eq-ccdz-neutral-reference",
+    "args": ["--basis", "cc-pVDZ", "--reference-check", "--ranks", "4", "--memory-mb", "8000"]
+  }
+]

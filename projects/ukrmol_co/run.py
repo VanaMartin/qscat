@@ -130,7 +130,7 @@ def cgroup_cpu_seconds() -> float:
     return int(values["usage_usec"]) / 1e6
 
 
-def run_profiled(workdir: Path, env: dict[str, str]) -> int:
+def run_profiled(workdir: Path, env: dict[str, str], command: list[str] | None = None) -> int:
     """Sample container memory and persistent disk usage throughout the calculation."""
     started = time.monotonic()
     baseline_memory = cgroup_bytes("memory.current")
@@ -153,7 +153,7 @@ def run_profiled(workdir: Path, env: dict[str, str]) -> int:
             ]
         )
         process = subprocess.Popen(
-            ["perl", "main.pl", "co.pl"],
+            ["perl", "main.pl", "co.pl"] if command is None else command,
             cwd=workdir,
             env=env,
             stdout=log,
@@ -205,6 +205,9 @@ def main() -> None:
     parser.add_argument("--orbitals", choices=["HF", "natural", "state-averaged"], default="HF")
     parser.add_argument(
         "--target-only", action="store_true", help="Run QC and UKRmol target checks"
+    )
+    parser.add_argument(
+        "--qc-only", action="store_true", help="Run state-averaged QC checks before UKRmol"
     )
     parser.add_argument("--sa-singlet-roots", type=int, nargs=4, default=[5, 5, 5, 5])
     parser.add_argument("--sa-triplet-roots", type=int, nargs=4, default=[5, 5, 5, 5])
@@ -274,6 +277,8 @@ def main() -> None:
     parser.add_argument("--energy-step-ev", type=float, default=0.01)
     parser.add_argument("--energies", type=int, default=491)
     args = parser.parse_args()
+    if args.qc_only and (args.target_only or args.orbitals != "state-averaged"):
+        parser.error("QC-only requires state-averaged orbitals and excludes target-only")
     positive = (
         args.bond_length,
         args.ranks,
@@ -454,6 +459,25 @@ def main() -> None:
     env["LD_LIBRARY_PATH"] = ":".join([f"/opt/ukrmolp/lib.{args.precision}", *library_paths])
     env["PATH"] = f"/opt/ukrmolp/bin.{args.precision}:" + env["PATH"]
     print(f"CO {args.model} at R={args.bond_length} bohr: {workdir}", flush=True)
+    if args.qc_only:
+        started = time.monotonic()
+        status = run_profiled(
+            workdir,
+            env,
+            [
+                "python3",
+                "-m",
+                "projects.ukrmol_co.target",
+                "--config",
+                str(workdir / "config.json"),
+                "--output",
+                str(workdir / "target.out"),
+            ],
+        )
+        (workdir / "stages.tsv").write_text(
+            f"target\tpyscf\t\t\t{time.monotonic() - started}\t{status}\n"
+        )
+        raise SystemExit(status)
     raise SystemExit(run_profiled(workdir, env))
 
 
