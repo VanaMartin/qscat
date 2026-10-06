@@ -111,14 +111,14 @@ image IDs and immutable source snapshots.
 
 ### Completed snapshot
 
-`sa-results.json` contains **53 completed attempts in 23 batches**:
+`sa-results.json` contains **55 completed attempts in 24 batches**:
 
 | Outcome | Count |
 |---|---:|
-| Validated target-only pipelines | 16 |
+| Validated target-only pipelines | 17 |
 | Validated scattering pipelines | 12 |
 | Engine/runner failures | 23 |
-| Failed target-import analysis | 1 |
+| Failed target-import analysis | 2 |
 | Pre-run setup rejection | 1 |
 | Paired comparisons | 12 |
 | Native RESON replays | 96 |
@@ -161,7 +161,13 @@ mass. Projected starts retain copied binary checkpoints and their hashes.
   eV. Six fixed-orbital probes recover UKRmol's lowest five roots within
   2.75e-10 Hartree; their common roots agree within 4.27e-14 Hartree.
   `diagnostics/cas11-ci-coverage/` preserves the checkpoint, exact source and
-  execution record. Reoptimization and full import checks are required.
+  execution record. The fresh-CI reoptimization now passes all 40 root imports
+  within 5.20e-10 Hartree and the dipole within 8.10e-11 a.u. in 127.80 minutes,
+  at an 18.41-GiB kernel peak. Fresh-CI energies agree within 1.14e-13 Hartree.
+  Its final gradient is 4.77e-6 at the requested 1e-5 tolerance. Tightened
+  optimizer/start checks remain open before selecting the electronic model.
+  Relative to CAS(10,10), the ground root drops 0.80403 eV and the dipole
+  falls 69.88%, while the lowest triplet-Pi excitation changes only −10.10 meV.
 - **Fresh-CI controls are established.** `calibration-sa-fresh-ci.json`
   preserves a passing ground control and a failed mixed-solver override.
   Installing overrides after mixer construction fixes that interface. The
@@ -179,17 +185,19 @@ mass. Projected starts retain copied binary checkpoints and their hashes.
 
 ### Latest larger-active-space jobs
 
-Both retries passed QC and the early fresh-CI audit. CAS(10,11) still has no
-final batch `result.json`; CAS(10,12) completed with engine exit code 25.
+Both retries have final batch records. CAS(10,11) passes target/import checks;
+CAS(10,12) completed with engine exit code 25. The fresh-CI batch exits nonzero
+because its preceding two-spin A1-only control fails computed Pi degeneracy,
+despite engine success and agreement of its two averaged A1 roots.
 
 | Manifest / run | CPUs | Container limit | Latest observed progress |
 |---|---|---:|---|
-| `calibration-sa-fresh-ci-retry.json` / `co-eq-ccdz-sa11-40-target-fresh-ci-mixfix` | 0–3 | 32 GiB | Independent target SCATCI checks; A1 sectors and B1 diagonalizations completed |
+| `calibration-sa-fresh-ci-retry.json` / `co-eq-ccdz-sa11-40-target-fresh-ci-mixfix` | 0–3 | 32 GiB | Completed success: QC, fresh CI, every averaged-root import and dipole passed |
 | `calibration-sa-active-memory.json` / `co-eq-ccdz-sa12-40-target-memp6` | 8–11 | 80 GiB | Completed failure: singlet-A1 passed; triplet-A1 exceeded the 6-GiB per-process budget |
 
-QC values below are in the remote runs' `target.json`. They are **not
-completed import-qualified targets**. The CAS(10,12) failure is included in
-the completed archive; the unfinished CAS(10,11) batch is excluded.
+QC values below are in the remote runs' `target.json`. CAS(10,11) is now
+import-qualified; CAS(10,12) remains incomplete. Both completed batches,
+including the failed A1-only control, are included in the archive.
 Both runs use their requested default 1e-5 orbital-gradient tolerance.
 
 | QC quantity | CAS(10,11), fresh-CI restart | CAS(10,12), memory retry |
@@ -200,25 +208,23 @@ Both runs use their requested default 1e-5 orbital-gradient tolerance.
 | Maximum fresh-CI energy difference (Hartree) | 1.14e-13 | 8.88e-11 |
 | Maximum Pi splitting (Hartree) | 5.29e-11 | 6.70e-9 |
 
-Slots 4–7, 8–11 and 12–15 were released by the completed batches. Recheck
-topology, competing workloads, RAM and disk before allocating them. Await
-the CAS(10,11) completion notification, then preserve and analyze its final
-records before another larger-active-space scattering calculation.
+All continuation batch CPU allocations are released. Recheck topology,
+competing workloads, RAM and disk before allocating them. No further
+continuation calculation is running at this checkpoint.
 
 ### Published evidence and collection
 
 Completed evidence is published through [`sa-evidence/`](sa-evidence/README.md).
-The 53-attempt snapshot has 28 validated pipelines, 23 engine failures, one
-failed target-import analysis and one pre-run setup rejection. The public
-client verified all 6,362 payload digests and exactly reconstructed twelve
-comparisons. All 28 successful runs passed raw-output reanalysis, six fixed-CI
+The 55-attempt snapshot has 29 validated pipelines, 23 engine failures, two
+failed target-import analyses and one pre-run setup rejection. The public
+client verified all 6,616 payload digests and exactly reconstructed twelve
+comparisons. All 29 successful runs passed raw-output reanalysis, six fixed-CI
 probes match the independent UKRmol roots, and repackaging is byte-identical.
-The prior 37/41/52-attempt archives were publicly fetched again with matching
-digests. In-progress batches, including the failed two-spin control in the
-ongoing CAS(10,11) retry batch, stay outside this snapshot.
+The prior 37/41/52/53-attempt archives were publicly fetched with matching
+digests. Every launched continuation batch is complete and included.
 The immutable current archive is
-`https://data.qscat.org/ukrmol-co-state-averaged-2026-10-06/state-averaged-evidence.tar.ba34c7a9b42f.gz`,
-SHA256 `ba34c7a9b42f13af2724682f65d8ca47f79534040223002a2cbe2ff4536406fa`.
+`https://data.qscat.org/ukrmol-co-state-averaged-2026-10-06/state-averaged-evidence.tar.99d79a4bfdf2.gz`,
+SHA256 `99d79a4bfdf2433f4c90e3f549b8f7eb84ba3af16c7b1e6f70b87759f3fd7a54`.
 
 Collect fresh completed artifacts outside the checkout, then use:
 
@@ -241,11 +247,11 @@ sync can overwrite locally refreshed summaries with older host records.
 
 ### Remaining gates
 
-1. **Finish larger-active-space import checks.** Collect CAS(10,11) after
-   completion; check every averaged root, Pi partner and ground dipole.
-   Establish a measured process/container memory plan for CAS(10,12), including
-   its larger triplet sector, before retrying. Compare against the smaller active
-   spaces before adopting a target, then tighten controls for the selected model.
+1. **Qualify the larger-active-space targets.** Tighten CAS(10,11) optimizer
+   controls and compare starts/root-count refinements; retain the successful
+   fresh-CI/import checks. Establish a measured process/container memory plan
+   for CAS(10,12), including its larger triplet sector, before retrying. Compare
+   against the smaller active spaces before adopting a target for scattering.
 2. **Qualify the common orbitals.** The `state-averaged` backend constructs
    multi-spin/multi-irrep CAS targets. The existing `natural` option optimizes
    only the ground singlet. Verify ensemble completeness, excited energies,

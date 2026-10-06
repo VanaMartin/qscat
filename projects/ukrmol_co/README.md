@@ -11,13 +11,14 @@ The completed evidence preserves the first pilot and two calibration snapshots:
 | Campaign | Attempts | Validated pipelines | Preserved failures | Comparisons | Public evidence |
 |---|---:|---:|---:|---:|---|
 | Original SEP/ground-state-CASSCF calibration | 40 | 30 | 10 | 21 | [`evidence/`](evidence/README.md) |
-| Multi-spin/multi-irrep state-averaged continuation | 53 | 28 (16 target-only, 12 scattering) | 25 | 12 | [`sa-evidence/`](sa-evidence/README.md) |
+| Multi-spin/multi-irrep state-averaged continuation | 55 | 29 (17 target-only, 12 scattering) | 26 | 12 | [`sa-evidence/`](sa-evidence/README.md) |
 
 The continuation also includes 96 native RESON replays and six fixed-orbital
 CI coverage probes. “Validated” means solver/import and pipeline consistency,
-not electronic-model convergence. The CAS(10,11) fresh-CI restart is running
-independent UKRmol checks. The CAS(10,12) memory retry passed QC/fresh-CI checks
-and singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
+not electronic-model convergence. The CAS(10,11) fresh-CI restart passes all
+40 averaged-root imports and the ground-dipole check, but active-space changes
+remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
+singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
 ## Convergence verdict
@@ -214,8 +215,8 @@ passed the acceptance criteria.
 
 The PySCF multi-spin/multi-irrep continuation has completed independent target
 import checks at equilibrium. [`sa-results.json`](sa-results.json) preserves
-53 completed attempts: sixteen successful target-only pipelines, twelve successful
-scattering pipelines, and 25 preserved setup/diagnostic failures. One rejected
+55 completed attempts: seventeen successful target-only pipelines, twelve successful
+scattering pipelines, and 26 preserved setup/diagnostic failures. One rejected
 CLI configuration failed before creating a run directory; its request and
 batch log remain part of the aggregate and archive. Passing these
 pipeline checks is distinct from electronic-model qualification.
@@ -231,10 +232,11 @@ pipeline checks is distinct from electronic-model qualification.
 | aug-cc-pVDZ CAS(10,10), projected DZ start | −112.898457558 | 6.3070 | 0.0826292 | 6.1e-10 |
 | cc-pVTZ CAS(10,10), projected DZ start | −112.925516422 | 6.3612 | 0.0878540 | 5.7e-10 |
 | cc-pVTZ CAS(10,10), 50-component average, projected TZ start | −112.920679908 | 6.3503 | 0.1164896 | 7.9e-10 |
+| cc-pVDZ CAS(10,11), fresh-CI reoptimization | −112.924284941 | 6.3851 | 0.0277316 | 5.2e-10 |
 
 Every averaged root passed the 1e-7-Hartree import gate, and independent
-ground dipoles agree within 1.9e-6 a.u. The DZ neutral energy, lowest triplet
-excitation and dipole (about 0.234 D) are close to the published 40-state
+ground dipoles agree within 1.9e-6 a.u. The default CAS(10,10) DZ neutral energy,
+lowest triplet excitation and dipole (about 0.234 D) are close to the published 40-state
 model's printed values; see [Dora et al. 2016](../../reference/literature/dora-2016-epjd70-197.md),
 p. 4, Table 2. This is a method plausibility check. The augmented-basis neutral
 root is **0.07324 Hartree higher** (about 1.99 eV): common active-space identity
@@ -400,7 +402,7 @@ fifth root. All original QC convergence/spin flags had passed. Six fresh
 fixed-orbital CASCI probes (five/eight requested roots and Davidson spaces
 40/80/160) recover UKRmol's lowest five roots within 2.75e-10 Hartree; common
 energies agree across probes within 4.27e-14 Hartree. The original purported
-fifth root matches the fresh sixth root. The target remains rejected: the
+fifth root matches the fresh sixth root. The original target remains rejected: the
 probe validates the fixed-orbital spectrum, not minimization of the intended
 lowest-root orbital ensemble.
 
@@ -414,7 +416,33 @@ passed its averaged-root import check but failed computed Pi degeneracy, so
 it is not a passing physical target. The balanced DZ CAS(10,8) 40-component
 control passes in 2.45 minutes: fresh/optimized roots agree within 8.53e-14
 Hartree, Pi splitting is 2.85e-13 Hartree, and maximum UKRmol import error is
-5.44e-10 Hartree. The CAS(10,11) restart retains all gates.
+5.44e-10 Hartree.
+
+The CAS(10,11) fresh-CI restart completed in **127.80 minutes**, with an
+18.41-GiB kernel memory peak and a 303.29-MiB sampled run-disk peak. Independent
+reanalysis passes all 40 averaged-root imports (maximum error 5.20e-10 Hartree),
+computed Pi partners and the ground dipole (difference 8.10e-11 a.u.). Fresh-CI
+energies agree within 1.14e-13 Hartree; the QC Pi splitting is 5.29e-11 Hartree
+and MO orthogonality error 2.89e-15. Its nine-iteration orbital optimization
+reaches gradient 4.77e-6 at the requested 1e-5 tolerance. This resolves the
+observed missing-root mismatch for this restart; globally preferable orbitals
+and electronic-model convergence remain unestablished.
+
+The balanced 40-component DZ targets give the following active-space comparison:
+
+| Active space | Ensemble energy (Hartree) | Ground energy (Hartree) | Lowest triplet Pi (eV) | Ground dipole z (a.u.) | Requested gradient tolerance |
+|---|---:|---:|---:|---:|---:|
+| CAS(10,8), fresh-CI control | −112.303519400 | −112.855375650 | 6.4858 | 0.2023325 | 1e-7 |
+| CAS(10,10), tight equilibrium target | −112.344874513 | −112.894737475 | 6.3952 | 0.0920732 | 1e-6 |
+| CAS(10,11), fresh-CI restart | −112.370969233 | −112.924284941 | 6.3851 | 0.0277316 | 1e-5 |
+
+CAS(10,10)-to-(10,11) lowers the ground root by 0.80403 eV and changes the
+dipole by −69.88%, despite only a −10.10-meV triplet-Pi excitation change.
+Initial/final CAS(10,11) active-overlap singular values span 0.94139–1.00000.
+The differing optimizer tolerances and unresolved orbital identities prevent
+treating this as a certified convergence sequence. Tighten and compare starts
+before selecting the electronic model; stable excitation energies alone do not
+qualify its neutral curve, dipole or scattering.
 
 CAS(10,12) QC passed its original gates, but MPI-SCATCI stopped before target
 diagonalization: its 43194-dimensional singlet-A1 matrix needed a 3.74-GB

@@ -1,8 +1,8 @@
 {
   "artifacts": {
     "state-averaged-evidence.tar.gz": {
-      "bytes": 19398640,
-      "sha256": "ba34c7a9b42f13af2724682f65d8ca47f79534040223002a2cbe2ff4536406fa"
+      "bytes": 20259080,
+      "sha256": "99d79a4bfdf2433f4c90e3f549b8f7eb84ba3af16c7b1e6f70b87759f3fd7a54"
     }
   },
   "git_sha": "5fe2bda3260afc0f49bdab7404e0b32e51666bab",
