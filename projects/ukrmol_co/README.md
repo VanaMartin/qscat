@@ -203,8 +203,8 @@ passed the acceptance criteria.
 
 The PySCF multi-spin/multi-irrep continuation has completed independent target
 import checks at equilibrium. [`sa-results.json`](sa-results.json) preserves
-41 completed attempts: fourteen successful target-only pipelines, six successful
-scattering pipelines, and 21 preserved setup/diagnostic failures. One rejected
+52 completed attempts: sixteen successful target-only pipelines, twelve successful
+scattering pipelines, and 24 preserved setup/diagnostic failures. One rejected
 CLI configuration failed before creating a run directory; its request and
 batch log remain part of the aggregate and archive. Passing these
 pipeline checks is distinct from electronic-model qualification.
@@ -325,7 +325,42 @@ Hartree. This is a two-point optimizer-accuracy check following a failed looser
 solve, not electronic-model convergence. A fresh stretched scattering
 calculation uses the passing 1e-16 checkpoint.
 
-The two scattering jobs finished together in **20.25 minutes** on eight
+That stretched R=2.5 scattering retry passed in **18.70 minutes**, with a
+2.85-GiB kernel memory peak and 595-MiB sampled disk peak. On 300 energies over
+0.01–3.0 eV, its default candidate is **0.9739/0.2818 eV**. Twelve native
+replays retain one candidate in the 0.755–1.205 eV fit window: positions span
+0.97367–0.97395 eV and widths 0.28178–0.28915 eV. The 2.61% maximum width
+change relative to the default meets the chosen background-order tolerance;
+detection changes leave it unchanged. These are fit candidates, not certified
+poles or an electronic-model qualification.
+
+The stretched **0.020/0.010/0.005-eV** spacing sequence gives:
+
+| Spacing (eV) | Points | Position (eV) | Full width (eV) | Calculation wall (min) |
+|---:|---:|---:|---:|---:|
+| 0.020 | 150 | 0.9738685 | 0.2817588 | 20.46 |
+| 0.010 | 300 | 0.9738707 | 0.2817833 | 18.70 |
+| 0.005 | 599 | 0.9738722 | 0.2817949 | 22.16 |
+
+The finest two fits differ by 1.50e-6 eV in position and 0.0041% in width;
+phases agree at shared printed energies. The coarse-to-fine span is
+3.63e-6/3.61e-5 eV in position/width. Automatic fit windows vary from
+0.762–1.219 to 0.751–1.199 eV across the sequence; an independently varied
+window remains a separate check. Another 24 background/detection replays on
+the coarse/fine grids keep maximum width changes below 2.66%. Measured cost
+depends on concurrent workloads; the coarser run is not a timing baseline for
+the middle run.
+
+The equilibrium DZ CAS(10,10)/40-channel **l=3/4/5** sequence gives
+positions 2.45894/2.45597/2.45576 eV and widths 1.12623/1.11964/1.12248 eV.
+Across the sequence, the largest pairwise changes are 3.18 meV in position,
+0.585% in width and 0.02615 rad in phase. All meet the chosen gates over
+0.1–5.0 eV. Width and phase changes are nonmonotone; this establishes tested
+angular-cutoff stability within those gates, not a monotone extrapolation.
+Radius, deletion, propagation and extraction remain model-specific controls.
+The runs took 14.00/17.10/22.80 minutes, with 2.62/2.84/3.21-GiB kernel peaks.
+
+The initial centered DZ/aug-DZ jobs finished together in **20.25 minutes** on eight
 physical cores: 18.82/20.24 minutes per four-rank job, approximately
 2.86/2.89 GiB kernel peaks and 593 MiB sampled run-disk peaks. Projected-target
 scattering takes 21.88/22.59 minutes, with 2.89/3.45 GiB kernel peaks and
@@ -345,6 +380,39 @@ raises the ground root by 0.1316 eV and changes its dipole by 32.6%; the lowest
 triplet Pi is 6.3503 eV. The 50-component target passed all independent gates
 in 6.56 minutes. These ensemble and channel-count changes measure different
 effects and should not be pooled into a single convergence sequence.
+
+### Larger active spaces and CI root coverage
+
+CAS(10,11) finished all engine stages in 102.22 minutes, with an 18.39-GiB
+kernel peak, but its fifth triplet-A1 QC root was 0.129757 eV above UKRmol's
+fifth root. All original QC convergence/spin flags had passed. Six fresh
+fixed-orbital CASCI probes (five/eight requested roots and Davidson spaces
+40/80/160) recover UKRmol's lowest five roots within 2.75e-10 Hartree; common
+energies agree across probes within 4.27e-14 Hartree. The original purported
+fifth root matches the fresh sixth root. The target remains rejected: the
+probe validates the fixed-orbital spectrum, not minimization of the intended
+lowest-root orbital ensemble.
+
+`--target-ci-fresh-start` tests the root-selection issue during reoptimization.
+A fresh-CI audit now checks final root-selection stability before the expensive
+UKRmol pipeline. The single-component ground control passes. An initial mixed
+solver override failed because PySCF copied the first solver's instance kernel
+into the mixer; installing the overrides after mixer construction fixes that
+interface. The failed revision is preserved. A two-spin A1-only control then
+passed its averaged-root import check but failed computed Pi degeneracy, so
+it is not a passing physical target. The balanced DZ CAS(10,8) 40-component
+control passes in 2.45 minutes: fresh/optimized roots agree within 8.53e-14
+Hartree, Pi splitting is 2.85e-13 Hartree, and maximum UKRmol import error is
+5.44e-10 Hartree. The CAS(10,11) restart retains all gates.
+
+CAS(10,12) QC passed its original gates, but MPI-SCATCI stopped before target
+diagonalization: its 43194-dimensional singlet-A1 matrix needed a 3.74-GB
+local block, exceeding the template's 2.5-GiB internal budget per process.
+The 32-GiB container limit does not enlarge that budget. `--scatci-memory-gib`
+sets `memp` in both target and scattering templates; its default remains 2.5.
+The checkpoint-based retry uses 6 GiB per process in an 80-GiB container,
+allowing headroom for the later density-property stage. Choose and measure
+the process/container budgets together rather than inferring them from host RAM.
 
 ## Measured cost and parallel execution
 
@@ -506,6 +574,18 @@ option for optimizer diagnostics; the successful continuation uses `one-step`.
 accuracy, separately from the outer gradient threshold. Use
 `--target-verbosity 6` to retain trial-space diagnostics when it stalls;
 `calibration-sa-ah-accuracy.json` supplies a tight stretched-geometry ladder.
+The final-orbital fresh-CI audit records root-energy differences and spin
+diagnostics in `target-diagnostics.json`. `--target-ci-fresh-start` additionally
+discards warm guesses during orbital optimization; both routes retain the
+independent import gates. Probe a suspect sector without reoptimizing orbitals
+inside the CO image:
+
+```bash
+python3 -m projects.ukrmol_co.ci_probe \
+  /work/runs/previous/output/CO/geom1/co.casscf.chk \
+  --output /work/diagnostics/ci-coverage-new \
+  --spin 2 --irrep A1 --roots 5 8 --spaces 40 80 160 --ranks 4
+```
 
 `--target-initial-checkpoint /work/runs/previous/output/CO/geom1/co.casscf.chk`
 projects a prior target's core/active orbitals into the new AO basis. It requires
@@ -590,6 +670,9 @@ uv run python -m projects.ukrmol_co.collect /path/to/copied-artifacts \
 
 Use the saved provenance only when rebuilding the 6 October campaign; supply
 your own metadata for a new campaign. The collector does not assume a host.
+Grid-refinement comparisons use shared printed native energies and record the
+compared point count when grids differ. They do not interpolate through a
+feature absent from a coarser grid; fewer than two common points is an error.
 
 ### Experiment files
 
@@ -603,6 +686,7 @@ your own metadata for a new campaign. The collector does not assume a host.
 | `calibration-*.json` | Calibration job recipes, paired comparisons and the full results snapshot |
 | `collect.py`, `campaign-provenance.json` | Rebuild that snapshot from saved lightweight evidence |
 | `target.py`, `state_average.pm`, `sa-results.json` | Common state-averaged orbitals, explicit upstream adapter and continuation evidence |
+| `ci_probe.py` | Fixed-orbital CI root-count/trial-space coverage diagnostic |
 | `archive.py`, [`sa-evidence/`](sa-evidence/README.md) | Deterministic continuation archive, including orbital checkpoints and source snapshots |
 | `source-build-results.json` | Original source-engine pins, upstream gate and CO differential evidence |
 | `packaging-results.json` | Reorganized targets, cold-cache acquisition fix and independent CO differential check |

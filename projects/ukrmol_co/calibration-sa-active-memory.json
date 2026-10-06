@@ -1,0 +1,6 @@
+[
+  {
+    "name": "co-eq-ccdz-sa12-40-target-memp6",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "6", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--congen-workspace", "1000000", "--scatci-memory-gib", "6", "--target-memory-mb", "16000", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa12-40-target/output/CO/geom1/co.casscf.chk", "--ranks", "4"]
+  }
+]

@@ -34,13 +34,21 @@ SUFFIXES = {
 NAMES = {"target.energies", "log_file.0"}
 
 
-def archive(root: Path, snapshot: Path, attachments: list[Path], output: Path) -> dict:
+def archive(
+    root: Path,
+    snapshot: Path,
+    attachments: list[Path],
+    output: Path,
+    *,
+    diagnostics: list[str] | None = None,
+) -> dict:
     """Select a completed snapshot and write its bytes with normalized tar metadata."""
     report = json.loads(snapshot.read_text())
     paths = {}
     for kind, names in (
         ("batches", [batch["name"] for batch in report["batches"]]),
         ("runs", list(report["runs"])),
+        ("diagnostics", diagnostics or []),
     ):
         for name in names:
             if Path(name).name != name or name in (".", ".."):
@@ -50,6 +58,8 @@ def archive(root: Path, snapshot: Path, attachments: list[Path], output: Path) -
                 if kind == "runs" and report["runs"][name]["status"] == "setup_failed":
                     continue
                 raise FileNotFoundError(directory)
+            if kind == "diagnostics" and not (directory / "execution.json").is_file():
+                raise ValueError(f"Diagnostic has no completed execution record: {name}")
             for path in directory.rglob("*"):
                 if (
                     path.is_file()
@@ -112,9 +122,13 @@ def main() -> None:
     parser.add_argument("root", type=Path)
     parser.add_argument("--snapshot", type=Path, required=True)
     parser.add_argument("--attachments", type=Path, nargs="*", default=[])
+    parser.add_argument("--diagnostics", nargs="*", default=[], help="Completed diagnostic names")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    print(json.dumps(archive(args.root, args.snapshot, args.attachments, args.output), indent=2))
+    result = archive(
+        args.root, args.snapshot, args.attachments, args.output, diagnostics=args.diagnostics
+    )
+    print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":
