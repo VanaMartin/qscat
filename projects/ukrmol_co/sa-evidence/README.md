@@ -6,6 +6,13 @@ engine and target import checks are established; the electronic model is still
 unqualified for production potential fitting. The original RHF/SEP and
 ground-state-CASSCF archive remains in [`../evidence/`](../evidence/README.md).
 
+The published snapshot contains **37 completed attempts**: 17 validated
+pipelines (12 target-only and five scattering), 19 failed runner stages and
+one pre-run setup rejection. It includes six paired comparisons and 48 native
+RESON replays. Public-client verification checked all **3,831 payload digests**
+and exactly reconstructed the aggregate; all 17 successful runs were reanalyzed
+from their raw outputs, and repackaging produced identical archive bytes.
+
 Fetch the checksum-verified archive from a cloned QSCAT workspace, then extract
 outside the checkout to avoid duplicate historical Python test packages:
 
