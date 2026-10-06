@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-06",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-neutral-20261006",
+  "cpu": "AMD Ryzen 9 9950X3D",
+  "physical_cores": 16,
+  "ram_gib": 123.5,
+  "image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
+  "source_scope": "Each batch binds its own immutable source snapshot; the image supplies the gated engine and pinned dependencies",
+  "method": "Conventional spherical RHF and frozen-core CCSD(T), with two frozen occupied spatial orbitals",
+  "geometry_units": "bohr",
+  "energy_units": "Hartree",
+  "dipole_units": "atomic units",
+  "dipole_method": "CCSD lambda density, not CCSD(T) energy derivative",
+  "relative_curve_reference_bond_length_bohr": 2.1323,
+  "scope": "Independent neutral pilot and PySCF/Psi4 energy control; basis and single-reference convergence remain open"
+}

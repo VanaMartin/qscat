@@ -461,6 +461,56 @@ the matrix allocation alone is not a total-memory estimate.
 
 ## Measured cost and parallel execution
 
+### Electronic qualification tools
+
+`--qc-only` runs the state-averaged optimizer and fresh-CI/spin/Pi/MO checks
+without UKRmol target diagonalization. These records are `qc_validated`;
+`--target-only` retains the independent UKRmol root/dipole checks. The
+CAS(10,11) tight-start recipes are in `calibration-sa11-qc-tight.json`, with
+the selected import recipe in `calibration-sa11-tight-import.json`.
+All three tightened starts pass in 6.08/13.13/61.89 minutes. Their ensemble
+objectives agree within 5.69e-14 Hartree, individual roots within 7.70e-9
+Hartree, dipoles within 5.14e-8 a.u., and minimum final active-subspace overlap
+singular values exceed 0.99999999999992. Forty-six of 48 fixed-orbital
+root-count/trial-space probes converge completely; the eighth singlet B1/B2
+root fails at space 40 and converges at 80/160. All five ensemble roots converge
+in every probe. The completed refinements support stability of this fixed
+orbital model; the tighter independent UKRmol import check is still running.
+`qualification-results.json` and
+[`qualification-evidence/`](qualification-evidence/README.md) preserve the
+completed target/neutral supplement and its verified public archive.
+
+The neutral pilot uses `python -m projects.ukrmol_co.neutral` or the existing
+batch launcher with `--runner neutral`. Its aug-TZ/aug-QZ recipes are in
+`calibration-neutral-pilot.json`; `neutral-results.json` and
+`neutral-provenance.json` preserve its completed attempts, including the initial
+failed Psi4 Python import and the passing executable-based control. Psi4 has
+its own Python environment in the pinned toolchain.
+
+The independent cc-pVDZ control agrees in RHF/CCSD(T) energy within
+1.5e-13/8.3e-11 Hartree. Seven neutral records pass convergence, reference
+stability and CCSD-density checks; this is not a qualified neutral curve.
+The six basis-pilot calculations finished in 90.93 seconds on two disjoint
+four-core workers. Aug-TZ/QZ jobs take about 5–7/38–41 seconds, with kernel
+memory peaks near 0.50/3.21 GiB.
+
+| R (bohr) | Relative CCSD(T) energy, aug-TZ (eV) | Relative CCSD(T) energy, aug-QZ (eV) | CCSD dipole z, aug-QZ (a.u.) | aug-QZ amplitude norm / sqrt(10) | aug-QZ largest amplitude singular value |
+|---|---:|---:|---:|---:|---:|
+| 1.9000 | 1.35893 | 1.28289 | 0.2055393 | 0.0123970 | 0.0247273 |
+| 2.1323 | 0 | 0 | 0.0501085 | 0.0178684 | 0.0372068 |
+| 2.5000 | 1.32736 | 1.39583 | −0.1925559 | 0.0316658 | 0.0675234 |
+
+Each relative curve is referenced to its own R=2.1323 energy. Basis changes
+shift the sentinel relative energies by 76.04/68.47 meV; the stretched
+amplitude diagnostics increase. Basis and correlation-treatment checks remain
+open, and the dipoles are CCSD lambda-density values, not CCSD(T) derivatives.
+See [the qualification method](../../docs/physics/co-electronic-qualification.md)
+for the numerical contract and the CAS(10,12) workspace audit. Its valid
+eight-/sixteen-rank array floors are about 149 GiB, exceeding the current
+host RAM; the four-rank triplet query is undersized.
+
+### Scattering model costs
+
 For equilibrium DZ39/four-frozen SEP on Sadaharu, with 491 energies:
 
 | MPI ranks | Calculation wall time (s) | Aggregate CPU time (s) | Kernel memory peak (GiB) |

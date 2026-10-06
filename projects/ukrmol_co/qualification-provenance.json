@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-06",
+  "host": "sadaharu",
+  "artifact_roots": {
+    "state_averaged": "/home/kooza/ukrmol/co-sa-20261006",
+    "neutral": "/home/kooza/ukrmol/co-neutral-20261006"
+  },
+  "cpu": "AMD Ryzen 9 9950X3D",
+  "physical_cores": 16,
+  "ram_gib": 123.5,
+  "analysis_source_commit": "443b27fbc9bc021e812a64f8c49fececc56e9540",
+  "analysis_source_commit_scope": "Committed qualification tools and analysis/packaging code; numerical batches retain their actual immutable source snapshots",
+  "numerical_image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
+  "standalone_image_id": "sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08",
+  "geometry_units": "bohr",
+  "energy_units": "Hartree",
+  "dipole_units": "atomic units",
+  "state_averaged_method": "DZ CAS(10,11), forty equally weighted singlet/triplet C2v components, fresh CI and energy/gradient tolerances 1e-11/1e-7",
+  "neutral_method": "Conventional RHF/frozen-core CCSD(T), two frozen occupied spatial orbitals; CCSD lambda-density dipoles",
+  "neutral_relative_curve_reference_bond_length_bohr": 2.1323,
+  "completed_diagnostics": [
+    "cas11-tight-ci-coverage",
+    "cas11-tight-start-comparison",
+    "cas12-scalapack-workspace-audit",
+    "cas12-scalapack-guard"
+  ],
+  "scope": "Completed QC and neutral pilots; independent tightened UKRmol import is running separately. Electronic-model, basis and correlation convergence remain open"
+}
