@@ -10,8 +10,8 @@
   "refreshed_image_id": "sha256:24aeadcd0b27242064d248ffb76262e3d8c1598a1ad4c419a6a4ea7e6ed053e0",
   "engine_verification": "Unchanged source-build/test stages reused from the independently validated packaged engine",
   "refreshed_image_smoke": "PySCF 2.11.0, h5py 3.15.1 and embedded target/run module imports passed",
-  "publication_image_id": "sha256:efb6657c14308cffd5c9b65a39ba94292acaa84611083a7c2dc00ad7592d71fe",
-  "publication_image_tag": "qmodeling/ukrmol-co:state-averaged-final",
+  "publication_image_id": "sha256:9744cb3f2cde4d3436938808982a13dae760d5a3b2b10a7a5aa5c034bf90b3d9",
+  "publication_image_tag": "qmodeling/ukrmol-co:state-averaged-ah",
   "publication_image_smoke": "Cached validated engine stages; PySCF/h5py/target/archive imports passed; all 12 embedded Python/Perl source digests match the current checkout",
   "scope": "Multi-spin/multi-irrep CO target qualification; production fitting remains unqualified"
 }

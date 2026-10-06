@@ -102,9 +102,9 @@ The refreshed embedded-source image is
 `sha256:24aeadcd0b27242064d248ffb76262e3d8c1598a1ad4c419a6a4ea7e6ed053e0`;
 its build log is `build-final.log`. The package/module import smoke check passed.
 The latest standalone source layer is tagged
-`qmodeling/ukrmol-co:state-averaged-final`, image ID
-`sha256:efb6657c14308cffd5c9b65a39ba94292acaa84611083a7c2dc00ad7592d71fe`.
-`build-publication-final.log` records its cached engine gate and refreshed
+`qmodeling/ukrmol-co:state-averaged-ah`, image ID
+`sha256:9744cb3f2cde4d3436938808982a13dae760d5a3b2b10a7a5aa5c034bf90b3d9`.
+`build-ah-accuracy.log` records its cached engine gate and refreshed
 embedded source. PySCF/h5py/target/archive imports passed; all 12 Python/Perl
 source digests match the current checkout. Recorded jobs continue to name their original
 image IDs and immutable source snapshots.
@@ -122,7 +122,7 @@ upstream center of mass and sphere origin.
 The completed target ladder adds three successful pipelines (CAS(10,8), TZ,
 and tightened equilibrium DZ) and two failed sentinel degeneracy checks.
 Their Pi splittings were 2.56e-7/1.35e-7 Hartree at R=1.9/2.5 bohr. The snapshot
-currently contains 37 attempts: 17 validated pipelines and 20 preserved
+currently contains 41 attempts: 20 validated pipelines and 21 preserved
 failures, including four diagnostic-callback setup failures. All successful
 calculations were reanalyzed with the current all-root/dipole analyzer.
 
@@ -197,11 +197,34 @@ one fitted feature and Pi phase agreement within 1e-7 rad. The stretched run
 failed its tighter CI-refined orbital optimization: all CI solvers converged,
 but its gradient stalled at 1.19e-6 with zero rotation after 100 macroiterations.
 That failure differs from the earlier passing, looser-CI target check.
-The published snapshot predates this sentinel batch; the active-space batch
-is still in progress.
-The completed 37-attempt snapshot is published through
-[`sa-evidence/`](sa-evidence/README.md). Its public fetch client verified 3,831
-payload digests and exactly reconstructed all attempts and six comparisons.
+The compressed default fit is 3.5191/2.1026 eV. Twelve new RESON replays have
+positions 3.5109–3.5191 eV and widths 2.0529–2.4573 eV; the width spread fails
+the extraction criterion. The 1.79–5.31 eV window contains the fitted candidate;
+a second detection near 6.65–6.75 eV is rejected by RESON.
+The active-space batch is still in progress. Its CAS(10,11) QC stage passed
+in 301.7 seconds; the
+independent UKRmol target diagonalizations take much longer than CAS(10,10),
+and its density-property stage is still running. A QC-only result does not yet
+pass the import/dipole contract.
+`calibration-sa-ah-accuracy.json` completed on slots 8–11 and 12–15. Both
+R=2.5 target-only restarts use the stalled CI-refined checkpoint and retain
+the 1e-7 orbital-gradient gate; they vary the augmented-Hessian eigensolver
+tolerance from 1e-16 to 1e-20, independently of the fixed CI and metric cutoffs.
+Verbosity 6 saves trial-space diagnostics rather than repeating a silent stall.
+Both pipelines passed in 7.32/7.40 minutes, with six-iteration convergence at
+gradient 8.50e-8. The maximum root difference between tolerances is 1.17e-11
+Hartree and dipole difference is 4.35e-12 a.u. Independent root errors are
+below 5.16e-10 Hartree and Pi splitting below 1.61e-11 Hartree.
+`calibration-sa-stretched-scattering.json` is running on slot 8–11 with the
+passing 1e-16 checkpoint and a 0.01–3.0 eV, 300-point grid. It retains the tight
+CI and orbital gates and the improved inner Hessian tolerance.
+`calibration-sa-continuum.json` is running sequentially on slot 4–7. It repeats
+equilibrium DZ CAS(10,10)/40-channel scattering at l=3/4/5, holding the orbital
+ensemble, checkpoint start, target controls, sphere, deletion threshold and
+99-point grid fixed. Collect its equal-grid comparisons only after completion.
+The completed evidence is published through
+[`sa-evidence/`](sa-evidence/README.md). Its manifest names the exact attempt,
+comparison and payload counts. In-progress batches stay outside the snapshot.
 
 Collect fresh completed artifacts outside the checkout, then use:
 

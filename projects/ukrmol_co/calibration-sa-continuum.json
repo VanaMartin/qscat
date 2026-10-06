@@ -1,0 +1,14 @@
+[
+  {
+    "name": "co-eq-ccdz-sa10-cc40-continuum-l3",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-cc40-centered/output/CO/geom1/co.casscf.chk", "--maxl", "3", "--deletion-threshold", "1e-6", "--energy-start-ev", "0.1", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-ccdz-sa10-cc40-continuum-l4",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-cc40-centered/output/CO/geom1/co.casscf.chk", "--maxl", "4", "--deletion-threshold", "1e-6", "--energy-start-ev", "0.1", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-ccdz-sa10-cc40-continuum-l5",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-cc40-centered/output/CO/geom1/co.casscf.chk", "--maxl", "5", "--deletion-threshold", "1e-6", "--energy-start-ev", "0.1", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  }
+]

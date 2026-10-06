@@ -203,8 +203,8 @@ passed the acceptance criteria.
 
 The PySCF multi-spin/multi-irrep continuation has completed independent target
 import checks at equilibrium. [`sa-results.json`](sa-results.json) preserves
-37 completed attempts: twelve successful target-only pipelines, five successful
-scattering pipelines, and 20 preserved setup/diagnostic failures. One rejected
+41 completed attempts: fourteen successful target-only pipelines, six successful
+scattering pipelines, and 21 preserved setup/diagnostic failures. One rejected
 CLI configuration failed before creating a run directory; its request and
 batch log remain part of the aggregate and archive. Passing these
 pipeline checks is distinct from electronic-model qualification.
@@ -300,6 +300,30 @@ error 6.58e-10 Hartree, in 8.08 minutes. Tightening only the residual while
 keeping the default CI cutoff had failed CI convergence. Coupled-Newton
 controls/retries still fail their gradient checks; they remain rejected
 diagnostics. The successful route is the one-step optimizer.
+
+The compressed R=1.9 scattering pipeline subsequently passed on 159 energies
+over 0.1–8.0 eV in 20.30 minutes, with Pi phase agreement at printed precision
+(1e-7 rad), a 2.86-GiB kernel memory peak and 594-MiB sampled disk peak. Its
+default candidate is **3.5191/2.1026 eV**. Twelve native replays keep one
+candidate, with positions 3.5109–3.5191 eV and widths 2.0529–2.4573 eV as
+background order varies; detection-threshold changes do not alter the fits.
+The width spread still fails the 5% extraction criterion. Native fitting uses
+the 1.79–5.31 eV window and rejects a second detected feature near 6.65–6.75 eV.
+These observations do not certify a pole or establish identity with the
+equilibrium feature.
+
+The matching stretched R=2.5 scattering request failed during tighter
+CI-residual target optimization, after 3.29 minutes: all CI solvers converged,
+but the orbital gradient stalled at 1.19e-6 with zero rotation. This is distinct
+from its earlier passing target with looser CI controls. The augmented-Hessian
+accuracy ladder resolves this new stall: both 1e-16 and 1e-20 eigensolver
+tolerances give six-iteration convergence at an orbital gradient of 8.50e-8
+and pass all independent checks in 7.32/7.40 minutes. Their maximum root-energy
+difference is 1.17e-11 Hartree and dipole difference 4.35e-12 a.u.; maximum
+QC/UKRmol root error is 5.16e-10 Hartree. Pi splittings are 7.18e-12/1.61e-11
+Hartree. This is a two-point optimizer-accuracy check following a failed looser
+solve, not electronic-model convergence. A fresh stretched scattering
+calculation uses the passing 1e-16 checkpoint.
 
 The two scattering jobs finished together in **20.25 minutes** on eight
 physical cores: 18.82/20.24 minutes per four-rank job, approximately
@@ -478,6 +502,10 @@ tight residual tolerances need a compatible squared-norm cutoff. The cutoff
 retry recipe is in `calibration-sa-ci-cutoff.json`.
 The saved Newton controls do not meet their gradient tolerances. Use that
 option for optimizer diagnostics; the successful continuation uses `one-step`.
+`--target-ah-tolerance` (1e-12) sets the inner augmented-Hessian eigensolver
+accuracy, separately from the outer gradient threshold. Use
+`--target-verbosity 6` to retain trial-space diagnostics when it stalls;
+`calibration-sa-ah-accuracy.json` supplies a tight stretched-geometry ladder.
 
 `--target-initial-checkpoint /work/runs/previous/output/CO/geom1/co.casscf.chk`
 projects a prior target's core/active orbitals into the new AO basis. It requires

@@ -222,7 +222,9 @@ def main() -> None:
         help="Orbital optimizer; newton is an experimental diagnostic",
     )
     parser.add_argument("--target-ah-lindep", type=float, default=1e-14)
+    parser.add_argument("--target-ah-tolerance", type=float, default=1e-12)
     parser.add_argument("--target-ah-start-tolerance", type=float, default=2.5)
+    parser.add_argument("--target-verbosity", type=int, choices=range(10), default=4)
     parser.add_argument(
         "--target-initial-checkpoint",
         type=Path,
@@ -286,6 +288,7 @@ def main() -> None:
         args.target_ci_tolerance,
         args.target_ci_lindep,
         args.target_ah_lindep,
+        args.target_ah_tolerance,
         args.target_ah_start_tolerance,
     )
     if not all(math.isfinite(value) and value > 0 for value in positive):

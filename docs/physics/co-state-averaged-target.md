@@ -52,6 +52,16 @@ The compatible-cutoff one-step R=1.9 target passes the strict gradient, spin,
 Pi and UKRmol import checks. Recorded coupled-Newton retries still fail their
 gradient checks, including a CI-refined single-component control. `newton`
 remains a diagnostic option; it is not the qualified optimizer for these cases.
+`--target-ah-tolerance` controls the augmented-Hessian eigensolver accuracy
+(default 1e-12), independently of its metric cutoff and the outer orbital
+gradient tolerance. Its residual stopping scale includes the square root of
+this tolerance. `--target-verbosity 6` preserves the corresponding trial-space
+and step diagnostics in the QC log. The stretched-geometry accuracy ladder
+uses 1e-16 and 1e-20 while retaining the tight CI and orbital gates. Both
+target-only pipelines pass; their maximum root-energy difference is 1.17e-11
+Hartree and dipole difference is 4.35e-12 a.u. This two-point stability check
+resolves the recorded tight-CI optimizer stall without qualifying the
+electronic model.
 
 The default active space for a state-averaged run should be supplied explicitly,
 for example `[4,3,3,0]` for CAS(10,10). Symmetry labels, rather than numeric
