@@ -1,0 +1,23 @@
+{
+  "git_sha": "f8849a81fcf4e75b5c66ae631206e20b93d45f82",
+  "record_type": "historical-calibration-evidence-publication",
+  "git_sha_scope": "Repository packaging and collector code; historical engine inputs, image IDs and source hashes are recorded inside the archive",
+  "campaign_date": "2026-10-06",
+  "experiment": "UKRmol+ fixed-nuclei CO scattering calibration",
+  "calibration_records": 40,
+  "validated_pipeline_records": 30,
+  "engine_failure_records": 10,
+  "paired_comparisons": 21,
+  "configuration_files": [
+    "projects/ukrmol_co/co.pl",
+    "projects/ukrmol_co/pilot-jobs.json",
+    "projects/ukrmol_co/calibration-*.json",
+    "projects/ukrmol_co/campaign-provenance.json"
+  ],
+  "archive": "calibration-evidence.tar.gz",
+  "archive_layout": "calibration-evidence/ contains runs/, batches/, quoted snapshots, source-build evidence, licences and file-index.json",
+  "archive_generation": "Sorted regular files; tar metadata has uid/gid/mtime zero and mode 0644; gzip mtime zero and empty filename",
+  "validation_scope": "Saved pipeline/internal-consistency and convergence evidence; no electronic model is accuracy-qualified for potential fitting",
+  "omitted_large_artifacts": "Integrals, R-matrix amplitudes and K-matrices; these can be recomputed from the recipes",
+  "historical_snapshot_coverage": "Nine batches retain source snapshots. The four earliest batches retain source hashes, molecular decks, templates and generated program inputs but not every Python harness revision"
+}

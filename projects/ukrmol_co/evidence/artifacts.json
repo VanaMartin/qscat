@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "calibration-evidence.tar.gz": {
+      "bytes": 7628514,
+      "sha256": "1f30d5985090d0bff0c32e6f5abe1698fe84bae9c40f80643ec1a2ce4e1b6ae7"
+    }
+  },
+  "git_sha": "f8849a81fcf4e75b5c66ae631206e20b93d45f82",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-calibration-2026-10-06/"
+}

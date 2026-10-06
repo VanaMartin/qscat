@@ -5,9 +5,9 @@ The public artifact pointer beside this file supplies a checksum-verified
 
 ```bash
 uv run qscat-run fetch projects/ukrmol_co/evidence
-mkdir -p projects/ukrmol_co/evidence/extracted
+EVIDENCE_DIR=$(mktemp -d)
 tar -xzf projects/ukrmol_co/evidence/calibration-evidence.tar.gz \
-  -C projects/ukrmol_co/evidence/extracted
+  -C "$EVIDENCE_DIR"
 ```
 
 The archive contains lightweight **historical calibration evidence**, not a
@@ -24,12 +24,16 @@ all archived. Raw integrals, R-matrix amplitudes and K-matrices remain on the
 calculation host and are not included in this lightweight archive. Recompute
 them from the committed recipes to perform new RESON replays.
 
+Extract outside the checkout: historical source snapshots contain Python
+packages/tests with the same names as the live experiment and would otherwise
+interfere with repository-wide pytest discovery.
+
 Rebuild the quoted 40-run/21-comparison calibration snapshot using the archive's
 raw phase files and summaries:
 
 ```bash
 uv run python -m projects.ukrmol_co.collect \
-  projects/ukrmol_co/evidence/extracted/calibration-evidence \
+  "$EVIDENCE_DIR/calibration-evidence" \
   --pairs projects/ukrmol_co/calibration-pairs.json \
   --provenance projects/ukrmol_co/campaign-provenance.json \
   --output projects/ukrmol_co/evidence/recollected.json
