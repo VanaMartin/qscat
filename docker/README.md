@@ -85,3 +85,14 @@ walkthrough.
 
 These CPU images do not implement AWS deployment. Infrastructure provisioning and
 public-site deployment belong to the separate infrastructure repository.
+
+## UKRmol+ external engine
+
+[`ukrmol-plus/`](ukrmol-plus/README.md) packages the upstream UKRmol+ CPU
+toolchain/Psi4 environment and a checksum-verified UKRmol-in/out source build.
+Its `pilot` → `build` → `test` → `runtime` targets preserve reference binaries
+and gate the source engine with serial/MPI comparisons. `co-pilot` and
+`co-source` add the fixed-nuclei CO experiment after the engine layers.
+The linked guide covers SSH deployment, persistent scratch, resource pinning
+and provenance; [`projects/ukrmol_co/`](../projects/ukrmol_co/README.md) records
+the CO calibration.

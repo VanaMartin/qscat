@@ -1,0 +1,23 @@
+[
+  ["co-eq-f4-sep20", "co-eq-f4-sep30"],
+  ["co-eq-f4-sep30", "co-eq-f4-sep39"],
+  ["co-eq-f4-sep39", "co-eq-f2-sep39"],
+  ["co-eq-f4-sep39", "co-eq-f4-sep39-l3"],
+  ["co-eq-f4-sep39", "co-eq-f4-sep39-d6"],
+  ["co-eq-f4-sep39-d6", "co-eq-f4-sep39-l5-d6"],
+  ["co-eq-f4-sep39", "co-eq-f4-sep39-raf200"],
+  ["co-eq-f4-sep39", "co-eq-tz-f4-sep39"],
+  ["co-eq-tz-f4-sep39", "co-eq-tz-f4-sep60"],
+  ["co-eq-f4-sep39-np1", "co-eq-f4-sep39-np2"],
+  ["co-eq-f4-sep39-np1", "co-eq-f4-sep39-np4"],
+  ["co-eq-f4-sep39-serial-a", "co-eq-f4-sep39-serial-b"],
+  ["co-eq-cas8-hf-cc40-v36", "co-eq-cas8-hf-cc80-v36"],
+  ["co-eq-cas8-casscf-cc40-v36", "co-eq-tz-cas8-casscf-cc40-v36"],
+  ["co-eq-cas8-casscf-cc40-v36", "co-eq-cas8-casscf-cc40-v0"],
+  ["co-r1.9-f4-sep39-l4", "co-r1.9-f4-sep39-l3"],
+  ["co-r2.5-f4-sep39-l4", "co-r2.5-f4-sep39-l3"],
+  ["co-eq-cas8-casscf-cc40-v0", "co-eq-cas10-casscf-cc40-v0-ws"],
+  ["co-eq-cas10-casscf-cc40-v0-ws", "co-eq-cas10-casscf-cc40-v10-ws"],
+  ["co-eq-cas10-casscf-cc40-v0-ws", "co-eq-tz-cas10-casscf-cc40-v0-ws"],
+  ["co-eq-f4-sep39-np1", "co-eq-f4-sep39-source"]
+]

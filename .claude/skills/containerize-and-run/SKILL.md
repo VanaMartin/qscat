@@ -7,6 +7,11 @@ description: Use when packaging or validating a qModeling capability in the laye
 
 ## Reuse the CPU layers
 
+For the external UKRmol+ Fortran engine, use `mastering-ukrlmol` and
+`docker/ukrmol-plus/README.md`. That engine reuses its compatible, digest-pinned
+upstream MPI/compiler/Psi4 layer; it is separate from the QSCAT workspace
+packaging described below.
+
 Read `docker/README.md`, `docker/Dockerfile`, and `docker/build.sh` before changing
 container behavior. `docker/base.Dockerfile` supplies the CPU architecture/vendor
 layer: OpenBLAS, LAPACK(E), FFTW3, source-built OpenMP sequential MUMPS, ffmpeg,

@@ -494,6 +494,11 @@ apps/       qscat-run — THE single execution surface: one YAML config runs
 native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
             mirroring validated Python APIs for hot paths
 projects/   per-problem research and toy models — lifecycle stages 1-2
+            - `ukrmol_co`: reproducible UKRmol+ fixed-nuclei CO experiment,
+              checksum-pinned inputs, Docker batch runner, output validation,
+              calibration records and continuation notes. The execution engine
+              is validated; no electronic model is yet qualified for potential
+              fitting. See projects/ukrmol_co/README.md and docker/ukrmol-plus/.
             - `n2_ti_cross_section`: time-independent (resolvent/driven-
               equation) N₂ vibrational-excitation cross-section inputs
               (`nuclear_grid.py`/`vibrational.py`/`vres.py`), built on
@@ -951,6 +956,7 @@ another agent or tool may have changed it.
 | `numerical-validation` | skill | Validating quantum/numerical code where exact equality doesn't apply: analytic benchmarks, convergence studies, conservation checks, differential testing. |
 | `python-to-rust-kernel` | skill | A validated Python method has a proven hot path — scaffolding a PyO3/maturin crate under `native/`, mirroring the API, benchmarking, keeping Python as the oracle. |
 | `containerize-and-run` | skill | Packaging or validating a capability in the layered CPU Docker images — choose compute versus test targets and check runtime capabilities. |
+| `mastering-ukrlmol` | skill | Building, deploying, profiling and troubleshooting UKRmol+ via Docker on local/SSH CPU hosts; source/test gates, persistent scratch, MPI throughput and numerical/electronic qualification. |
 | `qscat-conventions` | skill | Unsure how the project names or measures things — atomic units, FEM-DVR-ECS notation, tolerance defaults, standard-library layout. |
 | `discretisation-tuner` | skill | Setting up (or distrusting) a FEM-DVR-ECS grid — supervises the `qscat.tuning` loop (analyze the potential → adaptive equidistribution mesh + h/p + double-ECS-safe tail → convergence probes at the energy extremes → 2-D spot-check → minimal-cost grid at a target precision), instead of hand-picking element lengths. |
 | `mastering-github` | skill | Preparing a branch for review, or deciding whether a file may cite a spec/plan/issue/PR. Holds the rule that **main must stand alone** — a reader with only the clone must understand every shipped file — and the two procedures built on it: `/review-ready` (dissolve working-file content into permanent homes, prune references that don't travel with a clone, self-audit, tidy, flip draft → ready) and `/tidy-history` (rewrite a fix-on-fix branch into logical commits without changing the end state). |

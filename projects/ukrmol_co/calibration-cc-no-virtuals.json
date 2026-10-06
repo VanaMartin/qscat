@@ -1,0 +1,4 @@
+[
+  {"name": "co-eq-cas8-casscf-cc40-v0", "args": ["--model", "CAS-A", "--orbitals", "natural", "--virtual-orbitals", "0", "0", "0", "0", "--energy-step-ev", "0.05", "--energies", "99"]},
+  {"name": "co-eq-cas10-casscf-cc40-v0", "args": ["--model", "CAS-A", "--orbitals", "natural", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--energy-step-ev", "0.05", "--energies", "99"]}
+]

@@ -1,0 +1,426 @@
+# UKRmol+ CO fixed-nuclei scattering experiment
+
+**Status:** the execution pipeline works and the compact SEP continuum is
+numerically stable at equilibrium, but the electronic model is not yet
+accurate enough to provide production potential-fitting targets. The measured
+calibration and throughput evidence below explains the remaining model issue.
+
+This experiment preserves the first pilot and **40 calibration attempts: 30
+validated calculations and 10 engine failures**, with 21 paired comparisons.
+Here, “validated” means the output passes pipeline/internal-consistency checks,
+not that its electronic model is physically converged.
+
+## Convergence verdict
+
+| Question | Finding | Decision |
+|---|---|---|
+| Does the engine/workflow reproduce reference calculations? | Five water target energies; 12 source-build serial/MPI checks; CO source/reference phases agree to `1e-7 rad` | Execution established |
+| Is the compact equilibrium SEP continuum stable? | Tested angular/deletion changes shift position by less than 0.5 meV and width by less than 0.1%; background fits vary width by about 2.5% | Passes chosen numerical tolerances for this model/window |
+| Is the electronic model converged? | SEP space/frozen-orbital changes shift position by 0.3–0.6 eV; ground-state-CASSCF CC target excitations and resonance fits remain model-sensitive | Further calibration required |
+| Is the entire geometry curve qualified? | Compressed low feature is stable, high feature is not; stretched geometry has no usable automatic fit | Threshold diagnostics and model/continuity checks required |
+| Can these data constrain a production potential? | No tested electronic configuration is qualified; a correlated neutral curve is still missing | Preserve as calibration evidence |
+
+We have a reproducible execution platform and identified the dominant accuracy
+problem. The resonance values have **not** settled onto an electronically
+converged limit. The next useful refinement is balanced state-averaged target
+construction, followed by active-space/basis/channel tests, rather than a denser
+production geometry sweep of the current model.
+
+Run a compact UKRmol+ static-exchange-plus-polarization (SEP) calculation
+for electron scattering from CO. The first deck uses $R=2.1323$ bohr,
+an RHF `aug-cc-pVDZ` target, two frozen core orbitals, five occupied valence
+orbitals, and 20 virtual orbitals distributed as `[10, 4, 4, 2]` in UKRmol's
+`[A1, B1, B2, A2]` order. Only the doublet `B1` and `B2` scattering symmetries
+are calculated: the sectors containing the two components of $^2\Pi$ for CO
+along the z axis. These C2v sectors also contain higher odd angular-projection
+components, so their saved eigenphase sums are not isolated single-partial-wave
+phases.
+The continuum uses an 18-bohr sphere with Gaussian partial waves through
+$l=4$ and a $10^{-7}$ orthogonalization deletion threshold. Double-precision
+GBTOlib is selected by default. Psi4 uses full SCF integrals (`scf_type pk`),
+with energy and density convergence thresholds of $10^{-10}$.
+Their cross sections are **symmetry-resolved contributions**, not the full
+elastic cross section of polar CO.
+
+Geometry and propagation radii are in bohr; target and extracted resonance
+energies are in Hartree. The external UKRmol electron-energy grid is explicitly
+in eV: 491 points from 0.10 to 5.00 eV. Cross sections are in bohr² and
+eigenphase sums in radians. Native `RESON` output uses Rydberg;
+`analyze.py` converts it to Hartree at the input boundary.
+
+## Measured pilot — 6 October 2026
+
+The three-geometry, 20-virtual-orbital pilot passed the pipeline and symmetry
+checks on Sadaharu with four MPI ranks. Native resonance fits, relative to
+the neutral target threshold, were:
+
+| R (bohr) | Virtual orbitals | Position (eV) | Width (eV) | Wall time (s) | Sampled memory peak (GiB) |
+|---|---:|---:|---:|---:|---:|
+| 1.9000 | 20 | 3.4351 | 2.3269 | 24.5 | 3.26 |
+| 2.1323 | 20 | 1.9401 | 1.0496 | 24.7 | 3.26 |
+| 2.5000 | 20 | 0.1522 | 0.0307 | 24.3 | 3.26 |
+| 2.1323 | 30 | 1.3343 | 0.5347 | 27.9 | 3.66 |
+
+The 20-orbital Hamiltonians have dimension 537 per scattering symmetry; the
+30-orbital check has dimension 1158. The sampled allocated run-disk peaks
+were about 62 MiB and 114 MiB respectively. Native `B1`/`B2` eigenphase sums
+and fitted parameters agreed at text-output precision. The largest
+Psi4/UKRmol target-energy difference was $5.4\times10^{-10}$ Hartree.
+The upstream water example also reproduced all five reference target
+energies at their printed precision.
+
+**The virtual-space dependence is substantial:** adding ten virtual orbitals
+moves the equilibrium resonance downward by approximately 0.61 eV and halves
+its width. A convergence and balanced-model study is needed before these
+data can constrain a fitted potential reliably.
+
+The compressed geometry required a wider 0.1–8 eV grid, with 0.05 eV spacing,
+for the automatic fit. At 2.5 bohr, the narrow resonance was checked on a
+0.05–0.55 eV grid with 0.001 eV spacing. Its fitted position and width changed
+by less than $10^{-5}$ eV from the original 0.01 eV grid. Complete inputs,
+native fitted values, resource measurements and artifact directory names are
+recorded in [`pilot-results.json`](pilot-results.json).
+
+Two setup corrections mattered: the 13-bohr sphere failed the free-scattering
+kinetic positivity test in both precision variants, while the 18-bohr sphere
+passed in double precision; and full-integral PK SCF removed a target-energy
+mismatch from Psi4's default density-fitting approximation. The exploratory
+quadruple-precision calculation was canceled after the working double-precision
+pilot completed; its intermediate files remain available.
+
+## Accuracy calibration
+
+The low-energy CO papers supply model comparisons, rather than a single
+converged reference value:
+
+| Calculation | Equilibrium position (eV) | Full width (eV) | Evidence |
+|---|---:|---:|---|
+| Laporta et al. (2012), six-electron SEP, STO/numerical continuum | 1.67 | 0.82 | [Reference note](../../reference/literature/laporta-2012-psst21-045005.md), preprint p. 4 |
+| Dora et al. (2016), cc-pVTZ/CAS(10,10), 50-state CC | 1.73 | 0.84 | [Reference note](../../reference/literature/dora-2016-epjd70-197.md), p. 6, Table 4 |
+| Dora and Tennyson (2020), cc-pV6Z, 27 physical states / 41 C2v components | 1.8744 | 1.2916 | [Reference note](../../reference/literature/dora-2020-jpb53-195202.md), p. 4, Table 2 |
+
+Laporta's final nuclear cross sections use a 10% empirical width increase and
+a 0.035 eV level shift (preprint p. 6). The larger 2020 basis was aimed at
+higher-lying resonances; its lowest-resonance width differs substantially from
+the 2016 model. Neither agreement with one paper nor increasing basis size
+alone establishes accuracy.
+
+Freezing four occupied A1 orbitals approximates Laporta's six-electron
+polarization prescription. It reduces, but does not eliminate, virtual-space
+sensitivity:
+
+| Target / frozen occupied orbitals | Virtual space | Position (eV) | Width (eV) |
+|---|---|---:|---:|
+| aug-cc-pVDZ / 4 | [10,4,4,2] (20) | 2.1342 | 1.1771 |
+| aug-cc-pVDZ / 4 | [14,6,6,4] (30) | 1.6472 | 0.7172 |
+| aug-cc-pVDZ / 4 | [17,9,9,4] (all 39) | 1.3314 | 0.5673 |
+| aug-cc-pVDZ / 2 | [17,9,9,4] (all 39) | 0.8980 | 0.3413 |
+| aug-cc-pVTZ / 4 | [17,9,9,4] (39) | 1.6234 | 0.7684 |
+| aug-cc-pVTZ / 4 | [24,14,14,8] (60) | 1.3292 | 0.5743 |
+
+The almost matching DZ39/TZ60 values do not establish electronic convergence:
+TZ60 is a truncated virtual space, and changing its size by 21 orbitals moves
+the resonance by 0.29 eV. SEP improves the scattering correlation while keeping
+an RHF target fixed; this imbalance is discussed by Dora et al. (2016), p. 5.
+
+For DZ39 with four frozen orbitals, the equilibrium numerical changes are
+small:
+
+| Refinement | Position change (eV) | Width change | Maximum B1 phase change modulo pi, 0.1–5 eV |
+|---|---:|---:|---:|
+| l=3 versus l=4, deletion 1e-7 | 0.000057 | 0.040% | 0.0036 rad |
+| deletion 1e-7 to 1e-6, l=4 | 0.000436 | 0.046% | 0.0190 rad |
+| l=4 to l=5, both deletion 1e-6 | 0.000297 | 0.060% | 0.0089 rad |
+| propagation radius 100 to 200 bohr | below native output precision | below native output precision | 0 |
+
+The l=5 calculation needs deletion 1e-6 to pass the kinetic-positivity check.
+The 15-bohr sphere and complete 85-orbital TZ virtual space fail that check at
+both deletion thresholds in double precision. These failed refinements are
+preserved; they are not evidence of convergence.
+
+Changing native `RESON` background order from 1 to 4 moves the DZ39 fitted
+position by about 1 meV and its width by about 2.5%; changing the automatic
+detection threshold from 0.7 to 1.3 leaves the default fit unchanged. Replays
+use the saved K-matrices, so they incur no new integral or scattering solve.
+
+Compressed/stretched sentinel checks at 1.9/2.5 bohr compare l=3 and l=4.
+The compressed 0.1–8 eV calculation returns two fitted features; selecting
+the shape resonance requires inspecting the eigenphases. The broad feature
+near 2.79 eV changes by 2.7 meV and 0.6% in width between l=3/l=4, with a
+maximum phase change of 0.0173 rad over 0.1–4.5 eV. The additional fitted
+feature at 5.90 eV appears only at l=4; phase differences reach 1.47 rad over
+the full 0.1–8 eV grid. It is not a validated resonance target. At 2.5 bohr, all-39
+six-electron SEP gives no usable automatic fit on 0.01–0.50 eV. This differs
+from the original SEP20 pilot's narrow resonance, and does not by itself
+establish that the anion is bound. A threshold/pole diagnostic is required.
+
+### Acceptance criteria and target model
+
+Provisional **testbed** numerical targets are 0.05 eV in resonance position,
+5% in width with a 0.001 eV absolute floor, and 0.05 rad in eigenphase sums
+modulo pi. These are chosen tolerances, not accuracy claims from the papers.
+They must hold for energy-grid/background changes and continuum refinements
+at compressed, equilibrium and stretched geometries. Atomic-basis, active-space
+and channel-count changes must be checked separately. Near threshold, an
+empty automatic fit needs a pole/bound-state check rather than a zero-width
+replacement.
+
+`CAS-A` enables contracted close-coupling diagnostics with a correlated
+ten-electron target and explicit excited states. `--orbitals natural` currently
+optimizes **ground-state CASSCF** orbitals. Those are distinct from the
+multi-spin/multi-irrep state-averaged orbitals used in the papers. CAS(10,8)
+ground-state orbitals place the first triplet excitation near 11.7 eV and
+produce resonance positions 2.73/2.89 eV for DZ/TZ with 36 external orbitals.
+That target representation is inadequate. The 2016 state-averaged models
+place the lowest triplet Pi excitation around 6.3–6.5 eV (p. 4, Table 2;
+spectroscopic and vertical excitation energies are distinct).
+
+After increasing the workspaces, CAS(10,10)/40-state ground-state-CASSCF CC
+completed with the following equilibrium fits:
+
+| Basis / external orbitals | Position (eV) | Width (eV) | Lowest triplet Pi excitation (eV) |
+|---|---:|---:|---:|
+| aug-cc-pVDZ / 0 | 3.1452 | 1.5807 | 7.2925 |
+| aug-cc-pVDZ / 10 | 2.7248 | 1.2239 | 7.2925 |
+| aug-cc-pVTZ / 0 | 3.4501 | 1.8251 | 7.9820 |
+
+Their basis/external-space shifts fail the provisional position criterion.
+Ground-state orbital optimization remains different from the published
+state-averaged target construction.
+
+Larger-CAS generation requires raising all three `CONGEN` workspaces:
+`NDIMX`, `CDIMX`, and `NODIMX`. `--congen-workspace` sets them in the copied
+template, with the latter two one tenth of the first. These are input limits,
+independent of the host's free RAM.
+
+The production candidate is therefore a state-averaged CAS(10,10) or larger
+target, compared in DZ/TZ bases with 40–50 C2v components, and an independently
+correlated neutral curve. The existing ground-state-CASSCF runner is a
+diagnostic toward that model. No production electronic configuration has yet
+passed the acceptance criteria.
+
+## Measured cost and parallel execution
+
+For equilibrium DZ39/four-frozen SEP on Sadaharu, with 491 energies:
+
+| MPI ranks | Calculation wall time (s) | Aggregate CPU time (s) | Kernel memory peak (GiB) |
+|---:|---:|---:|---:|
+| 1 | 54.7 | 54.4 | 1.56 |
+| 2 | 41.5 | 81.6 | 2.44 |
+| 4 | 33.0 | 127.1 | 4.16 |
+
+These measurements use the same four-physical-core CPU group (12–15);
+other calibration calculations were running on disjoint cores. All three
+rank counts produced identical printed fitted parameters. Four independent
+one-rank jobs pinned individually to those four cores completed together in
+**63.1 seconds**, about 2.1 times the throughput of one four-rank job on the
+same allocation. Each used about 1.6 GiB; the combined envelope is roughly
+6–7 GiB. The sampled DZ39 run-disk peak is about 180–188 MiB per job.
+
+For **25–40 geometries at this SEP size**, four one-rank workers imply about
+7–11 minutes by rounding up to full 63-second batches, versus 14–22 minutes
+with one four-rank worker. A planning allowance of **10–15 minutes** covers
+ordinary geometry variation and reruns. Using 12 one-rank workers projects
+roughly 3–5 minutes, but that twelve-way throughput has not been measured.
+This estimates an exploratory SEP campaign, not a converged electronic model.
+
+Costs change strongly with the electronic model. Equilibrium TZ39/TZ60 SEP
+needed about 85/109 seconds on four ranks and sampled 6.7/8.4 GiB peaks.
+CAS(10,8)/40-state ground-state CASSCF CC needed about 145 seconds (DZ) or
+267 seconds (TZ) for only 99 energies; outer-region propagation dominated.
+An 80-state HF-orbital CC diagnostic took about 31 minutes for 491 energies
+and found no usable automatic resonance fit. Channel count can therefore
+cost much more than adding SEP energy points. The final balanced-model campaign
+time must be remeasured after its target and channel space are selected.
+
+The CAS(10,10)/40-state trials needed **13.4–15.1 minutes per geometry**
+for 99 energies; kernel memory peaks were **3.2–5.5 GiB** and sampled run-disk
+peaks **610–661 MiB**. Their three-job batch finished in **15.1 minutes** on
+12 physical cores. At that measured size, 25–40 geometries with three workers
+would take about **2.3–3.5 hours for 99 energies**, before allowance for
+geometry variation. Increasing to 300–800 energies gives a stage-scaled
+estimate using
+
+`T(N) = T(99) - T_rsolve(99) + T_rsolve(99) * N / 99`.
+
+Measured `rsolve` totals span 79–156 seconds; Hamiltonian solution and target
+density processing dominate the remainder. This yields **16–33 minutes per
+geometry**, or approximately **2.4–7.8 hours for 25–40 geometries on three
+workers**, depending on model and energy count. This is a conditional planning
+estimate for the measured CAS size: it assumes comparable geometries, the same
+energy interval/channel structure and linear propagation cost. State averaging,
+larger active spaces, additional channels, refinement runs and fitting add
+cost. The accuracy-qualified configuration still needs its own timing.
+
+Even these CC diagnostics used far less than Sadaharu's approximately 123.5
+GiB RAM. Three 4-rank jobs use 12 of its 16 physical cores; this is a practical
+starting layout for larger CC models. Per-job limits of 16–24 GiB leave ample
+headroom for the completed small models; kernel and sampled peaks are recorded
+where available. `/home` scratch and retained artifacts are the storage budget
+to track, not just each `scratch/` subdirectory.
+
+## Reproduce on a Docker host
+
+The shared [Docker guide](../../docker/ukrmol-plus/README.md) describes engine
+sources/checksums, all six build targets, dependency additions, SSH deployment
+and bind-mount ownership. Build from the repository root on the host:
+
+```bash
+docker build --build-arg BUILD_JOBS=4 -f docker/ukrmol-plus/Dockerfile \
+  -t qmodeling/ukrmol-co:source .
+```
+
+Choose a writable persistent `RUN_ROOT` under `/home`, following the Docker
+guide's UID/GID setup. Run and analyze a fresh equilibrium pilot:
+
+```bash
+IMAGE=qmodeling/ukrmol-co:source
+docker run --rm --cpuset-cpus=0-3 --memory=16g --memory-swap=16g \
+  --shm-size=1g -v "$RUN_ROOT:/work" \
+  --entrypoint /opt/ukrmolp/entrypoint.sh "$IMAGE" bash -c \
+  'python3 -m projects.ukrmol_co.run --workdir /work/runs/co-equilibrium-001 && \
+   python3 -m projects.ukrmol_co.analyze /work/runs/co-equilibrium-001'
+```
+
+The default is the initial two-frozen/20-virtual SEP pilot. For the more
+numerically checked **diagnostic** six-electron SEP model, add
+`--frozen-orbitals 4 --virtual-orbitals 17 9 9 4 --deletion-threshold 1e-6`.
+Neither is a qualified production configuration.
+
+The packaged image includes the CA bundle and Python's `SSL_CERT_FILE` setting
+needed to download scripts into a fresh cache. Earlier runs used a populated
+cache, which did not exercise that deployment path.
+
+`run.py` downloads [UKRmol-scripts 1.0](https://zenodo.org/records/7851856),
+verifies its published archive checksum, and copies the library and input
+templates into the run. Its local library copy records stage timings and stops
+on failed commands; upstream otherwise prints an error and continues.
+Every run requires a **new directory**, preserving earlier inputs and results.
+It selects matching executable **and shared-library** precision variants;
+the upstream entrypoint defaults to double-precision libraries.
+
+All calculation files live under the mounted `/work`, backed by `RUN_ROOT`.
+Both `TMPDIR` and `PSI_SCRATCH` are placed inside
+each run's `scratch/`. UKRmol also writes integrals and `fort.*` files directly
+in the geometry working directory; these are included in total run disk usage.
+
+### Source-engine evidence
+
+The source engine is gated by the Dockerfile's `build` → `test` → `runtime`
+stages, and the `co-source` target adds this experiment. `co-pilot` retains the
+reference engine. The source runtime carries `/opt/ukrmolp/source-provenance.json`
+and upstream logs in `/opt/ukrmolp/source-tests/`.
+
+The source image was built successfully on Sadaharu; all **12** selected
+upstream checks passed. The CO DZ39/four-frozen/one-rank comparison against
+the reference-binary image gave identical printed resonance position/width
+and a maximum phase difference of $10^{-7}$ rad over 0.1–5 eV. The measured
+source image ID is
+`sha256:599eeee919f56a27e6a0a4e214c5fc80a2f5780752f07b654b21fe1339f61ae6`.
+Its source/test provenance is recorded in
+[`source-build-results.json`](source-build-results.json).
+
+The reorganized Docker targets were independently rebuilt and passed the same
+12 checks. A fresh-cache, one-rank DZ39 calculation passed after adding the CA
+bundle/Python certificate-path fix, and again matched the reference position/
+width at printed precision with a maximum phase change of `1e-7 rad`.
+[`packaging-results.json`](packaging-results.json) records this build's image
+and Dockerfile/helper hashes and the 61.7-second calculation timing.
+
+## Finite remote batches and fit replays
+
+Each job manifest is a list of named jobs and runner arguments.
+`batch.py` runs them through Docker on the host, snapshots the project source
+read-only, records its SHA256 hashes and image ID, and uses disjoint CPU slots:
+
+```bash
+python3 -m projects.ukrmol_co.batch projects/ukrmol_co/calibration-throughput.json \
+  --root "$RUN_ROOT" --image qmodeling/ukrmol-co:source \
+  --cpu-groups 0 1 2 3 --memory 4g
+```
+
+Manifest names and run names must be new for each invocation. Results/logs
+are under `batches/<manifest-stem>/`, calculations under `runs/<job-name>/`.
+This finite job interface supports SSH execution now; an HTTP service and AWS
+deployment have not yet been implemented.
+
+Inside the image, replay an existing fit with:
+
+```bash
+python3 -m projects.ukrmol_co.refit /work/runs/co-eq-f4-sep39 --nback 3
+```
+
+The local QSCAT workspace collector creates the calibration JSON snapshot
+from copied lightweight artifacts (`runs/` and `batches/`):
+
+```bash
+uv run python -m projects.ukrmol_co.collect /path/to/copied-artifacts \
+  --pairs projects/ukrmol_co/calibration-pairs.json \
+  --provenance projects/ukrmol_co/campaign-provenance.json \
+  --output projects/ukrmol_co/calibration-results.json
+```
+
+Use the saved provenance only when rebuilding the 6 October campaign; supply
+your own metadata for a new campaign. The collector does not assume a host.
+
+### Experiment files
+
+| Files | Role |
+|---|---|
+| `co.pl`, `run.py` | Molecular deck, checksum-pinned scripts, strict PK SCF, workspace/precision selection and profiling |
+| `analyze.py`, `test_analyze.py` | Pipeline/symmetry checks, native fits and a CC column-block regression |
+| `batch.py` | Finite fresh-container execution with CPU slots and source/image provenance |
+| `refit.py` | RESON replays from retained channels, amplitudes and K-matrices |
+| `pilot-jobs.json`, `pilot-results.json` | Original pilot recipe and quoted results |
+| `calibration-*.json` | Calibration job recipes, paired comparisons and the full results snapshot |
+| `collect.py`, `campaign-provenance.json` | Rebuild that snapshot from saved lightweight evidence |
+| `source-build-results.json` | Original source-engine pins, upstream gate and CO differential evidence |
+| `packaging-results.json` | Reorganized targets, cold-cache acquisition fix and independent CO differential check |
+| [`evidence/`](evidence/README.md) | Public checksum-verified lightweight archive and snapshot reconstruction instructions |
+| [`CONTINUATION.md`](CONTINUATION.md) | Specific host/artifact locations, campaign replay map and next electronic-model qualification gate |
+
+The runner evolved during calibration. Manifests preserve the requested
+arguments; per-run `config` and generated inputs, per-batch source hashes and
+available source snapshots preserve the historical execution. The first four
+batches have hashes but no source snapshot; their decks/templates are retained.
+In particular, replaying early CAS manifests
+with today's raised workspaces will not recreate the old CONGEN limit failures.
+Timing results also depend on CPU slots, concurrency and image, not just the
+electronic configuration.
+
+## Artifacts and checks
+
+Each run preserves:
+
+- `config.json`, `co.pl`, the upstream driver and its instrumented library;
+- `run.log` and all generated UKRmol/Psi4 inputs and outputs;
+- `stages.tsv`: task, program, spin, symmetry, exact wall seconds, raw wait status;
+- `resources.csv` and `resources.json`: sampled aggregate container memory and
+  allocated run/scratch disk usage, plus kernel cgroup peak memory and aggregate
+  CPU time in newer runs;
+- `output/CO/geom1/eigenph.doublet.{B1,B2}` and
+  `xsec.doublet.{B1,B2}`;
+- channels, R-matrix amplitudes, K-matrices, and integrals for further analysis.
+
+The analyzer checks the complete energy grids, finite nonnegative cross
+sections, `B1`/`B2` degeneracy, and consistency of the RHF target energies.
+For ground-state CASSCF it instead checks the correlated target energy against
+Psi4's final CASSCF energy. CC cross-section columns are joined across native
+output blocks, and the total is checked against the final-state sum.
+Eigenphase agreement is checked modulo $\pi$ with a 0.002-radian absolute
+tolerance because the native text output has limited precision. Native
+resonance fits are recorded only when positive finite positions and widths
+are present. An empty fit list means the automatic fit found no usable result.
+
+Memory is sampled every 0.2 s and disk every 2 s, so reported peaks are sampled
+lower bounds. Container memory includes filesystem page cache and any other
+processes in that container. Newer runs also include `memory.peak`, the kernel's
+peak for the container lifetime. Batch workers use one fresh container per
+calculation, so each peak belongs to one job. Files remain available after the
+calculation exits.
+
+A successful pilot establishes the execution pipeline and internal consistency.
+Before using its resonance curve as a potential-fitting target, vary the
+virtual space, continuum angular cutoff, sphere radius and deletion threshold,
+and inspect eigenphases and resonance-fit stability. The compact RHF/SEP
+neutral energy is not a correlated neutral potential curve.

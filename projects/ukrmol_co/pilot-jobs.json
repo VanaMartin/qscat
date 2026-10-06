@@ -1,0 +1,18 @@
+[
+  {
+    "name": "co-r1.9-sep20-pk-e8",
+    "args": ["--bond-length", "1.9", "--energy-step-ev", "0.05", "--energies", "159"]
+  },
+  {
+    "name": "co-eq-sep20-pk",
+    "args": []
+  },
+  {
+    "name": "co-r2.5-sep20-pk-fine",
+    "args": ["--bond-length", "2.5", "--energy-start-ev", "0.05", "--energy-step-ev", "0.001", "--energies", "501"]
+  },
+  {
+    "name": "co-eq-sep30-pk",
+    "args": ["--virtual-orbitals", "14", "6", "6", "4"]
+  }
+]

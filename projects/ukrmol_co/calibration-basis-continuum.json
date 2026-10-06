@@ -1,0 +1,10 @@
+[
+  {"name": "co-eq-f4-sep39-l3", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--maxl", "3"]},
+  {"name": "co-eq-f4-sep39-l5", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--maxl", "5"]},
+  {"name": "co-eq-f4-sep39-d6", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--deletion-threshold", "1e-6"]},
+  {"name": "co-eq-f4-sep39-r15", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--radius", "15"]},
+  {"name": "co-eq-f4-sep39-raf200", "args": ["--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--propagation-radius", "200"]},
+  {"name": "co-eq-tz-f4-sep39", "args": ["--basis", "aug-cc-pVTZ", "--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4"]},
+  {"name": "co-eq-tz-f4-sep60", "args": ["--basis", "aug-cc-pVTZ", "--frozen-orbitals", "4", "--virtual-orbitals", "24", "14", "14", "8"]},
+  {"name": "co-eq-tz-f4-sep85", "args": ["--basis", "aug-cc-pVTZ", "--frozen-orbitals", "4", "--virtual-orbitals", "33", "21", "21", "10"]}
+]

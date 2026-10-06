@@ -1,0 +1,6 @@
+[
+  {"name": "co-r1.9-f4-sep39-l4", "args": ["--bond-length", "1.9", "--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--energy-step-ev", "0.025", "--energies", "317"]},
+  {"name": "co-r1.9-f4-sep39-l3", "args": ["--bond-length", "1.9", "--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--maxl", "3", "--energy-step-ev", "0.025", "--energies", "317"]},
+  {"name": "co-r2.5-f4-sep39-l4", "args": ["--bond-length", "2.5", "--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--energy-start-ev", "0.01", "--energy-step-ev", "0.001", "--energies", "491"]},
+  {"name": "co-r2.5-f4-sep39-l3", "args": ["--bond-length", "2.5", "--frozen-orbitals", "4", "--virtual-orbitals", "17", "9", "9", "4", "--maxl", "3", "--energy-start-ev", "0.01", "--energy-step-ev", "0.001", "--energies", "491"]}
+]

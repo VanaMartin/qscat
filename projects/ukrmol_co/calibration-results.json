@@ -1,0 +1,5274 @@
+{
+  "date": "2026-10-06",
+  "host": "sadaharu",
+  "artifact_host_root": "/home/kooza/ukrmol/co-pilot",
+  "hartree_to_ev": 27.211386245988,
+  "status": "Calibration evidence; electronic model convergence not established",
+  "batches": [
+    {
+      "wall_seconds": 138.61752739106305,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "8247c4c40a7c43eb226ab90a14b5b7c5008f743bfb117d9f94e73d8dc29aae55",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "analyze.py": "d7605c7adb1c8c62e04e817f6cfb5cecf63fc334629a29f66a739fdf3d7ca763",
+        "batch.py": "b356da965edfb7c343f152606aae65cde1867e3c5c8df7a5235bb6058e46ecba",
+        "co.pl": "6b3cd9cad2ae3e93a534737c6f2d3b1398c13587e4b6784152ab8f6c4836bf2b"
+      },
+      "cpu_groups": [
+        "0-3",
+        "4-7",
+        "8-11"
+      ],
+      "memory_limit_per_job": "32g",
+      "jobs": [
+        {
+          "name": "co-eq-f4-sep39-l3",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 11.883979316800833
+        },
+        {
+          "name": "co-eq-tz-f4-sep39",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 85.52322251698934
+        },
+        {
+          "name": "co-eq-f4-sep39-l5",
+          "cpus": "4-7",
+          "exit_code": 25,
+          "container_wall_seconds": 1.3975224460009485
+        },
+        {
+          "name": "co-eq-f4-sep39-r15",
+          "cpus": "4-7",
+          "exit_code": 25,
+          "container_wall_seconds": 1.3242794182151556
+        },
+        {
+          "name": "co-eq-f4-sep39-raf200",
+          "cpus": "4-7",
+          "exit_code": 0,
+          "container_wall_seconds": 32.7845423379913
+        },
+        {
+          "name": "co-eq-tz-f4-sep85",
+          "cpus": "4-7",
+          "exit_code": 25,
+          "container_wall_seconds": 1.637289334088564
+        },
+        {
+          "name": "co-eq-f4-sep39-d6",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 29.361072588944808
+        },
+        {
+          "name": "co-eq-tz-f4-sep60",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 109.25554449297488
+        }
+      ],
+      "name": "calibration-basis-continuum"
+    },
+    {
+      "wall_seconds": 473.4157600728795,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "607067776f474238f2bd7e5d6ca5e7a77f61425daf20aa5ef138bfc8f0db4598",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "analyze.py": "d584c3e8902390d342c9eb38bc3694e3fffdb28d1de2c2b7c4f39727bdbe5f47",
+        "batch.py": "e517d1c2b51e54f0e76561ff73c9a5ae06ecf5f96278fdb8f069c99b3bb766a3",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "4-7",
+        "8-11"
+      ],
+      "memory_limit_per_job": "32g",
+      "jobs": [
+        {
+          "name": "co-eq-cas8-casscf-cc40-v36",
+          "cpus": "4-7",
+          "exit_code": 1,
+          "container_wall_seconds": 145.43949430785142
+        },
+        {
+          "name": "co-eq-cas10-casscf-cc40-v10",
+          "cpus": "4-7",
+          "exit_code": 25,
+          "container_wall_seconds": 327.97565655992366
+        },
+        {
+          "name": "co-eq-tz-cas8-casscf-cc40-v36",
+          "cpus": "8-11",
+          "exit_code": 1,
+          "container_wall_seconds": 267.72885692096315
+        }
+      ],
+      "name": "calibration-cc-casscf"
+    },
+    {
+      "wall_seconds": 2020.2770271969493,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "def3411a73c2a195aeb6d021e5c4821437b4d8f1d4749bd770de3b2eea0ecf7d",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "analyze.py": "d584c3e8902390d342c9eb38bc3694e3fffdb28d1de2c2b7c4f39727bdbe5f47",
+        "batch.py": "b356da965edfb7c343f152606aae65cde1867e3c5c8df7a5235bb6058e46ecba",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "0-3"
+      ],
+      "memory_limit_per_job": "16g",
+      "jobs": [
+        {
+          "name": "co-eq-cas8-hf-cc40-v36",
+          "cpus": "0-3",
+          "exit_code": 1,
+          "container_wall_seconds": 179.32841986604035
+        },
+        {
+          "name": "co-eq-cas8-hf-cc80-v36",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 1840.9482047480997
+        }
+      ],
+      "name": "calibration-cc-hf"
+    },
+    {
+      "wall_seconds": 286.3104595679324,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "607067776f474238f2bd7e5d6ca5e7a77f61425daf20aa5ef138bfc8f0db4598",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "refit.py": "82ac19a64811fb9daad3b78ac5b7ec657f1bfda157ccbbcfcc71cdacce2e3333",
+        "collect.py": "2eae7db58a02757db6b9b643deb6ecce7ac85704bcf95f7f31f97d3b52edb908",
+        "analyze.py": "fecfb93b01de9167d1589a0425ded6cb007bbe46d7bf9eca11a38a4006167924",
+        "test_analyze.py": "b751a8ac6d3fdaaef91b3f75093564e9ff91a9d995e05636c05a62d291006a25",
+        "batch.py": "c15a801feb8222fa8d5a92eefe9d939b752211e2765e2a8d166c204b13bb0f1b",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "4-7",
+        "8-11"
+      ],
+      "memory_limit_per_job": "32g",
+      "jobs": [
+        {
+          "name": "co-eq-cas8-casscf-cc40-v0",
+          "cpus": "4-7",
+          "exit_code": 0,
+          "container_wall_seconds": 128.7900242509786
+        },
+        {
+          "name": "co-eq-cas10-casscf-cc40-v0",
+          "cpus": "8-11",
+          "exit_code": 25,
+          "container_wall_seconds": 286.30997650604695
+        }
+      ],
+      "name": "calibration-cc-no-virtuals"
+    },
+    {
+      "wall_seconds": 333.12678421405144,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "2da5e0543ab370c8528c3f4a5418c0e1eaa9ee670ef2bbadfe5b132d2ba61174",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "refit.py": "82ac19a64811fb9daad3b78ac5b7ec657f1bfda157ccbbcfcc71cdacce2e3333",
+        "collect.py": "39beadd533a2c2add803247bbfaaf10c4390fb8ec7e27edd640655b87817924d",
+        "analyze.py": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "test_analyze.py": "b751a8ac6d3fdaaef91b3f75093564e9ff91a9d995e05636c05a62d291006a25",
+        "batch.py": "c15a801feb8222fa8d5a92eefe9d939b752211e2765e2a8d166c204b13bb0f1b",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "12-15"
+      ],
+      "memory_limit_per_job": "24g",
+      "jobs": [
+        {
+          "name": "co-eq-tz-cas10-casscf-cc40-v0-ndim",
+          "cpus": "12-15",
+          "exit_code": 25,
+          "container_wall_seconds": 333.12653127196245
+        }
+      ],
+      "name": "calibration-cc-tz"
+    },
+    {
+      "wall_seconds": 299.70242795092054,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "2da5e0543ab370c8528c3f4a5418c0e1eaa9ee670ef2bbadfe5b132d2ba61174",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "refit.py": "82ac19a64811fb9daad3b78ac5b7ec657f1bfda157ccbbcfcc71cdacce2e3333",
+        "collect.py": "39beadd533a2c2add803247bbfaaf10c4390fb8ec7e27edd640655b87817924d",
+        "analyze.py": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "test_analyze.py": "b751a8ac6d3fdaaef91b3f75093564e9ff91a9d995e05636c05a62d291006a25",
+        "batch.py": "c15a801feb8222fa8d5a92eefe9d939b752211e2765e2a8d166c204b13bb0f1b",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "4-7",
+        "8-11"
+      ],
+      "memory_limit_per_job": "32g",
+      "jobs": [
+        {
+          "name": "co-eq-cas10-casscf-cc40-v0-ndim",
+          "cpus": "4-7",
+          "exit_code": 25,
+          "container_wall_seconds": 299.7021457089577
+        },
+        {
+          "name": "co-eq-cas10-casscf-cc40-v10-ndim",
+          "cpus": "8-11",
+          "exit_code": 25,
+          "container_wall_seconds": 293.07763004186563
+        }
+      ],
+      "name": "calibration-cc-workspace"
+    },
+    {
+      "wall_seconds": 907.6344932080247,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "9fe3c2c5f3dbfdfb61d1dd4fedcba549500a9da41a29b1a7f566f9aa9ad92e69",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "refit.py": "82ac19a64811fb9daad3b78ac5b7ec657f1bfda157ccbbcfcc71cdacce2e3333",
+        "collect.py": "39beadd533a2c2add803247bbfaaf10c4390fb8ec7e27edd640655b87817924d",
+        "analyze.py": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "test_analyze.py": "b751a8ac6d3fdaaef91b3f75093564e9ff91a9d995e05636c05a62d291006a25",
+        "batch.py": "c15a801feb8222fa8d5a92eefe9d939b752211e2765e2a8d166c204b13bb0f1b",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "4-7",
+        "8-11",
+        "12-15"
+      ],
+      "memory_limit_per_job": "24g",
+      "jobs": [
+        {
+          "name": "co-eq-cas10-casscf-cc40-v0-ws",
+          "cpus": "4-7",
+          "exit_code": 0,
+          "container_wall_seconds": 807.551340272883
+        },
+        {
+          "name": "co-eq-cas10-casscf-cc40-v10-ws",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 888.4337848920841
+        },
+        {
+          "name": "co-eq-tz-cas10-casscf-cc40-v0-ws",
+          "cpus": "12-15",
+          "exit_code": 0,
+          "container_wall_seconds": 907.6337838140316
+        }
+      ],
+      "name": "calibration-cc-workspaces"
+    },
+    {
+      "wall_seconds": 94.31594364601187,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "def3411a73c2a195aeb6d021e5c4821437b4d8f1d4749bd770de3b2eea0ecf7d",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "analyze.py": "d584c3e8902390d342c9eb38bc3694e3fffdb28d1de2c2b7c4f39727bdbe5f47",
+        "batch.py": "b356da965edfb7c343f152606aae65cde1867e3c5c8df7a5235bb6058e46ecba",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "4-7",
+        "8-11"
+      ],
+      "memory_limit_per_job": "32g",
+      "jobs": [
+        {
+          "name": "co-eq-f4-sep39-l5-d6",
+          "cpus": "4-7",
+          "exit_code": 0,
+          "container_wall_seconds": 94.31560113304295
+        },
+        {
+          "name": "co-eq-f4-sep39-r15-d6",
+          "cpus": "8-11",
+          "exit_code": 25,
+          "container_wall_seconds": 1.357891228981316
+        },
+        {
+          "name": "co-eq-tz-f4-sep85-d6",
+          "cpus": "8-11",
+          "exit_code": 25,
+          "container_wall_seconds": 1.6288992560002953
+        }
+      ],
+      "name": "calibration-continuum-retry"
+    },
+    {
+      "wall_seconds": 59.14177978388034,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "8247c4c40a7c43eb226ab90a14b5b7c5008f743bfb117d9f94e73d8dc29aae55",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "analyze.py": "d7605c7adb1c8c62e04e817f6cfb5cecf63fc334629a29f66a739fdf3d7ca763",
+        "batch.py": "b356da965edfb7c343f152606aae65cde1867e3c5c8df7a5235bb6058e46ecba",
+        "co.pl": "6b3cd9cad2ae3e93a534737c6f2d3b1398c13587e4b6784152ab8f6c4836bf2b"
+      },
+      "cpu_groups": [
+        "0-3",
+        "4-7",
+        "8-11"
+      ],
+      "memory_limit_per_job": "16g",
+      "jobs": [
+        {
+          "name": "co-eq-f4-sep20",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 25.32422245806083
+        },
+        {
+          "name": "co-eq-f2-sep39",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 33.81703290180303
+        },
+        {
+          "name": "co-eq-f4-sep30",
+          "cpus": "4-7",
+          "exit_code": 0,
+          "container_wall_seconds": 28.759762428002432
+        },
+        {
+          "name": "co-eq-f4-sep39",
+          "cpus": "8-11",
+          "exit_code": 0,
+          "container_wall_seconds": 31.962734406115487
+        }
+      ],
+      "name": "calibration-freezing"
+    },
+    {
+      "wall_seconds": 130.77595829800703,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "607067776f474238f2bd7e5d6ca5e7a77f61425daf20aa5ef138bfc8f0db4598",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "analyze.py": "d584c3e8902390d342c9eb38bc3694e3fffdb28d1de2c2b7c4f39727bdbe5f47",
+        "batch.py": "e517d1c2b51e54f0e76561ff73c9a5ae06ecf5f96278fdb8f069c99b3bb766a3",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "12-15"
+      ],
+      "memory_limit_per_job": "16g",
+      "jobs": [
+        {
+          "name": "co-eq-f4-sep39-np1",
+          "cpus": "12-15",
+          "exit_code": 0,
+          "container_wall_seconds": 55.226635770872235
+        },
+        {
+          "name": "co-eq-f4-sep39-np2",
+          "cpus": "12-15",
+          "exit_code": 0,
+          "container_wall_seconds": 42.027922361157835
+        },
+        {
+          "name": "co-eq-f4-sep39-np4",
+          "cpus": "12-15",
+          "exit_code": 0,
+          "container_wall_seconds": 33.520795772084966
+        }
+      ],
+      "name": "calibration-mpi"
+    },
+    {
+      "wall_seconds": 145.14608802599832,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "9fe3c2c5f3dbfdfb61d1dd4fedcba549500a9da41a29b1a7f566f9aa9ad92e69",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "refit.py": "82ac19a64811fb9daad3b78ac5b7ec657f1bfda157ccbbcfcc71cdacce2e3333",
+        "collect.py": "39beadd533a2c2add803247bbfaaf10c4390fb8ec7e27edd640655b87817924d",
+        "analyze.py": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "test_analyze.py": "b751a8ac6d3fdaaef91b3f75093564e9ff91a9d995e05636c05a62d291006a25",
+        "batch.py": "c15a801feb8222fa8d5a92eefe9d939b752211e2765e2a8d166c204b13bb0f1b",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "0-3"
+      ],
+      "memory_limit_per_job": "8g",
+      "jobs": [
+        {
+          "name": "co-r1.9-f4-sep39-l4",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 52.50857797591016
+        },
+        {
+          "name": "co-r1.9-f4-sep39-l3",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 18.989180372096598
+        },
+        {
+          "name": "co-r2.5-f4-sep39-l4",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 54.413274077000096
+        },
+        {
+          "name": "co-r2.5-f4-sep39-l3",
+          "cpus": "0-3",
+          "exit_code": 0,
+          "container_wall_seconds": 19.23454646812752
+        }
+      ],
+      "name": "calibration-sentinels"
+    },
+    {
+      "wall_seconds": 65.03603743412532,
+      "image_id": "sha256:599eeee919f56a27e6a0a4e214c5fc80a2f5780752f07b654b21fe1339f61ae6",
+      "source_sha256": {
+        "run.py": "e36bb516f16ba43de55941212bb75fc5ed82dca95913ba50160195a7b223a70c",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "refit.py": "82ac19a64811fb9daad3b78ac5b7ec657f1bfda157ccbbcfcc71cdacce2e3333",
+        "collect.py": "f62680d6249e5112ed4d09860ebd29df6c4803c3e8b7e3c1afd97c373710496e",
+        "analyze.py": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "test_analyze.py": "b751a8ac6d3fdaaef91b3f75093564e9ff91a9d995e05636c05a62d291006a25",
+        "batch.py": "c15a801feb8222fa8d5a92eefe9d939b752211e2765e2a8d166c204b13bb0f1b",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "0"
+      ],
+      "memory_limit_per_job": "4g",
+      "jobs": [
+        {
+          "name": "co-eq-f4-sep39-source",
+          "cpus": "0",
+          "exit_code": 0,
+          "container_wall_seconds": 65.03567311191
+        }
+      ],
+      "name": "calibration-source"
+    },
+    {
+      "wall_seconds": 63.10772951319814,
+      "image_id": "sha256:e25463b7d4a3fa4ba268b2a621e9e9e895893d8826d5e22dc042c8f6f35b9bd8",
+      "source_sha256": {
+        "run.py": "607067776f474238f2bd7e5d6ca5e7a77f61425daf20aa5ef138bfc8f0db4598",
+        "__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+        "collect.py": "28509606c0462f417ffc3f1f056560879ec685019c860372b38561bc5061d89f",
+        "analyze.py": "d584c3e8902390d342c9eb38bc3694e3fffdb28d1de2c2b7c4f39727bdbe5f47",
+        "batch.py": "e517d1c2b51e54f0e76561ff73c9a5ae06ecf5f96278fdb8f069c99b3bb766a3",
+        "co.pl": "2e8d9d4339325d8053ffee46a0d3cf830a98726a4153b1fddffbf53af982f763"
+      },
+      "cpu_groups": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      "memory_limit_per_job": "4g",
+      "jobs": [
+        {
+          "name": "co-eq-f4-sep39-serial-a",
+          "cpus": "12",
+          "exit_code": 0,
+          "container_wall_seconds": 62.946029206039384
+        },
+        {
+          "name": "co-eq-f4-sep39-serial-b",
+          "cpus": "13",
+          "exit_code": 0,
+          "container_wall_seconds": 63.03967048996128
+        },
+        {
+          "name": "co-eq-f4-sep39-serial-c",
+          "cpus": "14",
+          "exit_code": 0,
+          "container_wall_seconds": 62.620303372852504
+        },
+        {
+          "name": "co-eq-f4-sep39-serial-d",
+          "cpus": "15",
+          "exit_code": 0,
+          "container_wall_seconds": 63.10614674095996
+        }
+      ],
+      "name": "calibration-throughput"
+    }
+  ],
+  "runs": {
+    "co-eq-f4-sep39-l3": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-l3",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 3,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 11.2369566608686,
+        "sampled_peak_container_memory_bytes": 3280572416,
+        "baseline_container_memory_bytes": 13312000,
+        "sampled_peak_container_anon_bytes": 3263635456,
+        "sampled_peak_run_allocated_bytes": 87961600,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1176,
+          "B2": 1176
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 0.0,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.0489302335,
+              "width_hartree": 0.0208384215
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.0489302335,
+              "width_hartree": 0.0208384215
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.5327467918396,
+        "target.scatci_integrals": 9.30256390571594,
+        "target.congen": 0.00168395042419434,
+        "target.scatci": 0.065155029296875,
+        "target.denprop": 0.0102341175079346,
+        "scattering.congen": 0.00573801994323731,
+        "scattering.scatci": 0.897111177444458,
+        "scattering.swinterf": 0.028259992599487298,
+        "scattering.rsolve": 0.14044499397277832,
+        "scattering.eigenp": 0.0221431255340577,
+        "scattering.tmatrx": 0.020691156387329122,
+        "scattering.ixsecs": 0.021188020706176702,
+        "scattering.reson": 0.019688129425048828
+      },
+      "refits": []
+    },
+    "co-eq-tz-f4-sep39": {
+      "config": {
+        "workdir": "/work/runs/co-eq-tz-f4-sep39",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVTZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 85.00723281712271,
+        "sampled_peak_container_memory_bytes": 7230447616,
+        "baseline_container_memory_bytes": 13398016,
+        "sampled_peak_container_anon_bytes": 7204397056,
+        "sampled_peak_run_allocated_bytes": 186974208,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVTZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.781428025,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.105303,
+        "psi4_energy_hartree": -112.7814280252193,
+        "psi4_rhf_energy_hartree": -112.7814280252193,
+        "target_energy_difference_hartree": 2.1930190996499732e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 0.0,
+        "pi_cross_section_max_absolute_difference_bohr2": 9.99999993922529e-08,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.05966027,
+              "width_hartree": 0.0282375565
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.05966027,
+              "width_hartree": 0.0282375565
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.959136962890625,
+        "target.scatci_integrals": 82.5988008975983,
+        "target.congen": 0.0020301342010498,
+        "target.scatci": 0.0699620246887207,
+        "target.denprop": 0.0103759765625,
+        "scattering.congen": 0.00586605072021484,
+        "scattering.scatci": 0.9221181869506829,
+        "scattering.swinterf": 0.0305471420288086,
+        "scattering.rsolve": 0.152338981628418,
+        "scattering.eigenp": 0.021434068679809598,
+        "scattering.tmatrx": 0.0214593410491943,
+        "scattering.ixsecs": 0.0222320556640625,
+        "scattering.reson": 0.0210540294647217
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-l5": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-l5",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 5,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 0.8061372088268399,
+        "sampled_peak_container_memory_bytes": 133812224,
+        "baseline_container_memory_bytes": 13348864,
+        "sampled_peak_container_anon_bytes": 129675264,
+        "sampled_peak_run_allocated_bytes": 5128192,
+        "sampled_peak_scratch_allocated_bytes": 0,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 0.53673791885376,
+        "target.scatci_integrals": 0.169638156890869
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-r15": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-r15",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 15,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 0.8019972499459982,
+        "sampled_peak_container_memory_bytes": 134119424,
+        "baseline_container_memory_bytes": 13447168,
+        "sampled_peak_container_anon_bytes": 129667072,
+        "sampled_peak_run_allocated_bytes": 4177920,
+        "sampled_peak_scratch_allocated_bytes": 0,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 0.542182922363281,
+        "target.scatci_integrals": 0.113018989562988
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-raf200": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-raf200",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 200.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 32.296256811823696,
+        "sampled_peak_container_memory_bytes": 4464533504,
+        "baseline_container_memory_bytes": 13402112,
+        "sampled_peak_container_anon_bytes": 4444319744,
+        "sampled_peak_run_allocated_bytes": 186593280,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.0000000028043132e-07,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000010279564e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.539548873901367,
+        "target.scatci_integrals": 30.3265480995178,
+        "target.congen": 0.00142598152160645,
+        "target.scatci": 0.0737190246582031,
+        "target.denprop": 0.0100359916687012,
+        "scattering.congen": 0.00560188293457031,
+        "scattering.scatci": 0.9836938381195071,
+        "scattering.swinterf": 0.0292189121246338,
+        "scattering.rsolve": 0.1617462635040283,
+        "scattering.eigenp": 0.0212032794952393,
+        "scattering.tmatrx": 0.020536184310913003,
+        "scattering.ixsecs": 0.0213570594787598,
+        "scattering.reson": 0.0202119350433349
+      },
+      "refits": []
+    },
+    "co-eq-tz-f4-sep85": {
+      "config": {
+        "workdir": "/work/runs/co-eq-tz-f4-sep85",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVTZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          33,
+          21,
+          21,
+          10
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 1.2030593268573284,
+        "sampled_peak_container_memory_bytes": 298790912,
+        "baseline_container_memory_bytes": 13336576,
+        "sampled_peak_container_anon_bytes": 292958208,
+        "sampled_peak_run_allocated_bytes": 5042176,
+        "sampled_peak_scratch_allocated_bytes": 0,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 0.969948053359985,
+        "target.scatci_integrals": 0.157730102539062
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-d6": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-d6",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-06,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 28.697869822150096,
+        "sampled_peak_container_memory_bytes": 4296204288,
+        "baseline_container_memory_bytes": 13533184,
+        "sampled_peak_container_anon_bytes": 4276367360,
+        "sampled_peak_run_allocated_bytes": 165445632,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1186,
+          "B2": 1186
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 9.999999974752427e-07,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.0489121465,
+              "width_hartree": 0.0208371425
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.0489121465,
+              "width_hartree": 0.0208371425
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.54793381690979,
+        "target.scatci_integrals": 26.7627899646759,
+        "target.congen": 0.00152492523193359,
+        "target.scatci": 0.0657968521118164,
+        "target.denprop": 0.0114269256591797,
+        "scattering.congen": 0.00624990463256836,
+        "scattering.scatci": 0.84790015220642,
+        "scattering.swinterf": 0.029230117797851597,
+        "scattering.rsolve": 0.14672684669494618,
+        "scattering.eigenp": 0.026104211807250997,
+        "scattering.tmatrx": 0.0226037502288819,
+        "scattering.ixsecs": 0.0238702297210693,
+        "scattering.reson": 0.0221240520477295
+      },
+      "refits": []
+    },
+    "co-eq-tz-f4-sep60": {
+      "config": {
+        "workdir": "/work/runs/co-eq-tz-f4-sep60",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVTZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          24,
+          14,
+          14,
+          8
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 108.76563261193223,
+        "sampled_peak_container_memory_bytes": 9057701888,
+        "baseline_container_memory_bytes": 13758464,
+        "sampled_peak_container_anon_bytes": 9027190784,
+        "sampled_peak_run_allocated_bytes": 421474304,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-basis-continuum",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVTZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.781428025,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.105303,
+        "psi4_energy_hartree": -112.7814280252193,
+        "psi4_rhf_energy_hartree": -112.7814280252193,
+        "target_energy_difference_hartree": 2.1930190996499732e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 2754,
+          "B2": 2754
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 0.0,
+        "pi_cross_section_max_absolute_difference_bohr2": 9.99999993922529e-08,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048847895,
+              "width_hartree": 0.021103738
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048847895,
+              "width_hartree": 0.021103738
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.961648941040039,
+        "target.scatci_integrals": 101.182904958725,
+        "target.congen": 0.00156712532043457,
+        "target.scatci": 0.0698151588439941,
+        "target.denprop": 0.0110719203948975,
+        "scattering.congen": 0.00946307182312011,
+        "scattering.scatci": 6.12114882469177,
+        "scattering.swinterf": 0.029873847961425802,
+        "scattering.rsolve": 0.1444699764251709,
+        "scattering.eigenp": 0.024522066116333,
+        "scattering.tmatrx": 0.022322893142700202,
+        "scattering.ixsecs": 0.0230600833892822,
+        "scattering.reson": 0.021354198455810602
+      },
+      "refits": []
+    },
+    "co-eq-cas8-casscf-cc40-v36": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas8-casscf-cc40-v36",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          16,
+          8,
+          8,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 144.74059542710893,
+        "sampled_peak_container_memory_bytes": 4466249728,
+        "baseline_container_memory_bytes": 13668352,
+        "sampled_peak_container_anon_bytes": 4445577216,
+        "kernel_peak_container_memory_bytes": 4466249728,
+        "container_cpu_seconds": 545.738691,
+        "sampled_peak_run_allocated_bytes": 294883328,
+        "sampled_peak_scratch_allocated_bytes": 4956160,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-casscf",
+      "initial_batch_exit_code": 1,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.885976268,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.5481124389999934,
+          "singlet.A1.3": 0.8208925639999904,
+          "singlet.A1.4": 0.9866290189999916,
+          "singlet.A1.5": 1.0233545299999918,
+          "triplet.A1.1": 0.4314279229999869,
+          "triplet.A1.2": 0.48574009499999704,
+          "triplet.A1.3": 0.9843841799999922,
+          "triplet.A1.4": 1.0911181759999948,
+          "triplet.A1.5": 1.1029078679999884,
+          "singlet.B1.1": 0.495128158,
+          "singlet.B1.2": 0.714923684999988,
+          "singlet.B1.3": 0.9572969439999923,
+          "singlet.B1.4": 0.9855495809999866,
+          "singlet.B1.5": 1.0414079699999945,
+          "triplet.B1.1": 0.43061026199998764,
+          "triplet.B1.2": 0.6316936239999933,
+          "triplet.B1.3": 0.8869315289999946,
+          "triplet.B1.4": 0.9393296139999876,
+          "triplet.B1.5": 0.948516730999998,
+          "singlet.B2.1": 0.495128158,
+          "singlet.B2.2": 0.714923684999988,
+          "singlet.B2.3": 0.9572969439999923,
+          "singlet.B2.4": 0.9855495809999866,
+          "singlet.B2.5": 1.0414079699999945,
+          "triplet.B2.1": 0.43061026199998764,
+          "triplet.B2.2": 0.6316936239999933,
+          "triplet.B2.3": 0.8869315289999946,
+          "triplet.B2.4": 0.9393296139999876,
+          "triplet.B2.5": 0.948516730999998,
+          "singlet.A2.1": 0.5331583029999933,
+          "singlet.A2.2": 0.5481124389999934,
+          "singlet.A2.3": 1.0233545299999918,
+          "singlet.A2.4": 1.080040321999988,
+          "singlet.A2.5": 1.1475810349999875,
+          "triplet.A2.1": 0.48574009499999704,
+          "triplet.A2.2": 0.5178521509999996,
+          "triplet.A2.3": 0.9722282609999979,
+          "triplet.A2.4": 0.9843841799999922,
+          "triplet.A2.5": 1.0387951039999876
+        },
+        "psi4_ground_state_dipole_au": 0.1405523,
+        "psi4_energy_hartree": -112.88597626787251,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": -1.2748557765007718e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 99,
+        "hamiltonian_dimensions": {
+          "B1": 2112,
+          "B2": 2112
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 0.0,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.100167725,
+              "width_hartree": 0.043805941
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.100167725,
+              "width_hartree": 0.043805941
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 8.17656779289246,
+        "target.scatci_integrals": 33.1257328987122,
+        "target.congen": 0.02895808219909668,
+        "target.scatci": 0.741161823272705,
+        "target.denprop": 0.517673015594482,
+        "scattering.congen": 0.0844008922576904,
+        "scattering.scatci": 4.94175291061402,
+        "scattering.swinterf": 0.1449429988861084,
+        "scattering.rsolve": 96.6071848869324,
+        "scattering.eigenp": 0.0385699272155762,
+        "scattering.tmatrx": 0.03995704650878899,
+        "scattering.ixsecs": 0.0422861576080322,
+        "scattering.reson": 0.0411958694458007
+      },
+      "refits": [
+        {
+          "nback": 2,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.100167725,
+              "width_hartree": 0.043805941
+            }
+          ]
+        },
+        {
+          "nback": 3,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.10008491,
+              "width_hartree": 0.043793597
+            }
+          ]
+        },
+        {
+          "nback": 4,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.10008796,
+              "width_hartree": 0.043733085
+            }
+          ]
+        }
+      ]
+    },
+    "co-eq-cas10-casscf-cc40-v10": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas10-casscf-cc40-v10",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          4,
+          2,
+          2,
+          2
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 327.41222816193476,
+        "sampled_peak_container_memory_bytes": 3335929856,
+        "baseline_container_memory_bytes": 13561856,
+        "sampled_peak_container_anon_bytes": 3318366208,
+        "kernel_peak_container_memory_bytes": 3335929856,
+        "container_cpu_seconds": 548.7649819999999,
+        "sampled_peak_run_allocated_bytes": 263094272,
+        "sampled_peak_scratch_allocated_bytes": 8278016,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-casscf",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 29.7268009185791,
+        "target.scatci_integrals": 26.00919008255,
+        "target.congen": 0.6752755641937253,
+        "target.scatci": 48.87361431121829,
+        "target.denprop": 221.7111120224,
+        "scattering.congen": 0.245941877365112
+      },
+      "refits": []
+    },
+    "co-eq-tz-cas8-casscf-cc40-v36": {
+      "config": {
+        "workdir": "/work/runs/co-eq-tz-cas8-casscf-cc40-v36",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "basis": "aug-cc-pVTZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          16,
+          8,
+          8,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 267.1074974811636,
+        "sampled_peak_container_memory_bytes": 7230185472,
+        "baseline_container_memory_bytes": 13516800,
+        "sampled_peak_container_anon_bytes": 7203680256,
+        "kernel_peak_container_memory_bytes": 7230185472,
+        "container_cpu_seconds": 1029.2007279999998,
+        "sampled_peak_run_allocated_bytes": 295284736,
+        "sampled_peak_scratch_allocated_bytes": 67203072,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-casscf",
+      "initial_batch_exit_code": 1,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVTZ",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.91284467,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.5542023280000024,
+          "singlet.A1.3": 0.8305268919999946,
+          "singlet.A1.4": 0.9974612339999993,
+          "singlet.A1.5": 1.0400799659999933,
+          "triplet.A1.1": 0.4372395669999918,
+          "triplet.A1.2": 0.49151346899999737,
+          "triplet.A1.3": 0.995677409999999,
+          "triplet.A1.4": 1.1063325239999955,
+          "triplet.A1.5": 1.1227042149999988,
+          "singlet.B1.1": 0.5036274680000048,
+          "singlet.B1.2": 0.7222938879999958,
+          "singlet.B1.3": 0.9712961219999983,
+          "singlet.B1.4": 1.0003691430000003,
+          "singlet.B1.5": 1.0568031039999966,
+          "triplet.B1.1": 0.43979348599999923,
+          "triplet.B1.2": 0.638083452999993,
+          "triplet.B1.3": 0.9021760749999999,
+          "triplet.B1.4": 0.953279699999996,
+          "triplet.B1.5": 0.9635069969999961,
+          "singlet.B2.1": 0.5036274680000048,
+          "singlet.B2.2": 0.7222938879999958,
+          "singlet.B2.3": 0.9712961219999983,
+          "singlet.B2.4": 1.0003691430000003,
+          "singlet.B2.5": 1.0568031039999966,
+          "triplet.B2.1": 0.43979348599999923,
+          "triplet.B2.2": 0.638083452999993,
+          "triplet.B2.3": 0.9021760749999999,
+          "triplet.B2.4": 0.953279699999996,
+          "triplet.B2.5": 0.9635069969999961,
+          "singlet.A2.1": 0.5389337790000042,
+          "singlet.A2.2": 0.5542023280000024,
+          "singlet.A2.3": 1.0400799659999933,
+          "singlet.A2.4": 1.091101585000004,
+          "singlet.A2.5": 1.1594280789999942,
+          "triplet.A2.1": 0.49151346899999737,
+          "triplet.A2.2": 0.5238900159999957,
+          "triplet.A2.3": 0.9887984659999915,
+          "triplet.A2.4": 0.995677409999999,
+          "triplet.A2.5": 1.0505958929999935
+        },
+        "psi4_ground_state_dipole_au": 0.1354368,
+        "psi4_energy_hartree": -112.91284467030061,
+        "psi4_rhf_energy_hartree": -112.7814280252193,
+        "target_energy_difference_hartree": 3.006164206453832e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 99,
+        "hamiltonian_dimensions": {
+          "B1": 2112,
+          "B2": 2112
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 0.0,
+        "pi_cross_section_max_absolute_difference_bohr2": 9.99999993922529e-09,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.10618667,
+              "width_hartree": 0.0481757215
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.10618667,
+              "width_hartree": 0.0481757215
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 10.9474279880524,
+        "target.scatci_integrals": 84.2859201431274,
+        "target.congen": 0.026495456695556648,
+        "target.scatci": 0.7245750427246095,
+        "target.denprop": 0.489199876785278,
+        "scattering.congen": 0.0794529914855957,
+        "scattering.scatci": 4.81448984146118,
+        "scattering.swinterf": 0.1331768035888672,
+        "scattering.rsolve": 165.2328391075134,
+        "scattering.eigenp": 0.0310530662536621,
+        "scattering.tmatrx": 0.030734062194824198,
+        "scattering.ixsecs": 0.0341780185699463,
+        "scattering.reson": 0.031942844390869196
+      },
+      "refits": [
+        {
+          "nback": 2,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.10618667,
+              "width_hartree": 0.0481757215
+            }
+          ]
+        },
+        {
+          "nback": 3,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.10640132,
+              "width_hartree": 0.0481835185
+            }
+          ]
+        },
+        {
+          "nback": 4,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.106401075,
+              "width_hartree": 0.04821246
+            }
+          ]
+        }
+      ]
+    },
+    "co-eq-cas8-hf-cc40-v36": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas8-hf-cc40-v36",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "HF",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          16,
+          8,
+          8,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 178.82678069616668,
+        "sampled_peak_container_memory_bytes": 4470673408,
+        "baseline_container_memory_bytes": 14028800,
+        "sampled_peak_container_anon_bytes": 4444848128,
+        "sampled_peak_run_allocated_bytes": 299003904,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-hf",
+      "initial_batch_exit_code": 1,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.757575588,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.46695116499999756,
+          "singlet.A1.3": 0.4957910649999917,
+          "singlet.A1.4": 0.5555516759999932,
+          "singlet.A1.5": 0.6778003499999983,
+          "triplet.A1.1": 0.45951637499999265,
+          "triplet.A1.2": 0.4837353059999998,
+          "triplet.A1.3": 0.489981420999996,
+          "triplet.A1.4": 0.6714071319999988,
+          "triplet.A1.5": 1.0554740819999893,
+          "singlet.B1.1": 0.4204326049999878,
+          "singlet.B1.2": 0.5230810009999942,
+          "singlet.B1.3": 0.6631112999999971,
+          "singlet.B1.4": 1.02177541799999,
+          "singlet.B1.5": 1.034406611999998,
+          "triplet.B1.1": 0.39593770099999404,
+          "triplet.B1.2": 0.5209037039999913,
+          "triplet.B1.3": 0.6528937869999965,
+          "triplet.B1.4": 0.9928949159999974,
+          "triplet.B1.5": 1.0070338109999994,
+          "singlet.B2.1": 0.4204326049999878,
+          "singlet.B2.2": 0.5230810009999942,
+          "singlet.B2.3": 0.6631112999999971,
+          "singlet.B2.4": 1.02177541799999,
+          "singlet.B2.5": 1.034406611999998,
+          "triplet.B2.1": 0.39593770099999404,
+          "triplet.B2.2": 0.5209037039999913,
+          "triplet.B2.3": 0.6528937869999965,
+          "triplet.B2.4": 0.9928949159999974,
+          "triplet.B2.5": 1.0070338109999994,
+          "singlet.A2.1": 0.4957910649999917,
+          "singlet.A2.2": 0.4970129209999925,
+          "singlet.A2.3": 1.065052365999989,
+          "singlet.A2.4": 1.0722140119999892,
+          "singlet.A2.5": 1.0723118419999906,
+          "triplet.A2.1": 0.489981420999996,
+          "triplet.A2.2": 0.4957174349999889,
+          "triplet.A2.3": 1.0416549119999985,
+          "triplet.A2.4": 1.0554740819999893,
+          "triplet.A2.5": 1.0588452239999953
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": -0.002888389863656471,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 2112,
+          "B2": 2112
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 0.0,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.00000000458067e-06,
+        "native_resonances": {
+          "B1": [],
+          "B2": []
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.545835018157959,
+        "target.scatci_integrals": 29.5616400241852,
+        "target.congen": 0.02374291419982912,
+        "target.scatci": 0.7080018520355225,
+        "target.denprop": 0.488919973373413,
+        "scattering.congen": 0.0774009227752686,
+        "scattering.scatci": 4.86842918395996,
+        "scattering.swinterf": 0.1202037334442139,
+        "scattering.rsolve": 142.1424920558929,
+        "scattering.eigenp": 0.027167797088623,
+        "scattering.tmatrx": 0.024238109588623102,
+        "scattering.ixsecs": 0.046967983245849595,
+        "scattering.reson": 0.022966861724853502
+      },
+      "refits": []
+    },
+    "co-eq-cas8-hf-cc80-v36": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas8-hf-cc80-v36",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "HF",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "target_roots": 10,
+        "target_states_used": 80,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          16,
+          8,
+          8,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 1840.438772040885,
+        "sampled_peak_container_memory_bytes": 4466401280,
+        "baseline_container_memory_bytes": 13496320,
+        "sampled_peak_container_anon_bytes": 4446121984,
+        "sampled_peak_run_allocated_bytes": 585453568,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-hf",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.757575588,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.46695116499999756,
+          "singlet.A1.3": 0.4957910649999917,
+          "singlet.A1.4": 0.5555516759999932,
+          "singlet.A1.5": 0.6778003499999983,
+          "singlet.A1.6": 1.065052365999989,
+          "singlet.A1.7": 1.0723118419999906,
+          "singlet.A1.8": 1.0828551039999894,
+          "singlet.A1.9": 1.0976629169999939,
+          "singlet.A1.10": 1.116335996999993,
+          "triplet.A1.1": 0.45951637499999265,
+          "triplet.A1.2": 0.4837353059999998,
+          "triplet.A1.3": 0.489981420999996,
+          "triplet.A1.4": 0.6714071319999988,
+          "triplet.A1.5": 1.0554740819999893,
+          "triplet.A1.6": 1.0563254260000008,
+          "triplet.A1.7": 1.0760513339999989,
+          "triplet.A1.8": 1.080419323000001,
+          "triplet.A1.9": 1.094085591999999,
+          "triplet.A1.10": 1.134324344999996,
+          "singlet.B1.1": 0.4204326049999878,
+          "singlet.B1.2": 0.5230810009999942,
+          "singlet.B1.3": 0.6631112999999971,
+          "singlet.B1.4": 1.02177541799999,
+          "singlet.B1.5": 1.034406611999998,
+          "singlet.B1.6": 1.0533856959999923,
+          "singlet.B1.7": 1.0859233599999953,
+          "singlet.B1.8": 1.1418557009999972,
+          "singlet.B1.9": 1.189217616999997,
+          "singlet.B1.10": 1.2167541429999886,
+          "triplet.B1.1": 0.39593770099999404,
+          "triplet.B1.2": 0.5209037039999913,
+          "triplet.B1.3": 0.6528937869999965,
+          "triplet.B1.4": 0.9928949159999974,
+          "triplet.B1.5": 1.0070338109999994,
+          "triplet.B1.6": 1.0249261919999952,
+          "triplet.B1.7": 1.025772769999989,
+          "triplet.B1.8": 1.0546192089999948,
+          "triplet.B1.9": 1.1062148709999917,
+          "triplet.B1.10": 1.1698738380000009,
+          "singlet.B2.1": 0.4204326049999878,
+          "singlet.B2.2": 0.5230810009999942,
+          "singlet.B2.3": 0.6631112999999971,
+          "singlet.B2.4": 1.02177541799999,
+          "singlet.B2.5": 1.034406611999998,
+          "singlet.B2.6": 1.0533856959999923,
+          "singlet.B2.7": 1.0859233599999953,
+          "singlet.B2.8": 1.1418557009999972,
+          "singlet.B2.9": 1.189217616999997,
+          "singlet.B2.10": 1.2167541429999886,
+          "triplet.B2.1": 0.39593770099999404,
+          "triplet.B2.2": 0.5209037039999913,
+          "triplet.B2.3": 0.6528937869999965,
+          "triplet.B2.4": 0.9928949159999974,
+          "triplet.B2.5": 1.0070338109999994,
+          "triplet.B2.6": 1.0249261919999952,
+          "triplet.B2.7": 1.025772769999989,
+          "triplet.B2.8": 1.0546192089999948,
+          "triplet.B2.9": 1.1062148709999917,
+          "triplet.B2.10": 1.1698738380000009,
+          "singlet.A2.1": 0.4957910649999917,
+          "singlet.A2.2": 0.4970129209999925,
+          "singlet.A2.3": 1.065052365999989,
+          "singlet.A2.4": 1.0722140119999892,
+          "singlet.A2.5": 1.0723118419999906,
+          "singlet.A2.6": 1.116335996999993,
+          "singlet.A2.7": 1.1220996429999985,
+          "singlet.A2.8": 1.1542565169999932,
+          "singlet.A2.9": 1.2616165489999958,
+          "singlet.A2.10": 1.3592983180000004,
+          "triplet.A2.1": 0.489981420999996,
+          "triplet.A2.2": 0.4957174349999889,
+          "triplet.A2.3": 1.0416549119999985,
+          "triplet.A2.4": 1.0554740819999893,
+          "triplet.A2.5": 1.0588452239999953,
+          "triplet.A2.6": 1.0760513339999989,
+          "triplet.A2.7": 1.0813821829999881,
+          "triplet.A2.8": 1.094085591999999,
+          "triplet.A2.9": 1.1001500009999887,
+          "triplet.A2.10": 1.134324344999996
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": -0.002888389863656471,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 3972,
+          "B2": 3972
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 9.99999993922529e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 9.999999974752427e-07,
+        "native_resonances": {
+          "B1": [],
+          "B2": []
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.515701055526733,
+        "target.scatci_integrals": 29.3399460315704,
+        "target.congen": 0.021512746810913076,
+        "target.scatci": 0.6914739608764648,
+        "target.denprop": 0.572458982467651,
+        "scattering.congen": 0.0811221599578858,
+        "scattering.scatci": 17.52465391159058,
+        "scattering.swinterf": 0.354382991790772,
+        "scattering.rsolve": 1790.855186939239,
+        "scattering.eigenp": 0.0348680019378662,
+        "scattering.tmatrx": 0.0416171550750732,
+        "scattering.ixsecs": 0.0824410915374756,
+        "scattering.reson": 0.0427289009094238
+      },
+      "refits": []
+    },
+    "co-eq-cas8-casscf-cc40-v0": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas8-casscf-cc40-v0",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 128.14135457598604,
+        "sampled_peak_container_memory_bytes": 3085557760,
+        "baseline_container_memory_bytes": 13627392,
+        "sampled_peak_container_anon_bytes": 3068715008,
+        "kernel_peak_container_memory_bytes": 3085557760,
+        "container_cpu_seconds": 482.146457,
+        "sampled_peak_run_allocated_bytes": 90898432,
+        "sampled_peak_scratch_allocated_bytes": 4956160,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-no-virtuals",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          2,
+          2,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.885976268,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.5481124389999934,
+          "singlet.A1.3": 0.8208925639999904,
+          "singlet.A1.4": 0.9866290189999916,
+          "singlet.A1.5": 1.0233545299999918,
+          "triplet.A1.1": 0.4314279229999869,
+          "triplet.A1.2": 0.48574009499999704,
+          "triplet.A1.3": 0.9843841799999922,
+          "triplet.A1.4": 1.0911181759999948,
+          "triplet.A1.5": 1.1029078679999884,
+          "singlet.B1.1": 0.495128158,
+          "singlet.B1.2": 0.714923684999988,
+          "singlet.B1.3": 0.9572969439999923,
+          "singlet.B1.4": 0.9855495809999866,
+          "singlet.B1.5": 1.0414079699999945,
+          "triplet.B1.1": 0.43061026199998764,
+          "triplet.B1.2": 0.6316936239999933,
+          "triplet.B1.3": 0.8869315289999946,
+          "triplet.B1.4": 0.9393296139999876,
+          "triplet.B1.5": 0.948516730999998,
+          "singlet.B2.1": 0.495128158,
+          "singlet.B2.2": 0.714923684999988,
+          "singlet.B2.3": 0.9572969439999923,
+          "singlet.B2.4": 0.9855495809999866,
+          "singlet.B2.5": 1.0414079699999945,
+          "triplet.B2.1": 0.43061026199998764,
+          "triplet.B2.2": 0.6316936239999933,
+          "triplet.B2.3": 0.8869315289999946,
+          "triplet.B2.4": 0.9393296139999876,
+          "triplet.B2.5": 0.948516730999998,
+          "singlet.A2.1": 0.5331583029999933,
+          "singlet.A2.2": 0.5481124389999934,
+          "singlet.A2.3": 1.0233545299999918,
+          "singlet.A2.4": 1.080040321999988,
+          "singlet.A2.5": 1.1475810349999875,
+          "triplet.A2.1": 0.48574009499999704,
+          "triplet.A2.2": 0.5178521509999996,
+          "triplet.A2.3": 0.9722282609999979,
+          "triplet.A2.4": 0.9843841799999922,
+          "triplet.A2.5": 1.0387951039999876
+        },
+        "psi4_ground_state_dipole_au": 0.1405523,
+        "psi4_energy_hartree": -112.88597626787251,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": -1.2748557765007718e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 99,
+        "hamiltonian_dimensions": {
+          "B1": 1752,
+          "B2": 1752
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 9.99999993922529e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000010279564e-06,
+        "native_resonances": {
+          "B1": [],
+          "B2": []
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 8.16363406181335,
+        "target.scatci_integrals": 19.1961200237274,
+        "target.congen": 0.023506402969360334,
+        "target.scatci": 0.6848864555358884,
+        "target.denprop": 0.495840072631836,
+        "scattering.congen": 0.0798208713531495,
+        "scattering.scatci": 2.9237742424011204,
+        "scattering.swinterf": 0.1275551319122314,
+        "scattering.rsolve": 96.15738320350641,
+        "scattering.eigenp": 0.0396058559417724,
+        "scattering.tmatrx": 0.0419888496398925,
+        "scattering.ixsecs": 0.0446398258209229,
+        "scattering.reson": 0.0434551239013672
+      },
+      "refits": []
+    },
+    "co-eq-cas10-casscf-cc40-v0": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas10-casscf-cc40-v0",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 285.7630461708177,
+        "sampled_peak_container_memory_bytes": 3111858176,
+        "baseline_container_memory_bytes": 13619200,
+        "sampled_peak_container_anon_bytes": 3095052288,
+        "kernel_peak_container_memory_bytes": 3111858176,
+        "container_cpu_seconds": 432.506463,
+        "sampled_peak_run_allocated_bytes": 231849984,
+        "sampled_peak_scratch_allocated_bytes": 8278016,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-no-virtuals",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 28.0421080589294,
+        "target.scatci_integrals": 19.2830181121826,
+        "target.congen": 0.5891463756561276,
+        "target.scatci": 30.269753217697147,
+        "target.denprop": 207.261610031128,
+        "scattering.congen": 0.225516080856323
+      },
+      "refits": []
+    },
+    "co-eq-tz-cas10-casscf-cc40-v0-ndim": {
+      "config": {
+        "workdir": "/work/runs/co-eq-tz-cas10-casscf-cc40-v0-ndim",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVTZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 332.6083920800593,
+        "sampled_peak_container_memory_bytes": 5875118080,
+        "baseline_container_memory_bytes": 13598720,
+        "sampled_peak_container_anon_bytes": 5852381184,
+        "kernel_peak_container_memory_bytes": 5875118080,
+        "container_cpu_seconds": 599.5912119999999,
+        "sampled_peak_run_allocated_bytes": 232132608,
+        "sampled_peak_scratch_allocated_bytes": 70352896,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-tz",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 29.9081521034241,
+        "target.scatci_integrals": 63.4404468536377,
+        "target.congen": 0.5861740112304683,
+        "target.scatci": 26.17894530296325,
+        "target.denprop": 212.121706008911,
+        "scattering.congen": 0.212283134460449
+      },
+      "refits": []
+    },
+    "co-eq-cas10-casscf-cc40-v0-ndim": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas10-casscf-cc40-v0-ndim",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 299.1906474379357,
+        "sampled_peak_container_memory_bytes": 3110633472,
+        "baseline_container_memory_bytes": 13479936,
+        "sampled_peak_container_anon_bytes": 3093950464,
+        "kernel_peak_container_memory_bytes": 3110633472,
+        "container_cpu_seconds": 433.988466,
+        "sampled_peak_run_allocated_bytes": 231768064,
+        "sampled_peak_scratch_allocated_bytes": 8278016,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-workspace",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 28.5839190483093,
+        "target.scatci_integrals": 20.0221619606018,
+        "target.congen": 0.6006774902343741,
+        "target.scatci": 25.531537055969242,
+        "target.denprop": 223.990713834763,
+        "scattering.congen": 0.220324993133545
+      },
+      "refits": []
+    },
+    "co-eq-cas10-casscf-cc40-v10-ndim": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas10-casscf-cc40-v10-ndim",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          4,
+          2,
+          2,
+          2
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 292.5612240789924,
+        "sampled_peak_container_memory_bytes": 3336220672,
+        "baseline_container_memory_bytes": 13512704,
+        "sampled_peak_container_anon_bytes": 3318476800,
+        "kernel_peak_container_memory_bytes": 3336220672,
+        "container_cpu_seconds": 435.49616999999995,
+        "sampled_peak_run_allocated_bytes": 262991872,
+        "sampled_peak_scratch_allocated_bytes": 8278016,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-workspace",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 27.4309859275818,
+        "target.scatci_integrals": 21.8889799118042,
+        "target.congen": 0.5904297828674312,
+        "target.scatci": 26.3578782081604,
+        "target.denprop": 215.926317214966,
+        "scattering.congen": 0.238339900970459
+      },
+      "refits": []
+    },
+    "co-eq-cas10-casscf-cc40-v0-ws": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas10-casscf-cc40-v0-ws",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 806.8851507848594,
+        "sampled_peak_container_memory_bytes": 3114782720,
+        "baseline_container_memory_bytes": 13529088,
+        "sampled_peak_container_anon_bytes": 3095830528,
+        "kernel_peak_container_memory_bytes": 3400519680,
+        "container_cpu_seconds": 2467.9032810000003,
+        "sampled_peak_run_allocated_bytes": 640012288,
+        "sampled_peak_scratch_allocated_bytes": 8278016,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-workspaces",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.886043811,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.4378091539999929,
+          "singlet.A1.3": 0.678405601999998,
+          "singlet.A1.4": 0.7226895639999924,
+          "singlet.A1.5": 0.7694725249999976,
+          "triplet.A1.1": 0.3702140679999957,
+          "triplet.A1.2": 0.405178370999991,
+          "triplet.A1.3": 0.8405878319999971,
+          "triplet.A1.4": 0.8884195339999934,
+          "triplet.A1.5": 0.9272334799999982,
+          "singlet.B1.1": 0.3994533169999954,
+          "singlet.B1.2": 0.5916469869999901,
+          "singlet.B1.3": 0.7389679529999995,
+          "singlet.B1.4": 0.7634717839999894,
+          "singlet.B1.5": 0.8001044399999984,
+          "triplet.B1.1": 0.26799612499999625,
+          "triplet.B1.2": 0.5213310609999979,
+          "triplet.B1.3": 0.639989645,
+          "triplet.B1.4": 0.7204174659999865,
+          "triplet.B1.5": 0.7718959999999981,
+          "singlet.B2.1": 0.3994533169999954,
+          "singlet.B2.2": 0.5916469869999901,
+          "singlet.B2.3": 0.7389679529999995,
+          "singlet.B2.4": 0.7634717839999894,
+          "singlet.B2.5": 0.8001044399999984,
+          "triplet.B2.1": 0.26799612499999625,
+          "triplet.B2.2": 0.5213310609999979,
+          "triplet.B2.3": 0.639989645,
+          "triplet.B2.4": 0.7204174659999865,
+          "triplet.B2.5": 0.7718959999999981,
+          "singlet.A2.1": 0.43473648499998774,
+          "singlet.A2.2": 0.4378091539999929,
+          "singlet.A2.3": 0.7226895639999924,
+          "singlet.A2.4": 0.9322466839999919,
+          "singlet.A2.5": 0.9961255509999916,
+          "triplet.A2.1": 0.405178370999991,
+          "triplet.A2.2": 0.4210638679999903,
+          "triplet.A2.3": 0.6374717939999925,
+          "triplet.A2.4": 0.8405878319999971,
+          "triplet.A2.5": 0.8581304619999912
+        },
+        "psi4_ground_state_dipole_au": -0.017079,
+        "psi4_energy_hartree": -112.88604381068544,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": -3.1455726912099635e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 99,
+        "hamiltonian_dimensions": {
+          "B1": 8440,
+          "B2": 8440
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.0000000005838672e-07,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000050247593e-08,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.11558392,
+              "width_hartree": 0.05808911
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.11558392,
+              "width_hartree": 0.05808911
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 27.2747468948364,
+        "target.scatci_integrals": 19.4804699420929,
+        "target.congen": 0.5837116241455081,
+        "target.scatci": 25.42110490798951,
+        "target.denprop": 216.822600126266,
+        "scattering.congen": 6.83322596549988,
+        "scattering.scatci": 431.046167850494,
+        "scattering.swinterf": 0.348732948303222,
+        "scattering.rsolve": 78.69626116752619,
+        "scattering.eigenp": 0.0291299819946289,
+        "scattering.tmatrx": 0.023707151412963902,
+        "scattering.ixsecs": 0.026992082595825202,
+        "scattering.reson": 0.0288479328155518
+      },
+      "refits": []
+    },
+    "co-eq-cas10-casscf-cc40-v10-ws": {
+      "config": {
+        "workdir": "/work/runs/co-eq-cas10-casscf-cc40-v10-ws",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          4,
+          2,
+          2,
+          2
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 887.7289869899396,
+        "sampled_peak_container_memory_bytes": 3336298496,
+        "baseline_container_memory_bytes": 13545472,
+        "sampled_peak_container_anon_bytes": 3318431744,
+        "kernel_peak_container_memory_bytes": 3431669760,
+        "container_cpu_seconds": 2804.466556,
+        "sampled_peak_run_allocated_bytes": 692740096,
+        "sampled_peak_scratch_allocated_bytes": 8278016,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-workspaces",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.886043811,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.4378091539999929,
+          "singlet.A1.3": 0.678405601999998,
+          "singlet.A1.4": 0.7226895639999924,
+          "singlet.A1.5": 0.7694725249999976,
+          "triplet.A1.1": 0.3702140679999957,
+          "triplet.A1.2": 0.405178370999991,
+          "triplet.A1.3": 0.8405878319999971,
+          "triplet.A1.4": 0.8884195339999934,
+          "triplet.A1.5": 0.9272334799999982,
+          "singlet.B1.1": 0.3994533169999954,
+          "singlet.B1.2": 0.5916469869999901,
+          "singlet.B1.3": 0.7389679529999995,
+          "singlet.B1.4": 0.7634717839999894,
+          "singlet.B1.5": 0.8001044399999984,
+          "triplet.B1.1": 0.26799612499999625,
+          "triplet.B1.2": 0.5213310609999979,
+          "triplet.B1.3": 0.639989645,
+          "triplet.B1.4": 0.7204174659999865,
+          "triplet.B1.5": 0.7718959999999981,
+          "singlet.B2.1": 0.3994533169999954,
+          "singlet.B2.2": 0.5916469869999901,
+          "singlet.B2.3": 0.7389679529999995,
+          "singlet.B2.4": 0.7634717839999894,
+          "singlet.B2.5": 0.8001044399999984,
+          "triplet.B2.1": 0.26799612499999625,
+          "triplet.B2.2": 0.5213310609999979,
+          "triplet.B2.3": 0.639989645,
+          "triplet.B2.4": 0.7204174659999865,
+          "triplet.B2.5": 0.7718959999999981,
+          "singlet.A2.1": 0.43473648499998774,
+          "singlet.A2.2": 0.4378091539999929,
+          "singlet.A2.3": 0.7226895639999924,
+          "singlet.A2.4": 0.9322466839999919,
+          "singlet.A2.5": 0.9961255509999916,
+          "triplet.A2.1": 0.405178370999991,
+          "triplet.A2.2": 0.4210638679999903,
+          "triplet.A2.3": 0.6374717939999925,
+          "triplet.A2.4": 0.8405878319999971,
+          "triplet.A2.5": 0.8581304619999912
+        },
+        "psi4_ground_state_dipole_au": -0.017079,
+        "psi4_energy_hartree": -112.88604381068544,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": -3.1455726912099635e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 99,
+        "hamiltonian_dimensions": {
+          "B1": 8570,
+          "B2": 8570
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000050247593e-08,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.1001333,
+              "width_hartree": 0.0449778815
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.1001333,
+              "width_hartree": 0.044977882
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 26.7235469818115,
+        "target.scatci_integrals": 21.9904310703278,
+        "target.congen": 0.5921080112457274,
+        "target.scatci": 26.79576086997986,
+        "target.denprop": 212.112552165985,
+        "scattering.congen": 6.7062771320343,
+        "scattering.scatci": 435.91102313995304,
+        "scattering.swinterf": 0.347777128219604,
+        "scattering.rsolve": 156.132984161377,
+        "scattering.eigenp": 0.0409679412841797,
+        "scattering.tmatrx": 0.0446062088012696,
+        "scattering.ixsecs": 0.046633005142212,
+        "scattering.reson": 0.053947925567627
+      },
+      "refits": []
+    },
+    "co-eq-tz-cas10-casscf-cc40-v0-ws": {
+      "config": {
+        "workdir": "/work/runs/co-eq-tz-cas10-casscf-cc40-v0-ws",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "CAS-A",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 40,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVTZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.05,
+        "energies": 99,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 906.9716178239323,
+        "sampled_peak_container_memory_bytes": 5867253760,
+        "baseline_container_memory_bytes": 13524992,
+        "sampled_peak_container_anon_bytes": 5844373504,
+        "kernel_peak_container_memory_bytes": 5867253760,
+        "container_cpu_seconds": 2890.4740119999997,
+        "sampled_peak_run_allocated_bytes": 640409600,
+        "sampled_peak_scratch_allocated_bytes": 70582272,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-cc-workspaces",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "CAS-A",
+        "basis": "aug-cc-pVTZ",
+        "orbitals": "natural",
+        "active_orbitals": [
+          4,
+          3,
+          3,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.938936662,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0,
+          "singlet.A1.2": 0.4581246030000017,
+          "singlet.A1.3": 0.6724919680000028,
+          "singlet.A1.4": 0.7871856210000061,
+          "singlet.A1.5": 0.830120155000003,
+          "triplet.A1.1": 0.3827009449999963,
+          "triplet.A1.2": 0.4216526450000089,
+          "triplet.A1.3": 0.9139840509999999,
+          "triplet.A1.4": 0.9315639940000011,
+          "triplet.A1.5": 0.9567816450000066,
+          "singlet.B1.1": 0.4293113540000064,
+          "singlet.B1.2": 0.6335933670000031,
+          "singlet.B1.3": 0.7784528250000022,
+          "singlet.B1.4": 0.8008189150000078,
+          "singlet.B1.5": 0.8377551220000043,
+          "triplet.B1.1": 0.2933344890000029,
+          "triplet.B1.2": 0.5742767410000056,
+          "triplet.B1.3": 0.6787742089999966,
+          "triplet.B1.4": 0.7577718550000014,
+          "triplet.B1.5": 0.8087107950000103,
+          "singlet.B2.1": 0.4293113540000064,
+          "singlet.B2.2": 0.6335933670000031,
+          "singlet.B2.3": 0.7784528250000022,
+          "singlet.B2.4": 0.8008189150000078,
+          "singlet.B2.5": 0.8377551220000043,
+          "triplet.B2.1": 0.2933344890000029,
+          "triplet.B2.2": 0.5742767410000056,
+          "triplet.B2.3": 0.6787742089999966,
+          "triplet.B2.4": 0.7577718550000014,
+          "triplet.B2.5": 0.8087107950000103,
+          "singlet.A2.1": 0.45331486500001006,
+          "singlet.A2.2": 0.4581246030000017,
+          "singlet.A2.3": 0.7871856210000061,
+          "singlet.A2.4": 0.9873920060000074,
+          "singlet.A2.5": 1.0212295110000014,
+          "triplet.A2.1": 0.4216526450000089,
+          "triplet.A2.2": 0.43976170599999875,
+          "triplet.A2.3": 0.7099506520000034,
+          "triplet.A2.4": 0.9111607690000056,
+          "triplet.A2.5": 0.9139840509999999
+        },
+        "psi4_ground_state_dipole_au": 0.0720138,
+        "psi4_energy_hartree": -112.93893666175646,
+        "psi4_rhf_energy_hartree": -112.7814280252193,
+        "target_energy_difference_hartree": -2.4354562810913194e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 99,
+        "hamiltonian_dimensions": {
+          "B1": 8440,
+          "B2": 8440
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 9.99999993922529e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000050247593e-08,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.12678707,
+              "width_hartree": 0.067071865
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.12678707,
+              "width_hartree": 0.067071865
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 27.7347309589386,
+        "target.scatci_integrals": 64.019602060318,
+        "target.congen": 0.5665771961212162,
+        "target.scatci": 25.65499901771546,
+        "target.denprop": 209.106534957886,
+        "scattering.congen": 6.60333395004272,
+        "scattering.scatci": 433.056868314743,
+        "scattering.swinterf": 0.436759948730468,
+        "scattering.rsolve": 139.40697693824768,
+        "scattering.eigenp": 0.024781942367553697,
+        "scattering.tmatrx": 0.023529052734375,
+        "scattering.ixsecs": 0.026865005493164,
+        "scattering.reson": 0.0276570320129395
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-l5-d6": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-l5-d6",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 5,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-06,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 93.68886473006569,
+        "sampled_peak_container_memory_bytes": 5932449792,
+        "baseline_container_memory_bytes": 13402112,
+        "sampled_peak_container_anon_bytes": 5907742720,
+        "sampled_peak_run_allocated_bytes": 289722368,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-continuum-retry",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1200,
+          "B2": 1200
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 0.0,
+        "pi_cross_section_max_absolute_difference_bohr2": 0.0,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.0489230275,
+              "width_hartree": 0.0208246115
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.0489230275,
+              "width_hartree": 0.0208246115
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.565798044204712,
+        "target.scatci_integrals": 91.5477349758148,
+        "target.congen": 0.00212693214416504,
+        "target.scatci": 0.0783140659332275,
+        "target.denprop": 0.0159499645233154,
+        "scattering.congen": 0.0064480304718017595,
+        "scattering.scatci": 1.002515077590942,
+        "scattering.swinterf": 0.040369033813476604,
+        "scattering.rsolve": 0.1841292381286621,
+        "scattering.eigenp": 0.0346617698669434,
+        "scattering.tmatrx": 0.0356428623199463,
+        "scattering.ixsecs": 0.0341968536376953,
+        "scattering.reson": 0.0343668460845947
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-r15-d6": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-r15-d6",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 15,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-06,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 0.8045156288426369,
+        "sampled_peak_container_memory_bytes": 134037504,
+        "baseline_container_memory_bytes": 13324288,
+        "sampled_peak_container_anon_bytes": 129708032,
+        "sampled_peak_run_allocated_bytes": 3670016,
+        "sampled_peak_scratch_allocated_bytes": 0,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-continuum-retry",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 0.55846095085144,
+        "target.scatci_integrals": 0.106775045394897
+      },
+      "refits": []
+    },
+    "co-eq-tz-f4-sep85-d6": {
+      "config": {
+        "workdir": "/work/runs/co-eq-tz-f4-sep85-d6",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVTZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          33,
+          21,
+          21,
+          10
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-06,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 25,
+        "wall_seconds": 1.2033912187907845,
+        "sampled_peak_container_memory_bytes": 299855872,
+        "baseline_container_memory_bytes": 13533184,
+        "sampled_peak_container_anon_bytes": 293871616,
+        "sampled_peak_run_allocated_bytes": 4743168,
+        "sampled_peak_scratch_allocated_bytes": 0,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-continuum-retry",
+      "initial_batch_exit_code": 25,
+      "failure": "See preserved run.log, geometry/log_file.0 and batch log",
+      "status": "engine_failed",
+      "stage_totals_seconds": {
+        "target.psi4": 0.973312854766846,
+        "target.scatci_integrals": 0.153724193572998
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep20": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep20",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          10,
+          4,
+          4,
+          2
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 24.654325479874387,
+        "sampled_peak_container_memory_bytes": 3499823104,
+        "baseline_container_memory_bytes": 13287424,
+        "sampled_peak_container_anon_bytes": 3481395200,
+        "sampled_peak_run_allocated_bytes": 65081344,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-freezing",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 345,
+          "B2": 345
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 0.0,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000028043132e-07,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.07842975,
+              "width_hartree": 0.043258132
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.07842975,
+              "width_hartree": 0.043258132
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.535513162612915,
+        "target.scatci_integrals": 23.3445980548859,
+        "target.congen": 0.00187587738037109,
+        "target.scatci": 0.0716791152954102,
+        "target.denprop": 0.0111351013183594,
+        "scattering.congen": 0.00461792945861816,
+        "scattering.scatci": 0.1951069831848145,
+        "scattering.swinterf": 0.029006242752075202,
+        "scattering.rsolve": 0.14705991744995112,
+        "scattering.eigenp": 0.0244441032409668,
+        "scattering.tmatrx": 0.0221860408782959,
+        "scattering.ixsecs": 0.0236070156097412,
+        "scattering.reson": 0.02217698097229
+      },
+      "refits": []
+    },
+    "co-eq-f2-sep39": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f2-sep39",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 2,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 33.2831574101001,
+        "sampled_peak_container_memory_bytes": 4466737152,
+        "baseline_container_memory_bytes": 13316096,
+        "sampled_peak_container_anon_bytes": 4446441472,
+        "sampled_peak_run_allocated_bytes": 187478016,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-freezing",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 2,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1944,
+          "B2": 1944
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 9.99999993922529e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000010279564e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.033001883,
+              "width_hartree": 0.0125426125
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.033001883,
+              "width_hartree": 0.0125426125
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.547964096069336,
+        "target.scatci_integrals": 29.4413111209869,
+        "target.congen": 0.00205087661743164,
+        "target.scatci": 0.0671770572662354,
+        "target.denprop": 0.00992584228515625,
+        "scattering.congen": 0.008293867111206062,
+        "scattering.scatci": 2.8492171764373797,
+        "scattering.swinterf": 0.0301289558410645,
+        "scattering.rsolve": 0.1478002071380615,
+        "scattering.eigenp": 0.0210387706756592,
+        "scattering.tmatrx": 0.01971602439880371,
+        "scattering.ixsecs": 0.0215339660644531,
+        "scattering.reson": 0.01976513862609864
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep30": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep30",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          14,
+          6,
+          6,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 28.076551270205528,
+        "sampled_peak_container_memory_bytes": 3925684224,
+        "baseline_container_memory_bytes": 13520896,
+        "sampled_peak_container_anon_bytes": 3906461696,
+        "sampled_peak_run_allocated_bytes": 118558720,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-freezing",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 726,
+          "B2": 726
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 9.99999993922529e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 0.0,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.06053242,
+              "width_hartree": 0.0263578335
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.06053242,
+              "width_hartree": 0.0263578335
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.53582501411438,
+        "target.scatci_integrals": 26.6897459030151,
+        "target.congen": 0.00180697441101074,
+        "target.scatci": 0.0736918449401855,
+        "target.denprop": 0.00963401794433594,
+        "scattering.congen": 0.00450491905212402,
+        "scattering.scatci": 0.367952823638916,
+        "scattering.swinterf": 0.0272700786590576,
+        "scattering.rsolve": 0.1531171798706054,
+        "scattering.eigenp": 0.0213041305541992,
+        "scattering.tmatrx": 0.0210118293762207,
+        "scattering.ixsecs": 0.0215928554534912,
+        "scattering.reson": 0.01993322372436524
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 31.315929335076362,
+        "sampled_peak_container_memory_bytes": 4464943104,
+        "baseline_container_memory_bytes": 13549568,
+        "sampled_peak_container_anon_bytes": 4444569600,
+        "sampled_peak_run_allocated_bytes": 186597376,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-freezing",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000010279564e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.544790029525757,
+        "target.scatci_integrals": 29.4703600406647,
+        "target.congen": 0.00141286849975586,
+        "target.scatci": 0.0663750171661377,
+        "target.denprop": 0.0114691257476807,
+        "scattering.congen": 0.0058300495147705095,
+        "scattering.scatci": 0.871129035949707,
+        "scattering.swinterf": 0.0296988487243652,
+        "scattering.rsolve": 0.15178132057189941,
+        "scattering.eigenp": 0.025482892990112298,
+        "scattering.tmatrx": 0.0231387615203858,
+        "scattering.ixsecs": 0.023297309875488302,
+        "scattering.reson": 0.0219419002532959
+      },
+      "refits": [
+        {
+          "nback": 1,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.0489182655,
+              "width_hartree": 0.021365792
+            }
+          ]
+        },
+        {
+          "nback": 2,
+          "dphz": 0.7,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        {
+          "nback": 2,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        {
+          "nback": 2,
+          "dphz": 1.3,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        {
+          "nback": 3,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.048955706,
+              "width_hartree": 0.0208496095
+            }
+          ]
+        },
+        {
+          "nback": 4,
+          "dphz": 1.0,
+          "exit_code": 0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.048956026,
+              "width_hartree": 0.0208395135
+            }
+          ]
+        }
+      ]
+    },
+    "co-eq-f4-sep39-np1": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-np1",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 1,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 54.70823719003238,
+        "sampled_peak_container_memory_bytes": 1675649024,
+        "baseline_container_memory_bytes": 13582336,
+        "sampled_peak_container_anon_bytes": 1663451136,
+        "kernel_peak_container_memory_bytes": 1675649024,
+        "container_cpu_seconds": 54.408521,
+        "sampled_peak_run_allocated_bytes": 196722688,
+        "sampled_peak_scratch_allocated_bytes": 122880,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-mpi",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.0000000028043132e-07,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.00000000458067e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.544150114059448,
+        "target.scatci_integrals": 52.8203589916229,
+        "target.congen": 0.00176596641540527,
+        "target.scatci": 0.0684092044830322,
+        "target.denprop": 0.0117900371551514,
+        "scattering.congen": 0.00606083869934082,
+        "scattering.scatci": 0.745439052581787,
+        "scattering.swinterf": 0.035048246383667,
+        "scattering.rsolve": 0.18952703475952148,
+        "scattering.eigenp": 0.026663064956664997,
+        "scattering.tmatrx": 0.0254690647125244,
+        "scattering.ixsecs": 0.0247058868408203,
+        "scattering.reson": 0.024224042892456
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-np2": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-np2",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 2,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 41.49910510610789,
+        "sampled_peak_container_memory_bytes": 2624995328,
+        "baseline_container_memory_bytes": 13787136,
+        "sampled_peak_container_anon_bytes": 2609876992,
+        "kernel_peak_container_memory_bytes": 2624995328,
+        "container_cpu_seconds": 81.61811100000001,
+        "sampled_peak_run_allocated_bytes": 186486784,
+        "sampled_peak_scratch_allocated_bytes": 126976,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-mpi",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000028043132e-07,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.58132791519165,
+        "target.scatci_integrals": 39.1850011348724,
+        "target.congen": 0.00167703628540039,
+        "target.scatci": 0.0732569694519043,
+        "target.denprop": 0.0119929313659668,
+        "scattering.congen": 0.00594091415405274,
+        "scattering.scatci": 1.2399990558624272,
+        "scattering.swinterf": 0.033875942230224595,
+        "scattering.rsolve": 0.1632452011108398,
+        "scattering.eigenp": 0.0293829441070557,
+        "scattering.tmatrx": 0.0264918804168701,
+        "scattering.ixsecs": 0.0254888534545899,
+        "scattering.reson": 0.0240070819854736
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-np4": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-np4",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 32.95604566112161,
+        "sampled_peak_container_memory_bytes": 4467490816,
+        "baseline_container_memory_bytes": 13570048,
+        "sampled_peak_container_anon_bytes": 4446986240,
+        "kernel_peak_container_memory_bytes": 4467490816,
+        "container_cpu_seconds": 127.148594,
+        "sampled_peak_run_allocated_bytes": 186593280,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-mpi",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000010279564e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.624963998794556,
+        "target.scatci_integrals": 30.7595479488373,
+        "target.congen": 0.00170803070068359,
+        "target.scatci": 0.0734560489654541,
+        "target.denprop": 0.0134720802307129,
+        "scattering.congen": 0.006425142288208,
+        "scattering.scatci": 0.9076521396636961,
+        "scattering.swinterf": 0.036283016204834,
+        "scattering.rsolve": 0.1558301448822021,
+        "scattering.eigenp": 0.0314877033233642,
+        "scattering.tmatrx": 0.0283389091491699,
+        "scattering.ixsecs": 0.0289080142974853,
+        "scattering.reson": 0.026527881622314398
+      },
+      "refits": []
+    },
+    "co-r1.9-f4-sep39-l4": {
+      "config": {
+        "workdir": "/work/runs/co-r1.9-f4-sep39-l4",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 1.9,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.025,
+        "energies": 317,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 51.933962506009266,
+        "sampled_peak_container_memory_bytes": 4466724864,
+        "baseline_container_memory_bytes": 13590528,
+        "sampled_peak_container_anon_bytes": 4446543872,
+        "kernel_peak_container_memory_bytes": 4466724864,
+        "container_cpu_seconds": 203.173223,
+        "sampled_peak_run_allocated_bytes": 186105856,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-sentinels",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 1.9,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.717441248,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": 0.1231792,
+        "psi4_energy_hartree": -112.71744124746708,
+        "psi4_rhf_energy_hartree": -112.71744124746708,
+        "target_energy_difference_hartree": -5.329212626747903e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 317,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          8.0
+        ],
+        "pi_phase_max_difference_rad": 3.5999999998814758e-06,
+        "pi_cross_section_max_absolute_difference_bohr2": 8.19999999990273e-05,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.102442005,
+              "width_hartree": 0.05629556
+            },
+            {
+              "energy_hartree": 0.21676334,
+              "width_hartree": 0.0035121928
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.102442005,
+              "width_hartree": 0.05629556
+            },
+            {
+              "energy_hartree": 0.216763345,
+              "width_hartree": 0.0035121941
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.541106939315796,
+        "target.scatci_integrals": 49.7070739269257,
+        "target.congen": 0.00179791450500488,
+        "target.scatci": 0.0735039710998535,
+        "target.denprop": 0.0100982189178467,
+        "scattering.congen": 0.00707221031188965,
+        "scattering.scatci": 1.143401861190796,
+        "scattering.swinterf": 0.0300028324127197,
+        "scattering.rsolve": 0.15678095817565918,
+        "scattering.eigenp": 0.024012804031372098,
+        "scattering.tmatrx": 0.020170688629150398,
+        "scattering.ixsecs": 0.0214419364929199,
+        "scattering.reson": 0.01975488662719722
+      },
+      "refits": []
+    },
+    "co-r1.9-f4-sep39-l3": {
+      "config": {
+        "workdir": "/work/runs/co-r1.9-f4-sep39-l3",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 1.9,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 3,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.025,
+        "energies": 317,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 18.449129672022536,
+        "sampled_peak_container_memory_bytes": 3280482304,
+        "baseline_container_memory_bytes": 13479936,
+        "sampled_peak_container_anon_bytes": 3263537152,
+        "kernel_peak_container_memory_bytes": 3280482304,
+        "container_cpu_seconds": 69.434231,
+        "sampled_peak_run_allocated_bytes": 87609344,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-sentinels",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 1.9,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.717441248,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": 0.1231792,
+        "psi4_energy_hartree": -112.71744124746708,
+        "psi4_rhf_energy_hartree": -112.71744124746708,
+        "target_energy_difference_hartree": -5.329212626747903e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 317,
+        "hamiltonian_dimensions": {
+          "B1": 1176,
+          "B2": 1176
+        },
+        "energy_range_ev": [
+          0.1,
+          8.0
+        ],
+        "pi_phase_max_difference_rad": 9.999999983634211e-08,
+        "pi_cross_section_max_absolute_difference_bohr2": 9.999999994736442e-08,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.10234436,
+              "width_hartree": 0.05596204
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.10234436,
+              "width_hartree": 0.05596204
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.568693876266479,
+        "target.scatci_integrals": 16.3496901988983,
+        "target.congen": 0.00153398513793945,
+        "target.scatci": 0.0765180587768555,
+        "target.denprop": 0.0110518932342529,
+        "scattering.congen": 0.006765127182006839,
+        "scattering.scatci": 0.9816310405731201,
+        "scattering.swinterf": 0.0288360118865967,
+        "scattering.rsolve": 0.1510241031646728,
+        "scattering.eigenp": 0.0232388973236084,
+        "scattering.tmatrx": 0.0210421085357666,
+        "scattering.ixsecs": 0.021524190902710003,
+        "scattering.reson": 0.02069807052612302
+      },
+      "refits": []
+    },
+    "co-r2.5-f4-sep39-l4": {
+      "config": {
+        "workdir": "/work/runs/co-r2.5-f4-sep39-l4",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.5,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.01,
+        "energy_step_ev": 0.001,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 53.81431049108505,
+        "sampled_peak_container_memory_bytes": 4465790976,
+        "baseline_container_memory_bytes": 13463552,
+        "sampled_peak_container_anon_bytes": 4445257728,
+        "kernel_peak_container_memory_bytes": 4465790976,
+        "container_cpu_seconds": 209.611969,
+        "sampled_peak_run_allocated_bytes": 186589184,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-sentinels",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.5,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.678552814,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.4967027,
+        "psi4_energy_hartree": -112.67855281357336,
+        "psi4_rhf_energy_hartree": -112.67855281357336,
+        "target_energy_difference_hartree": -4.2663828025979456e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.01,
+          0.5
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-11,
+        "pi_cross_section_max_absolute_difference_bohr2": 0.0,
+        "native_resonances": {
+          "B1": [],
+          "B2": []
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.782604932785034,
+        "target.scatci_integrals": 51.4447238445282,
+        "target.congen": 0.00206995010375977,
+        "target.scatci": 0.0755670070648193,
+        "target.denprop": 0.0146081447601318,
+        "scattering.congen": 0.0078890323638916,
+        "scattering.scatci": 1.059645175933838,
+        "scattering.swinterf": 0.037166833877563504,
+        "scattering.rsolve": 0.15626764297485352,
+        "scattering.eigenp": 0.0320231914520263,
+        "scattering.tmatrx": 0.029221057891845696,
+        "scattering.ixsecs": 0.0289700031280518,
+        "scattering.reson": 0.0241150856018066
+      },
+      "refits": []
+    },
+    "co-r2.5-f4-sep39-l3": {
+      "config": {
+        "workdir": "/work/runs/co-r2.5-f4-sep39-l3",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.5,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 3,
+        "ranks": 4,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.01,
+        "energy_step_ev": 0.001,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 18.669948764843866,
+        "sampled_peak_container_memory_bytes": 3280838656,
+        "baseline_container_memory_bytes": 13512704,
+        "sampled_peak_container_anon_bytes": 3263860736,
+        "kernel_peak_container_memory_bytes": 3280838656,
+        "container_cpu_seconds": 69.41765000000001,
+        "sampled_peak_run_allocated_bytes": 87953408,
+        "sampled_peak_scratch_allocated_bytes": 139264,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-sentinels",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.5,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.678552814,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.4967027,
+        "psi4_energy_hartree": -112.67855281357336,
+        "psi4_rhf_energy_hartree": -112.67855281357336,
+        "target_energy_difference_hartree": -4.2663828025979456e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1176,
+          "B2": 1176
+        },
+        "energy_range_ev": [
+          0.01,
+          0.5
+        ],
+        "pi_phase_max_difference_rad": 1.000000082740371e-09,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000010279564e-06,
+        "native_resonances": {
+          "B1": [],
+          "B2": []
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.885101079940796,
+        "target.scatci_integrals": 16.3041889667511,
+        "target.congen": 0.0020298957824707,
+        "target.scatci": 0.0745251178741455,
+        "target.denprop": 0.0137689113616943,
+        "scattering.congen": 0.006555795669555661,
+        "scattering.scatci": 0.952296018600463,
+        "scattering.swinterf": 0.0339059829711915,
+        "scattering.rsolve": 0.14685320854187012,
+        "scattering.eigenp": 0.0224730968475341,
+        "scattering.tmatrx": 0.020870208740234403,
+        "scattering.ixsecs": 0.0235939025878906,
+        "scattering.reson": 0.0210301876068115
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-source": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-source",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "congen_workspace": 200000,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 1,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 64.50096076191403,
+        "sampled_peak_container_memory_bytes": 1674133504,
+        "baseline_container_memory_bytes": 13516800,
+        "sampled_peak_container_anon_bytes": 1662263296,
+        "kernel_peak_container_memory_bytes": 1674133504,
+        "container_cpu_seconds": 64.08994700000001,
+        "sampled_peak_run_allocated_bytes": 196726784,
+        "sampled_peak_scratch_allocated_bytes": 94208,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-source",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 0.0,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.0000000010279564e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 0.529628992080688,
+        "target.scatci_integrals": 62.1547720432281,
+        "target.congen": 0.00197196006774902,
+        "target.scatci": 0.182394981384277,
+        "target.denprop": 0.0567400455474854,
+        "scattering.congen": 0.00624608993530273,
+        "scattering.scatci": 0.996775150299072,
+        "scattering.swinterf": 0.11552190780639651,
+        "scattering.rsolve": 0.182560920715332,
+        "scattering.eigenp": 0.01602721214294434,
+        "scattering.tmatrx": 0.01537775993347168,
+        "scattering.ixsecs": 0.01604008674621582,
+        "scattering.reson": 0.014826059341430671
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-serial-a": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-serial-a",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 1,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 61.89131250511855,
+        "sampled_peak_container_memory_bytes": 1674285056,
+        "baseline_container_memory_bytes": 13471744,
+        "sampled_peak_container_anon_bytes": 1662484480,
+        "kernel_peak_container_memory_bytes": 1674285056,
+        "container_cpu_seconds": 61.429048,
+        "sampled_peak_run_allocated_bytes": 196726784,
+        "sampled_peak_scratch_allocated_bytes": 94208,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-throughput",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.0000000028043132e-07,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.00000000458067e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 1.09662008285522,
+        "target.scatci_integrals": 58.8769800662994,
+        "target.congen": 0.00308704376220703,
+        "target.scatci": 0.0921590328216553,
+        "target.denprop": 0.0236060619354248,
+        "scattering.congen": 0.00813603401184082,
+        "scattering.scatci": 1.0340781211853018,
+        "scattering.swinterf": 0.0506348609924316,
+        "scattering.rsolve": 0.22804903984069802,
+        "scattering.eigenp": 0.046347856521606404,
+        "scattering.tmatrx": 0.050806045532226604,
+        "scattering.ixsecs": 0.061925888061523396,
+        "scattering.reson": 0.0498800277709961
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-serial-b": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-serial-b",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 1,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 61.89196604094468,
+        "sampled_peak_container_memory_bytes": 1675440128,
+        "baseline_container_memory_bytes": 13443072,
+        "sampled_peak_container_anon_bytes": 1663545344,
+        "kernel_peak_container_memory_bytes": 1675440128,
+        "container_cpu_seconds": 61.438970000000005,
+        "sampled_peak_run_allocated_bytes": 196730880,
+        "sampled_peak_scratch_allocated_bytes": 94208,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-throughput",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.0000000028043132e-07,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.00000000458067e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 1.10127401351929,
+        "target.scatci_integrals": 58.8957569599152,
+        "target.congen": 0.0026090145111084,
+        "target.scatci": 0.089838981628418,
+        "target.denprop": 0.0221590995788574,
+        "scattering.congen": 0.008550882339477539,
+        "scattering.scatci": 1.012498140335083,
+        "scattering.swinterf": 0.0534818172454834,
+        "scattering.rsolve": 0.225459098815918,
+        "scattering.eigenp": 0.0486788749694824,
+        "scattering.tmatrx": 0.050747156143188504,
+        "scattering.ixsecs": 0.0619096755981445,
+        "scattering.reson": 0.0498800277709961
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-serial-c": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-serial-c",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 1,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 61.701387878041714,
+        "sampled_peak_container_memory_bytes": 1674465280,
+        "baseline_container_memory_bytes": 13537280,
+        "sampled_peak_container_anon_bytes": 1662459904,
+        "kernel_peak_container_memory_bytes": 1674465280,
+        "container_cpu_seconds": 61.282607000000006,
+        "sampled_peak_run_allocated_bytes": 196726784,
+        "sampled_peak_scratch_allocated_bytes": 94208,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-throughput",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.0000000028043132e-07,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.00000000458067e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 1.10465812683105,
+        "target.scatci_integrals": 58.6646218299866,
+        "target.congen": 0.00311398506164551,
+        "target.scatci": 0.0964419841766357,
+        "target.denprop": 0.0265188217163086,
+        "scattering.congen": 0.010408163070678711,
+        "scattering.scatci": 1.035413980484008,
+        "scattering.swinterf": 0.0665929317474365,
+        "scattering.rsolve": 0.242217779159546,
+        "scattering.eigenp": 0.0513100624084473,
+        "scattering.tmatrx": 0.0542428493499756,
+        "scattering.ixsecs": 0.051274776458740304,
+        "scattering.reson": 0.0538918972015381
+      },
+      "refits": []
+    },
+    "co-eq-f4-sep39-serial-d": {
+      "config": {
+        "workdir": "/work/runs/co-eq-f4-sep39-serial-d",
+        "scripts_cache": "/work/upstream",
+        "bond_length": 2.1323,
+        "model": "SEP",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "target_roots": 5,
+        "target_states_used": 1,
+        "basis": "aug-cc-pVDZ",
+        "frozen_orbitals": 4,
+        "virtual_orbitals": [
+          17,
+          9,
+          9,
+          4
+        ],
+        "radius": 18,
+        "maxl": 4,
+        "ranks": 1,
+        "precision": "double",
+        "deletion_threshold": 1e-07,
+        "propagation_radius": 100.0,
+        "energy_start_ev": 0.1,
+        "energy_step_ev": 0.01,
+        "energies": 491,
+        "scf_type": "pk",
+        "scripts_url": "https://zenodo.org/api/records/7851856/files/UKRmol-scripts-release-1.0.zip/content",
+        "scripts_md5": "f2f37391a26280d212eec8393f779830"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 61.89291386702098,
+        "sampled_peak_container_memory_bytes": 1674387456,
+        "baseline_container_memory_bytes": 13570048,
+        "sampled_peak_container_anon_bytes": 1662468096,
+        "kernel_peak_container_memory_bytes": 1674387456,
+        "container_cpu_seconds": 61.588339999999995,
+        "sampled_peak_run_allocated_bytes": 196726784,
+        "sampled_peak_scratch_allocated_bytes": 94208,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "batch": "calibration-throughput",
+      "initial_batch_exit_code": 0,
+      "result": {
+        "bond_length_bohr": 2.1323,
+        "model": "SEP",
+        "basis": "aug-cc-pVDZ",
+        "orbitals": "HF",
+        "active_orbitals": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "frozen_orbitals": 4,
+        "neutral_energy_hartree": -112.754687198,
+        "target_excitations_hartree": {
+          "singlet.A1.1": 0.0
+        },
+        "psi4_ground_state_dipole_au": -0.1023019,
+        "psi4_energy_hartree": -112.75468719813634,
+        "psi4_rhf_energy_hartree": -112.75468719813634,
+        "target_energy_difference_hartree": 1.3633894013764802e-10,
+        "analyzer_source_sha256": "df8ecdc3e34b9957edb5d9029da6c9c7fdfee14c918c03d2f3a3e47ac87e202a",
+        "energy_points_per_symmetry": 491,
+        "hamiltonian_dimensions": {
+          "B1": 1188,
+          "B2": 1188
+        },
+        "energy_range_ev": [
+          0.1,
+          5.0
+        ],
+        "pi_phase_max_difference_rad": 1.0000000028043132e-07,
+        "pi_cross_section_max_absolute_difference_bohr2": 1.00000000458067e-06,
+        "native_resonances": {
+          "B1": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ],
+          "B2": [
+            {
+              "energy_hartree": 0.048928151,
+              "width_hartree": 0.020846824
+            }
+          ]
+        },
+        "validation_scope": "pipeline and symmetry consistency; basis convergence not established"
+      },
+      "status": "validated",
+      "stage_totals_seconds": {
+        "target.psi4": 1.09563398361206,
+        "target.scatci_integrals": 59.0031578540802,
+        "target.congen": 0.00241804122924805,
+        "target.scatci": 0.0843760967254639,
+        "target.denprop": 0.0247249603271484,
+        "scattering.congen": 0.01032304763793945,
+        "scattering.scatci": 1.0209848880767831,
+        "scattering.swinterf": 0.052136182785034194,
+        "scattering.rsolve": 0.255084991455078,
+        "scattering.eigenp": 0.0512900352478027,
+        "scattering.tmatrx": 0.0590429306030274,
+        "scattering.ixsecs": 0.0568959712982178,
+        "scattering.reson": 0.056384086608886705
+      },
+      "refits": []
+    }
+  },
+  "comparisons": [
+    {
+      "left": "co-eq-f4-sep20",
+      "right": "co-eq-f4-sep30",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.0822140800000002,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.4870111594019082,
+      "width_difference_ev": 0.4598805501559915,
+      "width_fractional_difference_relative_to_left": 0.3906848890284952
+    },
+    {
+      "left": "co-eq-f4-sep30",
+      "right": "co-eq-f4-sep39",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.93670353,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.3157682458613451,
+      "width_difference_ev": 0.1499622081098092,
+      "width_fractional_difference_relative_to_left": 0.20908431263897317
+    },
+    {
+      "left": "co-eq-f4-sep39",
+      "right": "co-eq-f2-sep39",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.5696463299999999,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.4333758300051187,
+      "width_difference_ev": 0.22596910659487535,
+      "width_fractional_difference_relative_to_left": 0.3983442034143906
+    },
+    {
+      "left": "co-eq-f4-sep39",
+      "right": "co-eq-f4-sep39-l3",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.0035810000000000564,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 5.666771185741659e-05,
+      "width_difference_ev": 0.00022864367293196075,
+      "width_fractional_difference_relative_to_left": 0.0004030589983395894
+    },
+    {
+      "left": "co-eq-f4-sep39",
+      "right": "co-eq-f4-sep39-d6",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.019003799999999682,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.0004355046311739219,
+      "width_difference_ev": 0.00026344703594050056,
+      "width_fractional_difference_relative_to_left": 0.0004644112695535212
+    },
+    {
+      "left": "co-eq-f4-sep39-d6",
+      "right": "co-eq-f4-sep39-l5-d6",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.008895400000000109,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.00029608709374273623,
+      "width_difference_ev": 0.00034098588104847227,
+      "width_fractional_difference_relative_to_left": 0.0006013780440384221
+    },
+    {
+      "left": "co-eq-f4-sep39",
+      "right": "co-eq-f4-sep39-raf200",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 2.3000000002326715e-06,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.0,
+      "width_difference_ev": 0.0,
+      "width_fractional_difference_relative_to_left": 0.0
+    },
+    {
+      "left": "co-eq-f4-sep39",
+      "right": "co-eq-tz-f4-sep39",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.8585728000000001,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.2920358353469066,
+      "width_difference_ev": 0.20111207669827647,
+      "width_fractional_difference_relative_to_left": 0.3545255862475742
+    },
+    {
+      "left": "co-eq-tz-f4-sep39",
+      "right": "co-eq-tz-f4-sep60",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.8754088,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.2942197123614645,
+      "width_difference_ev": 0.19412109061227467,
+      "width_fractional_difference_relative_to_left": 0.25263582916602567
+    },
+    {
+      "left": "co-eq-f4-sep39-np1",
+      "right": "co-eq-f4-sep39-np2",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.0000000028043132e-07,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.0,
+      "width_difference_ev": 0.0,
+      "width_fractional_difference_relative_to_left": 0.0
+    },
+    {
+      "left": "co-eq-f4-sep39-np1",
+      "right": "co-eq-f4-sep39-np4",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.0000000028043132e-07,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.0,
+      "width_difference_ev": 0.0,
+      "width_fractional_difference_relative_to_left": 0.0
+    },
+    {
+      "left": "co-eq-f4-sep39-serial-a",
+      "right": "co-eq-f4-sep39-serial-b",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.0,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.0,
+      "width_difference_ev": 0.0,
+      "width_fractional_difference_relative_to_left": 0.0
+    },
+    {
+      "left": "co-eq-cas8-hf-cc40-v36",
+      "right": "co-eq-cas8-hf-cc80-v36",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.16731906000000007,
+      "fit_counts": [
+        0,
+        0
+      ]
+    },
+    {
+      "left": "co-eq-cas8-casscf-cc40-v36",
+      "right": "co-eq-tz-cas8-casscf-cc40-v36",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.27465300000000004,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.1637838371883582,
+      "width_difference_ev": 0.11890778499568633,
+      "width_fractional_difference_relative_to_left": 0.09975314763812496
+    },
+    {
+      "left": "co-eq-cas8-casscf-cc40-v36",
+      "right": "co-eq-cas8-casscf-cc40-v0",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.5694015335897933,
+      "fit_counts": [
+        1,
+        0
+      ]
+    },
+    {
+      "left": "co-r1.9-f4-sep39-l4",
+      "right": "co-r1.9-f4-sep39-l3",
+      "energy_range_ev": [
+        0.1,
+        8.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.4731789000000002,
+      "fit_counts": [
+        2,
+        1
+      ]
+    },
+    {
+      "left": "co-r2.5-f4-sep39-l4",
+      "right": "co-r2.5-f4-sep39-l3",
+      "energy_range_ev": [
+        0.01,
+        0.5
+      ],
+      "max_phase_difference_rad_mod_pi": 0.0019598709999999464,
+      "fit_counts": [
+        0,
+        0
+      ]
+    },
+    {
+      "left": "co-eq-cas8-casscf-cc40-v0",
+      "right": "co-eq-cas10-casscf-cc40-v0-ws",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.26563533,
+      "fit_counts": [
+        0,
+        1
+      ]
+    },
+    {
+      "left": "co-eq-cas10-casscf-cc40-v0-ws",
+      "right": "co-eq-cas10-casscf-cc40-v10-ws",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.6921846,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.42043278855998745,
+      "width_difference_ev": 0.356774702872906,
+      "width_fractional_difference_relative_to_left": 0.2257088893253831
+    },
+    {
+      "left": "co-eq-cas10-casscf-cc40-v0-ws",
+      "right": "co-eq-tz-cas10-casscf-cc40-v0-ws",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 0.39841079999999995,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.30485324182174,
+      "width_difference_ev": 0.24443321585807976,
+      "width_fractional_difference_relative_to_left": 0.154637504344618
+    },
+    {
+      "left": "co-eq-f4-sep39-np1",
+      "right": "co-eq-f4-sep39-source",
+      "energy_range_ev": [
+        0.1,
+        5.0
+      ],
+      "max_phase_difference_rad_mod_pi": 1.0000000028043132e-07,
+      "fit_counts": [
+        1,
+        1
+      ],
+      "position_difference_ev": 0.0,
+      "width_difference_ev": 0.0,
+      "width_fractional_difference_relative_to_left": 0.0
+    }
+  ]
+}

@@ -37,6 +37,27 @@ To write or update a note, use the `mastering-references` skill
 | [`alt-houfek-2021-pra103-032829.md`](alt-houfek-2021-pra103-032829.md) | V. Alt, K. Houfek, *Resonant collisions of electrons with O₂ via the lowest-lying ²Π_g state of O₂⁻*, Phys. Rev. A **103**, 032829 (2021). [DOI](https://doi.org/10.1103/PhysRevA.103.032829) | **The O₂ target of the potential factory**: the complete published nonlocal-model construction (MRCI curves + R-matrix eigenphase sums → `Γ̃(ε,R)` with Table II's constants), and Fig. 2, from which the curves are vector-extracted. |
 | [`schwerdtfeger-nagle-2019-molphys117-1200.md`](schwerdtfeger-nagle-2019-molphys117-1200.md) | P. Schwerdtfeger, J. K. Nagle, *2018 Table of static dipole polarizabilities of the neutral elements in the periodic table*, Mol. Phys. **117**, 1200 (2019); the authors' 2023 update. [DOI](https://doi.org/10.1080/00268976.2018.1535143) | The atomic polarisability `α_d` behind the factory's ion–atom tail `−α_d/(2R⁴)` — O₂'s `ALPHA_D_O = 5.3(2)` a.u. |
 
+### CO scattering models
+
+| Note | Source | Role here |
+|---|---|---|
+| [`laporta-2012-psst21-045005.md`](laporta-2012-psst21-045005.md) | Laporta et al., PSST **21**, 045005 (2012), [DOI](https://doi.org/10.1088/0963-0252/21/4/045005) | Six-valence-electron SEP prescription, low-energy resonance, empirical width adjustment and separate correlated neutral curve. |
+| [`dora-2016-epjd70-197.md`](dora-2016-epjd70-197.md) | Dora et al., EPJD **70**, 197 (2016), [DOI](https://doi.org/10.1140/epjd/e2016-70124-7) | Basis/active-space/channel sensitivity and target/scattering imbalance in SEP. |
+| [`dora-2020-jpb53-195202.md`](dora-2020-jpb53-195202.md) | Dora and Tennyson, JPB **53**, 195202 (2020), [DOI](https://doi.org/10.1088/1361-6455/aba5b0) | Larger-basis comparison, geometry tracking limitations and resonance-fit sensitivity. |
+
+These notes anchor the external expectations used by `projects/ukrmol_co`.
+They describe published model-dependent results, not converged reference
+error bars.
+
+### What the CO sources cover
+
+[Laporta 2012](laporta-2012-psst21-045005.md) anchors the low-energy SEP
+prescription and its empirical nuclear-dynamics adjustments.
+[Dora 2016](dora-2016-epjd70-197.md) anchors target-state averaging and
+model/basis/channel sensitivity.
+[Dora 2020](dora-2020-jpb53-195202.md) anchors the larger-basis comparison
+and geometry/width-extraction limitations.
+
 ## Fetching the sources
 
 The notes stand on their own; fetch a PDF only when you need the full text.
