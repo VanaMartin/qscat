@@ -1,0 +1,14 @@
+{
+  "scope": "Linux On-Demand EC2 compute in eu-central-1; excludes storage, transfer and taxes",
+  "retrieved_at": "2026-10-06T19:09:40.872544+00:00",
+  "source_url": "https://b0.p.awsstatic.com/pricing/2.0/meteredUnitMaps/ec2/USD/current/ec2-ondemand-without-sec-sel/EU%20%28Frankfurt%29/Linux/index.json",
+  "decoded_response_sha256": "5f7e5ac78bbff8309e1c0798901cbaef37d31d45316dba3bdf19479bad999a66",
+  "currency": "USD",
+  "instances": [
+    {"type": "r7a.8xlarge", "physical_cores": 32, "memory_gib": 256, "hourly_price": "2.9366400000", "rate_code": "8FRY5U49AQXR5ESM.JRTCKXETXF.6YS6EN2CT7"},
+    {"type": "r8a.8xlarge", "physical_cores": 32, "memory_gib": 256, "hourly_price": "3.0835200000", "rate_code": "3YVMND3G6GRQH7GA.JRTCKXETXF.6YS6EN2CT7"},
+    {"type": "r7a.16xlarge", "physical_cores": 64, "memory_gib": 512, "hourly_price": "5.8732800000", "rate_code": "A468277DZWJFY92D.JRTCKXETXF.6YS6EN2CT7"},
+    {"type": "r8a.16xlarge", "physical_cores": 64, "memory_gib": 512, "hourly_price": "6.1670400000", "rate_code": "EZ8T8QJDBNP2FSCK.JRTCKXETXF.6YS6EN2CT7"},
+    {"type": "r8a.24xlarge", "physical_cores": 96, "memory_gib": 768, "hourly_price": "9.2505600000", "rate_code": "FRDZDF459FJ5GEQJ.JRTCKXETXF.6YS6EN2CT7"}
+  ]
+}

@@ -1,0 +1,234 @@
+# CO large-memory qualification campaign
+
+**Paid provisioning is deferred.** Continue qualification on Sadaharu and keep
+the first paid experiment within **approximately $200**, reducing the earlier
+full-campaign compute forecast by at least 80%. The retained hardware candidate
+is EC2 `r8a.16xlarge` in `eu-central-1`; its **168-hour / $1036 full-campaign
+estimate below is historical planning, not the current execution budget**.
+The queued recipes are inputs, not passing calculations.
+
+## Cost-constrained continuation
+
+Complete the tight CAS(10,12) QC starts, matched basis/geometry/ensemble QC
+ladder, fixed-orbital root coverage and all feasible CAS(10,11) imports and
+scattering on Sadaharu. Also finish local neutral refinements and saved-data
+fit replays. These results determine which single larger calculation has the
+most value; the ten-entry dense target manifest is a retained refinement queue.
+
+Only five roots per sector are needed by the 40-component target contract;
+the dense path allocates all eigenvectors. Four initial serial-Davidson
+controls (5/8/16/32 roots) used about 0.12 GiB and 46–48 seconds each, but all
+failed required root imports despite native convergence reports. Their maximum
+energy errors were 0.13931/0.07915/0.05290/0.02823 Hartree; retain the failed
+controls. Independent diagonalization of the first stored singlet-A1
+Hamiltonian agrees with QC within 3.69e-13 Hartree, isolating the discrepancy
+to the selected-root solve rather than that Hamiltonian.
+
+The SLEPc-enabled source build now passes all twelve upstream serial/MPI
+checks, with pinned toolchain PETSc/SLEPc library digests. Its explicit
+distributed Krylov–Schur small-model controls both pass all 40 roots within
+4.98e-10 Hartree and dipoles within 5.62e-11 a.u., using about 0.12 GiB in
+49.53/46.91 seconds. Its CAS(10,11) dense-reference comparison is running on
+Sadaharu. This route must reproduce the CAS(10,11) dense roots and dipoles, with
+root-count/tolerance checks, before the prepared CAS(10,12) local target-import
+trial may run. See [the solver contract](../../docs/physics/co-electronic-qualification.md#selected-root-target-experiment).
+A selected-root target solver does not remove the all-spectrum requirement
+of the existing scattering calculation.
+
+At the recorded Frankfurt rates, a **24-hour `r8a.16xlarge` window costs
+$148.01 in compute**; a **48-hour `r8a.8xlarge` window also costs $148.01**.
+The 256-GiB instance can accommodate one audited dense target worker, while
+the 512-GiB instance provides more room for the scattering pilot. Storage and
+transfer need to fit the remaining allowance. Neither window is yet a measured
+completion forecast. A first paid experiment should cover one prequalified
+equilibrium calculation, with its required numerical checks, after local work
+establishes that it fits the time/memory budget. Other hardware options can use
+the same x86-64 Docker recipes and resource audits.
+
+## Scientific purpose
+
+CAS(10,12) distributes ten valence electrons among twelve spatial orbitals,
+with the two core orbitals doubly occupied. The requested C2v active counts
+are `[6,3,3,0]` in A1/B1/B2/A2 order. It adds another sigma-like A1 orbital to
+CAS(10,11), retaining the paired Pi spaces and the 40-component orbital ensemble.
+That enlarges target correlation and the short-range scattering configuration
+space. It tests whether the smaller active spaces omit important flexibility.
+
+The existing DZ CAS(10,10)-to-(10,11) comparison lowers the ground root by
+0.80403 eV. The provisional CAS(10,11)-to-(10,12) QC comparison lowers it by
+another 0.08043 eV and changes the ground dipole from 0.0277316 to 0.0175114 a.u.,
+about 36.9%. These values use the older optimizer tolerances; tightened,
+matched-start and orbital-identity checks must precede a convergence claim.
+The relative dipole change is large partly because the dipole is small; retain
+absolute changes as well. None of these target changes is itself a measured
+change in resonance position or width.
+
+We need an active-space convergence test. CAS(10,12) is the next controlled
+test, not a predetermined production model or a guarantee of convergence.
+QC already evaluates this active space using iterative CI on Sadaharu. The
+large-memory requirement comes from the independently checked UKRmol dense
+target diagonalizations, followed by any selected-model scattering calculation.
+
+## Architecture and execution layout
+
+[AWS's instance specifications](https://docs.aws.amazon.com/ec2/latest/instancetypes/mo.html#mo_summary)
+identify R8a as **AMD x86_64**. `r8a.16xlarge` uses the AMD EPYC 9R45
+(fifth-generation EPYC/Turin) and has **64 vCPUs, 64 physical cores, one thread
+per core and 512 GiB RAM**. The
+[R8a product page](https://aws.amazon.com/ec2/instance-types/r8a/) confirms this
+mapping and AVX-512 support. Select an amd64/x86_64 Linux AMI, such as Ubuntu
+24.04 LTS. This matches the pinned Linux x86-64 compiler/MPI/Psi4 toolchain;
+use the existing Docker build and engine gates on the new host.
+
+The audited maximum target array floors are **149.78 GiB on 16 ranks** and
+**149.91 GiB on 32 ranks**. These include both full matrices, workspaces and
+eigenvalues, and exclude other live engine arrays and MPI/library overhead.
+Increasing ranks distributes memory but does not remove its aggregate floor.
+The four-rank triplet query is invalid; preserve its overflow rejection.
+
+Start target jobs with two disjoint **32-physical-core** slots and **224-GiB
+container limits**; this leaves 64 GiB outside their combined limits. Recipes
+set `--scatci-memory-gib 16` for the internal matrix budget independently of
+the container limit. Confirm actual process grids and library queries on EC2,
+and measure a 16-/32-rank sector comparison before fixing the throughput layout.
+Inspect CPU/NUMA topology rather than assuming the logical ID ordering.
+
+Scattering has an additional electron and continuum configurations; its memory
+budget must be checked from actual CONGEN dimensions. Initially allow one
+scattering worker with a provisional 384-GiB container limit, subject to a valid
+workspace query and headroom check. Two concurrent target jobs fitting in RAM
+does not establish that two scattering jobs fit.
+
+Use persistent EBS storage mounted under `/home`, with approximately 500 GiB
+for scratch, retained attempts and transferred evidence, plus space for Docker
+and the source build on the root volume. Follow the shared
+[Docker deployment guide](../../docker/ukrmol-plus/README.md) for bind-mount
+ownership, engine checks and source/image provenance. Use On-Demand for these
+initial long diagonalizations: the current pipeline has no demonstrated
+restart of an interrupted dense eigensolver.
+
+## Prepared queue and dependencies
+
+| Recipe or work | Count | Purpose / prerequisite |
+|---|---:|---|
+| `calibration-sa12-qc-tight.json` | 2 QC jobs | Equilibrium DZ tight restart passes; RHF start remains running on Sadaharu |
+| `calibration-large-host-qc.json` | 18 QC jobs | Matched CAS(10,11)/(10,12): eight new geometry/basis combinations each, plus an equilibrium 50-component ensemble for each |
+| `calibration-tz-qc-fresh-starts.json` | 4 QC jobs | Equilibrium cc-TZ/aug-TZ RHF starts in both active spaces; queued behind the CAS(10,11) ladder on Sadaharu |
+| Fixed-orbital coverage/start checks | As needed | Check all eight sectors; compare first ensemble roots, spins, ensemble objectives, dipoles and final active subspaces before promoting a checkpoint |
+| `calibration-large-host-targets.json` | 10 dense jobs | Nine CAS(10,12) 40-component targets: three geometries x three bases; one DZ equilibrium 50-component orbital-ensemble target |
+| Equilibrium CAS(10,12) scattering pilot | 1 initial pilot | Full target/import pass, valid scattering dimensions/workspaces; measure phases, candidates and cost against CAS(10,11)/(10,10) |
+
+The geometry sentinels are **1.9, 2.1323 and 2.5 bohr**. Bases are
+**cc-pVDZ, cc-pVTZ and aug-cc-pVTZ**: compare cardinal refinement first, then
+diffuse augmentation at the same TZ cardinality. All 40-component targets use
+five equally weighted roots in each singlet/triplet C2v sector. The 50-component
+ensemble uses `[10,5,5,5]` roots in each spin and is a separate orbital-objective
+test, not merely a channel-retention test.
+
+The first six dense entries prioritize DZ geometry, equilibrium basis and
+equilibrium ensemble dependence. The final four complete the TZ/aug-TZ
+compressed/stretched combinations. Run only recipes whose exact initial
+checkpoints have passed QC and coverage checks. If a competing start finds a
+different preferred ensemble solution, revise the corresponding checkpoint
+input rather than treating the currently named restart as automatically best.
+Add fresh RHF controls at equilibrium in both TZ bases before declaring basis
+start stability. Matched CAS(10,11) full imports fit Sadaharu and can be prepared
+there, leaving the cloud host's RAM for CAS(10,12).
+
+The existing same-active-space projection restriction applies: never feed a
+CAS(10,11) checkpoint into a CAS(10,12) recipe. Retain the tightened restart and
+all checkpoint hashes in the transferred evidence root so `/work/runs/...`
+paths resolve without modifying historical directories.
+
+The QC continuation can use three four-core slots on Sadaharu after the seed
+checks pass and competing workloads are reassessed. Give each worker 32 GiB.
+The neutral basis/correlation refinements and existing K-matrix fit-window/
+background replays also belong in this pre-provisioning preparation.
+`calibration-neutral-5z.json` prepares the same three frozen-core CCSD(T)
+sentinels in aug-cc-pV5Z to complete the TZ/QZ/5Z basis sequence locally.
+Its worker is queued behind the exact CAS(10,12) RHF-start container on CPUs
+12–15. The restart's fixed-orbital coverage scan is queued behind the
+CAS(10,11) SLEPc/dense import gate on CPUs 0–3.
+
+The dense recipe is directly compatible with `batch.py`. First make a fresh
+pilot manifest containing its equilibrium DZ entry. After its first singlet
+and triplet memory/workspace checks, launch a second worker from the remaining
+passing QC checkpoints while the pilot continues. Include this staggered
+startup in the setup allowance below. Scattering still requires the pilot's
+final all-root/import/dipole pass. A full two-worker batch on a checked host
+has the form:
+
+```bash
+python3 -m projects.ukrmol_co.batch projects/ukrmol_co/calibration-large-host-targets.json \
+  --root "$RUN_ROOT" --image "$IMAGE" --cpu-groups 0-31 32-63 --memory 224g
+```
+
+Resolve the two CPU groups against the observed topology. The launcher is a
+finite queue, not a dependency scheduler: it does not wait for QC gates, stop
+remaining jobs when a model fails, or adapt memory/ranks automatically. Use
+filtered, newly named manifests for staged execution and all retries.
+
+## Retained full-campaign time estimate
+
+The measured CAS(10,12) **singlet-A1 stage alone** took **5751.68 seconds
+(1.60 hours)** on four Sadaharu cores at dimension 43194. Its subsequent triplet
+allocation failed, so 98.80 minutes is not a completed target runtime. There
+are four singlet sectors near dimension 42000 and four triplet sectors near
+71000. A cubic dense-eigensolver estimate gives
+
+`T_diag(4) = sum[5751.68 * (N_sector / 43194)^3] = 34.20 hours`.
+
+Ideal rank scaling would reduce this eigensolver-only estimate to 8.55 hours
+at 16 ranks or 4.28 hours at 32 ranks. These are extrapolations, not measured
+EC2 timings. Hamiltonian construction, communication, imperfect scaling,
+shared memory bandwidth, QC restarts and DENPROP add time. The previous
+CAS(10,11) import spent 37.81 minutes in DENPROP; its larger-space growth is
+unmeasured. Use **12–30 hours per complete CAS(10,12) target** as the initial
+allowance on a 16–32-core worker. Recompute from the first EC2 singlet/triplet
+stages and final density stage, rather than applying a vendor speedup claim.
+
+| Retained full-campaign work | Elapsed instance-hour allowance |
+|---|---:|
+| Ten dense target/import jobs, two workers | 60–150 h (five waves x 12–30 h) |
+| One equilibrium scattering pilot, including its repeated target stages | 18–48 h; broad provisional allowance pending actual dimensions |
+| Build/engine gate, staggered startup, sector scaling, collection and transfer | 8–12 h |
+| Total arithmetic range | 86–210 h |
+| Rounded planning range | **96–216 h (4–9 days)** |
+| Earlier full-campaign budget, now deferred | **168 h (7 days)** |
+
+This historical budget covers the target qualification queue and one measured scattering
+pilot. Additional sentinel scattering, continuum/extraction refinements and the
+eventual 25–40-geometry production campaign need a renewed forecast from that
+pilot. Their decks depend on model selection and scattering workspace checks.
+Keep the instance busy with prepared, independently useful jobs; stop it when
+that queue is exhausted while retaining evidence on EBS.
+
+As checked on 6 October 2026, the official Frankfurt Linux On-Demand price is
+**$6.16704/hour**. Compute-only budgets are **$592.04 for 96 h**, **$1036.06 for
+168 h**, and **$1332.08 for 216 h**. EBS, transfer and taxes are additional.
+[`large-host-pricing.json`](large-host-pricing.json) records the official feed,
+retrieval time, decoded response digest and rate codes. Recheck the rate and
+regional instance offering when provisioning.
+
+## Resource evidence and readiness
+
+[`large-host-resources.json`](large-host-resources.json) records the audited
+dimensions, maximum queries and forecast assumptions. The thirteen new valid
+installed-library queries, source/licence copies, binary digest and execution
+commands are retained in `diagnostics/cas12-large-host-workspaces/` under the
+state-averaged evidence root. The combinatorial singlet/triplet-A1 counts match
+the two independent existing CONGEN outputs. The thirteen queries and tight
+CAS(10,11) import are included in the eighteen-attempt qualification supplement;
+The two small-model SLEPc successes and four rejected Davidson controls are
+also public; live QC/scattering, larger-space selected-root trials and 5Z
+neutral work await subsequent collection.
+
+Before proposing the cost-constrained paid experiment, finish the tight CAS(10,12) starts,
+matched QC ladder and root/subspace checks; finalize the selected checkpoints
+and their hashes; finish matching CAS(10,11) controls; verify the transferred
+bundle and staged manifests. Establish whether the selected-root target route
+fits Sadaharu, and narrow the external-host request to the remaining bottleneck.
+Rebuild and test on the chosen external host when it becomes available, then
+measure its first heavy sector and update the hours.
+All failed attempts remain evidence. Passing this queue establishes import
+and model-comparison evidence, not automatic production qualification.

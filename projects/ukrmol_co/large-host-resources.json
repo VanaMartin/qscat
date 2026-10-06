@@ -1,0 +1,49 @@
+{
+  "scope": "Installed-library workspace queries, not completed CAS(10,12) target or scattering timings",
+  "diagnostic_directory": "diagnostics/cas12-large-host-workspaces",
+  "execution_json_sha256": "e76ff2acb5e6e0317bd0c23757df79aa584de97bd6e88322476138d1ea6bfe89",
+  "image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
+  "workspace_source_sha256": "a07d2bf43c29baedfb60edb9e9b5f7fa2da654d41e8d6f3a5e6a7e2bb255b889",
+  "workspace_binary_sha256": "ef38d6762972549112458999cdc1be0c2f2cb4c4bb76951c8bdb4a8ae1907c2b",
+  "queries_passed": 13,
+  "active_counts_A1_B1_B2_A2": [6, 3, 3, 0],
+  "target_dimensions": {
+    "singlet": {"A1": 43194, "B1": 42396, "B2": 42396, "A2": 41898},
+    "triplet": {"A1": 70674, "B1": 70860, "B2": 70860, "A2": 70746}
+  },
+  "dimension_method": "D(S,irrep) = D(Ms=S,irrep) - D(Ms=S+1,irrep), spatial-irrep XOR; both A1 counts checked against actual CONGEN outputs",
+  "largest_sector_queries": [
+    {"dimension": 70860, "rows": 4, "columns": 4, "total_array_bytes": 160821592960, "maximum_rank_array_bytes": 10066093848},
+    {"dimension": 70860, "rows": 4, "columns": 8, "total_array_bytes": 160966726912, "maximum_rank_array_bytes": 5055735832},
+    {"dimension": 70860, "rows": 8, "columns": 4, "total_array_bytes": 160966718720, "maximum_rank_array_bytes": 5055735576}
+  ],
+  "measured_reference": {
+    "run": "co-eq-ccdz-sa12-40-target-memp6",
+    "singlet_A1_dimension": 43194,
+    "singlet_A1_scatci_wall_seconds": 5751.68328213692,
+    "ranks": 4,
+    "kernel_peak_container_gib": 56.10,
+    "outcome": "Failed at subsequent triplet-A1 internal matrix allocation"
+  },
+  "forecast": {
+    "status": "Historical full-campaign allowance, paid execution deferred; AWS MPI scaling, DENPROP growth and scattering cost unmeasured",
+    "model": "Sum 5751.68328213692 * (sector_dimension / 43194)^3 over eight target sectors, then scale ranks ideally before adding overhead allowances",
+    "four_rank_eigensolver_hours": 34.20333969362452,
+    "ideal_sixteen_rank_eigensolver_hours": 8.55083492340613,
+    "ideal_thirty_two_rank_eigensolver_hours": 4.275417461703065,
+    "full_target_job_allowance_hours": [12, 30],
+    "target_jobs": 10,
+    "target_workers": 2,
+    "target_queue_elapsed_hours": [60, 150],
+    "equilibrium_scattering_pilot_allowance_hours": [18, 48],
+    "setup_scaling_collection_allowance_hours": [8, 12],
+    "initial_instance_budget_hours": 168,
+    "initial_instance_planning_range_hours": [96, 216]
+  },
+  "current_cost_constraint": {
+    "paid_provisioning": "deferred",
+    "first_external_experiment_total_usd_ceiling": 200,
+    "minimum_cost_reduction_fraction": 0.8,
+    "local_priority": "Complete Sadaharu QC and scattering; gate selected-root target solvers against dense references before requesting external hardware"
+  }
+}
