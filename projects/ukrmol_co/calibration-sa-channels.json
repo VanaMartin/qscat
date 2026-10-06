@@ -1,0 +1,10 @@
+[
+  {
+    "name": "co-eq-ccdz-sa10-cc50-fixed-ensemble",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-singlet-roots", "10", "5", "5", "5", "--target-triplet-roots", "10", "5", "5", "5", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-cc40-centered/output/CO/geom1/co.casscf.chk", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-cctz-sa10-50-target-projected",
+    "args": ["--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--sa-singlet-roots", "10", "5", "5", "5", "--sa-triplet-roots", "10", "5", "5", "5", "--target-singlet-roots", "10", "5", "5", "5", "--target-triplet-roots", "10", "5", "5", "5", "--target-only", "--target-initial-checkpoint", "/work/runs/co-eq-cctz-sa10-40-target-projected/output/CO/geom1/co.casscf.chk", "--ranks", "4"]
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-06",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "cpu": "AMD Ryzen 9 9950X3D",
+  "physical_cores": 16,
+  "ram_gib": 123.5,
+  "qc_backend": "PySCF 2.11.0",
+  "initial_image_id": "sha256:e662c6e21ebc082b0e1c0d3a3e7ecdb8c60bbe4bec9eaf8b12a2a2972ddb8e56",
+  "refreshed_image_id": "sha256:24aeadcd0b27242064d248ffb76262e3d8c1598a1ad4c419a6a4ea7e6ed053e0",
+  "engine_verification": "Unchanged source-build/test stages reused from the independently validated packaged engine",
+  "refreshed_image_smoke": "PySCF 2.11.0, h5py 3.15.1 and embedded target/run module imports passed",
+  "scope": "Multi-spin/multi-irrep CO target qualification; production fitting remains unqualified"
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "name": "co-eq-ccdz-sa10-cc40-centered",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-adz-sa10-cc40-centered",
+    "args": ["--basis", "aug-cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  }
+]

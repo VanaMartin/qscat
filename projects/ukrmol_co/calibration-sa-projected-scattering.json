@@ -1,0 +1,10 @@
+[
+  {
+    "name": "co-eq-adz-sa10-cc40-projected",
+    "args": ["--basis", "aug-cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-cc40-centered/output/CO/geom1/co.casscf.chk", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-cctz-sa10-cc40-projected",
+    "args": ["--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-cc40-centered/output/CO/geom1/co.casscf.chk", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  }
+]

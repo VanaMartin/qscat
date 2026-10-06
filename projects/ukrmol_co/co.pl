@@ -22,6 +22,11 @@ $model{'symmetry'} = 'C2v';
 $model{'basis'} = $ENV{'UKRMOL_BASIS'};
 $model{'orbitals'} = $ENV{'UKRMOL_ORBITALS'};
 $model{'select_orb_by'} = 'energy';
+if ($model{'orbitals'} eq 'state-averaged') {
+    $model{'select_orb_by'} = 'molden';
+    # The adapter supplies common optimized orbitals and explicit MO inventory.
+    $model{'orbitals'} = 'HF';
+}
 $model{'model'} = $ENV{'UKRMOL_MODEL'};
 my $nfrozen = $ENV{'UKRMOL_FROZEN_ORBITALS'};
 $model{'nfrozen'} = $nfrozen;
@@ -40,10 +45,11 @@ $model{'ncasscf_states'} = {'singlet' => [1,0,0,0,0,0,0,0]};
 $model{'ntarget_states'} = {'singlet' => [1,0,0,0,0,0,0,0]};
 $model{'ntarget_states_used'} = 1;
 if ($model{'model'} eq 'CAS-A') {
-    my $roots = $ENV{'UKRMOL_TARGET_ROOTS'};
+    my @singlet = split /,/, $ENV{'UKRMOL_TARGET_SINGLET_ROOTS'};
+    my @triplet = split /,/, $ENV{'UKRMOL_TARGET_TRIPLET_ROOTS'};
     $model{'ntarget_states'} = {
-        'singlet' => [($roots) x 4,0,0,0,0],
-        'triplet' => [($roots) x 4,0,0,0,0],
+        'singlet' => [@singlet,0,0,0,0],
+        'triplet' => [@triplet,0,0,0,0],
     };
     $model{'ntarget_states_used'} = $ENV{'UKRMOL_TARGET_STATES_USED'};
 }
@@ -65,6 +71,7 @@ $model{'max_multipole'} = 2;
 
 $run{'molpro'} = 0;
 $run{'psi4'} = 1;
+$run{'scattering'} = 1 - $ENV{'UKRMOL_TARGET_ONLY'};
 $run{'print_info'} = 'both';
 $run{'buffer_size'} = 512;
 $run{'mpi_integrals'} = "mpirun -np $ENV{'UKRMOL_RANKS'}";

@@ -1,0 +1,10 @@
+[
+  {
+    "name": "co-eq-ccdz-sa11-40-target",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "5", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--congen-workspace", "1000000", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-ccdz-sa12-40-target",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "6", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--congen-workspace", "1000000", "--target-memory-mb", "16000", "--ranks", "4"]
+  }
+]

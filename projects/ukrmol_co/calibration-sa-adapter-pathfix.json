@@ -1,0 +1,6 @@
+[
+  {
+    "name": "co-eq-sa8-adapter-pathfix",
+    "args": ["--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "2", "2", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-roots", "1", "--sa-singlet-roots", "1", "1", "1", "1", "--sa-triplet-roots", "1", "1", "1", "1", "--ranks", "4"]
+  }
+]

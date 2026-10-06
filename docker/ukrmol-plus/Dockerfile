@@ -52,6 +52,9 @@ USER ukrmol
 
 # Experiment layers follow the engine gate, so deck edits do not rebuild Fortran.
 FROM pilot AS co-pilot
+USER root
+RUN /opt/ukrmolp/bin/python3 -m pip install --no-cache-dir --no-deps pyscf==2.11.0 h5py==3.15.1
+USER ukrmol
 COPY projects/__init__.py /opt/qmodeling/projects/__init__.py
 COPY projects/ukrmol_co /opt/qmodeling/projects/ukrmol_co
 WORKDIR /opt/qmodeling
@@ -59,6 +62,9 @@ ENTRYPOINT ["/opt/ukrmolp/entrypoint.sh", "python3", "-m", "projects.ukrmol_co.r
 CMD ["--workdir", "/work/runs/co-eq-sep20"]
 
 FROM runtime AS co-source
+USER root
+RUN /opt/ukrmolp/bin/python3 -m pip install --no-cache-dir --no-deps pyscf==2.11.0 h5py==3.15.1
+USER ukrmol
 COPY projects/__init__.py /opt/qmodeling/projects/__init__.py
 COPY projects/ukrmol_co /opt/qmodeling/projects/ukrmol_co
 WORKDIR /opt/qmodeling
