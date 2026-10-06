@@ -8,7 +8,7 @@
   "cpu": "AMD Ryzen 9 9950X3D",
   "physical_cores": 16,
   "ram_gib": 123.5,
-  "analysis_source_commit": "443b27fbc9bc021e812a64f8c49fececc56e9540",
+  "analysis_source_commit": "012bd12eb86ca4ad1c0f08065bdfc4fb5cd7475a",
   "analysis_source_commit_scope": "Committed qualification tools and analysis/packaging code; numerical batches retain their actual immutable source snapshots",
   "numerical_image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
   "standalone_image_id": "sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08",
@@ -22,7 +22,11 @@
     "cas11-tight-ci-coverage",
     "cas11-tight-start-comparison",
     "cas12-scalapack-workspace-audit",
-    "cas12-scalapack-guard"
+    "cas12-scalapack-guard",
+    "cas12-large-host-workspaces",
+    "target-davidson-controls",
+    "selected-root-engine-build"
   ],
-  "scope": "Completed QC and neutral pilots; independent tightened UKRmol import is running separately. Electronic-model, basis and correlation convergence remain open"
+  "selected_root_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "scope": "Completed QC/neutral pilots, independently validated tightened CAS(10,11) target import, workspace queries, four rejected Davidson controls and two passing small-model SLEPc controls. Electronic-model, basis and correlation convergence remain open; live scattering and further QC/import preparation are excluded"
 }

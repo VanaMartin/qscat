@@ -1,36 +1,61 @@
 {
-  "git_sha": "443b27fbc9bc021e812a64f8c49fececc56e9540",
+  "git_sha": "012bd12eb86ca4ad1c0f08065bdfc4fb5cd7475a",
   "git_sha_scope": "Committed qualification tools, analyzer, collector and archive utility; each numerical batch/diagnostic retains its actual source snapshot and hashes",
   "record_type": "co-electronic-qualification-supplement",
   "campaign_date": "2026-10-06",
-  "completed_attempts": 11,
-  "completed_batches": 4,
+  "completed_attempts": 18,
+  "completed_batches": 8,
   "archive": "qualification-evidence.tar.gz",
-  "archive_sha256": "0e005f8650500e920d0d22d8996ef8c050ca27500c5416adabaf8a1de7f5d98f",
-  "archive_bytes": 7019629,
-  "archive_layout": "state-averaged-evidence/ contains four completed batches, eight neutral attempts, three completed QC targets, four diagnostic directories, source snapshots, licences and file-index.json",
+  "archive_sha256": "ad97607b6515a258da7d6e5fedf8061d2839827a726d721e16c738ca740184fd",
+  "archive_bytes": 10315720,
+  "archive_layout": "state-averaged-evidence/ contains eight completed batches, eight neutral attempts, three QC targets, one tight independent target import, four rejected Davidson controls, two passing small SLEPc controls, seven diagnostic directories, source snapshots, licences and file-index.json",
   "neutral_attempts": 8,
   "neutral_validated_records": 7,
   "failed_neutral_records": 1,
   "completed_qc_targets": 3,
+  "completed_tight_target_imports": 1,
+  "large_host_workspace_queries": 13,
+  "rejected_davidson_controls": 4,
+  "passing_small_slepc_controls": 2,
   "fixed_orbital_ci_probes": 48,
   "fully_converged_ci_probes": 46,
   "ci_failed_controls": "Eighth singlet B1/B2 root at trial-space size 40; converged at sizes 80/160. Every ensemble root converged in all probes",
   "archive_verification": {
-    "indexed_payload_files": 728,
-    "batch_source_hashes": 62,
+    "indexed_payload_files": 1786,
+    "batch_source_hashes": 127,
     "standalone_image_source_hashes": 17,
-    "independently_reanalyzed_successful_records": 10,
+    "independently_reanalyzed_successful_records": 13,
     "all_payload_sizes_and_sha256_verified": true,
     "full_and_neutral_aggregates_reconstructed_exactly": true,
     "raw_ci_spectra_and_spin_checks_passed": true,
     "repacked_archive_is_byte_identical": true
   },
-  "validation_scope": "QC/root-coverage and correlated-neutral pilot checks; electronic model, basis and correlation convergence remain open",
+  "validation_scope": "QC/root-coverage, tightened all-root/dipole import, workspace audit, selected-root small-model controls and correlated-neutral pilot checks; electronic model, basis and correlation convergence remain open",
   "ongoing_jobs_excluded": [
-    "co-eq-ccdz-sa11-tight-import"
+    "co-eq-ccdz-sa11-tight-cc40",
+    "calibration-sa12-qc-tight",
+    "calibration-large-host-cas11-qc",
+    "co-eq-ccdz-sa11-slepc-target"
+  ],
+  "prior_snapshots": [
+    {
+      "completed_attempts": 12,
+      "completed_batches": 5,
+      "url": "https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.658932896b86.gz",
+      "sha256": "658932896b8643673951bd388ed4eb7f83fb31b265125ed051ea60df2bc90581",
+      "bytes": 7712694
+    },
+    {
+      "completed_attempts": 11,
+      "completed_batches": 4,
+      "url": "https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.0e005f865050.gz",
+      "sha256": "0e005f8650500e920d0d22d8996ef8c050ca27500c5416adabaf8a1de7f5d98f",
+      "bytes": 7019629
+    }
   ],
   "prior_target_evidence": "../sa-evidence/manifest.json",
   "standalone_image_id": "sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08",
+  "selected_root_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "selected_root_image_verification": "Fresh source build with pinned-toolchain SLEPc/PETSc digests; 12/12 upstream tests and runtime imports/linking pass; two small-model all-root/dipole controls pass; CAS(10,11) differential gate is pending",
   "standalone_image_verification": "Cached engine gates reused; PySCF/h5py versions and runtime-module imports pass; all 17 embedded Python/Perl/Fortran source digests match the deployed checkout"
 }
