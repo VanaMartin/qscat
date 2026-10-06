@@ -6,15 +6,20 @@ engine and target import checks are established; the electronic model is still
 unqualified for production potential fitting. The original RHF/SEP and
 ground-state-CASSCF archive remains in [`../evidence/`](../evidence/README.md).
 
-The published snapshot contains **52 completed attempts**: 28 validated
-pipelines (16 target-only and twelve scattering), 22 failed runner stages,
+The published snapshot contains **53 completed attempts**: 28 validated
+pipelines (16 target-only and twelve scattering), 23 failed runner stages,
 one failed target-import analysis and one pre-run setup rejection. It includes
 twelve paired comparisons, 96 native RESON replays and six fixed-orbital CI
-coverage probes. The public fetch client verified all **6,227 payload digests**
+coverage probes. The public fetch client verified all **6,362 payload digests**
 and exactly reconstructed the aggregate. All 28 successful runs passed raw-output
 reanalysis; the six CI probes match independent UKRmol roots, and repackaging
-produced identical archive bytes. Both earlier snapshots were publicly fetched
-again with matching digests; their immutable URLs remain in the manifest.
+produced identical archive bytes. Earlier snapshots remain available at their
+immutable URLs in the manifest.
+
+The CAS(10,12) 6-GiB-per-process retry passed QC/fresh-CI checks and singlet-A1
+diagonalization, then failed the triplet-A1 matrix allocation (9.31 GiB per rank).
+Its complete failure, resources and source snapshot are included. The ongoing
+CAS(10,11) fresh-CI batch is excluded until its final execution record exists.
 
 Fetch the checksum-verified archive from a cloned QSCAT workspace, then extract
 outside the checkout to avoid duplicate historical Python test packages:
