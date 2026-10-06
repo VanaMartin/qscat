@@ -1,0 +1,8 @@
+[
+  {"name": "co-eq-aug-tz-neutral", "args": ["--basis", "aug-cc-pVTZ", "--ranks", "4"]},
+  {"name": "co-eq-aug-qz-neutral", "args": ["--basis", "aug-cc-pVQZ", "--ranks", "4"]},
+  {"name": "co-r19-aug-tz-neutral", "args": ["--basis", "aug-cc-pVTZ", "--bond-length", "1.9", "--ranks", "4"]},
+  {"name": "co-r19-aug-qz-neutral", "args": ["--basis", "aug-cc-pVQZ", "--bond-length", "1.9", "--ranks", "4"]},
+  {"name": "co-r25-aug-tz-neutral", "args": ["--basis", "aug-cc-pVTZ", "--bond-length", "2.5", "--ranks", "4"]},
+  {"name": "co-r25-aug-qz-neutral", "args": ["--basis", "aug-cc-pVQZ", "--bond-length", "2.5", "--ranks", "4"]}
+]

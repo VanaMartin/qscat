@@ -149,12 +149,149 @@ def target_properties(workdir: Path, config: dict) -> dict:
     return result
 
 
+def qc_properties(workdir: Path, config: dict) -> dict:
+    """Check a QC-only record without implying independent orbital-import agreement."""
+    report = json.loads((workdir / "target.json").read_text())
+    diagnostics = report["optimization"]
+    if not (
+        report["converged"]
+        and diagnostics["orbital_converged"]
+        and all(diagnostics["ci_converged"])
+        and all(diagnostics["fresh_ci_converged"])
+    ):
+        raise ValueError("Unconverged QC-only target")
+    expected = [
+        (spin, irrep, root)
+        for spin in ("singlet", "triplet")
+        for irrep, count in zip(("A1", "B1", "B2", "A2"), config[f"sa_{spin}_roots"], strict=True)
+        for root in range(1, count + 1)
+    ]
+    states = report["states"]
+    if [(s["spin"], s["irrep"], s["root"]) for s in states] != expected:
+        raise ValueError("QC-only roots differ from the requested orbital ensemble")
+    energies = np.array([s["energy_hartree"] for s in states])
+    if not np.all(np.isfinite(energies)) or not np.all(np.isfinite(report["ground_dipole_au"])):
+        raise ValueError("Nonfinite QC-only target properties")
+    np.testing.assert_allclose([s["weight"] for s in states], 1 / len(states), atol=1e-14, rtol=0)
+    np.testing.assert_allclose(
+        energies.mean(), report["ensemble_energy_hartree"], atol=1e-8, rtol=0
+    )
+    np.testing.assert_allclose(
+        diagnostics["fresh_state_energies_hartree"], energies, atol=1e-7, rtol=0
+    )
+    spins = [0 if spin == "singlet" else 2 for spin, _, _ in expected]
+    np.testing.assert_allclose([s["spin_square"] for s in states], spins, atol=1e-6, rtol=0)
+    np.testing.assert_allclose(diagnostics["fresh_spin_square"], spins, atol=1e-6, rtol=0)
+    last = diagnostics["iterations"][-1]
+    gradient = last.get("orbital_gradient_norm", last.get("orbital_ci_gradient_norm"))
+    if (
+        gradient is None
+        or not np.isfinite(gradient)
+        or gradient > config["target_gradient_tolerance"]
+    ):
+        raise ValueError("QC-only gradient exceeds its requested tolerance")
+    if (
+        not np.isfinite(report["mo_orthogonality_max_error"])
+        or report["mo_orthogonality_max_error"] > 1e-9
+    ):
+        raise ValueError("QC-only orbitals are not orthonormal")
+    values = {f"{s['spin']}.{s['irrep']}.{s['root']}": s["energy_hartree"] for s in states}
+    np.testing.assert_allclose(
+        values["singlet.A1.1"], report["ground_energy_hartree"], atol=1e-10, rtol=0
+    )
+    for spin in ("singlet", "triplet"):
+        for root in range(1, config[f"sa_{spin}_roots"][1] + 1):
+            np.testing.assert_allclose(
+                values[f"{spin}.B1.{root}"], values[f"{spin}.B2.{root}"], atol=1e-7, rtol=0
+            )
+    if hashlib.sha256((workdir / "co.molden").read_bytes()).hexdigest() != report["molden_sha256"]:
+        raise ValueError("QC-only Molden export differs from the target record")
+    return {
+        "qc_only": True,
+        "bond_length_bohr": config["bond_length"],
+        "basis": config["basis"],
+        "target_backend": "pyscf",
+        "ensemble_energy_hartree": report["ensemble_energy_hartree"],
+        "ground_energy_hartree": report["ground_energy_hartree"],
+        "ground_state_dipole_au": report["ground_dipole_au"],
+        "target_state_energies_hartree": values,
+        "analyzer_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "validation_scope": "QC solver/self-consistency; independent UKRmol import not performed",
+    }
+
+
+def neutral_properties(workdir: Path, config: dict) -> dict:
+    """Check the neutral pilot's applicability and energy/density bookkeeping."""
+    report = json.loads((workdir / "neutral.json").read_text())
+    if report["basis"] != config["basis"]:
+        raise ValueError("Neutral basis differs from its requested input")
+    np.testing.assert_allclose(
+        report["bond_length_bohr"], config["bond_length"], atol=1e-12, rtol=0
+    )
+    for flag in (
+        "rhf_converged",
+        "rhf_internally_stable",
+        "rhf_externally_stable",
+        "ccsd_converged",
+        "lambda_converged",
+    ):
+        if not report[flag]:
+            raise ValueError(f"Neutral pilot failed {flag}")
+    energies = [
+        report[k]
+        for k in (
+            "rhf_energy_hartree",
+            "ccsd_energy_hartree",
+            "triples_correction_hartree",
+            "neutral_energy_hartree",
+        )
+    ]
+    if not np.all(np.isfinite(energies)) or not np.all(np.isfinite(report["ccsd_dipole_au"])):
+        raise ValueError("Nonfinite neutral energy/dipole")
+    if report["frozen_spatial_orbitals"] != 2 or report["correlated_electrons"] != 10:
+        raise ValueError("Neutral pilot correlation space differs from its contract")
+    diagnostics = [
+        report["t1_frobenius_over_sqrt_correlated_electrons"],
+        report["t1_largest_singular_value"],
+    ]
+    if not np.all(np.isfinite(diagnostics)) or min(diagnostics) < 0:
+        raise ValueError("Invalid neutral amplitude diagnostics")
+    np.testing.assert_allclose(report["density_electrons"], 14, atol=1e-7, rtol=0)
+    np.testing.assert_allclose(
+        report["ccsd_energy_hartree"] + report["triples_correction_hartree"],
+        report["neutral_energy_hartree"],
+        atol=1e-10,
+        rtol=0,
+    )
+    if config["reference_check"]:
+        for key in ("rhf_energy_hartree", "neutral_energy_hartree"):
+            np.testing.assert_allclose(
+                report[key], report["independent_reference"][key], atol=1e-7, rtol=0
+            )
+    return report | {
+        "neutral_only": True,
+        "analyzer_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "validation_scope": (
+            "Correlated neutral pilot; basis and single-reference convergence not established"
+        ),
+    }
+
+
 def analyze(workdir: Path) -> dict:
     """Validate a successful pilot and write a machine-readable result summary."""
     config = json.loads((workdir / "config.json").read_text())
     resources = json.loads((workdir / "resources.json").read_text())
     if resources["exit_code"] != 0:
         raise ValueError(f"Calculation failed; inspect {workdir / 'run.log'}")
+    if config.get("qc_only", False) or config.get("neutral_only", False):
+        result = (
+            neutral_properties(workdir, config)
+            if config.get("neutral_only")
+            else qc_properties(workdir, config)
+        )
+        result["resources"] = resources
+        (workdir / "result.json").write_text(json.dumps(result, indent=2) + "\n")
+        return result
     result = target_properties(workdir, config)
     if config.get("target_only", False):
         result.update(resources=resources, validation_scope="target solver/import consistency")

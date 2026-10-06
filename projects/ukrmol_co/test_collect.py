@@ -7,6 +7,20 @@ import pytest
 from projects.ukrmol_co.collect import collect
 
 
+@pytest.mark.parametrize("scope", ["qc", "neutral"])
+def test_qc_success_is_not_counted_as_independent_import_validation(tmp_path, scope):
+    batch = tmp_path / "batches/qc"
+    batch.mkdir(parents=True)
+    (batch / "result.json").write_text(json.dumps({"jobs": [{"name": "qc", "exit_code": 0}]}))
+    run = tmp_path / "runs/qc"
+    run.mkdir(parents=True)
+    (run / "config.json").write_text(json.dumps({f"{scope}_only": True}))
+    (run / "resources.json").write_text('{"exit_code": 0}')
+    (run / "result.json").write_text(json.dumps({f"{scope}_only": True}))
+    (run / "stages.tsv").write_text("target\tpyscf\t\t\t10\t0\n")
+    assert collect(tmp_path, [])["runs"]["qc"]["status"] == f"{scope}_validated"
+
+
 @pytest.mark.parametrize("exit_code", [0, 2])
 def test_job_without_a_run_directory_is_only_a_failure_if_the_batch_failed(tmp_path, exit_code):
     """A rejected ensemble can fail before config/resources/stage files exist."""

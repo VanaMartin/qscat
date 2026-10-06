@@ -50,12 +50,21 @@ def collect(root: Path, pairs: list[list[str]], provenance: dict | None = None) 
             diagnostics_path = workdir / "target-diagnostics.json"
             if diagnostics_path.exists():
                 record["target_diagnostics"] = json.loads(diagnostics_path.read_text())
+            neutral_path = workdir / "neutral-diagnostics.json"
+            if neutral_path.exists():
+                record["neutral_diagnostics"] = json.loads(neutral_path.read_text())
             record["initial_batch_exit_code"] = job["exit_code"]
             result_path = workdir / "result.json"
             if resources["exit_code"] == 0 and result_path.exists():
                 record["result"] = json.loads(result_path.read_text())
                 record["result"].pop("resources", None)
-                record["status"] = "validated"
+                record["status"] = (
+                    "neutral_validated"
+                    if config.get("neutral_only")
+                    else "qc_validated"
+                    if config.get("qc_only")
+                    else "validated"
+                )
             else:
                 record["failure"] = "See preserved run.log, geometry/log_file.0 and batch log"
                 record["status"] = "engine_failed" if resources["exit_code"] else "analysis_failed"

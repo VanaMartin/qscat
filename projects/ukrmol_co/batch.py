@@ -1,6 +1,6 @@
 """Run a JSON list of CO jobs in CPU-pinned Docker slots on the remote host.
 
-Each entry has a unique ``name`` and an ``args`` list passed to ``run.py``.
+Each entry has a unique ``name`` and an ``args`` list passed to the chosen runner.
 Every calculation uses a fresh container and a fresh bind-mounted run directory.
 """
 
@@ -27,6 +27,7 @@ def main() -> None:
     parser.add_argument("--cpu-groups", nargs="+", default=["0-3", "4-7", "8-11"])
     parser.add_argument("--memory", default="16g")
     parser.add_argument("--image", default="qmodeling/ukrmol-co:source")
+    parser.add_argument("--runner", choices=["run", "neutral"], default="run")
     args = parser.parse_args()
     assigned = set()
     for group in args.cpu_groups:
@@ -88,7 +89,7 @@ def main() -> None:
             calculation = [
                 "python3",
                 "-m",
-                "projects.ukrmol_co.run",
+                f"projects.ukrmol_co.{args.runner}",
                 "--workdir",
                 workdir,
                 *job["args"],

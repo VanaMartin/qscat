@@ -6,7 +6,7 @@ import json
 import numpy as np
 import pytest
 
-from projects.ukrmol_co.analyze import ground_cross_sections, target_properties
+from projects.ukrmol_co.analyze import ground_cross_sections, qc_properties, target_properties
 
 
 def test_ground_cross_sections_joins_columns_and_excludes_excited_initial_states(tmp_path):
@@ -91,3 +91,83 @@ def test_state_average_checks_excited_roots_not_ensemble_energy(
         assert result["target_state_max_energy_difference_hartree"] < 1e-12
         assert result["target_energy_difference_hartree"] < 1e-12
         assert abs(result["target_dipole_difference_au"]) < 1e-12
+
+
+@pytest.mark.parametrize(
+    "defect", [None, "gradient", "fresh-root", "spin", "weights", "export", "ensemble"]
+)
+def test_qc_only_does_not_accept_reported_convergence_without_its_gates(tmp_path, defect):
+    """A successful optimizer flag must not hide a missed root or broken export."""
+    molden = tmp_path / "co.molden"
+    molden.write_text("orbital export")
+    states = [
+        {
+            "spin": "singlet",
+            "irrep": "A1",
+            "root": 1,
+            "energy_hartree": -113,
+            "spin_square": 0,
+            "weight": 1 / 3,
+        },
+        {
+            "spin": "triplet",
+            "irrep": "B1",
+            "root": 1,
+            "energy_hartree": -112.5,
+            "spin_square": 2,
+            "weight": 1 / 3,
+        },
+        {
+            "spin": "triplet",
+            "irrep": "B2",
+            "root": 1,
+            "energy_hartree": -112.5,
+            "spin_square": 2,
+            "weight": 1 / 3,
+        },
+    ]
+    report = {
+        "converged": True,
+        "states": states,
+        "ground_energy_hartree": -113,
+        "ensemble_energy_hartree": -338 / 3,
+        "ground_dipole_au": [0, 0, 0.04],
+        "mo_orthogonality_max_error": 1e-15,
+        "molden_sha256": hashlib.sha256(molden.read_bytes()).hexdigest(),
+        "optimization": {
+            "orbital_converged": True,
+            "ci_converged": [True, True],
+            "fresh_ci_converged": [True, True],
+            "fresh_state_energies_hartree": [-113, -112.5, -112.5],
+            "fresh_spin_square": [0, 2, 2],
+            "iterations": [{"orbital_gradient_norm": 1e-8}],
+        },
+    }
+    config = {
+        "bond_length": 2.1323,
+        "basis": "cc-pVDZ",
+        "sa_singlet_roots": [1, 0, 0, 0],
+        "sa_triplet_roots": [0, 1, 1, 0],
+        "target_gradient_tolerance": 1e-7,
+    }
+    if defect == "gradient":
+        report["optimization"]["iterations"][0]["orbital_gradient_norm"] = 1e-6
+    elif defect == "fresh-root":
+        report["optimization"]["fresh_state_energies_hartree"][1] -= 0.01
+    elif defect == "spin":
+        report["optimization"]["fresh_spin_square"][1] = 6
+    elif defect == "weights":
+        states[1]["weight"] = 0.4
+    elif defect == "export":
+        molden.write_text("changed orbitals")
+    elif defect == "ensemble":
+        config["sa_triplet_roots"] = [0, 2, 2, 0]
+    (tmp_path / "target.json").write_text(json.dumps(report))
+    if defect:
+        with pytest.raises((ValueError, AssertionError)):
+            qc_properties(tmp_path, config)
+    else:
+        result = qc_properties(tmp_path, config)
+        assert result["qc_only"]
+        assert "independent UKRmol import not performed" in result["validation_scope"]
+        assert "target_state_max_energy_difference_hartree" not in result

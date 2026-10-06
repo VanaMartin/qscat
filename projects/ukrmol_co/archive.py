@@ -30,8 +30,9 @@ SUFFIXES = {
     ".csv",
     ".chk",
     ".md",
+    ".f90",
 }
-NAMES = {"target.energies", "log_file.0"}
+NAMES = {"target.energies", "log_file.0", "UKRmol-in-COPYING"}
 
 
 def archive(
