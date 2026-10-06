@@ -1,105 +1,99 @@
-"""Code-search MCP reader with one-time population in its mount lifecycle."""
+"""Serve committed main snapshots, refreshed on mount and at a bounded interval."""
 
 from __future__ import annotations
 
 import argparse
 import asyncio
-import json
 import logging
+import math
 import os
 import re
+import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
 
 from tools.agent_search import __main__ as indexer
+from tools.agent_search.git_source import PROFILE, MainSource
 
 
 def create_server(
-    root: Path, db_path: Path, table: str, profile: dict, *, profile_path: Path | None = None
+    source: MainSource, db_path: Path, table: str, *, interval: float = indexer.CHECK_INTERVAL
 ) -> FastMCP:
-    """Mount immediately, populating an absent/empty owned corpus in the background."""
+    if not math.isfinite(interval) or interval <= 0:
+        raise ValueError("Main refresh interval must be positive")
     task: asyncio.Task | None = None
-    bootstrap = {"state": "pending"}
+    first_attempt = asyncio.Event()
+    maintainer_error: str | None = None
 
-    def current_profile() -> dict:
-        return json.loads(profile_path.read_text()) if profile_path is not None else profile
-
-    async def populate() -> None:
-        bootstrap["state"] = "running"
+    async def refresh() -> None:
+        nonlocal maintainer_error
         try:
-            result = await asyncio.to_thread(
-                indexer.reconcile, root, db_path, table, current_profile(), [], only_if_empty=True
-            )
-            bootstrap.update(state="complete", result=result)
+            await asyncio.to_thread(indexer.ensure_main, source, db_path, table, interval=interval)
+            maintainer_error = None
         except Exception as error:
-            bootstrap.update(state="failed", error=str(error))
-            logging.getLogger(__name__).exception("Code-index mount bootstrap failed")
+            maintainer_error = str(error)
+            logging.getLogger(__name__).exception("Main-index refresh failed")
+        finally:
+            first_attempt.set()
+
+    async def maintain() -> None:
+        while True:
+            started = time.monotonic()
+            await refresh()
+            await asyncio.sleep(max(0.05, interval - (time.monotonic() - started)))
 
     @asynccontextmanager
     async def lifespan(_server):
         nonlocal task
-        task = asyncio.create_task(populate())
+        task = asyncio.create_task(maintain())
         try:
             yield
         finally:
-            if not task.done():
-                task.cancel()
+            task.cancel()
             await asyncio.gather(task, return_exceptions=True)
 
-    server = FastMCP("qmodeling-code-search", lifespan=lifespan)
+    server = FastMCP("qmodeling-main-code-search", lifespan=lifespan)
 
     @server.tool()
     async def query_table(query: str, top_k: int = 5, query_type: str = "vector") -> dict:
-        """Find code leads with provenance; wait for mount-time initial population.
+        """Find leads in a committed upstream-main snapshot using vector/fts/hybrid.
 
-        query_type accepts vector, fts, or hybrid. A stale result is a pointer:
-        resolve its anchor and read current source before citing or editing it.
+        Results name the indexed commit. Resolve anchors in the task checkout and
+        search branch/dirty/new changes locally. A completed older main snapshot
+        remains available during refresh or an upstream outage.
         """
-        if not 1 <= top_k <= 50:
-            raise ValueError("top_k must be between 1 and 50")
-        if query_type not in {"vector", "fts", "hybrid"}:
-            raise ValueError("query_type must be vector, fts, or hybrid")
-        if task is not None:
-            await asyncio.shield(task)
-        if bootstrap["state"] == "failed":
-            raise RuntimeError(f"Initial code indexing failed: {bootstrap['error']}")
-        freshness = await asyncio.to_thread(indexer.status, root, db_path, table, current_profile())
-        if freshness["state"] not in {"current", "stale"}:
-            raise RuntimeError(f"Code index is {freshness['state']}; request checkpoint sync")
-        results = await asyncio.to_thread(indexer.query, db_path, table, query, query_type, top_k)
-        return {"freshness": freshness, "results": results}
+        if not 1 <= top_k <= 50 or query_type not in {"vector", "fts", "hybrid"}:
+            raise ValueError("Use vector/fts/hybrid and top_k between 1 and 50")
+        # There is no prior main snapshot on first mount. Wait for that attempt;
+        # later refreshes leave the last completed generation immediately usable.
+        details = await asyncio.to_thread(indexer.status, source, db_path, table, interval=interval)
+        if details["integrity"] != "complete" and task is not None and not task.done():
+            await first_attempt.wait()
+            if maintainer_error:
+                raise RuntimeError(f"Initial main indexing failed: {maintainer_error}")
+        return await asyncio.to_thread(
+            indexer.query, source, db_path, table, query, query_type, top_k, interval=interval
+        )
 
     @server.tool()
     async def table_details(table_name: str | None = None, db_uri: str | None = None) -> dict:
-        """Inspect the selected code table, bootstrap progress, and worktree freshness.
-
-        Optional selectors must match this connection. Use a separate MCP mount
-        for a different worktree or database.
-        """
+        """Inspect the shared main corpus, indexed commit, integrity, and refresh state."""
         if table_name is not None and table_name != table:
-            raise ValueError("table_name differs from the mounted worktree table")
+            raise ValueError("table_name differs from the mounted main corpus")
         if db_uri is not None and Path(db_uri).expanduser().resolve() != db_path:
             raise ValueError("db_uri differs from the mounted database")
-
-        def inspect() -> dict:
-            import lancedb
-
-            freshness = indexer.status(root, db_path, table, current_profile())
-            db = lancedb.connect(str(db_path))
-            stored = db.open_table(table) if table in db.table_names() else None
-            return {
-                "name": table,
-                "db_uri": str(db_path),
-                "root": str(root),
-                "num_rows": stored.count_rows() if stored is not None else 0,
-                "schema": str(stored.schema) if stored is not None else None,
-                "freshness": freshness,
-                "bootstrap": dict(bootstrap),
-            }
-
-        return await asyncio.to_thread(inspect)
+        freshness = await asyncio.to_thread(
+            indexer.status, source, db_path, table, interval=interval
+        )
+        return {
+            "name": table,
+            "db_uri": str(db_path),
+            "num_rows": freshness["chunks"],
+            "freshness": freshness,
+            "maintainer_error": maintainer_error,
+        }
 
     return server
 
@@ -107,22 +101,21 @@ def create_server(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path.cwd())
+    parser.add_argument("--remote", default="origin")
     parser.add_argument(
         "--db",
         type=Path,
         default=Path(os.environ.get("LANCEDB_URI", "~/.local/share/opencode/lancedb")),
     )
     parser.add_argument("--table", default=os.environ.get("TABLE_NAME"))
-    parser.add_argument("--profile", type=Path, default=Path(".opencode/search/profiles.json"))
+    parser.add_argument("--profile", default=PROFILE)
+    parser.add_argument("--check-interval", type=float, default=indexer.CHECK_INTERVAL)
     args = parser.parse_args()
-    root = Path(indexer.git(args.root, "rev-parse", "--show-toplevel").decode().strip()).resolve()
-    db_path = args.db.expanduser().resolve()
-    profile_path = (root / args.profile).resolve()
-    profile = json.loads(profile_path.read_text())
-    table = args.table or indexer.select_table(root, db_path, profile["repository"]["table"])
+    source = MainSource.discover(args.root, args.remote, args.profile)
+    table = args.table or source.table
     if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", table):
         parser.error("Table name must be an identifier")
-    create_server(root, db_path, table, profile, profile_path=profile_path).run()
+    create_server(source, args.db.expanduser().resolve(), table, interval=args.check_interval).run()
 
 
 if __name__ == "__main__":

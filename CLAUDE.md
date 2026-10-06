@@ -916,31 +916,37 @@ Use `.claude/skills/knowledge-search/SKILL.md` for the detailed retrieval proced
 and `docs/agent-search.md` for the index design and implementation references.
 
 1. **Discover.** Search known paths/symbols locally; use semantic retrieval for
-   conceptual discovery when the intended corpus is available. Stay within the
-   task's assigned scope. Index hits are pointers into source, not edit targets.
+   conceptual discovery against committed upstream `main` when the intended
+   corpus is available. Record the indexed commit and stay within the task's
+   assigned scope. Index hits are pointers into source, not edit targets.
 2. **Resolve and read.** Locate the path and qualified symbol or heading in the
    current working tree. Indexed line ranges are snapshot-specific hints; get fresh
    locations before citing or editing. A file-hash mismatch prompts re-resolution,
    because an unrelated edit may have left the retrieved symbol unchanged. Resolve
    ambiguous anchors explicitly; discard deleted hits and read changed bodies live.
+   Inspect `git diff <indexed-commit>`, staged/unstaged changes, and relevant
+   untracked files. Search branch-only additions locally; they are absent from the
+   stable index. If the indexed commit is missing locally, fetch it through the
+   configured upstream or use local search and report that the delta is unresolved.
 3. **Edit and validate.** Edit current source using freshly read context. After a
    change, treat earlier excerpts and positions in the affected files as stale.
    Read the resulting source/diff and perform the appropriate verification. Search
    dependants and tests when the change affects their contract.
-4. **Check freshness and hand off.** At a coherent edit/test checkpoint, check the
-   supported indexer's reconciliation status for added, changed, renamed, and
-   deleted files in this worktree; request catch-up if available and needed.
-   The indexer reuses unchanged embedding payloads and updates location metadata.
-   Read-only specialists leave maintenance to the caller. If refresh is unavailable
-   or fails, continue with local source and identify the unsynchronised paths in
-   the caller's handoff; do not claim the index is current or append replacement
-   snapshots through the basic ingestion tool.
+4. **Check provenance and hand off.** Check published main-index integrity and
+   upstream currency separately, and record the indexed commit plus the local
+   branch changes relevant to the task. The MCP maintains the shared main corpus
+   on mount and at bounded intervals. Explicit `sync` also fetches and indexes
+   upstream main; it does not ingest branch edits. A failed refresh leaves the last
+   complete main snapshot available with unknown/behind upstream status. If no
+   complete snapshot exists, use local source and report unavailable retrieval.
+   Read-only specialists leave explicit maintenance to the caller. Never append
+   replacement code snapshots through the basic ingestion tool.
 
 Logical documents use repository/path plus a qualified symbol or heading anchor.
 Content/model keys identify reusable embeddings; line numbers are derived locations.
-Agents edit source files; one incremental indexer owns derived search documents.
-Use watcher catch-up or batched checkpoints rather than agent-managed embedding
-after every edit. Before an edit or final handoff, re-read relevant source if
+Agents edit source files; one managed indexer per upstream owns derived main-search
+documents. Source and indexing policy come from the same fetched Git commit, and
+clones share the corpus. Before an edit or final handoff, re-read relevant source if
 another agent or tool may have changed it.
 
 ## Skills & agents
@@ -959,7 +965,7 @@ another agent or tool may have changed it.
 | `code-mapping` | skill | Structure must be known as measured fact — the AST inventory behind release-review's structure mode. |
 | `code-quality-judging` | skill | Grading files and functions against a fixed rubric: whose chair a comment is written from, unit size, naming, annotation. |
 | `code-consolidation` | skill | Ruling on whether code that looks alike is the same thing twice, and what replaces it. |
-| `knowledge-search` | skill | Source discovery, edit-time index freshness, and processed-article evidence; routes exact/semantic searches, resolves current anchors, and checks checkpoint handoffs. |
+| `knowledge-search` | skill | Committed-main discovery, local branch-delta resolution, and processed-article evidence; routes exact/semantic searches, resolves current anchors, and checks provenance at handoff. |
 | `port-scout` | agent | Before porting anything from `reference/eMoScat` or `reference/libXcuda` — read-only archaeologist that extracts the math/algorithm, not the C++. |
 | `physics-reviewer` | agent | Before promoting a method into `qscat` — reviews for physical/numerical correctness (units, conservation, boundary conditions, ECS handling, convergence), not style. |
 | `rust-kernel-engineer` | agent | During the optimize-in-Rust stage — builds PyO3/Rust kernels in `native/` mirroring a validated Python API, with benchmarks and differential tests. |

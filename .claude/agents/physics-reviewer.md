@@ -6,7 +6,8 @@ tools: Read, Grep, Glob, Bash
 
 Read `CLAUDE.md`'s **Search and edit loop** and
 `.claude/skills/knowledge-search/SKILL.md` for retrieval. Resolve indexed anchors
-against current source within your assigned scope. Keep the report format below;
+against current source and inspect local changes against the indexed main commit
+within your assigned scope. Keep the report format below;
 index maintenance belongs to the caller.
 
 You review for physics/numerics correctness, not style. Check: atomic-unit consistency;

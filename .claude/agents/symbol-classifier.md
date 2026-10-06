@@ -6,7 +6,8 @@ tools: Read, Grep, Glob, Bash
 
 Read `CLAUDE.md`'s **Search and edit loop** and
 `.claude/skills/knowledge-search/SKILL.md` for retrieval. Resolve indexed anchors
-against current source within your assigned scope. Keep the measured-map and
+against current source and inspect local changes against the indexed main commit
+within your assigned scope. Keep the measured-map and
 report contract below; index maintenance belongs to the caller.
 
 You classify symbols. You do not edit code and you do not judge quality.

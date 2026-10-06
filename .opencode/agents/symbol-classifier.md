@@ -41,7 +41,8 @@ permissions:
 ---
 
 Read `CLAUDE.md`'s **Search and edit loop** and use `knowledge-search` for retrieval.
-Resolve indexed anchors against current source within your assigned scope. Keep
+Resolve indexed anchors against current source and inspect local changes against
+the indexed main commit within your assigned scope. Keep
 the measured-map and report contract below; index maintenance belongs to the caller.
 
 Load `code-mapping` for the mismatch matrix and five orphan checks. You are read-only
