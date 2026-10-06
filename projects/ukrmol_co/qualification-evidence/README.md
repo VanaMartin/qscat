@@ -1,10 +1,10 @@
 # CO electronic-qualification evidence
 
-This supplement preserves **eighteen completed attempts in eight batches**:
-three tightened DZ CAS(10,11) QC targets, seven passing correlated-neutral
-pilots, the initial failed Psi4 Python import and one tightened independent
-UKRmol target import, four rejected Davidson controls and two passing small-model
-SLEPc controls. It also includes all 48
+This supplement preserves **37 completed attempts in 13 batches**:
+seven passing QC targets, ten passing neutral records and five neutral failures,
+dense and SLEPc tight CAS(10,11) target imports, four rejected Davidson controls,
+two passing small-model SLEPc controls and seven rejected CAS(10,11) ladder
+entries. It also includes all **96** CAS(10,11)/(10,12)
 fixed-orbital CI coverage probes, final checkpoint comparisons and the
 CAS(10,12) installed-library workspace audit and guarded utility checks,
 including thirteen additional valid 16-/32-rank target-sector queries.
@@ -15,16 +15,28 @@ active-subspace overlap singular value 0.999999999999924. Forty-six CI probes
 converge completely; the eighth singlet B1/B2 root fails at trial-space size
 40 and converges at 80/160. Every ensemble root converges in every probe.
 The original nonzero diagnostic exit and failed controls remain preserved.
+Both tight CAS(10,12) restart/RHF starts also pass: maximum root/dipole
+differences are 4.17e-8 Hartree / 6.27e-8 a.u., with minimum final active
+overlap singular value 0.999999999999496. All five ensemble roots pass every
+CAS(10,12) coverage probe within 2.85e-13 Hartree. Two extra-root controls
+fail at space 40 and converge at 80/160; a failed pre-probe import-path launch
+and its fresh repaired retry are both retained.
 
 The neutral pilot compares conventional frozen-core CCSD(T) at R=1.9/2.1323/2.5
 bohr in aug-TZ/QZ bases. Its dipoles are CCSD lambda-density values. The
 independent cc-pVDZ PySCF/Psi4 energy control agrees within 8.3e-11 Hartree;
-the sentinel relative curves still change by 76.04/68.47 meV across bases.
+the sentinel relative curves change by 76.04/68.47 meV for TZ-to-QZ and
+17.24/15.82 meV for QZ-to-5Z. Four aug-TZ/QZ checks at R=3.0/4.0 fail external
+RHF stability and stop before CCSD(T); that restricted route is blocked there.
 These are qualification pilots, not a converged electronic model or neutral
 curve. The tightened import passes all 40 averaged roots within 5.33e-10
 Hartree and the independent dipole within 7.95e-11 a.u.; it took 97.75 minutes
-with an 18.42-GiB kernel memory peak. Live scattering and QC refinement batches
-are excluded. The prior eleven-/twelve-attempt supplements remain in
+with an 18.42-GiB kernel memory peak. The matched nine-job CAS(10,11) ladder
+has two QC passes, three CI failures and four simultaneous geometry/basis
+projection rejections. Its 50-component ensemble shifts the ground root by
+0.45651 eV and the dipole by +125.09% relative to the 40-component objective.
+Live scattering, extra-root SLEPc and staged QC follow-ons are excluded.
+The prior eleven-/twelve-/eighteen-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
 
 The Davidson controls request 5/8/16/32 roots and all fail required root imports
@@ -33,7 +45,12 @@ singlet-A1 Hamiltonian agrees with QC within 3.69e-13 Hartree. The SLEPc-enabled
 source build passes 12/12 upstream checks; five-root and eight-root/tighter
 small-model targets pass all 40 required roots within 4.98e-10 Hartree and
 dipoles within 5.62e-11 a.u. These controls use about 0.12 GiB in 49.53/46.91
-seconds. The larger-space SLEPc differential/import gates are still pending.
+seconds. The full five-root CAS(10,11) SLEPc target passes all 40 roots within
+5.34e-10 Hartree and dipole within 8.04e-11 a.u., at 52.55 minutes / 5.25 GiB.
+Observed SCATCI/full-wall reductions are 89.17%/46.25%; these are not controlled
+MPI scaling results. The source audit confirms dense PETSc Hamiltonian storage:
+the largest CAS(10,12) matrix alone needs 37.41 GiB. Extra-root and full
+CAS(10,12) import gates remain pending.
 The preceding 55-attempt target/scattering snapshot remains available in
 [`../sa-evidence/`](../sa-evidence/README.md).
 
@@ -52,13 +69,17 @@ uv run python -m projects.ukrmol_co.collect "$EVIDENCE_ROOT" \
 
 Extract outside the checkout: historical source snapshots contain Python test
 modules. The reconstructed JSON matches `qualification-results.json` in the
-archive. `neutral-results.json` retains the eight-attempt neutral-only subset.
+archive. `neutral-results.json` retains the fifteen-attempt neutral-only subset.
 The file index records every payload's size and SHA256. Publication verification
-checked 1786 payloads, 127 batch-source hashes, 17 embedded-image source hashes,
-raw reanalysis of all thirteen successful records, all 48 CI spectra/spins and
+checked 2837 payloads, 210 batch-source hashes, 17 embedded-image source hashes,
+raw reanalysis of all 21 successful records, all 96 CI spectra/spins and
 exact reconstruction of both aggregates. Repackaging is byte-identical.
 All four Davidson rejections are reproduced; the stored Hamiltonian is
 independently reconstructed and its eigenpair residuals checked.
+All seven ladder failures, the four unstable neutral references and the
+CAS(10,12) launch failure are checked against their retained diagnostics/logs.
+The full dense/SLEPc comparison and its storage-floor calculation are independently
+reconstructed from raw stages, resources, roots, dipoles and pinned source.
 
 The archive retains raw logs, configs, resource/stage records, source snapshots,
 engine build/test provenance, upstream licences, RHF/CCSD/CASSCF checkpoints,

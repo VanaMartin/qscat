@@ -130,6 +130,13 @@ scattering worker with a provisional 384-GiB container limit, subject to a valid
 workspace query and headroom check. Two concurrent target jobs fitting in RAM
 does not establish that two scattering jobs fit.
 
+The first tight CAS(10,11) doublet-B1 scattering block on Sadaharu solves a
+27546-dimensional **contracted** Hamiltonian in 73.12 minutes. CONGEN's raw
+uncontracted count is 344124; it is not the dense diagonalizer's dimension.
+The sampled peak to that observation is 24.18 GiB, while B2 and final run
+analysis remain pending. Preserve both counts and query the actual contracted
+CAS(10,12) dimension before applying a dense-memory or cubic-time forecast.
+
 Use persistent EBS storage mounted under `/home`, with approximately 500 GiB
 for scratch, retained attempts and transferred evidence, plus space for Docker
 and the source build on the root volume. Follow the shared
@@ -252,9 +259,11 @@ commands are retained in `diagnostics/cas12-large-host-workspaces/` under the
 state-averaged evidence root. The combinatorial singlet/triplet-A1 counts match
 the two independent existing CONGEN outputs. The thirteen queries and tight
 CAS(10,11) import are included in the eighteen-attempt qualification supplement;
-The two small-model SLEPc successes and four rejected Davidson controls are
-also public; live QC/scattering, larger-space selected-root trials and 5Z
-neutral work await subsequent collection.
+The current 37-attempt supplement additionally preserves the full five-root
+CAS(10,11) SLEPc import, both tight CAS(10,12) starts and restart coverage,
+the nine-job CAS(10,11) ladder, 5Z neutral sentinels and four rejected unstable
+stretched references. Live staged QC/scattering and extra-root/full-CAS(10,12)
+selected-root trials await subsequent collection.
 
 Before proposing the cost-constrained paid experiment, finish the tight CAS(10,12) starts,
 matched QC ladder and root/subspace checks; finalize the selected checkpoints

@@ -263,6 +263,17 @@ tight QC controls, 40 channels, 18-bohr/l=4 continuum, deletion 1e-6 and
 `launch-sa11-tight-scattering.log`; the attached supervisor is
 `sh_112ad1252001dZHiXMnz7jPTuw`. Final phases, dimensions and runtime are pending.
 
+Its first doublet-B1 block has now completed: raw CONGEN reports **344124
+uncontracted CSFs**, while SCATCI solves a **27546-dimensional contracted
+Hamiltonian**. The block takes 4387.34 seconds (73.12 minutes); its printed
+ScaLAPACK workspace is `lwork=380327961, liwork=192840`. The sampled run
+memory peak to this observation is 24.18 GiB, a lower bound on the eventual
+whole-run peak. `diagnostics/cas11-scattering-first-block/` retains the completed
+B1 raw logs, hashes and observation contract. B2/whole-run analysis remains
+active; this partial observation is excluded from the public completed snapshot.
+Use the contracted dimension for its dense-array audit rather than the raw
+CONGEN count. CAS(10,12) scattering still needs its own measured dimension.
+
 `diagnostics/cas11-tight-ci-coverage/` completed 48 fixed-orbital probes in
 116.91 seconds on CPUs 4–7 and 12–15: five/eight roots at trial-space sizes
 40/80/160 in all eight sectors. Forty-six probes converge completely; the
@@ -296,16 +307,24 @@ checks remain necessary before selecting a full neutral curve.
 
 The completed supplement is published through
 [`qualification-evidence/`](qualification-evidence/README.md).
-`qualification-results.json` contains eighteen attempts in eight completed batches:
-three passing QC targets, seven passing neutral records and one failed neutral
-runner, the tightened all-root/dipole target import, four rejected Davidson
-controls and two passing small-model SLEPc controls. Its public archive
-retains 48 CI probes and seven completed diagnostic directories. Verification
-checked 1786 payload digests, 127 batch-source hashes, 17 image-source hashes,
-all thirteen successes, all four Davidson rejections and both aggregates;
-repackaging is byte-identical. Live scattering, QC and larger-space SLEPc
-imports are excluded. The earlier eleven-/twelve-attempt supplements remain
+`qualification-results.json` contains 37 attempts in thirteen completed batches:
+seven passing QC targets, ten passing neutral records and five neutral failures,
+dense/SLEPc tight CAS(10,11) all-root/dipole imports, four rejected Davidson
+controls, two passing small-model SLEPc controls and seven rejected CAS(10,11)
+ladder entries. Its public archive retains 96 CI probes and eleven diagnostic
+directories, including a failed pre-probe launch and its repaired retry.
+Verification checked 2837 payload digests, 210 batch-source hashes, 17 image-source
+hashes, all 21 successes, all four Davidson rejections, both aggregates, the
+ladder/reference failures and dense/SLEPc resource/storage comparison;
+repackaging is byte-identical. Live scattering, extra-root SLEPc, staged QC and
+the full CAS(10,12) import are excluded. The earlier eleven-/twelve-/eighteen-attempt supplements remain
 available through the manifest's prior-snapshot pointers.
+
+The immutable current supplement is
+`https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.7fc64b2c0bf3.gz`,
+SHA256 `7fc64b2c0bf357dcffed50e5f13c5038ed9f0a70a16b42a079f1bb08a7bfa2ab`,
+24,418,027 bytes. The public client fetched and verified those bytes, and the
+extracted verifier reproduced all checks and byte-identical repackaging.
 
 The refreshed standalone image is `qmodeling/ukrmol-co:electronic-qualification`,
 ID `sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08`.
@@ -315,11 +334,11 @@ all 17 embedded Python/Perl/Fortran source digests. Numerical jobs retain their
 earlier image IDs and immutable source snapshots.
 
 Repository handoff: analysis/packaging code is pinned at
-`012bd12eb86ca4ad1c0f08065bdfc4fb5cd7475a`. The committed-main index is complete
+`d4155fef9b598fb5c5bf6217ac9b215ab7ec5841`. The committed-main index is complete
 and upstream-current at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; the branch
 adds state-averaged/fresh-CI work plus the QC-only, correlated-neutral and
 workspace qualification tools, selected-root configuration/solver checks,
-optional SLEPc source build and their evidence. Source anchors and local
+optional SLEPc source build, CI trial-space control and their evidence. Source anchors and local
 changes were resolved against that baseline before editing and publication.
 
 ### Published evidence and collection
