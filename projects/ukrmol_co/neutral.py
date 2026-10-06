@@ -170,7 +170,9 @@ def main() -> None:
     parser.add_argument("--workdir", type=Path, required=True)
     parser.add_argument("--bond-length", type=float, default=2.1323)
     parser.add_argument(
-        "--basis", choices=["cc-pVDZ", "aug-cc-pVTZ", "aug-cc-pVQZ"], default="aug-cc-pVTZ"
+        "--basis",
+        choices=["cc-pVDZ", "aug-cc-pVTZ", "aug-cc-pVQZ", "aug-cc-pV5Z"],
+        default="aug-cc-pVTZ",
     )
     parser.add_argument("--ranks", type=int, default=4)
     parser.add_argument("--memory-mb", type=int, default=12000)

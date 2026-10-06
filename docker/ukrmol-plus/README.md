@@ -46,6 +46,14 @@ worker; each parallel deck launches two MPI ranks. BuildKit mounts a 1-GiB
 `/dev/shm` tmpfs for that gate. These target-HF comparisons validate the selected
 engine paths, not every engine feature or the accuracy of the CO model.
 
+`--build-arg WITH_SLEPC=ON` additionally links the pinned toolchain's existing
+SLEPc/PETSc libraries for experimental distributed selected-root targets.
+Their byte digests enter source provenance, and the same engine gate is rerun.
+Use a separate image tag for that configuration. The CO runner's explicit
+`--target-diagonalizer slepc` also requires raw solver and all-root/dipole
+checks; compilation alone does not qualify it. See
+[the selected-root experiment](../../docs/physics/co-electronic-qualification.md#selected-root-target-experiment).
+
 ## Pinned inputs and build additions
 
 | Input | Pin |

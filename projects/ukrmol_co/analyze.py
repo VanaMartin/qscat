@@ -56,6 +56,55 @@ def native_resonances(path: Path) -> list[dict[str, float]]:
     return fits
 
 
+def target_diagonalizer_properties(workdir: Path, config: dict) -> dict:
+    """Reject a silent dense fallback or incomplete selected-root sector log."""
+    if config.get("target_diagonalizer", "auto") == "auto":
+        return {}
+    sectors = {}
+    for spin in ("singlet", "triplet"):
+        counts = config.get(f"target_{spin}_roots", [config["target_roots"]] * 4)
+        for irrep, count in zip(("A1", "B1", "B2", "A2"), counts, strict=True):
+            if not count:
+                continue
+            log = workdir / f"output/CO/geom1/outputs/target.scatci.{spin}.{irrep}.out"
+            text = log.read_text()
+            requested = re.findall(r"Requested # of eigenpairs\s+(\d+)", text)
+            if config["target_diagonalizer"] == "davidson-serial":
+                completed = re.findall(
+                    r"Davidson diagonalisation completed:\s+(\d+) iterations\s+"
+                    r"(\d+) matrix vector multiplies IERR\s*=\s*(\d+)",
+                    text,
+                )
+                valid = (
+                    "Diagonalization done with Davidson" in text
+                    and re.search(r"Sequential diagonalizations:\s*T", text) is not None
+                    and len(completed) == 1
+                    and int(completed[0][2]) == 0
+                )
+                diagnostics = (
+                    {
+                        "iterations": int(completed[0][0]),
+                        "matrix_vector_multiplies": int(completed[0][1]),
+                    }
+                    if valid
+                    else {}
+                )
+            else:
+                completed = re.findall(r"stopped at it=(\d+)", text)
+                valid = (
+                    "KRYLOVSCHUR used as Diagonalizer" in text
+                    and "Optimized SLEPC Matrix Format chosen" in text
+                    and len(completed) == 1
+                    and "Not all requested eigenpairs have converged" not in text
+                    and "EIGEN-ENERGIES" in text
+                )
+                diagnostics = {"iterations": int(completed[0])} if valid else {}
+            if not valid or requested != [str(count)]:
+                raise ValueError(f"Incomplete or unexpected target diagonalizer in {log}")
+            sectors[f"{spin}.{irrep}"] = {"requested_roots": count, **diagnostics}
+    return {"target_diagonalizer": config["target_diagonalizer"], "target_solver_sectors": sectors}
+
+
 def target_properties(workdir: Path, config: dict) -> dict:
     """Compare the independent target solvers, including every averaged QC root."""
     target_file = workdir / "output/CO/target.energies"
@@ -75,6 +124,7 @@ def target_properties(workdir: Path, config: dict) -> dict:
         "neutral_energy_hartree": float(target),
         "target_excitations_hartree": excitations,
     }
+    result.update(target_diagonalizer_properties(workdir, config))
     if config.get("orbitals") == "state-averaged":
         report = json.loads((workdir / "target.json").read_text())
         if not report["converged"]:

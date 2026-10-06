@@ -29,7 +29,8 @@ USER ukrmol
 ENV OMPI_FC=/opt/compiler/bin/gfortran OMPI_CC=/opt/compiler/bin/gcc
 COPY docker/ukrmol-plus/source-build.sh /home/ukrmol/source-build.sh
 ARG BUILD_JOBS=4
-RUN /opt/ukrmolp/entrypoint.sh bash /home/ukrmol/source-build.sh "${BUILD_JOBS}"
+ARG WITH_SLEPC=OFF
+RUN /opt/ukrmolp/entrypoint.sh bash /home/ukrmol/source-build.sh "${BUILD_JOBS}" "${WITH_SLEPC}"
 
 FROM build AS test
 # These upstream decks compare against distributed reference outputs via numdiff.

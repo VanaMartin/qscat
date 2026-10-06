@@ -20,6 +20,20 @@ tar -xzf ukrmol-in-3.3.0.tar.gz --strip-components=1 -C inner
 tar -xzf ukrmol-out-3.3.0.1.tar.gz --strip-components=1 -C outer
 test -f inner/source/gbtolib/CMakeLists.txt
 
+extra=()
+case "${2:-OFF}" in
+  OFF) ;;
+  ON)
+    test -s /opt/ukrmolp/lib/libslepc.so
+    test -s /opt/ukrmolp/lib/libpetsc.so
+    extra=(
+      '-DSLEPC_LIBRARIES=/opt/ukrmolp/lib/libslepc.so;/opt/ukrmolp/lib/libpetsc.so'
+      '-DSLEPC_INCLUDE_DIRS=/opt/ukrmolp/include;/opt/ukrmolp/include/petsc;/opt/ukrmolp/include/slepc'
+    )
+    ;;
+  *) echo "WITH_SLEPC must be ON or OFF" >&2; exit 2 ;;
+esac
+
 cmake -S inner -B build \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_Fortran_COMPILER="$(command -v mpifort)" \
@@ -33,14 +47,15 @@ cmake -S inner -B build \
   '-DCMAKE_INSTALL_RPATH=/opt/ukrmolp/lib.double;/opt/ukrmolp/lib' \
   -DMPIEXEC_MAX_NUMPROCS=2 \
   -DWITH_MPI=ON -DWITH_GIT=OFF -DBUILD_DOC=OFF \
-  -DBUILD_TESTING=ON -DWITH_PSI4=ON -DWITH_NUMDIFF=ON
+  -DBUILD_TESTING=ON -DWITH_PSI4=ON -DWITH_NUMDIFF=ON "${extra[@]}"
 cmake --build build -j"${1:-4}"
 cmake --install build
 
-python3 - <<'PY'
+python3 - "${2:-OFF}" <<'PY'
 import hashlib
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 root = Path('/home/ukrmol/source')
@@ -52,6 +67,11 @@ record = {
     'compiler': subprocess.check_output(['gfortran', '--version'], text=True).splitlines()[0],
     'cmake': subprocess.check_output(['cmake', '--version'], text=True).splitlines()[0],
     'toolchain_image': 'zdenekmasin/ukrmol_plus@sha256:1cef2ee6aeaca2a4d5b813ff31e7d28bef4436a4282398c8933a1c047a8ec76c',
+    'selected_root_libraries': {
+        p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in (Path('/opt/ukrmolp/lib/libslepc.so'), Path('/opt/ukrmolp/lib/libpetsc.so'))
+        if sys.argv[1] == 'ON'
+    },
 }
 (root / 'provenance.json').write_text(json.dumps(record, indent=2) + '\n')
 PY

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "co-eq-aug-5z-neutral",
+    "args": ["--basis", "aug-cc-pV5Z", "--memory-mb", "20000", "--ranks", "4"]
+  },
+  {
+    "name": "co-r19-aug-5z-neutral",
+    "args": ["--bond-length", "1.9", "--basis", "aug-cc-pV5Z", "--memory-mb", "20000", "--ranks", "4"]
+  },
+  {
+    "name": "co-r25-aug-5z-neutral",
+    "args": ["--bond-length", "2.5", "--basis", "aug-cc-pV5Z", "--memory-mb", "20000", "--ranks", "4"]
+  }
+]

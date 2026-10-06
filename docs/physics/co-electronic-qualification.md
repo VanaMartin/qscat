@@ -48,6 +48,13 @@ across the pilot bases; three geometries alone do not qualify a full curve.
 Stretched/dissociation regions require their own reference-stability and
 correlation checks before selecting a single- or multireference treatment.
 
+The cost-constrained continuation adds aug-cc-pV5Z at the same three geometries
+to measure a TZ/QZ/5Z sequence using the same frozen-core CCSD(T) method and
+CCSD density. Reference each basis's relative curve to its own equilibrium
+energy; report both successive shifts before attempting extrapolation. This
+tests basis refinement, while stretched correlation-treatment checks remain
+a separate requirement.
+
 All calculations retain finite CPU/memory limits, persistent scratch, input
 configs, raw logs, checkpoints, stage timings, source/image hashes and failures.
 The methods remain experimental under `projects/ukrmol_co`; no library
@@ -84,3 +91,48 @@ queries, and headroom above this array floor. A selected-spectrum eigensolver
 would be a separate engine configuration requiring its own build/reference and
 all-root/dipole gates; increasing only the current four-rank memory limit does
 not establish a viable calculation.
+
+## Selected-root target experiment
+
+The pinned UKRmol-in 3.3.0 engine already includes a disk-backed Davidson
+diagonalizer. The experiment's `--target-diagonalizer davidson-serial` selects
+`igh=0, forse=1` in the **target** `&cinorn` template. `forse=1` is essential:
+without SLEPc, the distributed dispatcher falls back to dense ScaLAPACK even
+when `igh=0`. MPI still constructs the Hamiltonian, while the master performs
+the disk-backed iteration. The default `auto` preserves upstream dispatch.
+
+This is an external-engine configuration, not a new QSCAT eigensolver. It
+retains the requested spin-adapted target roots and the same Hamiltonian,
+orbitals, density/import checks and scattering diagonalizer. The selected
+eigenvectors require O(N*k) memory; matrix construction and disk storage may
+still scale quadratically and must be measured. The runner passes `crite`
+and `maxiter` explicitly (defaults 1e-12 and 500). The pinned Davidson wrapper
+hardcodes vector/residual/orthogonalization controls to 1e-10/1e-8/1e-7;
+changing those namelist entries would not tighten that wrapper's controls.
+
+Before using the route for larger targets, compare all eight sectors against
+the independently gated dense CAS(10,8) and tight CAS(10,11) controls. Require
+every requested root to agree within 1e-7 Hartree and the ground dipole within
+1e-5 a.u.; retain the fresh-QC spin, Pi and orthogonality gates. Verify that
+all eight raw logs identify Davidson, that iteration succeeds without fallback,
+and that requested eigenpairs reach DENPROP and the usual analyzer. Probe
+five/eight target roots and tighter `crite` at fixed QC ensemble, recording
+root coverage and common-root differences. Record wall/CPU time, container
+memory and disk peaks, including failed controls. Only after those gates may
+CAS(10,12) receive a full local target-import trial. Scattering retains its
+all-spectrum dense path and needs a separate actual-dimension memory audit.
+
+The initial Davidson control is rejected: five/eight/sixteen/thirty-two roots
+miss required roots or return inconsistent energies despite IERR=0. The first
+singlet-A1 stored Hamiltonian independently diagonalizes to the expected
+spectrum. Larger Davidson jobs remain gated out.
+
+The next experiment enables the engine's existing SLEPc/PETSc support with
+Docker build argument `WITH_SLEPC=ON`. Those shared libraries and Fortran
+modules come from the same digest-pinned toolchain; record their byte digests
+in build provenance and repeat the upstream/reference gates. The runner's
+`--target-diagonalizer slepc` selects `igh=-1, forse=0` and the upstream
+distributed Krylov–Schur backend. Its sparse matrix storage and selected
+eigenvectors may fit locally, subject to actual peak measurements. Reject a
+silent dense fallback in raw-log analysis. The backend warns about degeneracy;
+all-root import, Pi and root-count refinement checks remain mandatory.
