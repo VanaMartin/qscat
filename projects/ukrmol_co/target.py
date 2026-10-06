@@ -19,6 +19,13 @@ import numpy as np
 IRREPS = ("A1", "B1", "B2", "A2")
 
 
+def _fresh_ci_kernel(kernel):
+    def solve(h1e, eri, norb, nelec, ci0=None, **kwargs):
+        return kernel(h1e, eri, norb, nelec, ci0=None, **kwargs)
+
+    return solve
+
+
 def build_target(config: dict, molden_path: Path) -> dict:
     """Optimize an equally weighted ensemble and export core/active/virtual MOs."""
     import pyscf
@@ -115,6 +122,11 @@ def build_target(config: dict, molden_path: Path) -> dict:
         mc.fcisolver = solvers[0]
     else:
         mcscf.state_average_mix_(mc, solvers, weights)
+    # Construct the mixer first: it copies the first solver's instance fields.
+    # An earlier instance-level kernel override would replace the mixer itself.
+    if config.get("target_ci_fresh_start", False):
+        for solver in solvers:
+            solver.kernel = _fresh_ci_kernel(solver.kernel)
     history = {}
 
     def record_iteration(env: dict) -> None:
@@ -158,6 +170,32 @@ def build_target(config: dict, molden_path: Path) -> dict:
             "State-averaged CASSCF or a target CI solver did not converge; "
             f"orbital={diagnostics['orbital_converged']}, CI={diagnostics['ci_converged']}"
         )
+    # Warm CI vectors can follow a higher eigenpair through an orbital change.
+    # Audit lowest-root coverage before paying for UKRmol diagonalization.
+    h1eff, core_energy = mc.get_h1eff()
+    h2eff = mc.get_h2eff()
+    fresh_energies = []
+    fresh_spins = []
+    for solver in solvers:
+        nelec = ((10 + solver.spin) // 2, (10 - solver.spin) // 2)
+        energy, vectors = solver.kernel(h1eff, h2eff, ncas, nelec, ci0=None, ecore=core_energy)
+        fresh_energies.extend(float(e) for e in np.atleast_1d(energy))
+        if solver.nroots == 1:
+            vectors = [vectors]
+        fresh_spins.extend(float(solver.spin_square(ci, ncas, nelec)[0]) for ci in vectors)
+    differences = np.array(fresh_energies) - state_energies
+    diagnostics.update(
+        fresh_ci_converged=[bool(np.all(s.converged)) for s in solvers],
+        fresh_state_energies_hartree=fresh_energies,
+        fresh_spin_square=fresh_spins,
+        lowest_root_max_energy_difference_hartree=float(np.max(np.abs(differences))),
+    )
+    (run_dir / "target-diagnostics.json").write_text(json.dumps(diagnostics, indent=2) + "\n")
+    if not all(diagnostics["fresh_ci_converged"]) or not np.all(np.isfinite(fresh_energies)):
+        raise ValueError("Fresh fixed-orbital CI audit did not converge")
+    expected_spins = [spin * (spin + 2) / 4 for spin, _, _ in labels]
+    np.testing.assert_allclose(fresh_spins, expected_spins, atol=1e-6, rtol=0)
+    np.testing.assert_allclose(differences, 0, atol=1e-7, rtol=0)
     states = []
     offset = 0
     ground_density = None

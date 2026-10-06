@@ -102,10 +102,10 @@ The refreshed embedded-source image is
 `sha256:24aeadcd0b27242064d248ffb76262e3d8c1598a1ad4c419a6a4ea7e6ed053e0`;
 its build log is `build-final.log`. The package/module import smoke check passed.
 The latest standalone source layer is tagged
-`qmodeling/ukrmol-co:state-averaged-ah`, image ID
-`sha256:9744cb3f2cde4d3436938808982a13dae760d5a3b2b10a7a5aa5c034bf90b3d9`.
-`build-ah-accuracy.log` records its cached engine gate and refreshed
-embedded source. PySCF/h5py/target/archive imports passed; all 12 Python/Perl
+`qmodeling/ukrmol-co:state-averaged-ci`, image ID
+`sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19`.
+`build-ci-coverage.log` records its cached engine gate and refreshed
+embedded source. PySCF/h5py/target/archive/ci_probe imports passed; all 13 Python/Perl
 source digests match the current checkout. Recorded jobs continue to name their original
 image IDs and immutable source snapshots.
 
@@ -122,7 +122,7 @@ upstream center of mass and sphere origin.
 The completed target ladder adds three successful pipelines (CAS(10,8), TZ,
 and tightened equilibrium DZ) and two failed sentinel degeneracy checks.
 Their Pi splittings were 2.56e-7/1.35e-7 Hartree at R=1.9/2.5 bohr. The snapshot
-currently contains 41 attempts: 20 validated pipelines and 21 preserved
+currently contains 52 attempts: 28 validated pipelines and 24 preserved
 failures, including four diagnostic-callback setup failures. All successful
 calculations were reanalyzed with the current all-root/dipole analyzer.
 
@@ -173,7 +173,8 @@ then projected TZ 50-component averaging) and `calibration-sa-active.json`
 (DZ CAS(10,11)/(10,12) target-only checks). They use the released slots 4–7
 and 0–3, respectively. The latter uses 32-GiB containers and larger CONGEN
 workspaces. The channel batch completed both jobs successfully. The active-space
-batch remains on slot 0–3. `calibration-sa-optimizer.json` completed three
+batch completed with two rejected targets, detailed below.
+`calibration-sa-optimizer.json` completed three
 preserved failures: its single-component Newton control exposed a CI-list
 interface error, and its residual-tightened R=1.9 retries failed CI/orbital
 convergence. `calibration-sa-ci-cutoff.json` tests the corrected single-state
@@ -191,7 +192,7 @@ control still failed its gradient gate. No Newton result is adopted.
 `calibration-sa-sentinel-scattering.json` completed on slots 8–11 and
 12–15, using the passing R=1.9/2.5 checkpoints with tight one-step controls.
 The compressed grid is 0.1–8.0 eV at 0.05-eV spacing; the stretched grid is
-0.01–3.0 eV at 0.01-eV spacing. Active-space target checks remain on slot 0–3.
+0.01–3.0 eV at 0.01-eV spacing.
 The compressed run passed all target/scattering gates in 20.30 minutes, with
 one fitted feature and Pi phase agreement within 1e-7 rad. The stretched run
 failed its tighter CI-refined orbital optimization: all CI solvers converged,
@@ -201,11 +202,12 @@ The compressed default fit is 3.5191/2.1026 eV. Twelve new RESON replays have
 positions 3.5109–3.5191 eV and widths 2.0529–2.4573 eV; the width spread fails
 the extraction criterion. The 1.79–5.31 eV window contains the fitted candidate;
 a second detection near 6.65–6.75 eV is rejected by RESON.
-The active-space batch is still in progress. Its CAS(10,11) QC stage passed
-in 301.7 seconds; the independent UKRmol target diagonalizations take much
-longer than CAS(10,10),
-and its density-property stage is still running. A QC-only result does not yet
-pass the import/dipole contract.
+The active-space batch completed: CAS(10,11) finished the engine pipeline in
+102.22 minutes (18.39-GiB kernel memory peak), then failed the all-root import
+gate. The fifth triplet-A1 QC root is 0.129757 eV above UKRmol's fifth root.
+CAS(10,12) QC passed, but SCATCI exhausted its internal 2.5-GiB per-process
+memory budget; the singlet-A1 Hamiltonian dimension is 43194. Both failures
+remain preserved.
 `calibration-sa-ah-accuracy.json` completed on slots 8–11 and 12–15. Both
 R=2.5 target-only restarts use the stalled CI-refined checkpoint and retain
 the 1e-7 orbital-gradient gate; they vary the augmented-Hessian eigensolver
@@ -215,19 +217,46 @@ Both pipelines passed in 7.32/7.40 minutes, with six-iteration convergence at
 gradient 8.50e-8. The maximum root difference between tolerances is 1.17e-11
 Hartree and dipole difference is 4.35e-12 a.u. Independent root errors are
 below 5.16e-10 Hartree and Pi splitting below 1.61e-11 Hartree.
-`calibration-sa-stretched-scattering.json` is running on slot 8–11 with the
+`calibration-sa-stretched-scattering.json` completed on slot 8–11 with the
 passing 1e-16 checkpoint and a 0.01–3.0 eV, 300-point grid. It retains the tight
 CI and orbital gates and the improved inner Hessian tolerance.
-`calibration-sa-continuum.json` is running sequentially on slot 4–7. It repeats
+It passed in 18.70 minutes, with a candidate at 0.9738707/0.2817833 eV.
+Twelve native replays retain one candidate and maximum width changes of 2.61%
+relative to the default. `calibration-sa-stretched-grid.json` completed
+coarse/fine restarts on slots 8–11/12–15. Together with the middle run, the
+0.020/0.010/0.005-eV sequence passes the provisional grid gates; the finest
+two fits differ by 1.50e-6 eV in position and 0.0041% in width. All three
+grids have twelve saved background/detection replays.
+`calibration-sa-continuum.json` completed sequentially on slot 4–7. It repeats
 equilibrium DZ CAS(10,10)/40-channel scattering at l=3/4/5, holding the orbital
 ensemble, checkpoint start, target controls, sphere, deletion threshold and
-99-point grid fixed. Collect its equal-grid comparisons only after completion.
-The completed 41-attempt evidence is published through
-[`sa-evidence/`](sa-evidence/README.md). The public fetch client verified all
-4,383 payload digests and exactly reconstructed the aggregate and six paired
-comparisons. All 20 successful pipelines were reanalyzed from raw outputs;
-repackaging produced byte-identical archives. In-progress batches stay outside
-the snapshot.
+99-point grid fixed. Its largest pairwise changes are 3.18 meV in position,
+0.585% in width and 0.02615 rad in phase; all pass the chosen gates over
+0.1–5.0 eV. Width and phase are nonmonotone across this angular sequence.
+
+`diagnostics/cas11-ci-coverage/` holds six completed fixed-orbital probes, their
+checkpoint copy, source snapshot, controls and execution record. All recover
+UKRmol's lowest five triplet-A1 roots within 2.75e-10 Hartree; their common
+roots differ by at most 4.27e-14 Hartree. The original fifth root matches the
+fresh sixth root. Reoptimization is required before adopting that target.
+`calibration-sa-fresh-ci.json` completed a passing ground control and a failed
+multi-component interface override. `calibration-sa-fresh-ci-retry.json`
+installs kernel overrides after mixer construction and is running on slot
+0–3; its two-spin A1 control failed computed Pi degeneracy despite matching
+its averaged roots. The subsequent CAS(10,11) restart is in progress.
+`calibration-sa-fresh-ci-control.json` completed a balanced DZ CAS(10,8)
+40-component control on slot 4–7 in 2.45 minutes. All gates passed: fresh CI
+root difference 8.53e-14 Hartree, Pi splitting 2.85e-13 Hartree, and maximum
+UKRmol import error 5.44e-10 Hartree. Slot 4–7 is released; recheck workloads
+before using it.
+`calibration-sa-active-memory.json` is running on slot 8–11. Its CAS(10,12)
+checkpoint restart increases SCATCI `memp` to 6 GiB per process, uses an
+80-GiB container and retains the new early fresh-CI audit and all import gates.
+
+Completed evidence is published through [`sa-evidence/`](sa-evidence/README.md).
+Its manifest names the exact snapshot, payload counts and verification results.
+In-progress batches stay outside the snapshot; previous content-addressed
+archives remain available.
 
 Collect fresh completed artifacts outside the checkout, then use:
 

@@ -116,6 +116,36 @@ former can trade away ground-state accuracy, especially with diffuse orbitals.
 Neither the lowest ensemble energy nor apparent agreement with one excitation
 is a sufficient qualification criterion for the low-energy scattering target.
 
+## Fixed-orbital CI root-coverage probe
+
+An eigensolver convergence flag certifies the returned eigenpairs, not that
+they are the lowest requested eigenpairs. `projects/ukrmol_co/ci_probe.py`
+rediagonalizes one spin/irrep in a retained CASSCF checkpoint without orbital
+optimization or canonicalization. It holds the AO molecule, core/active
+subspaces and Hamiltonian fixed while varying requested root count and Davidson
+trial-space size. The spin penalty and final S(S+1) check match the target
+builder. Energies remain absolute Hartree values.
+
+The probe takes a checkpoint, spin/irrep, root counts, trial-space sizes and
+an output directory. It preserves the checkpoint copy/hash, controls, source
+hash, package version, logs and every probe's convergence flags, energies and
+spin diagnostics. Compare the lowest common roots across these refinements
+and against UKRmol in the original orbitals, with the 1e-7-Hartree import gate.
+A failure remains evidence; the probe does not qualify a reoptimized target.
+The motivating CAS(10,11) failure has a fifth triplet-A1 QC root 0.00476848
+Hartree above UKRmol's fifth root despite all QC convergence/spin gates passing.
+Six probes (five/eight requested roots and spaces 40/80/160) recover UKRmol's
+lowest five roots with correct spin; the original purported fifth root matches
+the fresh sixth root. Their common energies agree within 1e-10 Hartree.
+The target builder now audits fresh CI roots at the final orbitals before
+export, retaining differences and spin diagnostics on failure.
+`--target-ci-fresh-start` discards supplied warm CI guesses during orbital
+optimization to test whether fresh guesses prevent following a higher
+eigenpair across an orbital change. Agreement of fresh and warm solves is a
+root-selection stability check, not a proof of complete spectral coverage.
+Fresh starting guesses still require root-count/trial-space refinement and
+the same independent UKRmol coverage checks.
+
 The published model motivating the 40-component ensemble is described in
 [`dora-2016-epjd70-197.md`](../../reference/literature/dora-2016-epjd70-197.md),
 p. 3 (orbital ensemble and Table 1 active spaces). This implementation uses

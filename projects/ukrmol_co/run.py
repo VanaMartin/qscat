@@ -214,6 +214,7 @@ def main() -> None:
     parser.add_argument("--target-gradient-tolerance", type=float, default=1e-5)
     parser.add_argument("--target-ci-tolerance", type=float, default=1e-10)
     parser.add_argument("--target-ci-residual-tolerance", type=float)
+    parser.add_argument("--target-ci-fresh-start", action="store_true")
     parser.add_argument("--target-ci-lindep", type=float, default=1e-14)
     parser.add_argument(
         "--target-optimizer",
@@ -247,6 +248,7 @@ def main() -> None:
         default=200000,
         help="CONGEN NDIMX entries; CDIMX and NODIMX are set to one tenth of this size",
     )
+    parser.add_argument("--scatci-memory-gib", type=float, default=2.5)
     parser.add_argument(
         "--basis",
         choices=["cc-pVDZ", "cc-pVTZ", "aug-cc-pVDZ", "aug-cc-pVTZ", "aug-cc-pVQZ"],
@@ -281,6 +283,7 @@ def main() -> None:
         args.deletion_threshold,
         args.propagation_radius,
         args.congen_workspace,
+        args.scatci_memory_gib,
         args.target_memory_mb,
         args.target_max_cycles,
         args.target_energy_tolerance,
@@ -374,6 +377,12 @@ def main() -> None:
             1,
         )
     )
+    for name in ("target.scatci.inp", "scattering.scatci.inp"):
+        template = workdir / "templates" / name
+        source = template.read_text()
+        if source.count("memp = 2.5,") != 1:
+            raise ValueError(f"No unique MPI-SCATCI memory setting in {name}")
+        template.write_text(source.replace("memp = 2.5,", f"memp = {args.scatci_memory_gib},"))
     psi4_template = workdir / "templates/psi4.inp"
     psi4_template.write_text(
         "set scf_type pk\nset e_convergence 1e-10\nset d_convergence 1e-10\n"

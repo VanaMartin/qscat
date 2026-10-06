@@ -4,5 +4,11 @@
   ["co-eq-ccdz-sa10-cc40-centered", "co-eq-cctz-sa10-cc40-projected-historyfix"],
   ["co-eq-adz-sa10-cc40-centered", "co-eq-adz-sa10-cc40-projected-historyfix"],
   ["co-eq-adz-sa10-cc40-projected-historyfix", "co-eq-cctz-sa10-cc40-projected-historyfix"],
-  ["co-eq-ccdz-sa10-cc40-centered", "co-eq-ccdz-sa10-cc50-fixed-ensemble"]
+  ["co-eq-ccdz-sa10-cc40-centered", "co-eq-ccdz-sa10-cc50-fixed-ensemble"],
+  ["co-eq-ccdz-sa10-cc40-continuum-l3", "co-eq-ccdz-sa10-cc40-continuum-l4"],
+  ["co-eq-ccdz-sa10-cc40-continuum-l4", "co-eq-ccdz-sa10-cc40-continuum-l5"],
+  ["co-eq-ccdz-sa10-cc40-continuum-l3", "co-eq-ccdz-sa10-cc40-continuum-l5"],
+  ["co-r250-ccdz-sa10-cc40-grid-coarse", "co-r250-ccdz-sa10-cc40-ah-refined"],
+  ["co-r250-ccdz-sa10-cc40-ah-refined", "co-r250-ccdz-sa10-cc40-grid-fine"],
+  ["co-r250-ccdz-sa10-cc40-grid-coarse", "co-r250-ccdz-sa10-cc40-grid-fine"]
 ]

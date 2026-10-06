@@ -17,7 +17,7 @@ from qscat.units import HARTREE_TO_EV
 
 
 def collect(root: Path, pairs: list[list[str]], provenance: dict | None = None) -> dict:
-    """Gather batch provenance and compare equal-grid eigenphase sums modulo pi."""
+    """Gather provenance and compare phases modulo pi at shared native energies."""
     batches = []
     records = {}
     for path in sorted((root / "batches").glob("*/result.json")):
@@ -77,10 +77,25 @@ def collect(root: Path, pairs: list[list[str]], provenance: dict | None = None) 
         lp = root / "runs" / left / "output/CO/geom1/eigenph.doublet.B1"
         rp = root / "runs" / right / "output/CO/geom1/eigenph.doublet.B1"
         a, b = np.loadtxt(lp, ndmin=2), np.loadtxt(rp, ndmin=2)
-        np.testing.assert_allclose(a[:, 0], b[:, 0], atol=5e-4, rtol=0)
+        grid = {}
+        same_grid = np.array_equal(a[:, 0], b[:, 0])
+        if not same_grid:
+            common, ia, ib = np.intersect1d(a[:, 0], b[:, 0], return_indices=True)
+            if len(common) < 2:
+                raise ValueError(
+                    f"Phase grids need at least two shared native energies: {left}, {right}"
+                )
+            grid = {
+                "comparison_grid": "intersection of printed native energies; no interpolation",
+                "left_energy_points": len(a),
+                "right_energy_points": len(b),
+                "compared_energy_points": len(common),
+            }
+            a, b = a[ia], b[ib]
         phase = np.remainder(a[:, 1] - b[:, 1] + np.pi / 2, np.pi) - np.pi / 2
         fits = [records[n]["result"]["native_resonances"]["B1"] for n in (left, right)]
         comparison = {
+            **grid,
             "left": left,
             "right": right,
             "energy_range_ev": [float(a[0, 0]), float(a[-1, 0])],
