@@ -1,0 +1,10 @@
+[
+  {
+    "name": "co-eq-sa8-ground-newton-ci-refined",
+    "args": ["--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "2", "2", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-roots", "1", "--sa-singlet-roots", "1", "0", "0", "0", "--sa-triplet-roots", "0", "0", "0", "0", "--target-optimizer", "newton", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-start-tolerance", "1e-8", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-sa8-ground-one-step-ci-refined",
+    "args": ["--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "2", "2", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-roots", "1", "--sa-singlet-roots", "1", "0", "0", "0", "--sa-triplet-roots", "0", "0", "0", "0", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-start-tolerance", "1e-8", "--ranks", "4"]
+  }
+]

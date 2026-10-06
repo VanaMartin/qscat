@@ -1,3 +1,8 @@
 [
-  ["co-eq-ccdz-sa10-cc40-centered", "co-eq-adz-sa10-cc40-centered"]
+  ["co-eq-ccdz-sa10-cc40-centered", "co-eq-adz-sa10-cc40-centered"],
+  ["co-eq-ccdz-sa10-cc40-centered", "co-eq-adz-sa10-cc40-projected-historyfix"],
+  ["co-eq-ccdz-sa10-cc40-centered", "co-eq-cctz-sa10-cc40-projected-historyfix"],
+  ["co-eq-adz-sa10-cc40-centered", "co-eq-adz-sa10-cc40-projected-historyfix"],
+  ["co-eq-adz-sa10-cc40-projected-historyfix", "co-eq-cctz-sa10-cc40-projected-historyfix"],
+  ["co-eq-ccdz-sa10-cc40-centered", "co-eq-ccdz-sa10-cc50-fixed-ensemble"]
 ]

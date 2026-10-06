@@ -496,7 +496,10 @@ native/     Rust kernels (qscat-kernels crate) built with PyO3/maturin,
 projects/   per-problem research and toy models — lifecycle stages 1-2
             - `ukrmol_co`: reproducible UKRmol+ fixed-nuclei CO experiment,
               checksum-pinned inputs, Docker batch runner, output validation,
-              calibration records and continuation notes. The execution engine
+              calibration records and continuation notes. Its optional PySCF
+              multi-spin/multi-irrep state-averaged targets have independent
+              UKRmol energy/dipole checks and projected-checkpoint starts.
+              The execution engine
               is validated; no electronic model is yet qualified for potential
               fitting. See projects/ukrmol_co/README.md and docker/ukrmol-plus/.
             - `n2_ti_cross_section`: time-independent (resolvent/driven-

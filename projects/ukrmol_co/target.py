@@ -51,6 +51,8 @@ def build_target(config: dict, molden_path: Path) -> dict:
     active = dict(zip(IRREPS, config["active_orbitals"], strict=True))
     ncas = sum(active.values())
     mc = mcscf.CASSCF(hf, ncas, 10, ncore=2)
+    if config.get("target_optimizer", "one-step") == "newton":
+        mc = mc.newton()
     mc.conv_tol = config["target_energy_tolerance"]
     mc.conv_tol_grad = config["target_gradient_tolerance"]
     mc.max_cycle_macro = config["target_max_cycles"]
@@ -94,6 +96,9 @@ def build_target(config: dict, molden_path: Path) -> dict:
             solver.wfnsym = irrep
             solver.nroots = roots
             solver.conv_tol = config["target_ci_tolerance"]
+            solver.lindep = config.get("target_ci_lindep", 1e-14)
+            if config.get("target_ci_residual_tolerance") is not None:
+                solver.conv_tol_residual = config["target_ci_residual_tolerance"]
             solver.max_cycle = 200
             solver.max_space = max(40, 8 * roots)
             # M_s alone does not exclude higher-spin eigenstates. Penalize them
@@ -102,13 +107,27 @@ def build_target(config: dict, molden_path: Path) -> dict:
             solvers.append(solver)
             labels.extend((spin, irrep, root + 1) for root in range(roots))
     weights = np.full(len(labels), 1 / len(labels))
-    mcscf.state_average_mix_(mc, solvers, weights)
+    # The mixed solver always returns a CI list; PySCF's Newton code expects
+    # an array for one component. Its ordinary single-state path is the same
+    # unit-weight variational objective and supplies that representation.
+    if len(labels) == 1:
+        mc.fcisolver = solvers[0]
+    else:
+        mcscf.state_average_mix_(mc, solvers, weights)
     history = {}
 
     def record_iteration(env: dict) -> None:
         # PySCF also calls this during microiterations, before rotation metrics
         # exist. Later microiterations are overwritten by the completed macro.
-        if "de" in env and "max_offdiag_u" in env:
+        if "de" in env and "norm_gall" in env:
+            history[env["imacro"]] = {
+                "macro_iteration": int(env["imacro"]),
+                "energy_hartree": float(env["e_tot"]),
+                "energy_change_hartree": float(env["de"]),
+                "orbital_ci_gradient_norm": float(env["norm_gall"]),
+                "max_rotation": float(np.max(np.abs(np.triu(env["u"], 1)))),
+            }
+        elif "de" in env and "max_offdiag_u" in env:
             history[env["imacro"]] = {
                 "macro_iteration": int(env["imacro"]),
                 "energy_hartree": float(env["e_tot"]),
@@ -119,10 +138,12 @@ def build_target(config: dict, molden_path: Path) -> dict:
 
     mc.callback = record_iteration
     mc.kernel(initial)
+    state_energies = np.atleast_1d(mc.e_tot if len(labels) == 1 else mc.e_states)
+    ci_vectors = [mc.ci] if len(labels) == 1 else mc.ci
     diagnostics = {
         "orbital_converged": bool(mc.converged),
         "ci_converged": [bool(np.all(s.converged)) for s in solvers],
-        "state_energies_hartree": [float(e) for e in mc.e_states],
+        "state_energies_hartree": [float(e) for e in state_energies],
         "iterations": list(history.values()),
     }
     run_dir = Path(config["workdir"])
@@ -130,7 +151,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
     if (
         not mc.converged
         or not all(np.all(s.converged) for s in solvers)
-        or not np.all(np.isfinite(mc.e_states))
+        or not np.all(np.isfinite(state_energies))
     ):
         raise ValueError(
             "State-averaged CASSCF or a target CI solver did not converge; "
@@ -143,7 +164,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
         spin = solver.spin
         nelec = ((10 + spin) // 2, (10 - spin) // 2)
         for _ in range(solver.nroots):
-            ci = mc.ci[offset]
+            ci = ci_vectors[offset]
             ss = float(solver.spin_square(ci, ncas, nelec)[0])
             expected_ss = spin * (spin + 2) / 4
             if not np.isfinite(ss) or abs(ss - expected_ss) > 1e-6:
@@ -156,7 +177,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
                     "spin": "singlet" if spin == 0 else "triplet",
                     "irrep": labels[offset][1],
                     "root": labels[offset][2],
-                    "energy_hartree": float(mc.e_states[offset]),
+                    "energy_hartree": float(state_energies[offset]),
                     "spin_square": ss,
                     "weight": float(weights[offset]),
                 }

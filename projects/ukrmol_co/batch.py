@@ -63,7 +63,9 @@ def main() -> None:
     snapshot = logs / "source"
     source = snapshot / "projects/ukrmol_co"
     shutil.copytree(
-        Path(__file__).parent, source, ignore=shutil.ignore_patterns("__pycache__", "._*")
+        Path(__file__).parent,
+        source,
+        ignore=shutil.ignore_patterns("__pycache__", "._*", "runs", ".scripts-cache", "*.tar.gz"),
     )
     shutil.copy(Path(__file__).parents[1] / "__init__.py", snapshot / "projects/__init__.py")
     hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in source.glob("*.py")}

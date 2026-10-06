@@ -101,6 +101,13 @@ matter. The PySCF/h5py additions follow the cached, previously tested engine.
 The refreshed embedded-source image is
 `sha256:24aeadcd0b27242064d248ffb76262e3d8c1598a1ad4c419a6a4ea7e6ed053e0`;
 its build log is `build-final.log`. The package/module import smoke check passed.
+The latest standalone source layer is tagged
+`qmodeling/ukrmol-co:state-averaged-final`, image ID
+`sha256:efb6657c14308cffd5c9b65a39ba94292acaa84611083a7c2dc00ad7592d71fe`.
+`build-publication-final.log` records its cached engine gate and refreshed
+embedded source. PySCF/h5py/target/archive imports passed; all 12 Python/Perl
+source digests match the current checkout. Recorded jobs continue to name their original
+image IDs and immutable source snapshots.
 
 `sa-results.json` records completed batches; `sa-provenance.json` supplies
 their host/root metadata. The first seven attempts include three successful
@@ -115,8 +122,9 @@ upstream center of mass and sphere origin.
 The completed target ladder adds three successful pipelines (CAS(10,8), TZ,
 and tightened equilibrium DZ) and two failed sentinel degeneracy checks.
 Their Pi splittings were 2.56e-7/1.35e-7 Hartree at R=1.9/2.5 bohr. The snapshot
-currently contains 22 attempts: ten validated pipelines and 12 preserved
-failures, including four diagnostic-callback setup failures.
+currently contains 37 attempts: 17 validated pipelines and 20 preserved
+failures, including four diagnostic-callback setup failures. All successful
+calculations were reanalyzed with the current all-root/dipole analyzer.
 
 Launched manifests:
 
@@ -133,8 +141,8 @@ Launched manifests:
 
 The projected starts compare against the lowest-HF-orbital starts. Preserve
 the source checkpoint copy and hash as part of each new run. The source
-checkpoint remains in the full remote workspace; the lightweight copied
-evidence does not include binary checkpoints.
+checkpoint remains in the full remote workspace; the refreshed copied
+evidence also includes binary RHF/CASSCF and initial checkpoints.
 Both projected QC stages and native target checks passed. Their ground energies
 are −112.898457558 Hartree
 (aug-DZ) and −112.925516422 Hartree (TZ). Initial/final active-space overlap
@@ -149,16 +157,42 @@ orbital gradients stalled near 6.8e-7/1.5e-7 with zero steps, above the requeste
 1e-7 threshold. `calibration-sa-hessian.json` and
 `calibration-sa-projected-scattering.json` subsequently exposed a diagnostic
 callback error during microiterations; all four failures remain preserved.
-`calibration-sa-retries.json` runs the corrected callback on four disjoint
+`calibration-sa-retries.json` completed the corrected callback on four disjoint
 slots: tighter-Hessian target checks at R=1.9/2.5 and projected aug-DZ/TZ
-scattering. It uses the same strict Pi and convergence gates.
+scattering. It uses the same strict Pi and convergence gates. R=2.5 passed
+with a final macro gradient of 8.5e-8 and Pi splitting of 1.12e-8 Hartree;
+R=1.9 still stalled at 6.15e-7 with zero steps and remains rejected. The two
+projected scattering jobs passed in 21.88/22.59 minutes, producing one native
+fit each: 2.5294/1.2737 eV (aug-DZ) and 2.5253/1.1928 eV (TZ). Their phase
+difference reaches 0.0337 rad and their width difference is 6.36%, failing
+the provisional width criterion. Twenty-four additional RESON replays are saved.
 
-Additional running manifests are `calibration-sa-channels.json` (DZ 50
+Additional manifests are `calibration-sa-channels.json` (DZ 50
 computed/retained channels with the 40-component orbital ensemble fixed,
 then projected TZ 50-component averaging) and `calibration-sa-active.json`
 (DZ CAS(10,11)/(10,12) target-only checks). They use the released slots 4–7
 and 0–3, respectively. The latter uses 32-GiB containers and larger CONGEN
-workspaces. Projected scattering remains on slots 8–11 and 12–15.
+workspaces. The channel batch completed both jobs successfully. The active-space
+batch remains on slot 0–3. `calibration-sa-optimizer.json` completed three
+preserved failures: its single-component Newton control exposed a CI-list
+interface error, and its residual-tightened R=1.9 retries failed CI/orbital
+convergence. `calibration-sa-ci-cutoff.json` tests the corrected single-state
+route against one-step optimization and repeats both R=1.9 optimizers with
+compatible CI/augmented-Hessian cutoffs on slots 4–7, 8–11 and 12–15.
+The cutoff batch completed: R=1.9 passed the one-step target/import gates in
+8.08 minutes (gradient 2.99e-8, Pi splitting 4.63e-8 Hartree, independent
+root-energy error 6.58e-10 Hartree). Its full-ensemble Newton retry still stalled
+above tolerance. One ground-control recipe was rejected before run creation
+because it omitted the triplet-ensemble override; the failed request and batch
+log are preserved. `calibration-sa-single-state.json` supplies fresh, corrected
+ground controls: the one-step pipeline passed, while the CI-refined Newton
+control still failed its gradient gate. No Newton result is adopted.
+
+`calibration-sa-sentinel-scattering.json` is now running on slots 8–11 and
+12–15, using the passing R=1.9/2.5 checkpoints with tight one-step controls.
+The compressed grid is 0.1–8.0 eV at 0.05-eV spacing; the stretched grid is
+0.01–3.0 eV at 0.01-eV spacing. Active-space target checks remain on slot 0–3.
+These in-progress batches are excluded from the completed evidence snapshot.
 
 Collect fresh completed artifacts outside the checkout, then use:
 
@@ -173,6 +207,9 @@ The collector ignores batches without a final `result.json`, retains original
 batch exit codes, and includes `target.json` even when a later engine stage
 fails. Check native ground dipoles with the updated analyzer; its DENPROP
 comparison was added after the initial successful import batch.
+The collector also retains pre-run setup failures without fabricating resource
+measurements. Reanalyze successful copied runs before collecting a current
+snapshot: a fresh copy from the host may contain older analyzer summaries.
 
 ### Remaining gates
 

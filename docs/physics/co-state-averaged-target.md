@@ -32,6 +32,26 @@ the original convergence gates. `target-diagnostics.json` preserves optimizer
 and CI convergence flags, final state energies and macroiteration history,
 including failed target stages. The energy, gradient and maximum-rotation
 sequence distinguishes convergence from stagnation.
+`--target-ci-residual-tolerance` optionally sets the CI residual norm separately
+from its energy tolerance. `--target-optimizer newton` selects PySCF's coupled
+second-order orbital/CI optimizer before constructing the same state-average
+ensemble. Its diagnostic gradient includes both orbital and CI variables;
+the one-step gradient is orbital-only. Both routes retain the independent
+spin, Pi, import and dipole gates. Compare a ground-only control and the full
+ensemble when changing optimizer, rather than accepting an optimizer flag as
+evidence of target quality.
+The CI trial-space cutoff is separately exposed as `--target-ci-lindep`
+(default 1e-14). PySCF's Davidson solver drops residual trial vectors when
+their squared norm is at or below this cutoff; a stricter residual tolerance
+therefore requires a compatible cutoff. The compressed-geometry retry uses
+1e-9 residual tolerance and 1e-22 CI cutoff, with 1e-24 for the orbital/CI
+augmented-Hessian cutoff. A unit-weight single-component ensemble uses the
+ordinary single-state solver, preserving its objective while giving the
+Newton implementation the expected CI array rather than a mixed-solver list.
+The compatible-cutoff one-step R=1.9 target passes the strict gradient, spin,
+Pi and UKRmol import checks. Recorded coupled-Newton retries still fail their
+gradient checks, including a CI-refined single-component control. `newton`
+remains a diagnostic option; it is not the qualified optimizer for these cases.
 
 The default active space for a state-averaged run should be supplied explicitly,
 for example `[4,3,3,0]` for CAS(10,10). Symmetry labels, rather than numeric

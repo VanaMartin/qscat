@@ -28,6 +28,19 @@ def collect(root: Path, pairs: list[list[str]], provenance: dict | None = None) 
         batches.append(batch)
         for job in batch["jobs"]:
             workdir = root / "runs" / job["name"]
+            if not workdir.exists() and job["exit_code"] != 0:
+                requested = json.loads(path.with_name("jobs.json").read_text())
+                records[job["name"]] = {
+                    "batch": batch["name"],
+                    "initial_batch_exit_code": job["exit_code"],
+                    "requested_args": next(
+                        j["args"] for j in requested if j["name"] == job["name"]
+                    ),
+                    "status": "setup_failed",
+                    "failure": "Run directory absent; see preserved batch log",
+                    "refits": [],
+                }
+                continue
             config = json.loads((workdir / "config.json").read_text())
             resources = json.loads((workdir / "resources.json").read_text())
             record = {"config": config, "resources": resources, "batch": batch["name"]}
