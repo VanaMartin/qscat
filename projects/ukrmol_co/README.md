@@ -1,14 +1,23 @@
 # UKRmol+ CO fixed-nuclei scattering experiment
 
-**Status:** the execution pipeline works and the compact SEP continuum is
-numerically stable at equilibrium, but the electronic model is not yet
-accurate enough to provide production potential-fitting targets. The measured
-calibration and throughput evidence below explains the remaining model issue.
+**Status:** the source-built engine and common state-averaged target/import
+pipeline work. Equilibrium angular-cutoff and stretched energy-grid checks
+meet the chosen tolerances for the tested CAS(10,10) model. Electronic-model
+and resonance-extraction qualification remain open, so production
+potential-fitting targets are not yet qualified.
 
-This experiment preserves the first pilot and **40 calibration attempts: 30
-validated calculations and 10 engine failures**, with 21 paired comparisons.
-Here, “validated” means the output passes pipeline/internal-consistency checks,
-not that its electronic model is physically converged.
+The completed evidence preserves the first pilot and two calibration snapshots:
+
+| Campaign | Attempts | Validated pipelines | Preserved failures | Comparisons | Public evidence |
+|---|---:|---:|---:|---:|---|
+| Original SEP/ground-state-CASSCF calibration | 40 | 30 | 10 | 21 | [`evidence/`](evidence/README.md) |
+| Multi-spin/multi-irrep state-averaged continuation | 52 | 28 (16 target-only, 12 scattering) | 24 | 12 | [`sa-evidence/`](sa-evidence/README.md) |
+
+The continuation also includes 96 native RESON replays and six fixed-orbital
+CI coverage probes. “Validated” means solver/import and pipeline consistency,
+not electronic-model convergence. The ongoing CAS(10,11)/(10,12) target retries
+have passed QC and fresh-CI checks; independent UKRmol checks are still running.
+[`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
 ## Convergence verdict
 
@@ -16,15 +25,16 @@ not that its electronic model is physically converged.
 |---|---|---|
 | Does the engine/workflow reproduce reference calculations? | Five water target energies; 12 source-build serial/MPI checks; CO source/reference phases agree to `1e-7 rad` | Execution established |
 | Is the compact equilibrium SEP continuum stable? | Tested angular/deletion changes shift position by less than 0.5 meV and width by less than 0.1%; background fits vary width by about 2.5% | Passes chosen numerical tolerances for this model/window |
-| Is the electronic model converged? | SEP space/frozen-orbital changes shift position by 0.3–0.6 eV; ground-state-CASSCF CC target excitations and resonance fits remain model-sensitive | Further calibration required |
-| Is the entire geometry curve qualified? | Compressed low feature is stable, high feature is not; stretched geometry has no usable automatic fit | Threshold diagnostics and model/continuity checks required |
+| Are the tested SA numerical controls stable? | Equilibrium l=3/4/5 stays within 3.18 meV, 0.585% width and 0.02615 rad; stretched 0.020/0.010/0.005-eV grids give a finest-pair width change of 0.0041% | Passes chosen angular/grid gates for these models |
+| Is the electronic model converged? | Basis, starting subspace, active space and orbital ensemble change target properties and scattering; projected aug-DZ/TZ widths differ by 6.36% | Further qualification required |
+| Is the entire geometry curve qualified? | SA compressed/stretched scattering passes pipeline checks; compressed fit widths remain background-sensitive and feature identity across geometry is unresolved | Extraction, continuity and threshold diagnostics required |
 | Can these data constrain a production potential? | No tested electronic configuration is qualified; a correlated neutral curve is still missing | Preserve as calibration evidence |
 
 We have a reproducible execution platform and identified the dominant accuracy
 problem. The resonance values have **not** settled onto an electronically
-converged limit. The next useful refinement is balanced state-averaged target
-construction, followed by active-space/basis/channel tests, rather than a denser
-production geometry sweep of the current model.
+converged limit. The next useful refinement is to finish the larger-active-space
+import checks and compare basis, ensemble and channel refinements before
+choosing a production geometry sweep.
 
 Run a compact UKRmol+ static-exchange-plus-polarization (SEP) calculation
 for electron scattering from CO. The first deck uses $R=2.1323$ bohr,
