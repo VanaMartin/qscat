@@ -1,0 +1,6 @@
+[
+  {
+    "name": "co-r250-ccdz-sa10-cc40-ah-refined",
+    "args": ["--bond-length", "2.5", "--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-initial-checkpoint", "/work/runs/co-r250-ccdz-sa10-target-ah16/output/CO/geom1/co.casscf.chk", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--deletion-threshold", "1e-6", "--energy-start-ev", "0.01", "--energy-step-ev", "0.01", "--energies", "300", "--ranks", "4"]
+  }
+]

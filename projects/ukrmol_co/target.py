@@ -38,7 +38,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
         basis=config["basis"],
         symmetry="C2v",
         cart=False,
-        verbose=4,
+        verbose=config.get("target_verbosity", 4),
         max_memory=config["target_memory_mb"],
     )
     hf = scf.RHF(mol)
@@ -57,6 +57,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
     mc.conv_tol_grad = config["target_gradient_tolerance"]
     mc.max_cycle_macro = config["target_max_cycles"]
     mc.ah_lindep = config["target_ah_lindep"]
+    mc.ah_conv_tol = config.get("target_ah_tolerance", 1e-12)
     mc.ah_start_tol = config["target_ah_start_tolerance"]
     mc.chkfile = str(molden_path.with_suffix(".casscf.chk"))
     # A single canonicalization preserves the three subspaces. Active orbitals
