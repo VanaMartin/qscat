@@ -254,9 +254,14 @@ checkpoint restart increases SCATCI `memp` to 6 GiB per process, uses an
 80-GiB container and retains the new early fresh-CI audit and all import gates.
 
 Completed evidence is published through [`sa-evidence/`](sa-evidence/README.md).
-Its manifest names the exact snapshot, payload counts and verification results.
-In-progress batches stay outside the snapshot; previous content-addressed
-archives remain available.
+The 52-attempt snapshot has 28 validated pipelines, 22 engine failures, one
+failed target-import analysis and one pre-run setup rejection. The public
+client verified all 6,227 payload digests and exactly reconstructed twelve
+comparisons. All 28 successful runs passed raw-output reanalysis, six fixed-CI
+probes match the independent UKRmol roots, and repackaging is byte-identical.
+The prior 37/41-attempt archives were publicly fetched again with matching
+digests. In-progress batches, including the failed two-spin control in the
+ongoing CAS(10,11) retry batch, stay outside this snapshot.
 
 Collect fresh completed artifacts outside the checkout, then use:
 

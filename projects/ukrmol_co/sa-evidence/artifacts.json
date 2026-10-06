@@ -1,10 +1,10 @@
 {
   "artifacts": {
     "state-averaged-evidence.tar.gz": {
-      "bytes": 12862667,
-      "sha256": "f3202affdab33e6b393108df0f3f16988f3998201c5e3931218551b16ad431bf"
+      "bytes": 18893596,
+      "sha256": "c304c953e818b298273ac9aa2f38558873779174ff27e254ddde7463fe26da51"
     }
   },
-  "git_sha": "aa80b7936e24bcef40b9790ee13cb24b01cce925",
+  "git_sha": "5fe2bda3260afc0f49bdab7404e0b32e51666bab",
   "url_prefix": "https://data.qscat.org/ukrmol-co-state-averaged-2026-10-06/"
 }
