@@ -31,6 +31,12 @@ def collect(root: Path, pairs: list[list[str]], provenance: dict | None = None) 
             config = json.loads((workdir / "config.json").read_text())
             resources = json.loads((workdir / "resources.json").read_text())
             record = {"config": config, "resources": resources, "batch": batch["name"]}
+            target_path = workdir / "target.json"
+            if target_path.exists():
+                record["target"] = json.loads(target_path.read_text())
+            diagnostics_path = workdir / "target-diagnostics.json"
+            if diagnostics_path.exists():
+                record["target_diagnostics"] = json.loads(diagnostics_path.read_text())
             record["initial_batch_exit_code"] = job["exit_code"]
             result_path = workdir / "result.json"
             if resources["exit_code"] == 0 and result_path.exists():

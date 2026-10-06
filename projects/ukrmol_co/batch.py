@@ -62,10 +62,15 @@ def main() -> None:
     ).strip()
     snapshot = logs / "source"
     source = snapshot / "projects/ukrmol_co"
-    shutil.copytree(Path(__file__).parent, source, ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copytree(
+        Path(__file__).parent, source, ignore=shutil.ignore_patterns("__pycache__", "._*")
+    )
     shutil.copy(Path(__file__).parents[1] / "__init__.py", snapshot / "projects/__init__.py")
     hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in source.glob("*.py")}
     hashes["co.pl"] = hashlib.sha256((source / "co.pl").read_bytes()).hexdigest()
+    hashes["state_average.pm"] = hashlib.sha256(
+        (source / "state_average.pm").read_bytes()
+    ).hexdigest()
     pending = queue.Queue()
     for job in jobs:
         pending.put(job)

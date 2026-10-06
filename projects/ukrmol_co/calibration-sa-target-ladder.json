@@ -1,0 +1,22 @@
+[
+  {
+    "name": "co-eq-ccdz-sa8-40-target-centered",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "2", "2", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-cctz-sa10-40-target-centered",
+    "args": ["--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--ranks", "4"]
+  },
+  {
+    "name": "co-r190-ccdz-sa10-40-target-centered",
+    "args": ["--bond-length", "1.9", "--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--ranks", "4"]
+  },
+  {
+    "name": "co-r250-ccdz-sa10-40-target-centered",
+    "args": ["--bond-length", "2.5", "--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-ccdz-sa10-40-target-tight-centered",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-energy-tolerance", "1e-10", "--target-gradient-tolerance", "1e-6", "--ranks", "4"]
+  }
+]

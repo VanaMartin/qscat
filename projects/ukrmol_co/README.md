@@ -199,6 +199,84 @@ correlated neutral curve. The existing ground-state-CASSCF runner is a
 diagnostic toward that model. No production electronic configuration has yet
 passed the acceptance criteria.
 
+### State-averaged target checks
+
+The PySCF multi-spin/multi-irrep continuation has completed independent target
+import checks at equilibrium. [`sa-results.json`](sa-results.json) preserves
+22 completed attempts: eight successful target-only pipelines, two successful
+scattering pipelines, and 12 preserved setup/diagnostic failures. Passing these
+pipeline checks is distinct from electronic-model qualification.
+
+| Target | Neutral energy (Hartree) | Lowest triplet Pi (eV) | Ground dipole z (a.u.) | Max QC/UKRmol energy difference (Hartree) |
+|---|---:|---:|---:|---:|
+| aug-DZ CAS(10,8), ground-only control | −112.885976288 | 11.7194 | 0.1405573 | 9.4e-11 |
+| cc-pVDZ CAS(10,10), 40-component average | −112.894737477 | 6.3952 | 0.0920784 | 2.3e-9 |
+| aug-cc-pVDZ CAS(10,10), 40-component average | −112.821499062 | 6.3497 | 0.1138490 | 5.1e-10 |
+| cc-pVDZ CAS(10,8), 40-component average | −112.855375534 | 6.4858 | 0.2023335 | 8.0e-10 |
+| cc-pVTZ CAS(10,10), 40-component average | −112.857271560 | 6.2744 | 0.0986170 | 6.9e-10 |
+| cc-pVDZ CAS(10,10), tighter orbital optimization | −112.894737475 | 6.3952 | 0.0920732 | 2.6e-9 |
+| aug-cc-pVDZ CAS(10,10), projected DZ start | −112.898457558 | 6.3070 | 0.0826292 | 6.1e-10 |
+| cc-pVTZ CAS(10,10), projected DZ start | −112.925516422 | 6.3612 | 0.0878540 | 5.7e-10 |
+
+Every averaged root passed the 1e-7-Hartree import gate, and independent
+ground dipoles agree within 1.9e-6 a.u. The DZ neutral energy, lowest triplet
+excitation and dipole (about 0.234 D) are close to the published 40-state
+model's printed values; see [Dora et al. 2016](../../reference/literature/dora-2016-epjd70-197.md),
+p. 4, Table 2. This is a method plausibility check. The augmented-basis neutral
+root is **0.07324 Hartree higher** (about 1.99 eV): common active-space identity
+and starting-point stability must be checked before interpreting this as a
+basis-refinement sequence. An improved triplet excitation alone is insufficient.
+
+The eight-component truncated average converged but split a singlet Pi pair
+by about 0.0325 eV and was rejected. The full 40-component equilibrium
+ensembles preserved Pi degeneracy. Independent target-only pipelines took
+360/405 seconds for DZ/aug-DZ, with approximately 1.82 GiB kernel peaks each.
+The early import probes used an uncentered target; subsequent jobs use the
+upstream center of mass. Basis/active-space/geometry refinements and scattering
+checks are recorded in the continuation manifests as they complete.
+Tightening the equilibrium orbital tolerances changes the lowest triplet
+excitation by only 1.8e-6 eV and the dipole by 5.2e-6 a.u.; this is a two-point
+stability check, not a complete optimization convergence sequence. At R=1.9
+and 2.5 bohr, the default optimization missed the strict Pi gate by target
+splittings of 2.56e-7 and 1.35e-7 Hartree. Fresh tighter-orbital/CI runs retain
+the same gate. The first tighter retries stalled above the requested gradient
+tolerance after 100 macroiterations; lowering the augmented-Hessian metric
+cutoff is a separate retry. Four subsequent diagnostic-instrumentation failures
+were preserved and repaired before new jobs were launched.
+
+Projected DZ starts lower the aug-DZ/TZ ground roots by 2.0941/1.8570 eV,
+with initial/final active-subspace overlap singular values of 0.9806–1.0000
+and 0.9957–1.0000. For aug-DZ, the HF-selected start still has the lower
+**ensemble** energy despite its higher **ground** energy; the projected TZ
+start lowers both. The augmented-basis discontinuity is therefore a
+starting-space/ensemble tradeoff, not an established basis-convergence trend.
+
+### Initial state-averaged scattering and fit checks
+
+Centered equilibrium CAS(10,10)/40-channel runs used the starting numerical
+controls (18-bohr sphere, l=4, double precision, deletion 1e-6) and 99 energies
+over 0.1–5.0 eV. The DZ native default fit is **2.4560/1.1196 eV**
+(position/full width). The aug-DZ default produces two overlapping candidates,
+**2.3849/1.1874** and **2.2397/1.4162 eV**. A candidate count is not a physical
+resonance count; native automatic windows can cover the same feature.
+
+The modulo-pi eigenphase difference between these two targets reaches
+**0.5142 rad**, failing the provisional 0.05-rad gate. Twenty-four saved native
+RESON replays vary one to four background terms and detection thresholds
+0.7/1.0/1.3. Detection-threshold changes leave these candidates unchanged.
+DZ background refinements give 2.4491–2.4614 eV and 1.1196–1.2547 eV, a
+width spread exceeding the 5% criterion when the constant background is
+included. Aug-DZ replay windows generate overlapping and sometimes
+implausibly broad candidates (one exceeds 80 eV in width); inspect the raw
+fit windows, residuals and goodness factors before assigning a feature.
+These are extraction diagnostics, not certified pole parameters.
+
+The two scattering jobs finished together in **20.25 minutes** on eight
+physical cores: 18.82/20.24 minutes per four-rank job, approximately
+2.86/2.89 GiB kernel peaks and 593 MiB sampled run-disk peaks. Projected-target
+scattering and 40-to-50-channel refinements test the electronic changes next;
+the new model still needs continuum/grid/fitting qualification.
+
 ## Measured cost and parallel execution
 
 For equilibrium DZ39/four-frozen SEP on Sadaharu, with 491 energies:
@@ -286,6 +364,64 @@ The default is the initial two-frozen/20-virtual SEP pilot. For the more
 numerically checked **diagnostic** six-electron SEP model, add
 `--frozen-orbitals 4 --virtual-orbitals 17 9 9 4 --deletion-threshold 1e-6`.
 Neither is a qualified production configuration.
+
+### Multi-spin/multi-irrep target orbitals
+
+`--orbitals state-averaged --model CAS-A` uses the pinned PySCF backend in the
+CO image. Supply the active space explicitly. `--target-only` first compares
+its QC roots against independent UKRmol target diagonalizations:
+
+```bash
+docker run --rm --cpuset-cpus=0-3 --memory=16g --memory-swap=16g \
+  --shm-size=1g -v "$RUN_ROOT:/work" \
+  --entrypoint /opt/ukrmolp/entrypoint.sh "$IMAGE" bash -c \
+  'python3 -m projects.ukrmol_co.run --workdir /work/runs/co-sa-target-001 \
+     --model CAS-A --orbitals state-averaged --active-orbitals 4 3 3 0 \
+     --virtual-orbitals 0 0 0 0 --target-only --ranks 4 && \
+   python3 -m projects.ukrmol_co.analyze /work/runs/co-sa-target-001'
+```
+
+The default orbital ensemble is five equally weighted roots per spin/irrep,
+40 C2v components in total. `--sa-singlet-roots` and `--sa-triplet-roots` each
+take four counts in A1/B1/B2/A2 order; `--target-roots` must cover every averaged
+root. For nonuniform target expansions, `--target-singlet-roots` and
+`--target-triplet-roots` override the four computed-root counts per spin.
+For example, `10 5 5 5` for each spin computes 50 C2v components; the default
+`--target-states-used` retains all of them. The computed counts must cover the
+corresponding orbital-ensemble counts, while scattering-channel retention
+can be varied separately. Changing computed roots alone preserves the orbital
+ensemble; changing `--sa-*` counts reoptimizes the common orbitals.
+Equal B1/B2 counts are necessary but do not guarantee a rotationally balanced
+ensemble: a truncated average may omit other degenerate partners. A failed
+Pi-degeneracy check is preserved as a failed calculation.
+
+The target builder rejects unconverged or wrong-spin roots, checks the AO
+orbital metric and Pi degeneracy, and exports core/active/external blocks in
+Molden order. The analyzer checks every averaged root's absolute energy to
+1e-7 Hartree and verifies the imported Molden checksum. `target.json` records
+the common-orbital ensemble, individual energies, spin diagnostics, **ground
+root** dipole, MO inventory and source hash. Logs retain the upstream slot name
+`target.psi4.out`; successful records explicitly identify PySCF as the backend.
+See the [method and verification contract](../../docs/physics/co-state-averaged-target.md).
+
+Optimization controls are `--target-energy-tolerance` (default 1e-9 Hartree),
+`--target-gradient-tolerance` (1e-5), `--target-ci-tolerance` (1e-10),
+`--target-max-cycles` (100), and
+`--target-memory-mb` (8000). The QC backend uses `--ranks` local threads before
+the MPI target stages start. These controls require refinement checks alongside
+the electronic model. Passing the import checks does not qualify a fitting target.
+`--target-ah-lindep` (1e-14) and `--target-ah-start-tolerance` (2.5) control the
+augmented-Hessian orbital optimizer. Inspect `target-diagnostics.json` and the
+QC log when iterations stall: tighter energy/gradient thresholds alone need
+not overcome a dropped trial vector. Diagnostics are retained on failure.
+
+`--target-initial-checkpoint /work/runs/previous/output/CO/geom1/co.casscf.chk`
+projects a prior target's core/active orbitals into the new AO basis. It requires
+the same active-space size and irrep counts, preserves a copy in the new run,
+and records its SHA256. Compare this start against the default lowest-HF-MO
+selection when adding diffuse basis functions or following geometry: a lowered
+ensemble energy can still trade away ground-state quality. Orbital/root identity
+needs explicit overlap checks beyond comparing scalar energies.
 
 The packaged image includes the CA bundle and Python's `SSL_CERT_FILE` setting
 needed to download scripts into a fresh cache. Earlier runs used a populated

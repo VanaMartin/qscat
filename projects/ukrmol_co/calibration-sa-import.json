@@ -1,0 +1,14 @@
+[
+  {
+    "name": "co-eq-sa8-ground-import",
+    "args": ["--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "2", "2", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-roots", "1", "--sa-singlet-roots", "1", "0", "0", "0", "--sa-triplet-roots", "0", "0", "0", "0", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-ccdz-sa10-40-import",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-adz-sa10-40-import",
+    "args": ["--basis", "aug-cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--ranks", "4"]
+  }
+]

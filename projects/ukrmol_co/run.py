@@ -71,6 +71,24 @@ def instrument_library(library: Path) -> None:
     library.write_text("use Time::HiRes ();\n" + source.replace(before, after))
 
 
+def enable_state_average(library: Path) -> None:
+    """Replace the single-state upstream QC adapter with the explicit PySCF backend."""
+    source = library.read_text()
+    before = '$command = "$dir$bs$program$ext_exe --input $input --output $output 2> $error";'
+    after = (
+        '$command = "python3 -m projects.ukrmol_co.target '
+        "--config $ENV{'UKRMOL_RUN_DIR'}/config.json --output $output 2> $error\";"
+    )
+    if source.count(before) != 1:
+        raise ValueError("UKRmol-scripts Psi4 command layout has changed")
+    source = source.replace(before, after)
+    before = "sub read_psi4_output {\n  my ($r_par) = @_;"
+    if source.count(before) != 1:
+        raise ValueError("UKRmol-scripts Psi4 reader layout has changed")
+    source = source.replace(before, before + "\n  return &read_state_average_output($r_par);")
+    library.write_text(source + "\n" + Path(__file__).with_name("state_average.pm").read_text())
+
+
 def allocated_bytes(directory: Path) -> int:
     """Count allocated file blocks once, excluding symlinks and hardlink duplicates."""
     seen = set()
@@ -184,11 +202,34 @@ def main() -> None:
     parser.add_argument("--scripts-cache", type=Path, default=Path("/work/upstream"))
     parser.add_argument("--bond-length", type=float, default=2.1323, help="C-O distance in bohr")
     parser.add_argument("--model", choices=["SE", "SEP", "CAS-A"], default="SEP")
-    parser.add_argument("--orbitals", choices=["HF", "natural"], default="HF")
+    parser.add_argument("--orbitals", choices=["HF", "natural", "state-averaged"], default="HF")
+    parser.add_argument(
+        "--target-only", action="store_true", help="Run QC and UKRmol target checks"
+    )
+    parser.add_argument("--sa-singlet-roots", type=int, nargs=4, default=[5, 5, 5, 5])
+    parser.add_argument("--sa-triplet-roots", type=int, nargs=4, default=[5, 5, 5, 5])
+    parser.add_argument("--target-memory-mb", type=int, default=8000)
+    parser.add_argument("--target-max-cycles", type=int, default=100)
+    parser.add_argument("--target-energy-tolerance", type=float, default=1e-9)
+    parser.add_argument("--target-gradient-tolerance", type=float, default=1e-5)
+    parser.add_argument("--target-ci-tolerance", type=float, default=1e-10)
+    parser.add_argument("--target-ah-lindep", type=float, default=1e-14)
+    parser.add_argument("--target-ah-start-tolerance", type=float, default=2.5)
+    parser.add_argument(
+        "--target-initial-checkpoint",
+        type=Path,
+        help="Project core/active MOs from a retained PySCF CASSCF checkpoint",
+    )
     parser.add_argument(
         "--active-orbitals", type=int, nargs=4, help="CAS active counts in A1,B1,B2,A2"
     )
     parser.add_argument("--target-roots", type=int, default=5, help="CAS roots per spin/irrep")
+    parser.add_argument(
+        "--target-singlet-roots", type=int, nargs=4, help="Override A1,B1,B2,A2 roots"
+    )
+    parser.add_argument(
+        "--target-triplet-roots", type=int, nargs=4, help="Override A1,B1,B2,A2 roots"
+    )
     parser.add_argument("--target-states-used", type=int, help="Lowest CAS target states retained")
     parser.add_argument(
         "--congen-workspace",
@@ -230,6 +271,13 @@ def main() -> None:
         args.deletion_threshold,
         args.propagation_radius,
         args.congen_workspace,
+        args.target_memory_mb,
+        args.target_max_cycles,
+        args.target_energy_tolerance,
+        args.target_gradient_tolerance,
+        args.target_ci_tolerance,
+        args.target_ah_lindep,
+        args.target_ah_start_tolerance,
     )
     if not all(math.isfinite(value) and value > 0 for value in positive):
         parser.error("Bond length, MPI ranks, deletion threshold and energy grid must be positive")
@@ -248,19 +296,50 @@ def main() -> None:
             or args.active_orbitals[1] != args.active_orbitals[2]
         ):
             parser.error("CAS must contain the occupied valence orbitals and equal B1/B2 spaces")
+        if args.target_roots < 1:
+            parser.error("CAS target roots must be positive")
+        args.target_singlet_roots = args.target_singlet_roots or [args.target_roots] * 4
+        args.target_triplet_roots = args.target_triplet_roots or [args.target_roots] * 4
+        for counts in (args.target_singlet_roots, args.target_triplet_roots):
+            if min(counts) < 0 or counts[1] != counts[2]:
+                parser.error("Target roots must be nonnegative with equal B1/B2 counts")
+        if args.target_singlet_roots[0] < 1:
+            parser.error("Target roots must include the A1 singlet ground state")
+        computed_states = sum(args.target_singlet_roots + args.target_triplet_roots)
         if args.target_states_used is None:
-            args.target_states_used = 8 * args.target_roots
-        if args.target_roots < 1 or not 1 <= args.target_states_used <= 8 * args.target_roots:
+            args.target_states_used = computed_states
+        if not 1 <= args.target_states_used <= computed_states:
             parser.error("CAS target-state count must be positive and not exceed computed roots")
     else:
-        if args.active_orbitals is not None or args.orbitals != "HF":
+        if (
+            args.active_orbitals is not None
+            or args.orbitals != "HF"
+            or args.target_singlet_roots is not None
+            or args.target_triplet_roots is not None
+        ):
             parser.error("SE/SEP use the occupied HF space; active counts apply only to CAS")
         args.active_orbitals = [5 - args.frozen_orbitals, 1, 1, 0]
+        args.target_singlet_roots = [1, 0, 0, 0]
+        args.target_triplet_roots = [0, 0, 0, 0]
         args.target_states_used = 1
     if args.radius == 18 and args.maxl > 5:
         parser.error("The upstream radius-18 Gaussian continuum is available only through l=5")
     if args.propagation_radius <= args.radius:
         parser.error("Propagation radius must exceed the R-matrix sphere radius")
+    if args.orbitals == "state-averaged":
+        if args.sa_singlet_roots[0] < 1:
+            parser.error("State averaging must include the A1 singlet ground state")
+        for counts, targets in (
+            (args.sa_singlet_roots, args.target_singlet_roots),
+            (args.sa_triplet_roots, args.target_triplet_roots),
+        ):
+            if min(counts) < 0 or counts[1] != counts[2]:
+                parser.error("State-average roots must be nonnegative with equal B1/B2 counts")
+            if any(count > target for count, target in zip(counts, targets, strict=True)):
+                parser.error("UKRmol target roots must cover every state in the orbital ensemble")
+    if args.target_initial_checkpoint is not None:
+        if args.orbitals != "state-averaged" or not args.target_initial_checkpoint.is_file():
+            parser.error("Initial checkpoint requires state-averaged orbitals and an existing file")
     scripts = acquire_scripts(args.scripts_cache)
     workdir = args.workdir.resolve()
     workdir.mkdir(parents=True, exist_ok=False)
@@ -285,11 +364,23 @@ def main() -> None:
         + psi4_template.read_text()
     )
     instrument_library(workdir / "lib/ukrmollib.pm")
+    if args.orbitals == "state-averaged":
+        enable_state_average(workdir / "lib/ukrmollib.pm")
+        psi4_template.write_text(
+            "# PySCF state-averaged backend: the input is the retained run config.json.\n"
+            "# The upstream quantum-chemistry slot/output name is psi4.\n"
+        )
     config = vars(args) | {
-        "scf_type": "pk",
+        "workdir": str(workdir),
+        "scf_type": "conventional-exact" if args.orbitals == "state-averaged" else "pk",
         "scripts_url": SCRIPTS_URL,
         "scripts_md5": SCRIPTS_MD5,
     }
+    if args.target_initial_checkpoint is not None:
+        checkpoint = workdir / "initial.casscf.chk"
+        shutil.copy(args.target_initial_checkpoint, checkpoint)
+        config["target_initial_source_checkpoint"] = str(args.target_initial_checkpoint)
+        config["target_initial_checkpoint"] = str(checkpoint)
     (workdir / "config.json").write_text(json.dumps(config, default=str, indent=2) + "\n")
     env = os.environ | {
         "UKRMOL_SCRIPTS": str(scripts),
@@ -300,8 +391,11 @@ def main() -> None:
         "UKRMOL_BASIS": args.basis,
         "UKRMOL_FROZEN_ORBITALS": str(args.frozen_orbitals),
         "UKRMOL_ORBITALS": args.orbitals,
+        "UKRMOL_TARGET_ONLY": str(int(args.target_only)),
         "UKRMOL_ACTIVE_ORBITALS": ",".join(map(str, args.active_orbitals)),
         "UKRMOL_TARGET_ROOTS": str(args.target_roots),
+        "UKRMOL_TARGET_SINGLET_ROOTS": ",".join(map(str, args.target_singlet_roots)),
+        "UKRMOL_TARGET_TRIPLET_ROOTS": ",".join(map(str, args.target_triplet_roots)),
         "UKRMOL_TARGET_STATES_USED": str(args.target_states_used),
         "UKRMOL_VIRTUAL_ORBITALS": ",".join(map(str, args.virtual_orbitals)),
         "UKRMOL_RADIUS": str(args.radius),
@@ -318,6 +412,11 @@ def main() -> None:
         "OMP_NUM_THREADS": "1",
         "OPENBLAS_NUM_THREADS": "1",
         "MKL_NUM_THREADS": "1",
+        # The upstream driver changes into a geometry directory before invoking
+        # the backend; child Python must resolve the read-only source snapshot.
+        "PYTHONPATH": os.pathsep.join(
+            filter(None, [str(Path(__file__).resolve().parents[2]), os.environ.get("PYTHONPATH")])
+        ),
     }
     # The entrypoint selects double libraries. Quad executables require the
     # matching GBTOlib ABI, not just a change to the executable directory.

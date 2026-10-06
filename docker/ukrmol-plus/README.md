@@ -14,8 +14,8 @@ their compatible toolchain.
 | `build` | UKRmol-in/out and bundled GBTOlib compiled and installed |
 | `test` | Build plus 12 selected serial/two-rank upstream reference checks |
 | `runtime` | Generic source-built **double** engine, copied only after `test`; `bash` |
-| `co-pilot` | CO deck and Python tools on `pilot` |
-| `co-source` (default) | CO deck and Python tools on `runtime` |
+| `co-pilot` | CO deck, PySCF target builder and Python tools on `pilot` |
+| `co-source` (default) | CO deck, PySCF target builder and Python tools on `runtime` |
 
 The generic targets contain no molecule-specific input. Experiment sources are
 copied after the engine build/test stages, so changing the CO deck does not
@@ -55,6 +55,7 @@ engine paths, not every engine feature or the accuracy of the CO model.
 | UKRmol-out 3.3.0.1 | [Zenodo archive](https://zenodo.org/records/18538198/files/ukrmol-out-3.3.0.1.tar.gz?download=1), SHA256 `6fecd651d1b953004926bcd2485d18a1645f2a13fca93e176458b0d48f556a9b` |
 | GBTOlib | Compatible sources bundled in the pinned UKRmol-in archive |
 | Python additions | NumPy 2.3.4, SciPy 1.16.2, installed without dependency re-resolution |
+| CO-only additions | PySCF 2.11.0, h5py 3.15.1, installed after the engine gate |
 
 `source-build.sh` downloads/checks both archives and builds via CMake with MPI,
 64-bit default Fortran integers, the upstream numerical libraries and a runtime
