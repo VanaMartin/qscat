@@ -1,0 +1,33 @@
+{
+  "git_sha": "51edaa1515a082caf69cd76505c4cac0c552998b",
+  "git_sha_scope": "Committed collector, analyzer, archive generator and continuation recipes; every numerical batch retains its actual source snapshot and digests",
+  "record_type": "state-averaged-calibration-evidence-publication",
+  "campaign_date": "2026-10-06",
+  "experiment": "UKRmol+ CO multi-spin/multi-irrep state-averaged continuation",
+  "completed_attempts": 37,
+  "validated_pipeline_records": 17,
+  "validated_target_only_records": 12,
+  "validated_scattering_records": 5,
+  "failed_runner_records": 19,
+  "pre_run_setup_failure_records": 1,
+  "paired_comparisons": 6,
+  "native_refit_records": 48,
+  "batch_source_snapshots": 14,
+  "archive": "state-averaged-evidence.tar.gz",
+  "archive_layout": "state-averaged-evidence/ contains completed runs/, batches/, quoted snapshot, current analysis/packaging code, method/reference notes, engine build/test provenance, licences and file-index.json",
+  "archive_generation": "Sorted regular files; tar uid/gid/mtime zero and mode 0644; gzip mtime zero and empty filename",
+  "archive_verification": {
+    "indexed_payload_files": 3831,
+    "all_payload_sizes_and_sha256_verified": true,
+    "batch_source_and_projected_checkpoint_digests_verified": true,
+    "aggregate_reconstructed_exactly": true,
+    "independently_reanalyzed_successful_runs": 17,
+    "repacked_archive_is_byte_identical": true
+  },
+  "standalone_image_id": "sha256:efb6657c14308cffd5c9b65a39ba94292acaa84611083a7c2dc00ad7592d71fe",
+  "standalone_image_verification": "Validated engine stages reused; PySCF/h5py/target/archive imports passed and all 12 embedded Python/Perl file digests matched the checkout",
+  "validation_scope": "Target solver/import and scattering pipeline/symmetry consistency plus calibration comparisons; electronic-model, continuum and resonance-extraction convergence remain unqualified for production potential fitting",
+  "retained_binary_artifacts": "RHF/CASSCF and initial projected-start checkpoints",
+  "omitted_large_artifacts": "Integrals, channel files, R-matrix amplitudes and K-matrices; recompute from the recipes for new RESON replays",
+  "unfinished_batches": "Larger-active-space target checks and compressed/stretched scattering are excluded from this completed snapshot"
+}

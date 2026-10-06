@@ -188,11 +188,20 @@ log are preserved. `calibration-sa-single-state.json` supplies fresh, corrected
 ground controls: the one-step pipeline passed, while the CI-refined Newton
 control still failed its gradient gate. No Newton result is adopted.
 
-`calibration-sa-sentinel-scattering.json` is now running on slots 8–11 and
+`calibration-sa-sentinel-scattering.json` completed on slots 8–11 and
 12–15, using the passing R=1.9/2.5 checkpoints with tight one-step controls.
 The compressed grid is 0.1–8.0 eV at 0.05-eV spacing; the stretched grid is
 0.01–3.0 eV at 0.01-eV spacing. Active-space target checks remain on slot 0–3.
-These in-progress batches are excluded from the completed evidence snapshot.
+The compressed run passed all target/scattering gates in 20.30 minutes, with
+one fitted feature and Pi phase agreement within 1e-7 rad. The stretched run
+failed its tighter CI-refined orbital optimization: all CI solvers converged,
+but its gradient stalled at 1.19e-6 with zero rotation after 100 macroiterations.
+That failure differs from the earlier passing, looser-CI target check.
+The published snapshot predates this sentinel batch; the active-space batch
+is still in progress.
+The completed 37-attempt snapshot is published through
+[`sa-evidence/`](sa-evidence/README.md). Its public fetch client verified 3,831
+payload digests and exactly reconstructed all attempts and six comparisons.
 
 Collect fresh completed artifacts outside the checkout, then use:
 
