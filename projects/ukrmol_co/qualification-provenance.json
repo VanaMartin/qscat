@@ -29,8 +29,9 @@
     "cas11-selected-root-comparison",
     "cas12-tight-ci-coverage",
     "cas12-tight-ci-coverage-pathfix",
-    "cas12-tight-start-comparison"
+    "cas12-tight-start-comparison",
+    "cas11-slepc-extra-root-coverage-early"
   ],
   "selected_root_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
-  "scope": "Completed QC/neutral pilots, dense and SLEPc CAS(10,11) imports, both tight CAS(10,12) starts and restart coverage, the nine-entry CAS(10,11) QC ladder, workspace queries, four rejected Davidson controls and three passing SLEPc controls. Includes 5Z neutral sentinels and four rejected externally unstable stretched RHF references. Electronic-model, basis and correlation convergence remain open; live scattering, extra-root SLEPc and staged QC/import follow-ons are excluded"
+  "scope": "Completed QC/neutral pilots, dense and five/eight-root SLEPc CAS(10,11) imports, independent all-64-root fixed-orbital CI verification, both tight CAS(10,12) starts and restart coverage, the nine-entry CAS(10,11) QC ladder, workspace queries, four rejected Davidson controls and four passing SLEPc controls. Includes 5Z neutral sentinels and four rejected externally unstable stretched RHF references. Electronic-model, basis and correlation convergence remain open; live scattering and staged QC/import follow-ons are excluded"
 }

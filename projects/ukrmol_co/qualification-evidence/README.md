@@ -1,10 +1,10 @@
 # CO electronic-qualification evidence
 
-This supplement preserves **37 completed attempts in 13 batches**:
+This supplement preserves **38 completed attempts in 14 batches**:
 seven passing QC targets, ten passing neutral records and five neutral failures,
-dense and SLEPc tight CAS(10,11) target imports, four rejected Davidson controls,
+dense and five/eight-root SLEPc tight CAS(10,11) target imports, four rejected Davidson controls,
 two passing small-model SLEPc controls and seven rejected CAS(10,11) ladder
-entries. It also includes all **96** CAS(10,11)/(10,12)
+entries. It also includes all **112** CAS(10,11)/(10,12)
 fixed-orbital CI coverage probes, final checkpoint comparisons and the
 CAS(10,12) installed-library workspace audit and guarded utility checks,
 including thirteen additional valid 16-/32-rank target-sector queries.
@@ -35,8 +35,8 @@ with an 18.42-GiB kernel memory peak. The matched nine-job CAS(10,11) ladder
 has two QC passes, three CI failures and four simultaneous geometry/basis
 projection rejections. Its 50-component ensemble shifts the ground root by
 0.45651 eV and the dipole by +125.09% relative to the 40-component objective.
-Live scattering, extra-root SLEPc and staged QC follow-ons are excluded.
-The prior eleven-/twelve-/eighteen-attempt supplements remain in
+Live scattering and staged QC/import follow-ons are excluded.
+The prior eleven-/twelve-/eighteen-/thirty-seven-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
 
 The Davidson controls request 5/8/16/32 roots and all fail required root imports
@@ -49,8 +49,15 @@ seconds. The full five-root CAS(10,11) SLEPc target passes all 40 roots within
 5.34e-10 Hartree and dipole within 8.04e-11 a.u., at 52.55 minutes / 5.25 GiB.
 Observed SCATCI/full-wall reductions are 89.17%/46.25%; these are not controlled
 MPI scaling results. The source audit confirms dense PETSc Hamiltonian storage:
-the largest CAS(10,12) matrix alone needs 37.41 GiB. Extra-root and full
-CAS(10,12) import gates remain pending.
+the largest CAS(10,12) matrix alone needs 37.41 GiB.
+The eight-root/tighter CAS(10,11) import also passes all forty ensemble roots
+within 5.33e-10 Hartree and the dipole within 7.90e-11 a.u., in 51.44 minutes
+at a 5.27-GiB peak. Sixteen fixed-orbital probes at spaces 80/160 fully converge
+and independently check all **64 requested roots** within 5.34e-10 Hartree,
+including raw CASCI energies, root order and spins. Common dense/five-root
+excitations match at printed precision. The scan takes 128.22 seconds at a
+0.280-GiB peak; an initial pre-probe process-identity guard failure and its
+repaired launch are retained. The full CAS(10,12) import remains pending.
 The preceding 55-attempt target/scattering snapshot remains available in
 [`../sa-evidence/`](../sa-evidence/README.md).
 
@@ -71,13 +78,16 @@ Extract outside the checkout: historical source snapshots contain Python test
 modules. The reconstructed JSON matches `qualification-results.json` in the
 archive. `neutral-results.json` retains the fifteen-attempt neutral-only subset.
 The file index records every payload's size and SHA256. Publication verification
-checked 2837 payloads, 210 batch-source hashes, 17 embedded-image source hashes,
-raw reanalysis of all 21 successful records, all 96 CI spectra/spins and
+checked 3012 payloads, 228 batch-source hashes, 17 embedded-image source hashes,
+raw reanalysis of all 22 successful records, all 112 CI spectra/spins and
 exact reconstruction of both aggregates. Repackaging is byte-identical.
 All four Davidson rejections are reproduced; the stored Hamiltonian is
 independently reconstructed and its eigenpair residuals checked.
 All seven ladder failures, the four unstable neutral references and the
 CAS(10,12) launch failure are checked against their retained diagnostics/logs.
+The extra-root launch failure's original source/hash and exit are preserved;
+the repaired worker's CPU-slot lease records verify resumption of its waiting
+follow-on after the scan.
 The full dense/SLEPc comparison and its storage-floor calculation are independently
 reconstructed from raw stages, resources, roots, dipoles and pinned source.
 

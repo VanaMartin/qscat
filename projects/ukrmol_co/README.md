@@ -491,8 +491,14 @@ including extra-root/tighter-tolerance checks, using about 0.12 GiB in
 40 roots within 5.34e-10 Hartree and dipole within 8.04e-11 a.u., in 52.55
 minutes at a 5.25-GiB kernel peak. Its dense-reference excitation energies
 match at printed precision. The observed SCATCI/full-wall reductions are
-89.17%/46.25%; DENPROP still takes 39.42 minutes. Eight-root/tighter controls
-and an independent all-64-root check precede the local CAS(10,12) import.
+89.17%/46.25%; DENPROP still takes 39.42 minutes. The eight-root/tighter control
+now also passes all forty ensemble-root/dipole imports in 51.44 minutes at a
+5.27-GiB peak. Sixteen fully converged fixed-orbital CI probes at spaces 80/160
+independently check all 64 requested roots within 5.34e-10 Hartree. Common dense
+and five-root excitations match at printed precision. This completes the
+CAS(10,11) extra-root solver gate; the local CAS(10,12) import still awaits its
+recorded controls and CPU-slot release. The verified supplement now preserves
+38 attempts in fourteen batches and 112 raw CI probes.
 The finite continuation also queues `calibration-sa11-tight-continuum.json`:
 l=3/l=5 controls against the running tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.
