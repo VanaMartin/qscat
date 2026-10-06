@@ -85,6 +85,13 @@ installed package.
   with measured costs. The `mastering-ukrlmol` skill documents reusable remote
   execution. Continuum stability is demonstrated for the compact equilibrium
   SEP model; electronic-model convergence for potential fitting remains open.
+- **State-averaged CO target construction** with pinned PySCF in the CO Docker
+  layers, multi-spin/multi-irrep common CAS orbitals, projected-checkpoint starts,
+  optimizer diagnostics and independently checked UKRmol root energies/dipoles.
+  Orbital-ensemble and retained-channel counts can be refined separately.
+  Completed target/scattering calibration and failed attempts are preserved in
+  a deterministic evidence archive with orbital checkpoints and source hashes;
+  electronic-model and resonance-extraction qualification remains open.
 - **`energies: {ranges: [...]}` — a sweep written as `np.arange` segments.**
   A level-aware mesh is a coarse background sweep plus a dense window around
   each resonance level: a union of uniform segments, and nothing more. Written

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "co-eq-sa8-ground-newton-control",
+    "args": ["--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "2", "2", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-roots", "1", "--sa-singlet-roots", "1", "0", "0", "0", "--sa-triplet-roots", "0", "0", "0", "0", "--target-optimizer", "newton", "--ranks", "4"]
+  },
+  {
+    "name": "co-r190-ccdz-sa10-40-target-ci-residual",
+    "args": ["--bond-length", "1.9", "--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-initial-checkpoint", "/work/runs/co-r190-ccdz-sa10-40-target-ah-historyfix/output/CO/geom1/co.casscf.chk", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ah-lindep", "1e-20", "--target-ah-start-tolerance", "1e-8", "--ranks", "4"]
+  },
+  {
+    "name": "co-r190-ccdz-sa10-40-target-newton",
+    "args": ["--bond-length", "1.9", "--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--target-only", "--target-initial-checkpoint", "/work/runs/co-r190-ccdz-sa10-40-target-ah-historyfix/output/CO/geom1/co.casscf.chk", "--target-optimizer", "newton", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ah-lindep", "1e-20", "--target-ah-start-tolerance", "1e-8", "--ranks", "4"]
+  }
+]

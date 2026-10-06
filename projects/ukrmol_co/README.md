@@ -203,8 +203,10 @@ passed the acceptance criteria.
 
 The PySCF multi-spin/multi-irrep continuation has completed independent target
 import checks at equilibrium. [`sa-results.json`](sa-results.json) preserves
-22 completed attempts: eight successful target-only pipelines, two successful
-scattering pipelines, and 12 preserved setup/diagnostic failures. Passing these
+37 completed attempts: twelve successful target-only pipelines, five successful
+scattering pipelines, and 20 preserved setup/diagnostic failures. One rejected
+CLI configuration failed before creating a run directory; its request and
+batch log remain part of the aggregate and archive. Passing these
 pipeline checks is distinct from electronic-model qualification.
 
 | Target | Neutral energy (Hartree) | Lowest triplet Pi (eV) | Ground dipole z (a.u.) | Max QC/UKRmol energy difference (Hartree) |
@@ -217,6 +219,7 @@ pipeline checks is distinct from electronic-model qualification.
 | cc-pVDZ CAS(10,10), tighter orbital optimization | −112.894737475 | 6.3952 | 0.0920732 | 2.6e-9 |
 | aug-cc-pVDZ CAS(10,10), projected DZ start | −112.898457558 | 6.3070 | 0.0826292 | 6.1e-10 |
 | cc-pVTZ CAS(10,10), projected DZ start | −112.925516422 | 6.3612 | 0.0878540 | 5.7e-10 |
+| cc-pVTZ CAS(10,10), 50-component average, projected TZ start | −112.920679908 | 6.3503 | 0.1164896 | 7.9e-10 |
 
 Every averaged root passed the 1e-7-Hartree import gate, and independent
 ground dipoles agree within 1.9e-6 a.u. The DZ neutral energy, lowest triplet
@@ -271,11 +274,53 @@ implausibly broad candidates (one exceeds 80 eV in width); inspect the raw
 fit windows, residuals and goodness factors before assigning a feature.
 These are extraction diagnostics, not certified pole parameters.
 
+Projected-start aug-DZ and TZ give one candidate each:
+
+| Target / starting subspace | Position (eV) | Full width (eV) |
+|---|---:|---:|
+| cc-pVDZ / HF-selected | 2.4560 | 1.1196 |
+| aug-cc-pVDZ / projected DZ | 2.5294 | 1.2737 |
+| cc-pVTZ / projected DZ | 2.5253 | 1.1928 |
+
+The projected aug-DZ/TZ pair changes position by 0.0041 eV and phase by
+0.0337 rad, but width by 6.36% relative to aug-DZ, failing the provisional
+5% gate. The unprojected/projected aug-DZ phase change reaches 0.5977 rad.
+Another 24 native replays give projected aug-DZ widths of 1.2737–1.4460 eV
+and TZ widths of 1.1928–1.3475 eV for one to four background terms. Dropping
+the constant-background case reduces each spread to about 1%, which is an
+extraction stability observation rather than a justified choice of fit model.
+
+Lowering the augmented-Hessian cutoff lets the R=2.5 target converge with
+an orbital gradient of 8.5e-8 and Pi splitting of 1.12e-8 Hartree. The R=1.9
+retry still stalls at 6.15e-7 with zero orbital rotation and is rejected.
+Tightening the CI residual together with compatible CI/augmented-Hessian
+cutoffs subsequently gives a **passing compressed target**: gradient
+2.99e-8, Pi splitting 4.63e-8 Hartree, and maximum independent root-energy
+error 6.58e-10 Hartree, in 8.08 minutes. Tightening only the residual while
+keeping the default CI cutoff had failed CI convergence. Coupled-Newton
+controls/retries still fail their gradient checks; they remain rejected
+diagnostics. The successful route is the one-step optimizer.
+
 The two scattering jobs finished together in **20.25 minutes** on eight
 physical cores: 18.82/20.24 minutes per four-rank job, approximately
 2.86/2.89 GiB kernel peaks and 593 MiB sampled run-disk peaks. Projected-target
-scattering and 40-to-50-channel refinements test the electronic changes next;
-the new model still needs continuum/grid/fitting qualification.
+scattering takes 21.88/22.59 minutes, with 2.89/3.45 GiB kernel peaks and
+593/594 MiB sampled run-disk peaks. The 40-to-50-channel refinements test
+channel retention separately; the new model still needs continuum/grid/fitting
+qualification.
+
+The DZ 40-to-50-channel check retains the 40-component orbital ensemble and
+gives 2.4471/1.1178 eV in 22.86 minutes. Relative to the 40-channel run,
+position changes by 0.0089 eV, width by 0.17%, and phase by 0.0167 rad, meeting
+the provisional criteria for this pair. This is a two-point channel-retention
+check, not a full channel-convergence sequence. Its Hamiltonian dimension is
+8690 per Pi component, with a 2.96-GiB kernel peak and 665-MiB sampled disk peak.
+
+Separately, increasing the projected TZ **orbital ensemble** to 50 components
+raises the ground root by 0.1316 eV and changes its dipole by 32.6%; the lowest
+triplet Pi is 6.3503 eV. The 50-component target passed all independent gates
+in 6.56 minutes. These ensemble and channel-count changes measure different
+effects and should not be pooled into a single convergence sequence.
 
 ## Measured cost and parallel execution
 
@@ -329,6 +374,16 @@ estimate for the measured CAS size: it assumes comparable geometries, the same
 energy interval/channel structure and linear propagation cost. State averaging,
 larger active spaces, additional channels, refinement runs and fitting add
 cost. The accuracy-qualified configuration still needs its own timing.
+
+For the state-averaged CAS(10,10) examples, measured 99-point propagation
+totals range from 76.6 seconds (DZ40) to 290.6 seconds (DZ50); target and
+scattering diagonalizations dominate the remaining cost. The same stage-scaled
+formula predicts **21–57 minutes per geometry** at 300–800 energies, or
+**3.2–13.3 hours for 25–40 geometries on three four-core workers** for these
+measured 40/50-channel cases. This assumes the same geometry cost and comparable
+threshold structure; it excludes refinement/retry time and is not a budget
+for a larger, electronically qualified active space. The state-averaged model
+has not yet had its own one/two/four-rank and concurrent-geometry scaling sweep.
 
 Even these CC diagnostics used far less than Sadaharu's approximately 123.5
 GiB RAM. Three 4-rank jobs use 12 of its 16 physical cores; this is a practical
@@ -414,6 +469,15 @@ the electronic model. Passing the import checks does not qualify a fitting targe
 augmented-Hessian orbital optimizer. Inspect `target-diagnostics.json` and the
 QC log when iterations stall: tighter energy/gradient thresholds alone need
 not overcome a dropped trial vector. Diagnostics are retained on failure.
+`--target-ci-residual-tolerance` optionally specifies a separate CI residual
+norm, and `--target-optimizer newton` selects the coupled orbital/CI algorithm
+instead of the default `one-step`. The Newton history records a combined
+orbital/CI gradient; compare it with the correct requested tolerance.
+`--target-ci-lindep` (1e-14) controls removal of CI residual trial vectors;
+tight residual tolerances need a compatible squared-norm cutoff. The cutoff
+retry recipe is in `calibration-sa-ci-cutoff.json`.
+The saved Newton controls do not meet their gradient tolerances. Use that
+option for optimizer diagnostics; the successful continuation uses `one-step`.
 
 `--target-initial-checkpoint /work/runs/previous/output/CO/geom1/co.casscf.chk`
 projects a prior target's core/active orbitals into the new AO basis. It requires
@@ -510,6 +574,8 @@ your own metadata for a new campaign. The collector does not assume a host.
 | `pilot-jobs.json`, `pilot-results.json` | Original pilot recipe and quoted results |
 | `calibration-*.json` | Calibration job recipes, paired comparisons and the full results snapshot |
 | `collect.py`, `campaign-provenance.json` | Rebuild that snapshot from saved lightweight evidence |
+| `target.py`, `state_average.pm`, `sa-results.json` | Common state-averaged orbitals, explicit upstream adapter and continuation evidence |
+| `archive.py`, [`sa-evidence/`](sa-evidence/README.md) | Deterministic continuation archive, including orbital checkpoints and source snapshots |
 | `source-build-results.json` | Original source-engine pins, upstream gate and CO differential evidence |
 | `packaging-results.json` | Reorganized targets, cold-cache acquisition fix and independent CO differential check |
 | [`evidence/`](evidence/README.md) | Public checksum-verified lightweight archive and snapshot reconstruction instructions |

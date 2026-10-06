@@ -213,6 +213,14 @@ def main() -> None:
     parser.add_argument("--target-energy-tolerance", type=float, default=1e-9)
     parser.add_argument("--target-gradient-tolerance", type=float, default=1e-5)
     parser.add_argument("--target-ci-tolerance", type=float, default=1e-10)
+    parser.add_argument("--target-ci-residual-tolerance", type=float)
+    parser.add_argument("--target-ci-lindep", type=float, default=1e-14)
+    parser.add_argument(
+        "--target-optimizer",
+        choices=["one-step", "newton"],
+        default="one-step",
+        help="Orbital optimizer; newton is an experimental diagnostic",
+    )
     parser.add_argument("--target-ah-lindep", type=float, default=1e-14)
     parser.add_argument("--target-ah-start-tolerance", type=float, default=2.5)
     parser.add_argument(
@@ -276,11 +284,16 @@ def main() -> None:
         args.target_energy_tolerance,
         args.target_gradient_tolerance,
         args.target_ci_tolerance,
+        args.target_ci_lindep,
         args.target_ah_lindep,
         args.target_ah_start_tolerance,
     )
     if not all(math.isfinite(value) and value > 0 for value in positive):
         parser.error("Bond length, MPI ranks, deletion threshold and energy grid must be positive")
+    if args.target_ci_residual_tolerance is not None and not (
+        math.isfinite(args.target_ci_residual_tolerance) and args.target_ci_residual_tolerance > 0
+    ):
+        parser.error("CI residual tolerance must be finite and positive")
     if args.congen_workspace < 1000:
         parser.error("CONGEN workspace must be at least 1000 entries")
     if min(args.virtual_orbitals) < 0 or args.virtual_orbitals[1] != args.virtual_orbitals[2]:
