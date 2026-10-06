@@ -28,12 +28,43 @@ The SLEPc-enabled source build now passes all twelve upstream serial/MPI
 checks, with pinned toolchain PETSc/SLEPc library digests. Its explicit
 distributed Krylov–Schur small-model controls both pass all 40 roots within
 4.98e-10 Hartree and dipoles within 5.62e-11 a.u., using about 0.12 GiB in
-49.53/46.91 seconds. Its CAS(10,11) dense-reference comparison is running on
-Sadaharu. This route must reproduce the CAS(10,11) dense roots and dipoles, with
+49.53/46.91 seconds. Its full five-root CAS(10,11) dense-reference comparison
+passes all 40 roots within 5.34e-10 Hartree and dipole within 8.04e-11 a.u.,
+in 52.55 minutes at 5.25 GiB. Observed SCATCI/full-wall reductions are
+89.17%/46.25%; DENPROP dominates the remaining time. This route must also pass
 root-count/tolerance checks, before the prepared CAS(10,12) local target-import
 trial may run. See [the solver contract](../../docs/physics/co-electronic-qualification.md#selected-root-target-experiment).
 A selected-root target solver does not remove the all-spectrum requirement
 of the existing scattering calculation.
+
+The next local gate adds eight-root/tighter CAS(10,11) SLEPc output and
+independent fixed-orbital checks of all 64 requested roots. That gate and the
+CAS(10,12) restart coverage checks can release a 64-GiB local target-import
+trial on the freed scattering CPU slot. The trial retains the restart as an
+experimental input; competing starts remain part of model qualification.
+Separately, two matched CAS(10,11) QC entries fail CI convergence after orbital
+convergence. Small-model 80/160-vector trial-space controls precede fresh
+reoptimizations of those rejected checkpoints; preserve their original failures.
+
+The selected-root target route retains a dense PETSc Hamiltonian. The largest
+CAS(10,12) matrix floor is 37.41 GiB (about 9.35 GiB per rank on four ranks).
+Its local recipe now uses 16-GiB internal budgets; the 64-GiB container trial
+requires 80 GiB available host RAM and 20 GiB free scratch before launch.
+These are conditional budgets above the matrix floor, not measured total peaks.
+
+Both CAS(10,12) tight starts and the restart's ensemble-root coverage pass;
+the common final active subspaces agree to a minimum overlap singular value
+of 0.999999999999496. A finite staged CAS(10,12) QC ladder is running locally.
+The nine-job CAS(10,11) ladder finishes with two passes, three CI failures and
+four rejected simultaneous geometry/basis projections. New basis starts use
+passing same-geometry DZ checkpoints. The retained original manifests remain
+historical recipes; newly derived staged manifests record their own hashes.
+
+The neutral TZ/QZ/5Z relative-energy sequence now shifts by 17.24/15.82 meV
+for QZ-to-5Z at R=1.9/2.5. At R=3.0/4.0, all four aug-TZ/QZ references fail
+external RHF stability. The restricted neutral route is blocked there pending
+a different validated correlation treatment; increasing its basis alone does
+not resolve that reference defect.
 
 At the recorded Frankfurt rates, a **24-hour `r8a.16xlarge` window costs
 $148.01 in compute**; a **48-hour `r8a.8xlarge` window also costs $148.01**.
@@ -111,7 +142,7 @@ restart of an interrupted dense eigensolver.
 
 | Recipe or work | Count | Purpose / prerequisite |
 |---|---:|---|
-| `calibration-sa12-qc-tight.json` | 2 QC jobs | Equilibrium DZ tight restart passes; RHF start remains running on Sadaharu |
+| `calibration-sa12-qc-tight.json` | 2 QC jobs | Both equilibrium DZ starts and final subspace/root/dipole comparison pass |
 | `calibration-large-host-qc.json` | 18 QC jobs | Matched CAS(10,11)/(10,12): eight new geometry/basis combinations each, plus an equilibrium 50-component ensemble for each |
 | `calibration-tz-qc-fresh-starts.json` | 4 QC jobs | Equilibrium cc-TZ/aug-TZ RHF starts in both active spaces; queued behind the CAS(10,11) ladder on Sadaharu |
 | Fixed-orbital coverage/start checks | As needed | Check all eight sectors; compare first ensemble roots, spins, ensemble objectives, dipoles and final active subspaces before promoting a checkpoint |
@@ -147,8 +178,10 @@ background replays also belong in this pre-provisioning preparation.
 `calibration-neutral-5z.json` prepares the same three frozen-core CCSD(T)
 sentinels in aug-cc-pV5Z to complete the TZ/QZ/5Z basis sequence locally.
 Its worker is queued behind the exact CAS(10,12) RHF-start container on CPUs
-12–15. The restart's fixed-orbital coverage scan is queued behind the
-CAS(10,11) SLEPc/dense import gate on CPUs 0–3.
+12–15 and has completed. The restart's fixed-orbital coverage scan also
+passes after a preserved pre-probe import-path failure. CPUs 0–3 now run
+the staged CAS(10,12) QC ladder; CPUs 12–15 run the CAS(10,11) extra-root
+SLEPc control after finishing the neutral work.
 
 The dense recipe is directly compatible with `batch.py`. First make a fresh
 pilot manifest containing its equilibrium DZ entry. After its first singlet

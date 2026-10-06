@@ -1,0 +1,18 @@
+[
+  {
+    "name": "co-r3000-aug-tz-neutral-stretch",
+    "args": ["--basis", "aug-cc-pVTZ", "--bond-length", "3.0", "--memory-mb", "12000", "--ranks", "4"]
+  },
+  {
+    "name": "co-r3000-aug-qz-neutral-stretch",
+    "args": ["--basis", "aug-cc-pVQZ", "--bond-length", "3.0", "--memory-mb", "12000", "--ranks", "4"]
+  },
+  {
+    "name": "co-r4000-aug-tz-neutral-stretch",
+    "args": ["--basis", "aug-cc-pVTZ", "--bond-length", "4.0", "--memory-mb", "12000", "--ranks", "4"]
+  },
+  {
+    "name": "co-r4000-aug-qz-neutral-stretch",
+    "args": ["--basis", "aug-cc-pVQZ", "--bond-length", "4.0", "--memory-mb", "12000", "--ranks", "4"]
+  }
+]

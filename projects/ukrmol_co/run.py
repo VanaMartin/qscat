@@ -238,6 +238,11 @@ def main() -> None:
     parser.add_argument("--target-ci-fresh-start", action="store_true")
     parser.add_argument("--target-ci-lindep", type=float, default=1e-14)
     parser.add_argument(
+        "--target-ci-max-space",
+        type=int,
+        help="PySCF CI trial vectors per sector; default max(40, 8*ensemble roots)",
+    )
+    parser.add_argument(
         "--target-optimizer",
         choices=["one-step", "newton"],
         default="one-step",
@@ -394,6 +399,11 @@ def main() -> None:
     if args.target_initial_checkpoint is not None:
         if args.orbitals != "state-averaged" or not args.target_initial_checkpoint.is_file():
             parser.error("Initial checkpoint requires state-averaged orbitals and an existing file")
+    if args.target_ci_max_space is not None:
+        if args.orbitals != "state-averaged":
+            parser.error("CI trial-space control requires state-averaged orbitals")
+        if args.target_ci_max_space <= max(args.sa_singlet_roots + args.sa_triplet_roots):
+            parser.error("CI trial space must exceed every orbital-ensemble root count")
     scripts = acquire_scripts(args.scripts_cache)
     workdir = args.workdir.resolve()
     workdir.mkdir(parents=True, exist_ok=False)
