@@ -6,13 +6,15 @@ engine and target import checks are established; the electronic model is still
 unqualified for production potential fitting. The original RHF/SEP and
 ground-state-CASSCF archive remains in [`../evidence/`](../evidence/README.md).
 
-The published snapshot contains **41 completed attempts**: 20 validated
-pipelines (14 target-only and six scattering), 20 failed runner stages and
-one pre-run setup rejection. It includes six paired comparisons and 60 native
-RESON replays. Public-client verification checked all **4,383 payload digests**
-and exactly reconstructed the aggregate. All 20 successful runs were reanalyzed
-from raw outputs, and repackaging produced identical archive bytes. The
-publication manifest retains the previous 37-attempt archive's immutable URL.
+The published snapshot contains **52 completed attempts**: 28 validated
+pipelines (16 target-only and twelve scattering), 22 failed runner stages,
+one failed target-import analysis and one pre-run setup rejection. It includes
+twelve paired comparisons, 96 native RESON replays and six fixed-orbital CI
+coverage probes. The public fetch client verified all **6,227 payload digests**
+and exactly reconstructed the aggregate. All 28 successful runs passed raw-output
+reanalysis; the six CI probes match independent UKRmol roots, and repackaging
+produced identical archive bytes. Both earlier snapshots were publicly fetched
+again with matching digests; their immutable URLs remain in the manifest.
 
 Fetch the checksum-verified archive from a cloned QSCAT workspace, then extract
 outside the checkout to avoid duplicate historical Python test packages:
@@ -36,6 +38,9 @@ The archive also carries current analyzer/collector/packager sources, build/test
 provenance, licences, generated inputs, QC/CI/scattering/fitting logs, raw phases
 and cross sections, resource/stage records, and binary RHF/CASSCF checkpoints.
 Projected starts retain the initial checkpoint copy and its hash.
+`diagnostics/cas11-ci-coverage/` retains the six probes, checkpoint, execution
+record and exact source snapshot. They recover a missing lowest CI root in
+the rejected CAS(10,11) target; they do not validate its orbital optimization.
 
 The small checkpoints make the saved projected starts reusable. Put extracted
 `runs/` below a new host root mounted at `/work` when replaying the historical
@@ -49,13 +54,15 @@ Saved replay inputs/outputs are included. Native automatic fit candidates may
 overlap or be unphysical; their count is not a physical resonance count.
 
 `projects/ukrmol_co/archive.py` packages only the batches and runs named by a
-collector snapshot. It uses sorted regular files, zero uid/gid/mtime, mode 0644,
+collector snapshot, plus explicitly selected completed diagnostics. It uses
+sorted regular files, zero uid/gid/mtime, mode 0644,
 and gzip with zero mtime and an empty filename. Additional provenance/licence
 files are explicit attachments:
 
 ```bash
 uv run python -m projects.ukrmol_co.archive "$COPIED_ROOT" \
   --snapshot projects/ukrmol_co/sa-results.json \
+  --diagnostics cas11-ci-coverage \
   --attachments projects/ukrmol_co/sa-provenance.json \
     projects/ukrmol_co/calibration-sa-pairs.json LICENSE \
     projects/ukrmol_co/analyze.py projects/ukrmol_co/collect.py \
