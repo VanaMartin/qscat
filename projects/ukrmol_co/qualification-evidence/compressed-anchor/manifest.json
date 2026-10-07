@@ -1,0 +1,24 @@
+{
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "date": "2026-10-07",
+  "record_type": "compressed-cas11-dz-coverage-import-and-scattering-anchor",
+  "archive_bytes": 3228427,
+  "archive_sha256": "eafc854bef6069b3d4fc2b804ed1317395a740464cf5b40ced641abcae78e974",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 1115,
+    "profiles": 75913,
+    "coverage_probes": 48,
+    "maximum_ensemble_coverage_energy_difference_hartree": 1.4210854715202004e-13,
+    "maximum_physical_residual_hartree": 7.033564414204636e-10,
+    "maximum_penalized_residual_hartree": 9.716095143834362e-10,
+    "maximum_64_root_native_import_error_hartree": 9.04937280665763e-09,
+    "dimensions": {"B1": 27546, "B2": 27546},
+    "pi_phase_error_rad_mod_pi": 1.000000082740371e-09,
+    "native_position_ev": 3.82638404397982,
+    "native_full_width_ev": 2.3222421516262686,
+    "scattering_wall_seconds": 11439.925013254164,
+    "scattering_kernel_peak_gib": 25.27684783935547
+  },
+  "scope": "Compressed CAS11 DZ anchor coverage/import/pipeline consistency; electronic model and full sweep remain unqualified"
+}

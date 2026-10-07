@@ -1,0 +1,27 @@
+{
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "date": "2026-10-07",
+  "record_type": "cas10-native-sparse-mpi-export-and-spectral-omission-qualification",
+  "archive_bytes": 401723889,
+  "archive_sha256": "8f31e6e1af3da152b5845175efcc7b4af8066c209d80e754e2af7b0848e68f06",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 306,
+    "profiles": 25504,
+    "selected_eigenpairs": 2048,
+    "scattering_dimension": 8350,
+    "both_sector_observable_verdicts": true,
+    "maximum_energy_error_hartree": 9.663381206337363e-13,
+    "maximum_absolute_residual_hartree": 1.3350432672370898e-10,
+    "maximum_boundary_amplitude_error": 1.0027638250864612e-06,
+    "maximum_phase_error_rad_mod_pi": 2.0000000011677344e-07,
+    "maximum_fixed_window_position_difference_ev": 5.8468034540371493e-08,
+    "maximum_fixed_window_full_width_difference_ev": 2.3808697917092038e-07,
+    "native_2048_replay_wall_seconds": 1340.7443534361664,
+    "native_2048_replay_kernel_peak_gib": 1.8610305786132812,
+    "dense_omission_wall_seconds": 1898.711417366052,
+    "dense_omission_kernel_peak_gib": 0.3743247985839844,
+    "original_parser_failure_preserved": true
+  },
+  "scope": "Qualified 2048-root selected-spectrum implementation for the fixed CAS10 model; CAS11/CAS12 and electronic-model qualification remain separate"
+}

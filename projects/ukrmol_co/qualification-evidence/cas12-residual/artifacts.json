@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "cas12-residual.tar.gz": {
+      "bytes": 1002181,
+      "sha256": "94b6757579a30ad63e0c86a806360a890abf08dd1f3d1fab9cc91e21a73b3447"
+    }
+  },
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-cas12-residual-2026-10-07/"
+}

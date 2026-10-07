@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "compressed-anchor.tar.gz": {
+      "bytes": 3228427,
+      "sha256": "eafc854bef6069b3d4fc2b804ed1317395a740464cf5b40ced641abcae78e974"
+    }
+  },
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-compressed-anchor-2026-10-07/"
+}
