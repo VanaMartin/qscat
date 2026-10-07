@@ -174,6 +174,38 @@ to 166 for the cubic 2.0–3.15-eV clip. These diagnostics explain the backgroun
 sensitivity without selecting a new acceptance threshold after seeing the data,
 discarding the constant-background evidence or supplying physical error bars.
 
+### Outer-only energy-grid refinement
+
+Retained CAS(10,11) channels and R-matrix amplitudes permit new outer-region
+solves without rebuilding the inner Hamiltonian. The 0.1–5.0-eV requested
+interval now has three step sizes: **0.05/0.025/0.0125 eV**, or 99/197/393 points.
+Both Pi components have complete, finite grids, nonnegative cross sections and
+consistent final-state sums. Their phases at the 99 common points match the
+baseline exactly at printed precision. The four finer-grid outer pipelines
+take **381.99 seconds / 0.719 GiB** together on four physical cores.
+
+Independent linear-background fits hold both endpoints fixed in labeled input
+eV, converting those points through the audited native energy convention:
+
+| Fixed interval (input eV) | Fit points, coarse→medium→fine | Medium−coarse position (meV) | Fine−coarse position (meV) | Medium−coarse width (meV) | Fine−coarse width (meV) |
+|---|---|---:|---:|---:|---:|
+| 1.6–3.5 | 39→77→153 | +0.09591 | +0.14459 | +0.19120 | +0.29127 |
+| 2.0–3.1 | 23→45→89 | +0.06606 | +0.10025 | +0.17973 | +0.27739 |
+
+Both components pass the chosen position/width/phase gates. The largest width
+change is 0.0254%, and successive medium-to-fine changes are smaller. This
+qualifies these energy meshes for this fit representation; it does not resolve
+the background dependence or electronic/continuum model selection.
+
+Native RESON retains `MAXFIT=100` (`source/libouter/reson.f` lines 32, 899–915).
+The fine automatic fits truncate the saved-point interval at that limit and
+print a warning. Both truncated records remain evidence, with native
+position/width acceptance left unset. Independent fits consume the full fixed
+intervals. The archived driver failures include both MPI input-protocol EOFs,
+a pre-container pause-acknowledgement race and a completion-message mismatch
+after four successful native stages. Fresh retries preserve their sources,
+original exits and CPU-slot resumption records.
+
 ## Independently correlated neutral pilot
 
 The neutral pilot uses conventional spherical-basis RHF followed by

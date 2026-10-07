@@ -313,25 +313,33 @@ checks remain necessary before selecting a full neutral curve.
 
 The completed supplement is published through
 [`qualification-evidence/`](qualification-evidence/README.md).
-`qualification-results.json` contains 41 attempts in sixteen completed batches:
-seven passing QC targets, ten passing neutral records and five neutral failures,
+`qualification-results.json` contains 46 attempts in eighteen completed batches:
+nine passing QC targets, ten passing neutral records and five neutral failures,
 dense and five/eight-root SLEPc tight CAS(10,11) all-root/dipole imports, four rejected Davidson
 controls, four passing small-model SLEPc controls, tight CAS(10,11) scattering
-and seven rejected CAS(10,11) ladder entries. Its public archive retains 112 CI
-probes and fifteen diagnostic directories, including the independent all-64-root
-check, 49 native fit-replay attempts and preserved failed launches/retries.
-Verification checked 3711 payload digests, 262 batch-source hashes, 17 image-source
-hashes, all 25 successes, all four Davidson rejections, both aggregates, the
-ladder/reference failures and dense/SLEPc resource/storage comparison;
+and seven rejected CAS(10,11) ladder entries, the matched tight CAS(10,10)
+scattering control, and four 80/160-vector repairs (two passes/two CI failures).
+Its public archive retains 160 CI probes and twenty-one diagnostic directories,
+including the independent all-64-root check, 49 native fit-replay attempts,
+24 independent/120 held-point fits, four finer outer-only grids with native
+MAXFIT diagnostics, and preserved failed launches/retries.
+Verification checked 4635 payload digests, 298 batch-source hashes, 17 image-source
+hashes, all 28 successes, all four Davidson rejections, both aggregates, the
+ladder/reference/repair/driver failures, matched scattering comparison, outer
+grids and dense/SLEPc resource/storage comparison;
 repackaging is byte-identical. Staged QC, continuum controls and
 the full CAS(10,12) import remain pending. The earlier supplements remain
 available through the manifest's prior-snapshot pointers.
 
 The immutable current supplement is
-`https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.60d3de76d7dc.gz`,
-SHA256 `60d3de76d7dc546664969db246623ef4357878d3cc809ece31c219c97d6b704c`,
-26,736,944 bytes. The public client fetched and verified those bytes, and the
+`https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.a4c0738b6d01.gz`,
+SHA256 `a4c0738b6d0168c49df3600c109a4f8baab67b5dcb7f81f8130fea9cc52d586a`,
+29,897,245 bytes. The public client fetched and verified those bytes, and the
 extracted verifier reproduced all checks and byte-identical repackaging.
+Publication bundle, pointers, aggregate/source provenance, verification report
+and four new/updated verifier attachments are retained on Sadaharu in
+`prepared/publication-46-20261007/`. The 41 earlier run records and sixteen batch
+records remain exact; the 41-attempt archive remains an immutable prior snapshot.
 
 The refreshed standalone image is `qmodeling/ukrmol-co:electronic-qualification`,
 ID `sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08`.
@@ -341,11 +349,12 @@ all 17 embedded Python/Perl/Fortran source digests. Numerical jobs retain their
 earlier image IDs and immutable source snapshots.
 
 Repository handoff: analysis/packaging code is pinned at
-`d4155fef9b598fb5c5bf6217ac9b215ab7ec5841`. The committed-main index is complete
+`28f5e1f6158abe775c8d2a70244504dacc46201a`. The committed-main index is complete
 and upstream-current at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; the branch
 adds state-averaged/fresh-CI work plus the QC-only, correlated-neutral and
 workspace qualification tools, selected-root configuration/solver checks,
-optional SLEPc source build, CI trial-space control and their evidence. Source anchors and local
+optional SLEPc source build, CI trial-space control, independent phase fits and
+matched scattering/outer-grid controls with their evidence. Source anchors and local
 changes were resolved against that baseline before editing and publication.
 
 ### Published evidence and collection
@@ -828,7 +837,7 @@ phase-residual/held-point diagnostic in the pinned Linux image, with 24 native
 fits, 72 separated starts and 120 held-point fits. This combined worker takes
 **89.29 seconds / 0.215 GiB** and resumes the waiting owner. Evidence is under
 `diagnostics/matched-scattering-and-independent-phase/`; the new results are
-being staged for a subsequent supplement, preserving the 41-attempt snapshot.
+published in the verified 46-attempt supplement, preserving the 41-attempt snapshot.
 
 The independent phase fitter has already passed 14 analytic unitary-S/mesh/
 branch/held-point tests locally; all 76 project fast tests pass. Its local raw
@@ -854,6 +863,12 @@ PID **929921**, attached supervisor `sh_113d31634001UT5b07TRAiNLCA`. It leases t
 still-waiting CPU-12–15 group, with 4-GiB container / 16-GiB available-RAM /
 20-GiB scratch gates, and preserves native stage exits, grids, cross sections,
 fits and input hashes in `diagnostics/cas11-tight-outer-energy-grids-completionfix/`.
+The worker completes in **381.99 seconds / 0.719 GiB**, with all twenty native
+stages succeeding. Both 197-/393-point phase/cross-section grids pass completion,
+finiteness, nonnegative/final-state-sum and Pi checks. The 99 common-point phases
+match the baseline exactly at printed precision. Fixed-window linear-background
+fits shift position/full width by at most **0.14459/0.29127 meV** (0.0254% in
+width) across all three resolutions, passing the chosen energy-grid gates.
 Its independent linear-background fits hold labeled-input-eV intervals
 1.6–3.5 and 2.0–3.1 fixed across the three grids, using the actual native Hartree
 abscissa. Native `RESONC` caps saved fit grids at **MAXFIT=100**; truncated fits

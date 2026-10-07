@@ -1,10 +1,12 @@
 # CO electronic-qualification evidence
 
-This supplement preserves **41 completed attempts in 16 batches**:
-seven passing QC targets, ten passing neutral records and five neutral failures,
+This supplement preserves **46 completed attempts in 18 batches**:
+nine passing QC targets, ten passing neutral records and five neutral failures,
 dense and five/eight-root SLEPc tight CAS(10,11) target imports, four rejected Davidson controls,
 four passing small-model SLEPc controls, tight CAS(10,11) scattering and seven rejected CAS(10,11) ladder
-entries. It also includes all **112** CAS(10,11)/(10,12)
+entries, the matched tight CAS(10,10) scattering control and four numerical
+CI-space repairs (two stretched-DZ passes and two projected-TZ failures).
+It also includes all **160** CAS(10,10)/(10,11)/(10,12)
 fixed-orbital CI coverage probes, final checkpoint comparisons and the
 CAS(10,12) installed-library workspace audit and guarded utility checks,
 including thirteen additional valid 16-/32-rank target-sector queries.
@@ -41,7 +43,14 @@ Its default candidate is at 2.520805 eV with full width 1.151002 eV. Position
 and phase changes of 64.84 meV / 0.109809 rad from the earlier CAS(10,10) model
 exceed the chosen gates; QC controls also differ, so the comparison does not
 isolate the active-space change. Reference inputs and raw phase grids travel
-with the archive.
+with the archive. The matched tight CAS(10,10) rerun now passes in 21.38 minutes
+at a 2.864-GiB peak; all forty imported roots/dipole and 48 independent coverage
+probes pass. Tightening changes its earlier position/full width by only
+−0.544/+0.395 micro-eV and phases by 1.30e-6 rad. Matching numerical controls
+therefore leaves the active-space comparison failing at +64.8401 meV and
+0.1098099 rad. The two passing stretched-DZ repairs still require their own
+coverage/subspace and independent-import qualification; both projected TZ
+repairs retain singlet B1/B2 CI failures after orbital convergence.
 
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
@@ -51,10 +60,24 @@ failure. The fresh unit-fixed retry reads the template's actual `LUKMT`
 Window clipping at fixed background changes position/width by at most
 6.03 meV / 3.62%; background terms 1–4 change width by 12.65%, failing that gate.
 The original exits/logs and corrected sources are retained; K-matrix/R-matrix
-binaries stay on Sadaharu for execution.
+binaries stay on Sadaharu for execution. Twenty-four independent phase fits
+reproduce the native fits, check printed residues and predict 120 interleaved
+held-point sets; the poorer constant background remains evidence. The pinned
+engine's 0.0735 Ryd/input-eV conversion (18.44-ppm offset from modern units) is
+explicitly audited and retained.
 
-The matched tight CAS(10,10) rerun, continuum and staged QC/import follow-ons
-remain pending. The prior eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-attempt supplements remain in
+Four outer-only pipelines refine the full grid from 99 to 197/393 points in
+6.37 minutes at 0.719 GiB. Common-point phases agree at printed precision;
+fixed-window linear-background position/full-width changes are at most
+0.145/0.292 meV (0.0254% in width), within the chosen gates. Both fine automatic
+native fits hit `MAXFIT=100`; their truncated records have unset acceptance
+verdicts and independent fits use the full fixed intervals. Four original
+driver failures remain preserved: two MPI-input EOFs, a pause-state race and
+a completion-message mismatch after four successful native stages. Every
+CPU-slot lease records resumption of its waiting owner.
+
+Continuum and staged QC/import follow-ons remain pending. The prior
+eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
 
 The Davidson controls request 5/8/16/32 roots and all fail required root imports
@@ -96,8 +119,8 @@ Extract outside the checkout: historical source snapshots contain Python test
 modules. The reconstructed JSON matches `qualification-results.json` in the
 archive. `neutral-results.json` retains the fifteen-attempt neutral-only subset.
 The file index records every payload's size and SHA256. Publication verification
-checked 3711 payloads, 262 batch-source hashes, 17 embedded-image source hashes,
-raw reanalysis of all 25 successful records, all 112 CI spectra/spins and
+checked 4635 payloads, 298 batch-source hashes, 17 embedded-image source hashes,
+raw reanalysis of all 28 successful records, all 160 CI spectra/spins and
 exact reconstruction of both aggregates. Repackaging is byte-identical.
 All four Davidson rejections are reproduced; the stored Hamiltonian is
 independently reconstructed and its eigenpair residuals checked.
@@ -107,6 +130,10 @@ The extra-root launch failure's original source/hash and exit are preserved;
 the repaired worker's CPU-slot lease records verify resumption of its waiting
 follow-on after the scan. Native scattering dimensions, raw phase comparisons,
 all 49 replay attempts and saved-point fit grids are independently reconstructed.
+The matched numerical configurations, generated diagonalizer inputs and raw
+phase/candidate comparisons, independent/held-point fits, four outer grids and
+their MAXFIT limits are also reconstructed. All 41 prior run records and sixteen
+prior batch records remain exact.
 The full dense/SLEPc comparison and its storage-floor calculation are independently
 reconstructed from raw stages, resources, roots, dipoles and pinned source.
 
@@ -131,8 +158,8 @@ PYTHONPATH=. uv run python "$EVIDENCE_ROOT/verify-qualification-evidence.py" \
 Exact reanalysis/repackaging uses the analysis source commit recorded in the
 manifest. Later analyzer versions deliberately record their own source hash.
 The current utilities/packaging commit is
-`746a340b063508a2f2e6966a1177190d43d1acc5`, adding nested outer-engine licence
-selection to the earlier utilities. `analysis-archive.py` retains the packaging
+`28f5e1f6158abe775c8d2a70244504dacc46201a`, retaining the nested outer-engine
+licence selection and independent phase-fit tools. `analysis-archive.py` retains the packaging
 source; embedded image modules keep their actual original bytes and digests.
 To replay the numerical recipes, copy archived `runs/` to a new host root
 mounted at `/work` so retained checkpoint arguments resolve, and choose new
