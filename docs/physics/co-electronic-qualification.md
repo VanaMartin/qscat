@@ -86,8 +86,16 @@ bound; physical root/dipole gates remain **1e-7 Hartree / 1e-5 a.u.** The
 [488-payload companion](../../projects/ukrmol_co/qualification-evidence/stretched-import/README.md)
 reconstructs all roots, 40 raw QC states, both seeds' 96 reference spectra/624
 eigenpairs, both orbital-subspace comparisons and 16229 resource samples.
-Same-geometry TZ/aug-TZ QC now runs with conditional numerical repairs;
-basis, competing-start and across-geometry model qualification remain open.
+Both subsequent same-geometry TZ/aug-TZ QC targets pass in **14.57 / 20.33
+minutes**, at **0.345 / 0.434 GiB**, with all ordinary/fresh-CI and orbital
+flags accepted. The [170-payload QC companion](../../projects/ukrmol_co/qualification-evidence/stretched-basis-qc/README.md)
+reconstructs 80 raw states and 10430 resource samples. DZ→TZ and TZ→aug-TZ
+ground-energy changes are **−0.825431 / −0.0248054 eV**; maximum ranked-excitation
+changes **0.0883686 / 0.0755466 eV**, z-dipole changes **−0.00374061 /
+−0.0110101 a.u.** Cross-basis minimum active overlaps are **0.985481 / 0.998189**.
+Ranked spectra do not establish state identities; independent fixed-orbital
+coverage and individually gated 64-root imports now run on CPUs 8–11. Basis,
+competing-start and across-geometry model qualification remain open.
 
 ## Completed CAS(10,11) scattering and extraction checks
 
@@ -493,8 +501,19 @@ trial-space and common-first-five root-count differences are at most **2.274e-13
 [335-payload coverage companion](../../projects/ukrmol_co/qualification-evidence/competing-augtz-coverage/README.md)
 reconstructs every raw spectrum/spin/convergence block. Cost is **10.17 minutes /
 0.380 GiB**. Four new-name downward retries from the fresh and competing
-aug-TZ branches now run, with a separately gated 64-root SLEPc import queued
-behind their completion. Orbital-branch disagreement remains a scientific result.
+aug-TZ branches subsequently pass QC. Their two space-80/160 comparisons and
+four comparisons against qualified fresh TZ pass all same-basis restart gates:
+maximum root/dipole differences **4.156e-8 Hartree / 6.916e-8 a.u.**, minimum
+active overlap **0.9999999999995466**, maximum objective difference
+**8.527e-14 Hartree**. Both source lineages recover the existing TZ solution,
+without identifying their distinct aug-TZ solutions. Individual QC walls span
+**22.10–34.75 minutes**, peaks **0.352–0.409 GiB**, sequential batch **1.903 hours**.
+The [296-payload companion](../../projects/ukrmol_co/qualification-evidence/downward-projections/README.md)
+reconstructs 160 raw QC states, six complete checkpoint-based restart comparisons
+and 34132 resource samples. All original batch/controller/comparison exits are
+zero; the earlier interface failures remain preserved. The covered competing
+aug-TZ 64-root import follows the staged owner's completion on CPUs 4–7.
+Orbital-branch disagreement at aug-TZ remains a scientific result.
 The qualified fixed-DZ l=3/l=5 continuum controls continue independently of
 CAS(10,12) import, which subsequently completes. Electronic-model convergence
 remains open.

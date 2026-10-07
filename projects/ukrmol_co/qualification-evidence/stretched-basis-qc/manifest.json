@@ -1,0 +1,117 @@
+{
+  "git_sha": "9a8c34499d8c44aa90f6470551c6d454f0a30af5",
+  "record_type": "co-stretched-basis-qc",
+  "date": "2026-10-07",
+  "archive_sha256": "3350694250b4fbe4f480e21db93d93da723ee0b943dcdbaee87ee595a32e5841",
+  "archive_bytes": 610880,
+  "payload_digests_verified": 170,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "parent_stretched_import_archive_sha256": "ce39b22258f5ae8551354e3105af2ea56d6fbafc00d55688f681767f5c60fcb8",
+  "verification": {
+    "both_qc_targets_pass": true,
+    "original_batch_and_controller_exit": 0,
+    "batch_wall_seconds": 2094.7336426309776,
+    "records": {
+      "co-r2500-cctz-sa11-qc-dz80-start-ci-space80": {
+        "qc_pass": true,
+        "checkpoint_sha256": "7aeab21d97c9c72a8e4e3f213238585a31650acaa3bcb67402eed28a921e1560",
+        "raw_final_states_checked": 40,
+        "wall_seconds": 874.044405360939,
+        "kernel_peak_container_memory_bytes": 370839552,
+        "final_orbital_gradient_norm": 7.077189009483073e-08,
+        "fresh_ci_flags_pass": true,
+        "mo_orthogonality_max_error": 8.486275287038664e-15,
+        "pi_energy_max_difference_hartree": 7.958078640513122e-13
+      },
+      "co-r2500-augtz-sa11-qc-dz80-start-ci-space80": {
+        "qc_pass": true,
+        "checkpoint_sha256": "1a1305c1df8f11b8aece22a531ae24b6fbe505433ac41d0a983356aaab36ec48",
+        "raw_final_states_checked": 40,
+        "wall_seconds": 1219.5777764280792,
+        "kernel_peak_container_memory_bytes": 465952768,
+        "final_orbital_gradient_norm": 5.7914385212312566e-08,
+        "fresh_ci_flags_pass": true,
+        "mo_orthogonality_max_error": 4.4853010194856324e-14,
+        "pi_energy_max_difference_hartree": 1.1937117960769683e-12
+      }
+    },
+    "raw_final_states_checked": 80,
+    "profile_samples_verified": 10430,
+    "comparisons": [
+      {
+        "first": "stretched-DZ-seed",
+        "second": "co-r2500-cctz-sa11-qc-dz80-start-ci-space80",
+        "ground_energy_difference_ev": -0.8254312013285878,
+        "ensemble_energy_difference_ev": -0.8651110124027266,
+        "maximum_absolute_ranked_root_difference_ev": 0.9137998443860436,
+        "maximum_absolute_ranked_excitation_difference_ev": 0.08836864305745575,
+        "ground_dipole_difference_au": [
+          0.0,
+          0.0,
+          -0.0037406087361384066
+        ],
+        "cross_basis_subspace_singular_values": {
+          "core": [
+            0.9999969477295769,
+            0.9999931663188045
+          ],
+          "active": [
+            0.9998767585574454,
+            0.9998462054421305,
+            0.9996706355117703,
+            0.9996706355117676,
+            0.9995213535909446,
+            0.9994881654155694,
+            0.9994881654155642,
+            0.9985182869515202,
+            0.9894486301668841,
+            0.9854807069491943,
+            0.9854807069491506
+          ]
+        },
+        "scope": "Ranked spectra of DZ-lineage basis models; state identities and competing starts unresolved"
+      },
+      {
+        "first": "co-r2500-cctz-sa11-qc-dz80-start-ci-space80",
+        "second": "co-r2500-augtz-sa11-qc-dz80-start-ci-space80",
+        "ground_energy_difference_ev": -0.024805413555831973,
+        "ensemble_energy_difference_ev": -0.05171864072598059,
+        "maximum_absolute_ranked_root_difference_ev": 0.10035196610049942,
+        "maximum_absolute_ranked_excitation_difference_ev": 0.07554655254466745,
+        "ground_dipole_difference_au": [
+          0.0,
+          0.0,
+          -0.01101012893195874
+        ],
+        "cross_basis_subspace_singular_values": {
+          "core": [
+            0.9999999293523449,
+            0.9999998732777332
+          ],
+          "active": [
+            0.9999931332759487,
+            0.9999870054840427,
+            0.9999851344385149,
+            0.9999851344385116,
+            0.9999459813826148,
+            0.9997696914876314,
+            0.9997696914875948,
+            0.9997661976176891,
+            0.9985429674835686,
+            0.9981894753354864,
+            0.9981894753342707
+          ]
+        },
+        "scope": "Ranked spectra of DZ-lineage basis models; state identities and competing starts unresolved"
+      }
+    ],
+    "scope": "Stretched basis QC/self-consistency; coverage/import/competing starts separate"
+  },
+  "coverage_import_successor": {
+    "pid": 959637,
+    "shell_id": "sh_115796107001U2Jw3GtBtzP4H4",
+    "cpu_group": "8-11",
+    "source_sha256": "2834b523a9ca8e2aef6be7a40597d33a189215b9604c5dae0ffaf6788b4ec74d"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "downward-projections.tar.gz": {
+      "bytes": 1390954,
+      "sha256": "ed05f231aa412a22c47261a39a2866eb98e3f9c19d89876859c1a698fcd4f8d1"
+    }
+  },
+  "git_sha": "9a8c34499d8c44aa90f6470551c6d454f0a30af5",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-downward-projections-2026-10-07/"
+}
