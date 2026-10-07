@@ -1,0 +1,100 @@
+{
+  "git_sha": "119fe06e10ed008f9d85f349fed44ab0c8791965",
+  "record_type": "co-stretched-ci-iteration-refinement",
+  "date": "2026-10-07",
+  "archive_sha256": "c8927f5b75726424a02dff624f9f294d23851b3dc8b4152a3ef93d49259bfd3f",
+  "archive_bytes": 364813,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "original_controller_exit": 0,
+  "wall_seconds": 789.8902329660486,
+  "kernel_peak_container_memory_bytes": 306126848,
+  "verification": {
+    "failed_settings_reproduced_and_repaired": [
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space80",
+        "spin": 0,
+        "irrep": "A1",
+        "roots": 8,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space80",
+        "spin": 0,
+        "irrep": "B1",
+        "roots": 8,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space80",
+        "spin": 0,
+        "irrep": "B2",
+        "roots": 8,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space80",
+        "spin": 2,
+        "irrep": "A1",
+        "roots": 5,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space160",
+        "spin": 0,
+        "irrep": "A1",
+        "roots": 8,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space160",
+        "spin": 0,
+        "irrep": "B1",
+        "roots": 8,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space160",
+        "spin": 0,
+        "irrep": "B2",
+        "roots": 8,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space160",
+        "spin": 0,
+        "irrep": "A2",
+        "roots": 5,
+        "space": 40
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space160",
+        "spin": 2,
+        "irrep": "A1",
+        "roots": 5,
+        "space": 40
+      }
+    ],
+    "original_cycle200_gates_pass": [
+      false,
+      false
+    ],
+    "refined_cycle600_gates_pass": [
+      true,
+      true
+    ],
+    "full_600_cycle_probes": 96,
+    "full_scan_eigenpairs_checked": 624,
+    "maximum_physical_residual_hartree": 7.067318090149459e-10,
+    "maximum_penalized_residual_hartree": 9.942935943643033e-10,
+    "maximum_ensemble_energy_difference_hartree": 1.2789769243681803e-13,
+    "analytic_residual_and_perturbed_vector_benchmark_passes": true,
+    "scope": "Raw spectra/spins and recorded Hamiltonian-action residuals; further import/basis qualification required"
+  },
+  "prior_failed_coverage_archive": {
+    "url": "https://data.qscat.org/ukrmol-co-stretched-coverage-2026-10-07/stretched-repair-coverage.tar.0d8f79e3de6a.gz",
+    "sha256": "0d8f79e3de6a270a870dd5efc32d1452f46b46605d1a6cf89ce8f8280e933e63"
+  },
+  "scope": "Extended iteration gates pass at fixed orbitals with measured residuals; original 200-cycle failures remain preserved; electronic-model/basis and independent UKRmol import qualification remain separate",
+  "payload_digests_verified": 281,
+  "byte_identical_repackaging": true
+}

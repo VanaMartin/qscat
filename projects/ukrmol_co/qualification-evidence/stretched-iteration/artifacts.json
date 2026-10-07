@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "stretched-ci-iteration.tar.gz": {
+      "bytes": 364813,
+      "sha256": "c8927f5b75726424a02dff624f9f294d23851b3dc8b4152a3ef93d49259bfd3f"
+    }
+  },
+  "git_sha": "119fe06e10ed008f9d85f349fed44ab0c8791965",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-stretched-ci-iteration-2026-10-07/"
+}

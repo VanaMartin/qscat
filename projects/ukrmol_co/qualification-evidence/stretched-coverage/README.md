@@ -20,6 +20,12 @@ overlap 0.9999999999999984. Numerical pair agreement passes, while coverage
 qualification remains rejected. The worker takes **559.24 seconds / 0.340 GiB**
 and resumes the waiting CPU-slot owner.
 
+The later [iteration refinement](../stretched-iteration/README.md) reproduces
+all nine failed settings at 200 cycles and repairs them at 600, then passes
+complete 48-probe scans of both checkpoints with measured Hamiltonian residuals.
+That supports coverage under the refined iteration contract; this original
+200-cycle rejection remains preserved.
+
 The same worker measures the matched CAS(10,10) initial/final active-subspace
 overlap: minimum **0.9999999998858343**, with core minimum 0.9999999999996424.
 These support continuity of the matched control used by the main supplement.
