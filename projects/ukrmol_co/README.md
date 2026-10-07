@@ -545,8 +545,15 @@ same-basis fresh-lineage CI-space repairs are now supervised on Sadaharu.
 The [fresh-target coverage companion](qualification-evidence/fresh-coverage/README.md)
 now passes all 144 probes/936 eigenpair evaluations, with physical/penalized
 residual maxima 6.96e-10/9.99e-10 Hartree, in 32.36 minutes / 0.728 GiB.
-A covered 64-root fresh CAS(10,11) TZ import is queued next; competing-start
+A covered 64-root fresh CAS(10,11) TZ import is now active; competing-start
 and electronic-model gates remain open.
+Both fresh-lineage CAS(10,11) aug-TZ space-80/160 QC repairs now pass in
+10.69/10.64 minutes at 0.419/0.477 GiB. All forty roots/dipoles agree within
+1.667e-11 Hartree / 3.230e-12 a.u. and core/active subspaces match to roundoff.
+The [repair companion](qualification-evidence/fresh-augtz-repairs/README.md)
+retains both successes and the exact rejected parent. Ninety-six independent
+coverage/residual probes follow the active TZ import; competing starts and
+UKRmol imports remain required.
 Outer-only 99→197→393-point checks also pass: identical common-point phases and
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;
