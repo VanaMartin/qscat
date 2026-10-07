@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "cas12-import.tar.gz": {
+      "bytes": 1551554,
+      "sha256": "0173df04a7694f1d13a230bc1bc8a6c4f495c78ea23e780d08f9b94acdd0d195"
+    }
+  },
+  "git_sha": "825b56ea961794722c5941e9a8d11871da5adf42",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-cas12-import-2026-10-07/"
+}

@@ -139,6 +139,16 @@ throughput of repeated four-rank execution on the same allocation. All 1221
 payloads and 98997 raw profile samples verify; numerical equivalence includes
 the distinct initial-checkpoint lineage. Continuum work resumes after slot release.
 
+The [CAS(10,12) import companion](cas12-import/README.md) subsequently passes all
+40 native roots and the independent dipole on Sadaharu. Native roots agree with
+current QC within **4.801e-11 Hartree**, covered seed spectra within **6.815e-9
+Hartree**, and the separate RHF-start target within **3.485e-8 Hartree**; current
+QC/import dipole error is **1.279e-11 a.u.** Complete cost is **6.201 hours /
+40.405 GiB**. Serial DENPROP is **80.768%** of wall. All 335 payloads, 40 raw QC
+states, 48 raw reference probes/312 eigenpairs and 111339 resource samples verify.
+The original two extra-root coverage failures and prior controller retry failure
+remain retained. The stretched CAS(10,11) queue starts on the released core group.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
@@ -161,7 +171,8 @@ and independently check all **64 requested roots** within 5.34e-10 Hartree,
 including raw CASCI energies, root order and spins. Common dense/five-root
 excitations match at printed precision. The scan takes 128.22 seconds at a
 0.280-GiB peak; an initial pre-probe process-identity guard failure and its
-repaired launch are retained. The full CAS(10,12) import remains pending.
+repaired launch are retained. The later CAS(10,12) companion above establishes
+the full forty-root/dipole target import locally.
 The preceding 55-attempt target/scattering snapshot remains available in
 [`../sa-evidence/`](../sa-evidence/README.md).
 

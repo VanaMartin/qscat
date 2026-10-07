@@ -10,8 +10,8 @@ lower; both new-branch coverage scans pass, repaired downward projections run
 and its independent native import is queued.
 The matched CAS(10,10)
 one-/two-/four-rank and concurrent benchmarks also pass all seven replicas.
-CAS(10,12)'s tight QC starts and coverage pass, but full target-density/dipole
-processing remains active; its compressed DZ CI failure still gates dependent
+CAS(10,12)'s tight QC starts, ensemble coverage and full forty-root/dipole import
+now pass locally in 6.201 hours / 40.405 GiB; its compressed DZ CI failure still gates dependent
 repairs. The neutral stretched RHF reference remains rejected. The next decisions
 depend on these finite workers:
 
@@ -19,7 +19,7 @@ depend on these finite workers:
 |---|---|---|
 | 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
 | 4–7 | Four core+active downward-projection retries from both aug-TZ branches, 16-GiB containers | Both new-branch coverage scans pass; a 64-root competing-branch import follows the exact retry-worker completion, then resumes the waiting staged CAS(10,11) owner |
-| 8–11 | CAS(10,12) target DENPROP/dipole processing, 64-GiB import container | Final independent import qualification releases the recorded stretched import/basis and other dependent workers |
+| 8–11 | Stretched CAS(10,11) 64-root import, then same-geometry TZ/aug-TZ QC and conditional numerical repairs | CAS(10,12) forty-root/dipole import completes with original exit zero and releases the exact recorded owner; stretched gates remain independent |
 | 12–15 | Original CAS(10,11) l=3/l=5 continuum controls, 48-GiB containers | Their scientific gates pass; a finite successor advances them after the idle predecessor's recorded scheduling retirement, then replays saved-data fits |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
@@ -1599,14 +1599,67 @@ The import worker leases/resumes the same staged owner in its final handler;
 CAS(10,12) and fixed-DZ continuum tasks remain on their disjoint core groups.
 Further local work remains reasonable, with no paid provisioning.
 
+### CAS(10,12) local target-import completion
+
+Supervisor PID **916425**, attached `sh_113d599540014G0jyyj7Y6Sndi`, completes with
+original SSH/controller exit **zero**. Its original finite step exits are
+**0 / 1 / 0**: passing small CI-space controls, preserved CAS(10,11) retry failure,
+and passing `calibration-target-slepc-cas12`. That batch/engine exits zero in
+**22324.47 seconds / 6.201 hours**, aggregate CPU **9.437 hours**, kernel peak
+**43384504320 bytes / 40.405 GiB** in the 64-GiB container. The exact restart
+seed remains `9451c7baed762ab674e9d36111cc220202972703ac52346e1ce13dcdc5ac55a0`.
+
+All **40 native target roots** pass against current QC within **4.801e-11
+Hartree**, covered seed first-five spectra within **6.815e-9 Hartree**, and the
+independent RHF-start target within **3.485e-8 Hartree**. Saved-table/current-QC
+error is **5.465e-10 Hartree**, with every native-to-saved exact-decimal rounding
+error ≤5e-10 Hartree. Ground DENPROP dipole agrees with current QC within
+**1.279e-11 a.u.**, the seed within **3.810e-9 a.u.** and the RHF start within
+**5.881e-8 a.u.** Minimum initial/final core/active overlaps are
+**0.9999999999999997 / 0.9999999999999988**; RHF-start/final active overlap is
+**0.9999999999995508**. Tight QC/fresh-CI, spin, MO/Pi and physical import gates
+remain unchanged. The computed native root inventory is five per eight sectors;
+the original extra-root/space-40 coverage failures remain separate failures.
+
+Stage totals: QC **1472.31 seconds**, integral preparation 0.095, eight CONGEN
+stages 12.22, eight SCATCI sectors **2808.79 seconds / 46.81 minutes**, serial
+DENPROP **18030.97 seconds / 5.009 hours**. DENPROP is **80.768%** of profiled
+wall, so more MPI ranks alone do not remove the measured density bottleneck.
+The largest dense PETSc target matrix floor stays **37.41 GiB**, now with an
+observed complete-job peak of **40.405 GiB**. Numerical target import fits locally;
+the all-spectrum scattering path still needs its actual contracted dimensions,
+workspaces and memory/scaling measurements.
+
+The [CAS(10,12) companion](qualification-evidence/cas12-import/README.md) verifies
+**335 payloads**, all native spectra/dipole, **40 raw QC states**, **48 raw
+reference probes / 312 eigenpairs**, both seed/RHF-start subspace comparisons
+and **111339 raw resource samples**. All 174 copied prior QC/start/coverage
+inputs match the immutable main archive; two original extra-root failures and
+the original v3 controller's failed CAS(10,11) batch remain preserved. Public
+fetch is byte-for-byte and repackaging byte-identical. Archive:
+`https://data.qscat.org/ukrmol-co-cas12-import-2026-10-07/cas12-import.tar.0173df04a769.gz`,
+SHA256 `0173df04a7694f1d13a230bc1bc8a6c4f495c78ea23e780d08f9b94acdd0d195`.
+Publication/verifier persist at `prepared/publication-cas12-import-20261007/`.
+
+The stretched import/basis supervisor PID **933694**, attached
+`sh_113fdbc74001wgM6TF4p34y6Xq`, now advances on released **8–11**. Its
+`co-r2500-ccdz-sa11-slepc-roots8-ci-space80-target` container is active; the
+subsequent same-geometry TZ/aug-TZ QC and conditional space-160 repairs retain
+their independent QC/coverage/import gates. Staged CAS(10,12) TZ QC remains
+active on **0–3**, downward competing-start retries on **4–7**, and l=3 continuum
+on **12–15**. Available RAM is approximately **99 GiB** and free `/home` **148
+GiB** at this transition. Further finite Sadaharu work remains reasonable;
+the approximately $200 paid experiment stays deferred.
+
 ### Scientific decisions still pending
 
 1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)
    import passes; retain its completed start and root-count refinements and
    finish the running equilibrium scattering and matched QC controls.
-   CAS(10,12) needs a larger-RAM dense execution host or
-   separately gated eigensolver configuration; the installed-library audit rules
-   out the current dense layouts on this host. Compare
+    CAS(10,12)'s separately gated selected-root configuration now passes its full
+    forty-root/dipole import locally; the installed-library audit still rules out
+    current all-spectrum dense target layouts. Measure the actual contracted
+    scattering dimensions/workspaces and compare
    against the smaller active spaces before adopting a target for scattering.
 2. **Qualify the common orbitals.** The `state-averaged` backend constructs
    multi-spin/multi-irrep CAS targets. The existing `natural` option optimizes
