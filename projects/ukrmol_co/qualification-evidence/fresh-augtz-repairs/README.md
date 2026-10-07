@@ -60,3 +60,8 @@ The [continuation](../../CONTINUATION.md) records the finite 96-probe,
 fresh CAS(10,11) TZ import. The
 [input recipe](../../calibration-sa11-fresh-augtz-ci-repairs.json) names both
 repairs and the unchanged rejected seed.
+
+The later [coverage companion](../fresh-augtz-coverage/README.md) now passes
+both checkpoints' 96 probes/624 eigenpair evaluations in 10.02 minutes /
+0.391 GiB. The coverage-gated 64-root aug-TZ import is active; competing starts
+and electronic-model qualification remain open.

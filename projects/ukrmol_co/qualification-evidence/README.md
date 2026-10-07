@@ -101,6 +101,18 @@ and core/active subspaces to roundoff. All 129 payloads and 80 raw final states
 verify; the original rejected parent remains exact. Independent coverage,
 competing starts and imports remain required.
 
+The [fresh TZ import companion](fresh-tz-import/README.md) now checks all 64
+CAS(10,11) roots within 3.196e-8 Hartree against the covered seed's independent
+controls. The engine run passes in 54.38 minutes / 5.270 GiB. All 181 payloads
+verify, including the original rounding-contract rejection, a CIDATA parser
+recheck failure and the passing final-set/decimal recheck. Physical gates are
+unchanged; competing-start/model qualification remains open.
+
+The [repaired aug-TZ coverage companion](fresh-augtz-coverage/README.md) also
+passes all 96 probes/624 eigenpair evaluations, with physical/penalized residual
+maxima 6.62e-10/9.94e-10 Hartree. All 253 payloads verify. The 10.02-minute /
+0.391-GiB scan releases a gated 64-root UKRmol import on Sadaharu.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.

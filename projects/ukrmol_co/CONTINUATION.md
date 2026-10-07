@@ -1245,6 +1245,101 @@ above the requested 1e-7 threshold. The original finite 150-cycle limit applies.
 At this inspection the host has **104 GiB available RAM / 156 GiB free `/home`**.
 These are active numerical/cost investigations; no paid host is yet required.
 
+### Fresh TZ import completion and verifier repair
+
+The fresh CAS(10,11) TZ engine/batch completes with original exit **zero**,
+wall **3262.90 seconds / 54.38 minutes** and kernel peak **5658492928 bytes /
+5.270 GiB**. All eight SLEPc sectors converge with eight roots each. Import-run
+QC vs UKRmol passes all forty ensemble roots within **5.253e-10 Hartree** and
+the ground dipole within **3.366e-11 a.u.**. Stage totals are QC adapter
+537.91 seconds, integral preparation 0.34, CONGEN 2.86, SCATCI 371.32 and
+DENPROP **2350.20 seconds**. This trial shows that target-density processing
+can dominate after the selected-root eigensolver becomes inexpensive.
+
+Its final supervisor verification originally exits **one**. A consistency
+assertion uses `atol=1e-10` for the native ten-decimal energies against the
+saved table; `lib/ukrmollib.pm::save_target_energies` prints `%16.9f`, so half
+the last stored unit is **5e-10 Hartree**. The first read-only recheck also exits
+one: later native SCATCI logs echo earlier CIDATA spectra, so parsing the first
+`EIGEN-ENERGIES` block includes inherited sets. The repaired verifier selects
+the unique spectrum after `CI data will be stored as set number`, checks the
+sector number and compares exact decimal tokens under that format contract.
+Analytic controls reject corrupted tables, inherited-only spectra and missing
+final sets. Neither failure's source/log/exit is overwritten; physical root
+and dipole gates remain **1e-7 Hartree / 1e-5 a.u.**.
+
+The passing recheck verifies all **64 native roots** against eight-root/
+space-160/600-cycle controls within **3.196e-8 Hartree**. The original fresh
+seed is slightly reoptimized in the import run: forty QC roots change by at
+most **3.109e-8 Hartree**, while native dipole changes **−5.119e-8 a.u.**
+The all-64 comparison includes that reoptimization. Minimum core/active
+subspace overlaps are **0.9999999999999983 / 0.9999999999997468**. The read-only
+single-core verifier takes **0.654 seconds**, with brief overlap of the active
+augmented-TZ coverage explicitly retained in its execution record.
+
+The [fresh TZ import companion](qualification-evidence/fresh-tz-import/README.md)
+preserves the successful engine run, two verifier failures and passing recheck.
+All **181 payloads**, 64 final-set native roots and 48 raw reference spectra/spins
+verify, with public byte-for-byte fetch and byte-identical repackaging. Archive:
+`https://data.qscat.org/ukrmol-co-fresh-tz-import-2026-10-07/fresh-tz-import.tar.e91bbc4ac41e.gz`,
+SHA256 `e91bbc4ac41e6c49c228fe33bc5634cd3d0d19759e0c8afac1ab2237e4105d49`.
+Publication/verifier persist at `prepared/publication-fresh-tz-import-20261007/`.
+Failure/recheck evidence is in `diagnostics/cas11-fresh-tz-independent-import/`,
+`diagnostics/cas11-fresh-tz-import-rounding-recheck/` and its `-v2` companion.
+Competing-start and electronic-model qualification remain open.
+
+The independent augmented-TZ residual worker PID **939061** now runs on **4–7**.
+The finite `prepared/fresh-augtz-import-source/fresh-augtz-import.py` supervisor,
+PID **942825**, attached `sh_1148b7b36001uIeqQdq1hlO2N4`, follows its exact
+completion and requires **both** 48-probe scans, the numerical pair gate and
+the unchanged repaired seed hashes to pass. Its tracked input is
+[`calibration-sa11-fresh-augtz-import.json`](calibration-sa11-fresh-augtz-import.json).
+It uses the space-80 seed, eight target roots per sector, forty retained channels,
+SLEPc tolerance 1e-13 / 1000 cycles and the same tight QC/physical settings.
+Target-only execution uses a **16-GiB** container / **6-GiB** internal budget,
+with **24 GiB available RAM / 20 GiB scratch** required. It borrows the waiting
+staged owner only under an acknowledged child/container-free lease, otherwise
+waiting for that owner to finish. The repaired final-set/decimal verifier is
+frozen as `verify-fresh-target-import.py`; all 64 roots, ground dipole and
+core/active subspaces must pass before completion. Evidence is written to
+`diagnostics/cas11-fresh-augtz-independent-import/`. This qualification trial
+does not settle competing starts or electronic-model convergence.
+
+The parameterized `verify-fresh-target-import.py` also receives a known-TZ
+differential control in `diagnostics/fresh-target-verifier-control/`: original
+exit **zero**, **0.293 seconds**, reproducing every final-set/decimal/root/dipole/
+subspace result of the passing TZ recheck. This brief one-thread analysis runs
+inside the active CAS(10,12) import cgroup and records its command/source hash.
+
+The augmented-TZ coverage worker now completes with original exit **zero**,
+wall **600.90 seconds / 10.02 minutes** and kernel peak **419938304 bytes /
+0.391 GiB**. Both checkpoints pass all **96 probes / 624 eigenpair evaluations**,
+including every CI convergence, spin, physical/spin-penalized residual and
+orthogonality gate. Maximum physical/penalized residuals are **6.62e-10 /
+9.94e-10 Hartree**; maximum ensemble, trial-space and common-first-five
+root-count energy differences are **1.85e-13 / 1.99e-13 / 1.99e-13 Hartree**.
+The analytic Hubbard-dimer and perturbed-vector controls pass. Every raw
+spectrum/spin/whole-probe convergence block reconstructs.
+
+The [augmented-TZ coverage companion](qualification-evidence/fresh-augtz-coverage/README.md)
+publishes all **253 verified payloads**, with public byte-for-byte fetch and
+byte-identical repackaging. Archive:
+`https://data.qscat.org/ukrmol-co-fresh-augtz-coverage-2026-10-07/fresh-augtz-coverage.tar.3f8817e75644.gz`,
+SHA256 `3f8817e756449ae26054a69bee936dfa549afd5691c295a45a78144218521d1b`.
+Publication/verifier persist at `prepared/publication-fresh-augtz-coverage-20261007/`.
+The coverage worker resumes PID 916479; the import supervisor PID **942825**
+immediately acquires the waiting owner's acknowledged lease. The 64-root
+aug-TZ import is now active on **4–7**, with **106.60 GiB available RAM /
+151.46 GiB free scratch** recorded before its 16-GiB container launch.
+
+All three matched MPI scaling entries now complete with original exits zero.
+Container wall times are **3106.46 / 1831.14 / 1240.12 seconds** for one/two/four
+ranks on the same physical-core group; the batch takes **6177.72 seconds**.
+Four concurrent one-rank replicas are now active on CPUs **12 / 13 / 14 / 15**.
+Final numerical-equivalence and throughput comparisons await their completion.
+CAS(10,12) density/dipole processing and projected TZ QC continue on **8–11**
+and **0–3**, respectively. Further local work remains reasonable.
+
 ### Scientific decisions still pending
 
 1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)
