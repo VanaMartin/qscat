@@ -79,6 +79,80 @@ template-unit-aware retry remain evidence. Both default fits reproduce the
 original scattering outputs. Continuum controls and electronic-model selection
 remain pending.
 
+### Independent phase-fit diagnostic
+
+`projects.ukrmol_co.phase_fit` checks the native one-candidate fit independently
+on the retained energy grid. Its input energy/width unit is Hartree; phases are
+radians. Adequate sampling is assumed: adjacent physical phase changes must
+be smaller than pi/2 for modulo-pi unwrapping to recover the correct branch.
+Below the first excited threshold, the diagnostic model is
+
+\[
+ \delta(E)=\operatorname{atan2}(\Gamma/2,E_r-E)
+             +\sum_{j=0}^{n_{\rm back}-1}b_j x^j,\qquad
+ x=(E-E_{\rm mid})/s,\quad s=(E_{\max}-E_{\min})/2.
+\]
+
+The resonant factor has positive full width \(\Gamma\). On the real energy axis
+\(S_{\rm res}=(E_r-E+i\Gamma/2)/(E_r-E-i\Gamma/2)\) has unit modulus, and its
+phase rises by pi. Fit phases are unwrapped modulo pi. A constant phase branch
+is absorbed by the background constant. Centering the polynomial changes its
+coefficients, not its span, and avoids powers of small Hartree energies.
+
+For each trial \((E_r,\log\Gamma)\), linear least squares eliminates the
+background coefficients. A bounded nonlinear least-squares solve then minimizes
+the phase residual. The center must lie in the fitted interval, and the width
+is bounded between 1e-6 and twenty times its half-range. Boundary solutions are
+explicit diagnostics. The fit reports residual RMS/maximum/sum of squares and
+the singular values of the full, scaled parameter Jacobian. These are measures
+of fit quality and local identifiability, not statistical uncertainty estimates
+for deterministic electronic data.
+
+Validation uses an independently constructed analytic unitary S factor with a
+known position/width, several polynomial backgrounds, three energy meshes and
+phase wrapping/branch shifts. Recovery must agree within 1e-9 Hartree, and
+predicted phases within 1e-9 rad. Differential checks against native RESON use
+the native input grid reconstructed from EIGENP, matching printed fit points
+within their Rydberg rounding error; printed residues are accurate to 5e-8 rad.
+Interleaved held-point predictions distinguish background inadequacy from an
+in-sample improvement. They do not establish a scattering pole, a global
+background model or a physical error bar. Existing position/width/phase gates
+and independent electronic/continuum checks continue to apply.
+
+The pinned `source/libouter/rsolve.f` line 142 and `eigenp.f` line 77 use
+`RYD=0.073500` to convert input eV to Rydberg and back. Their labeled eV energy
+grid therefore corresponds to physical energies larger by a factor
+**1.0000184445400588**, using the project's Hartree-to-eV constant. This is
+18.44 ppm, or approximately 46.5 micro-eV near the candidate. The diagnostic
+verifies both source literals and uses `E_input_eV * 0.0735 / 2` Hartree as its
+actual fit abscissa. Native fitted Rydberg positions/widths are converted using
+`qscat.units`, as before. The supplied window clips and printed grid labels
+must be distinguished from exact physical eV. Source and native values remain
+pinned; this audit does not change the historical engine's constants.
+
+The analytic unitary-S/mesh/branch and held-point-background controls pass
+(14 tests). Independent fits to all 24 native replays agree in position/full
+width within **4.74e-7 / 2.50e-7 eV**. Three separated initial guesses per fit
+agree within 1.55e-9 eV in position and 5.90e-10 in relative width. The native
+printed residues and their sum-of-squares goodness are independently checked.
+Five interleaved held-point fits per replay give the following automatic-window
+B1 diagnostic; B2 reproduces the comparison:
+
+| Background terms | In-sample RMS (rad) | Held-point RMS (rad) | Held-point maximum (rad) | Scaled Jacobian condition |
+|---|---:|---:|---:|---:|
+| 1 (constant) | 0.016595 | 0.016926 | 0.040083 | 5.90 |
+| 2 (linear) | 0.001095 | 0.001147 | 0.003584 | 12.44 |
+| 3 (quadratic) | 0.000469 | 0.000510 | 0.001396 | 24.06 |
+| 4 (cubic) | 0.000102 | 0.000128 | 0.000523 | 57.75 |
+
+The constant background predicts the retained points substantially worse;
+additional terms improve held-point predictions as well as the fitted points.
+Terms 2–4 change the automatic-window width by about 1.03% from default.
+The shorter windows improve residuals but increase Jacobian conditioning, up
+to 166 for the cubic 2.0–3.15-eV clip. These diagnostics explain the background
+sensitivity without selecting a new acceptance threshold after seeing the data,
+discarding the constant-background evidence or supplying physical error bars.
+
 ## Independently correlated neutral pilot
 
 The neutral pilot uses conventional spherical-basis RHF followed by

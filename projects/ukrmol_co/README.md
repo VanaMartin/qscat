@@ -513,6 +513,13 @@ Forty-nine saved-data native replay attempts preserve 48 successes and one B2
 unit-binding failure with a fresh corrected retry. Window clipping at fixed
 background meets the chosen gates; background terms 1–4 change width by 12.65%,
 so resonance-extraction qualification remains open.
+`phase_fit.py` and `phase_diagnostics.py` independently reproduce all 24 native
+window fits within 0.48/0.25 micro-eV in position/full width and audit printed
+residues against the saved grid. Analytic unitary-S tests and interleaved
+held-point fits show that the constant background describes the data less well
+than terms 2–4. The pinned engine uses 0.0735 Ryd per requested eV; its 18.44-ppm
+energy-grid convention is explicitly retained at this boundary. See
+[the phase-fit contract](../../docs/physics/co-electronic-qualification.md#independent-phase-fit-diagnostic).
 The finite continuation also queues `calibration-sa11-tight-continuum.json`:
 l=3/l=5 controls against the completed tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.
