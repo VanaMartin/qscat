@@ -24,16 +24,17 @@ original extra-root gate rejects triplet-A1 root eight, so a fixed-orbital
 diagnostic on the imported checkpoint now separates native solver error from
 seed-orbital drift: all native roots match independent CI at those actual
 orbitals within 5.01e-11 Hartree. The original seed-gate failure is retained.
-A 26-point-per-basis near-equilibrium neutral pilot now runs on the released
-slot. The stretched RHF reference remains rejected. The next decisions
+A 26-point-per-basis near-equilibrium neutral pilot has completed and its
+held-point/basis diagnostics independently reconstruct from the public companion.
+The stretched RHF reference remains rejected. The next decisions
 depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | CAS(10,12) numerical-repair owner PID 918331, 32-GiB container; compressed space-160 retry active | Staged owner PID 913307 completes with four QC rejections and the DZ fifty-component pass; eligible new-name repairs preserve its original failures |
-| 4–7 | Released: competing aug-TZ import PID 954948 and final preflight complete | Original scheduling rejection PID 956517 plus four failed native preparations retained; full CAS12 scattering is blocked by measured workspace floors |
-| 8–11 | Near-equilibrium QZ/5Z neutral pilot under successor PID 965433; imported-orbital CI diagnostic passes | 46 new calculations on one four-core worker, then held-point/basis diagnostics; original TZ seed-spectrum rejection retained |
-| 12–15 | CAS(10,11) anchor follow-up PID 988205; compressed 64-root native import active | Compressed coverage passes; gated compressed scattering then independently qualified stretched scattering, 48-GiB containers; continuum/replay owner PID 950692 completes |
+| 0–3 | Dense-spectrum omission diagnostic PID 1011041, 2-GiB container | Seven fixed pole counts per Pi sector isolate omitted-spectrum errors using dense boundary data; prior CAS12 repairs remain unqualified |
+| 4–7 | Native sparse CAS(10,10) successor PID 1008121, 16-GiB containers | 128-root B2 continuation, then 512/2048 both sectors; native boundary/static-interface differentials and complete phases gate further work |
+| 8–11 | Released: near-equilibrium QZ/5Z neutral owner PID 965433 completes with controller exit zero | All 52 points and held-point/basis diagnostics publicly reconstruct; 46 new-job walls sum to 3.210 h |
+| 12–15 | CAS(10,11) anchor follow-up PID 988205; stretched scattering active | Compressed 64-root import/verifier and scattering pass; extraction/pole/continuity qualification and public reconstruction remain due |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -1927,11 +1928,21 @@ One sequential four-core worker uses **24-GiB containers**, **20000 MB**
 PySCF memory, **32 GiB available RAM / 40 GiB free scratch** floors.
 Batch/analysis/anchor hashes remain under the neutral root in
 `neutral-pilot-inputs/`; each fresh run remains under `runs/`.
-The later census finds **40 of 46** new jobs completed; the QZ sequence has
-finished and R=2.350-bohr aug-5Z is active. Final curve diagnostics remain
-outstanding and execute automatically after the finite batch completes.
-Headroom is **104546596 KiB available RAM / 142347321344 free disk bytes**;
-scientific containers occupy disjoint physical groups 0–3, 8–11 and 12–15.
+Supervisor **965433** subsequently completes with original controller exit zero
+and `finished_unix=1791380172.6187947`. All **46 new jobs**, imported-checkpoint
+CI and the held-point/basis analysis exit zero. Independent public reconstruction
+verifies all **52 points**, **959 payloads** and **63867 profiles**. Cubic/PCHIP
+energy errors are **0.11386/0.95428 meV** at QZ and **0.11330/0.91453 meV** at
+5Z; maximum held dipole error is **7.21e-6 a.u.**. All midpoint budgets pass;
+QZ→5Z relative-energy maximum **17.2433 meV** passes the 20-meV pilot budget.
+New-job wall sum is **11557.49 seconds**, kernel container peak **24 GiB** and
+sampled anonymous peak **17.138 GiB**. The
+[public companion](qualification-evidence/neutral-near-equilibrium/README.md)
+retains raw logs, checkpoints/source provenance, byte-exact anchors and the four
+stretched RHF rejections. Archive SHA256:
+`d8a394e9ad94d1085218b9fc874539d6e03f194c832f81df06c48c912e33f411`.
+The near-equilibrium basis/interpolation pilot passes; the correlation treatment
+and stretched/dissociation domain remain open. CPUs **8–11** are released.
 
 Staged owner PID **916479** also completes its three batches with exits
 **[1,1,0]**: both equilibrium projected aug-TZ 80/160 retries still reject
@@ -1950,8 +1961,11 @@ singlet A1 CI in **3551.82 seconds**; stretched DZ rejects singlet A2 and triple
 B1/B2 CI in **7795.03 seconds**; projected TZ rejects as above; projected aug-TZ
 rejects as above; fifty-component equilibrium DZ QC passes in **2450.85 seconds /
 0.878 GiB**. Their independent raw-QC reconstruction/publication and fifty-component
-coverage/import are pending. Eligible repair supervisor PID **918331** now runs
-the compressed space-80/160 pair, then stretched/aug-TZ retries. Its unresolved
+coverage/import are pending. Eligible repair supervisor PID **918331** completes
+at `finished_unix=1791385782.7340915`. The compressed space-80/160 pair still
+rejects QC; both stretched DZ repairs pass QC but fail their independent
+ensemble-coverage gates. Neither DZ pair releases a larger-basis successor.
+Detailed raw-QC/coverage reconstruction and publication remain due. Its unresolved
 projected-TZ failure is explicitly excluded from automatic retry.
 
 The completed l=3 scattering control independently reanalyzes against l=4:
@@ -2039,12 +2053,64 @@ and bound-state/pole/state-continuity qualification still precedes a full sweep.
 
 ### Sparse/iterative scattering qualification — preferred before a large host
 
-**Queued; not yet validated or launched.** Investigate the pinned engine's native
+**Native small-model controls launched; not yet qualified.** Investigate the pinned engine's native
 sparse/iterative contracted-scattering route as the preferred response to the
 CAS(10,12) dense-workspace blocker. Paid provisioning remains deferred. The
 222.4-GiB array floor describes the audited dense ScaLAPACK path, not every possible
 CAS(10,12) solver. The successful target SLEPc runs used dense Hamiltonian storage
 and selected eigenpairs; they are not a completed sparse-scattering demonstration.
+
+The pinned archive now resolves the native dispatcher, sparse constructor,
+selected-state export and downstream SWINTERF inputs. The
+[executable replay guide](SPARSE_SCATTERING.md) and
+[finite control contract](sparse-scattering-contract.json) describe the first
+CAS(10,10) sequence, **128/512/2048** scattering eigenpairs at fixed 40-state
+target/model inputs. The first named-input owner PID **1006374** completes its
+B1 solve but rejects the downstream SWINTERF partitioned path. Its frozen source
+and execution record persist under
+`prepared/sparse-scattering-control-named-input-source/`. The
+[first public companion](qualification-evidence/sparse-native-control/README.md)
+verifies **212 payloads / 1464 profiles** and dense root/residual/continuum checks
+at **292.93 seconds / 1.228 GiB**; the original outer failure remains exact.
+Archive SHA256:
+`d27863143d93817f2ca740a338601f109d8fe3c79a22f5f1ac571f81622067b2`.
+
+MPI-boundary owner PID **1007595** then passes all four B1 native stages at
+128 poles; its analysis rejects a zero-error native rank-summary block interleaved
+with fitted values. The guarded parser fix removes only an explicitly empty
+summary. Original logs/source/exits remain in
+`prepared/sparse-scattering-control-mpi-boundary-source/` and
+`diagnostics/cas10-native-sparse-roots128-mpi-boundary-20261007/`.
+Dense static channel/threshold/multipole records match byte-exactly, boundary
+energies within **5.97e-13 Hartree**, and amplitudes within **3.46e-8**. The
+complete phase grid differs by **1.56 rad modulo π**, failing the gate.
+The route has no partitioned correction: omitted eigenstates contribute zero
+to its truncated spectral pole sum.
+
+Successor PID **1008121** uses physical CPUs **4–7**, four ranks and 16-GiB
+containers. Its frozen source/owner record is
+`prepared/sparse-scattering-control-boundary-differential-source/`.
+Its finite queue contains the 128-root **B2** control, then **512/2048** controls
+in both sectors, retaining channels/thresholds/multipoles and boundary-differential
+checks. A scientific phase rejection permits the next declared refinement;
+native/inner-region failures stop the queue. No CAS(10,11)/(10,12) successor
+is released by these incomplete small-model controls.
+
+Independent dense-spectrum omission owner PID **1011041** uses released physical
+CPUs **0–3**, a 2-GiB container and the original dense boundary/channel data.
+Its finite **128/512/2048/4096/6144/8192/8350** sequence runs both Pi sectors
+through unchanged RSOLVE/EIGENP grids and independent **1.8–3.3 requested-eV**
+fits at background orders 1–4. The full-spectrum 8350 endpoint must reproduce
+the dense boundary bytes and phase grid. This directly measures the approximation
+required of selected-root scattering, independently of iterative-solver residuals.
+Source, pinned native energy-conversion files and owner records persist under
+`prepared/dense-spectrum-omission-source/`; diagnostic output under
+`diagnostics/cas10-dense-spectrum-omission-20261007/`.
+Original scheduler/build-environment attempts and the MPI-stdin native abort
+remain in their original directories. The successor passes the named input file
+to every MPI rank. Read-only `EPSSolve` telemetry will establish actual matrix
+storage, nonzero/allocation counts, selection and residuals; source inspection
+alone does not establish those measurements.
 
 - [ ] **Audit the native path and downstream contract.** Resolve the pinned
   contracted-Hamiltonian sparse initialization, PETSc storage and SLEPc dispatcher;

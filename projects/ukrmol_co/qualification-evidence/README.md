@@ -52,6 +52,19 @@ therefore leaves the active-space comparison failing at +64.8401 meV and
 coverage/subspace and independent-import qualification; both projected TZ
 repairs retain singlet B1/B2 CI failures after orbital convergence.
 
+The later [near-equilibrium neutral companion](neutral-near-equilibrium/README.md)
+independently verifies all 52 QZ/5Z points, including 46 new jobs and six unchanged
+anchors. Cubic/PCHIP midpoint and 20-meV basis budgets pass; correlation treatment
+and the four rejected stretched RHF references remain unresolved. Its public
+archive verifies 959 payloads and 63867 profile samples.
+
+The [native sparse control companion](sparse-native-control/README.md) preserves
+the successful B1 128-root CAS(10,10) sparse eigensolve and its rejected legacy
+SWINTERF continuation. Energies/residuals/continuum coefficients pass dense
+differentials at a 1.228-GiB peak; phase and resonance verdicts remain unset for
+that original attempt. The [ongoing replay guide](../SPARSE_SCATTERING.md)
+describes native MPI boundary export and finite omitted-spectrum controls.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

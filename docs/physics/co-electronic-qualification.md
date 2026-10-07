@@ -362,7 +362,7 @@ configs, raw logs, checkpoints, stage timings, source/image hashes and failures.
 The methods remain experimental under `projects/ukrmol_co`; no library
 promotion or potential-fitting qualification follows from these pilot checks.
 
-The finite near-equilibrium pilot now adds **23 geometries per basis**, using
+The completed finite near-equilibrium pilot adds **23 geometries per basis**, using
 aug-QZ and aug-5Z over **1.9–2.5 bohr** at **0.025-bohr** spacing and reusing
 the three original anchors. Each basis has 26 points including R=2.1323.
 The [recipe](../../projects/ukrmol_co/calibration-neutral-near-equilibrium.json)
@@ -373,6 +373,19 @@ extrapolation; diagnostic budgets are **1 meV** in held-point energy,
 **0.001 a.u.** in held-point dipole and **20 meV** in QZ→5Z relative energy.
 These budgets test this labelled pilot. They do not certify the correlation
 treatment or extend the stable-reference domain toward dissociation.
+
+All **52 points** now pass the electronic/stability/density checks. Independent
+reconstruction of the completed **46-job** queue gives maximum held-energy
+errors **0.11386/0.11330 meV** for cubic QZ/5Z and **0.95428/0.91453 meV** for
+PCHIP. Maximum held z-dipole errors are **1.84e-7 a.u.** for cubic and
+**7.21e-6 a.u.** for PCHIP. The maximum QZ→5Z relative-energy difference is
+**17.2433 meV**. All predeclared pilot budgets pass. New-job walls sum to
+**3.210 hours**; maximum kernel container/anonymous-memory charges are
+**24.000/17.138 GiB**. The
+[public neutral companion](../../projects/ukrmol_co/qualification-evidence/neutral-near-equilibrium/README.md)
+verifies 959 payloads and 63867 profile samples, preserves the six anchors and
+four externally unstable stretched references, and reconstructs every midpoint
+and basis comparison. Correlation-model/dissociation qualification remains open.
 
 ## Equilibrium comparison with published calculations
 
@@ -747,7 +760,7 @@ orbital and pole continuity remain required before a full resonant sweep.
 
 ### Sparse/iterative scattering qualification contract
 
-**Status: queued investigation, not a demonstrated low-memory scattering method.**
+**Status: native sparse eigensolver/export measured; scattering qualification in progress.**
 Qualify this local route before allocating a large-memory host. The goal is the
 same fixed-nuclei scattering observables and physical target model, with a measured
 lower-memory implementation and an independently checked spectral approximation
@@ -775,6 +788,24 @@ eigenpair selection/coverage, convergence and boundary-amplitude output, and the
 SCATCI-to-outer-region interface. Record source and PETSc/SLEPc library digests
 alongside generated namelists. Supported generic engine branches are leads, not
 proof that every downstream stage accepts a truncated scattering spectrum.
+
+The [first native sparse control](../../projects/ukrmol_co/qualification-evidence/sparse-native-control/README.md)
+now verifies B1 CAS(10,10) roots 1–128 against its 8350-dimensional dense oracle:
+energy error **5.97e-13 Hartree**, absolute residual **1.34e-10 Hartree**, and
+continuum-coefficient error **7.88e-8**, with `mpisbaij` storage at a **1.228-GiB**
+kernel container peak. Its legacy SWINTERF continuation fails on a reduced
+partitioned CI file. The pinned source additionally reads the partitioned
+diagonal into a local array that is never returned to its consumer; full
+coefficient output alone therefore does not qualify that branch.
+
+The native MPI boundary exporter instead emits an **uncorrected truncated pole
+sum**, with no omitted-state correction. Its first B1 export matches dense
+channels/thresholds/multipoles byte-exactly and boundary amplitudes within
+**3.46e-8**, but its 128-pole phase difference reaches **1.56 rad**, rejecting
+the observable gate. The [finite replay guide](../../projects/ukrmol_co/SPARSE_SCATTERING.md)
+specifies 128/512/2048 iterative controls and independent dense-spectrum omission
+diagnostics. Those checks separate eigensolver/export correctness from omitted
+spectral-background error; neither result qualifies CAS(10,11)/(10,12) yet.
 
 For a spectral R-matrix construction, each retained inner-region eigenstate supplies
 a pole and boundary amplitudes; omitted states can alter the scattering background.

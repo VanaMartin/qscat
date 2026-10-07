@@ -6,7 +6,36 @@ import json
 import numpy as np
 import pytest
 
-from projects.ukrmol_co.analyze import ground_cross_sections, qc_properties, target_properties
+from projects.ukrmol_co.analyze import (
+    ground_cross_sections,
+    native_resonances,
+    qc_properties,
+    target_properties,
+)
+
+
+@pytest.mark.parametrize("errors", [0, 1])
+def test_resonance_parser_handles_only_empty_interleaved_rank_summary(tmp_path, errors):
+    path = tmp_path / "reson.out"
+    path.write_text(
+        " Fitted resonance parameters\n Positions / Ryd 0.2D+00 0.3D+00\n"
+        " ***ERROR AND WARNING MESSAGE COUNTS FOR RANK: 0\n"
+        " NUMBER OF WARNING MESSAGES: 0\n"
+        f" NUMBER OF ERROR MESSAGES: {errors}\n"
+        " THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n"
+        " Widths / Ryd 0.04D+00 0.06D+00\n Background 0.1 0.2\n"
+    )
+    if errors:
+        with pytest.raises(ValueError):
+            native_resonances(path)
+    else:
+        fits = native_resonances(path)
+        np.testing.assert_allclose(
+            [[fit["energy_hartree"], fit["width_hartree"]] for fit in fits],
+            [[0.1, 0.02], [0.15, 0.03]],
+            atol=1e-14,
+            rtol=0,
+        )
 
 
 def test_ground_cross_sections_joins_columns_and_excludes_excited_initial_states(tmp_path):

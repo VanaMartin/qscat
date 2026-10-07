@@ -34,8 +34,10 @@ workspaces, integer work arrays and eigenvalues. They exclude other live
 engine arrays and MPI/library overhead. All rank-local sizes and aggregate
 totals reconstruct from raw logs. The 2×2 overflow rejection is retained;
 it cannot be used as an estimate. These are preparation/workspace results,
-not completed scattering memory or MPI-scaling measurements. Full all-spectrum
-CAS(10,12) scattering is now demonstrably beyond Sadaharu's RAM.
+not completed scattering memory or MPI-scaling measurements. The audited dense
+full-spectrum CAS(10,12) scattering path is beyond Sadaharu's RAM. A native
+[sparse/iterative route](../../SPARSE_SCATTERING.md) is being qualified separately
+before considering a large-host allocation.
 
 ## Preserved failures and public reconstruction
 

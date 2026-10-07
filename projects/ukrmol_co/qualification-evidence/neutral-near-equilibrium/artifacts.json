@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "neutral-pilot.tar.gz": {
+      "bytes": 8286061,
+      "sha256": "d8a394e9ad94d1085218b9fc874539d6e03f194c832f81df06c48c912e33f411"
+    }
+  },
+  "git_sha": "91237820376c79012d8dc41357a7e396eff325da",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-neutral-near-equilibrium-2026-10-07/"
+}

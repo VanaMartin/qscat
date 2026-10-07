@@ -1,0 +1,57 @@
+{
+  "git_sha": "91237820376c79012d8dc41357a7e396eff325da",
+  "record_type": "near-equilibrium-neutral-held-point-basis-pilot",
+  "date": "2026-10-07",
+  "archive_sha256": "d8a394e9ad94d1085218b9fc874539d6e03f194c832f81df06c48c912e33f411",
+  "archive_bytes": 8286061,
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 959,
+    "profiles": 63867,
+    "qualified_points": 52,
+    "new_jobs": 46,
+    "preserved_rhf_rejections": 4,
+    "interpolation": {
+      "aug-cc-pVQZ": {
+        "cubic_not_a_knot": {
+          "maximum_energy_error_ev": 0.00011386038767791096,
+          "maximum_z_dipole_error_au": 1.774776964558189e-07,
+          "energy_budget_pass": true,
+          "dipole_budget_pass": true
+        },
+        "pchip": {
+          "maximum_energy_error_ev": 0.0009542816248610114,
+          "maximum_z_dipole_error_au": 7.192384176013533e-06,
+          "energy_budget_pass": true,
+          "dipole_budget_pass": true
+        }
+      },
+      "aug-cc-pV5Z": {
+        "cubic_not_a_knot": {
+          "maximum_energy_error_ev": 0.00011330122811936683,
+          "maximum_z_dipole_error_au": 1.840179041923129e-07,
+          "energy_budget_pass": true,
+          "dipole_budget_pass": true
+        },
+        "pchip": {
+          "maximum_energy_error_ev": 0.0009145298471575497,
+          "maximum_z_dipole_error_au": 7.210560181186709e-06,
+          "energy_budget_pass": true,
+          "dipole_budget_pass": true
+        }
+      }
+    },
+    "maximum_basis_relative_energy_difference_ev": 0.017243333665366345,
+    "basis_budget_pass": true,
+    "new_job_wall_seconds_sum": 11557.485317489598,
+    "new_job_peak_container_gib": 24.0,
+    "new_job_peak_anonymous_gib": 17.13776397705078,
+    "scope": "Near-equilibrium basis/interpolation diagnostics; correlation treatment and dissociation remain open"
+  },
+  "scope": "Near-equilibrium basis/interpolation diagnostics; correlation treatment and dissociation remain open",
+  "original_owner": {
+    "supervisor_pid": 965433,
+    "original_controller_exit": 0,
+    "finished_unix": 1791380172.6187947
+  }
+}

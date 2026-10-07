@@ -43,11 +43,22 @@ def ground_cross_sections(path: Path) -> np.ndarray:
 def native_resonances(path: Path) -> list[dict[str, float]]:
     """Read every native fitted position/width pair, converting Rydberg to Hartree."""
     fits = []
+    # The rank-summary stderr flush can interleave with a numeric stdout block.
+    # Only an explicitly empty diagnostic summary is safe to remove.
+    text = re.sub(
+        r"^\s*\*\*\*ERROR AND WARNING MESSAGE COUNTS FOR RANK:\s*\d+\s*\n"
+        r"\s*NUMBER OF WARNING MESSAGES:\s*0\s*\n"
+        r"\s*NUMBER OF ERROR MESSAGES:\s*0\s*\n"
+        r"\s*THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK\.\s*$",
+        "",
+        path.read_text(),
+        flags=re.M,
+    )
     pattern = (
         r"Fitted resonance parameters\s+Positions\s*/\s*Ryd\s*(.*?)"
         r"\s*Widths\s*/\s*Ryd\s*(.*?)\s*Background"
     )
-    for positions, widths in re.findall(pattern, path.read_text(), flags=re.I | re.S):
+    for positions, widths in re.findall(pattern, text, flags=re.I | re.S):
         energies = [float(value.replace("D", "E")) for value in positions.split()]
         gammas = [float(value.replace("D", "E")) for value in widths.split()]
         for energy, gamma in zip(energies, gammas, strict=True):
