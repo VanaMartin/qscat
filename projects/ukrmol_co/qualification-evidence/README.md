@@ -155,7 +155,18 @@ Hartree**, with passing dipole/subspace gates. Cost is **54.25 minutes /
 5.269 GiB**. Its 488 payloads preserve the original saved-table verifier failure
 and passing exact-decimal recheck, and reconstruct 40 raw QC states, 96 reference
 spectra/624 eigenpairs and 16229 resource samples. Same-geometry TZ/aug-TZ QC
-continues on the released slot; electronic-model qualification remains open.
+subsequently passes in **14.57 / 20.33 minutes**, at **0.345 / 0.434 GiB**.
+Its [170-payload companion](stretched-basis-qc/README.md) reconstructs 80 raw
+QC states, same-geometry basis shifts and 10430 resource samples. Fixed-orbital
+coverage and individually gated native imports continue on CPUs 8–11.
+
+The [downward-projection companion](downward-projections/README.md) also passes
+all four new-name equilibrium TZ starts and six same-basis restart comparisons.
+Both aug-TZ lineages recover qualified fresh TZ within **4.156e-8 Hartree /
+6.916e-8 a.u.**, with minimum active overlap **0.9999999999995466**. The 296
+payloads reconstruct 160 raw QC states and 34132 resource samples. Original
+projection-interface failures and distinct aug-TZ solutions remain retained;
+the new branch's native import and electronic-model qualification remain open.
 
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
