@@ -442,13 +442,36 @@ including **2319.03 seconds** for DENPROP and **394.14 seconds** for eight SCATC
 sectors. The [import companion](../../projects/ukrmol_co/qualification-evidence/fresh-augtz-import/README.md)
 reconstructs every native root and both seeds' 96 raw reference spectra.
 
-Four finite same-geometry TZ↔aug-TZ projections at CI spaces 80/160 now compare
-each passing target with its numerical partner and the qualified fresh target
-in that basis. They retain two inactive core orbitals, ten active electrons,
-the forty-component ensemble, tight tolerances and ordinary 200-cycle CI limit.
-These cross-basis starts test competing orbital solutions; electronic-model
-convergence remains open. The already-qualified fixed-DZ l=3/l=5 continuum
-controls also advance independently of the ongoing CAS(10,12) density stage.
+### Competing-start failure and the new aug-TZ branch
+
+Four fixed-geometry TZ↔aug-TZ projections retain the same core/active sizes,
+forty-component ensemble, tight tolerances and ordinary 200-cycle CI limit.
+Both upward projections pass QC in **1737.00 / 1705.00 seconds**, with a
+space-80/160 pair agreement of **5.941e-12 Hartree** in roots and
+**1.901e-11 a.u.** in dipole. Both fail comparison with the earlier fresh
+aug-TZ solution: averaged objective **−0.538388 eV**, ground energy **−1.115756
+eV**, maximum root shift **2.126321 eV**, z dipole **−0.06670992 a.u.** and
+minimum active overlap **0.141085**. These are differences between separately
+converged orbital solutions in the same basis/ensemble, not basis convergence.
+The prior coverage/import checks remain valid for their fixed orbitals but do
+not establish a unique optimum. The new solution's coverage/import remain gates.
+
+Both downward projections fail before QC because PySCF 2.11.0 rejects the full
+92-column source matrix in a 60-orbital destination. The adapter now supplies
+only its thirteen core+active columns in this case and lets PySCF construct
+the destination virtual complement. The exact failed checkpoint control retains
+the requested active irreps and has **1.932e-14** orthogonality error. Four genuine
+PySCF regressions exercise the repaired interface; simultaneous geometry/basis
+changes remain rejected. Original batch/controller exits stay one. All
+[277 competing-start payloads](../../projects/ukrmol_co/qualification-evidence/competing-starts/README.md)
+verify, including both exceptions, 80 raw final states and independent
+checkpoint-based reconstruction of all three subspace comparisons.
+
+Both new aug-TZ checkpoints now receive independent 600-cycle fixed-orbital
+coverage/residual scans. Four new-name downward retries from the fresh and
+competing aug-TZ branches wait for those scans, with physical gates retained.
+The qualified fixed-DZ l=3/l=5 continuum controls continue independently of
+the ongoing CAS(10,12) density stage. Electronic-model convergence remains open.
 
 ## Selected-root target experiment
 

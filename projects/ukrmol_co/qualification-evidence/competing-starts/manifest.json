@@ -1,0 +1,139 @@
+{
+  "git_sha": "7511139569d365ecec8d155216c6049d56b4ae16",
+  "record_type": "co-fresh-basis-competing-starts",
+  "date": "2026-10-07",
+  "archive_sha256": "b5193060808b6d5eabe0b75cfb2d6d7e0edf0c1cfabaf785a51fcacae2ceafeb",
+  "archive_bytes": 1102786,
+  "payload_digests_verified": 277,
+  "byte_identical_repackaging": true,
+  "original_controller_exit": 1,
+  "original_batch_exit": 1,
+  "verification": {
+    "original_controller_exit": 1,
+    "original_batch_exit": 1,
+    "runs": [
+      {
+        "run": "co-eq-cctz-sa11-qc-from-fresh-augtz-space80",
+        "original_exit": 1,
+        "status": "projection_interface_failure_before_QC",
+        "wall_seconds": 0.40254518506117165,
+        "kernel_peak_container_memory_bytes": 102940672
+      },
+      {
+        "run": "co-eq-cctz-sa11-qc-from-fresh-augtz-space160",
+        "original_exit": 1,
+        "status": "projection_interface_failure_before_QC",
+        "wall_seconds": 0.40284981788136065,
+        "kernel_peak_container_memory_bytes": 104374272
+      },
+      {
+        "run": "co-eq-aug-tz-sa11-qc-from-fresh-tz-space80",
+        "original_exit": 0,
+        "status": "QC_passes_competing_start_comparison_required",
+        "wall_seconds": 1736.9955173148774,
+        "kernel_peak_container_memory_bytes": 455372800
+      },
+      {
+        "run": "co-eq-aug-tz-sa11-qc-from-fresh-tz-space160",
+        "original_exit": 0,
+        "status": "QC_passes_competing_start_comparison_required",
+        "wall_seconds": 1704.9998422840144,
+        "kernel_peak_container_memory_bytes": 515391488
+      }
+    ],
+    "raw_final_states_verified": 80,
+    "comparisons": [
+      {
+        "runs": [
+          "co-eq-aug-tz-sa11-qc-from-fresh-tz-space80",
+          "co-eq-aug-tz-sa11-qc-from-fresh-tz-space160"
+        ],
+        "original_exit": 0,
+        "restart_gate_passes": true,
+        "maximum_root_difference_hartree": 5.9401372709544376e-12,
+        "maximum_root_difference_ev": 1.6163936963413027e-10,
+        "ground_energy_difference_ev": 8.894032300442575e-12,
+        "ensemble_objective_difference_hartree": -1.1368683772161603e-13,
+        "ensemble_objective_difference_ev": -3.093576452327852e-12,
+        "dipole_difference_au": [
+          0.0,
+          0.0,
+          1.900213320027433e-11
+        ],
+        "minimum_subspace_overlaps": {
+          "core": 0.9999999999999999,
+          "active": 0.9999999999999984,
+          "external": 0.9999999999998469
+        }
+      },
+      {
+        "runs": [
+          "co-eq-aug-tz-sa11-qc-fresh-restart-space80",
+          "co-eq-aug-tz-sa11-qc-from-fresh-tz-space80"
+        ],
+        "original_exit": 1,
+        "restart_gate_passes": false,
+        "maximum_root_difference_hartree": 0.07814086610463278,
+        "maximum_root_difference_ev": 2.1263212891691943,
+        "ground_energy_difference_ev": -1.115756073767248,
+        "ensemble_objective_difference_hartree": -0.01978538393763074,
+        "ensemble_objective_difference_ev": -0.538387724352037,
+        "dipole_difference_au": [
+          0.0,
+          0.0,
+          -0.06670991767553208
+        ],
+        "minimum_subspace_overlaps": {
+          "core": 0.9998395554201108,
+          "active": 0.14108460166290104,
+          "external": 0.14108460579868437
+        }
+      },
+      {
+        "runs": [
+          "co-eq-aug-tz-sa11-qc-fresh-restart-space80",
+          "co-eq-aug-tz-sa11-qc-from-fresh-tz-space160"
+        ],
+        "original_exit": 1,
+        "restart_gate_passes": false,
+        "maximum_root_difference_hartree": 0.07814086610409277,
+        "maximum_root_difference_ev": 2.1263212891545,
+        "ground_energy_difference_ev": -1.115756073758354,
+        "ensemble_objective_difference_hartree": -0.019785383937744427,
+        "ensemble_objective_difference_ev": -0.5383877243551306,
+        "dipole_difference_au": [
+          0.0,
+          0.0,
+          -0.06670991765652995
+        ],
+        "minimum_subspace_overlaps": {
+          "core": 0.9998395554201109,
+          "active": 0.14108460167507506,
+          "external": 0.14108460581085672
+        }
+      }
+    ],
+    "independently_recomputed_orbital_comparisons": 3,
+    "batch_wall_seconds": 3444.7601006419864,
+    "scientific_verdict": "New aug-TZ branch is numerically reproducible but differs from the qualified fresh branch; coverage/import remain required"
+  },
+  "projection_interface_control": {
+    "pyscf_version": "2.11.0",
+    "original_error": "Too many orbitals in mo_init (try passing only the occupied orbitals)",
+    "source_mo_columns": 92,
+    "projected_core_active_columns": 13,
+    "destination_mo_columns": 60,
+    "mo_orthogonality_error": 1.9317880628477724e-14,
+    "active_irreps": {
+      "A1": 5,
+      "B1": 3,
+      "B2": 3,
+      "A2": 0
+    },
+    "direct_documented_api_difference": 0.0,
+    "source_checkpoint_sha256": "744e08d2a9b5771a10e17ced9a114884e4e6af0c6a82acd3d052fc98cc8ef1df",
+    "destination_rhf_checkpoint_sha256": "6a7ccd88e42c0fd72504122d97f12264b7a4174e10b538053ed89bee70299e0e",
+    "target_source_sha256": "08887b884687e1b806763ec8324768787c4571b29b57e3bf957e507d556e7c91",
+    "tests": "Four PySCF 2.11.0 projection regressions and all 80 CO tests pass locally; no CASSCF optimization is asserted by this interface control"
+  }
+}

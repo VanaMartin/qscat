@@ -119,6 +119,14 @@ Dipole and orbital-subspace gates pass; engine, supervisor and verifier all
 exit zero. All 181 payloads and 96 raw reference spectra verify. Cost is
 56.01 minutes / 5.268 GiB. Competing-start projections are now active.
 
+The [competing-start companion](competing-starts/README.md) subsequently retains
+two failed downward projections and two passing aug-TZ targets. Their space-80/160
+pair passes, but both differ from the prior fresh branch: objective **−0.538388 eV**,
+ground energy **−1.115756 eV**, z dipole **−0.06670992 a.u.** and minimum active
+overlap **0.141085**. All 277 payloads and 80 raw final states verify; original
+batch/controller exits stay one. A tested core+active projection interface repair
+releases new-name downward retries after coverage of the new branch.
+
 The [matched MPI/throughput companion](mpi-throughput/README.md) now passes all
 seven CAS(10,10) replicas. One/two/four ranks take 3105.91/1830.62/1239.61 seconds;
 four concurrent single-core jobs finish in 3444.36 seconds, **1.440×** the

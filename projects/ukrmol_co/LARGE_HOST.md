@@ -78,6 +78,16 @@ layout for independently qualified calculations at that compact model size.
 The CAS(10,12) experiment still needs its own memory/stage/scaling measurement;
 the 64-core forecast and approximately $200 first-experiment cap remain conditional.
 
+Competing larger-basis starts also expose a genuine electronic-model gate:
+two reproducible TZ-projected aug-TZ targets have an objective **0.538388 eV
+lower** than the earlier fresh aug-TZ branch, ground shift **−1.115756 eV**,
+dipole shift **−0.06670992 a.u.** and minimum active overlap **0.141085**.
+The [competing-start companion](qualification-evidence/competing-starts/README.md)
+retains the failed restart verdicts and two projection-interface exceptions.
+New-branch coverage and tested downward-projection retries continue locally;
+numerically passing import alone does not prequalify a unique orbital model for
+the paid experiment.
+
 At the recorded Frankfurt rates, a **24-hour `r8a.16xlarge` window costs
 $148.01 in compute**; a **48-hour `r8a.8xlarge` window also costs $148.01**.
 The 256-GiB instance can accommodate one audited dense target worker, while
