@@ -83,7 +83,10 @@ inputs, host-workload samples, profiles and the reconstruction. Use this measure
 layout for independently qualified calculations at that compact model size.
 CAS(10,12) now has a measured four-rank target memory/stage baseline: eight
 SCATCI sectors **46.81 minutes**, serial DENPROP **5.009 hours / 80.768%** of
-wall. Its full scattering memory/scaling remains unmeasured; the 64-core forecast
+wall. Native scattering preparation now measures dimension **86352** and
+valid aggregate array floors **222.391 / 222.555 GiB** on 16/32 ranks. This
+blocks the full current scattering solve on Sadaharu. Actual full-job memory/scaling
+remains unmeasured; the 64-core forecast
 and approximately $200 first-experiment cap remain conditional. Increasing MPI
 ranks alone does not accelerate the measured serial density bottleneck.
 
@@ -93,14 +96,16 @@ lower** than the earlier fresh aug-TZ branch, ground shift **−1.115756 eV**,
 dipole shift **−0.06670992 a.u.** and minimum active overlap **0.141085**.
 The [competing-start companion](qualification-evidence/competing-starts/README.md)
 retains the failed restart verdicts and two projection-interface exceptions.
-New-branch coverage passes and tested downward-projection retries continue locally;
+New-branch coverage, all-64-root native import and all four downward projections pass;
 numerically passing import alone does not prequalify a unique orbital model for
 the paid experiment.
 
 At the recorded Frankfurt rates, a **24-hour `r8a.16xlarge` window costs
 $148.01 in compute**; a **48-hour `r8a.8xlarge` window also costs $148.01**.
-The 256-GiB instance can accommodate one audited dense target worker, while
-the 512-GiB instance provides more room for the scattering pilot. Storage and
+The 256-GiB instance can accommodate one audited dense target worker; its
+remaining headroom above the **222.4-GiB scattering array floor** is too small
+to establish a full scattering budget. The 512-GiB instance provides more room
+for the scattering pilot. Storage and
 transfer need to fit the remaining allowance. Neither window is yet a measured
 completion forecast. A first paid experiment should cover one prequalified
 equilibrium calculation, with its required numerical checks, after local work
@@ -166,15 +171,19 @@ The tight CAS(10,11) scattering run on Sadaharu completes in 4.423 hours at
 a 25.20-GiB kernel peak. B1/B2 solve 27546-dimensional **contracted** Hamiltonians
 in 73.12/74.92 minutes. Each raw CONGEN count is 344124; it is not the dense
 diagonalizer's dimension. The earlier B1-only 24.18-GiB sampled observation is
-retained in the diagnostic history. Preserve both counts and query the actual contracted
-CAS(10,12) dimension before applying a dense-memory or cubic-time forecast.
-The [native preflight contract](scattering-preflight-contract.json) now queues
-that preparation on Sadaharu, using the completed forty-root/dipole target and
-first reproducing CAS(10,11)'s known contracted dimension from native CONGEN and
-retained-target/continuum counts. It then queries installed-library workspaces
-at the inferred CAS(10,12) dimension. This is a dimension/resource audit; it does
-not execute a scattering eigensolve. Its finite acknowledged CPU-slot transition
-is recorded in [the continuation](CONTINUATION.md).
+retained in the diagnostic history. Preserve both counts in memory/runtime forecasts.
+The [completed native preflight](qualification-evidence/scattering-preflight/README.md)
+uses the qualified forty-root/dipole target and reproduces CAS(10,11)'s known
+dimension. CAS(10,12) has **990990 raw / 86352 contracted** configurations in
+each Pi sector, comprising **84942 L² + 1410 contracted continuum** configurations.
+One matrix needs **55.556 GiB**. Installed-library array floors are
+**222.391 / 222.555 GiB** on 4×4/4×8 grids, before other engine/MPI overhead.
+The 2×2 query retains overflow exit five and no estimate. Native preparation
+itself passes in **172.99 seconds / 12.730 GiB**; it is not a scattering solve.
+The original [queued contract](scattering-preflight-contract.json), scheduling
+failure and four fresh preparation failures remain preserved. The completed
+released-slot transition and successor workspace settings are recorded in
+[the continuation](CONTINUATION.md).
 The matched tight CAS(10,10) control completes locally in 21.38 minutes at
 2.864 GiB, with all forty imported roots/dipole and 48 lowest-root probes passing.
 Numerical tightening changes its position by only −0.544 micro-eV and phases

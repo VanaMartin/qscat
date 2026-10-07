@@ -580,11 +580,25 @@ The [296-payload companion](../../projects/ukrmol_co/qualification-evidence/down
 reconstructs 160 raw QC states, six complete checkpoint-based restart comparisons
 and 34132 resource samples. All original batch/controller/comparison exits are
 zero; the earlier interface failures remain preserved. The covered competing
-aug-TZ 64-root import follows the staged owner's completion on CPUs 4–7.
-Orbital-branch disagreement at aug-TZ remains a scientific result.
-The qualified fixed-DZ l=3/l=5 continuum controls continue independently of
-CAS(10,12) import, which subsequently completes. Electronic-model convergence
-remains open.
+aug-TZ 64-root import subsequently passes within **3.8811e-8 Hartree**, with
+native/seed dipole error **1.8756e-7 a.u.**, in **3259.47 seconds / 5.260 GiB**.
+Orbital-branch disagreement at aug-TZ remains a scientific result. The
+[continuum/import companion](../../projects/ukrmol_co/qualification-evidence/continuum-competing/README.md)
+reconstructs its exact checkpoint, spectra, table serialization and subspace checks.
+
+### Completed equilibrium angular controls
+
+At matched CAS(10,11)/DZ targets, l=3/4/5 common-grid comparisons pass the
+declared numerical gates. Relative to l=4, l=3 changes position/full width by
+**+3.9602 meV / +0.7434%**, with maximum phase difference **0.0166575 rad**;
+l=5 changes them by **+0.07987 meV / +0.2655%**, with phase difference
+**0.0162174 rad**. Independent complete-grid fits on common windows and
+background orders 1–4 remain within **3.982 meV / 0.7214%** for l=3 and
+**0.3930 meV / 0.2279%** for l=5. The above public companion reconstructs all
+36 native background/detection replays and raw profiles. Background-width spans
+are **12.60% / 12.65% / 11.98%** at l=3/4/5, still failing the 5% extraction
+gate. Angular convergence therefore does not establish a qualified width.
+The earlier fine-grid `MAXFIT=100` truncation verdicts remain unset.
 
 ## Selected-root target experiment
 
@@ -663,7 +677,7 @@ on four ranks. The local trial therefore uses a 64-GiB container and 16-GiB
 internal matrix budgets, conditional on 80 GiB available host RAM, 20 GiB
 free scratch and the full extra-root/import gates. This is a matrix floor;
 the completed local job now measures its total peak below. The all-spectrum
-scattering route still needs its own actual contracted dimensions and workspace audit.
+scattering route has the separate completed dimension/workspace audit below.
 
 ### Completed local CAS(10,12) target import
 
@@ -692,6 +706,40 @@ Eight SCATCI stages total **2808.79 seconds / 46.81 minutes**, QC **1472.31
 seconds / 24.54 minutes**, and serial DENPROP **18030.97 seconds / 5.009 hours**,
 or **80.768%** of profiled wall. The largest dense PETSc matrix remains dimension
 70860 / 37.41 GiB before overhead. Numerical target import is feasible on
-Sadaharu; the all-spectrum scattering path, its contracted dimensions and
-electronic-model convergence retain separate gates. The stretched CAS(10,11)
-import/basis queue advances on released CPUs 8–11.
+Sadaharu; electronic-model convergence retains separate gates.
+
+### Completed CAS(10,12) native scattering preflight
+
+The [814-payload preflight companion](../../projects/ukrmol_co/qualification-evidence/scattering-preflight/README.md)
+reuses the qualified targets and executes only fresh native integral generation
+and B1/B2 CONGEN. The known CAS(10,11) completed native SCATCI dimension is
+reproduced from retained-target contraction: **26136 L² + 1410 continuum =
+27546** configurations, versus **344124 raw** CONGEN configurations.
+CAS(10,12) measures **84942 L² + 1410 continuum = 86352** contracted
+configurations and **990990 raw** configurations in each Pi sector.
+Native preparation takes **172.99 seconds / 12.730 GiB**.
+
+The installed-library all-spectrum workspace query at dimension 86352 needs
+**222.391 / 222.555 GiB** aggregate arrays on 4×4/4×8 process grids, before
+other live engine arrays or MPI/library overhead. One dense matrix alone
+requires **55.556 GiB**. The 2×2 query overflows and retains exit five with
+no usable estimate. Raw rank-local rows/columns, query work sizes, total bytes
+and maximum-rank bytes reconstruct independently. Full current CAS(10,12)
+scattering exceeds Sadaharu's RAM; actual full-job peak, runtime and MPI scaling
+remain unmeasured. Increasing target selected-root efficiency does not remove
+the scattering all-spectrum requirement.
+
+Preparation retains the original scheduling rejection and four native restart
+failures. The passing successor preserves exact target/checkpoint/CI hashes,
+sets `LNDO=NBMX=100000000` separately from enlarged CONGEN dimensions, and
+initializes retained sectors from unique newly solved native CIDATA set numbers.
+The generated inventory requires five roots in each of eight sectors; DENPROP
+execution remains skipped. Missing L² groups and changed inventories reject.
+The companion verifies 245 source hashes and 1099 raw resource samples.
+
+The finite CAS(10,11) three-anchor pilot continues with an independently covered
+compressed 64-root import and separately gated compressed/stretched scattering.
+It uses the equilibrium l=4/radius-18 model. The broad compressed and finer
+near-threshold stretched grids diagnose geometry/extraction behavior; an empty
+automatic candidate does not establish zero width or a bound state. State,
+orbital and pole continuity remain required before a full resonant sweep.

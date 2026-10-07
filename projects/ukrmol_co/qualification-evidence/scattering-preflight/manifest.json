@@ -1,0 +1,212 @@
+{
+  "git_sha": "44b413bd5fd14debc6c065082aeb50ef274a70c6",
+  "record_type": "cas12-scattering-dimension-and-memory-preflight",
+  "date": "2026-10-07",
+  "archive_sha256": "10e95b5389901990ad02824e75aa2f5fdfb68065ab8cd2b253c03ff6631c6470",
+  "archive_bytes": 2935057,
+  "payload_digests_verified": 814,
+  "byte_identical_repackaging": true,
+  "verification": {
+    "preflights": [
+      {
+        "run": "co-eq-ccdz-sa11-tight-cc40",
+        "sectors": {
+          "B1": {
+            "raw_congen_csfs": 344124,
+            "last_continuum_prototype_csf": 317988,
+            "uncontracted_l2_csfs": 26136,
+            "contracted_continuum_dimension": 1410,
+            "contracted_dimension": 27546,
+            "radial_continuum_per_target_sector": [
+              34,
+              34,
+              51,
+              51,
+              22,
+              22,
+              34,
+              34
+            ],
+            "retained_roots_per_sector": [
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5
+            ]
+          },
+          "B2": {
+            "raw_congen_csfs": 344124,
+            "last_continuum_prototype_csf": 317988,
+            "uncontracted_l2_csfs": 26136,
+            "contracted_continuum_dimension": 1410,
+            "contracted_dimension": 27546,
+            "radial_continuum_per_target_sector": [
+              34,
+              34,
+              22,
+              22,
+              51,
+              51,
+              34,
+              34
+            ],
+            "retained_roots_per_sector": [
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5
+            ]
+          }
+        },
+        "resources": {
+          "exit_code": 0,
+          "wall_seconds": 46.91982441395521,
+          "sampled_peak_container_memory_bytes": 3200061440,
+          "baseline_container_memory_bytes": 365203456,
+          "sampled_peak_container_anon_bytes": 2632548352,
+          "kernel_peak_container_memory_bytes": 3204517888,
+          "container_cpu_seconds": 79.890941,
+          "sampled_peak_run_allocated_bytes": 1703952384,
+          "sampled_peak_scratch_allocated_bytes": 139264,
+          "memory_sample_interval_seconds": 0.2,
+          "disk_sample_interval_seconds": 2.0
+        }
+      },
+      {
+        "run": "co-eq-ccdz-sa12-slepc-target",
+        "sectors": {
+          "B1": {
+            "raw_congen_csfs": 990990,
+            "last_continuum_prototype_csf": 906048,
+            "uncontracted_l2_csfs": 84942,
+            "contracted_continuum_dimension": 1410,
+            "contracted_dimension": 86352,
+            "radial_continuum_per_target_sector": [
+              34,
+              34,
+              51,
+              51,
+              22,
+              22,
+              34,
+              34
+            ],
+            "retained_roots_per_sector": [
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5
+            ]
+          },
+          "B2": {
+            "raw_congen_csfs": 990990,
+            "last_continuum_prototype_csf": 906048,
+            "uncontracted_l2_csfs": 84942,
+            "contracted_continuum_dimension": 1410,
+            "contracted_dimension": 86352,
+            "radial_continuum_per_target_sector": [
+              34,
+              34,
+              22,
+              22,
+              51,
+              51,
+              34,
+              34
+            ],
+            "retained_roots_per_sector": [
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5,
+              5
+            ]
+          }
+        },
+        "resources": {
+          "exit_code": 0,
+          "wall_seconds": 172.9921314830426,
+          "sampled_peak_container_memory_bytes": 13656489984,
+          "baseline_container_memory_bytes": 2870595584,
+          "sampled_peak_container_anon_bytes": 5401616384,
+          "kernel_peak_container_memory_bytes": 13669072896,
+          "container_cpu_seconds": 206.657186,
+          "sampled_peak_run_allocated_bytes": 6371323904,
+          "sampled_peak_scratch_allocated_bytes": 139264,
+          "memory_sample_interval_seconds": 0.2,
+          "disk_sample_interval_seconds": 2.0
+        }
+      }
+    ],
+    "workspace_queries": [
+      {
+        "command": [
+          "mpirun",
+          "--oversubscribe",
+          "-np",
+          "4",
+          "/work/diagnostics/cas12-large-host-workspaces/workspace",
+          "86352",
+          "2",
+          "2"
+        ],
+        "original_exit": 5,
+        "valid_array_floor": false,
+        "array_floor_bytes": null
+      },
+      {
+        "command": [
+          "mpirun",
+          "--oversubscribe",
+          "-np",
+          "16",
+          "/work/diagnostics/cas12-large-host-workspaces/workspace",
+          "86352",
+          "4",
+          "4"
+        ],
+        "original_exit": 0,
+        "valid_array_floor": true,
+        "array_floor_bytes": 238790226304,
+        "maximum_rank_array_bytes": 14985242904
+      },
+      {
+        "command": [
+          "mpirun",
+          "--oversubscribe",
+          "-np",
+          "32",
+          "/work/diagnostics/cas12-large-host-workspaces/workspace",
+          "86352",
+          "4",
+          "8"
+        ],
+        "original_exit": 0,
+        "valid_array_floor": true,
+        "array_floor_bytes": 238967087872,
+        "maximum_rank_array_bytes": 7498148376
+      }
+    ],
+    "matrix_floor_bytes": 59653343232,
+    "retained_source_hashes_verified": 245,
+    "profile_samples_verified": 1099,
+    "preserved_failed_preparations": 4,
+    "original_scheduler_failure_preserved": true,
+    "scope": "Preparation and validated array floors; full CAS12 scattering exceeds Sadaharu RAM"
+  }
+}

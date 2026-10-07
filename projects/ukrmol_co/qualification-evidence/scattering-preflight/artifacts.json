@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "scattering-preflight.tar.gz": {
+      "bytes": 2935057,
+      "sha256": "10e95b5389901990ad02824e75aa2f5fdfb68065ab8cd2b253c03ff6631c6470"
+    }
+  },
+  "git_sha": "44b413bd5fd14debc6c065082aeb50ef274a70c6",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-scattering-preflight-2026-10-07/"
+}

@@ -7,12 +7,16 @@ Fresh CAS(10,11) TZ and both repaired aug-TZ targets now pass QC, independent
 The original rejected fresh aug-TZ record remains exact. Subsequent competing
 starts find a distinct, reproducible aug-TZ branch whose objective is 0.538388 eV
 lower; both new-branch coverage scans and all four repaired downward projections
-pass. Its independent native import awaits the staged owner's completion.
+pass. Its independent native import now passes all 64 roots; both aug-TZ
+branches remain distinct.
 The matched CAS(10,10)
 one-/two-/four-rank and concurrent benchmarks also pass all seven replicas.
 CAS(10,12)'s tight QC starts, ensemble coverage and full forty-root/dipole import
-now pass locally in 6.201 hours / 40.405 GiB; its compressed DZ CI failure still gates dependent
-repairs. Stretched CAS(10,11) DZ also passes its 64-root/dipole import after a
+now pass locally in 6.201 hours / 40.405 GiB. Native scattering preparation
+measures dimension 86352 and valid aggregate array floors above 222 GiB,
+blocking the full all-spectrum scattering solve on Sadaharu. Its staged
+DZ/basis failures feed the eligible numerical-repair queue.
+Stretched CAS(10,11) DZ also passes its 64-root/dipole import after a
 retained-data decimal-format recheck; its original verifier failure is preserved
 and same-geometry TZ/aug-TZ QC also passes. Both independent basis coverage
 scans pass; the stretched aug-TZ 64-root import also passes. Stretched TZ's
@@ -26,10 +30,10 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Staged CAS(10,12) aug-TZ QC, 32-GiB container; original projected TZ attempt rejects after 150 cycles | Existing eligible CI-repair supervisor PID 918331 follows owner completion; fresh-RHF TZ/aug-TZ targets remain independently qualified QC branches |
-| 4–7 | Covered competing aug-TZ 64-root import PID 954948; staged owner PID 916479 has completed | Preflight PID 956517 follows import-worker completion under its own exact target/CI contract; original staged equilibrium/compressed CI failures remain rejected |
+| 0–3 | CAS(10,12) numerical-repair owner PID 918331, 32-GiB container; compressed space-160 retry active | Staged owner PID 913307 completes with four QC rejections and the DZ fifty-component pass; eligible new-name repairs preserve its original failures |
+| 4–7 | Released: competing aug-TZ import PID 954948 and final preflight complete | Original scheduling rejection PID 956517 plus four failed native preparations retained; full CAS12 scattering is blocked by measured workspace floors |
 | 8–11 | Near-equilibrium QZ/5Z neutral pilot under successor PID 965433; imported-orbital CI diagnostic passes | 46 new calculations on one four-core worker, then held-point/basis diagnostics; original TZ seed-spectrum rejection retained |
-| 12–15 | CAS(10,11) l=5 continuum control under successor PID 950692, 48-GiB container | The finite l=3/l=5 queue then replays saved-data fits; final independent continuum comparisons follow completed results |
+| 12–15 | CAS(10,11) anchor follow-up PID 988205; compressed 64-root native import active | Compressed coverage passes; gated compressed scattering then independently qualified stretched scattering, 48-GiB containers; continuum/replay owner PID 950692 completes |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -1919,10 +1923,11 @@ One sequential four-core worker uses **24-GiB containers**, **20000 MB**
 PySCF memory, **32 GiB available RAM / 40 GiB free scratch** floors.
 Batch/analysis/anchor hashes remain under the neutral root in
 `neutral-pilot-inputs/`; each fresh run remains under `runs/`.
-The last census finds six new QZ jobs completed with exit zero and the
-R=2.075-bohr QZ point active. Headroom is **103342924 KiB available RAM /
-155466256384 free disk bytes**. The 5Z points and final curve diagnostics
-remain outstanding.
+The later census finds **40 of 46** new jobs completed; the QZ sequence has
+finished and R=2.350-bohr aug-5Z is active. Final curve diagnostics remain
+outstanding and execute automatically after the finite batch completes.
+Headroom is **104546596 KiB available RAM / 142347321344 free disk bytes**;
+scientific containers occupy disjoint physical groups 0–3, 8–11 and 12–15.
 
 Staged owner PID **916479** also completes its three batches with exits
 **[1,1,0]**: both equilibrium projected aug-TZ 80/160 retries still reject
@@ -1930,11 +1935,20 @@ singlet B1/B2 CI/spin flags; both R=1.9 TZ/aug-TZ staged starts reject
 singlet A2 CI/spin flags despite orbital convergence; both R=2.5 basis
 starts pass. Original equilibrium objectives agreeing to roundoff does not
 override the failed flags. The separately completed fresh/downward targets
-remain distinct, accepted lineages. PID **954948** now runs its covered
-competing aug-TZ native import on **4–7**; the contractual preflight follows.
+remain distinct, accepted lineages. PID **954948** subsequently completes its
+covered competing aug-TZ native import on **4–7** with controller/verifier exits zero.
 CAS(10,12)'s projected TZ attempt preserves its **29192.74-second** failure:
 150 macroiterations end at gradient **1.05004e-5**, above **1e-7**, with
-singlet-A2 CI rejected. Its aug-TZ attempt continues under the original cap.
+singlet-A2 CI rejected. Its aug-TZ attempt subsequently rejects triplet A2 CI
+despite orbital convergence in **8676.26 seconds / 0.824 GiB**. The full staged
+CAS(10,12) batch completes with exits **[1,1,1,1,0]**: compressed DZ rejects
+singlet A1 CI in **3551.82 seconds**; stretched DZ rejects singlet A2 and triplet
+B1/B2 CI in **7795.03 seconds**; projected TZ rejects as above; projected aug-TZ
+rejects as above; fifty-component equilibrium DZ QC passes in **2450.85 seconds /
+0.878 GiB**. Their independent raw-QC reconstruction/publication and fifty-component
+coverage/import are pending. Eligible repair supervisor PID **918331** now runs
+the compressed space-80/160 pair, then stretched/aug-TZ retries. Its unresolved
+projected-TZ failure is explicitly excluded from automatic retry.
 
 The completed l=3 scattering control independently reanalyzes against l=4:
 **+3.9602 meV** position, **+0.7434%** full width, **0.0166575 rad** maximum
@@ -1944,8 +1958,80 @@ and backgrounds 1–4 stay within **3.982 meV / 0.7214%** between angular
 cutoffs. Control cost is **10621.10 seconds / 2.950 hours / 24.329 GiB**.
 The executable reanalysis and input-digest report persist under
 `prepared/continuum-l3-reanalysis-20261007/`.
-The l=5 calculation and queued native background replays remain required
-to finish that refinement sequence.
+The l=5 calculation and queued native background replays subsequently finish
+with original controller exit zero.
+
+### Completed continuum/import evidence and measured scattering-memory blocker
+
+Both B1/B2 l=5 comparisons against l=4 pass: **+0.07987 meV** position,
+**+0.2655%** full width and **0.0162174 rad** phase modulo pi. Cost is
+**14353.38 seconds / 26.300 GiB**. Common-window independent fits stay within
+**0.3930 meV / 0.2279%**. All **36** native angular/background/detection replays
+reconstruct. Background-width spans remain **12.60% / 12.65% / 11.98%** at
+l=3/4/5, exceeding the unchanged 5% extraction gate.
+
+The competing aug-TZ import independently passes all 64 roots within
+**3.8811e-8 Hartree**, with native/seed dipole error **1.8756e-7 a.u.**;
+required forty-root/current-QC error is **4.9431e-10 Hartree**. Cost is
+**3259.47 seconds / 5.260 GiB**. Both orbital branches are retained.
+The [continuum/import companion](qualification-evidence/continuum-competing/README.md)
+verifies **1014 payloads**, **39 source hashes**, **219998 profile samples**,
+byte-identical repackaging and public fetch. Archive SHA256:
+`70c739dfebc709128872a722deed2c238bedfc941f715b76666814fa3ce37c5f`.
+
+Preflight PID **956517** retains the original pre-native scheduling failure:
+`ValueError('Staged owner advanced; preflight slot requires a new explicit transition')`.
+Fresh released-slot preparation PID **982643** rejects a copied `moints` file;
+PID **983294** generates new integrals but exposes the CONGEN workspace floor;
+PID **983855** exposes missing retained-sector initialization from skipped target
+stages; PID **985572** restores native CIDATA order but retains the independent
+`NBMX` workspace overflow. The final new-name `cas12-scattering-preflight-nbmx-source`
+successor completes with exit zero, preserving every predecessor's bytes/exits.
+It verifies completed owner records and target/checkpoint/CI hashes before launch,
+uses `LNDO=NBMX=100000000`, and initializes/checks forty-state inventory without
+executing DENPROP. All preparations use the original 16-GiB container and
+24-GiB RAM / 20-GiB scratch floors.
+
+The native CAS(10,11) control reproduces **344124 / 27546** raw/contracted
+configurations, including **26136 L² + 1410 continuum** configurations.
+CAS(10,12) measures **990990 / 86352**, including **84942 L² + 1410 continuum**.
+Preparation costs are **46.92 / 172.99 seconds**, at **2.984 / 12.730 GiB**.
+One dense CAS(10,12) matrix needs **55.556 GiB**; valid installed-library grids
+4×4/4×8 need **222.391 / 222.555 GiB** aggregate array floors. The 2×2 query
+retains exit five and no estimate. Actual scattering runtime/peak/scaling remain
+unmeasured. This proves the full current all-spectrum solve exceeds Sadaharu RAM.
+The [preflight companion](qualification-evidence/scattering-preflight/README.md)
+verifies **814 payloads**, **245 source hashes**, **1099 profile samples**,
+byte-identical repackaging and public fetch. Archive SHA256:
+`10e95b5389901990ad02824e75aa2f5fdfb68065ab8cd2b253c03ff6631c6470`.
+Publication/reconstruction bundles persist in the two `prepared/publication-*-20261007/`
+directories named by those companions.
+
+### Finite two-anchor CAS(10,11) follow-up
+
+Successor PID **988205** explicitly consumes completed continuum owner PID
+**950692** on CPUs **12–15**, using image
+`sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666`.
+Its frozen driver SHA256 is
+`136bc3f31796328ba44f0e25c8c320a87a0d9320011deb3b0d1b917440402e2e`.
+Source/CLI/hash checks pass before deployment. Execution persists at
+`prepared/cas11-anchor-followup-source/execution.json`.
+
+Compressed R=1.9-bohr DZ fixed-orbital coverage uses five/eight roots, spaces
+40/80/160 and the validated 600-cycle contract, with unchanged residual/spin
+gates. That scan passes and releases the
+[compressed 64-root import](calibration-sa11-compressed-import.json).
+Only a passing all-root/dipole verifier releases its scattering entry.
+The separately qualified R=2.5 DZ 64-root checkpoint has exact SHA256
+`48e45536a2a795136db6d19706100ea56b6fba71980343064ea8d8a5f65874d7`;
+its scattering eligibility is independent of a compressed import failure.
+The [two-entry scattering recipe](calibration-sa11-anchor-scattering.json)
+uses the same l=4/radius-18/deletion-1e-6/five-root-per-sector model as equilibrium,
+on **0.1–8.0 requested eV / 0.05-eV spacing** at R=1.9 and
+**0.01–1.0 requested eV / 0.005-eV spacing** at R=2.5. Each full pipeline uses
+a 48-GiB container with 64-GiB available-RAM and 20-GiB scratch floors.
+This is a geometry/extraction pilot: empty automatic candidates remain unset,
+and bound-state/pole/state-continuity qualification still precedes a full sweep.
 
 ### Scientific decisions still pending
 
@@ -1954,8 +2040,9 @@ to finish that refinement sequence.
    finish the running equilibrium scattering and matched QC controls.
     CAS(10,12)'s separately gated selected-root configuration now passes its full
     forty-root/dipole import locally; the installed-library audit still rules out
-    current all-spectrum dense target layouts. Measure the actual contracted
-    scattering dimensions/workspaces and compare
+    current all-spectrum dense target layouts. The measured 86352-dimensional
+    scattering space requires array floors above 222 GiB; use a larger host for
+    its complete solve, and compare
    against the smaller active spaces before adopting a target for scattering.
 2. **Qualify the common orbitals.** The `state-averaged` backend constructs
    multi-spin/multi-irrep CAS targets. The existing `natural` option optimizes
