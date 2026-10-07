@@ -45,8 +45,12 @@ alone does not establish minimization of the intended lowest-root ensemble.
 Both small 80/160-vector controls now pass all forty imported roots within
 4.98e-10 Hartree and dipoles within 4.50e-11/3.07e-11 a.u. Their printed
 excitations agree, with a maximum change of 2.10e-8 Hartree from the earlier
-dense control. The larger failed-checkpoint reoptimizations are running;
-their convergence and fixed-orbital coverage remain separate gates.
+dense control. Both stretched-DZ CAS(10,11) 80/160-vector reoptimizations now
+pass QC in 389.55/363.26 seconds. Both projected equilibrium TZ retries remain
+CI-unconverged in singlet B1/B2 despite orbital convergence (807.23/806.98
+seconds). Larger trial space alone does not repair that projected solution.
+Independent lowest-root coverage and paired subspace checks of the passing
+stretched targets are queued; fresh/projected orbital comparisons remain open.
 
 ## Completed CAS(10,11) scattering and extraction checks
 
@@ -57,6 +61,23 @@ Relative to the earlier CAS(10,10) l=4 run, position and phase changes of
 64.84 meV / 0.109809 rad exceed the chosen 0.05-eV / 0.05-rad gates; width
 changes by 2.80%. QC/fresh-CI controls also differ, so this is a recorded-model
 comparison rather than an isolated active-space perturbation.
+
+The numerically matched tight CAS(10,10) control completes in 1282.76 seconds
+(21.38 minutes) at a 2.864-GiB kernel peak. All forty independently imported
+roots pass within 4.69e-10 Hartree and the dipole within 3.28e-11 a.u. Every
+ensemble root passes all 48 final-orbital coverage probes within 9.95e-14
+Hartree; the extra eighth singlet B1/B2 roots fail at space 40 and repair at
+80/160. The candidate is **2.455964890/1.119642705 eV** in position/full width.
+Relative to the loose CAS(10,10) control, tightening changes position/full width
+by only −0.544/+0.395 micro-eV and phases by at most 1.30e-6 rad. Matching the
+numerical controls therefore leaves the CAS(10,10)→CAS(10,11) position shift
+**+64.8401 meV** and phase difference **0.1098099 rad** resolved; both exceed
+the chosen gates. Full width changes by +31.3589 meV (about +2.80%). The active
+counts and same-active-space seeds differ; all QC/continuum/channel controls
+match. Newly serialized automatic-diagonalizer defaults are inactive, and all
+eight generated target SCATCI inputs are byte-identical. This qualifies the
+numerical comparison, while orbital continuity and electronic/continuum model
+selection require their remaining checks.
 
 Twelve background/detection replays span background terms 1–4 and detection
 thresholds 0.7/1.0/1.3. Position changes remain below 6.65 meV, but width
