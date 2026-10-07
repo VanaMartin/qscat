@@ -168,6 +168,13 @@ in 73.12/74.92 minutes. Each raw CONGEN count is 344124; it is not the dense
 diagonalizer's dimension. The earlier B1-only 24.18-GiB sampled observation is
 retained in the diagnostic history. Preserve both counts and query the actual contracted
 CAS(10,12) dimension before applying a dense-memory or cubic-time forecast.
+The [native preflight contract](scattering-preflight-contract.json) now queues
+that preparation on Sadaharu, using the completed forty-root/dipole target and
+first reproducing CAS(10,11)'s known contracted dimension from native CONGEN and
+retained-target/continuum counts. It then queries installed-library workspaces
+at the inferred CAS(10,12) dimension. This is a dimension/resource audit; it does
+not execute a scattering eigensolve. Its finite acknowledged CPU-slot transition
+is recorded in [the continuation](CONTINUATION.md).
 The matched tight CAS(10,10) control completes locally in 21.38 minutes at
 2.864 GiB, with all forty imported roots/dipole and 48 lowest-root probes passing.
 Numerical tightening changes its position by only −0.544 micro-eV and phases
