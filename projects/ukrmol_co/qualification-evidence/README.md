@@ -65,6 +65,31 @@ differentials at a 1.228-GiB peak; phase and resonance verdicts remain unset for
 that original attempt. The [ongoing replay guide](../SPARSE_SCATTERING.md)
 describes native MPI boundary export and finite omitted-spectrum controls.
 
+The [native boundary companion](sparse-boundary/README.md) subsequently qualifies
+the fixed CAS10 2048-root implementation in both Pi sectors at a 1.861-GiB peak.
+All 306 payloads and 25504 profiles reconstruct; native eigenpair/export agreement,
+complete phases, identical fixed-window fits and dense spectral refinement pass.
+The original parser failure remains preserved. A separately predeclared CAS11
+sequence proceeds against its own immutable dense oracle.
+
+The [compressed-anchor companion](compressed-anchor/README.md) verifies 48
+fixed-orbital residual probes, the complete 64-root native import and both dense
+scattering sectors at R=1.9 bohr. Its 1115 payloads and 75913 run-profile samples
+reconstruct independently; electronic/extraction/continuity gates remain open.
+The [original CAS12 repair companion](cas12-base-repairs/README.md) preserves
+four trial-space-80/160 retries and 96 original 200-cycle coverage probes.
+Compressed QC rejects and stretched QC passes with rejected original coverage;
+the later 600-cycle residual scan has separate ownership and evidence.
+
+The [staged-target companion](staged-targets/README.md) reconstructs four original
+CAS12 QC rejections and both fifty-component equilibrium pilots, with 545 payloads
+and 281438 profile samples. The common-forty-root diagnostics expose ensemble
+sensitivity while independent fifty-component coverage/import remains open.
+The [CAS12 residual companion](cas12-residual/README.md) then verifies all 96
+600-cycle fixed-orbital probes on the two unchanged stretched DZ repair checkpoints:
+627 payloads / 11138 scan profiles, including original 200-cycle and wrapper
+failures. Native import and larger-basis qualification remain separate successors.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

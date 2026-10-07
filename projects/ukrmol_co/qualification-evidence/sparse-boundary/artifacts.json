@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "sparse-boundary.tar.gz": {
+      "bytes": 401723889,
+      "sha256": "8f31e6e1af3da152b5845175efcc7b4af8066c209d80e754e2af7b0848e68f06"
+    }
+  },
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-sparse-boundary-2026-10-07/"
+}

@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "cas12-base-repairs.tar.gz": {
+      "bytes": 1500989,
+      "sha256": "d4abeb85a47f27b0a6b16d9491fb4bdb35453d58db20086b84624d9052d51e3b"
+    }
+  },
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-cas12-base-repairs-2026-10-07/"
+}

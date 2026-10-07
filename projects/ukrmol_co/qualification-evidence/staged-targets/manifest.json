@@ -1,0 +1,20 @@
+{
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "date": "2026-10-07",
+  "record_type": "staged-cas12-qc-rejections-and-fifty-component-ensemble-diagnostics",
+  "archive_bytes": 2914653,
+  "archive_sha256": "f06fbe3d0d71400f684905afd74a967e6c018b1e279008efb5bb206844f7064f",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 545,
+    "profiles": 281438,
+    "original_cas12_qc_rejections": 4,
+    "fifty_component_qc_passes": 2,
+    "cas11_ground_energy_change_ev": 0.45651153619861,
+    "cas11_common_forty_objective_change_ev": 0.1701470962626301,
+    "cas12_ground_energy_change_ev": 0.00792984738015047,
+    "cas12_common_forty_objective_change_ev": 0.004203877569273909,
+    "independent_fifty_component_coverage_or_native_import_verdict": null
+  },
+  "scope": "QC/self-consistency and common-root ensemble diagnostics; independent fifty-component coverage/import and electronic-model qualification remain open"
+}

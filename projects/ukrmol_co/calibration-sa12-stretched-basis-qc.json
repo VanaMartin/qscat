@@ -1,0 +1,10 @@
+[
+  {
+    "name": "co-r2500-cctz-sa12-qc-dz80-residual-qualified-start",
+    "args": ["--bond-length", "2.5", "--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "6", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-memory-mb", "16000", "--target-initial-checkpoint", "/work/runs/co-r2500-ccdz-sa12-qc-hostprep-repair-space80/co.casscf.chk", "--target-ci-max-space", "80", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  },
+  {
+    "name": "co-r2500-augtz-sa12-qc-dz80-residual-qualified-start",
+    "args": ["--bond-length", "2.5", "--basis", "aug-cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "6", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-memory-mb", "16000", "--target-initial-checkpoint", "/work/runs/co-r2500-ccdz-sa12-qc-hostprep-repair-space80/co.casscf.chk", "--target-ci-max-space", "80", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  }
+]

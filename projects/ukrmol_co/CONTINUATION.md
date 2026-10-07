@@ -2,6 +2,16 @@
 
 ## Live qualification handoff
 
+**Local low-memory milestone:** the fixed CAS(10,10) native sparse/MPI
+2048-root replay now qualifies in both Pi sectors at **1.861 GiB**, with
+complete-grid phase error **2.0e-7 rad** and passing identical fixed-window
+position/full-width comparisons. Its independent dense-omission refinements
+remain stable through the complete spectrum. Public reconstruction passes.
+CAS11 dense omission also passes at 2048 poles; its native finite sequence
+continues locally. Both stretched CAS12 DZ repair checkpoints now pass their
+independently reconstructed 600-cycle coverage scans. Paid provisioning remains
+deferred while these gated Sadaharu workers run.
+
 Fresh CAS(10,11) TZ and both repaired aug-TZ targets now pass QC, independent
 600-cycle fixed-orbital coverage and all-64-root UKRmol import/dipole checks.
 The original rejected fresh aug-TZ record remains exact. Subsequent competing
@@ -31,10 +41,10 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Dense-spectrum omission diagnostic PID 1011041, 2-GiB container | Seven fixed pole counts per Pi sector isolate omitted-spectrum errors using dense boundary data; prior CAS12 repairs remain unqualified |
-| 4–7 | Native sparse CAS(10,10) successor PID 1008121, 16-GiB containers | 128-root B2 continuation, then 512/2048 both sectors; native boundary/static-interface differentials and complete phases gate further work |
-| 8–11 | Released: near-equilibrium QZ/5Z neutral owner PID 965433 completes with controller exit zero | All 52 points and held-point/basis diagnostics publicly reconstruct; 46 new-job walls sum to 3.210 h |
-| 12–15 | CAS(10,11) anchor follow-up PID 988205; stretched scattering active | Compressed 64-root import/verifier and scattering pass; extraction/pole/continuity qualification and public reconstruction remain due |
+| 0–3 | Released: CAS11 dense-omission stage completes with exit zero | All six pole counts pass both-sector phase/fixed-window gates; native qualification continues on 4–7 |
+| 4–7 | CAS11 sparse owner PID 1020516, 24-GiB native containers | Native 2048-root control active; 4096/8192/16384 follow only after native-engine/eigenpair/export checks; fresh ownership/RAM/disk checks precede every container |
+| 8–11 | Electronic successors PID 1022822, fifty-component residual scan active | Independent CAS11/CAS12 equilibrium coverage, then separately eligible stretched CAS12 TZ/aug-TZ QC and DZ 64-root import; no automatic scattering |
+| 12–15 | CAS(10,11) anchor follow-up PID 988205; stretched scattering active | Compressed coverage, 64-root import and scattering publicly reconstruct; stretched extraction/pole/continuity qualification remains due |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -1960,13 +1970,78 @@ CAS(10,12) batch completes with exits **[1,1,1,1,0]**: compressed DZ rejects
 singlet A1 CI in **3551.82 seconds**; stretched DZ rejects singlet A2 and triplet
 B1/B2 CI in **7795.03 seconds**; projected TZ rejects as above; projected aug-TZ
 rejects as above; fifty-component equilibrium DZ QC passes in **2450.85 seconds /
-0.878 GiB**. Their independent raw-QC reconstruction/publication and fifty-component
-coverage/import are pending. Eligible repair supervisor PID **918331** completes
+0.878 GiB**. The [staged-target companion](qualification-evidence/staged-targets/README.md)
+now reconstructs all four original rejections, both CAS11/CAS12 fifty-component QC
+pilots and their tight forty-component equilibrium references: **545 payloads /
+281438 profiles**. Common-forty objective changes at the new orbitals are
+**+0.170147 / +0.004204 eV** for CAS11/CAS12; reported ground-energy changes
+are **+0.456512 / +0.007930 eV**. These are QC diagnostics, with independent
+lowest-root coverage and native fifty-component import still unset. Archive SHA256:
+`f06fbe3d0d71400f684905afd74a967e6c018b1e279008efb5bb206844f7064f`.
+Eligible repair supervisor PID **918331** completes
 at `finished_unix=1791385782.7340915`. The compressed space-80/160 pair still
 rejects QC; both stretched DZ repairs pass QC but fail their independent
 ensemble-coverage gates. Neither DZ pair releases a larger-basis successor.
-Detailed raw-QC/coverage reconstruction and publication remain due. Its unresolved
-projected-TZ failure is explicitly excluded from automatic retry.
+The [original repair companion](qualification-evidence/cas12-base-repairs/README.md)
+now reconstructs **437 payloads / 28844 profiles** and all **96** original
+200-cycle coverage probes. Compressed QC retains a singlet-A1 CI rejection
+despite orbital convergence. Stretched QC walls/peaks are **1427.43/1350.82 s**
+and **0.786/0.968 GiB**; the pair agrees in ground energy within **1.973e-11
+Hartree**. Original coverage fifth roots fail only at space 40 (singlet A2,
+triplet B1/B2), and converge at larger spaces. Extra eighth-root flags also
+reject. Archive SHA256:
+`d4abeb85a47f27b0a6b16d9491fb4bdb35453d58db20086b84624d9052d51e3b`.
+Its unresolved projected-TZ failure remains excluded from automatic retry.
+
+The separately owned fixed-orbital residual successor PID **1017316** uses the
+already validated **600-cycle** scan on physical CPUs **8–11**, released by the
+completed neutral owner. Orbitals, active/frozen spaces, tolerance, spin penalty,
+five/eight requested roots and spaces **40/80/160** remain unchanged. All **96
+probes** execute before any qualification decision; physical/penalized residuals,
+spin and root-coverage gates remain mandatory. Its source/owner and diagnostics
+persist under `prepared/cas12-stretched-repair-600-source-v2/` and
+`diagnostics/cas12-stretched-dz-repair-ci-residual-coverage-600-v2/`.
+The first wrapper PID **1016190** rejects before any scientific probe because
+`hashlib` was absent from its extracted driver imports. Original source, logs,
+resources and exit one are retained separately and copied into the fresh
+successor's inputs. No larger-basis/import successor is automatically released.
+
+That successor now completes with original exit zero at
+`finished_unix=1791398960.561587`, in **2240.11 seconds / 0.6252 GiB**. Both
+unchanged CAS12 stretched checkpoints pass all **96** probes. Independent
+reconstruction gives maximum physical/penalized residuals **7.638e-10 /
+9.997e-10 Hartree**, spin-squared error **8.216e-15**, ensemble energy error
+**2.701e-13 Hartree**, and trial-space/common-root-count differences below
+**1.706e-13 Hartree**. The [residual companion](qualification-evidence/cas12-residual/README.md)
+verifies **627 payloads / 11138 scan profiles** after public fetch, including
+original failed 200-cycle probes and the failed wrapper. Archive SHA256:
+`94b6757579a30ad63e0c86a806360a890abf08dd1f3d1fab9cc91e21a73b3447`.
+
+Electronic successor PID **1022822** explicitly consumes that independently
+reconstructed coverage gate and owns physical **8–11**. A finite fifty-component
+equilibrium residual scan runs first on the existing CAS11/CAS12 checkpoints:
+**10/13 A1 roots**, **5/8 roots** in the other sectors, both spins, spaces
+**40/80/160**, **600 cycles**, all **96** probes and unchanged residual/spin/
+orthogonality gates. A scientific coverage rejection retains its unset native
+fifty-component-import verdict; it does not invalidate independently qualified
+CAS12 stretched seeds.
+
+The separately eligible [CAS12 stretched basis QC pair](calibration-sa12-stretched-basis-qc.json)
+then projects the exact space-80 checkpoint
+`7a5dd2f91ea3bf96f1548d5fd49c4730b53deb35e979f6867c84b412948b82da`
+to TZ/aug-TZ, preserving CAS(10,12), the forty-component ensemble, tight
+tolerances and the 150-macroiteration/200-CI-cycle QC contract. Each runs on
+8–11 in a 32-GiB container with a 48-GiB available-RAM floor. Original numerical
+rejections persist; no automatic larger-basis target import follows.
+
+The [DZ 64-root import](calibration-sa12-stretched-import.json) also consumes
+that exact checkpoint, using dense native target storage with selected-root
+SLEPc, 16-GiB SCATCI workspace and a **64-GiB container / 80-GiB available-RAM**
+floor. Its independent verifier retains all 64 roots, forty-state dipole and
+core/active-subspace gates; the previously validated CAS11 verifier changes only
+the twelve-orbital active-subspace endpoint. Source/proofs/checkpoint hashes,
+explicit commands, resource floors and original exits persist under
+`prepared/electronic-successors-source/`. No scattering successor is automatic.
 
 The completed l=3 scattering control independently reanalyzes against l=4:
 **+3.9602 meV** position, **+0.7434%** full width, **0.0166575 rad** maximum
@@ -2051,9 +2126,23 @@ a 48-GiB container with 64-GiB available-RAM and 20-GiB scratch floors.
 This is a geometry/extraction pilot: empty automatic candidates remain unset,
 and bound-state/pole/state-continuity qualification still precedes a full sweep.
 
+The [compressed-anchor companion](qualification-evidence/compressed-anchor/README.md)
+now independently reconstructs **1115 payloads / 75913 run-profile samples**.
+All **48** fixed-orbital probes pass; physical/penalized residual maxima are
+**7.034e-10 / 9.716e-10 Hartree**. All **64** native roots agree with the
+independent CI coverage oracle within **9.050e-9 Hartree**. Import cost is
+**3035.78 s / 5.262 GiB**. Compressed scattering completes both 27546-dimensional
+Pi sectors in **11439.93 s / 25.277 GiB**, with **1e-9 rad** Pi phase splitting
+and fitted candidate **3.826384 / 2.322242 eV** position/full width. Raw outputs,
+source/checkpoint provenance and a historical parent-owner snapshot travel with
+the public archive, SHA256
+`eafc854bef6069b3d4fc2b804ed1317395a740464cf5b40ced641abcae78e974`.
+The separately owned stretched calculation remains active; this compressed
+pipeline pass does not qualify electronic selection, extraction or continuity.
+
 ### Sparse/iterative scattering qualification — preferred before a large host
 
-**Native small-model controls launched; not yet qualified.** Investigate the pinned engine's native
+**CAS(10,10) 2048-root implementation qualifies; finite CAS(10,11) qualification launched.** Investigate the pinned engine's native
 sparse/iterative contracted-scattering route as the preferred response to the
 CAS(10,12) dense-workspace blocker. Paid provisioning remains deferred. The
 222.4-GiB array floor describes the audited dense ScaLAPACK path, not every possible
@@ -2075,7 +2164,7 @@ at **292.93 seconds / 1.228 GiB**; the original outer failure remains exact.
 Archive SHA256:
 `d27863143d93817f2ca740a338601f109d8fe3c79a22f5f1ac571f81622067b2`.
 
-MPI-boundary owner PID **1007595** then passes all four B1 native stages at
+MPI-boundary owner PID **1006959** then passes all four B1 native stages at
 128 poles; its analysis rejects a zero-error native rank-summary block interleaved
 with fitted values. The guarded parser fix removes only an explicitly empty
 summary. Original logs/source/exits remain in
@@ -2106,18 +2195,79 @@ required of selected-root scattering, independently of iterative-solver residual
 Source, pinned native energy-conversion files and owner records persist under
 `prepared/dense-spectrum-omission-source/`; diagnostic output under
 `diagnostics/cas10-dense-spectrum-omission-20261007/`.
+
+The dense-omission owner subsequently completes with original exit zero in
+**1898.71 seconds / 0.374 GiB**. Both Pi sectors give the same phase errors:
+**1.56579 / 1.46946 rad** at 128/512 poles, **2.0e-7 rad** at 2048 poles and
+**1.0e-8 rad** at 4096 poles; higher counts reproduce the full printed phase
+grid. All four identical fixed-window fits reject at 128/512 and pass at
+2048/4096/6144/8192/8350. At 2048 poles, position/full-width differentials are
+below **1e-6 eV**. The full-count endpoint reproduces the original dense
+boundary bytes and phase grid. The omitted boundary-amplitude squared norm
+falls from **193.909** at 512 poles to **5.7385e-4** at 2048, of a full-spectrum
+norm **234.074**. This is a participation diagnostic, not an observable bound;
+the complete propagated phases/fits supply the numerical gate.
+
+Native owner **1008121** completes with original controller exit zero at
+`finished_unix=1791397854.027752`. Its **2048-root** control passes both sectors:
+maximum energy error **9.664e-13 Hartree**, residual **1.336e-10 Hartree**,
+boundary-amplitude error **1.003e-6**, phase error **2.0e-7 rad**, and identical
+fixed-window position/full-width differences **5.847e-8 / 2.381e-7 eV**. Static
+channels/thresholds/multipoles match byte-exactly. Native phases match the
+corresponding dense 2048-pole truncation at printed precision. Wall/peak are
+**1340.74 seconds / 1.861 GiB** for both sectors; inner/export stages take
+**558.81 / 531.48 seconds**. Both use 2548 Krylov vectors and 57 iterations.
+This qualifies the selected-spectrum implementation for this fixed CAS10 model;
+it does not qualify electronic selection or a larger scattering model.
+
+The [public boundary companion](qualification-evidence/sparse-boundary/README.md)
+independently reconstructs **306 payloads / 25504 profiles**, all six native
+sector controls and all fourteen dense omissions. The complete dense native CI
+and boundary oracles, raw telemetry, original parser failure, source/owner
+snapshots and additive capture supplements travel with the archive. Public
+fetch/reconstruction and byte-identical repackaging pass. Archive SHA256:
+`8f31e6e1af3da152b5845175efcc7b4af8066c209d80e754e2af7b0848e68f06`.
+
+CAS11 successor PID **1020516** explicitly consumes those completed gates and
+the released physical **0–3 / 4–7** slots. Its
+[predeclared contract](sparse-scattering-cas11-contract.json) uses the qualified
+`co-eq-ccdz-sa11-tight-cc40` dense oracle, dimension **27546**, unchanged forty
+neutral states and both Pi sectors. A **2048/4096/8192/16384/24576/27546**
+dense-omission sequence runs first in a 2-GiB container on 0–3. If at least one
+declared native cutoff passes and remains stable at all higher dense cutoffs,
+the **2048/4096/8192/16384** native sequence runs on 4–7 with four ranks,
+**24-GiB** containers, **48-GiB available-RAM / 30-GiB free-disk** floors and
+the unchanged native solver/export/gates. Otherwise it records a specific
+spectral-coverage blocker without launching the native sequence.
+
+Fresh physical/SMT ownership and resource checks precede every container.
+Frozen source, original commands/exits, CAS10 independent reconstruction,
+reference input hashes and owner record persist under
+`prepared/cas11-sparse-qualification-source/`. Native controls receive identical
+fixed-window/background comparisons after each solve. Scientific phase/fit
+rejections permit the next declared refinement; engine/eigenpair/export failures
+halt the queue. No CAS12 scattering launch is automatic.
+
+The CAS11 dense-omission stage subsequently completes in **1456.15 seconds /
+0.6691 GiB**, with original exit zero. Both sectors pass all six declared counts.
+At 2048 poles, maximum phase error is **5.1e-6 rad**, and fixed-window
+position/full-width changes are below **7.669e-7 / 1.291e-5 eV**. Higher counts
+remain stable; the complete endpoint reproduces the dense boundary bytes and
+printed phase grid. The predeclared native **2048-root** control is active on
+4–7; this dense-oracle finding does not substitute for its native differential.
+
 Original scheduler/build-environment attempts and the MPI-stdin native abort
 remain in their original directories. The successor passes the named input file
 to every MPI rank. Read-only `EPSSolve` telemetry will establish actual matrix
 storage, nonzero/allocation counts, selection and residuals; source inspection
 alone does not establish those measurements.
 
-- [ ] **Audit the native path and downstream contract.** Resolve the pinned
+- [x] **Audit the native path and downstream contract.** Resolve the pinned
   contracted-Hamiltonian sparse initialization, PETSc storage and SLEPc dispatcher;
   record actual nonzero counts, allocation, eigenpair-selection policy, `nstat`
   semantics and boundary-amplitude/export behavior. Sparse preallocation guesses
   are not measured sparsity. Preserve matching source/library/image digests.
-- [ ] **Establish a small-model differential control.** Reuse a qualified
+- [x] **Establish a small-model differential control.** Reuse a qualified
   CAS(10,10) dense reference with identical target/orbital/continuum inputs.
   Check eigenpair residuals, symmetry, boundary amplitudes and downstream execution;
   reject silent dense fallback or incomplete eigensolver output.
@@ -2145,6 +2295,15 @@ The [qualification contract](../../docs/physics/co-electronic-qualification.md#s
 defines unchanged observable gates and the evidence needed by reproducers. A
 larger host becomes the fallback only after this local route has a documented
 feasibility or convergence verdict.
+
+Repository verification for this handoff passes **90 tests / 1 skipped**, project
+Ruff, all three new CAS12 recipe entries against the live runner's argument
+parser, **205 relative documentation links**, five public archive hashes/fetches/
+portable reconstructions, and `git diff --check`. The main-only search index is
+complete and upstream-current at
+`0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; relevant branch-only source and
+qualification additions are resolved against current files and their local
+delta. Frozen producer snapshots remain at their original executable hashes.
 
 ### Scientific decisions still pending
 

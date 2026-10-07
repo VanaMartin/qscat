@@ -127,6 +127,32 @@ endpoint must also reproduce the dense phases. It determines the omission error
 and needed spectral coverage without paying for repeated eigensolutions.
 These outer-only costs are recorded separately from native iterative controls.
 
+The completed dense-oracle sequence passes both sectors at **2048 poles**:
+maximum phase error **2.0e-7 rad**, with all four unchanged fixed-window fit
+comparisons passing. Refinement to 4096 poles reduces the phase error to
+**1.0e-8 rad**; higher counts reproduce the full printed grid. The 128/512-pole
+controls reject phase and fit gates. The full 8350-pole endpoint reproduces
+the native dense boundary bytes and phase grid. Total outer-only cost is
+**1898.71 seconds / 0.374 GiB**. The native 2048-root successor now reproduces
+that result in both sectors at **1340.74 seconds / 1.861 GiB**, with maximum
+boundary-amplitude error **1.003e-6** and all fixed-window fit gates passing.
+The [public boundary companion](qualification-evidence/sparse-boundary/README.md)
+reconstructs the complete native/dense sequences and original parser failure.
+
+### Finite CAS(10,11) successor
+
+The [CAS11 contract](sparse-scattering-cas11-contract.json) declares the next
+sequence against the qualified 27546-dimensional dense oracle. Dense omissions
+at **2048/4096/8192/16384/24576/27546** determine whether any declared native
+cutoff can pass with stable higher-count refinement. Only then does the finite
+**2048/4096/8192/16384** native sequence run, using the same forty neutral states,
+both Pi sectors, explicit `igh=-1`, Krylov–Schur controls, MPI boundary export
+and unchanged observable gates. Four-rank native containers are limited to
+24 GiB, with 48-GiB available-RAM and 30-GiB disk floors. If dense omission
+rejects every native cutoff, record the coverage blocker before paying for
+those eigensolutions. Every native control also receives identical fixed-window
+fits; no CAS12 scattering job is automatically released.
+
 ## Read-only solver telemetry
 
 [`scattering_telemetry.c`](scattering_telemetry.c) interposes the C `EPSSolve`

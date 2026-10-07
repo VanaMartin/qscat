@@ -1,0 +1,18 @@
+{
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "date": "2026-10-07",
+  "record_type": "original-cas12-trial-space-repair-and-coverage-rejections",
+  "archive_bytes": 1500989,
+  "archive_sha256": "d4abeb85a47f27b0a6b16d9491fb4bdb35453d58db20086b84624d9052d51e3b",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 437,
+    "profiles": 28844,
+    "compressed_qc_passes": 0,
+    "stretched_qc_passes": 2,
+    "fixed_orbital_probes": 96,
+    "original_200_cycle_ensemble_coverage_passes": 0,
+    "larger_basis_successors_released": false
+  },
+  "scope": "Original 200-cycle coverage rejects; later 600-cycle residual qualification is a separate control"
+}

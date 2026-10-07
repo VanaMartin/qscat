@@ -758,9 +758,42 @@ near-threshold stretched grids diagnose geometry/extraction behavior; an empty
 automatic candidate does not establish zero width or a bound state. State,
 orbital and pole continuity remain required before a full resonant sweep.
 
+At **R=1.9 bohr**, the [compressed companion](../../projects/ukrmol_co/qualification-evidence/compressed-anchor/README.md)
+now reconstructs all **48** fixed-orbital residual probes, the **64-root** import
+within **9.050e-9 Hartree**, and both complete 27546-dimensional dense scattering
+sectors. Their native candidate is **3.826384 / 2.322242 eV** position/full width;
+cost is **11439.93 seconds / 25.277 GiB**. Coverage/import/pipeline consistency
+passes; active-space/basis/ensemble selection and geometry/extraction continuity
+remain open.
+
+The [original CAS(10,12) repair companion](../../projects/ukrmol_co/qualification-evidence/cas12-base-repairs/README.md)
+preserves two compressed QC rejections, two passing stretched QC retries and
+**96** original fixed-orbital **200-cycle** probes. Fifth singlet-A2/triplet-Pi
+roots fail at the smallest trial space despite accurate energies. The separately
+owned **600-cycle** residual successor reuses the previously validated protocol
+with unchanged saved orbitals and physical/penalized-residual gates. Original
+flags continue to reject their original scans; successors require their own
+complete verification.
+
+The [staged-target diagnostics](../../projects/ukrmol_co/qualification-evidence/staged-targets/README.md)
+now preserve four original CAS12 QC rejections and both passing fifty-component
+equilibrium pilots. On their common forty-root objective, ensemble changes are
+**+0.170147 / +0.004204 eV** for CAS11/CAS12; reported ground-energy changes
+are **+0.456512 / +0.007930 eV**. Independent fifty-component lowest-root coverage
+and native import remain required before scattering interpretation.
+
+The [CAS12 residual successor](../../projects/ukrmol_co/qualification-evidence/cas12-residual/README.md)
+now independently verifies all **96** 600-cycle probes on the two unchanged
+stretched DZ repair checkpoints. Maximum physical/penalized residuals are
+**7.638e-10 / 9.997e-10 Hartree**, and ensemble/root-space differentials are
+below **2.701e-13 Hartree**. Public reconstruction passes, preserving original
+200-cycle failures. A finite independently gated TZ/aug-TZ QC pair and DZ
+64-root native import now follow that qualified checkpoint; electronic-model
+selection and scattering remain separate gates.
+
 ### Sparse/iterative scattering qualification contract
 
-**Status: native sparse eigensolver/export measured; scattering qualification in progress.**
+**Status: fixed CAS(10,10) 2048-root implementation qualifies; CAS(10,11) qualification in progress.**
 Qualify this local route before allocating a large-memory host. The goal is the
 same fixed-nuclei scattering observables and physical target model, with a measured
 lower-memory implementation and an independently checked spectral approximation
@@ -806,6 +839,26 @@ the observable gate. The [finite replay guide](../../projects/ukrmol_co/SPARSE_S
 specifies 128/512/2048 iterative controls and independent dense-spectrum omission
 diagnostics. Those checks separate eigensolver/export correctness from omitted
 spectral-background error; neither result qualifies CAS(10,11)/(10,12) yet.
+
+The [completed boundary companion](../../projects/ukrmol_co/qualification-evidence/sparse-boundary/README.md)
+now qualifies the fixed CAS10 **2048-root** implementation in both sectors:
+complete phases agree within **2.0e-7 rad**, and maximum identical fixed-window
+position/full-width differences are **5.847e-8 / 2.381e-7 eV**. Energy/residual/
+boundary errors are **9.664e-13 Hartree / 1.336e-10 Hartree / 1.003e-6**.
+Dense-omission refinement through **4096/6144/8192/8350** confirms stability;
+the complete endpoint reproduces the dense boundary bytes and phase grid.
+Two-sector replay cost is **1340.74 seconds / 1.861 GiB**; prior electronic/
+integral/CONGEN generation is excluded. Public fetch and independent reconstruction
+of all **306 payloads / 25504 profiles** pass.
+
+The [finite CAS11 contract](../../projects/ukrmol_co/sparse-scattering-cas11-contract.json)
+then declares dense omissions **2048/4096/8192/16384/24576/27546** and native
+counts **2048/4096/8192/16384** against the unchanged forty-state target. Native
+controls run only if dense omission establishes an eligible count and stable
+higher-count refinement. Four-rank containers are limited to **24 GiB**, with
+**48-GiB available-RAM / 30-GiB disk** floors. Each control receives the same
+phase/position/width gates and identical backgrounds. CAS12 still requires its
+own qualified smaller-model prerequisites and measured local resource headroom.
 
 For a spectral R-matrix construction, each retained inner-region eigenstate supplies
 a pole and boundary amplitudes; omitted states can alter the scattering background.

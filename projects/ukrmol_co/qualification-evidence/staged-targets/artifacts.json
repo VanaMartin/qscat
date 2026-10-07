@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "staged-targets.tar.gz": {
+      "bytes": 2914653,
+      "sha256": "f06fbe3d0d71400f684905afd74a967e6c018b1e279008efb5bb206844f7064f"
+    }
+  },
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-staged-targets-2026-10-07/"
+}

@@ -1,0 +1,22 @@
+{
+  "git_sha": "10fd214ad9829bdf63b399d5cbaa76f9ba8769f7",
+  "date": "2026-10-07",
+  "record_type": "cas12-stretched-fixed-orbital-600-cycle-residual-coverage",
+  "archive_bytes": 1002181,
+  "archive_sha256": "94b6757579a30ad63e0c86a806360a890abf08dd1f3d1fab9cc91e21a73b3447",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 627,
+    "profiles": 11138,
+    "probes": 96,
+    "both_checkpoint_coverage_passes": true,
+    "maximum_physical_residual_hartree": 7.637004454830481e-10,
+    "maximum_penalized_residual_hartree": 9.996236848659205e-10,
+    "maximum_spin_squared_error": 8.215650382226158e-15,
+    "wall_seconds": 2240.1091991630383,
+    "kernel_peak_gib": 0.6251411437988281,
+    "original_200_cycle_rejections_preserved": true,
+    "original_failed_wrapper_preserved": true
+  },
+  "scope": "Both saved stretched CAS12 DZ repair checkpoints pass 600-cycle fixed-orbital coverage/residual gates; native import and larger-basis qualification remain separate"
+}
