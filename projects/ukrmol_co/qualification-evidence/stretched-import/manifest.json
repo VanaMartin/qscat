@@ -1,0 +1,93 @@
+{
+  "git_sha": "4ed502d3786f3b7a3ecfea72bda3cf2883ad5b21",
+  "record_type": "co-stretched-independent-import",
+  "date": "2026-10-07",
+  "archive_sha256": "ce39b22258f5ae8551354e3105af2ea56d6fbafc00d55688f681767f5c60fcb8",
+  "archive_bytes": 1006195,
+  "payload_digests_verified": 488,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "parent_iteration_archive_sha256": "c8927f5b75726424a02dff624f9f294d23851b3dc8b4152a3ef93d49259bfd3f",
+  "verification": {
+    "all_64_native_roots_pass": true,
+    "original_engine_and_batch_exit": 0,
+    "original_controller_and_verifier_exit": 1,
+    "original_saved_table_failure_reproduced": true,
+    "recheck_original_exit": 0,
+    "raw_current_qc_states_verified": 40,
+    "raw_reference_probes_verified": 96,
+    "raw_reference_eigenpairs_verified": 624,
+    "maximum_native_root_errors_against_covered_seeds_hartree": {
+      "co-r2500-ccdz-sa11-qc-ci-space80": 3.5977620882476913e-10,
+      "co-r2500-ccdz-sa11-qc-ci-space160": 3.835793904727325e-10
+    },
+    "maximum_current_qc_native_root_difference_hartree": 4.938272013532696e-11,
+    "maximum_current_qc_saved_root_difference_hartree": 5.458105079014786e-10,
+    "current_qc_import_dipole_difference_au": 1.691144446702708e-11,
+    "dipole_differences_against_covered_seeds_au": {
+      "co-r2500-ccdz-sa11-qc-ci-space80": 8.855802202667462e-11,
+      "co-r2500-ccdz-sa11-qc-ci-space160": 1.366425583793074e-10
+    },
+    "minimum_subspace_overlaps": {
+      "co-r2500-ccdz-sa11-qc-ci-space80": {
+        "core": 1.0000000000000007,
+        "active": 0.999999999999999
+      },
+      "co-r2500-ccdz-sa11-qc-ci-space160": {
+        "core": 1.0000000000000007,
+        "active": 0.9999999999999987
+      }
+    },
+    "sector_checks": [
+      {
+        "sector": "singlet.A1",
+        "maximum_saved_rounding_error_hartree": "5E-10"
+      },
+      {
+        "sector": "singlet.B1",
+        "maximum_saved_rounding_error_hartree": "5E-10"
+      },
+      {
+        "sector": "singlet.B2",
+        "maximum_saved_rounding_error_hartree": "5E-10"
+      },
+      {
+        "sector": "singlet.A2",
+        "maximum_saved_rounding_error_hartree": "5E-10"
+      },
+      {
+        "sector": "triplet.A1",
+        "maximum_saved_rounding_error_hartree": "4E-10"
+      },
+      {
+        "sector": "triplet.B1",
+        "maximum_saved_rounding_error_hartree": "3E-10"
+      },
+      {
+        "sector": "triplet.B2",
+        "maximum_saved_rounding_error_hartree": "3E-10"
+      },
+      {
+        "sector": "triplet.A2",
+        "maximum_saved_rounding_error_hartree": "5E-10"
+      }
+    ],
+    "stage_totals_seconds": {
+      "target.psi4": 371.956883907318,
+      "target.scatci_integrals": 0.097459077835083,
+      "target.congen": 2.9019312858581556,
+      "target.scatci": 360.3939437866211,
+      "target.denprop": 2519.29774594307
+    },
+    "wall_seconds": 3254.852345732972,
+    "kernel_peak_container_memory_bytes": 5657108480,
+    "profile_samples_verified": 16229,
+    "scope": "Stretched fixed-orbital import/coverage; basis, competing starts and model continuity remain open"
+  },
+  "ongoing_basis_supervisor": {
+    "pid": 957385,
+    "shell_id": "sh_115500536001s9jfjjnzUAzJe9",
+    "cpu_group": "8-11",
+    "source": "prepared/stretched-import-recheck-basis-source/stretched-import-recheck-basis.py"
+  }
+}

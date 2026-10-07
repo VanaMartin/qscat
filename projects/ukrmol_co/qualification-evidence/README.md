@@ -149,6 +149,14 @@ states, 48 raw reference probes/312 eigenpairs and 111339 resource samples verif
 The original two extra-root coverage failures and prior controller retry failure
 remain retained. The stretched CAS(10,11) queue starts on the released core group.
 
+That [stretched import companion](stretched-import/README.md) now passes all
+64 native roots against both covered DZ seeds within **3.598e-10 / 3.836e-10
+Hartree**, with passing dipole/subspace gates. Cost is **54.25 minutes /
+5.269 GiB**. Its 488 payloads preserve the original saved-table verifier failure
+and passing exact-decimal recheck, and reconstruct 40 raw QC states, 96 reference
+spectra/624 eigenpairs and 16229 resource samples. Same-geometry TZ/aug-TZ QC
+continues on the released slot; electronic-model qualification remains open.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
