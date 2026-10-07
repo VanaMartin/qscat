@@ -769,10 +769,17 @@ Each imports all forty roots within 4.98e-10 Hartree and dipole within
 4.50e-11/3.07e-11 a.u., preserving the forty-component ensemble. Their printed
 excitations agree; imported dipoles differ by 1.70e-11 a.u. Relative to the
 earlier small dense model, the largest excitation change is 2.10e-8 Hartree.
-The v3 supervisor records these gates and has started the stretched-DZ/TZ
-repairs in `calibration-cas11-ci-space-retries`.
+The v3 supervisor records these gates and completes the stretched-DZ/TZ
+repairs in `calibration-cas11-ci-space-retries`. Both stretched-DZ repairs
+pass QC at spaces 80/160 in 389.55/363.26 seconds (0.327/0.390-GiB peaks).
+Both projected equilibrium TZ retries still fail singlet B1/B2 CI convergence,
+despite orbital convergence, after 807.23/806.98 seconds. The four-job batch
+takes 2369.01 seconds. All original failures/checkpoints remain retained.
+V3's own sixteen all-64-root CI checks also pass within 5.333e-10 Hartree,
+and it records 106.58 GiB available RAM and the unchanged CAS(10,12) seed before
+starting `co-eq-ccdz-sa12-slepc-target` on CPUs 8–11 in its gated 64-GiB container.
 
-The free CPU group now runs
+The CPU-12–15 group completes
 [`calibration-sa10-tight-scattering.json`](calibration-sa10-tight-scattering.json),
 `co-eq-ccdz-sa10-tight-cc40-matched`. Every numerical/continuum/channel argument
 matches the completed CAS(10,11) l=4 recipe, changing only active counts to
@@ -786,11 +793,17 @@ and 20 GiB free scratch. Source, checkpoint hash, command and slot lease are in
 `launch-cas10-tight-matched.log`; attached supervisor:
 `sh_113b141ed001biI6gyZSACSdmN`. Its controller pauses only the still-waiting
 CPU-12–15 follow-on, verifies the slot is free, and resumes it after the single
-job. This attempt awaits completion and is outside the 41-attempt archive;
-fixed-orbital coverage, matched model comparison and continuum checks remain
-required before attributing or accepting the active-space sensitivity.
+job. The successful job takes **1282.76 seconds / 2.864 GiB**, with all forty
+imported roots within 4.69e-10 Hartree and dipole within 3.28e-11 a.u. Its default
+candidate is **2.455964890/1.119642705 eV**. Relative to the loose CAS(10,10)
+control, position/full width change by −0.544/+0.395 micro-eV and phases by
+1.30e-6 rad. The matched CAS(10,10)→CAS(10,11) position/phase differences remain
+**+64.8401 meV / 0.1098099 rad**, failing those gates; width changes by about
++2.80%. The new automatic-diagonalizer metadata defaults are inactive; the
+eight generated target SCATCI inputs are byte-identical. The controller records
+original exit zero and resumption of the waiting CPU-slot owner.
 
-An additional finite follow-on now waits for the matched controller's exact
+The additional finite follow-on completes after the matched controller's exact
 PID exit: `prepared/matched-scattering-followup-source/`, PID **924661**,
 attached supervisor `sh_113c32aec001RdAueCErEvvBzJ`. Its predecessor is PID
 923482, `launch-cas10-matched.py`; its source commit is
@@ -803,15 +816,19 @@ container requires 16 GiB available RAM and 20 GiB free scratch. All pause/resum
 events, original exits, commands, source/unit hashes and dependencies are
 recorded; the current frozen source does not alter the running predecessors.
 
-The follow-on reanalyzes a successful matched CAS(10,10) run and performs 48
+The follow-on reanalyzes the successful matched CAS(10,10) run and performs 48
 fixed-orbital probes (five/eight roots, spaces 40/80/160 in all eight sectors).
 Every ensemble root must converge with the right spin and agree within
 1e-7 Hartree. It compares matched CAS(10,10) with its earlier loose-control
 baseline and the tight CAS(10,11) model using raw phases and native candidates.
-It also runs the independent CAS(10,11) phase-residual/held-point diagnostic in
-the pinned Linux image. Evidence will be under
-`diagnostics/matched-scattering-and-independent-phase/`; these new results
-await completion and are outside the 41-attempt public archive.
+All five ensemble roots pass every probe within 9.95e-14 Hartree, with correct
+spins. Forty-six probes fully converge; the extra eighth singlet B1/B2 roots
+fail at space 40 and converge at 80/160. It also runs the independent CAS(10,11)
+phase-residual/held-point diagnostic in the pinned Linux image, with 24 native
+fits, 72 separated starts and 120 held-point fits. This combined worker takes
+**89.29 seconds / 0.215 GiB** and resumes the waiting owner. Evidence is under
+`diagnostics/matched-scattering-and-independent-phase/`; the new results are
+being staged for a subsequent supplement, preserving the 41-attempt snapshot.
 
 The independent phase fitter has already passed 14 analytic unitary-S/mesh/
 branch/held-point tests locally; all 76 project fast tests pass. Its local raw
@@ -825,9 +842,41 @@ verifies that native RSOLVE/EIGENP use 0.0735 Ryd per requested eV, an 18.44-ppm
 offset from modern units; independent fits use the actual native Hartree grid.
 Fitted Rydberg candidates were already converted with the modern constant.
 The completed local report and actual Darwin/Python/NumPy/SciPy provenance are
-retained in `prepared/independent-phase-local-analysis-20261007/`; Linux
-execution remains a separate queued differential check.
+retained in `prepared/independent-phase-local-analysis-20261007/`; the separate
+Linux execution now completes and its fits/held-point results reproduce locally.
 See [the phase-fit contract](../../docs/physics/co-electronic-qualification.md#independent-phase-fit-diagnostic).
+
+An outer-only energy-grid diagnostic reuses the retained CAS(10,11) channel and
+R-matrix-amplitude files, refining requested steps 0.05→0.025→0.0125 eV over the
+same 0.1–5.0-eV interval (99/197/393 points). Its frozen controller is
+`prepared/cas11-outer-grid-completionfix-source/cas11-outer-grid-completionfix.py`,
+PID **929921**, attached supervisor `sh_113d31634001UT5b07TRAiNLCA`. It leases the
+still-waiting CPU-12–15 group, with 4-GiB container / 16-GiB available-RAM /
+20-GiB scratch gates, and preserves native stage exits, grids, cross sections,
+fits and input hashes in `diagnostics/cas11-tight-outer-energy-grids-completionfix/`.
+Its independent linear-background fits hold labeled-input-eV intervals
+1.6–3.5 and 2.0–3.1 fixed across the three grids, using the actual native Hartree
+abscissa. Native `RESONC` caps saved fit grids at **MAXFIT=100**; truncated fits
+are explicitly marked and do not receive native position/width pass verdicts.
+
+Four earlier driver attempts remain preserved: serial RSOLVE under MPI gives
+rank stdin EOF; switching to MPI_RSOLVE without its required `inp` binding gives
+EOF on that file; an immediate SIGSTOP-state assertion races signal delivery
+before container launch; and an exact completion-string check rejects a
+successful I_XSECS stage (native text is `Task has been successfully completed`).
+The latter retains successful RSOLVE/EIGENP/T_MATRX/I_XSECS stages and its full
+197-point B1 grid. Fresh sources repair the executable/input protocol, use a
+bounded two-second pause acknowledgement and recognize both native completion
+phrases. Every lease resumes the waiting worker in its exit handler.
+
+The finite `prepared/stretched-repair-coverage-source/stretched-repair-coverage.py`
+worker (`sh_113d4663a001ogdQOs6BFS7aG7`) waits for PID 929921's exact exit and
+completion record before borrowing that group under an 8-GiB container. It scans
+both passing stretched-DZ repairs with 48 probes each, compares roots/objective/
+dipoles/core/active subspaces under the existing gates, and measures the matched
+CAS(10,10) initial/final subspace overlaps. Evidence is destined for
+`diagnostics/cas11-stretched-ci-repair-coverage/`. These are qualification
+diagnostics; further independent import, basis and continuum checks remain open.
 
 Finally, the CPU-12–15 queue runs
 [`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):

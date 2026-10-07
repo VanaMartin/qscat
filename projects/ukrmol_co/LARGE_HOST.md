@@ -136,8 +136,12 @@ in 73.12/74.92 minutes. Each raw CONGEN count is 344124; it is not the dense
 diagonalizer's dimension. The earlier B1-only 24.18-GiB sampled observation is
 retained in the diagnostic history. Preserve both counts and query the actual contracted
 CAS(10,12) dimension before applying a dense-memory or cubic-time forecast.
-The CAS(10,11)/earlier CAS(10,10) position/phase differences exceed the chosen
-gates. Saved-data fit-window controls pass at fixed background, but background
+The matched tight CAS(10,10) control completes locally in 21.38 minutes at
+2.864 GiB, with all forty imported roots/dipole and 48 lowest-root probes passing.
+Numerical tightening changes its position by only −0.544 micro-eV and phases
+by 1.30e-6 rad. Matched CAS(10,11)/(10,10) position/phase changes of
+64.8401 meV / 0.1098099 rad exceed the chosen gates. Saved-data fit-window
+controls pass at fixed background, but background
 terms 1–4 change width by 12.65%; production fitting remains unqualified.
 
 Use persistent EBS storage mounted under `/home`, with approximately 500 GiB
@@ -192,8 +196,14 @@ Its worker is queued behind the exact CAS(10,12) RHF-start container on CPUs
 passes after a preserved pre-probe import-path failure. CPUs 0–3 now run
 the staged CAS(10,12) QC ladder. CPUs 12–15 have completed the extra-root
 SLEPc control, all-root CI scan and saved-data fit replays. A short matched tight
-CAS(10,10) scattering control now leases that slot; afterward its finite worker
-awaits the whole fresh-TZ batch before coverage/repair/continuum jobs.
+CAS(10,10) scattering control and its coverage/independent-phase diagnostic now
+complete there. Outer energy-grid and stretched-DZ repair coverage checks use
+short gated leases; the finite worker then awaits the whole fresh-TZ batch
+before coverage/repair/continuum jobs. CPUs 8–11 have started the gated local
+CAS(10,12) SLEPc import after v3's controls pass. Both stretched-DZ CAS(10,11)
+80/160-vector repairs pass QC; both projected equilibrium TZ retries still fail
+singlet B1/B2 CI convergence after orbital convergence. Larger trial space does
+not by itself resolve basis/orbital continuity.
 
 The dense recipe is directly compatible with `batch.py`. First make a fresh
 pilot manifest containing its equilibrium DZ entry. After its first singlet

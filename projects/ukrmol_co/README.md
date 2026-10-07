@@ -483,10 +483,12 @@ The subsequent equilibrium scattering pilot completes in 4.423 hours at a
 CONGEN counts of 344124. Its default candidate is 2.520805 eV with full width
 1.151002 eV. Relative to the earlier CAS(10,10) model, position/phase changes
 of 64.84 meV / 0.109809 rad exceed the chosen gates; width changes by 2.80%.
-The QC controls also differ, so this is not an isolated active-space test.
-A new `calibration-sa10-tight-scattering.json` control matches the tightened
-CAS(10,11) numerical settings with CAS(10,10)'s own checkpoint; it is running
-on Sadaharu to repair that numerical-control mismatch.
+`calibration-sa10-tight-scattering.json` now completes with matching tight
+numerical settings and CAS(10,10)'s own checkpoint in 21.38 minutes at a
+2.864-GiB peak. All forty imported roots/dipole and 48 lowest-root probes pass.
+Tightening changes the earlier CAS(10,10) position/full width by just
+−0.544/+0.395 micro-eV and phases by 1.30e-6 rad. The matched active-space
+comparison still fails position/phase gates (+64.8401 meV / 0.1098099 rad).
 `qualification-results.json` and
 [`qualification-evidence/`](qualification-evidence/README.md) preserve the
 completed target/neutral supplement and its verified public archive.
@@ -509,6 +511,9 @@ recorded controls and CPU-slot release. The verified supplement now preserves
 41 attempts in sixteen batches and 112 raw CI probes. Both small numerical
 80/160-vector controls pass all forty imported roots/dipoles and have identical
 printed excitations. Larger failed-checkpoint repairs have started.
+Both stretched-DZ CAS(10,11) 80/160-vector repairs now pass QC; both projected
+TZ retries still fail singlet B1/B2 CI convergence after orbital convergence.
+Independent coverage/subspace checks of the passing repairs are queued.
 Forty-nine saved-data native replay attempts preserve 48 successes and one B2
 unit-binding failure with a fresh corrected retry. Window clipping at fixed
 background meets the chosen gates; background terms 1–4 change width by 12.65%,
