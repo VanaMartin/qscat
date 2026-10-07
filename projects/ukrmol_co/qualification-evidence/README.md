@@ -138,6 +138,10 @@ The later [stretched-repair coverage companion](stretched-coverage/README.md)
 retains another 96 probes and the failed strict coverage gate. It also measures
 continuity of the matched CAS(10,10) orbitals. The main 46-attempt archive and
 its prior snapshots remain frozen.
+The [iteration-refinement companion](stretched-iteration/README.md) subsequently
+repairs all nine failed stretched settings at 600 cycles and passes complete
+96-probe scans with explicit Hamiltonian residuals. The original 200-cycle
+outcomes remain preserved in their separate archive.
 The full dense/SLEPc comparison and its storage-floor calculation are independently
 reconstructed from raw stages, resources, roots, dipoles and pinned source.
 

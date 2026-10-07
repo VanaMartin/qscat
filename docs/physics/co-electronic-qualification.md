@@ -57,6 +57,20 @@ energy agreement does not remove failed convergence flags. Pair roots/objective/
 dipole and core/active subspaces agree. Fresh/projected orbital comparisons,
 independent imports and qualification of these repairs remain open.
 
+The iteration-refinement follow-on repeats all nine failed settings at the
+original 200 and refined 600 cycles. All nine original failures reproduce and
+repair at 600 without changing orbitals, roots, trial spaces or tolerances.
+Full 48-probe scans on both checkpoints then pass every requested root,
+convergence flag and spin. Explicit physical/spin-penalized residual norms
+`||(H-E)c||/||c||` stay below 7.07e-10/9.94e-10 Hartree, respectively, and
+ensemble energies agree within 1.28e-13 Hartree. An analytic Hubbard-dimer
+eigenstate and perturbed-vector control validate the residual calculation.
+The worker takes 789.89 seconds / 0.285 GiB. This qualifies fixed-orbital
+coverage under the refined 600-cycle contract; the original 200-cycle gate
+rejections remain preserved. The validated refinement releases an independent
+64-root stretched import and same-geometry TZ/aug-TZ QC, with further
+electronic-model and competing-start checks still required.
+
 ## Completed CAS(10,11) scattering and extraction checks
 
 The tight DZ/40-component l=4 baseline completes at contracted B1/B2 dimensions

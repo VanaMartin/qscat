@@ -519,6 +519,11 @@ space-40 probes fail an ensemble-root convergence flag. Both repairs reject
 the strict all-probe coverage gate despite all 64 space-80/160 probes passing.
 The [coverage companion](qualification-evidence/stretched-coverage/README.md)
 preserves those 96 probes and confirms matched CAS(10,10) orbital continuity.
+The [iteration follow-on](qualification-evidence/stretched-iteration/README.md)
+repairs all nine failed settings at 600 cycles and passes full 48-probe scans
+of both checkpoints with explicit physical/spin-penalized residuals below
+7.07e-10/9.94e-10 Hartree. Independent stretched import and same-geometry
+TZ/aug-TZ QC are now queued under that refined gate.
 Forty-nine saved-data native replay attempts preserve 48 successes and one B2
 unit-binding failure with a fresh corrected retry. Window clipping at fixed
 background meets the chosen gates; background terms 1–4 change width by 12.65%,

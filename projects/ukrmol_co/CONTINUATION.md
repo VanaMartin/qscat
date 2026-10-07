@@ -918,7 +918,7 @@ active: staged CAS(10,12) stretched-DZ QC on 0–3, fresh CAS(10,12) aug-TZ QC o
 diagnostic on 12–15. Available host RAM is then 68 GiB and free `/home` scratch
 158 GiB; the larger import is within its recorded 64-GiB container limit.
 
-The residual/iteration follow-on is now running on the released group:
+The residual/iteration follow-on completes on the released group:
 `prepared/stretched-residual-iteration-source/stretched-residual-iteration.py`,
 PID **932074**, attached `sh_113eac4b4001swWK2NNSGbZ5a5`. It repeats the nine
 failed CI settings at the original 200 and refined 600 iterations, holding
@@ -930,6 +930,51 @@ launch full 48-probe, 600-iteration scans on both checkpoints. The original
 200-cycle rejection remains in its public companion; this new diagnostic is
 `diagnostics/cas11-stretched-ci-residual-iteration/`. It uses an 8-GiB container,
 16-GiB available-RAM and 20-GiB scratch gates and records owner resumption.
+Its original exit is **zero**, wall **789.89 seconds** and kernel peak
+**0.285 GiB**. All nine original settings reproduce their failed flags at
+200 cycles and pass at 600. Both full 48-probe scans then pass all requested
+roots, flags, spins, orthogonality and physical/spin-penalized residual gates;
+the latter maxima are **7.07e-10 / 9.94e-10 Hartree**, respectively. Maximum
+ensemble-energy difference is 1.28e-13 Hartree. The analytic Hubbard-dimer
+ground state has a 1.74e-15 physical residual; the perturbed vector gives
+0.0504. All 114 probe attempts (nine 200/600 pairs plus 96 full-scan probes)
+are retained, with 624 eigenpairs in the full scans. Raw CASCI energies, spins
+and whole-probe convergence messages reconstruct from the profiled `run.log`.
+
+The [iteration companion](qualification-evidence/stretched-iteration/README.md)
+is published, publicly fetched and verified: 281 payload digests, complete raw
+spectra/spins and byte-identical repackaging. Its immutable archive is
+`https://data.qscat.org/ukrmol-co-stretched-ci-iteration-2026-10-07/stretched-ci-iteration.tar.c8927f5b7572.gz`,
+SHA256 `c8927f5b75726424a02dff624f9f294d23851b3dc8b4152a3ef93d49259bfd3f`.
+Publication bundle and verifier are retained in
+`prepared/publication-stretched-iteration-20261007/`. The original 200-cycle
+coverage companion remains exact. Passing the refined **600-cycle** numerical
+contract releases the next import/basis controls, without qualifying a model.
+
+The finite `prepared/stretched-import-basis-source/stretched-import-basis.py`
+supervisor, PID **933694**, attached `sh_113fdbc74001wgM6TF4p34y6Xq`, waits for
+v3 PID 916425's exact completion, then uses its free **8–11** group. It requires
+both refined coverage scans, measured residual gates, pair agreement and the
+unchanged stretched-DZ seed. The first recipe,
+[`calibration-sa11-stretched-import.json`](calibration-sa11-stretched-import.json),
+requests eight UKRmol roots per sector under the qualified tighter SLEPc
+settings, with forty-component orbital averaging and forty retained channels.
+Its all-forty-root/dipole import is followed by independent comparison of all
+**64** native roots against the eight-root/space-160/600-cycle CASCI controls,
+and core/active subspace comparison. It uses a 16-GiB container / 6-GiB internal
+budget, with 24 GiB available RAM and 20 GiB free scratch required.
+
+After that import passes,
+[`calibration-sa11-stretched-basis-qc.json`](calibration-sa11-stretched-basis-qc.json)
+projects the passing R=2.5-bohr DZ seed into same-geometry TZ/aug-TZ QC with
+space 80. An orbital-converged CI failure permits one freshly named space-160
+restart; all original failures remain preserved. These use 32-GiB containers
+with 40 GiB available RAM / 20 GiB scratch gates. Passing basis records still
+need coverage, competing-start and independent-import qualification. Commands,
+sources, checkpoint/manifest hashes, original exits and resources are retained
+in `diagnostics/cas11-stretched-import-basis/` and the derived batch snapshots.
+CAS(10,12)'s outcome is an execution dependency here, not a scientific gate on
+the already covered CAS(10,11) stretched seed.
 
 The short retained-data propagation worker follows that exact completion:
 `prepared/cas11-outer-propagation-source/cas11-outer-propagation.py`, PID
