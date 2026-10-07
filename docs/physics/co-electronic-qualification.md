@@ -49,8 +49,13 @@ dense control. Both stretched-DZ CAS(10,11) 80/160-vector reoptimizations now
 pass QC in 389.55/363.26 seconds. Both projected equilibrium TZ retries remain
 CI-unconverged in singlet B1/B2 despite orbital convergence (807.23/806.98
 seconds). Larger trial space alone does not repair that projected solution.
-Independent lowest-root coverage and paired subspace checks of the passing
-stretched targets are queued; fresh/projected orbital comparisons remain open.
+The 96 independent stretched-target probes now complete: 87 fully converge,
+including all 64 at spaces 80/160. Three five-root space-40 controls fail the
+fifth ensemble-root flag, rejecting both targets under the existing strict
+all-probe gate. Their first-five spectra agree within 9.95e-14 Hartree, but
+energy agreement does not remove failed convergence flags. Pair roots/objective/
+dipole and core/active subspaces agree. Fresh/projected orbital comparisons,
+independent imports and qualification of these repairs remain open.
 
 ## Completed CAS(10,11) scattering and extraction checks
 
@@ -76,8 +81,10 @@ the chosen gates. Full width changes by +31.3589 meV (about +2.80%). The active
 counts and same-active-space seeds differ; all QC/continuum/channel controls
 match. Newly serialized automatic-diagonalizer defaults are inactive, and all
 eight generated target SCATCI inputs are byte-identical. This qualifies the
-numerical comparison, while orbital continuity and electronic/continuum model
-selection require their remaining checks.
+numerical comparison. The matched CAS(10,10) initial/final core/active subspaces
+also pass continuity, with minimum overlaps 0.9999999999996424 /
+0.9999999998858343. Electronic/continuum model selection requires its remaining
+checks.
 
 Twelve background/detection replays span background terms 1–4 and detection
 thresholds 0.7/1.0/1.3. Position changes remain below 6.65 meV, but width

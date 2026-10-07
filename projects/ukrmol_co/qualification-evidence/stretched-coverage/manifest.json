@@ -1,0 +1,75 @@
+{
+  "git_sha": "f377db8587db80f5756c324a63bc99b5e6121947",
+  "record_type": "co-stretched-ci-repair-coverage-diagnostic",
+  "date": "2026-10-07",
+  "archive_sha256": "0d8f79e3de6a270a870dd5efc32d1452f46b46605d1a6cf89ce8f8280e933e63",
+  "archive_bytes": 298157,
+  "verification": {
+    "probes": 96,
+    "fully_converged": 87,
+    "failed_ensemble_probes": [
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space160",
+        "spin": 0,
+        "irrep": "A2",
+        "roots": 5,
+        "space": 40,
+        "ci_converged": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "all_ensemble_roots_converged": false,
+        "ensemble_energy_difference_hartree": 4.263256414560601e-14
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space160",
+        "spin": 2,
+        "irrep": "A1",
+        "roots": 5,
+        "space": 40,
+        "ci_converged": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "all_ensemble_roots_converged": false,
+        "ensemble_energy_difference_hartree": 8.526512829121202e-14
+      },
+      {
+        "run": "co-r2500-ccdz-sa11-qc-ci-space80",
+        "spin": 2,
+        "irrep": "A1",
+        "roots": 5,
+        "space": 40,
+        "ci_converged": [
+          true,
+          true,
+          true,
+          true,
+          false
+        ],
+        "all_ensemble_roots_converged": false,
+        "ensemble_energy_difference_hartree": 5.684341886080802e-14
+      }
+    ],
+    "larger_space_probes": 64,
+    "all_larger_space_roots_converge": true,
+    "strict_all_probe_gates_pass": [
+      false,
+      false
+    ],
+    "maximum_ensemble_energy_difference_hartree_including_failed_flags": 9.947598300641403e-14,
+    "pair_scalar_properties_reconstructed": true,
+    "original_controller_exit": 1,
+    "slot_owner_resumed": true,
+    "scope": "CI convergence flags and spectra are separate evidence"
+  },
+  "numerical_source_commit": "b7622e6d11c3305ec62a521c6ed92006644bfc48",
+  "original_controller_exit": 1,
+  "production_qualification_status": "Both repaired targets reject the existing strict all-probe gate; converged 80/160-space probes do not erase the three space40 flag failures"
+}

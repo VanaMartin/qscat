@@ -885,13 +885,79 @@ bounded two-second pause acknowledgement and recognize both native completion
 phrases. Every lease resumes the waiting worker in its exit handler.
 
 The finite `prepared/stretched-repair-coverage-source/stretched-repair-coverage.py`
-worker (`sh_113d4663a001ogdQOs6BFS7aG7`) waits for PID 929921's exact exit and
-completion record before borrowing that group under an 8-GiB container. It scans
+worker (PID **930259**, `sh_113d4663a001ogdQOs6BFS7aG7`) waits for PID 929921's
+exact exit and completion record before borrowing that group under an 8-GiB
+container. It scans
 both passing stretched-DZ repairs with 48 probes each, compares roots/objective/
 dipoles/core/active subspaces under the existing gates, and measures the matched
 CAS(10,10) initial/final subspace overlaps. Evidence is destined for
 `diagnostics/cas11-stretched-ci-repair-coverage/`. These are qualification
 diagnostics; further independent import, basis and continuum checks remain open.
+This worker subsequently completes in **559.24 seconds / 0.340 GiB**, with
+original exit **1**, and resumes the waiting owner. Both strict all-probe gates
+reject the repaired checkpoints: three five-root space-40 probes leave the
+fifth ensemble root unconverged (triplet A1 on both and singlet A2 on the
+space-160 checkpoint). Of 96 probes, 87 fully converge; all 64 probes at spaces
+80/160 fully converge. All first-five spectra agree within 9.95e-14 Hartree,
+including the failed-flag probes. Pair roots/objective/dipole agree within
+2.63e-12 Hartree / 7.11e-14 Hartree / 4.81e-11 a.u., and the minimum active
+overlap is 0.9999999999999984. That pair agreement does not erase the three
+required convergence-flag failures. The matched CAS(10,10) continuity check
+passes: minimum initial/final active/core overlaps are
+0.9999999998858343 / 0.9999999999996424.
+
+This completed diagnostic is published separately in
+[`qualification-evidence/stretched-coverage/`](qualification-evidence/stretched-coverage/README.md),
+preserving the frozen 46-attempt archive. Its 199 payloads and 96 spectra/spins
+verify, with byte-identical repackaging. Immutable archive:
+`https://data.qscat.org/ukrmol-co-stretched-coverage-2026-10-07/stretched-repair-coverage.tar.0d8f79e3de6a.gz`,
+SHA256 `0d8f79e3de6a270a870dd5efc32d1452f46b46605d1a6cf89ce8f8280e933e63`.
+The post-publication inspection confirms all four disjoint CPU groups are
+active: staged CAS(10,12) stretched-DZ QC on 0–3, fresh CAS(10,12) aug-TZ QC on
+4–7, the gated CAS(10,12) target import on 8–11, and this coverage/subspace
+diagnostic on 12–15. Available host RAM is then 68 GiB and free `/home` scratch
+158 GiB; the larger import is within its recorded 64-GiB container limit.
+
+The residual/iteration follow-on is now running on the released group:
+`prepared/stretched-residual-iteration-source/stretched-residual-iteration.py`,
+PID **932074**, attached `sh_113eac4b4001swWK2NNSGbZ5a5`. It repeats the nine
+failed CI settings at the original 200 and refined 600 iterations, holding
+orbitals, roots, trial space and all tolerances fixed. It explicitly measures
+normalized physical and spin-penalized Hamiltonian residuals, spin and CI-vector
+orthogonality. An analytic Hubbard-dimer energy/residual check and a perturbed
+vector control gate that measurement. Only if all extended retries pass does it
+launch full 48-probe, 600-iteration scans on both checkpoints. The original
+200-cycle rejection remains in its public companion; this new diagnostic is
+`diagnostics/cas11-stretched-ci-residual-iteration/`. It uses an 8-GiB container,
+16-GiB available-RAM and 20-GiB scratch gates and records owner resumption.
+
+The short retained-data propagation worker follows that exact completion:
+`prepared/cas11-outer-propagation-source/cas11-outer-propagation.py`, PID
+**932465**, attached `sh_113ed2b42001o6JKlUVZbZgMDZ`. The baseline has eight
+propagation subranges to 100 bohr, with ten Legendre polynomials per subrange
+and Gailitis matching. New controls use 16/32 subranges at 100 bohr, then
+150/200-bohr matching radii with 26/36 subranges (maximum interval length
+5.125 bohr). Both components retain the same 99-point energy grid and inner
+amplitudes. Native and full fixed-window independent fits are retained in
+`diagnostics/cas11-tight-outer-propagation/`. The pinned source's `MAXI/MAXF`
+select saved T-matrix columns, not the coupled-channel space; changing them
+alone would not be a channel-convergence test.
+
+The finite state-averaged throughput probe follows PID 932465:
+`prepared/sa10-mpi-throughput-source/sa10-mpi-throughput.py`, PID **932604**, attached
+`sh_113ef4b36001u3ews9SJlngFTy`. Its tracked input is
+[`calibration-sa10-tight-mpi-scaling.json`](calibration-sa10-tight-mpi-scaling.json).
+It runs the matched CAS(10,10) model at 1/2/4 ranks on CPUs 12–15, then four
+one-rank jobs on individual cores in that same group. The derived concurrent
+manifest is frozen with the driver. It uses the original matched dense image
+and its own final checkpoint; all model/QC controls match. It checks roots,
+dipoles, core/active subspaces, phases and candidates before accepting throughput
+comparisons, retaining per-stage wall times, CPU time, kernel peaks, disk peaks
+and concurrent-workload records. Serial jobs use 16-GiB limits / 24-GiB available
+RAM; four concurrent jobs use 8-GiB limits each / 48-GiB available RAM, with
+20-GiB scratch gates. Evidence will be `diagnostics/cas10-tight-mpi-throughput/`.
+All three follow-ons borrow the original owner only while it is still waiting
+without children; otherwise they wait for its exact recorded completion.
 
 Finally, the CPU-12–15 queue runs
 [`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):

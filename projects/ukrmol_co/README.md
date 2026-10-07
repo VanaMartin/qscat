@@ -506,15 +506,19 @@ now also passes all forty ensemble-root/dipole imports in 51.44 minutes at a
 5.27-GiB peak. Sixteen fully converged fixed-orbital CI probes at spaces 80/160
 independently check all 64 requested roots within 5.34e-10 Hartree. Common dense
 and five-root excitations match at printed precision. This completes the
-CAS(10,11) extra-root solver gate; the local CAS(10,12) import still awaits its
-recorded controls and CPU-slot release. The verified supplement now preserves
+CAS(10,11) extra-root solver gate; the local CAS(10,12) import has started after
+its recorded controls and CPU-slot release. The verified supplement now preserves
 46 attempts in eighteen batches and 160 raw CI probes. Both small numerical
 80/160-vector controls pass all forty imported roots/dipoles and have identical
 printed excitations. The completed four-entry failed-checkpoint repair batch
 has two QC passes and two retained CI failures.
 Both stretched-DZ CAS(10,11) 80/160-vector repairs now pass QC; both projected
 TZ retries still fail singlet B1/B2 CI convergence after orbital convergence.
-Independent coverage/subspace checks of the passing repairs are queued.
+Their paired roots/objective/dipole/subspaces agree, but three five-root
+space-40 probes fail an ensemble-root convergence flag. Both repairs reject
+the strict all-probe coverage gate despite all 64 space-80/160 probes passing.
+The [coverage companion](qualification-evidence/stretched-coverage/README.md)
+preserves those 96 probes and confirms matched CAS(10,10) orbital continuity.
 Forty-nine saved-data native replay attempts preserve 48 successes and one B2
 unit-binding failure with a fresh corrected retry. Window clipping at fixed
 background meets the chosen gates; background terms 1–4 change width by 12.65%,
@@ -667,7 +671,11 @@ formula predicts **21–57 minutes per geometry** at 300–800 energies, or
 measured 40/50-channel cases. This assumes the same geometry cost and comparable
 threshold structure; it excludes refinement/retry time and is not a budget
 for a larger, electronically qualified active space. The state-averaged model
-has not yet had its own one/two/four-rank and concurrent-geometry scaling sweep.
+has not yet completed its own one/two/four-rank and concurrent-geometry scaling
+sweep. The matched CAS(10,10) scaling recipe is now queued on the same four-core
+allocation, followed by four individually pinned one-rank replicas; see
+[`calibration-sa10-tight-mpi-scaling.json`](calibration-sa10-tight-mpi-scaling.json)
+and [the live continuation](CONTINUATION.md#local-continuation--7-october-2026).
 
 Even these CC diagnostics used far less than Sadaharu's approximately 123.5
 GiB RAM. Three 4-rank jobs use 12 of its 16 physical cores; this is a practical
