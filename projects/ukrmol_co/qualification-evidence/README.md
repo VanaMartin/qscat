@@ -94,6 +94,13 @@ passes all 144 probes/936 eigenpair evaluations for those three targets under
 the 600-cycle contract. All raw spectra/spins and 352 payload digests verify;
 physical/spin-penalized residual maxima are 6.96e-10/9.99e-10 Hartree.
 
+The [fresh aug-TZ repair companion](fresh-augtz-repairs/README.md) retains two
+successful space-80/160 restarts of the rejected CAS(10,11) checkpoint.
+All forty roots agree within 1.667e-11 Hartree, dipoles within 3.230e-12 a.u.
+and core/active subspaces to roundoff. All 129 payloads and 80 raw final states
+verify; the original rejected parent remains exact. Independent coverage,
+competing starts and imports remain required.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.

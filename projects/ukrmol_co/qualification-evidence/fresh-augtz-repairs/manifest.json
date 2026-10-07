@@ -1,0 +1,63 @@
+{
+  "git_sha": "8e002df51f619c8eb50fa259f190f4dea5e18f0e",
+  "record_type": "co-fresh-augtz-ci-space-repairs",
+  "date": "2026-10-07",
+  "archive_sha256": "e98e41526e5e22bb18ec0446c1b788e3147e3fa29aad27643db5eefaf2ec974e",
+  "archive_bytes": 534427,
+  "payload_digests_verified": 129,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "parent_qc_archive_sha256": "636f4d07416a10ea5419fbaab7451a001df29650d7c0d9d5193b4534ce231c80",
+  "verification": {
+    "repairs": [
+      {
+        "run": "co-eq-aug-tz-sa11-qc-fresh-restart-space80",
+        "space": 80,
+        "original_exit": 0,
+        "checkpoint_sha256": "744e08d2a9b5771a10e17ced9a114884e4e6af0c6a82acd3d052fc98cc8ef1df",
+        "ground_energy_hartree": -112.85230369511477,
+        "ensemble_energy_hartree": -112.4330662005521,
+        "ground_dipole_au": [
+          0.0,
+          0.0,
+          0.2226767800052578
+        ],
+        "maximum_energy_change_from_rejected_record_hartree": 5.4469069254992064e-08,
+        "wall_seconds": 641.4696489770431,
+        "kernel_peak_container_memory_bytes": 449634304
+      },
+      {
+        "run": "co-eq-aug-tz-sa11-qc-fresh-restart-space160",
+        "space": 160,
+        "original_exit": 0,
+        "checkpoint_sha256": "45f9bf646e9781cdf149d3de46d2d28967b5b57a21fc9f1be0b0f55f8d9bea4d",
+        "ground_energy_hartree": -112.85230369511586,
+        "ensemble_energy_hartree": -112.43306620055239,
+        "ground_dipole_au": [
+          0.0,
+          0.0,
+          0.2226767800020283
+        ],
+        "maximum_energy_change_from_rejected_record_hartree": 5.4470845611831464e-08,
+        "wall_seconds": 638.2252527510282,
+        "kernel_peak_container_memory_bytes": 512544768
+      }
+    ],
+    "original_batch_exit": 0,
+    "original_rejected_parent_exit": 1,
+    "raw_final_states_verified": 80,
+    "batch_wall_seconds": 1280.7413412011229,
+    "pair_gate_passes": true,
+    "maximum_root_difference_hartree": 1.666933258093195e-11,
+    "ensemble_objective_difference_hartree": -2.8421709430404007e-13,
+    "dipole_difference_au": [
+      0.0,
+      0.0,
+      -3.2295000007565022e-12
+    ],
+    "minimum_core_overlap": 0.9999999999999999,
+    "minimum_active_overlap": 0.9999999999999992,
+    "maximum_root_difference_ev": 4.535956473225713e-10,
+    "scope": "Numerical aug-TZ repair/restart agreement; coverage/import/competing starts pending"
+  }
+}

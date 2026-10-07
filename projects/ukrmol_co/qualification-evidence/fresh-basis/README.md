@@ -61,3 +61,9 @@ scans and the [space-80/160 fresh-lineage repairs](../../calibration-sa11-fresh-
 The later [coverage/residual companion](../fresh-coverage/README.md) now passes
 all three targets' 144 probes/936 eigenpair evaluations under its 600-cycle
 contract. Competing starts and independent imports remain pending.
+
+The rejected aug-TZ CAS(10,11) checkpoint subsequently receives two passing
+[space-80/160 fresh-lineage repairs](../fresh-augtz-repairs/README.md). Their
+roots/dipoles and core/active subspaces pass the numerical pair gate; independent
+coverage, competing starts and import remain pending. The original failure
+and this companion's historical aggregate are preserved.

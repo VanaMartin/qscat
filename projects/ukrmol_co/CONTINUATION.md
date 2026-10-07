@@ -1180,6 +1180,71 @@ a separately designed and validated correlation treatment. Production fitting,
 the full CAS(10,12) import and actual CAS(10,12) scattering resources remain
 unqualified.
 
+### Fresh aug-TZ repair completion and remaining local work
+
+Both fresh-lineage CAS(10,11) aug-TZ repairs complete successfully, original
+batch exit **zero**, batch wall **1280.74 seconds / 21.35 minutes**:
+
+| CI space | Original exit | Wall (seconds) | Kernel peak bytes |
+|---|---:|---:|---:|
+| 80 | 0 | 641.47 | 449634304 |
+| 160 | 0 | 638.23 | 512544768 |
+
+Every optimized/fresh CI flag and the usual gradient/spin/Pi/MO gates pass.
+The maximum forty-root difference is **1.667e-11 Hartree**, averaged-objective
+difference **−2.842e-13 Hartree** and z dipole difference **−3.230e-12 a.u.**
+Minimum core/active-subspace overlaps are
+**0.9999999999999999 / 0.9999999999999992**. Both share the original rejected
+fresh checkpoint SHA256
+`39005317ac4d60d3a91bc07107b2d8864c419a381103f983faf21387c5aa8020`;
+their maximum recorded-root changes from that parent are below 5.45e-8 Hartree.
+The original rejected parent remains exit one. Neither numerical agreement nor
+successful later repair changes that rejection.
+
+The pair comparator takes a small read-only, 2-GiB-bounded analysis container
+on **4–7**, briefly overlapping the newly released TZ import. Its exact command,
+source and overlap scope are retained in `diagnostics/fresh-augtz-ci-space-pair/`.
+These measured orbital-subspace values pass the same numerical restart gate as
+earlier same-basis controls. They do not qualify competing projected starts.
+
+The [fresh aug-TZ repair companion](qualification-evidence/fresh-augtz-repairs/README.md)
+publishes both successes, the exact rejected parent and the pair comparison.
+All **129 payloads / 80 raw final states** verify, with public byte-for-byte
+fetch and byte-identical repackaging. Archive:
+`https://data.qscat.org/ukrmol-co-fresh-augtz-repairs-2026-10-07/fresh-augtz-repairs.tar.e98e41526e5e.gz`,
+SHA256 `e98e41526e5e22bb18ec0446c1b788e3147e3fa29aad27643db5eefaf2ec974e`.
+Publication/verifier persist at `prepared/publication-fresh-augtz-repairs-20261007/`.
+
+The fresh TZ import PID **937849** is now active on **4–7**. It follows the
+completed repair supervisor and leases waiting staged owner PID **916479**.
+The finite `prepared/fresh-augtz-residual-coverage-source/fresh-augtz-residual-coverage.py`
+worker, PID **939061**, attached `sh_1145a0cf2001IhceJzrfFJSBuv`, waits for that
+exact import completion and its slot release. It requires the passing numerical
+pair comparison and unchanged repaired seeds:
+
+- Space 80: `744e08d2a9b5771a10e17ced9a114884e4e6af0c6a82acd3d052fc98cc8ef1df`.
+- Space 160: `45f9bf646e9781cdf149d3de46d2d28967b5b57a21fc9f1be0b0f55f8d9bea4d`.
+
+The two checkpoints receive **96 probes / 624 eigenpair evaluations**, five/eight
+roots and spaces 40/80/160 with 600 CI cycles, retaining the tight tolerances,
+analytic residual controls and all-root gates. Evidence is written to
+`diagnostics/fresh-augtz-ci-residual-coverage/`. An **8-GiB** container requires
+16 GiB available RAM / 20 GiB scratch. It uses the same acknowledged,
+child/container-free waiting-owner lease or waits for that owner's completion.
+The TZ import is an execution dependency; its scientific outcome does not
+determine the separate augmented-TZ coverage verdict.
+
+The two-rank matched CAS(10,10) replica has also finished; the four-rank entry
+is now active on **12–15**. Matched phase/candidate, resources and concurrent
+throughput verdicts await the finite benchmark's remaining entries.
+CAS(10,12) DZ target density/dipole processing remains active on **8–11**,
+with a measured **single-core DENPROP** process continuing to consume CPU.
+Projected CAS(10,12) TZ QC remains active on **0–3**, with its averaged objective
+near −112.43189855 Hartree and orbital gradients still around 1e-5 to 1e-6,
+above the requested 1e-7 threshold. The original finite 150-cycle limit applies.
+At this inspection the host has **104 GiB available RAM / 156 GiB free `/home`**.
+These are active numerical/cost investigations; no paid host is yet required.
+
 ### Scientific decisions still pending
 
 1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)

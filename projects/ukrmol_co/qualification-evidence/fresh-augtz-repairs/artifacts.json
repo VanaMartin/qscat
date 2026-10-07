@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "fresh-augtz-repairs.tar.gz": {
+      "bytes": 534427,
+      "sha256": "e98e41526e5e22bb18ec0446c1b788e3147e3fa29aad27643db5eefaf2ec974e"
+    }
+  },
+  "git_sha": "8e002df51f619c8eb50fa259f190f4dea5e18f0e",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-fresh-augtz-repairs-2026-10-07/"
+}

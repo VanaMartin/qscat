@@ -360,6 +360,17 @@ coverage on those fixed orbitals; competing starts and all-root/dipole imports
 remain required. The covered fresh CAS(10,11) TZ target's 64-root UKRmol import
 is queued with independent eight-root/space-160 controls and the existing gates.
 
+Both space-80/160 same-basis restarts of the rejected fresh CAS(10,11) aug-TZ
+checkpoint now pass QC in **641.47/638.23 seconds**, with kernel memory peaks
+**0.419/0.477 GiB**. All forty roots agree within **1.667e-11 Hartree**, dipoles
+within **3.230e-12 a.u.**, and core/active subspaces to roundoff. The
+[repair companion](../../projects/ukrmol_co/qualification-evidence/fresh-augtz-repairs/README.md)
+reconstructs all 80 raw final states and preserves the rejected parent exactly.
+The default 200 CI cycles and physical/ensemble/tolerance settings are unchanged.
+These are numerical repairs of one fresh lineage; competing starts and all-root
+imports remain gates. A 96-probe, 600-cycle fixed-orbital coverage/residual scan
+is queued for both checkpoints after the active fresh TZ import.
+
 ## Selected-root target experiment
 
 The pinned UKRmol-in 3.3.0 engine already includes a disk-backed Davidson
