@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "fresh-basis-qc.tar.gz": {
+      "bytes": 703772,
+      "sha256": "636f4d07416a10ea5419fbaab7451a001df29650d7c0d9d5193b4534ce231c80"
+    }
+  },
+  "git_sha": "830eebedfcb9b0cf408084da6c71fe6e304df9c2",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-fresh-basis-qc-2026-10-07/"
+}

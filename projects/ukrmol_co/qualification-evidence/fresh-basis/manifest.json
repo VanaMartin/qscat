@@ -1,0 +1,119 @@
+{
+  "git_sha": "830eebedfcb9b0cf408084da6c71fe6e304df9c2",
+  "record_type": "co-fresh-basis-qc",
+  "date": "2026-10-07",
+  "archive_sha256": "636f4d07416a10ea5419fbaab7451a001df29650d7c0d9d5193b4534ce231c80",
+  "archive_bytes": 703772,
+  "payload_digests_verified": 194,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "completed_attempts": 4,
+  "passed_qc_attempts": 3,
+  "rejected_qc_attempts": 1,
+  "original_batch_exit": 1,
+  "batch_wall_seconds": 16030.769809158985,
+  "raw_final_states_verified": 160,
+  "successful_targets": {
+    "co-eq-cctz-sa11-qc-tight-hf-start": {
+      "original_exit": 0,
+      "ground_energy_hartree": -112.90185648989254,
+      "ensemble_energy_hartree": -112.38809524704945,
+      "ground_dipole_au": [
+        0.0,
+        0.0,
+        0.143618428763436
+      ],
+      "checkpoint_sha256": "c41b08888d05483c6845f894c94c568ce9fadb7adc831fdefc57382c32d2a73a",
+      "raw_final_states_checked": 40,
+      "mo_orthogonality_max_error": 8.125444761475364e-15,
+      "pi_energy_max_difference_hartree": 2.2211565919860732e-11,
+      "minimum_initial_to_final_active_overlap": 0.1715940271244454,
+      "wall_seconds": 2384.962217475986,
+      "kernel_peak_container_memory_bytes": 346562560
+    },
+    "co-eq-cctz-sa12-qc-tight-hf-start": {
+      "original_exit": 0,
+      "ground_energy_hartree": -112.91625420868564,
+      "ensemble_energy_hartree": -112.40378404612684,
+      "ground_dipole_au": [
+        0.0,
+        0.0,
+        0.29644543478416774
+      ],
+      "checkpoint_sha256": "f7d51e3b80db27aceeb076718c30955c4d6a23ff28092391322718682be189e5",
+      "raw_final_states_checked": 40,
+      "mo_orthogonality_max_error": 8.881784197001252e-15,
+      "pi_energy_max_difference_hartree": 8.498091119690798e-12,
+      "minimum_initial_to_final_active_overlap": 0.15271353539989654,
+      "wall_seconds": 6771.930934915086,
+      "kernel_peak_container_memory_bytes": 799301632
+    },
+    "co-eq-aug-tz-sa12-qc-tight-hf-start": {
+      "original_exit": 0,
+      "ground_energy_hartree": -112.89862462376821,
+      "ensemble_energy_hartree": -112.4697752512186,
+      "ground_dipole_au": [
+        0.0,
+        0.0,
+        0.25497075665612123
+      ],
+      "checkpoint_sha256": "edc8bc4017d93691535767a184a63b77c728da860ff301388c0452aae137992c",
+      "raw_final_states_checked": 40,
+      "mo_orthogonality_max_error": 1.262323578998803e-13,
+      "pi_energy_max_difference_hartree": 2.8408919661160326e-10,
+      "minimum_initial_to_final_active_overlap": 0.03678965178317832,
+      "wall_seconds": 5504.128121841,
+      "kernel_peak_container_memory_bytes": 875302912
+    }
+  },
+  "failures": [
+    {
+      "name": "co-eq-aug-tz-sa11-qc-tight-hf-start",
+      "original_exit": 1,
+      "orbital_converged": true,
+      "fresh_ci_converged": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "maximum_fresh_energy_difference_hartree": 1.4210854715202004e-13,
+      "raw_final_states_checked": 40
+    }
+  ],
+  "comparisons": [
+    {
+      "first": "co-eq-cctz-sa11-qc-tight-hf-start",
+      "second": "co-eq-cctz-sa12-qc-tight-hf-start",
+      "refinement": "active-space",
+      "ground_energy_difference_ev": -0.39178188714031925,
+      "ensemble_energy_difference_ev": -0.42691397143070337,
+      "ground_dipole_difference_au": [
+        0.0,
+        0.0,
+        0.15282700602073174
+      ],
+      "maximum_absolute_root_difference_ev": 3.4378906426065794,
+      "scope": "Ranked spectra of fresh electronic models; root identities, competing starts and imports remain unqualified"
+    },
+    {
+      "first": "co-eq-cctz-sa12-qc-tight-hf-start",
+      "second": "co-eq-aug-tz-sa12-qc-tight-hf-start",
+      "refinement": "basis",
+      "ground_energy_difference_ev": 0.4797254445446185,
+      "ensemble_energy_difference_ev": -1.795712170590162,
+      "ground_dipole_difference_au": [
+        0.0,
+        0.0,
+        -0.041474678128046505
+      ],
+      "maximum_absolute_root_difference_ev": 4.9943832959322565,
+      "scope": "Ranked spectra of fresh electronic models; root identities, competing starts and imports remain unqualified"
+    }
+  ],
+  "scope": "Fresh-start QC/self-consistency; independent import/coverage/competing starts pending"
+}

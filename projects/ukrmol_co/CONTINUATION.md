@@ -1034,6 +1034,68 @@ The host has **106 GiB available RAM** and **158 GiB free `/home`**. The remaini
 scaling/concurrency entries, stretched import/basis follow-on and original
 coverage/continuum queue retain their dependency gates.
 
+The fresh-start supervisor now completes with original exit **one**. Its four
+entries take **16030.77 seconds / 4.453 hours** on CPUs 4–7:
+
+| Fresh start | Original exit | Wall (minutes) | Kernel peak bytes |
+|---|---:|---:|---:|
+| CAS(10,11) cc-pVTZ | 0 | 39.75 | 346562560 |
+| CAS(10,11) aug-cc-pVTZ | 1 | 22.80 | 459587584 |
+| CAS(10,12) cc-pVTZ | 0 | 112.87 | 799301632 |
+| CAS(10,12) aug-cc-pVTZ | 0 | 91.74 | 875302912 |
+
+The rejected aug-TZ CAS(10,11) entry converges orbitals and optimized CI, but
+its fresh singlet-A1 CI flag is false. Fresh root energies match within
+1.42e-13 Hartree; the flag still rejects export. Both CAS(10,12) fresh basis
+starts pass all QC gates, including fresh lowest-root checks, spins, Pi
+degeneracy and MO orthogonality. Their minimum initial-to-final active overlaps
+are **0.152714 / 0.036790**, indicating considerable orbital reorganization.
+For fresh CAS(10,12), TZ→aug-TZ lowers the averaged objective **1.795712 eV**,
+but raises ground energy **0.479725 eV** and changes z dipole **−0.041475 a.u.**
+The objective is a forty-component average, not the individual ground energy.
+Competing starts and state/active-subspace continuity remain required.
+
+The [fresh-basis companion](qualification-evidence/fresh-basis/README.md)
+preserves all four attempts: 194 payloads and 160 raw final-state energies/spins
+verify, with public byte-for-byte fetch and byte-identical repackaging.
+Its archive is
+`https://data.qscat.org/ukrmol-co-fresh-basis-qc-2026-10-07/fresh-basis-qc.tar.636f4d07416a.gz`,
+SHA256 `636f4d07416a10ea5419fbaab7451a001df29650d7c0d9d5193b4534ce231c80`.
+The publication/verifier persist at `prepared/publication-fresh-basis-qc-20261007/`.
+
+The released **4–7** slot now runs
+`prepared/fresh-basis-residual-coverage-source/fresh-basis-residual-coverage.py`,
+PID **935553**, attached `sh_1142209c4001gvQ4Z7yd9u79m3`. It safely leases the
+still-waiting staged CAS(10,11) owner PID **916479**, with acknowledged SIGSTOP,
+no owner children and no active container in the group. Its 8-GiB container
+launch records **107.17 GiB available RAM / 156.76 GiB free scratch**, above
+16-/20-GiB resource gates. The three passing fresh targets receive 48
+five/eight-root, space-40/80/160 probes each under the validated **600-cycle**
+numerical contract, keeping tolerances, spin penalty and orbitals fixed.
+The Hubbard-dimer/perturbed-vector residual controls run first. Every probe
+measures physical and spin-penalized residuals, spins, CI-vector orthogonality,
+ensemble energies and same-root-count agreement across trial spaces. All
+144 probes/936 eigenpairs are scheduled, with evidence written to
+`diagnostics/fresh-basis-ci-residual-coverage/`; qualification is pending.
+
+The finite fresh-lineage repair follows that exact worker completion:
+`prepared/fresh-augtz-ci-repairs-source/fresh-augtz-ci-repairs.py`, PID
+**935990**, attached `sh_11424888f001DdVAMZaDpGFCs1`. Its tracked input is
+[`calibration-sa11-fresh-augtz-ci-repairs.json`](calibration-sa11-fresh-augtz-ci-repairs.json).
+It separately restarts the rejected fresh aug-TZ checkpoint at spaces **80/160**,
+with all physical settings, ensemble counts and tight tolerances unchanged.
+The default 200 CI cycles remain unchanged in these QC repairs. The completed
+fresh-target residual scan is an execution dependency, not a scientific gate
+for the independent aug-TZ repair. It borrows the same waiting owner only while
+the group is child/container-free; otherwise it waits for the owner to complete.
+32-GiB containers require 40 GiB available RAM / 20 GiB scratch. Original
+exits, frozen source/manifest/seed hashes and owner resumption are recorded.
+Passing repair records still need coverage, competing starts and imports.
+
+The latest target-import stage audit finds **all eight CAS(10,12) SCATCI sectors
+completed successfully**; density/dipole processing remains active. Full import
+qualification awaits that stage and the original supervisor's analysis.
+
 Finally, the CPU-12–15 queue runs
 [`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):
 two equilibrium CAS(10,11)/40-channel calculations at **l=3 and l=5**, using
@@ -1056,8 +1118,8 @@ Every queue stops at a missing dependency or failed qualification/resource gate;
 individual rejected QC attempts retain their original exits and permit the
 other independent finite entries to be inspected.
 
-The continuation is currently at a **pending-results dependency**: the three
-active physical-core groups and the waiting fourth group have finite follow-ons,
+The continuation is currently at a **pending-results dependency**: all four
+physical-core groups have active work and finite follow-ons,
 and further launches are handled by the
 recorded finite queues. The restricted neutral route at R=3.0/4.0 still needs
 a separately designed and validated correlation treatment. Production fitting,
