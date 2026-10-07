@@ -508,9 +508,10 @@ independently check all 64 requested roots within 5.34e-10 Hartree. Common dense
 and five-root excitations match at printed precision. This completes the
 CAS(10,11) extra-root solver gate; the local CAS(10,12) import still awaits its
 recorded controls and CPU-slot release. The verified supplement now preserves
-41 attempts in sixteen batches and 112 raw CI probes. Both small numerical
+46 attempts in eighteen batches and 160 raw CI probes. Both small numerical
 80/160-vector controls pass all forty imported roots/dipoles and have identical
-printed excitations. Larger failed-checkpoint repairs have started.
+printed excitations. The completed four-entry failed-checkpoint repair batch
+has two QC passes and two retained CI failures.
 Both stretched-DZ CAS(10,11) 80/160-vector repairs now pass QC; both projected
 TZ retries still fail singlet B1/B2 CI convergence after orbital convergence.
 Independent coverage/subspace checks of the passing repairs are queued.
@@ -525,6 +526,10 @@ held-point fits show that the constant background describes the data less well
 than terms 2–4. The pinned engine uses 0.0735 Ryd per requested eV; its 18.44-ppm
 energy-grid convention is explicitly retained at this boundary. See
 [the phase-fit contract](../../docs/physics/co-electronic-qualification.md#independent-phase-fit-diagnostic).
+Outer-only 99→197→393-point checks also pass: identical common-point phases and
+fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
+width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;
+their truncation is retained and the independent diagnostic uses full intervals.
 The finite continuation also queues `calibration-sa11-tight-continuum.json`:
 l=3/l=5 controls against the completed tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.

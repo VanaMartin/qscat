@@ -274,12 +274,14 @@ commands are retained in `diagnostics/cas12-large-host-workspaces/` under the
 state-averaged evidence root. The combinatorial singlet/triplet-A1 counts match
 the two independent existing CONGEN outputs. The thirteen queries and tight
 CAS(10,11) import are included in the eighteen-attempt qualification supplement;
-The current 41-attempt supplement additionally preserves the five/eight-root
+The current 46-attempt supplement additionally preserves the five/eight-root
 CAS(10,11) SLEPc imports, independent all-64-root CI scan, tight CAS(10,11)
 scattering, 49 native replay attempts including one failure, small 80/160-vector
 controls, both tight CAS(10,12) starts and restart coverage, the nine-job
 CAS(10,11) ladder, 5Z neutral sentinels and four rejected unstable stretched
-references. Staged QC, continuum controls and full CAS(10,12) import remain pending.
+references, the matched tight CAS(10,10) control and coverage, four CI-space
+repairs, independent/held-point phase fits, finer outer grids and original
+driver failures. Staged QC, continuum controls and full CAS(10,12) import remain pending.
 
 Before proposing the cost-constrained paid experiment, finish the tight CAS(10,12) starts,
 matched QC ladder and root/subspace checks; finalize the selected checkpoints
