@@ -1,0 +1,65 @@
+{
+  "git_sha": "1935c3bf8f6dd0764dc8b532b76072230a44225f",
+  "record_type": "co-fresh-basis-ci-residual-coverage",
+  "date": "2026-10-07",
+  "archive_sha256": "2058e2e4c269a98540e6da9af7b34604ea5f277c12cf9fad50fa10b778ac2016",
+  "archive_bytes": 542805,
+  "payload_digests_verified": 352,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "parent_qc_archive_sha256": "636f4d07416a10ea5419fbaab7451a001df29650d7c0d9d5193b4534ce231c80",
+  "cycles": 600,
+  "ci_energy_tolerance_hartree": 1e-12,
+  "ci_residual_tolerance_hartree": 1e-09,
+  "original_controller_exit": 0,
+  "verification": {
+    "runs": [
+      {
+        "run": "co-eq-cctz-sa11-qc-tight-hf-start",
+        "probes_verified": 48,
+        "eigenpairs_verified": 312,
+        "checkpoint_sha256": "c41b08888d05483c6845f894c94c568ce9fadb7adc831fdefc57382c32d2a73a",
+        "maximum_physical_residual_hartree": 6.668476035281071e-10,
+        "maximum_penalized_residual_hartree": 9.980751102505043e-10,
+        "maximum_ensemble_energy_difference_hartree": 2.5579538487363607e-13,
+        "maximum_trial_space_difference_hartree": 2.2737367544323206e-13,
+        "maximum_first_five_root_count_difference_hartree": 1.7053025658242404e-13,
+        "maximum_ci_orthogonality_error": 6.416048222271763e-14,
+        "all_roots_pass": true
+      },
+      {
+        "run": "co-eq-cctz-sa12-qc-tight-hf-start",
+        "probes_verified": 48,
+        "eigenpairs_verified": 312,
+        "checkpoint_sha256": "f7d51e3b80db27aceeb076718c30955c4d6a23ff28092391322718682be189e5",
+        "maximum_physical_residual_hartree": 6.934283325967001e-10,
+        "maximum_penalized_residual_hartree": 9.99432159322832e-10,
+        "maximum_ensemble_energy_difference_hartree": 1.9895196601282805e-13,
+        "maximum_trial_space_difference_hartree": 2.5579538487363607e-13,
+        "maximum_first_five_root_count_difference_hartree": 2.2737367544323206e-13,
+        "maximum_ci_orthogonality_error": 2.4447741565926468e-14,
+        "all_roots_pass": true
+      },
+      {
+        "run": "co-eq-aug-tz-sa12-qc-tight-hf-start",
+        "probes_verified": 48,
+        "eigenpairs_verified": 312,
+        "checkpoint_sha256": "edc8bc4017d93691535767a184a63b77c728da860ff301388c0452aae137992c",
+        "maximum_physical_residual_hartree": 6.960085895926463e-10,
+        "maximum_penalized_residual_hartree": 9.956707617554648e-10,
+        "maximum_ensemble_energy_difference_hartree": 2.8421709430404007e-13,
+        "maximum_trial_space_difference_hartree": 3.126388037344441e-13,
+        "maximum_first_five_root_count_difference_hartree": 3.979039320256561e-13,
+        "maximum_ci_orthogonality_error": 2.0128069440859173e-14,
+        "all_roots_pass": true
+      }
+    ],
+    "all_three_fresh_coverage_gates_pass": true,
+    "raw_probes_verified": 144,
+    "raw_eigenpairs_verified": 936,
+    "analytic_residual_and_perturbed_vector_benchmark_passes": true,
+    "wall_seconds": 1941.8715700849425,
+    "kernel_peak_container_memory_bytes": 781508608,
+    "scope": "Raw spectra/spins and recorded Hamiltonian-action residuals; competing starts and imports remain required"
+  }
+}

@@ -1078,6 +1078,26 @@ ensemble energies and same-root-count agreement across trial spaces. All
 144 probes/936 eigenpairs are scheduled, with evidence written to
 `diagnostics/fresh-basis-ci-residual-coverage/`; qualification is pending.
 
+That scan now completes with original exit **zero**, wall **1941.87 seconds /
+32.36 minutes** and kernel peak **781508608 bytes / 0.728 GiB**. All three
+targets pass every convergence flag, spin, physical/spin-penalized residual and
+CI-vector orthogonality gate in all 144 probes/936 eigenpair evaluations.
+Maximum physical/penalized residuals are **6.96e-10 / 9.99e-10 Hartree**;
+maximum ensemble-energy, trial-space and common-first-five root-count differences
+are **2.84e-13 / 3.13e-13 / 3.98e-13 Hartree**. The analytic Hubbard-dimer and
+perturbed-vector controls pass. All raw spectra/spins/whole-probe convergence
+blocks reconstruct from `run.log`; recorded residuals and frozen measurement
+source are retained. The worker resumes PID 916479, and the fresh aug-TZ
+repair immediately acquires that waiting owner's slot.
+
+The [fresh-coverage companion](qualification-evidence/fresh-coverage/README.md)
+publishes all 352 verified payloads, with public byte-for-byte fetch and
+byte-identical repackaging. It includes unchanged parent QC checkpoint inputs.
+Archive:
+`https://data.qscat.org/ukrmol-co-fresh-basis-coverage-2026-10-07/fresh-basis-coverage.tar.2058e2e4c269.gz`,
+SHA256 `2058e2e4c269a98540e6da9af7b34604ea5f277c12cf9fad50fa10b778ac2016`.
+Publication/verifier persist at `prepared/publication-fresh-basis-coverage-20261007/`.
+
 The finite fresh-lineage repair follows that exact worker completion:
 `prepared/fresh-augtz-ci-repairs-source/fresh-augtz-ci-repairs.py`, PID
 **935990**, attached `sh_11424888f001DdVAMZaDpGFCs1`. Its tracked input is
@@ -1091,6 +1111,40 @@ the group is child/container-free; otherwise it waits for the owner to complete.
 32-GiB containers require 40 GiB available RAM / 20 GiB scratch. Original
 exits, frozen source/manifest/seed hashes and owner resumption are recorded.
 Passing repair records still need coverage, competing starts and imports.
+
+The first fresh aug-TZ space-80 repair is now active on **4–7**. The finite
+`prepared/fresh-tz-import-source/fresh-tz-import.py` supervisor, PID **937849**,
+attached `sh_11445fce8001MeKw10vN1gjYmq`, follows that repair supervisor's exact
+completion. Its input is
+[`calibration-sa11-fresh-tz-import.json`](calibration-sa11-fresh-tz-import.json).
+It requires the passing fresh CAS(10,11) TZ scan, all measured residual gates
+and unchanged seed SHA256
+`c41b08888d05483c6845f894c94c568ce9fadb7adc831fdefc57382c32d2a73a`.
+The same-basis import uses five-root/four-sector singlet/triplet orbital
+averaging, eight computed roots per sector, forty retained channels, CI space
+80 and SLEPc tolerance **1e-13 / 1000 cycles**. QC's 200-cycle default is
+unchanged. Target-only execution uses a **16-GiB** container / **6-GiB** internal
+budget, with **24 GiB available RAM / 20 GiB scratch** required. It leases the
+still-waiting staged owner only while child/container-free, otherwise waiting
+for that owner's completion.
+
+The follow-on compares all **64 native roots** against eight-root/space-160/
+600-cycle controls, checks the all-forty-root/dipole import, compares the
+reoptimized QC roots/dipole directly with the seed, and requires matching
+core/active subspaces. It records original exits, raw sectors, timings and
+source/manifest/checkpoint hashes in `diagnostics/cas11-fresh-tz-independent-import/`.
+This is a covered fresh-orbital import trial; competing-start and model gates
+remain open. The aug-TZ repair's success is not a scientific prerequisite for
+the independent, already covered TZ seed.
+
+The matched one-rank CAS(10,10) scattering replica completes successfully in
+**3105.91 seconds / 51.77 minutes**, with **3058868224 bytes / 2.849 GiB** kernel
+peak and **3105.86 CPU seconds**. Its forty imported roots/dipole agree within
+**5.04e-10 Hartree / 3.98e-11 a.u.**, both contracted scattering dimensions are
+8350, and both complete 99-point pipelines pass their symmetry/grid checks.
+The two-rank replica is now active on **12–15**. Full matched phase/candidate,
+core/active-subspace and concurrency comparisons await the finite benchmark's
+remaining entries; this single replica does not establish the best layout.
 
 The latest target-import stage audit finds **all eight CAS(10,12) SCATCI sectors
 completed successfully**; density/dipole processing remains active. Full import

@@ -542,6 +542,11 @@ CAS(10,12) TZ→aug-TZ lowers the averaged objective by 1.80 eV while raising
 the ground-state energy by 0.480 eV; root coverage, competing starts and
 independent imports are still required. Finite coverage/residual scans and
 same-basis fresh-lineage CI-space repairs are now supervised on Sadaharu.
+The [fresh-target coverage companion](qualification-evidence/fresh-coverage/README.md)
+now passes all 144 probes/936 eigenpair evaluations, with physical/penalized
+residual maxima 6.96e-10/9.99e-10 Hartree, in 32.36 minutes / 0.728 GiB.
+A covered 64-root fresh CAS(10,11) TZ import is queued next; competing-start
+and electronic-model gates remain open.
 Outer-only 99→197→393-point checks also pass: identical common-point phases and
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;

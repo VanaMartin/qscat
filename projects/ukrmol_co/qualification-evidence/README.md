@@ -89,6 +89,11 @@ verify. Fresh CAS(10,12) TZ→aug-TZ lowers the ensemble objective by 1.80 eV
 but raises the ground-state energy by 0.480 eV; competing-start and import
 qualification remain open.
 
+The subsequent [fresh-target coverage companion](fresh-coverage/README.md)
+passes all 144 probes/936 eigenpair evaluations for those three targets under
+the 600-cycle contract. All raw spectra/spins and 352 payload digests verify;
+physical/spin-penalized residual maxima are 6.96e-10/9.99e-10 Hartree.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
