@@ -8,8 +8,8 @@
   "cpu": "AMD Ryzen 9 9950X3D",
   "physical_cores": 16,
   "ram_gib": 123.5,
-  "analysis_source_commit": "d4155fef9b598fb5c5bf6217ac9b215ab7ec5841",
-  "analysis_source_commit_scope": "Committed qualification tools and analysis/packaging code; numerical batches retain their actual immutable source snapshots",
+  "analysis_source_commit": "746a340b063508a2f2e6966a1177190d43d1acc5",
+  "analysis_source_commit_scope": "Committed qualification tools and updated archive licence selection; actual numerical batches and embedded image modules retain immutable original sources, while analysis-archive.py records the packaging implementation",
   "numerical_image_id": "sha256:b251e85f9fe7c1909bfd2e11f516756793874111e09b9cdf16f02221b04b3b19",
   "standalone_image_id": "sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08",
   "geometry_units": "bohr",
@@ -30,8 +30,13 @@
     "cas12-tight-ci-coverage",
     "cas12-tight-ci-coverage-pathfix",
     "cas12-tight-start-comparison",
-    "cas11-slepc-extra-root-coverage-early"
+    "cas11-slepc-extra-root-coverage-early",
+    "cas11-tight-scattering-replays",
+    "cas11-tight-scattering-windows",
+    "cas11-tight-scattering-windows-unitfix"
   ],
   "selected_root_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
-  "scope": "Completed QC/neutral pilots, dense and five/eight-root SLEPc CAS(10,11) imports, independent all-64-root fixed-orbital CI verification, both tight CAS(10,12) starts and restart coverage, the nine-entry CAS(10,11) QC ladder, workspace queries, four rejected Davidson controls and four passing SLEPc controls. Includes 5Z neutral sentinels and four rejected externally unstable stretched RHF references. Electronic-model, basis and correlation convergence remain open; live scattering and staged QC/import follow-ons are excluded"
+  "scope": "Completed QC/neutral pilots, dense and five/eight-root SLEPc CAS(10,11) imports, independent all-64-root fixed-orbital CI verification, tight CAS(10,11) scattering and native background/detection/window replays with CAS(10,10) comparison inputs, both tight CAS(10,12) starts and restart coverage, the nine-entry CAS(10,11) QC ladder, workspace queries, four rejected Davidson controls and six passing SLEPc targets including 80/160-vector controls. Includes 5Z neutral sentinels, four rejected externally unstable stretched RHF references and failed B2 replay with fresh repaired retry. Electronic-model, basis, correlation and fit-width convergence remain open; staged QC/import and continuum follow-ons are excluded",
+  "archive_analysis_source_sha256": "ac79337385f604e8e0cf5873a1e1c6d0b44899bae9a60e03dc5f997437125bd2",
+  "archive_analysis_source_attachment": "analysis-archive.py"
 }

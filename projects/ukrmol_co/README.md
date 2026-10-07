@@ -477,8 +477,16 @@ root fails at space 40 and converges at 80/160. All five ensemble roots converge
 in every probe. The completed refinements support stability of this fixed
 orbital model. Its tightened independent UKRmol import now passes all 40 roots
 within 5.33e-10 Hartree and the ground dipole within 7.95e-11 a.u., with a final
-gradient of 2.92e-8. It took 97.75 minutes at an 18.42-GiB kernel memory peak;
-the subsequent equilibrium scattering pilot is running.
+gradient of 2.92e-8. It took 97.75 minutes at an 18.42-GiB kernel memory peak.
+The subsequent equilibrium scattering pilot completes in 4.423 hours at a
+25.20-GiB peak. Both contracted scattering dimensions are 27546, against raw
+CONGEN counts of 344124. Its default candidate is 2.520805 eV with full width
+1.151002 eV. Relative to the earlier CAS(10,10) model, position/phase changes
+of 64.84 meV / 0.109809 rad exceed the chosen gates; width changes by 2.80%.
+The QC controls also differ, so this is not an isolated active-space test.
+A new `calibration-sa10-tight-scattering.json` control matches the tightened
+CAS(10,11) numerical settings with CAS(10,10)'s own checkpoint; it is running
+on Sadaharu to repair that numerical-control mismatch.
 `qualification-results.json` and
 [`qualification-evidence/`](qualification-evidence/README.md) preserve the
 completed target/neutral supplement and its verified public archive.
@@ -498,9 +506,15 @@ independently check all 64 requested roots within 5.34e-10 Hartree. Common dense
 and five-root excitations match at printed precision. This completes the
 CAS(10,11) extra-root solver gate; the local CAS(10,12) import still awaits its
 recorded controls and CPU-slot release. The verified supplement now preserves
-38 attempts in fourteen batches and 112 raw CI probes.
+41 attempts in sixteen batches and 112 raw CI probes. Both small numerical
+80/160-vector controls pass all forty imported roots/dipoles and have identical
+printed excitations. Larger failed-checkpoint repairs have started.
+Forty-nine saved-data native replay attempts preserve 48 successes and one B2
+unit-binding failure with a fresh corrected retry. Window clipping at fixed
+background meets the chosen gates; background terms 1–4 change width by 12.65%,
+so resonance-extraction qualification remains open.
 The finite continuation also queues `calibration-sa11-tight-continuum.json`:
-l=3/l=5 controls against the running tight l=4 scattering baseline, using the
+l=3/l=5 controls against the completed tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.
 These await completed baseline/extra-root gates and release of the large-memory
 import worker. Each passing run receives saved-K-matrix background/detection
