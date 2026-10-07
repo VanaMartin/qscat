@@ -70,3 +70,9 @@ the import contract. The [continuation](../../CONTINUATION.md) records four
 same-geometry TZ↔aug-TZ projections at spaces 80/160, checking the
 [competing starts](../../calibration-sa11-fresh-basis-competing-starts.json)
 against each other and the covered/imported fresh solutions.
+
+Those [competing-start results](../competing-starts/README.md) find a distinct,
+numerically reproducible aug-TZ orbital solution with objective **0.538388 eV
+lower** and minimum active-subspace overlap **0.141085**. This import remains
+valid for its recorded fixed orbitals; it does not establish a unique optimum.
+The new branch's coverage/import gates are independent.

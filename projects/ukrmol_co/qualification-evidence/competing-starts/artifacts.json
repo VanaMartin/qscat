@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "competing-starts.tar.gz": {
+      "bytes": 1102786,
+      "sha256": "b5193060808b6d5eabe0b75cfb2d6d7e0edf0c1cfabaf785a51fcacae2ceafeb"
+    }
+  },
+  "git_sha": "7511139569d365ecec8d155216c6049d56b4ae16",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-competing-starts-2026-10-07/"
+}

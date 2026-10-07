@@ -561,9 +561,15 @@ coverage/residual probes now pass, with 624 eigenpair evaluations, in
 preserves the raw spectra and residual gates. The
 [64-root aug-TZ import](qualification-evidence/fresh-augtz-import/README.md)
 now passes against both repaired seeds within 5.969e-11/5.764e-11 Hartree,
-with dipole/subspace gates accepted, in 56.01 minutes / 5.268 GiB. Four
-same-geometry TZ↔aug-TZ space-80/160 projections now test competing starts;
-electronic-model qualification remains required.
+with dipole/subspace gates accepted, in 56.01 minutes / 5.268 GiB. The four
+same-geometry TZ↔aug-TZ projections subsequently find a reproducible different
+aug-TZ branch: objective **−0.538388 eV**, ground **−1.115756 eV**, z dipole
+**−0.06670992 a.u.**, minimum active-subspace overlap **0.141085** relative to
+the fresh branch. Two downward projections fail before QC; a tested core+active
+interface repair queues new-name retries. The
+[competing-start evidence](qualification-evidence/competing-starts/README.md)
+preserves both original failures and passing numerical-pair evidence. Coverage
+of the new branch is active; electronic-model qualification remains required.
 Outer-only 99→197→393-point checks also pass: identical common-point phases and
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;

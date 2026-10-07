@@ -34,6 +34,18 @@ def _fresh_ci_kernel(kernel):
     return solve
 
 
+def project_initial_orbitals(mc, previous_mo: np.ndarray, previous_mol) -> np.ndarray:
+    """Project a checkpoint's core/active spaces, completing destination virtuals."""
+    from pyscf import mcscf
+
+    # A full larger-basis MO matrix exceeds PySCF's destination-column limit.
+    # Only inactive core + active orbitals define this CAS; PySCF constructs
+    # the orthogonal virtual complement in the destination basis itself.
+    if previous_mo.shape[1] > mc._scf.mo_coeff.shape[1]:
+        previous_mo = previous_mo[:, : mc.ncore + mc.ncas]
+    return mcscf.project_init_guess(mc, previous_mo, prev_mol=previous_mol)
+
+
 def build_target(config: dict, molden_path: Path) -> dict:
     """Optimize an equally weighted ensemble and export core/active/virtual MOs."""
     import pyscf
@@ -88,7 +100,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
         previous_ncore = lib.chkfile.load(str(checkpoint), "mcscf/ncore")
         if int(previous_ncas) != ncas or int(previous_ncore) != 2:
             raise ValueError("Initial checkpoint must have the same core/active-space sizes")
-        initial = mcscf.project_init_guess(mc, previous_mo, prev_mol=previous_mol)
+        initial = project_initial_orbitals(mc, previous_mo, previous_mol)
         initial_symmetries = symm.label_orb_symm(
             mol, mol.irrep_name, mol.symm_orb, initial[:, 2 : 2 + ncas]
         )
@@ -100,6 +112,10 @@ def build_target(config: dict, molden_path: Path) -> dict:
         initial_provenance = {
             "checkpoint_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest(),
             "source": config.get("target_initial_source_checkpoint", str(checkpoint)),
+            "source_mo_columns": previous_mo.shape[1],
+            "projected_mo_columns": (
+                2 + ncas if previous_mo.shape[1] > hf.mo_coeff.shape[1] else previous_mo.shape[1]
+            ),
         }
     solvers = []
     sectors = []

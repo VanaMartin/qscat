@@ -4,7 +4,10 @@
 
 Fresh CAS(10,11) TZ and both repaired aug-TZ targets now pass QC, independent
 600-cycle fixed-orbital coverage and all-64-root UKRmol import/dipole checks.
-The original rejected fresh aug-TZ record remains exact. The matched CAS(10,10)
+The original rejected fresh aug-TZ record remains exact. Subsequent competing
+starts find a distinct, reproducible aug-TZ branch whose objective is 0.538388 eV
+lower; its coverage and repaired downward projections are the next local gates.
+The matched CAS(10,10)
 one-/two-/four-rank and concurrent benchmarks also pass all seven replicas.
 CAS(10,12)'s tight QC starts and coverage pass, but full target-density/dipole
 processing remains active; its compressed DZ CI failure still gates dependent
@@ -14,7 +17,7 @@ depend on these finite workers:
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
 | 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
-| 4–7 | Four same-geometry CAS(10,11) TZ↔aug-TZ competing-start projections, 16-GiB containers | Passing space-80/160 targets receive pair and fresh-start comparisons, then resume the waiting staged CAS(10,11) owner |
+| 4–7 | Both new CAS(10,11) aug-TZ branch coverage/residual scans, 8-GiB container | Passing scans release four fresh-name core+active downward-projection retries, then resume the waiting staged CAS(10,11) owner |
 | 8–11 | CAS(10,12) target DENPROP/dipole processing, 64-GiB import container | Final independent import qualification releases the recorded stretched import/basis and other dependent workers |
 | 12–15 | Original CAS(10,11) l=3/l=5 continuum controls, 48-GiB containers | Their scientific gates pass; a finite successor advances them after the idle predecessor's recorded scheduling retirement, then replays saved-data fits |
 
@@ -1481,6 +1484,74 @@ on **8–11**, and the l=3 continuum entry on **12–15**. Host resources are
 **106 GiB available RAM / 150 GiB free `/home`** at this inspection. Further
 local work remains reasonable; the approximately $200 first external bottleneck
 cap stays deferred until these finite outcomes identify an actual blocker.
+
+### Competing-start completion and projection repair
+
+The four-entry competing-start supervisor PID **951086** completes with original
+batch/controller exits **one**, and resumes staged owner PID **916479**. Batch
+wall is **3444.76 seconds**. Both aug-TZ→TZ projections fail in **0.403 seconds**
+before QC with `RuntimeError: Too many orbitals in mo_init (try passing only the
+occupied orbitals)`. Both TZ→aug-TZ entries pass QC in **1737.00 / 1705.00 seconds**,
+with peaks **455372800 / 515391488 bytes**. Their CI-space-80/160 pair passes:
+forty-root difference **5.941e-12 Hartree**, objective difference **−1.137e-13
+Hartree**, z dipole difference **+1.901e-11 a.u.**, minimum active overlap
+**0.9999999999999984**. Both comparisons against the earlier fresh aug-TZ target
+exit one: objective **−0.538388 eV**, ground **−1.115756 eV**, maximum root shift
+**2.126321 eV**, z dipole **−0.06670992 a.u.**, minimum core/active overlaps
+**0.99983956 / 0.14108460**. This is a separately converged competing orbital
+solution; earlier fixed-orbital coverage/import does not establish a unique
+optimum. Retain both branches and qualify the new one before using it.
+
+The [competing-start companion](qualification-evidence/competing-starts/README.md)
+publishes all four attempts, original **1/1/0/0** exits, all three comparison
+records with original **0/1/1** exits, source/lease records and exact qualified
+seed inputs. All **277 payloads** and **80 raw final states** verify; every
+root/objective/dipole comparison reconstructs and all three orbital-subspace
+comparisons independently recompute from checkpoints. Public fetch is
+byte-for-byte and repackaging byte-identical. Archive:
+`https://data.qscat.org/ukrmol-co-competing-starts-2026-10-07/competing-starts.tar.b5193060808b.gz`,
+SHA256 `b5193060808b6d5eabe0b75cfb2d6d7e0edf0c1cfabaf785a51fcacae2ceafeb`.
+Publication/verifier persist at `prepared/publication-competing-starts-20261007/`.
+
+`target.project_initial_orbitals` repairs the actual downward interface: when
+the source MO column count exceeds the destination, pass only inactive-core
+plus active columns to PySCF, which builds the destination virtual complement.
+The exact failed **92→60-column** checkpoint pair now projects its **13**
+core+active columns with active irreps `[5,3,3,0]` and **1.932e-14** orthogonality
+error. Existing same-basis and upward routes retain the original full-input API;
+simultaneous geometry/basis changes still reject. Initial-orbital provenance
+records source and supplied column counts. Four genuine PySCF regressions and
+all **80 CO tests with PySCF 2.11.0** pass. Patched source, exact-checkpoint control
+and regression log are included separately from the unchanged original run sources.
+
+The new aug-TZ checkpoints are space-80
+`2f0cc1e4cbd31ede3012cf19a9584ddefa88b9240b990ec908d5f2c100bc78fb` and space-160
+`95ba854810510cb75580bc1cdc7eb058a3bd06ff983fdbb91bd99a77d24b9d7e`.
+The coverage worker PID **953666**, attached `sh_115094bcd001FbtnuSGswyXvFq`,
+leases waiting owner **916479** on **4–7** after the acknowledged child/container-free
+stop. Source: `prepared/competing-augtz-residual-coverage-source/competing-augtz-residual-coverage.py`.
+It checks both passing original targets and their numerical pair, exact seed
+hashes, the analytic Hubbard-dimer/residual negative control, then all **96**
+fixed-orbital probes: 5/8 roots × spaces 40/80/160 × eight sectors × two seeds,
+with **600 cycles** and unchanged 1e-12 energy / 1e-9 residual tolerances.
+Raw spectra, spins, solver flags, physical/penalized residuals and resources go
+to `diagnostics/competing-augtz-ci-residual-coverage/`. Limit is **8 GiB**, with
+16 GiB available RAM / 20 GiB scratch required; launch records **100.77 GiB /
+148.13 GiB**. Ordinary target CI remains 200 cycles.
+
+The downward-retry supervisor PID **954343**, attached `sh_1150eecdc0016n7grzLOHvIeDn`,
+waits for that exact coverage worker and both passing scan verdicts. It then
+leases the same waiting staged owner for
+[`calibration-sa11-tz-projection-coreactive-retries.json`](calibration-sa11-tz-projection-coreactive-retries.json):
+four new-name TZ QC projections, spaces 80/160 from each original-fresh and
+new-competing aug-TZ branch. Limits/tolerances remain **16 GiB / 200 CI cycles /
+150 orbital cycles**; source/seed hashes and original import gates stay explicit.
+Passing runs receive up to six pair/fresh-TZ comparisons. All exits are retained,
+and the worker resumes its owner in its final handler. Source:
+`prepared/tz-projection-coreactive-retries-source/tz-projection-coreactive-retries.py`.
+CAS(10,12) QC/density, the independent l=3/l=5 continuum queue and later stretched
+import/basis dependencies continue. Available host RAM is approximately **100 GiB**;
+the approximately $200 external experiment remains deferred.
 
 ### Scientific decisions still pending
 

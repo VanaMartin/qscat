@@ -1,0 +1,18 @@
+[
+  {
+    "name": "co-eq-cctz-sa11-qc-from-fresh-augtz-coreactive-space80",
+    "args": ["--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "5", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-ci-max-space", "80", "--target-initial-checkpoint", "/work/runs/co-eq-aug-tz-sa11-qc-fresh-restart-space80/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-cctz-sa11-qc-from-fresh-augtz-coreactive-space160",
+    "args": ["--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "5", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-ci-max-space", "160", "--target-initial-checkpoint", "/work/runs/co-eq-aug-tz-sa11-qc-fresh-restart-space80/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-cctz-sa11-qc-from-competing-augtz-coreactive-space80",
+    "args": ["--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "5", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-ci-max-space", "80", "--target-initial-checkpoint", "/work/runs/co-eq-aug-tz-sa11-qc-from-fresh-tz-space80/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  },
+  {
+    "name": "co-eq-cctz-sa11-qc-from-competing-augtz-coreactive-space160",
+    "args": ["--basis", "cc-pVTZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "5", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--qc-only", "--target-ci-max-space", "160", "--target-initial-checkpoint", "/work/runs/co-eq-aug-tz-sa11-qc-from-fresh-tz-space80/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--ranks", "4"]
+  }
+]
