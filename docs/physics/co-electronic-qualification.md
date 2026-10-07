@@ -93,9 +93,19 @@ reconstructs 80 raw states and 10430 resource samples. DZ→TZ and TZ→aug-TZ
 ground-energy changes are **−0.825431 / −0.0248054 eV**; maximum ranked-excitation
 changes **0.0883686 / 0.0755466 eV**, z-dipole changes **−0.00374061 /
 −0.0110101 a.u.** Cross-basis minimum active overlaps are **0.985481 / 0.998189**.
-Ranked spectra do not establish state identities; independent fixed-orbital
-coverage and individually gated 64-root imports now run on CPUs 8–11. Basis,
-competing-start and across-geometry model qualification remain open.
+Ranked spectra do not establish state identities. Both 48-probe basis
+coverage scans now pass, and aug-TZ passes its 64-root native import against
+the covered seed within **4.755e-8 Hartree**. TZ's original comparison rejects
+the eighth triplet-A1 root at **1.564e-7 Hartree**, exceeding the unchanged
+**1e-7** gate. A separate fixed-orbital diagnostic on both imports' actual
+checkpoints passes every native root within **4.984e-11 / 5.009e-11 Hartree**
+(TZ/aug-TZ), identifying seed-to-import orbital drift rather than a native
+eigensolver error. The original seed-gate failure is retained. The
+[1296-payload companion](../../projects/ukrmol_co/qualification-evidence/stretched-basis-imports/README.md)
+reconstructs **128 probes / 880 eigenpair evaluations** and **34607 resource
+samples**. Native imports take **49.78 / 52.02 minutes** at **5.265 / 5.261
+GiB**. Basis, competing-start and across-geometry model qualification remain
+open.
 
 ## Completed CAS(10,11) scattering and extraction checks
 
@@ -351,6 +361,64 @@ All calculations retain finite CPU/memory limits, persistent scratch, input
 configs, raw logs, checkpoints, stage timings, source/image hashes and failures.
 The methods remain experimental under `projects/ukrmol_co`; no library
 promotion or potential-fitting qualification follows from these pilot checks.
+
+The finite near-equilibrium pilot now adds **23 geometries per basis**, using
+aug-QZ and aug-5Z over **1.9–2.5 bohr** at **0.025-bohr** spacing and reusing
+the three original anchors. Each basis has 26 points including R=2.1323.
+The [recipe](../../projects/ukrmol_co/calibration-neutral-near-equilibrium.json)
+and [predeclared contract](../../projects/ukrmol_co/neutral-near-equilibrium-contract.json)
+define independent midpoint checks against a 0.05-bohr knot grid plus the
+reference geometry. Cubic not-a-knot and PCHIP interpolation use no
+extrapolation; diagnostic budgets are **1 meV** in held-point energy,
+**0.001 a.u.** in held-point dipole and **20 meV** in QZ→5Z relative energy.
+These budgets test this labelled pilot. They do not certify the correlation
+treatment or extend the stable-reference domain toward dissociation.
+
+## Equilibrium comparison with published calculations
+
+At **R=2.1323 bohr**, the strongest completed CAS(10,11)/cc-pVDZ/40-channel
+baseline gives the native fit candidate **2.520805 / 1.151002 eV**
+(position/full width relative to its neutral target). The matched CAS(10,10)
+baseline gives **2.455965 / 1.119643 eV**. Both pass numerical target import
+and pipeline checks; active-space/phase and background-width dependence
+still prevent an electronic-model or pole qualification.
+
+| Published electronic model | Position / full width (eV) | CAS(10,11) position difference | CAS(10,11) width difference |
+|---|---:|---:|---:|
+| Laporta et al. 2012, six-electron SEP | 1.67 / 0.82 | +0.8508 eV | +40.37% |
+| Dora et al. 2016, cc-pVTZ/CAS(10,10), CC50 | 1.73 / 0.84 | +0.7908 eV | +37.02% |
+| Dora and Tennyson 2020, cc-pV6Z/CAS(10,10), 41 C2v components | 1.8744 / 1.2916 | +0.6464 eV | −10.89% |
+| Dora et al. 2016, cc-pVDZ/CAS(10,11), CC40 | 2.20 / 0.95 | +0.3208 eV | +21.16% |
+
+Sources: [Laporta 2012](../../reference/literature/laporta-2012-psst21-045005.md),
+preprint p. 4; [Dora 2016](../../reference/literature/dora-2016-epjd70-197.md),
+p. 6, Table 4; [Dora and Tennyson 2020](../../reference/literature/dora-2020-jpb53-195202.md),
+p. 4, Table 2. The last row is the closest nominal active-space/basis/channel
+comparison; continuum and implementation choices still differ. These are
+published model values with substantial inter-model spread, not a shared
+experimental error bar. Laporta's tabulated width is unadjusted: the later
+nuclear calculation applies a 10% width increase and 0.035-eV level shift
+(preprint pp. 4, 6).
+
+The earlier aug-TZ/four-frozen-orbital/39-virtual SEP check gives
+**1.623439 / 0.768383 eV**, only **−46.56 meV / −6.29%** from Laporta's
+unadjusted pair. This is closer agreement in the initial calibration but
+does not qualify that model: increasing to 60 virtuals moves it to
+**1.3292 / 0.5743 eV**. Selecting a virtual space by agreement would hide
+the measured sensitivity. Raw values remain in
+`projects/ukrmol_co/calibration-results.json`.
+
+Target construction fares better in the direct compact-model plausibility
+check. Our tight CAS(10,10)/cc-pVDZ ground energy **−112.8947375 Hartree**,
+lowest triplet-Pi excitation **6.3952 eV** and dipole **about 0.234 D** are
+close to Dora 2016's **−112.89473 Hartree / 6.40 eV / 0.234 D**
+(p. 4, Table 2). Agreement of these properties supports the implementation;
+the accompanying resonance difference remains unresolved. Independently,
+the aug-5Z CCSD lambda-density neutral dipole is **about 0.124 D**, compared
+with the **0.122 D** experimental magnitude quoted in that table. This is
+a single-property comparison, not a CCSD(T) dipole derivative or full-curve
+validation. Neutral basis refinement still shifts the R=1.9/2.5 relative
+energies by approximately **−17.24 / +15.82 meV** from QZ to 5Z.
 
 ## CAS(10,12) dense-diagonalization memory audit
 

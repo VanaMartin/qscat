@@ -1,0 +1,389 @@
+{
+  "git_sha": "72a90200fc2d2a5efa8d176facc1774ce2763c38",
+  "record_type": "co-stretched-basis-imports",
+  "date": "2026-10-07",
+  "archive_sha256": "44ddb0fd8d23776b0715eb87da416c5b19dc67349110e91933051da140d02e52",
+  "archive_bytes": 3587157,
+  "payload_digests_verified": 1296,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "verification": {
+    "records": [
+      {
+        "run": "co-r2500-cctz-sa11-slepc-roots8-dz80-lineage-target",
+        "seed_run": "co-r2500-cctz-sa11-qc-dz80-start-ci-space80",
+        "native_at_import_checkpoint_pass": true,
+        "original_seed_gate_pass": false,
+        "maximum_native_import_checkpoint_error_hartree": 4.983746748621343e-11,
+        "maximum_native_seed_error_hartree": 1.5639605521755584e-07,
+        "sectors": [
+          {
+            "spin": 0,
+            "irrep": "A1",
+            "native_import_checkpoint_maximum_error_hartree": 4.3002046368201263e-11,
+            "native_seed_errors_hartree": [
+              -1.4949108617656748e-09,
+              -5.42145528470428e-09,
+              1.3279091604090354e-08,
+              -3.882490773321479e-09,
+              -2.6655158080757246e-09,
+              6.919833595020464e-09,
+              5.788407975160226e-09,
+              7.624620934620907e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 0,
+            "irrep": "B1",
+            "native_import_checkpoint_maximum_error_hartree": 4.666844688472338e-11,
+            "native_seed_errors_hartree": [
+              1.9082051494478947e-09,
+              2.8960300824110163e-10,
+              -8.901253067961079e-10,
+              8.335376833201735e-10,
+              6.390337148332037e-10,
+              1.3473780313688621e-08,
+              2.5210169951606076e-08,
+              3.045123264655558e-08
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 0,
+            "irrep": "B2",
+            "native_import_checkpoint_maximum_error_hartree": 4.473577064345591e-11,
+            "native_seed_errors_hartree": [
+              1.907466185002704e-09,
+              2.8968827336939285e-10,
+              -8.901537285055383e-10,
+              8.340350632352056e-10,
+              6.388205520124757e-10,
+              1.3473183457790583e-08,
+              2.5209075715793006e-08,
+              3.04508773751877e-08
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 0,
+            "irrep": "A2",
+            "native_import_checkpoint_maximum_error_hartree": 4.0685677049623337e-11,
+            "native_seed_errors_hartree": [
+              -5.004352487958386e-09,
+              -5.4423452411356266e-09,
+              -3.8043879158067284e-09,
+              5.76197578538995e-09,
+              6.4629688267814345e-09,
+              7.635804877281771e-09,
+              6.874287805658241e-09,
+              3.265398618168547e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 2,
+            "irrep": "A1",
+            "native_import_checkpoint_maximum_error_hartree": 4.983746748621343e-11,
+            "native_seed_errors_hartree": [
+              -1.8497559040042688e-09,
+              -3.665704184641072e-09,
+              7.149125735850248e-09,
+              5.386866064327478e-09,
+              -1.857998199739086e-09,
+              6.8796452978858724e-09,
+              2.5369786271767225e-08,
+              1.5639605521755584e-07
+            ],
+            "seed_gate_failed_roots": [
+              8
+            ]
+          },
+          {
+            "spin": 2,
+            "irrep": "B1",
+            "native_import_checkpoint_maximum_error_hartree": 4.6341597226273734e-11,
+            "native_seed_errors_hartree": [
+              7.608775831613457e-10,
+              -2.328704340470722e-09,
+              -8.392220252062543e-10,
+              -2.0734631789309788e-09,
+              -5.357776444725459e-10,
+              5.378055334404053e-09,
+              1.5343346149165882e-08,
+              1.3181519875615777e-08
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 2,
+            "irrep": "B2",
+            "native_import_checkpoint_maximum_error_hartree": 4.632738637155853e-11,
+            "native_seed_errors_hartree": [
+              7.614318064952386e-10,
+              -2.3288038164537284e-09,
+              -8.395062423005584e-10,
+              -2.073406335512118e-09,
+              -5.358060661819763e-10,
+              5.378169021241774e-09,
+              1.534367299882433e-08,
+              1.3180994073991315e-08
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 2,
+            "irrep": "A2",
+            "native_import_checkpoint_maximum_error_hartree": 4.8970605348586105e-11,
+            "native_seed_errors_hartree": [
+              -3.5970799672213616e-09,
+              -4.174751211394323e-09,
+              -4.42956604729261e-09,
+              7.1018178005033405e-09,
+              7.005183988439967e-09,
+              -1.887258349597687e-09,
+              6.867040269753488e-09,
+              6.6479231008997886e-09
+            ],
+            "seed_gate_failed_roots": []
+          }
+        ],
+        "subspace_overlap_singular_values": {
+          "core": [
+            1.0000000000000022,
+            1.0000000000000009
+          ],
+          "active": [
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0000000000000002,
+            1.0,
+            0.9999999999999999,
+            0.9999999999999996,
+            0.9999999999999991,
+            0.9999999999999958,
+            0.9999999999999744,
+            0.999999999999969,
+            0.9999999999999679
+          ]
+        },
+        "wall_seconds": 2986.696293588029,
+        "kernel_peak_container_memory_bytes": 5653573632,
+        "required_40_root_maximum_error_hartree": 4.867928282692446e-10,
+        "native_current_qc_dipole_error_au": -8.053777089678249e-11
+      },
+      {
+        "run": "co-r2500-augtz-sa11-slepc-roots8-dz80-lineage-target",
+        "seed_run": "co-r2500-augtz-sa11-qc-dz80-start-ci-space80",
+        "native_at_import_checkpoint_pass": true,
+        "original_seed_gate_pass": true,
+        "maximum_native_import_checkpoint_error_hartree": 5.009326287108706e-11,
+        "maximum_native_seed_error_hartree": 4.754674876039644e-08,
+        "sectors": [
+          {
+            "spin": 0,
+            "irrep": "A1",
+            "native_import_checkpoint_maximum_error_hartree": 3.511502200126415e-11,
+            "native_seed_errors_hartree": [
+              -7.604512575198896e-10,
+              -2.618122607600526e-09,
+              -2.8772717541869497e-10,
+              -2.60961030562612e-09,
+              -1.7731878187987604e-09,
+              5.013532700104406e-09,
+              6.036430022504646e-09,
+              5.68496716368827e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 0,
+            "irrep": "B1",
+            "native_import_checkpoint_maximum_error_hartree": 4.700950739788823e-11,
+            "native_seed_errors_hartree": [
+              5.971401151327882e-10,
+              9.746798923515598e-10,
+              -8.531770845365827e-10,
+              -1.9774404336203588e-10,
+              -2.730473624978913e-10,
+              2.003758936552913e-09,
+              7.990450967554352e-09,
+              8.001961759873666e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 0,
+            "irrep": "B2",
+            "native_import_checkpoint_maximum_error_hartree": 5.009326287108706e-11,
+            "native_seed_errors_hartree": [
+              5.966995786366169e-10,
+              9.748646334628575e-10,
+              -8.531628736818675e-10,
+              -1.9737456113944063e-10,
+              -2.730899950620369e-10,
+              2.0031762915095896e-09,
+              7.98885935182625e-09,
+              8.100684567580174e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 0,
+            "irrep": "A2",
+            "native_import_checkpoint_maximum_error_hartree": 4.210676252114354e-11,
+            "native_seed_errors_hartree": [
+              -2.185814196309366e-09,
+              -2.6221869120490737e-09,
+              -2.6288375920557883e-09,
+              6.043308076186804e-09,
+              4.321691449149512e-09,
+              5.64803315228346e-09,
+              5.3015014600532595e-09,
+              3.046139340767695e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 2,
+            "irrep": "A1",
+            "native_import_checkpoint_maximum_error_hartree": 4.807532150152838e-11,
+            "native_seed_errors_hartree": [
+              2.498268258932512e-10,
+              -1.016061901282228e-09,
+              6.292140142249991e-09,
+              2.842057256202679e-09,
+              -1.076983835446299e-09,
+              4.255170438227651e-09,
+              7.3138437528541544e-09,
+              4.754674876039644e-08
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 2,
+            "irrep": "B1",
+            "native_import_checkpoint_maximum_error_hartree": 3.0894398150849156e-11,
+            "native_seed_errors_hartree": [
+              -1.0123386573468451e-09,
+              -1.359012458124198e-09,
+              -1.9404922113608336e-10,
+              -9.165717074210988e-10,
+              -4.533262654149439e-10,
+              3.2297720053975354e-09,
+              -4.896065775028546e-10,
+              8.035257792471384e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 2,
+            "irrep": "B2",
+            "native_import_checkpoint_maximum_error_hartree": 3.517186542012496e-11,
+            "native_seed_errors_hartree": [
+              -1.011130734696053e-09,
+              -1.358941403850622e-09,
+              -1.942623839568114e-10,
+              -9.166001291305292e-10,
+              -4.538378561846912e-10,
+              3.23008464420127e-09,
+              -4.89634999212285e-10,
+              8.034447773752618e-09
+            ],
+            "seed_gate_failed_roots": []
+          },
+          {
+            "spin": 2,
+            "irrep": "A2",
+            "native_import_checkpoint_maximum_error_hartree": 3.5001335163542535e-11,
+            "native_seed_errors_hartree": [
+              -1.0425509344713646e-09,
+              -1.5831602695470792e-09,
+              -4.152951760261203e-09,
+              6.316170697573398e-09,
+              5.573241423917352e-09,
+              -1.0979164244417916e-09,
+              4.20656931510166e-09,
+              3.878909637933248e-09
+            ],
+            "seed_gate_failed_roots": []
+          }
+        ],
+        "subspace_overlap_singular_values": {
+          "core": [
+            1.0000000000000016,
+            0.9999999999999997
+          ],
+          "active": [
+            1.0000000000000009,
+            1.0000000000000009,
+            1.0000000000000002,
+            0.9999999999999997,
+            0.9999999999999996,
+            0.9999999999999994,
+            0.9999999999999993,
+            0.9999999999999983,
+            0.9999999999999983,
+            0.9999999999999925,
+            0.9999999999999919
+          ]
+        },
+        "wall_seconds": 3121.0159246099647,
+        "kernel_peak_container_memory_bytes": 5648846848,
+        "required_40_root_maximum_error_hartree": 5.420872639660956e-10,
+        "native_current_qc_dipole_error_au": -3.6126518443424516e-11
+      }
+    ],
+    "raw_probes_verified": 128,
+    "raw_eigenpairs_verified": 880,
+    "maximum_physical_residual_hartree": 7.215529645035693e-10,
+    "maximum_penalized_residual_hartree": 9.99009451454761e-10,
+    "profile_samples_verified": 34607,
+    "retained_source_hashes_verified": 478,
+    "incidental_checkout_archive_and_ignore_digests": {
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/.gitignore": "d69e4718da1c56189ffd76be2fd74941521db4c17d51096d3ce38a97bdd329c4",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/sa-evidence/state-averaged-evidence.tar.gz": "c304c953e818b298273ac9aa2f38558873779174ff27e254ddde7463fe26da51",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/sa-evidence/.gitignore": "db94d19c85c37e1f07954f0fdb3e8ec0e0dccce9136f7f4439db4c7eb2fb5671",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/qualification-evidence.tar.gz": "ad97607b6515a258da7d6e5fedf8061d2839827a726d721e16c738ca740184fd",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/.gitignore": "3a4143febfee3d7a0c8a123d6e79a76ea9fd0376acd7192d0469746238cf45f8",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/evidence/.gitignore": "db94d19c85c37e1f07954f0fdb3e8ec0e0dccce9136f7f4439db4c7eb2fb5671",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/evidence/calibration-evidence.tar.gz": "1f30d5985090d0bff0c32e6f5abe1698fe84bae9c40f80643ec1a2ce4e1b6ae7",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/fresh-basis/.gitignore": "d395b0ba25563a12165d6e20eef22434ffba56a4658a5178824f4510f2f4aa9d",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/cas12-import/.gitignore": "fcf8333057e3ba4126735c51e171725335ba015e86f7afc092d4c7da41000c1a",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/fresh-coverage/.gitignore": "bb0d02ce80c63cb0fa122ca319effd10a516a471a23e5f4d7cea960d8d0a950f",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/fresh-tz-import/.gitignore": "83cdd9f1e9cbda167d90e76405862ed5fddf78a4317d1a3fa59dfea01ed3f565",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/stretched-iteration/.gitignore": "ab7009f174ce20a92e595d1506b5d87a4fbb54a5c46bd6cadbc0a09ccea95517",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/fresh-augtz-import/.gitignore": "b55a083710b4afcc3116cfcb012caabce2cc1fe828e12fa562b58bb87bcd2514",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/fresh-augtz-coverage/.gitignore": "733f1b372fbf393718cfcf7724430718410e83ebd4c22509ae6a042f712176dc",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/mpi-throughput/.gitignore": "e52707c396cb15aff1aa2e4889ccbfa1d262ceaaa63867ea620ee226eb92c64e",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/stretched-coverage/.gitignore": "b29dbc306c0c1845beca3d02f8fa0b0500fa4f43e61ded7becaabe3404017b15",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/competing-starts/.gitignore": "6b5a1bf8752ffbb575c672fdb75dbd9078e6022fdcd4eb0bc643a7ad122e6f26",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/fresh-augtz-repairs/.gitignore": "2d5aeacc32b17c49d9648c1db48af14a4c73e7ddafc144ff47fb2064250036c1",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/outer-propagation/.gitignore": "94ea45ae9a6fa8df1bbeab2106b3c17c99e51eaa13ac32f7871535384878c3fe",
+      "cas11-stretched-basis-ci-residual-coverage/projects/ukrmol_co/qualification-evidence/competing-augtz-coverage/.gitignore": "6a591134f6909552d832631367be1117cea58d8d3b535d1785151e80bd8bc2ad",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/.gitignore": "d69e4718da1c56189ffd76be2fd74941521db4c17d51096d3ce38a97bdd329c4",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/sa-evidence/state-averaged-evidence.tar.gz": "c304c953e818b298273ac9aa2f38558873779174ff27e254ddde7463fe26da51",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/sa-evidence/.gitignore": "db94d19c85c37e1f07954f0fdb3e8ec0e0dccce9136f7f4439db4c7eb2fb5671",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/qualification-evidence.tar.gz": "ad97607b6515a258da7d6e5fedf8061d2839827a726d721e16c738ca740184fd",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/.gitignore": "3a4143febfee3d7a0c8a123d6e79a76ea9fd0376acd7192d0469746238cf45f8",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/evidence/.gitignore": "db94d19c85c37e1f07954f0fdb3e8ec0e0dccce9136f7f4439db4c7eb2fb5671",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/evidence/calibration-evidence.tar.gz": "1f30d5985090d0bff0c32e6f5abe1698fe84bae9c40f80643ec1a2ce4e1b6ae7",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/fresh-basis/.gitignore": "d395b0ba25563a12165d6e20eef22434ffba56a4658a5178824f4510f2f4aa9d",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/cas12-import/.gitignore": "fcf8333057e3ba4126735c51e171725335ba015e86f7afc092d4c7da41000c1a",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/fresh-coverage/.gitignore": "bb0d02ce80c63cb0fa122ca319effd10a516a471a23e5f4d7cea960d8d0a950f",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/fresh-tz-import/.gitignore": "83cdd9f1e9cbda167d90e76405862ed5fddf78a4317d1a3fa59dfea01ed3f565",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/stretched-iteration/.gitignore": "ab7009f174ce20a92e595d1506b5d87a4fbb54a5c46bd6cadbc0a09ccea95517",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/fresh-augtz-import/.gitignore": "b55a083710b4afcc3116cfcb012caabce2cc1fe828e12fa562b58bb87bcd2514",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/fresh-augtz-coverage/.gitignore": "733f1b372fbf393718cfcf7724430718410e83ebd4c22509ae6a042f712176dc",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/mpi-throughput/.gitignore": "e52707c396cb15aff1aa2e4889ccbfa1d262ceaaa63867ea620ee226eb92c64e",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/stretched-coverage/.gitignore": "b29dbc306c0c1845beca3d02f8fa0b0500fa4f43e61ded7becaabe3404017b15",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/competing-starts/.gitignore": "6b5a1bf8752ffbb575c672fdb75dbd9078e6022fdcd4eb0bc643a7ad122e6f26",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/fresh-augtz-repairs/.gitignore": "2d5aeacc32b17c49d9648c1db48af14a4c73e7ddafc144ff47fb2064250036c1",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/outer-propagation/.gitignore": "94ea45ae9a6fa8df1bbeab2106b3c17c99e51eaa13ac32f7871535384878c3fe",
+      "cas11-stretched-import-checkpoint-ci/projects/ukrmol_co/qualification-evidence/competing-augtz-coverage/.gitignore": "6a591134f6909552d832631367be1117cea58d8d3b535d1785151e80bd8bc2ad"
+    },
+    "original_controller_exit": 1,
+    "scope": "Import-checkpoint solver check and diagnosed seed-orbital drift; original strict TZ seed gate remains rejected"
+  },
+  "scope": "Original strict TZ seed gate failure preserved; native eigensolve passes at imported orbitals; aug-TZ import passes",
+  "byte_identical_repackaging": true
+}

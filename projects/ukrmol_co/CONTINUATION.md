@@ -14,16 +14,21 @@ CAS(10,12)'s tight QC starts, ensemble coverage and full forty-root/dipole impor
 now pass locally in 6.201 hours / 40.405 GiB; its compressed DZ CI failure still gates dependent
 repairs. Stretched CAS(10,11) DZ also passes its 64-root/dipole import after a
 retained-data decimal-format recheck; its original verifier failure is preserved
-and same-geometry TZ/aug-TZ QC also passes. Independent basis coverage and
-individually gated imports now run. The neutral stretched RHF reference
-remains rejected. The next decisions
+and same-geometry TZ/aug-TZ QC also passes. Both independent basis coverage
+scans pass; the stretched aug-TZ 64-root import also passes. Stretched TZ's
+original extra-root gate rejects triplet-A1 root eight, so a fixed-orbital
+diagnostic on the imported checkpoint now separates native solver error from
+seed-orbital drift: all native roots match independent CI at those actual
+orbitals within 5.01e-11 Hartree. The original seed-gate failure is retained.
+A 26-point-per-basis near-equilibrium neutral pilot now runs on the released
+slot. The stretched RHF reference remains rejected. The next decisions
 depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
-| 4–7 | Staged CAS(10,11) owner PID 916479 resumed, aug-TZ space-80 QC active | Four downward starts/six comparisons pass; covered competing-branch import PID 954948 waits for the already advanced staged owner, then preflight PID 956517 follows its completion |
-| 8–11 | Independent stretched TZ/aug-TZ CI residual/coverage, successor PID 959637; individually gated imports follow | Both basis QC targets pass; each 48-probe 600-cycle scan gates its own 64-root/dipole import, with original DZ verifier failure preserved and competing-start checks still open |
+| 0–3 | Staged CAS(10,12) aug-TZ QC, 32-GiB container; original projected TZ attempt rejects after 150 cycles | Existing eligible CI-repair supervisor PID 918331 follows owner completion; fresh-RHF TZ/aug-TZ targets remain independently qualified QC branches |
+| 4–7 | Covered competing aug-TZ 64-root import PID 954948; staged owner PID 916479 has completed | Preflight PID 956517 follows import-worker completion under its own exact target/CI contract; original staged equilibrium/compressed CI failures remain rejected |
+| 8–11 | Near-equilibrium QZ/5Z neutral pilot under successor PID 965433; imported-orbital CI diagnostic passes | 46 new calculations on one four-core worker, then held-point/basis diagnostics; original TZ seed-spectrum rejection retained |
 | 12–15 | CAS(10,11) l=5 continuum control under successor PID 950692, 48-GiB container | The finite l=3/l=5 queue then replays saved-data fits; final independent continuum comparisons follow completed results |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
@@ -1853,6 +1858,94 @@ for PID 954948's completion, independently of its scientific verdict; preflight'
 own target gates remain explicit. No active calculation is retired for this
 scheduling transition. CPUs **0–3** retain staged CAS(10,12) work and **12–15**
 now run the queued l=5 continuum control.
+
+### Stretched import verdicts, released CPU slot and neutral pilot
+
+PID **959637** completes with original controller exit **one** and step
+exits **[0,0,1,0,0]**. Both seed-orbital coverage scans pass all **96 probes /
+624 eigenpair evaluations**. Both native engine/batches pass; aug-TZ's
+independent all-64-root verifier passes. TZ's original verifier rejects
+**triplet A1, root eight**, whose difference from the covered seed is
+**1.56396e-7 Hartree** against the unchanged **1e-7** gate. Forty required
+roots and the current-QC dipole pass. This failure occurs at the physical
+root comparison, not the saved-table decimal-format gate.
+
+Finite successor PID **965433**, attached `sh_115db4f6f001Vy3QiLPA5amPuc`,
+owns **8–11** after the original controller completes and its process exits.
+Source: `prepared/import-checkpoint-neutral-source/import-checkpoint-neutral.py`,
+SHA256 `ef5306180287a187ded272b219c0dc0e06dd570feac744aa86118650ca9084c6`.
+It validates the predecessor's source hashes and preserves the original exit
+one before using the released slot. The imported-orbital diagnostic requests
+eight roots in all eight sectors at spaces **80/160**, **600 cycles**, with
+the unchanged validated residual helper. It checks native spectra against
+the actual import checkpoint, separately records checkpoint-minus-seed
+shifts, and preserves original seed-gate verdicts. Diagnostic:
+`diagnostics/cas11-stretched-import-checkpoint-ci/`, **8-GiB** container,
+**16 GiB available RAM / 20 GiB free scratch** floors.
+
+The imported-orbital diagnostic now passes all **32 probes / 256 eigenpair
+evaluations**. All 64 native roots agree with independent CI at the actual
+TZ/aug-TZ checkpoints within **4.984e-11 / 5.009e-11 Hartree**. The seed-to-import
+orbital change therefore explains the original TZ discrepancy; its strict
+seed-gate rejection is retained. Aug-TZ matches its seed within **4.755e-8
+Hartree**, passing the original gate. Native-import costs are **2986.70 /
+3121.02 seconds**, with **5.265 / 5.261 GiB** peaks. Seed coverage takes
+**524.56 seconds / 0.377 GiB**; the imported-orbital diagnostic takes
+**307.42 seconds / 0.448 GiB**.
+
+The [stretched-basis import companion](qualification-evidence/stretched-basis-imports/README.md)
+reconstructs all **128 raw probes / 880 eigenpair evaluations**, native
+spectra/serialization/dipoles, original exits, **478 retained source hashes**
+and **34607 resource samples**. Its **1296 payloads** pass byte-for-byte public
+fetch and byte-identical repackaging. Archive:
+`https://data.qscat.org/ukrmol-co-stretched-basis-imports-2026-10-07/stretched-basis-imports.tar.44ddb0fd8d23.gz`,
+SHA256 `44ddb0fd8d23776b0715eb87da416c5b19dc67349110e91933051da140d02e52`.
+Publication, frozen evidence and executable reconstruction remain under
+`prepared/publication-stretched-basis-imports-20261007/`.
+
+The same finite supervisor then executes the independent
+[near-equilibrium neutral recipe](calibration-neutral-near-equilibrium.json),
+regardless of that scattering diagnostic's scientific verdict. It reuses
+the original QZ/5Z points at **1.9/2.1323/2.5 bohr** and adds **23 points per
+basis** on a **0.025-bohr** grid: **26 geometries per basis / 46 new jobs**.
+The [contract](neutral-near-equilibrium-contract.json) specifies frozen-core
+spherical RHF/CCSD(T), CCSD lambda-density dipoles, stable references and
+per-basis relative-energy zero. Predeclared held-point comparisons use cubic
+not-a-knot and PCHIP without extrapolation, with **1 meV / 0.001 a.u.**
+diagnostic budgets; QZ→5Z relative-energy budget is **20 meV**. All points
+retain convergence/density/amplitude checks. This is a labelled pilot over
+the already stable reference domain, with correlation treatment still open.
+One sequential four-core worker uses **24-GiB containers**, **20000 MB**
+PySCF memory, **32 GiB available RAM / 40 GiB free scratch** floors.
+Batch/analysis/anchor hashes remain under the neutral root in
+`neutral-pilot-inputs/`; each fresh run remains under `runs/`.
+The last census finds six new QZ jobs completed with exit zero and the
+R=2.075-bohr QZ point active. Headroom is **103342924 KiB available RAM /
+155466256384 free disk bytes**. The 5Z points and final curve diagnostics
+remain outstanding.
+
+Staged owner PID **916479** also completes its three batches with exits
+**[1,1,0]**: both equilibrium projected aug-TZ 80/160 retries still reject
+singlet B1/B2 CI/spin flags; both R=1.9 TZ/aug-TZ staged starts reject
+singlet A2 CI/spin flags despite orbital convergence; both R=2.5 basis
+starts pass. Original equilibrium objectives agreeing to roundoff does not
+override the failed flags. The separately completed fresh/downward targets
+remain distinct, accepted lineages. PID **954948** now runs its covered
+competing aug-TZ native import on **4–7**; the contractual preflight follows.
+CAS(10,12)'s projected TZ attempt preserves its **29192.74-second** failure:
+150 macroiterations end at gradient **1.05004e-5**, above **1e-7**, with
+singlet-A2 CI rejected. Its aug-TZ attempt continues under the original cap.
+
+The completed l=3 scattering control independently reanalyzes against l=4:
+**+3.9602 meV** position, **+0.7434%** full width, **0.0166575 rad** maximum
+phase difference modulo pi over the common 99-point grid. Both Pi sectors
+pass. Independent fixed-window fits at **1.8–3.3 / 2.0–3.15 requested eV**
+and backgrounds 1–4 stay within **3.982 meV / 0.7214%** between angular
+cutoffs. Control cost is **10621.10 seconds / 2.950 hours / 24.329 GiB**.
+The executable reanalysis and input-digest report persist under
+`prepared/continuum-l3-reanalysis-20261007/`.
+The l=5 calculation and queued native background replays remain required
+to finish that refinement sequence.
 
 ### Scientific decisions still pending
 

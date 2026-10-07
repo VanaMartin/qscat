@@ -1,0 +1,35 @@
+{
+  "scope": "Near-equilibrium frozen-core RHF/CCSD(T) pilot; correlation-model and dissociation qualification remain open",
+  "method": "spherical RHF/CCSD(T), two frozen occupied spatial orbitals, ten correlated electrons",
+  "dipole_method": "all-electron CCSD lambda density, not a CCSD(T) energy derivative",
+  "basis_pair": ["aug-cc-pVQZ", "aug-cc-pV5Z"],
+  "uniform_grid_bohr": {"first": 1.9, "last": 2.5, "step": 0.025, "points": 25},
+  "additional_reference_bohr": 2.1323,
+  "relative_energy_reference": "Each basis uses its own R=2.1323-bohr energy",
+  "reused_runs": [
+    "co-r19-aug-qz-neutral", "co-eq-aug-qz-neutral", "co-r25-aug-qz-neutral",
+    "co-r19-aug-5z-neutral", "co-eq-aug-5z-neutral", "co-r25-aug-5z-neutral"
+  ],
+  "new_calculations": 46,
+  "held_point_check": {
+    "knots": "Thirteen points on the 0.05-bohr grid, plus R=2.1323",
+    "held_points": "Twelve independent interval midpoints on the 0.025-bohr grid",
+    "interpolants": ["cubic spline, not-a-knot boundaries", "PCHIP"],
+    "extrapolate": false,
+    "energy_diagnostic_budget_ev": 0.001,
+    "z_dipole_diagnostic_budget_au": 0.001
+  },
+  "basis_relative_energy_diagnostic_budget_ev": 0.02,
+  "acceptance": "Every used point requires converged RHF/CCSD/lambda, internal/external RHF stability, finite amplitude diagnostics and a 14-electron density; failed references stop before CCSD(T)",
+  "diagnostic_budgets": "Predeclared pilot thresholds; passing does not establish the correlation treatment or a complete neutral potential",
+  "execution": {
+    "host": "sadaharu",
+    "physical_cpus": "8-11",
+    "threads_per_job": 4,
+    "container_memory": "24g",
+    "pyscf_memory_mb": 20000,
+    "available_ram_floor_gib": 32,
+    "free_scratch_floor_gib": 40,
+    "layout": "One sequential worker after the stretched-basis owner and import-checkpoint diagnostic complete"
+  }
+}
