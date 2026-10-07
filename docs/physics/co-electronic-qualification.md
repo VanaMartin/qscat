@@ -227,6 +227,31 @@ a pre-container pause-acknowledgement race and a completion-message mismatch
 after four successful native stages. Fresh retries preserve their sources,
 original exits and CPU-slot resumption records.
 
+### Outer-only propagation refinement
+
+At fixed CAS(10,11) inner amplitudes and the original 99-point grid, refine
+radial propagation from 8→16→32 subranges at a 100-bohr matching radius.
+Then increase the Gailitis matching radius to 150/200 bohr with 26/36
+subranges, keeping interval lengths at most 5.125 bohr and Legendre order ten.
+All forty native stages for both components succeed in **1669.54 seconds /
+1.868 GiB**. Grid, cross-section and Pi checks pass.
+
+The full-precision binary K-matrix audit resolves the identical printed
+refined results: maximum baseline phase change is **2.56845e-6 rad modulo pi**,
+and successive refined differences stay below **2.28e-10 rad**. Native phases
+reconstruct as `sum(arctan(eigvalsh(K)))` within 4.87e-8 rad, their rounding
+precision. Linear-background fits of the binary phases over the fixed
+1.6–3.5/2.0–3.1-input-eV intervals change position/full width by at most
+**2.63e-8 / 4.35e-8 eV**. These pass the existing numerical gates.
+
+Every requested sector is verified against all four rank logs. The pinned
+source audit follows `BPROP` through `RPROP1_MPI`, `CURLYR`/`GAILIT` and
+`RPROPX` to the K-matrix solve, confirming an active refinement family.
+The [propagation companion](../../projects/ukrmol_co/qualification-evidence/outer-propagation/README.md)
+retains raw binary K data, all rank logs, sources and the reconstruction.
+The plateau is resolved well below the chosen phase tolerance; electronic-model,
+continuum/channel and fit-background qualification remain open.
+
 ## Independently correlated neutral pilot
 
 The neutral pilot uses conventional spherical-basis RHF followed by

@@ -988,6 +988,29 @@ amplitudes. Native and full fixed-window independent fits are retained in
 select saved T-matrix columns, not the coupled-channel space; changing them
 alone would not be a channel-convergence test.
 
+This worker now completes with original exit **zero**, **1669.54 seconds /
+1.868 GiB**, and resumes the waiting owner. All forty native stages and both
+components' grid/cross-section/Pi checks pass. All four refined controls have
+identical printed phases, prompting a full-precision binary K audit. The audit
+verifies every requested sector across all four rank logs and follows the
+active pinned `BPROP`→`RPROP1_MPI`→`CURLYR`/`GAILIT`→`RPROPX` path. All four
+audited engine files match the checksum-pinned upstream archive.
+
+Binary K eigenvalue phase sums reconstruct native phases within 4.87e-8 rad.
+Maximum refinement-minus-baseline phase difference is **2.56845e-6 rad modulo
+pi**, while successive refined differences stay below **2.28e-10 rad**.
+Fixed-window linear-background fits using full-precision binary phases change
+position/full width by at most **2.63e-8 / 4.35e-8 eV**. Radial propagation
+passes its chosen numerical gates for this fixed inner-region model.
+The [propagation companion](qualification-evidence/outer-propagation/README.md)
+preserves all binary K outputs and baseline, raw rank logs and the executable
+verifier. Its 296 payloads verify, with public byte-for-byte fetch and
+byte-identical repackaging. Archive:
+`https://data.qscat.org/ukrmol-co-outer-propagation-2026-10-07/outer-propagation.tar.09ee4c814d9a.gz`,
+SHA256 `09ee4c814d9af4148e2e54094a325322ae57a240406c88d69ffd44305b487ea5`.
+Publication bundle/verifier persist at
+`prepared/publication-outer-propagation-20261007/`.
+
 The finite state-averaged throughput probe follows PID 932465:
 `prepared/sa10-mpi-throughput-source/sa10-mpi-throughput.py`, PID **932604**, attached
 `sh_113ef4b36001u3ews9SJlngFTy`. Its tracked input is
@@ -1003,6 +1026,13 @@ RAM; four concurrent jobs use 8-GiB limits each / 48-GiB available RAM, with
 20-GiB scratch gates. Evidence will be `diagnostics/cas10-tight-mpi-throughput/`.
 All three follow-ons borrow the original owner only while it is still waiting
 without children; otherwise they wait for its exact recorded completion.
+
+The subsequent resource inspection finds the first one-rank matched scaling
+job running on CPUs **12–15**, alongside staged CAS(10,12) TZ QC on **0–3**,
+fresh CAS(10,12) aug-TZ QC on **4–7** and the CAS(10,12) target import on **8–11**.
+The host has **106 GiB available RAM** and **158 GiB free `/home`**. The remaining
+scaling/concurrency entries, stretched import/basis follow-on and original
+coverage/continuum queue retain their dependency gates.
 
 Finally, the CPU-12–15 queue runs
 [`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):
