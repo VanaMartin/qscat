@@ -1,0 +1,39 @@
+{
+  "record_type": "queued-native-scattering-dimension-preflight",
+  "source_commit": "9e7d431",
+  "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "driver_sha256": "472e27521d048a02e0d67c00f5bd56ea0bed460129ea346a3aec7f8a7a1a6daf",
+  "cpu_group": "4-7",
+  "ranks": 4,
+  "memory_limit_gib": 16,
+  "minimum_available_ram_gib": 24,
+  "minimum_free_scratch_gib": 20,
+  "dependency": "completion of competing-augtz-import-source supervisor; independent CAS12 import gates must pass",
+  "targets": [
+    {
+      "name": "co-eq-ccdz-sa11-tight-cc40",
+      "role": "native-preparation differential control against completed scattering",
+      "expected_raw_congen_csfs_per_pi_sector": 344124,
+      "expected_contracted_dimension_per_pi_sector": 27546,
+      "expected_uncontracted_l2_csfs_per_pi_sector": 26136,
+      "expected_contracted_continuum_dimension_per_pi_sector": 1410
+    },
+    {
+      "name": "co-eq-ccdz-sa12-slepc-target",
+      "role": "qualified forty-root/dipole target for native scattering preparation",
+      "parent_archive_sha256": "0173df04a7694f1d13a230bc1bc8a6c4f495c78ea23e780d08f9b94acdd0d195"
+    }
+  ],
+  "bond_length_bohr": 2.1323,
+  "basis": "cc-pVDZ",
+  "radius_bohr": 18,
+  "maxl": 4,
+  "deletion_threshold": 1e-6,
+  "configured_retained_target_states": 40,
+  "native_stages_per_preflight": ["target.scatci_integrals", "scattering.congen.doublet.B1", "scattering.congen.doublet.B2"],
+  "congen_workspace": {"ndimx": 10000000, "cdimx": 1000000, "nodimx": 1000000},
+  "workspace_process_grids": [[2, 2], [4, 4], [4, 8]],
+  "workspace_binary_sha256": "ef38d6762972549112458999cdc1be0c2f2cb4c4bb76951c8bdb4a8ae1907c2b",
+  "controls": ["completed native CAS11 dimension", "missing L2 group rejected", "changed retained-target inventory rejected"],
+  "scope": "Native integral/CONGEN preparation, inferred contracted dimensions and installed-library array floors; no scattering eigensolve or resonance qualification"
+}

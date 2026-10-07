@@ -1651,6 +1651,51 @@ on **12–15**. Available RAM is approximately **99 GiB** and free `/home` **148
 GiB** at this transition. Further finite Sadaharu work remains reasonable;
 the approximately $200 paid experiment stays deferred.
 
+### Queued native CAS(10,12) scattering-dimension preflight
+
+The passing forty-root/dipole target releases a further local resource audit.
+Preflight supervisor PID **956517**, attached `sh_1153462ce001bUWk5LqtsP2iS8`,
+waits for the exact competing aug-TZ import worker **954948** to finish, then
+leases/resumes waiting staged owner **916479** on **4–7**. If that owner advances
+or has active children/containers, the guard rejects the lease and preserves the
+original error. Source/record:
+`prepared/cas12-scattering-preflight-source/cas12-scattering-preflight.py`,
+SHA256 `472e27521d048a02e0d67c00f5bd56ea0bed460129ea346a3aec7f8a7a1a6daf`.
+The tracked [preflight contract](scattering-preflight-contract.json) preserves
+the inputs, resource limits and controls. Container limit is **16 GiB**, with
+**24 GiB available RAM / 20 GiB free scratch** required.
+
+The finite worker first regenerates native integral/CONGEN preparation for the
+completed tight CAS(10,11) baseline, requiring the inferred contracted dimension
+to reproduce native SCATCI's **27546**, raw CONGEN **344124**, uncontracted L2
+**26136**, contracted continuum **1410**, in both Pi sectors. It then prepares
+the same fixed-DZ/radius-18/l=4/deletion-1e-6 scattering model from the newly
+qualified CAS(10,12) target. Each preflight makes a fresh disposable copy of
+retained target inputs/binaries and checks the original target/CI data hashes.
+The program filter executes only continuum-containing integral preparation and
+the B1/B2 native CONGEN stages; the disposable main driver writes native SCATCI
+inputs and exits before any Hamiltonian construction/diagonalization. QC,
+target eigenpairs and DENPROP are reused from their passing records.
+
+The contracted dimension is inferred independently from the native CONGEN L2
+CSF range plus `sum(NUMTGT*NOTGT)` in the generated scattering input. The
+completed CAS(10,11) native output confirms that formula at dimension 27546;
+negative controls reject a missing L2 group and a changed target inventory.
+Their raw reference files, results and source provenance are frozen with the
+worker. Limits are `NDIMX=10000000`, `CDIMX=NODIMX=1000000`, independent of RAM.
+The inferred dimension remains a preparation result, not a completed SCATCI
+dimension measurement or a physical scattering result.
+
+Finally the already audited installed-library utility queries the inferred
+CAS(10,12) dimension on **2×2 / 4×4 / 4×8** process grids, oversubscribed for
+these lightweight queries only. Binary SHA256 stays
+`ef38d6762972549112458999cdc1be0c2f2cb4c4bb76951c8bdb4a8ae1907c2b`.
+Overflow/undersized queries retain their nonzero exits; only valid queries emit
+array floors. Outputs/resources/source/original exits go to
+`diagnostics/cas12-scattering-dimension-preflight/`. This finite local audit
+reduces the remaining external-host uncertainty without repeating the five-hour
+density stage. Paid provisioning remains deferred.
+
 ### Scientific decisions still pending
 
 1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)

@@ -91,3 +91,9 @@ The [continuation](../../CONTINUATION.md) records completion and release of CPUs
 8–11 to the gated stretched CAS(10,11) import/basis queue. CAS(10,12) scattering
 still needs its actual contracted dimensions, workspaces, memory/scaling and
 electronic-model checks. The numerical target import is now locally established.
+
+A [native scattering preflight](../../scattering-preflight-contract.json) is
+now queued on Sadaharu. It reuses qualified target data, reproduces the completed
+CAS(10,11) dimension as a control, generates native CAS(10,12) integral/CONGEN
+preparation and queries installed-library workspaces at its inferred contracted
+dimension. This avoids repeating DENPROP and retains its separate scientific scope.
