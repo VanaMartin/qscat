@@ -654,6 +654,15 @@ attempts fail external RHF stability, preserving converged RHF diagnostics and
 original exits; a different correlation treatment is required for that region.
 The current neutral aggregate retains fifteen attempts: ten passing records,
 the initial failed import and four rejected unstable stretched references.
+The finite [near-equilibrium pilot](calibration-neutral-near-equilibrium.json)
+now adds 23 QZ and 23 5Z calculations on the 1.9–2.5-bohr, 0.025-bohr grid,
+reusing the original three anchors for 26 points per basis. Its
+[predeclared contract](neutral-near-equilibrium-contract.json) includes
+independent held-point interpolation and per-basis relative-energy checks.
+The [live handoff](CONTINUATION.md) records execution and remaining gates;
+the [literature comparison](../../docs/physics/co-electronic-qualification.md#equilibrium-comparison-with-published-calculations)
+places the strongest completed resonance and neutral-property checks beside
+the published models without treating closeness as convergence.
 See [the qualification method](../../docs/physics/co-electronic-qualification.md)
 for the numerical contract and the CAS(10,12) workspace audit. Its valid
 eight-/sixteen-rank array floors are about 149 GiB, exceeding the current

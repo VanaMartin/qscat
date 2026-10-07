@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "stretched-basis-imports.tar.gz": {
+      "bytes": 3587157,
+      "sha256": "44ddb0fd8d23776b0715eb87da416c5b19dc67349110e91933051da140d02e52"
+    }
+  },
+  "git_sha": "72a90200fc2d2a5efa8d176facc1774ce2763c38",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-stretched-basis-imports-2026-10-07/"
+}
