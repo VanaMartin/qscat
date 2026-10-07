@@ -345,8 +345,20 @@ and z dipole by −0.041475 a.u. The ensemble objective is the variational
 quantity; its reduction does not enforce a lower individual ground root.
 Minimum initial-to-final active overlaps are 0.171594/0.152714/0.036790.
 These significant changes require competing-start and orbital/state continuity
-checks before assigning a basis-convergence interpretation. Independent
-coverage/residual scans are running; all-root/dipole imports remain required.
+checks before assigning a basis-convergence interpretation.
+
+The independent 600-cycle coverage/residual scans now pass all **144 probes /
+936 eigenpair evaluations**. All flags, spins, CI-vector orthogonality and
+physical/spin-penalized residual gates pass; residual maxima are **6.96e-10 /
+9.99e-10 Hartree**, respectively. Maximum trial-space energy difference is
+3.13e-13 Hartree and common first-five root-count difference is 3.98e-13
+Hartree. Wall is **32.36 minutes / 0.728 GiB**. The
+[coverage companion](../../projects/ukrmol_co/qualification-evidence/fresh-coverage/README.md)
+reconstructs every raw spectrum/spin/convergence block and retains the unchanged
+parent checkpoints and frozen measurement source. This validates lowest-root
+coverage on those fixed orbitals; competing starts and all-root/dipole imports
+remain required. The covered fresh CAS(10,11) TZ target's 64-root UKRmol import
+is queued with independent eight-root/space-160 controls and the existing gates.
 
 ## Selected-root target experiment
 

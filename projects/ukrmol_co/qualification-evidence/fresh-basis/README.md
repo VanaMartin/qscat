@@ -57,3 +57,7 @@ PYTHONPATH=. uv run python "$EVIDENCE_DIR/state-averaged-evidence/verify-fresh-b
 
 The [continuation](../../CONTINUATION.md) records the finite coverage/residual
 scans and the [space-80/160 fresh-lineage repairs](../../calibration-sa11-fresh-augtz-ci-repairs.json).
+
+The later [coverage/residual companion](../fresh-coverage/README.md) now passes
+all three targets' 144 probes/936 eigenpair evaluations under its 600-cycle
+contract. Competing starts and independent imports remain pending.

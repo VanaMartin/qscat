@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "fresh-basis-coverage.tar.gz": {
+      "bytes": 542805,
+      "sha256": "2058e2e4c269a98540e6da9af7b34604ea5f277c12cf9fad50fa10b778ac2016"
+    }
+  },
+  "git_sha": "1935c3bf8f6dd0764dc8b532b76072230a44225f",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-fresh-basis-coverage-2026-10-07/"
+}
