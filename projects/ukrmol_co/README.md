@@ -535,6 +535,13 @@ held-point fits show that the constant background describes the data less well
 than terms 2–4. The pinned engine uses 0.0735 Ryd per requested eV; its 18.44-ppm
 energy-grid convention is explicitly retained at this boundary. See
 [the phase-fit contract](../../docs/physics/co-electronic-qualification.md#independent-phase-fit-diagnostic).
+The fresh equilibrium TZ/aug-TZ QC batch completes with three passes and the
+original CAS(10,11) aug-TZ fresh-CI rejection, retained in the
+[fresh-basis companion](qualification-evidence/fresh-basis/README.md). Fresh
+CAS(10,12) TZ→aug-TZ lowers the averaged objective by 1.80 eV while raising
+the ground-state energy by 0.480 eV; root coverage, competing starts and
+independent imports are still required. Finite coverage/residual scans and
+same-basis fresh-lineage CI-space repairs are now supervised on Sadaharu.
 Outer-only 99→197→393-point checks also pass: identical common-point phases and
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;

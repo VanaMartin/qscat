@@ -82,6 +82,13 @@ sectors and full-precision binary K matrices. Step/radius refinement changes
 phases by at most 2.57e-6 rad, with successive refined differences below
 2.28e-10 rad, passing the chosen numerical propagation gates.
 
+The [fresh-basis companion](fresh-basis/README.md) preserves four completed
+fresh TZ/aug-TZ QC starts: three passes and the original CAS(10,11) aug-TZ
+fresh-CI rejection. Its 194 payloads and 160 raw final-state energies/spins
+verify. Fresh CAS(10,12) TZ→aug-TZ lowers the ensemble objective by 1.80 eV
+but raises the ground-state energy by 0.480 eV; competing-start and import
+qualification remain open.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.

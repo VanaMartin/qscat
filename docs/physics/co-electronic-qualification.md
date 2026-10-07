@@ -328,6 +328,26 @@ would be a separate engine configuration requiring its own build/reference and
 all-root/dipole gates; increasing only the current four-rank memory limit does
 not establish a viable calculation.
 
+## Fresh larger-basis QC starts
+
+The fresh-RHF-start equilibrium batch now completes: CAS(10,11)/cc-pVTZ and
+CAS(10,12)/cc-pVTZ/aug-cc-pVTZ pass tight QC in 39.75/112.87/91.74 minutes.
+CAS(10,11)/aug-cc-pVTZ is rejected after 22.80 minutes: orbital optimization
+and its optimized CI converge, but fresh singlet-A1 CI does not. Matching
+energies within 1.42e-13 Hartree cannot replace that convergence flag.
+The [fresh-basis companion](../../projects/ukrmol_co/qualification-evidence/fresh-basis/README.md)
+retains all four attempts and reconstructs 160 raw final-state energies/spins.
+
+For fresh cc-pVTZ starts, CAS(10,11)→CAS(10,12) changes ground energy by
+−0.391782 eV and z dipole by +0.152827 a.u. For fresh CAS(10,12), TZ→aug-TZ
+changes ground energy by +0.479725 eV, ensemble objective by −1.795712 eV
+and z dipole by −0.041475 a.u. The ensemble objective is the variational
+quantity; its reduction does not enforce a lower individual ground root.
+Minimum initial-to-final active overlaps are 0.171594/0.152714/0.036790.
+These significant changes require competing-start and orbital/state continuity
+checks before assigning a basis-convergence interpretation. Independent
+coverage/residual scans are running; all-root/dipole imports remain required.
+
 ## Selected-root target experiment
 
 The pinned UKRmol-in 3.3.0 engine already includes a disk-backed Davidson
