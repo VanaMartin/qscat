@@ -1,0 +1,21 @@
+{
+  "git_sha": "91237820376c79012d8dc41357a7e396eff325da",
+  "record_type": "native-sparse-scattering-inner-region-control-and-downstream-rejection",
+  "date": "2026-10-07",
+  "source_provenance": "Baseline commit plus checksum-pinned experimental sources retained in each owner snapshot",
+  "archive_sha256": "d27863143d93817f2ca740a338601f109d8fe3c79a22f5f1ac571f81622067b2",
+  "archive_bytes": 35126018,
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 212,
+    "profiles": 1464,
+    "energy_max_difference_hartree": 5.968558980384842e-13,
+    "continuum_vector_max_difference": 7.876959456920574e-08,
+    "maximum_absolute_residual_hartree": 1.3401802952605527e-10,
+    "kernel_peak_gib": 1.2277908325195312,
+    "wall_seconds": 292.93242416810244,
+    "phase_or_resonance_verdict": null,
+    "downstream_rejection_preserved": true
+  },
+  "scope": "B1-only 128-root CAS10 native sparse solve; no phase or resonance verdict"
+}

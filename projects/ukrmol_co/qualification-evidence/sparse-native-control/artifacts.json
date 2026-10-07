@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "sparse-control.tar.gz": {
+      "bytes": 35126018,
+      "sha256": "d27863143d93817f2ca740a338601f109d8fe3c79a22f5f1ac571f81622067b2"
+    }
+  },
+  "git_sha": "91237820376c79012d8dc41357a7e396eff325da",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-sparse-native-control-2026-10-07/"
+}
