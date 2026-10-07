@@ -134,6 +134,10 @@ The matched numerical configurations, generated diagonalizer inputs and raw
 phase/candidate comparisons, independent/held-point fits, four outer grids and
 their MAXFIT limits are also reconstructed. All 41 prior run records and sixteen
 prior batch records remain exact.
+The later [stretched-repair coverage companion](stretched-coverage/README.md)
+retains another 96 probes and the failed strict coverage gate. It also measures
+continuity of the matched CAS(10,10) orbitals. The main 46-attempt archive and
+its prior snapshots remain frozen.
 The full dense/SLEPc comparison and its storage-floor calculation are independently
 reconstructed from raw stages, resources, roots, dipoles and pinned source.
 

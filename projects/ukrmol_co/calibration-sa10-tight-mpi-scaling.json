@@ -1,0 +1,14 @@
+[
+  {
+    "name": "co-eq-ccdz-sa10-tight-cc40-mpi1",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--congen-workspace", "1000000", "--scatci-memory-gib", "6", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-tight-cc40-matched/output/CO/geom1/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--maxl", "4", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "1"]
+  },
+  {
+    "name": "co-eq-ccdz-sa10-tight-cc40-mpi2",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--congen-workspace", "1000000", "--scatci-memory-gib", "6", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-tight-cc40-matched/output/CO/geom1/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--maxl", "4", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "2"]
+  },
+  {
+    "name": "co-eq-ccdz-sa10-tight-cc40-mpi4",
+    "args": ["--basis", "cc-pVDZ", "--model", "CAS-A", "--orbitals", "state-averaged", "--active-orbitals", "4", "3", "3", "0", "--virtual-orbitals", "0", "0", "0", "0", "--congen-workspace", "1000000", "--scatci-memory-gib", "6", "--target-initial-checkpoint", "/work/runs/co-eq-ccdz-sa10-tight-cc40-matched/output/CO/geom1/co.casscf.chk", "--target-ci-fresh-start", "--target-energy-tolerance", "1e-11", "--target-gradient-tolerance", "1e-7", "--target-ci-tolerance", "1e-12", "--target-ci-residual-tolerance", "1e-9", "--target-ci-lindep", "1e-22", "--target-ah-lindep", "1e-24", "--target-ah-tolerance", "1e-16", "--target-ah-start-tolerance", "1e-8", "--target-max-cycles", "150", "--maxl", "4", "--deletion-threshold", "1e-6", "--energy-step-ev", "0.05", "--energies", "99", "--ranks", "4"]
+  }
+]

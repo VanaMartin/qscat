@@ -1,0 +1,10 @@
+{
+  "git_sha": "f377db8587db80f5756c324a63bc99b5e6121947",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-stretched-coverage-2026-10-07/",
+  "artifacts": {
+    "stretched-repair-coverage.tar.gz": {
+      "sha256": "0d8f79e3de6a270a870dd5efc32d1452f46b46605d1a6cf89ce8f8280e933e63",
+      "bytes": 298157
+    }
+  }
+}
