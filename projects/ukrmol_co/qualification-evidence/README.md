@@ -113,6 +113,12 @@ passes all 96 probes/624 eigenpair evaluations, with physical/penalized residual
 maxima 6.62e-10/9.94e-10 Hartree. All 253 payloads verify. The 10.02-minute /
 0.391-GiB scan releases a gated 64-root UKRmol import on Sadaharu.
 
+That [aug-TZ import companion](fresh-augtz-import/README.md) now passes all 64
+native roots against both repaired seeds within 5.969e-11/5.764e-11 Hartree.
+Dipole and orbital-subspace gates pass; engine, supervisor and verifier all
+exit zero. All 181 payloads and 96 raw reference spectra verify. Cost is
+56.01 minutes / 5.268 GiB. Competing-start projections are now active.
+
 The [matched MPI/throughput companion](mpi-throughput/README.md) now passes all
 seven CAS(10,10) replicas. One/two/four ranks take 3105.91/1830.62/1239.61 seconds;
 four concurrent single-core jobs finish in 3444.36 seconds, **1.440×** the

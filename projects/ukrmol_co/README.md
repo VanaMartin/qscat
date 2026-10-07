@@ -558,9 +558,12 @@ retains both successes and the exact rejected parent. Ninety-six independent
 coverage/residual probes now pass, with 624 eigenpair evaluations, in
 10.02 minutes / 0.391 GiB; the
 [coverage companion](qualification-evidence/fresh-augtz-coverage/README.md)
-preserves the raw spectra and residual gates. A coverage-gated 64-root aug-TZ
-import is now active; competing starts and
-electronic-model qualification remain required.
+preserves the raw spectra and residual gates. The
+[64-root aug-TZ import](qualification-evidence/fresh-augtz-import/README.md)
+now passes against both repaired seeds within 5.969e-11/5.764e-11 Hartree,
+with dipole/subspace gates accepted, in 56.01 minutes / 5.268 GiB. Four
+same-geometry TZ↔aug-TZ space-80/160 projections now test competing starts;
+electronic-model qualification remains required.
 Outer-only 99→197→393-point checks also pass: identical common-point phases and
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;
@@ -575,8 +578,9 @@ preserves all binary outputs, rank logs and the reconstruction.
 The finite continuation also queues `calibration-sa11-tight-continuum.json`:
 l=3/l=5 controls against the completed tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.
-These await completed baseline/extra-root gates and release of the large-memory
-import worker. Each passing run receives saved-K-matrix background/detection
+Their baseline/extra-root gates pass, and a finite successor now advances them
+on CPUs 12–15 while CAS(10,12) import continues on 8–11. Each passing run receives
+saved-K-matrix background/detection
 replays; [the live handoff](CONTINUATION.md#local-continuation--7-october-2026)
 records the exact queues, resource gates and new fresh-TZ/CI observations.
 This target route stores a dense PETSc Hamiltonian; its largest CAS(10,12)

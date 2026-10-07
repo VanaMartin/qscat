@@ -2,22 +2,21 @@
 
 ## Live qualification handoff
 
-The five-root CAS(10,11) SLEPc import, both tight CAS(10,12) QC starts, the
-CAS(10,12) restart coverage scan, the nine-job CAS(10,11) QC ladder and the
-neutral 5Z/stretched batches have completed. The eight-root/tighter CAS(10,11)
-SLEPc import and independent all-64-root verification also pass. The fresh CAS(10,11) TZ start
-passes QC; its aug-TZ start fails the fresh-CI audit, and the compressed
-CAS(10,12) DZ seed fails singlet-A1 CI convergence. Their whole batches are
-still active. Tight CAS(10,11) scattering and both small 80/160-vector controls
-have completed; the larger CI-space repairs have started. The next decisions
-depend on these active or queued finite workers:
+Fresh CAS(10,11) TZ and both repaired aug-TZ targets now pass QC, independent
+600-cycle fixed-orbital coverage and all-64-root UKRmol import/dipole checks.
+The original rejected fresh aug-TZ record remains exact. The matched CAS(10,10)
+one-/two-/four-rank and concurrent benchmarks also pass all seven replicas.
+CAS(10,12)'s tight QC starts and coverage pass, but full target-density/dipole
+processing remains active; its compressed DZ CI failure still gates dependent
+repairs. The neutral stretched RHF reference remains rejected. The next decisions
+depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
 | 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
-| 4–7 | Fresh equilibrium CAS(10,12) TZ/aug-TZ starts, 32-GiB containers | The first two CAS(10,11) starts have finished; projected aug-TZ retries and staged CAS(10,11) basis starts await the whole batch and numerical controls |
-| 8–11 | CAS(10,11) CI-space retries, 32-GiB containers | Both small controls passed; scheduled all-64-root verification then gates the 64-GiB CAS(10,12) target import |
-| 12–15 | Numerically matched tight CAS(10,10) scattering control, 16-GiB container | Its lease resumes the fresh-TZ coverage/repair worker; l=3/l=5 CAS(10,11) controls follow recorded gates |
+| 4–7 | Four same-geometry CAS(10,11) TZ↔aug-TZ competing-start projections, 16-GiB containers | Passing space-80/160 targets receive pair and fresh-start comparisons, then resume the waiting staged CAS(10,11) owner |
+| 8–11 | CAS(10,12) target DENPROP/dipole processing, 64-GiB import container | Final independent import qualification releases the recorded stretched import/basis and other dependent workers |
+| 12–15 | Original CAS(10,11) l=3/l=5 continuum controls, 48-GiB containers | Their scientific gates pass; a finite successor advances them after the idle predecessor's recorded scheduling retirement, then replays saved-data fits |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -1401,6 +1400,87 @@ Tracked recipes are `calibration-sa10-tight-mpi-scaling.json` and
 The approximately $200 external bottleneck cap remains unchanged. Continue
 aug-TZ and CAS(10,12) imports, staged QC and the resumed finite continuum queue
 on Sadaharu before choosing that experiment.
+
+### Repaired fresh aug-TZ import completion
+
+The fresh-lineage aug-TZ import supervisor PID **942825** completes with original
+engine/batch, supervisor and final-verifier exits all **zero**. Wall is
+**3360.53 seconds / 56.01 minutes**, kernel peak **5656363008 bytes / 5.268 GiB**.
+Stage totals are QC adapter **643.11 seconds**, integral preparation 1.25,
+CONGEN 2.81, eight SCATCI sectors **394.14**, and DENPROP **2319.03**.
+All **64 native roots** agree with independent eight-root/space-160/600-cycle
+controls on the space-80 seed within **5.969e-11 Hartree**; the separate repaired
+space-160 seed agrees within **5.764e-11 Hartree**. All forty ensemble import
+roots agree with import-run QC within **4.672e-10 Hartree**, and DENPROP dipole
+within **5.169e-12 a.u.**. Seed reoptimization changes a QC root by at most
+**3.621e-11 Hartree**, and native dipole changes **+7.474e-11 a.u.** from that
+seed. Minimum core/active subspace overlaps are
+**0.9999999999999984 / 0.9999999999999990**. Physical root/dipole gates remain
+1e-7 Hartree / 1e-5 a.u.; the final-set parser and nine-decimal saved-table
+contract pass their previously validated controls.
+
+The [aug-TZ import companion](qualification-evidence/fresh-augtz-import/README.md)
+publishes **181 verified payloads**, both exact repaired seed inputs, all
+64 native roots and all **96 raw reference spectra / 624 eigenpair evaluations**.
+Public fetch is byte-for-byte and repackaging byte-identical. Archive:
+`https://data.qscat.org/ukrmol-co-fresh-augtz-import-2026-10-07/fresh-augtz-import.tar.3568cc77de32.gz`,
+SHA256 `3568cc77de32e415fcac6b403649ab7002636ee93b076f8fdcf7b2f0f75d0437`.
+Publication/verifier persist at `prepared/publication-fresh-augtz-import-20261007/`.
+The rejected fresh parent stays exact in the earlier repair companion.
+Competing starts and electronic-model convergence remain open.
+
+### Released-core continuation
+
+The completed aug-TZ importer resumes waiting staged owner PID **916479**.
+The finite `prepared/fresh-basis-competing-starts-source/fresh-basis-competing-starts.py`
+worker, PID **951086**, attached `sh_114cd009700149SQwzGgPv3IBf`, then safely
+leases **4–7** under an acknowledged child/container-free stop. Its recipe is
+[`calibration-sa11-fresh-basis-competing-starts.json`](calibration-sa11-fresh-basis-competing-starts.json):
+four same-geometry TZ↔aug-TZ projections at spaces **80/160**. Both qualified
+seeds retain their exact checksums, and both prior 64-root import verdicts must
+pass before launch. Ten active electrons, two inactive core orbitals, forty
+equal-weight ensemble components, tight tolerances, **200 CI cycles / 150 orbital
+cycles** and default root counts remain fixed. Each run uses a **16-GiB** container,
+with **24 GiB available RAM / 20 GiB scratch** required. Passing targets receive
+up to **six** comparisons: two same-basis numerical pairs and four comparisons
+against the corresponding qualified fresh target, including roots, averaged
+objective, dipole and core/active subspaces. Individual failed QC or comparison
+exits stay recorded. The worker writes evidence to
+`diagnostics/cas11-fresh-basis-competing-starts/` and resumes the staged owner.
+
+After MPI completion, the original coverage/continuum owner PID **918330**
+passes its three fresh-target ensemble coverage checks, then waits for the
+whole CAS(10,12) v3 supervisor before advancing. The fixed-DZ continuum work's
+own launch gates already pass: both small CI-space imports, the tight scattering
+baseline, 64-root SLEPc coverage and the unchanged qualified seed. A finite
+successor, PID **950692**, attached `sh_114cab6e0001xf6xkkOHRS4TQT`, now advances
+the original l=3/l=5 recipes on **12–15**, independently of that long density stage.
+Source/record: `prepared/local-continuum-ready-source/continuum-ready.py`.
+
+The predecessor is stopped and acknowledged, checked for no children or active
+slot containers, then receives **SIGINT** and resumes to run its final-record
+handler. Its original SSH exit is **130**, a recorded intentional scheduling
+stop of an idle supervisor; no numerical calculation is interrupted.
+`predecessor-retirement.json`, `predecessor-completion.json` and the raw
+`predecessor-console.log` preserve the before/final execution and reason.
+The successor verifies every scientific gate before the transition. Negative
+scheduling controls reject an active child and an occupied CPU slot without
+sending SIGINT; their results are frozen in `scheduling-controls.json`.
+
+The successor retains the original `calibration-sa11-tight-continuum` batch/job
+names, **48-GiB** limits and **64 GiB available RAM / 20 GiB scratch** gates.
+Each passing continuum target is compared with the baseline threshold, all
+common excitations and dipole. Twelve native B1 background/detection replays
+follow for the baseline and each passing l=3/l=5 record; exact passing existing
+replays can be reused by digest. The earlier fresh-basis QC/repair/coverage/import
+records remain preserved in their published companions.
+
+All four physical-core groups now have active work: projected CAS(10,12) TZ QC
+on **0–3**, cross-basis CAS(10,11) QC on **4–7**, CAS(10,12) density processing
+on **8–11**, and the l=3 continuum entry on **12–15**. Host resources are
+**106 GiB available RAM / 150 GiB free `/home`** at this inspection. Further
+local work remains reasonable; the approximately $200 first external bottleneck
+cap stays deferred until these finite outcomes identify an actual blocker.
 
 ### Scientific decisions still pending
 

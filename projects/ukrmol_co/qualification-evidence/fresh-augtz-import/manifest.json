@@ -1,0 +1,39 @@
+{
+  "git_sha": "0eeaa010e3be3243c870dfaec88ede160180b2bd",
+  "record_type": "co-fresh-augtz-independent-import",
+  "date": "2026-10-07",
+  "archive_sha256": "3568cc77de32e415fcac6b403649ab7002636ee93b076f8fdcf7b2f0f75d0437",
+  "archive_bytes": 743003,
+  "payload_digests_verified": 181,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "parent_repair_archive_sha256": "e98e41526e5e22bb18ec0446c1b788e3147e3fa29aad27643db5eefaf2ec974e",
+  "parent_coverage_archive_sha256": "3f8817e756449ae26054a69bee936dfa549afd5691c295a45a78144218521d1b",
+  "verification": {
+    "all_64_native_roots_verified": true,
+    "raw_reference_probes_verified": 96,
+    "raw_reference_eigenpairs_verified": 624,
+    "maximum_independent_root_difference_hartree": 5.968558980384842e-11,
+    "maximum_other_repaired_seed_root_difference_hartree": 5.763922672485933e-11,
+    "maximum_saved_table_rounding_difference_hartree": "5E-10",
+    "maximum_current_qc_import_root_difference_hartree": 4.671392161981203e-10,
+    "current_qc_import_dipole_difference_au": -5.1692261582303445e-12,
+    "maximum_seed_to_reoptimized_root_difference_hartree": 3.6209257814334705e-11,
+    "native_dipole_difference_from_seed_au": 7.474218466363425e-11,
+    "minimum_core_overlap": 0.9999999999999984,
+    "minimum_active_overlap": 0.999999999999999,
+    "original_engine_exit": 0,
+    "original_controller_exit": 0,
+    "original_import_verification_exit": 0,
+    "wall_seconds": 3360.529298361158,
+    "kernel_peak_container_memory_bytes": 5656363008,
+    "stage_totals_seconds": {
+      "target.psi4": 643.113081932068,
+      "target.scatci_integrals": 1.24504804611206,
+      "target.congen": 2.8126821517944327,
+      "target.scatci": 394.1407754421231,
+      "target.denprop": 2319.02743911743
+    },
+    "scope": "Repaired fresh aug-TZ target import/coverage; competing starts and model qualification pending"
+  }
+}
