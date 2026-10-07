@@ -1,0 +1,38 @@
+{
+  "git_sha": "2ffd0f5760927d1a000ea239e61a88bd74f0ea2d",
+  "record_type": "co-fresh-tz-independent-import",
+  "date": "2026-10-07",
+  "archive_sha256": "e91bbc4ac41e6c49c228fe33bc5634cd3d0d19759e0c8afac1ab2237e4105d49",
+  "archive_bytes": 595459,
+  "payload_digests_verified": 181,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "parent_qc_archive_sha256": "636f4d07416a10ea5419fbaab7451a001df29650d7c0d9d5193b4534ce231c80",
+  "parent_coverage_archive_sha256": "2058e2e4c269a98540e6da9af7b34604ea5f277c12cf9fad50fa10b778ac2016",
+  "verification": {
+    "all_64_native_roots_verified": true,
+    "raw_reference_probes_verified": 48,
+    "maximum_independent_root_difference_hartree": 3.1958592217051773e-08,
+    "maximum_saved_table_rounding_difference_hartree": "5E-10",
+    "maximum_current_qc_import_root_difference_hartree": 5.253184554021573e-10,
+    "current_qc_import_dipole_difference_au": -3.365768774798994e-11,
+    "maximum_seed_to_reoptimized_root_difference_hartree": 3.108931423412287e-08,
+    "native_dipole_difference_from_seed_au": -5.119243601248158e-08,
+    "minimum_core_overlap": 0.9999999999999983,
+    "minimum_active_overlap": 0.9999999999997468,
+    "original_engine_exit": 0,
+    "original_controller_exit": 1,
+    "first_recheck_exit": 1,
+    "repaired_recheck_exit": 0,
+    "wall_seconds": 3262.897291575093,
+    "kernel_peak_container_memory_bytes": 5658492928,
+    "stage_totals_seconds": {
+      "target.psi4": 537.914134025574,
+      "target.scatci_integrals": 0.341225862503052,
+      "target.congen": 2.8573606014251705,
+      "target.scatci": 371.318152666092,
+      "target.denprop": 2350.20203518867
+    },
+    "scope": "Fresh TZ target import/coverage; competing starts and model qualification pending"
+  }
+}

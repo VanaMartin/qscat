@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "fresh-tz-import.tar.gz": {
+      "bytes": 595459,
+      "sha256": "e91bbc4ac41e6c49c228fe33bc5634cd3d0d19759e0c8afac1ab2237e4105d49"
+    }
+  },
+  "git_sha": "2ffd0f5760927d1a000ea239e61a88bd74f0ea2d",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-fresh-tz-import-2026-10-07/"
+}

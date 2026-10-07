@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "fresh-augtz-coverage.tar.gz": {
+      "bytes": 378661,
+      "sha256": "3f8817e756449ae26054a69bee936dfa549afd5691c295a45a78144218521d1b"
+    }
+  },
+  "git_sha": "2ffd0f5760927d1a000ea239e61a88bd74f0ea2d",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-fresh-augtz-coverage-2026-10-07/"
+}

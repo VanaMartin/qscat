@@ -1,0 +1,52 @@
+{
+  "git_sha": "2ffd0f5760927d1a000ea239e61a88bd74f0ea2d",
+  "record_type": "co-fresh-augtz-ci-residual-coverage",
+  "date": "2026-10-07",
+  "archive_sha256": "3f8817e756449ae26054a69bee936dfa549afd5691c295a45a78144218521d1b",
+  "archive_bytes": 378661,
+  "payload_digests_verified": 253,
+  "byte_identical_repackaging": true,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "parent_repair_archive_sha256": "e98e41526e5e22bb18ec0446c1b788e3147e3fa29aad27643db5eefaf2ec974e",
+  "cycles": 600,
+  "ci_energy_tolerance_hartree": 1e-12,
+  "ci_residual_tolerance_hartree": 1e-09,
+  "original_controller_exit": 0,
+  "verification": {
+    "runs": [
+      {
+        "run": "co-eq-aug-tz-sa11-qc-fresh-restart-space80",
+        "probes_verified": 48,
+        "eigenpairs_verified": 312,
+        "checkpoint_sha256": "744e08d2a9b5771a10e17ced9a114884e4e6af0c6a82acd3d052fc98cc8ef1df",
+        "maximum_physical_residual_hartree": 6.51463542283422e-10,
+        "maximum_penalized_residual_hartree": 9.936229075506184e-10,
+        "maximum_ensemble_energy_difference_hartree": 1.2789769243681803e-13,
+        "maximum_trial_space_difference_hartree": 1.2789769243681803e-13,
+        "maximum_first_five_root_count_difference_hartree": 1.1368683772161603e-13,
+        "maximum_ci_orthogonality_error": 1.2269055535298828e-13,
+        "all_roots_pass": true
+      },
+      {
+        "run": "co-eq-aug-tz-sa11-qc-fresh-restart-space160",
+        "probes_verified": 48,
+        "eigenpairs_verified": 312,
+        "checkpoint_sha256": "45f9bf646e9781cdf149d3de46d2d28967b5b57a21fc9f1be0b0f55f8d9bea4d",
+        "maximum_physical_residual_hartree": 6.620415834799845e-10,
+        "maximum_penalized_residual_hartree": 9.940987844478143e-10,
+        "maximum_ensemble_energy_difference_hartree": 1.8474111129762605e-13,
+        "maximum_trial_space_difference_hartree": 1.9895196601282805e-13,
+        "maximum_first_five_root_count_difference_hartree": 1.9895196601282805e-13,
+        "maximum_ci_orthogonality_error": 6.655078112663439e-14,
+        "all_roots_pass": true
+      }
+    ],
+    "both_repaired_coverage_gates_pass": true,
+    "raw_probes_verified": 96,
+    "raw_eigenpairs_verified": 624,
+    "analytic_residual_and_perturbed_vector_benchmark_passes": true,
+    "wall_seconds": 600.901028546039,
+    "kernel_peak_container_memory_bytes": 419938304,
+    "scope": "Raw spectra/spins and recorded Hamiltonian-action residuals; competing starts and imports remain required"
+  }
+}

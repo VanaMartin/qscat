@@ -67,3 +67,8 @@ The rejected aug-TZ CAS(10,11) checkpoint subsequently receives two passing
 roots/dipoles and core/active subspaces pass the numerical pair gate; independent
 coverage, competing starts and import remain pending. The original failure
 and this companion's historical aggregate are preserved.
+
+The covered CAS(10,11) TZ seed now passes its
+[64-root UKRmol import](../fresh-tz-import/README.md), including ground dipole
+and core/active-subspace gates. Competing starts and electronic-model
+qualification remain open.

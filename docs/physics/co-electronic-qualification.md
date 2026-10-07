@@ -371,6 +371,37 @@ These are numerical repairs of one fresh lineage; competing starts and all-root
 imports remain gates. A 96-probe, 600-cycle fixed-orbital coverage/residual scan
 is queued for both checkpoints after the active fresh TZ import.
 
+The fresh CAS(10,11) TZ import now completes in **54.38 minutes / 5.270 GiB**.
+All **64 native roots** pass within **3.196e-8 Hartree** against the independent
+seed-orbital controls. Import-run QC changes the original seed roots by at most
+3.109e-8 Hartree; the all-64 comparison includes this small reoptimization.
+All forty imported ensemble roots agree with import-run QC within 5.253e-10
+Hartree, and the DENPROP dipole agrees within 3.366e-11 a.u. Core/active
+subspaces agree to roundoff. DENPROP takes 2350.20 seconds of the total
+3262.90-second run, a larger cost than the eight SCATCI sectors' 371.32 seconds.
+
+The [import companion](../../projects/ukrmol_co/qualification-evidence/fresh-tz-import/README.md)
+retains a successful engine run with original supervisor exit one: its saved-table
+consistency check was tighter than the writer's nine-decimal precision. A first
+recheck also rejects echoed earlier CIDATA spectra. The passing recheck selects
+the newly solved sector and uses an exact-decimal half-last-unit format bound
+of 5e-10 Hartree, with corrupt-token/missing-sector controls. These are parser
+and format checks; physical root/dipole gates remain 1e-7 Hartree / 1e-5 a.u.
+Both verifier failures retain their original source and exits. The augmented-TZ
+coverage worker advances independently, followed by a coverage-gated all-root
+import. Competing-start and electronic-model gates remain open.
+
+The augmented-TZ coverage worker subsequently passes all **96 probes / 624
+eigenpair evaluations** on both repaired checkpoints in **10.02 minutes /
+0.391 GiB**. Physical/spin-penalized residual maxima are **6.62e-10 / 9.94e-10
+Hartree**; trial-space and common-first-five root-count differences stay below
+1.99e-13 Hartree. The
+[coverage companion](../../projects/ukrmol_co/qualification-evidence/fresh-augtz-coverage/README.md)
+reconstructs every raw spectrum/spin/convergence block. Its unchanged repaired
+seed and pair gates release the now-active 64-root aug-TZ import. This closes
+fixed-orbital coverage for those repairs, while independent import, competing
+starts and electronic-model convergence remain open.
+
 ## Selected-root target experiment
 
 The pinned UKRmol-in 3.3.0 engine already includes a disk-backed Davidson
