@@ -616,8 +616,16 @@ The numerical target import is locally established. The
 [native scattering preflight](qualification-evidence/scattering-preflight/README.md)
 now reproduces the CAS(10,11) control and measures **990990 raw / 86352 contracted**
 CAS(10,12) configurations per Pi sector. Valid array floors **222.391 / 222.555 GiB**
-prove the full current scattering solve exceeds Sadaharu's RAM. Actual scattering
+prove the current dense full-spectrum scattering solve exceeds Sadaharu's RAM. Actual scattering
 runtime/scaling and electronic-model convergence remain separate gates.
+This is a blocker for the audited dense full-spectrum implementation. Native
+sparse/iterative scattering qualification is the preferred next solver task before
+large-host allocation; see the
+[task list](CONTINUATION.md#sparseiterative-scattering-qualification--preferred-before-a-large-host)
+and [reproducer contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract).
+The successful selected-root target calculation is not yet a sparse-scattering
+demonstration. The contract requires dense-reference phase/position/width checks,
+spectral refinement and measured resources before a local CAS(10,12) attempt.
 
 The first nine-job CAS(10,11) ladder has two QC passes and seven failures:
 three CI-convergence failures and four simultaneous geometry/basis projection

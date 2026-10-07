@@ -724,10 +724,11 @@ The installed-library all-spectrum workspace query at dimension 86352 needs
 other live engine arrays or MPI/library overhead. One dense matrix alone
 requires **55.556 GiB**. The 2×2 query overflows and retains exit five with
 no usable estimate. Raw rank-local rows/columns, query work sizes, total bytes
-and maximum-rank bytes reconstruct independently. Full current CAS(10,12)
-scattering exceeds Sadaharu's RAM; actual full-job peak, runtime and MPI scaling
-remain unmeasured. Increasing target selected-root efficiency does not remove
-the scattering all-spectrum requirement.
+and maximum-rank bytes reconstruct independently. The current dense full-spectrum
+CAS(10,12) scattering path exceeds Sadaharu's RAM; actual full-job peak, runtime
+and MPI scaling remain unmeasured. Increasing target selected-root efficiency
+does not itself replace that scattering expansion. This audit does not rule out
+a separately validated sparse/iterative scattering route.
 
 Preparation retains the original scheduling rejection and four native restart
 failures. The passing successor preserves exact target/checkpoint/CI hashes,
@@ -743,3 +744,82 @@ It uses the equilibrium l=4/radius-18 model. The broad compressed and finer
 near-threshold stretched grids diagnose geometry/extraction behavior; an empty
 automatic candidate does not establish zero width or a bound state. State,
 orbital and pole continuity remain required before a full resonant sweep.
+
+### Sparse/iterative scattering qualification contract
+
+**Status: queued investigation, not a demonstrated low-memory scattering method.**
+Qualify this local route before allocating a large-memory host. The goal is the
+same fixed-nuclei scattering observables and physical target model, with a measured
+lower-memory implementation and an independently checked spectral approximation
+if fewer inner-region eigenstates are retained.
+
+Distinguish three independent properties: sparse Hamiltonian storage, iterative
+eigensolution, and selected eigenpairs. The successful CAS(10,12) target calculation
+uses SLEPc/Krylov–Schur with a dense PETSc Hamiltonian and five roots per sector;
+its 40.405-GiB peak does not measure sparse scattering. The 222.4-GiB scattering
+array floor measures the installed full-spectrum ScaLAPACK implementation.
+
+Source inspection of the pinned engine identifies a concrete alternative:
+`Contracted_Hamiltonian_module.build_contracted_hamiltonian` initializes the
+matrix structure as `mat_sparse`; `SLEPCMatrix_module` has a PETSc
+`MatCreateSBAIJ` branch as well as `MatCreateDense`. The source-level sparse
+preallocation heuristic is not a measured nonzero fraction or memory budget.
+`Options_module.compute_expansions` interprets `nstat=0` as the complete contracted
+spectrum. Selecting an iterative backend without changing that requested spectrum
+does not establish a low-memory selected-root calculation. The existing runner's
+`--target-diagonalizer` option changes only the target template.
+
+Before deriving a scattering recipe, resolve those symbols in the checksum-pinned
+upstream source matching the built image. Audit dispatch, actual PETSc matrix type,
+eigenpair selection/coverage, convergence and boundary-amplitude output, and the
+SCATCI-to-outer-region interface. Record source and PETSc/SLEPc library digests
+alongside generated namelists. Supported generic engine branches are leads, not
+proof that every downstream stage accepts a truncated scattering spectrum.
+
+For a spectral R-matrix construction, each retained inner-region eigenstate supplies
+a pole and boundary amplitudes; omitted states can alter the scattering background.
+A few accurately converged eigenpairs alone therefore do not qualify scattering.
+Any omitted-spectrum treatment must be explicit and validated, or a retained-state
+refinement must demonstrate that omission errors are below the observable gates.
+
+#### Differential and convergence gates
+
+1. Start with a qualified CAS(10,10) dense control. Freeze target checkpoints,
+   retained neutral states, CI/model inputs, continuum, radius, deletion threshold,
+   energy grid and extraction settings. Verify native solver residuals and
+   symmetry, compare boundary amplitudes in a sign/degeneracy-aware manner, and
+   confirm complete downstream execution without silent dense fallback.
+2. Use the completed CAS(10,11) equilibrium l=4 dense calculation as the larger
+   reference, dimension 27546. After the source/interface audit, predeclare a finite
+   eigenpair-count and spectral-coverage sequence, fixed eigensolver tolerances and
+   resource limits. Increasing root count changes the scattering spectral expansion;
+   it must not change the forty-state neutral target or its orbital ensemble.
+3. Compare both B1/B2 phase grids at common native energies over the declared
+   energy domain. Require maximum phase differences **≤0.05 rad modulo π**,
+   position differences **≤0.05 eV**, and full-width differences within the existing
+   **5% gate with 0.001-eV absolute floor**. Use identical complete-data fit windows
+   and backgrounds for each pair. Require agreement with the dense reference and
+   stability on further spectral refinement; do not rely on literature closeness
+   or adjust the background to compensate for an omitted-spectrum error.
+4. Preserve residuals, requested/converged eigenpair counts, spectral coverage,
+   matrix dimensions/nonzeros, boundary data and raw phases for every refinement.
+   Empty native candidates stay unset; `MAXFIT=100` truncation cannot supply a
+   passing fit verdict. Existing background-width sensitivity remains a separate
+   extraction gate even if the low-memory solver reproduces the dense result.
+5. Measure full-pipeline wall/CPU time, aggregate memory, eigenvector/workspace
+   allocation and disk/scratch peaks, with exact CPU ownership and RAM/disk floors.
+   Only a passing numerical comparison and a resource envelope with headroom
+   release a same-model CAS(10,12) pilot on Sadaharu. Recheck spectral convergence
+   at CAS(10,12); a smaller-model root count does not establish its required count.
+
+#### Evidence for reproducing the route
+
+Publish checksum-pinned build/configuration recipes, dense-reference pointers,
+immutable target lineage, generated solver inputs, actual backend/storage logs,
+eigenpair/refinement tables, boundary data, raw phases, independent fixed-window
+fits and complete resource profiles. Include an executable verifier and preserve
+original failed attempts. State the validated model/energy domain, numerical gates,
+resource limits and any unresolved omitted-spectrum correction. A demonstrated
+solver memory reduction does not establish active-space/basis/ensemble convergence
+or qualify a full geometry sweep. If the local route fails a gate, record that
+specific limitation before reconsidering the deferred large-host fallback.

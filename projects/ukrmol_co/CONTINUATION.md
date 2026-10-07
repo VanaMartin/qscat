@@ -14,7 +14,7 @@ one-/two-/four-rank and concurrent benchmarks also pass all seven replicas.
 CAS(10,12)'s tight QC starts, ensemble coverage and full forty-root/dipole import
 now pass locally in 6.201 hours / 40.405 GiB. Native scattering preparation
 measures dimension 86352 and valid aggregate array floors above 222 GiB,
-blocking the full all-spectrum scattering solve on Sadaharu. Its staged
+blocking the audited dense full-spectrum scattering solve on Sadaharu. Its staged
 DZ/basis failures feed the eligible numerical-repair queue.
 Stretched CAS(10,11) DZ also passes its 64-root/dipole import after a
 retained-data decimal-format recheck; its original verifier failure is preserved
@@ -38,6 +38,10 @@ depend on these finite workers:
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
 experiment ceiling remains deferred; all launches here use Sadaharu.
+**Preferred next solver task:** qualify native sparse/iterative scattering
+locally before considering a large-host allocation. See
+[the task list](#sparseiterative-scattering-qualification--preferred-before-a-large-host)
+and the [reproducer contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract).
 The new queues are detailed under [Local continuation — 7 October](#local-continuation--7-october-2026).
 
 ## Saved campaign — 6 October 2026
@@ -1999,7 +2003,7 @@ Preparation costs are **46.92 / 172.99 seconds**, at **2.984 / 12.730 GiB**.
 One dense CAS(10,12) matrix needs **55.556 GiB**; valid installed-library grids
 4×4/4×8 need **222.391 / 222.555 GiB** aggregate array floors. The 2×2 query
 retains exit five and no estimate. Actual scattering runtime/peak/scaling remain
-unmeasured. This proves the full current all-spectrum solve exceeds Sadaharu RAM.
+unmeasured. This proves the audited dense full-spectrum solve exceeds Sadaharu RAM.
 The [preflight companion](qualification-evidence/scattering-preflight/README.md)
 verifies **814 payloads**, **245 source hashes**, **1099 profile samples**,
 byte-identical repackaging and public fetch. Archive SHA256:
@@ -2033,6 +2037,49 @@ a 48-GiB container with 64-GiB available-RAM and 20-GiB scratch floors.
 This is a geometry/extraction pilot: empty automatic candidates remain unset,
 and bound-state/pole/state-continuity qualification still precedes a full sweep.
 
+### Sparse/iterative scattering qualification — preferred before a large host
+
+**Queued; not yet validated or launched.** Investigate the pinned engine's native
+sparse/iterative contracted-scattering route as the preferred response to the
+CAS(10,12) dense-workspace blocker. Paid provisioning remains deferred. The
+222.4-GiB array floor describes the audited dense ScaLAPACK path, not every possible
+CAS(10,12) solver. The successful target SLEPc runs used dense Hamiltonian storage
+and selected eigenpairs; they are not a completed sparse-scattering demonstration.
+
+- [ ] **Audit the native path and downstream contract.** Resolve the pinned
+  contracted-Hamiltonian sparse initialization, PETSc storage and SLEPc dispatcher;
+  record actual nonzero counts, allocation, eigenpair-selection policy, `nstat`
+  semantics and boundary-amplitude/export behavior. Sparse preallocation guesses
+  are not measured sparsity. Preserve matching source/library/image digests.
+- [ ] **Establish a small-model differential control.** Reuse a qualified
+  CAS(10,10) dense reference with identical target/orbital/continuum inputs.
+  Check eigenpair residuals, symmetry, boundary amplitudes and downstream execution;
+  reject silent dense fallback or incomplete eigensolver output.
+- [ ] **Qualify the CAS(10,11) scattering approximation.** Predeclare a finite
+  increasing-eigenpair sequence and energy coverage after the path audit. Compare
+  B1/B2 full common-grid phases and fixed-window position/full width against the
+  completed 27546-dimensional dense reference, with identical extraction settings.
+  Require both reference agreement and stability on further spectral refinement;
+  diagnose omitted-state/background contributions rather than fitting away the error.
+- [ ] **Measure the complete resource envelope.** Record wall/CPU time, aggregate
+  container peaks, matrix nonzeros, eigenvector/workspace storage and persistent
+  scratch for every passing and failed control. Declare owner/CPU/RAM/disk gates
+  before launching; sparse storage alone does not prove the full calculation fits.
+- [ ] **Gate a local CAS(10,12) pilot on those results.** Keep its qualified
+  forty-state target and physical model fixed. Attempt only when the measured
+  resource envelope fits Sadaharu with headroom; retain failure/blocker evidence
+  if spectral convergence or memory is inadequate.
+- [ ] **Publish a reproducible low-memory recipe and verdict.** Include executable
+  configurations, root-count/refinement tables, source pins, raw phases, boundary
+  data, profiles and an independent verifier. State the validated energy/model
+  domain and distinguish numerical scattering convergence from electronic-model
+  convergence and the existing background-width sensitivity.
+
+The [qualification contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract)
+defines unchanged observable gates and the evidence needed by reproducers. A
+larger host becomes the fallback only after this local route has a documented
+feasibility or convergence verdict.
+
 ### Scientific decisions still pending
 
 1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)
@@ -2041,8 +2088,8 @@ and bound-state/pole/state-continuity qualification still precedes a full sweep.
     CAS(10,12)'s separately gated selected-root configuration now passes its full
     forty-root/dipole import locally; the installed-library audit still rules out
     current all-spectrum dense target layouts. The measured 86352-dimensional
-    scattering space requires array floors above 222 GiB; use a larger host for
-    its complete solve, and compare
+    dense scattering path requires array floors above 222 GiB. Qualify the native
+    sparse/iterative route above before considering a larger-host fallback, and compare
    against the smaller active spaces before adopting a target for scattering.
 2. **Qualify the common orbitals.** The `state-averaged` backend constructs
    multi-spin/multi-irrep CAS targets. The existing `natural` option optimizes

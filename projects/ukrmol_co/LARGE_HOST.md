@@ -1,7 +1,12 @@
 # CO large-memory qualification campaign
 
-**Paid provisioning is deferred.** Continue qualification on Sadaharu and keep
-the first paid experiment within **approximately $200**, reducing the earlier
+**Paid provisioning is deferred.** Continue qualification on Sadaharu, with
+**native sparse/iterative scattering qualification ahead of large-host allocation**.
+The measured memory blocker is specific to the current dense full-spectrum path;
+the alternative remains unvalidated. See the
+[local solver tasks](CONTINUATION.md#sparseiterative-scattering-qualification--preferred-before-a-large-host)
+and [reproducer contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract).
+Keep the first paid experiment within **approximately $200**, reducing the earlier
 full-campaign compute forecast by at least 80%. The retained hardware candidate
 is EC2 `r8a.16xlarge` in `eu-central-1`; its **168-hour / $1036 full-campaign
 estimate below is historical planning, not the current execution budget**.
@@ -35,8 +40,10 @@ in 52.55 minutes at 5.25 GiB. Observed SCATCI/full-wall reductions are
 refinement now passes in 51.44 minutes at 5.27 GiB; sixteen independent CI
 probes check all 64 requested roots within 5.34e-10 Hartree. See
 [the solver contract](../../docs/physics/co-electronic-qualification.md#selected-root-target-experiment).
-A selected-root target solver does not remove the all-spectrum requirement
-of the existing scattering calculation.
+A selected-root target solver does not by itself replace the full-spectrum
+expansion used by the existing scattering calculation. Native sparse/iterative
+scattering needs its own spectral-completeness and observable-convergence tests;
+the current dense implementation is not the only possible formulation.
 
 The extra-root gate and CAS(10,12) restart coverage release a 64-GiB local target
 import. It now completes with all forty native roots and the ground dipole
@@ -85,7 +92,8 @@ CAS(10,12) now has a measured four-rank target memory/stage baseline: eight
 SCATCI sectors **46.81 minutes**, serial DENPROP **5.009 hours / 80.768%** of
 wall. Native scattering preparation now measures dimension **86352** and
 valid aggregate array floors **222.391 / 222.555 GiB** on 16/32 ranks. This
-blocks the full current scattering solve on Sadaharu. Actual full-job memory/scaling
+blocks the current dense scattering solve on Sadaharu. Native sparse/iterative
+scattering remains a local qualification task. Actual full-job memory/scaling
 remains unmeasured; the 64-core forecast
 and approximately $200 first-experiment cap remain conditional. Increasing MPI
 ranks alone does not accelerate the measured serial density bottleneck.
