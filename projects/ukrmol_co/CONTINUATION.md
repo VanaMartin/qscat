@@ -790,6 +790,45 @@ job. This attempt awaits completion and is outside the 41-attempt archive;
 fixed-orbital coverage, matched model comparison and continuum checks remain
 required before attributing or accepting the active-space sensitivity.
 
+An additional finite follow-on now waits for the matched controller's exact
+PID exit: `prepared/matched-scattering-followup-source/`, PID **924661**,
+attached supervisor `sh_113c32aec001RdAueCErEvvBzJ`. Its predecessor is PID
+923482, `launch-cas10-matched.py`; its source commit is
+`6d0a02dc7153ff9e58e43321c3e4fbd843d1f471` and controller SHA256
+`e7b50637f2b954fbb96581c922864757227eb4b9eeb1e3515eb0eebefb1c4857`.
+It leases CPUs 12–15 only if the existing coverage/scattering worker is still
+waiting, has no child process, and has no calculation in the slot. Otherwise it
+waits for that worker's exact exit and finished execution record. An 8-GiB
+container requires 16 GiB available RAM and 20 GiB free scratch. All pause/resume
+events, original exits, commands, source/unit hashes and dependencies are
+recorded; the current frozen source does not alter the running predecessors.
+
+The follow-on reanalyzes a successful matched CAS(10,10) run and performs 48
+fixed-orbital probes (five/eight roots, spaces 40/80/160 in all eight sectors).
+Every ensemble root must converge with the right spin and agree within
+1e-7 Hartree. It compares matched CAS(10,10) with its earlier loose-control
+baseline and the tight CAS(10,11) model using raw phases and native candidates.
+It also runs the independent CAS(10,11) phase-residual/held-point diagnostic in
+the pinned Linux image. Evidence will be under
+`diagnostics/matched-scattering-and-independent-phase/`; these new results
+await completion and are outside the 41-attempt public archive.
+
+The independent phase fitter has already passed 14 analytic unitary-S/mesh/
+branch/held-point tests locally; all 76 project fast tests pass. Its local raw
+reanalysis reproduces all 24 native window fits within 4.74e-7/2.50e-7 eV in
+position/full width. Three separated starts agree to 1.55e-9 eV / 5.90e-10
+relative width. Constant/linear/quadratic/cubic background held-point RMS
+residuals for the automatic B1 interval are 0.016926/0.001147/0.000510/0.000128
+rad. This measures the constant background's poorer predictive fit, while
+retaining its width sensitivity and the existing gates. The source audit
+verifies that native RSOLVE/EIGENP use 0.0735 Ryd per requested eV, an 18.44-ppm
+offset from modern units; independent fits use the actual native Hartree grid.
+Fitted Rydberg candidates were already converted with the modern constant.
+The completed local report and actual Darwin/Python/NumPy/SciPy provenance are
+retained in `prepared/independent-phase-local-analysis-20261007/`; Linux
+execution remains a separate queued differential check.
+See [the phase-fit contract](../../docs/physics/co-electronic-qualification.md#independent-phase-fit-diagnostic).
+
 Finally, the CPU-12–15 queue runs
 [`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):
 two equilibrium CAS(10,11)/40-channel calculations at **l=3 and l=5**, using
