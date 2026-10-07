@@ -1,9 +1,9 @@
 # CO electronic-qualification evidence
 
-This supplement preserves **38 completed attempts in 14 batches**:
+This supplement preserves **41 completed attempts in 16 batches**:
 seven passing QC targets, ten passing neutral records and five neutral failures,
 dense and five/eight-root SLEPc tight CAS(10,11) target imports, four rejected Davidson controls,
-two passing small-model SLEPc controls and seven rejected CAS(10,11) ladder
+four passing small-model SLEPc controls, tight CAS(10,11) scattering and seven rejected CAS(10,11) ladder
 entries. It also includes all **112** CAS(10,11)/(10,12)
 fixed-orbital CI coverage probes, final checkpoint comparisons and the
 CAS(10,12) installed-library workspace audit and guarded utility checks,
@@ -35,8 +35,26 @@ with an 18.42-GiB kernel memory peak. The matched nine-job CAS(10,11) ladder
 has two QC passes, three CI failures and four simultaneous geometry/basis
 projection rejections. Its 50-component ensemble shifts the ground root by
 0.45651 eV and the dipole by +125.09% relative to the 40-component objective.
-Live scattering and staged QC/import follow-ons are excluded.
-The prior eleven-/twelve-/eighteen-/thirty-seven-attempt supplements remain in
+The tight scattering run has complete 99-point grids, consistent Pi components,
+two contracted dimensions of 27546 and a 4.423-hour wall / 25.20-GiB peak.
+Its default candidate is at 2.520805 eV with full width 1.151002 eV. Position
+and phase changes of 64.84 meV / 0.109809 rad from the earlier CAS(10,10) model
+exceed the chosen gates; QC controls also differ, so the comparison does not
+isolate the active-space change. Reference inputs and raw phase grids travel
+with the archive.
+
+Forty-nine native saved-data replay attempts retain **48 successes and one
+failure**: twelve background/detection controls, twenty-four two-component
+window/background controls, and twelve partial B1 passes before a B2 unit-binding
+failure. The fresh unit-fixed retry reads the template's actual `LUKMT`
+(921/922), reproduces both default fits and checks raw saved-point fit grids.
+Window clipping at fixed background changes position/width by at most
+6.03 meV / 3.62%; background terms 1–4 change width by 12.65%, failing that gate.
+The original exits/logs and corrected sources are retained; K-matrix/R-matrix
+binaries stay on Sadaharu for execution.
+
+The matched tight CAS(10,10) rerun, continuum and staged QC/import follow-ons
+remain pending. The prior eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
 
 The Davidson controls request 5/8/16/32 roots and all fail required root imports
@@ -78,8 +96,8 @@ Extract outside the checkout: historical source snapshots contain Python test
 modules. The reconstructed JSON matches `qualification-results.json` in the
 archive. `neutral-results.json` retains the fifteen-attempt neutral-only subset.
 The file index records every payload's size and SHA256. Publication verification
-checked 3012 payloads, 228 batch-source hashes, 17 embedded-image source hashes,
-raw reanalysis of all 22 successful records, all 112 CI spectra/spins and
+checked 3711 payloads, 262 batch-source hashes, 17 embedded-image source hashes,
+raw reanalysis of all 25 successful records, all 112 CI spectra/spins and
 exact reconstruction of both aggregates. Repackaging is byte-identical.
 All four Davidson rejections are reproduced; the stored Hamiltonian is
 independently reconstructed and its eigenpair residuals checked.
@@ -87,7 +105,8 @@ All seven ladder failures, the four unstable neutral references and the
 CAS(10,12) launch failure are checked against their retained diagnostics/logs.
 The extra-root launch failure's original source/hash and exit are preserved;
 the repaired worker's CPU-slot lease records verify resumption of its waiting
-follow-on after the scan.
+follow-on after the scan. Native scattering dimensions, raw phase comparisons,
+all 49 replay attempts and saved-point fit grids are independently reconstructed.
 The full dense/SLEPc comparison and its storage-floor calculation are independently
 reconstructed from raw stages, resources, roots, dipoles and pinned source.
 
@@ -111,6 +130,10 @@ PYTHONPATH=. uv run python "$EVIDENCE_ROOT/verify-qualification-evidence.py" \
 
 Exact reanalysis/repackaging uses the analysis source commit recorded in the
 manifest. Later analyzer versions deliberately record their own source hash.
+The current utilities/packaging commit is
+`746a340b063508a2f2e6966a1177190d43d1acc5`, adding nested outer-engine licence
+selection to the earlier utilities. `analysis-archive.py` retains the packaging
+source; embedded image modules keep their actual original bytes and digests.
 To replay the numerical recipes, copy archived `runs/` to a new host root
 mounted at `/work` so retained checkpoint arguments resolve, and choose new
 output/batch names. See [`../CONTINUATION.md`](../CONTINUATION.md) for the live

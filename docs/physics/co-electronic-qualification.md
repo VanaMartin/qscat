@@ -42,6 +42,43 @@ fresh directories with those spaces. Compare root coverage, objective, dipole
 and active subspaces; preserve the original failures. A fixed-orbital CI repair
 alone does not establish minimization of the intended lowest-root ensemble.
 
+Both small 80/160-vector controls now pass all forty imported roots within
+4.98e-10 Hartree and dipoles within 4.50e-11/3.07e-11 a.u. Their printed
+excitations agree, with a maximum change of 2.10e-8 Hartree from the earlier
+dense control. The larger failed-checkpoint reoptimizations are running;
+their convergence and fixed-orbital coverage remain separate gates.
+
+## Completed CAS(10,11) scattering and extraction checks
+
+The tight DZ/40-component l=4 baseline completes at contracted B1/B2 dimensions
+27546 (raw CONGEN counts 344124), in 4.423 hours at a 25.20-GiB kernel peak.
+Its default native candidate is at 2.520805 eV with full width 1.151002 eV.
+Relative to the earlier CAS(10,10) l=4 run, position and phase changes of
+64.84 meV / 0.109809 rad exceed the chosen 0.05-eV / 0.05-rad gates; width
+changes by 2.80%. QC/fresh-CI controls also differ, so this is a recorded-model
+comparison rather than an isolated active-space perturbation.
+
+Twelve background/detection replays span background terms 1–4 and detection
+thresholds 0.7/1.0/1.3. Position changes remain below 6.65 meV, but width
+changes by 12.65% from default, exceeding the 5% gate. Twenty-four additional
+replays cover both Pi components, terms 1–4, detection 1.0 and automatic or
+clipped 1.8–3.3 / 2.0–3.15-eV intervals. At fixed background, window clipping
+changes position by at most 6.03 meV and width by 3.62%, within the chosen gates.
+This smaller window sensitivity does not qualify the unresolved background
+dependence or certify a pole assignment.
+
+The pinned `source/libouter/reson.f`, `RESONC` lines 868–915, intersects the
+automatically detected interval with `ABVTHR`/`BELTHR` relative to the adjacent
+thresholds. With `GETETA=.false.`, it uses saved grid points without interpolation.
+Raw fit grids contain 39/30/23 points, approximately 1.6–3.5 / 1.8–3.25 /
+2.0–3.1 eV; the requested endpoints need not coincide with retained points.
+The engine source/manual/licence, exact native grids and unit conversion are
+preserved. A standalone B2 replay initially binds the wrong K-matrix unit
+(921 instead of 922) and fails with EOF; its original exit/log and a fresh
+template-unit-aware retry remain evidence. Both default fits reproduce the
+original scattering outputs. Continuum controls and electronic-model selection
+remain pending.
+
 ## Independently correlated neutral pilot
 
 The neutral pilot uses conventional spherical-basis RHF followed by

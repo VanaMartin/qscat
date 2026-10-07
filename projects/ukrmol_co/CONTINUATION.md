@@ -8,14 +8,16 @@ neutral 5Z/stretched batches have completed. The eight-root/tighter CAS(10,11)
 SLEPc import and independent all-64-root verification also pass. The fresh CAS(10,11) TZ start
 passes QC; its aug-TZ start fails the fresh-CI audit, and the compressed
 CAS(10,12) DZ seed fails singlet-A1 CI convergence. Their whole batches are
-still active. The next decisions depend on these active or queued finite workers:
+still active. Tight CAS(10,11) scattering and both small 80/160-vector controls
+have completed; the larger CI-space repairs have started. The next decisions
+depend on these active or queued finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
 | 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
 | 4–7 | Fresh equilibrium CAS(10,12) TZ/aug-TZ starts, 32-GiB containers | The first two CAS(10,11) starts have finished; projected aug-TZ retries and staged CAS(10,11) basis starts await the whole batch and numerical controls |
-| 8–11 | Tight CAS(10,11) scattering, 48-GiB container | CI-space controls/retries, all-64-root verification, then gated 64-GiB CAS(10,12) target import |
-| 12–15 | Extra-root import and all-64-root verification completed; queued worker waits for the whole fresh-TZ batch | Fresh-TZ root coverage, eligible fresh-start CI repairs, then l=3/l=5 scattering controls and fit replays |
+| 8–11 | CAS(10,11) CI-space retries, 32-GiB containers | Both small controls passed; scheduled all-64-root verification then gates the 64-GiB CAS(10,12) target import |
+| 12–15 | Numerically matched tight CAS(10,10) scattering control, 16-GiB container | Its lease resumes the fresh-TZ coverage/repair worker; l=3/l=5 CAS(10,11) controls follow recorded gates |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -311,24 +313,24 @@ checks remain necessary before selecting a full neutral curve.
 
 The completed supplement is published through
 [`qualification-evidence/`](qualification-evidence/README.md).
-`qualification-results.json` contains 38 attempts in fourteen completed batches:
+`qualification-results.json` contains 41 attempts in sixteen completed batches:
 seven passing QC targets, ten passing neutral records and five neutral failures,
 dense and five/eight-root SLEPc tight CAS(10,11) all-root/dipole imports, four rejected Davidson
-controls, two passing small-model SLEPc controls and seven rejected CAS(10,11)
-ladder entries. Its public archive retains 112 CI probes and twelve diagnostic
-directories, including the independent all-64-root check and both preserved
-pre-probe launch failures with repaired retries.
-Verification checked 3012 payload digests, 228 batch-source hashes, 17 image-source
-hashes, all 22 successes, all four Davidson rejections, both aggregates, the
+controls, four passing small-model SLEPc controls, tight CAS(10,11) scattering
+and seven rejected CAS(10,11) ladder entries. Its public archive retains 112 CI
+probes and fifteen diagnostic directories, including the independent all-64-root
+check, 49 native fit-replay attempts and preserved failed launches/retries.
+Verification checked 3711 payload digests, 262 batch-source hashes, 17 image-source
+hashes, all 25 successes, all four Davidson rejections, both aggregates, the
 ladder/reference failures and dense/SLEPc resource/storage comparison;
-repackaging is byte-identical. Live scattering, staged QC and
-the full CAS(10,12) import are excluded. The earlier eleven-/twelve-/eighteen-/thirty-seven-attempt supplements remain
+repackaging is byte-identical. Staged QC, continuum controls and
+the full CAS(10,12) import remain pending. The earlier supplements remain
 available through the manifest's prior-snapshot pointers.
 
 The immutable current supplement is
-`https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.c8f331096096.gz`,
-SHA256 `c8f3310960961c0269e0dafdb19ed70a9b0a014782e4b5b30bf8445ae8e90e7f`,
-24,853,692 bytes. The public client fetched and verified those bytes, and the
+`https://data.qscat.org/ukrmol-co-electronic-qualification-2026-10-06/qualification-evidence.tar.60d3de76d7dc.gz`,
+SHA256 `60d3de76d7dc546664969db246623ef4357878d3cc809ece31c219c97d6b704c`,
+26,736,944 bytes. The public client fetched and verified those bytes, and the
 extracted verifier reproduced all checks and byte-identical repackaging.
 
 The refreshed standalone image is `qmodeling/ukrmol-co:electronic-qualification`,
@@ -609,11 +611,11 @@ qualification work until coverage/import/start/basis checks pass.
 ### Local continuation — 7 October 2026
 
 The latest resource inspection finds approximately 100 GiB available RAM and
-158 GiB free on `/home`. CPUs 0–11 have active work; the CPU-12–15 worker is
-waiting for its fresh-TZ dependency after the extra-root checks completed. SMT partners
+159 GiB free on `/home`. All four physical-core groups have active work again,
+including the matched tight CAS(10,10) control on CPUs 12–15. SMT partners
 remain outside the experiment's CPU allocation. The following **completed
 individual attempts belong to unfinished batches**, so they are observations
-outside the published 38-attempt supplement:
+outside the published 41-attempt supplement:
 
 | Run | Outcome | Wall (min) | Kernel memory peak (GiB) |
 |---|---|---:|---:|
@@ -711,9 +713,82 @@ exit 1, zero-probe failure record, repaired command, exact pause/resume times
 and resource records are retained in the completed diagnostic. Attached
 repaired supervisor: `sh_11399be0e001NHvOpBDG2vNqYQ`; script:
 `prepared/launch-early-slepc-coverage-pathfix.py`.
-The 38-attempt public supplement includes this complete gate and its failed
+The 41-attempt public supplement includes this complete gate and its failed
 launch. The original v3 queue still rechecks its own all-64-root gate before
 the local CAS(10,12) import; the larger import remains pending.
+
+The tight CAS(10,11) l=4 scattering baseline completes in **15924.02 seconds
+(4.423 hours)** on CPUs 8–11 at a **25.20-GiB** kernel peak (23.14-GiB sampled
+anonymous peak). Both B1/B2 raw CONGEN counts are **344124**; both contracted
+SCATCI dimensions are **27546**, with `lwork=380327961, liwork=192840`.
+Scattering SCATCI stages take 4387.34/4495.11 seconds; RSOLVE takes
+56.46/59.67 seconds. All forty imported roots/dipole pass within
+5.33e-10 Hartree / 7.98e-11 a.u.; the 99-point grid is complete and Pi
+phase/cross-section differences are 1.00e-8 rad / 1.00e-7 bohr².
+The default fitted position/full width is **2.520805/1.151002 eV**.
+
+Relative to `co-eq-ccdz-sa10-cc40-continuum-l4`, position increases by
+**64.84 meV**, width by 31.36 meV (**2.80%**), and the maximum phase difference
+modulo pi is **0.109809 rad**. Position/phase gates fail; the width gate passes.
+The CAS(10,11) run also tightens QC/fresh-CI controls, so this recorded-model
+comparison does not isolate the active-space change. Reference inputs, raw
+phase grids and exact QC-control differences are retained in
+`diagnostics/cas11-tight-scattering-replays/comparison-inputs/cas10-l4/`.
+
+Twelve saved-K-matrix replays in that diagnostic use background terms 1–4 and
+detection thresholds 0.7/1.0/1.3. All succeed and reproduce the default fit.
+Positions span 2.516114–2.527453 eV; full widths span 1.151002–1.296633 eV.
+Maximum width change from default is **12.65%**, failing the background-width
+gate. Terms 2–4 have a smaller spread; that does not remove the retained
+term-1 sensitivity. The worker takes 1.20 seconds at a 0.113-GiB peak.
+
+Twenty-four window/background replays also pass in
+`diagnostics/cas11-tight-scattering-windows-unitfix/`: both B1/B2, terms 1–4,
+detection 1.0, automatic intervals and clips to 1.8–3.3 / 2.0–3.15 eV.
+The pinned engine's `RESONC` intersects its detected interval with
+`ABVTHR`/`BELTHR`; `GETETA=.false.` uses only saved energy points. Printed
+fit grids contain 39/30/23 points, approximately 1.6–3.5 / 1.8–3.25 / 2.0–3.1 eV.
+Exact native grids, conversion, source/manual/licence and inputs are retained.
+B1/B2 fit differences remain below 1e-6 eV. At fixed background, clipping
+changes position by at most 6.03 meV and width by 3.62%; for terms 2–4 the width
+changes are 0.63/0.63/0.45%. These window tests pass the chosen gates.
+
+The original `diagnostics/cas11-tight-scattering-windows/` retains twelve
+passing B1 replays and a failed first B2 replay: the driver bound unit 921,
+while B2 requests 922. Native exit 2 reports EOF on `fort.922`; the controller
+stops with exit 1. The fresh retry reads each template's `LUKMT` and initializes
+each standalone report before B2 appends. It reproduces both default fits and
+passes raw grid/fit checks. Failed/repaired walls are 0.40/0.80 seconds.
+Original exits, frozen scripts and resumed CPU-slot owners are preserved.
+The supplement retains **49 native replay attempts: 48 successes and one
+failure**, including the twelve partial B1 successes. K-matrix/R-matrix binaries
+remain on Sadaharu; the archive contains inputs, logs, fits and raw grids.
+
+Both small CI-space controls pass in 38.50/34.69 seconds at 0.112-GiB peaks.
+Each imports all forty roots within 4.98e-10 Hartree and dipole within
+4.50e-11/3.07e-11 a.u., preserving the forty-component ensemble. Their printed
+excitations agree; imported dipoles differ by 1.70e-11 a.u. Relative to the
+earlier small dense model, the largest excitation change is 2.10e-8 Hartree.
+The v3 supervisor records these gates and has started the stretched-DZ/TZ
+repairs in `calibration-cas11-ci-space-retries`.
+
+The free CPU group now runs
+[`calibration-sa10-tight-scattering.json`](calibration-sa10-tight-scattering.json),
+`co-eq-ccdz-sa10-tight-cc40-matched`. Every numerical/continuum/channel argument
+matches the completed CAS(10,11) l=4 recipe, changing only active counts to
+`[4,3,3,0]` and using its own same-active-space final checkpoint. It uses the
+same dense image ID `sha256:b5d5f7fc4d638d19eaeb65399b5acf20f56f4fe4526c63761b8945a0b01c5d08`.
+The earlier CAS(10,10) baseline cost 1025.95 seconds / 2.84 GiB, making this
+finite numerical-control repair reasonable locally. The new job has a 16-GiB
+container, 6-GiB internal budgets, and pre-launch gates of 24 GiB available RAM
+and 20 GiB free scratch. Source, checkpoint hash, command and slot lease are in
+`prepared/cas10-matched-source/execution.json`; log:
+`launch-cas10-tight-matched.log`; attached supervisor:
+`sh_113b141ed001biI6gyZSACSdmN`. Its controller pauses only the still-waiting
+CPU-12–15 follow-on, verifies the slot is free, and resumes it after the single
+job. This attempt awaits completion and is outside the 41-attempt archive;
+fixed-orbital coverage, matched model comparison and continuum checks remain
+required before attributing or accepting the active-space sensitivity.
 
 Finally, the CPU-12–15 queue runs
 [`calibration-sa11-tight-continuum.json`](calibration-sa11-tight-continuum.json):

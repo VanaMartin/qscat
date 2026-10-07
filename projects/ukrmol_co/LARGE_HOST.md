@@ -31,20 +31,20 @@ distributed Krylov–Schur small-model controls both pass all 40 roots within
 49.53/46.91 seconds. Its full five-root CAS(10,11) dense-reference comparison
 passes all 40 roots within 5.34e-10 Hartree and dipole within 8.04e-11 a.u.,
 in 52.55 minutes at 5.25 GiB. Observed SCATCI/full-wall reductions are
-89.17%/46.25%; DENPROP dominates the remaining time. This route must also pass
-root-count/tolerance checks, before the prepared CAS(10,12) local target-import
-trial may run. See [the solver contract](../../docs/physics/co-electronic-qualification.md#selected-root-target-experiment).
+89.17%/46.25%; DENPROP dominates the remaining time. Its eight-root/tighter
+refinement now passes in 51.44 minutes at 5.27 GiB; sixteen independent CI
+probes check all 64 requested roots within 5.34e-10 Hartree. See
+[the solver contract](../../docs/physics/co-electronic-qualification.md#selected-root-target-experiment).
 A selected-root target solver does not remove the all-spectrum requirement
 of the existing scattering calculation.
 
-The next local gate adds eight-root/tighter CAS(10,11) SLEPc output and
-independent fixed-orbital checks of all 64 requested roots. That gate and the
-CAS(10,12) restart coverage checks can release a 64-GiB local target-import
+The extra-root gate and CAS(10,12) restart coverage checks can release a 64-GiB local target-import
 trial on the freed scattering CPU slot. The trial retains the restart as an
 experimental input; competing starts remain part of model qualification.
 Separately, two matched CAS(10,11) QC entries fail CI convergence after orbital
-convergence. Small-model 80/160-vector trial-space controls precede fresh
-reoptimizations of those rejected checkpoints; preserve their original failures.
+convergence. Small-model 80/160-vector trial-space controls now pass, and fresh
+reoptimizations of those rejected checkpoints have started; their original
+failures remain evidence.
 
 The selected-root target route retains a dense PETSc Hamiltonian. The largest
 CAS(10,12) matrix floor is 37.41 GiB (about 9.35 GiB per rank on four ranks).
@@ -130,12 +130,15 @@ scattering worker with a provisional 384-GiB container limit, subject to a valid
 workspace query and headroom check. Two concurrent target jobs fitting in RAM
 does not establish that two scattering jobs fit.
 
-The first tight CAS(10,11) doublet-B1 scattering block on Sadaharu solves a
-27546-dimensional **contracted** Hamiltonian in 73.12 minutes. CONGEN's raw
-uncontracted count is 344124; it is not the dense diagonalizer's dimension.
-The sampled peak to that observation is 24.18 GiB, while B2 and final run
-analysis remain pending. Preserve both counts and query the actual contracted
+The tight CAS(10,11) scattering run on Sadaharu completes in 4.423 hours at
+a 25.20-GiB kernel peak. B1/B2 solve 27546-dimensional **contracted** Hamiltonians
+in 73.12/74.92 minutes. Each raw CONGEN count is 344124; it is not the dense
+diagonalizer's dimension. The earlier B1-only 24.18-GiB sampled observation is
+retained in the diagnostic history. Preserve both counts and query the actual contracted
 CAS(10,12) dimension before applying a dense-memory or cubic-time forecast.
+The CAS(10,11)/earlier CAS(10,10) position/phase differences exceed the chosen
+gates. Saved-data fit-window controls pass at fixed background, but background
+terms 1–4 change width by 12.65%; production fitting remains unqualified.
 
 Use persistent EBS storage mounted under `/home`, with approximately 500 GiB
 for scratch, retained attempts and transferred evidence, plus space for Docker
@@ -187,8 +190,10 @@ sentinels in aug-cc-pV5Z to complete the TZ/QZ/5Z basis sequence locally.
 Its worker is queued behind the exact CAS(10,12) RHF-start container on CPUs
 12–15 and has completed. The restart's fixed-orbital coverage scan also
 passes after a preserved pre-probe import-path failure. CPUs 0–3 now run
-the staged CAS(10,12) QC ladder; CPUs 12–15 run the CAS(10,11) extra-root
-SLEPc control after finishing the neutral work.
+the staged CAS(10,12) QC ladder. CPUs 12–15 have completed the extra-root
+SLEPc control, all-root CI scan and saved-data fit replays. A short matched tight
+CAS(10,10) scattering control now leases that slot; afterward its finite worker
+awaits the whole fresh-TZ batch before coverage/repair/continuum jobs.
 
 The dense recipe is directly compatible with `batch.py`. First make a fresh
 pilot manifest containing its equilibrium DZ entry. After its first singlet
@@ -259,11 +264,12 @@ commands are retained in `diagnostics/cas12-large-host-workspaces/` under the
 state-averaged evidence root. The combinatorial singlet/triplet-A1 counts match
 the two independent existing CONGEN outputs. The thirteen queries and tight
 CAS(10,11) import are included in the eighteen-attempt qualification supplement;
-The current 37-attempt supplement additionally preserves the full five-root
-CAS(10,11) SLEPc import, both tight CAS(10,12) starts and restart coverage,
-the nine-job CAS(10,11) ladder, 5Z neutral sentinels and four rejected unstable
-stretched references. Live staged QC/scattering and extra-root/full-CAS(10,12)
-selected-root trials await subsequent collection.
+The current 41-attempt supplement additionally preserves the five/eight-root
+CAS(10,11) SLEPc imports, independent all-64-root CI scan, tight CAS(10,11)
+scattering, 49 native replay attempts including one failure, small 80/160-vector
+controls, both tight CAS(10,12) starts and restart coverage, the nine-job
+CAS(10,11) ladder, 5Z neutral sentinels and four rejected unstable stretched
+references. Staged QC, continuum controls and full CAS(10,12) import remain pending.
 
 Before proposing the cost-constrained paid experiment, finish the tight CAS(10,12) starts,
 matched QC ladder and root/subspace checks; finalize the selected checkpoints
