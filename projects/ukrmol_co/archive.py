@@ -37,7 +37,13 @@ SUFFIXES = {
     ".sh",
     ".raw",
 }
-NAMES = {"target.energies", "log_file.0", "UKRmol-in-COPYING", "Dockerfile"}
+NAMES = {
+    "target.energies",
+    "log_file.0",
+    "UKRmol-in-COPYING",
+    "UKRmol-out-COPYING",
+    "Dockerfile",
+}
 
 
 def archive(
