@@ -539,6 +539,13 @@ Outer-only 99→197→393-point checks also pass: identical common-point phases 
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;
 their truncation is retained and the independent diagnostic uses full intervals.
+Radial propagation also passes 8→16→32-subrange and 100→150→200-bohr matching
+radius controls. A full-precision binary K audit verifies every requested sector
+and limits baseline phase changes to 2.57e-6 rad, with successive refined
+differences below 2.28e-10 rad. Binary-phase fits change position/full width by
+at most 2.63e-8/4.35e-8 eV. The forty-stage diagnostic takes 27.83 minutes /
+1.868 GiB; its [public companion](qualification-evidence/outer-propagation/README.md)
+preserves all binary outputs, rank logs and the reconstruction.
 The finite continuation also queues `calibration-sa11-tight-continuum.json`:
 l=3/l=5 controls against the completed tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.

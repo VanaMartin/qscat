@@ -1,0 +1,95 @@
+{
+  "git_sha": "a388b24fe438ebf7f8d5d1a13325b13f61c2702c",
+  "record_type": "co-outer-propagation-refinement",
+  "date": "2026-10-07",
+  "archive_sha256": "09ee4c814d9af4148e2e54094a325322ae57a240406c88d69ffd44305b487ea5",
+  "archive_bytes": 745716,
+  "payload_digests_verified": 296,
+  "byte_identical_repackaging": true,
+  "native_stages": 40,
+  "controls": [
+    [
+      "baseline",
+      100,
+      8
+    ],
+    [
+      "h2",
+      100,
+      16
+    ],
+    [
+      "h4",
+      100,
+      32
+    ],
+    [
+      "r150",
+      150,
+      26
+    ],
+    [
+      "r200",
+      200,
+      36
+    ]
+  ],
+  "components": [
+    "B1",
+    "B2"
+  ],
+  "native_grid_points": 99,
+  "original_controller_exit": 0,
+  "wall_seconds": 1669.5381824499927,
+  "kernel_peak_container_memory_bytes": 2005319680,
+  "numerical_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "verification": {
+    "all_requested_propagation_sectors_verified": true,
+    "successive_controls": [
+      {
+        "first": "h2",
+        "second": "h4",
+        "irrep": "B1",
+        "maximum_phase_difference_rad_mod_pi": 2.155164935402354e-10
+      },
+      {
+        "first": "h2",
+        "second": "h4",
+        "irrep": "B2",
+        "maximum_phase_difference_rad_mod_pi": 2.2149437839402708e-10
+      },
+      {
+        "first": "h4",
+        "second": "r150",
+        "irrep": "B1",
+        "maximum_phase_difference_rad_mod_pi": 2.081823602395616e-10
+      },
+      {
+        "first": "h4",
+        "second": "r150",
+        "irrep": "B2",
+        "maximum_phase_difference_rad_mod_pi": 2.2727064674654684e-10
+      },
+      {
+        "first": "r150",
+        "second": "r200",
+        "irrep": "B1",
+        "maximum_phase_difference_rad_mod_pi": 1.2440248831069312e-10
+      },
+      {
+        "first": "r150",
+        "second": "r200",
+        "irrep": "B2",
+        "maximum_phase_difference_rad_mod_pi": 1.5853829360423788e-10
+      }
+    ],
+    "all_binary_phase_gates_pass": true,
+    "native_stages_verified": 40,
+    "maximum_binary_phase_difference_rad": 2.568445061523761e-06,
+    "maximum_binary_fit_position_difference_ev": 2.62691542926094e-08,
+    "maximum_binary_fit_width_difference_ev": 4.347369020292038e-08,
+    "scope": "Active radial propagation refinement at fixed inner data, basis and channels"
+  },
+  "maximum_binary_to_printed_phase_error_rad": 4.868626213294647e-08,
+  "scope": "Numerical radial propagation qualification at fixed electronic/inner-region model; channel, continuum, basis, active-space and background-fit qualification remain separate"
+}

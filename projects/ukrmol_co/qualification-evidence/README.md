@@ -76,6 +76,12 @@ driver failures remain preserved: two MPI-input EOFs, a pause-state race and
 a completion-message mismatch after four successful native stages. Every
 CPU-slot lease records resumption of its waiting owner.
 
+The later [radial-propagation companion](outer-propagation/README.md) completes
+eight pipelines and verifies forty native stages, all requested propagation
+sectors and full-precision binary K matrices. Step/radius refinement changes
+phases by at most 2.57e-6 rad, with successive refined differences below
+2.28e-10 rad, passing the chosen numerical propagation gates.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.

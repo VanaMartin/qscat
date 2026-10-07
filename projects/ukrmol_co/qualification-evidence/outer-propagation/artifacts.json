@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "outer-propagation.tar.gz": {
+      "bytes": 745716,
+      "sha256": "09ee4c814d9af4148e2e54094a325322ae57a240406c88d69ffd44305b487ea5"
+    }
+  },
+  "git_sha": "a388b24fe438ebf7f8d5d1a13325b13f61c2702c",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-outer-propagation-2026-10-07/"
+}
