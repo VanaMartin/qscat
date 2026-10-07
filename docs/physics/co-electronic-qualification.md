@@ -71,6 +71,24 @@ rejections remain preserved. The validated refinement releases an independent
 64-root stretched import and same-geometry TZ/aug-TZ QC, with further
 electronic-model and competing-start checks still required.
 
+The subsequent R=2.5-bohr/DZ import now passes all **64 native roots** against
+the independently covered space-80/160 seeds within **3.598e-10 / 3.836e-10
+Hartree**. Forty native ensemble roots match current QC within **4.939e-11
+Hartree**, and the DENPROP ground dipole within **1.691e-11 a.u.** Core/active
+subspaces agree to roundoff against both seeds. Cost is **54.25 minutes /
+5.269 GiB**, including **2519.30 seconds** for DENPROP.
+
+The original engine/batch pass, while the supervisor and post-import verifier
+retain exit one: a `1e-10-Hartree` saved-table comparison rejects valid rounding
+from the `%16.9f` writer. The passing retained-data recheck uses the established
+final-CIDATA-set parser and exact-decimal **5e-10-Hartree** half-unit format
+bound; physical root/dipole gates remain **1e-7 Hartree / 1e-5 a.u.** The
+[488-payload companion](../../projects/ukrmol_co/qualification-evidence/stretched-import/README.md)
+reconstructs all roots, 40 raw QC states, both seeds' 96 reference spectra/624
+eigenpairs, both orbital-subspace comparisons and 16229 resource samples.
+Same-geometry TZ/aug-TZ QC now runs with conditional numerical repairs;
+basis, competing-start and across-geometry model qualification remain open.
+
 ## Completed CAS(10,11) scattering and extraction checks
 
 The tight DZ/40-component l=4 baseline completes at contracted B1/B2 dimensions

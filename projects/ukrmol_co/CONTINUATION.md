@@ -12,14 +12,17 @@ The matched CAS(10,10)
 one-/two-/four-rank and concurrent benchmarks also pass all seven replicas.
 CAS(10,12)'s tight QC starts, ensemble coverage and full forty-root/dipole import
 now pass locally in 6.201 hours / 40.405 GiB; its compressed DZ CI failure still gates dependent
-repairs. The neutral stretched RHF reference remains rejected. The next decisions
+repairs. Stretched CAS(10,11) DZ also passes its 64-root/dipole import after a
+retained-data decimal-format recheck; its original verifier failure is preserved
+and same-geometry TZ/aug-TZ QC now runs. The neutral stretched RHF reference
+remains rejected. The next decisions
 depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
 | 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
 | 4–7 | Four core+active downward-projection retries from both aug-TZ branches, 16-GiB containers | Both new-branch coverage scans pass; a 64-root competing-branch import follows the exact retry-worker completion, then resumes the waiting staged CAS(10,11) owner |
-| 8–11 | Stretched CAS(10,11) 64-root import, then same-geometry TZ/aug-TZ QC and conditional numerical repairs | CAS(10,12) forty-root/dipole import completes with original exit zero and releases the exact recorded owner; stretched gates remain independent |
+| 8–11 | Same-geometry stretched CAS(10,11) TZ/aug-TZ QC and conditional numerical repairs, successor PID 957385 | DZ all-64-root/dipole import passes the decimal-format recheck; original controller/verifier exit one remains preserved; passing basis targets still require coverage/import/competing starts |
 | 12–15 | Original CAS(10,11) l=3/l=5 continuum controls, 48-GiB containers | Their scientific gates pass; a finite successor advances them after the idle predecessor's recorded scheduling retirement, then replays saved-data fits |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
@@ -1695,6 +1698,59 @@ array floors. Outputs/resources/source/original exits go to
 `diagnostics/cas12-scattering-dimension-preflight/`. This finite local audit
 reduces the remaining external-host uncertainty without repeating the five-hour
 density stage. Paid provisioning remains deferred.
+
+### Stretched import verifier failure, recheck and basis continuation
+
+Original supervisor PID **933694**, attached `sh_113fdbc74001wgM6TF4p34y6Xq`,
+finishes with SSH/controller exit **one** after a successful engine/batch exit
+**zero**. Its post-import verifier fails at the saved/native comparison in
+`stretched-import-basis.py`: `atol=1e-10` rejects seven singlet-A1 values with
+maximum difference **4.99994712e-10 Hartree**. The saved table uses `%16.9f`.
+The original driver, execution record, exception and raw native results remain
+at their original paths; expensive QC, target eigensolves and DENPROP are reused.
+
+New finite successor PID **957385**, attached `sh_115500536001s9jfjjnzUAzJe9`,
+uses the freed **8–11** slot. Source:
+`prepared/stretched-import-recheck-basis-source/stretched-import-recheck-basis.py`,
+SHA256 `e6253cf789948d20a76e36f7a0160a08c47d1680d3ba404e8e0b3094e24e689a`.
+It first checks the completed original owner, unchanged source/seed hashes,
+engine/batch passes and slot availability, then runs the previously validated
+`verify-fresh-target-import.py`, SHA256
+`5d6f6bbd24172e9a9098aef9ce79a6a6456c2e3464eab123ac62d7616f341766`.
+The unique-final-CIDATA parser and exact-decimal half-unit **5e-10-Hartree**
+format bound pass all saved/native pairs. Physical root/dipole gates remain
+**1e-7 Hartree / 1e-5 a.u.** Recheck exit is **zero**, recorded separately in
+`diagnostics/cas11-stretched-import-decimal-recheck/`.
+
+All **64 native roots** pass against the covered space-80/160 stretched-DZ
+seeds within **3.598e-10 / 3.836e-10 Hartree**; forty native ensemble roots match
+current QC within **4.939e-11 Hartree**. Current-QC dipole error is
+**1.691e-11 a.u.**, seed dipole errors **8.856e-11 / 1.367e-10 a.u.**, minimum
+active-subspace overlaps **0.9999999999999990 / 0.9999999999999987**.
+Complete import wall is **3254.85 seconds / 54.25 minutes**, kernel peak
+**5657108480 bytes / 5.269 GiB**. QC totals **371.96 seconds**, eight SCATCI
+sectors **360.39 seconds**, DENPROP **2519.30 seconds**.
+
+The [stretched-import companion](qualification-evidence/stretched-import/README.md)
+verifies **488 payloads**, **40 raw QC states**, both seeds' **96 spectra / 624
+eigenpair evaluations**, both checkpoint-based subspace comparisons and
+**16229 raw resource samples**. It preserves the original failure and checks
+the refined coverage's archived input bytes. Public fetch is byte-for-byte and
+repackaging byte-identical.
+Archive:
+`https://data.qscat.org/ukrmol-co-stretched-import-2026-10-07/stretched-import.tar.ce39b22258f5.gz`,
+SHA256 `ce39b22258f5ae8551354e3105af2ea56d6fbafc00d55688f681767f5c60fcb8`.
+The publication bundle and executable verifier persist at
+`prepared/publication-stretched-import-20261007/`.
+
+The successor now runs `co-r2500-cctz-sa11-qc-dz80-start-ci-space80`, followed
+by the same-geometry aug-TZ QC entry. Both retain the ordinary **200-cycle CI**
+cap and original ensemble/tolerances. Only an orbital-converged CI failure
+permits a newly named space-160 retry. Containers use **32 GiB**, with **40 GiB
+available RAM / 20 GiB free scratch** required. Launch headroom is
+**107512430592 available RAM bytes / 157826818048 free disk bytes**. Passing
+basis attempts still require coverage, independent import and competing-start
+qualification. The other three CPU groups retain their existing owners.
 
 ### Scientific decisions still pending
 

@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "stretched-import.tar.gz": {
+      "bytes": 1006195,
+      "sha256": "ce39b22258f5ae8551354e3105af2ea56d6fbafc00d55688f681767f5c60fcb8"
+    }
+  },
+  "git_sha": "4ed502d3786f3b7a3ecfea72bda3cf2883ad5b21",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-stretched-import-2026-10-07/"
+}
