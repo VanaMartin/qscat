@@ -1,0 +1,115 @@
+{
+  "git_sha": "825b56ea961794722c5941e9a8d11871da5adf42",
+  "record_type": "co-cas12-tight-restart-slepc-import",
+  "date": "2026-10-07",
+  "archive_sha256": "0173df04a7694f1d13a230bc1bc8a6c4f495c78ea23e780d08f9b94acdd0d195",
+  "archive_bytes": 1551554,
+  "payload_digests_verified": 335,
+  "byte_identical_repackaging": true,
+  "parent_archive_sha256": "a4c0738b6d0168c49df3600c109a4f8baab67b5dcb7f81f8130fea9cc52d586a",
+  "verification": {
+    "all_40_native_roots_pass": true,
+    "original_engine_and_controller_exit": 0,
+    "prior_cas11_retry_batch_exit": 1,
+    "raw_reference_probes_verified": 48,
+    "raw_reference_eigenpairs_verified": 312,
+    "raw_current_qc_states_verified": 40,
+    "retained_extra_root_probe_failures": 2,
+    "sector_checks": [
+      {
+        "sector": "singlet.A1",
+        "native_roots": 5,
+        "new_cidata_set_number": 1,
+        "dimension": 43194,
+        "maximum_covered_seed_root_difference_hartree": 6.8148580112392665e-09,
+        "maximum_saved_rounding_error_hartree": "4E-10"
+      },
+      {
+        "sector": "singlet.B1",
+        "native_roots": 5,
+        "new_cidata_set_number": 3,
+        "dimension": 42396,
+        "maximum_covered_seed_root_difference_hartree": 8.032401410673629e-10,
+        "maximum_saved_rounding_error_hartree": "4E-10"
+      },
+      {
+        "sector": "singlet.B2",
+        "native_roots": 5,
+        "new_cidata_set_number": 5,
+        "dimension": 42396,
+        "maximum_covered_seed_root_difference_hartree": 8.025011766221724e-10,
+        "maximum_saved_rounding_error_hartree": "4E-10"
+      },
+      {
+        "sector": "singlet.A2",
+        "native_roots": 5,
+        "new_cidata_set_number": 7,
+        "dimension": 41898,
+        "maximum_covered_seed_root_difference_hartree": 9.613358997739851e-10,
+        "maximum_saved_rounding_error_hartree": "4E-10"
+      },
+      {
+        "sector": "triplet.A1",
+        "native_roots": 5,
+        "new_cidata_set_number": 2,
+        "dimension": 70674,
+        "maximum_covered_seed_root_difference_hartree": 1.888039946607023e-09,
+        "maximum_saved_rounding_error_hartree": "3E-10"
+      },
+      {
+        "sector": "triplet.B1",
+        "native_roots": 5,
+        "new_cidata_set_number": 4,
+        "dimension": 70860,
+        "maximum_covered_seed_root_difference_hartree": 7.10528524905385e-10,
+        "maximum_saved_rounding_error_hartree": "5E-10"
+      },
+      {
+        "sector": "triplet.B2",
+        "native_roots": 5,
+        "new_cidata_set_number": 6,
+        "dimension": 70860,
+        "maximum_covered_seed_root_difference_hartree": 7.104432597770938e-10,
+        "maximum_saved_rounding_error_hartree": "5E-10"
+      },
+      {
+        "sector": "triplet.A2",
+        "native_roots": 5,
+        "new_cidata_set_number": 8,
+        "dimension": 70746,
+        "maximum_covered_seed_root_difference_hartree": 4.576037326842197e-10,
+        "maximum_saved_rounding_error_hartree": "2E-10"
+      }
+    ],
+    "maximum_covered_seed_root_difference_hartree": 6.8148580112392665e-09,
+    "maximum_native_root_difference_from_independent_rhf_start_hartree": 3.4841747265090817e-08,
+    "maximum_current_qc_saved_import_root_difference_hartree": 5.46407363799517e-10,
+    "maximum_current_qc_native_import_root_difference_hartree": 4.800426722795237e-11,
+    "current_qc_import_dipole_difference_au": 1.2787357978050196e-11,
+    "native_dipole_difference_from_seed_au": 3.8094526734477885e-09,
+    "native_dipole_difference_from_rhf_start_au": -5.8804476923274285e-08,
+    "maximum_seed_reoptimization_root_difference_hartree": 6.793840157115483e-09,
+    "minimum_subspace_overlaps": {
+      "core": 0.9999999999999997,
+      "active": 0.9999999999999988
+    },
+    "minimum_rhf_start_import_subspace_overlaps": {
+      "core": 1.0000000000000004,
+      "active": 0.9999999999995508
+    },
+    "stage_totals_seconds": {
+      "target.psi4": 1472.30936789513,
+      "target.scatci_integrals": 0.094527006149292,
+      "target.congen": 12.218284368515018,
+      "target.scatci": 2808.786263227463,
+      "target.denprop": 18030.9664068222
+    },
+    "denprop_fraction_of_profiled_wall": 0.8076774069583903,
+    "wall_seconds": 22324.4655000621,
+    "container_cpu_seconds": 33973.629969,
+    "kernel_peak_container_memory_bytes": 43384504320,
+    "profile_samples_verified": 111339,
+    "largest_dense_matrix_floor_bytes": 40169116800,
+    "scope": "Five selected roots in eight target sectors; full scattering spectrum and electronic model remain separate gates"
+  }
+}

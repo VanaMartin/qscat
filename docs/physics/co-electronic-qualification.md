@@ -478,7 +478,8 @@ reconstructs every raw spectrum/spin/convergence block. Cost is **10.17 minutes 
 aug-TZ branches now run, with a separately gated 64-root SLEPc import queued
 behind their completion. Orbital-branch disagreement remains a scientific result.
 The qualified fixed-DZ l=3/l=5 continuum controls continue independently of
-the ongoing CAS(10,12) density stage. Electronic-model convergence remains open.
+CAS(10,12) import, which subsequently completes. Electronic-model convergence
+remains open.
 
 ## Selected-root target experiment
 
@@ -555,6 +556,37 @@ For the largest CAS(10,12) target dimension 70860, one dense Hamiltonian alone
 requires `8*N² = 40169116800 bytes` (37.41 GiB), or about 9.35 GiB per rank
 on four ranks. The local trial therefore uses a 64-GiB container and 16-GiB
 internal matrix budgets, conditional on 80 GiB available host RAM, 20 GiB
-free scratch and the full extra-root/import gates. This is a matrix floor,
-not a measured total-job peak. The all-spectrum scattering route still needs
-its own actual CONGEN dimensions and workspace audit.
+free scratch and the full extra-root/import gates. This is a matrix floor;
+the completed local job now measures its total peak below. The all-spectrum
+scattering route still needs its own actual contracted dimensions and workspace audit.
+
+### Completed local CAS(10,12) target import
+
+The tight-restart DZ/forty-component target completes with original engine,
+batch and controller exits zero in **22324.47 seconds / 6.201 hours**, aggregate
+CPU **9.437 hours**, kernel peak **40.405 GiB**. Five roots per singlet/triplet
+sector all pass: native-current-QC error **4.801e-11 Hartree**, saved-current-QC
+error **5.465e-10 Hartree**, covered-seed first-five error **6.815e-9 Hartree**,
+independent RHF-start error **3.485e-8 Hartree**. The DENPROP ground dipole agrees
+with current QC within **1.279e-11 a.u.**, with the seed within **3.810e-9 a.u.**
+and the independent RHF start within **5.881e-8 a.u.** Root/dipole physical gates
+remain 1e-7 Hartree / 1e-5 a.u.; final-CIDATA-set parsing and nine-decimal saved
+rounding consistency remain separate checks. Core/active subspaces match the
+seed to roundoff and the separate RHF-start active space to **0.9999999999995508**.
+
+All forty ensemble roots pass the original **48** fixed-orbital reference probes;
+two extra eight-root/space-40 failures remain failures and their larger-space
+controls pass. This import computes forty native roots; it does not assert the
+extra-root import gate at CAS(10,12). The
+[335-payload companion](../../projects/ukrmol_co/qualification-evidence/cas12-import/README.md)
+reconstructs all native spectra/dipole, forty raw current QC states, 48 raw
+reference spectra/spin/convergence blocks and 111339 resource samples, with
+independent checkpoint-based seed/RHF-start subspace comparisons.
+
+Eight SCATCI stages total **2808.79 seconds / 46.81 minutes**, QC **1472.31
+seconds / 24.54 minutes**, and serial DENPROP **18030.97 seconds / 5.009 hours**,
+or **80.768%** of profiled wall. The largest dense PETSc matrix remains dimension
+70860 / 37.41 GiB before overhead. Numerical target import is feasible on
+Sadaharu; the all-spectrum scattering path, its contracted dimensions and
+electronic-model convergence retain separate gates. The stretched CAS(10,11)
+import/basis queue advances on released CPUs 8–11.

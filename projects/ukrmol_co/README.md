@@ -589,7 +589,8 @@ The finite continuation also queues `calibration-sa11-tight-continuum.json`:
 l=3/l=5 controls against the completed tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.
 Their baseline/extra-root gates pass, and a finite successor now advances them
-on CPUs 12–15 while CAS(10,12) import continues on 8–11. Each passing run receives
+on CPUs 12–15. CAS(10,12) import subsequently completes on 8–11, releasing the
+gated stretched CAS(10,11) import/basis queue. Each passing continuum run receives
 saved-K-matrix background/detection
 replays; [the live handoff](CONTINUATION.md#local-continuation--7-october-2026)
 records the exact queues, resource gates and new fresh-TZ/CI observations.
@@ -602,7 +603,14 @@ minutes. Objectives differ by 2.84e-14 Hartree, roots by at most 4.17e-8
 Hartree and dipoles by 6.27e-8 a.u.; the minimum active-subspace overlap
 singular value is 0.999999999999496. All five ensemble roots converge in all
 48 fixed-orbital probes; extra singlet A1/A2 roots fail at space 40 and
-converge at 80/160. Independent import remains required.
+converge at 80/160. The [CAS(10,12) import companion](qualification-evidence/cas12-import/README.md)
+subsequently passes all **40 native roots** within **4.801e-11 Hartree** of current
+QC, **6.815e-9 Hartree** of covered seed spectra and **3.485e-8 Hartree** of the
+independent RHF start; ground dipole error is **1.279e-11 a.u.** against current
+QC. Complete cost is **6.201 hours / 40.405 GiB**. Serial DENPROP accounts for
+**5.009 hours / 80.768%** of wall; all eight SCATCI sectors take **46.81 minutes**.
+The numerical target import is locally established; full scattering dimensions
+and electronic-model convergence remain separate gates.
 
 The first nine-job CAS(10,11) ladder has two QC passes and seven failures:
 three CI-convergence failures and four simultaneous geometry/basis projection
@@ -660,7 +668,8 @@ the documented forecast separates measured stages from unmeasured MPI and
 larger-space costs. Paid provisioning is deferred: qualification continues on
 Sadaharu, and the first external-host experiment must fit approximately $200,
 at least 80% below that earlier forecast. Selected-root target diagonalization
-is being investigated against dense controls before claiming local feasibility.
+now establishes CAS(10,12) target-import feasibility locally, with the measured
+40.405-GiB peak; all-spectrum scattering retains its separate memory audit.
 
 ### Scattering model costs
 

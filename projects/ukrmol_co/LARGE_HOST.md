@@ -38,9 +38,14 @@ probes check all 64 requested roots within 5.34e-10 Hartree. See
 A selected-root target solver does not remove the all-spectrum requirement
 of the existing scattering calculation.
 
-The extra-root gate and CAS(10,12) restart coverage checks can release a 64-GiB local target-import
-trial on the freed scattering CPU slot. The trial retains the restart as an
-experimental input; competing starts remain part of model qualification.
+The extra-root gate and CAS(10,12) restart coverage release a 64-GiB local target
+import. It now completes with all forty native roots and the ground dipole
+passing: **6.201 hours / 40.405 GiB**, current-QC native-root error **4.801e-11
+Hartree**, covered-seed error **6.815e-9 Hartree**, independent RHF-start error
+**3.485e-8 Hartree**, current-QC dipole error **1.279e-11 a.u.** The
+[CAS(10,12) companion](qualification-evidence/cas12-import/README.md) verifies
+all 335 payloads and raw spectra/profiles. The restart remains an experimental
+model input; competing starts remain part of electronic qualification.
 Separately, two matched CAS(10,11) QC entries fail CI convergence after orbital
 convergence. Small-model 80/160-vector trial-space controls now pass, and fresh
 reoptimizations of those rejected checkpoints have started; their original
@@ -50,7 +55,8 @@ The selected-root target route retains a dense PETSc Hamiltonian. The largest
 CAS(10,12) matrix floor is 37.41 GiB (about 9.35 GiB per rank on four ranks).
 Its local recipe now uses 16-GiB internal budgets; the 64-GiB container trial
 requires 80 GiB available host RAM and 20 GiB free scratch before launch.
-These are conditional budgets above the matrix floor, not measured total peaks.
+The completed job measures a **40.405-GiB** complete-job kernel peak. Internal
+and container limits remain separate, above the matrix floor.
 
 Both CAS(10,12) tight starts and the restart's ensemble-root coverage pass;
 the common final active subspaces agree to a minimum overlap singular value
@@ -75,8 +81,11 @@ aggregate CPU**. Their summed per-job peaks bound the memory envelope at
 [public companion](qualification-evidence/mpi-throughput/README.md) retains
 inputs, host-workload samples, profiles and the reconstruction. Use this measured
 layout for independently qualified calculations at that compact model size.
-The CAS(10,12) experiment still needs its own memory/stage/scaling measurement;
-the 64-core forecast and approximately $200 first-experiment cap remain conditional.
+CAS(10,12) now has a measured four-rank target memory/stage baseline: eight
+SCATCI sectors **46.81 minutes**, serial DENPROP **5.009 hours / 80.768%** of
+wall. Its full scattering memory/scaling remains unmeasured; the 64-core forecast
+and approximately $200 first-experiment cap remain conditional. Increasing MPI
+ranks alone does not accelerate the measured serial density bottleneck.
 
 Competing larger-basis starts also expose a genuine electronic-model gate:
 two reproducible TZ-projected aug-TZ targets have an objective **0.538388 eV
@@ -84,7 +93,7 @@ lower** than the earlier fresh aug-TZ branch, ground shift **−1.115756 eV**,
 dipole shift **−0.06670992 a.u.** and minimum active overlap **0.141085**.
 The [competing-start companion](qualification-evidence/competing-starts/README.md)
 retains the failed restart verdicts and two projection-interface exceptions.
-New-branch coverage and tested downward-projection retries continue locally;
+New-branch coverage passes and tested downward-projection retries continue locally;
 numerically passing import alone does not prequalify a unique orbital model for
 the paid experiment.
 
@@ -119,8 +128,9 @@ change in resonance position or width.
 We need an active-space convergence test. CAS(10,12) is the next controlled
 test, not a predetermined production model or a guarantee of convergence.
 QC already evaluates this active space using iterative CI on Sadaharu. The
-large-memory requirement comes from the independently checked UKRmol dense
-target diagonalizations, followed by any selected-model scattering calculation.
+large-memory requirement remains for the all-spectrum dense route and any
+selected-model scattering calculation. The qualified selected-root target
+route now fits Sadaharu at its measured 40.405-GiB peak.
 
 ## Architecture and execution layout
 
@@ -222,7 +232,9 @@ CAS(10,10) scattering control and its coverage/independent-phase diagnostic now
 complete there. Outer energy-grid and stretched-DZ repair coverage checks use
 short gated leases; the finite worker then awaits the whole fresh-TZ batch
 before coverage/repair/continuum jobs. CPUs 8–11 have started the gated local
-CAS(10,12) SLEPc import after v3's controls pass. Both stretched-DZ CAS(10,11)
+CAS(10,12) SLEPc import after v3's controls pass, and that import now completes.
+The gated stretched CAS(10,11) import/basis worker advances on released 8–11.
+Both stretched-DZ CAS(10,11)
 80/160-vector repairs pass QC; both projected equilibrium TZ retries still fail
 singlet B1/B2 CI convergence after orbital convergence. Larger trial space does
 not by itself resolve basis/orbital continuity.
@@ -303,13 +315,15 @@ controls, both tight CAS(10,12) starts and restart coverage, the nine-job
 CAS(10,11) ladder, 5Z neutral sentinels and four rejected unstable stretched
 references, the matched tight CAS(10,10) control and coverage, four CI-space
 repairs, independent/held-point phase fits, finer outer grids and original
-driver failures. Staged QC, continuum controls and full CAS(10,12) import remain pending.
+driver failures. Its later CAS(10,12) companion establishes forty-root/dipole
+import and measured target memory/stages locally. Staged QC and continuum
+controls remain active; all-spectrum scattering still needs its own audit.
 
 Before proposing the cost-constrained paid experiment, finish the tight CAS(10,12) starts,
 matched QC ladder and root/subspace checks; finalize the selected checkpoints
 and their hashes; finish matching CAS(10,11) controls; verify the transferred
-bundle and staged manifests. Establish whether the selected-root target route
-fits Sadaharu, and narrow the external-host request to the remaining bottleneck.
+bundle and staged manifests. Use the established selected-root target feasibility
+on Sadaharu and narrow the external-host request to the remaining bottleneck.
 Rebuild and test on the chosen external host when it becomes available, then
 measure its first heavy sector and update the hours.
 All failed attempts remain evidence. Passing this queue establishes import
