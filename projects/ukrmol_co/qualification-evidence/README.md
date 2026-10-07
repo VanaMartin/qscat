@@ -166,9 +166,25 @@ Both aug-TZ lineages recover qualified fresh TZ within **4.156e-8 Hartree /
 6.916e-8 a.u.**, with minimum active overlap **0.9999999999995466**. The 296
 payloads reconstruct 160 raw QC states and 34132 resource samples. Original
 projection-interface failures and distinct aug-TZ solutions remain retained;
-the new branch's native import and electronic-model qualification remain open.
+the new branch's native import subsequently passes; electronic-model qualification
+remains open.
 
-Continuum and staged QC/import follow-ons remain pending. The prior
+The [continuum/competing-import companion](continuum-competing/README.md)
+now passes both l=3/l=5 angular-cutoff comparisons and the competing aug-TZ
+all-64-root native import. It verifies 1014 payloads, 36 native replays,
+39 batch-source hashes and 219998 raw profile samples. Angular refinement
+does not repair the 11.98–12.65% background-width sensitivity.
+
+The [native scattering preflight](scattering-preflight/README.md) reproduces
+CAS(10,11)'s dimension 27546 and measures CAS(10,12)'s dimension **86352**.
+Valid aggregate workspace-array floors **222.391 / 222.555 GiB** block the full
+current scattering solve on Sadaharu; the four-rank query retains its overflow
+failure and no estimate. Its 814 payloads preserve the original scheduling
+failure and four failed native preparations, and verify 245 source hashes and
+1099 raw profile samples. Actual CAS(10,12) scattering runtime/scaling remain open.
+
+Staged QC repairs, the neutral pilot and finite CAS(10,11) two-anchor follow-up
+continue locally. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.
 

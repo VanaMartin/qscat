@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "continuum-competing.tar.gz": {
+      "bytes": 3378969,
+      "sha256": "70c739dfebc709128872a722deed2c238bedfc941f715b76666814fa3ce37c5f"
+    }
+  },
+  "git_sha": "44b413bd5fd14debc6c065082aeb50ef274a70c6",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-continuum-competing-import-2026-10-07/"
+}

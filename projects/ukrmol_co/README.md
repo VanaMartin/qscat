@@ -572,8 +572,8 @@ preserves both original failures and passing numerical-pair evidence. The
 [new-branch coverage](qualification-evidence/competing-augtz-coverage/README.md)
 now passes all 96 probes/624 eigenpair evaluations, with physical/penalized
 residual maxima 6.630e-10/9.977e-10 Hartree, in 10.17 minutes / 0.380 GiB.
-Repaired downward retries run on the released slot; a gated 64-root native import
-is queued. Electronic-model qualification remains required.
+All four repaired downward retries and the gated 64-root native import subsequently
+pass. Electronic-model qualification remains required; both aug-TZ branches remain distinct.
 Outer-only 99→197→393-point checks also pass: identical common-point phases and
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;
@@ -585,15 +585,18 @@ differences below 2.28e-10 rad. Binary-phase fits change position/full width by
 at most 2.63e-8/4.35e-8 eV. The forty-stage diagnostic takes 27.83 minutes /
 1.868 GiB; its [public companion](qualification-evidence/outer-propagation/README.md)
 preserves all binary outputs, rank logs and the reconstruction.
-The finite continuation also queues `calibration-sa11-tight-continuum.json`:
+The finite continuation completes `calibration-sa11-tight-continuum.json`:
 l=3/l=5 controls against the completed tight l=4 scattering baseline, using the
 qualified selected-root target solver and the existing scattering diagonalizer.
-Their baseline/extra-root gates pass, and a finite successor now advances them
-on CPUs 12–15. CAS(10,12) import subsequently completes on 8–11, releasing the
-gated stretched CAS(10,11) import/basis queue. Each passing continuum run receives
-saved-K-matrix background/detection
-replays; [the live handoff](CONTINUATION.md#local-continuation--7-october-2026)
-records the exact queues, resource gates and new fresh-TZ/CI observations.
+Both angular comparisons pass. Relative to l=4, l=5 shifts position/full width
+by **+0.07987 meV / +0.2655%**, with phase difference **0.0162174 rad**.
+The [continuum/competing-import companion](qualification-evidence/continuum-competing/README.md)
+reconstructs 36 native saved-K-matrix background/detection replays, the competing
+aug-TZ import and raw profiles. Width sensitivity remains **11.98–12.65%** across
+background choices. CAS(10,12) import and stretched CAS(10,11) basis/import diagnostics
+also finish; the neutral and finite two-anchor follow-ups continue locally.
+[The live handoff](CONTINUATION.md#local-continuation--7-october-2026) records
+exact owners, resource gates and qualification findings.
 This target route stores a dense PETSc Hamiltonian; its largest CAS(10,12)
 matrix floor is 37.41 GiB. The prepared local limit is 64 GiB, with 16-GiB
 internal budgets and an 80-GiB available-host-memory gate.
@@ -609,8 +612,12 @@ QC, **6.815e-9 Hartree** of covered seed spectra and **3.485e-8 Hartree** of the
 independent RHF start; ground dipole error is **1.279e-11 a.u.** against current
 QC. Complete cost is **6.201 hours / 40.405 GiB**. Serial DENPROP accounts for
 **5.009 hours / 80.768%** of wall; all eight SCATCI sectors take **46.81 minutes**.
-The numerical target import is locally established; full scattering dimensions
-and electronic-model convergence remain separate gates.
+The numerical target import is locally established. The
+[native scattering preflight](qualification-evidence/scattering-preflight/README.md)
+now reproduces the CAS(10,11) control and measures **990990 raw / 86352 contracted**
+CAS(10,12) configurations per Pi sector. Valid array floors **222.391 / 222.555 GiB**
+prove the full current scattering solve exceeds Sadaharu's RAM. Actual scattering
+runtime/scaling and electronic-model convergence remain separate gates.
 
 The first nine-job CAS(10,11) ladder has two QC passes and seven failures:
 three CI-convergence failures and four simultaneous geometry/basis projection

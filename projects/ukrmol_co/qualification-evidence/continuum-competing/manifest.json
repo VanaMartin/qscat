@@ -1,0 +1,194 @@
+{
+  "git_sha": "44b413bd5fd14debc6c065082aeb50ef274a70c6",
+  "record_type": "co-continuum-and-competing-import",
+  "date": "2026-10-07",
+  "archive_sha256": "70c739dfebc709128872a722deed2c238bedfc941f715b76666814fa3ce37c5f",
+  "archive_bytes": 3378969,
+  "payload_digests_verified": 1014,
+  "verification": {
+    "competing_import": {
+      "run": "co-eq-aug-tz-sa11-competing-slepc-roots8-space80-target",
+      "all_64_roots_pass": true,
+      "sector_checks": [
+        {
+          "spin": 0,
+          "irrep": "A1",
+          "new_cidata_set_number": 1,
+          "maximum_independent_root_difference_hartree": 2.410691024579137e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 0,
+          "irrep": "B1",
+          "new_cidata_set_number": 3,
+          "maximum_independent_root_difference_hartree": 8.106454174594546e-09,
+          "maximum_saved_table_rounding_difference_hartree": "4E-10"
+        },
+        {
+          "spin": 0,
+          "irrep": "B2",
+          "new_cidata_set_number": 5,
+          "maximum_independent_root_difference_hartree": 8.106596283141698e-09,
+          "maximum_saved_table_rounding_difference_hartree": "4E-10"
+        },
+        {
+          "spin": 0,
+          "irrep": "A2",
+          "new_cidata_set_number": 7,
+          "maximum_independent_root_difference_hartree": 6.1240967852427275e-09,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "A1",
+          "new_cidata_set_number": 2,
+          "maximum_independent_root_difference_hartree": 3.881038423969585e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "B1",
+          "new_cidata_set_number": 4,
+          "maximum_independent_root_difference_hartree": 1.2336030863480119e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "B2",
+          "new_cidata_set_number": 6,
+          "maximum_independent_root_difference_hartree": 1.2335931387497112e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "A2",
+          "new_cidata_set_number": 8,
+          "maximum_independent_root_difference_hartree": 2.8815520636271685e-08,
+          "maximum_saved_table_rounding_difference_hartree": "4E-10"
+        }
+      ],
+      "format_analytic_controls": {
+        "exact_and_both_half_unit_ties_pass": true,
+        "corrupt_tokens_rejected": true,
+        "inherited_cidata_sets_excluded": true,
+        "missing_final_set_rejected": true
+      },
+      "saved_table_format": "%16.9f, half-last-unit bound 5e-10 Hartree",
+      "physical_root_gate_hartree": 1e-07,
+      "physical_dipole_gate_au": 1e-05,
+      "maximum_seed_to_reoptimized_ensemble_root_difference_hartree": 2.6507109396334272e-08,
+      "native_dipole_difference_from_seed_au": 1.8756027425625987e-07,
+      "subspace_overlap_singular_values": {
+        "core": [
+          1.0000000000000016,
+          0.9999999999999988
+        ],
+        "active": [
+          1.000000000000001,
+          1.0000000000000007,
+          1.0000000000000002,
+          0.9999999999999988,
+          0.9999999999999983,
+          0.9999999999999978,
+          0.9999999999999976,
+          0.9999999999999768,
+          0.9999999999999757,
+          0.9999999999999665,
+          0.9999999999992184
+        ]
+      },
+      "imported_checkpoint_sha256": "ade896c9043ac0a7adf684fb005760aff003a2f034f99d957f2fe736f7da0648",
+      "reference_checkpoint_sha256": "2f0cc1e4cbd31ede3012cf19a9584ddefa88b9240b990ec908d5f2c100bc78fb",
+      "writer_source_sha256": "f531586e68396c89e18623516fae8f1a5dc1135e60858255fe66a4da109f46e9",
+      "verifier_source_sha256": "5d6f6bbd24172e9a9098aef9ce79a6a6456c2e3464eab123ac62d7616f341766",
+      "scope": "Covered CAS11 all-root/dipole import; competing-start and model gates remain open",
+      "wall_seconds": 3259.4740503909998,
+      "kernel_peak_container_memory_bytes": 5648445440,
+      "required_40_root_current_qc_error_hartree": 4.943103704135865e-10,
+      "native_current_qc_dipole_error_au": 4.2306158576366215e-12
+    },
+    "native_replays_verified": 36,
+    "source_hashes_verified": 39,
+    "profile_samples_verified": 219998,
+    "scope": "Angular numerical gates pass; background width and orbital-branch model gates remain open",
+    "continuum_comparisons": [
+      {
+        "baseline": "co-eq-ccdz-sa11-tight-cc40",
+        "control": "co-eq-ccdz-sa11-tight-cc40-continuum-l3-slepc",
+        "control_wall_seconds": 10621.10055804206,
+        "control_kernel_memory_peak_bytes": 26123505664,
+        "profile_samples_verified": 132244,
+        "scope": "Completed angular-cutoff pair; background-selection and electronic-model qualification remain open",
+        "sector_changes": [
+          {
+            "irrep": "B1",
+            "native_position_change_ev": 0.003960209097309923,
+            "native_full_width_change_ev": 0.008556838096140803,
+            "native_width_fractional_change": 0.007434253888997501,
+            "maximum_phase_change_rad_mod_pi": 0.016657499999999992,
+            "phase_gate_pass": true
+          },
+          {
+            "irrep": "B2",
+            "native_position_change_ev": 0.003960209097309923,
+            "native_full_width_change_ev": 0.008556838096140803,
+            "native_width_fractional_change": 0.007434253888997501,
+            "maximum_phase_change_rad_mod_pi": 0.016657499999999992,
+            "phase_gate_pass": true
+          }
+        ],
+        "fixed_window_maximum_position_change_ev": 0.00398182449663969,
+        "fixed_window_maximum_width_fractional_change": 0.007213500651168096,
+        "background_width_spans": [
+          {
+            "run": "co-eq-ccdz-sa11-tight-cc40",
+            "background_width_span_fraction_of_default": 0.12652570171560445
+          },
+          {
+            "run": "co-eq-ccdz-sa11-tight-cc40-continuum-l3-slepc",
+            "background_width_span_fraction_of_default": 0.12601003686986367
+          }
+        ]
+      },
+      {
+        "baseline": "co-eq-ccdz-sa11-tight-cc40",
+        "control": "co-eq-ccdz-sa11-tight-cc40-continuum-l5-slepc",
+        "control_wall_seconds": 14353.379767747829,
+        "control_kernel_memory_peak_bytes": 28239343616,
+        "profile_samples_verified": 150817,
+        "scope": "Completed angular-cutoff pair; background-selection and electronic-model qualification remain open",
+        "sector_changes": [
+          {
+            "irrep": "B1",
+            "native_position_change_ev": 7.986541863223213e-05,
+            "native_full_width_change_ev": 0.0030555665615620196,
+            "native_width_fractional_change": 0.0026547022788275245,
+            "maximum_phase_change_rad_mod_pi": 0.016217399999999937,
+            "phase_gate_pass": true
+          },
+          {
+            "irrep": "B2",
+            "native_position_change_ev": 7.986541863223213e-05,
+            "native_full_width_change_ev": 0.0030555665615620196,
+            "native_width_fractional_change": 0.0026547022788275245,
+            "maximum_phase_change_rad_mod_pi": 0.016217399999999937,
+            "phase_gate_pass": true
+          }
+        ],
+        "fixed_window_maximum_position_change_ev": 0.0003930217205839308,
+        "fixed_window_maximum_width_fractional_change": 0.00227931961903514,
+        "background_width_spans": [
+          {
+            "run": "co-eq-ccdz-sa11-tight-cc40",
+            "background_width_span_fraction_of_default": 0.12652570171560445
+          },
+          {
+            "run": "co-eq-ccdz-sa11-tight-cc40-continuum-l5-slepc",
+            "background_width_span_fraction_of_default": 0.11980939485994606
+          }
+        ]
+      }
+    ]
+  },
+  "byte_identical_repackaging": true
+}
