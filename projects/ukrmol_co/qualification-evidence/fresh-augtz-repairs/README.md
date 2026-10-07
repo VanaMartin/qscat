@@ -63,5 +63,6 @@ repairs and the unchanged rejected seed.
 
 The later [coverage companion](../fresh-augtz-coverage/README.md) now passes
 both checkpoints' 96 probes/624 eigenpair evaluations in 10.02 minutes /
-0.391 GiB. The coverage-gated 64-root aug-TZ import is active; competing starts
+0.391 GiB. The [64-root aug-TZ import](../fresh-augtz-import/README.md) now also
+passes root/dipole/subspace gates in 56.01 minutes / 5.268 GiB. Competing starts
 and electronic-model qualification remain open.

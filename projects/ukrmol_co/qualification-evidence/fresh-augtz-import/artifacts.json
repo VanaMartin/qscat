@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "fresh-augtz-import.tar.gz": {
+      "bytes": 743003,
+      "sha256": "3568cc77de32e415fcac6b403649ab7002636ee93b076f8fdcf7b2f0f75d0437"
+    }
+  },
+  "git_sha": "0eeaa010e3be3243c870dfaec88ede160180b2bd",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-fresh-augtz-import-2026-10-07/"
+}

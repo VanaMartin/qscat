@@ -432,6 +432,24 @@ seed and pair gates release the now-active 64-root aug-TZ import. This closes
 fixed-orbital coverage for those repairs, while independent import, competing
 starts and electronic-model convergence remain open.
 
+The repaired aug-TZ import subsequently passes all **64 native roots** against
+the covered space-80 seed within **5.969e-11 Hartree**, and against the separate
+space-160 seed within **5.764e-11 Hartree**. All forty ensemble import roots
+agree with import-run QC within **4.672e-10 Hartree**, and the DENPROP dipole
+within **5.169e-12 a.u.**. Core/active subspaces match to roundoff; all original
+engine/supervisor/verifier exits are zero. Cost is **56.01 minutes / 5.268 GiB**,
+including **2319.03 seconds** for DENPROP and **394.14 seconds** for eight SCATCI
+sectors. The [import companion](../../projects/ukrmol_co/qualification-evidence/fresh-augtz-import/README.md)
+reconstructs every native root and both seeds' 96 raw reference spectra.
+
+Four finite same-geometry TZ↔aug-TZ projections at CI spaces 80/160 now compare
+each passing target with its numerical partner and the qualified fresh target
+in that basis. They retain two inactive core orbitals, ten active electrons,
+the forty-component ensemble, tight tolerances and ordinary 200-cycle CI limit.
+These cross-basis starts test competing orbital solutions; electronic-model
+convergence remains open. The already-qualified fixed-DZ l=3/l=5 continuum
+controls also advance independently of the ongoing CAS(10,12) density stage.
+
 ## Selected-root target experiment
 
 The pinned UKRmol-in 3.3.0 engine already includes a disk-backed Davidson

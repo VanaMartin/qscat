@@ -49,5 +49,8 @@ PYTHONPATH=. uv run python "$EVIDENCE_DIR/state-averaged-evidence/verify-fresh-a
   "$EVIDENCE_DIR/state-averaged-evidence"
 ```
 
-The [continuation](../../CONTINUATION.md) records the now-active
-[64-root augmented-TZ import](../../calibration-sa11-fresh-augtz-import.json).
+The subsequent [64-root augmented-TZ import](../fresh-augtz-import/README.md)
+now passes against both repaired seeds, including dipole and orbital-subspace
+gates, in 56.01 minutes / 5.268 GiB. The
+[continuation](../../CONTINUATION.md) records the same-geometry competing-start
+projections that follow it.
