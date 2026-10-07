@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "mpi-throughput.tar.gz": {
+      "bytes": 4853964,
+      "sha256": "619491c1b75afba0f468a393ab2d4f0aeff3cb1df86992da27fd1cf7b85cae02"
+    }
+  },
+  "git_sha": "8ec871ca4eb5cc0f2cda2ea33de02cd11343b708",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-matched-mpi-throughput-2026-10-07/"
+}

@@ -650,6 +650,26 @@ is being investigated against dense controls before claiming local feasibility.
 
 ### Scattering model costs
 
+The tight **CAS(10,10)/cc-pVDZ/40-channel** matched benchmark now passes all
+seven replicas, with both contracted scattering dimensions 8350 and 99 energies:
+
+| MPI ranks | Runner wall (s) | Aggregate CPU (s) | Kernel memory peak (GiB) | Full-job speedup |
+|---:|---:|---:|---:|---:|
+| 1 | 3105.91 | 3105.86 | 2.849 | 1.000× |
+| 2 | 1830.62 | 3435.09 | 2.743 | 1.697× |
+| 4 | 1239.61 | 4268.46 | 2.822 | 2.506× |
+
+The sequential MPI trials use CPUs 12–15; four one-rank replicas pinned
+individually to those same physical cores finish together in **3444.36 seconds /
+57.41 minutes**, **1.440×** the throughput of repeating the measured four-rank
+job. Their summed per-job memory peaks give an **11.342-GiB upper envelope**.
+All forty roots/dipoles and orbital subspaces match the baseline; phases differ
+by at most 2e-7 rad and position/full width by 0.137/0.041 micro-eV. The
+[benchmark companion](qualification-evidence/mpi-throughput/README.md) retains
+all seven runs, frozen sources, raw profiles and the completed CPU-slot lease.
+These are single-shot timings with recorded concurrent host work; larger models
+need their own measurement. The continuum supervisor resumes after this trial.
+
 For equilibrium DZ39/four-frozen SEP on Sadaharu, with 491 energies:
 
 | MPI ranks | Calculation wall time (s) | Aggregate CPU time (s) | Kernel memory peak (GiB) |
