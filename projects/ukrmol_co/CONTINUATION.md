@@ -6,7 +6,8 @@ Fresh CAS(10,11) TZ and both repaired aug-TZ targets now pass QC, independent
 600-cycle fixed-orbital coverage and all-64-root UKRmol import/dipole checks.
 The original rejected fresh aug-TZ record remains exact. Subsequent competing
 starts find a distinct, reproducible aug-TZ branch whose objective is 0.538388 eV
-lower; its coverage and repaired downward projections are the next local gates.
+lower; both new-branch coverage scans pass, repaired downward projections run
+and its independent native import is queued.
 The matched CAS(10,10)
 one-/two-/four-rank and concurrent benchmarks also pass all seven replicas.
 CAS(10,12)'s tight QC starts and coverage pass, but full target-density/dipole
@@ -17,7 +18,7 @@ depend on these finite workers:
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
 | 0–3 | Staged CAS(10,12) QC ladder, 32-GiB containers | Passing DZ seeds release basis pairs; a new finite queue repairs eligible CI failures and checks both trial-space seeds before releasing missing basis pairs |
-| 4–7 | Both new CAS(10,11) aug-TZ branch coverage/residual scans, 8-GiB container | Passing scans release four fresh-name core+active downward-projection retries, then resume the waiting staged CAS(10,11) owner |
+| 4–7 | Four core+active downward-projection retries from both aug-TZ branches, 16-GiB containers | Both new-branch coverage scans pass; a 64-root competing-branch import follows the exact retry-worker completion, then resumes the waiting staged CAS(10,11) owner |
 | 8–11 | CAS(10,12) target DENPROP/dipole processing, 64-GiB import container | Final independent import qualification releases the recorded stretched import/basis and other dependent workers |
 | 12–15 | Original CAS(10,11) l=3/l=5 continuum controls, 48-GiB containers | Their scientific gates pass; a finite successor advances them after the idle predecessor's recorded scheduling retirement, then replays saved-data fits |
 
@@ -1552,6 +1553,51 @@ and the worker resumes its owner in its final handler. Source:
 CAS(10,12) QC/density, the independent l=3/l=5 continuum queue and later stretched
 import/basis dependencies continue. Available host RAM is approximately **100 GiB**;
 the approximately $200 external experiment remains deferred.
+
+### Competing aug-TZ branch coverage completion
+
+Coverage supervisor PID **953666** finishes with original profiled/container
+exit **zero**, releasing its acknowledged lease and resuming staged owner
+**916479**. Both scans pass all **96 probes / 624 eigenpair evaluations**, with
+maximum physical/penalized residuals **6.630e-10 / 9.977e-10 Hartree**. Ensemble,
+same-root-count space and common-first-five root-count differences are at most
+**2.274e-13 / 1.706e-13 / 1.564e-13 Hartree**, CI orthogonality **4.771e-14**.
+Wall is **610.35 seconds / 10.17 minutes**, kernel peak **407740416 bytes /
+0.380 GiB**, aggregate CPU **1953.75 seconds**. Original analytic controls pass;
+ordinary target CI remains 200 cycles. Both seed hashes remain unchanged.
+
+The [coverage companion](qualification-evidence/competing-augtz-coverage/README.md)
+publishes **335 verified payloads**, with every raw spectrum/spin/convergence
+block reconstructed, recorded action residuals checked and comparisons recomputed.
+Public fetch is byte-for-byte and repackaging byte-identical. Archive:
+`https://data.qscat.org/ukrmol-co-competing-augtz-coverage-2026-10-07/competing-augtz-coverage.tar.b0e24bad20f5.gz`,
+SHA256 `b0e24bad20f5e97f67bc7693184a4b9ed1da6b903b5b748fb6e579dfd32732ae`.
+Publication/verifier persist at `prepared/publication-competing-augtz-coverage-20261007/`.
+
+Retry supervisor **954343** immediately acquires the acknowledged waiting-owner
+lease on **4–7**, launching its four new-name downward projections after both
+coverage verdicts pass. Launch resource gate records **100.47 GiB available RAM /
+148.11 GiB free scratch**; each QC container remains **16 GiB**.
+
+The finite import supervisor PID **954948**, attached `sh_11515817e001Una5gIFHyTtyl6`,
+now waits for that exact worker's completion. Source:
+`prepared/competing-augtz-import-source/competing-augtz-import.py`; recipe:
+[`calibration-sa11-competing-augtz-import.json`](calibration-sa11-competing-augtz-import.json).
+It imports the new space-80 seed with eight roots/sector, forty equal-weight
+ensemble components and forty configured retained states. SLEPc tolerance/cap
+remain **1e-13 / 1000**, internal budget **6 GiB**, container **16 GiB**, with
+24 GiB available RAM / 20 GiB scratch required. Both full coverage scans and the
+numerical pair, exact seed hashes and all recorded physical/penalized residuals
+must pass. Final verification uses the validated final-CIDATA-set/decimal parser,
+all 64 roots, dipole and core/active subspaces against the covered reference.
+
+The scheduling dependency is completion of the downward worker, retaining its
+original exit even when comparisons fail. It does not redefine that scientific
+verdict: this independent import has its own explicit QC/pair/coverage gates.
+The previous fresh-lineage import and new-branch disagreement remain evidence.
+The import worker leases/resumes the same staged owner in its final handler;
+CAS(10,12) and fixed-DZ continuum tasks remain on their disjoint core groups.
+Further local work remains reasonable, with no paid provisioning.
 
 ### Scientific decisions still pending
 

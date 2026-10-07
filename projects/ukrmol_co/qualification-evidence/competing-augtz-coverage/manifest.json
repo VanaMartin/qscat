@@ -1,0 +1,47 @@
+{
+  "git_sha": "de4a552abc11589580a33570c64f4c9187dcfc37",
+  "record_type": "co-competing-augtz-residual-coverage",
+  "date": "2026-10-07",
+  "archive_sha256": "b0e24bad20f5e97f67bc7693184a4b9ed1da6b903b5b748fb6e579dfd32732ae",
+  "archive_bytes": 862960,
+  "payload_digests_verified": 335,
+  "byte_identical_repackaging": true,
+  "parent_archive_sha256": "b5193060808b6d5eabe0b75cfb2d6d7e0edf0c1cfabaf785a51fcacae2ceafeb",
+  "verification": {
+    "runs": [
+      {
+        "run": "co-eq-aug-tz-sa11-qc-from-fresh-tz-space80",
+        "probes_verified": 48,
+        "eigenpairs_verified": 312,
+        "checkpoint_sha256": "2f0cc1e4cbd31ede3012cf19a9584ddefa88b9240b990ec908d5f2c100bc78fb",
+        "maximum_physical_residual_hartree": 6.568537886020245e-10,
+        "maximum_penalized_residual_hartree": 9.97617481255932e-10,
+        "maximum_ensemble_energy_difference_hartree": 2.2737367544323206e-13,
+        "maximum_trial_space_difference_hartree": 1.7053025658242404e-13,
+        "maximum_first_five_root_count_difference_hartree": 1.5631940186722204e-13,
+        "maximum_ci_orthogonality_error": 4.486314296188173e-14,
+        "all_roots_pass": true
+      },
+      {
+        "run": "co-eq-aug-tz-sa11-qc-from-fresh-tz-space160",
+        "probes_verified": 48,
+        "eigenpairs_verified": 312,
+        "checkpoint_sha256": "95ba854810510cb75580bc1cdc7eb058a3bd06ff983fdbb91bd99a77d24b9d7e",
+        "maximum_physical_residual_hartree": 6.62951187237416e-10,
+        "maximum_penalized_residual_hartree": 9.961856406706492e-10,
+        "maximum_ensemble_energy_difference_hartree": 1.4210854715202004e-13,
+        "maximum_trial_space_difference_hartree": 1.5631940186722204e-13,
+        "maximum_first_five_root_count_difference_hartree": 1.2789769243681803e-13,
+        "maximum_ci_orthogonality_error": 4.7705340299412585e-14,
+        "all_roots_pass": true
+      }
+    ],
+    "both_competing_branch_coverage_gates_pass": true,
+    "raw_probes_verified": 96,
+    "raw_eigenpairs_verified": 624,
+    "analytic_residual_and_perturbed_vector_benchmark_passes": true,
+    "wall_seconds": 610.3546081811655,
+    "kernel_peak_container_memory_bytes": 407740416,
+    "scope": "Raw spectra/spins and recorded Hamiltonian-action residuals; distinct orbital branches remain; independent import is still required"
+  }
+}

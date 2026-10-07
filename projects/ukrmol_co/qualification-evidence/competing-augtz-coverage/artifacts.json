@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "competing-augtz-coverage.tar.gz": {
+      "bytes": 862960,
+      "sha256": "b0e24bad20f5e97f67bc7693184a4b9ed1da6b903b5b748fb6e579dfd32732ae"
+    }
+  },
+  "git_sha": "de4a552abc11589580a33570c64f4c9187dcfc37",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-competing-augtz-coverage-2026-10-07/"
+}
