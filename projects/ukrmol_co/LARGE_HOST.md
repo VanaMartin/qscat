@@ -66,6 +66,18 @@ external RHF stability. The restricted neutral route is blocked there pending
 a different validated correlation treatment; increasing its basis alone does
 not resolve that reference defect.
 
+The matched local CAS(10,10) scattering benchmark now measures **3105.91 /
+1830.62 / 1239.61 seconds** on one/two/four ranks within the same four physical
+cores. Four concurrent one-rank jobs finish in **3444.36 seconds**, **1.440×**
+the throughput of repeating the measured four-rank job, with **19.90% less
+aggregate CPU**. Their summed per-job peaks bound the memory envelope at
+**11.342 GiB**. All seven replicas pass numerical equivalence; the
+[public companion](qualification-evidence/mpi-throughput/README.md) retains
+inputs, host-workload samples, profiles and the reconstruction. Use this measured
+layout for independently qualified calculations at that compact model size.
+The CAS(10,12) experiment still needs its own memory/stage/scaling measurement;
+the 64-core forecast and approximately $200 first-experiment cap remain conditional.
+
 At the recorded Frankfurt rates, a **24-hour `r8a.16xlarge` window costs
 $148.01 in compute**; a **48-hour `r8a.8xlarge` window also costs $148.01**.
 The 256-GiB instance can accommodate one audited dense target worker, while

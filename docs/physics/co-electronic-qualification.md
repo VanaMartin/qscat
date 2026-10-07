@@ -252,6 +252,36 @@ retains raw binary K data, all rank logs, sources and the reconstruction.
 The plateau is resolved well below the chosen phase tolerance; electronic-model,
 continuum/channel and fit-background qualification remain open.
 
+## Matched MPI scaling and concurrent throughput
+
+The tight equilibrium CAS(10,10)/cc-pVDZ/40-channel benchmark completes all
+seven replicas with original exits zero. On CPUs 12–15, one/two/four ranks
+take **3105.91 / 1830.62 / 1239.61 seconds**, with aggregate CPU **3105.86 /
+3435.09 / 4268.46 seconds** and kernel peaks **2.849 / 2.743 / 2.822 GiB**.
+Full-job speedups are **1.697× / 2.506×**, whereas the scattering SCATCI
+stage speeds up **1.980× / 3.764×**. This measures the complete pipeline's
+nonparallel costs rather than assuming eigensolver scaling applies everywhere.
+
+Four one-rank replicas on CPUs 12/13/14/15 finish in **3444.36 seconds**, giving
+**1.440× throughput** relative to repeating the measured four-rank runner.
+Aggregate CPU is **13675.56 seconds**, versus **17073.86 seconds** for four
+repetitions, and summed per-job memory peaks bound the concurrent envelope
+at **11.342 GiB**. These are single-shot measurements on one geometry with
+recorded concurrent host work; they do not establish larger-model scaling.
+
+All seven target/import, grid, cross-section-sum and Pi gates pass. Both
+contracted dimensions remain **8350**. Different initial-checkpoint lineage is
+checked explicitly: QC roots/dipoles match the baseline within **6.119e-9
+Hartree / 2.986e-8 a.u.**, and core/active subspaces agree to roundoff.
+All forty import roots/dipoles agree with each replica's QC within **5.044e-10
+Hartree / 4.295e-11 a.u.**. Maximum phase and native position/full-width
+changes are **2e-7 rad / 0.137 micro-eV / 0.041 micro-eV**, well inside the
+unchanged numerical gates. The
+[benchmark companion](../../projects/ukrmol_co/qualification-evidence/mpi-throughput/README.md)
+reanalyzes all seven replicas and the exact published baseline and verifies
+98997 raw profile samples. Execution-layout equivalence does not resolve
+active-space/basis/background-width sensitivity or certify a resonance pole.
+
 ## Independently correlated neutral pilot
 
 The neutral pilot uses conventional spherical-basis RHF followed by

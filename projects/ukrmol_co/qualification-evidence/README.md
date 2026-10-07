@@ -113,6 +113,13 @@ passes all 96 probes/624 eigenpair evaluations, with physical/penalized residual
 maxima 6.62e-10/9.94e-10 Hartree. All 253 payloads verify. The 10.02-minute /
 0.391-GiB scan releases a gated 64-root UKRmol import on Sadaharu.
 
+The [matched MPI/throughput companion](mpi-throughput/README.md) now passes all
+seven CAS(10,10) replicas. One/two/four ranks take 3105.91/1830.62/1239.61 seconds;
+four concurrent single-core jobs finish in 3444.36 seconds, **1.440×** the
+throughput of repeated four-rank execution on the same allocation. All 1221
+payloads and 98997 raw profile samples verify; numerical equivalence includes
+the distinct initial-checkpoint lineage. Continuum work resumes after slot release.
+
 Continuum and staged QC/import follow-ons remain pending. The prior
 eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
 `manifest.json`'s `prior_snapshots` with its immutable URL and digest.

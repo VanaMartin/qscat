@@ -1340,6 +1340,68 @@ Final numerical-equivalence and throughput comparisons await their completion.
 CAS(10,12) density/dipole processing and projected TZ QC continue on **8–11**
 and **0–3**, respectively. Further local work remains reasonable.
 
+### Matched MPI and throughput completion
+
+The matched benchmark supervisor PID **932604** now completes with original
+exit **zero**, resuming CPU-slot owner PID **918330** after the acknowledged
+lease. All seven runs and both batches have original exits zero. The resumed
+coverage/continuum queue successfully reanalyzes the fresh TZ QC record and
+advances to its original finite coverage/continuum prerequisites on **12–15**.
+
+| MPI ranks | Runner wall (seconds) | Aggregate CPU (seconds) | Kernel memory peak (GiB) | Full-job speedup |
+|---:|---:|---:|---:|---:|
+| 1 | 3105.91 | 3105.86 | 2.849 | 1.000× |
+| 2 | 1830.62 | 3435.09 | 2.743 | 1.697× |
+| 4 | 1239.61 | 4268.46 | 2.822 | 2.506× |
+
+The scattering SCATCI stage alone speeds up **1.980× / 3.764×** at two/four
+ranks. All three sequential rank entries use CPUs **12–15**, with 16-GiB
+limits and one thread per numerical library; batch wall is **6177.72 seconds**.
+Four one-rank replicas pinned individually to **12 / 13 / 14 / 15**, with
+8-GiB limits each, finish together in **3444.36 seconds / 57.41 minutes**.
+Their runner walls are 3442.00/3412.68/3380.81/3443.62 seconds.
+`4 × 1239.61 / 3444.36 = 1.43958`: **43.96% higher throughput / 30.54% less
+four-job elapsed time** against repeating the measured four-rank runner.
+The four-job serial reference is extrapolated, not a separate measured batch.
+Aggregate CPU is **13675.56 seconds**, **19.90% less** than four repetitions
+of the measured four-rank aggregate CPU. Summed per-job kernel peaks bound
+the concurrent envelope at **12178423808 bytes / 11.342 GiB**, with a
+**5368893440-byte / 5.000-GiB** summed run-disk peak envelope. Profiles use
+per-run elapsed clocks, so these are upper envelopes rather than synchronized
+instantaneous measurements. The exact concurrent host workloads are recorded
+before both batches; timings are single-shot measurements on one geometry.
+
+All seven replicas pass target/import, grid, nonnegative cross-section, final-state
+sum, Pi and matched numerical gates. Both contracted scattering dimensions
+are **8350**. Their seed is the baseline's final checkpoint SHA256
+`97d8bc1166e34d0d98d826e71d98bc6413cfc644572ef19229500726f5ac31d4`;
+the baseline itself started from an earlier continuum checkpoint. That lineage
+change passes explicit checks: forty QC roots/dipoles differ by at most
+**6.119e-9 Hartree / 2.986e-8 a.u.**, minimum active-subspace overlap
+**0.9999999999998141**, and core subspaces satisfy the same numerical gate.
+Import roots/dipoles agree with each replica's QC within **5.044e-10 Hartree /
+4.295e-11 a.u.**. Maximum baseline phase, native position and full-width
+changes are **2e-7 rad / 0.137 micro-eV / 0.041 micro-eV**. This establishes
+execution-layout equivalence at that model size; larger spaces/channels need
+their own measurement, and electronic-model/extraction gates remain open.
+
+The [MPI/throughput companion](qualification-evidence/mpi-throughput/README.md)
+publishes all seven runs, both frozen batches, exact published baseline inputs,
+native outputs, profiles and source/lease records. All **1221 payloads** verify;
+disposable-copy reanalysis of all eight records and **98997 raw profile samples**
+reconstruct the numerical and resource checks. Public fetch is byte-for-byte and
+repackaging byte-identical. Archive:
+`https://data.qscat.org/ukrmol-co-matched-mpi-throughput-2026-10-07/mpi-throughput.tar.619491c1b75a.gz`,
+SHA256 `619491c1b75afba0f468a393ab2d4f0aeff3cb1df86992da27fd1cf7b85cae02`.
+Publication/verifier persist at `prepared/publication-mpi-throughput-20261007-v2/`.
+The first publication is retained in the companion manifest; only verifier
+formatting and its analysis-source digest change, with identical numerical evidence.
+Tracked recipes are `calibration-sa10-tight-mpi-scaling.json` and
+`calibration-sa10-tight-throughput.json`; completed directories remain evidence.
+The approximately $200 external bottleneck cap remains unchanged. Continue
+aug-TZ and CAS(10,12) imports, staged QC and the resumed finite continuum queue
+on Sadaharu before choosing that experiment.
+
 ### Scientific decisions still pending
 
 1. **Qualify the larger-active-space targets.** The tightened CAS(10,11)
