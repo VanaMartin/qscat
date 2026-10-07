@@ -467,9 +467,16 @@ changes remain rejected. Original batch/controller exits stay one. All
 verify, including both exceptions, 80 raw final states and independent
 checkpoint-based reconstruction of all three subspace comparisons.
 
-Both new aug-TZ checkpoints now receive independent 600-cycle fixed-orbital
-coverage/residual scans. Four new-name downward retries from the fresh and
-competing aug-TZ branches wait for those scans, with physical gates retained.
+Both new aug-TZ checkpoints subsequently pass independent 600-cycle fixed-orbital
+coverage: **96 probes / 624 eigenpair evaluations**, maximum physical/penalized
+residuals **6.630e-10 / 9.977e-10 Hartree**, with original exit zero. Ensemble,
+trial-space and common-first-five root-count differences are at most **2.274e-13 /
+1.706e-13 / 1.564e-13 Hartree**. The
+[335-payload coverage companion](../../projects/ukrmol_co/qualification-evidence/competing-augtz-coverage/README.md)
+reconstructs every raw spectrum/spin/convergence block. Cost is **10.17 minutes /
+0.380 GiB**. Four new-name downward retries from the fresh and competing
+aug-TZ branches now run, with a separately gated 64-root SLEPc import queued
+behind their completion. Orbital-branch disagreement remains a scientific result.
 The qualified fixed-DZ l=3/l=5 continuum controls continue independently of
 the ongoing CAS(10,12) density stage. Electronic-model convergence remains open.
 

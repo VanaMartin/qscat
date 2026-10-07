@@ -127,6 +127,11 @@ overlap **0.141085**. All 277 payloads and 80 raw final states verify; original
 batch/controller exits stay one. A tested core+active projection interface repair
 releases new-name downward retries after coverage of the new branch.
 
+That [new-branch coverage](competing-augtz-coverage/README.md) now passes all
+96 probes/624 eigenpair evaluations in 10.17 minutes / 0.380 GiB. Residual maxima
+are 6.630e-10/9.977e-10 Hartree; all 335 payloads verify. The downward retry
+queue starts after slot release, and the covered branch's native import is queued.
+
 The [matched MPI/throughput companion](mpi-throughput/README.md) now passes all
 seven CAS(10,10) replicas. One/two/four ranks take 3105.91/1830.62/1239.61 seconds;
 four concurrent single-core jobs finish in 3444.36 seconds, **1.440×** the

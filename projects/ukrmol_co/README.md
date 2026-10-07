@@ -568,8 +568,12 @@ aug-TZ branch: objective **−0.538388 eV**, ground **−1.115756 eV**, z dipole
 the fresh branch. Two downward projections fail before QC; a tested core+active
 interface repair queues new-name retries. The
 [competing-start evidence](qualification-evidence/competing-starts/README.md)
-preserves both original failures and passing numerical-pair evidence. Coverage
-of the new branch is active; electronic-model qualification remains required.
+preserves both original failures and passing numerical-pair evidence. The
+[new-branch coverage](qualification-evidence/competing-augtz-coverage/README.md)
+now passes all 96 probes/624 eigenpair evaluations, with physical/penalized
+residual maxima 6.630e-10/9.977e-10 Hartree, in 10.17 minutes / 0.380 GiB.
+Repaired downward retries run on the released slot; a gated 64-root native import
+is queued. Electronic-model qualification remains required.
 Outer-only 99→197→393-point checks also pass: identical common-point phases and
 fixed-window position/full-width changes at most 0.145/0.292 meV (0.0254% in
 width), at 6.37 minutes / 0.719 GiB. Native fine-grid fits hit `MAXFIT=100`;

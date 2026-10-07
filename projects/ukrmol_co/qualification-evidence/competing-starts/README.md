@@ -88,3 +88,8 @@ PYTHONPATH="$CONTROL/source" uv run --with pyscf==2.11.0 python \
 
 The [continuation](../../CONTINUATION.md) records the original owner resumption,
 new coverage lease and dependent finite downward retry queue on Sadaharu.
+
+The subsequent [new-branch coverage companion](../competing-augtz-coverage/README.md)
+now passes all 96 probes/624 eigenpair evaluations, with physical/penalized
+residual maxima 6.630e-10/9.977e-10 Hartree, in 10.17 minutes / 0.380 GiB.
+Downward retries are running; the independent native import is queued.
