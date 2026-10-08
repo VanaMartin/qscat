@@ -1,0 +1,28 @@
+{
+  "git_sha": "45c3ec76ceed7802c210c9fd78f0ddad2012de16",
+  "date": "2026-10-09",
+  "record_type": "cas11-compressed-extraction-and-three-anchor-orbital-screens",
+  "archive_sha256": "194becd3530da71465e5d85defce4b081a3041be46c4adccd49972070d31b29a",
+  "archive_bytes": 349446,
+  "byte_identical_repackaging": true,
+  "verified_payloads": 94,
+  "profiles": 10,
+  "extraction_cases": 24,
+  "held_folds": 120,
+  "compressed_position_span_ev": 0.08992961487879869,
+  "compressed_full_width_span_ev": 0.7464470548284861,
+  "compressed_median_full_width_ev": 2.317728941731791,
+  "compressed_width_span_fraction_of_median": 0.32205968583657846,
+  "compressed_window_background_gate_passed": false,
+  "adjacent_physical_core_minimum_singular_values": [0.9132223248417558, 0.8071916807975243],
+  "adjacent_physical_active_minimum_singular_values": [0.9692939714071377, 0.9318799787098309],
+  "adjacent_ao_transport_core_minimum_singular_values": [0.9985947113944109, 0.9982981503496042],
+  "adjacent_ao_transport_active_minimum_singular_values": [0.9872609126481371, 0.9872730327223456],
+  "costs": {
+    "extraction": {"wall_seconds": 0.6048835068941116, "kernel_peak_gib": 0.08743667602539062, "profiles": 4},
+    "continuity": {"wall_seconds": 0.4015765830408782, "kernel_peak_gib": 0.0931396484375, "profiles": 3},
+    "transport": {"wall_seconds": 0.4016147810034454, "kernel_peak_gib": 0.06827545166015625, "profiles": 3}
+  },
+  "final_pole_or_many_electron_identity_verdict": null,
+  "full_report": "https://data.qscat.org/ukrmol-co-small-anchor-controls-2026-10-09/manifest.07de117b9b2c.json"
+}

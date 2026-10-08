@@ -1,0 +1,14 @@
+{
+  "status": "finite low-memory outer-only grid control after the saved-phase extraction rejection",
+  "reference": "co-r1900-ccdz-sa11-tight-cc40-anchor",
+  "parent_contract": "cas11-small-anchor-controls-contract.json",
+  "grids": [{"start_requested_ev": 0.1, "step_requested_ev": 0.025, "points": 317}, {"start_requested_ev": 0.1, "step_requested_ev": 0.0125, "points": 633}],
+  "sectors": ["B1", "B2"],
+  "unchanged": "Saved target channels and inner-region R-matrix amplitudes, four ranks, continuum, outer propagation parameters and pinned engine. No target optimization or inner-region solve.",
+  "stages": ["mpi_rsolve", "eigenp", "tmatrx", "ixsecs", "reson"],
+  "requirements": "Use the validated inp symlink for mpi_rsolve and accept the established native completion-message variants. Preserve original exits, full phase/cross-section grids and all native resonance output, including empty candidates and MAXFIT truncation.",
+  "gates": {"complete_grid": true, "finite_nonnegative_cross_sections": true, "channel_sum_relative_tolerance": 1e-6, "maximum_common_phase_error_rad_mod_pi": 0.05, "maximum_pi_phase_difference_rad_mod_pi": 0.002, "maximum_fit_position_difference_ev": 0.05, "maximum_fit_full_width_difference_fraction": 0.05, "absolute_width_floor_ev": 0.001},
+  "analysis": "Apply all24 parent window/background cases to each fine grid, with the same three starts and five held-point folds. Compare matched finest-grid fits and original common points. Grid convergence is separate from the preserved all-background extraction rejection; no background case is discarded.",
+  "resources": {"cpu_group": "12-15", "container_memory_gib": 2, "container_memory_swap_gib": 2, "minimum_available_ram_gib": 16, "minimum_free_disk_gib": 40, "container_timeout_seconds": 3600, "native_stage_timeout_seconds": 600},
+  "release": "One fresh bounded outer replay and analysis. Existing main solve and queued target imports retain CPU/resource ownership guards. Any stage or verifier failure stops this attempt without automatic retry. No pole identity, production-potential or full-sweep release."
+}

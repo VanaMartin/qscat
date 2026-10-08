@@ -153,6 +153,14 @@ peak, the original pre-engine TZ packaging failure and both dependent-owner
 stops. Fresh time-budget and package-complete successors retain their original
 scientific gates and are captured with pending verdicts.
 
+The [compressed extraction and three-anchor orbital screens](small-anchor-controls/README.md)
+reconstruct **94 payloads / 10 profiles** from three subsecond, sub-0.1-GiB
+diagnostics. All 24 compressed saved-grid fits are numerically valid, but
+window/background position and width spans are **0.08993 eV / 32.206%**, rejecting
+the extraction gates. Physical core-overlap follow-up triggers are contrasted
+with an explicitly AO-indexed metric transport, diagnosing basis-centre-motion
+sensitivity; many-electron state and resonance-pole identity remain unset.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

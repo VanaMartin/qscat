@@ -44,7 +44,7 @@ depend on these finite workers:
 | 0–3 | Released: compressed diagnostic PID 1049672 finishes; hourly verifier may resume | All 96 probes execute; 84 pass and all 12 singlet-A1 probes reject; original QC remains unqualified |
 | 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 solve active | Original 40-GiB attempt hits its six-hour cap below the memory ceiling; fresh 24-hour-stage attempt retains all scientific controls |
 | 8–11 | Released; package-complete import owner **1065882** waiting | Compressed space160 import follows the fresh memory owner, passing TZ verification, explicit original aug-TZ rejection and supported-space aug-TZ verification |
-| 12–15 | Released; package-complete import owner **1065882** waiting | TZ and supported-space aug-TZ retain priority; original pre-engine packaging/dependent-owner failures remain preserved |
+| 12–15 | Finite 2-GiB compressed outer-grid replay, owner **1071520**; import owner **1065882** waiting | Saved-data extraction/orbital screens finish; TZ and supported-space aug-TZ retain guarded follow-on priority |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -632,6 +632,74 @@ can be substituted into a passing target. Full-model selection, threshold/
 geometry continuity, extraction sensitivity and the correlated stretched
 neutral treatment remain open. Main-index snapshot97b8b4c is complete and
 upstream-current; these release/evidence/handoff additions are branch-local.
+
+### Spare-capacity controls — 9 October release
+
+Following the user-directed spare-capacity continuation, three fresh saved-data
+diagnostics complete alongside the large CAS11 sparse solve. Host timestamps
+for this local 9-October release are still **8 October UTC**; the run-name date
+is a release identifier, not a replacement for measured timestamps.
+
+- Extraction owner **1070467** completes **24 compressed cases / 192 data fits /
+  120 held folds**, both Pi sectors, three below-threshold windows, backgrounds
+  1–4 and three starts. Synthetic recovery/branch controls and all optimizer/
+  multistart checks pass, but **0.08993-eV position / 32.206% width** spans
+  reject the declared gates; constant-background held errors reach **0.120 rad**.
+- Continuity-screen owner **1070469** rechecks all three matched CAS11/cc-pVDZ
+  forty-state anchors. Adjacent physical core/active minima are **0.9132/0.9693**
+  and **0.8072/0.9319**; end-to-end **0.6001/0.8249**. Core follow-up triggers
+  remain recorded; native/QC thresholds, Pi and MO checks pass.
+- AO-transport owner **1071065** follows the independent diagnostic declaration.
+  Adjacent AO-following core/active minima are **0.9986/0.9873** and
+  **0.9983/0.9873**, end-to-end **0.9940/0.9500**. Metric identity/reciprocity/
+  sign/rotation controls pass. This diagnoses moving-basis sensitivity without
+  establishing physical wavefunction or many-electron state/pole identity.
+
+All three original controller/diagnostic exits are zero. Costs are
+**0.605/0.402/0.402 seconds**, kernel peaks **0.0874/0.0931/0.0683 GiB**.
+The [public companion](qualification-evidence/small-anchor-controls/README.md)
+verifies **94 payloads / 10 profiles**, all declared fit/held/span decisions,
+checkpoint/source hashes and independent AO-overlap/metric reconstruction.
+Public fetch/replay and byte-identical repackaging pass. Archive SHA256:
+`194becd3530da71465e5d85defce4b081a3041be46c4adccd49972070d31b29a`.
+
+The [separately declared outer-grid control](cas11-compressed-outer-grid-contract.json)
+then launches owner **1071520**, service `co-compressed-outer-grid-20261009.service`,
+on CPUs12–15 in a **2-GiB container**, using the existing pinned SLEPc engine
+and saved inner-region amplitudes/channels. Grids are **317/633 points** at
+**0.025/0.0125-requested-eV spacing**, both sectors, five native stages each,
+followed by all parent windows/backgrounds/multistart/held-fold controls.
+Per-stage/whole-container limits are **600/3600 seconds**. Failure stops this
+attempt without automatic retry. Source/input hashes are frozen under
+`prepared/compressed-outer-grid-source-20261009/`; outputs are
+`diagnostics/cas11-compressed-outer-grid-20261009/`.
+
+At **22:38:17 UTC**, outer replay and CAS11 owner1065880 are active, at about
+**0.575/30.74 GiB** with **77.48-GiB available RAM / 114.16-GiB free disk**.
+Import owner1065882 waits with zero launched steps. The two large-job hourly
+journals remain the long-running observation surface. Read-only outer watcher
+`sh_11da64122001zVIkS88HNOU22b` returns the finite replay owner's completion.
+The next action is independent outer-grid reconstruction, then review of the
+fresh CAS11 result and guarded target imports. Full extraction/model selection,
+many-electron identity and stretched correlated-neutral treatment remain open.
+
+The user restarts **`ukrmol-co-pilot` at 22:39:03 UTC**. A read-only host check
+at **22:40:05 UTC** confirms it is running idle, with no OOM/error flag. The
+independent CAS11 and outer containers retain their original **18:48:50 /
+22:33:12 UTC** start times and original owner PIDs; no calculation is restarted.
+All seven calculation/monitor services checked are active with `NRestarts=0`.
+The import queue still waits with zero launched steps. Outer progress has
+completed all ten 317-point native stages and entered the 633-point B1 solve.
+Available RAM/free disk are **77.27/114.16 GiB**. The main hourly observer last
+completed at **22:20:31 UTC**, and the successor progress journal's **21:49:21
+UTC** capture is within its hourly interval. Existing original failures remain
+historical records, not restart-induced failures.
+
+The maintained phase fitter's **14 tests** pass; public reconstruction and
+manifest parity, JSON/Python3.11 syntax, **173 relative links**, Ruff/format and
+diff checks pass. Main-index snapshot **97b8b4c** remains complete/upstream-current;
+the three experiment contracts, public evidence and handoff additions are
+branch-local and resolved against current source.
 
 ### Original local hourly observation — 8 October 2026
 

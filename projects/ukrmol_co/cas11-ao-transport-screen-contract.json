@@ -1,0 +1,12 @@
+{
+  "status": "finite diagnostic follow-up to the coarse cross-geometry core-overlap triggers",
+  "parent_contract": "cas11-small-anchor-controls-contract.json",
+  "references": ["co-r1900-ccdz-sa11-tight-cc40-anchor", "co-eq-ccdz-sa11-tight-cc40", "co-r2500-ccdz-sa11-tight-cc40-anchor"],
+  "pairs": [[0, 1], [1, 2], [0, 2]],
+  "physical_overlap": "C_left.T @ S_cross_geometry @ C_right, with exact spherical cross-geometry AO overlap integrals in the saved common molecular frame",
+  "ao_transport_overlap": "(S_left**(1/2) @ C_left).T @ (S_right**(1/2) @ C_right), using symmetric positive-definite metric square roots and identical ordered atom/basis/AO labels",
+  "interpretation": "The AO-indexed Lowdin transport identifies orthonormal coefficient frames while the atom-centred basis moves. It preserves each geometry's AO norm but is not a physical cross-geometry wavefunction overlap. Comparing it with physical overlap diagnoses basis-centre motion sensitivity; neither can establish many-electron state identity or a resonance-pole assignment.",
+  "controls": "Positive-definite AO metrics, metric-square-root reconstruction, orthonormal transported orbitals, same-geometry identity, reverse-pair reciprocity, finite singular values bounded by one, column-sign and orthogonal within-subspace rotation invariance",
+  "resources": {"cpu_group": "14-15", "container_memory_gib": 2, "minimum_available_ram_gib": 16, "minimum_free_disk_gib": 40, "container_timeout_seconds": 3600},
+  "release": "One fresh saved-checkpoint screen, immutable source/input hashes and measured resources. Preserve the original core-overlap triggers and keep the final state-identity verdict unset."
+}

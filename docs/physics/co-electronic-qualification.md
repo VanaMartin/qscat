@@ -827,6 +827,41 @@ representation choice, not retroactive exclusion of the constant control. Native
 fine-grid **MAXFIT** leaves its fit verdict unset. Threshold/geometry identity and
 full extraction remain open.
 
+#### Compressed extraction and three-anchor orbital screens
+
+The [finite low-memory companion](../../projects/ukrmol_co/qualification-evidence/small-anchor-controls/README.md)
+uses the completed CAS11 anchors at **R=1.9/2.1323/2.5 bohr**. At the compressed
+anchor, three below-threshold windows (1.5–6.5, 2–6 and 2.5–5.5 requested eV),
+background terms1–4, three starts and five held-point folds give **24 cases /
+192 data fits / 120 held folds**. Synthetic exact recovery and phase-branch
+invariance pass; every declared case is numerically valid and multistart-stable.
+Nevertheless, the fitted position/full-width spans are **0.08993 / 0.74645 eV**,
+with widths spanning **32.206%** of their **2.31773-eV** median. Both position
+and width gates reject. Constant-background held errors reach **0.120 rad**,
+also exceeding the 0.05-rad gate. Higher-background residual improvement does
+not erase these controls. Both Pi sectors reproduce the same findings.
+
+The saved-orbital screen rechecks native/QC thresholds, all forty ensemble
+roots, Pi degeneracy and AO-metric orthogonality. Adjacent physical core/active
+minimum overlap singular values are **0.9132/0.9693** and **0.8072/0.9319**;
+the end-to-end pair is **0.6001/0.8249**. Physical core follow-up triggers are
+preserved. A separately declared AO-following Lowdin frame uses
+`X(R) = S_AO(R)^(1/2) C(R)` with identical ordered atom/basis/AO labels.
+Singular values of `X(R_left).T @ X(R_right)` give adjacent core/active minima
+**0.9986/0.9873** and **0.9983/0.9873**, end-to-end **0.9940/0.9500**.
+This contrast diagnoses sensitivity to motion of the atom-centred basis;
+the AO-indexed transport is an explicit coefficient-frame identification,
+not a physical wavefunction overlap. Identity, reverse-pair reciprocity and
+subspace sign/rotation checks pass. Neither screen establishes many-electron
+state identity or assigns a resonance pole.
+
+The three screens cost **0.605/0.402/0.402 seconds**, kernel peaks
+**0.0874/0.0931/0.0683 GiB**. Public reconstruction verifies **94 payloads /
+10 profiles** and byte-identical repackaging. A separately declared
+[compressed outer-grid replay](../../projects/ukrmol_co/cas11-compressed-outer-grid-contract.json)
+tests the same saved channels/amplitudes at 0.025/0.0125-requested-eV spacing;
+energy-grid stability remains separate from the all-background rejection.
+
 ### Compressed CAS12 singlet-A1 driver diagnosis
 
 At R=1.9 bohr, both preserved CAS(10,12) DZ QC checkpoints fail their original

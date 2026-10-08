@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "small-anchor-controls.tar.gz": {
+      "bytes": 349446,
+      "sha256": "194becd3530da71465e5d85defce4b081a3041be46c4adccd49972070d31b29a"
+    }
+  },
+  "git_sha": "45c3ec76ceed7802c210c9fd78f0ddad2012de16",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-small-anchor-controls-2026-10-09/"
+}

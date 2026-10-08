@@ -1,0 +1,27 @@
+{
+  "status": "finite low-memory controls released alongside the active CAS11 sparse solve",
+  "compressed_extraction": {
+    "reference": "co-r1900-ccdz-sa11-tight-cc40-anchor",
+    "sectors": ["B1", "B2"],
+    "windows_requested_ev": [[1.5, 6.5], [2.0, 6.0], [2.5, 5.5]],
+    "background_orders": [1, 2, 3, 4],
+    "starts": [[0.0, 1.0], [-0.05, 0.5], [0.05, 2.0]],
+    "start_displacement_units": "fraction of the fitting energy span",
+    "held_point_folds": 5,
+    "expected_cases": 24,
+    "expected_optimizer_calls": 192,
+    "gates": {"maximum_position_span_ev": 0.05, "maximum_full_width_span_fraction_of_median": 0.05, "absolute_width_floor_ev": 0.001, "held_phase_error_rad_mod_pi": 0.05},
+    "requirements": "Use complete saved grids below the first excited target threshold and actual native energies requested_eV*0.0735/2 Hartree. Preserve all declared background/window cases and invalid/boundary fits. Compare starts, held points and Pi components. Exact synthetic recovery and phase-branch invariance controls precede the data fits."
+  },
+  "continuity_screen": {
+    "references": ["co-r1900-ccdz-sa11-tight-cc40-anchor", "co-eq-ccdz-sa11-tight-cc40", "co-r2500-ccdz-sa11-tight-cc40-anchor"],
+    "pairs": "Two adjacent pairs and the compressed-to-stretched pair",
+    "method": "Unchanged CAS(10,11)/cc-pVDZ forty-state targets. Tabulate native and PySCF thresholds by spin/irrep/root, Pi splitting and electronic flags. Evaluate core/active subspace singular values using exact cross-geometry spherical AO overlap integrals in the common saved molecular frame.",
+    "controls": "Same-geometry metric identity and orthogonality, reverse-overlap transpose reciprocity, finite singular values in [0,1] up to numerical tolerance, sign/within-subspace rotation invariance.",
+    "diagnostic_triggers": {"core_minimum_singular_value_below": 0.95, "active_minimum_singular_value_below": 0.8},
+    "interpretation": "Triggers request follow-up only. Coarse geometry spacing, energy/root labels and orbital-subspace overlap cannot establish many-electron state or resonance-pole identity. Final continuity verdict stays unset."
+  },
+  "resources": {"extraction_cpus": "12-13", "continuity_cpus": "14-15", "container_memory_gib_each": 2, "container_memory_swap_gib_each": 2, "minimum_available_ram_gib": 16, "minimum_free_disk_gib": 40, "container_timeout_seconds": 3600, "eligibility_wait_timeout_hours": 1},
+  "scheduling": "Recheck physical/SMT CPU ownership immediately before launch. Preserve the existing main solve, idle pilot and unrelated workloads. Fresh containers use one BLAS/OpenMP thread; larger queued imports retain their CPU-ownership guards.",
+  "preservation": "Fresh diagnostic directories, immutable source/input hashes, original exits and measured resource costs. Scientific gate rejection is recorded separately from a successful diagnostic execution. No automatic fit tuning, native rebuild, large import or model/sweep release."
+}
