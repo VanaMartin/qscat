@@ -43,6 +43,20 @@ def runtime():
     return indexer
 
 
+@pytest.fixture(autouse=True)
+def stop_test_search_service(tmp_path):
+    """Release detached test runtimes before temporary repositories disappear."""
+    from tools.agent_search.service_client import rpc, socket_path
+
+    yield
+    for db_path in (tmp_path / "db", tmp_path / "not-a-directory"):
+        if socket_path(db_path).exists():
+            try:
+                asyncio.run(rpc(db_path, "stop"))
+            except (OSError, RuntimeError):
+                pass
+
+
 @pytest.fixture
 def repos(tmp_path):
     upstream = tmp_path / "upstream.git"
@@ -418,11 +432,12 @@ def test_legacy_migration_reuses_payloads_but_regenerates_main_provenance(runtim
     assert runtime.read_manifest(db_path, source.table)["format"] == runtime.VERSION
 
 
-def parameters(root, db_path, interval=300):
+def parameters(root, db_path, interval=300, corpus="repository", *, cwd=None):
     from mcp import StdioServerParameters
 
     return StdioServerParameters(
         command=sys.executable,
+        cwd=str(cwd) if cwd is not None else None,
         args=[
             "-m",
             "tools.agent_search.mcp",
@@ -432,6 +447,8 @@ def parameters(root, db_path, interval=300):
             str(db_path),
             "--check-interval",
             str(interval),
+            "--corpus",
+            corpus,
         ],
     )
 
@@ -535,6 +552,255 @@ def test_mcp_refreshes_live_main_and_serves_last_good_snapshot_after_fetch_failu
                 offline = decoded(await client.call_tool("query_table", {"query": "numeric solve"}))
                 assert offline["freshness"]["source_commit"] == newest
                 assert offline["freshness"]["upstream"]["state"] == "unknown"
+
+    asyncio.run(exercise())
+
+
+@pytest.fixture
+def article_repos(repos):
+    author, worker, upstream = repos
+    folder = author / "reference/literature"
+    folder.mkdir(parents=True)
+    for name, page, title in [
+        ("paper-a", "012710-6", "Bilinear pairing"),
+        ("paper-b", "22", "Siegert pseudostates"),
+    ]:
+        (folder / f"{name}.md").write_text(
+            f"# {title}\n\n"
+            "**Source:** `reference/literature/local.pdf` (gitignored) · DOI 10.1234/test\n"
+            "**Pagination:** preprint numbering; no journal-page conversion.\n\n"
+            "## What this repository uses\n\n"
+            "| Fact | Locator | Used by |\n|---|---|---|\n"
+            f"| Bilinear pairing without conjugation | p. {page}, Eq. (A5) | solver |\n\n"
+            "## Equations\n\n```\n"
+            f"Int psi(r) psi(r) dr = 1          p. {page}, Eq. (A5)\n```\n\n"
+            "## Findings and limits\n\nThis is a note claim, not a new full-text verification.\n"
+        )
+    (folder / "README.md").write_text("# Literature inventory\nExclude me.\n")
+    (folder / "local.pdf").write_bytes(b"Not a searchable PDF")
+    commit(author, "Literature notes")
+    git(author, "push", "-q", "origin", "main")
+    return author, worker, upstream
+
+
+def test_reference_note_metadata_preserves_actual_editions_and_literal_locators():
+    from tools.agent_search import articles
+
+    folder = Path(__file__).parents[1] / "reference/literature"
+    for note in sorted(folder.glob("*.md")):
+        if note.name == "README.md":
+            continue
+        metadata = articles.paper_metadata(
+            note.relative_to(folder.parent.parent).as_posix(), note.read_text()
+        )
+        assert metadata["paper_id"] == note.stem
+        assert metadata["doi_or_url"].startswith("https://")
+        assert metadata["source_edition"] and metadata["pagination"]
+    preprint = articles.paper_metadata(
+        "hvizdos-2018-pra97-022704.md", (folder / "hvizdos-2018-pra97-022704.md").read_text()
+    )
+    assert "preprint" in preprint["pagination"]
+    assert (
+        "2023"
+        in articles.paper_metadata(
+            "schwerdtfeger-nagle-2019-molphys117-1200.md",
+            (folder / "schwerdtfeger-nagle-2019-molphys117-1200.md").read_text(),
+        )["source_edition"]
+    )
+    locator = articles.citation_metadata("p. 012710-5–6, Eq. (55)-(61)", "note_block")
+    assert locator["printed_page"] == ["012710-5–6"]
+    assert locator["locator"] == ["p. 012710-5–6, Eq. (55)-(61)"]
+    assert locator["extraction_page"] is None
+    assert locator["verification_status"] == "tracked_note"
+    assert articles.citation_metadata("Eq. (A5) without a page", "note_block")["locator"] == []
+
+
+def test_articles_are_separate_main_notes_with_prefiltered_modes(runtime, article_repos, tmp_path):
+    author, worker, _ = article_repos
+    db_path = tmp_path / "db"
+    code = MainSource.discover(worker)
+    source = MainSource.discover(worker, corpus="articles")
+    assert code.table != source.table and code.owner != source.owner
+    runtime.ensure_main(code, db_path, code.table, force=True)
+    runtime.ensure_main(source, db_path, source.table, force=True)
+    manifest = runtime.read_manifest(db_path, source.table)
+    assert set(manifest["files"]) == {f"reference/literature/paper-{suffix}.md" for suffix in "ab"}
+    assert manifest["source_commit"] == git(author, "rev-parse", "HEAD")
+    stored = runtime.open_published(db_path, manifest).to_arrow().to_pylist()
+    assert {row["paper_id"] for row in stored} == {"paper-a", "paper-b"}
+    assert all(row["source_kind"] == "reference_note" for row in stored)
+    assert not any(row["path"].startswith("reference/") for row in rows(runtime, worker, db_path))
+    for mode, score in [("vector", "_distance"), ("fts", "_score"), ("hybrid", "_relevance_score")]:
+        found = runtime.query(
+            source, db_path, source.table, "bilinear pairing", mode, 2, paper_id="paper-b"
+        )
+        assert found["results"]
+        assert all(hit["paper_id"] == "paper-b" and score in hit for hit in found["results"])
+        assert all(
+            hit["extraction_page"] is None and "vector" not in hit for hit in found["results"]
+        )
+        assert (
+            runtime.query(
+                source, db_path, source.table, "bilinear pairing", mode, 2, paper_id="unknown-paper"
+            )["results"]
+            == []
+        )
+    with pytest.raises(ValueError, match="note stem"):
+        runtime.query(
+            source, db_path, source.table, "pairing", "hybrid", 2, paper_id="paper-b' OR true --"
+        )
+    with pytest.raises(ValueError, match="articles corpus"):
+        runtime.query(code, db_path, code.table, "pairing", "fts", 2, paper_id="paper-a")
+    with pytest.raises(ValueError, match="different upstream"):
+        runtime.ensure_main(source, db_path, code.table, force=True)
+
+
+def test_article_reconciliation_excludes_branch_notes_reuses_vectors_and_retires_sources(
+    runtime,
+    article_repos,
+    tmp_path,
+):
+    author, worker, _ = article_repos
+    db_path = tmp_path / "db"
+    source = MainSource.discover(worker, corpus="articles")
+
+    def publish_notes():
+        return runtime.ensure_main(source, db_path, source.table, force=True)
+
+    first = publish_notes()
+    before = runtime.read_manifest(db_path, source.table)
+    old = runtime.open_published(db_path, before).to_arrow().to_pylist()
+    original = next(row for row in old if row["paper_id"] == "paper-a" and "Int psi" in row["doc"])
+    # The worker predates the notes on main; its own new/staged/dirty notes are ignored.
+    folder = worker / "reference/literature"
+    folder.mkdir(parents=True)
+    (folder / "branch-only.md").write_text("# Branch-only text without metadata\n")
+    commit(worker, "Branch literature")
+    (folder / "staged.md").write_text("invalid")
+    git(worker, "add", "reference/literature/staged.md")
+    (folder / "untracked.md").write_text("invalid")
+    (folder / "branch-only.md").write_text("dirty")
+    unchanged = publish_notes()
+    assert first["chunks"] == unchanged["reused_rows"]
+    assert (
+        unchanged["new_embeddings"] == unchanged["parsed_files"] == unchanged["updated_rows"] == 0
+    )
+    assert runtime.read_manifest(db_path, source.table) == before
+    note = author / "reference/literature/paper-a.md"
+    note.write_text("\n\n" + note.read_text())
+    commit(author)
+    git(author, "push", "-q", "origin", "main")
+    shifted = publish_notes()
+    assert shifted["new_embeddings"] == 0 and shifted["parsed_files"] == 1
+    current = runtime.open_published(db_path, runtime.read_manifest(db_path, source.table))
+    moved = next(row for row in current.to_arrow().to_pylist() if row["id"] == original["id"])
+    assert (
+        moved["vector"] == original["vector"]
+        and moved["embedding_key"] == original["embedding_key"]
+    )
+    assert moved["start_line"] == original["start_line"] + 2
+    (author / "reference/literature/paper-b.md").unlink()
+    note.rename(author / "reference/literature/renamed.md")
+    commit(author)
+    git(author, "push", "-q", "origin", "main")
+    final = publish_notes()
+    assert final["deleted_rows"] > 0
+    hits = runtime.query(source, db_path, source.table, "bilinear", "hybrid", 20)["results"]
+    assert {hit["paper_id"] for hit in hits} == {"renamed"}
+
+
+def test_article_metadata_failure_retains_last_snapshot(runtime, article_repos, tmp_path):
+    author, worker, _ = article_repos
+    db_path = tmp_path / "db"
+    source = MainSource.discover(worker, corpus="articles")
+    runtime.ensure_main(source, db_path, source.table, force=True)
+    before = runtime.read_manifest(db_path, source.table)
+    (author / "reference/literature/paper-a.md").write_text(
+        "# Missing source\nUnusable metadata.\n"
+    )
+    commit(author)
+    git(author, "push", "-q", "origin", "main")
+    with pytest.raises(ValueError, match="missing its Source"):
+        runtime.ensure_main(source, db_path, source.table, force=True)
+    assert runtime.read_manifest(db_path, source.table) == before
+    report = runtime.status(source, db_path, source.table)
+    assert report["integrity"] == "complete" and report["upstream"]["state"] == "behind"
+    assert runtime.query(source, db_path, source.table, "bilinear pairing", "fts", 2)["results"]
+
+
+def test_note_chunks_keep_equations_and_mark_oversized_fragments(runtime):
+    from tools.agent_search import articles
+
+    model, _ = runtime.embedding(PROFILE)
+    tokenizer = model.embedding_model.tokenizer
+    text = (
+        "# Bilinear pairing\n\n**Source:** DOI 10.1234/test\n"
+        "**Pagination:** printed page 6.\n\n## Equations\n\n```\n"
+        "F(E,R,R') = Int V(R) G(R,R')\n"
+        "           V(R') dR'         p. 012710-6, Eq. (60)\n```\n\n"
+        + "A lengthy scientific paragraph " * 300
+        + "\n"
+    )
+    _, chunks, _ = articles.split_note(
+        "reference/literature/example.md", text, tokenizer, PROFILE["embedding"]
+    )
+    formula = next(chunk for chunk in chunks if "F(E,R,R')" in chunk.content)
+    assert "p. 012710-6, Eq. (60)" in formula.content and formula.kind == "note_block"
+    assert any(chunk.kind == "note_fragment" for chunk in chunks)
+    assert all(chunk.tokens == len(tokenizer(chunk.text)["input_ids"]) <= 256 for chunk in chunks)
+    lines = text.splitlines(keepends=True)
+    assert all(
+        chunk.content in "".join(lines[chunk.start_line - 1 : chunk.end_line]) for chunk in chunks
+    )
+
+
+def test_article_mcp_catalog_queries_and_selection_validation(runtime, article_repos, tmp_path):
+    pytest.importorskip("mcp")
+    from mcp import ClientSession
+    from mcp.client.stdio import stdio_client
+
+    source = MainSource.discover(article_repos[1], corpus="articles")
+    db_path = tmp_path / "db"
+
+    async def exercise():
+        async with stdio_client(parameters(article_repos[1], db_path, corpus="articles")) as (
+            read,
+            write,
+        ):
+            async with ClientSession(read, write) as client:
+                await client.initialize()
+                catalog = await client.list_tools()
+                assert {tool.name for tool in catalog.tools} == {"query_table", "table_details"}
+                lookup = next(tool for tool in catalog.tools if tool.name == "query_table")
+                assert "paper_id" in lookup.inputSchema["properties"]
+                found = decoded(
+                    await client.call_tool(
+                        "query_table",
+                        {
+                            "query": "bilinear pairing",
+                            "query_type": "hybrid",
+                            "paper_id": "paper-a",
+                        },
+                    )
+                )
+                assert found["results"] and all(
+                    hit["paper_id"] == "paper-a" for hit in found["results"]
+                )
+                details = decoded(
+                    await client.call_tool(
+                        "table_details",
+                        {
+                            "table_name": source.table,
+                            "db_uri": str(db_path),
+                        },
+                    )
+                )
+                assert details["freshness"]["corpus"] == "articles"
+                assert details["freshness"]["fts"] == "native_bm25"
+                assert (await client.call_tool("table_details", {"table_name": "wrong"})).isError
+                assert (
+                    await client.call_tool("table_details", {"db_uri": str(tmp_path / "other")})
+                ).isError
 
     asyncio.run(exercise())
 

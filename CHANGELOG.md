@@ -12,6 +12,11 @@ installed package.
 ## [Unreleased]
 
 ### Changed
+- **Search MCPs and CLI commands share a host-local runtime** across compatible
+  worktrees, retaining independent code/article corpora and publication ownership.
+  Lightweight proxies reuse one strongly cached CPU transformer, with process/model
+  diagnostics, leased mounts, idle shutdown and crash recovery. Unchanged refreshes
+  check metadata and Git blobs before loading rows or vectors.
 - **Code search now indexes committed upstream `main` only.** Clones share an
   upstream-owned corpus; the MCP refreshes on mount and at bounded intervals.
   Source and policy come from pinned Git blobs, and completed generations are
@@ -25,6 +30,11 @@ installed package.
   promotion explicitly requires independent physics review.
 
 ### Added
+- **Scientific-reference-note search** uses an independent committed-main corpus
+  and project-local article MCP. It supports vector/BM25/hybrid lookup with paper
+  prefilters, literal edition/page/locator metadata, note-source hashes, and
+  inspectable refresh health. Reconciliation reuses embeddings and retires removed
+  notes; whole-block chunks and marked fragments keep citation limits explicit.
 - **Checkpoint code-index writer** in `tools/agent_search`, with an isolated
   Python environment, Python/Rust/Markdown anchors, complete tokenizer budgets,
   payload-keyed embedding reuse, changed/deleted source reconciliation, upstream

@@ -75,26 +75,40 @@ class MainSource:
     remote: str
     profile_path: str
     repo_id: str
+    corpus: str = "repository"
 
     @classmethod
-    def discover(cls, root: Path, remote: str = "origin", profile: str = PROFILE) -> MainSource:
+    def discover(
+        cls,
+        root: Path,
+        remote: str = "origin",
+        profile: str = PROFILE,
+        *,
+        corpus: str = "repository",
+    ) -> MainSource:
         root = Path(git(root, "rev-parse", "--show-toplevel").decode().strip()).resolve()
         if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", remote):
             raise ValueError("Remote must be a configured Git remote name")
         path = Path(profile)
         if path.is_absolute() or ".." in path.parts:
             raise ValueError("Profile must be a repository-relative committed path")
+        if corpus not in {"repository", "articles"}:
+            raise ValueError("Corpus must be repository or articles")
         url = git(root, "remote", "get-url", remote).decode().strip()
-        return cls(root, remote, path.as_posix(), repository_id(url, root))
+        return cls(root, remote, path.as_posix(), repository_id(url, root), corpus)
 
     @property
     def owner(self) -> dict:
-        return {"repo_id": self.repo_id, "branch": "main", "profile_path": self.profile_path}
+        owner = {"repo_id": self.repo_id, "branch": "main", "profile_path": self.profile_path}
+        if self.corpus != "repository":
+            owner["corpus"] = self.corpus
+        return owner
 
     @property
     def table(self) -> str:
         key = json.dumps(self.owner, sort_keys=True)
-        return f"qscat_knowledge_main_{sha256(key)[:16]}"
+        prefix = "qscat_articles" if self.corpus == "articles" else "qscat_knowledge"
+        return f"{prefix}_main_{sha256(key)[:16]}"
 
     @property
     def ref(self) -> str:
@@ -152,7 +166,10 @@ class Snapshot:
     profile: dict
 
     def selected(self) -> dict[str, str]:
-        policy = self.profile["repository"]
+        policy = self.profile[self.source.corpus]
+        articles = self.source.corpus == "articles"
+        extensions = policy.get("extensions", [".md"]) if articles else policy["extensions"]
+        excluded = policy.get("exclude", []) if articles else policy["exclude"]
 
         def matches(path, patterns):
             return any(fnmatch.fnmatchcase(path, pattern) for pattern in patterns)
@@ -161,9 +178,10 @@ class Snapshot:
             path: oid
             for path, oid in sorted(self.blobs.items())
             if matches(path, policy["include"])
-            and not matches(path, policy["exclude"])
+            and not matches(path, excluded)
             and (
-                Path(path).suffix in policy["extensions"]
+                Path(path).suffix in extensions
                 or matches(path, policy.get("extensionless_files", []))
             )
+            and (not articles or Path(path).name != "README.md")
         }

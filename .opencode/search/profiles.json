@@ -80,16 +80,20 @@
   },
   "articles": {
     "server": "lancedb-articles",
-    "table": "qscat_articles",
+    "table": "qscat_articles_main_<upstream-and-profile-and-corpus-identity>",
     "include": ["reference/literature/*.md"],
+    "exclude": ["reference/literature/README.md"],
+    "extensions": [".md"],
+    "source": "tracked reference notes from the same fetched-main Git snapshot as the committed profile; no PDF discovery",
     "processed_full_text": "explicit external source root with a provenance manifest; not recursive PDF discovery",
-    "chunking": "paper/section/page units, preserving equations and table/figure captions with their context",
-    "freshness": "paper ID, source edition/version, source SHA256, extraction version, verified locators",
+    "chunking": "heading-qualified paragraphs, table rows and cited multi-line equations; retain whole blocks when budgets permit, mark oversized splits as note_fragment",
+    "freshness": "main commit, note Git blob/SHA256, literal Source/Pagination declarations and note-parser version; note excerpts are not independently verified full text",
     "required_metadata": [
       "paper_id", "title", "doi_or_url", "source_kind", "source_sha256",
-      "printed_page", "extraction_page", "locator", "note_path", "verification_status"
+      "source_edition", "pagination", "printed_page", "extraction_page", "locator", "note_path", "extraction_version", "verification_status"
     ],
-    "lookup": {"current_mode": "vector_plus_local_locator_search", "target_mode": "hybrid", "top_k": 8},
+    "lookup": {"current_mode": "vector_fts_or_hybrid_plus_local_locator_search", "target_mode": "hybrid", "top_k": 8, "prefilter": "paper_id"},
+    "implementation": {"writer": "python -m tools.agent_search sync --corpus articles", "mcp": "tools.agent_search.mcp --corpus articles", "publication": "separate upstream-owned immutable generations and atomic pointer; refresh on mount and every 300 seconds"},
     "index": {"initial_vector_index": "none_exact_scan", "target_fts": "locator_preserving_BM25", "target_metric": "cosine"}
   },
   "connector_upgrade": {

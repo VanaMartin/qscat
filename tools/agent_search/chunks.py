@@ -52,7 +52,7 @@ def python_units(source: str) -> list[Unit]:
     def scope(nodes: list[ast.stmt], parent: str, start: int, end: int) -> None:
         cursor = start
         for node in nodes:
-            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            if not isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef):
                 continue
             first = min([node.lineno, *(d.lineno for d in node.decorator_list)])
             last = node.end_lineno
@@ -187,9 +187,20 @@ def source_units(path: str, source: str) -> tuple[str, list[Unit]]:
     return language, [Unit("@file", "file", 1, source)] if source.strip() else []
 
 
-def split_units(path: str, source: str, tokenizer, settings: dict) -> tuple[str, list[Chunk]]:
+def split_units(
+    path: str,
+    source: str,
+    tokenizer,
+    settings: dict,
+    *,
+    units: list[Unit] | None = None,
+    prefer_whole: bool = False,
+) -> tuple[str, list[Chunk]]:
     """Count the complete payload, using line boundaries when they fit the budget."""
-    language, units = source_units(path, source)
+    if units is None:
+        language, units = source_units(path, source)
+    else:
+        language = "markdown"
     target = settings["chunk_target_tokens"]
     maximum = settings["chunk_max_tokens"]
     total = settings["total_input_max_tokens"]
@@ -208,11 +219,21 @@ def split_units(path: str, source: str, tokenizer, settings: dict) -> tuple[str,
         offsets = encoded["offset_mapping"]
         if not offsets:
             continue
+        whole = (
+            prefer_whole
+            and len(offsets) <= maximum
+            and len(
+                tokenizer(prefix + unit.content, add_special_tokens=True, verbose=False)[
+                    "input_ids"
+                ]
+            )
+            <= total
+        )
         starts = [pair[0] for pair in offsets]
         duplicates: Counter = Counter()
         first = 0
         while first < len(offsets):
-            last = min(first + target, len(offsets))
+            last = len(offsets) if whole else min(first + target, len(offsets))
             lo = 0 if first == 0 else starts[first]
             hi = len(unit.content) if last == len(offsets) else starts[last]
             # Preserve whole source lines when doing so does not make tiny chunks.
@@ -222,12 +243,16 @@ def split_units(path: str, source: str, tokenizer, settings: dict) -> tuple[str,
                 if end_token - first >= target // 2:
                     last, hi = end_token, boundary + 1
             content = unit.content[lo:hi]
-            count = len(tokenizer(prefix + content, add_special_tokens=True)["input_ids"])
+            count = len(
+                tokenizer(prefix + content, add_special_tokens=True, verbose=False)["input_ids"]
+            )
             while count > total and last > first + 1:
                 last -= 1
                 hi = starts[last]
                 content = unit.content[lo:hi]
-                count = len(tokenizer(prefix + content, add_special_tokens=True)["input_ids"])
+                count = len(
+                    tokenizer(prefix + content, add_special_tokens=True, verbose=False)["input_ids"]
+                )
             if count > total:
                 raise ValueError(f"Anchor leaves no embedding budget: {path}: {unit.anchor}")
             content_hash = sha256(content)
@@ -236,7 +261,7 @@ def split_units(path: str, source: str, tokenizer, settings: dict) -> tuple[str,
             chunks.append(
                 Chunk(
                     unit.anchor,
-                    unit.kind,
+                    "note_fragment" if prefer_whole and not whole else unit.kind,
                     declaration,
                     unit.start_line + unit.content[:lo].count("\n"),
                     unit.start_line + unit.content[:hi].count("\n") - int(content.endswith("\n")),

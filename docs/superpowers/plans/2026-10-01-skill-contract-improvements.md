@@ -82,10 +82,61 @@ against implementation and durable architecture decisions before marking a step 
   tokenizer limits, and worktree isolation. Managed CocoIndex watching is deferred
   to a coordinated reader/writer upgrade.
 - [x] Populate the code corpus and verify live MCP retrieval and current freshness.
-- [ ] Implement the connector's metadata, hybrid-query, update, and health contracts
-  before claiming the proposed index design is operational.
+- [x] Implement managed code/note metadata, vector/BM25/hybrid query modes,
+  committed-source reconciliation and health reporting; article lookup adds paper
+  prefilters. Processed full-text ingestion remains a separate provenance contract.
 - [ ] Evaluate retrieval quality and latency before selecting an optimized model
   or approximate vector index.
+
+### Committed-main and article-note follow-on
+
+- Code membership and indexing policy now come from fetched upstream-main Git
+  objects. Clones share an upstream-owned corpus; mount and bounded periodic
+  refreshes publish immutable generations through an atomic manifest pointer.
+  The earlier worktree/empty-only population records below describe superseded
+  stages, not current ownership or refresh behavior.
+- The same writer/reader supports a separate article-note corpus. It indexes
+  tracked literature notes, preserves literal edition and page declarations,
+  marks oversized fragments, and returns note provenance without claiming fresh
+  full-text verification. Paper-filtered hybrid lookup explicitly prefilters both
+  vector/BM25 candidates to avoid the installed SDK's reversed filter forwarding.
+- Article-note integration and publication regression checks: 24 passed.
+  Documentation portability: 196 passed. Main advanced during the work; the
+  maintainer incorporated three new notes, reaching 21 files / 1,633 chunks at
+  `0f9768e`. Full-corpus note/blob hashes, source spans, payload/model keys and
+  tokenizer budgets passed. An unchanged refresh changed zero rows/embeddings.
+- Six fixed known-paper/page smoke cases hit the expected source and literal page
+  within eight results in vector, FTS and hybrid modes. Warm full-query-function
+  median times were 11.1 / 5.9 / 13.6 ms respectively. This is not exhaustive
+  recall or evidence for an optimized model/ANN index. Local evidence is under
+  `.superpowers/audit/article-notes/`.
+
+### Shared-runtime follow-on
+
+- Code/article MCPs are lightweight proxies into one local service per database;
+  compatible worktrees and CLI commands share a strong loaded-transformer cache.
+  Corpus publication and refresh ownership remain independent. Runtime diagnostics
+  expose process/model/mount counts, and leased mounts support crash recovery,
+  source-checkout failover and bounded idle shutdown.
+- Unchanged refreshes check metadata and selected blobs before loading rows or
+  vectors. Tests prohibit both row materialization and model loading on this path,
+  including excluded-only main advances.
+- Combined search/runtime and documentation checks: 228 passed (32 integration,
+  196 portability) in 81.58 seconds. The cross-worktree test additionally ran MCP
+  processes from separate checkout directories containing identical tooling bytes.
+  Ruff lint/format, whitespace checks and the strict Sphinx HTML build passed.
+- Live code/article connections were reconnected to the shared implementation and
+  both report complete/current `0f9768e` snapshots. Refresh-only operation loaded
+  zero models; vector/hybrid lookups brought the shared count to one.
+- A controlled aggregate-RSS snapshot compared reconstructed per-corpus model
+  processes (including the old no-op row-materialization step) with the shared
+  service plus proxies, on the same real code/note snapshots. Two mounts measured
+  1,154 → 411 MiB; four mounts across two worktrees measured 2,318 → 560 MiB.
+  These macOS RSS sums include shared pages and are not unique physical memory or
+  a guaranteed reduction for other workloads. All six code/article query-mode
+  comparisons returned identical hits/scores; simultaneous forced refreshes and
+  queries passed, with zero new embeddings/parsed files/row changes. Evidence is
+  under `.superpowers/audit/search-runtime/`.
 
 ### Initial code population
 

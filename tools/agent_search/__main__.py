@@ -10,18 +10,22 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
 import uuid
 from contextlib import contextmanager
 from importlib.metadata import version
 from pathlib import Path
 
+from tools.agent_search import articles
 from tools.agent_search.chunks import sha256, split_units
 from tools.agent_search.git_source import PROFILE, MainSource, Snapshot, read_blobs
 
 VERSION = "qmodeling-main-search-v2"
 CHUNKER = "python-ast-rust-treesitter-markdown-v2"
 CHECK_INTERVAL = 300
+_EMBEDDINGS = {}
+_MODEL_LOCK = threading.RLock()
 
 
 def fingerprint(value) -> str:
@@ -70,10 +74,16 @@ def make_records(
             continue
         raw = raw_blobs[oid]
         digest = hashes[path] = hashlib.sha256(raw).hexdigest()
+        metadata = {}
         try:
-            language, chunks = split_units(
-                path, raw.decode("utf-8"), tokenizer, snapshot.profile["embedding"]
-            )
+            if snapshot.source.corpus == "articles":
+                language, chunks, metadata = articles.split_note(
+                    path, raw.decode("utf-8"), tokenizer, snapshot.profile["embedding"]
+                )
+            else:
+                language, chunks = split_units(
+                    path, raw.decode("utf-8"), tokenizer, snapshot.profile["embedding"]
+                )
         except (SyntaxError, UnicodeError, ValueError) as error:
             raise ValueError(f"Cannot index {path}: {error}") from error
         for chunk in chunks:
@@ -97,7 +107,7 @@ def make_records(
                     "anchor": chunk.anchor,
                     "kind": chunk.kind,
                     "language": language,
-                    "source_kind": source_kind(path),
+                    "source_kind": "reference_note" if metadata else source_kind(path),
                     "repo_id": snapshot.source.repo_id,
                     "source_blob": oid,
                     "start_line": chunk.start_line,
@@ -108,6 +118,8 @@ def make_records(
                     "payload_sha256": chunk.payload_sha256,
                     "embedding_key": fingerprint([model_key, chunk.payload_sha256]),
                     "tokens": chunk.tokens,
+                    **metadata,
+                    **(articles.citation_metadata(chunk.content, chunk.kind) if metadata else {}),
                     "doc": (
                         f"source={path}\nanchor={chunk.anchor}\nkind={chunk.kind}\n"
                         f"declaration={chunk.declaration}\n"
@@ -125,11 +137,27 @@ def make_records(
 
 
 def embedding(profile: dict):
+    settings = profile["embedding"]
+    key = (settings["registry"], settings["model"], settings["device"])
+    with _MODEL_LOCK:
+        if key not in _EMBEDDINGS:
+            model, spec = load_embedding(settings)
+            # Keep the transformer itself alive: the SDK's weak, size-one cache
+            # does not guarantee reuse across wrappers or distinct model settings.
+            _EMBEDDINGS[key] = (model, spec, model.embedding_model)
+        model, spec, _ = _EMBEDDINGS[key]
+    if spec["max_input_tokens"] < settings["total_input_max_tokens"]:
+        raise ValueError("Profile exceeds the installed model's input limit")
+    if spec["dimensions"] != settings["dimensions"]:
+        raise ValueError("Embedding dimensions differ from the profile")
+    return model, spec
+
+
+def load_embedding(settings: dict):
     import torch
     from lancedb.embeddings import get_registry
 
     torch.set_num_threads(2)
-    settings = profile["embedding"]
     model = (
         get_registry()
         .get(settings["registry"])
@@ -144,8 +172,6 @@ def embedding(profile: dict):
     revision = getattr(transformer[0].auto_model.config, "_commit_hash", None)
     if not revision:
         raise ValueError("Cannot identify the embedding model revision")
-    if transformer.max_seq_length < settings["total_input_max_tokens"]:
-        raise ValueError("Profile exceeds the installed model's input limit")
     spec = {
         "model": settings["model"],
         "revision": revision,
@@ -157,12 +183,41 @@ def embedding(profile: dict):
         "transformers": version("transformers"),
         "tokenizers": version("tokenizers"),
     }
-    if spec["dimensions"] != settings["dimensions"]:
-        raise ValueError("Embedding dimensions differ from the profile")
     return model, spec
 
 
-def schema(model):
+def encode(profile: dict, texts: list[str]):
+    """Serialize tokenizer/inference access while queries and refreshes share a model."""
+    embedding(profile)
+    settings = profile["embedding"]
+    key = (settings["registry"], settings["model"], settings["device"])
+    with _MODEL_LOCK:
+        transformer = _EMBEDDINGS[key][2]
+        return transformer.encode(texts, convert_to_numpy=True, normalize_embeddings=True).tolist()
+
+
+def query_vector(stored, manifest: dict, text: str):
+    metadata = json.loads(stored.schema.metadata[b"embedding_functions"])
+    function = next(item for item in metadata if item["vector_column"] == "vector")
+    settings = function["model"]
+    if settings.get("normalize") is not True or settings.get("trust_remote_code") is not False:
+        raise ValueError("Unsupported embedding configuration in published schema")
+    profile = {
+        "embedding": {
+            "registry": function["name"],
+            "model": settings["name"],
+            "device": settings["device"],
+            "dimensions": manifest["embedding"]["dimensions"],
+            "total_input_max_tokens": manifest["embedding"]["max_input_tokens"],
+        }
+    }
+    _, spec = embedding(profile)
+    if spec != manifest["embedding"]:
+        raise ValueError("Query model differs from the published embedding spec")
+    return encode(profile, [text])[0]
+
+
+def schema(model, corpus: str = "repository"):
     from lancedb.pydantic import LanceModel, Vector
     from pydantic import create_model
 
@@ -187,7 +242,12 @@ def schema(model):
     )
     fields["text"] = (str, model.SourceField())
     fields["vector"] = (Vector(model.ndims()), model.VectorField())
-    return create_model("MainCodeChunk", __base__=LanceModel, **fields).to_arrow_schema()
+    if corpus == "articles":
+        fields.update({name: (str, ...) for name in articles.STRING_FIELDS})
+        fields.update({name: (list[str], ...) for name in articles.LIST_FIELDS})
+        fields["extraction_page"] = (int | None, None)
+    name = "MainArticleChunk" if corpus == "articles" else "MainCodeChunk"
+    return create_model(name, __base__=LanceModel, **fields).to_arrow_schema()
 
 
 def read_manifest(db_path: Path, table: str) -> dict | None:
@@ -264,6 +324,7 @@ def describe(
     )
     return {
         "table": table,
+        "corpus": source.corpus,
         "repo_id": source.repo_id,
         "source_ref": f"{source.remote}/main",
         "source_commit": manifest["source_commit"] if manifest else None,
@@ -280,6 +341,7 @@ def describe(
         "chunks": manifest["chunks"] if manifest else 0,
         "snapshot_id": manifest["snapshot_id"] if manifest else None,
         "published_table": manifest["published_table"] if manifest else None,
+        "fts": manifest.get("fts") if manifest else None,
     }
 
 
@@ -323,16 +385,18 @@ def reconcile(snapshot: Snapshot, db_path: Path, table: str, *, plan: bool = Fal
     previous = read_manifest(db_path, table)
     check_owner(previous, snapshot.source)
     old = []
+    stored = None
     healthy = False
     if previous:
         try:
-            old = open_published(db_path, previous).to_arrow().to_pylist()
+            stored = open_published(db_path, previous)
             healthy = True
         except ValueError:
             pass
     selected = snapshot.selected()
     policy_key = fingerprint(snapshot.profile)
-    if healthy and previous["profile_sha256"] == policy_key and previous["chunker"] == CHUNKER:
+    chunker = articles.CHUNKER if snapshot.source.corpus == "articles" else CHUNKER
+    if healthy and previous["profile_sha256"] == policy_key and previous["chunker"] == chunker:
         if previous["blobs"] == selected:
             if not plan and previous["source_commit"] != snapshot.commit:
                 updated = {
@@ -352,19 +416,28 @@ def reconcile(snapshot: Snapshot, db_path: Path, table: str, *, plan: bool = Fal
                 "new_embeddings": 0,
                 "updated_rows": 0,
                 "deleted_rows": 0,
-                "reused_rows": len(old),
+                "reused_rows": previous["chunks"],
                 "snapshot_id": previous["snapshot_id"],
                 "seconds": time.monotonic() - started,
             }
+    if healthy:
+        old = stored.to_arrow().to_pylist()
     model, spec = embedding(snapshot.profile)
     if previous and previous["embedding"] != spec:
         raise ValueError("Embedding model/configuration changed; use a new logical table")
     can_reuse = (
-        healthy and previous["profile_sha256"] == policy_key and previous["chunker"] == CHUNKER
+        healthy and previous["profile_sha256"] == policy_key and previous["chunker"] == chunker
     )
+    settings = snapshot.profile["embedding"]
+    transformer = _EMBEDDINGS[(settings["registry"], settings["model"], settings["device"])][2]
+
+    def tokenize(*args, **kwargs):
+        with _MODEL_LOCK:
+            return transformer.tokenizer(*args, **kwargs)
+
     records, hashes, parsed = make_records(
         snapshot,
-        model.embedding_model.tokenizer,
+        tokenize,
         fingerprint(spec),
         previous=previous if can_reuse else None,
         cached_rows=old if can_reuse else None,
@@ -384,7 +457,7 @@ def reconcile(snapshot: Snapshot, db_path: Path, table: str, *, plan: bool = Fal
     if table in db.table_names():
         raise ValueError("Logical name collides with an existing table; use a new logical table")
     cache = {row["embedding_key"]: row["vector"] for row in old}
-    if not previous:
+    if not previous and snapshot.source.corpus == "repository":
         cache.update(legacy_vectors(snapshot.source, db_path, db))
     needed = {
         row["embedding_key"]: row["text"] for row in records if row["embedding_key"] not in cache
@@ -392,7 +465,7 @@ def reconcile(snapshot: Snapshot, db_path: Path, table: str, *, plan: bool = Fal
     items = list(needed.items())
     for offset in range(0, len(items), 64):
         batch = items[offset : offset + 64]
-        vectors = model.compute_source_embeddings([text for _, text in batch])
+        vectors = encode(snapshot.profile, [text for _, text in batch])
         if len(vectors) != len(batch) or any(vector is None for vector in vectors):
             raise ValueError("Incomplete embedding batch")
         cache.update({key: vector for (key, _), vector in zip(batch, vectors, strict=True)})
@@ -409,7 +482,9 @@ def reconcile(snapshot: Snapshot, db_path: Path, table: str, *, plan: bool = Fal
         for row in records
     )
     generation = f"{table}_g_{uuid.uuid4().hex}"
-    candidate = db.create_table(generation, data=records, schema=schema(model))
+    candidate = db.create_table(
+        generation, data=records, schema=schema(model, snapshot.source.corpus)
+    )
     candidate.create_fts_index(
         "text",
         use_tantivy=False,
@@ -422,6 +497,7 @@ def reconcile(snapshot: Snapshot, db_path: Path, table: str, *, plan: bool = Fal
     manifest = {
         "format": VERSION,
         "owner": snapshot.source.owner,
+        "corpus": snapshot.source.corpus,
         "table": table,
         "published_table": generation,
         "table_version": candidate.version,
@@ -429,9 +505,9 @@ def reconcile(snapshot: Snapshot, db_path: Path, table: str, *, plan: bool = Fal
         "source_tree": snapshot.tree,
         "files": hashes,
         "blobs": selected,
-        "snapshot_id": fingerprint([hashes, policy_key, CHUNKER]),
+        "snapshot_id": fingerprint([hashes, policy_key, chunker]),
         "profile_sha256": policy_key,
-        "chunker": CHUNKER,
+        "chunker": chunker,
         "embedding": spec,
         "chunks": len(records),
         "fts": "native_bm25",
@@ -518,46 +594,64 @@ def query(
     *,
     interval: float = CHECK_INTERVAL,
     manifest: dict | None = None,
+    paper_id: str | None = None,
 ) -> dict:
     if not 1 <= limit <= 50 or mode not in {"vector", "fts", "hybrid"}:
         raise ValueError("Use a supported query mode and a limit between 1 and 50")
+    if paper_id is not None:
+        if source.corpus != "articles":
+            raise ValueError("paper_id requires the articles corpus")
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", paper_id):
+            raise ValueError("paper_id must be a literature note stem")
     manifest = manifest or read_manifest(db_path, table)
     freshness = describe(source, db_path, table, manifest=manifest, interval=interval)
     if freshness["integrity"] != "complete":
         error = freshness["refresh"].get("error") or freshness["error"] or "inspect refresh status"
         raise RuntimeError(f"Main index is {freshness['integrity']}: {error}")
     stored = open_published(db_path, manifest)
-    search = stored.search(text, query_type=mode)
-    if mode in {"vector", "hybrid"}:
-        search = search.metric("cosine")
-    results = (
-        search.limit(limit)
-        .select(
-            [
-                "id",
-                "path",
-                "anchor",
-                "source_kind",
-                "start_line",
-                "end_line",
-                "declaration",
-                "source_sha256",
-                "source_blob",
-                "doc",
-            ]
-        )
-        .to_list()
-    )
+    columns = [
+        "id",
+        "path",
+        "anchor",
+        "source_kind",
+        "start_line",
+        "end_line",
+        "declaration",
+        "source_sha256",
+        "source_blob",
+        "doc",
+    ]
+    if source.corpus == "articles":
+        columns += articles.STRING_FIELDS + articles.LIST_FIELDS + ["extraction_page", "kind"]
+    predicate = f"paper_id = '{paper_id}'" if paper_id is not None else None
+    vector = query_vector(stored, manifest, text) if mode in {"vector", "hybrid"} else None
+    if mode == "hybrid" and predicate:
+        results = articles.filtered_hybrid(stored, text, predicate, columns, limit, vector=vector)
+    else:
+        if mode == "hybrid":
+            search = stored.search(query_type=mode).vector(vector).text(text)
+        else:
+            search = stored.search(vector if mode == "vector" else text, query_type=mode)
+        if mode in {"vector", "hybrid"}:
+            search = search.metric("cosine")
+        if predicate:
+            search = search.where(predicate, prefilter=True)
+        results = search.limit(limit).select(columns).to_list()
     return {"freshness": freshness, "results": results}
 
 
 def main() -> None:
+    import asyncio
+
+    from tools.agent_search.service_client import SearchClient
+
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     for name in ("plan", "sync", "bootstrap", "status", "query"):
         command = commands.add_parser(name)
         command.add_argument("--root", type=Path, default=Path.cwd())
         command.add_argument("--remote", default="origin")
+        command.add_argument("--corpus", choices=["repository", "articles"], default="repository")
         command.add_argument(
             "--db",
             type=Path,
@@ -571,18 +665,18 @@ def main() -> None:
             command.add_argument("text")
             command.add_argument("--mode", choices=["vector", "fts", "hybrid"], default="hybrid")
             command.add_argument("--limit", type=int, default=5)
+            command.add_argument("--paper-id", help="Literature note stem; articles corpus only")
     args = parser.parse_args()
-    source = MainSource.discover(args.root, args.remote, args.profile)
+    source = MainSource.discover(args.root, args.remote, args.profile, corpus=args.corpus)
     db_path = args.db.expanduser().resolve()
     table = args.table or source.table
     if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", table):
         parser.error("Table name must be an identifier")
-    if args.command == "status":
-        result = status(source, db_path, table)
-    elif args.command == "query":
-        result = query(source, db_path, table, args.text, args.mode, args.limit)
-    else:
-        result = ensure_main(source, db_path, table, force=True, plan=args.command == "plan")
+    client = SearchClient(source, db_path, table, CHECK_INTERVAL)
+    arguments = {"command": args.command}
+    if args.command == "query":
+        arguments.update(text=args.text, mode=args.mode, limit=args.limit, paper_id=args.paper_id)
+    result = asyncio.run(client.call("command", **arguments))
     print(json.dumps(result, indent=2))
 
 

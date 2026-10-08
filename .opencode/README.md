@@ -3,7 +3,7 @@
 The repository supports OpenCode V2 with:
 
 - `opencode.json`: the routine shell-command allowlist adapted from
-  `.claude/settings.json`, plus the local code-search MCP mount. Other shell
+  `.claude/settings.json`, plus local code and article-note MCP mounts. Other shell
   commands ask for approval.
 - `.opencode/agents/`: the six specialist agents adapted from `.claude/agents/`.
   Ask the primary agent to use a specialist by name, for example:
@@ -36,6 +36,9 @@ lookups; exact searches and source reads remain available when indexes are absen
 
 OpenCode mounts `tools.agent_search.mcp` from the isolated `search/` Python
 environment. `uv run --frozen` installs its locked dependencies on a fresh clone.
+The lightweight stdio proxy registers with one host-shared local search service,
+used by both corpus mounts and compatible worktrees/CLI commands. That service
+caches one loaded CPU embedding model; proxies import no database/model runtime.
 The startup hook fetches and indexes committed upstream `main` in the background,
 sharing one logical corpus across clones and branches of the same upstream.
 Source bytes and indexing policy come from pinned Git objects. It refreshes
@@ -49,3 +52,17 @@ to inspect main-index status, and substitute `sync` for an immediate upstream-ma
 refresh. `bootstrap` is an alias for this ensure-main operation. Resolve retrieved
 anchors locally and inspect `git diff <indexed-commit>` plus relevant untracked
 files for branch work. See the guide for identity, migration, and verification.
+
+`lancedb-articles` mounts the same reader with `--corpus articles`. It maintains
+a separate fetched-main snapshot of tracked literature notes and supports
+vector/FTS/hybrid queries with optional `paper_id` prefilters (note filename stems).
+Results identify the note, literal Source/Pagination declarations and page clauses;
+`tracked_note`/`note_fragment` describe excerpts, not fresh full-text verification.
+No PDF extraction or page-offset inference occurs. Use `--corpus articles` on the
+CLI's `status`/`sync` commands and read the note before turning a hit into a citation.
+
+`python -m tools.agent_search.service status` in the isolated environment inspects
+the shared PID, model count and mounts; `stop` releases the service. Disconnect
+older mounts before stopping it after implementation/dependency changes, then
+reconnect updated mounts. Incompatible search implementations are rejected.
+The guide covers socket/log locations, lease expiry, idle shutdown and recovery.

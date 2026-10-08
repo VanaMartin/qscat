@@ -7,6 +7,12 @@
         "cwd": ".",
         "command": ["uv", "run", "--project", ".opencode/search", "--python", "3.12", "--frozen", "python", "-m", "tools.agent_search.mcp"],
         "timeout": { "startup": 900000 }
+      },
+      "lancedb-articles": {
+        "type": "local",
+        "cwd": ".",
+        "command": ["uv", "run", "--project", ".opencode/search", "--python", "3.12", "--frozen", "python", "-m", "tools.agent_search.mcp", "--corpus", "articles"],
+        "timeout": { "startup": 900000 }
       }
     }
   },
