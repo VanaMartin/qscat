@@ -105,6 +105,19 @@ probes pass. The failed flag/residuals and original stopped controller remain
 publicly reproducible; a fresh 80/160/240 trial-space convergence scan is separately
 declared and cannot overwrite the original rejection or import proof.
 
+The [aug-TZ supported-space companion](augtz-supported-spaces/README.md) verifies
+**269 payloads / 4346 profiles** from all 48 passing fresh 80/160/240-space probes,
+with unchanged orbital checkpoint, cycles and physical/spin-penalized residual
+gates. Its independent result supports a separately declared fresh native import;
+the original space40 rejection remains public.
+
+The [stretched-window companion](stretched-window-controls/README.md) verifies
+**310 payloads / 1947 profiles** from the complete 399/797-point retained-data
+outer replay. Grid/common-phase/cross-section controls and all 48 complete-data
+fits pass implementation checks, but native fine-grid MAXFIT and the 6.72–6.74%
+all-background width spread keep extraction unqualified. Every candidate and
+both earlier launcher/completion-wrapper failures are preserved.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

@@ -804,6 +804,29 @@ uses fresh probes at unchanged orbitals, cycles and tolerances, requiring its
 own full reconstruction; it does not automatically replace the rejected import
 proof. The independently qualified TZ branch retains its native-import eligibility.
 
+The [fresh supported-space companion](../../projects/ukrmol_co/qualification-evidence/augtz-supported-spaces/README.md)
+subsequently passes **48/48 aug-TZ probes** at spaces80/160/240: maximum physical/
+penalized residuals **7.084e-10 / 9.986e-10 Hartree**, ensemble/space/root-count
+errors **1.990e-13 / 2.274e-13 / 1.421e-13 Hartree**. Cost is **871.86 seconds /
+0.8383 GiB**, and **269 payloads / 4346 profiles** publicly reconstruct. The
+original space40 rejection and independent outer-wrapper failures remain public.
+A [separate fresh import release](../../projects/ukrmol_co/cas12-augtz-supported-import-contract.json)
+uses this supported production-space80 family after a successful original TZ
+import/verifier, preserving the original rejected aug-TZ proof.
+
+The [complete stretched outer-window companion](../../projects/ukrmol_co/qualification-evidence/stretched-window-controls/README.md)
+replays both Pi sectors at R=2.5 bohr on 0.01–2.0-requested-eV grids with 0.005/
+0.0025-eV spacing. All 20 native stages complete in **390.39 seconds / 0.6342
+GiB**; **310 payloads / 1947 profiles** reconstruct. Common phases differ from
+the prior shorter window by at most **2.0e-7 rad modulo π**. All 48 complete-data
+fits converge with multistart/five-fold held-point checks, and grid-pair position/
+width differences stay below **2.205e-6 / 4.293e-5 eV**. The all-background width
+spread nevertheless reaches **6.72–6.74%**, rejecting the 5% gate. Terms 2–4 alone
+span about 0.131%; improved held-point residuals motivate a separately justified
+representation choice, not retroactive exclusion of the constant control. Native
+fine-grid **MAXFIT** leaves its fit verdict unset. Threshold/geometry identity and
+full extraction remain open.
+
 ### Sparse/iterative scattering qualification contract
 
 **Status: fixed CAS(10,10) 2048-root implementation qualifies; CAS(10,11) qualification in progress.**

@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "augtz-supported-spaces.tar.gz": {
+      "bytes": 699721,
+      "sha256": "3513b97900945be5cdd33366d592d91003252fcbd4b7c0f24f91454ab6acab5e"
+    }
+  },
+  "git_sha": "7e8ba71a295be121d706a5bb4a3f686f8f0f3ef1",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-augtz-supported-spaces-2026-10-08/"
+}
