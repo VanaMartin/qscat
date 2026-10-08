@@ -131,6 +131,13 @@ full-Hamiltonian action, spin/residual and root/space continuity gates.
 from the rejected objective requires fresh orbital optimization; the pilot
 does not retroactively qualify the saved seeds.
 
+The [fresh singlet-driver QC companion](compressed-singlet-qc/README.md) verifies
+**228 payloads / 16864 profiles** from the two fresh optimizations: space80
+rejects its singlet-A1 CI flag, while space160 passes optimizer/fresh-CI/spin/
+Pi/MO checks. Both original exits, checkpoints and immutable source remain public.
+Independent fixed-orbital coverage and native import are separate qualification
+gates; stable saved roots cannot override the rejected space80 record.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

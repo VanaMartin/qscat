@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "compressed-singlet-qc.tar.gz": {
+      "bytes": 812719,
+      "sha256": "32d7ce6cd28659b7fbf41558c70224bb08946c186a03c5657ea4e4ec52ce3a5d"
+    }
+  },
+  "git_sha": "c0ddc48b22f74e2bff543b7362bd76d7f7c612f1",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-compressed-singlet-qc-2026-10-08/"
+}

@@ -1,0 +1,26 @@
+{
+  "status": "predeclared fixed-orbital coverage after mixed-verdict fresh singlet-driver QC",
+  "parent_contract": "cas12-compressed-singlet-driver-qc-contract.json",
+  "diagnostic": "cas12-compressed-singlet-qc-coverage-20261008",
+  "runs": {
+    "co-r1900-ccdz-sa12-qc-singlet0-space80": "d588b01f19023071d638d77e1a4b765f3d3b6d0b937333febec0f24d1bb162f3",
+    "co-r1900-ccdz-sa12-qc-singlet0-space160": "24035d3b7f51a23875604583dafa5acbfaa7b21206f3b62e912d7122759c5242"
+  },
+  "prerequisite": "Fresh QC owner1053151 finishes with mixed exit1; space80 runner exits1 with singlet-A1 CI flag false, while space160 runner and analyzer each exit0 with all original/fresh CI flags true. Preserve both results, objective/gradient histories, source and checkpoint hashes.",
+  "root_counts": [5, 8],
+  "trial_spaces": [80, 160, 240],
+  "cycles": 600,
+  "probes": 96,
+  "design": "Reuse the analytically validated alternative singlet-A1 solver and independent direct_spin1 Hamiltonian-action checks. Other seven sectors retain validated direct_spin1_symm residual controls. Check unchanged geometry, core/active irreps and MO orthogonality; separately measure original ensemble-root, root-count, space, Pi and between-checkpoint differences.",
+  "gates": {
+    "all_ci_flags": true,
+    "physical_and_penalized_residual_max_hartree": 1e-9,
+    "spin_penalty_action_max_hartree": 1e-9,
+    "independent_singlet_full_hamiltonian_action_and_residual_max_hartree": 1e-9,
+    "spin_square_error_max": 1e-6,
+    "ci_vector_and_mo_orthogonality_error_max": 1e-9,
+    "ensemble_root_space_count_and_pi_difference_max_hartree": 1e-7
+  },
+  "resources": {"cpu_group": "12-15", "container_memory_gib": 8, "minimum_available_ram_gib": 32, "minimum_free_disk_gib": 40},
+  "release": "Coverage diagnostic only. Passing fixed-orbital results cannot replace the rejected space80 QC record. Space160 remains only a QC self-consistency candidate until independent coverage reconstruction, orbital/threshold identity and native-root/dipole import pass. No automatic QC retry, native import, scattering or sweep release."
+}

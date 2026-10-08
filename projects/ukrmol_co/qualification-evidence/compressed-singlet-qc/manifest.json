@@ -1,0 +1,40 @@
+{
+  "git_sha": "c0ddc48b22f74e2bff543b7362bd76d7f7c612f1",
+  "date": "2026-10-08",
+  "record_type": "compressed-cas12-fresh-singlet-driver-mixed-verdict-qc",
+  "archive_bytes": 812719,
+  "archive_sha256": "32d7ce6cd28659b7fbf41558c70224bb08946c186a03c5657ea4e4ec52ce3a5d",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 228,
+    "profiles": 16864,
+    "qc": [
+      {
+        "run": "co-r1900-ccdz-sa12-qc-singlet0-space80",
+        "original_exit": 1,
+        "verdict": "rejected singlet-A1 CI flag",
+        "checkpoint_sha256": "d588b01f19023071d638d77e1a4b765f3d3b6d0b937333febec0f24d1bb162f3",
+        "ensemble_energy_hartree": -112.23910084461345,
+        "final_orbital_gradient_norm": 5.9466918231822064e-08,
+        "wall_seconds": 1660.8906521720346,
+        "kernel_peak_gib": 0.7859535217285156
+      },
+      {
+        "run": "co-r1900-ccdz-sa12-qc-singlet0-space160",
+        "original_exit": 0,
+        "verdict": "QC self-consistency passes; independent coverage and native import pending",
+        "checkpoint_sha256": "24035d3b7f51a23875604583dafa5acbfaa7b21206f3b62e912d7122759c5242",
+        "ensemble_energy_hartree": -112.23910084461343,
+        "final_orbital_gradient_norm": 5.932030758700826e-08,
+        "wall_seconds": 1723.9981545100454,
+        "kernel_peak_gib": 0.9609947204589844
+      }
+    ],
+    "between_checkpoint_saved_root_max_difference_hartree": 9.812595180846984e-11,
+    "original_controller_exit": 1,
+    "independent_coverage_qualification": null,
+    "native_import_qualification": null,
+    "scope": "Fresh compressed CAS12 singlet-driver QC preserves mixed verdict: space80 rejects singlet-A1 CI flag, space160 passes optimizer/fresh-CI/spin/Pi/MO checks. Original failed seeds remain rejected; fixed-orbital independent coverage and native import are separate gates."
+  },
+  "scope": "Fresh compressed CAS12 singlet-driver QC preserves mixed verdict: space80 rejects singlet-A1 CI flag, space160 passes optimizer/fresh-CI/spin/Pi/MO checks. Original failed seeds remain rejected; fixed-orbital independent coverage and native import are separate gates."
+}
