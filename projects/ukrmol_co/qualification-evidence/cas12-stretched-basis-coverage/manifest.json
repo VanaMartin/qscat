@@ -1,0 +1,42 @@
+{
+  "git_sha": "f2b2358243036068aceca62da363db8a87013cb8",
+  "date": "2026-10-08",
+  "record_type": "cas12-stretched-basis-fixed-orbital-coverage",
+  "archive_bytes": 787463,
+  "archive_sha256": "9b7c0e3be9b5624c7d84977ac3ba6b3beff19b4e160c6594d45e810ed754a51d",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "cases": {
+      "co-r2500-cctz-sa12-qc-dz80-residual-qualified-start": {
+        "all_roots_pass": true,
+        "probes": 48,
+        "maximum_ensemble_error_hartree": 2.5579538487363607e-13,
+        "maximum_physical_residual_hartree": 7.331667552517154e-10,
+        "maximum_penalized_residual_hartree": 9.93846524716073e-10,
+        "maximum_spin_error": 8.881784197001252e-15,
+        "maximum_space_error_hartree": 2.8421709430404007e-13,
+        "maximum_root_count_error_hartree": 1.9895196601282805e-13
+      },
+      "co-r2500-augtz-sa12-qc-dz80-residual-qualified-start": {
+        "all_roots_pass": false,
+        "probes": 48,
+        "maximum_ensemble_error_hartree": 2.1316282072803006e-13,
+        "maximum_physical_residual_hartree": 9.410927787971137e-07,
+        "maximum_penalized_residual_hartree": 1.382536490899264e-06,
+        "maximum_spin_error": 6.261657858885883e-14,
+        "maximum_space_error_hartree": 1.4509282664221246e-11,
+        "maximum_root_count_error_hartree": 2.1316282072803006e-13
+      }
+    },
+    "scope": "Completed 96-probe CAS12 stretched basis scan: TZ passes, aug-TZ rejects only triplet A2 root8/space40. Original gates, failed flag/residuals and stopped queue retained; no replacement by accurate energies or passing higher-space probes.",
+    "verified_payloads": 354,
+    "profiles": 8603,
+    "probes": 96,
+    "wall_seconds": 1726.944431009004,
+    "kernel_peak_gib": 0.7026100158691406,
+    "original_controller_exit": 1,
+    "original_probe_scan_exit": 0,
+    "original_verifier_exit": 1
+  },
+  "scope": "Completed 96-probe CAS12 stretched basis scan: TZ passes, aug-TZ rejects only triplet A2 root8/space40. Original gates, failed flag/residuals and stopped queue retained; no replacement by accurate energies or passing higher-space probes."
+}

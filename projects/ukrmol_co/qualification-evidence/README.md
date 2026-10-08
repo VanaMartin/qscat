@@ -98,6 +98,13 @@ The [CAS12 residual companion](cas12-residual/README.md) then verifies all 96
 627 payloads / 11138 scan profiles, including original 200-cycle and wrapper
 failures. Native import and larger-basis qualification remain separate successors.
 
+The [stretched CAS12 basis-coverage companion](cas12-stretched-basis-coverage/README.md)
+subsequently reconstructs **354 payloads / 8603 profiles** from all 96 TZ/aug-TZ
+probes. TZ passes all48; aug-TZ rejects triplet A2 root8/space40 while its other47
+probes pass. The failed flag/residuals and original stopped controller remain
+publicly reproducible; a fresh 80/160/240 trial-space convergence scan is separately
+declared and cannot overwrite the original rejection or import proof.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

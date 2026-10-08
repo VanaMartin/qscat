@@ -44,7 +44,7 @@ depend on these finite workers:
 | 0–3 | Hourly completed-component verifier PID 1042600; released between checks | All original CAS11 2048/4096/8192 controls independently reconstruct; original 16384-root OOM is preserved |
 | 4–7 | Resource-only successor PID 1044566 waiting for the existing CAS12 DZ import/verifier | One fresh 16384-root CAS11 attempt with 40-GiB memory, unchanged science and independent reconstruction; any failure stops it |
 | 8–11 | Electronic owner PID 1022822, CAS12 DZ 64-root import active | TZ and aug-TZ QC both pass; independent native-root/dipole/subspace verifier follows the DZ import |
-| 12–15 | Basis/outer owner PID 1044288, CAS12 TZ/aug-TZ fixed-orbital coverage active | 96 independent probes and reconstruction, then extended stretched CAS11 outer windows; owner 1044780 queues separately gated native basis imports |
+| 12–15 | Supported-space owner PID 1046586, fresh aug-TZ 80/160/240 coverage active | Original TZ passes and aug-TZ rejects one space40 extra root; outer-only completion-interface successor follows, and owner1044780 retains per-basis native gates |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -157,14 +157,76 @@ eligibility waits to 48 hours. Paid provisioning remains deferred. Full-model
 selection, threshold identity, extraction/background sensitivity and geometry
 continuity remain separate sweep-release gates.
 
-Read-only completion watcher shell `sh_11aebb93d001XLElhY3NrBJwyw` waits on
-Linux pidfds for the first electronic or basis/outer owner completion and returns
-the saved evidence to the local session. Scientific continuation and hourly host
+Read-only completion watcher shell `sh_11aebb93d001XLElhY3NrBJwyw` returns
+the stopped basis owner's completed evidence to the local session. Scientific continuation and hourly host
 journals remain independent of that notification connection. The main search
 snapshot is complete/upstream-current at
 `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; these experiment recipes, evidence
 pointers and handoff updates are branch-local divergence resolved against current
 source.
+
+#### Completed basis coverage and independent successors
+
+The 96-probe scan completes in **1726.94 seconds / 0.7026 GiB**. **TZ passes
+48/48; aug-TZ passes 47/48**, rejecting only **triplet A2 root eight at trial
+space40**, with its CI flag false. Physical/penalized/spin-penalty residuals are
+**9.41093e-7 / 1.38254e-6 / 8.53556e-7 Hartree**, above the **1e-9-Hartree**
+gates. The forty ensemble roots pass every probe; accurate energies do not
+override the failed extra-root flag. Original scan exit is zero; the verifier
+and owner exit **one**, preserving the mixed scientific verdict and stopping
+the coupled outer step. The queue finishes at `finished_unix=1791453375.3238015`.
+
+The [public basis-coverage companion](qualification-evidence/cas12-stretched-basis-coverage/README.md)
+reconstructs **354 payloads / 8603 profiles**, including both immutable checkpoints,
+all flags/residuals, original source/logs and the stopped controller. Public fetch,
+independent reconstruction and byte-identical repackaging pass. Archive SHA256:
+`9b7c0e3be9b5624c7d84977ac3ba6b3beff19b4e160c6594d45e810ed754a51d`.
+
+The [supported-space contract](cas12-stretched-augtz-supported-spaces-contract.json)
+then declares **48 fresh aug-TZ probes** with spaces **80/160/240**, all spins/
+irreps and 5/8 roots, retaining the checkpoint, 600 cycles and every existing
+residual/spin/energy gate. Original space40 rejection stays explicit. This
+supported-space convergence scan receives its own independent reconstruction
+and does not automatically replace the original native queue's aug-TZ proof.
+The existing queue may still import the qualified TZ case after its scheduling
+prerequisites complete; the original aug-TZ entry remains ineligible.
+
+Independent outer-only continuation first retains a launch-interface failure:
+the serial `rsolve` executable was invoked under four MPI ranks, and nonzero
+ranks hit unit5/stdin EOF, exiting **two**. The fresh MPI/input successor uses
+the previously validated **`mpi_rsolve` plus `inp` symlink** interface. All its
+first B1 `rsolve/eigenp/tmatrx/ixsecs` native stages exit zero, but the wrapper
+incorrectly rejects I_XSECS's **“Task has been successfully completed”** marker.
+That original wrapper exit remains one. Partial B1 extended-grid data contain
+399 finite points and agree with the original common phases within **2.0e-7
+rad modulo π**; full extraction remains unset.
+
+Service `co-outer-supported-spaces-v2-20261008.service`, supervisor **1046586**,
+records that outer wrapper failure and independently advances the eligible
+aug-TZ supported-space scan. It preserves each stage's actual exit rather than
+claiming an overall successful outer calculation. Source is frozen under
+`prepared/outer-supported-spaces-source-v2-20261008/`; the fresh scan is
+`diagnostics/cas12-stretched-augtz-supported-spaces-20261008/`.
+
+The separately queued `co-stretched-outer-completionfix-20261008.service`
+waits for CPUs12–15 to be released, then runs a fresh outer-only directory
+`cas11-stretched-outer-window-controls-completionfix-20261008`. Its frozen
+source under `prepared/stretched-outer-completionfix-source-20261008/` uses
+the already validated completion predicate `Task (?:has been )?successfully
+completed`, checked against all four actual successful native outputs. Energy
+windows, physical inputs and numerical gates remain as declared. Any failure
+stops this outer-only successor. Its `actual-output-validation.json` records
+the partial marker/common-grid controls without promoting a fit.
+
+Additional hourly service `co-additional-control-progress-v2-20261008.service`
+journals both independent successors in `continuation-progress-20261008/`'s
+`extra-owner-observations/` and `extra-owner-latest.json`. Original monitor,
+scan and wrapper failures remain retained, and the other native/electronic
+queues keep their separate prerequisites and stopping rules.
+
+Completion watcher shell `sh_11b04fb88001wWBEtz32PksWbD` waits on pidfds for
+the original electronic owner or supported-space owner to finish, returning
+their original exits and completed verifier records without completion polling.
 
 ### Original local hourly observation — 8 October 2026
 

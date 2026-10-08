@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "cas12-stretched-basis-coverage.tar.gz": {
+      "bytes": 787463,
+      "sha256": "9b7c0e3be9b5624c7d84977ac3ba6b3beff19b4e160c6594d45e810ed754a51d"
+    }
+  },
+  "git_sha": "f2b2358243036068aceca62da363db8a87013cb8",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-cas12-stretched-basis-coverage-2026-10-08/"
+}
