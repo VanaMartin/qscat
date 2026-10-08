@@ -791,6 +791,19 @@ below **2.701e-13 Hartree**. Public reconstruction passes, preserving original
 64-root native import now follow that qualified checkpoint; electronic-model
 selection and scattering remain separate gates.
 
+The [stretched CAS12 basis-coverage companion](../../projects/ukrmol_co/qualification-evidence/cas12-stretched-basis-coverage/README.md)
+then checks **96** fixed-orbital TZ/aug-TZ probes at 5/8 roots, spaces40/80/160
+and 600 cycles. TZ passes every probe. Aug-TZ rejects only the eighth triplet-A2
+root at space40: CI flag false, physical/penalized residuals **9.41093e-7 /
+1.38254e-6 Hartree**, despite accurate energies and passing ensemble roots.
+The original verifier/controller exits one and remains rejected. Scan cost is
+**1726.94 seconds / 0.7026 GiB**, with **354 payloads / 8603 profiles** publicly
+reconstructed. A separately declared
+[80/160/240 supported-space sequence](../../projects/ukrmol_co/cas12-stretched-augtz-supported-spaces-contract.json)
+uses fresh probes at unchanged orbitals, cycles and tolerances, requiring its
+own full reconstruction; it does not automatically replace the rejected import
+proof. The independently qualified TZ branch retains its native-import eligibility.
+
 ### Sparse/iterative scattering qualification contract
 
 **Status: fixed CAS(10,10) 2048-root implementation qualifies; CAS(10,11) qualification in progress.**

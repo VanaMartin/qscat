@@ -1,0 +1,26 @@
+{
+  "status": "predeclared fresh supported-space convergence after preserved space40 rejection",
+  "reference_run": "co-r2500-augtz-sa12-qc-dz80-residual-qualified-start",
+  "checkpoint_sha256": "985a537ba75a65b089bb27695fcd4d93312a1115db05d22e43e4f28405860590",
+  "original_scan": "cas12-stretched-basis-ci-residual-coverage-20261008",
+  "original_rejection": "Triplet A2 root 8, trial space 40, 600 cycles: CI flag false; physical/penalized residuals 9.41093e-7/1.38254e-6 Hartree. All 47 other aug-TZ probes, including spaces80/160, pass.",
+  "successor_scan": "cas12-stretched-augtz-supported-spaces-20261008",
+  "root_counts": [5, 8],
+  "spins": [0, 2],
+  "irreps": ["A1", "B1", "B2", "A2"],
+  "trial_spaces": [80, 160, 240],
+  "cycles": 600,
+  "probes": 48,
+  "fixed_controls": "Same saved orbitals, ten active electrons, two frozen core orbitals, analytic residual benchmark, CI energy/residual/lindep and spin-penalty controls",
+  "gates": {
+    "all_ci_flags": true,
+    "physical_and_penalized_residual_max_hartree": 1e-9,
+    "spin_penalty_action_max_hartree": 1e-9,
+    "ensemble_root_error_max_hartree": 1e-7,
+    "trial_space_and_root_count_error_max_hartree": 1e-7,
+    "spin_square_error_max": 1e-6,
+    "ci_vector_orthogonality_error_max": 1e-9
+  },
+  "resources": {"cpu_group": "12-15", "container_memory_gib": 8, "minimum_available_ram_gib": 32, "minimum_free_disk_gib": 40},
+  "release": "Independent reconstruction of all 48 fresh probes is required. The original all-space scan stays rejected; existing queued native-import proofs are not replaced. No automatic aug-TZ import or scattering release."
+}
