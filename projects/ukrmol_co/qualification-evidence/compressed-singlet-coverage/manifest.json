@@ -1,0 +1,53 @@
+{
+  "git_sha": "ca3016d25b4f8e48782b1784f500872276f3da13",
+  "date": "2026-10-08",
+  "record_type": "compressed-cas12-passing-fixed-orbital-coverage",
+  "archive_bytes": 1068590,
+  "archive_sha256": "1601d06c66212b747ed7c367293b93433b7d4b9ec004c437784a434d4aa04d12",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 438,
+    "profiles": 7075,
+    "passing_probes": 96,
+    "cases": [
+      {
+        "run": "co-r1900-ccdz-sa12-qc-singlet0-space80",
+        "passing_probes": 48,
+        "original_qc_flags_pass": false,
+        "maximum_space_difference_hartree": 2.5579538487363607e-13,
+        "maximum_common_root_count_difference_hartree": 2.5579538487363607e-13,
+        "maximum_pi_difference_hartree": 1.6477486042276723e-10,
+        "maximum_ensemble_root_difference_hartree": 3.836930773104541e-13,
+        "native_import_eligible_candidate": false
+      },
+      {
+        "run": "co-r1900-ccdz-sa12-qc-singlet0-space160",
+        "passing_probes": 48,
+        "original_qc_flags_pass": true,
+        "maximum_space_difference_hartree": 1.9895196601282805e-13,
+        "maximum_common_root_count_difference_hartree": 2.1316282072803006e-13,
+        "maximum_pi_difference_hartree": 2.8421709430404007e-13,
+        "maximum_ensemble_root_difference_hartree": 1.9895196601282805e-13,
+        "native_import_eligible_candidate": true
+      }
+    ],
+    "maximum_errors": {
+      "physical_residual_norm_hartree": 8.889459781305969e-10,
+      "penalized_residual_norm_hartree": 9.968344953810164e-10,
+      "spin_penalty_action_norm_hartree": 6.198485676211207e-10,
+      "independent_full_action_difference_hartree": 7.080634635173062e-10,
+      "independent_full_residual_hartree": 5.690137564472635e-10,
+      "alpha_beta_exchange_symmetry_error": 4.4366680750932e-11
+    },
+    "maximum_between_checkpoint_root_difference_hartree": 9.814016266318504e-11,
+    "between_checkpoint_subspace_minimum_singular_values": {
+      "core": 0.9999999999999994,
+      "active": 0.9999999999999991
+    },
+    "wall_seconds": 1420.6009193900973,
+    "kernel_peak_gib": 0.8013496398925781,
+    "native_import_qualification": null,
+    "scope": "All96 fixed-orbital coverage probes pass; only original space160 QC passes. Reconstructed residual/spin/full-action and ensemble/root/space/Pi gates plus unchanged checkpoints. Original space80 rejection remains; space160 is a native-import candidate, not a scattering release."
+  },
+  "scope": "All96 fixed-orbital coverage probes pass; only original space160 QC passes. Reconstructed residual/spin/full-action and ensemble/root/space/Pi gates plus unchanged checkpoints. Original space80 rejection remains; space160 is a native-import candidate, not a scattering release."
+}

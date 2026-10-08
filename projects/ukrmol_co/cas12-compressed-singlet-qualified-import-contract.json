@@ -1,0 +1,20 @@
+{
+  "status": "separate native import candidate after passing space160 QC and all96 independent coverage probes",
+  "recipe": "calibration-sa12-compressed-singlet-qualified-import.json",
+  "parent_contract": "cas12-compressed-singlet-qc-coverage-contract.json",
+  "reference": "co-r1900-ccdz-sa12-qc-singlet0-space160",
+  "reference_checkpoint_sha256": "24035d3b7f51a23875604583dafa5acbfaa7b21206f3b62e912d7122759c5242",
+  "public_proof": {
+    "url_prefix": "https://data.qscat.org/ukrmol-co-compressed-singlet-coverage-2026-10-08/",
+    "archive_sha256": "1601d06c66212b747ed7c367293b93433b7d4b9ec004c437784a434d4aa04d12",
+    "payloads": 438,
+    "profiles": 7075,
+    "passing_probes": 96
+  },
+  "scientific_prerequisites": "Passing original/fresh space160 QC flags plus independently reconstructed residual, spin, full-Hamiltonian action, ensemble/root/space/Pi gates at unchanged orbitals. The original and fresh rejected space80 QC records remain rejected and cannot substitute for this reference.",
+  "solver": "Same forty-state orbital ensemble, singlet-A1 spin0 driver, production CI trial space160, eight native roots in each spin/irrep, dense selected-root SLEPc, tolerance1e-13 and maxiter1000. Every native sector and ground dipole requires independent verification.",
+  "scheduling": "Wait for original CAS11 40-GiB memory-repair owner completion, then the successful original TZ import/verifier followed solely by its preserved original aug-TZ coverage stop, then successful fresh supported-space aug-TZ import/verifier. Respect existing queue priority before checking CPU8-11 ownership and memory/disk floors. Any unexpected predecessor failure stops this successor; a memory-repair scientific rejection does not itself invalidate the independent electronic target.",
+  "resources": {"cpu_group": "8-11", "container_memory_gib": 64, "minimum_available_ram_gib": 80, "minimum_free_disk_gib": 40, "eligibility_wait_hours": 48},
+  "gates": {"all_64_native_root_difference_max_hartree": 1e-7, "ground_dipole_difference_max_au": 1e-5, "seed_to_reoptimized_ensemble_root_difference_max_hartree": 1e-7, "core_and_active_subspace_minimum_singular_value": 0.99999999, "saved_table_half_last_unit_max_hartree": 5e-10},
+  "release": "One finite fresh target import and independent verifier. Preserve each original exit and immutable proof/source. No automatic retry, scattering, threshold assignment or sweep release."
+}

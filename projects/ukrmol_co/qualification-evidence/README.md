@@ -138,6 +138,13 @@ Pi/MO checks. Both original exits, checkpoints and immutable source remain publi
 Independent fixed-orbital coverage and native import are separate qualification
 gates; stable saved roots cannot override the rejected space80 record.
 
+The [compressed singlet-driver coverage companion](compressed-singlet-coverage/README.md)
+verifies **438 payloads / 7075 coverage profiles**, with all 96 independent
+fixed-orbital probes passing. Physical/spin-penalized/full-action and ensemble/
+root/space/Pi gates support the passing original space160 QC as a separately
+declared native-import candidate. The failed original space80 QC remains
+rejected, and native-root/dipole/subspace verification remains outstanding.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

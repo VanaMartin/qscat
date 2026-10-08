@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "compressed-singlet-qc-coverage.tar.gz": {
+      "bytes": 1068590,
+      "sha256": "1601d06c66212b747ed7c367293b93433b7d4b9ec004c437784a434d4aa04d12"
+    }
+  },
+  "git_sha": "ca3016d25b4f8e48782b1784f500872276f3da13",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-compressed-singlet-coverage-2026-10-08/"
+}
