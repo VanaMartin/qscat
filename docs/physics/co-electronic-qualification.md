@@ -874,6 +874,17 @@ native fit acceptance and pole identity stay unset. **257 payloads / 3170
 profiles** publicly reconstruct, including the parent screens and full
 0.05/0.025/0.0125-requested-eV fit refinement sequence.
 
+The separately declared [many-electron target-state screen](../../projects/ukrmol_co/cas11-target-state-overlap-screen-contract.json)
+then re-solves eight roots per sector at unchanged native-imported anchors,
+using the [frozen-core determinant-overlap method](co-target-state-overlaps.md).
+Physical cross-geometry overlaps include core/active cross terms; the separately
+labelled AO-following metric remains a coefficient-frame diagnostic. Six toy
+full-Slater/analytic tests and a pinned-image determinant-ordering control pass
+before launch. Every original five-root native table, fresh CI flag, residual,
+spin and root norm must pass before overlap interpretation. Root assignment,
+ambiguity and finite-manifold leakage are recorded; the extra three diagnostic
+roots and coarse geometry spacing cannot certify full target or pole continuity.
+
 ### Compressed CAS12 singlet-A1 driver diagnosis
 
 At R=1.9 bohr, both preserved CAS(10,12) DZ QC checkpoints fail their original

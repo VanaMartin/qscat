@@ -41,7 +41,7 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Released: compressed diagnostic PID 1049672 finishes; hourly verifier may resume | All 96 probes execute; 84 pass and all 12 singlet-A1 probes reject; original QC remains unqualified |
+| 0–3 | Small target-state overlap screen **1073567**, 2-GiB cap | Fresh fixed-orbital CI at the three saved CAS11 anchors; hourly reconstruction defers while this reserved slot is occupied |
 | 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 solve active | Original 40-GiB attempt hits its six-hour cap below the memory ceiling; fresh 24-hour-stage attempt retains all scientific controls |
 | 8–11 | Released; twelve-rank import owner **1072749** waiting for CPUs4–15 | Compressed space160 import follows passing TZ, explicit original aug-TZ rejection and supported-space aug-TZ verification |
 | 12–15 | Released: compressed outer replay **1071520** finishes; twelve-rank queue **1072749** waiting | Native imports use CPUs4–15 after the active memory owner; physical CPUs0–3 are reserved for small controls |
@@ -786,6 +786,61 @@ queue1072749, its v2 hourly monitor and the independent hourly observer active.
 The CAS11 container remains at **400% CPU / 30.75 GiB**; the queue has zero
 steps and the expected prerequisite wait. Available RAM/free disk are
 **78.12/113.84 GiB**; the restarted pilot is idle.
+
+#### Reserved-core many-electron target-state screen
+
+The user's standing authorization to schedule small work while large jobs run
+releases a [finite target-state overlap screen](cas11-target-state-overlap-screen-contract.json).
+The [durable mathematics](../../docs/physics/co-target-state-overlaps.md) and
+Python toy method `ci_overlap.py` include both frozen cores and core/active cross
+blocks through the determinant Schur identity. **Six analytic/full occupied
+Slater-determinant tests** pass, including complex frames, unequal alpha/beta
+populations, core-only overlap, reciprocity and root-phase covariance. A pinned-
+image control independently reconstructs the reduction with PySCF determinant
+ordering; it passes before any real CI solve.
+
+Service `co-target-state-overlap-20261009.service`, owner **1073567**, runs on
+reserved physical CPUs**0–3**, four library threads, **2-GiB memory/swap cap**,
+**16-GiB available-RAM / 40-GiB disk** floors. Its eligibility wait is bounded
+at one hour and whole-container time at **14400 seconds**. Sources and original
+native checkpoint/table hashes are frozen under
+`prepared/target-state-overlap-source-20261009/`: **11 source/control files /
+18 unchanged inputs**. Fresh outputs live under
+`diagnostics/cas11-target-state-overlap-screen-20261009/`.
+
+The screen solves **eight roots in each of eight spin/irrep sectors at three
+anchors** (24 sector solves / 192 wavefunctions), at unchanged orbitals,
+space160 and a separately declared600-cycle fixed-orbital budget. All native
+tables contain the original **five roots per sector**; compare all those forty
+native roots at each imported checkpoint. Extra roots6–8 are independently
+checked diagnostic wavefunctions, not claimed as newly native-imported roots.
+Physical/penalized residual, spin, CI-flag and orthogonality gates remain exact.
+
+Two adjacent and one end-to-end pair produce **48 eight-by-eight overlap
+matrices**, physical and explicitly AO-following. Direct **full occupied minors**
+independently check the Schur reduction at real anchors. Preserve root-order
+changes, one-to-one maximum-overlap assignments, weak/ambiguous matches and
+ensemble-to-extra-root triggers. Finite-manifold/coarse-spacing scores cannot
+certify a continuous path, select the model or establish resonance-pole identity;
+final continuity/pole verdicts stay unset. Failed gates stop this screen without
+automatic orbital/root/space/tolerance changes or retry.
+
+At **23:06:03 UTC**, the screen is active at approximately **300% CPU / 184 MiB**,
+alongside the unchanged large CAS11 container at **398% CPU / 30.75 GiB**.
+Read-only watcher `sh_11dc4a328001E1cFKKUjFH7rLH` waits on its pidfd for up to
+five hours and returns completion/resource/progress records. The existing
+hourly journals continue to record container/resource ownership. Completed
+wavefunction/metric data require portable independent reconstruction and public
+publication before a scientific handoff verdict.
+
+Post-interruption check **23:08:23 UTC** confirms the same owner/container are
+still active with no reported controller error, approximately **301% CPU /
+236 MiB**; all11 frozen source/control hashes pass. The large CAS11 owner
+continues independently. Ruff/format, JSON/Python3.11 syntax, **142 relative
+links** in the touched handoff/physics documents and diff checks pass. The
+six new determinant-overlap tests and pinned-image full-minor control passed
+before launch. Main-index snapshot **97b8b4c** remains complete/upstream-current;
+this toy method, diagnostic contract/design and handoff are branch-local additions.
 
 ### Original local hourly observation — 8 October 2026
 

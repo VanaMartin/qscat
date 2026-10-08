@@ -1,0 +1,14 @@
+{
+  "status": "finite small-job many-electron identity diagnostic on unchanged anchors",
+  "design": "../../docs/physics/co-target-state-overlaps.md",
+  "references": ["co-r1900-ccdz-sa11-tight-cc40-anchor", "co-eq-ccdz-sa11-tight-cc40", "co-r2500-ccdz-sa11-tight-cc40-anchor"],
+  "fixed_orbital_ci": {"roots_per_spin_irrep": 8, "trial_space": 160, "diagnostic_max_cycles": 600, "energy_tolerance_hartree": 1e-12, "residual_tolerance_hartree": 1e-9, "lindep": 1e-22, "spin_penalty_shift": 1.0, "threads": 4, "sectors": ["singlet.A1", "singlet.B1", "singlet.B2", "singlet.A2", "triplet.A1", "triplet.B1", "triplet.B2", "triplet.A2"]},
+  "gates": {"all_ci_flags": true, "native_root_agreement_hartree": 1e-7, "physical_residual_hartree": 1e-9, "penalized_residual_hartree": 1e-9, "spin_error": 1e-6, "same_geometry_root_orthogonality": 1e-9, "cross_pair_reciprocity": 1e-10, "overlap_magnitude_upper_bound": 1.000000001, "independent_full_minor_reconstruction_tolerance": 1e-10},
+  "method": "Frozen-core determinant overlaps including core/active cross blocks, via the Schur-complement identity. Evaluate all eight-by-eight root overlaps per sector for two adjacent and one end-to-end pair. Retain separate physical and AO-following metric-transport matrices, global one-to-one assignments and row-wise best/second-best diagnostics; final continuity/pole verdicts remain unset.",
+  "native_comparison_scope": "Each scattering anchor table contains the original five roots per sector (forty total). Compare those exact native roots at the imported checkpoint; roots6-8 are fresh fixed-orbital diagnostics with CI/residual/spin gates, not claimed as newly native-imported roots.",
+  "diagnostic_triggers": {"assigned_squared_overlap_below": 0.5, "best_to_second_squared_overlap_margin_below": 0.1, "retained_ensemble_root_assigned_to_extra_root": true},
+  "preservation": "Native imported checkpoint/table hashes, fresh CI vectors and energies, all residuals/spins, cross metrics, overlaps, assignments, complete logs and resources. A failed CI or numerical gate stops the finite screen; no automatic changes to orbitals, roots, spaces, tolerances or retries.",
+  "resources": {"cpu_group": "0-3", "container_memory_gib": 2, "container_memory_swap_gib": 2, "minimum_available_ram_gib": 16, "minimum_free_disk_gib": 40, "container_timeout_seconds": 14400, "eligibility_wait_timeout_hours": 1},
+  "scheduling": "Use the reserved small-job cores; recheck physical/SMT ownership and yield at admission to the existing hourly verifier. Large CAS11/twelve-rank import owners retain their gates and priority. Four library threads are contained within the four-core allocation.",
+  "scope": "Fixed-orbital target-state diagnostic only. The separate600-cycle CI budget cannot qualify a rejected orbital optimization, and eight-root/coarse-geometry overlaps cannot select an electronic model or release a sweep."
+}
