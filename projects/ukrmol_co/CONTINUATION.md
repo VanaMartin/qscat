@@ -43,8 +43,8 @@ depend on these finite workers:
 |---|---|---|
 | 0–3 | Released: compressed diagnostic PID 1049672 finishes; hourly verifier may resume | All 96 probes execute; 84 pass and all 12 singlet-A1 probes reject; original QC remains unqualified |
 | 4–7 | Resource-only successor PID 1044566, native 16384-root CAS11 solve active | Successful DZ import/verifier releases one fresh 40-GiB attempt; any engine/export/verifier failure stops it |
-| 8–11 | Released: electronic owner 1022822 completes with exit zero | Stretched CAS12 DZ all 64 roots, ground dipole and core/active subspaces pass independent verification |
-| 12–15 | Fresh compressed singlet-driver coverage owner 1055627 active | New QC space160 passes, space80 rejects; 96 coverage probes at spaces80/160/240; basis owners retain resource and proof sequencing gates |
+| 8–11 | Released; compressed native-import owner 1057056 waiting | Independently covered space160 checkpoint; native import follows memory repair, original TZ verification/aug-TZ stop and successful fresh aug-TZ verification |
+| 12–15 | Released: compressed coverage owner 1055627 completes with exit zero | All 96 coverage probes pass; original space80 QC remains rejected; existing basis owners retain queue priority |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -484,6 +484,71 @@ and `git diff --check` pass. The scientific runner code is unchanged since the
 98-test driver checks. Final main-index status is again **complete/upstream-current**
 at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; new QC evidence, coverage contract
 and handoff updates remain resolved branch-local additions.
+
+#### Completed compressed coverage and declared native import
+
+Coverage owner **1055627** completes with original exit **zero** at
+`finished_unix=1791465367.690747`. **All 96 probes pass** in **1420.60 seconds /
+0.8013 GiB**, with independent reconstruction of every recorded gate decision.
+Maximum physical/penalized residuals are **8.889e-10 / 9.968e-10 Hartree**, spin-
+penalty action **6.198e-10 Hartree**, and independent singlet full-action difference/
+residual **7.081e-10 / 5.690e-10 Hartree**. Ensemble-root error is at most
+**3.837e-13 Hartree**, space/root-count differences **2.558e-13 Hartree**.
+Pi differences are **1.648e-10 / 2.842e-13 Hartree** for the two checkpoints.
+Between-checkpoint roots agree within **9.814e-11 Hartree**, with minimum
+core/active subspace singular values **0.9999999999999994 / 0.9999999999999991**.
+Original space80 QC still rejects its flag; only the original space160 QC and
+its independent coverage jointly support native-import eligibility.
+
+The [public coverage companion](qualification-evidence/compressed-singlet-coverage/README.md)
+verifies **438 payloads / 7075 coverage profiles**, all 96 recorded decisions,
+mixed parent QC verdicts, analytic/perturbed controls and unchanged checkpoint/
+scientific-source hashes. Public fetch, independent reconstruction and
+byte-identical repackaging pass; SHA256:
+`1601d06c66212b747ed7c367293b93433b7d4b9ec004c437784a434d4aa04d12`.
+
+The [separate compressed native-import release](cas12-compressed-singlet-qualified-import-contract.json)
+freezes the [64-root recipe](calibration-sa12-compressed-singlet-qualified-import.json)
+and publicly fetched proof under
+`prepared/compressed-singlet-native-import-source-20261008/`, service
+`co-compressed-singlet-native-import-20261008.service`, owner **1057056**.
+It uses only the passing space160 reference, singlet-A1 spin0 driver, unchanged
+forty-state orbital ensemble and tight dense selected-root SLEPc controls.
+The new verifier retains the previously validated final-CIDATA-set parser,
+half-last-unit table controls, all 64 native-root/dipole and core/active subspace
+gates; its schema adapter explicitly requires the passing new QC/coverage case.
+
+This owner waits for CAS11 memory-repair **completion**, then successful original
+TZ import/verifier followed solely by the preserved original aug-TZ coverage stop,
+then successful supported-space aug-TZ import/verifier. Unexpected basis failures
+stop it. Only after existing queue priority is satisfied does it reverify the
+public proof and check CPUs 8–11 ownership, **80-GiB available RAM / 40-GiB disk**,
+before one fresh **64-GiB** import. Each engine/analyzer/verifier original exit
+is preserved; no retry or scattering release is declared. Each prerequisite/
+resource wait is bounded at 48 hours. Original failed checkpoints are not replaced.
+
+At **2026-10-08T13:24:56Z**, all **576 frozen source/proof files** match their
+launch hashes; owner 1057056 waits on the memory repair. Actual runner argument
+parsing and the adapted verifier's exact/half-unit/corrupt-token/inherited-set
+controls pass in the pinned image. The independent integrity record is
+`continuation-progress-20261008/compressed-import-source-integrity.json`.
+At the preceding 13:16 check, CAS11 16384-root execution remains active at
+about **30.66 GiB / 40 GiB**, available RAM/free disk **78.06 / 114.93 GiB**.
+
+Hourly additional monitor **v7**, `co-additional-control-progress-v7-20261008.service`,
+now includes the compressed native-import owner and writes
+`compressed-import-observations/` plus `compressed-import-latest.json`; its first
+journal exists and service is active. Older sources/journals remain preserved.
+Completed watcher `sh_11b96f6ff001VjLWsuVcOK3xE9` returned the passing coverage.
+New watcher `sh_11bb12b2f001q6maG2PRCNvNzy` waits on pidfds for memory-repair or
+compressed native-import completion and reports existing basis-owner status.
+
+Public coverage reconstruction/repackaging, live recipe parsing/native-format
+controls, new JSON and Python 3.11 syntax, **160 relative documentation links**
+and `git diff --check` pass. Scientific runner code remains unchanged since its
+98-test validation. The final main-index snapshot is **complete/upstream-current**
+at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; new coverage evidence, release/recipe
+and handoff updates are resolved branch-local additions.
 
 ### Original local hourly observation — 8 October 2026
 

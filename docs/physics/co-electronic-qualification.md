@@ -886,6 +886,20 @@ and independent singlet Hamiltonian-action gates. Newly passing QC remains
 unqualified for import/scattering until that separate coverage and native
 root/dipole/orbital-identity checks pass.
 
+That [coverage subsequently passes all 96 probes](../../projects/ukrmol_co/qualification-evidence/compressed-singlet-coverage/README.md)
+in **1420.60 seconds / 0.8013 GiB**. Physical/penalized residual maxima are
+**8.889e-10 / 9.968e-10 Hartree**; independent singlet full-action difference/
+residual are **7.081e-10 / 5.690e-10 Hartree**. Ensemble-root differences are
+below **3.837e-13 Hartree**, space/root-count differences below **2.558e-13
+Hartree**. Both new checkpoints agree in roots within 9.814e-11 Hartree and
+core/active subspaces to approximately machine precision. Successful fixed-
+orbital coverage does not repair the rejected space80 optimizer record.
+Only space160 jointly passes original QC and independent coverage. The
+[separate native-import contract](../../projects/ukrmol_co/cas12-compressed-singlet-qualified-import-contract.json)
+therefore uses that checkpoint, with all 64 native-root/dipole/subspace gates and
+existing queue/resource priority. Neither native import nor scattering is yet
+qualified by this electronic coverage alone.
+
 ### Sparse/iterative scattering qualification contract
 
 **Status: fixed CAS(10,10) 2048-root implementation qualifies; CAS(10,11) qualification in progress.**
