@@ -145,6 +145,14 @@ root/space/Pi gates support the passing original space160 QC as a separately
 declared native-import candidate. The failed original space80 QC remains
 rejected, and native-root/dipole/subspace verification remains outstanding.
 
+The [stretched DZ import and queue-failure companion](dz-import-queue-failures/README.md)
+verifies **3040 payloads / 225208 profiles**, including the completed CAS12
+stretched DZ64-root/dipole/subspace import and both covered repair checkpoints.
+It preserves the later CAS11 40-GiB attempt's six-hour timeout at a31.994-GiB
+peak, the original pre-engine TZ packaging failure and both dependent-owner
+stops. Fresh time-budget and package-complete successors retain their original
+scientific gates and are captured with pending verdicts.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

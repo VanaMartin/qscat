@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "dz-import-queue-failures.tar.gz": {
+      "bytes": 9055168,
+      "sha256": "c920f0836aa93ce195ab76a072b7676729110ec7d90c3d1ece136e83032ecf68"
+    }
+  },
+  "git_sha": "b662b1688b1e0b1695476840ccf04801d877b01f",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-dz-import-queue-failures-2026-10-08/"
+}

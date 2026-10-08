@@ -42,9 +42,9 @@ depend on these finite workers:
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
 | 0–3 | Released: compressed diagnostic PID 1049672 finishes; hourly verifier may resume | All 96 probes execute; 84 pass and all 12 singlet-A1 probes reject; original QC remains unqualified |
-| 4–7 | Resource-only successor PID 1044566, native 16384-root CAS11 solve active | Successful DZ import/verifier releases one fresh 40-GiB attempt; any engine/export/verifier failure stops it |
-| 8–11 | Released; compressed native-import owner 1057056 waiting | Independently covered space160 checkpoint; native import follows memory repair, original TZ verification/aug-TZ stop and successful fresh aug-TZ verification |
-| 12–15 | Released: compressed coverage owner 1055627 completes with exit zero | All 96 coverage probes pass; original space80 QC remains rejected; existing basis owners retain queue priority |
+| 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 solve active | Original 40-GiB attempt hits its six-hour cap below the memory ceiling; fresh 24-hour-stage attempt retains all scientific controls |
+| 8–11 | Released; package-complete import owner **1065882** waiting | Compressed space160 import follows the fresh memory owner, passing TZ verification, explicit original aug-TZ rejection and supported-space aug-TZ verification |
+| 12–15 | Released; package-complete import owner **1065882** waiting | TZ and supported-space aug-TZ retain priority; original pre-engine packaging/dependent-owner failures remain preserved |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -549,6 +549,89 @@ and `git diff --check` pass. Scientific runner code remains unchanged since its
 98-test validation. The final main-index snapshot is **complete/upstream-current**
 at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; new coverage evidence, release/recipe
 and handoff updates are resolved branch-local additions.
+
+### Post-rebase continuation — 8 October 2026
+
+Rebase onto `origin/main` **97b8b4c** completes without conflicts, preserving all
+52 branch patches and attribution; pushed branch head before this continuation
+is **b662b16**. CO98/search32 tests, Ruff, format and mypy pass. Remote frozen
+scientific sources remain their original snapshots.
+
+At **18:39 UTC**, memory-repair owner **1044566** has stopped with original
+controller exit **one**, `finished_unix=1791478354.4966424`. B1 SCATCI hits its
+declared **21600-second stage timeout**, returns one after **21600.31 seconds**,
+and the whole attempt takes **21601.48 seconds / 31.994 GiB**. It stays below
+the 40-GiB ceiling and enters Krylov-Schur; no completed eigenpairs, boundary
+export, B2 or fixed-window result exist. This timeout is separate from the
+preserved original 24-GiB OOM and does not establish numerical nonconvergence.
+
+The original TZ owner **1044780** then stops before launching any native engine:
+`batch.py` cannot copy missing `projects/__init__.py` into its source snapshot.
+Its partial batch and exit-one traceback remain exact. Supported-space aug-TZ
+owner **1049064** and compressed owner **1057056** subsequently stop at their
+predecessor guards. Their original records are neither retried nor rewritten.
+
+Two fresh finite releases are deployed under
+`prepared/budget-packaging-successors-source-20261008/`:
+
+- [Time-budget successor](sparse-scattering-cas11-time-budget-successor-contract.json),
+  service `co-budget-packaging-memory-20261008.service`, owner **1065880**:
+  same 16384 roots, both Pi sectors, four ranks, 40-GiB cap and original gates,
+  with **86400 seconds per stage**. Fresh run is
+  `cas11-native-sparse-roots16384-memory40-time24h-20261008`. Any failure stops
+  its scattering queue; CAS12 scattering requires a separate reviewed release.
+- [Package-complete import queue](cas12-native-import-packaging-successor-contract.json),
+  service `co-budget-packaging-imports-20261008.service`, owner **1065882**:
+  fresh copies of the three existing sources add the empty package marker.
+  Native arguments, checkpoints, proofs and scientific source are unchanged;
+  run names gain `-package2`. It waits for the new memory owner's completion,
+  then requires passing TZ native import/verifier, explicitly records the
+  original aug-TZ coverage rejection, runs the separately supported aug-TZ
+  import/verifier, and finally the compressed space160 import/verifier.
+  Each import uses a 64-GiB cap and the original 80-GiB RAM / 40-GiB disk floor;
+  every prerequisite/resource wait remains bounded at 48 hours.
+
+Live batch-snapshot preflight exercises all three source trees with native
+launches intercepted: both package markers exist, all recipe arguments parse,
+and **120/123/132 scientific files** respectively match the live frozen sources.
+The shared index freezes **954 source/proof files and 24 original records**;
+integrity is rechecked before every actual launch. The original stopped basis
+records remain separate from the explicitly repaired prerequisite chain.
+
+At **18:49:49 UTC**, the new CAS11 solve is active on CPUs4–7 at approximately
+**1.834 GiB / 40 GiB**; import owner1065882 waits with zero launched steps.
+Launch headroom is **108.42-GiB available RAM / 114.94-GiB free disk**. New
+service `co-budget-packaging-progress-20261008.service` journals both owners,
+stage output, resource headroom and final records hourly for 48 hours under
+`prepared/budget-packaging-progress-20261008/`; its initial journal exists.
+The previous hourly observer and progress services remain independent.
+
+The **19:38:45 UTC** handoff check still finds owner1065880 active, with B1
+Hamiltonian construction progressing and approximately **2.466 GiB / 40 GiB**
+charged; owner1065882 remains waiting without launched imports. Available RAM/
+free disk are **106.13 / 114.18 GiB** and the new hourly journal service is active.
+
+The [public DZ-import/failure companion](qualification-evidence/dz-import-queue-failures/README.md)
+now reconstructs **3040 payloads / 225208 profiles**. Stretched CAS12 DZ64-root
+import passes in **21336.38 seconds / 40.371 GiB**, maximum independent root
+error **5.460e-8 Hartree**, native dipole error **8.919e-8 a.u.**, minimum active
+subspace singular value **0.99999999999421**. Both original 600-cycle coverage
+checkpoints retain all96 passing probes. The original timeout and three
+electronic-owner failures also reconstruct. Public fetch, independent replay
+and byte-identical repackaging pass. Archive SHA256:
+`c920f0836aa93ce195ab76a072b7676729110ec7d90c3d1ece136e83032ecf68`.
+
+Read-only watcher `sh_11d05ee93001HqDl6fp9YBu3kM` waits on the two new owner
+pidfds for at most 48 hours and returns their completion/status records. The
+host-side queue and hourly journal continue independently of that connection.
+JSON, Python3.11 syntax, **167 relative documentation links** and diff checks pass.
+
+The next observation must inspect the fresh memory result, then the repaired
+import chain and its original-aug-TZ rejection record. No failed original proof
+can be substituted into a passing target. Full-model selection, threshold/
+geometry continuity, extraction sensitivity and the correlated stretched
+neutral treatment remain open. Main-index snapshot97b8b4c is complete and
+upstream-current; these release/evidence/handoff additions are branch-local.
 
 ### Original local hourly observation — 8 October 2026
 

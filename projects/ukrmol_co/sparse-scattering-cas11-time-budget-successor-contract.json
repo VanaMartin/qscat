@@ -1,0 +1,26 @@
+{
+  "status": "single explicitly declared time-budget successor after preserved six-hour timeout",
+  "parent_contract": "sparse-scattering-cas11-memory-repair-contract.json",
+  "original_run": "cas11-native-sparse-roots16384-memory40-20261008",
+  "successor_run": "cas11-native-sparse-roots16384-memory40-time24h-20261008",
+  "original_failure": {
+    "sector": "B1",
+    "stage": "scatci",
+    "native_exit": 1,
+    "timed_out": true,
+    "stage_wall_seconds": 21600.314511643024,
+    "controller_exit": 1,
+    "kernel_peak_container_memory_bytes": 34353160192,
+    "interpretation": "The declared wall-time cap interrupts the solve below its 40-GiB memory ceiling. No completed eigenpairs, boundary export or observable verdict exist. This is neither a passing solve nor evidence of numerical nonconvergence."
+  },
+  "unchanged": "Same pinned engine, four MPI ranks, 16384 roots, both Pi sectors, reference inputs, 40-GiB memory/swap cap, solver tolerance1e-12, maxiter1000, native MPI boundary export, telemetry digest and all parent eigenpair/boundary/phase/fixed-window gates.",
+  "changed": {"stage_timeout_seconds": 86400, "fresh_run_required": true},
+  "prerequisites": [
+    "Original timeout and original 24-GiB OOM are retained with their exact exits and resource records",
+    "Original both-sector 2048/4096/8192 reconstructions and successful stretched CAS12 DZ import/verifier remain passing",
+    "Physical CPUs4-7 and SMT partners20-23 are free"
+  ],
+  "resources": {"container_memory_gib": 40, "minimum_available_ram_gib": 80, "minimum_free_disk_gib": 40, "eligibility_wait_timeout_hours": 48},
+  "follow_on": "Fresh package-complete TZ, supported-space aug-TZ and compressed native imports retain their order and wait for this successor to release its resources. A scattering failure does not invalidate their independent electronic proofs.",
+  "stopping": "One attempt only; any native, export, timeout or verification failure stops this scattering owner. No automatic retry or CAS12 scattering release."
+}

@@ -1,0 +1,17 @@
+{
+  "status": "fresh package-complete successor queue after diagnosed pre-engine packaging failure",
+  "original_owners": ["cas12-basis-import-successors-source-20261008", "cas12-augtz-supported-import-source-20261008", "compressed-singlet-native-import-source-20261008"],
+  "original_failure": "TZ batch.py stops at source snapshot creation with FileNotFoundError for projects/__init__.py. No TZ engine container or run directory is launched. Both dependent owners stop at their exact predecessor guards. All original owner/batch/log records are preserved.",
+  "packaging_change": "A fresh copy of each frozen source includes the repository's empty projects/__init__.py; imported scientific source files, recipes, proof and checkpoints remain byte-identical. A live batch snapshot preflight verifies both package markers and all scientific-source hashes before launch.",
+  "run_name_suffix": "-package2",
+  "sequence": [
+    {"recipe": "calibration-sa12-stretched-basis-imports.json", "job_index": 0, "cpu_group": "12-15", "verification": "All64 TZ roots, forty-state dipoles, original/fresh CI flags, saved-table rounding and core/active subspaces"},
+    {"gate": "After successful TZ verification, explicitly record the original aug-TZ coverage rejection. Its original job remains unlaunched; the original owner is not rewritten."},
+    {"recipe": "calibration-sa12-stretched-augtz-supported-import.json", "job_index": 0, "cpu_group": "12-15", "verification": "Public supported-space proof and all64 native roots/dipoles/subspaces using the unchanged production space80"},
+    {"recipe": "calibration-sa12-compressed-singlet-qualified-import.json", "job_index": 0, "cpu_group": "8-11", "verification": "Public all96-probe proof, passing original space160 QC and all64 native roots/dipoles/subspaces with singlet-A1 spin0"}
+  ],
+  "scheduling": "Wait for the separately declared CAS11 24-hour-stage successor to finish; retain TZ then supported-space aug-TZ then compressed priority. Each native import and verifier must pass before advancing. A CAS11 scattering rejection alone does not reject an independently qualified target.",
+  "resources": {"container_memory_gib": 64, "minimum_available_ram_gib": 80, "minimum_free_disk_gib": 40, "eligibility_wait_timeout_hours": 48},
+  "preservation": "All original failures and rejected electronic proofs remain exact. Fresh names and frozen complete sources are required. This queue is one explicit repair, with no automatic retry after unexpected engine/verification failures.",
+  "release": "Target-import qualification only; no automatic scattering, threshold identity, model selection or sweep release."
+}

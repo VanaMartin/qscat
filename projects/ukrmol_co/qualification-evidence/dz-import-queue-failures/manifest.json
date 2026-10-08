@@ -1,0 +1,30 @@
+{
+  "git_sha": "b662b1688b1e0b1695476840ccf04801d877b01f",
+  "date": "2026-10-08",
+  "record_type": "stretched-cas12-dz-import-and-preserved-timeout-packaging-failures",
+  "archive_bytes": 9055168,
+  "archive_sha256": "c920f0836aa93ce195ab76a072b7676729110ec7d90c3d1ece136e83032ecf68",
+  "byte_identical_repackaging": true,
+  "verification_summary": {
+    "verified_payloads": 3040,
+    "profiles": 225208,
+    "coverage_probes": 96,
+    "maximum_coverage_action_or_residual_hartree": 9.996236848659205e-10,
+    "all_64_native_roots_pass": true,
+    "maximum_native_root_difference_hartree": 5.459939700358518e-08,
+    "maximum_seed_to_reoptimized_ensemble_root_difference_hartree": 4.262214758909977e-08,
+    "native_dipole_difference_from_seed_au": 8.918578325856075e-08,
+    "minimum_active_subspace_singular_value": 0.9999999999942106,
+    "imported_checkpoint_sha256": "b84db2421fcb4445eddf698aa36638daa91e82383005f2a5cb03653f032ba9aa",
+    "reference_checkpoint_sha256": "7a5dd2f91ea3bf96f1548d5fd49c4730b53deb35e979f6867c84b412948b82da",
+    "costs": {
+      "dz_import": {"profiles": 106409, "wall_seconds": 21336.381429729052, "kernel_peak_gib": 40.37051773071289, "exit_code": 0},
+      "dz_coverage": {"profiles": 11138, "wall_seconds": 2240.1091991630383, "kernel_peak_gib": 0.6251411437988281, "exit_code": 0},
+      "cas11_timeout": {"profiles": 107661, "wall_seconds": 21601.482878025156, "kernel_peak_gib": 31.993873596191406, "exit_code": 1}
+    },
+    "original_timeout_preserved": true,
+    "pre_engine_packaging_failure_preserved": true
+  },
+  "full_report": "https://data.qscat.org/ukrmol-co-dz-import-queue-failures-2026-10-08/manifest.4a6676cbaf38.json",
+  "provenance": "Historical source/owners and all launch hashes travel inside the content-indexed archive. Fresh successor owner records are a point-in-time capture, not final scientific verdicts."
+}

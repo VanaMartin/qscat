@@ -990,6 +990,27 @@ independent reconstruction; any failure stops it. No CAS12 scattering is
 automatically released. The public companion also preserves the original
 interrupted local monitoring record and its QC-reporting exception.
 
+That 40-GiB successor later hits its declared **21600-second B1 stage timeout**,
+with total wall time **21601.48 seconds** and kernel memory peak **31.994 GiB**.
+It has no completed eigenpair/export/observable verdict; a wall-time interruption
+does not establish numerical nonconvergence. The [public DZ-import/failure companion](../../projects/ukrmol_co/qualification-evidence/dz-import-queue-failures/README.md)
+independently reconstructs this original failure and the successfully completed
+stretched CAS12 DZ64-root import. The latter passes all native root/dipole/
+subspace gates in **21336.38 seconds / 40.371 GiB**, maximum root difference
+**5.460e-8 Hartree** and dipole difference **8.919e-8 a.u.**
+
+A separately declared [time-budget successor](../../projects/ukrmol_co/sparse-scattering-cas11-time-budget-successor-contract.json)
+uses a **24-hour per-stage limit**, the same 40-GiB cap, immutable scientific
+inputs and independent eigenpair/boundary/phase/fixed-window gates. The original
+24-GiB OOM and six-hour timeout remain separate failures. The later TZ import
+owner fails before any native engine launch because its package snapshot lacks
+`projects/__init__.py`; both dependent imports stop at their guards. A fresh
+[package-complete target-import queue](../../projects/ukrmol_co/cas12-native-import-packaging-successor-contract.json)
+retains unchanged scientific arguments/proofs/checkpoints and TZ → supported-space
+aug-TZ → compressed priority, with fresh run names. Each native verifier remains
+mandatory; the original aug-TZ coverage rejection is still explicitly recorded.
+These execution repairs do not release a CAS12 scattering pilot or model sweep.
+
 For a spectral R-matrix construction, each retained inner-region eigenstate supplies
 a pole and boundary amplitudes; omitted states can alter the scattering background.
 A few accurately converged eigenpairs alone therefore do not qualify scattering.
