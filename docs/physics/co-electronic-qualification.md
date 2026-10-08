@@ -872,6 +872,20 @@ declares two finite new optimizations at trial spaces 80/160, with 200 CI cycles
 and 150 orbital cycles; separate independent coverage and native-import gates
 are required afterward. This remains an experimental project-stage capability.
 
+The [fresh optimizer companion](../../projects/ukrmol_co/qualification-evidence/compressed-singlet-qc/README.md)
+then records a mixed result. Space80 rejects its singlet-A1 CI flag despite
+orbital convergence. Space160 passes all optimizer/fresh-CI/spin/Pi/MO checks
+in **1724.00 seconds / 0.9610 GiB**, with objective **−112.23910084461343 Hartree**,
+gradient **5.932e-8** and fresh-root error **1.279e-13 Hartree**. Saved roots
+agree across the two new checkpoints within **9.813e-11 Hartree**, but numerical
+agreement cannot override the space80 rejection. The public companion reconstructs
+**228 payloads / 16864 profiles** and preserves both exits and all sources.
+The [independent coverage contract](../../projects/ukrmol_co/cas12-compressed-singlet-qc-coverage-contract.json)
+declares 96 fixed-orbital probes at spaces80/160/240, with physical/spin-penalized
+and independent singlet Hamiltonian-action gates. Newly passing QC remains
+unqualified for import/scattering until that separate coverage and native
+root/dipole/orbital-identity checks pass.
+
 ### Sparse/iterative scattering qualification contract
 
 **Status: fixed CAS(10,10) 2048-root implementation qualifies; CAS(10,11) qualification in progress.**

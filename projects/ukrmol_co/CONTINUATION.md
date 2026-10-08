@@ -44,7 +44,7 @@ depend on these finite workers:
 | 0–3 | Released: compressed diagnostic PID 1049672 finishes; hourly verifier may resume | All 96 probes execute; 84 pass and all 12 singlet-A1 probes reject; original QC remains unqualified |
 | 4–7 | Resource-only successor PID 1044566, native 16384-root CAS11 solve active | Successful DZ import/verifier releases one fresh 40-GiB attempt; any engine/export/verifier failure stops it |
 | 8–11 | Released: electronic owner 1022822 completes with exit zero | Stretched CAS12 DZ all 64 roots, ground dipole and core/active subspaces pass independent verification |
-| 12–15 | Fresh compressed singlet-driver QC owner 1053151 active | Two finite new optimizations at spaces 80/160; TZ owner 1044780 and fresh aug-TZ owner 1049064 retain resource and proof sequencing gates |
+| 12–15 | Fresh compressed singlet-driver coverage owner 1055627 active | New QC space160 passes, space80 rejects; 96 coverage probes at spaces80/160/240; basis owners retain resource and proof sequencing gates |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -418,6 +418,72 @@ repackage byte-identically. Main-index integrity remains **complete** at
 `git ls-remote origin refs/heads/main` returns the same commit. Driver selection,
 tests, contracts, recipes and evidence/handoff updates are resolved branch-local
 changes, absent from the committed-main corpus.
+
+#### Fresh compressed QC mixed verdict and independent coverage
+
+Fresh-QC owner **1053151** completes with combined original exit **one** at
+`finished_unix=1791463766.3544192`. The **space80** runner exits one: orbital
+convergence passes but its **singlet-A1 CI flag remains false**. Its new checkpoint
+is `d588b01f19023071d638d77e1a4b765f3d3b6d0b937333febec0f24d1bb162f3`,
+final gradient **5.947e-8**, cost **1660.89 seconds / 0.7860 GiB**. No target
+export or successful analyzer result exists for that rejected run.
+
+The separately declared **space160** runner and analyzer each exit **zero**.
+All original/fresh CI flags, spins, Pi degeneracy, MO orthogonality and Molden
+hash checks pass. Ensemble objective is **−112.23910084461343 Hartree**, ground
+energy **−112.86667542558365 Hartree**, ground dipole **0.1773807066 a.u.**.
+Fresh-root discrepancy is **1.279e-13 Hartree**, final gradient **5.932e-8**;
+cost **1724.00 seconds / 0.9610 GiB**. Its checkpoint is
+`24035d3b7f51a23875604583dafa5acbfaa7b21206f3b62e912d7122759c5242`.
+Saved roots agree between new checkpoints within **9.813e-11 Hartree**, but
+that agreement does not override the rejected space80 CI flag. Space160 is a
+QC self-consistency candidate; independent residual coverage and native import
+are separate gates.
+
+The [public fresh-QC companion](qualification-evidence/compressed-singlet-qc/README.md)
+independently reconstructs **228 payloads / 16864 profiles**, both original exits,
+failed space80 flag/error, successful space160 checks, seed/final checkpoint hashes,
+frozen source and pinned-image driver controls. Public fetch/reconstruction and
+byte-identical repackaging pass, SHA256:
+`32d7ce6cd28659b7fbf41558c70224bb08946c186a03c5657ea4e4ec52ce3a5d`.
+
+The [separate fixed-orbital coverage contract](cas12-compressed-singlet-qc-coverage-contract.json)
+declares **96 probes** on both unchanged new checkpoints: five/eight roots,
+spaces **80/160/240**, both spins/four irreps and a 600-cycle diagnostic cap.
+Singlet A1 reuses the qualified driver plus independent full-Hamiltonian-action
+checks; the other seven sectors retain the validated physical/spin-penalized
+residual controls. Geometry, frozen/core-active irreps and MO orthogonality are
+checked first. Independent flags, spins, residuals, ensemble energies, root-count/
+space/Pi and between-checkpoint root/subspace continuity are retained separately.
+Passing fixed-orbital results cannot qualify the rejected new space80 optimization.
+No automatic retry, native import or scattering release is declared.
+
+Coverage service `co-compressed-singlet-qc-coverage-20261008.service`, owner
+**1055627**, freezes source under
+`prepared/compressed-singlet-qc-coverage-source-20261008/` and executes on CPUs
+12–15 in an **8-GiB** container with **32-GiB available-RAM / 40-GiB free-disk**
+floors. Parent original exits, unchanged checkpoints and all scientific-source
+hashes are verified. At **2026-10-08T12:56:10Z**, nine probes complete with no
+residual/ensemble gate failure; no completed coverage verdict is claimed yet.
+The independent integrity record is
+`continuation-progress-20261008/singlet-coverage-source-integrity.json`.
+
+Additional hourly monitor **v6**, `co-additional-control-progress-v6-20261008.service`,
+is active and its first `singlet-coverage-latest.json` journal exists; hourly
+records use `singlet-coverage-observations/`. Earlier monitor sources/journals
+remain preserved. CAS11 16384-root execution remains active at about **30.66 GiB /
+40 GiB**, with available RAM/free disk about **77.75 / 114.93 GiB**. Both basis
+imports retain their memory-repair prerequisite. The original fresh-QC completion
+watcher `sh_11b619c0e001WhTnZz8oF9go35` returns these mixed exits and records.
+
+New completion watcher `sh_11b96f6ff001VjLWsuVcOK3xE9` waits on pidfds for
+independent coverage or memory-repair completion and returns saved scientific
+verdicts plus original exits. Public mixed-QC reconstruction/repackaging,
+coverage-source Python 3.11 syntax, the new JSON contract, **153 relative links**
+and `git diff --check` pass. The scientific runner code is unchanged since the
+98-test driver checks. Final main-index status is again **complete/upstream-current**
+at `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; new QC evidence, coverage contract
+and handoff updates remain resolved branch-local additions.
 
 ### Original local hourly observation — 8 October 2026
 
