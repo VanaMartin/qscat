@@ -42,9 +42,9 @@ depend on these finite workers:
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
 | 0–3 | Released: CAS11 dense-omission stage completes with exit zero | All six pole counts pass both-sector phase/fixed-window gates; native qualification continues on 4–7 |
-| 4–7 | CAS11 sparse owner PID 1020516, 24-GiB native containers | Native 2048-root control active; 4096/8192/16384 follow only after native-engine/eigenpair/export checks; fresh ownership/RAM/disk checks precede every container |
-| 8–11 | Electronic successors PID 1022822, fifty-component residual scan active | Independent CAS11/CAS12 equilibrium coverage, then separately eligible stretched CAS12 TZ/aug-TZ QC and DZ 64-root import; no automatic scattering |
-| 12–15 | CAS(10,11) anchor follow-up PID 988205; stretched scattering active | Compressed coverage, 64-root import and scattering publicly reconstruct; stretched extraction/pole/continuity qualification remains due |
+| 4–7 | CAS11 sparse owner PID 1020516, 24-GiB native containers | Native 2048-root control passes both sectors; 4096-root refinement active, then declared 8192/16384 controls |
+| 8–11 | Electronic successors PID 1022822, stretched CAS12 aug-TZ QC active | All 96 fifty-component coverage probes and stretched TZ QC pass; DZ 64-root import follows with its separate resource/import gates |
+| 12–15 | Released: anchor owner PID 988205 completes with controller exit zero | Both compressed and stretched scattering anchors complete; stretched pipeline independently reconstructs, while extraction/continuity qualification remains open |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -54,6 +54,55 @@ locally before considering a large-host allocation. See
 [the task list](#sparseiterative-scattering-qualification--preferred-before-a-large-host)
 and the [reproducer contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract).
 The new queues are detailed under [Local continuation — 7 October](#local-continuation--7-october-2026).
+
+### Hourly observation — 8 October 2026
+
+The user requests hourly observation and gated continuation for approximately
+seven hours. Watch supervisor **95764**, attached shell
+`sh_118e88aa6001JoIVbq5z7laOtT`, starts at **2026-10-08 00:27:35 UTC** and
+checks immediately, then hourly through **07:27:35 UTC**. It keeps the local
+machine awake while the bounded watcher runs; existing scientific queues keep
+their original finite contracts and independently advance eligible stages.
+
+Each check records owner steps/original exits, physical-core/container ownership,
+available RAM and artifact disk. Completed components receive fresh additive
+captures and independent reconstruction of raw records, source/checkpoint
+hashes, resource profiles and applicable scientific gates. Failed or incomplete
+gates remain explicit blockers. No running source/output directory is reused,
+no failure is erased and no CAS12 scattering or paid provisioning is released
+by the watcher.
+
+The persistent host journal, raw captures and mirrored `STATUS.md`/owner record
+live under `prepared/hourly-observation-20261008/`. Local execution, captures,
+verification reports and consolidated handoff live under
+`/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/co-hourly-observation-20261008/`.
+Frozen watcher/collector/verifier sources and their digests travel with those
+records. Hour-zero reconstruction already passes the **96 fifty-component
+coverage probes** and the **stretched CAS11 anchor** pipeline checks.
+
+The latest completed CAS11 **2048-root** native control has both-sector
+observable verdicts true: maximum phase error **5.1e-6 rad**, energy error
+**1.194e-12 Hartree**, residual **1.330e-10 Hartree**, and fixed-window
+position/full-width differences **7.669e-7 / 1.291e-5 eV**. Two-sector replay
+cost is **8836.11 seconds / 7.693 GiB**. Higher native spectral refinement is
+still required before a larger-model release.
+
+Both fifty-component coverage scans pass all **48 probes per checkpoint**;
+ensemble-root errors are below **1.848e-13 Hartree**. Scan cost is **1280.58
+seconds / 0.6583 GiB**. The stretched CAS12 TZ QC successor also passes its
+orbital and original/fresh CI flags in **7160.31 seconds / 0.8181 GiB**.
+Native fifty-component import and independent larger-basis coverage remain open.
+
+Stretched CAS11 anchor owner **988205** completes all five steps with controller
+exit zero at `finished_unix=1791403926.7180297`. The stretched calculation costs
+**12239.26 seconds / 25.197 GiB**; target energy consistency is **5.460e-10
+Hartree** and Pi phase splitting **1.0e-8 rad**. The native candidate is
+**0.983905 / 0.292887 eV** position/full width, near the upper edge of its
+0.01–1.0-requested-eV pilot grid. Its fit qualification remains unset pending
+window/background and near-threshold identity/continuity controls. Raw native
+outputs do not show a MAXFIT diagnostic. The independent pipeline reconstruction
+checks **407 payloads / 60977 profiles**; public companion publication remains
+separate follow-on work.
 
 ## Saved campaign — 6 October 2026
 
