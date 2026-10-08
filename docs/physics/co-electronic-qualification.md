@@ -827,6 +827,51 @@ representation choice, not retroactive exclusion of the constant control. Native
 fine-grid **MAXFIT** leaves its fit verdict unset. Threshold/geometry identity and
 full extraction remain open.
 
+### Compressed CAS12 singlet-A1 driver diagnosis
+
+At R=1.9 bohr, both preserved CAS(10,12) DZ QC checkpoints fail their original
+singlet-A1 CI convergence flag. A [complete fixed-orbital diagnosis](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-diagnostic/README.md)
+requests 5/8 roots at spaces 40/80/160 with a 600-cycle cap. All 96 probes
+execute, but only the 84 probes outside singlet A1 pass. The 12 singlet-A1
+probes retain false flags, physical residuals up to 0.19803 Hartree and
+spin-square values near 2 for some requested singlets. Common energies differ
+by 1.6561 Hartree between five/eight-root requests despite search-space
+differences below 3.695e-13 Hartree. These failures explain why stable printed
+energies and a small orbital gradient cannot qualify the original objective.
+
+The [separate eight-probe driver pilot](../../projects/ukrmol_co/qualification-evidence/compressed-singlet-driver-pilot/README.md)
+uses `direct_spin0_symm` only for singlet A1, preserving the same physical
+Hamiltonian, orbitals, spin penalty and tolerances. This driver restricts the
+CI matrix to alpha/beta-exchange symmetric vectors. That restriction admits
+even-spin states as well as singlets, so total-spin certification still requires
+the physical spin-square and spin-penalty-action gates. An independent
+`direct_spin1.contract_2e` action is compared with the restricted-driver action
+on every returned vector; its residual also uses an independently computed
+physical Rayleigh energy. Both actions use the same effective one-/two-electron
+Hamiltonian in Hartree, with the same frozen-core offset.
+
+All eight fixed-orbital probes pass. Maximum physical/penalized residuals are
+8.708e-10 / 9.988e-10 Hartree; independent full-action difference/residual are
+6.752e-10 / 5.514e-10 Hartree. Common-root/space differences are below
+2.843e-13 Hartree. Closed-form two-site Hubbard controls and perturbed-vector
+residual detection pass. The two checkpoints nevertheless differ from the
+rejected optimizer's saved singlet-A1 energies by up to 1.670142 Hartree, so
+they must be **reoptimized under the repaired CI objective** before any import.
+
+The experimental Python interface is `--target-singlet-a1-driver spin0` in the
+state-averaged CAS runner; `build_target` receives the equivalent
+`target_singlet_a1_driver` configuration field. The default remains `spin1`.
+The selected driver is recorded per spin/irrep in QC diagnostics. All residual,
+spin, CI-convergence and fresh-start gates remain mandatory, and all other
+sectors keep the established driver. Repository validation additionally uses
+a mixed-singlet/triplet CASSCF toy system with a nonzero optimized active-space
+rotation, comparing both sector energies at the final orbitals with the full
+CI oracle. These analytic and moving-orbital checks pass in the pinned image.
+The [fresh QC contract](../../projects/ukrmol_co/cas12-compressed-singlet-driver-qc-contract.json)
+declares two finite new optimizations at trial spaces 80/160, with 200 CI cycles
+and 150 orbital cycles; separate independent coverage and native-import gates
+are required afterward. This remains an experimental project-stage capability.
+
 ### Sparse/iterative scattering qualification contract
 
 **Status: fixed CAS(10,10) 2048-root implementation qualifies; CAS(10,11) qualification in progress.**

@@ -1,0 +1,154 @@
+{
+  "git_sha": "e767d1d5eaaf9ba2b7e853ec1fb210f8ced9ceee",
+  "date": "2026-10-08",
+  "record_type": "compressed-cas12-fixed-orbital-rejection-diagnosis",
+  "archive_bytes": 679155,
+  "archive_sha256": "5c14e4eb5aed92bacfd5ff36cb280d078e1154291868d4ec29dec66b6cc68cb0",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 344,
+    "profiles": 11201,
+    "probes": 96,
+    "cases": {
+      "co-r1900-ccdz-sa12-qc-hostprep-repair-space80": {
+        "probes": 48,
+        "passing_fixed_orbital_probes": 42,
+        "rejected_fixed_orbital_probes": 6,
+        "maximum_space_difference_hartree": 3.694822225952521e-13,
+        "maximum_root_count_difference_hartree": 1.6561054310938488,
+        "maximum_original_ensemble_root_difference_hartree": 1.656105431093664,
+        "sectors": {
+          "0.A1": {
+            "probes": 6,
+            "passing": 0,
+            "maximum_physical_residual_hartree": 0.19802975139604176,
+            "maximum_penalized_residual_hartree": 0.20348175023310738,
+            "maximum_spin_error": 2.000110274046289
+          },
+          "0.B1": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.9100350068925e-10,
+            "maximum_penalized_residual_hartree": 9.832226441520188e-10,
+            "maximum_spin_error": 3.2242683696388093e-20
+          },
+          "0.B2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.910416935805115e-10,
+            "maximum_penalized_residual_hartree": 9.89939232912086e-10,
+            "maximum_spin_error": 3.258557333242142e-20
+          },
+          "0.A2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.634594606789969e-10,
+            "maximum_penalized_residual_hartree": 9.717440741274961e-10,
+            "maximum_spin_error": 3.1345469311609143e-20
+          },
+          "2.A1": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.742758149802606e-10,
+            "maximum_penalized_residual_hartree": 9.88487791185553e-10,
+            "maximum_spin_error": 7.993605777301127e-15
+          },
+          "2.B1": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.70402501336654e-10,
+            "maximum_penalized_residual_hartree": 9.341600288242345e-10,
+            "maximum_spin_error": 8.881784197001252e-15
+          },
+          "2.B2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.704271049267078e-10,
+            "maximum_penalized_residual_hartree": 9.34180675137023e-10,
+            "maximum_spin_error": 5.329070518200751e-15
+          },
+          "2.A2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.816464932786861e-10,
+            "maximum_penalized_residual_hartree": 9.732819133477687e-10,
+            "maximum_spin_error": 6.661338147750939e-15
+          }
+        },
+        "original_qc_qualification": false
+      },
+      "co-r1900-ccdz-sa12-qc-hostprep-repair-space160": {
+        "probes": 48,
+        "passing_fixed_orbital_probes": 42,
+        "rejected_fixed_orbital_probes": 6,
+        "maximum_space_difference_hartree": 2.5579538487363607e-13,
+        "maximum_root_count_difference_hartree": 1.6561054310953125,
+        "maximum_original_ensemble_root_difference_hartree": 1.6561054310952983,
+        "sectors": {
+          "0.A1": {
+            "probes": 6,
+            "passing": 0,
+            "maximum_physical_residual_hartree": 0.19802975139571946,
+            "maximum_penalized_residual_hartree": 0.20348175023274054,
+            "maximum_spin_error": 2.000110274046285
+          },
+          "0.B1": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.910057867036763e-10,
+            "maximum_penalized_residual_hartree": 9.842370149411144e-10,
+            "maximum_spin_error": 3.2606161993429175e-20
+          },
+          "0.B2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.910133662902262e-10,
+            "maximum_penalized_residual_hartree": 9.843684482870168e-10,
+            "maximum_spin_error": 3.3395984618001767e-20
+          },
+          "0.A2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 5.90651953553758e-10,
+            "maximum_penalized_residual_hartree": 8.666010599135431e-10,
+            "maximum_spin_error": 2.949457707891843e-20
+          },
+          "2.A1": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.742759976615974e-10,
+            "maximum_penalized_residual_hartree": 9.977726128310445e-10,
+            "maximum_spin_error": 9.325873406851315e-15
+          },
+          "2.B1": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.70420769559792e-10,
+            "maximum_penalized_residual_hartree": 9.341807402585408e-10,
+            "maximum_spin_error": 8.881784197001252e-15
+          },
+          "2.B2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.704332773778691e-10,
+            "maximum_penalized_residual_hartree": 9.341878749702143e-10,
+            "maximum_spin_error": 1.3322676295501878e-14
+          },
+          "2.A2": {
+            "probes": 6,
+            "passing": 6,
+            "maximum_physical_residual_hartree": 6.817131710322793e-10,
+            "maximum_penalized_residual_hartree": 9.566345658030683e-10,
+            "maximum_spin_error": 7.993605777301127e-15
+          }
+        },
+        "original_qc_qualification": false
+      }
+    },
+    "original_controller_exit": 0,
+    "wall_seconds": 2246.9863145740237,
+    "kernel_peak_gib": 0.613616943359375,
+    "scope": "Completed compressed CAS12 fixed-orbital diagnosis; 84/96 probes pass but all12 singlet-A1 probes reject, including spin contamination and root-count mismatch. Original QC rejections stay unqualified; no automatic release."
+  },
+  "scope": "Completed compressed CAS12 fixed-orbital diagnosis; 84/96 probes pass but all12 singlet-A1 probes reject, including spin contamination and root-count mismatch. Original QC rejections stay unqualified; no automatic release."
+}

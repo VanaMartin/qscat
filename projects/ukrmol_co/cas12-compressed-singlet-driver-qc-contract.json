@@ -1,0 +1,13 @@
+{
+  "status": "predeclared fresh orbital-optimization attempts after the eight-probe alternative-driver pilot",
+  "parent_contract": "cas12-compressed-singlet-driver-pilot-contract.json",
+  "recipe": "calibration-sa12-compressed-singlet-driver-qc.json",
+  "prerequisites": "All8 frozen pilot probes pass residual, spin, CI flag, full-Hamiltonian-action and root/space gates; analytic Hubbard and nontrivial mixed-spin CASSCF controls pass in the pinned image before launch. Source, original checkpoints and completed pilot hashes must match.",
+  "design": "Only singlet-A1 uses direct_spin0_symm; all other spin/irrep sectors retain direct_spin1_symm. Retain the same spin penalty, forty-state equal weighting, two frozen A1 core orbitals, ten active electrons, geometry, basis, tolerances, fresh starts and bounded optimizer controls.",
+  "runs": ["co-r1900-ccdz-sa12-qc-singlet0-space80", "co-r1900-ccdz-sa12-qc-singlet0-space160"],
+  "optimizer_cycles": 150,
+  "ci_cycles": 200,
+  "resources": {"cpu_group": "12-15", "container_memory_gib": 24, "minimum_available_ram_gib": 48, "minimum_free_disk_gib": 40},
+  "stopping": "Two finite separately declared attempts. Preserve each original runner exit, optimizer/CI flag, fresh-CI and analyzer result. A failed attempt has no automatic retry. Any proof/resource/benchmark/ownership failure stops execution.",
+  "release": "QC only. Original rejected checkpoints remain historical seeds. New QC success still requires independent residual/root/space/orbital-continuity coverage and native import; no automatic scattering or sweep release."
+}

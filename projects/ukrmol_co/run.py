@@ -238,6 +238,12 @@ def main() -> None:
     parser.add_argument("--target-ci-fresh-start", action="store_true")
     parser.add_argument("--target-ci-lindep", type=float, default=1e-14)
     parser.add_argument(
+        "--target-singlet-a1-driver",
+        choices=["spin1", "spin0"],
+        default="spin1",
+        help="Experimental PySCF singlet-A1 CI driver; all spin/convergence gates remain",
+    )
+    parser.add_argument(
         "--target-ci-max-space",
         type=int,
         help="PySCF CI trial vectors per sector; default max(40, 8*ensemble roots)",
@@ -312,6 +318,10 @@ def main() -> None:
         parser.error("QC-only requires state-averaged orbitals and excludes target-only")
     if args.target_diagonalizer != "auto" and (args.qc_only or args.model != "CAS-A"):
         parser.error("Selected-root diagonalization requires a UKRmol CAS target")
+    if args.target_singlet_a1_driver != "spin1" and (
+        args.model != "CAS-A" or args.orbitals != "state-averaged"
+    ):
+        parser.error("Singlet-A1 CI driver selection requires a state-averaged CAS target")
     positive = (
         args.bond_length,
         args.ranks,

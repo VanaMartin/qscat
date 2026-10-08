@@ -463,6 +463,14 @@ the matrix allocation alone is not a total-memory estimate.
 
 ### Electronic qualification tools
 
+The experimental `--target-singlet-a1-driver spin0` option selects PySCF's
+alternative driver only in singlet A1, retaining all physical/spin/convergence
+gates and recording the driver per sector. Its [compressed CAS12 pilot](qualification-evidence/compressed-singlet-driver-pilot/README.md)
+passes eight fixed-orbital checks after the [original driver diagnosis](qualification-evidence/compressed-cas12-diagnostic/README.md)
+rejects all twelve singlet-A1 probes. Fresh orbital optimization and independent
+coverage remain required; the default driver is `spin1`. The method and
+validation rationale are in [the electronic qualification note](../../docs/physics/co-electronic-qualification.md#compressed-cas12-singlet-a1-driver-diagnosis).
+
 `--qc-only` runs the state-averaged optimizer and fresh-CI/spin/Pi/MO checks
 without UKRmol target diagonalization. These records are `qc_validated`;
 `--target-only` retains the independent UKRmol root/dipole checks. The

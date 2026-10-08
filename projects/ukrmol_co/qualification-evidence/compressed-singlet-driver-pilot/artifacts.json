@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "compressed-singlet-driver-pilot.tar.gz": {
+      "bytes": 80681,
+      "sha256": "21c3937975ea3ce53bf018ee7563c798cab35f672136e32e662716b114b43d6c"
+    }
+  },
+  "git_sha": "e767d1d5eaaf9ba2b7e853ec1fb210f8ced9ceee",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-compressed-singlet-driver-pilot-2026-10-08/"
+}
