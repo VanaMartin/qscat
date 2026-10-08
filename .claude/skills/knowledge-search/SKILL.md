@@ -39,12 +39,26 @@ snapshot integrity, upstream currency, and refresh state. A complete snapshot ma
 be older than upstream or have unknown remote currency; identify its commit instead
 of calling it current.
 
-The basic connector used for articles exposes vector search only: its `query_type`
-argument is ignored. Use `query_type="vector"`; combine its candidates with local
-exact search instead of claiming a server-side hybrid query. Its `table_details`
-also ignores selection arguments; use the connection for the intended corpus.
-A metadata-aware connector can support paper filters and hybrid lookup when its
-runtime catalog and behavior confirm those capabilities.
+Project code/article MCPs are corpus-bound proxies into one host-local service per
+database, shared with CLI commands and compatible worktrees. Inspect
+`table_details.service` for process PID, loaded-model count and mounts. Runtime
+diagnostics do not replace snapshot integrity/currency checks. After changing
+search implementation/dependencies, follow the guide's disconnect/stop/reconnect
+procedure; incompatible implementations cannot share a daemon.
+
+The project-local article reader (`tools.agent_search.mcp --corpus articles`)
+indexes committed reference notes separately from code. It supports vector, FTS,
+and hybrid queries, and `paper_id` prefilters using the note filename stem.
+Results carry the note's hash, Source/Pagination declarations, literal page/locator
+clauses, and `tracked_note` or `note_fragment` status. These describe note excerpts,
+not independently verified full text. `extraction_page` is null: no PDF pages are
+processed or inferred. A locator clause can discuss another paper; resolve it by
+reading the owning note before citing. Explicit inspection selections must match
+the mounted corpus/database; mismatches raise errors.
+
+An older basic connector may still be mounted outside this project. It ignores
+`query_type` and inspection selection arguments, and is vector-only. Inspect the
+runtime catalog/behavior before assuming article filters or hybrid lookup there.
 
 The main-only writer provides a supported status interface:
 `uv run --project .opencode/search --no-sync python -m tools.agent_search status`.
@@ -54,6 +68,10 @@ it never ingests branch commits, staged/unstaged edits, or untracked files.
 Run from a checkout with the intended upstream configured. See the operational
 guide for setup and shared table selection. The CLI also supports FTS/hybrid
 lookup; inspect the mounted reader before assuming those modes elsewhere.
+
+Add `--corpus articles` to inspect or refresh the independent literature-note
+snapshot. Its source commit and upstream currency have the same reporting contract
+as the code snapshot. A branch-only or dirty literature note needs local lookup.
 
 ## Bounded retrieval
 
@@ -124,3 +142,9 @@ page, locator, tracked note path, and verification status. A local processed
 article index helps discovery but cannot replace the repository's tracked citation
 evidence. Shared ingredients or similar wording do not establish mathematical
 equivalence; follow the method's independent validation requirements.
+
+For notes-first lookup, `printed_page` and `locator` are lists of literal labels
+present in the returned excerpt, not a normalized equation catalogue or a verified
+page map. Empty lists mean the excerpt is contextual; locate a cited passage in
+the full note. Oversized blocks are marked `note_fragment`, so read adjacent note
+lines to recover an equation, caption, or qualification split by the token budget.

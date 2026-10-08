@@ -954,6 +954,21 @@ documents. Source and indexing policy come from the same fetched Git commit, and
 clones share the corpus. Before an edit or final handoff, re-read relevant source if
 another agent or tool may have changed it.
 
+The separate article mount indexes committed `reference/literature/*.md` notes,
+excluding their inventory README, with the same immutable-main publication and
+refresh contract. `--corpus articles` selects it in the CLI/MCP. Paper filters use
+the note filename stem. Results preserve note hashes and literal Source/Pagination
+declarations; page/locator clauses remain discovery leads requiring note reading.
+`tracked_note` and `note_fragment` do not assert independent full-text verification.
+PDF extraction and cross-edition page translation require their own provenance.
+
+Code/article MCPs and CLI commands share one host-local service per database path.
+The MCPs are lightweight corpus-bound proxies; the service caches loaded models
+across compatible worktrees while retaining separate corpus publication/refresh
+ownership. `table_details.service` exposes process/model/mount diagnostics.
+Unchanged refreshes validate metadata and blobs before loading rows/vectors.
+See the search guide for runtime inspection, restart and compatibility rules.
+
 ## Skills & agents
 
 | Name | Kind | Use when |
