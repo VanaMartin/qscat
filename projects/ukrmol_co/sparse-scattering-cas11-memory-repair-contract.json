@@ -1,0 +1,43 @@
+{
+  "status": "predeclared single resource-only successor after preserved 24-GiB OOM",
+  "parent_contract": "sparse-scattering-cas11-contract.json",
+  "original_run": "cas11-native-sparse-roots16384-boundary-differential-20261007",
+  "successor_run": "cas11-native-sparse-roots16384-memory40-20261008",
+  "original_failure": {
+    "sector": "B1",
+    "stage": "scatci",
+    "native_exit": 137,
+    "controller_exit": 1,
+    "kernel_peak_container_memory_bytes": 25769803776,
+    "docker_oom_event": true
+  },
+  "prerequisites": [
+    "Independent both-sector reconstruction passes for the original 2048/4096/8192 controls",
+    "Original sparse owner has stopped with its original failure retained",
+    "Existing CAS12 DZ native target import and its verifier finish successfully",
+    "Physical CPUs 4-7 and SMT partners 20-23 are free"
+  ],
+  "unchanged_scientific_contract": {
+    "reference_run": "co-eq-ccdz-sa11-tight-cc40",
+    "scattering_dimension": 27546,
+    "eigenpairs": 16384,
+    "sectors": ["B1", "B2"],
+    "ranks": 4,
+    "igh": -1,
+    "crite": 1e-12,
+    "maxiter": 1000,
+    "boundary_export": "mpi",
+    "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+    "selection_and_gates": "All parent-contract eigenpair, boundary, phase and fixed-window gates remain mandatory"
+  },
+  "resources": {
+    "container_memory_gib": 40,
+    "container_memory_swap_gib": 40,
+    "minimum_available_ram_gib": 80,
+    "minimum_free_disk_gib": 40,
+    "stage_timeout_seconds": 21600,
+    "eligibility_wait_timeout_hours": 48
+  },
+  "rationale": "The original 16384-root solve reaches exactly its cgroup ceiling. The successful 8192-root control peaks at 13.16 GiB. A single 40-GiB trial tests the larger native subspace with measured host headroom; it does not alter the solver, root count, source image or observable grids.",
+  "stopping_rule": "Any native-engine, eigenpair, export or independent-verification failure stops this successor. No automatic resource escalation or CAS12 scattering launch. Preserve both attempts."
+}

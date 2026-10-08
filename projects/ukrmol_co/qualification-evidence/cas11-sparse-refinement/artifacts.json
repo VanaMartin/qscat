@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "cas11-sparse-refinement.tar.gz": {
+      "bytes": 1089985428,
+      "sha256": "a96e7958696233da1dbe9276d6228ba0aefeb81ebfa4a37ca9ab3edf1e6ac26e"
+    }
+  },
+  "git_sha": "c162b291893e93d0635549af1a37b6f6bfd8d3e5",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-cas11-sparse-refinement-2026-10-08/"
+}

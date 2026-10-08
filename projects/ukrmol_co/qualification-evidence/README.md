@@ -72,6 +72,14 @@ complete phases, identical fixed-window fits and dense spectral refinement pass.
 The original parser failure remains preserved. A separately predeclared CAS11
 sequence proceeds against its own immutable dense oracle.
 
+The [CAS11 refinement companion](cas11-sparse-refinement/README.md) independently
+reconstructs both-sector native controls at 2048/4096/8192 roots and preserves
+the original 16384-root 24-GiB OOM. Its eight components also include the passing
+96 fifty-component probes, stretched CAS11 anchor and stretched CAS12 TZ/aug-TZ
+QC. Public fetch/reconstruction/byte-identical repackaging verifies **1506
+payloads / 477179 profiles**. A separately declared 40-GiB resource-only successor
+retains the scientific contract; CAS12 scattering remains separately gated.
+
 The [compressed-anchor companion](compressed-anchor/README.md) verifies 48
 fixed-orbital residual probes, the complete 64-root native import and both dense
 scattering sectors at R=1.9 bohr. Its 1115 payloads and 75913 run-profile samples

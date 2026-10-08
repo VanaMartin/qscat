@@ -41,10 +41,10 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Released: CAS11 dense-omission stage completes with exit zero | All six pole counts pass both-sector phase/fixed-window gates; native qualification continues on 4–7 |
-| 4–7 | CAS11 sparse owner PID 1020516, 24-GiB native containers | Native 2048-root control passes both sectors; 4096-root refinement active, then declared 8192/16384 controls |
-| 8–11 | Electronic successors PID 1022822, stretched CAS12 aug-TZ QC active | All 96 fifty-component coverage probes and stretched TZ QC pass; DZ 64-root import follows with its separate resource/import gates |
-| 12–15 | Released: anchor owner PID 988205 completes with controller exit zero | Both compressed and stretched scattering anchors complete; stretched pipeline independently reconstructs, while extraction/continuity qualification remains open |
+| 0–3 | Hourly completed-component verifier PID 1042600; released between checks | All original CAS11 2048/4096/8192 controls independently reconstruct; original 16384-root OOM is preserved |
+| 4–7 | Resource-only successor PID 1044566 waiting for the existing CAS12 DZ import/verifier | One fresh 16384-root CAS11 attempt with 40-GiB memory, unchanged science and independent reconstruction; any failure stops it |
+| 8–11 | Electronic owner PID 1022822, CAS12 DZ 64-root import active | TZ and aug-TZ QC both pass; independent native-root/dipole/subspace verifier follows the DZ import |
+| 12–15 | Basis/outer owner PID 1044288, CAS12 TZ/aug-TZ fixed-orbital coverage active | 96 independent probes and reconstruction, then extended stretched CAS11 outer windows; owner 1044780 queues separately gated native basis imports |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -55,13 +55,124 @@ locally before considering a large-host allocation. See
 and the [reproducer contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract).
 The new queues are detailed under [Local continuation — 7 October](#local-continuation--7-october-2026).
 
-### Hourly observation — 8 October 2026
+### Durable host continuation — 8 October 2026
 
-The user requests hourly observation and gated continuation for approximately
+The original local watcher stopped after only **two observations**, at 00:27
+and 01:27 UTC. It logged a QC-reporting `KeyError: 'neutral_energy_hartree'`;
+its termination cause is not established. Its original source, error and
+unfinished owner record are preserved. Scientific owners continued independently.
+The reporting successor uses `qc_properties`' actual `ground_energy_hartree` key.
+
+Host-side service `co-hourly-observation-20261008.service`, supervisor **1042600**,
+now observes hourly for a bounded **48 hours**, independently of local SSH/session
+life. It receives a systemd restart-on-failure policy, retains restart history,
+and independently reconstructs completed components in fresh 6-GiB containers
+on CPUs 0–3. Its first complete check passes all eight recorded components,
+including the preserved resource failure. Records/captures and `STATUS.md` are
+under `prepared/hourly-observation-host-20261008/`.
+
+A separate `co-continuation-progress-20261008.service` journals all original and
+successor owners hourly, together with probe counts, completed outputs, resource
+headroom and container status. Its persistent `latest.json`, hourly observations
+and `STATUS.md` are under `prepared/continuation-progress-20261008/`. Its additive
+`source-integrity.json` independently verifies all immutable scientific-source
+hashes for the four new owners; historical peer-controller/log hashes in the
+original ownership records remain historical context. Explicit
+`STOP` files in each monitor directory terminate their bounded observation.
+
+#### Independently reconstructed native CAS11 refinement
+
+| Roots | Both-sector observable gates | Maximum phase error / rad modulo π | Wall / h | Kernel peak / GiB |
+|---:|---|---:|---:|---:|
+| 2048 | Pass | 5.1e-6 | 2.454 | 7.693 |
+| 4096 | Pass | 1.0e-7 | 3.335 | 7.365 |
+| 8192 | Pass | 1.0e-7 | 7.060 | 13.160 |
+| 16384, original | Unset: B1 SCATCI OOM | — | 0.919 | 24.000 |
+
+At 8192 roots, maximum energy/residual errors are **1.478e-12 / 1.330e-10
+Hartree**, boundary-amplitude error is **2.539e-7**, and identical fixed-window
+position/full-width differences are **1.242e-8 / 2.083e-7 eV**. The completed
+native refinements reproduce the unchanged dense observables; the independent
+dense omission sequence is stable through all 27546 poles.
+
+The original sparse owner **1020516** stops with controller exit **one** at
+`finished_unix=1791450258.001879`. B1 SCATCI exits **137** after **3308.74
+seconds**, with container charges reaching exactly **25769803776 bytes**;
+Docker records an OOM. B2 and fixed-window follow-ons are unlaunched. The
+[single resource-only successor contract](sparse-scattering-cas11-memory-repair-contract.json)
+predeclares **40 GiB**, **80-GiB available RAM / 40-GiB free disk** floors,
+and unchanged 16384 roots, four ranks, inputs, tolerances and grids. Service
+`co-cas11-memory-repair-20261008.service`, supervisor **1044566**, waits for the
+existing CAS12 DZ import and its verifier to finish successfully. It then runs
+the fresh native control, fixed-window fits and independent raw-record verifier.
+Any failure stops the successor; it does not automatically release CAS12 scattering.
+
+The [public refinement companion](qualification-evidence/cas11-sparse-refinement/README.md)
+reconstructs **1506 payloads / 477179 profiles** from eight components, including
+all three passing native controls, the original OOM, 96 fifty-component probes,
+the stretched CAS11 anchor and both CAS12 basis-QC passes. Public fetch,
+independent reconstruction and byte-identical repackaging pass. Archive SHA256:
+`a96e7958696233da1dbe9276d6228ba0aefeb81ebfa4a37ca9ab3edf1e6ac26e`.
+
+#### Eligible electronic and extraction successors
+
+Stretched CAS12 aug-TZ QC passes every orbital/original/fresh CI flag in
+**25497.44 seconds / 0.8999 GiB**, following the passing TZ successor.
+Basis/outer service `co-basis-outer-controls-20261008.service`, supervisor
+**1044288**, freezes source under `prepared/next-controls-source-20261008/` and
+runs on CPUs 12–15:
+
+1. **96 fixed-orbital CAS12 TZ/aug-TZ coverage probes:** 5/8 roots in each
+   spin/irrep, spaces 40/80/160 and 600 cycles; unchanged orbitals and physical/
+   spin-penalized residual, spin, root/space and checkpoint gates. Containers
+   have an 8-GiB cap and 32-GiB available-RAM floor. Independent reconstruction
+   follows, without relaxing a failed probe.
+2. **Stretched CAS11 outer-only window/grid controls:** identical retained
+   channels/amplitudes, requested grid 0.01–2.0 eV at 0.005/0.0025-eV spacing
+   (399/797 points), both Pi sectors, native stages/cross sections and common-point
+   checks. Independent fits cover 0.4–1.6, 0.5–1.5 and 0.6–1.4-requested-eV
+   windows with backgrounds 1–4 and held-point diagnostics. Empty/MAXFIT fits
+   remain explicit, and full extraction/identity verdicts remain unset.
+
+The diagnostics are `cas12-stretched-basis-ci-residual-coverage-20261008` and
+`cas11-stretched-outer-window-controls-20261008`. At **09:49 UTC**, the basis
+scan has **71/96 completed probes**, with no recorded controller error. Host
+headroom is approximately **107.75 GiB available RAM / 115.63 GiB free disk**.
+
+Basis-import service `co-cas12-basis-imports-20261008.service`, supervisor
+**1044780**, freezes source under
+`prepared/cas12-basis-import-successors-source-20261008/`. After the coverage/
+outer owner, original DZ import/verifier and memory-repair owner release their
+slots, it checks each basis's independent coverage and checkpoint hash before
+launching its [64-root native recipe](calibration-sa12-stretched-basis-imports.json).
+The two imports run serially in **64-GiB containers** on CPUs 12–15, with an
+**80-GiB RAM / 40-GiB disk** floor, followed individually by the validated
+CAS12 64-root/dipole/core-active-subspace verifier. Its source is reused without
+scientific edits. A failed import or verifier stops the remaining native queue.
+Both recipes pass argument validation against the live runner before execution.
+
+All scientific queues preserve original exits and fresh output directories,
+check CPU/SMT ownership and resource floors before every container, and limit
+eligibility waits to 48 hours. Paid provisioning remains deferred. Full-model
+selection, threshold identity, extraction/background sensitivity and geometry
+continuity remain separate sweep-release gates.
+
+Read-only completion watcher shell `sh_11aebb93d001XLElhY3NrBJwyw` waits on
+Linux pidfds for the first electronic or basis/outer owner completion and returns
+the saved evidence to the local session. Scientific continuation and hourly host
+journals remain independent of that notification connection. The main search
+snapshot is complete/upstream-current at
+`0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; these experiment recipes, evidence
+pointers and handoff updates are branch-local divergence resolved against current
+source.
+
+### Original local hourly observation — 8 October 2026
+
+The original request was hourly observation and gated continuation for approximately
 seven hours. Watch supervisor **95764**, attached shell
 `sh_118e88aa6001JoIVbq5z7laOtT`, starts at **2026-10-08 00:27:35 UTC** and
-checks immediately, then hourly through **07:27:35 UTC**. It keeps the local
-machine awake while the bounded watcher runs; existing scientific queues keep
+was intended to check immediately, then hourly through **07:27:35 UTC**. Only
+two observations were recorded before it stopped. Existing scientific queues keep
 their original finite contracts and independently advance eligible stages.
 
 Each check records owner steps/original exits, physical-core/container ownership,
@@ -101,8 +212,8 @@ Hartree** and Pi phase splitting **1.0e-8 rad**. The native candidate is
 0.01–1.0-requested-eV pilot grid. Its fit qualification remains unset pending
 window/background and near-threshold identity/continuity controls. Raw native
 outputs do not show a MAXFIT diagnostic. The independent pipeline reconstruction
-checks **407 payloads / 60977 profiles**; public companion publication remains
-separate follow-on work.
+checks **407 payloads / 60977 profiles**; its public companion is now included
+in the later native-refinement archive above.
 
 ## Saved campaign — 6 October 2026
 
