@@ -860,6 +860,27 @@ higher-count refinement. Four-rank containers are limited to **24 GiB**, with
 phase/position/width gates and identical backgrounds. CAS12 still requires its
 own qualified smaller-model prerequisites and measured local resource headroom.
 
+The [CAS11 refinement companion](../../projects/ukrmol_co/qualification-evidence/cas11-sparse-refinement/README.md)
+independently reconstructs **2048/4096/8192** native controls in both Pi sectors.
+All eigenpair, static-interface/boundary, complete-grid phase and fixed-window
+position/width gates pass. Maximum phase errors are **5.1e-6 / 1.0e-7 / 1.0e-7
+rad modulo π**, with wall/peak charges **2.454 h / 7.693 GiB**, **3.335 h /
+7.365 GiB**, and **7.060 h / 13.160 GiB**. The dense omitted-spectrum controls
+remain stable through 27546 poles. At 8192 native roots, energy/residual maxima
+are **1.478e-12 / 1.330e-10 Hartree**, and fixed-window position/full-width
+differences are at most **1.242e-8 / 2.083e-7 eV**.
+
+The original 16384-root B1 solve instead reaches its **24-GiB cgroup ceiling**
+and exits **137**, with a recorded Docker OOM event. Its original failed controller
+stops before B2 or fit continuation. The separately declared
+[resource-only successor](../../projects/ukrmol_co/sparse-scattering-cas11-memory-repair-contract.json)
+raises only the container cap to **40 GiB**, retains the same scientific contract,
+and requires **80-GiB available-RAM / 40-GiB disk** headroom plus completion of
+the active CAS12 DZ target import/verifier. It permits one fresh attempt and
+independent reconstruction; any failure stops it. No CAS12 scattering is
+automatically released. The public companion also preserves the original
+interrupted local monitoring record and its QC-reporting exception.
+
 For a spectral R-matrix construction, each retained inner-region eigenstate supplies
 a pole and boundary amplitudes; omitted states can alter the scattering background.
 A few accurately converged eigenpairs alone therefore do not qualify scattering.
