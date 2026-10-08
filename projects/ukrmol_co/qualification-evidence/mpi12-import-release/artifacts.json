@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "mpi12-import-release.tar.gz": {
+      "bytes": 2361419,
+      "sha256": "413e752a05a83ccdfecb400fb6e44c0106ccf0953f44fcf294e9302d7580ff4a"
+    }
+  },
+  "git_sha": "2431a7bbba2888f50b48612761f9654484773f4e",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-mpi12-import-release-2026-10-09/"
+}

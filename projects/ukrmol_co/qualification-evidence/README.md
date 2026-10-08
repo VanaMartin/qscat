@@ -161,6 +161,21 @@ the extraction gates. Physical core-overlap follow-up triggers are contrasted
 with an explicitly AO-indexed metric transport, diagnosing basis-centre-motion
 sensitivity; many-electron state and resonance-pole identity remain unset.
 
+The [compressed outer-grid companion](compressed-outer-grid/README.md)
+then reconstructs **257 payloads / 3170 profiles**, including the original
+small screens. All20 native stages and 317/633-point grids pass in **634.56
+seconds / 0.7989 GiB**. Matched finer-grid fit changes are at most **0.3651 /
+2.0296 meV** position/full width, but the all-background width span remains
+**32.096/32.043%**. Both grids emit MAXFIT and the finest native candidates
+are empty; fit/pole verdicts stay unset.
+
+The [initial twelve-rank release companion](mpi12-import-release/README.md)
+reconstructs **847 payloads / 832 frozen release files / 820 unchanged parent
+hashes** from the user-directed8/12-core policy and fresh CAS12 import queue.
+Original zero-step waiter/source records remain exact; real twelve-rank recipe/
+batch-snapshot preflight passes. The archive captures a waiting queue, with
+native-import and scaling verdicts unset.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

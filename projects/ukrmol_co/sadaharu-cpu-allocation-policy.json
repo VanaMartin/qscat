@@ -1,0 +1,15 @@
+{
+  "status": "user-directed scheduling policy for future executions",
+  "host": "sadaharu",
+  "physical_cpu_ids": "0-15",
+  "smt_partner_offset": 16,
+  "small_control_reservation": "0-3",
+  "large_jobs": {"physical_cores": 8, "preferred_cpu_group": "4-11", "mpi_ranks_when_supported": 8},
+  "very_large_jobs": {"physical_cores": 12, "preferred_cpu_group": "4-15", "mpi_ranks_when_supported": 12},
+  "threading": "Match MPI ranks to allocated physical cores for the validated MPI stages, with OMP_NUM_THREADS=OPENBLAS_NUM_THREADS=MKL_NUM_THREADS=1. A serial stage may use less CPU; a wider cpuset alone is not a speedup.",
+  "scheduling": "One very-large job at a time, or one large job plus eligible small work. Preserve four physical cores for small controls. Recheck physical/SMT CPU ownership, available RAM and persistent disk before each launch, including unrelated workloads and the idle pilot exception.",
+  "current_active_exception": "The active CAS11 16384-root time-budget successor retains its frozen four-rank scientific/execution contract and CPUs4-7 through completion. Future rank changes need fresh declared runs and independent numerical verification.",
+  "pending_imports": "Redeclare the zero-step package-complete CAS12 import queue as a fresh twelve-rank successor on CPUs4-15, preserving the original waiting owner/source/record and all scientific arguments except MPI ranks. Keep TZ, explicit original aug-TZ rejection, supported-space aug-TZ, compressed priority.",
+  "measurement": "Record wall time, aggregate CPU time, kernel memory peak, stage timings and MPI ranks. Eight/twelve-rank speedups remain unmeasured until a matched same-model/checkpoint/stage comparison exists; prior CAS10 one/two/four-rank throughput does not establish larger-model scaling.",
+  "memory": "Core count does not relax the declared memory/RAM/disk floors. Rank-dependent memory growth is measured on each new run. Any unexpected engine, numerical-verification or resource failure stops that finite queue without automatic retry."
+}

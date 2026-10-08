@@ -1,0 +1,19 @@
+{
+  "status": "fresh user-directed twelve-rank successor to the unlaunched package-complete target queue",
+  "parent_contract": "cas12-native-import-packaging-successor-contract.json",
+  "cpu_policy": "sadaharu-cpu-allocation-policy.json",
+  "original_owner": {"pid": 1065882, "service": "co-budget-packaging-imports-20261008.service", "required_steps_before_supersedure": 0, "preservation": "Keep its original unfinished execution file and all frozen sources intact. Store an additive supersedure record with original PID, record/source hashes, timestamp and actual systemd stop result; do not fabricate a controller exit."},
+  "changes": "Fresh source copies and run-name suffix -mpi12-package3; replace only --ranks 4 with --ranks 12. Native containers use CPUs4-15; proof/import verifiers use the reserved CPUs0-3.",
+  "sequence": [
+    {"recipe": "calibration-sa12-stretched-basis-imports.json", "job_index": 0, "verification": "All64 TZ roots, forty-state dipoles, CI flags, saved-table rounding and core/active subspaces"},
+    {"gate": "After successful TZ verification explicitly record the original aug-TZ coverage rejection"},
+    {"recipe": "calibration-sa12-stretched-augtz-supported-import.json", "job_index": 0, "verification": "Unchanged supported-space80 proof and all64 native roots/dipoles/subspaces"},
+    {"recipe": "calibration-sa12-compressed-singlet-qualified-import.json", "job_index": 0, "verification": "Public all96-probe proof and original passing space160 QC, singlet-A1 spin0, all64 roots/dipoles/subspaces"}
+  ],
+  "preflight": "Live runner argument parsing must confirm twelve ranks. Live batch snapshot creation with native Docker launches intercepted verifies both package markers, source parity and CPUs4-15. Compare each modified argument vector with the parent after restoring ranks4; all other arguments must be identical.",
+  "prerequisite": "The active CAS11 time-budget owner finishes and releases its CPUs. A scattering rejection alone does not reject independent target proofs. Every import/verifier must pass before the next import.",
+  "resources": {"native_cpu_group": "4-15", "native_mpi_ranks": 12, "reserved_small_cpu_group": "0-3", "native_container_memory_gib": 64, "native_minimum_available_ram_gib": 80, "minimum_free_disk_gib": 40, "verifier_container_memory_gib": 4, "verifier_minimum_available_ram_gib": 24, "proof_container_memory_gib": 2, "proof_minimum_available_ram_gib": 16, "eligibility_wait_timeout_hours": 48},
+  "stopping": "One serial three-import queue; any unexpected engine/verifier/resource failure stops it with original exits and no automatic retry. Original electronic coverage and QC rejections remain rejected.",
+  "measurement": "Capture ranks, stage timings, wall/aggregate CPU time and kernel peak charges. Twelve-rank speedup is unset until matched independent scaling evidence exists.",
+  "release": "Target imports only; no CAS12 scattering, full-model selection or geometry-sweep release. All active scientific owners remain independent."
+}

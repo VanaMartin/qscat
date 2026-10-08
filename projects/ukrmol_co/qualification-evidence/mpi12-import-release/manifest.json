@@ -1,0 +1,22 @@
+{
+  "git_sha": "2431a7bbba2888f50b48612761f9654484773f4e",
+  "date": "2026-10-09",
+  "record_type": "mpi12-import-release-initial-capture",
+  "archive_sha256": "413e752a05a83ccdfecb400fb6e44c0106ccf0953f44fcf294e9302d7580ff4a",
+  "archive_bytes": 2361419,
+  "verified_payloads": 847,
+  "frozen_release_files": 832,
+  "unchanged_parent_file_hashes": 820,
+  "preflight_scientific_file_counts": [120, 123, 132],
+  "native_mpi_ranks": 12,
+  "native_cpu_group": "4-15",
+  "small_control_reservation": "0-3",
+  "original_owner_pid": 1065882,
+  "successor_owner_pid": 1072749,
+  "original_waiter_exactly_preserved": true,
+  "actual_import_steps_in_historical_capture": 0,
+  "current_import_qualification_verdict": null,
+  "rank_scaling_speedup_verdict": null,
+  "byte_identical_repackaging": true,
+  "full_report": "https://data.qscat.org/ukrmol-co-mpi12-import-release-2026-10-09/manifest.15e92638a042.json"
+}

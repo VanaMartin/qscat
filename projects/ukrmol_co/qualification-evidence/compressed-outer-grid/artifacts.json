@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "compressed-outer-grid.tar.gz": {
+      "bytes": 110610506,
+      "sha256": "37437c02cc958971ce32ae3f5c7dbbc637dd1f53a0c609fc1102602f7b6da7c1"
+    }
+  },
+  "git_sha": "2431a7bbba2888f50b48612761f9654484773f4e",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-compressed-outer-grid-2026-10-09/"
+}

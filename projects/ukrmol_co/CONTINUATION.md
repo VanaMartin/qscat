@@ -43,8 +43,8 @@ depend on these finite workers:
 |---|---|---|
 | 0–3 | Released: compressed diagnostic PID 1049672 finishes; hourly verifier may resume | All 96 probes execute; 84 pass and all 12 singlet-A1 probes reject; original QC remains unqualified |
 | 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 solve active | Original 40-GiB attempt hits its six-hour cap below the memory ceiling; fresh 24-hour-stage attempt retains all scientific controls |
-| 8–11 | Released; package-complete import owner **1065882** waiting | Compressed space160 import follows the fresh memory owner, passing TZ verification, explicit original aug-TZ rejection and supported-space aug-TZ verification |
-| 12–15 | Finite 2-GiB compressed outer-grid replay, owner **1071520**; import owner **1065882** waiting | Saved-data extraction/orbital screens finish; TZ and supported-space aug-TZ retain guarded follow-on priority |
+| 8–11 | Released; twelve-rank import owner **1072749** waiting for CPUs4–15 | Compressed space160 import follows passing TZ, explicit original aug-TZ rejection and supported-space aug-TZ verification |
+| 12–15 | Released: compressed outer replay **1071520** finishes; twelve-rank queue **1072749** waiting | Native imports use CPUs4–15 after the active memory owner; physical CPUs0–3 are reserved for small controls |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -700,6 +700,92 @@ manifest parity, JSON/Python3.11 syntax, **173 relative links**, Ruff/format and
 diff checks pass. Main-index snapshot **97b8b4c** remains complete/upstream-current;
 the three experiment contracts, public evidence and handoff additions are
 branch-local and resolved against current source.
+
+#### Completed compressed outer replay
+
+Owner **1071520** finishes with original controller exit **zero** at
+`finished_unix=1791499427.9422424`. All **20 native stages**, both Pi sectors,
+317/633-point grids and **48 complete-data fits / 240 held folds** reconstruct.
+Cost is **634.56 seconds / 0.7989 GiB**, aggregate container CPU **2530.69
+seconds**. Common original-grid phases agree within **3.2e-6 rad modulo π**;
+matched finest-pair position/full-width differences are at most **0.3651 /
+2.0296 meV**, passing grid gates. The all-background position/width spans remain
+**0.08886/0.08832 eV** and **32.096/32.043%**, rejecting extraction.
+Native MAXFIT appears on both grids; the finest candidate lists are empty.
+Native fit acceptance and final pole identity remain unset.
+
+The [public companion](qualification-evidence/compressed-outer-grid/README.md)
+verifies **257 payloads / 3170 profiles**, including the original small screens,
+retained binary inputs and the complete three-resolution fit sequence. Public
+fetch/reconstruction and deterministic byte-identical repackaging pass. SHA256:
+`37437c02cc958971ce32ae3f5c7dbbc637dd1f53a0c609fc1102602f7b6da7c1`.
+
+#### User-directed eight/twelve-core scheduling
+
+The [host allocation policy](sadaharu-cpu-allocation-policy.json) now uses
+**8 physical cores for large jobs**, **12 for very large jobs**, and reserves
+**4 physical cores (0–3)** for small controls. MPI stages use matching ranks
+and one BLAS/OpenMP thread per rank. The active CAS11 successor keeps its
+original four-rank contract through completion. Larger-model rank scaling
+and memory growth must be measured; prior CAS10 throughput does not establish
+an eight/twelve-rank speedup.
+
+The [fresh twelve-rank import release](cas12-native-import-mpi12-successor-contract.json)
+supersedes the original zero-step package2 waiter **1065882** at **22:49:38 UTC**.
+Its exact unfinished owner record and frozen source remain unchanged; the
+administrative systemd stop returns zero without fabricating a controller exit.
+An additive `supersedure.json` records its PID/record/source hashes and verifies
+that the active memory owner is untouched.
+
+New service `co-mpi12-import-successors-20261009.service`, owner **1072749**,
+waits for memory owner1065880 and then runs TZ → explicit original aug-TZ
+rejection → supported-space aug-TZ → compressed imports serially. Fresh names
+gain **`-mpi12-package3`**; only `--ranks 4` changes to **12**, with native
+CPUs**4–15**, unchanged **64-GiB cap / 80-GiB RAM / 40-GiB disk** floors,
+and mandatory independent verifiers on reserved CPUs**0–3**. Every prerequisite
+wait remains bounded at 48 hours; unexpected failures stop the queue.
+
+Fresh source under `prepared/mpi12-import-successors-source-20261009/` freezes
+**832 files**. Live intercepted-launch preflight verifies both package markers,
+all three twelve-rank argument vectors, CPU group4–15, exact non-rank argument
+parity and **120/123/132 scientific files**. The owner is active with zero steps
+and its expected memory-owner wait. Its initial hourly monitor hits a reporting
+startup race while `execution.json` is still being created by the integrity check;
+the original exit-one traceback/source/empty journal remain preserved. Fresh
+`co-mpi12-import-progress-v2-20261009.service` accepts a pending initial record
+and journals the current memory owner and twelve-rank queue hourly for 48 hours
+under `prepared/mpi12-import-progress-v2-20261009/`. Original monitor services
+continue to describe their own historical owners; use this new journal for the
+current import queue. No electronic-model or CAS12-scattering gate is relaxed.
+
+At **22:51:48 UTC**, memory owner1065880, new queue1072749 and v2 monitor1072824
+are active with no automatic restarts. The new queue has zero launched steps;
+its expected wait is recorded and the first hourly journal exists. All **832
+frozen files** and parent scientific proofs pass a fresh integrity check. The
+CAS11 container uses about **30.75 GiB / 40 GiB**; the restarted pilot is idle.
+Read-only completion watcher `sh_11db7748e0013xaqW4rsooqJLZ` now observes the
+current memory/import pidfds for at most48hours.
+
+The [public initial-release companion](qualification-evidence/mpi12-import-release/README.md)
+reconstructs **847 payloads / 832 frozen release files / 820 unchanged parent
+file hashes**, exact original-owner supersedure, all argument/preflight checks
+and the first current-owner journal. Public fetch/reconstruction and byte-identical
+repackaging pass. Initial import/scaling verdicts remain unset; original reporting
+and local release-reconstruction failures stay preserved. Archive SHA256:
+`413e752a05a83ccdfecb400fb6e44c0106ccf0953f44fcf294e9302d7580ff4a`.
+
+Both newly published companions pass reconstruction from publicly fetched bytes
+and byte-identical repackaging. JSON/Python3.11 syntax, tracked-manifest parity,
+**183 relative documentation links**, Ruff/format and diff checks pass. Maintained
+scientific source retains its existing test validation. Main-index snapshot
+**97b8b4c** is complete/upstream-current; the new CPU policy, finite import release,
+public evidence and handoff changes are resolved branch-local additions.
+
+Final host check **22:56:34 UTC** confirms memory owner1065880, twelve-rank
+queue1072749, its v2 hourly monitor and the independent hourly observer active.
+The CAS11 container remains at **400% CPU / 30.75 GiB**; the queue has zero
+steps and the expected prerequisite wait. Available RAM/free disk are
+**78.12/113.84 GiB**; the restarted pilot is idle.
 
 ### Original local hourly observation — 8 October 2026
 

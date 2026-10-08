@@ -862,6 +862,18 @@ The three screens cost **0.605/0.402/0.402 seconds**, kernel peaks
 tests the same saved channels/amplitudes at 0.025/0.0125-requested-eV spacing;
 energy-grid stability remains separate from the all-background rejection.
 
+The [completed compressed outer-grid companion](../../projects/ukrmol_co/qualification-evidence/compressed-outer-grid/README.md)
+then verifies all **20 native stages**, 317/633-point grids, **48 complete-data
+fits / 240 held folds** and original retained binary inputs. Cost is **634.56
+seconds / 0.7989 GiB**. Common original-grid phases agree within **3.2e-6 rad
+modulo π**; matched finest-pair fit position/full-width differences are at most
+**0.3651 / 2.0296 meV**, passing the grid gates. All-background position spans
+remain **0.08886/0.08832 eV**, width spans **32.096/32.043%**, rejecting extraction.
+Native MAXFIT appears on both grids, with empty finest-grid candidate lists;
+native fit acceptance and pole identity stay unset. **257 payloads / 3170
+profiles** publicly reconstruct, including the parent screens and full
+0.05/0.025/0.0125-requested-eV fit refinement sequence.
+
 ### Compressed CAS12 singlet-A1 driver diagnosis
 
 At R=1.9 bohr, both preserved CAS(10,12) DZ QC checkpoints fail their original
@@ -1045,6 +1057,16 @@ retains unchanged scientific arguments/proofs/checkpoints and TZ → supported-s
 aug-TZ → compressed priority, with fresh run names. Each native verifier remains
 mandatory; the original aug-TZ coverage rejection is still explicitly recorded.
 These execution repairs do not release a CAS12 scattering pilot or model sweep.
+
+The user-directed [eight/twelve-core policy](../../projects/ukrmol_co/sadaharu-cpu-allocation-policy.json)
+subsequently redeclares only the zero-step pending target queue as a fresh
+[twelve-rank successor](../../projects/ukrmol_co/cas12-native-import-mpi12-successor-contract.json).
+Scientific arguments/checkpoints/proofs and all import gates are unchanged;
+the original waiter/source remain exact administrative supersedure evidence.
+Native imports use twelve physical cores/ranks, with four cores reserved for
+small controls and the existing memory/disk floors. Larger-model rank scaling
+is unmeasured until a matched comparison exists; more cores do not qualify
+the model or relax a rejected electronic proof.
 
 For a spectral R-matrix construction, each retained inner-region eigenstate supplies
 a pole and boundary amplitudes; omitted states can alter the scattering background.
