@@ -1,0 +1,36 @@
+{
+  "git_sha": "7e8ba71a295be121d706a5bb4a3f686f8f0f3ef1",
+  "date": "2026-10-08",
+  "record_type": "cas12-stretched-augtz-supported-space-coverage",
+  "archive_bytes": 699721,
+  "archive_sha256": "3513b97900945be5cdd33366d592d91003252fcbd4b7c0f24f91454ab6acab5e",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "cases": {
+      "co-r2500-augtz-sa12-qc-dz80-residual-qualified-start": {
+        "all_roots_pass": true,
+        "probes": 48,
+        "maximum_ensemble_error_hartree": 1.9895196601282805e-13,
+        "maximum_physical_residual_hartree": 7.084142114040453e-10,
+        "maximum_penalized_residual_hartree": 9.986398328167982e-10,
+        "maximum_spin_error": 8.43769498715119e-15,
+        "maximum_space_error_hartree": 2.2737367544323206e-13,
+        "maximum_root_count_error_hartree": 1.4210854715202004e-13
+      }
+    },
+    "scope": "Fresh aug-TZ 80/160/240 fixed-orbital coverage passes all48 probes and unchanged residual/spin/root gates. Original space40 rejection and independent outer launch/completion-wrapper failures remain preserved; native import requires a separate release.",
+    "verified_payloads": 269,
+    "profiles": 4346,
+    "probes": 48,
+    "wall_seconds": 871.8588845129125,
+    "kernel_peak_gib": 0.8383445739746094,
+    "original_space40_rejection_preserved": true,
+    "supported_space_probe_and_verifier_exits": [
+      0,
+      0
+    ],
+    "combined_owner_exit": 1,
+    "independent_outer_failure_preserved": true
+  },
+  "scope": "Fresh aug-TZ 80/160/240 fixed-orbital coverage passes all48 probes and unchanged residual/spin/root gates. Original space40 rejection and independent outer launch/completion-wrapper failures remain preserved; native import requires a separate release."
+}

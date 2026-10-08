@@ -1,0 +1,595 @@
+{
+  "git_sha": "7e8ba71a295be121d706a5bb4a3f686f8f0f3ef1",
+  "date": "2026-10-08",
+  "record_type": "stretched-cas11-retained-data-window-grid-and-extraction-controls",
+  "archive_bytes": 110188279,
+  "archive_sha256": "b8711ae4a3b72eae74a6e91bcf4ab6b87b06bdba078d06c1cdb574d6dc8b457d",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 310,
+    "profiles": 1947,
+    "rows": [
+      {
+        "sector": "B1",
+        "step_requested_ev": 0.005,
+        "points": 399,
+        "common_phase_error_rad_mod_pi": 2.0000000011677344e-07,
+        "native_candidates": [
+          {
+            "energy_hartree": 0.0361546895,
+            "width_hartree": 0.0107582105
+          }
+        ],
+        "native_maxfit": false,
+        "native_fit_verdict": "candidate only; native window differs",
+        "fits": {
+          "0.4-1.6-nback1": {
+            "position_ev": 0.9829095633823054,
+            "full_width_ev": 0.3121153389937602,
+            "held_point_max_error_rad": 0.03933258276712781,
+            "held_point_rms_error_rad": 0.018892556068051816,
+            "multistart_position_max_error_ev": 5.924538637458454e-11,
+            "multistart_width_max_error_ev": 6.910932937032044e-11,
+            "background_terms": 1,
+            "fit_points": 241
+          },
+          "0.4-1.6-nback2": {
+            "position_ev": 0.9834259998995826,
+            "full_width_ev": 0.29241226513429436,
+            "held_point_max_error_rad": 0.0023327040428378076,
+            "held_point_rms_error_rad": 0.0008707562603409742,
+            "multistart_position_max_error_ev": 6.607159264149232e-12,
+            "multistart_width_max_error_ev": 1.2540579685804687e-11,
+            "background_terms": 2,
+            "fit_points": 241
+          },
+          "0.4-1.6-nback3": {
+            "position_ev": 0.9839666552354925,
+            "full_width_ev": 0.292493766881618,
+            "held_point_max_error_rad": 0.0002658610116079707,
+            "held_point_rms_error_rad": 0.00013321263603234803,
+            "multistart_position_max_error_ev": 7.016831560235914e-12,
+            "multistart_width_max_error_ev": 2.0607959783092156e-12,
+            "background_terms": 3,
+            "fit_points": 241
+          },
+          "0.4-1.6-nback4": {
+            "position_ev": 0.9839577174270601,
+            "full_width_ev": 0.29267108341480697,
+            "held_point_max_error_rad": 0.00034603463783645927,
+            "held_point_rms_error_rad": 7.388424073108396e-05,
+            "multistart_position_max_error_ev": 5.773159728050814e-14,
+            "multistart_width_max_error_ev": 1.2573275753879898e-13,
+            "background_terms": 4,
+            "fit_points": 241
+          },
+          "0.5-1.5-nback1": {
+            "position_ev": 0.9830629878658288,
+            "full_width_ev": 0.30872209558935143,
+            "held_point_max_error_rad": 0.030136479169166286,
+            "held_point_rms_error_rad": 0.014330156360941463,
+            "multistart_position_max_error_ev": 2.0833890168603375e-11,
+            "multistart_width_max_error_ev": 1.7051304812554235e-11,
+            "background_terms": 1,
+            "fit_points": 201
+          },
+          "0.5-1.5-nback2": {
+            "position_ev": 0.9835752657382499,
+            "full_width_ev": 0.2924755600652856,
+            "held_point_max_error_rad": 0.001520199898505048,
+            "held_point_rms_error_rad": 0.0005273557153448121,
+            "multistart_position_max_error_ev": 2.5712765250318625e-12,
+            "multistart_width_max_error_ev": 2.292377399015777e-11,
+            "background_terms": 2,
+            "fit_points": 201
+          },
+          "0.5-1.5-nback3": {
+            "position_ev": 0.9839462301925924,
+            "full_width_ev": 0.29254337320023016,
+            "held_point_max_error_rad": 0.0002670449487327531,
+            "held_point_rms_error_rad": 0.0001108873664528666,
+            "multistart_position_max_error_ev": 1.7062462553951718e-11,
+            "multistart_width_max_error_ev": 1.6307677430660306e-11,
+            "background_terms": 3,
+            "fit_points": 201
+          },
+          "0.5-1.5-nback4": {
+            "position_ev": 0.9839337081668613,
+            "full_width_ev": 0.29274894863504997,
+            "held_point_max_error_rad": 0.00012694132689294868,
+            "held_point_rms_error_rad": 2.7405197562491407e-05,
+            "multistart_position_max_error_ev": 6.585842982076429e-12,
+            "multistart_width_max_error_ev": 1.7821411013585475e-11,
+            "background_terms": 4,
+            "fit_points": 201
+          },
+          "0.6-1.4-nback1": {
+            "position_ev": 0.9831747311164603,
+            "full_width_ev": 0.3054519603149547,
+            "held_point_max_error_rad": 0.021282803026955843,
+            "held_point_rms_error_rad": 0.009964552210064022,
+            "multistart_position_max_error_ev": 8.915312932344932e-11,
+            "multistart_width_max_error_ev": 1.678540639815651e-11,
+            "background_terms": 1,
+            "fit_points": 161
+          },
+          "0.6-1.4-nback2": {
+            "position_ev": 0.9836883256837299,
+            "full_width_ev": 0.2925665257673386,
+            "held_point_max_error_rad": 0.000869055285049658,
+            "held_point_rms_error_rad": 0.0002890520417150226,
+            "multistart_position_max_error_ev": 1.63113966777928e-12,
+            "multistart_width_max_error_ev": 5.223599330861362e-13,
+            "background_terms": 2,
+            "fit_points": 161
+          },
+          "0.6-1.4-nback3": {
+            "position_ev": 0.9839361367422336,
+            "full_width_ev": 0.29262366844050686,
+            "held_point_max_error_rad": 0.00017602060666099817,
+            "held_point_rms_error_rad": 6.882483831467597e-05,
+            "multistart_position_max_error_ev": 1.6022849713692722e-11,
+            "multistart_width_max_error_ev": 1.180366915320974e-11,
+            "background_terms": 3,
+            "fit_points": 161
+          },
+          "0.6-1.4-nback4": {
+            "position_ev": 0.9839230446997731,
+            "full_width_ev": 0.29279494903768705,
+            "held_point_max_error_rad": 3.3141210877662974e-05,
+            "held_point_rms_error_rad": 7.822070697047428e-06,
+            "multistart_position_max_error_ev": 9.159339953157541e-14,
+            "multistart_width_max_error_ev": 7.115974476334941e-13,
+            "background_terms": 4,
+            "fit_points": 161
+          }
+        },
+        "all_declared_position_span_ev": 0.001057091853187142,
+        "all_declared_width_span_ev": 0.019703073859465847,
+        "all_declared_width_span_relative_minimum": 0.06738114712943706,
+        "all_declared_sensitivity_gates_pass": false,
+        "terms2_to4_position_span_ev": 0.0005406553359099675,
+        "terms2_to4_width_span_relative_minimum": 0.0013087135836006602,
+        "full_model_extraction_identity_qualification": null
+      },
+      {
+        "sector": "B2",
+        "step_requested_ev": 0.005,
+        "points": 399,
+        "common_phase_error_rad_mod_pi": 2.0000000011677344e-07,
+        "native_candidates": [
+          {
+            "energy_hartree": 0.0361546895,
+            "width_hartree": 0.0107582105
+          }
+        ],
+        "native_maxfit": false,
+        "native_fit_verdict": "candidate only; native window differs",
+        "fits": {
+          "0.4-1.6-nback1": {
+            "position_ev": 0.9829095634020816,
+            "full_width_ev": 0.3121153390198599,
+            "held_point_max_error_rad": 0.039332582839856745,
+            "held_point_rms_error_rad": 0.018892556137994378,
+            "multistart_position_max_error_ev": 1.2014833572493444e-10,
+            "multistart_width_max_error_ev": 1.1178419301316467e-10,
+            "background_terms": 1,
+            "fit_points": 241
+          },
+          "0.4-1.6-nback2": {
+            "position_ev": 0.9834259999194435,
+            "full_width_ev": 0.2924122650856258,
+            "held_point_max_error_rad": 0.002332703933277447,
+            "held_point_rms_error_rad": 0.0008707561901852403,
+            "multistart_position_max_error_ev": 2.476185922972718e-11,
+            "multistart_width_max_error_ev": 6.148281883611162e-11,
+            "background_terms": 2,
+            "fit_points": 241
+          },
+          "0.4-1.6-nback3": {
+            "position_ev": 0.9839666552084905,
+            "full_width_ev": 0.2924937668258458,
+            "held_point_max_error_rad": 0.0002658611374450892,
+            "held_point_rms_error_rad": 0.00013321266678807046,
+            "multistart_position_max_error_ev": 7.476241847825804e-12,
+            "multistart_width_max_error_ev": 2.2604140781368187e-12,
+            "background_terms": 3,
+            "fit_points": 241
+          },
+          "0.4-1.6-nback4": {
+            "position_ev": 0.9839577173947394,
+            "full_width_ev": 0.292671083464037,
+            "held_point_max_error_rad": 0.0003460354218450673,
+            "held_point_rms_error_rad": 7.388419898441345e-05,
+            "multistart_position_max_error_ev": 1.4053203045705231e-12,
+            "multistart_width_max_error_ev": 1.1806389199620071e-11,
+            "background_terms": 4,
+            "fit_points": 241
+          },
+          "0.5-1.5-nback1": {
+            "position_ev": 0.9830629878658288,
+            "full_width_ev": 0.30872209558935143,
+            "held_point_max_error_rad": 0.030136479169166286,
+            "held_point_rms_error_rad": 0.014330156360941463,
+            "multistart_position_max_error_ev": 2.0833890168603375e-11,
+            "multistart_width_max_error_ev": 1.7051304812554235e-11,
+            "background_terms": 1,
+            "fit_points": 201
+          },
+          "0.5-1.5-nback2": {
+            "position_ev": 0.9835752657382499,
+            "full_width_ev": 0.2924755600652856,
+            "held_point_max_error_rad": 0.001520199898505048,
+            "held_point_rms_error_rad": 0.0005273557153448121,
+            "multistart_position_max_error_ev": 2.5712765250318625e-12,
+            "multistart_width_max_error_ev": 2.292377399015777e-11,
+            "background_terms": 2,
+            "fit_points": 201
+          },
+          "0.5-1.5-nback3": {
+            "position_ev": 0.9839462301925924,
+            "full_width_ev": 0.29254337320023016,
+            "held_point_max_error_rad": 0.0002670449487327531,
+            "held_point_rms_error_rad": 0.0001108873664528666,
+            "multistart_position_max_error_ev": 1.7062462553951718e-11,
+            "multistart_width_max_error_ev": 1.6307677430660306e-11,
+            "background_terms": 3,
+            "fit_points": 201
+          },
+          "0.5-1.5-nback4": {
+            "position_ev": 0.9839337081668613,
+            "full_width_ev": 0.29274894863504997,
+            "held_point_max_error_rad": 0.00012694132689294868,
+            "held_point_rms_error_rad": 2.7405197562491407e-05,
+            "multistart_position_max_error_ev": 6.585842982076429e-12,
+            "multistart_width_max_error_ev": 1.7821411013585475e-11,
+            "background_terms": 4,
+            "fit_points": 201
+          },
+          "0.6-1.4-nback1": {
+            "position_ev": 0.9831747311164603,
+            "full_width_ev": 0.3054519603149547,
+            "held_point_max_error_rad": 0.021282803026955843,
+            "held_point_rms_error_rad": 0.009964552210064022,
+            "multistart_position_max_error_ev": 8.915312932344932e-11,
+            "multistart_width_max_error_ev": 1.678540639815651e-11,
+            "background_terms": 1,
+            "fit_points": 161
+          },
+          "0.6-1.4-nback2": {
+            "position_ev": 0.9836883256837299,
+            "full_width_ev": 0.2925665257673386,
+            "held_point_max_error_rad": 0.000869055285049658,
+            "held_point_rms_error_rad": 0.0002890520417150226,
+            "multistart_position_max_error_ev": 1.63113966777928e-12,
+            "multistart_width_max_error_ev": 5.223599330861362e-13,
+            "background_terms": 2,
+            "fit_points": 161
+          },
+          "0.6-1.4-nback3": {
+            "position_ev": 0.9839361367422336,
+            "full_width_ev": 0.29262366844050686,
+            "held_point_max_error_rad": 0.00017602060666099817,
+            "held_point_rms_error_rad": 6.882483831467597e-05,
+            "multistart_position_max_error_ev": 1.6022849713692722e-11,
+            "multistart_width_max_error_ev": 1.180366915320974e-11,
+            "background_terms": 3,
+            "fit_points": 161
+          },
+          "0.6-1.4-nback4": {
+            "position_ev": 0.9839230446997731,
+            "full_width_ev": 0.29279494903768705,
+            "held_point_max_error_rad": 3.3141210877662974e-05,
+            "held_point_rms_error_rad": 7.822070697047428e-06,
+            "multistart_position_max_error_ev": 9.159339953157541e-14,
+            "multistart_width_max_error_ev": 7.115974476334941e-13,
+            "background_terms": 4,
+            "fit_points": 161
+          }
+        },
+        "all_declared_position_span_ev": 0.001057091806408894,
+        "all_declared_width_span_ev": 0.019703073934234094,
+        "all_declared_width_span_relative_minimum": 0.06738114739634649,
+        "all_declared_sensitivity_gates_pass": false,
+        "terms2_to4_position_span_ev": 0.0005406552890470095,
+        "terms2_to4_width_span_relative_minimum": 0.0013087137502566736,
+        "full_model_extraction_identity_qualification": null
+      },
+      {
+        "sector": "B1",
+        "step_requested_ev": 0.0025,
+        "points": 797,
+        "common_phase_error_rad_mod_pi": 2.0000000011677344e-07,
+        "native_candidates": [
+          {
+            "energy_hartree": 0.0361578565,
+            "width_hartree": 0.0107633865
+          }
+        ],
+        "native_maxfit": true,
+        "native_fit_verdict": null,
+        "fits": {
+          "0.4-1.6-nback1": {
+            "position_ev": 0.9829117681383123,
+            "full_width_ev": 0.31207240962230254,
+            "held_point_max_error_rad": 0.03933189490601219,
+            "held_point_rms_error_rad": 0.018832753228303568,
+            "multistart_position_max_error_ev": 5.851397144596149e-11,
+            "multistart_width_max_error_ev": 6.78844203072515e-11,
+            "background_terms": 1,
+            "fit_points": 481
+          },
+          "0.4-1.6-nback2": {
+            "position_ev": 0.9834281219435657,
+            "full_width_ev": 0.2924127418708249,
+            "held_point_max_error_rad": 0.002332340108964548,
+            "held_point_rms_error_rad": 0.0008652068664116042,
+            "multistart_position_max_error_ev": 2.4810820065113148e-11,
+            "multistart_width_max_error_ev": 6.454864420746276e-11,
+            "background_terms": 2,
+            "fit_points": 481
+          },
+          "0.4-1.6-nback3": {
+            "position_ev": 0.983966317828762,
+            "full_width_ev": 0.29249405161384007,
+            "held_point_max_error_rad": 0.0002655039666632497,
+            "held_point_rms_error_rad": 0.00013302948724176766,
+            "multistart_position_max_error_ev": 6.257327989089845e-12,
+            "multistart_width_max_error_ev": 1.5791257190755914e-12,
+            "background_terms": 3,
+            "fit_points": 481
+          },
+          "0.4-1.6-nback4": {
+            "position_ev": 0.9839573160539734,
+            "full_width_ev": 0.29267225349857723,
+            "held_point_max_error_rad": 0.0003444275686757675,
+            "held_point_rms_error_rad": 7.284625674781733e-05,
+            "multistart_position_max_error_ev": 1.9079182678183315e-12,
+            "multistart_width_max_error_ev": 3.219435829038275e-11,
+            "background_terms": 4,
+            "fit_points": 481
+          },
+          "0.5-1.5-nback1": {
+            "position_ev": 0.9830646155539721,
+            "full_width_ev": 0.3086804082733822,
+            "held_point_max_error_rad": 0.030135649368918216,
+            "held_point_rms_error_rad": 0.014271264013801199,
+            "multistart_position_max_error_ev": 4.169929956887586e-10,
+            "multistart_width_max_error_ev": 1.1786099873845046e-10,
+            "background_terms": 1,
+            "fit_points": 401
+          },
+          "0.5-1.5-nback2": {
+            "position_ev": 0.9835768706470578,
+            "full_width_ev": 0.2924765889520439,
+            "held_point_max_error_rad": 0.001519612762101552,
+            "held_point_rms_error_rad": 0.0005234056073254358,
+            "multistart_position_max_error_ev": 2.1449508835758024e-13,
+            "multistart_width_max_error_ev": 1.1046719095020308e-14,
+            "background_terms": 2,
+            "fit_points": 401
+          },
+          "0.5-1.5-nback3": {
+            "position_ev": 0.9839460559914015,
+            "full_width_ev": 0.29254425267666595,
+            "held_point_max_error_rad": 0.0002666528735799645,
+            "held_point_rms_error_rad": 0.00011033204461209379,
+            "multistart_position_max_error_ev": 3.2596148002994596e-13,
+            "multistart_width_max_error_ev": 5.390132784555135e-14,
+            "background_terms": 3,
+            "fit_points": 401
+          },
+          "0.5-1.5-nback4": {
+            "position_ev": 0.9839335117694987,
+            "full_width_ev": 0.29274967376199257,
+            "held_point_max_error_rad": 0.00012596383201560202,
+            "held_point_rms_error_rad": 2.6889836360340094e-05,
+            "multistart_position_max_error_ev": 2.206013149930186e-13,
+            "multistart_width_max_error_ev": 2.8669289164895417e-12,
+            "background_terms": 4,
+            "fit_points": 401
+          },
+          "0.6-1.4-nback1": {
+            "position_ev": 0.9831758903932474,
+            "full_width_ev": 0.30541218625682603,
+            "held_point_max_error_rad": 0.02128164599806892,
+            "held_point_rms_error_rad": 0.009908254684685092,
+            "multistart_position_max_error_ev": 1.6399437363645575e-11,
+            "multistart_width_max_error_ev": 5.772882172294658e-12,
+            "background_terms": 1,
+            "fit_points": 321
+          },
+          "0.6-1.4-nback2": {
+            "position_ev": 0.9836895383602081,
+            "full_width_ev": 0.2925676861376656,
+            "held_point_max_error_rad": 0.0008683092468442233,
+            "held_point_rms_error_rad": 0.00028624209107816945,
+            "multistart_position_max_error_ev": 2.5222046673434306e-12,
+            "multistart_width_max_error_ev": 5.379086065460115e-12,
+            "background_terms": 2,
+            "fit_points": 321
+          },
+          "0.6-1.4-nback3": {
+            "position_ev": 0.983936053338527,
+            "full_width_ev": 0.2926247104363997,
+            "held_point_max_error_rad": 0.00017561025861967394,
+            "held_point_rms_error_rad": 6.810641927890658e-05,
+            "multistart_position_max_error_ev": 5.2770010583458316e-12,
+            "multistart_width_max_error_ev": 1.1091016993702851e-11,
+            "background_terms": 3,
+            "fit_points": 321
+          },
+          "0.6-1.4-nback4": {
+            "position_ev": 0.9839229708543038,
+            "full_width_ev": 0.29279534397857454,
+            "held_point_max_error_rad": 3.266317796646323e-05,
+            "held_point_rms_error_rad": 7.6157889576682e-06,
+            "multistart_position_max_error_ev": 1.4011014570769476e-13,
+            "multistart_width_max_error_ev": 5.998535002049721e-13,
+            "background_terms": 4,
+            "fit_points": 321
+          }
+        },
+        "all_declared_position_span_ev": 0.0010545496904497131,
+        "all_declared_width_span_ev": 0.01965966775147765,
+        "all_declared_width_span_relative_minimum": 0.06723259604112063,
+        "all_declared_sensitivity_gates_pass": false,
+        "terms2_to4_position_span_ev": 0.0005381958851963242,
+        "terms2_to4_width_span_relative_minimum": 0.001308431723261461,
+        "full_model_extraction_identity_qualification": null
+      },
+      {
+        "sector": "B2",
+        "step_requested_ev": 0.0025,
+        "points": 797,
+        "common_phase_error_rad_mod_pi": 2.0000000011677344e-07,
+        "native_candidates": [
+          {
+            "energy_hartree": 0.0361578565,
+            "width_hartree": 0.0107633865
+          }
+        ],
+        "native_maxfit": true,
+        "native_fit_verdict": null,
+        "fits": {
+          "0.4-1.6-nback1": {
+            "position_ev": 0.982911768148272,
+            "full_width_ev": 0.31207240963549815,
+            "held_point_max_error_rad": 0.039331894942539414,
+            "held_point_rms_error_rad": 0.01883275326339605,
+            "multistart_position_max_error_ev": 5.855316231873076e-11,
+            "multistart_width_max_error_ev": 6.784617312405317e-11,
+            "background_terms": 1,
+            "fit_points": 481
+          },
+          "0.4-1.6-nback2": {
+            "position_ev": 0.9834281219538422,
+            "full_width_ev": 0.2924127418462658,
+            "held_point_max_error_rad": 0.002332340046780068,
+            "held_point_rms_error_rad": 0.0008652068318586389,
+            "multistart_position_max_error_ev": 2.4811153132020536e-11,
+            "multistart_width_max_error_ev": 6.45339892635377e-11,
+            "background_terms": 2,
+            "fit_points": 481
+          },
+          "0.4-1.6-nback3": {
+            "position_ev": 0.9839663178149802,
+            "full_width_ev": 0.2924940515856544,
+            "held_point_max_error_rad": 0.0002655040292465216,
+            "held_point_rms_error_rad": 0.00013302950214568533,
+            "multistart_position_max_error_ev": 6.032951915813101e-13,
+            "multistart_width_max_error_ev": 5.312417172831374e-14,
+            "background_terms": 3,
+            "fit_points": 481
+          },
+          "0.4-1.6-nback4": {
+            "position_ev": 0.9839573160362739,
+            "full_width_ev": 0.2926722535069383,
+            "held_point_max_error_rad": 0.0003444279598120853,
+            "held_point_rms_error_rad": 7.284623591478864e-05,
+            "multistart_position_max_error_ev": 3.0927482796982986e-12,
+            "multistart_width_max_error_ev": 1.48974166336302e-11,
+            "background_terms": 4,
+            "fit_points": 481
+          },
+          "0.5-1.5-nback1": {
+            "position_ev": 0.9830646155539721,
+            "full_width_ev": 0.3086804082733822,
+            "held_point_max_error_rad": 0.030135649368918216,
+            "held_point_rms_error_rad": 0.014271264013801199,
+            "multistart_position_max_error_ev": 4.169929956887586e-10,
+            "multistart_width_max_error_ev": 1.1786099873845046e-10,
+            "background_terms": 1,
+            "fit_points": 401
+          },
+          "0.5-1.5-nback2": {
+            "position_ev": 0.9835768706470578,
+            "full_width_ev": 0.2924765889520439,
+            "held_point_max_error_rad": 0.001519612762101552,
+            "held_point_rms_error_rad": 0.0005234056073254358,
+            "multistart_position_max_error_ev": 2.1449508835758024e-13,
+            "multistart_width_max_error_ev": 1.1046719095020308e-14,
+            "background_terms": 2,
+            "fit_points": 401
+          },
+          "0.5-1.5-nback3": {
+            "position_ev": 0.9839460559914015,
+            "full_width_ev": 0.29254425267666595,
+            "held_point_max_error_rad": 0.0002666528735799645,
+            "held_point_rms_error_rad": 0.00011033204461209379,
+            "multistart_position_max_error_ev": 3.2596148002994596e-13,
+            "multistart_width_max_error_ev": 5.390132784555135e-14,
+            "background_terms": 3,
+            "fit_points": 401
+          },
+          "0.5-1.5-nback4": {
+            "position_ev": 0.9839335117694987,
+            "full_width_ev": 0.29274967376199257,
+            "held_point_max_error_rad": 0.00012596383201560202,
+            "held_point_rms_error_rad": 2.6889836360340094e-05,
+            "multistart_position_max_error_ev": 2.206013149930186e-13,
+            "multistart_width_max_error_ev": 2.8669289164895417e-12,
+            "background_terms": 4,
+            "fit_points": 401
+          },
+          "0.6-1.4-nback1": {
+            "position_ev": 0.9831758903932474,
+            "full_width_ev": 0.30541218625682603,
+            "held_point_max_error_rad": 0.02128164599806892,
+            "held_point_rms_error_rad": 0.009908254684685092,
+            "multistart_position_max_error_ev": 1.6399437363645575e-11,
+            "multistart_width_max_error_ev": 5.772882172294658e-12,
+            "background_terms": 1,
+            "fit_points": 321
+          },
+          "0.6-1.4-nback2": {
+            "position_ev": 0.9836895383602081,
+            "full_width_ev": 0.2925676861376656,
+            "held_point_max_error_rad": 0.0008683092468442233,
+            "held_point_rms_error_rad": 0.00028624209107816945,
+            "multistart_position_max_error_ev": 2.5222046673434306e-12,
+            "multistart_width_max_error_ev": 5.379086065460115e-12,
+            "background_terms": 2,
+            "fit_points": 321
+          },
+          "0.6-1.4-nback3": {
+            "position_ev": 0.983936053338527,
+            "full_width_ev": 0.2926247104363997,
+            "held_point_max_error_rad": 0.00017561025861967394,
+            "held_point_rms_error_rad": 6.810641927890658e-05,
+            "multistart_position_max_error_ev": 5.2770010583458316e-12,
+            "multistart_width_max_error_ev": 1.1091016993702851e-11,
+            "background_terms": 3,
+            "fit_points": 321
+          },
+          "0.6-1.4-nback4": {
+            "position_ev": 0.9839229708543038,
+            "full_width_ev": 0.29279534397857454,
+            "held_point_max_error_rad": 3.266317796646323e-05,
+            "held_point_rms_error_rad": 7.6157889576682e-06,
+            "multistart_position_max_error_ev": 1.4011014570769476e-13,
+            "multistart_width_max_error_ev": 5.998535002049721e-13,
+            "background_terms": 4,
+            "fit_points": 321
+          }
+        },
+        "all_declared_position_span_ev": 0.00105454966670826,
+        "all_declared_width_span_ev": 0.019659667789232338,
+        "all_declared_width_span_relative_minimum": 0.06723259617588172,
+        "all_declared_sensitivity_gates_pass": false,
+        "terms2_to4_position_span_ev": 0.0005381958611380133,
+        "terms2_to4_width_span_relative_minimum": 0.0013084318073590647,
+        "full_model_extraction_identity_qualification": null
+      }
+    ],
+    "grid_phase_error_rad_mod_pi": 0.0,
+    "grid_position_max_difference_ev": 2.2047560068738647e-06,
+    "grid_width_max_difference_ev": 4.292938436173399e-05,
+    "wall_seconds": 390.3942329050042,
+    "kernel_peak_gib": 0.6342010498046875,
+    "original_launch_and_wrapper_failures_preserved": true,
+    "full_extraction_qualification": null,
+    "scope": "Complete retained-data stretched CAS11 outer-window/grid reconstruction, all48 fits plus multistart/five-fold held-point diagnostics. Fine-grid native MAXFIT and every background choice stay explicit; model/threshold/geometry identity require separate qualification."
+  },
+  "scope": "Complete retained-data stretched CAS11 outer-window/grid reconstruction, all48 fits plus multistart/five-fold held-point diagnostics. Fine-grid native MAXFIT and every background choice stay explicit; model/threshold/geometry identity require separate qualification."
+}

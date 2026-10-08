@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "stretched-window-controls.tar.gz": {
+      "bytes": 110188279,
+      "sha256": "b8711ae4a3b72eae74a6e91bcf4ab6b87b06bdba078d06c1cdb574d6dc8b457d"
+    }
+  },
+  "git_sha": "7e8ba71a295be121d706a5bb4a3f686f8f0f3ef1",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-stretched-window-controls-2026-10-08/"
+}

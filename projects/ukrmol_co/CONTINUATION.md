@@ -41,10 +41,10 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Hourly completed-component verifier PID 1042600; released between checks | All original CAS11 2048/4096/8192 controls independently reconstruct; original 16384-root OOM is preserved |
-| 4–7 | Resource-only successor PID 1044566 waiting for the existing CAS12 DZ import/verifier | One fresh 16384-root CAS11 attempt with 40-GiB memory, unchanged science and independent reconstruction; any failure stops it |
-| 8–11 | Electronic owner PID 1022822, CAS12 DZ 64-root import active | TZ and aug-TZ QC both pass; independent native-root/dipole/subspace verifier follows the DZ import |
-| 12–15 | Supported-space owner PID 1046586, fresh aug-TZ 80/160/240 coverage active | Original TZ passes and aug-TZ rejects one space40 extra root; outer-only completion-interface successor follows, and owner1044780 retains per-basis native gates |
+| 0–3 | Compressed CAS12 fixed-orbital diagnostic PID 1049672 active | Original QC rejections retained; 96 diagnostic probes, with no automatic import release; hourly verifier defers while cores are occupied |
+| 4–7 | Resource-only successor PID 1044566, native 16384-root CAS11 solve active | Successful DZ import/verifier releases one fresh 40-GiB attempt; any engine/export/verifier failure stops it |
+| 8–11 | Released: electronic owner 1022822 completes with exit zero | Stretched CAS12 DZ all 64 roots, ground dipole and core/active subspaces pass independent verification |
+| 12–15 | Released: supported-space coverage and stretched outer-only pipeline complete | Owner 1044780 waits for the memory repair before TZ import; fresh aug-TZ owner 1049064 waits for successful TZ import/verifier and the original aug-TZ coverage stop |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -227,6 +227,107 @@ queues keep their separate prerequisites and stopping rules.
 Completion watcher shell `sh_11b04fb88001wWBEtz32PksWbD` waits on pidfds for
 the original electronic owner or supported-space owner to finish, returning
 their original exits and completed verifier records without completion polling.
+
+#### Qualified supported spaces, complete outer replay and released native repair
+
+The aug-TZ supported-space successor completes **48/48 passing probes** and
+independent reconstruction in **871.86 seconds / 0.8383 GiB**. Maximum physical/
+penalized residuals are **7.084e-10 / 9.986e-10 Hartree**, with ensemble/space/
+root-count errors **1.990e-13 / 2.274e-13 / 1.421e-13 Hartree**. Its scan and
+verifier each exit zero. The combined owner retains exit **one** because of the
+independent preserved outer wrapper failure. Completion watcher
+`sh_11b04fb88001wWBEtz32PksWbD` returns that mixed owner record and the passing
+coverage proof. The [public supported-space companion](qualification-evidence/augtz-supported-spaces/README.md)
+verifies **269 payloads / 4346 profiles**, including the original space40
+rejection and both prior outer failures. Public fetch, independent reconstruction
+and byte-identical repackaging pass; SHA256:
+`3513b97900945be5cdd33366d592d91003252fcbd4b7c0f24f91454ab6acab5e`.
+
+The [separate aug-TZ import release](cas12-augtz-supported-import-contract.json)
+then freezes a new recipe/run/proof under
+`prepared/cas12-augtz-supported-import-source-20261008/`, service
+`co-cas12-augtz-supported-import-20261008.service`, supervisor **1049064**.
+It verifies the public proof, unchanged checkpoint and passing production
+space80. It requires the original basis owner to finish **both TZ import and
+its independent verifier successfully**, then stop only at the original rejected
+aug-TZ coverage gate. Original proof/run records are not replaced. The fresh
+aug-TZ recipe passes live runner-argument validation; resources remain a
+64-GiB container and 80-GiB RAM / 40-GiB disk floors. No scattering release.
+
+The corrected stretched outer-only supervisor **1047346** completes all
+**20 native stages** with original exits zero in **390.39 seconds / 0.6342 GiB**.
+Its [public window/grid companion](qualification-evidence/stretched-window-controls/README.md)
+verifies **310 payloads / 1947 profiles**. Complete 399/797-point grids, finite/
+nonnegative channel-summed cross sections, Pi symmetry, unchanged input hashes
+and common phases pass; original common phases agree within **2.0e-7 rad modulo
+π**. All 48 independent complete-data fits converge without boundary hits, with
+three separated starts and five held-point folds per fit. Between grid steps,
+position/full-width differences are at most **2.205e-6 / 4.293e-5 eV**.
+
+**Extraction remains unqualified:** the fine native grid retains **MAXFIT**,
+and the all-declared-background/window width spread is **6.72–6.74%**, exceeding
+the 5% gate. Terms 2–4 alone span about 0.131% and improve held-point residuals;
+that diagnostic does not retroactively remove the constant-background control.
+The native fine-grid fit verdict stays unset. Public fetch/reconstruction and
+byte-identical repackaging pass; SHA256:
+`b8711ae4a3b72eae74a6e91bcf4ab6b87b06bdba078d06c1cdb574d6dc8b457d`.
+
+The original electronic owner **1022822** now completes with exit **zero** at
+`finished_unix=1791456683.8505204`. Stretched CAS12 DZ native import costs
+**21336.38 seconds / 40.370 GiB**, with DENPROP accounting for **16742.48
+seconds**. Its saved `cas12-native-import-verification.json` passes all 64 native
+roots against covered independent seed-orbital CI within **5.460e-8 Hartree**,
+ground dipole within **8.919e-8 a.u.**, and core/active subspace overlap (minimum
+singular value **0.9999999999942111**). Seed-to-reoptimized ensemble-root drift
+is **4.262e-8 Hartree**; these differences are within the declared gates, with
+the reference/imported checkpoints retained separately. Imported checkpoint:
+`b84db2421fcb4445eddf698aa36638daa91e82383005f2a5cb03653f032ba9aa`.
+Saved-table half-last-unit controls and the original/fresh CI flags pass. Full
+public import publication remains follow-on work.
+
+That prerequisite **releases the native 16384-root 40-GiB CAS11 successor**, now
+active under owner 1044566 on CPUs 4–7. The original 24-GiB OOM remains preserved,
+and independent reconstruction/fixed-window gates remain mandatory. The TZ and
+fresh aug-TZ native imports wait for its resource release before continuing.
+
+#### Compressed CAS12 fixed-orbital diagnosis
+
+The [finite diagnostic contract](cas12-compressed-fixed-orbital-contract.json)
+declares **96 fresh 600-cycle probes** on both original compressed repair
+checkpoints, at 5/8 roots and spaces40/80/160. Both original QC records remain
+rejected because their singlet-A1 CI flag fails despite a small orbital gradient.
+The diagnostic checks geometry, frozen/active spaces, MO orthogonality, independent
+physical/penalized residuals, spin purity and original-ensemble root differences
+separately; it cannot repair the original orbital-optimization objective or
+automatically release QC/import/scattering.
+
+Service `co-compressed-cas12-fixed-orbital-20261008.service`, owner **1049672**,
+freezes source under `prepared/compressed-cas12-fixed-orbital-source-20261008/`
+and runs in an 8-GiB container on CPUs0–3, with 32-GiB RAM / 40-GiB disk floors.
+The diagnostic directory is
+`cas12-compressed-fixed-orbital-residual-diagnostic-20261008`. Early singlet-A1
+probes retain failed flags, substantial physical/penalized residuals and spin
+contamination even where original energies agree; no successful numerical repair
+is claimed. Full independent reconstruction remains pending completion.
+
+Additional hourly progress service **v3**, `co-additional-control-progress-v3-20261008.service`,
+now journals all new owners including the compressed diagnostic and fresh aug-TZ
+import in `continuation-progress-20261008/additional-owner-observations/` and
+`additional-owner-latest.json`. Both older additional-monitor sources and records
+remain preserved. The original hourly observer continues; its independent
+verification defers while CPUs0–3 are occupied. Monitoring and finite native
+queues remain independent of local session life; paid provisioning is deferred.
+
+`successor-source-integrity.json` in the progress directory independently checks
+all frozen-source hashes for these four additional owners. Completion watcher
+shell `sh_11b2cd1f5001JTQfPqorJu8f9N` waits on pidfds for the compressed diagnostic
+or memory-repair owner to finish, returning original exits and saved verdicts.
+Appropriate local checks pass: the 14 analytic/branch/held-point fit tests, Ruff,
+fresh-source Python 3.11 syntax, live new-recipe argument validation, public
+reconstruction/repackaging and documentation links. The main-index snapshot
+remains complete/upstream-current at
+`0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; these evidence/contracts and handoff
+updates are resolved branch-local additions.
 
 ### Original local hourly observation — 8 October 2026
 

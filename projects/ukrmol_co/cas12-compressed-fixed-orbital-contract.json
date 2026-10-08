@@ -1,0 +1,26 @@
+{
+  "status": "predeclared diagnostic on the two preserved rejected compressed QC checkpoints",
+  "runs": {
+    "co-r1900-ccdz-sa12-qc-hostprep-repair-space80": "a319d8af2e0335aeab464852b017607a7584d2a95171e815c1311f6e03a0bbda",
+    "co-r1900-ccdz-sa12-qc-hostprep-repair-space160": "4b1773cc05d2ca71303731a672dec5ceb7069a26053814e319cbd1d243855407"
+  },
+  "diagnostic": "cas12-compressed-fixed-orbital-residual-diagnostic-20261008",
+  "prerequisite": "Original QC attempts remain rejected: orbital gradient passes, but the singlet-A1 CI flag fails. Saved checkpoint geometry, active/core spaces and MO orthogonality must pass before fixed-orbital diagnostics.",
+  "root_counts": [5, 8],
+  "trial_spaces": [40, 80, 160],
+  "cycles": 600,
+  "probes": 96,
+  "fixed_controls": "Reuse the validated independent physical/spin-penalized CI residual implementation and Hubbard analytic benchmark, unchanged orbital checkpoints, ten active electrons and two frozen core orbitals",
+  "gates": {
+    "all_ci_flags": true,
+    "physical_and_penalized_residual_max_hartree": 1e-9,
+    "spin_penalty_action_max_hartree": 1e-9,
+    "spin_square_error_max": 1e-6,
+    "ci_vector_orthogonality_error_max": 1e-9,
+    "mo_orthogonality_error_max": 1e-9,
+    "original_ensemble_root_difference_reported_hartree": 1e-7
+  },
+  "resources": {"cpu_group": "0-3", "container_memory_gib": 8, "minimum_available_ram_gib": 32, "minimum_free_disk_gib": 40},
+  "interpretation": "Separately report fixed-orbital convergence/spin purity, original-ensemble root differences and root/space continuity. Accurate energies do not override failed flags; successful fixed-orbital diagnostics cannot repair the original orbital-optimization objective or qualify its rejected QC record.",
+  "release": "No automatic QC retry, native import, scattering or full-sweep release. Retain original diagnostics/exits and fresh results for the next explicitly validated numerical repair."
+}

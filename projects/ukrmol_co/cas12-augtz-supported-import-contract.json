@@ -1,0 +1,21 @@
+{
+  "status": "separately released native-import successor after independent supported-space qualification",
+  "coverage_contract": "cas12-stretched-augtz-supported-spaces-contract.json",
+  "coverage_archive_sha256": "3513b97900945be5cdd33366d592d91003252fcbd4b7c0f24f91454ab6acab5e",
+  "reference_run": "co-r2500-augtz-sa12-qc-dz80-residual-qualified-start",
+  "checkpoint_sha256": "985a537ba75a65b089bb27695fcd4d93312a1115db05d22e43e4f28405860590",
+  "import_recipe": "calibration-sa12-stretched-augtz-supported-import.json",
+  "import_run": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target",
+  "qualification": "All 48 fresh 5/8-root probes at spaces80/160/240 pass unchanged flags, physical/spin-penalized residuals and energy/spin gates; independently reconstructed and publicly fetched/reverified. Production trial space80 belongs to this qualified family.",
+  "preservation": "The original all-space scan and original queued aug-TZ proof remain rejected; neither is rewritten. This is a fresh import owner, run name and proof.",
+  "prerequisites": [
+    "Existing CAS12 DZ native target import and independent verifier finish successfully",
+    "CAS11 40-GiB repair owner finishes and releases its resources",
+    "Original basis queue completes a passing TZ native import and independent verifier, then stops only at its explicitly rejected original aug-TZ coverage gate",
+    "New supported-space proof and unchanged checkpoint hashes pass before launch",
+    "Physical CPUs12-15 and SMT partners28-31 are free"
+  ],
+  "resources": {"container_memory_gib": 64, "minimum_available_ram_gib": 80, "minimum_free_disk_gib": 40, "eligibility_wait_timeout_hours": 48},
+  "gates": "Validated CAS12 verifier checks all64 native roots against independent CI, forty-state dipoles, original/fresh convergence flags, saved-table rounding and core/active subspace continuity. Native import or verification failure stops this successor.",
+  "scope": "Neutral-target native-import qualification only; no automatic scattering or full-sweep release"
+}
