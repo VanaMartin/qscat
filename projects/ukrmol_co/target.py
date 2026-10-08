@@ -34,6 +34,16 @@ def _fresh_ci_kernel(kernel):
     return solve
 
 
+def _sector_ci_driver(fci, spin: int, irrep: str, config: dict):
+    """Select the experimental singlet-A1 driver without altering other sectors."""
+    choice = config.get("target_singlet_a1_driver", "spin1")
+    if choice not in ("spin1", "spin0"):
+        raise ValueError("Singlet-A1 CI driver must be spin1 or spin0")
+    if choice == "spin0" and spin == 0 and irrep == "A1":
+        return fci.direct_spin0_symm.FCI
+    return fci.direct_spin1_symm.FCI
+
+
 def project_initial_orbitals(mc, previous_mo: np.ndarray, previous_mol) -> np.ndarray:
     """Project a checkpoint's core/active spaces, completing destination virtuals."""
     from pyscf import mcscf
@@ -124,7 +134,7 @@ def build_target(config: dict, molden_path: Path) -> dict:
         for irrep, roots in zip(IRREPS, counts, strict=True):
             if not roots:
                 continue
-            solver = fci.direct_spin1_symm.FCI(mol)
+            solver = _sector_ci_driver(fci, spin, irrep, config)(mol)
             solver.spin = spin
             solver.wfnsym = irrep
             solver.nroots = roots
@@ -184,6 +194,10 @@ def build_target(config: dict, molden_path: Path) -> dict:
         "ci_converged": [bool(np.all(s.converged)) for s in solvers],
         "ci_max_space_by_sector": {
             sector: solver.max_space for sector, solver in zip(sectors, solvers, strict=True)
+        },
+        "ci_driver_by_sector": {
+            sector: _sector_ci_driver(fci, solver.spin, sector.split(".")[1], config).__module__
+            for sector, solver in zip(sectors, solvers, strict=True)
         },
         "state_energies_hartree": [float(e) for e in state_energies],
         "iterations": list(history.values()),

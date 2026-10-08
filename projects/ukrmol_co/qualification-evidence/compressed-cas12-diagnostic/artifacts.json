@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "compressed-cas12-diagnostic.tar.gz": {
+      "bytes": 679155,
+      "sha256": "5c14e4eb5aed92bacfd5ff36cb280d078e1154291868d4ec29dec66b6cc68cb0"
+    }
+  },
+  "git_sha": "e767d1d5eaaf9ba2b7e853ec1fb210f8ced9ceee",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-compressed-cas12-diagnostic-2026-10-08/"
+}

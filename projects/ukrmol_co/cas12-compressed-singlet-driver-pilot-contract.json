@@ -1,0 +1,30 @@
+{
+  "status": "predeclared finite alternative-driver diagnostic after the preserved singlet-A1 rejection",
+  "parent_contract": "cas12-compressed-fixed-orbital-contract.json",
+  "diagnostic": "cas12-compressed-singlet-driver-pilot-20261008",
+  "design": "Test PySCF direct_spin0_symm with the same singlet spin penalty on unchanged compressed checkpoints. The spin0 driver enforces alpha/beta exchange symmetry; this alone does not certify total spin, so physical spin/residual gates and an independent direct_spin1 Hamiltonian-action comparison remain mandatory.",
+  "prerequisites": "Preserve all96 original diagnostic probes, failed CI flags, physical/spin-penalized residuals and five/eight-root mismatch. Run the closed-form Hubbard singlet and perturbed-vector residual controls before either checkpoint.",
+  "runs": {
+    "co-r1900-ccdz-sa12-qc-hostprep-repair-space80": "a319d8af2e0335aeab464852b017607a7584d2a95171e815c1311f6e03a0bbda",
+    "co-r1900-ccdz-sa12-qc-hostprep-repair-space160": "4b1773cc05d2ca71303731a672dec5ceb7069a26053814e319cbd1d243855407"
+  },
+  "spin": 0,
+  "irrep": "A1",
+  "root_counts": [5, 8],
+  "trial_spaces": [80, 160],
+  "cycles": 600,
+  "probes": 8,
+  "unchanged_controls": "Same orbitals, active/core electrons, physical Hamiltonian, shift1 spin penalty, CI energy tolerance1e-12, residual tolerance1e-9 and lindep1e-22",
+  "gates": {
+    "all_ci_flags": true,
+    "physical_and_penalized_residual_max_hartree": 1e-9,
+    "spin_penalty_action_max_hartree": 1e-9,
+    "independent_full_hamiltonian_action_error_max_hartree": 1e-9,
+    "independent_full_hamiltonian_residual_max_hartree": 1e-9,
+    "spin_square_error_max": 1e-6,
+    "ci_vector_and_alpha_beta_symmetry_error_max": 1e-9,
+    "space_and_common_root_count_difference_max_hartree": 1e-7
+  },
+  "resources": {"cpu_group": "12-15", "container_memory_gib": 8, "minimum_available_ram_gib": 32, "minimum_free_disk_gib": 40},
+  "release": "Diagnostic only. Report original-ensemble energy shifts separately; passing fixed-orbital results cannot repair the rejected optimizer objective. No automatic QC optimization, native import or scattering release. Any execution or analytic-benchmark failure stops the pilot."
+}

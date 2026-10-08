@@ -118,6 +118,19 @@ fits pass implementation checks, but native fine-grid MAXFIT and the 6.72–6.74
 all-background width spread keep extraction unqualified. Every candidate and
 both earlier launcher/completion-wrapper failures are preserved.
 
+The [compressed CAS12 diagnostic](compressed-cas12-diagnostic/README.md) records
+all 96 completed fixed-orbital probes: 84 pass, but all 12 singlet-A1 probes
+reject, including spin contamination and a 1.6561-Hartree root-count mismatch.
+It independently reconstructs **344 payloads / 11201 profiles** without
+promoting the original rejected QC checkpoints.
+
+The [alternative singlet-driver pilot](compressed-singlet-driver-pilot/README.md)
+then passes all eight separately declared checks, including independent
+full-Hamiltonian action, spin/residual and root/space continuity gates.
+**49 payloads / 1259 profiles** reconstruct. Its 1.670142-Hartree difference
+from the rejected objective requires fresh orbital optimization; the pilot
+does not retroactively qualify the saved seeds.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

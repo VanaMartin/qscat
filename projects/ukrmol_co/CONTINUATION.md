@@ -41,10 +41,10 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Compressed CAS12 fixed-orbital diagnostic PID 1049672 active | Original QC rejections retained; 96 diagnostic probes, with no automatic import release; hourly verifier defers while cores are occupied |
+| 0–3 | Released: compressed diagnostic PID 1049672 finishes; hourly verifier may resume | All 96 probes execute; 84 pass and all 12 singlet-A1 probes reject; original QC remains unqualified |
 | 4–7 | Resource-only successor PID 1044566, native 16384-root CAS11 solve active | Successful DZ import/verifier releases one fresh 40-GiB attempt; any engine/export/verifier failure stops it |
 | 8–11 | Released: electronic owner 1022822 completes with exit zero | Stretched CAS12 DZ all 64 roots, ground dipole and core/active subspaces pass independent verification |
-| 12–15 | Released: supported-space coverage and stretched outer-only pipeline complete | Owner 1044780 waits for the memory repair before TZ import; fresh aug-TZ owner 1049064 waits for successful TZ import/verifier and the original aug-TZ coverage stop |
+| 12–15 | Fresh compressed singlet-driver QC owner 1053151 active | Two finite new optimizations at spaces 80/160; TZ owner 1044780 and fresh aug-TZ owner 1049064 retain resource and proof sequencing gates |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid
@@ -328,6 +328,96 @@ reconstruction/repackaging and documentation links. The main-index snapshot
 remains complete/upstream-current at
 `0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; these evidence/contracts and handoff
 updates are resolved branch-local additions.
+
+#### Completed compressed diagnosis and fresh driver-qualified QC
+
+Compressed owner **1049672** completes with original exit zero at
+`finished_unix=1791458958.9829206`: **96/96 probes executed**, **2246.99 seconds /
+0.6136 GiB**. The [public diagnosis](qualification-evidence/compressed-cas12-diagnostic/README.md)
+independently reconstructs **344 payloads / 11201 profiles** and preserves both
+rejected checkpoint hashes and original flags. **84 probes pass; all 12 singlet-A1
+probes reject**. Other sectors have physical residuals below 6.911e-10 Hartree.
+Singlet A1 has false CI flags, physical residuals up to 0.19803 Hartree and
+spin contamination (some five-root states have spin-square near 2). Search-space
+differences stay below 3.695e-13 Hartree, but the common five/eight-root difference
+reaches **1.6561 Hartree**. Original QC stays rejected. Public fetch,
+reconstruction and byte-identical repackaging pass, SHA256:
+`5c14e4eb5aed92bacfd5ff36cb280d078e1154291868d4ec29dec66b6cc68cb0`.
+
+The [separately declared driver pilot](cas12-compressed-singlet-driver-pilot-contract.json)
+then uses `direct_spin0_symm` for singlet A1 at the same fixed orbitals, five/
+eight roots and spaces 80/160. Owner **1052276**, service
+`co-compressed-singlet-driver-pilot-20261008.service`, finishes with original
+exit zero at `finished_unix=1791459574.466287`. **All eight probes pass** in
+**252.48 seconds / 0.6062 GiB**. Maximum physical/penalized residuals are
+**8.708e-10 / 9.988e-10 Hartree**; independent full-Hamiltonian action difference/
+residual are **6.752e-10 / 5.514e-10 Hartree**. Common-root/space differences are
+below **2.843e-13 Hartree**. The analytic Hubbard/perturbed-vector checks also
+pass. Alpha/beta exchange symmetry alone does not certify spin: independent
+spin/residual/action gates remain mandatory. Original singlet-A1 ensemble energies
+shift by up to **1.670142 Hartree**, requiring a fresh optimized objective.
+
+The [public pilot companion](qualification-evidence/compressed-singlet-driver-pilot/README.md)
+verifies **49 payloads / 1259 profiles**, unchanged checkpoints and every recorded
+gate decision; runtime independent full-Hamiltonian-action records remain public.
+Public fetch/reconstruction and byte-identical repackaging pass, SHA256:
+`21c3937975ea3ce53bf018ee7563c798cab35f672136e32e662716b114b43d6c`.
+
+The [fresh QC contract](cas12-compressed-singlet-driver-qc-contract.json) freezes
+the [two-run recipe](calibration-sa12-compressed-singlet-driver-qc.json) in
+`prepared/compressed-singlet-qc-source-20261008/`, service
+`co-compressed-singlet-qc-20261008.service`, supervisor **1053151**. It checks
+the completed pilot, unchanged original seed checkpoints and all immutable
+source hashes before either launch. Analytic singlet/full-Hamiltonian and
+nontrivial orbital-moving mixed-singlet/triplet CASSCF controls pass inside
+the pinned image with original exit zero. The first fresh space80 QC is active
+on CPUs 12–15 in a 24-GiB container; 48-GiB available-RAM / 40-GiB free-disk floors
+and CPU/SMT ownership apply before every stage. Ordinary CI remains bounded at
+200 cycles, orbital optimization at 150. The space160 attempt is separately
+declared and follows; each runner/analyzer exit is preserved. No automatic retry
+or native import follows. Newly optimized checkpoints require independent
+residual/root/space/orbital-continuity coverage before any import/scattering.
+
+Experimental runner flag `--target-singlet-a1-driver spin0` changes only that
+sector and records the chosen CI driver per sector. Local physical tests pass
+for both old/new drivers; the root-level CO suite passes **98 tests** with the
+optional PySCF dependency installed. Recursive collection also encounters frozen
+tests in fetched evidence snapshots, so verify maintained source with
+`uv run --with pyscf==2.11.0 --with h5py==3.15.1 pytest projects/ukrmol_co/test_*.py -q`.
+The failed recursive collection remains diagnostic output; archive snapshots
+are preserved.
+
+Live integrity/resource check at **2026-10-08T11:58:34Z** confirms all frozen
+scientific-source hashes for the pilot, fresh QC, memory repair, original basis
+and fresh aug-TZ owners. Mutable earlier launch logs/locks are excluded from
+scientific-source comparisons and remain retained; an initial unfiltered hash
+check hit the changing parent launch log, not a source change. The new integrity
+record is `continuation-progress-20261008/singlet-successor-source-integrity.json`.
+CAS11 16384-root execution remains active at about **30.66 GiB / 40 GiB**, fresh
+QC at about **0.474 GiB / 24 GiB**; measured available RAM/free disk are
+**77.58 / 114.93 GiB**. Both native basis owners wait for memory-repair completion.
+
+Hourly additional monitor **v5**, `co-additional-control-progress-v5-20261008.service`,
+now includes the fresh QC owner and writes `singlet-qc-observations/` plus
+`singlet-qc-latest.json`. Its first journal exists and the service is active.
+Older v3/v4 source/journals remain preserved. Completion watcher
+`sh_11b2cd1f5001JTQfPqorJu8f9N` returned the completed original diagnostic, and
+`sh_11b51a83c001ZeU0KV73eaPU3T` returned the completed driver pilot. New watcher
+`sh_11b619c0e001WhTnZz8oF9go35` waits on pidfds for fresh-QC or memory-repair
+completion, preserving original exits and completed records. Next work is
+independent coverage of successful newly optimized QC, complete public DZ-import
+publication, native memory-successor review, and the existing TZ/aug-TZ import
+sequence. The previously failed background-width extraction gate remains open.
+
+Final source checks pass **98 root-level CO tests** with optional PySCF, Ruff,
+format, Python 3.11 syntax, new JSON, **199 relative documentation links** and
+`git diff --check`. Both new public companions independently reconstruct and
+repackage byte-identically. Main-index integrity remains **complete** at
+`0f9768e4e89f2accb6f3ff5c2d3dc921719325eb`; its final upstream status reports
+**unknown/stale**, despite the last completed refresh. An independent
+`git ls-remote origin refs/heads/main` returns the same commit. Driver selection,
+tests, contracts, recipes and evidence/handoff updates are resolved branch-local
+changes, absent from the committed-main corpus.
 
 ### Original local hourly observation — 8 October 2026
 

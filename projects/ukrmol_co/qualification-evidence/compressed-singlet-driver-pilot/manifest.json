@@ -1,0 +1,44 @@
+{
+  "git_sha": "e767d1d5eaaf9ba2b7e853ec1fb210f8ced9ceee",
+  "date": "2026-10-08",
+  "record_type": "compressed-cas12-passing-alternative-singlet-driver-pilot",
+  "archive_bytes": 80681,
+  "archive_sha256": "21c3937975ea3ce53bf018ee7563c798cab35f672136e32e662716b114b43d6c",
+  "byte_identical_repackaging": true,
+  "verification": {
+    "verified_payloads": 49,
+    "profiles": 1259,
+    "passing_probes": 8,
+    "cases": [
+      {
+        "run": "co-r1900-ccdz-sa12-qc-hostprep-repair-space80",
+        "passing_probes": 4,
+        "maximum_space_difference_hartree": 1.7053025658242404e-13,
+        "maximum_common_root_count_difference_hartree": 2.2737367544323206e-13,
+        "maximum_original_ensemble_root_shift_hartree": 1.6701420049140694,
+        "original_qc_qualification": false
+      },
+      {
+        "run": "co-r1900-ccdz-sa12-qc-hostprep-repair-space160",
+        "passing_probes": 4,
+        "maximum_space_difference_hartree": 1.8474111129762605e-13,
+        "maximum_common_root_count_difference_hartree": 2.8421709430404007e-13,
+        "maximum_original_ensemble_root_shift_hartree": 1.6701420049143394,
+        "original_qc_qualification": false
+      }
+    ],
+    "maximum_errors": {
+      "physical_residual_norm_hartree": 8.70841680537876e-10,
+      "penalized_residual_norm_hartree": 9.988285428264121e-10,
+      "spin_penalty_action_norm_hartree": 3.7649017148854976e-10,
+      "independent_full_action_difference_hartree": 6.751558885953843e-10,
+      "independent_full_residual_hartree": 5.514251628100626e-10,
+      "alpha_beta_exchange_symmetry_error": 4.3239638237255e-11
+    },
+    "wall_seconds": 252.47930893604644,
+    "kernel_peak_gib": 0.6062393188476562,
+    "original_qc_qualification": false,
+    "scope": "Passing fixed-orbital alternative singlet-driver pilot with analytic/perturbed controls and runtime independent full-Hamiltonian action. Archive reconstruction verifies recorded gate decisions; original optimization remains rejected and requires fresh QC."
+  },
+  "scope": "Passing fixed-orbital alternative singlet-driver pilot with analytic/perturbed controls and runtime independent full-Hamiltonian action. Archive reconstruction verifies recorded gate decisions; original optimization remains rejected and requires fresh QC."
+}
