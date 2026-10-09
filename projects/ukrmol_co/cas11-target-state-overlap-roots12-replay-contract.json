@@ -1,0 +1,13 @@
+{
+  "status": "predeclared independent portable replay of completed twelve-root closure",
+  "parent_contract": "cas11-target-state-overlap-roots12-contract.json",
+  "producer_owner": 1074957,
+  "producer_controller_exit": 0,
+  "producer_diagnostic": "cas11-target-state-overlap-roots12-20261009",
+  "publication_directory": "prepared/publication-target-state-overlap-roots12-20261010",
+  "design": "Freeze all9 producer source files, all73 native/original-eight inputs and complete12-root outputs into fresh content-indexed evidence. Adapt a new copy of the independently validated eight-root portable verifier to12 roots without modifying its original. Reconstruct AO integrals, physical and spin-penalized Hamiltonian actions, full occupied determinant minors, assignments, manifold singular values and original-eight energy-matched projection weights.",
+  "gates": {"wavefunctions": 288, "overlap_matrices": 48, "native_compared_roots_per_sector": 5, "physical_and_penalized_residual_hartree": 1e-9, "native_root_error_hartree": 1e-7, "spin_square_error": 1e-6, "ci_and_mo_orthogonality_error": 1e-9, "independent_overlap_error": 1e-10, "original_eight_energy_error_hartree": 1e-7, "original_eight_minimum_energy_matched_projection": 0.99999999},
+  "resources": {"cpu_group": "0-3", "library_threads": 4, "container_memory_gib": 4, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "eligibility_wait_seconds": 18000, "whole_container_timeout_seconds": 7200},
+  "stopping": "One fresh owner/output directory; preserve actual original exits, source/parent hashes and any failure. No automatic retry. Wait for reserved small cores to be free, independently of the TZ diagnostic's scientific verdict.",
+  "release": "Evidence capture/reconstruction only. Publish only after portable local verification passes, then fetch the public archive and repeat independent reconstruction. Target continuity and resonance-pole identity remain unset."
+}

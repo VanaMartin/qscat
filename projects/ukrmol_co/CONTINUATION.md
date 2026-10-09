@@ -20,6 +20,64 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Continuation priorities and root-count budget — 10 October 2026
+
+The user correctly questions the marginal benefit of the **19.65-hour CAS11
+16384-root** run after 2048/4096/8192 had already passed against the dense oracle.
+The larger run confirms the existing result and measures a costly part of the
+solver's scaling curve, but was not required to establish tested CAS11 observable
+stability. Completing a planned root ladder is not itself a release requirement.
+
+**Prospective stopping rule:** use the smallest retained root count that passes
+the relevant observable and truncation gates. Escalate only for an explicitly
+named unresolved discrepancy, unstable omission comparison or new-model pole
+coverage requirement. Do not launch additional CAS11 high-root runs. A future
+CAS12 sparse pilot must start modestly, declare its scientific question and
+resource/time stopping gates, and justify each refinement from the preceding
+result. The completed 16K result and all original failures remain evidence.
+
+The next useful work is independent target consistency and state tracking:
+
+- [TZ seed-drift diagnostic](cas12-tz-seed-drift-contract.json): 48 fresh
+  fixed-orbital probes, eight roots in each spin/irrep, spaces 80/160/240 at both
+  the covered seed and actual imported checkpoint. Physical/penalized full-action
+  residuals, spins, saved/native energies, Pi pairs and orbital subspaces separate
+  CI error from genuine orbital-frame movement. Both checkpoints stay unchanged;
+  the failed seed-preservation gate remains rejected.
+- [Twelve-root portable replay](cas11-target-state-overlap-roots12-replay-contract.json):
+  reconstruct already-computed CI vectors, full occupied Slater minors, AO metrics,
+  actions and original-eight projections, then publish/fetch/reconstruct. This is
+  evidence validation, not another root-expansion calculation.
+- Capture/publish the completed CAS11 successor; evaluate any separately declared
+  TZ import requalification/continuation only after the new diagnostic and its
+  independent replay. Electronic balance, state identity and extraction remain
+  the dominant model-selection gates.
+
+At **2026-10-09 23:13:30 UTC**, TZ diagnostic service
+`co-tz-seed-drift-20261010.service`, owner **1113052**, is active on CPUs **0–3**
+at **392% CPU / 241.8 MiB**. **3/48 probes** are complete, all with passing
+physical/action gates so far; no final diagnostic verdict is available.
+Its source under `prepared/co-tz-seed-drift-source-20261010/` freezes **8 source /
+23 original-input hashes**, including both checkpoints and the rejected import
+owner/log. Committed source **99843fe** and the pinned-image analytic/package
+preflight pass. The container has an 8-GiB cap and 4-hour whole-job bound, with
+a 1-hour eligibility wait; there is no automatic restart.
+
+Independent service `co-roots12-replay-20261010.service`, owner **1113370**, waits
+for the reserved small cores to be free, regardless of the TZ diagnostic's
+scientific verdict. Fresh source under `prepared/co-roots12-replay-source-20261010/`
+freezes **10 source / 168 producer-and-original-input hashes**. It captures,
+content-indexes/packages and reconstructs the existing 12-root wavefunctions in
+`prepared/publication-target-state-overlap-roots12-20261010/`, under a 4-GiB cap,
+5-hour eligibility wait and 2-hour whole-job bound. Actual exits, live 30-second
+heartbeats and verification resource profiles are preserved. Neither service
+restarts imports or releases scattering. Existing original hourly monitors keep
+their 48-hour bounds; these finite owners continue independently of session life.
+
+Follow-up at **23:16:44 UTC**: the TZ scan has completed **8/48 probes**, all
+passing physical/action gates so far. The portable replay is still waiting for
+the reserved cores; no final result or new scientific release has landed.
+
 ### Host check — 9 October 2026, 22:58 UTC
 
 **CAS11 16384-root successor completes successfully.** Owner **1065880** finishes
