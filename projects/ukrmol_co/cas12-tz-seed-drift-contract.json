@@ -1,0 +1,28 @@
+{
+  "status": "predeclared diagnostic after twelve-rank TZ import seed-preservation rejection",
+  "parent_contract": "cas12-native-import-mpi12-successor-contract.json",
+  "diagnostic": "cas12-tz-seed-drift-20261010",
+  "frames": [
+    {"label": "covered_seed", "run": "co-r2500-cctz-sa12-qc-dz80-residual-qualified-start", "checkpoint": "co.casscf.chk", "checkpoint_sha256": "04364301696bf96c13b6eb1f8bb86a89e0c59668206fe5d4ba399a5147ac4ed0"},
+    {"label": "imported_orbitals", "run": "co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3", "checkpoint": "output/CO/geom1/co.casscf.chk", "checkpoint_sha256": "8518dc191b8670af9ec87d7666b091eaf370187e7022684cd93716d240b40568"}
+  ],
+  "geometry_bohr": 2.5,
+  "basis": "cc-pVTZ",
+  "ncore": 2,
+  "ncas": 12,
+  "active_electrons": 10,
+  "root_counts": [8],
+  "trial_spaces": [80, 160, 240],
+  "probes": 48,
+  "ci_cycles": 600,
+  "ci_energy_tolerance_hartree": 1e-12,
+  "ci_residual_tolerance_hartree": 1e-9,
+  "ci_lindep": 1e-22,
+  "spin_penalty_shift_hartree": 1.0,
+  "design": "Fresh fixed-orbital direct_spin1_symm CASCI in all eight spin/irrep sectors at each unchanged checkpoint. Independently replay full direct_spin1 Hamiltonian actions, physical/penalized residuals and spins. Separate reference-frame root differences, saved-target CI error, native/imported-frame differences and core/active subspace movement. Preserve widest-space CI vectors for independent reconstruction.",
+  "analytic_controls": "Offset Hubbard-dimer exact energy, independent physical action, correct-spin penalty action and deliberately perturbed-vector rejection before CO solves",
+  "gates": {"all_ci_flags": true, "physical_penalized_and_action_residual_hartree": 1e-9, "spin_square_error": 1e-6, "ci_and_mo_orthogonality_error": 1e-9, "saved_target_space_and_pi_energy_error_hartree": 1e-7, "native_root_error_hartree": 1e-7},
+  "original_rejection": {"owner": 1072749, "controller_exit": 1, "spin": "triplet", "irrep": "A1", "root": 3, "seed_preservation_gate_hartree": 1e-7, "observed_difference_hartree": -3.0248814653077716e-7, "preservation": "Frozen original source, owner record, native outputs and failed verifier log; this diagnostic never changes the original gate or verdict"},
+  "resources": {"cpu_group": "0-3", "library_threads": 4, "container_memory_gib": 8, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "whole_container_timeout_seconds": 14400, "eligibility_wait_timeout_seconds": 3600},
+  "release": "Diagnostic only. A passing imported-frame scan requires a separately declared independent replay and any import requalification/continuation contract. No automatic import retry, native continuation, CAS12 scattering, model selection or geometry sweep. The 600-cycle fixed-orbital budget cannot retroactively qualify a rejected orbital optimization."
+}
