@@ -1,0 +1,96 @@
+{
+  "snapshot_utc": "2026-10-09T08:41:03.637824+00:00",
+  "units": {"energy": "eV", "geometry": "bohr", "width": "full width in eV", "memory": "GiB"},
+  "source_file_sha256": {
+    "projects/ukrmol_co/qualification-results.json": "7f546c2910015a615101a330c05170f3dce73e586c214641bbcab57ded11d4a1",
+    "projects/ukrmol_co/calibration-results.json": "8d21cd8973d27d57eaf1ef03691801c9887cf4a4726446e588e865cb21208cc5",
+    "projects/ukrmol_co/qualification-evidence/cas11-sparse-refinement/manifest.json": "b602550a110033b1b3ea5fdffa8d309b6c20a5a0aed60f8bc3b324937b5dcaab",
+    "projects/ukrmol_co/qualification-evidence/neutral-near-equilibrium/manifest.json": "47901bd02749baed3cf295640de94ff02f3fa680c2959b65979dda0a91efcb28",
+    "projects/ukrmol_co/qualification-evidence/neutral-near-equilibrium/artifacts.json": "03a15cb613743b6932a4b04c643382c5c2bac29991d735809a06653836248da4",
+    "projects/ukrmol_co/qualification-evidence/outer-propagation/manifest.json": "e2fee505a44f5cc5679592c96b52d0673d811d3a381a83c2d7835b48c1fa9d93",
+    "projects/ukrmol_co/qualification-evidence/compressed-outer-grid/manifest.json": "3c882988aff2aa3271f534cf485269ad6dfc3e8a3a61fff63d3e01fa4ea715a2",
+    "projects/ukrmol_co/qualification-evidence/stretched-window-controls/manifest.json": "1a4690a72961b51e920a2e72e53ccedf392134f807d1a7c22dbdbe5f9b2e7bde",
+    "projects/ukrmol_co/qualification-evidence/target-state-overlap/manifest.json": "642ec0269e324b4851990e5783381c84a689e460943200d7556c5e2011909257",
+    "reference/literature/laporta-2012-psst21-045005.md": "499eb7b0a8f4412460631cd937a319556f2ee1ae2e02fa953ab6ecfd57d0ff64",
+    "reference/literature/dora-2016-epjd70-197.md": "0d2740dda42f43ca260bd60f8c00898690a2bbe8112acb538944fcdfb1746f40",
+    "reference/literature/dora-2020-jpb53-195202.md": "49bbfd457e8e20fec5f50371446d3be4203b19ff0e18c90c36b742fda9bc7358"
+  },
+  "equilibrium_candidates": [
+    {"label": "SA-CAS10 / DZ / 40", "run": "co-eq-ccdz-sa10-tight-cc40-matched", "position_ev": 2.455964890144028, "full_width_ev": 1.1196427053356024},
+    {"label": "SA-CAS11 / DZ / 40", "run": "co-eq-ccdz-sa11-tight-cc40", "position_ev": 2.5208049976325553, "full_width_ev": 1.1510015966504314},
+    {"label": "SEP / aug-TZ / 39 virtuals", "run": "co-eq-tz-f4-sep39", "position_ev": 1.6234386505099305, "full_width_ev": 0.768383056564409},
+    {"label": "SEP / aug-TZ / 60 virtuals", "run": "co-eq-tz-f4-sep60", "position_ev": 1.329218938148466, "full_width_ev": 0.5742619659521343}
+  ],
+  "literature": [
+    {"label": "Laporta 2012 / SEP", "position_ev": 1.67, "full_width_ev": 0.82, "note": "reference/literature/laporta-2012-psst21-045005.md", "locator": "preprint p.4; unadjusted width"},
+    {"label": "Dora 2016 / TZ / CAS10 / 50", "position_ev": 1.73, "full_width_ev": 0.84, "note": "reference/literature/dora-2016-epjd70-197.md", "locator": "p.6, Table4"},
+    {"label": "Dora 2016 / DZ / CAS10 / 40", "position_ev": 2.12, "full_width_ev": 0.91, "note": "reference/literature/dora-2016-epjd70-197.md", "locator": "p.6, Table4"},
+    {"label": "Dora 2016 / DZ / CAS11 / 40", "position_ev": 2.2, "full_width_ev": 0.95, "note": "reference/literature/dora-2016-epjd70-197.md", "locator": "p.6, Table4"},
+    {"label": "Dora 2020 / 6Z / 41", "position_ev": 1.8744, "full_width_ev": 1.2916, "note": "reference/literature/dora-2020-jpb53-195202.md", "locator": "p.4, Table2"}
+  ],
+  "neutral": {
+    "aug-cc-pVQZ": {
+      "points_R_bohr_relative_E_ev": [
+        [1.9, 1.2828911412725539], [1.925, 0.9939761283407653],
+        [1.95, 0.7493634925471375], [1.975, 0.5453932801809418],
+        [2.0, 0.378682894394328], [2.025, 0.24610562913363507],
+        [2.05, 0.14477092990159734], [2.075, 0.07200632328711003],
+        [2.1, 0.02534073773858332], [2.125, 0.002489218976085532],
+        [2.1323, 0.0], [2.15, 0.0013388335719557829],
+        [2.175, 0.019935721913398007], [2.2, 0.05647318593623588],
+        [2.225, 0.10928071607775942], [2.25, 0.1768139036447949],
+        [2.275, 0.25764514793935334], [2.3, 0.35045503832802855],
+        [2.325, 0.45402461820690165], [2.35, 0.5672278927592183],
+        [2.375, 0.6890251962389213], [2.4, 0.8184570194685373],
+        [2.425, 0.9546381714955248], [2.45, 1.0967525415969614],
+        [2.475, 1.2440479257474053], [2.5, 1.3958318774225102]
+      ],
+      "equilibrium_dipole_au": 0.05010848353998426
+    },
+    "aug-cc-pV5Z": {
+      "points_R_bohr_relative_E_ev": [
+        [1.9, 1.2656478076071875], [1.925, 0.9790202336115291],
+        [1.95, 0.7365691374317743], [1.975, 0.534645435114084],
+        [2.0, 0.3698760304367929], [2.025, 0.23914249824715547],
+        [2.05, 0.13956150114019195], [2.075, 0.06846681205058068],
+        [2.1, 0.023392794912097586], [2.125, 0.002059240802767372],
+        [2.1323, 0.0], [2.15, 0.002357410894962426],
+        [2.175, 0.022337208669955276], [2.2, 0.06019537607572773],
+        [2.225, 0.11426461554774203], [2.25, 0.18300358161935829],
+        [2.275, 0.264987648887691], [2.3, 0.35890037687871384],
+        [2.325, 0.46352562520688306], [2.35, 0.5777404113961259],
+        [2.375, 0.7005079886162179], [2.4, 0.8308717258020184],
+        [2.425, 0.9679493670235241], [2.45, 1.1109274304636143],
+        [2.475, 1.2590567159332868], [2.5, 1.4116472206008013]
+      ],
+      "equilibrium_dipole_au": 0.048675452574511
+    }
+  },
+  "neutral_source_archive": {"bytes": 8286061, "sha256": "d8a394e9ad94d1085218b9fc874539d6e03f194c832f81df06c48c912e33f411"},
+  "neutral_checks": {"points": 52, "maximum_basis_relative_energy_difference_ev": 0.017243333665366345, "maximum_cubic_held_error_ev": 0.00011386038767791096, "maximum_pchip_held_error_ev": 0.0009542816248610114, "basis_budget_ev": 0.02, "held_energy_budget_ev": 0.001, "preserved_rhf_rejections": 4},
+  "sparse_costs": [
+    {"roots": 2048, "kernel_peak_gib": 7.692779541015625, "wall_hours": 2.454474193649431, "phase_error_rad": 5.099999999869098e-06},
+    {"roots": 4096, "kernel_peak_gib": 7.365123748779297, "wall_hours": 3.33523514799916, "phase_error_rad": 1.0000000028043132e-07},
+    {"roots": 8192, "kernel_peak_gib": 13.16033935546875, "wall_hours": 7.0564415086561345, "phase_error_rad": 1.0000000005838672e-07}
+  ],
+  "dense_cas11": {"kernel_peak_gib": 25.201339721679688, "wall_hours": 4.4233402734808625, "scope": "Full recorded pipeline; sparse costs are retained-input replays. Wall times are not a matched speedup comparison."},
+  "memory_reference": {"host_ram_gib": 123.5, "cas12_dense_workspace_floor_gib": 222.4, "source": "docs/physics/co-electronic-qualification.md, CAS(10,12) dense-diagonalization memory audit; qualification-results.json"},
+  "overlaps": {
+    "eight_root": {"source_path": "/home/kooza/ukrmol/co-sa-20261006/diagnostics/cas11-target-state-overlap-screen-20261009/result.json", "sha256": "a064f970d81b641ce0beef0ae0946ec472889c5e880ad652f2d2a2366cc2d7ec", "min_ao_following_singular_values": [1.3573961854705178e-10, 9.719805800432791e-11, 1.3518108562155585e-12], "first_five_to_extra_per_pair": [0, 5, 5], "independent_public_reconstruction": true},
+    "twelve_root": {"source_path": "/home/kooza/ukrmol/co-sa-20261006/diagnostics/cas11-target-state-overlap-roots12-20261009/result.json", "sha256": "3a89bc10541d2009f6bb29b39fb4f44974a5ad6990b3e9dce1b60c20c7955ce7", "min_ao_following_singular_values": [0.1517708743829963, 0.08086013197492553, 0.022980285467869687], "first_five_to_extra_per_pair": [0, 5, 5], "independent_public_reconstruction": false},
+    "pair_order_R_bohr": [[1.9, 2.1323], [2.1323, 2.5], [1.9, 2.5]],
+    "quantity": "Minimum root-manifold singular value over eight spin/irrep sectors, AO-following Lowdin coefficient-frame transport; not a physical cross-geometry wavefunction overlap"
+  },
+  "live_status": {"cas11_owner": 1065880, "cas11_finished": false, "cas11_completed_sectors": ["B1"], "cas11_b1_phase_difference_rad": 9.99999993922529e-09, "cas11_b1_energy_error_hartree": 1.7053025658242404e-12, "import_owner": 1072749, "imports_launched": 0, "twelve_root_finished": true},
+  "diagnostic_gate_ratios": [
+    {"label": "Sparse 8192 vs dense: phase", "value": 2.0000000011677344e-06, "quantity": "phase difference /0.05rad", "source": "qualification-evidence/cas11-sparse-refinement/manifest.json"},
+    {"label": "Outer propagation: phase", "value": 5.136890123047522e-05, "quantity": "phase difference /0.05rad", "source": "qualification-evidence/outer-propagation/manifest.json"},
+    {"label": "Angular cutoff: phase", "value": 0.5229999999999999, "quantity": "maximum tested SA angular phase difference /0.05rad", "source": "README.md, Convergence verdict"},
+    {"label": "CAS10 to CAS11: phase", "value": 2.196198, "quantity": "matched active-space phase difference /0.05rad", "source": "docs/physics/co-electronic-qualification.md, matched active-space comparison"},
+    {"label": "Stretched: fit-width spread", "value": 1.3476229479269297, "quantity": "all-background width span relative to minimum /0.05", "source": "qualification-evidence/stretched-window-controls/manifest.json"},
+    {"label": "Equilibrium: fit-width spread", "value": 2.53, "quantity": "reported native background width variation /0.05", "source": "qualification-evidence/README.md, forty-nine saved-data replays"},
+    {"label": "Compressed: fit-width spread", "value": 6.408521646214001, "quantity": "fine-grid all-background width span relative to median /0.05", "source": "qualification-evidence/compressed-outer-grid/manifest.json"}
+  ],
+  "reference_dipole": {"magnitude_debye": 0.122, "note": "reference/literature/dora-2016-epjd70-197.md", "locator": "p.4, Table2, experimental magnitude quoted by paper"},
+  "interpretation": "Literature points are different model predictions, not an experimental uncertainty band. Resonance points are native fit candidates, not qualified pole curves. Diagnostic ratios use their own predeclared metrics and do not measure a common accuracy or uncertainty. AO-following transport is a coefficient-frame diagnostic. Twelve-root overlaps and current CAS11 B1 status are producer records awaiting independent publication."
+}

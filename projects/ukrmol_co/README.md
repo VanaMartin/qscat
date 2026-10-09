@@ -21,6 +21,60 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
+## Progress overview — 9 October 2026
+
+![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261009.png)
+
+[Vector figure](../../docs/physics/figures/co-progress-20261009.svg) ·
+[Plotted-data snapshot and source hashes](progress-snapshot-20261009.json)
+
+The six panels explain the qualification campaign:
+
+- **A — Published resonance comparisons.** The SA-CAS10/11 candidates remain
+  above the published positions. An earlier SEP39 result lies near Laporta's
+  unadjusted value, but adding virtual orbitals shifts it by 0.294 eV. Agreement
+  with one literature model cannot select a converged electronic configuration.
+- **B — Which tests limit accuracy.** Sparse replay, propagation and angular
+  controls pass their tested phase gates. Active-space changes and all-background
+  width spreads reject. Each bar is normalized by its own declared gate;
+  these ratios are diagnostic sensitivities, not a common uncertainty measure.
+- **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
+  stability/convergence checks. Relative-energy basis and held-point interpolation
+  budgets pass; correlation treatment and the unstable stretched RHF references
+  remain open. The dipole comparison uses CCSD lambda density, not a CCSD(T)
+  energy derivative.
+- **D — Computation on local hardware.** CAS11 sparse controls reproduce the
+  dense oracle at substantially lower measured peak charges. The CAS12 dense
+  workspace floor exceeds total host RAM, motivating a separately qualified
+  sparse pilot. Dense full-pipeline and sparse retained-input replay timings
+  have different setup scopes and are not a matched speedup comparison.
+- **E — Many-electron identity.** Extending eight to twelve diagnostic roots
+  recovers missing overlap-manifold directions in an AO-following coefficient
+  frame. This is distinct from physical wavefunction overlap; root-label
+  exchanges and finite-manifold loss still motivate intermediate geometries.
+- **F — Next gates.** Complete CAS11, verify the queued CAS12 imports, resolve
+  state/extraction and electronic-model choices, then release a geometry sweep
+  and fit with held-out scattering tests.
+
+This is a dated **08:41:03 UTC** snapshot: 16384-root CAS11 B1 passes its recorded
+comparisons, B2 is active, and the target-import queue has zero launched steps.
+The completed twelve-root result passes producer checks but awaits independent
+public reconstruction. Published values come from tracked notes: Laporta2012,
+preprint p.4; Dora2016, p.6 Table4 (dipole p.4 Table2); Dora2020, p.4 Table2.
+They represent different models, not an experimental resonance error band.
+
+Reproduce both PNG and text-preserving SVG without fetching large archives:
+
+```bash
+uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
+```
+
+The renderer checks the snapshot's source-file hashes before plotting. Its 52
+neutral points are condensed from the checksum-indexed public neutral archive;
+the remaining values resolve to tracked manifests/aggregates and explicitly
+identified live producer records. The source, numeric snapshot and cited figures
+travel with a clone.
+
 ## Convergence verdict
 
 | Question | Finding | Decision |
