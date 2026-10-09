@@ -20,6 +20,44 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Host check — 9 October 2026, 12:10 UTC
+
+Owner **1065880** remains active on CPUs **4–7**. The 16384-root CAS11 **B1**
+SCATCI stage completes in **35618.46 seconds (9.89 hours)**, followed by
+119.17 seconds of outer propagation. It requests 16384 roots and converges
+16389 in 712 solver iterations. Its recorded eigenpair/boundary/phase
+comparison passes: maximum energy error **1.7053e-12 Hartree**, residual
+**1.3292e-10 Hartree** and phase difference **1.0e-8 rad modulo π**.
+
+**B2** is still in the SLEPc eigensolve after approximately **7 hours 26 minutes**;
+four native ranks each use about one CPU. The container measures **402% CPU /
+31.48 GiB**, within its 40-GiB cap. Its last stage log reports matrix assembly
+complete, dimension27546, 16384 requested roots and Krylov–Schur selected.
+The solver emits no running convergence count, so a completion percentage is
+unset. There is no recorded controller failure or timeout. Final resources,
+two-sector fixed-window fits and independent successor verification are pending.
+The owner heartbeat is updated at stage boundaries; its old timestamp during
+this long stage is corroborated by live MPI processes and resource samples.
+
+Twelve-rank import owner **1072749** retains **zero launched steps**, waiting
+for CAS11's resource release. Available RAM/free artifact disk measure
+**76.21 / 111.79 GiB**; RAM is also below the imports' 80-GiB launch floor.
+The v2 import journal is current to **11:50:18 UTC**. Independent hourly observer
+**1042600** remains active, with heartbeat **12:10:31 UTC**, and has reconstructed
+nine completed components. Existing failed predecessor services remain historical
+records; the active CAS11 and import successors have no recorded new failures.
+
+Twelve-root target-state owner **1074957** completes with exit0 at
+**01:24:13 UTC**: 24 sector solves, 288 wavefunctions and 48 matrices, in
+**4322.37 seconds / 1.18 GiB**, using **13172.12 CPU-seconds**. Its producer
+reports all sectors/pairs complete; independent portable/public reconstruction
+remains pending. CPUs **0–3** are free for that next small task. Target continuity
+and resonance-pole identity verdicts remain unset.
+
+No additional completed scientific result changes the **08:41 UTC overview**
+at this check. Its next release should include the completed two-sector CAS11
+verification or independent twelve-root reconstruction when either lands.
+
 **Local low-memory milestone:** the fixed CAS(10,10) native sparse/MPI
 2048-root replay now qualifies in both Pi sectors at **1.861 GiB**, with
 complete-grid phase error **2.0e-7 rad** and passing identical fixed-window
@@ -59,8 +97,8 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Twelve-root target-state closure control **1074957**, 2-GiB cap | Eight-root screen1073567 completes; enlarged finite-manifold diagnostic retains all original assignments and gates |
-| 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 solve active | Original 40-GiB attempt hits its six-hour cap below the memory ceiling; fresh 24-hour-stage attempt retains all scientific controls |
+| 0–3 | Free; twelve-root target-state closure control **1074957** completes | Independent twelve-root reconstruction/publication is next |
+| 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 B2 eigensolve active; B1 complete | Two-sector fits and independent verification follow before successor review |
 | 8–11 | Released; twelve-rank import owner **1072749** waiting for CPUs4–15 | Compressed space160 import follows passing TZ, explicit original aug-TZ rejection and supported-space aug-TZ verification |
 | 12–15 | Released: compressed outer replay **1071520** finishes; twelve-rank queue **1072749** waiting | Native imports use CPUs4–15 after the active memory owner; physical CPUs0–3 are reserved for small controls |
 
