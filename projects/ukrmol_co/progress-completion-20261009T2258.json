@@ -1,0 +1,72 @@
+{
+  "captured_utc": "2026-10-09T22:58:14.689879+00:00",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "remote_file_sha256": {
+    "diagnostics/cas11-native-sparse-roots16384-memory40-time24h-20261008/independent-verification.json": "e726888b15a80137ec8f38d4468f59154ed50d9d20ffab681bb01f2508533c7f",
+    "diagnostics/cas11-native-sparse-roots16384-memory40-time24h-20261008/resources.json": "8c577373eda0ceb91d5e41d6bdbc9634c064530b635be87c9fe3e5c735405911",
+    "prepared/budget-packaging-successors-source-20261008/memory-execution.json": "8982154c173a9c01a999667545bad6bb14ef4cc3d6fb6b3b772fc4901ee771f1",
+    "prepared/mpi12-import-successors-source-20261009/execution.json": "86bbd169032171e70e572629d84b7b1d36eb95d8f9b58fb06cb0aca65a42c648",
+    "runs/co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3/target.json": "6535334f1de04c5b7e8a464fc8a5dfa0e662962aa8658bf85a7ff3ac5f950b29",
+    "runs/co-r2500-cctz-sa12-qc-dz80-residual-qualified-start/target.json": "b819bfc48cf20ea6a87254cba5052bbb6f7549558eecb591ec9e30c365c5e133",
+    "runs/co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3/result.json": "c5d8d908d6d42ede1a83200e756cab18a11cf01f58a949f50bcd569193904ccc",
+    "runs/co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3/resources.json": "057bab63585e42da50e89d1cb5809e475cd350524c224f9a18cc693ce71262b8",
+    "prepared/mpi12-import-successors-source-20261009/co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3-independent-verification.launch.log": "b7af0fa82c81771e8308a8e3cb77a9ed8af19d7b212a03e829d9aeb5bc380200"
+  },
+  "cas11": {
+    "owner": 1065880,
+    "finished_utc": "2026-10-09T14:28:08.269888+00:00",
+    "controller_exit": 0,
+    "roots": 16384,
+    "sectors": {
+      "B1": {
+        "energy_error_hartree": 1.7053025658242404e-12,
+        "maximum_residual_hartree": 1.329220254186388e-10,
+        "boundary_amplitude_error": 2.5387498520101914e-07,
+        "continuum_coefficient_error": 5.782898390149782e-07,
+        "phase_error_rad_mod_pi": 9.99999993922529e-09,
+        "observable_verdict": true,
+        "maximum_fixed_window_position_difference_ev": 3.897882916634748e-09,
+        "maximum_fixed_window_width_difference_ev": 1.8114963715818506e-08
+      },
+      "B2": {
+        "energy_error_hartree": 1.6484591469634324e-12,
+        "maximum_residual_hartree": 1.3213602139192517e-10,
+        "boundary_amplitude_error": 1.9596506375951783e-07,
+        "continuum_coefficient_error": 4.46345649218749e-07,
+        "phase_error_rad_mod_pi": 0.0,
+        "observable_verdict": true,
+        "maximum_fixed_window_position_difference_ev": 1.7268062797313927e-11,
+        "maximum_fixed_window_width_difference_ev": 2.1266072306688313e-11
+      }
+    },
+    "wall_seconds": 70751.97495910502,
+    "cpu_seconds": 281705.32596,
+    "kernel_peak_bytes": 39801364480,
+    "kernel_peak_gib": 37.067909240722656,
+    "verification_scope": "Host independent raw-record / dense-oracle reconstruction passed; public archive reconstruction pending"
+  },
+  "tz_import": {
+    "owner": 1072749,
+    "stopped_utc": "2026-10-09T21:01:14.764056+00:00",
+    "controller_exit": 1,
+    "run": "co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3",
+    "reference": "co-r2500-cctz-sa12-qc-dz80-residual-qualified-start",
+    "native_exit": 0,
+    "independent_verifier_exit": 1,
+    "wall_seconds": 23493.608802956063,
+    "cpu_seconds": 86008.21833799999,
+    "kernel_peak_bytes": 44162547712,
+    "kernel_peak_gib": 41.12957763671875,
+    "native_vs_current_target_max_error_hartree": 4.957740884492523e-10,
+    "native_vs_current_target_dipole_error_au": 1.1701806190700381e-11,
+    "seed_root_gate_hartree": 1e-07,
+    "failed_seed_roots": [
+      {"spin": "triplet", "irrep": "A1", "root": 3, "difference_hartree": -3.0248814653077716e-07}
+    ],
+    "qualification_verdict": false,
+    "remaining_imports_launched": false,
+    "rank_scaling_speedup_verdict": null,
+    "interpretation": "Native import/analyzer completes, but reoptimized target does not preserve covered seed within the predeclared root gate. Independent verifier stops at qc_error; subsequent all-64-root/subspace checks are unperformed."
+  }
+}

@@ -20,6 +20,48 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Host check — 9 October 2026, 22:58 UTC
+
+**CAS11 16384-root successor completes successfully.** Owner **1065880** finishes
+with controller exit0 at **14:28:08 UTC**. Both sectors pass the host independent
+raw-record/dense-oracle eigenpair, boundary-amplitude, complete-grid phase and
+identical fixed-window observable comparisons. Maximum phase/root/residual
+errors are **1.0e-8 rad modulo π / 1.7053e-12 / 1.3292e-10 Hartree**. Maximum
+fixed-window position/full-width differences are **3.8979e-9 / 1.8115e-8 eV**.
+B2 SCATCI takes 34889.53 seconds; total native replay costs **70751.97 seconds
+(19.65 hours) / 37.068 GiB**, using 281705.33 CPU-seconds. This higher-root replay
+costs more time/RAM than the dense baseline; the lower-root passes remain the
+low-memory evidence. Public archive capture/fetch/reconstruction is pending.
+
+**Twelve-rank import queue stops at its first independent verifier.** Owner
+**1072749** launches the stretched CAS12/TZ native import after CAS11 releases
+resources. The native job and its analyzer finish exit0 in **23493.61 seconds
+(6.53 hours) / 41.130 GiB**, using 86008.22 CPU-seconds. Native/current-target
+root/dipole differences are **4.9577e-10 Hartree / 1.1702e-11 a.u.**.
+However, the import reoptimizes the seed and **triplet-A1 root 3** moves by
+**−3.0248814653e-7 Hartree**, exceeding the unchanged **1e-7-Hartree** covered-seed
+preservation gate. It is the only failing comparison among40 ensemble roots.
+The independent verifier asserts at `qc_error`, exits1, and owner1072749 stops
+at **21:01:14 UTC**. Subsequent 64-root coverage and subspace checks are unperformed;
+the target is not qualified. Supported aug-TZ and compressed imports remain
+unlaunched. Original owner/log/source/native outputs are preserved; there is no
+automatic retry or gate relaxation.
+
+The measured TZ stage split is 6124.07 seconds in target QC, 15842.32 seconds in
+DENPROP and 1515.65 seconds summed across the eight native sector diagonalizations.
+Twelve ranks therefore do not establish an overall speedup. Next diagnose
+covered-seed versus reoptimized-orbital/root drift using independently checked
+fixed-orbital evidence before declaring any fresh import successor.
+
+At **22:56:48 UTC**, all scientific containers are idle; available RAM/free
+artifact disk measure **107.37 / 110.52 GiB**. The v2 journal is current to
+**22:50:18 UTC**, and both it and independent hourly observer1042600 remain active
+under their existing 48-hour bounds. Twelve-root overlap reconstruction/publication
+is still pending. Completed CAS11 and the stopped TZ import are condensed, with
+remote record hashes, in [the completion summary](progress-completion-20261009T2258.json).
+The [overview](README.md#progress-overview--9-october-2026) is refreshed to 22:58 UTC;
+the 08:41 snapshot/figures remain preserved.
+
 ### Host check — 9 October 2026, 12:10 UTC
 
 Owner **1065880** remains active on CPUs **4–7**. The 16384-root CAS11 **B1**
@@ -97,10 +139,10 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Free; twelve-root target-state closure control **1074957** completes | Independent twelve-root reconstruction/publication is next |
-| 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 B2 eigensolve active; B1 complete | Two-sector fits and independent verification follow before successor review |
-| 8–11 | Released; twelve-rank import owner **1072749** waiting for CPUs4–15 | Compressed space160 import follows passing TZ, explicit original aug-TZ rejection and supported-space aug-TZ verification |
-| 12–15 | Released: compressed outer replay **1071520** finishes; twelve-rank queue **1072749** waiting | Native imports use CPUs4–15 after the active memory owner; physical CPUs0–3 are reserved for small controls |
+| 0–3 | Free; twelve-root closure **1074957** completes; TZ verifier rejects | Independent twelve-root reconstruction/publication and seed-drift diagnosis are next |
+| 4–7 | Free; CAS11 owner **1065880** completes both sectors and host verification | Public reconstruction/review precedes a separately declared CAS12 sparse pilot |
+| 8–11 | Free; twelve-rank import owner **1072749** stops | Compressed import remains unlaunched after the rejected TZ seed gate |
+| 12–15 | Free; twelve-rank TZ native import completes but qualification rejects | Supported aug-TZ remains unlaunched; preserve finite queue failure |
 
 The experiment roots remain `/home/kooza/ukrmol/co-sa-20261006` and
 `/home/kooza/ukrmol/co-neutral-20261006`. The approximately $200 first paid

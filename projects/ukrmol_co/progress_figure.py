@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261009.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261009T2258.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -195,8 +195,9 @@ def _memory(ax, data):
         data["dense_cas11"]["kernel_peak_gib"],
         data["memory_reference"]["cas12_dense_workspace_floor_gib"],
     ]
-    x = np.arange(5)
-    bars = ax.bar(x, values, color=[GREEN] * 3 + [BLUE, RED], width=0.64)
+    count = len(data["sparse_costs"])
+    x = np.arange(count + 2)
+    bars = ax.bar(x, values, color=[GREEN] * count + [BLUE, RED], width=0.64)
     bars[-1].set_hatch("///")
     ram = data["memory_reference"]["host_ram_gib"]
     ax.axhline(ram, color=RED, lw=1, linestyle="--")
@@ -204,14 +205,20 @@ def _memory(ax, data):
     ax.set_yscale("log")
     ax.set_ylim(3, 450)
     ax.set_yticks([5, 10, 25, 50, 100, 250], ["5", "10", "25", "50", "100", "250"])
-    ax.set_xticks(x, ["CAS11\n2048", "CAS11\n4096", "CAS11\n8192", "CAS11\ndense", "CAS12\ndense"])
+    ax.set_xticks(
+        x,
+        [f"CAS11\n{row['roots']}" for row in data["sparse_costs"]]
+        + ["CAS11\ndense", "CAS12\ndense"],
+    )
     ax.set_ylabel("Peak / lower-bound memory / GiB (log scale)")
     for i, value in enumerate(values):
-        ax.text(i, value * 1.14, f"{value:.1f}" if i < 4 else ">222", ha="center", fontsize=10)
+        ax.text(
+            i, value * 1.14, f"{value:.1f}" if i < count + 1 else ">222", ha="center", fontsize=10
+        )
     for i, row in enumerate(data["sparse_costs"]):
         ax.text(i, 3.4, f"{row['wall_hours']:.2f} h", ha="center", fontsize=9, color="white")
     ax.text(
-        3,
+        count,
         3.4,
         f"{data['dense_cas11']['wall_hours']:.2f} h*",
         ha="center",
@@ -220,9 +227,12 @@ def _memory(ax, data):
     )
     _note(
         ax,
-        "2048–8192 roots reproduce dense scattering within gates.\n"
+        f"2048–{data['sparse_costs'][-1]['roots']} roots reproduce dense scattering within gates.\n"
         "*Dense includes setup; sparse timings are replay costs.\n"
-        "Next: finish 16384 roots, then qualify a CAS12 sparse pilot.",
+        + data.get(
+            "memory_next_step",
+            "Next: finish 16384 roots, then qualify a CAS12 sparse pilot.",
+        ),
     )
 
 
@@ -274,10 +284,10 @@ def _roadmap(ax, data):
             "Independent roots / dipoles / phases; preserved failures",
         ),
         (
-            BLUE,
-            "ACTIVE",
-            "Finish CAS11 → verify three CAS12 imports",
-            "16384 roots: B1 done, B2 running; imports queued",
+            RED if data.get("roadmap_import_status") == "STOPPED" else BLUE,
+            data.get("roadmap_import_status", "ACTIVE"),
+            data.get("roadmap_import_title", "Finish CAS11 → verify three CAS12 imports"),
+            data.get("roadmap_import_detail", "16384 roots: B1 done, B2 running; imports queued"),
         ),
         (
             ORANGE,
@@ -339,6 +349,22 @@ def _roadmap(ax, data):
     )
 
 
+def _snapshot_data(snapshot: Path) -> dict:
+    """Resolve a full snapshot or a hash-pinned delta against the first release."""
+    data = json.loads(snapshot.read_text())
+    if "base_snapshot" not in data:
+        return data
+    base = snapshot.with_name(data["base_snapshot"]).read_bytes()
+    if hashlib.sha256(base).hexdigest() != data["base_snapshot_sha256"]:
+        raise ValueError("Historical base snapshot hash differs")
+    result = json.loads(base)
+    if "base_snapshot" in result:
+        raise ValueError("Snapshot deltas must reference a full snapshot")
+    result.update(data["updates"])
+    result["source_file_sha256"].update(data["additional_source_file_sha256"])
+    return result
+
+
 def render(snapshot: Path, output: Path) -> None:
     """Write a PNG and text-preserving SVG from the dated plotted-data snapshot."""
     import matplotlib
@@ -346,7 +372,7 @@ def render(snapshot: Path, output: Path) -> None:
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    data = json.loads(snapshot.read_text())
+    data = _snapshot_data(snapshot)
     for name, digest in data["source_file_sha256"].items():
         if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != digest:
             raise ValueError(f"Snapshot provenance differs from current source: {name}")
@@ -409,7 +435,10 @@ def render(snapshot: Path, output: Path) -> None:
         0.030,
         "Atomic units internally; eV at presentation. C2v state counts are components. "
         "AO-following transport is not physical wavefunction overlap. "
-        "12-root / latest B1 values await independent publication.",
+        + data.get(
+            "verification_footer",
+            "12-root / latest B1 values await independent publication.",
+        ),
         fontsize=9,
         color=GRAY,
     )
@@ -437,7 +466,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261009"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261009T2258"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

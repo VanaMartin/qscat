@@ -23,17 +23,27 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 
 ## Progress overview — 9 October 2026
 
-![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261009.png)
+![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261009T2258.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261009.svg) ·
-[Plotted-data snapshot and source hashes](progress-snapshot-20261009.json)
+[Vector figure](../../docs/physics/figures/co-progress-20261009T2258.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261009T2258.json) ·
+[New completion evidence and remote hashes](progress-completion-20261009T2258.json)
 
-This is the first release of an incremental overview. New findings, verification
+This is the **22:58 UTC** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
+
+**What changed:** CAS11 16384-root scattering now passes both-sector independent
+host reconstruction, with measured cost **19.65 hours / 37.07 GiB**. The first
+twelve-rank CAS12/TZ native import finishes in **6.53 hours / 41.13 GiB**, but its
+covered-seed root-preservation check rejects and stops the queue. Public CAS11
+reconstruction and independent twelve-root overlap reconstruction remain pending.
+The [08:41 UTC figure](../../docs/physics/figures/co-progress-20261009.png),
+[vector copy](../../docs/physics/figures/co-progress-20261009.svg) and
+[original snapshot](progress-snapshot-20261009.json) preserve the earlier release.
 
 The six panels explain the qualification campaign:
 
@@ -50,8 +60,10 @@ The six panels explain the qualification campaign:
   budgets pass; correlation treatment and the unstable stretched RHF references
   remain open. The dipole comparison uses CCSD lambda density, not a CCSD(T)
   energy derivative.
-- **D — Computation on local hardware.** CAS11 sparse controls reproduce the
-  dense oracle at substantially lower measured peak charges. The CAS12 dense
+- **D — Computation on local hardware.** CAS11 sparse controls through 16384 roots
+  reproduce the dense oracle. The 2048–8192-root controls use lower measured peak
+  charges; the 16384-root refinement costs more RAM/time than the dense baseline.
+  The CAS12 dense
   workspace floor exceeds total host RAM, motivating a separately qualified
   sparse pilot. Dense full-pipeline and sparse retained-input replay timings
   have different setup scopes and are not a matched speedup comparison.
@@ -59,12 +71,16 @@ The six panels explain the qualification campaign:
   recovers missing overlap-manifold directions in an AO-following coefficient
   frame. This is distinct from physical wavefunction overlap; root-label
   exchanges and finite-manifold loss still motivate intermediate geometries.
-- **F — Next gates.** Complete CAS11, verify the queued CAS12 imports, resolve
+- **F — Next gates.** Publish CAS11, diagnose the rejected CAS12/TZ seed comparison, resolve
   state/extraction and electronic-model choices, then release a geometry sweep
   and fit with held-out scattering tests.
 
-This is a dated **08:41:03 UTC** snapshot: 16384-root CAS11 B1 passes its recorded
-comparisons, B2 is active, and the target-import queue has zero launched steps.
+This is a dated **22:58:14 UTC** snapshot: 16384-root CAS11 finishes at 14:28 UTC
+and passes host independent comparisons. The import queue stops at 21:01 UTC:
+reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
+above the 1e-7 gate. Native/current-target analyzer comparisons pass, but the
+all-64-root coverage/subspace verifier does not complete. Supported aug-TZ and
+compressed imports remain unlaunched. The original failure is preserved.
 The completed twelve-root result passes producer checks but awaits independent
 public reconstruction. Published values come from tracked notes: Laporta2012,
 preprint p.4; Dora2016, p.6 Table4 (dipole p.4 Table2); Dora2020, p.4 Table2.
@@ -76,7 +92,9 @@ Reproduce both PNG and text-preserving SVG without fetching large archives:
 uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
-The renderer checks the snapshot's source-file hashes before plotting. Its 52
+The renderer checks the snapshot's source-file hashes before plotting. The new
+snapshot is an explicit delta against the hash-pinned first snapshot, keeping
+the reference comparisons and neutral curve identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;
 the remaining values resolve to tracked manifests/aggregates and explicitly
 identified live producer records. The source, numeric snapshot and cited figures
