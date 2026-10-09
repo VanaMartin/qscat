@@ -28,6 +28,13 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [Vector figure](../../docs/physics/figures/co-progress-20261009.svg) ·
 [Plotted-data snapshot and source hashes](progress-snapshot-20261009.json)
 
+This is the first release of an incremental overview. New findings, verification
+milestones, rejected gates and measured resource outcomes trigger a fresh dated
+release. This section follows the latest release; earlier snapshots and figures
+remain available for comparison. The
+[standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
+records the publication convention.
+
 The six panels explain the qualification campaign:
 
 - **A — Published resonance comparisons.** The SA-CAS10/11 candidates remain

@@ -1,5 +1,23 @@
 # CO experiment: resources and continuation
 
+## Standing progress-figure workflow
+
+Keep the [six-panel progress overview](README.md#progress-overview--9-october-2026)
+incremental as new results land. Refresh it whenever a completed result,
+independent reconstruction, qualification verdict or measured resource outcome
+adds evidence or changes the next decision. Include failures and rejected gates
+when they explain the campaign's direction.
+
+Each update records its UTC cutoff, source hashes, numerical values and
+verification status in a fresh dated snapshot, with matching PNG/SVG figures.
+Preserve previous snapshots and figures; use a time suffix for multiple releases
+on the same day. Update the renderer's defaults and the README overview to the
+newest release, retaining links to earlier releases and a short account of what
+changed. The six-panel layout should remain comparable across updates.
+Producer-only results stay explicitly labelled until independent reconstruction
+is complete. Update the roadmap alongside the findings so each experiment's
+motivation and newly unlocked steps remain visible.
+
 ## Live qualification handoff
 
 **Local low-memory milestone:** the fixed CAS(10,10) native sparse/MPI
