@@ -882,8 +882,27 @@ labelled AO-following metric remains a coefficient-frame diagnostic. Six toy
 full-Slater/analytic tests and a pinned-image determinant-ordering control pass
 before launch. Every original five-root native table, fresh CI flag, residual,
 spin and root norm must pass before overlap interpretation. Root assignment,
-ambiguity and finite-manifold leakage are recorded; the extra three diagnostic
-roots and coarse geometry spacing cannot certify full target or pole continuity.
+ambiguity and finite-manifold projection loss are recorded; the extra three
+diagnostic roots and coarse geometry spacing cannot certify full target or pole continuity.
+
+That [screen completes and independently reconstructs](../../projects/ukrmol_co/qualification-evidence/target-state-overlap/README.md)
+**24 sector solves / 192 wavefunctions / 48 matrices** in **3703.42 seconds /
+0.836895 GiB**. All native-root/residual/spin/CI gates pass, with full occupied-
+minor reconstruction error **3.320e-14**. Singlet-A2 roots **1↔2** exchange their
+strongest compressed-to-equilibrium matches in both metrics. Equilibrium-to-
+stretched assignments move retained roots to extra roots in singlet-A2,
+triplet-A1 and triplet-A2; singlet-B1/B2 eight-root manifolds can be nearly
+singular. Across 384 assignments there are 227 weak, 105 ambiguous and 20
+first-five-to-extra triggers. Moving-frame loss and excluded target states both
+contribute to projection deficits. Energy labels alone cannot establish identity.
+
+The [separate twelve-root/space240 closure contract](../../projects/ukrmol_co/cas11-target-state-overlap-roots12-contract.json)
+preserves all original eight-root findings. It compares first-eight energies and
+same-geometry energy-matched projections against all twelve fresh roots, with
+unchanged native checkpoint/model and strict electronic gates. Near-degenerate
+subspaces at the root8 cut are compared by projection rather than individual
+vector signs or labels. Enlarging a finite manifold is a diagnostic control;
+continuity, model selection and pole identity still require their own qualification.
 
 ### Compressed CAS12 singlet-A1 driver diagnosis
 

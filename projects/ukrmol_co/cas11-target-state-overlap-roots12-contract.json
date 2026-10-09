@@ -1,0 +1,11 @@
+{
+  "status": "finite reserved-core root-manifold closure control after the passing eight-root screen",
+  "parent_contract": "cas11-target-state-overlap-screen-contract.json",
+  "references": ["co-r1900-ccdz-sa11-tight-cc40-anchor", "co-eq-ccdz-sa11-tight-cc40", "co-r2500-ccdz-sa11-tight-cc40-anchor"],
+  "changes": "Fresh fixed-orbital solves request12 roots per spin/irrep and Davidson space240. Preserve the original eight-root/space160 wavefunctions, energies, overlaps and triggers. Orbitals, geometry, basis, spin penalty,600-cycle diagnostic budget and all electronic/numerical tolerances are unchanged.",
+  "lower_root_gates": {"first_eight_energy_agreement_hartree": 1e-7, "minimum_same_geometry_energy_matched_projection_weight": 0.99999999, "energy_matching_tolerance_hartree": 1e-7},
+  "electronic_gates": "All12 CI flags, physical and penalized residuals <=1e-9Hartree, spin error <=1e-6, original five native roots per sector <=1e-7Hartree, root orthogonality <=1e-9. Preserve every failed gate and stop without automatic retry/tuning.",
+  "overlap_controls": "Repeat all48 physical/AO-following pair/sector matrices at12-by12 roots. Full occupied-minor reconstruction, reverse-pair reciprocity and magnitude/singular-value bounds retain original tolerances. Compare enlarged singular values and missing/ambiguous assignments with the original8-root findings; closure improvement is diagnostic, not a continuity/pole/model release.",
+  "resources": {"cpu_group": "0-3", "threads": 4, "container_memory_gib": 2, "container_memory_swap_gib": 2, "minimum_available_ram_gib": 16, "minimum_free_disk_gib": 40, "container_timeout_seconds": 28800, "eligibility_wait_timeout_hours": 1},
+  "scope": "Finite-manifold completeness diagnostic at fixed qualified anchors; roots6-12 are fresh CI controls, not newly native-imported states. Same-geometry comparison includes all12 roots so a near-degenerate cut at root8 does not create a false identity rejection. No geometry sweep or target/model selection."
+}

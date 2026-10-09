@@ -41,7 +41,7 @@ depend on these finite workers:
 
 | Physical CPUs | Active work | Follow-on dependency |
 |---|---|---|
-| 0–3 | Small target-state overlap screen **1073567**, 2-GiB cap | Fresh fixed-orbital CI at the three saved CAS11 anchors; hourly reconstruction defers while this reserved slot is occupied |
+| 0–3 | Twelve-root target-state closure control **1074957**, 2-GiB cap | Eight-root screen1073567 completes; enlarged finite-manifold diagnostic retains all original assignments and gates |
 | 4–7 | Fresh time-budget owner **1065880**, native 16384-root CAS11 solve active | Original 40-GiB attempt hits its six-hour cap below the memory ceiling; fresh 24-hour-stage attempt retains all scientific controls |
 | 8–11 | Released; twelve-rank import owner **1072749** waiting for CPUs4–15 | Compressed space160 import follows passing TZ, explicit original aug-TZ rejection and supported-space aug-TZ verification |
 | 12–15 | Released: compressed outer replay **1071520** finishes; twelve-rank queue **1072749** waiting | Native imports use CPUs4–15 after the active memory owner; physical CPUs0–3 are reserved for small controls |
@@ -841,6 +841,74 @@ links** in the touched handoff/physics documents and diff checks pass. The
 six new determinant-overlap tests and pinned-image full-minor control passed
 before launch. Main-index snapshot **97b8b4c** remains complete/upstream-current;
 this toy method, diagnostic contract/design and handoff are branch-local additions.
+
+#### Completed overlap screen and twelve-root closure — 9 October 2026
+
+The eight-root owner **1073567** completes with original exit0 at
+`finished_unix=1791504446.5570796`: **24 sector solves / 192 wavefunctions /
+48 overlap matrices**, **3703.42 seconds wall / 11265.38 aggregate CPU seconds**,
+**0.836895-GiB kernel peak**. All native first-five roots, CI flags, physical and
+penalized Hamiltonian residuals, spins, same-geometry root orthogonality and
+pair reconstruction gates pass. Independent local replay rebuilds AO integrals
+and Hamiltonian actions from original checkpoints, contracting **full occupied
+Slater minors** instead of the producer's Schur reduction. Maximum native root
+error is **5.460e-10 Hartree**; physical/penalized residuals are **6.947e-10 /
+9.956e-10 Hartree**, spin error **5.418e-14**, and overlap error **3.320e-14**.
+
+The [public overlap companion](qualification-evidence/target-state-overlap/README.md)
+preserves **118 payloads / 18455 resource samples**, all original source/native
+inputs, CI vectors, cross metrics, pair matrices, assignments, logs and measured
+costs. Public fetch, full independent reconstruction and exact repackaging pass
+for archive SHA256
+`68458d72f565ed527146fc8f47db60f4ef22d94a418e7ad7f46dbd6cf3f766bd`.
+
+Singlet-A2 roots **1↔2** exchange strongest matches between compressed and
+equilibrium geometries in both physical/AO-following metrics. Equilibrium-to-
+stretched first-five assignments additionally move to extra roots in
+**singlet.A2 (4→7,5→8), triplet.A1 (4→7), triplet.A2 (4→6,5→8)**. The AO-following
+triplet-A1 4→7 squared overlap is **0.7954**, triplet-A2 4→6 **0.8558**. Several
+singlet-B1/B2 eight-root manifolds are nearly singular even at adjacent anchors.
+Across all 384 pair/metric/root assignments there are **227 weak / 105 ambiguous /
+20 first-five-to-extra triggers**. These include moving-core physical-overlap
+loss and finite-manifold omissions; they do not isolate omitted-state populations.
+All original root-order changes/ambiguities remain explicit. Target/pole identity
+and continuous-path verdicts remain unset.
+
+A [fresh twelve-root/space240 closure control](cas11-target-state-overlap-roots12-contract.json)
+then uses the small-core reservation to test finite-manifold incompleteness.
+Service `co-target-state-overlap-roots12-20261009.service`, owner **1074957**,
+retains unchanged native-imported orbitals/basis/geometries/spin penalty and all
+CI/residual/native gates. The separately declared600-cycle fixed-orbital budget
+remains; whole-container time is bounded at **28800 seconds**, with a one-hour
+eligibility wait. It uses CPUs**0–3**, four library threads, **2-GiB memory/swap**,
+**16-GiB available-RAM / 40-GiB disk** admission floors, with no automatic retry.
+It requests **24 sector solves / 288 wavefunctions / 48 twelve-by-twelve matrices**.
+Original first-eight energies must match within **1e-7 Hartree** and project with
+weight at least **0.99999999** onto energy-matched new roots; all12 roots participate
+in that projection so a near-degenerate root8 cut does not create a false failure.
+Only the original first-five roots are claimed as native-imported comparisons.
+
+The fresh immutable source lives under
+`prepared/target-state-overlap-roots12-source-20261009/`: **9 source/control files /
+73 original native/eight-root inputs**; outputs live under
+`diagnostics/cas11-target-state-overlap-roots12-20261009/`. Read-only pidfd watcher
+`sh_11e0372d8001uAy1uO3TgJKdlI` waits at most nine hours. Its completion still
+requires independent reconstruction/publication and cannot release a geometry
+sweep or select the electronic model.
+
+At **2026-10-09 00:20:11 UTC**, root-closure owner1074957 is active at
+**322% CPU / 376 MiB**; all9/73 frozen hashes pass. CAS11 owner1065880 remains
+active at **401% CPU / 30.75 GiB** on CPUs4–7; twelve-rank import owner1072749
+still has **zero steps** and its prerequisite wait. RAM/disk are **77.60 /
+113.18 GiB**; the pilot is idle. Existing bounded hourly journals continue.
+
+Public reconstruction agrees exactly with the local verifier report; its
+passing reports and publication metadata are copied to persistent
+`prepared/publication-target-state-overlap-20261009/`. Tracked/public manifest
+parity, JSON/Python3.11 syntax, **193 relative links**, Ruff/format and diff
+checks pass. Main snapshot **97b8b4c** retains complete integrity; the latest
+bounded refresh is checking with upstream currency temporarily unknown.
+The completed public evidence, fresh closure contract and handoff are branch-local.
 
 ### Original local hourly observation — 8 October 2026
 

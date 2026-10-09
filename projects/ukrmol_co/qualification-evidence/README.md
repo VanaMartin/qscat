@@ -176,6 +176,17 @@ Original zero-step waiter/source records remain exact; real twelve-rank recipe/
 batch-snapshot preflight passes. The archive captures a waiting queue, with
 native-import and scaling verdicts unset.
 
+The [many-electron target-state overlap companion](target-state-overlap/README.md)
+reconstructs **118 payloads / 18455 profiles**, **192 wavefunctions / 48 matrices**
+at the unchanged three CAS11/cc-pVDZ anchors. Native first-five energies,
+physical/penalized Hamiltonian residuals, spins and root orthogonality pass;
+independent full occupied-minor overlap error is **3.320e-14**. Singlet-A2 roots
+1↔2 exchange compressed-to-equilibrium matches, and several retained roots
+assign outside the first-five manifold toward stretched geometry. Weak/ambiguous
+assignments and nearly singular eight-root manifolds motivate a separately
+declared twelve-root closure control. Physical overlaps and AO-following
+coefficient-frame transport remain distinct, with continuity/pole verdicts unset.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

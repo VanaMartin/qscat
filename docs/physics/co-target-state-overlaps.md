@@ -56,6 +56,18 @@ roots cannot certify a full continuous path or establish resonance-pole identity
 Projection deficits combine geometry/orbital-frame loss and excluded target
 states; they are not isolated omitted-state populations.
 
+The [completed eight-root companion](../../projects/ukrmol_co/qualification-evidence/target-state-overlap/README.md)
+records state-order changes, retained-root assignments outside the first five,
+and nearly singular finite manifolds. The [twelve-root closure contract](../../projects/ukrmol_co/cas11-target-state-overlap-roots12-contract.json)
+keeps the same checkpoints and enlarges only the diagnostic root/space request.
+First-eight energies are compared within 1e-7 Hartree. For each original vector,
+sum squared overlaps with **all twelve new roots within 1e-7 Hartree of its
+energy** and require a weight ≥0.99999999. This compares the matching eigenspace
+without imposing an arbitrary individual vector in a near-degenerate manifold
+at the root8 cut. Full-root CI/residual/spin/orthogonality gates remain mandatory.
+Root assignment triggers and final continuity/pole verdicts retain their distinct
+diagnostic and qualification roles.
+
 This method stays at the validated Python toy stage. Saved CI vectors and
 metrics permit independent reconstruction using direct full occupied minors;
 no Rust optimization or QSCAT promotion is released.

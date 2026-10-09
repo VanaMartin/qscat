@@ -1,0 +1,30 @@
+{
+  "git_sha": "1d30e87aa423a69f3d54204512af5611eac94729",
+  "date": "2026-10-09",
+  "record_type": "cas11-frozen-core-target-state-overlap-screen",
+  "archive_sha256": "68458d72f565ed527146fc8f47db60f4ef22d94a418e7ad7f46dbd6cf3f766bd",
+  "archive_bytes": 78419779,
+  "verified_payloads": 118,
+  "profiles": 18455,
+  "sector_solves": 24,
+  "wavefunctions": 192,
+  "overlap_matrices": 48,
+  "wall_seconds": 3703.4161387430504,
+  "aggregate_cpu_seconds": 11265.375293000001,
+  "kernel_peak_gib": 0.8368949890136719,
+  "maximum_native_root_error_hartree": 5.45981038158061e-10,
+  "maximum_reconstructed_physical_residual_hartree": 6.947225221114154e-10,
+  "maximum_reconstructed_penalized_residual_hartree": 9.95591900906555e-10,
+  "maximum_reconstructed_spin_error": 5.417888360170764e-14,
+  "maximum_independent_overlap_error": 3.319566843629218e-14,
+  "trigger_counts_across_both_metrics_and_all_pairs": {
+    "weak_assignment_trigger": 227,
+    "ambiguous_row_trigger": 105,
+    "ensemble_to_extra_root_trigger": 20
+  },
+  "byte_identical_repackaging": true,
+  "final_target_continuity_verdict": null,
+  "final_resonance_pole_identity_verdict": null,
+  "scope": "Eight-root fixed-orbital diagnostic at three CAS11/cc-pVDZ anchors. Physical overlaps and separately labelled AO-following transport include both frozen cores. Five roots per sector match the native import; extra roots are independent CI controls. Assignment triggers and finite-manifold projection loss are diagnostics, not continuous-path or model/pole qualification. Full source/checkpoint hashes, CI arrays, orbital metrics, overlaps, actions and assignments reconstruct independently.",
+  "full_report": "https://data.qscat.org/ukrmol-co-target-state-overlap-2026-10-09/manifest.60e338199cdd.json"
+}
