@@ -1,0 +1,34 @@
+{
+  "base_snapshot": "progress-snapshot-20261009.json",
+  "base_snapshot_sha256": "33730acaf11066acc1f97672efbe145e5aff625c4006cd34c0bc279207c04f46",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-completion-20261009T2258.json": "cf90aff31bb2d224d6d9d0fdd6f6fc1f05ab8f8f1de16589b55f0479b499ec8d",
+    "projects/ukrmol_co/progress-completion-20261010.json": "5ff3473e5ea15f2b9e71679f849304394610c7f3cbb20a2136b78a99ea99d492",
+    "projects/ukrmol_co/progress-start-20261010T1146.json": "effb3f8d7614435856d6025cfad9376e7f08210d10afa0a1a515ba2ce584e0df"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-10T11:46:53.140639+00:00",
+    "changes": [
+      "Separately declared reoptimized TZ target passes ordinary QC and independent64-root/dipole/residual checks using existing evidence; original seed-preservation rejection remains unchanged.",
+      "Fresh supported aug-TZ/compressed import queue starts with12 ranks on CPUs4-15 and unchanged per-import gates; aug-TZ is running, compressed remains gated.",
+      "Two-start CAS11 midpoint control atR=2.31615bohr starts on reserved CPUs0-3. No endpoint re-solves, root-count escalation or scattering launch.",
+      "A new finite48-hour hourly observer captures owner heartbeats, progress and resources."
+    ],
+    "sparse_costs": [
+      {"roots": 2048, "kernel_peak_gib": 7.692779541015625, "wall_hours": 2.454474193649431, "phase_error_rad": 5.099999999869098e-06},
+      {"roots": 4096, "kernel_peak_gib": 7.365123748779297, "wall_hours": 3.33523514799916, "phase_error_rad": 1.0000000028043132e-07},
+      {"roots": 8192, "kernel_peak_gib": 13.16033935546875, "wall_hours": 7.0564415086561345, "phase_error_rad": 1.0000000005838672e-07},
+      {"roots": 16384, "kernel_peak_gib": 37.067909240722656, "wall_hours": 19.653326377529172, "phase_error_rad": 9.99999993922529e-09, "source": "progress-completion-20261009T2258.json, cas11", "verification": "Both-sector host independent reconstruction passes; public replay pending"}
+    ],
+    "live_status": {"cas11_owner": 1065880, "cas11_finished": true, "cas11_completed_sectors": ["B1", "B2"], "cas11_host_independent_verification_passed": true, "cas11_public_reconstruction_complete": false, "original_import_owner": 1072749, "original_import_seed_preservation_verdict": false, "original_import_queue_exit": 1, "reoptimized_tz_target_qualification_passed": true, "import_owner": 1127732, "imports_launched": 1, "import_queue_stopped": false, "import_queue_exit": null, "compressed_import_launched": false, "midpoint_owner": 1127334, "midpoint_bohr": 2.31615, "midpoint_qc_starts_completed": 0, "twelve_root_finished": true, "twelve_root_host_independent_verification_passed": true, "twelve_root_public_reconstruction_complete": false, "tz_drift_independent_verification_passed": true, "observer_owner": 1127982},
+    "roadmap_import_status": "ACTIVE",
+    "roadmap_import_title": "CAS12 supported imports + midpoint controls",
+    "roadmap_import_detail": "TZ frame qualified; aug-TZ running on 12 ranks",
+    "memory_next_step": "Use smallest passing root count; justify each CAS12 refinement.",
+    "twelve_root_label": "12 roots: host independent replay passes",
+    "tracking_next_step": "Active: two projected starts at midpoint R = 2.31615 bohr.",
+    "roadmap_tracking_detail": "Two-start midpoint / extraction controls / public replay",
+    "verification_footer": "TZ reoptimized target qualified; original seed gate rejected. CAS11 / overlaps: host replay passes; public pending.",
+    "interpretation": "Reference predictions, fit candidates, diagnostic gate ratios and AO coefficient-frame transport retain distinct meanings. The separately declared reoptimized TZ target passes numerical consistency gates; original seed preservation still rejects. Supported aug-TZ/compressed imports keep original per-import seed/root/dipole/residual gates and stop on failure. Midpoint ordinary QC must pass before600-cycle fixed-orbital controls; midpoint states are not native imports or qualified scattering targets. No further CAS11 high-root runs or CAS12 scattering are launched. Public reconstruction and electronic-model/continuous-path/potential-fit qualification remain pending."
+  }
+}

@@ -1,0 +1,592 @@
+{
+  "captured_utc": "2026-10-10T11:46:53.140639+00:00",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "remote_immutable_file_sha256": {
+    "diagnostics/cas12-tz-reoptimized-target-qualification-20261010/result.json": "a938cd2015673c6e90b0022feea30f3b167a270a65066c16c38ff450b5b4469d",
+    "diagnostics/cas12-tz-reoptimized-target-qualification-20261010/resources.json": "2562f6c68088912844807a2968068e440d03213d6183e700d6da77e8785dc3cc",
+    "prepared/co-tz-reoptimized-qualification-source-20261010/frozen-inputs.json": "dabe63062549831ff4d6be006a98f33a9a44a7f292e779eb21acfb91b90793f3",
+    "prepared/co-midpoint-tracking-source-20261010/frozen-inputs.json": "46cbb068b6ec05515086359adcacfe169d54326f7d884389c2cebde388747531",
+    "prepared/supported-import-frame-source-20261010/frozen-inputs.json": "0266292a45bfdf1b24f517fbb8d424b0e05bd6e06f0f453fcd4e4de5adfdfc69",
+    "prepared/supported-import-frame-source-20261010/packaging-preflight.json": "f2ae0f48bcdf69c6892c16905a125597300d0b28d211e95e9848a7aead9f873a",
+    "prepared/frame-midpoint-progress-source-20261010/observer.py": "bd5051ac9a121286e764adffe95183ca8f9a9070db25eee7b548c2452dc51946",
+    "prepared/frame-midpoint-progress-source-20261010/contract.json": "387b75005e41918e05493f643d4a18cf90c4845adb65d585db4988be10785791"
+  },
+  "tz_qualification": {
+    "target_id": "co-r2500-cctz-sa12-reoptimized-frame-qualified-20261010",
+    "native_artifact_run": "co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3",
+    "checkpoint_sha256": "8518dc191b8670af9ec87d7666b091eaf370187e7022684cd93716d240b40568",
+    "contract_sha256": "16fc5b975cc7fcccb3290474c5c756b69c96f9309feebec4c98835a20f586fcd",
+    "qualification_passed": true,
+    "all_64_native_roots_pass": true,
+    "forty_ensemble_qc_flags_and_properties_pass": true,
+    "original_import_seed_preservation_verdict": false,
+    "original_import_controller_exit": 1,
+    "seed_frame_root_shifts_hartree": [
+      {
+        "spin": "singlet",
+        "irrep": "A1",
+        "root": 1,
+        "shift": -2.1946391370875062e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A1",
+        "root": 2,
+        "shift": 4.755818849844218e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A1",
+        "root": 3,
+        "shift": -1.0551275408943184e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A1",
+        "root": 4,
+        "shift": -2.7552857773116557e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A1",
+        "root": 5,
+        "shift": 1.878917998965335e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B1",
+        "root": 1,
+        "shift": 3.289764549663232e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B1",
+        "root": 2,
+        "shift": 1.2701136142823088e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B1",
+        "root": 3,
+        "shift": 1.2137491012254031e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B1",
+        "root": 4,
+        "shift": 1.6115251355586224e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B1",
+        "root": 5,
+        "shift": 3.632402467701468e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B2",
+        "root": 1,
+        "shift": 3.291231109869841e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B2",
+        "root": 2,
+        "shift": 1.2709733709925786e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B2",
+        "root": 3,
+        "shift": 1.2137491012254031e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B2",
+        "root": 4,
+        "shift": 1.6104607425404538e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "B2",
+        "root": 5,
+        "shift": 3.632484890658816e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A2",
+        "root": 1,
+        "shift": 4.581977464113152e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A2",
+        "root": 2,
+        "shift": 4.755975169246085e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A2",
+        "root": 3,
+        "shift": -2.7552857773116557e-09
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A2",
+        "root": 4,
+        "shift": -2.032456336564792e-08
+      },
+      {
+        "spin": "singlet",
+        "irrep": "A2",
+        "root": 5,
+        "shift": -2.6756538318295497e-08
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A1",
+        "root": 1,
+        "shift": 1.1084736684097152e-08
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A1",
+        "root": 2,
+        "shift": 7.913172339613084e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A1",
+        "root": 3,
+        "shift": -3.0248814653077716e-07
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A1",
+        "root": 4,
+        "shift": -9.243947829418175e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A1",
+        "root": 5,
+        "shift": -1.7203660718223546e-10
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B1",
+        "root": 1,
+        "shift": 3.309111207272508e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B1",
+        "root": 2,
+        "shift": 9.475030537942075e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B1",
+        "root": 3,
+        "shift": 1.4983569940341113e-08
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B1",
+        "root": 4,
+        "shift": 1.5591439250783878e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B1",
+        "root": 5,
+        "shift": 2.4265617071250745e-08
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B2",
+        "root": 1,
+        "shift": 3.3078606520575704e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B2",
+        "root": 2,
+        "shift": 9.477702178628533e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B2",
+        "root": 3,
+        "shift": 1.499104484992131e-08
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B2",
+        "root": 4,
+        "shift": 1.5591155033689574e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "B2",
+        "root": 5,
+        "shift": 2.4259136921500613e-08
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A2",
+        "root": 1,
+        "shift": 7.91330023730552e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A2",
+        "root": 2,
+        "shift": 9.00331542652566e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A2",
+        "root": 3,
+        "shift": 1.496930224220705e-08
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A2",
+        "root": 4,
+        "shift": -9.243947829418175e-09
+      },
+      {
+        "spin": "triplet",
+        "irrep": "A2",
+        "root": 5,
+        "shift": -2.990475422848249e-09
+      }
+    ],
+    "seed_frame_objective_shift_hartree": -1.1368683772161603e-13,
+    "seed_frame_ground_shift_hartree": -2.1946391370875062e-09,
+    "seed_frame_dipole_shift_au": [
+      0.0,
+      0.0,
+      -4.2501120522953073e-07
+    ],
+    "final_orbital_gradient": 3.7219127758577185e-08,
+    "final_objective_step_hartree": -7.105427357601002e-14,
+    "independent_native_root_error_hartree": 5.002220859751105e-11,
+    "independent_native_dipole_error_au": 4.642397577470092e-12,
+    "independent_residuals": {
+      "physical_residual_hartree": 7.488733453142728e-10,
+      "penalized_residual_hartree": 9.937525530782304e-10,
+      "spin_penalty_action_hartree": 5.992715016961429e-10,
+      "spin_square_error": 2.353672812205332e-14
+    },
+    "subspace_singular_values": {
+      "core": [
+        1.0000000000000018,
+        1.000000000000001
+      ],
+      "active": [
+        1.0000000000000009,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999997,
+        0.9999999999999992,
+        0.999999999999999,
+        0.9999999999999949,
+        0.9999999999999928,
+        0.9999999999999902,
+        0.9999999999999395,
+        0.9999999999999165,
+        0.9999999999774024
+      ]
+    },
+    "format_controls": {
+      "exact_and_both_half_unit_ties_pass": true,
+      "corrupt_tokens_rejected": true,
+      "inherited_cidata_sets_excluded": true,
+      "missing_final_set_rejected": true
+    },
+    "electronic_model_qualification": null,
+    "scope": "New covered-target numerical consistency only. Electronic-model convergence, unique orbital optimum, geometry continuity, public raw-archive reconstruction and scattering/potential fitting remain unqualified. A fresh subsequent-import contract may depend on this record; no original controller/verdict is rewritten."
+  },
+  "tz_qualification_resources": {
+    "exit_code": 0,
+    "wall_seconds": 0.40135525702498853,
+    "sampled_peak_container_memory_bytes": 103583744,
+    "baseline_container_memory_bytes": 53161984,
+    "sampled_peak_container_anon_bytes": 99319808,
+    "kernel_peak_container_memory_bytes": 103583744,
+    "container_cpu_seconds": 0.482699,
+    "sampled_peak_run_allocated_bytes": 20480,
+    "sampled_peak_scratch_allocated_bytes": 0,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "owners": {
+    "co-tz-reoptimized-qualification-source-20261010": {
+      "captured_record_sha256": "8c525fe64c9efbb292cda8a2763dcbf2902e99b7f4982750651c4b05f6472a20",
+      "captured_record": {
+        "supervisor_pid": 1126703,
+        "started_unix": 1791632038.6979613,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "cpu_group": "0-3",
+        "frozen_inputs_sha256": "dabe63062549831ff4d6be006a98f33a9a44a7f292e779eb21acfb91b90793f3",
+        "steps": [
+          {
+            "started_unix": 1791632039.2336516,
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-tz-reoptimized-qualification-20261010",
+              "--cpuset-cpus=0-3",
+              "--memory=2g",
+              "--memory-swap=2g",
+              "--shm-size=256m",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=4",
+              "-e",
+              "OPENBLAS_NUM_THREADS=4",
+              "-e",
+              "MKL_NUM_THREADS=4",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs:/work/runs:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/co-tz-reoptimized-qualification-source-20261010:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/qualify-tz-reoptimized-target-20261010.py"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 114792333312,
+              "free_disk_bytes": 117119877120
+            },
+            "original_exit": 0,
+            "finished_unix": 1791632040.2616584
+          }
+        ],
+        "scope": "Numerical consistency qualification of separately declared reoptimizedTZ target; originalseedimport rejection preserved",
+        "heartbeat_unix": 1791632040.5083344,
+        "heartbeat_utc": "2026-10-10T11:34:00.508337+00:00",
+        "original_controller_exit": 0,
+        "finished_unix": 1791632040.5083323
+      }
+    },
+    "co-midpoint-tracking-source-20261010": {
+      "captured_record_sha256": "36dbe330726354c279662db86c6c0314b66ce62fb3d6722404a6a0454b02fd5c",
+      "captured_record": {
+        "supervisor_pid": 1127334,
+        "started_unix": 1791632503.2270858,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "cpu_group": "0-3",
+        "frozen_inputs_sha256": "46cbb068b6ec05515086359adcacfe169d54326f7d884389c2cebde388747531",
+        "steps": [
+          {
+            "started_unix": 1791632503.5392716,
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-midpoint-tracking-20261010",
+              "--cpuset-cpus=0-3",
+              "--memory=8g",
+              "--memory-swap=8g",
+              "--shm-size=256m",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=4",
+              "-e",
+              "OPENBLAS_NUM_THREADS=4",
+              "-e",
+              "MKL_NUM_THREADS=4",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/diagnostics/cas11-midpoint-state-tracking-20261010:/work/diagnostics/cas11-midpoint-state-tracking-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs/co-r231615-ccdz-sa11-midpoint-fromeq-20261010:/work/runs/co-r231615-ccdz-sa11-midpoint-fromeq-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs/co-r231615-ccdz-sa11-midpoint-fromstretched-20261010:/work/runs/co-r231615-ccdz-sa11-midpoint-fromstretched-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/co-midpoint-tracking-source-20261010:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/co-midpoint-tracking-20261010.py"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 114924638208,
+              "free_disk_bytes": 117120057344
+            }
+          }
+        ],
+        "scope": "Intermediate-geometry diagnostic only. Midpoint targets have no native UKRmol import or scattering evidence; the600-cycle scan cannot qualify a rejected ordinary QC solve. Continuous-path state identity, resonance-pole identity and electronic-model/sweep/potential-fit qualification remain unset.",
+        "heartbeat_unix": 1791632803.5567262,
+        "heartbeat_utc": "2026-10-10T11:46:43.556729+00:00"
+      }
+    },
+    "supported-import-frame-source-20261010": {
+      "captured_record_sha256": "21be8ccdf2e5f9ae509ebf1209e7be5b347a01cfa0ad95c76d66d587363c500f",
+      "captured_record": {
+        "supervisor_pid": 1127732,
+        "started_unix": 1791632678.0050602,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "mpi_ranks": 12,
+        "native_cpu_group": "4-15",
+        "small_cpu_group": "0-3",
+        "steps": [
+          {
+            "label": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-frame-co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+              "--cpuset-cpus=4-15",
+              "--memory=64g",
+              "--memory-swap=64g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/aug:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "-m",
+              "projects.ukrmol_co.run",
+              "--workdir",
+              "/work/runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+              "--bond-length",
+              "2.5",
+              "--basis",
+              "aug-cc-pVTZ",
+              "--model",
+              "CAS-A",
+              "--orbitals",
+              "state-averaged",
+              "--active-orbitals",
+              "6",
+              "3",
+              "3",
+              "0",
+              "--virtual-orbitals",
+              "0",
+              "0",
+              "0",
+              "0",
+              "--target-only",
+              "--target-roots",
+              "8",
+              "--target-states-used",
+              "40",
+              "--target-diagonalizer",
+              "slepc",
+              "--target-diagonalizer-tolerance",
+              "1e-13",
+              "--target-diagonalizer-max-cycles",
+              "1000",
+              "--congen-workspace",
+              "1000000",
+              "--scatci-memory-gib",
+              "16",
+              "--target-initial-checkpoint",
+              "/work/runs/co-r2500-augtz-sa12-qc-dz80-residual-qualified-start/co.casscf.chk",
+              "--target-ci-max-space",
+              "80",
+              "--target-ci-fresh-start",
+              "--target-energy-tolerance",
+              "1e-11",
+              "--target-gradient-tolerance",
+              "1e-7",
+              "--target-ci-tolerance",
+              "1e-12",
+              "--target-ci-residual-tolerance",
+              "1e-9",
+              "--target-ci-lindep",
+              "1e-22",
+              "--target-ah-lindep",
+              "1e-24",
+              "--target-ah-tolerance",
+              "1e-16",
+              "--target-ah-start-tolerance",
+              "1e-8",
+              "--target-max-cycles",
+              "150",
+              "--ranks",
+              "12"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 114471911424,
+              "free_disk_bytes": 117098487808
+            },
+            "started_unix": 1791632678.0546985
+          }
+        ],
+        "frozen_inputs_sha256": "0266292a45bfdf1b24f517fbb8d424b0e05bd6e06f0f453fcd4e4de5adfdfc69",
+        "rank_scaling_speedup_verdict": null,
+        "scope": "Target imports only. New TZ declaration qualifies a distinct orbital frame, not original seed preservation. No CAS12 scattering, extra CAS11 pole-count run, model selection or geometry sweep is released.",
+        "heartbeat_unix": 1791632798.0565577,
+        "original_augtz_space40_rejection_preserved": true
+      }
+    },
+    "frame-midpoint-progress-source-20261010": {
+      "captured_record_sha256": "5a0aef74479eea833504febb5b4ad4f526a4709123c82ebb23af6a9e7ebb895d",
+      "captured_record": {
+        "pid": 1127982,
+        "started_unix": 1791632751.291236,
+        "max_hours": 48,
+        "interval_seconds": 3600,
+        "captures": 1,
+        "scope": "Read-only progress observer; no retries, gate edits or job launches",
+        "latest_capture": "capture-20261010T114551Z.json",
+        "latest_capture_sha256": "632090951c5cf6d9094aaca5885248d8b990b0742619abfc8397d3a9b322270d",
+        "heartbeat_unix": 1791632753.805408
+      }
+    }
+  },
+  "frozen_file_counts": {
+    "co-tz-reoptimized-qualification-source-20261010": {
+      "source": 8,
+      "inputs": 169
+    },
+    "co-midpoint-tracking-source-20261010": {
+      "source": 11,
+      "inputs": 62
+    },
+    "supported-import-frame-source-20261010": {
+      "source": 969,
+      "inputs": 19
+    }
+  },
+  "available_ram_bytes": 114064195584,
+  "free_disk_bytes": 117097304064,
+  "docker_stats": "co-frame-co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010 778.94% 420.8MiB / 64GiB\nco-midpoint-tracking-20261010 343.70% 315.4MiB / 8GiB\ncomfyui 0.16% 10.09GiB / 123.5GiB\n"
+}

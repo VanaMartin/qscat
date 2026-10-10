@@ -20,6 +20,72 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User-directed continuation — 10 October 2026, 11:46 UTC
+
+**Fresh TZ target numerical qualification passes**, owner **1126703**, under
+[its distinct-target contract](cas12-tz-reoptimized-target-qualification-contract.json).
+The actual imported checkpoint is declared as
+`co-r2500-cctz-sa12-reoptimized-frame-qualified-20261010`. Its original ordinary
+200-cycle CI/orbital flags, final gradient **3.7219e-8**, objective step
+**−7.1054e-14 Hartree**, independent64 native roots/dipole/residuals and core/active
+subspaces pass. This evidence-only qualification costs **0.401 seconds / 0.096
+GiB**. The mean objective differs from the covered seed by **−1.1369e-13 Hartree**,
+ground energy by **−2.1946e-9 Hartree**, and dipole by **−4.2501e-7 a.u.**;
+all40 individual root shifts remain recorded. **The original seed-preservation
+contract and controller1072749 remain rejected/exit1.** No original source,
+checkpoint, verifier or owner record is changed. The new record lives in
+`diagnostics/cas12-tz-reoptimized-target-qualification-20261010/result.json`.
+
+**Supported import successor is active**, owner **1127732**, under
+[the fresh finite two-import contract](cas12-supported-import-frame-successor-contract.json).
+Service `co-supported-import-frame-20261010.service` starts supported aug-TZ as
+`co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010`.
+It uses **12 MPI ranks / CPUs4–15 / 64-GiB cap**, with one BLAS/OpenMP thread per
+rank and an80-GiB admission floor. Compressed space160 remains gated behind aug-TZ
+native/analyzer/independent seed-root/dipole/subspace checks and a fresh replay of
+its public96-probe proof. Both new imports retain the original **1e-7-Hartree
+seed-preservation gate**; any newly rejected target stops this queue, without
+automatic requalification or retry. Original aug-TZ space40 and compressed
+space80 rejections remain intact. Each native container has a24-hour bound;
+verifiers have1-hour bounds; resource waits are bounded at48 hours and the
+whole owner at72 hours. STOP and failures preserve actual exits and leave later
+steps unlaunched.
+
+**Midpoint control is active**, owner **1127334**, under
+[the two-start midpoint contract](cas11-midpoint-state-tracking-contract.json).
+Service `co-midpoint-tracking-20261010.service` approaches **R=2.31615 bohr** from
+both existing equilibrium and stretched CAS11/cc-DZ checkpoints, retaining the
+forty-component ensemble, frozen core and ordinary200-cycle CI cap. It uses
+**CPUs0–3 / four library threads / 8-GiB cap**, with a2-hour bound per ordinary QC
+start and6-hour whole-container bound. Only after both QC starts pass do32 fresh
+midpoint12-root/space160/240 fixed-orbital probes and96 physical/AO-following
+overlap matrices run. Existing endpoint12-root vectors are reused, not re-solved.
+The physical overlap uses full occupied Slater minors; AO-following diagnostics
+are separate. Composed half-interval assignments and two-start root/objective/
+dipole differences diagnose continuity and start dependence; final state/pole
+identity and model-selection verdicts remain unset. Historical files are mounted
+read-only; only the two declared fresh QC runs and diagnostic are writable.
+
+At **11:46:53 UTC**, the two scientific containers are active with approximately
+**106.23 GiB available RAM / 109.06 GiB free disk**. Aug-TZ is in target QC;
+midpoint's first projected QC start is running, with no completed QC/CI verdict
+yet. Source/input freezes contain **8/169 files** for TZ qualification,
+**11/62** for midpoint, and **969/19** for the fresh import queue. Live argument
+parsing and intercepted batch snapshot creation verify **123/132 scientific
+files**, both package markers, ranks12 and rank/name-only recipe changes.
+Measured speedup remains unset.
+
+Fresh read-only hourly observer **1127982**, service
+`co-frame-midpoint-progress-20261010.service`, records both owner heartbeats,
+completed midpoint probes and Docker/RAM/disk status in
+`prepared/frame-midpoint-progress-source-20261010/`. It stops after both owners
+finish or its **48-hour bound** (approximately12 October11:46 UTC), with no job
+launches or retries. Scientific controllers retain30-second heartbeats and
+continue independently of the chat. The start/qualification evidence and hashes
+are in [the11:46 capture](progress-start-20261010T1146.json), with a fresh overview
+release; the11:14 and both9-October releases remain preserved. Source declarations
+are committed as **58842a8**.
+
 ### Host check — 10 October 2026, 11:14 UTC
 
 Both finite small-core jobs finish. **Twelve-root portable reconstruction passes**:

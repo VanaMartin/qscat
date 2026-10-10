@@ -23,25 +23,30 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 
 ## Progress overview — 10 October 2026
 
-![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261010.png)
+![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261010T1146.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261010.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261010.json) ·
-[New completion evidence and remote hashes](progress-completion-20261010.json)
+[Vector figure](../../docs/physics/figures/co-progress-20261010T1146.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261010T1146.json) ·
+[Qualification/start evidence and remote hashes](progress-start-20261010T1146.json)
 
-This is the **11:14 UTC, 10 October** release of an incremental overview. New findings, verification
+This is the **11:46 UTC, 10 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** twelve-root overlaps now pass independent host reconstruction
-of all **288 states / 48 matrices**. The TZ diagnostic finishes all48 probes;
-additive independent replay recovers a final-report JSON failure and confirms
-that the seed discrepancy is orbital-frame drift with converged CI in both frames.
-The original TZ import remains rejected. Root-count escalation now requires a
-specific unresolved discrepancy. Public reconstruction remains pending.
+**What changed:** the reoptimized TZ orbital frame passes a separately declared
+numerical target qualification using existing ordinary-QC and independent evidence.
+The original seed-preservation rejection remains intact. A fresh supported
+aug-TZ/compressed import queue starts with **12 MPI ranks on CPUs4–15**, retaining
+the original per-import gates. A **two-start midpoint at R=2.31615 bohr** runs on
+CPUs0–3 to probe state tracking and projected-start dependence. Both controllers
+are finite, with a new bounded hourly observer. Public reconstruction remains pending.
+The [11:14 UTC figure](../../docs/physics/figures/co-progress-20261010.png),
+[vector copy](../../docs/physics/figures/co-progress-20261010.svg) and
+[snapshot](progress-snapshot-20261010.json) preserve the independent twelve-root/TZ
+replay milestone and original JSON-write failure.
 The [9 October 22:58 figure](../../docs/physics/figures/co-progress-20261009T2258.png),
 [vector copy](../../docs/physics/figures/co-progress-20261009T2258.svg) and
 [snapshot](progress-snapshot-20261009T2258.json) preserve CAS11 completion and
@@ -76,18 +81,20 @@ The six panels explain the qualification campaign:
   frame. This is distinct from physical wavefunction overlap; root-label
   exchanges and finite-manifold loss still motivate intermediate geometries.
   The12-root values now pass independent full-Slater/AO/Hamiltonian replay on the
-  host; public fetch/reconstruction remains pending.
-- **F — Next gates.** Publish completed evidence, declare the TZ target treatment, resolve
+  host; public fetch/reconstruction remains pending. The two-start midpoint control
+  tests the larger equilibrium-to-stretched interval without another endpoint solve.
+- **F — Next gates.** Complete gated supported imports and midpoint controls, publish evidence, resolve
   state/extraction and electronic-model choices, then release a geometry sweep
   and fit with held-out scattering tests.
 
-This is a dated **10 October 11:14:27 UTC** snapshot: CAS11 remains independently
+This is a dated **10 October 11:46:53 UTC** snapshot: CAS11 remains independently
 verified on the host. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
 against the independently covered imported orbital frame, but does not retroactively
-qualify the failed seed-preservation contract. Supported aug-TZ and
-compressed imports remain unlaunched. The original failure is preserved.
+qualify the failed seed-preservation contract. A distinct reoptimized target now
+passes numerical qualification. Supported aug-TZ is active in a fresh queue;
+compressed remains gated behind its full import checks. The original failure is preserved.
 The completed twelve-root result passes independent host reconstruction and awaits
 public reconstruction. The original TZ diagnostic's final-write exit1 is preserved;
 additive report recovery exits0. Published values come from tracked notes: Laporta2012,
