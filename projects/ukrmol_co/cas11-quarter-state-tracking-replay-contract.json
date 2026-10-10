@@ -1,0 +1,14 @@
+{
+  "status": "user-directed independent quarter-interval wavefunction replay",
+  "parent_contract": "cas11-quarter-interval-state-tracking-contract.json",
+  "producer_owner": 1134993,
+  "producer_controller_exit": 0,
+  "producer_result": "diagnostics/cas11-quarter-interval-state-tracking-20261010/result.json",
+  "producer_result_sha256": "547821919228e2d8f6d64820e7d8598d4f9f75e486bb01ac3098fb81efa6b5b6",
+  "design": "Freeze original11 source/124 input hashes,complete two quarter QC runs and all32 probe results. Independently reconstruct672 states (384 quarter states across two trial spaces plus288 reused three-frame states),112 overlap matrices and all four/two/direct composed maps. Rebuild physical/spin-penalized Hamiltonian actions and full occupied Slater minors,without an eigensolve; check native/saved roots,dipoles,spin,orthogonality,space projections,Pi degeneracy,coarse archived comparisons and assignment triggers.",
+  "gates": {"wavefunctions": 672, "quarter_probes": 32, "overlap_matrices": 112, "root_error_hartree": 1e-7, "physical_penalized_and_action_residual_hartree": 1e-9, "spin_square_error": 1e-6, "ci_and_mo_orthogonality_error": 1e-9, "dipole_error_au": 1e-5, "independent_overlap_reciprocity_and_coarse_pair_error": 1e-10, "minimum_space_energy_matched_projection": 0.99999999},
+  "publication_directory": "prepared/publication-quarter-state-tracking-20261010",
+  "resources": {"cpu_group": "0-3", "library_threads": 4, "container_memory_gib": 4, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "eligibility_wait_seconds": 3600, "whole_container_timeout_seconds": 7200},
+  "stopping": "One fresh owner; originals read-only,actual exits/source hashes preserved,no retry or numerical gate change. Wait for compressed proof replay to release reserved cores.",
+  "release": "Publish only after host reconstruction passes; fetch public bytes into fresh extraction and repeat portable replay/repackaging before public verification label. Retained path changes remain explicit. Continuous-path state,pole and model verdicts remain unset."
+}
