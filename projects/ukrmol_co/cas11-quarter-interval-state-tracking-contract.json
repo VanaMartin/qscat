@@ -1,0 +1,26 @@
+{
+  "status": "user-directed bounded refinement of the independently reconstructed midpoint path discrepancy",
+  "parent_contract": "cas11-midpoint-state-tracking-contract.json",
+  "replay_contract": "cas11-midpoint-state-tracking-replay-contract.json",
+  "diagnostic": "cas11-quarter-interval-state-tracking-20261010",
+  "question": "Does halving each midpoint interval resolve the singlet-A2 retained-root5 route disagreement (direct5->8 versus midpoint5->6->5), and which assignment links remain weak or ambiguous?",
+  "references": [
+    {"id": "eq", "run": "co-eq-ccdz-sa11-tight-cc40", "checkpoint": "output/CO/geom1/co.casscf.chk", "checkpoint_sha256": "9e43a2e52e7926af9fe9f47985cd7fe5be69f68f0fbeb0a6728eb1433b6549b3", "vectors": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40"},
+    {"id": "mid", "run": "co-r231615-ccdz-sa11-midpoint-fromeq-20261010", "checkpoint": "co.casscf.chk", "checkpoint_sha256": "be248dff23de11d0a47ff8acd1f80676ef7a22879979ca26fbf0402fa422180a", "vectors": "diagnostics/cas11-midpoint-state-tracking-20261010/mid_fromeq"},
+    {"id": "stretched", "run": "co-r2500-ccdz-sa11-tight-cc40-anchor", "checkpoint": "output/CO/geom1/co.casscf.chk", "checkpoint_sha256": "6a2b83b1b0246b1b18fd5ea7da641d223f888e91cc20ca486b904ea7ca87715f", "vectors": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor"}
+  ],
+  "new_qc_jobs": [
+    {"id": "quarter_low", "name": "co-r2224225-ccdz-sa11-quarter-fromeq-20261010", "bond_length_bohr": 2.224225, "seed_id": "eq"},
+    {"id": "quarter_high", "name": "co-r2408075-ccdz-sa11-quarter-fromstretched-20261010", "bond_length_bohr": 2.408075, "seed_id": "stretched"}
+  ],
+  "electronic_model": {"basis": "cc-pVDZ", "active_orbitals": [5,3,3,0], "frozen_core_orbitals": 2, "active_electrons": 10, "singlet_and_triplet_ensemble_roots": [5,5,5,5], "components": 40},
+  "qc": {"optimizer": "one-step", "max_macro_cycles": 150, "ordinary_ci_max_cycles": 200, "trial_space": 80, "energy_tolerance_hartree": 1e-11, "gradient_tolerance": 1e-7, "ci_energy_tolerance_hartree": 1e-12, "ci_residual_tolerance_hartree": 1e-9, "ci_lindep": 1e-22, "ah_lindep": 1e-24, "ah_tolerance": 1e-16, "ah_start_tolerance": 1e-8, "fresh_ci_start": true, "per_start_timeout_seconds": 7200},
+  "fixed_orbital_ci": {"roots_per_spin_irrep": 12, "trial_spaces": [160,240], "diagnostic_max_cycles": 600, "energy_tolerance_hartree": 1e-12, "residual_tolerance_hartree": 1e-9, "lindep": 1e-22, "spin_penalty_shift": 1.0, "probes": 32},
+  "reuse": "Reuse all three independently reconstructed12-root frames without new endpoint/midpoint solves. The from-equilibrium midpoint frame reproduces the prior named route; using it does not select an electronic optimum or discard the other midpoint start/higher-root differences.",
+  "comparisons": "Seven pairs/112 matrices: four quarter-interval links,two original half-interval links,and direct endpoints. Reconstruct all eight sectors in physical and separately labelled AO-following metrics. Preserve full occupied-minor,reciprocity,bound and assignment controls. Require original three coarse-pair matrices to agree with the archived midpoint report. Compare four-leg,two-leg and direct assignments,including singlet-A2 root5 and all competing row scores.",
+  "gates": {"all_original_and_fresh_qc_ci_flags": true, "physical_penalized_and_action_residual_hartree": 1e-9, "saved_qc_root_pi_and_space_energy_error_hartree": 1e-7, "spin_square_error": 1e-6, "ci_and_mo_orthogonality_error": 1e-9, "minimum_same_geometry_energy_matched_projection": 0.99999999, "overlap_reciprocity_full_minor_and_coarse_pair_error": 1e-10, "overlap_magnitude_and_singular_value_upper_bound": 1.000000001, "independent_ground_dipole_error_au": 1e-5},
+  "diagnostic_triggers": {"assigned_squared_overlap_below": 0.5, "best_to_second_squared_overlap_margin_below": 0.1, "retained_first_five_assigned_to_extra_root": true},
+  "resources": {"cpu_group": "0-3", "library_threads": 4, "container_memory_gib": 8, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "eligibility_wait_seconds": 3600, "whole_container_timeout_seconds": 21600},
+  "stopping": "One finite owner; stop on any ordinary QC,CI,algebraic,integrity,resource/time failure without retry,root expansion or tolerance changes. Preserve original files read-only. No further subdivisions are scheduled automatically; inspect this specific route before choosing another experiment.",
+  "release": "Producer geometry-path diagnostic only. Quarter targets have no native import/scattering evidence. Path agreement or larger overlaps cannot certify continuous-path state identity,poles or an electronic model. Preserve the original direct/midpoint disagreement even if the finer route changes assignments."
+}
