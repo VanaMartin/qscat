@@ -12,9 +12,10 @@ discrepancy. The full execution record is in [CONTINUATION.md](CONTINUATION.md).
 Completed/failed owners,raw outputs and dated overview releases remain evidence.
 
 The [quarter evidence](qualification-evidence/quarter-state-tracking/README.md)
-now independently reconstructs all672 states and112 matrices on the host.
+now independently reconstructs all672 states and112 matrices on the host and
+from public downloads,with byte-identical repackaging.
 Compressed proof replay passes all438 payloads/96 probes; its fresh private-cache
-native import is active. Public quarter reconstruction is running.
+native import is active.
 
 ## 1. Finish trustworthy target inputs
 
@@ -89,7 +90,7 @@ path refinement. Separate quarter wavefunction replay passes on the host.
 Native background/window changes move widths by roughly12% at equilibrium,
 32% compressed and6.7% stretched,exceeding the5% width budget.
 
-**Next:** finish public quarter reconstruction and audit the two
+**Next:** audit the two
 remaining retained components: inspect competing row scores,energies and
 complete nearly degenerate subspace projectors. Determine whether a larger
 retained channel manifold is required. Test only geometries/model controls

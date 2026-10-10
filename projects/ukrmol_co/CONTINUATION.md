@@ -20,6 +20,88 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Complete proof replay / private-cache import active / public quarter replay passed — 10 October, 21:17 UTC
+
+The requested [production-sweep roadmap](SWEEP_READINESS.md) now lists the
+ordered experiments,current blockers and pass criteria. It distinguishes
+independent target import from scattering/electronic-model/extraction convergence,
+and includes neutral-range qualification,an immutable production pilot and
+held-out QSCAT scattering tests. No full sweep is released.
+
+**The complete compressed proof is restored from public bytes**, SHA256
+`1601d06c66212b747ed7c367293b93433b7d4b9ec004c437784a434d4aa04d12`,
+1068590 bytes. All **438 indexed payloads**,including the nine absent log/owner
+files,pass original sizes/hashes. Original96 numerical probes reconstruct
+successfully. A fresh owner **1139896**, declared under
+[the complete-proof contract](cas12-compressed-complete-proof-successor-contract.json),
+preserves proof exit0 but stops with setup exit1: the runner opens its upstream
+script-cache lock on the read-only original root,before QC/native diagonalization.
+Keep that source,run directory and failure; it is not a scientific import failure.
+
+**A separately declared private-cache successor is active**, owner **1140828**,
+service `co-compressed-private-cache-20261010.service`, under
+[the private-cache contract](cas12-compressed-private-cache-successor-contract.json).
+Its fresh name ends `-mpi12-privatecache-20261010`. It keeps the original
+scientific recipe/source/verifier/image and changes only name,ranks12 and a
+private writable checksum-pinned script-cache path. Preflight exercised actual
+script acquisition,checkpoint copying and full deck preparation under the
+read-only-original/writable-fresh mounts,intercepting the QC/native engine.
+The runner creates its own fresh output below the owner; a new `runs/name` alias
+points there. The public438-file/96-probe proof replay passes again before launch.
+
+Native allocation is **CPUs4–15 / twelve MPI ranks / one library thread per rank /
+64-GiB cap / 24-hour whole-container limit**,with original independent64-root,
+dipole,spin0-action,subspace and1e-7-Hartree seed-preservation gates. The frozen
+source/input counts are **1593/27**,including private cache/preflight payloads;
+the mutable acquisition lock is excluded. Read-only original sources/checkpoints
+and both failed owners remain intact. Any new failure stops the finite owner
+without automatic retry,tolerance change or target requalification.
+
+**Quarter independent reconstruction passes**, owner **1141177**, exit0 at
+**21:07:42 UTC**, under [the replay contract](cas11-quarter-state-tracking-replay-contract.json).
+It verifies **298 payloads / 672 states / 32 probes / 112 matrices / 22916 profiles**,
+including all three reused frames and both trial spaces at each quarter geometry.
+Physical/penalized/action residuals,spins,dipoles,space projections,full occupied
+Slater minors,coarse archived matrices and all four/two/direct route maps pass.
+Maximum independent overlap error is **1.3323e-15**. Capture/pack/replay cost is
+**208.043 seconds / 2.3492 GiB / 611.25 CPU-seconds**,with12 source/293 input hashes.
+The [quarter archive](qualification-evidence/quarter-state-tracking/README.md)
+is published and fetched:313621617 bytes,SHA256
+`17ed7af6894ad1e4b3cafccb853bfa5ba67a9b5ee2ae4aa1d2ca1b29bd7630fc`.
+Independent public-download replay and byte-identical repackaging subsequently
+pass on macOS in **280.15 seconds**,with overlap error **2.7756e-15**. The full
+public replay verifies all672 states and112 matrices; the platform/scope differs
+from the host capture/pack/replay,so this is not a speedup comparison.
+
+The two remaining retained route changes have strong,unambiguous local physical
+links but visit root6 outside the five-root-per-sector retained boundary:
+singlet-A2 root4 follows **4→4→5→6→6**; triplet-A2 root5 follows **5→6→6→5→5**.
+Inspect retained-channel/subspace coverage and competing energies next. Increasing
+A1 averaging roots in the50-component ensemble cannot itself cover A2 channels.
+Local overlap improvement does not qualify global continuity or pole identity.
+
+At **21:17:12 UTC**, compressed QC/input preparation is active (about8.33 CPU
+cores in the twelve-core slot) with no recorded owner error; quarter host replay
+has ended. Approximately **107.32 GiB RAM / 104.49 GiB disk** are available.
+Fresh hourly observer **1141454**, service
+`co-compressed-quarter-replay-progress-20261010.service`, follows the current
+owners for at most48 hours,until approximately12 October21:05 UTC or their end.
+The previous observer's completed exit remains intact. Scientific follow-up
+after these finite owners requires inspecting actual results and the roadmap.
+The [21:17 completion/live capture](progress-completion-20261010T2117.json)
+records original setup/proof exits,frozen hashes,public reconstruction and current
+heartbeats. The [fresh snapshot](progress-snapshot-20261010T2117.json) pins the
+roadmap and public quarter manifest while preserving prior figures.
+
+Handoff checks pass lint/format/diff,23 snapshot/source hashes,17 immutable remote
+hashes,all documentation links and SVG structure. Existing plotted curves remain
+identical to the prior release. At21:19 UTC,the native controller has a current
+heartbeat,no recorded error and roughlynine active cores; the48-hour observer is
+live. The main index is complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; this branch adds successor/replay
+declarations,public quarter evidence and the sweep roadmap. Current sources and
+branch-local contracts,not indexed-main line hints,were used for this continuation.
+
 ### Aug-TZ verified / quarter completed / compressed package stopped — 10 October, 20:45 UTC
 
 **Supported CAS12 aug-TZ import passes** native,analyzer and independent verifier,

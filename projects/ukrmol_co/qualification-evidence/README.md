@@ -202,6 +202,13 @@ physical overlaps improve,but singlet-A2 root5 follows5→6→5 rather than the 
 5→8 map. Public fetch/reconstruction and byte-identical repackaging pass for both
 companions; the quarter-interval control targets the named path discrepancy.
 
+The [quarter-interval companion](quarter-state-tracking/README.md) independently
+reconstructs **298 payloads / 672 states / 32 probes / 112 matrices / 22916 profiles**
+on the host. Singlet-A2 root5's route strengthens and agrees with the midpoint
+endpoint,but two other retained path labels remain refinement-dependent.
+Public-download reconstruction and byte-identical repackaging pass; final
+state/pole verdicts stay unset.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding

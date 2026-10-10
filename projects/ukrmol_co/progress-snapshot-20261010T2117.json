@@ -1,0 +1,42 @@
+{
+  "base_snapshot": "progress-snapshot-20261009.json",
+  "base_snapshot_sha256": "33730acaf11066acc1f97672efbe145e5aff625c4006cd34c0bc279207c04f46",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-completion-20261009T2258.json": "cf90aff31bb2d224d6d9d0fdd6f6fc1f05ab8f8f1de16589b55f0479b499ec8d",
+    "projects/ukrmol_co/progress-completion-20261010.json": "5ff3473e5ea15f2b9e71679f849304394610c7f3cbb20a2136b78a99ea99d492",
+    "projects/ukrmol_co/progress-start-20261010T1146.json": "effb3f8d7614435856d6025cfad9376e7f08210d10afa0a1a515ba2ce584e0df",
+    "projects/ukrmol_co/progress-completion-20261010T1523.json": "856a131126d8b6616e9ff4ea31f86d0954659990773925a371737279921e4c95",
+    "projects/ukrmol_co/progress-completion-20261010T1559.json": "b94ca71095dc79cecfeb91b874fce0287ca5579162f9f6b6bb96f54ac6679418",
+    "projects/ukrmol_co/qualification-evidence/target-state-overlap-roots12/manifest.json": "90ee777812397251298c96e8dac4bfe7faee599ef28d3d069ff3ee853c869079",
+    "projects/ukrmol_co/qualification-evidence/midpoint-state-tracking/manifest.json": "465a89c18443b3e0f9316c7e43cf1a919be2c1337c84d126fe88bdaefb2308b4",
+    "projects/ukrmol_co/progress-completion-20261010T2045.json": "3f4cbb734c67bd5c96c4f5efa2d45ecb64a498bb8d43d19d60f1cd1f7c65877b",
+    "projects/ukrmol_co/progress-completion-20261010T2117.json": "54f47e6693e5fb853d798a9811c535d130cfe1995de7fec49d69df1e8ed820fc",
+    "projects/ukrmol_co/qualification-evidence/quarter-state-tracking/manifest.json": "28e936dfc6baab8b1fa65903258b2020507b9f377c5b9dfa103b273f5ef84547",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "31397be42697f67f9b767a54e8b1c3c53a6c110df690d10b5bf1c41eaf3af5b8"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-10T21:17:12.994013+00:00",
+    "changes": [
+      "Complete compressed public proof passes all438 payloads/96 probes. First fresh import stops before QC on read-only script-cache acquisition; original exit1 is preserved.",
+      "Separately declared private-cache successor passes full deck-preparation preflight and proof replay,then launches compressed import on12 physical cores/64GiB under unchanged scientific gates.",
+      "Independent quarter host replay passes298 payloads/672 states/32 probes/112 matrices in208.043seconds/2.349GiB. Public fetch/replay/exact repackaging passes in280.148seconds.",
+      "The production-sweep roadmap records ordered target,sparse-scattering,model/channel,continuity/extraction,neutral-range and frozen-pilot gates. Two retained A2 routes still visit omitted-sector root6; strong local links do not qualify global continuity."
+    ],
+    "sparse_costs": [
+      {"roots": 2048, "kernel_peak_gib": 7.692779541015625, "wall_hours": 2.454474193649431, "phase_error_rad": 5.099999999869098e-06},
+      {"roots": 4096, "kernel_peak_gib": 7.365123748779297, "wall_hours": 3.33523514799916, "phase_error_rad": 1.0000000028043132e-07},
+      {"roots": 8192, "kernel_peak_gib": 13.16033935546875, "wall_hours": 7.0564415086561345, "phase_error_rad": 1.0000000005838672e-07},
+      {"roots": 16384, "kernel_peak_gib": 37.067909240722656, "wall_hours": 19.653326377529172, "phase_error_rad": 9.99999993922529e-09, "source": "progress-completion-20261009T2258.json, cas11", "verification": "Both-sector host independent reconstruction passes; public replay pending"}
+    ],
+    "live_status": {"cas11_owner": 1065880, "cas11_finished": true, "cas11_host_independent_verification_passed": true, "cas11_public_reconstruction_complete": false, "original_import_owner": 1072749, "original_import_seed_preservation_verdict": false, "original_import_queue_exit": 1, "reoptimized_tz_target_qualification_passed": true, "supported_import_owner": 1127732, "supported_import_queue_exit": 1, "augtz_finished": true, "augtz_independent_verification_passed": true, "completeproof_owner": 1139896, "completeproof_original_exit": 1, "completeproof_proof_exit": 0, "import_owner": 1140828, "imports_launched": 1, "import_queue_stopped": false, "import_queue_exit": null, "compressed_import_launched": true, "compressed_public_proof_replay_exit": 0, "compressed_public_proof_payloads": 438, "compressed_current_stage": "QC/input preparation", "midpoint_owner": 1127334, "midpoint_finished": true, "midpoint_public_reconstruction_complete": true, "quarter_owner": 1134993, "quarter_finished": true, "quarter_controller_exit": 0, "quarter_ci_probes_completed": 32, "quarter_matrices_completed": 112, "quarter_independent_replay_owner": 1141177, "quarter_independent_replay_exit": 0, "quarter_independent_wavefunction_replay_complete": true, "quarter_public_reconstruction_complete": true, "twelve_root_finished": true, "twelve_root_public_reconstruction_complete": true, "tz_drift_independent_verification_passed": true, "observer_owner": 1141454, "observer_finished": false, "scientific_containers_running": 1},
+    "roadmap_import_status": "ACTIVE",
+    "roadmap_import_title": "Compressed CAS12 import: complete proof passes",
+    "roadmap_import_detail": "Private-cache successor; unchanged roots / dipole gates",
+    "memory_next_step": "Declare modest CAS12 pilot; increase roots only for a discrepancy.",
+    "twelve_root_label": "12 roots: public reconstruction passes",
+    "tracking_next_step": "Quarter: public replay passes; 2 retained paths still change.",
+    "roadmap_tracking_detail": "Inspect retained A2 channel coverage and extraction",
+    "verification_footer": "Quarter / midpoint / anchor overlaps: public replay passes. Compressed CAS12 import: active.",
+    "interpretation": "Existing plotted reference/neutral/sensitivity/overlap/cost curves remain preserved. Compressed public proof is complete and passes96 probes; first setup fails before QC on read-only cache acquisition,with original exit1 preserved. A separately declared private-cache successor,preflighted through actual acquisition/deck preparation,launches under unchanged scientific settings and gates. Quarter host and public reconstruction verifies672 states,32 probes,112 matrices and all composed maps with byte-identical repackaging. Two retained A2 components still enter root6 outside their five-root sector cutoff and change endpoint labels; local strength does not establish global state/pole identity. Explicit sweep-readiness steps require affordable converged CAS12 scattering,electronic/channel and extraction convergence,neutral-range qualification,and a frozen restartable production pilot. No full sweep or fit release occurs."
+  }
+}

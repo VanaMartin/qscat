@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "quarter-state-tracking.tar.gz": {
+      "bytes": 313621617,
+      "sha256": "17ed7af6894ad1e4b3cafccb853bfa5ba67a9b5ee2ae4aa1d2ca1b29bd7630fc"
+    }
+  },
+  "git_sha": "d4e586be4b31c74dcefaa2b3c5b92e20aa490a25",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-quarter-state-tracking-2026-10-10/"
+}

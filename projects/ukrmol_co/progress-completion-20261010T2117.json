@@ -1,0 +1,3907 @@
+{
+  "captured_utc": "2026-10-10T21:17:12.994013+00:00",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "owners": {
+    "compressed-complete-proof-source-20261010": {
+      "captured_record_sha256": "7ce68eadc5ca8274b3a64de5a7e92ebd44bfb2fc4f0cea188470fc9634d3b5b2",
+      "captured_record": {
+        "supervisor_pid": 1139896,
+        "started_unix": 1791666016.6548035,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "mpi_ranks": 12,
+        "native_cpu_group": "4-15",
+        "small_cpu_group": "0-3",
+        "steps": [
+          {
+            "label": "compressed-public-proof",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-completeproof-compressed-public-proof",
+              "--cpuset-cpus=0-3",
+              "--memory=2g",
+              "--memory-swap=2g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-complete-proof-source-20261010:/work/prepared/compressed-complete-proof-source-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-complete-proof-source-20261010/compressed:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/proof/verify-singlet-qc-coverage.py",
+              "/opt/qmodeling/proof"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115767951360,
+              "free_disk_bytes": 113760321536
+            },
+            "started_unix": 1791666016.7003822,
+            "original_exit": 0,
+            "finished_unix": 1791666017.2149613
+          },
+          {
+            "label": "co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-completeproof-co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010",
+              "--cpuset-cpus=4-15",
+              "--memory=64g",
+              "--memory-swap=64g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-complete-proof-source-20261010:/work/prepared/compressed-complete-proof-source-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010:/work/runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-complete-proof-source-20261010/compressed:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "-m",
+              "projects.ukrmol_co.run",
+              "--workdir",
+              "/work/runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010",
+              "--bond-length",
+              "1.9",
+              "--basis",
+              "cc-pVDZ",
+              "--model",
+              "CAS-A",
+              "--orbitals",
+              "state-averaged",
+              "--active-orbitals",
+              "6",
+              "3",
+              "3",
+              "0",
+              "--virtual-orbitals",
+              "0",
+              "0",
+              "0",
+              "0",
+              "--target-only",
+              "--target-roots",
+              "8",
+              "--target-states-used",
+              "40",
+              "--target-diagonalizer",
+              "slepc",
+              "--target-diagonalizer-tolerance",
+              "1e-13",
+              "--target-diagonalizer-max-cycles",
+              "1000",
+              "--congen-workspace",
+              "1000000",
+              "--scatci-memory-gib",
+              "16",
+              "--target-memory-mb",
+              "16000",
+              "--target-initial-checkpoint",
+              "/work/runs/co-r1900-ccdz-sa12-qc-singlet0-space160/co.casscf.chk",
+              "--target-singlet-a1-driver",
+              "spin0",
+              "--target-ci-max-space",
+              "160",
+              "--target-ci-fresh-start",
+              "--target-energy-tolerance",
+              "1e-11",
+              "--target-gradient-tolerance",
+              "1e-7",
+              "--target-ci-tolerance",
+              "1e-12",
+              "--target-ci-residual-tolerance",
+              "1e-9",
+              "--target-ci-lindep",
+              "1e-22",
+              "--target-ah-lindep",
+              "1e-24",
+              "--target-ah-tolerance",
+              "1e-16",
+              "--target-ah-start-tolerance",
+              "1e-8",
+              "--target-max-cycles",
+              "150",
+              "--ranks",
+              "12"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115732815872,
+              "free_disk_bytes": 113760317440
+            },
+            "started_unix": 1791666017.2692416,
+            "original_exit": 1,
+            "finished_unix": 1791666017.7334557
+          }
+        ],
+        "frozen_inputs_sha256": "372c6f7660d66524618161c4e787a3460c5477a50bb0a68f19eddc8ae09144ba",
+        "rank_scaling_speedup_verdict": null,
+        "scope": "Compressed target import only; no CAS12 sparse scattering,model selection or full sweep released. Twelve ranks are not a speedup claim.",
+        "heartbeat_unix": 1791666017.7358668,
+        "original_augtz_space40_rejection_preserved": true,
+        "error": "AssertionError('co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010 failed; queue stopped')",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-complete-proof-source-20261010/host.py\", line 114, in main\n    launch(job['name'],src,range(4,16),64,80,['python3','-m','projects.ukrmol_co.run','--workdir','/work/runs/'+job['name'],*args],86400)\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-complete-proof-source-20261010/host.py\", line 88, in launch\n    assert row['original_exit']==0,label+' failed; queue stopped'\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010 failed; queue stopped\n",
+        "original_controller_exit": 1,
+        "finished_unix": 1791666017.7358663
+      }
+    },
+    "compressed-private-cache-source-20261010": {
+      "captured_record_sha256": "30ba1d1e2f8de4848f5629af9b0875da310b56531d12858fb2d505c5cec22518",
+      "captured_record": {
+        "supervisor_pid": 1140828,
+        "started_unix": 1791666248.366837,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "mpi_ranks": 12,
+        "native_cpu_group": "4-15",
+        "small_cpu_group": "0-3",
+        "steps": [
+          {
+            "label": "compressed-public-proof",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-privatecache-compressed-public-proof",
+              "--cpuset-cpus=0-3",
+              "--memory=2g",
+              "--memory-swap=2g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-private-cache-source-20261010:/work/prepared/compressed-private-cache-source-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-private-cache-source-20261010/compressed:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/proof/verify-singlet-qc-coverage.py",
+              "/opt/qmodeling/proof"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115800403968,
+              "free_disk_bytes": 113637363712
+            },
+            "started_unix": 1791666248.485588,
+            "original_exit": 0,
+            "finished_unix": 1791666249.0004678
+          },
+          {
+            "label": "co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-privatecache-co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010",
+              "--cpuset-cpus=4-15",
+              "--memory=64g",
+              "--memory-swap=64g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-private-cache-source-20261010:/work/prepared/compressed-private-cache-source-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-private-cache-source-20261010/compressed:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "-m",
+              "projects.ukrmol_co.run",
+              "--workdir",
+              "/work/runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010",
+              "--bond-length",
+              "1.9",
+              "--basis",
+              "cc-pVDZ",
+              "--model",
+              "CAS-A",
+              "--orbitals",
+              "state-averaged",
+              "--active-orbitals",
+              "6",
+              "3",
+              "3",
+              "0",
+              "--virtual-orbitals",
+              "0",
+              "0",
+              "0",
+              "0",
+              "--target-only",
+              "--target-roots",
+              "8",
+              "--target-states-used",
+              "40",
+              "--target-diagonalizer",
+              "slepc",
+              "--target-diagonalizer-tolerance",
+              "1e-13",
+              "--target-diagonalizer-max-cycles",
+              "1000",
+              "--congen-workspace",
+              "1000000",
+              "--scatci-memory-gib",
+              "16",
+              "--target-memory-mb",
+              "16000",
+              "--target-initial-checkpoint",
+              "/work/runs/co-r1900-ccdz-sa12-qc-singlet0-space160/co.casscf.chk",
+              "--target-singlet-a1-driver",
+              "spin0",
+              "--target-ci-max-space",
+              "160",
+              "--target-ci-fresh-start",
+              "--target-energy-tolerance",
+              "1e-11",
+              "--target-gradient-tolerance",
+              "1e-7",
+              "--target-ci-tolerance",
+              "1e-12",
+              "--target-ci-residual-tolerance",
+              "1e-9",
+              "--target-ci-lindep",
+              "1e-22",
+              "--target-ah-lindep",
+              "1e-24",
+              "--target-ah-tolerance",
+              "1e-16",
+              "--target-ah-start-tolerance",
+              "1e-8",
+              "--target-max-cycles",
+              "150",
+              "--ranks",
+              "12",
+              "--scripts-cache",
+              "/work/prepared/compressed-private-cache-source-20261010/cache"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115738783744,
+              "free_disk_bytes": 113637359616
+            },
+            "started_unix": 1791666249.173809
+          }
+        ],
+        "frozen_inputs_sha256": "eeb36366e66ab68156587943426d5b2e9b6dae952b126b98ff1a541cc071e7ef",
+        "rank_scaling_speedup_verdict": null,
+        "scope": "Compressed target import only; no scattering,electronic-model or full sweep qualification. Original failed owners and rejected numerical controls retained.",
+        "heartbeat_unix": 1791667029.1846502,
+        "original_augtz_space40_rejection_preserved": true
+      }
+    },
+    "co-quarter-replay-source-20261010": {
+      "captured_record_sha256": "6b0b744ad525df749857b17775a5ba03bda2973ca090f42778d56cd85f03a9c7",
+      "captured_record": {
+        "supervisor_pid": 1141177,
+        "started_unix": 1791666252.8160148,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "cpu_group": "0-3",
+        "frozen_inputs_sha256": "c003c68dc29c199475a72ad9f350b5224616676e6f54c6a5199dede4c3371bfc",
+        "steps": [
+          {
+            "started_unix": 1791666253.8049567,
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-quarter-replay-20261010",
+              "--cpuset-cpus=0-3",
+              "--memory=4g",
+              "--memory-swap=4g",
+              "--shm-size=256m",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=4",
+              "-e",
+              "OPENBLAS_NUM_THREADS=4",
+              "-e",
+              "MKL_NUM_THREADS=4",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/publication-quarter-state-tracking-20261010:/work/prepared/publication-quarter-state-tracking-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/co-quarter-replay-source-20261010:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/task.py"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115396116480,
+              "free_disk_bytes": 113636343808
+            },
+            "original_exit": 0,
+            "finished_unix": 1791666462.3270466
+          }
+        ],
+        "scope": "Independent672-state/112-matrix reconstruction without eigensolve; path identity remains unset",
+        "heartbeat_unix": 1791666462.8150215,
+        "heartbeat_utc": "2026-10-10T21:07:42.815024+00:00",
+        "original_controller_exit": 0,
+        "finished_unix": 1791666462.8150198
+      }
+    },
+    "compressed-quarter-replay-progress-source-20261010": {
+      "captured_record_sha256": "75901799744a03926ac6339907431b444ced1bf61d595e64bde98540fa70a662",
+      "captured_record": {
+        "pid": 1141454,
+        "started_unix": 1791666354.3649893,
+        "max_hours": 48,
+        "interval_seconds": 3600,
+        "captures": 1,
+        "scope": "Read-only progress observer; no retries, gate edits or job launches",
+        "latest_capture": "capture-20261010T210554Z.json",
+        "latest_capture_sha256": "afa5ecd9eef337f935f015ffa5c883c4a11150477d342991299a8aede7110338",
+        "heartbeat_unix": 1791666356.8861885
+      }
+    }
+  },
+  "remote_immutable_file_sha256": {
+    "prepared/compressed-complete-proof-source-20261010/contract.json": "088b7e1d3ca92511c05fe6d51db9fd238e82c410dd60c08756a9046e7d09549e",
+    "prepared/compressed-complete-proof-source-20261010/frozen-inputs.json": "372c6f7660d66524618161c4e787a3460c5477a50bb0a68f19eddc8ae09144ba",
+    "prepared/compressed-complete-proof-source-20261010/preflight.log": "df59fdb259a8e2a2a895a8fa56bd9aa720e035978c910573026325b088e3d442",
+    "prepared/compressed-complete-proof-source-20261010/compressed-public-proof.launch.log": "79f32f035b3f5211717992a3390d00888a5597339885d2b451ef39d04d3e61f4",
+    "prepared/compressed-complete-proof-source-20261010/execution.json": "7ce68eadc5ca8274b3a64de5a7e92ebd44bfb2fc4f0cea188470fc9634d3b5b2",
+    "prepared/compressed-private-cache-source-20261010/contract.json": "9e13dd9e73d3485423919e6dcee137ef97b12ccac9a1b6fb77faf9578ee7a17c",
+    "prepared/compressed-private-cache-source-20261010/frozen-inputs.json": "eeb36366e66ab68156587943426d5b2e9b6dae952b126b98ff1a541cc071e7ef",
+    "prepared/compressed-private-cache-source-20261010/preflight.log": "a697f0c9f60d214680829a287806ddbe3eac742b9ea9f683a8c3f25d65f06938",
+    "prepared/compressed-private-cache-source-20261010/compressed-public-proof.launch.log": "79f32f035b3f5211717992a3390d00888a5597339885d2b451ef39d04d3e61f4",
+    "prepared/co-quarter-replay-source-20261010/contract.json": "c732820dd66cbab58dbbfb4b6b540e9f1f4dbe3905ea63d3a5861da69754c9d3",
+    "prepared/co-quarter-replay-source-20261010/frozen-inputs.json": "c003c68dc29c199475a72ad9f350b5224616676e6f54c6a5199dede4c3371bfc",
+    "prepared/co-quarter-replay-source-20261010/preflight.log": "68a2d137e3cd2d923558aac9eacf2e9f33d7370fa0522a37fd466f2b3208c747",
+    "prepared/co-quarter-replay-source-20261010/execution.json": "6b0b744ad525df749857b17775a5ba03bda2973ca090f42778d56cd85f03a9c7",
+    "prepared/compressed-quarter-replay-progress-source-20261010/contract.json": "e331311ec59f28dc9a9bb6bfe28fcd92fe0746926295059aac2084d3eb4d067c",
+    "prepared/publication-quarter-state-tracking-20261010/archive-metadata.json": "58694ad588ad64c2b4a6466125a46ed95609ed1a8dddf38efae3fa5b89c7e0f3",
+    "prepared/publication-quarter-state-tracking-20261010/independent-verification.json": "10a55b5992bebd4e2178672619928c684b30ae51e1766c2016c4581b5ef0a58f",
+    "prepared/publication-quarter-state-tracking-20261010/verification-resources/resources.json": "0057fa16a53dd9810cc0801af03e005d9868645672b715a602a53622662bc729"
+  },
+  "frozen_file_counts": {
+    "compressed-complete-proof-source-20261010": {
+      "source": 582,
+      "inputs": 23
+    },
+    "compressed-private-cache-source-20261010": {
+      "source": 1593,
+      "inputs": 27
+    },
+    "co-quarter-replay-source-20261010": {
+      "source": 12,
+      "inputs": 293
+    }
+  },
+  "quarter_archive_metadata": {
+    "sha256": "17ed7af6894ad1e4b3cafccb853bfa5ba67a9b5ee2ae4aa1d2ca1b29bd7630fc",
+    "bytes": 313621617,
+    "indexed_files": 298
+  },
+  "quarter_independent_verification": {
+    "verified_payloads": 298,
+    "states": 672,
+    "quarter_probes_verified": 32,
+    "overlap_matrices": 112,
+    "profiles": 22916,
+    "producer_wall_seconds": 4604.506907355972,
+    "producer_kernel_peak_gib": 1.5685844421386719,
+    "maxima": {
+      "physical": 6.925787695431976e-10,
+      "penalized": 9.985203113959017e-10,
+      "spin_penalty_action": 6.58246659398994e-10,
+      "spin_square_error": 1.8207657603852567e-14,
+      "saved_root_error": 5.45909983884485e-10,
+      "ground_dipole_error": 5.29576937857712e-11,
+      "overlap_error": 1.3322676295501878e-15
+    },
+    "trigger_counts": {
+      "weak_assignment_trigger": 202,
+      "ambiguous_row_trigger": 82,
+      "ensemble_to_extra_root_trigger": 30
+    },
+    "pair_summaries": [
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.1525514576787096
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.031625465695262665
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.03162546571137634
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.3261480268765541
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.08332686578385595
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.10103863363307936
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.10103863363257584
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.3535938443392286
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.3867484545855677
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.08086013197492561
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.08086013201685284
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.8253306689468035
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.21348805694812
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.25864066249101497
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.25864066248970213
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9078421362109761
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.755316256985771
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.08314331276948148
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.08314331280981134
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.7606209634518746
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.35838835387400164
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.6771468036799856
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.6771468036655356
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.7582635993771247
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9703052223291664
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.10712356396267905
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.10712356401546974
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9780974684952151
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.4608872854840062
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.8710951803072046
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.8710951802898811
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9757557569310462
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.35427243177139034
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.7596308570080689
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.7596308569979304
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.6914201998910812
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.5795393825684312
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.4795530766569364
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.4795530766978797
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.754728703601069
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.45505382365206537
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9803562259722706
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9803562259602526
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.8900254875026841
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.7483787721958811
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.6180350073607546
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.6180350074134426
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9733363895839574
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9315305536828348
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.17544581622382793
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.1754458144498384
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9320543860736681
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.8659897341497997
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.9182693632107853
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.9182693631884261
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9314243574289114
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9933223241216926
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.18726929035744672
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.187269288465989
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9940103514476025
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.9234306322749216
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.9794313260957752
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.9794313260724813
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9934926711031157
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9294348083613475
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9295562877129313
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9295562878568351
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9323412003353471
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.6261191838249369
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.8844662248302056
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.8844662248501052
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9315185529837914
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9915012084710383
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9917571373090529
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9917571374770292
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9949092089067221
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.6682125224558603
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.9438925137644748
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.9438925137857295
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9942341152878765
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9247947908590026
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9318793982142539
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9318793982087699
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9297475096406479
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.9052884227023524
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.7430387851162055
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.743038785160599
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9312139975150139
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9867971555185412
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9948046320112323
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9948046320059153
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9918529381395967
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.9664715854364162
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.7931981093884851
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.7931981094356602
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9941189653735859
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.4905043657604919
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9319057171661526
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9319057171638401
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.8774364428027551
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.8320924385236473
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.9017078537132936
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.9017078537118093
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.928931907546982
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.5227669402477293
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9952395296421418
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.995239529639716
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9366747684812594
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.88883165395368
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.9624646985096281
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.9624646985080108
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9918734099827616
+      }
+    ],
+    "composed_path_assignments": [
+      {
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              8,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 10
+          }
+        ]
+      },
+      {
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 8
+          }
+        ]
+      },
+      {
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 8
+          }
+        ]
+      },
+      {
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              5,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              6,
+              6,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              5,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              8,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          }
+        ]
+      },
+      {
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              4,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              5,
+              6,
+              6,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              4,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              5,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          }
+        ]
+      },
+      {
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              9,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              10,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 9
+          }
+        ]
+      },
+      {
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              9,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              10,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 9
+          }
+        ]
+      },
+      {
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              5,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              6,
+              6,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              5,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              8,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              7,
+              7,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              8,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              8,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 10
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 8
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 8
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              5,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              6,
+              6,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              5,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              8,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              4,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              5,
+              6,
+              6,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              4,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              5,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              9,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              10,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 9
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              6,
+              6,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              7,
+              7,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              8,
+              8,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              9,
+              9,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              10,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 12
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 9
+          }
+        ]
+      },
+      {
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "roots": [
+          {
+            "equilibrium_root": 1,
+            "quarter_route_roots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "stretched_root_four_leg": 1,
+            "stretched_root_two_leg": 1,
+            "stretched_root_direct": 1
+          },
+          {
+            "equilibrium_root": 2,
+            "quarter_route_roots": [
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "stretched_root_four_leg": 2,
+            "stretched_root_two_leg": 2,
+            "stretched_root_direct": 2
+          },
+          {
+            "equilibrium_root": 3,
+            "quarter_route_roots": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "stretched_root_four_leg": 3,
+            "stretched_root_two_leg": 3,
+            "stretched_root_direct": 3
+          },
+          {
+            "equilibrium_root": 4,
+            "quarter_route_roots": [
+              4,
+              4,
+              5,
+              6,
+              6
+            ],
+            "stretched_root_four_leg": 6,
+            "stretched_root_two_leg": 6,
+            "stretched_root_direct": 6
+          },
+          {
+            "equilibrium_root": 5,
+            "quarter_route_roots": [
+              5,
+              6,
+              6,
+              5,
+              5
+            ],
+            "stretched_root_four_leg": 5,
+            "stretched_root_two_leg": 9,
+            "stretched_root_direct": 9
+          },
+          {
+            "equilibrium_root": 6,
+            "quarter_route_roots": [
+              6,
+              5,
+              4,
+              4,
+              4
+            ],
+            "stretched_root_four_leg": 4,
+            "stretched_root_two_leg": 4,
+            "stretched_root_direct": 4
+          },
+          {
+            "equilibrium_root": 7,
+            "quarter_route_roots": [
+              7,
+              8,
+              9,
+              10,
+              10
+            ],
+            "stretched_root_four_leg": 10,
+            "stretched_root_two_leg": 10,
+            "stretched_root_direct": 10
+          },
+          {
+            "equilibrium_root": 8,
+            "quarter_route_roots": [
+              8,
+              7,
+              7,
+              8,
+              8
+            ],
+            "stretched_root_four_leg": 8,
+            "stretched_root_two_leg": 5,
+            "stretched_root_direct": 5
+          },
+          {
+            "equilibrium_root": 9,
+            "quarter_route_roots": [
+              9,
+              9,
+              8,
+              7,
+              7
+            ],
+            "stretched_root_four_leg": 7,
+            "stretched_root_two_leg": 7,
+            "stretched_root_direct": 7
+          },
+          {
+            "equilibrium_root": 10,
+            "quarter_route_roots": [
+              10,
+              10,
+              10,
+              9,
+              9
+            ],
+            "stretched_root_four_leg": 9,
+            "stretched_root_two_leg": 8,
+            "stretched_root_direct": 8
+          },
+          {
+            "equilibrium_root": 11,
+            "quarter_route_roots": [
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "stretched_root_four_leg": 11,
+            "stretched_root_two_leg": 11,
+            "stretched_root_direct": 11
+          },
+          {
+            "equilibrium_root": 12,
+            "quarter_route_roots": [
+              12,
+              12,
+              12,
+              12,
+              12
+            ],
+            "stretched_root_four_leg": 12,
+            "stretched_root_two_leg": 12,
+            "stretched_root_direct": 12
+          }
+        ]
+      }
+    ],
+    "independent_reconstruction_passed": true,
+    "final_target_continuity_verdict": null,
+    "final_resonance_pole_identity_verdict": null
+  },
+  "quarter_verification_resources": {
+    "exit_code": 0,
+    "wall_seconds": 208.04265450895764,
+    "sampled_peak_container_memory_bytes": 2522374144,
+    "baseline_container_memory_bytes": 12193792,
+    "sampled_peak_container_anon_bytes": 1026334720,
+    "kernel_peak_container_memory_bytes": 2522439680,
+    "container_cpu_seconds": 611.2492960000001,
+    "sampled_peak_run_allocated_bytes": 49152,
+    "sampled_peak_scratch_allocated_bytes": 0,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "compressed_native_launched": true,
+  "compressed_run_symlink": "../prepared/compressed-private-cache-source-20261010/native/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010",
+  "available_ram_bytes": 115234443264,
+  "free_disk_bytes": 112190410752,
+  "docker_stats": "co-privatecache-co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010 833.06% 642.7MiB / 64GiB\ncomfyui 0.04% 10.09GiB / 123.5GiB\n",
+  "quarter_public_reconstruction": {
+    "public_archive_sha256": "17ed7af6894ad1e4b3cafccb853bfa5ba67a9b5ee2ae4aa1d2ca1b29bd7630fc",
+    "public_archive_bytes": 313621617,
+    "verified_payloads": 298,
+    "states": 672,
+    "quarter_probes_verified": 32,
+    "overlap_matrices": 112,
+    "profiles": 22916,
+    "byte_identical_repackaging": true,
+    "public_reconstruction_passed": true,
+    "reconstruction_wall_seconds": 280.14838045835495,
+    "report_sha256": "c322f3bbdfce1b9824475bb9550e16f979fd12948e0fe29e44ed070bd3df5d67",
+    "maxima": {
+      "physical": 6.925785480633004e-10,
+      "penalized": 9.98520278938254e-10,
+      "spin_penalty_action": 6.582466596868797e-10,
+      "spin_square_error": 6.350475700855895e-14,
+      "saved_root_error": 5.45909983884485e-10,
+      "ground_dipole_error": 5.295697214080519e-11,
+      "overlap_error": 2.7755575615628914e-15
+    },
+    "final_target_continuity_verdict": null,
+    "final_resonance_pole_identity_verdict": null
+  }
+}
