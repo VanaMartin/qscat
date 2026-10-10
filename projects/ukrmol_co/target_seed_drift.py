@@ -242,11 +242,16 @@ def compute(root: Path, work: Path, contract_path: Path) -> dict:
                     strict=True,
                 )
             )
-            result["maximum_native_root_error_hartree"] = max(
-                abs(float(e) - native[f"{'singlet' if spin == 0 else 'triplet'}.{irrep}.{i + 1}"])
-                for (spin, irrep, space), values in energies.items()
-                if space == widest
-                for i, e in enumerate(values)
+            result["maximum_native_root_error_hartree"] = float(
+                max(
+                    abs(
+                        float(e)
+                        - native[f"{'singlet' if spin == 0 else 'triplet'}.{irrep}.{i + 1}"]
+                    )
+                    for (spin, irrep, space), values in energies.items()
+                    if space == widest
+                    for i, e in enumerate(values)
+                )
             )
             result["native_root_gate_pass"] = (
                 result["maximum_native_root_error_hartree"]

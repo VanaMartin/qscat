@@ -1,0 +1,13 @@
+{
+  "status": "additive report recovery and independent replay after final JSON serialization failure",
+  "parent_contract": "cas12-tz-seed-drift-contract.json",
+  "original_owner": 1113052,
+  "original_controller_exit": 1,
+  "original_diagnostic": "cas12-tz-seed-drift-20261010",
+  "output_diagnostic": "cas12-tz-seed-drift-replay-20261010",
+  "failure": "All48 probes completed; final report serialization raised TypeError on a NumPy bool derived from the native-root comparison. Keep original logs, resources, frozen source and exit1 intact.",
+  "design": "Reconstruct final frame/space/Pi/native energy comparisons from all48 saved probe records. Independently rebuild checkpoint AO/CAS Hamiltonians and replay physical, penalized and spin actions on all128 saved widest-space CI vectors. Validate MO/CI orthogonality, checkpoint hashes, native spectrum rounding and subspace singular values. Save fresh recovered result and independent-verification records; no CI eigensolver or native import is launched.",
+  "gates": "Unchanged numerical gates from parent. Preserve and explicitly measure the original1e-7-Hartree seed-preservation rejection separately from imported-frame numerical consistency.",
+  "resources": {"cpu_group": "0-3", "library_threads": 4, "container_memory_gib": 4, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "eligibility_wait_seconds": 3600, "whole_container_timeout_seconds": 1800},
+  "release": "Diagnostic evidence only. No gate relaxation, retroactive owner success, target requalification, import continuation or CAS12 scattering release. A successor needs a separately declared treatment of the observed seed drift."
+}
