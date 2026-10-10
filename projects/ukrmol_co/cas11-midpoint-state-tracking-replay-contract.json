@@ -1,0 +1,14 @@
+{
+  "status": "user-directed independent portable replay of the completed two-start midpoint diagnostic",
+  "parent_contract": "cas11-midpoint-state-tracking-contract.json",
+  "producer_owner": 1127334,
+  "producer_controller_exit": 0,
+  "producer_result": "diagnostics/cas11-midpoint-state-tracking-20261010/result.json",
+  "producer_result_sha256": "97eb5eed1599c595b55ba8fb6d414b0f17829be2fc3d627bc4bb77ee2d4dec35",
+  "publication_directory": "prepared/publication-midpoint-state-tracking-20261010",
+  "design": "Freeze the11 original producer-source files,62 endpoint inputs, complete midpoint outputs and both ordinary-QC runs. Adapt a fresh copy of the independent full-occupied-minor replay to reconstruct both midpoint trial spaces and the two endpoint frames. Rebuild AO integrals and physical/spin-penalized Hamiltonian actions without an eigensolve; verify all576 states,32 midpoint probes,96 overlap matrices,space160/240 energy-matched projections,ground dipoles,QC/Pi/orthogonality,assignments and composed path maps. The portable verifier uses explicit occupied Slater minors, not the producer Schur implementation.",
+  "gates": {"wavefunctions": 576, "midpoint_probe_records": 32, "overlap_matrices": 96, "saved_qc_and_native_first_five_root_error_hartree": 1e-7, "physical_penalized_and_action_residual_hartree": 1e-9, "spin_square_error": 1e-6, "ci_and_mo_orthogonality_error": 1e-9, "ground_dipole_error_au": 1e-5, "independent_overlap_and_reciprocity_error": 1e-10, "minimum_same_frame_space_matched_projection": 0.99999999, "overlap_magnitude_and_singular_value_upper_bound": 1.000000001},
+  "resources": {"cpu_group": "0-3", "library_threads": 4, "container_memory_gib": 4, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "eligibility_wait_seconds": 3600, "whole_container_timeout_seconds": 7200},
+  "stopping": "One fresh frozen source,output and owner; preserve actual exits and any failure without retry or tolerance changes. Wait for reserved small cores without modifying the active import queue. Keep original producer and endpoint evidence read-only.",
+  "release": "Publish only after independent host reconstruction passes. Fetch the public archive to a fresh directory and repeat portable reconstruction,including source/content hashes. Preserve both midpoint starts and higher-root differences; do not select a branch. Continuous-path state and resonance-pole identity remain unset; midpoint targets have no native import/scattering qualification."
+}
