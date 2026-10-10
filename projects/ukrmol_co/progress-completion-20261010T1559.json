@@ -1,0 +1,1189 @@
+{
+  "captured_utc": "2026-10-10T15:59:22.243670+00:00",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "remote_immutable_file_sha256": {
+    "prepared/co-midpoint-replay-source-20261010/execution.json": "a090141122e7a5dc704bf0ca4906cc63517d7f0e7347aa39a2e9073e830f6437",
+    "prepared/co-midpoint-replay-source-20261010/frozen-inputs.json": "e2f581a0166725638f1ac4873e79b2cfac0a5c58a81a0d415f6f87147e34a1df",
+    "prepared/publication-midpoint-state-tracking-20261010/independent-verification.json": "975514b9b773da70c4559a4b6384eab7e095d6fb414b4722c92a5bcdcc43fc45",
+    "prepared/publication-midpoint-state-tracking-20261010/archive-metadata.json": "cfb48a17a65f2b34aed870fb053804ea10d36cc21cad9ff0abfc24ab1f767c68",
+    "prepared/publication-midpoint-state-tracking-20261010/verification-resources/resources.json": "f1894a3881dae4875d09f0db02f3e2bbb74e0ea5d6fbf81c79fb5d23023f1179",
+    "prepared/co-quarter-tracking-source-20261010/contract.json": "77e20c2d40e9ce8d895edc3c01f64dc87e05d57bec309fa3dcf0a17988bdafa1",
+    "prepared/co-quarter-tracking-source-20261010/frozen-inputs.json": "5edff49f9b11f50204e6de4bf6cd464a7057e61fd63353b707e4bf43a9dacd76",
+    "prepared/quarter-import-progress-source-20261010/observer.py": "1b9a23af533ad71df089f26014d10a37b66a600d0d59dfc18614b6c267caeebf",
+    "prepared/quarter-import-progress-source-20261010/contract.json": "9d806f98ebb859d839be48d64f1df524d7abf44a0c96eba8b212a8c3754c76da",
+    "prepared/publication-target-state-overlap-roots12-20261010/archive-metadata.json": "3524625d8c86389c14fd7b083ab98f1c5f93b439e97cc61736564a9a41b882d7",
+    "prepared/publication-target-state-overlap-roots12-20261010/independent-verification.json": "03a8cf5f040ed8f916212be994d823571c047240572df3b775e752fb55e74f0d"
+  },
+  "midpoint_host_replay": {
+    "verified_payloads": 231,
+    "states": 576,
+    "midpoint_probes_verified": 32,
+    "overlap_matrices": 96,
+    "profiles": 40963,
+    "producer_wall_seconds": 8231.194407462142,
+    "producer_kernel_peak_gib": 1.5058708190917969,
+    "maxima": {
+      "physical": 6.925787135493686e-10,
+      "penalized": 9.98767601033867e-10,
+      "spin_penalty_action": 6.51933120156697e-10,
+      "spin_square_error": 1.687538997430238e-14,
+      "saved_root_error": 5.45909983884485e-10,
+      "ground_dipole_error": 2.835559564928758e-11,
+      "overlap_error": 1.3322676295501878e-15
+    },
+    "trigger_counts": {
+      "weak_assignment_trigger": 263,
+      "ambiguous_row_trigger": 102,
+      "ensemble_to_extra_root_trigger": 30
+    },
+    "pair_summaries": [
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.1525514576787096
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.031625465695262665
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.03162546571137634
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.3261480268765541
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.08332686578385595
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.10103863363307936
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.10103863363257584
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.3535938443392286
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.3867484545855677
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.08086013197492561
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.08086013201685284
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.8253306689468035
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.21348805694812
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.25864066249101497
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.25864066248970213
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9078421362109761
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.755316256985771
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.08314331276948148
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.08314331280981134
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.7606209634518746
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.35838835387400164
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.6771468036799856
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.6771468036655356
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.7582635993771247
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9703052223291664
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.10712356396267905
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.10712356401546974
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9780974684952151
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.4608872854840062
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.8710951803072046
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.8710951802898811
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromeq",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9757557569310462
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.35427243177139034
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.7596308570080689
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.7596308569979304
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.6914201998910812
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.5795393825684312
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.4795530766569364
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.4795530766978797
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.754728703601069
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.45505382365206537
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9803562259722706
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9803562259602526
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.8900254875026841
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.7483787721958811
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.6180350073607546
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.6180350074134426
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9733363895839574
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.7553162509819158
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.08314325280033058
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.08314325219382106
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.7606209586410528
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.35838583966303966
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.6771451359190073
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.6771451359236916
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.7582635937409427
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9703052154798039
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.10712349004310925
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.10712348926594677
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.978097459679383
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.46088405889548645
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.8710930404542326
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.8710930404601749
+      },
+      {
+        "left": "eq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9757557474298652
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.3542722456118218
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.7596308612967579
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.7596308612893579
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.6914203333733807
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.5795399087620482
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.4795560784269099
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.4795560784223309
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.7547287161027375
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.45505358343344965
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9803562390820015
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9803562390738132
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.8900256579416804
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.7483794429905565
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.6180388513464262
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.6180388513405088
+      },
+      {
+        "left": "mid_fromstretched",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9733364075365597
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9999999999998593
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9999999999996929
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.999999999999691
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.9999999999998923
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.999999999990681
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.9999999999853649
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.9999999999853658
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "physical",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.9999999999999789
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A1",
+        "minimum_manifold_singular_value": 0.9999999999998548
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B1",
+        "minimum_manifold_singular_value": 0.9999999999996914
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.B2",
+        "minimum_manifold_singular_value": 0.9999999999996914
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "singlet.A2",
+        "minimum_manifold_singular_value": 0.99999999999989
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A1",
+        "minimum_manifold_singular_value": 0.9999999999906792
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B1",
+        "minimum_manifold_singular_value": 0.9999999999853638
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.B2",
+        "minimum_manifold_singular_value": 0.9999999999853646
+      },
+      {
+        "left": "mid_fromeq",
+        "right": "mid_fromstretched",
+        "metric_kind": "ao_transport",
+        "sector": "triplet.A2",
+        "minimum_manifold_singular_value": 0.999999999999976
+      }
+    ],
+    "same_geometry_start_comparison": {
+      "ensemble_objective_difference_hartree": 1.7053025658242404e-13,
+      "ground_dipole_difference_au": [
+        0.0,
+        0.0,
+        3.5712042933955246e-08
+      ],
+      "widest_space_root_differences_hartree": {
+        "singlet.A1": [
+          1.2497167745095794e-09,
+          6.27692031685001e-09,
+          -8.19574097477016e-09,
+          4.490800620260416e-09,
+          9.527099109618575e-10,
+          -1.1026202173525235e-10,
+          1.2127259196859086e-09,
+          -2.1318271592463134e-09,
+          -8.519663197148475e-09,
+          -2.634806151036173e-09,
+          7.470646323781693e-10,
+          -7.035907856334234e-09
+        ],
+        "singlet.B1": [
+          -1.2258198012204957e-08,
+          3.396181114112551e-09,
+          4.698961220128695e-10,
+          -6.077272018956137e-09,
+          -6.446711608987243e-09,
+          -9.830330327531556e-09,
+          -1.0776076919682964e-08,
+          -1.0297185326635372e-09,
+          -4.3920067582803313e-10,
+          -9.577183845976833e-08,
+          -5.1051443961114273e-08,
+          -2.260418199284686e-07
+        ],
+        "singlet.B2": [
+          -1.2259164350325591e-08,
+          3.3944758115467266e-09,
+          4.69867700303439e-10,
+          -6.071459779377619e-09,
+          -6.447805844800314e-09,
+          -9.828198699324275e-09,
+          -1.0785385029521422e-08,
+          -1.0304432862540125e-09,
+          -4.3924330839217873e-10,
+          -9.576308457326377e-08,
+          -5.1048445470769366e-08,
+          -2.260413367594083e-07
+        ],
+        "singlet.A2": [
+          6.569166544068139e-09,
+          6.2769629494141554e-09,
+          4.490772198550985e-09,
+          1.2127117088311934e-09,
+          -2.1318555809557438e-09,
+          1.534530724711658e-09,
+          -2.6348203618908883e-09,
+          -3.967215889133513e-09,
+          7.470788432328845e-10,
+          -1.0494929369997408e-08,
+          1.2144326433372044e-08,
+          2.336875581931963e-09
+        ],
+        "triplet.A1": [
+          3.111267687927466e-09,
+          4.92831020437734e-09,
+          -2.6727633439804777e-09,
+          2.0601476080628345e-09,
+          -8.182766464415181e-09,
+          -1.656543702210911e-08,
+          -5.6390376812487375e-09,
+          1.75944592228916e-10,
+          -1.8715994087870058e-08,
+          -3.8876450503266824e-07,
+          -3.121199370070826e-07,
+          -2.364586748626607e-08
+        ],
+        "triplet.B1": [
+          -2.9176590032875538e-09,
+          5.391612489802355e-09,
+          8.112976956908824e-10,
+          1.5024994581835927e-09,
+          -1.91947435723705e-09,
+          -1.1100866004198906e-08,
+          -4.614165050043084e-09,
+          3.192255348949402e-09,
+          5.377870593292755e-09,
+          -4.8023380827544315e-08,
+          -4.3320795839463244e-09,
+          -7.255009393247747e-08
+        ],
+        "triplet.B2": [
+          -2.9110367449902697e-09,
+          5.390802471083589e-09,
+          8.09720290817495e-10,
+          1.5024852473288774e-09,
+          -1.9181953803126817e-09,
+          -1.1100226515736722e-08,
+          -4.601361069944687e-09,
+          3.184169372616452e-09,
+          5.377913225856901e-09,
+          -4.8014669573603896e-08,
+          -4.331567993176577e-09,
+          -7.254486433794227e-08
+        ],
+        "triplet.A2": [
+          4.928324415232055e-09,
+          4.741792736240313e-09,
+          6.600345159313292e-09,
+          -2.6727491331257625e-09,
+          2.060104975498689e-09,
+          -3.5465745895635337e-09,
+          -4.277751486370107e-10,
+          -5.639023470394022e-09,
+          -8.43988345877733e-09,
+          -4.918319973512553e-09,
+          1.7600143564777682e-10,
+          9.582905136085174e-09
+        ]
+      }
+    },
+    "independent_reconstruction_passed": true,
+    "final_target_continuity_verdict": null,
+    "final_resonance_pole_identity_verdict": null
+  },
+  "midpoint_host_replay_resources": {
+    "exit_code": 0,
+    "wall_seconds": 164.6071304010693,
+    "sampled_peak_container_memory_bytes": 2002026496,
+    "baseline_container_memory_bytes": 11894784,
+    "sampled_peak_container_anon_bytes": 876904448,
+    "kernel_peak_container_memory_bytes": 2009841664,
+    "container_cpu_seconds": 501.328233,
+    "sampled_peak_run_allocated_bytes": 40960,
+    "sampled_peak_scratch_allocated_bytes": 0,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "midpoint_archive": {
+    "sha256": "acf7b08581da773b3741ae1faf237afcaf179a5e9e40e295f9146b6971e1e7d2",
+    "bytes": 235511991,
+    "indexed_files": 231
+  },
+  "owners": {
+    "co-midpoint-replay-source-20261010": {
+      "captured_record_sha256": "a090141122e7a5dc704bf0ca4906cc63517d7f0e7347aa39a2e9073e830f6437",
+      "captured_record": {
+        "supervisor_pid": 1133896,
+        "started_unix": 1791646960.772855,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "cpu_group": "0-3",
+        "frozen_inputs_sha256": "e2f581a0166725638f1ac4873e79b2cfac0a5c58a81a0d415f6f87147e34a1df",
+        "steps": [
+          {
+            "started_unix": 1791646961.580647,
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-midpoint-replay-20261010",
+              "--cpuset-cpus=0-3",
+              "--memory=4g",
+              "--memory-swap=4g",
+              "--shm-size=256m",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=4",
+              "-e",
+              "OPENBLAS_NUM_THREADS=4",
+              "-e",
+              "MKL_NUM_THREADS=4",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/publication-midpoint-state-tracking-20261010:/work/prepared/publication-midpoint-state-tracking-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/co-midpoint-replay-source-20261010:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/co-midpoint-replay-task-20261010.py"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 116292849664,
+              "free_disk_bytes": 115496980480
+            },
+            "original_exit": 0,
+            "finished_unix": 1791647126.6368837
+          }
+        ],
+        "scope": "Independent midpoint576-state/96-matrix reconstruction; no eigensolves,state-identity release or original evidence edits",
+        "heartbeat_unix": 1791647127.0111713,
+        "heartbeat_utc": "2026-10-10T15:45:27.011173+00:00",
+        "original_controller_exit": 0,
+        "finished_unix": 1791647127.0111704
+      }
+    },
+    "co-quarter-tracking-source-20261010": {
+      "captured_record_sha256": "6da4e58419393725d9ff301fa381152a146c76ffe4f42120f5b4fc7a1dae3803",
+      "captured_record": {
+        "supervisor_pid": 1134993,
+        "started_unix": 1791647762.0473936,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "cpu_group": "0-3",
+        "frozen_inputs_sha256": "5edff49f9b11f50204e6de4bf6cd464a7057e61fd63353b707e4bf43a9dacd76",
+        "steps": [
+          {
+            "started_unix": 1791647762.5538092,
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-quarter-tracking-20261010",
+              "--cpuset-cpus=0-3",
+              "--memory=8g",
+              "--memory-swap=8g",
+              "--shm-size=256m",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=4",
+              "-e",
+              "OPENBLAS_NUM_THREADS=4",
+              "-e",
+              "MKL_NUM_THREADS=4",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/diagnostics/cas11-quarter-interval-state-tracking-20261010:/work/diagnostics/cas11-quarter-interval-state-tracking-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs/co-r2224225-ccdz-sa11-quarter-fromeq-20261010:/work/runs/co-r2224225-ccdz-sa11-quarter-fromeq-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs/co-r2408075-ccdz-sa11-quarter-fromstretched-20261010:/work/runs/co-r2408075-ccdz-sa11-quarter-fromstretched-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/co-quarter-tracking-source-20261010:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/co-quarter-tracking-20261010.py"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115795566592,
+              "free_disk_bytes": 114442182656
+            }
+          }
+        ],
+        "scope": "Producer geometry-path diagnostic only. Quarter targets have no native import/scattering evidence. Path agreement or larger overlaps cannot certify continuous-path state identity,poles or an electronic model. Preserve the original direct/midpoint disagreement even if the finer route changes assignments.",
+        "heartbeat_unix": 1791647942.5746546,
+        "heartbeat_utc": "2026-10-10T15:59:02.574657+00:00"
+      }
+    },
+    "supported-import-frame-source-20261010": {
+      "captured_record_sha256": "0eba4751ea9d08bbe0bbf39a21f7c3c2f9b69f7b5e618fc8469ee0f189576281",
+      "captured_record": {
+        "supervisor_pid": 1127732,
+        "started_unix": 1791632678.0050602,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "mpi_ranks": 12,
+        "native_cpu_group": "4-15",
+        "small_cpu_group": "0-3",
+        "steps": [
+          {
+            "label": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-frame-co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+              "--cpuset-cpus=4-15",
+              "--memory=64g",
+              "--memory-swap=64g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/aug:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "-m",
+              "projects.ukrmol_co.run",
+              "--workdir",
+              "/work/runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+              "--bond-length",
+              "2.5",
+              "--basis",
+              "aug-cc-pVTZ",
+              "--model",
+              "CAS-A",
+              "--orbitals",
+              "state-averaged",
+              "--active-orbitals",
+              "6",
+              "3",
+              "3",
+              "0",
+              "--virtual-orbitals",
+              "0",
+              "0",
+              "0",
+              "0",
+              "--target-only",
+              "--target-roots",
+              "8",
+              "--target-states-used",
+              "40",
+              "--target-diagonalizer",
+              "slepc",
+              "--target-diagonalizer-tolerance",
+              "1e-13",
+              "--target-diagonalizer-max-cycles",
+              "1000",
+              "--congen-workspace",
+              "1000000",
+              "--scatci-memory-gib",
+              "16",
+              "--target-initial-checkpoint",
+              "/work/runs/co-r2500-augtz-sa12-qc-dz80-residual-qualified-start/co.casscf.chk",
+              "--target-ci-max-space",
+              "80",
+              "--target-ci-fresh-start",
+              "--target-energy-tolerance",
+              "1e-11",
+              "--target-gradient-tolerance",
+              "1e-7",
+              "--target-ci-tolerance",
+              "1e-12",
+              "--target-ci-residual-tolerance",
+              "1e-9",
+              "--target-ci-lindep",
+              "1e-22",
+              "--target-ah-lindep",
+              "1e-24",
+              "--target-ah-tolerance",
+              "1e-16",
+              "--target-ah-start-tolerance",
+              "1e-8",
+              "--target-max-cycles",
+              "150",
+              "--ranks",
+              "12"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 114471911424,
+              "free_disk_bytes": 117098487808
+            },
+            "started_unix": 1791632678.0546985
+          }
+        ],
+        "frozen_inputs_sha256": "0266292a45bfdf1b24f517fbb8d424b0e05bd6e06f0f453fcd4e4de5adfdfc69",
+        "rank_scaling_speedup_verdict": null,
+        "scope": "Target imports only. New TZ declaration qualifies a distinct orbital frame, not original seed preservation. No CAS12 scattering, extra CAS11 pole-count run, model selection or geometry sweep is released.",
+        "heartbeat_unix": 1791647948.3384602,
+        "original_augtz_space40_rejection_preserved": true
+      }
+    },
+    "quarter-import-progress-source-20261010": {
+      "captured_record_sha256": "5c7f9f296d75129917bbc1208394c799e041cdfaf45bb0979b086ca53ebdcda7",
+      "captured_record": {
+        "pid": 1135247,
+        "started_unix": 1791647797.2001562,
+        "max_hours": 48,
+        "interval_seconds": 3600,
+        "captures": 1,
+        "scope": "Read-only progress observer; no retries, gate edits or job launches",
+        "latest_capture": "capture-20261010T155637Z.json",
+        "latest_capture_sha256": "cce17020dab207f5a60b68eb806f3c88aa88657a3922aac4c58f343cb9d928e1",
+        "heartbeat_unix": 1791647799.7141972
+      }
+    },
+    "frame-midpoint-progress-source-20261010": {
+      "captured_record_sha256": "6ff6ecfa0638eacb75dc3abaa536ebc00cc3f26e7338cff4262b6f2b59bd79f1",
+      "captured_record": {
+        "pid": 1127982,
+        "started_unix": 1791632751.291236,
+        "max_hours": 48,
+        "interval_seconds": 3600,
+        "captures": 5,
+        "scope": "Read-only progress observer; no retries, gate edits or job launches",
+        "latest_capture": "capture-20261010T154601Z.json",
+        "latest_capture_sha256": "c4548cdefdb127a334d26a3b5da05e34f7c945dddcaafbafa7a0af584239a3d5",
+        "heartbeat_unix": 1791647163.8917542
+      }
+    }
+  },
+  "frozen_file_counts": {
+    "co-midpoint-replay-source-20261010": {
+      "source": 11,
+      "inputs": 227
+    },
+    "co-quarter-tracking-source-20261010": {
+      "source": 11,
+      "inputs": 124
+    },
+    "supported-import-frame-source-20261010": {
+      "source": 969,
+      "inputs": 19
+    }
+  },
+  "quarter_progress": {
+    "qc": [],
+    "completed_probes": 0,
+    "completed_pairs": 0
+  },
+  "augtz_stages_at_capture": "target\tpsi4\t\t\t3612.4914059639\t0\ntarget\tscatci_integrals\t\t\t0.62597393989563\t0\ntarget\tcongen\tsinglet\tA1\t1.11199307441711\t0\ntarget\tscatci\tsinglet\tA1\t110.031265974045\t0\ntarget\tcongen\ttriplet\tA1\t1.07495307922363\t0\ntarget\tscatci\ttriplet\tA1\t300.657569169998\t0\ntarget\tcongen\tsinglet\tB1\t1.5074188709259\t0\ntarget\tscatci\tsinglet\tB1\t121.352791070938\t0\ntarget\tcongen\ttriplet\tB1\t1.43100619316101\t0\ntarget\tscatci\ttriplet\tB1\t253.599196910858\t0\ntarget\tcongen\tsinglet\tB2\t1.53694701194763\t0\ntarget\tscatci\tsinglet\tB2\t116.401121854782\t0\ntarget\tcongen\ttriplet\tB2\t1.46691489219666\t0\ntarget\tscatci\ttriplet\tB2\t264.21873497963\t0\ntarget\tcongen\tsinglet\tA2\t1.6366879940033\t0\ntarget\tscatci\tsinglet\tA2\t131.432140111923\t0\ntarget\tcongen\ttriplet\tA2\t1.60673308372498\t0\ntarget\tscatci\ttriplet\tA2\t409.075021982193\t0\n",
+  "available_ram_bytes": 115280633856,
+  "free_disk_bytes": 114444775424,
+  "docker_stats": "co-quarter-tracking-20261010 387.22% 318.1MiB / 8GiB\nco-frame-co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010 100.14% 278.8MiB / 64GiB\ncomfyui 0.05% 10.09GiB / 123.5GiB\n",
+  "public_reconstructions": {
+    "roots12": {
+      "public_archive_sha256": "2a2ce0fa29d9d42b790bc999693f45f777c8423e72acfe80298f4c824d4fb613",
+      "public_archive_bytes": 195832512,
+      "verified_payloads": 171,
+      "states": 288,
+      "overlap_matrices": 48,
+      "profiles": 21542,
+      "byte_identical_repackaging": true,
+      "public_reconstruction_passed": true,
+      "reconstruction_wall_seconds": 109.9651470836252,
+      "report_sha256": "0160714f36b657cf3e4fbae14b9e10e788a61ca935b2abdbd091ce2f4ccfc4e7",
+      "maximum_independent_overlap_error": 2.7755575615628914e-15,
+      "final_target_continuity_verdict": null,
+      "final_resonance_pole_identity_verdict": null
+    },
+    "midpoint": {
+      "public_archive_sha256": "acf7b08581da773b3741ae1faf237afcaf179a5e9e40e295f9146b6971e1e7d2",
+      "public_archive_bytes": 235511991,
+      "verified_payloads": 231,
+      "states": 576,
+      "midpoint_probes_verified": 32,
+      "overlap_matrices": 96,
+      "profiles": 40963,
+      "byte_identical_repackaging": true,
+      "public_reconstruction_passed": true,
+      "reconstruction_wall_seconds": 187.54151074960828,
+      "report_sha256": "c858c0f79a5fefe6102160ac57a8612c3a695005edc0c1e577bc883f4b2190dd",
+      "maxima": {
+        "physical": 6.925785480633004e-10,
+        "penalized": 9.98767792041057e-10,
+        "spin_penalty_action": 6.519331201754175e-10,
+        "spin_square_error": 6.084022174945858e-14,
+        "saved_root_error": 5.45909983884485e-10,
+        "ground_dipole_error": 2.8356206271951123e-11,
+        "overlap_error": 2.9976021664879227e-15
+      },
+      "final_target_continuity_verdict": null,
+      "final_resonance_pole_identity_verdict": null
+    }
+  },
+  "public_manifest_source_sha256": {
+    "projects/ukrmol_co/qualification-evidence/target-state-overlap-roots12/manifest.json": "90ee777812397251298c96e8dac4bfe7faee599ef28d3d069ff3ee853c869079",
+    "projects/ukrmol_co/qualification-evidence/midpoint-state-tracking/manifest.json": "465a89c18443b3e0f9316c7e43cf1a919be2c1337c84d126fe88bdaefb2308b4"
+  }
+}

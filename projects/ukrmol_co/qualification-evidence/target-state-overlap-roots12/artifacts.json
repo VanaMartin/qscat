@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "target-state-overlap-roots12.tar.gz": {
+      "bytes": 195832512,
+      "sha256": "2a2ce0fa29d9d42b790bc999693f45f777c8423e72acfe80298f4c824d4fb613"
+    }
+  },
+  "git_sha": "be825a07f0f29fa532f2f6d5fb2bf2d05a945a67",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-target-state-overlap-roots12-2026-10-10/"
+}

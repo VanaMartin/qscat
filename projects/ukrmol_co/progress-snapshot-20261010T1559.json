@@ -1,0 +1,38 @@
+{
+  "base_snapshot": "progress-snapshot-20261009.json",
+  "base_snapshot_sha256": "33730acaf11066acc1f97672efbe145e5aff625c4006cd34c0bc279207c04f46",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-completion-20261009T2258.json": "cf90aff31bb2d224d6d9d0fdd6f6fc1f05ab8f8f1de16589b55f0479b499ec8d",
+    "projects/ukrmol_co/progress-completion-20261010.json": "5ff3473e5ea15f2b9e71679f849304394610c7f3cbb20a2136b78a99ea99d492",
+    "projects/ukrmol_co/progress-start-20261010T1146.json": "effb3f8d7614435856d6025cfad9376e7f08210d10afa0a1a515ba2ce584e0df",
+    "projects/ukrmol_co/progress-completion-20261010T1523.json": "856a131126d8b6616e9ff4ea31f86d0954659990773925a371737279921e4c95",
+    "projects/ukrmol_co/progress-completion-20261010T1559.json": "b94ca71095dc79cecfeb91b874fce0287ca5579162f9f6b6bb96f54ac6679418",
+    "projects/ukrmol_co/qualification-evidence/target-state-overlap-roots12/manifest.json": "90ee777812397251298c96e8dac4bfe7faee599ef28d3d069ff3ee853c869079",
+    "projects/ukrmol_co/qualification-evidence/midpoint-state-tracking/manifest.json": "465a89c18443b3e0f9316c7e43cf1a919be2c1337c84d126fe88bdaefb2308b4"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-10T15:59:22.243670+00:00",
+    "changes": [
+      "Independent midpoint host replay passes576 wavefunctions/32 probes/96 matrices in164.607seconds/1.872GiB; full occupied-minor overlap error1.332e-15.",
+      "Twelve-root anchor and midpoint archives are published,fetched and independently reconstructed on macOS with byte-identical repackaging:171/231 payloads,288/576 states,48/96 matrices.",
+      "Named singlet-A2 retained-root5 path disagreement (direct5->8 versus midpoint5->6->5) motivates a bounded quarter-interval control at R=2.224225/2.408075bohr. Same12 roots and solver gates; no existing-frame re-solves.",
+      "Quarter control is active on reserved0-3 cores. Supported aug-TZ serial DENPROP remains active on4-15; compressed stays gated. A fresh48-hour hourly observer follows both owners."
+    ],
+    "sparse_costs": [
+      {"roots": 2048, "kernel_peak_gib": 7.692779541015625, "wall_hours": 2.454474193649431, "phase_error_rad": 5.099999999869098e-06},
+      {"roots": 4096, "kernel_peak_gib": 7.365123748779297, "wall_hours": 3.33523514799916, "phase_error_rad": 1.0000000028043132e-07},
+      {"roots": 8192, "kernel_peak_gib": 13.16033935546875, "wall_hours": 7.0564415086561345, "phase_error_rad": 1.0000000005838672e-07},
+      {"roots": 16384, "kernel_peak_gib": 37.067909240722656, "wall_hours": 19.653326377529172, "phase_error_rad": 9.99999993922529e-09, "source": "progress-completion-20261009T2258.json, cas11", "verification": "Both-sector host independent reconstruction passes; public replay pending"}
+    ],
+    "live_status": {"cas11_owner": 1065880, "cas11_finished": true, "cas11_completed_sectors": ["B1", "B2"], "cas11_host_independent_verification_passed": true, "cas11_public_reconstruction_complete": false, "original_import_owner": 1072749, "original_import_seed_preservation_verdict": false, "original_import_queue_exit": 1, "reoptimized_tz_target_qualification_passed": true, "import_owner": 1127732, "imports_launched": 1, "import_queue_stopped": false, "import_queue_exit": null, "augtz_completed_target_diagonalizations": 8, "augtz_current_stage": "DENPROP", "compressed_import_launched": false, "midpoint_owner": 1127334, "midpoint_finished": true, "midpoint_controller_exit": 0, "midpoint_qc_starts_completed": 2, "midpoint_ci_probes_completed": 32, "midpoint_matrices_completed": 96, "midpoint_independent_replay_owner": 1133896, "midpoint_independent_replay_exit": 0, "midpoint_public_reconstruction_complete": true, "quarter_owner": 1134993, "quarter_geometries_bohr": [2.224225, 2.408075], "quarter_qc_starts_completed": 0, "twelve_root_finished": true, "twelve_root_host_independent_verification_passed": true, "twelve_root_public_reconstruction_complete": true, "tz_drift_independent_verification_passed": true, "observer_owner": 1135247},
+    "roadmap_import_status": "ACTIVE",
+    "roadmap_import_title": "CAS12 imports + targeted quarter-interval control",
+    "roadmap_import_detail": "Aug-TZ: serial DENPROP; A2 path control on small cores",
+    "memory_next_step": "Use smallest passing root count; justify each CAS12 refinement.",
+    "twelve_root_label": "12 roots: public reconstruction passes",
+    "tracking_next_step": "Public midpoint replay passes; quarter path control active.",
+    "roadmap_tracking_detail": "R = 2.224225 / 2.408075: resolve retained A2 root 5 route",
+    "verification_footer": "Anchor / midpoint overlaps: public replay passes. CAS11 scattering / TZ drift: public replay pending.",
+    "interpretation": "All original plotted curves and reference comparisons remain preserved. Both midpoint ordinary-QC starts,32 probes and96 matrices pass independent host and public-download reconstruction,including full occupied Slater minors and composed assignments. First-five roots agree; higher-root frame differences remain recorded. Singlet-A2 root5 maps directly to stretched8,but through midpoint6 to stretched5; physical link overlaps remain weak. Quarter-interval refinement targets this named ambiguity without expanding the12-root manifold or re-solving existing frames. Continuous-path state and resonance-pole identity remain unset. Supported aug-TZ serial DENPROP and future independent import checks retain original gates; compressed continuation stays gated. The original TZ seed rejection remains intact."
+  }
+}

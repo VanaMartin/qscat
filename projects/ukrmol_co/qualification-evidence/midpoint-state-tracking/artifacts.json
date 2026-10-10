@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "midpoint-state-tracking.tar.gz": {
+      "bytes": 235511991,
+      "sha256": "acf7b08581da773b3741ae1faf237afcaf179a5e9e40e295f9146b6971e1e7d2"
+    }
+  },
+  "git_sha": "58842a809f7e1d15bb17a326ae87c355a7c4602f",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-midpoint-state-tracking-2026-10-10/"
+}

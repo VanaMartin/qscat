@@ -20,6 +20,73 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Public replay passed / quarter path active — 10 October 2026, 15:59 UTC
+
+**Midpoint independent replay passes**, owner **1133896**, exit0 under
+[the predeclared portable contract](cas11-midpoint-state-tracking-replay-contract.json).
+It reconstructs **231 payloads / 576 states / 32 probes / 96 matrices / 40963
+producer profiles**, including both midpoint trial spaces and reused endpoints.
+AO integrals,physical/penalized/action residuals,spins,ground dipoles,full occupied
+Slater minors,space projections,assignments and composed maps all pass.
+Maximum full-minor overlap error is **1.3323e-15**. Capture/pack/replay costs
+**164.607 seconds / 1.8718 GiB / 501.33 CPU-seconds**, with **11 frozen replay
+source / 227 input files**. Original producer/source/checkpoints remain unchanged.
+
+**Both overlap archives are now public and reconstructed from public downloads**:
+
+- [Twelve-root anchors](qualification-evidence/target-state-overlap-roots12/README.md):
+  **171 payloads / 288 states / 48 matrices / 21542 profiles**, public independent
+  overlap error **2.7756e-15**. Mac replay and byte-identical repackaging take
+  **109.97 seconds**; archive SHA256
+  `2a2ce0fa29d9d42b790bc999693f45f777c8423e72acfe80298f4c824d4fb613`.
+- [Two-start midpoint](qualification-evidence/midpoint-state-tracking/README.md):
+  **231 payloads / 576 states / 96 matrices / 40963 profiles**, public independent
+  overlap error **2.9976e-15**. Mac replay and byte-identical repackaging take
+  **187.54 seconds**; archive SHA256
+  `acf7b08581da773b3741ae1faf237afcaf179a5e9e40e295f9146b6971e1e7d2`.
+
+Tracked source packages are checked byte-for-byte against the original declaration
+commits before publishing; archive-level hashes preserve external owner scripts
+and every input. Public reads use `qscat-run fetch` into tracked pointer
+directories, then extraction outside the checkout and the packaged portable
+verifiers. Linux/macOS costs have different scopes and are not a speedup claim.
+**State/pole identity remains unset despite successful independent replay.**
+CAS11 16K sparse and TZ-drift raw archives still await public reconstruction.
+
+**Targeted quarter-interval control is active**, owner **1134993**, service
+`co-quarter-tracking-20261010.service`, under
+[its fresh contract](cas11-quarter-interval-state-tracking-contract.json),
+declaration **d4e586b**. The named discrepancy is singlet-A2 **retained root5**:
+direct equilibrium→stretched assignment **5→8**, versus midpoint **5→6→5**.
+Physical squared overlaps are **0.08076** direct and **0.41406 / 0.38844** on
+the half-intervals; the latter remain weak. Both midpoint starts and AO-following
+comparisons reproduce the label disagreement. Therefore this refinement adds
+geometry resolution,keeping twelve roots and the original numerical gates.
+
+Fresh ordinary QC at **R=2.224225 / 2.408075 bohr** starts from the nearer
+equilibrium/stretched checkpoints. It uses **CPUs0–3 / four threads / 8-GiB cap**,
+with **2-hour per-start / 6-hour whole-container** bounds. Only after both QC
+starts pass do32 new quarter12-root/space160/240 probes run. All three existing
+equilibrium/midpoint/stretched frames are reused; the midpoint frame matches the
+prior from-equilibrium route rather than selecting an electronic optimum.
+Seven pair comparisons yield **112 physical/AO-following matrices**: four fine
+links and the three original coarse links. Coarse matrices must reproduce the
+archived result; four-leg assignments are compared with two-leg/direct maps.
+Source/input freezes contain **11/124 files**. Original evidence is read-only;
+only declared fresh QC runs and diagnostic are writable. Any numerical/resource/
+time failure stops this owner,without retry,root expansion or automatic finer
+subdivision. Quarter targets have no native import/scattering qualification.
+
+At **15:59:22 UTC**, quarter QC and supported aug-TZ serial DENPROP are active,
+with **107.36 GiB RAM / 106.59 GiB disk** available. Import owner **1127732**
+retains current heartbeats; compressed remains unlaunched and gated. Fresh
+hourly observer **1135247**, service `co-quarter-import-progress-20261010.service`,
+captures these two owners for at most48 hours (approximately12 October15:56 UTC).
+The original observer remains unchanged under its earlier bound. The independent
+completion/public-reconstruction records,hashes and live start capture are in
+[the15:59 evidence](progress-completion-20261010T1559.json) and
+[fresh overview snapshot](progress-snapshot-20261010T1559.json).
+
 ### Midpoint completed / aug-TZ properties active — 10 October 2026, 15:23 UTC
 
 **The two-start midpoint control completes**, owner **1127334**, exit0 at

@@ -187,6 +187,21 @@ assignments and nearly singular eight-root manifolds motivate a separately
 declared twelve-root closure control. Physical overlaps and AO-following
 coefficient-frame transport remain distinct, with continuity/pole verdicts unset.
 
+The [twelve-root closure companion](target-state-overlap-roots12/README.md)
+publicly reconstructs **171 payloads / 288 states / 48 matrices / 21542 profiles**,
+including original-eight energy/projection preservation and physical/penalized
+actions. Full occupied-minor errors are below3e-15. Enlarging the manifold
+recovers missing directions but retains20 ensemble-to-extra assignment triggers;
+state/pole continuity remains unset.
+
+The [two-start midpoint companion](midpoint-state-tracking/README.md) then
+reconstructs **231 payloads / 576 states / 32 probes / 96 matrices / 40963 profiles**
+from both ordinary-QC starts and reused endpoint vectors. First-five midpoint
+roots agree within1.226e-8 Hartree,while some higher roots differ more. Half-interval
+physical overlaps improve,but singlet-A2 root5 follows5→6→5 rather than the direct
+5→8 map. Public fetch/reconstruction and byte-identical repackaging pass for both
+companions; the quarter-interval control targets the named path discrepancy.
+
 Forty-nine native saved-data replay attempts retain **48 successes and one
 failure**: twelve background/detection controls, twenty-four two-component
 window/background controls, and twelve partial B1 passes before a B2 unit-binding
