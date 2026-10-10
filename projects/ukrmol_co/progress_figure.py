@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261009T2258.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261010.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -247,7 +247,12 @@ def _tracking(ax, data):
     x = np.arange(len(pairs))
     for key, color, marker, label in (
         ("eight_root", ORANGE, "o", "8 roots: independently reconstructed"),
-        ("twelve_root", BLUE, "s", "12 roots: producer checks pass"),
+        (
+            "twelve_root",
+            BLUE,
+            "s",
+            data.get("twelve_root_label", "12 roots: producer checks pass"),
+        ),
     ):
         values = data["overlaps"][key]["min_ao_following_singular_values"]
         ax.plot(x, values, marker=marker, ms=7, color=color, lw=1.6, label=label)
@@ -262,7 +267,9 @@ def _tracking(ax, data):
         ax,
         "More roots recover missing overlap-manifold directions.\n"
         "Retained states still match outside the first five.\n"
-        "Next: independent 12-root replay and finer geometry tracking.",
+        + data.get(
+            "tracking_next_step", "Next: independent 12-root replay and finer geometry tracking."
+        ),
     )
 
 
@@ -293,7 +300,10 @@ def _roadmap(ax, data):
             ORANGE,
             "NEXT",
             "Resolve state identity and extraction sensitivity",
-            "12-root replay, intermediate R, justified pole extraction",
+            data.get(
+                "roadmap_tracking_detail",
+                "12-root replay, intermediate R, justified pole extraction",
+            ),
         ),
         (
             ORANGE,
@@ -466,7 +476,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261009T2258"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261010"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

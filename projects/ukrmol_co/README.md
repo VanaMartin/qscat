@@ -21,27 +21,31 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-## Progress overview — 9 October 2026
+## Progress overview — 10 October 2026
 
-![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261009T2258.png)
+![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261010.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261009T2258.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261009T2258.json) ·
-[New completion evidence and remote hashes](progress-completion-20261009T2258.json)
+[Vector figure](../../docs/physics/figures/co-progress-20261010.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261010.json) ·
+[New completion evidence and remote hashes](progress-completion-20261010.json)
 
-This is the **22:58 UTC** release of an incremental overview. New findings, verification
+This is the **11:14 UTC, 10 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** CAS11 16384-root scattering now passes both-sector independent
-host reconstruction, with measured cost **19.65 hours / 37.07 GiB**. The first
-twelve-rank CAS12/TZ native import finishes in **6.53 hours / 41.13 GiB**, but its
-covered-seed root-preservation check rejects and stops the queue. Public CAS11
-reconstruction and independent twelve-root overlap reconstruction remain pending.
-The [08:41 UTC figure](../../docs/physics/figures/co-progress-20261009.png),
+**What changed:** twelve-root overlaps now pass independent host reconstruction
+of all **288 states / 48 matrices**. The TZ diagnostic finishes all48 probes;
+additive independent replay recovers a final-report JSON failure and confirms
+that the seed discrepancy is orbital-frame drift with converged CI in both frames.
+The original TZ import remains rejected. Root-count escalation now requires a
+specific unresolved discrepancy. Public reconstruction remains pending.
+The [9 October 22:58 figure](../../docs/physics/figures/co-progress-20261009T2258.png),
+[vector copy](../../docs/physics/figures/co-progress-20261009T2258.svg) and
+[snapshot](progress-snapshot-20261009T2258.json) preserve CAS11 completion and
+the original TZ rejection. The [08:41 UTC figure](../../docs/physics/figures/co-progress-20261009.png),
 [vector copy](../../docs/physics/figures/co-progress-20261009.svg) and
 [original snapshot](progress-snapshot-20261009.json) preserve the earlier release.
 
@@ -71,18 +75,22 @@ The six panels explain the qualification campaign:
   recovers missing overlap-manifold directions in an AO-following coefficient
   frame. This is distinct from physical wavefunction overlap; root-label
   exchanges and finite-manifold loss still motivate intermediate geometries.
-- **F — Next gates.** Publish CAS11, diagnose the rejected CAS12/TZ seed comparison, resolve
+  The12-root values now pass independent full-Slater/AO/Hamiltonian replay on the
+  host; public fetch/reconstruction remains pending.
+- **F — Next gates.** Publish completed evidence, declare the TZ target treatment, resolve
   state/extraction and electronic-model choices, then release a geometry sweep
   and fit with held-out scattering tests.
 
-This is a dated **22:58:14 UTC** snapshot: 16384-root CAS11 finishes at 14:28 UTC
-and passes host independent comparisons. The import queue stops at 21:01 UTC:
+This is a dated **10 October 11:14:27 UTC** snapshot: CAS11 remains independently
+verified on the host. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
-above the 1e-7 gate. Native/current-target analyzer comparisons pass, but the
-all-64-root coverage/subspace verifier does not complete. Supported aug-TZ and
+above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
+against the independently covered imported orbital frame, but does not retroactively
+qualify the failed seed-preservation contract. Supported aug-TZ and
 compressed imports remain unlaunched. The original failure is preserved.
-The completed twelve-root result passes producer checks but awaits independent
-public reconstruction. Published values come from tracked notes: Laporta2012,
+The completed twelve-root result passes independent host reconstruction and awaits
+public reconstruction. The original TZ diagnostic's final-write exit1 is preserved;
+additive report recovery exits0. Published values come from tracked notes: Laporta2012,
 preprint p.4; Dora2016, p.6 Table4 (dipole p.4 Table2); Dora2020, p.4 Table2.
 They represent different models, not an experimental resonance error band.
 

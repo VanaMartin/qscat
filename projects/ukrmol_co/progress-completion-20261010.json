@@ -1,0 +1,174 @@
+{
+  "captured_utc": "2026-10-10T11:14:27.815413+00:00",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "remote_file_sha256": {
+    "prepared/co-tz-seed-drift-source-20261010/execution.json": "9be747eed7b5150212b3311d2c432647d3166f83f298d8c4124f7da2af026e72",
+    "diagnostics/cas12-tz-seed-drift-20261010/resources.json": "1e72a7d4700394b6046fdeb7c17d0dbb8a43d30f5a0b2680282615628b3ea21f",
+    "diagnostics/cas12-tz-seed-drift-20261010/progress.json": "2e89f14b7f2cbf8ed0994698dda3fdc92bbb4de6c84232aa71b33d7de4ada8c6",
+    "diagnostics/cas12-tz-seed-drift-20261010/run.log": "f13955881752c4fbf62b356906d38f845a996e6afab3829c300b65103c04e6b2",
+    "prepared/co-tz-seed-drift-replay-source-20261010/execution.json": "618e7192cd55f3711aed56ea82732c2a12d154aa671406f4d9633d91913fa3c3",
+    "prepared/co-tz-seed-drift-replay-source-20261010/frozen-inputs.json": "8c29f007694d19b1f644c2394508712c3be2048d2e7dbd5ef8e6f1a54328d130",
+    "diagnostics/cas12-tz-seed-drift-replay-20261010/recovered-result.json": "2366718f63d1a06f78c3333ba10a6d5c889412ac7258fb1993ef4317c0c188c1",
+    "diagnostics/cas12-tz-seed-drift-replay-20261010/independent-verification.json": "e8b3906da5e0ef6b3a567c070716d9d35a0241d703849a9a0401f25368775f1f",
+    "diagnostics/cas12-tz-seed-drift-replay-20261010/resources.json": "5d97831e6a805f5c9f2fcdf186d43906383480f74e30630a1babe63ef015b6d9",
+    "prepared/co-roots12-replay-source-20261010/execution.json": "901422457517c4cf72c26ed2489846b79e293c1fd71c8335874fa53f71f31868",
+    "prepared/publication-target-state-overlap-roots12-20261010/independent-verification.json": "03a8cf5f040ed8f916212be994d823571c047240572df3b775e752fb55e74f0d",
+    "prepared/publication-target-state-overlap-roots12-20261010/archive-metadata.json": "3524625d8c86389c14fd7b083ab98f1c5f93b439e97cc61736564a9a41b882d7",
+    "prepared/publication-target-state-overlap-roots12-20261010/verification-resources/resources.json": "b4965c1122484cfad651e770154c60500e2320ea1bcf969ac0f97083c5614038"
+  },
+  "tz_original": {
+    "supervisor_pid": 1113052,
+    "started_unix": 1791587409.550623,
+    "finished_unix": 1791589241.2204375,
+    "original_controller_exit": 1
+  },
+  "tz_original_resources": {
+    "exit_code": 1,
+    "wall_seconds": 1831.1266171711031,
+    "sampled_peak_container_memory_bytes": 1251155968,
+    "baseline_container_memory_bytes": 20004864,
+    "sampled_peak_container_anon_bytes": 840531968,
+    "kernel_peak_container_memory_bytes": 1251155968,
+    "container_cpu_seconds": 6778.287874,
+    "sampled_peak_run_allocated_bytes": 556150784,
+    "sampled_peak_scratch_allocated_bytes": 0,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "tz_replay": {
+    "supervisor_pid": 1125711,
+    "started_unix": 1791630740.0210743,
+    "finished_unix": 1791630815.21346,
+    "original_controller_exit": 0
+  },
+  "tz_replay_resources": {
+    "exit_code": 0,
+    "wall_seconds": 73.743997015059,
+    "sampled_peak_container_memory_bytes": 214077440,
+    "baseline_container_memory_bytes": 55545856,
+    "sampled_peak_container_anon_bytes": 209268736,
+    "kernel_peak_container_memory_bytes": 250212352,
+    "container_cpu_seconds": 286.586067,
+    "sampled_peak_run_allocated_bytes": 217088,
+    "sampled_peak_scratch_allocated_bytes": 0,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "tz_independent_verification": {
+    "widest_space_states_independently_reconstructed": 128,
+    "probe_records_verified": 48,
+    "maxima": {
+      "physical_residual_hartree": 7.488733453142728e-10,
+      "penalized_residual_hartree": 9.937525530782304e-10,
+      "spin_penalty_action_hartree": 5.992715016961429e-10,
+      "spin_square_error": 2.353672812205332e-14
+    },
+    "subspace_singular_values": {
+      "core": [
+        1.0000000000000018,
+        1.000000000000001
+      ],
+      "active": [
+        1.0000000000000009,
+        1.0000000000000002,
+        1.0,
+        0.9999999999999997,
+        0.9999999999999992,
+        0.999999999999999,
+        0.9999999999999949,
+        0.9999999999999928,
+        0.9999999999999902,
+        0.9999999999999395,
+        0.9999999999999165,
+        0.9999999999774024
+      ]
+    },
+    "maximum_ensemble_frame_energy_difference_hartree": 3.024880896873583e-07,
+    "triplet_A1_root3_frame_difference_hartree": -3.024880896873583e-07,
+    "original_seed_gate_remains_rejected": true,
+    "interpretation": "Independent CI is converged in both fixed orbital frames; seed-to-import energy drift persists. Original import remains rejected; diagnostic consistency does not requalify it."
+  },
+  "twelve_root_replay": {
+    "supervisor_pid": 1113370,
+    "started_unix": 1791587602.2191825,
+    "finished_unix": 1791589343.9749413,
+    "original_controller_exit": 0
+  },
+  "twelve_root_replay_resources": {
+    "exit_code": 0,
+    "wall_seconds": 89.62024091789499,
+    "sampled_peak_container_memory_bytes": 1668005888,
+    "baseline_container_memory_bytes": 11911168,
+    "sampled_peak_container_anon_bytes": 733843456,
+    "kernel_peak_container_memory_bytes": 1668005888,
+    "container_cpu_seconds": 247.907139,
+    "sampled_peak_run_allocated_bytes": 20480,
+    "sampled_peak_scratch_allocated_bytes": 0,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "twelve_root_archive": {
+    "sha256": "2a2ce0fa29d9d42b790bc999693f45f777c8423e72acfe80298f4c824d4fb613",
+    "bytes": 195832512,
+    "indexed_files": 171
+  },
+  "tz_frames": [
+    {
+      "label": "covered_seed",
+      "checkpoint_sha256": "04364301696bf96c13b6eb1f8bb86a89e0c59668206fe5d4ba399a5147ac4ed0",
+      "maximum_space_energy_error_hartree": 1.1368683772161603e-13,
+      "maximum_pi_energy_error_hartree": 1.4864554032101296e-11,
+      "fixed_orbital_coverage_pass": true,
+      "reconstructed_ground_dipole_au": [
+        0.0,
+        0.0,
+        -0.18875747584499844
+      ]
+    },
+    {
+      "label": "imported_orbitals",
+      "checkpoint_sha256": "8518dc191b8670af9ec87d7666b091eaf370187e7022684cd93716d240b40568",
+      "reconstructed_ground_dipole_au": [
+        0.0,
+        0.0,
+        -0.1887579008593576
+      ],
+      "independent_native_dipole_error_au": 4.642397577470092e-12,
+      "maximum_space_energy_error_hartree": 1.1368683772161603e-13,
+      "maximum_pi_energy_error_hartree": 7.815970093361102e-13,
+      "fixed_orbital_coverage_pass": true,
+      "maximum_native_root_error_hartree": 5.002220859751105e-11,
+      "native_root_gate_pass": true,
+      "maximum_native_table_rounding_error_hartree": "5E-10"
+    }
+  ],
+  "twelve_root_independent_verification": {
+    "verified_payloads": 171,
+    "states": 288,
+    "overlap_matrices": 48,
+    "profiles": 21542,
+    "wall_seconds": 4322.366057164967,
+    "kernel_peak_gib": 1.1765518188476562,
+    "maximum_native_root_error_hartree": 5.45909983884485e-10,
+    "maximum_reconstructed_physical_residual_hartree": 6.925787510877332e-10,
+    "maximum_reconstructed_penalized_residual_hartree": 9.971264610702722e-10,
+    "maximum_reconstructed_spin_error": 1.509903313490213e-14,
+    "maximum_independent_overlap_error": 1.3322676295501878e-15,
+    "trigger_counts": {
+      "weak_assignment_trigger": 344,
+      "ambiguous_row_trigger": 161,
+      "ensemble_to_extra_root_trigger": 20
+    },
+    "final_target_continuity_verdict": null,
+    "final_resonance_pole_identity_verdict": null
+  },
+  "public_reconstruction_complete": false,
+  "tz_original_import_qualified": false,
+  "remaining_imports_launched": false,
+  "host_available_ram_bytes": 114857426944,
+  "host_free_disk_bytes": 117119352832,
+  "running_containers": [
+    "comfyui"
+  ]
+}

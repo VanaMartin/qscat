@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--9-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--10-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,57 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Host check — 10 October 2026, 11:14 UTC
+
+Both finite small-core jobs finish. **Twelve-root portable reconstruction passes**:
+owner **1113370** exits 0, verifying **171 payloads / 288 CI states / 48 overlap
+matrices / 21542 resource samples**. Independent full-Slater overlap error is
+**1.3323e-15**; Hamiltonian/spin and original-eight projection checks pass.
+Capture/pack/replay costs **89.62 seconds / 1.553 GiB**. The content-indexed
+195832512-byte archive is retained under
+`prepared/publication-target-state-overlap-roots12-20261010/`. Public publication,
+fetch and reconstruction remain pending. The **20 retained-to-extra assignment
+triggers** persist; continuous-path state and resonance-pole identity stay unset.
+
+**TZ diagnostic owner1113052 finishes all 48 probes but exits1 at final JSON
+serialization**, because a native-root comparison produced a NumPy boolean.
+All per-probe records, widest-space vectors and resource samples are intact.
+Preserve the original source, traceback and exit1; the completed scan costs
+**1831.13 seconds / 1.165 GiB**. The maintained source converts the native maximum
+to a Python float; actual64-root data now serialize with a Python boolean verdict.
+
+The [additive recovery/replay](cas12-tz-seed-drift-replay-contract.json), owner
+**1125711**, independently reconstructs all **128 saved widest-space vectors**
+and all48 probe records, without another CI eigensolve. It exits0 in **73.74
+seconds / 0.233 GiB** on CPUs0–3. Physical/penalized residual maxima are
+**7.4887e-10 / 9.9375e-10 Hartree**. Each frame's space80/160/240 spectra agree
+within **1.1369e-13 Hartree**. Imported-frame64 native roots agree within
+**5.0022e-11 Hartree**; independently reconstructed native dipole error is
+**4.6424e-12 a.u.** Core/active subspace minima are approximately **1.0 /
+0.9999999999774**. The actual orbital frame changes slightly and the
+triplet-A1 root3 difference remains **−3.0248809e-7 Hartree**, with converged CI in
+both frames. This diagnoses genuine seed-to-import orbital-frame drift, not CI
+convergence or spectrum parsing error. **Original seed preservation remains
+rejected**, and imports are still stopped. The recovered report is fresh under
+`diagnostics/cas12-tz-seed-drift-replay-20261010/`; original records are unchanged.
+
+At **11:14:27 UTC**, no scientific container is running. Approximately **107 GiB
+available RAM / 109 GiB free disk** remain; `comfyui` is preserved. Evidence hashes,
+original/replay exits and resources are condensed in
+[the new completion record](progress-completion-20261010.json). The dated overview
+is updated, preserving both 9-October releases.
+
+**Useful next work:** publish/fetch/reconstruct the completed CAS11, twelve-root
+and TZ evidence; declare a separately covered reoptimized TZ target with unchanged
+root/dipole/residual gates and explicit seed drift, or design a seed-preserving
+import. Existing numerical consistency does not retroactively certify the failed
+seed-preservation contract. Then release a fresh supported aug-TZ/compressed
+import sequence. Targeted intermediate geometries can address retained-to-extra
+state exchanges. A modest CAS12 sparse pilot awaits the CAS11 public review and
+an explicit resource/refinement contract. Use8 physical cores for large jobs,
+12 for very large jobs, reserving0–3 for small controls; no new large job has been
+launched by this status check.
 
 ### Continuation priorities and root-count budget — 10 October 2026
 
@@ -117,7 +168,7 @@ artifact disk measure **107.37 / 110.52 GiB**. The v2 journal is current to
 under their existing 48-hour bounds. Twelve-root overlap reconstruction/publication
 is still pending. Completed CAS11 and the stopped TZ import are condensed, with
 remote record hashes, in [the completion summary](progress-completion-20261009T2258.json).
-The [overview](README.md#progress-overview--9-october-2026) is refreshed to 22:58 UTC;
+The [22:58 overview](../../docs/physics/figures/co-progress-20261009T2258.png) is refreshed;
 the 08:41 snapshot/figures remain preserved.
 
 ### Host check — 9 October 2026, 12:10 UTC

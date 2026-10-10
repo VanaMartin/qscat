@@ -1,0 +1,33 @@
+{
+  "base_snapshot": "progress-snapshot-20261009.json",
+  "base_snapshot_sha256": "33730acaf11066acc1f97672efbe145e5aff625c4006cd34c0bc279207c04f46",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-completion-20261009T2258.json": "cf90aff31bb2d224d6d9d0fdd6f6fc1f05ab8f8f1de16589b55f0479b499ec8d",
+    "projects/ukrmol_co/progress-completion-20261010.json": "5ff3473e5ea15f2b9e71679f849304394610c7f3cbb20a2136b78a99ea99d492"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-10T11:14:27.815413+00:00",
+    "changes": [
+      "Twelve-root portable host replay passes171 payloads,288 states and48 full-Slater/AO overlap matrices; public archive fetch/reconstruction remains pending.",
+      "All48 fixed-orbital TZ probes finish; final JSON serialization fails. Additive independent128-vector replay recovers the report while preserving original exit1.",
+      "TZ native roots/dipoles and each orbital frame are independently consistent, but triplet-A1 root3 seed drift persists. Original import/queue remain rejected/stopped.",
+      "Root-count escalation now requires a named unresolved discrepancy; no further CAS11 high-root runs."
+    ],
+    "sparse_costs": [
+      {"roots": 2048, "kernel_peak_gib": 7.692779541015625, "wall_hours": 2.454474193649431, "phase_error_rad": 5.099999999869098e-06},
+      {"roots": 4096, "kernel_peak_gib": 7.365123748779297, "wall_hours": 3.33523514799916, "phase_error_rad": 1.0000000028043132e-07},
+      {"roots": 8192, "kernel_peak_gib": 13.16033935546875, "wall_hours": 7.0564415086561345, "phase_error_rad": 1.0000000005838672e-07},
+      {"roots": 16384, "kernel_peak_gib": 37.067909240722656, "wall_hours": 19.653326377529172, "phase_error_rad": 9.99999993922529e-09, "source": "progress-completion-20261009T2258.json, cas11", "verification": "Both-sector host independent reconstruction passes; public replay pending"}
+    ],
+    "live_status": {"cas11_owner": 1065880, "cas11_finished": true, "cas11_completed_sectors": ["B1", "B2"], "cas11_host_independent_verification_passed": true, "cas11_public_reconstruction_complete": false, "import_owner": 1072749, "imports_launched": 1, "import_queue_stopped": true, "import_queue_exit": 1, "twelve_root_finished": true, "twelve_root_host_independent_verification_passed": true, "twelve_root_public_reconstruction_complete": false, "tz_drift_independent_verification_passed": true, "tz_original_diagnostic_exit": 1, "tz_replay_exit": 0},
+    "roadmap_import_status": "STOPPED",
+    "roadmap_import_title": "CAS12 TZ: declare a separately covered target",
+    "roadmap_import_detail": "CI converged in both frames; seed drift remains 3.02×10⁻⁷ Ha",
+    "memory_next_step": "Use smallest passing root count; justify each CAS12 refinement.",
+    "twelve_root_label": "12 roots: host independent replay passes",
+    "tracking_next_step": "Next: public replay and targeted intermediate geometries.",
+    "roadmap_tracking_detail": "Intermediate R and justified pole extraction; publish replay",
+    "verification_footer": "Host independent replay: CAS11 / 12-root overlaps / TZ drift. Public replays pending; original TZ import rejected.",
+    "interpretation": "Literature points are different model predictions, not an experimental uncertainty band. Resonance points are native fit candidates, not qualified pole curves. Diagnostic ratios use their own predeclared metrics and do not measure common uncertainty. AO-following transport diagnoses coefficient frames. Twelve-root independent host reconstruction passes, but state/pole continuity remains unset and public fetch/reconstruction pending. TZ independent fixed-orbital actions, all64 native roots and dipoles pass; seed-to-import root drift persists. Original TZ import remains rejected. The original diagnostic exit1 from final JSON serialization is preserved beside additive exit0 report recovery. Further root counts require a specific unresolved question."
+  }
+}
