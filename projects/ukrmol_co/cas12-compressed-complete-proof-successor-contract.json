@@ -1,0 +1,15 @@
+{
+  "status": "user-directed fresh compressed import after complete public-proof packaging",
+  "parent_contract": "cas12-supported-import-frame-successor-contract.json",
+  "original_owner": {"pid": 1127732, "exit": 1, "failure": "Nine indexed log/owner files absent from compressed proof copy; proof replay stopped before compressed native import", "preservation": "Original source,failed proof replay,unlaunched run name and completed passing aug-TZ import remain intact"},
+  "public_proof": {"pointer": "qualification-evidence/compressed-singlet-coverage/artifacts.json", "archive_sha256": "1601d06c66212b747ed7c367293b93433b7d4b9ec004c437784a434d4aa04d12", "archive_bytes": 1068590, "indexed_payloads": 438, "passing_probes": 96},
+  "run": "co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-completeproof-20261010",
+  "seed": "co-r1900-ccdz-sa12-qc-singlet0-space160",
+  "checkpoint_sha256": "24035d3b7f51a23875604583dafa5acbfaa7b21206f3b62e912d7122759c5242",
+  "recipe": "calibration-sa12-compressed-singlet-qualified-import.json",
+  "design": "Fresh copy of original frozen compressed source and unchanged verifier; replace its incomplete proof directory with a complete extraction of the checksum-pinned public archive. Verify all438 payload sizes/hashes before launch. Replay original96-probe numerical proof in reserved cores; only an exit0 releases the fresh native import. Scientific recipe arguments match the committed recipe after restoring ranks4; only run name/ranks12 change. No new eigensolve in proof replay and no repeat aug-TZ import.",
+  "gates": "Original ordinary-QC flags,64-root CI/native/coverage gates,independent spin0/direct_spin1 actions,ground dipole,rounding,core/active subspace and1e-7Hartree seed-preservation gates. Original rejected space80 and singlet controls preserved. No requalification of a newly rejected frame.",
+  "resources": {"native_cpu_group": "4-15", "native_mpi_ranks": 12, "library_threads_per_rank": 1, "native_container_memory_gib": 64, "native_minimum_available_ram_gib": 80, "small_cpu_group": "0-3", "small_container_memory_gib": 4, "small_minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "native_whole_container_timeout_seconds": 86400, "verifier_timeout_seconds": 3600, "resource_wait_timeout_seconds": 172800, "whole_owner_timeout_seconds": 259200},
+  "stopping": "One fresh finite owner. Record actual proof/native/analyzer/verifier exits and30-second heartbeats; integrity/resource/time/STOP or scientific failure stops without retry,tolerance changes or automatic target requalification. Only fresh native run and owner outputs writable; original sources,runs and diagnostics read-only.",
+  "release": "Compressed target import only; no CAS12 sparse scattering,model selection or full sweep released. Twelve ranks are not a speedup claim."
+}
