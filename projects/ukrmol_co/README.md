@@ -23,27 +23,31 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 
 ## Progress overview — 10 October 2026
 
-![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261010T1559.png)
+![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261010T2045.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261010T1559.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261010T1559.json) ·
-[Independent/public replay and continuation evidence](progress-completion-20261010T1559.json)
+[Vector figure](../../docs/physics/figures/co-progress-20261010T2045.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261010T2045.json) ·
+[Aug-TZ/quarter completion and package-stop evidence](progress-completion-20261010T2045.json)
 
-This is the **15:59 UTC, 10 October** release of an incremental overview. New findings, verification
+This is the **20:45 UTC, 10 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** the midpoint now passes independent **576-state / 96-matrix**
-reconstruction in **164.61 seconds / 1.872 GiB**. Both the twelve-root anchor and
-midpoint archives are published,fetched and independently reconstructed with
-byte-identical repackaging. Singlet-A2 retained root5 follows **5→6→5** through
-the midpoint rather than the direct **5→8** map. A bounded control at
-**R=2.224225 / 2.408075 bohr** is active on CPUs0–3 to test that named discrepancy,
-keeping twelve diagnostic roots and reusing all existing frames. Supported
-aug-TZ serial DENPROP remains active; compressed stays gated.
+**What changed:** supported CAS12 aug-TZ passes all **64-root/dipole/subspace/
+seed-preservation import checks** in **5.894 hours / 41.114 GiB**. Quarter controls
+complete both QC starts, **32 probes / 112 matrices**, in **1.279 hours / 1.569 GiB**.
+Singlet-A2 root5's finer route agrees with the midpoint endpoint and has stronger
+physical links,but two other retained components still change path assignments.
+Quarter independent replay remains pending. The queue stops before compressed
+import because its proof package lacks **nine indexed log/owner files**. Both
+scientific owners and the bounded observer have ended; the original failed exit is preserved.
+The [15:59 UTC figure](../../docs/physics/figures/co-progress-20261010T1559.png),
+[vector copy](../../docs/physics/figures/co-progress-20261010T1559.svg) and
+[snapshot](progress-snapshot-20261010T1559.json) preserve public midpoint/anchor
+reconstruction and the quarter-control launch milestone.
 The [15:23 UTC figure](../../docs/physics/figures/co-progress-20261010T1523.png),
 [vector copy](../../docs/physics/figures/co-progress-20261010T1523.svg) and
 [snapshot](progress-snapshot-20261010T1523.json) preserve producer midpoint
@@ -94,20 +98,23 @@ The six panels explain the qualification campaign:
   reconstruction, with weak physical assignments reduced from96/96 on the direct
   pair to21/96 and38/96 on the separate half-intervals. Composed assignments still
   differ from direct labels for16/96 roots, including one retained component.
-- **F — Next gates.** Complete gated supported imports and targeted quarter controls, publish remaining evidence, resolve
+  Quarter producer controls strengthen the named singlet-A2 root5 links,but
+  two other retained labels change between two- and four-leg routes.
+- **F — Next gates.** Restore complete compressed proof packaging, independently replay quarter controls, publish remaining evidence, resolve
   state/extraction and electronic-model choices, then release a geometry sweep
   and fit with held-out scattering tests.
 
-This is a dated **10 October 15:59:22 UTC** snapshot: CAS11 remains independently
+This is a dated **10 October 20:45:51 UTC** snapshot: CAS11 remains independently
 verified on the host. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
 against the independently covered imported orbital frame, but does not retroactively
 qualify the failed seed-preservation contract. A distinct reoptimized target now
-passes numerical qualification. Supported aug-TZ is active in DENPROP in a fresh
-queue; compressed remains gated behind its full import checks. Midpoint and
+passes numerical qualification. Supported aug-TZ now passes independent import
+checks; compressed is unlaunched after a missing-payload proof-package stop. Midpoint and
 twelve-root anchor wavefunctions/matrices reconstruct from public archives;
-quarter-interval QC is active. State/pole identity remains unqualified.
+quarter producer controls have completed. No scientific container remains active.
+State/pole identity remains unqualified.
 The original failure is preserved.
 The completed twelve-root result passes public reconstruction. CAS11 16K scattering
 and TZ-drift public raw-archive reconstruction remain pending. The original TZ diagnostic's final-write exit1 is preserved;

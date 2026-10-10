@@ -20,6 +20,59 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Aug-TZ verified / quarter completed / compressed package stopped — 10 October, 20:45 UTC
+
+**Supported CAS12 aug-TZ import passes** native,analyzer and independent verifier,
+all exit0, under the unchanged supported-space/seed-preservation contract.
+All **64 native roots**,ground dipole,saved-table rounding and core/active
+subspaces pass. Maximum independently covered root error is **3.8463e-8 Hartree**,
+seed-to-reoptimized forty-root shift **3.4048e-8 Hartree**,native seed-dipole error
+**5.2624e-8 a.u.**,and minimum active overlap **0.99999999999799**. Native cost is
+**21218.41 seconds = 5.894 hours / 41.114 GiB / 68070.43 CPU-seconds**. Serial
+DENPROP accounts for **15886.90 seconds = 4.413 hours**; twelve ranks do not
+establish a matched speedup. Independent numerical import qualification does
+not settle electronic-model convergence or release CAS12 scattering.
+
+**The fresh serial queue stops**, owner **1127732**, exit1 at **17:38:18 UTC**,
+while replaying the compressed public proof, before launching its native import.
+The first failure is `FileNotFoundError` for
+`compressed/proof/owner-source/coverage.launch.log`. An audit of its438-file
+index finds **nine missing log/owner payloads**: coverage launch/execution/lock,
+and six original-QC launch/execution/lock records. Preserve this original source,
+failed replay and queue exit; the compressed scientific import was never run.
+The original public96-probe coverage and passing space160 QC remain evidence.
+Next use a fresh complete copy of the checksum-indexed public proof and replay
+all438 payloads before separately declaring compressed import continuation.
+No gate relaxation,overwrite or automatic retry has occurred.
+
+**Quarter-interval control completes**, owner **1134993**, exit0 at
+**17:12:47 UTC**, in **4604.51 seconds = 1.279 hours / 1.569 GiB /
+17734.10 CPU-seconds**. Both ordinary QC starts and all **32 fixed-orbital probes /
+112 overlap matrices** pass producer gates,including unchanged coarse-pair
+reconstruction. Original11 source/124 input hashes verify. Separate independent
+wavefunction replay and public reconstruction remain pending.
+
+The named singlet-A2 root5 follows **5→6→6→5→5**, ending at stretched5 as in the
+two-leg midpoint route rather than direct8. Its four physical squared overlaps
+are **0.81897 / 0.77757 / 0.74913 / 0.82329**, all above the0.5 weak-link trigger.
+Across each four-leg geometry pair, weak physical assignments are **2/96,1/96,
+6/96,1/96**, versus21/96 and38/96 on the coarse half-intervals. These are separate
+pair diagnostics,not pooled error rates. However,four-leg maps differ from
+two-leg maps for **9/96 roots**,including **2/40 retained components**,in both
+physical and AO-following metrics: singlet-A2 root4 ends at6 rather than9;
+triplet-A2 root5 ends at5 rather than9. Fine-versus-direct differences are25/96.
+The root5 follow-up is useful but does not certify a globally stable state map.
+Continuous-path state/resonance-pole identity and model qualification remain unset.
+
+At **20:45:51 UTC**, **no scientific container is running**; only unrelated
+`comfyui` remains. Approximately **107.84 GiB RAM / 105.96 GiB disk** are available.
+The new hourly observer **1135247** exits0 at **17:56:43 UTC**, after both finite
+owners end; it must not be treated as active monitoring. Completed native/proof
+exits,root gates,quarter paths,missing-file audit and immutable remote hashes are
+recorded in [the20:45 capture](progress-completion-20261010T2045.json).
+The [fresh overview snapshot](progress-snapshot-20261010T2045.json) preserves
+earlier releases and marks the compressed package stop explicitly.
+
 ### Public replay passed / quarter path active — 10 October 2026, 15:59 UTC
 
 **Midpoint independent replay passes**, owner **1133896**, exit0 under

@@ -1,0 +1,820 @@
+{
+  "captured_utc": "2026-10-10T20:45:51.545682+00:00",
+  "host": "sadaharu",
+  "artifact_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "remote_immutable_file_sha256": {
+    "prepared/supported-import-frame-source-20261010/execution.json": "795183f2ae707989f296ee3f2342c9f9d9f13e7f2753875948caf3fa724b83c9",
+    "prepared/supported-import-frame-source-20261010/compressed-public-proof.launch.log": "343bfe2b36652faf9b33c71d0548dcc06a27502b34c392e1872988aab1679d6b",
+    "prepared/supported-import-frame-source-20261010/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010.verification.json": "6616685dd2a06a4a18d2874b30b2002fed892cb6f52479cf755c926dde419da1",
+    "runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010/resources.json": "457e862856d38ae362b5c3a1e97039a02207966aab43c57af8042b245f8a1851",
+    "runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010/target.json": "8896862a730171b4e0350f5962e81a2e9950515724dc274f6144a380f806142f",
+    "runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010/result.json": "4553b2552ed241ae9b4e326ff46801369d00234e34fd6eae9e39869c4157388a",
+    "runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010/stages.tsv": "4ec7ec509157dab49667c7157fd0c39f78bfb8a7f4bc406a4cb0671af9330077",
+    "diagnostics/cas11-quarter-interval-state-tracking-20261010/result.json": "547821919228e2d8f6d64820e7d8598d4f9f75e486bb01ac3098fb81efa6b5b6",
+    "diagnostics/cas11-quarter-interval-state-tracking-20261010/resources.json": "f82255b4359faca7ca75ef5f6a974a6d3c417ebdc3bb8f1f71e9972ae9ffc420",
+    "prepared/co-quarter-tracking-source-20261010/execution.json": "3600f9862bed604645f18826f3d42b39c43c931a850813fff7aea9bfc93948ee",
+    "prepared/co-quarter-tracking-source-20261010/frozen-inputs.json": "5edff49f9b11f50204e6de4bf6cd464a7057e61fd63353b707e4bf43a9dacd76",
+    "prepared/quarter-import-progress-source-20261010/execution.json": "da8cc33dfe3345a0dce06be18018e0d286808cdf533a0867c6f88d5d1631d450",
+    "prepared/supported-import-frame-source-20261010/compressed/proof/file-index.json": "0abe557931463d526c58e0c73890c73bc3134186785edf043977cfc57ea5f9f4"
+  },
+  "quarter": {
+    "qc": [
+      {
+        "run": "co-r2224225-ccdz-sa11-quarter-fromeq-20261010",
+        "start": "co-eq-ccdz-sa11-tight-cc40",
+        "bond_length_bohr": 2.224225,
+        "original_qc_exit": 0,
+        "resources": {
+          "exit_code": 0,
+          "wall_seconds": 1978.9950785830151,
+          "sampled_peak_container_memory_bytes": 450535424,
+          "baseline_container_memory_bytes": 102064128,
+          "sampled_peak_container_anon_bytes": 442548224,
+          "kernel_peak_container_memory_bytes": 450535424,
+          "container_cpu_seconds": 7629.927699,
+          "sampled_peak_run_allocated_bytes": 569344,
+          "sampled_peak_scratch_allocated_bytes": 0,
+          "memory_sample_interval_seconds": 0.2,
+          "disk_sample_interval_seconds": 2.0
+        },
+        "ensemble_energy_hartree": -112.40539739983103,
+        "ground_dipole_au": [
+          0.0,
+          0.0,
+          -0.029568436070424642
+        ],
+        "checkpoint_sha256": "b1dd770fe1d610a318eab3a2693f2ab50b5da8521849996a5b8c37a21962975c",
+        "final_gradient": 7.466603690994112e-08
+      },
+      {
+        "run": "co-r2408075-ccdz-sa11-quarter-fromstretched-20261010",
+        "start": "co-r2500-ccdz-sa11-tight-cc40-anchor",
+        "bond_length_bohr": 2.408075,
+        "original_qc_exit": 0,
+        "resources": {
+          "exit_code": 0,
+          "wall_seconds": 1925.3010181360878,
+          "sampled_peak_container_memory_bytes": 445079552,
+          "baseline_container_memory_bytes": 105881600,
+          "sampled_peak_container_anon_bytes": 436785152,
+          "kernel_peak_container_memory_bytes": 450535424,
+          "container_cpu_seconds": 7437.797175,
+          "sampled_peak_run_allocated_bytes": 557056,
+          "sampled_peak_scratch_allocated_bytes": 0,
+          "memory_sample_interval_seconds": 0.2,
+          "disk_sample_interval_seconds": 2.0
+        },
+        "ensemble_energy_hartree": -112.44776498594372,
+        "ground_dipole_au": [
+          0.0,
+          0.0,
+          -0.1409640051291176
+        ],
+        "checkpoint_sha256": "a400b839394f7f77c821f93a92e71443fd2d29a12c42d88c16989472d767d620",
+        "final_gradient": 5.124484841848418e-08
+      }
+    ],
+    "probes": 32,
+    "overlap_matrices": 112,
+    "producer_numerical_gates_pass": true,
+    "independent_wavefunction_replay_complete": false,
+    "public_reconstruction_complete": false,
+    "resources": {
+      "exit_code": 0,
+      "wall_seconds": 4604.506907355972,
+      "sampled_peak_container_memory_bytes": 1683828736,
+      "baseline_container_memory_bytes": 47468544,
+      "sampled_peak_container_anon_bytes": 1094426624,
+      "kernel_peak_container_memory_bytes": 1684254720,
+      "container_cpu_seconds": 17734.097271,
+      "sampled_peak_run_allocated_bytes": 566140928,
+      "sampled_peak_scratch_allocated_bytes": 0,
+      "memory_sample_interval_seconds": 0.2,
+      "disk_sample_interval_seconds": 2.0
+    },
+    "original_frozen_files_verified": {
+      "source": 11,
+      "inputs": 124
+    },
+    "pairs": [
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "assignments": 96,
+        "weak": 96,
+        "ambiguous": 39,
+        "retained_to_extra": 5,
+        "minimum_manifold_singular_value": 0.0316254656952627
+      },
+      {
+        "left": "eq",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "assignments": 96,
+        "weak": 13,
+        "ambiguous": 7,
+        "retained_to_extra": 5,
+        "minimum_manifold_singular_value": 0.08086013197492553
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "physical",
+        "assignments": 96,
+        "weak": 21,
+        "ambiguous": 3,
+        "retained_to_extra": 3,
+        "minimum_manifold_singular_value": 0.08314331276948148
+      },
+      {
+        "left": "eq",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "assignments": 96,
+        "weak": 5,
+        "ambiguous": 3,
+        "retained_to_extra": 3,
+        "minimum_manifold_singular_value": 0.10712356396267902
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "assignments": 96,
+        "weak": 38,
+        "ambiguous": 13,
+        "retained_to_extra": 2,
+        "minimum_manifold_singular_value": 0.3542724317713904
+      },
+      {
+        "left": "mid",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "assignments": 96,
+        "weak": 13,
+        "ambiguous": 9,
+        "retained_to_extra": 2,
+        "minimum_manifold_singular_value": 0.45505382365206554
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "physical",
+        "assignments": 96,
+        "weak": 2,
+        "ambiguous": 2,
+        "retained_to_extra": 2,
+        "minimum_manifold_singular_value": 0.17544581444983848
+      },
+      {
+        "left": "eq",
+        "right": "quarter_low",
+        "metric_kind": "ao_transport",
+        "assignments": 96,
+        "weak": 2,
+        "ambiguous": 2,
+        "retained_to_extra": 2,
+        "minimum_manifold_singular_value": 0.18726928846598911
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "physical",
+        "assignments": 96,
+        "weak": 1,
+        "ambiguous": 0,
+        "retained_to_extra": 1,
+        "minimum_manifold_singular_value": 0.6261191838249369
+      },
+      {
+        "left": "quarter_low",
+        "right": "mid",
+        "metric_kind": "ao_transport",
+        "assignments": 96,
+        "weak": 1,
+        "ambiguous": 0,
+        "retained_to_extra": 1,
+        "minimum_manifold_singular_value": 0.6682125224558603
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "physical",
+        "assignments": 96,
+        "weak": 6,
+        "ambiguous": 2,
+        "retained_to_extra": 2,
+        "minimum_manifold_singular_value": 0.7430387851162051
+      },
+      {
+        "left": "mid",
+        "right": "quarter_high",
+        "metric_kind": "ao_transport",
+        "assignments": 96,
+        "weak": 2,
+        "ambiguous": 2,
+        "retained_to_extra": 2,
+        "minimum_manifold_singular_value": 0.7931981093884853
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "physical",
+        "assignments": 96,
+        "weak": 1,
+        "ambiguous": 0,
+        "retained_to_extra": 0,
+        "minimum_manifold_singular_value": 0.4905043657604917
+      },
+      {
+        "left": "quarter_high",
+        "right": "stretched",
+        "metric_kind": "ao_transport",
+        "assignments": 96,
+        "weak": 1,
+        "ambiguous": 0,
+        "retained_to_extra": 0,
+        "minimum_manifold_singular_value": 0.5227669402477293
+      }
+    ],
+    "path_changes": [
+      {
+        "metric_kind": "physical",
+        "four_vs_two": 9,
+        "retained_four_vs_two": 2,
+        "four_vs_direct": 25
+      },
+      {
+        "metric_kind": "ao_transport",
+        "four_vs_two": 9,
+        "retained_four_vs_two": 2,
+        "four_vs_direct": 25
+      }
+    ],
+    "retained_path_changes": [
+      {
+        "sector": "singlet.A2",
+        "metric_kind": "physical",
+        "equilibrium_root": 4,
+        "quarter_route_roots": [
+          4,
+          4,
+          5,
+          6,
+          6
+        ],
+        "stretched_root_four_leg": 6,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      },
+      {
+        "sector": "triplet.A2",
+        "metric_kind": "physical",
+        "equilibrium_root": 5,
+        "quarter_route_roots": [
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        "stretched_root_four_leg": 5,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      },
+      {
+        "sector": "singlet.A2",
+        "metric_kind": "ao_transport",
+        "equilibrium_root": 4,
+        "quarter_route_roots": [
+          4,
+          4,
+          5,
+          6,
+          6
+        ],
+        "stretched_root_four_leg": 6,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      },
+      {
+        "sector": "triplet.A2",
+        "metric_kind": "ao_transport",
+        "equilibrium_root": 5,
+        "quarter_route_roots": [
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        "stretched_root_four_leg": 5,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      }
+    ],
+    "a2_root5": [
+      {
+        "metric_kind": "physical",
+        "equilibrium_root": 5,
+        "quarter_route_roots": [
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        "stretched_root_four_leg": 5,
+        "stretched_root_two_leg": 5,
+        "stretched_root_direct": 8
+      },
+      {
+        "metric_kind": "ao_transport",
+        "equilibrium_root": 5,
+        "quarter_route_roots": [
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        "stretched_root_four_leg": 5,
+        "stretched_root_two_leg": 5,
+        "stretched_root_direct": 8
+      }
+    ],
+    "state_identity_verdict": null,
+    "pole_identity_verdict": null
+  },
+  "augtz": {
+    "run": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+    "verification": {
+      "run": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+      "all_64_roots_pass": true,
+      "sector_checks": [
+        {
+          "spin": 0,
+          "irrep": "A1",
+          "new_cidata_set_number": 1,
+          "maximum_independent_root_difference_hartree": 3.846309937216574e-08,
+          "maximum_saved_table_rounding_difference_hartree": "4E-10"
+        },
+        {
+          "spin": 0,
+          "irrep": "B1",
+          "new_cidata_set_number": 3,
+          "maximum_independent_root_difference_hartree": 9.01566465927317e-09,
+          "maximum_saved_table_rounding_difference_hartree": "4E-10"
+        },
+        {
+          "spin": 0,
+          "irrep": "B2",
+          "new_cidata_set_number": 5,
+          "maximum_independent_root_difference_hartree": 9.014755164571397e-09,
+          "maximum_saved_table_rounding_difference_hartree": "4E-10"
+        },
+        {
+          "spin": 0,
+          "irrep": "A2",
+          "new_cidata_set_number": 7,
+          "maximum_independent_root_difference_hartree": 8.489450920023955e-09,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "A1",
+          "new_cidata_set_number": 2,
+          "maximum_independent_root_difference_hartree": 3.402432469101768e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "B1",
+          "new_cidata_set_number": 4,
+          "maximum_independent_root_difference_hartree": 2.1196427724134992e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "B2",
+          "new_cidata_set_number": 6,
+          "maximum_independent_root_difference_hartree": 2.1197834598751797e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        },
+        {
+          "spin": 2,
+          "irrep": "A2",
+          "new_cidata_set_number": 8,
+          "maximum_independent_root_difference_hartree": 1.8931530121335527e-08,
+          "maximum_saved_table_rounding_difference_hartree": "5E-10"
+        }
+      ],
+      "format_analytic_controls": {
+        "exact_and_both_half_unit_ties_pass": true,
+        "corrupt_tokens_rejected": true,
+        "inherited_cidata_sets_excluded": true,
+        "missing_final_set_rejected": true
+      },
+      "saved_table_format": "%16.9f, half-last-unit bound 5e-10 Hartree",
+      "physical_root_gate_hartree": 1e-07,
+      "physical_dipole_gate_au": 1e-05,
+      "maximum_seed_to_reoptimized_ensemble_root_difference_hartree": 3.4048369457195804e-08,
+      "native_dipole_difference_from_seed_au": 5.262397884120418e-08,
+      "subspace_overlap_singular_values": {
+        "core": [
+          1.0000000000000033,
+          1.000000000000003
+        ],
+        "active": [
+          1.0000000000000013,
+          1.0000000000000009,
+          1.0000000000000009,
+          1.0000000000000009,
+          1.0000000000000002,
+          0.9999999999999999,
+          0.9999999999999987,
+          0.9999999999999986,
+          0.9999999999999986,
+          0.9999999999999977,
+          0.9999999999999964,
+          0.9999999999979902
+        ]
+      },
+      "imported_checkpoint_sha256": "5dc900314de3b4dfa525bec30c1bb6fc10db1f84e21eeb91d30b275dfa0d8718",
+      "reference_checkpoint_sha256": "985a537ba75a65b089bb27695fcd4d93312a1115db05d22e43e4f28405860590",
+      "writer_source_sha256": "f531586e68396c89e18623516fae8f1a5dc1135e60858255fe66a4da109f46e9",
+      "verifier_source_sha256": "15a1fc8ba61741e68d2cab01433a11cf9b3ed6bfdcd7cae9b19706559f78f602",
+      "scope": "Covered CAS12 all-root/dipole import; competing-start and model gates remain open"
+    },
+    "resources": {
+      "exit_code": 0,
+      "wall_seconds": 21218.40633576596,
+      "sampled_peak_container_memory_bytes": 43967131648,
+      "baseline_container_memory_bytes": 13246464,
+      "sampled_peak_container_anon_bytes": 43280572416,
+      "kernel_peak_container_memory_bytes": 44145864704,
+      "container_cpu_seconds": 68070.430771,
+      "sampled_peak_run_allocated_bytes": 1204244480,
+      "sampled_peak_scratch_allocated_bytes": 270336,
+      "memory_sample_interval_seconds": 0.2,
+      "disk_sample_interval_seconds": 2.0
+    },
+    "stages": "target\tpsi4\t\t\t3612.4914059639\t0\ntarget\tscatci_integrals\t\t\t0.62597393989563\t0\ntarget\tcongen\tsinglet\tA1\t1.11199307441711\t0\ntarget\tscatci\tsinglet\tA1\t110.031265974045\t0\ntarget\tcongen\ttriplet\tA1\t1.07495307922363\t0\ntarget\tscatci\ttriplet\tA1\t300.657569169998\t0\ntarget\tcongen\tsinglet\tB1\t1.5074188709259\t0\ntarget\tscatci\tsinglet\tB1\t121.352791070938\t0\ntarget\tcongen\ttriplet\tB1\t1.43100619316101\t0\ntarget\tscatci\ttriplet\tB1\t253.599196910858\t0\ntarget\tcongen\tsinglet\tB2\t1.53694701194763\t0\ntarget\tscatci\tsinglet\tB2\t116.401121854782\t0\ntarget\tcongen\ttriplet\tB2\t1.46691489219666\t0\ntarget\tscatci\ttriplet\tB2\t264.21873497963\t0\ntarget\tcongen\tsinglet\tA2\t1.6366879940033\t0\ntarget\tscatci\tsinglet\tA2\t131.432140111923\t0\ntarget\tcongen\ttriplet\tA2\t1.60673308372498\t0\ntarget\tscatci\ttriplet\tA2\t409.075021982193\t0\ntarget\tdenprop\ttriplet\tA2\t15886.8972070217\t0\n"
+  },
+  "compressed_proof_failure": {
+    "original_exit": 1,
+    "missing_indexed_files": [
+      "owner-source/coverage.launch.log",
+      "owner-source/execution.json",
+      "owner-source/owner.lock",
+      "qc-owner-source/co-r1900-ccdz-sa12-qc-singlet0-space160-analysis.launch.log",
+      "qc-owner-source/co-r1900-ccdz-sa12-qc-singlet0-space160.launch.log",
+      "qc-owner-source/co-r1900-ccdz-sa12-qc-singlet0-space80.launch.log",
+      "qc-owner-source/execution.json",
+      "qc-owner-source/owner.lock",
+      "qc-owner-source/pinned-driver-controls.launch.log"
+    ],
+    "indexed_payload_count": 438,
+    "failure_log": "Traceback (most recent call last):\n  File \"/opt/qmodeling/proof/verify-singlet-qc-coverage.py\", line 78, in <module>\n    p=argparse.ArgumentParser();p.add_argument('root',type=Path);a=p.parse_args();print(json.dumps(verify(a.root),indent=2))\n                                                                                                   ^^^^^^^^^^^^^^\n  File \"/opt/qmodeling/proof/verify-singlet-qc-coverage.py\", line 21, in verify\n    p=root/name;assert p.stat().st_size==item['bytes'] and sha(p)==item['sha256']\n                       ^^^^^^^^\n  File \"/opt/ukrmolp/lib/python3.11/pathlib.py\", line 1013, in stat\n    return os.stat(self, follow_symlinks=follow_symlinks)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/opt/qmodeling/proof/owner-source/coverage.launch.log'\n",
+    "compressed_import_launched": false
+  },
+  "owners": {
+    "co-quarter-tracking-source-20261010": {
+      "captured_record_sha256": "3600f9862bed604645f18826f3d42b39c43c931a850813fff7aea9bfc93948ee",
+      "captured_record": {
+        "supervisor_pid": 1134993,
+        "started_unix": 1791647762.0473936,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "cpu_group": "0-3",
+        "frozen_inputs_sha256": "5edff49f9b11f50204e6de4bf6cd464a7057e61fd63353b707e4bf43a9dacd76",
+        "steps": [
+          {
+            "started_unix": 1791647762.5538092,
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-quarter-tracking-20261010",
+              "--cpuset-cpus=0-3",
+              "--memory=8g",
+              "--memory-swap=8g",
+              "--shm-size=256m",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=4",
+              "-e",
+              "OPENBLAS_NUM_THREADS=4",
+              "-e",
+              "MKL_NUM_THREADS=4",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/diagnostics/cas11-quarter-interval-state-tracking-20261010:/work/diagnostics/cas11-quarter-interval-state-tracking-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs/co-r2224225-ccdz-sa11-quarter-fromeq-20261010:/work/runs/co-r2224225-ccdz-sa11-quarter-fromeq-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/runs/co-r2408075-ccdz-sa11-quarter-fromstretched-20261010:/work/runs/co-r2408075-ccdz-sa11-quarter-fromstretched-20261010",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/co-quarter-tracking-source-20261010:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/co-quarter-tracking-20261010.py"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115795566592,
+              "free_disk_bytes": 114442182656
+            },
+            "original_exit": 0,
+            "finished_unix": 1791652367.6760032
+          }
+        ],
+        "scope": "Producer geometry-path diagnostic only. Quarter targets have no native import/scattering evidence. Path agreement or larger overlaps cannot certify continuous-path state identity,poles or an electronic model. Preserve the original direct/midpoint disagreement even if the finer route changes assignments.",
+        "heartbeat_unix": 1791652367.92505,
+        "heartbeat_utc": "2026-10-10T17:12:47.925052+00:00",
+        "original_controller_exit": 0,
+        "finished_unix": 1791652367.9250484
+      }
+    },
+    "supported-import-frame-source-20261010": {
+      "captured_record_sha256": "795183f2ae707989f296ee3f2342c9f9d9f13e7f2753875948caf3fa724b83c9",
+      "captured_record": {
+        "supervisor_pid": 1127732,
+        "started_unix": 1791632678.0050602,
+        "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "mpi_ranks": 12,
+        "native_cpu_group": "4-15",
+        "small_cpu_group": "0-3",
+        "steps": [
+          {
+            "label": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-frame-co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+              "--cpuset-cpus=4-15",
+              "--memory=64g",
+              "--memory-swap=64g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/aug:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "-m",
+              "projects.ukrmol_co.run",
+              "--workdir",
+              "/work/runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+              "--bond-length",
+              "2.5",
+              "--basis",
+              "aug-cc-pVTZ",
+              "--model",
+              "CAS-A",
+              "--orbitals",
+              "state-averaged",
+              "--active-orbitals",
+              "6",
+              "3",
+              "3",
+              "0",
+              "--virtual-orbitals",
+              "0",
+              "0",
+              "0",
+              "0",
+              "--target-only",
+              "--target-roots",
+              "8",
+              "--target-states-used",
+              "40",
+              "--target-diagonalizer",
+              "slepc",
+              "--target-diagonalizer-tolerance",
+              "1e-13",
+              "--target-diagonalizer-max-cycles",
+              "1000",
+              "--congen-workspace",
+              "1000000",
+              "--scatci-memory-gib",
+              "16",
+              "--target-initial-checkpoint",
+              "/work/runs/co-r2500-augtz-sa12-qc-dz80-residual-qualified-start/co.casscf.chk",
+              "--target-ci-max-space",
+              "80",
+              "--target-ci-fresh-start",
+              "--target-energy-tolerance",
+              "1e-11",
+              "--target-gradient-tolerance",
+              "1e-7",
+              "--target-ci-tolerance",
+              "1e-12",
+              "--target-ci-residual-tolerance",
+              "1e-9",
+              "--target-ci-lindep",
+              "1e-22",
+              "--target-ah-lindep",
+              "1e-24",
+              "--target-ah-tolerance",
+              "1e-16",
+              "--target-ah-start-tolerance",
+              "1e-8",
+              "--target-max-cycles",
+              "150",
+              "--ranks",
+              "12"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 114471911424,
+              "free_disk_bytes": 117098487808
+            },
+            "started_unix": 1791632678.0546985,
+            "original_exit": 0,
+            "finished_unix": 1791653896.908579
+          },
+          {
+            "label": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010-analysis",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-frame-co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010-analysis",
+              "--cpuset-cpus=0-3",
+              "--memory=4g",
+              "--memory-swap=4g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/aug:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "-m",
+              "projects.ukrmol_co.analyze",
+              "/work/runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115752255488,
+              "free_disk_bytes": 113783963648
+            },
+            "started_unix": 1791653896.9633782,
+            "original_exit": 0,
+            "finished_unix": 1791653897.427696
+          },
+          {
+            "label": "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010-verification",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-frame-co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010-verification",
+              "--cpuset-cpus=0-3",
+              "--memory=4g",
+              "--memory-swap=4g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/aug:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/verify-cas12-native-import.py",
+              "--run",
+              "co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+              "--reference",
+              "co-r2500-augtz-sa12-qc-dz80-residual-qualified-start",
+              "--coverage",
+              "/work/diagnostics/cas12-stretched-augtz-supported-spaces-20261008/result.json",
+              "--output",
+              "/work/prepared/supported-import-frame-source-20261010/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010.verification.json"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115699920896,
+              "free_disk_bytes": 113783943168
+            },
+            "started_unix": 1791653897.4831421,
+            "original_exit": 0,
+            "finished_unix": 1791653898.0977247
+          },
+          {
+            "label": "compressed-public-proof",
+            "command": [
+              "docker",
+              "run",
+              "--rm",
+              "--name",
+              "co-frame-compressed-public-proof",
+              "--cpuset-cpus=0-3",
+              "--memory=2g",
+              "--memory-swap=2g",
+              "--shm-size=1g",
+              "--entrypoint",
+              "/opt/ukrmolp/entrypoint.sh",
+              "-e",
+              "PYTHONPATH=/opt/qmodeling",
+              "-e",
+              "OMP_NUM_THREADS=1",
+              "-e",
+              "OPENBLAS_NUM_THREADS=1",
+              "-e",
+              "MKL_NUM_THREADS=1",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006:/work",
+              "-v",
+              "/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/compressed:/opt/qmodeling:ro",
+              "-w",
+              "/opt/qmodeling",
+              "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+              "python3",
+              "/opt/qmodeling/proof/verify-singlet-qc-coverage.py",
+              "/opt/qmodeling/proof"
+            ],
+            "resources_before_launch": {
+              "available_ram_bytes": 115689005056,
+              "free_disk_bytes": 113783934976
+            },
+            "started_unix": 1791653898.1541595,
+            "original_exit": 1,
+            "finished_unix": 1791653898.5683694
+          }
+        ],
+        "frozen_inputs_sha256": "0266292a45bfdf1b24f517fbb8d424b0e05bd6e06f0f453fcd4e4de5adfdfc69",
+        "rank_scaling_speedup_verdict": null,
+        "scope": "Target imports only. New TZ declaration qualifies a distinct orbital frame, not original seed preservation. No CAS12 scattering, extra CAS11 pole-count run, model selection or geometry sweep is released.",
+        "heartbeat_unix": 1791653898.5710597,
+        "original_augtz_space40_rejection_preserved": true,
+        "error": "AssertionError('compressed-public-proof failed; queue stopped')",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/host.py\", line 101, in main\n    launch('compressed-public-proof',src,range(0,4),2,24,['python3','/opt/qmodeling/proof/verify-singlet-qc-coverage.py','/opt/qmodeling/proof'],3600)\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/kooza/ukrmol/co-sa-20261006/prepared/supported-import-frame-source-20261010/host.py\", line 77, in launch\n    assert row['original_exit']==0,label+' failed; queue stopped'\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: compressed-public-proof failed; queue stopped\n",
+        "original_controller_exit": 1,
+        "finished_unix": 1791653898.5710595
+      }
+    },
+    "quarter-import-progress-source-20261010": {
+      "captured_record_sha256": "da8cc33dfe3345a0dce06be18018e0d286808cdf533a0867c6f88d5d1631d450",
+      "captured_record": {
+        "pid": 1135247,
+        "started_unix": 1791647797.2001562,
+        "max_hours": 48,
+        "interval_seconds": 3600,
+        "captures": 3,
+        "scope": "Read-only progress observer; no retries, gate edits or job launches",
+        "latest_capture": "capture-20261010T175642Z.json",
+        "latest_capture_sha256": "17074b3472f9abd768a7708553cdfb62a9501fb09a9bc4bebbfd99dc776f6d27",
+        "heartbeat_unix": 1791655003.7459047,
+        "finish_reason": "Both finite owners ended",
+        "original_exit": 0,
+        "finished_unix": 1791655003.7460136
+      }
+    }
+  },
+  "available_ram_bytes": 115793248256,
+  "free_disk_bytes": 113771659264,
+  "docker_status": "comfyui Up 2 weeks\n"
+}
