@@ -20,6 +20,62 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Midpoint completed / aug-TZ properties active — 10 October 2026, 15:23 UTC
+
+**The two-start midpoint control completes**, owner **1127334**, exit0 at
+**13:58:55 UTC**, in **8231.19 seconds = 2.286 hours / 1.506 GiB** kernel peak,
+with **28693.02 CPU-seconds**. Both ordinary200-cycle QC starts pass before
+the diagnostic600-cycle fixed-orbital scans. Equilibrium-start QC costs
+**5105.76 seconds**, stretched-start **2440.31 seconds**, with final gradients
+**4.5698e-8 / 7.8751e-8**. All **32 probes / 96 overlap matrices** pass the
+producer's CI/residual/spin/Pi/orthogonality/space/full-minor/reciprocity gates.
+Maximum physical/penalized/action residuals are **6.6892e-10 / 9.9877e-10 /
+6.5193e-10 Hartree**, and independently contracted ground dipoles agree with
+saved QC within **2.8356e-11 a.u.** Source/parent integrity checks verify all
+**11 frozen source / 62 parent input files**. This is a completed producer
+milestone; a separate host wavefunction replay and public reconstruction are
+still pending.
+
+The two midpoint starts give mean objectives differing by **1.7053e-13 Hartree**
+and ground dipoles by **3.5712e-8 a.u.** First-five/first-eight root differences
+are at most **1.2259e-8 / 1.6565e-8 Hartree**. Across all twelve diagnostic roots,
+the maximum is **3.8876e-7 Hartree**; singlet B1/B2 root12 and triplet A1 roots10/11
+exceed1e-7 between these separately converged orbital frames. Thus closely
+matching ensemble objectives do not imply all higher roots match at that precision.
+Same-geometry physical and AO-following manifold minimum singular values are
+**0.999999999985**, with no weak/ambiguous/retained-to-extra assignments.
+
+The physical direct equilibrium-to-stretched comparison has **96/96 weak**
+assignments (squared overlap<0.5), versus **21/96** for equilibrium→midpoint
+and **38/96** for midpoint→stretched, for either start. These are three different
+geometry pairs, not a pooled error rate. The two half-intervals still have
+**3 / 2 retained-to-extra assignments**. Composed half-interval labels differ
+from direct labels for **16/96 roots**, including **1/40 retained components**,
+in both physical and AO-following comparisons and for either start. The midpoint
+helps resolve the large physical-overlap loss and shows reproducible start
+behaviour, but **continuous-path state and resonance-pole identity remain unset**.
+
+**Supported aug-TZ import remains active**, owner **1127732**, after successful
+QC and **all eight target-sector diagonalizations**. Serial `denprop` starts
+approximately **13:13 UTC**; at the capture it consumes one CPU continuously
+with about106MiB process RSS. Its log remains at input validation while it
+computes properties. This is an active serial stage, not evidence of12-rank
+speedup or a passed import. Independent analyzer/root/dipole/subspace/seed
+checks remain ahead. Compressed remains unlaunched behind those gates;
+the original TZ rejection is unchanged. CPUs0–3 are now free after midpoint
+completion. No additional root-count run or scattering pilot is launched.
+
+At **15:23:30 UTC**, approximately **106.67 GiB RAM / 107.59 GiB disk** remain
+available. Both import-controller and bounded-hourly-observer heartbeats are
+live; the observer has four captures and retains its12-October bound.
+[Condensed completion/current-stage evidence](progress-completion-20261010T1523.json)
+pins the completed result/resources, original exits, frozen inputs and current
+DENPROP process evidence. Raw midpoint files live in
+`diagnostics/cas11-midpoint-state-tracking-20261010/`; its two fresh QC runs
+and original frozen producer source remain under the11:46 declaration.
+The [new overview snapshot](progress-snapshot-20261010T1523.json) preserves
+the previous plots and dated releases, and updates the tracking/import roadmap.
+
 ### User-directed continuation — 10 October 2026, 11:46 UTC
 
 **Fresh TZ target numerical qualification passes**, owner **1126703**, under
