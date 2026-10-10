@@ -1,0 +1,23 @@
+{
+  "status": "user-directed finite intermediate-geometry and two-start state-tracking control",
+  "parent_contract": "cas11-target-state-overlap-roots12-contract.json",
+  "diagnostic": "cas11-midpoint-state-tracking-20261010",
+  "question": "Does splitting the equilibrium-to-stretched interval improve physical target-state tracking, and do independently projected endpoint starts reach the same midpoint orbital/CI branch?",
+  "midpoint_bohr": 2.31615,
+  "reference_geometries_bohr": [2.1323, 2.5],
+  "references": [
+    {"run": "co-eq-ccdz-sa11-tight-cc40", "checkpoint_sha256": "9e43a2e52e7926af9fe9f47985cd7fe5be69f68f0fbeb0a6728eb1433b6549b3"},
+    {"run": "co-r2500-ccdz-sa11-tight-cc40-anchor", "checkpoint_sha256": "6a2b83b1b0246b1b18fd5ea7da641d223f888e91cc20ca486b904ea7ca87715f"}
+  ],
+  "new_qc_runs": ["co-r231615-ccdz-sa11-midpoint-fromeq-20261010", "co-r231615-ccdz-sa11-midpoint-fromstretched-20261010"],
+  "electronic_model": {"basis": "cc-pVDZ", "active_orbitals": [5,3,3,0], "frozen_core_orbitals": 2, "active_electrons": 10, "singlet_and_triplet_ensemble_roots": [5,5,5,5], "components": 40},
+  "qc": {"optimizer": "one-step", "max_macro_cycles": 150, "ordinary_ci_max_cycles": 200, "trial_space": 80, "energy_tolerance_hartree": 1e-11, "gradient_tolerance": 1e-7, "ci_energy_tolerance_hartree": 1e-12, "ci_residual_tolerance_hartree": 1e-9, "ci_lindep": 1e-22, "ah_lindep": 1e-24, "ah_tolerance": 1e-16, "ah_start_tolerance": 1e-8, "fresh_ci_start": true, "per_start_timeout_seconds": 7200},
+  "fixed_orbital_ci": {"roots_per_spin_irrep": 12, "trial_spaces": [160,240], "diagnostic_max_cycles": 600, "energy_tolerance_hartree": 1e-12, "residual_tolerance_hartree": 1e-9, "lindep": 1e-22, "spin_penalty_shift": 1.0, "probes": 32},
+  "reuse": "Load the existing independently reconstructed12-root endpoint vectors; do not re-solve endpoint spectra or increase the established root count. Only midpoint roots are fresh CI controls. Compare the existing direct endpoint overlap to the archived parent as a numerical control.",
+  "comparisons": "Six pairs: direct endpoints, each start's two half-intervals, and the same-geometry midpoint starts. For all eight sectors preserve physical and separately labelled AO-following metrics, full occupied Slater-minor reconstruction, reciprocity/bounds, assignments and finite-manifold singular values. Compare composed two-leg assignments with the direct endpoint map, and report two-start objective/root/dipole/subspace differences without selecting a preferred branch.",
+  "gates": {"all_original_and_fresh_qc_ci_flags": true, "physical_penalized_and_action_residual_hartree": 1e-9, "saved_qc_root_pi_and_space_energy_error_hartree": 1e-7, "spin_square_error": 1e-6, "ci_and_mo_orthogonality_error": 1e-9, "minimum_same_geometry_energy_matched_projection": 0.99999999, "overlap_reciprocity_and_full_minor_error": 1e-10, "overlap_magnitude_and_singular_value_upper_bound": 1.000000001, "independent_midpoint_ground_dipole_error_au": 1e-5},
+  "diagnostic_triggers": {"assigned_squared_overlap_below": 0.5, "best_to_second_squared_overlap_margin_below": 0.1, "retained_first_five_assigned_to_extra_root": true},
+  "resources": {"cpu_group": "0-3", "library_threads": 4, "container_memory_gib": 8, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "eligibility_wait_seconds": 3600, "whole_container_timeout_seconds": 21600},
+  "stopping": "One fresh finite owner; stop at any QC, CI, algebraic, resource or time failure with actual exits preserved. No automatic retry, budget increase, root expansion, altered tolerance or branch selection. Historical runs/checkpoints/vectors are mounted read-only; only the declared fresh runs and diagnostic are writable.",
+  "release": "Intermediate-geometry diagnostic only. Midpoint targets have no native UKRmol import or scattering evidence; the600-cycle scan cannot qualify a rejected ordinary QC solve. Continuous-path state identity, resonance-pole identity and electronic-model/sweep/potential-fit qualification remain unset."
+}

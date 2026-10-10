@@ -1,0 +1,16 @@
+{
+  "status": "user-directed finite successor after separately declared TZ target numerical qualification",
+  "parent_contract": "cas12-native-import-mpi12-successor-contract.json",
+  "prerequisite_contract": "cas12-tz-reoptimized-target-qualification-contract.json",
+  "prerequisite_record": "diagnostics/cas12-tz-reoptimized-target-qualification-20261010/result.json",
+  "original_owner": {"pid": 1072749, "controller_exit": 1, "preservation": "Keep the original TZ seed-preservation rejection, queue record, native outputs, source and all unlaunched original names intact. This new queue begins with supported aug-TZ, not a retry of the rejected TZ import."},
+  "sequence": [
+    {"section": "aug", "recipe": "calibration-sa12-stretched-augtz-supported-import.json", "change": "New name suffix -mpi12-framequalified-20261010 and ranks12 only", "proof": "Original aug-TZ space40 rejection retained; require published supported80/160/240 fixed-orbital proof with unchanged checkpoint and ordinary QC flags", "verification": "Original independent64-root/ground-dipole/CI/rounding/subspace and1e-7-Hartree seed-preservation gates; stop on any failure"},
+    {"section": "compressed", "recipe": "calibration-sa12-compressed-singlet-qualified-import.json", "change": "New name suffix -mpi12-framequalified-20261010 and ranks12 only", "proof": "Published96-probe all-action proof with original space160 ordinary-QC pass; space80 rejection retained", "verification": "Original independent64-root/dipole/spin0-action/CI/rounding/subspace and seed-preservation gates; stop on any failure"}
+  ],
+  "source": "Fresh copies of the package-complete parent aug/compressed source, recipes, public proofs and verifiers. Freeze source and prerequisite/checkpoint/coverage hashes. Compare each modified argument vector after restoring ranks4/name to the committed recipe; all scientific arguments must match exactly. Pinned image6b3b0ede; no engine rebuild.",
+  "resources": {"native_cpu_group": "4-15", "native_mpi_ranks": 12, "library_threads_per_rank": 1, "native_container_memory_gib": 64, "native_minimum_available_ram_gib": 80, "small_cpu_group": "0-3", "small_container_memory_gib": 4, "small_minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "native_whole_container_timeout_seconds": 86400, "verifier_timeout_seconds": 3600, "resource_wait_timeout_seconds": 172800, "whole_owner_timeout_seconds": 259200},
+  "scheduling": "One serial native queue. Midpoint diagnostic retains reserved0-3 cores; imported-target verifiers wait for that slot. Original unrelated comfyui remains preserved. Record30-second heartbeats, admission resources, ranks, wall/CPU/kernel peaks and stage logs. Twelve ranks do not establish a speedup.",
+  "stopping": "Unexpected native/analyzer/proof/verifier/integrity/resource/time failure or STOP terminates the finite queue; later imports remain unlaunched. No automatic retry, seed-gate relaxation or requalification of a newly rejected import.",
+  "release": "Target imports only. New TZ declaration qualifies a distinct orbital frame, not original seed preservation. No CAS12 scattering, extra CAS11 pole-count run, model selection or geometry sweep is released."
+}

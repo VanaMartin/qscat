@@ -1,0 +1,16 @@
+{
+  "status": "user-directed new target declaration after independently diagnosed seed drift",
+  "parent_contract": "cas12-tz-seed-drift-replay-contract.json",
+  "target_id": "co-r2500-cctz-sa12-reoptimized-frame-qualified-20261010",
+  "native_artifact_run": "co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3",
+  "checkpoint": "output/CO/geom1/co.casscf.chk",
+  "checkpoint_sha256": "8518dc191b8670af9ec87d7666b091eaf370187e7022684cd93716d240b40568",
+  "covered_seed": "co-r2500-cctz-sa12-qc-dz80-residual-qualified-start",
+  "design": "Declare the actual reoptimized orbital frame as a distinct numerical target, supported by the independently reconstructed48 fixed-orbital probes,128 widest-space vectors and64 native roots. Require the original ordinary200-cycle CI/orbital optimization flags and final gradient/energy criteria as well as independent residual/spin/dipole/Pi/orthogonality/root/rounding/subspace checks. Record all original40-root seed shifts, objective/ground/dipole changes and the rejected preservation verdict. Do not rerun QC, CI or native integrals.",
+  "gates": {"all_original_and_fresh_ci_flags": true, "ordinary_ci_max_cycles": 200, "orbital_gradient_max": 1e-7, "final_objective_step_hartree": 1e-11, "independent_physical_penalized_and_action_residual_hartree": 1e-9, "native_root_error_hartree": 1e-7, "native_ground_dipole_error_au": 1e-5, "spin_square_error": 1e-6, "ci_and_mo_orthogonality_error": 1e-9, "pi_and_space_energy_error_hartree": 1e-7, "minimum_core_active_subspace_overlap": 0.99999999, "native_saved_table_rounding_hartree": 5e-10},
+  "replay_sha256": {"diagnostics/cas12-tz-seed-drift-replay-20261010/independent-verification.json": "e8b3906da5e0ef6b3a567c070716d9d35a0241d703849a9a0401f25368775f1f", "diagnostics/cas12-tz-seed-drift-replay-20261010/recovered-result.json": "2366718f63d1a06f78c3333ba10a6d5c889412ac7258fb1993ef4317c0c188c1"},
+  "original_rejection": {"owner": 1072749, "controller_exit": 1, "seed_preservation_gate_hartree": 1e-7, "seed_preservation_verdict": false, "preservation": "Keep original native/import/replay/QC records, source and failed verifier unchanged. The original import remains rejected under its seed-preservation contract; passing this new declaration qualifies numerical consistency of a different target, not preservation of the original seed."},
+  "output": "diagnostics/cas12-tz-reoptimized-target-qualification-20261010",
+  "resources": {"cpu_group": "0-3", "library_threads": 1, "container_memory_gib": 2, "minimum_available_ram_gib": 24, "minimum_free_disk_gib": 40, "eligibility_wait_seconds": 3600, "whole_container_timeout_seconds": 600},
+  "release": "New covered-target numerical consistency only. Electronic-model convergence, unique orbital optimum, geometry continuity, public raw-archive reconstruction and scattering/potential fitting remain unqualified. A fresh subsequent-import contract may depend on this record; no original controller/verdict is rewritten."
+}
