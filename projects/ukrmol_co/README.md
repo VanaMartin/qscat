@@ -21,7 +21,7 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261011T1952.md) and
+The [production-sweep status update](SWEEP_READINESS_20261011T2012.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
@@ -29,31 +29,37 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 
 ## Progress overview — 11 October 2026
 
-![CO qualification: three-anchor candidates, numerical/model sensitivity, reusable neutral inputs, measured CAS12 sparse cost and physical A2 channel coverage](../../docs/physics/figures/co-progress-20261011T1952.png)
+![CO qualification: three-anchor candidates, numerical/model sensitivity, reusable neutral inputs, measured CAS12 sparse cost and active4096-root comparator](../../docs/physics/figures/co-progress-20261011T2012.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261011T1952.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261011T1952.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261011T2012.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261011T2012.json) ·
+[Dated comparator launch](progress-observation-20261011T2012.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261011T1952.md)
+[Current steps before a production sweep](SWEEP_READINESS_20261011T2012.md)
 
-This is the **19:52 UTC, 11 October** release of an incremental overview. New findings, verification
+This is the **20:12 UTC, 11 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** **CAS12 completes both sectors and passes the independent raw
-reader**, with native/reader/controller exits0 at **18:18 UTC**. Both2048-root exports
-and99-energy grids pass; B1/B2 phases agree to **1.0e-9 rad**. Measured full native
-cost **10.05 h /22.36 GiB** is now plotted as the CAS12 sparse pilot, distinct from
-the qualified CAS11 root controls and the dense CAS12 allocation floor. Both native
-fit candidates are **2.457190 eV position /1.134180 eV full width**. CAS11→CAS12
-phase change **0.1212765 rad** is exploratory until omitted-spectrum uncertainty
-is qualified. All37 source/28 input hashes verify. The observer exits0 after12
-captures; no scientific container remains active. **Next: a separately declared
-spectral-omission comparator.** Model, pole extraction and sweep gates remain open.
+**What changed:** the separately declared **CAS12 2048→4096-root comparator starts
+at 20:11 UTC** on Sadaharu. B1 is constructing its 86,352-dimensional distributed
+Hamiltonian with the same model, target, numerical settings and eight-core
+allocation. All **43 source / 97 input-evidence hashes** verify. The new independent
+reader reconstructs the completed baseline in the pinned image before launch;
+31 focused tests pass. An hourly observer is active. Completed 2048-root
+cost/export/Pi evidence and all plotted numerical values are preserved. **Next:
+review full-grid phase and identical-window fit sensitivity after both sectors
+finish.** Stronger root-convergence evidence remains a subsequent declared decision.
+The [19:52 figure](../../docs/physics/figures/co-progress-20261011T1952.png),
+[vector copy](../../docs/physics/figures/co-progress-20261011T1952.svg) and
+[snapshot](progress-snapshot-20261011T1952.json) preserve the both-sector 2048-root
+completion milestone: **10.05 h / 22.36 GiB**, passing raw-reader/Pi checks and
+native candidates **2.457190 eV position / 1.134180 eV full width**. Exploratory
+CAS11→CAS12 phase change **0.1212765 rad** awaits spectral qualification.
 The [16:27 figure](../../docs/physics/figures/co-progress-20261011T1627.png),
 [vector copy](../../docs/physics/figures/co-progress-20261011T1627.svg) and
 [snapshot](progress-snapshot-20261011T1627.json) preserve producer B1 completion
@@ -148,9 +154,9 @@ The six panels explain the qualification campaign:
   channels, identity, width extraction and neutral correlation still determine the
   production model. A frozen restartable pilot precedes the sweep and held-out
   QSCAT potential validation. The CAS12 cost/export/symmetry pilot is now checked;
-  its spectral-omission comparator is the next gate.
+  its 2048→4096-root sensitivity comparator is now active.
 
-This is a dated **11 October 19:52:23 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **11 October 20:12:22 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
@@ -160,8 +166,9 @@ passes numerical qualification. Supported aug-TZ now passes independent import
 checks; compressed private-cache import also passes all independent gates. Midpoint and
 twelve-root anchor wavefunctions/matrices reconstruct from public archives;
 quarter wavefunctions/matrices also reconstruct from public bytes. One CAS12
-sparse successor has completed both sectors and independent reading; original
-package/setup/shared-memory failures remain preserved.
+sparse successor has completed both sectors and independent reading; its separate
+4096-root comparator is active in B1. Original package/setup/shared-memory failures
+remain preserved.
 State/pole identity remains unqualified. The original TZ diagnostic's final-write
 exit1 is preserved; additive report recovery exits0. Historical literature
 comparisons remain available in the 08:16 release, with their tracked reference
@@ -175,7 +182,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned 16:27 snapshot; its chain
+snapshot is an explicit delta against the hash-pinned 19:52 snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

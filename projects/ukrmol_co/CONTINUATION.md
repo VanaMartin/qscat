@@ -20,6 +20,70 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CAS12 2048→4096 comparator launched — 11 October, 20:12 UTC
+
+**Owner1163485 is active on Sadaharu**, service
+`co-cas12-sparse-4096-comparator-20261011.service`, run
+`cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011`, started **20:11:28 UTC**.
+At **20:12:22 UTC**, B1 is constructing the **86,352-dimensional distributed
+Hamiltonian**; no eigenpairs have been exported. Docker samples **798.86% CPU /
+10.73 GiB current memory**; inclusive cgroup peak to date is **13.2530 GiB**,
+with zero OOM/max-limit events. These are ongoing samples, not final cost.
+
+The [separate comparator contract](sparse-scattering-cas12-4096-comparator-contract.json)
+reviews the completed 2048-root cost/coverage and justifies one doubled-root
+comparison. The native driver/dependency bytes match the successful pilot's frozen
+source exactly. Root count alone changes; target/map/integrals/CONGEN/model,
+outer inputs/grid/solver tolerances and resource limits remain fixed. Launch RAM
+**107.62 GiB** and disk **90.21 GiB** clear the original96/50-GiB gates. Image UID/GID
+1000 match the fresh source/output owner. All **43 source /97 input-evidence hashes**
+verify, including the original failed/completed pilots and baseline raw evidence.
+
+Frozen source is
+`/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-sparse-4096-comparator-source-20261011/`.
+Comparison/owner/observer code is pinned to **`3f0fb9864a4560799b1249225622074165617e23`**;
+the native driver stays at **`b64faca76fb351d2edd17f7a9c4b5463c1154def`**.
+The [launch capture](progress-observation-20261011T2012.json) pins six immutable
+remote freeze/provenance/smoke/observation records. The new independent reader
+successfully reconstructs the completed baseline twice in the pinned image;
+this smoke tests parsing/interface/prefix/fits, not convergence. Analytic tests
+exercise branch invariance, position/width budgets, full-grid sensitivity outside
+the fit window, missing grids and unset nonresonant fits;31 focused tests pass.
+
+**Hourly observer1163637** is active as
+`co-cas12-sparse-4096-comparator-observer-20261011.service`, with first immutable
+capture `20261011T201146.json` under
+`prepared/cas12-sparse-4096-comparator-observer-20261011/`. It launches no model
+and ends after owner completion or its 72-hour bound. Eight physical cores4–11,
+80-GiB cgroup,8-GiB shared memory,16-GiB native `memp` and one library thread/rank
+remain fixed. CPUs0–3 remain reserved for small jobs. Native stages are24-hour
+bounded, whole native container50-hour bounded, reader1-hour bounded and owner
+72-hour bounded. `STOP` in the source directory terminates the active step;
+failure preserves original exits without retry or automatic limit relaxation.
+
+Successful native completion triggers only the predeclared raw CI/boundary/
+telemetry/native-interface/shared-prefix/Pi reader and full99-point phase plus
+identical1.8–3.3 requested-eV-window background-order1–4 fits. Budgets stay0.05eV
+position/5%-width with0.001eV floor/0.05rad phase moduloπ. Empty/MAXFIT/failed/bound
+fits leave pair verdict unset; budget failures are recorded false. **Review the
+pair sensitivity,expanded coverage and cost before separately declaring any
+third resolution or independent omission test.** A stable pair does not give an
+absolute omitted-spectrum bound. Model/identity/channel/extraction/neutral and
+restartable-production-pilot gates remain open.
+
+The [20:12 overview](progress-snapshot-20261011T2012.json) updates active status;
+all earlier plotted values remain unchanged. The
+[readiness update](SWEEP_READINESS_20261011T2012.md) records the declared scope.
+Verification passes **46 local source hashes**, six immutable remote records,
+43/97 source/input freezes, pinned-image baseline raw reading, current contract/
+owner/allocation/resource reconstruction, exact historical19:52 PNG/SVG reproduction,
+current render/SVG/links, lint/format and diff checks. Main-index integrity and
+upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; comparator/owner/observer/tests and
+overview are branch-only additions resolved against current local source.
+A final **20:16:31 UTC** check confirms both services remain active and B1 matrix
+construction continues at **796.88% CPU /10.73 GiB current Docker memory**.
+
 ### CAS12 both-sector cost/export pilot and independent reader passed — 11 October, 19:52 UTC
 
 **CAS12 owner1149978 finishes at18:18:07 UTC with native, independent-reader and
