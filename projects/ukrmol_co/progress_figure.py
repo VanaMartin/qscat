@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261011T1627.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261011T1952.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -204,20 +204,20 @@ def _memory(ax, data):
         data.get("memory_title", "Larger models within local RAM"),
         "Measured kernel peaks; CAS12 dense is an allocation floor",
     )
-    values = [row["kernel_peak_gib"] for row in data["sparse_costs"]]
+    costs = data["sparse_costs"] + data.get("additional_sparse_costs", [])
+    values = [row["kernel_peak_gib"] for row in costs]
     values += [
         data["dense_cas11"]["kernel_peak_gib"],
         data["memory_reference"]["cas12_dense_workspace_floor_gib"],
     ]
-    count = len(data["sparse_costs"])
+    count = len(costs)
     x = np.arange(count + 2)
-    bars = ax.bar(x, values, color=[GREEN] * count + [BLUE, RED], width=0.64)
+    colors = [GREEN if row.get("qualified", True) else ORANGE for row in costs]
+    bars = ax.bar(x, values, color=[*colors, BLUE, RED], width=0.64)
     bars[-1].set_hatch("///")
     if "selected_cas11_roots" in data:
         selected = next(
-            i
-            for i, row in enumerate(data["sparse_costs"])
-            if row["roots"] == data["selected_cas11_roots"]
+            i for i, row in enumerate(costs) if row["roots"] == data["selected_cas11_roots"]
         )
         bars[selected].set_edgecolor(INK)
         bars[selected].set_linewidth(2)
@@ -230,7 +230,7 @@ def _memory(ax, data):
     ax.set_yticks([5, 10, 25, 50, 100, 250], ["5", "10", "25", "50", "100", "250"])
     ax.set_xticks(
         x,
-        [f"CAS11\n{row['roots']}" for row in data["sparse_costs"]]
+        [f"{row.get('model', 'CAS11')}\n{row['roots']}" for row in costs]
         + ["CAS11\ndense", "CAS12\ndense"],
     )
     ax.set_ylabel("Peak / lower-bound memory / GiB (log scale)")
@@ -238,14 +238,17 @@ def _memory(ax, data):
         ax.text(
             i, value * 1.14, f"{value:.1f}" if i < count + 1 else ">222", ha="center", fontsize=10
         )
-    for i, row in enumerate(data["sparse_costs"]):
-        ax.text(i, 3.4, f"{row['wall_hours']:.2f} h", ha="center", fontsize=9, color="white")
+    time_fontsize = 8 if data.get("additional_sparse_costs") else 9
+    for i, row in enumerate(costs):
+        ax.text(
+            i, 3.4, f"{row['wall_hours']:.2f} h", ha="center", fontsize=time_fontsize, color="white"
+        )
     ax.text(
         count,
         3.4,
         f"{data['dense_cas11']['wall_hours']:.2f} h*",
         ha="center",
-        fontsize=9,
+        fontsize=time_fontsize,
         color="white",
     )
     _note(
@@ -605,7 +608,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261011T1627"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261011T1952"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

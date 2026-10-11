@@ -20,6 +20,62 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CAS12 both-sector cost/export pilot and independent reader passed — 11 October, 19:52 UTC
+
+**CAS12 owner1149978 finishes at18:18:07 UTC with native, independent-reader and
+controller exits0.** Both B1/B2 SCATCI→RSOLVE→EIGENP→RESON sequences complete,
+with2048 exported roots per sector and complete99-point0.1–5.0-eV phase grids.
+The independent reader checks raw CI shapes2048×1410, boundary shapes2048×250,
+finite/distinct/sorted energies, boundary/CI agreement, native solver convergence/
+residuals and grid values. Maximum residual is **1.3276447836219887e-10 Hartree**;
+B1/B2 phase difference moduloπ is **1.000000082740371e-9 rad**, passing0.002rad.
+The native fit candidates agree at **2.4571899467528224 eV position /
+1.1341801027179659 eV full width**, with no MAXFIT diagnostic. Independent raw
+reading passes; public raw pilot reconstruction and pole-extraction qualification
+remain pending.
+
+The complete native container costs **36184.94428068795 seconds =10.0513734113 h /
+24009990144 peak bytes =22.3610458374 GiB /287677.699876 CPU-seconds** on8 physical
+cores. Mean busy-core use is7.95. Sampled peak allocated run storage is5.0967GiB.
+This includes both Hamiltonian constructions and outer stages, but excludes
+target QC/import and the separate reader; comparisons with differently scoped
+CAS11 pipeline/replay timings are not matched speedups. The predeclared affordable
+cost/export question is answered positively within the original resource bounds.
+
+At the **19:52:23 UTC** check, no scientific container is running. Observer1150274
+exits0 at **19:15:52 UTC**, after12 captures, because the finite owner ended.
+All **37 frozen source /28 input hashes** verify. The
+[completion capture](progress-completion-20261011T1952.json) pins14 immutable
+remote owner/resource/raw-vector/boundary/verifier records. Original owner1149540
+SIGBUS59/controller1, source/input freezes and the shm8 successor declaration
+remain preserved. No tolerance, target or model was requalified by resource repair.
+
+The exploratory CAS11→CAS12 maximum phase difference is **0.1212765 rad** in both
+sectors. This exceeds the later0.05-rad model-comparison budget, but CAS12 omitted-
+spectrum uncertainty remains unqualified, so the final electronic-model verdict
+stays unset. **Next: separately declare the justified spectral-omission comparator**
+after reviewing measured cost, native selection and emitted energy coverage.
+Then qualify explicit A2 channels, model/basis/ensemble and extraction/identity,
+neutral correlation/domain and a frozen restartable production pilot. No higher-
+root sequence, another anchor or production sweep was launched by this owner.
+
+The [19:52 overview](progress-snapshot-20261011T1952.json) adds measured CAS12
+sparse cost and completed raw-reader/Pi status; the
+[readiness update](SWEEP_READINESS_20261011T1952.md) records the next decision.
+Earlier snapshots, including the producer-only B1 milestone, remain reproducible.
+The indexed main snapshot retains complete integrity at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; the 19:52 check reports current
+upstream status, while the later handoff reports upstream currency unknown despite
+a completed successful fetch. Relevant branch-only current source and snapshot
+deltas were resolved locally against that baseline.
+
+Verification passes 39 current source hashes, 14 immutable remote hashes, completed
+native/reader/controller exits, both-sector solver/energy/fit summaries and cost/
+unit conversions against remote originals. Prior plotted values remain unchanged;
+historical16:27 PNG/SVG reproduce byte-for-byte. Current rendering/SVG/links and
+lint/format/diff checks pass. The original SIGBUS and all unset scientific
+qualification verdicts remain preserved.
+
 ### CAS12 B1 native completed / B2 matrix construction active — 11 October, 16:27 UTC
 
 The [dated status capture](progress-observation-20261011T1627.json) records
