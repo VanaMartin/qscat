@@ -21,7 +21,7 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261011.md) and
+The [production-sweep status update](SWEEP_READINESS_20261011T0816.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
@@ -29,28 +29,33 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 
 ## Progress overview — 11 October 2026
 
-![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261011T0742.png)
+![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261011T0816.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261011T0742.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261011T0742.json) ·
-[Compressed import completion and independent checks](progress-completion-20261011T0742.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261011.md)
+[Vector figure](../../docs/physics/figures/co-progress-20261011T0816.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261011T0816.json) ·
+[CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
+[Current steps before a production sweep](SWEEP_READINESS_20261011T0816.md)
 
-This is the **07:42 UTC, 11 October** release of an incremental overview. New findings, verification
+This is the **08:16 UTC, 11 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** compressed CAS12 completes native/analyzer/independent import
-checks,all exit0,in **6.300 hours / 41.124 GiB**. All64 roots,dipole,subspaces and
-seed preservation pass unchanged gates. This closes the pending compressed
-three-anchor DZ target-import gap; CAS12 scattering remains unperformed.
-Both finite owners and their observer have ended; no scientific container is
-running. Quarter public replay remains passed,and its two retained A2 path
-changes remain unresolved. The next gate is a separately declared modest CAS12
-sparse pilot after remaining public review.
+**What changed:** CAS11 16K / TZ continuation now passes public352-payload
+reconstruction and exact repackaging. The [A2 audit](A2_CHANNEL_COVERAGE.md)
+finds a five-root retained-channel gap,with substantial root6 and root7/root9
+weight on problematic links. The first CAS122048-root pilot stops with native59
+before any eigenpairs; its determinant shared arrays exceed1-GiB backing. A
+separately declared8-GiB-shared-memory successor is active on8 physical cores
+and has passed the failed CSF point into distributed matrix construction.
+Scientific inputs and gates remain fixed. CAS12 truncation/model qualification
+and the full sweep remain open.
+The [07:42 figure](../../docs/physics/figures/co-progress-20261011T0742.png),
+[vector copy](../../docs/physics/figures/co-progress-20261011T0742.svg) and
+[snapshot](progress-snapshot-20261011T0742.json) preserve compressed CAS12 import
+completion under unchanged64-root/dipole/subspace/seed gates.
 The [10 October21:17 figure](../../docs/physics/figures/co-progress-20261010T2117.png),
 [vector copy](../../docs/physics/figures/co-progress-20261010T2117.svg) and
 [snapshot](progress-snapshot-20261010T2117.json) preserve the complete-proof /
@@ -107,7 +112,7 @@ The six panels explain the qualification campaign:
 - **E — Many-electron identity.** Extending eight to twelve diagnostic roots
   recovers missing overlap-manifold directions in an AO-following coefficient
   frame. This is distinct from physical wavefunction overlap; root-label
-  exchanges and finite-manifold loss still motivate intermediate geometries.
+  exchanges and finite-manifold loss motivate retained-channel and path checks.
   The12-root values now pass independent full-Slater/AO/Hamiltonian replay from
   public downloads. The completed midpoint also passes independent/public
   reconstruction, with weak physical assignments reduced from96/96 on the direct
@@ -115,12 +120,14 @@ The six panels explain the qualification campaign:
   differ from direct labels for16/96 roots, including one retained component.
   Quarter public reconstruction verifies stronger singlet-A2 root5 links,but
   two other retained labels change between two- and four-leg routes.
-- **F — Next gates.** Qualify modest CAS12 sparse scattering,publish remaining evidence,resolve
+  The latest projection audit identifies omitted A2-root coverage as the next
+  specific control.
+- **F — Next gates.** Qualify the active modest CAS12 sparse pilot,resolve
   state/extraction and electronic-model choices, then release a geometry sweep
   and fit with held-out scattering tests.
 
-This is a dated **11 October 07:42:18 UTC** snapshot: CAS11 remains independently
-verified on the host. The import queue stopped on9 October at21:01 UTC:
+This is a dated **11 October 08:16:26 UTC** snapshot: CAS11 16K and TZ-frame records
+now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
 against the independently covered imported orbital frame, but does not retroactively
@@ -128,12 +135,12 @@ qualify the failed seed-preservation contract. A distinct reoptimized target now
 passes numerical qualification. Supported aug-TZ now passes independent import
 checks; compressed private-cache import also passes all independent gates. Midpoint and
 twelve-root anchor wavefunctions/matrices reconstruct from public archives;
-quarter wavefunctions/matrices also reconstruct from public bytes. No scientific
-container is active; original package/setup failures remain preserved.
+quarter wavefunctions/matrices also reconstruct from public bytes. One CAS12
+sparse successor is active; original package/setup/shared-memory failures remain preserved.
 State/pole identity remains unqualified.
 The original failure is preserved.
-The completed twelve-root result passes public reconstruction. CAS11 16K scattering
-and TZ-drift public raw-archive reconstruction remain pending. The original TZ diagnostic's final-write exit1 is preserved;
+The completed twelve-root result passes public reconstruction. The original TZ
+diagnostic's final-write exit1 is preserved;
 additive report recovery exits0. Published values come from tracked notes: Laporta2012,
 preprint p.4; Dora2016, p.6 Table4 (dipole p.4 Table2); Dora2020, p.4 Table2.
 They represent different models, not an experimental resonance error band.

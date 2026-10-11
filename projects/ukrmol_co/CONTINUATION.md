@@ -20,6 +20,89 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Public CAS11/TZ replay passed / A2 retained-channel gap measured / CAS12 shm8 pilot active — 11 October, 08:16 UTC
+
+Public [CAS11 16K / TZ continuation](qualification-evidence/cas11-16k-tz-continuation/README.md)
+passes download and independent **352-payload** reconstruction. Both16384-root
+sectors pass raw eigenpair/boundary/full-grid/identical-window gates. TZ replay
+passes **128 states / 48 probes** and retains the original triplet-A1 root3
+seed shift **−3.024880896873583e-7 Hartree**. CAS11's smallest qualified count
+remains2048; no additional CAS11 root expansion was launched. Archive SHA256
+`82d8562585c6133eca411a5693d5ac824a9dd3b3baa9ccfe5a30a1c4c885c847`,
+1291953735 bytes,repackages exactly on macOS. Original OOM,timeout,TZ final-write
+failure and the separate reoptimized target contract remain preserved. The first
+120-second publication timeout and string-sorted repackaging mismatch are retained;
+longer bounded publication and producer-matching path order pass unchanged bytes.
+
+The [A2 audit](A2_CHANNEL_COVERAGE.md) uses publicly reconstructed quarter matrices.
+Singlet4→4→5→6→6 and triplet5→6→6→5→5 enter the omitted-sector root6. The worst
+incoming physical projections into the five-root retained sector are **0.000432,
+0.000227,0.000390,0.000221**,despite strong local assignments. On the singlet
+midpoint→upper-quarter link,roots7–12 carry **0.321949** squared projection,
+including root7 **0.193921** and root9 **0.122257**. AO-following and physical
+metrics remain distinct. This supports a fixed-orbital explicit-A2-channel control
+after affordable spectral qualification; six retained roots alone do not cover
+the observed twelve-root subspace. No automatic geometry subdivision or diagnostic-
+root expansion follows. Continuity/pole identity remain unset.
+
+**Initial CAS12 pilot failure is preserved**, owner **1149540**, service
+`co-cas12-sparse-pilot-20261011.service`,run
+`cas12-eq-native-sparse-roots2048-mpi8-pilot-20261011`. B1 SCATCI exits **59**
+(SIGBUS7 / MPI_ABORT); native wrapper and owner exit **1** at **08:09:17 UTC**.
+Native stage lasts **2.8199 seconds**,container **4.6134 seconds / 10954342400
+peak bytes**; no eigenpairs or observable verdict exist. The failure occurs while
+constructing22475718 determinants withNints5. Pinned `create_csfs` allocates shared
+integer bitstrings and double coefficients: **899028720 + 179805744 = 1078834464
+bytes**,already **5092640 bytes above1 GiB** before other shared allocations.
+This is consistent with shared backing exhaustion,not the80-GiB cgroup OOM or a
+numerical-convergence rejection. The original36-source/23-input freeze verifies.
+
+The [explicit shared-memory successor](sparse-scattering-cas12-shm-successor-contract.json)
+is active,owner **1149978**,service **`co-cas12-sparse-pilot-shm8-20261011.service`**,
+fresh source **`prepared/cas12-sparse-pilot-shm8-source-20261011/`** and run
+**`cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011`**. It changes only shared-
+memory capacity to **8 GiB** and uses fresh owner/output paths. Allocation stays
+**8 MPI ranks / physical CPUs4–11 /80-GiB cgroup / one library thread per rank**;
+CPUs0–3 remain reserved for controls. Parent roots2048,solver1e-12/maxiter1000,
+40 retained target states,model,phase grid and all gates remain unchanged.
+CAS12's own DENPROP map passes all40 saved-root checks; the new map differs from
+CAS11,whose reconstruction matches its original SWINTERF ordering exactly.
+Both published CAS11 2048 sectors pass the new driver's raw audit;13 focused
+parser/map tests and lint/format checks pass. No same-model dense CAS12 oracle
+exists; export/Pi/residual success cannot certify spectral truncation.
+
+At **08:16:26 UTC** the successor has passed the failed CSF point and is building
+the **86352-dimensional distributed matrix**,at **≈802% CPU /10.73 GiB current
+memory**. Its **37-source/28-input** freeze verifies;all23 original scientific
+input hashes remain unchanged,and the extra5 inputs pin the original failure.
+Available host resources are **96.80 GiB RAM /92.74 GiB disk**. These are dated
+observations,not forecasts. Native stages are24-hour bounded,the whole native
+container50-hour bounded,the verifier1-hour bounded,and the owner72-hour bounded.
+Native exit0 triggers independent raw-record/Pi/model-difference reading; any
+failure stops without automatic retry,tolerance relaxation,root escalation or
+target/model requalification. No other anchor or full sweep is released.
+
+Hourly observer **1150274**,service
+`co-cas12-sparse-pilot-shm8-observer-20261011.service`,captures until the owner ends
+or **14 October≈08:15 UTC**. Its persistent records are in
+`prepared/cas12-sparse-pilot-shm8-observer-20261011/`;it launches no follow-on model.
+The [08:16 capture](progress-start-20261011T0816.json) pins16 immutable remote
+records,and [dated readiness](SWEEP_READINESS_20261011T0816.md) states the next
+scientific decision: cost/coverage review and a separately declared CAS12 spectral
+comparator,then matched channel/model/extraction and neutral-domain gates.
+The overview is [the08:16 snapshot](progress-snapshot-20261011T0816.json).
+
+The **08:20:27 UTC** handoff check again verifies all16 immutable remote hashes;
+owner1149978 remains active with a current heartbeat,no recorded error,and
+**≈800% CPU /10.73 GiB** during matrix construction. Verification passes13 focused
+tests,lint/format/diff,34 current and25 historical source/snapshot hashes,unchanged
+plotted curves,original exits/shared-memory floor,public replay/repack,links and
+SVG structure. Main-index integrity/upstream status is complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`. The branch-only pilot driver/contracts,
+A2 projection audit,public pointer/manifest and dated capture/overview were
+resolved against current local source. Native source is pinned to
+`b64faca76fb351d2edd17f7a9c4b5463c1154def` with its explicit37-file freeze.
+
 ### Compressed CAS12 import verified / finite owners ended — 11 October, 07:42 UTC
 
 **The compressed CAS12 private-cache import passes**, owner **1140828**, controller
