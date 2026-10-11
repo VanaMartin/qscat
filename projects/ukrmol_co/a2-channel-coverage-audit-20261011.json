@@ -1,0 +1,696 @@
+{
+  "public_archive_sha256": "17ed7af6894ad1e4b3cafccb853bfa5ba67a9b5ee2ae4aa1d2ca1b29bd7630fc",
+  "producer_result_sha256": "547821919228e2d8f6d64820e7d8598d4f9f75e486bb01ac3098fb81efa6b5b6",
+  "public_independent_report": "qualification-evidence/quarter-state-tracking/manifest.json",
+  "routes": [
+    {
+      "sector": "singlet.A2",
+      "equilibrium_root": 4,
+      "metric": "physical",
+      "route": {
+        "equilibrium_root": 4,
+        "quarter_route_roots": [
+          4,
+          4,
+          5,
+          6,
+          6
+        ],
+        "stretched_root_four_leg": 6,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      },
+      "legs": [
+        {
+          "left": "eq",
+          "right": "quarter_low",
+          "left_root": 4,
+          "right_root": 4,
+          "assigned_squared_overlap": 0.8555148033409339,
+          "retained_five_projection_squared": 0.8563987454927356,
+          "first_six_projection_squared": 0.8563987454927356,
+          "first_twelve_projection_squared": 0.8734763440181083,
+          "lost_to_root_six_squared": 8.443686088017542e-21,
+          "squared_projection_to_roots7_12": 0.01707759852537262,
+          "root_resolved_omitted_projection_squared": {
+            "6": 8.443686088017542e-21,
+            "7": 0.008244393814845175,
+            "8": 5.942907344477592e-20,
+            "9": 0.005448717954401196,
+            "10": 1.5067318304723245e-21,
+            "11": 0.0033844867561262505,
+            "12": 2.2602901067301813e-23
+          },
+          "first_eight_projection_squared": 0.8646431393075809,
+          "retained_5x5_singular_values": [
+            0.9340896351007688,
+            0.9340777063723789,
+            0.9334752863184692,
+            0.9254154448039991,
+            1.0151776527223006e-12
+          ],
+          "first_6x6_singular_values": [
+            0.9343315070431051,
+            0.9341913000041364,
+            0.9340777063723782,
+            0.933475286318469,
+            0.9254154448039988,
+            0.9048934814929086
+          ],
+          "row_margin_squared": 0.8472704095260887
+        },
+        {
+          "left": "quarter_low",
+          "right": "mid",
+          "left_root": 4,
+          "right_root": 5,
+          "assigned_squared_overlap": 0.7554874676566103,
+          "retained_five_projection_squared": 0.7561737250434801,
+          "first_six_projection_squared": 0.7561737250434801,
+          "first_twelve_projection_squared": 0.8730838645615028,
+          "lost_to_root_six_squared": 2.73761449293105e-18,
+          "squared_projection_to_roots7_12": 0.11691013951802269,
+          "root_resolved_omitted_projection_squared": {
+            "6": 2.73761449293105e-18,
+            "7": 0.07413955578213231,
+            "8": 1.0456707856137453e-19,
+            "9": 0.03730358125584165,
+            "10": 6.591110817481872e-22,
+            "11": 0.005467002480048731,
+            "12": 1.9940532678330482e-22
+          },
+          "first_eight_projection_squared": 0.8303132808256124,
+          "retained_5x5_singular_values": [
+            0.9341084669182887,
+            0.9340082698116294,
+            0.9339788190228336,
+            0.9333193976214919,
+            0.8694404295293949
+          ],
+          "first_6x6_singular_values": [
+            0.9341558427116581,
+            0.9341084669182887,
+            0.9340082698116291,
+            0.9333193976214915,
+            0.8817446830650558,
+            0.8694404295293944
+          ],
+          "row_margin_squared": 0.6813479118744781
+        },
+        {
+          "left": "mid",
+          "right": "quarter_high",
+          "left_root": 5,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.5502793372656652,
+          "retained_five_projection_squared": 0.00043158395560817015,
+          "first_six_projection_squared": 0.5507109212212734,
+          "first_twelve_projection_squared": 0.8726599562603955,
+          "lost_to_root_six_squared": 0.5502793372656652,
+          "squared_projection_to_roots7_12": 0.32194903503912214,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.5502793372656652,
+            "7": 0.19392125047627262,
+            "8": 1.622404565046036e-19,
+            "9": 0.12225737630340044,
+            "10": 5.935659136579715e-21,
+            "11": 0.005770408259449054,
+            "12": 2.3401813929998533e-21
+          },
+          "first_eight_projection_squared": 0.744632171697546,
+          "retained_5x5_singular_values": [
+            0.9341484733156037,
+            0.9340205943489381,
+            0.9340088556467645,
+            0.9331366687379096,
+            1.5520242315959586e-09
+          ],
+          "first_6x6_singular_values": [
+            0.9341812742983021,
+            0.9341066767232014,
+            0.9340205943489381,
+            0.9331919521785603,
+            0.8655771418785173,
+            0.7417687053343381
+          ],
+          "row_margin_squared": 0.3563580867893926
+        },
+        {
+          "left": "quarter_high",
+          "right": "stretched",
+          "left_root": 6,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.8234821642580605,
+          "retained_five_projection_squared": 0.0002271505534641241,
+          "first_six_projection_squared": 0.8237093148115247,
+          "first_twelve_projection_squared": 0.871927455899007,
+          "lost_to_root_six_squared": 0.8234821642580605,
+          "squared_projection_to_roots7_12": 0.048218141087482305,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.8234821642580605,
+            "7": 0.033492408422470435,
+            "8": 2.7402079066196764e-23,
+            "9": 0.013760331605866191,
+            "10": 4.168628628166313e-24,
+            "11": 0.0009654010591456819,
+            "12": 5.381236934488398e-23
+          },
+          "first_eight_projection_squared": 0.8572017232339951,
+          "retained_5x5_singular_values": [
+            0.9339902351978855,
+            0.933806203776615,
+            0.9337765337542578,
+            0.9326747517558522,
+            0.9075072874546708
+          ],
+          "first_6x6_singular_values": [
+            0.9339902351978855,
+            0.9339589289912794,
+            0.9337765337542581,
+            0.9327937609732869,
+            0.9075072874546708,
+            0.9074400125459582
+          ],
+          "row_margin_squared": 0.7899897558355901
+        }
+      ]
+    },
+    {
+      "sector": "singlet.A2",
+      "equilibrium_root": 4,
+      "metric": "ao_transport",
+      "route": {
+        "equilibrium_root": 4,
+        "quarter_route_roots": [
+          4,
+          4,
+          5,
+          6,
+          6
+        ],
+        "stretched_root_four_leg": 6,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      },
+      "legs": [
+        {
+          "left": "eq",
+          "right": "quarter_low",
+          "left_root": 4,
+          "right_root": 4,
+          "assigned_squared_overlap": 0.9726257824229674,
+          "retained_five_projection_squared": 0.9737236623149927,
+          "first_six_projection_squared": 0.9737236623149927,
+          "first_twelve_projection_squared": 0.9928669346429337,
+          "lost_to_root_six_squared": 9.574912418461571e-21,
+          "squared_projection_to_roots7_12": 0.019143272327940972,
+          "root_resolved_omitted_projection_squared": {
+            "6": 9.574912418461571e-21,
+            "7": 0.00929745384567332,
+            "8": 6.681985745220791e-20,
+            "9": 0.005972839156267807,
+            "10": 1.729941934326465e-21,
+            "11": 0.0038729793259998464,
+            "12": 2.912355868732769e-23
+          },
+          "first_eight_projection_squared": 0.9830211161606661,
+          "retained_5x5_singular_values": [
+            0.9962703789023425,
+            0.9962615412365723,
+            0.9962133061304297,
+            0.9867618905886986,
+            1.3828698344462703e-14
+          ],
+          "first_6x6_singular_values": [
+            0.9964226600396346,
+            0.9963652894726784,
+            0.9962615412365724,
+            0.9962133061304297,
+            0.9867618905886985,
+            0.9654910806703135
+          ],
+          "row_margin_squared": 0.963328328577294
+        },
+        {
+          "left": "quarter_low",
+          "right": "mid",
+          "left_root": 4,
+          "right_root": 5,
+          "assigned_squared_overlap": 0.8601946486457153,
+          "retained_five_projection_squared": 0.8610463794653705,
+          "first_six_projection_squared": 0.8610463794653705,
+          "first_twelve_projection_squared": 0.9934580560869314,
+          "lost_to_root_six_squared": 3.11660846589443e-18,
+          "squared_projection_to_roots7_12": 0.13241167662156084,
+          "root_resolved_omitted_projection_squared": {
+            "6": 3.11660846589443e-18,
+            "7": 0.08429672279448303,
+            "8": 1.1886740771896825e-19,
+            "9": 0.04186118459814473,
+            "10": 7.270224426027778e-22,
+            "11": 0.006253769228933095,
+            "12": 2.530339898890549e-22
+          },
+          "first_eight_projection_squared": 0.9453431022598536,
+          "retained_5x5_singular_values": [
+            0.996666270536381,
+            0.9965890660096335,
+            0.9965374824075862,
+            0.9965367281664762,
+            0.9277458635881031
+          ],
+          "first_6x6_singular_values": [
+            0.9967865848906574,
+            0.9966662705363809,
+            0.9965890660096334,
+            0.996537482407586,
+            0.941098681457768,
+            0.927745863588103
+          ],
+          "row_margin_squared": 0.7758979258512322
+        },
+        {
+          "left": "mid",
+          "right": "quarter_high",
+          "left_root": 5,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.6270384679021882,
+          "retained_five_projection_squared": 0.0005365680027587659,
+          "first_six_projection_squared": 0.627575035904947,
+          "first_twelve_projection_squared": 0.9936784825049155,
+          "lost_to_root_six_squared": 0.6270384679021882,
+          "squared_projection_to_roots7_12": 0.3661034465999685,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.6270384679021882,
+            "7": 0.22120183826592793,
+            "8": 1.8522010654576371e-19,
+            "9": 0.13830315216728992,
+            "10": 6.568455552542532e-21,
+            "11": 0.006598456166750718,
+            "12": 3.1838015842619272e-21
+          },
+          "first_eight_projection_squared": 0.8487768741708749,
+          "retained_5x5_singular_values": [
+            0.9969611272831573,
+            0.9967938590421452,
+            0.9967668203581678,
+            0.9966725734816385,
+            1.656583008270258e-09
+          ],
+          "first_6x6_singular_values": [
+            0.997021774431932,
+            0.9969032478287903,
+            0.9967938590421449,
+            0.9967297366417709,
+            0.9238282596455137,
+            0.791800013920748
+          ],
+          "row_margin_squared": 0.40583662963626027
+        },
+        {
+          "left": "quarter_high",
+          "right": "stretched",
+          "left_root": 6,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.9386469561802989,
+          "retained_five_projection_squared": 0.0002872068257631819,
+          "first_six_projection_squared": 0.9389341630060621,
+          "first_twelve_projection_squared": 0.9938058902965937,
+          "lost_to_root_six_squared": 0.9386469561802989,
+          "squared_projection_to_roots7_12": 0.054871727290531476,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.9386469561802989,
+            "7": 0.03826966625315792,
+            "8": 3.257484506773414e-23,
+            "9": 0.015487036512028866,
+            "10": 6.470695401711488e-24,
+            "11": 0.00111502452534469,
+            "12": 7.200232331383518e-23
+          },
+          "first_eight_projection_squared": 0.9772038292592201,
+          "retained_5x5_singular_values": [
+            0.9972078307342209,
+            0.9969790269528238,
+            0.9969363801818276,
+            0.9966048948065256,
+            0.968813337931766
+          ],
+          "first_6x6_singular_values": [
+            0.9972078307342209,
+            0.9971506275256125,
+            0.9969790269528238,
+            0.9967403735593404,
+            0.9688133379317659,
+            0.9687934766030851
+          ],
+          "row_margin_squared": 0.900377289927141
+        }
+      ]
+    },
+    {
+      "sector": "triplet.A2",
+      "equilibrium_root": 5,
+      "metric": "physical",
+      "route": {
+        "equilibrium_root": 5,
+        "quarter_route_roots": [
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        "stretched_root_four_leg": 5,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      },
+      "legs": [
+        {
+          "left": "eq",
+          "right": "quarter_low",
+          "left_root": 5,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.7661920082518241,
+          "retained_five_projection_squared": 0.0003897354818648764,
+          "first_six_projection_squared": 0.7665817437336889,
+          "first_twelve_projection_squared": 0.8733343480106189,
+          "lost_to_root_six_squared": 0.7661920082518241,
+          "squared_projection_to_roots7_12": 0.10675260427693,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.7661920082518241,
+            "7": 0.08412181564974981,
+            "8": 0.019783007812157968,
+            "9": 3.8954226591278672e-22,
+            "10": 0.0010059633324545117,
+            "11": 5.479320409773873e-23,
+            "12": 0.001841817482567709
+          },
+          "first_eight_projection_squared": 0.8704865671955967,
+          "retained_5x5_singular_values": [
+            0.934151096454982,
+            0.9341460606006577,
+            0.933800705096709,
+            0.9334004086144182,
+            8.840502207751412e-10
+          ],
+          "first_6x6_singular_values": [
+            0.9342953024456709,
+            0.9341475606472999,
+            0.9341464686536702,
+            0.93380070112975,
+            0.9334316474412762,
+            0.8754364886149136
+          ],
+          "row_margin_squared": 0.6820701926020742
+        },
+        {
+          "left": "quarter_low",
+          "right": "mid",
+          "left_root": 6,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.7126112032868188,
+          "retained_five_projection_squared": 0.00022140378603332082,
+          "first_six_projection_squared": 0.7128326070728521,
+          "first_twelve_projection_squared": 0.872916175865732,
+          "lost_to_root_six_squared": 0.7126112032868188,
+          "squared_projection_to_roots7_12": 0.16008356879287985,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.7126112032868188,
+            "7": 0.1420627818033328,
+            "8": 1.638232647405263e-21,
+            "9": 0.012368817869430084,
+            "10": 0.0040897658843432405,
+            "11": 1.7475274648335387e-22,
+            "12": 0.0015622032357737357
+          },
+          "first_eight_projection_squared": 0.8548953888761849,
+          "retained_5x5_singular_values": [
+            0.9340744761908539,
+            0.9340345337310149,
+            0.9340209931877772,
+            0.9335846770344427,
+            0.9331027207069391
+          ],
+          "first_6x6_singular_values": [
+            0.9340744761908539,
+            0.9340406405565822,
+            0.9340209931877772,
+            0.9335846770344426,
+            0.9332927054760934,
+            0.8441234821785135
+          ],
+          "row_margin_squared": 0.5705484214834861
+        },
+        {
+          "left": "mid",
+          "right": "quarter_high",
+          "left_root": 6,
+          "right_root": 5,
+          "assigned_squared_overlap": 0.8357377202004089,
+          "retained_five_projection_squared": 0.8357865277346181,
+          "first_six_projection_squared": 0.8357865277346181,
+          "first_twelve_projection_squared": 0.8725901939669877,
+          "lost_to_root_six_squared": 3.592831632926186e-21,
+          "squared_projection_to_roots7_12": 0.036803666232369574,
+          "root_resolved_omitted_projection_squared": {
+            "6": 3.592831632926186e-21,
+            "7": 1.2275222935096246e-20,
+            "8": 0.026792431584515514,
+            "9": 0.003693336875681958,
+            "10": 0.0057989177461920385,
+            "11": 6.330447181745e-23,
+            "12": 0.0005189800259800573
+          },
+          "first_eight_projection_squared": 0.8625789593191336,
+          "retained_5x5_singular_values": [
+            0.9340592954144842,
+            0.9340562482504217,
+            0.9339026728634237,
+            0.9330977073030978,
+            5.412092507559454e-11
+          ],
+          "first_6x6_singular_values": [
+            0.9340851172216685,
+            0.9340574901956824,
+            0.9339427315023382,
+            0.9332404810813302,
+            0.9331333487164574,
+            0.9140665968544085
+          ],
+          "row_margin_squared": 0.8089452886158934
+        },
+        {
+          "left": "quarter_high",
+          "right": "stretched",
+          "left_root": 5,
+          "right_root": 5,
+          "assigned_squared_overlap": 0.8648545198543816,
+          "retained_five_projection_squared": 0.8648717074546339,
+          "first_six_projection_squared": 0.8648717074546339,
+          "first_twelve_projection_squared": 0.8720845558215781,
+          "lost_to_root_six_squared": 1.7950640288178458e-24,
+          "squared_projection_to_roots7_12": 0.0072128483669442025,
+          "root_resolved_omitted_projection_squared": {
+            "6": 1.7950640288178458e-24,
+            "7": 6.704750094059252e-24,
+            "8": 0.003530597545241652,
+            "9": 0.0021401363296636392,
+            "10": 0.001391009018738651,
+            "11": 4.771769524664705e-24,
+            "12": 0.00015110547330026062
+          },
+          "first_eight_projection_squared": 0.8684023049998756,
+          "retained_5x5_singular_values": [
+            0.9338727640713663,
+            0.9338659712183163,
+            0.9336169321596449,
+            0.9329938706111348,
+            0.9298390091118572
+          ],
+          "first_6x6_singular_values": [
+            0.9339602017522414,
+            0.9338727640713663,
+            0.9337356490748306,
+            0.932993870611135,
+            0.9298390091118567,
+            0.9191104131465672
+          ],
+          "row_margin_squared": 0.8613239223091399
+        }
+      ]
+    },
+    {
+      "sector": "triplet.A2",
+      "equilibrium_root": 5,
+      "metric": "ao_transport",
+      "route": {
+        "equilibrium_root": 5,
+        "quarter_route_roots": [
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        "stretched_root_four_leg": 5,
+        "stretched_root_two_leg": 9,
+        "stretched_root_direct": 9
+      },
+      "legs": [
+        {
+          "left": "eq",
+          "right": "quarter_low",
+          "left_root": 5,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.8716233596127104,
+          "retained_five_projection_squared": 0.00048152015228696243,
+          "first_six_projection_squared": 0.8721048797649974,
+          "first_twelve_projection_squared": 0.9927349673187337,
+          "lost_to_root_six_squared": 0.8716233596127104,
+          "squared_projection_to_roots7_12": 0.12063008755373633,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.8716233596127104,
+            "7": 0.09514569308741254,
+            "8": 0.02236242876365868,
+            "9": 4.013676885272957e-22,
+            "10": 0.0010896833494660524,
+            "11": 6.63328771143793e-23,
+            "12": 0.0020322823531990684
+          },
+          "first_eight_projection_squared": 0.9896130016160686,
+          "retained_5x5_singular_values": [
+            0.9964286043388224,
+            0.9963587669580796,
+            0.9962524203271466,
+            0.9960429897690992,
+            9.425809304997714e-10
+          ],
+          "first_6x6_singular_values": [
+            0.9964880349266506,
+            0.9963593975385364,
+            0.9963204233814527,
+            0.996235754071434,
+            0.9960772657461089,
+            0.9337426049809957
+          ],
+          "row_margin_squared": 0.7764776665252979
+        },
+        {
+          "left": "quarter_low",
+          "right": "mid",
+          "left_root": 6,
+          "right_root": 6,
+          "assigned_squared_overlap": 0.8117645509001739,
+          "retained_five_projection_squared": 0.00027395516606128727,
+          "first_six_projection_squared": 0.8120385060662352,
+          "first_twelve_projection_squared": 0.9934579013527676,
+          "lost_to_root_six_squared": 0.8117645509001739,
+          "squared_projection_to_roots7_12": 0.18141939528653242,
+          "root_resolved_omitted_projection_squared": {
+            "6": 0.8117645509001739,
+            "7": 0.16119268177981386,
+            "8": 1.8461821139934823e-21,
+            "9": 0.01394883690786187,
+            "10": 0.004545474605057524,
+            "11": 2.083195697897805e-22,
+            "12": 0.001732401993799186
+          },
+          "first_eight_projection_squared": 0.973231187846049,
+          "retained_5x5_singular_values": [
+            0.9967859980040014,
+            0.996629430682872,
+            0.9966182098570399,
+            0.996418903245139,
+            0.9961780639215774
+          ],
+          "first_6x6_singular_values": [
+            0.9967859980040014,
+            0.9966404057638548,
+            0.9966182098570392,
+            0.9964189032451394,
+            0.9963920606037469,
+            0.9009406313519454
+          ],
+          "row_margin_squared": 0.65057186912036
+        },
+        {
+          "left": "mid",
+          "right": "quarter_high",
+          "left_root": 6,
+          "right_root": 5,
+          "assigned_squared_overlap": 0.9520972711842134,
+          "retained_five_projection_squared": 0.9521620902146433,
+          "first_six_projection_squared": 0.9521620902146433,
+          "first_twelve_projection_squared": 0.9937414971541925,
+          "lost_to_root_six_squared": 4.1755475579363866e-21,
+          "squared_projection_to_roots7_12": 0.04157940693954926,
+          "root_resolved_omitted_projection_squared": {
+            "6": 4.1755475579363866e-21,
+            "7": 1.3938492729334813e-20,
+            "8": 0.03040184791524484,
+            "9": 0.004141143446679945,
+            "10": 0.006461592032104933,
+            "11": 6.981072242848604e-23,
+            "12": 0.0005748235455195402
+          },
+          "first_eight_projection_squared": 0.9825639381298881,
+          "retained_5x5_singular_values": [
+            0.9969563534877843,
+            0.9968710251467676,
+            0.9966524641661321,
+            0.9964749248164407,
+            5.77192917383546e-11
+          ],
+          "first_6x6_singular_values": [
+            0.9969957134926051,
+            0.996876491116896,
+            0.9967764073768902,
+            0.9966274724025532,
+            0.9962076923760932,
+            0.9756265420183592
+          ],
+          "row_margin_squared": 0.9216954232689686
+        },
+        {
+          "left": "quarter_high",
+          "right": "stretched",
+          "left_root": 5,
+          "right_root": 5,
+          "assigned_squared_overlap": 0.985954723165228,
+          "retained_five_projection_squared": 0.9859814793379922,
+          "first_six_projection_squared": 0.9859814793379922,
+          "first_twelve_projection_squared": 0.994078941897114,
+          "lost_to_root_six_squared": 2.1276396469923178e-24,
+          "squared_projection_to_roots7_12": 0.008097462559121683,
+          "root_resolved_omitted_projection_squared": {
+            "6": 2.1276396469923178e-24,
+            "7": 5.55468332927146e-24,
+            "8": 0.004021133923920302,
+            "9": 0.0023924917477209074,
+            "10": 0.0015195898972568255,
+            "11": 3.3024129295384797e-24,
+            "12": 0.00016424699022364695
+          },
+          "first_eight_projection_squared": 0.9900026132619125,
+          "retained_5x5_singular_values": [
+            0.9971459381742062,
+            0.9970963458669905,
+            0.9967839732436415,
+            0.9967532913315343,
+            0.9928163804920894
+          ],
+          "first_6x6_singular_values": [
+            0.9972186673224207,
+            0.9970963458669907,
+            0.9969827836340361,
+            0.9967532913315348,
+            0.9928163804920893,
+            0.9817011438427571
+          ],
+          "row_margin_squared": 0.9819335892413077
+        }
+      ]
+    }
+  ],
+  "scope": "Projection audit of publicly reconstructed matrices,not a new wavefunction/scattering calculation or continuous-state identity verdict."
+}
