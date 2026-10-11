@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--10-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--11-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,57 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Compressed CAS12 import verified / finite owners ended — 11 October, 07:42 UTC
+
+**The compressed CAS12 private-cache import passes**, owner **1140828**, controller
+exit0 at **03:22:09 UTC**. Public-proof replay,native run,analyzer and independent
+verifier all exit0 under the unchanged original qualification gates. Ordinary
+QC/orbital/fresh-CI flags pass,with Pi energy difference **5.9686e-13 Hartree**.
+All **64 imported roots** pass independent covered-root and saved-table checks:
+maximum covered-root error **1.8717e-8 Hartree**,maximum seed-to-reoptimized
+forty-root shift **1.0905e-8 Hartree**,and dipole error **1.3300e-7 a.u.**
+Minimum active-subspace overlap is **0.9999999999989042**. Original compressed
+space80/singlet numerical failures,the missing-proof exit1 and read-only-cache
+setup exit1 remain preserved. No numerical tolerance or seed-preservation gate
+was relaxed. Native allocation remained12 MPI ranks/CPUs4–15/64-GiB cap.
+
+Native cost is **22678.455 seconds = 6.2996 hours / 41.1238 GiB /
+76646.05 CPU-seconds**. Ordinary QC costs **5201.30 seconds**; serial DENPROP
+costs **15951.69 seconds = 4.4310 hours**. Twelve ranks do not establish a
+matched speedup. The complete1593-source/27-input freeze verifies unchanged.
+Target import success closes the pending compressed three-anchor DZ import gap;
+it does not qualify CAS12 scattering,model convergence or a full sweep.
+
+Imported/reference checkpoint hashes are
+`f908dc1f5e1caeeb3e7828ebf8a77561295af0d1e0316a0f2428d92f6f205250` /
+`24035d3b7f51a23875604583dafa5acbfaa7b21206f3b62e912d7122759c5242`.
+The original stretched-TZ seed rejection and its distinct reoptimized target
+qualification remain separate. Supported aug-TZ passing import and public
+quarter/midpoint/anchor reconstruction remain unchanged. New compressed raw
+public-import reconstruction is pending; the host independent verifier passes.
+
+At **07:42:18 UTC**, **no scientific container is running**; only unrelated
+`comfyui` remains. Approximately **107.75 GiB RAM / 103.50 GiB disk** are available.
+Hourly observer **1141454** exits0 at **04:06:13 UTC**,after8 captures,because
+both finite owners ended. It is no longer monitoring and schedules no next job.
+Completed owners/resources/64-root/dipole/subspace gates and immutable remote
+hashes are in [the07:42 capture](progress-completion-20261011T0742.json).
+
+The [dated sweep-readiness update](SWEEP_READINESS_20261011.md) now marks target
+import completion and the next decision: remaining CAS11/TZ public review,then
+a separately declared modest CAS12 sparse pilot. Retained A2 channel coverage,
+background-sensitive widths,basis/active-space/ensemble/channel convergence and
+wider-range neutral qualification remain open. The [fresh overview snapshot](progress-snapshot-20261011T0742.json)
+preserves the prior plotted curves and all earlier releases.
+
+Verification passes lint/format/diff,25 current and23 historical snapshot/source
+hashes,13 immutable remote completion hashes,links and SVG structure. Original
+plotted curves remain unchanged. The detailed10 October roadmap stays frozen
+so its historical hash-pinned release is reproducible; the11 October status is
+additive. Main-index integrity/upstream status is complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`. This branch's current completion
+capture,dated readiness update and renderer default were resolved locally.
 
 ### Complete proof replay / private-cache import active / public quarter replay passed — 10 October, 21:17 UTC
 

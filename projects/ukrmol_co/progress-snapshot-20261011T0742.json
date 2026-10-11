@@ -1,0 +1,44 @@
+{
+  "base_snapshot": "progress-snapshot-20261009.json",
+  "base_snapshot_sha256": "33730acaf11066acc1f97672efbe145e5aff625c4006cd34c0bc279207c04f46",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-completion-20261009T2258.json": "cf90aff31bb2d224d6d9d0fdd6f6fc1f05ab8f8f1de16589b55f0479b499ec8d",
+    "projects/ukrmol_co/progress-completion-20261010.json": "5ff3473e5ea15f2b9e71679f849304394610c7f3cbb20a2136b78a99ea99d492",
+    "projects/ukrmol_co/progress-start-20261010T1146.json": "effb3f8d7614435856d6025cfad9376e7f08210d10afa0a1a515ba2ce584e0df",
+    "projects/ukrmol_co/progress-completion-20261010T1523.json": "856a131126d8b6616e9ff4ea31f86d0954659990773925a371737279921e4c95",
+    "projects/ukrmol_co/progress-completion-20261010T1559.json": "b94ca71095dc79cecfeb91b874fce0287ca5579162f9f6b6bb96f54ac6679418",
+    "projects/ukrmol_co/qualification-evidence/target-state-overlap-roots12/manifest.json": "90ee777812397251298c96e8dac4bfe7faee599ef28d3d069ff3ee853c869079",
+    "projects/ukrmol_co/qualification-evidence/midpoint-state-tracking/manifest.json": "465a89c18443b3e0f9316c7e43cf1a919be2c1337c84d126fe88bdaefb2308b4",
+    "projects/ukrmol_co/progress-completion-20261010T2045.json": "3f4cbb734c67bd5c96c4f5efa2d45ecb64a498bb8d43d19d60f1cd1f7c65877b",
+    "projects/ukrmol_co/progress-completion-20261010T2117.json": "54f47e6693e5fb853d798a9811c535d130cfe1995de7fec49d69df1e8ed820fc",
+    "projects/ukrmol_co/qualification-evidence/quarter-state-tracking/manifest.json": "28e936dfc6baab8b1fa65903258b2020507b9f377c5b9dfa103b273f5ef84547",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "31397be42697f67f9b767a54e8b1c3c53a6c110df690d10b5bf1c41eaf3af5b8",
+    "projects/ukrmol_co/progress-completion-20261011T0742.json": "f00deff6e1281873814ff5e4cef5837266055877d60aad7b63805535fda65f05",
+    "projects/ukrmol_co/SWEEP_READINESS_20261011.md": "2357fd6976d870a97d90e526a09040d8e02708680409af32076e1688807d253e"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-11T07:42:18.700708+00:00",
+    "changes": [
+      "Compressed CAS12 private-cache import finishes native/analyzer/independent checks,all exit0;64-root/dipole/subspace and original seed-preservation gates pass unchanged.",
+      "Native pipeline costs6.2996hours/41.1238GiB; serial DENPROP accounts for4.4310hours. All1593 source/27 input hashes verify; original failed exits remain preserved.",
+      "The compressed three-anchor DZ target-import gap closes. CAS12 scattering,model/channel/extraction convergence and full sweep remain gated.",
+      "Quarter public reconstruction remains passed; two retained A2 paths still change. Both finite owners and observer ended; no scientific container is active. Next: remaining public review and a modest declared CAS12 sparse pilot."
+    ],
+    "sparse_costs": [
+      {"roots": 2048, "kernel_peak_gib": 7.692779541015625, "wall_hours": 2.454474193649431, "phase_error_rad": 5.099999999869098e-06},
+      {"roots": 4096, "kernel_peak_gib": 7.365123748779297, "wall_hours": 3.33523514799916, "phase_error_rad": 1.0000000028043132e-07},
+      {"roots": 8192, "kernel_peak_gib": 13.16033935546875, "wall_hours": 7.0564415086561345, "phase_error_rad": 1.0000000005838672e-07},
+      {"roots": 16384, "kernel_peak_gib": 37.067909240722656, "wall_hours": 19.653326377529172, "phase_error_rad": 9.99999993922529e-09, "source": "progress-completion-20261009T2258.json, cas11", "verification": "Both-sector host independent reconstruction passes; public replay pending"}
+    ],
+    "live_status": {"cas11_owner": 1065880, "cas11_finished": true, "cas11_host_independent_verification_passed": true, "cas11_public_reconstruction_complete": false, "original_import_owner": 1072749, "original_import_seed_preservation_verdict": false, "original_import_queue_exit": 1, "reoptimized_tz_target_qualification_passed": true, "supported_import_owner": 1127732, "supported_import_queue_exit": 1, "augtz_finished": true, "augtz_independent_verification_passed": true, "completeproof_owner": 1139896, "completeproof_original_exit": 1, "completeproof_proof_exit": 0, "import_owner": 1140828, "imports_launched": 1, "import_finished": true, "import_queue_exit": 0, "compressed_import_launched": true, "compressed_import_finished": true, "compressed_independent_verification_passed": true, "compressed_public_proof_replay_exit": 0, "compressed_public_proof_payloads": 438, "compressed_public_raw_import_reconstruction_complete": false, "cas12_sparse_scattering_launched": false, "full_sweep_released": false, "midpoint_owner": 1127334, "midpoint_finished": true, "midpoint_public_reconstruction_complete": true, "quarter_owner": 1134993, "quarter_finished": true, "quarter_controller_exit": 0, "quarter_ci_probes_completed": 32, "quarter_matrices_completed": 112, "quarter_independent_replay_owner": 1141177, "quarter_independent_replay_exit": 0, "quarter_independent_wavefunction_replay_complete": true, "quarter_public_reconstruction_complete": true, "twelve_root_finished": true, "twelve_root_public_reconstruction_complete": true, "tz_drift_independent_verification_passed": true, "observer_owner": 1141454, "observer_finished": true, "observer_exit": 0, "observer_captures": 8, "scientific_containers_running": 0},
+    "roadmap_import_status": "PASSED",
+    "roadmap_import_title": "Compressed CAS12 import: all independent gates pass",
+    "roadmap_import_detail": "Next: public review and a modest CAS12 sparse pilot",
+    "memory_next_step": "Declare modest CAS12 pilot; increase roots only for a discrepancy.",
+    "twelve_root_label": "12 roots: public reconstruction passes",
+    "tracking_next_step": "Quarter: public replay passes; 2 retained paths still change.",
+    "roadmap_tracking_detail": "Inspect retained A2 channel coverage and extraction",
+    "verification_footer": "Compressed / aug-TZ imports: host gates pass. Quarter / midpoint / anchor overlaps: public replay passes.",
+    "interpretation": "Prior plotted curves/reference comparisons remain preserved. Compressed CAS12 completes native/analyzer/independent import verification under unchanged64-root,dipole,rounding,core/active-subspace and seed-preservation gates. Frozen1593 source/27 input hashes verify; original setup/proof/numerical failures stay preserved. This closes the compressed three-anchor DZ import gap,not CAS12 scattering or electronic-model convergence. CAS12 sparse pilot requires a separate bounded declaration and independent spectral/observable qualification. Quarter public replay remains passed while two retained A2 routes enter omitted-sector root6 and remain path-dependent. Extraction width sensitivities and basis/active-space/ensemble/channel convergence remain open. Neutral near-equilibrium pilot passes; wider-range stable correlation remains unresolved. Both finite owners and observer have ended; no scientific container is running and no full sweep is released."
+  }
+}

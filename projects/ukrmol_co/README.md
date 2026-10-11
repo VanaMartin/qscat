@@ -21,35 +21,40 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep roadmap](SWEEP_READINESS.md) states the ordered experiments,
+The [production-sweep status update](SWEEP_READINESS_20261011.md) and
+[detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
 → frozen restartable pilot → sweep and held-out potential validation.
 
-## Progress overview — 10 October 2026
+## Progress overview — 11 October 2026
 
-![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261010T2117.png)
+![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261011T0742.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261010T2117.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261010T2117.json) ·
-[Complete proof/private-cache continuation and public quarter replay](progress-completion-20261010T2117.json) ·
-[Steps before a production sweep](SWEEP_READINESS.md)
+[Vector figure](../../docs/physics/figures/co-progress-20261011T0742.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261011T0742.json) ·
+[Compressed import completion and independent checks](progress-completion-20261011T0742.json) ·
+[Current steps before a production sweep](SWEEP_READINESS_20261011.md)
 
-This is the **21:17 UTC, 10 October** release of an incremental overview. New findings, verification
+This is the **07:42 UTC, 11 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** complete compressed public proof passes all **438 payloads /
-96 probes**. A separately declared private-cache successor is running its native
-import on twelve cores under unchanged root/dipole/subspace/seed gates; original
-missing-file and cache-setup failures remain preserved. Quarter host replay
-passes **672 states / 112 matrices** in **208.04 seconds / 2.349 GiB**; public
-fetch/reconstruction and exact repackaging pass in **280.15 seconds**. The two
-remaining retained A2 path changes reproduce independently. The sweep roadmap
-now lists experiments and pass criteria explicitly.
+**What changed:** compressed CAS12 completes native/analyzer/independent import
+checks,all exit0,in **6.300 hours / 41.124 GiB**. All64 roots,dipole,subspaces and
+seed preservation pass unchanged gates. This closes the pending compressed
+three-anchor DZ target-import gap; CAS12 scattering remains unperformed.
+Both finite owners and their observer have ended; no scientific container is
+running. Quarter public replay remains passed,and its two retained A2 path
+changes remain unresolved. The next gate is a separately declared modest CAS12
+sparse pilot after remaining public review.
+The [10 October21:17 figure](../../docs/physics/figures/co-progress-20261010T2117.png),
+[vector copy](../../docs/physics/figures/co-progress-20261010T2117.svg) and
+[snapshot](progress-snapshot-20261010T2117.json) preserve the complete-proof /
+private-cache launch and public quarter-replay milestone.
 The [20:45 UTC figure](../../docs/physics/figures/co-progress-20261010T2045.png),
 [vector copy](../../docs/physics/figures/co-progress-20261010T2045.svg) and
 [snapshot](progress-snapshot-20261010T2045.json) preserve aug-TZ/quarter completion
@@ -110,20 +115,20 @@ The six panels explain the qualification campaign:
   differ from direct labels for16/96 roots, including one retained component.
   Quarter public reconstruction verifies stronger singlet-A2 root5 links,but
   two other retained labels change between two- and four-leg routes.
-- **F — Next gates.** Finish compressed import,qualify modest CAS12 sparse scattering,publish remaining evidence,resolve
+- **F — Next gates.** Qualify modest CAS12 sparse scattering,publish remaining evidence,resolve
   state/extraction and electronic-model choices, then release a geometry sweep
   and fit with held-out scattering tests.
 
-This is a dated **10 October 21:17:12 UTC** snapshot: CAS11 remains independently
+This is a dated **11 October 07:42:18 UTC** snapshot: CAS11 remains independently
 verified on the host. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
 against the independently covered imported orbital frame, but does not retroactively
 qualify the failed seed-preservation contract. A distinct reoptimized target now
 passes numerical qualification. Supported aug-TZ now passes independent import
-checks; compressed private-cache import is active after complete proof replay. Midpoint and
+checks; compressed private-cache import also passes all independent gates. Midpoint and
 twelve-root anchor wavefunctions/matrices reconstruct from public archives;
-quarter wavefunctions/matrices also reconstruct from public bytes. One scientific
+quarter wavefunctions/matrices also reconstruct from public bytes. No scientific
 container is active; original package/setup failures remain preserved.
 State/pole identity remains unqualified.
 The original failure is preserved.
