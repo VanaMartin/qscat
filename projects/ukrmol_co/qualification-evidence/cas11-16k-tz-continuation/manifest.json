@@ -1,0 +1,37 @@
+{
+  "git_sha": "0cb2ec806b574bd34a6feb08b2fb348947f051c8",
+  "date": "2026-10-11",
+  "record_type": "cas11-16k-and-tz-two-frame-continuation",
+  "archive_sha256": "82d8562585c6133eca411a5693d5ac824a9dd3b3baa9ccfe5a30a1c4c885c847",
+  "archive_bytes": 1291953735,
+  "verified_payloads": 352,
+  "cas11_eigenpairs": 16384,
+  "cas11_sectors": [
+    "B1",
+    "B2"
+  ],
+  "tz_reconstructed_states": 128,
+  "tz_probes": 48,
+  "host_reconstruction_passed": true,
+  "public_reconstruction_complete": true,
+  "smallest_qualified_cas11_roots": 2048,
+  "original_tz_seed_gate_remains_rejected": true,
+  "scope": "Public raw records for the completed CAS11 time-budget successor and converged TZ two-frame diagnosis,with original OOM/timeout/write failures preserved. No CAS12 or sweep release.",
+  "public_reconstruction_report_sha256": "a4fe0dd2b573a05a09d1f18c2fa4848b6b816afad31bda78440d1db621aa595c",
+  "public_reconstruction_capture_utc": "2026-10-11T08:08:47.523077+00:00",
+  "public_cas11_sector_verdicts": {
+    "B1": true,
+    "B2": true
+  },
+  "public_tz_maximum_ensemble_frame_energy_difference_hartree": 3.024880896873583e-07,
+  "public_tz_maxima": {
+    "physical_residual_hartree": 7.488732750680342e-10,
+    "penalized_residual_hartree": 9.937525408149743e-10,
+    "spin_penalty_action_hartree": 5.99271502576713e-10,
+    "spin_square_error": 9.769962616701378e-14
+  },
+  "byte_identical_repackaging": true,
+  "member_order": "sorted pathlib paths,matching original package builder",
+  "original_string_sort_repack_sha256": "f018997d53b63cbbd27a66af5c649a84519525c1d01f9653b994c265fd8001f3",
+  "original_repack_interpretation": "Same payloads,different tar member order; fresh path-order reconstruction uses producer ordering."
+}

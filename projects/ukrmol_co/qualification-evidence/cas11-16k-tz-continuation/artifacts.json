@@ -1,0 +1,10 @@
+{
+  "artifacts": {
+    "continuation-evidence.tar.gz": {
+      "bytes": 1291953735,
+      "sha256": "82d8562585c6133eca411a5693d5ac824a9dd3b3baa9ccfe5a30a1c4c885c847"
+    }
+  },
+  "git_sha": "0cb2ec806b574bd34a6feb08b2fb348947f051c8",
+  "url_prefix": "https://data.qscat.org/ukrmol-co-cas11-16k-tz-continuation-2026-10-11/"
+}

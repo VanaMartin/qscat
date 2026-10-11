@@ -14,8 +14,8 @@ remaining retained routes in both physical and AO-following Lowdin metrics:
 |---|---:|---:|---:|
 | Singlet midpoint→upper quarter / root5 | 0.000432 | 0.550711 | 0.872660 |
 | Singlet upper quarter→stretched / root6 | 0.000227 | 0.823709 | 0.871927 |
-| Triplet equilibrium→lower quarter / root5 | 0.000390 | 0.766582 | 0.873335 |
-| Triplet lower quarter→midpoint / root6 | 0.000221 | 0.712833 | 0.872917 |
+| Triplet equilibrium→lower quarter / root5 | 0.000390 | 0.766582 | 0.873334 |
+| Triplet lower quarter→midpoint / root6 | 0.000221 | 0.712833 | 0.872916 |
 
 Root6 carries **0.550279 / 0.823482 / 0.766192 / 0.712611** squared overlap
 on these links. Strong local assignment is compatible with an almost absent

@@ -1,0 +1,16 @@
+{
+  "status": "separately declared shared-memory resource successor after preserved SIGBUS",
+  "parent_contract": "sparse-scattering-cas12-pilot-contract.json",
+  "original_owner": 1149540,
+  "original_run": "cas12-eq-native-sparse-roots2048-mpi8-pilot-20261011",
+  "successor_run": "cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "original_failure": {"sector": "B1", "stage": "scatci", "native_exit": 59, "controller_exit": 1, "timed_out": false, "signal": "PETSc reports SIGBUS7,then MPI_ABORT59", "native_stage_wall_seconds": 2.8199155379552394, "container_wall_seconds": 4.613438074011356, "kernel_peak_container_memory_bytes": 10954342400, "completed_eigenpairs": 0},
+  "diagnosis": {"native_location": "Pinned UKRmol-in mpi-ci-diag/Modules/Hamiltonian/CSF_module.F90:create_csfs,lines331-336", "printed_determinants": 22475718, "printed_Nints": 5, "shared_integer_storage_bytes": 899028720, "shared_real_coefficient_storage_bytes": 179805744, "minimum_simultaneous_shared_storage_bytes": 1078834464, "original_dev_shm_limit_bytes": 1073741824, "minimum_excess_bytes": 5092640, "interpretation": "The two simultaneous MPI shared allocations for determinant bitstrings and double coefficients already exceed the1-GiB /dev/shm filesystem,even before other native shared arrays or MPI overhead. The early SIGBUS is consistent with backing-store exhaustion; it is not a cgroup80-GiB OOM or numerical convergence verdict."},
+  "changed": {"docker_shm_size_gib": 8, "fresh_source_owner_and_output_required": true},
+  "unchanged": "Same pinned engine,retained native CAS12 target/integral/CONGEN bytes,forty-state average/explicit channels,CAS12-specific DENPROP map,2048 roots,both Pi sectors,8MPI ranks/CPUs4-11,one library thread,80-GiB cgroup,16-GiB native memp,24-hour stage/50-hour container/72-hour owner bounds and all numerical/export/resource/observable gates.",
+  "prerequisites": ["Original owner/native exits,logs,resources and input freeze remain preserved", "Independent public CAS11/TZ replay and exact archive repackaging pass", "Native allocation floor is independently calculated from printed Nints/determinants and pinned double/int64 precision", "Original23 native input hashes remain unchanged and new source freeze verifies", "Parent physical CPU/RAM/disk eligibility gates pass again"],
+  "stopping_rule": "Any successor failure,STOP,timeout,changed input or numerical/export violation ends this owner. No additional automatic repair,root escalation,other anchor or production sweep.",
+  "follow_on": "After success run the parent independent raw-record reading,then review measured cost and candidate/phase coverage before separately declaring the omitted-spectrum comparison.",
+  "spectral_truncation_verdict": null,
+  "full_sweep_released": false
+}
