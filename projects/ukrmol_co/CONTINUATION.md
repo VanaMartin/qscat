@@ -54,9 +54,10 @@ comparator. No extra root count, anchor, model or sweep was launched. The origin
 SIGBUS, target contracts and scientific gates remain preserved.
 
 Main-index snapshot integrity remains complete at
-`97b8b4c7392f822c996af0d4d77f81e100ff1407`; latest refresh fails to fetch
-origin/main, so upstream currency is unknown. Relevant branch-only source and
-snapshot deltas were resolved locally against that baseline.
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`. The initial refresh failed to fetch
+origin/main, leaving upstream currency unknown; the 16:30 UTC handoff refresh
+subsequently succeeds with complete/current status at the same commit. Relevant
+branch-only source and snapshot deltas were resolved locally against that baseline.
 
 Verification passes 37 current source hashes, six immutable remote payload/capture
 hashes, B1 exits/cost/unit conversions, preserved unset qualification verdicts,
