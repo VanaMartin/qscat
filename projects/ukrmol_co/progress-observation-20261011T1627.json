@@ -1,0 +1,69 @@
+{
+  "observed_utc": "2026-10-11T16:27:15.410558+00:00",
+  "host": "sadaharu",
+  "owner": 1149978,
+  "observer": 1150274,
+  "owner_active": true,
+  "observer_active": true,
+  "observer_captures": 9,
+  "owner_error": null,
+  "owner_heartbeat_unix_at_162540": 1791735940.1567712,
+  "run_path": "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "allocation": {"mpi_ranks": 8, "physical_cpus": "4-11", "memory_limit_gib": 80, "shared_memory_gib": 8},
+  "frozen_source_hashes_verified": 37,
+  "frozen_input_hashes_verified": 28,
+  "resources": {
+    "docker_cpu_percent": 802.66,
+    "docker_current_memory_gib_displayed": 13.18,
+    "cgroup_peak_bytes_at_1626": 21329641472,
+    "cgroup_current_bytes_at_1626": 19592724480,
+    "cgroup_events_at_1626": {"low": 0, "high": 0, "max": 0, "oom": 0, "oom_kill": 0, "oom_group_kill": 0},
+    "available_ram_bytes_at_observer_capture": 101818572800,
+    "free_disk_bytes_at_observer_capture": 96893231104,
+    "scope": "Current Docker memory and inclusive cgroup charge are different measurements. Peak is the whole ongoing native container's charge to date, not a completed B1-only or final pilot peak."
+  },
+  "observer_capture": {
+    "captured_utc": "2026-10-11T16:15:43.746198+00:00",
+    "path": "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-sparse-pilot-shm8-observer-20261011/20261011T161543.json",
+    "sha256": "1d625b78f54fdc5cf912186d7e7c2bd73af999b73d97e220dd02316eceb15437"
+  },
+  "pilot_json_at_observation": {"bytes": 1966, "sha256": "f746f6a54ffc8a879c1aae9da1e05366c1442f8d26822f1cd07bb7b02a3c754f", "scope": "Mutable aggregate captured after B1, before B2 completion."},
+  "completed_B1": {
+    "roots": 2048,
+    "stages": [
+      {"name": "scatci", "original_exit": 0, "timed_out": false, "wall_seconds": 18298.028320336016},
+      {"name": "rsolve", "original_exit": 0, "timed_out": false, "wall_seconds": 122.0839469700586},
+      {"name": "eigenp", "original_exit": 0, "timed_out": false, "wall_seconds": 0.015610076021403074},
+      {"name": "reson", "original_exit": 0, "timed_out": false, "wall_seconds": 0.015485804993659258}
+    ],
+    "stage_sum_wall_hours": 5.116706489774192,
+    "export_checks_passed": true,
+    "maximum_native_residual_hartree": 1.3199200374804417e-10,
+    "energy_range_hartree": [-112.91596570082095, -110.02319542749294],
+    "boundary_energy_error_hartree": 0.0,
+    "native_resonances": [{"energy_hartree": 0.090300065, "width_hartree": 0.04168035, "position_ev": 2.4571899467528224, "full_width_ev": 1.1341801027179659}],
+    "hartree_to_ev": 27.211386245988,
+    "native_maxfit_diagnostic": false,
+    "independent_owner_reader_complete": false,
+    "spectral_truncation_verdict": null,
+    "observable_qualification_verdict": null,
+    "scope": "Producer raw-export/native residual checks and a native fit candidate. Both-sector independent reading, Pi comparison and spectral omission qualification remain pending."
+  },
+  "B1_immutable_payloads": {
+    "scatci.out": {"bytes": 78185, "sha256": "cbc88424c5d69d191fa559793013ab6ce701abea7bdfc29f8929e4b2977dd8f6"},
+    "fort.25": {"bytes": 24532760, "sha256": "1d5d3dd92289c6707b66eae1907a37bf875dd2a348ee0ee9e16398ee85a97643"},
+    "rsolve.out": {"bytes": 16400, "sha256": "2c4279de9117d73e9d76287305c46cb633d1ce934848b21361521d073845714a"},
+    "eigenp.out": {"bytes": 18771, "sha256": "bdd05902e417a1a18cdb9042984d246acc925c2dc53a3801c2531f21dee2b576"},
+    "reson.out": {"bytes": 3778, "sha256": "0a7cadae043733176169b4ae5f0baf0d82ad2bb696cf10c589cec3b83c71c08f"}
+  },
+  "active_B2": {
+    "started_utc_from_input_mtime": "2026-10-11T13:22:03.354987+00:00",
+    "last_scatci_log_mtime": "2026-10-11T15:36:14.534805+00:00",
+    "last_completed_matrix_class": 4,
+    "last_reported_wall_seconds": 8051.1,
+    "dimension": 86352,
+    "completed_eigenpairs_observed": false,
+    "scope": "Still constructing the distributed Hamiltonian; log output is stage-granular and current CPU usage remains about eight physical cores."
+  },
+  "next_step": "Native success in both sectors triggers the already declared independent reader. Then review complete cost/coverage and separately declare the spectral-omission comparator. No additional model, anchor or sweep is launched by this status check."
+}

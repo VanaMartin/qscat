@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261011T0838.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261011T1627.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -430,9 +430,12 @@ def _anchor_candidates(ax, data):
     ax.legend(loc="upper right", frameon=False, fontsize=9)
     _note(
         ax,
-        "Reuse: anchor geometries, raw phases and import checks.\n"
-        "Markers are candidates; state / pole identity remains open.\n"
-        "Widths need background controls before fitting a potential.",
+        data.get(
+            "anchor_note",
+            "Reuse: anchor geometries, raw phases and import checks.\n"
+            "Markers are candidates; state / pole identity remains open.\n"
+            "Widths need background controls before fitting a potential.",
+        ),
     )
 
 
@@ -602,7 +605,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261011T0838"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261011T1627"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

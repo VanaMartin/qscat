@@ -20,6 +20,49 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CAS12 B1 native completed / B2 matrix construction active — 11 October, 16:27 UTC
+
+The [dated status capture](progress-observation-20261011T1627.json) records
+CAS12 owner 1149978 and observer 1150274 active. **B1 completes SCATCI, RSOLVE,
+EIGENP and RESON with original exits0 and no timeouts.** SCATCI costs
+18298.028320336016 seconds = **5.0828 h**; the four-stage sum is **5.1167 h**.
+All 2048 roots are exported with maximum native residual **1.3199200374804417e-10
+Hartree**, zero boundary-energy error and passing producer raw-export checks.
+The native fit candidate is **0.090300065 / 0.04168035 Hartree**, or
+**2.4571899467528224 / 1.1341801027179659 eV position/full width**, with no MAXFIT
+diagnostic. The full owner independent reader has not yet run; Pi consistency,
+CAS12 spectral truncation, observable qualification and model convergence remain
+unset. The five completed B1 payloads and immutable 16:15 observer capture are
+hash-pinned; the mutable partial `pilot.json` is explicitly an observed version.
+
+**B2 is still constructing the 86352-dimensional distributed Hamiltonian**, with
+Class 4 completed at 15:36:14 UTC. At **16:27:15 UTC** Docker reports **802.66% CPU /
+13.18 GiB current memory**, with a current owner heartbeat and no recorded error.
+The inclusive cgroup peak sampled at 16:26 is **21329641472 bytes = 19.8648 GiB**,
+with zero OOM/max-limit events. This is the ongoing whole-container peak to date,
+not a completed B1-only or final pilot measurement. Docker's displayed current
+memory uses a different accounting scope. The 16:15 observer reports **94.83 GiB
+available RAM / 90.24 GiB free disk**; observer 1150274 has 9 captures and remains
+bounded as previously declared. All **37 source / 28 input** frozen hashes verify.
+
+The [16:27 overview](progress-snapshot-20261011T1627.json) preserves all CAS11,
+neutral and physical A2 curves, adds the producer-only CAS12 B1 candidate note,
+and marks B1 completion/B2 activity. Native both-sector success triggers the
+already declared bounded independent reader. Then review complete measured cost,
+phase/candidate/energy coverage and separately declare the spectral-omission
+comparator. No extra root count, anchor, model or sweep was launched. The original
+SIGBUS, target contracts and scientific gates remain preserved.
+
+Main-index snapshot integrity remains complete at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; latest refresh fails to fetch
+origin/main, so upstream currency is unknown. Relevant branch-only source and
+snapshot deltas were resolved locally against that baseline.
+
+Verification passes 37 current source hashes, six immutable remote payload/capture
+hashes, B1 exits/cost/unit conversions, preserved unset qualification verdicts,
+unchanged prior plotted evidence, exact historical08:38 PNG/SVG reproduction,
+current rendering/SVG/links, lint/format and diff checks.
+
 ### Reusable decisions / physical A2 coverage overview — 11 October, 08:38 UTC
 
 The [latest six-panel overview](progress-snapshot-20261011T0838.json) now shows

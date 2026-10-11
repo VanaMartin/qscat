@@ -29,31 +29,36 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 
 ## Progress overview — 11 October 2026
 
-![CO qualification: three-anchor candidates, numerical/model sensitivity, reusable neutral inputs, selected CAS11 root count and physical A2 channel coverage](../../docs/physics/figures/co-progress-20261011T0838.png)
+![CO qualification: three-anchor candidates, numerical/model sensitivity, reusable neutral inputs, selected CAS11 root count and physical A2 channel coverage](../../docs/physics/figures/co-progress-20261011T1627.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261011T0838.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261011T0838.json) ·
-[Dated owner observation](progress-observation-20261011T0838.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261011T1627.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261011T1627.json) ·
+[Dated owner observation](progress-observation-20261011T1627.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](SWEEP_READINESS_20261011T0816.md)
 
-This is the **08:38 UTC, 11 October** presentation release of an incremental overview. New findings, verification
+This is the **16:27 UTC, 11 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** the overview now emphasizes what can be reused and why. The
-three CAS11 anchor candidates replace the equilibrium literature scatter;
-the smallest qualified CAS11 count, **2048 roots**, is highlighted with its
-measured cost and phase error. The neutral panel marks the tested **1.9–2.5-bohr**
-domain. Physical retained-five/six/twelve A2 projections replace the earlier
-AO-following manifold plot, showing the specific omitted-channel control needed.
-These are completed findings brought into the figure, not new model qualification.
-At **08:37:49 UTC**, CAS12 owner 1149978 and observer 1150274 remain active with a
-current owner heartbeat and no recorded error; no completed native verdict is
-recorded. CAS12 truncation/model qualification and the full sweep remain open.
+**What changed:** CAS12 **B1 completes all four native stages** with exit0 and
+no timeout: **5.12 h**, 2048 roots, maximum native residual **1.32e-10 Hartree**,
+and passing producer raw-export checks. Its native fit candidate is
+**2.457190 eV position / 1.134180 eV full width**, without a MAXFIT diagnostic.
+This is provisional until the full independent reader completes. **B2 remains
+active building the distributed Hamiltonian**, after Class 4. At 16:27 UTC the
+pilot uses **≈803% CPU / 13.18 GiB current Docker memory**; inclusive cgroup peak
+to date is **19.86 GiB**, with no OOM events. All 37 frozen source and 28 input
+hashes verify. The observer remains active after 9 captures. Both-sector/Pi/
+spectral-omission checks and CAS12 model/sweep qualification remain open.
+The [08:38 figure](../../docs/physics/figures/co-progress-20261011T0838.png),
+[vector copy](../../docs/physics/figures/co-progress-20261011T0838.svg) and
+[snapshot](progress-snapshot-20261011T0838.json) preserve the presentation update:
+three CAS11 anchors, the smallest qualified CAS11 root count, the neutral tested
+domain and physical retained-five/six/twelve A2 coverage.
 The [08:16 figure](../../docs/physics/figures/co-progress-20261011T0816.png),
 [vector copy](../../docs/physics/figures/co-progress-20261011T0816.svg) and
 [snapshot](progress-snapshot-20261011T0816.json) retain the equilibrium literature
@@ -100,7 +105,8 @@ The six panels explain the qualification campaign:
   pipelines yield position/full-width candidates of 3.826/2.322, 2.521/1.151 and
   0.984/0.293 eV at 1.9/2.1323/2.5 bohr. Reuse these anchors, raw phases and import
   checks as calibration inputs. Discrete markers do not establish a continuous
-  pole curve; background-sensitive extraction still needs qualification.
+  pole curve; background-sensitive extraction still needs qualification. The
+  CAS12 B1 native candidate is shown in the note as producer-only evidence.
 - **B — Which tests limit accuracy.** Sparse replay, propagation and angular
   controls pass their tested phase gates. The sparse bar now shows the selected
   **2048-root** control rather than 8192. Active-space changes and all-background
@@ -134,7 +140,7 @@ The six panels explain the qualification campaign:
   production model. A frozen restartable pilot precedes the sweep and held-out
   QSCAT potential validation.
 
-This is a dated **11 October 08:37:49 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **11 October 16:27:15 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
@@ -144,7 +150,8 @@ passes numerical qualification. Supported aug-TZ now passes independent import
 checks; compressed private-cache import also passes all independent gates. Midpoint and
 twelve-root anchor wavefunctions/matrices reconstruct from public archives;
 quarter wavefunctions/matrices also reconstruct from public bytes. One CAS12
-sparse successor is active; original package/setup/shared-memory failures remain preserved.
+sparse successor has completed B1 and is active in B2; original package/setup/
+shared-memory failures remain preserved.
 State/pole identity remains unqualified. The original TZ diagnostic's final-write
 exit1 is preserved; additive report recovery exits0. Historical literature
 comparisons remain available in the 08:16 release, with their tracked reference
@@ -158,8 +165,9 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned 08:16 snapshot, which in turn
-pins the first snapshot. Historical values and the neutral curve remain identical. Its 52
+snapshot is an explicit delta against the hash-pinned 08:38 snapshot; its chain
+pins the earlier releases and first snapshot. Historical values and the neutral
+curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;
 the remaining values resolve to tracked manifests/aggregates and explicitly
 identified live producer records. The source, numeric snapshot and cited figures
