@@ -1,0 +1,63 @@
+{
+  "status": "predeclared finite equilibrium CAS12 2048-to-4096-root sensitivity comparator",
+  "parent_contract": "sparse-scattering-cas12-pilot-contract.json",
+  "resource_successor_contract": "sparse-scattering-cas12-shm-successor-contract.json",
+  "baseline_completion": "progress-completion-20261011T1952.json",
+  "scientific_question": "How much do the uncorrected CAS12 pole sum, full-grid phases and identical-window fitted position/full width change when the selected scattering roots increase from 2048 to 4096? This pair measures sensitivity; it cannot establish an asymptotic omitted-spectrum error bound.",
+  "run": "cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011",
+  "source_directory": "prepared/cas12-sparse-4096-comparator-source-20261011",
+  "baseline_directory": "prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "native_preflight": "diagnostics/cas12-scattering-dimension-preflight-nbmx/co-eq-ccdz-sa12-slepc-target",
+  "outer_deck_reference": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs",
+  "baseline_roots": 2048,
+  "candidate_roots": 4096,
+  "dimension": 86352,
+  "continuum_coefficients": 1410,
+  "boundary_channels": 250,
+  "sectors": ["B1", "B2"],
+  "unchanged": "Exact native driver and dependency bytes from the successful baseline; equilibrium2.1323bohr/cc-pVDZ/CAS12[6,3,3,0]/two frozen A1 core orbitals/ten active electrons/forty averaging and explicit target states; own CAS12 DENPROP map; retained integrals/CONGEN/target; radius18/maxl4/deletion1e-6/propagation100; crite1e-12/maxiter1000/igh-1/native default selection; no omitted-pole correction; outer decks and energy grid; eight MPI ranks; all original checks and stopping rules.",
+  "baseline_review": {
+    "native_and_reader_exit": 0,
+    "native_wall_hours": 10.051373411302208,
+    "kernel_peak_gib": 22.361045837402344,
+    "emitted_energy_range_hartree": [-112.91596570082095, -110.02319542749294],
+    "native_selection_which": 1,
+    "candidate_position_ev": 2.4571899467528224,
+    "candidate_full_width_ev": 1.1341801027179659,
+    "rationale": "Both sectors export finite complete 2048-root CI/boundary data and 99 phase points with residuals below1.33e-10Hartree and Pi agreement1e-9rad. Measured22.36GiB peak and10.05h native cost leave room for one doubled-root comparator within80GiB/50h. Krylov workspace grows with roots, so this is a bounded resource test, not a guaranteed runtime/memory prediction. Check shared-prefix energies and native channel/threshold/multipole metadata; retain actual selection and expanded emitted range."
+  },
+  "resources": {
+    "physical_cpu_group": "4-11", "mpi_ranks": 8, "library_threads_per_rank": 1,
+    "container_memory_gib": 80, "shared_memory_gib": 8, "scatci_memory_input_gib": 16,
+    "minimum_available_ram_gib": 96, "minimum_free_disk_gib": 50,
+    "native_stage_timeout_seconds": 86400, "whole_native_timeout_seconds": 180000,
+    "independent_reader_memory_gib": 4, "independent_reader_cpu_group": "0-3",
+    "independent_reader_timeout_seconds": 3600, "whole_owner_timeout_seconds": 259200,
+    "observer_interval_seconds": 3600, "observer_timeout_seconds": 259200
+  },
+  "raw_checks": {
+    "absolute_residual_hartree": 1e-7, "boundary_to_ci_atol_hartree": 1e-10,
+    "shared_prefix_energy_atol_hartree": 1e-7, "pi_phase_rad_mod_pi": 0.002,
+    "phase_grid_atol_requested_ev": 5e-5, "native_selection_which": 1,
+    "unchanged_channel_threshold_multipole_digest": true
+  },
+  "observable_budgets": {
+    "position_ev": 0.05, "full_width_relative": 0.05, "full_width_floor_ev": 0.001,
+    "phase_rad_mod_pi": 0.05, "fit_background_orders": [1,2,3,4],
+    "fixed_requested_energy_window_ev": [1.8,3.3],
+    "width_budget_definition": "max(0.001eV,0.05 * baseline same-background-order fitted full width)"
+  },
+  "fit_initial_position_hartree": 0.090300065,
+  "fit_initial_full_width_hartree": 0.04168035,
+  "hartree_to_ev": 27.211386245988,
+  "native_rydberg_per_requested_ev": 0.0735,
+  "units": "Fits use physical Hartree=requested_eV*0.0735/2 and full widths; conversion constant matches qscat.units. Phases radians modulo pi. Requested versus physical eV remain distinct.",
+  "reader": "Re-read raw CI/boundary/telemetry and original exits for both root counts and sectors; verify energy nesting and unchanged native interface, full grid and Pi symmetry; compare full-grid phases and independent fits over the same1.8-3.3 requested-eV window for background orders1-4 with identical initial seeds. Record optimizer/bound/residual/conditioning diagnostics. Empty/MAXFIT/failed/bound fits leave pair verdict unset. Numerical-budget failure is recorded as false, not repaired.",
+  "stopping_rule": "Any native error/Fortran STOP diagnostic,timeout,raw/export/residual/Pi/input-freeze violation stops and preserves the original exit. STOP terminates the active container and owner. No retry or limit/tolerance change. Successful native stages trigger only the predeclared one-hour reader; completion triggers no further native job.",
+  "follow_on": "Review the measured pair sensitivity, expanded coverage and resource cost. Declare any third resolution or independent omission test separately before claiming root-count convergence. Electronic-model/pole/identity/channel/neutral/sweep verdicts remain separate and unset.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "full_sweep_released": false
+}
