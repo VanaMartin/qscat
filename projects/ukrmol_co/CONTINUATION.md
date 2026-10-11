@@ -20,6 +20,53 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CAS12 4096-root native B1 failure preserved — 11 October, 22:50 UTC
+
+**Owner 1163485 stops at 22:48:11 UTC with controller/container exits 1.** Native
+B1 SCATCI reports **SEGV signal 11 on MPI rank 4**, then MPI_ABORT with exit **59**.
+The stage is not timed out. Class 4 is the last logged completed matrix class;
+no CI (`fort.25`), boundary (`fort.21`) or solver-telemetry export exists. B2 and
+the independent comparison never start. No core dump is found under the run.
+At the **22:50:13 UTC** status check, no scientific container remains active.
+The original service is retained in its failed state, not reset or relaunched.
+
+Measured failed-attempt native cost is **9400.307297737803 seconds = 2.6111964716 h /
+16759169024 inclusive peak bytes = 15.6081924438 GiB**; B1 SCATCI itself runs
+9398.435071450891 seconds. These costs cover the failed B1 attempt, not a completed
+4096-root/two-sector solve. The peak is below the 80-GiB allocation; that observation
+does not establish the cause or rule out other native memory-access errors.
+This **SEGV11 is distinct from the original 2048-root SIGBUS7**. Root cause remains
+unknown, and no numerical/truncation/model verdict follows from the crash.
+
+All **43 source / 97 input-evidence hashes** reverify after failure. The
+[failure capture](progress-failure-20261011T2250.json) pins nine immutable
+owner/freeze/provenance/native-log/deck/resource records in the existing persistent
+source directory. Preserve that directory and the original failed/completed pilots.
+Hourly observer **1163637** remains active after three captures at the cutoff,
+awaiting its next scheduled reading to record owner completion; it launches no
+calculation. Its existing stopping rule will end it normally after that reading.
+
+**Next: diagnose the preserved native failure**, then separately declare a bounded
+diagnostic successor if justified before resuming the unchanged scientific
+comparison. No retry, memory/time/tolerance relaxation or model requalification
+was launched by the failed owner or this status update. The completed 2048-root
+cost/export/Pi pilot remains passed, but root-pair sensitivity and CAS12 omitted-
+spectrum checks remain unset. All subsequent channel/model/identity/extraction/
+neutral and restartable-production-pilot gates remain open.
+
+The [22:50 overview](progress-snapshot-20261011T2250.json) and
+[readiness update](SWEEP_READINESS_20261011T2250.md) record the failure and next
+decision while preserving all prior plotted numerical evidence and historical
+releases. Main-index integrity and upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; branch-only source/snapshot changes
+were resolved locally against that baseline.
+Verification passes 48 local source hashes, nine immutable remote failure records,
+43/97 frozen hashes, original exits/signal/rank/stage, costs and missing exports
+against the remote originals. Plotted numerical values remain unchanged; the
+historical20:12 PNG/SVG reproduce byte-for-byte. Current rendering/SVG/links and
+lint/format/diff checks pass. An explicit main-index refresh confirms the complete
+snapshot and current upstream status at the handoff.
+
 ### CAS12 2048→4096 comparator launched — 11 October, 20:12 UTC
 
 **Owner1163485 is active on Sadaharu**, service
