@@ -29,29 +29,36 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 
 ## Progress overview — 11 October 2026
 
-![CO qualification: reference comparisons, numerical/model sensitivity, neutral curve, memory and state tracking](../../docs/physics/figures/co-progress-20261011T0816.png)
+![CO qualification: three-anchor candidates, numerical/model sensitivity, reusable neutral inputs, selected CAS11 root count and physical A2 channel coverage](../../docs/physics/figures/co-progress-20261011T0838.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261011T0816.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261011T0816.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261011T0838.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261011T0838.json) ·
+[Dated owner observation](progress-observation-20261011T0838.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](SWEEP_READINESS_20261011T0816.md)
 
-This is the **08:16 UTC, 11 October** release of an incremental overview. New findings, verification
+This is the **08:38 UTC, 11 October** presentation release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** CAS11 16K / TZ continuation now passes public352-payload
-reconstruction and exact repackaging. The [A2 audit](A2_CHANNEL_COVERAGE.md)
-finds a five-root retained-channel gap,with substantial root6 and root7/root9
-weight on problematic links. The first CAS122048-root pilot stops with native59
-before any eigenpairs; its determinant shared arrays exceed1-GiB backing. A
-separately declared8-GiB-shared-memory successor is active on8 physical cores
-and has passed the failed CSF point into distributed matrix construction.
-Scientific inputs and gates remain fixed. CAS12 truncation/model qualification
-and the full sweep remain open.
+**What changed:** the overview now emphasizes what can be reused and why. The
+three CAS11 anchor candidates replace the equilibrium literature scatter;
+the smallest qualified CAS11 count, **2048 roots**, is highlighted with its
+measured cost and phase error. The neutral panel marks the tested **1.9–2.5-bohr**
+domain. Physical retained-five/six/twelve A2 projections replace the earlier
+AO-following manifold plot, showing the specific omitted-channel control needed.
+These are completed findings brought into the figure, not new model qualification.
+At **08:37:49 UTC**, CAS12 owner 1149978 and observer 1150274 remain active with a
+current owner heartbeat and no recorded error; no completed native verdict is
+recorded. CAS12 truncation/model qualification and the full sweep remain open.
+The [08:16 figure](../../docs/physics/figures/co-progress-20261011T0816.png),
+[vector copy](../../docs/physics/figures/co-progress-20261011T0816.svg) and
+[snapshot](progress-snapshot-20261011T0816.json) retain the equilibrium literature
+comparison, public CAS11/TZ replay, A2 audit and original/shared-memory-successor
+pilot milestone.
 The [07:42 figure](../../docs/physics/figures/co-progress-20261011T0742.png),
 [vector copy](../../docs/physics/figures/co-progress-20261011T0742.svg) and
 [snapshot](progress-snapshot-20261011T0742.json) preserve compressed CAS12 import
@@ -89,44 +96,45 @@ the original TZ rejection. The [08:41 UTC figure](../../docs/physics/figures/co-
 
 The six panels explain the qualification campaign:
 
-- **A — Published resonance comparisons.** The SA-CAS10/11 candidates remain
-  above the published positions. An earlier SEP39 result lies near Laporta's
-  unadjusted value, but adding virtual orbitals shifts it by 0.294 eV. Agreement
-  with one literature model cannot select a converged electronic configuration.
+- **A — Three-anchor scattering evidence.** Independently checked CAS11/DZ/40
+  pipelines yield position/full-width candidates of 3.826/2.322, 2.521/1.151 and
+  0.984/0.293 eV at 1.9/2.1323/2.5 bohr. Reuse these anchors, raw phases and import
+  checks as calibration inputs. Discrete markers do not establish a continuous
+  pole curve; background-sensitive extraction still needs qualification.
 - **B — Which tests limit accuracy.** Sparse replay, propagation and angular
-  controls pass their tested phase gates. Active-space changes and all-background
+  controls pass their tested phase gates. The sparse bar now shows the selected
+  **2048-root** control rather than 8192. Active-space changes and all-background
   width spreads reject. Each bar is normalized by its own declared gate;
   these ratios are diagnostic sensitivities, not a common uncertainty measure.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
-  budgets pass; correlation treatment and the unstable stretched RHF references
-  remain open. The dipole comparison uses CCSD lambda density, not a CCSD(T)
-  energy derivative.
-- **D — Computation on local hardware.** CAS11 sparse controls through 16384 roots
-  reproduce the dense oracle. The 2048–8192-root controls use lower measured peak
-  charges; the 16384-root refinement costs more RAM/time than the dense baseline.
-  The CAS12 dense
-  workspace floor exceeds total host RAM, motivating a separately qualified
-  sparse pilot. Dense full-pipeline and sparse retained-input replay timings
-  have different setup scopes and are not a matched speedup comparison.
-- **E — Many-electron identity.** Extending eight to twelve diagnostic roots
-  recovers missing overlap-manifold directions in an AO-following coefficient
-  frame. This is distinct from physical wavefunction overlap; root-label
-  exchanges and finite-manifold loss motivate retained-channel and path checks.
-  The12-root values now pass independent full-Slater/AO/Hamiltonian replay from
-  public downloads. The completed midpoint also passes independent/public
-  reconstruction, with weak physical assignments reduced from96/96 on the direct
-  pair to21/96 and38/96 on the separate half-intervals. Composed assignments still
-  differ from direct labels for16/96 roots, including one retained component.
-  Quarter public reconstruction verifies stronger singlet-A2 root5 links,but
-  two other retained labels change between two- and four-leg routes.
-  The latest projection audit identifies omitted A2-root coverage as the next
-  specific control.
-- **F — Next gates.** Qualify the active modest CAS12 sparse pilot,resolve
-  state/extraction and electronic-model choices, then release a geometry sweep
-  and fit with held-out scattering tests.
+  budgets pass over 1.9–2.5 bohr: maximum QZ/5Z relative difference 17.243 meV and
+  cubic held-point error 0.114 meV. Reuse the points, frozen-core convention and
+  each basis's own energy zero. Correlation-model uncertainty remains open;
+  unstable RHF at 3–4 bohr prevents an unqualified domain extension.
+- **D — Smallest qualified CAS11 root count.** **2048 roots** already passes the
+  independent spectral/export/phase/fixed-window gates, with maximum phase error
+  **5.1e-6 rad** against 0.05 rad, and measured replay cost **2.45 h / 7.69 GiB**.
+  Higher counts through 16384 are supporting controls, not a production requirement.
+  Qualification applies to the tested equilibrium model; CAS12 and other sweep
+  geometries need their own checks. Dense full-pipeline and sparse replay timings
+  have different scopes and are not a matched speedup comparison. CAS12 dense
+  workspace remains above local RAM.
+- **E — Explicit channel coverage.** The [physical A2 audit](A2_CHANNEL_COVERAGE.md)
+  finds only 0.0002–0.0004 squared projection into the retained five roots on four
+  problematic route links. Root 6 recovers much of the weight, but singlet root 7
+  and root 9 contribute 0.194 and 0.122 on one link. This motivates fixed-orbital
+  explicit-A2-channel scattering controls after spectral qualification.
+  Diagnostic six/twelve-root projections are not native channel-convergence
+  results or a global state/pole-identity verdict.
+- **F — Reuse and remaining gates.** Two frozen A1 core orbitals,ten active
+  electrons, independent target-map/import checks, CAS11's qualified root count and
+  neutral numerical inputs carry forward. Electronic basis/active-space/ensemble/
+  channels, identity, width extraction and neutral correlation still determine the
+  production model. A frozen restartable pilot precedes the sweep and held-out
+  QSCAT potential validation.
 
-This is a dated **11 October 08:16:26 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **11 October 08:37:49 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
@@ -137,13 +145,11 @@ checks; compressed private-cache import also passes all independent gates. Midpo
 twelve-root anchor wavefunctions/matrices reconstruct from public archives;
 quarter wavefunctions/matrices also reconstruct from public bytes. One CAS12
 sparse successor is active; original package/setup/shared-memory failures remain preserved.
-State/pole identity remains unqualified.
-The original failure is preserved.
-The completed twelve-root result passes public reconstruction. The original TZ
-diagnostic's final-write exit1 is preserved;
-additive report recovery exits0. Published values come from tracked notes: Laporta2012,
-preprint p.4; Dora2016, p.6 Table4 (dipole p.4 Table2); Dora2020, p.4 Table2.
-They represent different models, not an experimental resonance error band.
+State/pole identity remains unqualified. The original TZ diagnostic's final-write
+exit1 is preserved; additive report recovery exits0. Historical literature
+comparisons remain available in the 08:16 release, with their tracked reference
+notes and page/table locators. They represent different models, not an experimental
+resonance error band.
 
 Reproduce both PNG and text-preserving SVG without fetching large archives:
 
@@ -152,8 +158,8 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned first snapshot, keeping
-the reference comparisons and neutral curve identical. Its 52
+snapshot is an explicit delta against the hash-pinned 08:16 snapshot, which in turn
+pins the first snapshot. Historical values and the neutral curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;
 the remaining values resolve to tracked manifests/aggregates and explicitly
 identified live producer records. The source, numeric snapshot and cited figures

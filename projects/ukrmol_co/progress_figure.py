@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261011T0816.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261011T0838.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -115,15 +115,18 @@ def _diagnostics(ax, data):
     ax.axvspan(1, 30, color=RED, alpha=0.05)
     ax.barh(y, values - 1e-7, left=1e-7, color=[GREEN] * 3 + [RED] * 4, height=0.56)
     ax.axvline(1, color=INK, lw=1.1, linestyle="--")
-    labels = [
-        "Sparse vs dense\nphase",
-        "Propagation\nphase",
-        "Angular cutoff\nphase",
-        "Active space\nphase",
-        "Stretched\nfit width",
-        "Equilibrium\nfit width",
-        "Compressed\nfit width",
-    ]
+    labels = data.get(
+        "diagnostic_labels",
+        [
+            "Sparse vs dense\nphase",
+            "Propagation\nphase",
+            "Angular cutoff\nphase",
+            "Active space\nphase",
+            "Stretched\nfit width",
+            "Equilibrium\nfit width",
+            "Compressed\nfit width",
+        ],
+    )
     ax.set_yticks(y, labels, fontsize=9)
     for i, value in enumerate(values):
         label = f"{value:.2g}×"
@@ -135,16 +138,24 @@ def _diagnostics(ax, data):
     ax.set_xlabel("Sensitivity / tolerance   (log scale; ≤1 passes)")
     _note(
         ax,
-        "Numerical controls pass for the tested models.\n"
-        "Active-space and all-background extraction tests reject.\n"
-        "These are diagnostic ratios, not common uncertainty bars.",
+        data.get(
+            "diagnostic_note",
+            "Numerical controls pass for the tested models.\n"
+            "Active-space and all-background extraction tests reject.\n"
+            "These are diagnostic ratios, not common uncertainty bars.",
+        ),
     )
 
 
 def _neutral(ax, data):
     from scipy.constants import c, physical_constants
 
-    _panel(ax, "C", "A better neutral energy curve", "Frozen-core CCSD(T): 26 geometries per basis")
+    _panel(
+        ax,
+        "C",
+        data.get("neutral_title", "A better neutral energy curve"),
+        "Frozen-core CCSD(T): 26 geometries per basis",
+    )
     for basis, color, marker, label in (
         ("aug-cc-pVQZ", ORANGE, "o", "aug-QZ"),
         ("aug-cc-pV5Z", BLUE, ".", "aug-5Z"),
@@ -176,10 +187,13 @@ def _neutral(ax, data):
     )
     _note(
         ax,
-        f"CCSD density dipole: {dipole:.3f} D; "
-        f"quoted experiment: {data['reference_dipole']['magnitude_debye']:.3f} D.\n"
-        "Near-equilibrium basis / held-point checks pass.\n"
-        "Next: correlation checks; unstable RHF at R = 3–4 bohr.",
+        data.get(
+            "neutral_note",
+            f"CCSD density dipole: {dipole:.3f} D; "
+            f"quoted experiment: {data['reference_dipole']['magnitude_debye']:.3f} D.\n"
+            "Near-equilibrium basis / held-point checks pass.\n"
+            "Next: correlation checks; unstable RHF at R = 3–4 bohr.",
+        ),
     )
 
 
@@ -187,7 +201,7 @@ def _memory(ax, data):
     _panel(
         ax,
         "D",
-        "Larger models within local RAM",
+        data.get("memory_title", "Larger models within local RAM"),
         "Measured kernel peaks; CAS12 dense is an allocation floor",
     )
     values = [row["kernel_peak_gib"] for row in data["sparse_costs"]]
@@ -199,6 +213,15 @@ def _memory(ax, data):
     x = np.arange(count + 2)
     bars = ax.bar(x, values, color=[GREEN] * count + [BLUE, RED], width=0.64)
     bars[-1].set_hatch("///")
+    if "selected_cas11_roots" in data:
+        selected = next(
+            i
+            for i, row in enumerate(data["sparse_costs"])
+            if row["roots"] == data["selected_cas11_roots"]
+        )
+        bars[selected].set_edgecolor(INK)
+        bars[selected].set_linewidth(2)
+        ax.text(selected, 5.2, "REUSE", ha="center", color="white", fontweight="bold", fontsize=9)
     ram = data["memory_reference"]["host_ram_gib"]
     ax.axhline(ram, color=RED, lw=1, linestyle="--")
     ax.text(0.015, ram, f"Sadaharu total RAM: {ram:.1f} GiB", fontsize=9, color=RED, va="bottom")
@@ -227,11 +250,15 @@ def _memory(ax, data):
     )
     _note(
         ax,
-        f"2048–{data['sparse_costs'][-1]['roots']} roots reproduce dense scattering within gates.\n"
-        "*Dense includes setup; sparse timings are replay costs.\n"
-        + data.get(
-            "memory_next_step",
-            "Next: finish 16384 roots, then qualify a CAS12 sparse pilot.",
+        data.get(
+            "memory_note",
+            f"2048–{data['sparse_costs'][-1]['roots']} roots reproduce dense scattering "
+            "within gates.\n"
+            "*Dense includes setup; sparse timings are replay costs.\n"
+            + data.get(
+                "memory_next_step",
+                "Next: finish 16384 roots, then qualify a CAS12 sparse pilot.",
+            ),
         ),
     )
 
@@ -279,7 +306,7 @@ def _roadmap(ax, data):
     _panel(
         ax,
         "F",
-        "Why the next experiments matter",
+        data.get("roadmap_title", "Why the next experiments matter"),
         "Goal: a trustworthy neutral + resonance potential for dynamics",
     )
     ax.axis("off")
@@ -318,6 +345,12 @@ def _roadmap(ax, data):
             "Then assess the 2-D potential's predictive accuracy",
         ),
     ]
+    if "roadmap_entries" in data:
+        colors = {"reuse": GREEN, "active": BLUE, "next": ORANGE, "gated": GRAY}
+        entries = [
+            (colors[row["kind"]], row["status"], row["title"], row["detail"])
+            for row in data["roadmap_entries"]
+        ]
     for i, (color, status, title, detail) in enumerate(entries):
         y = 0.98 - i * 0.185
         ax.add_patch(
@@ -353,23 +386,101 @@ def _roadmap(ax, data):
         ax.text(0.025, y - 0.124, detail, color=GRAY, fontsize=9, transform=ax.transAxes)
     _note(
         ax,
-        "Current main blockers: model balance, state / pole identity,\n"
-        "background-sensitive widths and stretched neutral reference.\n"
-        "Literature agreement is a comparison, not a convergence test.",
+        data.get(
+            "roadmap_note",
+            "Current main blockers: model balance, state / pole identity,\n"
+            "background-sensitive widths and stretched neutral reference.\n"
+            "Literature agreement is a comparison, not a convergence test.",
+        ),
+    )
+
+
+def _anchor_candidates(ax, data):
+    _panel(
+        ax,
+        "A",
+        "What the potential must reproduce",
+        "CAS11 / DZ / 40: three independently checked pipelines",
+    )
+    rows = data["anchor_candidates"]
+    x = np.asarray([row["R_bohr"] for row in rows])
+    for key, color, marker, label in (
+        ("position_ev", BLUE, "o", "Position above each neutral threshold"),
+        ("full_width_ev", ORANGE, "s", "Full width"),
+    ):
+        values = [row[key] for row in rows]
+        ax.scatter(x, values, c=color, marker=marker, s=65, label=label, zorder=5)
+        for r, value in zip(x, values, strict=True):
+            ax.annotate(
+                f"{value:.3f}",
+                (r, value),
+                xytext=(0, 10),
+                textcoords="offset points",
+                ha="center",
+                color=color,
+                fontsize=10,
+            )
+    ax.set(
+        xlim=(1.85, 2.56),
+        ylim=(0, 4.35),
+        xlabel="Internuclear distance R / bohr",
+        ylabel="Native fit candidate / eV",
+    )
+    ax.set_xticks(x, ["1.900", "2.1323", "2.500"])
+    ax.legend(loc="upper right", frameon=False, fontsize=9)
+    _note(
+        ax,
+        "Reuse: anchor geometries, raw phases and import checks.\n"
+        "Markers are candidates; state / pole identity remains open.\n"
+        "Widths need background controls before fitting a potential.",
+    )
+
+
+def _channel_coverage(ax, data):
+    _panel(
+        ax,
+        "E",
+        "Which target channels are missing?",
+        "Physical A2 projection; four links on two tracked routes",
+    )
+    rows = data["a2_coverage_links"]
+    y = np.arange(len(rows))
+    for offset, key, color, label in (
+        (-0.23, "retained_five_projection_squared", RED, "Retained roots 1–5"),
+        (0, "first_six_projection_squared", ORANGE, "Diagnostic roots 1–6"),
+        (0.23, "first_twelve_projection_squared", BLUE, "Diagnostic roots 1–12"),
+    ):
+        values = [row[key] for row in rows]
+        ax.barh(y + offset, values, height=0.20, color=color, label=label)
+        for i, value in enumerate(values):
+            if offset == -0.23:
+                ax.text(0.015, i + offset, f"{value:.6f}", va="center", color=RED, fontsize=8)
+    ax.set_yticks(y, [row["label"] for row in rows], fontsize=8.5)
+    ax.set(
+        xlim=(0, 1),
+        xlabel=r"$\sum |\langle$left state | right root$\rangle|^2$ over selected roots",
+    )
+    ax.invert_yaxis()
+    ax.set_ylim(4.5, -0.5)
+    ax.legend(loc="lower right", frameon=False, fontsize=8.5)
+    omitted = data["a2_singlet_midpoint_omitted_weights"]
+    _note(
+        ax,
+        f"On the singlet 5 → 6 link: root7 = {omitted['7']:.3f}, root9 = {omitted['9']:.3f}.\n"
+        "Next: fixed-orbital explicit-A2-channel scattering control.\n"
+        "Projection is a coverage diagnostic, not a continuity verdict.",
     )
 
 
 def _snapshot_data(snapshot: Path) -> dict:
-    """Resolve a full snapshot or a hash-pinned delta against the first release."""
+    """Resolve a full snapshot or a delta against a hash-pinned earlier release."""
     data = json.loads(snapshot.read_text())
     if "base_snapshot" not in data:
         return data
     base = snapshot.with_name(data["base_snapshot"]).read_bytes()
     if hashlib.sha256(base).hexdigest() != data["base_snapshot_sha256"]:
         raise ValueError("Historical base snapshot hash differs")
-    result = json.loads(base)
-    if "base_snapshot" in result:
-        raise ValueError("Snapshot deltas must reference a full snapshot")
+    result = _snapshot_data(snapshot.with_name(data["base_snapshot"]))
     result.update(data["updates"])
     result["source_file_sha256"].update(data["additional_source_file_sha256"])
     return result
@@ -413,8 +524,11 @@ def render(snapshot: Path, output: Path) -> None:
     fig.text(
         0.04,
         0.934,
-        "What we have achieved • Why agreement alone is insufficient • "
-        "What unlocks a predictive 2-D potential",
+        data.get(
+            "figure_subtitle",
+            "What we have achieved • Why agreement alone is insufficient • "
+            "What unlocks a predictive 2-D potential",
+        ),
         fontsize=13,
         color=GRAY,
     )
@@ -427,16 +541,25 @@ def render(snapshot: Path, output: Path) -> None:
         fontsize=10,
         color=GRAY,
     )
-    for ax, draw in zip(
-        axes.flat, (_resonances, _diagnostics, _neutral, _memory, _tracking, _roadmap), strict=True
-    ):
+    panels = (
+        _anchor_candidates if "anchor_candidates" in data else _resonances,
+        _diagnostics,
+        _neutral,
+        _memory,
+        _channel_coverage if "a2_coverage_links" in data else _tracking,
+        _roadmap,
+    )
+    for ax, draw in zip(axes.flat, panels, strict=True):
         draw(ax, data)
     fig.text(
         0.04,
         0.053,
-        "REFERENCE LOCATORS   Laporta et al. 2012: preprint p.4 (unadjusted width) • "
-        "Dora et al. 2016: p.6, Table 4; dipole p.4, Table 2 • "
-        "Dora & Tennyson 2020: p.4, Table 2",
+        data.get(
+            "source_footer",
+            "REFERENCE LOCATORS   Laporta et al. 2012: preprint p.4 (unadjusted width) • "
+            "Dora et al. 2016: p.6, Table 4; dipole p.4, Table 2 • "
+            "Dora & Tennyson 2020: p.4, Table 2",
+        ),
         fontsize=9,
         color=GRAY,
     )
@@ -455,9 +578,12 @@ def render(snapshot: Path, output: Path) -> None:
     fig.text(
         0.04,
         0.012,
-        "KEY   CAS10/11/12: ten active electrons in 10/11/12 orbitals • "
-        "DZ/TZ: double-/triple-zeta basis • "
-        "39/60: SEP virtual orbitals • 40/50/41: retained C2v target components",
+        data.get(
+            "key_footer",
+            "KEY   CAS10/11/12: ten active electrons in 10/11/12 orbitals • "
+            "DZ/TZ: double-/triple-zeta basis • "
+            "39/60: SEP virtual orbitals • 40/50/41: retained C2v target components",
+        ),
         fontsize=8.5,
         color=GRAY,
     )
@@ -476,7 +602,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261011T0816"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261011T0838"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

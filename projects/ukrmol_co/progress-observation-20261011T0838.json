@@ -1,0 +1,20 @@
+{
+  "observed_utc": "2026-10-11T08:37:49.287940+00:00",
+  "host": "sadaharu",
+  "execution_path": "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-sparse-pilot-shm8-source-20261011/execution.json",
+  "execution_sha256_at_observation": "7abf477d64863d7e9534dfd5be453f4443e9c6fb5754171e5eb6f703916368cc",
+  "owner": 1149978,
+  "heartbeat_unix": 1791707859.4704115,
+  "finished_unix": null,
+  "error": null,
+  "native_steps": [
+    {
+      "label": "native",
+      "started_unix": 1791706499.438951,
+      "finished_unix": null,
+      "exit_code": null
+    }
+  ],
+  "service_observation": "MainPID=1149978\nResult=success\nActiveState=active\nSubState=running\n\nMainPID=1150274\nResult=success\nActiveState=active\nSubState=running\n",
+  "scope": "Dated owner/service observation only; no completed-eigenpair, spectral-truncation or model verdict."
+}

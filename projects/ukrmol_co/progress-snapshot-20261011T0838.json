@@ -1,0 +1,83 @@
+{
+  "base_snapshot": "progress-snapshot-20261011T0816.json",
+  "base_snapshot_sha256": "e1b26f2c7b925d0a136ca9fd28112a94d81e49336d467721ea1fe433b61fca03",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-observation-20261011T0838.json": "d76a308f3e4e23ec46f92b01748c7a9008acf4b43a4cbd7f6a4a423db4b9fa8f",
+    "projects/ukrmol_co/qualification-evidence/compressed-anchor/manifest.json": "781d7b67144b462e7dd5d18b53936448d07336b0aaf358e15b433465a432c88d"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-11T08:37:49.287940+00:00",
+    "changes": [
+      "Replace the equilibrium literature scatter with independently checked CAS11 candidates at all three anchors, without joining them into a qualified pole curve.",
+      "Show the selected2048-root CAS11 phase control and measured resource cost; higher root counts remain qualification evidence rather than a proposed production setting.",
+      "Emphasize reusable neutral inputs and the tested1.9–2.5-bohr basis/interpolation domain; correlation-model qualification remains open.",
+      "Replace the old AO-following8/12-root manifold plot with physical retained-five/six/twelve A2 projections on four measured problematic links.",
+      "Show reusable target/import conventions alongside remaining model,channel,extraction and production-pilot gates. At08:37:49UTC both finite services remain active with a current owner heartbeat and no recorded error; no completed native verdict is recorded."
+    ],
+    "figure_subtitle": "Reusable inputs and qualified numerical choices • Measured scientific gaps • What unlocks the production sweep",
+    "anchor_candidates": [
+      {
+        "R_bohr": 1.9,
+        "position_ev": 3.82638404397982,
+        "full_width_ev": 2.3222421516262686,
+        "source": "qualification-evidence/compressed-anchor/manifest.json: verification.native_position_ev/native_full_width_ev",
+        "pipeline_independently_verified": true,
+        "pole_curve_qualified": false
+      },
+      {
+        "R_bohr": 2.1323,
+        "position_ev": 2.5208049976325553,
+        "full_width_ev": 1.1510015966504314,
+        "source": "progress-snapshot-20261009.json: equilibrium_candidates[1], qualification-results.json",
+        "pipeline_independently_verified": true,
+        "pole_curve_qualified": false
+      },
+      {
+        "R_bohr": 2.5,
+        "position_ev": 0.9839050997232591,
+        "full_width_ev": 0.2928867626062048,
+        "source": "qualification-evidence/cas11-sparse-refinement/manifest.json: verification.components.stretched-cas11-anchor.candidates.B1.native_candidates_ev[0]",
+        "pipeline_independently_verified": true,
+        "pole_curve_qualified": false
+      }
+    ],
+    "diagnostic_gate_ratios": [
+      {"label": "Sparse2048 vs dense: phase", "value": 0.00010199999999738196, "quantity": "maximum both-sector phase difference /0.05rad", "source": "qualification-evidence/cas11-sparse-refinement/manifest.json: verification.components.cas11-native-2048.sectors"},
+      {"label": "Outer propagation: phase", "value": 5.136890123047522e-05, "quantity": "phase difference /0.05rad", "source": "qualification-evidence/outer-propagation/manifest.json"},
+      {"label": "Angular cutoff: phase", "value": 0.5229999999999999, "quantity": "maximum tested SA angular phase difference /0.05rad", "source": "README.md, Convergence verdict"},
+      {"label": "CAS10 to CAS11: phase", "value": 2.196198, "quantity": "matched active-space phase difference /0.05rad", "source": "docs/physics/co-electronic-qualification.md, matched active-space comparison"},
+      {"label": "Stretched: fit-width spread", "value": 1.3476229479269297, "quantity": "all-background width span relative to minimum /0.05", "source": "qualification-evidence/stretched-window-controls/manifest.json"},
+      {"label": "Equilibrium: fit-width spread", "value": 2.53, "quantity": "reported native background width variation /0.05", "source": "qualification-evidence/README.md, forty-nine saved-data replays"},
+      {"label": "Compressed: fit-width spread", "value": 6.408521646214001, "quantity": "fine-grid all-background width span relative to median /0.05", "source": "qualification-evidence/compressed-outer-grid/manifest.json"}
+    ],
+    "diagnostic_labels": ["CAS11 2048\nvs dense phase", "Propagation\nphase", "Angular cutoff\nphase", "Active space\nphase", "Stretched\nfit width", "Equilibrium\nfit width", "Compressed\nfit width"],
+    "diagnostic_note": "Reuse: tested numerical controls and declared budgets.\nModel phase and all-background width spreads reject.\nThese sensitivities are not common uncertainty bars.",
+    "neutral_title": "Neutral inputs ready for reuse",
+    "neutral_note": "Reuse: 52 stable points, frozen core and basis-specific zero.\nTested domain: 1.9–2.5 bohr; correlation-model gate open.\nR = 3–4 bohr needs a stable reference before extension.",
+    "memory_title": "2048 roots: the qualified CAS11 choice",
+    "selected_cas11_roots": 2048,
+    "memory_note": "2048 is the smallest count passing tested CAS11 replay gates.\nMax phase error: 5.1 × 10⁻⁶ rad; budget: 0.05 rad.\n*Dense includes setup; CAS12 needs its own spectral check.",
+    "a2_coverage_links": [
+      {"label": "Singlet 5 → 6\nmidpoint → upper quarter", "sector": "singlet.A2", "left": "mid", "right": "quarter_high", "left_root": 5, "right_root": 6, "retained_five_projection_squared": 0.00043158395560817015, "first_six_projection_squared": 0.5507109212212734, "first_twelve_projection_squared": 0.8726599562603955},
+      {"label": "Singlet 6 → 6\nupper quarter → stretched", "sector": "singlet.A2", "left": "quarter_high", "right": "stretched", "left_root": 6, "right_root": 6, "retained_five_projection_squared": 0.0002271505534641241, "first_six_projection_squared": 0.8237093148115247, "first_twelve_projection_squared": 0.871927455899007},
+      {"label": "Triplet 5 → 6\nequilibrium → lower quarter", "sector": "triplet.A2", "left": "eq", "right": "quarter_low", "left_root": 5, "right_root": 6, "retained_five_projection_squared": 0.0003897354818648764, "first_six_projection_squared": 0.7665817437336889, "first_twelve_projection_squared": 0.8733343480106189},
+      {"label": "Triplet 6 → 6\nlower quarter → midpoint", "sector": "triplet.A2", "left": "quarter_low", "right": "mid", "left_root": 6, "right_root": 6, "retained_five_projection_squared": 0.00022140378603332082, "first_six_projection_squared": 0.7128326070728521, "first_twelve_projection_squared": 0.872916175865732}
+    ],
+    "a2_coverage_source": "a2-channel-coverage-audit-20261011.json: physical routes, publicly reconstructed quarter matrices",
+    "a2_singlet_midpoint_omitted_weights": {"7": 0.19392125047627262, "9": 0.12225737630340044},
+    "roadmap_title": "What carries into the sweep?",
+    "roadmap_entries": [
+      {"kind": "reuse", "status": "REUSE", "title": "Frozen core + independently checked target imports", "detail": "Two A1 core orbitals; ten active electrons; own target maps"},
+      {"kind": "reuse", "status": "REUSE", "title": "CAS11 2048 roots + neutral numerical inputs", "detail": "Smallest qualified CAS11 count; 1.9–2.5-bohr neutral data"},
+      {"kind": "active", "status": "ACTIVE", "title": "CAS12 2048-root cost / export pilot", "detail": "8 physical cores / shm8; then separate spectral comparator"},
+      {"kind": "next", "status": "NEXT", "title": "Choose the electronic model and extraction", "detail": "Basis / CAS / ensemble / A2; identity; width; correlation"},
+      {"kind": "gated", "status": "GATED", "title": "Freeze → restartable pilot → sweep → fit", "detail": "Held-out scattering must validate the 2-D potential"}
+    ],
+    "roadmap_note": "Reuse of inputs does not release a production model.\nNeither CAS12 root count nor retained channels are settled.\nNeutral correlation and wider-range treatment remain open.",
+    "source_footer": "EVIDENCE   Three-anchor / sparse / neutral public manifests • Physical A2 audit from public quarter reconstruction • Hash-pinned snapshots retain prior literature comparisons",
+    "key_footer": "KEY   CAS10/11/12: ten active electrons in 10/11/12 orbitals • DZ: double-zeta basis • 40: retained C2v target components • Inner-region roots and target channels are different truncations",
+    "verification_footer": "Public CAS11 / A2 evidence checked; CAS12 owner active at 08:37 UTC.",
+    "live_observation_utc": "2026-10-11T08:37:49.287940+00:00",
+    "interpretation": "This presentation release promotes completed reusable decisions rather than claiming new scientific convergence. CAS11 equilibrium2048 roots pass independent spectral/export/phase/identical-window gates and are the smallest tested qualified count,with7.69GiB/2.45h replay cost; this choice is conditional on the tested model and is not transferable qualification of CAS12 or all sweep geometries. Three CAS11 anchor fit candidates are discrete calibration evidence,not a continuous or qualified pole curve. Neutral QZ/5Z data pass stability,basis-relative and held-point interpolation checks only over1.9–2.5bohr; correlation-model uncertainty and stretched stability remain open. Physical A2 retained-five projections on four route links expose measured omitted-channel weight,including root7/root9 beyond root6; six/twelve-root bars are diagnostic projections,not native scattering channel controls or a global identity gate. Target/import conventions and declared budgets can be reused,while electronic basis,active-space,ensemble,explicit-channel convergence,extraction,continuity,neutral correlation and a frozen restartable production pilot remain unresolved. Both finite services are observed active at08:37:49UTC with a current heartbeat and no recorded owner error; no native exit,completed eigenpairs or affordable/truncation verdict is recorded. Original shared-memory/TZ/QC/package failures and all historical releases remain preserved."
+  }
+}

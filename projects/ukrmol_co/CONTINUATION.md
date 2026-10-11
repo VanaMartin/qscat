@@ -20,6 +20,33 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Reusable decisions / physical A2 coverage overview — 11 October, 08:38 UTC
+
+The [latest six-panel overview](progress-snapshot-20261011T0838.json) now shows
+the three independently checked CAS11 anchor fit candidates, the selected 2048-root
+CAS11 phase/resource control, the neutral 1.9–2.5-bohr numerical domain, and physical
+A2 retained-five/six/twelve projections. It emphasizes reusable target/import
+conventions and remaining scientific gates. These are completed evidence brought
+into the presentation; no new model or production-sweep gate is passed.
+The 08:16 and earlier releases remain linked from the README. The new snapshot
+hash-pins 08:16, and the renderer resolves that immutable delta chain.
+
+The [08:37:49 UTC owner observation](progress-observation-20261011T0838.json)
+records owner 1149978 and observer 1150274 active/running, a current owner heartbeat,
+no recorded error, and an unfinished native step with no exit recorded. Service
+`Result=success` while active is not a completed scientific verdict. Previous
+allocation, input freezes, original SIGBUS evidence, finite bounds and next gates
+remain as declared in the 08:16 handoff/readiness contract. No follow-on job was
+launched for this presentation update.
+
+Verification passes 36 current source hashes, three-anchor value checks, four
+physical A2 link projections and omitted-root weights, CAS11 2048-root phase/
+fixed-window gates, unchanged neutral points/budgets, and exact byte-for-byte
+reproduction of the historical 08:16 PNG/SVG. Current PNG/SVG rendering, overview
+links, lint, format and diff checks pass. Main-index integrity/upstream status is
+complete/current at `97b8b4c7392f822c996af0d4d77f81e100ff1407`; the branch-only
+renderer, snapshots and physical-audit anchors were resolved against current source.
+
 ### Public CAS11/TZ replay passed / A2 retained-channel gap measured / CAS12 shm8 pilot active — 11 October, 08:16 UTC
 
 Public [CAS11 16K / TZ continuation](qualification-evidence/cas11-16k-tz-continuation/README.md)
