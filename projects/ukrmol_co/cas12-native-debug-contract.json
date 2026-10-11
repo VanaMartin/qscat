@@ -1,0 +1,23 @@
+{
+  "status": "separately declared B1-only native failure diagnostic authorized after4096-root SEGV",
+  "scientific_question": "Locate the native B1 SEGV with a bounds-checked source build,flushed class5/6/7 target-pair/rank markers and per-rank first-signal debugger stacks. This is a diagnostic,not a convergence retry or model qualification.",
+  "run": "cas12-eq-B1-roots4096-mpi8-native-debug-20261011",
+  "parent_contract": "sparse-scattering-cas12-4096-comparator-contract.json",
+  "preserved_failure_capture": "progress-failure-20261011T2250.json",
+  "baseline_directory": "prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "failed_B1_directory": "prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+  "parent_runtime_image_id": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "tools_image_pin": "tools-image.json created and frozen before the owner starts; derived only by installing diagnostic build/debugger packages over the parent runtime. Record exact image ID and packages.",
+  "native_sources": {"ukrmol_in_version": "3.3.0", "ukrmol_in_archive_sha256": "1b81e423b7e2a5a530c336cfc7f7ab50d6f2705abf771c71d6119fc065d9cac2", "ukrmol_out_version": "3.3.0.1", "ukrmol_out_archive_sha256": "6fecd651d1b953004926bcd2485d18a1645f2a13fca93e176458b0d48f556a9b", "gbtolib": "Bundled unchanged sources", "fortran_flags": "-fdefault-integer-8 -O1 -g -fbacktrace -fcheck=bounds", "modification": "Only six flushed class5/6/7 begin/end rank/target-pair markers; no algorithm correction or new restart path"},
+  "reuse": "Exact failed B1 scatci.inp,fort.16 integral,fort.24 properties,fort.26 target CI andfort.721 CONGEN bytes; own embedded CAS12 target map,4096roots,crite1e-12,maxiter1000,16GiB memp and native boundary exporter. Skip QC,target import,integrals and CONGEN generation. Rebuild the in-memory Hamiltonian because fort.821 is one704-byte header record,not a saved matrix.",
+  "execution": "One SCATCI invocation only in B1; no B2 or RSOLVE/EIGENP/RESON. If construction completes,the same4096-root SCATCI may continue through its own eigensolve/export; all resulting evidence remains diagnostic and requires later matched-engine qualification.",
+  "resources": {"physical_cpu_group": "4-11", "mpi_ranks": 8, "library_threads_per_rank": 1, "container_memory_gib": 80, "shared_memory_gib": 8, "minimum_available_ram_gib": 96, "minimum_free_disk_gib": 50, "build_cpu_group": "4-7", "build_jobs": 4, "build_memory_gib": 32, "build_timeout_seconds": 7200, "checks_cpu_group": "0-3", "checks_memory_gib": 16, "checks_timeout_seconds": 3600, "native_timeout_seconds": 86400, "whole_native_timeout_seconds": 90000, "owner_timeout_seconds": 108000, "observer_interval_seconds": 3600, "observer_duration_seconds": 108000},
+  "gates_before_native": ["All frozen source/input/evidence hashes verify; baseline independent reader passed and original failures preserved", "Checksum-pinned build,debug-info/source-line sections and installed binary/library hashes recorded", "All twelve original serial/MPI C2v_target_HF engine reference tests pass", "Normal native exit,deliberate SIGSEGV first-fault/source stack and Fortran bounds-error/source-backtrace debugger smokes pass"],
+  "debugger": "One GDB per MPI rank with SYS_PTRACE and unconfined seccomp for this diagnostic container; log each native stdout and backtrace separately. Record inferior exit codes separately from original debugger/MPI exits. Intercepted signals are observed native stop events,not invented native exit codes.",
+  "stopping_rule": "Build/gate/native failure,timeout,STOP or changed frozen inputs terminates and preserves original exits. No automatic repair,limit relaxation,retry,second root count,other anchor or further native job. Engine/debugger gates must pass before the one B1 diagnostic is launched.",
+  "follow_on": "Review exact failing source line,class/target-pair/rank and bounds or signal evidence. Declare any correction or control separately; a changed engine must reproduce the baseline before scientific root-count qualification resumes.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "full_sweep_released": false
+}
