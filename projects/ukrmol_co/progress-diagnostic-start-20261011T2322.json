@@ -1,0 +1,357 @@
+{
+  "observed_utc": "2026-10-11T23:22:43.407811+00:00",
+  "host": "sadaharu",
+  "campaign_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "source_directory": "prepared/cas12-native-debug-source-20261011",
+  "run": "cas12-eq-B1-roots4096-mpi8-native-debug-20261011",
+  "owner": {
+    "supervisor_pid": 1168755,
+    "started_unix": 1791760717.2812493,
+    "steps": [
+      {
+        "label": "diagnostic-build",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-native-debug-20261011-build",
+          "--cpuset-cpus=4-7",
+          "--memory=32g",
+          "--memory-swap=32g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/build:/home/ukrmol/debug-source",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "bash",
+          "/opt/qmodeling/projects/ukrmol_co/build_debug_native.sh"
+        ],
+        "started_unix": 1791760720.4842138,
+        "original_exit": 0,
+        "finished_unix": 1791760750.263588
+      },
+      {
+        "label": "engine-debugger-checks",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-native-debug-20261011-checks",
+          "--cpuset-cpus=0-3",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/build:/home/ukrmol/debug-source",
+          "--cap-add=SYS_PTRACE",
+          "--security-opt=seccomp=unconfined",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.debug_engine_checks",
+          "--build",
+          "/home/ukrmol/debug-source"
+        ],
+        "started_unix": 1791760750.3972576,
+        "original_exit": 0,
+        "finished_unix": 1791760913.5707939
+      },
+      {
+        "label": "native-B1-diagnostic",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-native-debug-20261011",
+          "--cpuset-cpus=4-11",
+          "--memory=80g",
+          "--memory-swap=80g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/build:/home/ukrmol/debug-source",
+          "--cap-add=SYS_PTRACE",
+          "--security-opt=seccomp=unconfined",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.debug_scatci",
+          "--reference",
+          "/work/prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+          "--workdir",
+          "/outputs/cas12-eq-B1-roots4096-mpi8-native-debug-20261011",
+          "--ranks",
+          "8",
+          "--timeout",
+          "86400"
+        ],
+        "started_unix": 1791760920.0681875
+      }
+    ],
+    "scope": "Locate the native B1 SEGV with a bounds-checked source build,flushed class5/6/7 target-pair/rank markers and per-rank first-signal debugger stacks. This is a diagnostic,not a convergence retry or model qualification.",
+    "frozen_file_counts_verified": {
+      "source": 47,
+      "inputs": 119
+    },
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_ram_bytes": 115478310912,
+    "free_disk_bytes": 92938637312,
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "heartbeat_unix": 1791760960.0734868,
+    "diagnostic_build": {
+      "provenance_sha256": "fb8118c7713d3f1429382a7c61d9adecdc55d565ee6a034056983cbfc4cde37c",
+      "installed_files": 242
+    },
+    "checks_sha256": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "frozen_file_counts_reverified_before_native": {
+      "source": 47,
+      "inputs": 119
+    }
+  },
+  "frozen_file_counts_reverified": {
+    "source": 47,
+    "inputs": 119
+  },
+  "diagnostic_build": {
+    "compiler": "GNU Fortran (GCC) 15.2.0",
+    "patch": {
+      "path": "source/mpi-ci-diag/Modules/Hamiltonian/Contracted_Hamiltonian_module.f90",
+      "original_sha256": "5dc113786e7a1e3cebe2dd6cf0cb453aa6f56fd83287b0f78b43b6df1186be34",
+      "instrumented_sha256": "1db7f6ff9af302a051e92fc63c87ee45e395d0f8ed8559f656a022cf4050ff05",
+      "scope": "Six flushed class5/6/7 pair/rank markers; no algorithm changes"
+    },
+    "cmake_cache_sha256": "bb36b2e79998a04a0f73d9f53276a6d5d4fdad4cbb9b34c926b24844bb144dbc",
+    "debug_info_and_line_sections_present": true,
+    "numerical_library_sha256": {
+      "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+      "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+      "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+      "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+    }
+  },
+  "engine_checks": {
+    "upstream_original_exit": 0,
+    "normal": {
+      "rank": 0,
+      "inferior_exit_code": 0,
+      "observed_stop_signal": null,
+      "debugger_original_exit": 0,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/normal/smoke"
+      ]
+    },
+    "signal": {
+      "rank": 0,
+      "inferior_exit_code": null,
+      "observed_stop_signal": "SIGSEGV",
+      "observed_signal_number": 11,
+      "debugger_failure_status": 139,
+      "scope": "Intercepted native signal; debugger status is not a native exit code",
+      "debugger_original_exit": 139,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/signal/smoke"
+      ]
+    },
+    "bounds": {
+      "rank": 0,
+      "inferior_exit_code": 2,
+      "observed_stop_signal": null,
+      "debugger_original_exit": 2,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/bounds/smoke"
+      ]
+    },
+    "all_checks_passed": true
+  },
+  "observer": {
+    "supervisor_pid": 1169951,
+    "started_unix": 1791760725.4338021,
+    "captures": [
+      "20261011T231845.json"
+    ],
+    "scope": "Observe only; no follow-on calculations",
+    "heartbeat_unix": 1791760727.9572918
+  },
+  "previous_comparator_observer": {
+    "supervisor_pid": 1163637,
+    "started_unix": 1791749506.5647237,
+    "captures": [
+      "20261011T201146.json",
+      "20261011T211149.json",
+      "20261011T221151.json",
+      "20261011T231154.json"
+    ],
+    "scope": "Observe only; no follow-on calculations",
+    "heartbeat_unix": 1791760315.6516774,
+    "finish_reason": "Finite owner ended",
+    "original_exit": 0,
+    "finished_unix": 1791760315.65178
+  },
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "full_sweep_released": false,
+  "owner_service": {
+    "MainPID": "1168755",
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "observer_service": {
+    "MainPID": "1169951",
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ActiveState": "active",
+    "SubState": "running"
+  },
+  "preserved_failed_service": {
+    "MainPID": "0",
+    "Result": "exit-code",
+    "ExecMainStatus": "1",
+    "ActiveState": "failed",
+    "SubState": "failed"
+  },
+  "docker_stats": "cas12-eq-B1-roots4096-mpi8-native-debug-20261011 CPU=801.00% MEM=11.33GiB / 80GiB\ncomfyui CPU=0.05% MEM=10.09GiB / 123.5GiB\n",
+  "docker_ps": "cas12-eq-B1-roots4096-mpi8-native-debug-20261011 Up 45 seconds\ncomfyui Up 3 weeks\n",
+  "container": {
+    "id": "3d20f39e7911fa4320619449805982647d09a1f5fa46971e21bf428d72ef066e",
+    "pid": 1172725,
+    "started_at": "2026-10-11T23:22:00.294254929Z",
+    "image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpus": "4-11",
+    "memory_bytes": 85899345920,
+    "shm_bytes": 8589934592
+  },
+  "native_input_sha256": {
+    "fort.16": "8085b06f43396452f69cb2b77c189fad5778dce54c5a515ab4360f6702b435c9",
+    "fort.24": "5342cf45ff44ea8e174734e49eae6fdca8ca8d02cc02a2f2c3aff3c8505f4196",
+    "fort.26": "8ffef737862c9c82ac42dd78c9a0ca5e93ba7a2c72a8ef56ed234a88138874f4",
+    "fort.721": "a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+    "scatci.inp": "2d661509fea640d08faa0c6f4540c08fe7e26ec4202239e28946633692dfbf53"
+  },
+  "native_rank_logs": {
+    "rank-0.gdb.log": "SFORMATION VECTOR   4 FROM SET  1 STATE  4\n\n TRANSFORMATION VECTOR   5 FROM SET  1 STATE  5\n\n TRANSFORMATION VECTOR   6 FROM SET  2 STATE  1\n SET   2    CO CI calculation - triplet A1                                                                                          \n          NOCSF=70674    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.6038653119     -112.5671549739     -112.3814113227     -112.1844335882     -112.1698109507\n\n TRANSFORMATION VECTOR   7 FROM SET  2 STATE  2\n\n TRANSFORMATION VECTOR   8 FROM SET  2 STATE  3\n\n TRANSFORMATION VECTOR   9 FROM SET  2 STATE  4\n\n TRANSFORMATION VECTOR  10 FROM SET  2 STATE  5\n\n TRANSFORMATION VECTOR  11 FROM SET  3 STATE  1\n SET   3    CO CI calculation - singlet B1                                                                                          \n          NOCSF=42396    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5904951744     -112.3976435538     -112.2810184040     -112.2647262787     -112.2483718933\n\n TRANSFORMATION VECTOR  12 FROM SET  3 STATE  2\n\n TRANSFORMATION VECTOR  13 FROM SET  3 STATE  3\n\n TRANSFORMATION VECTOR  14 FROM SET  3 STATE  4\n\n TRANSFORMATION VECTOR  15 FROM SET  3 STATE  5\n\n TRANSFORMATION VECTOR  16 FROM SET  4 STATE  1\n SET   4    CO CI calculation - triplet B1                                                                                          \n          NOCSF=70860    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.6927204338     -112.4537537733     -112.3687722070     -112.3028288479     -112.2789377225\n\n TRANSFORMATION VECTOR  17 FROM SET  4 STATE  2\n\n TRANSFORMATION VECTOR  18 FROM SET  4 STATE  3\n\n TRANSFORMATION VECTOR  19 FROM SET  4 STATE  4\n\n TRANSFORMATION VECTOR  20 FROM SET  4 STATE  5\n\n TRANSFORMATION VECTOR  21 FROM SET  5 STATE  1\n",
+    "rank-1.gdb.log": "[Thread debugging using libthread_db enabled]\nUsing host libthread_db library \"/lib/x86_64-linux-gnu/libthread_db.so.1\".\n[New Thread 0x7fffea3ff640 (LWP 317)]\n",
+    "rank-2.gdb.log": "[Thread debugging using libthread_db enabled]\nUsing host libthread_db library \"/lib/x86_64-linux-gnu/libthread_db.so.1\".\n[New Thread 0x7fffea3ff640 (LWP 318)]\n",
+    "rank-3.gdb.log": "[Thread debugging using libthread_db enabled]\nUsing host libthread_db library \"/lib/x86_64-linux-gnu/libthread_db.so.1\".\n[New Thread 0x7fffea3ff640 (LWP 316)]\n",
+    "rank-4.gdb.log": "[Thread debugging using libthread_db enabled]\nUsing host libthread_db library \"/lib/x86_64-linux-gnu/libthread_db.so.1\".\n[New Thread 0x7fffea3ff640 (LWP 322)]\n",
+    "rank-5.gdb.log": "[Thread debugging using libthread_db enabled]\nUsing host libthread_db library \"/lib/x86_64-linux-gnu/libthread_db.so.1\".\n[New Thread 0x7fffea3ff640 (LWP 319)]\n",
+    "rank-6.gdb.log": "[Thread debugging using libthread_db enabled]\nUsing host libthread_db library \"/lib/x86_64-linux-gnu/libthread_db.so.1\".\n[New Thread 0x7fffea3ff640 (LWP 321)]\n",
+    "rank-7.gdb.log": "[Thread debugging using libthread_db enabled]\nUsing host libthread_db library \"/lib/x86_64-linux-gnu/libthread_db.so.1\".\n[New Thread 0x7fffea3ff640 (LWP 320)]\n"
+  },
+  "B1_scatci_tail": "",
+  "fort_files": {
+    "fort.16": 14911628,
+    "fort.26": 25373184,
+    "fort.821": 712,
+    "fort.24": 32902,
+    "fort.721": 2673484024
+  },
+  "remote_sha256": {
+    "prepared/cas12-native-debug-source-20261011/contract.json": "bd03a35bcad7be68ea2a6148929965d7c662031361e9fca4f07ebd00919dda2a",
+    "prepared/cas12-native-debug-source-20261011/tools-image.json": "effc3af0dd93fadc73bf7884f1e573441dfd317ed8e4a9b1d5ba257763bc67ed",
+    "prepared/cas12-native-debug-source-20261011/frozen-inputs.json": "c2759b57b713092f74effbd26e63c80e1407ebd163aebb533db5fb6c05379b72",
+    "prepared/cas12-native-debug-source-20261011/source-provenance.json": "c12f232a28756e15668d6c76ddca206cc9a1a394d1eae9b1cb9507e587f8aa07",
+    "prepared/cas12-native-debug-source-20261011/diagnostic-build.launch.log": "7d0dc2f2c77303964d017fb9d32685b34cd62fb9947547ca0e4e358b51ba783c",
+    "prepared/cas12-native-debug-source-20261011/engine-debugger-checks.launch.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/cas12-native-debug-source-20261011/build/build-provenance.json": "fb8118c7713d3f1429382a7c61d9adecdc55d565ee6a034056983cbfc4cde37c",
+    "prepared/cas12-native-debug-source-20261011/build/patch.json": "e40e3e83f7d84b0f0542c1eddc6bda470271b9df59b3c2ac33df3feb400d802d",
+    "prepared/cas12-native-debug-source-20261011/build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "prepared/cas12-native-debug-source-20261011/build/upstream-tests.log": "03c67282b8a49f94a07a0f4889888e2b72754e760148d53775e06eab5fb36fda",
+    "prepared/cas12-native-debug-source-20261011/build/build/source/mpi-ci-diag/CMakeFiles/mpi-scatci.dir/flags.make": "8fa51ac386c12338074665a3626e66b8e4424ce3779d6930054aab6d92ae1418",
+    "prepared/cas12-native-debug-source-20261011/build/debugger-smoke/normal/rank-0.json": "c9385573fd34c3f9ed00de8ee693a6288757d6aad1b6c25e5a8badadb9c4a4c0",
+    "prepared/cas12-native-debug-source-20261011/build/debugger-smoke/normal/rank-0.gdb.log": "28c64703aa8d95e4413af8ad799ae20ae74c78fce44ba8d9320e042fc9129237",
+    "prepared/cas12-native-debug-source-20261011/build/debugger-smoke/signal/rank-0.json": "5fd5b9ed2d364643429afc799b5c244a07697b28e09f6338d0508850a56cb3f7",
+    "prepared/cas12-native-debug-source-20261011/build/debugger-smoke/signal/rank-0.gdb.log": "1bb4665e047e0ce4170ab72405a49f22adce0da90d56cd83ddffbbc6559c5d6c",
+    "prepared/cas12-native-debug-source-20261011/build/debugger-smoke/bounds/rank-0.json": "7a90c88de52f4656d2b6aae299d31a2b998838729a047bf74a81b95c21107f49",
+    "prepared/cas12-native-debug-source-20261011/build/debugger-smoke/bounds/rank-0.gdb.log": "059e3ad16b57352fcb588829117ff3f3082a151bd46bc8a8cd1ddfb2ef9e6e61",
+    "prepared/cas12-sparse-4096-comparator-observer-20261011/execution.json": "8821178f1e176298f551b29531b9a0b3e6c962085bfcc25da6b3d6ff801e9cde",
+    "prepared/cas12-sparse-4096-comparator-observer-20261011/20261011T231154.json": "82442e25fb7e337d679c80141a12fc034bc872d15edf344ef8a73dc981523625"
+  },
+  "immutable_remote_capture": "prepared/cas12-native-debug-source-20261011/diagnostic-start-20261011T232243.json",
+  "immutable_remote_capture_sha256": "ed9acaba22f477015fca301fbfd74ef99e44aec427d66b46a33d496fac1e4118"
+}

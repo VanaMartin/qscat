@@ -20,6 +20,79 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CAS12 saved-input B1 native diagnostic active — 11 October, 23:22 UTC
+
+**Owner1168755 is active on Sadaharu**, service
+`co-cas12-native-debug-20261011.service`, started **23:18:37 UTC**. The build
+and all **12 serial/MPI C2v target-HF reference checks** pass with exits0.
+Debugger smokes prove normal inferior exit0, first-SIGSEGV/source-stack capture
+(debugger139, observed signal11, no invented inferior exit) and Fortran bounds
+failure/source backtrace (inferior/debugger2). All gates pass before native B1
+SCATCI starts at **23:22:00 UTC**. At the **23:22:43 UTC** cutoff, all eight
+per-rank GDB logs show native execution; Docker samples **801% CPU /11.33GiB
+current memory**. Ongoing samples are not final diagnostic cost.
+
+The [separate contract](cas12-native-debug-contract.json) authorizes one B1
+diagnostic. The [triage/implementation note](NATIVE_FAILURE_DIAGNOSTIC.md)
+records the original post-Class4/pre-Class567 failure interval and lack of a
+Hamiltonian checkpoint: successful/failed B1 `fort.821` are identical712-byte
+header-only files. Exact failed `scatci.inp`, `fort.16`, `fort.24`, `fort.26`
+and `fort.721` bytes are copied and verified. Target/import, integral and CONGEN
+generation are reused; native matrix construction begins afresh.
+
+Frozen source is
+`/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-native-debug-source-20261011/`.
+The diagnostic implementation is pinned to **`2f379ba`**; native dependency
+bytes remain at **`b64faca76fb351d2edd17f7a9c4b5463c1154def`**, and inherited
+owner/observer helpers at **`3f0fb9864a4560799b1249225622074165617e23`**.
+Tools image **`sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6`**
+derives from the original selected-root runtime; retained UKRmol source archives
+and numerical libraries are unchanged. Diagnostic flags are
+`-fdefault-integer-8 -O1 -g -fbacktrace -fcheck=bounds`, with SLEPc enabled.
+Six flushed Class5/6/7 entry/exit markers contain rank/target-pair/state counts;
+removing them restores the original source bytes exactly. Installed diagnostic
+binary/library mounts are read-only in the native container.
+
+All **47 source /119 input-evidence hashes** and **242 installed diagnostic
+artifacts** verify before native launch. Launch RAM/disk are **107.55/86.55GiB**,
+above96/50-GiB gates. Native resources remain **eight physical cores4–11**,
+**80-GiB memory**, **8-GiB shared backing**, **16-GiB `memp`**, one library thread
+per rank; CPUs0–3 remain reserved for small work. Native/container/owner limits
+are **24/25/30hours**. `STOP` in the source directory terminates the active step.
+Failures preserve original exits and schedule no repair or follow-on model.
+
+Hourly observer **1169951**, service
+`co-cas12-native-debug-observer-20261011.service`, records progress under
+`prepared/cas12-native-debug-observer-20261011/` and ends on owner completion
+or its30-hour bound. Previous comparator observer **1163637** finishes normally
+at **23:11:55 UTC** after four captures, including `20261011T231154.json`.
+The original failed comparator service and completed2048-root pilot remain intact.
+
+**Next:** inspect first-fault/bounds/source-line/class/pair/rank evidence or
+diagnostic completion before separately declaring a correction or matched-engine
+2048-root control. The one B1 job can continue through its own4096-root eigensolve
+if construction succeeds, but does not run B2 or outer stages. It is diagnostic
+evidence, not a resumed scientific comparator. Root-pair and omitted-spectrum
+verdicts remain unset; all model/channel/identity/extraction/neutral and frozen
+restartable-production-pilot gates remain open.
+
+The [23:22 overview](progress-snapshot-20261011T2322.json),
+[launch capture](progress-diagnostic-start-20261011T2322.json) and
+[readiness update](SWEEP_READINESS_20261011T2322.md) pin the contract, build,
+engine/debugger gates and19immutable remote records plus the immutable live
+observation. Prior numerical values and the22:50historical PNG/SVG remain unchanged.
+Focused sparse/fit regressions pass **31 tests**. Main-index provenance remains
+complete/current at `97b8b4c7392f822c996af0d4d77f81e100ff1407`; diagnostic
+helpers, contracts and overview evidence are branch-only additions resolved locally.
+Verification passes **60 local source hashes**, **20 immutable remote records**
+(19evidence records plus the frozen live capture), **47/119 source/input hashes**
+and **242 installed artifacts**. All prior plotted numerical groups remain
+identical; the22:50 PNG/SVG reproduce byte-for-byte. Current rendering, visual
+inspection, SVG/text, local links, lint/format and diff checks pass.
+A final **23:26:11 UTC** check finds no owner error or native signal/bounds error;
+all eight `mpi-scatci` inferiors and eight GDB processes are active at **799.48%
+CPU /11.33GiB current memory**. Review fault evidence at the next observation.
+
 ### CAS12 4096-root native B1 failure preserved — 11 October, 22:50 UTC
 
 **Owner 1163485 stops at 22:48:11 UTC with controller/container exits 1.** Native
