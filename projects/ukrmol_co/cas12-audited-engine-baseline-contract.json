@@ -1,0 +1,75 @@
+{
+  "status": "separately declared matched2048-root control on the completed address-audited engine",
+  "scientific_question": "Does the exact completed O1 address-audited UKRmol build reproduce the preserved successful CAS12 2048-root two-sector exports, residuals, interfaces, phases and fixed-window fits when run through the scientific driver? This tests engine/build reproduction, not the cause of earlier crashes or omitted-spectrum convergence.",
+  "run": "cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+  "source_directory": "prepared/cas12-audited-engine-baseline-source-20261012",
+  "baseline_directory": "prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "engine_source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "engine_evidence_sha256": {
+    "execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "numerical_library_sha256": {
+    "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+    "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+    "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+    "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+  },
+  "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "telemetry_directory": "diagnostics/sparse-scattering-telemetry-v6-20261007",
+  "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+  "native_preflight": "diagnostics/cas12-scattering-dimension-preflight-nbmx/co-eq-ccdz-sa12-slepc-target",
+  "outer_deck_reference": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs",
+  "baseline_roots": 2048,
+  "candidate_roots": 2048,
+  "dimension": 86352,
+  "continuum_coefficients": 1410,
+  "boundary_channels": 250,
+  "sectors": ["B1", "B2"],
+  "changes": "Use the exact242installed artifacts of the completed address audit, mounted read-only in the pinned tools image. Retain all audit assertions/logging and O1/g/backtrace/bounds flags, numerical libraries and original computational statements. Invoke the existing direct-MPI scientific sparse_pilot driver with the retained read-only residual telemetry, instead of per-rank GDB. This explicitly qualifies that runtime before any resumed4096scientific job; no engine algorithm or TARGET-attribute correction is introduced.",
+  "unchanged": "2048roots on both sides; equilibrium2.1323bohr/cc-pVDZ/CAS12[6,3,3,0]/two frozen A1 core orbitals/ten active electrons/40-component averaging and target channels; own DENPROP map; exact native decks, target/integral/CONGEN input hashes and outer inputs; radius18/maxl4/deletion1e-6/propagation100; crite1e-12/maxiter1000/igh-1/native selection1; uncorrected pole sum;99energies0.1-5.0requested-eV by0.05; eight MPI ranks, one library thread per rank.",
+  "review": "The instrumented4096B1 run completes at15:04:29UTC with all8native/debugger/MPI/container/owner exits0,7.359945h/20.523655GiB and independently read4096CI/boundary poles. It does not reproduce either prior failure or provide residual telemetry,B2,Pi or outer phases. Assertions/compiler/runtime instrumentation can alter memory layout or timing, so success is not an engine correction or fault-cause diagnosis. Baseline reproduction is required before selecting this exact build/runtime for scientific comparisons.",
+  "gates": [
+    "Reverify completed engine owner, all12engine/3debugger checks,55source/192input evidence hashes and242installed artifacts; successful scientific baseline owner/raw-reader and frozen baseline inputs",
+    "Pinned runtime numerical-library hashes and retained telemetry symbol-load gate before native execution",
+    "Independent baseline-to-itself raw reading passes the new reproduction tolerances before native execution",
+    "Exactly one two-sector2048root replay; original exits, native error/STOP markers, residual/export/grid/Pi checks preserved",
+    "Independent comparison requires byte-identical five native inputs per sector, unchanged outer decks and interface digests, shared energies and all fixed-window fit orders; false or unset reproduction verdict ends the owner"
+  ],
+  "resources": {
+    "physical_cpu_group": "4-11", "mpi_ranks": 8, "library_threads_per_rank": 1,
+    "container_memory_gib": 80, "shared_memory_gib": 8, "scatci_memory_input_gib": 16,
+    "minimum_available_ram_gib": 96, "minimum_free_disk_gib": 50,
+    "native_stage_timeout_seconds": 86400, "whole_native_timeout_seconds": 180000,
+    "independent_reader_memory_gib": 4, "independent_reader_cpu_group": "0-3",
+    "independent_reader_timeout_seconds": 3600, "whole_owner_timeout_seconds": 259200,
+    "observer_interval_seconds": 3600, "observer_timeout_seconds": 259200
+  },
+  "raw_checks": {
+    "absolute_residual_hartree": 1e-7, "boundary_to_ci_atol_hartree": 1e-10,
+    "shared_prefix_energy_atol_hartree": 1e-7, "pi_phase_rad_mod_pi": 0.002,
+    "phase_grid_atol_requested_ev": 5e-5, "native_selection_which": 1,
+    "unchanged_channel_threshold_multipole_digest": true
+  },
+  "observable_budgets": {
+    "position_ev": 0.0001, "full_width_relative": 0,
+    "full_width_floor_ev": 0.0001, "phase_rad_mod_pi": 0.000001,
+    "fit_background_orders": [1,2,3,4], "fixed_requested_energy_window_ev": [1.8,3.3]
+  },
+  "budget_rationale": "Same model/root count must reproduce more tightly than the scientific0.05eV/5%/0.05rad budgets. Require0.1meV position and full-width agreement for all same-window background orders and1e-6rad full-grid phase agreement; these exceed printed-phase rounding1e-9rad while remaining far below the scientific budgets. Shared native energies retain1e-7Hartree; raw residuals retain1e-7Hartree. Failed, empty, MAXFIT or bound fits leave the reproduction verdict unset rather than pass.",
+  "fit_initial_position_hartree": 0.090300065,
+  "fit_initial_full_width_hartree": 0.04168035,
+  "hartree_to_ev": 27.211386245988,
+  "native_rydberg_per_requested_ev": 0.0735,
+  "units": "Physical fit Hartree=requested_eV*0.0735/2; positions/full widths converted with27.211386245988eV/Hartree; phases radians modulo pi; native energy/residuals Hartree. Requested and physical eV remain distinct.",
+  "stopping_rule": "Any frozen/build/runtime/raw/native/residual/Pi/input violation,timeout,STOP or false/unset reproduction verdict ends and preserves original statuses. No repair,retry,limit/tolerance change or automatic4096job. Successful native completion triggers only the separately declared independent same-root reader. Observer is observation-only and waits for a readable live owner file before launch.",
+  "matched_engine_baseline_verdict": null,
+  "engine_correction_verdict": null,
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "full_sweep_released": false
+}
