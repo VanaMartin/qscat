@@ -20,6 +20,52 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Address audit completes native B1 and independent export reading — 12 October, 18:03 UTC
+
+**Owner1187176 completed at15:04:29UTC, with controller/container/MPI exits0.**
+All eight debugger/native-inferior exits are0 with no intercepted signal.
+All ranks pass graph/context/address checks and complete matrix classes,L2
+update,diagonalization and native export. No pointer-failure or bounds-error
+marker appears. The measured B1 diagnostic costs **7.359945h /20.523655GiB
+kernel peak** on eight physical cores4–11; timers report17229.2s Hamiltonian
+build and9259.8s diagonalization. SLEPc prints stopping iteration159 under
+the retained1e-12/1000controls.
+
+Independent local binary reading verifies **4096finite, ordered poles**,
+**4096×1410continuum coefficients** and **4096×250boundary amplitudes**.
+CI/boundary energies match exactly; export hashes match Sadaharu. `fort.821`
+remains712bytes/header-only. No per-root residual telemetry, full-vector action
+residual,B2,Pi or outer phase/fit comparison is available in this one-B1 run.
+Successful instrumentation does not establish either earlier crash cause,
+an engine fix or scientific root-count convergence.
+
+All **55source/192input hashes**, **242installed artifacts** and five saved
+native inputs reverify; numerical-library hashes match the prior debug build.
+The [18:03 completion capture](progress-pointer-audit-20261012T1803.json)
+pins60immutable remote records plus its observation, including final debugger
+exits, exports, resources and independent binary reading. The
+[readiness note](SWEEP_READINESS_20261012T1803.md) and
+[overview snapshot](progress-snapshot-20261012T1803.json) distinguish this B1
+diagnostic cost/export milestone from the failed scientific comparator.
+
+Observer1191504 completed normally after nine captures07:44–15:44UTC.
+Both services are inactive; the diagnostic container has exited.
+**Next:** review successful instrumentation alongside the preserved failures;
+separately declare a matched2048-root engine/build control, reproduce the
+qualified baseline, then resume a two-sector4096-root scientific comparison.
+Engine-correction/pair-stability/omitted-spectrum verdicts remain unset.
+Model/channel/identity/extraction/neutral and restartable-production-pilot
+gates still govern the sweep and held-out potential fit.
+
+Verification passes **90local hashes**, **61immutable remote records**,
+**55/192frozen hashes** and **242installed artifacts**. Previous scientific
+numerical groups remain identical; only the scoped B1 diagnostic cost is added.
+The13:38historical PNG/SVG reproduce byte-for-byte. Current rendering/visual
+inspection, searchable SVG, links, lint/format and diff checks pass. Main-index
+integrity/upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; branch-only completion evidence,
+binary-reader provenance and renderer changes resolve against current source.
+
 ### Address audit completes all classes and L2 update — 12 October, 13:38 UTC
 
 **Owner1187176 remains active on Sadaharu.** All eight ranks record

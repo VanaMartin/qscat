@@ -1,0 +1,496 @@
+{
+  "base_snapshot": "progress-snapshot-20261012T1338.json",
+  "base_snapshot_sha256": "0e77266bf7d24186becb10ade1e3751349bb364ed4ce22fc68079ac0ead46d22",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/SWEEP_READINESS_20261012T1803.md": "722610ac33f162646d3035d37c4103a1c2b4012b79efe7fee3a4d3541b1471f6",
+    "projects/ukrmol_co/progress-pointer-audit-20261012T1803.json": "c0b97c989aa40f5e47dd8483f93f381ed94863db7c680d18ba3265a034c34634",
+    "projects/ukrmol_co/sparse_scattering.py": "7f634f9d203fb5e8e000bd8d3d77d1c33152fa2470a9a9342bfa9c93638d8aa1"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-12T18:03:56.972260+00:00",
+    "changes": [
+      "Declared one-B1 address audit completes2026-10-12T15:04:29UTC with all8native inferiors/debuggers and MPI/container/owner exits0;no pointer-failure,signal or bounds-error marker.",
+      "Independent local binary reading verifies4096finite ordered CI/boundary poles,4096x1410continuum coefficients and4096x250boundary amplitudes. CI/boundary energies match exactly;native export hashes reverify remotely.",
+      "Measured B1 diagnostic cost7.359945h/20.523655GiB kernel peak is added with its limited scope;previous scientific numerical values and verdicts remain unchanged. Per-root residual telemetry,B2,Pi and outer phases remain absent.",
+      "All55source/192input hashes,242installed artifacts and5native inputs reverify;numerical libraries match the prior debug build. The capture pins60immutable remote records plus its observation. Observer completed normally with9captures;both services inactive.",
+      "Successful instrumentation does not establish either earlier failure cause,an engine fix or scientific convergence. Next separately declare and reproduce a matched2048baseline before scientific4096comparison. Omitted-spectrum qualification remains separate."
+    ],
+    "live_status": {
+      "cas12_sparse_pilot_finished": true,
+      "cas12_sparse_pilot_cost_export_passed": true,
+      "cas12_4096_comparator_finished": true,
+      "cas12_4096_comparator_native_stage_exit": 59,
+      "cas12_4096_comparator_controller_exit": 1,
+      "cas12_4096_pair_stability_verdict": null,
+      "cas12_sparse_truncation_verdict": null,
+      "cas12_native_debug_owner": 1168755,
+      "cas12_native_debug_launched": true,
+      "cas12_native_debug_finished": true,
+      "cas12_native_debug_controller_exit": 1,
+      "cas12_native_debug_container_exit": 1,
+      "cas12_native_debug_gdb_mpi_exit": 139,
+      "cas12_native_debug_inferior_exit": null,
+      "cas12_native_debug_observed_signal": 11,
+      "cas12_native_debug_observed_rank": 0,
+      "cas12_native_debug_observed_class": 1,
+      "cas12_native_debug_engine_checks_passed": true,
+      "cas12_native_debug_root_cause": null,
+      "cas12_native_debug_same_cause_as_release_failure": null,
+      "cas12_native_debug_source_hashes_verified": 47,
+      "cas12_native_debug_input_hashes_verified": 119,
+      "cas12_native_debug_installed_artifacts_verified": 242,
+      "observer_owner": 1191504,
+      "observer_finished": true,
+      "observer_exit": 0,
+      "observer_captures": 9,
+      "scientific_containers_running": 0,
+      "full_sweep_released": false,
+      "cas12_pointer_audit_owner": 1187176,
+      "cas12_pointer_audit_launched": true,
+      "cas12_pointer_audit_finished": true,
+      "cas12_pointer_audit_engine_checks_passed": true,
+      "cas12_pointer_audit_initial_graph_passed_ranks": 8,
+      "cas12_pointer_audit_initial_csfs": 990990,
+      "cas12_pointer_audit_initial_determinants": 22475718,
+      "cas12_pointer_audit_class1_last_completed_target": 8,
+      "cas12_pointer_audit_class1_active_target": null,
+      "cas12_pointer_audit_source_hashes_verified": 55,
+      "cas12_pointer_audit_input_hashes_verified": 192,
+      "cas12_pointer_audit_installed_artifacts_verified": 242,
+      "cas12_pointer_audit_engine_correction_verdict": null,
+      "cas12_pointer_audit_class1_completed_ranks": 8,
+      "cas12_pointer_audit_last_confirmed_completed_class": 8,
+      "cas12_pointer_audit_CI_export_present": true,
+      "cas12_pointer_audit_boundary_export_present": true,
+      "cas12_pointer_audit_latest_marked_class": 6,
+      "cas12_pointer_audit_latest_marked_target_pair": [
+        7,
+        8
+      ],
+      "cas12_pointer_audit_class567_markers_present": true,
+      "cas12_pointer_audit_latest_marker_status": "END",
+      "cas12_pointer_audit_L2_update_completed_ranks": 8,
+      "cas12_pointer_audit_subsequent_live_stage": null,
+      "cas12_pointer_audit_controller_exit": 0,
+      "cas12_pointer_audit_container_exit": 0,
+      "cas12_pointer_audit_mpi_debugger_exit": 0,
+      "cas12_pointer_audit_inferior_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "cas12_pointer_audit_raw_export_checks_passed": true,
+      "cas12_pointer_audit_native_residual_verdict": null,
+      "cas12_pointer_audit_finished_utc": "2026-10-12T15:04:29.726984+00:00",
+      "cas12_pointer_audit_last_confirmed_stage": "native export and normal finalization"
+    },
+    "pointer_audit_native_completion": {
+      "diagnostic": {
+        "command": [
+          "mpiexec",
+          "-n",
+          "8",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.rank_debugger",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ],
+        "mpi_debugger_original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 26493.985734501854,
+        "input_sha256": {
+          "fort.16": "8085b06f43396452f69cb2b77c189fad5778dce54c5a515ab4360f6702b435c9",
+          "fort.24": "5342cf45ff44ea8e174734e49eae6fdca8ca8d02cc02a2f2c3aff3c8505f4196",
+          "fort.26": "8ffef737862c9c82ac42dd78c9a0ca5e93ba7a2c72a8ef56ed234a88138874f4",
+          "fort.721": "a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+          "scatci.inp": "2d661509fea640d08faa0c6f4540c08fe7e26ec4202239e28946633692dfbf53"
+        },
+        "ranks": [
+          {
+            "rank": 0,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          },
+          {
+            "rank": 1,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          },
+          {
+            "rank": 2,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          },
+          {
+            "rank": 3,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          },
+          {
+            "rank": 4,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          },
+          {
+            "rank": 5,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          },
+          {
+            "rank": 6,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          },
+          {
+            "rank": 7,
+            "inferior_exit_code": 0,
+            "observed_stop_signal": null,
+            "debugger_original_exit": 0,
+            "command": [
+              "gdb",
+              "--batch",
+              "--return-child-result",
+              "--quiet",
+              "-x",
+              "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+              "--args",
+              "/opt/ukrmolp/bin.double/mpi-scatci",
+              "scatci.inp"
+            ]
+          }
+        ],
+        "native_export_files_present": true,
+        "diagnostic_native_completion": true,
+        "root_pair_stability_verdict": null,
+        "spectral_truncation_verdict": null,
+        "scope": "One instrumented B1 SCATCI; no B2,outer stages or convergence qualification"
+      },
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 26495.80127135408,
+        "sampled_peak_container_memory_bytes": 21911101440,
+        "baseline_container_memory_bytes": 11964416,
+        "sampled_peak_container_anon_bytes": 18819276800,
+        "kernel_peak_container_memory_bytes": 22037106688,
+        "container_cpu_seconds": 211937.836012,
+        "sampled_peak_run_allocated_bytes": 2778030080,
+        "sampled_peak_scratch_allocated_bytes": 212992,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "independent_export_reading": {
+        "observed_utc": "2026-10-12T18:03:05.491795+00:00",
+        "reader_source": "projects/ukrmol_co/sparse_scattering.py",
+        "reader_source_sha256": "7f634f9d203fb5e8e000bd8d3d77d1c33152fa2470a9a9342bfa9c93638d8aa1",
+        "reader_functions": [
+          "ci_spectrum",
+          "boundary_spectrum",
+          "interface_digest"
+        ],
+        "source_commit": "abdb8ad",
+        "run": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+        "sector": "B1",
+        "roots": 4096,
+        "continuum_vectors_shape": [
+          4096,
+          1410
+        ],
+        "boundary_amplitudes_shape": [
+          4096,
+          250
+        ],
+        "energy_range_hartree": [
+          -112.91596570082095,
+          -108.96270140373412
+        ],
+        "energy_order_strict": true,
+        "all_exported_values_finite": true,
+        "boundary_energy_error_hartree": 0.0,
+        "native_boundary_interface_sha256": "4b2ca0667e8aeb850e3eeba3e513cb5d04fdf821befed32d055cdd389001048c",
+        "export_sha256": {
+          "fort.21": "8c56a75b8a6680b5c9364be0232ad8aa4d60ebd6bf4d7250c31a17cb4327e9c5",
+          "fort.25": "f5e2f421ee6eb037916f38e12107e00848632f190f220082626146338633d621"
+        },
+        "export_bytes": {
+          "fort.21": 8727072,
+          "fort.25": 47683352
+        },
+        "raw_export_checks_passed": true,
+        "native_residual_verdict": null,
+        "root_pair_stability_verdict": null,
+        "spectral_truncation_verdict": null,
+        "scope": "Independent local binary reading of diagnostic B1 exports only. No solver residual telemetry,full eigenvector residual action,B2,Pi comparison,outer phases or scientific root-count convergence."
+      },
+      "scope": "Declared single-B1 address audit completed2026-10-12T15:04:29UTC with native inferiors,debuggers,MPI,container and owner exits0. All8ranks pass graph/context/address checks and complete matrix classes,L2 update,diagonalization and native export without a pointer-failure,signal or bounds-error marker. Independent local binary reading verifies4096energy-ordered finite CI/boundary poles,4096x1410continuum coefficients and4096x250boundary amplitudes;boundary energies match exactly. Measured7.360h/20.523GiB kernel peak. Observer completed normally after9captures. No per-root residual telemetry,B2,outer phases or root-count comparison in this diagnostic. Instrumentation success does not establish either earlier crash cause,an engine fix or convergence;all scientific and engine-correction verdicts remain unset."
+    },
+    "pointer_audit_pair_block_progress": {
+      "per_rank": {
+        "0": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=0 pair=7,8 targets=5,5"
+        },
+        "1": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=1 pair=7,8 targets=5,5"
+        },
+        "2": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=2 pair=7,8 targets=5,5"
+        },
+        "3": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=3 pair=7,8 targets=5,5"
+        },
+        "4": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=4 pair=7,8 targets=5,5"
+        },
+        "5": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=5 pair=7,8 targets=5,5"
+        },
+        "6": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=6 pair=7,8 targets=5,5"
+        },
+        "7": {
+          "completed_class_messages": [
+            1,
+            3,
+            4
+          ],
+          "completed_pair_blocks": {
+            "5": 4,
+            "6": 4,
+            "7": 24
+          },
+          "latest_pair_marker": "CO_DIAG END class=6 rank=7 pair=7,8 targets=5,5"
+        }
+      },
+      "native_elapsed_seconds_at_observation": 26496.223534345627,
+      "CI_export_present": true,
+      "boundary_export_present": true,
+      "scope": "Diagnostic pair-block completion; no engine-fix or scientific root-pair qualification"
+    },
+    "additional_sparse_costs": [
+      {
+        "model": "CAS12",
+        "roots": 2048,
+        "kernel_peak_gib": 22.361045837402344,
+        "wall_hours": 10.051373411302208,
+        "qualified": false,
+        "cost_export_pilot_passed": true,
+        "source": "progress-completion-20261011T1952.json: resources",
+        "scope": "Both-sector native retained-target scattering, including matrix construction and outer stages; target QC/import and separate reader excluded. Root-count qualification awaits a spectral comparator."
+      },
+      {
+        "model": "B1 audit",
+        "model_family": "CAS12",
+        "roots": 4096,
+        "kernel_peak_gib": 20.52365493774414,
+        "wall_hours": 7.359944797598356,
+        "qualified": false,
+        "cost_export_pilot_passed": false,
+        "diagnostic_native_completion": true,
+        "raw_export_checks_passed": true,
+        "source": "progress-pointer-audit-20261012T1803.json: resources",
+        "scope": "Instrumented single-B1 matrix construction,diagonalization and native export only;no B2,outer phases or per-root residual telemetry. Not a resumed scientific comparator."
+      }
+    ],
+    "memory_note": "CAS12: 2K two-sector 10.05 h; 4K B1 audit 7.36 h.\nAudit exports pass; residual / baseline gates remain open.\n*Scopes differ; failed release 4K: 2.61 h / 15.61 GiB.",
+    "memory_bar_width": 0.82,
+    "memory_time_fontsize": 7,
+    "roadmap_import_status": "EXPORTS CHECKED",
+    "roadmap_import_title": "CAS12 B1 address audit: 4096 roots exported",
+    "roadmap_import_detail": "7.36 h / 20.52 GiB; raw CI / boundary energies agree",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "Frozen core + independently checked target imports",
+        "detail": "Two A1 core orbitals; ten active electrons; own target maps"
+      },
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "CAS11 2048 roots + neutral numerical inputs",
+        "detail": "Smallest qualified CAS11 count; 1.9\u20132.5-bohr neutral data"
+      },
+      {
+        "kind": "active",
+        "status": "EXPORTS CHECKED",
+        "title": "CAS12 B1 address audit: 4096 roots exported",
+        "detail": "7.36 h / 20.52 GiB; raw CI / boundary energies agree"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT",
+        "title": "Matched 2K baseline \u2192 scientific 4K comparison",
+        "detail": "Declare build / control; residual / Pi / phase gates"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED",
+        "title": "Freeze \u2192 restartable pilot \u2192 sweep \u2192 fit",
+        "detail": "Model / identity / extraction / neutral gates remain open"
+      }
+    ],
+    "roadmap_note": "Audit completion does not establish the earlier crash cause.\nCAS12 root count / retained channels remain unqualified.\nNeutral correlation and wider-range treatment remain open.",
+    "verification_footer": "CAS12 B1 audit exports independently read; matched baseline and omission gates open.",
+    "live_observation_utc": "2026-10-12T18:03:56.972260+00:00",
+    "interpretation": "Declared single-B1 address audit completed2026-10-12T15:04:29UTC with native inferiors,debuggers,MPI,container and owner exits0. All8ranks pass graph/context/address checks and complete matrix classes,L2 update,diagonalization and native export without a pointer-failure,signal or bounds-error marker. Independent local binary reading verifies4096energy-ordered finite CI/boundary poles,4096x1410continuum coefficients and4096x250boundary amplitudes;boundary energies match exactly. Measured7.360h/20.523GiB kernel peak. Observer completed normally after9captures. No per-root residual telemetry,B2,outer phases or root-count comparison in this diagnostic. Instrumentation success does not establish either earlier crash cause,an engine fix or convergence;all scientific and engine-correction verdicts remain unset."
+  }
+}

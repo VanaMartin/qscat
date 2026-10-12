@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261012T1338.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261012T1803.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -213,7 +213,7 @@ def _memory(ax, data):
     count = len(costs)
     x = np.arange(count + 2)
     colors = [GREEN if row.get("qualified", True) else ORANGE for row in costs]
-    bars = ax.bar(x, values, color=[*colors, BLUE, RED], width=0.64)
+    bars = ax.bar(x, values, color=[*colors, BLUE, RED], width=data.get("memory_bar_width", 0.64))
     bars[-1].set_hatch("///")
     if "selected_cas11_roots" in data:
         selected = next(
@@ -238,7 +238,9 @@ def _memory(ax, data):
         ax.text(
             i, value * 1.14, f"{value:.1f}" if i < count + 1 else ">222", ha="center", fontsize=10
         )
-    time_fontsize = 8 if data.get("additional_sparse_costs") else 9
+    time_fontsize = data.get(
+        "memory_time_fontsize", 8 if data.get("additional_sparse_costs") else 9
+    )
     for i, row in enumerate(costs):
         ax.text(
             i, 3.4, f"{row['wall_hours']:.2f} h", ha="center", fontsize=time_fontsize, color="white"
@@ -608,7 +610,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261012T1338"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261012T1803"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

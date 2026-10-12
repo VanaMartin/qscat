@@ -21,7 +21,7 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261012T1338.md) and
+The [production-sweep status update](SWEEP_READINESS_20261012T1803.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
@@ -29,10 +29,11 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 
 ## Progress overview — 12 October 2026
 
-![CO qualification: reusable inputs, measured sparse costs and completed all-rank L2 update](../../docs/physics/figures/co-progress-20261012T1338.png)
+![CO qualification: reusable inputs, measured sparse costs and completed 4096-root B1 diagnostic exports](../../docs/physics/figures/co-progress-20261012T1803.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261012T1338.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261012T1338.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261012T1803.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261012T1803.json) ·
+[Dated B1 diagnostic completion and export reading](progress-pointer-audit-20261012T1803.json) ·
 [Dated L2 completion capture](progress-pointer-audit-20261012T1338.json) ·
 [Dated Class5/6/7 progress capture](progress-pointer-audit-20261012T1204.json) ·
 [Dated Class1 completion capture](progress-pointer-audit-20261012T0913.json) ·
@@ -42,9 +43,9 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261012T1338.md)
+[Current steps before a production sweep](SWEEP_READINESS_20261012T1803.md)
 
-This is the **13:38 UTC, 12 October** release of an incremental overview. New findings, verification
+This is the **18:03 UTC, 12 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
@@ -52,17 +53,21 @@ remain available for comparison. The
 records the publication convention.
 
 **What changed:** the [CSF address audit](cas12-pointer-diagnostic-address-successor-contract.json)
-now completes **Class567,Class2+8 and the L2 update on all eight ranks**.
-Each rank has four Class5,four Class6 and24Class7 pair exits, including the
-final pair7–8. No pointer-failure, signal or bounds-error marker appears.
-Owner1187176 remains active after **5.9211hours**, sampling **796.98% CPU /
-15.04GiB**. L2 update is the last confirmed milestone; buffered tails do not
-locate the subsequent live finalization/eigensolver stage. No eigenpair or
-boundary exports exist, and crash causes or an engine fix remain unproven.
-All **55source/192input hashes** and **242installed artifacts** reverify.
-The hourly observer is active with six captures. **Next: review a first fault
-or native exports before an engine correction or matched baseline.** The
-[readiness note](SWEEP_READINESS_20261012T1338.md) states the remaining gates.
+**completed native B1 at15:04:29UTC**, with all eight native/debugger exits0
+and MPI/container/owner exits0. Independent binary reading verifies4096finite,
+ordered CI/boundary poles,4096×1410continuum coefficients and4096×250boundary
+amplitudes; CI/boundary energies match exactly. Measured B1 cost is
+**7.36h /20.52GiB kernel peak**. No pointer-failure, signal or bounds-error
+marker appears. All **55source/192input hashes** and **242installed artifacts**
+reverify. The observer completed normally after nine captures; both services
+are inactive. Per-root residual telemetry,B2,Pi and outer phases remain absent
+from this diagnostic, and crash causes or an engine fix remain unproven.
+**Next: review instrumentation, separately declare a matched2048-root engine
+control, then reproduce the baseline before scientific4096comparison.** The
+[readiness note](SWEEP_READINESS_20261012T1803.md) states the remaining gates.
+The [13:38 figure](../../docs/physics/figures/co-progress-20261012T1338.png),
+[vector copy](../../docs/physics/figures/co-progress-20261012T1338.svg) and
+[snapshot](progress-snapshot-20261012T1338.json) preserve the all-rank L2 milestone.
 The [12:04 figure](../../docs/physics/figures/co-progress-20261012T1204.png),
 [vector copy](../../docs/physics/figures/co-progress-20261012T1204.svg) and
 [snapshot](progress-snapshot-20261012T1204.json) preserve the post-Class4 pair-block milestone.
@@ -195,10 +200,10 @@ The six panels explain the qualification campaign:
   QSCAT potential validation. The CAS12 cost/export/symmetry pilot is now checked;
   its 4096-root comparator is blocked by a native failure before eigenpair export.
    The separate B1 diagnostic captures a Class1 source fault; its relationship to the
-   release failure remains unproven. The new address audit completes the L2
-   update on all8ranks and is active; native exports and engine qualification come next.
+   release failure remains unproven. The new address audit completes B1 with
+   independently read4096-root exports; matched baseline qualification comes next.
 
-This is a dated **12 October 13:38:05 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **12 October 18:03:56 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
@@ -211,7 +216,7 @@ quarter wavefunctions/matrices also reconstruct from public bytes. One CAS12
 sparse successor has completed both sectors and independent reading; its separate
 4096-root comparator has stopped on a native B1 SEGV; the separately declared
 saved-input diagnostic captures an earlier Class1 pointer-access fault. Its new
-address-audit successor is active after the all-rank L2 update completes.
+address-audit successor completes B1 and independent4096-root export reading.
 Original package/setup/
 shared-memory failures and the new native failure remain preserved.
 State/pole identity remains unqualified. The original TZ diagnostic's final-write

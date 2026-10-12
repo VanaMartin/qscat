@@ -1,0 +1,923 @@
+{
+  "observed_utc": "2026-10-12T18:03:56.972260+00:00",
+  "host": "sadaharu",
+  "campaign_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "source_commit": "d88fbc9486dccb4d2a433e78b78cf87a656ceb79",
+  "run": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+  "owner": 1187176,
+  "owner_execution": {
+    "supervisor_pid": 1187176,
+    "started_unix": 1791790768.7552912,
+    "steps": [
+      {
+        "label": "diagnostic-build",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012-build",
+          "--cpuset-cpus=4-7",
+          "--memory=32g",
+          "--memory-swap=32g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build:/home/ukrmol/debug-source",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "bash",
+          "/opt/qmodeling/projects/ukrmol_co/build_pointer_native.sh"
+        ],
+        "started_unix": 1791790771.9582148,
+        "original_exit": 0,
+        "finished_unix": 1791790801.7892742
+      },
+      {
+        "label": "engine-debugger-checks",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012-checks",
+          "--cpuset-cpus=0-3",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build:/home/ukrmol/debug-source",
+          "--cap-add=SYS_PTRACE",
+          "--security-opt=seccomp=unconfined",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.debug_engine_checks",
+          "--build",
+          "/home/ukrmol/debug-source"
+        ],
+        "started_unix": 1791790801.9241884,
+        "original_exit": 0,
+        "finished_unix": 1791790966.5998309
+      },
+      {
+        "label": "native-B1-diagnostic",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+          "--cpuset-cpus=4-11",
+          "--memory=80g",
+          "--memory-swap=80g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build:/home/ukrmol/debug-source",
+          "--cap-add=SYS_PTRACE",
+          "--security-opt=seccomp=unconfined",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.debug_scatci",
+          "--reference",
+          "/work/prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+          "--workdir",
+          "/outputs/cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+          "--ranks",
+          "8",
+          "--timeout",
+          "86400"
+        ],
+        "started_unix": 1791790969.938826,
+        "original_exit": 0,
+        "finished_unix": 1791817466.1623604
+      }
+    ],
+    "scope": "Audit native CSF parent/manager,retained Hamiltonian and target-context pointer identity and determinant indexes before the previously observed Class1 dereference.",
+    "frozen_file_counts_verified": {
+      "source": 55,
+      "inputs": 192
+    },
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_ram_bytes": 115243798528,
+    "free_disk_bytes": 87481454592,
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "heartbeat_unix": 1791817469.726977,
+    "diagnostic_build": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242
+    },
+    "checks_sha256": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "original_controller_exit": 0,
+    "final_frozen_file_counts_verified": {
+      "source": 55,
+      "inputs": 192
+    },
+    "finished_unix": 1791817469.7269764,
+    "finished_utc": "2026-10-12T15:04:29.726984+00:00"
+  },
+  "status": {
+    "owner_service": "MainPID=0\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\n",
+    "observer_service": "MainPID=0\nActiveState=inactive\nSubState=dead\n",
+    "docker_ps": "bonsai2 Up 9 hours (healthy)\ncomfyui Up 3 weeks\n",
+    "docker_stats": "bonsai2 CPU=0.08% MEM=15.46GiB / 123.5GiB\ncomfyui CPU=0.07% MEM=10.09GiB / 123.5GiB\n"
+  },
+  "engine_checks": {
+    "upstream_original_exit": 0,
+    "normal": {
+      "rank": 0,
+      "inferior_exit_code": 0,
+      "observed_stop_signal": null,
+      "debugger_original_exit": 0,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/normal/smoke"
+      ]
+    },
+    "signal": {
+      "rank": 0,
+      "inferior_exit_code": null,
+      "observed_stop_signal": "SIGSEGV",
+      "observed_signal_number": 11,
+      "debugger_failure_status": 139,
+      "scope": "Intercepted native signal; debugger status is not a native exit code",
+      "debugger_original_exit": 139,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/signal/smoke"
+      ]
+    },
+    "bounds": {
+      "rank": 0,
+      "inferior_exit_code": 2,
+      "observed_stop_signal": null,
+      "debugger_original_exit": 2,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/bounds/smoke"
+      ]
+    },
+    "all_checks_passed": true
+  },
+  "frozen_file_counts_reverified": {
+    "source": 55,
+    "inputs": 192
+  },
+  "installed_artifacts_reverified": 242,
+  "numerical_library_hashes_match_prior_debug_build": true,
+  "native_inputs_reverified": {
+    "fort.16": "8085b06f43396452f69cb2b77c189fad5778dce54c5a515ab4360f6702b435c9",
+    "fort.24": "5342cf45ff44ea8e174734e49eae6fdca8ca8d02cc02a2f2c3aff3c8505f4196",
+    "fort.26": "8ffef737862c9c82ac42dd78c9a0ca5e93ba7a2c72a8ef56ed234a88138874f4",
+    "fort.721": "a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+    "scatci.inp": "2d661509fea640d08faa0c6f4540c08fe7e26ec4202239e28946633692dfbf53"
+  },
+  "pointer_markers": {
+    "scatci.out": [],
+    "rank-0.gdb.log": [
+      "CO_PTR_PASSafter-createrank=                    0 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    0 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    0",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    8"
+    ],
+    "log_file.1": [
+      "CO_PTR_PASSafter-createrank=                    1 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    1 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    8"
+    ],
+    "log_file.2": [
+      "CO_PTR_PASSafter-createrank=                    2 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    2 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    8"
+    ],
+    "log_file.3": [
+      "CO_PTR_PASSafter-createrank=                    3 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    3 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    8"
+    ],
+    "log_file.4": [
+      "CO_PTR_PASSafter-createrank=                    4 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    4 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    8"
+    ],
+    "log_file.5": [
+      "CO_PTR_PASSafter-createrank=                    5 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    5 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    8"
+    ],
+    "log_file.6": [
+      "CO_PTR_PASSafter-createrank=                    6 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    6 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    8"
+    ],
+    "log_file.7": [
+      "CO_PTR_PASSafter-createrank=                    7 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    7 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    8"
+    ]
+  },
+  "rank_log_tails": {
+    "scatci.out": "",
+    "rank-0.gdb.log": "0         0.4       0.0\n C-Hamiltonian Build                     1    17229.2       0.0         4.0       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4477.5       0.0      4477.5       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1784.6       0.0      1784.6       0.0\n Class 4                                 1     3641.2       0.0      3641.2       0.0\n Class 567                               1     6506.5       0.0       254.1       0.0\n Class 5 prototype                       4     2668.8       0.0      2668.8       0.0\n Class 6 prototype                       4      533.9       0.0       533.9       0.0\n Class 7 prototype                      24     2944.2       0.0      2944.2       0.0\n Class 2+8                               1      577.7       0.0       577.7       0.0\n Diagonalization                         1     9259.8       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n[Thread 0x7fffea3ff640 (LWP 316) exited]\nNote: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n\n<-------->done:mpi_mod:mpi_mod_finalize\n[Inferior 1 (process 293) exited normally]\n",
+    "log_file.1": "lda =      128\n\n CIvect%init_CV finished\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1    26493.5       0.0         0.2       0.0\n C-Hamiltonian Build                     1    17229.2       0.0        46.0       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4476.6       0.0      4476.6       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1783.2       0.0      1783.2       0.0\n Class 4                                 1     3631.2       0.0      3631.2       0.0\n Class 567                               1     6516.4       0.0       240.5       0.0\n Class 5 prototype                       4     2672.3       0.0      2672.3       0.0\n Class 6 prototype                       4      536.0       0.0       536.0       0.0\n Class 7 prototype                      24     2955.7       0.0      2955.7       0.0\n Class 2+8                               1      577.8       0.0       577.8       0.0\n Diagonalization                         1     9259.7       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+    "log_file.2": "lda =      128\n\n CIvect%init_CV finished\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1    26493.5       0.0         0.2       0.0\n C-Hamiltonian Build                     1    17229.2       0.0        44.3       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4479.6       0.0      4479.6       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1789.3       0.0      1789.3       0.0\n Class 4                                 1     3648.3       0.0      3648.3       0.0\n Class 567                               1     6499.3       0.0       241.0       0.0\n Class 5 prototype                       4     2672.8       0.0      2672.8       0.0\n Class 6 prototype                       4      537.1       0.0       537.1       0.0\n Class 7 prototype                      24     2954.1       0.0      2954.1       0.0\n Class 2+8                               1      577.9       0.0       577.9       0.0\n Diagonalization                         1     9259.7       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+    "log_file.3": "lda =      128\n\n CIvect%init_CV finished\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1    26493.5       0.0         0.2       0.0\n C-Hamiltonian Build                     1    17229.2       0.0        27.5       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4476.0       0.0      4476.0       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1784.3       0.0      1784.3       0.0\n Class 4                                 1     3635.8       0.0      3635.8       0.0\n Class 567                               1     6511.9       0.0       234.9       0.0\n Class 5 prototype                       4     2670.2       0.0      2670.2       0.0\n Class 6 prototype                       4      537.5       0.0       537.5       0.0\n Class 7 prototype                      24     2959.8       0.0      2959.8       0.0\n Class 2+8                               1      577.4       0.0       577.4       0.0\n Diagonalization                         1     9259.7       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+    "log_file.4": "lda =      122\n\n CIvect%init_CV finished\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1    26493.5       0.0         0.2       0.0\n C-Hamiltonian Build                     1    17229.2       0.0        71.3       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4454.9       0.0      4454.9       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1842.9       0.0      1842.9       0.0\n Class 4                                 1     3686.4       0.0      3686.4       0.0\n Class 567                               1     6461.2       0.0        13.4       0.0\n Class 5 prototype                       4     2726.2       0.0      2726.2       0.0\n Class 6 prototype                       4      552.2       0.0       552.2       0.0\n Class 7 prototype                      24     3166.6       0.0      3166.6       0.0\n Class 2+8                               1      581.1       0.0       581.1       0.0\n Diagonalization                         1     9259.7       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+    "log_file.5": "lda =      122\n\n CIvect%init_CV finished\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1    26493.5       0.0         0.2       0.0\n C-Hamiltonian Build                     1    17229.2       0.0        52.6       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4456.2       0.0      4456.2       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1846.5       0.0      1846.5       0.0\n Class 4                                 1     3681.9       0.0      3681.9       0.0\n Class 567                               1     6465.7       0.0        79.7       0.0\n Class 5 prototype                       4     2720.2       0.0      2720.2       0.0\n Class 6 prototype                       4      549.7       0.0       549.7       0.0\n Class 7 prototype                      24     3102.8       0.0      3102.8       0.0\n Class 2+8                               1      580.5       0.0       580.5       0.0\n Diagonalization                         1     9259.8       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+    "log_file.6": "lda =      122\n\n CIvect%init_CV finished\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1    26493.5       0.0         0.2       0.0\n C-Hamiltonian Build                     1    17229.2       0.0        38.6       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4444.6       0.0      4444.6       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1847.3       0.0      1847.3       0.0\n Class 4                                 1     3678.5       0.0      3678.5       0.0\n Class 567                               1     6469.1       0.0        30.6       0.0\n Class 5 prototype                       4     2730.8       0.0      2730.8       0.0\n Class 6 prototype                       4      552.2       0.0       552.2       0.0\n Class 7 prototype                      24     3149.3       0.0      3149.3       0.0\n Class 2+8                               1      581.1       0.0       581.1       0.0\n Diagonalization                         1     9259.8       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+    "log_file.7": "lda =      122\n\n CIvect%init_CV finished\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1    26493.5       0.0         0.2       0.0\n C-Hamiltonian Build                     1    17229.2       0.0        32.5       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4449.4       0.0      4449.4       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1844.3       0.0      1844.3       0.0\n Class 4                                 1     3673.7       0.0      3673.7       0.0\n Class 567                               1     6473.9       0.0        48.7       0.0\n Class 5 prototype                       4     2725.3       0.0      2725.3       0.0\n Class 6 prototype                       4      550.0       0.0       550.0       0.0\n Class 7 prototype                      24     3133.5       0.0      3133.5       0.0\n Class 2+8                               1      581.3       0.0       581.3       0.0\n Diagonalization                         1     9259.8       0.0         0.7       0.0\n SLEPC solve                             1     9259.0       0.0      9259.0       0.0\n\n ( 12 timers contributing less than 1% are not shown)\n\n<-------->done:mpi_mod:mpi_mod_finalize\n"
+  },
+  "observer": {
+    "supervisor_pid": 1191504,
+    "started_unix": 1791791051.0670984,
+    "captures": [
+      "20261012T074411.json",
+      "20261012T084413.json",
+      "20261012T094416.json",
+      "20261012T104418.json",
+      "20261012T114421.json",
+      "20261012T124423.json",
+      "20261012T134426.json",
+      "20261012T144428.json",
+      "20261012T154431.json"
+    ],
+    "scope": "Observe only; no follow-on calculations",
+    "heartbeat_unix": 1791819873.8217664,
+    "finish_reason": "Finite owner ended",
+    "original_exit": 0,
+    "finished_unix": 1791819873.821881
+  },
+  "remote_sha256": {
+    "prepared/cas12-pointer-address-source-20261012/contract.json": "1635bc5cd1f0dbdfb7cdfeab08bdb9e4d2e9c2bd9fe5100366270ba9480dbd50",
+    "prepared/cas12-pointer-address-source-20261012/frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "prepared/cas12-pointer-address-source-20261012/source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "prepared/cas12-pointer-address-source-20261012/tools-image.json": "effc3af0dd93fadc73bf7884f1e573441dfd317ed8e4a9b1d5ba257763bc67ed",
+    "prepared/cas12-pointer-address-source-20261012/diagnostic-build.launch.log": "9663c02d2c627856b878fa549c83592a18fd01c0f15d1286db6746fdd2bf6edb",
+    "prepared/cas12-pointer-address-source-20261012/engine-debugger-checks.launch.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/cas12-pointer-address-source-20261012/build/patch.json": "2bb99b70a9e2958096d2c6990a5fab5b4bfe9aaa0c66889ada1b1a6300ee6364",
+    "prepared/cas12-pointer-address-source-20261012/build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "prepared/cas12-pointer-address-source-20261012/build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "prepared/cas12-pointer-address-source-20261012/build/upstream-tests.log": "a2bf220e6c47af9411d66955ceaef9932a0326013aeb5d5875b731119c261374",
+    "prepared/cas12-pointer-address-source-20261012/observer-ready-contract.json": "2c26d6295bd14ce99a6dc539244a8c1de31ed41024a353e0236331fe68d6a988",
+    "prepared/cas12-pointer-address-source-20261012/observer-startup-failures.json": "01c0d0214ce0de3e5a79fd0f36661bdbf6c89f6a0a8be232dbcee0aebb091cbc",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/Modules/Hamiltonian/CSF_module.F90": "67d4314989718470c9b68a74f69b7ae602f07d3e1a62b78e7d5e2338b10766d2",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/Modules/Hamiltonian/Hamiltonian_module.f90": "0e7f264ef65012b1c0bc4cff8e50574175df2dc210106175e12625ba9276147c",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/mpi_scatci.f90": "d3d9db97a92e88bc241cfdc7c12f0cde69fb48e31af0c89c1ace8636546a05ec",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/Modules/Hamiltonian/Contracted_Hamiltonian_module.f90": "27b9bbbdca8581b98492049b4837d6affb8fc383964d579678aa873304b18286",
+    "prepared/cas12-pointer-address-source-20261012/native/cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012/B1/fort.21": "8c56a75b8a6680b5c9364be0232ad8aa4d60ebd6bf4d7250c31a17cb4327e9c5",
+    "prepared/cas12-pointer-address-source-20261012/native/cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012/B1/fort.25": "f5e2f421ee6eb037916f38e12107e00848632f190f220082626146338633d621",
+    "prepared/cas12-pointer-address-source-20261012/native/cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012/B1/fort.821": "68a751002c94bf5f1aeea4053cd5217ee41c0c6eb82138154569b7147bf4981c",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/diagnostic.json": "f86ebecf2eb82fa0acb2cad1d98e1e4572e8643076d19a869359365cb59367e5",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/independent-export-reading.json": "c3756291a141967229884e421a2477cdc4e22621c400d9576d2f433cea59c796",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/log_file.1": "084ba6932f78e9eb74f2a9ff82e633874cbdbd22718f1e62ce275674db8bc8f5",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/log_file.2": "2a369763518417f660687ad8407877a624551f144331c6e47dba599d1aac1b57",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/log_file.3": "dc4c639ade42267dc31ec42e74bdeb5835efdc0727e569133a0fca5f3e1e1038",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/log_file.4": "db20f5b7be4c9603e0f2bda49edd838c553c31f5a22b6a2a1202b31f322399b4",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/log_file.5": "b10b7ebd1687434e5f3bbd610d9ddf13336fad87e58ee74c551f9d4f026e3994",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/log_file.6": "d36be60ded9caa9fc50cbea746a3a02d630d69e12764523c2065498188856b8e",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/log_file.7": "834bd128ba98b7c63522d1a817c97ce817ab353c2ac0c74a9901ef6974d48a78",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/observer-execution.json": "b490f63d888d1e307d7520613f4ec58451c5b84ec908a1150ceede3ed2dec9de",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/owner-execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-0.gdb.log": "ea12732d9b9bb65e6acbb70622b6a93a2a63b88298bd96fafcc12595c8852f7b",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-0.json": "e10306392b4d1cc09b7be408ab406aa734045a4e8d0e0739f43356e49cf23a94",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-1.gdb.log": "c1670a3becff59ebe34d1fd0478605ca8fc39fc456dd918e6531b89abcee3bf7",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-1.json": "5f717d22ab3dba2b17093959c1392fcafaee0669c983d6c33d006a9c31e6cf15",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-2.gdb.log": "b90521cdfb74d9a8cceb6ee7ce08c5ddb0ca1154a8143d8b7816cd8c33607484",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-2.json": "a1334014d997bb74c5d43595d35815b68f5c77529c5ac81c4fc8d972d62d5bad",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-3.gdb.log": "a77bf4545d0f5c0763109faecb8751ea078308f8fd8984ba38a0868064d1ff07",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-3.json": "5786322a7443ef43a811946dcccc7406ab61b9c0deeb51a273d21dadfe1a5374",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-4.gdb.log": "e1e7a43ae54d0693728beccc06ac64dcf94aa48631de2e5c88d3e72e03c78c24",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-4.json": "92710ad30569f3e201e6c3a0a4ad8678bbad62cb0dc0a4abb68cf65fadb8e62c",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-5.gdb.log": "332051f7fb857e29aae3634925e1c9d99a3962a6a097a335115b9e7fd02686fc",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-5.json": "5311c02a8fc065d7385f1f67b27fa5ab59aebbe1eed2ac16ea351a8698aba248",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-6.gdb.log": "373ceddb35474e061230e30b12c54bcae7dcd3a00e2adc4a8ef7cbd4df65f123",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-6.json": "9014e18a008e42fa10298f457f47bbc5ac0d308497999078eb90ff823b506f32",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-7.gdb.log": "55668548cb95618107447c93461b29aec664b4f25f038d0a89a605009eabbf12",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/rank-7.json": "1c33cae8cb31344cd4479bae4321a321e6e8cb76befedee4702717770ce4618a",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/resources.json": "f69122ee4ff639f03b906d92e0aed89e77d176dffbfc2f3836931e908f307a7c",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/scatci.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/cas12-pointer-address-observer-20261012/execution.json": "e5ae23f96ee5363a08874c321c3bba8ca0eb83cf353b87e14fa78babae685e45",
+    "prepared/cas12-pointer-audit-buildfix-observer-20261012/execution.json": "a999bceaaf6df61cc42165358d404505cba60cc2851c1f66ff1d647273832e88",
+    "prepared/cas12-pointer-audit-anchorfix-observer-20261012/execution.json": "ff75e4737739fa60966212f845ba759839495364949e62a3f544c47fbf8e459b",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T074411.json": "509c368393f1db304e0b13bd76f1b54577459d1bb772150c1c295f67652744f2",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T084413.json": "f910ed92413453cb147f2cd406a120762ffb3d63e450b206b04e326373291afd",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T094416.json": "d205bec03984e2bd03ce288e5ff2d42edac2200ab9880f809148b8bdd490d24a",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T104418.json": "5f8124f1fb8a18dc569e6df511545842df91f924f446e0393305357bbce06070",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T114421.json": "9947e00d27042c27b7f19eb19eeb1c9b94cf0db8d52a7c6b23bc9179ba699422",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T124423.json": "f2b39fc8d6260ca165d1d5fa3568513ca064037307afea8ab4ea11b431ce4f1f",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T134426.json": "d4650e8aac21288b397ef2436f3a2dce1fe1d0875ecb64292a81209909d90bca",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T144428.json": "292085d28b6acc25979cf667af8e0840831b5846988cd4eceadab164692a92bb",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T154431.json": "6a2334ca474ee64e1c6cb3921f27fec9813ffe678ab5a2484fc0ad887091942d"
+  },
+  "interpretation": "Declared single-B1 address audit completed2026-10-12T15:04:29UTC with native inferiors,debuggers,MPI,container and owner exits0. All8ranks pass graph/context/address checks and complete matrix classes,L2 update,diagonalization and native export without a pointer-failure,signal or bounds-error marker. Independent local binary reading verifies4096energy-ordered finite CI/boundary poles,4096x1410continuum coefficients and4096x250boundary amplitudes;boundary energies match exactly. Measured7.360h/20.523GiB kernel peak. Observer completed normally after9captures. No per-root residual telemetry,B2,outer phases or root-count comparison in this diagnostic. Instrumentation success does not establish either earlier crash cause,an engine fix or convergence;all scientific and engine-correction verdicts remain unset.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "engine_correction_verdict": null,
+  "full_sweep_released": false,
+  "class1_completed_ranks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "CI_export_present": true,
+  "boundary_export_present": true,
+  "class567_markers_present": true,
+  "native_elapsed_seconds_at_observation": 26496.223534345627,
+  "elapsed_clock_scope": "Completed native container step,not observation clock",
+  "class567_progress_by_rank": {
+    "0": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=0 pair=7,8 targets=5,5"
+    },
+    "1": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=1 pair=7,8 targets=5,5"
+    },
+    "2": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=2 pair=7,8 targets=5,5"
+    },
+    "3": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=3 pair=7,8 targets=5,5"
+    },
+    "4": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=4 pair=7,8 targets=5,5"
+    },
+    "5": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=5 pair=7,8 targets=5,5"
+    },
+    "6": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=6 pair=7,8 targets=5,5"
+    },
+    "7": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=7 pair=7,8 targets=5,5"
+    }
+  },
+  "post_pair_completion_by_rank": {
+    "0": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "1": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "2": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "3": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "4": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "5": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "6": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "7": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    }
+  },
+  "subsequent_live_stage": null,
+  "diagnostic": {
+    "command": [
+      "mpiexec",
+      "-n",
+      "8",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.rank_debugger",
+      "/opt/ukrmolp/bin.double/mpi-scatci",
+      "scatci.inp"
+    ],
+    "mpi_debugger_original_exit": 0,
+    "timed_out": false,
+    "wall_seconds": 26493.985734501854,
+    "input_sha256": {
+      "fort.16": "8085b06f43396452f69cb2b77c189fad5778dce54c5a515ab4360f6702b435c9",
+      "fort.24": "5342cf45ff44ea8e174734e49eae6fdca8ca8d02cc02a2f2c3aff3c8505f4196",
+      "fort.26": "8ffef737862c9c82ac42dd78c9a0ca5e93ba7a2c72a8ef56ed234a88138874f4",
+      "fort.721": "a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+      "scatci.inp": "2d661509fea640d08faa0c6f4540c08fe7e26ec4202239e28946633692dfbf53"
+    },
+    "ranks": [
+      {
+        "rank": 0,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      },
+      {
+        "rank": 1,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      },
+      {
+        "rank": 2,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      },
+      {
+        "rank": 3,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      },
+      {
+        "rank": 4,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      },
+      {
+        "rank": 5,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      },
+      {
+        "rank": 6,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      },
+      {
+        "rank": 7,
+        "inferior_exit_code": 0,
+        "observed_stop_signal": null,
+        "debugger_original_exit": 0,
+        "command": [
+          "gdb",
+          "--batch",
+          "--return-child-result",
+          "--quiet",
+          "-x",
+          "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+          "--args",
+          "/opt/ukrmolp/bin.double/mpi-scatci",
+          "scatci.inp"
+        ]
+      }
+    ],
+    "native_export_files_present": true,
+    "diagnostic_native_completion": true,
+    "root_pair_stability_verdict": null,
+    "spectral_truncation_verdict": null,
+    "scope": "One instrumented B1 SCATCI; no B2,outer stages or convergence qualification"
+  },
+  "resources": {
+    "exit_code": 0,
+    "wall_seconds": 26495.80127135408,
+    "sampled_peak_container_memory_bytes": 21911101440,
+    "baseline_container_memory_bytes": 11964416,
+    "sampled_peak_container_anon_bytes": 18819276800,
+    "kernel_peak_container_memory_bytes": 22037106688,
+    "container_cpu_seconds": 211937.836012,
+    "sampled_peak_run_allocated_bytes": 2778030080,
+    "sampled_peak_scratch_allocated_bytes": 212992,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "independent_export_reading": {
+    "observed_utc": "2026-10-12T18:03:05.491795+00:00",
+    "reader_source": "projects/ukrmol_co/sparse_scattering.py",
+    "reader_source_sha256": "7f634f9d203fb5e8e000bd8d3d77d1c33152fa2470a9a9342bfa9c93638d8aa1",
+    "reader_functions": [
+      "ci_spectrum",
+      "boundary_spectrum",
+      "interface_digest"
+    ],
+    "source_commit": "abdb8ad",
+    "run": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+    "sector": "B1",
+    "roots": 4096,
+    "continuum_vectors_shape": [
+      4096,
+      1410
+    ],
+    "boundary_amplitudes_shape": [
+      4096,
+      250
+    ],
+    "energy_range_hartree": [
+      -112.91596570082095,
+      -108.96270140373412
+    ],
+    "energy_order_strict": true,
+    "all_exported_values_finite": true,
+    "boundary_energy_error_hartree": 0.0,
+    "native_boundary_interface_sha256": "4b2ca0667e8aeb850e3eeba3e513cb5d04fdf821befed32d055cdd389001048c",
+    "export_sha256": {
+      "fort.21": "8c56a75b8a6680b5c9364be0232ad8aa4d60ebd6bf4d7250c31a17cb4327e9c5",
+      "fort.25": "f5e2f421ee6eb037916f38e12107e00848632f190f220082626146338633d621"
+    },
+    "export_bytes": {
+      "fort.21": 8727072,
+      "fort.25": 47683352
+    },
+    "raw_export_checks_passed": true,
+    "native_residual_verdict": null,
+    "root_pair_stability_verdict": null,
+    "spectral_truncation_verdict": null,
+    "scope": "Independent local binary reading of diagnostic B1 exports only. No solver residual telemetry,full eigenvector residual action,B2,Pi comparison,outer phases or scientific root-count convergence."
+  },
+  "completed_native_hours": 7.359944797598356,
+  "kernel_peak_memory_gib": 20.52365493774414,
+  "scientific_containers_running": 0,
+  "native_solver_printed_stopping": {
+    "iterations": 159,
+    "tolerance": 1e-12,
+    "max_iterations": 1000,
+    "per_root_residual_telemetry_present": false
+  },
+  "native_runtime_notices": [
+    "Rank0 prints IEEE_UNDERFLOW_FLAG IEEE_DENORMAL on normal exit;native warning/error counts are both0."
+  ],
+  "immutable_remote_capture": "prepared/cas12-pointer-address-source-20261012/capture-20261012T180356/observation.json",
+  "immutable_remote_capture_sha256": "874e0421ee043506d91dfc92e2d7d986dce569b630c69c23127c2d9d4cb30065"
+}
