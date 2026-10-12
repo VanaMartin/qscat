@@ -1,0 +1,37 @@
+{
+  "status": "separately declared fresh successor after guarded instrumentation-anchor failure",
+  "scientific_question": "Audit native CSF parent/manager,retained Hamiltonian and target-context pointer identity and determinant indexes before the previously observed Class1 dereference.",
+  "run": "cas12-eq-B1-roots4096-mpi8-pointer-audit-anchorfix-20261012",
+  "parent_contract": "cas12-pointer-diagnostic-build-successor-contract.json",
+  "pointer_audit_contract": "cas12-pointer-diagnostic-contract.json",
+  "failed_build_directory": "prepared/cas12-pointer-audit-buildfix-source-20261012",
+  "baseline_directory": "prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "failed_B1_directory": "prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+  "review": "Owner1182601 stopped before compilation with build/container1 and controller1: the guarded patch refused module Hamiltonian_module because that substring also matches end module Hamiltonian_module. Preserve this source,service and failed patch output. Require a preceding newline in the module-start anchor. All four original source pins,unique patch anchors,added Fortran line lengths and the single stdout import were then checked against the exact retained UKRmol archive before this declaration. Preserve owner1179919's missing-import compile failure as well. Neither attempt invoked native SCATCI or engine tests.",
+  "changes": "The parent pointer-audit/import-successor declarations apply in full. Only the unique module-start patch anchor changes; the intended instrumented Fortran source and all assertions are as previously declared. Fresh source/build/output/run names and freeze identify this successor. No engine algorithm,model,TARGET attribute,library,input,root count,allocation or tolerance changes.",
+  "guard_failure": "Preserve CO_PTR_FAIL markers and ERROR STOP86,source backtraces,bounds errors or first signal. Debugger status remains distinct from native inferior exit.",
+  "resources": {
+    "physical_cpu_group": "4-11",
+    "mpi_ranks": 8,
+    "library_threads_per_rank": 1,
+    "container_memory_gib": 80,
+    "shared_memory_gib": 8,
+    "minimum_available_ram_gib": 96,
+    "minimum_free_disk_gib": 50,
+    "native_timeout_seconds": 86400,
+    "container_timeout_seconds": 90000,
+    "owner_timeout_seconds": 108000,
+    "observer_interval_seconds": 3600,
+    "observer_duration_seconds": 108000
+  },
+  "gates": [
+    "Reverify both failed instrumentation builds and prior diagnostic/release/successful baseline evidence plus all frozen source/input hashes",
+    "All original source pins and unique patch anchors verified against the retained archive before launch; complete fresh compilation/install/debug sections",
+    "All12serial/MPI target-HF checks and normal-exit,first-SIGSEGV and bounds-backtrace debugger checks pass before native launch"
+  ],
+  "stopping_rule": "Exactly one B1 invocation after all gates. Build/check/native failure,changed frozen evidence,STOP or timeout ends the owner; no automatic repair,retry,B2 or outer stages. Review pointer evidence before separately declaring a minimal engine correction or matched-engine baseline control.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "engine_correction_verdict": null,
+  "full_sweep_released": false
+}

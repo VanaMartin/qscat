@@ -1,0 +1,27 @@
+{
+  "observed_utc": "2026-10-12T07:29:12.518340+00:00",
+  "source_directory": "prepared/cas12-pointer-audit-buildfix-source-20261012",
+  "owner": 1182601,
+  "finished_utc": "2026-10-12T07:27:50.831832+00:00",
+  "original_build_container_exit": 1,
+  "original_controller_exit": 1,
+  "failure": "Instrumentation patch refuses ambiguous module anchor: module Hamiltonian_module also occurs in end module Hamiltonian_module",
+  "native_invocations": 0,
+  "engine_checks_started": false,
+  "frozen_file_counts_reverified": {
+    "source": 52,
+    "inputs": 167
+  },
+  "remote_sha256": {
+    "prepared/cas12-pointer-audit-buildfix-source-20261012/execution.json": "630ec762b344989952a03e07524b9c8f6d8a1126c5e76d111f4d029bbad53fee",
+    "prepared/cas12-pointer-audit-buildfix-source-20261012/frozen-inputs.json": "41a82b76a0b68dffdbb6dc3d5306fb1162a9a1fbbc9710e55868159d83a593af",
+    "prepared/cas12-pointer-audit-buildfix-source-20261012/source-provenance.json": "672aa224c5a5c56f8ef34b224efbd49110a0fb6e16469352a16c47d29146a6cc",
+    "prepared/cas12-pointer-audit-buildfix-source-20261012/contract.json": "8579eb6a6efcb8dd5c94f46a5a89384a9059d0b1eb597a8635e6bc1d3d07f787",
+    "prepared/cas12-pointer-audit-buildfix-source-20261012/tools-image.json": "effc3af0dd93fadc73bf7884f1e573441dfd317ed8e4a9b1d5ba257763bc67ed",
+    "prepared/cas12-pointer-audit-buildfix-source-20261012/diagnostic-build.launch.log": "11ed28be6caea0afcc8be9a1498d69ce61fc968fd454bdbbb63db6c553ac9dfd"
+  },
+  "service": "ExecMainStatus=1\nActiveState=failed\nSubState=failed\n",
+  "scientific_verdict": null,
+  "immutable_remote_capture": "prepared/cas12-pointer-audit-buildfix-source-20261012/build-failure-capture.json",
+  "immutable_remote_capture_sha256": "a2917aaa51a932412d2dce109168d4d86b772d2424ae2a2dd9a68da1540b9401"
+}
