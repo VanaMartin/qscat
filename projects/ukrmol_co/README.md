@@ -21,45 +21,50 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261011T2322.md) and
+The [production-sweep status update](SWEEP_READINESS_20261012T0701.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
 → frozen restartable pilot → sweep and held-out potential validation.
 
-## Progress overview — 11 October 2026
+## Progress overview — 12 October 2026
 
-![CO qualification: reusable scattering and neutral inputs, measured sparse costs, preserved native failure and active bounds/first-fault diagnostic](../../docs/physics/figures/co-progress-20261011T2322.png)
+![CO qualification: reusable inputs, measured sparse costs and captured Class1 CSF pointer-access fault](../../docs/physics/figures/co-progress-20261012T0701.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261011T2322.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261011T2322.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261012T0701.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261012T0701.json) ·
+[Dated diagnostic result](progress-diagnostic-result-20261012T0701.json) ·
 [Dated diagnostic launch](progress-diagnostic-start-20261011T2322.json) ·
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261011T2322.md)
+[Current steps before a production sweep](SWEEP_READINESS_20261012T0701.md)
 
-This is the **23:22 UTC, 11 October** release of an incremental overview. New findings, verification
+This is the **07:01 UTC, 12 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** a [separately declared B1 diagnostic](cas12-native-debug-contract.json)
-launches at **23:22 UTC** using the exact failed 4096-root native inputs. The
-bounds/debug-symbol build, all **12 serial/MPI engine reference checks** and
-normal-exit/SIGSEGV-stack/Fortran-bounds-backtrace debugger tests pass. Eight
-per-rank GDB logs show native execution. All **47 source / 119 input-evidence
-hashes** and **242 installed diagnostic artifacts** verify before launch.
-The [diagnostic note](NATIVE_FAILURE_DIAGNOSTIC.md) explains the saved-input
-reuse and flushed Class 5/6/7 markers. Native allocation remains eight physical
-cores4–11,80-GiB memory and8-GiB shared backing. Native/container/owner limits
-are24/25/30hours; a new hourly observer records progress. The failed comparator's
-observer finishes normally at23:11:55UTC after four captures.
-**Next: review the first fault or completion before declaring a correction or
-matched-engine baseline control.** Diagnostic completion would not qualify
-root-count convergence. Numerical/model verdicts remain unset.
+**What changed:** the [separately declared B1 diagnostic](cas12-native-debug-contract.json)
+stops at **00:26:31 UTC** after GDB captures **rank0 SIGSEGV** at
+`CSF_module.F90:506`, `manager => this % csf % manager`.
+The stack identifies **Class1 Slater-rule determinant comparison**, target-symmetry
+index8. This is earlier than the original release-engine post-Class4/rank4
+failure; a common cause is unproven. Failed diagnostic cost is **1.07h /13.87GiB**
+inclusive peak. Container/controller exits1 and GDB/MPI139 are preserved;
+the latter is not a native inferior exit code. No timeout or eigenpair exports.
+All **47 source /119 input hashes** and **242 installed artifacts** reverify.
+Observer1169951 finishes normally at **01:18:52UTC** after three captures.
+**Next: inspect CSF pointer initialization/lifetime and index provenance before
+declaring further instrumentation, a correction or matched-engine baseline control.**
+The [result/readiness note](SWEEP_READINESS_20261012T0701.md) records the source
+stack and interpretation; numerical/model verdicts remain unset.
+The [23:22 figure](../../docs/physics/figures/co-progress-20261011T2322.png),
+[vector copy](../../docs/physics/figures/co-progress-20261011T2322.svg) and
+[snapshot](progress-snapshot-20261011T2322.json) preserve diagnostic launch after
+all12serial/MPI engine reference checks and debugger-capture tests passed.
 The [22:50 figure](../../docs/physics/figures/co-progress-20261011T2250.png),
 [vector copy](../../docs/physics/figures/co-progress-20261011T2250.svg) and
 [snapshot](progress-snapshot-20261011T2250.json) preserve the original B1
@@ -172,9 +177,10 @@ The six panels explain the qualification campaign:
   production model. A frozen restartable pilot precedes the sweep and held-out
   QSCAT potential validation. The CAS12 cost/export/symmetry pilot is now checked;
   its 4096-root comparator is blocked by a native failure before eigenpair export.
-  A separate B1 bounds/first-fault diagnostic is now active after engine/debugger gates pass.
+  The separate B1 diagnostic captures a Class1 source fault; its relationship to the
+  release failure remains unproven. Pointer-cause and engine qualification come next.
 
-This is a dated **11 October 23:22:43 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **12 October 07:01:05 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
@@ -186,7 +192,8 @@ twelve-root anchor wavefunctions/matrices reconstruct from public archives;
 quarter wavefunctions/matrices also reconstruct from public bytes. One CAS12
 sparse successor has completed both sectors and independent reading; its separate
 4096-root comparator has stopped on a native B1 SEGV; the separately declared
-saved-input diagnostic is now running under per-rank debuggers. Original package/setup/
+saved-input diagnostic now captures an earlier Class1 pointer-access fault.
+Original package/setup/
 shared-memory failures and the new native failure remain preserved.
 State/pole identity remains unqualified. The original TZ diagnostic's final-write
 exit1 is preserved; additive report recovery exits0. Historical literature
@@ -201,7 +208,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned 22:50 snapshot; its chain
+snapshot is an explicit delta against the hash-pinned 23:22 snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

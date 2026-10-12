@@ -1,0 +1,73 @@
+{
+  "base_snapshot": "progress-snapshot-20261011T2322.json",
+  "base_snapshot_sha256": "ef34bca9f6ace1eebd5ab8f3d1818fee1b30000718e1a94c055cf93e82a057b1",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-diagnostic-result-20261012T0701.json": "601c83f884f3f2aa864bb115200cde3ae0f30a2eb9e1d174ac3ca43083dcff06",
+    "projects/ukrmol_co/SWEEP_READINESS_20261012T0701.md": "cf4cdbfb724d0d715c510c3df8f096dc8d44f6f32ffb3abb05e5830137ca1cf5"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-12T07:01:05.912763+00:00",
+    "changes": [
+      "The instrumented B1 diagnostic stops00:26:31UTC after GDB captures rank0 SIGSEGV in compare_excitations_fast at CSF_module.F90:506,manager => this % csf % manager.",
+      "The stack is Class1/evaluate_class_1,target-symmetry index8,not the original release failure post-Class4 on rank4. A common root cause remains unproven; no engine correction has been qualified.",
+      "Failed diagnostic cost1.07433263h/13.87420273GiB inclusive peak. GDB/MPI139 is separate from an unrecorded native inferior exit; container/controller exits1,no timeout,no bounds-error report or eigenpair exports.",
+      "All47source/119input-evidence hashes and242installed artifacts reverify. The result pins36immutable remote records plus a frozen observation. Observer exits0 at01:18:52UTC after three captures; no scientific container active.",
+      "Next inspect CSF pointer lifetime/initialization and determinant/configuration-index provenance,then separately declare any further diagnostic,correction or matched-engine control. All prior plotted numerical values and scientific verdicts retain their status."
+    ],
+    "live_status": {
+      "cas12_sparse_pilot_finished": true,
+      "cas12_sparse_pilot_cost_export_passed": true,
+      "cas12_4096_comparator_finished": true,
+      "cas12_4096_comparator_native_stage_exit": 59,
+      "cas12_4096_comparator_controller_exit": 1,
+      "cas12_4096_pair_stability_verdict": null,
+      "cas12_sparse_truncation_verdict": null,
+      "cas12_native_debug_owner": 1168755,
+      "cas12_native_debug_launched": true,
+      "cas12_native_debug_finished": true,
+      "cas12_native_debug_controller_exit": 1,
+      "cas12_native_debug_container_exit": 1,
+      "cas12_native_debug_gdb_mpi_exit": 139,
+      "cas12_native_debug_inferior_exit": null,
+      "cas12_native_debug_observed_signal": 11,
+      "cas12_native_debug_observed_rank": 0,
+      "cas12_native_debug_observed_class": 1,
+      "cas12_native_debug_engine_checks_passed": true,
+      "cas12_native_debug_root_cause": null,
+      "cas12_native_debug_same_cause_as_release_failure": null,
+      "cas12_native_debug_source_hashes_verified": 47,
+      "cas12_native_debug_input_hashes_verified": 119,
+      "cas12_native_debug_installed_artifacts_verified": 242,
+      "observer_owner": 1169951,
+      "observer_finished": true,
+      "observer_exit": 0,
+      "observer_captures": 3,
+      "scientific_containers_running": 0,
+      "full_sweep_released": false
+    },
+    "diagnostic_result": {
+      "wall_hours": 1.0743326325316835,
+      "kernel_peak_gib": 13.874202728271484,
+      "routine": "csf_module::compare_excitations_fast",
+      "file": "CSF_module.F90",
+      "line": 506,
+      "class": 1,
+      "rank": 0,
+      "root_cause": null,
+      "scope": "Failed instrumented B1 attempt; no scientific root-count comparison"
+    },
+    "roadmap_import_status": "FAULT CAPTURED",
+    "roadmap_import_title": "CAS12 B1: Class1 CSF pointer-access fault",
+    "roadmap_import_detail": "Source stack obtained; common cause with release crash unproven",
+    "roadmap_entries": [
+      {"kind": "reuse", "status": "REUSE", "title": "Frozen core + independently checked target imports", "detail": "Two A1 core orbitals; ten active electrons; own target maps"},
+      {"kind": "reuse", "status": "REUSE", "title": "CAS11 2048 roots + neutral numerical inputs", "detail": "Smallest qualified CAS11 count; 1.9–2.5-bohr neutral data"},
+      {"kind": "next", "status": "FAULT CAPTURED", "title": "CAS12 B1: Class1 CSF pointer-access fault", "detail": "Source stack: line506; 1.07h /13.87GiB failed attempt"},
+      {"kind": "next", "status": "NEXT", "title": "Locate pointer cause → validate changed engine", "detail": "Separate declaration; baseline replay before 4K comparison"},
+      {"kind": "gated", "status": "GATED", "title": "Freeze → restartable pilot → sweep → fit", "detail": "Model / identity / extraction / neutral gates remain open"}
+    ],
+    "verification_footer": "CAS12 B1 Class1 source fault captured; release-crash cause and omission check open.",
+    "live_observation_utc": "2026-10-12T07:01:05.912763+00:00",
+    "interpretation": "GDB captures rank0 SIGSEGV in csf_module::compare_excitations_fast at CSF_module.F90:506,manager => this % csf % manager,called from Class1 Slater rules for target-symmetry index8. Owner finishes00:26:31UTC with container/controller1,GDB/MPI139,no native inferior exit recorded and no timeout. The debug build faults earlier than the original release comparator post-Class4/rank4 failure; a common cause is unproven. No bounds-error report,Class567 markers or eigenpair exports exist. Failed instrumented B1 cost1.07433263h/13.87420273GiB inclusive peak is not scientific comparator evidence. All47source/119input hashes and242installed artifacts reverify;36immutable remote records plus the frozen observation are pinned. Observer ends0 at01:18:52UTC after three captures; no scientific job remains active. Next inspect pointer initialization/lifetime and index provenance,then separately declare any further diagnostic,correction or matched baseline control. Original failures,successful2048-root evidence and all earlier plotted numerical values remain preserved. Pair/omitted-spectrum/model verdicts remain unset,and electronic/channel/identity/extraction/neutral/restartable-pilot gates still govern the sweep and held-out potential fitting."
+  }
+}

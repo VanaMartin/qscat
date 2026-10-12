@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--11-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--12-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,63 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### B1 diagnostic captures Class1 source fault — 12 October, 07:01 UTC
+
+**Owner1168755 stops at00:26:31UTC with container/controller exits1.** GDB captures
+rank0 **SIGSEGV** at `CSF_module.F90:506` in `compare_excitations_fast`:
+`manager => this % csf % manager`. The calling stack is
+`Hamiltonian_module.f90:207` (`slater_rules`) →
+`Contracted_Hamiltonian_module.f90:494` (`evaluate_class_1`, `i1=8`) →
+its Class1 loop at181 → `mpi_scatci.f90:259`. Saved locals include
+`ido=62305`, `jdo=29198`, `starting_index=764557`, `num_configurations=70746`.
+Some variables are optimized out or unavailable to GDB; the underlying pointer/
+initialization/index cause is not established.
+
+**The debug fault occurs earlier than the original release crash:** Class1/rank0
+versus post-Class4/rank4. It has not reproduced the original failure interval,
+and a common cause remains unproven. Previous unchanged log tails did not locate
+the active computation; this source-level stack supplies the direct Class1 evidence.
+No Class5/6/7 markers, Fortran bounds-error report, CI or boundary exports exist.
+GDB terminates its stopped inferior and returns139; MPI terminates the job with139.
+That debugger/MPI status is not a recorded native inferior exit code. Peer
+inferiors are interrupted; only rank0 has a completed debugger event record.
+
+Failed diagnostic resource scope is one instrumented B1 invocation:
+**3867.597477114061seconds =1.0743326325h**, inclusive kernel peak
+**14897311744bytes =13.8742027283GiB**; aggregate CPU **30926.448361seconds**.
+There is no timeout. Original model/deck/source/library pins and all failed/
+successful pilot evidence remain intact. All **47 source /119 input-evidence
+hashes** and **242 installed diagnostic artifacts** reverify after failure.
+The source/run remain under `prepared/cas12-native-debug-source-20261011/`;
+preserve the failed service and `B1/debugger/rank-0.gdb.log` with its full stack.
+
+Observer1169951 finishes normally at **01:18:52UTC**, after captures23:18,00:18
+and01:18UTC. No scientific container remains active at the07:01cutoff.
+The [result capture](progress-diagnostic-result-20261012T0701.json) pins36immutable
+remote execution/resource/rank-log/native-source/observer records plus an immutable
+copy of its observation. The [07:01 overview](progress-snapshot-20261012T0701.json)
+and [readiness note](SWEEP_READINESS_20261012T0701.md) preserve earlier plotted
+numerical evidence and record the diagnostic outcome.
+
+**Next:** inspect CSF object initialization/pointer lifetime and configuration/
+determinant-index provenance around the observed dereference. Separately declare
+any added pointer-state diagnostic, correction or matched-engine2048 control;
+a changed engine needs baseline reproduction before scientific4096-root comparison.
+The diagnostic has not qualified a correction or resumed convergence checks.
+Root-pair/omitted-spectrum/model verdicts and all later channel/identity/extraction/
+neutral/restartable-production-pilot gates remain open.
+
+Verification passes **62 local source hashes**, **37 immutable remote records**
+(36evidence records plus the frozen observation), **47/119 source/input hashes**
+and **242 installed artifacts**. Signal/rank/Class1/source line, original debugger/
+MPI/container/controller statuses, no timeout and absent exports agree with the
+retained raw records. Earlier plotted numerical groups remain identical; historical
+23:22 PNG/SVG reproduce byte-for-byte. Current rendering/visual inspection,
+SVG/text, local links, lint/format and diff checks pass. Main-index integrity
+and upstream currency are complete/current after explicit refresh at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; result/overview changes are branch-only
+evidence resolved against current source.
 
 ### CAS12 saved-input B1 native diagnostic active — 11 October, 23:22 UTC
 
