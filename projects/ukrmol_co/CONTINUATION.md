@@ -20,6 +20,48 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Address audit completes Class1 on all ranks — 12 October, 09:13 UTC
+
+**Owner1187176 remains active on Sadaharu.** All eight ranks record Class1
+entry/exit for target indexes1–8 followed by `Class 1 complete`, including
+index8 where the earlier debug run faulted. No `CO_PTR_FAIL`, intercepted
+signal or Fortran bounds-error marker is present at **09:13:15UTC**.
+Native B1 has run approximately90minutes since07:42:49UTC; Docker sampling
+is **797.93% CPU /11.34GiB**. This is ongoing usage, not final cost.
+
+Class1 is the last directly confirmed completed stage. Buffered tails do
+not locate the subsequent live class. No Class5/6/7 markers, CI export or
+boundary export exists at the cutoff. Passing the earlier fault stage does
+not establish the prior crash cause, qualify an engine fix or prove its
+relationship to the release-engine post-Class4/rank4 failure.
+
+All **55source/192input hashes**, **242installed artifacts** and all five
+saved native inputs reverify; numerical-library hashes match the prior
+debug build. The [09:13 capture](progress-pointer-audit-20261012T0913.json)
+pins32immutable remote records plus its frozen observation. The
+[readiness note](SWEEP_READINESS_20261012T0913.md) and
+[overview snapshot](progress-snapshot-20261012T0913.json) record this milestone
+while retaining prior plotted numerical values and scientific verdicts.
+The existing [address-audit declaration](cas12-pointer-diagnostic-address-successor-contract.json),
+saved source/run, all12engine checks and three debugger gates remain in force.
+
+Hourly observer1191504 is active with07:44/08:44UTC immutable captures.
+Native/container/owner limits remain24/25/30hours; `STOP` in
+`prepared/cas12-pointer-address-source-20261012/` ends the active step.
+**Next:** review a first-fault capture or diagnostic completion before
+declaring any engine correction or matched2048control. A changed engine
+needs baseline reproduction before scientific4096comparison. Pair and
+omitted-spectrum verdicts remain unset; model/channel/identity/extraction/
+neutral and restartable-production-pilot gates still govern the sweep and fit.
+
+Verification passes **83local hashes**, **33immutable remote records**,
+**55/192frozen hashes** and **242installed artifacts**. All previous plotted
+numerical groups remain identical; the07:44historical PNG/SVG reproduce
+byte-for-byte. Current rendering/visual inspection, searchable SVG, local
+links and lint/format/diff checks pass. Main-index integrity/upstream currency
+remain complete/current at`97b8b4c7392f822c996af0d4d77f81e100ff1407`; the new
+milestone evidence is branch-only and resolved against current source.
+
 ### CSF address audit passes initial graph gates — 12 October, 07:44 UTC
 
 **Owner1187176 is active**, service `co-cas12-pointer-address-20261012.service`,
