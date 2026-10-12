@@ -1,0 +1,126 @@
+{
+  "base_snapshot": "progress-snapshot-20261012T0701.json",
+  "base_snapshot_sha256": "a7341f69e3b4500d4fa91dc654a8ac95810f1bab07dd55e2a74ec2d5976a8241",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/native_pointer_patch.py": "87e5c82a70fb7d0ada3524e79bb77c9115e539d92c684ec5d90672d6e3f0a76b",
+    "projects/ukrmol_co/native_pointer_owner.py": "9eef0e65ed8ed655f85bdde971777fc130e3b24d5b3e40867bbca3c4253b3168",
+    "projects/ukrmol_co/build_pointer_native.sh": "87cb81aa1459f1862290321f66eec1c21c510652886c18cb3c0841da69075815",
+    "projects/ukrmol_co/native_pointer_probe.f90": "d33cf395e36a740500b49ad2dad4b5c9316602346a9b100b9b8f02e9a483e571",
+    "projects/ukrmol_co/native_pointer_association_probe.f90": "5d6cdf80ab41fe78a6b2915b65da8fd05f37268952867ca1cdcfde8957dc1b4a",
+    "projects/ukrmol_co/cas12-pointer-diagnostic-contract.json": "4ec94258d1352c844b67b7eac57e7bdd38323d2ddfe49ed101b6b051cd70440c",
+    "projects/ukrmol_co/cas12-pointer-diagnostic-build-successor-contract.json": "8579eb6a6efcb8dd5c94f46a5a89384a9059d0b1eb597a8635e6bc1d3d07f787",
+    "projects/ukrmol_co/cas12-pointer-diagnostic-anchor-successor-contract.json": "d520548edf768136b691a4073848c5a47c3e1e526a62c2b2566806872470ff34",
+    "projects/ukrmol_co/cas12-pointer-diagnostic-address-successor-contract.json": "1635bc5cd1f0dbdfb7cdfeab08bdb9e4d2e9c2bd9fe5100366270ba9480dbd50",
+    "projects/ukrmol_co/cas12-pointer-observer-successor-contract.json": "2c26d6295bd14ce99a6dc539244a8c1de31ed41024a353e0236331fe68d6a988",
+    "projects/ukrmol_co/pointer-interface-probe-20261012.json": "249af119247c29bec563069b5b7d4182870d50c1cd3edc5d2c183ffae111f5ca",
+    "projects/ukrmol_co/pointer-association-probe-20261012.json": "7fd8e96d90462a6883434f79e6654a2c2b9b21feee07e8531b2f6a2899ad8407",
+    "projects/ukrmol_co/pointer-audit-build-failure-20261012.json": "f7495bdf82f7d567748d376b9bfbff4c2c29732b6714d79d0a5f1a124d64a51e",
+    "projects/ukrmol_co/pointer-audit-anchor-failure-20261012.json": "d3e75130c511f0eec27707326f3d6d2f1adaf112dc9e906e8e94d5dff6108ec8",
+    "projects/ukrmol_co/pointer-audit-predicate-failure-20261012.json": "8180318dfc0bbf2ab491063519efc11ac7edc4c46ecc42f1961782ed15c85dac",
+    "projects/ukrmol_co/NATIVE_POINTER_DIAGNOSTIC.md": "3e65d1f6c8ab6656e2e01eed985397573533c9cd9324191ee30a2790e07b9937",
+    "projects/ukrmol_co/SWEEP_READINESS_20261012T0744.md": "dbfcf28e4a13bd6e4ad45990957f492d7d651e1be14deb0c99e28839133caa40",
+    "projects/ukrmol_co/progress-pointer-audit-20261012T0743.json": "c2b0c88b125b42abf0dce9f5a84d064f3b75031b4f9d492e426ac8937a4496e4",
+    "projects/ukrmol_co/progress-pointer-audit-20261012T0744.json": "89fa43c7eaa034ae21c682a1ec9d434d43d45bfb77be9b82119dd7cbd9d1715d"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-12T07:44:50.176973+00:00",
+    "changes": [
+      "Source inspection identifies retained CSF/manager/target/context pointers; reduced TARGET-interface probe preserves tested addresses and does not establish an engine fix.",
+      "Two instrumented build attempts fail before native invocation; the next fresh build stops at9/12reference cases because a parent ASSOCIATED predicate rejects equal-address links. All failures remain preserved.",
+      "A separate pinned-compiler probe isolates the parent predicate mismatch atO0/O1/O2; scalar-address checks pass valid links and reject deliberately redirected/null parents without warnings. Replacing only that audit predicate restores all12reference checks and all3debugger tests.",
+      "Owner1187176 launches one native B1 at07:42:49UTC; all8ranks pass after-create/before-build graph and context audits over990990CSFs/22475718determinants,complete Class1 target1 and enter target2. Initial graph consistency does not establish lifetime validity or the earlier fault cause.",
+      "All55source/192input hashes,242installed artifacts and5saved native inputs reverify; numerical-library hashes match the prior debug build. The capture pins31immutable remote records plus its observation.",
+      "Observer startup races are preserved; observation-only successor1191504 is active after explicit owner-file/PID gate. Prior numerical evidence and scientific verdicts retain their status."
+    ],
+    "live_status": {
+      "cas12_sparse_pilot_finished": true,
+      "cas12_sparse_pilot_cost_export_passed": true,
+      "cas12_4096_comparator_finished": true,
+      "cas12_4096_comparator_native_stage_exit": 59,
+      "cas12_4096_comparator_controller_exit": 1,
+      "cas12_4096_pair_stability_verdict": null,
+      "cas12_sparse_truncation_verdict": null,
+      "cas12_native_debug_owner": 1168755,
+      "cas12_native_debug_launched": true,
+      "cas12_native_debug_finished": true,
+      "cas12_native_debug_controller_exit": 1,
+      "cas12_native_debug_container_exit": 1,
+      "cas12_native_debug_gdb_mpi_exit": 139,
+      "cas12_native_debug_inferior_exit": null,
+      "cas12_native_debug_observed_signal": 11,
+      "cas12_native_debug_observed_rank": 0,
+      "cas12_native_debug_observed_class": 1,
+      "cas12_native_debug_engine_checks_passed": true,
+      "cas12_native_debug_root_cause": null,
+      "cas12_native_debug_same_cause_as_release_failure": null,
+      "cas12_native_debug_source_hashes_verified": 47,
+      "cas12_native_debug_input_hashes_verified": 119,
+      "cas12_native_debug_installed_artifacts_verified": 242,
+      "observer_owner": 1191504,
+      "observer_finished": false,
+      "observer_exit": null,
+      "observer_captures": 1,
+      "scientific_containers_running": 1,
+      "full_sweep_released": false,
+      "cas12_pointer_audit_owner": 1187176,
+      "cas12_pointer_audit_launched": true,
+      "cas12_pointer_audit_finished": false,
+      "cas12_pointer_audit_engine_checks_passed": true,
+      "cas12_pointer_audit_initial_graph_passed_ranks": 8,
+      "cas12_pointer_audit_initial_csfs": 990990,
+      "cas12_pointer_audit_initial_determinants": 22475718,
+      "cas12_pointer_audit_class1_last_completed_target": 1,
+      "cas12_pointer_audit_class1_active_target": 2,
+      "cas12_pointer_audit_source_hashes_verified": 55,
+      "cas12_pointer_audit_input_hashes_verified": 192,
+      "cas12_pointer_audit_installed_artifacts_verified": 242,
+      "cas12_pointer_audit_engine_correction_verdict": null
+    },
+    "pointer_audit_initial_graph": {
+      "ranks_passed": 8,
+      "csfs": 990990,
+      "determinants": 22475718,
+      "last_completed_class1_target": 1,
+      "active_class1_target": 2,
+      "scope": "Initial/pre-build identity,index and retained-context checks in one diagnostic; no scientific root-pair comparison"
+    },
+    "roadmap_import_status": "AUDIT ACTIVE",
+    "roadmap_import_title": "CAS12 B1: initial CSF graph checks pass",
+    "roadmap_import_detail": "All8ranks; source-fault cause and release link remain open",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "Frozen core + independently checked target imports",
+        "detail": "Two A1 core orbitals; ten active electrons; own target maps"
+      },
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "CAS11 2048 roots + neutral numerical inputs",
+        "detail": "Smallest qualified CAS11 count; 1.9\u20132.5-bohr neutral data"
+      },
+      {
+        "kind": "active",
+        "status": "AUDIT ACTIVE",
+        "title": "CAS12 B1: initial CSF graph checks pass",
+        "detail": "8ranks; 0.991M CSFs /22.476M determinants; Class1"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT",
+        "title": "Locate pointer cause \u2192 validate changed engine",
+        "detail": "Separate declaration; baseline replay before 4K comparison"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED",
+        "title": "Freeze \u2192 restartable pilot \u2192 sweep \u2192 fit",
+        "detail": "Model / identity / extraction / neutral gates remain open"
+      }
+    ],
+    "verification_footer": "CAS12 address audit active; initial graph passes; crash cause and omission check open.",
+    "live_observation_utc": "2026-10-12T07:44:50.176973+00:00",
+    "interpretation": "Pointer identity/index audit with unchanged computational statements and saved B1 inputs. Initial audit markers locate the live stage but do not establish the prior SIGSEGV cause or scientific convergence. Two instrumentation build failures and the isolated predicate gate failure are preserved. Review pointer/address/index evidence before separately declaring any engine correction or matched-engine baseline."
+  }
+}

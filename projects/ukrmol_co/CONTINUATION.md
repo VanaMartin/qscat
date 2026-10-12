@@ -20,6 +20,83 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CSF address audit passes initial graph gates — 12 October, 07:44 UTC
+
+**Owner1187176 is active**, service `co-cas12-pointer-address-20261012.service`,
+source `prepared/cas12-pointer-address-source-20261012/`, run
+`cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012`. The owner starts
+at07:39:28UTC; native B1 starts **07:42:49UTC** after fresh compilation, all
+**12 serial/MPI target-HF reference checks** and all **three debugger tests**
+pass. At **07:44:50UTC**, all8ranks pass after-creation/before-build audits of
+**990,990CSFs /22,475,718determinants** and retained context checks, complete
+Class1 target index1 and enter index2. Rank0's flushed markers are in its
+GDB log; ranks1–7 use `log_file.1`–`log_file.7`. The direct initial graph
+checks pass; pointer lifetime and the prior crash cause remain unresolved.
+
+The [investigation note](NATIVE_POINTER_DIAGNOSTIC.md) and
+[address-successor contract](cas12-pointer-diagnostic-address-successor-contract.json)
+record source inspection and an independently isolated audit-predicate failure.
+The original small TARGET-interface probe preserves all tested addresses.
+The later predicate probe reproduces false `ASSOCIATED` for valid parents
+with polymorphic array-element targets atO0/O1/O2; scalar-address checks reject
+deliberately redirected/null pointers and pass valid pointers, with exits0
+and no warnings. Changing that audit predicate restores all12engine checks.
+This fixes instrumentation; no native engine correction is established.
+
+Preserve all three instrumentation attempts: owner1179919 stops07:22:06UTC
+on missing logging import (build2/controller1); owner1182601 stops07:27:50UTC
+on ambiguous patch anchor (build1/controller1); owner1182943 stops07:33:57UTC
+at9/12reference tests (CTest8/checks1/controller1). None invokes native B1.
+All original computational lines survive the final instrumentation patch.
+The current code is pinned to **`d88fbc9`**, owner helper to`6565d81` and
+inherited debug helpers to`2f379ba`; numerical-library hashes match the prior
+diagnostic build. All **55source/192input hashes** and **242installed artifacts**
+reverify, along with all five saved native inputs. The
+[07:44 capture](progress-pointer-audit-20261012T0744.json) pins31immutable
+remote records plus its frozen observation; the
+[07:43 capture](progress-pointer-audit-20261012T0743.json) preserves initial
+launch before observer repair. The [readiness note](SWEEP_READINESS_20261012T0744.md)
+and [overview snapshot](progress-snapshot-20261012T0744.json) retain prior
+plotted numerical values and scientific verdicts.
+
+Native resources remain8physical cores4–11,80-GiB cgroup,8-GiB shared backing,
+16-GiB `memp`, one library thread/rank and24/25/30-hour native/container/owner
+limits. CPUs0–3 remain reserved for small work. Current **799.22% CPU /11.33GiB**
+is an ongoing sample. `STOP` in the frozen source directory ends the active
+step. The owner schedules one B1 invocation and no B2/outer/scientific comparison.
+
+Observer1187179 races the owner's first execution-file write and fails1 with
+no capture; buildfix/anchorfix observers1182604/1182946 have the same preserved
+startup failure. The separately declared [ready observer](cas12-pointer-observer-successor-contract.json),
+**1191504**, service `co-cas12-pointer-address-observer-ready-20261012.service`,
+is active with one immutable reading under
+`prepared/cas12-pointer-address-observer-ready-20261012/`. It reuses the
+unchanged frozen observer, reads hourly and stops after owner completion or
+30hours. It schedules no calculation or repair.
+
+**Next:** review live address/index/CSF/determinant markers and any source fault
+or completion before separately declaring an engine correction or matched2048
+control. Initial graph consistency does not establish the prior Class1/rank0
+fault's cause or reproduce the original post-Class4/rank4 interval. A changed
+engine needs baseline reproduction before scientific4096comparison. Pair and
+omitted-spectrum verdicts remain unset; model/channel/identity/extraction/neutral
+and restartable-production-pilot gates still govern the sweep and potential fit.
+
+Verification passes **81local source hashes**, **64immutable current/failed-attempt
+remote records** (32for the latest capture and32preserved instrumentation records),
+**55/192frozen hashes** and **242installed artifacts**. Live CPU/memory/shared
+backing, one-thread library settings and read-only source/library mounts match
+the declaration; numerical-library hashes match the prior diagnostic build.
+All earlier plotted numerical groups are identical and the07:01historical PNG/SVG
+reproduce byte-for-byte. Current rendering/visual inspection, searchable SVG,
+probe-result/source parity, local links, lint/format and diff checks pass.
+Main-index integrity/upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; pointer helpers, contracts and
+milestone evidence are branch-only additions resolved against current source.
+The final **07:49:41UTC** check finds owner1187176 active without error;
+rank0/rank4 still show Class1 target2 entry with no pointer-failure, signal or
+bounds-error marker. Current Docker sampling is801.17%CPU/11.33GiB.
+
 ### B1 diagnostic captures Class1 source fault — 12 October, 07:01 UTC
 
 **Owner1168755 stops at00:26:31UTC with container/controller exits1.** GDB captures

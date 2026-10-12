@@ -1,0 +1,14 @@
+{
+  "status": "separately declared observation-only successor after owner-file startup race",
+  "observed_owner": 1187176,
+  "owner_service": "co-cas12-pointer-address-20261012.service",
+  "owner_source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "run": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+  "observer_service": "co-cas12-pointer-address-observer-ready-20261012.service",
+  "output_directory": "prepared/cas12-pointer-address-observer-ready-20261012",
+  "review": "Observer1187179 starts before the native owner's first execution.json write and ends1 with FileNotFoundError,no captures. The buildfix/anchorfix observers1182604/1182946 show the same startup race. Preserve all3observer records/services; launch this fresh observer only after execution.json is readable and its supervisor PID matches the running owner. The original pointer observer remains separate.",
+  "implementation": "Reuse the existing frozen sparse_observer.py unchanged; no scientific owner,engine or input changes.",
+  "resources": {"interval_seconds": 3600,"duration_seconds": 108000,"systemd_maximum_seconds": 108120},
+  "stopping_rule": "Observe only; stop after detecting owner completion or30-hour bound. No calculation,repair,retry or follow-on model.",
+  "full_sweep_released": false
+}
