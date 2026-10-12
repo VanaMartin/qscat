@@ -119,6 +119,11 @@ def patches(originals: dict[str, str]) -> dict[str, str]:
     )
     result[CONTRACTED] = contracted
     ham = PREFIX + "Modules/Hamiltonian/Hamiltonian_module.f90"
+    result[ham] = replace(
+        result[ham],
+        "module Hamiltonian_module\n",
+        "module Hamiltonian_module\n\n    use const_gbl, only: stdout\n",
+    )
     for side, index, anchor in (
         ("a", "dtr_idx_a", "        do dtr_idx_a = 1, csf_a % num_orbitals"),
         ("b", "dtr_idx_b", "            do dtr_idx_b = 1, csf_b % num_orbitals"),

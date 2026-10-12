@@ -1,0 +1,29 @@
+{
+  "observed_utc": "2026-10-12T07:26:34.321338+00:00",
+  "source_directory": "prepared/cas12-pointer-audit-source-20261012",
+  "owner": 1179919,
+  "finished_utc": "2026-10-12T07:22:06.031831+00:00",
+  "original_build_container_exit": 2,
+  "original_controller_exit": 1,
+  "failure": "Instrumentation compile error: Hamiltonian_module logging uses stdout without importing const_gbl::stdout",
+  "native_invocations": 0,
+  "engine_checks_started": false,
+  "frozen_file_counts_reverified": {
+    "source": 50,
+    "inputs": 158
+  },
+  "remote_sha256": {
+    "prepared/cas12-pointer-audit-source-20261012/execution.json": "7313962144e4775601ed24b253e6f1d1404b127fc37b0bcc276a90b6cb26f256",
+    "prepared/cas12-pointer-audit-source-20261012/frozen-inputs.json": "29c168392b61e90d15056154bf7bea527ed8861ece0504328731c1bbadd69ae7",
+    "prepared/cas12-pointer-audit-source-20261012/source-provenance.json": "c5869780ad917792ddf553b1083295c42d8a6262036ceabd489150c0956bbf66",
+    "prepared/cas12-pointer-audit-source-20261012/contract.json": "4ec94258d1352c844b67b7eac57e7bdd38323d2ddfe49ed101b6b051cd70440c",
+    "prepared/cas12-pointer-audit-source-20261012/tools-image.json": "effc3af0dd93fadc73bf7884f1e573441dfd317ed8e4a9b1d5ba257763bc67ed",
+    "prepared/cas12-pointer-audit-source-20261012/diagnostic-build.launch.log": "5c059cd3b83da1a79bbf3bfe888d5e72b45732e0e70ca81fbf473eef822a1c41",
+    "prepared/cas12-pointer-audit-source-20261012/build/patch.json": "0fd1eaf17850fa72748cbb2cc8bd58c9bf24434e1c7c8dbe12fff77e720b8bb9",
+    "prepared/cas12-pointer-audit-source-20261012/build/inner/source/mpi-ci-diag/Modules/Hamiltonian/Hamiltonian_module.f90": "3edf78705ae5994cd7c0b204b663809b084e48baa1fc92c6eacf531a9a29811b"
+  },
+  "service": "ExecMainStatus=1\nActiveState=failed\nSubState=failed\n",
+  "scientific_verdict": null,
+  "immutable_remote_capture": "prepared/cas12-pointer-audit-source-20261012/build-failure-capture.json",
+  "immutable_remote_capture_sha256": "7894f20cdc1443e66614a6bc6e5f52eba506753088d0e1f9b9aebdb5d6124abc"
+}

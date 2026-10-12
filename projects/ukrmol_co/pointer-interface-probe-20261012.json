@@ -1,0 +1,25 @@
+{
+  "utc": "2026-10-12T07:12:58.585468+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--cpuset-cpus=0-3",
+    "--memory=2g",
+    "--memory-swap=2g",
+    "--entrypoint",
+    "/opt/ukrmolp/entrypoint.sh",
+    "-v",
+    "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-probe-20261012:/probe",
+    "-w",
+    "/probe",
+    "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "bash",
+    "-c",
+    "gfortran -fdefault-integer-8 -O1 -g -fbacktrace -fcheck=bounds -Wtarget-lifetime -Warray-temporaries probe.f90 -o probe && ./probe"
+  ],
+  "original_exit": 0,
+  "stdout": " ORIGINAL configuration address match: T\n ORIGINAL factory address match: T\n ORIGINAL target address match: T\n ORIGINAL parent address match: T\n ORIGINAL owner address match: T\n TARGET configuration address match: T\n TARGET factory address match: T\n TARGET target address match: T\n TARGET parent address match: T\n TARGET owner address match: T\n",
+  "stderr": "probe.f90:69:16:\n\n   69 |             loc(h%configurations) == loc(configurations)\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:69:16:\n\n   69 |             loc(h%configurations) == loc(configurations)\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:71:55:\n\n   71 |         write(*,*) 'TARGET target address match:', loc(h%targets) == loc(targets)\n      |                                                       1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:71:55:\n\n   71 |         write(*,*) 'TARGET target address match:', loc(h%targets) == loc(targets)\n      |                                                       1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:76:16:\n\n   76 |         if (loc(h%configurations) /= loc(configurations)) error stop 1\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:76:16:\n\n   76 |         if (loc(h%configurations) /= loc(configurations)) error stop 1\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:78:16:\n\n   78 |         if (loc(h%targets) /= loc(targets)) error stop 3\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:78:16:\n\n   78 |         if (loc(h%targets) /= loc(targets)) error stop 3\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:52:16:\n\n   52 |             loc(h%configurations) == loc(configurations)\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:52:16:\n\n   52 |             loc(h%configurations) == loc(configurations)\n      |                1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:54:57:\n\n   54 |         write(*,*) 'ORIGINAL target address match:', loc(h%targets) == loc(targets)\n      |                                                         1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\nprobe.f90:54:57:\n\n   54 |         write(*,*) 'ORIGINAL target address match:', loc(h%targets) == loc(targets)\n      |                                                         1\nWarning: Creating array temporary at (1) [-Warray-temporaries]\n",
+  "source_sha256": "d33cf395e36a740500b49ad2dad4b5c9316602346a9b100b9b8f02e9a483e571"
+}

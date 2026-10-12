@@ -1,0 +1,36 @@
+{
+  "status": "separately declared fresh successor after instrumentation-only compile failure",
+  "scientific_question": "Audit native CSF parent/manager,retained Hamiltonian and target-context pointer identity and determinant indexes before the previously observed Class1 dereference.",
+  "run": "cas12-eq-B1-roots4096-mpi8-pointer-audit-buildfix-20261012",
+  "parent_contract": "cas12-pointer-diagnostic-contract.json",
+  "failed_build_directory": "prepared/cas12-pointer-audit-source-20261012",
+  "baseline_directory": "prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "failed_B1_directory": "prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+  "review": "Owner1179919 stopped in diagnostic-build with build/container exit2 and controller1 before engine tests or a native invocation. The new Hamiltonian_module logging referenced stdout without importing it; compiler reports no IMPLICIT type. Preserve the failed build,service,contract and source. Add only use const_gbl,only:stdout to that module in the instrumentation patch; use a fresh source/output/build directory and the same frozen helpers,inputs,libraries,flags and pointer assertions. This is an instrumentation compile correction,not an engine or scientific correction. The reduced pinned-compiler probe preserved all five tested addresses and did not establish a TARGET fix.",
+  "changes": "The parent pointer-audit declaration applies in full. Its only instrumentation-source delta is the missing stdout import in Hamiltonian_module. The new run name and frozen provenance identify this separately declared successor.",
+  "guard_failure": "Preserve CO_PTR_FAIL markers and ERROR STOP86,source backtraces,bounds errors or first signal. Debugger status remains distinct from native inferior exit.",
+  "resources": {
+    "physical_cpu_group": "4-11",
+    "mpi_ranks": 8,
+    "library_threads_per_rank": 1,
+    "container_memory_gib": 80,
+    "shared_memory_gib": 8,
+    "minimum_available_ram_gib": 96,
+    "minimum_free_disk_gib": 50,
+    "native_timeout_seconds": 86400,
+    "container_timeout_seconds": 90000,
+    "owner_timeout_seconds": 108000,
+    "observer_interval_seconds": 3600,
+    "observer_duration_seconds": 108000
+  },
+  "gates": [
+    "Reverify failed build and prior diagnostic/release/successful baseline evidence plus all frozen source/input hashes",
+    "Unique checksum-pinned source anchors and complete fresh compilation/install/debug sections",
+    "All12serial/MPI target-HF checks and normal-exit,first-SIGSEGV and bounds-backtrace debugger checks pass before native launch"
+  ],
+  "stopping_rule": "Exactly one B1 invocation after all gates. Build/check/native failure,changed frozen evidence,STOP or timeout ends the owner; no automatic repair,retry,B2 or outer stages. Review pointer evidence before separately declaring a minimal engine correction or matched-engine baseline control.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "engine_correction_verdict": null,
+  "full_sweep_released": false
+}
