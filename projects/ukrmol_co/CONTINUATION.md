@@ -20,6 +20,59 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Matched2048-root audited-engine control starts — 12 October, 19:38 UTC
+
+**Owner1228004 is active on Sadaharu.** The
+[separate declaration](cas12-audited-engine-baseline-contract.json) and
+[control rationale](AUDITED_ENGINE_BASELINE.md) select the exact completed
+address-audit engine, mounted read-only, for a same-root B1/B2 scientific replay.
+All computational statements/assertions/O1flags and numerical-library bytes
+remain pinned. Direct MPI plus the original residual telemetry replaces the
+GDB-only diagnostic runtime; the unchanged baseline driver/dependency hashes
+are recorded. This tests engine/runtime reproduction, not a crash correction.
+
+Runtime dependency/symbol-load and independent original-baseline self-reading
+both exit0. The latter passes the tighter **0.1meV position/full-width and
+1e-6rad phase** reproduction budgets, without qualifying the new candidate.
+Native B1 starts **19:36:24UTC**. At **19:38:24UTC**, all eight ranks pass the
+initial graph/context audits, complete Class1 target1 and enter target2. No
+pointer-failure, signal or bounds-error marker appears; no candidate exports
+exist. Current sampling is **802.41% CPU /10.73GiB**, not final cost.
+
+The [19:38 launch capture](progress-engine-baseline-20261012T1938.json)
+reverifies **41source/343input-evidence hashes**, **242installed artifacts**
+and B1's five native inputs against the original successful baseline. It
+pins63immutable remote records plus its observation. The original engine's
+55source/192input freeze and all12engine/3debugger checks remain verified.
+The [readiness note](SWEEP_READINESS_20261012T1938.md) and
+[overview snapshot](progress-snapshot-20261012T1938.json) retain prior measured
+scientific values and the completed B1 diagnostic cost.
+
+Service `co-cas12-audited-engine-baseline-20261012.service` owns one two-sector
+2048-root replay followed by its independent same-root reader. Observer1228557,
+service `co-cas12-audited-engine-baseline-observer-20261012.service`, is active
+with one capture; its startup checks the live owner PID against a readable
+execution record. Fresh source/run/observer outputs are in
+`prepared/cas12-audited-engine-baseline-source-20261012/`. Stage/whole-native/
+owner limits are24/50/72hours; `STOP` there ends the active step.
+
+**Next:** inspect native completion or failure and independent same-root
+reproduction. False/unset or input/raw/residual/Pi violations stop without
+retry or changed limits. A passing engine control precedes a separately
+declared scientific4096-root comparator; none is automatic. Crash cause,
+engine-correction/pair/omitted-spectrum/model/identity/extraction/neutral and
+restartable-production-pilot verdicts remain separate.
+
+Implementation/declaration are pinned to`146f7b83d0ad93c2b9db7743cc71d41e61cfc945`;
+**34focused tests** pass, including same-root budget rejection/unset-fit scope
+checks. Verification passes **97local hashes**, **64immutable remote records**,
+**41/343fresh frozen hashes** and **242installed artifacts**. Previous numerical
+and cost groups remain identical; the18:03historical PNG/SVG reproduce
+byte-for-byte. Current rendering/visual inspection, searchable SVG, links,
+lint/format and diff checks pass. Main-index integrity/upstream currency remain
+complete/current at`97b8b4c7392f822c996af0d4d77f81e100ff1407`; branch-only owner,
+reader,declaration and milestone source resolve against the current checkout.
+
 ### Address audit completes native B1 and independent export reading — 12 October, 18:03 UTC
 
 **Owner1187176 completed at15:04:29UTC, with controller/container/MPI exits0.**

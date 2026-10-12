@@ -1,0 +1,171 @@
+{
+  "base_snapshot": "progress-snapshot-20261012T1803.json",
+  "base_snapshot_sha256": "d9709381c7ca75b1e9dc2fa99a52d592ee567dd7dbddf5936f6be8e1a31c22ea",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/SWEEP_READINESS_20261012T1938.md": "5e4ea1a854aa28e13b28eba56fa307c038bd7ac21ec1da2e25307ee762942892",
+    "projects/ukrmol_co/progress-engine-baseline-20261012T1938.json": "5fee17c3bb621bbe603dadf9338cc599786999ec94e804e5a91d76c4f033c33d",
+    "projects/ukrmol_co/cas12-audited-engine-baseline-contract.json": "75f879c75099d9f1ac18fdeeda21d2759971c23f529e2143a17e8a53c287f37d",
+    "projects/ukrmol_co/AUDITED_ENGINE_BASELINE.md": "0057862af2096d09d95fa9bf69ab7ae45d3bc81dbc66d099754ff146f35e9134",
+    "projects/ukrmol_co/engine_baseline.py": "e4a0c8094fd724b5ee337f916069f32f2b70691f40119d7cd666a83f70a2a4c5",
+    "projects/ukrmol_co/engine_baseline_owner.py": "40d8ef946889afe83a114be19228a127980089e6c32e1a750cc797d7fac25385",
+    "projects/ukrmol_co/test_engine_baseline.py": "d510b59b6f72e63c9f1d60f9cec25141516837037f259fa30a79fbc1b17065fb"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-12T19:38:24.929724+00:00",
+    "changes": [
+      "Separately declared same-root2048control launches on exact completed address-audit engine with directMPI and retained residual telemetry. Original scientific driver/dependencies and model/native/outer inputs remain byte-identical. No engine correction or fault-cause claim.",
+      "Runtime numerical-library/telemetry gate and independent original-baseline self-reading pass before native B1 starts19:36:24UTC. Same-root reproduction budgets are0.1meV position/full width and1e-6rad phase;scientific root-pair budgets remain separate.",
+      "At19:38:24UTC all8ranks pass initial graph/context checks,complete Class1 target1 and enter target2. Current802.41%CPU/10.73GiB is ongoing usage,not final cost. No failure markers or candidate exports;candidate reproduction verdict remains unset.",
+      "All41fresh source/343input-evidence hashes and242installed engine artifacts reverify;B1five native inputs match original baseline. Prior engine55source/192input freeze remains verified. Capture pins63immutable remote records plus its observation. Observer is active with1capture after live-owner readiness/PID checks.",
+      "Existing scientific values and measured cost groups remain unchanged. Complete one B1/B2/outer replay and independent same-root reader;no automatic4096job,repair or budget change. Engine correction,root-pair,omitted-spectrum,model,identity,extraction,neutral and sweep gates remain separate."
+    ],
+    "live_status": {
+      "cas12_sparse_pilot_finished": true,
+      "cas12_sparse_pilot_cost_export_passed": true,
+      "cas12_4096_comparator_finished": true,
+      "cas12_4096_comparator_native_stage_exit": 59,
+      "cas12_4096_comparator_controller_exit": 1,
+      "cas12_4096_pair_stability_verdict": null,
+      "cas12_sparse_truncation_verdict": null,
+      "cas12_native_debug_owner": 1168755,
+      "cas12_native_debug_launched": true,
+      "cas12_native_debug_finished": true,
+      "cas12_native_debug_controller_exit": 1,
+      "cas12_native_debug_container_exit": 1,
+      "cas12_native_debug_gdb_mpi_exit": 139,
+      "cas12_native_debug_inferior_exit": null,
+      "cas12_native_debug_observed_signal": 11,
+      "cas12_native_debug_observed_rank": 0,
+      "cas12_native_debug_observed_class": 1,
+      "cas12_native_debug_engine_checks_passed": true,
+      "cas12_native_debug_root_cause": null,
+      "cas12_native_debug_same_cause_as_release_failure": null,
+      "cas12_native_debug_source_hashes_verified": 47,
+      "cas12_native_debug_input_hashes_verified": 119,
+      "cas12_native_debug_installed_artifacts_verified": 242,
+      "observer_owner": 1228557,
+      "observer_finished": false,
+      "observer_exit": null,
+      "observer_captures": 1,
+      "scientific_containers_running": 1,
+      "full_sweep_released": false,
+      "cas12_pointer_audit_owner": 1187176,
+      "cas12_pointer_audit_launched": true,
+      "cas12_pointer_audit_finished": true,
+      "cas12_pointer_audit_engine_checks_passed": true,
+      "cas12_pointer_audit_initial_graph_passed_ranks": 8,
+      "cas12_pointer_audit_initial_csfs": 990990,
+      "cas12_pointer_audit_initial_determinants": 22475718,
+      "cas12_pointer_audit_class1_last_completed_target": 8,
+      "cas12_pointer_audit_class1_active_target": null,
+      "cas12_pointer_audit_source_hashes_verified": 55,
+      "cas12_pointer_audit_input_hashes_verified": 192,
+      "cas12_pointer_audit_installed_artifacts_verified": 242,
+      "cas12_pointer_audit_engine_correction_verdict": null,
+      "cas12_pointer_audit_class1_completed_ranks": 8,
+      "cas12_pointer_audit_last_confirmed_completed_class": 8,
+      "cas12_pointer_audit_CI_export_present": true,
+      "cas12_pointer_audit_boundary_export_present": true,
+      "cas12_pointer_audit_latest_marked_class": 6,
+      "cas12_pointer_audit_latest_marked_target_pair": [
+        7,
+        8
+      ],
+      "cas12_pointer_audit_class567_markers_present": true,
+      "cas12_pointer_audit_latest_marker_status": "END",
+      "cas12_pointer_audit_L2_update_completed_ranks": 8,
+      "cas12_pointer_audit_subsequent_live_stage": null,
+      "cas12_pointer_audit_controller_exit": 0,
+      "cas12_pointer_audit_container_exit": 0,
+      "cas12_pointer_audit_mpi_debugger_exit": 0,
+      "cas12_pointer_audit_inferior_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "cas12_pointer_audit_raw_export_checks_passed": true,
+      "cas12_pointer_audit_native_residual_verdict": null,
+      "cas12_pointer_audit_finished_utc": "2026-10-12T15:04:29.726984+00:00",
+      "cas12_pointer_audit_last_confirmed_stage": "native export and normal finalization",
+      "pointer_audit_observer_owner": 1191504,
+      "pointer_audit_observer_finished": true,
+      "pointer_audit_observer_captures": 9,
+      "cas12_engine_baseline_owner": 1228004,
+      "cas12_engine_baseline_launched": true,
+      "cas12_engine_baseline_finished": false,
+      "cas12_engine_baseline_runtime_gate_passed": true,
+      "cas12_engine_baseline_self_reading_passed": true,
+      "cas12_engine_baseline_source_hashes_verified": 41,
+      "cas12_engine_baseline_input_hashes_verified": 343,
+      "cas12_engine_baseline_installed_artifacts_verified": 242,
+      "cas12_engine_baseline_active_sector": "B1",
+      "cas12_engine_baseline_class1_active_target": 2,
+      "cas12_engine_baseline_class1_last_completed_target": 1,
+      "cas12_engine_baseline_candidate_exports_present": false,
+      "matched_engine_baseline_verdict": null
+    },
+    "engine_baseline_launch": {
+      "owner": 1228004,
+      "source_commit": "146f7b83d0ad93c2b9db7743cc71d41e61cfc945",
+      "runtime_gate_passed": true,
+      "baseline_self_reading_passed": true,
+      "candidate_verdict": null,
+      "native_elapsed_seconds_at_observation": 120.88706088066101,
+      "exports_present": {
+        "B1": {
+          "fort.25": false,
+          "fort.21": false
+        },
+        "B2": {
+          "fort.25": false,
+          "fort.21": false
+        }
+      },
+      "scope": "Matched2048-root two-sector control on exact completed address-audited engine. Runtime dependency gate and original-baseline self-reading pass;native B1 is active and no candidate verdict is available. Same-root agreement qualifies engine reproduction only. Instrumentation success still does not establish either earlier crash cause,an engine correction or omitted-spectrum convergence. No automatic4096job."
+    },
+    "roadmap_import_status": "MATCHED 2K ACTIVE",
+    "roadmap_import_title": "CAS12 audited engine: matched baseline running",
+    "roadmap_import_detail": "Runtime / self-reading pass; B1 Class1 target2",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "Frozen core + independently checked target imports",
+        "detail": "Two A1 core orbitals; ten active electrons; own target maps"
+      },
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "CAS11 2048 roots + neutral numerical inputs",
+        "detail": "Smallest qualified CAS11 count; 1.9\u20132.5-bohr neutral data"
+      },
+      {
+        "kind": "active",
+        "status": "MATCHED 2K ACTIVE",
+        "title": "CAS12 audited engine: matched baseline running",
+        "detail": "Runtime / self-reading pass; B1 Class1 target2"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT",
+        "title": "Engine reproduction \u2192 scientific 4K comparison",
+        "detail": "Residual / interface / Pi / identical-window fits before4K"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED",
+        "title": "Freeze \u2192 restartable pilot \u2192 sweep \u2192 fit",
+        "detail": "Model / identity / extraction / neutral gates remain open"
+      }
+    ],
+    "roadmap_note": "Same-root reproduction qualifies the engine / runtime only.\nCAS12 root count / retained channels remain unqualified.\nNeutral correlation and wider-range treatment remain open.",
+    "verification_footer": "Matched CAS12 2K engine control active; candidate reproduction / omission gates open.",
+    "live_observation_utc": "2026-10-12T19:38:24.929724+00:00",
+    "interpretation": "Matched2048-root two-sector control on exact completed address-audited engine. Runtime dependency gate and original-baseline self-reading pass;native B1 is active and no candidate verdict is available. Same-root agreement qualifies engine reproduction only. Instrumentation success still does not establish either earlier crash cause,an engine correction or omitted-spectrum convergence. No automatic4096job."
+  }
+}
