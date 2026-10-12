@@ -20,6 +20,47 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Address audit completes all classes and L2 update — 12 October, 13:38 UTC
+
+**Owner1187176 remains active on Sadaharu.** All eight ranks record
+`Class 567 complete`, `Class 2+8 complete` and `Finished L2 update`, with
+four Class5,four Class6 and24Class7 pair-block exits per rank. The final
+target pair7–8 has completed. Earlier Class1,Class3 and Class4 completion
+messages remain present. No pointer-failure, intercepted signal or Fortran
+bounds-error marker appears at **13:38:05UTC**; no CI/boundary exports exist.
+
+Native B1 has run **5.9211hours** since07:42:49UTC, sampling **796.98% CPU /
+15.04GiB current memory** under the eight-core/80-GiB allocation. These are
+ongoing samples, not final cost. L2 update is the last directly confirmed
+milestone; buffered tails do not locate the subsequent live finalization/
+eigensolver stage. Neither failure cause, an engine correction nor scientific
+root-count convergence is established by these completed diagnostic stages.
+
+All **55source/192input hashes**, **242installed artifacts** and five saved
+native inputs reverify; numerical-library hashes match the prior debug build.
+The [13:38 capture](progress-pointer-audit-20261012T1338.json) pins36immutable
+remote records plus its frozen observation. The
+[readiness note](SWEEP_READINESS_20261012T1338.md) and
+[overview snapshot](progress-snapshot-20261012T1338.json) preserve prior numerical
+values and scientific verdicts while recording the all-rank L2 milestone.
+
+Hourly observer1191504 is active with six captures07:44–12:44UTC.
+Native/container/owner limits remain24/25/30hours; `STOP` in the frozen source
+directory ends the active step. **Next:** review a native first fault or
+completed eigenpair/boundary exports before separately declaring any engine
+correction or matched2048control. Baseline reproduction precedes resumed
+scientific4096comparison. Pair/omitted-spectrum/model/identity/extraction/
+neutral and restartable-production-pilot gates still govern the sweep and fit.
+
+Verification passes **87local hashes**, **37immutable remote records**,
+**55/192frozen hashes** and **242installed artifacts**. Previous plotted
+numerical groups remain identical; the12:04historical PNG/SVG reproduce
+byte-for-byte. Current rendering/visual inspection, searchable SVG, links,
+lint/format and diff checks pass. Main-index integrity is complete at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; its handoff status reports upstream
+currency unknown. Branch-only milestone evidence and renderer changes are
+resolved against current source.
+
 ### Address audit reaches Class5 pair7–8 — 12 October, 12:04 UTC
 
 **Owner1187176 remains active on Sadaharu.** All eight ranks record Class1,

@@ -1,0 +1,650 @@
+{
+  "observed_utc": "2026-10-12T13:38:05.796787+00:00",
+  "host": "sadaharu",
+  "campaign_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "source_commit": "d88fbc9486dccb4d2a433e78b78cf87a656ceb79",
+  "run": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+  "owner": 1187176,
+  "owner_execution": {
+    "supervisor_pid": 1187176,
+    "started_unix": 1791790768.7552912,
+    "steps": [
+      {
+        "label": "diagnostic-build",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012-build",
+          "--cpuset-cpus=4-7",
+          "--memory=32g",
+          "--memory-swap=32g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build:/home/ukrmol/debug-source",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "bash",
+          "/opt/qmodeling/projects/ukrmol_co/build_pointer_native.sh"
+        ],
+        "started_unix": 1791790771.9582148,
+        "original_exit": 0,
+        "finished_unix": 1791790801.7892742
+      },
+      {
+        "label": "engine-debugger-checks",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012-checks",
+          "--cpuset-cpus=0-3",
+          "--memory=16g",
+          "--memory-swap=16g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build:/home/ukrmol/debug-source",
+          "--cap-add=SYS_PTRACE",
+          "--security-opt=seccomp=unconfined",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.debug_engine_checks",
+          "--build",
+          "/home/ukrmol/debug-source"
+        ],
+        "started_unix": 1791790801.9241884,
+        "original_exit": 0,
+        "finished_unix": 1791790966.5998309
+      },
+      {
+        "label": "native-B1-diagnostic",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+          "--cpuset-cpus=4-11",
+          "--memory=80g",
+          "--memory-swap=80g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build:/home/ukrmol/debug-source",
+          "--cap-add=SYS_PTRACE",
+          "--security-opt=seccomp=unconfined",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.debug_scatci",
+          "--reference",
+          "/work/prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+          "--workdir",
+          "/outputs/cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+          "--ranks",
+          "8",
+          "--timeout",
+          "86400"
+        ],
+        "started_unix": 1791790969.938826
+      }
+    ],
+    "scope": "Audit native CSF parent/manager,retained Hamiltonian and target-context pointer identity and determinant indexes before the previously observed Class1 dereference.",
+    "frozen_file_counts_verified": {
+      "source": 55,
+      "inputs": 192
+    },
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_ram_bytes": 115243798528,
+    "free_disk_bytes": 87481454592,
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "heartbeat_unix": 1791812270.5157723,
+    "diagnostic_build": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242
+    },
+    "checks_sha256": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "status": {
+    "owner_service": "MainPID=1187176\nExecMainStatus=0\nActiveState=active\nSubState=running\n",
+    "observer_service": "MainPID=1191504\nActiveState=active\nSubState=running\n",
+    "docker_ps": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012 Up 6 hours\nbonsai2 Up 5 hours (healthy)\ncomfyui Up 3 weeks\n",
+    "docker_stats": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012 CPU=796.98% MEM=15.04GiB / 80GiB\nbonsai2 CPU=0.08% MEM=15.41GiB / 123.5GiB\ncomfyui CPU=0.09% MEM=10.09GiB / 123.5GiB\n"
+  },
+  "engine_checks": {
+    "upstream_original_exit": 0,
+    "normal": {
+      "rank": 0,
+      "inferior_exit_code": 0,
+      "observed_stop_signal": null,
+      "debugger_original_exit": 0,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/normal/smoke"
+      ]
+    },
+    "signal": {
+      "rank": 0,
+      "inferior_exit_code": null,
+      "observed_stop_signal": "SIGSEGV",
+      "observed_signal_number": 11,
+      "debugger_failure_status": 139,
+      "scope": "Intercepted native signal; debugger status is not a native exit code",
+      "debugger_original_exit": 139,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/signal/smoke"
+      ]
+    },
+    "bounds": {
+      "rank": 0,
+      "inferior_exit_code": 2,
+      "observed_stop_signal": null,
+      "debugger_original_exit": 2,
+      "command": [
+        "gdb",
+        "--batch",
+        "--return-child-result",
+        "--quiet",
+        "-x",
+        "/opt/qmodeling/projects/ukrmol_co/rank_gdb.py",
+        "--args",
+        "/home/ukrmol/debug-source/debugger-smoke/bounds/smoke"
+      ]
+    },
+    "all_checks_passed": true
+  },
+  "frozen_file_counts_reverified": {
+    "source": 55,
+    "inputs": 192
+  },
+  "installed_artifacts_reverified": 242,
+  "numerical_library_hashes_match_prior_debug_build": true,
+  "native_inputs_reverified": {
+    "fort.16": "8085b06f43396452f69cb2b77c189fad5778dce54c5a515ab4360f6702b435c9",
+    "fort.24": "5342cf45ff44ea8e174734e49eae6fdca8ca8d02cc02a2f2c3aff3c8505f4196",
+    "fort.26": "8ffef737862c9c82ac42dd78c9a0ca5e93ba7a2c72a8ef56ed234a88138874f4",
+    "fort.721": "a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+    "scatci.inp": "2d661509fea640d08faa0c6f4540c08fe7e26ec4202239e28946633692dfbf53"
+  },
+  "pointer_markers": {
+    "scatci.out": [],
+    "rank-0.gdb.log": [
+      "CO_PTR_PASSafter-createrank=                    0 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    0 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    0",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    0 target=                    8"
+    ],
+    "log_file.1": [
+      "CO_PTR_PASSafter-createrank=                    1 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    1 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    1 target=                    8"
+    ],
+    "log_file.2": [
+      "CO_PTR_PASSafter-createrank=                    2 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    2 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    2 target=                    8"
+    ],
+    "log_file.3": [
+      "CO_PTR_PASSafter-createrank=                    3 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    3 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    3 target=                    8"
+    ],
+    "log_file.4": [
+      "CO_PTR_PASSafter-createrank=                    4 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    4 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    4 target=                    8"
+    ],
+    "log_file.5": [
+      "CO_PTR_PASSafter-createrank=                    5 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    5 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    5 target=                    8"
+    ],
+    "log_file.6": [
+      "CO_PTR_PASSafter-createrank=                    6 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    6 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    6 target=                    8"
+    ],
+    "log_file.7": [
+      "CO_PTR_PASSafter-createrank=                    7 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASSbefore-buildrank=                    7 csfs=               990990 determinants=             22475718",
+      "CO_PTR_PASS retained-context rank=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    1",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    1",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    2",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    2",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    3",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    3",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    4",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    4",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    5",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    5",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    6",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    6",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    7",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    7",
+      "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    8",
+      "CO_PTR_CLASS1_END rank=                    7 target=                    8"
+    ]
+  },
+  "rank_log_tails": {
+    "scatci.out": "",
+    "rank-0.gdb.log": " time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17065.9       0.0         0.3       0.0\n C-Hamiltonian Build            *        1    17061.5       0.0         0.4       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4477.5       0.0      4477.5       0.0\n Symbol Synchronize                     48      176.7       0.0       176.7       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1784.6       0.0      1784.6       0.0\n Class 4                                 1     3641.2       0.0      3641.2       0.0\n Class 567                               1     6506.5       0.0       254.1       0.0\n Class 5 prototype                       4     2668.8       0.0      2668.8       0.0\n Class 6 prototype                       4      533.9       0.0       533.9       0.0\n Class 7 prototype                      24     2944.2       0.0      2944.2       0.0\n Class 2+8                               1      577.7       0.0       577.7       0.0\n\n (  8 timers contributing less than 1% are not shown)\n\nCurrently we have        15.20080185GB /        16.00000000GiB available\nMemory availability at   95.0%\nThe largest number of elements is   19247411 mine is    3930402\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n",
+    "log_file.1": " time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17066.0       0.0         0.1       0.0\n C-Hamiltonian Build            *        1    17061.6       0.0         0.2       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4476.6       0.0      4476.6       0.0\n Symbol Synchronize                     48      185.3       0.0       185.3       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1783.2       0.0      1783.2       0.0\n Class 4                                 1     3631.2       0.0      3631.2       0.0\n Class 567                               1     6516.4       0.0       240.5       0.0\n Class 5 prototype                       4     2672.3       0.0      2672.3       0.0\n Class 6 prototype                       4      536.0       0.0       536.0       0.0\n Class 7 prototype                      24     2955.7       0.0      2955.7       0.0\n Class 2+8                               1      577.8       0.0       577.8       0.0\n\n (  8 timers contributing less than 1% are not shown)\n\nCurrently we have        14.86550140GB /        16.00000000GiB available\nMemory availability at   92.9%\nThe largest number of elements is   19247411 mine is   18931727\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n",
+    "log_file.2": "ss 2+8 complete\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17066.1       0.0         0.1       0.0\n C-Hamiltonian Build            *        1    17061.6       0.0         0.2       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4479.6       0.0      4479.6       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1789.3       0.0      1789.3       0.0\n Class 4                                 1     3648.3       0.0      3648.3       0.0\n Class 567                               1     6499.3       0.0       241.0       0.0\n Class 5 prototype                       4     2672.8       0.0      2672.8       0.0\n Class 6 prototype                       4      537.1       0.0       537.1       0.0\n Class 7 prototype                      24     2954.1       0.0      2954.1       0.0\n Class 2+8                               1      577.9       0.0       577.9       0.0\n\n (  9 timers contributing less than 1% are not shown)\n\nCurrently we have        14.86550140GB /        16.00000000GiB available\nMemory availability at   92.9%\nThe largest number of elements is   19247411 mine is   18932958\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n",
+    "log_file.3": " time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17065.6       0.0         0.1       0.0\n C-Hamiltonian Build            *        1    17061.1       0.0         0.2       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4476.0       0.0      4476.0       0.0\n Symbol Synchronize                     48      182.3       0.0       182.3       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1784.3       0.0      1784.3       0.0\n Class 4                                 1     3635.8       0.0      3635.8       0.0\n Class 567                               1     6511.9       0.0       234.9       0.0\n Class 5 prototype                       4     2670.2       0.0      2670.2       0.0\n Class 6 prototype                       4      537.5       0.0       537.5       0.0\n Class 7 prototype                      24     2959.8       0.0      2959.8       0.0\n Class 2+8                               1      577.4       0.0       577.4       0.0\n\n (  8 timers contributing less than 1% are not shown)\n\nCurrently we have        14.86997223GB /        16.00000000GiB available\nMemory availability at   92.9%\nThe largest number of elements is   19247411 mine is   18787389\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n",
+    "log_file.4": "ss 2+8 complete\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17069.3       0.0         0.1       0.0\n C-Hamiltonian Build            *        1    17064.8       0.0         0.1       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4454.9       0.0      4454.9       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1842.9       0.0      1842.9       0.0\n Class 4                                 1     3686.4       0.0      3686.4       0.0\n Class 567                               1     6461.2       0.0        13.4       0.0\n Class 5 prototype                       4     2726.2       0.0      2726.2       0.0\n Class 6 prototype                       4      552.2       0.0       552.2       0.0\n Class 7 prototype                      24     3166.6       0.0      3166.6       0.0\n Class 2+8                               1      581.1       0.0       581.1       0.0\n\n (  9 timers contributing less than 1% are not shown)\n\nCurrently we have        14.86326694GB /        16.00000000GiB available\nMemory availability at   92.9%\nThe largest number of elements is   19247411 mine is   19064698\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n",
+    "log_file.5": "ss 2+8 complete\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17068.7       0.0         0.1       0.0\n C-Hamiltonian Build            *        1    17064.2       0.0         0.1       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4456.2       0.0      4456.2       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1846.5       0.0      1846.5       0.0\n Class 4                                 1     3681.9       0.0      3681.9       0.0\n Class 567                               1     6465.7       0.0        79.7       0.0\n Class 5 prototype                       4     2720.2       0.0      2720.2       0.0\n Class 6 prototype                       4      549.7       0.0       549.7       0.0\n Class 7 prototype                      24     3102.8       0.0      3102.8       0.0\n Class 2+8                               1      580.5       0.0       580.5       0.0\n\n (  9 timers contributing less than 1% are not shown)\n\nCurrently we have        14.86103153GB /        16.00000000GiB available\nMemory availability at   92.9%\nThe largest number of elements is   19247411 mine is   19142241\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n",
+    "log_file.6": "ss 2+8 complete\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17069.3       0.0         0.1       0.0\n C-Hamiltonian Build            *        1    17064.8       0.0         0.1       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4444.6       0.0      4444.6       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1847.3       0.0      1847.3       0.0\n Class 4                                 1     3678.5       0.0      3678.5       0.0\n Class 567                               1     6469.1       0.0        30.6       0.0\n Class 5 prototype                       4     2730.8       0.0      2730.8       0.0\n Class 6 prototype                       4      552.2       0.0       552.2       0.0\n Class 7 prototype                      24     3149.3       0.0      3149.3       0.0\n Class 2+8                               1      581.1       0.0       581.1       0.0\n\n (  9 timers contributing less than 1% are not shown)\n\nCurrently we have        14.86103153GB /        16.00000000GiB available\nMemory availability at   92.9%\nThe largest number of elements is   19247411 mine is   19145529\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n",
+    "log_file.7": "ss 2+8 complete\n                                            Total time (seconds)  Self time (seconds)\n Timer                               Calls  --------------------  -------------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                      *        1    17069.5       0.0         0.1       0.0\n C-Hamiltonian Build            *        1    17065.0       0.0         0.1       0.0\n Class 1                                 1     4484.0       0.0         0.0       0.0\n Class 1 prototype                       8     4449.4       0.0      4449.4       0.0\n Class 3                                 1     1849.2       0.0         0.0       0.0\n Class 3 Prototype                       8     1844.3       0.0      1844.3       0.0\n Class 4                                 1     3673.7       0.0      3673.7       0.0\n Class 567                               1     6473.9       0.0        48.7       0.0\n Class 5 prototype                       4     2725.3       0.0      2725.3       0.0\n Class 6 prototype                       4      550.0       0.0       550.0       0.0\n Class 7 prototype                      24     3133.5       0.0      3133.5       0.0\n Class 2+8                               1      581.3       0.0       581.3       0.0\n\n (  9 timers contributing less than 1% are not shown)\n\nCurrently we have        14.85879612GB /        16.00000000GiB available\nMemory availability at   92.9%\nThe largest number of elements is   19247411 mine is   19247411\nStarting L2 update\nConverting cache to array\ndone\nFinished L2 update\n"
+  },
+  "observer": {
+    "supervisor_pid": 1191504,
+    "started_unix": 1791791051.0670984,
+    "captures": [
+      "20261012T074411.json",
+      "20261012T084413.json",
+      "20261012T094416.json",
+      "20261012T104418.json",
+      "20261012T114421.json",
+      "20261012T124423.json"
+    ],
+    "scope": "Observe only; no follow-on calculations",
+    "heartbeat_unix": 1791809066.216917
+  },
+  "remote_sha256": {
+    "prepared/cas12-pointer-address-source-20261012/contract.json": "1635bc5cd1f0dbdfb7cdfeab08bdb9e4d2e9c2bd9fe5100366270ba9480dbd50",
+    "prepared/cas12-pointer-address-source-20261012/frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "prepared/cas12-pointer-address-source-20261012/source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "prepared/cas12-pointer-address-source-20261012/tools-image.json": "effc3af0dd93fadc73bf7884f1e573441dfd317ed8e4a9b1d5ba257763bc67ed",
+    "prepared/cas12-pointer-address-source-20261012/diagnostic-build.launch.log": "9663c02d2c627856b878fa549c83592a18fd01c0f15d1286db6746fdd2bf6edb",
+    "prepared/cas12-pointer-address-source-20261012/engine-debugger-checks.launch.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/cas12-pointer-address-source-20261012/build/patch.json": "2bb99b70a9e2958096d2c6990a5fab5b4bfe9aaa0c66889ada1b1a6300ee6364",
+    "prepared/cas12-pointer-address-source-20261012/build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "prepared/cas12-pointer-address-source-20261012/build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "prepared/cas12-pointer-address-source-20261012/build/upstream-tests.log": "a2bf220e6c47af9411d66955ceaef9932a0326013aeb5d5875b731119c261374",
+    "prepared/cas12-pointer-address-source-20261012/observer-ready-contract.json": "2c26d6295bd14ce99a6dc539244a8c1de31ed41024a353e0236331fe68d6a988",
+    "prepared/cas12-pointer-address-source-20261012/observer-startup-failures.json": "01c0d0214ce0de3e5a79fd0f36661bdbf6c89f6a0a8be232dbcee0aebb091cbc",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/Modules/Hamiltonian/CSF_module.F90": "67d4314989718470c9b68a74f69b7ae602f07d3e1a62b78e7d5e2338b10766d2",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/Modules/Hamiltonian/Hamiltonian_module.f90": "0e7f264ef65012b1c0bc4cff8e50574175df2dc210106175e12625ba9276147c",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/mpi_scatci.f90": "d3d9db97a92e88bc241cfdc7c12f0cde69fb48e31af0c89c1ace8636546a05ec",
+    "prepared/cas12-pointer-address-source-20261012/build/inner/source/mpi-ci-diag/Modules/Hamiltonian/Contracted_Hamiltonian_module.f90": "27b9bbbdca8581b98492049b4837d6affb8fc383964d579678aa873304b18286",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/log_file.1": "f3a7f4209c4848cb5cb62bf92544e068b27f6fb25df1a584e617f01870868560",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/log_file.2": "22dd8aa8b766e56c61d42f2c87d46d5b0c2415d4054c903fc60c3d832afad0bf",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/log_file.3": "40a46d5f6154b3c883b4df281e236d5cef7aa4465c53e7928ec9447b38bb5991",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/log_file.4": "226b2e7fbb0b6685798a41232868075267bd110e608c6cb2dd5309037bd0646b",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/log_file.5": "91275a142041d72e23da07aa0a7f54cce45026ee62e150f91bfd129db535ac03",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/log_file.6": "0ca07e48083a1ff8ccfd22f8c7188bcdd08c4fc2a9246207567f77ce6f962ccc",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/log_file.7": "daae13bae938103b10fc57589c1b5572d224fa9bf5ca606f521338e09eb3b478",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/observer-execution.json": "82e9f23ccf530226c7e29944c0fce231f300c6c403f0c92335875f8598b4f1c9",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/owner-execution.json": "68c8ac37b1000cf2b4495970f2a7bf36a9813abef935cccc64f165032903fb0c",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/rank-0.gdb.log": "b60ef53a2bc5fa2664368c7ecbac98add1c6cf476541683f974633a5402744a4",
+    "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/scatci.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/cas12-pointer-address-observer-20261012/execution.json": "e5ae23f96ee5363a08874c321c3bba8ca0eb83cf353b87e14fa78babae685e45",
+    "prepared/cas12-pointer-audit-buildfix-observer-20261012/execution.json": "a999bceaaf6df61cc42165358d404505cba60cc2851c1f66ff1d647273832e88",
+    "prepared/cas12-pointer-audit-anchorfix-observer-20261012/execution.json": "ff75e4737739fa60966212f845ba759839495364949e62a3f544c47fbf8e459b",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T074411.json": "509c368393f1db304e0b13bd76f1b54577459d1bb772150c1c295f67652744f2",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T084413.json": "f910ed92413453cb147f2cd406a120762ffb3d63e450b206b04e326373291afd",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T094416.json": "d205bec03984e2bd03ce288e5ff2d42edac2200ab9880f809148b8bdd490d24a",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T104418.json": "5f8124f1fb8a18dc569e6df511545842df91f924f446e0393305357bbce06070",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T114421.json": "9947e00d27042c27b7f19eb19eeb1c9b94cf0db8d52a7c6b23bc9179ba699422",
+    "prepared/cas12-pointer-address-observer-ready-20261012/20261012T124423.json": "f2b39fc8d6260ca165d1d5fa3568513ca064037307afea8ab4ea11b431ce4f1f"
+  },
+  "interpretation": "All eight ranks record Class567 and Class2+8 completion and Finished L2 update,with4Class5/4Class6/24Class7pair-block exits per rank. No pointer-failure,signal or bounds-error marker; owner remains active. L2 update is the last directly confirmed milestone; subsequent live finalization/eigensolver stage is not located by buffered tails. This is diagnostic progress beyond the earlier failures,not an established cause,engine fix or scientific root-count qualification. No eigenpair/boundary exports yet. Scientific root-pair/omitted-spectrum qualification remains unset.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "engine_correction_verdict": null,
+  "full_sweep_released": false,
+  "class1_completed_ranks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "CI_export_present": false,
+  "boundary_export_present": false,
+  "class567_markers_present": true,
+  "native_elapsed_seconds_at_observation": 21315.857960939407,
+  "class567_progress_by_rank": {
+    "0": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=0 pair=7,8 targets=5,5"
+    },
+    "1": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=1 pair=7,8 targets=5,5"
+    },
+    "2": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=2 pair=7,8 targets=5,5"
+    },
+    "3": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=3 pair=7,8 targets=5,5"
+    },
+    "4": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=4 pair=7,8 targets=5,5"
+    },
+    "5": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=5 pair=7,8 targets=5,5"
+    },
+    "6": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=6 pair=7,8 targets=5,5"
+    },
+    "7": {
+      "completed_class_messages": [
+        1,
+        3,
+        4
+      ],
+      "completed_pair_blocks": {
+        "5": 4,
+        "6": 4,
+        "7": 24
+      },
+      "latest_pair_marker": "CO_DIAG END class=6 rank=7 pair=7,8 targets=5,5"
+    }
+  },
+  "post_pair_completion_by_rank": {
+    "0": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "1": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "2": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "3": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "4": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "5": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "6": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    },
+    "7": {
+      "class567_complete": true,
+      "class2_plus_8_complete": true,
+      "L2_update_finished": true
+    }
+  },
+  "subsequent_live_stage": null,
+  "immutable_remote_capture": "prepared/cas12-pointer-address-source-20261012/capture-20261012T133805/observation.json",
+  "immutable_remote_capture_sha256": "f76c0f86f9050ca6c17e890c6622508e56b86650464fd93c1a4a5fff7290f62d"
+}
