@@ -1,0 +1,19 @@
+{
+  "status": "separately declared pointer-identity diagnostic after source/log and reduced-probe review",
+  "scientific_question": "Determine when CSF parent/manager,retained Hamiltonian or target-context pointers diverge from their live owners,and capture the CSF/determinant/index/address tuple before the previously observed dereference. This is instrumentation,not a correction or a scientific root-count comparison.",
+  "run": "cas12-eq-B1-roots4096-mpi8-pointer-audit-20261012",
+  "parent_contract": "cas12-native-debug-contract.json",
+  "parent_result": "progress-diagnostic-result-20261012T0701.json",
+  "baseline_directory": "prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "failed_B1_directory": "prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+  "review": "The source-fault stack is Class1/index8,not the original post-Class4/rank4 interval. CSF construction assigns each determinant a parent CSF pointer and each CSF a manager pointer; later constructors retain polymorphic pointers. Main actual objects lack explicit TARGET attributes. A small pinned-compiler interface probe preserves all five tested addresses both with and without explicit TARGET,and therefore does not establish a TARGET correction. Guard the full native object graph before changing attributes or algorithms.",
+  "changes": "Fresh O1/bounds/debug build with the same libraries/deck/resources as the prior instrumented run. Check every CSF manager,parent backlink,ID,orbital count and determinant bounds after creation and before contracted construction; check retained CSF/context addresses. Add flushed Class1 per-target entry/exit markers and safe parent-address checks immediately before determinant dereferences in Slater rules. Keep the prior Class5/6/7 markers. No TARGET-attribute change,CSF data rewrite,algorithm correction or root-count change.",
+  "guard_failure": "Flushed CO_PTR_FAIL with stage/rank/CSF/determinant/actual-versus-expected parent address when available,followed by Fortran ERROR STOP86 and debugger/native exit preservation. Existing bounds errors or signals also stop. Some structural guards have only a source backtrace. GDB statuses remain distinct from native inferior exits.",
+  "resources": {"physical_cpu_group": "4-11", "mpi_ranks": 8, "library_threads_per_rank": 1, "container_memory_gib": 80, "shared_memory_gib": 8, "minimum_available_ram_gib": 96, "minimum_free_disk_gib": 50, "native_timeout_seconds": 86400, "container_timeout_seconds": 90000, "owner_timeout_seconds": 108000, "observer_interval_seconds": 3600, "observer_duration_seconds": 108000},
+  "gates": ["Original and diagnostic failures,source pins,all saved native inputs and library bytes preserved and verified", "Unique checksum-pinned patch anchors; additions leave original computational statements unchanged", "All12original serial/MPI target-HF checks and three debugger-capture smokes pass in the fresh assertion build before native launch"],
+  "stopping_rule": "Exactly one B1 SCATCI invocation after build/gates. Failure,STOP,changed frozen evidence or timeout ends without repair,retry,B2 or outer stages. Successful eigenpair output remains diagnostic. Review the identity/index evidence before declaring a minimal correction or matched-engine baseline control.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "engine_correction_verdict": null,
+  "full_sweep_released": false
+}
