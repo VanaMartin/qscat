@@ -1,0 +1,78 @@
+{
+  "utc": "2026-10-12T07:36:17.132858+00:00",
+  "source_sha256": "5d6cdf80ab41fe78a6b2915b65da8fd05f37268952867ca1cdcfde8957dc1b4a",
+  "runs": [
+    {
+      "optimization": 0,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--cpuset-cpus=0-3",
+        "--memory=2g",
+        "--memory-swap=2g",
+        "--entrypoint",
+        "/opt/ukrmolp/entrypoint.sh",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-association-probe-20261012:/probe",
+        "-w",
+        "/probe",
+        "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+        "bash",
+        "-c",
+        "gfortran -fdefault-integer-8 -O0 -g -fbacktrace -fcheck=bounds -Wtarget-lifetime -Warray-temporaries probe.f90 -o probe-O0 && ./probe-O0"
+      ],
+      "original_exit": 0,
+      "stdout": " TYPE element                    1 associated= T actual=            503281936 expected=            503281936\n TYPE element                    2 associated= T actual=            503282008 expected=            503282008\n TYPE element                    3 associated= T actual=            503282080 expected=            503282080\n TYPE element                    4 associated= T actual=            503282152 expected=            503282152\n CLASS element                    1 associated= F actual=            503281936 expected=            503281936\n CLASS element                    2 associated= F actual=            503282008 expected=            503282008\n CLASS element                    3 associated= F actual=            503282080 expected=            503282080\n CLASS element                    4 associated= F actual=            503282152 expected=            503282152\n ADDRESS guard detects deliberately redirected parent: PASS\n ADDRESS guard detects null parent: PASS\n",
+      "stderr": ""
+    },
+    {
+      "optimization": 1,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--cpuset-cpus=0-3",
+        "--memory=2g",
+        "--memory-swap=2g",
+        "--entrypoint",
+        "/opt/ukrmolp/entrypoint.sh",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-association-probe-20261012:/probe",
+        "-w",
+        "/probe",
+        "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+        "bash",
+        "-c",
+        "gfortran -fdefault-integer-8 -O1 -g -fbacktrace -fcheck=bounds -Wtarget-lifetime -Warray-temporaries probe.f90 -o probe-O1 && ./probe-O1"
+      ],
+      "original_exit": 0,
+      "stdout": " TYPE element                    1 associated= T actual=           1013401872 expected=           1013401872\n TYPE element                    2 associated= T actual=           1013401944 expected=           1013401944\n TYPE element                    3 associated= T actual=           1013402016 expected=           1013402016\n TYPE element                    4 associated= T actual=           1013402088 expected=           1013402088\n CLASS element                    1 associated= F actual=           1013401872 expected=           1013401872\n CLASS element                    2 associated= F actual=           1013401944 expected=           1013401944\n CLASS element                    3 associated= F actual=           1013402016 expected=           1013402016\n CLASS element                    4 associated= F actual=           1013402088 expected=           1013402088\n ADDRESS guard detects deliberately redirected parent: PASS\n ADDRESS guard detects null parent: PASS\n",
+      "stderr": ""
+    },
+    {
+      "optimization": 2,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--cpuset-cpus=0-3",
+        "--memory=2g",
+        "--memory-swap=2g",
+        "--entrypoint",
+        "/opt/ukrmolp/entrypoint.sh",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-association-probe-20261012:/probe",
+        "-w",
+        "/probe",
+        "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+        "bash",
+        "-c",
+        "gfortran -fdefault-integer-8 -O2 -g -fbacktrace -fcheck=bounds -Wtarget-lifetime -Warray-temporaries probe.f90 -o probe-O2 && ./probe-O2"
+      ],
+      "original_exit": 0,
+      "stdout": " TYPE element                    1 associated= T actual=            437827856 expected=            437827856\n TYPE element                    2 associated= T actual=            437827928 expected=            437827928\n TYPE element                    3 associated= T actual=            437828000 expected=            437828000\n TYPE element                    4 associated= T actual=            437828072 expected=            437828072\n CLASS element                    1 associated= F actual=            437827856 expected=            437827856\n CLASS element                    2 associated= F actual=            437827928 expected=            437827928\n CLASS element                    3 associated= F actual=            437828000 expected=            437828000\n CLASS element                    4 associated= F actual=            437828072 expected=            437828072\n ADDRESS guard detects deliberately redirected parent: PASS\n ADDRESS guard detects null parent: PASS\n",
+      "stderr": ""
+    }
+  ]
+}

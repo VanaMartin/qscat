@@ -1,0 +1,38 @@
+{
+  "status": "separately declared fresh address-guard successor after isolated audit-predicate failure",
+  "scientific_question": "Audit native CSF parent/manager,retained Hamiltonian and target-context pointer identity and determinant indexes before the previously observed Class1 dereference.",
+  "run": "cas12-eq-B1-roots4096-mpi8-pointer-address-audit-20261012",
+  "parent_contract": "cas12-pointer-diagnostic-anchor-successor-contract.json",
+  "pointer_audit_contract": "cas12-pointer-diagnostic-contract.json",
+  "failed_gate_directory": "prepared/cas12-pointer-audit-anchorfix-source-20261012",
+  "baseline_directory": "prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+  "failed_B1_directory": "prepared/cas12-sparse-4096-comparator-source-20261011/native/cas12-eq-native-sparse-roots4096-mpi8-shm8-20261011/B1",
+  "review": "Owner1182943 compiled successfully but stopped at the engine gate07:33:57UTC with9/12reference cases passing. All3MPI target-HF cases hit the audit's parent ASSOCIATED(nonpolymorphic pointer,polymorphic array element) predicate at after-create with identical printed actual/expected addresses. A separate reduced probe reproduces false ASSOCIATED for every valid polymorphic array element at O0/O1/O2 in the pinned compiler; the nonpolymorphic counterpart returns true. Scalar LOC checks accept the valid links and reject deliberately redirected and null links,all probe exits0 with no warnings. This establishes a flaw in the audit predicate,not a cause or correction for the original native SIGSEGV. Preserve the failed gate,all3raw failure logs and both earlier build failures; no native B1 or debugger smoke ran in that attempt.",
+  "changes": "Replace only the all-CSF parent ASSOCIATED comparison with scalar LOC(parent) /= LOC(expected CSF),matching the already-declared immediate Slater-rule address guard. All other assertions,logging,original computational lines,source pins,saved B1 inputs,libraries,flags,resources,tolerances and stopping rules remain as declared. No engine algorithm or TARGET-attribute correction.",
+  "guard_failure": "Address divergence prints CO_PTR_FAIL parent or slater-a/b with rank,CSF,determinant,ID and actual/expected addresses then ERROR STOP86. Structural guards,source backtraces,bounds errors and first signals preserve statuses. Debugger status is distinct from native inferior exit.",
+  "resources": {
+    "physical_cpu_group": "4-11",
+    "mpi_ranks": 8,
+    "library_threads_per_rank": 1,
+    "container_memory_gib": 80,
+    "shared_memory_gib": 8,
+    "minimum_available_ram_gib": 96,
+    "minimum_free_disk_gib": 50,
+    "native_timeout_seconds": 86400,
+    "container_timeout_seconds": 90000,
+    "owner_timeout_seconds": 108000,
+    "observer_interval_seconds": 3600,
+    "observer_duration_seconds": 108000
+  },
+  "gates": [
+    "Three-optimization reduced probe isolates predicate mismatch and address guard rejects redirected/null links before native launch",
+    "Reverify all failed instrumentation attempts and prior debug/release/successful baseline evidence plus frozen source/input hashes",
+    "Original source pins,unique anchors and unchanged original computational statements verified against retained archive; fresh compile/install/debug sections",
+    "All12serial/MPI target-HF checks and all3debugger checks pass before exactly one native B1 invocation"
+  ],
+  "stopping_rule": "Build/check/native failure,changed frozen evidence,STOP or timeout ends without automatic repair,retry,B2 or outer stages. Review pointer evidence before separately declaring any engine correction or matched-engine baseline control. Successful diagnostic eigenpairs are not a resumed scientific comparator.",
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "engine_correction_verdict": null,
+  "full_sweep_released": false
+}

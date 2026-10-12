@@ -1,0 +1,52 @@
+{
+  "observed_utc": "2026-10-12T07:36:51.819809+00:00",
+  "source_directory": "prepared/cas12-pointer-audit-anchorfix-source-20261012",
+  "owner": 1182943,
+  "finished_utc": "2026-10-12T07:33:57.993341+00:00",
+  "build_container_exit": 0,
+  "engine_checks_container_exit": 1,
+  "ctest_original_exit": 8,
+  "original_controller_exit": 1,
+  "passed_reference_cases": 9,
+  "failed_reference_cases": 3,
+  "failure": "Audit parent ASSOCIATED(nonpolymorphic pointer,polymorphic array element) rejects all3MPI reference cases at after-create despite equal scalar LOC addresses. Reduced pinned-compiler probe subsequently reproduces this predicate mismatch at O0/O1/O2 and validates address guard on valid,redirected and null pointers. Native B1 remains blocked.",
+  "parent_failure_markers": {
+    "HF1": [
+      "CO_PTR_FAIL parentafter-createrank=                    0 csf=                    1 det=                    1 actual=            624234624 expected=            624234624"
+    ],
+    "HF2": [
+      "CO_PTR_FAIL parentafter-createrank=                    0 csf=                    1 det=                    1 actual=            170111104 expected=            170111104"
+    ],
+    "HF3": [
+      "CO_PTR_FAIL parentafter-createrank=                    0 csf=                    1 det=                    1 actual=            516972672 expected=            516972672"
+    ]
+  },
+  "native_invocations": 0,
+  "debugger_smokes_started": false,
+  "frozen_file_counts_reverified": {
+    "source": 54,
+    "inputs": 174
+  },
+  "installed_artifacts_reverified": 242,
+  "remote_sha256": {
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/execution.json": "658bfdfacfc331619f9c5c4b0da0b418e07c0306fa5636ba144bdb2566e7fa43",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/frozen-inputs.json": "8bcd0d2174f7ba9e02ee322c8586c77ab0024769b36ff3ab587f36b32ae712d8",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/source-provenance.json": "28367cbe1cc9f6c2ac5bee9877dcff2a10d85edaa9824f20657e5f0244546908",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/contract.json": "d520548edf768136b691a4073848c5a47c3e1e526a62c2b2566806872470ff34",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/tools-image.json": "effc3af0dd93fadc73bf7884f1e573441dfd317ed8e4a9b1d5ba257763bc67ed",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/diagnostic-build.launch.log": "b677181b55e960ddbf111fb7cc9030445f6e2ce2398f26101ac3809d982bcf12",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/engine-debugger-checks.launch.log": "055d5ce03a6069c36fb2506c24ad68e24b2d93a07be6906907685b6dd465e39e",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/patch.json": "0ebc280504b452ef7f122fde51ccab9d564b0a16bd19163d448c1fe88cd2b371",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/build-provenance.json": "ad0f175140f18862cc570bd1697280a7adf8f1f0e97e8d4de945e3b75bc64d6b",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/engine-checks.json": "0ee938121445f1affcf55e3b717bdaac69e117899e9472e49aa3baa2682e0262",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/upstream-tests.log": "52702844a781793ef64f76226ed87b22e7e819876a654c90ce5d3d12944783a8",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/build/Testing/Temporary/LastTest.log": "ff66b3f6c9c055d3d8394a1f8863b77322f0a9c539e36fbdb07a117b468df0b4",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/build/Testing/C2v_target_HF1_parallel/logs/target.scatci.01.singlet.A1.out": "7246b9a75bcdcd0551b5a207abed016565836da5cd446cff46ddedc9e7ec7264",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/build/Testing/C2v_target_HF2_parallel/logs/target.scatci.01.singlet.A1.out": "7676ff4b1b884212625333d981bfed5b1a30458d95fc06df93482284ec6dd953",
+    "prepared/cas12-pointer-audit-anchorfix-source-20261012/build/build/Testing/C2v_target_HF3_parallel/logs/target.scatci.01.singlet.A1.out": "26515ae63b2ae406911e353e00d74e5c8cf07dc27731bc73b97a198ba310ce40"
+  },
+  "service": "ExecMainStatus=1\nActiveState=failed\nSubState=failed\n",
+  "scientific_verdict": null,
+  "immutable_remote_capture": "prepared/cas12-pointer-audit-anchorfix-source-20261012/engine-check-failure-capture.json",
+  "immutable_remote_capture_sha256": "1834bec886413328286192d9dbdd1b39aba6964e70acb729c716a918cbe43142"
+}

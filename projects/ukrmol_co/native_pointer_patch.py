@@ -44,7 +44,7 @@ AUDIT = """
             if (size(values(i) % orbital) /= values(i) % num_orbitals) error stop 86
             if (values(i) % id /= i) error stop 86
             do j = 1, values(i) % num_orbitals
-                if (.not. associated(values(i) % orbital(j) % csf, values(i))) then
+                if (loc(values(i) % orbital(j) % csf) /= loc(values(i))) then
                     write(stdout,*) 'CO_PTR_FAIL parent', trim(stage), 'rank=', grid % grank, &
                         'csf=', i, 'det=', j, 'actual=', loc(values(i) % orbital(j) % csf), &
                         'expected=', loc(values(i))
