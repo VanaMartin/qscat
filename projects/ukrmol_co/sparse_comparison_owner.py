@@ -115,8 +115,10 @@ def step(source: Path, record: dict, label: str, cmd: list[str], timeout: float)
 def preflight(source: Path, campaign: Path, contract: dict, record: dict) -> None:
     baseline = campaign / contract["baseline_directory"]
     owner = json.loads((baseline.parent.parent / "execution.json").read_text())
-    reader = json.loads((baseline / "independent-verification.json").read_text())
-    if owner["original_controller_exit"] != 0 or not reader["independent_raw_reading_passed"]:
+    reader_name = contract.get("baseline_reader_filename", "independent-verification.json")
+    verdict = contract.get("baseline_reader_verdict", "independent_raw_reading_passed")
+    reader = json.loads((baseline / reader_name).read_text())
+    if owner["original_controller_exit"] != 0 or reader[verdict] is not True:
         raise ValueError("Baseline owner/reader gate failed")
     record["frozen_file_counts_verified"] = check_freeze(source, campaign)
     record["cpu_topology"] = subprocess.check_output(

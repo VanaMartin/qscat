@@ -1,0 +1,91 @@
+{
+  "status": "separately declared scientific2048-to-4096root comparison after matched-engine reproduction passes",
+  "control_kind": "root-comparison",
+  "scientific_question": "How much do the uncorrected CAS12 pole sum, full-grid phases and identical-window fits change between2048and4096selected roots on the same qualified address-audited engine/direct-MPI/residual-telemetry runtime? This measures pair sensitivity,not an asymptotic omitted-spectrum bound or a crash correction.",
+  "run": "cas12-eq-roots4096-mpi8-audited-engine-scientific-20261013",
+  "source_directory": "prepared/cas12-audited-engine-4096-source-20261013",
+  "baseline_directory": "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+  "baseline_reader_filename": "independent-engine-baseline.json",
+  "baseline_reader_verdict": "matched_engine_baseline_verdict",
+  "baseline_self_read_contract": "prepared/cas12-audited-engine-baseline-source-20261012/contract.json",
+  "baseline_completion": "progress-engine-baseline-20261013T0726.json",
+  "engine_source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "engine_evidence_sha256": {
+    "execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "numerical_library_sha256": {
+    "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+    "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+    "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+    "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+  },
+  "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "telemetry_directory": "diagnostics/sparse-scattering-telemetry-v6-20261007",
+  "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+  "native_preflight": "diagnostics/cas12-scattering-dimension-preflight-nbmx/co-eq-ccdz-sa12-slepc-target",
+  "outer_deck_reference": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs",
+  "baseline_roots": 2048,
+  "candidate_roots": 4096,
+  "dimension": 86352,
+  "continuum_coefficients": 1410,
+  "boundary_channels": 250,
+  "sectors": ["B1", "B2"],
+  "changes": "Only requested scattering roots change2048to4096within the newly qualified audited engine/runtime. Fresh source,run and services preserve the failed original4096and successful GDB-only4096B1 audit. Shared owner/reader adds declared root-comparison routing,strict input-byte checks and false/unset stop;scientific sparse_pilot and its dependencies remain byte-identical to the completed2048control.",
+  "unchanged": "Exact242installed artifacts mounted read-only;O1/g/backtrace/bounds/address assertions and original computational statements;engine numerical libraries/image/telemetry/direct MPI;equilibrium2.1323bohr/cc-pVDZ/CAS12[6,3,3,0]/two frozen A1 core orbitals/ten active electrons/40-component averaging and explicit targets;own DENPROP map;retained target/integrals/CONGEN;radius18/maxl4/deletion1e-6/propagation100;crite1e-12/maxiter1000/igh-1/native selection1;uncorrected pole sum;outer inputs;99energies0.1-5.0requested-eV by0.05;eight MPI ranks and one library thread/rank.",
+  "baseline_review": {
+    "finished_utc": "2026-10-13T07:10:36.073449+00:00",
+    "native_reader_owner_exit": 0,
+    "matched_engine_baseline_verdict": true,
+    "native_wall_hours": 11.565930431215028,
+    "kernel_peak_gib": 21.96468734741211,
+    "maximum_native_residual_hartree": 1.3276447836219887e-10,
+    "pi_phase_difference_rad_mod_pi": 1.000000082740371e-9,
+    "energy_phase_all_background_fit_differences": 0,
+    "rationale": "Both sectors reproduce the successful original2048baseline exactly,including all99phases and fits at background orders1-4. The completed4096B1 address audit measured7.359945hours/20.523655GiB but lacked scientific residual/B2/outer evidence. These measurements justify one bounded two-sector4096comparison on Sadaharu;workspace/runtime forecasts remain conditional. The80GiB/24h-stage/50h-native/72h-owner limits are retained. No Hamiltonian checkpoint exists,so matrix construction repeats."
+  },
+  "gates": [
+    "Completed2048baseline owner and independent matched-engine verdict must pass;freeze baseline contract/source/inputs/exports/reader/resource evidence",
+    "Reverify completed engine owner/checks,frozen engine evidence and242installed artifacts before and after native execution",
+    "Pinned runtime numerical-library/telemetry symbol-load gate and new baseline-to-itself reading at the original stricter0.1meV/1e-6rad reproduction budgets before native execution",
+    "Exactly one4096root two-sector native/outer run with original stage exits,resource measurements and per-root action residual telemetry",
+    "Independent raw reading verifies actual four native data-file hashes,decks differing only in nstat,unchanged outer inputs/map/interface,shared-prefix energies,selection,complete grids,Pi and all fixed-window background fits",
+    "False/unset scientific pair verdict ends the owner after preserving the independent result;no retry,tolerance change or automatic higher-root job"
+  ],
+  "resources": {
+    "physical_cpu_group": "4-11", "mpi_ranks": 8, "library_threads_per_rank": 1,
+    "container_memory_gib": 80, "shared_memory_gib": 8, "scatci_memory_input_gib": 16,
+    "minimum_available_ram_gib": 96, "minimum_free_disk_gib": 50,
+    "native_stage_timeout_seconds": 86400, "whole_native_timeout_seconds": 180000,
+    "independent_reader_memory_gib": 4, "independent_reader_cpu_group": "0-3",
+    "independent_reader_timeout_seconds": 3600, "whole_owner_timeout_seconds": 259200,
+    "observer_interval_seconds": 3600, "observer_timeout_seconds": 259200
+  },
+  "raw_checks": {
+    "absolute_residual_hartree": 1e-7, "boundary_to_ci_atol_hartree": 1e-10,
+    "shared_prefix_energy_atol_hartree": 1e-7, "pi_phase_rad_mod_pi": 0.002,
+    "phase_grid_atol_requested_ev": 5e-5, "native_selection_which": 1,
+    "unchanged_channel_threshold_multipole_digest": true
+  },
+  "observable_budgets": {
+    "position_ev": 0.05, "full_width_relative": 0.05, "full_width_floor_ev": 0.001,
+    "phase_rad_mod_pi": 0.05, "fit_background_orders": [1,2,3,4],
+    "fixed_requested_energy_window_ev": [1.8,3.3],
+    "width_budget_definition": "max(0.001eV,0.05 * baseline same-background-order fitted full width)"
+  },
+  "fit_initial_position_hartree": 0.090300065,
+  "fit_initial_full_width_hartree": 0.04168035,
+  "hartree_to_ev": 27.211386245988,
+  "native_rydberg_per_requested_ev": 0.0735,
+  "units": "Physical fit Hartree=requested_eV*0.0735/2;positions/full widths converted with27.211386245988eV/Hartree;phases radians modulo pi;native energies/residuals Hartree. Requested and physical eV remain distinct.",
+  "stopping_rule": "Any frozen/build/runtime/native/raw/residual/Pi/input violation,timeout,STOP or false/unset pair verdict ends and preserves original statuses. No repair,retry,limits or budgets change. Successful native completion triggers only the declared independent root-pair reader. Observer is observation-only and launches after readable live owner verification. Completion triggers no additional native job.",
+  "follow_on": "Review pair sensitivity,expanded emitted coverage and measured cost. Any third resolution or independent omission test needs a separate declaration. Then address model/explicit-A2/three-anchor/continuity/extraction/neutral and frozen restartable-pilot gates before releasing a sweep or potential fitting.",
+  "engine_correction_verdict": null,
+  "root_pair_stability_verdict": null,
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "full_sweep_released": false
+}

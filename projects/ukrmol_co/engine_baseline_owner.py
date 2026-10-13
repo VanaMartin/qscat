@@ -1,4 +1,4 @@
-"""Own one bounded, same-root replay on the checksum-pinned completed audit engine."""
+"""Own one bounded baseline or root-pair control on the pinned completed audit engine."""
 
 from __future__ import annotations
 
@@ -56,6 +56,18 @@ def main() -> None:
     if (source / "execution.json").exists():
         raise ValueError("Owner output already exists")
     contract = json.loads((source / "contract.json").read_text())
+    kind = contract.get("control_kind", "matched-baseline")
+    if kind not in ("matched-baseline", "root-comparison"):
+        raise ValueError("Unknown audited-engine control kind")
+    root_comparison = kind == "root-comparison"
+    native_label = "native-root-comparison" if root_comparison else "native-matched-baseline"
+    reader_label = "independent-root-reading" if root_comparison else "independent-engine-reading"
+    result_name = (
+        "independent-comparison.json" if root_comparison else "independent-engine-baseline.json"
+    )
+    verdict_key = (
+        "root_pair_stability_verdict" if root_comparison else "matched_engine_baseline_verdict"
+    )
     record = {
         "supervisor_pid": os.getpid(),
         "started_unix": time.time(),
@@ -100,7 +112,11 @@ def main() -> None:
             "--candidate",
             "/work/" + contract["baseline_directory"],
             "--contract",
-            "/opt/qmodeling/contract.json",
+            (
+                "/work/" + contract["baseline_self_read_contract"]
+                if root_comparison
+                else "/opt/qmodeling/contract.json"
+            ),
             "--output",
             "/outputs/baseline-self-reading.json",
         ]
@@ -130,7 +146,7 @@ def main() -> None:
         step(
             source,
             record,
-            "native-matched-baseline",
+            native_label,
             native,
             limits["whole_native_timeout_seconds"],
         )
@@ -139,7 +155,7 @@ def main() -> None:
             "python3",
             "-m",
             "projects.ukrmol_co.engine_baseline",
-            "compare",
+            "root-compare" if root_comparison else "compare",
             "--reference",
             "/work/" + contract["baseline_directory"],
             "--candidate",
@@ -147,19 +163,19 @@ def main() -> None:
             "--contract",
             "/opt/qmodeling/contract.json",
             "--output",
-            "/outputs/" + contract["run"] + "/independent-engine-baseline.json",
+            "/outputs/" + contract["run"] + "/" + result_name,
         ]
         step(
             source,
             record,
-            "independent-engine-reading",
+            reader_label,
             reading,
             limits["independent_reader_timeout_seconds"],
         )
-        result = source / "native" / contract["run"] / "independent-engine-baseline.json"
-        record["matched_engine_baseline_verdict"] = json.loads(result.read_text())[
-            "matched_engine_baseline_verdict"
-        ]
+        result = source / "native" / contract["run"] / result_name
+        record[verdict_key] = json.loads(result.read_text())[verdict_key]
+        if record[verdict_key] is not True:
+            raise ValueError("Audited-engine control verdict failed or remains unset")
         record["engine_verified_after_native"] = verify_engine(campaign, contract)
         record["original_controller_exit"] = 0
     except BaseException as error:

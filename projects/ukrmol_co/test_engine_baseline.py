@@ -7,8 +7,14 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from projects.ukrmol_co.engine_baseline import audit_baseline, label_engine_reproduction
+from projects.ukrmol_co.engine_baseline import (
+    audit_baseline,
+    audit_native_inputs,
+    label_engine_reproduction,
+    main,
+)
 from projects.ukrmol_co.sparse_comparison import compare_phases
+from projects.ukrmol_co.sparse_comparison_owner import preflight
 
 
 def settings():
@@ -57,3 +63,78 @@ def test_invalid_fit_stays_unqualified_and_changed_root_count_is_rejected(tmp_pa
     assert result["matched_engine_baseline_verdict"] is None
     with pytest.raises(ValueError, match="2048 roots on both sides"):
         audit_baseline(tmp_path, tmp_path, settings() | {"candidate_roots": 4096})
+
+
+def test_root_pair_rejects_changed_integrals_and_non_root_deck_changes(tmp_path):
+    left, right = tmp_path / "reference", tmp_path / "candidate"
+    contract = settings() | {"candidate_roots": 4096, "sectors": ["B1"]}
+    for directory, roots in ((left, 2048), (right, 4096)):
+        sector = directory / "B1"
+        sector.mkdir(parents=True)
+        (sector / "scatci.inp").write_text(f"nstat = {roots}, megul = 721, crite = 1e-12")
+        for name in ("fort.16", "fort.24", "fort.26", "fort.721"):
+            (sector / name).write_bytes(b"same saved native input")
+    audit_native_inputs(left, right, contract, same_roots=False)
+    (right / "B1/fort.721").write_bytes(b"altered integral")
+    with pytest.raises(ValueError, match=r"fort\.721"):
+        audit_native_inputs(left, right, contract, same_roots=False)
+    (right / "B1/scatci.inp").write_text("nstat = 4096, megul = 721, crite = 1e-8")
+    with pytest.raises(ValueError, match="beyond root count"):
+        audit_native_inputs(left, right, contract, same_roots=False)
+    (right / "B1/scatci.inp").write_text("nstat = 2048, megul = 721, crite = 1e-12")
+    with pytest.raises(ValueError, match="requested root count"):
+        audit_native_inputs(left, right, contract, same_roots=False)
+
+
+@pytest.mark.parametrize("verdict", [False, None])
+def test_failed_root_pair_reader_preserves_result_and_exits_nonzero(tmp_path, monkeypatch, verdict):
+    from projects.ukrmol_co import engine_baseline
+
+    contract = tmp_path / "contract.json"
+    contract.write_text(json.dumps(settings() | {"candidate_roots": 4096}))
+    output = tmp_path / "result.json"
+    monkeypatch.setattr(
+        engine_baseline, "audit_root_pair", lambda *args: {"root_pair_stability_verdict": verdict}
+    )
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "reader",
+            "root-compare",
+            "--reference",
+            str(tmp_path),
+            "--candidate",
+            str(tmp_path),
+            "--contract",
+            str(contract),
+            "--output",
+            str(output),
+        ],
+    )
+    with pytest.raises(SystemExit) as stopped:
+        main()
+    assert stopped.value.code == 1
+    assert json.loads(output.read_text())["root_pair_stability_verdict"] is verdict
+
+
+@pytest.mark.parametrize("owner_exit,verdict", [(0, False), (0, None), (1, True)])
+def test_root_owner_requires_completed_passing_engine_baseline(tmp_path, owner_exit, verdict):
+    baseline = tmp_path / "baseline/native/run"
+    baseline.mkdir(parents=True)
+    (baseline.parent.parent / "execution.json").write_text(
+        json.dumps({"original_controller_exit": owner_exit})
+    )
+    (baseline / "independent-engine-baseline.json").write_text(
+        json.dumps({"matched_engine_baseline_verdict": verdict})
+    )
+    with pytest.raises(ValueError, match="Baseline owner/reader gate failed"):
+        preflight(
+            tmp_path,
+            tmp_path,
+            {
+                "baseline_directory": "baseline/native/run",
+                "baseline_reader_filename": "independent-engine-baseline.json",
+                "baseline_reader_verdict": "matched_engine_baseline_verdict",
+            },
+            {},
+        )
