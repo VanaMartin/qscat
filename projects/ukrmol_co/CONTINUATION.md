@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--12-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--13-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,47 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Matched2048 control reaches Class5 pair7–8 — 13 October, 00:13 UTC
+
+**Owner1228004 remains active on Sadaharu.** All eight B1 ranks record Class1,
+Class3 and Class4 completion, with three Class5,three Class6 and24Class7 pair
+exits per rank. The latest flushed marker is **Class5 BEGIN, target pair7–8**.
+That pair's exit,Class567/Class2+8 completion and L2 update are not yet recorded.
+No pointer-failure, signal or bounds-error marker appears at **00:13:56UTC**.
+No CI/boundary exports or residual telemetry exist; B2/outer stages are pending.
+
+Native B1 has run **4.6257hours** since12October19:36:24UTC, sampling
+**800.04% CPU /13.13GiB current memory** on the declared eight-core/80-GiB
+allocation. These are ongoing samples, not final cost. The runtime-library/
+telemetry gate and original-baseline self-reading remain passed; the active
+candidate's engine-reproduction verdict remains unset. Post-Class4 progress
+does not identify either earlier crash cause or establish an engine correction.
+
+The [00:13 capture](progress-engine-baseline-20261013T0013.json) reverifies
+**41source/343input-evidence hashes**, **242installed artifacts** and B1's
+five native inputs against the original baseline. It pins67immutable remote
+records plus its observation. The [readiness note](SWEEP_READINESS_20261013T0013.md)
+and [overview snapshot](progress-snapshot-20261013T0013.json) retain previous
+scientific/cost values and the tighter same-root reproduction budgets.
+
+Owner/observer services remain active; observer1228557 has five captures
+19:36–23:37UTC on12October. Source/run/observer outputs remain in
+`prepared/cas12-audited-engine-baseline-source-20261012/`. Stage/whole-native/
+owner bounds remain24/50/72hours; `STOP` there ends the active step.
+**Next:** finish B1 matrix/solve/outer stages,then B2 and independent same-root
+comparison,or preserve the first failure. A pass precedes a separately declared
+scientific4096comparison; engine-correction/pair/omitted-spectrum/model/
+identity/extraction/neutral and restartable-production-pilot gates stay separate.
+
+Verification passes **99local hashes**, **68immutable remote records**,
+**41/343frozen hashes** and **242installed artifacts**. Prior numerical and
+cost groups remain identical; the19:38historical PNG/SVG reproduce byte-for-byte.
+Current rendering/visual inspection, searchable SVG, documentation links and
+both current/prior overview anchors, lint/format and diff checks pass.
+Main-index integrity/upstream currency remain complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; branch-only milestone evidence
+and renderer defaults resolve against current source.
 
 ### Matched2048-root audited-engine control starts — 12 October, 19:38 UTC
 

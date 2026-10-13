@@ -21,18 +21,21 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261012T1938.md) and
+The [production-sweep status update](SWEEP_READINESS_20261013T0013.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
 → frozen restartable pilot → sweep and held-out potential validation.
 
-## Progress overview — 12 October 2026
+<a id="progress-overview--12-october-2026"></a>
 
-![CO qualification: reusable inputs, measured sparse costs and active matched2048-root audited-engine control](../../docs/physics/figures/co-progress-20261012T1938.png)
+## Progress overview — 13 October 2026
 
-[Vector figure](../../docs/physics/figures/co-progress-20261012T1938.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261012T1938.json) ·
+![CO qualification: reusable inputs, measured sparse costs and post-Class4 matched-engine control progress](../../docs/physics/figures/co-progress-20261013T0013.png)
+
+[Vector figure](../../docs/physics/figures/co-progress-20261013T0013.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261013T0013.json) ·
+[Dated matched-control pair-block progress](progress-engine-baseline-20261013T0013.json) ·
 [Dated matched-engine control launch](progress-engine-baseline-20261012T1938.json) ·
 [Dated B1 diagnostic completion and export reading](progress-pointer-audit-20261012T1803.json) ·
 [Dated L2 completion capture](progress-pointer-audit-20261012T1338.json) ·
@@ -44,9 +47,9 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261012T1938.md)
+[Current steps before a production sweep](SWEEP_READINESS_20261013T0013.md)
 
-This is the **19:38 UTC, 12 October** release of an incremental overview. New findings, verification
+This is the **00:13 UTC, 13 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
@@ -57,14 +60,19 @@ records the publication convention.
 is **active on Sadaharu**, owner1228004. It uses the exact completed address-audit
 engine and unchanged scientific driver with direct MPI/residual telemetry.
 Runtime-library and original-baseline self-reading gates both pass. Native B1
-starts19:36:24UTC; all eight ranks pass initial graph/context audits, finish
-Class1 target1 and enter target2. Sampling is **802.41% CPU /10.73GiB**,
-not final cost. No failure markers or candidate exports appear. The reproduction
+has run **4.6257hours**, with Class1,Class3 and Class4 complete on all eight
+ranks. Each rank has three Class5,three Class6 and24Class7 pair exits; the
+latest flushed marker is **Class5 BEGIN, target pair7–8**. Sampling is
+**800.04% CPU /13.13GiB**, not final cost. No failure markers, candidate
+exports or residual telemetry appear; B2/outer stages are pending. The reproduction
 budgets are **0.1meV position/full width and1e-6rad phase**. All **41source/
 343input-evidence hashes** and **242installed artifacts** reverify; the hourly
-observer is active with one capture. **Next: complete B1/B2, then independently
+observer is active with five captures. **Next: complete B1/B2, then independently
 compare the same-root baseline before separately declaring scientific4096.**
-The [readiness note](SWEEP_READINESS_20261012T1938.md) states the remaining gates.
+The [readiness note](SWEEP_READINESS_20261013T0013.md) states the remaining gates.
+The [19:38 figure](../../docs/physics/figures/co-progress-20261012T1938.png),
+[vector copy](../../docs/physics/figures/co-progress-20261012T1938.svg) and
+[snapshot](progress-snapshot-20261012T1938.json) preserve the matched-control launch.
 The [18:03 figure](../../docs/physics/figures/co-progress-20261012T1803.png),
 [vector copy](../../docs/physics/figures/co-progress-20261012T1803.svg) and
 [snapshot](progress-snapshot-20261012T1803.json) preserve the completed4096-root
@@ -206,9 +214,9 @@ The six panels explain the qualification campaign:
    The separate B1 diagnostic captures a Class1 source fault; its relationship to the
    release failure remains unproven. The new address audit completes B1 with
    independently read4096-root exports. Its matched2048-root scientific baseline
-   control is active after runtime and self-reading gates pass.
+   control is active in post-Class4 pair blocks after runtime/self-reading gates pass.
 
-This is a dated **12 October 19:38:24 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **13 October 00:13:56 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
