@@ -20,6 +20,54 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### B1 reproduces baseline; B2 completes L2 update — 13 October, 07:01 UTC
+
+**Owner1228004 remains active on Sadaharu.** B1 SCATCI/rsolve/eigenp/reson
+all exit0 without timeout. Independent local reading verifies2048CI/boundary
+poles, complete coefficients and99phase points, with maximum absolute native
+residual **1.3199200374804417e-10Hartree**. SLEPc requests2048,converges2050,
+reason1/selection1 in75iterations. Exported energies, full-grid phases and
+fixed-window fits for background orders1–4 match the original baseline exactly;
+interface digests,target map and native/outer decks are unchanged.
+
+The **B1-only engine-reproduction verdict is true**. Full two-sector/Pi/engine
+reproduction remains unset. All eight B2 ranks complete matrix classes and L2
+update; rank0 prints SLEPc/KrylovSchur setup. At **07:01:25UTC**, no B2 native
+exports or residual telemetry exists, and buffered tails do not locate the
+subsequent live solve operation. No pointer-failure, signal or bounds-error
+marker appears. B1's normal underflow/denormal notices and zero native
+warning/error counts are preserved, as is the generic SLEPc symmetry warning.
+
+The control has run **11.4172hours** since12October19:36:24UTC, sampling
+**801.16% CPU /9.743GiB current memory**, not final cost. B1 SCATCI takes
+21416.5942s and rsolve123.6785s; no whole-run resource result exists yet.
+The [07:01 capture](progress-engine-baseline-20261013T0701.json) includes the
+independent B1 reading, raw checksums and native stage/fit diagnostics. It
+reverifies **41source/343input-evidence hashes**, **242installed artifacts**
+and both sectors' five native inputs, pinning107immutable remote records
+plus its observation. The [readiness note](SWEEP_READINESS_20261013T0701.md)
+and [overview snapshot](progress-snapshot-20261013T0701.json) distinguish B1
+agreement from the pending whole-control verdict.
+
+Observer1228557 remains active with12captures19:36UTC12October–06:37UTC13October.
+Owner/observer services and source directory remain those of the declared
+matched control. Stage/whole-native/owner limits remain24/50/72hours;
+`STOP` in`prepared/cas12-audited-engine-baseline-source-20261012/` ends the
+active step. **Next:** finish B2 native/outer stages and final independent
+two-sector/Pi reproduction,or preserve the first failure. A passing control
+precedes a separate scientific4096declaration; crash-cause/engine-correction/
+omission/model/channel/identity/extraction/neutral/sweep gates remain distinct.
+
+Verification passes **102local hashes**, **108immutable remote records**,
+**41/343frozen hashes** and **242installed artifacts**. Independent B1 raw,
+residual,interface,energy,phase and all-background fit checks pass under the
+declared same-root budgets. Prior scientific/cost plot groups remain identical;
+the00:13historical PNG/SVG reproduce byte-for-byte. Current rendering/visual
+inspection, searchable SVG, links, lint/format and diff checks pass. Main-index
+integrity/upstream currency remain complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; branch-only reader provenance,
+milestone evidence and renderer defaults resolve against current source.
+
 ### Matched2048 control reaches Class5 pair7–8 — 13 October, 00:13 UTC
 
 **Owner1228004 remains active on Sadaharu.** All eight B1 ranks record Class1,
