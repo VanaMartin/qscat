@@ -20,6 +20,43 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Scientific 4096 B1 finishes matrix/L2 — 13 October, 14:04 UTC
+
+**Owner 1246007 remains active on Sadaharu after 6.0868 hours.** All eight B1
+ranks finish Class1/3/4/567/2+8 and L2 update; rank0 prints SLEPc/KrylovSchur
+setup for dimension 86352 / 4096 roots / 1e-12 tolerance / 1000 iterations.
+At **14:04:49 UTC**, no eigenpair/boundary export or residual telemetry exists.
+Buffered tails do not identify the subsequent live solve operation. No pointer-
+failure, signal, bounds or native-error marker appears. B2 and outer stages
+remain pending. Sampling **798.68% CPU / 14.46 GiB** is not final cost.
+
+The [milestone capture](progress-audited-4096-20261013T1404.json) reverifies
+**43 source / 500 input-evidence hashes**, **242 installed artifacts** and B1's
+actual native/outer inputs, pinning **568 immutable remote records**. Observer
+1246546 remains active with seven hourly captures, 07:59–13:59 UTC. Matched2048
+engine reproduction remains passed; the scientific pair verdict is unset.
+
+Services and persistent outputs remain those of the declared scientific control:
+`co-cas12-audited-engine-4096-20261013.service`, its observation-only observer,
+and `prepared/cas12-audited-engine-4096-source-20261013/`. `STOP` there ends the
+active step. Allocation and 24/50/72-hour stage/native/owner bounds are unchanged.
+**Next:** finish B1 solve/export/outer, B2 and independent raw/energy/interface/
+grid/Pi/all-background reading, or preserve the first failure. Fixed scientific
+budgets and false/unset stopping rules remain in force. Pair stability does not
+bound absolute omission; crash-cause/correction/model/channel/continuity/
+extraction/neutral/restartable-pilot gates remain separate. The
+[readiness note](SWEEP_READINESS_20261013T1404.md) and
+[overview snapshot](progress-snapshot-20261013T1404.json) record this milestone.
+
+Verification passes **109 local hashes**, **568 immutable remote records**,
+**43/500 frozen hashes** and **242 installed artifacts**. Prior scientific/cost
+plot groups retain identical values; the 08:03 historical PNG/SVG reproduce
+byte-for-byte. Current rendering/visual inspection, searchable SVG, local links,
+lint/format and diff checks pass. Main-index integrity is complete at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; upstream currency is reported unknown
+at handoff. Milestone evidence and renderer defaults are branch-only and resolve
+against current source.
+
 ### Engine reproduction passes; scientific 4096 starts — 13 October, 08:03 UTC
 
 **The matched 2048-root control finishes at 07:10:36 UTC, owner exit 0.**

@@ -21,7 +21,7 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261013T0803.md) and
+The [production-sweep status update](SWEEP_READINESS_20261013T1404.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
@@ -31,10 +31,11 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 
 ## Progress overview — 13 October 2026
 
-![CO qualification: reusable inputs, completed engine reproduction and active scientific4096root comparison](../../docs/physics/figures/co-progress-20261013T0803.png)
+![CO qualification: reusable inputs, completed engine reproduction and scientific4096B1 matrix/L2 completion](../../docs/physics/figures/co-progress-20261013T1404.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261013T0803.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261013T0803.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261013T1404.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261013T1404.json) ·
+[Dated scientific4096B1 matrix/L2 milestone](progress-audited-4096-20261013T1404.json) ·
 [Dated scientific4096launch](progress-audited-4096-20261013T0803.json) ·
 [Completed matched-engine reproduction](progress-engine-baseline-20261013T0726.json) ·
 [Dated B1 reproduction and B2 L2 milestone](progress-engine-baseline-20261013T0701.json) ·
@@ -50,9 +51,9 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261013T0803.md)
+[Current steps before a production sweep](SWEEP_READINESS_20261013T1404.md)
 
-This is the **08:03 UTC, 13 October** release of an incremental overview. New findings, verification
+This is the **14:04 UTC, 13 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
@@ -67,13 +68,17 @@ maximum residual is **1.33e-10 Hartree**, Pi **1e-9 rad**. Measured native cost 
 The [separately declared scientific 4096-root comparison](cas12-audited-engine-4096-contract.json)
 is **active on Sadaharu**, owner **1246007**. Fresh runtime and stricter baseline
 self-reading gates pass before native starts 07:59:37 UTC. At the cutoff, all
-eight B1 ranks complete Class1 target 1 and begin target 2, with no failure
-markers. Sampling **799.65% CPU / 10.73 GiB** is not final cost.
+eight B1 ranks finish matrix classes and the L2 update; rank0 prints SLEPc
+solve setup. The control has run **6.0868 hours**, with no failure markers.
+Sampling **798.68% CPU / 14.46 GiB** is not final cost.
 All **43 source / 500 input-evidence hashes** and **242 installed artifacts**
-reverify; hourly observer **1246546** is active. Candidate exports/residuals,
+reverify; hourly observer **1246546** is active with seven captures. Candidate exports/residuals,
 B2, Pi and pair sensitivity remain pending. **Next: finish both sectors and the
 independent scientific comparison at unchanged 0.05-eV/5%-width/0.05-rad budgets.**
-The [readiness note](SWEEP_READINESS_20261013T0803.md) states the remaining gates.
+The [readiness note](SWEEP_READINESS_20261013T1404.md) states the remaining gates.
+The [08:03 figure](../../docs/physics/figures/co-progress-20261013T0803.png),
+[vector copy](../../docs/physics/figures/co-progress-20261013T0803.svg) and
+[snapshot](progress-snapshot-20261013T0803.json) preserve the scientific4096launch.
 The [07:01 figure](../../docs/physics/figures/co-progress-20261013T0701.png),
 [vector copy](../../docs/physics/figures/co-progress-20261013T0701.svg) and
 [snapshot](progress-snapshot-20261013T0701.json) preserve B1 reproduction with B2 pending.
@@ -231,7 +236,7 @@ The six panels explain the qualification campaign:
     control independently reproduces both sectors; a fresh scientific 4096-root
     comparison is now active on that qualified engine/runtime.
 
-This is a dated **13 October 08:03:21 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **13 October 14:04:49 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
