@@ -1,0 +1,1304 @@
+{
+  "base_snapshot": "progress-snapshot-20261013T0701.json",
+  "base_snapshot_sha256": "78200205ce288607b0e51ee8655e3c27d1c4ca29da7834c606a11cc92e13371f",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/SWEEP_READINESS_20261013T0803.md": "3ffce332ff6f380af94ec29787f22dba798ff1c759d42a7cddb232b2068c2963",
+    "projects/ukrmol_co/progress-engine-baseline-20261013T0726.json": "041bffc1c577b88569d8b165d47a63f64a239d6cd3b50429b5bfe59b04ed2b5a",
+    "projects/ukrmol_co/progress-audited-4096-20261013T0803.json": "0c448cd9df3b88790512e6c6dc5808ceeb090f190078ad3f1ea21f7bf355cf07",
+    "projects/ukrmol_co/cas12-audited-engine-4096-contract.json": "2d333b0aa0e3ddecc26bbac311ca2efcdc7fe065173f951f8ed8bcf07f34ea94",
+    "projects/ukrmol_co/AUDITED_ENGINE_4096.md": "442192f734fde02411f1eb0daacd3854470574d61ad2e48941e292a2fe133fc7",
+    "projects/ukrmol_co/engine_baseline.py": "5ce6f83373457efa7ad8f7a99315c266dfd287955fb2aeb4d38e06c17b3d93bf",
+    "projects/ukrmol_co/engine_baseline_owner.py": "9fbff0dfc2c78d3ec0582a1e906380d2d0089c37bfc773a2a89c8b83d5496383",
+    "projects/ukrmol_co/sparse_comparison_owner.py": "a8730d04c122de0447e041e134872044e8abc837a72288bad7812b59bafc9a04",
+    "projects/ukrmol_co/test_engine_baseline.py": "45a120834851d94eaa464269c134a27a1d2a9e50c673a16fb5f41f883285b9b7"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-13T08:03:21.486215+00:00",
+    "changes": [
+      "Matched2048root control finishes both sectors,reader and owner with original exits0 at07:10:36UTC. Exported energies,99phases and fixed-window fits at background orders1-4 reproduce exactly;Pi1e-9rad and maximum native residual1.33e-10Hartree.",
+      "Completed audited2048control measured11.565930hours/21.964687GiB kernel peak;added as a distinct scoped cost bar. Earlier successful and failed measurements remain preserved.",
+      "Separately declared scientific4096two-sector owner1246007 starts native07:59:37UTC after fresh runtime and stricter baseline-to-itself gates pass. The qualified audited2048run is the reference;only requested roots change.",
+      "At08:03UTC all8B1ranks pass graph/context audits,complete Class1target1 and begin target2;no failure markers. Exports/residuals,B2,outer stages and scientific pair verdict remain pending. Current799.65%CPU/10.73GiB is not final cost.",
+      "New43source/500input-evidence hashes and242installed artifacts reverify. B1actual four data inputs,root-only deck difference and unchanged outer decks check. Immutable launch observation pins562remote records. Observer1246546 is active with first07:59:41capture and hourly captures thereafter.",
+      "Shared owner/reader route the declared control and reject changed inputs or false/unset verdicts;40focused tests pass. The science driver/dependencies remain byte-identical. Completion schedules no further job. Crash correction,omission/model/channel/identity/extraction/neutral/sweep gates remain distinct."
+    ],
+    "live_status": {
+      "cas12_sparse_pilot_finished": true,
+      "cas12_sparse_pilot_cost_export_passed": true,
+      "cas12_4096_comparator_finished": true,
+      "cas12_4096_comparator_native_stage_exit": 59,
+      "cas12_4096_comparator_controller_exit": 1,
+      "cas12_4096_pair_stability_verdict": null,
+      "cas12_sparse_truncation_verdict": null,
+      "cas12_native_debug_owner": 1168755,
+      "cas12_native_debug_launched": true,
+      "cas12_native_debug_finished": true,
+      "cas12_native_debug_controller_exit": 1,
+      "cas12_native_debug_container_exit": 1,
+      "cas12_native_debug_gdb_mpi_exit": 139,
+      "cas12_native_debug_inferior_exit": null,
+      "cas12_native_debug_observed_signal": 11,
+      "cas12_native_debug_observed_rank": 0,
+      "cas12_native_debug_observed_class": 1,
+      "cas12_native_debug_engine_checks_passed": true,
+      "cas12_native_debug_root_cause": null,
+      "cas12_native_debug_same_cause_as_release_failure": null,
+      "cas12_native_debug_source_hashes_verified": 47,
+      "cas12_native_debug_input_hashes_verified": 119,
+      "cas12_native_debug_installed_artifacts_verified": 242,
+      "observer_owner": 1246546,
+      "observer_finished": false,
+      "observer_exit": null,
+      "observer_captures": 1,
+      "scientific_containers_running": 1,
+      "full_sweep_released": false,
+      "cas12_pointer_audit_owner": 1187176,
+      "cas12_pointer_audit_launched": true,
+      "cas12_pointer_audit_finished": true,
+      "cas12_pointer_audit_engine_checks_passed": true,
+      "cas12_pointer_audit_initial_graph_passed_ranks": 8,
+      "cas12_pointer_audit_initial_csfs": 990990,
+      "cas12_pointer_audit_initial_determinants": 22475718,
+      "cas12_pointer_audit_class1_last_completed_target": 8,
+      "cas12_pointer_audit_class1_active_target": null,
+      "cas12_pointer_audit_source_hashes_verified": 55,
+      "cas12_pointer_audit_input_hashes_verified": 192,
+      "cas12_pointer_audit_installed_artifacts_verified": 242,
+      "cas12_pointer_audit_engine_correction_verdict": null,
+      "cas12_pointer_audit_class1_completed_ranks": 8,
+      "cas12_pointer_audit_last_confirmed_completed_class": 8,
+      "cas12_pointer_audit_CI_export_present": true,
+      "cas12_pointer_audit_boundary_export_present": true,
+      "cas12_pointer_audit_latest_marked_class": 6,
+      "cas12_pointer_audit_latest_marked_target_pair": [
+        7,
+        8
+      ],
+      "cas12_pointer_audit_class567_markers_present": true,
+      "cas12_pointer_audit_latest_marker_status": "END",
+      "cas12_pointer_audit_L2_update_completed_ranks": 8,
+      "cas12_pointer_audit_subsequent_live_stage": null,
+      "cas12_pointer_audit_controller_exit": 0,
+      "cas12_pointer_audit_container_exit": 0,
+      "cas12_pointer_audit_mpi_debugger_exit": 0,
+      "cas12_pointer_audit_inferior_exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "cas12_pointer_audit_raw_export_checks_passed": true,
+      "cas12_pointer_audit_native_residual_verdict": null,
+      "cas12_pointer_audit_finished_utc": "2026-10-12T15:04:29.726984+00:00",
+      "cas12_pointer_audit_last_confirmed_stage": "native export and normal finalization",
+      "pointer_audit_observer_owner": 1191504,
+      "pointer_audit_observer_finished": true,
+      "pointer_audit_observer_captures": 9,
+      "cas12_engine_baseline_owner": 1228004,
+      "cas12_engine_baseline_launched": true,
+      "cas12_engine_baseline_finished": true,
+      "cas12_engine_baseline_runtime_gate_passed": true,
+      "cas12_engine_baseline_self_reading_passed": true,
+      "cas12_engine_baseline_source_hashes_verified": 41,
+      "cas12_engine_baseline_input_hashes_verified": 343,
+      "cas12_engine_baseline_installed_artifacts_verified": 242,
+      "cas12_engine_baseline_active_sector": null,
+      "cas12_engine_baseline_class1_active_target": null,
+      "cas12_engine_baseline_class1_last_completed_target": 8,
+      "cas12_engine_baseline_candidate_exports_present": true,
+      "matched_engine_baseline_verdict": true,
+      "cas12_engine_baseline_class1_completed_ranks": 8,
+      "cas12_engine_baseline_last_confirmed_completed_class": 8,
+      "cas12_engine_baseline_latest_marked_class": 6,
+      "cas12_engine_baseline_latest_marked_target_pair": [
+        7,
+        8
+      ],
+      "cas12_engine_baseline_latest_marker_status": "END",
+      "cas12_engine_baseline_B1_exports_present": true,
+      "cas12_engine_baseline_B2_exports_present": true,
+      "cas12_engine_baseline_all_sectors_exports_present": true,
+      "cas12_engine_baseline_B1_native_outer_finished": true,
+      "cas12_engine_baseline_B1_independent_reproduction_verdict": true,
+      "cas12_engine_baseline_B2_L2_completed_ranks": 8,
+      "cas12_engine_baseline_B2_solver_setup_printed": true,
+      "cas12_engine_baseline_B2_independent_reproduction_verdict": true,
+      "cas12_engine_baseline_controller_exit": 0,
+      "cas12_audited_4096_owner": 1246007,
+      "cas12_audited_4096_launched": true,
+      "cas12_audited_4096_finished": false,
+      "cas12_audited_4096_runtime_gate_passed": true,
+      "cas12_audited_4096_self_reading_passed": true,
+      "cas12_audited_4096_source_hashes_verified": 43,
+      "cas12_audited_4096_input_hashes_verified": 500,
+      "cas12_audited_4096_installed_artifacts_verified": 242,
+      "cas12_audited_4096_active_sector": "B1",
+      "cas12_audited_4096_class1_last_completed_target": 1,
+      "cas12_audited_4096_class1_active_target": 2,
+      "cas12_audited_4096_pair_stability_verdict": null
+    },
+    "engine_baseline_completed_reading": {
+      "reference": "/work/prepared/cas12-sparse-pilot-shm8-source-20261011/native/cas12-eq-native-sparse-roots2048-mpi8-shm8-20261011",
+      "candidate": "/outputs/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+      "reference_raw_reading": {
+        "resources": {
+          "exit_code": 0,
+          "wall_seconds": 36184.94428068795,
+          "sampled_peak_container_memory_bytes": 23824338944,
+          "baseline_container_memory_bytes": 33816576,
+          "sampled_peak_container_anon_bytes": 17130582016,
+          "kernel_peak_container_memory_bytes": 24009990144,
+          "container_cpu_seconds": 287677.699876,
+          "sampled_peak_run_allocated_bytes": 5472518144,
+          "sampled_peak_scratch_allocated_bytes": 208896,
+          "memory_sample_interval_seconds": 0.2,
+          "disk_sample_interval_seconds": 2.0
+        },
+        "sectors": {
+          "B1": {
+            "export_checks_passed": true,
+            "maximum_native_residual_hartree": 1.3199200374804417e-10,
+            "energy_range_hartree": [
+              -112.91596570082095,
+              -110.02319542749294
+            ],
+            "boundary_energy_error_hartree": 0.0,
+            "native_resonances": [
+              {
+                "energy_hartree": 0.090300065,
+                "width_hartree": 0.04168035
+              }
+            ],
+            "native_maxfit_diagnostic": false,
+            "spectral_truncation_verdict": null,
+            "observable_qualification_verdict": null,
+            "solver_selection": {
+              "matrix_type": "mpisbaij",
+              "solver_type": "krylovschur",
+              "dimension": 86352,
+              "requested": 2048,
+              "ncv": 2548,
+              "mpd": 500,
+              "converged": 2050,
+              "iterations": 75,
+              "reason": 1,
+              "which": 1,
+              "nz_used": 156835136,
+              "nz_allocated": 481829746,
+              "mallocs": 27843,
+              "petsc_reported_memory_bytes": 0
+            },
+            "original_stages": [
+              {
+                "name": "scatci",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 18298.028320336016
+              },
+              {
+                "name": "rsolve",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 122.0839469700586
+              },
+              {
+                "name": "eigenp",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015610076021403074
+              },
+              {
+                "name": "reson",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015485804993659258
+              }
+            ]
+          },
+          "B2": {
+            "export_checks_passed": true,
+            "maximum_native_residual_hartree": 1.3276447836219887e-10,
+            "energy_range_hartree": [
+              -112.91596570082146,
+              -110.02319542749314
+            ],
+            "boundary_energy_error_hartree": 0.0,
+            "native_resonances": [
+              {
+                "energy_hartree": 0.090300065,
+                "width_hartree": 0.04168035
+              }
+            ],
+            "native_maxfit_diagnostic": false,
+            "spectral_truncation_verdict": null,
+            "observable_qualification_verdict": null,
+            "solver_selection": {
+              "matrix_type": "mpisbaij",
+              "solver_type": "krylovschur",
+              "dimension": 86352,
+              "requested": 2048,
+              "ncv": 2548,
+              "mpd": 500,
+              "converged": 2048,
+              "iterations": 76,
+              "reason": 1,
+              "which": 1,
+              "nz_used": 154544693,
+              "nz_allocated": 481688776,
+              "mallocs": 18445,
+              "petsc_reported_memory_bytes": 0
+            },
+            "original_stages": [
+              {
+                "name": "scatci",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 17639.059473905945
+              },
+              {
+                "name": "rsolve",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 122.13798231701367
+              },
+              {
+                "name": "eigenp",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015571279916912317
+              },
+              {
+                "name": "reson",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015451829181984067
+              }
+            ]
+          }
+        },
+        "pi_phase_difference_rad_mod_pi": 1.000000082740371e-09,
+        "target_map": [
+          1,
+          11,
+          18,
+          24,
+          28,
+          4,
+          8,
+          17,
+          35,
+          37,
+          6,
+          16,
+          26,
+          31,
+          34,
+          2,
+          14,
+          20,
+          23,
+          30,
+          5,
+          15,
+          25,
+          32,
+          33,
+          3,
+          13,
+          19,
+          22,
+          29,
+          10,
+          12,
+          27,
+          39,
+          40,
+          7,
+          9,
+          21,
+          36,
+          38
+        ]
+      },
+      "candidate_raw_reading": {
+        "resources": {
+          "exit_code": 0,
+          "wall_seconds": 41637.3495523741,
+          "sampled_peak_container_memory_bytes": 23464869888,
+          "baseline_container_memory_bytes": 33341440,
+          "sampled_peak_container_anon_bytes": 17335697408,
+          "kernel_peak_container_memory_bytes": 23584403456,
+          "container_cpu_seconds": 330997.99187100003,
+          "sampled_peak_run_allocated_bytes": 5474078720,
+          "sampled_peak_scratch_allocated_bytes": 208896,
+          "memory_sample_interval_seconds": 0.2,
+          "disk_sample_interval_seconds": 2.0
+        },
+        "sectors": {
+          "B1": {
+            "export_checks_passed": true,
+            "maximum_native_residual_hartree": 1.3199200374804417e-10,
+            "energy_range_hartree": [
+              -112.91596570082095,
+              -110.02319542749294
+            ],
+            "boundary_energy_error_hartree": 0.0,
+            "native_resonances": [
+              {
+                "energy_hartree": 0.090300065,
+                "width_hartree": 0.04168035
+              }
+            ],
+            "native_maxfit_diagnostic": false,
+            "spectral_truncation_verdict": null,
+            "observable_qualification_verdict": null,
+            "solver_selection": {
+              "matrix_type": "mpisbaij",
+              "solver_type": "krylovschur",
+              "dimension": 86352,
+              "requested": 2048,
+              "ncv": 2548,
+              "mpd": 500,
+              "converged": 2050,
+              "iterations": 75,
+              "reason": 1,
+              "which": 1,
+              "nz_used": 156835136,
+              "nz_allocated": 481829746,
+              "mallocs": 27843,
+              "petsc_reported_memory_bytes": 0
+            },
+            "original_stages": [
+              {
+                "name": "scatci",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 21416.594208749942
+              },
+              {
+                "name": "rsolve",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 123.67850885307416
+              },
+              {
+                "name": "eigenp",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.01562444493174553
+              },
+              {
+                "name": "reson",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015421993099153042
+              }
+            ]
+          },
+          "B2": {
+            "export_checks_passed": true,
+            "maximum_native_residual_hartree": 1.3276447836219887e-10,
+            "energy_range_hartree": [
+              -112.91596570082146,
+              -110.02319542749314
+            ],
+            "boundary_energy_error_hartree": 0.0,
+            "native_resonances": [
+              {
+                "energy_hartree": 0.090300065,
+                "width_hartree": 0.04168035
+              }
+            ],
+            "native_maxfit_diagnostic": false,
+            "spectral_truncation_verdict": null,
+            "observable_qualification_verdict": null,
+            "solver_selection": {
+              "matrix_type": "mpisbaij",
+              "solver_type": "krylovschur",
+              "dimension": 86352,
+              "requested": 2048,
+              "ncv": 2548,
+              "mpd": 500,
+              "converged": 2048,
+              "iterations": 76,
+              "reason": 1,
+              "which": 1,
+              "nz_used": 154544693,
+              "nz_allocated": 481688776,
+              "mallocs": 18445,
+              "petsc_reported_memory_bytes": 0
+            },
+            "original_stages": [
+              {
+                "name": "scatci",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 19969.250326391077
+              },
+              {
+                "name": "rsolve",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 124.02938188402914
+              },
+              {
+                "name": "eigenp",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015754484105855227
+              },
+              {
+                "name": "reson",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015515803126618266
+              }
+            ]
+          }
+        },
+        "pi_phase_difference_rad_mod_pi": 1.000000082740371e-09,
+        "target_map": [
+          1,
+          11,
+          18,
+          24,
+          28,
+          4,
+          8,
+          17,
+          35,
+          37,
+          6,
+          16,
+          26,
+          31,
+          34,
+          2,
+          14,
+          20,
+          23,
+          30,
+          5,
+          15,
+          25,
+          32,
+          33,
+          3,
+          13,
+          19,
+          22,
+          29,
+          10,
+          12,
+          27,
+          39,
+          40,
+          7,
+          9,
+          21,
+          36,
+          38
+        ]
+      },
+      "sectors": {
+        "B1": {
+          "maximum_phase_difference_rad_mod_pi": 0.0,
+          "phase_budget_passed": true,
+          "fixed_window_fits": [
+            {
+              "nback": 1,
+              "reference_fit": {
+                "position_hartree": 0.08983424794773187,
+                "full_width_hartree": 0.045735785204571444,
+                "background_coefficients_radian": [
+                  -0.3813814914542225
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 1,
+                "points": 31,
+                "residual_rms_rad": 0.00992056628894701,
+                "residual_max_abs_rad": 0.022014236565869094,
+                "residual_sum_squares_rad2": 0.003050946700295147,
+                "jacobian_singular_values": [
+                  7.406699141231544,
+                  2.243293201312547,
+                  0.9867659700251777
+                ],
+                "jacobian_condition_number": 7.506034223132522,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 7.306629917324809e-10,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.08983424794773187,
+                "full_width_hartree": 0.045735785204571444,
+                "background_coefficients_radian": [
+                  -0.3813814914542225
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 1,
+                "points": 31,
+                "residual_rms_rad": 0.00992056628894701,
+                "residual_max_abs_rad": 0.022014236565869094,
+                "residual_sum_squares_rad2": 0.003050946700295147,
+                "jacobian_singular_values": [
+                  7.406699141231544,
+                  2.243293201312547,
+                  0.9867659700251777
+                ],
+                "jacobian_condition_number": 7.506034223132522,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 7.306629917324809e-10,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            },
+            {
+              "nback": 2,
+              "reference_fit": {
+                "position_hartree": 0.09033782721603896,
+                "full_width_hartree": 0.04171073366467005,
+                "background_coefficients_radian": [
+                  -0.370915280866328,
+                  -0.06637699989218601
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 2,
+                "points": 31,
+                "residual_rms_rad": 0.0006677957049013654,
+                "residual_max_abs_rad": 0.0017942060419517958,
+                "residual_sum_squares_rad2": 1.3824484208026053e-05,
+                "jacobian_singular_values": [
+                  7.591353464516206,
+                  4.000034406016497,
+                  1.13922723252986,
+                  0.5020077677669003
+                ],
+                "jacobian_condition_number": 15.121984064679127,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.6279481169796232e-13,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.09033782721603896,
+                "full_width_hartree": 0.04171073366467005,
+                "background_coefficients_radian": [
+                  -0.370915280866328,
+                  -0.06637699989218601
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 2,
+                "points": 31,
+                "residual_rms_rad": 0.0006677957049013654,
+                "residual_max_abs_rad": 0.0017942060419517958,
+                "residual_sum_squares_rad2": 1.3824484208026053e-05,
+                "jacobian_singular_values": [
+                  7.591353464516206,
+                  4.000034406016497,
+                  1.13922723252986,
+                  0.5020077677669003
+                ],
+                "jacobian_condition_number": 15.121984064679127,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.6279481169796232e-13,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            },
+            {
+              "nback": 3,
+              "reference_fit": {
+                "position_hartree": 0.09055596470957049,
+                "full_width_hartree": 0.04185240549269264,
+                "background_coefficients_radian": [
+                  -0.36088282345257483,
+                  -0.0653300744259769,
+                  -0.007576919981853298
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 3,
+                "points": 31,
+                "residual_rms_rad": 0.00024893643633003715,
+                "residual_max_abs_rad": 0.0005369880541943317,
+                "residual_sum_squares_rad2": 1.921049829313658e-06,
+                "jacobian_singular_values": [
+                  7.792915394585021,
+                  4.00012779808652,
+                  2.2554610884727198,
+                  0.5019633207051061,
+                  0.22213621201109807
+                ],
+                "jacobian_condition_number": 35.08169750457292,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 5.197944617188898e-13,
+                "optimizer_evaluations": 11,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.09055596470957049,
+                "full_width_hartree": 0.04185240549269264,
+                "background_coefficients_radian": [
+                  -0.36088282345257483,
+                  -0.0653300744259769,
+                  -0.007576919981853298
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 3,
+                "points": 31,
+                "residual_rms_rad": 0.00024893643633003715,
+                "residual_max_abs_rad": 0.0005369880541943317,
+                "residual_sum_squares_rad2": 1.921049829313658e-06,
+                "jacobian_singular_values": [
+                  7.792915394585021,
+                  4.00012779808652,
+                  2.2554610884727198,
+                  0.5019633207051061,
+                  0.22213621201109807
+                ],
+                "jacobian_condition_number": 35.08169750457292,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 5.197944617188898e-13,
+                "optimizer_evaluations": 11,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            },
+            {
+              "nback": 4,
+              "reference_fit": {
+                "position_hartree": 0.0904842506374133,
+                "full_width_hartree": 0.04219207754978509,
+                "background_coefficients_radian": [
+                  -0.3630847747664185,
+                  -0.05592603349706684,
+                  -0.006763880881664429,
+                  -0.005867668811584364
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 4,
+                "points": 31,
+                "residual_rms_rad": 3.694109652594419e-05,
+                "residual_max_abs_rad": 9.546916483138546e-05,
+                "residual_sum_squares_rad2": 4.2303982988712906e-08,
+                "jacobian_singular_values": [
+                  7.778139745738389,
+                  4.517602663641314,
+                  2.2456020276558526,
+                  1.0793799277752671,
+                  0.21840247408026786,
+                  0.09452440135814896
+                ],
+                "jacobian_condition_number": 82.28710929643813,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.2292282137960819e-11,
+                "optimizer_evaluations": 13,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.0904842506374133,
+                "full_width_hartree": 0.04219207754978509,
+                "background_coefficients_radian": [
+                  -0.3630847747664185,
+                  -0.05592603349706684,
+                  -0.006763880881664429,
+                  -0.005867668811584364
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 4,
+                "points": 31,
+                "residual_rms_rad": 3.694109652594419e-05,
+                "residual_max_abs_rad": 9.546916483138546e-05,
+                "residual_sum_squares_rad2": 4.2303982988712906e-08,
+                "jacobian_singular_values": [
+                  7.778139745738389,
+                  4.517602663641314,
+                  2.2456020276558526,
+                  1.0793799277752671,
+                  0.21840247408026786,
+                  0.09452440135814896
+                ],
+                "jacobian_condition_number": 82.28710929643813,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.2292282137960819e-11,
+                "optimizer_evaluations": 13,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            }
+          ],
+          "root_pair_stability_verdict": null,
+          "shared_prefix_energy_error_hartree": 0.0,
+          "interface_sha256": "4b2ca0667e8aeb850e3eeba3e513cb5d04fdf821befed32d055cdd389001048c",
+          "engine_reproduction_verdict": true
+        },
+        "B2": {
+          "maximum_phase_difference_rad_mod_pi": 0.0,
+          "phase_budget_passed": true,
+          "fixed_window_fits": [
+            {
+              "nback": 1,
+              "reference_fit": {
+                "position_hartree": 0.08983424794773187,
+                "full_width_hartree": 0.045735785204571444,
+                "background_coefficients_radian": [
+                  -0.3813814914542225
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 1,
+                "points": 31,
+                "residual_rms_rad": 0.00992056628894701,
+                "residual_max_abs_rad": 0.022014236565869094,
+                "residual_sum_squares_rad2": 0.003050946700295147,
+                "jacobian_singular_values": [
+                  7.406699141231544,
+                  2.243293201312547,
+                  0.9867659700251777
+                ],
+                "jacobian_condition_number": 7.506034223132522,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 7.306629917324809e-10,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.08983424794773187,
+                "full_width_hartree": 0.045735785204571444,
+                "background_coefficients_radian": [
+                  -0.3813814914542225
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 1,
+                "points": 31,
+                "residual_rms_rad": 0.00992056628894701,
+                "residual_max_abs_rad": 0.022014236565869094,
+                "residual_sum_squares_rad2": 0.003050946700295147,
+                "jacobian_singular_values": [
+                  7.406699141231544,
+                  2.243293201312547,
+                  0.9867659700251777
+                ],
+                "jacobian_condition_number": 7.506034223132522,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 7.306629917324809e-10,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            },
+            {
+              "nback": 2,
+              "reference_fit": {
+                "position_hartree": 0.09033782721603896,
+                "full_width_hartree": 0.04171073366467005,
+                "background_coefficients_radian": [
+                  -0.370915280866328,
+                  -0.06637699989218601
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 2,
+                "points": 31,
+                "residual_rms_rad": 0.0006677957049013654,
+                "residual_max_abs_rad": 0.0017942060419517958,
+                "residual_sum_squares_rad2": 1.3824484208026053e-05,
+                "jacobian_singular_values": [
+                  7.591353464516206,
+                  4.000034406016497,
+                  1.13922723252986,
+                  0.5020077677669003
+                ],
+                "jacobian_condition_number": 15.121984064679127,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.6279481169796232e-13,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.09033782721603896,
+                "full_width_hartree": 0.04171073366467005,
+                "background_coefficients_radian": [
+                  -0.370915280866328,
+                  -0.06637699989218601
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 2,
+                "points": 31,
+                "residual_rms_rad": 0.0006677957049013654,
+                "residual_max_abs_rad": 0.0017942060419517958,
+                "residual_sum_squares_rad2": 1.3824484208026053e-05,
+                "jacobian_singular_values": [
+                  7.591353464516206,
+                  4.000034406016497,
+                  1.13922723252986,
+                  0.5020077677669003
+                ],
+                "jacobian_condition_number": 15.121984064679127,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.6279481169796232e-13,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            },
+            {
+              "nback": 3,
+              "reference_fit": {
+                "position_hartree": 0.09055596470957049,
+                "full_width_hartree": 0.04185240549269264,
+                "background_coefficients_radian": [
+                  -0.36088282345257483,
+                  -0.0653300744259769,
+                  -0.007576919981853298
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 3,
+                "points": 31,
+                "residual_rms_rad": 0.00024893643633003715,
+                "residual_max_abs_rad": 0.0005369880541943317,
+                "residual_sum_squares_rad2": 1.921049829313658e-06,
+                "jacobian_singular_values": [
+                  7.792915394585021,
+                  4.00012779808652,
+                  2.2554610884727198,
+                  0.5019633207051061,
+                  0.22213621201109807
+                ],
+                "jacobian_condition_number": 35.08169750457292,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 5.197944617188898e-13,
+                "optimizer_evaluations": 11,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.09055596470957049,
+                "full_width_hartree": 0.04185240549269264,
+                "background_coefficients_radian": [
+                  -0.36088282345257483,
+                  -0.0653300744259769,
+                  -0.007576919981853298
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 3,
+                "points": 31,
+                "residual_rms_rad": 0.00024893643633003715,
+                "residual_max_abs_rad": 0.0005369880541943317,
+                "residual_sum_squares_rad2": 1.921049829313658e-06,
+                "jacobian_singular_values": [
+                  7.792915394585021,
+                  4.00012779808652,
+                  2.2554610884727198,
+                  0.5019633207051061,
+                  0.22213621201109807
+                ],
+                "jacobian_condition_number": 35.08169750457292,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 5.197944617188898e-13,
+                "optimizer_evaluations": 11,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            },
+            {
+              "nback": 4,
+              "reference_fit": {
+                "position_hartree": 0.0904842506374133,
+                "full_width_hartree": 0.04219207754978509,
+                "background_coefficients_radian": [
+                  -0.3630847747664185,
+                  -0.05592603349706684,
+                  -0.006763880881664429,
+                  -0.005867668811584364
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 4,
+                "points": 31,
+                "residual_rms_rad": 3.694109652594419e-05,
+                "residual_max_abs_rad": 9.546916483138546e-05,
+                "residual_sum_squares_rad2": 4.2303982988712906e-08,
+                "jacobian_singular_values": [
+                  7.778139745738389,
+                  4.517602663641314,
+                  2.2456020276558526,
+                  1.0793799277752671,
+                  0.21840247408026786,
+                  0.09452440135814896
+                ],
+                "jacobian_condition_number": 82.28710929643813,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.2292282137960819e-11,
+                "optimizer_evaluations": 13,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.0904842506374133,
+                "full_width_hartree": 0.04219207754978509,
+                "background_coefficients_radian": [
+                  -0.3630847747664185,
+                  -0.05592603349706684,
+                  -0.006763880881664429,
+                  -0.005867668811584364
+                ],
+                "background_midpoint_hartree": 0.09371249999999999,
+                "background_scale_hartree": 0.02756249999999999,
+                "nback": 4,
+                "points": 31,
+                "residual_rms_rad": 3.694109652594419e-05,
+                "residual_max_abs_rad": 9.546916483138546e-05,
+                "residual_sum_squares_rad2": 4.2303982988712906e-08,
+                "jacobian_singular_values": [
+                  7.778139745738389,
+                  4.517602663641314,
+                  2.2456020276558526,
+                  1.0793799277752671,
+                  0.21840247408026786,
+                  0.09452440135814896
+                ],
+                "jacobian_condition_number": 82.28710929643813,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.2292282137960819e-11,
+                "optimizer_evaluations": 13,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.0,
+              "full_width_difference_ev": 0.0,
+              "full_width_budget_ev": 0.0001
+            }
+          ],
+          "root_pair_stability_verdict": null,
+          "shared_prefix_energy_error_hartree": 0.0,
+          "interface_sha256": "00061897c24c5a4c0fb29ff2a12444fd95ab69b405bd717ba072bd5e54916850",
+          "engine_reproduction_verdict": true
+        }
+      },
+      "spectral_truncation_verdict": null,
+      "electronic_model_verdict": null,
+      "scope": "Matched-root engine reproduction only; no root-count, omitted-spectrum, electronic-model or pole qualification",
+      "root_pair_stability_verdict": null,
+      "independent_raw_reading_passed": true,
+      "matched_engine_baseline_verdict": true,
+      "matched_native_input_sha256": {
+        "B1": {
+          "fort.16": "8085b06f43396452f69cb2b77c189fad5778dce54c5a515ab4360f6702b435c9",
+          "fort.24": "5342cf45ff44ea8e174734e49eae6fdca8ca8d02cc02a2f2c3aff3c8505f4196",
+          "fort.26": "8ffef737862c9c82ac42dd78c9a0ca5e93ba7a2c72a8ef56ed234a88138874f4",
+          "fort.721": "a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+          "scatci.inp": "c921e59b5ff1c5a62d906c82cdc158526e55b9acd66b735886ee74bb68cffaae"
+        },
+        "B2": {
+          "fort.16": "8085b06f43396452f69cb2b77c189fad5778dce54c5a515ab4360f6702b435c9",
+          "fort.24": "5342cf45ff44ea8e174734e49eae6fdca8ca8d02cc02a2f2c3aff3c8505f4196",
+          "fort.26": "8ffef737862c9c82ac42dd78c9a0ca5e93ba7a2c72a8ef56ed234a88138874f4",
+          "fort.722": "87245764bd8cce5cdb71a04e7558ccc06dbeb2ad9cc6c9d520937736edfacc72",
+          "scatci.inp": "8e94c336104ad5445117c7d38616e2498532c2cc22e14db620fce5c26ec8c724"
+        }
+      }
+    },
+    "engine_baseline_final_resources": {
+      "exit_code": 0,
+      "wall_seconds": 41637.3495523741,
+      "sampled_peak_container_memory_bytes": 23464869888,
+      "baseline_container_memory_bytes": 33341440,
+      "sampled_peak_container_anon_bytes": 17335697408,
+      "kernel_peak_container_memory_bytes": 23584403456,
+      "container_cpu_seconds": 330997.99187100003,
+      "sampled_peak_run_allocated_bytes": 5474078720,
+      "sampled_peak_scratch_allocated_bytes": 208896,
+      "memory_sample_interval_seconds": 0.2,
+      "disk_sample_interval_seconds": 2.0
+    },
+    "audited_4096_progress": {
+      "per_sector_and_rank": {
+        "B1": {
+          "0": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    0 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    0 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    0",
+              "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    0 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    0 target=                    2"
+            ],
+            "tail": "  -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    0 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    0\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =        0   10794\nPETSC matrix creation completed!\nMatrix uses 2355630080. B of memory\nEstimated uses 2352677376 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    0 target=                    1\n CO_PTR_CLASS1_END rank=                    0 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    0 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          },
+          "1": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    1 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    1 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    1 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    1 target=                    2"
+            ],
+            "tail": "    -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    1 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    1\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =    10794   21588\nPETSC matrix creation completed!\nMatrix uses 911577088. B of memory\nEstimated uses 908600172 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    1 target=                    1\n CO_PTR_CLASS1_END rank=                    1 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    1 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          },
+          "2": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    2 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    2 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    2",
+              "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    2 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    2 target=                    2"
+            ],
+            "tail": "    -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    2 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    2\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =    21588   32382\nPETSC matrix creation completed!\nMatrix uses 771874816. B of memory\nEstimated uses 768787692 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    2 target=                    1\n CO_PTR_CLASS1_END rank=                    2 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    2 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          },
+          "3": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    3 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    3 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    3",
+              "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    3 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    3 target=                    2"
+            ],
+            "tail": "    -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    3 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    3\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =    32382   43176\nPETSC matrix creation completed!\nMatrix uses 631947264. B of memory\nEstimated uses 628975128 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    3 target=                    1\n CO_PTR_CLASS1_END rank=                    3 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    3 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          },
+          "4": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    4 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    4 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    4",
+              "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    4 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    4 target=                    2"
+            ],
+            "tail": "    -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    4 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    4\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =    43176   53970\nPETSC matrix creation completed!\nMatrix uses 492171264. B of memory\nEstimated uses 489162612 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    4 target=                    1\n CO_PTR_CLASS1_END rank=                    4 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    4 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          },
+          "5": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    5 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    5 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    5",
+              "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    5 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    5 target=                    2"
+            ],
+            "tail": "    -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    5 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    5\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =    53970   64764\nPETSC matrix creation completed!\nMatrix uses 352440320. B of memory\nEstimated uses 349350096 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    5 target=                    1\n CO_PTR_CLASS1_END rank=                    5 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    5 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          },
+          "6": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    6 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    6 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    6",
+              "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    6 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    6 target=                    2"
+            ],
+            "tail": "    -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    6 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    6\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =    64764   75558\nPETSC matrix creation completed!\nMatrix uses 212660224. B of memory\nEstimated uses 209537568 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    6 target=                    1\n CO_PTR_CLASS1_END rank=                    6 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    6 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          },
+          "7": {
+            "markers": [
+              "CO_PTR_PASSafter-createrank=                    7 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASSbefore-buildrank=                    7 csfs=               990990 determinants=             22475718",
+              "CO_PTR_PASS retained-context rank=                    7",
+              "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    1",
+              "CO_PTR_CLASS1_END rank=                    7 target=                    1",
+              "CO_PTR_CLASS1_BEGIN rank=                    7 target=                    2"
+            ],
+            "tail": "7     -112.2806163744     -112.0940387324     -112.0546877927\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    5    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5671549739     -112.5533243468     -112.3457230002     -112.1844335882     -112.1551244358\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    7 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    7\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =    10794\nTHRESHOLD =   1.00000000E-15\nstart,end =    75558   86352\nPETSC matrix creation completed!\nMatrix uses 72904704. B of memory\nEstimated uses 69854568 B of memory\nAverage uses 722118144 B of memory\nCurrently we have        15.28797913GB /        16.00000000GiB available\nMemory availability at   95.5%\n       219848338       219848338 updates will occur at continuum =    219848338 and L2 =    219848338\n CO_PTR_CLASS1_BEGIN rank=                    7 target=                    1\n CO_PTR_CLASS1_END rank=                    7 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    7 target=                    2\n",
+            "completed_class_messages": [],
+            "class567_complete": false,
+            "class2_plus_8_complete": false,
+            "L2_update_finished": false
+          }
+        },
+        "B2": {}
+      },
+      "native_elapsed_seconds_at_observation": 224.18628573417664,
+      "exports_present": {
+        "B1": {
+          "fort.25": false,
+          "fort.21": false,
+          "eps-telemetry.jsonl": false
+        },
+        "B2": {
+          "fort.25": false,
+          "fort.21": false,
+          "eps-telemetry.jsonl": false
+        }
+      },
+      "scope": "Separately declared4096root two-sector scientific run on the reproduced audited engine/direct-MPI/telemetry runtime. Fresh runtime and stricter baseline-to-itself gates pass before native starts. B1 progress is measured from rank markers;candidate residual,exports,B2,Pi and scientific pair comparison remain pending. No crash correction or omitted-spectrum/model/pole qualification is inferred."
+    },
+    "additional_sparse_costs": [
+      {
+        "model": "CAS12",
+        "roots": 2048,
+        "kernel_peak_gib": 22.361045837402344,
+        "wall_hours": 10.051373411302208,
+        "qualified": false,
+        "cost_export_pilot_passed": true,
+        "source": "progress-completion-20261011T1952.json: resources",
+        "scope": "Both-sector native retained-target scattering, including matrix construction and outer stages; target QC/import and separate reader excluded. Root-count qualification awaits a spectral comparator."
+      },
+      {
+        "model": "B1 audit",
+        "model_family": "CAS12",
+        "roots": 4096,
+        "kernel_peak_gib": 20.52365493774414,
+        "wall_hours": 7.359944797598356,
+        "qualified": false,
+        "cost_export_pilot_passed": false,
+        "diagnostic_native_completion": true,
+        "raw_export_checks_passed": true,
+        "source": "progress-pointer-audit-20261012T1803.json: resources",
+        "scope": "Instrumented single-B1 matrix construction,diagonalization and native export only;no B2,outer phases or per-root residual telemetry. Not a resumed scientific comparator."
+      },
+      {
+        "model": "2K ctrl",
+        "model_family": "CAS12",
+        "roots": 2048,
+        "kernel_peak_gib": 21.96468734741211,
+        "wall_hours": 11.565930431215028,
+        "qualified": false,
+        "engine_reproduction_passed": true,
+        "source": "progress-engine-baseline-20261013T0726.json: resources",
+        "scope": "Matched-engine two-sector native construction/solve/outer stages;target and independent reader excluded. Engine/runtime reproduction passes;root-count qualification remains open."
+      }
+    ],
+    "memory_time_fontsize": 7.2,
+    "memory_tick_fontsize": 8,
+    "memory_note": "CAS12 2K: original 10.05 h; matched control 11.57 h.\nEngine reproduction passes; scientific 4K is now active.\n*Scopes differ; 4K B1 audit 7.36 h excludes B2 / outer.",
+    "roadmap_import_status": "2K CHECKED / 4K ACTIVE",
+    "roadmap_import_title": "CAS12 engine reproduced; scientific 4K active",
+    "roadmap_import_detail": "Same audited engine / MPI / telemetry; only roots change",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "Frozen core + independently checked target imports",
+        "detail": "Two A1 core orbitals; ten active electrons; own target maps"
+      },
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "CAS11 2048 roots + neutral numerical inputs",
+        "detail": "Smallest qualified CAS11 count; 1.9\u20132.5-bohr neutral data"
+      },
+      {
+        "kind": "active",
+        "status": "2K CHECKED / 4K ACTIVE",
+        "title": "CAS12 engine reproduced; scientific 4K active",
+        "detail": "Same audited engine / MPI / telemetry; only roots change"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT",
+        "title": "Root sensitivity \u2192 model / channels / identity",
+        "detail": "Pair stability is not an asymptotic omitted-spectrum bound"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED",
+        "title": "Freeze \u2192 restartable pilot \u2192 sweep \u2192 fit",
+        "detail": "Model / identity / extraction / neutral gates remain open"
+      }
+    ],
+    "verification_footer": "CAS12 matched-engine reproduction passes; scientific 4K pair / omission gates pending.",
+    "live_observation_utc": "2026-10-13T08:03:21.486215+00:00",
+    "interpretation": "Separately declared4096root two-sector scientific run on the reproduced audited engine/direct-MPI/telemetry runtime. Fresh runtime and stricter baseline-to-itself gates pass before native starts. B1 progress is measured from rank markers;candidate residual,exports,B2,Pi and scientific pair comparison remain pending. No crash correction or omitted-spectrum/model/pole qualification is inferred."
+  }
+}

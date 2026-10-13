@@ -20,6 +20,65 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Engine reproduction passes; scientific 4096 starts — 13 October, 08:03 UTC
+
+**The matched 2048-root control finishes at 07:10:36 UTC, owner exit 0.**
+Both sectors reproduce exported energies, all 99 phases and fixed-window fits
+at background orders 1–4 exactly. Native/outer stages and the reader exit 0;
+maximum residual is **1.3276447836219887e-10 Hartree**, Pi difference
+**1.000000082740371e-9 rad**. Native cost is **11.565930 h / 21.964687 GiB**
+kernel peak. [Completion evidence](progress-engine-baseline-20261013T0726.json)
+pins 170 immutable remote records. Engine/runtime reproduction passes; earlier
+crash causes and an engine correction remain unresolved.
+
+**Scientific 4096-root owner 1246007 is active on Sadaharu**, service
+`co-cas12-audited-engine-4096-20261013.service`. The
+[separate declaration](cas12-audited-engine-4096-contract.json) uses the completed
+audited 2048-root run as reference and the same exact installed engine/direct-
+MPI/telemetry runtime. Implementation is pinned to
+`c6e6f3b5f48d61851be706c82e23b186dde59edb`. Shared owner/reader changes route
+the root control and strict input/result gates; scientific driver/dependencies
+are inherited byte-for-byte. [Execution details](AUDITED_ENGINE_4096.md).
+
+Fresh runtime and stricter baseline-to-itself gates pass before native starts
+**07:59:37 UTC**. At **08:03:21 UTC**, all eight B1 ranks pass graph/context
+audits, complete Class1 target 1 and begin target 2. No failure marker appears;
+B1 exports/residuals, B2, outer stages and the pair verdict remain pending.
+Sampling is **799.65% CPU / 10.73 GiB**, not final cost. The
+[launch capture](progress-audited-4096-20261013T0803.json) reverifies **43 source /
+500 input-evidence hashes**, **242 installed artifacts**, B1's actual native
+data inputs/deck and outer inputs; it pins **562 immutable remote records**.
+
+Observer **1246546**, service
+`co-cas12-audited-engine-4096-observer-20261013.service`, is active with its
+first immutable capture at 07:59:41 UTC, then hourly. Startup verifies readable
+owner/matching live PID. Persistent outputs are under
+`prepared/cas12-audited-engine-4096-source-20261013/`; `STOP` there ends the
+active step. Allocation remains eight physical CPUs 4–11 / 8 ranks / one library
+thread per rank / 80-GiB cgroup / 8-GiB shared backing / 16-GiB native memory input.
+Stage/native/owner limits remain 24/50/72 hours.
+
+**Next:** finish B1/B2 and independent raw/energy/interface/grid/Pi/all-background
+fit comparison, or preserve first failure. Scientific 0.05-eV / 5%-width with
+0.001-eV floor / 0.05-rad budgets remain fixed. False/unset verdicts stop;
+completion schedules no further native job. Pair stability and absolute omission
+qualification remain distinct. Model/explicit-A2/three-anchor/identity/extraction/
+neutral/restartable-pilot gates still precede sweep and potential fitting.
+The [readiness note](SWEEP_READINESS_20261013T0803.md) and
+[overview snapshot](progress-snapshot-20261013T0803.json) record this milestone.
+
+Verification passes **40 focused regressions**, **107 local provenance hashes**,
+**562 immutable remote records**, the **43/500 frozen hashes** and **242 installed
+artifacts**. Previous numerical/cost records are retained; the 07:01 historical
+PNG/SVG reproduce byte-for-byte from their pinned `881c3e0` source tree. Current
+rendering/visual inspection, searchable SVG, documentation links, lint/format
+and diff checks pass. Main-index integrity is complete at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; upstream currency is reported unknown
+at handoff. Owner/reader/declaration changes are branch-only and resolved against
+current source. A further live check at **08:31:43 UTC** finds owner 1246007 active,
+runtime/self-reading exits 0, no failure marker, and B1 rank0 through Class1
+target 5 with target 6 begun. The previous baseline observer ends normally.
+
 ### B1 reproduces baseline; B2 completes L2 update — 13 October, 07:01 UTC
 
 **Owner1228004 remains active on Sadaharu.** B1 SCATCI/rsolve/eigenp/reson
