@@ -21,20 +21,23 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261013T1404.md) and
+The [production-sweep status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
 → frozen restartable pilot → sweep and held-out potential validation.
 
 <a id="progress-overview--12-october-2026"></a>
+<a id="progress-overview--13-october-2026"></a>
 
-## Progress overview — 13 October 2026
+## Progress overview — 14 October 2026
 
-![CO qualification: reusable inputs, completed engine reproduction and scientific4096B1 matrix/L2 completion](../../docs/physics/figures/co-progress-20261013T1404.png)
+![CO qualification: reusable inputs, measured4096cost and independently passing2048-to-4096pair stability](../../docs/physics/figures/co-progress-20261014T0658.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261013T1404.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261013T1404.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261014T0658.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261014T0658.json) ·
+[Completed scientific4096comparison](progress-audited-4096-20261014T0658.json) ·
+[Local raw reconstruction](verification-audited-4096-20261014.json) ·
 [Dated scientific4096B1 matrix/L2 milestone](progress-audited-4096-20261013T1404.json) ·
 [Dated scientific4096launch](progress-audited-4096-20261013T0803.json) ·
 [Completed matched-engine reproduction](progress-engine-baseline-20261013T0726.json) ·
@@ -51,9 +54,9 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261013T1404.md)
+[Current steps before a production sweep](SWEEP_READINESS_20261014T0658.md)
 
-This is the **14:04 UTC, 13 October** release of an incremental overview. New findings, verification
+This is the **06:58 UTC, 14 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
@@ -65,17 +68,22 @@ finishing at 07:10:36 UTC with all stage/reader/owner exits 0. Energies, all 99
 phases and identical-window fits at background orders 1–4 reproduce exactly;
 maximum residual is **1.33e-10 Hartree**, Pi **1e-9 rad**. Measured native cost is
 **11.565930 h / 21.964687 GiB**. This qualifies engine/runtime reproduction.
-The [separately declared scientific 4096-root comparison](cas12-audited-engine-4096-contract.json)
-is **active on Sadaharu**, owner **1246007**. Fresh runtime and stricter baseline
-self-reading gates pass before native starts 07:59:37 UTC. At the cutoff, all
-eight B1 ranks finish matrix classes and the L2 update; rank0 prints SLEPc
-solve setup. The control has run **6.0868 hours**, with no failure markers.
-Sampling **798.68% CPU / 14.46 GiB** is not final cost.
+The [scientific 4096-root comparison](cas12-audited-engine-4096-contract.json)
+now **passes pair stability in both sectors**, finishing13October22:55:24UTC
+with all stage/reader/owner exits0. Native cost is **14.924481 h / 21.736774 GiB**.
+The maximum2048→4096phase change is **1.67e-5rad**; maximum fitted position/full-
+width changes are **0.00224 / 0.04195meV**, over all background orders1–4.
+Shared-prefix energies match exactly, maximum residual is **1.33e-10Hartree**,
+Pi **1e-9rad** and actual inputs/maps/interfaces match. Local raw reconstruction
+independently passes the same budgets from40checksum-verified fetched files.
 All **43 source / 500 input-evidence hashes** and **242 installed artifacts**
-reverify; hourly observer **1246546** is active with seven captures. Candidate exports/residuals,
-B2, Pi and pair sensitivity remain pending. **Next: finish both sectors and the
-independent scientific comparison at unchanged 0.05-eV/5%-width/0.05-rad budgets.**
-The [readiness note](SWEEP_READINESS_20261013T1404.md) states the remaining gates.
+reverify; observer **1246546** ends normally after16captures. No additional native
+calculation is scheduled. **Next: separately declare omission/further-resolution
+and model/channel controls. Pair stability does not bound absolute omission.**
+The [readiness note](SWEEP_READINESS_20261014T0658.md) states the remaining gates.
+The [14:04 figure](../../docs/physics/figures/co-progress-20261013T1404.png),
+[vector copy](../../docs/physics/figures/co-progress-20261013T1404.svg) and
+[snapshot](progress-snapshot-20261013T1404.json) preserve scientific B1 matrix/L2 completion.
 The [08:03 figure](../../docs/physics/figures/co-progress-20261013T0803.png),
 [vector copy](../../docs/physics/figures/co-progress-20261013T0803.svg) and
 [snapshot](progress-snapshot-20261013T0803.json) preserve the scientific4096launch.
@@ -216,6 +224,8 @@ The six panels explain the qualification campaign:
   eigenpair export and has no successful-cost bar.
   The completed matched-engine control adds **11.57 h / 21.96 GiB** for both
   sectors at 2048 roots; its engine-reproduction pass leaves root qualification open.
+  The scientific4096comparison adds **14.92 h / 21.74 GiB** and passes pair
+  stability; absolute omitted-spectrum qualification remains open.
 - **E — Explicit channel coverage.** The [physical A2 audit](A2_CHANNEL_COVERAGE.md)
   finds only 0.0002–0.0004 squared projection into the retained five roots on four
   problematic route links. Root 6 recovers much of the weight, but singlet root 7
@@ -233,10 +243,10 @@ The six panels explain the qualification campaign:
    The separate B1 diagnostic captures a Class1 source fault; its relationship to the
    release failure remains unproven. The new address audit completes B1 with
    independently read4096-root exports. Its matched2048-root scientific baseline
-    control independently reproduces both sectors; a fresh scientific 4096-root
-    comparison is now active on that qualified engine/runtime.
+     control independently reproduces both sectors; the scientific4096comparison
+     now passes pair stability on that same qualified engine/runtime.
 
-This is a dated **13 October 14:04:49 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **14 October 06:58:54 UTC** snapshot: CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
@@ -251,8 +261,8 @@ sparse successor has completed both sectors and independent reading; its separat
 saved-input diagnostic captures an earlier Class1 pointer-access fault. Its new
 address-audit successor completes B1 and independent4096-root export reading;
 the matched2048-root audited-engine control independently reproduces both sectors.
-A separately declared scientific4096root B1/B2 comparison is active on the same
-engine/direct-MPI/telemetry runtime.
+A separately declared scientific4096root B1/B2 comparison passes pair stability
+on the same engine/direct-MPI/telemetry runtime; absolute omission remains unqualified.
 Original package/setup/
 shared-memory failures and the new native failure remain preserved.
 State/pole identity remains unqualified. The original TZ diagnostic's final-write

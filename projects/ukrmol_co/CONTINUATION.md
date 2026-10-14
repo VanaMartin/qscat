@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--13-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--14-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,57 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Scientific 2048→4096 pair passes — 14 October, 06:58 UTC
+
+**Owner 1246007 finishes 13 October 22:55:24 UTC with exit 0.** Both sectors'
+SCATCI/rsolve/eigenp/reson and the independent reader exit 0. The
+[completion capture](progress-audited-4096-20261014T0658.json) records a passing
+root-pair verdict: shared-prefix energy difference **0 Hartree**, maximum99-point
+phase change **1.67e-5 rad**, maximum all-background fitted position/full-width
+changes **2.2383495e-6 / 4.1943029e-5 eV**. Both sectors and orders 1–4 pass the
+unchanged 0.05-eV / 5%-width with0.001-eV floor / 0.05-rad budgets. Native fits
+are nonempty/non-MAXFIT; optimizer/bound checks pass. Actual native data, outer
+inputs, target map, selection and interfaces are unchanged except `nstat`.
+
+Each sector exports 4096 finite ordered CI/boundary poles with complete1410/250
+continuum/boundary coefficients; CI/boundary energies match exactly. Maximum
+native action residual is **1.3276448e-10 Hartree**, Pi **1.0000001e-9 rad**.
+SLEPc converges4104/4102 roots in159/160iterations, reason1/selection1, exporting
+4096. Native cost is **14.924481 h / 21.736774 GiB kernel peak** for both matrix
+builds/solves/outer stages, excluding target and separate reader.
+
+[Local reconstruction](verification-audited-4096-20261014.json) independently
+passes the same scientific budgets from **40 checksum-verified fetched files**.
+It preserves a supplementary 1e-10-eV local/remote optimizer-parity assertion
+failure: measured fit-difference drift is at most2.713e-10eV on the local arm64/
+NumPy2.5.1/SciPy1.18 runtime. No scientific tolerance or native calculation was
+changed. Raw energy/phase differences and interface digests reproduce exactly.
+
+The capture reverifies **43 source / 500 input-evidence hashes**, **242 installed
+artifacts** and both sectors' actual native/outer inputs, pinning **665 immutable
+remote records**. Observer1246546 ends normally after16captures07:59–23:00UTC.
+Both services are inactive with exit0; no additional native job is scheduled.
+Persistent outputs remain in`prepared/cas12-audited-engine-4096-source-20261013/`.
+
+**Next:** separately declare a further resolution or independent omission test;
+pair stability does not bound absolute omitted-spectrum error. Then complete
+explicit-A2/channel/three-anchor model controls, continuity/extraction, neutral
+correlation/domain and frozen restartable-pilot qualification. Raw public
+reconstruction remains pending; crash-cause/correction/model/pole/sweep verdicts
+remain distinct. The [readiness note](SWEEP_READINESS_20261014T0658.md) and
+[overview snapshot](progress-snapshot-20261014T0658.json) record the completion.
+
+Verification passes **112 local provenance hashes**, **665 immutable remote
+records**, **43/500 frozen hashes** and **242 installed artifacts**. Independent
+local raw reading from40fetched files passes the original scientific budgets;
+the supplementary cross-runtime fit-parity assertion and measured drift remain
+explicitly preserved. Prior numerical/cost records retain their values, and
+the14:04historical PNG/SVG reproduce byte-for-byte. Current rendering/visual
+inspection, searchable SVG, documentation links, lint/format and diff checks pass.
+Main-index integrity/upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; branch-only completion/reconstruction
+evidence and renderer defaults resolve against current source.
 
 ### Scientific 4096 B1 finishes matrix/L2 — 13 October, 14:04 UTC
 
