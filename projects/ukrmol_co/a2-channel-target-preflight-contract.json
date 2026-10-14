@@ -1,0 +1,77 @@
+{
+  "status": "separately declared fixed-orbital native target/property preflight for a measured A2 channel gap",
+  "control_kind": "a2-target-preflight",
+  "scientific_question": "Can the unchanged stretched CAS11 forty-component orbital frame support explicit A2 roots1-9 in both spins,with native energies/residuals and a complete48-state DENPROP dipole/quadrupole interface? This closes target/channel-input prerequisites before a scattering comparison;it does not launch scattering or establish channel/model convergence.",
+  "run": "cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014",
+  "source_directory": "prepared/a2-channel-target-preflight-source-20261014",
+  "target_reference_directory": "runs/co-r2500-ccdz-sa11-tight-cc40-anchor",
+  "independent_reference_directory": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor",
+  "baseline_directory": "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+  "baseline_reader_filename": "independent-engine-baseline.json",
+  "baseline_reader_verdict": "matched_engine_baseline_verdict",
+  "fixed_target_settings": {
+    "bond_length": 2.5,
+    "basis": "cc-pVDZ",
+    "model": "CAS-A",
+    "orbitals": "state-averaged",
+    "frozen_orbitals": 2,
+    "active_orbitals": [5,3,3,0],
+    "sa_singlet_roots": [5,5,5,5],
+    "sa_triplet_roots": [5,5,5,5]
+  },
+  "computed_and_retained_target_roots_per_spin": [5,5,5,9],
+  "target_component_count": 48,
+  "native_set_order": ["singlet.A1","triplet.A1","singlet.B1","triplet.B1","singlet.B2","triplet.B2","singlet.A2","triplet.A2"],
+  "denprop_ntgtl": [5,5,5,5,5,5,9,9],
+  "engine_source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "engine_evidence_sha256": {
+    "execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "numerical_library_sha256": {
+    "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+    "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+    "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+    "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+  },
+  "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "telemetry_directory": "diagnostics/sparse-scattering-telemetry-v6-20261007",
+  "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+  "rationale": "The measured CAS11 A2 routes leave the five-root retained sector;retaining root6 alone misses significant root7/root9 weight. Start atR2.5bohr where the singlet route arrives outside the retained sector and already validated twelve-root fixed-orbital vectors exist. This tests the original model on which the gap was measured;CAS12 or other geometries need their own coverage evidence. Native nine-root A2 vectors and corresponding DENPROP moments do not exist in the current five-root scattering reference;the eight-root import is a distinct orbital run and also lacks root9. Use one explicit nine-root target model rather than a scattering ladder of channel counts.",
+  "reused_inputs": "Copy unchanged spherical-orbital export/checkpoint,fort.16and all eight target CONGEN expansions from the passing stretched CAS11 reference. No QC/orbital reoptimization,integral regeneration,CONGEN regeneration or scattering Hamiltonian build. Recompute all eight small target sectors into a freshfort.26to avoid editing or mixing native vector sets;only A2counts become9. Preserve original selected-target crite1e-12/vecstore5/memp6;maxiter1000and8MPI ranks are explicit bounded execution settings.",
+  "independent_prerequisite": "All eight saved twelve-root PySCF sector reports must pass original convergence flags,physical/penalized action residuals1e-9Hartree and spin1e-6,and name the exact source checkpoint. Their first five roots must agree with the original forty-component target within1e-7Hartree. These are existing independently reconstructed fixed-orbital references,not a new CI root ladder.",
+  "gates": [
+    "Frozen source/inputs and completed matched audited-engine prerequisites;exact242installed artifacts reverified;fresh numerical-library/telemetry runtime gate",
+    "All eight target solves retain requested native selection1,KrylovSchur,positive convergence reason,complete requested roots and finite native action residuals<=1e-9Hartree",
+    "DENPROP completes normally and emits exactly48finite energy-ordered target IDs with per-spin/irrep counts5/5/5/9;every expected energy agrees with independent fixed-orbital references<=1e-7Hartree",
+    "Own contraction-order-to-DENPROP-ID map includes both A2root9states;dipole/quadrupole records are finite,unique,refer only to emitted states and cover every emitted target;ground dipole agrees<=1e-5a.u.",
+    "Checkpoint,Molden,integral and CONGEN byte hashes remain unchanged after native execution;measure native target/DENPROP stage times and resource profile separately",
+    "Passing target/property preflight schedules no scattering. Review exact channel maps and costs,then separately declare a fixed-orbital five-versus-nine A2 scattering comparison using accepted low-root guidance and each model's own interfaces"
+  ],
+  "resources": {
+    "physical_cpu_group": "4-11", "mpi_ranks": 8,
+    "library_threads_per_rank": 1,
+    "container_memory_gib": 24, "shared_memory_gib": 8,
+    "minimum_available_ram_gib": 48, "minimum_free_disk_gib": 20,
+    "target_sector_timeout_seconds": 1800,
+    "denprop_timeout_seconds": 7200,
+    "whole_native_timeout_seconds": 14400,
+    "whole_owner_timeout_seconds": 18000,
+    "independent_reader_memory_gib": 4, "independent_reader_cpu_group": "0-3",
+    "observer_interval_seconds": 1800, "observer_timeout_seconds": 18000
+  },
+  "measured_cost_basis": {
+    "original_stretched_eight_selected_target_sectors_total_seconds": 477.326,
+    "original_stretched_denprop_40_seconds": 2345.76643395424,
+    "interpretation": "Original target solves total about8minutes and DENPROP40about39minutes on their original engine/allocation. The auditedO1engine,eight ranks,nineA2roots and48-state properties can change cost. Four-hour native/five-hour owner bounds cap this input qualification;they are not runtime forecasts. No scattering build is included."
+  },
+  "stopping_rule": "Any prerequisite,input,engine,runtime,native,residual,energy,map,multipole,dipole or timeout failure stops and preserves original exits. No retries,orbital updates,gate relaxation or follow-on scattering. STOP administratively ends the current step. The observer is observation-only and launches only after readable owner/live service PID verification.",
+  "channel_import_verdict": null,
+  "scattering_channel_verdict": null,
+  "electronic_model_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false
+}
