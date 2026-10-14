@@ -52,3 +52,17 @@ Engine reproduction, earlier crash causes/correction, electronic-model/explicit-
 A2/channel/three-anchor/continuity/extraction/neutral and frozen restartable-
 pilot gates remain distinct. Neither this control nor its pass releases a sweep
 or qualifies a resonance pole/potential fit.
+
+## Launch evidence — 14 October, 08:04 UTC
+
+The [dated capture](progress-audited-8192-20261014T0804.json) records live
+owner1279015 and hourly observer1279364. Runtime/strict2048self-reading and the
+completed4096prerequisite pass. All eight B1 ranks pass graph/context/address
+audits and enter Class1 target1. The frozen source includes47files and665input-
+evidence pins;242installed engine artifacts reverify. The capture pins731remote
+records. Sampled801.78%CPU/10.73GiB is live telemetry, not final cost.
+
+Source is pinned to`6a86c0d9ad3fce6913a5ec8a265acac10aa5c507`. **50focused
+regressions pass**, covering cumulative endpoint failure, unset pair verdicts,
+nonzero reader exits with preserved results and intermediate-owner prerequisites.
+Native and independent three-resolution verdicts remain pending.

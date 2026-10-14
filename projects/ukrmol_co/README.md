@@ -27,6 +27,15 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 → electronic/channel convergence → continuity/extraction → neutral reference
 → frozen restartable pilot → sweep and held-out potential validation.
 
+**Live update — 14 October, 08:04 UTC:** a separately declared
+[8192-root two-sector control](AUDITED_ENGINE_8192.md) is active on Sadaharu.
+Fresh runtime, strict 2048 self-reading and completed 4096 prerequisite checks pass;
+all eight B1 ranks pass graph/context/address assertions and begin Class1.
+The [dated launch capture](progress-audited-8192-20261014T0804.json) pins 731 remote
+records. Its reader checks 2048→4096, 4096→8192 and 2048→8192 under the existing
+scientific budgets. Results and final cost are pending; absolute omission remains
+an independent gate. The figure below retains the latest completed-result cutoff.
+
 <a id="progress-overview--12-october-2026"></a>
 <a id="progress-overview--13-october-2026"></a>
 
@@ -36,6 +45,8 @@ current blockers and pass criteria: target inputs → affordable CAS12 scatterin
 
 [Vector figure](../../docs/physics/figures/co-progress-20261014T0658.svg) ·
 [Incremental plotted-data snapshot](progress-snapshot-20261014T0658.json) ·
+[Third-resolution declaration](cas12-audited-engine-8192-contract.json) ·
+[Dated8192launch](progress-audited-8192-20261014T0804.json) ·
 [Completed scientific4096comparison](progress-audited-4096-20261014T0658.json) ·
 [Local raw reconstruction](verification-audited-4096-20261014.json) ·
 [Dated scientific4096B1 matrix/L2 milestone](progress-audited-4096-20261013T1404.json) ·

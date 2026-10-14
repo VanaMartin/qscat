@@ -20,6 +20,55 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Third-resolution 8192 control active — 14 October, 08:04 UTC
+
+**Owner 1279015 is active on Sadaharu.** The separately declared
+[8192-root contract](cas12-audited-engine-8192-contract.json) tests whether the
+small 2048→4096 sensitivity persists through a second doubling. The
+[design and reading procedure](AUDITED_ENGINE_8192.md) requires all three
+comparisons: **2048→4096**, **4096→8192** and **2048→8192**. The endpoint check
+prevents two adjacent passes from concealing a cumulative budget failure.
+The scientific budgets and original engine/runtime remain the qualified ones.
+
+The [08:04:14 UTC launch capture](progress-audited-8192-20261014T0804.json)
+reverifies **47 source / 665 input-evidence hashes**, **242 installed engine
+artifacts** and B1's actual native/outer inputs against both completed references.
+Fresh numerical-library/telemetry runtime and strict 2048-baseline self-reading
+gates pass; the completed 4096 prerequisite is reverified before native execution.
+All eight B1 ranks pass graph/context/address assertions over 990,990 CSFs and
+22,475,718 determinants and begin Class1 target 1. No failure marker appears.
+Native/outer/export/residual/Pi/three-resolution results remain pending.
+The capture pins **731 immutable remote records**, including the capture itself.
+
+The owner starts at 08:02:24 UTC and native execution at 08:02:57 UTC. Observer 1279364
+starts only after checking the readable owner PID against the live service PID;
+it records hourly immutable captures and schedules no calculations. At the
+launch cutoff, Docker samples **801.78% CPU / 10.73 GiB of 80 GiB**. This is a live
+sample, not measured final cost. The allocation remains 8 physical CPUs 4–11,
+8 MPI ranks, one library thread/rank, 80-GiB cgroup, 8-GiB shared backing and 16-GiB
+native memory input; stage/native/owner limits remain 24/50/72 hours.
+
+Persistent source/output root:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-audited-engine-8192-source-20261014/`.
+Services are `co-cas12-audited-engine-8192-20261014.service` and
+`co-cas12-audited-engine-8192-observer-20261014.service`.
+Implementation is pinned to `6a86c0d9ad3fce6913a5ec8a265acac10aa5c507`;
+the inherited scientific driver/dependencies and engine remain byte-identical.
+**50 focused regressions pass**, including endpoint failure, unset verdict
+preservation/nonzero exits and the completed intermediate prerequisite.
+
+**Next:** inspect immutable observer captures and original owner/native stages.
+Successful native completion runs only the declared three-resolution reader;
+any native/raw/fit/budget failure stops with preserved evidence. Independently
+reconstruct the completed comparison and assess actual costs before declaring
+another experiment. Absolute omitted-spectrum error remains unset even if the
+sequence passes. The existing 06:58 six-panel overview records the latest completed
+result; refresh it when new substantive evidence lands. Main-search baseline
+remains `97b8b4c7392f822c996af0d4d77f81e100ff1407`, with complete integrity and
+current upstream currency at handoff; this owner/reader/declaration and evidence
+are branch-only and resolve against current source. All 731 immutable remote
+hashes and 358 local documentation links verify; lint/format and diff checks pass.
+
 ### Scientific 2048→4096 pair passes — 14 October, 06:58 UTC
 
 **Owner 1246007 finishes 13 October 22:55:24 UTC with exit 0.** Both sectors'
