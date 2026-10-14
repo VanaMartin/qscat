@@ -48,6 +48,22 @@ def engine_command(source: Path, campaign: Path, contract: dict, *, reading: boo
     return result
 
 
+def verify_intermediate(campaign: Path, contract: dict) -> dict:
+    """Require the separately completed 4096-root prerequisite before a third resolution."""
+    directory = campaign / contract["intermediate_directory"]
+    owner_path = directory.parent.parent / "execution.json"
+    result_path = directory / "independent-comparison.json"
+    owner, result = [json.loads(p.read_text()) for p in (owner_path, result_path)]
+    if (
+        owner["original_controller_exit"] != 0
+        or not owner.get("finished_utc")
+        or result["root_pair_stability_verdict"] is not True
+        or result["independent_raw_reading_passed"] is not True
+    ):
+        raise ValueError("Intermediate owner/root-pair prerequisite failed")
+    return {"owner_sha256": sha(owner_path), "comparison_sha256": sha(result_path)}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign", type=Path, required=True)
@@ -68,6 +84,9 @@ def main() -> None:
     verdict_key = (
         "root_pair_stability_verdict" if root_comparison else "matched_engine_baseline_verdict"
     )
+    sequence = root_comparison and "intermediate_directory" in contract
+    if sequence:
+        verdict_key = "root_sequence_stability_verdict"
     record = {
         "supervisor_pid": os.getpid(),
         "started_unix": time.time(),
@@ -82,6 +101,8 @@ def main() -> None:
     signal.signal(signal.SIGTERM, terminate)
     try:
         preflight(source, campaign, contract, record)
+        if sequence:
+            record["intermediate_verified"] = verify_intermediate(campaign, contract)
         record["engine_verified"] = verify_engine(campaign, contract)
         (source / "native").mkdir()
         alias = campaign / "diagnostics" / contract["run"]
@@ -122,6 +143,8 @@ def main() -> None:
         ]
         step(source, record, "baseline-self-reading", self_read, 3600)
         preflight(source, campaign, contract, record)
+        if sequence:
+            record["intermediate_verified_before_native"] = verify_intermediate(campaign, contract)
         record["engine_verified_before_native"] = verify_engine(campaign, contract)
         native = [
             *engine_command(source, campaign, contract, reading=False),
@@ -155,7 +178,7 @@ def main() -> None:
             "python3",
             "-m",
             "projects.ukrmol_co.engine_baseline",
-            "root-compare" if root_comparison else "compare",
+            "sequence-compare" if sequence else "root-compare" if root_comparison else "compare",
             "--reference",
             "/work/" + contract["baseline_directory"],
             "--candidate",
@@ -165,6 +188,8 @@ def main() -> None:
             "--output",
             "/outputs/" + contract["run"] + "/" + result_name,
         ]
+        if sequence:
+            reading.extend(["--intermediate", "/work/" + contract["intermediate_directory"]])
         step(
             source,
             record,

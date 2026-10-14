@@ -10,9 +10,11 @@ import pytest
 from projects.ukrmol_co.engine_baseline import (
     audit_baseline,
     audit_native_inputs,
+    audit_root_sequence,
     label_engine_reproduction,
     main,
 )
+from projects.ukrmol_co.engine_baseline_owner import verify_intermediate
 from projects.ukrmol_co.sparse_comparison import compare_phases
 from projects.ukrmol_co.sparse_comparison_owner import preflight
 
@@ -87,20 +89,27 @@ def test_root_pair_rejects_changed_integrals_and_non_root_deck_changes(tmp_path)
 
 
 @pytest.mark.parametrize("verdict", [False, None])
-def test_failed_root_pair_reader_preserves_result_and_exits_nonzero(tmp_path, monkeypatch, verdict):
+@pytest.mark.parametrize("action", ["root-compare", "sequence-compare"])
+def test_failed_root_reader_preserves_result_and_exits_nonzero(
+    tmp_path, monkeypatch, verdict, action
+):
     from projects.ukrmol_co import engine_baseline
 
     contract = tmp_path / "contract.json"
     contract.write_text(json.dumps(settings() | {"candidate_roots": 4096}))
     output = tmp_path / "result.json"
-    monkeypatch.setattr(
-        engine_baseline, "audit_root_pair", lambda *args: {"root_pair_stability_verdict": verdict}
+    key = (
+        "root_sequence_stability_verdict"
+        if action == "sequence-compare"
+        else "root_pair_stability_verdict"
     )
+    reader = "audit_root_sequence" if action == "sequence-compare" else "audit_root_pair"
+    monkeypatch.setattr(engine_baseline, reader, lambda *args: {key: verdict})
     monkeypatch.setattr(
         "sys.argv",
         [
             "reader",
-            "root-compare",
+            action,
             "--reference",
             str(tmp_path),
             "--candidate",
@@ -109,12 +118,14 @@ def test_failed_root_pair_reader_preserves_result_and_exits_nonzero(tmp_path, mo
             str(contract),
             "--output",
             str(output),
+            "--intermediate",
+            str(tmp_path),
         ],
     )
     with pytest.raises(SystemExit) as stopped:
         main()
     assert stopped.value.code == 1
-    assert json.loads(output.read_text())["root_pair_stability_verdict"] is verdict
+    assert json.loads(output.read_text())[key] is verdict
 
 
 @pytest.mark.parametrize("owner_exit,verdict", [(0, False), (0, None), (1, True)])
@@ -138,3 +149,77 @@ def test_root_owner_requires_completed_passing_engine_baseline(tmp_path, owner_e
             },
             {},
         )
+
+
+def test_sequence_requires_endpoints_even_when_both_successive_pairs_pass(tmp_path, monkeypatch):
+    from projects.ukrmol_co import engine_baseline
+
+    contract = settings() | {
+        "baseline_roots": 2048,
+        "intermediate_roots": 4096,
+        "candidate_roots": 8192,
+    }
+    contract["observable_budgets"] = contract["observable_budgets"] | {
+        "phase_rad_mod_pi": 0.05,
+        "position_ev": 0.05,
+        "full_width_relative": 0.05,
+        "full_width_floor_ev": 0.001,
+    }
+    spectra = {}
+    for roots, shift in ((2048, 0), (4096, 0.03), (8192, 0.06)):
+        spectra[roots] = phases()
+        spectra[roots][:, 1] += shift
+
+    def analytic_pair(reference, candidate, settings):
+        return compare_phases(
+            spectra[settings["baseline_roots"]], spectra[settings["candidate_roots"]], settings
+        ) | {"spectral_truncation_verdict": None}
+
+    monkeypatch.setattr(engine_baseline, "audit_root_pair", analytic_pair)
+    result = audit_root_sequence(tmp_path, tmp_path, tmp_path, contract)
+    assert all(row["root_pair_stability_verdict"] for row in result["successive_pairs"].values())
+    assert result["root_pair_stability_verdict"] is False
+    assert result["root_sequence_stability_verdict"] is False
+    assert result["spectral_truncation_verdict"] is None
+
+
+@pytest.mark.parametrize("verdict", [True, False, None])
+def test_sequence_preserves_unset_pairs_and_omission_scope(tmp_path, monkeypatch, verdict):
+    from projects.ukrmol_co import engine_baseline
+
+    def pair(reference, candidate, contract):
+        return {
+            "root_pair_stability_verdict": verdict if contract["baseline_roots"] == 4096 else True,
+            "spectral_truncation_verdict": None,
+        }
+
+    monkeypatch.setattr(engine_baseline, "audit_root_pair", pair)
+    result = audit_root_sequence(
+        tmp_path,
+        tmp_path,
+        tmp_path,
+        {"baseline_roots": 2048, "intermediate_roots": 4096, "candidate_roots": 8192},
+    )
+    assert result["root_sequence_stability_verdict"] is verdict
+    assert result["spectral_truncation_verdict"] is None
+
+
+@pytest.mark.parametrize(
+    "owner_exit,verdict,expected",
+    [(0, True, True), (0, False, False), (0, None, False), (1, True, False)],
+)
+def test_third_resolution_requires_completed_intermediate(tmp_path, owner_exit, verdict, expected):
+    directory = tmp_path / "control/native/run"
+    directory.mkdir(parents=True)
+    (directory.parent.parent / "execution.json").write_text(
+        json.dumps({"original_controller_exit": owner_exit, "finished_utc": "completed"})
+    )
+    (directory / "independent-comparison.json").write_text(
+        json.dumps({"root_pair_stability_verdict": verdict, "independent_raw_reading_passed": True})
+    )
+    contract = {"intermediate_directory": "control/native/run"}
+    if expected:
+        assert "comparison_sha256" in verify_intermediate(tmp_path, contract)
+    else:
+        with pytest.raises(ValueError, match="Intermediate owner/root-pair prerequisite failed"):
+            verify_intermediate(tmp_path, contract)

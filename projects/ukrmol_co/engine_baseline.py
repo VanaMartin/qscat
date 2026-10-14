@@ -70,13 +70,47 @@ def audit_native_inputs(
 
 
 def audit_root_pair(reference: Path, candidate: Path, contract: dict) -> dict:
-    """Read the declared 2048-to-4096 pair without granting an omission bound."""
-    if (contract["baseline_roots"], contract["candidate_roots"]) != (2048, 4096):
-        raise ValueError("Audited scientific control requires 2048-to-4096 roots")
+    """Read a declared pair within the 2048/4096/8192 family, without an omission bound."""
+    if (contract["baseline_roots"], contract["candidate_roots"]) not in (
+        (2048, 4096),
+        (2048, 8192),
+        (4096, 8192),
+    ):
+        raise ValueError("Undeclared audited scientific root-count pair")
     inputs = audit_native_inputs(reference, candidate, contract, same_roots=False)
     result = compare_runs(reference, candidate, contract)
     result["matched_native_input_sha256"] = inputs
     result["engine_correction_verdict"] = None
+    return result
+
+
+def audit_root_sequence(
+    reference: Path, intermediate: Path, candidate: Path, contract: dict
+) -> dict:
+    """Compare both successive doublings and the endpoints, without extrapolating a tail."""
+    if (
+        contract["baseline_roots"],
+        contract["intermediate_roots"],
+        contract["candidate_roots"],
+    ) != (2048, 4096, 8192):
+        raise ValueError("Audited sequence requires 2048/4096/8192 roots")
+    result = audit_root_pair(reference, candidate, contract)
+    result["successive_pairs"] = {
+        "2048_to_4096": audit_root_pair(
+            reference, intermediate, contract | {"candidate_roots": 4096}
+        ),
+        "4096_to_8192": audit_root_pair(
+            intermediate, candidate, contract | {"baseline_roots": 4096}
+        ),
+    }
+    verdicts = [result["root_pair_stability_verdict"]] + [
+        row["root_pair_stability_verdict"] for row in result["successive_pairs"].values()
+    ]
+    result["root_sequence_stability_verdict"] = None if None in verdicts else all(verdicts)
+    result["scope"] = (
+        "Three-resolution sensitivity: both successive pairs and endpoints checked; "
+        "no extrapolated omitted-spectrum bound, electronic-model or pole qualification"
+    )
     return result
 
 
@@ -103,11 +137,14 @@ def runtime_gate(contract: dict) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("runtime-gate", "compare", "root-compare"))
+    parser.add_argument(
+        "action", choices=("runtime-gate", "compare", "root-compare", "sequence-compare")
+    )
     parser.add_argument("--contract", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--reference", type=Path)
     parser.add_argument("--candidate", type=Path)
+    parser.add_argument("--intermediate", type=Path)
     args = parser.parse_args()
     contract = json.loads(args.contract.read_text())
     if args.action == "runtime-gate":
@@ -115,13 +152,22 @@ def main() -> None:
     else:
         if args.reference is None or args.candidate is None:
             parser.error("compare requires --reference and --candidate")
-        reader = audit_root_pair if args.action == "root-compare" else audit_baseline
-        result = reader(args.reference, args.candidate, contract)
+        if args.action == "sequence-compare":
+            if args.intermediate is None:
+                parser.error("sequence-compare requires --intermediate")
+            result = audit_root_sequence(
+                args.reference, args.intermediate, args.candidate, contract
+            )
+        else:
+            reader = audit_root_pair if args.action == "root-compare" else audit_baseline
+            result = reader(args.reference, args.candidate, contract)
     with args.output.open("x") as stream:
         stream.write(json.dumps(result, indent=2, allow_nan=False) + "\n")
     if args.action == "compare" and result["matched_engine_baseline_verdict"] is not True:
         raise SystemExit(1)
     if args.action == "root-compare" and result["root_pair_stability_verdict"] is not True:
+        raise SystemExit(1)
+    if args.action == "sequence-compare" and result["root_sequence_stability_verdict"] is not True:
         raise SystemExit(1)
 
 
