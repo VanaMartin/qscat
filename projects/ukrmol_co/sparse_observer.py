@@ -16,6 +16,9 @@ def main() -> None:
     parser.add_argument("--owner", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--run", required=True)
+    parser.add_argument(
+        "--models", nargs="*", default=[], help="Nested model directories to observe"
+    )
     parser.add_argument("--interval", type=float, default=3600)
     parser.add_argument("--duration", type=float, default=259200)
     args = parser.parse_args()
@@ -70,6 +73,20 @@ def main() -> None:
                 path = run / name
                 if path.exists():
                     capture[name] = json.loads(path.read_text())
+            for model in args.models:
+                directory = run / model
+                for sector in ("B1", "B2"):
+                    path = directory / sector / "scatci.out"
+                    if path.exists():
+                        with path.open("rb") as stream:
+                            stream.seek(max(0, path.stat().st_size - 6000))
+                            capture[f"{model}_{sector}_scatci_tail"] = stream.read().decode(
+                                errors="replace"
+                            )
+                for name in ("pilot.json", "resources.json"):
+                    path = directory / name
+                    if path.exists():
+                        capture[f"{model}_{name}"] = json.loads(path.read_text())
             filename = now.strftime("%Y%m%dT%H%M%S.json")
             with (args.output / filename).open("x") as stream:
                 stream.write(json.dumps(capture, indent=2) + "\n")

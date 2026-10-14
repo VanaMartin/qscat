@@ -1,0 +1,79 @@
+{
+  "status": "bounded matched stretchedCAS11retained-A2control;expanded solve gated on dense-baseline observables",
+  "scientific_question": "Does expanding only retained A2 target channels from five to nine per spin change stretchedCAS11fixed-nuclei phases and identical-window resonance candidates beyond0.05rad/0.05eV/5percent? The measured coverage gap motivates this one channel comparison;it does not qualify global identity or full channel convergence.",
+  "run": "cas11-stretched-a2-five-nine-roots2048-mpi8-20261014",
+  "source_directory": "prepared/a2-channel-scattering-source-20261014",
+  "target_reference_directory": "runs/co-r2500-ccdz-sa11-tight-cc40-anchor",
+  "independent_reference_directory": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor",
+  "target_preflight_directory": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014",
+  "baseline_directory": "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+  "baseline_reader_filename": "independent-engine-baseline.json",
+  "baseline_reader_verdict": "matched_engine_baseline_verdict",
+  "fixed_target_settings": {
+    "bond_length": 2.5, "basis": "cc-pVDZ", "model": "CAS-A",
+    "orbitals": "state-averaged", "frozen_orbitals": 2,
+    "active_orbitals": [5,3,3,0],
+    "sa_singlet_roots": [5,5,5,5], "sa_triplet_roots": [5,5,5,5]
+  },
+  "scattering_roots": 2048,
+  "sectors": ["B1","B2"],
+  "models": {
+    "five": {"a2_roots_per_spin":5,"target_components":40,"dimension":27546,"continuum_coefficients":1410,"boundary_channels":250},
+    "nine": {"a2_roots_per_spin":9,"target_components":48,"dimension":27818,"continuum_coefficients":1682,"boundary_channels":298}
+  },
+  "engine_source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "engine_evidence_sha256": {
+    "execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "numerical_library_sha256": {
+    "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+    "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+    "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+    "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+  },
+  "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "telemetry_directory": "diagnostics/sparse-scattering-telemetry-v6-20261007",
+  "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+  "changes": "Both selected models copy exactly the same preflightfort24/fort26and originalfort16/scatteringCONGENexpansions. Only NUMTGT,NTGTF,NTGTS and OUTER_INTERFACE NTARG/IDTARG change. The forty-target control selects roots1-5per sector from the48-state inventory,including noncontiguous energy IDs41/43;the expanded control adds A2roots6-9per spin. No target optimization,integral or CONGEN regeneration. Radius18/maxl4/deletion1e-6/propagation100;native6GiBmemp;uncorrected selected-pole sum;igh-1/crite1e-12/maxiter1000/vecstore3;2048roots/eightMPIranks on both sides. Expected expanded dimensions follow8addedA2states times34continuum-orbitals and6boundary angular channels per state,with unchanged L2sector;actual telemetry/exports must confirm them.",
+  "gates": [
+    "Frozen source/input hashes,exact242installed audited-engine artifacts,completed matched engine reproduction and completed48-state target/property preflight;fresh dependency/telemetry runtime gate",
+    "Verify same-frame independent target action/spin/convergence prerequisites and new48-state property map;grid0.1-5requested-eV remains below the lowest excited target threshold",
+    "Cheap dense outer replay in both sectors from the existing complete27546-pole boundary/channels;no dense Hamiltonian solve. Same fresh99-point outer decks as both selected models",
+    "Run only five-A2baseline2048both sectors,then independent raw/export/residual/Pi and full-grid/fixed-window comparison against dense replay;false/unset baseline verdict ends before expanded scattering",
+    "After baseline passes,run nine-A2model2048both sectors once. Actual input hashes must match the common frozen target/integral/CONGENframe;decks match explicit model selection;actual dimensions27546/27818,continuum1410/1682,boundary250/298 verified",
+    "Independent matched comparison checks both grids/Pi and each background order1-4on fixed0.4-1.6requested-eV window,full-grid phase modulo pi. No equality of poles,dimensions,channel maps or interface digests is expected across different channel models",
+    "Failed,empty,MAXFIT or bound fits leave the relevant comparison unset. Original exits,limits and false/unset results stop without retry or gate changes;no root/channel ladder or other geometry follows automatically"
+  ],
+  "observable_budgets": {
+    "position_ev":0.05,"full_width_relative":0.05,"full_width_floor_ev":0.001,
+    "phase_rad_mod_pi":0.05,"fit_background_orders":[1,2,3,4],
+    "fixed_requested_energy_window_ev":[0.4,1.6]
+  },
+  "raw_checks": {
+    "absolute_residual_hartree":1e-7,"boundary_to_ci_atol_hartree":1e-10,
+    "pi_phase_rad_mod_pi":0.002,"phase_grid_atol_requested_ev":5e-5,
+    "native_selection_which":1
+  },
+  "fit_initial_position_hartree":0.036158,
+  "fit_initial_full_width_hartree":0.010764,
+  "hartree_to_ev":27.211386245988,
+  "native_rydberg_per_requested_ev":0.0735,
+  "resources": {
+    "physical_cpu_group":"4-11","mpi_ranks":8,"library_threads_per_rank":1,
+    "container_memory_gib":48,"shared_memory_gib":8,"scatci_memory_input_gib":6,
+    "minimum_available_ram_gib":64,"minimum_free_disk_gib":20,
+    "native_stage_timeout_seconds":28800,"whole_model_timeout_seconds":64800,
+    "independent_reader_memory_gib":4,"independent_reader_cpu_group":"0-3",
+    "independent_reader_timeout_seconds":3600,"whole_owner_timeout_seconds":144000,
+    "observer_interval_seconds":1800,"observer_timeout_seconds":144000
+  },
+  "cost_rationale": "EquilibriumCAS11selected2048cost2.454h/7.7GiBon its original engine;the original stretched dense sectors cost1.296/1.211h on4MPIranks. These are measured anchors with different engines/scopes,not matched runtime forecasts. The auditedO1engine and common48-state input representation can change cost. Expected contracted dimension grows only272(0.99percent),while continuum/boundary sizes rise19.29/19.2percent and uncontracted CSFs are unchanged. Two selected models are the minimum matched control when no stretched sparse baseline yet exists;dense outer replay independently gates the baseline before expanded cost. Bound each selected model to18hours,each stage8hours,total owner40hours;first-stage telemetry will give actual cost evidence. Peak and stage scopes are recorded separately. Native48-GiBcgroup plus20-GiBdisk headroom fit current Sadaharu resources. No paid provisioning or larger-root run.",
+  "interpretation": "A pass is practical fixed-orbital five-versus-nineA2observable insensitivity at this geometry and2048roots. A rejection is a decision-changing channel or baseline-resolution discrepancy. Neither outcome establishes global state/pole identity,full channel convergence,absolute omission for the48-channel model orCAS12model convergence. Background/window dependence remains a separate extraction gate.",
+  "dense_baseline_verdict":null,"a2_channel_sensitivity_verdict":null,
+  "spectral_truncation_verdict":null,"electronic_model_verdict":null,
+  "global_continuity_verdict":null,"full_sweep_released":false
+}

@@ -65,7 +65,9 @@ def _save(path: Path, value: dict) -> None:
     temporary.replace(path)
 
 
-def audit_sector(directory: Path, roots: int, dimension: int, continuum: int) -> dict:
+def audit_sector(
+    directory: Path, roots: int, dimension: int, continuum: int, boundary_channels: int = 250
+) -> dict:
     """Independently read emitted CI/boundary records and check the native residual log."""
     telemetry = [
         json.loads(line) for line in (directory / "eps-telemetry.jsonl").read_text().splitlines()
@@ -89,7 +91,7 @@ def audit_sector(directory: Path, roots: int, dimension: int, continuum: int) ->
     poles, amplitudes = boundary_spectrum(directory / "fort.21")
     if len(energies) != roots or len(poles) != roots or vectors.shape != (roots, continuum):
         raise ValueError("Incomplete selected-spectrum export")
-    if amplitudes.shape != (roots, 250) or not all(
+    if amplitudes.shape != (roots, boundary_channels) or not all(
         np.isfinite(v).all() for v in (energies, vectors, poles, amplitudes)
     ):
         raise ValueError("Nonfinite or inconsistent boundary export")
