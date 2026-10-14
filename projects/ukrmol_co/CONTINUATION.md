@@ -20,6 +20,53 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### A2 target/property input qualification passes — 14 October, 13:19 UTC
+
+**The bounded stretched CAS11 preflight completed at 12:03:51 UTC with all exits
+0.** Owner 1282177 and observer 1282512 are inactive; no scientific container is
+running. The [completed capture](progress-a2-target-preflight-20261014T1319.json)
+preserves all nine native stages, per-root telemetry and three observer captures.
+The [independent 24-file reconstruction](verification-a2-target-preflight-20261014.json)
+confirms the native CIDATA/DENPROP exports rather than relying on the producer
+summary. The [preflight note](A2_CHANNEL_TARGET_PREFLIGHT.md#completion-and-independent-reading--14-october-1319-utc-capture)
+records the exact checks and preserved supplementary-reader schema rejection.
+
+**Measured native cost: 51.686 minutes / 5.466 GiB kernel peak.** Eight target
+solves total 4.291 minutes; DENPROP48 takes 47.390 minutes. All **48 native
+vectors** are finite, complete, orthonormal and exported in the declared eight
+sets. Both spins retain A2 roots1–9 on the unchanged stretched CAS11/DZ
+40-component averaged orbital frame. Maximum binary energy error versus
+independent references is **5.25802e-13 Hartree**, property-table/binary rounding
+**4.81663e-10 Hartree**, native action residual **1.29215e-10 Hartree**, Pi splitting
+**3.69482e-13 Hartree** and vector Gram error **7.54952e-15**.
+
+The own-model map includes singlet/triplet A2 root9 at energy-ordered native IDs
+**48 / 45**. The **921** emitted dipole/quadrupole records are finite/unique, refer
+to valid state/irrep labels and cover all 48 states. Ground dipole agrees to
+**1.88292e-11 a.u.** Frozen **53 source / 50 input hashes** and **242 installed
+engine artifacts** reverify. Target/property input qualification passes;
+independent validation of every added transition moment, channel convergence,
+global state/pole identity and electronic-model convergence do not follow from it.
+
+**Next:** separately budget and declare the matched fixed-orbital five-versus-nine
+A2 scattering comparison with each model's own thresholds/maps/multipoles. The
+lowest40 energy-ordered IDs omit both A2 root9 states, so simply raising the
+computed root count cannot qualify the retained channel representation. Use the
+accepted economical root-resolution guidance; model-specific checks need an
+explicit discrepancy/cost rationale. Keep model, continuity, extraction, neutral
+and restartable-production gates separate. The overview now records this
+completed input milestone in its **13:19 UTC** release.
+
+Completion verification passes **154 immutable remote hashes**, **122 overview
+source-provenance hashes**, **384 local documentation links**, searchable SVG,
+visual PNG inspection, renderer lint/format and diff checks. The original **66
+focused regressions** remain the preflight implementation evidence; this update
+changes the dated evidence/overview and handoff. The independent reader and its
+first rejected schema assertion are preserved with source hashes under the
+remote prepared directory. Main-index integrity/upstream currency remain
+complete/current at `97b8b4c7392f822c996af0d4d77f81e100ff1407`; A2 implementation,
+completion evidence and overview are branch-only and resolve against live source.
+
 ### Fixed-orbital A2 target/property preflight active — 14 October, 11:13 UTC
 
 **Owner 1282177 is active on Sadaharu.** The

@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261014T1034.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261014T1319.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -475,9 +475,12 @@ def _channel_coverage(ax, data):
     omitted = data["a2_singlet_midpoint_omitted_weights"]
     _note(
         ax,
-        f"On the singlet 5 → 6 link: root7 = {omitted['7']:.3f}, root9 = {omitted['9']:.3f}.\n"
-        "Next: fixed-orbital explicit-A2-channel scattering control.\n"
-        "Projection is a coverage diagnostic, not a continuity verdict.",
+        data.get(
+            "channel_coverage_note",
+            f"On the singlet 5 → 6 link: root7 = {omitted['7']:.3f}, root9 = {omitted['9']:.3f}.\n"
+            "Next: fixed-orbital explicit-A2-channel scattering control.\n"
+            "Projection is a coverage diagnostic, not a continuity verdict.",
+        ),
     )
 
 
@@ -611,7 +614,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261014T1034"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261014T1319"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

@@ -22,7 +22,7 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
 The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
-[active A2 target/property gate](SWEEP_READINESS_20261014T1113.md),
+[completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
@@ -40,26 +40,30 @@ CAS12's 1.67e-5-rad phase difference is a refinement difference, not an absolute
 4096-root error. The sweep remains gated by model, identity, extraction and neutral
 qualification.
 
-**Active next step — 14 October, 11:13 UTC:** the
-[fixed-orbital A2 target/property preflight](A2_CHANNEL_TARGET_PREFLIGHT.md) is
-running on the unchanged stretched CAS11 frame, with nine A2 roots per spin and
-the original 40-component orbital average. Same-frame independent references,
-fresh runtime and the first two native target stages pass. Native A2 exports
-and the 48-state property interface remain pending. The preflight is four-hour
-bounded and builds no scattering Hamiltonian; see the
-[dated launch](progress-a2-target-preflight-20261014T1113.json).
+**Completed next gate — 14 October, 13:19 UTC:** the
+[fixed-orbital A2 target/property preflight](A2_CHANNEL_TARGET_PREFLIGHT.md)
+passes in **51.686 minutes / 5.466 GiB**. All eight target solves and DENPROP48
+exit 0; independently reconstructed exports contain all **48 vectors** and
+**921 dipole/quadrupole records**, including both A2 root9 states. Native residual
+is at most **1.29e-10 Hartree** and binary reference-energy error **5.26e-13 Hartree**.
+Both services are inactive. The next decision is a separately budgeted matched
+five-versus-nine A2 scattering comparison on the unchanged orbital frame.
+See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
+[local raw reading](verification-a2-target-preflight-20261014.json) and
+[historical launch](progress-a2-target-preflight-20261014T1113.json).
 
 <a id="progress-overview--12-october-2026"></a>
 <a id="progress-overview--13-october-2026"></a>
 
 ## Progress overview — 14 October 2026
 
-![CO qualification: passing CAS12 root-pair evidence is sufficient for current controls;8192cancelled;model and extraction gates remain](../../docs/physics/figures/co-progress-20261014T1034.png)
+![CO qualification: stretched CAS11 A2 target/property input qualification passes;matched channel scattering is next;model and extraction gates remain](../../docs/physics/figures/co-progress-20261014T1319.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261014T1034.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261014T1034.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261014T1319.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261014T1319.json) ·
 [Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
-[Active A2 prerequisite](SWEEP_READINESS_20261014T1113.md) ·
+[Completed A2 prerequisite](A2_CHANNEL_TARGET_PREFLIGHT.md) ·
+[Previous10:34overview](../../docs/physics/figures/co-progress-20261014T1034.png) ·
 [Cancellation capture](progress-audited-8192-cancelled-20261014T1034.json) ·
 [Previous06:58overview](../../docs/physics/figures/co-progress-20261014T0658.png) ·
 [Third-resolution declaration](cas12-audited-engine-8192-contract.json) ·
@@ -82,16 +86,22 @@ bounded and builds no scattering Hamiltonian; see the
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261014T1113.md)
+[Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **10:34 UTC, 14 October** release of an incremental overview. New findings, verification
+This is the **13:19 UTC, 14 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** the matched 2048-root engine control **passes in both sectors**,
+**What changed:** the explicit A2 target/property input gate passes on the unchanged
+stretched CAS11 frame, with nine A2 roots per spin and the original 40-component
+orbital average. Independent reading verifies all native vector sets, energies,
+residuals and the 48-state own-model property map. **Input qualification enables
+the matched channel-scattering comparison; it does not establish channel convergence.**
+
+**Earlier completed root-resolution evidence:** the matched 2048-root engine control **passes in both sectors**,
 finishing at 07:10:36 UTC with all stage/reader/owner exits 0. Energies, all 99
 phases and identical-window fits at background orders 1–4 reproduce exactly;
 maximum residual is **1.33e-10 Hartree**, Pi **1e-9 rad**. Measured native cost is
@@ -106,8 +116,9 @@ Pi **1e-9rad** and actual inputs/maps/interfaces match. Local raw reconstruction
 independently passes the same budgets from40checksum-verified fetched files.
 All **43 source / 500 input-evidence hashes** and **242 installed artifacts**
 reverify; observer **1246546** ends normally after16captures. No additional native
-calculation is scheduled. **Next: separately declare omission/further-resolution
-and model/channel controls. Pair stability does not bound absolute omission.**
+calculation is scheduled. **Root evidence is sufficient for current model/channel
+controls; further resolution requires a decision-changing discrepancy. Pair
+stability does not bound absolute omission.**
 The [readiness note](SWEEP_READINESS_20261014T0658.md) states the remaining gates.
 The [14:04 figure](../../docs/physics/figures/co-progress-20261013T1404.png),
 [vector copy](../../docs/physics/figures/co-progress-20261013T1404.svg) and

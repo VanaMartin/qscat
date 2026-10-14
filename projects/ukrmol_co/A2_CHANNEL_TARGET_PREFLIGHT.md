@@ -61,4 +61,38 @@ exports and the complete 48-state interface remain pending at this cutoff.
 Implementation is pinned to `aac698f310783b0f760ad197546e0a2b1f478b59`;
 53 source / 50 input hashes and 242 installed engine artifacts reverify.
 All 120 immutable launch-evidence hashes and 66 focused regressions pass.
-The [current queue](SWEEP_READINESS_20261014T1113.md) records the next decisions.
+The [launch queue](SWEEP_READINESS_20261014T1113.md) records the initial decisions.
+
+## Completion and independent reading — 14 October, 13:19 UTC capture
+
+The [completed capture](progress-a2-target-preflight-20261014T1319.json) records
+native/owner exit 0 at **12:03:51 UTC**, all nine stages successful, and both
+services inactive. Cost is **51.686 minutes / 5.466 GiB kernel peak**: eight target
+solves total **4.291 minutes**, DENPROP48 takes **47.390 minutes**. The frozen
+53 source / 50 input hashes and 242 installed engine artifacts reverify.
+
+The [24-file local raw reconstruction](verification-a2-target-preflight-20261014.json)
+independently reads all eight CIDATA sets and **48 complete vectors**, with no
+undeclared trailing sets. Native energies agree with the independent fixed-orbital
+reference to **5.25802e-13 Hartree**; property-table rounding contributes up to
+**4.81663e-10 Hartree** relative to binary energies. Maximum native action residual
+is **1.29215e-10 Hartree**, Pi splitting **3.69482e-13 Hartree** and vector Gram
+error **7.54952e-15**. All original numerical budgets pass.
+
+The model's own property map resolves **921 finite, unique dipole/quadrupole
+records**, with valid state/irrep references covering all 48 states. Singlet and
+triplet A2 root9 are native energy-ordered IDs **48 / 45**. Selecting the lowest
+40 energy-ordered states would omit both; explicit nonuniform sector selection
+is required. Ground-dipole difference is **1.88292e-11 a.u.**
+
+A supplementary reader initially rejected an incorrect assumption that both
+multipole irrep fields were always zero. Its original exit 1 and source hash are
+preserved separately; the resolved raw format contains the actual C2v irrep
+codes 0–3, which the completed reader validates against each state label. No
+native retry or numerical-budget change occurred.
+
+**Target/property input qualification passes.** The next decision is a separately
+budgeted matched five-versus-nine A2 scattering comparison using this model's
+own maps and multipoles. Every added transition moment is not independently
+validated by interface coverage alone, and channel convergence/global continuity
+remain open. No scientific calculation is active at the capture cutoff.

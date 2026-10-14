@@ -1,0 +1,1644 @@
+{
+  "observed_utc": "2026-10-14T13:19:24.428385+00:00",
+  "host": "sadaharu",
+  "campaign_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "source_directory": "prepared/a2-channel-target-preflight-source-20261014",
+  "source_commit": "aac698f310783b0f760ad197546e0a2b1f478b59",
+  "run": "cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014",
+  "owner_execution": {
+    "supervisor_pid": 1282177,
+    "started_unix": 1791976321.8549657,
+    "steps": [
+      {
+        "label": "runtime-gate",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014-reading",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-channel-target-preflight-source-20261014:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-channel-target-preflight-source-20261014/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.engine_baseline",
+          "runtime-gate",
+          "--contract",
+          "/opt/qmodeling/contract.json",
+          "--output",
+          "/outputs/runtime-gate.json"
+        ],
+        "started_unix": 1791976325.497947,
+        "original_exit": 0,
+        "finished_unix": 1791976326.122023
+      },
+      {
+        "label": "native-A2-target-preflight",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014",
+          "--cpuset-cpus=4-11",
+          "--memory=24g",
+          "--memory-swap=24g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-channel-target-preflight-source-20261014:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-channel-target-preflight-source-20261014/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.a2_channel_preflight",
+          "--root",
+          "/work",
+          "--work",
+          "/outputs/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014",
+          "--contract",
+          "/opt/qmodeling/contract.json"
+        ],
+        "started_unix": 1791976326.1222594,
+        "original_exit": 0,
+        "finished_unix": 1791979427.785943
+      }
+    ],
+    "scope": "Can the unchanged stretched CAS11 forty-component orbital frame support explicit A2 roots1-9 in both spins,with native energies/residuals and a complete48-state DENPROP dipole/quadrupole interface? This closes target/channel-input prerequisites before a scattering comparison;it does not launch scattering or establish channel/model convergence.",
+    "frozen_file_counts_verified": {
+      "source": 53,
+      "inputs": 50
+    },
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_ram_bytes": 116047699968,
+    "free_disk_bytes": 66497966080,
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "engine_verified": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242,
+      "frozen_counts": {
+        "source": 55,
+        "inputs": 192
+      }
+    },
+    "heartbeat_unix": 1791979426.219887,
+    "channel_import_verdict": true,
+    "engine_verified_after_native": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242,
+      "frozen_counts": {
+        "source": 55,
+        "inputs": 192
+      }
+    },
+    "original_controller_exit": 0,
+    "final_frozen_file_counts_verified": {
+      "source": 53,
+      "inputs": 50
+    },
+    "finished_unix": 1791979431.3342667,
+    "finished_utc": "2026-10-14T12:03:51.334273+00:00"
+  },
+  "observer_execution": {
+    "supervisor_pid": 1282512,
+    "started_unix": 1791976337.1550083,
+    "captures": [
+      "20261014T111217.json",
+      "20261014T114219.json",
+      "20261014T121222.json"
+    ],
+    "scope": "Observe only; no follow-on calculations",
+    "heartbeat_unix": 1791979943.7259176,
+    "finish_reason": "Finite owner ended",
+    "original_exit": 0,
+    "finished_unix": 1791979943.7260156
+  },
+  "status": {
+    "co-a2-channel-target-preflight-20261014.service": "MainPID=0\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\n",
+    "co-a2-channel-target-preflight-observer-20261014.service": "MainPID=0\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\n",
+    "docker_stats": "comfyui CPU=0.07% MEM=10.09GiB / 123.5GiB\n"
+  },
+  "frozen_file_counts_reverified": {
+    "source": 53,
+    "inputs": 50
+  },
+  "installed_engine_artifacts_reverified": 242,
+  "prerequisite_validation": {
+    "independent_same_frame_prerequisite_passed": true,
+    "native_reference40_map_verified": {
+      "target_map": [
+        1,
+        9,
+        15,
+        28,
+        33,
+        4,
+        5,
+        34,
+        36,
+        38,
+        12,
+        19,
+        24,
+        30,
+        32,
+        3,
+        13,
+        17,
+        21,
+        26,
+        11,
+        18,
+        23,
+        29,
+        31,
+        2,
+        14,
+        16,
+        22,
+        25,
+        8,
+        10,
+        27,
+        39,
+        40,
+        6,
+        7,
+        20,
+        35,
+        37
+      ],
+      "state_labels_by_id": {
+        "1": "singlet.A1.1",
+        "9": "singlet.A1.2",
+        "15": "singlet.A1.3",
+        "28": "singlet.A1.4",
+        "33": "singlet.A1.5",
+        "4": "triplet.A1.1",
+        "5": "triplet.A1.2",
+        "34": "triplet.A1.3",
+        "36": "triplet.A1.4",
+        "38": "triplet.A1.5",
+        "12": "singlet.B1.1",
+        "19": "singlet.B1.2",
+        "24": "singlet.B1.3",
+        "30": "singlet.B1.4",
+        "32": "singlet.B1.5",
+        "3": "triplet.B1.1",
+        "13": "triplet.B1.2",
+        "17": "triplet.B1.3",
+        "21": "triplet.B1.4",
+        "26": "triplet.B1.5",
+        "11": "singlet.B2.1",
+        "18": "singlet.B2.2",
+        "23": "singlet.B2.3",
+        "29": "singlet.B2.4",
+        "31": "singlet.B2.5",
+        "2": "triplet.B2.1",
+        "14": "triplet.B2.2",
+        "16": "triplet.B2.3",
+        "22": "triplet.B2.4",
+        "25": "triplet.B2.5",
+        "8": "singlet.A2.1",
+        "10": "singlet.A2.2",
+        "27": "singlet.A2.3",
+        "39": "singlet.A2.4",
+        "40": "singlet.A2.5",
+        "6": "triplet.A2.1",
+        "7": "triplet.A2.2",
+        "20": "triplet.A2.3",
+        "35": "triplet.A2.4",
+        "37": "triplet.A2.5"
+      },
+      "target_count": 40,
+      "maximum_energy_error_hartree": 4.816769205717719e-10,
+      "multipole_record_count": 656,
+      "ground_dipole_z_au": -0.192119174556
+    },
+    "expected48_energies": {
+      "singlet.A1": [
+        -112.88031424495043,
+        -112.61860146223741,
+        -112.45939197281871,
+        -112.36582276560756,
+        -112.33637110554176
+      ],
+      "triplet.A1": [
+        -112.6734176634007,
+        -112.64269346985088,
+        -112.31077881095561,
+        -112.29580359029748,
+        -112.25536769002377
+      ],
+      "singlet.B1": [
+        -112.61128726512192,
+        -112.45174790109118,
+        -112.39311393960517,
+        -112.35575519845409,
+        -112.34061653330443
+      ],
+      "triplet.B1": [
+        -112.69563668022747,
+        -112.5133109362396,
+        -112.45769694181222,
+        -112.41453940776069,
+        -112.3753192341852
+      ],
+      "singlet.B2": [
+        -112.61128726512177,
+        -112.4517479010912,
+        -112.39311393960517,
+        -112.3557551984541,
+        -112.34061653330441
+      ],
+      "triplet.B2": [
+        -112.69563668022747,
+        -112.51331093623956,
+        -112.45769694181217,
+        -112.41453940776069,
+        -112.3753192341852
+      ],
+      "singlet.A2": [
+        -112.62019948656885,
+        -112.6186014622374,
+        -112.36582276560759,
+        -112.22646708551832,
+        -112.20253746427329,
+        -112.19746917081643,
+        -112.17863223408206,
+        -112.17204893601648,
+        -112.13202202254526
+      ],
+      "triplet.A2": [
+        -112.64269346985087,
+        -112.63090736645731,
+        -112.43411338302049,
+        -112.3107788109556,
+        -112.28593823210201,
+        -112.25536769002375,
+        -112.2451728818291,
+        -112.22318255896852,
+        -112.18967312595746
+      ]
+    }
+  },
+  "runtime_gate": {
+    "runtime_gate_passed": true,
+    "numerical_library_sha256": {
+      "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+      "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+      "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+      "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+    },
+    "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+    "telemetry_ldd": "\tlinux-vdso.so.1 (0x00007f90bd0f6000)\n\tlibslepc.so.3.24 => /opt/ukrmolp/lib/libslepc.so.3.24 (0x00007f90bcc9d000)\n\tlibpetsc.so.3.24 => /opt/ukrmolp/lib/libpetsc.so.3.24 (0x00007f90bb111000)\n\tlibmpi.so.40 => /opt/ukrmolp/lib/libmpi.so.40 (0x00007f90bad86000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f90bab5a000)\n\tlibopenblas.so.0 => /opt/ukrmolp/lib/libopenblas.so.0 (0x00007f90b8838000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f90b8751000)\n\tlibmpi_usempi_ignore_tkr.so.40 => /opt/ukrmolp/lib/libmpi_usempi_ignore_tkr.so.40 (0x00007f90b873e000)\n\tlibmpi_mpifh.so.40 => /opt/ukrmolp/lib/libmpi_mpifh.so.40 (0x00007f90b86c6000)\n\tlibgfortran.so.5 => /opt/ukrmolp/lib/libgfortran.so.5 (0x00007f90b836d000)\n\tlibgcc_s.so.1 => /opt/ukrmolp/lib/libgcc_s.so.1 (0x00007f90b8340000)\n\tlibquadmath.so.0 => /opt/ukrmolp/lib/libquadmath.so.0 (0x00007f90b82f8000)\n\tlibstdc++.so.6 => /opt/ukrmolp/lib/libstdc++.so.6 (0x00007f90b8076000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f90bd0f8000)\n\tlibopen-pal.so.80 => /opt/ukrmolp/lib/libopen-pal.so.80 (0x00007f90b7f04000)\n\tlibpmix.so.2 => /opt/ukrmolp/lib/libpmix.so.2 (0x00007f90b7c9c000)\n\tlibevent_core-2.1.so.7 => /opt/ukrmolp/lib/libevent_core-2.1.so.7 (0x00007f90b7c59000)\n\tlibevent_pthreads-2.1.so.7 => /opt/ukrmolp/lib/libevent_pthreads-2.1.so.7 (0x00007f90b7c54000)\n\tlibhwloc.so.15 => /opt/ukrmolp/lib/libhwloc.so.15 (0x00007f90b7be4000)\n\tlibgomp.so.1 => /opt/ukrmolp/lib/libgomp.so.1 (0x00007f90b7b8d000)\n",
+    "scope": "Dependency byte and symbol-loading gate; native residual audit follows"
+  },
+  "native_target_progress": {
+    "target.scatci.singlet.A1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       17.3       0.0         0.0       0.0\n Target-Hamiltonian Build                1       11.0       0.0        10.9       0.0\n Diagonalization                         1        6.2       0.0         0.0       0.0\n SLEPC solve                             1        6.2       0.0         6.2       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       5"
+      ],
+      "solver_completed": true
+    },
+    "target.scatci.singlet.A2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       24.9       0.0         0.0       0.0\n Target-Hamiltonian Build                1       18.5       0.0        18.4       0.0\n Diagonalization                         1        6.3       0.0         0.0       0.0\n SLEPC solve                             1        6.3       0.0         6.3       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       9"
+      ],
+      "solver_completed": true
+    },
+    "target.scatci.singlet.B1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       22.4       0.0         0.0       0.0\n Target-Hamiltonian Build                1       17.2       0.0        17.1       0.0\n Diagonalization                         1        5.2       0.0         0.0       0.0\n SLEPC solve                             1        5.2       0.0         5.2       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       5"
+      ],
+      "solver_completed": true
+    },
+    "target.scatci.singlet.B2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       21.5       0.0         0.0       0.0\n Target-Hamiltonian Build                1       16.5       0.0        16.4       0.0\n Diagonalization                         1        4.9       0.0         0.0       0.0\n SLEPC solve                             1        4.9       0.0         4.9       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       5"
+      ],
+      "solver_completed": true
+    },
+    "target.scatci.triplet.A1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       34.7       0.0         0.1       0.0\n Target-Hamiltonian Build                1       18.6       0.0        18.4       0.0\n Diagonalization                         1       15.9       0.0         0.0       0.0\n SLEPC solve                             1       15.9       0.0        15.9       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       5"
+      ],
+      "solver_completed": true
+    },
+    "target.scatci.triplet.A2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       50.6       0.0         0.1       0.0\n Target-Hamiltonian Build                1       32.8       0.0        32.6       0.0\n Diagonalization                         1       17.7       0.0         0.0       0.0\n SLEPC solve                             1       17.7       0.0        17.7       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       9"
+      ],
+      "solver_completed": true
+    },
+    "target.scatci.triplet.B1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       41.1       0.0         0.1       0.0\n Target-Hamiltonian Build                1       26.0       0.0        25.8       0.0\n Diagonalization                         1       15.0       0.0         0.0       0.0\n SLEPC solve                             1       15.0       0.0        15.0       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       5"
+      ],
+      "solver_completed": true
+    },
+    "target.scatci.triplet.B2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       44.1       0.0         0.1       0.0\n Target-Hamiltonian Build                1       28.2       0.0        28.0       0.0\n Diagonalization                         1       15.8       0.0         0.0       0.0\n SLEPC solve                             1       15.8       0.0        15.8       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "requested_eigenpairs_lines": [
+        "Requested # of eigenpairs       5"
+      ],
+      "solver_completed": true
+    }
+  },
+  "native_target_telemetry": {
+    "target.scatci.singlet.A1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15548,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 19,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 241740304,
+        "nz_allocated": 241740304,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -132.08031424495067,
+            "imaginary": 0,
+            "absolute_residual": 6.420515721154814e-12
+          },
+          {
+            "value": -131.8186014622371,
+            "imaginary": 0,
+            "absolute_residual": 6.985351787648198e-11
+          },
+          {
+            "value": -131.65939197281847,
+            "imaginary": 0,
+            "absolute_residual": 9.169516864321672e-11
+          },
+          {
+            "value": -131.56582276560758,
+            "imaginary": 0,
+            "absolute_residual": 3.750258409797468e-11
+          },
+          {
+            "value": -131.53637110554158,
+            "imaginary": 0,
+            "absolute_residual": 8.140728414574837e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.singlet.A2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15044,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 10,
+        "iterations": 17,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 226321936,
+        "nz_allocated": 226321936,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.82019948656864,
+            "imaginary": 0,
+            "absolute_residual": 3.488196309778653e-11
+          },
+          {
+            "value": -131.8186014622372,
+            "imaginary": 0,
+            "absolute_residual": 1.996421356256786e-11
+          },
+          {
+            "value": -131.5658227656076,
+            "imaginary": 0,
+            "absolute_residual": 7.426255950027565e-11
+          },
+          {
+            "value": -131.42646708551834,
+            "imaginary": 0,
+            "absolute_residual": 5.109201506302123e-11
+          },
+          {
+            "value": -131.4025374642731,
+            "imaginary": 0,
+            "absolute_residual": 2.1074427036421584e-11
+          },
+          {
+            "value": -131.3974691708163,
+            "imaginary": 0,
+            "absolute_residual": 3.138353978054907e-11
+          },
+          {
+            "value": -131.378632234082,
+            "imaginary": 0,
+            "absolute_residual": 2.0344736751726775e-11
+          },
+          {
+            "value": -131.37204893601645,
+            "imaginary": 0,
+            "absolute_residual": 5.255520324175118e-11
+          },
+          {
+            "value": -131.33202202254532,
+            "imaginary": 0,
+            "absolute_residual": 2.3225019488607446e-11
+          },
+          {
+            "value": -131.2689109246163,
+            "imaginary": 0,
+            "absolute_residual": 6.510629436592466e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.singlet.B1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.81128726512182,
+            "imaginary": 0,
+            "absolute_residual": 5.082563512512365e-12
+          },
+          {
+            "value": -131.6517479010909,
+            "imaginary": 0,
+            "absolute_residual": 5.632984340048252e-11
+          },
+          {
+            "value": -131.59311393960493,
+            "imaginary": 0,
+            "absolute_residual": 2.8185618819793213e-11
+          },
+          {
+            "value": -131.55575519845368,
+            "imaginary": 0,
+            "absolute_residual": 8.472536058438935e-12
+          },
+          {
+            "value": -131.54061653330427,
+            "imaginary": 0,
+            "absolute_residual": 3.2907006401376936e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.singlet.B2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.81128726512165,
+            "imaginary": 0,
+            "absolute_residual": 3.309342343435661e-11
+          },
+          {
+            "value": -131.65174790109103,
+            "imaginary": 0,
+            "absolute_residual": 1.0776142965337997e-11
+          },
+          {
+            "value": -131.59311393960482,
+            "imaginary": 0,
+            "absolute_residual": 1.698805418602452e-11
+          },
+          {
+            "value": -131.55575519845368,
+            "imaginary": 0,
+            "absolute_residual": 1.1448819938159445e-10
+          },
+          {
+            "value": -131.54061653330407,
+            "imaginary": 0,
+            "absolute_residual": 2.04882375435912e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.A1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24366,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 7,
+        "iterations": 19,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 593701956,
+        "nz_allocated": 593701956,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.87341766340052,
+            "imaginary": 0,
+            "absolute_residual": 3.986980244556025e-12
+          },
+          {
+            "value": -131.8426934698509,
+            "imaginary": 0,
+            "absolute_residual": 2.1337557687039265e-11
+          },
+          {
+            "value": -131.51077881095537,
+            "imaginary": 0,
+            "absolute_residual": 6.633630625245501e-12
+          },
+          {
+            "value": -131.49580359029696,
+            "imaginary": 0,
+            "absolute_residual": 3.57289131256265e-11
+          },
+          {
+            "value": -131.45536769002393,
+            "imaginary": 0,
+            "absolute_residual": 4.261104678722488e-12
+          },
+          {
+            "value": -131.4451728818289,
+            "imaginary": 0,
+            "absolute_residual": 1.1036276013139134e-10
+          },
+          {
+            "value": -131.43196327615604,
+            "imaginary": 0,
+            "absolute_residual": 1.9187452904002207e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.A2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24564,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 9,
+        "iterations": 17,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 603390096,
+        "nz_allocated": 603390096,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.8426934698506,
+            "imaginary": 0,
+            "absolute_residual": 3.550487403185632e-11
+          },
+          {
+            "value": -131.8309073664573,
+            "imaginary": 0,
+            "absolute_residual": 5.74922017997405e-12
+          },
+          {
+            "value": -131.63411338302026,
+            "imaginary": 0,
+            "absolute_residual": 1.904813758577807e-11
+          },
+          {
+            "value": -131.51077881095574,
+            "imaginary": 0,
+            "absolute_residual": 1.2002779369196647e-10
+          },
+          {
+            "value": -131.48593823210172,
+            "imaginary": 0,
+            "absolute_residual": 8.815434772058507e-12
+          },
+          {
+            "value": -131.4553676900236,
+            "imaginary": 0,
+            "absolute_residual": 1.1356586634960009e-10
+          },
+          {
+            "value": -131.4451728818291,
+            "imaginary": 0,
+            "absolute_residual": 1.0431502734446104e-10
+          },
+          {
+            "value": -131.42318255896822,
+            "imaginary": 0,
+            "absolute_residual": 2.1884263782046386e-11
+          },
+          {
+            "value": -131.38967312595707,
+            "imaginary": 0,
+            "absolute_residual": 1.2921533962689713e-10
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.B1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 17,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.89563668022734,
+            "imaginary": 0,
+            "absolute_residual": 2.101833943927109e-11
+          },
+          {
+            "value": -131.71331093623942,
+            "imaginary": 0,
+            "absolute_residual": 6.460186045691655e-12
+          },
+          {
+            "value": -131.65769694181216,
+            "imaginary": 0,
+            "absolute_residual": 9.383145753363234e-11
+          },
+          {
+            "value": -131.6145394077606,
+            "imaginary": 0,
+            "absolute_residual": 6.216811321875328e-11
+          },
+          {
+            "value": -131.5753192341851,
+            "imaginary": 0,
+            "absolute_residual": 1.2579970352985466e-10
+          },
+          {
+            "value": -131.57130021505662,
+            "imaginary": 0,
+            "absolute_residual": 7.431779117968407e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.B2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 18,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.895636680227,
+            "imaginary": 0,
+            "absolute_residual": 1.2535224110988994e-10
+          },
+          {
+            "value": -131.71331093623925,
+            "imaginary": 0,
+            "absolute_residual": 2.672081651099356e-11
+          },
+          {
+            "value": -131.657696941812,
+            "imaginary": 0,
+            "absolute_residual": 6.193890492994517e-11
+          },
+          {
+            "value": -131.61453940776022,
+            "imaginary": 0,
+            "absolute_residual": 5.128734519422802e-11
+          },
+          {
+            "value": -131.57531923418512,
+            "imaginary": 0,
+            "absolute_residual": 9.382041709976148e-11
+          },
+          {
+            "value": -131.5713002150567,
+            "imaginary": 0,
+            "absolute_residual": 9.265491452752017e-11
+          }
+        ]
+      }
+    ]
+  },
+  "actual_target_decks": {
+    "target.scatci.singlet.A1.inp": {
+      "sha256": "77a2b83ea87dc210da08a9fd82142308bf8908313f1d65b67e01b0b1f607e25b",
+      "text": "&input\n  megul = 710, ! input from module CONGEN\n  nfte = 810, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet A1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 1, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.singlet.A2.inp": {
+      "sha256": "5cf8cf8388e553a30abecf768f445a82b308a414bbf02298a453f34ffd30d3a9",
+      "text": "&input\n  megul = 713, ! input from module CONGEN\n  nfte = 813, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet A2',\n  nstat = 9, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 7, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.singlet.B1.inp": {
+      "sha256": "641ab40ee01ad459ef31a5c9a29cdacf5818704b60f0958b5096b05cff3b606f",
+      "text": "&input\n  megul = 711, ! input from module CONGEN\n  nfte = 811, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet B1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 3, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.singlet.B2.inp": {
+      "sha256": "757160aa3e4ad77c5226811f4250b3074f6fec59f0bc1da0834845f80122dbc3",
+      "text": "&input\n  megul = 712, ! input from module CONGEN\n  nfte = 812, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet B2',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 5, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.A1.inp": {
+      "sha256": "31a9a984ed1cc15fc4a6812d2355ab8e8987e9ca4bce8b3a8549106637e0be7b",
+      "text": "&input\n  megul = 730, ! input from module CONGEN\n  nfte = 830, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet A1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 2, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.A2.inp": {
+      "sha256": "b384a63ff44c2673038767144d7f01f89d971e8e720224e16280dde8b24d2658",
+      "text": "&input\n  megul = 733, ! input from module CONGEN\n  nfte = 833, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet A2',\n  nstat = 9, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 8, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.B1.inp": {
+      "sha256": "effdf4c062d29cc194a8b99d258113d87df20fa32a35be9f299cf84a4b256d71",
+      "text": "&input\n  megul = 731, ! input from module CONGEN\n  nfte = 831, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet B1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 4, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.B2.inp": {
+      "sha256": "84219d1b2a0ae4f660609b8893c0213d4d90f6a8f18c604d2ae4d17c40c20515",
+      "text": "&input\n  megul = 732, ! input from module CONGEN\n  nfte = 832, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet B2',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 6, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    }
+  },
+  "failure_markers": {
+    "target.scatci.singlet.A1.out": [],
+    "target.scatci.singlet.A2.out": [],
+    "target.scatci.singlet.B1.out": [],
+    "target.scatci.singlet.B2.out": [],
+    "target.scatci.triplet.A1.out": [],
+    "target.scatci.triplet.A2.out": [],
+    "target.scatci.triplet.B1.out": [],
+    "target.scatci.triplet.B2.out": []
+  },
+  "native_pilot_at_capture": {
+    "scope": "Can the unchanged stretched CAS11 forty-component orbital frame support explicit A2 roots1-9 in both spins,with native energies/residuals and a complete48-state DENPROP dipole/quadrupole interface? This closes target/channel-input prerequisites before a scattering comparison;it does not launch scattering or establish channel/model convergence.",
+    "stages": [
+      {
+        "name": "target.scatci.singlet.A1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 17.402419090270996
+      },
+      {
+        "name": "target.scatci.triplet.A1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 34.80528116226196
+      },
+      {
+        "name": "target.scatci.singlet.B1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 22.558140993118286
+      },
+      {
+        "name": "target.scatci.triplet.B1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 41.209619760513306
+      },
+      {
+        "name": "target.scatci.singlet.B2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 21.5573091506958
+      },
+      {
+        "name": "target.scatci.triplet.B2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 44.21742796897888
+      },
+      {
+        "name": "target.scatci.singlet.A2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 25.01651167869568
+      },
+      {
+        "name": "target.scatci.triplet.A2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 50.68251967430115
+      },
+      {
+        "name": "target.denprop",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 2843.397655248642
+      }
+    ],
+    "target_sectors": {
+      "singlet.A1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15548,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 19,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 241740304,
+        "nz_allocated": 241740304,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -132.08031424495067,
+            "imaginary": 0,
+            "absolute_residual": 6.420515721154814e-12
+          },
+          {
+            "value": -131.8186014622371,
+            "imaginary": 0,
+            "absolute_residual": 6.985351787648198e-11
+          },
+          {
+            "value": -131.65939197281847,
+            "imaginary": 0,
+            "absolute_residual": 9.169516864321672e-11
+          },
+          {
+            "value": -131.56582276560758,
+            "imaginary": 0,
+            "absolute_residual": 3.750258409797468e-11
+          },
+          {
+            "value": -131.53637110554158,
+            "imaginary": 0,
+            "absolute_residual": 8.140728414574837e-11
+          }
+        ]
+      },
+      "triplet.A1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24366,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 7,
+        "iterations": 19,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 593701956,
+        "nz_allocated": 593701956,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.87341766340052,
+            "imaginary": 0,
+            "absolute_residual": 3.986980244556025e-12
+          },
+          {
+            "value": -131.8426934698509,
+            "imaginary": 0,
+            "absolute_residual": 2.1337557687039265e-11
+          },
+          {
+            "value": -131.51077881095537,
+            "imaginary": 0,
+            "absolute_residual": 6.633630625245501e-12
+          },
+          {
+            "value": -131.49580359029696,
+            "imaginary": 0,
+            "absolute_residual": 3.57289131256265e-11
+          },
+          {
+            "value": -131.45536769002393,
+            "imaginary": 0,
+            "absolute_residual": 4.261104678722488e-12
+          },
+          {
+            "value": -131.4451728818289,
+            "imaginary": 0,
+            "absolute_residual": 1.1036276013139134e-10
+          },
+          {
+            "value": -131.43196327615604,
+            "imaginary": 0,
+            "absolute_residual": 1.9187452904002207e-11
+          }
+        ]
+      },
+      "singlet.B1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.81128726512182,
+            "imaginary": 0,
+            "absolute_residual": 5.082563512512365e-12
+          },
+          {
+            "value": -131.6517479010909,
+            "imaginary": 0,
+            "absolute_residual": 5.632984340048252e-11
+          },
+          {
+            "value": -131.59311393960493,
+            "imaginary": 0,
+            "absolute_residual": 2.8185618819793213e-11
+          },
+          {
+            "value": -131.55575519845368,
+            "imaginary": 0,
+            "absolute_residual": 8.472536058438935e-12
+          },
+          {
+            "value": -131.54061653330427,
+            "imaginary": 0,
+            "absolute_residual": 3.2907006401376936e-11
+          }
+        ]
+      },
+      "triplet.B1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 17,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.89563668022734,
+            "imaginary": 0,
+            "absolute_residual": 2.101833943927109e-11
+          },
+          {
+            "value": -131.71331093623942,
+            "imaginary": 0,
+            "absolute_residual": 6.460186045691655e-12
+          },
+          {
+            "value": -131.65769694181216,
+            "imaginary": 0,
+            "absolute_residual": 9.383145753363234e-11
+          },
+          {
+            "value": -131.6145394077606,
+            "imaginary": 0,
+            "absolute_residual": 6.216811321875328e-11
+          },
+          {
+            "value": -131.5753192341851,
+            "imaginary": 0,
+            "absolute_residual": 1.2579970352985466e-10
+          },
+          {
+            "value": -131.57130021505662,
+            "imaginary": 0,
+            "absolute_residual": 7.431779117968407e-11
+          }
+        ]
+      },
+      "singlet.B2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.81128726512165,
+            "imaginary": 0,
+            "absolute_residual": 3.309342343435661e-11
+          },
+          {
+            "value": -131.65174790109103,
+            "imaginary": 0,
+            "absolute_residual": 1.0776142965337997e-11
+          },
+          {
+            "value": -131.59311393960482,
+            "imaginary": 0,
+            "absolute_residual": 1.698805418602452e-11
+          },
+          {
+            "value": -131.55575519845368,
+            "imaginary": 0,
+            "absolute_residual": 1.1448819938159445e-10
+          },
+          {
+            "value": -131.54061653330407,
+            "imaginary": 0,
+            "absolute_residual": 2.04882375435912e-11
+          }
+        ]
+      },
+      "triplet.B2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 18,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.895636680227,
+            "imaginary": 0,
+            "absolute_residual": 1.2535224110988994e-10
+          },
+          {
+            "value": -131.71331093623925,
+            "imaginary": 0,
+            "absolute_residual": 2.672081651099356e-11
+          },
+          {
+            "value": -131.657696941812,
+            "imaginary": 0,
+            "absolute_residual": 6.193890492994517e-11
+          },
+          {
+            "value": -131.61453940776022,
+            "imaginary": 0,
+            "absolute_residual": 5.128734519422802e-11
+          },
+          {
+            "value": -131.57531923418512,
+            "imaginary": 0,
+            "absolute_residual": 9.382041709976148e-11
+          },
+          {
+            "value": -131.5713002150567,
+            "imaginary": 0,
+            "absolute_residual": 9.265491452752017e-11
+          }
+        ]
+      },
+      "singlet.A2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15044,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 10,
+        "iterations": 17,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 226321936,
+        "nz_allocated": 226321936,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.82019948656864,
+            "imaginary": 0,
+            "absolute_residual": 3.488196309778653e-11
+          },
+          {
+            "value": -131.8186014622372,
+            "imaginary": 0,
+            "absolute_residual": 1.996421356256786e-11
+          },
+          {
+            "value": -131.5658227656076,
+            "imaginary": 0,
+            "absolute_residual": 7.426255950027565e-11
+          },
+          {
+            "value": -131.42646708551834,
+            "imaginary": 0,
+            "absolute_residual": 5.109201506302123e-11
+          },
+          {
+            "value": -131.4025374642731,
+            "imaginary": 0,
+            "absolute_residual": 2.1074427036421584e-11
+          },
+          {
+            "value": -131.3974691708163,
+            "imaginary": 0,
+            "absolute_residual": 3.138353978054907e-11
+          },
+          {
+            "value": -131.378632234082,
+            "imaginary": 0,
+            "absolute_residual": 2.0344736751726775e-11
+          },
+          {
+            "value": -131.37204893601645,
+            "imaginary": 0,
+            "absolute_residual": 5.255520324175118e-11
+          },
+          {
+            "value": -131.33202202254532,
+            "imaginary": 0,
+            "absolute_residual": 2.3225019488607446e-11
+          },
+          {
+            "value": -131.2689109246163,
+            "imaginary": 0,
+            "absolute_residual": 6.510629436592466e-11
+          }
+        ]
+      },
+      "triplet.A2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24564,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 9,
+        "iterations": 17,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 603390096,
+        "nz_allocated": 603390096,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -131.8426934698506,
+            "imaginary": 0,
+            "absolute_residual": 3.550487403185632e-11
+          },
+          {
+            "value": -131.8309073664573,
+            "imaginary": 0,
+            "absolute_residual": 5.74922017997405e-12
+          },
+          {
+            "value": -131.63411338302026,
+            "imaginary": 0,
+            "absolute_residual": 1.904813758577807e-11
+          },
+          {
+            "value": -131.51077881095574,
+            "imaginary": 0,
+            "absolute_residual": 1.2002779369196647e-10
+          },
+          {
+            "value": -131.48593823210172,
+            "imaginary": 0,
+            "absolute_residual": 8.815434772058507e-12
+          },
+          {
+            "value": -131.4553676900236,
+            "imaginary": 0,
+            "absolute_residual": 1.1356586634960009e-10
+          },
+          {
+            "value": -131.4451728818291,
+            "imaginary": 0,
+            "absolute_residual": 1.0431502734446104e-10
+          },
+          {
+            "value": -131.42318255896822,
+            "imaginary": 0,
+            "absolute_residual": 2.1884263782046386e-11
+          },
+          {
+            "value": -131.38967312595707,
+            "imaginary": 0,
+            "absolute_residual": 1.2921533962689713e-10
+          }
+        ]
+      }
+    },
+    "channel_import_verdict": true,
+    "scattering_channel_verdict": null,
+    "scattering_roots": null,
+    "reused_input_sha256": {
+      "fort.16": "cc738bad04c91bde3be1d7866245bdcd515b87b03fc7df73c724db4697e400cb",
+      "co.molden": "912ee43fe655cfc419f8ed4bd108f60a3e99bb0b1ed4aef364b03afb6ad61f53",
+      "co.casscf.chk": "6a2b83b1b0246b1b18fd5ea7da641d223f888e91cc20ca486b904ea7ca87715f",
+      "fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+      "fort.730": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+      "fort.711": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+      "fort.731": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+      "fort.712": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+      "fort.732": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+      "fort.713": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+      "fort.733": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f"
+    },
+    "property_inventory": {
+      "target_map": [
+        1,
+        10,
+        15,
+        28,
+        33,
+        4,
+        5,
+        35,
+        36,
+        38,
+        11,
+        19,
+        23,
+        29,
+        31,
+        2,
+        13,
+        16,
+        21,
+        26,
+        12,
+        18,
+        24,
+        30,
+        32,
+        3,
+        14,
+        17,
+        22,
+        25,
+        8,
+        9,
+        27,
+        41,
+        43,
+        44,
+        46,
+        47,
+        48,
+        6,
+        7,
+        20,
+        34,
+        37,
+        39,
+        40,
+        42,
+        45
+      ],
+      "state_labels_by_id": {
+        "1": "singlet.A1.1",
+        "10": "singlet.A1.2",
+        "15": "singlet.A1.3",
+        "28": "singlet.A1.4",
+        "33": "singlet.A1.5",
+        "4": "triplet.A1.1",
+        "5": "triplet.A1.2",
+        "35": "triplet.A1.3",
+        "36": "triplet.A1.4",
+        "38": "triplet.A1.5",
+        "11": "singlet.B1.1",
+        "19": "singlet.B1.2",
+        "23": "singlet.B1.3",
+        "29": "singlet.B1.4",
+        "31": "singlet.B1.5",
+        "2": "triplet.B1.1",
+        "13": "triplet.B1.2",
+        "16": "triplet.B1.3",
+        "21": "triplet.B1.4",
+        "26": "triplet.B1.5",
+        "12": "singlet.B2.1",
+        "18": "singlet.B2.2",
+        "24": "singlet.B2.3",
+        "30": "singlet.B2.4",
+        "32": "singlet.B2.5",
+        "3": "triplet.B2.1",
+        "14": "triplet.B2.2",
+        "17": "triplet.B2.3",
+        "22": "triplet.B2.4",
+        "25": "triplet.B2.5",
+        "8": "singlet.A2.1",
+        "9": "singlet.A2.2",
+        "27": "singlet.A2.3",
+        "41": "singlet.A2.4",
+        "43": "singlet.A2.5",
+        "44": "singlet.A2.6",
+        "46": "singlet.A2.7",
+        "47": "singlet.A2.8",
+        "48": "singlet.A2.9",
+        "6": "triplet.A2.1",
+        "7": "triplet.A2.2",
+        "20": "triplet.A2.3",
+        "34": "triplet.A2.4",
+        "37": "triplet.A2.5",
+        "39": "triplet.A2.6",
+        "40": "triplet.A2.7",
+        "42": "triplet.A2.8",
+        "45": "triplet.A2.9"
+      },
+      "target_count": 48,
+      "maximum_energy_error_hartree": 4.816769205717719e-10,
+      "multipole_record_count": 921,
+      "ground_dipole_z_au": -0.192119174541
+    },
+    "ground_dipole_difference_au": 1.8829243719764577e-11,
+    "unchanged_orbital_hashes_passed": true
+  },
+  "remote_sha256": {
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/config.json": "5b6e8610240a0f57f7c13d7d6b01655d122019988f051817f95b306d80b44333",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/target.json": "94ca67dad756a9fdd94fc6dd76007ab3fbb6fc94008455c3fc85a52e336d5535",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/resources.json": "9d75005f87fe11d958e20635b0130cacf43d8898659d16fbf71f6f053189650a",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/stages.tsv": "e41590d931043a4d5986f9730fbc053cbe3e9ac6879acecc6a6e289e9ba73d97",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/co.casscf.chk": "6a2b83b1b0246b1b18fd5ea7da641d223f888e91cc20ca486b904ea7ca87715f",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/co.molden": "912ee43fe655cfc419f8ed4bd108f60a3e99bb0b1ed4aef364b03afb6ad61f53",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.16": "cc738bad04c91bde3be1d7866245bdcd515b87b03fc7df73c724db4697e400cb",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.24": "50f1bf1225101531dad8508f5b15105a427a2a3b9becff1a2a7b27b1effd3857",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.26": "677ef73252b86ee7a86842bb800ccb5ea29899a93af1d927eec4bbda7e72fe18",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.730": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.711": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.731": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.712": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.732": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.713": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.733": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.B2.inp": "ff4e61c97216941a1aad8ae6e9fc9739f4ff6b8fb680d6079bac16fe84b1aa46",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.A2.inp": "bec6517b256fbdaf414092a3b2dc4c9ab6bcf1d5bf17d3f1bfb203d01898772e",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.A1.inp": "b157f907ad05008602c1c930c824a8348dcfda433bc109199403468cffb9e728",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.B2.inp": "5901045e5ec2034606d7aca6d006b45346e96cae76b2c76694960c05d681b046",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.B1.inp": "a20e9c11226cefa8bb760fef35560ebc307bee45245a290fd944abe51eac2502",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.A1.inp": "87fcf6d09334b66b877025556fc5f9db5bdddb3ce8143855c23670a41cd89c14",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.B1.inp": "f40abc1b2d802a8b37fadb5d1e872a5fcec482bd43bcfa2cabc931b14e6f7826",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.A2.inp": "163a58834389861281475871a218007dc031f351c41ef16ca9e3b4b4e270102e",
+    "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.denprop.inp": "3324176625887deadd52b472fa5cdd10db26cdac36eee1da8e37455186ceb4a2",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A2.json": "03adb0bd4aee202f20ba97d377fef1ac72f9955651655bf98894a19d858e7b33",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A1.json": "1aa5951582610eb4ba14107171da1cae1324b46b0cf66c4163bcb9ea2787655c",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A2.json": "95e92889c2e1e671f5430d04b2b1b5f7d05848b7b0b778e955b630da5a221214",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B2.json": "0b73a1ae8fef8a50238d085541061096c654e454fc51c236a7aaf0aebce1ae54",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A1.json": "641592683dd406fec01c4925b5158e42781545ff956075d7e609557d9e6d5658",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B1.json": "d31b3a29a9d60475572494c87f6ad884ebc57acded2ba16311b16ebab0a1859b",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B2.json": "c6b64c88699ce51e27ad387388d8c44be26a410307c0633382dfbad390aa164d",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B1.json": "cf6691cb8f4336e8286b1a94e3879375abef5e966ae6e7e649bf36b5b27e1e45",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A1.ci.npy": "d3aa2c89b6242da45e1059a616692fb7c7ebbf3770b333d752476deb92eb59dc",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B2.ci.npy": "59a57db6558e091d22b5267b532039e63c9ffae1936321cf680178980780a431",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A2.ci.npy": "986cd00bcec64b0d11d09791beaacac20758afaa86c65fcb399523bc91116d8f",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A2.ci.npy": "0c331afaa9131db0f6aa3deb0a177872f3abc06f80486fe155abc9d98795e865",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B1.ci.npy": "feb35742996a3f428f69207ea83a888c9b5353dfae51cd267a496cfc72d39c60",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B1.ci.npy": "2a3c78ddba90b61af31a3b7d1a933898c1eea2a07c4012c4fd11e720afdea069",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B2.ci.npy": "48fabc9ef31cad006030b109fd3cfce27b9280c973b4e97cd8ad556c8fd73365",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A1.ci.npy": "cffd5225cb0078230f3ea66ad05dc6c90cfb880846055293f625d4199940a939",
+    "prepared/cas12-pointer-address-source-20261012/execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "prepared/cas12-pointer-address-source-20261012/frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "prepared/cas12-pointer-address-source-20261012/source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "prepared/cas12-pointer-address-source-20261012/build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "prepared/cas12-pointer-address-source-20261012/build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "diagnostics/sparse-scattering-telemetry-v6-20261007/scattering_telemetry.so": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+    "prepared/cas12-audited-engine-baseline-source-20261012/execution.json": "599011b1046878f1a68f73cf13419ae2b0390774578bacc93b9959e38e821618",
+    "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012/independent-engine-baseline.json": "35072cf4e5614a8844b038678360abada62b34083f2ae067ac96e8e7d829c13f",
+    "prepared/a2-channel-target-preflight-source-20261014/contract.json": "52bf8a1cd0e4ff7a0749f6786169b3c2bbb10a47e0dada206c2b9087b1c0960b",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/A2_CHANNEL_TARGET_PREFLIGHT.md": "058e67dee0a0fb4b5348294f8f10ed8bcf20a69e82742e9a2952eb11d51c487e",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/ROOT_RESOLUTION_DECISION_20261014.md": "6e62589fe9cd6ca1a636adcec1d940e55823cef803720b3e8c3f5c9f47ee7743",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/a2-channel-target-preflight-contract.json": "8444d5942b7ab9e261329490bb871c995514ac1c5dad8db6545743ab4d445955",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/a2_channel_preflight.py": "cbd8d448eb61a9a22e7ad9edd8675ffccaa9aead0267d849918dbcd8d1f5e89d",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/a2_channel_preflight_owner.py": "d113c5e461408d8a8bc51ab309f886acbd00c9c4933f9de36a9961167c532a3a",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/analyze.py": "4aa00c6c6734854c6b097d1a0b95962bf1244b9b48d235332bbece5c6c8c6b11",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/archive.py": "ac79337385f604e8e0cf5873a1e1c6d0b44899bae9a60e03dc5f997437125bd2",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/batch.py": "b5ae0aed027ca33972aae129a1be1672bb69c308a1ec26a649bbbb4977241ad0",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/ci_overlap.py": "559227915a1cfb5633dc9c6e3ca61d200c3546cb581d235109f2ac1a25fde7aa",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/ci_probe.py": "3fc112ca6efec01d04fe18c5531fa9320ed7284164c71c47a4b2f92b78aeb1c3",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/collect.py": "96293df7ff33c4d16b00ae67a55986e283f56fb26529f4b2451d092f232aebe7",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/debug_engine_checks.py": "0b14839d8e49903193f233b966c1d223e88d70f9dbc16e55d3b48629e557b990",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/debug_scatci.py": "f9fdce2a1b16dd59b5617639fb698950319a65471a8591feb95cd71f33ac07cc",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/engine_baseline.py": "e35398e5b9d57de027edd4a0354723d0c1994c36116bacff28c10e05be5c455c",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/engine_baseline_owner.py": "4707ab60e0195c41d780185a5a204aacf92739f553bf21b1cc6900bcd8148a3b",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/native_debug_owner.py": "a1a2eb3e00b465ec26887130e746a22140c61c2555ac68f9e63fd938805ecc4f",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/native_debug_patch.py": "9ae222d930660fcd292dfd9e831604315b251818a752383536771bd6ab4b4016",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/native_pointer_owner.py": "9eef0e65ed8ed655f85bdde971777fc130e3b24d5b3e40867bbca3c4253b3168",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/native_pointer_patch.py": "87e5c82a70fb7d0ada3524e79bb77c9115e539d92c684ec5d90672d6e3f0a76b",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/neutral.py": "bf83b72686f4afe7e794355d9f235f4d8c0d21fd51a53997bb3408b9559c0a37",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/phase_diagnostics.py": "b10e1f4c2a42dcebd5541150bcca4e1c754e6a15937bfd7c1c7e289c8655c4b0",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/phase_fit.py": "4d545f179dee137e04397956c75d525ae24b1cf6f1286171d3be083b1a4dc112",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/progress_figure.py": "7e4e65a22dbd238c98c58eb4aae1d63a5265b0bda463cc76896a810081676fb4",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/rank_debugger.py": "7c1dfeeeb977a283449c2bb0ae033b5717f8e67947e1e4f76b5e67f4bd4941d2",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/rank_gdb.py": "3c3a1b56252e2b6b341740e8cecae91da153edd55f287762238e21b6435ae66f",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/refit.py": "88b63f55328192ce8c7085ae6a3db0b03ebfde90dcbac7d08190153f48427b6f",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/sparse_comparison.py": "598b534b8c54e50bad2ffdcde84c41b394972000e014ec308caf36dadac07f68",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/sparse_comparison_owner.py": "a8730d04c122de0447e041e134872044e8abc837a72288bad7812b59bafc9a04",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/sparse_observer.py": "5c028a839f58cd760cad4fd098c2545f28547a96a11d58d4d50fb042a4e218e4",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/sparse_pilot.py": "7ff291fd33ef9c72b34d3e3b43bbeb81c69d85b14038e6522ad105b5e4de308a",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/sparse_scattering.py": "7f634f9d203fb5e8e000bd8d3d77d1c33152fa2470a9a9342bfa9c93638d8aa1",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/target.py": "cc81b9f33640bc1badcb2900fd7307dc28253f555ff0bc949ee50263b321f96d",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/target_seed_drift.py": "723633b424c67971ef59bcbc3db4e1ee7014a5d754cd11b5c65cf4d2b38e2bc6",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_a2_channel_preflight.py": "8b8938dbca3978e3dad6fc9f08144e7214c10c969f9c55fa089f137dc0f02447",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_analyze.py": "357baac6f9eeac66d13220d24f2aa38ba1864a969866edeb44720fb079a004a0",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_checkpoint_projection.py": "4943037bb41a9e6d78cf700d00ced0f1c6b6f2a4a418929e2d356979bb8b392a",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_ci_overlap.py": "76f17af8357e40a6f6b1971f759df812bcaf02e53211f856db015e12d75dc204",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_ci_trial_space.py": "2c560690342e8981c847d374591b464f1059348145e1d18fe8024e85a4496419",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_collect.py": "c0f22ddc89ae3e5593723147809c58fff861786807ff5bcd6edbdc5c62e43864",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_engine_baseline.py": "19097b3be8e876c9cb209af87daa4adeddb1413d974401bfd7365c4da05ea178",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_neutral.py": "bb2b9392756a1871b567ac42939419e3516cc88a781cc29af821f76f4151386f",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_phase_fit.py": "4bff1f6f78ae5599569acb11c87b9c96b1f46522a1da1486f8a536a8747b7b29",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_profile.py": "fdb27f1fb5916c996d86eec66c37dd88847e9001749e80a0b8c3e586977afb9d",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_singlet_ci_driver.py": "489e2b9ed92e9ab175112553017077f231dd3df181b4930cd31a55c03055997b",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_sparse_comparison.py": "758ee7e2a86058c2cfbe7da04e0555772e14089c88e7c008aba02bfd242df470",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_sparse_pilot.py": "03868c7be58dda31ae2b633a849c5a00c988b997d92fa20ec17c43420ac8991d",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_sparse_scattering.py": "c9f67dd796b8dbeb5420ecfc54be8bdeff1c443de4c3ae3807378576ac31b338",
+    "prepared/a2-channel-target-preflight-source-20261014/projects/ukrmol_co/test_target_diagonalizer.py": "707da3409eefb1d7f85222ee1a2987323af07751588fb4c5d7fef0ae99176cca",
+    "prepared/a2-channel-target-preflight-source-20261014/source-provenance.json": "351de2427c585516d83f747099b74df1595c325cb49e801de6289b6a9aaab6cd",
+    "prepared/a2-channel-target-preflight-source-20261014/frozen-inputs.json": "b6579d1044ad4f45f8e1c1297ce91651c4d392678118c86cd726ab199c276dde",
+    "prepared/a2-channel-target-preflight-source-20261014/owner-launch.json": "50935e03922fc488c633bf2b3380d7f25c967e01910c79f5c8d7216880ffd49b",
+    "prepared/a2-channel-target-preflight-source-20261014/observer-launch.json": "fa17a7608c6bfe8e0ac98eda9e48f17394cd91f9970f8557048e637b531da684",
+    "prepared/a2-channel-target-preflight-source-20261014/prerequisite-validation.json": "96ebff334ffae909b73001e10cf2a6bdac1ca8bea6e0f1643f35eb77a2c12d16",
+    "prepared/a2-channel-target-preflight-source-20261014/prerequisite-validation.launch.json": "54601e12232a7177e05252f77e91ef0ff816f1e9a5efcb981bb3650f717d2029",
+    "prepared/a2-channel-target-preflight-source-20261014/runtime-gate.launch.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/a2-channel-target-preflight-source-20261014/native/runtime-gate.json": "791f8590691aaee642c9d69ca79807e01a0db476a75cbfb7734d2c790b00da0a",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.B2.telemetry.jsonl": "611100ad8c2622ff7680f5001bca6e56d55de73cefe0c2ac0acaa9583076a086",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.B2.out": "2e7cc602442b9b90a0c7c9b88c38c7a53554c42d3cba526a436523ba519608e2",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.A2.out": "23dd4e8c2af29e73c3f7392d14fac52f0719d71ec0a1b236c89037ee2e728762",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.A1.out": "2bcdc03a6034cd5d2b835029b025a50b25ba3cdf70957fd1927e9be1793aba0e",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.B2.telemetry.jsonl": "fb6ee4f41da31ab5c634c2a39ea06b5906b6110265adffc492f86bcf7d68ba89",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/fort.24": "d896ca85a4ae651c05f0adae2f24014e4bdb189a7b4ad228ff8046c760cb97e1",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.A2.telemetry.jsonl": "10d6362745e08021ba2615a95254866f0fcb30aa114233c1b84c94744596268c",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.A1.out": "4a5894783f86fa6f527d2efe22752bf34551be162a2e89164527d9a510921583",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.A2.out": "ea1071dd8b76f9fa5873cc69e6a0e89c1bed42f459f1cd72055e2d3028762563",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/resources.json": "c3fe19d90c201fa014d204f963444881f5214ab565751e8b0475ae96f1775fc0",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/observer-execution.json": "5bec5a046962d561853a151c9f72c078af0127a982714e85262fec6b9c26af58",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.B1.telemetry.jsonl": "8772b7d53c0dd581ed8dd920e3d7ac265705e347ae6674d1e93ac294083beb38",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.denprop.inp": "a9c742ca23781a66ad4a188eaa9685b5a2efbc18bcbe0eac305b266ae5bfd916",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.B1.out": "1fbcd7a9bfc72b1e177e7f3376057242a7b121deae30e4c94a0ad129f85d861e",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.denprop.out": "2f8009400000e981bc96d289f12aabcd352d30e835fe6eb09f78575634efc638",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.B2.out": "5983a476eadb1d525a0c830707307fbc6fc9ecbd015da72f0927bd54ca1febd8",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.B1.telemetry.jsonl": "4e8af34532ecbcdd4be69b130def5a669bbed2d9a0467b2c7c8bcb04000a2f7f",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.A2.telemetry.jsonl": "6b7134237af9c9986d15d680b2af1c8bc701e4264ba25c67faf6e4bb7e1d4605",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.A1.telemetry.jsonl": "3001665fa71dc5792991d6422416515f803b43f825dbb59a42513e7dc8f42ea9",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/owner-execution.json": "28c7e219b951824d9e8efc6e5db5caa83d375d904829cac661403f68e1b90d6b",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.singlet.A1.telemetry.jsonl": "134afa534b2bd1732fa3fb3a5ea22387b0ac2802b6462e694fbbd6e3fe449f1d",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/target.scatci.triplet.B1.out": "5061d256d18bdc180c3d77e22c70b5350451d73d237c29e583e355842ebda89d",
+    "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/pilot.json": "f2ef71af2497c7378b213c33f9ecd9de985cf920faca6e201dfc0aee02ce3fc2",
+    "prepared/a2-channel-target-preflight-source-20261014/observer/20261014T111217.json": "597f32b82cfff3c089ba04f371b9b0ee58ffdcc541b8609e1f79cacb79cb6fec",
+    "prepared/a2-channel-target-preflight-source-20261014/observer/20261014T114219.json": "de7a37b7856af82d060128cb8a15d9d570d61e5f3daa398b18e8e030f5342edc",
+    "prepared/a2-channel-target-preflight-source-20261014/observer/20261014T121222.json": "0fdbee9723a6f88781443be0e274ef45fdf46108aac4cdc12911f75ca8f183ea"
+  },
+  "channel_import_verdict": true,
+  "scattering_channel_verdict": null,
+  "root_resolution_sufficient_for_next_controls": true,
+  "electronic_model_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "interpretation": "Separately declared fixed-orbital stretchedCAS11A2native target/property preflight uses48components with5/5/5/9roots per spin on unchanged40-component averaged orbitals. Existing same-frame twelve-root references and original40-state native map pass;fresh pinned runtime gate passes. Target/DENPROP stages retain original exits and telemetry. This is channel-input qualification;no scattering or root ladder is scheduled by completion.",
+  "immutable_remote_capture": "prepared/a2-channel-target-preflight-source-20261014/capture-20261014T131924/observation.json",
+  "immutable_remote_capture_sha256": "50e8585d6579183f81919be615d2f4e66946eb13c0f8461af4447f6a20a1b1fe",
+  "independent_completion_reading": {
+    "verification_record": "verification-a2-target-preflight-20261014.json",
+    "verified_file_count": 24,
+    "remote_sha256": {
+      "prepared/a2-channel-target-preflight-source-20261014/verify-a2-completion.py": "667d292e4f06a94ac3d2c848cfca4c25e2a5cd81a81961eb0e7e19c1cf172c6d",
+      "prepared/a2-channel-target-preflight-source-20261014/verify-a2-completion-first-reader.py": "ed172980bfd533ad27ecf06aa54096dcb06cb2d8f43aace5d519ce97008c7c9b",
+      "prepared/a2-channel-target-preflight-source-20261014/verification-a2-target-preflight-20261014.json": "66ce447fdff54dc213cb6a20a585f2aad4511b0f8841a5c37c43c34af536272c",
+      "prepared/a2-channel-target-preflight-source-20261014/contract.json": "52bf8a1cd0e4ff7a0749f6786169b3c2bbb10a47e0dada206c2b9087b1c0960b",
+      "prepared/a2-channel-target-preflight-source-20261014/execution.json": "28c7e219b951824d9e8efc6e5db5caa83d375d904829cac661403f68e1b90d6b",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/pilot.json": "f2ef71af2497c7378b213c33f9ecd9de985cf920faca6e201dfc0aee02ce3fc2",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/resources.json": "c3fe19d90c201fa014d204f963444881f5214ab565751e8b0475ae96f1775fc0",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/fort.24": "d896ca85a4ae651c05f0adae2f24014e4bdb189a7b4ad228ff8046c760cb97e1",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/fort.26": "175897c88d3f709ea2004ef40e028887e5b5ef34f1712cb4605673d832472a34",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.denprop.out": "2f8009400000e981bc96d289f12aabcd352d30e835fe6eb09f78575634efc638",
+      "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/target.json": "94ca67dad756a9fdd94fc6dd76007ab3fbb6fc94008455c3fc85a52e336d5535",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.B2.telemetry.jsonl": "611100ad8c2622ff7680f5001bca6e56d55de73cefe0c2ac0acaa9583076a086",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.B2.telemetry.jsonl": "fb6ee4f41da31ab5c634c2a39ea06b5906b6110265adffc492f86bcf7d68ba89",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.A2.telemetry.jsonl": "10d6362745e08021ba2615a95254866f0fcb30aa114233c1b84c94744596268c",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.B1.telemetry.jsonl": "8772b7d53c0dd581ed8dd920e3d7ac265705e347ae6674d1e93ac294083beb38",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.B1.telemetry.jsonl": "4e8af34532ecbcdd4be69b130def5a669bbed2d9a0467b2c7c8bcb04000a2f7f",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.A2.telemetry.jsonl": "6b7134237af9c9986d15d680b2af1c8bc701e4264ba25c67faf6e4bb7e1d4605",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.A1.telemetry.jsonl": "3001665fa71dc5792991d6422416515f803b43f825dbb59a42513e7dc8f42ea9",
+      "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.A1.telemetry.jsonl": "134afa534b2bd1732fa3fb3a5ea22387b0ac2802b6462e694fbbd6e3fe449f1d",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A2.json": "03adb0bd4aee202f20ba97d377fef1ac72f9955651655bf98894a19d858e7b33",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A1.json": "1aa5951582610eb4ba14107171da1cae1324b46b0cf66c4163bcb9ea2787655c",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A2.json": "95e92889c2e1e671f5430d04b2b1b5f7d05848b7b0b778e955b630da5a221214",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B2.json": "0b73a1ae8fef8a50238d085541061096c654e454fc51c236a7aaf0aebce1ae54",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A1.json": "641592683dd406fec01c4925b5158e42781545ff956075d7e609557d9e6d5658",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B1.json": "d31b3a29a9d60475572494c87f6ad884ebc57acded2ba16311b16ebab0a1859b",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B2.json": "c6b64c88699ce51e27ad387388d8c44be26a410307c0633382dfbad390aa164d",
+      "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B1.json": "cf6691cb8f4336e8286b1a94e3879375abef5e966ae6e7e649bf36b5b27e1e45"
+    },
+    "channel_import_verdict": true
+  }
+}

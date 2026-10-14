@@ -1,0 +1,98 @@
+{
+  "base_snapshot": "progress-snapshot-20261014T1034.json",
+  "base_snapshot_sha256": "f6f0674b212ed62f102ca7f6e12aea527bf605cb17f7b1b0d7bda4a7caff1293",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-a2-target-preflight-20261014T1319.json": "fb28b3c9cf4418193aab80d9da012217435a2e0979515cf26bd02aba27bf0c6e",
+    "projects/ukrmol_co/verification-a2-target-preflight-20261014.json": "66ce447fdff54dc213cb6a20a585f2aad4511b0f8841a5c37c43c34af536272c",
+    "projects/ukrmol_co/a2-channel-target-preflight-contract.json": "8444d5942b7ab9e261329490bb871c995514ac1c5dad8db6545743ab4d445955",
+    "projects/ukrmol_co/a2_channel_preflight.py": "cbd8d448eb61a9a22e7ad9edd8675ffccaa9aead0267d849918dbcd8d1f5e89d",
+    "projects/ukrmol_co/a2_channel_preflight_owner.py": "d113c5e461408d8a8bc51ab309f886acbd00c9c4933f9de36a9961167c532a3a",
+    "projects/ukrmol_co/test_a2_channel_preflight.py": "8b8938dbca3978e3dad6fc9f08144e7214c10c969f9c55fa089f137dc0f02447",
+    "projects/ukrmol_co/A2_CHANNEL_TARGET_PREFLIGHT.md": "adb97f7f5c8398bbf3190599e2447e7a6d39992734fad0b2e0b4dbf8a6b82862"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-14T13:19:24.428385+00:00",
+    "changes": [
+      "StretchedCAS11A2target/property preflight finishes12:03:51UTC with all native/owner exits0;services inactive. Unchanged40-component orbital average;48explicit retained target components5/5/5/9per spin.",
+      "Measured native cost51.686minutes/5.466GiB:all eight target sectors4.291minutes,DENPROP48takes47.390minutes. No scattering Hamiltonian built.",
+      "Independent24-file raw reconstruction verifies all48native vectors,eight exact sets,Pi degeneracy,reference energies,residuals and own-model48-state map/921finite unique multipole records. A2root9native IDs48/45;lowest40retention would omit both.",
+      "Maximum native residual1.29215e-10Hartree,binary/reference energy difference5.25802e-13Hartree,property/binary rounding4.81663e-10Hartree,Pi3.69482e-13Hartree,ground dipole difference1.88292e-11a.u. Original numerical budgets pass.",
+      "Supplementary first reader rejects its incorrect all-zero multipole-irrep assumption;original exit/source preserved. Resolved reader validates C2v codes0-3against actual state labels. No native retry or scientific-budget change.",
+      "Target/property input qualification passes. Next decision is matched fixed-orbital five-versus-nineA2scattering,with explicit retained counts and own-model interfaces. Channel/model/global continuity/transition-moment/pole claims remain distinct;CAS12root sufficiency and8192cancellation retained."
+    ],
+    "live_status": {
+      "scientific_containers_running": 0,
+      "cas12_audited_8192_owner": 1279015,
+      "cas12_audited_8192_finished": true,
+      "cas12_audited_8192_administratively_cancelled": true,
+      "cas12_audited_8192_native_exit": 137,
+      "cas12_audited_8192_controller_exit": 1,
+      "cas12_audited_8192_native_partial_wall_hours": 2.5001555620299447,
+      "cas12_audited_8192_exports_present": false,
+      "cas12_audited_8192_reader_launched": false,
+      "observer_owner": 1279364,
+      "observer_service_active": false,
+      "observer_original_execution_preserved": true,
+      "observer_captures": 3,
+      "matched_engine_baseline_verdict": true,
+      "cas12_audited_4096_pair_stability_verdict": true,
+      "root_resolution_sufficient_for_next_controls": true,
+      "working_matched_root_count": 2048,
+      "root_sequence_stability_verdict": null,
+      "spectral_truncation_verdict": null,
+      "electronic_model_verdict": null,
+      "full_sweep_released": false,
+      "a2_target_preflight_owner": 1282177,
+      "a2_target_preflight_finished": true,
+      "a2_target_preflight_controller_exit": 0,
+      "a2_target_preflight_native_exit": 0,
+      "a2_target_preflight_native_wall_minutes": 51.68637259103513,
+      "a2_target_preflight_kernel_peak_gib": 5.466213226318359,
+      "a2_target_component_count": 48,
+      "a2_property_record_count": 921,
+      "a2_channel_import_verdict": true,
+      "a2_channel_scattering_verdict": null,
+      "a2_observer_service_active": false,
+      "a2_observer_captures": 3,
+      "global_continuity_verdict": null
+    },
+    "figure_subtitle": "Stretched CAS11 A2 target / property input gate passes; next: matched channel scattering on unchanged orbitals",
+    "channel_coverage_note": "Known omitted weight: root7 = 0.194, root9 = 0.122.\nNative A2 roots 1\u20139 / 48-state properties now pass.\nNext: matched channel scattering; continuity remains open.",
+    "memory_note": "CAS12 2K / 4K: 11.57 / 14.92 h; resolution sufficient.\nA2 input preflight: 0.861 h / 5.47 GiB, distinct scope.\n8K cancelled; no solve result or automatic root ladder.",
+    "roadmap_title": "A2 inputs checked; test channel effects",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "INPUT GATE PASSES",
+        "title": "Fixed-orbital CAS11 A2 roots 1\u20139 + properties",
+        "detail": "R = 2.5 bohr; 48 vectors / 921 moments; own channel map"
+      },
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "CAS11 2048 roots + neutral numerical inputs",
+        "detail": "CAS11 dense oracle; neutral 1.9\u20132.5 bohr checks"
+      },
+      {
+        "kind": "reuse",
+        "status": "SUFFICIENT FOR NOW",
+        "title": "CAS12 stable 2048 \u2192 4096; 8192 cancelled",
+        "detail": "Use 2048 for matched controls; no automatic root ladder"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT",
+        "title": "Matched five-versus-nine A2 channel scattering",
+        "detail": "Then model / continuity / extraction / neutral correlation"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED",
+        "title": "Freeze \u2192 restartable pilot \u2192 sweep \u2192 fit",
+        "detail": "Channel effects and global identity remain unqualified"
+      }
+    ],
+    "roadmap_note": "A2 input preflight: 51.69 min / 5.47 GiB; all stages exit 0.\nTarget / property coverage passes; no scattering result yet.\nChannel, model, identity, extraction and neutral gates remain.",
+    "verification_footer": "A2 raw vectors / properties independently read; channel scattering pending."
+  }
+}

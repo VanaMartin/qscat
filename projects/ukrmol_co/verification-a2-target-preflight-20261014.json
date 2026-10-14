@@ -1,0 +1,272 @@
+{
+  "verified_utc": "2026-10-14T13:23:18.214734+00:00",
+  "verification": "Checksum-verified local raw CIDATA/DENPROP/telemetry reconstruction; all eight complete native vector sets, reference energies, Pi degeneracy, vector Gram matrices, property IDs and nonuniform own-model map verified separately from pilot summary.",
+  "reader_script_sha256": "667d292e4f06a94ac3d2c848cfca4c25e2a5cd81a81961eb0e7e19c1cf172c6d",
+  "supplementary_first_reader_rejection": {
+    "original_exit": 1,
+    "assertion": "zero1 == zero2 == 0",
+    "cause": "Supplementary reader incorrectly assumed all multipole state irrep slots were A1/zero. Raw native state labels resolve them as C2v irrep codes0-3; corrected reader validates against each actual state irrep. No native execution or numerical budget changed.",
+    "first_reader_script_sha256": "ed172980bfd533ad27ecf06aa54096dcb06cb2d8f43aace5d519ce97008c7c9b"
+  },
+  "input_manifest": {
+    "contract.json": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/contract.json",
+      "sha256": "52bf8a1cd0e4ff7a0749f6786169b3c2bbb10a47e0dada206c2b9087b1c0960b",
+      "bytes": 7676
+    },
+    "execution.json": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/execution.json",
+      "sha256": "28c7e219b951824d9e8efc6e5db5caa83d375d904829cac661403f68e1b90d6b",
+      "bytes": 5544
+    },
+    "pilot.json": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/pilot.json",
+      "sha256": "f2ef71af2497c7378b213c33f9ecd9de985cf920faca6e201dfc0aee02ce3fc2",
+      "bytes": 15640
+    },
+    "resources.json": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/resources.json",
+      "sha256": "c3fe19d90c201fa014d204f963444881f5214ab565751e8b0475ae96f1775fc0",
+      "bytes": 480
+    },
+    "fort.24": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/fort.24",
+      "sha256": "d896ca85a4ae651c05f0adae2f24014e4bdb189a7b4ad228ff8046c760cb97e1",
+      "bytes": 43741
+    },
+    "fort.26": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/fort.26",
+      "sha256": "175897c88d3f709ea2004ef40e028887e5b5ef34f1712cb4605673d832472a34",
+      "bytes": 10175536
+    },
+    "target.denprop.out": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.denprop.out",
+      "sha256": "2f8009400000e981bc96d289f12aabcd352d30e835fe6eb09f78575634efc638",
+      "bytes": 148928
+    },
+    "target.json": {
+      "remote_path": "runs/co-r2500-ccdz-sa11-tight-cc40-anchor/target.json",
+      "sha256": "94ca67dad756a9fdd94fc6dd76007ab3fbb6fc94008455c3fc85a52e336d5535",
+      "bytes": 19449
+    },
+    "target.scatci.singlet.B2.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.B2.telemetry.jsonl",
+      "sha256": "611100ad8c2622ff7680f5001bca6e56d55de73cefe0c2ac0acaa9583076a086",
+      "bytes": 695
+    },
+    "target.scatci.triplet.B2.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.B2.telemetry.jsonl",
+      "sha256": "fb6ee4f41da31ab5c634c2a39ea06b5906b6110265adffc492f86bcf7d68ba89",
+      "bytes": 780
+    },
+    "target.scatci.triplet.A2.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.A2.telemetry.jsonl",
+      "sha256": "10d6362745e08021ba2615a95254866f0fcb30aa114233c1b84c94744596268c",
+      "bytes": 1041
+    },
+    "target.scatci.triplet.B1.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.B1.telemetry.jsonl",
+      "sha256": "8772b7d53c0dd581ed8dd920e3d7ac265705e347ae6674d1e93ac294083beb38",
+      "bytes": 782
+    },
+    "target.scatci.singlet.B1.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.B1.telemetry.jsonl",
+      "sha256": "4e8af34532ecbcdd4be69b130def5a669bbed2d9a0467b2c7c8bcb04000a2f7f",
+      "bytes": 695
+    },
+    "target.scatci.singlet.A2.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.A2.telemetry.jsonl",
+      "sha256": "6b7134237af9c9986d15d680b2af1c8bc701e4264ba25c67faf6e4bb7e1d4605",
+      "bytes": 1127
+    },
+    "target.scatci.triplet.A1.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.triplet.A1.telemetry.jsonl",
+      "sha256": "3001665fa71dc5792991d6422416515f803b43f825dbb59a42513e7dc8f42ea9",
+      "bytes": 866
+    },
+    "target.scatci.singlet.A1.telemetry.jsonl": {
+      "remote_path": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014/target.scatci.singlet.A1.telemetry.jsonl",
+      "sha256": "134afa534b2bd1732fa3fb3a5ea22387b0ac2802b6462e694fbbd6e3fe449f1d",
+      "bytes": 694
+    },
+    "independent/triplet.A2.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A2.json",
+      "sha256": "03adb0bd4aee202f20ba97d377fef1ac72f9955651655bf98894a19d858e7b33",
+      "bytes": 5533
+    },
+    "independent/singlet.A1.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A1.json",
+      "sha256": "1aa5951582610eb4ba14107171da1cae1324b46b0cf66c4163bcb9ea2787655c",
+      "bytes": 5539
+    },
+    "independent/singlet.A2.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.A2.json",
+      "sha256": "95e92889c2e1e671f5430d04b2b1b5f7d05848b7b0b778e955b630da5a221214",
+      "bytes": 5550
+    },
+    "independent/triplet.B2.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B2.json",
+      "sha256": "0b73a1ae8fef8a50238d085541061096c654e454fc51c236a7aaf0aebce1ae54",
+      "bytes": 5499
+    },
+    "independent/triplet.A1.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.A1.json",
+      "sha256": "641592683dd406fec01c4925b5158e42781545ff956075d7e609557d9e6d5658",
+      "bytes": 5538
+    },
+    "independent/triplet.B1.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/triplet.B1.json",
+      "sha256": "d31b3a29a9d60475572494c87f6ad884ebc57acded2ba16311b16ebab0a1859b",
+      "bytes": 5492
+    },
+    "independent/singlet.B2.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B2.json",
+      "sha256": "c6b64c88699ce51e27ad387388d8c44be26a410307c0633382dfbad390aa164d",
+      "bytes": 5525
+    },
+    "independent/singlet.B1.json": {
+      "remote_path": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor/singlet.B1.json",
+      "sha256": "cf6691cb8f4336e8286b1a94e3879375abef5e966ae6e7e649bf36b5b27e1e45",
+      "bytes": 5576
+    }
+  },
+  "verified_file_count": 24,
+  "binary_sectors": [
+    {
+      "sector": "singlet.A1",
+      "dimension": 15548,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 3.126388037344441e-13,
+      "vector_gram_maximum_error": 5.773159728050814e-15
+    },
+    {
+      "sector": "triplet.A1",
+      "dimension": 24366,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 5.258016244624741e-13,
+      "vector_gram_maximum_error": 6.217248937900877e-15
+    },
+    {
+      "sector": "singlet.B1",
+      "dimension": 15196,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 4.121147867408581e-13,
+      "vector_gram_maximum_error": 5.440092820663267e-15
+    },
+    {
+      "sector": "triplet.B1",
+      "dimension": 24540,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 1.8474111129762605e-13,
+      "vector_gram_maximum_error": 4.218847493575595e-15
+    },
+    {
+      "sector": "singlet.B2",
+      "dimension": 15196,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 4.263256414560601e-13,
+      "vector_gram_maximum_error": 5.875985504440987e-15
+    },
+    {
+      "sector": "triplet.B2",
+      "dimension": 24540,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 4.689582056016661e-13,
+      "vector_gram_maximum_error": 7.549516567451064e-15
+    },
+    {
+      "sector": "singlet.A2",
+      "dimension": 15044,
+      "exported_roots": 9,
+      "maximum_independent_energy_difference_hartree": 2.1316282072803006e-13,
+      "vector_gram_maximum_error": 6.439293542825908e-15
+    },
+    {
+      "sector": "triplet.A2",
+      "dimension": 24564,
+      "exported_roots": 9,
+      "maximum_independent_energy_difference_hartree": 3.836930773104541e-13,
+      "vector_gram_maximum_error": 7.105427357601002e-15
+    }
+  ],
+  "maximum_native_reference_energy_difference_hartree": 5.258016244624741e-13,
+  "maximum_denprop_binary_energy_difference_hartree": 4.816627097170567e-10,
+  "maximum_native_residual_hartree": 1.2921533962689713e-10,
+  "maximum_pi_energy_difference_hartree": 3.694822225952521e-13,
+  "maximum_vector_gram_error": 7.549516567451064e-15,
+  "target_component_count": 48,
+  "multipole_record_count": 921,
+  "target_map": [
+    1,
+    10,
+    15,
+    28,
+    33,
+    4,
+    5,
+    35,
+    36,
+    38,
+    11,
+    19,
+    23,
+    29,
+    31,
+    2,
+    13,
+    16,
+    21,
+    26,
+    12,
+    18,
+    24,
+    30,
+    32,
+    3,
+    14,
+    17,
+    22,
+    25,
+    8,
+    9,
+    27,
+    41,
+    43,
+    44,
+    46,
+    47,
+    48,
+    6,
+    7,
+    20,
+    34,
+    37,
+    39,
+    40,
+    42,
+    45
+  ],
+  "a2_root9_native_ids": {
+    "singlet": 48,
+    "triplet": 45
+  },
+  "ground_dipole_difference_au": 1.8829243719764577e-11,
+  "resources": {
+    "exit_code": 0,
+    "wall_seconds": 3101.182355462108,
+    "sampled_peak_container_memory_bytes": 5828235264,
+    "baseline_container_memory_bytes": 20615168,
+    "sampled_peak_container_anon_bytes": 5577531392,
+    "kernel_peak_container_memory_bytes": 5869301760,
+    "container_cpu_seconds": 4900.828273,
+    "sampled_peak_run_allocated_bytes": 351395840,
+    "sampled_peak_scratch_allocated_bytes": 212992,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "target_sectors_total_wall_seconds": 257.44922947883606,
+  "denprop_wall_seconds": 2843.397655248642,
+  "channel_import_verdict": true,
+  "scattering_channel_verdict": null,
+  "interpretation": "Input qualification of one fixed-orbital stretched CAS11 channel model passes. Fresh multipole interface coverage does not independently establish every added transition moment, channel convergence, global state identity or scattering sensitivity. No scattering calculation is running."
+}
