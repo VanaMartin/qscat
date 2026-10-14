@@ -20,6 +20,50 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Five-A2 dense baseline passes; nine-A2 control active — 14 October, 16:34 UTC
+
+**The stretched CAS11 five-A2selected2048 baseline passes the dense-observable
+gate in both Pi sectors.** All eight native stages and the independent reader
+exit0. Native cost is **1.7070h / 5.894GiB kernel peak**. The
+[16:30capture](progress-a2-channel-scattering-20261014T1630.json) preserves the
+completed baseline, its gate and the automatically unlocked declared nine-A2step.
+Owner1304346 and observation-only observer1304833 remain active; the latter has
+six captures. Frozen58source/58input hashes and242installed artifacts reverify.
+
+The [independent local reconstruction](verification-a2-five-baseline-20261014.json)
+checks **30checksum-fetched files**, both2048-pole exports, **2048×1410continuum
+vectors / 2048×250boundary amplitudes**, native residuals at most
+**1.26308e-10Hartree**, Pi **1e-9rad**, explicit own-model target map and the
+complete99-point grids. Maximum selected→dense phase difference is
+**1.02e-5rad**; identical0.4–1.6requested-eV window fits at all background orders1–4
+pass, with maximum fitted position/full-width differences
+**4.57937e-7 / 1.65765e-6eV**. Boundary/CI energies agree exactly. Reconstruction
+uses the existing public readers/fitter independently of producer summaries;
+it is not a separate scattering-engine or fitting implementation. This qualifies
+the economical baseline at this geometry against actual saved-dense observables.
+
+**Nine-A2 B1 is in its2048-root eigensolve**, after completed matrix assembly;
+actual contracted dimension **27818** agrees with the declared increase.
+At16:30UTC the expanded model used **802percent CPU / 3.43GiB live memory**;
+these are partial-run observations, not final cost. At16:34UTC no owner error or
+timeout is observed. B1exports/outer stages and B2 remain pending; the independent
+channel-sensitivity verdict is **unset**. Same8physicalcores/native6-GiBmemp/
+48-GiBcgroup/8-GiBshared allocation and original stage/model/owner caps apply.
+
+**Next:** allow the declared nine-A2two-sector run and its raw/export/Pi and
+matched phase/fit reader to finish. Preserve any false/unset result and original
+exits without retries or budget changes. The dense baseline pass does not establish
+nine-A2channel convergence, global identity, electronic-model convergence or
+background/window extraction stability. The production sweep remains gated.
+
+The16:34overview release passes **189immutable remote hashes**, **132source
+provenance hashes**, **402local documentation links**, searchable SVG, visual PNG
+inspection and renderer lint/format checks. Indexed main remains complete/current
+at `97b8b4c7392f822c996af0d4d77f81e100ff1407`; this control, its readers and dated
+evidence are branch-only and resolved against the current source. The running
+owner remains on its frozen `cdcf721` source; publication changes only the
+dated evidence, handoff and default overview release.
+
 ### Matched A2 channel scattering control active — 14 October, 14:06 UTC
 
 **Owner1304346 is active on Sadaharu**, launched13:58UTC from

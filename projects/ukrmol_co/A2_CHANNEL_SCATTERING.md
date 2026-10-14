@@ -105,3 +105,24 @@ original dense outer exits and **Pi phase difference0rad modulo pi**. Native fit
 are nonempty and have no MAXFIT diagnostic in either sector. This independently
 qualifies the dense outer replay's raw output; it does not yet compare the
 selected baseline or channel models.
+
+## Five-A2 baseline passes; expanded control active — 14 October, 16:34 UTC
+
+The [16:30capture](progress-a2-channel-scattering-20261014T1630.json) records the
+completed five-A2selected2048run and passing independent dense-baseline gate in
+both sectors. All native/reader exits0; measured native cost is **1.7070hours /
+5.894GiB kernel peak**. The
+[local30-file reconstruction](verification-a2-five-baseline-20261014.json)
+confirms2048poles,2048×1410continuum vectors and2048×250boundary amplitudes per
+sector; residual **≤1.26308e-10Hartree**, Pi **1e-9rad** and exact boundary/CI
+energy agreement. Maximum selected→dense phase difference is **1.02e-5rad**;
+position/full-width fit differences over all background orders are at most
+**4.57937e-7 / 1.65765e-6eV**, passing the unchanged scientific budgets.
+Local reconstruction uses the public readers/fitter on fetched raw files,
+independently of producer summaries.
+
+The declared nine-A2model starts only after that pass. B1matrix assembly is
+complete and its2048-root eigensolve is active at16:34UTC, with native contracted
+dimension **27818** as declared. Live16:30CPU/memory **802percent / 3.43GiB** is
+partial telemetry. B1exports/outer stages and B2 remain pending; no owner error
+or timeout is observed. **Channel-sensitivity verdict remains unset.**
