@@ -22,6 +22,7 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
 The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
+[active matched A2 scattering control](A2_CHANNEL_SCATTERING.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -40,7 +41,19 @@ CAS12's 1.67e-5-rad phase difference is a refinement difference, not an absolute
 4096-root error. The sweep remains gated by model, identity, extraction and neutral
 qualification.
 
-**Completed next gate — 14 October, 13:19 UTC:** the
+**Active next step — 14 October, 14:06 UTC:** the
+[matched five-versus-nine A2 scattering control](A2_CHANNEL_SCATTERING.md) starts
+on the unchanged stretchedCAS11frame, with2048scattering roots per model.
+Fresh runtime and channel-input gates pass; saved-dense outer replay finishes
+both sectors with exit0 in **4.322minutes / 0.447GiB**. The five-A2selected2048
+baseline is assembling on eight ranks and must pass an
+independent dense-observable comparison before nine-A2scattering can launch.
+The [dated capture](progress-a2-channel-scattering-20261014T1403.json) records
+the bounded sequence, frozen inputs and observation-only monitoring.
+[Independent dense reading](verification-a2-dense-outer-20261014.json) verifies
+both99-point grids and zero Pi phase difference from six checksum-fetched raw files.
+
+**Completed input gate — 14 October, 13:19 UTC:** the
 [fixed-orbital A2 target/property preflight](A2_CHANNEL_TARGET_PREFLIGHT.md)
 passes in **51.686 minutes / 5.466 GiB**. All eight target solves and DENPROP48
 exit 0; independently reconstructed exports contain all **48 vectors** and
@@ -57,12 +70,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 14 October 2026
 
-![CO qualification: stretched CAS11 A2 target/property input qualification passes;matched channel scattering is next;model and extraction gates remain](../../docs/physics/figures/co-progress-20261014T1319.png)
+![CO qualification: matched A2 channel control active;dense replay independently read;baseline gates expanded scattering;model and extraction remain open](../../docs/physics/figures/co-progress-20261014T1406.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261014T1319.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261014T1319.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261014T1406.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261014T1406.json) ·
+[Active A2 scattering control](A2_CHANNEL_SCATTERING.md) ·
 [Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
 [Completed A2 prerequisite](A2_CHANNEL_TARGET_PREFLIGHT.md) ·
+[Previous13:19overview](../../docs/physics/figures/co-progress-20261014T1319.png) ·
 [Previous10:34overview](../../docs/physics/figures/co-progress-20261014T1034.png) ·
 [Cancellation capture](progress-audited-8192-cancelled-20261014T1034.json) ·
 [Previous06:58overview](../../docs/physics/figures/co-progress-20261014T0658.png) ·
@@ -88,14 +103,21 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **13:19 UTC, 14 October** release of an incremental overview. New findings, verification
+This is the **14:06 UTC, 14 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** the explicit A2 target/property input gate passes on the unchanged
+**What changed:** a bounded matched A2 channel control is active, after passing
+the fresh runtime and exact-frame target/property prerequisite. Saved full-spectrum
+boundary data supports a cheap dense outer replay, now independently read in both sectors;
+the new geometry's active five-A2
+2048baseline must pass its independent observable gate before expanded scattering.
+**Channel-sensitivity and dense-baseline verdicts remain unset at this cutoff.**
+
+**Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component
 orbital average. Independent reading verifies all native vector sets, energies,
 residuals and the 48-state own-model property map. **Input qualification enables

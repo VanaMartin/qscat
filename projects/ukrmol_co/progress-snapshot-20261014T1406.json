@@ -1,0 +1,113 @@
+{
+  "base_snapshot": "progress-snapshot-20261014T1319.json",
+  "base_snapshot_sha256": "b2e5161f63b93fcfed6759547559c1806ca81fa0b26c2fbc9a87d1dd3862e344",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/progress-a2-channel-scattering-20261014T1403.json": "65988883bd404b147a442566d049dbb9c95f2bc45eb54e2b09314c6f1275998c",
+    "projects/ukrmol_co/progress-a2-channel-scattering-20261014T1400.json": "4df0013a607ac8d87c7628a2dc71a892b3e01f449feb3730d9ee91a35ba28ffd",
+    "projects/ukrmol_co/verification-a2-dense-outer-20261014.json": "36630bcf6ee8913ce54b58704979fec6e46a5a445cbbb673eea4455469fc83c2",
+    "projects/ukrmol_co/a2-channel-scattering-contract.json": "5a1d6afab4729ba503cfcfb3407386fdeb33e7320d8289c9fa1c531a21d3a412",
+    "projects/ukrmol_co/A2_CHANNEL_SCATTERING.md": "5b34de56e03d95fd6cd6992491ff4a38844b3281b7d1260a2eb5ba3ecd3fca8a",
+    "projects/ukrmol_co/a2_scattering.py": "e7387866f5e36b652497597fdde8a11feb85618ed1d642b5404c6020a7cef10b",
+    "projects/ukrmol_co/a2_scattering_owner.py": "fd82b5583bfb41d39792e817fb5636f67a0373eac1d7170ef9afb560f3a56567",
+    "projects/ukrmol_co/test_a2_scattering.py": "57e6249da76e2fb5d95719394ac4ca9f6ae0b4a2d7c3b1e491405f0ae3162ea2",
+    "projects/ukrmol_co/sparse_pilot.py": "799dc6f90c0747d5390e973e63026659e0c731038fc96649a41125cde5301161",
+    "projects/ukrmol_co/sparse_observer.py": "d6827f2560995aa3955e25689eb1e180209a663c589ca98b373adb8d753385dc"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-14T14:06:50.633134+00:00",
+    "changes": [
+      "Bounded matched five-versus-nine retainedA2control launches13:58UTC on fixed stretchedCAS11orbitals. Both selected models use2048roots and commonchecked48-state target vectors/properties with originalintegrals/CONGEN;only explicit contraction counts/sequences/interface maps differ.",
+      "Fresh runtime/channel-input gates pass. Saved complete27546-pole/250-channel dense boundary allows outer-only replay with no dense Hamiltonian solve. It completes both sectors/all six stages exit0 in4.322minutes/0.447GiB.",
+      "Independent six-file local raw reading confirms99-point grids,original denseouterexits,Pi0radmodpi,and nonempty nativefits withoutMAXFIT. Dense raw reading passes;selected baseline comparison is still unset.",
+      "Five-A2selected2048is active on eight MPI ranks at14:03capture;the independent dense-observable baseline gate must pass before the declared nine-A2selected2048step. False/unset results stop without retries/budget changes.",
+      "Expected dimension/continuum/boundary sizes27546/1410/250to27818/1682/298must be confirmed natively. Allocated8physicalcores/48-GiBcgroup/8-GiBshared/native6-GiBmemp. Each model18h/stage8h/owner40h caps;scope-dependent prior costs are anchors,not forecasts.",
+      "82focused regressions pass,covering noncontiguous target maps,declared counts/actual inputbytes,298-channel exports and false/unset baseline stopping.58source/58input hashes and242installed engine artifacts reverify. No further root ladder or release of electronic/continuity/extraction/neutral/sweep gates."
+    ],
+    "live_status": {
+      "scientific_containers_running": 1,
+      "cas12_audited_8192_owner": 1279015,
+      "cas12_audited_8192_finished": true,
+      "cas12_audited_8192_administratively_cancelled": true,
+      "cas12_audited_8192_native_exit": 137,
+      "cas12_audited_8192_controller_exit": 1,
+      "cas12_audited_8192_native_partial_wall_hours": 2.5001555620299447,
+      "cas12_audited_8192_exports_present": false,
+      "cas12_audited_8192_reader_launched": false,
+      "observer_owner": 1279364,
+      "observer_service_active": false,
+      "observer_original_execution_preserved": true,
+      "observer_captures": 3,
+      "matched_engine_baseline_verdict": true,
+      "cas12_audited_4096_pair_stability_verdict": true,
+      "root_resolution_sufficient_for_next_controls": true,
+      "working_matched_root_count": 2048,
+      "root_sequence_stability_verdict": null,
+      "spectral_truncation_verdict": null,
+      "electronic_model_verdict": null,
+      "full_sweep_released": false,
+      "a2_target_preflight_owner": 1282177,
+      "a2_target_preflight_finished": true,
+      "a2_target_preflight_controller_exit": 0,
+      "a2_target_preflight_native_exit": 0,
+      "a2_target_preflight_native_wall_minutes": 51.68637259103513,
+      "a2_target_preflight_kernel_peak_gib": 5.466213226318359,
+      "a2_target_component_count": 48,
+      "a2_property_record_count": 921,
+      "a2_channel_import_verdict": true,
+      "a2_channel_scattering_verdict": null,
+      "a2_observer_service_active": false,
+      "a2_observer_captures": 3,
+      "global_continuity_verdict": null,
+      "a2_scattering_owner": 1304346,
+      "a2_scattering_observer": 1304833,
+      "a2_scattering_source_commit": "cdcf721a9472334845291c951462fd3bae9d0f6f",
+      "a2_scattering_finished": false,
+      "a2_dense_outer_replay_complete": true,
+      "a2_dense_outer_raw_reading_passed": true,
+      "a2_dense_outer_wall_minutes": 4.322371576066749,
+      "a2_dense_outer_kernel_peak_gib": 0.44651031494140625,
+      "a2_selected_five_model_started": true,
+      "a2_selected_nine_model_started": false,
+      "dense_baseline_verdict": null,
+      "a2_channel_sensitivity_verdict": null
+    },
+    "figure_subtitle": "Matched A2 channel control active; dense outer replay independently read; baseline must pass before expanded scattering",
+    "channel_coverage_note": "Known omitted weight: root7 = 0.194, root9 = 0.122.\nNative A2 inputs pass; matched channel control is active.\nFive-A2 baseline gates nine-A2 solve; identity remains open.",
+    "memory_note": "CAS12 2K / 4K: 11.57 / 14.92 h; resolution sufficient.\nDense outer replay: 4.32 min / 0.45 GiB, no H build.\nMatched A2 solve costs pending; eight physical cores.",
+    "roadmap_title": "Measure the missing-channel effect",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "INPUT GATE PASSES",
+        "title": "Fixed-orbital CAS11 A2 roots 1\u20139 + properties",
+        "detail": "R = 2.5 bohr; 48 vectors / 921 moments; own channel map"
+      },
+      {
+        "kind": "reuse",
+        "status": "DENSE REPLAY READ",
+        "title": "Saved stretched CAS11 full-spectrum boundary",
+        "detail": "99 points / both Pi sectors; no dense Hamiltonian solve"
+      },
+      {
+        "kind": "reuse",
+        "status": "SUFFICIENT FOR NOW",
+        "title": "CAS12 stable 2048 \u2192 4096; 8192 cancelled",
+        "detail": "Economical 2048 guidance; no automatic root ladder"
+      },
+      {
+        "kind": "next",
+        "status": "ACTIVE",
+        "title": "Stretched A2 control: five baseline \u2192 nine",
+        "detail": "2048 roots each; dense baseline must pass first"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED",
+        "title": "Model \u2192 continuity / extraction \u2192 pilot / sweep",
+        "detail": "Neutral correlation and global identity remain open"
+      }
+    ],
+    "roadmap_note": "Dense outer replay: 4.32 min / 0.45 GiB, independently read.\nFive-A2 baseline active; nine-A2 solve gated on its pass.\nSame orbitals / roots; only retained A2 channels change.",
+    "verification_footer": "A2 inputs and dense replay independently read; matched channel sensitivity pending."
+  }
+}

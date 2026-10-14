@@ -20,6 +20,80 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Matched A2 channel scattering control active — 14 October, 14:06 UTC
+
+**Owner1304346 is active on Sadaharu**, launched13:58UTC from
+`cdcf721a9472334845291c951462fd3bae9d0f6f`. The
+[declaration/design](A2_CHANNEL_SCATTERING.md) changes only retained A2 channels
+**five→nine per spin** on the checked stretchedCAS11R2.5/DZorbital frame, with
+**2048scattering roots on both sides**. Both selected models reuse identical
+fresh48-state target vectors/properties and originalintegrals/CONGENexpansions;
+the forty-component orbital average remains fixed. Actual decks must implement
+each own-model noncontiguous target map and declared contraction sequences.
+
+The pinned-runtime dry prerequisite independently reads both saved full dense
+boundaries (**27546poles × 250channels**), the same-frame target references and
+the48-state property map. Fresh library/telemetry runtime and channel-input gates
+pass. The [14:03capture](progress-a2-channel-scattering-20261014T1403.json)
+records all six dense outer stages exit0, **4.322minutes / 0.447GiB kernel peak**,
+and printed B1/B2 phase difference0. The five-A2selected2048baseline is now
+assembling on all eight ranks; sampled **797.72percentCPU / 2.494GiB** is live
+telemetry, not final cost. The nine-A2directory is absent.
+**Dense-baseline and A2channel-sensitivity verdicts remain unset.**
+This is an outer-only replay of saved full-spectrum data, not another dense solve.
+
+The [14:06independent dense reading](verification-a2-dense-outer-20261014.json)
+reconstructs six checksum-fetched raw files and both complete99-point grids,
+verifies original outer exits and **0rad Pi difference modulo pi**, and confirms
+nonempty native fits without MAXFIT in either sector. Dense raw-output reading
+passes; the selected baseline comparison remains pending.
+
+**Declared bounded sequence:** dense outer replay → five-A2selected2048both Pi
+sectors → independent full-grid/fixed-window dense-baseline gate → only on pass,
+nine-A2selected2048both sectors → independent matched channel comparison. False
+or unset results stop without retry/budget changes. The comparable observable
+budgets remain **0.05rad / 0.05eV / 5percent full width with0.001-eV floor**, with
+fixed0.4–1.6requested-eV fits at background orders1–4. Dense replay qualifies the
+new geometry's economical baseline; equilibrium resolution evidence is not assumed
+to transfer. Different channel models need their own spectra/interfaces, not
+identical Hamiltonian poles or interface digests.
+
+Expected dimensions/continuum/boundary counts are **27546/1410/250 →
+27818/1682/298**; fresh native telemetry/export gates must confirm them. Resources:
+**8physical CPUs4–11 / 8MPIranks / one library thread / 48-GiBcgroup / 8-GiBshared
+backing / native6-GiBmemp**. Each selected model is capped18hours, each native
+stage8hours, dense replay one hour, owner40hours. OriginalCAS11selected2048cost
+2.454h and original stretched dense sectors1.296/1.211h anchor cost with different
+engine/allocation scopes; caps are not forecasts. Actual profiles remain separate.
+
+Frozen **58source / 58input hashes** and **242installed engine artifacts**
+reverify; the current capture pins **138immutable remote records**. The
+[14:00launch capture](progress-a2-channel-scattering-20261014T1400.json) preserves
+the B1outer-only cutoff and133remote pins. **82focused
+tests pass**. Observer **1304833** is observation-only, captures nested model
+progress every30minutes, and is launched only after readable-owner/live-service
+PID agreement. Runtime source is under
+`prepared/a2-channel-scattering-source-20261014/`; services are
+`co-a2-channel-scattering-20261014.service` and
+`co-a2-channel-scattering-observer-20261014.service`.
+
+**Next:** read actual five-A2cost/exports and the dense baseline verdict. The
+separately declared nine-A2step may proceed only on that pass. An observable
+rejection is a decision-changing discrepancy; a pass establishes this one
+fixed-orbital channel sensitivity, not full channel/model convergence or global
+state/pole identity. Keep extraction, neutral, continuity and production-pilot
+gates separate; launch no automatic root ladder.
+
+Launch/dense-replay verification passes **146immutable remote hashes**,
+**130overview source-provenance hashes**, **397local documentation links**,
+searchable SVG, visual PNG inspection, lint/format and diff checks. At the final
+**14:10UTC** live inspection, five-A2B1reports **Class1complete**, native contracted
+dimension **27546**, no owner error and no nine-A2directory. Assembly/solve,
+exports, B2 and the dense-baseline reader are still pending. Main-index integrity
+and upstream currency remain complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; this control, its small reader/export
+generalization and dated evidence are branch-only and resolve against live source.
+
 ### A2 target/property input qualification passes — 14 October, 13:19 UTC
 
 **The bounded stretched CAS11 preflight completed at 12:03:51 UTC with all exits

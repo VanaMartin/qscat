@@ -65,3 +65,43 @@ failure. A passing pair establishes observable insensitivity for this one
 fixed-orbital channel control. A rejection identifies a channel or baseline
 resolution discrepancy worth deciding on. Full channel convergence, global
 identity, CAS12 qualification and the production sweep remain separate gates.
+
+## Launch — 14 October, 13:58 UTC
+
+Owner **1304346** starts on Sadaharu at13:58UTC from
+`cdcf721a9472334845291c951462fd3bae9d0f6f`. The pinned-runtime dry prerequisite
+checks the completed same-frame target/property import and both complete dense
+boundary datasets: **27546poles × 250channels** per sector. The fresh numerical
+library/telemetry gate and channel-input gate pass. The
+[14:00capture](progress-a2-channel-scattering-20261014T1400.json) records dense B1
+outer stages exit0, R_SOLVE129.31seconds, with B2outer replay still active.
+No selected-model or channel-sensitivity verdict exists at this cutoff.
+
+Frozen **58source / 58input hashes** and **242installed engine artifacts**
+reverify. Observation-only observer **1304833** starts after readable-owner/live
+service PID agreement, captures the nested dense/five/nine model directories
+every30minutes and has the same40-hour bound. **82focused tests pass**, including
+noncontiguous explicit selection, wrong-frame/CSF/deck rejection, the298-channel
+export shape and false/unset baseline stopping before expanded-run creation.
+
+Persistent source/output root:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/a2-channel-scattering-source-20261014/`.
+Services: `co-a2-channel-scattering-20261014.service` and
+`co-a2-channel-scattering-observer-20261014.service`.
+
+## Dense replay complete; selected baseline active — 14 October, 14:03 UTC
+
+The [14:03capture](progress-a2-channel-scattering-20261014T1403.json) records
+the complete dense outer replay, all six stage exits0, **4.322minutes / 0.447GiB
+kernel peak**, and printed B1/B2 phase difference0. The selected five-A2model is
+now active on eight ranks; the nine-A2directory is absent. Dense-baseline and
+channel-sensitivity verdicts remain unset. This cutoff pins138immutable remote
+records and reverifies the same58source/58input hashes and242installed artifacts.
+Live **797.72percent CPU / 2.494GiB** describes the active baseline, not final cost.
+
+The [14:06independent local reading](verification-a2-dense-outer-20261014.json)
+verifies six checksum-fetched raw files, both complete99-point phase grids,
+original dense outer exits and **Pi phase difference0rad modulo pi**. Native fits
+are nonempty and have no MAXFIT diagnostic in either sector. This independently
+qualifies the dense outer replay's raw output; it does not yet compare the
+selected baseline or channel models.
