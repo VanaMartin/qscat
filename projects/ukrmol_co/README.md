@@ -22,6 +22,7 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
 The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
+[active A2 target/property gate](SWEEP_READINESS_20261014T1113.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
@@ -39,6 +40,15 @@ CAS12's 1.67e-5-rad phase difference is a refinement difference, not an absolute
 4096-root error. The sweep remains gated by model, identity, extraction and neutral
 qualification.
 
+**Active next step — 14 October, 11:13 UTC:** the
+[fixed-orbital A2 target/property preflight](A2_CHANNEL_TARGET_PREFLIGHT.md) is
+running on the unchanged stretched CAS11 frame, with nine A2 roots per spin and
+the original 40-component orbital average. Same-frame independent references,
+fresh runtime and the first two native target stages pass. Native A2 exports
+and the 48-state property interface remain pending. The preflight is four-hour
+bounded and builds no scattering Hamiltonian; see the
+[dated launch](progress-a2-target-preflight-20261014T1113.json).
+
 <a id="progress-overview--12-october-2026"></a>
 <a id="progress-overview--13-october-2026"></a>
 
@@ -49,6 +59,7 @@ qualification.
 [Vector figure](../../docs/physics/figures/co-progress-20261014T1034.svg) ·
 [Incremental plotted-data snapshot](progress-snapshot-20261014T1034.json) ·
 [Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
+[Active A2 prerequisite](SWEEP_READINESS_20261014T1113.md) ·
 [Cancellation capture](progress-audited-8192-cancelled-20261014T1034.json) ·
 [Previous06:58overview](../../docs/physics/figures/co-progress-20261014T0658.png) ·
 [Third-resolution declaration](cas12-audited-engine-8192-contract.json) ·
@@ -71,7 +82,7 @@ qualification.
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](ROOT_RESOLUTION_DECISION_20261014.md)
+[Current steps before a production sweep](SWEEP_READINESS_20261014T1113.md)
 
 This is the **10:34 UTC, 14 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated

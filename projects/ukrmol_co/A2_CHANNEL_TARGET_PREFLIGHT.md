@@ -48,3 +48,17 @@ five-versus-nine A2 scattering comparison**, using each model's own target IDs
 and multipoles. It schedules no scattering calculation itself. Other geometries
 and CAS12 require their own coverage checks; neither global continuity nor
 resonance-pole identity follows from this target import.
+
+## Launch — 14 October, 11:13 UTC
+
+The [dated capture](progress-a2-target-preflight-20261014T1113.json) records
+owner 1282177 and observer 1282512, with a passing fresh runtime gate and
+same-frame independent prerequisites. The original 40-state native map covers
+656 dipole/quadrupole records and agrees with the fixed-orbital reference to
+4.81677e-10 Hartree. The first two target stages finish with exit 0; A2 root9
+exports and the complete 48-state interface remain pending at this cutoff.
+
+Implementation is pinned to `aac698f310783b0f760ad197546e0a2b1f478b59`;
+53 source / 50 input hashes and 242 installed engine artifacts reverify.
+All 120 immutable launch-evidence hashes and 66 focused regressions pass.
+The [current queue](SWEEP_READINESS_20261014T1113.md) records the next decisions.

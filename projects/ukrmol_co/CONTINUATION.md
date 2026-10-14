@@ -20,6 +20,62 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Fixed-orbital A2 target/property preflight active — 14 October, 11:13 UTC
+
+**Owner 1282177 is active on Sadaharu.** The
+[next-gate note](SWEEP_READINESS_20261014T1113.md) and
+[preflight design](A2_CHANNEL_TARGET_PREFLIGHT.md) address the measured CAS11 A2
+retained-channel gap. Start on the unchanged stretched CAS11 R=2.5-bohr/DZ frame:
+the orbital average remains 40 components, while the native target/property
+representation becomes [5,5,5,9] per spin, **48 explicit components**. Root6 alone
+misses known root7/root9 weight, so this preflight prepares one nine-root A2
+representation rather than launching another scattering ladder.
+
+The [11:13 launch capture](progress-a2-target-preflight-20261014T1113.json)
+records passing same-frame twelve-root action/spin/convergence prerequisites and
+the original 40-state native map/multipole inventory. Maximum original
+native/reference energy error is **4.81677e-10 Hartree**. Fresh runtime loading
+passes; the first singlet/triplet A1 native target stages exit 0 in **17.40 /
+34.81 s**, and their native residual/selection gates pass. Singlet B1 is active
+at the cutoff; A2 root9 exports and DENPROP48 remain pending. Sampled **798.72%
+CPU / 4.69 GiB of 24 GiB** is not final cost.
+
+The source is pinned to `aac698f310783b0f760ad197546e0a2b1f478b59`, with **53 source /
+50 input hashes**, **242 installed artifacts** and **120 immutable remote
+records**. **66 focused tests pass**, including nonuniform channel selection,
+missing root9/property coverage, wrong frames/actions/spins and original map
+checks. No QC reoptimization, integral regeneration or scattering build occurs.
+Native target sectors retain crite1e-12, vecstore5 and memp6; explicit maxiter1000
+and eight ranks are bounded target-execution settings, not a scattering root change.
+
+Resource limits are **8 physical CPUs 4–11 / 8 MPI ranks / one library thread per
+rank / 24-GiB cgroup / 8-GiB shared backing**. Each target sector is bounded to
+30 minutes, DENPROP to two hours, the entire native preflight to four hours and
+owner to five hours. **Observer 1282512** is observation-only, captures every
+30 minutes, and starts only after readable-owner/live-service PID agreement.
+Any input/native/residual/property/timeout failure preserves evidence and stops.
+
+Persistent source/output root:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/a2-channel-target-preflight-source-20261014/`.
+Services are `co-a2-channel-target-preflight-20261014.service` and
+`co-a2-channel-target-preflight-observer-20261014.service`.
+
+**Next:** independently read the completed native target/DENPROP interface and
+cost. A pass enables a separately budgeted fixed-orbital five-versus-nine A2
+scattering comparison with each model's own maps/interfaces; this owner launches
+none. Other geometries/CAS12 require their own coverage. Root-resolution evidence
+remains sufficient for current controls; model, continuity, extraction, neutral
+and production-pilot gates remain open. Refresh the 10:34 overview at the next
+substantive target/property milestone.
+
+Launch verification passes all **120 immutable remote hashes**, **374 local
+documentation links**, source formatting/lint and diff checks. The final live
+inspection at **11:15 UTC** finds all six A1/B1/B2 target stages finished with
+exit 0 and passing residual/selection gates; singlet A2 is active with no owner
+error. Main-index integrity/upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; this preflight, declaration and
+launch evidence are branch-only and resolve against current source.
+
 ### Root resolution sufficient; 8192 stopped — 14 October, 10:34 UTC
 
 **The user accepts the CAS12 2048→4096 evidence as sufficient for now.** Use
