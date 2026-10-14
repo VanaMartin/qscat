@@ -20,6 +20,44 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Root resolution sufficient; 8192 stopped — 14 October, 10:34 UTC
+
+**The user accepts the CAS12 2048→4096 evidence as sufficient for now.** Use
+2048 as the economical matched baseline, retain the completed 4096 comparison,
+and prioritize electronic/channel, continuity/extraction and neutral gates.
+The [decision and CAS11 comparison](ROOT_RESOLUTION_DECISION_20261014.md)
+records that CAS12's **1.67e-5-rad** full-grid difference is a refinement
+difference, not a measured absolute error of the 4096-root phases. CAS11's
+4096/8192 errors against its full dense oracle are both **1.0e-7 rad**.
+
+The [cancellation capture](progress-audited-8192-cancelled-20261014T1034.json)
+preserves the STOP request at **10:32:24 UTC**, native stage exit **137** and
+owner exit **1** at **10:33:08 UTC**. This is an administrative scientific-priority
+cancellation, not an OOM or budget failure. Native elapsed time is **2.50016 h**;
+all eight B1 ranks completed Class1/3, but Class4 and subsequent assembly/solve
+did not complete. No eigenpair exports, B2, outer results or independent sequence
+verdict exist. Preserve partial files; there is no reusable Hamiltonian checkpoint.
+
+Both services are inactive and no scientific container remains. Observer 1279364
+has three immutable captures; its original execution record is preserved, with
+an additive administrative-stop record. The capture reverifies **47 source /
+665 input-evidence hashes** and **242 installed artifacts**, pinning **739 remote
+records**. The original 8192 declaration and launch evidence remain historical.
+
+**Stopping rule:** no further root ladder by default. Require a named discrepancy
+or model-specific coverage question whose answer could change a decision, with
+an explicit cost justification. Practical resolution sufficiency for current
+matched controls does not claim absolute omitted-spectrum or electronic-model
+convergence and does not release the sweep. The six-panel overview now records
+this decision while retaining prior numerical/cost results.
+
+Verification passes **115 local source-provenance hashes**, **739 immutable
+remote hashes**, documentation links, unchanged prior numerical/completed-cost
+values, rendering/visual inspection, searchable SVG, lint/format and diff checks.
+Main-index integrity/upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; the cancellation, decision and
+renderer defaults are branch-only additions resolved against current source.
+
 ### Third-resolution 8192 control active — 14 October, 08:04 UTC
 
 **Owner 1279015 is active on Sadaharu.** The separately declared

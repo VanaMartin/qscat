@@ -21,30 +21,36 @@ remain substantial. The CAS(10,12) memory retry passed QC/fresh-CI checks and
 singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
-The [production-sweep status update](SWEEP_READINESS_20261014T0658.md) and
+The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
+[completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
 current blockers and pass criteria: target inputs → affordable CAS12 scattering
 → electronic/channel convergence → continuity/extraction → neutral reference
 → frozen restartable pilot → sweep and held-out potential validation.
 
-**Live update — 14 October, 08:04 UTC:** a separately declared
-[8192-root two-sector control](AUDITED_ENGINE_8192.md) is active on Sadaharu.
-Fresh runtime, strict 2048 self-reading and completed 4096 prerequisite checks pass;
-all eight B1 ranks pass graph/context/address assertions and begin Class1.
-The [dated launch capture](progress-audited-8192-20261014T0804.json) pins 731 remote
-records. Its reader checks 2048→4096, 4096→8192 and 2048→8192 under the existing
-scientific budgets. Results and final cost are pending; absolute omission remains
-an independent gate. The figure below retains the latest completed-result cutoff.
+**Update — 14 October, 10:34 UTC:** the user accepts the completed CAS12
+2048→4096 comparison as [sufficient root-resolution evidence for now](ROOT_RESOLUTION_DECISION_20261014.md).
+The 8192 experiment is administratively cancelled after 2.50016 hours of partial
+B1 assembly; original exits and partial evidence are
+[preserved](progress-audited-8192-cancelled-20261014T1034.json). Both services are
+inactive. Use the economical 2048 baseline for matched model/channel/extraction
+controls; further root expansion needs a specific decision-changing discrepancy.
+CAS12's 1.67e-5-rad phase difference is a refinement difference, not an absolute
+4096-root error. The sweep remains gated by model, identity, extraction and neutral
+qualification.
 
 <a id="progress-overview--12-october-2026"></a>
 <a id="progress-overview--13-october-2026"></a>
 
 ## Progress overview — 14 October 2026
 
-![CO qualification: reusable inputs, measured4096cost and independently passing2048-to-4096pair stability](../../docs/physics/figures/co-progress-20261014T0658.png)
+![CO qualification: passing CAS12 root-pair evidence is sufficient for current controls;8192cancelled;model and extraction gates remain](../../docs/physics/figures/co-progress-20261014T1034.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261014T0658.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261014T0658.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261014T1034.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261014T1034.json) ·
+[Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
+[Cancellation capture](progress-audited-8192-cancelled-20261014T1034.json) ·
+[Previous06:58overview](../../docs/physics/figures/co-progress-20261014T0658.png) ·
 [Third-resolution declaration](cas12-audited-engine-8192-contract.json) ·
 [Dated8192launch](progress-audited-8192-20261014T0804.json) ·
 [Completed scientific4096comparison](progress-audited-4096-20261014T0658.json) ·
@@ -65,9 +71,9 @@ an independent gate. The figure below retains the latest completed-result cutoff
 [Dated comparator failure](progress-failure-20261011T2250.json) ·
 [Dated pilot completion](progress-completion-20261011T1952.json) ·
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
-[Current steps before a production sweep](SWEEP_READINESS_20261014T0658.md)
+[Current steps before a production sweep](ROOT_RESOLUTION_DECISION_20261014.md)
 
-This is the **06:58 UTC, 14 October** release of an incremental overview. New findings, verification
+This is the **10:34 UTC, 14 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
@@ -257,7 +263,9 @@ The six panels explain the qualification campaign:
      control independently reproduces both sectors; the scientific4096comparison
      now passes pair stability on that same qualified engine/runtime.
 
-This is a dated **14 October 06:58:54 UTC** snapshot: CAS11 16K and TZ-frame records
+This is a dated **14 October 10:34:57 UTC** snapshot: CAS12 root-pair evidence is
+sufficient for current matched controls; 8192 is cancelled with partial evidence
+preserved. CAS11 16K and TZ-frame records
 now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
 reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
 above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces

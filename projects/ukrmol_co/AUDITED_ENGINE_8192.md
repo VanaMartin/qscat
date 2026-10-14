@@ -1,5 +1,13 @@
 # CAS12 third-resolution control: 2048 / 4096 / 8192 roots
 
+**Status — 14 October, 10:34 UTC: cancelled by user-approved administrative STOP.**
+The [decision](ROOT_RESOLUTION_DECISION_20261014.md) accepts the completed CAS12
+2048→4096 evidence as sufficient for current matched controls. The
+[cancellation capture](progress-audited-8192-cancelled-20261014T1034.json)
+preserves 2.50016 hours of partial B1 assembly, native exit 137 and owner exit 1.
+No eigenpair or three-resolution result is claimed. The original declaration
+and launch evidence below remain historical; both services are inactive.
+
 The completed4096control independently passes both-sector pair stability against
 2048, with phase change1.67e-5rad and maximum same-window fitted position/full-
 width changes0.00224/0.04195meV. Its measured native cost is14.924481h/21.736774GiB.

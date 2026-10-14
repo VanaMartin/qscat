@@ -1,0 +1,83 @@
+{
+  "base_snapshot": "progress-snapshot-20261014T0658.json",
+  "base_snapshot_sha256": "f02d05b3904897207b552854271c8d378f154a3db1e7028ecf64bf5edc0e64fc",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/ROOT_RESOLUTION_DECISION_20261014.md": "6e62589fe9cd6ca1a636adcec1d940e55823cef803720b3e8c3f5c9f47ee7743",
+    "projects/ukrmol_co/progress-audited-8192-cancelled-20261014T1034.json": "1c10444449400d93e45a8aa655918daf05fdf02aaa7544805d1836c73e871905",
+    "projects/ukrmol_co/cas12-audited-engine-8192-contract.json": "c32832d28a033899b87c17bef62eba7b9f19f6ad7c6da9268be3ad79d0f8e3e4",
+    "projects/ukrmol_co/engine_baseline.py": "e35398e5b9d57de027edd4a0354723d0c1994c36116bacff28c10e05be5c455c",
+    "projects/ukrmol_co/engine_baseline_owner.py": "4707ab60e0195c41d780185a5a204aacf92739f553bf21b1cc6900bcd8148a3b",
+    "projects/ukrmol_co/test_engine_baseline.py": "19097b3be8e876c9cb209af87daa4adeddb1413d974401bfd7365c4da05ea178"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-14T10:34:57.112478+00:00",
+    "changes": [
+      "User accepts CAS12's independently passing2048-to-4096comparison as sufficient root-resolution evidence for current matched controls. Use2048as economical working baseline;retain4096as completed refinement evidence.",
+      "8192run is administratively cancelled at user request:STOP10:32:24UTC,owner ends10:33:08UTC,native stage elapsed2.50016hours,native137/owner1preserved. Both services inactive;no scientific container remains. This is not an OOM or numerical budget failure.",
+      "All eight B1 ranks completeClass1/3,but no completedClass4/eigenpair exports/B2/outer/sequence reader. Partial evidence is retained without reusable Hamiltonian checkpoint. Capture reverifies47source/665input hashes and242installed artifacts,pinning739remote records.",
+      "CAS11has a full dense oracle:4096and8192both show1e-7rad maximum phase error;8192cost more than doubles and16Kconfirms an already adequate result. CAS12's1.67e-5rad is a matched refinement difference,not absolute4096phase error.",
+      "Further root ladders require a named discrepancy or coverage question that could change a scientific decision. Prioritize model/channel/continuity/extraction/neutral gates. Absolute omitted-spectrum,electronic-model,pole and sweep verdicts remain separate. All previous numerical and completed cost values are preserved."
+    ],
+    "live_status": {
+      "scientific_containers_running": 0,
+      "cas12_audited_8192_owner": 1279015,
+      "cas12_audited_8192_finished": true,
+      "cas12_audited_8192_administratively_cancelled": true,
+      "cas12_audited_8192_native_exit": 137,
+      "cas12_audited_8192_controller_exit": 1,
+      "cas12_audited_8192_native_partial_wall_hours": 2.5001555620299447,
+      "cas12_audited_8192_exports_present": false,
+      "cas12_audited_8192_reader_launched": false,
+      "observer_owner": 1279364,
+      "observer_service_active": false,
+      "observer_original_execution_preserved": true,
+      "observer_captures": 3,
+      "matched_engine_baseline_verdict": true,
+      "cas12_audited_4096_pair_stability_verdict": true,
+      "root_resolution_sufficient_for_next_controls": true,
+      "working_matched_root_count": 2048,
+      "root_sequence_stability_verdict": null,
+      "spectral_truncation_verdict": null,
+      "electronic_model_verdict": null,
+      "full_sweep_released": false
+    },
+    "figure_subtitle": "CAS12 root-pair evidence is sufficient for current controls; stop costly confirmation and resolve model / extraction gates",
+    "diagnostic_note": "CAS12 2K → 4K: Δphase = 1.67e-5 rad, well below budget.\nThis is refinement sensitivity, not absolute 4K phase error.\nModel / extraction remain much larger unresolved effects.",
+    "memory_note": "CAS12 2K / 4K: 11.57 / 14.92 h; pair evidence sufficient.\n8K cancelled after 2.50 h partial build; no solve result.\n*Scopes differ: 4K B1 audit excludes B2 / outer.",
+    "roadmap_title": "Prioritize decision-changing controls",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "Frozen core + independently checked target imports",
+        "detail": "Two A1 core orbitals; ten active electrons; own target maps"
+      },
+      {
+        "kind": "reuse",
+        "status": "REUSE",
+        "title": "CAS11 2048 roots + neutral numerical inputs",
+        "detail": "CAS11 checked against dense oracle; neutral 1.9–2.5 bohr"
+      },
+      {
+        "kind": "reuse",
+        "status": "SUFFICIENT FOR NOW",
+        "title": "CAS12 stable 2048 → 4096; 8192 cancelled",
+        "detail": "Use 2048 for matched controls; no automatic root ladder"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT",
+        "title": "Qualify channels / model, continuity and extraction",
+        "detail": "A2 coverage / three-anchor controls / neutral correlation"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED",
+        "title": "Freeze → restartable pilot → sweep → fit",
+        "detail": "No absolute omission or model / pole verdict inferred"
+      }
+    ],
+    "roadmap_note": "Another root doubling must answer a decision-changing question.\nCAS12 1.67e-5 rad is a refinement difference, not an error bound.\nModel, identity, width extraction and neutral gates remain.",
+    "verification_footer": "CAS11 / TZ and overlap public replays pass; CAS12 pair independently read; 8192 partial evidence preserved."
+  }
+}
