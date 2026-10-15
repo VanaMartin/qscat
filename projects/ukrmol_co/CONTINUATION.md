@@ -20,6 +20,85 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Saved model/extraction controls complete; equilibrium A2 input gate active — 15 October, 21:28 UTC
+
+**Equilibrium CAS11→CAS12 still rejects practical model insensitivity:** matched
+2048maximum phase shift0.1212798rad,center shifts63.652–73.447meV; replacing
+CAS12 with4096still gives0.1212919rad and63.653–73.447meV. Both sectors agree.
+All orders1–4reject0.05eVposition;phase rejects0.05rad;all full-width changes
+pass5%/0.001eV. Same-window CAS11 dense-reference and CAS12 refinement checks
+remain passing. Absolute omission/full-model/pole identity remain unset.
+See [the completed study](SAVED_MODEL_CONTROLS.md),
+[declaration](saved-model-controls-contract.json) and
+[verification summary](verification-saved-model-controls-20261015.json).
+
+The study reconstructs124 raw files,original exits,exports,residuals,grids/Pi,
+own target-ID maps and common preparation/actual outer inputs. CAS12's actual
+scattering preparation uses deletion1e-6;original target-only default1e-7is
+reported explicitly. CAS11/4rank/release versusCAS12/8rank/audited-engine and
+target-solver provenance remain distinct;the existing exact CAS12 engine
+reproduction supports consistency,not a same-engine CAS11rerun.
+
+**Nine-A2 does not repair the extraction gate:** all96declared cases are valid,
+with288full-data starts/480held folds. Full-width spans/median are17.235%/16.635%
+for equilibrium CAS11/CAS12,and6.999%/6.991% for stretchedfive/nine A2,above5%.
+Stretched held prediction passes0.05rad despite width rejection. Constant
+background dominates;nonconstant-order window diagnostics are retained without
+dropping any declared case or changing the rejected gate.
+
+[Public raw reconstruction](qualification-evidence/saved-model-controls/README.md)
+passes seven payload digests,124raw files and57frozen sources. Host/macOS
+decisions match;maximum full-data fit drift4.712e-9eV. Raw output plus full
+reports/source are publicly downloadable;this closes the named CAS122048/4096
+raw-scattering reading,not full native-import/Hamiltonian reconstruction.
+Reader source is`76a6255`;host cost1.716seconds;no native solves repeated.
+
+**Owner1345746 is active on Sadaharu**, running the separately declared
+[equilibrium nine-A2 target/property preflight](a2-equilibrium-target-preflight-contract.json)
+from frozen`2feb62d83d461df95fc376dc8971bd28d86bd066`. The
+[21:28capture](progress-a2-equilibrium-preflight-20261015T2128.json) records all
+eight native target solves exit0 in248.123seconds,maximum residual
+1.20921e-10Hartree,then active DENPROP. Import verdict and independent full-vector/
+property reading remain pending. Same original equilibrium CAS11checkpoint,
+forty-component averaging,integrals andCONGEN;explicit counts5/5/5/9per spin.
+The original dense target template explicitly selects the already validated
+target SLEPc solver;fullvecstore5/native6GiBmemp are retained. All actual decks
+match prelaunch selection;independent12root references/firstfive preservation
+and fresh pinned runtime gates pass. **106focused tests pass**,including dense
+template selection,malformed-slot rejection,analytic Sfactor/phase branches,
+held-point/parameter stability distinction and false/unset preservation.
+
+Owner service`co-a2-equilibrium-target-preflight-20261015.service`;observer1346072
+service`co-a2-equilibrium-target-preflight-observer-20261015.service`. Observer
+is observation-only every30minutes after readable-owner/live-service PID match.
+All59source/50input hashes and242installed artifacts reverify. Artifacts are
+under`prepared/a2-equilibrium-target-preflight-source-20261015/`. Allocation:
+8physical CPUs4–11/8MPI ranks/one library thread/24GiB cgroup/8GiB shared memory;
+native4h/owner5h hard bounds,conditional45–90minute forecast from stretched
+51.686minute/5.466GiB input gate. User-reserved CPUs0–3 remain for small checks.
+
+**Next:** inspect completed DENPROP,original exits/cost and frozen hashes;fetch
+and independently reconstruct48full target vectors/Gram matrices/energies,Pi,
+own property map/multipoles and ground dipole. Only then separately declare the
+matched equilibrium five-versus-nineA2scattering comparison at economical2048.
+This input owner launches no scattering. Develop and validate the next extraction
+rule from the measured background failure;electronic/basis/ensemble,global
+continuity,neutral correlation/domain and restartable production-pilot gates
+remain open. The sweep/potential fitting remain gated.
+
+Milestone verification passes **320immutable remote hashes**, **153overview
+source-provenance hashes**, **451local documentation links**, quoted metric
+parity with the full public reports,searchable SVG and visual PNG inspection,
+lint/format and diff checks. Main-index integrity/upstream currency are
+complete/current at`97b8b4c7392f822c996af0d4d77f81e100ff1407`;the branch-only
+saved reader/declaration,preflight dense-template selection and new evidence
+resolve against current source. Scientific reading is frozen at`76a6255`;
+active native input gate is frozen separately at`2feb62d`.
+Final **21:34:59UTC** live check confirms owner1345746 remains active,all eight
+target exits remain0,and DENPROP continues at100.25%CPU/120.3MiB current Docker
+memory. No owner error or completion is reported;the observation-only service
+and finite stopping rules remain in place.
+
 ### Nine-A2 native completion; supplementary decision passes — 15 October, 21:04 UTC
 
 **The declared root-attribution question is answered: the A2phase rejection

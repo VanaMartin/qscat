@@ -1,0 +1,26 @@
+{
+  "git_sha": "76a6255f49991e28bfb53949b774ba1dc97a72ef",
+  "date": "2026-10-15",
+  "record_type": "co-saved-model-and-extraction-controls",
+  "input_files": 124,
+  "frozen_source_files": 57,
+  "extraction_cases": 96,
+  "full_data_start_fits": 288,
+  "held_point_fold_fits": 480,
+  "native_solves": 0,
+  "host_reading_original_exit": 0,
+  "local_reading_original_exit": 0,
+  "all_declared_cases_valid": true,
+  "equilibrium_model_insensitivity_verdict": false,
+  "extraction_stability_verdicts": {
+    "eq11": false,
+    "eq12": false,
+    "stretchedfive": false,
+    "stretchednine": false
+  },
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "scope": "Practical saved-output model/extraction sensitivity after accepted root controls; no absolute omission bound, full model convergence or resonance-pole identity"
+}

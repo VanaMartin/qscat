@@ -14,23 +14,27 @@ Completed/failed owners,raw outputs and dated overview releases remain evidence.
 The [quarter evidence](qualification-evidence/quarter-state-tracking/README.md)
 now independently reconstructs all672 states and112 matrices on the host and
 from public downloads,with byte-identical repackaging.
-Compressed proof replay passes all438 payloads/96 probes; its fresh private-cache
-native import is active.
+Compressed proof replay passes all438 payloads/96 probes,and the fresh native
+import passes. The current experiment is the
+[equilibrium nine-A2 input gate](a2-equilibrium-target-preflight-contract.json),
+following [saved model/extraction controls](SAVED_MODEL_CONTROLS.md).
 
 ## 1. Finish trustworthy target inputs
 
-**Current:** CAS11 DZ imports/scattering pass at three anchors. Equilibrium and
-stretched-DZ CAS12 imports pass; supported stretched aug-TZ now passes all64
+**Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
+anchors. Supported stretched aug-TZ passes all64
 root/dipole/subspace/seed-preservation checks. The original stretched TZ import
 failed seed preservation; its reoptimized orbital frame is a separately
 qualified numerical target. Compressed CAS12 space160 ordinary QC and96-probe
-coverage pass; compressed native import is being continued with complete public
-proof and a private script cache.
+coverage pass;its private-cache native import completes with original gates
+preserved. Stretched nine-A2 fixed-orbital48-state import passes;the corresponding
+equilibrium import is active,with all eight target solves exit0 and DENPROP
+pending at21:28UTC,15October.
 
-**Next:** finish that compressed import and independently verify its64 roots,
-spin0/direct-spin1 actions,dipole and orbital subspaces against the original
-covered seed. Publish/fetch the remaining expensive evidence,including CAS11
-16K and the TZ-frame diagnostic. Preserve every original failed exit.
+**Next:** finish equilibrium48-state DENPROP and independently read full native
+vectors,energies,Gram matrices,Pi,multipoles and own-model map. Publish/fetch the
+remaining native-import evidence. CAS11 16K/TZ public reconstruction already
+passes. Preserve every original failed exit and the original TZ seed rejection.
 
 **Pass:** ordinary QC and fresh-CI flags; roots≤1e-7 Hartree; physical/penalized/
 spin-penalty actions≤1e-9 Hartree; dipoles≤1e-5 a.u.; spin-square errors≤1e-6;
@@ -44,30 +48,35 @@ eigenpair,boundary and observable checks;2048 roots is the smallest qualified
 count. A further16K confirmation cost19.65 hours without changing that decision.
 CAS12 dense workspace exceeds222 GiB and does not fit Sadaharu.
 
-**Next:** after CAS11 public review,declare one modest equilibrium CAS12 sparse
-pilot,with explicit initial root count,8 physical cores,MPI ranks,energy/fit
-window,resource/time limits and diagnostic outputs. Confirm native root selection,
-residuals and boundary exports against independent matrix actions; compare a
-small higher-count control and stable omission estimates. A passing pilot then
-extends to compressed and stretched anchors. CAS11's passing count is an initial
-cost guide,not a CAS12 convergence result.
+**Completed:** equilibrium CAS12 audited2048/4096 pair stability passes in both
+sectors,with maximum phase difference1.67e-5rad and passing exports/residuals/Pi/
+fixed-window fits. Public raw reading now reconstructs both resolutions. The
+user accepts these controls as sufficient for now;use economical2048 for
+matched experiments. The administratively stopped8192owner and partial outputs
+remain preserved. No further resolution follows automatically.
 
-**Pass:** physically relevant phases and fitted position/width stabilize under
-the declared spectral control. Use the existing observable budgets: **0.05 eV
+**Pass for current controls:** physically relevant phases and fitted position/
+width meet the declared spectral-sensitivity budgets. Use **0.05 eV
 position,5% full width with0.001 eV floor,and0.05 rad phase moduloπ**. Independent
-eigenpair/boundary checks must also pass. If no tractable spectral comparison
-can bound truncation,the method remains unqualified. Record solve/export/outer
-cost separately; choose the smallest passing count. Escalate only for a named
-observable/truncation discrepancy.
+eigenpair/boundary checks must also pass. Successive differences are not absolute
+omitted-spectrum bounds;that uncertainty remains explicit. Record solve/export/
+outer cost separately. Escalate only for a named decision-changing discrepancy.
 
 ## 3. Select a converged electronic and channel model at the anchors
 
-**Current:** the matched CAS10→CAS11 equilibrium change exceeds position/phase
-budgets. Basis,active-space and retained-channel convergence remain open.
+**Current:** both CAS10→CAS11 and CAS11→CAS12 equilibrium changes exceed
+position/phase budgets. The saved CAS11/2048→CAS12/2048 change is0.1212798rad
+and63.652–73.447meV in fitted position;the rejection persists withCAS12/4096.
+Stretched five→nine-A2 rejects0.05rad at0.0679062rad;its declared nine-A2
+2048→4096 refinement is1.96e-5rad and the refined channel rejection persists.
+Basis,active-space and full retained-channel convergence remain open.
 Fifty-component equilibrium orbital coverage passes,but native fifty-component
 imports and matched scattering have not been performed.
 
-**Next:** compare CAS11→CAS12 and DZ→TZ→aug-TZ with all other settings fixed.
+**Next:** finish equilibrium nine-A2 input qualification,then separately declare
+its matched five-versus-nine scattering control at2048. Use the measured active-
+space/channel effects to select remaining matched three-anchor and
+DZ→TZ→aug-TZ controls with all other settings fixed.
 Independently test explicit channel count and forty→fifty orbital averaging:
 these change different parts of the model and need separate comparisons.
 Check all three anchors so agreement at equilibrium cannot hide a stretched
@@ -87,8 +96,12 @@ convergence or justify choosing a convenient orbital solution.
 passes. Quarter controls greatly strengthen the named singlet-A2 root5 route,
 but singlet-A2 root4 and triplet-A2 root5 still change endpoint labels under
 path refinement. Separate quarter wavefunction replay passes on the host.
-Native background/window changes move widths by roughly12% at equilibrium,
-32% compressed and6.7% stretched,exceeding the5% width budget.
+Earlier native background/window changes move widths by roughly12% at
+equilibrium,32% compressed and6.7% stretched. The new multi-window/three-start/
+five-fold control rejects extraction with width spans17.235%/16.635% for
+equilibrium CAS11/CAS12 and6.999%/6.991% for stretchedfive/nine A2. These are
+different declared control sets;all exceed5%. Constant background dominates
+the measured sensitivity,including failure of equilibrium held-phase prediction.
 
 **Next:** audit the two
 remaining retained components: inspect competing row scores,energies and
@@ -168,10 +181,10 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
-1. Complete checksum-pinned compressed proof replay,then its fresh native import
-   under [the private-cache successor](cas12-compressed-private-cache-successor-contract.json).
-2. Run [independent quarter reconstruction](cas11-quarter-state-tracking-replay-contract.json)
-   on reserved cores and publish/fetch/reconstruct passing evidence.
-3. Complete CAS11/TZ public evidence and review,then declare a modest CAS12 pilot.
-4. Use those outcomes to choose the next specific electronic/channel/extraction
-   experiment. Full-sweep readiness is determined by the gates,not a fixed date.
+1. Finish the active equilibrium48-state target/property input gate and independent
+   raw reading,then declare its matched five-versus-nine-A2 scattering control.
+2. Design and independently validate an extraction rule addressing the measured
+   background failure;preserve every rejected all-order gate.
+3. Complete the remaining matched model/basis/ensemble controls,continuity and
+   neutral correlation/domain qualification;then freeze and pass a restartable
+   production pilot. Full-sweep readiness follows the gates,not a fixed date.

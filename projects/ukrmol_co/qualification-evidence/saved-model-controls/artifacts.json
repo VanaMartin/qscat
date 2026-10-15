@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "host-reading-execution.json": {"bytes":1353,"sha256":"b19b3e80b6439d4e3b874b4b1d4bd4e028660d32d0c6359c1f6ce7489add4b79"},
+    "host-reading.json": {"bytes":1540710,"sha256":"062a8c76beef44396e9fca52eb11e07ed758aadf1c4b46e8054ce984a62bd6b6"},
+    "local-reading.json": {"bytes":1540562,"sha256":"1b7b6803356d128f4184dbd42ddb2da4761f58462c29def14b0c08a3c27c6a78"},
+    "manifest.json": {"bytes":916,"sha256":"1007e012f81c092d564cdf7a98f186967a1190f0131c70b8940c035b5d9b16a5"},
+    "raw-inputs.tar.gz": {"bytes":332166079,"sha256":"44cbb73ee3d0651c2c295d1df7a6100515e226f5156a2b845378437f6b0446cd"},
+    "reconstruction-source.tar.gz": {"bytes":104412,"sha256":"e60b3404aef2976c54069e87a087a728bf2cca230d2488b8a6a70afdba19185b"},
+    "source-provenance.json": {"bytes":6534,"sha256":"d6245e3545e5f97bdc29bb6c501d2b3bdc06d95e1032a6066a33ee5390470784"}
+  },
+  "git_sha":"76a6255f49991e28bfb53949b774ba1dc97a72ef",
+  "url_prefix":"https://data.qscat.org/co-saved-model-controls-20261015/"
+}

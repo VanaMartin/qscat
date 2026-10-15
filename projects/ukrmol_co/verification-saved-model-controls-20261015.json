@@ -1,0 +1,36 @@
+{
+  "reader_source_commit":"76a6255f49991e28bfb53949b774ba1dc97a72ef",
+  "input_files_verified":124,"frozen_source_files":57,"native_solves":0,
+  "declared_extraction_cases":96,"full_data_start_fits":288,"held_point_fold_fits":480,
+  "host_reading_original_exit":0,"host_container_wall_seconds":1.7159432084299624,
+  "local_reading_original_exit":0,"numerical_sensitivity_controls_passed":true,
+  "cross_runtime_maximum_full_data_fit_parameter_drift_ev":4.711555833181279e-9,
+  "native_or_original_exits_replaced":false,
+  "public_reconstruction_complete":true,"public_payloads_verified":7,
+  "public_reconstruction_utc":"2026-10-15T21:27:33.854349+00:00",
+  "public_reconstruction_sha256":"5d42906b86200b89967693b04b34fd5a7405d5ebeff260a8861a3a30b9f258c7",
+  "public_reconstructed_raw_files":124,"public_frozen_source_hashes_verified":57,
+  "public_model_and_extraction_verdicts_match":true,
+  "equilibrium_active_space_comparison":{
+    "both_sectors_agree":true,"window_requested_ev":[1.8,3.3],"background_orders":[1,2,3,4],
+    "matched2048":{"phase_rad":0.12127980000000016,"maximum_phase_requested_ev":2.55,"position_differences_ev":[0.07344747704335129,0.06409467916237638,0.06365190426942968,0.06505999807491208],"full_width_differences_ev":[0.02666117837214224,0.019582288937614763,0.016684030458039945,0.017933144151254875],"observable_insensitivity_verdict":false},
+    "cas11_2048_vs_cas12_4096":{"phase_rad":0.12129190000000012,"maximum_phase_requested_ev":2.55,"position_differences_ev":[0.07344705173722917,0.06409244082135518,0.06365302290533159,0.06505944587781919],"full_width_differences_ev":[0.026676822863957405,0.019614055636015603,0.01671796771747683,0.017975087200564222],"observable_insensitivity_verdict":false},
+    "phase_budget_rad":0.05,"position_budget_ev":0.05,"full_width_relative_budget":0.05,"full_width_floor_ev":0.001,
+    "all_position_comparisons_reject":true,"all_full_width_comparisons_pass":true,
+    "actual_outer_decks_byte_identical":true,"own_model_noncontiguous_target_maps_verified":true,
+    "actual_scattering_preparation_deletion_threshold":1e-6,"original_cas12_target_only_default_deletion_threshold":1e-7,
+    "scope":"Practical sensitivity after accepted numerical controls;CAS11 used4ranks/release engine and CAS12 used8ranks/audited engine with existing exact CAS12 reproduction.No same-engine CAS11 rerun.Target solvers differ and retain original import/action gates."
+  },
+  "extraction_summary_B1":{
+    "eq11":{"verdict":false,"position_span_ev":0.010060677489880376,"full_width_span_ev":0.19914535535585687,"full_width_span_fraction_of_median":0.17234977757306952,"maximum_held_phase_rad":0.06870345418179546},
+    "eq12":{"verdict":false,"position_span_ev":0.019638913893950782,"full_width_span_ev":0.18937325927873494,"full_width_span_fraction_of_median":0.166347015421285,"maximum_held_phase_rad":0.06819367404404986},
+    "stretchedfive":{"verdict":false,"position_span_ev":0.0011021887156825727,"full_width_span_ev":0.020481329274345095,"full_width_span_fraction_of_median":0.06999025228428361,"maximum_held_phase_rad":0.041130797244602224},
+    "stretchednine":{"verdict":false,"position_span_ev":0.001377416235791462,"full_width_span_ev":0.02021944009199239,"full_width_span_fraction_of_median":0.06990820755584017,"maximum_held_phase_rad":0.0410785476293829},
+    "B2_same_verdicts":true,"all_declared_cases_valid":true,"width_budget_fraction":0.05,"width_floor_ev":0.001,"held_phase_budget_rad":0.05,
+    "per_order_window_diagnosis":"Constant-background order1 dominates measured sensitivity;nonconstant orders have much smaller window spans/held residuals.All orders remain in the original rejected gate;no passing subset replaces it."
+  },
+  "public_evidence_pointer":"qualification-evidence/saved-model-controls/artifacts.json",
+  "host_full_report_sha256":"062a8c76beef44396e9fca52eb11e07ed758aadf1c4b46e8054ce984a62bd6b6",
+  "local_full_report_sha256":"1b7b6803356d128f4184dbd42ddb2da4761f58462c29def14b0c08a3c27c6a78",
+  "electronic_model_verdict":null,"spectral_truncation_verdict":null,"global_continuity_verdict":null,"full_sweep_released":false
+}
