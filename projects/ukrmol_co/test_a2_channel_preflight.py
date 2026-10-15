@@ -10,6 +10,7 @@ from projects.ukrmol_co.a2_channel_preflight import (
     expected_states,
     property_inventory,
     replace_assignment,
+    target_solver_deck,
 )
 from projects.ukrmol_co.sparse_comparison_owner import sha
 
@@ -104,6 +105,23 @@ def test_target_deck_change_keeps_solver_tolerance_and_comment():
     assert "crite=1e-12" in changed and "maxiter=1000, ! solver" in changed
     assert "nstat=9, ! roots" in changed
     np.testing.assert_equal(changed.count("nstat="), 1)
+
+
+def test_equilibrium_dense_target_template_selects_solver_without_losing_full_vectors():
+    original = (
+        "&cinorn\n nstat=5, ! roots\n nciset=1, ! index\n vecstore=5,\n memp=6.0,\n!igh = 1,\n/\n"
+    )
+    changed = target_solver_deck(original, 9, 8)
+    assert "nstat=9," in changed and "nciset=8," in changed
+    assert "igh = -1, crite = 1e-12, maxiter = 1000," in changed
+    assert "vecstore=5," in changed and "memp=6.0," in changed
+    assert target_solver_deck(changed, 5, 1).count("igh = -1") == 1
+
+
+@pytest.mark.parametrize("slot", ["igh=1,", "!igh=2,", "!igh=1,\n!igh=1,", "crite=1e-6,\n!igh=1,"])
+def test_unexpected_dense_target_solver_is_rejected(slot):
+    with pytest.raises(ValueError, match=r"solver settings|diagonalizer slot"):
+        target_solver_deck("nstat=5,\nnciset=1,\n" + slot + "\n", 9, 8)
 
 
 @pytest.mark.parametrize("defect", [None, "frame", "residual", "spin", "flags", "settings"])

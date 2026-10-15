@@ -29,6 +29,27 @@ def replace_assignment(text: str, name: str, value: str) -> str:
     return result
 
 
+def target_solver_deck(text: str, count: int, index: int) -> str:
+    """Request the same selected target solver from either retained native template."""
+    text = replace_assignment(text, "nstat", str(count))
+    text = replace_assignment(text, "nciset", str(index))
+    active = "\n".join(line.split("!", 1)[0] for line in text.splitlines())
+    selections = re.findall(r"\bigh\s*=\s*(-?\d+)", active)
+    if selections == ["-1"]:
+        return replace_assignment(text, "maxiter", "1000")
+    if selections or re.search(r"\b(?:crite|maxiter)\s*=", active):
+        raise ValueError("Unexpected retained target solver settings")
+    text, slots = re.subn(
+        r"^\s*!\s*igh\s*=\s*1,\s*$",
+        "  igh = -1, crite = 1e-12, maxiter = 1000,",
+        text,
+        flags=re.M,
+    )
+    if slots != 1:
+        raise ValueError("No unique retained target diagonalizer slot")
+    return text
+
+
 def property_inventory(text: str, expected: dict[str, list[float]]) -> dict:
     """Resolve nonuniform target sectors and every multipole's own energy-ordered ID."""
     states, moments, header = [], {}, []
@@ -213,9 +234,7 @@ def compute(root: Path, work: Path, contract: dict) -> None:
         count = len(expected[f"{spin}.{irrep}"])
         name = f"target.scatci.{spin}.{irrep}"
         text = (geometry / "inputs" / f"{name}.inp").read_text()
-        text = replace_assignment(text, "nstat", str(count))
-        text = replace_assignment(text, "maxiter", "1000")
-        text = replace_assignment(text, "nciset", str(index))
+        text = target_solver_deck(text, count, index)
         deck = work / f"{name}.inp"
         deck.write_text(text)
         telemetry = work / f"{name}.telemetry.jsonl"
