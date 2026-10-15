@@ -69,7 +69,12 @@ def main() -> None:
                     with path.open("rb") as stream:
                         stream.seek(max(0, path.stat().st_size - 6000))
                         capture[sector + "_scatci_tail"] = stream.read().decode(errors="replace")
-            for name in ("pilot.json", "resources.json", "independent-comparison.json"):
+            for name in (
+                "pilot.json",
+                "resources.json",
+                "independent-comparison.json",
+                "independent-root-decision.json",
+            ):
                 path = run / name
                 if path.exists():
                     capture[name] = json.loads(path.read_text())

@@ -1,0 +1,98 @@
+{
+  "diagnosed_utc": "2026-10-15T06:44:20.013575+00:00",
+  "source_evidence_sha256": {
+    "projects/ukrmol_co/verification-a2-channel-completion-20261015.json": "b9799e81b35eb70c55d3298580435fcde75ec939701f21f13d3207705f2b2046"
+  },
+  "reader_source_sha256": "8915813b4ce398d2ffc254bf84486ba5640f01cffc9900c6952524aaefc90b52",
+  "sectors": {
+    "B1": {
+      "actual_maximum_phase_change_rad_mod_pi": 0.06790619999999992,
+      "maximum_requested_energy_ev": 1.0,
+      "fits": [
+        {
+          "nback": 1,
+          "center_change_contribution_rad_at_1ev": 0.06330803589459388,
+          "width_change_increment_rad_at_1ev": 0.0020286947929069044,
+          "background_change_increment_rad_at_1ev": -0.0002806016280601509,
+          "total_fitted_phase_change_rad_at_1ev": 0.06505612905944064,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        },
+        {
+          "nback": 2,
+          "center_change_contribution_rad_at_1ev": 0.06570768972669283,
+          "width_change_increment_rad_at_1ev": 0.0020900251307740536,
+          "background_change_increment_rad_at_1ev": 9.838783681487273e-05,
+          "total_fitted_phase_change_rad_at_1ev": 0.06789610269428176,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        },
+        {
+          "nback": 3,
+          "center_change_contribution_rad_at_1ev": 0.06585073261965246,
+          "width_change_increment_rad_at_1ev": 0.002017196999611892,
+          "background_change_increment_rad_at_1ev": 6.726962628711419e-05,
+          "total_fitted_phase_change_rad_at_1ev": 0.06793519924555147,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        },
+        {
+          "nback": 4,
+          "center_change_contribution_rad_at_1ev": 0.06584650678690007,
+          "width_change_increment_rad_at_1ev": 0.0020167602118632555,
+          "background_change_increment_rad_at_1ev": 5.607604359456064e-05,
+          "total_fitted_phase_change_rad_at_1ev": 0.06791934304235789,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        }
+      ]
+    },
+    "B2": {
+      "actual_maximum_phase_change_rad_mod_pi": 0.06790619999999992,
+      "maximum_requested_energy_ev": 1.0,
+      "fits": [
+        {
+          "nback": 1,
+          "center_change_contribution_rad_at_1ev": 0.06330803577927213,
+          "width_change_increment_rad_at_1ev": 0.002028694779563578,
+          "background_change_increment_rad_at_1ev": -0.0002806015472193446,
+          "total_fitted_phase_change_rad_at_1ev": 0.06505612901161636,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        },
+        {
+          "nback": 2,
+          "center_change_contribution_rad_at_1ev": 0.06570768958253836,
+          "width_change_increment_rad_at_1ev": 0.002090025160510267,
+          "background_change_increment_rad_at_1ev": 9.838791822538995e-05,
+          "total_fitted_phase_change_rad_at_1ev": 0.06789610266127402,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        },
+        {
+          "nback": 3,
+          "center_change_contribution_rad_at_1ev": 0.06585073306351985,
+          "width_change_increment_rad_at_1ev": 0.0020171970542319784,
+          "background_change_increment_rad_at_1ev": 6.726930470141168e-05,
+          "total_fitted_phase_change_rad_at_1ev": 0.06793519942245324,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        },
+        {
+          "nback": 4,
+          "center_change_contribution_rad_at_1ev": 0.06584650705237083,
+          "width_change_increment_rad_at_1ev": 0.0020167601685885383,
+          "background_change_increment_rad_at_1ev": 5.60758575021969e-05,
+          "total_fitted_phase_change_rad_at_1ev": 0.06791934307846156,
+          "scope": "Telescoping fit decomposition: center first, width second, background last;order-dependent diagnostic,not unique physics decomposition or pole identification."
+        }
+      ]
+    }
+  },
+  "2048_spectrum_upper_total_energy_hartree": {
+    "five": {
+      "B1": -109.95182529541238,
+      "B2": -109.95182529541195
+    },
+    "nine": {
+      "B1": -110.31026901215093,
+      "B2": -110.31026901215107
+    }
+  },
+  "phase_exceedance_margin_rad": 0.017906199999999997,
+  "decision": "The roughly10meV fit-center change naturally produces a roughly0.067rad phase change near a0.29eV-wide candidate. Fit-parameter budgets and phase budgets test different sensitivities. Preserve original rejection. Nine-A2spectral cutoff is0.35844Hartree lower at the same2048count;its root coverage has no same-model check. Declare one bounded nine-A2only2048-to4096check to decide whether phase rejection persists under refined inner-spectrum coverage. No ladder or absolute omitted-spectrum claim.",
+  "new_model_specific_check_estimate": "Measured nine-A22048two-sector cost1.85h/6.31GiB;equilibriumCAS11doubling costratio3.335/2.454=1.36on anotherengine. Conditional2-4h/two sectors,48GiBcgroup;stage8h/model12h/owner14h caps. Reuse target/integral/CONGENinputs;onlynstat2048to4096changes. This single check can change attribution/working root choice for expandedmodel;does not reopen acceptedCAS12root decision."
+}

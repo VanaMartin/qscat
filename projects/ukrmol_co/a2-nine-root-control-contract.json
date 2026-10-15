@@ -1,0 +1,147 @@
+{
+  "status": "declared single nine-A2 model-specific root check following measured phase rejection",
+  "scientific_question": "Does the stretched CAS11 nine-A2 phase rejection persist when only its inner-region root count changes2048to4096? Measured phase0.0679062rad exceeds0.05rad by0.0179062rad;added channels lower the2048spectral cutoff0.35844Hartree. Outcomes change attribution and working resolution for this expanded model. The original five/nine2048rejection remains preserved;acceptedCAS12resolution guidance is unchanged.",
+  "run": "cas11-stretched-nine-a2-roots4096-mpi8-20261015",
+  "source_directory": "prepared/a2-nine-root-control-source-20261015",
+  "target_reference_directory": "runs/co-r2500-ccdz-sa11-tight-cc40-anchor",
+  "independent_reference_directory": "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r2500-ccdz-sa11-tight-cc40-anchor",
+  "target_preflight_directory": "prepared/a2-channel-target-preflight-source-20261014/native/cas11-stretched-a2roots9-fixed-orbital-native-preflight-20261014",
+  "baseline_directory": "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+  "baseline_reader_filename": "independent-engine-baseline.json",
+  "baseline_reader_verdict": "matched_engine_baseline_verdict",
+  "fixed_target_settings": {
+    "bond_length": 2.5,
+    "basis": "cc-pVDZ",
+    "model": "CAS-A",
+    "orbitals": "state-averaged",
+    "frozen_orbitals": 2,
+    "active_orbitals": [
+      5,
+      3,
+      3,
+      0
+    ],
+    "sa_singlet_roots": [
+      5,
+      5,
+      5,
+      5
+    ],
+    "sa_triplet_roots": [
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  "scattering_roots": 2048,
+  "sectors": [
+    "B1",
+    "B2"
+  ],
+  "models": {
+    "five": {
+      "a2_roots_per_spin": 5,
+      "target_components": 40,
+      "dimension": 27546,
+      "continuum_coefficients": 1410,
+      "boundary_channels": 250
+    },
+    "nine": {
+      "a2_roots_per_spin": 9,
+      "target_components": 48,
+      "dimension": 27818,
+      "continuum_coefficients": 1682,
+      "boundary_channels": 298
+    }
+  },
+  "engine_source_directory": "prepared/cas12-pointer-address-source-20261012",
+  "engine_evidence_sha256": {
+    "execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "numerical_library_sha256": {
+    "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+    "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+    "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+    "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+  },
+  "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "telemetry_directory": "diagnostics/sparse-scattering-telemetry-v6-20261007",
+  "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+  "changes": "Onlynstat2048to4096changes in actual copied completed nine-A2scatci decks. Targetvectors/properties,integrals,CONGENexpansions,nonuniform48-targetmap,outerdecks,igh-1/crite1e-12/maxiter1000/vecstore3/native6-GiBmemp and exactauditedengine unchanged. Originalphase rejection and exits preserved.",
+  "gates": [
+    "Verify frozen inputs/source and242installed engineartifacts;runtime dependency/telemetry gate. Preserve completed original ownerexit1 and compareexit1 only:every native step must have passed,baselineverdicttrue/channelverdictfalse,no timeout or administrative stop.",
+    "Fresh raw self-reading reproduces original phase-only rejection using explicit48-state target map/own-model298boundary interface. Exact originalframe/decksverified before dispatch.",
+    "One new4096-root solve per Pi sector,8physicalcores/ranks,48-GiBcgroup/8-GiBshared,6-GiBmemp.Stage8h/native12h/owner14h caps.No retry/laterroot/channelmodel automatically follows.",
+    "Independent nine2048/4096rootpair reader checks actualinputbytes/decks onlynstatdiffers,exacttargetmap/staticinterfaces,prefixenergies,allnativeexits/exports/residuals/Pi,full99-pointphasegrid andfixed0.4-1.6windowfits/orders1-4.",
+    "Keep original scientific budgets0.05rad/0.05eV/5percentwidthwith0.001eVfloor. Additional attribution requirement:root-refinement phasechange<=0.005rad in both sectors,less than observed0.0179062radexceedancemargin. Recompare refinednine4096against completedfive2048;phase rejection must persist in both sectors.",
+    "Resolution-decisionverdicttrue means stable refinedchannelphaserejection,not channelconvergence. False/unset pair,attribution or changedchanneloutcome stops for a new decision,without budgetchange/repair. Empty/MAXFIT/bound/failedfitsremainunset."
+  ],
+  "observable_budgets": {
+    "position_ev": 0.05,
+    "full_width_relative": 0.05,
+    "full_width_floor_ev": 0.001,
+    "phase_rad_mod_pi": 0.05,
+    "fit_background_orders": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "fixed_requested_energy_window_ev": [
+      0.4,
+      1.6
+    ]
+  },
+  "raw_checks": {
+    "absolute_residual_hartree": 1e-07,
+    "boundary_to_ci_atol_hartree": 1e-10,
+    "pi_phase_rad_mod_pi": 0.002,
+    "phase_grid_atol_requested_ev": 5e-05,
+    "native_selection_which": 1,
+    "shared_prefix_energy_atol_hartree": 1e-07
+  },
+  "fit_initial_position_hartree": 0.036158,
+  "fit_initial_full_width_hartree": 0.010764,
+  "hartree_to_ev": 27.211386245988,
+  "native_rydberg_per_requested_ev": 0.0735,
+  "resources": {
+    "physical_cpu_group": "4-11",
+    "mpi_ranks": 8,
+    "library_threads_per_rank": 1,
+    "container_memory_gib": 48,
+    "shared_memory_gib": 8,
+    "scatci_memory_input_gib": 6,
+    "minimum_available_ram_gib": 64,
+    "minimum_free_disk_gib": 20,
+    "native_stage_timeout_seconds": 28800,
+    "independent_reader_memory_gib": 4,
+    "independent_reader_cpu_group": "0-3",
+    "independent_reader_timeout_seconds": 3600,
+    "whole_owner_timeout_seconds": 50400,
+    "observer_interval_seconds": 1800,
+    "observer_timeout_seconds": 50400,
+    "whole_native_timeout_seconds": 43200
+  },
+  "cost_rationale": "Decision-changing new-model coverage question:expanded2048cutoff0.35844Hartree lower and phaseexceedance0.0179062rad. Measured nine2048both-sector cost1.849952h/6.306644GiB. PriorCAS11equilibrium2048to4096ratio3.335/2.454=1.36is a differentengine/scope anchor,not matchedforecast. Conditional2-4h/two sectors;native12h/owner14h caps.Engine8physicalcores and48-GiBcgroup unchanged;outputs/inputcopies need<5GiB,launch requires20GiBfree. Do not repeatfive,targetpreflight,densebuild,CAS12or thirdrootresolution. Rootrefinementcan distinguish robustchannelrejection from a model-specific selected-spectrum effect,but does not bound absolute omittedtail.",
+  "interpretation": "Preserve original A2phase rejection. Additionalresolution-decision passes only if actualsame-modelrootpairpasses andphasechange<=0.005rad andrefinednine-versus-fivephasegate still rejects in bothsectors. Even a pass is practicalattribution evidence,not absolute omission,fullchannelconvergence or poleidentity. Originalscientificbudgets unchanged;0.005rad is a stricter extra decision requirement.",
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "a2_source_directory": "prepared/a2-channel-scattering-source-20261014",
+  "root_reference_directory": "prepared/a2-channel-scattering-source-20261014/native/cas11-stretched-a2-five-nine-roots2048-mpi8-20261014/nine",
+  "five_reference_directory": "prepared/a2-channel-scattering-source-20261014/native/cas11-stretched-a2-five-nine-roots2048-mpi8-20261014/five",
+  "baseline_roots": 2048,
+  "candidate_roots": 4096,
+  "dimension": 27818,
+  "continuum_coefficients": 1682,
+  "boundary_channels": 298,
+  "attribution_phase_budget_rad": 0.005,
+  "resolution_decision_verdict": null,
+  "original_a2_channel_sensitivity_verdict": false
+}

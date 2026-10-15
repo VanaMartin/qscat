@@ -100,7 +100,11 @@ def read_run(path: Path, roots: int, contract: dict) -> tuple[dict, dict]:
         ] or any(s["timed_out"] for s in stages):
             raise ValueError("Native stage exit or timeout failed")
         raw = audit_sector(
-            directory, roots, contract["dimension"], contract["continuum_coefficients"]
+            directory,
+            roots,
+            contract["dimension"],
+            contract["continuum_coefficients"],
+            contract.get("boundary_channels", 250),
         )
         telemetry = json.loads((directory / "eps-telemetry.jsonl").read_text())
         if telemetry["which"] != contract["raw_checks"]["native_selection_which"]:
