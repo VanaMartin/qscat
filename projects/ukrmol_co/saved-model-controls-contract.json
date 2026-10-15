@@ -1,0 +1,45 @@
+{
+  "status": "declared read-only model and extraction controls after accepted root-refinement checks",
+  "scientific_question": "Does the saved equilibrium CAS11-to-CAS12 change exceed the existing observable budgets at matched2048 roots and after CAS12 refinement? Does the expanded stretched nine-A2 model resolve the earlier background/window-sensitive width extraction?",
+  "models": {
+    "eq11": {"directory":"diagnostics/cas11-native-sparse-roots2048-boundary-differential-20261007","dimension":27546,"continuum_coefficients":1410,"boundary_channels":250,"roots":2048,"record":"comparison.json"},
+    "eq12": {"directory":"prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012","dimension":86352,"continuum_coefficients":1410,"boundary_channels":250,"roots":2048,"record":"pilot.json"},
+    "eq12refined": {"directory":"prepared/cas12-audited-engine-4096-source-20261013/native/cas12-eq-roots4096-mpi8-audited-engine-scientific-20261013","dimension":86352,"continuum_coefficients":1410,"boundary_channels":250,"roots":4096,"record":"pilot.json"},
+    "stretchedfive": {"directory":"prepared/a2-channel-scattering-source-20261014/native/cas11-stretched-a2-five-nine-roots2048-mpi8-20261014/five","dimension":27546,"continuum_coefficients":1410,"boundary_channels":250,"roots":2048,"record":"pilot.json"},
+    "stretchednine": {"directory":"prepared/a2-channel-scattering-source-20261014/native/cas11-stretched-a2-five-nine-roots2048-mpi8-20261014/nine","dimension":27818,"continuum_coefficients":1682,"boundary_channels":298,"roots":2048,"record":"pilot.json"}
+  },
+  "equilibrium_targets": {
+    "eq11":"runs/co-eq-ccdz-sa11-tight-cc40",
+    "eq12":"runs/co-eq-ccdz-sa12-slepc-target",
+    "eq12_preparation":"diagnostics/cas12-scattering-dimension-preflight-nbmx/co-eq-ccdz-sa12-slepc-target"
+  },
+  "sectors":["B1","B2"],
+  "raw_checks":{"native_selection_which":1,"pi_phase_rad_mod_pi":0.002,"phase_grid_atol_requested_ev":0.00005},
+  "observable_budgets":{"position_ev":0.05,"full_width_relative":0.05,"full_width_floor_ev":0.001,"phase_rad_mod_pi":0.05,"fit_background_orders":[1,2,3,4],"fixed_requested_energy_window_ev":[1.8,3.3]},
+  "fit_initial_position_hartree":0.090300065,
+  "fit_initial_full_width_hartree":0.04168035,
+  "hartree_to_ev":27.211386245988,
+  "native_rydberg_per_requested_ev":0.0735,
+  "extraction": {
+    "models":["eq11","eq12","stretchedfive","stretchednine"],
+    "equilibrium_windows_requested_ev":[[1.8,3.3],[1.5,3.5],[1.2,3.8]],
+    "stretched_windows_requested_ev":[[0.4,1.6],[0.5,1.5],[0.6,1.4]],
+    "background_orders":[1,2,3,4],
+    "starts":[[0,1],[-0.05,0.5],[0.05,2]],
+    "held_point_folds":5,
+    "gates":{"maximum_position_span_ev":0.05,"maximum_full_width_span_fraction_of_median":0.05,"absolute_width_floor_ev":0.001,"maximum_held_phase_error_rad_mod_pi":0.05},
+    "requirements":"Keep every window/order/start/fold. Fit actual Hartree energies with the existing independent phase fitter. Assess position/full-width spans across all declared full-data fits, with max(0.001eV,5percent median width). Report per-order window spans separately as diagnosis only. Failed, empty, MAXFIT or bound fits leave the extraction verdict unset. Do not select passing subsets or change budgets. Seeds come from each model's original native candidate. Same windows on both models; five folds predict unused points in the original window. Low prediction error does not establish unique resonance parameters."
+  },
+  "requirements":[
+    "All checksum-fetched bytes match a retained manifest; original resource/stage exits and raw CI/boundary/telemetry/Pi/grids pass in each model",
+    "CAS11 original comparison.json format is read directly; never fabricate pilot.json or substitute resource exits",
+    "Equilibrium configs and actual native-preparation settings match geometry,basis,frozen core,40-component averaging,retained five roots per spin/irrep,radius,maxl,deletion and propagation; active A1 orbital count and resulting optimized targets change",
+    "Resolve each model's own DENPROP IDs/energies and actual outer decks. Original target-only CAS12 defaults are superseded by its actual scattering-preparation config, never silently equated",
+    "CAS11 dense-reference phase differences and CAS12 2048-to4096 sensitivity are reported separately from the active-space effect. Ranks/engine and target-diagonalizer provenance differ; existing engine reproduction is supporting evidence, not a same-engine CAS11 reexecution",
+    "A model-comparison rejection is practical observable sensitivity for these qualified numerical controls, not absolute omitted-spectrum, full electronic convergence or pole identity"
+  ],
+  "resources":{"native_solves":0,"remote_read_only_archive_cpu_group":"0-3","local_reader_timeout_seconds":600,"maximum_new_remote_archive_gib":1,"minimum_free_disk_gib":20},
+  "stopping_rule":"Any raw/input/prerequisite failure stops the relevant reading. Preserve false/unset scientific results. This saved-output study launches no native calculation and makes no automatic root/channel ladder or production release.",
+  "electronic_model_verdict":null,
+  "full_sweep_released":false
+}
