@@ -41,16 +41,17 @@ CAS12's 1.67e-5-rad phase difference is a refinement difference, not an absolute
 4096-root error. The sweep remains gated by model, identity, extraction and neutral
 qualification.
 
-**Progress — 14 October, 16:34 UTC:** the five-A2selected2048 baseline
-**passes against saved dense observables in both sectors**, completing in
-**1.7070hours / 5.894GiB**. The
-[independent30-file reconstruction](verification-a2-five-baseline-20261014.json)
-confirms maximum phase difference **1.02e-5rad**, complete exports, residual/Pi
-checks and all fixed-window fits. The gated
-[nine-A2control](A2_CHANNEL_SCATTERING.md) is now running: B1matrix assembly
-completes with expected dimension **27818**, and the2048-root eigensolve is active.
-The [dated capture](progress-a2-channel-scattering-20261014T1630.json) records
-the baseline pass and expanded launch. Channel-sensitivity verdict remains unset.
+**Progress — 15 October, 06:32 UTC:** the
+[five-versus-nine A2 control](A2_CHANNEL_SCATTERING.md) completes, with all native
+exits0 but **phase-insensitivity verdict false** in both sectors. Maximum phase
+change **0.0679062rad** exceeds the0.05rad budget near1.0requested-eV.
+Position/full-width changes of **9.818–10.107 / 3.400–3.711meV** pass their budgets.
+The [51-file local reconstruction](verification-a2-channel-completion-20261015.json)
+confirms the rejection and complete exports. Nine-A2cost is **1.850hours /
+6.307GiB**; the five-A2dense baseline remains qualified. The
+[completion capture](progress-a2-channel-scattering-20261015T0631.json) preserves
+compare/owner exits1, normal observer completion and frozen hashes. No scientific
+calculation remains active; no automatic root/channel ladder follows.
 
 **Completed input gate — 14 October, 13:19 UTC:** the
 [fixed-orbital A2 target/property preflight](A2_CHANNEL_TARGET_PREFLIGHT.md)
@@ -67,15 +68,18 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 <a id="progress-overview--12-october-2026"></a>
 <a id="progress-overview--13-october-2026"></a>
 
-## Progress overview — 14 October 2026
+<a id="progress-overview--14-october-2026"></a>
 
-![CO qualification: five-A2 baseline passes dense observables;expanded nine-A2 scattering active;model and extraction remain open](../../docs/physics/figures/co-progress-20261014T1634.png)
+## Progress overview — 15 October 2026
 
-[Vector figure](../../docs/physics/figures/co-progress-20261014T1634.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261014T1634.json) ·
-[Active A2 scattering control](A2_CHANNEL_SCATTERING.md) ·
+![CO qualification: completed A2 channel control rejects phase insensitivity;fit changes pass;model and extraction gates remain](../../docs/physics/figures/co-progress-20261015T0632.png)
+
+[Vector figure](../../docs/physics/figures/co-progress-20261015T0632.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261015T0632.json) ·
+[Completed A2 scattering control](A2_CHANNEL_SCATTERING.md) ·
 [Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
 [Completed A2 prerequisite](A2_CHANNEL_TARGET_PREFLIGHT.md) ·
+[Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
 [Previous14:06overview](../../docs/physics/figures/co-progress-20261014T1406.png) ·
 [Previous13:19overview](../../docs/physics/figures/co-progress-20261014T1319.png) ·
 [Previous10:34overview](../../docs/physics/figures/co-progress-20261014T1034.png) ·
@@ -103,18 +107,18 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **16:34 UTC, 14 October** release of an incremental overview. New findings, verification
+This is the **06:32 UTC, 15 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** the economical five-A2selected2048 baseline passes an independent
-comparison against the saved stretched dense observables. Local raw reconstruction
-confirms the gate from30checksum-verified files. Nine-A2scattering is now active
-on the same orbitals and2048-root setting; actual B1dimension matches the declared
-increase. **Channel-sensitivity verdict remains unset at this cutoff.**
+**What changed:** nine-A2scattering completes and the matched2048control rejects
+phase insensitivity at the unchanged tolerance. The maximum effect occurs inside
+the fixed fitting window; all position/full-width fits still pass their budgets.
+Local51-file reconstruction confirms the result. The phase rejection is preserved,
+with full channel convergence and nine-A2omitted-spectrum qualification still open.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component

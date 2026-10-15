@@ -126,3 +126,35 @@ complete and its2048-root eigensolve is active at16:34UTC, with native contracte
 dimension **27818** as declared. Live16:30CPU/memory **802percent / 3.43GiB** is
 partial telemetry. B1exports/outer stages and B2 remain pending; no owner error
 or timeout is observed. **Channel-sensitivity verdict remains unset.**
+
+## Completion: phase budget rejects — 15 October, 06:32 UTC
+
+Both models complete every native stage with exit0. The matched reader finishes
+14October17:36UTC with **channel-sensitivity verdict false** in both sectors;
+compare/owner exits1 preserve that scientific rejection. The observer ends
+normally after9captures. No scientific calculation remains active. The
+[completion capture](progress-a2-channel-scattering-20261015T0631.json) reverifies
+58source/58input hashes and242installed artifacts.
+
+The [51-file local raw reconstruction](verification-a2-channel-completion-20261015.json)
+finds maximum phase change **0.0679062rad**, exceeding **0.05rad** by35.8percent,
+at **1.0requested-eV**. Points0.95/1.00/1.05requested-eV reject in both sectors.
+The effect lies inside the declared fitting window. Position and width tests
+pass at all four background orders: expansion lowers fitted position by
+**9.818–10.107meV** and full width by **3.400–3.711meV (1.16–1.19percent)**.
+Their passing budgets do not override the phase rejection.
+
+Nine-A2native cost is **1.849952hours / 6.306644GiB**, with2048poles,
+2048×1682continuum vectors and2048×298boundary amplitudes per sector. Actual
+dimension27818, residual≤1.28606e-10Hartree, Pi0rad at printed precision and
+exact boundary/CI energies pass. Native fits are nonempty/noMAXFIT; shared
+target/integral/CONGENhashes and outer decks match. Local raw reconstruction
+confirms the verdict using the public readers/fitter; it is independent of
+producer verdicts rather than an independent scattering engine/fitter.
+
+The economical five-A2baseline remains qualified against saved dense observables,
+but the matched2048channel control rejects observable insensitivity. Nine-A2full
+channel convergence and absolute omitted-spectrum error remain unqualified.
+Preserve the rejection and original exits; no retry, budget change or automatic
+root/channel ladder follows. Any further model-specific check must name the
+decision it changes and its expected marginal cost.

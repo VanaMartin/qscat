@@ -20,6 +20,54 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### A2 control complete: phase-insensitivity gate rejects — 15 October, 06:32 UTC
+
+**Both selected models finish all native stages with exit0; the five-versus-nine
+A2 comparison rejects on phase in both Pi sectors.** The owner ends
+14October17:36:16UTC with compare/owner exits1, preserving the intended scientific
+stop. This is a completed calculation and measured budget rejection. Observer
+1304833 ends normally after9captures; owner1304346 and observer are inactive,
+with no scientific container running. The
+[completion capture](progress-a2-channel-scattering-20261015T0631.json) reverifies
+58source/58input hashes and242installed engine artifacts.
+
+The [51-file independent local reconstruction](verification-a2-channel-completion-20261015.json)
+confirms **maximum phase change0.0679062rad versus0.05rad budget (1.358×)**,
+at **1.0requested-eV**. Three grid points, **0.95/1.00/1.05requested-eV**, exceed
+the phase budget in each sector, all inside the predeclared0.4–1.6fit window.
+Every fixed-window/background-order1–4 position/full-width fit passes its own
+unchanged budget: expansion lowers position by **9.818–10.107meV** and full width
+by **3.400–3.711meV (about1.16–1.19percent)**. The combined verdict remains
+**false** because all declared observable gates must pass.
+
+Five-A2dense baseline remains qualified. Nine-A2cost is **1.849952h / 6.306644GiB
+kernel peak**, compared with five-A2 **1.706997h / 5.894089GiB**. Eight physical
+CPUs/MPI ranks were used. Both nine-A2sectors export **2048poles,
+2048×1682continuum vectors and2048×298boundary amplitudes**, with contracted
+dimension **27818**, exact boundary/CI energy agreement, residual
+**≤1.28606e-10Hartree**, Pi **0rad** at printed precision and nonempty native fits
+withoutMAXFIT. Shared target/integral/CONGENinput hashes and outer decks match.
+Local reconstruction uses public readers/fitter independently of saved verdicts;
+maximum fit-platform difference is3.43e-11eV.
+
+**Consequence:** the original five-A2model cannot be treated as insensitive to
+this channel expansion at the declared phase tolerance. The coverage gap in
+panelE has a resolved observable consequence in this matched2048control. This
+does not establish nine-A2/full-channel convergence or bound its absolute
+omitted-spectrum error. Preserve the accepted CAS12root-resolution decision and
+avoid an automatic root/channel ladder. No follow-on native calculation launches.
+Next decision: use the saved phase/fit diagnostics to assess the discrepancy and
+declare any decision-changing model-specific check, with explicit marginal cost,
+before spending more. Global identity, model balance, extraction, neutral
+correlation/domain and restartable production-pilot gates remain open.
+
+Completion publication verifies **227immutable remote hashes**, **134overview
+source-provenance hashes**, **407local documentation links**, searchable SVG,
+visual PNG inspection, renderer lint/format and diff checks. The complete/current
+main index remains at `97b8b4c7392f822c996af0d4d77f81e100ff1407`; this branch-only
+control and its evidence resolve against the frozen/live source. The original
+native source, rejected comparison and exits are preserved without modification.
+
 ### Five-A2 dense baseline passes; nine-A2 control active — 14 October, 16:34 UTC
 
 **The stretched CAS11 five-A2selected2048 baseline passes the dense-observable
