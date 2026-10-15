@@ -111,3 +111,58 @@ def test_expanded_raw_run_reader_uses_declared298_channel_binary_shape(tmp_path)
     del contract["boundary_channels"]
     with pytest.raises(ValueError, match="boundary export"):
         read_run(tmp_path, 2, contract)
+
+
+@pytest.mark.parametrize("pi_error,passes", [(0.0, True), (0.01, False)])
+def test_compute_finishes_before_profile_resources_exist(tmp_path, monkeypatch, pi_error, passes):
+    import projects.ukrmol_co.a2_root_control as control
+
+    reference = tmp_path / "reference"
+    reference.mkdir()
+    (reference / "pilot.json").write_text('{"target_map":[1,2]}')
+    for sector in ("B1", "B2"):
+        p = reference / sector
+        p.mkdir()
+        for name in (
+            "fort.16",
+            "fort.24",
+            "fort.26",
+            "fort.721",
+            "rsolve.inp",
+            "eigenp.inp",
+            "reson.inp",
+        ):
+            (p / name).write_text(name)
+        (p / "scatci.inp").write_text("megul=721, nstat=2048,")
+    output = tmp_path / "output"
+    output.mkdir()
+    monkeypatch.setattr(control, "check_reference", lambda *args: {})
+
+    def native_stage(directory, record, name, *args):
+        record["stages"].append({"name": name, "original_exit": 0, "timed_out": False})
+
+    monkeypatch.setattr(control, "stage", native_stage)
+    monkeypatch.setattr(control, "audit_sector", lambda *args: {"export_checks_passed": True})
+
+    def phases(path):
+        return np.column_stack(
+            (0.1 + 0.05 * np.arange(99), np.full(99, pi_error if path.name == "B2" else 0.0))
+        )
+
+    monkeypatch.setattr(control, "phases", phases)
+    contract = {
+        "root_reference_directory": "reference",
+        "sectors": ["B1", "B2"],
+        "telemetry_directory": "telemetry",
+        "resources": {"mpi_ranks": 8, "native_stage_timeout_seconds": 300},
+        "raw_checks": {"pi_phase_rad_mod_pi": 0.002},
+    }
+    if passes:
+        control.compute(tmp_path, output, contract)
+    else:
+        with pytest.raises(ValueError, match="Pi symmetry"):
+            control.compute(tmp_path, output, contract)
+    saved = json.loads((output / "pilot.json").read_text())
+    assert saved["all_stages_complete"]
+    assert not (output / "resources.json").exists()
+    assert saved["pi_phase_difference_rad_mod_pi"] == pytest.approx(pi_error, abs=1e-14)

@@ -23,7 +23,7 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 
 The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [completed matched A2 scattering control](A2_CHANNEL_SCATTERING.md),
-[active nine-A2 attribution check](A2_ROOT_ATTRIBUTION.md),
+[completed nine-A2 attribution check](A2_ROOT_ATTRIBUTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -42,14 +42,17 @@ CAS12's 1.67e-5-rad phase difference is a refinement difference, not an absolute
 4096-root error. The sweep remains gated by model, identity, extraction and neutral
 qualification.
 
-**Active next step — 15 October, 06:50 UTC:** the
-[saved-output diagnosis and named nine-A2root check](A2_ROOT_ATTRIBUTION.md)
-explain the phase/fit contrast and test whether the rejection persists under
-**nine-A2only2048→4096** refinement. Its same-count spectral cutoff falls
-0.35844Hartree after channel expansion, so the original rejection now supplies
-a decision-changing model-specific resolution question. Fresh gates pass;
-[B1assembly is active](progress-a2-root-control-20261015T0650.json) on eight
-physical cores. Original rejection and scientific budgets stay unchanged.
+**Status — 15 October, 21:04 UTC:** both nine-A24096native sectors complete
+successfully in **2.738535hours / 9.456207GiB**. A profiler-order bug then causes
+the wrapper to read `resources.json` too early; original compute/owner exits1
+and unset controller decision are preserved. The separate
+[read-only supplementary reconstruction](supplementary-a2-root-reading-20261015.json)
+passes: root-refinement phase change **1.96e-5rad**, while the refined
+five-versus-ninecomparison still rejects at **0.0679178rad**. The
+[attribution question](A2_ROOT_ATTRIBUTION.md) is resolved under this declared
+refinement. Current-source ordering is fixed with regression coverage;
+**96focused tests pass**. No scientific job is active. Full channel/model,
+identity, extraction and neutral qualification remain open.
 
 **Completed control — 15 October, 06:32 UTC:** the
 [five-versus-nine A2 control](A2_CHANNEL_SCATTERING.md) completes, with all native
@@ -82,14 +85,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 15 October 2026
 
-![CO qualification: original A2 phase rejection preserved;one named nine-A2 root-attribution check active;model and extraction gates remain](../../docs/physics/figures/co-progress-20261015T0650.png)
+![CO qualification: A2 phase rejection survives root refinement;supplementary reading passes after preserved profiler failure;model gates remain](../../docs/physics/figures/co-progress-20261015T2104.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261015T0650.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261015T0650.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261015T2104.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261015T2104.json) ·
 [Named nine-A2 attribution check](A2_ROOT_ATTRIBUTION.md) ·
 [Completed A2 scattering control](A2_CHANNEL_SCATTERING.md) ·
 [Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
 [Completed A2 prerequisite](A2_CHANNEL_TARGET_PREFLIGHT.md) ·
+[Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
 [Previous14:06overview](../../docs/physics/figures/co-progress-20261014T1406.png) ·
@@ -119,18 +123,18 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **06:50 UTC, 15 October** release of an incremental overview. New findings, verification
+This is the **21:04 UTC, 15 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** saved fit decomposition explains the large phase response to a
-roughly10-meVcenter shift. A single named nine-A2only2048→4096check is active to
-decide whether this phase rejection persists under its own spectral refinement.
-Fresh reference/runtime gates pass; actual copied decks change only the root
-count. Original rejection and scientific budgets remain intact. Full channel
+**What changed:** the declared nine-A2refinement completes natively; an exact
+profiler-order failure is preserved separately from the scientific result.
+Supplementary raw reading confirms tiny root-refinement effects and persistence
+of the channel phase rejection. The original false channel verdict, failed
+controller exits and unset controller decision remain intact. Full channel
 convergence and absolute omitted-spectrum qualification stay open.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged

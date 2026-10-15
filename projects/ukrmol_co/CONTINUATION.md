@@ -20,6 +20,59 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Nine-A2 native completion; supplementary decision passes — 15 October, 21:04 UTC
+
+**The declared root-attribution question is answered: the A2phase rejection
+persists under nine-A22048→4096refinement.** The
+[supplementary local reading](supplementary-a2-root-reading-20261015.json)
+finds same-model phase change **1.96e-5rad** in both sectors, below the extra
+0.005rad attribution limit; five2048versusnine4096still rejects at
+**0.0679178rad** against0.05rad. Root-pair position/full-width fits/orders1–4
+pass, with maximum differences **7.87301e-7 / 3.32895e-6eV**. Original
+five-versus-nine2048channel-insensitivity verdict remains **false**.
+
+**All eight native stages exited0**, but the controller ends09:34:28UTC with
+compute/resource/owner exits1. Exact cause: `compute()` calls `read_run()` at its
+end before parent `run_profiled()` has written `resources.json`, causing a
+terminal `FileNotFoundError`. The independent owner step never runs and original
+`resolution_decision_verdict` stays unset. No native retry or alteration of
+failed resources/logs/source occurs. The separate supplementary verdict is
+**true** and explicitly does not overwrite the original controller outcome.
+
+The [21:03capture](progress-a2-root-control-20261015T2103.json) records inactive
+owner1334196/observer1334564, observer normal exit0 after7captures, no scientific
+container, and reverified61source/181input hashes /242installed artifacts.
+The read-only supplementary reconstruction checks **23new checksum-fetched
+files**, **51retained files** and shared input hashes; verifies exact traceback,
+native exits/timeouts, root-only actual deck change, target map/static interface,
+exact2048prefix energies, raw exports, residuals, grids/fits/Pi. Public readers/
+fitter are reused independently of producer summaries, not claimed as a separate
+scattering engine or fitter. No exit-code substitution is used.
+
+4096exports per sector: **4096×1682continuum vectors / 4096×298boundary
+amplitudes**, residual **≤1.28606e-10Hartree**, exact boundary/CI energies,
+Pi **0rad** at printed precision, nonempty fits/noMAXFIT. Profiled cost including
+the final failing read is **2.738535h / 9.456207GiB kernel peak** on8physical
+CPUs/ranks. Current-source fix performs the native Pi check before profiling
+ends; independent resource-reading stays afterward. **96focused tests pass**,
+including success without an available resource file and rejection of Pi defects.
+The frozen `dde1836` runtime source and original failed execution remain intact.
+
+**Next:** use economical2048for current nine-A2model controls; this one declared
+refinement supports practical attribution, not absolute omitted-spectrum or
+full-channel convergence. No further roots or native jobs launch automatically.
+The original channel truncation is measurably consequential; complete the
+remaining matched model/channel controls, global continuity/extraction and
+neutral/production-pilot gates before any sweep or potential fitting.
+
+Completion/supplementary publication verifies **309immutable remote hashes**,
+**143overview source-provenance hashes**, **425local documentation links**,
+searchable SVG, visual PNG inspection, lint/format and diff checks. Main-index
+integrity/upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`; the branch-only reader fix and evidence
+resolve against current source. Runtime source/failure evidence remains pinned
+to the unchanged `dde1836` launch snapshot.
+
 ### Named nine-A2 root-attribution control active — 15 October, 06:50 UTC
 
 **Owner1334196 is active on Sadaharu**, launched06:49:53UTC from

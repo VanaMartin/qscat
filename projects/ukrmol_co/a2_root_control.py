@@ -10,6 +10,8 @@ import shutil
 import sys
 from pathlib import Path
 
+import numpy as np
+
 from projects.ukrmol_co.a2_channel_preflight import stage
 from projects.ukrmol_co.a2_scattering import (
     input_gate,
@@ -129,10 +131,18 @@ def compute(root: Path, work: Path, contract: dict) -> None:
         native.update(audit_sector(directory, 4096, 27818, 1682, 298))
         report["sectors"][sector] = native
         save(work / "pilot.json", report)
-    report["all_stages_complete"] = True
+    pi = float(
+        np.max(
+            abs(
+                (phases(work / "B1")[:, 1] - phases(work / "B2")[:, 1] + np.pi / 2) % np.pi
+                - np.pi / 2
+            )
+        )
+    )
+    report.update(all_stages_complete=True, pi_phase_difference_rad_mod_pi=pi)
     save(work / "pilot.json", report)
-    # Independent read_run also verifies original stage exits and Pi degeneracy.
-    read_run(work, 4096, contract)
+    if pi > contract["raw_checks"]["pi_phase_rad_mod_pi"]:
+        raise ValueError("Native Pi symmetry failed")
 
 
 def decision(root: Path, work: Path, contract: dict) -> dict:

@@ -78,3 +78,42 @@ resolution decision passes. Services are
 `co-a2-nine-root-control-20261015.service` and
 `co-a2-nine-root-control-observer-20261015.service`; persistent source/output root
 is `/home/kooza/ukrmol/co-sa-20261006/prepared/a2-nine-root-control-source-20261015/`.
+
+## Completion and supplementary reading — 15 October, 21:04 UTC
+
+**All eight native stages complete with exit0.** The wrapper then fails at
+09:34:28UTC: `compute()` calls `read_run()` before its parent profiler has written
+`resources.json`. The resulting `FileNotFoundError` preserves compute/resource/
+owner exits1; the planned independent-reader step never launches. The original
+`resolution_decision_verdict` remains unset. Observer1334564 ends normally after
+7captures; neither service nor scientific container remains active. The
+[21:03capture](progress-a2-root-control-20261015T2103.json) reverifies the frozen
+61source/181input hashes and242installed engine artifacts.
+
+A separate [read-only supplementary reconstruction](supplementary-a2-root-reading-20261015.json)
+checks23new checksum-fetched files and reverifies51retained files. It verifies
+the exact terminal traceback, every native exit/timeout flag, raw4096-pole
+exports, actual root-only deck difference, unchanged native-input hashes/static
+interfaces, exact2048prefix energies, grids/fits/residuals/Pi. It does not edit
+the failed resource record, replace its exit, or rerun any native calculation.
+
+**The supplementary resolution decision passes:** nine-A22048→4096maximum
+phase change is **1.96e-5rad** in both sectors, far below0.005rad. Maximum
+root-refinement fitted position/full-width changes are **7.87301e-7 /
+3.32895e-6eV**, all orders1–4pass. Five2048versusnine4096still rejects phase
+insensitivity at **0.0679178rad** in both sectors. The observed channel effect
+is stable under this declared refinement; the original false channel verdict
+is preserved.
+
+Native exports contain4096×1682continuum vectors and4096×298boundary amplitudes
+per sector, residual≤1.28606e-10Hartree, exact boundary/CI energies and Pi0rad
+at printed precision. Profiled cost including the final failing read is
+**2.738535hours / 9.456207GiB kernel peak**, within the forecast/bounds.
+
+The current-source fix checks raw Pi degeneracy directly before the profiler
+finishes; the independent reader remains after profiling. A regression exercises
+successful completion without a resource file and rejection of a Pi defect.
+**96focused tests pass**. Frozen runtime source/failures remain untouched.
+Use economical2048for this model's current controls; further roots need a new
+decision-changing discrepancy. Full channel/electronic convergence, global
+identity, extraction, neutral treatment and production-pilot gates remain open.
