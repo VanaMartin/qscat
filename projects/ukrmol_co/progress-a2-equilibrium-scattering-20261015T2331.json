@@ -1,0 +1,684 @@
+{
+  "observed_utc": "2026-10-15T23:31:26.532934+00:00",
+  "host": "sadaharu",
+  "campaign_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "source_directory": "prepared/a2-equilibrium-scattering-source-20261016",
+  "source_commit": "a5954fbf54774a54de94a54baf41b44532f54115",
+  "run": "cas11-eq-a2-five-nine-roots2048-mpi8-20261016",
+  "owner_execution": {
+    "supervisor_pid": 1351889,
+    "started_unix": 1792106774.9593892,
+    "steps": [
+      {
+        "label": "runtime-gate",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-eq-a2-five-nine-roots2048-mpi8-20261016-reading",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.engine_baseline",
+          "runtime-gate",
+          "--contract",
+          "/opt/qmodeling/contract.json",
+          "--output",
+          "/outputs/runtime-gate.json"
+        ],
+        "started_unix": 1792106779.046555,
+        "original_exit": 0,
+        "finished_unix": 1792106779.712686
+      },
+      {
+        "label": "check-inputs",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-eq-a2-five-nine-roots2048-mpi8-20261016-reading",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.a2_scattering",
+          "check-inputs",
+          "--root",
+          "/work",
+          "--work",
+          "/outputs/cas11-eq-a2-five-nine-roots2048-mpi8-20261016",
+          "--contract",
+          "/opt/qmodeling/contract.json"
+        ],
+        "started_unix": 1792106780.383903,
+        "original_exit": 0,
+        "finished_unix": 1792106781.0505066
+      },
+      {
+        "label": "model-dense",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-eq-a2-five-nine-roots2048-mpi8-20261016",
+          "--cpuset-cpus=4-11",
+          "--memory=48g",
+          "--memory-swap=48g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.a2_scattering",
+          "model",
+          "--root",
+          "/work",
+          "--work",
+          "/outputs/cas11-eq-a2-five-nine-roots2048-mpi8-20261016",
+          "--contract",
+          "/opt/qmodeling/contract.json",
+          "--model",
+          "dense"
+        ],
+        "started_unix": 1792106781.726267,
+        "original_exit": 0,
+        "finished_unix": 1792107034.2171912
+      },
+      {
+        "label": "model-five",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-eq-a2-five-nine-roots2048-mpi8-20261016",
+          "--cpuset-cpus=4-11",
+          "--memory=48g",
+          "--memory-swap=48g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-equilibrium-scattering-source-20261016/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.a2_scattering",
+          "model",
+          "--root",
+          "/work",
+          "--work",
+          "/outputs/cas11-eq-a2-five-nine-roots2048-mpi8-20261016",
+          "--contract",
+          "/opt/qmodeling/contract.json",
+          "--model",
+          "five"
+        ],
+        "started_unix": 1792107034.887625
+      }
+    ],
+    "scope": "Does expanding only retained A2 channels from five to nine per spin change equilibrium CAS11 phases or identical-window fitted candidates beyond0.05rad/0.05eV/5percent? The stretched channel rejection survives its named root refinement,and equilibrium CAS11-toCAS12 rejects phase/position. This separately declared equilibrium control measures the missing channel sensitivity before choosing further electronic models.",
+    "frozen_file_counts_verified": {
+      "source": 60,
+      "inputs": 61
+    },
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_ram_bytes": 115333160960,
+    "free_disk_bytes": 52979294208,
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "engine_verified": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242,
+      "frozen_counts": {
+        "source": 55,
+        "inputs": 192
+      }
+    },
+    "heartbeat_unix": 1792107074.8911688
+  },
+  "observer_execution": {
+    "supervisor_pid": 1352372,
+    "started_unix": 1792106783.4179227,
+    "captures": [
+      "20261015T232623.json"
+    ],
+    "scope": "Observe only; no follow-on calculations",
+    "heartbeat_unix": 1792106785.9404423
+  },
+  "status": {
+    "co-a2-equilibrium-scattering-20261016.service": "MainPID=1351889\nExecMainStatus=0\nActiveState=active\nSubState=running\n",
+    "co-a2-equilibrium-scattering-observer-20261016.service": "MainPID=1352372\nExecMainStatus=0\nActiveState=active\nSubState=running\n",
+    "docker_stats": "cas11-eq-a2-five-nine-roots2048-mpi8-20261016 CPU=801.17% MEM=2.514GiB / 48GiB\ncomfyui CPU=0.02% MEM=10.09GiB / 123.5GiB\n"
+  },
+  "frozen_file_counts_reverified": {
+    "source": 60,
+    "inputs": 61
+  },
+  "installed_engine_artifacts_reverified": 242,
+  "runtime_gate": {
+    "runtime_gate_passed": true,
+    "numerical_library_sha256": {
+      "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+      "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+      "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+      "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+    },
+    "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+    "telemetry_ldd": "\tlinux-vdso.so.1 (0x00007f1a5c1bd000)\n\tlibslepc.so.3.24 => /opt/ukrmolp/lib/libslepc.so.3.24 (0x00007f1a5bd64000)\n\tlibpetsc.so.3.24 => /opt/ukrmolp/lib/libpetsc.so.3.24 (0x00007f1a5a1d8000)\n\tlibmpi.so.40 => /opt/ukrmolp/lib/libmpi.so.40 (0x00007f1a59e4d000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f1a59c21000)\n\tlibopenblas.so.0 => /opt/ukrmolp/lib/libopenblas.so.0 (0x00007f1a57900000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f1a57819000)\n\tlibmpi_usempi_ignore_tkr.so.40 => /opt/ukrmolp/lib/libmpi_usempi_ignore_tkr.so.40 (0x00007f1a57806000)\n\tlibmpi_mpifh.so.40 => /opt/ukrmolp/lib/libmpi_mpifh.so.40 (0x00007f1a5778e000)\n\tlibgfortran.so.5 => /opt/ukrmolp/lib/libgfortran.so.5 (0x00007f1a57435000)\n\tlibgcc_s.so.1 => /opt/ukrmolp/lib/libgcc_s.so.1 (0x00007f1a57408000)\n\tlibquadmath.so.0 => /opt/ukrmolp/lib/libquadmath.so.0 (0x00007f1a573c0000)\n\tlibstdc++.so.6 => /opt/ukrmolp/lib/libstdc++.so.6 (0x00007f1a5713e000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f1a5c1bf000)\n\tlibopen-pal.so.80 => /opt/ukrmolp/lib/libopen-pal.so.80 (0x00007f1a56fcc000)\n\tlibpmix.so.2 => /opt/ukrmolp/lib/libpmix.so.2 (0x00007f1a56d64000)\n\tlibevent_core-2.1.so.7 => /opt/ukrmolp/lib/libevent_core-2.1.so.7 (0x00007f1a56d21000)\n\tlibevent_pthreads-2.1.so.7 => /opt/ukrmolp/lib/libevent_pthreads-2.1.so.7 (0x00007f1a56d1c000)\n\tlibhwloc.so.15 => /opt/ukrmolp/lib/libhwloc.so.15 (0x00007f1a56cac000)\n\tlibgomp.so.1 => /opt/ukrmolp/lib/libgomp.so.1 (0x00007f1a56c55000)\n",
+    "scope": "Dependency byte and symbol-loading gate; native residual audit follows"
+  },
+  "model_progress": {
+    "dense": {
+      "exists": true,
+      "sector_progress": {
+        "B1": {
+          "rsolve.out": {
+            "tail": "2             34        3  -1    1.485163\n  213             34        4  -3    1.485163\n  214             34        4  -1    1.485163\n  215             35        1   1    1.485163\n  216             35        2   1    1.485163\n  217             35        3   1    1.485163\n  218             35        3   3    1.485163\n  219             35        4   1    1.485163\n  220             35        4   3    1.485163\n  221             36        1  -1    1.550253\n  222             36        2  -1    1.550253\n  223             36        3  -3    1.550253\n  224             36        3  -1    1.550253\n  225             36        4  -3    1.550253\n  226             36        4  -1    1.550253\n  227             37        1   1    1.553792\n  228             37        2   1    1.553792\n  229             37        3   1    1.553792\n  230             37        3   3    1.553792\n  231             37        4   1    1.553792\n  232             37        4   3    1.553792\n  233             38        1   1    1.606688\n  234             38        2   1    1.606688\n  235             38        3   1    1.606688\n  236             38        3   3    1.606688\n  237             38        4   1    1.606688\n  238             38        4   3    1.606688\n  239             39        1  -1    1.666713\n  240             39        2  -1    1.666713\n  241             39        3  -3    1.666713\n  242             39        3  -1    1.666713\n  243             39        4  -3    1.666713\n  244             39        4  -1    1.666713\n  245             40        1  -1    1.751992\n  246             40        2  -1    1.751992\n  247             40        3  -3    1.751992\n  248             40        3  -1    1.751992\n  249             40        4  -3    1.751992\n  250             40        4  -1    1.751992\n\n R-matrix data has been read from set number  1 on unit number 21\n Header :e + CO - doublet B1                                         20261006  223308.989\n\n Dimension of Hamiltonian matrix           =     27546\n Number of CI vectors stored on file       =    0\n Maximum multipole in asymptotic potential =    2\n R-matrix radius                           =   18.0000\n IWRON                    0\n\n ASYMPTOTIC METHOD SELECTED : GAILITIS      \n EXPANSION USED AT RADIUS =  100.0000\n\n R-MATRIX WILL BE PROPAGATED ACROSS  8 SUBRANGES\n\n K-matrices will be written to set 1 on unit 921\n\nNumber of energy points for which the K matrices have     actually been calculated:      0\n\n *** Task successfully completed ***\n",
+            "class_events": []
+          },
+          "eigenp.out": {
+            "tail": "9214247E+00\n   37   0.19000E+01  0.42620166E+00\n   38   0.19500E+01  0.46373337E+00\n   39   0.20000E+01  0.50505110E+00\n   40   0.20500E+01  0.55046139E+00\n   41   0.21000E+01  0.60024582E+00\n   42   0.21500E+01  0.65463592E+00\n   43   0.22000E+01  0.71378020E+00\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n   44   0.22500E+01  0.77770416E+00\n   45   0.23000E+01  0.84626647E+00\n   46   0.23500E+01  0.91911764E+00\n   47   0.24000E+01  0.99567105E+00\n   48   0.24500E+01  0.10750975E+01\n   49   0.25000E+01  0.11563533E+01\n   50   0.25500E+01  0.12382439E+01\n   51   0.26000E+01  0.13195168E+01\n   52   0.26500E+01  0.13989658E+01\n   53   0.27000E+01  0.14755266E+01\n   54   0.27500E+01  0.15483445E+01\n   55   0.28000E+01  0.16168069E+01\n   56   0.28500E+01  0.16805415E+01\n   57   0.29000E+01  0.17393892E+01\n   58   0.29500E+01  0.17933638E+01\n   59   0.30000E+01  0.18426075E+01\n   60   0.30500E+01  0.18873500E+01\n   61   0.31000E+01  0.19278742E+01\n   62   0.31500E+01  0.19644904E+01\n   63   0.32000E+01  0.19975165E+01\n   64   0.32500E+01  0.20272661E+01\n   65   0.33000E+01  0.20540399E+01\n   66   0.33500E+01  0.20781211E+01\n   67   0.34000E+01  0.20997734E+01\n   68   0.34500E+01  0.21192401E+01\n   69   0.35000E+01  0.21367448E+01\n   70   0.35500E+01  0.21524920E+01\n   71   0.36000E+01  0.21666683E+01\n   72   0.36500E+01  0.21794439E+01\n   73   0.37000E+01  0.21909738E+01\n   74   0.37500E+01  0.22013991E+01\n   75   0.38000E+01  0.22108480E+01\n   76   0.38500E+01  0.22194369E+01\n   77   0.39000E+01  0.22272714E+01\n   78   0.39500E+01  0.22344468E+01\n   79   0.40000E+01  0.22410493E+01\n   80   0.40500E+01  0.22471559E+01\n   81   0.41000E+01  0.22528356E+01\n   82   0.41500E+01  0.22581493E+01\n   83   0.42000E+01  0.22631507E+01\n   84   0.42500E+01  0.22678864E+01\n   85   0.43000E+01  0.22723963E+01\n   86   0.43500E+01  0.22767139E+01\n   87   0.44000E+01  0.22808668E+01\n   88   0.44500E+01  0.22848767E+01\n   89   0.45000E+01  0.22887601E+01\n   90   0.45500E+01  0.22925283E+01\n   91   0.46000E+01  0.22961882E+01\n   92   0.46500E+01  0.22997419E+01\n   93   0.47000E+01  0.23031879E+01\n   94   0.47500E+01  0.23065209E+01\n   95   0.48000E+01  0.23097323E+01\n   96   0.48500E+01  0.23128109E+01\n   97   0.49000E+01  0.23157430E+01\n   98   0.49500E+01  0.23185129E+01\n   99   0.50000E+01  0.23211032E+01\n\n *** Task successfully completed ***\n",
+            "class_events": []
+          },
+          "reson.out": {
+            "tail": "o  BELTHR =   0.00002 Ryd below each threshold\n Using  NFIT   =   20      energy grid points\n And    NBACK  =    2      terms for the background\n Change DPHZ   =   1.00000 constitutes a resonance.\n Resonances fitted at supplied energy points.\n\n Fixed nuclei calculation for R = 0.000\n\n Input datasets:                                 Unit  Set numbers\n Target and channel data     LUCHAN (UNFORMATTED) 10       1\n Fixed nuclei R-matrix data  LURMT  (UNFORMATTED) 21       1\n K-matrices                  LUKMT  (UNFORMATTED)921       1\n\n Scratch dataset:                                Unit\n K-matrix/eigenphase data    LURES  (UNFORMATTED)***\n\n K-matrix input, set  1 on unit921\n\n Symmetry data  MGVN = 1   STOT = 2   GUTOT = 2\n\n K-matrices are vibrationally resolved\n\n Number of target states       =  40\n Number of scattering channels = 250\n\n Input Energy grid (Ryd) \n Number of points        99\n Initial values     0.00735\n Increments         0.00367\n\n K-matrices will be scanned for   99 energies in the range [  0.0073,  0.3712] Ryd\n\n *** FIXED NUCLEI DATA ***\n\n R-matrix data has been read from set number  1 on unit number 21\n Header :e + CO - doublet B1                                         20261006  223308.989\n\n Maximum multipole USED in asymptotic scattering potentials   ISMAX =  2\n\n *** FIXED NUCLEI DATA ***\n\n Target and channel data is read from set  1 on unit 10\n\n R-matrix data has been read from set number  1 on unit number 21\n Header :e + CO - doublet B1                                         20261006  223308.989\n\n Automatic resonance fitting above target state  1\n    1 resonances detected\n    1 resonances to be fitted\n\n Resonance  1 is in the range ELOW =   0.11667 Ryd to EHIGH =   0.25818 Ryd\n\n Fitted resonance parameters\n Positions / Ryd               0.18527575D+00\n Widths    / Ryd               0.84597057D-01\n Background      -0.14481319D+00     -0.12660315D+01\n Residues\n    -0.0012520   -0.0009762   -0.0007224   -0.0004793   -0.0002391    0.0000018    0.0002418    0.0004744    0.0006878    0.0008660\n     0.0009896    0.0010385    0.0009950    0.0008476    0.0005956    0.0002532   -0.0001491   -0.0005656   -0.0009412   -0.0012211\n    -0.0013612   -0.0013373   -0.0011487   -0.0008177   -0.0003839    0.0001035    0.0005925    0.0010346    0.0013883    0.0016210\n     0.0017096    0.0016397    0.0014054    0.0010078    0.0004537   -0.0002448   -0.0010715   -0.0020070   -0.0030294\n Goodness factor:      0.46724611D-04\n\n *** Task successfully completed ***\n",
+            "class_events": []
+          },
+          "pilot.json": {
+            "stages": [
+              {
+                "name": "rsolve",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 126.28199911117554
+              },
+              {
+                "name": "eigenp",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015676021575927734
+              },
+              {
+                "name": "reson",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015549182891845703
+              }
+            ]
+          }
+        },
+        "B2": {
+          "rsolve.out": {
+            "tail": "2             34        3   3    1.485163\n  213             34        4   1    1.485163\n  214             34        4   3    1.485163\n  215             35        1  -1    1.485163\n  216             35        2  -1    1.485163\n  217             35        3  -3    1.485163\n  218             35        3  -1    1.485163\n  219             35        4  -3    1.485163\n  220             35        4  -1    1.485163\n  221             36        1   1    1.550253\n  222             36        2   1    1.550253\n  223             36        3   1    1.550253\n  224             36        3   3    1.550253\n  225             36        4   1    1.550253\n  226             36        4   3    1.550253\n  227             37        1  -1    1.553792\n  228             37        2  -1    1.553792\n  229             37        3  -3    1.553792\n  230             37        3  -1    1.553792\n  231             37        4  -3    1.553792\n  232             37        4  -1    1.553792\n  233             38        1  -1    1.606688\n  234             38        2  -1    1.606688\n  235             38        3  -3    1.606688\n  236             38        3  -1    1.606688\n  237             38        4  -3    1.606688\n  238             38        4  -1    1.606688\n  239             39        1   1    1.666713\n  240             39        2   1    1.666713\n  241             39        3   1    1.666713\n  242             39        3   3    1.666713\n  243             39        4   1    1.666713\n  244             39        4   3    1.666713\n  245             40        1   1    1.751992\n  246             40        2   1    1.751992\n  247             40        3   1    1.751992\n  248             40        3   3    1.751992\n  249             40        4   1    1.751992\n  250             40        4   3    1.751992\n\n R-matrix data has been read from set number  1 on unit number 21\n Header :e + CO - doublet B2                                         20261006  234918.798\n\n Dimension of Hamiltonian matrix           =     27546\n Number of CI vectors stored on file       =    0\n Maximum multipole in asymptotic potential =    2\n R-matrix radius                           =   18.0000\n IWRON                    0\n\n ASYMPTOTIC METHOD SELECTED : GAILITIS      \n EXPANSION USED AT RADIUS =  100.0000\n\n R-MATRIX WILL BE PROPAGATED ACROSS  8 SUBRANGES\n\n K-matrices will be written to set 1 on unit 922\n\nNumber of energy points for which the K matrices have     actually been calculated:      0\n\n *** Task successfully completed ***\n",
+            "class_events": []
+          },
+          "eigenp.out": {
+            "tail": "9214247E+00\n   37   0.19000E+01  0.42620166E+00\n   38   0.19500E+01  0.46373337E+00\n   39   0.20000E+01  0.50505110E+00\n   40   0.20500E+01  0.55046139E+00\n   41   0.21000E+01  0.60024582E+00\n   42   0.21500E+01  0.65463592E+00\n   43   0.22000E+01  0.71378020E+00\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n   44   0.22500E+01  0.77770416E+00\n   45   0.23000E+01  0.84626647E+00\n   46   0.23500E+01  0.91911764E+00\n   47   0.24000E+01  0.99567104E+00\n   48   0.24500E+01  0.10750975E+01\n   49   0.25000E+01  0.11563533E+01\n   50   0.25500E+01  0.12382439E+01\n   51   0.26000E+01  0.13195168E+01\n   52   0.26500E+01  0.13989658E+01\n   53   0.27000E+01  0.14755266E+01\n   54   0.27500E+01  0.15483445E+01\n   55   0.28000E+01  0.16168069E+01\n   56   0.28500E+01  0.16805415E+01\n   57   0.29000E+01  0.17393892E+01\n   58   0.29500E+01  0.17933638E+01\n   59   0.30000E+01  0.18426075E+01\n   60   0.30500E+01  0.18873500E+01\n   61   0.31000E+01  0.19278742E+01\n   62   0.31500E+01  0.19644904E+01\n   63   0.32000E+01  0.19975165E+01\n   64   0.32500E+01  0.20272661E+01\n   65   0.33000E+01  0.20540399E+01\n   66   0.33500E+01  0.20781211E+01\n   67   0.34000E+01  0.20997734E+01\n   68   0.34500E+01  0.21192401E+01\n   69   0.35000E+01  0.21367448E+01\n   70   0.35500E+01  0.21524920E+01\n   71   0.36000E+01  0.21666683E+01\n   72   0.36500E+01  0.21794439E+01\n   73   0.37000E+01  0.21909738E+01\n   74   0.37500E+01  0.22013991E+01\n   75   0.38000E+01  0.22108480E+01\n   76   0.38500E+01  0.22194369E+01\n   77   0.39000E+01  0.22272714E+01\n   78   0.39500E+01  0.22344468E+01\n   79   0.40000E+01  0.22410493E+01\n   80   0.40500E+01  0.22471559E+01\n   81   0.41000E+01  0.22528356E+01\n   82   0.41500E+01  0.22581493E+01\n   83   0.42000E+01  0.22631507E+01\n   84   0.42500E+01  0.22678864E+01\n   85   0.43000E+01  0.22723963E+01\n   86   0.43500E+01  0.22767139E+01\n   87   0.44000E+01  0.22808668E+01\n   88   0.44500E+01  0.22848767E+01\n   89   0.45000E+01  0.22887601E+01\n   90   0.45500E+01  0.22925283E+01\n   91   0.46000E+01  0.22961882E+01\n   92   0.46500E+01  0.22997419E+01\n   93   0.47000E+01  0.23031879E+01\n   94   0.47500E+01  0.23065209E+01\n   95   0.48000E+01  0.23097323E+01\n   96   0.48500E+01  0.23128109E+01\n   97   0.49000E+01  0.23157430E+01\n   98   0.49500E+01  0.23185129E+01\n   99   0.50000E+01  0.23211032E+01\n\n *** Task successfully completed ***\n",
+            "class_events": []
+          },
+          "reson.out": {
+            "tail": "o  BELTHR =   0.00002 Ryd below each threshold\n Using  NFIT   =   20      energy grid points\n And    NBACK  =    2      terms for the background\n Change DPHZ   =   1.00000 constitutes a resonance.\n Resonances fitted at supplied energy points.\n\n Fixed nuclei calculation for R = 0.000\n\n Input datasets:                                 Unit  Set numbers\n Target and channel data     LUCHAN (UNFORMATTED) 10       1\n Fixed nuclei R-matrix data  LURMT  (UNFORMATTED) 21       1\n K-matrices                  LUKMT  (UNFORMATTED)922       1\n\n Scratch dataset:                                Unit\n K-matrix/eigenphase data    LURES  (UNFORMATTED)***\n\n K-matrix input, set  1 on unit922\n\n Symmetry data  MGVN = 2   STOT = 2   GUTOT = 2\n\n K-matrices are vibrationally resolved\n\n Number of target states       =  40\n Number of scattering channels = 250\n\n Input Energy grid (Ryd) \n Number of points        99\n Initial values     0.00735\n Increments         0.00367\n\n K-matrices will be scanned for   99 energies in the range [  0.0073,  0.3712] Ryd\n\n *** FIXED NUCLEI DATA ***\n\n R-matrix data has been read from set number  1 on unit number 21\n Header :e + CO - doublet B2                                         20261006  234918.798\n\n Maximum multipole USED in asymptotic scattering potentials   ISMAX =  2\n\n *** FIXED NUCLEI DATA ***\n\n Target and channel data is read from set  1 on unit 10\n\n R-matrix data has been read from set number  1 on unit number 21\n Header :e + CO - doublet B2                                         20261006  234918.798\n\n Automatic resonance fitting above target state  1\n    1 resonances detected\n    1 resonances to be fitted\n\n Resonance  1 is in the range ELOW =   0.11667 Ryd to EHIGH =   0.25818 Ryd\n\n Fitted resonance parameters\n Positions / Ryd               0.18527575D+00\n Widths    / Ryd               0.84597057D-01\n Background      -0.14481319D+00     -0.12660315D+01\n Residues\n    -0.0012520   -0.0009762   -0.0007224   -0.0004793   -0.0002391    0.0000018    0.0002418    0.0004744    0.0006878    0.0008660\n     0.0009896    0.0010385    0.0009950    0.0008476    0.0005956    0.0002532   -0.0001491   -0.0005656   -0.0009412   -0.0012211\n    -0.0013612   -0.0013373   -0.0011487   -0.0008177   -0.0003839    0.0001035    0.0005925    0.0010346    0.0013883    0.0016210\n     0.0017096    0.0016397    0.0014054    0.0010078    0.0004537   -0.0002448   -0.0010715   -0.0020070   -0.0030294\n Goodness factor:      0.46724611D-04\n\n *** Task successfully completed ***\n",
+            "class_events": []
+          },
+          "pilot.json": {
+            "stages": [
+              {
+                "name": "rsolve",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 125.1293876171112
+              },
+              {
+                "name": "eigenp",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.01566338539123535
+              },
+              {
+                "name": "reson",
+                "original_exit": 0,
+                "timed_out": false,
+                "wall_seconds": 0.015509605407714844
+              }
+            ]
+          }
+        }
+      },
+      "saved_records": {
+        "pilot.json": {
+          "model": "dense",
+          "target_map": [
+            1,
+            12,
+            19,
+            25,
+            31,
+            4,
+            8,
+            34,
+            37,
+            39,
+            5,
+            15,
+            24,
+            28,
+            33,
+            3,
+            14,
+            17,
+            22,
+            30,
+            6,
+            16,
+            23,
+            27,
+            32,
+            2,
+            13,
+            18,
+            21,
+            29,
+            10,
+            11,
+            26,
+            41,
+            43,
+            7,
+            9,
+            20,
+            35,
+            36
+          ],
+          "sectors": {
+            "B1": {
+              "stages": [
+                {
+                  "name": "rsolve",
+                  "original_exit": 0,
+                  "timed_out": false,
+                  "wall_seconds": 126.28199911117554
+                },
+                {
+                  "name": "eigenp",
+                  "original_exit": 0,
+                  "timed_out": false,
+                  "wall_seconds": 0.015676021575927734
+                },
+                {
+                  "name": "reson",
+                  "original_exit": 0,
+                  "timed_out": false,
+                  "wall_seconds": 0.015549182891845703
+                }
+              ],
+              "input_sha256": {
+                "fort.10": "14dc0abaae01cb16f942367d017c47c32f89cf5b5e98aca4cad3e5c33cc84a6b",
+                "fort.21": "2817ab72b0be915a008dffa624bec224b571fadf9c6a3b77fa0ec951b4f2a14c"
+              }
+            },
+            "B2": {
+              "stages": [
+                {
+                  "name": "rsolve",
+                  "original_exit": 0,
+                  "timed_out": false,
+                  "wall_seconds": 125.1293876171112
+                },
+                {
+                  "name": "eigenp",
+                  "original_exit": 0,
+                  "timed_out": false,
+                  "wall_seconds": 0.01566338539123535
+                },
+                {
+                  "name": "reson",
+                  "original_exit": 0,
+                  "timed_out": false,
+                  "wall_seconds": 0.015509605407714844
+                }
+              ],
+              "input_sha256": {
+                "fort.10": "d43b11bdcf4f79b9e4fc24fd3b5cc9a4c3688d104c7f7d82d61624ca5a889345",
+                "fort.21": "58bc6482768f77a628c2ec7f33683670e740911181fe344e7af8c5ffe74844eb"
+              }
+            }
+          },
+          "all_stages_complete": true,
+          "pi_phase_difference_rad_mod_pi": 9.99999993922529e-09
+        },
+        "resources.json": {
+          "exit_code": 0,
+          "wall_seconds": 251.88102908059955,
+          "sampled_peak_container_memory_bytes": 479289344,
+          "baseline_container_memory_bytes": 47321088,
+          "sampled_peak_container_anon_bytes": 358621184,
+          "kernel_peak_container_memory_bytes": 479289344,
+          "container_cpu_seconds": 252.26729699999999,
+          "sampled_peak_run_allocated_bytes": 111931392,
+          "sampled_peak_scratch_allocated_bytes": 0,
+          "memory_sample_interval_seconds": 0.2,
+          "disk_sample_interval_seconds": 2.0
+        }
+      }
+    },
+    "five": {
+      "exists": true,
+      "sector_progress": {
+        "B1": {
+          "scatci.out": {
+            "tail": "                                                                            \n          NOCSF=15044    NSTAT=    9    NNUC =    3\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n   sc 3        0.000000  0.000000  0.000000  0.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5352498306     -112.5342196978     -112.2777987634     -112.0909283876     -112.0482890112\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=24564    NSTAT=    9    NNUC =    3\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.217959  6.000000\n   O  2        0.000000  0.000000  0.914341  8.000000\n   sc 3        0.000000  0.000000  0.000000  0.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.5636806185     -112.5496341988     -112.3423623705     -112.1817034851     -112.1491585992\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    0 csfs=               344124 determinants=              6213062\n CO_PTR_PASS retained-context rank=                    0\ncontinuum block_size =    1410\nAllocating dimension        27546\nMat_size =    27546\nLocal_size =     3444\nTHRESHOLD =   1.00000000E-15\nstart,end =        0    3444\nPETSC matrix creation completed!\nMatrix uses 517230592. B of memory\nEstimated uses 515434584 B of memory\nAverage uses 107951952 B of memory\nCurrently we have         5.88274956GB /         6.00000000GiB available\nMemory availability at   98.0%\n        84596708        84596708 updates will occur at continuum =     84596708 and L2 =     84596708\n CO_PTR_CLASS1_BEGIN rank=                    0 target=                    1\n CO_PTR_CLASS1_END rank=                    0 target=                    1\n CO_PTR_CLASS1_BEGIN rank=                    0 target=                    2\n",
+            "class_events": [
+              "and  MOCSF =     27546 dimension final Hamiltonian"
+            ]
+          }
+        },
+        "B2": {}
+      },
+      "saved_records": {}
+    },
+    "nine": {
+      "exists": false,
+      "sector_progress": {},
+      "saved_records": {}
+    }
+  },
+  "actual_decks": {
+    "dense/B1/rsolve.inp": {
+      "sha256": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+      "text": "&rslvin                   ! used by R_SOLVE (see docs/rsolve)\n  name = 'e + CO - doublet B1 - K-matrices',\n  mgvn = 1,               ! symmetry\n  stot = 2,               ! spin multiplicity 2*S+1\n  newbut = 0,             ! Buttle correction - 0 in polyatomic codes\n\n  nerang = 1,          ! number of energy subranges\n  nescat = 99, ! number of input scattering energies in each subrange\n  einc = 0.1,0.05, ! scattering energies - initial energy, energy increment, there can be more subranges\n  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV\n\n  luchan = 10,            ! channel information unit number\n  icform = 'U',           ! format of the channel information file\n  nchset = 1,  ! index of the dataset in channel information file\n\n  lurmt  = 21,            ! boundary amplitudes unit number\n  irform = 'U',           ! format of the boundary amplitudes file\n  nrmset = 1,  ! index of the dataset in boundary amplitudes file\n\n  lukmt = 921,    ! K-matrix unit number\n  ikform = 'U',           ! formatted/unformatted switch for the K-matrix file\n  iktype = 0,             ! open-open (= 0) of full (= 1) K-matrix files to calculate\n\n  calcdip   = 0,1,0,   ! do calculate dipoles for given range of ionic states\n  form_pw_dipoles = 'FORMATTED',    ! format of the partial wave dipole file\n  lu_pw_dipoles = 421,  ! output partial wave dipoles file unit number\n  lu_inner_dipoles = 621,    ! input inner dipoles file unit\n/\n\n&bprop                    ! read by subroutine ASYM1 called from R_SOLVE (see docs/rprop-cfasym)\n  raf = 100.0,             ! radius at which continued fraction method can be used\n  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region\n/\n"
+    },
+    "dense/B1/eigenp.inp": {
+      "sha256": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+      "text": "&phasin                   ! used by EIGEN_P (see docs/eigenp)\n  name = 'e + CO - doublet B1',\n  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV\n  icon = 1,               ! eigenphase smoothing switch - 1 = add multiples of pi\n  luchan = 10,            ! channel information unit number\n  nchset = 1,  ! index of the dataset in channel information file\n  icform = 'U',           ! format of the channel information file\n  lukmt = 921,          ! K-matrix file unit\n  ikform = 'U',           ! formatted/unformatted switch for K-matrix file\n  luphso = 1021,           ! formatted eigenphases\n/\n"
+    },
+    "dense/B1/reson.inp": {
+      "sha256": "d0298b4965ebb4ed3673d2dceaca86c85b4181f5feac2c5409ccb4b9616e40b2",
+      "text": "&res                      ! used by RESON_F (see docs/reson)\n  name = 'e + CO - doublet B1 - Resonance fits',\n  luchan = 10,            ! channel information unit number\n  lurmt  = 21,            ! boundary amplitudes unit number\n  lukmt = 921,             ! file with K-matrix\n  lures = 1321,             ! unit for K-matrix data for resonance fits\n  nchset = 1,  ! index of the dataset in channel information file\n  nrmset = 1,  ! index of the dataset in boundary amplitudes file\n  mgvn = 1,               ! symmetry\n  stot = 2,               ! spin multiplicity 2*S+1\n  nst = 1,                ! label of scattering state symmetry ???\n  icform = 'U',           ! format of the channel information file\n  irform = 'U',           ! format of the boundary amplitudes file\n  ikform = 'U',           ! formatted/unformatted switch for unit LUKMT = 19 (K-matrix)\n  geteta = .false.,        ! fit only using the supplied energy points, i.e. don't call RSOLVE from RESON.\n/\n\n&bprop                    ! read by subroutine ASYM1 called from RESON (see docs/rprop-cfasym)\n  raf = 100.0,             ! radius at which continued fraction method can be used\n  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region\n/\n"
+    },
+    "dense/B2/rsolve.inp": {
+      "sha256": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2",
+      "text": "&rslvin                   ! used by R_SOLVE (see docs/rsolve)\n  name = 'e + CO - doublet B2 - K-matrices',\n  mgvn = 2,               ! symmetry\n  stot = 2,               ! spin multiplicity 2*S+1\n  newbut = 0,             ! Buttle correction - 0 in polyatomic codes\n\n  nerang = 1,          ! number of energy subranges\n  nescat = 99, ! number of input scattering energies in each subrange\n  einc = 0.1,0.05, ! scattering energies - initial energy, energy increment, there can be more subranges\n  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV\n\n  luchan = 10,            ! channel information unit number\n  icform = 'U',           ! format of the channel information file\n  nchset = 1,  ! index of the dataset in channel information file\n\n  lurmt  = 21,            ! boundary amplitudes unit number\n  irform = 'U',           ! format of the boundary amplitudes file\n  nrmset = 1,  ! index of the dataset in boundary amplitudes file\n\n  lukmt = 922,    ! K-matrix unit number\n  ikform = 'U',           ! formatted/unformatted switch for the K-matrix file\n  iktype = 0,             ! open-open (= 0) of full (= 1) K-matrix files to calculate\n\n  calcdip   = 0,1,0,   ! do calculate dipoles for given range of ionic states\n  form_pw_dipoles = 'FORMATTED',    ! format of the partial wave dipole file\n  lu_pw_dipoles = 422,  ! output partial wave dipoles file unit number\n  lu_inner_dipoles = 622,    ! input inner dipoles file unit\n/\n\n&bprop                    ! read by subroutine ASYM1 called from R_SOLVE (see docs/rprop-cfasym)\n  raf = 100.0,             ! radius at which continued fraction method can be used\n  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region\n/\n"
+    },
+    "dense/B2/eigenp.inp": {
+      "sha256": "6482d9fba07a9e7e6f04f7b8e9f28f09f140c8b2d798692cafac0a2c77dc2f45",
+      "text": "&phasin                   ! used by EIGEN_P (see docs/eigenp)\n  name = 'e + CO - doublet B2',\n  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV\n  icon = 1,               ! eigenphase smoothing switch - 1 = add multiples of pi\n  luchan = 10,            ! channel information unit number\n  nchset = 1,  ! index of the dataset in channel information file\n  icform = 'U',           ! format of the channel information file\n  lukmt = 922,          ! K-matrix file unit\n  ikform = 'U',           ! formatted/unformatted switch for K-matrix file\n  luphso = 1022,           ! formatted eigenphases\n/\n"
+    },
+    "dense/B2/reson.inp": {
+      "sha256": "d4e0823ab6138c4e42b8c856062b9dfea53f8f3610a05c7cc48cab995c77f75b",
+      "text": "&res                      ! used by RESON_F (see docs/reson)\n  name = 'e + CO - doublet B2 - Resonance fits',\n  luchan = 10,            ! channel information unit number\n  lurmt  = 21,            ! boundary amplitudes unit number\n  lukmt = 922,             ! file with K-matrix\n  lures = 1322,             ! unit for K-matrix data for resonance fits\n  nchset = 1,  ! index of the dataset in channel information file\n  nrmset = 1,  ! index of the dataset in boundary amplitudes file\n  mgvn = 2,               ! symmetry\n  stot = 2,               ! spin multiplicity 2*S+1\n  nst = 1,                ! label of scattering state symmetry ???\n  icform = 'U',           ! format of the channel information file\n  irform = 'U',           ! format of the boundary amplitudes file\n  ikform = 'U',           ! formatted/unformatted switch for unit LUKMT = 19 (K-matrix)\n  geteta = .false.,        ! fit only using the supplied energy points, i.e. don't call RSOLVE from RESON.\n/\n\n&bprop                    ! read by subroutine ASYM1 called from RESON (see docs/rprop-cfasym)\n  raf = 100.0,             ! radius at which continued fraction method can be used\n  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region\n/\n"
+    },
+    "five/B1/scatci.inp": {
+      "sha256": "160dcdfc8f6bf60ed3c8d53f2c84324c96a6486fbd55c9bc2a2c364fac1f4125",
+      "text": "&input\n  megul = 721,  ! input from module CONGEN\n  nfte = 821, ! Hamiltonian scratch file\n  iposit = 0, ! positron flag - 0 for electron, -1 for positron\n  icidg = 1,   ! 0 - do not diagonalize for parallel, 1 - do diagonalise Hamiltonian matrix for serial\n  iexpc = 1,   ! prototype CI expansion flag - 1 for scattering calculation\n  icitg = 1,   ! CI target flag - 1 = perform CI target contraction\n  idiag = 2,   ! matrix element evaluation flag - 2 = do not evaluate pure target integrals\n  nftg = 26,    ! CI target vectors switch - 0 = use scattering wavefunctions to generated (phase corrected) target wavefunctions\n  ntgsym = 8,  ! number of target state symmetries (>1 in CAS calculations)\n  mcont = 1,1,0,0,3,3,2,2,   ! lambda value ('symmetry') of the continuum orbitals associated with each target state\n  notgt = 34,34,51,51,22,22,34,34,  ! number of continuum orbitals associated with each target symmetry\n  numtgt = 5,5,5,5,5,5,5,5, ! number of target states for each symmetries\n  ntgtf = 1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8, ! set number, on unit NFTG, which contains the required target state\n  ntgts = 1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5, ! sequence number of the state within the set specified by NTGTF to be used as the target state\n/\n&cinorn\n  name = 'CO CI calculation - doublet B1',\n  nftw = 25,\n  memp = 6.0,\n  vecstore = 3, ! 1: store continuum coefficients of the eigenvectors only, 5: store all coefficients\n  igh = -1, nstat = 2048, crite = 9.9999999999999998e-13, maxiter = 1000,\n  NPFLG(1) = 0, ! no Hamiltonian matrix elements printed\n  NPFLG(2) = 0, ! print lowest 20 eigenvalues only\n  nciset = 1,\n/\n\n&outer_interface\n write_amp = .true., write_dip = .false., write_rmt = .false.,\n auto_nvo = .false., lutarg = 24, luchan = 10, lurmt = 21,\n rmatr = 18, ntarg = 40, idtarg = 1,12,19,25,31,4,8,34,37,39,5,15,24,28,33,3,14,17,22,30,6,16,23,27,32,2,13,18,21,29,10,11,26,41,43,7,9,20,35,36,\n cform = 'U', rform = 'U',\n/\n"
+    },
+    "five/B1/rsolve.inp": {
+      "sha256": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+      "text": "&rslvin                   ! used by R_SOLVE (see docs/rsolve)\n  name = 'e + CO - doublet B1 - K-matrices',\n  mgvn = 1,               ! symmetry\n  stot = 2,               ! spin multiplicity 2*S+1\n  newbut = 0,             ! Buttle correction - 0 in polyatomic codes\n\n  nerang = 1,          ! number of energy subranges\n  nescat = 99, ! number of input scattering energies in each subrange\n  einc = 0.1,0.05, ! scattering energies - initial energy, energy increment, there can be more subranges\n  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV\n\n  luchan = 10,            ! channel information unit number\n  icform = 'U',           ! format of the channel information file\n  nchset = 1,  ! index of the dataset in channel information file\n\n  lurmt  = 21,            ! boundary amplitudes unit number\n  irform = 'U',           ! format of the boundary amplitudes file\n  nrmset = 1,  ! index of the dataset in boundary amplitudes file\n\n  lukmt = 921,    ! K-matrix unit number\n  ikform = 'U',           ! formatted/unformatted switch for the K-matrix file\n  iktype = 0,             ! open-open (= 0) of full (= 1) K-matrix files to calculate\n\n  calcdip   = 0,1,0,   ! do calculate dipoles for given range of ionic states\n  form_pw_dipoles = 'FORMATTED',    ! format of the partial wave dipole file\n  lu_pw_dipoles = 421,  ! output partial wave dipoles file unit number\n  lu_inner_dipoles = 621,    ! input inner dipoles file unit\n/\n\n&bprop                    ! read by subroutine ASYM1 called from R_SOLVE (see docs/rprop-cfasym)\n  raf = 100.0,             ! radius at which continued fraction method can be used\n  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region\n/\n"
+    },
+    "five/B1/eigenp.inp": {
+      "sha256": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+      "text": "&phasin                   ! used by EIGEN_P (see docs/eigenp)\n  name = 'e + CO - doublet B1',\n  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV\n  icon = 1,               ! eigenphase smoothing switch - 1 = add multiples of pi\n  luchan = 10,            ! channel information unit number\n  nchset = 1,  ! index of the dataset in channel information file\n  icform = 'U',           ! format of the channel information file\n  lukmt = 921,          ! K-matrix file unit\n  ikform = 'U',           ! formatted/unformatted switch for K-matrix file\n  luphso = 1021,           ! formatted eigenphases\n/\n"
+    },
+    "five/B1/reson.inp": {
+      "sha256": "d0298b4965ebb4ed3673d2dceaca86c85b4181f5feac2c5409ccb4b9616e40b2",
+      "text": "&res                      ! used by RESON_F (see docs/reson)\n  name = 'e + CO - doublet B1 - Resonance fits',\n  luchan = 10,            ! channel information unit number\n  lurmt  = 21,            ! boundary amplitudes unit number\n  lukmt = 921,             ! file with K-matrix\n  lures = 1321,             ! unit for K-matrix data for resonance fits\n  nchset = 1,  ! index of the dataset in channel information file\n  nrmset = 1,  ! index of the dataset in boundary amplitudes file\n  mgvn = 1,               ! symmetry\n  stot = 2,               ! spin multiplicity 2*S+1\n  nst = 1,                ! label of scattering state symmetry ???\n  icform = 'U',           ! format of the channel information file\n  irform = 'U',           ! format of the boundary amplitudes file\n  ikform = 'U',           ! formatted/unformatted switch for unit LUKMT = 19 (K-matrix)\n  geteta = .false.,        ! fit only using the supplied energy points, i.e. don't call RSOLVE from RESON.\n/\n\n&bprop                    ! read by subroutine ASYM1 called from RESON (see docs/rprop-cfasym)\n  raf = 100.0,             ! radius at which continued fraction method can be used\n  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region\n/\n"
+    }
+  },
+  "actual_scatci_decks_match_prelaunch": true,
+  "failure_markers": {
+    "dense/B1/rsolve.out": [],
+    "dense/B1/eigenp.out": [],
+    "dense/B1/reson.out": [],
+    "dense/B2/rsolve.out": [],
+    "dense/B2/eigenp.out": [],
+    "dense/B2/reson.out": [],
+    "five/B1/scatci.out": []
+  },
+  "remote_sha256": {
+    "runs/co-eq-ccdz-sa11-tight-cc40/config.json": "65b7c36ab316f7bd2ca51a25e4a54bb48b83281fa2072a81b7a50b4b6533cf5c",
+    "runs/co-eq-ccdz-sa11-tight-cc40/target.json": "4a95eb855e0447f24940ff581a482f13de8afb38d9d4803c14ac63ec0fb024b7",
+    "runs/co-eq-ccdz-sa11-tight-cc40/resources.json": "d0ae0061a61f0bf864c3f974bc38878a3cf0776853543fdc35d9e0565c4d774a",
+    "runs/co-eq-ccdz-sa11-tight-cc40/stages.tsv": "0c72df3607e6c701e67da7384c82f3e202f61b647299b2fcd3cc04e8440403b0",
+    "runs/co-eq-ccdz-sa11-tight-cc40/result.json": "ac533108175cffb4b5d935bccc80ccff4d7d568b40819393f862678fdbef5849",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/co.casscf.chk": "9e43a2e52e7926af9fe9f47985cd7fe5be69f68f0fbeb0a6728eb1433b6549b3",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/co.molden": "2d8619f9b8c114d1065f99aeee867e83824a861b082fbafd21435d3c83bebf53",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/fort.16": "a0f0b644811f80a5d899439495d9a9ad33164a2a2a3d00e585237cebfbc24a60",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/fort.24": "d36ff032fe5c8cc28d23f7669f79d0441a6edf7fd55245347382b9dd72279c6a",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/fort.26": "56723f452ff2d9de36f3315404622a23c80d78012a1925abfe2be920c5861ca9",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/triplet.A2.json": "e60b8fab72a184d8ddd3afe814507f1abd82bcfaa4d1faaad2d2382e0127defc",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/singlet.A1.json": "1d84a6c2c3acc48baf109df56fa8f2080304614035cdbed63ae2806fe3f8dc2a",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/singlet.A2.json": "e87764925b527f912830a627d7dbc630215ae331226b0bb46bef4b0f88f2a0fc",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/triplet.B2.json": "37c645d236086cc2ac41de7773c1b908d542b20b0f60864bece8217f00b7c81c",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/triplet.A1.json": "27358b0f229135c2c25ed8e7306e1033f9cf68f5d1a6be7c3fa9473a11c252c5",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/triplet.B1.json": "bf0fb2100045d1b679ae4dac4712b012c00c223c6e46dd740e5d23a08a13cbc5",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/singlet.B2.json": "3e82a994e9b122402b7ad933eded8e548564262fbf4ca76749386c7eab269e50",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/singlet.B1.json": "ceaf5f510bb057c2bd5de10ca6b3957a07fb50e9f55e3b7f557a61b5dedac799",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015/pilot.json": "f1edd989ec1a826acba45bf7cc522a156b88f900b5cbb9fff88a5814f3f4be8f",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015/resources.json": "7a2329e05cc4897133d244e65ede5d91b3040ca1f35f205cf1ef30d3c46f91c1",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015/fort.16": "a0f0b644811f80a5d899439495d9a9ad33164a2a2a3d00e585237cebfbc24a60",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015/fort.24": "4e62029a7b8582323c9dc7c3b9eecaa33319e9541bda6e5d9be273c3ae5a2704",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015/fort.26": "88b7ab06a649b9bfc1390ad056041d5c88e0e323d613de5b97ccb64344eb1f19",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015/co.molden": "2d8619f9b8c114d1065f99aeee867e83824a861b082fbafd21435d3c83bebf53",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015/co.casscf.chk": "9e43a2e52e7926af9fe9f47985cd7fe5be69f68f0fbeb0a6728eb1433b6549b3",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/execution.json": "3d75379d60648673ca254053c45d273b0c98212580c7113051bbe7c65d80f471",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/frozen-inputs.json": "382e627b070a859f77f607ed0b3f3c97b18b9a1dcc5d7d06bc999949568c75f0",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/source-provenance.json": "78954649181c90e1406ea23fe786fdedb2d8e76fa0d6b9c19b81a1b4386119f0",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/verification-a2-equilibrium-target-20261016.json": "a52bda88a6514bc59cc7662f588fe86207c808916fc0af07e6565612a0deac83",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/a2_target_reading.py": "6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/a2-target-reading-first-20261016.py": "04dbd7352c6ecd3b30c8be96ee3883a03c8280ba5a813db0559b4062b9380f65",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/completed-reader-inputs-20261016.tar.gz": "5a192b8596c3a56490fc73b3f7daf022f7180a0c7bdf8edb00d14bd5d66204bb",
+    "prepared/a2-equilibrium-target-preflight-source-20261015/completed-reader-manifest-20261016.json": "c97e4f7ca4a6a4f29d08c0e2112ff208be95a34011a30bbd5251ca4531d80250",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B1/fort.16": "a0f0b644811f80a5d899439495d9a9ad33164a2a2a3d00e585237cebfbc24a60",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B1/fort.24": "d36ff032fe5c8cc28d23f7669f79d0441a6edf7fd55245347382b9dd72279c6a",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B1/fort.26": "56723f452ff2d9de36f3315404622a23c80d78012a1925abfe2be920c5861ca9",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B1/fort.721": "b68fbb00613a88777f239e5d6628953def39962d1065cbc4fc9872318fc4b383",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.scatci.doublet.B1.inp": "c6a1f7a1b7030397191d73aac24dd7bfa1ffa6bf49b15ff179e6dcbfb16ac4f2",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.rsolve.doublet.B1.inp": "a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.eigenp.doublet.B1.inp": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.reson.doublet.B1.inp": "d0298b4965ebb4ed3673d2dceaca86c85b4181f5feac2c5409ccb4b9616e40b2",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/collected_scattering_data/channels/channels.geom1.doublet.B1": "14dc0abaae01cb16f942367d017c47c32f89cf5b5e98aca4cad3e5c33cc84a6b",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/collected_scattering_data/rmat_amplitudes/ramps.geom1.doublet.B1": "2817ab72b0be915a008dffa624bec224b571fadf9c6a3b77fa0ec951b4f2a14c",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B2/fort.16": "a0f0b644811f80a5d899439495d9a9ad33164a2a2a3d00e585237cebfbc24a60",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B2/fort.24": "d36ff032fe5c8cc28d23f7669f79d0441a6edf7fd55245347382b9dd72279c6a",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B2/fort.26": "56723f452ff2d9de36f3315404622a23c80d78012a1925abfe2be920c5861ca9",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B2/fort.722": "904195306a971641b660c5f1ad77ec8b68f2a9c216a179f2d814cded7a44a328",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.scatci.doublet.B2.inp": "b2e65a7ad80914ad67a32aecbbaf5d6f638db3a6b291e263481b11dccb643b94",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.rsolve.doublet.B2.inp": "45e654c9df970bb31efbd422ae0cb7cdc8fa0545e7ec452d04b00c945b4a7a5b",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.eigenp.doublet.B2.inp": "6482d9fba07a9e7e6f04f7b8e9f28f09f140c8b2d798692cafac0a2c77dc2f45",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.reson.doublet.B2.inp": "d4e0823ab6138c4e42b8c856062b9dfea53f8f3610a05c7cc48cab995c77f75b",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/collected_scattering_data/channels/channels.geom1.doublet.B2": "d43b11bdcf4f79b9e4fc24fd3b5cc9a4c3688d104c7f7d82d61624ca5a889345",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/collected_scattering_data/rmat_amplitudes/ramps.geom1.doublet.B2": "58bc6482768f77a628c2ec7f33683670e740911181fe344e7af8c5ffe74844eb",
+    "prepared/cas12-audited-engine-baseline-source-20261012/execution.json": "599011b1046878f1a68f73cf13419ae2b0390774578bacc93b9959e38e821618",
+    "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012/independent-engine-baseline.json": "35072cf4e5614a8844b038678360abada62b34083f2ae067ac96e8e7d829c13f",
+    "prepared/cas12-pointer-address-source-20261012/execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "prepared/cas12-pointer-address-source-20261012/frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "prepared/cas12-pointer-address-source-20261012/source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "prepared/cas12-pointer-address-source-20261012/build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "prepared/cas12-pointer-address-source-20261012/build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "diagnostics/sparse-scattering-telemetry-v6-20261007/scattering_telemetry.so": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+    "prepared/a2-equilibrium-scattering-source-20261016/contract.json": "28bd3fb25a5a5cb8ea1f617e08217fd597dc0753816acdc5ac5d6b76d9b0e0b4",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2-equilibrium-scattering-contract.json": "c2eb5a23452365df7a3ba57cc4028ddeac0781797fa624fa1834ab74f6b9533e",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2_channel_preflight.py": "75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2_channel_preflight_owner.py": "d113c5e461408d8a8bc51ab309f886acbd00c9c4933f9de36a9961167c532a3a",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2_root_control.py": "32e152f41b257269331cd403a463d48dbc494f4ce87a5630ab2ea0567409b4d4",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2_root_owner.py": "b2e7f2970e87877807579c22470e4bfcc48dc6509a98d078800e7000483fd1e9",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2_scattering.py": "67e6891813483c186c759da8ac4ebda3622a5b04d3da2458fdf451c0bc0beb37",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2_scattering_owner.py": "fd82b5583bfb41d39792e817fb5636f67a0373eac1d7170ef9afb560f3a56567",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/a2_target_reading.py": "6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/analyze.py": "4aa00c6c6734854c6b097d1a0b95962bf1244b9b48d235332bbece5c6c8c6b11",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/archive.py": "ac79337385f604e8e0cf5873a1e1c6d0b44899bae9a60e03dc5f997437125bd2",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/batch.py": "b5ae0aed027ca33972aae129a1be1672bb69c308a1ec26a649bbbb4977241ad0",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/ci_overlap.py": "559227915a1cfb5633dc9c6e3ca61d200c3546cb581d235109f2ac1a25fde7aa",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/ci_probe.py": "3fc112ca6efec01d04fe18c5531fa9320ed7284164c71c47a4b2f92b78aeb1c3",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/collect.py": "96293df7ff33c4d16b00ae67a55986e283f56fb26529f4b2451d092f232aebe7",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/debug_engine_checks.py": "0b14839d8e49903193f233b966c1d223e88d70f9dbc16e55d3b48629e557b990",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/debug_scatci.py": "f9fdce2a1b16dd59b5617639fb698950319a65471a8591feb95cd71f33ac07cc",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/engine_baseline.py": "e35398e5b9d57de027edd4a0354723d0c1994c36116bacff28c10e05be5c455c",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/engine_baseline_owner.py": "4707ab60e0195c41d780185a5a204aacf92739f553bf21b1cc6900bcd8148a3b",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/native_debug_owner.py": "a1a2eb3e00b465ec26887130e746a22140c61c2555ac68f9e63fd938805ecc4f",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/native_debug_patch.py": "9ae222d930660fcd292dfd9e831604315b251818a752383536771bd6ab4b4016",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/native_pointer_owner.py": "9eef0e65ed8ed655f85bdde971777fc130e3b24d5b3e40867bbca3c4253b3168",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/native_pointer_patch.py": "87e5c82a70fb7d0ada3524e79bb77c9115e539d92c684ec5d90672d6e3f0a76b",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/neutral.py": "bf83b72686f4afe7e794355d9f235f4d8c0d21fd51a53997bb3408b9559c0a37",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/phase_diagnostics.py": "b10e1f4c2a42dcebd5541150bcca4e1c754e6a15937bfd7c1c7e289c8655c4b0",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/phase_fit.py": "4d545f179dee137e04397956c75d525ae24b1cf6f1286171d3be083b1a4dc112",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/progress_figure.py": "2f92dc9deae4a354fdd733c47f4ec0dc0930c28bcbe3555332983b5d4efb646a",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/rank_debugger.py": "7c1dfeeeb977a283449c2bb0ae033b5717f8e67947e1e4f76b5e67f4bd4941d2",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/rank_gdb.py": "3c3a1b56252e2b6b341740e8cecae91da153edd55f287762238e21b6435ae66f",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/refit.py": "88b63f55328192ce8c7085ae6a3db0b03ebfde90dcbac7d08190153f48427b6f",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/saved_model_controls.py": "7b969f7468018af187647430fbcb82871be86d23270c99e5deafcd2685f4b210",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/sparse_comparison.py": "8d1091995dbe5551b46417f5335e6214eae265a3d1d6622f7e0d1037d5c80678",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/sparse_comparison_owner.py": "a8730d04c122de0447e041e134872044e8abc837a72288bad7812b59bafc9a04",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/sparse_observer.py": "63df0f28fb1897659237123477ee91886047bf43c9c4c3faa4e9fccd104ab679",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/sparse_pilot.py": "799dc6f90c0747d5390e973e63026659e0c731038fc96649a41125cde5301161",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/sparse_scattering.py": "7f634f9d203fb5e8e000bd8d3d77d1c33152fa2470a9a9342bfa9c93638d8aa1",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/target.py": "cc81b9f33640bc1badcb2900fd7307dc28253f555ff0bc949ee50263b321f96d",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/target_seed_drift.py": "723633b424c67971ef59bcbc3db4e1ee7014a5d754cd11b5c65cf4d2b38e2bc6",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_a2_channel_preflight.py": "520ab15eb28f3a29bf4584219fc871ff1837e94d6470a86bc77b66f74035ca6f",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_a2_root_control.py": "d9190795caa11b6dbc8e7ab451f0a2b80e4821ad7a5e2223a9239785dbae8128",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_a2_scattering.py": "e6a9b2fc251e19be52515a6a4f35dacfeb85eae74b8a24210b8fe3b1c170b023",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_analyze.py": "357baac6f9eeac66d13220d24f2aa38ba1864a969866edeb44720fb079a004a0",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_checkpoint_projection.py": "4943037bb41a9e6d78cf700d00ced0f1c6b6f2a4a418929e2d356979bb8b392a",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_ci_overlap.py": "76f17af8357e40a6f6b1971f759df812bcaf02e53211f856db015e12d75dc204",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_ci_trial_space.py": "2c560690342e8981c847d374591b464f1059348145e1d18fe8024e85a4496419",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_collect.py": "c0f22ddc89ae3e5593723147809c58fff861786807ff5bcd6edbdc5c62e43864",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_engine_baseline.py": "19097b3be8e876c9cb209af87daa4adeddb1413d974401bfd7365c4da05ea178",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_neutral.py": "bb2b9392756a1871b567ac42939419e3516cc88a781cc29af821f76f4151386f",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_phase_fit.py": "4bff1f6f78ae5599569acb11c87b9c96b1f46522a1da1486f8a536a8747b7b29",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_profile.py": "fdb27f1fb5916c996d86eec66c37dd88847e9001749e80a0b8c3e586977afb9d",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_saved_model_controls.py": "5e3bbeff5cac47d7de878083236095d82197eda1d1faf504733d39e867455ec7",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_singlet_ci_driver.py": "489e2b9ed92e9ab175112553017077f231dd3df181b4930cd31a55c03055997b",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_sparse_comparison.py": "758ee7e2a86058c2cfbe7da04e0555772e14089c88e7c008aba02bfd242df470",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_sparse_pilot.py": "03868c7be58dda31ae2b633a849c5a00c988b997d92fa20ec17c43420ac8991d",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_sparse_scattering.py": "c9f67dd796b8dbeb5420ecfc54be8bdeff1c443de4c3ae3807378576ac31b338",
+    "prepared/a2-equilibrium-scattering-source-20261016/projects/ukrmol_co/test_target_diagonalizer.py": "707da3409eefb1d7f85222ee1a2987323af07751588fb4c5d7fef0ae99176cca",
+    "prepared/a2-equilibrium-scattering-source-20261016/source-provenance.json": "811b9bb260f0d86a9099ffe3bb69876cd1eaa10446f647f813784088ab053810",
+    "prepared/a2-equilibrium-scattering-source-20261016/frozen-inputs.json": "88a539cd374b44a5842f9d3b90b528604017eac37878fcc4c0e056ad59346356",
+    "prepared/a2-equilibrium-scattering-source-20261016/owner-launch.json": "eee43e72da4d2c2d89c23709729dee25ccd1d2803a18e89185023c374be59a30",
+    "prepared/a2-equilibrium-scattering-source-20261016/observer-launch.json": "dcda9ae026077a671cb448ac2e391acba237f7d62ae02c2b65722ab244b5f489",
+    "prepared/a2-equilibrium-scattering-source-20261016/prelaunch-input-check.json": "3b408a7ff536e476cff3bf1ccf90a0f0525e358f688565b0ed4b02c11fa1f23c",
+    "prepared/a2-equilibrium-scattering-source-20261016/prelaunch-input-check.launch.json": "d42ce926061a6e9637acd7281afba17a642bbf665ec32f2ca94af1a997e3eea1",
+    "prepared/a2-equilibrium-scattering-source-20261016/native/runtime-gate.json": "0b63f1d42280ab25e66a6436d29212de14fe982953044e5feb3a31cacec18ac9",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B1-reson.out": "0725221c23767ec3f60035dde9d362b14fa633a17cd7d4fe403f65bc348703ba",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B1-rsolve.out": "cb50890f0d4c50dc6349b9ca87ab561806eb7d4b46aa79e8a74d465a77949998",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-resources.json": "5f9314d80a8d24f068182780b161d205978cfbd469dd6064864eb3e05e6bbac6",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B2-reson.out": "07c1c59e82a33d2a39e9306340e77ed2c8d86c0f38f7c36e139fa9237b818284",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-pilot.json": "13c730e3c54acfce16712d6f82825edbca1218b87449abfd064c4eaf97ec4d73",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B2-pilot.json": "102ca3d98a43701fa8e64044b77f8ee6eac97ed62fd7192e5d74ea5181ea84a8",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/channel-input-gate.json": "8bad56df0368e3d6f9973fdc6dde915abdf46041a306f2f2cdbc7c9d3661ba3f",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B2-rsolve.out": "4ee659d9edcbdf38f06062ffdaa2fc82b8330c4cc558ed9f19b9c9ac4a934b4d",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/observer-execution.json": "b70a720f568f85590945ae470f8dc3d7bf3e26450970256f7621a7e3dfbadf45",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/five-B1-scatci.out": "a4fec5530dc16a690bc6ea0d07832fadaebfa19ea065b6a3755cc83d4b82ab88",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B2-eigenp.out": "13017efcf56989841f2e8331826ea60b4c4295b52aafc650ddf963eb7d904a53",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/owner-execution.json": "93ecb9d828325c5366f0cc444d6e0b5762395b6cbbee602576a3f9ad2c360dfb",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B1-pilot.json": "28b3e65186b0d734bfe34b50b166e6ab69cc8b957be81f7862fc97dd96c1858a",
+    "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/dense-B1-eigenp.out": "80ebf2e42b865884be00f7a35cf67fbfb851fbe86e1ce87ff689ecb4cd1bf619",
+    "prepared/a2-equilibrium-scattering-source-20261016/observer/20261015T232623.json": "f66441cd9ae827448ef984faacab0a458baa6ce47235a270430eb571aa9e2936"
+  },
+  "channel_import_verdict": true,
+  "dense_baseline_verdict": null,
+  "a2_channel_sensitivity_verdict": null,
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "interpretation": "Matched fixed-orbital equilibriumCAS11five-versus-nineA2control. Independent44-file48-vector/property reconstruction passes. Same48-state target representation,integrals/CONGEN,audited8-rankengine and2048scattering roots. Cheapcomplete denseouter replay gates freshfive-A2baseline beforeexpanded solve. Preserve false/unset and original exits;no automatic successor.",
+  "immutable_remote_capture": "prepared/a2-equilibrium-scattering-source-20261016/capture-20261015T233126/observation.json",
+  "immutable_remote_capture_sha256": "91a0868f7d5144d5461c262754da1c7a2f070052c026051932eb95621d9fec0b"
+}

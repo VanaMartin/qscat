@@ -1,0 +1,22 @@
+{
+  "verified_utc":"2026-10-15T23:28:44.838729+00:00",
+  "reader_source_commit":"a5954fbf54774a54de94a54baf41b44532f54115",
+  "reader_source_sha256":"6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c",
+  "public_payloads_verified":7,"public_reader_source_hashes_verified":3,
+  "public_raw_files_reconstructed":44,"public_native_target_vectors":48,
+  "public_multipole_records":930,"public_reconstruction_original_exit":0,
+  "public_reconstruction_sha256":"51e9a9835bc1a5bb0ed1f82474530d8fa6de19da9e711facea041de11f5ac95a",
+  "local_and_public_quoted_metrics_match":true,
+  "host_reconstruction_original_exit":0,"host_container_wall_seconds":0.5643635601736605,
+  "host_local_maximum_gram_metric_difference":1.4432899320127035e-15,
+  "host_local_other_quoted_metrics_identical":true,
+  "prior_stretched_cross_reading":{"raw_files_verified":24,"channel_import_verdict":true,"multipole_record_count":921,"maximum_vector_gram_error":7.549516567451064e-15},
+  "native_wall_minutes":51.81711094661926,"native_kernel_peak_gib":5.425357818603516,
+  "original_native_and_controller_exits":0,
+  "first_supplementary_reader_original_exit":1,
+  "first_supplementary_reader_reason":"Rejected two-atom assumption;CIDATA records carbon,oxygen and zero-charge scattering center. Corrected reader checks all three charges6/8/0. Original native results and budgets preserved.",
+  "channel_import_verdict":true,"scattering_channel_verdict":null,
+  "global_continuity_verdict":null,"full_sweep_released":false,
+  "evidence_pointer":"qualification-evidence/equilibrium-a2-target/artifacts.json",
+  "scope":"Public raw-vector/property reconstruction and cross-runtime consistency. Shared reader,not independent electronic solver;inventory does not independently validate every added transition moment."
+}

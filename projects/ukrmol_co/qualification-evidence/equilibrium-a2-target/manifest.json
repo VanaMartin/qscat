@@ -1,0 +1,33 @@
+{
+  "git_sha": "a5954fbf54774a54de94a54baf41b44532f54115",
+  "date": "2026-10-16",
+  "record_type": "co-equilibrium-fixed-orbital48-target-input-gate",
+  "verified_raw_files": 44,
+  "native_target_vectors": 48,
+  "multipole_records": 930,
+  "native_owner_original_exit": 0,
+  "native_resources_original_exit": 0,
+  "host_reader_original_exit": 0,
+  "local_reader_original_exit": 0,
+  "raw_archive_sha256": "5a192b8596c3a56490fc73b3f7daf022f7180a0c7bdf8edb00d14bd5d66204bb",
+  "reader_source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/a2_target_reading.py": "6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c"
+  },
+  "cross_runtime_metric_differences": {
+    "maximum_native_reference_energy_difference_hartree": 0.0,
+    "maximum_denprop_binary_energy_difference_hartree": 0.0,
+    "maximum_native_residual_hartree": 0.0,
+    "maximum_pi_energy_difference_hartree": 0.0,
+    "maximum_vector_gram_error": 1.4432899320127035e-15,
+    "ground_dipole_difference_au": 0.0
+  },
+  "first_reader_original_exit": 1,
+  "first_reader_reason": "CIDATA has three centers including the zero-charge scattering center;corrected reader verifies charges6/8/0",
+  "channel_import_verdict": true,
+  "scattering_channel_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "scope": "Full native-vector/property reconstruction on one fixed orbital frame. Multipole inventory is not independent validation of every transition moment; full channel convergence, global state identity and scattering remain open."
+}

@@ -20,6 +20,91 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Equilibrium A2 target reconstructed; matched scattering active — 15 October, 23:31 UTC
+
+**The equilibrium48-state target/property input gate passes independent raw
+reconstruction.** Owner1345746completes22:15:40.865UTC with all eight target
+solves,DENPROP,resource and owner exits0;observer1346072ends normally after3
+captures. Cost **51.817minutes /5.425GiB kernel peak**,including47.675minutes
+DENPROP and248.123seconds target solves. The
+[completed capture](progress-a2-equilibrium-preflight-20261015T2323.json) verifies
+59source/50input hashes and242installed engine artifacts;original orbital,
+integral andCONGEN hashes remain unchanged.
+
+The [44-file independent reading](verification-a2-equilibrium-target-20261016.json)
+reconstructs all48fullCIDATA vectors/Gram matrices and930unique finite
+dipole/quadrupole records. Maximum reference-energy error **5.969e-13Hartree**,
+native residual **1.20921e-10Hartree**,Gram error **1.077e-14**,Pi energy split
+**3.126e-13Hartree**,property-binary energy difference **4.996e-10Hartree** and
+dipole difference **7.984e-11au** all pass. Original first-five roots and each
+own-model state map are verified;A2root9IDs are48/45. The reader checks header
+charges6/8/0:CIDATA includes a zero-charge scattering center. Its initial
+two-atom assertion rejection and script are preserved separately;no native
+outcome or gate changed.
+
+[Public download/reconstruction](qualification-evidence/equilibrium-a2-target/README.md)
+passes seven payload digests,three reader-source hashes and44raw files. Host/
+macOS decisions agree;quoted Gram metric differs1.443e-15,other quoted metrics
+are identical. The reader also passes the earlier stretched24-file48-state/
+921-multipole gate. See [public verification](verification-a2-equilibrium-public-20261016.json)
+and [the experiment summary](A2_EQUILIBRIUM_CONTROL.md). Full vector/property
+reconstruction is not independent accuracy of every transition moment or full
+channel convergence.
+
+**Owner1351889 is active on Sadaharu** for the separately declared
+[equilibrium five-versus-nine-A2 scattering control](a2-equilibrium-scattering-contract.json).
+Runtime/input gates pass and saved dense outer replay completes all six stages
+and resource wrapper with exits0 in **4.198minutes /0.446GiB kernel peak**.
+[Independent eight-file reading](verification-a2-equilibrium-dense-20261016.json)
+checks complete99-point grids,Pi1.0e-8rad and nonempty/noMAXFIT fits. The
+[23:31capture](progress-a2-equilibrium-scattering-20261015T2331.json) records
+fresh five-A2/2048B1assembly at801.17%CPU/2.514GiB current container memory.
+No native Hamiltonian dense solve is repeated. Fresh five-A2scattering must
+independently pass the dense
+observable gate before nine-A2/2048starts. Both sides share the same fresh48-state
+target vectors/properties,original equilibrium CAS11orbitalframe/integrals/CONGEN,
+audited engine and8-rank allocation. Only retainedA2counts/sequences/own-map
+interface change. Actual decks match the frozen prelaunch selections.
+
+Runtime source is **`a5954fbf54774a54de94a54baf41b44532f54115`**,with60source/
+61input hashes and242installed artifacts reverified. Allocation:8physicalCPUs4–11/
+8MPIranks/one library thread/native6GiBmemp/48GiBcgroup/8GiBshared. Forecast
+**2–4hours per selected model,4–8hours total plus replay/reading**,conditional
+on same-engine stretched costs1.707/1.850h;hard stage8h/model12h/owner28h.
+Persistent disk has49.46GiB free before launch. CPUs0–3 remain reserved for
+small checks. Observer1352372records immutable observations every30minutes,
+starting after readable-owner/live-service PID match.
+
+Services:`co-a2-equilibrium-scattering-20261016.service`and
+`co-a2-equilibrium-scattering-observer-20261016.service`. Artifacts:
+`prepared/a2-equilibrium-scattering-source-20261016/`. Fits retain equilibrium
+window1.8–3.3requested-eV/orders1–4;budgets0.05rad/0.05eV/5%width with0.001eV
+floor. Actual grid uses native requested-eV×0.0735/2Hartree. Failed/empty/MAXFIT/
+bound fits stay unset;false/unset stops without repair or automatic successor.
+**112focused tests pass**,including rejection of false/unset independent target
+reports,changed target maps or replacementfort24/fort26bytes.
+
+**Next:** read five-A2completion and independent baseline verdict;
+only then the declared owner may start nine-A2once. Independently checksum-fetch
+and reconstruct completed scattering outputs,then decide from the measured
+phase/position/width effect and cost. Earlier stretched channel and width-
+extraction rejections remain preserved;no further root ladder follows. Model/
+basis/ensemble,global continuity,extraction,neutral correlation/domain and
+restartable-production-pilot gates remain open. Sweep/potential fitting remain
+gated.
+
+Milestone checks pass **295immutable remote hashes**, **165overview source
+hashes**, **474local documentation links**,public digest/source/report parity,
+both raw target frames,searchable SVG and visual PNG inspection,lint/format and
+diff checks. Main-index integrity/upstream currency are complete/current at
+`97b8b4c7392f822c996af0d4d77f81e100ff1407`;the branch-only raw target reader,
+matched input gate/tests,declarations and evidence resolve against current
+source. Scientific runtime remains frozen at`a5954fb`.
+Final **23:33:46UTC** live check confirms owner1351889active,no error,completed
+dense replay exit0 and five-A2B1assembly **dimension27546**,at799.67%CPU/
+2.516GiBcurrent Docker memory,with no native failure markers. The expanded
+model remains gated on the pending independent five-A2baseline comparison.
+
 ### Saved model/extraction controls complete; equilibrium A2 input gate active — 15 October, 21:28 UTC
 
 **Equilibrium CAS11→CAS12 still rejects practical model insensitivity:** matched

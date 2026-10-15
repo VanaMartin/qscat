@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "first-reader.py": {"bytes":10592,"sha256":"04dbd7352c6ecd3b30c8be96ee3883a03c8280ba5a813db0559b4062b9380f65"},
+    "host-reading-execution.json": {"bytes":1190,"sha256":"57945fdd11a4d764572ea469298e92978671029fa0dd71903f2a3bd93edc8e30"},
+    "host-reading.json": {"bytes":10425,"sha256":"769e7d072cc2a1e2779495a02c060df4e7dec6f50936009a57f6271f5641fc44"},
+    "independent-reading.json": {"bytes":10951,"sha256":"a52bda88a6514bc59cc7662f588fe86207c808916fc0af07e6565612a0deac83"},
+    "manifest.json": {"bytes":1733,"sha256":"6ad7f524fb9f2554026f0a434bdfd2ce3bbe1da128cc8dda3de372d629d7112f"},
+    "raw-inputs.tar.gz": {"bytes":8628785,"sha256":"5a192b8596c3a56490fc73b3f7daf022f7180a0c7bdf8edb00d14bd5d66204bb"},
+    "reader-source.tar.gz": {"bytes":3873,"sha256":"3c35302189eef52b79ab0a592089d4283f9ad79af544ed1cb26d88f1d5e45573"}
+  },
+  "git_sha":"a5954fbf54774a54de94a54baf41b44532f54115",
+  "url_prefix":"https://data.qscat.org/co-equilibrium-a2-target-20261016/"
+}

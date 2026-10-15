@@ -25,6 +25,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [completed matched A2 scattering control](A2_CHANNEL_SCATTERING.md),
 [completed nine-A2 attribution check](A2_ROOT_ATTRIBUTION.md),
 [saved model/extraction controls](SAVED_MODEL_CONTROLS.md),
+[equilibrium A2 input qualification and active control](A2_EQUILIBRIUM_CONTROL.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -52,13 +53,15 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**The equilibrium nine-A2 target/property preflight is active on Sadaharu**:
-all eight target solves exit0,maximum residual1.21e-10Hartree;DENPROP and
-independent48-state raw reading remain pending. This separately declared
-[input gate](a2-equilibrium-target-preflight-contract.json) uses8physical
-cores,unchanged original CAS11orbitals and forty-component averaging. The
-conditional forecast is45–90minutes,with4h-native/5h-owner bounds. Current
-driver/fit controls have **106focused tests passing**.
+**Update — 15 October, 23:31 UTC:** the equilibrium nine-A2input gate and
+independent/public reconstruction **pass**:44raw files,48full target vectors,
+930multipoles;cost **51.817minutes /5.425GiB**. Original orbital averaging stays40.
+The [matched equilibrium five-versus-nine-A2scattering control](A2_EQUILIBRIUM_CONTROL.md)
+is active on Sadaharu at2048roots/eight physical cores. Dense outer replay
+and independent reading pass in4.198minutes/0.446GiB;fresh five-A2baseline
+assembly is active. Only a passing independent baseline gate starts
+the nine-A2model. Forecast **2–4hours/model**,conditional on measured stretched
+costs,with12h-model/28h-owner hard bounds. **112focused tests pass**.
 
 **Earlier completion — 15 October, 21:04 UTC:** both nine-A24096native sectors complete
 successfully in **2.738535hours / 9.456207GiB**. A profiler-order bug then causes
@@ -103,10 +106,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 15 October 2026
 
-![CO qualification: equilibrium active-space and expanded-channel extraction reject budgets;equilibrium A2 input gate active](../../docs/physics/figures/co-progress-20261015T2128.png)
+![CO qualification: equilibrium A2 inputs and dense replay pass;fresh matched baseline active;production gated](../../docs/physics/figures/co-progress-20261015T2331.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261015T2128.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261015T2128.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261015T2331.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261015T2331.json) ·
+[Equilibrium A2 input completion and active control](A2_EQUILIBRIUM_CONTROL.md) ·
+[Public48-state input reconstruction](qualification-evidence/equilibrium-a2-target/README.md) ·
 [Saved model/extraction study](SAVED_MODEL_CONTROLS.md) ·
 [Equilibrium A2 input gate](a2-equilibrium-target-preflight-contract.json) ·
 [Public raw reconstruction](qualification-evidence/saved-model-controls/README.md) ·
@@ -115,6 +120,8 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
 [Completed A2 prerequisite](A2_CHANNEL_TARGET_PREFLIGHT.md) ·
 [Previous21:04overview](../../docs/physics/figures/co-progress-20261015T2104.png) ·
+[Previous21:28overview](../../docs/physics/figures/co-progress-20261015T2128.png) ·
+[Previous23:29overview](../../docs/physics/figures/co-progress-20261015T2329.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -145,19 +152,20 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **21:28 UTC, 15 October** release of an incremental overview. New findings, verification
+This is the **23:31 UTC, 15 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** saved-output model and extraction controls complete with
-decision-changing rejections. Public raw reconstruction verifies the equilibrium
-CAS12resolutions and stretched channel outputs. The next equilibrium nine-A2
-target/property gate is active,with all eight target solves passing. Original
-channel rejection,profiler failure and all unset global qualification verdicts
-remain preserved.
+**What changed:** equilibrium48-state native input qualification and independent/
+public reconstruction complete,with measured cost and all original exits0.
+The separately declared matched five-versus-nine-A2scattering control is active:
+saved dense outer replay and independent reading pass;fresh five-A2baseline
+assembly precedes its dense-observable gate and any expanded scattering.
+Original model/channel/extraction rejections,profiler failure and all unset
+global qualification verdicts remain preserved.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component

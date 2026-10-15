@@ -16,7 +16,7 @@ now independently reconstructs all672 states and112 matrices on the host and
 from public downloads,with byte-identical repackaging.
 Compressed proof replay passes all438 payloads/96 probes,and the fresh native
 import passes. The current experiment is the
-[equilibrium nine-A2 input gate](a2-equilibrium-target-preflight-contract.json),
+[equilibrium matched A2 scattering control](a2-equilibrium-scattering-contract.json),
 following [saved model/extraction controls](SAVED_MODEL_CONTROLS.md).
 
 ## 1. Finish trustworthy target inputs
@@ -27,13 +27,13 @@ root/dipole/subspace/seed-preservation checks. The original stretched TZ import
 failed seed preservation; its reoptimized orbital frame is a separately
 qualified numerical target. Compressed CAS12 space160 ordinary QC and96-probe
 coverage pass;its private-cache native import completes with original gates
-preserved. Stretched nine-A2 fixed-orbital48-state import passes;the corresponding
-equilibrium import is active,with all eight target solves exit0 and DENPROP
-pending at21:28UTC,15October.
+preserved. Both stretched and equilibrium nine-A2 fixed-orbital48-state imports
+pass independent full-vector/property reconstruction. The equilibrium gate
+completes51.817minutes/5.425GiB;public reading verifies44raw files/48vectors/
+930multipoles. Original forty-component orbital averaging remains unchanged.
 
-**Next:** finish equilibrium48-state DENPROP and independently read full native
-vectors,energies,Gram matrices,Pi,multipoles and own-model map. Publish/fetch the
-remaining native-import evidence. CAS11 16K/TZ public reconstruction already
+**Next:** follow the active matched equilibrium scattering control,then
+publish/fetch remaining native-import evidence. CAS11 16K/TZ public reconstruction already
 passes. Preserve every original failed exit and the original TZ seed rejection.
 
 **Pass:** ordinary QC and fresh-CI flags; roots≤1e-7 Hartree; physical/penalized/
@@ -73,8 +73,11 @@ Basis,active-space and full retained-channel convergence remain open.
 Fifty-component equilibrium orbital coverage passes,but native fifty-component
 imports and matched scattering have not been performed.
 
-**Next:** finish equilibrium nine-A2 input qualification,then separately declare
-its matched five-versus-nine scattering control at2048. Use the measured active-
+**Active:** the equilibrium five-versus-nine-A2 scattering control at2048passes
+the saved dense outer replay/independent raw checks in4.198minutes/0.446GiB.
+Fresh five-A2baseline assembly is active;its independent dense-observable gate
+precedes expanded scattering. Shared48-state target representation and audited8-rank
+runtime isolate retained-channel count. Use the measured active-
 space/channel effects to select remaining matched three-anchor and
 DZ→TZ→aug-TZ controls with all other settings fixed.
 Independently test explicit channel count and forty→fifty orbital averaging:
@@ -181,8 +184,9 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
-1. Finish the active equilibrium48-state target/property input gate and independent
-   raw reading,then declare its matched five-versus-nine-A2 scattering control.
+1. Read the active equilibrium five-A2baseline;only a passing
+   independent baseline gate releases the declared nine-A2/2048model. Reconstruct
+   completed raw scattering and decide from the measured channel effect/cost.
 2. Design and independently validate an extraction rule addressing the measured
    background failure;preserve every rejected all-order gate.
 3. Complete the remaining matched model/basis/ensemble controls,continuity and
