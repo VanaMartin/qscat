@@ -1,0 +1,77 @@
+{
+  "status":"bounded matched equilibrium CAS11 retained-A2 control;expanded solve gated on independently reconstructed target inputs and dense-baseline observables",
+  "scientific_question":"Does expanding only retained A2 channels from five to nine per spin change equilibrium CAS11 phases or identical-window fitted candidates beyond0.05rad/0.05eV/5percent? The stretched channel rejection survives its named root refinement,and equilibrium CAS11-toCAS12 rejects phase/position. This separately declared equilibrium control measures the missing channel sensitivity before choosing further electronic models.",
+  "run":"cas11-eq-a2-five-nine-roots2048-mpi8-20261016",
+  "source_directory":"prepared/a2-equilibrium-scattering-source-20261016",
+  "target_reference_directory":"runs/co-eq-ccdz-sa11-tight-cc40",
+  "independent_reference_directory":"diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40",
+  "target_preflight_directory":"prepared/a2-equilibrium-target-preflight-source-20261015/native/cas11-eq-a2roots9-fixed-orbital-native-preflight-20261015",
+  "independent_target_reading":"prepared/a2-equilibrium-target-preflight-source-20261015/verification-a2-equilibrium-target-20261016.json",
+  "baseline_directory":"prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+  "baseline_reader_filename":"independent-engine-baseline.json",
+  "baseline_reader_verdict":"matched_engine_baseline_verdict",
+  "fixed_target_settings":{
+    "bond_length":2.1323,"basis":"cc-pVDZ","model":"CAS-A","orbitals":"state-averaged",
+    "frozen_orbitals":2,"active_orbitals":[5,3,3,0],
+    "sa_singlet_roots":[5,5,5,5],"sa_triplet_roots":[5,5,5,5]
+  },
+  "scattering_roots":2048,"sectors":["B1","B2"],
+  "models":{
+    "five":{"a2_roots_per_spin":5,"target_components":40,"dimension":27546,"continuum_coefficients":1410,"boundary_channels":250},
+    "nine":{"a2_roots_per_spin":9,"target_components":48,"dimension":27818,"continuum_coefficients":1682,"boundary_channels":298}
+  },
+  "engine_source_directory":"prepared/cas12-pointer-address-source-20261012",
+  "engine_evidence_sha256":{
+    "execution.json":"112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "frozen-inputs.json":"e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "source-provenance.json":"174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "build/build-provenance.json":"acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "build/engine-checks.json":"9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "numerical_library_sha256":{
+    "/opt/ukrmolp/lib/libslepc.so":"2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+    "/opt/ukrmolp/lib/libpetsc.so":"5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+    "/opt/ukrmolp/lib/libopenblas.so":"72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+    "/opt/ukrmolp/lib/libscalapack.so":"33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+  },
+  "image_id":"sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "telemetry_directory":"diagnostics/sparse-scattering-telemetry-v6-20261007",
+  "telemetry_sha256":"ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+  "changes":"Both selected models use identical freshly qualified equilibrium48-state fort24/fort26and original equilibriumfort16/scatteringCONGEN. Only NUMTGT,NTGTF,NTGTS and OUTER_INTERFACE NTARG/IDTARG change. Forty-target baseline selects five roots per sector from the noncontiguous48-state own-model map;expanded model adds A2roots6-9per spin. Orbital averaging stays40. No target optimization,integral or CONGEN regeneration. Same radius18/maxl4/deletion1e-6/propagation100,igh-1/crite1e-12/maxiter1000/vecstore3,2048roots,eightMPIranks,native6GiBmemp and uncorrected pole sum. Dimension increment272 is8addedstates times34continuumorbitals;boundary increment48 is8times6angular channels. Actual telemetry and exports must confirm.",
+  "gates":[
+    "Prelaunch independent44-file binary CIDATA/DENPROP reconstruction passes48vectors,Gram matrices,all eight energies/spins/actions,first-five preservation,Pi,own map,930unique finite multipoles and ground dipole;freeze its raw manifest,reader and result before launch",
+    "Fresh source/input freeze,exact242installed audited-engine artifacts,completed matched engine reproduction and fresh numerical-library/telemetry runtime gate",
+    "Completed exact-frame target/property owner exit0 and native channel-import verdict true;independent twelve-root prerequisites match the exact original orbital checkpoint;99-point0.1-5requested-eV grid remains below the first excited target threshold",
+    "Cheap both-sector dense outer replay from saved complete27546-pole boundary/channels;same fresh outer decks as both selected models;no dense Hamiltonian solve",
+    "Fresh five-A2/2048 both sectors,then independent raw/export/residual/Pi/full-grid and identical-window fit comparison against dense replay. False/unset dense baseline stops before nine-A2 solve",
+    "Only after baseline passes,run nine-A2/2048 both sectors once. Shared input hashes,decks,own target maps and actual dimensions27546/27818,continuum1410/1682,boundary250/298 must agree with declaration",
+    "Independent matched reader checks both complete grids/Pi and background orders1-4 in fixed1.8-3.3requested-eV window,using actual native Hartree energies;full-grid phase is modulo pi. Different channel models do not require equal poles or interfaces",
+    "Failed,empty,MAXFIT or bound fits leave relevant verdict unset. False/unset outcomes stop without retries,gate changes or automatic root/channel/geometry successors"
+  ],
+  "observable_budgets":{
+    "position_ev":0.05,"full_width_relative":0.05,"full_width_floor_ev":0.001,
+    "phase_rad_mod_pi":0.05,"fit_background_orders":[1,2,3,4],
+    "fixed_requested_energy_window_ev":[1.8,3.3]
+  },
+  "raw_checks":{
+    "absolute_residual_hartree":1e-7,"boundary_to_ci_atol_hartree":1e-10,
+    "pi_phase_rad_mod_pi":0.002,"phase_grid_atol_requested_ev":5e-5,"native_selection_which":1
+  },
+  "fit_initial_position_hartree":0.090300065,
+  "fit_initial_full_width_hartree":0.04168035,
+  "hartree_to_ev":27.211386245988,"native_rydberg_per_requested_ev":0.0735,
+  "resources":{
+    "physical_cpu_group":"4-11","mpi_ranks":8,"library_threads_per_rank":1,
+    "container_memory_gib":48,"shared_memory_gib":8,"scatci_memory_input_gib":6,
+    "minimum_available_ram_gib":64,"minimum_free_disk_gib":20,
+    "native_stage_timeout_seconds":28800,"whole_model_timeout_seconds":43200,
+    "independent_reader_memory_gib":4,"independent_reader_cpu_group":"0-3",
+    "independent_reader_timeout_seconds":3600,"whole_owner_timeout_seconds":100800,
+    "observer_interval_seconds":1800,"observer_timeout_seconds":100800
+  },
+  "cost_rationale":"Same-engine stretched five/nine2048models cost1.706997/1.849952hours and5.894089/6.306644GiB. Original equilibrium CAS11 selected2048cost2.454hours on different4-rank/release runtime. Conditional forecast2-4hours per selected model,4-8hours plus cheap dense replay/reading in total;geometry and changed target representation can affect cost. Two fresh models are needed to match the audited8-rankengine and shared48-state target representation;old equilibrium selected output remains external dense-reference evidence. Contracted dimension increases0.99percent,continuum/boundary19.29/19.2percent,rawCSFs unchanged. Hard stage8h/model12h/owner28h limits are bounds,not predictions. No larger-root run or paid provisioning. Preserve measured native,outer,export,reader,memory and disk costs separately.",
+  "interpretation":"Pass means practical fixed-orbital five-versus-nineA2 observable insensitivity at equilibrium and2048roots. Rejection identifies a named channel sensitivity under these numerical controls. Neither establishes full channel/basis/active-space/ensemble convergence,absolute omitted-spectrum error,global state/resonance-pole identity or stable width extraction. Original stretched phase and extraction rejections remain preserved.",
+  "dense_baseline_verdict":null,"a2_channel_sensitivity_verdict":null,
+  "spectral_truncation_verdict":null,"electronic_model_verdict":null,
+  "global_continuity_verdict":null,"full_sweep_released":false
+}

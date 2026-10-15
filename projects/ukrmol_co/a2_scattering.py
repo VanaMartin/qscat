@@ -62,6 +62,23 @@ def channel_deck(text: str, inventory: dict, a2_roots: int, roots: int) -> str:
     )
 
 
+def independent_target_gate(root: Path, contract: dict, inventory: dict) -> None:
+    """Bind a separately declared raw-vector reading to the actual imported bytes."""
+    if "independent_target_reading" not in contract:
+        return
+    reading = json.loads((root / contract["independent_target_reading"]).read_text())
+    if (
+        reading["channel_import_verdict"] is not True
+        or reading["target_component_count"] != 48
+        or reading["target_map"] != inventory["target_map"]
+    ):
+        raise ValueError("Independent target reconstruction failed or differs")
+    imported = root / contract["target_preflight_directory"]
+    for name in ("fort.24", "fort.26"):
+        if sha(imported / name) != reading["input_manifest"][name]["sha256"]:
+            raise ValueError(f"Independent target reconstruction byte mismatch: {name}")
+
+
 def input_gate(root: Path, contract: dict) -> dict:
     """Require the completed exact-frame target/property import before any scattering."""
     expected = expected_states(root, contract)
@@ -77,6 +94,7 @@ def input_gate(root: Path, contract: dict) -> dict:
     inventory = property_inventory((preflight / "fort.24").read_text(), expected)
     if inventory["target_map"] != saved["property_inventory"]["target_map"]:
         raise ValueError("Fresh48-state property map disagrees with saved import")
+    independent_target_gate(root, contract, inventory)
     target = root / contract["target_reference_directory"]
     target_saved = json.loads((target / "target.json").read_text())
     if abs(inventory["ground_dipole_z_au"] - target_saved["ground_dipole_au"][2]) > 1e-5:
@@ -357,7 +375,7 @@ def compare(root: Path, work: Path, contract: dict, baseline_gate: bool) -> dict
         "spectral_truncation_verdict": None,
         "global_continuity_verdict": None,
         "electronic_model_verdict": None,
-        "scope": "Dense-observable qualification of stretched five-A2 baseline"
+        "scope": "Dense-observable qualification of the fixed-geometry five-A2 baseline"
         if baseline_gate
         else "Five-versus-nine A2 sensitivity; channel convergence and pole identity remain open",
     }

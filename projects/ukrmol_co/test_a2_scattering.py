@@ -7,7 +7,13 @@ import sys
 import numpy as np
 import pytest
 
-from projects.ukrmol_co.a2_scattering import channel_deck, channel_map, verify_model_inputs
+from projects.ukrmol_co.a2_scattering import (
+    channel_deck,
+    channel_map,
+    independent_target_gate,
+    verify_model_inputs,
+)
+from projects.ukrmol_co.sparse_comparison_owner import sha
 from projects.ukrmol_co.sparse_pilot import audit_sector
 
 
@@ -227,3 +233,34 @@ def test_baseline_reader_preserves_rejection_and_exits_nonzero(tmp_path, monkeyp
         json.loads((tmp_path / "baseline-qualification.json").read_text())["dense_baseline_verdict"]
         is verdict
     )
+
+
+@pytest.mark.parametrize("change", [None, "failed", "unset", "map", "fort.24", "fort.26"])
+def test_declared_independent_target_reading_is_bound_to_native_inputs(tmp_path, change):
+    imported = tmp_path / "import"
+    imported.mkdir()
+    for name in ("fort.24", "fort.26"):
+        (imported / name).write_bytes(name.encode())
+    mapping = list(range(1, 49))
+    reading = {
+        "channel_import_verdict": True,
+        "target_component_count": 48,
+        "target_map": mapping,
+        "input_manifest": {n: {"sha256": sha(imported / n)} for n in ("fort.24", "fort.26")},
+    }
+    if change in ("failed", "unset"):
+        reading["channel_import_verdict"] = False if change == "failed" else None
+    if change == "map":
+        reading["target_map"] = mapping[::-1]
+    if change in ("fort.24", "fort.26"):
+        (imported / change).write_bytes(b"unreconstructed replacement")
+    (tmp_path / "reading.json").write_text(json.dumps(reading))
+    contract = {
+        "independent_target_reading": "reading.json",
+        "target_preflight_directory": "import",
+    }
+    if change is None:
+        independent_target_gate(tmp_path, contract, {"target_map": mapping})
+    else:
+        with pytest.raises(ValueError, match="Independent target reconstruction"):
+            independent_target_gate(tmp_path, contract, {"target_map": mapping})

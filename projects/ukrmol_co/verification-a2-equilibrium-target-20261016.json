@@ -1,0 +1,327 @@
+{
+  "supplementary_reader_development_rejection": {
+    "original_exit": 1,
+    "first_reader_sha256": "04dbd7352c6ecd3b30c8be96ee3883a03c8280ba5a813db0559b4062b9380f65",
+    "assertion": "nuclei == 2",
+    "cause": "Supplementary reader treated CIDATA center count as two atoms. Raw header contains three centers: carbon charge6,oxygen charge8,and zero-charge scattering center. Corrected reader checks all three finite center records and their charges. Original native outcomes and scientific budgets are unchanged."
+  },
+  "verified_utc": "2026-10-15T23:23:12.473500+00:00",
+  "reader_script_sha256": "6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c",
+  "input_manifest": {
+    "pilot.json": {
+      "sha256": "f1edd989ec1a826acba45bf7cc522a156b88f900b5cbb9fff88a5814f3f4be8f",
+      "bytes": 15238
+    },
+    "resources.json": {
+      "sha256": "7a2329e05cc4897133d244e65ede5d91b3040ca1f35f205cf1ef30d3c46f91c1",
+      "bytes": 481
+    },
+    "fort.24": {
+      "sha256": "4e62029a7b8582323c9dc7c3b9eecaa33319e9541bda6e5d9be273c3ae5a2704",
+      "bytes": 44128
+    },
+    "fort.26": {
+      "sha256": "88b7ab06a649b9bfc1390ad056041d5c88e0e323d613de5b97ccb64344eb1f19",
+      "bytes": 10175536
+    },
+    "target.denprop.out": {
+      "sha256": "74c46b85c14d1e0072fe754731d93755dc03eb1b35b545dd4d91b448864330da",
+      "bytes": 149877
+    },
+    "target.denprop.inp": {
+      "sha256": "a9c742ca23781a66ad4a188eaa9685b5a2efbc18bcbe0eac305b266ae5bfd916",
+      "bytes": 974
+    },
+    "execution.json": {
+      "sha256": "3d75379d60648673ca254053c45d273b0c98212580c7113051bbe7c65d80f471",
+      "bytes": 5541
+    },
+    "contract.json": {
+      "sha256": "f07aeca897d1e43949ff3b3e0c36c546e6785b48adc34ffd287f00b0b3345af4",
+      "bytes": 7188
+    },
+    "frozen-inputs.json": {
+      "sha256": "382e627b070a859f77f607ed0b3f3c97b18b9a1dcc5d7d06bc999949568c75f0",
+      "bytes": 14355
+    },
+    "source-provenance.json": {
+      "sha256": "78954649181c90e1406ea23fe786fdedb2d8e76fa0d6b9c19b81a1b4386119f0",
+      "bytes": 399
+    },
+    "observer-execution.json": {
+      "sha256": "b770f37ad9b98046cc1ead207aed9d664beee8225c9148740ee9725dce5b6c02",
+      "bytes": 370
+    },
+    "target.json": {
+      "sha256": "4a95eb855e0447f24940ff581a482f13de8afb38d9d4803c14ac63ec0fb024b7",
+      "bytes": 19351
+    },
+    "independent/singlet.A1.json": {
+      "sha256": "1d84a6c2c3acc48baf109df56fa8f2080304614035cdbed63ae2806fe3f8dc2a",
+      "bytes": 5522
+    },
+    "target.scatci.singlet.A1.telemetry.jsonl": {
+      "sha256": "094d4f724d391ef4a62547fb6451c223c10e95155319af17fdfb81b95359f381",
+      "bytes": 695
+    },
+    "target.scatci.singlet.A1.inp": {
+      "sha256": "86a8ef073b281421323f0144ec5ace44a1130ca9d70c855fce76981ab3abe556",
+      "bytes": 383
+    },
+    "target.scatci.singlet.A1.out": {
+      "sha256": "0dbbe2d306ed0b79e3693bd24e84c0c08e9a931d36dcdc8de4209957cc5181c2",
+      "bytes": 34248
+    },
+    "independent/triplet.A1.json": {
+      "sha256": "27358b0f229135c2c25ed8e7306e1033f9cf68f5d1a6be7c3fa9473a11c252c5",
+      "bytes": 5545
+    },
+    "target.scatci.triplet.A1.telemetry.jsonl": {
+      "sha256": "f81e7d3743707a6de2f52bb9d6a908d6a8d063b43c3f0353f3002be0d7ecd50f",
+      "bytes": 691
+    },
+    "target.scatci.triplet.A1.inp": {
+      "sha256": "5997850051a31462f47a6de8d2c6e94fa25162801bebda4633772d0c4450f92a",
+      "bytes": 383
+    },
+    "target.scatci.triplet.A1.out": {
+      "sha256": "84f9a86d49cf79fe2201433d719bbef33c998bf40353403167aec69581f81ccc",
+      "bytes": 34687
+    },
+    "independent/singlet.B1.json": {
+      "sha256": "ceaf5f510bb057c2bd5de10ca6b3957a07fb50e9f55e3b7f557a61b5dedac799",
+      "bytes": 5519
+    },
+    "target.scatci.singlet.B1.telemetry.jsonl": {
+      "sha256": "2ce244e6b4771b512d64131974025066da4b3e855eb058fc74719ca398affa7e",
+      "bytes": 694
+    },
+    "target.scatci.singlet.B1.inp": {
+      "sha256": "666360c9943f7325e3e83d603d2df80cd88f0ccd5020b745512c47fde914497a",
+      "bytes": 383
+    },
+    "target.scatci.singlet.B1.out": {
+      "sha256": "eb52d0b3ea6611eb1b9940cc63eff21609744697ea92008707816c81f2d49377",
+      "bytes": 35126
+    },
+    "independent/triplet.B1.json": {
+      "sha256": "bf0fb2100045d1b679ae4dac4712b012c00c223c6e46dd740e5d23a08a13cbc5",
+      "bytes": 5468
+    },
+    "target.scatci.triplet.B1.telemetry.jsonl": {
+      "sha256": "0dfb4cc3b9d14a5bf096f8794971bd915f4ea4bbeaff784ab752db057c2af7e2",
+      "bytes": 777
+    },
+    "target.scatci.triplet.B1.inp": {
+      "sha256": "05e5909646dccb0c8d1cc33ad1e6125d5678f57a57d930892f1e1e7107f0969a",
+      "bytes": 383
+    },
+    "target.scatci.triplet.B1.out": {
+      "sha256": "6ffb96b8486dd56a2044028b0a9133c472801918af198d46b85db7286b17a8d0",
+      "bytes": 35565
+    },
+    "independent/singlet.B2.json": {
+      "sha256": "3e82a994e9b122402b7ad933eded8e548564262fbf4ca76749386c7eab269e50",
+      "bytes": 5545
+    },
+    "target.scatci.singlet.B2.telemetry.jsonl": {
+      "sha256": "b3f59a39c1d7f56ed9dff1f371abbee52156598ef51ddaf3735c4e5faf593b62",
+      "bytes": 693
+    },
+    "target.scatci.singlet.B2.inp": {
+      "sha256": "789e2254a1a150b5a8b87f4b913106b8ab84f85d4d0e726e4e246a49a177a403",
+      "bytes": 383
+    },
+    "target.scatci.singlet.B2.out": {
+      "sha256": "dc65b2ba010f553421c0165cdb963cd205e5fe14aa361e1f1e78900ec3a976d9",
+      "bytes": 36004
+    },
+    "independent/triplet.B2.json": {
+      "sha256": "37c645d236086cc2ac41de7773c1b908d542b20b0f60864bece8217f00b7c81c",
+      "bytes": 5458
+    },
+    "target.scatci.triplet.B2.telemetry.jsonl": {
+      "sha256": "f25c1799f5e0d841bfda73ff5f9ea9382f866690520f23fedee7d4fe14a54a46",
+      "bytes": 694
+    },
+    "target.scatci.triplet.B2.inp": {
+      "sha256": "590f23eac372d38dd49e102737a0f9c3fe797a4e2c712639487bfc7e8af5d4a5",
+      "bytes": 383
+    },
+    "target.scatci.triplet.B2.out": {
+      "sha256": "cceb91e81133befa503a1dd20a76a21dee5615f72bb1696ef39cb6841deefd6c",
+      "bytes": 36443
+    },
+    "independent/singlet.A2.json": {
+      "sha256": "e87764925b527f912830a627d7dbc630215ae331226b0bb46bef4b0f88f2a0fc",
+      "bytes": 5548
+    },
+    "target.scatci.singlet.A2.telemetry.jsonl": {
+      "sha256": "b4f5409d4960a8dd39a09418726c10ce24722bc15cae03068afb273241e7d927",
+      "bytes": 1129
+    },
+    "target.scatci.singlet.A2.inp": {
+      "sha256": "da58caf7c16297c298825814e8d0919a54f8fa458523d1ce492afcba0a679d35",
+      "bytes": 383
+    },
+    "target.scatci.singlet.A2.out": {
+      "sha256": "5af5c1caed4bf2440888e140f0da39540cdfeccbf45ec530c23f94f50cb24bbd",
+      "bytes": 36979
+    },
+    "independent/triplet.A2.json": {
+      "sha256": "e60b8fab72a184d8ddd3afe814507f1abd82bcfaa4d1faaad2d2382e0127defc",
+      "bytes": 5440
+    },
+    "target.scatci.triplet.A2.telemetry.jsonl": {
+      "sha256": "a2618b1a10c18e59cc52ccee51da0a36f09aa477d58250325b8a79e2243e85eb",
+      "bytes": 1042
+    },
+    "target.scatci.triplet.A2.inp": {
+      "sha256": "3981d9cc438fb5a42feff49f45ff2da506f96df23cb10fc596456e43353be0bd",
+      "bytes": 383
+    },
+    "target.scatci.triplet.A2.out": {
+      "sha256": "1455f02960cc62203f7a739e1dba87b42265e105c3bfdeec825430c0e9a7427b",
+      "bytes": 37515
+    }
+  },
+  "verified_file_count": 44,
+  "binary_sectors": [
+    {
+      "sector": "singlet.A1",
+      "dimension": 15548,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 5.115907697472721e-13,
+      "vector_gram_maximum_error": 7.549516567451064e-15
+    },
+    {
+      "sector": "triplet.A1",
+      "dimension": 24366,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 4.547473508864641e-13,
+      "vector_gram_maximum_error": 6.8833827526759706e-15
+    },
+    {
+      "sector": "singlet.B1",
+      "dimension": 15196,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 3.694822225952521e-13,
+      "vector_gram_maximum_error": 5.10702591327572e-15
+    },
+    {
+      "sector": "triplet.B1",
+      "dimension": 24540,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 4.831690603168681e-13,
+      "vector_gram_maximum_error": 6.8833827526759706e-15
+    },
+    {
+      "sector": "singlet.B2",
+      "dimension": 15196,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 5.115907697472721e-13,
+      "vector_gram_maximum_error": 4.6629367034256575e-15
+    },
+    {
+      "sector": "triplet.B2",
+      "dimension": 24540,
+      "exported_roots": 5,
+      "maximum_independent_energy_difference_hartree": 3.694822225952521e-13,
+      "vector_gram_maximum_error": 1.0769163338864018e-14
+    },
+    {
+      "sector": "singlet.A2",
+      "dimension": 15044,
+      "exported_roots": 9,
+      "maximum_independent_energy_difference_hartree": 4.547473508864641e-13,
+      "vector_gram_maximum_error": 3.4416913763379853e-15
+    },
+    {
+      "sector": "triplet.A2",
+      "dimension": 24564,
+      "exported_roots": 9,
+      "maximum_independent_energy_difference_hartree": 5.968558980384842e-13,
+      "vector_gram_maximum_error": 6.8833827526759706e-15
+    }
+  ],
+  "maximum_native_reference_energy_difference_hartree": 5.968558980384842e-13,
+  "maximum_denprop_binary_energy_difference_hartree": 4.995683866582112e-10,
+  "maximum_native_residual_hartree": 1.2092012407573428e-10,
+  "maximum_pi_energy_difference_hartree": 3.126388037344441e-13,
+  "maximum_vector_gram_error": 1.0769163338864018e-14,
+  "target_component_count": 48,
+  "multipole_record_count": 930,
+  "target_map": [
+    1,
+    12,
+    19,
+    25,
+    31,
+    4,
+    8,
+    34,
+    37,
+    39,
+    5,
+    15,
+    24,
+    28,
+    33,
+    3,
+    14,
+    17,
+    22,
+    30,
+    6,
+    16,
+    23,
+    27,
+    32,
+    2,
+    13,
+    18,
+    21,
+    29,
+    10,
+    11,
+    26,
+    41,
+    43,
+    44,
+    46,
+    47,
+    48,
+    7,
+    9,
+    20,
+    35,
+    36,
+    38,
+    40,
+    42,
+    45
+  ],
+  "a2_root9_native_ids": {
+    "singlet": 48,
+    "triplet": 45
+  },
+  "ground_dipole_difference_au": -7.983956898383049e-11,
+  "resources": {
+    "exit_code": 0,
+    "wall_seconds": 3109.0266567971557,
+    "sampled_peak_container_memory_bytes": 5797904384,
+    "baseline_container_memory_bytes": 20471808,
+    "sampled_peak_container_anon_bytes": 5543088128,
+    "kernel_peak_container_memory_bytes": 5825433600,
+    "container_cpu_seconds": 4842.970154,
+    "sampled_peak_run_allocated_bytes": 350937088,
+    "sampled_peak_scratch_allocated_bytes": 212992,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "target_sectors_total_wall_seconds": 248.1231734752655,
+  "denprop_wall_seconds": 2860.5123476982117,
+  "channel_import_verdict": true,
+  "scattering_channel_verdict": null,
+  "scope": "Full native-vector/property reconstruction on one fixed orbital frame. Multipole inventory is not independent validation of every transition moment; full channel convergence, global state identity and scattering remain open."
+}
