@@ -20,6 +20,69 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Named nine-A2 root-attribution control active — 15 October, 06:50 UTC
+
+**Owner1334196 is active on Sadaharu**, launched06:49:53UTC from
+`dde183672d5930f2fa8f0d976462424a25bc94c9`. This is the single
+[declared model-specific check](A2_ROOT_ATTRIBUTION.md) of whether the measured
+A2phase rejection persists after expanding only nine-A2inner-spectrum coverage
+**2048→4096**. The original channel-insensitivity verdict stays **false**.
+No target/orbital/integral/CONGEN/channel/outer/engine change is permitted; only
+`nstat` changes in the actual copied completed nine-A2decks. The accepted CAS12
+root-resolution decision remains in force, with no further ladder.
+
+The [saved-output diagnosis](diagnosis-a2-phase-rejection-20261015.json) explains
+the apparent fit/phase contrast: the order3fit-center change contributes
+**0.06585rad** at1eV, width0.00202rad, background0.000067rad, consistent with the
+observed0.06791rad. This telescoping fit representation is order-dependent,
+not unique physical attribution or pole identity. The named uncertainty is that
+the nine-A22048upper spectral cutoff is **0.35844Hartree lower** than five-A2's;
+the new model lacks its own resolution comparison and the phase exceedance
+margin is0.0179062rad. One refinement can change this attribution/working
+resolution decision; mere confirmation of accepted CAS12evidence would not.
+
+Fresh pinned-runtime dry prerequisites reproduce the completed native runs and
+phase-only rejection, preserving the original compare/ownerexit1. Runtime
+dependency/telemetry and reference gates pass. The
+[06:50capture](progress-a2-root-control-20261015T0650.json) records active B1matrix
+assembly, expected **dimension27818 / continuum1682**, live **801.66percentCPU /
+2.649GiB**, no owner error. B2 and all new exports/observable verdicts are pending.
+New `resolution_decision_verdict` remains **unset**.
+
+**Decision rule:** usual actual-input/only-nstat, map/static-interface,
+prefix-energy, exits/export/residual/Pi, full99-grid and0.4–1.6window/orders1–4
+root-pair checks at unchanged scientific budgets. In addition, root-refinement
+phase change must be **≤0.005rad in both sectors**, below the original exceedance
+margin; five2048versusnine4096must still reject the original0.05radphase gate in
+both sectors. A true resolution decision means stable refined rejection,
+not channel insensitivity/convergence. False/unset results stop without repair.
+
+Resources: **8physicalCPUs4–11 / 8MPIranks / one library thread / native6-GiBmemp /
+48-GiBcgroup / 8-GiBshared**. Conditional cost2–4hours for both sectors uses
+measured nine2048cost1.85h/6.31GiB and prior equilibriumCAS11doubling ratio1.36
+on a different engine/scope; it is not a matched forecast. Hard bounds are
+stage8h/native12h/owner14h, with20-GiBfree-disk prerequisite. Observation-only
+observer **1334564** captures every30minutes after readable-owner/live-service
+PID agreement. Frozen **61source / 181input hashes**, **242installed artifacts**
+and **254immutable remote records** verify; **94focused tests pass**.
+
+Persistent source/output: `prepared/a2-nine-root-control-source-20261015/`;
+services `co-a2-nine-root-control-20261015.service` and
+`co-a2-nine-root-control-observer-20261015.service`. Next read its measured cost,
+both-sector raw exports and independent root/updated-channel comparisons. Do not
+queue further roots/channels/geometries from this owner. Global identity,
+electronic/channel convergence, extraction, neutral and production-pilot gates
+remain open.
+
+Launch/diagnosis publication verifies **255immutable remote hashes**, **141overview
+source-provenance hashes**, **420local documentation links**, searchable SVG,
+visual PNG inspection, lint/format and diff checks. At06:53UTC B1continues Class1
+assembly through target6, without owner error. Main-index integrity remains
+complete at `97b8b4c7392f822c996af0d4d77f81e100ff1407`; upstream currency is
+reported unknown at the final check after an earlier current check. The new
+control/reader generalization and evidence are branch-only, resolved against
+current source and frozen `dde1836` runtime source.
+
 ### A2 control complete: phase-insensitivity gate rejects — 15 October, 06:32 UTC
 
 **Both selected models finish all native stages with exit0; the five-versus-nine

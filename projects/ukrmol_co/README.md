@@ -22,7 +22,8 @@ singlet-A1 diagonalization, then exceeded its triplet-A1 memory budget.
 [`CONTINUATION.md`](CONTINUATION.md) records their host state and next gates.
 
 The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
-[active matched A2 scattering control](A2_CHANNEL_SCATTERING.md),
+[completed matched A2 scattering control](A2_CHANNEL_SCATTERING.md),
+[active nine-A2 attribution check](A2_ROOT_ATTRIBUTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -41,7 +42,16 @@ CAS12's 1.67e-5-rad phase difference is a refinement difference, not an absolute
 4096-root error. The sweep remains gated by model, identity, extraction and neutral
 qualification.
 
-**Progress — 15 October, 06:32 UTC:** the
+**Active next step — 15 October, 06:50 UTC:** the
+[saved-output diagnosis and named nine-A2root check](A2_ROOT_ATTRIBUTION.md)
+explain the phase/fit contrast and test whether the rejection persists under
+**nine-A2only2048→4096** refinement. Its same-count spectral cutoff falls
+0.35844Hartree after channel expansion, so the original rejection now supplies
+a decision-changing model-specific resolution question. Fresh gates pass;
+[B1assembly is active](progress-a2-root-control-20261015T0650.json) on eight
+physical cores. Original rejection and scientific budgets stay unchanged.
+
+**Completed control — 15 October, 06:32 UTC:** the
 [five-versus-nine A2 control](A2_CHANNEL_SCATTERING.md) completes, with all native
 exits0 but **phase-insensitivity verdict false** in both sectors. Maximum phase
 change **0.0679062rad** exceeds the0.05rad budget near1.0requested-eV.
@@ -72,13 +82,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 15 October 2026
 
-![CO qualification: completed A2 channel control rejects phase insensitivity;fit changes pass;model and extraction gates remain](../../docs/physics/figures/co-progress-20261015T0632.png)
+![CO qualification: original A2 phase rejection preserved;one named nine-A2 root-attribution check active;model and extraction gates remain](../../docs/physics/figures/co-progress-20261015T0650.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261015T0632.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261015T0632.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261015T0650.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261015T0650.json) ·
+[Named nine-A2 attribution check](A2_ROOT_ATTRIBUTION.md) ·
 [Completed A2 scattering control](A2_CHANNEL_SCATTERING.md) ·
 [Resolution decision](ROOT_RESOLUTION_DECISION_20261014.md) ·
 [Completed A2 prerequisite](A2_CHANNEL_TARGET_PREFLIGHT.md) ·
+[Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
 [Previous14:06overview](../../docs/physics/figures/co-progress-20261014T1406.png) ·
 [Previous13:19overview](../../docs/physics/figures/co-progress-20261014T1319.png) ·
@@ -107,18 +119,19 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **06:32 UTC, 15 October** release of an incremental overview. New findings, verification
+This is the **06:50 UTC, 15 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** nine-A2scattering completes and the matched2048control rejects
-phase insensitivity at the unchanged tolerance. The maximum effect occurs inside
-the fixed fitting window; all position/full-width fits still pass their budgets.
-Local51-file reconstruction confirms the result. The phase rejection is preserved,
-with full channel convergence and nine-A2omitted-spectrum qualification still open.
+**What changed:** saved fit decomposition explains the large phase response to a
+roughly10-meVcenter shift. A single named nine-A2only2048→4096check is active to
+decide whether this phase rejection persists under its own spectral refinement.
+Fresh reference/runtime gates pass; actual copied decks change only the root
+count. Original rejection and scientific budgets remain intact. Full channel
+convergence and absolute omitted-spectrum qualification stay open.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component
