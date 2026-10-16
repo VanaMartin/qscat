@@ -1,0 +1,12 @@
+{
+  "artifacts": {
+    "host-reading-execution.json": {"bytes":1187,"sha256":"b370eb3137c200f03b84a36386fab166382535a3365e739c4caedfb3bcf36a01"},
+    "host-reading.json": {"bytes":10422,"sha256":"1cacf3dbaae3f04575c7631d0cc0fd48942804930e3a8cbd1592c906d0f5072e"},
+    "independent-reading.json": {"bytes":10425,"sha256":"85dff9a56e8274edf31ed688839c0f17eaa31245031b2102463f8dd80feca173"},
+    "manifest.json": {"bytes":1635,"sha256":"8fea8878395d7d276c0911a6bee2d767dcb7a7bb061278e202197266ad1339f5"},
+    "raw-inputs.tar.gz": {"bytes":8621868,"sha256":"3e79b4f0aa5b57a96e8e7c7e769f265fa4b7a7a553f18b5e8f97bb71a42bb97f"},
+    "reader-source.tar.gz": {"bytes":3873,"sha256":"0eddfa51a596f1cdee7b00ea4515d9a8eeecc0ecc78fc5ccfd1985a21cf8be00"}
+  },
+  "git_sha":"89a5275fdf5e55776dbfbe534793a974b493ed61",
+  "url_prefix":"https://data.qscat.org/co-compressed-a2-target-20261016/"
+}

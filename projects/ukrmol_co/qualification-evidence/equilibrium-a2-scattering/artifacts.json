@@ -1,0 +1,14 @@
+{
+  "artifacts": {
+    "dense-source-audit.json": {"bytes":1688,"sha256":"186281e3c2263a343b43c0f9d1d1b6bf66cd6db4e094a2e5bc30ffd1dd30b56b"},
+    "host-reading-execution.json": {"bytes":1239,"sha256":"f3b3a7832861277d1bfb2a800eca2ad17cbb29c35b320e2c5cc4f1691c50fe09"},
+    "host-reading.json": {"bytes":74431,"sha256":"ec8dfb3f407077d95c3a7c2da9b98e5799c3144596246eb8dc279d6e586c2e16"},
+    "independent-reading.json": {"bytes":74444,"sha256":"d44d5d5d968f7fcbc463ea879211fe8bddb577d044d7bd2670ce478006a4d05b"},
+    "manifest.json": {"bytes":1552,"sha256":"83a1327263d0abfee3d266e68eb91e20c03523a7fbef2c9986ab339157b09679"},
+    "raw-inputs.tar.gz": {"bytes":117117794,"sha256":"13628e5ff3b8a58804f89d31d28b3c5af11fec780a000bda20cb40fe00060828"},
+    "reader-source-manifest.json": {"bytes":6449,"sha256":"ba476ff195296864961c2ae41561789d3fadcc2c34f054713e4230e3cdd86986"},
+    "reader-source.tar.gz": {"bytes":108021,"sha256":"9d42160b78fcba94c4548e9ce3be90181e22fa2ce4db982358c9b021ef30251d"}
+  },
+  "git_sha":"537f5b5de58905c8f385ae38623c561f9cdd03ba",
+  "url_prefix":"https://data.qscat.org/co-equilibrium-a2-scattering-20261016/"
+}

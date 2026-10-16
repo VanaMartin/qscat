@@ -1,0 +1,18 @@
+{
+  "verified_utc":"2026-10-16T13:18:25.583489+00:00",
+  "scientific_runtime_commit":"a5954fbf54774a54de94a54baf41b44532f54115",
+  "reader_source_commit":"537f5b5de58905c8f385ae38623c561f9cdd03ba",
+  "reader_source_sha256":"1bae2c8c59aca5d80909fb96efc025595e88ba0a77f73c09b4171f377aec4b7a",
+  "public_payloads_verified":8,"public_reader_source_hashes_verified":58,
+  "public_raw_files_reconstructed":73,"public_reconstruction_original_exit":0,
+  "public_reconstruction_sha256":"b4a5ea5bb7f6f910e28307fd587254e4879569eff651575317cf037baedca072",
+  "host_reconstruction_original_exit":0,"host_container_wall_seconds":1.1673824498429894,
+  "host_local_maximum_fit_difference_ev":8.292954398674022e-10,
+  "actual_shared_large_native_input_hashes_verified":16,
+  "actual_dense_source_hashes_verified":4,
+  "dense_baseline_verdict":true,"a2_channel_sensitivity_verdict":true,
+  "spectral_truncation_verdict":null,"electronic_model_verdict":null,
+  "global_continuity_verdict":null,"full_sweep_released":false,
+  "evidence_pointer":"qualification-evidence/equilibrium-a2-scattering/artifacts.json",
+  "scope":"Public raw export/grid/deck/fit reconstruction and cross-runtime parity. Shared public fitter/export readers,not an independent scattering engine. Large native input equality checksum-audited remotely."
+}

@@ -1,0 +1,32 @@
+{
+  "git_sha": "89a5275fdf5e55776dbfbe534793a974b493ed61",
+  "date": "2026-10-16",
+  "record_type": "co-compressed-fixed-orbital48-target-input-gate",
+  "scientific_runtime_commit": "537f5b5de58905c8f385ae38623c561f9cdd03ba",
+  "verified_raw_files": 44,
+  "native_target_vectors": 48,
+  "multipole_records": 915,
+  "native_owner_original_exit": 0,
+  "native_resources_original_exit": 0,
+  "host_reader_original_exit": 0,
+  "local_reader_original_exit": 0,
+  "raw_archive_sha256": "3e79b4f0aa5b57a96e8e7c7e769f265fa4b7a7a553f18b5e8f97bb71a42bb97f",
+  "reader_source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/a2_target_reading.py": "6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c"
+  },
+  "cross_runtime_metric_differences": {
+    "maximum_native_reference_energy_difference_hartree": 0.0,
+    "maximum_denprop_binary_energy_difference_hartree": 0.0,
+    "maximum_native_residual_hartree": 0.0,
+    "maximum_pi_energy_difference_hartree": 0.0,
+    "maximum_vector_gram_error": 8.881784197001252e-16,
+    "ground_dipole_difference_au": 0.0
+  },
+  "channel_import_verdict": true,
+  "scattering_channel_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "scope": "Full native-vector/property reconstruction on one fixed orbital frame. Multipole inventory is not independent validation of every transition moment; full channel convergence, global state identity and scattering remain open."
+}

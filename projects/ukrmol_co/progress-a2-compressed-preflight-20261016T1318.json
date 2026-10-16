@@ -1,0 +1,1462 @@
+{
+  "observed_utc": "2026-10-16T13:18:24.942390+00:00",
+  "host": "sadaharu",
+  "campaign_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "source_directory": "prepared/a2-compressed-target-preflight-source-20261016",
+  "source_commit": "537f5b5de58905c8f385ae38623c561f9cdd03ba",
+  "run": "cas11-compressed-a2roots9-fixed-orbital-native-preflight-20261016",
+  "owner_execution": {
+    "supervisor_pid": 1360012,
+    "started_unix": 1792137588.467559,
+    "steps": [
+      {
+        "label": "runtime-gate",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-compressed-a2roots9-fixed-orbital-native-preflight-20261016-reading",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-compressed-target-preflight-source-20261016:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-compressed-target-preflight-source-20261016/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.engine_baseline",
+          "runtime-gate",
+          "--contract",
+          "/opt/qmodeling/contract.json",
+          "--output",
+          "/outputs/runtime-gate.json"
+        ],
+        "started_unix": 1792137592.0427659,
+        "original_exit": 0,
+        "finished_unix": 1792137592.6594458
+      },
+      {
+        "label": "native-A2-target-preflight",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "cas11-compressed-a2roots9-fixed-orbital-native-preflight-20261016",
+          "--cpuset-cpus=4-11",
+          "--memory=24g",
+          "--memory-swap=24g",
+          "--shm-size=8g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-compressed-target-preflight-source-20261016:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/a2-compressed-target-preflight-source-20261016/native:/outputs",
+          "-w",
+          "/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+          "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.a2_channel_preflight",
+          "--root",
+          "/work",
+          "--work",
+          "/outputs/cas11-compressed-a2roots9-fixed-orbital-native-preflight-20261016",
+          "--contract",
+          "/opt/qmodeling/contract.json"
+        ],
+        "started_unix": 1792137592.659766,
+        "original_exit": 0,
+        "finished_unix": 1792140663.8137186
+      }
+    ],
+    "scope": "Can the original compressed CAS11 forty-component orbital frame support explicit A2 roots1-9 per spin with complete48-state native vector/property data? Equilibrium channel sensitivity passes while stretched sensitivity rejects after its named root refinement. The missing compressed anchor is needed to resolve this geometry dependence before freezing a three-anchor channel model. This owner qualifies inputs only.",
+    "frozen_file_counts_verified": {
+      "source": 61,
+      "inputs": 50
+    },
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_ram_bytes": 115613773824,
+    "free_disk_bytes": 50071486464,
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "engine_verified": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242,
+      "frozen_counts": {
+        "source": 55,
+        "inputs": 192
+      }
+    },
+    "heartbeat_unix": 1792140652.7346804,
+    "channel_import_verdict": true,
+    "engine_verified_after_native": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242,
+      "frozen_counts": {
+        "source": 55,
+        "inputs": 192
+      }
+    },
+    "original_controller_exit": 0,
+    "final_frozen_file_counts_verified": {
+      "source": 61,
+      "inputs": 50
+    },
+    "finished_unix": 1792140667.3708577,
+    "finished_utc": "2026-10-16T08:51:07.370866+00:00"
+  },
+  "observer_execution": {
+    "supervisor_pid": 1360347,
+    "started_unix": 1792137598.7712655,
+    "captures": [
+      "20261016T075958.json",
+      "20261016T083001.json",
+      "20261016T090003.json"
+    ],
+    "scope": "Observe only; no follow-on calculations",
+    "heartbeat_unix": 1792141205.3349056,
+    "finish_reason": "Finite owner ended",
+    "original_exit": 0,
+    "finished_unix": 1792141205.335014
+  },
+  "status": {
+    "co-a2-compressed-target-preflight-20261016.service": "MainPID=0\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\n",
+    "co-a2-compressed-target-preflight-observer-20261016.service": "MainPID=0\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\n",
+    "docker_stats": "comfyui CPU=0.07% MEM=10.09GiB / 123.5GiB\n"
+  },
+  "frozen_file_counts_reverified": {
+    "source": 61,
+    "inputs": 50
+  },
+  "installed_engine_artifacts_reverified": 242,
+  "prerequisite_validation": {
+    "all_prerequisites_passed": true,
+    "expected_roots": {
+      "singlet.A1": 5,
+      "triplet.A1": 5,
+      "singlet.B1": 5,
+      "triplet.B1": 5,
+      "singlet.B2": 5,
+      "triplet.B2": 5,
+      "singlet.A2": 9,
+      "triplet.A2": 9
+    },
+    "actual_planned_target_decks": {
+      "target.scatci.singlet.A1.inp": {
+        "sha256": "77a2b83ea87dc210da08a9fd82142308bf8908313f1d65b67e01b0b1f607e25b",
+        "text": "&input\n  megul = 710, ! input from module CONGEN\n  nfte = 810, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet A1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 1, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      },
+      "target.scatci.triplet.A1.inp": {
+        "sha256": "31a9a984ed1cc15fc4a6812d2355ab8e8987e9ca4bce8b3a8549106637e0be7b",
+        "text": "&input\n  megul = 730, ! input from module CONGEN\n  nfte = 830, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet A1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 2, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      },
+      "target.scatci.singlet.B1.inp": {
+        "sha256": "641ab40ee01ad459ef31a5c9a29cdacf5818704b60f0958b5096b05cff3b606f",
+        "text": "&input\n  megul = 711, ! input from module CONGEN\n  nfte = 811, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet B1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 3, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      },
+      "target.scatci.triplet.B1.inp": {
+        "sha256": "effdf4c062d29cc194a8b99d258113d87df20fa32a35be9f299cf84a4b256d71",
+        "text": "&input\n  megul = 731, ! input from module CONGEN\n  nfte = 831, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet B1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 4, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      },
+      "target.scatci.singlet.B2.inp": {
+        "sha256": "757160aa3e4ad77c5226811f4250b3074f6fec59f0bc1da0834845f80122dbc3",
+        "text": "&input\n  megul = 712, ! input from module CONGEN\n  nfte = 812, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet B2',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 5, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      },
+      "target.scatci.triplet.B2.inp": {
+        "sha256": "84219d1b2a0ae4f660609b8893c0213d4d90f6a8f18c604d2ae4d17c40c20515",
+        "text": "&input\n  megul = 732, ! input from module CONGEN\n  nfte = 832, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet B2',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 6, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      },
+      "target.scatci.singlet.A2.inp": {
+        "sha256": "5cf8cf8388e553a30abecf768f445a82b308a414bbf02298a453f34ffd30d3a9",
+        "text": "&input\n  megul = 713, ! input from module CONGEN\n  nfte = 813, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet A2',\n  nstat = 9, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 7, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      },
+      "target.scatci.triplet.A2.inp": {
+        "sha256": "b384a63ff44c2673038767144d7f01f89d971e8e720224e16280dde8b24d2658",
+        "text": "&input\n  megul = 733, ! input from module CONGEN\n  nfte = 833, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet A2',\n  nstat = 9, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 8, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+      }
+    }
+  },
+  "runtime_gate": {
+    "runtime_gate_passed": true,
+    "numerical_library_sha256": {
+      "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+      "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+      "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+      "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+    },
+    "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+    "telemetry_ldd": "\tlinux-vdso.so.1 (0x00007f7c0bfea000)\n\tlibslepc.so.3.24 => /opt/ukrmolp/lib/libslepc.so.3.24 (0x00007f7c0bb91000)\n\tlibpetsc.so.3.24 => /opt/ukrmolp/lib/libpetsc.so.3.24 (0x00007f7c0a005000)\n\tlibmpi.so.40 => /opt/ukrmolp/lib/libmpi.so.40 (0x00007f7c09c7a000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f7c09a4e000)\n\tlibopenblas.so.0 => /opt/ukrmolp/lib/libopenblas.so.0 (0x00007f7c07730000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f7c07649000)\n\tlibmpi_usempi_ignore_tkr.so.40 => /opt/ukrmolp/lib/libmpi_usempi_ignore_tkr.so.40 (0x00007f7c07636000)\n\tlibmpi_mpifh.so.40 => /opt/ukrmolp/lib/libmpi_mpifh.so.40 (0x00007f7c075be000)\n\tlibgfortran.so.5 => /opt/ukrmolp/lib/libgfortran.so.5 (0x00007f7c07265000)\n\tlibgcc_s.so.1 => /opt/ukrmolp/lib/libgcc_s.so.1 (0x00007f7c07238000)\n\tlibquadmath.so.0 => /opt/ukrmolp/lib/libquadmath.so.0 (0x00007f7c071f0000)\n\tlibstdc++.so.6 => /opt/ukrmolp/lib/libstdc++.so.6 (0x00007f7c06f6e000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f7c0bfec000)\n\tlibopen-pal.so.80 => /opt/ukrmolp/lib/libopen-pal.so.80 (0x00007f7c06dfc000)\n\tlibpmix.so.2 => /opt/ukrmolp/lib/libpmix.so.2 (0x00007f7c06b94000)\n\tlibevent_core-2.1.so.7 => /opt/ukrmolp/lib/libevent_core-2.1.so.7 (0x00007f7c06b51000)\n\tlibevent_pthreads-2.1.so.7 => /opt/ukrmolp/lib/libevent_pthreads-2.1.so.7 (0x00007f7c06b4c000)\n\tlibhwloc.so.15 => /opt/ukrmolp/lib/libhwloc.so.15 (0x00007f7c06adc000)\n\tlibgomp.so.1 => /opt/ukrmolp/lib/libgomp.so.1 (0x00007f7c06a85000)\n",
+    "scope": "Dependency byte and symbol-loading gate; native residual audit follows"
+  },
+  "native_target_progress": {
+    "target.scatci.singlet.A1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       16.1       0.0         0.0       0.0\n Target-Hamiltonian Build                1       11.0       0.0        10.9       0.0\n Diagonalization                         1        5.0       0.0         0.0       0.0\n SLEPC solve                             1        5.0       0.0         5.0       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    },
+    "target.scatci.singlet.A2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       24.4       0.0         0.0       0.0\n Target-Hamiltonian Build                1       18.4       0.0        18.3       0.0\n Diagonalization                         1        6.0       0.0         0.0       0.0\n SLEPC solve                             1        6.0       0.0         6.0       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    },
+    "target.scatci.singlet.B1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       20.8       0.0         0.0       0.0\n Target-Hamiltonian Build                1       16.4       0.0        16.3       0.0\n Diagonalization                         1        4.3       0.0         0.0       0.0\n SLEPC solve                             1        4.3       0.0         4.3       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    },
+    "target.scatci.singlet.B2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       20.8       0.0         0.0       0.0\n Target-Hamiltonian Build                1       16.4       0.0        16.4       0.0\n Diagonalization                         1        4.3       0.0         0.0       0.0\n SLEPC solve                             1        4.3       0.0         4.3       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    },
+    "target.scatci.triplet.A1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       32.0       0.0         0.1       0.0\n Target-Hamiltonian Build                1       19.1       0.0        18.9       0.0\n Diagonalization                         1       12.8       0.0         0.0       0.0\n SLEPC solve                             1       12.8       0.0        12.8       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    },
+    "target.scatci.triplet.A2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       49.7       0.0         0.1       0.0\n Target-Hamiltonian Build                1       32.9       0.0        32.7       0.0\n Diagonalization                         1       16.6       0.0         0.0       0.0\n SLEPC solve                             1       16.6       0.0        16.6       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    },
+    "target.scatci.triplet.B1.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       39.9       0.0         0.0       0.0\n Target-Hamiltonian Build                1       25.9       0.0        25.7       0.0\n Diagonalization                         1       13.9       0.0         0.0       0.0\n SLEPC solve                             1       13.9       0.0        13.9       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    },
+    "target.scatci.triplet.B2.out": {
+      "tail": "----------------\n -----                               -----       Real       CPU        Real       CPU\n\n Wall Time                               1       41.5       0.0         0.1       0.0\n Target-Hamiltonian Build                1       28.2       0.0        28.0       0.0\n Diagonalization                         1       13.3       0.0         0.0       0.0\n SLEPC solve                             1       13.3       0.0        13.3       0.0\n\n (  2 timers contributing less than 1% are not shown)\n\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     0\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     1\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     2\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     3\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     6\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     4\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     5\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n ***ERROR AND WARNING MESSAGE COUNTS FOR RANK:     7\n NUMBER OF WARNING MESSAGES: 0\n NUMBER OF ERROR MESSAGES: 0\n THE MESSAGES CAN BE FOUND INSPECTING THE STDOUT UNIT FOR THIS RANK.\n<-------->done:mpi_mod:mpi_mod_finalize\n",
+      "solver_completed": true
+    }
+  },
+  "native_target_telemetry": {
+    "target.scatci.singlet.A1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15548,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 241740304,
+        "nz_allocated": 241740304,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -138.12799513573228,
+            "imaginary": 0,
+            "absolute_residual": 8.776671829602883e-11
+          },
+          {
+            "value": -137.63522648011676,
+            "imaginary": 0,
+            "absolute_residual": 1.6849677380567117e-11
+          },
+          {
+            "value": -137.44521666581497,
+            "imaginary": 0,
+            "absolute_residual": 3.25149004613596e-11
+          },
+          {
+            "value": -137.37342475437927,
+            "imaginary": 0,
+            "absolute_residual": 4.757864091089658e-11
+          },
+          {
+            "value": -137.3438645329332,
+            "imaginary": 0,
+            "absolute_residual": 2.267191257770332e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.singlet.A2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15044,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 10,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 226321936,
+        "nz_allocated": 226321936,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.6352264801173,
+            "imaginary": 0,
+            "absolute_residual": 1.5259137834993825e-11
+          },
+          {
+            "value": -137.63494193954395,
+            "imaginary": 0,
+            "absolute_residual": 2.002354615289432e-12
+          },
+          {
+            "value": -137.37342475437896,
+            "imaginary": 0,
+            "absolute_residual": 1.6766600480543668e-11
+          },
+          {
+            "value": -137.22913262328683,
+            "imaginary": 0,
+            "absolute_residual": 2.273310060726317e-11
+          },
+          {
+            "value": -137.14064793020086,
+            "imaginary": 0,
+            "absolute_residual": 7.266618384819906e-11
+          },
+          {
+            "value": -137.04522903091268,
+            "imaginary": 0,
+            "absolute_residual": 7.057673204818374e-12
+          },
+          {
+            "value": -137.01559398694974,
+            "imaginary": 0,
+            "absolute_residual": 1.3285368263777853e-11
+          },
+          {
+            "value": -137.00272357659978,
+            "imaginary": 0,
+            "absolute_residual": 1.877749709624637e-11
+          },
+          {
+            "value": -136.97778198876026,
+            "imaginary": 0,
+            "absolute_residual": 1.6233918563526908e-11
+          },
+          {
+            "value": -136.95702559091532,
+            "imaginary": 0,
+            "absolute_residual": 1.0510011180825923e-10
+          }
+        ]
+      }
+    ],
+    "target.scatci.singlet.B1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 13,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.73834715252326,
+            "imaginary": 0,
+            "absolute_residual": 6.658497816047909e-12
+          },
+          {
+            "value": -137.52763531154622,
+            "imaginary": 0,
+            "absolute_residual": 9.949778310237068e-12
+          },
+          {
+            "value": -137.34427049498757,
+            "imaginary": 0,
+            "absolute_residual": 1.3066950805640797e-11
+          },
+          {
+            "value": -137.33773311180192,
+            "imaginary": 0,
+            "absolute_residual": 1.3186366373627824e-10
+          },
+          {
+            "value": -137.29533106103239,
+            "imaginary": 0,
+            "absolute_residual": 1.186546039234145e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.singlet.B2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 13,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.73834715252303,
+            "imaginary": 0,
+            "absolute_residual": 1.2494401729532984e-10
+          },
+          {
+            "value": -137.5276353115462,
+            "imaginary": 0,
+            "absolute_residual": 4.224366337634917e-11
+          },
+          {
+            "value": -137.34427049498737,
+            "imaginary": 0,
+            "absolute_residual": 1.5096680768587986e-11
+          },
+          {
+            "value": -137.3377331118018,
+            "imaginary": 0,
+            "absolute_residual": 5.34212468169369e-12
+          },
+          {
+            "value": -137.29533106103253,
+            "imaginary": 0,
+            "absolute_residual": 2.5638414264787326e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.A1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24366,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 593701956,
+        "nz_allocated": 593701956,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.70519930064688,
+            "imaginary": 0,
+            "absolute_residual": 1.119849176400484e-11
+          },
+          {
+            "value": -137.6664876486576,
+            "imaginary": 0,
+            "absolute_residual": 4.724145281001493e-11
+          },
+          {
+            "value": -137.2898703939557,
+            "imaginary": 0,
+            "absolute_residual": 2.123212226882901e-11
+          },
+          {
+            "value": -137.25538678121868,
+            "imaginary": 0,
+            "absolute_residual": 9.705857966638857e-12
+          },
+          {
+            "value": -137.13306521699602,
+            "imaginary": 0,
+            "absolute_residual": 6.266956572775436e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.A2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24564,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 9,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 603390096,
+        "nz_allocated": 603390096,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.66648764865775,
+            "imaginary": 0,
+            "absolute_residual": 2.1627340122169325e-12
+          },
+          {
+            "value": -137.65158709889448,
+            "imaginary": 0,
+            "absolute_residual": 1.728620897310538e-11
+          },
+          {
+            "value": -137.43382963979698,
+            "imaginary": 0,
+            "absolute_residual": 1.8599925753842493e-11
+          },
+          {
+            "value": -137.2898703939556,
+            "imaginary": 0,
+            "absolute_residual": 3.028942027165035e-12
+          },
+          {
+            "value": -137.28050138367516,
+            "imaginary": 0,
+            "absolute_residual": 2.7591680845551986e-13
+          },
+          {
+            "value": -137.20102194549034,
+            "imaginary": 0,
+            "absolute_residual": 2.2388615326177047e-12
+          },
+          {
+            "value": -137.1330652169965,
+            "imaginary": 0,
+            "absolute_residual": 1.1262973353518045e-11
+          },
+          {
+            "value": -137.10037985309665,
+            "imaginary": 0,
+            "absolute_residual": 1.2114162973320168e-11
+          },
+          {
+            "value": -137.0352484485939,
+            "imaginary": 0,
+            "absolute_residual": 9.017310166441757e-11
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.B1.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.85253113919114,
+            "imaginary": 0,
+            "absolute_residual": 1.4998266304167999e-12
+          },
+          {
+            "value": -137.58473409505794,
+            "imaginary": 0,
+            "absolute_residual": 2.3074593561221925e-11
+          },
+          {
+            "value": -137.43731059978825,
+            "imaginary": 0,
+            "absolute_residual": 2.6827262703136885e-11
+          },
+          {
+            "value": -137.37055222034635,
+            "imaginary": 0,
+            "absolute_residual": 1.4766907998699937e-11
+          },
+          {
+            "value": -137.32489446488765,
+            "imaginary": 0,
+            "absolute_residual": 5.683977306999735e-12
+          },
+          {
+            "value": -137.31525922224967,
+            "imaginary": 0,
+            "absolute_residual": 3.864160825538274e-12
+          }
+        ]
+      }
+    ],
+    "target.scatci.triplet.B2.telemetry.jsonl": [
+      {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.85253113919094,
+            "imaginary": 0,
+            "absolute_residual": 1.1713354208697264e-10
+          },
+          {
+            "value": -137.5847340950585,
+            "imaginary": 0,
+            "absolute_residual": 3.114038569388442e-11
+          },
+          {
+            "value": -137.43731059978813,
+            "imaginary": 0,
+            "absolute_residual": 1.9182935196562638e-11
+          },
+          {
+            "value": -137.3705522203464,
+            "imaginary": 0,
+            "absolute_residual": 2.2620188502364064e-11
+          },
+          {
+            "value": -137.32489446488796,
+            "imaginary": 0,
+            "absolute_residual": 5.324290492996498e-11
+          },
+          {
+            "value": -137.31525922224955,
+            "imaginary": 0,
+            "absolute_residual": 7.962736474046023e-11
+          }
+        ]
+      }
+    ]
+  },
+  "actual_target_decks": {
+    "target.scatci.singlet.A1.inp": {
+      "sha256": "77a2b83ea87dc210da08a9fd82142308bf8908313f1d65b67e01b0b1f607e25b",
+      "text": "&input\n  megul = 710, ! input from module CONGEN\n  nfte = 810, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet A1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 1, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.singlet.A2.inp": {
+      "sha256": "5cf8cf8388e553a30abecf768f445a82b308a414bbf02298a453f34ffd30d3a9",
+      "text": "&input\n  megul = 713, ! input from module CONGEN\n  nfte = 813, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet A2',\n  nstat = 9, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 7, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.singlet.B1.inp": {
+      "sha256": "641ab40ee01ad459ef31a5c9a29cdacf5818704b60f0958b5096b05cff3b606f",
+      "text": "&input\n  megul = 711, ! input from module CONGEN\n  nfte = 811, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet B1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 3, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.singlet.B2.inp": {
+      "sha256": "757160aa3e4ad77c5226811f4250b3074f6fec59f0bc1da0834845f80122dbc3",
+      "text": "&input\n  megul = 712, ! input from module CONGEN\n  nfte = 812, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - singlet B2',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 5, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.A1.inp": {
+      "sha256": "31a9a984ed1cc15fc4a6812d2355ab8e8987e9ca4bce8b3a8549106637e0be7b",
+      "text": "&input\n  megul = 730, ! input from module CONGEN\n  nfte = 830, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet A1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 2, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.A2.inp": {
+      "sha256": "b384a63ff44c2673038767144d7f01f89d971e8e720224e16280dde8b24d2658",
+      "text": "&input\n  megul = 733, ! input from module CONGEN\n  nfte = 833, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet A2',\n  nstat = 9, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 8, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.B1.inp": {
+      "sha256": "effdf4c062d29cc194a8b99d258113d87df20fa32a35be9f299cf84a4b256d71",
+      "text": "&input\n  megul = 731, ! input from module CONGEN\n  nfte = 831, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet B1',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 4, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    },
+    "target.scatci.triplet.B2.inp": {
+      "sha256": "84219d1b2a0ae4f660609b8893c0213d4d90f6a8f18c604d2ae4d17c40c20515",
+      "text": "&input\n  megul = 732, ! input from module CONGEN\n  nfte = 832, ! Hamiltonian scratch file\n/\n&cinorn\n  name = 'CO CI calculation - triplet B2',\n  nstat = 5, ! number of CI eigenvalues\n  nftw = 26,\n  nciset = 6, ! index of calculated CI vectors within output file (0 = automatic indexing, but first must be 1)\n  vecstore = 5,\n  memp = 6.0,\n  igh = -1, forse = 0, crite = 1e-12, maxiter = 1000, \n/\n"
+    }
+  },
+  "actual_decks_match_prelaunch_selection": true,
+  "failure_markers": {
+    "target.scatci.singlet.A1.out": [],
+    "target.scatci.singlet.A2.out": [],
+    "target.scatci.singlet.B1.out": [],
+    "target.scatci.singlet.B2.out": [],
+    "target.scatci.triplet.A1.out": [],
+    "target.scatci.triplet.A2.out": [],
+    "target.scatci.triplet.B1.out": [],
+    "target.scatci.triplet.B2.out": []
+  },
+  "native_pilot_at_capture": {
+    "scope": "Can the original compressed CAS11 forty-component orbital frame support explicit A2 roots1-9 per spin with complete48-state native vector/property data? Equilibrium channel sensitivity passes while stretched sensitivity rejects after its named root refinement. The missing compressed anchor is needed to resolve this geometry dependence before freezing a three-anchor channel model. This owner qualifies inputs only.",
+    "stages": [
+      {
+        "name": "target.scatci.singlet.A1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 16.19552183151245
+      },
+      {
+        "name": "target.scatci.triplet.A1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 32.07940697669983
+      },
+      {
+        "name": "target.scatci.singlet.B1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 20.84916877746582
+      },
+      {
+        "name": "target.scatci.triplet.B1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 40.04114079475403
+      },
+      {
+        "name": "target.scatci.singlet.B2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 20.90123176574707
+      },
+      {
+        "name": "target.scatci.triplet.B2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 41.64233469963074
+      },
+      {
+        "name": "target.scatci.singlet.A2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 24.5525643825531
+      },
+      {
+        "name": "target.scatci.triplet.A2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 49.80339980125427
+      },
+      {
+        "name": "target.denprop",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 2824.1076200008392
+      }
+    ],
+    "target_sectors": {
+      "singlet.A1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15548,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 241740304,
+        "nz_allocated": 241740304,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -138.12799513573228,
+            "imaginary": 0,
+            "absolute_residual": 8.776671829602883e-11
+          },
+          {
+            "value": -137.63522648011676,
+            "imaginary": 0,
+            "absolute_residual": 1.6849677380567117e-11
+          },
+          {
+            "value": -137.44521666581497,
+            "imaginary": 0,
+            "absolute_residual": 3.25149004613596e-11
+          },
+          {
+            "value": -137.37342475437927,
+            "imaginary": 0,
+            "absolute_residual": 4.757864091089658e-11
+          },
+          {
+            "value": -137.3438645329332,
+            "imaginary": 0,
+            "absolute_residual": 2.267191257770332e-11
+          }
+        ]
+      },
+      "triplet.A1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24366,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 593701956,
+        "nz_allocated": 593701956,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.70519930064688,
+            "imaginary": 0,
+            "absolute_residual": 1.119849176400484e-11
+          },
+          {
+            "value": -137.6664876486576,
+            "imaginary": 0,
+            "absolute_residual": 4.724145281001493e-11
+          },
+          {
+            "value": -137.2898703939557,
+            "imaginary": 0,
+            "absolute_residual": 2.123212226882901e-11
+          },
+          {
+            "value": -137.25538678121868,
+            "imaginary": 0,
+            "absolute_residual": 9.705857966638857e-12
+          },
+          {
+            "value": -137.13306521699602,
+            "imaginary": 0,
+            "absolute_residual": 6.266956572775436e-11
+          }
+        ]
+      },
+      "singlet.B1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 13,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.73834715252326,
+            "imaginary": 0,
+            "absolute_residual": 6.658497816047909e-12
+          },
+          {
+            "value": -137.52763531154622,
+            "imaginary": 0,
+            "absolute_residual": 9.949778310237068e-12
+          },
+          {
+            "value": -137.34427049498757,
+            "imaginary": 0,
+            "absolute_residual": 1.3066950805640797e-11
+          },
+          {
+            "value": -137.33773311180192,
+            "imaginary": 0,
+            "absolute_residual": 1.3186366373627824e-10
+          },
+          {
+            "value": -137.29533106103239,
+            "imaginary": 0,
+            "absolute_residual": 1.186546039234145e-11
+          }
+        ]
+      },
+      "triplet.B1": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.85253113919114,
+            "imaginary": 0,
+            "absolute_residual": 1.4998266304167999e-12
+          },
+          {
+            "value": -137.58473409505794,
+            "imaginary": 0,
+            "absolute_residual": 2.3074593561221925e-11
+          },
+          {
+            "value": -137.43731059978825,
+            "imaginary": 0,
+            "absolute_residual": 2.6827262703136885e-11
+          },
+          {
+            "value": -137.37055222034635,
+            "imaginary": 0,
+            "absolute_residual": 1.4766907998699937e-11
+          },
+          {
+            "value": -137.32489446488765,
+            "imaginary": 0,
+            "absolute_residual": 5.683977306999735e-12
+          },
+          {
+            "value": -137.31525922224967,
+            "imaginary": 0,
+            "absolute_residual": 3.864160825538274e-12
+          }
+        ]
+      },
+      "singlet.B2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15196,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 5,
+        "iterations": 13,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 230918416,
+        "nz_allocated": 230918416,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.73834715252303,
+            "imaginary": 0,
+            "absolute_residual": 1.2494401729532984e-10
+          },
+          {
+            "value": -137.5276353115462,
+            "imaginary": 0,
+            "absolute_residual": 4.224366337634917e-11
+          },
+          {
+            "value": -137.34427049498737,
+            "imaginary": 0,
+            "absolute_residual": 1.5096680768587986e-11
+          },
+          {
+            "value": -137.3377331118018,
+            "imaginary": 0,
+            "absolute_residual": 5.34212468169369e-12
+          },
+          {
+            "value": -137.29533106103253,
+            "imaginary": 0,
+            "absolute_residual": 2.5638414264787326e-11
+          }
+        ]
+      },
+      "triplet.B2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24540,
+        "requested": 5,
+        "ncv": 20,
+        "mpd": 20,
+        "converged": 6,
+        "iterations": 15,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 602211600,
+        "nz_allocated": 602211600,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.85253113919094,
+            "imaginary": 0,
+            "absolute_residual": 1.1713354208697264e-10
+          },
+          {
+            "value": -137.5847340950585,
+            "imaginary": 0,
+            "absolute_residual": 3.114038569388442e-11
+          },
+          {
+            "value": -137.43731059978813,
+            "imaginary": 0,
+            "absolute_residual": 1.9182935196562638e-11
+          },
+          {
+            "value": -137.3705522203464,
+            "imaginary": 0,
+            "absolute_residual": 2.2620188502364064e-11
+          },
+          {
+            "value": -137.32489446488796,
+            "imaginary": 0,
+            "absolute_residual": 5.324290492996498e-11
+          },
+          {
+            "value": -137.31525922224955,
+            "imaginary": 0,
+            "absolute_residual": 7.962736474046023e-11
+          }
+        ]
+      },
+      "singlet.A2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 15044,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 10,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 226321936,
+        "nz_allocated": 226321936,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.6352264801173,
+            "imaginary": 0,
+            "absolute_residual": 1.5259137834993825e-11
+          },
+          {
+            "value": -137.63494193954395,
+            "imaginary": 0,
+            "absolute_residual": 2.002354615289432e-12
+          },
+          {
+            "value": -137.37342475437896,
+            "imaginary": 0,
+            "absolute_residual": 1.6766600480543668e-11
+          },
+          {
+            "value": -137.22913262328683,
+            "imaginary": 0,
+            "absolute_residual": 2.273310060726317e-11
+          },
+          {
+            "value": -137.14064793020086,
+            "imaginary": 0,
+            "absolute_residual": 7.266618384819906e-11
+          },
+          {
+            "value": -137.04522903091268,
+            "imaginary": 0,
+            "absolute_residual": 7.057673204818374e-12
+          },
+          {
+            "value": -137.01559398694974,
+            "imaginary": 0,
+            "absolute_residual": 1.3285368263777853e-11
+          },
+          {
+            "value": -137.00272357659978,
+            "imaginary": 0,
+            "absolute_residual": 1.877749709624637e-11
+          },
+          {
+            "value": -136.97778198876026,
+            "imaginary": 0,
+            "absolute_residual": 1.6233918563526908e-11
+          },
+          {
+            "value": -136.95702559091532,
+            "imaginary": 0,
+            "absolute_residual": 1.0510011180825923e-10
+          }
+        ]
+      },
+      "triplet.A2": {
+        "matrix_type": "mpidense",
+        "solver_type": "krylovschur",
+        "dimension": 24564,
+        "requested": 9,
+        "ncv": 24,
+        "mpd": 24,
+        "converged": 9,
+        "iterations": 16,
+        "reason": 1,
+        "which": 1,
+        "nz_used": 603390096,
+        "nz_allocated": 603390096,
+        "mallocs": 0,
+        "petsc_reported_memory_bytes": 0,
+        "eigenpairs": [
+          {
+            "value": -137.66648764865775,
+            "imaginary": 0,
+            "absolute_residual": 2.1627340122169325e-12
+          },
+          {
+            "value": -137.65158709889448,
+            "imaginary": 0,
+            "absolute_residual": 1.728620897310538e-11
+          },
+          {
+            "value": -137.43382963979698,
+            "imaginary": 0,
+            "absolute_residual": 1.8599925753842493e-11
+          },
+          {
+            "value": -137.2898703939556,
+            "imaginary": 0,
+            "absolute_residual": 3.028942027165035e-12
+          },
+          {
+            "value": -137.28050138367516,
+            "imaginary": 0,
+            "absolute_residual": 2.7591680845551986e-13
+          },
+          {
+            "value": -137.20102194549034,
+            "imaginary": 0,
+            "absolute_residual": 2.2388615326177047e-12
+          },
+          {
+            "value": -137.1330652169965,
+            "imaginary": 0,
+            "absolute_residual": 1.1262973353518045e-11
+          },
+          {
+            "value": -137.10037985309665,
+            "imaginary": 0,
+            "absolute_residual": 1.2114162973320168e-11
+          },
+          {
+            "value": -137.0352484485939,
+            "imaginary": 0,
+            "absolute_residual": 9.017310166441757e-11
+          }
+        ]
+      }
+    },
+    "channel_import_verdict": true,
+    "scattering_channel_verdict": null,
+    "scattering_roots": null,
+    "reused_input_sha256": {
+      "fort.16": "9c937841c049c55704a2eff60183fb70063882164efdd4335426caa086f1b10b",
+      "co.molden": "0bc4a67dbfdf73c52331244d630b14eb978d012e9a1a5cb4f7d66e725878826d",
+      "co.casscf.chk": "e06ce334fc88245ebd0ad8d0c8ca86fac3ab93271b1126f5342b42784f372604",
+      "fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+      "fort.730": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+      "fort.711": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+      "fort.731": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+      "fort.712": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+      "fort.732": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+      "fort.713": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+      "fort.733": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f"
+    },
+    "property_inventory": {
+      "target_map": [
+        1,
+        11,
+        17,
+        21,
+        27,
+        6,
+        8,
+        34,
+        37,
+        42,
+        4,
+        15,
+        25,
+        28,
+        33,
+        2,
+        14,
+        18,
+        24,
+        31,
+        5,
+        16,
+        26,
+        29,
+        32,
+        3,
+        13,
+        19,
+        23,
+        30,
+        10,
+        12,
+        22,
+        38,
+        40,
+        44,
+        46,
+        47,
+        48,
+        7,
+        9,
+        20,
+        35,
+        36,
+        39,
+        41,
+        43,
+        45
+      ],
+      "state_labels_by_id": {
+        "1": "singlet.A1.1",
+        "11": "singlet.A1.2",
+        "17": "singlet.A1.3",
+        "21": "singlet.A1.4",
+        "27": "singlet.A1.5",
+        "6": "triplet.A1.1",
+        "8": "triplet.A1.2",
+        "34": "triplet.A1.3",
+        "37": "triplet.A1.4",
+        "42": "triplet.A1.5",
+        "4": "singlet.B1.1",
+        "15": "singlet.B1.2",
+        "25": "singlet.B1.3",
+        "28": "singlet.B1.4",
+        "33": "singlet.B1.5",
+        "2": "triplet.B1.1",
+        "14": "triplet.B1.2",
+        "18": "triplet.B1.3",
+        "24": "triplet.B1.4",
+        "31": "triplet.B1.5",
+        "5": "singlet.B2.1",
+        "16": "singlet.B2.2",
+        "26": "singlet.B2.3",
+        "29": "singlet.B2.4",
+        "32": "singlet.B2.5",
+        "3": "triplet.B2.1",
+        "13": "triplet.B2.2",
+        "19": "triplet.B2.3",
+        "23": "triplet.B2.4",
+        "30": "triplet.B2.5",
+        "10": "singlet.A2.1",
+        "12": "singlet.A2.2",
+        "22": "singlet.A2.3",
+        "38": "singlet.A2.4",
+        "40": "singlet.A2.5",
+        "44": "singlet.A2.6",
+        "46": "singlet.A2.7",
+        "47": "singlet.A2.8",
+        "48": "singlet.A2.9",
+        "7": "triplet.A2.1",
+        "9": "triplet.A2.2",
+        "20": "triplet.A2.3",
+        "35": "triplet.A2.4",
+        "36": "triplet.A2.5",
+        "39": "triplet.A2.6",
+        "41": "triplet.A2.7",
+        "43": "triplet.A2.8",
+        "45": "triplet.A2.9"
+      },
+      "target_count": 48,
+      "maximum_energy_error_hartree": 4.816342880076263e-10,
+      "multipole_record_count": 915,
+      "ground_dipole_z_au": 0.18617600497
+    },
+    "ground_dipole_difference_au": -1.3593265402178645e-11,
+    "unchanged_orbital_hashes_passed": true
+  },
+  "remote_sha256": {
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/config.json": "42983e82edd29a8f488759f3d033eccba9520deec0bc362bb927002f42eebaf3",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/target.json": "94435930ef27620dcbb5703ba9e04e08dd844ff9c54942d7535f03530615911b",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/resources.json": "83a54929be1ce542cd4c0ed0d2fc592f3c65a67004537ff6826ef21adca53182",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/stages.tsv": "736cbf5cb970278d2dcd9467b642ff8859486b9c697c3422420a9d0e52d6b752",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/co.casscf.chk": "e06ce334fc88245ebd0ad8d0c8ca86fac3ab93271b1126f5342b42784f372604",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/co.molden": "0bc4a67dbfdf73c52331244d630b14eb978d012e9a1a5cb4f7d66e725878826d",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.16": "9c937841c049c55704a2eff60183fb70063882164efdd4335426caa086f1b10b",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.24": "a3a13dbe1866b2d674eaf3f0719a85065624d76ddcd7423d8f3bf29bfb3c8bc4",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.26": "a61017c57deae093906901c188833679c18192883771f79a87642348071b28a5",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.730": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.711": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.731": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.712": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.732": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.713": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/fort.733": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.B2.inp": "ff4e61c97216941a1aad8ae6e9fc9739f4ff6b8fb680d6079bac16fe84b1aa46",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.A2.inp": "bec6517b256fbdaf414092a3b2dc4c9ab6bcf1d5bf17d3f1bfb203d01898772e",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.A1.inp": "b157f907ad05008602c1c930c824a8348dcfda433bc109199403468cffb9e728",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.B2.inp": "5901045e5ec2034606d7aca6d006b45346e96cae76b2c76694960c05d681b046",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.B1.inp": "a20e9c11226cefa8bb760fef35560ebc307bee45245a290fd944abe51eac2502",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.A1.inp": "87fcf6d09334b66b877025556fc5f9db5bdddb3ce8143855c23670a41cd89c14",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.singlet.B1.inp": "f40abc1b2d802a8b37fadb5d1e872a5fcec482bd43bcfa2cabc931b14e6f7826",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.scatci.triplet.A2.inp": "163a58834389861281475871a218007dc031f351c41ef16ca9e3b4b4e270102e",
+    "runs/co-r1900-ccdz-sa11-tight-cc40-anchor/output/CO/geom1/inputs/target.denprop.inp": "3324176625887deadd52b472fa5cdd10db26cdac36eee1da8e37455186ceb4a2",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.A2.json": "33708d3739fbab3fcf60d1561262e2dc9414841a1c4bbd7c97e79a5a00543286",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.A1.json": "934a8916f15b9703ede230737356a6e31677cd58d1c2c6445dc96a52aaf7bc9e",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.A2.json": "236fc854148909a877440351b485a4c7c20b5cfb586e51ebad279eb2f9f8fde8",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.B2.json": "d639bfad54b7ab5586a5556fdde106e48541d0c4feabf04c9a0eed3cf3f0ac67",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.A1.json": "38a82b95754ef2da60e8e4431b2fcefc5506cfb11e905ab5e4941533a6ba21ce",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.B1.json": "6fb516db5bf90133e312641e6eeb5a89b3c8b2fee9fd72b23011fb58b31bcce0",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.B2.json": "172aa873f9e17ab91823a5bf6dad3fc6357261b61e2724dfb6c2d8c101549c3b",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.B1.json": "e7fd41385ae6bdce7ec5d07e1c8a4ddadad90baf2535aea90508cf34acd9558c",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.A1.ci.npy": "c55da9556f78266e50fab0659c2d720a2ce7584d8d2a740fe50ab0eeabd0dbd2",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.B2.ci.npy": "30ff81f491a0d5505e8fa2e04204d0ac1ad88a6e940a9caa227af71b592f721b",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.A2.ci.npy": "2b4c943419d6078517f3f36038eb4aad777a5a0912b4a46df4042005a8472af5",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.A2.ci.npy": "187db911dcfcecd56b6bd1011d800f419f9ddc97a0779bfa513eadcd0bbd8b86",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.B1.ci.npy": "9cda320d0ea761cb3951c77fbc482b8f628f3f3bda2e85315650c2e58c3c1ef4",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.B1.ci.npy": "fe1c0a21b443458a3bf6fb5cf7fe1a0daeeab436ec9bbe3c82e4d0dd98618b95",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/triplet.B2.ci.npy": "69b78e63d5fcfe4dfd954a7d63bc1f5ebad3f56cccc408e15fbb61bc64118335",
+    "diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor/singlet.A1.ci.npy": "baf824d82d350aa1beef61ea7ab1b217b513214355138b1f04f040f05dfcec74",
+    "prepared/cas12-pointer-address-source-20261012/execution.json": "112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "prepared/cas12-pointer-address-source-20261012/frozen-inputs.json": "e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "prepared/cas12-pointer-address-source-20261012/source-provenance.json": "174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "prepared/cas12-pointer-address-source-20261012/build/build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "prepared/cas12-pointer-address-source-20261012/build/engine-checks.json": "9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932",
+    "diagnostics/sparse-scattering-telemetry-v6-20261007/scattering_telemetry.so": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+    "prepared/cas12-audited-engine-baseline-source-20261012/execution.json": "599011b1046878f1a68f73cf13419ae2b0390774578bacc93b9959e38e821618",
+    "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012/independent-engine-baseline.json": "35072cf4e5614a8844b038678360abada62b34083f2ae067ac96e8e7d829c13f",
+    "prepared/a2-compressed-target-preflight-source-20261016/contract.json": "891fdcedd30c5f0277e5b87670a730e8f05ba73c4ed0e289215500d41022a935",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2-compressed-target-preflight-contract.json": "8b7566070b93a0411a62c0fd884a08b46b041a453a91cf917edaccffb06ac854",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_channel_preflight.py": "75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_channel_preflight_owner.py": "d113c5e461408d8a8bc51ab309f886acbd00c9c4933f9de36a9961167c532a3a",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_root_control.py": "32e152f41b257269331cd403a463d48dbc494f4ce87a5630ab2ea0567409b4d4",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_root_owner.py": "b2e7f2970e87877807579c22470e4bfcc48dc6509a98d078800e7000483fd1e9",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_scattering.py": "67e6891813483c186c759da8ac4ebda3622a5b04d3da2458fdf451c0bc0beb37",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_scattering_owner.py": "fd82b5583bfb41d39792e817fb5636f67a0373eac1d7170ef9afb560f3a56567",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_scattering_reading.py": "1bae2c8c59aca5d80909fb96efc025595e88ba0a77f73c09b4171f377aec4b7a",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/a2_target_reading.py": "6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/analyze.py": "4aa00c6c6734854c6b097d1a0b95962bf1244b9b48d235332bbece5c6c8c6b11",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/archive.py": "ac79337385f604e8e0cf5873a1e1c6d0b44899bae9a60e03dc5f997437125bd2",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/batch.py": "b5ae0aed027ca33972aae129a1be1672bb69c308a1ec26a649bbbb4977241ad0",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/ci_overlap.py": "559227915a1cfb5633dc9c6e3ca61d200c3546cb581d235109f2ac1a25fde7aa",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/ci_probe.py": "3fc112ca6efec01d04fe18c5531fa9320ed7284164c71c47a4b2f92b78aeb1c3",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/collect.py": "96293df7ff33c4d16b00ae67a55986e283f56fb26529f4b2451d092f232aebe7",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/debug_engine_checks.py": "0b14839d8e49903193f233b966c1d223e88d70f9dbc16e55d3b48629e557b990",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/debug_scatci.py": "f9fdce2a1b16dd59b5617639fb698950319a65471a8591feb95cd71f33ac07cc",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/engine_baseline.py": "e35398e5b9d57de027edd4a0354723d0c1994c36116bacff28c10e05be5c455c",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/engine_baseline_owner.py": "4707ab60e0195c41d780185a5a204aacf92739f553bf21b1cc6900bcd8148a3b",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/native_debug_owner.py": "a1a2eb3e00b465ec26887130e746a22140c61c2555ac68f9e63fd938805ecc4f",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/native_debug_patch.py": "9ae222d930660fcd292dfd9e831604315b251818a752383536771bd6ab4b4016",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/native_pointer_owner.py": "9eef0e65ed8ed655f85bdde971777fc130e3b24d5b3e40867bbca3c4253b3168",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/native_pointer_patch.py": "87e5c82a70fb7d0ada3524e79bb77c9115e539d92c684ec5d90672d6e3f0a76b",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/neutral.py": "bf83b72686f4afe7e794355d9f235f4d8c0d21fd51a53997bb3408b9559c0a37",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/phase_diagnostics.py": "b10e1f4c2a42dcebd5541150bcca4e1c754e6a15937bfd7c1c7e289c8655c4b0",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/phase_fit.py": "4d545f179dee137e04397956c75d525ae24b1cf6f1286171d3be083b1a4dc112",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/progress_figure.py": "f28c22f469698b300d68db050c7d23251b2e5c64ba3fb48ccf7c1595cdea7fbc",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/rank_debugger.py": "7c1dfeeeb977a283449c2bb0ae033b5717f8e67947e1e4f76b5e67f4bd4941d2",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/rank_gdb.py": "3c3a1b56252e2b6b341740e8cecae91da153edd55f287762238e21b6435ae66f",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/refit.py": "88b63f55328192ce8c7085ae6a3db0b03ebfde90dcbac7d08190153f48427b6f",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/saved_model_controls.py": "7b969f7468018af187647430fbcb82871be86d23270c99e5deafcd2685f4b210",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/sparse_comparison.py": "8d1091995dbe5551b46417f5335e6214eae265a3d1d6622f7e0d1037d5c80678",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/sparse_comparison_owner.py": "a8730d04c122de0447e041e134872044e8abc837a72288bad7812b59bafc9a04",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/sparse_observer.py": "63df0f28fb1897659237123477ee91886047bf43c9c4c3faa4e9fccd104ab679",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/sparse_pilot.py": "799dc6f90c0747d5390e973e63026659e0c731038fc96649a41125cde5301161",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/sparse_scattering.py": "7f634f9d203fb5e8e000bd8d3d77d1c33152fa2470a9a9342bfa9c93638d8aa1",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/target.py": "cc81b9f33640bc1badcb2900fd7307dc28253f555ff0bc949ee50263b321f96d",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/target_seed_drift.py": "723633b424c67971ef59bcbc3db4e1ee7014a5d754cd11b5c65cf4d2b38e2bc6",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_a2_channel_preflight.py": "520ab15eb28f3a29bf4584219fc871ff1837e94d6470a86bc77b66f74035ca6f",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_a2_root_control.py": "d9190795caa11b6dbc8e7ab451f0a2b80e4821ad7a5e2223a9239785dbae8128",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_a2_scattering.py": "e6a9b2fc251e19be52515a6a4f35dacfeb85eae74b8a24210b8fe3b1c170b023",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_analyze.py": "357baac6f9eeac66d13220d24f2aa38ba1864a969866edeb44720fb079a004a0",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_checkpoint_projection.py": "4943037bb41a9e6d78cf700d00ced0f1c6b6f2a4a418929e2d356979bb8b392a",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_ci_overlap.py": "76f17af8357e40a6f6b1971f759df812bcaf02e53211f856db015e12d75dc204",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_ci_trial_space.py": "2c560690342e8981c847d374591b464f1059348145e1d18fe8024e85a4496419",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_collect.py": "c0f22ddc89ae3e5593723147809c58fff861786807ff5bcd6edbdc5c62e43864",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_engine_baseline.py": "19097b3be8e876c9cb209af87daa4adeddb1413d974401bfd7365c4da05ea178",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_neutral.py": "bb2b9392756a1871b567ac42939419e3516cc88a781cc29af821f76f4151386f",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_phase_fit.py": "4bff1f6f78ae5599569acb11c87b9c96b1f46522a1da1486f8a536a8747b7b29",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_profile.py": "fdb27f1fb5916c996d86eec66c37dd88847e9001749e80a0b8c3e586977afb9d",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_saved_model_controls.py": "5e3bbeff5cac47d7de878083236095d82197eda1d1faf504733d39e867455ec7",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_singlet_ci_driver.py": "489e2b9ed92e9ab175112553017077f231dd3df181b4930cd31a55c03055997b",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_sparse_comparison.py": "758ee7e2a86058c2cfbe7da04e0555772e14089c88e7c008aba02bfd242df470",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_sparse_pilot.py": "03868c7be58dda31ae2b633a849c5a00c988b997d92fa20ec17c43420ac8991d",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_sparse_scattering.py": "c9f67dd796b8dbeb5420ecfc54be8bdeff1c443de4c3ae3807378576ac31b338",
+    "prepared/a2-compressed-target-preflight-source-20261016/projects/ukrmol_co/test_target_diagonalizer.py": "707da3409eefb1d7f85222ee1a2987323af07751588fb4c5d7fef0ae99176cca",
+    "prepared/a2-compressed-target-preflight-source-20261016/source-provenance.json": "32f71e076b062ba36f296fc039dbe52db60872f67939d9bf9524f03ff6c05bae",
+    "prepared/a2-compressed-target-preflight-source-20261016/frozen-inputs.json": "4e812dad4f554e974c4d8ee8fd83d916fc6924784f2f99ebb4eec6660c6955a6",
+    "prepared/a2-compressed-target-preflight-source-20261016/owner-launch.json": "6839b2cea49a7652fbde6fb54b9560ec27f567bfd292cc2e458d1b871bcd8207",
+    "prepared/a2-compressed-target-preflight-source-20261016/observer-launch.json": "704c1d95579bc29555e97ef60e18eb4ebe7b6ef15aaac2cf1273a82bddee3b81",
+    "prepared/a2-compressed-target-preflight-source-20261016/prerequisite-validation.json": "94fcf63b1ee7d519ace3531e3a0b5d3fb66d38c40c860d32f5dc19dda9969d2a",
+    "prepared/a2-compressed-target-preflight-source-20261016/prerequisite-validation.launch.json": "d49e828e63bd4a4ac917b5c387df91192f6b1b54019e08159aab737a3db5853c",
+    "prepared/a2-compressed-target-preflight-source-20261016/runtime-gate.launch.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/a2-compressed-target-preflight-source-20261016/native/runtime-gate.json": "dfd9e734e63266a51ab962a19c563a3f61bcd54b78fb951f206cc15862768485",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.B2.telemetry.jsonl": "6e415b3912273f4da5ed83853b9991151b2c6a71ab1610b7d80f810214cae3a3",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.B2.out": "1c659195e34e144ef0f742a4f5ce483e2f4739cb359b7267e74d52d865f606c4",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.A2.out": "32fef227c858ce96cf3d7ac877785e3e5da1abb21b6685a15b848dadd397c45c",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.A1.out": "8ccf20fb4c5456ceadd0247624a3577201e22ef07d61634d746fe6b175877a6e",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.B2.telemetry.jsonl": "02a4368be62467656ec5a98dac69d08e8fb09464bdfdb230c98b549c1406d1b5",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/fort.24": "3e2dfec650e7ce4e71d10dd8c4e462535da9d3abac92cbf9e8d6c735cad3c505",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.A2.telemetry.jsonl": "eb9ba36d34c7861d3619674c7818bf8b1ae7727c6b2cc3da1aefbf3ee16858eb",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.A1.out": "63f92db750599826a27833656d846a78e8ae309ea2c7f14a0f549d1ec984398f",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.A2.out": "7fce99a197b86db27007ef89fec296e5fc822fa7da44ad655d09656557612a68",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/resources.json": "7ed3d39702aac52cf2bc40faeac36f5f9c9c245141396a0d8aa9b066fa6bb2a3",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/observer-execution.json": "cfcdff9615f6857c4c88025f41d727745a8c78c1865d73ee8bbcb7feec80b833",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.B1.telemetry.jsonl": "5cfac11478116d4f673f838dbf9339a4ddb970bde782a24821d92b8c9c333a6f",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.denprop.inp": "a9c742ca23781a66ad4a188eaa9685b5a2efbc18bcbe0eac305b266ae5bfd916",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.B1.out": "e29de194a5d040b36cdb0385a1105df8d58cf3501c271255f8c03e3ae83cafd3",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.denprop.out": "70d705167bdfb0e646b55df32800cdefd06ccb42171ed0f90901c008ec838d09",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.B2.out": "36ef4b075e0279c90d93c738bfbd983c5d55db47c81f4cf1bfb8b315b623d816",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.B1.telemetry.jsonl": "9a821ff05a748d6671151d3efffdc80aaea48d9c34d7d7cdd27ebfa610c8ec20",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.A2.telemetry.jsonl": "b9ef3cc533329fb6b59cd1bffe28787399e6d149ec97a9eaf33ba51f23f59543",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.A1.telemetry.jsonl": "54b7318a63bdb9813328e1dd04e91a639ae0a2bb16d7ff1275d1593d04b9a266",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/owner-execution.json": "1162739f0d81ff02dca6d3b81e75c4b6347587e76e2675fdb0e8370df3f0e72a",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.singlet.A1.telemetry.jsonl": "d4710520976c77fb0e6090fb070c1954d177cb1aa598918c4376719760548b5b",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/target.scatci.triplet.B1.out": "730c7c341ac9ab3402e554c9de70ce2b79d381f4bcbabfb0568c5376dae6e3b0",
+    "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/pilot.json": "433a88cee54f4195c2b5386bcfc1ae8e965685590c052840d601a9df1627cc49",
+    "prepared/a2-compressed-target-preflight-source-20261016/observer/20261016T075958.json": "e9c26c93b5a194a8e828ea3d4693f9e3bff6a08414c79927e6f3658561e78803",
+    "prepared/a2-compressed-target-preflight-source-20261016/observer/20261016T083001.json": "0eae6eb0781eb5a85bb972735ae4f8fd4386b6edea315295d404271543cb963b",
+    "prepared/a2-compressed-target-preflight-source-20261016/observer/20261016T090003.json": "b1e25cad13b7dc3a0fde49d35fb8b615e45a2ff694d159b02cce022ad28c11db"
+  },
+  "channel_import_verdict": true,
+  "scattering_channel_verdict": null,
+  "electronic_model_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "interpretation": "Compressed fixed-orbital CAS11 nine-A2 target/property qualification. Preserve40-component orbital average,own48-state DENPROP map and exact original checkpoint/integrals/CONGEN. Existing independent twelve-root actions and fresh pinned runtime pass. No scattering launched by this owner.",
+  "immutable_remote_capture": "prepared/a2-compressed-target-preflight-source-20261016/capture-20261016T131824/observation.json",
+  "immutable_remote_capture_sha256": "98e20d1e3962623a2eb366f17055209fc136970b705b3ab41a341e47576ac950"
+}

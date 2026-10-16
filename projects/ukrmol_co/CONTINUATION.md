@@ -20,6 +20,112 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Equilibrium channel control passes; compressed nine-A2 scattering active — 16 October, 15:16 UTC
+
+**Equilibrium five-versus-nine-A2observableinsensitivity passes at2048**,with
+maximum phase change **0.0163665rad at2.55requested-eV**,centers
+**9.427–10.924meV lower** and full widths **2.672–3.645meV smaller**.
+Both sectors/all orders1–4in1.8–3.3requested-eVpass original0.05rad/0.05eV/
+5%with0.001eVfloor budgets. Owner1351889completes02:59:15.260UTC with all
+native,resource,reader and owner exits0. Observer1352372ends normally after9
+captures;both services are inactive. See
+[completion](progress-a2-equilibrium-scattering-20261016T0757.json),
+[73-file independent reading](verification-a2-equilibrium-scattering-20261016.json)
+and [completed interpretation](A2_EQUILIBRIUM_CONTROL.md).
+
+Fresh equilibrium five-A2dense-baseline phase difference5.1e-6rad passes.
+Five/nine measured costs **1.656076/1.817478h**,**6.407837/6.896057GiB**;
+dense replay4.198minutes/0.446373GiB. Native residuals≤1.301e-10Hartree,
+selected Pi0,dimensions27546/27818,continuum1410/1682and boundary250/298pass.
+Shared actual target/integral/CONGEN equality and own-map decks verify.
+Runtime remains`a5954fb`,60source/61input/242installed hashes reverified.
+[Public download and reconstruction](qualification-evidence/equilibrium-a2-scattering/README.md)
+passes8payload digests,58reader-source hashes and73raw files. Four actual
+dense input hashes match frozen complete27546-pole source. Host read1.167s;
+maximum host/local fitted parameter difference8.293e-10eV. These are shared
+readers/fitter,not an independent scattering engine. Full omission/channel/
+pole/extraction/model verdicts stay unset. Stretched refined channel rejection
+**0.0679178rad** and saved equilibriumCAS11→CAS12rejection remain preserved.
+
+**Compressed48-state target/property inputs also pass** independent/public
+reconstruction. Owner1360012completes **08:51:07.371UTC**,all8target solves,
+DENPROP,resource/owner exits0;observer1360347ends normally after3captures.
+Cost **51.177734minutes /5.476902GiB**,with246.065seconds target solves and
+2824.108secondsDENPROP. The original1.9bohrCAS11/cc-pVDZorbitalframe and
+forty-component averaging remain unchanged. Independent
+[44-file reading](verification-a2-compressed-target-20261016.json) reconstructs
+48fullvectors/Gram matrices and **915unique finite multipoles**. Maximum
+reference-energy difference8.669e-13Hartree,residual1.319e-10Hartree,Gram
+1.077e-14,Pi5.684e-13Hartree,property/binary energy4.818e-10Hartree and dipole
+1.359e-11au all pass. First-five roots/own compressed map verify;A2root9IDs48/45.
+[Capture](progress-a2-compressed-preflight-20261016T1318.json) rechecks61source/
+50input/242installed hashes. [Public replay](qualification-evidence/compressed-a2-target/README.md)
+passes6payloads/3reader sources/44raw files. Host/macOS Gram metric differs
+8.882e-16;other quoted metrics agree. Input reconstruction is not independent
+accuracy of every transition moment or full channel convergence.
+
+**Owner1365000 is active** on Sadaharu for the
+[separately declared compressed scattering](a2-compressed-scattering-contract.json),
+motivated by equilibrium passing versus stretched rejecting channel sensitivity.
+Source frozen **`89a5275fdf5e55776dbfbe534793a974b493ed61`**. Same original
+orbitals,forty-component averaging,new shared48-state target representation,
+integrals/CONGEN,audited8-rankengine and2048roots on both sides;only explicit
+A2counts/sequences/own-map interface change. Allocation8physicalCPUs4–11/
+8MPIranks/one library thread/native6GiBmemp/48GiBcgroup/8GiBshared;0–3for small
+checks. Prelaunch disk46.78GiB and107GiBavailableRAM meet bounds. Forecast
+**2–4h/model,4–8h plus replay/reading total**;stage8h/model12h/owner28h hard bounds.
+
+Compressed dense outer replay completes all6stages/resources0 in
+**4.248minutes /0.446GiB**. The
+[eight-file independent read](verification-a2-compressed-dense-20261016.json)
+passes complete99-point grids,Pi1e-8rad,nonempty/noMAXFIT native fits.
+Fresh five-A2/2048completes all8native stages/resources0 in
+**1.651263h /6.011147GiB**. The
+[37-file independent reading](verification-a2-compressed-five-baseline-20261016.json)
+confirms complete exports,Pi0,own map/decks and all8matched fits:maximum
+dense-reference phase **2.2e-6rad**,position7.205e-6eV,width2.509e-5eV.
+Fit-platform parity4.018e-9eV passes1e-8eV supplementary bound. Controller's
+baseline gate passes and starts the declared nine-A2model once.
+
+At [15:16:54UTC](progress-a2-compressed-scattering-20261016T1516.json),nine-A2B1
+assembly confirms **dimension27818**,Class1complete;all8cores active801.40%CPU,
+2.599GiBcurrent Docker memory. No owner error/failure markers. **61source/
+59input/242installed hashes reverify**,actual decks match prelaunch selection.
+Nine-A2and channel verdict remain unset. See [full scope](A2_COMPRESSED_CONTROL.md).
+
+Compressed matching uses established99-point0.1–5requested-eVgrid and a newly
+declared **2–5requested-eVfit window,orders1–4**. Prospective conditioning on old
+dense phases passes before native launch;the upper endpoint is narrower than
+historical2–6to retain the common grid. This does not replace any of24original
+compressed extraction cases or their32.206%width-span rejection. Scientific
+budgets stay0.05rad/0.05eV/5%with0.001eVfloor;actual Hartree energies remain
+requested-eV×0.0735/2. Failed/empty/MAXFIT/bound fits stay unset;false/unset stops
+without retry,relaxation or automatic root/channel/geometry successor.
+
+Artifacts:`prepared/a2-compressed-scattering-source-20261016/`. Services:
+`co-a2-compressed-scattering-20261016.service`and
+`co-a2-compressed-scattering-observer-20261016.service`. Observer1365474records
+immutable observations every30minutes after readable-owner/live-service PID
+match. Unrelatedcomfyui remains running. No paid provisioning.
+
+**Next:** checksum-fetch/read completed nine-A2raw exports,grids/Pi and both
+channel comparisons. Publish independent reconstruction and decide from all
+three anchor effects/costs. Reuse economical2048;no extra equilibrium root
+refinement is warranted by its passing control. Separately design/validate a
+width estimator addressing preserved background failures;complete model/basis/
+ensemble,global continuity,neutral correlation/domain and frozen restartable
+pilot qualification before sweep/potential fitting.
+
+Milestone verification: **112focused tests pass**;new raw readers run against
+actual saved outputs and public downloads. **461immutable remote hashes**,
+**184overview source hashes**,**502local documentation links**,both public
+manifest digests,reader/report source-hash parity,visual PNG/searchable SVG,
+lint/format/diff checks pass. Main index is complete/current at
+`423d5770d3de337571f51e62702ae919bad97e8c`;branch-only A2drivers/readers,
+declarations,evidence and overview resolve against current source. Scientific
+runtimes remain frozen at their recorded commits;no index ingestion of branch
+work is implied.
+
 ### Equilibrium A2 target reconstructed; matched scattering active — 15 October, 23:31 UTC
 
 **The equilibrium48-state target/property input gate passes independent raw

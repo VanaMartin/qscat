@@ -1,9 +1,47 @@
 # Equilibrium CO nine-A2 input gate and matched scattering control
 
-**The fixed-orbital equilibrium48-state target/property gate passes independent
-raw reconstruction. The matched five-versus-nine-A2 scattering control is now
-running on Sadaharu.** It measures the missing equilibrium channel sensitivity,
-where the saved CAS11→CAS12 comparison already rejects phase/position budgets.
+**The matched equilibrium five-versus-nine-A2 control passes its declared
+observable budgets. Independent local,host and public raw reconstructions
+confirm the pass.** The stretched control still rejects phase insensitivity.
+
+## Completed scattering — 16 October
+
+Owner1351889completes **02:59:15.260UTC**,with all native,resource,reader and
+owner exits0. Observer1352372ends normally after9captures. Runtime stays frozen
+at`a5954fb`;60source/61input hashes and242installed artifacts reverify.
+
+| Comparison | Phase change moduloπ | Fitted position change | Full-width change |
+|---|---:|---:|---:|
+| Dense replay → fresh five-A2/2048 | 5.1e-6rad | ≤0.000767meV | ≤0.012905meV |
+| Five-A2 → nine-A2/2048 | **0.0163665rad** | **9.427–10.924meV lower** | **2.672–3.645meV smaller** |
+| Scientific budget | 0.05rad | 50meV | 5%with1meVfloor |
+
+Both sectors give the same channel comparison,with the phase maximum at
+**2.55requested-eV**,no grid points exceeding budget,and zero selected-model Pi
+phase split. All orders1–4pass position/width comparisons in the frozen
+1.8–3.3requested-eVwindow. Native selected residuals are at most1.301e-10Hartree;
+complete exports confirm dimensions27546/27818,continuum1410/1682and boundary
+250/298. Actual target/integral/CONGEN inputs match across models and actual
+decks match their own noncontiguous channel maps.
+
+Measured costs:five **1.656076h /6.407837GiB**,nine **1.817478h /6.896057GiB**;
+dense outer replay **4.198minutes /0.446373GiB**. The
+[73-file raw reading](verification-a2-equilibrium-scattering-20261016.json)
+recomputes complete grids,CI/boundary exports,telemetry,Pi,decks/maps and both
+fixed-window gates. [Public download/replay](qualification-evidence/equilibrium-a2-scattering/README.md)
+passes8payload digests and58frozen reader sources. Host read costs1.167seconds;
+maximum host/local fit difference8.293e-10eV. Four actual dense inputs match the
+frozen complete27546-pole source;large shared input equality is checksum-audited
+remotely. Shared readers/fitter are not an independent scattering engine.
+
+**Decision:** equilibrium practical five→nine-A2insensitivity passes at2048.
+It does not establish full channel convergence,absolute omitted-spectrum error,
+global state/pole identity or extraction reliability. The stretched phase
+rejection0.0679178rad survives its named refinement,and the saved equilibrium
+CAS11→CAS12position/phase rejection remains. The
+[compressed-anchor control](A2_COMPRESSED_CONTROL.md) measures the missing
+geometry dependence before choosing further anchor models. No extra equilibrium
+root expansion is justified by this passing comparison.
 
 ## Completed input gate
 
@@ -45,7 +83,7 @@ maximum Gram error. The reader also reproduces the earlier stretched24-file
 48-state/921-multipole gate. This certifies these native input records,not
 independent accuracy of every transition moment or full channel convergence.
 
-## Separately declared matched scattering
+## Historical declaration and launch
 
 The [scattering contract](a2-equilibrium-scattering-contract.json) freezes:
 

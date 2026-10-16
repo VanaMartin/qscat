@@ -16,7 +16,7 @@ now independently reconstructs all672 states and112 matrices on the host and
 from public downloads,with byte-identical repackaging.
 Compressed proof replay passes all438 payloads/96 probes,and the fresh native
 import passes. The current experiment is the
-[equilibrium matched A2 scattering control](a2-equilibrium-scattering-contract.json),
+[compressed matched A2 scattering control](a2-compressed-scattering-contract.json),
 following [saved model/extraction controls](SAVED_MODEL_CONTROLS.md).
 
 ## 1. Finish trustworthy target inputs
@@ -32,7 +32,10 @@ pass independent full-vector/property reconstruction. The equilibrium gate
 completes51.817minutes/5.425GiB;public reading verifies44raw files/48vectors/
 930multipoles. Original forty-component orbital averaging remains unchanged.
 
-**Next:** follow the active matched equilibrium scattering control,then
+Compressed48-state inputs also pass independent/public44-file reconstruction,
+with48fullvectors/915multipoles at51.178minutes/5.477GiB.
+
+**Next:** follow the active matched compressed scattering control,then
 publish/fetch remaining native-import evidence. CAS11 16K/TZ public reconstruction already
 passes. Preserve every original failed exit and the original TZ seed rejection.
 
@@ -73,11 +76,18 @@ Basis,active-space and full retained-channel convergence remain open.
 Fifty-component equilibrium orbital coverage passes,but native fifty-component
 imports and matched scattering have not been performed.
 
-**Active:** the equilibrium five-versus-nine-A2 scattering control at2048passes
-the saved dense outer replay/independent raw checks in4.198minutes/0.446GiB.
-Fresh five-A2baseline assembly is active;its independent dense-observable gate
-precedes expanded scattering. Shared48-state target representation and audited8-rank
-runtime isolate retained-channel count. Use the measured active-
+**Completed:** equilibrium five-versus-nine-A2at2048passes all budgets at
+0.0163665rad,centers9.427–10.924meV lower,widths2.672–3.645meV smaller.
+Public reconstruction passes73raw files/58reader sources. Five/nine costs
+1.656/1.817h and6.408/6.896GiB;dense baseline phase5.1e-6rad passes.
+
+**Active:** compressed five-versus-nine-A2at2048passes dense replay and the
+fresh five-A2baseline. Independent37-file reading confirms2.2e-6rad phase
+agreement with dense,cost1.651h/6.011GiB. The declared nine-A2model is running.
+Shared48-state target representation/original orbitals and audited8-rank
+runtime isolate retention. The compressed matched2–5requested-eVwindow retains
+orders1–4and does not replace the earlier24-case extraction rejection.
+Use the measured active-
 space/channel effects to select remaining matched three-anchor and
 DZ→TZ→aug-TZ controls with all other settings fixed.
 Independently test explicit channel count and forty→fifty orbital averaging:
@@ -184,9 +194,9 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
-1. Read the active equilibrium five-A2baseline;only a passing
-   independent baseline gate releases the declared nine-A2/2048model. Reconstruct
-   completed raw scattering and decide from the measured channel effect/cost.
+1. Read and reconstruct the active compressed nine-A2/2048model and its matched
+   channel comparison. Equilibrium passes and stretched rejects;use the missing
+   anchor effect/cost to select further model/basis/ensemble controls.
 2. Design and independently validate an extraction rule addressing the measured
    background failure;preserve every rejected all-order gate.
 3. Complete the remaining matched model/basis/ensemble controls,continuity and

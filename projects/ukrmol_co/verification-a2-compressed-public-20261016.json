@@ -1,0 +1,18 @@
+{
+  "verified_utc":"2026-10-16T13:43:36.001799+00:00",
+  "scientific_runtime_commit":"537f5b5de58905c8f385ae38623c561f9cdd03ba",
+  "reader_source_sha256":"6381468c94b5d65ba9d4acbafbd6e364d4fa8d150343907225dcd7ac7738fa3c",
+  "public_payloads_verified":6,"public_reader_source_hashes_verified":3,
+  "public_raw_files_reconstructed":44,"public_native_target_vectors":48,
+  "public_multipole_records":915,"public_reconstruction_original_exit":0,
+  "public_reconstruction_sha256":"3387a9c85f31216a1bd07ac8bba0154350a827edd81e09c4ca8d33f5a8481fdc",
+  "host_reconstruction_original_exit":0,"host_container_wall_seconds":0.5644192551262677,
+  "host_local_maximum_gram_metric_difference":8.881784197001252e-16,
+  "host_local_other_quoted_metrics_identical":true,
+  "native_wall_minutes":51.17773416843265,"native_kernel_peak_gib":5.476902008056641,
+  "original_native_and_controller_exits":0,
+  "channel_import_verdict":true,"scattering_channel_verdict":null,
+  "global_continuity_verdict":null,"full_sweep_released":false,
+  "evidence_pointer":"qualification-evidence/compressed-a2-target/artifacts.json",
+  "scope":"Public raw-vector/property reconstruction and host/local consistency. Shared reader,not independent electronic solver;inventory does not independently validate every added transition moment."
+}
