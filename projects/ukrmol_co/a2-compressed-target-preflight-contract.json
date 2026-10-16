@@ -1,0 +1,61 @@
+{
+  "status":"separately declared compressed fixed-orbital nine-A2 native target/property input gate",
+  "control_kind":"a2-target-preflight",
+  "scientific_question":"Can the original compressed CAS11 forty-component orbital frame support explicit A2 roots1-9 per spin with complete48-state native vector/property data? Equilibrium channel sensitivity passes while stretched sensitivity rejects after its named root refinement. The missing compressed anchor is needed to resolve this geometry dependence before freezing a three-anchor channel model. This owner qualifies inputs only.",
+  "run":"cas11-compressed-a2roots9-fixed-orbital-native-preflight-20261016",
+  "source_directory":"prepared/a2-compressed-target-preflight-source-20261016",
+  "target_reference_directory":"runs/co-r1900-ccdz-sa11-tight-cc40-anchor",
+  "independent_reference_directory":"diagnostics/cas11-target-state-overlap-roots12-20261009/co-r1900-ccdz-sa11-tight-cc40-anchor",
+  "baseline_directory":"prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+  "baseline_reader_filename":"independent-engine-baseline.json",
+  "baseline_reader_verdict":"matched_engine_baseline_verdict",
+  "fixed_target_settings":{
+    "bond_length":1.9,"basis":"cc-pVDZ","model":"CAS-A","orbitals":"state-averaged",
+    "frozen_orbitals":2,"active_orbitals":[5,3,3,0],
+    "sa_singlet_roots":[5,5,5,5],"sa_triplet_roots":[5,5,5,5]
+  },
+  "computed_and_retained_target_roots_per_spin":[5,5,5,9],
+  "target_component_count":48,
+  "native_set_order":["singlet.A1","triplet.A1","singlet.B1","triplet.B1","singlet.B2","triplet.B2","singlet.A2","triplet.A2"],
+  "denprop_ntgtl":[5,5,5,5,5,5,9,9],
+  "engine_source_directory":"prepared/cas12-pointer-address-source-20261012",
+  "engine_evidence_sha256":{
+    "execution.json":"112f61264ec8bbe7d4a67a238093df51c236ea2a6d0335c6243deb5c9f2437d5",
+    "frozen-inputs.json":"e3847d2d0443cf819381049dd6358e09a925302ee6859d0f310b636e96cd1e49",
+    "source-provenance.json":"174909ddb1d3f058b275ce89f797e7bf3b21548eb08db537ddefd259d29abd86",
+    "build/build-provenance.json":"acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "build/engine-checks.json":"9ef9d29bfeced2b24c6eb459c0b9f9bbd97e07148e7c214293855b92fc94b932"
+  },
+  "numerical_library_sha256":{
+    "/opt/ukrmolp/lib/libslepc.so":"2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+    "/opt/ukrmolp/lib/libpetsc.so":"5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+    "/opt/ukrmolp/lib/libopenblas.so":"72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+    "/opt/ukrmolp/lib/libscalapack.so":"33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+  },
+  "image_id":"sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "telemetry_directory":"diagnostics/sparse-scattering-telemetry-v6-20261007",
+  "telemetry_sha256":"ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+  "rationale":"Completed equilibrium raw reconstruction confirms maximum phase change0.0163665rad and all fitted position/width budgets pass;stretched rejection persists at0.0679178rad after the named refinement. A compressed48-state target interface does not yet exist. Its qualification unlocks the missing matched compressed control,which can change whether a common48-state model is used across the three anchors. Reuse the already qualified exact compressed twelve-root actions;no new electronic optimization or root ladder.",
+  "reused_inputs":"Copy unchanged compressed fort16,Molden,checkpoint and all eight original target CONGEN expansions. Recompute all eight target vector sets into one fresh fort26. Only A2 retention grows5to9;orbital averaging stays40. Explicitly select igh=-1/crite1e-12/maxiter1000/vecstore5/native6GiBmemp using the validated target_solver_deck adapter for original dense or sparse templates. First-five energies,independent actions/spins and native residuals remain gates. No integral/CONGEN regeneration or scattering.",
+  "gates":[
+    "Fresh source/input freeze,completed matched engine baseline,242installed audited-engine artifacts and numerical-library/telemetry runtime checks",
+    "All eight independent twelve-root reports match the exact compressed checkpoint,pass original flags,physical/penalized actions<=1e-9Hartree and spins<=1e-6;firstfive agree with originalforty-componenttarget<=1e-7Hartree",
+    "All eight native selected target solves use crite1e-12/selection1/KrylovSchur,positive convergence reason,complete requested roots and finite native residuals<=1e-9Hartree",
+    "DENPROP emits48finite energy-ordered IDs/counts5/5/5/9per spin;own compressed map and independent energies<=1e-7Hartree,unique finite dipole/quadrupole records with valid IDs and ground dipole<=1e-5au",
+    "Unchanged checkpoint,Molden,integral and targetCONGEN byte hashes;preserve original exits and measured solve/property/resource costs",
+    "Independent full-vector/Gram/energy/Pi/multipole reconstruction after completion precedes any separately declared compressed scattering. Completion launches no scattering"
+  ],
+  "resources":{
+    "physical_cpu_group":"4-11","mpi_ranks":8,"library_threads_per_rank":1,
+    "container_memory_gib":24,"shared_memory_gib":8,
+    "minimum_available_ram_gib":48,"minimum_free_disk_gib":20,
+    "target_sector_timeout_seconds":1800,"denprop_timeout_seconds":7200,
+    "whole_native_timeout_seconds":14400,"whole_owner_timeout_seconds":18000,
+    "independent_reader_memory_gib":4,"independent_reader_cpu_group":"0-3",
+    "observer_interval_seconds":1800,"observer_timeout_seconds":18000
+  },
+  "cost_basis":{"stretched_same_engine_48state_preflight_wall_minutes":51.686,"equilibrium_same_engine_48state_preflight_wall_minutes":51.81711094661926,"stretched_kernel_peak_gib":5.466,"equilibrium_kernel_peak_gib":5.425357818603516,"conditional_forecast_minutes":[45,90],"interpretation":"Same active-space size,retention,engine and ranks as two completed gates;geometry-dependent cost can differ. Native4h/owner5h hard bounds. Eight physical cores4-11 reserve0-3for small checks. No paid provisioning."},
+  "stopping_rule":"Any input,engine,prerequisite,solver,residual,energy,map,multipole,dipole or timeout failure stops and preserves original exits. No retry,orbital update,budget relaxation or automatic scattering. STOP administratively terminates active step. Observer starts only after readable-owner PID matches its live service.",
+  "channel_import_verdict":null,"scattering_channel_verdict":null,"electronic_model_verdict":null,
+  "global_continuity_verdict":null,"full_sweep_released":false
+}
