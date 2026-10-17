@@ -5,8 +5,10 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 from projects.ukrmol_co.phase_extraction import estimate_phase, width_alternatives
+from projects.ukrmol_co.phase_extraction_native import read_anchors
 from projects.ukrmol_co.phase_extraction_study import analytic_phase
 from projects.ukrmol_co.phase_fit import fit_phase, predict_phase
 
@@ -83,3 +85,8 @@ def test_three_start_failure_is_not_replaced_by_a_passing_subset():
     result = estimate_phase(energy, phase, case["windows_hartree"], settings)
     assert result["estimator_verdict"] is None
     assert all(not row["valid"] for row in result["rows"])
+
+
+def test_failed_calibration_stops_before_opening_native_data(tmp_path):
+    with pytest.raises(ValueError, match="Passing known-pole calibration"):
+        read_anchors(tmp_path / "absent", {"calibration_verdict": False}, CONTRACT)
