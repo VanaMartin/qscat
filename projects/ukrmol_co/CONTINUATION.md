@@ -20,6 +20,74 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Combined exterior gate rejects; native surface convention traced — 17 October, 12:35 UTC
+
+**The combined boundary-map study rejects its frozen refinement gate.** All
+**432 paired-method cases + four analytic controls** complete. **15/16 checks
+pass**, but spectral degree128→256 changes by **7.90991e-7**, above **1e-7**.
+Original scientific command/container exits **1/1** remain. Source/design/tests/
+contract were frozen at **`a3300b0` before the full matrix**. No retries,
+grid changes, tolerance relaxation or successor run occurs. See
+[results](COMBINED_EXTERIOR_BENCHMARK.md),
+[design](../../docs/physics/co-combined-exterior-benchmark.md),
+[verification](verification-combined-exterior-20261017.json) and
+[public evidence](qualification-evidence/combined-exterior/README.md).
+
+The physical model combines **noncommuting T=diag(0,16) and C(d)/x²** in one
+uncut exterior, d=0/0.4/1.2, with real energies across the second threshold
+and two lower-half-plane energies on declared outgoing sheets. Independent
+Riccati ODE and Chebyshev second-order BVP methods return u'=Y(E)u at x=1.
+Endpoint lengths40/60/80, contours20°/35° and three accuracy levels remain
+reported. Finest method/analytic errors **2.654e-9 / 1.597e-9**, domain/contour
+spreads ≤**3.847e-9**, and real symmetry/flux controls pass. These are boundary
+maps, not S amplitudes or poles, and no exact coupled oracle is claimed.
+
+The failed refinement occurs in exactly **three of144 configurations**:
+**ε=30,L=80,θ=20°**, one per dipole. It is already present at d=0; the middle
+method discrepancy is 7.907–7.931e-7, versus finest8.36e-14–4.09e-11 on those
+cases. ODE and spectral successive changes are **6.58931e-5→2.40874e-8** and
+**0.0844746→7.90991e-7**, respectively. This diagnoses a long-domain/high-energy
+resolution control; it does not repair the failed contract. Maximum spectral
+condition estimate is **2.933e7**. Dropped dipole/derivative rotation/wrong open
+sheet negatives differ by **0.1800 / 2.1471 / 5.0283**.
+
+The independently completed [native surface/energy source trace](../../docs/physics/co-native-boundary-conventions.md)
+resolves **w=physical reduced surface overlap/sqrt(2)** in GBTOlib before CI
+contraction. The writer's later sqrt(2) is only for interior RMT samples.
+The active zero-Bloch assembler uses **Q=Σwwᵀ/(E_n−E_total,Hartree)**, Q in
+bohr mapping u' to u; no extra half or radius division belongs there. Exported
+CF coefficients already include Hartree→Rydberg conversion. A free Neumann-box
+test verifies the normalization and finite omitted-tail behavior. Native Python
+and derivation are frozen at **`d621541`**. Seven unchanged Fortran sources,
+build provenance and three licences are preserved. General nonzero Bloch,
+Gailitis amplitude normalization and full native K remain unqualified.
+
+Fresh [public replay](verification-combined-exterior-public-20261017.json)
+verifies **twelve payloads / eight benchmark sources / eleven native-source
+inputs / five native-Python files / twelve literal anchors**. It reproduces all
+436 cases, all sixteen check verdicts and the false aggregate/exit1. Maximum
+all-rung/finest host-public Y-component drifts **4.186e-8 / 3.008e-9**.
+**37 focused tests pass**, including both independently replayed native analytic
+tests. Sadaharu cost **11.178 s / 0.073 GiB sampled kernel high-water**, reserved
+physical cores0–3, one BLAS thread, 4-GiB limit,54 samples at0.2s. No native data
+is read or native solve launched. Persistent directory:
+`prepared/combined-exterior-source-20261017/`; benchmark source archive SHA256
+`8a952365752a3b16298cd90a7c2d85752462dde86cb32a42f9e635ebdf9481f2`.
+
+The [12:34 UTC host check](progress-combined-exterior-20261017.json) verifies
+**33 new remote hashes / 190 previous hashes / 242 installed engine artifacts**.
+No CO job is running; unrelated `comfyui` remains active, with **41.25 GiB**
+persistent disk free. The six-panel overview now shows the refinement rejection.
+Main search is complete/current at `423d5770d3de337571f51e62702ae919bad97e8c`;
+the benchmark and normalization paths are branch-only and resolved locally.
+
+**Next decision:** separately justify and freeze a spectral resolution family
+for the measured ε=30,L=80 discrepancy, with explicit cost and the original
+rejection retained. No automatic successor follows this false gate. Only then
+release full saved-native open-open K reproduction with radius/step/tail and
+normalization controls, before CO poles. Earlier five-A2 interface, extraction,
+model/channel, continuity and neutral-domain gates remain. Production is gated.
+
 ### Separate polar-tail and threshold-sheet controls pass — 17 October, 12:18 UTC
 
 **All twenty frozen checks pass:** **189 dipole-tail matrices** (135 real,

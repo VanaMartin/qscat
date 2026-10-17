@@ -38,8 +38,13 @@ native amplitude normalization/threshold sheets remain open.
 The [separate matrix tail/threshold controls](COUPLED_TAIL_BENCHMARK.md) now pass
 513 S samples, 27 pole solves and twenty frozen checks. Tail truncation remains
 visible despite unitary matrices; wrong closed sheets/flux factors are detected.
-Combining unequal thresholds with polar tails and qualifying native normalization
-remain open before CO use.
+The [combined exterior boundary-map study](COMBINED_EXTERIOR_BENCHMARK.md)
+completes 436 paired-method cases but **rejects spectral refinement**:
+7.90991e-7 exceeds 1e-7 at ε=30,L=80,θ=20° for all three dipoles. Finest
+agreement 2.654e-9 does not override it; original exits 1/1 remain. No successor
+grid is automatic. A [native source trace](../../docs/physics/co-native-boundary-conventions.md)
+resolves the already absorbed sqrt(2), total-Hartree length-valued zero-Bloch
+sum and already-Rydberg multipoles. Full native K normalization remains open.
 
 ## 1. Finish trustworthy target inputs
 
@@ -192,8 +197,12 @@ freeze any mapped decoder separately. The scalar physical-shell gate now passes:
 maximum finest S/q errors are 2.584e-10/6.495e-12. Separate exact dipole-tail and
 unequal-threshold shell benchmarks also pass (finest matrix/q errors ≤6.895e-11/
 3.029e-12), including sheet and flux controls. Next combine noncommuting thresholds
-and polar tails under independent real/complex checks, and derive the native
-amplitude/Bloch/energy normalization, before an independent outer
+and polar tails under independent real/complex checks: the first combined
+boundary-map study now rejects the fixed spectral refinement budget despite
+passing finest-method/domain controls. Freeze any successor resolution family
+against that measured discrepancy before proceeding. The native zero-Bloch
+surface/energy/CF source conventions are derived; full native K and Gailitis
+normalization remain unqualified before an independent outer
 propagator uses saved nine-A2 data. Require full K-matrix reproduction and
 radius/step/tail controls before CO complex poles. No missing export currently
 justifies a new inner solve. A new estimator needs independently

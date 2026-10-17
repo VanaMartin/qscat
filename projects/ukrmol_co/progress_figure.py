@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1218.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1235.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -604,6 +604,38 @@ def _tail_cutoff(ax, data):
     _note(ax, data["tail_cutoff_note"])
 
 
+def _combined_refinement(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Combined polar exterior: refinement rejects",
+        "Unequal thresholds + inverse-square coupling; outgoing boundary map Y",
+    )
+    x = np.arange(2)
+    for method, color, marker, label in [
+        ("ode", BLUE, "o", "Riccati ODE: rtol 1e-5 / 1e-8 / 1e-11"),
+        ("spectral", ORANGE, "s", "Spectral BVP: degrees 64 / 128 / 256"),
+    ]:
+        row = data["combined_refinement"][method]
+        values = [row["coarse_to_middle"], row["middle_to_finest"]]
+        ax.semilogy(x, values, color=color, marker=marker, lw=1.8, label=label)
+        for i, value in enumerate(values):
+            ax.annotate(
+                f"{value:.2e}",
+                (i, value),
+                xytext=(0, 10),
+                textcoords="offset points",
+                ha="center",
+                fontsize=9,
+                color=color,
+            )
+    ax.axhline(1e-7, color=GRAY, ls="--", lw=1, label="Final refinement budget: 1e-7")
+    ax.set_xticks(x, ["Coarse → middle", "Middle → finest"])
+    ax.set(xlim=(-0.25, 1.35), ylim=(1e-9, 0.8), ylabel="Maximum absolute change in Y entry")
+    ax.legend(loc="upper right", frameon=False, fontsize=8.2)
+    _note(ax, data["combined_refinement_note"])
+
+
 def _snapshot_data(snapshot: Path) -> dict:
     """Resolve a full snapshot or a delta against a hash-pinned earlier release."""
     data = json.loads(snapshot.read_text())
@@ -676,7 +708,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _tail_cutoff
+            _combined_refinement
+            if "combined_refinement" in data
+            else _tail_cutoff
             if "tail_cutoff_controls" in data
             else _physical_poles
             if "physical_shell_convergence" in data
@@ -748,7 +782,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1218"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1235"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

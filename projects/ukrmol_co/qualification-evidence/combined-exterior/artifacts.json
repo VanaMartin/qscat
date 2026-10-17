@@ -1,0 +1,18 @@
+{
+  "artifacts": {
+    "container-inspect.json":{"bytes":9368,"sha256":"e29fb5d2487f02c275b590b33b9b15a460b32ec7a69408c4fc1c36870b5637db"},
+    "dependency.json":{"bytes":810,"sha256":"63aad552abcba48a79e8b00f4168fa1d9e454997b7d51b355134abb0ede9e1ae"},
+    "execution.json":{"bytes":4700,"sha256":"c92529aa031a47612662cd988749215826f3516d4b98d71cec6a7688eb9ce556"},
+    "host-benchmark.json":{"bytes":588177,"sha256":"8a4d4872270bcac9a38980038e350dfc6af2b8ecb34dabe9e8397b38fcd662c4"},
+    "local-benchmark.json":{"bytes":583159,"sha256":"e50d04b419e02afbddf1768fde977ba88d19247a0582b3d969224ba446fc344e"},
+    "manifest.json":{"bytes":698,"sha256":"6f585f35a9b990e53d6abebeebbeea71fb780bde2c6f5e71fedec24e21643268"},
+    "mpmath-1.4.1-py3-none-any.whl":{"bytes":567787,"sha256":"dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f"},
+    "native-python.tar.gz":{"bytes":4726,"sha256":"522c5244a90922933f764498001824c1a736862c7260a29914236df7aa064f50"},
+    "native-sources.tar.gz":{"bytes":266117,"sha256":"6e3246dc9b682d00195683af14d0d34acdbca3222e89f6a86be3bc9430421703"},
+    "native-trace.json":{"bytes":7430,"sha256":"89fc8310683465f31d8bd725f262a5804a55a60268d48dfc8d7e3ab70903741e"},
+    "source-manifest.json":{"bytes":903,"sha256":"0a7b2bfd26627de4242ca9e34afe57f3ea3b1e88cbf3f784ea3665b9e323dbfe"},
+    "source.tar.gz":{"bytes":10425,"sha256":"8a952365752a3b16298cd90a7c2d85752462dde86cb32a42f9e635ebdf9481f2"}
+  },
+  "git_sha":"a3300b04f1c96c8256491aeb3986310fd1f1e259",
+  "url_prefix":"https://data.qscat.org/co-combined-exterior-20261017/"
+}

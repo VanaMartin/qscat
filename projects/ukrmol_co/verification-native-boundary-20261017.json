@@ -1,0 +1,181 @@
+{
+  "verified_utc": "2026-10-17T12:30:59.788973+00:00",
+  "native_source_sha256": {
+    "inner/source/gbtolib/source/gto_routines.f90": "c1fb391b74850e6ac36d3810ce78a5d0f7ca56785d6f14e642d89a9328d24505",
+    "inner/source/gbtolib/source/atomic_basis_mod.f90": "c077b647603bb5ff130e39c43577c4b7763e44a8c885ce9e3fedd1e28f494966",
+    "inner/source/gbtolib/source/molecular_basis_mod.f90": "be02d062ed32e5730d66a0ec3b49887dd314d907eb457b5556511a0a913e86ed",
+    "inner/source/gbtolib/source/ukrmol_interface.f90": "0b9108cfa8901e379f1f35e0bd5c9ab91e8eb375f5beb377f5c313ad28f905aa",
+    "inner/source/mpi-ci-diag/Modules/Utilities/Postprocessing_module.F90": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+    "outer/source/compak/rsolve_compak.f": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+    "outer/source/libouter/outerio.f": "7a2282ea90d42ad7f29ba3bf46809bef1ea1bcc9c4e4580f91bf1ef24d20ded1",
+    "build-provenance.json": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+    "inner/source/gbtolib/COPYING": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "inner/COPYING": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "outer/COPYING": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  "native_python_commit": "d621541bf215a03e516e47804e3623f6b60a4f21",
+  "native_python_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+    "projects/ukrmol_co/test_native_boundary.py": "89586d6ba401ece561dc7132ebddc3383f2a044be2b24b6a78f706f5348b1a9f",
+    "docs/physics/co-native-boundary-conventions.md": "0f8792659a193e04fc8fcffd863c93ea412207ff08711fc37c077f226f7f5d7b"
+  },
+  "literal_source_anchors": [
+    {
+      "path": "inner/source/gbtolib/source/ukrmol_interface.f90",
+      "sha256": "0b9108cfa8901e379f1f35e0bd5c9ab91e8eb375f5beb377f5c313ad28f905aa",
+      "literal": "amplitudes(lm,orbs_start:orbs_end)/sqrt(2.0_cfp)",
+      "matches": [
+        {
+          "line": 1176,
+          "text": "WAMPS(L,1:ncont(IRRCHL(L))) = amplitudes(lm,orbs_start:orbs_end)/sqrt(2.0_cfp)"
+        }
+      ]
+    },
+    {
+      "path": "inner/source/mpi-ci-diag/Modules/Utilities/Postprocessing_module.F90",
+      "sha256": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+      "literal": "call eval_amplitudes(this % r_points(ir), .false.)",
+      "matches": [
+        {
+          "line": 902,
+          "text": "call eval_amplitudes(this % r_points(ir), .false.)"
+        }
+      ]
+    },
+    {
+      "path": "inner/source/mpi-ci-diag/Modules/Utilities/Postprocessing_module.F90",
+      "sha256": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+      "literal": "if (ir < this % nfdm + 1) then",
+      "matches": [
+        {
+          "line": 968,
+          "text": "if (ir < this % nfdm + 1) then"
+        }
+      ]
+    },
+    {
+      "path": "inner/source/mpi-ci-diag/Modules/Utilities/Postprocessing_module.F90",
+      "sha256": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+      "literal": "this % wamp(ir) % CV = sqrt(2.0_wp) * this % wamp(ir) % CV",
+      "matches": [
+        {
+          "line": 969,
+          "text": "this % wamp(ir) % CV = sqrt(2.0_wp) * this % wamp(ir) % CV"
+        }
+      ]
+    },
+    {
+      "path": "inner/source/mpi-ci-diag/Modules/Utilities/Postprocessing_module.F90",
+      "sha256": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+      "literal": "solution % ci_vec % ei(i) + solution % core_energy",
+      "matches": [
+        {
+          "line": 1220,
+          "text": "write (lurmt, '(4D20.13)') (solution % ci_vec % ei(i) + solution % core_energy,i=1,nstat)"
+        },
+        {
+          "line": 1250,
+          "text": "write (lurmt) (solution % ci_vec % ei(i) + solution % core_energy,i=1,nstat)"
+        }
+      ]
+    },
+    {
+      "path": "inner/source/mpi-ci-diag/Modules/Utilities/Postprocessing_module.F90",
+      "sha256": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+      "literal": "cpl = 2.0_wp * fac",
+      "matches": [
+        {
+          "line": 1412,
+          "text": "cpl = 2.0_wp * fac * couplings % rgaunt(l1, lambda, l2, m1, mlambda, m2)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "sha256": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+      "literal": "ETOT  = e0+HALF*ENRYD",
+      "matches": [
+        {
+          "line": 611,
+          "text": "ETOT  = e0+HALF*ENRYD"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "sha256": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+      "literal": "WEN = 1.0D0/(EPOLE(K,IR)-ETOTR)",
+      "matches": [
+        {
+          "line": 1528,
+          "text": "WEN = 1.0D0/(EPOLE(K,IR)-ETOTR) ! for gemm"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "sha256": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+      "literal": "DF = FP(K,J,2)-BSTO(K)*F(K,J,2)",
+      "matches": [
+        {
+          "line": 2212,
+          "text": "DF = FP(K,J,2)-BSTO(K)*F(K,J,2)"
+        },
+        {
+          "line": 2320,
+          "text": "DF = FP(K,J,2)-BSTO(K)*F(K,J,2)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "sha256": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+      "literal": "VP = VP+CF(I,J,K)*RR**(K+1)",
+      "matches": [
+        {
+          "line": 2140,
+          "text": "VP = VP+CF(I,J,K)*RR**(K+1)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/outerio.f",
+      "sha256": "7a2282ea90d42ad7f29ba3bf46809bef1ea1bcc9c4e4580f91bf1ef24d20ded1",
+      "literal": "READ(LURMT) ((WAMP(I,J),I=1,NCHAN),J=1,nstat)",
+      "matches": [
+        {
+          "line": 184,
+          "text": "READ(LURMT) ((WAMP(I,J),I=1,NCHAN),J=1,nstat)"
+        }
+      ]
+    },
+    {
+      "path": "inner/source/gbtolib/source/gto_routines.f90",
+      "sha256": "c1fb391b74850e6ac36d3810ce78a5d0f7ca56785d6f14e642d89a9328d24505",
+      "literal": "r**(l+1)",
+      "matches": [
+        {
+          "line": 1016,
+          "text": "CGTO_amplitude = CGTO_amplitude*norm*sqrt(fourpi/(2*l+1.0_cfp))*r**(l+1)"
+        }
+      ]
+    }
+  ],
+  "source_trace_verdict": true,
+  "scope": "Source-derived uncorrected fixed-nuclei surface sum for zero-Bloch nine-A2 exports, with independent analytic free-box tests. Not native full-K or general nonzero-Bloch validation.",
+  "stored_amplitudes_include_inverse_sqrt_two": true,
+  "surface_writer_additional_sqrt_two": false,
+  "total_energy_denominator_unit": "Hartree",
+  "surface_matrix_units": "bohr",
+  "surface_matrix_formula": "Q(E)=W.T @ diag(1/(poles-total_hartree)) @ W; u=Q*u_prime for beta=0",
+  "multipole_coefficients_already_rydberg": true,
+  "additional_half_or_radius_division": false,
+  "native_deck_bloch": 0.0,
+  "general_nonzero_bloch_verdict": null,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "native_solves": 0,
+  "focused_tests_passed": 37
+}

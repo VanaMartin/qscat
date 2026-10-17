@@ -1,0 +1,22 @@
+{
+  "git_sha": "a3300b04f1c96c8256491aeb3986310fd1f1e259",
+  "native_python_git_sha": "d621541bf215a03e516e47804e3623f6b60a4f21",
+  "date": "2026-10-17",
+  "record_type": "combined-exterior-dtn-rejected-refinement-and-native-conventions",
+  "coupled_cases": 432,
+  "degenerate_controls": 4,
+  "checks_passed": 15,
+  "checks_total": 16,
+  "combined_exterior_dtn_verdict": false,
+  "failed_checks": [
+    "spectral_refinement"
+  ],
+  "original_command_exit": 1,
+  "original_container_exit": 1,
+  "native_source_trace_verdict": true,
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

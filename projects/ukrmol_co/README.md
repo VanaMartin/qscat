@@ -33,6 +33,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [saved K/S matrices and interface audit](SAVED_MATRICES.md),
 [physical outgoing-pole benchmark](PHYSICAL_POLE_BENCHMARK.md),
 [matrix tail/threshold controls](COUPLED_TAIL_BENCHMARK.md),
+[combined exterior refinement rejection](COMBINED_EXTERIOR_BENCHMARK.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -60,7 +61,22 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 12:18 UTC:** the
+**Update — 17 October, 12:35 UTC:** the
+[combined polar exterior study](COMBINED_EXTERIOR_BENCHMARK.md) completes
+**436 paired-method cases** but **rejects spectral refinement**: 7.91e-7 exceeds
+the frozen 1e-7 budget. Exactly three configurations fail, all at ε=30,L=80,
+θ=20°, including zero dipole. Finest agreement2.65e-9 and domain/contour passes
+do not override this gate. Original exits **1/1**, all cases and the rejection
+are publicly reconstructed from **twelve payloads**; no successor grid is run.
+
+The [native source trace](../../docs/physics/co-native-boundary-conventions.md)
+resolves the already absorbed sqrt(2), total-Hartree length-valued zero-Bloch
+surface sum and already-Rydberg multipoles. **37 focused tests pass**.
+Sadaharu cost **11.178 s / 0.073 GiB sampled**. Next is a separately justified
+resolution design, then full native K/asymptotic normalization checks before CO
+poles. Production remains gated.
+
+**Earlier update — 17 October, 12:18 UTC:** the
 [separate matrix tail/threshold controls](COUPLED_TAIL_BENCHMARK.md) pass
 **513 S matrices / 27 pole solves / twenty frozen checks**, with independent
 analytic oracles and three-rung convergence. Finest S-entry error is
@@ -213,10 +229,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: separate matrix tail and threshold controls pass; polar-tail cutoff remains consequential despite unitarity; combined native propagation remains gated](../../docs/physics/figures/co-progress-20261017T1218.png)
+![CO qualification: combined polar exterior rejects spectral refinement despite finest agreement; native surface normalization traced; full native K and poles remain gated](../../docs/physics/figures/co-progress-20261017T1235.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1218.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1218.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1235.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1235.json) ·
+[Combined exterior rejection](COMBINED_EXTERIOR_BENCHMARK.md) ·
+[Public combined evidence](qualification-evidence/combined-exterior/README.md) ·
 [Matrix tail/threshold results](COUPLED_TAIL_BENCHMARK.md) ·
 [Public matrix benchmark](qualification-evidence/coupled-tail/README.md) ·
 [Physical benchmark results](PHYSICAL_POLE_BENCHMARK.md) ·
@@ -251,6 +269,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous10:02overview](../../docs/physics/figures/co-progress-20261017T1002.png) ·
 [Previous11:27overview](../../docs/physics/figures/co-progress-20261017T1127.png) ·
 [Previous11:49overview](../../docs/physics/figures/co-progress-20261017T1149.png) ·
+[Previous12:18overview](../../docs/physics/figures/co-progress-20261017T1218.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -281,19 +300,20 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **12:18 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **12:35 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B now shows the polar-tail cutoff error that unitarity
-fails to detect. Panel F records separate matrix benchmark passes and the next
-combined unequal-threshold/polar-tail and native-normalization gates. Panels
-A/C/D/E retain reusable anchor, neutral, numerical and channel evidence. The
-earlier 94 wrong-width phase counterexamples and five-A2 interface failure remain
-preserved. Passing these toy controls does not qualify CO poles or production.
+**What changed:** panel B shows the combined unequal-threshold/polar-tail
+refinement rejection, including the original failed budget. Panel F records the
+native zero-Bloch source derivation and the next resolution/native-K decisions.
+Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
+Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
+wrong-width phase counterexamples and five-A2 interface failure remain preserved.
+CO poles and production remain gated.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component
