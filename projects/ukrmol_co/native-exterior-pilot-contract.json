@@ -1,0 +1,56 @@
+{
+  "mode": "native-pilot",
+  "status": "prospective equilibrium-B1 full-channel independent exterior reconstruction pilot",
+  "case": "equilibrium/nine/B1",
+  "expected_channels": 298,
+  "expected_poles": 2048,
+  "expected_open_channels": 6,
+  "native_energy_indices_zero_based": [0,48,98],
+  "requested_energies_ev": [0.1,2.5,5.0],
+  "steps_bohr": [0.1,0.05,0.025],
+  "endpoints_bohr": [100.0,200.0,400.0],
+  "tail_orders": [4,6,8],
+  "configuration_rule": "Three independent one-factor families share the finest point: vary step at endpoint400/order8; vary endpoint at step0.025/order8; vary series order at step0.025/endpoint400. Seven configurations per energy, 21 cases total. No Cartesian matrix or adaptive successors.",
+  "expected_cases": 21,
+  "threshold_degeneracy_rydberg": 1e-10,
+  "metadata_inventory": {
+    "maximum_within_group_spread_rydberg": 0.0,
+    "minimum_between_group_gap_rydberg": 0.0009880540000040128,
+    "distinct_thresholds": 33,
+    "native_reference_bprop": {"raf_bohr":100.0,"igail":1,"iasy_default":20,"eps_default":5e-5,"degeny_default":1e-5},
+    "interpretation": "Exact threshold grouping agrees with native DEGENY for this input. Close distinct closed thresholds can make a finite inverse-power column expansion poorly conditioned. The fixed order/endpoint families test that uncertainty; no higher order or larger endpoint follows automatically. Native defaults are provenance, not accuracy claims."
+  },
+  "finest_budgets": {
+    "native_k_error": 1e-6,
+    "native_s_error": 1e-6,
+    "native_phase_error_rad_mod_pi": 1e-6,
+    "unitarity_error": 1e-6,
+    "reciprocity_error": 1e-6
+  },
+  "refinement_s_absolute_budget": 1e-6,
+  "roundoff_floor": 1e-8,
+  "spatial_improvement_factor": 8,
+  "input_sha256": {
+    "equilibrium/nine/B1/fort.10": "c71f478c6539bd17b6e098d6ee174a85f2475410d67e0cadeee7bdd51e48f6db",
+    "equilibrium/nine/B1/fort.21": "665264fbdb5f4dca40248084feea77f68c2e4523fc46e7d9ad2ad1d6daaecdc8",
+    "equilibrium/nine/B1/fort.921": "e476be0c2723175d3105394fd36bf3bada2d520d2c4aa06cfd8a974d17bd1473",
+    "equilibrium/nine/B1/rsolve.inp": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab"
+  },
+  "solver_source_freeze": "0a9b0ce1b2d3f974b865f64ce2cc12b56b015423",
+  "synthetic_timing_source_archive_sha256": "4a59c08ec9073072a5cbddaecbedfb3e0bb163e6ffa0a50d376fde9a6e1ae733",
+  "resources": {
+    "physical_cpu_group": "0-3",
+    "blas_threads": 1,
+    "memory_gib": 4,
+    "estimated_wall_seconds": 976,
+    "estimated_wall_seconds_upper": 2000,
+    "timeout_seconds": 2400,
+    "cost_basis": "Synthetic 298-channel/100-interval kernel measured 0.479163s, command1.015079s, sampled kernel high-water82604032bytes on Sadaharu. The fixed pilot has203580 intervals; linear work extrapolation is975.5s, with a roughly twofold upper allowance for native coefficient/conditioning differences. Dense timing case matches native channel count; no native comparison was used to select settings."
+  },
+  "stopping_rule": "One fixed 21-case pilot. Preserve all cases, failures, journal, original scientific/container exits and sampled resources. False/unset stops without retry, altered budget, larger endpoint, higher order or automatic successors. A passing pilot does not release the full six-case/594-matrix reconstruction or CO poles.",
+  "native_data_read": true,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}
