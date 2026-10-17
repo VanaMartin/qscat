@@ -25,6 +25,11 @@ stretched provisionally passes. A three-anchor width curve remains unqualified.
 The subsequent [analytic identifiability audit](PHASE_IDENTIFIABILITY.md) finds
 94 wrong-width counterexamples despite 45/45 true-pole smooth controls passing;
 local phase fidelity/unitarity alone cannot justify a stronger width claim.
+The [saved-matrix audit](SAVED_MATRICES.md) now reconstructs all six nine-A2
+anchor/sector K-to-S cases, but the full twelve-case gate stops with six unset
+five-A2 interfaces: target-table rows are dense while channel labels retain
+original property IDs. Existing nine-A2 data support the next physical benchmark
+without a new inner solve; independent propagation/poles remain unqualified.
 
 ## 1. Finish trustworthy target inputs
 
@@ -169,11 +174,15 @@ that address those specific failures. Track relevant resonance features across
 neighboring geometries with phase/K-matrix evidence and consistent thresholds;
 electronic-state assignment alone does not establish resonance-pole identity.
 The completed prospective estimator stops at its three-anchor rejection.
-Before another saved-data fit, assess whether saved spectral/boundary exports and
-outer-channel information suffice for real-axis R/K/S reconstruction with the
-correct polar long-range boundary conditions. Declare solvable-model real-axis
-and complex-pole gates before CO use; record missing channel information before
-costing any new outer/export control. A new estimator needs independently
+The saved-data inventory now finds boundary/channel/multipole data and native
+open-open K samples already present. Six nine-A2 cases reproduce native phases
+to 4.94e-8 rad; six five-A2 strict interface readings stay unset on target IDs,
+preserving aggregate false and reader exit 1. Trace the five-A2 ID consumers and
+freeze any mapped decoder separately. Declare solvable-model real-axis/outgoing-
+pole gates, then a coupled polar-tail benchmark, before an independent outer
+propagator uses the saved nine-A2 data. Require full K-matrix reproduction and
+radius/step/tail controls before CO complex poles. No missing export currently
+justifies a new inner solve. A new estimator needs independently
 justified background/threshold/causal constraints or direct pole evidence,
 mandatory nonpolynomial known-truth controls, and frozen selection/unused-data
 rules. Preserve every earlier all-order/window rejection. Small held-phase

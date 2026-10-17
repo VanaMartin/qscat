@@ -1,0 +1,20 @@
+{
+  "git_sha": "343cc1baa0d0d2ea39e99772cd0094ac2893864d",
+  "date": "2026-10-17",
+  "record_type": "co-saved-real-axis-matrix-inventory",
+  "input_files_verified": 123,
+  "reader_source_files": 6,
+  "cases": 12,
+  "passing_nine_A2_cases": 6,
+  "unset_five_A2_cases": 6,
+  "saved_matrix_reproduction_verdict": false,
+  "original_command_exit": 1,
+  "original_container_exit": 1,
+  "host_local_case_verdict_parity": 12,
+  "maximum_host_local_matrix_metric_drift": 3.878616881766598e-14,
+  "native_solves": 0,
+  "independent_outer_propagation_verdict": null,
+  "complex_pole_verdict": null,
+  "full_sweep_released": false,
+  "scope": "Read-only K-to-S algebra and boundary inventory. Original false gate retained. Supplementary source/map diagnosis does not qualify five-A2 interfaces or change historical scientific verdicts."
+}

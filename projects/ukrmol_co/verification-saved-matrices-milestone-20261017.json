@@ -1,0 +1,48 @@
+{
+  "verified_utc": "2026-10-17T11:29:49.394760+00:00",
+  "overview_source_hashes_verified": 239,
+  "current_frozen_reader_source_hashes_verified": 6,
+  "local_documentation_links_verified": 508,
+  "public_pointer_manifest_digest_verified": true,
+  "public_payloads_verified": 10,
+  "raw_manifest_files_verified": 123,
+  "writer_source_and_deck_files_verified": 13,
+  "all12_case_verdicts_and_failures_reproduced": true,
+  "nine_A2_cases_passed": 6,
+  "five_A2_cases_unset": 6,
+  "original_aggregate_verdict": false,
+  "original_reader_command_container_exits": [
+    1,
+    1
+  ],
+  "published_source_map_diagnostic_reproduced": true,
+  "immutable_remote_hashes_verified": 149,
+  "installed_engine_artifacts_verified": 242,
+  "original_native_history": {
+    "compressed": {
+      "original_owner_exit": 0,
+      "original_native_stage_exit_zero_count": 16
+    },
+    "equilibrium": {
+      "original_owner_exit": 0,
+      "original_native_stage_exit_zero_count": 16
+    },
+    "stretched": {
+      "original_owner_exit": 1,
+      "original_native_stage_exit_zero_count": 16
+    }
+  },
+  "focused_tests_passed": 37,
+  "ruff_check_and_format_passed": true,
+  "visual_png_and_searchable_svg_checked": true,
+  "main_index_source_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_upstream_state": "current",
+  "main_index_refresh_state": "complete",
+  "local_branch_delta_against_main": "A\tdocs/physics/co-saved-scattering-matrices.md\nA\tprojects/ukrmol_co/progress_figure.py\nA\tprojects/ukrmol_co/saved-matrices-contract.json\nA\tprojects/ukrmol_co/saved_matrices.py\nA\tprojects/ukrmol_co/test_saved_matrices.py\n",
+  "co_jobs_running": 0,
+  "independent_outer_propagation_verdict": null,
+  "complex_pole_verdict": null,
+  "native_solves": 0,
+  "full_sweep_released": false
+}

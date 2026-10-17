@@ -1,0 +1,32 @@
+{
+  "verified_utc": "2026-10-17T11:25:34.260784+00:00",
+  "public_reconstruction_passed": true,
+  "public_payloads_verified": 10,
+  "public_payload_sha256": {
+    "container-inspect.json": "12cf07171961565f2ff990368b59083cb427d80e013ba53f35a6f0fab9e6a16e",
+    "execution.json": "101a9cf2f33e141cd88b2fd9678c9e5f6719f378705cc5d4b948055dc0e9d94d",
+    "host-matrices.json": "3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63",
+    "label-diagnosis.json": "fa9dfb1f84f2035b67beb4a15d69507d183abd8e59a4bef9249d8115c97fb263",
+    "local-matrices.json": "6f268099731913ef7d33a13af5f1ddf4ec6a0a6574b4a18fd9b1f0f2f51e55e9",
+    "manifest.json": "0d8759ba30e68853039418bbf01b07e81738cd02b82a3caf0c89ac87b7f7dd50",
+    "raw-inputs.tar.gz": "fddfba5a5a6bd16968722a33cd6a5939a8a3004a7571c6610d4c1d44e9b8cad2",
+    "source-manifest.json": "fe117a482d59549a251e1b2bfc4127a3e60f703850285f5f3c0c08ca1ca53490",
+    "source.tar.gz": "e47d1d89444ad9f86858f7cc5f8a576220c05deb658c3de7c93704d46fe490f4",
+    "writer-evidence.tar.gz": "0f67649d20ac8afaf2a02b805b2714e2c802d696105ce0ace85572d2826bc571"
+  },
+  "reader_source_files_verified": 6,
+  "raw_files_verified": 123,
+  "writer_source_and_decks_verified": 13,
+  "original_public_command_exit": 1,
+  "case_verdict_and_failure_parity": 12,
+  "saved_matrix_reproduction_verdict": false,
+  "passing_nine_A2_cases": 6,
+  "unset_five_A2_cases": 6,
+  "maximum_host_public_matrix_metric_drift": 3.878616881766598e-14,
+  "published_label_diagnostic_exit": 0,
+  "published_label_diagnostic_output": "compressed five B1 out-of-table channel labels: 6\ncompressed five B2 out-of-table channel labels: 6\ncompressed nine B1 out-of-table channel labels: 0\ncompressed nine B2 out-of-table channel labels: 0\nequilibrium five B1 out-of-table channel labels: 12\nequilibrium five B2 out-of-table channel labels: 12\nequilibrium nine B1 out-of-table channel labels: 0\nequilibrium nine B2 out-of-table channel labels: 0\nstretched five B1 out-of-table channel labels: 12\nstretched five B2 out-of-table channel labels: 12\nstretched nine B1 out-of-table channel labels: 0\nstretched nine B2 out-of-table channel labels: 0\n",
+  "independent_outer_propagation_verdict": null,
+  "complex_pole_verdict": null,
+  "native_solves": 0,
+  "full_sweep_released": false
+}

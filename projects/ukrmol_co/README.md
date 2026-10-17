@@ -30,6 +30,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [same-engine active-space reconstruction](qualification-evidence/same-engine-active-space/README.md),
 [prospective phase-extraction study](PHASE_EXTRACTION.md),
 [analytic width-identifiability audit](PHASE_IDENTIFIABILITY.md),
+[saved K/S matrices and interface audit](SAVED_MATRICES.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -57,7 +58,23 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 10:02 UTC:** the prospectively frozen, endpoint-isolated
+**Update — 17 October, 11:27 UTC:** the [saved-matrix audit](SAVED_MATRICES.md)
+recovers **594 six-channel S samples** from all three nine-A2 anchors in both
+Pi sectors, reproducing native eigenphase sums to **4.94e-8 rad**. Boundary
+poles/amplitudes, channel thresholds/labels and coupled long-range multipoles
+are already saved. No new inner solve is needed for the next physical benchmark.
+
+The full twelve-case gate **rejects**, preserving original reader/container
+exits **1/1**: six five-A2 interfaces stay unset because their channel target
+labels retain original property IDs while the selected target table is densely
+renumbered. A separate source/map diagnosis explains the discrepancy without
+replacing the gate or modifying native files. Independent outer propagation and
+complex poles remain unqualified. [Public replay](qualification-evidence/saved-matrices/README.md)
+verifies **ten payloads / 123 raw inputs / six reader sources**, all failures and
+the label diagnostic. Reader cost **0.664 s / 0.043 GiB sampled**; **37 focused
+tests pass**. Historical scientific rejections remain preserved.
+
+**Earlier update — 17 October, 10:02 UTC:** the prospectively frozen, endpoint-isolated
 [405-cell analytic audit](PHASE_IDENTIFIABILITY.md) finds **94 known-wrong-width
 counterexamples**, including compressed-like/equilibrium-like **10% width errors**
 with unused phase errors below **0.001 rad**. All **45 mandatory true-pole
@@ -168,10 +185,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: 94 known-wrong-width local phase counterexamples after endpoint-isolation repair; physical constraints needed; production gated](../../docs/physics/figures/co-progress-20261017T1002.png)
+![CO qualification: saved nine-A2 matrices reproduce; five-A2 target-label gate rejects; physical propagation and pole benchmarks needed](../../docs/physics/figures/co-progress-20261017T1127.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1002.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1002.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1127.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1127.json) ·
+[Saved matrix results](SAVED_MATRICES.md) ·
+[Public matrix reconstruction](qualification-evidence/saved-matrices/README.md) ·
 [Analytic identifiability results](PHASE_IDENTIFIABILITY.md) ·
 [Public identifiability reconstruction](qualification-evidence/phase-identifiability-endpoint/README.md) ·
 [Prospective extraction results](PHASE_EXTRACTION.md) ·
@@ -197,6 +216,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous15:16overview](../../docs/physics/figures/co-progress-20261016T1516.png) ·
 [Previous08:50overview](../../docs/physics/figures/co-progress-20261017T0850.png) ·
 [Previous09:32overview](../../docs/physics/figures/co-progress-20261017T0932.png) ·
+[Previous10:02overview](../../docs/physics/figures/co-progress-20261017T1002.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -227,21 +247,20 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **10:02 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **11:27 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B now shows the complete fixed audit's wrong-width
-counterexamples, while panels A/C/D/E retain reusable anchor, neutral, numerical
-and channel evidence. Panel F records the consequence: local prediction and
-unitarity alone do not identify widths; the next extraction design needs an
-independent physical constraint or direct pole evidence. All 45 true-pole smooth
-controls pass, but 94 wrong-width cases also pass the unused phase checks. The
-0.001-rad representation criterion is distinct from the 0.05-rad model-comparison
-budget. Original extraction/model rejections and unset global gates remain.
+**What changed:** panel F now records six passing nine-A2 matrix reconstructions,
+six unset five-A2 interfaces and the next physical benchmark gates. Panel B
+retains the 94 known-wrong-width counterexamples; panels A/C/D/E preserve reusable
+anchor, neutral, numerical and channel evidence. Saved K-to-S algebra is not
+independent outer propagation or pole identification. The actual coupled polar
+tail and original-ID target maps are consequential constraints. Original
+extraction/model rejections and unset global gates remain.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component

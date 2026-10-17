@@ -20,6 +20,64 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Saved nine-A2 matrices reproduce; five-A2 label gate stops — 17 October, 11:27 UTC
+
+**Existing nine-A2 data suffice for saved real-axis S reconstruction at all
+three anchors; the full twelve-case reader rejects.** Six nine-A2 cases pass,
+six five-A2 interface readings stay unset, and original reader/container exits
+**1/1** are preserved. See [results and physical next gate](SAVED_MATRICES.md),
+[quoted verification](verification-saved-matrices-20261017.json) and
+[public reconstruction](qualification-evidence/saved-matrices/README.md).
+
+Design/contract/source/tests were frozen at **`343cc1b` before reading**. The
+fixed matrix covers three anchors × five/nine-A2 × both Pi sectors. Six passing
+cases reconstruct **594 six-channel S samples**, agreeing with native eigenphase
+sums to **4.94e-8 rad modulo π**; Cayley/spectral, unitarity, reciprocity and
+determinant checks stay below **9.28e-14**. K stores one triangle, so this does
+not independently measure unsymmetrized native reciprocity or outer propagation.
+Nine-A2 interfaces contain 298 channels, 2048 truncated uncorrected poles, radius
+18 bohr and two finite nonzero 44,551-entry multipole matrices. Six ground-target
+angular channels are open on 0.1–5 requested-eV; the stretched first excited
+threshold is only **5.02524 requested-eV**. The full coupled polar tail matters.
+
+Five-A2 files declare 40 target rows but retain noncontiguous original property
+IDs in channel labels. IDs reach **42/43/43** at compressed/equilibrium/stretched;
+**6/12/12 channels per sector** exceed 40. A separate source/map diagnosis finds
+the writer retains original IDs in `get_channel_info` while `write_channel_info`
+densifies only the selected target table. Exact deck/pilot maps reproduce all
+thresholds after explicit original-ID lookup. This diagnosis does not replace
+the six unset strict readings, quantify historical phase error or correct the
+engine. Native-consumer impact and a prospectively mapped reader remain open.
+The declared study stops; there is no automatic reader repair or native rerun.
+
+Public replay verifies **ten payloads / 123 raw inputs / six reader sources /
+thirteen writer-source and deck files**, all twelve verdicts/failures and the
+published label diagnostic. Largest host/public matrix-metric drift is
+**3.88e-14**. Reader cost is **0.664 s / 0.043 GiB sampled kernel high-water**,
+reserved physical cores 0–3, one BLAS thread and 4-GiB limit. No native solve
+runs. Persistent records are in `prepared/saved-matrices-source-20261017/`;
+source archive SHA256 is
+`e47d1d89444ad9f86858f7cc5f8a576220c05deb658c3de7c93704d46fe490f4`.
+**37 focused tests pass.** The six-panel overview retains counterexample/channel
+evidence and now records the matrix result and failed interface gate.
+
+The [11:26 UTC host check](progress-saved-matrices-20261017.json) verifies
+**149 immutable remote hashes / 242 installed engine artifacts**, the original
+reader failure, all 48 original native stage exits zero, and original owner
+exits **0/0/1**. No CO job is running; `comfyui` remains active and persistent
+disk has **41.26 GiB** free. Main index is complete/current at
+`423d5770d3de337571f51e62702ae919bad97e8c`; new reader/design/renderer paths are
+branch-only and resolved against current source.
+
+**Next:** freeze a solvable physical real-axis/outgoing-pole benchmark and then
+a coupled polar-tail benchmark. Derive actual boundary/Bloch normalization and
+threshold sheet conventions before independent propagation of the saved
+nine-A2 inputs. Require full K-matrix reproduction and radius/step/tail controls
+before native complex-pole use. The data-availability audit gives no reason for
+a new inner solve/export. Trace five-A2 ID consumers separately before reusing
+that interface in a new calculation. Earlier extraction/channel/model
+rejections, neutral uncertainty and the production-pilot gates remain open.
+
 ### Width counterexamples establish a physical-design requirement — 17 October, 10:02 UTC
 
 **The endpoint-isolated analytic audit finds 94 known-wrong-width counterexamples while all

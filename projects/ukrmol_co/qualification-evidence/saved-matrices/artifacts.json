@@ -1,0 +1,16 @@
+{
+  "artifacts": {
+    "container-inspect.json": {"bytes":9026,"sha256":"12cf07171961565f2ff990368b59083cb427d80e013ba53f35a6f0fab9e6a16e"},
+    "execution.json": {"bytes":3467,"sha256":"101a9cf2f33e141cd88b2fd9678c9e5f6719f378705cc5d4b948055dc0e9d94d"},
+    "host-matrices.json": {"bytes":299622,"sha256":"3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63"},
+    "label-diagnosis.json": {"bytes":14106,"sha256":"fa9dfb1f84f2035b67beb4a15d69507d183abd8e59a4bef9249d8115c97fb263"},
+    "local-matrices.json": {"bytes":299605,"sha256":"6f268099731913ef7d33a13af5f1ddf4ec6a0a6574b4a18fd9b1f0f2f51e55e9"},
+    "manifest.json": {"bytes":828,"sha256":"0d8759ba30e68853039418bbf01b07e81738cd02b82a3caf0c89ac87b7f7dd50"},
+    "raw-inputs.tar.gz": {"bytes":53681680,"sha256":"fddfba5a5a6bd16968722a33cd6a5939a8a3004a7571c6610d4c1d44e9b8cad2"},
+    "source-manifest.json": {"bytes":665,"sha256":"fe117a482d59549a251e1b2bfc4127a3e60f703850285f5f3c0c08ca1ca53490"},
+    "source.tar.gz": {"bytes":7985,"sha256":"e47d1d89444ad9f86858f7cc5f8a576220c05deb658c3de7c93704d46fe490f4"},
+    "writer-evidence.tar.gz": {"bytes":23951,"sha256":"0f67649d20ac8afaf2a02b805b2714e2c802d696105ce0ace85572d2826bc571"}
+  },
+  "git_sha":"343cc1baa0d0d2ea39e99772cd0094ac2893864d",
+  "url_prefix":"https://data.qscat.org/co-saved-matrices-20261017/"
+}
