@@ -35,6 +35,11 @@ passes all 36 real-axis profiles and 81 solves against independent exact Jost/
 Lambert-W oracles, with three-rung convergence and no reseeding. This qualifies
 the scalar-shell boundary convention only; coupled polar tails and actual
 native amplitude normalization/threshold sheets remain open.
+The [separate matrix tail/threshold controls](COUPLED_TAIL_BENCHMARK.md) now pass
+513 S samples, 27 pole solves and twenty frozen checks. Tail truncation remains
+visible despite unitary matrices; wrong closed sheets/flux factors are detected.
+Combining unequal thresholds with polar tails and qualifying native normalization
+remain open before CO use.
 
 ## 1. Finish trustworthy target inputs
 
@@ -184,9 +189,11 @@ open-open K samples already present. Six nine-A2 cases reproduce native phases
 to 4.94e-8 rad; six five-A2 strict interface readings stay unset on target IDs,
 preserving aggregate false and reader exit 1. Trace the five-A2 ID consumers and
 freeze any mapped decoder separately. The scalar physical-shell gate now passes:
-maximum finest S/q errors are 2.584e-10/6.495e-12. Next declare a coupled polar-
-tail benchmark with open/closed thresholds and outgoing sheets, and derive the
-native amplitude/Bloch/energy normalization, before an independent outer
+maximum finest S/q errors are 2.584e-10/6.495e-12. Separate exact dipole-tail and
+unequal-threshold shell benchmarks also pass (finest matrix/q errors ≤6.895e-11/
+3.029e-12), including sheet and flux controls. Next combine noncommuting thresholds
+and polar tails under independent real/complex checks, and derive the native
+amplitude/Bloch/energy normalization, before an independent outer
 propagator uses saved nine-A2 data. Require full K-matrix reproduction and
 radius/step/tail controls before CO complex poles. No missing export currently
 justifies a new inner solve. A new estimator needs independently

@@ -1,0 +1,364 @@
+{
+  "verified_utc": "2026-10-17T12:14:41.772360+00:00",
+  "source_commit": "047524ee959154d6b9777caed27b2e812b9a6adb",
+  "source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "libs/qscat/qscat/__init__.py": "779279252f7e81043ab5332ca690d7e45960975a3e2d1a90e81ea69bd75f4ca5",
+    "libs/qscat/qscat/exceptions.py": "0aac3f1856612c86c10637b85eda54f9aacca1b36005540d2550717b3a30f237",
+    "libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+    "projects/ukrmol_co/physical_pole.py": "73e5243bf74cc3e7b42cd4d221affa18c6f3b13fefd3c1ede0fce228996df80f",
+    "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+    "projects/ukrmol_co/coupled_tail_study.py": "7a6d2cbdcfdbfcf175b783f3995488f33dcab48e27f57d138032e127f56e7a3d",
+    "projects/ukrmol_co/coupled-tail-contract.json": "b455e3c21221ebaf3c7f893577d7b40531995e70d067e420df81d06e6a76a515",
+    "projects/ukrmol_co/test_coupled_tail.py": "61ed2b51f11e4c77e64613fbd37f1131d54f4dffc433ac5636cee63739b8a336",
+    "docs/physics/co-coupled-tail-benchmark.md": "ba5a9eaf7b7cf1a9d52edddbcb2a4173338afd01b91ea1ed953e01a2fe8d6a52"
+  },
+  "separate_tail_threshold_benchmark_verdict": true,
+  "all_frozen_checks": {
+    "complete_fixed_matrix": true,
+    "oracle_precision": true,
+    "oracle_jost": true,
+    "decoupled_lambert_pole": true,
+    "outgoing_poles_not_cancelled": true,
+    "wrong_closed_sheet_detected": true,
+    "missing_flux_normalization_detected": true,
+    "tail_omission_is_visible": true,
+    "tail_cutoff_radius_improves": true,
+    "finest_matrix_accuracy": true,
+    "finest_unitarity_error": true,
+    "finest_reciprocity_error": true,
+    "all_root_statuses_success": true,
+    "all_outgoing_sheets": true,
+    "finest_q_error": true,
+    "finest_outgoing_residual": true,
+    "finest_position_error_ev": true,
+    "finest_full_width_error_ev": true,
+    "three_rung_convergence": true,
+    "finest_radius_q_invariance": true
+  },
+  "tail_matrix_samples": 189,
+  "tail_real_matrix_samples": 135,
+  "tail_complex_matrix_samples": 54,
+  "threshold_matrix_samples": 324,
+  "outgoing_pole_solves": 27,
+  "distinct_threshold_poles": 3,
+  "convergence": [
+    {
+      "ode_rtol": 1e-05,
+      "tail_s_entry_error": 3.115202153724638e-05,
+      "threshold_s_entry_error": 4.343229518216709e-05,
+      "threshold_q_error": 2.1854970079015958e-06
+    },
+    {
+      "ode_rtol": 1e-08,
+      "tail_s_entry_error": 3.1300709818500424e-08,
+      "threshold_s_entry_error": 7.659382406521296e-08,
+      "threshold_q_error": 3.6840284671704796e-09
+    },
+    {
+      "ode_rtol": 1e-11,
+      "tail_s_entry_error": 3.136928046261798e-11,
+      "threshold_s_entry_error": 6.894401842668578e-11,
+      "threshold_q_error": 3.028323785487257e-12
+    }
+  ],
+  "finest_matrix_entry_error": 6.894401842668578e-11,
+  "finest_unitarity_error": 2.139567415604797e-13,
+  "finest_reciprocity_error": 2.1915936092143506e-13,
+  "maximum_matching_condition_number_all_rungs": 90535.9681158106,
+  "finest_q_error": 3.028323785487257e-12,
+  "finest_position_error_ev": 9.125144213140895e-12,
+  "finest_full_width_error_ev": 5.327469458156149e-12,
+  "finest_jost_residual": 7.260556914460292e-12,
+  "finest_radius_q_spread": 1.3358046614212628e-15,
+  "oracle_precision_error": 1.0175264176765556e-60,
+  "oracle_jost_residual": 5.428231969803388e-90,
+  "oracle_minimum_incoming_jost": 1.587066334625248,
+  "oracle_decoupled_lambert_error": 1.1023512542894397e-91,
+  "cutoff_controls": [
+    {
+      "radius_ratio": 8.0,
+      "s_real": [
+        [
+          0.7077771843352116,
+          0.18108139726507685
+        ],
+        [
+          0.1810813972650768,
+          0.8828510475662409
+        ]
+      ],
+      "s_imag": [
+        [
+          -0.553403292150414,
+          0.4000072263548883
+        ],
+        [
+          0.40000722635488806,
+          -0.1666666560520952
+        ]
+      ],
+      "s_entry_error": 0.04887674366528141,
+      "matching_condition_number": 3.7018350956157406,
+      "open_channels": 2,
+      "real_axis": true,
+      "unitarity_error": 2.560785416795187e-16,
+      "reciprocity_error": 2.2887833992611187e-16
+    },
+    {
+      "radius_ratio": 32.0,
+      "s_real": [
+        [
+          0.7176571137697721,
+          0.19113048116940531
+        ],
+        [
+          0.1911304811694046,
+          0.8647198325078937
+        ]
+      ],
+      "s_imag": [
+        [
+          -0.5217119969442031,
+          0.4198261526728471
+        ],
+        [
+          0.4198261526728455,
+          -0.1986825406707599
+        ]
+      ],
+      "s_entry_error": 0.012100824604968176,
+      "matching_condition_number": 3.9599867913786992,
+      "open_channels": 2,
+      "real_axis": true,
+      "unitarity_error": 1.5678628486036155e-15,
+      "reciprocity_error": 1.764171984283214e-15
+    },
+    {
+      "radius_ratio": 128.0,
+      "s_real": [
+        [
+          0.7210208919491199,
+          0.19282037349257095
+        ],
+        [
+          0.1928203734925683,
+          0.8606881155216645
+        ]
+      ],
+      "s_imag": [
+        [
+          -0.5135134157530862,
+          0.42338298121285195
+        ],
+        [
+          0.4233829812128461,
+          -0.2068408146021287
+        ]
+      ],
+      "s_entry_error": 0.0030103450458667746,
+      "matching_condition_number": 4.2331408849207035,
+      "open_channels": 2,
+      "real_axis": true,
+      "unitarity_error": 5.734667483380432e-15,
+      "reciprocity_error": 6.397344083151129e-15
+    }
+  ],
+  "negative_closed_sheet_s_difference": 0.16101923464414147,
+  "negative_flux_s_difference": 0.10030640066119072,
+  "representative_threshold_poles": [
+    {
+      "coupling": 0.0,
+      "radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "completed": true,
+      "solver_success": true,
+      "solver_status": 1,
+      "solver_message": "The solution converged.",
+      "evaluations": 12,
+      "seed_q": [
+        2.841592653589793,
+        -0.2
+      ],
+      "q": [
+        2.8775774584605136,
+        -0.06651067249054587
+      ],
+      "oracle_q": [
+        2.8775774584575875,
+        -0.06651067248996889
+      ],
+      "q_error": 2.9824474419070364e-12,
+      "outgoing_residual": 7.254207723556802e-12,
+      "energy_hartree": [
+        0.16552056719769848,
+        -0.007655584476233784
+      ],
+      "position_ev": 4.504044085671585,
+      "full_width_ev": 0.4166381322431745,
+      "position_error_ev": 9.122878410075225e-12,
+      "full_width_error_ev": 4.037991492637351e-12,
+      "proper_outgoing_sheet": true
+    },
+    {
+      "coupling": 1.0,
+      "radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "completed": true,
+      "solver_success": true,
+      "solver_status": 1,
+      "solver_message": "The solution converged.",
+      "evaluations": 12,
+      "seed_q": [
+        2.841592653589793,
+        -0.2
+      ],
+      "q": [
+        2.8763772352455144,
+        -0.06710093494980171
+      ],
+      "oracle_q": [
+        2.87637723524259,
+        -0.06710093494920077
+      ],
+      "q_error": 2.985433813316672e-12,
+      "outgoing_residual": 6.945029775101645e-12,
+      "energy_hartree": [
+        0.1653808692793498,
+        -0.00772030407013199
+      ],
+      "position_ev": 4.500242711657639,
+      "full_width_ev": 0.4201603519776696,
+      "position_error_ev": 9.11079412705832e-12,
+      "full_width_error_ev": 4.189989114959368e-12,
+      "proper_outgoing_sheet": true
+    },
+    {
+      "coupling": 3.0,
+      "radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "completed": true,
+      "solver_success": true,
+      "solver_status": 1,
+      "solver_message": "The solution converged.",
+      "evaluations": 12,
+      "seed_q": [
+        2.841592653589793,
+        -0.2
+      ],
+      "q": [
+        2.866395527625603,
+        -0.07210381341470036
+      ],
+      "oracle_q": [
+        2.8663955276226774,
+        -0.07210381341392022
+      ],
+      "q_error": 3.02788753712547e-12,
+      "outgoing_residual": 4.5086683028543905e-12,
+      "energy_hartree": [
+        0.16422048721766236,
+        -0.008267121931865924
+      ],
+      "position_ev": 4.468667107184145,
+      "full_width_ev": 0.4499196960613642,
+      "position_error_ev": 9.067743868810593e-12,
+      "full_width_error_ev": 5.32728064123401e-12,
+      "proper_outgoing_sheet": true
+    }
+  ],
+  "host_local_all_checks_parity": true,
+  "host_local_all27_root_statuses_success": true,
+  "maximum_host_local_s_component_drift": 7.831929549340089e-13,
+  "maximum_host_local_q_drift": 7.596745665717786e-14,
+  "maximum_host_local_position_or_width_drift_ev": 2.3003821070233244e-13,
+  "execution": {
+    "started_utc": "2026-10-17T12:14:00.519741+00:00",
+    "source_commit": "047524ee959154d6b9777caed27b2e812b9a6adb",
+    "source_archive_sha256": "96e6abdd41403a82c1a7da816d5a77bad145ee661e9a3360808d35090dffd09b",
+    "source_manifest": {
+      "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+      "libs/qscat/qscat/__init__.py": "779279252f7e81043ab5332ca690d7e45960975a3e2d1a90e81ea69bd75f4ca5",
+      "libs/qscat/qscat/exceptions.py": "0aac3f1856612c86c10637b85eda54f9aacca1b36005540d2550717b3a30f237",
+      "libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+      "projects/ukrmol_co/physical_pole.py": "73e5243bf74cc3e7b42cd4d221affa18c6f3b13fefd3c1ede0fce228996df80f",
+      "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+      "projects/ukrmol_co/coupled_tail_study.py": "7a6d2cbdcfdbfcf175b783f3995488f33dcab48e27f57d138032e127f56e7a3d",
+      "projects/ukrmol_co/coupled-tail-contract.json": "b455e3c21221ebaf3c7f893577d7b40531995e70d067e420df81d06e6a76a515",
+      "projects/ukrmol_co/test_coupled_tail.py": "61ed2b51f11e4c77e64613fbd37f1131d54f4dffc433ac5636cee63739b8a336",
+      "docs/physics/co-coupled-tail-benchmark.md": "ba5a9eaf7b7cf1a9d52edddbcb2a4173338afd01b91ea1ed953e01a2fe8d6a52"
+    },
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_memory": "               total        used        free      shared  buff/cache   available\nMem:     132578123776 17874395136  3521531904  1139417088 113133969408 114703728640\nSwap:    31998341120  2688745472 29309595648\n",
+    "persistent_free_disk_gib": 41.249454498291016,
+    "preexisting_containers": "comfyui Up 3 weeks\n",
+    "scope": "Separate physical matrix dipole tail and threshold-sheet controls; no native data, solve, combined-tail or CO pole qualification.",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-coupled-tail-20261017",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "PYTHONPATH=/source:/source/libs/qscat:/dependencies",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/coupled-tail-source-20261017/source:/source:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/coupled-tail-source-20261017:/outputs",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/coupled-tail-source-20261017/dependencies:/dependencies:ro",
+      "-w",
+      "/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.coupled_tail_study",
+      "--contract",
+      "projects/ukrmol_co/coupled-tail-contract.json",
+      "--output",
+      "/outputs/benchmark.json"
+    ],
+    "dependency": {
+      "package": "mpmath",
+      "version": "1.4.1",
+      "wheel": "mpmath-1.4.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/13/f2/abeec3db71d221ccd3cd89d206be1fabf5a3ee7178862f5fba23a59607e0/mpmath-1.4.1-py3-none-any.whl",
+      "sha256": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+      "bytes": 567787,
+      "preflight_original_exit": 1,
+      "preflight_original_error": "ModuleNotFoundError: No module named 'mpmath'",
+      "action": "Pure Python wheel checksum-verified and extracted into isolated read-only dependency mount; pinned native engine/image unchanged.",
+      "preflight_provenance": "Reused original physical-pole dependency preflight; no new dependency failure asserted for this study.",
+      "verified_previous_source_directory": "prepared/physical-pole-source-20261017"
+    },
+    "original_command_exit": 0,
+    "wall_seconds": 1.7657568999566138,
+    "finished_utc": "2026-10-17T12:14:02.296083+00:00",
+    "resource_sample_count": 7,
+    "sample_interval_seconds": 0.2,
+    "sampled_peak_container_memory_bytes": 53641216,
+    "sampled_kernel_memory_peak_bytes": 53641216,
+    "sampled_container_cpu_seconds": 1.216222,
+    "original_container_exit": 0
+  },
+  "focused_tests_passed": 31,
+  "native_data_read": false,
+  "native_solves": 0,
+  "combined_unequal_threshold_polar_tail_verdict": null,
+  "native_boundary_normalization_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

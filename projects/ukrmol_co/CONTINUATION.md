@@ -20,6 +20,70 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Separate polar-tail and threshold-sheet controls pass — 17 October, 12:18 UTC
+
+**All twenty frozen checks pass:** **189 dipole-tail matrices** (135 real,
+54 complex), **324 unequal-threshold matrices**, **27 outgoing pole solves**
+and three finite-tail cutoff controls. The two physical models are tested
+separately. Source/design/tests/contract were frozen at **`047524e` before the
+complete matrix**; no root reseeding or tolerance changes occur. Original
+scientific command/container exits are **0/0**. See [results](COUPLED_TAIL_BENCHMARK.md),
+[design](../../docs/physics/co-coupled-tail-benchmark.md),
+[verification](verification-coupled-tail-20261017.json) and
+[public evidence](qualification-evidence/coupled-tail/README.md).
+
+The first model is a hard-wall l=1,2, |m|=1 dipole tail with common threshold:
+exact noninteger-order Hankel boundary values versus original-basis matrix ODE
+propagation. The second has unequal thresholds and a noncommuting real shell:
+independent cotangent/Schur scattering and high-precision analytic Jost poles
+versus regular-column integration and open/decaying-closed boundary matching.
+The decoupled pole matches the earlier Lambert-W oracle. Complex incoming waves
+use analytic Hankel2; unitarity is required only on the real axis.
+
+Three ODE rungs give maximum tail S errors
+**3.11520e-5 → 3.13007e-8 → 3.13693e-11**, threshold S errors
+**4.34323e-5 → 7.65938e-8 → 6.89440e-11**, and pole q errors
+**2.18550e-6 → 3.68403e-9 → 3.02832e-12**. Finest position/full-width errors
+are ≤**9.126e-12 / 5.328e-12 eV**, below 0.1-meV budgets. Finest unitarity/
+reciprocity errors ≤2.140e-13/2.192e-13; matching condition number reaches
+**90,536**, while radius q spread stays ≤1.336e-15. All 27 root statuses succeed.
+
+**Consequential observations:** omitting the dipole tail beyond B/a=8/32/128
+gives S-entry errors **0.0488767 / 0.0121008 / 0.00301035**, while each truncated
+matrix remains unitary within 6e-15. Choosing a growing rather than decaying
+closed wave changes S by **0.161019**; missing relative flux factors changes it
+by **0.100306**. In the toy threshold model, c=0→3 closed coupling changes a
+one-open-channel pole width by about **8%**. These are toy controls, not CO
+uncertainty bounds. Unitarity and open-channel count alone cannot settle them.
+
+Public replay verifies **nine payloads / eleven source files**, all twenty
+checks, all matrices, all 27 root statuses and all three cutoff controls.
+Maximum host/public S-component/q/position-or-width drifts are
+**7.84e-13 / 7.60e-14 / 2.31e-13 eV**. Sadaharu cost **1.766 s / 0.050 GiB
+sampled kernel high-water**, cores 0–3 reserved, one BLAS thread and 4-GiB limit.
+The existing pinned mpmath wheel is reused read-only; its earlier preflight
+exit 1 retains explicit provenance rather than becoming a new failure.
+**31 focused tests pass**. No native data is read or native solve launched.
+Persistent source/output directory: `prepared/coupled-tail-source-20261017/`;
+source archive SHA256
+`96e6abdd41403a82c1a7da816d5a77bad145ee661e9a3360808d35090dffd09b`.
+
+The [12:17 UTC host check](progress-coupled-tail-20261017.json) verifies
+**21 new immutable hashes / 169 previous hashes / 242 installed artifacts**.
+No CO job runs; unrelated `comfyui` remains active and persistent disk has
+**41.25 GiB** free. The six-panel overview now plots the consequential unitary
+tail-cutoff error and preserves native/channel/neutral evidence.
+
+**Next:** combine noncommuting unequal thresholds and polar tails under
+independent real/complex-energy controls. Derive actual native amplitude/Bloch
+and Hartree/Rydberg normalization before consuming CO boundary data; require
+full native K reconstruction and radius/step/tail controls before CO poles.
+These two separate passes do not qualify the combined problem. Five-A2 interface
+failure, native extraction/channel/model rejections, continuity and neutral
+uncertainty remain; production stays gated. Main index is complete/current at
+`423d5770d3de337571f51e62702ae919bad97e8c`; these benchmark paths are branch-only
+and resolved locally.
+
 ### First physical outgoing-pole benchmark passes — 17 October, 11:49 UTC
 
 **The real radial-shell benchmark passes all nineteen frozen checks:**

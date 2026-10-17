@@ -1,0 +1,20 @@
+{
+  "git_sha": "047524ee959154d6b9777caed27b2e812b9a6adb",
+  "date": "2026-10-17",
+  "record_type": "co-separate-matrix-tail-threshold-benchmarks",
+  "source_files": 11,
+  "tail_matrix_samples": 189,
+  "threshold_matrix_samples": 324,
+  "outgoing_pole_solves": 27,
+  "cutoff_controls": 3,
+  "separate_tail_threshold_benchmark_verdict": true,
+  "original_command_exit": 0,
+  "original_container_exit": 0,
+  "native_data_read": false,
+  "native_solves": 0,
+  "combined_unequal_threshold_polar_tail_verdict": null,
+  "native_boundary_normalization_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false,
+  "scope": "Independent analytic controls for degenerate-threshold dipole tail and unequal-threshold coupled shell, tested separately; not a combined native CO propagator or native pole qualification."
+}
