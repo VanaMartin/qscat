@@ -1,0 +1,18 @@
+{
+  "status":"prospective read-only inventory and saved-K-to-S validation; no native solve or complex pole search",
+  "anchors":["compressed","equilibrium","stretched"],
+  "models":["five","nine"],"sectors":["B1","B2"],
+  "expected_cases":12,"expected_energy_points":99,"expected_open_channels":6,
+  "expected_boundary_poles":2048,"expected_boundary_channels":{"five":250,"nine":298},
+  "expected_target_components":{"five":40,"nine":48},
+  "expected_multipole_orders":2,"expected_radius_bohr":18.0,
+  "requested_energy_start_ev":0.1,"requested_energy_step_ev":0.05,
+  "native_rydberg_per_requested_ev":0.0735,
+  "native_phase_reproduction_budget_rad_mod_pi":1e-6,
+  "matrix_algebra_absolute_budget":1e-10,"grid_requested_ev_absolute_budget":5e-5,
+  "metadata_absolute_budget":1e-10,
+  "stopping_rule":"Retain every case and failure. A malformed input or false/unset reproduction gate exits nonzero without fits, new native solves, exports or automatic successors.",
+  "scope":"Reconstruction from native K matrices is independent algebra/format reading, not independent outer propagation, original full-matrix symmetry measurement, channel convergence, omitted-spectrum bound or pole identification.",
+  "resources":{"physical_cpu_group":"0-3","blas_threads":1,"memory_gib":4,"timeout_seconds":300},
+  "native_solves":0,"complex_pole_search_released":false,"full_sweep_released":false
+}
