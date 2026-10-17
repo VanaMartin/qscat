@@ -1,0 +1,48 @@
+{
+  "observed_utc": "2026-10-17T12:47:36.694418+00:00",
+  "remote_sha256": {
+    "prepared/combined-resolution-source-20261017/source/projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/combined-resolution-source-20261017/source/projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "prepared/combined-resolution-source-20261017/source/projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+    "prepared/combined-resolution-source-20261017/source/projects/ukrmol_co/combined_exterior.py": "9d5ae9070f9fc8989db097f2b4bba589e9f92b0ea9ddfad0c387b1d8eb7290d4",
+    "prepared/combined-resolution-source-20261017/source/projects/ukrmol_co/combined_exterior_study.py": "63b1a13157b4ec8b447ef0d9569afa6b4a71ffc23d4b2caa1e0eaa9c5406f596",
+    "prepared/combined-resolution-source-20261017/source/projects/ukrmol_co/combined-exterior-contract.json": "ed7c267b8693b4dc00cd853f8754f2dd1bd58cb60f69b86685c4214db8b8f93b",
+    "prepared/combined-resolution-source-20261017/source/projects/ukrmol_co/test_combined_exterior.py": "6fdcad50a09c9b0069a3878d867c3efe32459aee21238bd7352e9e0a891de73b",
+    "prepared/combined-resolution-source-20261017/source/projects/ukrmol_co/combined-exterior-resolution-contract.json": "6d99459c3eac6d3c6dd34c5aef147064ea403a2c9651c08b0ba92a132df68e30",
+    "prepared/combined-resolution-source-20261017/source/docs/physics/co-combined-exterior-benchmark.md": "1806cbff4193d14f58ff458d8b85392d7384e1f0d63d74181db5d902a13e1311",
+    "prepared/combined-resolution-source-20261017/source/docs/physics/co-combined-exterior-resolution.md": "30f20e0a2f436c0234a346284dfee9b479a6d793d9eea4b16fef11f6aeb3843f",
+    "prepared/combined-resolution-source-20261017/source.tar.gz": "0288572953b78abc8ab7b63ba0506b074baa31b19b532af56605d6f41a8090a1",
+    "prepared/combined-resolution-source-20261017/source-manifest.json": "a924fada2290de0d333e52d31912af8c0c847b172f1eb4b07e53d3c572f9cc25",
+    "prepared/combined-resolution-source-20261017/dependency.json": "63aad552abcba48a79e8b00f4168fa1d9e454997b7d51b355134abb0ede9e1ae",
+    "prepared/combined-resolution-source-20261017/benchmark.json": "0cbcf0bedb3ac7958e93d509b6cc6da7429d737e939ffacf9a7fa2027e3df99f",
+    "prepared/combined-resolution-source-20261017/execution.json": "e8ad0c25545825d8625cd177d9cb5161ed685df7891ba49b72fd5bfb8246f596",
+    "prepared/combined-resolution-source-20261017/container-inspect.json": "344101fd6af4839f19b6174a466e2e0f1ed0b4aeba77bc6e52dce973c4f16064",
+    "prepared/combined-resolution-source-20261017/mpmath-1.4.1-py3-none-any.whl": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+    "prepared/combined-resolution-source-20261017/verification-combined-resolution-20261017.json": "3a6bc8e114d6e136b5842f6cc764e255755179cf2ab07268759f58729d97bfe7",
+    "prepared/combined-resolution-source-20261017/verification-combined-resolution-public-20261017.json": "43b61a5ce9ebdf23e22300372bcf86beff3e4547f3472ab2217dc6bab93e3533",
+    "prepared/combined-resolution-source-20261017/COMBINED_EXTERIOR_RESOLUTION.md": "7cffea3ecf04097e946286fd1ce74c78c2a1786a061d6e7af8cdf46aa379863a"
+  },
+  "new_immutable_remote_hashes_verified": 20,
+  "previous_immutable_remote_hashes_reverified": 218,
+  "installed_engine_artifacts_verified": 242,
+  "original_scientific_command_container_exits": [
+    0,
+    0
+  ],
+  "combined_resolution_dtn_verdict": true,
+  "checks_passed": 16,
+  "completed_cases": 436,
+  "parent_combined_exterior_dtn_verdict": false,
+  "parent_command_container_exits": [
+    1,
+    1
+  ],
+  "co_jobs_running": 0,
+  "containers": "comfyui Up 3 weeks\n",
+  "persistent_free_disk_gib": 41.24366760253906,
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

@@ -1,0 +1,63 @@
+{
+  "verified_utc": "2026-10-17T12:46:47.195141+00:00",
+  "public_reconstruction_passed": true,
+  "public_payloads_verified": 9,
+  "public_payload_sha256": {
+    "benchmark.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "container-inspect.json": "344101fd6af4839f19b6174a466e2e0f1ed0b4aeba77bc6e52dce973c4f16064",
+    "dependency.json": "63aad552abcba48a79e8b00f4168fa1d9e454997b7d51b355134abb0ede9e1ae",
+    "execution.json": "e8ad0c25545825d8625cd177d9cb5161ed685df7891ba49b72fd5bfb8246f596",
+    "host-benchmark.json": "0cbcf0bedb3ac7958e93d509b6cc6da7429d737e939ffacf9a7fa2027e3df99f",
+    "manifest.json": "123bea072fac49d9ee4a7b61e6caea0f20c3a3505cafba23650457a809c39d79",
+    "mpmath-1.4.1-py3-none-any.whl": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+    "source-manifest.json": "a924fada2290de0d333e52d31912af8c0c847b172f1eb4b07e53d3c572f9cc25",
+    "source.tar.gz": "0288572953b78abc8ab7b63ba0506b074baa31b19b532af56605d6f41a8090a1"
+  },
+  "benchmark_source_files_verified": 10,
+  "public_command_exit": 0,
+  "combined_exterior_dtn_verdict": true,
+  "all16_checks_reproduced": true,
+  "checks_passed": 16,
+  "case_parity": 432,
+  "analytic_control_parity": 4,
+  "all_cases_completed": true,
+  "maximum_host_public_y_component_drift": 4.185304014470148e-08,
+  "maximum_finest_host_public_y_component_drift": 2.832336082336795e-08,
+  "public_refinement": {
+    "ode": {
+      "coarse_to_middle": 6.589313913511822e-05,
+      "middle_to_finest": 2.4086707627265887e-08
+    },
+    "spectral": {
+      "coarse_to_middle": 7.909912495085398e-07,
+      "middle_to_finest": 3.1763365072448235e-08
+    }
+  },
+  "public_domain_contour": {
+    "ode": {
+      "all_endpoint_angle_spread": 1.6016121203032342e-09,
+      "successive_endpoint_differences": [
+        1.5896449518765345e-09,
+        8.94517104356393e-12
+      ]
+    },
+    "spectral": {
+      "all_endpoint_angle_spread": 4.0104273057675596e-08,
+      "successive_endpoint_differences": [
+        4.0104273057675596e-08,
+        1.6984533425295186e-08
+      ]
+    }
+  },
+  "public_maximum_finest_method_difference": 3.259098427133964e-08,
+  "parent_original_rejection_preserved": true,
+  "parent_original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "native_data_read": false,
+  "native_solves": 0,
+  "full_sweep_released": false
+}

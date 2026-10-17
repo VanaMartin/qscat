@@ -1,0 +1,261 @@
+{
+  "checks": {
+    "complete_matrix": true,
+    "analytic_oracle_precision": true,
+    "finest_method_agreement": true,
+    "analytic_limits": true,
+    "ode_refinement": true,
+    "ode_domain_contour": true,
+    "ode_real_transpose_symmetry": true,
+    "ode_real_flux_positivity": true,
+    "spectral_refinement": true,
+    "spectral_domain_contour": true,
+    "spectral_real_transpose_symmetry": true,
+    "spectral_real_flux_positivity": true,
+    "omitted_dipole_detected": true,
+    "omitted_derivative_rotation_detected": true,
+    "wrong_incoming_open_sheet_detected": true,
+    "all_rotated_momenta_decay": true
+  },
+  "reference_precision_error": 4.872792397877925e-61,
+  "maximum_finest_method_difference": 4.349811378373606e-08,
+  "maximum_finest_analytic_error": 1.5963680365715466e-09,
+  "maximum_spectral_condition_inf": 469162699.6170931,
+  "maximum_spectral_residual": 1.4915262525228176e-08,
+  "refinement": {
+    "ode": {
+      "coarse_to_middle": 6.589313790409126e-05,
+      "middle_to_finest": 2.4087410709361676e-08
+    },
+    "spectral": {
+      "coarse_to_middle": 7.909906582705102e-07,
+      "middle_to_finest": 4.2812918312328994e-08
+    }
+  },
+  "domain_contour": {
+    "ode": {
+      "all_endpoint_angle_spread": 1.6016126141292358e-09,
+      "successive_endpoint_differences": [
+        1.589645601941677e-09,
+        8.946059239959391e-12
+      ]
+    },
+    "spectral": {
+      "all_endpoint_angle_spread": 5.206194242133552e-08,
+      "successive_endpoint_differences": [
+        4.957659791400954e-08,
+        2.3060830088926425e-08
+      ]
+    }
+  },
+  "negative_controls": {
+    "omitted_dipole": 0.18003417485013948,
+    "omitted_derivative_rotation": 2.1470878665410833,
+    "wrong_incoming_open_sheet": 5.028314888437671
+  },
+  "combined_exterior_dtn_verdict": true,
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false,
+  "contract_sha256": "6d99459c3eac6d3c6dd34c5aef147064ea403a2c9651c08b0ba92a132df68e30",
+  "verified_utc": "2026-10-17T12:45:32.930758+00:00",
+  "source_commit": "db2158af320948163103074e4781dc9f1b645445",
+  "source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+    "projects/ukrmol_co/combined_exterior.py": "9d5ae9070f9fc8989db097f2b4bba589e9f92b0ea9ddfad0c387b1d8eb7290d4",
+    "projects/ukrmol_co/combined_exterior_study.py": "63b1a13157b4ec8b447ef0d9569afa6b4a71ffc23d4b2caa1e0eaa9c5406f596",
+    "projects/ukrmol_co/combined-exterior-contract.json": "ed7c267b8693b4dc00cd853f8754f2dd1bd58cb60f69b86685c4214db8b8f93b",
+    "projects/ukrmol_co/test_combined_exterior.py": "6fdcad50a09c9b0069a3878d867c3efe32459aee21238bd7352e9e0a891de73b",
+    "projects/ukrmol_co/combined-exterior-resolution-contract.json": "6d99459c3eac6d3c6dd34c5aef147064ea403a2c9651c08b0ba92a132df68e30",
+    "docs/physics/co-combined-exterior-benchmark.md": "1806cbff4193d14f58ff458d8b85392d7384e1f0d63d74181db5d902a13e1311",
+    "docs/physics/co-combined-exterior-resolution.md": "30f20e0a2f436c0234a346284dfee9b479a6d793d9eea4b16fef11f6aeb3843f"
+  },
+  "completed_cases": 436,
+  "original_scientific_command_container_exits": [
+    0,
+    0
+  ],
+  "parent_combined_exterior_dtn_verdict": false,
+  "parent_original_command_container_exits": [
+    1,
+    1
+  ],
+  "largest_spectral_changes": [
+    {
+      "epsilon": [
+        15.9,
+        0.0
+      ],
+      "dipole": 1.2,
+      "endpoint": 40.0,
+      "angle_degrees": 35.0,
+      "degree256_to512_change": 4.2812918312328994e-08,
+      "finest_method_difference": 4.181972288578226e-08
+    },
+    {
+      "epsilon": [
+        16.1,
+        0.0
+      ],
+      "dipole": 1.2,
+      "endpoint": 40.0,
+      "angle_degrees": 20.0,
+      "degree256_to512_change": 4.136251333773914e-08,
+      "finest_method_difference": 4.349811378373606e-08
+    },
+    {
+      "epsilon": [
+        16.1,
+        0.0
+      ],
+      "dipole": 1.2,
+      "endpoint": 40.0,
+      "angle_degrees": 35.0,
+      "degree256_to512_change": 3.611441102276907e-08,
+      "finest_method_difference": 3.40585136296336e-08
+    },
+    {
+      "epsilon": [
+        22.0,
+        0.0
+      ],
+      "dipole": 1.2,
+      "endpoint": 40.0,
+      "angle_degrees": 35.0,
+      "degree256_to512_change": 3.117532802982146e-08,
+      "finest_method_difference": 2.9155673289591867e-08
+    },
+    {
+      "epsilon": [
+        18.0,
+        -0.2
+      ],
+      "dipole": 1.2,
+      "endpoint": 40.0,
+      "angle_degrees": 20.0,
+      "degree256_to512_change": 2.9144500414833105e-08,
+      "finest_method_difference": 2.742313525362789e-08
+    }
+  ],
+  "parent_failed_configurations": [
+    {
+      "epsilon": [
+        30.0,
+        0.0
+      ],
+      "dipole": 1.2,
+      "endpoint": 80.0,
+      "angle_degrees": 20.0,
+      "degree256_to512_change": 1.0436011489694202e-10,
+      "finest_method_difference": 1.2037981494588218e-10
+    },
+    {
+      "epsilon": [
+        30.0,
+        0.0
+      ],
+      "dipole": 0.4,
+      "endpoint": 80.0,
+      "angle_degrees": 20.0,
+      "degree256_to512_change": 1.5139560399506382e-12,
+      "finest_method_difference": 1.570551737759969e-12
+    },
+    {
+      "epsilon": [
+        30.0,
+        0.0
+      ],
+      "dipole": 0.0,
+      "endpoint": 80.0,
+      "angle_degrees": 20.0,
+      "degree256_to512_change": 1.1387414847558894e-12,
+      "finest_method_difference": 3.303429008932931e-12
+    }
+  ],
+  "independent_public_reconstruction_passed": true,
+  "execution": {
+    "started_utc": "2026-10-17T12:44:03.896810+00:00",
+    "source_commit": "db2158af320948163103074e4781dc9f1b645445",
+    "source_archive_sha256": "0288572953b78abc8ab7b63ba0506b074baa31b19b532af56605d6f41a8090a1",
+    "source_manifest": {
+      "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+      "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+      "projects/ukrmol_co/combined_exterior.py": "9d5ae9070f9fc8989db097f2b4bba589e9f92b0ea9ddfad0c387b1d8eb7290d4",
+      "projects/ukrmol_co/combined_exterior_study.py": "63b1a13157b4ec8b447ef0d9569afa6b4a71ffc23d4b2caa1e0eaa9c5406f596",
+      "projects/ukrmol_co/combined-exterior-contract.json": "ed7c267b8693b4dc00cd853f8754f2dd1bd58cb60f69b86685c4214db8b8f93b",
+      "projects/ukrmol_co/test_combined_exterior.py": "6fdcad50a09c9b0069a3878d867c3efe32459aee21238bd7352e9e0a891de73b",
+      "projects/ukrmol_co/combined-exterior-resolution-contract.json": "6d99459c3eac6d3c6dd34c5aef147064ea403a2c9651c08b0ba92a132df68e30",
+      "docs/physics/co-combined-exterior-benchmark.md": "1806cbff4193d14f58ff458d8b85392d7384e1f0d63d74181db5d902a13e1311",
+      "docs/physics/co-combined-exterior-resolution.md": "30f20e0a2f436c0234a346284dfee9b479a6d793d9eea4b16fef11f6aeb3843f"
+    },
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_memory": "               total        used        free      shared  buff/cache   available\nMem:     132578123776 17906929664  3477245952  1139765248 113146486784 114671194112\nSwap:    31998341120  2688745472 29309595648\n",
+    "persistent_free_disk_gib": 41.24424362182617,
+    "preexisting_containers": "comfyui Up 3 weeks\n",
+    "scope": "Combined unequal-threshold dipole-tail outgoing exterior DtN; no native input, S normalization or pole qualification.",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-combined-resolution-20261017",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "PYTHONPATH=/source:/dependencies",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/combined-resolution-source-20261017/source:/source:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/combined-resolution-source-20261017:/outputs",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/combined-resolution-source-20261017/dependencies:/dependencies:ro",
+      "-w",
+      "/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.combined_exterior_study",
+      "--contract",
+      "projects/ukrmol_co/combined-exterior-resolution-contract.json",
+      "--output",
+      "/outputs/benchmark.json"
+    ],
+    "dependency": {
+      "package": "mpmath",
+      "version": "1.4.1",
+      "wheel": "mpmath-1.4.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/13/f2/abeec3db71d221ccd3cd89d206be1fabf5a3ee7178862f5fba23a59607e0/mpmath-1.4.1-py3-none-any.whl",
+      "sha256": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+      "bytes": 567787,
+      "preflight_original_exit": 1,
+      "preflight_original_error": "ModuleNotFoundError: No module named 'mpmath'",
+      "action": "Pure Python wheel checksum-verified and extracted into isolated read-only dependency mount; pinned native engine/image unchanged.",
+      "preflight_provenance": "Reused original physical-pole dependency preflight; no new dependency failure asserted for this study.",
+      "verified_previous_source_directory": "prepared/physical-pole-source-20261017"
+    },
+    "original_command_exit": 0,
+    "wall_seconds": 33.610625598579645,
+    "finished_utc": "2026-10-17T12:44:37.517863+00:00",
+    "resource_sample_count": 166,
+    "sample_interval_seconds": 0.2,
+    "sampled_peak_container_memory_bytes": 138727424,
+    "sampled_kernel_memory_peak_bytes": 138727424,
+    "sampled_container_cpu_seconds": 33.063754,
+    "original_container_exit": 0
+  },
+  "focused_tests_passed": 6
+}

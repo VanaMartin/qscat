@@ -20,6 +20,50 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Bounded combined-exterior resolution family passes — 17 October, 12:48 UTC
+
+**The separately justified degree128/256/512 family passes all sixteen checks**
+at unchanged1e-7 budgets. All **432 paired-method cases + four analytic controls**
+complete, scientific command/container exits **0/0**. Design/contract were frozen
+at **`db2158a` before execution**; the runner and both numerical methods are
+unchanged. See [results](COMBINED_EXTERIOR_RESOLUTION.md),
+[design](../../docs/physics/co-combined-exterior-resolution.md),
+[contract](combined-exterior-resolution-contract.json),
+[verification](verification-combined-resolution-20261017.json) and
+[public replay](verification-combined-resolution-public-20261017.json).
+The original degree64/128/256 study remains false, with exits1/1.
+
+Spectral successive changes are **7.90991e-7→4.28129e-8**; final method/analytic
+differences are **4.34982e-8 / 1.59637e-9**. Spectral domain/contour spread is
+**5.20620e-8**. The original three ε=30,L=80,θ=20° misses now change by
+≤**1.044e-10**, while the largest new change occurs near the upper threshold,
+ε=15.9,d=1.2,L=40,θ=35°. Degree512 raises condition/residual maxima to
+**4.692e8 / 1.492e-8**; finest method/domain discrepancies increase relative to
+degree256 despite passing. Further degree growth is not assumed beneficial.
+
+Fresh public replay verifies **nine payloads / ten source files / all436 cases**,
+all sixteen checks and exit0. Maximum all-rung/finest host-public Y-component
+drifts are **4.18531e-8 / 2.83234e-8**. Six focused combined-exterior/native
+analytic tests pass. Sadaharu costs **33.6106s / 0.1292GiB sampled kernel
+high-water**,166 samples at0.2s,cores0–3 reserved,one BLAS thread,4-GiB limit.
+The prospective90-second estimate and300-second cap are respected. Source/output:
+`prepared/combined-resolution-source-20261017/`; source archive SHA256
+`0288572953b78abc8ab7b63ba0506b074baa31b19b532af56605d6f41a8090a1`.
+
+The [12:47 UTC host check](progress-combined-resolution-20261017.json) verifies
+**20 new remote hashes /218 previous hashes /242 installed artifacts**.
+No CO job runs; unrelated `comfyui` remains active; persistent free disk is
+**41.24GiB**. No observer or automatic successor is active.
+
+**Next:** prospectively design independent full saved-native **open-open K**
+reconstruction using the derived zero-Bloch length-valued surface map and
+Hartree/Rydberg conventions. Freeze all-matrix reproduction, radius/step/tail,
+closed-channel and Gailitis-amplitude normalization controls before native use.
+The toy two-channel inverse-square pass does not qualify the native298-channel
+inverse-square/inverse-cube exterior or CO poles. Saved nine-A2 exports suffice;
+no new inner solve is justified. Five-A2 interface, extraction/model/channel,
+continuity and neutral-domain gates remain; production stays gated.
+
 ### Combined exterior gate rejects; native surface convention traced — 17 October, 12:35 UTC
 
 **The combined boundary-map study rejects its frozen refinement gate.** All

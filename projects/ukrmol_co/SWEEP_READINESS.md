@@ -46,6 +46,15 @@ grid is automatic. A [native source trace](../../docs/physics/co-native-boundary
 resolves the already absorbed sqrt(2), total-Hartree length-valued zero-Bloch
 sum and already-Rydberg multipoles. Full native K normalization remains open.
 
+The separately frozen [bounded resolution control](COMBINED_EXTERIOR_RESOLUTION.md)
+passes all sixteen checks with degrees128/256/512 and unchanged1e-7 budgets.
+The final spectral change is4.28129e-8; all436 cases complete, exits0/0.
+The parent rejection remains. Increased condition estimate4.692e8 and finest
+domain/method differences5.207e-8/4.350e-8 limit the interpretation. Next is a
+prospectively specified independent saved-native open-open K reconstruction,
+including radius/step/tail, closed-channel and Gailitis-normalization controls.
+No missing export justifies a new inner solve; native K/poles remain unset.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

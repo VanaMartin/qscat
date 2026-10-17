@@ -34,6 +34,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [physical outgoing-pole benchmark](PHYSICAL_POLE_BENCHMARK.md),
 [matrix tail/threshold controls](COUPLED_TAIL_BENCHMARK.md),
 [combined exterior refinement rejection](COMBINED_EXTERIOR_BENCHMARK.md),
+[bounded exterior resolution control](COMBINED_EXTERIOR_RESOLUTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -61,7 +62,22 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 12:35 UTC:** the
+**Update — 17 October, 12:48 UTC:** the separately frozen
+[combined-exterior resolution family](COMBINED_EXTERIOR_RESOLUTION.md) passes
+**all sixteen checks /436 cases** using degrees128/256/512 and unchanged1e-7
+budgets. Final spectral change is **4.28129e-8**, method difference4.34982e-8
+and domain/contour spread5.20620e-8. Original scientific/container exits **0/0**
+and the parent's rejection/exits1/1 are preserved separately.
+
+[Fresh public replay](qualification-evidence/combined-resolution/README.md)
+verifies nine payloads/ten sources/all cases and reproduces the pass. Six focused
+analytic tests pass. Sadaharu cost **33.6106s /0.1292GiB sampled**. Degree512
+increases conditioning and finest method/domain discrepancies despite passing;
+further degree growth is not assumed beneficial. Next is a prospective full
+saved-native open-open K reconstruction with radius/step/tail, closed-channel and
+Gailitis-normalization controls. Native K, CO poles and production remain gated.
+
+**Earlier update — 17 October, 12:35 UTC:** the
 [combined polar exterior study](COMBINED_EXTERIOR_BENCHMARK.md) completes
 **436 paired-method cases** but **rejects spectral refinement**: 7.91e-7 exceeds
 the frozen 1e-7 budget. Exactly three configurations fail, all at ε=30,L=80,
@@ -229,10 +245,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: combined polar exterior rejects spectral refinement despite finest agreement; native surface normalization traced; full native K and poles remain gated](../../docs/physics/figures/co-progress-20261017T1235.png)
+![CO qualification: bounded combined-exterior resolution passes at unchanged budgets; original rejection retained; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1248.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1235.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1235.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1248.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1248.json) ·
+[Bounded resolution results](COMBINED_EXTERIOR_RESOLUTION.md) ·
+[Public resolution evidence](qualification-evidence/combined-resolution/README.md) ·
 [Combined exterior rejection](COMBINED_EXTERIOR_BENCHMARK.md) ·
 [Public combined evidence](qualification-evidence/combined-exterior/README.md) ·
 [Matrix tail/threshold results](COUPLED_TAIL_BENCHMARK.md) ·
@@ -270,6 +288,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous11:27overview](../../docs/physics/figures/co-progress-20261017T1127.png) ·
 [Previous11:49overview](../../docs/physics/figures/co-progress-20261017T1149.png) ·
 [Previous12:18overview](../../docs/physics/figures/co-progress-20261017T1218.png) ·
+[Previous12:35overview](../../docs/physics/figures/co-progress-20261017T1235.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -300,16 +319,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **12:35 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **12:48 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B shows the combined unequal-threshold/polar-tail
-refinement rejection, including the original failed budget. Panel F records the
-native zero-Bloch source derivation and the next resolution/native-K decisions.
+**What changed:** panel B shows the separately frozen degree128/256/512 pass,
+retaining the parent's failed change as the coarse→middle diagnostic. Panel F
+records its scope and the next independent native-K/normalization decision.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.

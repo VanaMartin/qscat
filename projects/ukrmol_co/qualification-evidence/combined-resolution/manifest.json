@@ -1,0 +1,21 @@
+{
+  "git_sha": "db2158af320948163103074e4781dc9f1b645445",
+  "date": "2026-10-17",
+  "record_type": "bounded-combined-exterior-spectral-resolution-control",
+  "combined_exterior_dtn_verdict": true,
+  "checks_passed": 16,
+  "checks_total": 16,
+  "completed_cases": 436,
+  "original_command_exit": 0,
+  "original_container_exit": 0,
+  "parent_verdict": false,
+  "parent_command_container_exits": [
+    1,
+    1
+  ],
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}
