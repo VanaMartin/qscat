@@ -1,0 +1,1820 @@
+{
+  "verified_utc": "2026-10-17T08:39:57.903576+00:00",
+  "reader_source_sha256": "1bae2c8c59aca5d80909fb96efc025595e88ba0a77f73c09b4171f377aec4b7a",
+  "checksum_verified_files": 73,
+  "raw_file_manifest": {
+    "contract.json": {
+      "sha256": "05a121d982b710b191d8b230bfaa2ea1e79b5de7591a584ddc11f788a856fc58",
+      "bytes": 8867
+    },
+    "execution.json": {
+      "sha256": "2d993b327738ddebc0bbca76df0043e5cc0bc462ad5e5834fbc8d723fa9ea1d7",
+      "bytes": 14147
+    },
+    "source-provenance.json": {
+      "sha256": "e1478d2918a312f4de051b97fde9a99621508cb594c05911cd9dabd0b8995408",
+      "bytes": 498
+    },
+    "frozen-inputs.json": {
+      "sha256": "210a1d9a5c1a1244783ce1d9cd0ede52eb3cb533b2267561758268eb9154d942",
+      "bytes": 16829
+    },
+    "prelaunch-input-check.json": {
+      "sha256": "7a5a0f858852032abb1b34543a13fdc34c031239db49682866f1d142da6862ce",
+      "bytes": 11042
+    },
+    "observer-execution.json": {
+      "sha256": "549ff0b59a185ca4d42e1d73e27d03c132701e716c635b88ed24107706c56859",
+      "bytes": 537
+    },
+    "channel-input-gate.json": {
+      "sha256": "76b4f64c57e9832d84a7322e181fd778a1db3dcbfaee3cffbde26a1f2f847204",
+      "bytes": 1820
+    },
+    "baseline-qualification.json": {
+      "sha256": "c142b4361f436d8604959a5ac3b6c60f77478fc57fb653ff7668186fde270f01",
+      "bytes": 23838
+    },
+    "independent-comparison.json": {
+      "sha256": "b6bc6ff7ff4c2f2234bd01d60392ded4905f360ca5543a791740c1958e98c79b",
+      "bytes": 23835
+    },
+    "independent-target-reading.json": {
+      "sha256": "85dff9a56e8274edf31ed688839c0f17eaa31245031b2102463f8dd80feca173",
+      "bytes": 10425
+    },
+    "dense/pilot.json": {
+      "sha256": "e7f69e93c736d0bc9586d849423f86e49d5509778a38d0835c436d0a70459ccc",
+      "bytes": 1892
+    },
+    "dense/resources.json": {
+      "sha256": "7c836bd1195727c1266fbbabc2d53d7b9a38c89402257562bb8391179a4834b9",
+      "bytes": 472
+    },
+    "dense/B1/rsolve.inp": {
+      "sha256": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+      "bytes": 1716
+    },
+    "dense/B1/eigenp.inp": {
+      "sha256": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+      "bytes": 600
+    },
+    "dense/B1/reson.inp": {
+      "sha256": "d0298b4965ebb4ed3673d2dceaca86c85b4181f5feac2c5409ccb4b9616e40b2",
+      "bytes": 1246
+    },
+    "dense/B1/reson.out": {
+      "sha256": "f92b04f2397aa2cfbbbf04d6dc8c0250670cdc8f92826494d0f0437d76a82014",
+      "bytes": 4122
+    },
+    "dense/B1/fort.1021": {
+      "sha256": "694dcddc1acb82551b4f9292efa067b05f4c1f7882844806d5f228361371ea5c",
+      "bytes": 3087
+    },
+    "dense/B2/rsolve.inp": {
+      "sha256": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2",
+      "bytes": 1716
+    },
+    "dense/B2/eigenp.inp": {
+      "sha256": "6482d9fba07a9e7e6f04f7b8e9f28f09f140c8b2d798692cafac0a2c77dc2f45",
+      "bytes": 600
+    },
+    "dense/B2/reson.inp": {
+      "sha256": "d4e0823ab6138c4e42b8c856062b9dfea53f8f3610a05c7cc48cab995c77f75b",
+      "bytes": 1246
+    },
+    "dense/B2/reson.out": {
+      "sha256": "37a16ad487d2fe1e531435fadeb5380dbbd4893ebb1f1f4a813131a3d018ba10",
+      "bytes": 4122
+    },
+    "dense/B2/fort.1022": {
+      "sha256": "b733c3a3500e2a9d74f6c47a6641e50aa75d87e426c99f304226baf56103ba11",
+      "bytes": 3087
+    },
+    "five/pilot.json": {
+      "sha256": "ec569a30e9e88e58e03947b1582b4e02e84c3ba25d59a872b241b4d50346af0c",
+      "bytes": 3553
+    },
+    "five/resources.json": {
+      "sha256": "c94ca9b8221a12337088d771398556509f02b0cd3992804c7c611e1693c7b164",
+      "bytes": 488
+    },
+    "five/B1/rsolve.inp": {
+      "sha256": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+      "bytes": 1716
+    },
+    "five/B1/eigenp.inp": {
+      "sha256": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+      "bytes": 600
+    },
+    "five/B1/reson.inp": {
+      "sha256": "d0298b4965ebb4ed3673d2dceaca86c85b4181f5feac2c5409ccb4b9616e40b2",
+      "bytes": 1246
+    },
+    "five/B1/reson.out": {
+      "sha256": "93b8d10582cc9ffb7f2add12829cd4cb2c646db5af8c84356a6d17ef24d5b710",
+      "bytes": 4122
+    },
+    "five/B1/fort.1021": {
+      "sha256": "b85b006d451c3c3a1cdf6eb3424cbf96758bd90cb83c652ea79dcfedf0fbb621",
+      "bytes": 3087
+    },
+    "five/B1/scatci.inp": {
+      "sha256": "42c73b26995f79e8d479a3d7fb84bd57610cf1e5269a14972b70380229dda5ed",
+      "bytes": 2037
+    },
+    "five/B1/fort.21": {
+      "sha256": "bd734e7b78b4942a479252184d16f4d71e6e78c9758a0ce8f99001f070512e79",
+      "bytes": 4614688
+    },
+    "five/B1/fort.25": {
+      "sha256": "e63ea691c6902a6521bdfb4b0b1d3e8ec86e06c0eb392a3e4732324972a14949",
+      "bytes": 23591864
+    },
+    "five/B1/fort.24": {
+      "sha256": "3e2dfec650e7ce4e71d10dd8c4e462535da9d3abac92cbf9e8d6c735cad3c505",
+      "bytes": 43483
+    },
+    "five/B1/eps-telemetry.jsonl": {
+      "sha256": "389ec9186b7eb33d3671c6c881257ccf87818f24f009f3649f6053c34a6f2f0a",
+      "bytes": 179887
+    },
+    "five/B1/scatci.out": {
+      "sha256": "f9371389b4888a14956217a64b929652f7e27aacc2492f8526bf04f697bfb113",
+      "bytes": 82486
+    },
+    "five/B2/rsolve.inp": {
+      "sha256": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2",
+      "bytes": 1716
+    },
+    "five/B2/eigenp.inp": {
+      "sha256": "6482d9fba07a9e7e6f04f7b8e9f28f09f140c8b2d798692cafac0a2c77dc2f45",
+      "bytes": 600
+    },
+    "five/B2/reson.inp": {
+      "sha256": "d4e0823ab6138c4e42b8c856062b9dfea53f8f3610a05c7cc48cab995c77f75b",
+      "bytes": 1246
+    },
+    "five/B2/reson.out": {
+      "sha256": "af950eba21f00f2c6734f27320eca596959a24dcd2fe6cf1a6edb5c3320d6bda",
+      "bytes": 4122
+    },
+    "five/B2/fort.1022": {
+      "sha256": "aa37265cf94163bb9258ab60e95714109d5a9bd8e5609090df9e5e838f4dbdfa",
+      "bytes": 3087
+    },
+    "five/B2/scatci.inp": {
+      "sha256": "e346831604b533513733cc17fec27f763e63747034ccb1f50be2e311d497486b",
+      "bytes": 2037
+    },
+    "five/B2/fort.21": {
+      "sha256": "287c5f6c37aa13bcfae8568a546c1b52543c0236679960f2baa3eaf3e08ae4f2",
+      "bytes": 4614688
+    },
+    "five/B2/fort.25": {
+      "sha256": "d4d080d8158f72d5499b6ca3293ce5ec4b16ca8b4601f93c5ae129161e3a1d00",
+      "bytes": 23591864
+    },
+    "five/B2/fort.24": {
+      "sha256": "3e2dfec650e7ce4e71d10dd8c4e462535da9d3abac92cbf9e8d6c735cad3c505",
+      "bytes": 43483
+    },
+    "five/B2/eps-telemetry.jsonl": {
+      "sha256": "6965a55622b0bc8492727c2ccabb8167f07a5695c0f8ddb01a9309b0d3292fc6",
+      "bytes": 180251
+    },
+    "five/B2/scatci.out": {
+      "sha256": "2405e9a62185080f263c1de0cfa058effdca4d17cc03774f127a2869442a4231",
+      "bytes": 82486
+    },
+    "nine/pilot.json": {
+      "sha256": "849a998ff6b1322a738ff31843bf2eccb7c0720f7597ce1af8a4c7426b2851bf",
+      "bytes": 3619
+    },
+    "nine/resources.json": {
+      "sha256": "e4d6f3f546bee88ec6f4a2d34aaabe998686bccaf3a6a26c1c1fc066b3f7a956",
+      "bytes": 481
+    },
+    "nine/B1/rsolve.inp": {
+      "sha256": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+      "bytes": 1716
+    },
+    "nine/B1/eigenp.inp": {
+      "sha256": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+      "bytes": 600
+    },
+    "nine/B1/reson.inp": {
+      "sha256": "d0298b4965ebb4ed3673d2dceaca86c85b4181f5feac2c5409ccb4b9616e40b2",
+      "bytes": 1246
+    },
+    "nine/B1/reson.out": {
+      "sha256": "101d9c8c2955d7f6d5bc74683d7ab5c31d08a865971c20db4df37157b6ed5bcc",
+      "bytes": 4135
+    },
+    "nine/B1/fort.1021": {
+      "sha256": "0ee47e9527c7a67ee0d4b968631916dc1a60b383a4c88fe1db186e22987a77f5",
+      "bytes": 3087
+    },
+    "nine/B1/scatci.inp": {
+      "sha256": "a415c6f3bb4c8655163375c8638abe4c9d97c3d40cebd868b55b56ab2ce1a616",
+      "bytes": 2093
+    },
+    "nine/B1/fort.21": {
+      "sha256": "4d307ab2671f63e9433b06cb5ea011aa39eae2df9532e9bfcbe3880ab6daf6cf",
+      "bytes": 5611936
+    },
+    "nine/B1/fort.25": {
+      "sha256": "3f71a8b0e945ba5dced99684915c3c3027972245aa1c9085739f65e001790da2",
+      "bytes": 28052664
+    },
+    "nine/B1/fort.24": {
+      "sha256": "3e2dfec650e7ce4e71d10dd8c4e462535da9d3abac92cbf9e8d6c735cad3c505",
+      "bytes": 43483
+    },
+    "nine/B1/eps-telemetry.jsonl": {
+      "sha256": "99195452dfc83b6a6251d8d44daffe3219259545db9281a82b03cd4612e88b58",
+      "bytes": 178439
+    },
+    "nine/B1/scatci.out": {
+      "sha256": "89992a20085f4444798d61edfd03050800f776ca702a047328bbdcace87d0927",
+      "bytes": 85975
+    },
+    "nine/B2/rsolve.inp": {
+      "sha256": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2",
+      "bytes": 1716
+    },
+    "nine/B2/eigenp.inp": {
+      "sha256": "6482d9fba07a9e7e6f04f7b8e9f28f09f140c8b2d798692cafac0a2c77dc2f45",
+      "bytes": 600
+    },
+    "nine/B2/reson.inp": {
+      "sha256": "d4e0823ab6138c4e42b8c856062b9dfea53f8f3610a05c7cc48cab995c77f75b",
+      "bytes": 1246
+    },
+    "nine/B2/reson.out": {
+      "sha256": "50fccca100b9a934cd87aa32d3969ccfa33f2d8d5d162f412601b788a71c439d",
+      "bytes": 4135
+    },
+    "nine/B2/fort.1022": {
+      "sha256": "f0cc9135c8e48bda19f1295edfe17a4765ad97934a1b731d009afc089a516076",
+      "bytes": 3087
+    },
+    "nine/B2/scatci.inp": {
+      "sha256": "42f9eeca122c7f6e3125ac7df69321c00206decda05d97af7e0bc269fb91e14e",
+      "bytes": 2093
+    },
+    "nine/B2/fort.21": {
+      "sha256": "6641ce768cc3109fb57bfc0456ce491a4f7a2a1537b1c6e23efa872e8ad1a45f",
+      "bytes": 5611936
+    },
+    "nine/B2/fort.25": {
+      "sha256": "cd5675b734b9b5d91bc643e95368d3a2f3b70456e14d4c09a6a47cd5d31837d2",
+      "bytes": 28052664
+    },
+    "nine/B2/fort.24": {
+      "sha256": "3e2dfec650e7ce4e71d10dd8c4e462535da9d3abac92cbf9e8d6c735cad3c505",
+      "bytes": 43483
+    },
+    "nine/B2/eps-telemetry.jsonl": {
+      "sha256": "597d4687a29ec698e023390fae84167ac11100665c0fa5300614f4e5d9bebda0",
+      "bytes": 178502
+    },
+    "nine/B2/scatci.out": {
+      "sha256": "373afc5c1c016658f2d3f5e97f152f9abc03efca1f88aa381f4f451c5af14462",
+      "bytes": 85975
+    },
+    "original/B1/scatci.inp": {
+      "sha256": "c6a1f7a1b7030397191d73aac24dd7bfa1ffa6bf49b15ff179e6dcbfb16ac4f2",
+      "bytes": 1663
+    },
+    "original/B2/scatci.inp": {
+      "sha256": "b2e65a7ad80914ad67a32aecbbaf5d6f638db3a6b291e263481b11dccb643b94",
+      "bytes": 1663
+    },
+    "shared-input-audit.json": {
+      "sha256": "000590a9247ffeea354bd0b50fcdd0aa310d703ebb9448283f752ce9745e7b78",
+      "bytes": 2543
+    }
+  },
+  "original_controller_exit": 0,
+  "owner_finished_utc": "2026-10-16T16:55:18.732905+00:00",
+  "observer_original_exit": 0,
+  "observer_capture_count": 9,
+  "dense_resources": {
+    "exit_code": 0,
+    "wall_seconds": 254.88257208280265,
+    "sampled_peak_container_memory_bytes": 479100928,
+    "baseline_container_memory_bytes": 47423488,
+    "sampled_peak_container_anon_bytes": 358600704,
+    "kernel_peak_container_memory_bytes": 479346688,
+    "container_cpu_seconds": 255.275434,
+    "sampled_peak_run_allocated_bytes": 111947776,
+    "sampled_peak_scratch_allocated_bytes": 0,
+    "memory_sample_interval_seconds": 0.2,
+    "disk_sample_interval_seconds": 2.0
+  },
+  "selected_raw_reading": {
+    "five": {
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 5944.545732760802,
+        "sampled_peak_container_memory_bytes": 6298705920,
+        "baseline_container_memory_bytes": 47550464,
+        "sampled_peak_container_anon_bytes": 4450582528,
+        "kernel_peak_container_memory_bytes": 6454419456,
+        "container_cpu_seconds": 45805.473033999995,
+        "sampled_peak_run_allocated_bytes": 1500803072,
+        "sampled_peak_scratch_allocated_bytes": 208896,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "sectors": {
+        "B1": {
+          "export_checks_passed": true,
+          "maximum_native_residual_hartree": 1.350279363763418e-10,
+          "energy_range_hartree": [
+            -112.8535499365355,
+            -109.09262379262535
+          ],
+          "boundary_energy_error_hartree": 0.0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.14032447,
+              "width_hartree": 0.084639415
+            }
+          ],
+          "native_maxfit_diagnostic": false,
+          "spectral_truncation_verdict": null,
+          "observable_qualification_verdict": null,
+          "solver_selection": {
+            "matrix_type": "mpisbaij",
+            "solver_type": "krylovschur",
+            "dimension": 27546,
+            "requested": 2048,
+            "ncv": 2548,
+            "mpd": 500,
+            "converged": 2070,
+            "iterations": 68,
+            "reason": 1,
+            "which": 1,
+            "nz_used": 44462201,
+            "nz_allocated": 72156148,
+            "mallocs": 12545,
+            "petsc_reported_memory_bytes": 0
+          },
+          "original_stages": [
+            {
+              "name": "scatci",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 2872.239671945572
+            },
+            {
+              "name": "rsolve",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 123.82018661499023
+            },
+            {
+              "name": "eigenp",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.015604972839355469
+            },
+            {
+              "name": "reson",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.015446901321411133
+            }
+          ]
+        },
+        "B2": {
+          "export_checks_passed": true,
+          "maximum_native_residual_hartree": 1.3305307444116409e-10,
+          "energy_range_hartree": [
+            -112.8535499365355,
+            -109.09262379262529
+          ],
+          "boundary_energy_error_hartree": 0.0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.14032447,
+              "width_hartree": 0.084639415
+            }
+          ],
+          "native_maxfit_diagnostic": false,
+          "spectral_truncation_verdict": null,
+          "observable_qualification_verdict": null,
+          "solver_selection": {
+            "matrix_type": "mpisbaij",
+            "solver_type": "krylovschur",
+            "dimension": 27546,
+            "requested": 2048,
+            "ncv": 2548,
+            "mpd": 500,
+            "converged": 2074,
+            "iterations": 68,
+            "reason": 1,
+            "which": 1,
+            "nz_used": 44072452,
+            "nz_allocated": 72138733,
+            "mallocs": 11384,
+            "petsc_reported_memory_bytes": 0
+          },
+          "original_stages": [
+            {
+              "name": "scatci",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 2822.616851091385
+            },
+            {
+              "name": "rsolve",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 124.56146955490112
+            },
+            {
+              "name": "eigenp",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.015624046325683594
+            },
+            {
+              "name": "reson",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.015506744384765625
+            }
+          ]
+        }
+      },
+      "pi_phase_difference_rad_mod_pi": 0.0,
+      "target_map": [
+        1,
+        11,
+        17,
+        21,
+        27,
+        6,
+        8,
+        34,
+        37,
+        42,
+        4,
+        15,
+        25,
+        28,
+        33,
+        2,
+        14,
+        18,
+        24,
+        31,
+        5,
+        16,
+        26,
+        29,
+        32,
+        3,
+        13,
+        19,
+        23,
+        30,
+        10,
+        12,
+        22,
+        38,
+        40,
+        7,
+        9,
+        20,
+        35,
+        36
+      ]
+    },
+    "nine": {
+      "resources": {
+        "exit_code": 0,
+        "wall_seconds": 6578.252369139809,
+        "sampled_peak_container_memory_bytes": 7395151872,
+        "baseline_container_memory_bytes": 47804416,
+        "sampled_peak_container_anon_bytes": 4833181696,
+        "kernel_peak_container_memory_bytes": 7780077568,
+        "container_cpu_seconds": 49413.74196,
+        "sampled_peak_run_allocated_bytes": 1511878656,
+        "sampled_peak_scratch_allocated_bytes": 208896,
+        "memory_sample_interval_seconds": 0.2,
+        "disk_sample_interval_seconds": 2.0
+      },
+      "sectors": {
+        "B1": {
+          "export_checks_passed": true,
+          "maximum_native_residual_hartree": 1.3445673659852692e-10,
+          "energy_range_hartree": [
+            -112.85355074268958,
+            -109.49518251463823
+          ],
+          "boundary_energy_error_hartree": 0.0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.13982308,
+              "width_hartree": 0.084537745
+            }
+          ],
+          "native_maxfit_diagnostic": false,
+          "spectral_truncation_verdict": null,
+          "observable_qualification_verdict": null,
+          "solver_selection": {
+            "matrix_type": "mpisbaij",
+            "solver_type": "krylovschur",
+            "dimension": 27818,
+            "requested": 2048,
+            "ncv": 2548,
+            "mpd": 500,
+            "converged": 2053,
+            "iterations": 71,
+            "reason": 1,
+            "which": 1,
+            "nz_used": 51991841,
+            "nz_allocated": 79665645,
+            "mallocs": 11200,
+            "petsc_reported_memory_bytes": 0
+          },
+          "original_stages": [
+            {
+              "name": "scatci",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 3156.609846353531
+            },
+            {
+              "name": "rsolve",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 220.74281477928162
+            },
+            {
+              "name": "eigenp",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.015655040740966797
+            },
+            {
+              "name": "reson",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.01542973518371582
+            }
+          ]
+        },
+        "B2": {
+          "export_checks_passed": true,
+          "maximum_native_residual_hartree": 1.3648824491319998e-10,
+          "energy_range_hartree": [
+            -112.85355074268969,
+            -109.49518251463834
+          ],
+          "boundary_energy_error_hartree": 0.0,
+          "native_resonances": [
+            {
+              "energy_hartree": 0.13982308,
+              "width_hartree": 0.084537745
+            }
+          ],
+          "native_maxfit_diagnostic": false,
+          "spectral_truncation_verdict": null,
+          "observable_qualification_verdict": null,
+          "solver_selection": {
+            "matrix_type": "mpisbaij",
+            "solver_type": "krylovschur",
+            "dimension": 27818,
+            "requested": 2048,
+            "ncv": 2548,
+            "mpd": 500,
+            "converged": 2054,
+            "iterations": 71,
+            "reason": 1,
+            "which": 1,
+            "nz_used": 51602092,
+            "nz_allocated": 79657245,
+            "mallocs": 10640,
+            "petsc_reported_memory_bytes": 0
+          },
+          "original_stages": [
+            {
+              "name": "scatci",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 2978.377380132675
+            },
+            {
+              "name": "rsolve",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 221.02987957000732
+            },
+            {
+              "name": "eigenp",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.015715360641479492
+            },
+            {
+              "name": "reson",
+              "original_exit": 0,
+              "timed_out": false,
+              "wall_seconds": 0.015530109405517578
+            }
+          ]
+        }
+      },
+      "pi_phase_difference_rad_mod_pi": 0.0,
+      "target_map": [
+        1,
+        11,
+        17,
+        21,
+        27,
+        6,
+        8,
+        34,
+        37,
+        42,
+        4,
+        15,
+        25,
+        28,
+        33,
+        2,
+        14,
+        18,
+        24,
+        31,
+        5,
+        16,
+        26,
+        29,
+        32,
+        3,
+        13,
+        19,
+        23,
+        30,
+        10,
+        12,
+        22,
+        38,
+        40,
+        44,
+        46,
+        47,
+        48,
+        7,
+        9,
+        20,
+        35,
+        36,
+        39,
+        41,
+        43,
+        45
+      ]
+    }
+  },
+  "pi_phase_difference_rad_mod_pi": {
+    "five": 0.0,
+    "nine": 0.0,
+    "dense": 9.99999993922529e-09
+  },
+  "comparisons": {
+    "baseline": {
+      "sectors": {
+        "B1": {
+          "maximum_phase_difference_rad_mod_pi": 2.2000000001742848e-06,
+          "phase_budget_passed": true,
+          "fixed_window_fits": [
+            {
+              "nback": 1,
+              "reference_fit": {
+                "position_hartree": 0.14399608868997468,
+                "full_width_hartree": 0.09959112028949206,
+                "background_coefficients_radian": [
+                  -0.46105315901079247
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.01667633268983659,
+                "residual_max_abs_rad": 0.03485591364123786,
+                "residual_sum_squares_rad2": 0.016964104390908858,
+                "jacobian_singular_values": [
+                  10.157768305505405,
+                  3.0166093335367656,
+                  1.1453087838704246
+                ],
+                "jacobian_condition_number": 8.869021567422653,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 4.577814057270154e-10,
+                "optimizer_evaluations": 8,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14399610846296992,
+                "full_width_hartree": 0.09959117370670137,
+                "background_coefficients_radian": [
+                  -0.46105423794205364
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.01667683812984508,
+                "residual_max_abs_rad": 0.03485653067227257,
+                "residual_sum_squares_rad2": 0.016965132730552335,
+                "jacobian_singular_values": [
+                  10.15776682846347,
+                  3.01660857526438,
+                  1.145307654740383
+                ],
+                "jacobian_condition_number": 8.86902902152175,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 5.8478173020129855e-09,
+                "optimizer_evaluations": 10,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 5.380506107467632e-07,
+              "full_width_difference_ev": 1.4535563146798086e-06,
+              "full_width_budget_ev": 0.13550062204340105,
+              "signed_position_change_ev": 5.380506107467632e-07,
+              "signed_full_width_change_ev": 1.4535563146798086e-06
+            },
+            {
+              "nback": 2,
+              "reference_fit": {
+                "position_hartree": 0.14032044847388384,
+                "full_width_hartree": 0.08452301074954052,
+                "background_coefficients_radian": [
+                  -0.49868870283445904,
+                  -0.12451460963620004
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.001294503884899249,
+                "residual_max_abs_rad": 0.0022305935120540687,
+                "residual_sum_squares_rad2": 0.00010222015878917416,
+                "jacobian_singular_values": [
+                  10.624999554278105,
+                  5.537528099833632,
+                  1.510297668845956,
+                  0.6665120852603172
+                ],
+                "jacobian_condition_number": 15.941195650080878,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 8.048876661133771e-09,
+                "optimizer_evaluations": 12,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14032038256868146,
+                "full_width_hartree": 0.08452267440679462,
+                "background_coefficients_radian": [
+                  -0.49869067419486823,
+                  -0.12451802507198487
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.0012947444152262373,
+                "residual_max_abs_rad": 0.0022312954774688087,
+                "residual_sum_squares_rad2": 0.0001022581491463314,
+                "jacobian_singular_values": [
+                  10.625011217536509,
+                  5.537529562645893,
+                  1.5103067301524111,
+                  0.6665160077431924
+                ],
+                "jacobian_condition_number": 15.941119334121543,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 8.052614611197144e-09,
+                "optimizer_evaluations": 12,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 1.7933719175498916e-06,
+              "full_width_difference_ev": 9.152352369847925e-06,
+              "full_width_budget_ev": 0.11499941460897714,
+              "signed_position_change_ev": -1.7933719175498916e-06,
+              "signed_full_width_change_ev": -9.152352369847925e-06
+            },
+            {
+              "nback": 3,
+              "reference_fit": {
+                "position_hartree": 0.1406092182046229,
+                "full_width_hartree": 0.08414293765118101,
+                "background_coefficients_radian": [
+                  -0.49160404419830567,
+                  -0.12597807878841857,
+                  -0.005603501721578432
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012205819379106843,
+                "residual_max_abs_rad": 0.0030596757939971297,
+                "residual_sum_squares_rad2": 9.087903629638192e-05,
+                "jacobian_singular_values": [
+                  10.914796579483578,
+                  5.540524746116738,
+                  3.034091490625393,
+                  0.6780690190177797,
+                  0.28825694694053433
+                ],
+                "jacobian_condition_number": 37.86481712003713,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 3.342546367174215e-12,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14060917602203027,
+                "full_width_hartree": 0.0841425716819902,
+                "background_coefficients_radian": [
+                  -0.4916054119593455,
+                  -0.12598161493184737,
+                  -0.005604000793767563
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012208224680689554,
+                "residual_max_abs_rad": 0.003060216022962692,
+                "residual_sum_squares_rad2": 9.091485741106053e-05,
+                "jacobian_singular_values": [
+                  10.914808226732923,
+                  5.540526345765138,
+                  3.034098224330102,
+                  0.6780734852936765,
+                  0.28825963064060145
+                ],
+                "jacobian_condition_number": 37.86450500362075,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 7.941674025088521e-13,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 1.1478468212142677e-06,
+              "full_width_difference_ev": 9.958529005347194e-06,
+              "full_width_budget_ev": 0.11448229881491866,
+              "signed_position_change_ev": -1.1478468212142677e-06,
+              "signed_full_width_change_ev": -9.958529005347194e-06
+            },
+            {
+              "nback": 4,
+              "reference_fit": {
+                "position_hartree": 0.13950620476203032,
+                "full_width_hartree": 0.08162176818493388,
+                "background_coefficients_radian": [
+                  -0.5090770797308176,
+                  -0.1676942631520742,
+                  0.0010677836203506115,
+                  0.027516344083617056
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005305504425052271,
+                "residual_max_abs_rad": 0.0016165589508252975,
+                "residual_sum_squares_rad2": 1.7170510094592027e-05,
+                "jacobian_singular_values": [
+                  11.001664625109393,
+                  6.219668887277542,
+                  3.0902107659876483,
+                  1.4815812167201872,
+                  0.3100435315235391,
+                  0.1356474597113766
+                ],
+                "jacobian_condition_number": 81.1048334301147,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.1273366331483003e-09,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.1395059400165794,
+                "full_width_hartree": 0.08162084639138557,
+                "background_coefficients_radian": [
+                  -0.5090820405172747,
+                  -0.16770727393976437,
+                  0.0010686897552930525,
+                  0.027522727229937503
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005305541023519972,
+                "residual_max_abs_rad": 0.0016166334398345916,
+                "residual_sum_squares_rad2": 1.717074698687455e-05,
+                "jacobian_singular_values": [
+                  11.001695979682669,
+                  6.219671223863086,
+                  3.0902307627950885,
+                  1.4815900598050185,
+                  0.3100510509640109,
+                  0.13565087734121245
+                ],
+                "jacobian_condition_number": 81.10302119174142,
+                "optimizer_success": true,
+                "optimizer_message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+                "optimizer_optimality": 1.1270654462315718e-09,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 7.204090721934879e-06,
+              "full_width_difference_ev": 2.5083280282159803e-05,
+              "full_width_budget_ev": 0.11105207300803656,
+              "signed_position_change_ev": -7.204090721934879e-06,
+              "signed_full_width_change_ev": -2.5083280282159803e-05
+            }
+          ],
+          "observable_budget_verdict": true,
+          "maximum_phase_difference_requested_energy_ev": 4.9,
+          "points_exceeding_phase_budget": 0
+        },
+        "B2": {
+          "maximum_phase_difference_rad_mod_pi": 2.2000000001742848e-06,
+          "phase_budget_passed": true,
+          "fixed_window_fits": [
+            {
+              "nback": 1,
+              "reference_fit": {
+                "position_hartree": 0.14399608854796775,
+                "full_width_hartree": 0.09959112034913369,
+                "background_coefficients_radian": [
+                  -0.461053161341822
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.016676332863222242,
+                "residual_max_abs_rad": 0.034855912759928165,
+                "residual_sum_squares_rad2": 0.016964104743664152,
+                "jacobian_singular_values": [
+                  10.15776830482967,
+                  3.016609333857478,
+                  1.1453087837538685
+                ],
+                "jacobian_condition_number": 8.869021567735235,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 2.4901796082399105e-08,
+                "optimizer_evaluations": 17,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14399610846296992,
+                "full_width_hartree": 0.09959117370670137,
+                "background_coefficients_radian": [
+                  -0.46105423794205364
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.01667683812984508,
+                "residual_max_abs_rad": 0.03485653067227257,
+                "residual_sum_squares_rad2": 0.016965132730552335,
+                "jacobian_singular_values": [
+                  10.15776682846347,
+                  3.01660857526438,
+                  1.145307654740383
+                ],
+                "jacobian_condition_number": 8.86902902152175,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 5.8478173020129855e-09,
+                "optimizer_evaluations": 10,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 5.419148162771652e-07,
+              "full_width_difference_ev": 1.4519333833863551e-06,
+              "full_width_budget_ev": 0.1355006221245476,
+              "signed_position_change_ev": 5.419148162771652e-07,
+              "signed_full_width_change_ev": 1.4519333833863551e-06
+            },
+            {
+              "nback": 2,
+              "reference_fit": {
+                "position_hartree": 0.14032044845274835,
+                "full_width_hartree": 0.08452301053962682,
+                "background_coefficients_radian": [
+                  -0.4986887030939907,
+                  -0.12451461113859884
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.0012945038101512306,
+                "residual_max_abs_rad": 0.002230593775871481,
+                "residual_sum_squares_rad2": 0.00010222014698425927,
+                "jacobian_singular_values": [
+                  10.624999561446728,
+                  5.53752810071466,
+                  1.5102976743358845,
+                  0.6665120876641731
+                ],
+                "jacobian_condition_number": 15.94119560334247,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 2.1329177404193824e-11,
+                "optimizer_evaluations": 5,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14032038256868146,
+                "full_width_hartree": 0.08452267440679462,
+                "background_coefficients_radian": [
+                  -0.49869067419486823,
+                  -0.12451802507198487
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.0012947444152262373,
+                "residual_max_abs_rad": 0.0022312954774688087,
+                "residual_sum_squares_rad2": 0.0001022581491463314,
+                "jacobian_singular_values": [
+                  10.625011217536509,
+                  5.537529562645893,
+                  1.5103067301524111,
+                  0.6665160077431924
+                ],
+                "jacobian_condition_number": 15.941119334121543,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 8.052614611197144e-09,
+                "optimizer_evaluations": 12,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 1.7927967917788033e-06,
+              "full_width_difference_ev": 9.146640327145967e-06,
+              "full_width_budget_ev": 0.114999414323375,
+              "signed_position_change_ev": -1.7927967917788033e-06,
+              "signed_full_width_change_ev": -9.146640327145967e-06
+            },
+            {
+              "nback": 3,
+              "reference_fit": {
+                "position_hartree": 0.14060921808019852,
+                "full_width_hartree": 0.08414293762167835,
+                "background_coefficients_radian": [
+                  -0.49160404702334026,
+                  -0.1259780794450913,
+                  -0.005603499774794531
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012205819064882706,
+                "residual_max_abs_rad": 0.0030596757120431306,
+                "residual_sum_squares_rad2": 9.087903161723903e-05,
+                "jacobian_singular_values": [
+                  10.914796580965525,
+                  5.54052474639957,
+                  3.0340914922247726,
+                  0.6780690195180159,
+                  0.28825694742095
+                ],
+                "jacobian_condition_number": 37.864817062071815,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 1.0742471172226245e-10,
+                "optimizer_evaluations": 13,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14060917602203027,
+                "full_width_hartree": 0.0841425716819902,
+                "background_coefficients_radian": [
+                  -0.4916054119593455,
+                  -0.12598161493184737,
+                  -0.005604000793767563
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012208224680689554,
+                "residual_max_abs_rad": 0.003060216022962692,
+                "residual_sum_squares_rad2": 9.091485741106053e-05,
+                "jacobian_singular_values": [
+                  10.914808226732923,
+                  5.540526345765138,
+                  3.034098224330102,
+                  0.6780734852936765,
+                  0.28825963064060145
+                ],
+                "jacobian_condition_number": 37.86450500362075,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 7.941674025088521e-13,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 1.144461061148677e-06,
+              "full_width_difference_ev": 9.957726196956347e-06,
+              "full_width_budget_ev": 0.11448229877477822,
+              "signed_position_change_ev": -1.144461061148677e-06,
+              "signed_full_width_change_ev": -9.957726196956347e-06
+            },
+            {
+              "nback": 4,
+              "reference_fit": {
+                "position_hartree": 0.13950620459034407,
+                "full_width_hartree": 0.08162176797097118,
+                "background_coefficients_radian": [
+                  -0.5090770832356619,
+                  -0.16769426658256903,
+                  0.0010677857527432628,
+                  0.027516345896836943
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005305502169847375,
+                "residual_max_abs_rad": 0.0016165587150957506,
+                "residual_sum_squares_rad2": 1.7170495497295673e-05,
+                "jacobian_singular_values": [
+                  11.001664632816606,
+                  6.219668887882403,
+                  3.090210771618747,
+                  1.4815812189638513,
+                  0.31004353350015507,
+                  0.13564746054890206
+                ],
+                "jacobian_condition_number": 81.10483298616867,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 1.0824516554940615e-09,
+                "optimizer_evaluations": 9,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.1395059400165794,
+                "full_width_hartree": 0.08162084639138557,
+                "background_coefficients_radian": [
+                  -0.5090820405172747,
+                  -0.16770727393976437,
+                  0.0010686897552930525,
+                  0.027522727229937503
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005305541023519972,
+                "residual_max_abs_rad": 0.0016166334398345916,
+                "residual_sum_squares_rad2": 1.717074698687455e-05,
+                "jacobian_singular_values": [
+                  11.001695979682669,
+                  6.219671223863086,
+                  3.0902307627950885,
+                  1.4815900598050185,
+                  0.3100510509640109,
+                  0.13565087734121245
+                ],
+                "jacobian_condition_number": 81.10302119174142,
+                "optimizer_success": true,
+                "optimizer_message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+                "optimizer_optimality": 1.1270654462315718e-09,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 7.199418901112426e-06,
+              "full_width_difference_ev": 2.507745806025217e-05,
+              "full_width_budget_ev": 0.11105207271692544,
+              "signed_position_change_ev": -7.199418901112426e-06,
+              "signed_full_width_change_ev": -2.507745806025217e-05
+            }
+          ],
+          "observable_budget_verdict": true,
+          "maximum_phase_difference_requested_energy_ev": 4.9,
+          "points_exceeding_phase_budget": 0
+        }
+      },
+      "verdict": true
+    },
+    "channel": {
+      "sectors": {
+        "B1": {
+          "maximum_phase_difference_rad_mod_pi": 0.011594399999999894,
+          "phase_budget_passed": true,
+          "fixed_window_fits": [
+            {
+              "nback": 1,
+              "reference_fit": {
+                "position_hartree": 0.14399610846296992,
+                "full_width_hartree": 0.09959117370670137,
+                "background_coefficients_radian": [
+                  -0.46105423794205364
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.01667683812984508,
+                "residual_max_abs_rad": 0.03485653067227257,
+                "residual_sum_squares_rad2": 0.016965132730552335,
+                "jacobian_singular_values": [
+                  10.15776682846347,
+                  3.01660857526438,
+                  1.145307654740383
+                ],
+                "jacobian_condition_number": 8.86902902152175,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 5.8478173020129855e-09,
+                "optimizer_evaluations": 10,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.1433269174081149,
+                "full_width_hartree": 0.09950967544981708,
+                "background_coefficients_radian": [
+                  -0.4632456822967964
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.01671260364518501,
+                "residual_max_abs_rad": 0.03480103198774809,
+                "residual_sum_squares_rad2": 0.01703797835666413,
+                "jacobian_singular_values": [
+                  10.163730174067178,
+                  3.0221851178069192,
+                  1.1514026926408052
+                ],
+                "jacobian_condition_number": 8.827259341174637,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 8.979238137489331e-09,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.01820961626602017,
+              "full_width_difference_ev": 0.0022176805464531905,
+              "full_width_budget_ev": 0.13550069472121676,
+              "signed_position_change_ev": -0.01820961626602017,
+              "signed_full_width_change_ev": -0.0022176805464531905
+            },
+            {
+              "nback": 2,
+              "reference_fit": {
+                "position_hartree": 0.14032038256868146,
+                "full_width_hartree": 0.08452267440679462,
+                "background_coefficients_radian": [
+                  -0.49869067419486823,
+                  -0.12451802507198487
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.0012947444152262373,
+                "residual_max_abs_rad": 0.0022312954774688087,
+                "residual_sum_squares_rad2": 0.0001022581491463314,
+                "jacobian_singular_values": [
+                  10.625011217536509,
+                  5.537529562645893,
+                  1.5103067301524111,
+                  0.6665160077431924
+                ],
+                "jacobian_condition_number": 15.941119334121543,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 8.052614611197144e-09,
+                "optimizer_evaluations": 12,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.13981802581055347,
+                "full_width_hartree": 0.0843758123323417,
+                "background_coefficients_radian": [
+                  -0.4991519831229774,
+                  -0.12435943105417548
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.0012883184704129645,
+                "residual_max_abs_rad": 0.0021706276018157167,
+                "residual_sum_squares_rad2": 0.00010124563335363927,
+                "jacobian_singular_values": [
+                  10.632667560541032,
+                  5.538888095887476,
+                  1.5181369068801445,
+                  0.6692434860655013
+                ],
+                "jacobian_condition_number": 15.887592157303976,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 1.4835058451378446e-10,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.01366982377870301,
+              "full_width_difference_ev": 0.00399632063282528,
+              "full_width_budget_ev": 0.11499895699135866,
+              "signed_position_change_ev": -0.01366982377870301,
+              "signed_full_width_change_ev": -0.00399632063282528
+            },
+            {
+              "nback": 3,
+              "reference_fit": {
+                "position_hartree": 0.14060917602203027,
+                "full_width_hartree": 0.0841425716819902,
+                "background_coefficients_radian": [
+                  -0.4916054119593455,
+                  -0.12598161493184737,
+                  -0.005604000793767563
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012208224680689554,
+                "residual_max_abs_rad": 0.003060216022962692,
+                "residual_sum_squares_rad2": 9.091485741106053e-05,
+                "jacobian_singular_values": [
+                  10.914808226732923,
+                  5.540526345765138,
+                  3.034098224330102,
+                  0.6780734852936765,
+                  0.28825963064060145
+                ],
+                "jacobian_condition_number": 37.86450500362075,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 7.941674025088521e-13,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14008114727327237,
+                "full_width_hartree": 0.0840483158765553,
+                "background_coefficients_radian": [
+                  -0.4927463142420533,
+                  -0.1256184404174167,
+                  -0.005049471472307817
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012279292672561903,
+                "residual_max_abs_rad": 0.003062422380677887,
+                "residual_sum_squares_rad2": 9.197642740844379e-05,
+                "jacobian_singular_values": [
+                  10.920074348706361,
+                  5.541563935480774,
+                  3.0402821315245,
+                  0.6797871227869643,
+                  0.29006615335374625
+                ],
+                "jacobian_condition_number": 37.64684097902637,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 2.314218831735224e-12,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.014368394231437048,
+              "full_width_difference_ev": 0.002564831127615779,
+              "full_width_budget_ev": 0.11448180088846838,
+              "signed_position_change_ev": -0.014368394231437048,
+              "signed_full_width_change_ev": -0.002564831127615779
+            },
+            {
+              "nback": 4,
+              "reference_fit": {
+                "position_hartree": 0.1395059400165794,
+                "full_width_hartree": 0.08162084639138557,
+                "background_coefficients_radian": [
+                  -0.5090820405172747,
+                  -0.16770727393976437,
+                  0.0010686897552930525,
+                  0.027522727229937503
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005305541023519972,
+                "residual_max_abs_rad": 0.0016166334398345916,
+                "residual_sum_squares_rad2": 1.717074698687455e-05,
+                "jacobian_singular_values": [
+                  11.001695979682669,
+                  6.219671223863086,
+                  3.0902307627950885,
+                  1.4815900598050185,
+                  0.3100510509640109,
+                  0.13565087734121245
+                ],
+                "jacobian_condition_number": 81.10302119174142,
+                "optimizer_success": true,
+                "optimizer_message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+                "optimizer_optimality": 1.1270654462315718e-09,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.1390193304760484,
+                "full_width_hartree": 0.081459014478086,
+                "background_coefficients_radian": [
+                  -0.509535378585532,
+                  -0.16769968294645612,
+                  0.0013522830416809368,
+                  0.027690642945723473
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005257635655043305,
+                "residual_max_abs_rad": 0.0016044718073240094,
+                "residual_sum_squares_rad2": 1.686206693552141e-05,
+                "jacobian_singular_values": [
+                  11.008877111577586,
+                  6.220305827240141,
+                  3.0976438150362804,
+                  1.4838709391346272,
+                  0.3122933551031658,
+                  0.1364191118290671
+                ],
+                "jacobian_condition_number": 80.69893553750511,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 7.796855509243206e-12,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.013241320158372006,
+              "full_width_difference_ev": 0.004403670699722005,
+              "full_width_budget_ev": 0.11105081884402244,
+              "signed_position_change_ev": -0.013241320158372006,
+              "signed_full_width_change_ev": -0.004403670699722005
+            }
+          ],
+          "observable_budget_verdict": true,
+          "maximum_phase_difference_requested_energy_ev": 3.9,
+          "points_exceeding_phase_budget": 0
+        },
+        "B2": {
+          "maximum_phase_difference_rad_mod_pi": 0.011594399999999894,
+          "phase_budget_passed": true,
+          "fixed_window_fits": [
+            {
+              "nback": 1,
+              "reference_fit": {
+                "position_hartree": 0.14399610846296992,
+                "full_width_hartree": 0.09959117370670137,
+                "background_coefficients_radian": [
+                  -0.46105423794205364
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.01667683812984508,
+                "residual_max_abs_rad": 0.03485653067227257,
+                "residual_sum_squares_rad2": 0.016965132730552335,
+                "jacobian_singular_values": [
+                  10.15776682846347,
+                  3.01660857526438,
+                  1.145307654740383
+                ],
+                "jacobian_condition_number": 8.86902902152175,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 5.8478173020129855e-09,
+                "optimizer_evaluations": 10,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.1433269174081149,
+                "full_width_hartree": 0.09950967544981708,
+                "background_coefficients_radian": [
+                  -0.4632456822967964
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 1,
+                "points": 61,
+                "residual_rms_rad": 0.01671260364518501,
+                "residual_max_abs_rad": 0.03480103198774809,
+                "residual_sum_squares_rad2": 0.01703797835666413,
+                "jacobian_singular_values": [
+                  10.163730174067178,
+                  3.0221851178069192,
+                  1.1514026926408052
+                ],
+                "jacobian_condition_number": 8.827259341174637,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 8.979238137489331e-09,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.01820961626602017,
+              "full_width_difference_ev": 0.0022176805464531905,
+              "full_width_budget_ev": 0.13550069472121676,
+              "signed_position_change_ev": -0.01820961626602017,
+              "signed_full_width_change_ev": -0.0022176805464531905
+            },
+            {
+              "nback": 2,
+              "reference_fit": {
+                "position_hartree": 0.14032038256868146,
+                "full_width_hartree": 0.08452267440679462,
+                "background_coefficients_radian": [
+                  -0.49869067419486823,
+                  -0.12451802507198487
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.0012947444152262373,
+                "residual_max_abs_rad": 0.0022312954774688087,
+                "residual_sum_squares_rad2": 0.0001022581491463314,
+                "jacobian_singular_values": [
+                  10.625011217536509,
+                  5.537529562645893,
+                  1.5103067301524111,
+                  0.6665160077431924
+                ],
+                "jacobian_condition_number": 15.941119334121543,
+                "optimizer_success": true,
+                "optimizer_message": "`xtol` termination condition is satisfied.",
+                "optimizer_optimality": 8.052614611197144e-09,
+                "optimizer_evaluations": 12,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.13981802581055347,
+                "full_width_hartree": 0.0843758123323417,
+                "background_coefficients_radian": [
+                  -0.4991519831229774,
+                  -0.12435943105417548
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 2,
+                "points": 61,
+                "residual_rms_rad": 0.0012883184704129645,
+                "residual_max_abs_rad": 0.0021706276018157167,
+                "residual_sum_squares_rad2": 0.00010124563335363927,
+                "jacobian_singular_values": [
+                  10.632667560541032,
+                  5.538888095887476,
+                  1.5181369068801445,
+                  0.6692434860655013
+                ],
+                "jacobian_condition_number": 15.887592157303976,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 1.4835058451378446e-10,
+                "optimizer_evaluations": 7,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.01366982377870301,
+              "full_width_difference_ev": 0.00399632063282528,
+              "full_width_budget_ev": 0.11499895699135866,
+              "signed_position_change_ev": -0.01366982377870301,
+              "signed_full_width_change_ev": -0.00399632063282528
+            },
+            {
+              "nback": 3,
+              "reference_fit": {
+                "position_hartree": 0.14060917602203027,
+                "full_width_hartree": 0.0841425716819902,
+                "background_coefficients_radian": [
+                  -0.4916054119593455,
+                  -0.12598161493184737,
+                  -0.005604000793767563
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012208224680689554,
+                "residual_max_abs_rad": 0.003060216022962692,
+                "residual_sum_squares_rad2": 9.091485741106053e-05,
+                "jacobian_singular_values": [
+                  10.914808226732923,
+                  5.540526345765138,
+                  3.034098224330102,
+                  0.6780734852936765,
+                  0.28825963064060145
+                ],
+                "jacobian_condition_number": 37.86450500362075,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 7.941674025088521e-13,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.14008114727327237,
+                "full_width_hartree": 0.0840483158765553,
+                "background_coefficients_radian": [
+                  -0.4927463142420533,
+                  -0.1256184404174167,
+                  -0.005049471472307817
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 3,
+                "points": 61,
+                "residual_rms_rad": 0.0012279292672561903,
+                "residual_max_abs_rad": 0.003062422380677887,
+                "residual_sum_squares_rad2": 9.197642740844379e-05,
+                "jacobian_singular_values": [
+                  10.920074348706361,
+                  5.541563935480774,
+                  3.0402821315245,
+                  0.6797871227869643,
+                  0.29006615335374625
+                ],
+                "jacobian_condition_number": 37.64684097902637,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 2.314218831735224e-12,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.014368394231437048,
+              "full_width_difference_ev": 0.002564831127615779,
+              "full_width_budget_ev": 0.11448180088846838,
+              "signed_position_change_ev": -0.014368394231437048,
+              "signed_full_width_change_ev": -0.002564831127615779
+            },
+            {
+              "nback": 4,
+              "reference_fit": {
+                "position_hartree": 0.1395059400165794,
+                "full_width_hartree": 0.08162084639138557,
+                "background_coefficients_radian": [
+                  -0.5090820405172747,
+                  -0.16770727393976437,
+                  0.0010686897552930525,
+                  0.027522727229937503
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005305541023519972,
+                "residual_max_abs_rad": 0.0016166334398345916,
+                "residual_sum_squares_rad2": 1.717074698687455e-05,
+                "jacobian_singular_values": [
+                  11.001695979682669,
+                  6.219671223863086,
+                  3.0902307627950885,
+                  1.4815900598050185,
+                  0.3100510509640109,
+                  0.13565087734121245
+                ],
+                "jacobian_condition_number": 81.10302119174142,
+                "optimizer_success": true,
+                "optimizer_message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+                "optimizer_optimality": 1.1270654462315718e-09,
+                "optimizer_evaluations": 14,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "candidate_fit": {
+                "position_hartree": 0.1390193304760484,
+                "full_width_hartree": 0.081459014478086,
+                "background_coefficients_radian": [
+                  -0.509535378585532,
+                  -0.16769968294645612,
+                  0.0013522830416809368,
+                  0.027690642945723473
+                ],
+                "background_midpoint_hartree": 0.128625,
+                "background_scale_hartree": 0.055125,
+                "nback": 4,
+                "points": 61,
+                "residual_rms_rad": 0.0005257635655043305,
+                "residual_max_abs_rad": 0.0016044718073240094,
+                "residual_sum_squares_rad2": 1.686206693552141e-05,
+                "jacobian_singular_values": [
+                  11.008877111577586,
+                  6.220305827240141,
+                  3.0976438150362804,
+                  1.4838709391346272,
+                  0.3122933551031658,
+                  0.1364191118290671
+                ],
+                "jacobian_condition_number": 80.69893553750511,
+                "optimizer_success": true,
+                "optimizer_message": "`ftol` termination condition is satisfied.",
+                "optimizer_optimality": 7.796855509243206e-12,
+                "optimizer_evaluations": 6,
+                "at_parameter_bound": false,
+                "scope": "One-candidate phase representation; no pole or uncertainty certification"
+              },
+              "passed": true,
+              "position_difference_ev": 0.013241320158372006,
+              "full_width_difference_ev": 0.004403670699722005,
+              "full_width_budget_ev": 0.11105081884402244,
+              "signed_position_change_ev": -0.013241320158372006,
+              "signed_full_width_change_ev": -0.004403670699722005
+            }
+          ],
+          "observable_budget_verdict": true,
+          "maximum_phase_difference_requested_energy_ev": 3.9,
+          "points_exceeding_phase_budget": 0
+        }
+      },
+      "verdict": true
+    }
+  },
+  "maximum_fit_platform_parity_difference_ev": 4.0171396846578365e-09,
+  "dense_baseline_verdict": true,
+  "a2_channel_sensitivity_verdict": true,
+  "independent_local_raw_reconstruction_passed": true,
+  "spectral_truncation_verdict": null,
+  "electronic_model_verdict": null,
+  "global_continuity_verdict": null,
+  "full_sweep_released": false,
+  "scope": "Checksum-fetched raw export/grid/Pi/deck/fit reconstruction using shared public readers and fitter,not an independent scattering engine. Actual large shared inputs are checksum-audited remotely. Fixed-orbital five-versus-nine A2 sensitivity at2048only;full channel convergence,absolute omission,pole identity and extraction stability remain unqualified."
+}

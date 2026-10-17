@@ -1,0 +1,18 @@
+{
+  "verified_utc":"2026-10-17T08:43:47.910498+00:00",
+  "scientific_runtime_commit":"89a5275fdf5e55776dbfbe534793a974b493ed61",
+  "reader_source_commit":"537f5b5de58905c8f385ae38623c561f9cdd03ba",
+  "reader_source_sha256":"1bae2c8c59aca5d80909fb96efc025595e88ba0a77f73c09b4171f377aec4b7a",
+  "public_payloads_verified":8,"public_reader_source_hashes_verified":58,
+  "public_raw_files_reconstructed":73,"public_reconstruction_original_exit":0,
+  "public_reconstruction_sha256":"d76b4dff11c935e3e1476b3e57ea1d26a3b21f7f7fca4d03809ec887200ff391",
+  "host_reconstruction_original_exit":0,"host_container_wall_seconds":0.8148336503654718,
+  "host_local_maximum_fit_difference_ev":4.0171396846578365e-09,
+  "actual_shared_large_native_input_hashes_verified":16,
+  "actual_dense_source_hashes_verified":4,
+  "dense_baseline_verdict":true,"a2_channel_sensitivity_verdict":true,
+  "spectral_truncation_verdict":null,"electronic_model_verdict":null,
+  "global_continuity_verdict":null,"full_sweep_released":false,
+  "evidence_pointer":"qualification-evidence/compressed-a2-scattering/artifacts.json",
+  "scope":"Public raw export/grid/deck/fit reconstruction and cross-runtime parity. Shared public fitter/export readers,not an independent scattering engine. Large native input equality checksum-audited remotely."
+}

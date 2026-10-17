@@ -1,0 +1,32 @@
+{
+  "status":"separately declared supplementary exact-line audit after preserved strict formatting preflight failure",
+  "scientific_question":"Does the equilibrium CAS11-to-CAS12 phase/position rejection persist when CAS11 uses the completed audited eight-rank five-A2 baseline? This removes the earlier scattering-engine/rank confound without another native solve.",
+  "cas11_reference":"qualification-evidence/equilibrium-a2-scattering/artifacts.json",
+  "cas12_reference":"qualification-evidence/saved-model-controls/artifacts.json",
+  "cas11_model":"five",
+  "cas12_models":["eq12","eq12refined"],
+  "original_strict_preflight":"verification-same-engine-strict-preflight-20261017.json",
+  "rsolve_formatting_only_line_pairs":[
+    ["  nescat = 99, ! number of input scattering energies in each subrange", "  nescat = 99,          ! number of input scattering energies in each subrange"],
+    ["  einc = 0.1,0.05, ! scattering energies - initial energy, energy increment, there can be more subranges", "  einc = 0.1, 0.05,     ! scattering energies - initial energy, energy increment, there can be more subranges"]
+  ],
+  "sectors":["B1","B2"],
+  "raw_checks":{"native_selection_which":1,"absolute_residual_hartree":1e-7,"boundary_to_ci_atol_hartree":1e-10,"pi_phase_rad_mod_pi":0.002,"phase_grid_atol_requested_ev":0.00005},
+  "observable_budgets":{"position_ev":0.05,"full_width_relative":0.05,"full_width_floor_ev":0.001,"phase_rad_mod_pi":0.05,"fit_background_orders":[1,2,3,4],"fixed_requested_energy_window_ev":[1.8,3.3]},
+  "fit_initial_position_hartree":0.090300065,
+  "fit_initial_full_width_hartree":0.04168035,
+  "hartree_to_ev":27.211386245988,
+  "native_rydberg_per_requested_ev":0.0735,
+  "requirements":[
+    "Verify both published payload manifests and all raw checksums before reconstruction; reconstruct native CI/boundary exports, original stages/resource exits, own maps and complete phase grids/Pi",
+    "Keep original strict byte-equality failure and unset observable verdict. For supplementary rsolve equality only, verify each of the two declared line pairs has identical uncommented tokens after whitespace removal, appears exactly once, and the complete files become byte-identical under only those two substitutions. All eigenp/reson bytes remain exact. Any other mismatch stops; no general normalization or numeric tolerance. Use all original fixed-window orders1-4 and unchanged budgets",
+    "Verify both native owners used the exact242-artifact audited installed engine, same image and eight MPI ranks; preserve all target-solver, target-representation and orbitals differences",
+    "Read-only replay of the previously qualified CAS11-to-CAS12 input settings, plus new CAS11 first-five target preservation. Retention remains five per spin/irrep; the CAS11 native file now contains48states and has a new own-map, but only40are retained",
+    "Compare old-versus-fresh CAS11 phases separately; CAS12 2048/4096 is a named sensitivity check, not an absolute omission bound",
+    "This isolates scattering-engine/rank provenance, not the active orbital count from target optimization/import/diagonalizer differences. Failed/empty/MAXFIT/bound fits leave the relevant scientific verdict unset"
+  ],
+  "resources":{"native_solves":0,"cpu_group":"0-3 for host replay","memory_gib":4,"timeout_seconds":600,"maximum_new_archive_gib":0.25},
+  "stopping_rule":"Any checksum/input/raw prerequisite failure stops. Keep all old rejected controls and original exits. No relaxed budgets, native rerun or automatic model/root successor.",
+  "electronic_model_verdict":null,
+  "full_sweep_released":false
+}

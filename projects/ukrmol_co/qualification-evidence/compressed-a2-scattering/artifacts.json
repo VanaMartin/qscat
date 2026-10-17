@@ -1,0 +1,14 @@
+{
+  "artifacts": {
+    "dense-source-audit.json": {"bytes":1756,"sha256":"0935ab0f4764baabc1929368caaffb21b4b89575efdbfccaa97acc3e635680ff"},
+    "host-reading-execution.json": {"bytes":1244,"sha256":"5038705b61064cadc6a0be189814e5ea46ab28df1ffe87ac238425d71776d083"},
+    "host-reading.json": {"bytes":73643,"sha256":"af1a64abc62c5af51362cae58c59b9c34c2d00fec5b1f73615893ff51636c546"},
+    "independent-reading.json": {"bytes":73698,"sha256":"07e67a6cadfc1deb0d52747fedbb5cab71952aaf7386e47ac33e098f886c6fa6"},
+    "manifest.json": {"bytes":1552,"sha256":"ce1b8843800e06027b46439b9cc365b304068a824a8ca1abe5473bef4bb6fb4d"},
+    "raw-inputs.tar.gz": {"bytes":117147355,"sha256":"36830bd5d620893ac330bf484fe88ae64dfb4b2bfdec2f38c584ca6ebd361531"},
+    "reader-source-manifest.json": {"bytes":6449,"sha256":"ba476ff195296864961c2ae41561789d3fadcc2c34f054713e4230e3cdd86986"},
+    "reader-source.tar.gz": {"bytes":108021,"sha256":"9d42160b78fcba94c4548e9ce3be90181e22fa2ce4db982358c9b021ef30251d"}
+  },
+  "git_sha":"537f5b5de58905c8f385ae38623c561f9cdd03ba",
+  "url_prefix":"https://data.qscat.org/co-compressed-a2-scattering-20261017/"
+}
