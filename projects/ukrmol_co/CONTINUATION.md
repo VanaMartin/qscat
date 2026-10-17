@@ -20,6 +20,50 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Native asymptotic normalization traced; independent exterior pilot running — 17 October, 13:06 UTC
+
+**Native real-axis sign/flux conventions are source-derived, and the independent
+method passes17 focused tests.** Source/design/tests were frozen at **`0a9b0ce`**
+before a synthetic298-channel timing case. Four original native source/licence
+files and twenty literal anchors establish sin/cos phase,1/sqrt(k) flux,
+decaying closed columns and `f+gK+h c`. See
+[derivation](../../docs/physics/co-native-exterior-reconstruction.md),
+[validation](verification-native-exterior-method-20261017.json) and
+[public evidence](qualification-evidence/native-exterior-method/README.md).
+Two independent finite-interval controls improve by≈16 under step halving;
+noninteger-Hankel tail and60-digit exact polar scattering controls pass.
+Public replay verifies12 payloads/10 source inputs/4 native files/20 anchors,
+all eight new solver tests and synthetic exit0.
+
+The synthetic100-interval kernel costs **0.479163s**, command1.015079s,
+**82,604,032bytes sampled kernel high-water**, exits0/0. It reads no native
+CO data. A separate **`00c5839`** freeze authorizes the
+[native pilot](NATIVE_EXTERIOR_PILOT.md)/[contract](native-exterior-pilot-contract.json):
+equilibrium/nine/B1,all298 channels,all2048 saved poles,requested0.1/2.5/5eV,
+steps0.1/0.05/0.025bohr,endpoints100/200/400bohr,tail orders4/6/8.
+Seven one-factor configurations per energy give21 cases. K/S/phase and final
+independent S changes must meet1e-6, with spatial improvement≥8 or1e-8 floor.
+The expected203,580 intervals cost975.5s by measured extrapolation; upper
+estimate2000s,cap2400s,4GiB,physical cores0–3 reserved,one BLAS thread.
+
+The [13:05:57 UTC host observation](progress-native-exterior-launch-20261017.json)
+verifies33 new hashes/238 prior hashes/242 installed engine artifacts and
+the read-only native mount. The container starts13:02:09UTC; six0.1-eV cases
+complete without execution failure, K/S differences≤4.416e-9/8.832e-9.
+The **pilot verdict remains unset** pending all energies/refinements. Shorter
+endpoint100/order8 has condition estimates3.982e9/raw and7.645e8/equilibrated;
+those diagnostics remain explicit. Source/output:
+`prepared/native-exterior-pilot-source-20261017/`.
+
+One CO Python calculation runs; unrelated `comfyui` is preserved; free persistent
+disk40.78GiB. No native engine solve or observer service is active. The frozen
+matrix writes every case to its JSONL journal and preserves original exits.
+False/unset stops without retries or an automatic successor. Even a pass covers
+only this one-sector/three-energy pilot, not full native K or CO poles. Process
+the complete report and independently replay its public bytes before declaring
+a new qualification. Earlier interface/model/channel/extraction/continuity and
+neutral-domain gates remain; production stays gated.
+
 ### Bounded combined-exterior resolution family passes — 17 October, 12:48 UTC
 
 **The separately justified degree128/256/512 family passes all sixteen checks**

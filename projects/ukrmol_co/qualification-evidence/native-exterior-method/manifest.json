@@ -1,0 +1,18 @@
+{
+  "git_sha": "0a9b0ce1b2d3f974b865f64ce2cc12b56b015423",
+  "date": "2026-10-17",
+  "record_type": "native-asymptotic-source-trace-independent-numerov-toy-validation-and-synthetic-cost",
+  "focused_tests_passed": 17,
+  "new_solver_tests_passed": 8,
+  "source_trace_verdict": true,
+  "synthetic_timing_verdict": true,
+  "synthetic_original_command_container_exits": [
+    0,
+    0
+  ],
+  "native_co_comparison_used_for_method_validation": false,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

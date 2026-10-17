@@ -55,6 +55,15 @@ prospectively specified independent saved-native open-open K reconstruction,
 including radius/step/tail, closed-channel and Gailitis-normalization controls.
 No missing export justifies a new inner solve; native K/poles remain unset.
 
+The [native sign/flux source trace and independent Numerov method](qualification-evidence/native-exterior-method/README.md)
+now pass17 focused tests and fresh public replay. A separately costed
+[21-case equilibrium-B1 pilot](NATIVE_EXTERIOR_PILOT.md) is launched at three
+energies with independent step/endpoint/tail-order controls, all298 channels and
+all2048 saved poles. The bounded calculation uses4GiB and one
+BLAS thread; the prospectively conservative estimate is975.5s with2400s cap.
+Its verdict is pending. A pilot pass cannot release the full594-matrix native
+reconstruction, CO poles or production.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

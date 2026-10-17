@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1248.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1306.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -641,6 +641,37 @@ def _combined_refinement(ax, data):
     _note(ax, data["combined_refinement_note"])
 
 
+def _native_exterior_convergence(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Independent exterior: fourth-order control",
+        "Smooth coupled toy intervals; independent direct ODE reference",
+    )
+    x = np.arange(3)
+    for row, color, marker in zip(
+        data["native_exterior_convergence"], [BLUE, ORANGE], ["o", "s"], strict=True
+    ):
+        values = row["maximum_k_errors"]
+        label = "Two open channels" if row["thresholds"][1] < 1 else "One open / one closed"
+        ax.semilogy(x, values, color=color, marker=marker, lw=1.8, label=label)
+        for i, value in enumerate(values):
+            ax.annotate(
+                f"{value:.2e}",
+                (i, value),
+                xytext=(0, 10),
+                textcoords="offset points",
+                ha="center",
+                fontsize=9,
+                color=color,
+            )
+    ax.set_xticks(x, ["0.2", "0.1", "0.05"])
+    ax.set(xlim=(-0.25, 2.35), ylim=(5e-8, 1e-3), xlabel="Radial step / bohr")
+    ax.set_ylabel("Maximum absolute K-entry error")
+    ax.legend(loc="upper right", frameon=False, fontsize=9)
+    _note(ax, data["native_exterior_note"])
+
+
 def _snapshot_data(snapshot: Path) -> dict:
     """Resolve a full snapshot or a delta against a hash-pinned earlier release."""
     data = json.loads(snapshot.read_text())
@@ -713,7 +744,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _combined_refinement
+            _native_exterior_convergence
+            if "native_exterior_convergence" in data
+            else _combined_refinement
             if "combined_refinement" in data
             else _tail_cutoff
             if "tail_cutoff_controls" in data
@@ -787,7 +820,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1248"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1306"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

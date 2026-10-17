@@ -35,6 +35,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [matrix tail/threshold controls](COUPLED_TAIL_BENCHMARK.md),
 [combined exterior refinement rejection](COMBINED_EXTERIOR_BENCHMARK.md),
 [bounded exterior resolution control](COMBINED_EXTERIOR_RESOLUTION.md),
+[independent native exterior pilot](NATIVE_EXTERIOR_PILOT.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -62,7 +63,21 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 12:48 UTC:** the separately frozen
+**Update — 17 October, 13:06 UTC:** the native asymptotic sign/flux
+[source trace and independent Numerov method](qualification-evidence/native-exterior-method/README.md)
+pass **17 focused tests** and fresh public replay of twelve payloads. Fourth-
+order finite-interval, exact polar-tail, unequal-momentum flux and closed-channel
+controls pass before native comparison. A synthetic298-channel cost control
+takes0.479163s/100 intervals on Sadaharu, original exits0/0.
+
+The separately frozen [21-case native pilot](NATIVE_EXTERIOR_PILOT.md) now runs
+at equilibrium-B1 with all298 channels/2048 saved poles, energies0.1/2.5/5eV,
+and independent step/endpoint/tail-order families. Six0.1-eV cases complete
+without execution failure; K/S errors≤4.416e-9/8.832e-9. **The full pilot verdict
+is pending**. Estimated cost975.5s,cap2400s,4GiB,one BLAS thread. Full native K,
+CO poles and production remain unqualified.
+
+**Earlier update — 17 October, 12:48 UTC:** the separately frozen
 [combined-exterior resolution family](COMBINED_EXTERIOR_RESOLUTION.md) passes
 **all sixteen checks /436 cases** using degrees128/256/512 and unchanged1e-7
 budgets. Final spectral change is **4.28129e-8**, method difference4.34982e-8
@@ -245,10 +260,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: bounded combined-exterior resolution passes at unchanged budgets; original rejection retained; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1248.png)
+![CO qualification: independent exterior method passes analytic and fourth-order controls; bounded native pilot running; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1306.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1248.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1248.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1306.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1306.json) ·
+[Native pilot and stopping rule](NATIVE_EXTERIOR_PILOT.md) ·
+[Public method validation](qualification-evidence/native-exterior-method/README.md) ·
 [Bounded resolution results](COMBINED_EXTERIOR_RESOLUTION.md) ·
 [Public resolution evidence](qualification-evidence/combined-resolution/README.md) ·
 [Combined exterior rejection](COMBINED_EXTERIOR_BENCHMARK.md) ·
@@ -289,6 +306,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous11:49overview](../../docs/physics/figures/co-progress-20261017T1149.png) ·
 [Previous12:18overview](../../docs/physics/figures/co-progress-20261017T1218.png) ·
 [Previous12:35overview](../../docs/physics/figures/co-progress-20261017T1235.png) ·
+[Previous12:48overview](../../docs/physics/figures/co-progress-20261017T1248.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -319,16 +337,17 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **12:48 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **13:06 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B shows the separately frozen degree128/256/512 pass,
-retaining the parent's failed change as the coarse→middle diagnostic. Panel F
-records its scope and the next independent native-K/normalization decision.
+**What changed:** panel B shows fourth-order independent Numerov controls;
+panel F records the source-derived sign/flux conventions and the bounded native
+pilot's active, still-unqualified status. The earlier combined-resolution pass
+and original failed family remain separate evidence.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.

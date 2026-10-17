@@ -1,0 +1,418 @@
+{
+  "verified_utc": "2026-10-17T13:03:00.797741+00:00",
+  "method_source_commit": "0a9b0ce1b2d3f974b865f64ce2cc12b56b015423",
+  "source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+    "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+    "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+    "projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+    "projects/ukrmol_co/test_exterior_numerov.py": "b9ef682d6fe349513190b56ac2ff9f1684e4b7602c5d86a71fb0239d7a8a0f67",
+    "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+    "projects/ukrmol_co/native-exterior-timing-contract.json": "0818be54842531d74ab040e81c7d4aafbae78fdb7d6f3894bd7a40bd9da3bd0e",
+    "docs/physics/co-native-exterior-reconstruction.md": "02b9dd4049be1cac8b483f65ea30b799cf1d4efcf0d830319311dee5c7f06467"
+  },
+  "native_source_sha256": {
+    "outer/source/libouter/cfasym.f": "28ef94214b940246938697ff91eaef3523a7deb101215c53c82e1188019725b3",
+    "outer/source/libouter/outerio.f": "7a2282ea90d42ad7f29ba3bf46809bef1ea1bcc9c4e4580f91bf1ef24d20ded1",
+    "outer/source/compak/rsolve_compak.f": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+    "outer/COPYING": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  "literal_source_anchors": [
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "SKJ=DSQRT(DABS(ETJ))",
+      "matches": [
+        {
+          "line": 141,
+          "text": "SKJ=DSQRT(DABS(ETJ))"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "ROOTK=DSQRT(SKJ)",
+      "matches": [
+        {
+          "line": 304,
+          "text": "ROOTK=DSQRT(SKJ)"
+        },
+        {
+          "line": 467,
+          "text": "ROOTK=DSQRT(SKJ)"
+        },
+        {
+          "line": 1621,
+          "text": "ROOTK=DSQRT(SKJ)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "F1=FC(LJ+1)/ROOTK",
+      "matches": [
+        {
+          "line": 317,
+          "text": "F1=FC(LJ+1)/ROOTK"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "G1=GC(LJ+1)/ROOTK",
+      "matches": [
+        {
+          "line": 318,
+          "text": "G1=GC(LJ+1)/ROOTK"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "FP1=FCP(LJ+1)*ROOTK",
+      "matches": [
+        {
+          "line": 319,
+          "text": "FP1=FCP(LJ+1)*ROOTK"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "GP1=GCP(LJ+1)*ROOTK",
+      "matches": [
+        {
+          "line": 320,
+          "text": "GP1=GCP(LJ+1)*ROOTK"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "F(I,J,1)=SUM1*F1+SUM2*G1",
+      "matches": [
+        {
+          "line": 413,
+          "text": "F(I,J,1)=SUM1*F1+SUM2*G1"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "F(I,J,2)=SUM1*G1-SUM2*F1",
+      "matches": [
+        {
+          "line": 414,
+          "text": "F(I,J,2)=SUM1*G1-SUM2*F1"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "CALL DECAY(ETJ,LJ,RAFIN,U,UDER,IWRITE)",
+      "matches": [
+        {
+          "line": 464,
+          "text": "CALL DECAY(ETJ,LJ,RAFIN,U,UDER,IWRITE)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "10 F1=DSIN(THETA)/ROOTK",
+      "matches": [
+        {
+          "line": 1630,
+          "text": "10 F1=DSIN(THETA)/ROOTK"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "F2=DCOS(THETA)/ROOTK",
+      "matches": [
+        {
+          "line": 1631,
+          "text": "F2=DCOS(THETA)/ROOTK"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "30 F1=ZERO",
+      "matches": [
+        {
+          "line": 1650,
+          "text": "30 F1=ZERO"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/libouter/cfasym.f",
+      "literal": "F2=DEXP(-THETA)/ROOTK",
+      "matches": [
+        {
+          "line": 1651,
+          "text": "F2=DEXP(-THETA)/ROOTK"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "literal": "AA(I,J) = F(I,J,2)",
+      "matches": [
+        {
+          "line": 2206,
+          "text": "AA(I,J) = F(I,J,2)"
+        },
+        {
+          "line": 2314,
+          "text": "AA(I,J) = F(I,J,2)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "literal": "BB(I,J)=-F(I,J,1)",
+      "matches": [
+        {
+          "line": 2221,
+          "text": "BB(I,J)=-F(I,J,1)"
+        },
+        {
+          "line": 2329,
+          "text": "BB(I,J)=-F(I,J,1)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "literal": "BB(I,J)=BB(I,J)+RMAT(I,K)*DF",
+      "matches": [
+        {
+          "line": 2229,
+          "text": "BB(I,J)=BB(I,J)+RMAT(I,K)*DF"
+        },
+        {
+          "line": 2337,
+          "text": "BB(I,J)=BB(I,J)+RMAT(I,K)*DF"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "literal": "AKMAT(I,J) = BB(I,J)",
+      "matches": [
+        {
+          "line": 2269,
+          "text": "AKMAT(I,J) = BB(I,J)"
+        },
+        {
+          "line": 2361,
+          "text": "AKMAT(I,J) = BB(I,J)"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "literal": "DEGENY = 1.D-5",
+      "matches": [
+        {
+          "line": 1347,
+          "text": "DEGENY = 1.D-5"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "literal": "IASY = 20",
+      "matches": [
+        {
+          "line": 1349,
+          "text": "IASY = 20"
+        }
+      ]
+    },
+    {
+      "path": "outer/source/compak/rsolve_compak.f",
+      "literal": "EPS = 5.D-5",
+      "matches": [
+        {
+          "line": 1352,
+          "text": "EPS = 5.D-5"
+        }
+      ]
+    }
+  ],
+  "native_sign_and_flux_source_trace_verdict": true,
+  "smooth_finite_interval_convergence": [
+    {
+      "thresholds": [
+        0.0,
+        0.3
+      ],
+      "steps_bohr": [
+        0.2,
+        0.1,
+        0.05
+      ],
+      "maximum_k_errors": [
+        0.0001954732851765506,
+        1.2162881354083055e-05,
+        7.509322981213984e-07
+      ],
+      "successive_improvement_factors": [
+        16.071297539289947,
+        16.197041177361584
+      ]
+    },
+    {
+      "thresholds": [
+        0.0,
+        1.8
+      ],
+      "steps_bohr": [
+        0.2,
+        0.1,
+        0.05
+      ],
+      "maximum_k_errors": [
+        5.315197919819603e-05,
+        3.297552960246364e-06,
+        2.0355831265028712e-07
+      ],
+      "successive_improvement_factors": [
+        16.11861275284112,
+        16.199549491803634
+      ]
+    }
+  ],
+  "coupled_degenerate_tail_orders": [
+    4,
+    8,
+    12
+  ],
+  "coupled_hankel_value_derivative_errors": [
+    4.654726451235672e-08,
+    1.8298694048993798e-11,
+    8.538584103469386e-14
+  ],
+  "independent_polar_hard_wall_s_error": 3.647454994493456e-08,
+  "focused_tests_passed": 17,
+  "new_solver_tests_passed": 8,
+  "analytic_flux_and_closed_rescaling_controls_passed": true,
+  "synthetic_timing": {
+    "synthetic_timing_verdict": true,
+    "kernel_wall_seconds": 0.4791631721891463,
+    "diagnostics": {
+      "matching_condition_inf": 123201342.66628915,
+      "equilibrated_matching_condition_inf": 1429024.2065585556,
+      "matching_residual": 4.440892098500626e-16,
+      "radial_intervals": 100,
+      "threshold_group_maximum_spread_rydberg": 0.0,
+      "unsymmetrized_k_transpose_error": 3.8510824325495296e-10
+    },
+    "native_data_read": false,
+    "native_solves": 0,
+    "native_full_k_reconstruction_verdict": null,
+    "co_complex_pole_verdict": null,
+    "full_sweep_released": false,
+    "contract": {
+      "mode": "synthetic",
+      "status": "bounded dense 298-channel timing estimate before any native K comparison",
+      "channels": 298,
+      "seed": 20261017,
+      "energy_rydberg": 0.1,
+      "radius_bohr": 18.0,
+      "endpoint_bohr": 28.0,
+      "step_bohr": 0.1,
+      "tail_order": 8,
+      "resources": {
+        "physical_cpu_group": "0-3",
+        "blas_threads": 1,
+        "memory_gib": 4,
+        "timeout_seconds": 120
+      },
+      "stopping_rule": "One fixed synthetic case only; preserve failures/exits without retry. Timing does not qualify accuracy or release a native run.",
+      "native_data_read": false,
+      "native_solves": 0,
+      "native_full_k_reconstruction_verdict": null,
+      "co_complex_pole_verdict": null
+    },
+    "contract_sha256": "0818be54842531d74ab040e81c7d4aafbae78fdb7d6f3894bd7a40bd9da3bd0e"
+  },
+  "synthetic_execution": {
+    "started_utc": "2026-10-17T13:00:05.521246+00:00",
+    "source_commit": "0a9b0ce1b2d3f974b865f64ce2cc12b56b015423",
+    "source_archive_sha256": "4a59c08ec9073072a5cbddaecbedfb3e0bb163e6ffa0a50d376fde9a6e1ae733",
+    "source_manifest": {
+      "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+      "projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+      "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+      "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+      "projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+      "projects/ukrmol_co/test_exterior_numerov.py": "b9ef682d6fe349513190b56ac2ff9f1684e4b7602c5d86a71fb0239d7a8a0f67",
+      "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+      "projects/ukrmol_co/native-exterior-timing-contract.json": "0818be54842531d74ab040e81c7d4aafbae78fdb7d6f3894bd7a40bd9da3bd0e",
+      "docs/physics/co-native-exterior-reconstruction.md": "02b9dd4049be1cac8b483f65ea30b799cf1d4efcf0d830319311dee5c7f06467"
+    },
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_memory": "               total        used        free      shared  buff/cache   available\nMem:     132578123776 17969278976  3349348352  1237155840 113249148928 114608844800\nSwap:    31998341120  2688745472 29309595648\n",
+    "persistent_free_disk_gib": 41.24247741699219,
+    "preexisting_containers": "comfyui Up 3 weeks\n",
+    "scope": "Synthetic 298-channel Numerov cost control only; no native data or solves.",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-native-exterior-timing-20261017",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "PYTHONPATH=/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-exterior-timing-source-20261017/source:/source:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-exterior-timing-source-20261017:/outputs",
+      "-w",
+      "/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.native_exterior_study",
+      "--contract",
+      "projects/ukrmol_co/native-exterior-timing-contract.json",
+      "--output",
+      "/outputs/timing.json"
+    ],
+    "original_command_exit": 0,
+    "wall_seconds": 1.0150785488076508,
+    "finished_utc": "2026-10-17T13:00:06.546567+00:00",
+    "resource_sample_count": 4,
+    "sample_interval_seconds": 0.2,
+    "sampled_peak_container_memory_bytes": 54329344,
+    "sampled_kernel_memory_peak_bytes": 82604032,
+    "sampled_container_cpu_seconds": 0.621718,
+    "original_container_exit": 0
+  },
+  "estimated_pilot_intervals": 203580,
+  "linear_extrapolated_pilot_seconds": 975.480385942664,
+  "native_source_read_only": true,
+  "native_co_comparison_used_for_method_validation": false,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "native_solves": 0,
+  "full_sweep_released": false
+}
