@@ -28,6 +28,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [completed equilibrium A2 control](A2_EQUILIBRIUM_CONTROL.md),
 [completed compressed A2 control](A2_COMPRESSED_CONTROL.md),
 [same-engine active-space reconstruction](qualification-evidence/same-engine-active-space/README.md),
+[prospective phase-extraction study](PHASE_EXTRACTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -55,7 +56,25 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 08:50 UTC:** the compressed five→nine-A2 control
+**Update — 17 October, 09:32 UTC:** the
+[prospective extraction estimator](PHASE_EXTRACTION.md) passes its finite
+30-case known-pole calibration, then **rejects compressed/equilibrium saved
+nine-A2 phases** at the frozen 0.001-rad required-window prediction threshold.
+Stretched provisionally passes: full-width span **0.380 meV**, untouched-audit
+error **0.000298345 rad**, with no compatible tested beyond-budget width.
+This does not establish a native S-matrix pole; all historical extraction and
+channel rejections remain preserved. The calibration accepts 17/30 cases and
+rejects every smooth-exponential case, an explicit limitation. Original
+native-reading exit **1** is retained; no three-anchor width curve is qualified.
+
+[Public replay](qualification-evidence/phase-extraction/README.md) verifies
+**13 payloads / 64 source files / 270 raw manifest entries** and all verdicts.
+Sadaharu analytic/native-reading costs are **13.883/3.969 seconds**, with no
+new native solve. **117 focused tests pass.** The next estimator needs a new
+physical/analytic design with mandatory nonpolynomial known-truth controls;
+this study stops without relaxed tolerances or a fitting-order ladder.
+
+**Earlier update — 17 October, 08:50 UTC:** the compressed five→nine-A2 control
 **passes independent local, host and public reconstruction**: maximum phase
 change **0.0115944 rad**, centers **13.24–18.21 meV lower** and widths
 **2.22–4.40 meV smaller**. All exits are zero; public replay verifies **73 raw
@@ -131,10 +150,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: compressed and equilibrium channel controls pass;stretched and same-engine active-space comparisons reject;production gated](../../docs/physics/figures/co-progress-20261017T0850.png)
+![CO qualification: frozen extraction calibration passes finite controls; compressed and equilibrium extraction reject; stretched provisionally passes; production gated](../../docs/physics/figures/co-progress-20261017T0932.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T0850.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T0850.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T0932.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T0932.json) ·
+[Prospective extraction results](PHASE_EXTRACTION.md) ·
+[Public extraction reconstruction](qualification-evidence/phase-extraction/README.md) ·
 [Completed equilibrium channel control](A2_EQUILIBRIUM_CONTROL.md) ·
 [Public equilibrium scattering reconstruction](qualification-evidence/equilibrium-a2-scattering/README.md) ·
 [Completed compressed control](A2_COMPRESSED_CONTROL.md) ·
@@ -154,6 +175,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous23:29overview](../../docs/physics/figures/co-progress-20261015T2329.png) ·
 [Previous23:31overview](../../docs/physics/figures/co-progress-20261015T2331.png) ·
 [Previous15:16overview](../../docs/physics/figures/co-progress-20261016T1516.png) ·
+[Previous08:50overview](../../docs/physics/figures/co-progress-20261017T0850.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -184,20 +206,21 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **08:50 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **09:32 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** compressed channel sensitivity passes independent/public raw
-reconstruction, completing the three-anchor comparison. The same-engine/rank
-active-space check preserves CAS11→CAS12 rejection. The overview now plots the
-three measured channel effects directly. The next extraction design must be
-validated on known-pole phases with smooth nonconstant backgrounds before using
-widths to rank expensive model controls. Original extraction/model rejections
-and unset global gates remain preserved.
+**What changed:** a prospectively frozen estimator passes its finite analytic
+calibration but rejects equilibrium/compressed required-window predictions;
+stretched provisionally passes. Panel B now shows these three prediction ratios
+alongside established numerical and active-space controls; panel E retains the
+completed channel comparison. The 0.001-rad representation criterion is distinct
+from the 0.05-rad model-comparison budget. The roadmap records the failed
+three-anchor extraction gate and need for a new physically justified design.
+Original extraction/model rejections and unset global gates remain preserved.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component

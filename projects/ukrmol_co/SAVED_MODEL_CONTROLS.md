@@ -8,6 +8,13 @@ guidance. The [contract](saved-model-controls-contract.json),
 [public raw reconstruction](qualification-evidence/saved-model-controls/README.md)
 retain the complete scope and original records.
 
+**17 October extraction supplement:** the separately frozen
+[prospective estimator](PHASE_EXTRACTION.md) passes its finite 30-case analytic
+calibration, provisionally accepts stretched nine-A2 phases, and rejects
+compressed/equilibrium required-window predictions. The original all-order/window
+verdicts below remain unchanged. The new native reading exits **1** and does
+not qualify a three-anchor width curve or a native S-matrix pole.
+
 ## Equilibrium active-space sensitivity
 
 **17 October supplement:** the fresh audited eight-rank CAS11 baseline exactly

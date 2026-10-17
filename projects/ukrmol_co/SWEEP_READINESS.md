@@ -18,8 +18,10 @@ Compressed proof replay passes all438 payloads/96 probes,and the fresh native
 import passes. The [compressed matched A2 control](A2_COMPRESSED_CONTROL.md)
 now passes independent/public reconstruction and completes the three-anchor
 channel comparison. A [supplementary same-engine active-space reading](qualification-evidence/same-engine-active-space/README.md)
-preserves the CAS11→CAS12 rejection. The next decision is extraction-estimator
-validation before using fitted widths to rank new electronic models.
+preserves the CAS11→CAS12 rejection. The
+[prospective extraction study](PHASE_EXTRACTION.md) now passes its finite
+30-case calibration but rejects compressed/equilibrium saved nine-A2 phases;
+stretched provisionally passes. A three-anchor width curve remains unqualified.
 
 ## 1. Finish trustworthy target inputs
 
@@ -131,6 +133,18 @@ equilibrium CAS11/CAS12 and6.999%/6.991% for stretchedfive/nine A2. These are
 different declared control sets;all exceed5%. Constant background dominates
 the measured sensitivity,including failure of equilibrium held-phase prediction.
 
+**17 October prospective estimator:** model selection and unused-data rules
+were frozen before calibration/native use. All 30 analytic cases meet their
+declared calibration requirements (17 accepted; all smooth-exponential cases
+reject). Saved nine-A2 stretched passes in both sectors with width span
+**0.380 meV** and untouched-audit maximum **0.000298345 rad**. Compressed and
+equilibrium reject required-window prediction at the fixed **0.001-rad**
+representation threshold; best missing-window maxima are 0.00225936/0.00130390
+and 0.00108757 rad, respectively. Original native-reader exit **1** and every
+earlier extraction/channel rejection remain preserved. The calibrated estimator
+does not qualify a native pole or arbitrary smooth backgrounds. See
+[design, results and stopping decision](PHASE_EXTRACTION.md).
+
 **Next:** audit the two
 remaining retained components: inspect competing row scores,energies and
 complete nearly degenerate subspace projectors. Determine whether a larger
@@ -138,12 +152,14 @@ retained channel manifold is required. Test only geometries/model controls
 that address those specific failures. Track relevant resonance features across
 neighboring geometries with phase/K-matrix evidence and consistent thresholds;
 electronic-state assignment alone does not establish resonance-pole identity.
-Validate a revised extraction estimator on analytic known-pole phases with
-smooth nonconstant backgrounds, then freeze its model-selection rule and
-unused-data tests before applying it to all three anchors. Preserve every
-earlier all-order/window rejection. Small held-phase prediction error alone
-does not establish identifiable pole parameters. Revisit energy resolution
-and threshold effects on the selected scattering model.
+The completed prospective estimator stops at its three-anchor rejection.
+Before another saved-data reading, declare a new physical/analytic representation
+addressing the measured missing-window discrepancies, require nonpolynomial
+known-truth successes at native-like scales, and freeze model selection and
+unused-data rules. Preserve every earlier all-order/window rejection. Small
+held-phase prediction error alone does not establish identifiable pole parameters.
+Revisit energy resolution and threshold effects on the selected scattering model;
+no relaxed budget or automatic fitting-order ladder follows this rejection.
 
 **Pass:** relevant channel/subspace coverage and thresholds remain stable under
 declared path controls; no unaccounted retained-to-omitted exchange affects the

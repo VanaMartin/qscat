@@ -1,0 +1,19 @@
+{
+  "artifacts": {
+    "calibration-container-inspect.json": {"bytes":9040,"sha256":"3987d67cacb1e25bb8ccf629b039055339c7afe07fa60819defea07c9b6c970e"},
+    "calibration-execution.json": {"bytes":3834,"sha256":"1e390bb9c10136fa8fee898c9fb4109438cc914567282b6f0d9e517eb617c90b"},
+    "calibration-host.json": {"bytes":13784882,"sha256":"2c855f56edef70d10a35e814262b57ea8fef9c2db7e03a54207aa9ed920fceab"},
+    "calibration-local.json": {"bytes":13760949,"sha256":"0b540ca85164101ab326470f8c63be4643474bfe802950ebb81a8ac9f6f91be4"},
+    "calibration-source-manifest.json": {"bytes":995,"sha256":"1306bf84d0ffefdb1613e09470f99330a9dbc432d2ec27bde6f1e51d96c2ccef"},
+    "calibration-source.tar.gz": {"bytes":10853,"sha256":"c98f459dc88f7dd5432084396931d340dbf9bdc889e53f3dc504f1739b68ca33"},
+    "manifest.json": {"bytes":1692,"sha256":"aad738318a1abf7f3e08a57f370b5df919b8bb1f8011cfbd6bcc9b421fd92184"},
+    "native-container-inspect.json": {"bytes":9891,"sha256":"a8dfbcc2ea350defe4326017f87caaa4fd2491b04ceab1171d67fa343ed7feb0"},
+    "native-execution.json": {"bytes":10674,"sha256":"c6e49a64d9a7ec9e5bfc281d1616bd93bf5ed2b179c77ff41040c65fbc1173b0"},
+    "native-host.json": {"bytes":2318171,"sha256":"c90741c72e37a71949dca332fb5e0266e084bb3104b48f7d233b8cbd5f301e13"},
+    "native-local.json": {"bytes":2318154,"sha256":"1dfd01bf4c0e531c8df8db367d5ac6f78bce4a301780ce01514976187a71a09e"},
+    "reader-source-manifest.json": {"bytes":7147,"sha256":"fe0a78f7e716876f109d711ce4a6a2e8e75bd937c123c1d0183a9ba218ea5071"},
+    "reader-source.tar.gz": {"bytes":114783,"sha256":"9fda94c23f8b0d72637c3daa4f26ec7fe2707e6b64455e9730c48bd74726fd71"}
+  },
+  "git_sha":"4e089e3f01d05424ab7890293f5a92edaf8eb6de",
+  "url_prefix":"https://data.qscat.org/co-phase-extraction-20261017/"
+}

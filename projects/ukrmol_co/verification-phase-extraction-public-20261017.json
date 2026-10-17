@@ -1,0 +1,53 @@
+{
+  "verified_utc": "2026-10-17T09:29:46.156032+00:00",
+  "public_reconstruction_passed": true,
+  "public_payload_counts": {
+    "phase-extraction": 13,
+    "compressed-a2-scattering": 1,
+    "equilibrium-a2-scattering": 1,
+    "saved-model-controls": 1
+  },
+  "public_payload_sha256": {
+    "phase-extraction/calibration-container-inspect.json": "3987d67cacb1e25bb8ccf629b039055339c7afe07fa60819defea07c9b6c970e",
+    "phase-extraction/calibration-execution.json": "1e390bb9c10136fa8fee898c9fb4109438cc914567282b6f0d9e517eb617c90b",
+    "phase-extraction/calibration-host.json": "2c855f56edef70d10a35e814262b57ea8fef9c2db7e03a54207aa9ed920fceab",
+    "phase-extraction/calibration-local.json": "0b540ca85164101ab326470f8c63be4643474bfe802950ebb81a8ac9f6f91be4",
+    "phase-extraction/calibration-source-manifest.json": "1306bf84d0ffefdb1613e09470f99330a9dbc432d2ec27bde6f1e51d96c2ccef",
+    "phase-extraction/calibration-source.tar.gz": "c98f459dc88f7dd5432084396931d340dbf9bdc889e53f3dc504f1739b68ca33",
+    "phase-extraction/manifest.json": "aad738318a1abf7f3e08a57f370b5df919b8bb1f8011cfbd6bcc9b421fd92184",
+    "phase-extraction/native-container-inspect.json": "a8dfbcc2ea350defe4326017f87caaa4fd2491b04ceab1171d67fa343ed7feb0",
+    "phase-extraction/native-execution.json": "c6e49a64d9a7ec9e5bfc281d1616bd93bf5ed2b179c77ff41040c65fbc1173b0",
+    "phase-extraction/native-host.json": "c90741c72e37a71949dca332fb5e0266e084bb3104b48f7d233b8cbd5f301e13",
+    "phase-extraction/native-local.json": "1dfd01bf4c0e531c8df8db367d5ac6f78bce4a301780ce01514976187a71a09e",
+    "phase-extraction/reader-source-manifest.json": "fe0a78f7e716876f109d711ce4a6a2e8e75bd937c123c1d0183a9ba218ea5071",
+    "phase-extraction/reader-source.tar.gz": "9fda94c23f8b0d72637c3daa4f26ec7fe2707e6b64455e9730c48bd74726fd71",
+    "compressed-a2-scattering/raw-inputs.tar.gz": "36830bd5d620893ac330bf484fe88ae64dfb4b2bfdec2f38c584ca6ebd361531",
+    "equilibrium-a2-scattering/raw-inputs.tar.gz": "13628e5ff3b8a58804f89d31d28b3c5af11fec780a000bda20cb40fe00060828",
+    "saved-model-controls/raw-inputs.tar.gz": "44cbb73ee3d0651c2c295d1df7a6100515e226f5156a2b845378437f6b0446cd"
+  },
+  "reader_source_files_verified": 64,
+  "raw_manifest_entries_reconstructed": 270,
+  "original_public_calibration_command_exit": 0,
+  "original_public_native_command_exit": 1,
+  "calibration_cases_with_matching_verdicts": 30,
+  "maximum_host_public_native_fit_difference_ev": 7.495451008071799e-09,
+  "native_anchor_verdicts": {
+    "compressed-nine": {
+      "B1": false,
+      "B2": false
+    },
+    "equilibrium-nine": {
+      "B1": false,
+      "B2": false
+    },
+    "stretched-nine": {
+      "B1": true,
+      "B2": true
+    }
+  },
+  "native_extraction_verdict": false,
+  "calibration_verdict": true,
+  "scope": "New prospective estimator on saved nine-A2 phases after finite analytic calibration. Original all-order/window and channel rejections remain preserved. No native S-matrix pole, global identifiability or electronic-model certification.",
+  "native_solves": 0,
+  "full_sweep_released": false
+}

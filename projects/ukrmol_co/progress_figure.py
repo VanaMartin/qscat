@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T0850.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T0932.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -113,7 +113,13 @@ def _diagnostics(ax, data):
     y = np.arange(len(rows))
     ax.axvspan(1e-7, 1, color=GREEN, alpha=0.05)
     ax.axvspan(1, 30, color=RED, alpha=0.05)
-    ax.barh(y, values - 1e-7, left=1e-7, color=[GREEN] * 3 + [RED] * 4, height=0.56)
+    ax.barh(
+        y,
+        values - 1e-7,
+        left=1e-7,
+        color=[GREEN if row.get("passed", i < 3) else RED for i, row in enumerate(rows)],
+        height=0.56,
+    )
     ax.axvline(1, color=INK, lw=1.1, linestyle="--")
     labels = data.get(
         "diagnostic_labels",
@@ -642,7 +648,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T0850"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T0932"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

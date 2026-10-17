@@ -20,6 +20,82 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Frozen extraction rule calibrated; three-anchor application rejects — 17 October, 09:32 UTC
+
+**The prospective estimator passes its finite 30-case analytic calibration,
+but rejects compressed/equilibrium nine-A2 phases; stretched provisionally
+passes in both Pi sectors.** No three-anchor width curve or production sweep
+is qualified. See [results and stopping decision](PHASE_EXTRACTION.md),
+[quoted verification](verification-phase-extraction-20261017.json) and
+[public reconstruction](qualification-evidence/phase-extraction/README.md).
+
+Design, selection, grid-only seeds, every-fifth-point untouched audits, four
+inner folds, 0.001-rad fidelity threshold and constructive width-counterexample
+veto were frozen at **`902b76c` before calibration**. Native windows were already
+declared there; reader **`4e089e3`** checks calibrated-source hashes before raw
+reconstruction. No fitter or threshold changed after inspection of the matrix.
+
+The direct unitary S-factor oracle gives known lower-half-plane poles, with
+31/61/121-point grids for ten families. **17 pass / 9 reject / 4 unset**; every
+declared calibration requirement passes, including required 0.1-meV linear
+controls, known-truth budgets for every accepted isolated-pole case, and no
+acceptance of no-pole/underidentified negatives. All smooth-exponential cases
+reject; this finite calibration does not qualify arbitrary smooth backgrounds.
+The neighboring-pole controls remain stress diagnostics. Every case is retained.
+
+Native raw prerequisites reconstruct **270 manifest entries** (73 compressed,
+73 equilibrium, 124 saved-model), all stages/resources/exports/maps/grids and
+nonempty native fits. All 1,080 new development/inner-fold fits converge away
+from bounds. Required windows select `nback` **none/none/4** compressed,
+**4/4/none** equilibrium, **3/3/3** stretched. Best missing-window inner-held
+errors are **0.00225936/0.00130390 rad** compressed and **0.00108757 rad**
+equilibrium, exceeding the frozen 0.001-rad representation threshold.
+
+Stretched admissible orders 3/4 give position **0.97407765–0.97415015 eV**, width
+**0.28902773–0.28940756 eV**, width span **0.37984 meV** and untouched-audit
+maximum **0.000298345 rad**. No tested beyond-budget alternative is compatible.
+This is a provisional phase representation, not a native S-matrix pole or
+global uniqueness proof. Its earlier **6.991% all-order/window width rejection**
+and **0.0679178-rad channel rejection** remain preserved.
+
+Sadaharu Docker runs cost **13.883 / 3.969 s**, with sampled kernel memory peaks
+**0.109 / 0.157 GiB**, reserved physical cores 0–3, one BLAS thread and 4-GiB
+limits. Original calibration command/container exits **0/0**; native reading
+**1/1** is the retained scientific rejection. No native solve was launched.
+Persistent records live in
+`prepared/phase-extraction-calibration-source-20261017/` and
+`prepared/phase-extraction-native-source-20261017/`.
+
+Public download/replay checks **13 new payloads, 64 frozen source files and all
+270 raw manifest entries**, with identical calibration/anchor verdicts and
+maximum host/local native fitted-parameter drift **7.50e-9 eV**. Source archives
+are `c98f459dc88f7dd5432084396931d340dbf9bdc889e53f3dc504f1739b68ca33`
+(calibration) and
+`9fda94c23f8b0d72637c3daa4f26ec7fe2707e6b64455e9730c48bd74726fd71`
+(native reader). Original raw archives are reused. **117 focused tests pass**,
+including audit-value isolation and failure-before-native-data tests.
+
+**Next:** this declared estimator study stops at its rejection. Before any
+successor saved-data reading, declare a physically justified representation for
+the measured missing-window discrepancies, require nonpolynomial known-truth
+successes at native-like scales, and freeze selection/unused-data rules. No
+budget relaxation, window removal or automatic order ladder. Independent model,
+state/pole continuity, neutral correlation/domain and restartable-pilot gates
+still precede sweep/potential fitting. Paid provisioning remains deferred.
+
+The [09:31 UTC host check](progress-phase-extraction-20261017.json) verifies
+**85 immutable remote hashes and 242 installed engine artifacts**. Original
+logs/exits remain preserved; no CO calculation or observer is running. Completed
+compressed services remain inactive/exit zero; unrelated `comfyui` is running,
+and persistent disk has **41.59 GiB free**.
+
+The six-panel overview is refreshed to **09:32 UTC**; previous releases remain
+available. Its prediction ratios describe the best inner-held error in each
+required window, maximized across windows, divided by 0.001 rad; they are not
+uncertainty bars. Main index remains complete/current at
+`423d5770d3de337571f51e62702ae919bad97e8c`; new extraction sources and the
+renderer are branch-only and resolved locally.
+
 ### Three-anchor channel control reconstructed; same-engine model rejection confirmed — 17 October, 08:50 UTC
 
 **Compressed five→nine-A2 passes independent local, host and public raw

@@ -1,0 +1,42 @@
+{
+  "git_sha": "4e089e3f01d05424ab7890293f5a92edaf8eb6de",
+  "date": "2026-10-17",
+  "record_type": "co-prospective-phase-extraction-calibration-and-native-reading",
+  "calibration_source_commit": "902b76c151576a8e7dc9d4b03109e632c4512104",
+  "calibration_verdict": true,
+  "calibration_case_count": 30,
+  "calibration_accepted_case_count": 17,
+  "native_verdict": false,
+  "native_anchor_verdicts": {
+    "compressed-nine": {
+      "B1": false,
+      "B2": false
+    },
+    "equilibrium-nine": {
+      "B1": false,
+      "B2": false
+    },
+    "stretched-nine": {
+      "B1": true,
+      "B2": true
+    }
+  },
+  "original_calibration_command_exit": 0,
+  "original_native_command_exit": 1,
+  "raw_archive_sha256": {
+    "compressed": "36830bd5d620893ac330bf484fe88ae64dfb4b2bfdec2f38c584ca6ebd361531",
+    "equilibrium": "13628e5ff3b8a58804f89d31d28b3c5af11fec780a000bda20cb40fe00060828",
+    "saved": "44cbb73ee3d0651c2c295d1df7a6100515e226f5156a2b845378437f6b0446cd"
+  },
+  "raw_reference_pointers": {
+    "compressed": "qualification-evidence/compressed-a2-scattering/artifacts.json",
+    "equilibrium": "qualification-evidence/equilibrium-a2-scattering/artifacts.json",
+    "saved": "qualification-evidence/saved-model-controls/artifacts.json"
+  },
+  "reader_source_files": 64,
+  "raw_files_reconstructed": 270,
+  "host_local_maximum_native_fit_difference_ev": 7.495451008071799e-09,
+  "native_solves": 0,
+  "full_sweep_released": false,
+  "scope": "New prospective estimator on saved nine-A2 phases after finite analytic calibration. Original all-order/window and channel rejections remain preserved. No native S-matrix pole, global identifiability or electronic-model certification."
+}

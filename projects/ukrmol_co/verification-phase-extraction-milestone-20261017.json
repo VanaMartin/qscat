@@ -1,0 +1,42 @@
+{
+  "verified_utc": "2026-10-17T09:34:03.147268+00:00",
+  "overview_source_hashes_verified": 212,
+  "calibrated_and_native_reader_source_hashes_verified": 4,
+  "local_documentation_links_verified": 493,
+  "public_manifest_digest_verified": true,
+  "public_new_payloads_verified": 13,
+  "public_raw_archives_verified": 3,
+  "public_raw_manifest_entries_reconstructed": 270,
+  "reader_source_files_verified": 64,
+  "calibration_verdict_parity_cases": 30,
+  "native_anchor_sector_verdict_parity_cases": 6,
+  "maximum_host_public_native_fit_difference_ev": 7.495451008071799e-09,
+  "original_native_reader_command_and_container_exits": [
+    1,
+    1
+  ],
+  "original_calibration_command_and_container_exits": [
+    0,
+    0
+  ],
+  "remote_new_immutable_hashes_verified": 85,
+  "installed_engine_artifacts_verified": 242,
+  "co_native_jobs_running": 0,
+  "persistent_free_disk_gib": 41.589908599853516,
+  "calibration_throughput_cases_per_wall_second": 2.1609587166598887,
+  "qualified_native_reading_throughput_anchor_sectors_per_wall_second": 1.511678916359182,
+  "focused_tests_passed": 117,
+  "audit_only_phase_mutation_cannot_change_development_or_width_alternatives": true,
+  "failed_calibration_stops_before_native_data": true,
+  "visual_png_and_searchable_svg_checked": true,
+  "main_index_source_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_upstream_state": "current",
+  "main_index_refresh_state": "complete",
+  "local_branch_delta_against_main": "A\tdocs/physics/co-phase-extraction.md\nA\tprojects/ukrmol_co/phase-extraction-contract.json\nA\tprojects/ukrmol_co/phase_extraction.py\nA\tprojects/ukrmol_co/phase_extraction_native.py\nA\tprojects/ukrmol_co/phase_extraction_study.py\nA\tprojects/ukrmol_co/progress_figure.py\nA\tprojects/ukrmol_co/test_phase_extraction.py\n",
+  "original_all_order_window_and_channel_rejections_preserved": true,
+  "calibration_verdict": true,
+  "native_extraction_verdict": false,
+  "native_solves": 0,
+  "full_sweep_released": false
+}
