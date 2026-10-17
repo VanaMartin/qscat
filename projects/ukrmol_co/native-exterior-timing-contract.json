@@ -1,0 +1,17 @@
+{
+  "mode": "synthetic",
+  "status": "bounded dense 298-channel timing estimate before any native K comparison",
+  "channels": 298,
+  "seed": 20261017,
+  "energy_rydberg": 0.1,
+  "radius_bohr": 18.0,
+  "endpoint_bohr": 28.0,
+  "step_bohr": 0.1,
+  "tail_order": 8,
+  "resources": {"physical_cpu_group":"0-3","blas_threads":1,"memory_gib":4,"timeout_seconds":120},
+  "stopping_rule": "One fixed synthetic case only; preserve failures/exits without retry. Timing does not qualify accuracy or release a native run.",
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null
+}
