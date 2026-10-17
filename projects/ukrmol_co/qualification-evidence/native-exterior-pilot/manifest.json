@@ -1,0 +1,26 @@
+{
+  "git_sha": "00c583929fc7769162086df5afdad1d92b88898c",
+  "date": "2026-10-17",
+  "record_type": "independent-full-channel-equilibrium-B1-native-exterior-pilot",
+  "pilot_verdict": false,
+  "checks": {
+    "complete_matrix": true,
+    "native_k_error": true,
+    "native_s_error": false,
+    "native_phase_error_rad_mod_pi": false,
+    "unitarity_error": true,
+    "reciprocity_error": true,
+    "step_bohr_refinement": true,
+    "endpoint_bohr_refinement": true,
+    "tail_order_refinement": true,
+    "spatial_fourth_order_trend": true
+  },
+  "cases": 21,
+  "original_command_exit": 1,
+  "original_container_exit": 1,
+  "native_data_read": true,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

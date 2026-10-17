@@ -1,0 +1,42 @@
+{
+  "observed_utc": "2026-10-17T13:16:51.563521+00:00",
+  "remote_sha256": {
+    "prepared/native-exterior-pilot-source-20261017/pilot.json": "add375adf7c25a1a8270bbfd2517e6f0bef05dcfc670ddc20f56c4675d4da2a0",
+    "prepared/native-exterior-pilot-source-20261017/pilot.jsonl": "0db46c3e7f19e631f7f0b39fc573aa66605eb272dea9e37e82b1d88952afa66e",
+    "prepared/native-exterior-pilot-source-20261017/execution.json": "9f362c44cf6501737b1006880abe22e273df89c90afa1813873f18fce9100403",
+    "prepared/native-exterior-pilot-source-20261017/container-inspect.json": "2d44c103a3ebdb3c37a721294caabf4ead4c5d98a1830745382f69ef8a6f1b7c",
+    "prepared/native-exterior-pilot-source-20261017/pilot.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/native-exterior-pilot-source-20261017/verification-native-exterior-pilot-20261017.json": "fd7794dfb575294a53ee91ec9e3552cca251072edd4fb3c0af9c68907828a60b",
+    "prepared/native-exterior-pilot-source-20261017/NATIVE_EXTERIOR_PILOT.md": "595f852f26a40706bc0764f450f23e57c45d3176c1a6c4f2ae93ffb850ca2787",
+    "prepared/native-exterior-pilot-source-20261017/pilot-inputs.tar.gz": "f5a6dd85e4221d177a2d647f2ed30a34336c6b0968419a9675e4d97e5af1ace1",
+    "prepared/native-exterior-timing-source-20261017/verification-native-exterior-method-20261017.json": "17faaeb04306c135a186d002f9a2281ebe5dfc44fe95869eeb32c2f02dd16822",
+    "prepared/native-exterior-timing-source-20261017/verification-native-exterior-method-public-20261017.json": "b17f139e32c6db27ebf4d072650fa0800726dc438b9b6e932a0681c9420efcdb",
+    "prepared/native-exterior-timing-source-20261017/native-sources.tar.gz": "2e0faf6c28ed9d1a9759a7448a7cf914746f71658d64b4741b46c2f5878cabf7",
+    "prepared/native-exterior-timing-source-20261017/native-source-manifest.json": "4318fdc70f83f8b0bcf43d0a8ec05ca41997bcb940a559a0827c2582d36f92b5"
+  },
+  "new_immutable_remote_hashes_verified": 12,
+  "previous_immutable_remote_hashes_reverified": 271,
+  "installed_engine_artifacts_verified": 242,
+  "pilot_running": false,
+  "pilot_verdict": false,
+  "completed_cases": 21,
+  "checks_passed": 8,
+  "checks_total": 10,
+  "failed_checks": [
+    "native_s_error",
+    "native_phase_error_rad_mod_pi"
+  ],
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "journal_exact_case_parity": true,
+  "co_jobs_running": 0,
+  "containers": "comfyui Up 3 weeks\n",
+  "persistent_free_disk_gib": 40.780372619628906,
+  "public_reconstruction_pending": true,
+  "native_engine_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

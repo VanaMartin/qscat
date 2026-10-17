@@ -1,0 +1,49 @@
+{
+  "verified_utc": "2026-10-17T13:20:03.277703+00:00",
+  "saved_native_k_sha256": "e476be0c2723175d3105394fd36bf3bada2d520d2c4aa06cfd8a974d17bd1473",
+  "all_21_matrix_metric_records_independently_recomputed": true,
+  "separate_right_cayley_and_native_eigenphase_path_verified": true,
+  "maximum_reported_vs_recomputed_metric_drift": 7.771561172376096e-16,
+  "all_10_gate_verdicts_independently_recomputed": true,
+  "checks": {
+    "complete_matrix": true,
+    "native_k_error": true,
+    "native_s_error": false,
+    "native_phase_error_rad_mod_pi": false,
+    "unitarity_error": true,
+    "reciprocity_error": true,
+    "step_bohr_refinement": true,
+    "endpoint_bohr_refinement": true,
+    "tail_order_refinement": true,
+    "spatial_fourth_order_trend": true
+  },
+  "refinement_s": {
+    "step_bohr": [
+      1.2130121886864053e-05,
+      7.577733717577397e-07
+    ],
+    "endpoint_bohr": [
+      1.3462577914577687e-08,
+      2.6819140907438548e-08
+    ],
+    "tail_order": [
+      6.020652123178915e-09,
+      1.4953769143041595e-12
+    ]
+  },
+  "pilot_verdict": false,
+  "high_energy_endpoint_phase_errors": [
+    2.6016995404536844e-06,
+    2.6418293282040692e-06,
+    2.7217428482635184e-06
+  ],
+  "high_energy_order_phase_errors": [
+    2.721749667355518e-06,
+    2.721742847889668e-06,
+    2.7217428482635184e-06
+  ],
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "native_solves": 0,
+  "full_sweep_released": false
+}

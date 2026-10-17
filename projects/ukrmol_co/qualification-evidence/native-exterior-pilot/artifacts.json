@@ -1,0 +1,15 @@
+{
+  "artifacts": {
+    "container-inspect.json":{"bytes":9405,"sha256":"2d44c103a3ebdb3c37a721294caabf4ead4c5d98a1830745382f69ef8a6f1b7c"},
+    "execution.json":{"bytes":4208,"sha256":"9f362c44cf6501737b1006880abe22e273df89c90afa1813873f18fce9100403"},
+    "manifest.json":{"bytes":789,"sha256":"58cd108907cc38e213eb12d960e4f782918063aff85362923a3a70b15595505a"},
+    "pilot-inputs.tar.gz":{"bytes":4848914,"sha256":"f5a6dd85e4221d177a2d647f2ed30a34336c6b0968419a9675e4d97e5af1ace1"},
+    "pilot.json":{"bytes":106070,"sha256":"add375adf7c25a1a8270bbfd2517e6f0bef05dcfc670ddc20f56c4675d4da2a0"},
+    "pilot.jsonl":{"bytes":67887,"sha256":"0db46c3e7f19e631f7f0b39fc573aa66605eb272dea9e37e82b1d88952afa66e"},
+    "pilot.log":{"bytes":0,"sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    "source-manifest.json":{"bytes":1256,"sha256":"cf108811448db747eafdd9b9240a70592df8cdf62f238a36ead4933e055c4267"},
+    "source.tar.gz":{"bytes":18011,"sha256":"65117f1aeab98eed68a8bb3ced3371e288c8f4e93524bc44730ac6b5286897d8"}
+  },
+  "git_sha":"00c583929fc7769162086df5afdad1d92b88898c",
+  "url_prefix":"https://data.qscat.org/co-native-exterior-pilot-20261017/"
+}

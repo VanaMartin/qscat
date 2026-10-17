@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1306.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1317.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -358,7 +358,7 @@ def _roadmap(ax, data):
         ),
     ]
     if "roadmap_entries" in data:
-        colors = {"reuse": GREEN, "active": BLUE, "next": ORANGE, "gated": GRAY}
+        colors = {"reuse": GREEN, "active": BLUE, "next": ORANGE, "gated": GRAY, "reject": RED}
         entries = [
             (colors[row["kind"]], row["status"], row["title"], row["detail"])
             for row in data["roadmap_entries"]
@@ -672,6 +672,39 @@ def _native_exterior_convergence(ax, data):
     _note(ax, data["native_exterior_note"])
 
 
+def _native_exterior_pilot(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Native exterior: reproduction rejects",
+        "Full-channel equilibrium-B1 pilot; each error / its 1e-6 budget",
+    )
+    x = np.arange(3)
+    for metric, color, marker, label in [
+        ("native_k_error", BLUE, "o", "K entries"),
+        ("native_s_error", ORANGE, "s", "S entries"),
+        ("native_phase_error_rad_mod_pi", RED, "^", "Phase sum modulo π"),
+    ]:
+        values = [row[metric] / 1e-6 for row in data["native_exterior_pilot_finest"]]
+        ax.semilogy(x, values, color=color, marker=marker, lw=1.6, label=label)
+        for i, value in enumerate(values):
+            ax.annotate(
+                f"{value:.3g}×",
+                (i, value),
+                xytext=(0, 10),
+                textcoords="offset points",
+                ha="center",
+                fontsize=8.5,
+                color=color,
+            )
+    ax.axhline(1, color=GRAY, ls="--", lw=1, label="Reproduction budget")
+    ax.set_xticks(x, ["0.1", "2.5", "5.0"])
+    ax.set(xlim=(-0.25, 2.35), ylim=(1e-3, 10), xlabel="Requested energy / eV")
+    ax.set_ylabel("Finest error / declared tolerance (≤1 passes)")
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    _note(ax, data["native_exterior_pilot_note"])
+
+
 def _snapshot_data(snapshot: Path) -> dict:
     """Resolve a full snapshot or a delta against a hash-pinned earlier release."""
     data = json.loads(snapshot.read_text())
@@ -744,7 +777,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _native_exterior_convergence
+            _native_exterior_pilot
+            if "native_exterior_pilot_finest" in data
+            else _native_exterior_convergence
             if "native_exterior_convergence" in data
             else _combined_refinement
             if "combined_refinement" in data
@@ -820,7 +855,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1306"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1317"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

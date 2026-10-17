@@ -57,12 +57,14 @@ No missing export justifies a new inner solve; native K/poles remain unset.
 
 The [native sign/flux source trace and independent Numerov method](qualification-evidence/native-exterior-method/README.md)
 now pass17 focused tests and fresh public replay. A separately costed
-[21-case equilibrium-B1 pilot](NATIVE_EXTERIOR_PILOT.md) is launched at three
+[21-case equilibrium-B1 pilot](NATIVE_EXTERIOR_PILOT.md) completes at three
 energies with independent step/endpoint/tail-order controls, all298 channels and
-all2048 saved poles. The bounded calculation uses4GiB and one
-BLAS thread; the prospectively conservative estimate is975.5s with2400s cap.
-Its verdict is pending. A pilot pass cannot release the full594-matrix native
-reconstruction, CO poles or production.
+all2048 saved poles. **It rejects S/phase reproduction at5eV:**1.49310e-6 and
+2.72174e-6rad moduloπ exceed1e-6 despite K,unitarity,reciprocity and all
+refinement checks passing. Original exits1/1 remain. Measured cost735.161s /
+0.08564GiB sampled,below the975.5s estimate/2400s cap. Independent public replay
+is pending. A separately justified native-outer/method error-attribution design
+must address this discrepancy before full594-matrix reconstruction or CO poles.
 
 ## 1. Finish trustworthy target inputs
 

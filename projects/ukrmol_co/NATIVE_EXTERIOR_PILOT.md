@@ -1,4 +1,65 @@
-# Independent native exterior pilot — launched 17 October 2026
+# Independent native exterior pilot rejects — 17 October 2026
+
+**The frozen21-case pilot rejects: eight of ten checks pass, but native S and
+phase reproduction exceed1e-6 at5eV.** All21 cases complete without execution
+failure. Original scientific command/container exits **1/1** remain. There is no
+retry, higher-order/endpoint successor or relaxed budget. See
+[verification](verification-native-exterior-pilot-20261017.json) and
+[public evidence](qualification-evidence/native-exterior-pilot/README.md).
+
+## Completed result — 13:14:24 UTC
+
+| Requested energy / eV | Finest K-entry error | Finest S-entry error | Phase error / rad moduloπ |
+|---:|---:|---:|---:|
+| 0.1 | 2.95023e-9 | 5.90030e-9 | 1.03832e-8 |
+| 2.5 | 2.44019e-8 | 1.14479e-8 | 3.29286e-8 |
+| 5.0 | 7.46593e-7 | **1.49310e-6** | **2.72174e-6** |
+
+The K-entry budget passes at all three energies. It cannot replace the separate
+S/phase budgets: the Cayley transform changes entrywise sensitivities, and the
+phase sums responses across six open channels. Finest unitarity/reciprocity
+errors are≤1.844e-11/2.172e-11. Those algebraic checks do not settle agreement
+with the native result.
+
+A [separate saved-matrix algebra audit](verification-native-exterior-pilot-algebra-20261017.json)
+recomputes every case's metrics using the right Cayley form and a separate native
+eigenvalue/arctangent phase path. Maximum reported-vs-recomputed metric drift is
+7.78e-16; all ten gate decisions reproduce. This checks the report's algebra,
+not the propagation error.
+
+All three independent S refinement families pass their1e-6 budget:
+
+| Family | First change | Final change |
+|---|---:|---:|
+| Step0.1→0.05→0.025bohr | 1.2130121887e-5 | 7.5777337175e-7 |
+| Endpoint100→200→400bohr | 1.3462577919e-8 | 2.6819140924e-8 |
+| Tail order4→6→8 | 6.0206521230e-9 | 1.4953838483e-12 |
+
+Spatial improvement is16.01-fold. At5eV, the finest phase mismatch remains
+2.602e-6/2.642e-6/2.722e-6 across endpoints100/200/400, and2.722e-6 across
+orders4/6/8. The saved controls therefore isolate a persistent native-comparison
+discrepancy; they do not assign it to the native code, the independent method,
+finite-radius asymptotics or any single normalization convention. A successive
+change is not an absolute error bound. Further resolution is not automatic.
+
+The method's17 focused tests and independent public toy replay remain passing.
+The full native pilot is being independently reconstructed from freshly fetched
+public bytes; its replay verdict is pending. The strict false gate applies
+already, with no release of full native K or CO poles.
+
+Measured Sadaharu cost is **735.161s /0.08564GiB sampled kernel high-water**
+(91,959,296bytes),3671 samples at0.2s; sampled CPU usage734.512s. Sampling is
+not a post-exit peak. This is below the975.5s estimate and2400s cap. The
+21-line JSONL journal exactly matches all case records in the final report.
+Source archive SHA256:
+`65117f1aeab98eed68a8bb3ced3371e288c8f4e93524bc44730ac6b5286897d8`.
+
+**Next decision:** use the measured5-eV S/phase discrepancy to justify a separate
+native-outer/method error-attribution contract. Source defaultsIASY20/EPS5e-5
+are provenance, not proof that either side is accurate to1e-6. Freeze any
+independent-method or native outer-only control, its cost and unchanged
+comparison budgets before execution. Existing exports suffice; a new inner
+solve is not justified. The full594-matrix reconstruction remains unreleased.
 
 ## Decision and fixed scope
 
@@ -13,7 +74,7 @@ The [pilot contract](native-exterior-pilot-contract.json) is frozen at
 **`00c5839` before native comparison**. The method is frozen at **`0a9b0ce`**.
 It uses **equilibrium/nine/B1**, all298 channels, all2048 uncorrected exported
 poles, and requested energies **0.1/2.5/5.0eV** (native indices0/48/98).
-The original forty-component orbital averaging and selected48-channel target
+The original forty-component orbital averaging and selected48-component target
 retention remain inputs; no new electronic or inner-region calculation occurs.
 
 Seven configurations per energy vary **step0.1/0.05/0.025bohr**,

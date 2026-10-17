@@ -20,6 +20,52 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Independent native exterior pilot rejects at5eV — 17 October, 13:17 UTC
+
+**All21 frozen cases complete; eight of ten checks pass, but native S/phase
+reproduction rejects at5eV.** Finest K/S/phase errors are
+**7.46593e-7 /1.49310e-6 /2.72174e-6rad moduloπ** against separate1e-6 budgets.
+Original scientific command/container exits **1/1** remain, with no retry,
+threshold change or automatic successor. Method/contract freezes remain
+**`0a9b0ce` / `00c5839`**. See [results](NATIVE_EXTERIOR_PILOT.md),
+[verification](verification-native-exterior-pilot-20261017.json),
+[contract](native-exterior-pilot-contract.json) and
+[public payloads](qualification-evidence/native-exterior-pilot/README.md).
+
+At0.1/2.5eV, finest S errors are5.90030e-9/1.14479e-8 and phase errors
+1.03832e-8/3.29286e-8. Finest unitarity/reciprocity errors≤1.844e-11/2.172e-11
+pass, as does K-entry reproduction at all energies. Passing those controls does
+not waive the S/phase gates. Independent S changes are:
+step **1.21301e-5→7.57773e-7** (16.01-fold improvement), endpoint
+**1.34626e-8→2.68191e-8**, and tail order **6.02065e-9→1.49538e-12**.
+All frozen refinement checks pass. At5eV the phase mismatch remains2.602–2.722e-6
+over endpoints100/200/400 and≈2.722e-6 over orders4/6/8. These saved controls
+isolate the comparison discrepancy but do not establish its cause or absolute
+error on either side.
+
+Sadaharu costs **735.161s /0.08564GiB sampled kernel high-water**,3671 samples
+at0.2s,one BLAS thread,physical cores0–3 reserved,4-GiB limit. All21 journal
+rows exactly match the final report. Source/output:
+`prepared/native-exterior-pilot-source-20261017/`, archive SHA256
+`65117f1aeab98eed68a8bb3ced3371e288c8f4e93524bc44730ac6b5286897d8`.
+Nine public payloads contain all records,eleven source inputs and four native
+inputs with collection provenance. **Fresh independent public reconstruction is
+running locally; its verdict is pending.** Reproducing false and exit1 is the
+required result. The method's17 focused tests and public toy replay remain
+passing.
+
+The [13:16:51 UTC host check](progress-native-exterior-result-20261017.json)
+verifies **12 new hashes /271 prior hashes /242 installed artifacts**.
+No CO calculation runs on Sadaharu; only unrelated `comfyui` remains, with
+40.78GiB persistent disk free. No native engine solve or observer is active.
+
+**Next decision:** complete public replay, then separately justify a native-
+outer/method error-attribution design for the measured5-eV mismatch. Native
+IASY20/EPS5e-5 are defaults, not accuracy bounds. Freeze any comparison control
+and its cost before execution; do not automatically refine either side. Saved
+exports suffice, so no new inner solve is justified. Full594-matrix native K,
+CO poles and production remain unreleased; earlier scientific gates remain.
+
 ### Native asymptotic normalization traced; independent exterior pilot running — 17 October, 13:06 UTC
 
 **Native real-axis sign/flux conventions are source-derived, and the independent
