@@ -30,6 +30,11 @@ anchor/sector K-to-S cases, but the full twelve-case gate stops with six unset
 five-A2 interfaces: target-table rows are dense while channel labels retain
 original property IDs. Existing nine-A2 data support the next physical benchmark
 without a new inner solve; independent propagation/poles remain unqualified.
+The [first physical outgoing-pole benchmark](PHYSICAL_POLE_BENCHMARK.md) now
+passes all 36 real-axis profiles and 81 solves against independent exact Jost/
+Lambert-W oracles, with three-rung convergence and no reseeding. This qualifies
+the scalar-shell boundary convention only; coupled polar tails and actual
+native amplitude normalization/threshold sheets remain open.
 
 ## 1. Finish trustworthy target inputs
 
@@ -178,9 +183,11 @@ The saved-data inventory now finds boundary/channel/multipole data and native
 open-open K samples already present. Six nine-A2 cases reproduce native phases
 to 4.94e-8 rad; six five-A2 strict interface readings stay unset on target IDs,
 preserving aggregate false and reader exit 1. Trace the five-A2 ID consumers and
-freeze any mapped decoder separately. Declare solvable-model real-axis/outgoing-
-pole gates, then a coupled polar-tail benchmark, before an independent outer
-propagator uses the saved nine-A2 data. Require full K-matrix reproduction and
+freeze any mapped decoder separately. The scalar physical-shell gate now passes:
+maximum finest S/q errors are 2.584e-10/6.495e-12. Next declare a coupled polar-
+tail benchmark with open/closed thresholds and outgoing sheets, and derive the
+native amplitude/Bloch/energy normalization, before an independent outer
+propagator uses saved nine-A2 data. Require full K-matrix reproduction and
 radius/step/tail controls before CO complex poles. No missing export currently
 justifies a new inner solve. A new estimator needs independently
 justified background/threshold/causal constraints or direct pole evidence,

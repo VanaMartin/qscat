@@ -1,0 +1,33 @@
+{
+  "verified_utc": "2026-10-17T11:47:10.279388+00:00",
+  "public_reconstruction_passed": true,
+  "public_payloads_verified": 9,
+  "public_payload_sha256": {
+    "container-inspect.json": "c31371c53f29fe7b9057e694a3b3ec1392e206b85f1748017530b7b9c7674482",
+    "dependency.json": "3f757c56c0ede7c81a268ac6f0447b705369b9790d7fd7a55f796fda7e0e4517",
+    "execution.json": "09c92fe7d3e226b244376dc1d10c2b3c69550122452a503d7a6d7e5b897d16ac",
+    "host-benchmark.json": "e3da7ad953e281a98aee8d24731cb781ba24ef84dc2df8c5b0658be893b99b60",
+    "local-benchmark.json": "6308351a3c6ada4262e2eeb7c559d895e989a5acf173b09795eae98b768c8516",
+    "manifest.json": "a78aee81a697d16255c58ad12657a7fdf308413cb63e226c241a4f2307a090b5",
+    "mpmath-1.4.1-py3-none-any.whl": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+    "source-manifest.json": "f5622399f705169528bd87652fafbb8ab3d32dbe03ebc3e51382f4a5a6376115",
+    "source.tar.gz": "999a1ca1a2be34b86d5a50f3ae6019b3dc1ec394dec54f69753f5743b93bcb05"
+  },
+  "source_files_verified": 10,
+  "dependency_wheel_verified": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+  "public_command_exit": 0,
+  "physical_shell_benchmark_verdict": true,
+  "all19_frozen_checks_reproduced": true,
+  "real_profile_parity": 36,
+  "real_sample_parity": 3852,
+  "pole_solve_success_parity": 81,
+  "maximum_host_public_s_component_drift": 4.017508548059823e-12,
+  "maximum_host_public_q_drift": 3.790648128406879e-12,
+  "maximum_host_public_position_or_width_drift_ev": 3.590372443795786e-11,
+  "native_data_read": false,
+  "native_solves": 0,
+  "coupled_polar_tail_verdict": null,
+  "native_boundary_normalization_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

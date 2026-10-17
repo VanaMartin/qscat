@@ -31,6 +31,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [prospective phase-extraction study](PHASE_EXTRACTION.md),
 [analytic width-identifiability audit](PHASE_IDENTIFIABILITY.md),
 [saved K/S matrices and interface audit](SAVED_MATRICES.md),
+[physical outgoing-pole benchmark](PHYSICAL_POLE_BENCHMARK.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -58,7 +59,19 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 11:27 UTC:** the [saved-matrix audit](SAVED_MATRICES.md)
+**Update — 17 October, 11:49 UTC:** the first
+[physical outgoing-pole benchmark](PHYSICAL_POLE_BENCHMARK.md) passes all
+**36 real-axis profiles / 81 shooting solves / nineteen frozen checks**, with
+an independent exact Jost/Lambert-W oracle. Maximum finest S error is
+**2.584e-10** and full-width error **1.125e-10 eV**; three-rung convergence,
+matching-radius/Bloch invariance, threshold/node and negative controls pass.
+No reseeding or tolerance relaxation is used. Public replay verifies **nine
+payloads / ten sources / all cases**. Sadaharu cost **6.722 s / 0.051 GiB
+sampled**; **28 focused tests pass**. No native file is read or solve launched.
+Next are coupled polar-tail/threshold-sheet benchmarks and native normalization;
+the scalar pass does not qualify CO poles or production.
+
+**Earlier update — 17 October, 11:27 UTC:** the [saved-matrix audit](SAVED_MATRICES.md)
 recovers **594 six-channel S samples** from all three nine-A2 anchors in both
 Pi sectors, reproducing native eigenphase sums to **4.94e-8 rad**. Boundary
 poles/amplitudes, channel thresholds/labels and coupled long-range multipoles
@@ -185,10 +198,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: saved nine-A2 matrices reproduce; five-A2 target-label gate rejects; physical propagation and pole benchmarks needed](../../docs/physics/figures/co-progress-20261017T1127.png)
+![CO qualification: physical shell boundary matching and independent outgoing poles converge; coupled polar tails and native normalization remain gated](../../docs/physics/figures/co-progress-20261017T1149.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1127.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1127.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1149.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1149.json) ·
+[Physical benchmark results](PHYSICAL_POLE_BENCHMARK.md) ·
+[Public physical benchmark](qualification-evidence/physical-pole/README.md) ·
 [Saved matrix results](SAVED_MATRICES.md) ·
 [Public matrix reconstruction](qualification-evidence/saved-matrices/README.md) ·
 [Analytic identifiability results](PHASE_IDENTIFIABILITY.md) ·
@@ -217,6 +232,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous08:50overview](../../docs/physics/figures/co-progress-20261017T0850.png) ·
 [Previous09:32overview](../../docs/physics/figures/co-progress-20261017T0932.png) ·
 [Previous10:02overview](../../docs/physics/figures/co-progress-20261017T1002.png) ·
+[Previous11:27overview](../../docs/physics/figures/co-progress-20261017T1127.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -247,20 +263,20 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **11:27 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **11:49 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel F now records six passing nine-A2 matrix reconstructions,
-six unset five-A2 interfaces and the next physical benchmark gates. Panel B
-retains the 94 known-wrong-width counterexamples; panels A/C/D/E preserve reusable
-anchor, neutral, numerical and channel evidence. Saved K-to-S algebra is not
-independent outer propagation or pole identification. The actual coupled polar
-tail and original-ID target maps are consequential constraints. Original
-extraction/model rejections and unset global gates remain.
+**What changed:** panel B now shows real-axis/pole convergence against the
+independent physical-shell oracle. Panel F records the coupled polar-tail/native
+normalization gates and preserves the five-A2 interface stop. Panels A/C/D/E
+retain reusable anchor, neutral, numerical and channel evidence. The earlier
+94 wrong-width local phase counterexamples remain evidence for the physical
+design requirement. The scalar benchmark is not native CO pole qualification;
+original extraction/model rejections and unset global gates remain.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component

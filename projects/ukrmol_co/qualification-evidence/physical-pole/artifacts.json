@@ -1,0 +1,15 @@
+{
+  "artifacts": {
+    "container-inspect.json": {"bytes":9343,"sha256":"c31371c53f29fe7b9057e694a3b3ec1392e206b85f1748017530b7b9c7674482"},
+    "dependency.json": {"bytes":596,"sha256":"3f757c56c0ede7c81a268ac6f0447b705369b9790d7fd7a55f796fda7e0e4517"},
+    "execution.json": {"bytes":4616,"sha256":"09c92fe7d3e226b244376dc1d10c2b3c69550122452a503d7a6d7e5b897d16ac"},
+    "host-benchmark.json": {"bytes":421997,"sha256":"e3da7ad953e281a98aee8d24731cb781ba24ef84dc2df8c5b0658be893b99b60"},
+    "local-benchmark.json": {"bytes":421915,"sha256":"6308351a3c6ada4262e2eeb7c559d895e989a5acf173b09795eae98b768c8516"},
+    "manifest.json": {"bytes":833,"sha256":"a78aee81a697d16255c58ad12657a7fdf308413cb63e226c241a4f2307a090b5"},
+    "mpmath-1.4.1-py3-none-any.whl": {"bytes":567787,"sha256":"dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f"},
+    "source-manifest.json": {"bytes":1080,"sha256":"f5622399f705169528bd87652fafbb8ab3d32dbe03ebc3e51382f4a5a6376115"},
+    "source.tar.gz": {"bytes":10973,"sha256":"999a1ca1a2be34b86d5a50f3ae6019b3dc1ec394dec54f69753f5743b93bcb05"}
+  },
+  "git_sha":"3d94f4914febbb6da32689ce251ba752985491d0",
+  "url_prefix":"https://data.qscat.org/co-physical-pole-20261017/"
+}

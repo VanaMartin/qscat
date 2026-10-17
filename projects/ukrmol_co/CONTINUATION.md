@@ -20,6 +20,63 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### First physical outgoing-pole benchmark passes — 17 October, 11:49 UTC
+
+**The real radial-shell benchmark passes all nineteen frozen checks:**
+**36 real-axis profiles / 3,852 samples / 81 shooting solves / nine distinct
+outgoing poles**, preserving three accuracy levels and three matching radii.
+Source/design/tests/contract were frozen at **`3d94f49` before the full matrix**.
+All root statuses succeed without reseeding; original scientific command/
+container exits are **0/0**. See [results](PHYSICAL_POLE_BENCHMARK.md),
+[design](../../docs/physics/co-physical-pole-benchmark.md),
+[quoted verification](verification-physical-pole-20261017.json) and
+[public evidence](qualification-evidence/physical-pole/README.md).
+
+The self-adjoint half-line Hamiltonian is `−½d²/dr² + gδ(r−a)`, u(0)=0,
+a=5 bohr, λ=2ga=0/2/10/30. Exact Jost scattering and derived Lambert-W poles
+provide independent oracles for ODE propagation/boundary matching. The oracle
+uses 60/90-digit arithmetic; precision difference is **5.33e-61** and its
+unmultiplied Jost residual ≤**5.55e-60**. Shooting uses only the numerical
+outgoing residual and fixed `nπ−0.3−0.2i` seeds, with positive position/width
+and noncancelling incoming residual required. The removable q=0 root is excluded.
+
+The three ODE tolerances 1e-5/1e-8/1e-11 give maximum S errors
+**2.17349e-4 → 2.57166e-7 → 2.58327e-10** and pole q errors
+**5.67359e-6 → 6.58875e-9 → 6.49474e-12**. Finest position/full-width errors
+are ≤**6.054e-11 / 1.125e-10 eV**, below the frozen **0.1-meV** budgets.
+Phase error ≤1.292e-10 rad; matching-radius q spread ≤6.202e-13. All-rung
+unitarity and Bloch/common-rescaling errors ≤8.89e-16/5.98e-16. Node and threshold
+controls pass. Reversed/missing-half shell jump negatives differ from exact S
+by **0.51199/0.22569**, showing why unitarity alone cannot verify the convention.
+
+Public replay verifies **nine payloads / ten source files / exact dependency
+wheel**, all nineteen checks, all samples and all 81 successful root solves.
+Maximum host/public q and position/width drifts are **3.80e-12 / 3.60e-11 eV**.
+Sadaharu cost **6.722 s / 0.051 GiB sampled kernel high-water**, reserved cores
+0–3, one BLAS thread, 4-GiB limit. The initial missing-mpmath dependency probe's
+original exit **1** is preserved; a checksum-pinned pure-Python wheel was mounted
+read-only without altering the image or engine. **28 focused tests pass**.
+No CO file is read or native solve run. Persistent records:
+`prepared/physical-pole-source-20261017/`; source archive SHA256
+`999a1ca1a2be34b86d5a50f3ae6019b3dc1ec394dec54f69753f5743b93bcb05`.
+
+The [11:48 UTC host check](progress-physical-pole-20261017.json) verifies
+**20 new immutable hashes / 149 previous hashes / 242 installed artifacts**.
+No CO job is running; unrelated `comfyui` remains active, persistent disk has
+**41.25 GiB** free. The six-panel overview now shows this physical convergence
+while retaining native/channel/neutral evidence and the five-A2 interface stop.
+
+**Next:** design the coupled polar-tail benchmark with matrix scattering,
+open/closed channels and explicit threshold sheets/outgoing continuation.
+Derive native boundary-amplitude/Bloch and Hartree/Rydberg conventions from the
+writer/assembler separately before CO use. Require full native K reproduction
+and radius/step/tail controls before native complex poles. This scalar-shell
+pass does not release native poles, repair five-A2 labels, replace compressed/
+equilibrium extraction rejection, settle channel/model/continuity uncertainty or
+release production. The main index remains complete/current at
+`423d5770d3de337571f51e62702ae919bad97e8c`; new benchmark sources/design are
+branch-only and resolved locally.
+
 ### Saved nine-A2 matrices reproduce; five-A2 label gate stops — 17 October, 11:27 UTC
 
 **Existing nine-A2 data suffice for saved real-axis S reconstruction at all

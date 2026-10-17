@@ -1,0 +1,467 @@
+{
+  "verified_utc": "2026-10-17T11:45:53.534911+00:00",
+  "source_commit": "3d94f4914febbb6da32689ce251ba752985491d0",
+  "source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "libs/qscat/qscat/__init__.py": "779279252f7e81043ab5332ca690d7e45960975a3e2d1a90e81ea69bd75f4ca5",
+    "libs/qscat/qscat/exceptions.py": "0aac3f1856612c86c10637b85eda54f9aacca1b36005540d2550717b3a30f237",
+    "libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+    "projects/ukrmol_co/physical_pole.py": "73e5243bf74cc3e7b42cd4d221affa18c6f3b13fefd3c1ede0fce228996df80f",
+    "projects/ukrmol_co/physical_pole_study.py": "62617b9f7d970ce8282e8f711ca82d9033df714146a48e544a242a9050f66b7b",
+    "projects/ukrmol_co/physical-pole-contract.json": "471a080a7dbe74fe855c2c9c378d68ea5393bac4042fce08b02f2658476e0676",
+    "projects/ukrmol_co/test_physical_pole.py": "4d08173a6baad42939c4a1813e01d47616e08097712714cbad0ecd68eb0e501c",
+    "docs/physics/co-physical-pole-benchmark.md": "aeb42e39de9cb0fb496f807d6beb6fa931bf7456a007af11b40248475e0479b2"
+  },
+  "physical_shell_benchmark_verdict": true,
+  "all_frozen_checks": {
+    "complete_declared_matrix": true,
+    "oracle_precision": true,
+    "oracle_unmultiplied_jost_residual": true,
+    "maximum_s_error": true,
+    "maximum_phase_error_rad_mod_pi": true,
+    "maximum_scattering_length_ratio_error": true,
+    "maximum_unitarity_error": true,
+    "maximum_bloch_rescaling_error": true,
+    "all_root_solver_statuses": true,
+    "all_outgoing_quadrants_positive_widths": true,
+    "q_error": true,
+    "position_error_ev": true,
+    "full_width_error_ev": true,
+    "outgoing_residual_absolute": true,
+    "no_numerator_cancellation": true,
+    "three_rung_convergence": true,
+    "finest_matching_radius_invariance": true,
+    "mandatory_negative_controls": true,
+    "threshold_not_a_pole": true
+  },
+  "real_profiles": 36,
+  "real_q_points_per_profile": 107,
+  "real_axis_samples": 3852,
+  "outgoing_shooting_solves": 81,
+  "distinct_poles": 9,
+  "convergence": [
+    {
+      "ode_rtol": 1e-05,
+      "maximum_s_error": 0.00021734903714295983,
+      "maximum_q_error": 5.673590919969716e-06
+    },
+    {
+      "ode_rtol": 1e-08,
+      "maximum_s_error": 2.5716632204605696e-07,
+      "maximum_q_error": 6.588746655342365e-09
+    },
+    {
+      "ode_rtol": 1e-11,
+      "maximum_s_error": 2.5832677637487585e-10,
+      "maximum_q_error": 6.494738718244374e-12
+    }
+  ],
+  "finest_maximum_s_error": 2.5832677637487585e-10,
+  "finest_maximum_phase_error_rad_mod_pi": 1.291634001738686e-10,
+  "maximum_unitarity_error_all_rungs": 8.881784197001252e-16,
+  "maximum_bloch_rescaling_error_all_rungs": 5.978733960281817e-16,
+  "finest_maximum_scattering_length_ratio_error": 3.950761939819358e-11,
+  "finest_maximum_q_error": 6.494738718244374e-12,
+  "finest_maximum_position_error_ev": 6.053017363168051e-11,
+  "finest_maximum_full_width_error_ev": 1.1248050632135799e-10,
+  "finest_maximum_root_residual": 4.089059289467608e-12,
+  "finest_minimum_incoming_residual": 0.19884806647006378,
+  "finest_radius_q_spread": 6.201781737969199e-13,
+  "oracle_precision_difference": 5.324705862055509e-61,
+  "oracle_maximum_jost_residual": 5.540577439983524e-60,
+  "negative_controls": {
+    "reversed_shell_jump": 0.5119920064587776,
+    "missing_factor_two_shell_jump": 0.22568789327973954
+  },
+  "representative_poles_at_shell_radius": [
+    {
+      "lambda": 2.0,
+      "pole_index": 1,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        2.4636105087109113,
+        -0.46244204249334614
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 15,
+      "outgoing_residual_absolute": 5.807003728115015e-13,
+      "incoming_residual_absolute": 0.9940755745463254,
+      "q_error": 2.0270161998246375e-12,
+      "oracle_q": [
+        2.463610508711335,
+        -0.4624420424913639
+      ],
+      "energy_hartree": [
+        0.11711048191930834,
+        -0.04557108302225381
+      ],
+      "oracle_energy_hartree": [
+        0.11711048191938675,
+        -0.045571083022066305
+      ],
+      "position_error_ev": 2.133631220172408e-12,
+      "full_width_error_ev": 1.0204421740088283e-11,
+      "position_ev": 3.1867385569600932,
+      "full_width_ev": 2.480104683533069,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 2.0,
+      "pole_index": 2,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        5.511070375415173,
+        -0.8535558974102798
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 22,
+      "outgoing_residual_absolute": 2.0661117715607822e-14,
+      "incoming_residual_absolute": 1.0115657919243644,
+      "q_error": 3.967710045391159e-12,
+      "oracle_q": [
+        5.5110703754147785,
+        -0.8535558974063318
+      ],
+      "energy_hartree": [
+        0.5928667802554972,
+        -0.1881602647991482
+      ],
+      "oracle_energy_hartree": [
+        0.5928667802555452,
+        -0.18816026479826445
+      ],
+      "position_error_ev": 1.3051025658258126e-12,
+      "full_width_error_ev": 4.809695694266169e-11,
+      "position_ev": 16.132726949947628,
+      "full_width_ev": 10.240203283194003,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 2.0,
+      "pole_index": 3,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        8.634867716677556,
+        -1.0779245551771832
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 29,
+      "outgoing_residual_absolute": 2.0744197486903665e-13,
+      "incoming_residual_absolute": 1.0077206012455755,
+      "q_error": 6.137154281675224e-12,
+      "oracle_q": [
+        8.63486771667527,
+        -1.0779245551714878
+      ],
+      "energy_hartree": [
+        1.467980382757327,
+        -0.372309437700539
+      ],
+      "oracle_energy_hartree": [
+        1.467980382756783,
+        -0.37230943769847324
+      ],
+      "position_error_ev": 1.480324669570945e-11,
+      "full_width_error_ev": 1.1242310597702769e-10,
+      "position_ev": 39.94578119674293,
+      "full_width_ev": 20.262111824591944,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 10.0,
+      "pole_index": 1,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        2.877577458459501,
+        -0.06651067249045553
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 13,
+      "outgoing_residual_absolute": 2.082907229766857e-15,
+      "incoming_residual_absolute": 0.5039675320097174,
+      "q_error": 1.9744890488656327e-12,
+      "oracle_q": [
+        2.8775774584575875,
+        -0.06651067248996889
+      ],
+      "energy_hartree": [
+        0.1655205671975822,
+        -0.007655584476220691
+      ],
+      "oracle_energy_hartree": [
+        0.16552056719736322,
+        -0.0076555844761595875
+      ],
+      "position_error_ev": 5.9590620627116094e-12,
+      "full_width_error_ev": 3.3254436327147296e-12,
+      "position_ev": 4.504044085668421,
+      "full_width_ev": 0.41663813224246193,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 10.0,
+      "pole_index": 2,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        5.841379586079988,
+        -0.20648009630375763
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 12,
+      "outgoing_residual_absolute": 2.90634803955654e-13,
+      "incoming_residual_absolute": 0.7735176730997061,
+      "q_error": 4.248747313644133e-12,
+      "oracle_q": [
+        5.8413795860760525,
+        -0.20648009630215652
+      ],
+      "energy_hartree": [
+        0.6815816287700481,
+        -0.048245144779223995
+      ],
+      "oracle_energy_hartree": [
+        0.6815816287691417,
+        -0.04824514477881738
+      ],
+      "position_error_ev": 2.4664021637504476e-11,
+      "full_width_error_ev": 2.2128965640864234e-11,
+      "position_ev": 18.546780958631388,
+      "full_width_ev": 2.625634538162151,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 10.0,
+      "pole_index": 3,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        8.880653554002379,
+        -0.3478418260461044
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 14,
+      "outgoing_residual_absolute": 5.806449599319437e-14,
+      "incoming_residual_absolute": 0.8864948931609747,
+      "q_error": 6.492713243944062e-12,
+      "oracle_q": [
+        8.880653553996394,
+        -0.3478418260435864
+      ],
+      "energy_hartree": [
+        1.57490027220536,
+        -0.12356250994828058
+      ],
+      "oracle_energy_hartree": [
+        1.574900272203269,
+        -0.12356250994730283
+      ],
+      "position_error_ev": 5.6898846585100356e-11,
+      "full_width_error_ev": 5.321162972956701e-11,
+      "position_ev": 42.85521960589169,
+      "full_width_ev": 6.724614367452795,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 30.0,
+      "pole_index": 1,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        3.0415019887906682,
+        -0.009760323730370482
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 14,
+      "outgoing_residual_absolute": 1.9615953284330953e-13,
+      "incoming_residual_absolute": 0.19884806647021863,
+      "q_error": 2.2101284533450682e-12,
+      "oracle_q": [
+        3.041501988788459,
+        -0.009760323730311595
+      ],
+      "energy_hartree": [
+        0.18501278167796534,
+        -0.001187441761486503
+      ],
+      "oracle_energy_hartree": [
+        0.18501278167769664,
+        -0.0011874417614784762
+      ],
+      "position_error_ev": 7.311746492916488e-12,
+      "full_width_error_ev": 4.3683975042655983e-13,
+      "position_ev": 5.0344542626837665,
+      "full_width_ev": 0.06462387283285118,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 30.0,
+      "pole_index": 2,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        6.089921772710727,
+        -0.037082069381371395
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 13,
+      "outgoing_residual_absolute": 8.521750531156544e-13,
+      "incoming_residual_absolute": 0.3769809718784143,
+      "q_error": 4.4113893950886716e-12,
+      "oracle_q": [
+        6.089921772706318,
+        -0.03708206938122374
+      ],
+      "energy_hartree": [
+        0.7417154423573312,
+        -0.009033076068111339
+      ],
+      "oracle_energy_hartree": [
+        0.7417154423562573,
+        -0.009033076068068831
+      ],
+      "position_error_ev": 2.922281740563214e-11,
+      "full_width_error_ev": 2.3133849300488794e-12,
+      "position_ev": 20.183105386599188,
+      "full_width_ev": 0.4916050437575365,
+      "outgoing_quadrant_positive_position_width": true
+    },
+    {
+      "lambda": 30.0,
+      "pole_index": 3,
+      "matching_radius_ratio": 1.0,
+      "ode_rtol": 1e-11,
+      "q": [
+        9.149765263095334,
+        -0.07720431514636802
+      ],
+      "solver_success": true,
+      "solver_status": 1,
+      "evaluations": 12,
+      "outgoing_residual_absolute": 3.305238166430338e-12,
+      "incoming_residual_absolute": 0.522727486315571,
+      "q_error": 6.086611122317986e-12,
+      "oracle_q": [
+        9.149765263089256,
+        -0.07720431514605766
+      ],
+      "energy_hartree": [
+        1.6742448772693763,
+        -0.028256054435492124
+      ],
+      "oracle_energy_hartree": [
+        1.6742448772671523,
+        -0.028256054435359765
+      ],
+      "position_error_ev": 6.051808934866361e-11,
+      "full_width_error_ev": 7.203365579608615e-12,
+      "position_ev": 45.55852402574377,
+      "full_width_ev": 1.5377728220636773,
+      "outgoing_quadrant_positive_position_width": true
+    }
+  ],
+  "host_local_checks_parity": true,
+  "host_local_root_success_parity": 81,
+  "maximum_host_local_s_component_drift": 4.017508548059823e-12,
+  "maximum_host_local_q_drift": 3.790648128406879e-12,
+  "maximum_host_local_position_or_width_drift_ev": 3.590372443795786e-11,
+  "local_command_exit": 0,
+  "execution": {
+    "started_utc": "2026-10-17T11:44:59.109208+00:00",
+    "source_commit": "3d94f4914febbb6da32689ce251ba752985491d0",
+    "source_archive_sha256": "999a1ca1a2be34b86d5a50f3ae6019b3dc1ec394dec54f69753f5743b93bcb05",
+    "source_manifest": {
+      "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+      "libs/qscat/qscat/__init__.py": "779279252f7e81043ab5332ca690d7e45960975a3e2d1a90e81ea69bd75f4ca5",
+      "libs/qscat/qscat/exceptions.py": "0aac3f1856612c86c10637b85eda54f9aacca1b36005540d2550717b3a30f237",
+      "libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+      "projects/ukrmol_co/physical_pole.py": "73e5243bf74cc3e7b42cd4d221affa18c6f3b13fefd3c1ede0fce228996df80f",
+      "projects/ukrmol_co/physical_pole_study.py": "62617b9f7d970ce8282e8f711ca82d9033df714146a48e544a242a9050f66b7b",
+      "projects/ukrmol_co/physical-pole-contract.json": "471a080a7dbe74fe855c2c9c378d68ea5393bac4042fce08b02f2658476e0676",
+      "projects/ukrmol_co/test_physical_pole.py": "4d08173a6baad42939c4a1813e01d47616e08097712714cbad0ecd68eb0e501c",
+      "docs/physics/co-physical-pole-benchmark.md": "aeb42e39de9cb0fb496f807d6beb6fa931bf7456a007af11b40248475e0479b2"
+    },
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_memory": "               total        used        free      shared  buff/cache   available\nMem:     132578123776 17906778112  3515949056  1135988736 113117663232 114671345664\nSwap:    31998341120  2688745472 29309595648\n",
+    "persistent_free_disk_gib": 41.25535202026367,
+    "preexisting_containers": "comfyui Up 3 weeks\n",
+    "scope": "Physical scalar-shell benchmark only; no native data, solve or CO pole search.",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-physical-pole-20261017",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "PYTHONPATH=/source:/source/libs/qscat:/dependencies",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/physical-pole-source-20261017/source:/source:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/physical-pole-source-20261017:/outputs",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/physical-pole-source-20261017/dependencies:/dependencies:ro",
+      "-w",
+      "/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.physical_pole_study",
+      "--contract",
+      "projects/ukrmol_co/physical-pole-contract.json",
+      "--output",
+      "/outputs/benchmark.json"
+    ],
+    "dependency": {
+      "package": "mpmath",
+      "version": "1.4.1",
+      "wheel": "mpmath-1.4.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/13/f2/abeec3db71d221ccd3cd89d206be1fabf5a3ee7178862f5fba23a59607e0/mpmath-1.4.1-py3-none-any.whl",
+      "sha256": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+      "bytes": 567787,
+      "preflight_original_exit": 1,
+      "preflight_original_error": "ModuleNotFoundError: No module named 'mpmath'",
+      "action": "Pure Python wheel checksum-verified and extracted into isolated read-only dependency mount; pinned native engine/image unchanged."
+    },
+    "original_command_exit": 0,
+    "wall_seconds": 6.721964520867914,
+    "finished_utc": "2026-10-17T11:45:05.841554+00:00",
+    "resource_sample_count": 32,
+    "sample_interval_seconds": 0.2,
+    "sampled_peak_container_memory_bytes": 54468608,
+    "sampled_kernel_memory_peak_bytes": 54718464,
+    "sampled_container_cpu_seconds": 6.220225,
+    "original_container_exit": 0
+  },
+  "focused_tests_passed": 28,
+  "native_data_read": false,
+  "native_solves": 0,
+  "coupled_polar_tail_verdict": null,
+  "native_boundary_normalization_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

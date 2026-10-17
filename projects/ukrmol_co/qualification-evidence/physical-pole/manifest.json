@@ -1,0 +1,21 @@
+{
+  "git_sha": "3d94f4914febbb6da32689ce251ba752985491d0",
+  "date": "2026-10-17",
+  "record_type": "co-physical-radial-shell-benchmark",
+  "reader_source_files": 10,
+  "real_profiles": 36,
+  "real_q_points_per_profile": 107,
+  "outgoing_shooting_solves": 81,
+  "distinct_physical_poles": 9,
+  "physical_shell_benchmark_verdict": true,
+  "original_command_exit": 0,
+  "original_container_exit": 0,
+  "dependency_preflight_original_exit": 1,
+  "native_data_read": false,
+  "native_solves": 0,
+  "coupled_polar_tail_verdict": null,
+  "native_boundary_normalization_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false,
+  "scope": "Scalar real finite-range delta shell; Lambert-W oracle vs independent ODE shooting. Does not qualify native normalization, coupled tails, CO poles or the production sweep."
+}

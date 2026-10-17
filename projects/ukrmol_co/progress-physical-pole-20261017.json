@@ -1,0 +1,41 @@
+{
+  "observed_utc": "2026-10-17T11:48:01.059706+00:00",
+  "remote_sha256": {
+    "prepared/physical-pole-source-20261017/source/projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/physical-pole-source-20261017/source/projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "prepared/physical-pole-source-20261017/source/libs/qscat/qscat/__init__.py": "779279252f7e81043ab5332ca690d7e45960975a3e2d1a90e81ea69bd75f4ca5",
+    "prepared/physical-pole-source-20261017/source/libs/qscat/qscat/exceptions.py": "0aac3f1856612c86c10637b85eda54f9aacca1b36005540d2550717b3a30f237",
+    "prepared/physical-pole-source-20261017/source/libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+    "prepared/physical-pole-source-20261017/source/projects/ukrmol_co/physical_pole.py": "73e5243bf74cc3e7b42cd4d221affa18c6f3b13fefd3c1ede0fce228996df80f",
+    "prepared/physical-pole-source-20261017/source/projects/ukrmol_co/physical_pole_study.py": "62617b9f7d970ce8282e8f711ca82d9033df714146a48e544a242a9050f66b7b",
+    "prepared/physical-pole-source-20261017/source/projects/ukrmol_co/physical-pole-contract.json": "471a080a7dbe74fe855c2c9c378d68ea5393bac4042fce08b02f2658476e0676",
+    "prepared/physical-pole-source-20261017/source/projects/ukrmol_co/test_physical_pole.py": "4d08173a6baad42939c4a1813e01d47616e08097712714cbad0ecd68eb0e501c",
+    "prepared/physical-pole-source-20261017/source/docs/physics/co-physical-pole-benchmark.md": "aeb42e39de9cb0fb496f807d6beb6fa931bf7456a007af11b40248475e0479b2",
+    "prepared/physical-pole-source-20261017/source.tar.gz": "999a1ca1a2be34b86d5a50f3ae6019b3dc1ec394dec54f69753f5743b93bcb05",
+    "prepared/physical-pole-source-20261017/source-manifest.json": "f5622399f705169528bd87652fafbb8ab3d32dbe03ebc3e51382f4a5a6376115",
+    "prepared/physical-pole-source-20261017/dependency.json": "3f757c56c0ede7c81a268ac6f0447b705369b9790d7fd7a55f796fda7e0e4517",
+    "prepared/physical-pole-source-20261017/benchmark.json": "e3da7ad953e281a98aee8d24731cb781ba24ef84dc2df8c5b0658be893b99b60",
+    "prepared/physical-pole-source-20261017/execution.json": "09c92fe7d3e226b244376dc1d10c2b3c69550122452a503d7a6d7e5b897d16ac",
+    "prepared/physical-pole-source-20261017/container-inspect.json": "c31371c53f29fe7b9057e694a3b3ec1392e206b85f1748017530b7b9c7674482",
+    "prepared/physical-pole-source-20261017/mpmath-1.4.1-py3-none-any.whl": "dc4f0ea2304480d4a9a48a94c1020571558ade522b44a6912efac63a586e140f",
+    "prepared/physical-pole-source-20261017/verification-physical-pole-20261017.json": "e9bfa1bac5dcb82d36f66ebbe60f382ea5dfb43b509efb73fdc3c0310dc85728",
+    "prepared/physical-pole-source-20261017/verification-physical-pole-public-20261017.json": "db59e77fe7cf8fa5f49568cdb14459d2528081cda853277127d3c39a055e4afb",
+    "prepared/physical-pole-source-20261017/PHYSICAL_POLE_BENCHMARK.md": "e8e953c3c1e96264e516688d204792882558bfed0a56f0104c33e69d5807de01"
+  },
+  "new_immutable_remote_hashes_verified": 20,
+  "previous_immutable_remote_hashes_reverified": 149,
+  "installed_engine_artifacts_verified": 242,
+  "dependency_preflight_original_exit": 1,
+  "original_scientific_command_container_exits": [
+    0,
+    0
+  ],
+  "physical_shell_benchmark_verdict": true,
+  "all81_root_statuses_success": true,
+  "co_jobs_running": 0,
+  "containers": "comfyui Up 3 weeks\n",
+  "persistent_free_disk_gib": 41.25489807128906,
+  "native_data_read": false,
+  "native_solves": 0,
+  "full_sweep_released": false
+}
