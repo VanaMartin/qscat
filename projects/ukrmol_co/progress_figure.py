@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1340.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1408.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -672,20 +672,17 @@ def _native_exterior_convergence(ax, data):
     _note(ax, data["native_exterior_note"])
 
 
-def _native_exterior_pilot(ax, data):
-    _panel(
-        ax,
-        "B",
-        "Native exterior: reproduction rejects",
-        "Full-channel equilibrium-B1 pilot; each error / its 1e-6 budget",
-    )
+def _native_reproduction(
+    ax, rows, title, subtitle, labels, xlabel, note, *, legend_location="upper left"
+):
+    _panel(ax, "B", title, subtitle)
     x = np.arange(3)
     for metric, color, marker, label in [
         ("native_k_error", BLUE, "o", "K entries"),
         ("native_s_error", ORANGE, "s", "S entries"),
         ("native_phase_error_rad_mod_pi", RED, "^", "Phase sum modulo π"),
     ]:
-        values = [row[metric] / 1e-6 for row in data["native_exterior_pilot_finest"]]
+        values = [row[metric] / 1e-6 for row in rows]
         ax.semilogy(x, values, color=color, marker=marker, lw=1.6, label=label)
         for i, value in enumerate(values):
             ax.annotate(
@@ -698,11 +695,36 @@ def _native_exterior_pilot(ax, data):
                 color=color,
             )
     ax.axhline(1, color=GRAY, ls="--", lw=1, label="Reproduction budget")
-    ax.set_xticks(x, ["0.1", "2.5", "5.0"])
-    ax.set(xlim=(-0.25, 2.35), ylim=(1e-3, 10), xlabel="Requested energy / eV")
+    ax.set_xticks(x, labels)
+    ax.set(xlim=(-0.25, 2.35), ylim=(1e-3, 10), xlabel=xlabel)
     ax.set_ylabel("Finest error / declared tolerance (≤1 passes)")
-    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
-    _note(ax, data["native_exterior_pilot_note"])
+    ax.legend(loc=legend_location, frameon=False, fontsize=8.5)
+    _note(ax, note)
+
+
+def _native_exterior_pilot(ax, data):
+    _native_reproduction(
+        ax,
+        data["native_exterior_pilot_finest"],
+        "Native exterior: reproduction rejects",
+        "Full-channel equilibrium-B1 pilot; each error / its 1e-6 budget",
+        ["0.1", "2.5", "5.0"],
+        "Requested energy / eV",
+        data["native_exterior_pilot_note"],
+    )
+
+
+def _native_attribution(ax, data):
+    _native_reproduction(
+        ax,
+        data["native_attribution_comparisons"],
+        "Native subrange refinement resolves mismatch",
+        "At 5 eV; same h=0.0125 / 400-bohr independent reference",
+        ["8 (original)", "16", "32"],
+        "Native radial subranges (NLEG = 10, radius = 100 bohr)",
+        data["native_attribution_note"],
+        legend_location="upper right",
+    )
 
 
 def _snapshot_data(snapshot: Path) -> dict:
@@ -777,7 +799,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _native_exterior_pilot
+            _native_attribution
+            if "native_attribution_comparisons" in data
+            else _native_exterior_pilot
             if "native_exterior_pilot_finest" in data
             else _native_exterior_convergence
             if "native_exterior_convergence" in data
@@ -855,7 +879,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1340"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1408"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

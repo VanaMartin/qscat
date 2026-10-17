@@ -1,0 +1,24 @@
+{
+  "git_sha": "666c056aff8b522bd1a2a078699d976eaf5143da",
+  "date": "2026-10-17",
+  "record_type": "native-subrange-attribution-control",
+  "attribution_control_verdict": true,
+  "checks_passed": 10,
+  "native_outer_invocations": 3,
+  "native_energy_records": 297,
+  "independent_cases": 2,
+  "original_command_container_exits": [
+    0,
+    0
+  ],
+  "native_subrange_attribution": true,
+  "original_pilot_verdict": false,
+  "original_pilot_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

@@ -1,0 +1,49 @@
+{
+  "observed_utc": "2026-10-17T14:04:19.294324+00:00",
+  "remote_sha256": {
+    "prepared/native-exterior-attribution-source-20261017/result/native-8/rsolve.inp": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+    "prepared/native-exterior-attribution-source-20261017/result/native-8/rsolve.out": "5f7148b6c00cb1cea47f5fe69052c341eeea9f6b7690a7fbe5722ed5a4ba4e9c",
+    "prepared/native-exterior-attribution-source-20261017/result/native-8/fort.921": "710f2fd288d3f905d2a139721f4dd6ac5b8aaad7c95f3dfb76baef828bf2d091",
+    "prepared/native-exterior-attribution-source-20261017/result/native-16/rsolve.inp": "9e12f5da66c314ad77ea266006b1f91eefc99850d4e567452ddbb040b2cde5f6",
+    "prepared/native-exterior-attribution-source-20261017/result/native-16/rsolve.out": "c7c7435448ed59a5d69734a7febdfbef7ba682a5727aaae676a509e055d89260",
+    "prepared/native-exterior-attribution-source-20261017/result/native-16/fort.921": "d1ca645abf33cd9b15b2cf5b8032ca665377dd271e917d76489c4853706346e4",
+    "prepared/native-exterior-attribution-source-20261017/result/native-32/rsolve.inp": "ce2be186bc4bc06ba0e82af4bffdd0cdac6ba2cb4f176613877d38ddb47956f5",
+    "prepared/native-exterior-attribution-source-20261017/result/native-32/rsolve.out": "782d2f3286af402adce15c2d9d6859858e3e3ddaa491e3d2e6e4658c722fbe25",
+    "prepared/native-exterior-attribution-source-20261017/result/native-32/fort.921": "8390b5ae14e176bd60bd3bc9fc2b264258d8b6f96b7ceeaefbcd67c8881baccc",
+    "prepared/native-exterior-attribution-source-20261017/result/report.json": "9916e0d6f7cc7f6444c91699424a74ec04c703f00c6b6847186913fa48455b24",
+    "prepared/native-exterior-attribution-source-20261017/result/independent.jsonl": "910784c18248507d672f1c6c3d596bce8e37bec8272d9c0e4ccb6624d5a3b67c",
+    "prepared/native-exterior-attribution-source-20261017/execution.json": "61854280371180716bbc20150645add675c2b3f4b12f8fb53f23229d9a5a1ed4",
+    "prepared/native-exterior-attribution-source-20261017/container-inspect.json": "1d4c5f918ace1b5e53905f3d3bef4166c32846424df995d6ffc21d4645cba469",
+    "prepared/native-exterior-attribution-source-20261017/attribution.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/native-exterior-attribution-source-20261017/inputs.tar.gz": "3e5539b769010ce54bc1e3e8b3b702c2254737912bae6a3995fe29a075e5316e",
+    "prepared/native-exterior-attribution-source-20261017/native-results.tar.gz": "14685aaf7b3aa0c49cdc99339e3acab57b3b0fa7a6dc337eb900010f03481a66",
+    "prepared/native-exterior-attribution-source-20261017/verification-native-attribution-20261017.json": "00fa6c7592d169825559f8864450bfcc42831ff307e3b34be23a98dc78853cec"
+  },
+  "new_immutable_remote_hashes_verified": 17,
+  "previous_immutable_remote_hashes_reverified": 297,
+  "installed_engine_artifacts_verified": 242,
+  "attribution_running": false,
+  "attribution_control_verdict": true,
+  "native_subrange_attribution": true,
+  "checks_passed": 10,
+  "checks_total": 10,
+  "native_outer_invocations_completed": 3,
+  "independent_cases_completed": 2,
+  "original_command_container_exits": [
+    0,
+    0
+  ],
+  "original_pilot_verdict": false,
+  "original_pilot_exits": [
+    1,
+    1
+  ],
+  "co_jobs_running": 0,
+  "containers": "comfyui Up 3 weeks\n",
+  "persistent_free_disk_gib": 40.760929107666016,
+  "public_reconstruction_pending": true,
+  "new_inner_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

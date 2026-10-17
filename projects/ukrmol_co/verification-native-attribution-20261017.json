@@ -1,0 +1,405 @@
+{
+  "verified_utc": "2026-10-17T14:02:29.506376+00:00",
+  "source_commit": "666c056aff8b522bd1a2a078699d976eaf5143da",
+  "source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+    "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+    "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+    "projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+    "projects/ukrmol_co/native_exterior_attribution.py": "5bf90ad998beaf209357a696e5cd530d0e984822b3e3eb1bf3002fbbef1c8c5b",
+    "projects/ukrmol_co/test_native_exterior_attribution.py": "08fff15e75c3684fb655d8c00a26a13537ee2220d75f97c84ef0e7373b61ea47",
+    "projects/ukrmol_co/native-exterior-attribution-contract.json": "437200b59c4eaa632009b368932611f6c9edcce908308d2746a96d62fec87d23",
+    "projects/ukrmol_co/native-exterior-pilot-contract.json": "6b9928fdecacb6cbb92426c8043214bf1a4bdad6094b1550da81972acc6f0fe9",
+    "docs/physics/co-native-exterior-attribution.md": "986b8350c63c343ad8878da1ee534b908930d10b3c36b67e20d4bbfdc88772ea"
+  },
+  "native_output_sha256": {
+    "native-8/rsolve.inp": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+    "native-8/rsolve.out": "5f7148b6c00cb1cea47f5fe69052c341eeea9f6b7690a7fbe5722ed5a4ba4e9c",
+    "native-8/fort.921": "710f2fd288d3f905d2a139721f4dd6ac5b8aaad7c95f3dfb76baef828bf2d091",
+    "native-16/rsolve.inp": "9e12f5da66c314ad77ea266006b1f91eefc99850d4e567452ddbb040b2cde5f6",
+    "native-16/rsolve.out": "c7c7435448ed59a5d69734a7febdfbef7ba682a5727aaae676a509e055d89260",
+    "native-16/fort.921": "d1ca645abf33cd9b15b2cf5b8032ca665377dd271e917d76489c4853706346e4",
+    "native-32/rsolve.inp": "ce2be186bc4bc06ba0e82af4bffdd0cdac6ba2cb4f176613877d38ddb47956f5",
+    "native-32/rsolve.out": "782d2f3286af402adce15c2d9d6859858e3e3ddaa491e3d2e6e4658c722fbe25",
+    "native-32/fort.921": "8390b5ae14e176bd60bd3bc9fc2b264258d8b6f96b7ceeaefbcd67c8881baccc"
+  },
+  "attribution_control_verdict": true,
+  "checks": {
+    "baseline_reproduction": true,
+    "native_subrange_refinement": true,
+    "independent_step_refinement": true,
+    "independent_endpoint_refinement": true,
+    "independent_spatial_trend": true,
+    "native_k_reproduction": true,
+    "native_s_reproduction": true,
+    "native_phase_reproduction": true,
+    "unitarity": true,
+    "reciprocity": true
+  },
+  "checks_passed": 10,
+  "metrics": {
+    "native_final_change": {
+      "k": 1.4325400241044228e-11,
+      "s": 2.85942986887153e-11,
+      "phase_rad_mod_pi": 3.842779930805923e-11
+    },
+    "independent_step_change": {
+      "k": 3.2649717818244994e-08,
+      "s": 4.7162976444988794e-08,
+      "phase_rad_mod_pi": 1.408883896664838e-07
+    },
+    "independent_endpoint_change": {
+      "k": 1.7382028039136799e-09,
+      "s": 2.5409341544193203e-09,
+      "phase_rad_mod_pi": 7.516739717213635e-09
+    },
+    "refined_native_vs_independent": {
+      "k": 2.6838839484177868e-09,
+      "s": 4.086319222577071e-09,
+      "phase_rad_mod_pi": 1.1517547449608275e-08
+    },
+    "baseline_native_vs_independent": {
+      "k": 7.233617734681702e-07,
+      "s": 1.4466433692915754e-06,
+      "phase_rad_mod_pi": 2.580854458597045e-06
+    },
+    "s_mismatch_fractional_reduction": 0.9971753098867912,
+    "native_correction_s_real": [
+      [
+        5.684910315828517e-07,
+        -3.3825463224834706e-07,
+        4.637483357050609e-08,
+        5.962753174651751e-11,
+        -1.050982575967474e-08,
+        -3.007784518106423e-11
+      ],
+      [
+        -3.382546323038582e-07,
+        6.715771615484201e-07,
+        -3.619957198580659e-08,
+        -1.237416756449841e-11,
+        2.8921139930832007e-08,
+        5.197686856587311e-12
+      ],
+      [
+        4.637483358438388e-08,
+        -3.619957199274548e-08,
+        1.0083351931200468e-09,
+        3.0883386778439025e-12,
+        -5.3568453446933145e-09,
+        -6.250213160513562e-12
+      ],
+      [
+        5.962753175329377e-11,
+        -1.2374167561110278e-11,
+        3.0883386795379684e-12,
+        -1.2050671682750647e-08,
+        2.442650247676343e-12,
+        6.251719159391413e-09
+      ],
+      [
+        -1.0509825756205293e-08,
+        2.8921139920423666e-08,
+        -5.356845344042793e-09,
+        2.442650247676343e-12,
+        3.061135167570228e-08,
+        -3.918280881285165e-12
+      ],
+      [
+        -3.00778451827583e-11,
+        5.197686851505113e-12,
+        -6.250213161360595e-12,
+        6.2517191593372025e-09,
+        -3.918280881232226e-12,
+        -1.383252312692207e-08
+      ]
+    ],
+    "native_correction_s_imag": [
+      [
+        4.939247402191427e-07,
+        3.7326993496122896e-07,
+        1.3650075285365215e-08,
+        2.604679292346132e-11,
+        1.2274412469065465e-08,
+        5.172008546265594e-12
+      ],
+      [
+        3.7326993496122896e-07,
+        5.632944193312284e-07,
+        4.834027759331727e-08,
+        2.277001264663774e-11,
+        -3.763615493909689e-08,
+        -1.5688909472137875e-11
+      ],
+      [
+        1.3650075299243003e-08,
+        4.834027758637838e-08,
+        1.7627836004091568e-07,
+        -5.41092470495271e-12,
+        1.7485919431153851e-09,
+        2.1325162281518725e-13
+      ],
+      [
+        2.6046792964118902e-11,
+        2.277001264753771e-11,
+        -5.41092470495271e-12,
+        1.5831613335570704e-07,
+        5.773434890938894e-13,
+        1.011556487878762e-09
+      ],
+      [
+        1.2274412469065465e-08,
+        -3.763615494950523e-08,
+        1.7485919448501086e-09,
+        5.773434899409224e-13,
+        1.436318521834401e-06,
+        -2.0490203289178096e-12
+      ],
+      [
+        5.1720085394893305e-12,
+        -1.5688909472137875e-11,
+        2.1325162281518725e-13,
+        1.011556484409315e-09,
+        -2.049020329341326e-12,
+        1.4428691366176472e-06
+      ]
+    ],
+    "refined_residual_s_real": [
+      [
+        -2.4867699011110744e-09,
+        1.3285124111916957e-09,
+        -2.4334782106061326e-10,
+        -5.801965353470495e-13,
+        3.9221733499905653e-11,
+        -1.270465988136146e-13
+      ],
+      [
+        1.3274993326817253e-09,
+        -2.473548144088511e-09,
+        1.9992983657513008e-10,
+        2.3576519019409894e-13,
+        -1.0215607526564696e-10,
+        5.350843500109923e-14
+      ],
+      [
+        -2.431898016297396e-10,
+        1.9994202127282534e-10,
+        2.8950841723940357e-11,
+        1.4741952504646744e-13,
+        2.6029630707802287e-11,
+        -1.6833920088237756e-15
+      ],
+      [
+        -5.801292063921382e-13,
+        2.3588130147050856e-13,
+        1.4741111909149889e-13,
+        3.1030444880286723e-10,
+        -8.980999918970227e-15,
+        -3.063071600832232e-11
+      ],
+      [
+        3.9082690209135684e-11,
+        -1.020380516192354e-10,
+        2.6016567806347313e-11,
+        -8.992227128927846e-15,
+        -7.749012542745959e-11,
+        5.210329416248144e-16
+      ],
+      [
+        -1.2715446337724975e-13,
+        5.355551478637352e-14,
+        -1.6900261826249081e-15,
+        -3.063310342150613e-11,
+        5.204736881213898e-16,
+        3.557343308813188e-11
+      ]
+    ],
+    "refined_residual_s_imag": [
+      [
+        -2.2249476705482607e-09,
+        -1.5358575522483875e-09,
+        1.8641741622582586e-10,
+        3.60647519877591e-14,
+        -5.7403264433486534e-11,
+        -7.137429143262534e-13
+      ],
+      [
+        -1.5367140893118858e-09,
+        -2.1028444541215663e-09,
+        -1.890270023841012e-10,
+        -1.1301118293887644e-14,
+        7.166198537356117e-11,
+        -2.108353770533661e-13
+      ],
+      [
+        1.867506704833488e-10,
+        -1.8887880842699545e-10,
+        -3.870134493259847e-09,
+        -3.4078221786422555e-12,
+        -7.721384295833467e-12,
+        -2.5782725767190505e-14
+      ],
+      [
+        3.660845227220627e-14,
+        -1.0811645958696203e-14,
+        -3.4079371320246262e-12,
+        -4.074520332242315e-09,
+        1.625190071088316e-13,
+        -5.294896465724008e-14
+      ],
+      [
+        -5.750187652420191e-11,
+        7.184162292839247e-11,
+        -7.70636939678715e-12,
+        1.6245396175474606e-13,
+        -3.5847151740042715e-09,
+        -2.0914937321844947e-12
+      ],
+      [
+        -7.13998223609083e-13,
+        -2.1087727596161851e-13,
+        -2.57792571672715e-14,
+        2.7946395197986362e-15,
+        -2.0915203362188186e-12,
+        -3.707758612289669e-09
+      ]
+    ],
+    "native_subrange_attribution": true
+  },
+  "native16_to32_all99_differences": {
+    "k": 5.587022400277419e-09,
+    "s": 3.1385350938290577e-10,
+    "phase_rad_mod_pi": 3.475992826906804e-10
+  },
+  "finest_comparison_independently_recomputed": {
+    "k": 2.6838839484177868e-09,
+    "s": 4.086319208739354e-09,
+    "phase_rad_mod_pi": 1.1517548248463072e-08
+  },
+  "independent_invariants": [
+    {
+      "endpoint_bohr": 100.0,
+      "unitarity": 1.1059837768774591e-12,
+      "reciprocity": 1.3119900835035368e-12
+    },
+    {
+      "endpoint_bohr": 400.0,
+      "unitarity": 1.1202339607177855e-12,
+      "reciprocity": 1.3265721357703646e-12
+    }
+  ],
+  "baseline_all99_k_records_exactly_reproduced": true,
+  "native_energy_records_verified": 297,
+  "literal_baseline_and_exact_one_line_decks_verified": true,
+  "independent_journal_exact_parity": true,
+  "execution": {
+    "started_utc": "2026-10-17T13:38:50.337954+00:00",
+    "source_commit": "666c056aff8b522bd1a2a078699d976eaf5143da",
+    "source_archive_sha256": "c1652b7e7c9bfc3b5b6341471a024198f6d0661afd34e9e86ea1fa800cb8b40d",
+    "source_manifest": {
+      "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+      "projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+      "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+      "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+      "projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+      "projects/ukrmol_co/native_exterior_attribution.py": "5bf90ad998beaf209357a696e5cd530d0e984822b3e3eb1bf3002fbbef1c8c5b",
+      "projects/ukrmol_co/test_native_exterior_attribution.py": "08fff15e75c3684fb655d8c00a26a13537ee2220d75f97c84ef0e7373b61ea47",
+      "projects/ukrmol_co/native-exterior-attribution-contract.json": "437200b59c4eaa632009b368932611f6c9edcce908308d2746a96d62fec87d23",
+      "projects/ukrmol_co/native-exterior-pilot-contract.json": "6b9928fdecacb6cbb92426c8043214bf1a4bdad6094b1550da81972acc6f0fe9",
+      "docs/physics/co-native-exterior-attribution.md": "986b8350c63c343ad8878da1ee534b908930d10b3c36b67e20d4bbfdc88772ea"
+    },
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "public_replay_sha256": "ab8e21ed35c9e60ce207554e26b2daa71de2ac9d9ba54a666b9b508d669d0d44",
+    "public_original_rejection_replay_verified": true,
+    "installed_engine_artifacts_verified_before": 242,
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_memory": "               total        used        free      shared  buff/cache   available\nMem:     132578123776 15554375680  7836160000  1197907968 110935384064 117023748096\nSwap:    31998341120  2687172608 29311168512\n",
+    "persistent_free_disk_gib": 40.780982971191406,
+    "preexisting_containers": "comfyui Up 3 weeks\n",
+    "historical_cost_record": {
+      "path": "prepared/a2-equilibrium-scattering-source-20261016/native/cas11-eq-a2-five-nine-roots2048-mpi8-20261016/nine/pilot.json",
+      "sha256": "f4a42bd0b13da6ec21e53706108fb39dd98b67f47e7404d02289098621bfdf21",
+      "rsolve_stage": {
+        "name": "rsolve",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 218.93477272987366
+      }
+    },
+    "scope": "Three outer-only native subrange controls and two independent Numerov cases. No inner solve or pole search.",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-native-exterior-attribution-20261017",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "PYTHONPATH=/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-exterior-attribution-source-20261017/source:/source:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-exterior-attribution-source-20261017:/outputs",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/native:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-exterior-pilot-source-20261017/pilot.json:/prior/pilot.json:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-exterior-attribution-source-20261017/verification-native-exterior-pilot-public-20261017.json:/prior/replay.json:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+      "-w",
+      "/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.native_exterior_attribution",
+      "--directory",
+      "/native",
+      "--prior",
+      "/prior/pilot.json",
+      "--replay",
+      "/prior/replay.json",
+      "--engine",
+      "/opt/ukrmolp/bin.double/rsolve",
+      "--contract",
+      "projects/ukrmol_co/native-exterior-attribution-contract.json",
+      "--output",
+      "/outputs/result"
+    ],
+    "original_command_exit": 0,
+    "wall_seconds": 1339.5507007744163,
+    "finished_utc": "2026-10-17T14:01:09.899896+00:00",
+    "resource_sample_count": 6689,
+    "sample_interval_seconds": 0.2,
+    "sampled_peak_container_memory_bytes": 594739200,
+    "sampled_kernel_memory_peak_bytes": 601554944,
+    "sampled_container_cpu_seconds": 1334.96358,
+    "original_container_exit": 0,
+    "installed_engine_artifacts_verified_after": 242
+  },
+  "original_pilot_verdict": false,
+  "original_pilot_exits": [
+    1,
+    1
+  ],
+  "independent_public_reconstruction_passed": null,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

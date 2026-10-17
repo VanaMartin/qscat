@@ -67,8 +67,14 @@ reproduces all21 cases,all ten decisions,false and exit1. A separately justified
 [native-subrange attribution design](../../docs/physics/co-native-exterior-attribution.md)
 is frozen at **`666c056`**: native8→16→32 subranges at unchanged100bohr plus two
 finer independent5-eV cases. Estimate1667s,cap3600s,4GiB; no new inner solve.
-This addresses the measured discrepancy before full594-matrix reconstruction
-or CO poles; the original pilot remains false.
+This control now **passes all ten checks**,original exits0/0,and accounts for
+99.72% of the measured5-eV S mismatch. Refined native32-to-independent K/S/phase
+differences are2.68388e-9/4.08632e-9/1.15175e-8rad; native-only16→32 changes
+over all99 energies are≤5.588e-9/3.139e-10/3.477e-10rad. Cost1339.551s /
+0.56024GiB sampled. Fresh public replay verifies ten payloads,297 native records,
+both independent cases and all ten checks,exit0. Original pilot
+false/exits1/1 remain; full594-matrix independent reconstruction,CO poles and
+production still need a prospective all-anchor/sector/energy control design.
 
 ## 1. Finish trustworthy target inputs
 

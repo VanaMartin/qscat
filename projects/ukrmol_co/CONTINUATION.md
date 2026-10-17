@@ -20,6 +20,68 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Native subrange attribution and fresh public replay pass — 17 October, 14:08 UTC
+
+**The separately frozen control passes,exits0/0:** native8→16→32 subranges
+account for **99.72% of the measured5-eV S mismatch** against the same finer
+independent reference. Finest native32-to-independent K/S/phase differences are
+**2.68388e-9 /4.08632e-9 /1.15175e-8rad moduloπ**,below unchanged1e-6 budgets.
+Original pilot false/exits1/1 remain. See
+[results](NATIVE_EXTERIOR_ATTRIBUTION.md),
+[verification](verification-native-attribution-20261017.json),
+[contract](native-exterior-attribution-contract.json) and
+[public evidence](qualification-evidence/native-attribution/README.md).
+Source/design/tests freeze **`666c056`** remains; no engine rebuild or inner
+solve occurs.
+
+The literal native baseline reproduces **all99 original K matrices exactly**.
+Native8/16/32 outer-only invocations all exit0 and retain297 total energy records.
+Native16→32 at5eV changes S/phase by2.85943e-11/3.84278e-11rad; across all99
+energies maxima are3.13854e-10/3.47600e-10rad (K5.58703e-9).
+Independent h0.025→0.0125 at400bohr changes S/phase4.71630e-8/1.40888e-7rad;
+S improvement16.07-fold. Independent endpoint100→400 changes2.54094e-9 /
+7.51674e-9rad. At the new fixed finer reference the baseline S/phase errors
+are1.44664e-6/2.58085e-6rad. This reference-consistent reduction does not replace
+the original h0.025 pilot's1.49310e-6/2.72174e-6rad rejection.
+
+This is a conditional attribution to native radial-propagator resolution for
+the measured case,not an absolute error bound or exclusive cause. Native
+Gailitis defaults remain unchanged. Independent matching raw conditions at
+100/400bohr are5.64612e8/1.21054e4,equilibrated1.89222e8/2.93565e3; independent
+unitarity/reciprocity≤1.121e-12/1.327e-12. A separate right-Cayley/eigenphase
+audit verifies the finest comparison; both independent journal rows match.
+
+Measured cost **1339.551s /0.56024GiB sampled kernel high-water**,6689 samples
+at0.2s,sampled CPU1334.964s; native stages198.495/347.997/659.113s and
+independent cases23.628/109.689s. This is below1667s estimate/3600s cap;
+4GiB,physical cores0–3 reserved,one BLAS thread. Outputs remain in
+`prepared/native-exterior-attribution-source-20261017/`,source archive SHA256
+`c1652b7e7c9bfc3b5b6341471a024198f6d0661afd34e9e86ea1fa800cb8b40d`.
+Ten public payloads retain native records,decks/logs,two independent cases,
+eleven frozen inputs and prior rejection prerequisites.
+**[Fresh public replay](verification-native-attribution-public-20261017.json)
+passes**,verifying all ten payloads/eleven sources/nine native output files /
+four original inputs/297 native records. Both independent cases and all ten
+gate decisions reproduce; conditional attribution true,exit0. Maximum host /
+public K-entry/S-component drift9.48917e-10/1.52518e-9; four public attribution
+tests pass. The replay reexecutes independent propagation and reconstructs
+saved-native gates; it does not rerun the native executable on the laptop.
+
+The [14:04:19 UTC host check](progress-native-attribution-result-20261017.json)
+verifies **17 new hashes /297 prior hashes /242 installed artifacts**.
+No CO job runs on Sadaharu;unrelated `comfyui` remains,free persistent disk
+40.76GiB. No observer or automatic successor is active.
+
+**Next decision:** freeze the full saved-native K
+reconstruction with adequately resolved native outer references and controls
+across the other anchors/sectors/energies,particularly stretched5eV close to its
+first excited threshold. Original8-subrange outputs are not presumed1e-6
+references. Keep independent radius/step/order and closed-channel effects,
+same-model inputs,budgets and explicit cost/stop gates. Passing native-only
+refinement on this99-point grid is not independent reconstruction of all594
+matrices. No new inner solve is justified; full native K,CO poles and production
+remain unreleased,and earlier scientific gates remain.
+
 ### Original rejection publicly reproduced; bounded subrange attribution running — 17 October, 13:40 UTC
 
 **Fresh public replay verifies the original native-pilot rejection:** nine

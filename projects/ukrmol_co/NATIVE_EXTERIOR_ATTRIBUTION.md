@@ -1,4 +1,68 @@
-# Native exterior error attribution — running 17 October 2026
+# Native exterior error attribution passes — 17 October 2026
+
+**All ten frozen checks pass; original command/container exits0/0.** Native
+subrange refinement accounts for **99.72% of the measured5-eV S mismatch**
+against the fixed finer independent reference. The original pilot remains
+false/exits1/1. See [verification](verification-native-attribution-20261017.json)
+and [public evidence](qualification-evidence/native-attribution/README.md).
+
+## Completed result — 14:01:09 UTC
+
+| Comparison at requested5eV | K-entry difference | S-entry difference | Phase / rad moduloπ |
+|---|---:|---:|---:|
+| Original8-subrange native vs finer independent | 7.23362e-7 | 1.44664e-6 | 2.58085e-6 |
+| Native16→32 subranges | 1.43254e-11 | 2.85943e-11 | 3.84278e-11 |
+| Independent step0.025→0.0125 at400bohr | 3.26498e-8 | 4.71630e-8 | 1.40888e-7 |
+| Independent endpoint100→400 at step0.0125 | 1.73821e-9 | 2.54094e-9 | 7.51674e-9 |
+| Native32 vs finer independent | **2.68388e-9** | **4.08632e-9** | **1.15175e-8** |
+
+The step S change improves by16.07-fold over the original last step change.
+Native baseline reproduces all99 original K matrices **exactly**; baseline
+S difference is zero and determinant-phase roundoff is2.475e-17. The native
+16/32 runs each retain99 complete energy records and differ only by their
+single declared input line. Across the entire99-point grid,16→32 differences
+are5.58703e-9 in K,3.13854e-10 in S and3.47600e-10rad in phase. This native
+refinement evidence does not establish independent accuracy at every energy.
+
+The99.72% reduction is measured against the **same h=0.0125,400-bohr** reference
+on both sides. The earlier h=0.025 pilot's1.49310e-6 S discrepancy and false
+verdict are not replaced. This is a controlled attribution to native radial
+resolution for the measured case,not proof that native32 is exact or that no
+other uncertainty remains. Native asymptotic defaults were unchanged.
+
+The independent100/400-bohr matching raw condition estimates are5.64612e8 /
+1.21054e4; equilibrated1.89222e8 /2.93565e3. Independent unitarity/reciprocity
+errors stay≤1.121e-12/1.327e-12. Full matrices are retained unsymmetrized on
+the Python side. A separate right-Cayley/eigenphase recomputation verifies the
+finest comparison within1e-14. The two-line journal exactly matches both cases.
+
+Measured Sadaharu cost is **1339.551s /0.56024GiB sampled kernel high-water**
+(601,554,944bytes),6689 samples at0.2s,sampled CPU1334.964s. Native8/16/32
+cost198.495/347.997/659.113s; independent100/400 cost23.628/109.689s. The
+total is below the1667s estimate/3600s cap; sampling is not a post-exit peak.
+
+Ten public payloads retain all297 native energy records,two independent cases,
+decks/logs,eleven frozen source/design inputs,original native inputs and the
+prior rejection/public-replay prerequisites.
+[Fresh public replay](verification-native-attribution-public-20261017.json)
+verifies all ten payloads,eleven sources,nine native output files,four original
+native inputs and297 energy records. Both independent cases are recomputed;
+all ten gates and the attribution pass,exit0. Maximum host/public K-entry /
+S-component drift is9.48917e-10/1.52518e-9. Four public attribution tests pass.
+This reexecutes independent propagation and reconstructs saved-native gates;
+it does not rerun the native executable on the laptop.
+
+The [14:04:19 UTC host check](progress-native-attribution-result-20261017.json)
+verifies17 new hashes/297 prior hashes/242 installed artifacts. No CO job runs
+on Sadaharu;unrelated `comfyui` remains and free persistent disk is40.76GiB.
+
+**Next decision:** prospectively design the full saved-native reconstruction
+using adequately resolved native outer references. The passing scope is one
+sector at5eV,with native-only refinement over99 energies. Freeze controls for
+the other anchors/sectors,especially the stretched5-eV point near its first
+excited threshold,plus unchanged K/S/phase budgets and costs before execution.
+Original8-subrange outputs remain evidence rather than assumed1e-6 references.
+No new inner solve is justified. CO poles and production remain unreleased.
 
 ## Decision
 

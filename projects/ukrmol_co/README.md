@@ -64,7 +64,23 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 13:40 UTC:** fresh public replay reproduces the native
+**Update — 17 October, 14:08 UTC:** the separately frozen
+[native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) passes
+**all ten checks /exits0/0**. Native8→16→32 subranges account for **99.72%** of
+the measured5-eV S mismatch against the same finer independent reference.
+Refined native32 K/S/phase differences are **2.68388e-9 /4.08632e-9 /
+1.15175e-8rad**,below unchanged1e-6 budgets. The literal baseline reproduces
+all99 saved K matrices exactly; the original pilot remains false/exits1/1.
+
+Measured cost **1339.551s /0.56024GiB sampled** on Sadaharu; no CO job now
+runs there. Ten [public payloads](qualification-evidence/native-attribution/README.md)
+preserve all297 native energy records,two independent cases and frozen inputs.
+Fresh public reconstruction verifies all ten payloads,297 native records,
+both independent cases and all ten checks,exit0. Next is a prospectively
+costed full saved-native reconstruction across anchors,sectors and energies;
+CO poles and production remain gated.
+
+**Earlier update — 17 October, 13:40 UTC:** fresh public replay reproduces the native
 pilot's **21 cases /ten check verdicts /false /exit1**, with K/S component
 drifts≤1.62e-9/3.24e-9. The separately frozen
 [subrange-attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) now runs on
@@ -286,11 +302,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: original native pilot rejection publicly reproduced; bounded native-subrange attribution running; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1340.png)
+![CO qualification: native-subrange attribution and fresh public replay pass; original rejection retained; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1408.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1340.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1340.json) ·
-[Active attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1408.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1408.json) ·
+[Completed attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) ·
+[Public attribution evidence](qualification-evidence/native-attribution/README.md) ·
 [Native pilot and stopping rule](NATIVE_EXTERIOR_PILOT.md) ·
 [Public pilot rejection](qualification-evidence/native-exterior-pilot/README.md) ·
 [Public method validation](qualification-evidence/native-exterior-method/README.md) ·
@@ -337,6 +354,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous12:48overview](../../docs/physics/figures/co-progress-20261017T1248.png) ·
 [Previous13:06overview](../../docs/physics/figures/co-progress-20261017T1306.png) ·
 [Previous13:17overview](../../docs/physics/figures/co-progress-20261017T1317.png) ·
+[Previous13:40overview](../../docs/physics/figures/co-progress-20261017T1340.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -367,18 +385,19 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **13:40 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **14:08 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** public replay now independently reproduces the original
-rejection in panel B. Panel F records the separately frozen native-subrange
-attribution control's active status and cost. The original false gate,method
-controls,earlier combined-resolution pass and original failed family remain
-separate evidence.
+**What changed:** panel B compares native8/16/32 subranges against the same finer
+independent5-eV reference; refinement brings every K/S/phase comparison below
+its budget. Panel F records the conditional99.72% attribution,all ten passing
+checks and the next full-reconstruction decision. The original false gate,
+method controls,earlier combined-resolution pass and original failed family
+remain separate evidence.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.

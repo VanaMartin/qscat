@@ -1,0 +1,40 @@
+{
+  "verified_utc": "2026-10-17T14:11:32.163691+00:00",
+  "source_commit": "666c056aff8b522bd1a2a078699d976eaf5143da",
+  "frozen_source_hashes_verified": 11,
+  "native_output_hashes_verified": 9,
+  "overview_source_hashes_verified": 321,
+  "local_documentation_links_verified": 608,
+  "plotted_native_comparisons_exactly_match_saved_output": true,
+  "public_pointer_manifest_digest_verified": true,
+  "attribution_control_verdict": true,
+  "native_subrange_attribution": true,
+  "checks_passed": 10,
+  "public_reconstruction_passed": true,
+  "public_native_engine_reexecuted": false,
+  "original_command_container_exits": [
+    0,
+    0
+  ],
+  "original_pilot_verdict": false,
+  "original_pilot_exits": [
+    1,
+    1
+  ],
+  "new_remote_hashes_verified": 17,
+  "previous_remote_hashes_reverified": 297,
+  "installed_engine_artifacts_verified": 242,
+  "co_jobs_running_at_host_observation": 0,
+  "original_historical_gates_preserved": true,
+  "ruff_check_and_format_passed": true,
+  "visual_png_and_searchable_svg_checked": true,
+  "main_index_source_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_upstream_state": "current",
+  "main_index_refresh_state": "complete",
+  "branch_delta_against_main": "A\tdocs/physics/co-native-exterior-attribution.md\nA\tprojects/ukrmol_co/exterior_numerov.py\nA\tprojects/ukrmol_co/native-exterior-attribution-contract.json\nA\tprojects/ukrmol_co/native-exterior-pilot-contract.json\nA\tprojects/ukrmol_co/native_boundary.py\nA\tprojects/ukrmol_co/native_exterior_attribution.py\nA\tprojects/ukrmol_co/native_exterior_study.py\nA\tprojects/ukrmol_co/progress_figure.py\nA\tprojects/ukrmol_co/saved_matrices.py\nA\tprojects/ukrmol_co/test_native_exterior_attribution.py\n",
+  "new_inner_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}
