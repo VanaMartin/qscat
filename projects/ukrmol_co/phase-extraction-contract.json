@@ -1,0 +1,46 @@
+{
+  "status":"prospective toy calibration and gated saved-native application",
+  "scientific_question":"Can a predeclared prediction-selected polynomial background avoid constant-background bias while rejecting widths that remain ambiguous on the available energy window?",
+  "hartree_to_ev":27.211386245988,
+  "native_rydberg_per_requested_ev":0.0735,
+  "estimator":{
+    "background_orders":[1,2,3,4],
+    "grid_only_starts":[[0.4,0.5],[0.5,1.0],[0.6,1.5]],
+    "audit_modulus":5,"audit_remainder":0,"inner_folds":4,
+    "phase_fidelity_rad_mod_pi":0.001,
+    "position_budget_ev":0.05,"full_width_relative_budget":0.05,
+    "full_width_floor_ev":0.001,"alternative_budget_factor":1.1,
+    "selection":"Lowest admissible order in each window; all admissible orders/starts/folds enter parameter envelopes. Audit data reject but never select. Any unsuccessful or bound fit leaves the case verdict unset."
+  },
+  "calibration":{
+    "grid_points":[31,61,121],
+    "cases":[
+      {"name":"resolved-linear","position_hartree":0.09,"full_width_hartree":0.01,"range_hartree":[0.04,0.14],"windows_hartree":[[0.04,0.14],[0.045,0.135],[0.05,0.13]],"background":[0.1,-0.1],"required":"accept_with_0.1mev_truth"},
+      {"name":"resolved-cubic","position_hartree":0.09,"full_width_hartree":0.01,"range_hartree":[0.04,0.14],"windows_hartree":[[0.04,0.14],[0.045,0.135],[0.05,0.13]],"background":[0.1,-0.1,0.03,-0.01],"required":"truth_if_accepted"},
+      {"name":"resolved-smooth","position_hartree":0.09,"full_width_hartree":0.01,"range_hartree":[0.04,0.14],"windows_hartree":[[0.04,0.14],[0.045,0.135],[0.05,0.13]],"background":[0.1,-0.1],"exponential_background_amplitude":0.03,"required":"truth_if_accepted"},
+      {"name":"resolved-perturbed","position_hartree":0.09,"full_width_hartree":0.01,"range_hartree":[0.04,0.14],"windows_hartree":[[0.04,0.14],[0.045,0.135],[0.05,0.13]],"background":[0.1,-0.1,0.03],"phase_perturbation_rad":0.00001,"required":"truth_if_accepted"},
+      {"name":"equilibrium-like","position_hartree":0.092,"full_width_hartree":0.042,"range_hartree":[0.044,0.14],"windows_hartree":[[0.06615,0.121275],[0.055125,0.128625],[0.0441,0.13965]],"background":[0.1,-0.1,0.03],"required":"truth_if_accepted"},
+      {"name":"compressed-like","position_hartree":0.14,"full_width_hartree":0.085,"range_hartree":[0.0735,0.18375],"windows_hartree":[[0.0735,0.18375],[0.08085,0.1764],[0.091875,0.165375]],"background":[0.1,-0.1,0.03],"required":"truth_if_accepted"},
+      {"name":"stretched-like","position_hartree":0.036,"full_width_hartree":0.0107,"range_hartree":[0.0147,0.0588],"windows_hartree":[[0.0147,0.0588],[0.018375,0.055125],[0.02205,0.05145]],"background":[0.1,-0.1,0.03],"required":"truth_if_accepted"},
+      {"name":"underidentified","position_hartree":0.14,"full_width_hartree":0.085,"range_hartree":[0.13,0.15],"windows_hartree":[[0.13,0.15],[0.132,0.148],[0.134,0.146]],"background":[0.1,-0.1],"required":"not_accept"},
+      {"name":"no-pole","position_hartree":0.09,"full_width_hartree":0.01,"range_hartree":[0.04,0.14],"windows_hartree":[[0.04,0.14],[0.045,0.135],[0.05,0.13]],"background":[0.1,-0.1,0.03],"omit_resonance":true,"required":"not_accept"},
+      {"name":"neighboring-pole","position_hartree":0.09,"full_width_hartree":0.01,"range_hartree":[0.04,0.14],"windows_hartree":[[0.04,0.14],[0.045,0.135],[0.05,0.13]],"background":[0.1,-0.1],"neighbor_position_hartree":0.105,"neighbor_full_width_hartree":0.008,"required":"stress_diagnostic"}
+    ],
+    "truth_position_budget_ev":0.05,"truth_full_width_relative_budget":0.05,
+    "truth_full_width_floor_ev":0.001,"resolved_truth_budget_ev":0.0001,
+    "requirements":"All 30 cases retained. Required resolved linear controls pass at every grid; designated negatives never accepted. Every accepted isolated-pole case meets known-pole truth budgets. Unitarity is checked independently. Neighboring-pole case is outside the isolated-pole premise and cannot qualify that premise."
+  },
+  "native_application":{
+    "models":["compressed-nine","equilibrium-nine","stretched-nine"],
+    "windows_requested_ev":{
+      "compressed-nine":[[2,5],[2.2,4.8],[2.5,4.5]],
+      "equilibrium-nine":[[1.8,3.3],[1.5,3.5],[1.2,3.8]],
+      "stretched-nine":[[0.4,1.6],[0.5,1.5],[0.6,1.4]]
+    },
+    "sectors":["B1","B2"],
+    "requirements":"Calibration must pass first. Checksum-verified original native stages/resources, complete exports, maps/grids/Pi and nonempty/noMAXFIT native fits must qualify. No refitting rule changes after audit data. Keep all historical rejected extraction gates. Native output reconstruction is not independent scattering or S-matrix pole certification."
+  },
+  "resources":{"physical_cpu_group":"0-3","container_memory_gib":4,"timeout_seconds":600,"native_solves":0},
+  "stopping_rule":"False/unset calibration stops before native application. Keep every case, failed fit and original exit; no changed budgets, case removal or automatic successor.",
+  "full_sweep_released":false
+}
