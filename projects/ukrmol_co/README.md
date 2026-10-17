@@ -37,6 +37,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [bounded exterior resolution control](COMBINED_EXTERIOR_RESOLUTION.md),
 [independent native exterior pilot](NATIVE_EXTERIOR_PILOT.md),
 [native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md),
+[six-case saved-native reconstruction](NATIVE_FULL_RECONSTRUCTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,

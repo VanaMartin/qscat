@@ -76,6 +76,14 @@ both independent cases and all ten checks,exit0. Original pilot
 false/exits1/1 remain; full594-matrix independent reconstruction,CO poles and
 production still need a prospective all-anchor/sector/energy control design.
 
+That [six-case reconstruction design](NATIVE_FULL_RECONSTRUCTION.md) is now
+specified: native baseline/16/32 controls over all99 energies, then18 independent
+step/radius/order probes, then gated paired-step completion of594 matrices.
+The stretched5-eV point lies only0.02524 eV below the first excited threshold.
+The frozen scope forecasts4.5 h on eight physical cores, with16 GiB and a10 h cap.
+All K/S/phase gates remain separate at1e-6; false/unset stops new submissions.
+No new inner solve is authorized. Scientific qualification awaits execution.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
