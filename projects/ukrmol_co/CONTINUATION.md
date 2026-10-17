@@ -20,6 +20,42 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Six-case saved-native reconstruction running — 17 October, 15:55 UTC
+
+**The bounded study is frozen at `fd7c871` and running on Sadaharu.** The
+[design](../../docs/physics/co-native-full-reconstruction.md),
+[contract](native-full-reconstruction-contract.json) and
+[study status](NATIVE_FULL_RECONSTRUCTION.md) cover all six nine-A2 cases.
+All24 input hashes and six full interfaces verify locally; **28 focused tests**
+pass, including phase-only vetoes, each refinement knob, scheduling/stage
+authorization, duplicate coverage and original native exits. The independent
+Numerov method is unchanged.
+
+The fixed stages are18 native outer-only invocations (literal baseline and
+16/32 subranges in each case),18 independent three-rung probes, then paired-step
+completion of594 matrices only if every prerequisite passes. Completion costs
+1278 independent solves; forecast **4.5 h**, upper8 h, hard cap10 h, **16 GiB**,
+eight single-threaded workers on physical cores4–11. Cores0–3 remain available
+for smaller work. Stretched5 eV is only0.02524 eV below its first excited
+threshold; all probes include endpoint200/400/800 and order4/6/8 families.
+Separate K/S/phase1e-6 gates and invariant vetoes remain. False/unset stops new
+submissions; executing fixed bundles retain evidence; no retries or successor.
+
+The [15:55:01 UTC launch observation](progress-native-full-launch-20261017.json)
+verifies **22 new /314 prior remote hashes /242 installed artifacts**,read-only
+inputs/engine/source,cpuset and memory. Container start **15:53:59 UTC**; all six
+literal8-subrange baselines are executing,with no completed native stage or
+independent solve yet. Verdicts remain unset. First-minute sampled kernel
+high-water is1,172,312,064 bytes (not final),persistent disk free45.30 GiB.
+
+Persistent source/output: `prepared/native-full-reconstruction-source-20261017/`;
+owner11237,source archive SHA256
+`42b7f5b666b8312a3cf335f387c5208742026996bf61d61bef0b7e64377f0ac2`.
+The durable owner records0.2-s resources,original exits and post-run integrity.
+Process all partial/final reports on completion,then publish and independently
+replay before qualification. Original pilot false/exits1/1,twelve-case saved
+aggregate false/five-A2 unset,CO poles and production remain. No inner solve runs.
+
 ### Native subrange attribution and fresh public replay pass — 17 October, 14:08 UTC
 
 **The separately frozen control passes,exits0/0:** native8→16→32 subranges

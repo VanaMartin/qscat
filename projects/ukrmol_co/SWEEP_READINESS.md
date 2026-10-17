@@ -82,7 +82,10 @@ step/radius/order probes, then gated paired-step completion of594 matrices.
 The stretched5-eV point lies only0.02524 eV below the first excited threshold.
 The frozen scope forecasts4.5 h on eight physical cores, with16 GiB and a10 h cap.
 All K/S/phase gates remain separate at1e-6; false/unset stops new submissions.
-No new inner solve is authorized. Scientific qualification awaits execution.
+No new inner solve is authorized. Source/design/tests are frozen at **`fd7c871`**
+and the study runs on Sadaharu from15:53:59 UTC; all six literal baselines are
+active at the15:55 observation. Scientific qualification awaits completion and
+independent public replay.
 
 ## 1. Finish trustworthy target inputs
 

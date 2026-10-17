@@ -1,9 +1,20 @@
 # Six-case saved-native exterior reconstruction
 
-**Status: prospective.** The passing
+**Status: running on Sadaharu, 17 October 2026, 15:55 UTC.** The passing
 [subrange attribution and public replay](NATIVE_EXTERIOR_ATTRIBUTION.md)
 justify this bounded all-anchor/sector reconstruction. The original native
-pilot remains false/exits1/1. No scientific result from the new study exists yet.
+pilot remains false/exits1/1. The source/design/contract/tests freeze is
+**`fd7c871`**, committed and pushed before launch. No scientific verdict exists yet.
+
+The [launch observation](progress-native-full-launch-20261017.json) verifies
+22 new /314 prior remote hashes /242 installed artifacts, read-only mounts,
+physical cpuset4–11 and16-GiB limit. All six literal8-subrange native baselines
+are executing; no stage or independent solve has completed at the cutoff.
+Start15:53:59 UTC. Persistent directory:
+`prepared/native-full-reconstruction-source-20261017/`; durable owner11237.
+Source archive SHA256:
+`42b7f5b666b8312a3cf335f387c5208742026996bf61d61bef0b7e64377f0ac2`.
+Original exits, per-solve journals and0.2-s sampled resources are retained there.
 
 The [design](../../docs/physics/co-native-full-reconstruction.md) and
 [machine-readable contract](native-full-reconstruction-contract.json) define:

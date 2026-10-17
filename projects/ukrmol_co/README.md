@@ -65,7 +65,17 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 14:08 UTC:** the separately frozen
+**Update — 17 October, 15:55 UTC:** the
+[six-case saved-native reconstruction](NATIVE_FULL_RECONSTRUCTION.md) is frozen
+at **`fd7c871`** and running on Sadaharu. All six literal native baselines are
+executing. Native baseline/16/32 controls and18 independent step/radius/order
+probes must all pass before paired-step completion of594 matrices. Forecast
+**4.5 h**,cap10 h,16 GiB,eight single-threaded physical cores. **28 focused
+tests pass**; all24 inputs verify. Stretched5 eV is only0.02524 eV below its
+first excited threshold,so it has explicit closed-tail controls. No scientific
+verdict yet; false/unset stops new submissions. No new inner solve occurs.
+
+**Earlier update — 17 October, 14:08 UTC:** the separately frozen
 [native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) passes
 **all ten checks /exits0/0**. Native8→16→32 subranges account for **99.72%** of
 the measured5-eV S mismatch against the same finer independent reference.
@@ -303,10 +313,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: native-subrange attribution and fresh public replay pass; original rejection retained; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1408.png)
+![CO qualification: six-case saved-native reconstruction running with fixed native, near-threshold and full-grid gates](../../docs/physics/figures/co-progress-20261017T1555.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1408.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1408.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1555.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1555.json) ·
+[Active six-case study](NATIVE_FULL_RECONSTRUCTION.md) ·
+[Verified launch capture](progress-native-full-launch-20261017.json) ·
 [Completed attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) ·
 [Public attribution evidence](qualification-evidence/native-attribution/README.md) ·
 [Native pilot and stopping rule](NATIVE_EXTERIOR_PILOT.md) ·
@@ -356,6 +368,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous13:06overview](../../docs/physics/figures/co-progress-20261017T1306.png) ·
 [Previous13:17overview](../../docs/physics/figures/co-progress-20261017T1317.png) ·
 [Previous13:40overview](../../docs/physics/figures/co-progress-20261017T1340.png) ·
+[Previous14:08overview](../../docs/physics/figures/co-progress-20261017T1408.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -386,19 +399,20 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **14:08 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **15:55 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B compares native8/16/32 subranges against the same finer
-independent5-eV reference; refinement brings every K/S/phase comparison below
-its budget. Panel F records the conditional99.72% attribution,all ten passing
-checks and the next full-reconstruction decision. The original false gate,
-method controls,earlier combined-resolution pass and original failed family
-remain separate evidence.
+**What changed:** panel F records the frozen six-case study now running:
+18 native invocations,18 near-threshold/step/order probes and paired-step
+completion of594 matrices only after all preceding gates pass. Its resource
+contract is4.5 h forecast /10 h cap /16 GiB /eight physical cores. Panel B retains
+the passing conditional99.72% native-subrange attribution that justifies this
+study. The original false gate,method controls,earlier combined-resolution pass
+and original failed family remain separate evidence.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.
