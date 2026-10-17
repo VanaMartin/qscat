@@ -1,0 +1,92 @@
+{
+  "git_sha": "69f13b6de7ea84adc2b88a5694d8d73af7f8089a",
+  "date": "2026-10-17",
+  "record_type": "co-local-analytic-width-counterexample-audit",
+  "cell_count": 405,
+  "mandatory_true_pole_controls_passed": 45,
+  "representation_qualification_verdict": true,
+  "width_counterexample_count": 94,
+  "width_counterexample_counts": {
+    "resolved-smooth": 0,
+    "compressed-smooth": 27,
+    "equilibrium-smooth": 13,
+    "stretched-smooth": 0,
+    "underidentified-smooth": 54
+  },
+  "source_files": 6,
+  "original_command_exit": 0,
+  "original_container_exit": 0,
+  "host_local_cell_verdict_parity": 405,
+  "maximum_host_local_phase_error_difference_rad": 3.019806626980426e-14,
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_application_released": false,
+  "full_sweep_released": false,
+  "scope": "Finite unused-grid local analytic/unitary counterexamples. Exponential polynomial backgrounds are not qualified causal finite-range CO models. No native fit, order selection, interval supremum bound or uniqueness certification.",
+  "original_source_commit": "c273a71cfe61648637d9fced44f027b470c2886c",
+  "original_producer_command_exit": 0,
+  "original_producer_representation_qualification_verdict": true,
+  "original_all_audit_sets_unused_declaration_verdict": false,
+  "original_endpoint_overlap_grids": [
+    {
+      "grid": 2,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 4,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 5,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 7,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 8,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 10,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 13,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 16,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 37,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 38,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 40,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 41,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 43,
+      "audit_set": "endpoint_energy_hartree"
+    },
+    {
+      "grid": 44,
+      "audit_set": "endpoint_energy_hartree"
+    }
+  ],
+  "original_counterexample_count_not_fully_unused_qualified": 98,
+  "corrected_all_45_grid_sets_verified_disjoint": true,
+  "corrected_width_counterexample_count": 94,
+  "original_evidence_pointer": "qualification-evidence/phase-identifiability/artifacts.json"
+}

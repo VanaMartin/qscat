@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T0932.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T1002.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -512,6 +512,29 @@ def _anchor_channel_sensitivity(ax, data):
     _note(ax, data["channel_sensitivity_note"])
 
 
+def _identifiability(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Can good phases hide wrong widths?",
+        "Known ±10% widths; every unused phase audit within 0.001 rad",
+    )
+    rows = data["identifiability_scales"]
+    y, left = np.arange(len(rows)), np.zeros(len(rows))
+    for degree, color in ((3, GRAY), (7, ORANGE), (11, BLUE)):
+        values = np.asarray([row["width_counterexamples_by_degree"][str(degree)] for row in rows])
+        ax.barh(y, values, left=left, color=color, label=f"Degree {degree}", height=0.52)
+        left += values
+    for i, value in enumerate(left):
+        ax.text(value + 0.8, i, f"{int(value)} / 54", va="center", fontsize=9)
+    ax.set_yticks(y, [row["label"] for row in rows], fontsize=9)
+    ax.set(
+        xlim=(0, 66), ylim=(4.8, -0.8), xlabel="Known wrong-width counterexamples / tested cells"
+    )
+    ax.legend(loc="upper right", frameon=False, fontsize=8)
+    _note(ax, data["identifiability_note"])
+
+
 def _snapshot_data(snapshot: Path) -> dict:
     """Resolve a full snapshot or a delta against a hash-pinned earlier release."""
     data = json.loads(snapshot.read_text())
@@ -583,7 +606,7 @@ def render(snapshot: Path, output: Path) -> None:
     )
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
-        _diagnostics,
+        _identifiability if "identifiability_scales" in data else _diagnostics,
         _neutral,
         _memory,
         (
@@ -648,7 +671,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T0932"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T1002"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

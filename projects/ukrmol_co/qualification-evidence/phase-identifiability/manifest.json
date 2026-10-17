@@ -1,0 +1,26 @@
+{
+  "git_sha": "c273a71cfe61648637d9fced44f027b470c2886c",
+  "date": "2026-10-17",
+  "record_type": "co-local-analytic-width-counterexample-audit",
+  "cell_count": 405,
+  "mandatory_true_pole_controls_passed": 45,
+  "representation_qualification_verdict": true,
+  "width_counterexample_count": 98,
+  "width_counterexample_counts": {
+    "resolved-smooth": 0,
+    "compressed-smooth": 31,
+    "equilibrium-smooth": 13,
+    "stretched-smooth": 0,
+    "underidentified-smooth": 54
+  },
+  "source_files": 6,
+  "original_command_exit": 0,
+  "original_container_exit": 0,
+  "host_local_cell_verdict_parity": 405,
+  "maximum_host_local_phase_error_difference_rad": 7.716050021144838e-15,
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_application_released": false,
+  "full_sweep_released": false,
+  "scope": "Finite unused-grid local analytic/unitary counterexamples. Exponential polynomial backgrounds are not qualified causal finite-range CO models. No native fit, order selection, interval supremum bound or uniqueness certification."
+}

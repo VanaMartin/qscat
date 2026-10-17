@@ -1,0 +1,532 @@
+{
+  "verified_utc": "2026-10-17T09:53:08.850759+00:00",
+  "contract": {
+    "status": "prospective bounded analytic counterexample audit; no native application",
+    "question": "Can the background flexibility needed for smooth known-pole phase prediction also hide a beyond-budget width error on unused data?",
+    "hartree_to_ev": 27.211386245988,
+    "grid_points": [
+      31,
+      61,
+      121
+    ],
+    "background_degrees": [
+      3,
+      7,
+      11
+    ],
+    "exact_pole_width_factors": [
+      0.9,
+      1.0,
+      1.1
+    ],
+    "audit_modulus": 5,
+    "audit_remainder": 0,
+    "dense_midpoint_grid_points": 10001,
+    "development_exclusion_fraction": 1e-12,
+    "phase_fidelity_rad_mod_pi": 0.001,
+    "unitarity_budget": 3e-15,
+    "full_width_relative_budget": 0.05,
+    "full_width_floor_ev": 0.001,
+    "cases": [
+      {
+        "name": "resolved-smooth",
+        "position_hartree": 0.09,
+        "full_width_hartree": 0.01,
+        "range_hartree": [
+          0.04,
+          0.14
+        ],
+        "windows_hartree": [
+          [
+            0.04,
+            0.14
+          ],
+          [
+            0.045,
+            0.135
+          ],
+          [
+            0.05,
+            0.13
+          ]
+        ],
+        "background": [
+          0.1,
+          -0.1
+        ],
+        "exponential_background_amplitude": 0.03
+      },
+      {
+        "name": "compressed-smooth",
+        "position_hartree": 0.14,
+        "full_width_hartree": 0.085,
+        "range_hartree": [
+          0.0735,
+          0.18375
+        ],
+        "windows_hartree": [
+          [
+            0.0735,
+            0.18375
+          ],
+          [
+            0.08085,
+            0.1764
+          ],
+          [
+            0.091875,
+            0.165375
+          ]
+        ],
+        "background": [
+          0.1,
+          -0.1,
+          0.03
+        ],
+        "exponential_background_amplitude": 0.03
+      },
+      {
+        "name": "equilibrium-smooth",
+        "position_hartree": 0.092,
+        "full_width_hartree": 0.042,
+        "range_hartree": [
+          0.044,
+          0.14
+        ],
+        "windows_hartree": [
+          [
+            0.06615,
+            0.121275
+          ],
+          [
+            0.055125,
+            0.128625
+          ],
+          [
+            0.0441,
+            0.13965
+          ]
+        ],
+        "background": [
+          0.1,
+          -0.1,
+          0.03
+        ],
+        "exponential_background_amplitude": 0.03
+      },
+      {
+        "name": "stretched-smooth",
+        "position_hartree": 0.036,
+        "full_width_hartree": 0.0107,
+        "range_hartree": [
+          0.0147,
+          0.0588
+        ],
+        "windows_hartree": [
+          [
+            0.0147,
+            0.0588
+          ],
+          [
+            0.018375,
+            0.055125
+          ],
+          [
+            0.02205,
+            0.05145
+          ]
+        ],
+        "background": [
+          0.1,
+          -0.1,
+          0.03
+        ],
+        "exponential_background_amplitude": 0.03
+      },
+      {
+        "name": "underidentified-smooth",
+        "position_hartree": 0.14,
+        "full_width_hartree": 0.085,
+        "range_hartree": [
+          0.13,
+          0.15
+        ],
+        "windows_hartree": [
+          [
+            0.13,
+            0.15
+          ],
+          [
+            0.132,
+            0.148
+          ],
+          [
+            0.134,
+            0.146
+          ]
+        ],
+        "background": [
+          0.1,
+          -0.1
+        ],
+        "exponential_background_amplitude": 0.03
+      }
+    ],
+    "expected_cells": 405,
+    "required_control": "All 45 true-width degree-11 controls must be finite/full-rank/unitary and pass every unused audit set. These are mandatory nonpolynomial successes; accepting no cases cannot qualify the representation.",
+    "selection": "None. Keep every degree/window/grid/width cell; no native fit or truth-based estimator choice. Wrong-pole matches are local analytic counterexamples only, not finite-range causal CO models.",
+    "resources": {
+      "physical_cpu_group": "0-3",
+      "blas_threads": 1,
+      "container_memory_gib": 4,
+      "timeout_seconds": 300,
+      "native_solves": 0
+    },
+    "stopping_rule": "Failed/unset mandatory representation control stops. No native application is authorized even if controls pass; any successor needs a separately justified physical background and prospective contract.",
+    "native_application_released": false,
+    "full_sweep_released": false
+  },
+  "source_commit": "c273a71cfe61648637d9fced44f027b470c2886c",
+  "source_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/phase_identifiability.py": "8e5a1c704969212a0d28ba099e8ad79c2312d2afcc08081a67883d872d008bf0",
+    "projects/ukrmol_co/test_phase_identifiability.py": "f984e8b5fe7740f5936a1f77231030b67e1c703757eb27553040e0055aee6386",
+    "projects/ukrmol_co/phase-identifiability-contract.json": "88aa654ad117a3ec36c6367d3246272bfff9a47a4e4b5b96e8fbe2515c6f7fbe",
+    "docs/physics/co-phase-identifiability.md": "4bbb89be0a39093f0cd3aafadce3e90c9d803cff9f1b0281aa075c899d428ba8"
+  },
+  "cell_count": 405,
+  "mandatory_true_pole_controls_passed": 45,
+  "representation_qualification_verdict": true,
+  "width_counterexample_count": 98,
+  "scale_summaries": [
+    {
+      "case": "resolved-smooth",
+      "true_position_hartree": 0.09,
+      "true_full_width_hartree": 0.01,
+      "mandatory_true_pole_controls_passed": 9,
+      "wrong_width_cells": 54,
+      "width_counterexample_count": 0,
+      "width_counterexamples_by_degree": {
+        "3": 0,
+        "7": 0,
+        "11": 0
+      },
+      "width_counterexamples_by_grid": {
+        "31": 0,
+        "61": 0,
+        "121": 0
+      },
+      "first_121point_plus10percent_example": null
+    },
+    {
+      "case": "compressed-smooth",
+      "true_position_hartree": 0.14,
+      "true_full_width_hartree": 0.085,
+      "mandatory_true_pole_controls_passed": 9,
+      "wrong_width_cells": 54,
+      "width_counterexample_count": 31,
+      "width_counterexamples_by_degree": {
+        "3": 0,
+        "7": 13,
+        "11": 18
+      },
+      "width_counterexamples_by_grid": {
+        "31": 10,
+        "61": 10,
+        "121": 11
+      },
+      "first_121point_plus10percent_example": {
+        "case": "compressed-smooth",
+        "original_grid_points": 121,
+        "window_hartree": [
+          0.0735,
+          0.18375
+        ],
+        "grid_record": 15,
+        "exact_pole_width_factor": 1.1,
+        "fit": {
+          "position_hartree": 0.14,
+          "full_width_hartree": 0.09350000000000001,
+          "midpoint_hartree": 0.128625,
+          "scale_hartree": 0.055125,
+          "background_degree": 7,
+          "background_chebyshev_coefficients_rad": [
+            0.1432017191825091,
+            -0.008889398970665124,
+            0.01783583573082549,
+            -0.010642783009468243,
+            -0.003942911079066872,
+            0.0017679929568969984,
+            0.0013632578069972423,
+            -0.00022203561753879016
+          ],
+          "background_matrix_rank": 8,
+          "background_matrix_singular_values": [
+            10.558251319841702,
+            8.40582204961321,
+            8.177834574302619,
+            7.549535597705393,
+            6.673576494346102,
+            5.991480408257891,
+            3.424468054353032,
+            2.9812503175992386
+          ],
+          "background_matrix_condition_number": 3.541551428108231,
+          "full_rank_and_finite": true
+        },
+        "scores": {
+          "development": {
+            "points": 96,
+            "maximum_phase_error_rad_mod_pi": 0.0004417143894756352,
+            "maximum_error_energy_hartree": 0.07441874999999999,
+            "maximum_unitarity_error": 4.440892098500626e-16
+          },
+          "reserved": {
+            "points": 25,
+            "maximum_phase_error_rad_mod_pi": 0.0008018691808197745,
+            "maximum_error_energy_hartree": 0.0735,
+            "maximum_unitarity_error": 2.220446049250313e-16
+          },
+          "dense": {
+            "points": 10001,
+            "maximum_phase_error_rad_mod_pi": 0.000799418649648361,
+            "maximum_error_energy_hartree": 0.07350551194880511,
+            "maximum_unitarity_error": 4.440892098500626e-16
+          },
+          "endpoints": {
+            "points": 2,
+            "maximum_phase_error_rad_mod_pi": 0.0008018691808197745,
+            "maximum_error_energy_hartree": 0.0735,
+            "maximum_unitarity_error": 0.0
+          }
+        },
+        "all_audit_sets_passed": true,
+        "known_width_error_exceeds_scientific_budget": true,
+        "width_counterexample": true,
+        "mandatory_true_pole_control": false
+      }
+    },
+    {
+      "case": "equilibrium-smooth",
+      "true_position_hartree": 0.092,
+      "true_full_width_hartree": 0.042,
+      "mandatory_true_pole_controls_passed": 9,
+      "wrong_width_cells": 54,
+      "width_counterexample_count": 13,
+      "width_counterexamples_by_degree": {
+        "3": 0,
+        "7": 5,
+        "11": 8
+      },
+      "width_counterexamples_by_grid": {
+        "31": 4,
+        "61": 5,
+        "121": 4
+      },
+      "first_121point_plus10percent_example": {
+        "case": "equilibrium-smooth",
+        "original_grid_points": 121,
+        "window_hartree": [
+          0.06615,
+          0.121275
+        ],
+        "grid_record": 24,
+        "exact_pole_width_factor": 1.1,
+        "fit": {
+          "position_hartree": 0.092,
+          "full_width_hartree": 0.046200000000000005,
+          "midpoint_hartree": 0.0937125,
+          "scale_hartree": 0.027562499999999997,
+          "background_degree": 7,
+          "background_chebyshev_coefficients_rad": [
+            0.13498341177499393,
+            -0.000370846828435334,
+            0.0032751634085131705,
+            -0.013050999944454656,
+            0.0013557873234655514,
+            0.0028844885213045366,
+            -0.0005351147568072273,
+            -0.0007341094040928736
+          ],
+          "background_matrix_rank": 8,
+          "background_matrix_singular_values": [
+            7.997585912660995,
+            6.368507661100148,
+            6.198751523090286,
+            5.713845170198806,
+            5.065563808839505,
+            4.554269173730131,
+            2.9509030993712178,
+            2.322223223540357
+          ],
+          "background_matrix_condition_number": 3.4439350324247617,
+          "full_rank_and_finite": true
+        },
+        "scores": {
+          "development": {
+            "points": 55,
+            "maximum_phase_error_rad_mod_pi": 0.00032502683336871026,
+            "maximum_error_energy_hartree": 0.1208,
+            "maximum_unitarity_error": 4.440892098500626e-16
+          },
+          "reserved": {
+            "points": 14,
+            "maximum_phase_error_rad_mod_pi": 0.00022304688309642063,
+            "maximum_error_energy_hartree": 0.11200000000000002,
+            "maximum_unitarity_error": 2.220446049250313e-16
+          },
+          "dense": {
+            "points": 10001,
+            "maximum_phase_error_rad_mod_pi": 0.0006832525755717558,
+            "maximum_error_energy_hartree": 0.12127224402559744,
+            "maximum_unitarity_error": 4.440892098500626e-16
+          },
+          "endpoints": {
+            "points": 2,
+            "maximum_phase_error_rad_mod_pi": 0.0006856835392212824,
+            "maximum_error_energy_hartree": 0.121275,
+            "maximum_unitarity_error": 2.220446049250313e-16
+          }
+        },
+        "all_audit_sets_passed": true,
+        "known_width_error_exceeds_scientific_budget": true,
+        "width_counterexample": true,
+        "mandatory_true_pole_control": false
+      }
+    },
+    {
+      "case": "stretched-smooth",
+      "true_position_hartree": 0.036,
+      "true_full_width_hartree": 0.0107,
+      "mandatory_true_pole_controls_passed": 9,
+      "wrong_width_cells": 54,
+      "width_counterexample_count": 0,
+      "width_counterexamples_by_degree": {
+        "3": 0,
+        "7": 0,
+        "11": 0
+      },
+      "width_counterexamples_by_grid": {
+        "31": 0,
+        "61": 0,
+        "121": 0
+      },
+      "first_121point_plus10percent_example": null
+    },
+    {
+      "case": "underidentified-smooth",
+      "true_position_hartree": 0.14,
+      "true_full_width_hartree": 0.085,
+      "mandatory_true_pole_controls_passed": 9,
+      "wrong_width_cells": 54,
+      "width_counterexample_count": 54,
+      "width_counterexamples_by_degree": {
+        "3": 18,
+        "7": 18,
+        "11": 18
+      },
+      "width_counterexamples_by_grid": {
+        "31": 18,
+        "61": 18,
+        "121": 18
+      },
+      "first_121point_plus10percent_example": {
+        "case": "underidentified-smooth",
+        "original_grid_points": 121,
+        "window_hartree": [
+          0.13,
+          0.15
+        ],
+        "grid_record": 42,
+        "exact_pole_width_factor": 1.1,
+        "fit": {
+          "position_hartree": 0.14,
+          "full_width_hartree": 0.09350000000000001,
+          "midpoint_hartree": 0.14,
+          "scale_hartree": 0.009999999999999995,
+          "background_degree": 3,
+          "background_chebyshev_coefficients_rad": [
+            0.1300115350369548,
+            0.010023642213445243,
+            1.153528861495999e-05,
+            -0.00025546698267969536
+          ],
+          "background_matrix_rank": 4,
+          "background_matrix_singular_values": [
+            10.554527440098619,
+            7.734535857186785,
+            5.414167961352518,
+            4.311083904214
+          ],
+          "background_matrix_condition_number": 2.4482305783429026,
+          "full_rank_and_finite": true
+        },
+        "scores": {
+          "development": {
+            "points": 96,
+            "maximum_phase_error_rad_mod_pi": 4.9724713389718986e-06,
+            "maximum_error_energy_hartree": 0.14983333333333332,
+            "maximum_unitarity_error": 3.3306690738754696e-16
+          },
+          "reserved": {
+            "points": 25,
+            "maximum_phase_error_rad_mod_pi": 6.455774958947692e-06,
+            "maximum_error_energy_hartree": 0.15,
+            "maximum_unitarity_error": 2.220446049250313e-16
+          },
+          "dense": {
+            "points": 10001,
+            "maximum_phase_error_rad_mod_pi": 6.446356754597023e-06,
+            "maximum_error_energy_hartree": 0.14999900009999,
+            "maximum_unitarity_error": 4.440892098500626e-16
+          },
+          "endpoints": {
+            "points": 2,
+            "maximum_phase_error_rad_mod_pi": 6.455774958947692e-06,
+            "maximum_error_energy_hartree": 0.15,
+            "maximum_unitarity_error": 1.1102230246251565e-16
+          }
+        },
+        "all_audit_sets_passed": true,
+        "known_width_error_exceeds_scientific_budget": true,
+        "width_counterexample": true,
+        "mandatory_true_pole_control": false
+      }
+    }
+  ],
+  "host_local_cell_verdict_parity": 405,
+  "maximum_host_local_phase_error_difference_rad": 7.716050021144838e-15,
+  "execution": {
+    "started_utc": "2026-10-17T09:52:05.214866+00:00",
+    "source_commit": "c273a71cfe61648637d9fced44f027b470c2886c",
+    "source_archive_sha256": "96dbcabba45fdeee1eb6969c8bdca48412fe44e22ceb17520e8750519d54c866",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "persistent_free_disk_gib": 41.589805603027344,
+    "preexisting_containers": "comfyui Up 3 weeks\n",
+    "scope": "Frozen local analytic width-identifiability audit only. No native data or successor authorized.",
+    "original_command_exit": 0,
+    "wall_seconds": 0.9649605611339211,
+    "finished_utc": "2026-10-17T09:52:06.190113+00:00",
+    "resource_sample_count": 3,
+    "sample_interval_seconds": 0.2,
+    "sampled_peak_container_memory_bytes": 65245184,
+    "sampled_kernel_memory_peak_bytes": 65245184,
+    "sampled_container_cpu_seconds": 0.421924,
+    "original_container_exit": 0
+  },
+  "throughput_cells_per_wall_second": 419.70627226887507,
+  "full_payload_sha256": {
+    "source.tar.gz": "96dbcabba45fdeee1eb6969c8bdca48412fe44e22ceb17520e8750519d54c866",
+    "source-manifest.json": "8c0109e2eec920a103c75851deb457bb9becf1818ae05aad58ab170aceccfd1e",
+    "host-audit.json": "a48ef9f5d983c4a27100d9b931b51733db1b649d70b254ea72431f68c5464c9a",
+    "local-audit.json": "00607e2215cda905cab8951de9654fd4439109c95e408dcc5b84579f096dc967",
+    "execution.json": "e09a3489c719a8171af1bd3f020423e497507482925a6baddd597e24f569effb",
+    "container-inspect.json": "72d4c733e667a905da821d27c9ec85b891e19e74e9e43fa469652b39819ce755"
+  },
+  "native_data_read": false,
+  "native_solves": 0,
+  "native_application_released": false,
+  "full_sweep_released": false,
+  "scope": "Finite unused-grid local analytic/unitary counterexamples. Exponential polynomial backgrounds are not qualified causal finite-range CO models. No native fit, order selection, interval supremum bound or uniqueness certification."
+}

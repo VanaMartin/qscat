@@ -22,6 +22,9 @@ preserves the CAS11→CAS12 rejection. The
 [prospective extraction study](PHASE_EXTRACTION.md) now passes its finite
 30-case calibration but rejects compressed/equilibrium saved nine-A2 phases;
 stretched provisionally passes. A three-anchor width curve remains unqualified.
+The subsequent [analytic identifiability audit](PHASE_IDENTIFIABILITY.md) finds
+94 wrong-width counterexamples despite 45/45 true-pole smooth controls passing;
+local phase fidelity/unitarity alone cannot justify a stronger width claim.
 
 ## 1. Finish trustworthy target inputs
 
@@ -145,6 +148,19 @@ earlier extraction/channel rejection remain preserved. The calibrated estimator
 does not qualify a native pole or arbitrary smooth backgrounds. See
 [design, results and stopping decision](PHASE_EXTRACTION.md).
 
+**17 October endpoint-isolated identifiability audit:** the fixed 405-cell matrix finds **94**
+local analytic/unitary representations with **±10% known width errors** that
+pass every unused phase audit within 0.001 rad. Counts are compressed-like
+27, equilibrium-like 13, narrow-control 54, resolved/stretched-like 0. All 45
+mandatory true-pole smooth-nonpolynomial controls pass. These background families
+are not qualified finite-range causal CO models; zero counts do not establish
+uniqueness. The result rules out treating added background flexibility and
+better local prediction alone as width qualification. No native data was read.
+See [physical limits and complete evidence](PHASE_IDENTIFIABILITY.md).
+The original producer's 98 matches and exit 0 remain preserved, alongside its
+failed endpoint-unused declaration (14/45 overlapping grids). Corrected source
+was frozen before rerunning; all 45 corrected grid sets are independently disjoint.
+
 **Next:** audit the two
 remaining retained components: inspect competing row scores,energies and
 complete nearly degenerate subspace projectors. Determine whether a larger
@@ -153,11 +169,15 @@ that address those specific failures. Track relevant resonance features across
 neighboring geometries with phase/K-matrix evidence and consistent thresholds;
 electronic-state assignment alone does not establish resonance-pole identity.
 The completed prospective estimator stops at its three-anchor rejection.
-Before another saved-data reading, declare a new physical/analytic representation
-addressing the measured missing-window discrepancies, require nonpolynomial
-known-truth successes at native-like scales, and freeze model selection and
-unused-data rules. Preserve every earlier all-order/window rejection. Small
-held-phase prediction error alone does not establish identifiable pole parameters.
+Before another saved-data fit, assess whether saved spectral/boundary exports and
+outer-channel information suffice for real-axis R/K/S reconstruction with the
+correct polar long-range boundary conditions. Declare solvable-model real-axis
+and complex-pole gates before CO use; record missing channel information before
+costing any new outer/export control. A new estimator needs independently
+justified background/threshold/causal constraints or direct pole evidence,
+mandatory nonpolynomial known-truth controls, and frozen selection/unused-data
+rules. Preserve every earlier all-order/window rejection. Small held-phase
+prediction error alone does not establish identifiable pole parameters.
 Revisit energy resolution and threshold effects on the selected scattering model;
 no relaxed budget or automatic fitting-order ladder follows this rejection.
 

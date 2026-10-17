@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "container-inspect.json": {
+      "bytes": 9045,
+      "sha256": "8b70dfd8d3d457cffe0b075ac8574a7d0c349701db0a6b7cd69fcd07a753ca9e"
+    },
+    "execution.json": {
+      "bytes": 3498,
+      "sha256": "adbc0fb365a86aab169d034286a89bb1228f4668a49ad189edc43860ce668e03"
+    },
+    "host-audit.json": {
+      "bytes": 14042869,
+      "sha256": "b8d00ccadb2181ee94cb258516f42f58cc6a806d3734ff979f93e2f6c59b21de"
+    },
+    "local-audit.json": {
+      "bytes": 14043163,
+      "sha256": "e5f08d18821202128c0470b673fe7fe8e1c410d90693e2dcda1d9897fe72754f"
+    },
+    "manifest.json": {
+      "bytes": 2651,
+      "sha256": "421692d06238035b42411f6dd69f0f1c220c9a5701350d2c636aa1f292f82d77"
+    },
+    "source-manifest.json": {
+      "bytes": 682,
+      "sha256": "38c2888dd801fcb6d936d8a57e1ab2278b6ec944d0d7629b8ce3036f365c674d"
+    },
+    "source.tar.gz": {
+      "bytes": 7218,
+      "sha256": "ccc3a3d687e4ca989b9fa236613fbb4fd42af12ba55be9115236f204d0ea6d19"
+    }
+  },
+  "git_sha": "69f13b6de7ea84adc2b88a5694d8d73af7f8089a",
+  "url_prefix": "https://data.qscat.org/co-phase-identifiability-endpoint-20261017/"
+}

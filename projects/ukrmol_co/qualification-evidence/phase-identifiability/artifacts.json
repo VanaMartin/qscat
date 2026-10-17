@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "container-inspect.json": {"bytes":9001,"sha256":"72d4c733e667a905da821d27c9ec85b891e19e74e9e43fa469652b39819ce755"},
+    "execution.json": {"bytes":3472,"sha256":"e09a3489c719a8171af1bd3f020423e497507482925a6baddd597e24f569effb"},
+    "host-audit.json": {"bytes":14042638,"sha256":"a48ef9f5d983c4a27100d9b931b51733db1b649d70b254ea72431f68c5464c9a"},
+    "local-audit.json": {"bytes":14042799,"sha256":"00607e2215cda905cab8951de9654fd4439109c95e408dcc5b84579f096dc967"},
+    "manifest.json": {"bytes":1047,"sha256":"c9af2285171ffa6d7425a318720da35acb1bd32b352492ee674f19ade5e9bf6a"},
+    "source-manifest.json": {"bytes":682,"sha256":"8c0109e2eec920a103c75851deb457bb9becf1818ae05aad58ab170aceccfd1e"},
+    "source.tar.gz": {"bytes":6777,"sha256":"96dbcabba45fdeee1eb6969c8bdca48412fe44e22ceb17520e8750519d54c866"}
+  },
+  "git_sha":"c273a71cfe61648637d9fced44f027b470c2886c",
+  "url_prefix":"https://data.qscat.org/co-phase-identifiability-20261017/"
+}

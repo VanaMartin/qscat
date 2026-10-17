@@ -20,6 +20,74 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Width counterexamples establish a physical-design requirement — 17 October, 10:02 UTC
+
+**The endpoint-isolated analytic audit finds 94 known-wrong-width counterexamples while all
+45 mandatory true-pole smooth controls pass.** This resolves the immediate
+decision about simply adding background flexibility: local phase fidelity,
+analyticity and unitarity alone cannot justify width identification. See
+[results and next physical-design gate](PHASE_IDENTIFIABILITY.md),
+[corrected verification](verification-phase-identifiability-endpoint-20261017.json) and
+[public evidence](qualification-evidence/phase-identifiability-endpoint/README.md).
+
+Design/contract/source were frozen at **`c273a71` before the original run**.
+Review finds endpoint/development overlap in 14/45 grids, so its fully unused
+declaration fails; original exit 0, producer qualification and 98 reported
+matches stay preserved. The endpoint-exclusion repair was frozen at **`69f13b6`
+before repeating the matrix**, with a regression test. All 45 corrected grids
+are independently/publicly verified development/audit-disjoint.
+The matrix retains all **405 cells**: five smooth-background scales, three
+windows, 31/61/121-point grids, fixed degrees 3/7/11 and exact pole-width factors
+0.9/1/1.1. Background fits use development points only; audits use reserved
+original points, endpoints and an unused 10,001-midpoint grid with development
+coincidences removed. Every counterexample clears all audit sets at 0.001 rad,
+has full-rank background solve/unitarity ≤3e-15 and a known width error above
+the unchanged scientific budget. Center is fixed; absence is not uniqueness.
+
+Counts: **compressed-like 27, equilibrium-like 13, narrow underidentified 54,
+resolved/stretched-like 0**. True-pole degree-11 controls pass **9/9 per scale**,
+including every native-like nonpolynomial background. Representative degree-7
+121-point +10%-width examples have maximum unused errors **0.000801870 rad**
+compressed-like and **0.000685684 rad** equilibrium-like. Their width errors
+are twice the scientific budget. Counterexamples have exact analytic poles and
+entire nonzero backgrounds, but **are not qualified finite-range causal CO
+models**; threshold/asymptotic behavior and complex-plane growth remain
+unconstrained. This is a limit of local checks, not a native uncertainty bound.
+
+Corrected Sadaharu run costs **0.965 s / 419.7 cells per wall-second**, with **0.060 GiB
+sampled kernel high-water memory**, reserved cores 0–3, one BLAS thread and
+4-GiB limit. Original command/container exits **0/0** are preserved. No native
+data is read, no native solve is launched and no native successor is released.
+Persistent source/output/log/resource records are in
+`prepared/phase-identifiability-endpoint-source-20261017/`. Corrected source archive SHA256 is
+`ccc3a3d687e4ca989b9fa236613fbb4fd42af12ba55be9115236f204d0ea6d19`.
+The original source directory and archive `96dbcabba45f…` remain preserved.
+
+Public replay verifies **seven payloads / six source files / all 405 cell
+verdicts**; host/local maximum phase-error metric drift is **3.02e-14 rad**.
+All audit grids, coefficients, ranks, conditioning, maximum-error energies and
+failed predictive cells remain downloadable. **22 focused phase/extraction
+tests pass.** Earlier estimator, channel, active-space and all-order/window
+rejections remain preserved. The six-panel overview now plots the counterexample
+counts and records the physical-design requirement; earlier releases remain.
+
+The [10:00 UTC host check](progress-phase-identifiability-20261017.json) verifies
+**26 immutable remote hashes / 242 installed engine artifacts**, both logs and
+original zero exits. No CO job is running; unrelated `comfyui` remains active,
+with **41.56 GiB** persistent disk free. Main index remains complete/current at
+`423d5770d3de337571f51e62702ae919bad97e8c`; new analytic sources, declarations
+and renderer are branch-only and resolved locally.
+
+**Next:** first assess available spectral/boundary and outer-channel evidence
+for reconstructing an energy-dependent R/K/S matrix with the actual polar
+long-range boundary conditions. Qualify real-axis reconstruction and complex
+poles on a solvable physical scattering model before CO application. If needed
+channel information is missing, name the gap and cost an outer/export control.
+An eigenphase sum does not supply the full multichannel matrix; do not assume
+a single-p-wave threshold law. Independently justified background/causality/
+threshold restrictions or direct pole evidence are now required before another
+width claim. Model, continuity, neutral and restartable-pilot gates still apply.
+
 ### Frozen extraction rule calibrated; three-anchor application rejects — 17 October, 09:32 UTC
 
 **The prospective estimator passes its finite 30-case analytic calibration,

@@ -29,6 +29,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [completed compressed A2 control](A2_COMPRESSED_CONTROL.md),
 [same-engine active-space reconstruction](qualification-evidence/same-engine-active-space/README.md),
 [prospective phase-extraction study](PHASE_EXTRACTION.md),
+[analytic width-identifiability audit](PHASE_IDENTIFIABILITY.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -56,7 +57,24 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 09:32 UTC:** the
+**Update — 17 October, 10:02 UTC:** the prospectively frozen, endpoint-isolated
+[405-cell analytic audit](PHASE_IDENTIFIABILITY.md) finds **94 known-wrong-width
+counterexamples**, including compressed-like/equilibrium-like **10% width errors**
+with unused phase errors below **0.001 rad**. All **45 mandatory true-pole
+smooth-background controls pass**. Adding background flexibility alone cannot
+qualify native widths. These are local analytic/unitary models, not qualified
+finite-range causal CO models. The next design needs independently justified
+physical background constraints or direct matrix/pole evidence.
+
+[Public replay](qualification-evidence/phase-identifiability-endpoint/README.md) verifies
+seven payloads, six frozen sources and every cell verdict. Sadaharu cost is
+**0.965 seconds**, with no native-data reading or native solve. **22 focused
+phase/extraction tests pass**; historical rejections remain preserved.
+The original 98-match producer run remains preserved with its failed endpoint-
+unused declaration (14/45 overlapping grids). The repair was frozen before
+rerunning; all 45 corrected development/audit sets are independently disjoint.
+
+**Earlier update — 17 October, 09:32 UTC:** the
 [prospective extraction estimator](PHASE_EXTRACTION.md) passes its finite
 30-case known-pole calibration, then **rejects compressed/equilibrium saved
 nine-A2 phases** at the frozen 0.001-rad required-window prediction threshold.
@@ -150,10 +168,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: frozen extraction calibration passes finite controls; compressed and equilibrium extraction reject; stretched provisionally passes; production gated](../../docs/physics/figures/co-progress-20261017T0932.png)
+![CO qualification: 94 known-wrong-width local phase counterexamples after endpoint-isolation repair; physical constraints needed; production gated](../../docs/physics/figures/co-progress-20261017T1002.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T0932.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T0932.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1002.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1002.json) ·
+[Analytic identifiability results](PHASE_IDENTIFIABILITY.md) ·
+[Public identifiability reconstruction](qualification-evidence/phase-identifiability-endpoint/README.md) ·
 [Prospective extraction results](PHASE_EXTRACTION.md) ·
 [Public extraction reconstruction](qualification-evidence/phase-extraction/README.md) ·
 [Completed equilibrium channel control](A2_EQUILIBRIUM_CONTROL.md) ·
@@ -176,6 +196,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous23:31overview](../../docs/physics/figures/co-progress-20261015T2331.png) ·
 [Previous15:16overview](../../docs/physics/figures/co-progress-20261016T1516.png) ·
 [Previous08:50overview](../../docs/physics/figures/co-progress-20261017T0850.png) ·
+[Previous09:32overview](../../docs/physics/figures/co-progress-20261017T0932.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -206,21 +227,21 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **09:32 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **10:02 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** a prospectively frozen estimator passes its finite analytic
-calibration but rejects equilibrium/compressed required-window predictions;
-stretched provisionally passes. Panel B now shows these three prediction ratios
-alongside established numerical and active-space controls; panel E retains the
-completed channel comparison. The 0.001-rad representation criterion is distinct
-from the 0.05-rad model-comparison budget. The roadmap records the failed
-three-anchor extraction gate and need for a new physically justified design.
-Original extraction/model rejections and unset global gates remain preserved.
+**What changed:** panel B now shows the complete fixed audit's wrong-width
+counterexamples, while panels A/C/D/E retain reusable anchor, neutral, numerical
+and channel evidence. Panel F records the consequence: local prediction and
+unitarity alone do not identify widths; the next extraction design needs an
+independent physical constraint or direct pole evidence. All 45 true-pole smooth
+controls pass, but 94 wrong-width cases also pass the unused phase checks. The
+0.001-rad representation criterion is distinct from the 0.05-rad model-comparison
+budget. Original extraction/model rejections and unset global gates remain.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component
