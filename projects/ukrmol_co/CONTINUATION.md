@@ -20,6 +20,60 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Six-case K-only rejection independently/publicly reproduced — 17 October, 18:14 UTC
+
+**The bounded experiment is complete with verdict false, original exits 1/1.**
+All six native controls and all 18 independent probes pass. The subsequent
+paired-step remainder stops after **112 passes / 2 rejections**, both at
+stretched **1.0 eV**, B1/B2. Coverage is **132/594 energy identities**, **354
+independent solves**; 462 energies remain uncomputed. No production or inner
+solve runs. The source/design/contract freeze remains `fd7c871`.
+
+See [results and diagnosis](NATIVE_FULL_RECONSTRUCTION.md),
+[saved-decision verification](verification-native-full-20261017.json) and
+[public evidence](qualification-evidence/native-full-reconstruction/README.md).
+All 18 native invocations exit 0; 594 literal-baseline K matrices reproduce
+exactly. Native 16→32 maxima are **1.13753e-7 K / 3.94956e-10 S /
+3.47599e-10 rad phase modulo π**. All independent probes, including stretched
+5-eV near-threshold controls, pass their separate gates.
+
+At stretched 1 eV, final-step K changes are **1.05931e-5 / 1.22856e-5** and
+finest-versus-native K differences **8.16850e-6 / 6.10584e-6**, exceeding 1e-6.
+S/phase comparisons and invariants pass. The strict K veto remains; the runner
+stopped new submissions and retained executing bundles.
+
+[Fresh public verification](verification-native-full-public-20261017.json)
+passes **13 payloads / 22 source and test-support files / 24 inputs**. Four
+reexecuted solves reproduce both rejected K matrices and all stored S components
+exactly, with identical false decisions. Replay exits 0/0; scientific exits 1/1
+remain. All **31 focused tests** pass; two separately supplied test-only
+dependencies repair initial public-package failures while preserving them and
+the original source archive. Replay cost is **190.720 s**, CPU 374.781 s,
+kernel memory high-water 141,156,352 bytes, two physical cores, 4-GiB cap.
+
+The separate saved-decision verifier is frozen at `64226b9`. It independently
+expresses the Cayley map and phase sum and reconstructs all **1782 native
+records / 354 journal rows / 132 decisions**. Fresh public bytes reproduce the
+false result. At the failed point, K entries reach 141.309 and one eigenvalue
+is −185.358, 0.00539490 rad from a tangent singularity. Almost all K discrepancy
+lies in that eigenchannel; the exact Cayley difference identity explains its
+small S image to ≤5.69e-15 residual. This identifies coordinate sensitivity,
+not the source of the remaining numerical error or a complex resonance pole.
+
+Original measured cost: **6877.185 s / 1.91033 h**, sampled CPU 45030.741 s,
+34325 resource samples at 0.2 s, kernel high-water **3.14685 GiB**, physical
+cores 4–11, eight single-threaded workers, 16-GiB limit. Post-run checks verify
+242 engine artifacts / 24 inputs / 18 frozen sources. A 335-file collection
+preserves the partial result under the original persistent source directory.
+The [18:14 UTC result observation](progress-native-full-result-20261017.json)
+verifies **348 collected / 447 prior immutable remote hashes / 242 installed
+artifacts**, with no running scientific container and 45.13 GiB free disk.
+
+Any successor must be separately designed around this measured large-tangent
+discrepancy, with explicit cost and reference/propagation error attribution.
+The original K gates are not relaxed. Native K, CO poles, model/channel/global
+identity/extraction/neutral-domain qualification and production remain gated.
+
 ### Six-case saved-native reconstruction running — 17 October, 15:55 UTC
 
 **The bounded study is frozen at `fd7c871` and running on Sadaharu.** The

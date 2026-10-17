@@ -1,0 +1,285 @@
+{
+  "verified_utc": "2026-10-17T18:13:52.818186+00:00",
+  "public_reconstruction_passed": true,
+  "public_payloads_verified": 13,
+  "public_payload_sha256": {
+    "collection.json": "ff3b1e82998cd840f52f88f40508d79ba70d55a91c9b9153e46952c24e6d955d",
+    "execution.json": "90e508b1e7d141cd0c89217134b5457fe477e8d7163f8c4a3e7729f63a33280d",
+    "inputs.tar.gz": "fff19ddd45c4ecf7576abdb33b702a91de8491d4e77290a07923b2377c841224",
+    "manifest.json": "6093d4144bd18ad858e779dbc99bab9217081860f515ddda4cdddc5108c7e158",
+    "numerical-replay.tar.gz": "9a49e337232b3aeb5cc03f8577824aef93281971689a2535d604fd87b950bcda",
+    "public-numerical-replay.json": "3ce1435c3cdfc1313364ef7a2821da7526ed6e948371ff0cc44515b1ff74df44",
+    "public-tests.json": "ad315af83f2fae4b45763376b624fcde0d3a33d5a57847c132592b3853617613",
+    "replay-source.tar.gz": "7caf17b0d6ebb02292574d8bb3b3957cc6bda02663bb355e72d3f1911ff6fb8b",
+    "results.tar.gz": "3e9ac1b765ab9cce9dc03b9d05f6901804fff312add62a70462c991b95c5653d",
+    "saved-decision-replay.json": "e2839a95da053d62f0062782c380fbc4e62c84a5b57729d64d6e43cd5ecb5775",
+    "source-manifest.json": "2aaaeca25ec64935e3e8c1fcd9c581fb4fbc5859f87ac7a7d988f836cb44eddd",
+    "source.tar.gz": "42b7f5b666b8312a3cf335f387c5208742026996bf61d61bef0b7e64377f0ac2",
+    "test-support.tar.gz": "446d0027af6215726b25a6c26c76b933160153fb57daf1011014899c0be4ccaa"
+  },
+  "producer_source_files_verified": 18,
+  "replay_source_files_verified": 2,
+  "test_support_files_verified": 2,
+  "all_public_source_files_verified": 22,
+  "original_native_inputs_verified": 24,
+  "collected_producer_files_verified": 335,
+  "numerical_replay_files_verified": 13,
+  "saved_decisions_and_diagnoses_match_published_report_exactly": true,
+  "public_saved_decision_verifier_exit": 0,
+  "all_354_independent_solves_reexecuted": false,
+  "native_engine_reexecuted": false,
+  "public_focused_tests_passed": 31,
+  "public_test_record": {
+    "exit": 0,
+    "stdout": "...............................                                          [100%]\n31 passed in 12.46s\n",
+    "stderr": "",
+    "initial_public_collection_exit": 2,
+    "initial_public_collection_failure": "Frozen test source archive lacked coupled_tail analytic oracle.",
+    "second_public_test_exit": 1,
+    "second_public_test_failure": "Two predecessor phase-veto tests lacked the native-exterior-attribution contract (29 tests passed).",
+    "test_support_source_commit": "64226b9d8f461f8f64fcaf2eb05500a9706c4a06",
+    "test_support_source_sha256": {
+      "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+      "projects/ukrmol_co/native-exterior-attribution-contract.json": "437200b59c4eaa632009b368932611f6c9edcce908308d2746a96d62fec87d23"
+    },
+    "supplement_scope": "Two source-only test dependencies; original producer archive and all numerical outputs unchanged."
+  },
+  "numerical_reexecution": {
+    "numerical_reexecution_passed": true,
+    "reconstruction_verdict": false,
+    "reexecuted_energy_identities": 2,
+    "reexecuted_independent_solves": 4,
+    "scope": "Two original rejection bundles only, unchanged steps/endpoint/order and all closed channels; no continuation.",
+    "results": [
+      {
+        "case": "stretched/nine/B1",
+        "energy_index": 18,
+        "original_verdict": false,
+        "replayed_verdict": false,
+        "checks_identical": true,
+        "maximum_reexecution_drift": {
+          "k": 0.0,
+          "s": 0.0,
+          "phase_rad_mod_pi": 0.0
+        },
+        "metrics": {
+          "native_comparison": {
+            "k": 8.16849919260676e-06,
+            "s": 3.2001107084926e-09,
+            "phase_rad_mod_pi": 3.4874467460609243e-09
+          },
+          "step_changes": [
+            {
+              "k": 1.0593089427857194e-05,
+              "s": 6.298271904821958e-10,
+              "phase_rad_mod_pi": 1.2101323800672356e-09
+            }
+          ],
+          "invariant_maxima": {
+            "unitarity": 6.525224804931895e-12,
+            "reciprocity": 7.602561224263497e-12
+          }
+        },
+        "failure": null
+      },
+      {
+        "case": "stretched/nine/B2",
+        "energy_index": 18,
+        "original_verdict": false,
+        "replayed_verdict": false,
+        "checks_identical": true,
+        "maximum_reexecution_drift": {
+          "k": 0.0,
+          "s": 0.0,
+          "phase_rad_mod_pi": 0.0
+        },
+        "metrics": {
+          "native_comparison": {
+            "k": 6.105841379167032e-06,
+            "s": 2.920375322079481e-09,
+            "phase_rad_mod_pi": 3.502523938305089e-09
+          },
+          "step_changes": [
+            {
+              "k": 1.22856008601957e-05,
+              "s": 6.34026212998449e-10,
+              "phase_rad_mod_pi": 1.0237726479998114e-09
+            }
+          ],
+          "invariant_maxima": {
+            "unitarity": 6.795786156033046e-12,
+            "reciprocity": 7.931246490436292e-12
+          }
+        },
+        "failure": null
+      }
+    ],
+    "kernel_wall_seconds": 190.11975930100016
+  },
+  "numerical_reexecution_resources": {
+    "started_utc": "2026-10-17T18:06:12.206780+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-native-full-public-replay-20261017",
+      "--cpuset-cpus=0-1",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-public-replay-20261017:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-public-replay-20261017/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/worker.py"
+    ],
+    "worker_sha256": "d09382a82c4103c665dc2aedb1dabb4b20c7ccea2c40d6ace1c367ad0b87c804",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpuset_cpus": "0-1",
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 1800,
+    "reexecuted_independent_solves": 4,
+    "driver_exit": 0,
+    "finished_utc": "2026-10-17T18:09:22.927414+00:00",
+    "wall_seconds": 190.72036027499962,
+    "sampled_memory_current_peak_bytes": 116658176,
+    "sampled_kernel_memory_peak_bytes": 141156352,
+    "sampled_cpu_seconds": 374.781381,
+    "container_exit": 0
+  },
+  "saved_decision_replay_passed": true,
+  "reconstruction_verdict": false,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_cases_verified": 6,
+  "native_energy_records_verified": 1782,
+  "native_baseline_matrices_exact": 594,
+  "native16_to32_maxima": {
+    "k": 1.1375266240065685e-07,
+    "s": 3.949560872180009e-10,
+    "phase_rad_mod_pi": 3.475992826906804e-10
+  },
+  "independent_energy_identities_verified": 132,
+  "independent_solves_journal_verified": 354,
+  "probes_passed": 18,
+  "remainder_passed": 112,
+  "remainder_rejected": 2,
+  "rejections": [
+    {
+      "case": "stretched/nine/B1",
+      "energy_index": 18,
+      "requested_energy_ev": 0.9999999999999998,
+      "failed_checks": [
+        "step_k",
+        "native_k"
+      ],
+      "metrics": {
+        "native_comparison": {
+          "k": 8.16849919260676e-06,
+          "s": 3.2001107084926e-09,
+          "phase_rad_mod_pi": 3.4874467460609243e-09
+        },
+        "step_changes": [
+          {
+            "k": 1.0593089427857194e-05,
+            "s": 6.298271904821958e-10,
+            "phase_rad_mod_pi": 1.2101323800672356e-09
+          }
+        ],
+        "invariant_maxima": {
+          "unitarity": 6.525224804931895e-12,
+          "reciprocity": 7.602561224263497e-12
+        }
+      },
+      "coordinate_diagnostic": {
+        "max_abs_native_k": 141.30889254996302,
+        "max_abs_independent_k": 141.30888438146383,
+        "largest_tangent_eigenvalue": -185.35835522013727,
+        "distance_to_tangent_singularity_rad": 0.005394902739264351,
+        "large_channel_local_cayley_derivative": 5.82093864013671e-05,
+        "relative_frobenius_k_change": 5.773513094545315e-08,
+        "large_channel_delta_frobenius_fraction": 0.9999986493196118,
+        "cayley_difference_identity_max_residual": 5.683135449178106e-15,
+        "differences": {
+          "k": 8.16849919260676e-06,
+          "s": 3.2001107091512913e-09,
+          "phase_rad_mod_pi": 3.4874483301194914e-09
+        }
+      },
+      "adjacent_native_max_abs_k": {
+        "17": 2.200736366779175,
+        "18": 141.30889254996302,
+        "19": 2.402356348513613
+      }
+    },
+    {
+      "case": "stretched/nine/B2",
+      "energy_index": 18,
+      "requested_energy_ev": 0.9999999999999998,
+      "failed_checks": [
+        "step_k",
+        "native_k"
+      ],
+      "metrics": {
+        "native_comparison": {
+          "k": 6.105841379167032e-06,
+          "s": 2.920375322079481e-09,
+          "phase_rad_mod_pi": 3.502523938305089e-09
+        },
+        "step_changes": [
+          {
+            "k": 1.22856008601957e-05,
+            "s": 6.34026212998449e-10,
+            "phase_rad_mod_pi": 1.0237726479998114e-09
+          }
+        ],
+        "invariant_maxima": {
+          "unitarity": 6.795786156033046e-12,
+          "reciprocity": 7.931246490436292e-12
+        }
+      },
+      "coordinate_diagnostic": {
+        "max_abs_native_k": 141.30889160164259,
+        "max_abs_independent_k": 141.3088854958012,
+        "largest_tangent_eigenvalue": -185.35835397308688,
+        "distance_to_tangent_singularity_rad": 0.005394902775559318,
+        "large_channel_local_cayley_derivative": 5.820938718458429e-05,
+        "relative_frobenius_k_change": 4.3130213916835776e-08,
+        "large_channel_delta_frobenius_fraction": 0.9999971326572936,
+        "cayley_difference_identity_max_residual": 2.6254800196866856e-15,
+        "differences": {
+          "k": 6.105841379167032e-06,
+          "s": 2.9203752925582435e-09,
+          "phase_rad_mod_pi": 3.5025360389795424e-09
+        }
+      },
+      "adjacent_native_max_abs_k": {
+        "17": 2.2007363670888336,
+        "18": 141.30889160164259,
+        "19": 2.4023563483409687
+      }
+    }
+  ],
+  "original_pilot_verdict": false,
+  "original_pilot_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

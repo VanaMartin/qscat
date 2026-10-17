@@ -1,0 +1,237 @@
+{
+  "verified_utc": "2026-10-17T18:02:45.511877+00:00",
+  "source_commit": "fd7c87184afa10a36bdcfaaaa37fc2eeb6cad7e3",
+  "replay_source_commit": "64226b9d8f461f8f64fcaf2eb05500a9706c4a06",
+  "source_archive_sha256": "42b7f5b666b8312a3cf335f387c5208742026996bf61d61bef0b7e64377f0ac2",
+  "collection_sha256": {
+    "preserved-result.tar.gz": "3e9ac1b765ab9cce9dc03b9d05f6901804fff312add62a70462c991b95c5653d",
+    "preserved-inputs.tar.gz": "fff19ddd45c4ecf7576abdb33b702a91de8491d4e77290a07923b2377c841224"
+  },
+  "collected_files_verified": 335,
+  "source_files_verified": 18,
+  "installed_engine_artifacts_reverified": 242,
+  "execution": {
+    "source_commit": "fd7c87184afa10a36bdcfaaaa37fc2eeb6cad7e3",
+    "source_archive_sha256": "42b7f5b666b8312a3cf335f387c5208742026996bf61d61bef0b7e64377f0ac2",
+    "source_manifest": {
+      "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+      "projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+      "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+      "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+      "projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+      "projects/ukrmol_co/native_exterior_attribution.py": "5bf90ad998beaf209357a696e5cd530d0e984822b3e3eb1bf3002fbbef1c8c5b",
+      "projects/ukrmol_co/native_full_reconstruction.py": "8b57a716ab4d6fa9910eb30fe088a103c69dfbc989559e5a06ab21deb6b02500",
+      "projects/ukrmol_co/native_reconstruction_checks.py": "3250bc545e16a0495e92b2bda5e7c0bf4fe0f06a068f8354b47c831ec5be43ec",
+      "projects/ukrmol_co/test_native_full_reconstruction.py": "e787a8986035fc1c4ede33a1582877a8b700f6064daa49778e588d18a7744bad",
+      "projects/ukrmol_co/test_native_exterior_attribution.py": "08fff15e75c3684fb655d8c00a26a13537ee2220d75f97c84ef0e7373b61ea47",
+      "projects/ukrmol_co/test_exterior_numerov.py": "b9ef682d6fe349513190b56ac2ff9f1684e4b7602c5d86a71fb0239d7a8a0f67",
+      "projects/ukrmol_co/test_native_boundary.py": "89586d6ba401ece561dc7132ebddc3383f2a044be2b24b6a78f706f5348b1a9f",
+      "projects/ukrmol_co/native-full-reconstruction-contract.json": "4a9c94fa7736dc8db85ce257183e90b8a4820d44d7c02722112578aac2ded580",
+      "projects/ukrmol_co/NATIVE_FULL_RECONSTRUCTION.md": "6ab913aa8f14608b0d76e89c1a9727db1cbe06babb6993ae77baa3a957e78a1e",
+      "projects/ukrmol_co/verification-native-attribution-20261017.json": "00fa6c7592d169825559f8864450bfcc42831ff307e3b34be23a98dc78853cec",
+      "projects/ukrmol_co/verification-native-attribution-public-20261017.json": "b0d06c35d17e407f485ff1f9fc853289e96216e1263c198553ca7325a9981980",
+      "docs/physics/co-native-full-reconstruction.md": "9da1a4693015e439fc8484415c02a324fbcbb69143dcf6085a79bf669a84fe45"
+    },
+    "owner_sha256": "718f2ec024f71a3d1e97c00687e1c3996502afc55d0374bbeb2c8150b7125e8d",
+    "prelaunch_focused_tests_passed": 28,
+    "scope": "Frozen gated native/probe/full-grid study only; no inner solve or uncontracted successor.",
+    "started_utc": "2026-10-17T15:53:59.480610+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-native-full-reconstruction-20261017",
+      "--cpuset-cpus=4-11",
+      "--memory=16g",
+      "--memory-swap=16g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "PYTHONPATH=/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-e",
+      "TMPDIR=/outputs/scratch",
+      "-e",
+      "PSI_SCRATCH=/outputs/scratch",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-reconstruction-source-20261017/source:/source:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-reconstruction-source-20261017:/outputs",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/native:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-reconstruction-source-20261017/source/projects/ukrmol_co:/prerequisites:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+      "-w",
+      "/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.native_full_reconstruction",
+      "--directory",
+      "/native",
+      "--engine",
+      "/opt/ukrmolp/bin.double/rsolve",
+      "--prerequisites",
+      "/prerequisites",
+      "--contract",
+      "projects/ukrmol_co/native-full-reconstruction-contract.json",
+      "--output",
+      "/outputs/result"
+    ],
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "installed_engine_artifacts_verified_before": 242,
+    "input_hashes_verified_before": 24,
+    "cpu_topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_memory": "               total        used        free      shared  buff/cache   available\nMem:     132578136064  7436488704 105292640256   730333184 21195075584 125141647360\nSwap:    31998341120           0 31998341120\n",
+    "preexisting_containers": "",
+    "persistent_free_disk_gib": 45.332611083984375,
+    "original_command_exit": 1,
+    "finished_utc": "2026-10-17T17:48:36.675123+00:00",
+    "wall_seconds": 6877.185222877,
+    "resource_sample_count": 34325,
+    "sample_interval_seconds": 0.2,
+    "sampled_peak_container_memory_bytes": 3373494272,
+    "sampled_kernel_memory_peak_bytes": 3378905088,
+    "sampled_container_cpu_seconds": 45030.740859,
+    "original_container_exit": 1,
+    "installed_engine_artifacts_verified_after": 242,
+    "input_hashes_verified_after": 24,
+    "frozen_sources_verified_after": 18
+  },
+  "saved_decision_replay_passed": true,
+  "reconstruction_verdict": false,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_cases_verified": 6,
+  "native_energy_records_verified": 1782,
+  "native_baseline_matrices_exact": 594,
+  "native16_to32_maxima": {
+    "k": 1.1375266240065685e-07,
+    "s": 3.949560872180009e-10,
+    "phase_rad_mod_pi": 3.475992826906804e-10
+  },
+  "independent_energy_identities_verified": 132,
+  "independent_solves_journal_verified": 354,
+  "probes_passed": 18,
+  "remainder_passed": 112,
+  "remainder_rejected": 2,
+  "rejections": [
+    {
+      "case": "stretched/nine/B1",
+      "energy_index": 18,
+      "requested_energy_ev": 0.9999999999999998,
+      "failed_checks": [
+        "step_k",
+        "native_k"
+      ],
+      "metrics": {
+        "native_comparison": {
+          "k": 8.16849919260676e-06,
+          "s": 3.2001107084926e-09,
+          "phase_rad_mod_pi": 3.4874467460609243e-09
+        },
+        "step_changes": [
+          {
+            "k": 1.0593089427857194e-05,
+            "s": 6.298271904821958e-10,
+            "phase_rad_mod_pi": 1.2101323800672356e-09
+          }
+        ],
+        "invariant_maxima": {
+          "unitarity": 6.525224804931895e-12,
+          "reciprocity": 7.602561224263497e-12
+        }
+      },
+      "coordinate_diagnostic": {
+        "max_abs_native_k": 141.30889254996302,
+        "max_abs_independent_k": 141.30888438146383,
+        "largest_tangent_eigenvalue": -185.35835522013727,
+        "distance_to_tangent_singularity_rad": 0.005394902739264351,
+        "large_channel_local_cayley_derivative": 5.82093864013671e-05,
+        "relative_frobenius_k_change": 5.773513094545315e-08,
+        "large_channel_delta_frobenius_fraction": 0.9999986493196118,
+        "cayley_difference_identity_max_residual": 5.683135449178106e-15,
+        "differences": {
+          "k": 8.16849919260676e-06,
+          "s": 3.2001107091512913e-09,
+          "phase_rad_mod_pi": 3.4874483301194914e-09
+        }
+      },
+      "adjacent_native_max_abs_k": {
+        "17": 2.200736366779175,
+        "18": 141.30889254996302,
+        "19": 2.402356348513613
+      }
+    },
+    {
+      "case": "stretched/nine/B2",
+      "energy_index": 18,
+      "requested_energy_ev": 0.9999999999999998,
+      "failed_checks": [
+        "step_k",
+        "native_k"
+      ],
+      "metrics": {
+        "native_comparison": {
+          "k": 6.105841379167032e-06,
+          "s": 2.920375322079481e-09,
+          "phase_rad_mod_pi": 3.502523938305089e-09
+        },
+        "step_changes": [
+          {
+            "k": 1.22856008601957e-05,
+            "s": 6.34026212998449e-10,
+            "phase_rad_mod_pi": 1.0237726479998114e-09
+          }
+        ],
+        "invariant_maxima": {
+          "unitarity": 6.795786156033046e-12,
+          "reciprocity": 7.931246490436292e-12
+        }
+      },
+      "coordinate_diagnostic": {
+        "max_abs_native_k": 141.30889160164259,
+        "max_abs_independent_k": 141.3088854958012,
+        "largest_tangent_eigenvalue": -185.35835397308688,
+        "distance_to_tangent_singularity_rad": 0.005394902775559318,
+        "large_channel_local_cayley_derivative": 5.820938718458429e-05,
+        "relative_frobenius_k_change": 4.3130213916835776e-08,
+        "large_channel_delta_frobenius_fraction": 0.9999971326572936,
+        "cayley_difference_identity_max_residual": 2.6254800196866856e-15,
+        "differences": {
+          "k": 6.105841379167032e-06,
+          "s": 2.9203752925582435e-09,
+          "phase_rad_mod_pi": 3.5025360389795424e-09
+        }
+      },
+      "adjacent_native_max_abs_k": {
+        "17": 2.2007363670888336,
+        "18": 141.30889160164259,
+        "19": 2.4023563483409687
+      }
+    }
+  ],
+  "original_pilot_verdict": false,
+  "original_pilot_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "independent_public_reconstruction_passed": true,
+  "public_reconstruction_sha256": "ac868aa7692d183d3189ea17dbfb3de92b0c2076e3c155503992edec90fb516c"
+}

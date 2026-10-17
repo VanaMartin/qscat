@@ -82,10 +82,20 @@ step/radius/order probes, then gated paired-step completion of594 matrices.
 The stretched5-eV point lies only0.02524 eV below the first excited threshold.
 The frozen scope forecasts4.5 h on eight physical cores, with16 GiB and a10 h cap.
 All K/S/phase gates remain separate at1e-6; false/unset stops new submissions.
-No new inner solve is authorized. Source/design/tests are frozen at **`fd7c871`**
-and the study runs on Sadaharu from15:53:59 UTC; all six literal baselines are
-active at the15:55 observation. Scientific qualification awaits completion and
-independent public replay.
+The study, frozen at **`fd7c871`**, now stops with **false / exits 1/1**.
+All six native controls and all 18 independent probes pass, but the remainder
+rejects absolute K changes at stretched 1 eV in both sectors. Coverage stops at
+132/594 energies and 354 independent solves (112 remainder passes / 2 rejects).
+S/phase and invariants pass at the rejected points; they cannot waive the K veto.
+The [saved-matrix diagnosis](NATIVE_FULL_RECONSTRUCTION.md#saved-matrix-diagnosis)
+resolves large-tangent coordinate sensitivity through the exact Cayley identity,
+without identifying the remaining propagation/reference error or releasing a
+complex-pole interpretation. Original cost is 1.91033 h / 3.14685 GiB; no new
+inner solve is justified. Further numerical work needs a separately frozen,
+costed attribution experiment rather than automatic full-grid continuation.
+Fresh public replay verifies all saved decisions and reproduces the four
+rejected-point solves exactly. All 31 focused tests pass. The original false
+verdict/exits 1/1 and the 462 uncomputed energy identities remain.
 
 ## 1. Finish trustworthy target inputs
 

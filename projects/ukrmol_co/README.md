@@ -65,15 +65,19 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 15:55 UTC:** the
-[six-case saved-native reconstruction](NATIVE_FULL_RECONSTRUCTION.md) is frozen
-at **`fd7c871`** and running on Sadaharu. All six literal native baselines are
-executing. Native baseline/16/32 controls and18 independent step/radius/order
-probes must all pass before paired-step completion of594 matrices. Forecast
-**4.5 h**,cap10 h,16 GiB,eight single-threaded physical cores. **28 focused
-tests pass**; all24 inputs verify. Stretched5 eV is only0.02524 eV below its
-first excited threshold,so it has explicit closed-tail controls. No scientific
-verdict yet; false/unset stops new submissions. No new inner solve occurs.
+**Update — 17 October, 18:14 UTC:** the
+[six-case saved-native reconstruction](NATIVE_FULL_RECONSTRUCTION.md) stops with
+**false / original exits 1/1**. All six native controls and all 18 independent
+probes pass, including the stretched 5-eV near-threshold points. The remainder
+rejects absolute K changes at stretched **1.0 eV** in both sectors, despite
+passing S/phase and invariants. Coverage is **132/594 energies / 354 solves**;
+112 remainder points pass and two reject. Saved-matrix replay reproduces all
+decisions and resolves a large-tangent K-coordinate sensitivity; it does not
+waive the K veto. Measured cost is **1.91033 h / 3.14685 GiB**. Evidence is
+[published](qualification-evidence/native-full-reconstruction/README.md).
+Fresh public replay verifies all decisions and exactly reproduces the four
+rejected-point solves. All 31 focused tests pass. No scientific container runs.
+No full-grid continuation or new inner solve is authorized.
 
 **Earlier update — 17 October, 14:08 UTC:** the separately frozen
 [native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) passes
@@ -313,11 +317,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: six-case saved-native reconstruction running with fixed native, near-threshold and full-grid gates](../../docs/physics/figures/co-progress-20261017T1555.png)
+![CO qualification: six native controls and eighteen probes pass; full reconstruction stops on two K-only rejections, independently reproduced](../../docs/physics/figures/co-progress-20261017T1814.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1555.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1555.json) ·
-[Active six-case study](NATIVE_FULL_RECONSTRUCTION.md) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1814.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1814.json) ·
+[Stopped six-case study and diagnosis](NATIVE_FULL_RECONSTRUCTION.md) ·
+[Fresh public rejection replay](verification-native-full-public-20261017.json) ·
+[Verified result capture](progress-native-full-result-20261017.json) ·
 [Verified launch capture](progress-native-full-launch-20261017.json) ·
 [Completed attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) ·
 [Public attribution evidence](qualification-evidence/native-attribution/README.md) ·
@@ -369,6 +375,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous13:17overview](../../docs/physics/figures/co-progress-20261017T1317.png) ·
 [Previous13:40overview](../../docs/physics/figures/co-progress-20261017T1340.png) ·
 [Previous14:08overview](../../docs/physics/figures/co-progress-20261017T1408.png) ·
+[Previous15:55overview](../../docs/physics/figures/co-progress-20261017T1555.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -399,20 +406,21 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **15:55 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **18:14 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel F records the frozen six-case study now running:
-18 native invocations,18 near-threshold/step/order probes and paired-step
-completion of594 matrices only after all preceding gates pass. Its resource
-contract is4.5 h forecast /10 h cap /16 GiB /eight physical cores. Panel B retains
-the passing conditional99.72% native-subrange attribution that justifies this
-study. The original false gate,method controls,earlier combined-resolution pass
-and original failed family remain separate evidence.
+**What changed:** panel B exposes the two K-only stretched 1-eV rejections and
+their passing S/phase comparisons against unchanged budgets. Panel F records
+six passing native controls, 18 passing probes, the stopped 132/594-energy
+coverage, saved-coordinate diagnosis and fresh public numerical reproduction.
+The measured original cost is 1.91033 h / 3.14685 GiB; no scientific job now runs.
+Large-tangent K sensitivity does not waive the strict veto or establish a
+complex pole. Passing predecessor attribution, original pilot rejection and
+earlier combined-exterior failures remain preserved.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.

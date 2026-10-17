@@ -1,0 +1,40 @@
+{
+  "git_sha": "fd7c87184afa10a36bdcfaaaa37fc2eeb6cad7e3",
+  "date": "2026-10-17",
+  "record_type": "six-case-saved-native-reconstruction-rejection",
+  "replay_source_commit": "64226b9d8f461f8f64fcaf2eb05500a9706c4a06",
+  "replay_source_sha256": {
+    "projects/ukrmol_co/native_reconstruction_replay.py": "65c24cd0f8eabf6fdb622ab752511171182d1d4a37ea9003cf50665259cef8a9",
+    "projects/ukrmol_co/test_native_reconstruction_replay.py": "df6f252c0c15e0accb387f8d8ebeb2df38fb8f0eca14a7a2d9bd1651be394fcb"
+  },
+  "reconstruction_verdict": false,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_cases_passed": 6,
+  "native_outer_invocations": 18,
+  "native_energy_records": 1782,
+  "independent_energy_identities": 132,
+  "independent_solves": 354,
+  "probes_passed": 18,
+  "remainder_passed": 112,
+  "remainder_rejected": 2,
+  "uncomputed_energy_identities": 462,
+  "original_pilot_verdict": false,
+  "original_pilot_exits": [
+    1,
+    1
+  ],
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "test_support_source_commit": "64226b9d8f461f8f64fcaf2eb05500a9706c4a06",
+  "test_support_source_sha256": {
+    "projects/ukrmol_co/coupled_tail.py": "886b83a99b2e1ef272701c191bbb39d9369aa586aba3212bafb2f2e797715548",
+    "projects/ukrmol_co/native-exterior-attribution-contract.json": "437200b59c4eaa632009b368932611f6c9edcce908308d2746a96d62fec87d23"
+  },
+  "test_support_reason": "Separate supplement for the coupled_tail analytic oracle and predecessor contract imported by frozen tests; original producer source archive preserved unchanged.",
+  "numerical_reexecution_passed": true,
+  "numerical_reexecuted_energy_identities": 2,
+  "numerical_reexecuted_independent_solves": 4
+}
