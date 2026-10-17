@@ -10,6 +10,15 @@ retain the complete scope and original records.
 
 ## Equilibrium active-space sensitivity
 
+**17 October supplement:** the fresh audited eight-rank CAS11 baseline exactly
+reproduces the old selected phases. The
+[same-engine reconstruction](qualification-evidence/same-engine-active-space/README.md)
+preserves both model rejections below, removing the scattering-engine/rank
+confound. Target diagonalizers/imports and optimized frames remain distinct.
+The original strict deck-byte preflight fails on two formatting-only lines;
+its failed/unset record is retained beside the supplementary exact-line audit.
+The original study and results below remain unchanged.
+
 Both Pi sectors reproduce these results, using the same1.8–3.3 requested-eV
 fit window and background orders1–4:
 
@@ -68,7 +77,7 @@ estimator needs its own physical/analytic validation,predeclared model-selection
 rule and unused-data check. Small phase-prediction errors do not establish
 unique resonance parameters or resonance-pole identity.
 
-## Independent reconstruction and next input gate
+## Independent reconstruction and historical next input gate
 
 The pinned Sadaharu image and macOS reproduce all decisions with maximum
 full-data fitted-parameter drift4.712e-9eV. The shared reader/fitter establishes
@@ -77,7 +86,7 @@ The host read costs1.716seconds including container startup. Public download
 then reconstructs all124 raw inputs with57 verified frozen source files; all
 seven published payload digests pass. **No native solve is repeated for this study.**
 
-The next native step is separately declared in
+The subsequent native step was separately declared in
 [the equilibrium nine-A2 input contract](a2-equilibrium-target-preflight-contract.json).
 It qualifies48 native target vectors/properties at the unchanged original
 equilibrium CAS11 orbital checkpoint,before a matched equilibrium channel

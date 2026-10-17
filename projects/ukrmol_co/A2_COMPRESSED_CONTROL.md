@@ -1,8 +1,73 @@
 # Compressed CO A2 target inputs and matched scattering
 
-**The compressed48-state target/property gate passes independent and public
-reconstruction. The fresh five-A2/2048baseline passes its dense-observable gate;
-the declared nine-A2/2048model is running on Sadaharu.**
+**The compressed five-versus-nine-A2 control passes all declared observable
+budgets. Independent local, host and public reconstruction confirm the result.**
+
+## Completed scattering — 17 October reading
+
+Owner 1365000 finishes **16 October, 16:55:18.733 UTC**, with all seven owner
+steps, native stages, resource wrappers and comparison exits zero. Observer
+1365474 ends normally after nine captures. Both services are inactive. The
+[completion capture](progress-a2-compressed-scattering-20261017T0840.json)
+reverifies 61 source / 59 input hashes and all 242 installed engine artifacts.
+
+| Comparison | Maximum phase difference, modulo π | Position change | Full-width change |
+|---|---:|---:|---:|
+| Dense replay → fresh five-A2/2048 | 2.2e-6 rad | ≤0.007205 meV | ≤0.02509 meV |
+| Five-A2 → nine-A2/2048 | **0.0115944 rad** | **13.241–18.210 meV lower** | **2.218–4.404 meV smaller** |
+| Original scientific budget | 0.05 rad | 50 meV | 5%, with 1 meV floor |
+
+Both sectors agree; the channel phase maximum is at **3.9 requested-eV**, with
+no grid point exceeding budget. All four background orders pass in the declared
+2–5 requested-eV window. Native residuals are at most **1.37e-10 Hartree**;
+selected Pi splitting is zero. Complete exports confirm dimensions 27546/27818,
+continuum 1410/1682 and boundary 250/298. Actual shared input hashes and each
+model's own noncontiguous channel map/deck verify.
+
+Measured five/nine costs are **1.651263 / 1.827292 hours**,
+**6.011147 / 7.245762 GiB**. Dense outer replay is **4.248 minutes / 0.446 GiB**.
+The [73-file reading](verification-a2-compressed-scattering-20261017.json)
+reconstructs exports, telemetry, grids/Pi, maps/decks and both fit gates.
+[Public replay](qualification-evidence/compressed-a2-scattering/README.md)
+verifies eight payloads and 58 frozen source files. Host replay takes 0.815 s;
+largest host/local fitted-parameter difference is 4.018e-9 eV. Four actual dense
+inputs match the frozen complete 27546-pole source. Large shared native input
+equality is checksum-audited remotely. Shared readers/fitter are not an
+independent scattering engine.
+
+## Three-anchor decision
+
+| Anchor | Five→nine-A2 phase change | Outcome |
+|---|---:|---|
+| Compressed, 1.9 bohr | 0.0115944 rad | Independently/publicly reconstructed pass |
+| Equilibrium, 2.1323 bohr | 0.0163665 rad | Independently/publicly reconstructed pass |
+| Stretched, 2.5 bohr | 0.0679178 rad after named nine-A2 refinement | Reject |
+
+This completes the missing anchor comparison. Five-A2 retention is not uniformly
+insensitive over the domain; the stretched rejection persists. Nine-A2 is the
+larger tested representation for subsequent matched controls, with full channel
+convergence still unset. Passing compressed/equilibrium controls do not justify
+extra root expansions. The established economical setting remains 2048 roots;
+the retained refinement evidence is a measured sensitivity, not an omission bound.
+
+The fresh equilibrium CAS11 baseline also enables a
+[same-engine saved-output check](qualification-evidence/same-engine-active-space/README.md).
+CAS11→CAS12 still rejects phase/position at **0.1212798 rad / 63.652–73.447 meV**;
+CAS12/4096 preserves rejection. Old and fresh selected CAS11 phases are identical.
+The scattering-engine/rank confound is removed, while target diagonalizer/import
+and optimized-frame differences remain. The original strict deck-byte preflight
+fails on two formatting-only lines; its failed/unset record is preserved beside
+the separately declared supplementary exact-line audit and model rejection.
+
+**Next decision:** validate the extraction estimator against known-pole phases
+with smooth nonconstant backgrounds before selecting a new estimator or using
+fit widths to rank expensive electronic models. Its design must freeze the
+model-selection rule and unused-data tests before inspecting their outcomes;
+all historical order/window rejections remain in force. In parallel planning,
+use the now measured channel effects and costs to specify independent 40→50
+orbital-average and basis controls, qualifying native target imports before any
+matched scattering. Model/continuity/neutral-domain and restartable-pilot gates
+still precede the production sweep and potential fitting.
 
 Equilibrium five→nine-A2insensitivity passes at0.0163665rad,while stretched
 insensitivity rejects at0.0679178rad after its named root refinement. The
@@ -40,7 +105,7 @@ unchanged;61source/50input hashes and242installed artifacts reverify.
 for8.882e-16in Gram error. Full native input reconstruction does not independently
 validate every added transition moment or qualify full channel convergence.
 
-## Matched scattering and current state
+## Historical matched-scattering declaration and launch state
 
 The [separate scattering declaration](a2-compressed-scattering-contract.json)
 freezes the same new48-state target representation,original compressed orbitals/
@@ -85,8 +150,4 @@ Artifacts:`prepared/a2-compressed-scattering-source-20261016/`;services:
 `co-a2-compressed-scattering-observer-20261016.service`. The observer records
 immutable snapshots every30minutes after readable-owner/live-service PID match.
 
-**Next:** checksum-fetch and reconstruct completed nine-A2exports,grids,Pi and
-both-sector channel comparison. Decide from measured effects/cost;retain original
-equilibrium/stretched outcomes and extraction failures. Model/basis/ensemble,
-global continuity,absolute omission,extraction,neutral correlation/domain and
-restartable-pilot qualification still gate the sweep and potential fitting.
+The completion and decisions above supersede this historical live state.

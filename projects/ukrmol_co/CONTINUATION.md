@@ -20,6 +20,110 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Three-anchor channel control reconstructed; same-engine model rejection confirmed — 17 October, 08:50 UTC
+
+**Compressed five→nine-A2 passes independent local, host and public raw
+reconstruction.** Owner 1365000 finishes **16 October, 16:55:18.733 UTC**, with
+all seven owner steps, native stages, resource wrappers and comparison exits
+zero. Observer 1365474 ends normally after nine captures. Both services are
+inactive; no CO native calculation is active at this handoff. The
+[08:40 completion capture](progress-a2-compressed-scattering-20261017T0840.json)
+reverifies **61 source / 59 input hashes and 242 installed engine artifacts**.
+Native runtime remains frozen at `89a5275fdf5e55776dbfbe534793a974b493ed61`.
+
+The [73-file reading](verification-a2-compressed-scattering-20261017.json)
+confirms both complete selected CI/boundary exports, telemetry, original exits,
+99-point grids, Pi symmetry, own maps/decks and all matched fits. Maximum channel
+phase change is **0.0115944 rad at 3.9 requested-eV**, centers
+**13.241–18.210 meV lower**, widths **2.218–4.404 meV smaller**. Both sectors and
+all orders 1–4 pass original 0.05-rad / 0.05-eV / 5%-with-0.001-eV-floor budgets
+in the prospectively declared 2–5 requested-eV window. No grid point exceeds
+phase budget. Native residuals ≤1.37e-10 Hartree; selected Pi split zero.
+Actual dimensions are 27546/27818, continuum 1410/1682, boundary 250/298.
+
+Measured five/nine costs: **1.651263 / 1.827292 h**,
+**6.011147 / 7.245762 GiB**. Dense outer replay: **4.248 min / 0.446 GiB**;
+fresh five-A2 dense-baseline phase difference 2.2e-6 rad passes. Both models use
+the same original 1.9-bohr CAS11/cc-pVDZ orbitals, forty-component averaging,
+48-state native target/property representation, integrals/CONGEN and audited
+eight-rank engine. Shared large native inputs are checksum-audited remotely;
+four dense input hashes match the frozen complete 27546-pole source.
+
+[Public compressed scattering evidence](qualification-evidence/compressed-a2-scattering/README.md)
+replays **eight payloads / 58 frozen source files / 73 raw files**. Raw archive
+SHA256 `36830bd5d620893ac330bf484fe88ae64dfb4b2bfdec2f38c584ca6ebd361531`,
+117147355 bytes. The unchanged public reader archive remains
+`9d42160b78fcba94c4548e9ce3be90181e22fa2ce4db982358c9b021ef30251d`, source
+commit `537f5b5`. Host replay costs 0.815 s; host/local fit drift ≤4.018e-9 eV.
+Shared readers/fitter are independent output reconstruction, not a separate
+scattering engine. Full channel/omission/model/pole/extraction verdicts remain
+unqualified. All original compressed 24 extraction cases and 32.206% width-span
+rejection remain preserved.
+
+**Three-anchor decision:** compressed phase change **0.0115944 rad** and
+equilibrium **0.0163665 rad** pass; stretched **0.0679178 rad** still rejects
+after its named nine-A2 refinement. Five-A2 is not uniformly insensitive over
+the domain. Nine-A2 is the larger tested channel representation for subsequent
+matched controls, not a full-convergence claim. Reuse economical 2048 roots and
+retained refinement evidence; another resolution needs a named discrepancy.
+
+**The same-engine CAS11→CAS12 rejection is also independently/publicly
+reconstructed from saved outputs.** The fresh equilibrium five-A2 CAS11 phases
+exactly match the older selected CAS11 phases. The same audited 242-artifact
+engine, image and eight MPI ranks give **0.1212798 rad / 63.652–73.447 meV**
+phase/position changes; CAS12/4096 gives **0.1212919 rad** and preserves the
+position rejection. Full-width comparisons pass. Target diagonalizers/imports,
+optimized orbital frames and native target-file representations remain distinct;
+this removes the scattering-engine/rank confound, not every model difference.
+
+The [original strict preflight](verification-same-engine-strict-preflight-20261017.json)
+exits 1 before fitting because two `rsolve.inp` lines differ only in spacing/
+comments. Original strict prerequisite false and observable verdict unset stay
+preserved. A [separately declared supplementary audit](same-engine-active-space-contract.json)
+checks the exact two full-line substitutions, identical uncommented tokens and
+complete resulting byte equality; all other outer decks remain byte-identical.
+An injected incident-energy change is rejected. No budget changes or native
+reruns. See [reader](same_engine_active_space.py) and
+[full reading](verification-same-engine-active-space-20261017.json).
+
+[Public supplementary evidence](qualification-evidence/same-engine-active-space/README.md)
+replays **seven payloads / 61 frozen source files / 197 existing raw files /
+six native-owner provenance files**. It references the existing equilibrium
+and saved-model raw archives. Source is frozen at
+`ff04b2ce6cadcab570da12fa58d31e4b001938f9`; source archive SHA256
+`31ec9a1f742a37ce2d4faeb719f0f516e59a41feeb268ffa7b8ef6b9c59c893b`.
+Host replay costs **2.268 s**; model-fit drift ≤2.717e-10 eV. No new native solve.
+Permanent host diagnostics are in
+`diagnostics/same-engine-active-space-reading-20261017/`; completed compressed
+native artifacts remain in `prepared/a2-compressed-scattering-source-20261016/`.
+
+**Immediate next work:** design and independently validate extraction against
+known-pole phases with smooth nonconstant backgrounds, freeze its selection
+rule and unused-data tests, then apply at the three anchors. Keep every old
+all-order/window rejection. Reliable width extraction is needed before widths
+rank costly electronic models. Use the measured channel effects/costs to specify
+independent 40→50 orbital-average and basis controls, with ordinary QC/fresh-CI
+and native target import gates before scattering. Complete state/pole continuity,
+neutral correlation/domain qualification and the frozen restartable pilot before
+the production sweep or potential fitting. Paid provisioning stays deferred.
+
+**112 focused tests pass**; actual raw reconstructions, Linux/macOS/public
+parity and the injected numerical deck-change rejection pass. The six-panel
+overview now plots the three measured channel effects and records the
+same-engine active-space rejection. At 08:55 UTC, final verification passes
+**478 immutable remote hashes, 242 installed artifacts, 199 overview-source
+hashes, 497 local documentation links**, both new public manifest digests and
+reader/report source-hash parity. Visual PNG/searchable SVG and lint/format/
+diff checks pass. The services are inactive/exit zero; persistent disk has
+42.17 GiB free and unrelated `comfyui` remains running. The complete record is
+`verification-channel-milestone-20261017.json`.
+
+Main index is complete/current at
+`423d5770d3de337571f51e62702ae919bad97e8c`, refresh complete. Branch-only readers,
+fit/control code, declarations and renderer resolve against current source;
+their source is not implied to be present in the main index. Completed native
+scientific runtimes remain frozen at their recorded commits.
+
 ### Equilibrium channel control passes; compressed nine-A2 scattering active — 16 October, 15:16 UTC
 
 **Equilibrium five-versus-nine-A2observableinsensitivity passes at2048**,with

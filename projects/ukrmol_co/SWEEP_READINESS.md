@@ -15,9 +15,11 @@ The [quarter evidence](qualification-evidence/quarter-state-tracking/README.md)
 now independently reconstructs all672 states and112 matrices on the host and
 from public downloads,with byte-identical repackaging.
 Compressed proof replay passes all438 payloads/96 probes,and the fresh native
-import passes. The current experiment is the
-[compressed matched A2 scattering control](a2-compressed-scattering-contract.json),
-following [saved model/extraction controls](SAVED_MODEL_CONTROLS.md).
+import passes. The [compressed matched A2 control](A2_COMPRESSED_CONTROL.md)
+now passes independent/public reconstruction and completes the three-anchor
+channel comparison. A [supplementary same-engine active-space reading](qualification-evidence/same-engine-active-space/README.md)
+preserves the CAS11→CAS12 rejection. The next decision is extraction-estimator
+validation before using fitted widths to rank new electronic models.
 
 ## 1. Finish trustworthy target inputs
 
@@ -35,8 +37,8 @@ completes51.817minutes/5.425GiB;public reading verifies44raw files/48vectors/
 Compressed48-state inputs also pass independent/public44-file reconstruction,
 with48fullvectors/915multipoles at51.178minutes/5.477GiB.
 
-**Next:** follow the active matched compressed scattering control,then
-publish/fetch remaining native-import evidence. CAS11 16K/TZ public reconstruction already
+**Next:** publish/fetch remaining native-import evidence and qualify any new
+40→50 ensemble/basis target before matched scattering. CAS11 16K/TZ public reconstruction already
 passes. Preserve every original failed exit and the original TZ seed rejection.
 
 **Pass:** ordinary QC and fresh-CI flags; roots≤1e-7 Hartree; physical/penalized/
@@ -81,12 +83,25 @@ imports and matched scattering have not been performed.
 Public reconstruction passes73raw files/58reader sources. Five/nine costs
 1.656/1.817h and6.408/6.896GiB;dense baseline phase5.1e-6rad passes.
 
-**Active:** compressed five-versus-nine-A2at2048passes dense replay and the
-fresh five-A2baseline. Independent37-file reading confirms2.2e-6rad phase
-agreement with dense,cost1.651h/6.011GiB. The declared nine-A2model is running.
-Shared48-state target representation/original orbitals and audited8-rank
-runtime isolate retention. The compressed matched2–5requested-eVwindow retains
-orders1–4and does not replace the earlier24-case extraction rejection.
+**Completed:** compressed five-versus-nine-A2 at 2048 passes at **0.0115944 rad**,
+centers 13.241–18.210 meV lower and widths 2.218–4.404 meV smaller. Independent/
+public reconstruction verifies 73 raw files / 58 sources; five/nine costs are
+1.651/1.827 h and 6.011/7.246 GiB. Original native/resource/owner exits are zero.
+The fresh dense-baseline phase change is 2.2e-6 rad. The matched 2–5 requested-eV
+window retains orders 1–4 and does not replace the earlier 24-case extraction
+rejection. Five-A2 is not uniformly insensitive over the domain. Nine-A2 is
+the larger tested channel representation for subsequent matched controls;
+full channel convergence remains open.
+
+**Same-engine supplementary control:** the fresh equilibrium CAS11 baseline
+exactly reproduces the older selected phases and preserves the CAS11→CAS12
+phase/position rejection on the same audited engine and eight ranks. The
+strict byte-deck preflight fails on two spacing/comment lines; that original
+failure and unset verdict remain preserved. A separately declared exact-line
+audit confirms physical equality without changing any numerical budget. Public
+replay reconstructs 197 raw files and six owner-provenance records. Target
+diagonalizers/imports and optimized orbital frames still differ.
+
 Use the measured active-
 space/channel effects to select remaining matched three-anchor and
 DZ→TZ→aug-TZ controls with all other settings fixed.
@@ -123,8 +138,12 @@ retained channel manifold is required. Test only geometries/model controls
 that address those specific failures. Track relevant resonance features across
 neighboring geometries with phase/K-matrix evidence and consistent thresholds;
 electronic-state assignment alone does not establish resonance-pole identity.
-Revisit fit windows/background orders,energy resolution and threshold effects
-at all anchors on the selected scattering model.
+Validate a revised extraction estimator on analytic known-pole phases with
+smooth nonconstant backgrounds, then freeze its model-selection rule and
+unused-data tests before applying it to all three anchors. Preserve every
+earlier all-order/window rejection. Small held-phase prediction error alone
+does not establish identifiable pole parameters. Revisit energy resolution
+and threshold effects on the selected scattering model.
 
 **Pass:** relevant channel/subspace coverage and thresholds remain stable under
 declared path controls; no unaccounted retained-to-omitted exchange affects the
@@ -194,11 +213,12 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
-1. Read and reconstruct the active compressed nine-A2/2048model and its matched
-   channel comparison. Equilibrium passes and stretched rejects;use the missing
-   anchor effect/cost to select further model/basis/ensemble controls.
-2. Design and independently validate an extraction rule addressing the measured
-   background failure;preserve every rejected all-order gate.
+1. Design and independently validate an extraction rule addressing the measured
+   background failure using known-pole phases and unused-data predictions;
+   preserve every rejected all-order gate.
+2. Use the completed three-anchor channel effects and same-engine active-space
+   rejection to declare independent ensemble/basis controls, including target
+   QC/import gates and explicit measured-cost forecasts before native launch.
 3. Complete the remaining matched model/basis/ensemble controls,continuity and
    neutral correlation/domain qualification;then freeze and pass a restartable
    production pilot. Full-sweep readiness follows the gates,not a fixed date.

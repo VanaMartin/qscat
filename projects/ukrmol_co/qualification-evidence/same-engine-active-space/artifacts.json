@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "host-reading-execution.json": {"bytes":2018,"sha256":"42b8372f56a43d937fcc65ecf4a22c8ff715bb03397725e58e511b3693ab77e8"},
+    "host-reading.json": {"bytes":192576,"sha256":"6361e47f8b15c1a134bf5260b622303dd3a6522fbc95539484c23e8fee092af7"},
+    "independent-reading.json": {"bytes":192589,"sha256":"a52263c492b1bdf14d028e4650424d26f549bb325cf7faa4666335630c054094"},
+    "manifest.json": {"bytes":1405,"sha256":"c809d8f7c29839219cf48f487378766eb55fcd7a0d2b8961af3b01d2b5eee4bb"},
+    "provenance.tar.gz": {"bytes":10216,"sha256":"47caa4344c4743f87f1f4d1818a0337a5257aa3f7122f670662681a04924605d"},
+    "reader-source-manifest.json": {"bytes":6848,"sha256":"79975bd2c9c0f1aee7fd6a32849046db04e72e888182a1907ee81b31e078bce4"},
+    "reader-source.tar.gz": {"bytes":109188,"sha256":"31ec9a1f742a37ce2d4faeb719f0f516e59a41feeb268ffa7b8ef6b9c59c893b"}
+  },
+  "git_sha":"ff04b2ce6cadcab570da12fa58d31e4b001938f9",
+  "url_prefix":"https://data.qscat.org/co-same-engine-active-space-20261017/"
+}

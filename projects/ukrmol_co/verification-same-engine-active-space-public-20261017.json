@@ -1,0 +1,19 @@
+{
+  "verified_utc":"2026-10-17T08:50:39.351467+00:00",
+  "reader_source_commit":"ff04b2ce6cadcab570da12fa58d31e4b001938f9",
+  "public_payloads_verified":7,"public_reader_source_hashes_verified":61,
+  "referenced_raw_archives_verified":2,"raw_files_reconstructed":197,
+  "native_owner_provenance_files":6,"public_reconstruction_original_exit":0,
+  "public_reconstruction_sha256":"da85a74bf353def73b9bebc4f13fd62ce3b2e9a0b6c054709f68c84209157662",
+  "host_reconstruction_original_exit":0,"host_container_wall_seconds":2.268306261859834,
+  "host_local_maximum_fit_difference_ev":2.716184293709888e-10,
+  "same_audited_engine_installed_artifact_count":242,"mpi_ranks":8,
+  "original_strict_byte_deck_prerequisite_verdict":false,
+  "original_strict_observable_insensitivity_verdict":null,
+  "supplementary_exact_line_audit_passed":true,
+  "supplementary_observable_insensitivity_verdict":false,
+  "injected_incident_energy_change_rejected":true,
+  "new_native_solves":0,"electronic_model_verdict":null,"full_sweep_released":false,
+  "evidence_pointer":"qualification-evidence/same-engine-active-space/artifacts.json",
+  "scope":"Supplementary saved-output model comparison using matched audited engine/ranks. Original strict formatting failure preserved. Target solvers/imports and optimized orbital frames differ. Shared numerical readers/fitter;not an independent scattering engine."
+}

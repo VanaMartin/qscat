@@ -1,0 +1,37 @@
+{
+  "verified_utc": "2026-10-17T08:55:14.151099+00:00",
+  "immutable_remote_hashes_verified": 478,
+  "installed_engine_hashes_verified": 242,
+  "persistent_free_disk_gib": 42.17021179199219,
+  "compressed_service_status": {
+    "co-a2-compressed-scattering-20261016.service": "ExecMainStatus=0\nActiveState=inactive\nSubState=dead\n",
+    "co-a2-compressed-scattering-observer-20261016.service": "ExecMainStatus=0\nActiveState=inactive\nSubState=dead\n"
+  },
+  "containers": "comfyui Up 3 weeks\n",
+  "overview_source_hashes_verified": 199,
+  "local_documentation_links_verified": 497,
+  "new_public_manifest_digests_verified": 2,
+  "new_public_payloads_verified_in_separate_replays": 15,
+  "compressed_public_raw_files": 73,
+  "supplementary_public_raw_files": 197,
+  "supplementary_public_native_owner_files": 6,
+  "focused_tests_passed": 112,
+  "reader_report_source_hashes_verified": 2,
+  "visual_png_and_searchable_svg_checked": true,
+  "numerical_deck_mutation_rejected": true,
+  "main_index_source_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_upstream_state": "current",
+  "main_index_refresh_state": "complete",
+  "branch_only_source_resolved_locally": [
+    "a2_scattering_reading.py",
+    "same_engine_active_space.py",
+    "saved_model_controls.py",
+    "phase_fit.py",
+    "progress_figure.py"
+  ],
+  "original_strict_preflight_exit": 1,
+  "original_strict_observable_insensitivity_verdict": null,
+  "supplementary_active_space_observable_insensitivity_verdict": false,
+  "full_sweep_released": false
+}

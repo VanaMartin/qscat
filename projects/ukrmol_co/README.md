@@ -26,7 +26,8 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [completed nine-A2 attribution check](A2_ROOT_ATTRIBUTION.md),
 [saved model/extraction controls](SAVED_MODEL_CONTROLS.md),
 [completed equilibrium A2 control](A2_EQUILIBRIUM_CONTROL.md),
-[active compressed A2 control](A2_COMPRESSED_CONTROL.md),
+[completed compressed A2 control](A2_COMPRESSED_CONTROL.md),
+[same-engine active-space reconstruction](qualification-evidence/same-engine-active-space/README.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -54,7 +55,24 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 16 October, 15:16 UTC:** the
+**Update — 17 October, 08:50 UTC:** the compressed five→nine-A2 control
+**passes independent local, host and public reconstruction**: maximum phase
+change **0.0115944 rad**, centers **13.24–18.21 meV lower** and widths
+**2.22–4.40 meV smaller**. All exits are zero; public replay verifies **73 raw
+files / 58 source files**. Five/nine costs are **1.651 / 1.827 h**,
+**6.011 / 7.246 GiB**. The owner and observer have ended normally.
+
+Together with equilibrium's **0.0163665-rad pass** and stretched's preserved
+**0.0679178-rad rejection** after refinement, this completes the three-anchor
+channel-sensitivity comparison. Full channel convergence remains unqualified.
+The [same-engine supplementary check](qualification-evidence/same-engine-active-space/README.md)
+also confirms CAS11→CAS12 phase/position rejection at **0.12128 rad / 64–73 meV**
+on the same audited engine and eight ranks, using saved outputs. It preserves
+the failed strict formatting preflight and separately audits the two exact
+nonphysical line differences. Public replay checks **197 raw files / 61 source
+files**. **112 focused tests pass**. Production remains gated.
+
+**Earlier update — 16 October, 15:16 UTC:** the
 [equilibrium five-versus-nine-A2control](A2_EQUILIBRIUM_CONTROL.md) **passes** at
 **0.0163665rad** phase change,**9.427–10.924meV** lower centers and
 **2.672–3.645meV** smaller full widths. All exits0;public reconstruction passes
@@ -63,11 +81,8 @@ The stretched phase rejection remains preserved.
 
 The [compressed48-state inputs](qualification-evidence/compressed-a2-target/README.md)
 pass independent/public reconstruction:44files/48fullvectors/915multipoles,
-**51.178minutes /5.477GiB**. Its
-[matched scattering control](A2_COMPRESSED_CONTROL.md) is active at2048roots/
-eight physical cores. Independent37-file reading confirms the fresh five-A2
-dense-baseline pass at **2.2e-6rad**,cost **1.651h /6.011GiB**;the declared
-nine-A2model is assembling. **112focused tests pass**. Production remains gated.
+**51.178minutes /5.477GiB**. The fresh five-A2 baseline subsequently passes at
+**2.2e-6 rad**, cost **1.651 h / 6.011 GiB**. The completed comparison is above.
 
 **Earlier completion — 15 October, 21:04 UTC:** both nine-A24096native sectors complete
 successfully in **2.738535hours / 9.456207GiB**. A profiler-order bug then causes
@@ -112,15 +127,19 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--15-october-2026"></a>
 
-## Progress overview — 16 October 2026
+<a id="progress-overview--16-october-2026"></a>
 
-![CO qualification: equilibrium channel control passes;compressed inputs and baseline pass;nine-A2 active;production gated](../../docs/physics/figures/co-progress-20261016T1516.png)
+## Progress overview — 17 October 2026
 
-[Vector figure](../../docs/physics/figures/co-progress-20261016T1516.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261016T1516.json) ·
+![CO qualification: compressed and equilibrium channel controls pass;stretched and same-engine active-space comparisons reject;production gated](../../docs/physics/figures/co-progress-20261017T0850.png)
+
+[Vector figure](../../docs/physics/figures/co-progress-20261017T0850.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T0850.json) ·
 [Completed equilibrium channel control](A2_EQUILIBRIUM_CONTROL.md) ·
 [Public equilibrium scattering reconstruction](qualification-evidence/equilibrium-a2-scattering/README.md) ·
-[Active compressed control](A2_COMPRESSED_CONTROL.md) ·
+[Completed compressed control](A2_COMPRESSED_CONTROL.md) ·
+[Public compressed scattering reconstruction](qualification-evidence/compressed-a2-scattering/README.md) ·
+[Same-engine active-space evidence](qualification-evidence/same-engine-active-space/README.md) ·
 [Public compressed input reconstruction](qualification-evidence/compressed-a2-target/README.md) ·
 [Public48-state input reconstruction](qualification-evidence/equilibrium-a2-target/README.md) ·
 [Saved model/extraction study](SAVED_MODEL_CONTROLS.md) ·
@@ -134,6 +153,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous21:28overview](../../docs/physics/figures/co-progress-20261015T2128.png) ·
 [Previous23:29overview](../../docs/physics/figures/co-progress-20261015T2329.png) ·
 [Previous23:31overview](../../docs/physics/figures/co-progress-20261015T2331.png) ·
+[Previous15:16overview](../../docs/physics/figures/co-progress-20261016T1516.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -164,19 +184,20 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **15:16 UTC, 16 October** release of an incremental overview. New findings, verification
+This is the **08:50 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** equilibrium channel sensitivity passes independent/public raw
-reconstruction,contrasting with the preserved stretched phase rejection.
-Compressed48-state input qualification and public reconstruction complete;
-its dense replay and fresh five-A2baseline pass independent reading. The
-declared nine-A2model is active. All original model/extraction failures and
-unset global qualification verdicts remain preserved;no root ladder follows.
+**What changed:** compressed channel sensitivity passes independent/public raw
+reconstruction, completing the three-anchor comparison. The same-engine/rank
+active-space check preserves CAS11→CAS12 rejection. The overview now plots the
+three measured channel effects directly. The next extraction design must be
+validated on known-pole phases with smooth nonconstant backgrounds before using
+widths to rank expensive model controls. Original extraction/model rejections
+and unset global gates remain preserved.
 
 **Completed prerequisite:** the explicit A2 target/property input gate passes on the unchanged
 stretched CAS11 frame, with nine A2 roots per spin and the original 40-component

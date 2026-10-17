@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261016T1516.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261017T0850.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -484,6 +484,28 @@ def _channel_coverage(ax, data):
     )
 
 
+def _anchor_channel_sensitivity(ax, data):
+    _panel(
+        ax,
+        "E",
+        "Where do channels change scattering?",
+        "Five → nine A2 per spin; phase sensitivity across the full grid",
+    )
+    rows = data["anchor_channel_sensitivity"]
+    y = np.arange(len(rows))
+    values = [row["maximum_phase_difference_rad_mod_pi"] for row in rows]
+    budget = data["channel_phase_budget_rad_mod_pi"]
+    ax.axvspan(0, budget, color=GREEN, alpha=0.05)
+    ax.axvline(budget, color=INK, linestyle="--", lw=1.1, label="0.05-rad budget")
+    ax.barh(y, values, color=[GREEN if row["passed"] else RED for row in rows], height=0.5)
+    for i, value in enumerate(values):
+        ax.text(value + 0.001, i, f"{value:.5f}", va="center", fontsize=10)
+    ax.set_yticks(y, [row["label"] for row in rows], fontsize=9)
+    ax.set(xlim=(0, 0.085), ylim=(2.6, -0.6), xlabel="Maximum phase change modulo π / rad")
+    ax.legend(loc="lower right", frameon=False, fontsize=9)
+    _note(ax, data["channel_sensitivity_note"])
+
+
 def _snapshot_data(snapshot: Path) -> dict:
     """Resolve a full snapshot or a delta against a hash-pinned earlier release."""
     data = json.loads(snapshot.read_text())
@@ -558,7 +580,13 @@ def render(snapshot: Path, output: Path) -> None:
         _diagnostics,
         _neutral,
         _memory,
-        _channel_coverage if "a2_coverage_links" in data else _tracking,
+        (
+            _anchor_channel_sensitivity
+            if "anchor_channel_sensitivity" in data
+            else _channel_coverage
+            if "a2_coverage_links" in data
+            else _tracking
+        ),
         _roadmap,
     )
     for ax, draw in zip(axes.flat, panels, strict=True):
@@ -614,7 +642,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261016T1516"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261017T0850"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)
