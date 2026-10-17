@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from projects.ukrmol_co.phase_identifiability import candidate_s, fit_background, oracle_s
+from projects.ukrmol_co.phase_identifiability import audit, candidate_s, fit_background, oracle_s
 
 
 def test_fixed_true_pole_recovers_nonconstant_polynomial_s_factor():
@@ -37,3 +37,21 @@ def test_narrow_window_can_hide_known_wrong_width_on_unused_points():
         abs(fit["full_width_hartree"] - case["full_width_hartree"])
         > 0.05 * case["full_width_hartree"]
     )
+
+
+def test_inner_window_endpoints_are_unused_even_when_original_indices_are_development():
+    import json
+    from pathlib import Path
+
+    contract = json.loads(
+        Path(__file__).with_name("phase-identifiability-contract.json").read_text()
+    )
+    # Original 61-point grid indices 3 and 57 lie at these inner-window endpoints.
+    # Both would be development points under the every-fifth-point rule alone.
+    contract.update(grid_points=[61], background_degrees=[3], exact_pole_width_factors=[1])
+    contract["cases"] = [contract["cases"][0] | {"windows_hartree": [[0.045, 0.135]]}]
+    result = audit(contract)
+    grid = result["grids"][0]
+    develop = np.array(grid["development_energy_hartree"])
+    for key in ["endpoint_energy_hartree", "reserved_energy_hartree", "dense_audit_energy_hartree"]:
+        assert np.min(abs(develop[:, None] - np.array(grid[key]))) > 9e-14

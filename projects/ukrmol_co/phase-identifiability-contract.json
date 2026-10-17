@@ -1,5 +1,6 @@
 {
-  "status":"prospective bounded analytic counterexample audit; no native application",
+  "status":"prospective endpoint-isolation correctness repair; original c273a71 run/qualification and 14-of-45 endpoint-overlap defect retained",
+  "endpoint_policy":"Exclude both window endpoints from development before coefficient fitting, within development_exclusion_fraction times window span. Cases/windows/degrees/grids/widths/budgets unchanged. Freeze corrected source before rerunning the fixed matrix; preserve original run separately.",
   "question":"Can the background flexibility needed for smooth known-pole phase prediction also hide a beyond-budget width error on unused data?",
   "hartree_to_ev":27.211386245988,
   "grid_points":[31,61,121],

@@ -81,11 +81,14 @@ def audit(contract: dict) -> dict:
                 mask = (grid >= window[0] - 1e-14) & (grid <= window[1] + 1e-14)
                 develop, held = grid[mask & ~reserve], grid[mask & reserve]
                 low, high = window
+                exclusion = contract["development_exclusion_fraction"] * (high - low)
+                develop = develop[
+                    np.all(abs(develop[:, None] - np.array(window)) > exclusion, axis=1)
+                ]
                 dense = low + (high - low) * (
                     (np.arange(contract["dense_midpoint_grid_points"]) + 0.5)
                     / contract["dense_midpoint_grid_points"]
                 )
-                exclusion = contract["development_exclusion_fraction"] * (high - low)
                 dense = dense[np.all(abs(dense[:, None] - develop) > exclusion, axis=1)]
                 index = len(grids)
                 grids.append(
@@ -142,7 +145,7 @@ def audit(contract: dict) -> dict:
                                 "exact_pole_width_factor": factor,
                                 "fit": fit,
                                 "scores": scores,
-                                "all_audit_sets_passed": bool(audits_pass),
+                                "all_audit_sets_passed": audits_pass,
                                 "known_width_error_exceeds_scientific_budget": bool(beyond),
                                 "width_counterexample": bool(audits_pass is True and beyond),
                                 "mandatory_true_pole_control": factor == 1 and degree == 11,
