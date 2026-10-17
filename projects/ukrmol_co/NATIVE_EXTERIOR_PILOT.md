@@ -43,9 +43,11 @@ finite-radius asymptotics or any single normalization convention. A successive
 change is not an absolute error bound. Further resolution is not automatic.
 
 The method's17 focused tests and independent public toy replay remain passing.
-The full native pilot is being independently reconstructed from freshly fetched
-public bytes; its replay verdict is pending. The strict false gate applies
-already, with no release of full native K or CO poles.
+[Fresh public native-pilot replay](verification-native-exterior-pilot-public-20261017.json)
+verifies nine payloads,eleven sources,four native inputs,all21 case records and
+all ten check verdicts. It reproduces **false and exit1**, with maximum host/public
+K-entry/S-component drift1.61643e-9/3.23265e-9. This verifies the rejection;
+full native K and CO poles remain unreleased.
 
 Measured Sadaharu cost is **735.161s /0.08564GiB sampled kernel high-water**
 (91,959,296bytes),3671 samples at0.2s; sampled CPU usage734.512s. Sampling is
@@ -60,6 +62,10 @@ are provenance, not proof that either side is accurate to1e-6. Freeze any
 independent-method or native outer-only control, its cost and unchanged
 comparison budgets before execution. Existing exports suffice; a new inner
 solve is not justified. The full594-matrix reconstruction remains unreleased.
+The separately [designed subrange-attribution control](../../docs/physics/co-native-exterior-attribution.md)
+is frozen at **`666c056`**, with unchanged comparison budgets and a1667s cost
+estimate/3600s cap. Its three native outer-only invocations and two independent
+cases test native radial resolution; they do not replace this original result.
 
 ## Decision and fixed scope
 

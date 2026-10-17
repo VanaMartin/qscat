@@ -63,8 +63,12 @@ all2048 saved poles. **It rejects S/phase reproduction at5eV:**1.49310e-6 and
 2.72174e-6rad moduloπ exceed1e-6 despite K,unitarity,reciprocity and all
 refinement checks passing. Original exits1/1 remain. Measured cost735.161s /
 0.08564GiB sampled,below the975.5s estimate/2400s cap. Independent public replay
-is pending. A separately justified native-outer/method error-attribution design
-must address this discrepancy before full594-matrix reconstruction or CO poles.
+reproduces all21 cases,all ten decisions,false and exit1. A separately justified
+[native-subrange attribution design](../../docs/physics/co-native-exterior-attribution.md)
+is frozen at **`666c056`**: native8→16→32 subranges at unchanged100bohr plus two
+finer independent5-eV cases. Estimate1667s,cap3600s,4GiB; no new inner solve.
+This addresses the measured discrepancy before full594-matrix reconstruction
+or CO poles; the original pilot remains false.
 
 ## 1. Finish trustworthy target inputs
 

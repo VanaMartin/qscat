@@ -19,8 +19,10 @@ passing; no new native engine solve occurs.
 Nine public payloads preserve the full report,21-row journal,empty original
 log,original exits/container metadata,eleven source/design/contract inputs and
 four checksum-pinned native input files with their collection provenance.
-Fresh public numerical reconstruction is pending; reproducing the false gate
-and exit1 is the required replay result.
+[Fresh public numerical reconstruction](../../verification-native-exterior-pilot-public-20261017.json)
+verifies all nine payloads,eleven frozen source/design inputs,four native files,
+all21 case records and all ten check verdicts. It reproduces **false and exit1**.
+Maximum host/public K-entry/S-component drifts are1.61643e-9/3.23265e-9.
 
 ## Replay from public bytes
 

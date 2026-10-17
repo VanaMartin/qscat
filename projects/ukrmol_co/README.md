@@ -36,6 +36,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [combined exterior refinement rejection](COMBINED_EXTERIOR_BENCHMARK.md),
 [bounded exterior resolution control](COMBINED_EXTERIOR_RESOLUTION.md),
 [independent native exterior pilot](NATIVE_EXTERIOR_PILOT.md),
+[native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -63,7 +64,16 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 13:17 UTC:** the independently propagated
+**Update — 17 October, 13:40 UTC:** fresh public replay reproduces the native
+pilot's **21 cases /ten check verdicts /false /exit1**, with K/S component
+drifts≤1.62e-9/3.24e-9. The separately frozen
+[subrange-attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) now runs on
+Sadaharu: literal native baseline,16/32-subrange variants and two finer-step
+independent5-eV cases. **21 focused tests pass** before execution. Estimated
+cost1667s,cap3600s,4GiB,one BLAS thread. Original rejection remains; full native
+K,CO poles and production stay gated.
+
+**Earlier update — 17 October, 13:17 UTC:** the independently propagated
 [21-case native pilot](NATIVE_EXTERIOR_PILOT.md) completes but **rejects native
 S/phase reproduction at5eV**. Finest K/S/phase differences are7.46593e-7 /
 **1.49310e-6 /2.72174e-6rad moduloπ** against separate1e-6 budgets. Eight of ten
@@ -74,8 +84,9 @@ Original scientific/container exits **1/1** and all21 case records remain.
 Measured cost is **735.161s /0.08564GiB sampled kernel high-water** on Sadaharu.
 No CO job now runs there. Nine [public payloads](qualification-evidence/native-exterior-pilot/README.md)
 preserve the full report,journal,frozen sources and native inputs. Fresh public
-numerical replay is pending. The next decision is a separately justified
-native-outer/method error-attribution design; no automatic retry is released.
+numerical replay reproduces all21 cases,all ten check verdicts,false and exit1.
+The separately [costed native-subrange control](NATIVE_EXTERIOR_ATTRIBUTION.md)
+is frozen at`666c056` before execution; no automatic retry is released.
 Full native K,CO poles and production remain unqualified.
 
 **Earlier update — 17 October, 13:06 UTC:** the native asymptotic sign/flux
@@ -275,10 +286,11 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 17 October 2026
 
-![CO qualification: native pilot rejects S and phase reproduction at 5 eV despite passing K and refinement checks; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1317.png)
+![CO qualification: original native pilot rejection publicly reproduced; bounded native-subrange attribution running; full native K and CO poles remain gated](../../docs/physics/figures/co-progress-20261017T1340.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1317.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1317.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261017T1340.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261017T1340.json) ·
+[Active attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md) ·
 [Native pilot and stopping rule](NATIVE_EXTERIOR_PILOT.md) ·
 [Public pilot rejection](qualification-evidence/native-exterior-pilot/README.md) ·
 [Public method validation](qualification-evidence/native-exterior-method/README.md) ·
@@ -324,6 +336,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous12:35overview](../../docs/physics/figures/co-progress-20261017T1235.png) ·
 [Previous12:48overview](../../docs/physics/figures/co-progress-20261017T1248.png) ·
 [Previous13:06overview](../../docs/physics/figures/co-progress-20261017T1306.png) ·
+[Previous13:17overview](../../docs/physics/figures/co-progress-20261017T1317.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -354,18 +367,18 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **13:17 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **13:40 UTC, 17 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B shows the finest native K/S/phase comparison at all
-three pilot energies; S and phase exceed their budgets at5eV. Panel F records
-the strict rejection, passing refinement checks and the next error-attribution
-decision. The method controls, earlier combined-resolution pass and original
-failed family remain separate evidence.
+**What changed:** public replay now independently reproduces the original
+rejection in panel B. Panel F records the separately frozen native-subrange
+attribution control's active status and cost. The original false gate,method
+controls,earlier combined-resolution pass and original failed family remain
+separate evidence.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.

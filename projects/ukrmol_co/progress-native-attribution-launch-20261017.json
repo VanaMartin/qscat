@@ -1,0 +1,55 @@
+{
+  "observed_utc": "2026-10-17T13:39:45.050660+00:00",
+  "remote_sha256": {
+    "prepared/native-exterior-attribution-source-20261017/source/projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/native_exterior_attribution.py": "5bf90ad998beaf209357a696e5cd530d0e984822b3e3eb1bf3002fbbef1c8c5b",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/test_native_exterior_attribution.py": "08fff15e75c3684fb655d8c00a26a13537ee2220d75f97c84ef0e7373b61ea47",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/native-exterior-attribution-contract.json": "437200b59c4eaa632009b368932611f6c9edcce908308d2746a96d62fec87d23",
+    "prepared/native-exterior-attribution-source-20261017/source/projects/ukrmol_co/native-exterior-pilot-contract.json": "6b9928fdecacb6cbb92426c8043214bf1a4bdad6094b1550da81972acc6f0fe9",
+    "prepared/native-exterior-attribution-source-20261017/source/docs/physics/co-native-exterior-attribution.md": "986b8350c63c343ad8878da1ee534b908930d10b3c36b67e20d4bbfdc88772ea",
+    "prepared/native-exterior-attribution-source-20261017/source.tar.gz": "c1652b7e7c9bfc3b5b6341471a024198f6d0661afd34e9e86ea1fa800cb8b40d",
+    "prepared/native-exterior-attribution-source-20261017/source-manifest.json": "860ddb17e2959fb504976db1d0f062e1c24abc5e365d05a886c4b1996765c0b0",
+    "prepared/native-exterior-attribution-source-20261017/verification-native-exterior-pilot-public-20261017.json": "ab8e21ed35c9e60ce207554e26b2daa71de2ac9d9ba54a666b9b508d669d0d44"
+  },
+  "new_immutable_remote_hashes_verified": 14,
+  "previous_immutable_remote_hashes_reverified": 283,
+  "installed_engine_artifacts_verified": 242,
+  "attribution_running": true,
+  "attribution_container_started_utc": "2026-10-17T13:38:50.616716735Z",
+  "native_case_records": [
+    {
+      "subranges": 8,
+      "completed": false
+    }
+  ],
+  "checks_so_far": {},
+  "completed_independent_cases": 0,
+  "historical_cost_record": {
+    "path": "prepared/a2-equilibrium-scattering-source-20261016/native/cas11-eq-a2-five-nine-roots2048-mpi8-20261016/nine/pilot.json",
+    "sha256": "f4a42bd0b13da6ec21e53706108fb39dd98b67f47e7404d02289098621bfdf21",
+    "rsolve_stage": {
+      "name": "rsolve",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 218.93477272987366
+    }
+  },
+  "original_pilot_public_reconstruction_passed": true,
+  "original_pilot_verdict": false,
+  "attribution_control_verdict": null,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "co_jobs_running": 1,
+  "native_inner_solves": 0,
+  "native_inputs_and_engine_mounted_read_only": true,
+  "cpuset_cpus": "0-3",
+  "memory_limit_bytes": 4294967296,
+  "containers": "co-native-exterior-attribution-20261017 Up 54 seconds\ncomfyui Up 3 weeks\n",
+  "persistent_free_disk_gib": 40.775691986083984,
+  "full_sweep_released": false
+}

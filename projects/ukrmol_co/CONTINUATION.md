@@ -20,6 +20,53 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Original rejection publicly reproduced; bounded subrange attribution running — 17 October, 13:40 UTC
+
+**Fresh public replay verifies the original native-pilot rejection:** nine
+payloads/eleven frozen sources/four native files/all21 case records/all ten
+check verdicts; **false and exit1** reproduce. Maximum host/public K-entry /
+S-component drifts are1.61643e-9/3.23265e-9. See
+[public verification](verification-native-exterior-pilot-public-20261017.json).
+Original pilot false/exits1/1 remain, with5-eV S/phase errors1.49310e-6 /
+2.72174e-6rad versus separate1e-6 budgets. Full native K/CO poles stay unset.
+
+The measured discrepancy justifies a separately frozen
+[native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md),
+[design](../../docs/physics/co-native-exterior-attribution.md) and
+[contract](native-exterior-attribution-contract.json) at **`666c056` before
+execution**. The same engine/source defaults use10 Legendre functions and8
+radial subranges. The fixed new matrix contains exactly three native outer-only
+invocations—literal original deck,then one-line16/32-subrange variants—retaining
+all99 energies,100-bohr endpoint,298 channels,2048 poles and Gailitis defaults.
+Two independent5-eV cases add step0.0125bohr at endpoints100/400,tail order8,
+with the validated Python solver unchanged. **21 focused tests pass**,including
+four new deck-fidelity/full-record/separate-phase-gate tests.
+
+Literal same-engine baseline K/S/phase reproduction must pass1e-10 over all99
+records before refined native runs. Native final refinement,independent step /
+endpoint and refined-native-to-independent K/S/phase use separate1e-6 gates.
+Passing gates plus≥80% reduction of the S mismatch permits the conditional
+attribution “native subrange refinement accounts for most of this measured5-eV
+discrepancy”; it does not prove an exclusive cause or absolute error bound.
+False/unset stops without retries or a larger subrange/order/radius ladder.
+
+The historical native B1 outer stage costs218.9348s at8 subranges. Fixed-NLEG
+linear subrange extrapolation plus37,120 independent intervals predicts
+**1667s**,upper2700s,cap3600s,**4GiB**,one BLAS thread,physical cores0–3.
+No inner solve,engine rebuild,fit or pole search occurs. The
+[13:39:45 UTC launch observation](progress-native-attribution-launch-20261017.json)
+verifies14 new hashes/283 prior hashes/242 installed artifacts and read-only
+data/engine mounts. Container start **13:38:50 UTC**; the original8-subrange
+baseline is running,with no scientific verdict or independent case yet.
+Source/outputs:`prepared/native-exterior-attribution-source-20261017/`.
+
+One CO attribution calculation and unrelated `comfyui` run on Sadaharu;free
+persistent disk40.78GiB. No observer service is active. Process the fixed study's
+original exits,all partial/final records and measured resources on completion;
+publish and independently verify its evidence. Even a pass does not release
+full594-matrix reconstruction,native poles or production. Earlier scientific
+gates remain. Do not turn a false/unset result into an automatic successor.
+
 ### Independent native exterior pilot rejects at5eV — 17 October, 13:17 UTC
 
 **All21 frozen cases complete; eight of ten checks pass, but native S/phase

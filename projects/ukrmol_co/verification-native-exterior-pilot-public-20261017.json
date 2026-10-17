@@ -1,0 +1,52 @@
+{
+  "verified_utc": "2026-10-17T13:37:57.430348+00:00",
+  "public_reconstruction_passed": true,
+  "public_payloads_verified": 9,
+  "public_payload_sha256": {
+    "container-inspect.json": "2d44c103a3ebdb3c37a721294caabf4ead4c5d98a1830745382f69ef8a6f1b7c",
+    "execution.json": "9f362c44cf6501737b1006880abe22e273df89c90afa1813873f18fce9100403",
+    "manifest.json": "58cd108907cc38e213eb12d960e4f782918063aff85362923a3a70b15595505a",
+    "pilot-inputs.tar.gz": "f5a6dd85e4221d177a2d647f2ed30a34336c6b0968419a9675e4d97e5af1ace1",
+    "pilot.json": "add375adf7c25a1a8270bbfd2517e6f0bef05dcfc670ddc20f56c4675d4da2a0",
+    "pilot.jsonl": "0db46c3e7f19e631f7f0b39fc573aa66605eb272dea9e37e82b1d88952afa66e",
+    "pilot.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source-manifest.json": "cf108811448db747eafdd9b9240a70592df8cdf62f238a36ead4933e055c4267",
+    "source.tar.gz": "65117f1aeab98eed68a8bb3ced3371e288c8f4e93524bc44730ac6b5286897d8"
+  },
+  "frozen_source_files_verified": 11,
+  "native_input_files_verified": 4,
+  "all_case_record_parity": true,
+  "case_count": 21,
+  "all_check_verdicts_reproduced": true,
+  "public_command_exit": 1,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "pilot_verdict": false,
+  "failed_checks": [
+    "native_s_error",
+    "native_phase_error_rad_mod_pi"
+  ],
+  "public_refinement_s": {
+    "step_bohr": [
+      1.2130221182909803e-05,
+      7.580306356989357e-07
+    ],
+    "endpoint_bohr": [
+      1.339384372862539e-08,
+      2.6730474721403162e-08
+    ],
+    "tail_order": [
+      6.020652116387842e-09,
+      1.4954268597581915e-12
+    ]
+  },
+  "maximum_host_public_k_entry_drift": 1.6164207082211557e-09,
+  "maximum_host_public_s_component_drift": 3.232647167311642e-09,
+  "native_data_read": true,
+  "native_solves": 0,
+  "native_full_k_reconstruction_verdict": null,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}
