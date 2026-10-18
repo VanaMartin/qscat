@@ -1,0 +1,90 @@
+{
+  "status": "prospective fixed two-identity attribution; original six-case rejection retained",
+  "cases": [
+    "stretched/nine/B1",
+    "stretched/nine/B2"
+  ],
+  "energy_index": 18,
+  "requested_energy_literal": "0.99999999999999978",
+  "energy_rydberg": 0.07349999999999998,
+  "native_subranges": [
+    32,
+    64
+  ],
+  "independent_configurations": [
+    [
+      0.00625,
+      400.0,
+      8
+    ],
+    [
+      0.0125,
+      200.0,
+      8
+    ],
+    [
+      0.0125,
+      800.0,
+      8
+    ],
+    [
+      0.0125,
+      400.0,
+      4
+    ],
+    [
+      0.0125,
+      400.0,
+      6
+    ]
+  ],
+  "native_invocations": 4,
+  "new_independent_solves": 10,
+  "reused_independent_solves": 4,
+  "new_radial_intervals": 398720,
+  "slice_reproduction_budget": 1e-10,
+  "matrix_and_phase_absolute_budget": 1e-06,
+  "invariant_absolute_budget": 1e-06,
+  "input_sha256": {
+    "stretched/nine/B1/fort.10": "4fce9fcd94630a47e64a292600a232f7c38c4e4f6d58ea389c85596375fcfe81",
+    "stretched/nine/B1/fort.21": "c5c4cd2163ffeaac5654c22ffd3924b98e16f59090e0b6ece6bfa058829ee2a5",
+    "stretched/nine/B1/fort.921": "36738954b34b6346b185b6f915d1f1e26949df9ef132e97ab4b7b31c1fbb81f3",
+    "stretched/nine/B1/rsolve.inp": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+    "stretched/nine/B2/fort.10": "48e06b9c535a17ea6bc43530ec0fef1b457f0c46266f880ac47750ea9ad28dd3",
+    "stretched/nine/B2/fort.21": "7b8b19d6689a4a58f56cf5ec2015dcfe9426b62f336e1183ea17923b46063b47",
+    "stretched/nine/B2/fort.922": "bb771135e145b171243954ee94f7c6250ae4acecff75c8cbfc10ffda11ac2111",
+    "stretched/nine/B2/rsolve.inp": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2"
+  },
+  "prior_sha256": {
+    "result/report.json": "7c958908f35ecbc0d574486e3ab4866c5b41ac05544da1a85d68e4dca69d4935",
+    "execution.json": "90e508b1e7d141cd0c89217134b5457fe477e8d7163f8c4a3e7729f63a33280d",
+    "result/native/stretched/nine/B1/16/fort.921": "1c624c89983908ee9f4301b13a27fbc529e465531aea095160a28c495064d716",
+    "result/native/stretched/nine/B1/32/fort.921": "8594652596cda93d01c13fa5a8397882fd7e5c1cbd9a205acb05aa375a3af06f",
+    "result/independent/stretched/nine/B1/018.json": "2b760e06a34a87c6206ede98a8ba7c1e4ab152fc240cf5ae40337d107948cfee",
+    "result/native/stretched/nine/B2/16/fort.922": "d597bd76877590c3f5b30ea02ffe23d7665959f2868e94b48e8b71837921a105",
+    "result/native/stretched/nine/B2/32/fort.922": "ef7ae37b534cc12afb77084210bd544c195ef9d7f40deab1a7e3decebe28378d",
+    "result/independent/stretched/nine/B2/018.json": "16e76036d3fc156df47ff0f08d3eab5a13431a4d3d9c573a931a325d951d4709"
+  },
+  "public_prerequisite_sha256": "ac868aa7692d183d3189ea17dbfb3de92b0c2076e3c155503992edec90fb516c",
+  "engine_rsolve_sha256": "590e2f1066fb014a1b7e1383542dabc4529ae40bee01aa9e19a3325a98f5c4ca",
+  "resources": {
+    "cpuset_cpus": "0-3",
+    "workers": 4,
+    "blas_threads": 1,
+    "memory_gib": 4,
+    "estimated_wall_seconds": 600,
+    "upper_wall_seconds": 1200,
+    "timeout_seconds": 1800,
+    "native_stage_timeout_seconds": 180
+  },
+  "stopping_rule": "Slice32 reproduction before64 in each case. Both native gates before ten fixed independent solves. Stop new submissions on first false/unset native or invariant gate; executing fixed bundles finish. Evaluate fixed families once complete. No retries, new rungs, relaxed budgets or automatic successors.",
+  "original_reconstruction_verdict": false,
+  "original_reconstruction_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}
