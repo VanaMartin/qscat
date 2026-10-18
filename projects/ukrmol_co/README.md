@@ -38,6 +38,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [independent native exterior pilot](NATIVE_EXTERIOR_PILOT.md),
 [native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md),
 [six-case saved-native reconstruction](NATIVE_FULL_RECONSTRUCTION.md),
+[stretched 1-eV error attribution](NATIVE_K_ATTRIBUTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -65,7 +66,18 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 17 October, 18:14 UTC:** the
+**Update — 18 October, 22:37 UTC:** the [two-point attribution](NATIVE_K_ATTRIBUTION.md)
+initially stops **unset / original exits1/1**: both native32 slices reach the180-s
+cap, native exits−9/−9, with no K output or independent control. The forecast
+incorrectly amortized energy-independent setup; saved native32 calls cost866–920 s.
+[Public evidence](qualification-evidence/native-k-attribution-timeout/README.md)
+preserves the timeout and passes fresh12-payload verification and29 tests.
+A separately frozen resource successor, **`4a558b3`**, now runs the same two-point
+scientific contract on Sadaharu: forecast3400 s,hard cap9000 s,four physical
+cores/4 GiB. Both native32 checks are executing; all verdicts remain unset.
+Original six-case false/exits1/1,462 uncomputed energies and production gates remain.
+
+**Earlier update — 17 October, 18:14 UTC:** the
 [six-case saved-native reconstruction](NATIVE_FULL_RECONSTRUCTION.md) stops with
 **false / original exits 1/1**. All six native controls and all 18 independent
 probes pass, including the stretched 5-eV near-threshold points. The remainder
@@ -315,12 +327,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--16-october-2026"></a>
 
-## Progress overview — 17 October 2026
+## Progress overview — 18 October 2026
 
-![CO qualification: six native controls and eighteen probes pass; full reconstruction stops on two K-only rejections, independently reproduced](../../docs/physics/figures/co-progress-20261017T1814.png)
+![CO qualification: K-only rejection preserved; two-point attribution timeout published and resource-corrected control running](../../docs/physics/figures/co-progress-20261018T2237.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261017T1814.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261017T1814.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261018T2237.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261018T2237.json) ·
+[Two-point attribution and timeout diagnosis](NATIVE_K_ATTRIBUTION.md) ·
+[Public timeout evidence](qualification-evidence/native-k-attribution-timeout/README.md) ·
+[Resource-corrected launch capture](progress-native-k-resource-launch-20261019.json) ·
 [Stopped six-case study and diagnosis](NATIVE_FULL_RECONSTRUCTION.md) ·
 [Fresh public rejection replay](verification-native-full-public-20261017.json) ·
 [Verified result capture](progress-native-full-result-20261017.json) ·
@@ -376,6 +391,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous13:40overview](../../docs/physics/figures/co-progress-20261017T1340.png) ·
 [Previous14:08overview](../../docs/physics/figures/co-progress-20261017T1408.png) ·
 [Previous15:55overview](../../docs/physics/figures/co-progress-20261017T1555.png) ·
+[Previous18:14overview](../../docs/physics/figures/co-progress-20261017T1814.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -406,19 +422,20 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **18:14 UTC, 17 October** release of an incremental overview. New findings, verification
+This is the **22:37 UTC, 18 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B exposes the two K-only stretched 1-eV rejections and
-their passing S/phase comparisons against unchanged budgets. Panel F records
-six passing native controls, 18 passing probes, the stopped 132/594-energy
-coverage, saved-coordinate diagnosis and fresh public numerical reproduction.
-The measured original cost is 1.91033 h / 3.14685 GiB; no scientific job now runs.
-Large-tangent K sensitivity does not waive the strict veto or establish a
+**What changed:** panel B retains the two K-only stretched1-eV rejections against
+unchanged budgets. Panels D/F add the published180-s native32 timeout, its wrong
+setup-cost forecast and the separately frozen resource-corrected two-point
+attribution now running. The timeout cost180.618 s /0.84241 GiB and produced no K
+matrix. The successor forecast is3400 s on four physical cores/4 GiB,with9000-s
+cap;its scientific verdict is unset. Large-tangent K sensitivity does not waive
+the strict veto or establish a
 complex pole. Passing predecessor attribution, original pilot rejection and
 earlier combined-exterior failures remain preserved.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.

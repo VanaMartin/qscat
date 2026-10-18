@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--14-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--18-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,24 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Resource-corrected two-point attribution running — 18 October, 22:37 UTC
+
+The resource successor is frozen/pushed at **`4a558b3`** and started at
+**22:37:20.572451 UTC**. The [launch observation](progress-native-k-resource-launch-20261019.json)
+verifies23 source files;242 installed artifacts/eight inputs/eight saved
+references pass preflight, alongside original timeout archives and exact equality
+of scientific fields. Both native32 slices execute; native64 and ten independent
+controls remain unsubmitted. All new scientific verdicts are unset.
+
+Forecast3400 s,upper5400 s,batch cap9000 s,native-stage cap3600 s; four physical
+cores0–3,four single-threaded workers,4-GiB container. Same two1-eV identities,
+producer source and gates; no new inner solve. Owner74564 and outputs live under
+`prepared/native-k-resource-successor-source-20261019/`,source archive
+`a376ca82be4e3dd8a9f2a6954e603f2b4c079aebf759b24639b126e42fb64f66`.
+Early14-s sampled high-water718,954,496 bytes is not a final cost. A process-exit
+notification is attached; collect/verify/publish the finite result on completion.
+No automatic successor/full-grid continuation follows a false/unset gate.
 
 ### Stretched 1-eV attribution times out; resource successor specified — 18 October, 22:34 UTC
 

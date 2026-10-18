@@ -1,0 +1,97 @@
+{
+  "observed_utc": "2026-10-18T22:37:35.286991+00:00",
+  "started_utc": "2026-10-18T22:37:20.572451+00:00",
+  "owner_pid": 74564,
+  "persistent_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-successor-source-20261019",
+  "source_commit": "4a558b35777df51ddedf2e2e2d5cede396708805",
+  "source_archive_sha256": "a376ca82be4e3dd8a9f2a6954e603f2b4c079aebf759b24639b126e42fb64f66",
+  "unchanged_producer_commit": "94fccee7b79b1f2c125accf19821fd9ffa3657e0",
+  "owner_sha256": "86f5aff648ea4e89c5c2162efce50ba257d6736440cded309b2bc1ded11bab63",
+  "source_file_sha256": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/native_k_attribution.py": "e6313cbc964f5c748524382a3bb7bb0d1a5b74c5835ea251872b5a146dec5ef4",
+    "projects/ukrmol_co/test_native_k_attribution.py": "6be3536db7b5b919f0ff2f367e7cd0fe90c892bc650f46c275878eeb0d770df0",
+    "projects/ukrmol_co/native-k-attribution-contract.json": "479cce3ecde623c5c4e8a0f3c3a45ba5872d031c5ecbdc5ba35f92978c7a8be9",
+    "projects/ukrmol_co/NATIVE_K_ATTRIBUTION.md": "0877cfca66ecab5ee3cad0b90d6fc70f2e12efca2c3444496836c42b3eb48db7",
+    "projects/ukrmol_co/native_full_reconstruction.py": "8b57a716ab4d6fa9910eb30fe088a103c69dfbc989559e5a06ab21deb6b02500",
+    "projects/ukrmol_co/native_reconstruction_checks.py": "3250bc545e16a0495e92b2bda5e7c0bf4fe0f06a068f8354b47c831ec5be43ec",
+    "projects/ukrmol_co/native_reconstruction_replay.py": "65c24cd0f8eabf6fdb622ab752511171182d1d4a37ea9003cf50665259cef8a9",
+    "projects/ukrmol_co/test_native_full_reconstruction.py": "e787a8986035fc1c4ede33a1582877a8b700f6064daa49778e588d18a7744bad",
+    "projects/ukrmol_co/test_native_reconstruction_replay.py": "df6f252c0c15e0accb387f8d8ebeb2df38fb8f0eca14a7a2d9bd1651be394fcb",
+    "projects/ukrmol_co/native-full-reconstruction-contract.json": "4a9c94fa7736dc8db85ce257183e90b8a4820d44d7c02722112578aac2ded580",
+    "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+    "projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+    "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+    "projects/ukrmol_co/native_exterior_attribution.py": "5bf90ad998beaf209357a696e5cd530d0e984822b3e3eb1bf3002fbbef1c8c5b",
+    "projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+    "projects/ukrmol_co/verification-native-full-public-20261017.json": "ac868aa7692d183d3189ea17dbfb3de92b0c2076e3c155503992edec90fb516c",
+    "docs/physics/co-native-k-attribution.md": "249b7a9a7d5cb92bbc0a224d21d70346c40011aab6abe475d8764c7fc9b5db5b",
+    "projects/ukrmol_co/native-k-attribution-resource-contract.json": "57bdb8cdb6b16835e21cab5c3495c16c4b6b68bc501b2d7d22e20aaa24707e6b",
+    "projects/ukrmol_co/verification-native-k-timeout-20261019.json": "e34a05b65ca4d58251ab55ad8d316138a378659ab8b4ade7f7ee30a3dd41424b",
+    "projects/ukrmol_co/verification-native-k-timeout-public-20261019.json": "014c46cd48194b7f185573ff4c26b05d75b5cd298e30d98cb4b003905b1f6cc1",
+    "docs/physics/co-native-k-attribution-resources.md": "4fc677b84ab7aa458dd1547ef57ed25b842db1cedc511527fc8c924cb085a7f1"
+  },
+  "source_files_verified": 23,
+  "installed_engine_artifacts_verified_before": 242,
+  "input_files_verified_before": 8,
+  "prior_files_verified_before": 8,
+  "original_timeout_archives_verified_before": {
+    "results.tar.gz": "5fdfee34a1c45bdac320af5661e5d34ef66e5fa5229ac2be7d1c6948b91016c5",
+    "inputs.tar.gz": "ec53d331efb6125f723b8107a6b0323575b7d0765c5b34eea39854d99e5f72b3",
+    "prior.tar.gz": "4a61cdf286ce9a86d94e9947a9a857f4199b8790bc76bb517da40bd165a6b930"
+  },
+  "scientific_contract_equality_verified_before": true,
+  "public_timeout_prerequisite_verified_before": true,
+  "running": true,
+  "cpuset_cpus": "0-3",
+  "memory_limit_bytes": 4294967296,
+  "expected_wall_seconds": 3400,
+  "upper_wall_seconds": 5400,
+  "batch_cap_seconds": 9000,
+  "native_stage_cap_seconds": 3600,
+  "native32_started": 2,
+  "native32_completed": 0,
+  "native64_started": 0,
+  "independent_completed": 0,
+  "stage_verdicts": {},
+  "experiment_verdict": null,
+  "persistent_free_disk_gib": 61.75743865966797,
+  "resource_sample_interval_seconds": 0.2,
+  "resource_samples": 72,
+  "early_sampled_kernel_memory_peak_bytes": 718954496,
+  "early_sampled_container_cpu_seconds": 28.343329,
+  "resource_sample_is_final": false,
+  "native_processes": [
+    {
+      "pid": 74754,
+      "cpu_percent": 99.8,
+      "elapsed_seconds": 14
+    },
+    {
+      "pid": 74755,
+      "cpu_percent": 99.8,
+      "elapsed_seconds": 14
+    }
+  ],
+  "original_timeout_verdict": null,
+  "original_timeout_command_container_exits": [
+    1,
+    1
+  ],
+  "original_timeout_native_exits": [
+    -9,
+    -9
+  ],
+  "original_six_case_verdict": false,
+  "original_six_case_exits": [
+    1,
+    1
+  ],
+  "original_independent_energy_identities": 132,
+  "uncomputed_energy_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

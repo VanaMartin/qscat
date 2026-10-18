@@ -97,6 +97,19 @@ Fresh public replay verifies all saved decisions and reproduces the four
 rejected-point solves exactly. All 31 focused tests pass. The original false
 verdict/exits 1/1 and the 462 uncomputed energy identities remain.
 
+The subsequent [two-identity attribution](NATIVE_K_ATTRIBUTION.md) is initially
+**unset**,native32 timeouts at180 s, native exits−9/−9, runner/container exits1/1.
+No K file or independent solve was produced. Fresh public-byte replay preserves
+the unset decision and passes12 payloads/19 source files/29 tests. The native
+cost forecast was wrong: energy-independent setup diagonalizes a2980-dimensional
+Hamiltonian in every subrange before the energy loop; saved native32 calls cost
+866–920 s. A separately frozen [resource successor](../../docs/physics/co-native-k-attribution-resources.md),
+commit **`4a558b3`**, now runs the same finite scientific contract: expected3400 s,
+upper5400 s,batch cap9000 s,native-stage cap3600 s,four physical cores,4 GiB.
+The original timeout and six-case rejection remain;native32 reproduction must
+pass before64 and independent controls. Await its verified finite result before
+any further numerical decision or continuation.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

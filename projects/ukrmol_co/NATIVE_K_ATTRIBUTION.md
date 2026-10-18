@@ -77,3 +77,26 @@ A separately frozen [resource successor](../../docs/physics/co-native-k-attribut
 uses the same matrices, equations, deck changes, gates, stopping rules and
 producer implementation with an explicitly corrected setup-cost allowance.
 The original contract, timeout, unset result and exits remain separate evidence.
+
+## Resource successor running — 18 October, 22:37 UTC
+
+The resource successor was frozen and pushed at **`4a558b3`** before launch at
+**22:37:20.572451 UTC**. The [launch observation](progress-native-k-resource-launch-20261019.json)
+confirms both native32 slices executing at nearly100% of one CPU each, with
+native64/independent stages unsubmitted and all verdicts unset. Source archive
+SHA256 is`a376ca82be4e3dd8a9f2a6954e603f2b4c079aebf759b24639b126e42fb64f66`.
+All23 source files,242 installed artifacts,eight inputs/eight saved references,
+the published timeout archives and the exact scientific-contract comparison pass
+preflight. The resource-only contract changes four timing allowances.
+
+Allocation: four physical cores0–3,4 GiB,four possible native calls and ten
+independent controls; forecast3400 s,upper5400 s,batch cap9000 s,native-stage
+cap3600 s. The observation's718,954,496-byte recorded high-water and28.343329
+CPU-seconds are early samples, not final costs. Sadaharu has61.76 GiB free
+persistent space. No inner solve runs.
+
+Persistent directory:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-successor-source-20261019/`.
+Owner74564 records0.2-s resources,original exits and post-run hashes. A process-exit
+notification is attached. On completion, collect outputs, independently verify
+all decisions and publish/replay the bounded evidence before qualification.
