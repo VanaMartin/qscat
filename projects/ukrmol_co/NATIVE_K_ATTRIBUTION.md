@@ -1,6 +1,9 @@
 # Stretched 1-eV numerical-error attribution
 
-**Status: prospective fixed experiment.** The
+**Status: original attempt stopped on its native32 timeouts; verdict unset,
+original runner/container exits 1/1.** Both native processes were killed with
+exit −9 at the frozen 180-s cap. No K file was produced, no native64 ran and no
+independent control was submitted. The
 [original six-case rejection](NATIVE_FULL_RECONSTRUCTION.md) is independently
 reproduced and remains false, exits 1/1. The large-tangent-coordinate diagnosis
 explains amplification but leaves the underlying numerical error unresolved.
@@ -44,3 +47,33 @@ python -m projects.ukrmol_co.native_k_attribution \
 The matching source, input, saved-reference and prerequisite hashes must be
 verified before execution. Full native K reconstruction, CO poles and production
 remain gated regardless of this two-identity result.
+
+## Preserved timeout and cost correction
+
+Source/design/contract were frozen and pushed at `94fccee` before execution.
+The original run lasted **180.617567 s**, 22:27:40–22:30:40 UTC on 18 October.
+Sampled container CPU was **360.070375 s**, recorded kernel memory high-water
+**904,531,968 bytes / 0.84241 GiB**, with 900 samples at 0.2 s. All242 installed
+engine artifacts, eight inputs, eight saved references and nineteen source files
+verify before/after execution. Partial logs are 16,508 bytes in each sector;
+buffering prevents locating the exact executing routine at termination.
+
+The original native forecast of about twenty CPU-seconds per invocation was
+wrong. Checksum-pinned `rsolve.f` calls `ASYM1` before opening K output and before
+the scattering-energy loop. `RPROP1` in `rpropg.f` constructs and diagonalizes
+one **298 × 10 = 2980**-dimensional Hamiltonian per radial subrange, independently
+of NESCAT. Saved stretched native32 full-grid invocations cost **866.028 /
+920.267 s**, rather than twenty seconds. A one-energy deck removes per-energy
+work but retains this setup. This explains why the short cap was unjustified;
+the logs do not prove which routine was executing at timeout.
+
+[Public evidence](qualification-evidence/native-k-attribution-timeout/README.md)
+preserves the original archive and exits. Fresh public-byte verification passes
+**12 payloads / 19 source files / 2 engine sources**, the separate saved-decision
+replay and all29 focused tests. It verifies the unset decision and lack of K
+output; it does not reexecute the timeout or assert deterministic timeout walls.
+
+A separately frozen [resource successor](../../docs/physics/co-native-k-attribution-resources.md)
+uses the same matrices, equations, deck changes, gates, stopping rules and
+producer implementation with an explicitly corrected setup-cost allowance.
+The original contract, timeout, unset result and exits remain separate evidence.

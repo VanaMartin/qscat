@@ -20,6 +20,35 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Stretched 1-eV attribution times out; resource successor specified — 18 October, 22:34 UTC
+
+The [fixed two-identity control](NATIVE_K_ATTRIBUTION.md), frozen at`94fccee`,
+stops **unset / original runner-container exits1/1**. Both native32 slices hit
+the180-s cap and are killed with native exits−9/−9. No K file, native64 call or
+independent control exists. The timeout adds no point-resolution evidence.
+Original six-case false/exits1/1 and132/594 coverage remain.
+
+The attempt cost180.617567 s /360.070375 sampled CPU-seconds /904,531,968-byte
+recorded kernel memory high-water, four physical cores0–3 /4-GiB cap. All242
+installed artifacts /8 inputs /8 prior files /19 source files verify before/after.
+[Public-byte verification](verification-native-k-timeout-public-20261019.json)
+passes12 payloads,19 source files,2 engine sources, separate unset-decision
+replay and29 focused tests. No timeout was numerically reexecuted.
+
+The original twenty-CPU-second native forecast was wrong: source traces show
+energy-independent `RPROP1` setup with one2980-dimensional subrange Hamiltonian
+diagonalization per range, before K initialization/energy loop. Saved stretched
+native32 full-grid calls cost866.028/920.267 s. Buffered partial logs do not
+identify the live routine at termination; no process stack was sampled.
+
+The separately specified [resource successor](../../docs/physics/co-native-k-attribution-resources.md)
+retains every scientific field and the exact producer source. Only four timing
+allowances change: **3400 s expected /5400 s upper /9000 s batch cap /3600 s
+per native stage**. Same two energies, four possible native invocations and ten
+independent controls, separate K/S/phase budgets and stopping rules. It requires
+the published timeout evidence and a fresh directory/engine-input-source check
+before launch. The180-s contract, unset verdict and exits remain immutable.
+
 ### Six-case K-only rejection independently/publicly reproduced — 17 October, 18:14 UTC
 
 **The bounded experiment is complete with verdict false, original exits 1/1.**

@@ -1,0 +1,55 @@
+{
+  "verified_utc": "2026-10-18T22:34:34.839675+00:00",
+  "url_prefix": "https://data.qscat.org/co-native-k-attribution-timeout-20261019/",
+  "payloads_verified": 12,
+  "source_files_verified": 19,
+  "engine_source_files_verified": 2,
+  "fresh_public_byte_verification_passed": true,
+  "saved_decision_replay_exit": 0,
+  "focused_tests_exit": 0,
+  "focused_tests_passed": 29,
+  "test_stdout": ".............................                                            [100%]\n29 passed in 2.49s\n",
+  "numerical_reexecution_performed": false,
+  "timeout_exact_wall_reproduction_claimed": false,
+  "saved_replay_passed": true,
+  "experiment_verdict": null,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_stages_verified": 2,
+  "new_independent_solves_verified": 0,
+  "reused_independent_solves_verified": 0,
+  "native": [
+    {
+      "case": "stretched/nine/B1",
+      "subranges": 32,
+      "completed": false,
+      "timed_out": true,
+      "original_exit": -9,
+      "verdict": null,
+      "k_file_present": false,
+      "partial_log_bytes": 16508
+    },
+    {
+      "case": "stretched/nine/B2",
+      "subranges": 32,
+      "completed": false,
+      "timed_out": true,
+      "original_exit": -9,
+      "verdict": null,
+      "k_file_present": false,
+      "partial_log_bytes": 16508
+    }
+  ],
+  "cases": [],
+  "original_reconstruction_verdict": false,
+  "original_reconstruction_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

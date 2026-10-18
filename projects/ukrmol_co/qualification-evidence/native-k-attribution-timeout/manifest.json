@@ -1,0 +1,27 @@
+{
+  "git_sha": "94fccee7b79b1f2c125accf19821fd9ffa3657e0",
+  "date": "2026-10-18",
+  "record_type": "bounded-native-k-attribution-timeout",
+  "experiment_verdict": null,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_process_exits": [
+    -9,
+    -9
+  ],
+  "native_timeout_seconds": 180,
+  "native_stages_completed": 0,
+  "independent_solves": 0,
+  "saved_decision_replay_passed": true,
+  "numerical_reexecution_performed": false,
+  "original_reconstruction_verdict": false,
+  "original_reconstruction_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}
