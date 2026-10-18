@@ -55,3 +55,14 @@ numerical budgets, inner solve or automatic full-grid continuation follows.
 The original180-s attempt stays unset/exits1/1. The original six-case rejection
 stays false/exits1/1. A passing resource-successor point study would qualify
 only its two identities and controls, not an absolute error or a CO pole.
+
+## Recorded outcome
+
+The [completed experiment](../../projects/ukrmol_co/NATIVE_K_ATTRIBUTION.md)
+finishes in1669.647 s /1.973831 GiB with **false / original exits1/1**. Native32
+slices reproduce the saved matrices exactly,32→64 passes,and all ten independent
+controls finish with passing invariants. Both sectors reject the separate step,
+endpoint and finest/native K gates. A smaller step worsens the discrepancy;
+tail-order sensitivity is tiny. This rejects a simple monotone step cure and
+requires separately validated precision/algebra or independent-propagation
+attribution before further native work. No successor follows automatically.

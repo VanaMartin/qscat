@@ -1,0 +1,57 @@
+{
+  "git_sha": "4a558b35777df51ddedf2e2e2d5cede396708805",
+  "date": "2026-10-18",
+  "record_type": "resource-corrected-two-point-k-attribution-rejection",
+  "experiment_verdict": false,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_stages_completed": 4,
+  "native_original_exits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "new_independent_solves": 10,
+  "reused_independent_solves": 4,
+  "case_verdicts": [
+    false,
+    false
+  ],
+  "rejected_families": [
+    "step_k",
+    "endpoint_k",
+    "native_k"
+  ],
+  "saved_decision_replay_passed": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "independent_solves": 10,
+    "native_invocations": 0,
+    "expected_wall_seconds": 450,
+    "hard_cap_seconds": 1200,
+    "physical_cores": "0-3",
+    "memory_gib": 4
+  },
+  "public_replay_worker_sha256": "8cfbc6b574f301077f751077c1e8b8d7fbaf9b132f90a9654392f0842daa7ab5",
+  "original_timeout_verdict": null,
+  "original_timeout_exits": [
+    1,
+    1
+  ],
+  "original_six_case_verdict": false,
+  "original_six_case_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "public_numerical_reexecuted_solves": 10,
+  "public_replay_original_exits": [
+    0,
+    0
+  ]
+}

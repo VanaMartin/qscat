@@ -66,7 +66,21 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 18 October, 22:37 UTC:** the [two-point attribution](NATIVE_K_ATTRIBUTION.md)
+**Update — 18 October, 23:15 UTC:** the resource-corrected
+[two-point attribution](NATIVE_K_ATTRIBUTION.md) completes with **false / original
+exits1/1**. Native32 reproduces saved32 exactly; native32→64 passes and all four
+native calls exit0. All ten independent controls pass invariants, but both
+sectors fail the step, endpoint and finest/native K checks: **24/30 checks pass**.
+Halving the step worsens K; finest/native differences reach **7.256e-5**, while
+tail order6→8 changes only about4.4e-11. S/phase passes do not waive K.
+Measured cost **27.8275 min /1.973831 GiB**. [Fresh public saved-decision replay](qualification-evidence/native-k-attribution-resource/README.md)
+reproduces the false result and passes29 tests. All ten independent controls
+reexecute from downloaded frozen source with exactly reproduced K/stored S
+components and identical false decisions; **15 public payloads** verify. Replay
+exits0/0 preserve scientific exits1/1. No scientific container runs.
+Original timeout unset/exits1/1,six-case false/exits1/1 and462 uncomputed energies remain.
+
+**Earlier update — 18 October, 22:37 UTC:** the [two-point attribution](NATIVE_K_ATTRIBUTION.md)
 initially stops **unset / original exits1/1**: both native32 slices reach the180-s
 cap, native exits−9/−9, with no K output or independent control. The forecast
 incorrectly amortized energy-independent setup; saved native32 calls cost866–920 s.
@@ -329,11 +343,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 18 October 2026
 
-![CO qualification: K-only rejection preserved; two-point attribution timeout published and resource-corrected control running](../../docs/physics/figures/co-progress-20261018T2237.png)
+![CO qualification: two-point attribution rejects step, endpoint and native K; public numerical replay reproduces all ten controls](../../docs/physics/figures/co-progress-20261018T2315.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261018T2237.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261018T2237.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261018T2315.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261018T2315.json) ·
 [Two-point attribution and timeout diagnosis](NATIVE_K_ATTRIBUTION.md) ·
+[Public two-point rejection and numerical replay](qualification-evidence/native-k-attribution-resource/README.md) ·
+[Verified two-point result capture](progress-native-k-resource-result-20261019.json) ·
 [Public timeout evidence](qualification-evidence/native-k-attribution-timeout/README.md) ·
 [Resource-corrected launch capture](progress-native-k-resource-launch-20261019.json) ·
 [Stopped six-case study and diagnosis](NATIVE_FULL_RECONSTRUCTION.md) ·
@@ -392,6 +408,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous14:08overview](../../docs/physics/figures/co-progress-20261017T1408.png) ·
 [Previous15:55overview](../../docs/physics/figures/co-progress-20261017T1555.png) ·
 [Previous18:14overview](../../docs/physics/figures/co-progress-20261017T1814.png) ·
+[Previous22:37overview](../../docs/physics/figures/co-progress-20261018T2237.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -422,22 +439,22 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **22:37 UTC, 18 October** release of an incremental overview. New findings, verification
+This is the **23:15 UTC, 18 October** release of an incremental overview. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B retains the two K-only stretched1-eV rejections against
-unchanged budgets. Panels D/F add the published180-s native32 timeout, its wrong
-setup-cost forecast and the separately frozen resource-corrected two-point
-attribution now running. The timeout cost180.618 s /0.84241 GiB and produced no K
-matrix. The successor forecast is3400 s on four physical cores/4 GiB,with9000-s
-cap;its scientific verdict is unset. Large-tangent K sensitivity does not waive
-the strict veto or establish a
-complex pole. Passing predecessor attribution, original pilot rejection and
-earlier combined-exterior failures remain preserved.
+**What changed:** panel B shows the worst-sector step, endpoint, tail-order,
+native32→64 and finest/native comparisons against unchanged budgets. Native
+refinement and tail-order changes pass, but step/endpoint/reference K vetoes
+reject in both sectors. A smaller step worsens K; S/phase passes and the S-trend
+floor do not certify fourth-order convergence. Panels D/F record27.8275 min /
+1.973831 GiB,24/30 passing checks and exact public reexecution of all ten
+independent controls. No scientific container runs. Original timeout, six-case,
+pilot and combined-exterior failures remain preserved; no automatic step ladder
+or complex-pole interpretation follows.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.

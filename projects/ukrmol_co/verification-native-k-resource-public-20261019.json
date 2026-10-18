@@ -1,0 +1,940 @@
+{
+  "verified_utc": "2026-10-18T23:07:34.025951+00:00",
+  "url_prefix": "https://data.qscat.org/co-native-k-attribution-resource-20261019/",
+  "payloads_verified": 15,
+  "source_files_verified": 23,
+  "collected_files_verified": 39,
+  "fresh_public_byte_verification_passed": true,
+  "saved_decision_replay_exit": 0,
+  "focused_tests_exit": 0,
+  "focused_tests_passed": 29,
+  "test_stdout": ".............................                                            [100%]\n29 passed in 2.00s\n",
+  "native_binary_to_report_matrices_identical": true,
+  "independent_disk_rows_identical": true,
+  "scientific_contract_fields_identical": true,
+  "initial_verification_script_exit": 1,
+  "initial_verification_script_failure": "Compared the one-record grid (1,6,6) with the saved single matrix (6,6); fixed to select record0. Public producer bytes were unchanged.",
+  "numerical_reexecution_passed": true,
+  "saved_replay_passed": true,
+  "experiment_verdict": false,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_stages_verified": 4,
+  "new_independent_solves_verified": 10,
+  "reused_independent_solves_verified": 4,
+  "native": [
+    {
+      "case": "stretched/nine/B1",
+      "subranges": 32,
+      "differences": {
+        "k": 0.0,
+        "s": 0.0,
+        "phase_rad_mod_pi": 0.0
+      },
+      "verdict": true
+    },
+    {
+      "case": "stretched/nine/B1",
+      "subranges": 64,
+      "differences": {
+        "k": 1.3070274462734233e-07,
+        "s": 2.86845081260054e-10,
+        "phase_rad_mod_pi": 3.2008995454191336e-10
+      },
+      "verdict": true
+    },
+    {
+      "case": "stretched/nine/B2",
+      "subranges": 32,
+      "differences": {
+        "k": 0.0,
+        "s": 0.0,
+        "phase_rad_mod_pi": 0.0
+      },
+      "verdict": true
+    },
+    {
+      "case": "stretched/nine/B2",
+      "subranges": 64,
+      "differences": {
+        "k": 4.123251073906431e-09,
+        "s": 7.749161827332097e-10,
+        "phase_rad_mod_pi": 3.7643355099703513e-10
+      },
+      "verdict": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "stretched/nine/B1",
+      "verdict": false,
+      "checks": {
+        "step_k": false,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": false,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_k": false,
+        "native_s": true,
+        "native_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.0593089427857194e-05,
+            "s": 6.298271909771578e-10,
+            "phase_rad_mod_pi": 1.2101109003737065e-09
+          },
+          {
+            "k": 6.426203341902692e-05,
+            "s": 3.719452031608305e-09,
+            "phase_rad_mod_pi": 4.7911159484215204e-09
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 4.087984393663646e-06,
+            "s": 2.5266917819537706e-10,
+            "phase_rad_mod_pi": 8.852873989440013e-11
+          },
+          {
+            "k": 7.501810188159652e-06,
+            "s": 4.133823364071307e-10,
+            "phase_rad_mod_pi": 6.229505800092738e-11
+          }
+        ],
+        "order_changes": [
+          {
+            "k": 2.5815666049311403e-08,
+            "s": 9.164632923447675e-11,
+            "phase_rad_mod_pi": 1.2415291017475738e-10
+          },
+          {
+            "k": 4.320099833421409e-11,
+            "s": 9.09211941846344e-15,
+            "phase_rad_mod_pi": 1.3322676295501878e-14
+          }
+        ],
+        "native_comparison": {
+          "k": 7.256123535626102e-05,
+          "s": 4.8325010477030145e-09,
+          "phase_rad_mod_pi": 7.958474323999098e-09
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B2",
+      "verdict": false,
+      "checks": {
+        "step_k": false,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": false,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_k": false,
+        "native_s": true,
+        "native_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.22856008601957e-05,
+            "s": 6.340175586109978e-10,
+            "phase_rad_mod_pi": 1.0237879433105945e-09
+          },
+          {
+            "k": 6.645053386478139e-05,
+            "s": 3.8716792281941924e-09,
+            "phase_rad_mod_pi": 5.031959737777925e-09
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 4.039341433781374e-06,
+            "s": 2.4715416337516464e-10,
+            "phase_rad_mod_pi": 9.852585414193982e-11
+          },
+          {
+            "k": 7.47786424426522e-06,
+            "s": 4.1047648519771635e-10,
+            "phase_rad_mod_pi": 6.534062180207911e-11
+          }
+        ],
+        "order_changes": [
+          {
+            "k": 2.581552394076425e-08,
+            "s": 9.164632904853771e-11,
+            "phase_rad_mod_pi": 1.241318159372895e-10
+          },
+          {
+            "k": 4.3712589103961363e-11,
+            "s": 1.040468572994777e-14,
+            "phase_rad_mod_pi": 1.9095836023552692e-14
+          }
+        ],
+        "native_comparison": {
+          "k": 7.256049849502233e-05,
+          "s": 5.151357325746307e-09,
+          "phase_rad_mod_pi": 8.158062225760432e-09
+        }
+      }
+    }
+  ],
+  "original_reconstruction_verdict": false,
+  "original_reconstruction_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "numerical_reexecution": {
+    "numerical_reexecution_passed": true,
+    "reexecuted_independent_solves": 10,
+    "reused_saved_independent_solves": 4,
+    "native_invocations": 0,
+    "experiment_verdict": false,
+    "original_command_container_exits": [
+      1,
+      1
+    ],
+    "original_timeout_verdict": null,
+    "original_timeout_exits": [
+      1,
+      1
+    ],
+    "original_six_case_verdict": false,
+    "original_six_case_exits": [
+      1,
+      1
+    ],
+    "kernel_wall_seconds": 392.04436124200583,
+    "component_drifts": [
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.00625,
+          400.0,
+          8
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.00625,
+          400.0,
+          8
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.0125,
+          200.0,
+          8
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.0125,
+          200.0,
+          8
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.0125,
+          800.0,
+          8
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.0125,
+          800.0,
+          8
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.0125,
+          400.0,
+          4
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.0125,
+          400.0,
+          4
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.0125,
+          400.0,
+          6
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.0125,
+          400.0,
+          6
+        ],
+        "max_component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        },
+        "invariant_decision_identical": true
+      }
+    ],
+    "cases": [
+      {
+        "case": "stretched/nine/B1",
+        "verdict": false,
+        "checks_identical": true,
+        "checks": {
+          "step_k": false,
+          "step_s": true,
+          "step_phase_rad_mod_pi": true,
+          "endpoint_k": false,
+          "endpoint_s": true,
+          "endpoint_phase_rad_mod_pi": true,
+          "order_k": true,
+          "order_s": true,
+          "order_phase_rad_mod_pi": true,
+          "native_k": false,
+          "native_s": true,
+          "native_phase_rad_mod_pi": true,
+          "spatial_trend": true,
+          "unitarity": true,
+          "reciprocity": true
+        },
+        "metrics": {
+          "step_changes": [
+            {
+              "k": 1.0593089427857194e-05,
+              "s": 6.298271904821958e-10,
+              "phase_rad_mod_pi": 1.2101323800672356e-09
+            },
+            {
+              "k": 6.426203341902692e-05,
+              "s": 3.719447569422903e-09,
+              "phase_rad_mod_pi": 4.791100031422774e-09
+            }
+          ],
+          "endpoint_changes": [
+            {
+              "k": 4.087984393663646e-06,
+              "s": 2.526572618383598e-10,
+              "phase_rad_mod_pi": 8.851001174569647e-11
+            },
+            {
+              "k": 7.501810188159652e-06,
+              "s": 4.133872343575169e-10,
+              "phase_rad_mod_pi": 6.229215263634604e-11
+            }
+          ],
+          "order_changes": [
+            {
+              "k": 2.5815666049311403e-08,
+              "s": 9.164632991589825e-11,
+              "phase_rad_mod_pi": 1.2415558569555637e-10
+            },
+            {
+              "k": 4.320099833421409e-11,
+              "s": 9.091252056725452e-15,
+              "phase_rad_mod_pi": 1.2004633218627789e-14
+            }
+          ],
+          "native_comparison": {
+            "k": 7.256123535626102e-05,
+            "s": 4.832501044234667e-09,
+            "phase_rad_mod_pi": 7.958449222531133e-09
+          },
+          "all_native_comparisons": [
+            {
+              "configuration": [
+                0.025,
+                400.0,
+                8
+              ],
+              "k": 1.8892291365091296e-05,
+              "s": 2.4620137350831863e-09,
+              "phase_rad_mod_pi": 4.377481567898325e-09,
+              "signed_large_channel_delta": 2.478404037655611e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889268066576,
+                "max_abs_independent_k": 141.3088737883744,
+                "largest_tangent_eigenvalue": -185.35835539212914,
+                "distance_to_tangent_singularity_rad": 0.005394902734258578,
+                "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+                "relative_frobenius_k_change": 1.3370877542320993e-07,
+                "large_channel_delta_frobenius_fraction": 0.9999999925245692,
+                "cayley_difference_identity_max_residual": 1.0647399412575473e-14,
+                "differences": {
+                  "k": 1.8892291365091296e-05,
+                  "s": 2.4620137350831863e-09,
+                  "phase_rad_mod_pi": 4.377474382977198e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                400.0,
+                8
+              ],
+              "k": 8.299201937234102e-06,
+              "s": 2.970694502143025e-09,
+              "phase_rad_mod_pi": 3.1673491882392056e-09,
+              "signed_large_channel_delta": 1.0873667140528511e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889268066576,
+                "max_abs_independent_k": 141.30888438146383,
+                "largest_tangent_eigenvalue": -185.35835539212914,
+                "distance_to_tangent_singularity_rad": 0.005394902734258578,
+                "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+                "relative_frobenius_k_change": 5.8663010677136916e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999988180935349,
+                "cayley_difference_identity_max_residual": 7.509064596455353e-15,
+                "differences": {
+                  "k": 8.299201937234102e-06,
+                  "s": 2.970694502143025e-09,
+                  "phase_rad_mod_pi": 3.167376361190577e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.00625,
+                400.0,
+                8
+              ],
+              "k": 7.256123535626102e-05,
+              "s": 4.832501044234667e-09,
+              "phase_rad_mod_pi": 7.958449222531133e-09,
+              "signed_large_channel_delta": 9.518836916953444e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889268066576,
+                "max_abs_independent_k": 141.3088201194304,
+                "largest_tangent_eigenvalue": -185.35835539212914,
+                "distance_to_tangent_singularity_rad": 0.005394902734258578,
+                "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+                "relative_frobenius_k_change": 5.135369408941484e-07,
+                "large_channel_delta_frobenius_fraction": 0.9999999923844946,
+                "cayley_difference_identity_max_residual": 1.3218255496273148e-14,
+                "differences": {
+                  "k": 7.256123535626102e-05,
+                  "s": 4.832501044234667e-09,
+                  "phase_rad_mod_pi": 7.958478764891197e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                200.0,
+                8
+              ],
+              "k": 1.2387186330897748e-05,
+              "s": 2.8919222729044715e-09,
+              "phase_rad_mod_pi": 3.2558591999550528e-09,
+              "signed_large_channel_delta": 1.62279920926522e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889268066576,
+                "max_abs_independent_k": 141.30888029347943,
+                "largest_tangent_eigenvalue": -185.35835539212914,
+                "distance_to_tangent_singularity_rad": 0.005394902734258578,
+                "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+                "relative_frobenius_k_change": 8.754940495003895e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999985929024966,
+                "cayley_difference_identity_max_residual": 1.9023554063138404e-15,
+                "differences": {
+                  "k": 1.2387186330897748e-05,
+                  "s": 2.8919222729044715e-09,
+                  "phase_rad_mod_pi": 3.2558720164388433e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                800.0,
+                8
+              ],
+              "k": 7.973917490744498e-07,
+              "s": 3.1243673941238765e-09,
+              "phase_rad_mod_pi": 3.1050570321589114e-09,
+              "signed_large_channel_delta": 1.0268751529673376e-06,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889268066576,
+                "max_abs_independent_k": 141.30889188327401,
+                "largest_tangent_eigenvalue": -185.35835539212914,
+                "distance_to_tangent_singularity_rad": 0.005394902734258578,
+                "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+                "relative_frobenius_k_change": 5.541474598858106e-09,
+                "large_channel_delta_frobenius_fraction": 0.9997239553048894,
+                "cayley_difference_identity_max_residual": 8.169753311328489e-15,
+                "differences": {
+                  "k": 7.973917490744498e-07,
+                  "s": 3.1243673941238765e-09,
+                  "phase_rad_mod_pi": 3.1050571003277128e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                400.0,
+                4
+              ],
+              "k": 8.324974402285079e-06,
+              "s": 3.0021309060911915e-09,
+              "phase_rad_mod_pi": 3.2915167785261047e-09,
+              "signed_large_channel_delta": 1.0907510055057588e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889268066576,
+                "max_abs_independent_k": 141.30888435569136,
+                "largest_tangent_eigenvalue": -185.35835539212914,
+                "distance_to_tangent_singularity_rad": 0.005394902734258578,
+                "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+                "relative_frobenius_k_change": 5.884559931508081e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999986917920907,
+                "cayley_difference_identity_max_residual": 1.6855200618962398e-14,
+                "differences": {
+                  "k": 8.324974402285079e-06,
+                  "s": 3.0021309060911915e-09,
+                  "phase_rad_mod_pi": 3.2915206116257423e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                400.0,
+                6
+              ],
+              "k": 8.299158736235768e-06,
+              "s": 2.9706937599190906e-09,
+              "phase_rad_mod_pi": 3.167361192872418e-09,
+              "signed_large_channel_delta": 1.0873610445731052e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889268066576,
+                "max_abs_independent_k": 141.30888438150703,
+                "largest_tangent_eigenvalue": -185.35835539212914,
+                "distance_to_tangent_singularity_rad": 0.005394902734258578,
+                "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+                "relative_frobenius_k_change": 5.866270481187001e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999988180772206,
+                "cayley_difference_identity_max_residual": 9.965921141040195e-15,
+                "differences": {
+                  "k": 8.299158736235768e-06,
+                  "s": 2.9706937599190906e-09,
+                  "phase_rad_mod_pi": 3.1673721423430834e-09
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "case": "stretched/nine/B2",
+        "verdict": false,
+        "checks_identical": true,
+        "checks": {
+          "step_k": false,
+          "step_s": true,
+          "step_phase_rad_mod_pi": true,
+          "endpoint_k": false,
+          "endpoint_s": true,
+          "endpoint_phase_rad_mod_pi": true,
+          "order_k": true,
+          "order_s": true,
+          "order_phase_rad_mod_pi": true,
+          "native_k": false,
+          "native_s": true,
+          "native_phase_rad_mod_pi": true,
+          "spatial_trend": true,
+          "unitarity": true,
+          "reciprocity": true
+        },
+        "metrics": {
+          "step_changes": [
+            {
+              "k": 1.22856008601957e-05,
+              "s": 6.34026212998449e-10,
+              "phase_rad_mod_pi": 1.0237726479998114e-09
+            },
+            {
+              "k": 6.645053386478139e-05,
+              "s": 3.871689759528221e-09,
+              "phase_rad_mod_pi": 5.031971181808228e-09
+            }
+          ],
+          "endpoint_changes": [
+            {
+              "k": 4.039341433781374e-06,
+              "s": 2.471579900970275e-10,
+              "phase_rad_mod_pi": 9.853241498298398e-11
+            },
+            {
+              "k": 7.47786424426522e-06,
+              "s": 4.1047833481897627e-10,
+              "phase_rad_mod_pi": 6.533422716585581e-11
+            }
+          ],
+          "order_changes": [
+            {
+              "k": 2.581552394076425e-08,
+              "s": 9.164632973009373e-11,
+              "phase_rad_mod_pi": 1.2415497940146807e-10
+            },
+            {
+              "k": 4.3712589103961363e-11,
+              "s": 3.2924290407332674e-14,
+              "phase_rad_mod_pi": 1.1990775056232181e-14
+            }
+          ],
+          "native_comparison": {
+            "k": 7.256049849502233e-05,
+            "s": 5.151357296256479e-09,
+            "phase_rad_mod_pi": 8.158103969832923e-09
+          },
+          "all_native_comparisons": [
+            {
+              "configuration": [
+                0.025,
+                400.0,
+                8
+              ],
+              "k": 1.839556549043664e-05,
+              "s": 2.2596522649752067e-09,
+              "phase_rad_mod_pi": 4.149905436590208e-09,
+              "signed_large_channel_delta": 2.413285438945384e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889160576584,
+                "max_abs_independent_k": 141.30887321020035,
+                "largest_tangent_eigenvalue": -185.35835397762105,
+                "distance_to_tangent_singularity_rad": 0.005394902775427424,
+                "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+                "relative_frobenius_k_change": 1.3019565735635064e-07,
+                "large_channel_delta_frobenius_fraction": 0.9999999936813381,
+                "cayley_difference_identity_max_residual": 3.3510606564584803e-15,
+                "differences": {
+                  "k": 1.839556549043664e-05,
+                  "s": 2.2596522554343236e-09,
+                  "phase_rad_mod_pi": 4.1498942060513855e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                400.0,
+                8
+              ],
+              "k": 6.109964630240938e-06,
+              "s": 2.811800887581583e-09,
+              "phase_rad_mod_pi": 3.12613278893117e-09,
+              "signed_large_channel_delta": 7.999057304598198e-06,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889160576584,
+                "max_abs_independent_k": 141.3088854958012,
+                "largest_tangent_eigenvalue": -185.35835397762105,
+                "distance_to_tangent_singularity_rad": 0.005394902775427424,
+                "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+                "relative_frobenius_k_change": 4.3154689480558917e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999968120918564,
+                "cayley_difference_identity_max_residual": 1.1908489338796753e-14,
+                "differences": {
+                  "k": 6.109964630240938e-06,
+                  "s": 2.811800913602247e-09,
+                  "phase_rad_mod_pi": 3.1261047084285565e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.00625,
+                400.0,
+                8
+              ],
+              "k": 7.256049849502233e-05,
+              "s": 5.151357296256479e-09,
+              "phase_rad_mod_pi": 8.158103969832923e-09,
+              "signed_large_channel_delta": 9.518510275920924e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889160576584,
+                "max_abs_independent_k": 141.30881904526734,
+                "largest_tangent_eigenvalue": -185.35835397762105,
+                "distance_to_tangent_singularity_rad": 0.005394902775427424,
+                "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+                "relative_frobenius_k_change": 5.135193260325019e-07,
+                "large_channel_delta_frobenius_fraction": 0.9999999858504448,
+                "cayley_difference_identity_max_residual": 1.3531001616916956e-14,
+                "differences": {
+                  "k": 7.256049849502233e-05,
+                  "s": 5.1513572997258705e-09,
+                  "phase_rad_mod_pi": 8.15806577847411e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                200.0,
+                8
+              ],
+              "k": 1.0149306064022312e-05,
+              "s": 2.7669255887179454e-09,
+              "phase_rad_mod_pi": 3.224665203881358e-09,
+              "signed_large_channel_delta": 1.3290241456931421e-05,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889160576584,
+                "max_abs_independent_k": 141.30888145645977,
+                "largest_tangent_eigenvalue": -185.35835397762105,
+                "distance_to_tangent_singularity_rad": 0.005394902775427424,
+                "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+                "relative_frobenius_k_change": 7.170043179373926e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999974755407934,
+                "cayley_difference_identity_max_residual": 1.2868879715729357e-14,
+                "differences": {
+                  "k": 1.0149306064022312e-05,
+                  "s": 2.7669256156059595e-09,
+                  "phase_rad_mod_pi": 3.2246358916410145e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                800.0,
+                8
+              ],
+              "k": 1.3678996140242816e-06,
+              "s": 2.8994047831901882e-09,
+              "phase_rad_mod_pi": 3.060798561786608e-09,
+              "signed_large_channel_delta": -1.8156305734563512e-06,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889160576584,
+                "max_abs_independent_k": 141.30889297366545,
+                "largest_tangent_eigenvalue": -185.35835397762105,
+                "distance_to_tangent_singularity_rad": 0.005394902775427424,
+                "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+                "relative_frobenius_k_change": 9.796308312960072e-09,
+                "large_channel_delta_frobenius_fraction": 0.9998914291943392,
+                "cayley_difference_identity_max_residual": 1.1880365004204352e-14,
+                "differences": {
+                  "k": 1.3678996140242816e-06,
+                  "s": 2.8994047831901882e-09,
+                  "phase_rad_mod_pi": 3.060764974804897e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                400.0,
+                4
+              ],
+              "k": 6.1357364415925986e-06,
+              "s": 2.8469753820242434e-09,
+              "phase_rad_mod_pi": 3.250275777516261e-09,
+              "signed_large_channel_delta": 8.03289938091121e-06,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889160576584,
+                "max_abs_independent_k": 141.3088854700294,
+                "largest_tangent_eigenvalue": -185.35835397762105,
+                "distance_to_tangent_singularity_rad": 0.005394902775427424,
+                "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+                "relative_frobenius_k_change": 4.33372762344595e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999965882033476,
+                "cayley_difference_identity_max_residual": 6.654161894075714e-15,
+                "differences": {
+                  "k": 6.1357364415925986e-06,
+                  "s": 2.8469753820242434e-09,
+                  "phase_rad_mod_pi": 3.25025428793424e-09
+                }
+              }
+            },
+            {
+              "configuration": [
+                0.0125,
+                400.0,
+                6
+              ],
+              "k": 6.109920917651834e-06,
+              "s": 2.8118004326417003e-09,
+              "phase_rad_mod_pi": 3.1261207981561195e-09,
+              "signed_large_channel_delta": 7.998999952347969e-06,
+              "coordinate_diagnostic": {
+                "max_abs_native_k": 141.30889160576584,
+                "max_abs_independent_k": 141.30888549584492,
+                "largest_tangent_eigenvalue": -185.35835397762105,
+                "distance_to_tangent_singularity_rad": 0.005394902775427424,
+                "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+                "relative_frobenius_k_change": 4.315438006896281e-08,
+                "large_channel_delta_frobenius_fraction": 0.9999968120412714,
+                "cayley_difference_identity_max_residual": 1.1637762194355945e-14,
+                "differences": {
+                  "k": 6.109920917651834e-06,
+                  "s": 2.811800383202438e-09,
+                  "phase_rad_mod_pi": 3.1261249144876047e-09
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "new_inner_solves": 0,
+    "full_sweep_released": false
+  },
+  "numerical_replay_execution": {
+    "started_utc": "2026-10-18T23:08:36.254894+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-native-k-resource-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-public-replay-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-public-replay-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "worker_sha256": "8cfbc6b574f301077f751077c1e8b8d7fbaf9b132f90a9654392f0842daa7ab5",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpuset_cpus": "0-3",
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 450,
+    "timeout_seconds": 1200,
+    "reexecuted_independent_solves": 10,
+    "native_invocations": 0,
+    "source_files_verified": 23,
+    "input_files_verified": 8,
+    "prior_files_verified": 8,
+    "collected_files_verified": 39,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       9.0Gi        80Gi       819Mi        34Gi       114Gi\nSwap:           29Gi          0B        29Gi\n",
+    "persistent_disk_free_gib": 61.71159362792969,
+    "driver_exit": 0,
+    "finished_utc": "2026-10-18T23:15:08.917600+00:00",
+    "wall_seconds": 392.6571573349938,
+    "sampled_memory_current_peak_bytes": 215814144,
+    "sampled_kernel_memory_peak_bytes": 231624704,
+    "sampled_cpu_seconds": 1449.435336,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 1959,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "numerical_replay_collection": {
+    "files": 17,
+    "archive_sha256": "b3139169e82edcd20332099c7836c36e80d3e3ce1b87f8b1559f666e57aa26aa"
+  },
+  "post_replay_verified_utc": "2026-10-18T23:15:13.197039+00:00",
+  "final_public_verified_utc": "2026-10-18T23:15:39.060528+00:00",
+  "final_collected_producer_files_verified": 39,
+  "final_collected_replay_files_verified": 17,
+  "final_public_saved_decision_replay_exit": 0,
+  "all_final_payloads_fresh_downloaded": true,
+  "final_source_files_verified": 23,
+  "numerical_replay_archive_bytes_verified": true
+}

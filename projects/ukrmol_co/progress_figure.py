@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261018T2237.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261018T2315.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -731,8 +731,11 @@ def _native_full_rejection(ax, data):
     _panel(
         ax,
         "B",
-        "Full reconstruction stops on K-only gates",
-        "Stretched 1 eV; each change / its unchanged 1e-6 budget",
+        data.get("native_full_rejection_title", "Full reconstruction stops on K-only gates"),
+        data.get(
+            "native_full_rejection_subtitle",
+            "Stretched 1 eV; each change / its unchanged 1e-6 budget",
+        ),
     )
     rows = data["native_full_rejection_comparisons"]
     x = np.arange(len(rows))
@@ -756,10 +759,18 @@ def _native_full_rejection(ax, data):
     ax.axhline(1, color=GRAY, ls="--", lw=1, label="Frozen budget")
     ax.set_xticks(x, [row["label"] for row in rows])
     ax.set(
-        xlim=(-0.25, 3.3), ylim=(1e-4, 100), xlabel="Independent step change / native comparison"
+        xlim=(-0.25, len(rows) - 0.7),
+        ylim=data.get("native_full_rejection_ylim", (1e-4, 100)),
+        xlabel=data.get(
+            "native_full_rejection_xlabel", "Independent step change / native comparison"
+        ),
     )
     ax.set_ylabel("Difference / declared tolerance (≤1 passes)")
-    ax.legend(loc="center right", frameon=False, fontsize=8.5)
+    ax.legend(
+        loc=data.get("native_full_rejection_legend_location", "center right"),
+        frameon=False,
+        fontsize=8.5,
+    )
     _note(ax, data["native_full_rejection_note"])
 
 
@@ -917,7 +928,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261018T2237"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261018T2315"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

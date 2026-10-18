@@ -1,0 +1,66 @@
+{
+  "artifacts": {
+    "collection.json": {
+      "bytes": 356,
+      "sha256": "163d59d9bc3bef3390ce114a65414d8c2c32b47fc193d7db2399c824542d48d8"
+    },
+    "execution.json": {
+      "bytes": 6917,
+      "sha256": "a3a83d200260d98a97a5dc5d0c65f4d7ffc010567dbb203ee0e9d7a579dbf848"
+    },
+    "inputs.tar.gz": {
+      "bytes": 9689705,
+      "sha256": "5164c34e3672259677f6d10e0d1180feddb44bcac6eb84ceb2274c8a73e2ba43"
+    },
+    "manifest.json": {
+      "bytes": 1296,
+      "sha256": "707775eed04f4c7cc98af6ac41f7f77160dba776c64e3b25da315380627301ba"
+    },
+    "numerical-worker.py": {
+      "bytes": 2701,
+      "sha256": "8cfbc6b574f301077f751077c1e8b8d7fbaf9b132f90a9654392f0842daa7ab5"
+    },
+    "prior.tar.gz": {
+      "bytes": 456933,
+      "sha256": "9eee3168bf330184aeb74bc29d4f35e5b72458fcdcd9b917365d88d9a5f69d88"
+    },
+    "public-numerical-replay.json": {
+      "bytes": 22887,
+      "sha256": "9ba8b1336ab7eaab97e775f2ea999b4e6e9765e01077cf93f8bb1603f73b4699"
+    },
+    "public-replay-execution.json": {
+      "bytes": 2650,
+      "sha256": "4482ef83ededa6611fd6c8c78e78e17a78ebc764ce349c61d42aa1f4f2d713e0"
+    },
+    "public-replay-owner.py": {
+      "bytes": 5596,
+      "sha256": "a88fadb52fa8d129588f1bb40739b4b14bf1c26f354030baa6d333aeb11caf6a"
+    },
+    "public-replay.tar.gz": {
+      "bytes": 46095,
+      "sha256": "b3139169e82edcd20332099c7836c36e80d3e3ce1b87f8b1559f666e57aa26aa"
+    },
+    "results.tar.gz": {
+      "bytes": 199805,
+      "sha256": "8aaa0c713ac33dbfe4481bc493c5839ef991fe0082488ff6654b128971c3c277"
+    },
+    "saved-replay.json": {
+      "bytes": 5046,
+      "sha256": "544bc1674f4b547413cde963fcfdf7ceba0928e5736137a7b59e04eb69214a54"
+    },
+    "source-manifest.json": {
+      "bytes": 2802,
+      "sha256": "5eee81783f735a0e47130a1cff2e1949a09da19b9abfe5a66d6036ea3a1fb3e5"
+    },
+    "source.tar.gz": {
+      "bytes": 44312,
+      "sha256": "a376ca82be4e3dd8a9f2a6954e603f2b4c079aebf759b24639b126e42fb64f66"
+    },
+    "verify-saved.py": {
+      "bytes": 5980,
+      "sha256": "6b238d8df126e3129fd027239d20f9a291b923f371b9a9c1ccd8ad57de639cda"
+    }
+  },
+  "git_sha": "4a558b35777df51ddedf2e2e2d5cede396708805",
+  "url_prefix": "https://data.qscat.org/co-native-k-attribution-resource-20261019/"
+}

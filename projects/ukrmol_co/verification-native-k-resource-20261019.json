@@ -1,0 +1,330 @@
+{
+  "verified_utc": "2026-10-18T23:06:29.408111+00:00",
+  "producer_source_commit": "4a558b35777df51ddedf2e2e2d5cede396708805",
+  "source_archive_sha256": "a376ca82be4e3dd8a9f2a6954e603f2b4c079aebf759b24639b126e42fb64f66",
+  "collected_files_verified": 39,
+  "source_files_verified": 23,
+  "input_hashes_verified": 8,
+  "prior_hashes_verified": 8,
+  "engine_artifacts_verified_before_after": 242,
+  "collection": {
+    "files": 39,
+    "verdict": false,
+    "exits": [
+      1,
+      1
+    ],
+    "archives": {
+      "results.tar.gz": "8aaa0c713ac33dbfe4481bc493c5839ef991fe0082488ff6654b128971c3c277",
+      "inputs.tar.gz": "5164c34e3672259677f6d10e0d1180feddb44bcac6eb84ceb2274c8a73e2ba43",
+      "prior.tar.gz": "9eee3168bf330184aeb74bc29d4f35e5b72458fcdcd9b917365d88d9a5f69d88"
+    }
+  },
+  "execution": {
+    "source_commit": "4a558b35777df51ddedf2e2e2d5cede396708805",
+    "source_archive_sha256": "a376ca82be4e3dd8a9f2a6954e603f2b4c079aebf759b24639b126e42fb64f66",
+    "source_manifest": {
+      "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+      "projects/ukrmol_co/native_k_attribution.py": "e6313cbc964f5c748524382a3bb7bb0d1a5b74c5835ea251872b5a146dec5ef4",
+      "projects/ukrmol_co/test_native_k_attribution.py": "6be3536db7b5b919f0ff2f367e7cd0fe90c892bc650f46c275878eeb0d770df0",
+      "projects/ukrmol_co/native-k-attribution-contract.json": "479cce3ecde623c5c4e8a0f3c3a45ba5872d031c5ecbdc5ba35f92978c7a8be9",
+      "projects/ukrmol_co/NATIVE_K_ATTRIBUTION.md": "0877cfca66ecab5ee3cad0b90d6fc70f2e12efca2c3444496836c42b3eb48db7",
+      "projects/ukrmol_co/native_full_reconstruction.py": "8b57a716ab4d6fa9910eb30fe088a103c69dfbc989559e5a06ab21deb6b02500",
+      "projects/ukrmol_co/native_reconstruction_checks.py": "3250bc545e16a0495e92b2bda5e7c0bf4fe0f06a068f8354b47c831ec5be43ec",
+      "projects/ukrmol_co/native_reconstruction_replay.py": "65c24cd0f8eabf6fdb622ab752511171182d1d4a37ea9003cf50665259cef8a9",
+      "projects/ukrmol_co/test_native_full_reconstruction.py": "e787a8986035fc1c4ede33a1582877a8b700f6064daa49778e588d18a7744bad",
+      "projects/ukrmol_co/test_native_reconstruction_replay.py": "df6f252c0c15e0accb387f8d8ebeb2df38fb8f0eca14a7a2d9bd1651be394fcb",
+      "projects/ukrmol_co/native-full-reconstruction-contract.json": "4a9c94fa7736dc8db85ce257183e90b8a4820d44d7c02722112578aac2ded580",
+      "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+      "projects/ukrmol_co/saved_matrices.py": "179aaf815f08e52f7bc44c54038ec23d30ae3a9f46de17a44a974690e594866b",
+      "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+      "projects/ukrmol_co/native_exterior_attribution.py": "5bf90ad998beaf209357a696e5cd530d0e984822b3e3eb1bf3002fbbef1c8c5b",
+      "projects/ukrmol_co/native_exterior_study.py": "ca69448742bf3ac25211291a5fc27a43b021cfce469561b9cff329266cb7c934",
+      "projects/ukrmol_co/verification-native-full-public-20261017.json": "ac868aa7692d183d3189ea17dbfb3de92b0c2076e3c155503992edec90fb516c",
+      "docs/physics/co-native-k-attribution.md": "249b7a9a7d5cb92bbc0a224d21d70346c40011aab6abe475d8764c7fc9b5db5b",
+      "projects/ukrmol_co/native-k-attribution-resource-contract.json": "57bdb8cdb6b16835e21cab5c3495c16c4b6b68bc501b2d7d22e20aaa24707e6b",
+      "projects/ukrmol_co/verification-native-k-timeout-20261019.json": "e34a05b65ca4d58251ab55ad8d316138a378659ab8b4ade7f7ee30a3dd41424b",
+      "projects/ukrmol_co/verification-native-k-timeout-public-20261019.json": "014c46cd48194b7f185573ff4c26b05d75b5cd298e30d98cb4b003905b1f6cc1",
+      "docs/physics/co-native-k-attribution-resources.md": "4fc677b84ab7aa458dd1547ef57ed25b842db1cedc511527fc8c924cb085a7f1"
+    },
+    "owner_sha256": "86f5aff648ea4e89c5c2162efce50ba257d6736440cded309b2bc1ded11bab63",
+    "focused_tests_passed": 29,
+    "unchanged_producer_commit": "94fccee7b79b1f2c125accf19821fd9ffa3657e0",
+    "scope": "Resource-corrected fixed two-identity attribution; original180-s attempt unset/exits1/1 and six-case false/exits1/1 retained.",
+    "started_utc": "2026-10-18T22:37:20.572451+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-native-k-resource-successor-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "PYTHONPATH=/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-e",
+      "TMPDIR=/outputs/scratch",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-successor-source-20261019/source:/source:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-successor-source-20261019:/outputs",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/native:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-reconstruction-source-20261017:/prior:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+      "-w",
+      "/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.native_k_attribution",
+      "--raw",
+      "/native",
+      "--prior",
+      "/prior",
+      "--engine",
+      "/opt/ukrmolp/bin.double/rsolve",
+      "--prerequisite",
+      "/source/projects/ukrmol_co/verification-native-full-public-20261017.json",
+      "--contract",
+      "/source/projects/ukrmol_co/native-k-attribution-resource-contract.json",
+      "--output",
+      "/outputs/result"
+    ],
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "installed_artifacts_verified_before": 242,
+    "input_hashes_verified_before": 8,
+    "prior_hashes_verified_before": 8,
+    "source_files_verified_before": 23,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:     132578136064  9658322944 86600146944   859357184 36439818240 122919813120\nSwap:    31998341120           0 31998341120\n",
+    "preexisting_containers": "",
+    "persistent_disk_free_gib": 61.768070220947266,
+    "original_command_exit": 1,
+    "finished_utc": "2026-10-18T23:05:10.231254+00:00",
+    "wall_seconds": 1669.6474508929969,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 8338,
+    "sampled_peak_container_memory_bytes": 2112569344,
+    "sampled_kernel_memory_peak_bytes": 2119385088,
+    "sampled_container_cpu_seconds": 4005.621716,
+    "original_container_exit": 1,
+    "installed_artifacts_verified_after": 242,
+    "input_hashes_verified_after": 8,
+    "prior_hashes_verified_after": 8,
+    "source_files_verified_after": 23
+  },
+  "saved_replay_passed": true,
+  "experiment_verdict": false,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_stages_verified": 4,
+  "new_independent_solves_verified": 10,
+  "reused_independent_solves_verified": 4,
+  "native": [
+    {
+      "case": "stretched/nine/B1",
+      "subranges": 32,
+      "differences": {
+        "k": 0.0,
+        "s": 0.0,
+        "phase_rad_mod_pi": 0.0
+      },
+      "verdict": true
+    },
+    {
+      "case": "stretched/nine/B1",
+      "subranges": 64,
+      "differences": {
+        "k": 1.3070274462734233e-07,
+        "s": 2.86845081260054e-10,
+        "phase_rad_mod_pi": 3.2008995454191336e-10
+      },
+      "verdict": true
+    },
+    {
+      "case": "stretched/nine/B2",
+      "subranges": 32,
+      "differences": {
+        "k": 0.0,
+        "s": 0.0,
+        "phase_rad_mod_pi": 0.0
+      },
+      "verdict": true
+    },
+    {
+      "case": "stretched/nine/B2",
+      "subranges": 64,
+      "differences": {
+        "k": 4.123251073906431e-09,
+        "s": 7.749161827332097e-10,
+        "phase_rad_mod_pi": 3.7643355099703513e-10
+      },
+      "verdict": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "stretched/nine/B1",
+      "verdict": false,
+      "checks": {
+        "step_k": false,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": false,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_k": false,
+        "native_s": true,
+        "native_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.0593089427857194e-05,
+            "s": 6.298271909771578e-10,
+            "phase_rad_mod_pi": 1.2101109003737065e-09
+          },
+          {
+            "k": 6.426203341902692e-05,
+            "s": 3.719452031608305e-09,
+            "phase_rad_mod_pi": 4.7911159484215204e-09
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 4.087984393663646e-06,
+            "s": 2.5266917819537706e-10,
+            "phase_rad_mod_pi": 8.852873989440013e-11
+          },
+          {
+            "k": 7.501810188159652e-06,
+            "s": 4.133823364071307e-10,
+            "phase_rad_mod_pi": 6.229505800092738e-11
+          }
+        ],
+        "order_changes": [
+          {
+            "k": 2.5815666049311403e-08,
+            "s": 9.164632923447675e-11,
+            "phase_rad_mod_pi": 1.2415291017475738e-10
+          },
+          {
+            "k": 4.320099833421409e-11,
+            "s": 9.09211941846344e-15,
+            "phase_rad_mod_pi": 1.3322676295501878e-14
+          }
+        ],
+        "native_comparison": {
+          "k": 7.256123535626102e-05,
+          "s": 4.8325010477030145e-09,
+          "phase_rad_mod_pi": 7.958474323999098e-09
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B2",
+      "verdict": false,
+      "checks": {
+        "step_k": false,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": false,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_k": false,
+        "native_s": true,
+        "native_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.22856008601957e-05,
+            "s": 6.340175586109978e-10,
+            "phase_rad_mod_pi": 1.0237879433105945e-09
+          },
+          {
+            "k": 6.645053386478139e-05,
+            "s": 3.8716792281941924e-09,
+            "phase_rad_mod_pi": 5.031959737777925e-09
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 4.039341433781374e-06,
+            "s": 2.4715416337516464e-10,
+            "phase_rad_mod_pi": 9.852585414193982e-11
+          },
+          {
+            "k": 7.47786424426522e-06,
+            "s": 4.1047648519771635e-10,
+            "phase_rad_mod_pi": 6.534062180207911e-11
+          }
+        ],
+        "order_changes": [
+          {
+            "k": 2.581552394076425e-08,
+            "s": 9.164632904853771e-11,
+            "phase_rad_mod_pi": 1.241318159372895e-10
+          },
+          {
+            "k": 4.3712589103961363e-11,
+            "s": 1.040468572994777e-14,
+            "phase_rad_mod_pi": 1.9095836023552692e-14
+          }
+        ],
+        "native_comparison": {
+          "k": 7.256049849502233e-05,
+          "s": 5.151357325746307e-09,
+          "phase_rad_mod_pi": 8.158062225760432e-09
+        }
+      }
+    }
+  ],
+  "original_reconstruction_verdict": false,
+  "original_reconstruction_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "fresh_public_byte_verification_passed": null,
+  "post_verification_owner_cleanup_failures": {
+    "scientific_exit_records_unchanged": true,
+    "post_run_integrity_completed_before_cleanup": true,
+    "container_cleanup_failed": true,
+    "original_owner_logs": {
+      "resource_successor": "Traceback (most recent call last):\n  File \"/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-successor-source-20261019/owner.py\", line 98, in <module>\n    subprocess.run(['docker','rm',name],check=True,capture_output=True)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/subprocess.py\", line 577, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['docker', 'rm', 'docs/physics/co-native-k-attribution-resources.md']' returned non-zero exit status 1.\n",
+      "original_timeout": "Traceback (most recent call last):\n  File \"/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-attribution-source-20261019/owner.py\", line 78, in <module>\n    subprocess.run(['docker','rm',name],check=True,capture_output=True)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/subprocess.py\", line 577, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['docker', 'rm', 'docs/physics/co-native-k-attribution.md']' returned non-zero exit status 1.\n"
+    }
+  }
+}

@@ -20,6 +20,55 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Two-point attribution rejection publicly reexecuted — 18 October, 23:15 UTC
+
+The [fixed two-point study](NATIVE_K_ATTRIBUTION.md) is complete:
+**false / original runner-container exits1/1**. Both native32 slices reproduce
+saved32 exactly; native32→64 passes and all four native subprocesses exit0.
+All ten independent controls complete with passing invariant gates, but both
+sectors reject the step, endpoint and finest/native **K** checks. **24/30 case
+checks pass**; S/phase passes do not waive the six K vetoes.
+
+Final step K changes are6.42620e-5/6.64505e-5; endpoint400→800 changes are
+7.50181e-6/7.47786e-6; finest/native64 differences are7.25612e-5/7.25605e-5,
+against unchanged1e-6 budgets. Tail order6→8 changes are only4.32e-11/4.37e-11.
+Halving the step worsens K; S changes also grow, with the formal trend gate
+passing only through its declared1e-8 floor. No fourth-order/Richardson claim
+is qualified. Native32→64 is conditional evidence, not an absolute error bound.
+
+Measured cost **1669.647451 s /27.8275 min /4005.621716 sampled CPU-seconds /
+1.973831 GiB recorded kernel high-water**,8338 samples at0.2 s, four physical
+cores0–3 /4-GiB cap. All242 installed artifacts/eight inputs/eight prior files/
+23 sources verify before/after. A39-file collection preserves all outputs and
+the post-verification owner cleanup traceback. The cleanup loop mistakenly used
+a source filename as the Docker container name; final scientific records and
+post-run integrity were already written, and remain unchanged.
+
+The [independent saved-decision verifier](verification-native-k-resource-20261019.json)
+reconstructs four native matrices, fourteen independent rows and every case
+decision. [Fresh public bytes](verification-native-k-resource-public-20261019.json)
+verify the same result,23 sources and29 tests; binary/report matrices and all
+ten disk/report rows agree. Public numerical replay reexecutes exactly the
+ten fixed independent controls, reproducing every K and stored S component
+exactly, all thirty case checks and the false decisions. Replay exits0/0 remain
+separate from scientific exits1/1. Final **15 public payloads** verify.
+
+Replay cost392.657157 s /1449.435336 sampled CPU-seconds /231,624,704-byte
+recorded kernel high-water,1959 samples at0.2 s, four physical cores/4 GiB.
+The [23:15 UTC result observation](progress-native-k-resource-result-20261019.json)
+reverifies56 collected remote hashes/23 sources/eight inputs/eight prior files/
+242 installed artifacts. **No scientific container is running**;61.71 GiB free
+persistent disk. The producer and17-file public replay collection remain under
+`prepared/native-k-resource-successor-source-20261019/` and
+`prepared/native-k-resource-public-replay-20261019/`, respectively.
+
+Original180-s timeout unset/exits1/1, original six-case false/exits1/1 and
+132/594 unique-energy coverage remain;462 energies stay uncomputed. The next
+unresolved question is a precision/algebra-versus-propagation/reference
+attribution at fixed grid, requiring analytic near-large-K validation and a
+separately costed contract. No step ladder, relaxed K budget or automatic
+successor follows this rejection.
+
 ### Resource-corrected two-point attribution running — 18 October, 22:37 UTC
 
 The resource successor is frozen/pushed at **`4a558b3`** and started at

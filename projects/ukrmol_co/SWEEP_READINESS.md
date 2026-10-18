@@ -104,11 +104,19 @@ the unset decision and passes12 payloads/19 source files/29 tests. The native
 cost forecast was wrong: energy-independent setup diagonalizes a2980-dimensional
 Hamiltonian in every subrange before the energy loop; saved native32 calls cost
 866–920 s. A separately frozen [resource successor](../../docs/physics/co-native-k-attribution-resources.md),
-commit **`4a558b3`**, now runs the same finite scientific contract: expected3400 s,
+commit **`4a558b3`**, completes the same finite scientific contract: expected3400 s,
 upper5400 s,batch cap9000 s,native-stage cap3600 s,four physical cores,4 GiB.
-The original timeout and six-case rejection remain;native32 reproduction must
-pass before64 and independent controls. Await its verified finite result before
-any further numerical decision or continuation.
+Measured1669.647 s /1.973831 GiB; all four native calls and ten independent
+invariant checks pass, but the study is **false / exits1/1**: both sectors reject
+step, endpoint and finest/native K. The smaller step worsens the K discrepancy
+to about7.256e-5, while tail order6→8 changes only about4.4e-11. Native32→64
+changes pass but are not absolute error bounds. Fresh public saved-decision
+replay preserves all thirty decisions and passes29 tests. All ten numerical
+controls reexecute from public bytes with exactly reproduced K/stored S
+components and unchanged false decisions;15 final payloads verify. No scientific
+container now runs. The original timeout
+and six-case rejection remain. Further work needs a fixed-grid precision/algebra
+or independent-propagation design, not another automatic spacing rung.
 
 ## 1. Finish trustworthy target inputs
 

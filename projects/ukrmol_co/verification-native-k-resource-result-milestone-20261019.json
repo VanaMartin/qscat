@@ -1,0 +1,57 @@
+{
+  "verified_utc": "2026-10-18T23:17:13.510559+00:00",
+  "original_producer_freeze": "94fccee7b79b1f2c125accf19821fd9ffa3657e0",
+  "resource_successor_freeze": "4a558b35777df51ddedf2e2e2d5cede396708805",
+  "original_producer_method_contracts_unchanged": true,
+  "overview_source_hashes_verified": 356,
+  "documentation_links_verified": 657,
+  "public_payloads_verified": 15,
+  "public_focused_tests_passed": 29,
+  "public_source_files_verified": 23,
+  "public_saved_false_decision_replay_passed": true,
+  "public_numerical_reexecuted_solves": 10,
+  "all_reexecuted_k_and_stored_s_components_exactly_reproduce": true,
+  "case_checks_passed": 24,
+  "case_checks_total": 30,
+  "scientific_verdict": false,
+  "original_command_container_exits": [
+    1,
+    1
+  ],
+  "native_original_exits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "public_numerical_replay_exits": [
+    0,
+    0
+  ],
+  "collected_producer_files_verified": 39,
+  "collected_replay_files_verified": 17,
+  "installed_engine_artifacts_verified": 242,
+  "input_files_verified": 8,
+  "prior_files_verified": 8,
+  "ruff_check_format_and_diff_passed": true,
+  "visual_png_and_searchable_svg_checked": true,
+  "main_index_source_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_state": "current",
+  "main_index_upstream_state": "current",
+  "branch_delta_against_indexed_main": "A\tprojects/ukrmol_co/native-k-attribution-resource-contract.json\nA\tprojects/ukrmol_co/native_k_attribution.py\nA\tprojects/ukrmol_co/progress_figure.py\nA\tprojects/ukrmol_co/test_native_k_attribution.py\n",
+  "original_timeout_verdict": null,
+  "original_timeout_exits": [
+    1,
+    1
+  ],
+  "original_six_case_verdict": false,
+  "original_six_case_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}
