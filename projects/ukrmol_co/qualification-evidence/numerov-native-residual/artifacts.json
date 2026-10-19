@@ -1,0 +1,74 @@
+{
+  "artifacts": {
+    "manifest.json": {
+      "bytes": 3797,
+      "sha256": "489ea579dcc1a8a9557333a07acb90c22e51157039d899b103b0fd433ffa7ba2"
+    },
+    "mpmath-1.3.0-py3-none-any.whl": {
+      "bytes": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+    },
+    "native-wheel.whl": {
+      "bytes": 237326,
+      "sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315"
+    },
+    "operands.tar.gz": {
+      "bytes": 253601,
+      "sha256": "0e82f049b3c0deec2282ea42daa47a3e96b835b1e997f99f8ce39ee38e4f3ba5"
+    },
+    "preflight-failure.log": {
+      "bytes": 1121,
+      "sha256": "46ae90334a543f9cfa95241ca1aefd91aaafa28999b4dd31abb04a2915bc3f4f"
+    },
+    "preflight-owner.py": {
+      "bytes": 5619,
+      "sha256": "b8d4b4844e17fc0f647c8534eeaf8cc527311e7f776dd3ce70217c9ae6db73bf"
+    },
+    "preflight-supplement.json": {
+      "bytes": 1864,
+      "sha256": "f947b6322f2637d98d9318331c437aa1b9f9e39db57dec0dba25dbc5bd8e9b2b"
+    },
+    "public-execution.json": {
+      "bytes": 2866,
+      "sha256": "2972115f65fa69866d97be1537fed3371dbc4d00c4d407f66de2fcacfb522527"
+    },
+    "public-owner.py": {
+      "bytes": 5874,
+      "sha256": "78c8c3228745ce5a03eb5134561196b263c91eb2dbc55da35d0d6d7d5270e150"
+    },
+    "public-replay.json": {
+      "bytes": 4566,
+      "sha256": "9b9b8cb40faaa47c9c29bf6877f7c82c804d02d1fb35857c5c3356f0869b0eb3"
+    },
+    "public-replay.tar.gz": {
+      "bytes": 16127,
+      "sha256": "5c166db570450d8120953212a86e11e281e2d1ec8ff049be609434ea513e7cc6"
+    },
+    "replay-contract.json": {
+      "bytes": 1787,
+      "sha256": "e84dcd5172c1474ae9922446d7f7026de4d09fb7da8eb7ddc83cc464aa73feeb"
+    },
+    "results.tar.gz": {
+      "bytes": 32193,
+      "sha256": "c6bd1a0760a8b9f8d9bba53b4b229af2d1bd575348b913ef3ddea74fc3aa6e82"
+    },
+    "saved-replay.json": {
+      "bytes": 514,
+      "sha256": "1af0ebb9bdca019bfadb865f2c782d0d8119f1c5267b11b7cd742806bf39268c"
+    },
+    "source-manifest.json": {
+      "bytes": 10237,
+      "sha256": "7b21d06da61acdc4b1707fc0c9aba4e4c533a65b59a91efa38a8ee29b0c2845b"
+    },
+    "source.tar.gz": {
+      "bytes": 242239,
+      "sha256": "11f2dd3ae3ef64a938e9ab6e8e56c04c654b0475b56f1e34e50ee1c5b7968847"
+    },
+    "verification-support.tar.gz": {
+      "bytes": 2298,
+      "sha256": "fa2626d6d28738c11420f9f636372e3e881bb1d6c18e537e7ccd2273404b79cf"
+    }
+  },
+  "git_sha": "400e7cb78935f3c377c6279bd94960aadbf626df",
+  "url_prefix": "https://data.qscat.org/co-numerov-native-residual-20261019/"
+}

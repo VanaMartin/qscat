@@ -225,6 +225,15 @@ container runs at the14:11UTC capture.
 
 ## 1. Finish trustworthy target inputs
 
+The [native residual primitive](NUMEROV_NATIVE_RESIDUAL.md) now passes69/69 gates
+with2.46–2.49× end-to-end speedup on the three extended captures. Full matrices
+match NumPy; independent paired references/cancellation/layout controls pass.
+Complete public replay reproduces all13 numerical rows/23 output hashes/69
+decisions exactly; all17 public payloads verify. Original artifact-layout
+preflight exit1/unset is preserved alongside its passing successor. Next freeze
+integrated mixed-solve/coupled stress and interval-performance requalification
+before drawing CO cost conclusions. No propagation or new CO identity is added.
+
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
 anchors. Supported stretched aug-TZ passes all64
 root/dipole/subspace/seed-preservation checks. The original stretched TZ import

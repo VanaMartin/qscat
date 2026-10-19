@@ -20,6 +20,72 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Native residual primitive passes; complete numeric replay exact — 19 October, 14:41 UTC
+
+The [native extended residual](NUMEROV_NATIVE_RESIDUAL.md), design and finite
+primitive contract freeze/push at **`400e7cb78935f3c377c6279bd94960aadbf626df`**
+before execution. All **69/69 checks / original build and runtime exits0/0** pass.
+The experimental`native/qscat-extended` Rust/PyO3 buffer boundary calls a small
+C longdouble shim because stable Rust lacks this scalar type. The qualified
+little-endian x86-64 scalar retains16-byte storage/64-bit significand/max exponent
+16384. Reassociation/contraction are disabled; array packing/transposition,
+allocation and ownership are included in end-to-end timings. The NumPy residual
+and coupled propagator remain the differential references; no integration yet.
+
+Thirteen cases: six captured triples (three native extended/three NumPy binary64),
+four dense rectangular layouts,2^-60 signal, large cancellation and zero.
+Paired80/110-digit exact-binary-input references cover **220 scalar entries /
+13 pairs**. All full native/NumPy residual matrices agree exactly excluding
+padding; worst native scaled oracle error **2.58889e-20**, full differential zero.
+Accepted-X backward gates, input-preservation, ownership, precision and layout
+controls pass. Exactly one warmup/two reversed-order measurements per backend
+give **2.4553×/2.4812×/2.4852×** end-to-end speedup on varying potential/defect
+and free defect: all three>=1.5× hypotheses pass. Criterion64/298 native byte
+benchmarks give95% intervals261.70–262.60 microseconds/25.012–25.106 ms.
+
+Build finishes **14:34:16UTC /31.716034 s /83.366155 sampled CPU s /
+2,095,026,176-byte peak**,157 samples; four Cargo jobs on reserved cores0–3/
+4 GiB, below180/360/900-s forecast/upper/cap. Locked release wheel, Rust fmt/
+two unit tests/clippy, Criterion and **nine wider-format Python tests** pass.
+Rust1.97.1/GCC12.2/PyO3 0.29.3; local focused14 pass/six skips including the older
+coupled check. Runtime finishes **14:34:18UTC /1.823027 s /1.218827 CPU s /
+46,571,520-byte peak**,seven0.2-s samples, one worker, below15/60/180-s budgets.
+All85 sources,242 installed artifacts and six operand pins verify before/after.
+Originals:`prepared/numerov-native-residual-20261019/`;31 collected files.
+
+Saved verifier and complete replay freeze at **`1ad062e`**. Initial public replay
+preflight preserves **owner exit1/scientific unset/zero container submissions**:
+top-level binary lookup misses maturin's package directory. Producer's literal
+`extension_sha256` field names the initializer, not the binary; whole-wheel pin
+was correct. The [layout supplement](numerov-native-residual-replay-preflight-supplement.json)
+freezes at **`5b1c1fb`** before a separate successor; only exact nested component
+path/hash checks change. True binary SHA256:
+`d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e`.
+
+Successor finishes **14:39:49UTC /exits0/0**: **all13 numerical rows,23 full output
+numeric hashes,13 paired references/220 entries and69 decisions reproduce
+exactly**. Fresh speedups2.4517×/2.4964×/2.4917× pass all three hypotheses; timing
+identity is not a numerical gate. **1.772593 s /1.219100 CPU s /46,776,320-byte
+peak**,seven samples, same reserved cores/memory, below5/15/180-s budgets.
+All86 effective sources,242 artifacts, six operands and both wheel-component
+pins verify before/after. Initial failed directory remains; successor:
+`prepared/numerov-native-residual-public-replay-preflight-successor-20261019/`.
+All **17 final public payloads** verify, including original failure and successful
+successor. Public:`https://data.qscat.org/co-numerov-native-residual-20261019/`.
+The [14:41:45UTC capture](progress-numerov-native-residual-result-20261019.json)
+reverifies41 collected hashes; no scientific container remains,59.93 GiB free.
+
+**Next:** separately freeze an integrated mixed-solve/coupled comparison using
+the qualified primitive. Keep the original Python oracle, bounded corrections
+and32-eps gate; independently requalify residual decisions, analytic/discrete/
+continuous references, stress and dense interval performance. A2.5× primitive
+speedup is not an integrated CO runtime forecast. Only then consider a separately
+costed interior pilot. Original interior **false/exits1/1**,14 candidate identities,
+historical132/594/462 uncomputed and all physical/production gates remain.
+
+Main index remains complete/current/upstream current at`423d577`; native additions
+and experimental producer/replay modules are branch-only, source/freeze/delta-resolved.
+
 ### Mixed-solve profile identifies residual cost; numeric operand replay passes — 19 October, 14:11 UTC
 
 The [mixed-solve profile](NUMEROV_SOLVE_PROFILE.md), design and finite contract

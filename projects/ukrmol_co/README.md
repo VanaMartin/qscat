@@ -47,6 +47,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [coupled precision and dense-cost control](NUMEROV_COUPLED_PRECISION.md),
 [dense setup-versus-interval scaling](NUMEROV_DENSE_SCALING.md),
 [recurring mixed-solve profile and operands](NUMEROV_SOLVE_PROFILE.md),
+[native extended residual primitive](NUMEROV_NATIVE_RESIDUAL.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -74,7 +75,18 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October, 14:11 UTC:** the [mixed-solve profile](NUMEROV_SOLVE_PROFILE.md)
+**Update — 19 October, 14:41 UTC:** the [native residual primitive](NUMEROV_NATIVE_RESIDUAL.md)
+passes **69/69 checks**, build/runtime exits0/0. End-to-end residual cost falls
+**2.46–2.49×** on the three extended captures while full matrices match NumPy.
+Paired80/110-digit references cover220 scalar entries; cancellation/layout and
+accepted-solve backward gates pass. Complete public replay reproduces all13
+numerical records/23 full output hashes/69 decisions exactly. All17 payloads verify.
+The initial artifact-layout preflight exit1/unset remains preserved; its separately
+frozen successor checks nested initializer and native binary hashes. No scientific
+container runs at14:41UTC. Next requalify integrated coupled precision and interval
+performance before making CO cost forecasts.
+
+**Earlier update — 19 October, 14:11 UTC:** the [mixed-solve profile](NUMEROV_SOLVE_PROFILE.md)
 passes **76/76 checks / exits0/0**. Eight reexecutions preserve all archived K
 components and diagnostics exactly. Extended residual evaluation takes **94.6%**
 of recurring solve time, **27.5×** factorization+initial+correction combined.
@@ -447,10 +459,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 19 October 2026
 
-![CO qualification: extended residual evaluation dominates recurring solve cost; exact operands retained](../../docs/physics/figures/co-progress-20261019-solve-profile.png)
+![CO qualification: native residual primitive improves captured extended residual cost2.46–2.49 times with exact numerical replay](../../docs/physics/figures/co-progress-20261019-native-residual.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-solve-profile.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-solve-profile.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019-native-residual.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019-native-residual.json) ·
+[Native residual qualification](NUMEROV_NATIVE_RESIDUAL.md) ·
+[Native residual public evidence](qualification-evidence/numerov-native-residual/README.md) ·
+[Previous mixed-solve figure](../../docs/physics/figures/co-progress-20261019-solve-profile.svg) ·
+[Previous mixed-solve snapshot](progress-snapshot-20261019-solve-profile.json) ·
 [Mixed-solve profile and operands](NUMEROV_SOLVE_PROFILE.md) ·
 [Public profile/operand evidence](qualification-evidence/numerov-solve-profile/README.md) ·
 [Previous dense-scaling figure](../../docs/physics/figures/co-progress-20261019-dense.svg) ·
@@ -732,11 +748,11 @@ The six panels explain the qualification campaign:
   pole curve; background-sensitive extraction still needs qualification. The
   CAS12 both-sector native candidate is shown in the note alongside the completed
   independent export/Pi checks; it remains provisional for pole extraction.
-- **B — Recurring residual cost.** Timing the unchanged mixed-solve source
-  attributes94.6% of extended recurring solve time to residual evaluation,27.5×
-  factorization+initial+correction combined. The same statement is about22% in
-  binary64. All76 checks pass; archived numerics and full operand replay are exact.
-  Six captured solve triples now support a precision-preserving compiled kernel;
+- **B — Native residual primitive.** The Rust/PyO3+C longdouble candidate
+  improves captured extended residual cost2.46–2.49× including packing/checks/
+  allocation. Full output matrices match NumPy;69 gates, paired high-precision
+  references and complete numerical replay pass. The measured64-bit significand
+  is preserved. Integrated coupled precision/performance is the next gate;
   earlier physical/stress controls remain separate from native CO error bounds.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
@@ -770,12 +786,12 @@ The six panels explain the qualification campaign:
   channels, identity, width extraction and neutral correlation still determine the
   production model. A frozen restartable pilot precedes the sweep and held-out
   QSCAT potential validation. Coupled extended arithmetic passes its finite
-  controls; residual evaluation is now the measured optimization target, with
-  captured operands for differential testing before an interior CO comparison.
+  controls; the native residual primitive now passes its finite accuracy/speed
+  gates. Integrated coupled requalification precedes an interior CO comparison.
 
-The **19 October14:11:53 UTC** snapshot adds the eight-reexecution mixed-solve
-profile and76 passing decisions. Residual evaluation dominates extended solve
-cost; captured operands and exact replay support the next compiled primitive.
+The **19 October14:41:45 UTC** snapshot adds the native residual primitive's
+69 passing decisions,2.46–2.49× end-to-end speedup and complete exact numerical
+replay. Integrated coupled precision and interval performance are next.
 The earlier32-propagation coupled control and exact replay remain qualified.
 Earlier interior false/exits1/1 and all other
 numerical/model rejections remain recorded. Historical independent coverage is
@@ -795,7 +811,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned13:56 dense snapshot; its chain
+snapshot is an explicit delta against the hash-pinned14:11 mixed-solve snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

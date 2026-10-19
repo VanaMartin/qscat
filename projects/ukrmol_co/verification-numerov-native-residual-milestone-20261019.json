@@ -1,0 +1,72 @@
+{
+  "verified_utc": "2026-10-19T14:45:21.462067+00:00",
+  "producer_freeze": "400e7cb78935f3c377c6279bd94960aadbf626df",
+  "verifier_freeze": "1ad062e",
+  "preflight_supplement_freeze": "5b1c1fb",
+  "frozen_numerical_sources_and_contracts_unchanged": true,
+  "overview_source_hashes_verified": 497,
+  "documentation_links_verified": 735,
+  "experiment_verdict": true,
+  "checks_passed": 69,
+  "checks_total": 69,
+  "original_build_exits": [
+    0,
+    0
+  ],
+  "original_runtime_exits": [
+    0,
+    0
+  ],
+  "primitive_cases": 13,
+  "oracle_pairs": 13,
+  "oracle_scalar_entries": 220,
+  "full_output_numeric_hashes": 23,
+  "native_numpy_full_matrices_exact": true,
+  "maximum_native_oracle_scaled_error": 2.5888873210977926e-20,
+  "primitive_speedups": [
+    2.455313867897723,
+    2.481182913434333,
+    2.4851754593017197
+  ],
+  "all_timing_hypotheses_passed": true,
+  "rust_unit_tests_passed": 2,
+  "remote_python_differential_tests_passed": 9,
+  "local_focused_tests_passed": 14,
+  "local_focused_tests_skipped": 6,
+  "public_payloads_verified": 17,
+  "all_public_numerical_rows_and_decisions_exact": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "original_public_preflight_owner_exit": 1,
+  "original_public_preflight_scientific_verdict": null,
+  "original_public_preflight_container_submissions": 0,
+  "actual_native_binary_hash_verified": true,
+  "original_extension_hash_field_is_package_initializer": true,
+  "remote_collected_hashes_verified": 41,
+  "frozen_source_files_verified": 85,
+  "installed_engine_artifacts_verified": 242,
+  "ruff_lint_format_cargo_fmt_yaml_and_diff_passed": true,
+  "png_visually_checked_and_text_svg_validated": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_state": "current",
+  "main_index_upstream_state": "current",
+  "relevant_branch_delta_from_index": "A\tnative/qscat-extended/Cargo.lock\nA\tnative/qscat-extended/Cargo.toml\nA\tnative/qscat-extended/benches/residual.rs\nA\tnative/qscat-extended/build.rs\nA\tnative/qscat-extended/pyproject.toml\nA\tnative/qscat-extended/src/extended.c\nA\tnative/qscat-extended/src/lib.rs\nA\tprojects/ukrmol_co/numerov_native_residual.py\nA\tprojects/ukrmol_co/numerov_native_residual_control.py\nA\tprojects/ukrmol_co/numerov_native_residual_replay.py\n",
+  "original_interior_verdict": false,
+  "original_interior_exits": [
+    1,
+    1
+  ],
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "new_propagations": 0,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

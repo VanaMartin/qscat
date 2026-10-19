@@ -108,3 +108,8 @@ All **14 final public payloads** fresh-verify. Local public-source tests pass
 reverifies29 collected hashes,71 sources,242 installed artifacts and prior report.
 No scientific containers remain;60.67 GiB persistent disk is free. Public:
 `https://data.qscat.org/co-numerov-solve-profile-20261019/`.
+
+The subsequent [native residual primitive](NUMEROV_NATIVE_RESIDUAL.md) passes
+69/69 checks and exact public numerical replay. Captured native residuals match
+NumPy exactly and improve end-to-end cost2.46–2.49×. Integration and coupled
+interval performance require their own qualification.

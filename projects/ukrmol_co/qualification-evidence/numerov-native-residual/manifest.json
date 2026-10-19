@@ -1,0 +1,86 @@
+{
+  "git_sha": "400e7cb78935f3c377c6279bd94960aadbf626df",
+  "verification_support_git_sha": "1ad062e8d84c70ed99c8333bde0f9cf06a598feb",
+  "date": "2026-10-19",
+  "record_type": "extended-native-residual-primitive",
+  "experiment_verdict": true,
+  "original_build_exits": [
+    0,
+    0
+  ],
+  "original_runtime_exits": [
+    0,
+    0
+  ],
+  "checks_passed": 69,
+  "checks_total": 69,
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_native_residual_replay.py": "4d6bc21f6b581536c64fbd2bcb26f78959fb103912b93324daca63e63b27ac4d"
+  },
+  "verification_support_role": "Saved-metric decision audit plus complete numerical primitive replay without replacing frozen kernel/producer",
+  "all_timing_hypotheses_passed": true,
+  "compiled_primitive_speedup_range": [
+    2.455313867897723,
+    2.4851754593017197
+  ],
+  "saved_decisions_verified": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "status": "prospective once-only primitive numerical reexecution from public bytes",
+    "producer_source_commit": "400e7cb78935f3c377c6279bd94960aadbf626df",
+    "source_archive_sha256": "11f2dd3ae3ef64a938e9ab6e8e56c04c654b0475b56f1e34e50ee1c5b7968847",
+    "results_archive_sha256": "c6bd1a0760a8b9f8d9bba53b4b229af2d1bd575348b913ef3ddea74fc3aa6e82",
+    "wheel_sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+    "extension_sha256": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "operand_archive_sha256": "0e82f049b3c0deec2282ea42daa47a3e96b835b1e997f99f8ce39ee38e4f3ba5",
+    "scope": "Reexecute all13 cases and13 paired80/110-digit references, including220 preselected scalar entries. All numerical row records,23 full output numeric hashes and69 decisions must reproduce exactly. Load the pinned published wheel; a fresh binary rebuild is outside this numerical replay scope.",
+    "timing_scope": "Same one warmup and two measured reversed-order repetitions per backend per extended capture. Preserve new times and hypotheses as observations; timing equality is not a numerical replay gate.",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "workers": 1,
+      "blas_threads": 1,
+      "memory_gib": 4,
+      "expected_wall_seconds": 5,
+      "upper_wall_seconds": 15,
+      "timeout_seconds": 180,
+      "sample_interval_seconds": 0.2
+    },
+    "stopping_rule": "Fresh download and verify every pinned payload; one numerical replay only. A mismatch stops further submissions. Retain original decisions/exits and new timing observations without automatic refinement.",
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "new_propagations": 0,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0,
+    "co_successor_submitted": false
+  },
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "new_propagations": 0,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "co_successor_submitted": false,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_replay_collection_files_verified": 10,
+  "all_numerical_rows_exact": true,
+  "all_69_decisions_exact": true,
+  "original_replay_preflight_owner_exit": 1,
+  "original_replay_preflight_scientific_verdict": null,
+  "original_replay_preflight_container_submissions": 0,
+  "artifact_layout_supplement_git_sha": "5b1c1fb",
+  "native_binary_sha256": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e",
+  "original_extension_hash_field_is_package_initializer": true
+}
