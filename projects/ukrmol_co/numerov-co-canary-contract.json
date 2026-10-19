@@ -1,0 +1,50 @@
+{
+  "status": "prospective finite actual-CO recurrence conditioning and throughput canary",
+  "reference_source_commit": "2022311",
+  "raw_contract_sha256": "11b1aca2ed6f127c88b50bc4de22d7fd4c31ebf6431de95495dc2871c6b042bf",
+  "selection_sha256": "c5010464edc5745fe9c31318443d6f68e2f10ecae2ad0dd5e4e29750b77ff0fd",
+  "integration_verification_sha256": "719967e70f4bb8153683fa788a4bcd30651a03ede0249aa76d22a3f2764745f3",
+  "selection_rule": "Reuse every saved interior-selection peak identity, both sectors at each anchor. Timing subset: compressed B1, equilibrium B2, stretched B1; covers all geometries and both sectors without doubling cost.",
+  "identities": [
+    {"case": "compressed/nine/B1", "energy_index": 87, "energy_rydberg_hex": "0x1.4eecbfb15b574p-2", "timing": true},
+    {"case": "compressed/nine/B2", "energy_index": 87, "energy_rydberg_hex": "0x1.4eecbfb15b574p-2", "timing": false},
+    {"case": "equilibrium/nine/B1", "energy_index": 53, "energy_rydberg_hex": "0x1.9df3b645a1cb3p-3", "timing": false},
+    {"case": "equilibrium/nine/B2", "energy_index": 53, "energy_rydberg_hex": "0x1.9df3b645a1cb3p-3", "timing": true},
+    {"case": "stretched/nine/B1", "energy_index": 18, "energy_rydberg_hex": "0x1.2d0e560418936p-4", "timing": true},
+    {"case": "stretched/nine/B2", "energy_index": 18, "energy_rydberg_hex": "0x1.2d0e560418936p-4", "timing": false}
+  ],
+  "radius_bohr": 18.0,
+  "step_bohr": 0.0015625,
+  "accuracy_prefix_N": 8,
+  "timing_prefix_N": [32, 128],
+  "prefix_executions": 36,
+  "nominal_intervals": 2016,
+  "recurrence_updates": 1980,
+  "mixed_solves": 3996,
+  "native_accuracy_audited_solves": 90,
+  "prefix_rule": "Run unchanged typed_coupled_k. Interpose on taylor_change: first call unchanged; second call stops via private sentinel only after 2N-1 solves. Retain final delta at 18+(N-1)h; do not evaluate endpoint Taylor, tail, matching or K. Restore hooks on every exit.",
+  "order_rule": "Accuracy: listed six identities N8 reference/native. Timing: two repetitions, rep0 listed timing identities N32/128 reference/native; rep1 reversed timing identities N128/32 native/reference. No warmups or extra repeats.",
+  "accuracy_gates": "Each pair requires exact canonical final-delta hash excluding longdouble padding, stats, and accuracy all-A/B/X hash/condition records. Native accuracy residuals independently recomputed with NumPy; zero decision disagreements, full numeric residual equality, preserved64-bit significand, 32eps backward gate and <=3 corrections. Positive finite binary64 LU one-norm rcond estimates are observations, not extended error bounds.",
+  "captured_oracles": "Native N8 initialization and last-defect A/B/accepted-X for each identity:12 full operand triples. Check three residual entries each with paired80/110-digit independent mpmath references; scaled reference stability<=1e-60, residual error<=32*2^-63. Preserve all36 entry references and full arrays. No sampled entry proves a full forward-error bound.",
+  "performance_rule": "Timing rows omit observer, condition estimates, captures and per-solve hashes; retain final hash outside timer and per-role solve times. Two-size marginal and N128 recurring rates are observations. Early boundary rates cannot establish long-range cost or conditioning; no automatic 60-solve release.",
+  "runtime_image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "test_image": "sha256:197c549d46c65df24bb02202040dd6e4b64c1556246e0fc364c45b2c9a303ac5",
+  "wheel_sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+  "wheel_components": {
+    "qscat_extended_kernels/__init__.py": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "qscat_extended_kernels/qscat_extended_kernels.abi3.so": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e"
+  },
+  "resources": {
+    "cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 600, "upper_wall_seconds": 1200, "timeout_seconds": 1800,
+    "test_timeout_seconds": 180, "sample_interval_seconds": 0.2
+  },
+  "cost_justification": "Prior dense varying recurring rates .2708/.1198s per reference/native interval imply about375s for timing prefixes, plus accuracy/audit/capture/reference overhead. Forecast600s, upper1200s, hard1800s. Actual CO conditioning and near-boundary setup costs are unmeasured. Reserve0-3 for this small single-worker job; record unrelated host/container load without modifying it.",
+  "stopping_rule": "Pin source snapshot, original integration pass,24 raw hashes, wheel/components and engine artifacts before execution. Preflight/test failure prevents science. Complete each fixed pair then stop at false, and do not enter timings after any accuracy/oracle failure. Exceptions unset; preserve command/container/owner exits. No tolerance relaxation, retries, new UKRmol invocation, full propagation or automatic follow-on.",
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [1, 1],
+  "new_qualified_co_identities": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0
+}

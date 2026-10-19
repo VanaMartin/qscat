@@ -20,6 +20,26 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Actual-CO recurrence canary frozen for bounded execution — 20 October
+
+The [saved-CO canary](NUMEROV_CO_CANARY.md) and
+[finite contract](numerov-co-canary-contract.json) select the six existing
+high-|K| identities: compressed B1/B2 index87, equilibrium B1/B2 index53,
+stretched B1/B2 index18. All receive N8 reference/audited-native prefixes;
+compressed B1/equilibrium B2/stretched B1 receive two opposite-order N32/128
+timing pairs. **36 prefixes / 3,996 mixed solves / 1,980 recurring updates**;
+90 native accuracy solves independently audit residual decisions, 12 actual
+operand triples supply paired80/110-digit residual-entry checks. Canonical
+final-delta hashes, all accuracy operands and numerical diagnostics must match.
+
+The unchanged propagator stops at its second Taylor call, before endpoint tail
+matching. Final prefix radii are 18.0109375/18.0484375/18.1984375 bohr; this
+measures early CO conditioning/throughput, not a short-radius physical K or
+long-range cost. Reserved physical cores0–3 / one worker / single-threaded BLAS /
+4 GiB, expected600s / upper1200s / hard1800s. Preserve unrelated ComfyUI workload
+and record potential timing contention. No automatic full propagation follows.
+Prior numerical modules, native kernel and wheel remain frozen/read-only.
+
 ### Native coupled integration and exact public replay pass — 19 October, 16:05 UTC
 
 The [native integration](NUMEROV_NATIVE_INTEGRATION.md), design and finite
