@@ -1,0 +1,18 @@
+{
+  "status": "prospective complete public numerical replay of finite dense scaling benchmark",
+  "producer_source_commit": "1d8cfacb2f86254c8035af5d74bba3c6869bd301",
+  "producer_source_archive_sha256": "17902092ae4428d4843201883ef62635950b8527213c2e0b1aa556af91814afd",
+  "producer_results_archive_sha256": "dfefb00bd7ef4928db6d499bbef6b5cb956f28c6fdba542f295601a3fd758355",
+  "worker_sha256": "c5823f756e460da965df7ef9240bbfd57e05138938743711bb811d2a74ca64e4",
+  "new_typed_propagations_reexecuted": 24,
+  "new_radial_intervals": 1344,
+  "discrete_oracle_pairs_reexecuted": 6,
+  "comparison": "All24 decimal and binary64 K matrices, all166 qualification decisions and six discrete-oracle pairs reproduce exactly. Timing fits and hypotheses are recalculated as fresh observations; timing-hypothesis identity is not a numerical replay gate.",
+  "shape_log_scope": "Original producer logs role, elapsed time and output dtype, but not array shape despite the design requesting it. Fixed source specifies dense298 propagation. No independent per-call shape measurement is claimed.",
+  "motivation": "Numerical decisions pass. Recurring extended dense solves now dominate; independently reproduce accuracy before selecting an optimized arithmetic kernel. Synthetic marginal rates do not qualify native CO cost or conditioning.",
+  "resources": {"cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 210, "upper_wall_seconds": 300, "timeout_seconds": 600, "sample_interval_seconds": 0.2},
+  "stopping_rule": "Run once from fresh public bytes. Preserve original exits. Numerical mismatch stops further submissions. No additional timing repeats or interval counts, no numerical-source replacement or automatic CO invocation.",
+  "original_interior_analytic_verdict": false, "original_interior_scientific_exits": [1, 1],
+  "co_successor_submitted": false, "new_co_independent_solves": 0, "new_unique_energy_identities": 0
+}
