@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-coupled.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-dense.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -774,6 +774,47 @@ def _native_full_rejection(ax, data):
     _note(ax, data["native_full_rejection_note"])
 
 
+def _dense_scaling(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Recurring dense solves dominate",
+        "Synthetic298 channels; solid: total, dashed: recurring solves only",
+    )
+    rows = data["dense_scaling"]
+    for model, color, label in [
+        ("free", BLUE, "Free exterior (64-bit significand)"),
+        ("varying", ORANGE, "Varying inverse-power exterior (64 bits)"),
+    ]:
+        selected = [row for row in rows if row["model"] == model]
+        x = [row["intervals"] for row in selected]
+        y = [row["mean_kernel_wall_seconds"] for row in selected]
+        ax.plot(x, y, color=color, marker="o", label=label)
+        ax.plot(
+            x,
+            [row["mean_recurring_solve_seconds"] for row in selected],
+            color=color,
+            ls="--",
+        )
+        ax.annotate(
+            f"{y[-1]:.2f} s",
+            (x[-1], y[-1]),
+            xytext=(-4, 10),
+            textcoords="offset points",
+            ha="right",
+            color=color,
+        )
+    ax.set(
+        xlim=(0, 140),
+        ylim=(0, 48),
+        xlabel="Radial intervals at fixed h = .015625 bohr (two-repeat means)",
+        ylabel="Measured kernel wall time / s",
+    )
+    ax.set_xticks([8, 32, 128])
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    _note(ax, data["dense_scaling_note"])
+
+
 def _coupled_precision(ax, data):
     _panel(
         ax,
@@ -952,7 +993,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _coupled_precision
+            _dense_scaling
+            if "dense_scaling" in data
+            else _coupled_precision
             if "coupled_precision" in data
             else _arithmetic_control
             if "arithmetic_control" in data
@@ -1040,7 +1083,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-coupled"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-dense"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

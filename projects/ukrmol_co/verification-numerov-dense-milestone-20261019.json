@@ -1,0 +1,163 @@
+{
+  "verified_utc": "2026-10-19T13:58:41.668114+00:00",
+  "producer_source_freeze": "1d8cfacb2f86254c8035af5d74bba3c6869bd301",
+  "verification_support_freeze": "ff2d258",
+  "frozen_numerical_sources_and_contract_unchanged": true,
+  "overview_source_hashes_verified": 457,
+  "documentation_links_verified": 715,
+  "checks_passed": 166,
+  "checks_total": 166,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "all_three_timing_hypotheses_passed": true,
+  "precision_bits": {
+    "binary64": 53,
+    "longdouble": 64
+  },
+  "original_interior_verdict": false,
+  "original_interior_exits": [
+    1,
+    1
+  ],
+  "new_typed_propagations": 24,
+  "new_radial_intervals": 1344,
+  "candidate_qualified_identities": 14,
+  "new_co_independent_solves": 0,
+  "co_successor_submitted": false,
+  "new_unique_energy_identities": 0,
+  "original_unique_energy_coverage": 132,
+  "original_uncomputed_identities": 462,
+  "public_payloads_verified": 14,
+  "public_focused_tests_passed": 85,
+  "public_focused_tests_skipped": 2,
+  "public_new_propagations_reexecuted": 24,
+  "all_stored_decimal_and_binary64_K_components_exact": true,
+  "all_166_qualification_decisions_and_six_oracle_pairs_identical": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "solve_call_roles_audited": 2040,
+  "timer_partitions_and_returned_dtypes_audited": 24,
+  "per_call_shapes_measured": false,
+  "timing_analysis": {
+    "fits": [
+      {
+        "model": "free",
+        "backend": "binary64",
+        "mean_kernel_wall_seconds": [
+          0.05851185950450599,
+          0.11005971051054075,
+          0.32570338650839403
+        ],
+        "repetition_spread_seconds": [
+          0.0044019430060870945,
+          0.0009331129840575159,
+          5.30310207977891e-05
+        ],
+        "affine_intercept_seconds": 0.03975386384020868,
+        "affine_slope_seconds_per_interval": 0.0022322224107310397,
+        "maximum_relative_affine_residual": 0.01538519517363252,
+        "marginal_32_to_128_seconds_per_interval": 0.002246288291644305,
+        "direct_recurring_solve_seconds_per_interval": 0.00218639480269525,
+        "synthetic_60_finest400_affine_days": 0.3790093672495589,
+        "synthetic_60_finest400_marginal_days": 0.3813698344036109,
+        "synthetic_60_finest400_direct_recurring_days": 0.3712012509464824
+      },
+      {
+        "model": "free",
+        "backend": "longdouble",
+        "mean_kernel_wall_seconds": [
+          4.6545220204861835,
+          7.897791052004322,
+          20.88304371900449
+        ],
+        "repetition_spread_seconds": [
+          0.003492210991680622,
+          0.01015394798014313,
+          0.017412956018233672
+        ],
+        "affine_intercept_seconds": 3.571402919825535,
+        "affine_slope_seconds_per_interval": 0.13524492876201424,
+        "maximum_relative_affine_residual": 0.00024914922723123957,
+        "marginal_32_to_128_seconds_per_interval": 0.13526304861458507,
+        "direct_recurring_solve_seconds_per_interval": 0.13470508125929187,
+        "synthetic_60_finest400_affine_days": 22.964063601845186,
+        "synthetic_60_finest400_marginal_days": 22.96465980923178,
+        "synthetic_60_finest400_direct_recurring_days": 22.869929351577547
+      },
+      {
+        "model": "varying",
+        "backend": "binary64",
+        "mean_kernel_wall_seconds": [
+          0.1357603285141522,
+          0.24430018100247253,
+          0.6792417764954735
+        ],
+        "repetition_spread_seconds": [
+          0.00039499698323197663,
+          0.0016484739899169654,
+          0.005074460990726948
+        ],
+        "affine_intercept_seconds": 0.09945001342809212,
+        "affine_slope_seconds_per_interval": 0.004529477653141796,
+        "maximum_relative_affine_residual": 0.0005487159742543114,
+        "marginal_32_to_128_seconds_per_interval": 0.00453064161971876,
+        "direct_recurring_solve_seconds_per_interval": 0.004352334410357326,
+        "synthetic_60_finest400_affine_days": 0.7690737129538434,
+        "synthetic_60_finest400_marginal_days": 0.7692022661033627,
+        "synthetic_60_finest400_direct_recurring_days": 0.7389296643362214
+      },
+      {
+        "model": "varying",
+        "backend": "longdouble",
+        "mean_kernel_wall_seconds": [
+          9.60347228149476,
+          16.116818426016835,
+          42.16896082050516
+        ],
+        "repetition_spread_seconds": [
+          0.0009786470036488026,
+          0.0036409480089787394,
+          0.008957743004430085
+        ],
+        "affine_intercept_seconds": 7.432563930587397,
+        "affine_slope_seconds_per_interval": 0.27137833176342,
+        "maximum_relative_affine_residual": 1.2318794341202401e-05,
+        "marginal_32_to_128_seconds_per_interval": 0.27137648327592007,
+        "direct_recurring_solve_seconds_per_interval": 0.269069060123059,
+        "synthetic_60_finest400_affine_days": 46.079171606563555,
+        "synthetic_60_finest400_marginal_days": 46.073696271733986,
+        "synthetic_60_finest400_direct_recurring_days": 45.68194709644824
+      }
+    ],
+    "hypotheses": {
+      "all_affine_fits_positive_and_within_20percent": true,
+      "free_extended_N128_recurring_solves_exceed_Taylor_plus_tail": true,
+      "varying_to_free_extended_marginal_rate_between_1_and_3": true
+    },
+    "varying_to_free_extended_marginal_ratio": 2.0062869058139667,
+    "free_extended_N128_recurring_solve_seconds": 17.107545319930068,
+    "free_extended_N128_Taylor_plus_tail_seconds": 2.892568694005604,
+    "scope": "Synthetic298 matrices and exercised conditioning, one worker. Setup/interval separation does not establish native CO throughput, conditioning or an absolute-error bound."
+  },
+  "remote_collected_hashes_verified": 17,
+  "frozen_source_files_verified": 67,
+  "installed_engine_artifacts_verified": 242,
+  "prior_report_verified": true,
+  "ruff_lint_format_and_diff_passed": true,
+  "png_visually_checked_and_text_svg_validated": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_state": "current",
+  "main_index_upstream_state": "current",
+  "relevant_branch_delta_from_index": "A\tprojects/ukrmol_co/numerov-dense-public-replay-contract.json\nA\tprojects/ukrmol_co/numerov-dense-scaling-contract.json\nA\tprojects/ukrmol_co/numerov_dense_replay.py\nA\tprojects/ukrmol_co/numerov_dense_scaling.py\n",
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

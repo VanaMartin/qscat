@@ -20,6 +20,64 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Dense setup/interval scaling and complete replay pass — 19 October, 13:56 UTC
+
+The [dense scaling benchmark](NUMEROV_DENSE_SCALING.md), design and finite
+contract are frozen/pushed at **`1d8cfacb2f86254c8035af5d74bba3c6869bd301`**.
+All **166/166 checks / original exits0/0** pass:24 dense298-channel synthetic
+propagations /1344 intervals, free and noncommuting inverse-power potentials,
+N=8/32/128, two arithmetic formats, two predeclared repetitions. Six80/110-digit
+oracle pairs pass. Actual real significands are53/64 bits; worst extended K
+arithmetic error2.04508e-18 and backward error8.72570e-20, at most one correction.
+Every repeated K and both prior dense N=8 baselines reproduce exactly.
+
+Extended marginal32→128 rates are **.13526305/.27137648 s per interval** for
+free/varying W; ratio2.006287. All three timing hypotheses pass. At free N=128,
+recurring solves take17.107545 s versus2.892569 s Taylor+tail. Affine fits have
+maximum residual1.539%; fitted intercepts are aggregates, not directly measured
+setup. Synthetic60-solve affine/marginal cost23–46 single-worker days is not
+actual CO throughput. It supersedes the old setup-inclusive99-day guess only
+within this synthetic scope.
+
+Producer finishes **13:48:02UTC /207.106276 s /206.610400 sampled CPU s /
+147,623,936-byte kernel peak**,1,033 samples at0.2 s, reserved physical cores0–3/
+4 GiB, single-threaded BLAS. It exceeds180-s forecast by15.1%, below300-s upper/
+600-s cap. All67 frozen sources,242 installed artifacts and prior coupled report
+verify before/after. Original evidence:`prepared/numerov-dense-scaling-20261019/`.
+
+Separate saved verifier and complete public replay scope freeze/push at
+**`ff2d258`**. Saved replay independently recomputes all166 decisions, six oracle
+pairs, four affine fits,2,040 solve roles, returned dtypes and24 timer partitions.
+Per-call shapes were requested but omitted from original logs; dense dimensions
+follow fixed source, not independent per-call measurements. This limitation is
+explicitly retained. No frozen numerical source is replaced.
+
+Complete public numerical replay finishes **13:55:08UTC / exits0/0**: all24
+extended decimal/binary64 K matrices,166 decisions and references reproduce
+exactly. Fresh timing hypotheses also pass; timing identity is not a numerical
+replay gate. Cost **207.088214 s /206.616432 sampled CPU s /146,092,032-byte kernel
+peak**,1,033 samples, same reserved cores/memory; below210-s forecast/300-s upper/
+600-s cap. Its8-file collection remains at`prepared/numerov-dense-public-replay-20261019/`.
+All **14 final public payloads** verify; **85 local tests pass with two wider-format
+skips**, exercised remotely. Public:`https://data.qscat.org/co-numerov-dense-scaling-20261019/`.
+
+The [13:56:02UTC capture](progress-numerov-dense-result-20261019.json) reverifies
+17 collected hashes,67 frozen sources,242 installed artifacts and prior report.
+No scientific containers remain;60.74 GiB persistent disk is free.
+
+**Next:** isolate residual-evaluation versus LU work within representative mixed
+solves, then implement/requalify a compiled primitive under a separate numerical
+and resource contract. Keep`typed_coupled_k` as the differential reference; retain
+64-bit-significand arithmetic and32-eps backward gates. Only then revisit a
+separately contracted interior CO pilot. Original interior **false/exits1/1**,
+14 candidate-qualified identities and historical132/594/462 uncomputed remain;
+all channel/model/continuity/extraction/neutral gates remain open.
+
+Main-index discovery uses complete`423d577`, stale/upstream unknown; new dense
+modules are branch-only and resolved locally against source/freeze/deltas.
+At result handoff that same complete snapshot is **current/upstream current**;
+branch-only dense additions remain locally verified.
+
 ### Coupled extended-arithmetic control and profiled public replay pass — 19 October, 13:23 UTC
 
 The [coupled precision control](NUMEROV_COUPLED_PRECISION.md) is frozen/pushed

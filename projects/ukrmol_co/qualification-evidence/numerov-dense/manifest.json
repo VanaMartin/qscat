@@ -1,0 +1,77 @@
+{
+  "git_sha": "1d8cfacb2f86254c8035af5d74bba3c6869bd301",
+  "verification_support_git_sha": "ff2d258f0a59d73f341251d4f9b67d2bb3888187",
+  "date": "2026-10-19",
+  "record_type": "synthetic-dense-setup-versus-interval-scaling",
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 166,
+  "checks_total": 166,
+  "new_typed_propagations": 24,
+  "new_radial_intervals": 1344,
+  "timing_hypotheses": {
+    "all_affine_fits_positive_and_within_20percent": true,
+    "free_extended_N128_recurring_solves_exceed_Taylor_plus_tail": true,
+    "varying_to_free_extended_marginal_rate_between_1_and_3": true
+  },
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_dense_replay.py": "4468439bc1b0743f5caa98e2b7a757691e0c834f64c8259b7ac35c33b268771e"
+  },
+  "verification_support_role": "Adds independent saved numerical decisions, role/dtype/timer partitions and least-squares timing audit, without replacing frozen numerical modules.",
+  "saved_decision_replay_passed": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "status": "prospective complete public numerical replay of finite dense scaling benchmark",
+    "producer_source_commit": "1d8cfacb2f86254c8035af5d74bba3c6869bd301",
+    "producer_source_archive_sha256": "17902092ae4428d4843201883ef62635950b8527213c2e0b1aa556af91814afd",
+    "producer_results_archive_sha256": "dfefb00bd7ef4928db6d499bbef6b5cb956f28c6fdba542f295601a3fd758355",
+    "worker_sha256": "c5823f756e460da965df7ef9240bbfd57e05138938743711bb811d2a74ca64e4",
+    "new_typed_propagations_reexecuted": 24,
+    "new_radial_intervals": 1344,
+    "discrete_oracle_pairs_reexecuted": 6,
+    "comparison": "All24 decimal and binary64 K matrices, all166 qualification decisions and six discrete-oracle pairs reproduce exactly. Timing fits and hypotheses are recalculated as fresh observations; timing-hypothesis identity is not a numerical replay gate.",
+    "shape_log_scope": "Original producer logs role, elapsed time and output dtype, but not array shape despite the design requesting it. Fixed source specifies dense298 propagation. No independent per-call shape measurement is claimed.",
+    "motivation": "Numerical decisions pass. Recurring extended dense solves now dominate; independently reproduce accuracy before selecting an optimized arithmetic kernel. Synthetic marginal rates do not qualify native CO cost or conditioning.",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "workers": 1,
+      "blas_threads": 1,
+      "memory_gib": 4,
+      "expected_wall_seconds": 210,
+      "upper_wall_seconds": 300,
+      "timeout_seconds": 600,
+      "sample_interval_seconds": 0.2
+    },
+    "stopping_rule": "Run once from fresh public bytes. Preserve original exits. Numerical mismatch stops further submissions. No additional timing repeats or interval counts, no numerical-source replacement or automatic CO invocation.",
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "public_numerical_rows_reexecuted": 24,
+  "public_replay_exits": [
+    0,
+    0
+  ]
+}

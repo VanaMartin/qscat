@@ -1,0 +1,325 @@
+{
+  "verified_utc": "2026-10-19T13:51:27.855664+00:00",
+  "fresh_public_bytes_verified": true,
+  "payloads_verified": 10,
+  "frozen_sources_verified": 67,
+  "verification_support_files_verified": 1,
+  "saved_decision_replay_passed": true,
+  "saved_decision_replay_exit": 0,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 166,
+  "checks_total": 166,
+  "public_focused_tests_exit": 0,
+  "test_stdout": "...........s......s..................................................... [ 82%]\n...............                                                          [100%]\n85 passed, 2 skipped in 2.87s\n",
+  "public_numerical_reexecution_passed": true,
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "public_numerical_rows_reexecuted": 24,
+  "all_decimal_and_binary64_K_components_exactly_reproduce": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_replay_execution": {
+    "started_utc": "2026-10-19T13:51:41.868627+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-numerov-dense-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/dependencies:/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-dense-public-replay-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-dense-public-replay-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "public_archive_sha256": "a934c87fddb1047bd4faed6aed3cfd507c14e57ea7874e9c364fd57758051826",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 210,
+    "upper_wall_seconds": 300,
+    "timeout_seconds": 600,
+    "source_files_verified": 67,
+    "verification_support_files_verified": 1,
+    "effective_source_files_verified": 68,
+    "installed_engine_artifacts_verified": 242,
+    "prior_report_files_verified": 1,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "persistent_disk_free_gib": 60.73839569091797,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "driver_exit": 0,
+    "finished_utc": "2026-10-19T13:55:08.961302+00:00",
+    "wall_seconds": 207.08821374899708,
+    "sampled_memory_current_peak_bytes": 145567744,
+    "sampled_kernel_memory_peak_bytes": 146092032,
+    "sampled_cpu_seconds": 206.616432,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 1033,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "public_replay": {
+    "public_numerical_reexecution_passed": true,
+    "all_decimal_K_components_exactly_reproduce": true,
+    "qualification_checks_identical": true,
+    "independent_oracles_identical": true,
+    "new_typed_propagations_reexecuted": 24,
+    "new_radial_intervals": 1344,
+    "checks_passed": 166,
+    "checks_total": 166,
+    "experiment_verdict": true,
+    "original_timing_analysis": {
+      "fits": [
+        {
+          "model": "free",
+          "backend": "binary64",
+          "mean_kernel_wall_seconds": [
+            0.05851185950450599,
+            0.11005971051054075,
+            0.32570338650839403
+          ],
+          "repetition_spread_seconds": [
+            0.0044019430060870945,
+            0.0009331129840575159,
+            5.30310207977891e-05
+          ],
+          "affine_intercept_seconds": 0.03975386384020868,
+          "affine_slope_seconds_per_interval": 0.0022322224107310397,
+          "maximum_relative_affine_residual": 0.01538519517363252,
+          "marginal_32_to_128_seconds_per_interval": 0.002246288291644305,
+          "direct_recurring_solve_seconds_per_interval": 0.00218639480269525,
+          "synthetic_60_finest400_affine_days": 0.3790093672495589,
+          "synthetic_60_finest400_marginal_days": 0.3813698344036109,
+          "synthetic_60_finest400_direct_recurring_days": 0.3712012509464824
+        },
+        {
+          "model": "free",
+          "backend": "longdouble",
+          "mean_kernel_wall_seconds": [
+            4.6545220204861835,
+            7.897791052004322,
+            20.88304371900449
+          ],
+          "repetition_spread_seconds": [
+            0.003492210991680622,
+            0.01015394798014313,
+            0.017412956018233672
+          ],
+          "affine_intercept_seconds": 3.571402919825535,
+          "affine_slope_seconds_per_interval": 0.13524492876201424,
+          "maximum_relative_affine_residual": 0.00024914922723123957,
+          "marginal_32_to_128_seconds_per_interval": 0.13526304861458507,
+          "direct_recurring_solve_seconds_per_interval": 0.13470508125929187,
+          "synthetic_60_finest400_affine_days": 22.964063601845186,
+          "synthetic_60_finest400_marginal_days": 22.96465980923178,
+          "synthetic_60_finest400_direct_recurring_days": 22.869929351577547
+        },
+        {
+          "model": "varying",
+          "backend": "binary64",
+          "mean_kernel_wall_seconds": [
+            0.1357603285141522,
+            0.24430018100247253,
+            0.6792417764954735
+          ],
+          "repetition_spread_seconds": [
+            0.00039499698323197663,
+            0.0016484739899169654,
+            0.005074460990726948
+          ],
+          "affine_intercept_seconds": 0.09945001342809212,
+          "affine_slope_seconds_per_interval": 0.004529477653141796,
+          "maximum_relative_affine_residual": 0.0005487159742543114,
+          "marginal_32_to_128_seconds_per_interval": 0.00453064161971876,
+          "direct_recurring_solve_seconds_per_interval": 0.004352334410357326,
+          "synthetic_60_finest400_affine_days": 0.7690737129538434,
+          "synthetic_60_finest400_marginal_days": 0.7692022661033627,
+          "synthetic_60_finest400_direct_recurring_days": 0.7389296643362214
+        },
+        {
+          "model": "varying",
+          "backend": "longdouble",
+          "mean_kernel_wall_seconds": [
+            9.60347228149476,
+            16.116818426016835,
+            42.16896082050516
+          ],
+          "repetition_spread_seconds": [
+            0.0009786470036488026,
+            0.0036409480089787394,
+            0.008957743004430085
+          ],
+          "affine_intercept_seconds": 7.432563930587397,
+          "affine_slope_seconds_per_interval": 0.27137833176342,
+          "maximum_relative_affine_residual": 1.2318794341202401e-05,
+          "marginal_32_to_128_seconds_per_interval": 0.27137648327592007,
+          "direct_recurring_solve_seconds_per_interval": 0.269069060123059,
+          "synthetic_60_finest400_affine_days": 46.079171606563555,
+          "synthetic_60_finest400_marginal_days": 46.073696271733986,
+          "synthetic_60_finest400_direct_recurring_days": 45.68194709644824
+        }
+      ],
+      "hypotheses": {
+        "all_affine_fits_positive_and_within_20percent": true,
+        "free_extended_N128_recurring_solves_exceed_Taylor_plus_tail": true,
+        "varying_to_free_extended_marginal_rate_between_1_and_3": true
+      },
+      "varying_to_free_extended_marginal_ratio": 2.0062869058139667,
+      "free_extended_N128_recurring_solve_seconds": 17.107545319930068,
+      "free_extended_N128_Taylor_plus_tail_seconds": 2.892568694005604,
+      "scope": "Synthetic298 matrices and exercised conditioning, one worker. Setup/interval separation does not establish native CO throughput, conditioning or an absolute-error bound."
+    },
+    "replay_timing_analysis": {
+      "fits": [
+        {
+          "model": "free",
+          "backend": "binary64",
+          "mean_kernel_wall_seconds": [
+            0.058327222999650985,
+            0.11028752800484654,
+            0.3251863875048002
+          ],
+          "repetition_spread_seconds": [
+            0.004124265979044139,
+            0.0008296619926113635,
+            0.001380505011184141
+          ],
+          "affine_intercept_seconds": 0.0398308480847239,
+          "affine_slope_seconds_per_interval": 0.002228027346756703,
+          "maximum_relative_affine_residual": 0.011523883811123459,
+          "marginal_32_to_128_seconds_per_interval": 0.002238529786457851,
+          "direct_recurring_solve_seconds_per_interval": 0.0021847310823417732,
+          "synthetic_60_finest400_affine_days": 0.37829719207164125,
+          "synthetic_60_finest400_marginal_days": 0.38005261263417733,
+          "synthetic_60_finest400_direct_recurring_days": 0.37091878820202545
+        },
+        {
+          "model": "free",
+          "backend": "longdouble",
+          "mean_kernel_wall_seconds": [
+            4.653119675494963,
+            7.8957321564957965,
+            20.869984128003125
+          ],
+          "repetition_spread_seconds": [
+            0.004239458998199552,
+            0.005110419006086886,
+            0.009344786027213559
+          ],
+          "affine_intercept_seconds": 3.5716151739106854,
+          "affine_slope_seconds_per_interval": 0.13514280022774897,
+          "maximum_relative_affine_residual": 7.7818708208464e-05,
+          "marginal_32_to_128_seconds_per_interval": 0.13514845803653466,
+          "direct_recurring_solve_seconds_per_interval": 0.1346235971890507,
+          "synthetic_60_finest400_affine_days": 22.946724593648597,
+          "synthetic_60_finest400_marginal_days": 22.94520487553611,
+          "synthetic_60_finest400_direct_recurring_days": 22.85609516720772
+        },
+        {
+          "model": "varying",
+          "backend": "binary64",
+          "mean_kernel_wall_seconds": [
+            0.1354556220030645,
+            0.2452194385114126,
+            0.6791404855030123
+          ],
+          "repetition_spread_seconds": [
+            0.0007231239869724959,
+            0.0004906909889541566,
+            0.003709306998644024
+          ],
+          "affine_intercept_seconds": 0.09972338634058059,
+          "affine_slope_seconds_per_interval": 0.004527651113069926,
+          "maximum_relative_affine_residual": 0.003609840882532287,
+          "marginal_32_to_128_seconds_per_interval": 0.004520010906162497,
+          "direct_recurring_solve_seconds_per_interval": 0.0043535423387157345,
+          "synthetic_60_finest400_affine_days": 0.7687637968817196,
+          "synthetic_60_finest400_marginal_days": 0.7673974071795884,
+          "synthetic_60_finest400_direct_recurring_days": 0.7391347437286269
+        },
+        {
+          "model": "varying",
+          "backend": "longdouble",
+          "mean_kernel_wall_seconds": [
+            9.597084991502925,
+            16.111880336509785,
+            42.16712660600024
+          ],
+          "repetition_spread_seconds": [
+            0.005564986990066245,
+            0.007954376982524991,
+            0.020683913986431435
+          ],
+          "affine_intercept_seconds": 7.42614239492347,
+          "affine_slope_seconds_per_interval": 0.2714146711264437,
+          "maximum_relative_affine_residual": 3.905065261251246e-05,
+          "marginal_32_to_128_seconds_per_interval": 0.27140881530719224,
+          "direct_recurring_solve_seconds_per_interval": 0.26908087852964635,
+          "synthetic_60_finest400_affine_days": 46.08533676346379,
+          "synthetic_60_finest400_marginal_days": 46.07918553215441,
+          "synthetic_60_finest400_direct_recurring_days": 45.68395359925552
+        }
+      ],
+      "hypotheses": {
+        "all_affine_fits_positive_and_within_20percent": true,
+        "free_extended_N128_recurring_solves_exceed_Taylor_plus_tail": true,
+        "varying_to_free_extended_marginal_rate_between_1_and_3": true
+      },
+      "varying_to_free_extended_marginal_ratio": 2.008227243212959,
+      "free_extended_N128_recurring_solve_seconds": 17.097196843009442,
+      "free_extended_N128_Taylor_plus_tail_seconds": 2.890673539004638,
+      "scope": "Synthetic298 matrices and exercised conditioning, one worker. Setup/interval separation does not establish native CO throughput, conditioning or an absolute-error bound."
+    },
+    "timing_hypotheses_identical": true,
+    "timing_hypothesis_identity_is_not_a_replay_gate": true,
+    "kernel_wall_seconds": 206.32137038800283,
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "public_replay_collection": {
+    "files": 8,
+    "archive_sha256": "3d760a880b5e9c60028ab44525bc5ed74b152742167e8bd8f96923827ef6f4d3"
+  },
+  "replay_verified_utc": "2026-10-19T13:55:28.792799+00:00",
+  "all_final_payloads_fresh_downloaded": true,
+  "public_payloads_verified": 14,
+  "final_public_verified_utc": "2026-10-19T13:55:57.203968+00:00"
+}

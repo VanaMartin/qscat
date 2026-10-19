@@ -147,3 +147,10 @@ the public replay archive.
 Original interior prerequisite false/exits1/1, all older rejections and historical
 coverage132/594/462 uncomputed remain. Candidate-qualified CO identities remain14;
 no new CO/native/inner solve, unique energy, full sweep or pole interpretation.
+
+The subsequent [dense scaling benchmark](NUMEROV_DENSE_SCALING.md) passes166/166
+checks on24 unchanged-kernel propagations. Extended marginal rates are
+.135263/.271376 s per interval for free/varying W; recurring solves dominate
+at128 intervals. This resolves setup-versus-interval cost in the synthetic
+regime and prioritizes mixed-solve internals for the next profiling/optimization
+contract. It does not measure actual CO throughput or release the interior scope.

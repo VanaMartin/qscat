@@ -45,6 +45,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [fixed-grid matrix precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md),
 [extended-arithmetic qualification](NUMEROV_ARITHMETIC_CONTROL.md),
 [coupled precision and dense-cost control](NUMEROV_COUPLED_PRECISION.md),
+[dense setup-versus-interval scaling](NUMEROV_DENSE_SCALING.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -72,7 +73,18 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October, 13:23 UTC:** the
+**Update — 19 October, 13:48 UTC:** the [dense scaling benchmark](NUMEROV_DENSE_SCALING.md)
+passes **166/166 checks / exits0/0**,24 propagations in207.11 s. Two-repeat means
+at8/32/128 intervals separate fixed setup from recurring work. Extended marginal
+rates are **.135263/.271376 s per interval**, free/varying W; recurring solves
+dominate by128 intervals. Independent references, exact repeats and old baselines
+pass. Next profile mixed-solve internals, then optimize/requalify the measured
+primitive. The synthetic23–46-day estimate is not native CO throughput.
+Complete public replay reproduces all24 decimal/binary64 K matrices,166 decisions
+and six oracle pairs exactly; all14 payloads verify. Local tests pass85 with two
+wider-format skips exercised remotely. No scientific container runs at13:56UTC.
+
+**Earlier update — 19 October, 13:23 UTC:** the
 [coupled extended-arithmetic control](NUMEROV_COUPLED_PRECISION.md) passes
 **89/89 checks / exits0/0**,32 typed propagations in45.78 s. Noncommuting
 short-grid arithmetic, exact inverse-square convergence/invariants, archived
@@ -425,10 +437,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 19 October 2026
 
-![CO qualification: coupled precision passes independent controls; dense setup and solve costs need optimization](../../docs/physics/figures/co-progress-20261019-coupled.png)
+![CO qualification: measured dense scaling separates setup from dominant recurring solve cost](../../docs/physics/figures/co-progress-20261019-dense.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-coupled.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-coupled.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019-dense.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019-dense.json) ·
+[Dense scaling result](NUMEROV_DENSE_SCALING.md) ·
+[Public dense scaling evidence](qualification-evidence/numerov-dense/README.md) ·
+[Previous coupled-control figure](../../docs/physics/figures/co-progress-20261019-coupled.svg) ·
+[Previous coupled snapshot](progress-snapshot-20261019-coupled.json) ·
 [Coupled precision and profiled cost control](NUMEROV_COUPLED_PRECISION.md) ·
 [Public coupled-precision evidence](qualification-evidence/numerov-coupled/README.md) ·
 [Extended-arithmetic qualification](NUMEROV_ARITHMETIC_CONTROL.md) ·
@@ -702,11 +718,12 @@ The six panels explain the qualification campaign:
   pole curve; background-sensitive extraction still needs qualification. The
   CAS12 both-sector native candidate is shown in the note alongside the completed
   independent export/Pi checks; it remains provisional for pole extraction.
-- **B — Coupled physical convergence.** The exact inverse-square hard-wall
-  scattering benchmark converges approximately16× per h halving in both dtypes,
-  to S error2.281e-9. Noncommuting short models pass independent discrete arithmetic
-  and continuous controls. Archived free-stress endpoints also pass extended
-  gates; those remain separate from native CO uncertainty bounds.
+- **B — Dense setup versus recurring cost.** The synthetic298-channel benchmark
+  passes166 checks. Two-repeat extended times at8/32/128 intervals fit positive
+  affine slopes; measured free/varying marginal rates are.135263/.271376 s per
+  interval. Recurring solves dominate at128 intervals. These cost observations
+  guide profiling/optimization; earlier physical convergence and stress controls
+  remain qualified within their own scopes, separate from native CO error bounds.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
   budgets pass over 1.9–2.5 bohr: maximum QZ/5Z relative difference 17.243 meV and
@@ -739,12 +756,14 @@ The six panels explain the qualification campaign:
   channels, identity, width extraction and neutral correlation still determine the
   production model. A frozen restartable pilot precedes the sweep and held-out
   QSCAT potential validation. Coupled extended arithmetic passes its finite
-  controls; dense-channel performance now needs setup/interval scaling and
-  targeted optimization before a separately contracted interior CO comparison.
+  controls; dense-channel scaling now identifies recurring mixed solves as the
+  optimization priority before a separately contracted interior CO comparison.
 
-This is the **19 October13:23:03 UTC** snapshot. The32-propagation coupled control
-and complete public numerical replay pass; all extended decimal components and
-89 decisions reproduce exactly. Earlier interior false/exits1/1 and all other
+The **19 October13:56:02 UTC** snapshot adds the24-propagation dense scaling control and166 passing
+decisions. Its two-repeat interval rates separate recurring work from fixed
+setup; mixed-solve internals are the next profiling/optimization target.
+The earlier32-propagation coupled control and exact replay remain qualified.
+Earlier interior false/exits1/1 and all other
 numerical/model rejections remain recorded. Historical independent coverage is
 132/594 identities with462 uncomputed;14 CO identities have increment-corner
 qualification. CAS12 root-pair evidence remains sufficient for current matched
@@ -762,7 +781,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned12:59 arithmetic snapshot; its chain
+snapshot is an explicit delta against the hash-pinned13:23 coupled snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

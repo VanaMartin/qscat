@@ -196,6 +196,20 @@ scheduling interior CO. The eight-interval average, including setup, is not a
 CO throughput measurement. All14 public payloads verify. Original interior
 false/exits1/1 and coverage132/594/462 uncomputed remain; no CO successor runs.
 
+The subsequent [dense setup/interval benchmark](NUMEROV_DENSE_SCALING.md) passes
+166/166 checks/exits0/0 in207.11 s:24 unchanged-kernel298-channel propagations,
+two potentials, N=8/32/128 and two repetitions. Extended marginal rates are
+.135263/.271376 s per interval for free/varying W. Recurring solves dominate
+at128 intervals; all timing hypotheses pass. Synthetic60-solve estimates are
+23–46 single-worker days, not a native CO forecast. Next isolate mixed-solve
+residual products versus LU, then optimize/requalify the proven primitive under
+a separate contract before an interior CO pilot. The existing Python numerical
+reference and backward-error gates carry forward; all earlier rejections remain.
+Full public replay reproduces all24 decimal/binary64 matrices,166 decisions and
+six oracle pairs exactly. All14 final payloads verify;85 local tests pass with
+two wider-format skips, exercised remotely. No scientific container runs at the
+13:56UTC capture.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
