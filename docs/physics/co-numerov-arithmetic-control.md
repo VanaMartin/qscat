@@ -78,3 +78,14 @@ a conservative **360-s forecast /600-s upper /1200-s cap** against the previous
 persistent `/home` evidence, pinned source/input bytes and before/after242 engine
 artifact checks. Publish numerical outputs and independently verify saved
 decisions; freeze any public numerical replay scope separately.
+
+## Recorded result
+
+The separately frozen14-solve control passes35/35 control and10/10 qualification
+checks, original exits0/0. Measured longdouble has64 significand bits; extended
+K drift is at most5.52006e-10, and finest continuous K error at most6.34104e-8.
+The all-six >=100× precision-gain hypothesis is true, with ratios453–2458.
+Both original SciPy baselines reproduce exactly. Measured64.803874 s stays below
+the conservative forecast. See the [result and scope](../../projects/ukrmol_co/NUMEROV_ARITHMETIC_CONTROL.md)
+for the table, resources, independent decisions and public replay. Coupled
+inverse-power arithmetic is the next separately qualified formulation.

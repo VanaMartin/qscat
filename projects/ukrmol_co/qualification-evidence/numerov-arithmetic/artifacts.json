@@ -1,0 +1,62 @@
+{
+  "artifacts": {
+    "manifest.json": {
+      "bytes": 3536,
+      "sha256": "3cd228579ba380be9b3033bd519df75bca3517b84c983d292fe933b375fff751"
+    },
+    "mpmath-1.3.0-py3-none-any.whl": {
+      "bytes": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+    },
+    "numerical-worker.py": {
+      "bytes": 3666,
+      "sha256": "c2c0e6013aec8437e1fd64d74a1bf91fef7a989825206ca30d118697317d5338"
+    },
+    "prior-report.json": {
+      "bytes": 50540,
+      "sha256": "2af829baa26dc5b0ba29640eb441717cb10a45dd87070d083c77ad9d794cc004"
+    },
+    "public-execution.json": {
+      "bytes": 2467,
+      "sha256": "06f8c895a2159a54a6c38973860984fbd6e207b73b93d901ca798b8c59c6c1c1"
+    },
+    "public-owner.py": {
+      "bytes": 5454,
+      "sha256": "4680c8eb4beeb2a379f2d2ba483008eac09226c9990e83c7cbb1e0e3875e090a"
+    },
+    "public-replay.json": {
+      "bytes": 1961,
+      "sha256": "eb7fdc8bdc04083f1f156e373a1a7c0e40b8717142f8fa057c2f96245665d1b1"
+    },
+    "public-replay.tar.gz": {
+      "bytes": 17485,
+      "sha256": "2c2ea0f13aed4e337a6694e213e6d67fe73cb4e18d721c4d4cb66899c45ba19d"
+    },
+    "replay-contract.json": {
+      "bytes": 1720,
+      "sha256": "207d96a342228204b3436486286e35455213eb2f6f18c3168268478f572ae2f2"
+    },
+    "results.tar.gz": {
+      "bytes": 658717,
+      "sha256": "cf114d3c23b480cc0a1da5117d3424c15570cb58825666184a03bf5c3994750c"
+    },
+    "saved-replay.json": {
+      "bytes": 1100,
+      "sha256": "1a6d7d5bc1f29404fc2d773688c1e445a83d234633294b0bfe1a25518108303a"
+    },
+    "source-manifest.json": {
+      "bytes": 6968,
+      "sha256": "d5c69008a344d157116c79b47713134c3b91b99cc0f6bf54531639ade6bece6f"
+    },
+    "source.tar.gz": {
+      "bytes": 107117,
+      "sha256": "9420cbf620dd5081dded691a587b96a0fb3240bf5ff4df9c9cdb0258a1a54dd0"
+    },
+    "verification-support.tar.gz": {
+      "bytes": 2686,
+      "sha256": "79c643363b93e79f832e3993ff1151e0fac2b1dfaf27bd0ec44763c4ea4a89a7"
+    }
+  },
+  "git_sha": "44ed1952858cd471df64721a837353cac45f8b0a",
+  "url_prefix": "https://data.qscat.org/co-numerov-arithmetic-20261019/"
+}

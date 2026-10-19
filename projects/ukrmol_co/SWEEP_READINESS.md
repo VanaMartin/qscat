@@ -168,6 +168,21 @@ Public replay reproduces all ten new K matrices exactly and all diagnostic/
 hypothesis values;68 tests and19 final payloads verify. Verification-only
 dependency/preflight failures remain archived. No scientific container runs.
 
+The separately frozen [extended-arithmetic control](NUMEROV_ARITHMETIC_CONTROL.md)
+then passes35/35 control and10/10 qualification checks, original exits0/0:
+14 analytic solves in64.80 s. On unchanged grids,64-bit-significand longdouble
+reduces drift453–2458× versus the same typed binary64 implementation. All six
+extended drift errors pass1e-8 and finest continuous K/S/phase pass1e-6. Both old
+SciPy baselines reproduce exactly. The small free-exterior solver is qualified
+only for constant diagonal potentials, not the coupled CO exterior. Next design
+and separately cost a dtype-preserving coupled inverse-power formulation with
+independent controls, before revisiting the withheld ten-identity interior scope.
+All earlier rejections and coverage132/594/462 uncomputed remain.
+Public replay reproduces all14 campaign matrices exactly, including extended
+decimal components, plus every decision/hypothesis. Six short-grid preflight
+controls pass remotely in both dtypes;74 local tests pass with one wider-format
+skip. All14 final public payloads verify, exits0/0; no scientific container runs.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

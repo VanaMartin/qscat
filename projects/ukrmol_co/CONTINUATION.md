@@ -20,6 +20,62 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Fixed-grid extended-arithmetic qualification passes — 19 October, 12:51 UTC
+
+The [arithmetic control](NUMEROV_ARITHMETIC_CONTROL.md), design and contract are
+frozen/pushed at **`44ed1952858cd471df64721a837353cac45f8b0a`** before submission.
+It completes **35/35 control and10/10 qualification checks / original exits0/0**,
+14 analytic solves /3957760 intervals. Six fixed coordinates run in both typed
+binary64 and longdouble; two original SciPy baselines reproduce every K component
+exactly. Measured significands are53/64 bits. The new small-solver implementation
+uses direct Taylor increments and equilibrated matching identically in both
+dtypes; this does not isolate a unique operation in the older SciPy method.
+
+All six extended drift errors pass1e-8: worst **5.52006e-10**. Finest continuous
+K/S/phase pass1e-6, worst K **6.34103e-8**. The separate all-six >=100× precision
+improvement hypothesis is **true**, ratios **453.27–2458.25**. Actual archived
+binary64 Q/threshold/energy inputs and all spatial grids remain fixed;80/110-digit
+discrete/continuous oracle checks pass. Extended K decimals are retained before
+binary64 presentation and error assessment. The original interior prerequisite
+remains **false/exits1/1**; no coupled CO repair is inferred from a free exterior.
+
+Measured **64.803874 s /64.275304 sampled CPU s /46,731,264-byte kernel peak**,
+322 samples at0.2 s, reserved four physical cores0–3/4 GiB, below360-s forecast/
+600-s upper/1200-s cap. All57 frozen sources,242 installed artifacts and pinned
+prior report verify before/after. Original10-file collection remains under
+`prepared/numerov-arithmetic-control-20261019/` in the campaign root.
+
+Separate saved-decision verifier and full public replay contract freeze at
+**`a372e8b`**. Complete public numerical replay finishes **12:58:08UTC / exits0/0**:
+all12 typed decimal K matrices and two older baselines reproduce exactly,
+including all45 decisions and hypothesis/oracle values. Six tiny short-grid
+preflight solves in both dtypes pass (extended oracle error<=6.50e-18), plus
+pivot-demanding/singular systems. The stored dtype name`float128` has64 measured
+significand bits, not113. Replay costs **64.704617 s /64.082103 sampled CPU s /
+44,285,952-byte kernel peak**,321 samples at0.2 s, reserved cores0–3/4 GiB,
+below90-s forecast/180-s upper/600-s cap. Its8-file collection lives under
+`prepared/numerov-arithmetic-public-replay-20261019/`. All **14 final public
+payloads** fresh-verify; local tests pass **74 with one wider-precision skip**.
+The pinned tools image lacks pytest; remote standalone controls test the wider
+format directly. Public evidence:`https://data.qscat.org/co-numerov-arithmetic-20261019/`.
+
+The [12:59:29UTC capture](progress-numerov-arithmetic-result-20261019.json)
+reverifies18 remote collected hashes,57 sources,242 engine artifacts and prior
+report. No scientific containers run;60.76 GiB persistent disk remains.
+
+**Next:** design and separately cost a dtype-preserving coupled inverse-square/
+inverse-cube formulation, including derivatives, tail recursion and matching,
+with independent controls. The qualified free-exterior solver handles at most
+three channels and cannot propagate the298-channel CO exterior. Only after
+coupled precision qualification and a separately frozen CO contract should the
+withheld ten-identity interior proposal return. Candidate CO qualification14,
+historical coverage132/594/462 uncomputed and every older rejection remain.
+No spacing ladder, tolerance relaxation, inner solve or full-grid release.
+
+Main-index discovery uses complete/current`423d577`, upstream current. New
+arithmetic modules are branch-only and resolved locally; numerical producer and
+contract remain byte-identical to`44ed195`, verifier/replay contract to`a372e8b`.
+
 ### Fixed-grid matrix precision attribution passes — 19 October, 12:27 UTC
 
 The [precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md) is frozen/pushed at

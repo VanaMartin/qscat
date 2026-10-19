@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-precision.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-arithmetic.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -774,6 +774,39 @@ def _native_full_rejection(ax, data):
     _note(ax, data["native_full_rejection_note"])
 
 
+def _arithmetic_control(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Extended arithmetic suppresses drift",
+        "Free rotated open/closed toy; unchanged h = .0015625 bohr",
+    )
+    rows = data["arithmetic_control"]
+    x = np.arange(len(rows))
+    for metric, color, marker, label in [
+        ("binary64_roundoff_k", BLUE, "o", "Typed binary64 drift (53 bits)"),
+        ("extended_roundoff_k", GREEN, "^", "Typed extended drift (64 bits)"),
+        ("truncation_k", ORANGE, "s", "Unchanged discrete truncation"),
+    ]:
+        ax.semilogy(x, [r[metric] for r in rows], color=color, marker=marker, label=label)
+    for i, row in enumerate(rows):
+        ratio = row["binary64_roundoff_k"] / row["extended_roundoff_k"]
+        ax.annotate(
+            f"{ratio:.0f}×",
+            (i, row["binary64_roundoff_k"]),
+            xytext=(0, 9),
+            textcoords="offset points",
+            ha="center",
+            color=BLUE,
+        )
+    ax.axhline(1e-8, color=GRAY, ls="--", lw=1, label="Extended drift qualification gate")
+    ax.set_xticks(x, [str(int(r["endpoint_bohr"])) for r in rows])
+    ax.set(xlim=(-0.2, 2.2), ylim=(2e-10, 4e-6), xlabel="Endpoint / bohr (fixed spatial grids)")
+    ax.set_ylabel("Maximum K entry error / component (absolute)")
+    ax.legend(loc="center left", frameon=False, fontsize=8.5)
+    _note(ax, data["arithmetic_control_note"])
+
+
 def _precision_attribution(ax, data):
     _panel(
         ax,
@@ -878,7 +911,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _precision_attribution
+            _arithmetic_control
+            if "arithmetic_control" in data
+            else _precision_attribution
             if "precision_attribution" in data
             else _native_full_rejection
             if "native_full_rejection_comparisons" in data
@@ -962,7 +997,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-precision"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-arithmetic"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

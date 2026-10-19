@@ -1,0 +1,194 @@
+{
+  "verified_utc": "2026-10-19T12:56:58.769363+00:00",
+  "fresh_public_bytes_verified": true,
+  "payloads_verified": 10,
+  "frozen_sources_verified": 57,
+  "verification_support_files_verified": 1,
+  "saved_decision_replay_passed": true,
+  "saved_decision_replay_exit": 0,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "control_checks_passed": 35,
+  "control_checks_total": 35,
+  "qualification_checks_passed": 10,
+  "qualification_checks_total": 10,
+  "public_focused_tests_exit": 0,
+  "test_stdout": "......s................................................................. [ 96%]\n...                                                                      [100%]\n74 passed, 1 skipped in 2.92s\n",
+  "public_numerical_reexecution_passed": true,
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "public_numerical_rows_reexecuted": 14,
+  "all_typed_decimal_and_original_baseline_components_exactly_reproduce": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_replay_execution": {
+    "started_utc": "2026-10-19T12:57:03.443890+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-numerov-arithmetic-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/dependencies:/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-arithmetic-public-replay-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-arithmetic-public-replay-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "public_archive_sha256": "c473693a1b072f546fac226c07434e707562e4587a323cf94df600ecc3356a2f",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 90,
+    "upper_wall_seconds": 180,
+    "timeout_seconds": 600,
+    "source_files_verified": 57,
+    "verification_support_files_verified": 1,
+    "effective_source_files_verified": 58,
+    "installed_engine_artifacts_verified": 242,
+    "prior_report_files_verified": 1,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "persistent_disk_free_gib": 60.764556884765625,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "driver_exit": 0,
+    "finished_utc": "2026-10-19T12:58:08.153239+00:00",
+    "wall_seconds": 64.70461699200678,
+    "sampled_memory_current_peak_bytes": 44265472,
+    "sampled_kernel_memory_peak_bytes": 44285952,
+    "sampled_cpu_seconds": 64.082103,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 321,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "public_replay": {
+    "public_numerical_reexecution_passed": true,
+    "typed_decimal_components_exactly_reproduce": true,
+    "original_baseline_components_exactly_reproduce": true,
+    "decisions_and_oracles_identical": true,
+    "experiment_verdict": true,
+    "precision_bits": {
+      "binary64": 53,
+      "longdouble": 64
+    },
+    "control_checks_passed": 35,
+    "qualification_checks_passed": 10,
+    "hypotheses": {
+      "all_six_roundoff_reduction_at_least_100fold": true,
+      "roundoff_reduction_ratios": [
+        983.192251043865,
+        812.390284410308,
+        718.67040118128,
+        1348.8953944867017,
+        453.2654142102431,
+        2458.2474984860837
+      ]
+    },
+    "new_analytic_solves_reexecuted": 14,
+    "typed_rows_reexecuted": 12,
+    "original_baselines_reexecuted": 2,
+    "short_grid_preflight_test_solves": 6,
+    "preflight": [
+      {
+        "dtype": "float64",
+        "thresholds": [
+          0.0
+        ],
+        "discrete_oracle_error": 3.3912891391280828e-15
+      },
+      {
+        "dtype": "float64",
+        "thresholds": [
+          0.0,
+          0.2
+        ],
+        "discrete_oracle_error": 3.344014090568552e-15
+      },
+      {
+        "dtype": "float64",
+        "thresholds": [
+          0.0,
+          0.0,
+          1.2
+        ],
+        "discrete_oracle_error": 1.3527801611533706e-14
+      },
+      {
+        "dtype": "float128",
+        "thresholds": [
+          0.0
+        ],
+        "discrete_oracle_error": 1.6394670694017635e-18
+      },
+      {
+        "dtype": "float128",
+        "thresholds": [
+          0.0,
+          0.2
+        ],
+        "discrete_oracle_error": 1.0896491272955868e-18
+      },
+      {
+        "dtype": "float128",
+        "thresholds": [
+          0.0,
+          0.0,
+          1.2
+        ],
+        "discrete_oracle_error": 6.499478032483562e-18
+      }
+    ],
+    "kernel_wall_seconds": 64.0141342819843,
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "public_replay_collection": {
+    "files": 8,
+    "archive_sha256": "2c2ea0f13aed4e337a6694e213e6d67fe73cb4e18d721c4d4cb66899c45ba19d"
+  },
+  "replay_verified_utc": "2026-10-19T12:58:38.890849+00:00",
+  "final_public_verified_utc": "2026-10-19T12:59:33.626148+00:00",
+  "public_payloads_verified": 14,
+  "all_final_payloads_fresh_downloaded": true,
+  "collected_file_counts_verified": {
+    "collected": 10,
+    "replay": 8
+  }
+}

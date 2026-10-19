@@ -1,0 +1,90 @@
+{
+  "git_sha": "44ed1952858cd471df64721a837353cac45f8b0a",
+  "verification_support_git_sha": "a372e8be7e8035f6e829ab291ef8d20d94195307",
+  "date": "2026-10-19",
+  "record_type": "fixed-grid-extended-arithmetic-control",
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "control_checks_passed": 35,
+  "control_checks_total": 35,
+  "qualification_checks_passed": 10,
+  "qualification_checks_total": 10,
+  "new_analytic_solves": 14,
+  "typed_rows": 12,
+  "original_baseline_reexecutions": 2,
+  "precision_bits": {
+    "binary64": 53,
+    "longdouble": 64
+  },
+  "hypotheses": {
+    "all_six_roundoff_reduction_at_least_100fold": true,
+    "roundoff_reduction_ratios": [
+      983.192251043865,
+      812.390284410308,
+      718.67040118128,
+      1348.8953944867017,
+      453.2654142102431,
+      2458.2474984860837
+    ]
+  },
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_arithmetic_replay.py": "1ba046102c07e155580ec97f7486c36c73f3dab846cdec1fa506e7073905277a"
+  },
+  "verification_support_role": "Adds a saved-decision verifier without replacing any frozen source.",
+  "saved_decision_replay_passed": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "status": "prospective complete public numerical replay of fixed-grid arithmetic control",
+    "producer_source_commit": "44ed1952858cd471df64721a837353cac45f8b0a",
+    "producer_source_archive_sha256": "9420cbf620dd5081dded691a587b96a0fb3240bf5ff4df9c9cdb0258a1a54dd0",
+    "producer_results_archive_sha256": "cf114d3c23b480cc0a1da5117d3424c15570cb58825666184a03bf5c3994750c",
+    "worker_sha256": "c2c0e6013aec8437e1fd64d74a1bf91fef7a989825206ca30d118697317d5338",
+    "new_analytic_solves_reexecuted": 14,
+    "typed_rows_reexecuted": 12,
+    "original_baselines_reexecuted": 2,
+    "short_grid_preflight_test_solves": 6,
+    "comparison": "Require exact stored decimal K components for both dtypes, exact original-baseline K, identical controls, qualification decisions, hypotheses and oracles; retain extended components before binary64 presentation.",
+    "preflight": "Both dtypes: pivot-demanding and singular systems, then scalar/open/mixed-channel short-grid comparison with the independent discrete oracle at 2e-12 binary64 and 1e-14 extended absolute K. Stop before campaign replay on failure.",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "workers": 1,
+      "blas_threads": 1,
+      "memory_gib": 4,
+      "expected_wall_seconds": 90,
+      "upper_wall_seconds": 180,
+      "timeout_seconds": 600,
+      "sample_interval_seconds": 0.2
+    },
+    "stopping_rule": "Run once from fresh public bytes; preserve exits and original outputs. Failure stops further submissions. No new spacing, endpoint, precision rung, CO or inner solve.",
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "public_numerical_rows_reexecuted": 14,
+  "public_replay_exits": [
+    0,
+    0
+  ]
+}

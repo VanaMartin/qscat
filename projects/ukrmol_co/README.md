@@ -43,6 +43,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [cross-anchor / all-finest-endpoint qualification](NUMEROV_CORNER_CONTROL.md),
 [interior stress prerequisite rejection](NUMEROV_INTERIOR_CONTROL.md),
 [fixed-grid matrix precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md),
+[extended-arithmetic qualification](NUMEROV_ARITHMETIC_CONTROL.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -70,7 +71,21 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October, 12:27 UTC:** the
+**Update — 19 October, 12:51 UTC:** the
+[fixed-grid extended-arithmetic control](NUMEROV_ARITHMETIC_CONTROL.md) passes
+**35/35 control and10/10 qualification checks / original exits0/0**,14 analytic
+solves in64.80 s. With64 rather than53 significand bits, drift falls **453–2458×**
+across all six coordinates. Worst extended K drift5.52e-10 passes1e-8; finest
+continuous K/S/phase pass1e-6. Two older baselines reproduce exactly. This qualifies
+the small free-exterior control; the next separately costed step is a
+dtype-preserving coupled inverse-power formulation before returning to interior
+CO. Original interior false/exits1/1 and historical coverage132/594 remain.
+Complete public replay reproduces every extended decimal K component, both old
+baselines and all45 decisions exactly; six short-grid preflight controls pass
+on Sadaharu. All14 final public payloads verify; local tests pass74 with one
+wider-precision skip. No scientific container runs at the12:59UTC capture.
+
+**Earlier update — 19 October, 12:27 UTC:** the
 [fixed-grid precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md) completes
 **46/46 diagnostic checks / exits0/0**, with ten analytic solves in61.05 s.
 At the two rejected rotated-model points, floating-point drift exceeds discrete
@@ -398,10 +413,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 19 October 2026
 
-![CO qualification: fixed-grid analytic attribution identifies dominant matrix roundoff; original interior rejection retained](../../docs/physics/figures/co-progress-20261019-precision.png)
+![CO qualification: extended arithmetic suppresses free-matrix roundoff on unchanged grids; coupled CO formulation remains to qualify](../../docs/physics/figures/co-progress-20261019-arithmetic.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-precision.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-precision.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019-arithmetic.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019-arithmetic.json) ·
+[Extended-arithmetic qualification](NUMEROV_ARITHMETIC_CONTROL.md) ·
+[Public arithmetic evidence](qualification-evidence/numerov-arithmetic/README.md) ·
 [Fixed-grid precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md) ·
 [Public precision evidence](qualification-evidence/numerov-precision/README.md) ·
 [Interior stress prerequisite and stopping rule](NUMEROV_INTERIOR_CONTROL.md) ·
@@ -477,6 +494,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous07:21overview](../../docs/physics/figures/co-progress-20261019.png) ·
 [Previous08:59overview](../../docs/physics/figures/co-progress-20261019-corners.png) ·
 [Previous09:54overview](../../docs/physics/figures/co-progress-20261019-interior.png) ·
+[Previous12:35overview](../../docs/physics/figures/co-progress-20261019-precision.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -669,81 +687,59 @@ The six panels explain the qualification campaign:
   pole curve; background-sensitive extraction still needs qualification. The
   CAS12 both-sector native candidate is shown in the note alongside the completed
   independent export/Pi checks; it remains provisional for pole extraction.
-- **B — Which tests limit accuracy.** Sparse replay, propagation and angular
-  controls pass their tested phase gates. The sparse bar now shows the selected
-  **2048-root** control rather than 8192. Active-space changes and all-background
-  width spreads reject. Each bar is normalized by its own declared gate;
-  these ratios are diagnostic sensitivities, not a common uncertainty measure.
-  The new CAS11→CAS12 phase difference in the note awaits CAS12 spectral qualification.
+- **B — Fixed-grid arithmetic qualification.** The free rotated open/closed
+  model compares typed binary64 and64-significand-bit extended arithmetic at
+  fixed h=.0015625 and endpoints200/400/800 bohr. Extended drift falls below
+  5.53e-10 while the discrete truncation is unchanged. Across all six contracted
+  scalar/matrix coordinates the precision-gain hypothesis passes453–2458×.
+  The1e-8 line is the extended-drift gate, not a native CO uncertainty bound.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
   budgets pass over 1.9–2.5 bohr: maximum QZ/5Z relative difference 17.243 meV and
   cubic held-point error 0.114 meV. Reuse the points, frozen-core convention and
   each basis's own energy zero. Correlation-model uncertainty remains open;
   unstable RHF at 3–4 bohr prevents an unqualified domain extension.
-- **D — Smallest qualified CAS11 root count.** **2048 roots** already passes the
+- **D — Cost and reusable root controls.** **2048 roots** already passes the
   independent spectral/export/phase/fixed-window gates, with maximum phase error
   **5.1e-6 rad** against 0.05 rad, and measured replay cost **2.45 h / 7.69 GiB**.
   Higher counts through 16384 are supporting controls, not a production requirement.
-  Qualification applies to the tested equilibrium model; CAS12 and other sweep
-  geometries need their own checks. Dense full-pipeline and sparse replay timings
+  Qualification applies to the tested model and scope. Dense full-pipeline and sparse replay timings
   have different scopes and are not a matched speedup comparison. CAS12 dense
   workspace remains above local RAM. The new **CAS12 2048-root pilot costs10.05 h /
   22.36 GiB**, including native Hamiltonian construction and both-sector outer
   stages but excluding target QC/import and the separate reader. Its amber bar
-  marks measured affordability, while root-count qualification remains open.
+  marks measured affordability; the later same-engine2048→4096 refinement passes.
   The 4096-root failure note records partial cost only; it produced no completed
   eigenpair export and has no successful-cost bar.
   The completed matched-engine control adds **11.57 h / 21.96 GiB** for both
   sectors at 2048 roots; its engine-reproduction pass leaves root qualification open.
   The scientific4096comparison adds **14.92 h / 21.74 GiB** and passes pair
   stability; absolute omitted-spectrum qualification remains open.
-- **E — Explicit channel coverage.** The [physical A2 audit](A2_CHANNEL_COVERAGE.md)
-  finds only 0.0002–0.0004 squared projection into the retained five roots on four
-  problematic route links. Root 6 recovers much of the weight, but singlet root 7
-  and root 9 contribute 0.194 and 0.122 on one link. This motivates fixed-orbital
-  explicit-A2-channel scattering controls after spectral qualification.
-  Diagnostic six/twelve-root projections are not native channel-convergence
-  results or a global state/pole-identity verdict.
+- **E — Measured channel sensitivity.** Five→nine retained A2 roots change
+  phases by0.01159/0.01637/0.06792 rad at compressed/equilibrium/stretched
+  anchors. The first two pass0.05 rad; stretched rejects after root refinement.
+  Nine A2 roots do not establish full channel convergence or global state identity.
 - **F — Reuse and remaining gates.** Two frozen A1 core orbitals,ten active
   electrons, independent target-map/import checks, CAS11's qualified root count and
   neutral numerical inputs carry forward. Electronic basis/active-space/ensemble/
   channels, identity, width extraction and neutral correlation still determine the
   production model. A frozen restartable pilot precedes the sweep and held-out
-  QSCAT potential validation. The CAS12 cost/export/symmetry pilot is now checked;
-   its original 4096-root comparator failed before eigenpair export.
-   The separate B1 diagnostic captures a Class1 source fault; its relationship to the
-   release failure remains unproven. The new address audit completes B1 with
-   independently read4096-root exports. Its matched2048-root scientific baseline
-     control independently reproduces both sectors; the scientific4096comparison
-     now passes pair stability on that same qualified engine/runtime.
+  QSCAT potential validation. The newest finite result qualifies free-exterior
+  extended arithmetic; the next gate is a coupled inverse-power formulation,
+  followed by a separately contracted interior CO comparison.
 
-This is a dated **14 October 10:34:57 UTC** snapshot: CAS12 root-pair evidence is
-sufficient for current matched controls; 8192 is cancelled with partial evidence
-preserved. CAS11 16K and TZ-frame records
-now reconstruct independently from public bytes. The import queue stopped on9 October at21:01 UTC:
-reoptimized triplet-A1 root 3 differs from the covered seed by **3.0249e-7 Hartree**,
-above the 1e-7 gate. Fresh diagnostic replay verifies all64 roots/dipoles/subspaces
-against the independently covered imported orbital frame, but does not retroactively
-qualify the failed seed-preservation contract. A distinct reoptimized target now
-passes numerical qualification. Supported aug-TZ now passes independent import
-checks; compressed private-cache import also passes all independent gates. Midpoint and
-twelve-root anchor wavefunctions/matrices reconstruct from public archives;
-quarter wavefunctions/matrices also reconstruct from public bytes. One CAS12
-sparse successor has completed both sectors and independent reading; its separate
-4096-root comparator has stopped on a native B1 SEGV; the separately declared
-saved-input diagnostic captures an earlier Class1 pointer-access fault. Its new
-address-audit successor completes B1 and independent4096-root export reading;
-the matched2048-root audited-engine control independently reproduces both sectors.
-A separately declared scientific4096root B1/B2 comparison passes pair stability
-on the same engine/direct-MPI/telemetry runtime; absolute omission remains unqualified.
-Original package/setup/
-shared-memory failures and the new native failure remain preserved.
-State/pole identity remains unqualified. The original TZ diagnostic's final-write
-exit1 is preserved; additive report recovery exits0. Historical literature
-comparisons remain available in the 08:16 release, with their tracked reference
-notes and page/table locators. They represent different models, not an experimental
-resonance error band.
+This is the **19 October12:59:29 UTC** snapshot. The14-solve arithmetic control
+and complete public numerical replay pass; all extended decimal components and
+45 decisions reproduce exactly. Earlier interior false/exits1/1 and all other
+numerical/model rejections remain recorded. Historical independent coverage is
+132/594 identities with462 uncomputed;14 CO identities have increment-corner
+qualification. CAS12 root-pair evidence remains sufficient for current matched
+controls; its refinement difference is not an absolute omitted-spectrum bound.
+The preserved8192 cancellation, engine failures and distinct reoptimized TZ
+qualification retain their original scopes. State/pole identity and production
+potential fitting remain unqualified. Historical literature comparisons retain
+their tracked page/table locators and represent different models, not an
+experimental resonance error band.
 
 Reproduce both PNG and text-preserving SVG without fetching large archives:
 
@@ -752,7 +748,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned 23:22 snapshot; its chain
+snapshot is an explicit delta against the hash-pinned12:35 precision snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

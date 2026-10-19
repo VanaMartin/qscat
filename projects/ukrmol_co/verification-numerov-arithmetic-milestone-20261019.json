@@ -1,0 +1,61 @@
+{
+  "verified_utc": "2026-10-19T13:02:41.540573+00:00",
+  "producer_source_freeze": "44ed1952858cd471df64721a837353cac45f8b0a",
+  "verification_support_freeze": "a372e8b",
+  "frozen_numerical_sources_and_contract_unchanged": true,
+  "overview_source_hashes_verified": 429,
+  "documentation_links_verified": 697,
+  "control_checks_passed": 35,
+  "control_checks_total": 35,
+  "qualification_checks_passed": 10,
+  "qualification_checks_total": 10,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "all_six_precision_gain_hypothesis": true,
+  "precision_bits": {
+    "binary64": 53,
+    "longdouble": 64
+  },
+  "original_interior_verdict": false,
+  "original_interior_exits": [
+    1,
+    1
+  ],
+  "new_analytic_solves": 14,
+  "candidate_qualified_identities": 14,
+  "new_co_independent_solves": 0,
+  "co_successor_submitted": false,
+  "new_unique_energy_identities": 0,
+  "original_unique_energy_coverage": 132,
+  "original_uncomputed_identities": 462,
+  "public_payloads_verified": 14,
+  "public_focused_tests_passed": 74,
+  "public_focused_tests_skipped": 1,
+  "public_new_analytic_solves_reexecuted": 14,
+  "all_stored_extended_decimal_and_baseline_K_components_exact": true,
+  "all_control_qualification_hypothesis_values_identical": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "remote_short_grid_preflight_tests_passed": 6,
+  "remote_collected_hashes_verified": 18,
+  "frozen_source_files_verified": 57,
+  "installed_engine_artifacts_verified": 242,
+  "prior_report_verified": true,
+  "ruff_lint_format_and_diff_passed": true,
+  "png_visually_checked_and_text_svg_validated": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_state": "current",
+  "main_index_upstream_state": "current",
+  "relevant_branch_delta_from_index": "A\tprojects/ukrmol_co/numerov_arithmetic_control.py\nA\tprojects/ukrmol_co/numerov_arithmetic_replay.py\nA\tprojects/ukrmol_co/numerov_typed_free.py\n",
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}
