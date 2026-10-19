@@ -1,0 +1,39 @@
+{
+  "status": "prospective independent saved audit and one complete public numerical replay",
+  "producer_source_commit": "9ed0123b62345d49439999e83fe5aa412816f463",
+  "source_archive_sha256": "9eae87a5e54bedd37516ef8b79d0a3671253487a488a9a1904d799669ccd6562",
+  "results_archive_sha256": "f2b537d7a4e4f809b038e153736122d2e30b6bfc672804ed601e1e7106f6d086",
+  "original_report_sha256": "c3388417fc0485f91829d8a4bd20129bd9244c475f66308891170978fecce77c",
+  "original_scientific_verdict": true,
+  "original_runtime_exits": [0, 0],
+  "original_checks": 538,
+  "original_rows": 50,
+  "public_experiment": "co-numerov-native-integration-20261019",
+  "required_saved_audit": "Reconstruct all538 numerical/control decisions, coordinate ordering, original references, residual observation counts, stage summaries and timing arithmetic independently in pinned runtime image.",
+  "required_numeric_replay": "Repeat frozen producer scope with published original source, three prior reports, mpmath dependency and qualified native wheel. Every decimal K, full numerical diagnostic, residual-audit aggregate, reference error and numeric decision must reproduce exactly. Ignore fresh timing magnitudes/hypotheses for numerical identity.",
+  "new_numerical_replays_authorized": 1,
+  "new_propagations_maximum": 50,
+  "new_radial_intervals_maximum": 1730352,
+  "expected_mixed_solves": 1737200,
+  "expected_native_audited_solves": 867632,
+  "wheel_sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+  "wheel_components": {
+    "qscat_extended_kernels/__init__.py": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "qscat_extended_kernels/qscat_extended_kernels.abi3.so": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e"
+  },
+  "runtime_image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "resources": {
+    "cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 450, "upper_wall_seconds": 900, "timeout_seconds": 1800,
+    "saved_audit_timeout_seconds": 180, "sample_interval_seconds": 0.2
+  },
+  "cost_justification": "Producer measured415.725s /415.198 sampled CPU s /147685376-byte peak. One exact public numerical replay verifies the integrated decision/accuracy evidence; no extra scientific configurations are authorized.",
+  "stopping_rule": "Fresh persistent directory; downloaded hashes/source/support/wheel/components/priors and saved decisions must pass before reexecution. Preserve original owner/container/verification exits on any failure; no retries, source replacement, numerical tolerance changes, extra repeats or automatic CO submission.",
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [1, 1],
+  "new_co_independent_solves": 0,
+  "new_inner_solves": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}

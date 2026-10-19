@@ -82,3 +82,28 @@ python -m projects.ukrmol_co.numerov_native_integration \
 The output is checkpointed after every completed row and stage. Frozen source,
 wheel/component/prior verification and resource ownership belong to the launch
 record; the scientific report preserves numerical rows and gate decisions.
+
+## Independent reconstruction and numerical replay
+
+`numerov_native_integration_replay` reconstructs decisions from decimal K,
+checksum-pinned original references and saved residual observations. It checks
+the declared row order, embedding coordinates, solve counts, continuous/discrete
+errors, physical invariants, stage summaries, timer partitions and precision
+trends. Residual counters are saved observations until numerical reexecution;
+the saved audit alone does not reproduce individual matrix products.
+Exact derived K-to-S/invariant arithmetic is checked in the pinned Linux runtime;
+different host BLAS arithmetic can change last bits of those metrics even when
+the saved decimal-to-binary64 K conversion is exact.
+
+```sh
+python -m projects.ukrmol_co.numerov_native_integration_replay \
+  --report report.json --priors PRIORS --output saved-decisions.json
+```
+
+Adding `--reexecute` with a fresh output directory repeats the frozen scope and
+remeasures every native accuracy residual. Decimal K, full numerical diagnostics,
+residual-audit aggregates, reference errors and decisions must match. Wall times
+and timing hypotheses are fresh observations; they do not need to equal the
+producer. A public replay uses downloaded source/result/dependency/wheel bytes,
+verifies both nested extension components and retains its own original exits
+and sampled resource record.
