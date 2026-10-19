@@ -1,0 +1,36 @@
+{
+  "saved_decision_replay_passed": true,
+  "experiment_verdict": true,
+  "checks_passed": 76,
+  "checks_total": 76,
+  "propagation_rows_verified": 8,
+  "solve_calls_audited": 392,
+  "capture_hashes_verified": 6,
+  "capture_numerical_values_reexecuted": false,
+  "capture_scope": "Saved local verifier audits hashes and metadata. Wider-host numerical replay compares loaded operand values and accepted solve backward errors.",
+  "timing_hypotheses": {
+    "free": {
+      "residual_fraction_at_least_80percent": true,
+      "residual_exceeds_lu_at_least_10fold": true,
+      "trace_overhead_within_declared_range": true
+    },
+    "varying": {
+      "residual_fraction_at_least_80percent": true,
+      "residual_exceeds_lu_at_least_10fold": true,
+      "trace_overhead_within_declared_range": true
+    }
+  },
+  "source_statement_partition_verified": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0
+}

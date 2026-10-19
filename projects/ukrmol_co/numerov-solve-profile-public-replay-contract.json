@@ -1,0 +1,16 @@
+{
+  "status": "prospective complete public numerical replay of mixed-solve profile and operands",
+  "producer_source_commit": "bbbc3d8c64fde2322910bfecc8d2a6eeb3bee86e",
+  "producer_source_archive_sha256": "50937f45155d6e96e6672a13dd63ba261828d67036e2dcfc2358abaa727a900f",
+  "producer_results_archive_sha256": "0e82f049b3c0deec2282ea42daa47a3e96b835b1e997f99f8ce39ee38e4f3ba5",
+  "worker_sha256": "201f2882c932784c3b78a78268d04151b262e9b6f1d910543e6487792090cfd3",
+  "new_propagations_reexecuted": 8, "new_radial_intervals": 256, "operand_captures_reexecuted": 6,
+  "comparison": "All eight decimal/binary64 K matrices and numerical diagnostics, and all76 qualification decisions must reproduce exactly. All six captured A/B/X arrays must reproduce loaded numeric values/dtypes exactly and pass independently reevaluated32-eps backward errors. NPZ padding bytes are not a numeric replay gate.",
+  "timing_comparison": "Recalculate and retain source-line timing summaries and hypotheses as new observations. Elapsed times and timing-hypothesis identity are not numerical replay gates.",
+  "motivation": "Source-line evidence attributes94.6% of extended recurring solve time to residual evaluation,27.5x factorization+solve+correction. Independently reproduce operands and exact numerics before choosing a compiled residual kernel.",
+  "resources": {"cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 55, "upper_wall_seconds": 90, "timeout_seconds": 180, "sample_interval_seconds": 0.2},
+  "stopping_rule": "Run once from fresh public bytes. Numerical or operand mismatch stops further submissions. No numerical-source replacement, extra timing repetition, new interval or automatic kernel/CO submission.",
+  "original_interior_analytic_verdict": false, "original_interior_scientific_exits": [1, 1],
+  "co_successor_submitted": false, "new_co_independent_solves": 0, "new_unique_energy_identities": 0
+}
