@@ -1,0 +1,103 @@
+{
+  "status": "prospective fixed-grid algebra control; original rejections retained",
+  "cases": [
+    "stretched/nine/B1",
+    "stretched/nine/B2"
+  ],
+  "energy_index": 18,
+  "energy_rydberg": 0.07349999999999998,
+  "configurations": [
+    [
+      0.025,
+      400.0,
+      8
+    ],
+    [
+      0.0125,
+      400.0,
+      8
+    ],
+    [
+      0.00625,
+      400.0,
+      8
+    ],
+    [
+      0.0125,
+      200.0,
+      8
+    ],
+    [
+      0.0125,
+      800.0,
+      8
+    ]
+  ],
+  "absolute_budget": 1e-06,
+  "input_sha256": {
+    "stretched/nine/B1/fort.10": "4fce9fcd94630a47e64a292600a232f7c38c4e4f6d58ea389c85596375fcfe81",
+    "stretched/nine/B1/fort.21": "c5c4cd2163ffeaac5654c22ffd3924b98e16f59090e0b6ece6bfa058829ee2a5",
+    "stretched/nine/B1/fort.921": "36738954b34b6346b185b6f915d1f1e26949df9ef132e97ab4b7b31c1fbb81f3",
+    "stretched/nine/B1/rsolve.inp": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+    "stretched/nine/B2/fort.10": "48e06b9c535a17ea6bc43530ec0fef1b457f0c46266f880ac47750ea9ad28dd3",
+    "stretched/nine/B2/fort.21": "7b8b19d6689a4a58f56cf5ec2015dcfe9426b62f336e1183ea17923b46063b47",
+    "stretched/nine/B2/fort.922": "bb771135e145b171243954ee94f7c6250ae4acecff75c8cbfc10ffda11ac2111",
+    "stretched/nine/B2/rsolve.inp": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2"
+  },
+  "prior_sha256": {
+    "result/report.json": "01913ac0677d3b22c06cb1f5a267774804e0a1fe1c73d5df33fbdc02510a916a",
+    "result/native/stretched/nine/B2/64/fort.922": "a0a7c2a3a10484b20658bccb34f05ae211347fc0b3fd50018499fa4a42d7ce82",
+    "result/native/stretched/nine/B2/32/fort.922": "069fc94b16e2647c92a23b3a7c54fa3278bbc2d83189876a49c00e4058ea8a98",
+    "result/native/stretched/nine/B1/64/fort.921": "b730a895e6b36effde408fc56eab755d18be3591bcc87b30c4168d7fc09a4c0c",
+    "result/native/stretched/nine/B1/32/fort.921": "b75c04fa4da0c2c84e9dd1278e7343c29b68e63d47ffcede082d98fb450456d5",
+    "result/independent/stretched/nine/B1/h0.0125-r800.0-p8.json": "ea5af0c321e4d7e54f37d71fb0c20e778aa42b5772b1e932a1a3bfbd61357412",
+    "result/independent/stretched/nine/B1/h0.0125-r400.0-p4.json": "17c8267c2bdacb4dc00ef3809e6ab111f018a14398a3fb28e6d0fde5d5615729",
+    "result/independent/stretched/nine/B1/h0.0125-r400.0-p6.json": "dbd1aa338c8d52d377fef9a9734c1741c95f185e4bbde6555dbf7219c87a2cc9",
+    "result/independent/stretched/nine/B1/h0.00625-r400.0-p8.json": "0c43f6e935d41bdc09308cdaaaa6c3fa239e56ca489dfd6ce13eb437ab729217",
+    "result/independent/stretched/nine/B1/h0.0125-r200.0-p8.json": "29446ed849609d75391afabc0c0005105178dd1123dc5b46f89affd5967ee255",
+    "result/independent/stretched/nine/B2/h0.0125-r800.0-p8.json": "75365139baf63157b1141118578b7817d055332570231680c83bb65566c82f53",
+    "result/independent/stretched/nine/B2/h0.0125-r400.0-p4.json": "9616387c933e8c8cd2e85c2b56681d1bb91b431bb82477b4ef4344f567c3597b",
+    "result/independent/stretched/nine/B2/h0.0125-r400.0-p6.json": "7a5b6b9b59b0f6c560c478450acff95ee8a1295ac17c8326cd62f649e41f77bf",
+    "result/independent/stretched/nine/B2/h0.00625-r400.0-p8.json": "4fc6722e7867eb14a005c9c711d180eb9067eb9c41d3fdb688c45ce37a190a72",
+    "result/independent/stretched/nine/B2/h0.0125-r200.0-p8.json": "8e720db7b8ae5db676542341f85e860e1938af157cf569652c52c969402efe93"
+  },
+  "saved_sha256": {
+    "result/report.json": "7c958908f35ecbc0d574486e3ab4866c5b41ac05544da1a85d68e4dca69d4935",
+    "execution.json": "90e508b1e7d141cd0c89217134b5457fe477e8d7163f8c4a3e7729f63a33280d",
+    "result/native/stretched/nine/B1/16/fort.921": "1c624c89983908ee9f4301b13a27fbc529e465531aea095160a28c495064d716",
+    "result/native/stretched/nine/B1/32/fort.921": "8594652596cda93d01c13fa5a8397882fd7e5c1cbd9a205acb05aa375a3af06f",
+    "result/independent/stretched/nine/B1/018.json": "2b760e06a34a87c6206ede98a8ba7c1e4ab152fc240cf5ae40337d107948cfee",
+    "result/native/stretched/nine/B2/16/fort.922": "d597bd76877590c3f5b30ea02ffe23d7665959f2868e94b48e8b71837921a105",
+    "result/native/stretched/nine/B2/32/fort.922": "ef7ae37b534cc12afb77084210bd544c195ef9d7f40deab1a7e3decebe28378d",
+    "result/independent/stretched/nine/B2/018.json": "16e76036d3fc156df47ff0f08d3eab5a13431a4d3d9c573a931a325d951d4709"
+  },
+  "analytic_qualification_sha256": "89079dba1dc0cf237d78bbf0d9a4e8a8e4d00944a9f12334fea92467e95cc5e5",
+  "resources": {
+    "physical_cores": "0-3",
+    "workers": 4,
+    "blas_threads": 1,
+    "memory_gib": 4,
+    "expected_wall_seconds": 500,
+    "upper_wall_seconds": 800,
+    "hard_cap_seconds": 1200
+  },
+  "cost_basis": "Prior ten controls398720 intervals cost about1450-1510 CPU s. These ten candidate controls368160 intervals use the same two dense solves per step, with different RHS matrices. This is a forecast, not a measured298-channel candidate timing.",
+  "native_invocations": 0,
+  "independent_solves": 10,
+  "new_radial_intervals": 368160,
+  "stopping_rule": "Analytic qualification must pass. Submit exactlyten fixed candidate controls, maxfour in flight; false/unset invariant stops new submissions, in-flight finish. Evaluate fixed families once complete. No new grids, retries, relaxed budgets or automatic full-grid successor.",
+  "original_attribution_verdict": false,
+  "original_attribution_exits": [
+    1,
+    1
+  ],
+  "original_six_case_verdict": false,
+  "original_six_case_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

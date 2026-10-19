@@ -102,3 +102,28 @@ endpoint400/order8 plus the two existing endpoints200/800 at step0.0125/order8:
 against saved original-form rows and native64, preserving separate 1e-6
 K/S/phase/invariant vetoes and all one-factor failures. No choice of a favourable
 row or relaxed K budget is allowed. No further rungs or automatic successor.
+
+## Analytic result and frozen CO cost
+
+The dependency-supplemented analytic run finishes in10.4293 s, exits0/0, with
+all16 long-interval checks passing. At h=0.00625, the scalar continuous K error
+is1.34389e-4 in the original formulation versus6.21129e-8 in the increment
+formulation. The discrete-oracle drift is1.34450e-4 versus9.82188e-10, while
+the discretisation error itself is6.11308e-8. Thus the analytic test resolves
+floating-point drift separately from truncation; it does not prove its size
+in native CO. The two coupled short-interval fourth-order checks also pass.
+All49 focused tests pass, including noncommuting identities, direct discrete
+oracle recurrence and separate candidate K vetoes. The initial hard-wall test
+used a coarse h=.025 whose truncation error exceeded its2e-8 budget; h=.0125
+passes that unchanged budget. This was a test-resolution correction, not a
+change to either propagation implementation or a tolerance relaxation.
+
+The [CO contract](../../projects/ukrmol_co/numerov-increment-co-contract.json)
+pins eight inputs, fifteen prior output files, eight predecessor reference files
+and the independently checked analytic prerequisite. Exactly ten candidate
+solves cover368160 intervals, forecast500 s /upper800 s /1200-s hard cap,
+four single-threaded workers on physical cores0–3 with4 GiB. The cost basis is
+the previous398720-interval ten-control run's1450–1510 CPU-seconds and the
+same two dense solves per step;298-channel candidate timing is not yet measured.
+Final step, endpoint and native64 K/S/phase gates remain separately1e-6.
+The original implementation and previous false/exits1/1 records stay intact.
