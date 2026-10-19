@@ -85,3 +85,17 @@ forecast is conditional on the prior measured host/image and may fail.
 Preserve before/after source/input/reference and all 242 engine artifact hashes,
 original runner/container exits, 0.2-s cgroup samples and a dated `/home` archive.
 No paid provisioning or rebuilt engine is needed.
+
+## Analytic prerequisite result
+
+The frozen source `66ebd1a` completes twelve analytic solves with **32/32 checks
+passing**, exits0/0, in15.0354 s /14.451588 sampled CPU-seconds /
+46,170,112-byte recorded kernel high-water. At 800 bohr/h=.00625, scalar
+continuous K error is1.26839e-7; the discrete oracle attributes1.25185e-7 to
+truncation and1.65453e-9 to floating-point drift. Both 80/110-digit oracle
+comparisons pass. The [independent verification](../../projects/ukrmol_co/verification-numerov-endpoint-analytic-20261019.json)
+reconstructs every error from saved matrices and 110-digit analytic oracles.
+All36 archived sources and242 installed engine artifacts verify before/after.
+The [CO contract](../../projects/ukrmol_co/numerov-corner-contract.json) pins this
+prerequisite,24 raw files,12 full-grid native16/32 references, two native64
+references and the previous increment report. The 55-test focused suite passes.

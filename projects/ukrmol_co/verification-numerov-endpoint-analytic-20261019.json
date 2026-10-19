@@ -1,0 +1,463 @@
+{
+  "analytic_endpoint_verdict": true,
+  "checks_passed": 32,
+  "rows_independently_verified": 12,
+  "focused_tests_passed": 55,
+  "execution": {
+    "source_commit": "66ebd1a566395d5ffd6239bb6ed95ce5b30e1463",
+    "source_archive_sha256": "efc9b8f539988e391b008b858f55e658272d5ed31f33be7f9399d03520a378e6",
+    "source_files_verified_before": 36,
+    "engine_artifacts_verified_before": 242,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-corner-analytic-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/work/dependencies:/work/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-corner-analytic-20261019:/work",
+      "-w",
+      "/work/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_endpoint_analytic",
+      "--output",
+      "/work/result"
+    ],
+    "stage": "analytic",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "started_utc": "2026-10-19T08:16:16.256285+00:00",
+    "cpuset_cpus": "0-3",
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 120,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       9.0Gi        80Gi       819Mi        34Gi       114Gi\nSwap:           29Gi          0B        29Gi\n",
+    "persistent_disk_free_gib": 61.6738166809082,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-19T08:16:31.297622+00:00",
+    "wall_seconds": 15.035426371992799,
+    "sampled_memory_current_peak_bytes": 46170112,
+    "sampled_kernel_memory_peak_bytes": 46170112,
+    "sampled_cpu_seconds": 14.451588,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 73,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 36
+  },
+  "rows": [
+    {
+      "case": "scalar",
+      "step_bohr": 0.0125,
+      "endpoint_bohr": 200.0,
+      "k": [
+        [
+          -184.999999525354
+        ]
+      ],
+      "continuous_errors": {
+        "k": 4.7465965735682403e-07,
+        "s": 2.7736788843525885e-11,
+        "phase_rad_mod_pi": 1.3868394814912215e-11
+      },
+      "invariants": {
+        "unitarity": 2.220446049250313e-16,
+        "reciprocity": 0.0
+      },
+      "diagnostics": {
+        "matching_condition_inf": 1.0,
+        "equilibrated_matching_condition_inf": 1.0,
+        "matching_residual": 0.0,
+        "radial_intervals": 14560,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 0.0,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 2.8855723288749172e-77,
+      "discrete_error": 4.267622792648388e-09,
+      "discrete_truncation_error": 4.703920332448814e-07,
+      "discrete_precision_drift": 5.58377446811762e-70
+    },
+    {
+      "case": "scalar",
+      "step_bohr": 0.0125,
+      "endpoint_bohr": 400.0,
+      "k": [
+        [
+          -184.99999901597778
+        ]
+      ],
+      "continuous_errors": {
+        "k": 9.840358927704074e-07,
+        "s": 5.7502243591994563e-11,
+        "phase_rad_mod_pi": 2.87511220493781e-11
+      },
+      "invariants": {
+        "unitarity": 2.220446049250313e-16,
+        "reciprocity": 0.0
+      },
+      "diagnostics": {
+        "matching_condition_inf": 1.0,
+        "equilibrated_matching_condition_inf": 1.0,
+        "matching_residual": 1.3877787807814457e-17,
+        "radial_intervals": 30560,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 0.0,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 2.8855723288749172e-77,
+      "discrete_error": 8.895445366110686e-09,
+      "discrete_truncation_error": 9.751404460850025e-07,
+      "discrete_precision_drift": 1.1913614767937477e-69
+    },
+    {
+      "case": "scalar",
+      "step_bohr": 0.0125,
+      "endpoint_bohr": 800.0,
+      "k": [
+        [
+          -184.9999979845337
+        ]
+      ],
+      "continuous_errors": {
+        "k": 2.0154799642568832e-06,
+        "s": 1.1777479045500438e-10,
+        "phase_rad_mod_pi": 5.888739535928156e-11
+      },
+      "invariants": {
+        "unitarity": 4.440892098500626e-16,
+        "reciprocity": 0.0
+      },
+      "diagnostics": {
+        "matching_condition_inf": 1.0,
+        "equilibrated_matching_condition_inf": 1.0,
+        "matching_residual": 0.0,
+        "radial_intervals": 62560,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 0.0,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 2.8855723288749172e-77,
+      "discrete_error": 1.8579912529967392e-08,
+      "discrete_truncation_error": 1.9969000504076218e-06,
+      "discrete_precision_drift": 2.4316568399083267e-69
+    },
+    {
+      "case": "scalar",
+      "step_bohr": 0.00625,
+      "endpoint_bohr": 200.0,
+      "k": [
+        [
+          -184.99999997037972
+        ]
+      ],
+      "continuous_errors": {
+        "k": 2.96339521810296e-08,
+        "s": 1.7316627264676756e-12,
+        "phase_rad_mod_pi": 8.658314209542698e-13
+      },
+      "invariants": {
+        "unitarity": 2.220446049250313e-16,
+        "reciprocity": 0.0
+      },
+      "diagnostics": {
+        "matching_condition_inf": 1.0,
+        "equilibrated_matching_condition_inf": 1.0,
+        "matching_residual": 0.0,
+        "radial_intervals": 29120,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 0.0,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 2.8855723288749172e-77,
+      "discrete_error": 1.4607775742835516e-10,
+      "discrete_truncation_error": 2.9487873104307e-08,
+      "discrete_precision_drift": 3.7793775312052434e-69
+    },
+    {
+      "case": "scalar",
+      "step_bohr": 0.00625,
+      "endpoint_bohr": 400.0,
+      "k": [
+        [
+          -184.99999993790072
+        ]
+      ],
+      "continuous_errors": {
+        "k": 6.211294589775207e-08,
+        "s": 3.629577638052973e-12,
+        "phase_rad_mod_pi": 1.8147885352198491e-12
+      },
+      "invariants": {
+        "unitarity": 2.220446049250313e-16,
+        "reciprocity": 0.0
+      },
+      "diagnostics": {
+        "matching_condition_inf": 1.0,
+        "equilibrated_matching_condition_inf": 1.0,
+        "matching_residual": 0.0,
+        "radial_intervals": 61120,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 0.0,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 2.8855723288749172e-77,
+      "discrete_error": 9.82188116172731e-10,
+      "discrete_truncation_error": 6.11307564622851e-08,
+      "discrete_precision_drift": 7.953114599438438e-69
+    },
+    {
+      "case": "scalar",
+      "step_bohr": 0.00625,
+      "endpoint_bohr": 800.0,
+      "k": [
+        [
+          -184.9999998731743
+        ]
+      ],
+      "continuous_errors": {
+        "k": 1.268393816644675e-07,
+        "s": 7.411873118520276e-12,
+        "phase_rad_mod_pi": 3.705936870221783e-12
+      },
+      "invariants": {
+        "unitarity": 2.220446049250313e-16,
+        "reciprocity": 0.0
+      },
+      "diagnostics": {
+        "matching_condition_inf": 1.0,
+        "equilibrated_matching_condition_inf": 1.0,
+        "matching_residual": 0.0,
+        "radial_intervals": 125120,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 0.0,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 2.8855723288749172e-77,
+      "discrete_error": 1.6545347098772517e-09,
+      "discrete_truncation_error": 1.25184845635296e-07,
+      "discrete_precision_drift": 1.6260356180948137e-68
+    },
+    {
+      "case": "coupled_closed",
+      "step_bohr": 0.0125,
+      "endpoint_bohr": 200.0,
+      "k": [
+        [
+          -118.29199969941887,
+          -88.94399977458265
+        ],
+        [
+          -88.94399977458336,
+          -66.40799983092577
+        ]
+      ],
+      "continuous_errors": {
+        "k": 3.005880842010811e-07,
+        "s": 2.6508897824821743e-11,
+        "phase_rad_mod_pi": 2.8778352716817107e-11
+      },
+      "invariants": {
+        "unitarity": 6.550321117351611e-15,
+        "reciprocity": 7.24223761923511e-15
+      },
+      "diagnostics": {
+        "matching_condition_inf": 576.7009427794283,
+        "equilibrated_matching_condition_inf": 146.5718888606973,
+        "matching_residual": 5.637851296924623e-17,
+        "radial_intervals": 14560,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 7.105427357601002e-13,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 1.938769599844468e-77
+    },
+    {
+      "case": "coupled_closed",
+      "step_bohr": 0.0125,
+      "endpoint_bohr": 400.0,
+      "k": [
+        [
+          -118.2919993747241,
+          -88.94399953107272
+        ],
+        [
+          -88.94399953107627,
+          -66.40799964827737
+        ]
+      ],
+      "continuous_errors": {
+        "k": 6.252828512742781e-07,
+        "s": 5.445808017736092e-11,
+        "phase_rad_mod_pi": 5.912048577911545e-11
+      },
+      "invariants": {
+        "unitarity": 3.552713701629045e-14,
+        "reciprocity": 3.695162649752146e-14
+      },
+      "diagnostics": {
+        "matching_condition_inf": 53.54078564463417,
+        "equilibrated_matching_condition_inf": 13.789619680814214,
+        "matching_residual": 2.7755575615628914e-17,
+        "radial_intervals": 30560,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 3.552713678800501e-12,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 1.938769599844468e-77
+    },
+    {
+      "case": "coupled_closed",
+      "step_bohr": 0.0125,
+      "endpoint_bohr": 800.0,
+      "k": [
+        [
+          -118.29199872092846,
+          -88.94399904075183
+        ],
+        [
+          -88.94399904075348,
+          -66.40799928050347
+        ]
+      ],
+      "continuous_errors": {
+        "k": 1.2790784893468299e-06,
+        "s": 1.0963152463956908e-10,
+        "phase_rad_mod_pi": 1.1903199494068678e-10
+      },
+      "invariants": {
+        "unitarity": 1.692012013051904e-14,
+        "reciprocity": 2.12096188367986e-14
+      },
+      "diagnostics": {
+        "matching_condition_inf": 838.61136891625,
+        "equilibrated_matching_condition_inf": 477.0800595734038,
+        "matching_residual": 3.61039323437673e-17,
+        "radial_intervals": 62560,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 1.6484591469634324e-12,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 1.938769599844468e-77
+    },
+    {
+      "case": "coupled_closed",
+      "step_bohr": 0.00625,
+      "endpoint_bohr": 200.0,
+      "k": [
+        [
+          -118.291999990448,
+          -88.94399999283611
+        ],
+        [
+          -88.94399999283738,
+          -66.40799999462546
+        ]
+      ],
+      "continuous_errors": {
+        "k": 9.558945635035343e-09,
+        "s": 1.881038554792822e-12,
+        "phase_rad_mod_pi": 2.012342871979587e-12
+      },
+      "invariants": {
+        "unitarity": 1.1768370104119266e-14,
+        "reciprocity": 1.293207299340885e-14
+      },
+      "diagnostics": {
+        "matching_condition_inf": 576.6941861627339,
+        "equilibrated_matching_condition_inf": 146.5718892216598,
+        "matching_residual": 1.3444106938820255e-17,
+        "radial_intervals": 29120,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 1.2647660696529783e-12,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 1.938769599844468e-77
+    },
+    {
+      "case": "coupled_closed",
+      "step_bohr": 0.00625,
+      "endpoint_bohr": 400.0,
+      "k": [
+        [
+          -118.29199998690483,
+          -88.94399999017895
+        ],
+        [
+          -88.94399999018283,
+          -66.40799999263164
+        ]
+      ],
+      "continuous_errors": {
+        "k": 1.3102123830321943e-08,
+        "s": 3.952680311897958e-12,
+        "phase_rad_mod_pi": 3.966895762085972e-12
+      },
+      "invariants": {
+        "unitarity": 3.708144905605294e-14,
+        "reciprocity": 4.0076629230382333e-14
+      },
+      "diagnostics": {
+        "matching_condition_inf": 53.540158485342225,
+        "equilibrated_matching_condition_inf": 13.789619742148593,
+        "matching_residual": 1.3877787807814457e-17,
+        "radial_intervals": 61120,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 3.879563337250147e-12,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 1.938769599844468e-77
+    },
+    {
+      "case": "coupled_closed",
+      "step_bohr": 0.00625,
+      "endpoint_bohr": 800.0,
+      "k": [
+        [
+          -118.29199989923582,
+          -88.94399992443256
+        ],
+        [
+          -88.9439999244337,
+          -66.4079999433142
+        ]
+      ],
+      "continuous_errors": {
+        "k": 1.007711318834481e-07,
+        "s": 1.2606650021503349e-11,
+        "phase_rad_mod_pi": 1.3625598616229642e-11
+      },
+      "invariants": {
+        "unitarity": 1.0991212072852777e-14,
+        "reciprocity": 1.2333598450066446e-14
+      },
+      "diagnostics": {
+        "matching_condition_inf": 838.6015500395688,
+        "equilibrated_matching_condition_inf": 477.08006437640825,
+        "matching_residual": 2.542454094478508e-17,
+        "radial_intervals": 125120,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "unsymmetrized_k_transpose_error": 1.1368683772161603e-12,
+        "formulation": "identity-defect increment"
+      },
+      "continuous_oracle_precision_drift": 1.938769599844468e-77
+    }
+  ],
+  "collection_archive_sha256": "6d830c0073f8fc9d6d002645b3ca0dee64b464d366d77e98e714096fbd2e6018",
+  "native_data_used": false,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}
