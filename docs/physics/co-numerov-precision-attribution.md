@@ -86,3 +86,19 @@ prior24-row72.95-s measurement, forecast120 s, upper240 s, cap600 s. Sample
 resources at0.2 s, verify pinned sources and242 installed artifacts before/after,
 and retain dated persistent `/home` evidence. Publish and independently verify
 the saved decisions; public numerical replay scope is frozen separately.
+
+## Recorded finite result
+
+Freeze`aa917aa` completes all ten new solves and twelve reused decompositions,
+**46/46 diagnostic checks / exits0/0**. At rejected200/400 points, matrix
+floating-point drift exceeds discrete truncation by **120.46×/57.31×**, so the
+>=5× dominance hypothesis passes. The all-finest-endpoint tenfold diagonal-frame
+improvement hypothesis is **false**:800-bohr improvement is4.37×, although all
+diagonal drifts are below1e-7. All representation equivalence checks pass with
+maximum4.01e-12. Original interior false/exits1/1 remains.
+
+Measured61.050941 s /60.487653 sampled CPU s /47,837,184-byte kernel high-water,
+303 samples at0.2 s;51 sources/242 installed artifacts and prior report verify
+before/after. See the [result and finite interpretation](../../projects/ukrmol_co/NUMEROV_PRECISION_ATTRIBUTION.md).
+This measurement motivates separately costed increased-arithmetic-precision
+attribution on fixed grids, not further spatial refinement or immediate CO use.

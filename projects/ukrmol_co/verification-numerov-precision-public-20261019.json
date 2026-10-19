@@ -1,0 +1,255 @@
+{
+  "verified_utc": "2026-10-19T12:31:26.548388+00:00",
+  "fresh_public_bytes_verified": true,
+  "payloads_verified": 12,
+  "frozen_sources_verified": 51,
+  "verification_support_files_verified": 2,
+  "saved_decision_replay_passed": true,
+  "saved_decision_replay_exit": 0,
+  "diagnostic_verdict": true,
+  "diagnostic_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 46,
+  "checks_total": 46,
+  "public_focused_tests_passed": 68,
+  "public_focused_tests_exit": 0,
+  "test_stdout": "....................................................................     [100%]\n68 passed in 2.68s\n",
+  "public_numerical_reexecution_passed": true,
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "public_numerical_rows_reexecuted": 10,
+  "all_new_and_reused_stored_k_components_exactly_reproduce": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_replay_execution": {
+    "started_utc": "2026-10-19T12:33:08.353960+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-numerov-precision-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/dependencies:/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-precision-public-replay-owner-supplement-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-precision-public-replay-owner-supplement-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "public_archive_sha256": "10fcce03fa5fe2a4aec348db9bc17a88e255f9361ff6eb899acdb9a9d05ef34d",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 120,
+    "timeout_seconds": 600,
+    "source_files_verified": 51,
+    "verification_support_files_verified": 2,
+    "effective_source_files_verified": 53,
+    "installed_engine_artifacts_verified": 242,
+    "prior_report_files_verified": 1,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "persistent_disk_free_gib": 60.78922653198242,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "driver_exit": 0,
+    "finished_utc": "2026-10-19T12:34:08.905911+00:00",
+    "wall_seconds": 60.54802352300612,
+    "sampled_memory_current_peak_bytes": 45359104,
+    "sampled_kernel_memory_peak_bytes": 45404160,
+    "sampled_cpu_seconds": 60.079134,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 301,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "public_replay": {
+    "public_numerical_reexecution_passed": true,
+    "stored_matrix_drifts": [
+      {
+        "category": "baseline",
+        "index": 0,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 1,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 2,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 3,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 4,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 5,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 6,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 7,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 8,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 9,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 10,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "baseline",
+        "index": 11,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "reexecutions",
+        "index": 0,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "reexecutions",
+        "index": 1,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 0,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 1,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 2,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 3,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 4,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 5,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 6,
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "category": "variants",
+        "index": 7,
+        "maximum_stored_k_drift": 0.0
+      }
+    ],
+    "checks_identical": true,
+    "hypotheses_identical": true,
+    "diagnostic_verdict": true,
+    "original_analytic_verdict": false,
+    "original_analytic_exits": [
+      1,
+      1
+    ],
+    "baseline_rows_reused": 12,
+    "new_analytic_solves_reexecuted": 10,
+    "kernel_wall_seconds": 59.88851758898818,
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "public_replay_collection": {
+    "files": 8,
+    "archive_sha256": "f945b9ca3b4871428eb417528fba2e910ecd2947f3e08d76e3f8a1e5cf059687"
+  },
+  "replay_verified_utc": "2026-10-19T12:34:31.903403+00:00",
+  "verification_dependency_supplement": {
+    "initial_public_test_exit": 2,
+    "initial_failure": "Missing numerov_corner_replay imported by the existing corner test module; scientific producer and saved-decision replay unaffected.",
+    "initial_test_log_sha256": "424c3bfa2c69bedebf2c5a463a7dd716c812a7773f0bc1424728059e48fe0315",
+    "initial_support_archive_sha256": "0af85a85f297598bbe0919c82b776caf30397161647268bc9a4f04e0a5c08f30",
+    "only_added_dependency": "projects/ukrmol_co/numerov_corner_replay.py",
+    "frozen_numerical_modules_replaced": false
+  },
+  "public_owner_supplement": {
+    "original_preflight_owner_exit": 1,
+    "original_preflight_failure": "UnboundLocalError: local replay-contract variable shadows diagnostic contract before container launch",
+    "original_owner_sha256": "c1be7c91d5d2777be10c43e739aa74d44675d5ba3f6d9ce678ab2f76033525ff",
+    "corrected_owner_sha256": "f5e6d7b193455104c8a4ec49578a502dec84416b5ba43d66406e257304cfb7df",
+    "original_preflight_remote_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-precision-public-replay-20261019",
+    "original_preflight_docker_invocations": 0,
+    "original_preflight_numerical_solves": 0,
+    "public_archive_sha256": "10fcce03fa5fe2a4aec348db9bc17a88e255f9361ff6eb899acdb9a9d05ef34d",
+    "frozen_numerical_worker_or_inputs_changed": false,
+    "correction": "Rename diagnostic contract binding and reference to prior_contract; separate persistent directory preserves original owner.",
+    "original_preflight_log_sha256": "a08c788a6676e550b47925d763eea9df05cc7e75c8a783a7eac087cff0c7d315"
+  },
+  "final_public_verified_utc": "2026-10-19T12:35:11.311603+00:00",
+  "public_payloads_verified": 19,
+  "all_final_payloads_fresh_downloaded": true,
+  "collected_file_counts_verified": {
+    "collected": 10,
+    "replay": 8
+  }
+}

@@ -157,6 +157,17 @@ Full public numerical replay reproduces all24 stored K matrices exactly, all68
 decisions and scientific false/exits1/1; verification exits0/0. All16 final public
 payloads verify. Replay costs72.22 s /0.04161 GiB. No scientific container runs.
 
+The subsequent [fixed-grid precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md)
+passes46/46 diagnostic checks/exits0/0 with ten analytic solves. A matrix discrete
+oracle separates roundoff from truncation: drift dominates by57–120× at rejected
+200/400-bohr points. Equivalent open-frame controls reduce drift, but miss the
+predeclared all-endpoint tenfold criterion at800 bohr. This is an attribution,
+not a repair: interior false/exits1/1 and coverage132/594/462 uncomputed remain.
+Next is a separately costed arithmetic-precision control on those same grids.
+Public replay reproduces all ten new K matrices exactly and all diagnostic/
+hypothesis values;68 tests and19 final payloads verify. Verification-only
+dependency/preflight failures remain archived. No scientific container runs.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

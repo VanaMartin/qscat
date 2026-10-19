@@ -20,6 +20,67 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Fixed-grid matrix precision attribution passes — 19 October, 12:27 UTC
+
+The [precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md) is frozen/pushed at
+**`aa917aa`** before execution. It completes **46/46 diagnostic checks / original
+diagnostic exits0/0**, reusing twelve compressed analytic rows and running ten
+new analytic solves,2712320 intervals. Two critical baseline rows reproduce K
+exactly. The high-precision matrix discrete Jost oracle retains the original
+sixth-order Taylor endpoints and Numerov recurrence; short-grid direct matrix
+recurrence and independent scalar transfer pass six tests,17 tests before launch.
+
+At the rejected full rotated open/closed finest200/400-bohr points, floating-point
+K drift is **1.13485700e-6/1.13086255e-6**, versus discrete truncation
+**9.42110e-9/1.97315e-8**. The predeclared >=5× dominance hypothesis passes:
+**120.46×/57.31×**. This resolves a substantial matrix roundoff contribution in
+the analytic regime, not one elementary operation or an absolute CO/native bound.
+
+Continuous boundary elimination/rotation equivalence passes at<=4.01e-12.
+Reduced diagonal-frame finest200/400/800 drifts are1.83e-8/3.75e-8/7.74e-8;
+the all-endpoint tenfold-improvement hypothesis is **false**, because800 is only
+4.37× better than the reduced rotated frame. Every model uses its own discrete
+oracle. No free-channel simplification is promoted as a general CO repair.
+
+Measured **61.050941 s /60.487653 sampled CPU s /47,837,184-byte kernel high-water**,
+303 samples at0.2 s, reserved four physical cores0–3/4 GiB, within120-s forecast/
+240-s upper/600-s cap. All51 frozen sources,242 installed artifacts and the
+original report hash verify before/after. Persistent evidence is under
+`prepared/numerov-precision-attribution-20261019/`,10-file collection. Independent
+saved-decision replay passes. Fresh public tests initially exit2 because a corner
+test dependency was omitted; the original support archive/log remain published.
+A dependency-only supplement adds the existing reader, replacing no frozen
+source. Fresh downloads then pass **68 tests** and saved decisions.
+
+Full public numerical replay finishes **12:34:08UTC / exits0/0**: all ten new
+analytic matrices reproduce every stored K component exactly, twelve reused-row
+oracle decompositions and all46 checks/hypothesis values remain identical.
+Replay costs60.548024 s /60.079134 sampled CPU s /45,404,160-byte kernel peak,
+301 samples at0.2 s, reserved four cores0–3/4 GiB. Its original launcher preflight
+exits1 before any container/solve because a local contract variable shadows the
+prior contract. Original owner/traceback are preserved; a variable-only owner
+supplement in a new directory runs the unchanged worker/inputs. The eight-file
+successful replay collection and supplements are public; **19 final payloads**
+fresh-verify. The [12:35:18UTC capture](progress-numerov-precision-result-20261019.json)
+reverifies18 collected hashes,51 sources,242 installed artifacts and prior report.
+No scientific container or completion observer runs;60.79 GiB remains. Replay
+lives at`prepared/numerov-precision-public-replay-owner-supplement-20261019/`.
+
+Original interior prerequisite **false/exits1/1** remains, as do all older
+rejections. No CO/native/inner solve or new unique energy is added: candidate
+qualification14, historical coverage132/594/462 uncomputed. Next is a separately
+costed increased-arithmetic-precision control on the same failed analytic grids,
+before returning to the withheld interior CO scope. No spatial refinement ladder,
+tolerance change or full-grid release follows from the diagnostic pass.
+
+Main-index discovery used complete/current`423d577`; an intermediate verification
+check retained that complete snapshot with **stale / upstream unknown** status.
+At the final handoff the same snapshot is **complete/current**, upstream current.
+Precision modules are branch-only and resolved locally against current source.
+Numerical oracle/producer/contract remain byte-identical to`aa917aa`; separate
+saved-decision support is frozen at`5d1e157`, with no frozen numerical module
+replaced by either verification supplement.
+
 ### Interior stress prerequisite rejects — 19 October, 09:41 UTC
 
 The [new interior stress selection and analytic prerequisite](NUMEROV_INTERIOR_CONTROL.md)

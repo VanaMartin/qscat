@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-interior.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-precision.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -774,6 +774,38 @@ def _native_full_rejection(ax, data):
     _note(ax, data["native_full_rejection_note"])
 
 
+def _precision_attribution(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Matrix drift dominates truncation",
+        "Free rotated open/closed toy; fixed h = .0015625 bohr",
+    )
+    rows = data["precision_attribution"]
+    x = np.arange(len(rows))
+    for metric, color, marker, label in [
+        ("roundoff_k", BLUE, "o", "Full-model floating-point drift"),
+        ("truncation_k", ORANGE, "s", "Full-model discrete truncation"),
+        ("diagonal_roundoff_k", GREEN, "^", "Reduced diagonal-frame drift"),
+    ]:
+        ax.semilogy(x, [r[metric] for r in rows], color=color, marker=marker, label=label)
+    for i, row in enumerate(rows):
+        ax.annotate(
+            f"{row['roundoff_k'] / row['truncation_k']:.1f}×",
+            (i, row["roundoff_k"]),
+            xytext=(0, 9),
+            textcoords="offset points",
+            ha="center",
+            color=BLUE,
+        )
+    ax.axhline(1e-6, color=GRAY, ls="--", lw=1, label="Original continuous-K tolerance")
+    ax.set_xticks(x, [str(int(r["endpoint_bohr"])) for r in rows])
+    ax.set(xlim=(-0.2, 2.2), ylim=(3e-9, 3e-6), xlabel="Endpoint / bohr (fixed spatial grids)")
+    ax.set_ylabel("Maximum K entry error / component (absolute)")
+    ax.legend(loc="center left", frameon=False, fontsize=8.5)
+    _note(ax, data["precision_attribution_note"])
+
+
 def _snapshot_data(snapshot: Path) -> dict:
     """Resolve a full snapshot or a delta against a hash-pinned earlier release."""
     data = json.loads(snapshot.read_text())
@@ -846,7 +878,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _native_full_rejection
+            _precision_attribution
+            if "precision_attribution" in data
+            else _native_full_rejection
             if "native_full_rejection_comparisons" in data
             else _native_attribution
             if "native_attribution_comparisons" in data
@@ -928,7 +962,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-interior"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-precision"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

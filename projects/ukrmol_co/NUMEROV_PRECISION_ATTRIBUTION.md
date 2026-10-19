@@ -80,3 +80,30 @@ failed analytic grids, with separately costed recurrence/matching attribution.
 No spacing ladder or tolerance relaxation is justified. Original interior
 false/exits1/1 and all older rejections stay; candidate qualification remains14,
 historical coverage132/594/462 uncomputed. No CO successor is submitted.
+
+## Complete public numerical replay
+
+The [replay contract](numerov-precision-public-replay-contract.json) reexecutes
+all ten new analytic solves and recomputes the twelve reused-row oracle
+decompositions from fresh public bytes. Every new stored K component reproduces
+exactly; all46 diagnostic checks and all hypothesis values remain identical.
+Replay exits0/0 preserve diagnostic exits0/0 and original interior false/exits1/1.
+It does not newly propagate the twelve reused archived rows.
+
+Finished2026-10-19T12:34:08.905911UTC: **60.548024 s /60.079134 sampled CPU s /
+45,404,160-byte recorded kernel high-water**,301 samples at0.2 s, four reserved
+cores0–3/4 GiB. All **19 final public payloads** fresh-verify;68 focused tests
+and saved decisions pass. [Public evidence](qualification-evidence/numerov-precision/README.md)
+includes original results, sources, independent verifier, replay and resources.
+
+Two verification infrastructure failures remain separate: initial test collection
+exit2 from a missing existing corner-reader dependency, and initial replay-owner
+preflight exit1 from local-variable shadowing, before any container or numerical
+solve. Dependency-only and variable-only supplements preserve original archives,
+owners, logs and exits. They replace no frozen numerical module or input and do
+not change the ten-solve scope.
+
+The [12:35:18UTC capture](progress-numerov-precision-result-20261019.json) verifies
+18 remote collected hashes,51 frozen sources,242 installed artifacts and prior
+report. No scientific container runs;60.79 GiB remains. Public replay evidence
+is persistent under`prepared/numerov-precision-public-replay-owner-supplement-20261019/`.

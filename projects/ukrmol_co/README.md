@@ -42,6 +42,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [fixed-grid Numerov algebra control](NUMEROV_INCREMENT_CONTROL.md),
 [cross-anchor / all-finest-endpoint qualification](NUMEROV_CORNER_CONTROL.md),
 [interior stress prerequisite rejection](NUMEROV_INTERIOR_CONTROL.md),
+[fixed-grid matrix precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -69,7 +70,20 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October, 09:41 UTC:** the separately frozen
+**Update — 19 October, 12:27 UTC:** the
+[fixed-grid precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md) completes
+**46/46 diagnostic checks / exits0/0**, with ten analytic solves in61.05 s.
+At the two rejected rotated-model points, floating-point drift exceeds discrete
+truncation by **57–120×**. Equivalent representation controls reduce drift, but
+the all-endpoint tenfold-improvement hypothesis rejects at800 bohr. The original
+interior prerequisite remains false/exits1/1; no CO scope is released. Next is
+increased-arithmetic-precision attribution on the same analytic grids.
+Full public replay reproduces all ten new K matrices exactly and every diagnostic
+check/hypothesis value;68 tests and19 final payloads verify. Verification-only
+dependency and owner-preflight failures are preserved with narrow supplements.
+No scientific container runs. Coverage and the original rejected gates remain.
+
+**Earlier update — 19 October, 09:41 UTC:** the separately frozen
 [interior stress prerequisite](NUMEROV_INTERIOR_CONTROL.md) rejects **four of68
 analytic checks / original exits1/1**. Scalar floating-point drift1.21e-7 exceeds
 its1e-7 gate; rotated open/closed K errors1.11–1.13e-6 exceed1e-6 despite passing
@@ -384,10 +398,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 19 October 2026
 
-![CO qualification: interior analytic prerequisite rejects; previous corner pass retained and CO successor withheld](../../docs/physics/figures/co-progress-20261019-interior.png)
+![CO qualification: fixed-grid analytic attribution identifies dominant matrix roundoff; original interior rejection retained](../../docs/physics/figures/co-progress-20261019-precision.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-interior.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-interior.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019-precision.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019-precision.json) ·
+[Fixed-grid precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md) ·
+[Public precision evidence](qualification-evidence/numerov-precision/README.md) ·
 [Interior stress prerequisite and stopping rule](NUMEROV_INTERIOR_CONTROL.md) ·
 [Public interior rejection and full replay](qualification-evidence/numerov-interior/README.md) ·
 [Verified interior result capture](progress-numerov-interior-result-20261019.json) ·
@@ -460,6 +476,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous23:15overview](../../docs/physics/figures/co-progress-20261018T2315.png) ·
 [Previous07:21overview](../../docs/physics/figures/co-progress-20261019.png) ·
 [Previous08:59overview](../../docs/physics/figures/co-progress-20261019-corners.png) ·
+[Previous09:54overview](../../docs/physics/figures/co-progress-20261019-interior.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·

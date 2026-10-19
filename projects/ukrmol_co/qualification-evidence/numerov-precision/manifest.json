@@ -1,0 +1,120 @@
+{
+  "git_sha": "aa917aab83aa26745cdd92bf44c8ea62a245424a",
+  "verification_support_git_sha": "5d1e157b1f2f050f30e506c548d3784356bc4fbd",
+  "date": "2026-10-19",
+  "record_type": "fixed-grid-analytic-precision-attribution",
+  "diagnostic_verdict": true,
+  "diagnostic_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 46,
+  "checks_total": 46,
+  "baseline_rows_reused": 12,
+  "new_analytic_solves": 10,
+  "hypotheses": {
+    "coupled_rejected_points_roundoff_dominates_5fold": true,
+    "roundoff_to_truncation_ratios": [
+      57.312490062366834,
+      120.45905142280978
+    ],
+    "all_finest_diagonal_roundoff_below_tenth_rotated_and_1em7": false,
+    "finest_representation_roundoff": [
+      {
+        "endpoint_bohr": 200.0,
+        "reduced_rotated": 5.909275559886601e-07,
+        "reduced_diagonal": 1.8326970606072283e-08
+      },
+      {
+        "endpoint_bohr": 400.0,
+        "reduced_rotated": 5.279128912238648e-07,
+        "reduced_diagonal": 3.7516002431010906e-08
+      },
+      {
+        "endpoint_bohr": 800.0,
+        "reduced_rotated": 3.385044039174816e-07,
+        "reduced_diagonal": 7.737651158576964e-08
+      }
+    ]
+  },
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_precision_replay.py": "1349b47b1a2dab29e8979e9f27c0a8baa23038999c99ea120640c08f3c43b239",
+    "projects/ukrmol_co/numerov_corner_replay.py": "8bd29fa6d16db32bcc112caf2662a87ff6761f425d7a5f90f0d86cd1b4b92fc1"
+  },
+  "verification_support_role": "Adds a saved-decision verifier without replacing any frozen source.",
+  "saved_decision_replay_passed": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "status": "prospective complete public replay of the finite analytic precision attribution",
+    "source_freeze": "aa917aab83aa26745cdd92bf44c8ea62a245424a",
+    "worker_sha256": "450d1b39935ee4531acfa3c6046c83c0a504b85a9216ff6db2e1690cbdda06f7",
+    "baseline_rows_reused": 12,
+    "new_analytic_solves_reexecuted": 10,
+    "required_stored_k_component_drift": 0,
+    "required_all_46_diagnostic_checks_identical": true,
+    "required_all_hypotheses_and_ratios_identical": true,
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "workers": 1,
+      "blas_threads": 1,
+      "memory_gib": 4,
+      "expected_wall_seconds": 120,
+      "timeout_seconds": 600
+    },
+    "stopping_rule": "Replay all ten newly propagated analytic rows once, plus the twelve reused-row oracle decompositions, from fresh public bytes. No retry or altered parameters. Diagnostic acceptance and hypothesis outcomes cannot release CO or upgrade the original rejected prerequisite.",
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0,
+    "candidate_qualified_identities": 14,
+    "unique_energy_coverage": 132,
+    "uncomputed_identities": 462,
+    "native_full_k_reconstruction_verdict": false,
+    "co_complex_pole_verdict": null,
+    "native_invocations": 0
+  },
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "verification_dependency_supplement": {
+    "initial_public_test_exit": 2,
+    "initial_failure": "Missing numerov_corner_replay imported by the existing corner test module; scientific producer and saved-decision replay unaffected.",
+    "initial_test_log_sha256": "424c3bfa2c69bedebf2c5a463a7dd716c812a7773f0bc1424728059e48fe0315",
+    "initial_support_archive_sha256": "0af85a85f297598bbe0919c82b776caf30397161647268bc9a4f04e0a5c08f30",
+    "only_added_dependency": "projects/ukrmol_co/numerov_corner_replay.py",
+    "frozen_numerical_modules_replaced": false
+  },
+  "public_numerical_rows_reexecuted": 10,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_owner_supplement": {
+    "original_preflight_owner_exit": 1,
+    "original_preflight_failure": "UnboundLocalError: local replay-contract variable shadows diagnostic contract before container launch",
+    "original_owner_sha256": "c1be7c91d5d2777be10c43e739aa74d44675d5ba3f6d9ce678ab2f76033525ff",
+    "corrected_owner_sha256": "f5e6d7b193455104c8a4ec49578a502dec84416b5ba43d66406e257304cfb7df",
+    "original_preflight_remote_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-precision-public-replay-20261019",
+    "original_preflight_docker_invocations": 0,
+    "original_preflight_numerical_solves": 0,
+    "public_archive_sha256": "10fcce03fa5fe2a4aec348db9bc17a88e255f9361ff6eb899acdb9a9d05ef34d",
+    "frozen_numerical_worker_or_inputs_changed": false,
+    "correction": "Rename diagnostic contract binding and reference to prior_contract; separate persistent directory preserves original owner.",
+    "original_preflight_log_sha256": "a08c788a6676e550b47925d763eea9df05cc7e75c8a783a7eac087cff0c7d315"
+  }
+}
