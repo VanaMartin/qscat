@@ -1,0 +1,80 @@
+{
+  "git_sha": "4a9baa17606bbbc11403eeba1a53fe0c4b2f4f35",
+  "verification_support_git_sha": "d4662d3ae45b6bed84faa01d64266b57f34aea34",
+  "date": "2026-10-19",
+  "record_type": "coupled-extended-arithmetic-and-synthetic-dense-cost-control",
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 89,
+  "checks_total": 89,
+  "new_typed_propagations": 32,
+  "hypotheses": {
+    "all_three_precision_gain_at_least_100fold": true,
+    "roundoff_reduction_ratios": [
+      10494.373981411638,
+      9590.276586765865,
+      4926.856182506888
+    ]
+  },
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_coupled_replay.py": "445c1a6ed24d7205f5508046516ea528c88090bbb4f65923268d3a8c1ccda82d"
+  },
+  "verification_support_role": "Adds a saved-decision verifier without replacing any frozen source. Stored preflight diagnostics are audited; complete numerical replay reexecutes preflights.",
+  "saved_decision_replay_passed": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "status": "prospective complete coupled-arithmetic public replay with timing-only dense-row profiles",
+    "producer_source_commit": "4a9baa17606bbbc11403eeba1a53fe0c4b2f4f35",
+    "producer_source_archive_sha256": "0c5abef9bd2059154c3d179be04037bbccee11f3244533abbf22ce7bb138af4c",
+    "producer_results_archive_sha256": "c95b1acdbfd05ecf5b6d9ce1c5af08bc20d522a39a30dd09ba543e8dc3b1b0c6",
+    "worker_sha256": "b68ab35ced8e81171201e13002a2d4188c6633479819d50c0d4343b99738d67e",
+    "new_typed_propagations_reexecuted": 32,
+    "short_discrete_oracle_pairs_reexecuted": 9,
+    "continuous_reference_integrations_reexecuted": 6,
+    "algebra_and_tail_preflights_reexecuted": true,
+    "comparison": "Require exact stored decimal and binary64 K components for all32 rows, identical89 check decisions, stage verdicts, hypotheses, precision metadata, preflight diagnostics and continuous references.",
+    "profiling": "Wrap only the existing row function calls for the two298-channel synthetic rows in cProfile.runcall. Timing-only instrumentation changes no frozen numerical source or input. Save binary profile and top40 cumulative/exclusive function times. Zero additional propagations. Synthetic attribution is not a CO throughput benchmark or elementary-operation error attribution.",
+    "motivation": "Producer extended dense row costs4.658s versus.05897s binary64,79x; rough60-solve finest400 extrapolation is98.86 single-worker days. Profile before any expensive CO submission or kernel optimization.",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "workers": 1,
+      "blas_threads": 1,
+      "memory_gib": 4,
+      "expected_wall_seconds": 90,
+      "upper_wall_seconds": 180,
+      "timeout_seconds": 600,
+      "sample_interval_seconds": 0.2
+    },
+    "stopping_rule": "Run once from fresh public bytes. Preserve original exits and all producer failures. Replay mismatch stops further submissions. No numerical-source change, new grid/precision rung or automatic CO invocation.",
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "public_numerical_rows_reexecuted": 32,
+  "public_replay_exits": [
+    0,
+    0
+  ]
+}

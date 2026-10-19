@@ -1,0 +1,80 @@
+{
+  "verified_utc": "2026-10-19T13:26:35.886739+00:00",
+  "producer_source_freeze": "4a9baa17606bbbc11403eeba1a53fe0c4b2f4f35",
+  "verification_support_freeze": "d4662d3",
+  "frozen_numerical_sources_and_contract_unchanged": true,
+  "overview_source_hashes_verified": 444,
+  "documentation_links_verified": 707,
+  "checks_passed": 89,
+  "checks_total": 89,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "all_three_precision_gain_hypothesis": true,
+  "precision_bits": {
+    "binary64": 53,
+    "longdouble": 64
+  },
+  "original_interior_verdict": false,
+  "original_interior_exits": [
+    1,
+    1
+  ],
+  "new_typed_propagations": 32,
+  "candidate_qualified_identities": 14,
+  "new_co_independent_solves": 0,
+  "co_successor_submitted": false,
+  "new_unique_energy_identities": 0,
+  "original_unique_energy_coverage": 132,
+  "original_uncomputed_identities": 462,
+  "public_payloads_verified": 14,
+  "public_focused_tests_passed": 80,
+  "public_focused_tests_skipped": 2,
+  "public_new_propagations_reexecuted": 32,
+  "all_stored_extended_decimal_and_binary64_K_components_exact": true,
+  "all_check_stage_hypothesis_preflight_reference_values_identical": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "binary_profiles_verified": 2,
+  "profile_attribution": {
+    "taylor_change": {
+      "cumulative_seconds": 2.883755329,
+      "fraction_of_dense_row": 0.6192480734160792,
+      "calls": 3
+    },
+    "refined_solve": {
+      "cumulative_seconds": 1.2159952330000001,
+      "fraction_of_dense_row": 0.2611187910936623,
+      "calls": 10
+    }
+  },
+  "synthetic_cost": {
+    "extended_to_binary64_wall_ratio": 78.9931252545453,
+    "extended_wall_seconds": 4.658168274007039,
+    "binary64_wall_seconds": 0.058969286998035386,
+    "intervals": 8,
+    "extended_seconds_per_interval": 0.5822710342508799,
+    "rough_60_solve_400bohr_finest_seconds": 8541217.347219307,
+    "scope": "Synthetic298 free matrices, eight intervals, single worker. Includes startup/tail/matching; not a measured CO cost or successor authorization."
+  },
+  "remote_collected_hashes_verified": 20,
+  "frozen_source_files_verified": 63,
+  "installed_engine_artifacts_verified": 242,
+  "prior_report_verified": true,
+  "ruff_lint_format_and_diff_passed": true,
+  "png_visually_checked_and_text_svg_validated": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_state": "stale",
+  "main_index_upstream_state": "unknown",
+  "relevant_branch_delta_from_index": "A\tprojects/ukrmol_co/numerov_coupled_oracle.py\nA\tprojects/ukrmol_co/numerov_coupled_precision.py\nA\tprojects/ukrmol_co/numerov_coupled_replay.py\nA\tprojects/ukrmol_co/numerov_typed_coupled.py\n",
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

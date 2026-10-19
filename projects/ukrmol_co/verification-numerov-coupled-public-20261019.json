@@ -1,0 +1,876 @@
+{
+  "verified_utc": "2026-10-19T13:20:25.328343+00:00",
+  "fresh_public_bytes_verified": true,
+  "payloads_verified": 10,
+  "frozen_sources_verified": 63,
+  "verification_support_files_verified": 1,
+  "saved_decision_replay_passed": true,
+  "saved_decision_replay_exit": 0,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 89,
+  "checks_total": 89,
+  "public_focused_tests_exit": 0,
+  "test_stdout": "......s......s.......................................................... [ 87%]\n..........                                                               [100%]\n80 passed, 2 skipped in 2.54s\n",
+  "public_numerical_reexecution_passed": true,
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "public_numerical_rows_reexecuted": 32,
+  "all_typed_decimal_components_exactly_reproduce": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_replay_execution": {
+    "started_utc": "2026-10-19T13:20:30.519792+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-numerov-coupled-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/dependencies:/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-coupled-public-replay-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-coupled-public-replay-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "public_archive_sha256": "d3594ec8e4b8c932086a2eaebb56639a4685f6f37d780511521978a1a53367ba",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 90,
+    "upper_wall_seconds": 180,
+    "timeout_seconds": 600,
+    "source_files_verified": 63,
+    "verification_support_files_verified": 1,
+    "effective_source_files_verified": 64,
+    "installed_engine_artifacts_verified": 242,
+    "prior_report_files_verified": 1,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "persistent_disk_free_gib": 60.75098419189453,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "driver_exit": 0,
+    "finished_utc": "2026-10-19T13:21:16.353254+00:00",
+    "wall_seconds": 45.82909525698051,
+    "sampled_memory_current_peak_bytes": 101793792,
+    "sampled_kernel_memory_peak_bytes": 112754688,
+    "sampled_cpu_seconds": 45.263771,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 227,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "public_replay": {
+    "public_numerical_reexecution_passed": true,
+    "all_extended_decimal_components_exactly_reproduce": true,
+    "decisions_preflights_references_identical": true,
+    "new_typed_propagations_reexecuted": 32,
+    "dense_rows_profiled": 2,
+    "additional_propagations_for_profiling": 0,
+    "checks_passed": 89,
+    "checks_total": 89,
+    "experiment_verdict": true,
+    "hypotheses": {
+      "all_three_precision_gain_at_least_100fold": true,
+      "roundoff_reduction_ratios": [
+        10494.373981411638,
+        9590.276586765865,
+        4926.856182506888
+      ]
+    },
+    "profiles": [
+      {
+        "backend": "binary64",
+        "total_profile_seconds": 0.059146617,
+        "functions": [
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_coupled_precision.py",
+            "line": 40,
+            "function": "row",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.00030578100000000003,
+            "cumulative_seconds": 0.059158867000000004
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 127,
+            "function": "typed_coupled_k",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.0038808490000000005,
+            "cumulative_seconds": 0.058730326000000006
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 20,
+            "calls": 20,
+            "exclusive_seconds": 0.0007722330000000001,
+            "cumulative_seconds": 0.026612482000000003
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 118,
+            "function": "taylor_change",
+            "primitive_calls": 3,
+            "calls": 3,
+            "exclusive_seconds": 1.6420000000000002e-05,
+            "cumulative_seconds": 0.025795788
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 122,
+            "function": "<genexpr>",
+            "primitive_calls": 60,
+            "calls": 60,
+            "exclusive_seconds": 0.024836174000000003,
+            "cumulative_seconds": 0.024840454
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 14,
+            "function": "refined_solve",
+            "primitive_calls": 10,
+            "calls": 10,
+            "exclusive_seconds": 0.005200019,
+            "cumulative_seconds": 0.02227761
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/_lib/_util.py",
+            "line": 1203,
+            "function": "wrapper",
+            "primitive_calls": 20,
+            "calls": 20,
+            "exclusive_seconds": 7.848000000000001e-05,
+            "cumulative_seconds": 0.015875187000000002
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/linalg/_decomp_lu.py",
+            "line": 136,
+            "function": "lu_solve",
+            "primitive_calls": 10,
+            "calls": 10,
+            "exclusive_seconds": 8.570000000000001e-06,
+            "cumulative_seconds": 0.012008372000000002
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/linalg/_decomp_lu.py",
+            "line": 189,
+            "function": "_lu_solve",
+            "primitive_calls": 10,
+            "calls": 10,
+            "exclusive_seconds": 0.011821802000000001,
+            "cumulative_seconds": 0.011950212
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/linalg/_decomp_lu.py",
+            "line": 22,
+            "function": "lu_factor",
+            "primitive_calls": 10,
+            "calls": 10,
+            "exclusive_seconds": 0.0036792250000000004,
+            "cumulative_seconds": 0.003838745
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 49,
+            "function": "typed_tail",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.000877313,
+            "cumulative_seconds": 0.00248364
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 107,
+            "function": "potential_derivatives",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.001491357,
+            "cumulative_seconds": 0.001493897
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 22,
+            "function": "norm",
+            "primitive_calls": 40,
+            "calls": 40,
+            "exclusive_seconds": 5.916e-05,
+            "cumulative_seconds": 0.001127434
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 206,
+            "function": "<listcomp>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.001094714,
+            "cumulative_seconds": 0.001094714
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 177,
+            "function": "w",
+            "primitive_calls": 9,
+            "calls": 9,
+            "exclusive_seconds": 0.000888374,
+            "cumulative_seconds": 0.000888374
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 69,
+            "function": "_wrapreduction",
+            "primitive_calls": 91,
+            "calls": 91,
+            "exclusive_seconds": 7.302e-05,
+            "cumulative_seconds": 0.0006907430000000001
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+            "primitive_calls": 123,
+            "calls": 123,
+            "exclusive_seconds": 0.0006622440000000001,
+            "cumulative_seconds": 0.0006622440000000001
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 180,
+            "function": "b",
+            "primitive_calls": 4,
+            "calls": 4,
+            "exclusive_seconds": 0.00018339000000000002,
+            "cumulative_seconds": 0.000583051
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 2338,
+            "function": "sum",
+            "primitive_calls": 40,
+            "calls": 40,
+            "exclusive_seconds": 3.426e-05,
+            "cumulative_seconds": 0.000580112
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.abs>",
+            "primitive_calls": 54,
+            "calls": 54,
+            "exclusive_seconds": 0.000531212,
+            "cumulative_seconds": 0.000531212
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 94,
+            "function": "columns",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.00044209200000000005,
+            "cumulative_seconds": 0.00044209200000000005
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 74,
+            "function": "<genexpr>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.000430972,
+            "cumulative_seconds": 0.000430972
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 73,
+            "function": "<genexpr>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.000370342,
+            "cumulative_seconds": 0.000370342
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.any>",
+            "primitive_calls": 22,
+            "calls": 22,
+            "exclusive_seconds": 4.22e-06,
+            "cumulative_seconds": 0.000318901
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 166,
+            "function": "<genexpr>",
+            "primitive_calls": 4,
+            "calls": 4,
+            "exclusive_seconds": 0.00020489100000000001,
+            "cumulative_seconds": 0.000314081
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py",
+            "line": 598,
+            "function": "asarray_chkfinite",
+            "primitive_calls": 20,
+            "calls": 20,
+            "exclusive_seconds": 0.00017676,
+            "cumulative_seconds": 0.00023128000000000002
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 124,
+            "function": "<genexpr>",
+            "primitive_calls": 21,
+            "calls": 21,
+            "exclusive_seconds": 0.000197321,
+            "cumulative_seconds": 0.000198481
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 3052,
+            "function": "max",
+            "primitive_calls": 51,
+            "calls": 51,
+            "exclusive_seconds": 3.091e-05,
+            "cumulative_seconds": 0.00018096100000000002
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/numeric.py",
+            "line": 98,
+            "function": "zeros_like",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.00015042,
+            "cumulative_seconds": 0.00015169
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/lib/_twodim_base_impl.py",
+            "line": 176,
+            "function": "eye",
+            "primitive_calls": 4,
+            "calls": 4,
+            "exclusive_seconds": 0.000110341,
+            "cumulative_seconds": 0.00012009100000000001
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/lib/_twodim_base_impl.py",
+            "line": 258,
+            "function": "diag",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 7.212000000000001e-05,
+            "cumulative_seconds": 9.468000000000001e-05
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.all>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 1.1600000000000001e-06,
+            "cumulative_seconds": 8.299e-05
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 154,
+            "function": "<genexpr>",
+            "primitive_calls": 6,
+            "calls": 6,
+            "exclusive_seconds": 6.814000000000001e-05,
+            "cumulative_seconds": 8.183000000000001e-05
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<method 'all' of 'numpy.ndarray' objects>",
+            "primitive_calls": 27,
+            "calls": 27,
+            "exclusive_seconds": 9.18e-06,
+            "cumulative_seconds": 6.856000000000001e-05
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/native_exterior_attribution.py",
+            "line": 53,
+            "function": "algebra",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 5.8800000000000005e-06,
+            "cumulative_seconds": 6.727e-05
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/_methods.py",
+            "line": 66,
+            "function": "_all",
+            "primitive_calls": 27,
+            "calls": 27,
+            "exclusive_seconds": 8.27e-06,
+            "cumulative_seconds": 5.9380000000000004e-05
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/linalg/blas.py",
+            "line": 395,
+            "function": "getter",
+            "primitive_calls": 20,
+            "calls": 20,
+            "exclusive_seconds": 1.987e-05,
+            "cumulative_seconds": 5.5060000000000005e-05
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_arithmetic_control.py",
+            "line": 21,
+            "function": "decimal_matrix",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 9.600000000000001e-07,
+            "cumulative_seconds": 5.3750000000000005e-05
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_arithmetic_control.py",
+            "line": 22,
+            "function": "<listcomp>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 2.8800000000000004e-06,
+            "cumulative_seconds": 5.279e-05
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/native_exterior_study.py",
+            "line": 20,
+            "function": "cayley",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 1.2280000000000001e-05,
+            "cumulative_seconds": 4.859e-05
+          }
+        ]
+      },
+      {
+        "backend": "longdouble",
+        "total_profile_seconds": 4.656866049000002,
+        "functions": [
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_coupled_precision.py",
+            "line": 40,
+            "function": "row",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.0008726130000000001,
+            "cumulative_seconds": 4.656877899
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 127,
+            "function": "typed_coupled_k",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.388635442,
+            "cumulative_seconds": 4.655881905
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 20,
+            "calls": 20,
+            "exclusive_seconds": 0.014320868,
+            "cumulative_seconds": 2.88644793
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 118,
+            "function": "taylor_change",
+            "primitive_calls": 3,
+            "calls": 3,
+            "exclusive_seconds": 2.124e-05,
+            "cumulative_seconds": 2.883755329
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 122,
+            "function": "<genexpr>",
+            "primitive_calls": 60,
+            "calls": 60,
+            "exclusive_seconds": 2.8664342190000003,
+            "cumulative_seconds": 2.866439449
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 14,
+            "function": "refined_solve",
+            "primitive_calls": 10,
+            "calls": 10,
+            "exclusive_seconds": 1.150550057,
+            "cumulative_seconds": 1.2159952330000001
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 206,
+            "function": "<listcomp>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.12963923400000002,
+            "cumulative_seconds": 0.12963923400000002
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/_lib/_util.py",
+            "line": 1203,
+            "function": "wrapper",
+            "primitive_calls": 30,
+            "calls": 30,
+            "exclusive_seconds": 0.00011795100000000001,
+            "cumulative_seconds": 0.036710165
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/linalg/_decomp_lu.py",
+            "line": 136,
+            "function": "lu_solve",
+            "primitive_calls": 20,
+            "calls": 20,
+            "exclusive_seconds": 1.7511000000000002e-05,
+            "cumulative_seconds": 0.031994736
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/linalg/_decomp_lu.py",
+            "line": 189,
+            "function": "_lu_solve",
+            "primitive_calls": 20,
+            "calls": 20,
+            "exclusive_seconds": 0.031579224,
+            "cumulative_seconds": 0.031884024000000004
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 22,
+            "function": "norm",
+            "primitive_calls": 80,
+            "calls": 80,
+            "exclusive_seconds": 8.6091e-05,
+            "cumulative_seconds": 0.024294712000000003
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 107,
+            "function": "potential_derivatives",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.014516261,
+            "cumulative_seconds": 0.014518721
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.abs>",
+            "primitive_calls": 94,
+            "calls": 94,
+            "exclusive_seconds": 0.013916221000000001,
+            "cumulative_seconds": 0.013916221000000001
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+            "primitive_calls": 213,
+            "calls": 213,
+            "exclusive_seconds": 0.013473882000000001,
+            "cumulative_seconds": 0.013473882000000001
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 69,
+            "function": "_wrapreduction",
+            "primitive_calls": 171,
+            "calls": 171,
+            "exclusive_seconds": 0.00011130000000000001,
+            "cumulative_seconds": 0.013391881000000001
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 2338,
+            "function": "sum",
+            "primitive_calls": 80,
+            "calls": 80,
+            "exclusive_seconds": 5.013e-05,
+            "cumulative_seconds": 0.011726965
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 49,
+            "function": "typed_tail",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 0.0035445060000000002,
+            "cumulative_seconds": 0.008793086
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 177,
+            "function": "w",
+            "primitive_calls": 9,
+            "calls": 9,
+            "exclusive_seconds": 0.008299185,
+            "cumulative_seconds": 0.008299185
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 180,
+            "function": "b",
+            "primitive_calls": 4,
+            "calls": 4,
+            "exclusive_seconds": 0.00254701,
+            "cumulative_seconds": 0.006227226000000001
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method numpy.asarray>",
+            "primitive_calls": 160,
+            "calls": 160,
+            "exclusive_seconds": 0.004859829,
+            "cumulative_seconds": 0.004859829
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/scipy/linalg/_decomp_lu.py",
+            "line": 22,
+            "function": "lu_factor",
+            "primitive_calls": 10,
+            "calls": 10,
+            "exclusive_seconds": 0.004518399,
+            "cumulative_seconds": 0.00469464
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 124,
+            "function": "<genexpr>",
+            "primitive_calls": 21,
+            "calls": 21,
+            "exclusive_seconds": 0.003818886,
+            "cumulative_seconds": 0.0038203060000000003
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.any>",
+            "primitive_calls": 32,
+            "calls": 32,
+            "exclusive_seconds": 5.2e-06,
+            "cumulative_seconds": 0.002137288
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 166,
+            "function": "<genexpr>",
+            "primitive_calls": 4,
+            "calls": 4,
+            "exclusive_seconds": 0.000915173,
+            "cumulative_seconds": 0.002131378
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 3052,
+            "function": "max",
+            "primitive_calls": 91,
+            "calls": 91,
+            "exclusive_seconds": 4.2781e-05,
+            "cumulative_seconds": 0.001766537
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 74,
+            "function": "<genexpr>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.0012452750000000001,
+            "cumulative_seconds": 0.0012452750000000001
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 73,
+            "function": "<genexpr>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.000622032,
+            "cumulative_seconds": 0.000622032
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 94,
+            "function": "columns",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.000516402,
+            "cumulative_seconds": 0.000516402
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 143,
+            "function": "<genexpr>",
+            "primitive_calls": 4,
+            "calls": 4,
+            "exclusive_seconds": 1.94e-06,
+            "cumulative_seconds": 0.000497192
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/lib/_function_base_impl.py",
+            "line": 598,
+            "function": "asarray_chkfinite",
+            "primitive_calls": 30,
+            "calls": 30,
+            "exclusive_seconds": 0.00036692,
+            "cumulative_seconds": 0.00045128000000000003
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/numeric.py",
+            "line": 98,
+            "function": "zeros_like",
+            "primitive_calls": 2,
+            "calls": 2,
+            "exclusive_seconds": 0.00033529100000000004,
+            "cumulative_seconds": 0.000336781
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<built-in method builtins.all>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 7.900000000000001e-07,
+            "cumulative_seconds": 0.000291812
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/numerov_typed_coupled.py",
+            "line": 154,
+            "function": "<genexpr>",
+            "primitive_calls": 6,
+            "calls": 6,
+            "exclusive_seconds": 0.000276222,
+            "cumulative_seconds": 0.000291022
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 2477,
+            "function": "any",
+            "primitive_calls": 5,
+            "calls": 5,
+            "exclusive_seconds": 3.6300000000000004e-06,
+            "cumulative_seconds": 0.000183931
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/fromnumeric.py",
+            "line": 89,
+            "function": "_wrapreduction_any_all",
+            "primitive_calls": 5,
+            "calls": 5,
+            "exclusive_seconds": 5.62e-06,
+            "cumulative_seconds": 0.000180301
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/lib/_twodim_base_impl.py",
+            "line": 176,
+            "function": "eye",
+            "primitive_calls": 4,
+            "calls": 4,
+            "exclusive_seconds": 0.00011607,
+            "cumulative_seconds": 0.0001338
+          },
+          {
+            "filename": "~",
+            "line": 0,
+            "function": "<method 'all' of 'numpy.ndarray' objects>",
+            "primitive_calls": 37,
+            "calls": 37,
+            "exclusive_seconds": 1.1230000000000001e-05,
+            "cumulative_seconds": 9.818000000000001e-05
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/lib/_twodim_base_impl.py",
+            "line": 258,
+            "function": "diag",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 8.913100000000001e-05,
+            "cumulative_seconds": 9.2571e-05
+          },
+          {
+            "filename": "/opt/ukrmolp/lib/python3.11/site-packages/numpy/_core/_methods.py",
+            "line": 66,
+            "function": "_all",
+            "primitive_calls": 37,
+            "calls": 37,
+            "exclusive_seconds": 1.062e-05,
+            "cumulative_seconds": 8.695e-05
+          },
+          {
+            "filename": "/public/source/projects/ukrmol_co/native_exterior_attribution.py",
+            "line": 53,
+            "function": "algebra",
+            "primitive_calls": 1,
+            "calls": 1,
+            "exclusive_seconds": 6.5900000000000004e-06,
+            "cumulative_seconds": 6.624e-05
+          }
+        ]
+      }
+    ],
+    "synthetic_cost": {
+      "extended_to_binary64_wall_ratio": 78.81340416878587,
+      "extended_wall_seconds": 4.656807968975045,
+      "binary64_wall_seconds": 0.05908649699995294,
+      "intervals": 8,
+      "extended_seconds_per_interval": 0.5821009961218806,
+      "rough_60_solve_400bohr_finest_seconds": 8538723.091912642,
+      "scope": "Synthetic298 free matrices, eight intervals, single worker. Includes startup/tail/matching; not a measured CO cost or successor authorization."
+    },
+    "kernel_wall_seconds": 45.07908418698935,
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "public_replay_collection": {
+    "files": 10,
+    "archive_sha256": "9eb16414a4637a414290c5ff06f345b75b3bbf341b976488adfe631b9bf09cdf"
+  },
+  "replay_verified_utc": "2026-10-19T13:22:05.195625+00:00",
+  "final_public_verified_utc": "2026-10-19T13:23:07.731432+00:00",
+  "public_payloads_verified": 14,
+  "all_final_payloads_fresh_downloaded": true,
+  "collected_file_counts_verified": {
+    "collected": 10,
+    "replay": 10
+  }
+}

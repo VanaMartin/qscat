@@ -183,6 +183,19 @@ decimal components, plus every decision/hypothesis. Six short-grid preflight
 controls pass remotely in both dtypes;74 local tests pass with one wider-format
 skip. All14 final public payloads verify, exits0/0; no scientific container runs.
 
+The subsequent [coupled precision and dense-cost control](NUMEROV_COUPLED_PRECISION.md)
+passes89/89 checks/exits0/0,32 typed propagations in45.78 s. Noncommuting
+short-grid discrete arithmetic and continuous references, exact inverse-square
+physical convergence, archived stress endpoints and synthetic298-channel solves
+pass. Complete public replay reproduces every decimal K component and89 decisions;
+80 tests pass with two host-dependent wider-format skips, exercised remotely.
+Dense extended arithmetic costs79× binary64. Profiling the two existing dense
+rows attributes61.92% to Taylor setup and26.11% to mixed solves. Next separately
+measure setup-versus-interval scaling and target the proven hot path before
+scheduling interior CO. The eight-interval average, including setup, is not a
+CO throughput measurement. All14 public payloads verify. Original interior
+false/exits1/1 and coverage132/594/462 uncomputed remain; no CO successor runs.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

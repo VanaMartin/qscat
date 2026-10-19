@@ -44,6 +44,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [interior stress prerequisite rejection](NUMEROV_INTERIOR_CONTROL.md),
 [fixed-grid matrix precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md),
 [extended-arithmetic qualification](NUMEROV_ARITHMETIC_CONTROL.md),
+[coupled precision and dense-cost control](NUMEROV_COUPLED_PRECISION.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -71,7 +72,18 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October, 12:51 UTC:** the
+**Update — 19 October, 13:23 UTC:** the
+[coupled extended-arithmetic control](NUMEROV_COUPLED_PRECISION.md) passes
+**89/89 checks / exits0/0**,32 typed propagations in45.78 s. Noncommuting
+short-grid arithmetic, exact inverse-square convergence/invariants, archived
+stress endpoints and synthetic298-channel solves pass. Full public replay
+reproduces all decimal K components and89 decisions exactly;80 tests pass with
+two wider-format skips, exercised remotely. Dense arithmetic is79× binary64;
+profiling assigns61.92% to Taylor setup and26.11% to mixed solves. Next separate
+setup/interval scaling before optimizing and scheduling interior CO. All14 public
+payloads verify. Original interior false/exits1/1 and coverage132/594 remain.
+
+**Earlier update — 19 October, 12:51 UTC:** the
 [fixed-grid extended-arithmetic control](NUMEROV_ARITHMETIC_CONTROL.md) passes
 **35/35 control and10/10 qualification checks / original exits0/0**,14 analytic
 solves in64.80 s. With64 rather than53 significand bits, drift falls **453–2458×**
@@ -413,10 +425,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 19 October 2026
 
-![CO qualification: extended arithmetic suppresses free-matrix roundoff on unchanged grids; coupled CO formulation remains to qualify](../../docs/physics/figures/co-progress-20261019-arithmetic.png)
+![CO qualification: coupled precision passes independent controls; dense setup and solve costs need optimization](../../docs/physics/figures/co-progress-20261019-coupled.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-arithmetic.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-arithmetic.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019-coupled.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019-coupled.json) ·
+[Coupled precision and profiled cost control](NUMEROV_COUPLED_PRECISION.md) ·
+[Public coupled-precision evidence](qualification-evidence/numerov-coupled/README.md) ·
 [Extended-arithmetic qualification](NUMEROV_ARITHMETIC_CONTROL.md) ·
 [Public arithmetic evidence](qualification-evidence/numerov-arithmetic/README.md) ·
 [Fixed-grid precision attribution](NUMEROV_PRECISION_ATTRIBUTION.md) ·
@@ -495,6 +509,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous08:59overview](../../docs/physics/figures/co-progress-20261019-corners.png) ·
 [Previous09:54overview](../../docs/physics/figures/co-progress-20261019-interior.png) ·
 [Previous12:35overview](../../docs/physics/figures/co-progress-20261019-precision.png) ·
+[Previous12:59overview](../../docs/physics/figures/co-progress-20261019-arithmetic.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -687,12 +702,11 @@ The six panels explain the qualification campaign:
   pole curve; background-sensitive extraction still needs qualification. The
   CAS12 both-sector native candidate is shown in the note alongside the completed
   independent export/Pi checks; it remains provisional for pole extraction.
-- **B — Fixed-grid arithmetic qualification.** The free rotated open/closed
-  model compares typed binary64 and64-significand-bit extended arithmetic at
-  fixed h=.0015625 and endpoints200/400/800 bohr. Extended drift falls below
-  5.53e-10 while the discrete truncation is unchanged. Across all six contracted
-  scalar/matrix coordinates the precision-gain hypothesis passes453–2458×.
-  The1e-8 line is the extended-drift gate, not a native CO uncertainty bound.
+- **B — Coupled physical convergence.** The exact inverse-square hard-wall
+  scattering benchmark converges approximately16× per h halving in both dtypes,
+  to S error2.281e-9. Noncommuting short models pass independent discrete arithmetic
+  and continuous controls. Archived free-stress endpoints also pass extended
+  gates; those remain separate from native CO uncertainty bounds.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
   budgets pass over 1.9–2.5 bohr: maximum QZ/5Z relative difference 17.243 meV and
@@ -724,13 +738,13 @@ The six panels explain the qualification campaign:
   neutral numerical inputs carry forward. Electronic basis/active-space/ensemble/
   channels, identity, width extraction and neutral correlation still determine the
   production model. A frozen restartable pilot precedes the sweep and held-out
-  QSCAT potential validation. The newest finite result qualifies free-exterior
-  extended arithmetic; the next gate is a coupled inverse-power formulation,
-  followed by a separately contracted interior CO comparison.
+  QSCAT potential validation. Coupled extended arithmetic passes its finite
+  controls; dense-channel performance now needs setup/interval scaling and
+  targeted optimization before a separately contracted interior CO comparison.
 
-This is the **19 October12:59:29 UTC** snapshot. The14-solve arithmetic control
+This is the **19 October13:23:03 UTC** snapshot. The32-propagation coupled control
 and complete public numerical replay pass; all extended decimal components and
-45 decisions reproduce exactly. Earlier interior false/exits1/1 and all other
+89 decisions reproduce exactly. Earlier interior false/exits1/1 and all other
 numerical/model rejections remain recorded. Historical independent coverage is
 132/594 identities with462 uncomputed;14 CO identities have increment-corner
 qualification. CAS12 root-pair evidence remains sufficient for current matched
@@ -748,7 +762,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned12:35 precision snapshot; its chain
+snapshot is an explicit delta against the hash-pinned12:59 arithmetic snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

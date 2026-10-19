@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-arithmetic.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-coupled.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -774,6 +774,47 @@ def _native_full_rejection(ax, data):
     _note(ax, data["native_full_rejection_note"])
 
 
+def _coupled_precision(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Coupled physical control converges",
+        "Exact inverse-square hard wall; finite-order tail at20 bohr",
+    )
+    rows = data["coupled_precision"]
+    x = np.arange(len(rows))
+    ax.semilogy(
+        x,
+        [r["binary64_s_error"] for r in rows],
+        color=BLUE,
+        marker="o",
+        label="Binary64 S error (53 bits)",
+    )
+    ax.semilogy(
+        x,
+        [r["extended_s_error"] for r in rows],
+        color=GREEN,
+        marker="^",
+        ls="--",
+        label="Extended S error (64 bits)",
+    )
+    for i, row in enumerate(rows):
+        ax.annotate(
+            f"{row['extended_s_error']:.2e}",
+            (i, row["extended_s_error"]),
+            xytext=(0, 10),
+            textcoords="offset points",
+            ha="center",
+            color=GREEN,
+        )
+    ax.axhline(1e-6, color=GRAY, ls="--", lw=1, label="Finest physical S budget")
+    ax.set_xticks(x, [f"{r['step_bohr']:.4f}" for r in rows])
+    ax.set(xlim=(-0.2, 2.2), ylim=(7e-10, 4e-6), xlabel="Step h / bohr (fixed20-bohr endpoint)")
+    ax.set_ylabel("Maximum S entry error against independent Hankel oracle")
+    ax.legend(loc="center left", frameon=False, fontsize=8.5)
+    _note(ax, data["coupled_precision_note"])
+
+
 def _arithmetic_control(ax, data):
     _panel(
         ax,
@@ -911,7 +952,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _arithmetic_control
+            _coupled_precision
+            if "coupled_precision" in data
+            else _arithmetic_control
             if "arithmetic_control" in data
             else _precision_attribution
             if "precision_attribution" in data
@@ -997,7 +1040,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-arithmetic"
+        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-coupled"
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

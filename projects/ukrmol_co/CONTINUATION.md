@@ -20,6 +20,75 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Coupled extended-arithmetic control and profiled public replay pass — 19 October, 13:23 UTC
+
+The [coupled precision control](NUMEROV_COUPLED_PRECISION.md) is frozen/pushed
+at **`4a9baa17606bbbc11403eeba1a53fe0c4b2f4f35`** before execution. It passes
+**89/89 checks / original exits0/0**,32 typed propagations:18 noncommuting short
+models,6 exact inverse-square scattering controls,6 archived free-stress rows
+and2 synthetic298-channel cost probes. Nine70/100-digit discrete-oracle pairs
+use an independent **fundamental-value** recurrence;6 continuous reference
+integrations and algebra/tail/Hankel preflights pass.
+
+Short extended discrete arithmetic error<=6.665e-19; finest continuous K<=5.035e-9.
+Short-radius finite-order tail nonunitarity is present in the independent
+reference and compared to it, not incorrectly asserted zero. Exact inverse-square
+physical unitarity/reciprocity and S gates pass1e-6, finest S error2.281e-9,
+approximately16× final error reduction. All archived compressed stress endpoints
+pass extended drift1e-8 and continuous K/S/phase/invariant1e-6 gates; largest
+drift7.104e-10, continuous K3.978e-8. All-three>=100× gain hypothesis is true,
+ratios4926.86–10494.37. Generic binary64 stress drift3.50–4.07e-6 is diagnostic,
+not qualified by the extended pass.
+
+Large solves use binary64 LU preconditioning with extended residuals, at most
+three corrections and32-eps backward gates. Synthetic298-channel K arithmetic
+error1.480e-18; one correction suffices and backward error<=5.734e-20. This
+qualifies the exercised conditioning, not arbitrary CO matrices/threshold groups.
+Dense extended row costs4.658168 s versus.058969 s binary64 (**78.99×**).
+The naive kernel-inclusive eight-interval extrapolation is98.86 single-worker
+days for60 finest400 solves, explicitly not a CO throughput measurement.
+
+Producer finishes **13:16:58UTC /45.782150 s /45.227669 sampled CPU s /
+140,115,968-byte kernel peak**,227 samples at0.2 s, reserved cores0–3/4 GiB,
+below300-s forecast/600-s upper/1200-s cap. All63 frozen sources,242 engine
+artifacts and pinned arithmetic report verify before/after. Original10-file
+collection lives under`prepared/numerov-coupled-precision-20261019/`.
+
+Separate saved verifier and profiled public replay contract freeze at **`d4662d3`**.
+The verifier recomputes propagation decisions and audits stored preflight
+diagnostics. Full public replay reexecutes actual preflights and all32 matrices,
+9 oracle pairs and6 continuous references: every decimal/binary64 K component,
+all89 decisions, hypotheses, references and preflights reproduce **exactly**.
+Replay finishes **13:21:16UTC / exits0/0 /45.829095 s /45.263771 sampled CPU s /
+112,754,688-byte kernel peak**,227 samples at0.2 s, reserved cores0–3/4 GiB,
+below90-s forecast/180-s upper/600-s cap. All **14 final public payloads** verify;
+local tests pass **80 with two wider-precision skips**, exercised remotely by
+the producer/replay. Public:`https://data.qscat.org/co-numerov-coupled-precision-20261019/`.
+
+Timing-only cProfile on the two existing dense rows adds zero propagations.
+Extended Taylor changes cost2.883755 s /61.92%; mixed solves1.215995 s /26.11%.
+Taylor work is setup/endpoint cost, so the naive99-day extrapolation must not
+be treated as a measured interval rate. Both binary profiles and top40 summaries
+are preserved in the10-file replay collection under
+`prepared/numerov-coupled-public-replay-20261019/`.
+
+**Next:** separately cost setup-versus-interval scaling, then optimize the measured
+extended matrix-product/residual hot path, retaining this validated Python
+formulation as the differential reference. Requalify any optimized implementation
+before a separately frozen interior CO contract. No automatic60-solve submission.
+Original interior false/exits1/1 and all earlier rejections remain; candidate CO
+qualification14, historical coverage132/594/462 uncomputed. No CO/native/inner
+solve, new unique energy, full-grid release or complex-pole interpretation.
+
+The [13:23:03UTC capture](progress-numerov-coupled-result-20261019.json) verifies
+20 collected hashes,63 sources,242 installed artifacts and prior report. No
+scientific containers run;60.75 GiB persistent disk remains. Main-index discovery
+uses complete/current`423d577`, upstream current; new coupled modules are
+branch-only and resolved locally. Frozen numerical modules/contract remain
+byte-identical to`4a9baa1`, separate verifier/replay contract to`d4662d3`.
+At result handoff the same main snapshot remains complete, with **stale / upstream
+unknown** currency; branch-only source/freeze/delta verification is local.
+
 ### Fixed-grid extended-arithmetic qualification passes — 19 October, 12:51 UTC
 
 The [arithmetic control](NUMEROV_ARITHMETIC_CONTROL.md), design and contract are

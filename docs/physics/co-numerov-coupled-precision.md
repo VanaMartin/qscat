@@ -108,3 +108,13 @@ actual prior-report hash before submission. Any prerequisite control failure
 stops later stages; retain failed/unset reports and original exits. Accuracy
 failure completes its fixed stage, then stops before the next stage. No retry,
 new precision/grid rung, relaxed gate or automatic CO invocation.
+
+## Recorded result
+
+The frozen control passes89/89 checks, original exits0/0, in45.782150 s. All32
+typed propagations complete. Short-grid extended arithmetic error is<=6.67e-19;
+exact inverse-square finest S error is2.281e-9, with fourth-order convergence.
+All long-grid extended drift/continuous gates pass; the all-three>=100× gain
+hypothesis is true. Synthetic298-channel K error is1.48e-18, but its extended
+cost4.658 s is79× binary64, motivating a separate timing-only profile during
+complete public replay. See the [result and limitations](../../projects/ukrmol_co/NUMEROV_COUPLED_PRECISION.md).
