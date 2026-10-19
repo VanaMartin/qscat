@@ -1,0 +1,24 @@
+[package]
+name = "qscat-extended"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Experimental precision-preserving residual kernel with a C long-double arithmetic shim"
+license = "BSD-3-Clause"
+
+[lib]
+name = "qscat_extended_kernels"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.29", features = ["extension-module", "abi3-py311"] }
+
+[build-dependencies]
+cc = "1.2"
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "residual"
+harness = false

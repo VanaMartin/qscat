@@ -10,6 +10,7 @@ resolution-markers = [
 members = [
     "qmodeling",
     "qscat",
+    "qscat-extended",
     "qscat-kernels",
     "qscat-run",
 ]
@@ -1333,6 +1334,11 @@ requires-dist = [
     { name = "scipy", specifier = ">=1.14" },
 ]
 provides-extras = ["mumps", "plot"]
+
+[[package]]
+name = "qscat-extended"
+version = "0.0.0"
+source = { editable = "native/qscat-extended" }
 
 [[package]]
 name = "qscat-kernels"

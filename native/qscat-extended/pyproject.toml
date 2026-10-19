@@ -1,0 +1,13 @@
+[project]
+name = "qscat-extended"
+version = "0.0.0"
+description = "Experimental extended residual kernel (Rust/PyO3 and C long double)"
+requires-python = ">=3.12"
+license = "BSD-3-Clause"
+
+[build-system]
+requires = ["maturin>=1.7"]
+build-backend = "maturin"
+
+[tool.maturin]
+module-name = "qscat_extended_kernels"
