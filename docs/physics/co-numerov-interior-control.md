@@ -77,3 +77,34 @@ If complete, historical solved coverage can increase from132 to136 identities,
 leaving458 uncomputed, while increment qualification can increase14→24. Those
 counts must be derived from actual completed rows and decisions, not assumed at
 submission. The original archived132/462 counts and false verdict stay intact.
+
+## Recorded prerequisite rejection — 19 October, 09:41 UTC
+
+The analytic source freeze **`b7f2278`** completes all24 solves with **64/68 checks
+passing**, aggregate **false / original runner-container exits1/1**. The four
+vetoes are confined to the compressed(+320 tangent/high-momentum) controls:
+
+- Scalar h=.0015625/800: candidate/discrete K drift **1.20892527e-7**, above1e-7,
+  despite continuous error5.76310e-8 passing its separate1e-6 budget.
+- Rotated open/open/closed h=.0015625/200 and400: continuous K errors
+  **1.12543592e-6 /1.11113104e-6**, above1e-6. The400/order6 row duplicates the
+  same numerical veto; it remains a separate declared check.
+
+The rotated400-bohr error worsens from4.92619e-7 at h=.003125 to1.11113e-6 at
+h=.0015625. All S/phase/invariant gates and80/110-digit oracle checks pass.
+Those passes cannot waive either the scalar precision or rotated K vetoes.
+The scalar precision failure identifies floating-point drift there; the coupled
+continuous failure is not by itself a separately measured roundoff bound.
+
+Measured **72.952831 s /72.491243 sampled CPU-seconds /47,329,280-byte kernel
+high-water**,363 samples at0.2 s, four physical cores0–3/4 GiB. All46 frozen
+sources and242 installed engine artifacts verify before/after. The10-file
+collection preserves original source, outputs, exits and resources.
+
+The stopping rule is applied: **zero CO successor submissions, zero new CO
+independent solves and zero native/inner solves**. No CO contract was frozen;
+the conditional60-solve proposal is withheld. Increment qualification remains
+14 identities; historical coverage132/594 and462 uncomputed remain unchanged.
+No tolerance relaxation, new rung or retry follows this contract. Further useful
+work requires a separately costed fixed-grid precision/algebra attribution or
+independent propagation control in this analytic regime before returning to CO.

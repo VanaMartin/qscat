@@ -1,0 +1,28 @@
+{
+  "status": "prospective complete replay of the rejected analytic prerequisite, separate from scientific exits",
+  "original_source_freeze": "b7f2278e774ea2b89161c1d4fd6b1e6261dea51c",
+  "worker_sha256": "7ed7fa01fb69bfa4f86c397f26a7f1f138416deb8b6f99ff2cf3567331016449",
+  "analytic_rows_reexecuted": 24,
+  "required_stored_k_component_drift": 0,
+  "required_all_68_checks_identical": true,
+  "original_analytic_verdict": false,
+  "original_scientific_exits": [1, 1],
+  "resources": {
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "blas_threads": 1,
+    "memory_gib": 4,
+    "expected_wall_seconds": 120,
+    "timeout_seconds": 600
+  },
+  "stopping_rule": "Reexecute the same24 analytic rows once from fresh public bytes. No altered grids, tolerances, retries or CO successor. Verification exit0 can reproduce scientific false/exits1/1.",
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0
+}
