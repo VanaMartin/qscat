@@ -39,6 +39,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [native-subrange attribution control](NATIVE_EXTERIOR_ATTRIBUTION.md),
 [six-case saved-native reconstruction](NATIVE_FULL_RECONSTRUCTION.md),
 [stretched 1-eV error attribution](NATIVE_K_ATTRIBUTION.md),
+[fixed-grid Numerov algebra control](NUMEROV_INCREMENT_CONTROL.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -66,7 +67,20 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 18 October, 23:15 UTC:** the resource-corrected
+**Update — 19 October:** the [fixed-grid Numerov algebra control](NUMEROV_INCREMENT_CONTROL.md)
+passes **24/24 two-point checks**, exits0/0, after16 analytic checks and49
+focused tests. Changing floating-point algebra reduces finest/native64 K
+differences from about7.26e-5 to **1.49e-7 /1.09e-7** on identical inputs and
+grids. The final step/endpoint gates pass unchanged1e-6 budgets. Original
+two-point and six-case false/exits1/1 remain preserved. An important diagnostic
+persists: step0.0125/endpoint800 rows differ from native by **1.59e-6 /1.46e-6**,
+so this is not an all-row or absolute-error qualification. Ten candidate solves
+cost **390.673 s /0.2350 GiB**. Public numerical replay reproduces every K and
+stored S component in all ten controls exactly, with identical passing checks;
+**20 final public payloads** verify. No scientific container runs. No full-grid/
+production continuation follows automatically.
+
+**Earlier update — 18 October, 23:15 UTC:** the resource-corrected
 [two-point attribution](NATIVE_K_ATTRIBUTION.md) completes with **false / original
 exits1/1**. Native32 reproduces saved32 exactly; native32→64 passes and all four
 native calls exit0. All ten independent controls pass invariants, but both
@@ -341,12 +355,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--16-october-2026"></a>
 
-## Progress overview — 18 October 2026
+## Progress overview — 19 October 2026
 
-![CO qualification: two-point attribution rejects step, endpoint and native K; public numerical replay reproduces all ten controls](../../docs/physics/figures/co-progress-20261018T2315.png)
+![CO qualification: cancellation-reduced Numerov passes two-point gates; endpoint800/native remains a consequential diagnostic](../../docs/physics/figures/co-progress-20261019.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261018T2315.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261018T2315.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019.json) ·
+[Increment control and scope](NUMEROV_INCREMENT_CONTROL.md) ·
+[Public increment evidence](qualification-evidence/numerov-increment/README.md) ·
 [Two-point attribution and timeout diagnosis](NATIVE_K_ATTRIBUTION.md) ·
 [Public two-point rejection and numerical replay](qualification-evidence/native-k-attribution-resource/README.md) ·
 [Verified two-point result capture](progress-native-k-resource-result-20261019.json) ·
@@ -409,6 +425,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous15:55overview](../../docs/physics/figures/co-progress-20261017T1555.png) ·
 [Previous18:14overview](../../docs/physics/figures/co-progress-20261017T1814.png) ·
 [Previous22:37overview](../../docs/physics/figures/co-progress-20261018T2237.png) ·
+[Previous23:15overview](../../docs/physics/figures/co-progress-20261018T2315.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·
@@ -439,22 +456,21 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **23:15 UTC, 18 October** release of an incremental overview. New findings, verification
+This is the **19 October** release of an incremental overview, with its exact UTC
+cutoff recorded in the snapshot and figure. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
 remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B shows the worst-sector step, endpoint, tail-order,
-native32→64 and finest/native comparisons against unchanged budgets. Native
-refinement and tail-order changes pass, but step/endpoint/reference K vetoes
-reject in both sectors. A smaller step worsens K; S/phase passes and the S-trend
-floor do not certify fourth-order convergence. Panels D/F record27.8275 min /
-1.973831 GiB,24/30 passing checks and exact public reexecution of all ten
-independent controls. No scientific container runs. Original timeout, six-case,
-pilot and combined-exterior failures remain preserved; no automatic step ladder
-or complex-pole interpretation follows.
+**What changed:** panel B compares the preserved original rejection with the
+fixed increment step, endpoint and finest/native gates. It also shows the
+separate800/native diagnostic above budget, so the24/24 declared-check pass is
+not mistaken for all-row qualification. Panels D/F record the analytic discrete
+oracle, same-grid improvement,390.673 s /0.2350 GiB and public replay evidence.
+Original timeout, two-point, six-case, pilot and combined-exterior failures
+remain preserved; full native K, complex poles and production remain gated.
 Panels A/C/D/E retain reusable anchor, neutral, numerical and channel evidence.
 Earlier separate benchmark passes, the unitary tail-cutoff discrepancy, 94
 wrong-width phase counterexamples and five-A2 interface failure remain preserved.

@@ -118,6 +118,18 @@ container now runs. The original timeout
 and six-case rejection remain. Further work needs a fixed-grid precision/algebra
 or independent-propagation design, not another automatic spacing rung.
 
+The subsequent [fixed-grid increment control](NUMEROV_INCREMENT_CONTROL.md)
+passes16 analytic checks and24/24 two-point CO checks, exits0/0. It retains
+the exact-arithmetic problem while changing cancellation-sensitive algebra;
+finest/native K discrepancies reduce to1.49e-7/1.09e-7. All49 focused tests
+pass. Fresh public numerical replay reproduces all ten K/stored S outputs
+exactly with identical24 passing checks;20 final payloads verify. No scientific
+container runs. This removes the observed two-point vetoes under the declared control,
+not the original reconstruction rejection. At step0.0125/endpoint800 the
+native K diagnostic remains1.59e-6/1.46e-6, so not every row is qualified.
+Cross-anchor/energy and endpoint/precision validation need a separate contract
+before any full-grid release;462 original energies remain uncomputed.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

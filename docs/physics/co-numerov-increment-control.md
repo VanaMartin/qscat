@@ -127,3 +127,17 @@ the previous398720-interval ten-control run's1450–1510 CPU-seconds and the
 same two dense solves per step;298-channel candidate timing is not yet measured.
 Final step, endpoint and native64 K/S/phase gates remain separately1e-6.
 The original implementation and previous false/exits1/1 records stay intact.
+
+## Recorded bounded CO outcome
+
+The [CO control](../../projects/ukrmol_co/NUMEROV_INCREMENT_CONTROL.md) passes
+24/24 declared checks, exits0/0. Finest/native64 K differences reduce from
+about7.26e-5 to1.48709e-7/1.08837e-7 at unchanged grids and budgets. The raw
+step sequence now decreases by about14.6–17.0-fold in K and16-fold in S.
+This supports a consequential floating-point contribution in the original
+formulation, after analytic discrete-oracle qualification.
+
+The pass is not an all-row/native or absolute-error certificate. At the coarser
+step0.0125 with endpoint800, native K discrepancies remain1.59437e-6/1.46473e-6,
+and the endpoint-change gate passes with limited margin. Further cross-anchor/
+energy or endpoint/precision controls require a separately costed contract.

@@ -200,3 +200,12 @@ use. In particular, the recurrence's`12 B⁻¹ − 10 I` can be rewritten exactl
 point error is an untested hypothesis, not an explanation already established.
 The two identities do not increase the original132/594 unique-energy coverage;
 462 energies, full native K, CO poles and production remain unqualified.
+
+## Subsequent fixed-grid algebra control — 19 October
+
+The [increment-form control](NUMEROV_INCREMENT_CONTROL.md) now tests the
+previously untested cancellation hypothesis after analytic discrete-oracle
+qualification. Its two-point gates pass24/24 at unchanged physical inputs,
+grids and1e-6 budgets. The original two-point rejection documented here remains
+false/exits1/1. The candidate's endpoint800/native diagnostic still exceeds
+budget, and the result is not an all-row, absolute-error or full-grid claim.

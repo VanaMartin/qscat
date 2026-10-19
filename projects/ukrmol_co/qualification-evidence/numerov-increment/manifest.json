@@ -1,0 +1,58 @@
+{
+  "git_sha": "a8665f4714f5ae2de3f310ca1f42aecb6dd3ccce",
+  "date": "2026-10-19",
+  "record_type": "fixed-grid-numerov-increment-control",
+  "experiment_verdict": true,
+  "original_command_container_exits": [
+    0,
+    0
+  ],
+  "analytic_qualification_verdict": true,
+  "analytic_initial_import_exits": [
+    1,
+    1
+  ],
+  "analytic_supplemented_exits": [
+    0,
+    0
+  ],
+  "fixed_grid_independent_solves": 10,
+  "native_invocations": 0,
+  "saved_decision_verification_passed": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "independent_solves": 10,
+    "native_invocations": 0,
+    "expected_wall_seconds": 500,
+    "hard_cap_seconds": 1200,
+    "physical_cores": "0-3",
+    "memory_gib": 4
+  },
+  "public_replay_worker_sha256": "d283c75fe858bcdb0e5a5215768f2bcfcd257c3e6a4958ba78d42779694c8e3d",
+  "original_attribution_verdict": false,
+  "original_attribution_exits": [
+    1,
+    1
+  ],
+  "original_six_case_verdict": false,
+  "original_six_case_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "public_numerical_reexecuted_solves": 10,
+  "public_replay_original_exits": [
+    0,
+    0
+  ],
+  "supplementary_all_row_native_qualification": false,
+  "analytic_initial_import_verdict": null,
+  "supplementary_endpoint800_native_k_differences": [
+    1.5943674327445478e-06,
+    1.4647251020960539e-06
+  ],
+  "supplementary_diagnostic_role": "Not an extra frozen gate or changed verdict; all original controls and original24 declared checks preserved"
+}

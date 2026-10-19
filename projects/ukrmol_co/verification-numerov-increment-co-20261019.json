@@ -1,0 +1,592 @@
+{
+  "saved_decision_verification_passed": true,
+  "experiment_verdict": true,
+  "original_command_container_exits": [
+    0,
+    0
+  ],
+  "independent_solves_verified": 10,
+  "cases": [
+    {
+      "case": "stretched/nine/B1",
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "native_k": true,
+        "native_s": true,
+        "native_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.1111932025187343e-05,
+            "s": 8.192950082667997e-10,
+            "phase_rad_mod_pi": 2.4631461315038905e-09
+          },
+          {
+            "k": 6.549394981902878e-07,
+            "s": 5.124037218051867e-11,
+            "phase_rad_mod_pi": 1.5129852926065723e-10
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 3.3405200383640477e-07,
+            "s": 2.971266109511484e-11,
+            "phase_rad_mod_pi": 8.43627390167967e-11
+          },
+          {
+            "k": 7.90719326460021e-07,
+            "s": 5.956967584002543e-11,
+            "phase_rad_mod_pi": 1.7876033986397033e-10
+          }
+        ],
+        "native_comparison": {
+          "k": 1.4870860809423903e-07,
+          "s": 2.644916361459758e-10,
+          "phase_rad_mod_pi": 3.0521207783351656e-10
+        }
+      },
+      "same_grid_original_differences": [
+        {
+          "configuration": [
+            0.025,
+            400.0,
+            8
+          ],
+          "k": 6.976711233619426e-06,
+          "s": 1.8271986349096198e-09,
+          "phase_rad_mod_pi": 2.0682366930202534e-09
+        },
+        {
+          "configuration": [
+            0.0125,
+            400.0,
+            8
+          ],
+          "k": 7.495553830949575e-06,
+          "s": 3.1551743999544924e-09,
+          "phase_rad_mod_pi": 3.3212719241504374e-09
+        },
+        {
+          "configuration": [
+            0.0125,
+            200.0,
+            8
+          ],
+          "k": 1.1917590228449626e-05,
+          "s": 3.1056196603468703e-09,
+          "phase_rad_mod_pi": 3.494163403061634e-09
+        },
+        {
+          "configuration": [
+            0.00625,
+            400.0,
+            8
+          ],
+          "k": 7.241252674816678e-05,
+          "s": 5.0682213142368914e-09,
+          "phase_rad_mod_pi": 8.263686401832615e-09
+        },
+        {
+          "configuration": [
+            0.0125,
+            800.0,
+            8
+          ],
+          "k": 7.969756836700981e-07,
+          "s": 3.2492776144904774e-09,
+          "phase_rad_mod_pi": 3.0802165262855397e-09
+        }
+      ]
+    },
+    {
+      "case": "stretched/nine/B2",
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "native_k": true,
+        "native_s": true,
+        "native_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.1056889121618951e-05,
+            "s": 8.19301096069117e-10,
+            "phase_rad_mod_pi": 2.458986791964435e-09
+          },
+          {
+            "k": 7.590427060222282e-07,
+            "s": 5.131357803325515e-11,
+            "phase_rad_mod_pi": 1.596933696390579e-10
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 3.8471580410259776e-07,
+            "s": 2.971105431527882e-11,
+            "phase_rad_mod_pi": 8.835776554860786e-11
+          },
+          {
+            "k": 8.145192111896904e-07,
+            "s": 5.95012378719921e-11,
+            "phase_rad_mod_pi": 1.8053913919402476e-10
+          }
+        ],
+        "native_comparison": {
+          "k": 1.0883681511586474e-07,
+          "s": 6.563543020425492e-10,
+          "phase_rad_mod_pi": 3.60863561255087e-10
+        }
+      },
+      "same_grid_original_differences": [
+        {
+          "configuration": [
+            0.025,
+            400.0,
+            8
+          ],
+          "k": 6.6884704779113235e-06,
+          "s": 1.5214313329735492e-09,
+          "phase_rad_mod_pi": 1.892073830944696e-09
+        },
+        {
+          "configuration": [
+            0.0125,
+            400.0,
+            8
+          ],
+          "k": 5.459758739334575e-06,
+          "s": 2.8901331552545784e-09,
+          "phase_rad_mod_pi": 3.3272726795985363e-09
+        },
+        {
+          "configuration": [
+            0.0125,
+            200.0,
+            8
+          ],
+          "k": 9.883815977218546e-06,
+          "s": 2.874485229024732e-09,
+          "phase_rad_mod_pi": 3.514156299289084e-09
+        },
+        {
+          "configuration": [
+            0.00625,
+            400.0,
+            8
+          ],
+          "k": 7.26693353101382e-05,
+          "s": 5.281003275361458e-09,
+          "phase_rad_mod_pi": 8.518925787015519e-09
+        },
+        {
+          "configuration": [
+            0.0125,
+            800.0,
+            8
+          ],
+          "k": 2.8326247161203355e-06,
+          "s": 2.918475211542888e-09,
+          "phase_rad_mod_pi": 3.0813929186024325e-09
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "source_commit": "a8665f4714f5ae2de3f310ca1f42aecb6dd3ccce",
+    "source_archive_sha256": "29756b2d0b31fcc61a2d42db49a4f2c177584901d184c90ea86ed823e0b7d4d1",
+    "source_files_verified_before": 34,
+    "engine_artifacts_verified_before": 242,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-increment-co-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/work/dependencies:/work/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-increment-co-20261019:/work",
+      "-w",
+      "/work/source",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/raw:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-successor-source-20261019:/prior:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-reconstruction-source-20261017:/saved:ro",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_increment_co",
+      "--output",
+      "/work/result",
+      "--raw",
+      "/raw",
+      "--prior",
+      "/prior",
+      "--saved",
+      "/saved",
+      "--contract",
+      "/work/source/projects/ukrmol_co/numerov-increment-co-contract.json"
+    ],
+    "stage": "co",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "started_utc": "2026-10-19T07:06:06.249379+00:00",
+    "cpuset_cpus": "0-3",
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 1200,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       9.0Gi        80Gi       819Mi        34Gi       114Gi\nSwap:           29Gi          0B        29Gi\n",
+    "persistent_disk_free_gib": 61.700225830078125,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-19T07:12:36.927552+00:00",
+    "wall_seconds": 390.6726890160062,
+    "sampled_memory_current_peak_bytes": 245243904,
+    "sampled_kernel_memory_peak_bytes": 252329984,
+    "sampled_cpu_seconds": 1334.834105,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 1950,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 34
+  },
+  "original_attribution_verdict": false,
+  "original_attribution_exits": [
+    1,
+    1
+  ],
+  "original_six_case_verdict": false,
+  "original_six_case_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "all_configuration_diagnostics": [
+    {
+      "case": "stretched/nine/B1",
+      "step_improvement_ratios": {
+        "k": 16.966348885494845,
+        "s": 15.989247844680552,
+        "phase_rad_mod_pi": 16.279386189572115
+      },
+      "all_native_comparisons": [
+        {
+          "configuration": [
+            0.025,
+            400.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 1.191558013147187e-05,
+            "s": 8.062147971212706e-10,
+            "phase_rad_mod_pi": 2.309232582931031e-09
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889268066576,
+            "max_abs_independent_k": 141.30888076508563,
+            "largest_tangent_eigenvalue": -185.35835539212914,
+            "distance_to_tangent_singularity_rad": 0.005394902734258578,
+            "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+            "relative_frobenius_k_change": 8.432791227770197e-08,
+            "large_channel_delta_frobenius_fraction": 0.9999999914946035,
+            "cayley_difference_identity_max_residual": 1.5424325682404362e-14,
+            "differences": {
+              "k": 1.191558013147187e-05,
+              "s": 8.062147971212706e-10,
+              "phase_rad_mod_pi": 2.309232582931031e-09
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.0125,
+            400.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 8.036481062845269e-07,
+            "s": 2.1393435906741658e-10,
+            "phase_rad_mod_pi": 1.5391354857285933e-10
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889268066576,
+            "max_abs_independent_k": 141.30889187701766,
+            "largest_tangent_eigenvalue": -185.35835539212914,
+            "distance_to_tangent_singularity_rad": 0.005394902734258578,
+            "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+            "relative_frobenius_k_change": 5.685897050243503e-09,
+            "large_channel_delta_frobenius_fraction": 0.9999983363610319,
+            "cayley_difference_identity_max_residual": 7.420381275892047e-15,
+            "differences": {
+              "k": 8.036481062845269e-07,
+              "s": 2.1393435906741658e-10,
+              "phase_rad_mod_pi": 1.5391354857285933e-10
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.0125,
+            200.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 4.695961024481221e-07,
+            "s": 2.436470192676961e-10,
+            "phase_rad_mod_pi": 2.38276287589656e-10
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889268066576,
+            "max_abs_independent_k": 141.30889221106966,
+            "largest_tangent_eigenvalue": -185.35835539212914,
+            "distance_to_tangent_singularity_rad": 0.005394902734258578,
+            "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+            "relative_frobenius_k_change": 3.3241171565933357e-09,
+            "large_channel_delta_frobenius_fraction": 0.9999952857985922,
+            "cayley_difference_identity_max_residual": 5.531137067759104e-15,
+            "differences": {
+              "k": 4.695961024481221e-07,
+              "s": 2.436470192676961e-10,
+              "phase_rad_mod_pi": 2.38276287589656e-10
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.00625,
+            400.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 1.4870860809423903e-07,
+            "s": 2.644916361459758e-10,
+            "phase_rad_mod_pi": 3.0521207783351656e-10
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889268066576,
+            "max_abs_independent_k": 141.30889253195716,
+            "largest_tangent_eigenvalue": -185.35835539212914,
+            "distance_to_tangent_singularity_rad": 0.005394902734258578,
+            "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+            "relative_frobenius_k_change": 1.0507860659685346e-09,
+            "large_channel_delta_frobenius_fraction": 0.999952688058427,
+            "cayley_difference_identity_max_residual": 1.1564736687542852e-14,
+            "differences": {
+              "k": 1.4870860809423903e-07,
+              "s": 2.644916361459758e-10,
+              "phase_rad_mod_pi": 3.0521207783351656e-10
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.0125,
+            800.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 1.5943674327445478e-06,
+            "s": 1.5498203665881136e-10,
+            "phase_rad_mod_pi": 2.4846791291111003e-11
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889268066576,
+            "max_abs_independent_k": 141.30889108629833,
+            "largest_tangent_eigenvalue": -185.35835539212914,
+            "distance_to_tangent_singularity_rad": 0.005394902734258578,
+            "large_channel_local_cayley_derivative": 5.8209386293346606e-05,
+            "relative_frobenius_k_change": 1.1282275012639437e-08,
+            "large_channel_delta_frobenius_fraction": 0.9999995839575418,
+            "cayley_difference_identity_max_residual": 4.368742662982567e-15,
+            "differences": {
+              "k": 1.5943674327445478e-06,
+              "s": 1.5498203665881136e-10,
+              "phase_rad_mod_pi": 2.4846791291111003e-11
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case": "stretched/nine/B2",
+      "step_improvement_ratios": {
+        "k": 14.566886729684423,
+        "s": 15.966566818400446,
+        "phase_rad_mod_pi": 15.397896128067009
+      },
+      "all_native_comparisons": [
+        {
+          "configuration": [
+            0.025,
+            400.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 1.1707095012525315e-05,
+            "s": 1.0679956082651373e-09,
+            "phase_rad_mod_pi": 2.2578166003484057e-09
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889160576584,
+            "max_abs_independent_k": 141.30887989867082,
+            "largest_tangent_eigenvalue": -185.35835397762105,
+            "distance_to_tangent_singularity_rad": 0.005394902775427424,
+            "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+            "relative_frobenius_k_change": 8.28473620373758e-08,
+            "large_channel_delta_frobenius_fraction": 0.9999999955282883,
+            "cayley_difference_identity_max_residual": 6.3048279945895934e-15,
+            "differences": {
+              "k": 1.1707095012525315e-05,
+              "s": 1.0679956082651373e-09,
+              "phase_rad_mod_pi": 2.2578166003484057e-09
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.0125,
+            400.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 6.502058909063635e-07,
+            "s": 6.05802562977793e-10,
+            "phase_rad_mod_pi": 2.0117019161602911e-10
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889160576584,
+            "max_abs_independent_k": 141.30889095555995,
+            "largest_tangent_eigenvalue": -185.35835397762105,
+            "distance_to_tangent_singularity_rad": 0.005394902775427424,
+            "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+            "relative_frobenius_k_change": 4.59788786580901e-09,
+            "large_channel_delta_frobenius_fraction": 0.9999993883821274,
+            "cayley_difference_identity_max_residual": 6.376161066473185e-15,
+            "differences": {
+              "k": 6.502058909063635e-07,
+              "s": 6.05802562977793e-10,
+              "phase_rad_mod_pi": 2.0117019161602911e-10
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.0125,
+            200.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 2.6549008680376573e-07,
+            "s": 6.355136166854413e-10,
+            "phase_rad_mod_pi": 2.8952795716463697e-10
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889160576584,
+            "max_abs_independent_k": 141.30889134027575,
+            "largest_tangent_eigenvalue": -185.35835397762105,
+            "distance_to_tangent_singularity_rad": 0.005394902775427424,
+            "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+            "relative_frobenius_k_change": 1.875175666953669e-09,
+            "large_channel_delta_frobenius_fraction": 0.9999962034348152,
+            "cayley_difference_identity_max_residual": 3.588243634839567e-15,
+            "differences": {
+              "k": 2.6549008680376573e-07,
+              "s": 6.355136166854413e-10,
+              "phase_rad_mod_pi": 2.8952795716463697e-10
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.00625,
+            400.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 1.0883681511586474e-07,
+            "s": 6.563543020425492e-10,
+            "phase_rad_mod_pi": 3.60863561255087e-10
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889160576584,
+            "max_abs_independent_k": 141.30889171460265,
+            "largest_tangent_eigenvalue": -185.35835397762105,
+            "distance_to_tangent_singularity_rad": 0.005394902775427424,
+            "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+            "relative_frobenius_k_change": 7.769777366696488e-10,
+            "large_channel_delta_frobenius_fraction": 0.9999370815181144,
+            "cayley_difference_identity_max_residual": 2.5123025015409508e-15,
+            "differences": {
+              "k": 1.0883681511586474e-07,
+              "s": 6.563543020425492e-10,
+              "phase_rad_mod_pi": 3.60863561255087e-10
+            }
+          }
+        },
+        {
+          "configuration": [
+            0.0125,
+            800.0,
+            8
+          ],
+          "native_comparison": {
+            "k": 1.4647251020960539e-06,
+            "s": 5.46859790005227e-10,
+            "phase_rad_mod_pi": 2.063105242200436e-11
+          },
+          "coordinate_diagnostic": {
+            "max_abs_native_k": 141.30889160576584,
+            "max_abs_independent_k": 141.30889014104073,
+            "largest_tangent_eigenvalue": -185.35835397762105,
+            "distance_to_tangent_singularity_rad": 0.005394902775427424,
+            "large_channel_local_cayley_derivative": 5.820938718173658e-05,
+            "relative_frobenius_k_change": 1.0362037503811202e-08,
+            "large_channel_delta_frobenius_fraction": 0.9999998657663289,
+            "cayley_difference_identity_max_residual": 2.0422450844102698e-15,
+            "differences": {
+              "k": 1.4647251020960539e-06,
+              "s": 5.46859790005227e-10,
+              "phase_rad_mod_pi": 2.063105242200436e-11
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "initial_local_verifier_failure": {
+    "exit": 1,
+    "reason": "Previously extracted local temporary input files were absent; restored missing files from the unchanged checksum-pinned archives, then passed verification. Original producer bytes unchanged."
+  }
+}

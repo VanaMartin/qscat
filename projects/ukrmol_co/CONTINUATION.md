@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--18-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--19-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,58 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Fixed-grid increment control and public replay pass — 19 October, 07:21 UTC
+
+The [increment control](NUMEROV_INCREMENT_CONTROL.md) passes **24/24 declared
+checks**, original exits0/0, with ten independent solves and no native/inner
+invocation. Source/contract frozen/pushed at **`a8665f4`** before execution.
+Candidate source first frozen at`381a201`; dependency supplement`e10e387`
+preserves the original missing-mpmath attempt/exits1/1. The analytic run passes
+16 checks, distinguishing original scalar discrete-oracle drift1.34450e-4
+from increment9.82188e-10 and separate truncation6.11308e-8. All49 focused tests
+pass, including the analytic oracle and unchanged predecessor suites.
+
+Final step K changes6.54939e-7/7.59043e-7; endpoint400→800 changes
+7.90719e-7/8.14519e-7; finest/native64 discrepancies1.48709e-7/1.08837e-7,
+all against unchanged1e-6 budgets. Raw step decrease is14.6–17.0-fold in K
+and about16-fold in S. Invariants and separate S/phase gates pass. Combined
+initialisation/recurrence/matching algebra supports a consequential roundoff
+contribution without isolating a single operation or absolute native error.
+
+**Important extra diagnostic:** step0.0125/endpoint800 native K discrepancies
+remain1.59437e-6/1.46473e-6. These rows are not native-reference-qualified at
+1e-6. The frozen native gate uses step0.00625/endpoint400; its pass is not
+an all-row certificate. The endpoint family passes narrowly and its change
+grows with endpoint. No further endpoint rung or full-grid continuation is
+authorized automatically.
+
+Measured CO cost390.672689 s /1334.834105 sampled CPU-seconds /
+252,329,984-byte kernel high-water,1950 samples at0.2 s, four physical cores
+0–3 /4 GiB. All34 sources/242 engine artifacts and raw/reference hashes verify
+before/after. The20-file collection is preserved under
+`prepared/numerov-increment-co-20261019/`. Independent saved-decision replay
+passes all gates and same-grid comparisons; fresh public bytes pass49 tests.
+Public numerical replay is restricted to the same ten controls with four
+physical cores/4 GiB and a1200-s cap.
+
+Public replay finishes at07:20:44.170194 UTC, **exits0/0**, with every K and
+stored S component reproduced exactly and all24 case decisions unchanged.
+Measured replay390.215354 s /1332.684159 sampled CPU-seconds /
+239,140,864-byte recorded kernel high-water,1947 samples at0.2 s. Its17-file
+collection and owner/report/resources are published with the producer evidence.
+All **20 final payloads** verify after fresh download. The separately published
+all-configuration diagnostics retain the endpoint800/native discrepancy.
+The [07:21 UTC result capture](progress-numerov-increment-result-20261019.json)
+reverifies55 remote collected hashes/34 sources/242 installed artifacts and
+all8/15/8 input/reference pins. **No scientific container runs**;61.68 GiB free.
+Remote replay evidence lives in`prepared/numerov-increment-public-replay-20261019/`.
+
+Original attribution and six-case false/exits1/1 remain,132/594 unique-energy
+coverage and462 uncomputed energies remain. The next scientific decision is a
+separate fixed cross-anchor/energy + endpoint/precision qualification using
+saved matrices; no new inner solve is justified. Full native K, CO poles,
+channel/electronic/continuity/neutral and production gates remain.
 
 ### Two-point attribution rejection publicly reexecuted — 18 October, 23:15 UTC
 

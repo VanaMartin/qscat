@@ -1,0 +1,248 @@
+{
+  "verified_utc": "2026-10-19T07:14:08.611752+00:00",
+  "fresh_public_bytes_verified": true,
+  "payloads_verified": 20,
+  "source_files_verified": 34,
+  "saved_decision_replay_exit": 0,
+  "public_focused_tests_passed": 49,
+  "public_focused_tests_exit": 0,
+  "test_stdout": ".................................................                        [100%]\n49 passed in 2.63s\n",
+  "public_numerical_reexecution_passed": true,
+  "experiment_verdict": true,
+  "original_attribution_verdict": false,
+  "original_attribution_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false,
+  "numerical_reexecution": {
+    "public_numerical_reexecution_passed": true,
+    "reexecuted_independent_solves": 10,
+    "native_invocations": 0,
+    "cases": [
+      {
+        "case": "stretched/nine/B1",
+        "verdict": true,
+        "checks_identical": true
+      },
+      {
+        "case": "stretched/nine/B2",
+        "verdict": true,
+        "checks_identical": true
+      }
+    ],
+    "component_drifts": [
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.025,
+          400.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.025,
+          400.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.0125,
+          400.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.0125,
+          400.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.00625,
+          400.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.00625,
+          400.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.0125,
+          200.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.0125,
+          200.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B1",
+          0.0125,
+          800.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      },
+      {
+        "configuration": [
+          "stretched/nine/B2",
+          0.0125,
+          800.0,
+          8
+        ],
+        "component_drift": {
+          "k": 0.0,
+          "s_real": 0.0,
+          "s_imag": 0.0
+        }
+      }
+    ],
+    "kernel_wall_seconds": 389.6519476370013,
+    "original_experiment_verdict": true,
+    "original_attribution_verdict": false,
+    "original_attribution_exits": [
+      1,
+      1
+    ],
+    "native_full_k_reconstruction_verdict": false,
+    "co_complex_pole_verdict": null,
+    "new_inner_solves": 0,
+    "full_sweep_released": false
+  },
+  "numerical_replay_execution": {
+    "started_utc": "2026-10-19T07:14:13.949115+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-numerov-increment-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-increment-public-replay-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-increment-public-replay-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "worker_sha256": "d283c75fe858bcdb0e5a5215768f2bcfcd257c3e6a4958ba78d42779694c8e3d",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "cpuset_cpus": "0-3",
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 500,
+    "timeout_seconds": 1200,
+    "reexecuted_independent_solves": 10,
+    "native_invocations": 0,
+    "source_files_verified": 34,
+    "input_files_verified": 8,
+    "prior_files_verified": 15,
+    "collected_files_verified": 20,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       9.0Gi        80Gi       819Mi        34Gi       114Gi\nSwap:           29Gi          0B        29Gi\n",
+    "persistent_disk_free_gib": 61.67573928833008,
+    "driver_exit": 0,
+    "finished_utc": "2026-10-19T07:20:44.170194+00:00",
+    "wall_seconds": 390.21535406899056,
+    "sampled_memory_current_peak_bytes": 224423936,
+    "sampled_kernel_memory_peak_bytes": 239140864,
+    "sampled_cpu_seconds": 1332.684159,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 1947,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "numerical_replay_collection": {
+    "files": 17,
+    "archive_sha256": "1db265384ab4a780f6cc04d4bad17225571593a7e78444ebcc3157217b101299"
+  },
+  "post_replay_verified_utc": "2026-10-19T07:20:49.646418+00:00",
+  "final_public_verified_utc": "2026-10-19T07:21:32.741831+00:00",
+  "all_final_payloads_fresh_downloaded": true,
+  "collected_file_counts_verified": {
+    "collected": 20,
+    "analytic": 10,
+    "failure": 8,
+    "replay": 17
+  }
+}
