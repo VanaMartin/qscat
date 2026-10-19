@@ -1,0 +1,70 @@
+{
+  "artifacts": {
+    "corner-qualified.json": {
+      "bytes": 35382,
+      "sha256": "91087216c3bba9d0c1335e3709d8ea04cd803084ca9f1da5e679eab3a16ce78c"
+    },
+    "manifest.json": {
+      "bytes": 2527,
+      "sha256": "cc535cab31c0a05f83c169d1dd722309c24b7425139c14ef43c41bf31a93a7aa"
+    },
+    "mpmath-1.3.0-py3-none-any.whl": {
+      "bytes": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+    },
+    "numerical-worker.py": {
+      "bytes": 1797,
+      "sha256": "7ed7fa01fb69bfa4f86c397f26a7f1f138416deb8b6f99ff2cf3567331016449"
+    },
+    "public-execution.json": {
+      "bytes": 2490,
+      "sha256": "836d359a8d8b8c338095d7918aca9ea73c284dc3101c38111033d4a08cdb68e8"
+    },
+    "public-owner.py": {
+      "bytes": 5639,
+      "sha256": "cb5a150323539f271c51a5183648d5bd3d9158d86f8bb70a9d7138ff3444e034"
+    },
+    "public-replay.json": {
+      "bytes": 4463,
+      "sha256": "c95ecac976bbbfc5b06060d84e60997749d2740182a4c7bf9bdf74ed7833011c"
+    },
+    "public-replay.tar.gz": {
+      "bytes": 15975,
+      "sha256": "9adc8a3f1ad0e32f0fd389fa63d67c0b0a76026cbc1d1d3cc0abf5ab24d3a179"
+    },
+    "replay-contract.json": {
+      "bytes": 1167,
+      "sha256": "3be71f04b3c7f1f8d647ecbf3bda214f6863c61cda192bbe9ff05a75ddbc2dcf"
+    },
+    "results.tar.gz": {
+      "bytes": 640019,
+      "sha256": "356d34ec9af729254832e14a79152075a7586d897f23413f43ed89ea094c91cc"
+    },
+    "saved-replay.json": {
+      "bytes": 15265,
+      "sha256": "5ceb75a812e9e279314e66a9b2151f7382ee293ddb6194728058f8b505f66883"
+    },
+    "selection-references.tar.gz": {
+      "bytes": 558213,
+      "sha256": "6fef0aa072676a71a8d451e9bd4e868b98143ec7783b5b0c91ed19f049c409a5"
+    },
+    "selection.json": {
+      "bytes": 9383,
+      "sha256": "c5010464edc5745fe9c31318443d6f68e2f10ecae2ad0dd5e4e29750b77ff0fd"
+    },
+    "source-manifest.json": {
+      "bytes": 5630,
+      "sha256": "dd48fc0491ad276e286aee145b474f337b50b581d8af74785d397fd9fa278c77"
+    },
+    "source.tar.gz": {
+      "bytes": 90718,
+      "sha256": "7d6f3e07b68ddd2fb86a730230463ada7b8813d6f93530f37fef8c1de981bfc3"
+    },
+    "verification-support.tar.gz": {
+      "bytes": 4460,
+      "sha256": "e160a61857f2986830c8972b1ab70dad877235895934234cf09a48f1f0cce68e"
+    }
+  },
+  "git_sha": "b7f2278e774ea2b89161c1d4fd6b1e6261dea51c",
+  "url_prefix": "https://data.qscat.org/co-numerov-interior-20261019/"
+}

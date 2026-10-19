@@ -1,0 +1,363 @@
+{
+  "verified_utc": "2026-10-19T09:51:20.375539+00:00",
+  "fresh_public_bytes_verified": true,
+  "payloads_verified": 12,
+  "frozen_sources_verified": 46,
+  "verification_support_files_verified": 2,
+  "saved_decision_replay_passed": true,
+  "saved_decision_replay_exit": 0,
+  "analytic_interior_verdict": false,
+  "original_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 64,
+  "checks_total": 68,
+  "public_focused_tests_passed": 62,
+  "public_focused_tests_exit": 0,
+  "test_stdout": "..............................................................           [100%]\n62 passed in 2.84s\n",
+  "public_numerical_reexecution_passed": true,
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "public_numerical_rows_reexecuted": 24,
+  "all_24_stored_k_components_exactly_reproduce": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_replay_execution": {
+    "started_utc": "2026-10-19T09:51:51.379715+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-numerov-interior-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/dependencies:/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-interior-public-replay-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-interior-public-replay-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "public_archive_sha256": "42457c3a134a1599921e5b355247d96a4802c9d391392650b3aca1a30cdce507",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 120,
+    "timeout_seconds": 600,
+    "source_files_verified": 46,
+    "verification_support_files_verified": 2,
+    "effective_source_files_verified": 48,
+    "installed_engine_artifacts_verified": 242,
+    "selection_reference_files_verified": 12,
+    "historical_and_qualified_reports_verified": 2,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "persistent_disk_free_gib": 61.49310302734375,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "driver_exit": 0,
+    "finished_utc": "2026-10-19T09:53:03.602698+00:00",
+    "wall_seconds": 72.21852883399697,
+    "sampled_memory_current_peak_bytes": 44679168,
+    "sampled_kernel_memory_peak_bytes": 44679168,
+    "sampled_cpu_seconds": 71.695078,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 359,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "public_replay": {
+    "public_numerical_reexecution_passed": true,
+    "checks_identical": true,
+    "scientific_verdict_identical": true,
+    "original_analytic_verdict": false,
+    "original_scientific_exits": [
+      1,
+      1
+    ],
+    "checks_passed": 64,
+    "checks_total": 68,
+    "analytic_rows_reexecuted": 24,
+    "rows": [
+      {
+        "configuration": [
+          "compressed",
+          false,
+          0.00625,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          false,
+          0.003125,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          false,
+          0.0015625,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          false,
+          0.0015625,
+          200.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          false,
+          0.0015625,
+          800.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          false,
+          0.0015625,
+          400.0,
+          6
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          true,
+          0.00625,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          true,
+          0.003125,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          true,
+          0.0015625,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          true,
+          0.0015625,
+          200.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          true,
+          0.0015625,
+          800.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "compressed",
+          true,
+          0.0015625,
+          400.0,
+          6
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          false,
+          0.025,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          false,
+          0.0125,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          false,
+          0.00625,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          false,
+          0.00625,
+          200.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          false,
+          0.00625,
+          800.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          false,
+          0.00625,
+          400.0,
+          6
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          true,
+          0.025,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          true,
+          0.0125,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          true,
+          0.00625,
+          400.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          true,
+          0.00625,
+          200.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          true,
+          0.00625,
+          800.0,
+          8
+        ],
+        "maximum_stored_k_drift": 0.0
+      },
+      {
+        "configuration": [
+          "equilibrium",
+          true,
+          0.00625,
+          400.0,
+          6
+        ],
+        "maximum_stored_k_drift": 0.0
+      }
+    ],
+    "kernel_wall_seconds": 71.50879244500538,
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0,
+    "native_full_k_reconstruction_verdict": false,
+    "co_complex_pole_verdict": null,
+    "native_invocations": 0
+  },
+  "public_replay_collection": {
+    "files": 8,
+    "archive_sha256": "9adc8a3f1ad0e32f0fd389fa63d67c0b0a76026cbc1d1d3cc0abf5ab24d3a179"
+  },
+  "replay_verified_utc": "2026-10-19T09:53:16.696435+00:00",
+  "final_public_verified_utc": "2026-10-19T09:53:52.365426+00:00",
+  "public_payloads_verified": 16,
+  "all_final_payloads_fresh_downloaded": true,
+  "collected_file_counts_verified": {
+    "collected": 10,
+    "replay": 8
+  }
+}

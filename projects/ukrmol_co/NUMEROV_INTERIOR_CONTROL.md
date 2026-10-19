@@ -70,3 +70,24 @@ uncomputed. Four potentially new identities were selected but are **not computed
 Further work needs a separately frozen fixed-grid precision/algebra or independent
 propagation attribution on this analytic regime. An unsubmitted orchestration
 draft is archived outside the repository; it is not a completed experiment.
+
+## Full public numerical replay and final capture
+
+The separately frozen [replay contract](numerov-interior-public-replay-contract.json)
+reexecutes **all24 analytic rows**, not a subset, from fresh public downloads.
+Every stored K component reproduces exactly; all68 check values and the **false**
+aggregate remain identical. Verification exits0/0 preserve scientific exits1/1.
+The producer and numerical replay share the same frozen propagator/model/oracle;
+the separately expressed saved-decision verifier checks their interpretation.
+
+Replay finishes **2026-10-19T09:53:03.602698UTC**, measured72.218529 s /
+71.695078 sampled CPU-seconds /44,679,168-byte recorded kernel high-water,
+359 samples at0.2 s, four physical cores0–3/4 GiB. Its8-file collection preserves
+owner, complete reexecuted report, exact-component comparisons, exits and samples.
+All **16 final public payloads** fresh-verify;62 focused tests and saved decisions
+pass. See [public evidence and instructions](qualification-evidence/numerov-interior/README.md)
+and [public verification](verification-numerov-interior-public-20261019.json).
+
+The [09:54:14UTC remote capture](progress-numerov-interior-result-20261019.json)
+reverifies18 collected hashes,46 frozen sources,242 installed artifacts and all12
+native references plus history. No scientific container runs;61.49 GiB remains.

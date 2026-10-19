@@ -41,6 +41,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [stretched 1-eV error attribution](NATIVE_K_ATTRIBUTION.md),
 [fixed-grid Numerov algebra control](NUMEROV_INCREMENT_CONTROL.md),
 [cross-anchor / all-finest-endpoint qualification](NUMEROV_CORNER_CONTROL.md),
+[interior stress prerequisite rejection](NUMEROV_INTERIOR_CONTROL.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -68,7 +69,21 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October:** the [fixed-grid Numerov algebra control](NUMEROV_INCREMENT_CONTROL.md)
+**Update — 19 October, 09:41 UTC:** the separately frozen
+[interior stress prerequisite](NUMEROV_INTERIOR_CONTROL.md) rejects **four of68
+analytic checks / original exits1/1**. Scalar floating-point drift1.21e-7 exceeds
+its1e-7 gate; rotated open/closed K errors1.11–1.13e-6 exceed1e-6 despite passing
+S/phase/invariants. All24 solves complete in72.95 s /0.04408 GiB. Independent
+saved decisions and62 fresh public tests pass. The conditional60-solve CO scope
+is withheld by the stopping rule: zero new CO/native/inner solves or energies.
+Fourteen candidate-qualified identities and132/594 historical coverage remain;
+the previous corner qualification is retained. Next needs fixed-grid precision/
+algebra or independent propagation attribution in the rejected analytic regime.
+Full public numerical replay reproduces all24 K matrices exactly, all68 decisions
+and scientific false/exits1/1; replay exits0/0. All16 final payloads verify. No
+scientific container runs; the six-panel overview records the preflight rejection.
+
+**Earlier update — 19 October, 08:59 UTC:** the [fixed-grid Numerov algebra control](NUMEROV_INCREMENT_CONTROL.md)
 has a separately frozen [cross-anchor / all-finest-endpoint successor](NUMEROV_CORNER_CONTROL.md),
 which now passes **294/294 case checks and36/36 reference checks**, original
 exits0/0, after32 analytic checks. All14 identities and every finest-step endpoint
@@ -369,10 +384,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 19 October 2026
 
-![CO qualification: all cross-anchor corners and finest-step endpoints pass; interior energies and production remain gated](../../docs/physics/figures/co-progress-20261019-corners.png)
+![CO qualification: interior analytic prerequisite rejects; previous corner pass retained and CO successor withheld](../../docs/physics/figures/co-progress-20261019-interior.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-corners.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-corners.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019-interior.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019-interior.json) ·
+[Interior stress prerequisite and stopping rule](NUMEROV_INTERIOR_CONTROL.md) ·
+[Public interior rejection and full replay](qualification-evidence/numerov-interior/README.md) ·
+[Verified interior result capture](progress-numerov-interior-result-20261019.json) ·
 [Corner/endpoint qualification](NUMEROV_CORNER_CONTROL.md) ·
 [Public corner evidence](qualification-evidence/numerov-corners/README.md) ·
 [Increment control and scope](NUMEROV_INCREMENT_CONTROL.md) ·
@@ -441,6 +459,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous22:37overview](../../docs/physics/figures/co-progress-20261018T2237.png) ·
 [Previous23:15overview](../../docs/physics/figures/co-progress-20261018T2315.png) ·
 [Previous07:21overview](../../docs/physics/figures/co-progress-20261019.png) ·
+[Previous08:59overview](../../docs/physics/figures/co-progress-20261019-corners.png) ·
 [Previous06:50overview](../../docs/physics/figures/co-progress-20261015T0650.png) ·
 [Previous06:32overview](../../docs/physics/figures/co-progress-20261015T0632.png) ·
 [Previous16:34overview](../../docs/physics/figures/co-progress-20261014T1634.png) ·

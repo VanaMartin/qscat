@@ -20,6 +20,62 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Interior stress prerequisite rejects — 19 October, 09:41 UTC
+
+The [new interior stress selection and analytic prerequisite](NUMEROV_INTERIOR_CONTROL.md)
+is frozen/pushed at **`b7f2278`** before execution. Read-only selection examines
+all594 saved native32 matrices: compressed peak index87/4.45 requested eV,
+equilibrium index53/2.75 eV, plus index48 in every sector. Stretched peak index18
+is already qualified and reused. The proposed finite CO scope was four new peaks
+and six midpoint identities,60 solves; four peaks would add new unique coverage.
+The compressed leading free-dispersion diagnostic is103.81 times the qualified
+stretched point, motivating fixed finer grids with an analytic prerequisite.
+
+The24-solve scalar/rotated-open-closed prerequisite completes **false / original
+runner-container exits1/1**, **64/68 checks pass**. At compressed tangent+320,
+h=.0015625/800 scalar discrete-oracle drift **1.20892527e-7** rejects its1e-7
+budget. Rotated200/400 continuous K errors **1.12544e-6/1.11113e-6** reject1e-6;
+the400/order6 row repeats the latter veto. All S/phase/invariant and oracle
+precision checks pass. Finer h worsens rotated400 K error; no refinement cure is
+inferred. Scalar discrete error measures floating-point drift; coupled continuous
+errors alone do not separate roundoff from discretisation.
+
+Measured72.952831 s /72.491243 sampled CPU-seconds /47,329,280-byte recorded
+kernel high-water,363 samples at0.2 s, four physical cores0–3/4 GiB, below120-s
+forecast/600-s cap. All46 frozen sources and242 installed artifacts verify
+before/after. Persistent evidence: `prepared/numerov-interior-analytic-20261019/`.
+The10-file collection and independent saved-decision replay preserve every
+decision and original exit. Fresh public downloads pass62 focused tests.
+
+The complete public numerical replay finishes **09:53:03 UTC / exits0/0**:
+all24 rows reproduce every stored K component exactly and all68 decisions remain
+identical, preserving scientific false/exits1/1. Cost72.218529 s /71.695078 sampled
+CPU-seconds /44,679,168-byte recorded kernel high-water,359 samples at0.2 s,
+four physical cores0–3/4 GiB. All **16 final public payloads** fresh-verify,
+including the8-file replay collection. The [09:54:14 UTC capture](progress-numerov-interior-result-20261019.json)
+reverifies18 collected hashes,46 frozen sources,242 installed artifacts and12
+native-reference files plus history. No scientific containers or completion
+observers run;61.49 GiB persistent disk remains. Public evidence lives at
+`https://data.qscat.org/co-numerov-interior-20261019/` and remote replay evidence
+under`prepared/numerov-interior-public-replay-20261019/`.
+
+**Stopping rule applied: no CO successor submitted, no CO/native/inner solve.**
+Candidate qualification remains14 identities; historical coverage132/594 and462
+uncomputed remain. The prior corner qualification remains valid in its finite
+scope. Next numerical work requires a separately costed fixed-grid precision/
+algebra attribution or independent propagation control on this analytic regime,
+before returning to the withheld interior CO scope. No extra rung or tolerance
+relaxation follows this failed prerequisite.
+
+Main-index provenance remains the complete`423d577` snapshot with stale/unknown
+upstream currency at discovery. Interior modules are branch-only; current source,
+source-freeze comparisons and local deltas are resolved directly.
+At the final public-result handoff the same snapshot is **complete/current**,
+with upstream current; the branch-only modules remain locally resolved. The
+analytic producer/selection sources remain byte-identical to freeze`b7f2278`;
+verification support frozen at`70a731c` adds separate readers without replacing
+any numerical producer module.
+
 ### Cross-anchor / all-finest-endpoint study and public replay pass — 19 October, 08:59 UTC
 
 The [new finite control](NUMEROV_CORNER_CONTROL.md) is frozen/pushed at

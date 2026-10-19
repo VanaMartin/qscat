@@ -141,6 +141,22 @@ all15 final payloads verify. No scientific container runs. These identities were
 already visited: original132/594 coverage and462 uncomputed identities remain; untested
 interior/large-K energies need a separate finite contract before full-grid release.
 
+The subsequent [interior stress selection and analytic prerequisite](NUMEROV_INTERIOR_CONTROL.md)
+examines all594 native matrices and freezes the largest interior K plus fixed
+midpoints. Its24-solve high-momentum/large-tangent analytic prerequisite **rejects
+four of68 checks / original exits1/1**: scalar discrete-oracle drift1.21e-7>1e-7
+and rotated open/closed continuous K1.11–1.13e-6>1e-6. S/phase/invariant and
+high-precision-oracle checks pass but cannot waive those gates. Cost72.95 s /
+0.04408 GiB; independent saved decisions and62 fresh public tests pass. The
+conditional60-solve CO scope is withheld: zero CO/native/inner solves, candidate
+qualification remains14 and historical coverage132/594/462 uncomputed remains.
+Next needs a separately frozen fixed-grid precision/algebra or independent
+propagation attribution in this analytic regime, not a spacing ladder or relaxed
+tolerance. The earlier corner result remains qualified in its finite scope.
+Full public numerical replay reproduces all24 stored K matrices exactly, all68
+decisions and scientific false/exits1/1; verification exits0/0. All16 final public
+payloads verify. Replay costs72.22 s /0.04161 GiB. No scientific container runs.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
