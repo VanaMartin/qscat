@@ -114,3 +114,13 @@ The next decision is a separately frozen cross-anchor/energy qualification of
 the increment form, using saved matrices and a meaningful endpoint/precision
 check. The present study does not add unique-energy coverage or release a
 full-grid run. No automatic successor is submitted by this contract.
+
+## Later finite corner / endpoint qualification
+
+The separately frozen [cross-anchor endpoint study](NUMEROV_CORNER_CONTROL.md)
+now passes294 case checks and36 native-reference controls at14 identities,
+exits0/0. It preserves this study's coarser h=.0125/800-bohr discrepancies.
+At the explicitly contracted h=.00625, all200/400/800-bohr native comparisons
+pass; the800-bohr K differences are2.15388e-7/5.59271e-8. This is new finite
+qualification at a declared finer spacing, not a rewritten original decision
+or an absolute-error/full-grid certificate.

@@ -127,8 +127,19 @@ exactly with identical24 passing checks;20 final payloads verify. No scientific
 container runs. This removes the observed two-point vetoes under the declared control,
 not the original reconstruction rejection. At step0.0125/endpoint800 the
 native K diagnostic remains1.59e-6/1.46e-6, so not every row is qualified.
-Cross-anchor/energy and endpoint/precision validation need a separate contract
+At that stage, cross-anchor/energy and endpoint/precision validation needed a separate contract
 before any full-grid release;462 original energies remain uncomputed.
+
+The subsequent [cross-anchor/all-finest-endpoint study](NUMEROV_CORNER_CONTROL.md)
+passes both stages,14 identities,294/294 case checks and36/36 reference checks,
+exits0/0. All finest-step endpoints200/400/800 pass the unchanged1e-6 native gates;
+the previously problematic800-bohr rows give K2.15388e-7/5.59271e-8 at h=.00625.
+Measured78 new solves/six reused rows,31.3469 min /0.406113 GiB. Independent
+saved-decision replay and57 public-byte tests pass. The predeclared14-row
+numerical subset reproduces every K/stored S component exactly, exits0/0, and
+all15 final payloads verify. No scientific container runs. These identities were
+already visited: original132/594 coverage and462 uncomputed identities remain; untested
+interior/large-K energies need a separate finite contract before full-grid release.
 
 ## 1. Finish trustworthy target inputs
 

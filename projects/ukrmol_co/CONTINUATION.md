@@ -20,38 +20,66 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Cross-anchor corner / all-finest-endpoint study submitted — 19 October
+### Cross-anchor / all-finest-endpoint study and public replay pass — 19 October, 08:59 UTC
 
 The [new finite control](NUMEROV_CORNER_CONTROL.md) is frozen/pushed at
-**`7ea6243`** and submitted to Sadaharu. Completion is pending; no scientific
-verdict or exit is inferred from submission. It first evaluates the two
-stretched1-eV endpoint bundles. Both must pass before twelve low/high corners
-covering all three geometries and both sectors are submitted.
+**`7ea6243`** before submission to Sadaharu. Both initial endpoint bundles and
+all twelve low/high energy corners pass: **14 identities,78 new solves,six reused
+rows,294/294 case checks and36/36 reference checks, original exits0/0**. Every
+finest-step endpoint200/400/800 passes its separate native K/S/phase gates.
+The original two-point pass and earlier scientific rejections remain separate.
 
 The [endpoint analytic prerequisite](verification-numerov-endpoint-analytic-20261019.json)
 passes32 checks, exits0/0: finest800-bohr scalar K error1.26839e-7 separates
 into1.25185e-7 discrete truncation and1.65453e-9 floating-point drift. Twelve
 analytic solves cost15.0354 s;36 sources/242 installed artifacts verify.
 
-The unchanged increment propagator gets at most78 new solves /six reused rows,
-2364640 intervals, eight physical cores4–11 /8 GiB, expected1500 s /upper2400 s /
-hard cap3600 s. Separate1e-6 K/S/phase/invariant budgets remain. Every finest-step
-endpoint200/400/800 must now pass its native-reference comparison; all21 case
-checks and raw trends are retained. Stop submissions on false/unset, preserve
-in-flight completions; no automatic full-grid successor. No native/inner solve.
+The unchanged increment propagator uses2364640 new intervals, eight physical
+cores4–11 /8 GiB. Measured1880.814483 s /8441.309248 sampled CPU-seconds /
+436,060,160-byte kernel high-water,9384 samples at0.2 s. Wall cost exceeds1500-s
+expectation but stays below2400-s upper/3600-s cap. All41 frozen sources and242
+engine artifacts verify before/after, plus all24/12/2/1 input/reference pins.
+
+Worst final-step K change7.59043e-7, final endpoint change6.66791e-8, order6→8
+change4.34852e-11. Worst finest-endpoint/native K2.15388e-7. At stretched1-eV,
+800-bohr/native64 K differences are **2.15388e-7/5.59271e-8** at h=.00625;
+the older h=.0125 discrepancies1.59437e-6/1.46473e-6 remain preserved. Raw
+S-step reduction is at least12.19 in all14 identities, without using the trend
+floor. All budgets remain separately1e-6; no absolute native error bound follows.
 
 Source/results/resources: `prepared/numerov-corner-co-20261019/` below the campaign
-root. A completion notification is attached to the background owner. On completion,
-collect original exits and all partial/final rows, verify saved decisions against
-pinned bytes, publish the finite evidence and refresh the six-panel overview.
-The completed two-point pass and original132/594 coverage/462 uncomputed
-identities remain separate. The main index was complete at`423d577`, with stale/
+root. The38-file collection preserves all original outputs and exits. Independent
+saved-decision replay verifies all84 rows and every decision. Fresh public bytes
+pass **57 focused tests**. The predeclared numerical subset replay passes:
+each corner's finest400 row plus both stretched1-eV finest800 rows,14 total,
+not all78 new solves. Its scope is independent of scientific verdict, forecast
+450 s /cap1200 s, eight physical cores/8 GiB. All14 rows reproduce every stored
+K and S component exactly, exits0/0. Measured441.291700 s /2229.002709 sampled
+CPU-seconds /396,722,176-byte kernel high-water,2200 samples at0.2 s. Its21-file
+collection/owner/report/resources are published. All **15 final public payloads**
+fresh-verify. Public replay lives in`prepared/numerov-corner-public-replay-20261019/`.
+
+The [08:59:58 UTC result capture](progress-numerov-corner-result-20261019.json)
+reverifies69 remote collected hashes,41 sources,242 engine artifacts and all
+24/12/2/1 input/reference pins. **No scientific container runs**;61.51 GiB free.
+The six-panel overview records the finite pass and preserves the old coarser
+diagnostic, with14-row numerical replay explicitly distinguished from78 new solves.
+
+The candidate qualification covers14 previously visited identities; it adds
+zero unique energies. Original132/594 coverage/462 uncomputed identities remain.
+Untested interior/large-K energies need a separately costed contract before full
+reconstruction. No automatic full-grid successor or native/inner solve follows.
+The main index was complete at`423d577`, with stale/
 unknown upstream status at initial discovery; new code is branch-only.
 At the launch handoff the same main snapshot is **complete/current**, with
 upstream current. Producer freeze`7ea6243` remains archived; the later runner
 diff is whitespace-only. Verification support at`c0f8c37` adds independently
 expressed saved decisions and two tests; all eight new control/replay/phase
 tests and Ruff lint/format checks pass. Numerical propagator bytes are unchanged.
+At the final result handoff, the index retains the same complete`423d577`
+snapshot but reports **stale / upstream unknown**. Relevant new modules are
+branch-only; their local source, source-freeze comparison and branch delta are
+verified directly rather than assuming upstream currency.
 
 ### Fixed-grid increment control and public replay pass — 19 October, 07:21 UTC
 

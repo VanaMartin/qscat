@@ -1,0 +1,60 @@
+{
+  "verified_utc": "2026-10-19T09:02:56.417274+00:00",
+  "analytic_source_freeze": "66ebd1a566395d5ffd6239bb6ed95ce5b30e1463",
+  "producer_source_freeze": "7ea624347ab36e6d54f962005cea9f20370757a5",
+  "frozen_numerical_sources_and_contract_unchanged": true,
+  "runner_AST_unchanged_from_producer": true,
+  "overview_source_hashes_verified": 387,
+  "documentation_links_verified": 678,
+  "analytic_checks_passed": 32,
+  "candidate_case_checks_passed": 294,
+  "reference_checks_passed": 36,
+  "candidate_qualified_identities": 14,
+  "producer_new_solves": 78,
+  "unchanged_reused_rows": 6,
+  "all_finest_endpoints_native_qualified": true,
+  "new_unique_energy_identities": 0,
+  "original_unique_energy_coverage": 132,
+  "original_uncomputed_identities": 462,
+  "public_payloads_verified": 15,
+  "public_focused_tests_passed": 57,
+  "public_numerical_rows_reexecuted": 14,
+  "all_selected_K_and_stored_S_components_exactly_reproduce": true,
+  "all_producer_rows_numerically_reexecuted": false,
+  "original_producer_exits": [
+    0,
+    0
+  ],
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "remote_collected_hashes_verified": 69,
+  "frozen_source_files_verified": 41,
+  "installed_engine_artifacts_verified": 242,
+  "raw_inputs_verified": 24,
+  "native16_32_reference_files_verified": 12,
+  "native64_reference_files_verified": 2,
+  "reused_report_verified": 1,
+  "ruff_lint_format_and_diff_passed": true,
+  "png_and_searchable_svg_visually_checked": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_state": "stale",
+  "main_index_upstream_state": "unknown",
+  "relevant_branch_delta_from_index": "A\tprojects/ukrmol_co/numerov_corner_control.py\nA\tprojects/ukrmol_co/numerov_corner_replay.py\nA\tprojects/ukrmol_co/numerov_endpoint_analytic.py\n",
+  "original_attribution_verdict": false,
+  "original_attribution_exits": [
+    1,
+    1
+  ],
+  "original_reconstruction_verdict": false,
+  "original_reconstruction_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

@@ -136,3 +136,18 @@ an alternative choice of favourable rows. Uncomputed identities remain absent.
 Forecast450 s /upper800 s /hard cap1200 s, eight physical cores4–11 /8 GiB.
 All other produced coordinates receive saved-byte, S and decision verification;
 do not describe this subset replay as reexecuting all78 new solves.
+
+## Recorded finite CO result
+
+The [completed control](../../projects/ukrmol_co/NUMEROV_CORNER_CONTROL.md) passes
+all294 case checks and36 separate native-reference controls, exits0/0, with exactly
+78 new solves and six reused rows. Every finest-step endpoint/native gate passes;
+maximum K discrepancy is2.15388e-7. At stretched1-eV/800 bohr, h=.00625 gives
+2.15388e-7/5.59271e-8 versus native64 while the preserved h=.0125 rows exceed1e-6.
+The finite evidence is consistent with the prospectively derived length-dependent
+discretisation hypothesis, without proving an absolute native error bound.
+
+Measured1880.814483 s /8441.309248 sampled CPU-seconds /436,060,160-byte kernel
+high-water. Wall cost exceeds the1500-s expectation, stays below2400-s upper and
+3600-s cap; no native or inner solve occurs. Qualification covers only14 already
+visited identities, adding no unique energy coverage or full-grid authorization.

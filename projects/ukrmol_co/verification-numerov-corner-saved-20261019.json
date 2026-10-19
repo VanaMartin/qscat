@@ -1,0 +1,1153 @@
+{
+  "saved_decision_replay_passed": true,
+  "experiment_verdict": true,
+  "identities_verified": 14,
+  "new_rows_verified": 78,
+  "reused_rows_verified": 6,
+  "cases": [
+    {
+      "case": "stretched/nine/B2",
+      "energy_index": 18,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.1056889121618951e-05,
+            "s": 8.19301096069117e-10,
+            "phase_rad_mod_pi": 2.458986791964435e-09
+          },
+          {
+            "k": 7.590427060222282e-07,
+            "s": 5.131357803325515e-11,
+            "phase_rad_mod_pi": 1.596933696390579e-10
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 4.616947535396321e-08,
+            "s": 5.512102166723476e-12,
+            "phase_rad_mod_pi": 3.3439917501709715e-13
+          },
+          {
+            "k": 5.290968374538352e-08,
+            "s": 3.6351835240765436e-12,
+            "phase_rad_mod_pi": 1.0348610857136009e-11
+          }
+        ],
+        "order_change": {
+          "k": 4.339995030022692e-11,
+          "s": 9.159145492862708e-15,
+          "phase_rad_mod_pi": 8.881784197001252e-16
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 6.266733976190153e-08,
+            "s": 6.578085832785618e-10,
+            "phase_rad_mod_pi": 3.605291620800699e-10
+          },
+          "400": {
+            "k": 1.0883681511586474e-07,
+            "s": 6.563543020425492e-10,
+            "phase_rad_mod_pi": 3.60863561255087e-10
+          },
+          "800": {
+            "k": 5.592713137048122e-08,
+            "s": 6.53314518697997e-10,
+            "phase_rad_mod_pi": 3.50514950397951e-10
+          }
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B1",
+      "energy_index": 18,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 1.1111932025187343e-05,
+            "s": 8.192950082667997e-10,
+            "phase_rad_mod_pi": 2.4631461315038905e-09
+          },
+          {
+            "k": 6.549394981902878e-07,
+            "s": 5.124037218051867e-11,
+            "phase_rad_mod_pi": 1.5129852926065723e-10
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 3.3930689369299216e-09,
+            "s": 3.80506239505589e-12,
+            "phase_rad_mod_pi": 2.9984903449076228e-12
+          },
+          {
+            "k": 6.667909246971249e-08,
+            "s": 4.369377548797866e-12,
+            "phase_rad_mod_pi": 1.2070566768329627e-11
+          }
+        ],
+        "order_change": {
+          "k": 4.348521542851813e-11,
+          "s": 9.619459469222108e-15,
+          "phase_rad_mod_pi": 1.2878587085651816e-14
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.5210167703116895e-07,
+            "s": 2.6595282592816093e-10,
+            "phase_rad_mod_pi": 3.082105681784242e-10
+          },
+          "400": {
+            "k": 1.4870860809423903e-07,
+            "s": 2.644916361459758e-10,
+            "phase_rad_mod_pi": 3.0521207783351656e-10
+          },
+          "800": {
+            "k": 2.153877005639515e-07,
+            "s": 2.614368886497194e-10,
+            "phase_rad_mod_pi": 2.9314151106518693e-10
+          }
+        }
+      }
+    },
+    {
+      "case": "compressed/nine/B1",
+      "energy_index": 98,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 3.963758550717955e-06,
+            "s": 7.580319096385227e-07,
+            "phase_rad_mod_pi": 2.2670336232710753e-06
+          },
+          {
+            "k": 2.477336633610605e-07,
+            "s": 4.737825586812065e-08,
+            "phase_rad_mod_pi": 1.4169220974302732e-07
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 8.701299680780039e-09,
+            "s": 1.675090869951529e-09,
+            "phase_rad_mod_pi": 4.996763669495863e-09
+          },
+          {
+            "k": 1.735843602190812e-08,
+            "s": 3.3310649811347435e-09,
+            "phase_rad_mod_pi": 9.995601679690935e-09
+          }
+        ],
+        "order_change": {
+          "k": 4.440892098500626e-16,
+          "s": 2.355138688025663e-16,
+          "phase_rad_mod_pi": 4.440892098500626e-16
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 7.816704172824984e-09,
+            "s": 1.4816799330466672e-09,
+            "phase_rad_mod_pi": 4.4466668125409115e-09
+          },
+          "400": {
+            "k": 1.6518003853605023e-08,
+            "s": 3.137024838210236e-09,
+            "phase_rad_mod_pi": 9.443430482036774e-09
+          },
+          "800": {
+            "k": 3.387643987551314e-08,
+            "s": 6.464906189930587e-09,
+            "phase_rad_mod_pi": 1.943903216172771e-08
+          }
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B2",
+      "energy_index": 0,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 2.0980904513745458e-11,
+            "s": 4.1707263446746885e-11,
+            "phase_rad_mod_pi": 1.04078745621905e-10
+          },
+          {
+            "k": 1.2518840131203746e-12,
+            "s": 2.4887174638321623e-12,
+            "phase_rad_mod_pi": 6.028288979109675e-12
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 5.065059482944889e-12,
+            "s": 1.0088296214717278e-11,
+            "phase_rad_mod_pi": 8.990141964204668e-12
+          },
+          {
+            "k": 1.8818757316352297e-13,
+            "s": 3.762113455761318e-13,
+            "phase_rad_mod_pi": 1.652011860642233e-13
+          }
+        ],
+        "order_change": {
+          "k": 1.0723817667201985e-12,
+          "s": 2.1356973302569403e-12,
+          "phase_rad_mod_pi": 2.192246384424834e-12
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.096032871666236e-10,
+            "s": 2.189781093483459e-10,
+            "phase_rad_mod_pi": 9.13253916934309e-11
+          },
+          "400": {
+            "k": 1.1196712372367468e-10,
+            "s": 2.2370057522482644e-10,
+            "phase_rad_mod_pi": 1.0031553365763557e-10
+          },
+          "800": {
+            "k": 1.1186161372189751e-10,
+            "s": 2.2348993451562936e-10,
+            "phase_rad_mod_pi": 1.0015033247157135e-10
+          }
+        }
+      }
+    },
+    {
+      "case": "compressed/nine/B2",
+      "energy_index": 98,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 3.963767459147505e-06,
+            "s": 7.580319248495409e-07,
+            "phase_rad_mod_pi": 2.2670360864118777e-06
+          },
+          {
+            "k": 2.4773407458766883e-07,
+            "s": 4.737826612916409e-08,
+            "phase_rad_mod_pi": 1.4169209028302987e-07
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 8.696845910094453e-09,
+            "s": 1.6750680550112319e-09,
+            "phase_rad_mod_pi": 4.995849067768177e-09
+          },
+          {
+            "k": 1.730926957321799e-08,
+            "s": 3.331208105690983e-09,
+            "phase_rad_mod_pi": 9.989878257954388e-09
+          }
+        ],
+        "order_change": {
+          "k": 4.440892098500626e-16,
+          "s": 2.9893669801409083e-16,
+          "phase_rad_mod_pi": 2.220446049250313e-16
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 7.797639867135331e-09,
+            "s": 1.501019914793351e-09,
+            "phase_rad_mod_pi": 4.436020217823966e-09
+          },
+          "400": {
+            "k": 1.6494485777229784e-08,
+            "s": 3.176087969783662e-09,
+            "phase_rad_mod_pi": 9.431869285592143e-09
+          },
+          "800": {
+            "k": 3.380375535044777e-08,
+            "s": 6.5040129250696075e-09,
+            "phase_rad_mod_pi": 1.942174754354653e-08
+          }
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B1",
+      "energy_index": 0,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 2.1085522217134667e-11,
+            "s": 4.191518996627819e-11,
+            "phase_rad_mod_pi": 1.042490538338825e-10
+          },
+          {
+            "k": 1.7286415354700324e-12,
+            "s": 3.4380054072325215e-12,
+            "phase_rad_mod_pi": 6.150413511818442e-12
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 5.647721873502931e-12,
+            "s": 1.1248208746884894e-11,
+            "phase_rad_mod_pi": 9.236833520276377e-12
+          },
+          {
+            "k": 3.2080024400804596e-13,
+            "s": 6.412982728457196e-13,
+            "phase_rad_mod_pi": 1.1546319456101628e-14
+          }
+        ],
+        "order_change": {
+          "k": 1.07241993063667e-12,
+          "s": 2.1357717449143022e-12,
+          "phase_rad_mod_pi": 2.192246384424834e-12
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.0991740105451876e-10,
+            "s": 2.1971314187480578e-10,
+            "phase_rad_mod_pi": 2.315680980302659e-11
+          },
+          "400": {
+            "k": 1.1089438820889065e-10,
+            "s": 2.2166583379317166e-10,
+            "phase_rad_mod_pi": 3.239364332330297e-11
+          },
+          "800": {
+            "k": 1.1083085439526387e-10,
+            "s": 2.2153866140356063e-10,
+            "phase_rad_mod_pi": 3.240518964275907e-11
+          }
+        }
+      }
+    },
+    {
+      "case": "compressed/nine/B2",
+      "energy_index": 0,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 2.0910873727020274e-11,
+            "s": 4.160304973160258e-11,
+            "phase_rad_mod_pi": 1.0366241198767057e-10
+          },
+          {
+            "k": 1.301739965819948e-12,
+            "s": 2.5899637529087206e-12,
+            "phase_rad_mod_pi": 6.441069899665308e-12
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 4.997675884244046e-12,
+            "s": 9.959539155534518e-12,
+            "phase_rad_mod_pi": 8.726130928948805e-12
+          },
+          {
+            "k": 1.053939921447089e-13,
+            "s": 2.10148013529038e-13,
+            "phase_rad_mod_pi": 3.448352714485736e-13
+          }
+        ],
+        "order_change": {
+          "k": 1.0582923426483148e-12,
+          "s": 2.1089054055331863e-12,
+          "phase_rad_mod_pi": 2.212452443473012e-12
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 7.385083690414351e-11,
+            "s": 1.4764625874439855e-10,
+            "phase_rad_mod_pi": 1.2441159213949504e-11
+          },
+          "400": {
+            "k": 7.275429998038208e-11,
+            "s": 1.4545470655660788e-10,
+            "phase_rad_mod_pi": 3.715028285000699e-12
+          },
+          "800": {
+            "k": 7.281283735671717e-11,
+            "s": 1.4557168782174913e-10,
+            "phase_rad_mod_pi": 4.0600856010541975e-12
+          }
+        }
+      }
+    },
+    {
+      "case": "equilibrium/nine/B2",
+      "energy_index": 0,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 2.0890934815387396e-11,
+            "s": 4.1763138688617477e-11,
+            "phase_rad_mod_pi": 1.036812857790892e-10
+          },
+          {
+            "k": 1.3387208008808216e-12,
+            "s": 2.676246090267295e-12,
+            "phase_rad_mod_pi": 6.708633648599971e-12
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 3.5525991870510865e-12,
+            "s": 7.102283959914618e-12,
+            "phase_rad_mod_pi": 3.1943336864515004e-12
+          },
+          {
+            "k": 8.741553488011977e-14,
+            "s": 1.748072101338868e-13,
+            "phase_rad_mod_pi": 3.8125058665627876e-13
+          }
+        ],
+        "order_change": {
+          "k": 7.479954156064395e-13,
+          "s": 1.4953658218190658e-12,
+          "phase_rad_mod_pi": 3.290701044988964e-13
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.156962926070898e-10,
+            "s": 2.3138283587201974e-10,
+            "phase_rad_mod_pi": 5.768052702137538e-11
+          },
+          "400": {
+            "k": 1.1521441309683689e-10,
+            "s": 2.3041914555172188e-10,
+            "phase_rad_mod_pi": 6.087486070782688e-11
+          },
+          "800": {
+            "k": 1.15298733451355e-10,
+            "s": 2.3058776649750914e-10,
+            "phase_rad_mod_pi": 6.04936101211706e-11
+          }
+        }
+      }
+    },
+    {
+      "case": "equilibrium/nine/B1",
+      "energy_index": 0,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 2.0900930292055975e-11,
+            "s": 4.1783114211935717e-11,
+            "phase_rad_mod_pi": 1.0369394232156992e-10
+          },
+          {
+            "k": 1.331362103895728e-12,
+            "s": 2.6615279431376582e-12,
+            "phase_rad_mod_pi": 6.623812609518609e-12
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 3.55997523127094e-12,
+            "s": 7.11701315235228e-12,
+            "phase_rad_mod_pi": 3.141709115084268e-12
+          },
+          {
+            "k": 8.427481802686376e-14,
+            "s": 1.6853146831534042e-13,
+            "phase_rad_mod_pi": 3.737010700888277e-13
+          }
+        ],
+        "order_change": {
+          "k": 7.479954156064395e-13,
+          "s": 1.495378321922565e-12,
+          "phase_rad_mod_pi": 3.2929214910382143e-13
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.433232942049667e-10,
+            "s": 2.8663794615527126e-10,
+            "phase_rad_mod_pi": 3.7597525093246986e-10
+          },
+          "400": {
+            "k": 1.439253126400697e-10,
+            "s": 2.87841955001868e-10,
+            "phase_rad_mod_pi": 3.7911696004755413e-10
+          },
+          "800": {
+            "k": 1.439016310625374e-10,
+            "s": 2.8779459416284446e-10,
+            "phase_rad_mod_pi": 3.787432589774653e-10
+          }
+        }
+      }
+    },
+    {
+      "case": "compressed/nine/B1",
+      "energy_index": 0,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 2.091285478122984e-11,
+            "s": 4.160701514770452e-11,
+            "phase_rad_mod_pi": 1.0375789116778833e-10
+          },
+          {
+            "k": 1.289555268124687e-12,
+            "s": 2.5654265582831232e-12,
+            "phase_rad_mod_pi": 6.147304887349492e-12
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 4.989949425882045e-12,
+            "s": 9.943900971161899e-12,
+            "phase_rad_mod_pi": 8.501643833369599e-12
+          },
+          {
+            "k": 1.4182448618282884e-13,
+            "s": 2.8320503746297117e-13,
+            "phase_rad_mod_pi": 2.4136248555350903e-13
+          }
+        ],
+        "order_change": {
+          "k": 1.0582958120952668e-12,
+          "s": 2.1089088058762053e-12,
+          "phase_rad_mod_pi": 2.212452443473012e-12
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.34682816115006e-10,
+            "s": 2.690855285609001e-10,
+            "phase_rad_mod_pi": 1.0528644622809225e-10
+          },
+          "400": {
+            "k": 1.3691040575553037e-10,
+            "s": 2.7353593756483785e-10,
+            "phase_rad_mod_pi": 1.1378809006146184e-10
+          },
+          "800": {
+            "k": 1.369092222404389e-10,
+            "s": 2.73533676368466e-10,
+            "phase_rad_mod_pi": 1.1354672757590833e-10
+          }
+        }
+      }
+    },
+    {
+      "case": "equilibrium/nine/B1",
+      "energy_index": 98,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 5.250050283400753e-07,
+            "s": 7.581425290941839e-07,
+            "phase_rad_mod_pi": 2.2662686802732424e-06
+          },
+          {
+            "k": 3.2814737704889296e-08,
+            "s": 4.738516009098733e-08,
+            "phase_rad_mod_pi": 1.4164624406731718e-07
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 1.1500687069343485e-09,
+            "s": 1.6753236813459955e-09,
+            "phase_rad_mod_pi": 4.992145807847237e-09
+          },
+          {
+            "k": 2.3022083128765303e-09,
+            "s": 3.331543453861166e-09,
+            "phase_rad_mod_pi": 9.994946204017197e-09
+          }
+        ],
+        "order_change": {
+          "k": 8.326672684688674e-16,
+          "s": 1.1102230246251565e-15,
+          "phase_rad_mod_pi": 8.881784197001252e-16
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.03555219954643e-09,
+            "s": 1.4726953410986065e-09,
+            "phase_rad_mod_pi": 4.4352934658320464e-09
+          },
+          "400": {
+            "k": 2.1856209064807786e-09,
+            "s": 3.1480190224423085e-09,
+            "phase_rad_mod_pi": 9.427439273679283e-09
+          },
+          "800": {
+            "k": 4.487829219357309e-09,
+            "s": 6.47642120539459e-09,
+            "phase_rad_mod_pi": 1.942238547769648e-08
+          }
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B1",
+      "energy_index": 98,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 4.5842314810862206e-07,
+            "s": 7.574164360629656e-07,
+            "phase_rad_mod_pi": 2.265696249725835e-06
+          },
+          {
+            "k": 2.865299147947198e-08,
+            "s": 4.733973865948902e-08,
+            "phase_rad_mod_pi": 1.416108756924217e-07
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 1.0031029340495934e-09,
+            "s": 1.6737102405564608e-09,
+            "phase_rad_mod_pi": 4.989463953108952e-09
+          },
+          {
+            "k": 2.0088034569099023e-09,
+            "s": 3.3283533044845438e-09,
+            "phase_rad_mod_pi": 9.99296756454271e-09
+          }
+        ],
+        "order_change": {
+          "k": 3.0531133177191805e-16,
+          "s": 5.389157964038493e-16,
+          "phase_rad_mod_pi": 4.440892098500626e-16
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 9.066940531710088e-10,
+            "s": 1.4957616253876267e-09,
+            "phase_rad_mod_pi": 4.4789860709215645e-09
+          },
+          "400": {
+            "k": 1.909796987220602e-09,
+            "s": 3.168342053079811e-09,
+            "phase_rad_mod_pi": 9.468450024030517e-09
+          },
+          "800": {
+            "k": 3.9186004441305045e-09,
+            "s": 6.493702641541528e-09,
+            "phase_rad_mod_pi": 1.946141736652862e-08
+          }
+        }
+      }
+    },
+    {
+      "case": "equilibrium/nine/B2",
+      "energy_index": 98,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 5.250054090355505e-07,
+            "s": 7.581425169109446e-07,
+            "phase_rad_mod_pi": 2.2662690257746476e-06
+          },
+          {
+            "k": 3.281567440005517e-08,
+            "s": 4.738522117038757e-08,
+            "phase_rad_mod_pi": 1.416470385429136e-07
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 1.1500291829946718e-09,
+            "s": 1.6752968227988619e-09,
+            "phase_rad_mod_pi": 4.992274815762698e-09
+          },
+          {
+            "k": 2.3003701166146584e-09,
+            "s": 3.331698003640621e-09,
+            "phase_rad_mod_pi": 9.99391258638127e-09
+          }
+        ],
+        "order_change": {
+          "k": 2.220446049250313e-16,
+          "s": 4.2500725161431774e-16,
+          "phase_rad_mod_pi": 4.440892098500626e-16
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 1.038868102654078e-09,
+            "s": 1.4945788795971339e-09,
+            "phase_rad_mod_pi": 4.451096158319956e-09
+          },
+          "400": {
+            "k": 2.18889728564875e-09,
+            "s": 3.1599781521049835e-09,
+            "phase_rad_mod_pi": 9.443370974082654e-09
+          },
+          "800": {
+            "k": 4.489267402263408e-09,
+            "s": 6.470084577909674e-09,
+            "phase_rad_mod_pi": 1.9437283560463925e-08
+          }
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B2",
+      "energy_index": 98,
+      "verdict": true,
+      "checks": {
+        "step_k": true,
+        "step_s": true,
+        "step_phase_rad_mod_pi": true,
+        "endpoint_k": true,
+        "endpoint_s": true,
+        "endpoint_phase_rad_mod_pi": true,
+        "order_k": true,
+        "order_s": true,
+        "order_phase_rad_mod_pi": true,
+        "native_200_k": true,
+        "native_200_s": true,
+        "native_200_phase_rad_mod_pi": true,
+        "native_400_k": true,
+        "native_400_s": true,
+        "native_400_phase_rad_mod_pi": true,
+        "native_800_k": true,
+        "native_800_s": true,
+        "native_800_phase_rad_mod_pi": true,
+        "spatial_trend": true,
+        "unitarity": true,
+        "reciprocity": true
+      },
+      "metrics": {
+        "step_changes": [
+          {
+            "k": 4.584229633119996e-07,
+            "s": 7.574164244864933e-07,
+            "phase_rad_mod_pi": 2.265696111392046e-06
+          },
+          {
+            "k": 2.865318093903113e-08,
+            "s": 4.734003528597627e-08,
+            "phase_rad_mod_pi": 1.4161113126576197e-07
+          }
+        ],
+        "endpoint_changes": [
+          {
+            "k": 1.0030698494034596e-09,
+            "s": 1.6736393657986983e-09,
+            "phase_rad_mod_pi": 4.989400004262734e-09
+          },
+          {
+            "k": 2.008505473050093e-09,
+            "s": 3.3285549049280075e-09,
+            "phase_rad_mod_pi": 9.992138672032524e-09
+          }
+        ],
+        "order_change": {
+          "k": 2.914335439641036e-16,
+          "s": 4.965068306494546e-16,
+          "phase_rad_mod_pi": 4.440892098500626e-16
+        },
+        "finest_endpoint_native": {
+          "200": {
+            "k": 9.077076312813404e-10,
+            "s": 1.489423972237324e-09,
+            "phase_rad_mod_pi": 4.457155533543755e-09
+          },
+          "400": {
+            "k": 1.9107774806848e-09,
+            "s": 3.163063337391203e-09,
+            "phase_rad_mod_pi": 9.446555537806489e-09
+          },
+          "800": {
+            "k": 3.919282953734893e-09,
+            "s": 6.4882905534867515e-09,
+            "phase_rad_mod_pi": 1.9438694209839014e-08
+          }
+        }
+      }
+    }
+  ],
+  "execution": {
+    "source_commit": "7ea624347ab36e6d54f962005cea9f20370757a5",
+    "source_archive_sha256": "6d616bcc2139ed9a7a5de0d8683a936c03fe9f371f65b60d602fe8eb9d751742",
+    "source_files_verified_before": 41,
+    "engine_artifacts_verified_before": 242,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-corner-co-20261019",
+      "--cpuset-cpus=4-11",
+      "--memory=8g",
+      "--memory-swap=8g",
+      "-e",
+      "PYTHONPATH=/work/dependencies:/work/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-corner-co-20261019:/work",
+      "-w",
+      "/work/source",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/raw:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-k-resource-successor-source-20261019:/prior:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/native-full-reconstruction-source-20261017:/saved:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-increment-co-20261019:/increment:ro",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_corner_control",
+      "--output",
+      "/work/result",
+      "--raw",
+      "/raw",
+      "--saved",
+      "/saved",
+      "--increment",
+      "/increment",
+      "--prior",
+      "/prior",
+      "--contract",
+      "/work/source/projects/ukrmol_co/numerov-corner-contract.json"
+    ],
+    "stage": "co",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "started_utc": "2026-10-19T08:19:23.343461+00:00",
+    "cpuset_cpus": "4-11",
+    "memory_limit_bytes": 8589934592,
+    "timeout_seconds": 3600,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       9.0Gi        80Gi       819Mi        34Gi       114Gi\nSwap:           29Gi          0B        29Gi\n",
+    "persistent_disk_free_gib": 61.640811920166016,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-19T08:50:44.163317+00:00",
+    "wall_seconds": 1880.814482990012,
+    "sampled_memory_current_peak_bytes": 413798400,
+    "sampled_kernel_memory_peak_bytes": 436060160,
+    "sampled_cpu_seconds": 8441.309248,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 9384,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 41
+  },
+  "original_reconstruction_verdict": false,
+  "original_reconstruction_exits": [
+    1,
+    1
+  ],
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}
