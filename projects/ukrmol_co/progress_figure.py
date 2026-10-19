@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-native-residual.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-native-integration.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -778,14 +778,17 @@ def _native_residual(ax, data):
     _panel(
         ax,
         "B",
-        "Native extended residual is2.46–2.49× faster",
-        "Captured298×298 operands; includes checks, packing and allocation",
+        data.get("native_residual_title", "Native extended residual is2.46–2.49× faster"),
+        data.get(
+            "native_residual_subtitle",
+            "Captured298×298 operands; includes checks, packing and allocation",
+        ),
     )
     rows = data["native_residual"]
     y = np.arange(len(rows))
     for offset, key, color, label in [
         (-0.18, "numpy_ms", BLUE, "Retained NumPy reference"),
-        (0.18, "native_ms", GREEN, "Rust/PyO3 + C longdouble"),
+        (0.18, "native_ms", GREEN, data.get("native_residual_legend", "Rust/PyO3 + C longdouble")),
     ]:
         values = [row[key] for row in rows]
         ax.barh(y + offset, values, color=color, label=label, height=0.32)
@@ -795,7 +798,11 @@ def _native_residual(ax, data):
                 text += f"  /{rows[i]['speedup']:.2f}×"
             ax.text(value + 0.7, i + offset, text, va="center", fontsize=8.5, color=color)
     ax.set_yticks(y, [row["label"] for row in rows])
-    ax.set(xlim=(0, 88), ylim=(3.7, -0.6), xlabel="End-to-end residual wall time / ms")
+    ax.set(
+        xlim=(0, data.get("native_residual_xmax", 88)),
+        ylim=(data.get("native_residual_bottom", 3.7), -0.6),
+        xlabel=data.get("native_residual_xlabel", "End-to-end residual wall time / ms"),
+    )
     ax.legend(loc="lower right", frameon=False, fontsize=8.5)
     _note(ax, data["native_residual_note"])
 
@@ -1146,7 +1153,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261019-native-residual",
+        default=ROOT / "docs/physics/figures/co-progress-20261019-native-integration",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

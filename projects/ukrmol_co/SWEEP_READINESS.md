@@ -234,6 +234,22 @@ preflight exit1/unset is preserved alongside its passing successor. Next freeze
 integrated mixed-solve/coupled stress and interval-performance requalification
 before drawing CO cost conclusions. No propagation or new CO identity is added.
 
+That [native integration qualification](NUMEROV_NATIVE_INTEGRATION.md) now passes
+**538/538 checks / exits 0/0**, 50 propagations / 1,737,200 mixed solves. All
+1,735,263 audited native residual evaluations match NumPy; zero gate disagreements
+and at most one correction. Four-channel embeddings force the mixed path for
+short/physical and all three finest stress endpoints. Separate dense timing
+rows yield **2.26–2.27×** marginal interval gain and **1.84–1.88×** full N128 gain.
+Complete public replay reproduces all numerical rows/audits/decisions exactly;
+all 14 public payloads verify. Producer/replay cost 415.73/416.17 s, about .138 GiB,
+on one worker within reserved physical cores 0–3 and 4 GiB. Conditional synthetic
+recurring-only estimates fall to 10.09–20.34 single-worker days, within that
+synthetic scope only. The **next** experiment is a separately costed actual
+saved-CO-matrix conditioning/throughput canary, before an interior pilot or any
+full 60-solve proposal. Dense exterior matrices are small; memory rules excluding
+dense inner-region Hamiltonians remain. Original interior false/exits1/1 and
+historical coverage 132/594 remain unchanged.
+
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
 anchors. Supported stretched aug-TZ passes all64
 root/dipole/subspace/seed-preservation checks. The original stretched TZ import

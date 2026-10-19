@@ -1,0 +1,9 @@
+{
+  "saved_decisions_reconstructed": true,
+  "rows": 50,
+  "checks": 538,
+  "checks_passed": 538,
+  "experiment_verdict": true,
+  "timing_hypotheses_are_observations": true,
+  "residual_audit_scope": "Saved aggregate observations; numerical reexecution remeasures each residual"
+}

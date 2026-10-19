@@ -1,0 +1,60 @@
+{
+  "verified_utc": "2026-10-19T16:09:03.261050+00:00",
+  "producer_freeze": "9ed0123b62345d49439999e83fe5aa412816f463",
+  "verifier_freeze": "09a4e836260b20fc0af4a416166658691c514102",
+  "frozen_numerical_sources_and_contracts_unchanged": true,
+  "overview_source_hashes_verified": 514,
+  "documentation_links_verified": 728,
+  "experiment_verdict": true,
+  "checks_passed": 538,
+  "checks_total": 538,
+  "original_runtime_exits": [
+    0,
+    0
+  ],
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "propagations": 50,
+  "intervals": 1730352,
+  "mixed_solves": 1737200,
+  "native_audited_solves": 867632,
+  "native_residual_evaluations": 1735263,
+  "native_numpy_all_audited_residuals_exact": true,
+  "accept_reject_disagreements": 0,
+  "all_public_numerical_rows_exact": true,
+  "native_marginal_speedups": [
+    2.268710284912321,
+    2.259950447432277
+  ],
+  "native_N128_total_speedups": [
+    1.876796575872773,
+    1.8429837991822429
+  ],
+  "public_payloads_fresh_verified": 14,
+  "remote_python_tests_passed": 29,
+  "local_focused_tests_passed": 23,
+  "local_focused_tests_skipped": 2,
+  "collected_hashes_verified": 31,
+  "installed_engine_artifacts_verified": 242,
+  "ruff_lint_format_cargo_fmt_and_diff_passed": true,
+  "png_visually_checked_and_text_svg_validated": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_upstream_state": "current",
+  "relevant_branch_delta_from_index": "A\tbenchmarks/co_exterior_sparsity.py\nA\tprojects/ukrmol_co/numerov_native_coupled.py\nA\tprojects/ukrmol_co/numerov_native_integration.py\nA\tprojects/ukrmol_co/numerov_native_integration_replay.py\n",
+  "original_interior_verdict": false,
+  "original_interior_exits": [
+    1,
+    1
+  ],
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "new_co_independent_solves": 0,
+  "new_inner_solves": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

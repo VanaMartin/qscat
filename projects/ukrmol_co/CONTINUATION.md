@@ -20,27 +20,69 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Native coupled integration: prospective finite qualification — 19 October
+### Native coupled integration and exact public replay pass — 19 October, 16:05 UTC
 
-The [integration design](NUMEROV_NATIVE_INTEGRATION.md) and
-[contract](numerov-native-integration-contract.json) freeze the next finite
-experiment: **50 synthetic propagations / 1,730,352 intervals / 1,737,200 mixed
-solves**, including independent NumPy residual/decision audits of 867,632 native
-accuracy solves. Four-channel closed-spectator embeddings force the mixed path
-for prior short/physical/stress models; separate unaudited 298-channel N32/128
-rows measure integrated performance. All original models, finest stress
-endpoints, source oracles, three-correction limit and 32-epsilon gate remain.
-Reuse the published wheel with exact whole-wheel/initializer/binary pins.
+The [native integration](NUMEROV_NATIVE_INTEGRATION.md), design and finite
+contract freeze/push at **`9ed0123b62345d49439999e83fe5aa412816f463`**.
+All **538/538 checks / original test and runtime exits 0/0** pass:
+**50 propagations / 1,730,352 intervals / 1,737,200 mixed solves**. Four-channel
+closed-spectator embeddings genuinely exercise mixed refinement for prior short,
+physical and all 200/400/800-bohr stress endpoints. Dense accuracy is separated
+from unaudited 298-channel timing. Original propagator, NumPy residual and
+compiled kernel remain unchanged; published wheel/component pins verify.
 
-Prospective resources: reserved physical cores 0–3, one worker, single-threaded
-BLAS, 4 GiB, **600/1200/1800-s expected/upper/hard cap**. Finish a fixed accuracy
-stage on a false gate, then stop; exceptions remain unset. No automatic CO pilot.
-Local checks: 20 tests pass/two wider-format skips; ruff passes. Original typed
-and native primitive sources are byte-identical to `bdfef25`. Capture and
-independently verify original remote exits, numerical rows and resources before
-promoting this result into the six-panel overview. Main index at preparation is
-complete at `423d577`, upstream currency unknown; integration sources are
-branch-only and locally resolved.
+All **1,735,263 residual evaluations** across **867,632 audited native solves**
+match NumPy numerically, with **zero accept/reject disagreements**. Maximum
+independently accepted backward error **1.95196e-18**, at most one correction,
+below the unchanged 32-epsilon / three-correction gates. Native/reference K,
+diagnostics and invariants are exact; all 20 dense rows reproduce archived K
+and diagnostics. Short arithmetic <=6.66460e-19; exact inverse-square S errors
+decrease about 16-fold to 2.28025e-9. Stress arithmetic <=6.62407e-10, continuous
+K <=4.11497e-8 and archived small-solver difference <=1.37272e-9 pass old budgets.
+
+Native marginal rates are **.05940674 / .11981925 s per interval**, free/varying,
+versus reference .13477668 / .27078556: **2.26871× / 2.25995×** improvement.
+Full N128 gains are **1.87680× / 1.84298×**. Both >=1.5× marginal hypotheses pass.
+Conditional synthetic recurring-only cost becomes **10.09–20.34 single-worker
+days** for the historical 60-solve scope; actual CO throughput remains unmeasured.
+
+Producer finishes **15:53:22 UTC / 415.725390 s / 415.197557 sampled CPU s /
+147,685,376-byte peak**, 2,075 samples, reserved physical cores 0–3 / one worker /
+single-threaded BLAS / 4 GiB, below 600/1200/1800-s budgets. All **94 frozen
+sources / 242 installed artifacts / three prior reports / two wheel components**
+verify before/after. Legacy owner fields `captured_operand_hashes_verified_*`
+count those five prior/component pins, not new captured triples. All **29 remote
+tests pass**, exercising both local wider-format skips. Originals:
+`prepared/numerov-native-integration-20261019/`; 16-file collection retained.
+
+Saved verifier/full public replay freeze at **`09a4e83`**. Saved reconstruction
+passes all 538 decisions, .721554 s / exits 0/0. The complete downloaded-source
+replay finishes **16:04:32 UTC / exits 0/0** and reproduces **all 50 numerical
+rows, complete diagnostics, residual-audit aggregates, reference errors and
+decisions exactly**. Fresh timing hypotheses again pass (2.27237× / 2.25897×),
+separate from numerical identity. Replay costs **416.168333 s / 415.640450 sampled
+CPU s / 147,382,272-byte peak**, 2,077 samples, below 450/900/1800-s budgets.
+All 96 effective sources, 242 artifacts and five prior/component pins verify.
+Original replay directory: `prepared/numerov-native-integration-public-replay-20261019/`.
+All **14 final public payloads** and the final index fresh-verify; evidence:
+`https://data.qscat.org/co-numerov-native-integration-20261019/`.
+
+The [16:05:32 UTC capture](progress-numerov-native-integration-result-20261019.json)
+reverifies all 31 collected hashes and both frozen source trees; no scientific
+container remains, 59.92 GiB free. Local checks: 20 focused tests plus three
+verifier tests pass; two wider-format skips are exercised remotely. The Mac's
+noncanonical saved-metric probe rejects last-bit K-to-S metric identity despite
+exact decimal-to-binary64 K conversion; canonical pinned-runtime reconstruction
+passes. No tolerance or numerical gate changes were made.
+
+**Next:** separately cost a short saved-CO-matrix conditioning/throughput canary
+using the integrated method. Determine actual refinement behavior and interval
+cost before an interior pilot; do not automatically submit 60 solves. Original
+interior **false/exits1/1**, 14 corner-qualified identities, historical 132/594
+coverage / 462 uncomputed, native full K and all physical/production gates remain.
+Main discovery uses complete `423d577`, upstream initially unknown; experimental
+sources are branch-only and locally source/freeze/delta-resolved. At result
+handoff the same complete snapshot is current/upstream current.
 
 ### Exterior sparsity probe resolves the dense/sparse distinction — 19 October
 
@@ -82,8 +124,9 @@ The local full diagnostic report is
 **Next:** separately freeze the native-residual integration qualification
 for the full recurring exterior solve. Block/sparse potential evaluation is a
 possible targeted optimization requiring its own accuracy/cost comparison.
-The two native-coupled modules remain uncommitted/unqualified; no remote
-integration contract or submission exists. All prior scientific gates remain.
+At this probe's cutoff the two native-coupled modules were still uncommitted;
+the subsequently frozen integration result is recorded above. All prior
+scientific gates retain their original scopes.
 
 Main-index handoff: complete/current/upstream current at `423d577`; the
 benchmark and experimental reconstruction sources are branch-only and resolved

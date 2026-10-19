@@ -1,0 +1,39 @@
+{
+  "git_sha": "9ed0123b62345d49439999e83fe5aa412816f463",
+  "verification_support_git_sha": "09a4e836260b20fc0af4a416166658691c514102",
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_native_integration_replay.py": "2964dd880f44b4bba27a3758ccc18f4285cd8f1ffc11383aa49b1770e70171a0",
+    "projects/ukrmol_co/test_numerov_native_integration_replay.py": "e095fc8f16f4e35df1364cad1ee9b26b94cfa3c027b5a83650a31144b6d17b79"
+  },
+  "record_type": "native-residual-coupled-integration",
+  "date": "2026-10-19",
+  "experiment_verdict": true,
+  "rows": 50,
+  "checks_passed": 538,
+  "checks_total": 538,
+  "original_runtime_exits": [
+    0,
+    0
+  ],
+  "public_numerical_reexecution_passed": true,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_inner_solves": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "saved_decisions_verified": true,
+  "public_numerical_rows_exact": 50,
+  "public_decisions_verified": 538,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "timing_identity_is_not_a_numerical_gate": true,
+  "original_owner_exit": 0,
+  "public_owner_exit": 0
+}

@@ -1,0 +1,64 @@
+{
+  "verified_utc": "2026-10-19T16:05:27.955480+00:00",
+  "payloads_verified": 14,
+  "all_final_payloads_fresh_downloaded": true,
+  "sha256": {
+    "manifest.json": "331291b9e07b0d3380d7107a19753e1533cf5c402e41e0c0d24378fb248c6193",
+    "mpmath-1.3.0-py3-none-any.whl": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+    "native-wheel.whl": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+    "public-execution.json": "fa28415c2f610770ffa8959fb89c19e8d633af9a31d07ed0c7400f90142e813c",
+    "public-owner-exit.json": "5bc232b82de377a5655a39a2af9d7ae0fc868de5b9df957e18905cb914606c88",
+    "public-owner.py": "09956bfcea5b29d7e9009c3e8a525d677bd403f0e5a5b9fc3ff8cd30608c0a75",
+    "public-replay.json": "66ace36545bd799b36a74cfdb228482f3c59f8e8c21a4d5c2cc852fbc1f4a844",
+    "public-replay.tar.gz": "178ef5fa4efdf21183f0be8ccbab2b6d40d050b5b8d1e360cc5dc3c46754f9f2",
+    "replay-contract.json": "f47a64807c737114a1c0193ba611988e28738a4f076d3a8b680de2f65572b49a",
+    "results.tar.gz": "f2b537d7a4e4f809b038e153736122d2e30b6bfc672804ed601e1e7106f6d086",
+    "saved-replay.json": "eea59ccc9a88f9996fdb965fa008052755ed7675ea482aa443552960a386cef8",
+    "source-manifest.json": "be2b715d93619ce0b2637670ce0743c4aee3c195f356b9d87a324fd626d1c342",
+    "source.tar.gz": "9eae87a5e54bedd37516ef8b79d0a3671253487a488a9a1904d799669ccd6562",
+    "verification-support.tar.gz": "9537bf6c6f5031d595038f9e7518f93cdf82ecc3afeb4fb2bc5901e87e54ffcd"
+  },
+  "public_index_sha256": "2bc049900a4ced6289156d3c1462cdebe715d60e630c5273fa53b34b04f460ef",
+  "public_index_fresh_downloaded": true,
+  "wheel_components_verified": {
+    "qscat_extended_kernels/__init__.py": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "qscat_extended_kernels/qscat_extended_kernels.abi3.so": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e"
+  },
+  "public_numerical_reexecution_passed": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_replay": {
+    "saved_decisions_reconstructed": true,
+    "rows": 50,
+    "checks": 538,
+    "checks_passed": 538,
+    "experiment_verdict": true,
+    "timing_hypotheses_are_observations": true,
+    "residual_audit_scope": "Saved aggregate observations; numerical reexecution remeasures each residual",
+    "fresh_saved_audit": {
+      "saved_decisions_reconstructed": true,
+      "rows": 50,
+      "checks": 538,
+      "checks_passed": 538,
+      "experiment_verdict": true,
+      "timing_hypotheses_are_observations": true,
+      "residual_audit_scope": "Saved aggregate observations; numerical reexecution remeasures each residual"
+    },
+    "numeric_rows_exact": true,
+    "fresh_verdict_matches": true,
+    "fresh_scientific_exit": 0
+  },
+  "timing_identity_is_not_a_numerical_gate": true,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "new_co_independent_solves": 0,
+  "new_inner_solves": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}
