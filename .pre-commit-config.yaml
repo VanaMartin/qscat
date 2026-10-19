@@ -12,7 +12,7 @@ repos:
     hooks:
       - id: cargo-fmt
         name: cargo fmt
-        entry: bash -c 'cd native/qscat-kernels && cargo fmt --check'
+        entry: bash -c 'for manifest in native/*/Cargo.toml; do cargo fmt --manifest-path "$manifest" --check || exit; done'
         language: system
         files: \.rs$
         pass_filenames: false

@@ -1,0 +1,17 @@
+{
+  "saved_decisions_verified": true,
+  "experiment_verdict": true,
+  "checks_passed": 69,
+  "checks_total": 69,
+  "rows_verified": 13,
+  "oracle_pairs_verified": 13,
+  "reference_entries_verified": 220,
+  "all_timing_hypotheses_passed": true,
+  "saved_metadata_observations_retained": [
+    "inputs_unchanged",
+    "shape_dtype_owned",
+    "signal_not_downcast"
+  ],
+  "numeric_observations_independently_reexecuted": false,
+  "report_sha256": "c937e93a3fc05feddb1f397c0189e46163d7e7d2ea523b129c604e7f670e7141"
+}

@@ -46,7 +46,7 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - name: Sync workspace (kernel build skipped unless native/** changed — docs/adr/0006)
-        run: uv sync --all-packages ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels' || '' }}
+        run: uv sync --all-packages ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels --no-install-package qscat-extended' || '' }}
       - name: Lint (ruff)
         run: uv run ruff check .
       # The pre-commit hook formats with the same ruff pinned in the `dev`
@@ -93,7 +93,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
       - name: Sync workspace (kernel build skipped unless native/** changed — docs/adr/0006)
-        run: uv sync --all-packages ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels' || '' }}
+        run: uv sync --all-packages ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels --no-install-package qscat-extended' || '' }}
       # `-m "not slow"` is the tier boundary: production-scale physics runs
       # locally and in the Docker `test` image, never here (docs/adr/0005).
       #
@@ -155,7 +155,7 @@ jobs:
       # either fix the code or RAISE the floor -- never let the floor claim a
       # version the suite cannot run on.
       - name: Sync at the declared floors
-        run: uv sync --all-packages --resolution lowest-direct ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels' || '' }}
+        run: uv sync --all-packages --resolution lowest-direct ${{ needs.changes.outputs.native != 'true' && '--no-install-package qscat-kernels --no-install-package qscat-extended' || '' }}
       - name: Test (fast suite at the floors)
         env:
           OMP_NUM_THREADS: "1"
