@@ -1,0 +1,23 @@
+{
+  "status": "prospective finite mixed-solve line timing and reusable operand capture",
+  "numerical_source_commit": "4a9baa17606bbbc11403eeba1a53fe0c4b2f4f35",
+  "numerical_module_sha256": "e7aecc73aeff3e5836aa9b82f9bd64eee81ee710e999e08becb3d3bbeaaf8caa",
+  "scaling_source_commit": "1d8cfacb2f86254c8035af5d74bba3c6869bd301",
+  "prior_report_sha256": "c815dc3485112239ebd27a770ab5c06ce8c3f023bda6ecf901def0ce2013ff68",
+  "models": ["free", "varying"], "backends": ["binary64", "longdouble"],
+  "intervals": 32, "capture_interval": 16,
+  "order": "four untraced rows: free/varying,binary64/longdouble; four traced rows: varying/free,longdouble/binary64",
+  "new_propagations_reexecuted": 8, "new_radial_intervals": 256, "operand_captures": 6,
+  "required_decimal_and_binary64_K_and_diagnostics_drift": 0,
+  "required_extended_significand_bits_minimum": 64,
+  "large_solve_backward_error_eps_factor": 32, "maximum_refinement_corrections": 3,
+  "timer_partition_slack_seconds": 1e-6,
+  "hypotheses": {"each_extended_model_residual_fraction_minimum": 0.8,
+    "each_extended_model_residual_to_factor_initial_correction_ratio_minimum": 10.0,
+    "each_extended_model_traced_to_untraced_recurring_ratio_range": [0.8, 1.2]},
+  "resources": {"cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 55, "upper_wall_seconds": 90, "timeout_seconds": 180, "sample_interval_seconds": 0.2},
+  "stopping_rule": "Unsupported precision or source/prior mismatch is unset before propagation. Numerical or instrumentation failure stops after the current row. False timing hypotheses retain numerical qualification; no extra repeats or interval counts, kernel implementation or CO submission.",
+  "original_interior_analytic_verdict": false, "original_interior_scientific_exits": [1, 1],
+  "co_successor_submitted": false, "new_co_independent_solves": 0, "new_unique_energy_identities": 0
+}
