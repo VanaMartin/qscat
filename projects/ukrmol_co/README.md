@@ -68,6 +68,10 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 passes124raw files and57frozen sources on downloaded payloads.
 
 **Update — 19 October:** the [fixed-grid Numerov algebra control](NUMEROV_INCREMENT_CONTROL.md)
+has a separately frozen [cross-anchor / all-finest-endpoint successor](NUMEROV_CORNER_CONTROL.md),
+submitted after32 passing high-precision endpoint checks. It permits at most78
+new saved-matrix solves, eight physical cores/8 GiB,1500-s forecast/3600-s cap;
+completion is pending. The completed two-point control described below
 passes **24/24 two-point checks**, exits0/0, after16 analytic checks and49
 focused tests. Changing floating-point algebra reduces finest/native64 K
 differences from about7.26e-5 to **1.49e-7 /1.09e-7** on identical inputs and

@@ -1,0 +1,27 @@
+{
+  "status": "prospective numerical reproducibility subset; separate from scientific gates",
+  "producer_source_freeze": "7ea6243",
+  "worker_sha256": "6c3e7f8949764f8ce1208389ba65d5c2432659a6216a15a394b7eb4fe6a13609",
+  "worker_public_payload": "numerical-worker.py",
+  "selection": "Every produced corner finest-step/400-bohr/order8 row and both produced stretched-index18 finest-step/800-bohr/order8 rows, independent of pass/reject verdict. Uncomputed rows remain absent.",
+  "maximum_reexecuted_rows": 14,
+  "maximum_reexecuted_intervals": 616960,
+  "required_component_drift": 0,
+  "component_keys": ["k", "s_real", "s_imag"],
+  "resources": {
+    "cpuset_cpus": "4-11",
+    "workers": 8,
+    "blas_threads": 1,
+    "memory_gib": 8,
+    "expected_wall_seconds": 450,
+    "upper_wall_seconds": 800,
+    "timeout_seconds": 1200
+  },
+  "stopping_rule": "One fixed subset replay of produced rows only. Preserve original scientific decisions/exits regardless of reproducibility result. No retries or extra scientific grids.",
+  "reexecutes_all_producer_rows": false,
+  "native_invocations": 0,
+  "new_inner_solves": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "full_sweep_released": false
+}

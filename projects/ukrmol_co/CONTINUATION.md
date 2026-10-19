@@ -20,6 +20,34 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Cross-anchor corner / all-finest-endpoint study submitted — 19 October
+
+The [new finite control](NUMEROV_CORNER_CONTROL.md) is frozen/pushed at
+**`7ea6243`** and submitted to Sadaharu. Completion is pending; no scientific
+verdict or exit is inferred from submission. It first evaluates the two
+stretched1-eV endpoint bundles. Both must pass before twelve low/high corners
+covering all three geometries and both sectors are submitted.
+
+The [endpoint analytic prerequisite](verification-numerov-endpoint-analytic-20261019.json)
+passes32 checks, exits0/0: finest800-bohr scalar K error1.26839e-7 separates
+into1.25185e-7 discrete truncation and1.65453e-9 floating-point drift. Twelve
+analytic solves cost15.0354 s;36 sources/242 installed artifacts verify.
+
+The unchanged increment propagator gets at most78 new solves /six reused rows,
+2364640 intervals, eight physical cores4–11 /8 GiB, expected1500 s /upper2400 s /
+hard cap3600 s. Separate1e-6 K/S/phase/invariant budgets remain. Every finest-step
+endpoint200/400/800 must now pass its native-reference comparison; all21 case
+checks and raw trends are retained. Stop submissions on false/unset, preserve
+in-flight completions; no automatic full-grid successor. No native/inner solve.
+
+Source/results/resources: `prepared/numerov-corner-co-20261019/` below the campaign
+root. A completion notification is attached to the background owner. On completion,
+collect original exits and all partial/final rows, verify saved decisions against
+pinned bytes, publish the finite evidence and refresh the six-panel overview.
+The completed two-point pass and original132/594 coverage/462 uncomputed
+identities remain separate. The main index was complete at`423d577`, with stale/
+unknown upstream status at initial discovery; new code is branch-only.
+
 ### Fixed-grid increment control and public replay pass — 19 October, 07:21 UTC
 
 The [increment control](NUMEROV_INCREMENT_CONTROL.md) passes **24/24 declared

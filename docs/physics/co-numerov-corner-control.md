@@ -99,3 +99,40 @@ All36 archived sources and242 installed engine artifacts verify before/after.
 The [CO contract](../../projects/ukrmol_co/numerov-corner-contract.json) pins this
 prerequisite,24 raw files,12 full-grid native16/32 references, two native64
 references and the previous increment report. The 55-test focused suite passes.
+
+## A prospective explanation of residual endpoint growth
+
+For the scalar free equation `u''=-k²u`, put `t=k h`. The constant-coefficient
+Numerov phase obeys
+
+```
+cos(theta) = (1 - 5 t²/12) / (1 + t²/12)
+theta = t + t⁵/480 + O(t⁷).
+```
+
+Thus the accumulated phase defect over length L is approximately
+`L k⁵ h⁴/480`, even when the discrete recurrence is evaluated exactly. Near a
+large tangent, `dK/d(delta)=1+K²` amplifies that phase defect. Doubling a long
+endpoint at fixed h can therefore increase absolute K error; halving h should
+reduce the leading accumulated contribution by about16. The independent
+discrete oracle already includes finite Taylor start/matching errors, so it
+tests this explanation without assuming those terms vanish. The analytic
+800-bohr fine-grid result separates truncation from roundoff explicitly.
+
+This is a prospective diagnostic for the two fixed CO endpoint bundles, not an
+absolute CO error estimate: coupled potentials, matrix matching and uncertainty
+in native64 remain. Do not replace an endpoint/native K veto by this formula
+or extrapolate the finite sequence into a Richardson error bound.
+
+## Public verification scope
+
+Following completion, publish all produced rows and original exits, and replay
+all saved decisions with separately expressed comparisons. The prospective
+numerical-reexecution subset is each produced corner's finest400/order8 row
+and each produced stretched-index18 finest800/order8 row. This covers at most
+14 rows (616960 intervals if complete), irrespective of whether their decisions
+pass or reject. It is a reproducibility check, not an extra scientific gate or
+an alternative choice of favourable rows. Uncomputed identities remain absent.
+Forecast450 s /upper800 s /hard cap1200 s, eight physical cores4–11 /8 GiB.
+All other produced coordinates receive saved-byte, S and decision verification;
+do not describe this subset replay as reexecuting all78 new solves.

@@ -44,8 +44,7 @@ def evaluate(rows, reference, steps, budget):
         raise ValueError("Nonfinite or incompatible K matrix")
     fine = steps[-1]
     step_changes = [
-        differences(matrices[a, 400, 8], matrices[b, 400, 8])
-        for a, b in pairwise(steps)
+        differences(matrices[a, 400, 8], matrices[b, 400, 8]) for a, b in pairwise(steps)
     ]
     endpoint_changes = [
         differences(matrices[fine, a, 8], matrices[fine, b, 8]) for a, b in [(200, 400), (400, 800)]
