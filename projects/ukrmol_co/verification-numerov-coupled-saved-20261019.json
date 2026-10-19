@@ -1,0 +1,33 @@
+{
+  "saved_decision_replay_passed": true,
+  "experiment_verdict": true,
+  "checks_passed": 89,
+  "checks_total": 89,
+  "propagation_rows_verified": 32,
+  "preflight_role": "Audits stored algebra/tail diagnostic values; complete public numerical replay reexecutes those controls.",
+  "original_exits": [
+    0,
+    0
+  ],
+  "hypotheses": {
+    "all_three_precision_gain_at_least_100fold": true,
+    "roundoff_reduction_ratios": [
+      10494.373981411638,
+      9590.276586765865,
+      4926.856182506888
+    ]
+  },
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}
