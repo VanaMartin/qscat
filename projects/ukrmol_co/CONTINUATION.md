@@ -47,6 +47,11 @@ pinned bytes, publish the finite evidence and refresh the six-panel overview.
 The completed two-point pass and original132/594 coverage/462 uncomputed
 identities remain separate. The main index was complete at`423d577`, with stale/
 unknown upstream status at initial discovery; new code is branch-only.
+At the launch handoff the same main snapshot is **complete/current**, with
+upstream current. Producer freeze`7ea6243` remains archived; the later runner
+diff is whitespace-only. Verification support at`c0f8c37` adds independently
+expressed saved decisions and two tests; all eight new control/replay/phase
+tests and Ruff lint/format checks pass. Numerical propagator bytes are unchanged.
 
 ### Fixed-grid increment control and public replay pass — 19 October, 07:21 UTC
 
