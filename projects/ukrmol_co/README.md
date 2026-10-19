@@ -46,6 +46,7 @@ The [current root-resolution decision](ROOT_RESOLUTION_DECISION_20261014.md),
 [extended-arithmetic qualification](NUMEROV_ARITHMETIC_CONTROL.md),
 [coupled precision and dense-cost control](NUMEROV_COUPLED_PRECISION.md),
 [dense setup-versus-interval scaling](NUMEROV_DENSE_SCALING.md),
+[recurring mixed-solve profile and operands](NUMEROV_SOLVE_PROFILE.md),
 [completed A2 target/property gate](A2_CHANNEL_TARGET_PREFLIGHT.md),
 [completed-pair status update](SWEEP_READINESS_20261014T0658.md) and
 [detailed roadmap](SWEEP_READINESS.md) state the ordered experiments,
@@ -73,7 +74,16 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October, 13:48 UTC:** the [dense scaling benchmark](NUMEROV_DENSE_SCALING.md)
+**Update — 19 October, 14:11 UTC:** the [mixed-solve profile](NUMEROV_SOLVE_PROFILE.md)
+passes **76/76 checks / exits0/0**. Eight reexecutions preserve all archived K
+components and diagnostics exactly. Extended residual evaluation takes **94.6%**
+of recurring solve time, **27.5×** factorization+initial+correction combined.
+Six actual A/B/X captures support a precision-preserving residual kernel
+experiment. Complete public replay reproduces K/diagnostics/decisions and all
+six numeric operand triples exactly; backward errors pass. All14 payloads verify;
+89 tests pass/two wider-format skips exercised remotely. No container runs at14:11UTC.
+
+**Earlier update — 19 October, 13:48 UTC:** the [dense scaling benchmark](NUMEROV_DENSE_SCALING.md)
 passes **166/166 checks / exits0/0**,24 propagations in207.11 s. Two-repeat means
 at8/32/128 intervals separate fixed setup from recurring work. Extended marginal
 rates are **.135263/.271376 s per interval**, free/varying W; recurring solves
@@ -437,10 +447,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 19 October 2026
 
-![CO qualification: measured dense scaling separates setup from dominant recurring solve cost](../../docs/physics/figures/co-progress-20261019-dense.png)
+![CO qualification: extended residual evaluation dominates recurring solve cost; exact operands retained](../../docs/physics/figures/co-progress-20261019-solve-profile.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-dense.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-dense.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261019-solve-profile.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261019-solve-profile.json) ·
+[Mixed-solve profile and operands](NUMEROV_SOLVE_PROFILE.md) ·
+[Public profile/operand evidence](qualification-evidence/numerov-solve-profile/README.md) ·
+[Previous dense-scaling figure](../../docs/physics/figures/co-progress-20261019-dense.svg) ·
+[Previous dense snapshot](progress-snapshot-20261019-dense.json) ·
 [Dense scaling result](NUMEROV_DENSE_SCALING.md) ·
 [Public dense scaling evidence](qualification-evidence/numerov-dense/README.md) ·
 [Previous coupled-control figure](../../docs/physics/figures/co-progress-20261019-coupled.svg) ·
@@ -718,12 +732,12 @@ The six panels explain the qualification campaign:
   pole curve; background-sensitive extraction still needs qualification. The
   CAS12 both-sector native candidate is shown in the note alongside the completed
   independent export/Pi checks; it remains provisional for pole extraction.
-- **B — Dense setup versus recurring cost.** The synthetic298-channel benchmark
-  passes166 checks. Two-repeat extended times at8/32/128 intervals fit positive
-  affine slopes; measured free/varying marginal rates are.135263/.271376 s per
-  interval. Recurring solves dominate at128 intervals. These cost observations
-  guide profiling/optimization; earlier physical convergence and stress controls
-  remain qualified within their own scopes, separate from native CO error bounds.
+- **B — Recurring residual cost.** Timing the unchanged mixed-solve source
+  attributes94.6% of extended recurring solve time to residual evaluation,27.5×
+  factorization+initial+correction combined. The same statement is about22% in
+  binary64. All76 checks pass; archived numerics and full operand replay are exact.
+  Six captured solve triples now support a precision-preserving compiled kernel;
+  earlier physical/stress controls remain separate from native CO error bounds.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
   budgets pass over 1.9–2.5 bohr: maximum QZ/5Z relative difference 17.243 meV and
@@ -756,12 +770,12 @@ The six panels explain the qualification campaign:
   channels, identity, width extraction and neutral correlation still determine the
   production model. A frozen restartable pilot precedes the sweep and held-out
   QSCAT potential validation. Coupled extended arithmetic passes its finite
-  controls; dense-channel scaling now identifies recurring mixed solves as the
-  optimization priority before a separately contracted interior CO comparison.
+  controls; residual evaluation is now the measured optimization target, with
+  captured operands for differential testing before an interior CO comparison.
 
-The **19 October13:56:02 UTC** snapshot adds the24-propagation dense scaling control and166 passing
-decisions. Its two-repeat interval rates separate recurring work from fixed
-setup; mixed-solve internals are the next profiling/optimization target.
+The **19 October14:11:53 UTC** snapshot adds the eight-reexecution mixed-solve
+profile and76 passing decisions. Residual evaluation dominates extended solve
+cost; captured operands and exact replay support the next compiled primitive.
 The earlier32-propagation coupled control and exact replay remain qualified.
 Earlier interior false/exits1/1 and all other
 numerical/model rejections remain recorded. Historical independent coverage is
@@ -781,7 +795,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned13:23 coupled snapshot; its chain
+snapshot is an explicit delta against the hash-pinned13:56 dense snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

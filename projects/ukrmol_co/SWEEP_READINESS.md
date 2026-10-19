@@ -210,6 +210,19 @@ six oracle pairs exactly. All14 final payloads verify;85 local tests pass with
 two wider-format skips, exercised remotely. No scientific container runs at the
 13:56UTC capture.
 
+The subsequent [mixed-solve source-line profile](NUMEROV_SOLVE_PROFILE.md) passes
+76/76 checks/exits0/0 in49.63 s. Eight existing-row reexecutions reproduce K and
+diagnostics exactly. Extended residual evaluation accounts for94.6% of recurring
+solve time,27.5× factor+initial+correction cost; timing hypotheses all pass.
+Six actual A/B/X captures support the next precision-preserving residual kernel
+experiment without another capture propagation. Public replay reproduces all
+eight K/diagnostic records,76 decisions and six numeric operand triples exactly;
+recomputed backward errors pass. All14 payloads verify,89 local tests pass/two
+wider-format skips exercised remotely. Next resolve compiled extended arithmetic
+and NumPy format handling, then benchmark/differentially qualify before integration.
+Original interior rejection and all production gates remain; no scientific
+container runs at the14:11UTC capture.
+
 ## 1. Finish trustworthy target inputs
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three

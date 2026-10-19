@@ -106,3 +106,9 @@ The [13:56:02UTC capture](progress-numerov-dense-result-20261019.json) reverifie
 17 collected hashes,67 sources,242 installed artifacts and prior report. No
 scientific containers remain;60.74 GiB persistent disk is free. Public evidence:
 `https://data.qscat.org/co-numerov-dense-scaling-20261019/`.
+
+The subsequent [mixed-solve source-line profile](NUMEROV_SOLVE_PROFILE.md) passes
+76/76 checks with exact archived numerics. Extended residual evaluation accounts
+for94.6% of recurring solve time,27.5× factorization+initial+correction combined;
+traced/untraced recurring times agree within.03%. Six actual operand captures
+are retained for a precision-preserving compiled-residual implementation.

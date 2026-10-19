@@ -1,0 +1,401 @@
+{
+  "observed_utc": "2026-10-19T14:11:53.932705+00:00",
+  "remote_sha256": {
+    "prepared/numerov-solve-profile-20261019/source.tar.gz": "50937f45155d6e96e6672a13dd63ba261828d67036e2dcfc2358abaa727a900f",
+    "prepared/numerov-solve-profile-20261019/source-manifest.json": "3c4cca5bcad8e23e8ff6dba9bbd2ecefaa94ac5a56a99d3455b6b4f7dfa58774",
+    "prepared/numerov-solve-profile-20261019/owner.py": "f5b0f1d17e34e0f6bb3409a9646631ca1c8955c42491410ce15ace95fca496b4",
+    "prepared/numerov-solve-profile-20261019/execution-start.json": "387b31712b5919632265f3cbf6bfc941c606071305d5fe470bca6b6c21f0729a",
+    "prepared/numerov-solve-profile-20261019/execution.json": "0ac3e86006d25c5cac9f2806e8e8425f88344cd8bf435857a5881e2311f871ea",
+    "prepared/numerov-solve-profile-20261019/container-inspect.json": "7d48f849f18ba33f398102ef04f77bde25970cddac2b099cc58358ff42821405",
+    "prepared/numerov-solve-profile-20261019/resources.jsonl": "08f234e08cd75eab0315992a4102c5d56b4addb5aa51812641fc7dc9e9124b83",
+    "prepared/numerov-solve-profile-20261019/run.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/numerov-solve-profile-20261019/result/report.json": "e9c0d647aefebec061b933bbd97d85a58b8387123dc1fc96ecfd01f71ec10280",
+    "prepared/numerov-solve-profile-20261019/result/operands-varying-binary64-recurring_defect.npz": "cfa881eec9429f7c2e17da1b5460bc0a5c28a591b0dadabb7e7ccf598b198500",
+    "prepared/numerov-solve-profile-20261019/result/operands-free-binary64-recurring_defect.npz": "127a3065db1407b6f923ed423b9d64cc318081097f75986f37fb4b1dbb4f8946",
+    "prepared/numerov-solve-profile-20261019/result/operands-varying-longdouble-recurring_defect.npz": "bc85564f62c156ab9048f45dd808b69f1d6db9e430ab1a14f41ef8c23ad1db9a",
+    "prepared/numerov-solve-profile-20261019/result/operands-free-longdouble-recurring_defect.npz": "d5956089d0b4f88c8824be73e8809da4e7a10d756e1b6a3bdf26b6be7ded12e0",
+    "prepared/numerov-solve-profile-20261019/result/operands-varying-longdouble-recurring_potential.npz": "0bc9d76db712b8e6261d3f6e21e92f06a498a8fc9dde50b96c3acd94420baed2",
+    "prepared/numerov-solve-profile-20261019/result/operands-varying-binary64-recurring_potential.npz": "51c73fb7162e68928f5d06f8cc3a34a42596e406eba288f507043cc3ec749d75",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/execution.json": "7de910665c38580d626d803d14d356a36430ab9b11642da7b3e3017bddba9031",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/container-inspect.json": "9df2d819d194f6ee9431fb8522d241abed0f608357d4e7db26a5df11a0b26f1c",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/operands-varying-binary64-recurring_defect.npz": "cfa881eec9429f7c2e17da1b5460bc0a5c28a591b0dadabb7e7ccf598b198500",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/execution-start.json": "f2d9cd70a449f6328b68cc57daf1f8e851d039ae6dd9f7a75ff1eda92c096e55",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/report.json": "dbae1113f7e3b213181d729ae5509faa3f2f2331c2fca1e76eeeec46bdcad831",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/operands-free-binary64-recurring_defect.npz": "127a3065db1407b6f923ed423b9d64cc318081097f75986f37fb4b1dbb4f8946",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/operands-varying-longdouble-recurring_defect.npz": "f2e39a646a3d2012a59ff07bac5cbf699555e4a081433b1adf84d3b718ad41b5",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/replay.json": "38ec290901e5b43b7e24faf6a71ec6e30604b3c0d000a5e84c25579c2a17e160",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/operands-free-longdouble-recurring_defect.npz": "0f8e51d2a58739f8e290d55fefa65cf84ee364234b40ed3149e5f6e4707f3af5",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/resources.jsonl": "8a396cac4f2f2886c293acab0c890bdd41a500e5acf7559e82da23cd1519af3e",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/replay.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/operands-varying-longdouble-recurring_potential.npz": "ee41e4e5da0ab005475190399865976acae35db792bb05c0b0a53731a23af5b7",
+    "prepared/numerov-solve-profile-public-replay-20261019/outputs/operands-varying-binary64-recurring_potential.npz": "51c73fb7162e68928f5d06f8cc3a34a42596e406eba288f507043cc3ec749d75",
+    "prepared/numerov-solve-profile-public-replay-20261019/owner.py": "62f402604cd73fb36e9c5abe50fcce09cbe4d986cfbf069e3cf48a7e562d1688"
+  },
+  "remote_collected_files_verified": 29,
+  "source_files_verified": 71,
+  "engine_artifacts_verified": 242,
+  "prior_report_verified": true,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_verdict": false,
+  "original_interior_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 76,
+  "checks_total": 76,
+  "timing_summary": {
+    "rows": [
+      {
+        "model": "free",
+        "backend": "binary64",
+        "traced": false,
+        "recurring_wall_seconds": 0.07275828599813394,
+        "category_seconds": {},
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 0.07275828599813394,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "free",
+        "backend": "longdouble",
+        "traced": false,
+        "recurring_wall_seconds": 4.173392762051662,
+        "category_seconds": {},
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 4.173392762051662,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "varying",
+        "backend": "binary64",
+        "traced": false,
+        "recurring_wall_seconds": 0.13574052113108337,
+        "category_seconds": {},
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 0.06791915104258806,
+            "category_seconds": {}
+          },
+          "recurring_defect": {
+            "wall_seconds": 0.06782137008849531,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "varying",
+        "backend": "longdouble",
+        "traced": false,
+        "recurring_wall_seconds": 8.334299017937155,
+        "category_seconds": {},
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 4.1598426799464505,
+            "category_seconds": {}
+          },
+          "recurring_defect": {
+            "wall_seconds": 4.174456337990705,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "varying",
+        "backend": "longdouble",
+        "traced": true,
+        "recurring_wall_seconds": 8.334917678002967,
+        "category_seconds": {
+          "other": 0.0010406218934804201,
+          "factorization_and_cast": 0.03412112922524102,
+          "initial_solve_and_cast": 0.1197499078407418,
+          "residual_evaluation": 7.889104777917964,
+          "error_norms": 0.15806960911140777,
+          "correction_and_cast": 0.13226518809096888
+        },
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 4.162011768028606,
+            "category_seconds": {
+              "other": 0.0005254849384073168,
+              "factorization_and_cast": 0.016817110095871612,
+              "initial_solve_and_cast": 0.059576238854788244,
+              "residual_evaluation": 3.9429171059746295,
+              "error_norms": 0.07578286406351253,
+              "correction_and_cast": 0.06611028098268434
+            }
+          },
+          "recurring_defect": {
+            "wall_seconds": 4.172905909974361,
+            "category_seconds": {
+              "other": 0.0005151369550731033,
+              "factorization_and_cast": 0.017304019129369408,
+              "initial_solve_and_cast": 0.060173668985953555,
+              "residual_evaluation": 3.946187671943335,
+              "error_norms": 0.08228674504789524,
+              "correction_and_cast": 0.06615490710828453
+            }
+          }
+        },
+        "residual_fraction": 0.9465126210830414,
+        "residual_to_lu_ratio": 27.571149977919173,
+        "traced_to_untraced_recurring_ratio": 1.000074230605895
+      },
+      {
+        "model": "varying",
+        "backend": "binary64",
+        "traced": true,
+        "recurring_wall_seconds": 0.13917696295538917,
+        "category_seconds": {
+          "other": 0.0007354929693974555,
+          "factorization_and_cast": 0.02362651700968854,
+          "initial_solve_and_cast": 0.07696880801813677,
+          "residual_evaluation": 0.03014616496511735,
+          "error_norms": 0.007309089211048558
+        },
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 0.0696009109960869,
+            "category_seconds": {
+              "other": 0.0003723527188412845,
+              "factorization_and_cast": 0.011818537954241037,
+              "initial_solve_and_cast": 0.03874070997699164,
+              "residual_evaluation": 0.014760856982320547,
+              "error_norms": 0.0037107320385985076
+            }
+          },
+          "recurring_defect": {
+            "wall_seconds": 0.06957605195930228,
+            "category_seconds": {
+              "other": 0.00036314025055617094,
+              "factorization_and_cast": 0.011807979055447504,
+              "initial_solve_and_cast": 0.03822809804114513,
+              "residual_evaluation": 0.015385307982796803,
+              "error_norms": 0.0035983571724500507
+            }
+          }
+        }
+      },
+      {
+        "model": "free",
+        "backend": "longdouble",
+        "traced": true,
+        "recurring_wall_seconds": 4.172260287130484,
+        "category_seconds": {
+          "other": 0.0005340325878933072,
+          "factorization_and_cast": 0.017114656016929075,
+          "initial_solve_and_cast": 0.060369118058588356,
+          "residual_evaluation": 3.94603901298251,
+          "error_norms": 0.08212038801866584,
+          "correction_and_cast": 0.06579235612298362
+        },
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 4.172260287130484,
+            "category_seconds": {
+              "other": 0.0005340325878933072,
+              "factorization_and_cast": 0.017114656016929075,
+              "initial_solve_and_cast": 0.060369118058588356,
+              "residual_evaluation": 3.94603901298251,
+              "error_norms": 0.08212038801866584,
+              "correction_and_cast": 0.06579235612298362
+            }
+          }
+        },
+        "residual_fraction": 0.9457796832940256,
+        "residual_to_lu_ratio": 27.541496322628856,
+        "traced_to_untraced_recurring_ratio": 0.9997286440587438
+      },
+      {
+        "model": "free",
+        "backend": "binary64",
+        "traced": true,
+        "recurring_wall_seconds": 0.06939934394904412,
+        "category_seconds": {
+          "other": 0.00035368185490369797,
+          "factorization_and_cast": 0.01176042080624029,
+          "initial_solve_and_cast": 0.0381286189367529,
+          "residual_evaluation": 0.01539841404883191,
+          "error_norms": 0.0035652680962812155
+        },
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 0.06939934394904412,
+            "category_seconds": {
+              "other": 0.00035368185490369797,
+              "factorization_and_cast": 0.01176042080624029,
+              "initial_solve_and_cast": 0.0381286189367529,
+              "residual_evaluation": 0.01539841404883191,
+              "error_norms": 0.0035652680962812155
+            }
+          }
+        }
+      }
+    ],
+    "hypotheses": {
+      "free": {
+        "residual_fraction_at_least_80percent": true,
+        "residual_exceeds_lu_at_least_10fold": true,
+        "trace_overhead_within_declared_range": true
+      },
+      "varying": {
+        "residual_fraction_at_least_80percent": true,
+        "residual_exceeds_lu_at_least_10fold": true,
+        "trace_overhead_within_declared_range": true
+      }
+    }
+  },
+  "precision_bits": {
+    "binary64": 53,
+    "longdouble": 64
+  },
+  "candidate_qualified_identities": 14,
+  "new_typed_propagations": 8,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "original_unique_energy_coverage": 132,
+  "original_uncomputed_identities": 462,
+  "execution": {
+    "source_commit": "bbbc3d8c64fde2322910bfecc8d2a6eeb3bee86e",
+    "source_archive_sha256": "50937f45155d6e96e6672a13dd63ba261828d67036e2dcfc2358abaa727a900f",
+    "source_files_verified_before": 71,
+    "engine_artifacts_verified_before": 242,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-solve-profile-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/work/dependencies:/work/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-solve-profile-20261019:/work",
+      "-w",
+      "/work/source",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-dense-scaling-20261019:/prior:ro",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_solve_profile",
+      "--prior",
+      "/prior/result/report.json",
+      "--contract",
+      "/work/source/projects/ukrmol_co/numerov-solve-profile-contract.json",
+      "--output",
+      "/work/result"
+    ],
+    "stage": "solve-profile",
+    "image_id": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "started_utc": "2026-10-19T14:06:24.215642+00:00",
+    "cpuset_cpus": "0-3",
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 180,
+    "expected_wall_seconds": 55,
+    "upper_wall_seconds": 90,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       8.6Gi        79Gi       817Mi        35Gi       114Gi\nSwap:           29Gi          0B        29Gi\n",
+    "persistent_disk_free_gib": 60.734413146972656,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-19T14:07:13.855601+00:00",
+    "wall_seconds": 49.634563650994096,
+    "sampled_memory_current_peak_bytes": 154902528,
+    "sampled_kernel_memory_peak_bytes": 155426816,
+    "sampled_cpu_seconds": 49.061244,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 246,
+    "original_container_exit": 0,
+    "prior_report_verified_after": true,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 71
+  },
+  "public_replay_execution": {
+    "started_utc": "2026-10-19T14:10:01.419906+00:00",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-numerov-solve-profile-public-replay-20261019",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "PYTHONPATH=/public/dependencies:/public/source",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-solve-profile-public-replay-20261019:/public:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-solve-profile-public-replay-20261019/outputs:/outputs",
+      "-w",
+      "/public/source",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "/public/numerical-worker.py"
+    ],
+    "public_archive_sha256": "5175d06f65410b0d579a0f1f4ca122a0905e021972b168d4285bfeeffaa8b21b",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "expected_wall_seconds": 55,
+    "upper_wall_seconds": 90,
+    "timeout_seconds": 180,
+    "source_files_verified": 71,
+    "verification_support_files_verified": 1,
+    "effective_source_files_verified": 72,
+    "installed_engine_artifacts_verified": 242,
+    "prior_report_files_verified": 1,
+    "native_invocations": 0,
+    "new_inner_solves": 0,
+    "persistent_disk_free_gib": 60.68769454956055,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "driver_exit": 0,
+    "finished_utc": "2026-10-19T14:10:51.257197+00:00",
+    "wall_seconds": 49.83282801299356,
+    "sampled_memory_current_peak_bytes": 154505216,
+    "sampled_kernel_memory_peak_bytes": 155291648,
+    "sampled_cpu_seconds": 49.263742,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 247,
+    "container_exit": 0,
+    "all_hashes_verified_after": true
+  },
+  "public_replay_passed": true,
+  "public_new_propagations_reexecuted": 8,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "scientific_containers_running": 0,
+  "containers": "",
+  "persistent_free_disk_gib": 60.6684455871582,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

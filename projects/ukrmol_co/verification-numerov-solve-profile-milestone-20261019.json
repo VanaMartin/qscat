@@ -1,0 +1,270 @@
+{
+  "verified_utc": "2026-10-19T14:14:27.941096+00:00",
+  "producer_source_freeze": "bbbc3d8c64fde2322910bfecc8d2a6eeb3bee86e",
+  "verification_support_freeze": "f396ed3",
+  "frozen_numerical_sources_and_contract_unchanged": true,
+  "overview_source_hashes_verified": 470,
+  "documentation_links_verified": 723,
+  "checks_passed": 76,
+  "checks_total": 76,
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "all_six_timing_hypotheses_passed": true,
+  "precision_bits": {
+    "binary64": 53,
+    "longdouble": 64
+  },
+  "original_interior_verdict": false,
+  "original_interior_exits": [
+    1,
+    1
+  ],
+  "propagations_reexecuted": 8,
+  "new_radial_intervals": 256,
+  "candidate_qualified_identities": 14,
+  "new_co_independent_solves": 0,
+  "co_successor_submitted": false,
+  "new_unique_energy_identities": 0,
+  "original_unique_energy_coverage": 132,
+  "original_uncomputed_identities": 462,
+  "public_payloads_verified": 14,
+  "public_focused_tests_passed": 89,
+  "public_focused_tests_skipped": 2,
+  "public_new_propagations_reexecuted": 8,
+  "all_stored_decimal_and_binary64_K_and_diagnostics_exact": true,
+  "all_76_qualification_decisions_identical": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "solve_call_layouts_and_source_statement_partitions_audited": 392,
+  "operand_captures": 6,
+  "captured_numeric_values_and_dtypes_reproduce_exactly": true,
+  "captured_solve_backward_error_gates_passed": true,
+  "timing_summary": {
+    "rows": [
+      {
+        "model": "free",
+        "backend": "binary64",
+        "traced": false,
+        "recurring_wall_seconds": 0.07275828599813394,
+        "category_seconds": {},
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 0.07275828599813394,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "free",
+        "backend": "longdouble",
+        "traced": false,
+        "recurring_wall_seconds": 4.173392762051662,
+        "category_seconds": {},
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 4.173392762051662,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "varying",
+        "backend": "binary64",
+        "traced": false,
+        "recurring_wall_seconds": 0.13574052113108337,
+        "category_seconds": {},
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 0.06791915104258806,
+            "category_seconds": {}
+          },
+          "recurring_defect": {
+            "wall_seconds": 0.06782137008849531,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "varying",
+        "backend": "longdouble",
+        "traced": false,
+        "recurring_wall_seconds": 8.334299017937155,
+        "category_seconds": {},
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 4.1598426799464505,
+            "category_seconds": {}
+          },
+          "recurring_defect": {
+            "wall_seconds": 4.174456337990705,
+            "category_seconds": {}
+          }
+        }
+      },
+      {
+        "model": "varying",
+        "backend": "longdouble",
+        "traced": true,
+        "recurring_wall_seconds": 8.334917678002967,
+        "category_seconds": {
+          "other": 0.0010406218934804201,
+          "factorization_and_cast": 0.03412112922524102,
+          "initial_solve_and_cast": 0.1197499078407418,
+          "residual_evaluation": 7.889104777917964,
+          "error_norms": 0.15806960911140777,
+          "correction_and_cast": 0.13226518809096888
+        },
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 4.162011768028606,
+            "category_seconds": {
+              "other": 0.0005254849384073168,
+              "factorization_and_cast": 0.016817110095871612,
+              "initial_solve_and_cast": 0.059576238854788244,
+              "residual_evaluation": 3.9429171059746295,
+              "error_norms": 0.07578286406351253,
+              "correction_and_cast": 0.06611028098268434
+            }
+          },
+          "recurring_defect": {
+            "wall_seconds": 4.172905909974361,
+            "category_seconds": {
+              "other": 0.0005151369550731033,
+              "factorization_and_cast": 0.017304019129369408,
+              "initial_solve_and_cast": 0.060173668985953555,
+              "residual_evaluation": 3.946187671943335,
+              "error_norms": 0.08228674504789524,
+              "correction_and_cast": 0.06615490710828453
+            }
+          }
+        },
+        "residual_fraction": 0.9465126210830414,
+        "residual_to_lu_ratio": 27.571149977919173,
+        "traced_to_untraced_recurring_ratio": 1.000074230605895
+      },
+      {
+        "model": "varying",
+        "backend": "binary64",
+        "traced": true,
+        "recurring_wall_seconds": 0.13917696295538917,
+        "category_seconds": {
+          "other": 0.0007354929693974555,
+          "factorization_and_cast": 0.02362651700968854,
+          "initial_solve_and_cast": 0.07696880801813677,
+          "residual_evaluation": 0.03014616496511735,
+          "error_norms": 0.007309089211048558
+        },
+        "roles": {
+          "recurring_potential": {
+            "wall_seconds": 0.0696009109960869,
+            "category_seconds": {
+              "other": 0.0003723527188412845,
+              "factorization_and_cast": 0.011818537954241037,
+              "initial_solve_and_cast": 0.03874070997699164,
+              "residual_evaluation": 0.014760856982320547,
+              "error_norms": 0.0037107320385985076
+            }
+          },
+          "recurring_defect": {
+            "wall_seconds": 0.06957605195930228,
+            "category_seconds": {
+              "other": 0.00036314025055617094,
+              "factorization_and_cast": 0.011807979055447504,
+              "initial_solve_and_cast": 0.03822809804114513,
+              "residual_evaluation": 0.015385307982796803,
+              "error_norms": 0.0035983571724500507
+            }
+          }
+        }
+      },
+      {
+        "model": "free",
+        "backend": "longdouble",
+        "traced": true,
+        "recurring_wall_seconds": 4.172260287130484,
+        "category_seconds": {
+          "other": 0.0005340325878933072,
+          "factorization_and_cast": 0.017114656016929075,
+          "initial_solve_and_cast": 0.060369118058588356,
+          "residual_evaluation": 3.94603901298251,
+          "error_norms": 0.08212038801866584,
+          "correction_and_cast": 0.06579235612298362
+        },
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 4.172260287130484,
+            "category_seconds": {
+              "other": 0.0005340325878933072,
+              "factorization_and_cast": 0.017114656016929075,
+              "initial_solve_and_cast": 0.060369118058588356,
+              "residual_evaluation": 3.94603901298251,
+              "error_norms": 0.08212038801866584,
+              "correction_and_cast": 0.06579235612298362
+            }
+          }
+        },
+        "residual_fraction": 0.9457796832940256,
+        "residual_to_lu_ratio": 27.541496322628856,
+        "traced_to_untraced_recurring_ratio": 0.9997286440587438
+      },
+      {
+        "model": "free",
+        "backend": "binary64",
+        "traced": true,
+        "recurring_wall_seconds": 0.06939934394904412,
+        "category_seconds": {
+          "other": 0.00035368185490369797,
+          "factorization_and_cast": 0.01176042080624029,
+          "initial_solve_and_cast": 0.0381286189367529,
+          "residual_evaluation": 0.01539841404883191,
+          "error_norms": 0.0035652680962812155
+        },
+        "roles": {
+          "recurring_defect": {
+            "wall_seconds": 0.06939934394904412,
+            "category_seconds": {
+              "other": 0.00035368185490369797,
+              "factorization_and_cast": 0.01176042080624029,
+              "initial_solve_and_cast": 0.0381286189367529,
+              "residual_evaluation": 0.01539841404883191,
+              "error_norms": 0.0035652680962812155
+            }
+          }
+        }
+      }
+    ],
+    "hypotheses": {
+      "free": {
+        "residual_fraction_at_least_80percent": true,
+        "residual_exceeds_lu_at_least_10fold": true,
+        "trace_overhead_within_declared_range": true
+      },
+      "varying": {
+        "residual_fraction_at_least_80percent": true,
+        "residual_exceeds_lu_at_least_10fold": true,
+        "trace_overhead_within_declared_range": true
+      }
+    }
+  },
+  "remote_collected_hashes_verified": 29,
+  "frozen_source_files_verified": 71,
+  "installed_engine_artifacts_verified": 242,
+  "prior_report_verified": true,
+  "ruff_lint_format_and_diff_passed": true,
+  "png_visually_checked_and_text_svg_validated": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_state": "current",
+  "main_index_upstream_state": "current",
+  "relevant_branch_delta_from_index": "A\tprojects/ukrmol_co/numerov-solve-profile-contract.json\nA\tprojects/ukrmol_co/numerov-solve-profile-public-replay-contract.json\nA\tprojects/ukrmol_co/numerov_solve_profile.py\nA\tprojects/ukrmol_co/numerov_solve_profile_replay.py\n",
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "new_inner_solves": 0,
+  "full_sweep_released": false
+}

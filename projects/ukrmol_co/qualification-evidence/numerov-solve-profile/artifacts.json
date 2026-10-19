@@ -1,0 +1,62 @@
+{
+  "artifacts": {
+    "manifest.json": {
+      "bytes": 3836,
+      "sha256": "d341e7df84f34b812eb273d36861abfbc71b4be4afe378a5812335c577708a5b"
+    },
+    "mpmath-1.3.0-py3-none-any.whl": {
+      "bytes": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+    },
+    "numerical-worker.py": {
+      "bytes": 2706,
+      "sha256": "201f2882c932784c3b78a78268d04151b262e9b6f1d910543e6487792090cfd3"
+    },
+    "prior-report.json": {
+      "bytes": 523771,
+      "sha256": "c815dc3485112239ebd27a770ab5c06ce8c3f023bda6ecf901def0ce2013ff68"
+    },
+    "public-execution.json": {
+      "bytes": 2476,
+      "sha256": "7de910665c38580d626d803d14d356a36430ab9b11642da7b3e3017bddba9031"
+    },
+    "public-owner.py": {
+      "bytes": 5459,
+      "sha256": "62f402604cd73fb36e9c5abe50fcce09cbe4d986cfbf069e3cf48a7e562d1688"
+    },
+    "public-replay.json": {
+      "bytes": 16331,
+      "sha256": "38ec290901e5b43b7e24faf6a71ec6e30604b3c0d000a5e84c25579c2a17e160"
+    },
+    "public-replay.tar.gz": {
+      "bytes": 121855,
+      "sha256": "155cedc4fabbed1ee4e4fd6c01f6d85044d69cb9e9347681eec1a44c567557e1"
+    },
+    "replay-contract.json": {
+      "bytes": 1952,
+      "sha256": "0dddec5c374fed13deaf776e7c01d65e81313c9c42f5a2ecb3e7381a3a663e2a"
+    },
+    "results.tar.gz": {
+      "bytes": 253601,
+      "sha256": "0e82f049b3c0deec2282ea42daa47a3e96b835b1e997f99f8ce39ee38e4f3ba5"
+    },
+    "saved-replay.json": {
+      "bytes": 1110,
+      "sha256": "22855793730e114ddf715ea06b1a02b9ef81c10da97a52a0cd9bb6823dbbfb24"
+    },
+    "source-manifest.json": {
+      "bytes": 8658,
+      "sha256": "3c4cca5bcad8e23e8ff6dba9bbd2ecefaa94ac5a56a99d3455b6b4f7dfa58774"
+    },
+    "source.tar.gz": {
+      "bytes": 132786,
+      "sha256": "50937f45155d6e96e6672a13dd63ba261828d67036e2dcfc2358abaa727a900f"
+    },
+    "verification-support.tar.gz": {
+      "bytes": 3155,
+      "sha256": "cce23d285a823df6c8adfa288c608cf5b5af1181940027772707654be52b4ca2"
+    }
+  },
+  "git_sha": "bbbc3d8c64fde2322910bfecc8d2a6eeb3bee86e",
+  "url_prefix": "https://data.qscat.org/co-numerov-solve-profile-20261019/"
+}

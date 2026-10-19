@@ -1,0 +1,84 @@
+{
+  "git_sha": "bbbc3d8c64fde2322910bfecc8d2a6eeb3bee86e",
+  "verification_support_git_sha": "f396ed3e88a3a82d58a1d25952152512789a2bf2",
+  "date": "2026-10-19",
+  "record_type": "mixed-solve-source-line-profile-and-operand-capture",
+  "experiment_verdict": true,
+  "original_exits": [
+    0,
+    0
+  ],
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "checks_passed": 76,
+  "checks_total": 76,
+  "new_typed_propagations": 8,
+  "new_radial_intervals": 256,
+  "timing_hypotheses": {
+    "free": {
+      "residual_fraction_at_least_80percent": true,
+      "residual_exceeds_lu_at_least_10fold": true,
+      "trace_overhead_within_declared_range": true
+    },
+    "varying": {
+      "residual_fraction_at_least_80percent": true,
+      "residual_exceeds_lu_at_least_10fold": true,
+      "trace_overhead_within_declared_range": true
+    }
+  },
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_solve_profile_replay.py": "6037e14167aa6c1dc616a0c553cecd39df40dd9d4cd5865053d2b891b272f9a1"
+  },
+  "verification_support_role": "Adds independent saved numerical decisions, role/dtype/timer partitions and least-squares timing audit, without replacing frozen numerical modules.",
+  "saved_decision_replay_passed": true,
+  "public_numerical_reexecution_passed": true,
+  "public_replay_scope": {
+    "status": "prospective complete public numerical replay of mixed-solve profile and operands",
+    "producer_source_commit": "bbbc3d8c64fde2322910bfecc8d2a6eeb3bee86e",
+    "producer_source_archive_sha256": "50937f45155d6e96e6672a13dd63ba261828d67036e2dcfc2358abaa727a900f",
+    "producer_results_archive_sha256": "0e82f049b3c0deec2282ea42daa47a3e96b835b1e997f99f8ce39ee38e4f3ba5",
+    "worker_sha256": "201f2882c932784c3b78a78268d04151b262e9b6f1d910543e6487792090cfd3",
+    "new_propagations_reexecuted": 8,
+    "new_radial_intervals": 256,
+    "operand_captures_reexecuted": 6,
+    "comparison": "All eight decimal/binary64 K matrices and numerical diagnostics, and all76 qualification decisions must reproduce exactly. All six captured A/B/X arrays must reproduce loaded numeric values/dtypes exactly and pass independently reevaluated32-eps backward errors. NPZ padding bytes are not a numeric replay gate.",
+    "timing_comparison": "Recalculate and retain source-line timing summaries and hypotheses as new observations. Elapsed times and timing-hypothesis identity are not numerical replay gates.",
+    "motivation": "Source-line evidence attributes94.6% of extended recurring solve time to residual evaluation,27.5x factorization+solve+correction. Independently reproduce operands and exact numerics before choosing a compiled residual kernel.",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "workers": 1,
+      "blas_threads": 1,
+      "memory_gib": 4,
+      "expected_wall_seconds": 55,
+      "upper_wall_seconds": 90,
+      "timeout_seconds": 180,
+      "sample_interval_seconds": 0.2
+    },
+    "stopping_rule": "Run once from fresh public bytes. Numerical or operand mismatch stops further submissions. No numerical-source replacement, extra timing repetition, new interval or automatic kernel/CO submission.",
+    "original_interior_analytic_verdict": false,
+    "original_interior_scientific_exits": [
+      1,
+      1
+    ],
+    "co_successor_submitted": false,
+    "new_co_independent_solves": 0,
+    "new_unique_energy_identities": 0
+  },
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0,
+  "public_numerical_rows_reexecuted": 8,
+  "public_replay_exits": [
+    0,
+    0
+  ]
+}

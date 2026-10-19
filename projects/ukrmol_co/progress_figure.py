@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-dense.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261019-solve-profile.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -774,6 +774,37 @@ def _native_full_rejection(ax, data):
     _note(ax, data["native_full_rejection_note"])
 
 
+def _solve_profile(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Extended residual evaluation dominates",
+        "Unchanged mixed solver; recurring calls on synthetic298-channel rows",
+    )
+    rows = data["solve_profile"]
+    y = np.arange(len(rows))
+    left = np.zeros(len(rows))
+    for key, color, label in [
+        ("residual_fraction", ORANGE, "Residual evaluation"),
+        ("lu_fraction", BLUE, "Factor + initial + correction"),
+        ("norm_fraction", GREEN, "Error norms"),
+        ("other_fraction", GRAY, "Other + tracing remainder"),
+    ]:
+        width = np.array([100 * row[key] for row in rows])
+        ax.barh(y, width, left=left, color=color, label=label, height=0.6)
+        if key == "residual_fraction":
+            for i, value in enumerate(width):
+                ax.text(value / 2, i, f"{value:.1f}%", ha="center", va="center", color="white")
+        left += width
+    ax.set_yticks(y, [row["label"] for row in rows])
+    ax.invert_yaxis()
+    ax.set(
+        xlim=(0, 100), ylim=(4.1, -0.6), xlabel="Fraction of measured recurring solve wall time / %"
+    )
+    ax.legend(loc="lower center", frameon=False, fontsize=8.5, ncol=2)
+    _note(ax, data["solve_profile_note"])
+
+
 def _dense_scaling(ax, data):
     _panel(
         ax,
@@ -993,7 +1024,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _dense_scaling
+            _solve_profile
+            if "solve_profile" in data
+            else _dense_scaling
             if "dense_scaling" in data
             else _coupled_precision
             if "coupled_precision" in data
@@ -1083,7 +1116,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
     parser.add_argument(
-        "--output", type=Path, default=ROOT / "docs/physics/figures/co-progress-20261019-dense"
+        "--output",
+        type=Path,
+        default=ROOT / "docs/physics/figures/co-progress-20261019-solve-profile",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

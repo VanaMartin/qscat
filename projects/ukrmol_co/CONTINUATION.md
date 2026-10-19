@@ -20,6 +20,68 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Mixed-solve profile identifies residual cost; numeric operand replay passes — 19 October, 14:11 UTC
+
+The [mixed-solve profile](NUMEROV_SOLVE_PROFILE.md), design and finite contract
+freeze/push at **`bbbc3d8c64fde2322910bfecc8d2a6eeb3bee86e`** before execution.
+All **76/76 checks / original exits0/0** pass: eight reexecutions of existing
+N=32 dense298-channel synthetic rows,256 intervals, four untraced then four
+traced in reverse order. Every decimal/binary64 K component and complete
+numerical diagnostic reproduces the prior scaling repetition0 **exactly**.
+Coupled/scaling numerical source remains unchanged.
+
+Source-line timing attributes **94.578%/94.651%** of free/varying extended
+recurring solve time to **`residual = b - a @ x`**, including product, subtraction
+and allocation. Residual cost is **27.5415×/27.5711×** factorization+initial+
+correction cost. Traced/untraced recurring ratios **.999729/1.000074** agree
+within.03%; all six timing hypotheses pass. This identifies the residual
+statement as the optimization target, not an elementary-operation error cause
+or a native CO error bound. Binary64 residual fractions are about22% instead.
+
+At recurrence interval16, six actual A/B/accepted-X triples are captured:
+free defect and varying potential/defect in both arithmetic formats. All arrays
+are298×298 with shape/dtype/significand/hash records. Copies occur after solve
+timing. The original result archive retains them as NPZ; numeric identity is
+loaded values/dtypes, not host longdouble padding bytes. They provide reusable
+kernel differential inputs without another propagation merely for capture.
+
+Producer finishes **14:07:13UTC /49.634564 s /49.061244 sampled CPU s /
+155,426,816-byte kernel peak**,246 samples at0.2 s, reserved physical cores0–3/
+4 GiB, single-threaded BLAS; below55-s forecast/90-s upper/180-s cap. All71
+frozen sources,242 installed artifacts and prior scaling report verify before/
+after. Originals:`prepared/numerov-solve-profile-20261019/`.
+
+Separate saved verifier and complete public replay freeze/push at **`f396ed3`**.
+Saved replay independently reconstructs76 decisions,392 call layouts,
+source-statement timing partitions and all summaries/hypotheses; it audits six
+capture hashes/metadata. Full public numerical replay finishes **14:10:51UTC /
+exits0/0**: all eight K/diagnostic records,76 decisions and six captured A/B/X
+numeric values/dtypes reproduce **exactly**. Recomputed capture backward-error
+gates pass; largest extended4.21951e-20. All six fresh timing hypotheses also
+pass (not a numerical replay gate). Replay costs **49.832828 s /49.263742 sampled
+CPU s /155,291,648-byte peak**,247 samples, same cores/memory, below55/90/180-s
+budgets. Its14-file collection remains at`prepared/numerov-solve-profile-public-replay-20261019/`.
+All **14 final public payloads** verify; **89 local tests pass with two wider-format
+skips**, exercised remotely. Public:`https://data.qscat.org/co-numerov-solve-profile-20261019/`.
+
+The [14:11:53UTC capture](progress-numerov-solve-profile-result-20261019.json)
+reverifies29 collected hashes,71 sources,242 artifacts and prior report. No
+scientific container remains;60.67 GiB persistent disk is free.
+
+**Next:** design a precision-preserving compiled residual primitive using these
+six operands plus independent dense cancellation/stride controls. Explicitly
+resolve native64-bit-significand/NumPy format handling; binary64 BLAS alone
+cannot replace extended residual evaluation. Retain the Python oracle and
+32-eps backward gates, measure speedup, then requalify the coupled propagator
+before a separately frozen interior CO pilot. Original interior **false/exits1/1**,
+14 candidate-qualified identities, historical132/594/462 uncomputed and all
+electronic/channel/identity/extraction/neutral gates remain.
+
+Main-index discovery uses complete`423d577`, stale/upstream unknown; new profile
+modules are branch-only and resolved locally against source/freeze/deltas.
+At result handoff the same complete snapshot is current/upstream current;
+branch-only profile additions remain locally verified.
+
 ### Dense setup/interval scaling and complete replay pass — 19 October, 13:56 UTC
 
 The [dense scaling benchmark](NUMEROV_DENSE_SCALING.md), design and finite
