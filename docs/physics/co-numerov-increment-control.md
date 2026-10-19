@@ -86,6 +86,12 @@ CO data. Local tests are laptop-runnable; measured long-grid evidence is run
 on Sadaharu with a fixed 600-s cap, four physical cores and 4 GiB, no engine
 invocations. Any successful analytic result qualifies only its tested regime.
 
+The first analytic container exited1/1 before numerical execution because the
+pinned tools image lacks mpmath. Preserve that attempt. A fresh dependency-only
+successor extracts the [checksum-pinned pure-Python wheel](../../projects/ukrmol_co/numerov-increment-dependencies.json)
+to a separate import directory, retaining exactly the numerical source frozen at
+`381a201`. No analytic budget or numerical input changes with this supplement.
+
 ## Conditional CO experiment
 
 Only after analytic qualification, freeze source, a separate input-hashed
