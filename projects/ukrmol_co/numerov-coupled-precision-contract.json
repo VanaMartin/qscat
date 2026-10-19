@@ -1,0 +1,65 @@
+{
+  "status": "prospective coupled-arithmetic qualification and synthetic dense-channel cost control",
+  "prior_source_commit": "44ed1952858cd471df64721a837353cac45f8b0a",
+  "prior_report_sha256": "9a2ee7c46269d62a0a1f294adc0069be7247b74f36ea91d8ff13210a8321ae36",
+  "backends": ["binary64", "longdouble"],
+  "required_significand_bits": {"binary64": 53, "longdouble_minimum": 64},
+  "large_solve_maximum_corrections": 3,
+  "large_solve_backward_error_eps_factor": 32,
+  "algebra_preflight_sizes": [12, 298],
+  "short": {
+    "energy_rydberg": 1.0, "radius_bohr": 2.0, "endpoint_bohr": 4.0,
+    "steps_bohr": [0.1, 0.05, 0.025], "tail_order": 8,
+    "models": [
+      {"name": "unequal_open", "thresholds": [0.0, 0.3], "angular": [0, 0],
+       "q": [[0.3, 0.12], [0.12, -0.2]], "c2": [[2.0, -0.4], [-0.4, 6.0]], "c3": [[0.1, 0.3], [0.3, -0.2]]},
+      {"name": "open_closed", "thresholds": [0.0, 1.8], "angular": [0, 0],
+       "q": [[0.3, 0.12], [0.12, -0.2]], "c2": [[2.0, -0.4], [-0.4, 6.0]], "c3": [[0.1, 0.3], [0.3, -0.2]]},
+      {"name": "three_channel", "thresholds": [0.0, 0.2, 1.8], "angular": [0, 0, 0],
+       "q": [[0.3, 0.12, 0.04], [0.12, -0.2, -0.03], [0.04, -0.03, 0.25]],
+       "c2": [[2.0, -0.4, 0.15], [-0.4, 6.0, 0.2], [0.15, 0.2, 1.0]],
+       "c3": [[0.1, 0.3, -0.08], [0.3, -0.2, 0.12], [-0.08, 0.12, 0.05]]}
+    ],
+    "oracle_digits": [70, 100], "oracle_precision_budget": 1e-30,
+    "continuous_tolerances": [[2e-12, 2e-13], [3e-14, 3e-15]],
+    "continuous_reference_stability_budget": 1e-9,
+    "discrete_arithmetic_budgets": {"binary64": 1e-10, "longdouble": 1e-13},
+    "finest_continuous_K_S_phase_budget": 1e-6,
+    "finest_invariant_reference_difference_budget": 1e-9,
+    "raw_K_error_reduction_minimum": 8, "both_errors_trend_floor": 1e-10
+  },
+  "physical": {
+    "dipole": 1.2, "radius_bohr": 1.0, "endpoint_bohr": 20.0,
+    "energy_rydberg": 1.0, "angular": [1, 2], "tail_order": 12,
+    "steps_bohr": [0.05, 0.025, 0.0125], "finest_S_and_invariant_budget": 1e-6,
+    "raw_S_error_reduction_minimum": 8, "both_errors_trend_floor": 1e-10
+  },
+  "stress": {
+    "energy_rydberg_hex": "0x1.4eecbfb15b574p-2", "radius_bohr": 18.0,
+    "endpoints_bohr": [200.0, 400.0, 800.0], "step_bohr": 0.0015625, "tail_order": 8,
+    "extended_roundoff_K_budget": 1e-8, "continuous_K_S_phase_and_invariant_budget": 1e-6,
+    "previous_extended_K_difference_budget": 1e-8,
+    "hypothesis_all_three_precision_gain_minimum": 100
+  },
+  "dense": {
+    "channels": 298, "open_channels": 6, "closed_threshold_rydberg": 2.0,
+    "energy_rydberg": 0.7, "radius_bohr": 18.0, "endpoint_bohr": 18.125,
+    "step_bohr": 0.015625, "tail_order": 0, "diagonal_q_bohr": 0.3,
+    "active_indices": [0, 1, 6], "active_q": [[0.4, 0.08, 0.04], [0.08, 0.3, -0.03], [0.04, -0.03, 0.2]],
+    "other_open_q": [0.2, 0.25, 0.3, 0.35],
+    "discrete_K_budgets": {"binary64": 1e-9, "longdouble": 1e-12},
+    "invariant_budget": 1e-6,
+    "cost_forecast_only": "Report extended/binary64 wall ratio and linear per-interval estimate for the withheld ten-identity60-solve CO scope; no automatic successor. Eight intervals are a synthetic finite-matrix measurement, not a CO throughput benchmark."
+  },
+  "new_typed_propagations": 32,
+  "short_discrete_oracle_pairs": 9,
+  "continuous_reference_integrations": 6,
+  "resources": {"cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 300, "upper_wall_seconds": 600, "timeout_seconds": 1200, "sample_interval_seconds": 0.2},
+  "stopping_rule": "Unsupported precision or failed preflight/reference controls stops before later stages. Accuracy failure completes its fixed stage, then stops. Preserve original exits and reports. No retries, new grid/precision rungs, tolerance relaxation or automatic CO submission.",
+  "original_interior_analytic_verdict": false, "original_interior_scientific_exits": [1, 1],
+  "new_co_independent_solves": 0, "new_unique_energy_identities": 0, "co_successor_submitted": false,
+  "candidate_qualified_identities": 14, "unique_energy_coverage": 132, "uncomputed_identities": 462,
+  "native_invocations": 0, "new_inner_solves": 0, "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}
