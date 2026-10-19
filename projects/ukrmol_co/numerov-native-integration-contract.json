@@ -1,0 +1,57 @@
+{
+  "status": "prospective finite native-residual coupled integration qualification",
+  "reference_source_commit": "bdfef25",
+  "prior_report_sha256": {
+    "arithmetic": "9a2ee7c46269d62a0a1f294adc0069be7247b74f36ea91d8ff13210a8321ae36",
+    "coupled": "07694b6d3e2fed105780f3da97e94726a4c21dcf4077d83b45264684246f7601",
+    "dense": "c815dc3485112239ebd27a770ab5c06ce8c3f023bda6ecf901def0ce2013ff68"
+  },
+  "runtime_image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "test_image": "sha256:197c549d46c65df24bb02202040dd6e4b64c1556246e0fc364c45b2c9a303ac5",
+  "wheel_sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+  "wheel_components": {
+    "qscat_extended_kernels/__init__.py": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "qscat_extended_kernels/qscat_extended_kernels.abi3.so": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e"
+  },
+  "scalar_capability": [16, 64, 16384, true],
+  "source_policy": "Original typed propagator, dense wrapper, analytic reference builders, native primitive and compiled kernel unchanged from reference_source_commit. Whole source snapshot is pinned in source-manifest.json before execution.",
+  "input_rule": "Reuse exact short/physical/stress configurations from pinned coupled report contract; reuse exact dense input builder configuration from pinned dense report contract. Recover actual binary64 stress Q/thresholds from pinned arithmetic oracle_controls. Append only closed uncoupled spectators to n=4; q spectator diagonal .3, c2=c3=0, angular=0, threshold=energy+2+i.",
+  "stages": ["short", "physical", "dense_accuracy", "stress", "timing"],
+  "accuracy_order": "reference then independently audited native at every fixed coordinate; complete fixed stage before stopping on false. Short: three models, steps .1/.05/.025. Physical: steps .05/.025/.0125. Dense accuracy: free/varying N8. Stress: endpoints200/400/800, h=.0015625.",
+  "timing_order": "Exactly two repetitions; rep0 free/varying, N32/128, reference/native; rep1 varying/free, N128/32, native/reference. Separate unaudited timings after accuracy stages; no added warmups or repeats.",
+  "budgets": {
+    "short_discrete_K": 1e-13,
+    "short_archived_K": 1e-13,
+    "physical_archived_K": 1e-12,
+    "stress_discrete_K": 1e-8,
+    "stress_archived_K": 1e-8
+  },
+  "continuous_K_S_phase_budget": 1e-6,
+  "short_invariant_reference_budget": 1e-9,
+  "physical_S_invariant_budget": 1e-6,
+  "finest_trend_minimum_reduction": 8,
+  "both_errors_trend_floor": 1e-10,
+  "maximum_corrections": 3,
+  "backward_error_eps_factor": 32,
+  "audit_rule": "Every native residual in accuracy rows independently reevaluated with unchanged NumPy product/subtraction; exact numeric residuals, zero accept/reject disagreements, same dtype and exactly one accepted evaluation per expected solve. Timing rows have no residual observer.",
+  "dense_rule": "All decimal K entries and full numerical diagnostics exact against archived N8/32/128 longdouble rows. Every pair exact K/diagnostics/invariants. Audit and timing roles match original free N+2/varying2N solve counts. Timing hypotheses do not gate scientific qualification.",
+  "timing_speedup_hypothesis_minimum": 1.5,
+  "new_propagations": 50,
+  "new_radial_intervals": 1730352,
+  "expected_large_system_solves": 1737200,
+  "accuracy_native_audited_solves": 867632,
+  "resources": {
+    "cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 600, "upper_wall_seconds": 1200, "timeout_seconds": 1800,
+    "sample_interval_seconds": 0.2, "test_timeout_seconds": 180
+  },
+  "cost_justification": "Small controls previously used <=3 channels and bypassed mixed refinement. Four-channel embedding is necessary to exercise the integrated kernel at short, physical and roundoff-stress scales. Retain all three historical finest endpoints; no new grid choices. Dense timing cost estimated below180s from prior reference rows plus 1.5x native hypothesis; four-channel/audit stress overhead is forecast, not measured.600/1200/1800s expected/upper/hard-cap includes that uncertainty.",
+  "stopping_rule": "Unsupported capability, source/wheel/prior hash mismatch or failed focused tests stops before scientific runtime. Accuracy failure completes its predeclared fixed stage then stops before later stages. Exceptions preserve unset and original exits. No retries, relaxed gates, extra grids/precision, new native inner/exterior invocations or automatic CO successor.",
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [1, 1],
+  "new_co_independent_solves": 0,
+  "new_inner_solves": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}

@@ -20,6 +20,75 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Native coupled integration: prospective finite qualification — 19 October
+
+The [integration design](NUMEROV_NATIVE_INTEGRATION.md) and
+[contract](numerov-native-integration-contract.json) freeze the next finite
+experiment: **50 synthetic propagations / 1,730,352 intervals / 1,737,200 mixed
+solves**, including independent NumPy residual/decision audits of 867,632 native
+accuracy solves. Four-channel closed-spectator embeddings force the mixed path
+for prior short/physical/stress models; separate unaudited 298-channel N32/128
+rows measure integrated performance. All original models, finest stress
+endpoints, source oracles, three-correction limit and 32-epsilon gate remain.
+Reuse the published wheel with exact whole-wheel/initializer/binary pins.
+
+Prospective resources: reserved physical cores 0–3, one worker, single-threaded
+BLAS, 4 GiB, **600/1200/1800-s expected/upper/hard cap**. Finish a fixed accuracy
+stage on a false gate, then stop; exceptions remain unset. No automatic CO pilot.
+Local checks: 20 tests pass/two wider-format skips; ruff passes. Original typed
+and native primitive sources are byte-identical to `bdfef25`. Capture and
+independently verify original remote exits, numerical rows and resources before
+promoting this result into the six-panel overview. Main index at preparation is
+complete at `423d577`, upstream currency unknown; integration sources are
+branch-only and locally resolved.
+
+### Exterior sparsity probe resolves the dense/sparse distinction — 19 October
+
+The user's memory/sparsity question pauses native coupled integration for a
+bounded local structure probe. Dense **inner-region CI Hamiltonian** production
+remains excluded; the present dense work concerns **298-channel exterior**
+matrices. `benchmarks/co_exterior_sparsity.py` checks all 24 raw input hashes
+against `numerov-corner-contract.json` before/after, then inspects six saved
+models at exact energy indices 0/48/98, h=.0015625 bohr and four early intervals
+from 18 bohr. No coefficients are dropped and no native UKRmol invocation occurs.
+
+All 18 Q matrices, initial increments and 72 recurring ratio systems/solutions
+are **100% populated**. Potential matrices are 24.4561–24.7016% populated and have
+two exact 149-channel components, but Q connects them: its largest across-block
+entry is .000118067–.267561 times its overall maximum. Thus the potential's blocks
+do not partition the complete scattering problem. Potential solves produce
+50%-populated solutions; COLAMD SuperLU L+U retain 41,044–43,854 entries, versus
+89,102 for every full recurring system (both diagonals counted). Full CSC storage
+uses 1,066,844 bytes versus 710,432 for dense binary64; a dense 16-byte-real matrix
+needs 1,420,864 bytes. Matrix representation memory is not the CI-scale obstacle.
+
+Same-input binary64 sparse/dense solution differences are at most 1.137e-15
+relative to max(||X_dense||_inf,1); worst sparse backward error 1.015e-15. A
+separate capture through the unchanged coupled solver reproduces 18 initial and
+216 recurrence matrix/hash/support records exactly across 162 observed solves.
+Two focused tests pass, including retention of tiny nonzeros. This establishes
+early-interval structure and fill, **not** sparse/dense timing, long-range CO
+accuracy or extended-precision sparse-solver qualification.
+
+Reproduce after fetching the [corner raw evidence](qualification-evidence/numerov-corners/README.md):
+
+```bash
+uv run --no-sync python -m benchmarks.co_exterior_sparsity RAW report.json
+uv run --no-sync pytest -q benchmarks/test_co_exterior_sparsity.py
+```
+
+The local full diagnostic report is
+`/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/co-exterior-sparsity-20261019.json`.
+**Next:** separately freeze the native-residual integration qualification
+for the full recurring exterior solve. Block/sparse potential evaluation is a
+possible targeted optimization requiring its own accuracy/cost comparison.
+The two native-coupled modules remain uncommitted/unqualified; no remote
+integration contract or submission exists. All prior scientific gates remain.
+
+Main-index handoff: complete/current/upstream current at `423d577`; the
+benchmark and experimental reconstruction sources are branch-only and resolved
+against current local source and indexed-main deltas.
+
 ### Native residual primitive passes; complete numeric replay exact — 19 October, 14:41 UTC
 
 The [native extended residual](NUMEROV_NATIVE_RESIDUAL.md), design and finite
