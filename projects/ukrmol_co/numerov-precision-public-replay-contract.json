@@ -1,0 +1,30 @@
+{
+  "status": "prospective complete public replay of the finite analytic precision attribution",
+  "source_freeze": "aa917aab83aa26745cdd92bf44c8ea62a245424a",
+  "worker_sha256": "450d1b39935ee4531acfa3c6046c83c0a504b85a9216ff6db2e1690cbdda06f7",
+  "baseline_rows_reused": 12,
+  "new_analytic_solves_reexecuted": 10,
+  "required_stored_k_component_drift": 0,
+  "required_all_46_diagnostic_checks_identical": true,
+  "required_all_hypotheses_and_ratios_identical": true,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [1, 1],
+  "resources": {
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "blas_threads": 1,
+    "memory_gib": 4,
+    "expected_wall_seconds": 120,
+    "timeout_seconds": 600
+  },
+  "stopping_rule": "Replay all ten newly propagated analytic rows once, plus the twelve reused-row oracle decompositions, from fresh public bytes. No retry or altered parameters. Diagnostic acceptance and hypothesis outcomes cannot release CO or upgrade the original rejected prerequisite.",
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null,
+  "native_invocations": 0
+}

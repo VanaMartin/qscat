@@ -1,0 +1,50 @@
+{
+  "saved_decision_replay_passed": true,
+  "diagnostic_verdict": true,
+  "checks_passed": 46,
+  "checks_total": 46,
+  "hypotheses": {
+    "coupled_rejected_points_roundoff_dominates_5fold": true,
+    "roundoff_to_truncation_ratios": [
+      57.312490062366834,
+      120.45905142280978
+    ],
+    "all_finest_diagonal_roundoff_below_tenth_rotated_and_1em7": false,
+    "finest_representation_roundoff": [
+      {
+        "endpoint_bohr": 200.0,
+        "reduced_rotated": 5.909275559886601e-07,
+        "reduced_diagonal": 1.8326970606072283e-08
+      },
+      {
+        "endpoint_bohr": 400.0,
+        "reduced_rotated": 5.279128912238648e-07,
+        "reduced_diagonal": 3.7516002431010906e-08
+      },
+      {
+        "endpoint_bohr": 800.0,
+        "reduced_rotated": 3.385044039174816e-07,
+        "reduced_diagonal": 7.737651158576964e-08
+      }
+    ]
+  },
+  "baseline_rows_verified": 12,
+  "new_solves_verified": 10,
+  "original_analytic_verdict": false,
+  "original_analytic_exits": [
+    1,
+    1
+  ],
+  "diagnostic_exits": [
+    0,
+    0
+  ],
+  "co_successor_submitted": false,
+  "new_co_independent_solves": 0,
+  "new_unique_energy_identities": 0,
+  "candidate_qualified_identities": 14,
+  "unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "native_full_k_reconstruction_verdict": false,
+  "co_complex_pole_verdict": null
+}
