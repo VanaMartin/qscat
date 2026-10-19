@@ -1,0 +1,26 @@
+{
+  "status": "prospective artifact-layout supplement; original failed preflight retained",
+  "original_replay_contract": "numerov-native-residual-public-replay-contract.json",
+  "original_remote_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-native-residual-public-replay-20261019",
+  "original_owner_exit": 1,
+  "original_preflight_exception": "StopIteration while looking for a top-level extension/*.so",
+  "original_scientific_verdict": null,
+  "original_container_submissions": 0,
+  "original_new_propagations": 0,
+  "observed_wheel_layout": {
+    "package_initializer": "qscat_extended_kernels/__init__.py",
+    "package_initializer_sha256": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "native_binary": "qscat_extended_kernels/qscat_extended_kernels.abi3.so",
+    "native_binary_sha256": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e"
+  },
+  "original_field_limitation": "Producer extension_sha256 and original replay contract extension_sha256 name the imported package initializer. Preserve those fields literally. The complete wheel was correctly checksum-pinned; this supplement separately names and verifies its native binary.",
+  "allowed_change": "Resolve the two exact nested paths above and verify their component hashes in a separate replay-preflight-successor directory. All frozen numerical source, wheel, operands,69 gates,13 cases, paired references, timing scope and stopping/resource contracts remain identical. No arithmetic occurred in the first preflight.",
+  "successor_remote_name": "numerov-native-residual-public-replay-preflight-successor-20261019",
+  "new_numerical_replays_authorized": 1,
+  "timeout_seconds": 180,
+  "expected_wall_seconds": 5,
+  "upper_wall_seconds": 15,
+  "new_propagations": 0,
+  "new_co_independent_solves": 0,
+  "co_successor_submitted": false
+}
