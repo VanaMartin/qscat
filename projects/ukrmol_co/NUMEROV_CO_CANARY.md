@@ -67,3 +67,23 @@ python -m projects.ukrmol_co.numerov_co_canary \
 RAW is the checksum-pinned six-case corner raw directory. The output must be new;
 the report checkpoints after each row and retains complete accepted operand
 triples under `operands/`. Numerical source modules remain frozen at `2022311`.
+
+## Independent verification
+
+The separate `numerov_co_canary_replay` reader reconstructs the complete decision
+map, exact energy/order/role coverage and timing arithmetic. It checks captured
+triples against the actual solve hashes, recomputes full native/NumPy residual
+matrices and independently repeats the paired high-precision residual references.
+Saved residual counters remain observations until a fresh prefix is executed.
+
+```sh
+python -m projects.ukrmol_co.numerov_co_canary_replay \
+  --report OUTPUT/report.json --operands OUTPUT/operands \
+  --output verified.json
+```
+
+Adding `--raw RAW` authorizes exactly six audited native N8 prefixes (90 solves),
+with canonical output/operand hashes, all stats and residual aggregates required
+to reproduce exactly. It does not repeat timing rows. Reexecution retains its
+own original exits and resources in a fresh directory; no numerical producer
+module is replaced by verification support. Public evidence pins both sources.

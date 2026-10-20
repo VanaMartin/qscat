@@ -1,0 +1,36 @@
+{
+  "status": "prospective independent saved audit and six fixed short-prefix public replays",
+  "producer_source_commit": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+  "source_archive_sha256": "b5ca6d5aecacfeda14a8394013952d38916d60d4eebdc65d3c387887a63843f1",
+  "results_archive_sha256": "b0e0d5cf7804200caedcc51ac1937f85667b927e9babb672d761a11664d6e0e5",
+  "original_report_sha256": "dd2ba5a93468ed35f5b9bd4613d375022d3c6eb45e307235e3bb72d1b0fdba05",
+  "original_verdict": true,
+  "original_runtime_exits": [0, 0],
+  "original_checks": 303,
+  "original_prefix_rows": 36,
+  "public_experiment": "co-numerov-co-canary-20261020",
+  "saved_audit": "Reconstruct all303 decisions, exact energy/coordinate/role ordering, actual operand hashes and timing arithmetic. Recompute12 full native/NumPy residual matrices and all12 paired80/110-digit references/36 entries from captured accepted operands.",
+  "numerical_replay": "Exactly six native audited N8 prefixes, all six original accuracy identities in listed order,90 mixed solves. Every canonical final-delta and all-A/B/X hash, reciprocal-condition estimate, stats and residual-audit aggregate must reproduce exactly. No new captures, full propagation, tail/matching or K calculation.",
+  "new_prefix_executions": 6,
+  "new_mixed_solves": 90,
+  "timing_rows_reexecuted": 0,
+  "runtime_image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "wheel_sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+  "wheel_components": {
+    "qscat_extended_kernels/__init__.py": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "qscat_extended_kernels/qscat_extended_kernels.abi3.so": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e"
+  },
+  "resources": {
+    "cpuset_cpus": "0-3", "workers": 1, "blas_threads": 1, "memory_gib": 4,
+    "expected_wall_seconds": 90, "upper_wall_seconds": 180, "timeout_seconds": 300,
+    "sample_interval_seconds": 0.2
+  },
+  "cost_justification": "Producer measured468.928s for36 prefixes/3996 solves including audit/reference overhead. Replay repeats only90 short audited native solves and captured reference checks, not timing families.90/180/300-s expected/upper/hard cap includes high-precision norm/referee work and original input decoding.",
+  "stopping_rule": "Fresh persistent directory and fresh public downloads; verify index, payloads, producer/support source hashes,24 raw inputs, wheel/components and installed artifacts before science. Preserve original exits on failure. No retries, gate relaxation, source replacement, full propagation or automatic follow-on.",
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [1, 1],
+  "new_qualified_co_identities": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0,
+  "co_successor_submitted": false
+}
