@@ -76,7 +76,18 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 20 October,15:03UTC:** the [long-range radial pilot](NUMEROV_CO_RADIAL_PILOT.md)
+**Update — 20 October,17:04UTC:** the complete400-bohr replay reproduces the
+[radial scientific result](NUMEROV_CO_RADIAL_PILOT.md) exactly, including all three
+full captured A/B/X sets. The original wrapper exits1/1/owner1 on nine tuple/list
+coordinate-container mismatches. A separately frozen saved-output diagnosis
+reproduces the bug, preserves all scientific values and reconstructs131 original
+plus22 fresh decisions, exits0/0/owner0. It takes12.29s with **zero new
+propagations**; the completed full replay costs1.99018h /.17221GiB. All26 public
+payloads fresh-verify, including original failure and diagnostic evidence. No
+scientific job runs at17:04UTC. Next prioritize costed electronic-model and width-
+extraction decisions; those physical blockers are unchanged by numerical replay.
+
+**Earlier update — 20 October,15:03UTC:** the [long-range radial pilot](NUMEROV_CO_RADIAL_PILOT.md)
 passes **131/131 checks /five propagations /282,400 mixed solves**, original
 command/container/owner exits0/0/0. Finest200/400 native64 K discrepancies
 **1.56617e-7 /1.81307e-7** pass separate1e-6 gates; S/phase, radial and invariant
@@ -499,14 +510,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: one long-range radial identity passes separate K, S and phase gates;131 saved decisions reconstruct; full400-bohr replay running](../../docs/physics/figures/co-progress-20261020-radial-pilot.png)
+![CO qualification: full400-bohr science reproduces exactly; original verifier schema failure preserved; electronic-model and width decisions remain](../../docs/physics/figures/co-progress-20261020T1704-radial-schema.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261020-radial-pilot.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261020-radial-pilot.json) ·
-[Radial result and replay status](progress-numerov-co-radial-pilot-result-20261020.json) ·
-[Independent saved verification](verification-numerov-co-radial-pilot-public-20261020.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261020T1704-radial-schema.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261020T1704-radial-schema.json) ·
+[Final replay and diagnosis](progress-numerov-co-radial-replay-result-20261020T1704.json) ·
+[Separate saved-output verification](verification-numerov-co-radial-schema-20261020.json) ·
 [Long-range radial qualification](NUMEROV_CO_RADIAL_PILOT.md) ·
 [Public radial evidence](qualification-evidence/numerov-co-radial-pilot/README.md) ·
+[Previous radial launch figure](../../docs/physics/figures/co-progress-20261020-radial-pilot.svg) ·
+[Previous radial snapshot](progress-snapshot-20261020-radial-pilot.json) ·
 [Previous canary figure](../../docs/physics/figures/co-progress-20261020-co-canary.svg) ·
 [Previous canary snapshot](progress-snapshot-20261020-co-canary.json) ·
 [Actual CO recurrence canary](NUMEROV_CO_CANARY.md) ·

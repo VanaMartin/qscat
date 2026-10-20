@@ -1,0 +1,971 @@
+{
+  "observed_utc": "2026-10-20T17:04:39.728163+00:00",
+  "experiment_verdict": true,
+  "checks_passed": 131,
+  "checks_total": 131,
+  "case": "stretched/nine/B1",
+  "energy_index": 18,
+  "energy_rydberg_hex": "0x1.2d0e560418936p-4",
+  "configurations": [
+    {
+      "id": "native-200-coarse",
+      "stage": "initial",
+      "backend": "native",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.025
+    },
+    {
+      "id": "native-200-medium",
+      "stage": "initial",
+      "backend": "native",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.0125
+    },
+    {
+      "id": "native-200-fine",
+      "stage": "initial",
+      "backend": "native",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.00625
+    },
+    {
+      "id": "reference-200-fine",
+      "stage": "initial",
+      "backend": "reference",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.00625
+    },
+    {
+      "id": "native-400-fine",
+      "stage": "endpoint",
+      "backend": "native",
+      "endpoint_bohr": 400.0,
+      "step_bohr": 0.00625
+    }
+  ],
+  "propagations": 5,
+  "radial_intervals": 141200,
+  "mixed_solves": 282400,
+  "producer_metrics": {
+    "native-200-fine_native64": {
+      "k": 1.5661677821299236e-07,
+      "s": 2.653626238283946e-10,
+      "phase_rad_mod_pi": 3.0744877308395676e-10
+    },
+    "native-200-fine_increment": {
+      "k": 4.515101181823411e-09,
+      "s": 5.902017989659389e-13,
+      "phase_rad_mod_pi": 7.46473384404497e-13
+    },
+    "reference-200-fine_native64": {
+      "k": 1.5661677821299236e-07,
+      "s": 2.653626238283946e-10,
+      "phase_rad_mod_pi": 3.0744877308395676e-10
+    },
+    "reference-200-fine_increment": {
+      "k": 4.515101181823411e-09,
+      "s": 5.902017989659389e-13,
+      "phase_rad_mod_pi": 7.46473384404497e-13
+    },
+    "native-400-fine_native64": {
+      "k": 1.813072572076635e-07,
+      "s": 2.6349185934335875e-10,
+      "phase_rad_mod_pi": 3.018433473198979e-10
+    },
+    "native-400-fine_increment": {
+      "k": 3.259864911342447e-08,
+      "s": 4.180499522513848e-12,
+      "phase_rad_mod_pi": 3.375120817007471e-12
+    },
+    "coarse_step": {
+      "k": 5.163640622640742e-06,
+      "s": 3.7969238048920864e-10,
+      "phase_rad_mod_pi": 1.1212077039783719e-09
+    },
+    "fine_step": {
+      "k": 3.2280718187394086e-07,
+      "s": 2.373021917057262e-11,
+      "phase_rad_mod_pi": 7.00716365076495e-11
+    },
+    "backend": {
+      "k": 0.0,
+      "s": 0.0,
+      "phase_rad_mod_pi": 0.0
+    },
+    "auxiliary_rcond_relative_drift": 0.0,
+    "endpoint": {
+      "k": 2.469047899467114e-08,
+      "s": 1.8707645406785386e-12,
+      "phase_rad_mod_pi": 5.60542576387837e-12
+    }
+  },
+  "independent_saved_metrics": {
+    "native-200-fine_native64": {
+      "k": 1.5661677821299236e-07,
+      "s": 2.653626238283946e-10,
+      "phase_rad_mod_pi": 3.0742342005396495e-10
+    },
+    "native-200-fine_increment": {
+      "k": 4.515101181823411e-09,
+      "s": 5.902017989659389e-13,
+      "phase_rad_mod_pi": 7.736034035588091e-13
+    },
+    "reference-200-fine_native64": {
+      "k": 1.5661677821299236e-07,
+      "s": 2.653626238283946e-10,
+      "phase_rad_mod_pi": 3.0742342005396495e-10
+    },
+    "reference-200-fine_increment": {
+      "k": 4.515101181823411e-09,
+      "s": 5.902017989659389e-13,
+      "phase_rad_mod_pi": 7.736034035588091e-13
+    },
+    "native-400-fine_native64": {
+      "k": 1.813072572076635e-07,
+      "s": 2.6349185934335875e-10,
+      "phase_rad_mod_pi": 3.0182967236669356e-10
+    },
+    "native-400-fine_increment": {
+      "k": 3.259864911342447e-08,
+      "s": 4.176746167457524e-12,
+      "phase_rad_mod_pi": 3.389066804970753e-12
+    },
+    "coarse_step": {
+      "k": 5.163640622640742e-06,
+      "s": 3.7969238048920864e-10,
+      "phase_rad_mod_pi": 1.1211989114912058e-09
+    },
+    "fine_step": {
+      "k": 3.2280718187394086e-07,
+      "s": 2.373021917057262e-11,
+      "phase_rad_mod_pi": 7.006972779777243e-11
+    },
+    "backend": {
+      "k": 0.0,
+      "s": 0.0,
+      "phase_rad_mod_pi": 0.0
+    },
+    "auxiliary_rcond_relative_drift": 0.0,
+    "endpoint": {
+      "k": 2.469047899467114e-08,
+      "s": 1.8707645406785386e-12,
+      "phase_rad_mod_pi": 5.593747687271389e-12
+    }
+  },
+  "native_sampled_accepted_solves": 48,
+  "sampled_residual_evaluations": 96,
+  "sampled_residuals_exact": 96,
+  "gate_disagreements": 0,
+  "maximum_independent_sampled_backward_error": 4.0363086516940827e-20,
+  "maximum_all_solve_recorded_backward_error": 3.2432942842951112e-18,
+  "backward_error_gate": 3.469446951953614e-18,
+  "maximum_corrections": 1,
+  "minimum_sampled_binary64_reciprocal_condition": 0.0009459564589817343,
+  "maximum_oracle_scaled_error": 9.562025513819134e-20,
+  "captured_operand_triples": 12,
+  "paired_oracle_entries": 36,
+  "producer_runtime_execution": {
+    "source_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+    "source_archive_sha256": "21e064c7f5233e436dd1e5f7fe282fb488227551c1f08d184941014ee8850895",
+    "source_files_verified_before": 107,
+    "engine_artifacts_verified_before": 242,
+    "raw_prior_component_hashes_verified_before": 28,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-radial-pilot-20261020-runtime",
+      "--cpuset-cpus=4-11",
+      "--memory=8g",
+      "--memory-swap=8g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-pilot-20261020:/work",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/raw:ro",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_radial_pilot",
+      "--raw",
+      "/raw",
+      "--prior",
+      "/work/prior",
+      "--contract",
+      "/work/source/projects/ukrmol_co/numerov-co-radial-pilot-contract.json",
+      "--output",
+      "/work/result"
+    ],
+    "stage": "runtime",
+    "started_utc": "2026-10-20T07:15:32.137345+00:00",
+    "cpuset_cpus": "4-11",
+    "workers": 4,
+    "memory_limit_bytes": 8589934592,
+    "timeout_seconds": 43200,
+    "expected_wall_seconds": 18000,
+    "upper_wall_seconds": 28800,
+    "other_running_containers": [
+      "comfyui Up 7 hours"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 57.91836166381836,
+    "new_propagations_maximum": 5,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-20T11:34:31.112452+00:00",
+    "wall_seconds": 15538.964658834971,
+    "sampled_memory_current_peak_bytes": 287748096,
+    "sampled_kernel_memory_peak_bytes": 298893312,
+    "sampled_cpu_seconds": 21776.502185,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 77556,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 107,
+    "raw_prior_component_hashes_verified_after": 28
+  },
+  "producer_owner_exit": 0,
+  "saved_verifier_execution": {
+    "verification_source_commit": "42bb02f9b7b0f2a76ae50cc65b5d86e95fcd956c",
+    "producer_source_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+    "source_archive_sha256": "21e064c7f5233e436dd1e5f7fe282fb488227551c1f08d184941014ee8850895",
+    "source_files_verified_before": 110,
+    "engine_artifacts_verified_before": 242,
+    "raw_prior_component_hashes_verified_before": 28,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-radial-public-replay-20261020-saved",
+      "--cpuset-cpus=4-11",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-public-replay-20261020:/work",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_radial_replay",
+      "--root",
+      "/work",
+      "--contract",
+      "/work/replay-contract.json",
+      "--output",
+      "/work/saved-verification.json"
+    ],
+    "stage": "saved",
+    "started_utc": "2026-10-20T14:59:29.057576+00:00",
+    "cpuset_cpus": "4-11",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 240,
+    "expected_wall_seconds": 60,
+    "upper_wall_seconds": 120,
+    "other_running_containers": [
+      "comfyui Up 15 hours"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 54.92206954956055,
+    "new_propagations_maximum": 0,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-20T14:59:37.099495+00:00",
+    "wall_seconds": 8.031523637997452,
+    "sampled_memory_current_peak_bytes": 121503744,
+    "sampled_kernel_memory_peak_bytes": 121671680,
+    "sampled_cpu_seconds": 7.337672,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 38,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 110,
+    "raw_prior_component_hashes_verified_after": 28
+  },
+  "public_tests_execution": {
+    "verification_source_commit": "42bb02f9b7b0f2a76ae50cc65b5d86e95fcd956c",
+    "producer_source_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+    "source_archive_sha256": "21e064c7f5233e436dd1e5f7fe282fb488227551c1f08d184941014ee8850895",
+    "source_files_verified_before": 110,
+    "engine_artifacts_verified_before": 242,
+    "raw_prior_component_hashes_verified_before": 28,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-radial-public-replay-20261020-tests",
+      "--cpuset-cpus=4-11",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-public-replay-20261020:/work",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:197c549d46c65df24bb02202040dd6e4b64c1556246e0fc364c45b2c9a303ac5",
+      "/app/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "projects/ukrmol_co/test_numerov_co_radial_replay.py",
+      "projects/ukrmol_co/test_numerov_co_radial_pilot.py",
+      "projects/ukrmol_co/test_numerov_co_canary.py",
+      "projects/ukrmol_co/test_numerov_native_coupled.py",
+      "projects/ukrmol_co/test_numerov_native_residual.py"
+    ],
+    "stage": "tests",
+    "started_utc": "2026-10-20T14:59:27.417437+00:00",
+    "cpuset_cpus": "4-11",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 240,
+    "expected_wall_seconds": 10,
+    "upper_wall_seconds": 60,
+    "other_running_containers": [
+      "comfyui Up 15 hours"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 54.92219924926758,
+    "new_propagations_maximum": 0,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-20T14:59:28.702947+00:00",
+    "wall_seconds": 1.273095481999917,
+    "sampled_memory_current_peak_bytes": 147619840,
+    "sampled_kernel_memory_peak_bytes": 147619840,
+    "sampled_cpu_seconds": 0.462992,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 4,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 110,
+    "raw_prior_component_hashes_verified_after": 28
+  },
+  "public_runtime_launch": {
+    "verification_source_commit": "42bb02f9b7b0f2a76ae50cc65b5d86e95fcd956c",
+    "producer_source_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+    "source_archive_sha256": "21e064c7f5233e436dd1e5f7fe282fb488227551c1f08d184941014ee8850895",
+    "source_files_verified_before": 110,
+    "engine_artifacts_verified_before": 242,
+    "raw_prior_component_hashes_verified_before": 28,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-radial-public-replay-20261020-runtime",
+      "--cpuset-cpus=4-11",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-public-replay-20261020:/work",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_radial_replay",
+      "--root",
+      "/work",
+      "--contract",
+      "/work/replay-contract.json",
+      "--output",
+      "/work/verification.json",
+      "--replay-output",
+      "/work/reexecuted"
+    ],
+    "stage": "runtime",
+    "started_utc": "2026-10-20T14:59:37.460091+00:00",
+    "cpuset_cpus": "4-11",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 14400,
+    "expected_wall_seconds": 7800,
+    "upper_wall_seconds": 10800,
+    "other_running_containers": [
+      "comfyui Up 15 hours"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 54.922035217285156,
+    "new_propagations_maximum": 1,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0
+  },
+  "public_numerical_replay_passed": false,
+  "public_numerical_replay_final_exits": [
+    1,
+    1
+  ],
+  "public_owner_exit": 1,
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 4520,
+        "sha256": "6f6cd50c6c05f96ce275f385ba7fc445f63ff72a2f5802a4d51efc3797585c70"
+      },
+      "failed-public-execution.json": {
+        "bytes": 2968,
+        "sha256": "19903180f34b04bd5053add22a6875f42ea68ecc3e0c72b6af65dcf7c6103b46"
+      },
+      "failed-public-owner-exit.json": {
+        "bytes": 64,
+        "sha256": "913e4282d57de42c0f8d8ad0349d37fb4b9f7e465db820f2e0e5bb736f7b6114"
+      },
+      "failed-public-replay.tar.gz": {
+        "bytes": 7266921,
+        "sha256": "0dd76c6fc58bc826ad206576cee6005b13545427c673656d328faba410ccf613"
+      },
+      "failure-collection-sha256.json": {
+        "bytes": 3146,
+        "sha256": "9b58f9d2f2957fe048e326424b2da4fa81420353df6f7442a06bfb25248a88f8"
+      },
+      "manifest.json": {
+        "bytes": 2994,
+        "sha256": "528093e863a84272cb72bcc4fe696b5aaa94dcb4578f84a00c2a41460b35d391"
+      },
+      "mpmath-1.3.0-py3-none-any.whl": {
+        "bytes": 536198,
+        "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+      },
+      "native-wheel.whl": {
+        "bytes": 237326,
+        "sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315"
+      },
+      "public-owner.py": {
+        "bytes": 8902,
+        "sha256": "bc6c6cebe76833e92e502713be53eafc226d4f8e815ef618b910bc2d29704d66"
+      },
+      "raw.tar.gz": {
+        "bytes": 29084671,
+        "sha256": "f76d0f75eb142004d22d176aedc0905418f0359ffad0d4f0b14ea3514ed494c3"
+      },
+      "replay-contract.json": {
+        "bytes": 4647,
+        "sha256": "401c8680a762e7bc64303165cd2043696dc2eaa707b9a8c5d793d4861e1d62d2"
+      },
+      "results.tar.gz": {
+        "bytes": 27681904,
+        "sha256": "e6361a2f7a19f74bc4d240a55c0d864ca1c3efa7468489ed932306cb8cdacc34"
+      },
+      "runtime-launch.json": {
+        "bytes": 2484,
+        "sha256": "4a69bce8bbd6d3934ee0e07342dbc16aa285cd133f92758016cb45ad55c4fa32"
+      },
+      "saved-execution.json": {
+        "bytes": 2910,
+        "sha256": "b517a47148785398ee18409c709beeae3fbf83bf22cfdae782b17d98ec546e3d"
+      },
+      "saved-tests-and-launch.tar.gz": {
+        "bytes": 12266,
+        "sha256": "ef865fc482cb9527220f75e14a8c450b0057d56baf3805b05980b4fc112a23ff"
+      },
+      "saved-tests-launch-sha256.json": {
+        "bytes": 2041,
+        "sha256": "0c535f70c9f63ae6d30b51fde3d1bf8214d5ac1ba256f16fc12d981d31e8b8b8"
+      },
+      "saved-verification.json": {
+        "bytes": 1912,
+        "sha256": "a57e98093d874b92e0657bdd2aa36b095cda6474d257f999486db2cb1d708619"
+      },
+      "schema-collection-sha256.json": {
+        "bytes": 1817,
+        "sha256": "c6dca0f08eeed93bc36c54d268a22fc56e62defe7ce2142b8fcd6445793567ee"
+      },
+      "schema-diagnosis.json": {
+        "bytes": 2486,
+        "sha256": "a06076a8e9debed149303d5c985d091859236b8a3eaacf75615d5f1cfbd24f3c"
+      },
+      "schema-diagnosis.tar.gz": {
+        "bytes": 12342,
+        "sha256": "4d0c8d09bae927942893d0de2f498328b56980bc755cee13723b61d2dd7c7e2f"
+      },
+      "schema-diagnostic-contract.json": {
+        "bytes": 2938,
+        "sha256": "679f8a3fe73d91edf64b7bee9ee1c8db1f91db3ef67427327be705565de1647c"
+      },
+      "schema-support-manifest.json": {
+        "bytes": 390,
+        "sha256": "5207bdcd025b6def7740bfc5a6039fb26649600928a1f456fc0af4b649d67dab"
+      },
+      "schema-support.tar.gz": {
+        "bytes": 8418,
+        "sha256": "5125ab3250d7b1c4948ee4472275fea6b0e98d5e576e5c23e8aa40fc3ef83013"
+      },
+      "source-manifest.json": {
+        "bytes": 12959,
+        "sha256": "b0365e8582727b6fc2370c748aae4b1224a5b52b78965a1ae303cc8ddcacd53b"
+      },
+      "source.tar.gz": {
+        "bytes": 456900,
+        "sha256": "21e064c7f5233e436dd1e5f7fe282fb488227551c1f08d184941014ee8850895"
+      },
+      "verification-support.tar.gz": {
+        "bytes": 8376,
+        "sha256": "6c8f04dcc232b5e15548cfd8e2ce257ee4689b0834223bd4afeffb43fc2c0beb"
+      }
+    },
+    "git_sha": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+    "url_prefix": "https://data.qscat.org/co-numerov-co-radial-pilot-20261020/"
+  },
+  "public_payloads_fresh_verified": 26,
+  "source_counts_verified": {
+    "producer": 107,
+    "original_public_wrapper": 110,
+    "schema_diagnostic": 111
+  },
+  "engine_artifacts_verified": 242,
+  "raw_prior_component_pins_verified": 28,
+  "original_collection_files_verified": 42,
+  "saved_tests_launch_files_verified": 20,
+  "remote_tests_passed": 26,
+  "local_tests_passed": 19,
+  "local_native_format_skips_exercised_remotely": 7,
+  "running_containers": [
+    "comfyui Up 17 hours"
+  ],
+  "persistent_disk_free_gib": 54.898773193359375,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "historical_unique_energy_coverage": 132,
+  "new_qualified_co_identities": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0,
+  "row_observations": [
+    {
+      "id": "native-200-coarse",
+      "backend": "native",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.025,
+      "kernel_wall_seconds": 900.1488535079989,
+      "solve_calls": 14560,
+      "extended_k_sha256": "a6440df3dd223b3274cb0bb1df3a1b3279c0b835b4727b9863819e5dba19fafe",
+      "diagnostics": {
+        "maximum_solve_backward_error": 2.1661877882262646e-18,
+        "maximum_refinement_corrections": 1,
+        "large_system_solves": 14560,
+        "complex_significand_bits": 64,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "radial_intervals": 7280,
+        "significand_bits": 64,
+        "dtype": "float128",
+        "unsymmetrized_k_transpose_error": 4.584761736925458e-10,
+        "matching_residual": 1.0079692072326174e-19
+      },
+      "invariants": {
+        "unitarity": 4.21862544897067e-12,
+        "reciprocity": 4.938527193373428e-12
+      },
+      "residual_audit": {
+        "evaluations": 22,
+        "accepted_solves": 11,
+        "exact_residuals": 22,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 3.806618244896703e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            6
+          ],
+          "dtype": "float128",
+          "native_error": 2.771409878116444e-21,
+          "numpy_error": 2.771409878116444e-21,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "id": "native-200-medium",
+      "backend": "native",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.0125,
+      "kernel_wall_seconds": 1790.765884214983,
+      "solve_calls": 29120,
+      "extended_k_sha256": "8f79dececb00cec9abb68eb0f7bb449dd941fe742d8e5daaff7cf608d1abcd6f",
+      "diagnostics": {
+        "maximum_solve_backward_error": 2.5377697508230907e-18,
+        "maximum_refinement_corrections": 1,
+        "large_system_solves": 29120,
+        "complex_significand_bits": 64,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "radial_intervals": 14560,
+        "significand_bits": 64,
+        "dtype": "float128",
+        "unsymmetrized_k_transpose_error": 2.8643802607586366e-11,
+        "matching_residual": 2.625802136488331e-20
+      },
+      "invariants": {
+        "unitarity": 2.6356694604601216e-13,
+        "reciprocity": 3.083763748106314e-13
+      },
+      "residual_audit": {
+        "evaluations": 22,
+        "accepted_solves": 11,
+        "exact_residuals": 22,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 3.8064611219940575e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            6
+          ],
+          "dtype": "float128",
+          "native_error": 6.846323879920173e-21,
+          "numpy_error": 6.846323879920173e-21,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "id": "native-200-fine",
+      "backend": "native",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.00625,
+      "kernel_wall_seconds": 3550.340058502974,
+      "solve_calls": 58240,
+      "extended_k_sha256": "b4c2f949bcc0e4be0e810768bee92d3c6edb509c02ccd5ed666009fb1275899f",
+      "diagnostics": {
+        "maximum_solve_backward_error": 2.838495820448159e-18,
+        "maximum_refinement_corrections": 1,
+        "large_system_solves": 58240,
+        "complex_significand_bits": 64,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "radial_intervals": 29120,
+        "significand_bits": 64,
+        "dtype": "float128",
+        "unsymmetrized_k_transpose_error": 2.364372586605157e-12,
+        "matching_residual": 2.371692252312041e-20
+      },
+      "invariants": {
+        "unitarity": 2.1760371282653068e-14,
+        "reciprocity": 2.5682556162889157e-14
+      },
+      "residual_audit": {
+        "evaluations": 22,
+        "accepted_solves": 11,
+        "exact_residuals": 22,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 3.7074532477759446e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            6
+          ],
+          "dtype": "float128",
+          "native_error": 2.591109187014805e-21,
+          "numpy_error": 2.591109187014805e-21,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "id": "reference-200-fine",
+      "backend": "reference",
+      "endpoint_bohr": 200.0,
+      "step_bohr": 0.00625,
+      "kernel_wall_seconds": 7968.512530265987,
+      "solve_calls": 58240,
+      "extended_k_sha256": "b4c2f949bcc0e4be0e810768bee92d3c6edb509c02ccd5ed666009fb1275899f",
+      "diagnostics": {
+        "maximum_solve_backward_error": 2.838495820448159e-18,
+        "maximum_refinement_corrections": 1,
+        "large_system_solves": 58240,
+        "complex_significand_bits": 64,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "radial_intervals": 29120,
+        "significand_bits": 64,
+        "dtype": "float128",
+        "unsymmetrized_k_transpose_error": 2.364372586605157e-12,
+        "matching_residual": 2.371692252312041e-20
+      },
+      "invariants": {
+        "unitarity": 2.1760371282653068e-14,
+        "reciprocity": 2.5682556162889157e-14
+      },
+      "residual_audit": null
+    },
+    {
+      "id": "native-400-fine",
+      "backend": "native",
+      "endpoint_bohr": 400.0,
+      "step_bohr": 0.00625,
+      "kernel_wall_seconds": 7567.645617124974,
+      "solve_calls": 122240,
+      "extended_k_sha256": "4fc1c747193cf04f584a3b0422e9322a5006d200a69c2d9c0219e97b38726cea",
+      "diagnostics": {
+        "maximum_solve_backward_error": 3.2432942842951112e-18,
+        "maximum_refinement_corrections": 1,
+        "large_system_solves": 122240,
+        "complex_significand_bits": 64,
+        "threshold_group_maximum_spread_rydberg": 0.0,
+        "radial_intervals": 61120,
+        "significand_bits": 64,
+        "dtype": "float128",
+        "unsymmetrized_k_transpose_error": 2.357988804213562e-12,
+        "matching_residual": 9.198248411589668e-21
+      },
+      "invariants": {
+        "unitarity": 2.19824158875781e-14,
+        "reciprocity": 2.689273967009542e-14
+      },
+      "residual_audit": {
+        "evaluations": 30,
+        "accepted_solves": 15,
+        "exact_residuals": 30,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 4.0363086516940827e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            6
+          ],
+          "dtype": "float128",
+          "native_error": 1.1389953066299603e-20,
+          "numpy_error": 1.1389953066299603e-20,
+          "iteration": 1
+        }
+      }
+    }
+  ],
+  "public_runtime_execution": {
+    "verification_source_commit": "42bb02f9b7b0f2a76ae50cc65b5d86e95fcd956c",
+    "producer_source_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+    "source_archive_sha256": "21e064c7f5233e436dd1e5f7fe282fb488227551c1f08d184941014ee8850895",
+    "source_files_verified_before": 110,
+    "engine_artifacts_verified_before": 242,
+    "raw_prior_component_hashes_verified_before": 28,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-radial-public-replay-20261020-runtime",
+      "--cpuset-cpus=4-11",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-public-replay-20261020:/work",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_radial_replay",
+      "--root",
+      "/work",
+      "--contract",
+      "/work/replay-contract.json",
+      "--output",
+      "/work/verification.json",
+      "--replay-output",
+      "/work/reexecuted"
+    ],
+    "stage": "runtime",
+    "started_utc": "2026-10-20T14:59:37.460091+00:00",
+    "cpuset_cpus": "4-11",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 14400,
+    "expected_wall_seconds": 7800,
+    "upper_wall_seconds": 10800,
+    "other_running_containers": [
+      "comfyui Up 15 hours"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 54.922035217285156,
+    "new_propagations_maximum": 1,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 1,
+    "finished_utc": "2026-10-20T16:59:02.115561+00:00",
+    "wall_seconds": 7164.645088026999,
+    "sampled_memory_current_peak_bytes": 183332864,
+    "sampled_kernel_memory_peak_bytes": 184905728,
+    "sampled_cpu_seconds": 7162.928211,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 35760,
+    "original_container_exit": 1,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 110,
+    "raw_prior_component_hashes_verified_after": 28
+  },
+  "saved_reexecution_verification_passed": true,
+  "full_scientific_record_exact": true,
+  "full_captured_operand_entries_exact": true,
+  "coordinate_container_failure_reproduced": true,
+  "tuple_coordinate_pairs": 9,
+  "maximum_replay_auxiliary_rcond_relative_drift": 6.77225747895114e-16,
+  "schema_diagnostic_execution": {
+    "diagnostic_source_commit": "ca9a5d0498541482f565f6c04d58cee8b63023ff",
+    "producer_source_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+    "original_failure_files_verified": 30,
+    "original_sources_verified": 110,
+    "source_archive_sha256": "5125ab3250d7b1c4948ee4472275fea6b0e98d5e576e5c23e8aa40fc3ef83013",
+    "source_files_verified_before": 111,
+    "engine_artifacts_verified_before": 242,
+    "raw_prior_component_hashes_verified_before": 28,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-radial-schema-diagnostic-20261020-runtime",
+      "--cpuset-cpus=0-3",
+      "--memory=2g",
+      "--memory-swap=2g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-schema-diagnostic-20261020:/work",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-public-replay-20261020:/original:ro",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/original/extension:/original/dependencies:/work/source",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_radial_replay",
+      "--root",
+      "/original",
+      "--contract",
+      "/original/replay-contract.json",
+      "--output",
+      "/work/diagnosis.json",
+      "--existing-replay-output",
+      "/original/reexecuted"
+    ],
+    "stage": "runtime",
+    "started_utc": "2026-10-20T17:03:45.023636+00:00",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 2147483648,
+    "timeout_seconds": 120,
+    "expected_wall_seconds": 20,
+    "upper_wall_seconds": 60,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 54.89883041381836,
+    "new_propagations": 0,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-20T17:03:57.314877+00:00",
+    "wall_seconds": 12.287171441013925,
+    "sampled_memory_current_peak_bytes": 76263424,
+    "sampled_kernel_memory_peak_bytes": 76263424,
+    "sampled_cpu_seconds": 11.829906,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 60,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 111,
+    "raw_prior_component_hashes_verified_after": 28
+  },
+  "schema_diagnostic_owner_exit": 0,
+  "schema_diagnostic_tests_passed": 5,
+  "schema_diagnostic_new_propagations": 0,
+  "original_failure_files_verified": 30,
+  "schema_diagnostic_files_verified": 16,
+  "fresh_row_checks_reconstructed": 22,
+  "fresh_mixed_solves": 122240,
+  "fresh_kernel_wall_seconds": 7154.525946802023,
+  "next_decision": "Cost bounded electronic-model and width-extraction decisions over the near-equilibrium domain; numerical follow-up must change an intended physical decision."
+}

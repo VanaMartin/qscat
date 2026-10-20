@@ -4,9 +4,25 @@
       "bytes": 4520,
       "sha256": "6f6cd50c6c05f96ce275f385ba7fc445f63ff72a2f5802a4d51efc3797585c70"
     },
+    "failed-public-execution.json": {
+      "bytes": 2968,
+      "sha256": "19903180f34b04bd5053add22a6875f42ea68ecc3e0c72b6af65dcf7c6103b46"
+    },
+    "failed-public-owner-exit.json": {
+      "bytes": 64,
+      "sha256": "913e4282d57de42c0f8d8ad0349d37fb4b9f7e465db820f2e0e5bb736f7b6114"
+    },
+    "failed-public-replay.tar.gz": {
+      "bytes": 7266921,
+      "sha256": "0dd76c6fc58bc826ad206576cee6005b13545427c673656d328faba410ccf613"
+    },
+    "failure-collection-sha256.json": {
+      "bytes": 3146,
+      "sha256": "9b58f9d2f2957fe048e326424b2da4fa81420353df6f7442a06bfb25248a88f8"
+    },
     "manifest.json": {
-      "bytes": 1744,
-      "sha256": "aed4c380c18c69c8d2cbc7456534db31763eda9519d0bc351b417a299024e7c2"
+      "bytes": 2994,
+      "sha256": "528093e863a84272cb72bcc4fe696b5aaa94dcb4578f84a00c2a41460b35d391"
     },
     "mpmath-1.3.0-py3-none-any.whl": {
       "bytes": 536198,
@@ -51,6 +67,30 @@
     "saved-verification.json": {
       "bytes": 1912,
       "sha256": "a57e98093d874b92e0657bdd2aa36b095cda6474d257f999486db2cb1d708619"
+    },
+    "schema-collection-sha256.json": {
+      "bytes": 1817,
+      "sha256": "c6dca0f08eeed93bc36c54d268a22fc56e62defe7ce2142b8fcd6445793567ee"
+    },
+    "schema-diagnosis.json": {
+      "bytes": 2486,
+      "sha256": "a06076a8e9debed149303d5c985d091859236b8a3eaacf75615d5f1cfbd24f3c"
+    },
+    "schema-diagnosis.tar.gz": {
+      "bytes": 12342,
+      "sha256": "4d0c8d09bae927942893d0de2f498328b56980bc755cee13723b61d2dd7c7e2f"
+    },
+    "schema-diagnostic-contract.json": {
+      "bytes": 2938,
+      "sha256": "679f8a3fe73d91edf64b7bee9ee1c8db1f91db3ef67427327be705565de1647c"
+    },
+    "schema-support-manifest.json": {
+      "bytes": 390,
+      "sha256": "5207bdcd025b6def7740bfc5a6039fb26649600928a1f456fc0af4b649d67dab"
+    },
+    "schema-support.tar.gz": {
+      "bytes": 8418,
+      "sha256": "5125ab3250d7b1c4948ee4472275fea6b0e98d5e576e5c23e8aa40fc3ef83013"
     },
     "source-manifest.json": {
       "bytes": 12959,

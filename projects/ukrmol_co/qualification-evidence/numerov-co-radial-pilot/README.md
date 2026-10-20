@@ -9,11 +9,15 @@ Finest200/400 native64 K discrepancies1.56617e-7 /1.81307e-7 pass their separate
 1e-6 gates; S, phase, radial and invariant checks also pass. This reuses one
 previously corner-qualified stretched B1 identity, adding no unique-energy coverage.
 
-All **16 published payloads** fresh-download-verify locally; the replay owner
-separately authenticates the original10-payload publication before execution.
-[Verification summary](../../verification-numerov-co-radial-pilot-public-20261020.json)
-and [dated result/status](../../progress-numerov-co-radial-pilot-result-20261020.json)
-retain this distinction and leave the final numerical replay verdict/exits null.
+The full400-bohr propagation completes and its scientific result reproduces
+exactly, but the original wrapper fails **command/container/owner1/1/1** on a
+tuple/list coordinate-schema mismatch. A separate saved-only diagnosis reproduces
+that bug and verifies the complete fresh record and all three full captured
+A/B/X sets, **exits0/0/owner0, zero new propagations**. All **26 published payloads**
+fresh-download-verify locally. [Final verification](../../verification-numerov-co-radial-schema-20261020.json)
+and [dated result/status](../../progress-numerov-co-radial-replay-result-20261020T1704.json)
+retain both outcomes. The earlier15:03UTC snapshots remain historical launch-state
+records. The replay owner authenticated the initial10-payload publication.
 
 ```sh
 uv run qscat-run fetch projects/ukrmol_co/qualification-evidence/numerov-co-radial-pilot
@@ -45,26 +49,62 @@ are preserved observer records; only the12 captured final residuals can be
 independently reconstructed from saved operands. Every propagation solve retains
 its original32-extended-epsilon acceptance gate.
 
-## Full400-bohr numerical replay — running
+## Full400-bohr replay — scientific result exact, original wrapper fails
 
 The [separate contract](../../numerov-co-radial-pilot-public-replay-contract.json)
 freezes exactly one complete18→400-bohr native reexecution,61,120 intervals /
-122,240 mixed solves. Add `--replay-output ../reexecuted-fresh` to the command.
+122,240 mixed solves. Its original command adds `--replay-output ../reexecuted`.
 The complete fresh scientific record, canonical extended K hash, all sampled
 operand hashes and every entry of all three captured A/B/X triples must be exact.
 Only positive finite auxiliary rcond observations have the prior32-binary64-epsilon
 relative budget. Timings and NPZ storage-byte hashes are excluded from numerical
 identity; each saved payload's own digest is authenticated independently.
 
-**At15:03UTC the replay remains running**, after saved verification passes in
-8.03s /.113GiB. Its runtime starts14:59:37UTC; expected7800s /upper10800s /
-hard cap14400s, cores4–11 /one actual single-threaded worker /4GiB. Final
-command/container/owner exits and numerical verdict remain pending.
-`saved-tests-and-launch.tar.gz` preserves the completed tests/audit, owner and
-bootstrap, original downloaded10-payload index, runtime launch and dated progress
-snapshot. `saved-tests-launch-sha256.json` pins those20 snapshot files. Its running
-snapshot is not a final runtime/owner collection. `public-owner.py` records the
-exact detached commands, hashes, resource sampling and stop rule.
+It finishes **16:59:02UTC**,7164.645088s /1.99018h wall /.17221GiB,35,760 resource
+samples. The complete fresh row passes22/22 checks. Original scientific K,
+extended K hash, complete diagnostics, sampled operand hashes, audit aggregates
+and paired residual references all match exactly. The failure is in Python
+comparison: the unchanged oracle helper emits nine tuple coordinate pairs,
+while archived JSON decodes those same coordinates as lists. Original wrapper
+source stays `42bb02f`. Its `verification.json` is the earlier saved-audit
+checkpoint, with a true saved verdict and null numerical verdict, not a final
+wrapper success. Original command/container/owner exits remain1/1/1.
+
+`failed-public-replay.tar.gz` contains all30 original failure files, pinned by
+`failure-collection-sha256.json`, including the full fresh row, three captures,
+logs, exits and sampled resources. `saved-tests-and-launch.tar.gz` retains the
+earlier20-file snapshot and original downloaded index. `public-owner.py` records
+the unchanged detached commands, resource limits and stop rule.
+
+## Saved-output schema diagnosis — no repeated propagation
+
+The [separate diagnostic contract](../../numerov-co-radial-schema-diagnostic-contract.json)
+and corrected support freeze at `ca9a5d0` before execution. To reproduce, extract
+the failed replay archive into the extraction root, then overlay
+`schema-support.tar.gz` into `source/`. Verify the three new support hashes in
+`schema-support-manifest.json`; the107 producer sources remain unchanged. The
+overlay corrects coordinate-container normalization and adds a saved-output mode.
+
+From `source/`, with the same qualified runtime and dependencies:
+
+```sh
+PYTHONPATH=../extension:../dependencies:. python -m projects.ukrmol_co.numerov_co_radial_replay --root .. --contract ../replay-contract.json --output ../schema-diagnosis-fresh.json --existing-replay-output ../reexecuted
+```
+
+This reexecutes **no propagation**. It reconstructs131 original and22 fresh row
+decisions, calls the original oracle helper on the three saved fresh captures to
+reproduce the old container mismatch, normalizes coordinate containers only, and
+checks every entry of the three original/fresh full A/B/X sets exactly. Auxiliary
+rcond drift6.77226e-16 is within the unchanged7.10543e-15 relative budget; there is
+no scientific tolerance change. Original failed exits remain separately checked.
+
+The saved diagnostic takes **12.287171s /.07103GiB**,60 samples, exits0/0/owner0;
+five focused regression tests pass locally and remotely. Its16-file collection
+is `schema-diagnosis.tar.gz`, pinned by `schema-collection-sha256.json`; support,
+contract and `schema-diagnosis.json` are separate public payloads. The original
+110 effective sources and111 diagnostic sources,242 read-only engine artifacts
+and28 raw/prior/component pins verify before/after. There is no second full-row
+replay after the fix. No scientific container remains at17:04UTC.
 
 The original producer ran4.31638h /.27837GiB, with before/after107-source,
 242-engine-artifact and28 raw/prior/component checks. Timing comparisons include

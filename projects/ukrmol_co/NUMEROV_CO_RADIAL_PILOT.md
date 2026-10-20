@@ -1,5 +1,45 @@
 # Bounded long-range saved-CO radial pilot
 
+## Final replay result — 20 October,17:04 UTC
+
+**The full400-bohr scientific result reproduces exactly. The original replay
+wrapper fails exits1/1/owner1 on a coordinate-container bug.** Both facts are
+retained. The complete propagation finishes16:59:02UTC and passes22/22 row
+checks; the wrapper compares in-memory oracle coordinate tuples against lists
+decoded from JSON. Nine identical pairs therefore compare unequal in Python.
+
+The [saved-only diagnostic](numerov-co-radial-schema-diagnostic-contract.json),
+source freeze `ca9a5d0`, reproduces that failure with the unchanged oracle helper
+on the three actual fresh captures. Normalizing coordinate containers to lists
+preserves all coordinate values and every scientific field exactly. It separately
+reconstructs131 original and22 fresh decisions and checks every entry of all
+three original/fresh full A/B/X captures. Maximum auxiliary rcond relative drift
+**6.77226e-16** passes the unchanged7.10543e-15 budget. No scientific tolerance
+or numerical producer source changes. Original wrapper freeze `42bb02f` and its
+30-file failure collection remain authenticated and public.
+
+Replay cost **7164.645088s /1.99018h wall**, sampled CPU7162.928211s,
+peak184,905,728 bytes /.17221GiB,35,760 samples. Diagnostic cost **12.287171s /
+.07103GiB**,60 samples, exits0/0/owner0; five local/remote regression tests pass.
+The diagnosis executes **zero new propagations**. All110 original /111 diagnostic
+sources,242 read-only installed artifacts and28 raw/prior/component pins verify
+before/after. All26 public payloads fresh-download-verify, including30 original
+failure files and16 diagnostic files. No scientific container remains at17:04UTC.
+
+[Final status](progress-numerov-co-radial-replay-result-20261020T1704.json) and
+[verification](verification-numerov-co-radial-schema-20261020.json) distinguish
+successful scientific readback from the failed original wrapper. There is no
+second full-row replay after the schema fix. The original `verification.json`
+is unchanged: its true verdict belongs to the saved audit, and its null numerical
+replay verdict predates the wrapper failure. See [public evidence and
+reproduction](qualification-evidence/numerov-co-radial-pilot/README.md).
+
+This closes the declared one-identity200/400-bohr radial experiment. The next
+milestone should settle an electronic-model or resonance-width decision; the
+remaining physical gates and any narrowly necessary numerical follow-up need an
+explicit costed scope. Full interior/all-energy and800-bohr qualification remain
+open, with original failures retained.
+
 ## Completed producer — 20 October,11:34 UTC
 
 All **131/131 producer checks /five propagations /282,400 mixed solves** pass;

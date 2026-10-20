@@ -20,6 +20,57 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Full400 scientific replay exact; wrapper schema failure preserved — 20 October,17:04 UTC
+
+The complete native400 reexecution finishes **16:59:02UTC**,61,120 intervals /
+122,240 mixed solves. Its propagation passes all22 row checks and reproduces the
+original scientific record exactly. The original wrapper nevertheless exits
+**command/container/owner1/1/1**: nine oracle coordinate pairs are tuples in
+memory and lists after JSON decoding, so its Python equality test rejects equal
+coordinates. Producer freeze `37c503f` and failed wrapper freeze `42bb02f` remain
+unchanged in the archived evidence. The30-file failure collection preserves the
+complete fresh row, three captures, logs, exits and resource samples.
+
+The separately frozen [saved-only schema diagnostic](numerov-co-radial-schema-diagnostic-contract.json)
+at `ca9a5d0` reproduces this exact container-type failure using the original oracle
+helper on the actual saved captures. Normalizing coordinate containers only
+leaves **all scientific fields exact**, including K, extended K hash, complete
+diagnostics, sampled operand hashes, audits and paired references. Every entry
+of all three original/fresh A/B/X captures is exact. Maximum auxiliary rcond
+relative drift6.77226e-16 is below the unchanged7.10543e-15 budget. It reconstructs
+all131 original and22 fresh row decisions. Five regression tests pass locally
+and remotely. Diagnostic exits0/0/owner0; **zero new propagations**.
+
+Original full replay: **7164.645088s /1.99018h wall**, sampled CPU7162.928211s,
+peak184,905,728 bytes /.17221GiB,35,760 samples. Saved diagnosis:
+**12.287171s /.07103GiB**,60 samples. Original110 and diagnostic111 effective
+sources,242 read-only engine artifacts and28 raw/prior/component pins verify
+before/after. All **26 public payloads** fresh-download-verify, including all30
+failure and16 diagnostic collection files. Only ComfyUI runs at17:04UTC;
+54.899GiB disk remains. No full-row retry or new inner solve was submitted.
+
+[Final result/status](progress-numerov-co-radial-replay-result-20261020T1704.json),
+[separate verification](verification-numerov-co-radial-schema-20261020.json) and
+[public reproduction](qualification-evidence/numerov-co-radial-pilot/README.md)
+keep original wrapper failure separate from successful saved scientific
+verification. The original `verification.json` remains the saved-audit checkpoint
+with null numerical verdict; it is not the failed wrapper's final success record.
+The new17:04UTC overview preserves the earlier15:03UTC launch-state release.
+
+**Next decision:** cost a bounded near-equilibrium electronic-model and width-
+extraction programme using existing native results first. The significant
+CAS11→CAS12/channel shifts and unqualified compressed/equilibrium widths are the
+main scientific blockers. Any additional numerical pilot must address an error
+that can change that intended calculation. Continuity, neutral correlation/domain
+and a restartable production pilot remain gates. Interior false/exits1/1,
+historical132/594 coverage and zero new qualified identities remain; no automatic
+800-bohr,594-matrix or60-solve expansion follows this result.
+
+Search handoff rechecked: complete main snapshot `423d577`, stale/upstream unknown
+in MCP; direct remote-main lookup confirms that commit. The branch-only failed
+wrapper and corrected source were resolved against their exact freezes and
+current local/indexed-main deltas.
+
 ### Long-range CO saved verification passes; full400 replay running — 20 October,15:03 UTC
 
 The [radial pilot](NUMEROV_CO_RADIAL_PILOT.md) completes all **131/131 checks /

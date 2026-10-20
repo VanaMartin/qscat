@@ -19,7 +19,7 @@
   ],
   "original_owner_exit": 0,
   "saved_decisions_reconstructed": true,
-  "public_numerical_reexecution_passed": null,
+  "public_numerical_reexecution_passed": false,
   "original_interior_analytic_verdict": false,
   "original_interior_scientific_exits": [
     1,
@@ -35,7 +35,7 @@
     0
   ],
   "remote_tests_passed": 26,
-  "public_numerical_reexecution_status": "running; original full400 row; final runtime/container/owner exits pending",
+  "public_numerical_reexecution_status": "original wrapper failure preserved; completed scientific result exactly verified by separate saved-only schema diagnostic",
   "launch_observation": {
     "observed_utc": "2026-10-20T15:03:09.495674+00:00",
     "running_containers": [
@@ -45,5 +45,36 @@
     "persistent_disk_free_gib": 54.917911529541016,
     "runtime_complete": false,
     "owner_complete": false
+  },
+  "original_public_runtime_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "saved_reexecution_verification_passed": true,
+  "full_scientific_record_exact": true,
+  "full_captured_operand_entries_exact": true,
+  "maximum_rcond_relative_drift": 6.77225747895114e-16,
+  "coordinate_container_failure_reproduced": true,
+  "tuple_coordinate_pairs": 9,
+  "schema_diagnostic_source_commit": "ca9a5d0498541482f565f6c04d58cee8b63023ff",
+  "schema_diagnostic_support_sha256": {
+    "projects/ukrmol_co/numerov_co_radial_replay.py": "85c314053c965bdeb58b3e43996fcb4f6414193ae2562cadfc986a33474ae2e1",
+    "projects/ukrmol_co/test_numerov_co_radial_replay.py": "d23393aa6ce62a907753c6f81171ebb6d6de0f6b5c83a5c586e3ab414cc9ff25",
+    "projects/ukrmol_co/numerov-co-radial-schema-diagnostic-contract.json": "679f8a3fe73d91edf64b7bee9ee1c8db1f91db3ef67427327be705565de1647c"
+  },
+  "schema_diagnostic_exits": [
+    0,
+    0,
+    0
+  ],
+  "schema_diagnostic_tests_passed": 5,
+  "schema_diagnostic_new_propagations": 0,
+  "final_observation": {
+    "observed_utc": "2026-10-20T17:04:39.728163+00:00",
+    "running_containers": [
+      "comfyui Up 17 hours"
+    ],
+    "persistent_disk_free_gib": 54.898773193359375
   }
 }

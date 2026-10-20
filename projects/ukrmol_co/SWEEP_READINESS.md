@@ -289,6 +289,19 @@ identity through400bohr does not qualify other identities,800bohr or global
 conditioning. Interior false/exits1/1,132/594 historical coverage and zero new
 unique identities remain; no automatic60-solve release or new inner solve.
 
+**20 October,17:04UTC closure:** the full400-bohr propagation completes and its
+scientific record and three full captured operand sets reproduce exactly. The
+original wrapper fails exits1/1/owner1 because nine tuple coordinates compare
+unequal to JSON lists. A separately frozen saved-only diagnostic reproduces this
+schema failure, reconstructs131 original and22 fresh decisions, and checks all
+captured entries exactly; exits0/0/owner0,12.29s, zero new propagations. Auxiliary
+rcond drift6.77226e-16 passes its unchanged rounding budget. The original failed
+wrapper and all output bytes remain public; no full-row retry is needed to
+establish the saved result. All26 payloads fresh-verify. This finite numerical
+milestone is closed; **next cost electronic-model and resonance-width decisions**
+using existing native results first. Additional numerical work must address a
+specific error capable of changing the intended physical calculation.
+
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
 anchors. Supported stretched aug-TZ passes all64
 root/dipole/subspace/seed-preservation checks. The original stretched TZ import
