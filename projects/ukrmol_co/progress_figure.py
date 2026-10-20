@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261020-co-canary.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261020-radial-pilot.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -774,6 +774,37 @@ def _native_full_rejection(ax, data):
     _note(ax, data["native_full_rejection_note"])
 
 
+def _radial_accuracy(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Long-range native K passes here",
+        "Stretched B1 / archived 1-eV identity; 298 coupled channels",
+    )
+    rows = data["radial_accuracy"]
+    y = np.arange(len(rows))
+    for offset, key, color, label in (
+        (-0.22, "k", BLUE, "K"),
+        (0, "s", GREEN, "S"),
+        (0.22, "phase_rad_mod_pi", ORANGE, "Phase mod π"),
+    ):
+        values = [row["difference"][key] / data["radial_absolute_budget"] for row in rows]
+        ax.barh(y + offset, values, height=0.20, color=color, label=label)
+        if key == "k":
+            for i, value in enumerate(values):
+                ax.text(value * 1.16, i + offset, f"{value:.3f}", va="center", fontsize=9)
+    ax.axvline(1, color=RED, lw=1, linestyle="--")
+    ax.set_yticks(y, [row["label"] for row in rows], fontsize=9)
+    ax.set_xscale("log")
+    ax.set_xlim(5e-7, 2.5)
+    ax.set_xticks([1e-6, 1e-4, 1e-2, 1], ["10⁻⁶", "10⁻⁴", "10⁻²", "1"])
+    ax.set_xlabel("Difference / separate 10⁻⁶ gate   (≤1 passes)")
+    ax.invert_yaxis()
+    ax.set_ylim(len(rows) + 0.35, -0.65)
+    ax.legend(loc="lower left", ncol=3, frameon=False, fontsize=9)
+    _note(ax, data["radial_accuracy_note"])
+
+
 def _native_residual(ax, data):
     _panel(
         ax,
@@ -1057,7 +1088,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _native_residual
+            _radial_accuracy
+            if "radial_accuracy" in data
+            else _native_residual
             if "native_residual" in data
             else _solve_profile
             if "solve_profile" in data
@@ -1153,7 +1186,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261020-co-canary",
+        default=ROOT / "docs/physics/figures/co-progress-20261020-radial-pilot",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

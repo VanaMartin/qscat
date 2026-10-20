@@ -76,16 +76,24 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Running — 20 October,07:16UTC:** the [bounded long-range radial pilot](NUMEROV_CO_RADIAL_PILOT.md)
-starts from pushed freeze `37c503f` after **22 remote tests pass /exits0/0**.
-Four full200-bohr runs test three spacings and a NumPy/native-residual pair at
-the already qualified stretchedB1/1-eV identity. A sole400-bohr run is gated on
-all initial accuracy checks. Maximum five propagations /282,400 mixed solves;
-forecast5h elapsed /8h upper /12h cap, physical cores4–11 /8GiB. All107 sources,
-242 engine artifacts and28 raw/prior/component pins preflight. Scientific
-verdict is pending; see the [launch capture](progress-numerov-co-radial-pilot-launch-20261020.json).
+**Update — 20 October,15:03UTC:** the [long-range radial pilot](NUMEROV_CO_RADIAL_PILOT.md)
+passes **131/131 checks /five propagations /282,400 mixed solves**, original
+command/container/owner exits0/0/0. Finest200/400 native64 K discrepancies
+**1.56617e-7 /1.81307e-7** pass separate1e-6 gates; S/phase, radial and invariant
+checks pass. Full200 native/NumPy K, diagnostics and sampled operand hashes are
+exact. Runtime4.31638h /.27837GiB; all107 sources /242 engine artifacts /28
+raw-prior-component pins verify before/after. Independent saved verification
+reconstructs all131 decisions,12 full captured residual matrices and36 paired
+high-precision entries, exits0/0; all26 remote tests pass. A separately frozen
+full400-bohr numerical replay is **running**, expected2.17h /cap4h, one worker /
+cores4–11 /4GiB. Its final verdict/exits remain pending.
+[Public evidence and replay](qualification-evidence/numerov-co-radial-pilot/README.md)
+preserve the original results and dated launch/audit collection. This reuses one
+corner-qualified identity; historical132/594 coverage and interior false/exits1/1
+remain. The [updated overview](../../docs/physics/figures/co-progress-20261020-radial-pilot.png)
+shows the finite radial accuracy result and remaining gates.
 
-**Update — 20 October, 00:13 UTC:** the [saved-CO canary](NUMEROV_CO_CANARY.md)
+**Earlier update — 20 October, 00:13 UTC:** the [saved-CO canary](NUMEROV_CO_CANARY.md)
 passes **303/303 checks / exits0/0**,36 short prefixes /3,996 mixed solves across
 six actual CO cases. All180 audited residual matrices match NumPy; zero gate
 disagreements, at most one correction. Measured early-region marginal gain is
@@ -491,10 +499,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: actual saved-CO prefixes pass303 checks with2.23–2.24 times lower early-region interval cost](../../docs/physics/figures/co-progress-20261020-co-canary.png)
+![CO qualification: one long-range radial identity passes separate K, S and phase gates;131 saved decisions reconstruct; full400-bohr replay running](../../docs/physics/figures/co-progress-20261020-radial-pilot.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261020-co-canary.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261020-co-canary.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261020-radial-pilot.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261020-radial-pilot.json) ·
+[Radial result and replay status](progress-numerov-co-radial-pilot-result-20261020.json) ·
+[Independent saved verification](verification-numerov-co-radial-pilot-public-20261020.json) ·
+[Long-range radial qualification](NUMEROV_CO_RADIAL_PILOT.md) ·
+[Public radial evidence](qualification-evidence/numerov-co-radial-pilot/README.md) ·
+[Previous canary figure](../../docs/physics/figures/co-progress-20261020-co-canary.svg) ·
+[Previous canary snapshot](progress-snapshot-20261020-co-canary.json) ·
 [Actual CO recurrence canary](NUMEROV_CO_CANARY.md) ·
 [Canary public evidence](qualification-evidence/numerov-co-canary/README.md) ·
 [Previous integration figure](../../docs/physics/figures/co-progress-20261019-native-integration.svg) ·

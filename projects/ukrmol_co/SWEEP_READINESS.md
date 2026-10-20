@@ -261,8 +261,33 @@ last bits while science fields/operands agree. A separate explicit supplement
 keeps science records exact, checking rcond estimates within32 binary64 epsilons
 relative; six fresh prefixes /90 solves and303 saved decisions pass exits0/0.
 All19 final public payloads verify, including the failed replay and diagnostic.
-These prefixes end before18.2bohr, without tail matching or K. **Next:** cost a
-bounded long-range radial pilot; no full-scope interior comparison is released.
+These prefixes end before18.2bohr, without tail matching or K. They justify the
+separately costed long-range radial pilot below.
+
+The [bounded radial pilot](NUMEROV_CO_RADIAL_PILOT.md) now passes **131/131
+checks /five full propagations /282,400 mixed solves**, original exits0/0/owner0,
+using one already corner-qualified stretched B1 identity. Finest200/400-bohr K
+discrepancies from native64 are1.56617e-7 /1.81307e-7, below separate1e-6 gates;
+S/phase, final step,200→400 endpoint and invariant gates pass. Full200 native
+and NumPy-residual K/diagnostics/sampled A/B/X hashes are exact. Producer cost
+4.31638h wall /6.04903 sampled CPUh /.27837GiB. Maximum recorded accepted error
+3.24329e-18 is below but close to32-extended-epsilon3.46945e-18; minimum sampled
+binary64 rcond9.45956e-4 is not a global condition or forward-error bound.
+Every solve keeps its backward gate; only48 native solves /96 residual
+evaluations receive independent in-process audits. All12 captured full residual
+matrices and36 paired80/110-digit entries are separately reconstructed.
+
+[Independent public saved verification](qualification-evidence/numerov-co-radial-pilot/README.md)
+reconstructs all131 decisions, exits0/0, with26 remote tests passing. At15:03UTC
+the separately frozen **single full400-bohr numerical replay is running**, after
+fresh public-download authentication. Expected7800s /upper10800s /cap14400s on
+cores4–11 /one single-threaded worker /4GiB. Scientific records and full captured
+array entries must remain exact; auxiliary rcond alone has the prior rounding
+budget. **Next:** collect its original verdict/exits/resources and publish/fetch
+the numerical replay before assessing a bounded interior CO comparison. One
+identity through400bohr does not qualify other identities,800bohr or global
+conditioning. Interior false/exits1/1,132/594 historical coverage and zero new
+unique identities remain; no automatic60-solve release or new inner solve.
 
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
 anchors. Supported stretched aug-TZ passes all64

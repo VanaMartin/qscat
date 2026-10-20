@@ -20,10 +20,27 @@ global condition or forward-error bound.
 Runtime **15,538.964659s /4.31638h wall**, sampled CPU21,776.502185s /6.04903h,
 peak298,893,312 bytes /.27837GiB,77,556 samples at.2s. All107 sources /242 installed
 engine artifacts /28 raw-prior-component pins verify before/after. The42-file
-collection preserves original outputs, resource samples and exits. Qualification
-remains producer-only pending the independently expressed saved verifier below.
+collection preserves original outputs, resource samples and exits.
 
 ## Independent verification and finite public replay
+
+**Saved verification passes — 20 October,14:59:37UTC.** All131 decisions match
+independent expressions, all12 full captured native/NumPy residuals are equal,
+and all36 paired80/110-digit entries reproduce exactly. Verifier exits0/0;
+8.031524s wall /7.337672 sampled CPUs /121,671,680-byte peak /.11332GiB /
+38 resource samples. All26 remote tests pass, including native-format tests.
+All110 effective sources (107 unchanged producer plus three support files),242
+read-only engine artifacts and28 raw/prior/component pins verify before/after
+both stages. Independent phase metrics differ in the last bits as expected
+from their separate eigenvalue-arctangent route; all original decisions match.
+
+**Numerical replay running at15:03UTC**, start14:59:37UTC, from authenticated
+fresh public downloads. It executes the one full native400 row declared below;
+final numerical verdict, command/container/owner exits and resources remain
+pending. The [public evidence](qualification-evidence/numerov-co-radial-pilot/README.md)
+includes the immutable producer outputs, completed saved audit, tests, exact
+owner/bootstrap, original downloaded index and a dated running-state snapshot.
+Producer sources remain unchanged; support freezes at `42bb02f`.
 
 The [separate replay contract](numerov-co-radial-pilot-public-replay-contract.json)
 freezes independent reconstruction of all131 decisions,12 full captured residuals
@@ -46,6 +63,14 @@ BLAS /4GiB. Saved audit has60/120/240-s expected/upper/cap. Freeze/push support
 before either command; failed tests/saved audit prevent numerical submission.
 Fresh public source/raw/wheel/evidence authentication precedes reexecution. No
 retry, additional row or automatic interior scope follows.
+
+The400-bohr maximum recorded all-solve backward error is93.48% of its acceptance
+gate. Its limited margin is a consequential observation for any future800-bohr
+or all-energy design. It is not an absolute error bound or evidence of failure;
+the selected400 row passes every independent saved gate. Only48 native solves
+and96 full residual evaluations were independently audited in process; the saved
+12 final captured residuals are the independently reproducible subset. Other
+identities,298-channel800-bohr propagation and global conditioning remain open.
 
 ## Launch — 20 October,07:16 UTC
 

@@ -1,0 +1,49 @@
+{
+  "git_sha": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+  "verification_support_git_sha": "42bb02f9b7b0f2a76ae50cc65b5d86e95fcd956c",
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_co_radial_replay.py": "169f532449304b3269d0bb038c2dc0515ab96d4921cb589ded81e37472649358",
+    "projects/ukrmol_co/test_numerov_co_radial_replay.py": "745d8c903739fdfea1df9db3086a407ceff4358272fe124e7f29f07767251409",
+    "projects/ukrmol_co/numerov-co-radial-pilot-public-replay-contract.json": "401c8680a762e7bc64303165cd2043696dc2eaa707b9a8c5d793d4861e1d62d2"
+  },
+  "record_type": "saved-co-long-range-radial-pilot",
+  "date": "2026-10-20",
+  "experiment_verdict": true,
+  "checks_passed": 131,
+  "checks_total": 131,
+  "rows": 5,
+  "mixed_solves": 282400,
+  "original_runtime_exits": [
+    0,
+    0
+  ],
+  "original_owner_exit": 0,
+  "saved_decisions_reconstructed": true,
+  "public_numerical_reexecution_passed": null,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "co_successor_submitted": false,
+  "new_qualified_co_identities": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0,
+  "saved_checks_reconstructed": 131,
+  "saved_verifier_exits": [
+    0,
+    0
+  ],
+  "remote_tests_passed": 26,
+  "public_numerical_reexecution_status": "running; original full400 row; final runtime/container/owner exits pending",
+  "launch_observation": {
+    "observed_utc": "2026-10-20T15:03:09.495674+00:00",
+    "running_containers": [
+      "numerov-co-radial-public-replay-20261020-runtime Up 3 minutes",
+      "comfyui Up 15 hours"
+    ],
+    "persistent_disk_free_gib": 54.917911529541016,
+    "runtime_complete": false,
+    "owner_complete": false
+  }
+}

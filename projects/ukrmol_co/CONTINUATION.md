@@ -20,7 +20,7 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Long-range CO producer passes — 20 October,11:34 UTC
+### Long-range CO saved verification passes; full400 replay running — 20 October,15:03 UTC
 
 The [radial pilot](NUMEROV_CO_RADIAL_PILOT.md) completes all **131/131 checks /
 five full propagations /282,400 mixed solves**, original command/container/owner
@@ -35,23 +35,54 @@ describes the sampled binary64 preconditioner, not a global forward-error bound.
 Runtime **4.31638h wall /6.04903 sampled CPUh /.27837GiB peak**,77,556 samples;
 all107 source /242 engine /28 raw-prior-component pins verify before/after.
 The42-file original collection and exact archive/report hashes are preserved in
-`prepared/numerov-co-radial-pilot-20261020/`. No scientific container remains;
-ComfyUI remains untouched. Producer freeze stays `37c503f`.
+`prepared/numerov-co-radial-pilot-20261020/`. Producer freeze stays `37c503f`.
 
 The [separate verification/replay contract](numerov-co-radial-pilot-public-replay-contract.json)
-prospectively reconstructs all saved decisions/oracles, then reexecutes exactly
+reconstructs all saved decisions/oracles, then reexecutes exactly
 one full native400 row /122,240 mixed solves from authenticated public bytes.
 Measured7567.65-s row supports7800/10800/14400-s expected/upper/cap on cores4–11,
 one actual worker /4GiB. Saved audit60/120/240s. Tests and saved verification
 must pass before numerical submission. Scientific records and all captured array
-entries remain exact; auxiliary rcond alone has the prior32-epsilon relative
+entries must remain exact; auxiliary rcond alone has the prior32-epsilon relative
 budget. NPZ storage bytes are authenticated per payload; canonical scalar identity
-is the cross-execution gate. Freeze/push support before running either stage.
+is the cross-execution gate. Support freeze `42bb02f` was pushed before either
+stage. All26 remote tests pass; saved verification independently reconstructs
+**131/131 decisions /12 full residual matrices /36 paired entries**, exits0/0,
+8.031524s /.11332GiB. All110 effective sources /242 engine artifacts /28
+raw-prior-component pins verify before/after. Full numerical replay starts
+**14:59:37UTC** and remains running at15:03UTC; its final verdict/exits/resources
+are pending. ComfyUI is recorded and untouched. Persistent disk54.918GiB free.
+The400 row's recorded maximum backward error uses93.48% of its acceptance gate;
+passing finite scope does not settle800-bohr or all-identity conditioning.
 
-**Next:** publish/authenticate original evidence, run independent saved decisions,
-then the single declared numerical replay; update public evidence and six-panel
-overview with their actual status. Original interior false/exits1/1,132/594
-historical coverage, zero new identities and all physical-model gates remain.
+**Next:** collect the single replay's original command/container/owner exits and
+full numerical comparison, publish/fetch-verify the final evidence and refresh
+the result snapshot/overview. Current public evidence includes all producer
+bytes, saved audit and20-file test/launch snapshot. Runtime originals remain at
+`prepared/numerov-co-radial-public-replay-20261020/`; bootstrap PID157296 is a
+launch record. Use the declared14400-s cap without retry or scope expansion.
+Original interior false/exits1/1,132/594 historical coverage, zero new identities
+and all physical-model gates remain.
+
+Latest progress check15:10:54UTC: **11,264/122,240 solves**, radius53.2bohr,
+663.37s propagation elapsed, maximum recorded backward error1.11467e-19 and
+at most one correction. The first five sampled scientific records match the
+original exactly. A read-only Linux process-descriptor completion watcher is
+attached to the bootstrap; it will return the original owner/runtime/verification
+records when the process exits. No extra numerical work is submitted by it.
+
+All **16 published payloads** fresh-download-verify locally, including original
+107-source and42-file collections, three support sources,24 raw files, wheel
+components and20 test/launch snapshot files. The owner separately authenticated
+the initial10-payload publication. The result/status and independent verification
+JSONs retain null final replay verdict/exits. The six-panel overview now defaults
+to `progress-snapshot-20261020-radial-pilot.json`, dated15:03UTC, highlighting
+separate K/S/phase gates, reusable settings and the limited backward-error margin.
+
+Search handoff: main index complete at `423d577`, freshness stale/upstream unknown
+in MCP; direct `git ls-remote origin refs/heads/main` separately confirms the same
+upstream commit. Radial producer/replay and renderer are branch-only; current
+source, local edits and indexed-main deltas have been resolved explicitly.
 
 ### Bounded long-range CO radial pilot running — 20 October, 07:16 UTC
 
