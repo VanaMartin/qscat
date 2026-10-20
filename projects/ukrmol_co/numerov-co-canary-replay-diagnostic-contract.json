@@ -1,0 +1,22 @@
+{
+  "status": "prospective targeted first-prefix reproducibility diagnosis; original failed replay retained",
+  "original_replay_directory": "numerov-co-canary-public-replay-20261020",
+  "original_replay_exits": [1, 1],
+  "original_replay_owner_exit": 1,
+  "original_exception": "ValueError: Fresh audited CO prefix differs",
+  "original_saved_audit_completed": true,
+  "original_completed_fresh_prefixes_before_failure": 1,
+  "original_fresh_prefix_rows_persisted": 0,
+  "producer_source_commit": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+  "verification_source_commit": "646257e8235f6ae97c2c7dee2746aa349a051cf2",
+  "scope": "Reexecute only compressed/nine/B1 index87 native audited N8 once in a separate directory. Persist the complete fresh row before comparing; report every differing numerical path. Capture fresh first/last A/B/X, compare with original captured operands, and retain the freshly reconstructed Q. No other identity, timing family, native K or full propagation.",
+  "new_prefix_executions_maximum": 1,
+  "new_mixed_solves_maximum": 15,
+  "runtime_image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "resources": {"cpuset_cpus": "0-3", "workers": 1, "memory_gib": 4, "expected_wall_seconds": 10, "upper_wall_seconds": 30, "timeout_seconds": 60},
+  "stopping_rule": "Pin original downloaded source, support, raw and wheel bytes read-only. Preserve the failed replay and its original exits. This is a diagnostic with explicit differences, not a retry qualification or permission to relax exact numerical gates. Stop after the first fixed prefix; freeze a new corrective design only after attribution.",
+  "new_qualified_co_identities": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "co_successor_submitted": false,
+  "new_inner_solves": 0
+}
