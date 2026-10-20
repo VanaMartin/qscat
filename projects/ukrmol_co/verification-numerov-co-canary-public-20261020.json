@@ -1,0 +1,69 @@
+{
+  "verified_utc": "2026-10-20T00:13:22.851258+00:00",
+  "public_payloads_fresh_verified": 19,
+  "public_index_sha256": "af79d153aff058ccd07d1abdb1b467a100769771b515379744a949fd08986c13",
+  "sha256": {
+    "condition-supplement.json": "aa61597631ef58398e30754389647e7255da3092cf89e002544318e3e1d12495",
+    "condition-support.tar.gz": "e920203b7161183cb54769b3930092c0d60d5d1e6a329445d120b5cd7e7bc371",
+    "diagnosis.tar.gz": "9126911804cfb8235e85079e5d29131faa62780dc435fb0e50639ec99aaa851a",
+    "failed-public-owner-exit.json": "8ef199e2ba32edcf45464649ce4dae0f2106f394db6f819c55faa6df8200c959",
+    "failed-public-replay.tar.gz": "dac7f2056dce5d707aee02effa1c9bf2f5160c8b2f41eb91b0dba79713f23f46",
+    "manifest.json": "e374bcfe6ce02d75bc36af7da0d358e43ebb946be8162c18fda661e73602992c",
+    "mpmath-1.3.0-py3-none-any.whl": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+    "native-wheel.whl": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+    "public-execution.json": "f7a4c3ec628ee8cfbfc8b0cfa8de37d2e6ec2c80e94938b037dc6a80e78f7dd2",
+    "public-owner-exit.json": "5bc232b82de377a5655a39a2af9d7ae0fc868de5b9df957e18905cb914606c88",
+    "public-owner.py": "4ad3304ef42580d6f748aa92736abaae6de5d85b656f27a2b11f1c1472658c2f",
+    "public-replay.json": "d08907eca7beab2975d5bfd4294fb15863d17f3806b8ab1d2542b216f13deb98",
+    "public-replay.tar.gz": "083a60bb185a09d24826e59735744d8c65e2cb0580f18464e7bddbb20da16293",
+    "raw.tar.gz": "f76d0f75eb142004d22d176aedc0905418f0359ffad0d4f0b14ea3514ed494c3",
+    "replay-contract.json": "c8d2d8d389d76acf4ec2fb923cfb00726c68f5fe5cb8f97e6ebd3661dfe1f6d8",
+    "results.tar.gz": "b0e0d5cf7804200caedcc51ac1937f85667b927e9babb672d761a11664d6e0e5",
+    "source-manifest.json": "5d7b31cd7fc9879d1b09367f3b55d1197a637026d40eb748281f5f646fec0fc7",
+    "source.tar.gz": "b5ca6d5aecacfeda14a8394013952d38916d60d4eebdc65d3c387887a63843f1",
+    "verification-support.tar.gz": "3ac23eba5ee0c07dd4a833b1b052e6eb825cefa4648223bc9d21ab6e206c3b8a"
+  },
+  "public_numerical_reexecution_passed": true,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "verification": {
+    "experiment_verdict": true,
+    "saved_decisions_reconstructed": true,
+    "rows": 36,
+    "checks_passed": 303,
+    "checks_total": 303,
+    "full_captured_operand_triples": 12,
+    "paired_oracle_entries": 36,
+    "all_full_captured_residuals_exact": true,
+    "timing_identity_is_not_a_gate": true,
+    "fresh_native_prefixes": 6,
+    "fresh_native_solves": 90,
+    "all_fresh_scientific_records_exact": true,
+    "condition_estimates_are_observations": true,
+    "rcond_relative_budget": 7.105427357601002e-15,
+    "maximum_rcond_relative_drift": 4.553357097749675e-16,
+    "all_rcond_rounding_budgets_passed": true,
+    "original_strict_replay_exits": [
+      1,
+      1
+    ],
+    "public_replay_verdict": true
+  },
+  "original_strict_replay_exits": [
+    1,
+    1
+  ],
+  "original_strict_replay_failed": true,
+  "condition_successor_verdict": true,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "new_qualified_co_identities": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0
+}

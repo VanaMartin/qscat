@@ -1,0 +1,700 @@
+{
+  "observed_utc": "2026-10-20T00:13:25.425507+00:00",
+  "source_counts_verified": {
+    "numerov-co-canary-20261020": 99,
+    "numerov-co-canary-public-replay-20261020": 101,
+    "numerov-co-canary-condition-successor-20261020": 103
+  },
+  "installed_artifacts_verified": 242,
+  "running_containers": [
+    "comfyui Up 19 minutes"
+  ],
+  "persistent_disk_free_gib": 57.92006301879883,
+  "experiment_verdict": true,
+  "checks_passed": 303,
+  "checks_total": 303,
+  "prefix_executions": 36,
+  "mixed_solves": 3996,
+  "native_audited_solves": 90,
+  "residual_evaluations": 180,
+  "residuals_exact": 180,
+  "gate_disagreements": 0,
+  "maximum_independent_backward_error": 5.112403212738158e-20,
+  "maximum_corrections": 1,
+  "minimum_sampled_binary64_reciprocal_condition": 0.004260651007489954,
+  "maximum_oracle_scaled_error": 1.4384443533266533e-19,
+  "maximum_reference_scaled_stability": 0.0,
+  "timing_analysis": [
+    {
+      "case": "compressed/nine/B1",
+      "marginal_seconds_per_interval": {
+        "reference": 0.2797994690572523,
+        "native": 0.12499372986455153
+      },
+      "marginal_speedup": 2.2385080384468465,
+      "full_prefix_n128_speedup": 2.1484312175702986,
+      "native_recurring_seconds_per_interval": 0.1229612212718646
+    },
+    {
+      "case": "equilibrium/nine/B2",
+      "marginal_seconds_per_interval": {
+        "reference": 0.2787634554894491,
+        "native": 0.12491869839080512
+      },
+      "marginal_speedup": 2.2315590786684663,
+      "full_prefix_n128_speedup": 2.1482618699179783,
+      "native_recurring_seconds_per_interval": 0.12258468230525821
+    },
+    {
+      "case": "stretched/nine/B1",
+      "marginal_seconds_per_interval": {
+        "reference": 0.2773549284947876,
+        "native": 0.12391814339571283
+      },
+      "marginal_speedup": 2.238210813158319,
+      "full_prefix_n128_speedup": 2.150789151232801,
+      "native_recurring_seconds_per_interval": 0.12190432911880836
+    }
+  ],
+  "accuracy_by_case": [
+    {
+      "case": "compressed/nine/B1",
+      "minimum_rcond": 0.016285227667397848,
+      "maximum_backward_error": 4.3993714912206256e-20,
+      "residual_audit": {
+        "evaluations": 30,
+        "accepted_solves": 15,
+        "exact_residuals": 30,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 4.3993714912206256e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            298
+          ],
+          "dtype": "float128",
+          "native_error": 3.503853853251611e-20,
+          "numpy_error": 3.503853853251611e-20,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "case": "compressed/nine/B2",
+      "minimum_rcond": 0.016285227742607253,
+      "maximum_backward_error": 5.112403212738158e-20,
+      "residual_audit": {
+        "evaluations": 30,
+        "accepted_solves": 15,
+        "exact_residuals": 30,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 5.112403212738158e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            298
+          ],
+          "dtype": "float128",
+          "native_error": 3.170738779147545e-20,
+          "numpy_error": 3.170738779147545e-20,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "case": "equilibrium/nine/B1",
+      "minimum_rcond": 0.019783038506447463,
+      "maximum_backward_error": 4.725199648289685e-20,
+      "residual_audit": {
+        "evaluations": 30,
+        "accepted_solves": 15,
+        "exact_residuals": 30,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 4.725199648289685e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            298
+          ],
+          "dtype": "float128",
+          "native_error": 4.725199648289685e-20,
+          "numpy_error": 4.725199648289685e-20,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "case": "equilibrium/nine/B2",
+      "minimum_rcond": 0.019783038572756925,
+      "maximum_backward_error": 4.941318145420247e-20,
+      "residual_audit": {
+        "evaluations": 30,
+        "accepted_solves": 15,
+        "exact_residuals": 30,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 4.941318145420247e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            298
+          ],
+          "dtype": "float128",
+          "native_error": 1.1796075253856157e-20,
+          "numpy_error": 1.1796075253856157e-20,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B1",
+      "minimum_rcond": 0.004260651007489954,
+      "maximum_backward_error": 4.691724394188516e-20,
+      "residual_audit": {
+        "evaluations": 30,
+        "accepted_solves": 15,
+        "exact_residuals": 30,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 4.691724394188516e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            298
+          ],
+          "dtype": "float128",
+          "native_error": 4.675668754725296e-20,
+          "numpy_error": 4.675668754725296e-20,
+          "iteration": 1
+        }
+      }
+    },
+    {
+      "case": "stretched/nine/B2",
+      "minimum_rcond": 0.004260651012644147,
+      "maximum_backward_error": 4.668847883149274e-20,
+      "residual_audit": {
+        "evaluations": 30,
+        "accepted_solves": 15,
+        "exact_residuals": 30,
+        "gate_disagreements": 0,
+        "maximum_scaled_difference": 0.0,
+        "maximum_accepted_numpy_error": 4.668847883149274e-20,
+        "maximum_iteration": 1,
+        "precision_preserved": true,
+        "last": {
+          "a_shape": [
+            298,
+            298
+          ],
+          "b_shape": [
+            298,
+            298
+          ],
+          "dtype": "float128",
+          "native_error": 4.661707489904565e-20,
+          "numpy_error": 4.661707489904565e-20,
+          "iteration": 1
+        }
+      }
+    }
+  ],
+  "producer_test_execution": {
+    "source_commit": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+    "source_archive_sha256": "b5ca6d5aecacfeda14a8394013952d38916d60d4eebdc65d3c387887a63843f1",
+    "source_files_verified_before": 99,
+    "engine_artifacts_verified_before": 242,
+    "raw_and_component_hashes_verified_before": 26,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-canary-20261020-tests",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-canary-20261020:/work",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/raw:ro",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:197c549d46c65df24bb02202040dd6e4b64c1556246e0fc364c45b2c9a303ac5",
+      "/app/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "projects/ukrmol_co/test_numerov_co_canary.py",
+      "projects/ukrmol_co/test_numerov_native_coupled.py",
+      "projects/ukrmol_co/test_numerov_native_residual.py"
+    ],
+    "stage": "tests",
+    "started_utc": "2026-10-19T23:57:51.756416+00:00",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 180,
+    "expected_wall_seconds": 10,
+    "upper_wall_seconds": 60,
+    "other_running_containers": [
+      "comfyui Up 4 minutes"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 58.310604095458984,
+    "new_prefix_executions_maximum": 0,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-19T23:57:52.737110+00:00",
+    "wall_seconds": 0.9711842789838556,
+    "sampled_memory_current_peak_bytes": 63332352,
+    "sampled_kernel_memory_peak_bytes": 63332352,
+    "sampled_cpu_seconds": 0.416423,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 3,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 99,
+    "raw_and_component_hashes_verified_after": 26
+  },
+  "producer_runtime_execution": {
+    "source_commit": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+    "source_archive_sha256": "b5ca6d5aecacfeda14a8394013952d38916d60d4eebdc65d3c387887a63843f1",
+    "source_files_verified_before": 99,
+    "engine_artifacts_verified_before": 242,
+    "raw_and_component_hashes_verified_before": 26,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-canary-20261020-runtime",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-canary-20261020:/work",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-matrices-source-20261017/raw:/raw:ro",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_canary",
+      "--raw",
+      "/raw",
+      "--contract",
+      "/work/source/projects/ukrmol_co/numerov-co-canary-contract.json",
+      "--output",
+      "/work/result"
+    ],
+    "stage": "runtime",
+    "started_utc": "2026-10-19T23:57:53.056328+00:00",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 1800,
+    "expected_wall_seconds": 600,
+    "upper_wall_seconds": 1200,
+    "other_running_containers": [
+      "comfyui Up 4 minutes"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 58.310546875,
+    "new_prefix_executions_maximum": 36,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-20T00:05:41.993472+00:00",
+    "wall_seconds": 468.9275744930201,
+    "sampled_memory_current_peak_bytes": 192290816,
+    "sampled_kernel_memory_peak_bytes": 192290816,
+    "sampled_cpu_seconds": 468.456538,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 2340,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 99,
+    "raw_and_component_hashes_verified_after": 26
+  },
+  "public_runtime_execution": {
+    "verification_source_commit": "5da71f3704b52f182c3ddd67822109777017207e",
+    "producer_source_commit": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+    "source_archive_sha256": "b5ca6d5aecacfeda14a8394013952d38916d60d4eebdc65d3c387887a63843f1",
+    "source_files_verified_before": 103,
+    "engine_artifacts_verified_before": 242,
+    "raw_and_component_hashes_verified_before": 26,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-canary-condition-successor-20261020-runtime",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-canary-condition-successor-20261020:/work",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_canary_condition_replay",
+      "--report",
+      "/work/collected/result/report.json",
+      "--operands",
+      "/work/collected/result/operands",
+      "--raw",
+      "/work/raw",
+      "--output",
+      "/work/verification.json"
+    ],
+    "stage": "runtime",
+    "started_utc": "2026-10-20T00:11:49.608581+00:00",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 300,
+    "expected_wall_seconds": 90,
+    "upper_wall_seconds": 180,
+    "other_running_containers": [
+      "comfyui Up 18 minutes"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 57.920223236083984,
+    "new_prefix_executions_maximum": 6,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 0,
+    "finished_utc": "2026-10-20T00:12:25.539311+00:00",
+    "wall_seconds": 35.91953099399689,
+    "sampled_memory_current_peak_bytes": 137981952,
+    "sampled_kernel_memory_peak_bytes": 137981952,
+    "sampled_cpu_seconds": 35.478702,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 178,
+    "original_container_exit": 0,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 103,
+    "raw_and_component_hashes_verified_after": 26
+  },
+  "public_verification": {
+    "experiment_verdict": true,
+    "saved_decisions_reconstructed": true,
+    "rows": 36,
+    "checks_passed": 303,
+    "checks_total": 303,
+    "full_captured_operand_triples": 12,
+    "paired_oracle_entries": 36,
+    "all_full_captured_residuals_exact": true,
+    "timing_identity_is_not_a_gate": true,
+    "fresh_native_prefixes": 6,
+    "fresh_native_solves": 90,
+    "all_fresh_scientific_records_exact": true,
+    "condition_estimates_are_observations": true,
+    "rcond_relative_budget": 7.105427357601002e-15,
+    "maximum_rcond_relative_drift": 4.553357097749675e-16,
+    "all_rcond_rounding_budgets_passed": true,
+    "original_strict_replay_exits": [
+      1,
+      1
+    ],
+    "public_replay_verdict": true
+  },
+  "original_strict_replay_execution": {
+    "verification_source_commit": "646257e8235f6ae97c2c7dee2746aa349a051cf2",
+    "producer_source_commit": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+    "source_archive_sha256": "b5ca6d5aecacfeda14a8394013952d38916d60d4eebdc65d3c387887a63843f1",
+    "source_files_verified_before": 101,
+    "engine_artifacts_verified_before": 242,
+    "raw_and_component_hashes_verified_before": 26,
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "numerov-co-canary-public-replay-20261020-runtime",
+      "--cpuset-cpus=0-3",
+      "--memory=4g",
+      "--memory-swap=4g",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-canary-public-replay-20261020:/work",
+      "-w",
+      "/work/source",
+      "-e",
+      "PYTHONPATH=/work/extension:/work/dependencies:/work/source",
+      "-e",
+      "TMPDIR=/work/tmp",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.numerov_co_canary_replay",
+      "--report",
+      "/work/collected/result/report.json",
+      "--operands",
+      "/work/collected/result/operands",
+      "--raw",
+      "/work/raw",
+      "--output",
+      "/work/verification.json"
+    ],
+    "stage": "runtime",
+    "started_utc": "2026-10-20T00:07:32.242388+00:00",
+    "cpuset_cpus": "0-3",
+    "workers": 1,
+    "memory_limit_bytes": 4294967296,
+    "timeout_seconds": 300,
+    "expected_wall_seconds": 90,
+    "upper_wall_seconds": 180,
+    "other_running_containers": [
+      "comfyui Up 14 minutes"
+    ],
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "persistent_disk_free_gib": 58.0850944519043,
+    "new_prefix_executions_maximum": 6,
+    "native_ukrmol_invocations": 0,
+    "new_inner_solves": 0,
+    "original_command_exit": 1,
+    "finished_utc": "2026-10-20T00:07:46.692539+00:00",
+    "wall_seconds": 14.439877474011155,
+    "sampled_memory_current_peak_bytes": 100003840,
+    "sampled_kernel_memory_peak_bytes": 100003840,
+    "sampled_cpu_seconds": 13.834249,
+    "sample_interval_seconds": 0.2,
+    "resource_samples": 70,
+    "original_container_exit": 1,
+    "engine_artifacts_verified_after": 242,
+    "source_files_verified_after": 101,
+    "raw_and_component_hashes_verified_after": 26
+  },
+  "original_strict_replay_exits": [
+    1,
+    1
+  ],
+  "collected_files": {
+    "producer": {
+      "files_verified": 25,
+      "sha256": {
+        "runtime-execution.json": "ef58d86e725967eec979b8d3cfd641acee79e919c1844c358cc5420a44f7514a",
+        "runtime-execution-start.json": "27867d4de0b12c3894dbf6879c6ae962d74c112431a4ea70f4c9f4ae84e0ce6e",
+        "owner.py": "cabb835ff76004a14a1b7069004b70980e5b2b4051c5bcbe5d2bb2f65076d3a2",
+        "runtime-container-inspect.json": "579fcdd4b46308dd88c389be7ea8b17e8510a76ec1b02f114ad3999555c53a76",
+        "tests-container-inspect.json": "818c688eb260159d479a4c93b6c940527496549392859b24e49bdd18cfc09bb1",
+        "tests-run.log": "101c85aa2fabcf7fb5b874412f32c47064aa79128ea74f6f3829dea7502de09b",
+        "tests-execution.json": "fe6312b72eedb7769c8714314bd436ca5594fca4938f62477ddb74ddc0052374",
+        "runtime-resources.jsonl": "57d910755cc73d09e871da2e687ea0ac6c7ade4d8246d476bb91b217025d0b6d",
+        "source-manifest.json": "5d7b31cd7fc9879d1b09367f3b55d1197a637026d40eb748281f5f646fec0fc7",
+        "runtime-run.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tests-execution-start.json": "44d1c3a373cf8ca0563becc349437f8ddfa4e9a63c2ea8db9ae21e55f5e8b30e",
+        "tests-resources.jsonl": "d516396d5fb63edeb2e7af52ff770dc31f2fea61f275cae66bee0454220b1d07",
+        "result/report.json": "dd2ba5a93468ed35f5b9bd4613d375022d3c6eb45e307235e3bb72d1b0fdba05",
+        "result/operands/equilibrium/nine/B1/solve-000.npz": "9be1308d748f65924e91ffad0ef14b5a108d2c1d3ad5552d6cee9a7efdbe878b",
+        "result/operands/equilibrium/nine/B1/solve-014.npz": "9c45852b64a75c93068505ce046df937f37123e9884da4899cd9440393a6a0d4",
+        "result/operands/equilibrium/nine/B2/solve-000.npz": "ba953db9c1024ae253f021ccad2a7ef2aa6f61ba6e6bc2b96fec506aec2b5c8d",
+        "result/operands/equilibrium/nine/B2/solve-014.npz": "14035a381d63f55c45ad069346b7538c49ce3f52cbfacd2830d7a2b9d1686bc3",
+        "result/operands/compressed/nine/B1/solve-000.npz": "f7a36e7345f495daa6b5a929f59c9bf37e54ff0704cd6ea04fa83fec4522e052",
+        "result/operands/compressed/nine/B1/solve-014.npz": "b736fd94f0cf9e896dbb589b0330a091ee46e0e97e4368d32eabba6e54d5ffe0",
+        "result/operands/compressed/nine/B2/solve-000.npz": "556092df98f91a426a314c040bd7250d1f3abb1087c07deee45d46d9e8421b4d",
+        "result/operands/compressed/nine/B2/solve-014.npz": "9cb7852c21aea6f2d22308d4ac2b483a8e2625172b86771bef595c1f9e629ccd",
+        "result/operands/stretched/nine/B1/solve-000.npz": "b63198548c42acf23c364f75b3ba927a6c22787e243ab5acd9f5b71db34077a5",
+        "result/operands/stretched/nine/B1/solve-014.npz": "923a63bbe055cbebe7513319a641547a9fa1f2c2d7d8170ba0aaf06b16613bd6",
+        "result/operands/stretched/nine/B2/solve-000.npz": "93a97043cb42746ae12c20280ac1ab18a93f6bcd87fdc9573db5d5d3171962fc",
+        "result/operands/stretched/nine/B2/solve-014.npz": "5920961099d2110b94e93cb3b4c947d8a1850c618f785cd64b5cdc264a30e4eb"
+      }
+    },
+    "failed_replay": {
+      "files_verified": 7,
+      "sha256": {
+        "downloaded-index.json": "75d5705c00c514f484bb2b753dc4028392791b3295cd1f50deaf86272cda4135",
+        "runtime-execution.json": "21118eab491c0ac8d95b3d1751ce9b29ef8a0830de5796fcaa1abe2ad1decb86",
+        "runtime-execution-start.json": "2a3eede7c09d35aabdaf8f074ab2e32361c273a79a28688a49aa6d07e2450774",
+        "owner.py": "51a4381d04b0c1c0bc51e8d738bc880ab745ab5b175167c041c33dcb511d90be",
+        "runtime-container-inspect.json": "9c4be5d24f58372e904c63467e445a5ae9d5d2c170ac31f79d72560db1aaebfe",
+        "runtime-resources.jsonl": "14234c4e5139cf7bc231845a5aa2244b6bef6d7f0a12595cc3610de77e082972",
+        "runtime-run.log": "bf681e5d0a5f5690ccbd8ade70ff99505b1d2c4c7dd183b6ca4420ce127478f4"
+      }
+    },
+    "replay": {
+      "files_verified": 8,
+      "sha256": {
+        "downloaded-index.json": "77723299ebf3b66ee996b42f3338327cd6ee3b809da3bc4b4e3b72806fa175b9",
+        "runtime-execution.json": "f7a4c3ec628ee8cfbfc8b0cfa8de37d2e6ec2c80e94938b037dc6a80e78f7dd2",
+        "runtime-execution-start.json": "09819e35ef5e5c66351f46bb9332a291f7ab0bc180664b0c2359ded022992095",
+        "owner.py": "4ad3304ef42580d6f748aa92736abaae6de5d85b656f27a2b11f1c1472658c2f",
+        "runtime-container-inspect.json": "371c3fc49d49db2080e8fe057cc1d8e1233dc6cf08f3f72c0f2b70f8e7879c2e",
+        "verification.json": "d08907eca7beab2975d5bfd4294fb15863d17f3806b8ab1d2542b216f13deb98",
+        "runtime-resources.jsonl": "73a0a768adf60cb500c9c07b96185e038791529e60ab71e96c25366cef77931d",
+        "runtime-run.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "public_artifacts": {
+    "artifacts": {
+      "condition-supplement.json": {
+        "bytes": 2462,
+        "sha256": "aa61597631ef58398e30754389647e7255da3092cf89e002544318e3e1d12495"
+      },
+      "condition-support.tar.gz": {
+        "bytes": 1957,
+        "sha256": "e920203b7161183cb54769b3930092c0d60d5d1e6a329445d120b5cd7e7bc371"
+      },
+      "diagnosis.tar.gz": {
+        "bytes": 6430721,
+        "sha256": "9126911804cfb8235e85079e5d29131faa62780dc435fb0e50639ec99aaa851a"
+      },
+      "failed-public-owner-exit.json": {
+        "bytes": 12,
+        "sha256": "8ef199e2ba32edcf45464649ce4dae0f2106f394db6f819c55faa6df8200c959"
+      },
+      "failed-public-replay.tar.gz": {
+        "bytes": 8934,
+        "sha256": "dac7f2056dce5d707aee02effa1c9bf2f5160c8b2f41eb91b0dba79713f23f46"
+      },
+      "manifest.json": {
+        "bytes": 1955,
+        "sha256": "e374bcfe6ce02d75bc36af7da0d358e43ebb946be8162c18fda661e73602992c"
+      },
+      "mpmath-1.3.0-py3-none-any.whl": {
+        "bytes": 536198,
+        "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+      },
+      "native-wheel.whl": {
+        "bytes": 237326,
+        "sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315"
+      },
+      "public-execution.json": {
+        "bytes": 3000,
+        "sha256": "f7a4c3ec628ee8cfbfc8b0cfa8de37d2e6ec2c80e94938b037dc6a80e78f7dd2"
+      },
+      "public-owner-exit.json": {
+        "bytes": 12,
+        "sha256": "5bc232b82de377a5655a39a2af9d7ae0fc868de5b9df957e18905cb914606c88"
+      },
+      "public-owner.py": {
+        "bytes": 8130,
+        "sha256": "4ad3304ef42580d6f748aa92736abaae6de5d85b656f27a2b11f1c1472658c2f"
+      },
+      "public-replay.json": {
+        "bytes": 56443,
+        "sha256": "d08907eca7beab2975d5bfd4294fb15863d17f3806b8ab1d2542b216f13deb98"
+      },
+      "public-replay.tar.gz": {
+        "bytes": 25745,
+        "sha256": "083a60bb185a09d24826e59735744d8c65e2cb0580f18464e7bddbb20da16293"
+      },
+      "raw.tar.gz": {
+        "bytes": 29084671,
+        "sha256": "f76d0f75eb142004d22d176aedc0905418f0359ffad0d4f0b14ea3514ed494c3"
+      },
+      "replay-contract.json": {
+        "bytes": 2883,
+        "sha256": "c8d2d8d389d76acf4ec2fb923cfb00726c68f5fe5cb8f97e6ebd3661dfe1f6d8"
+      },
+      "results.tar.gz": {
+        "bytes": 34462404,
+        "sha256": "b0e0d5cf7804200caedcc51ac1937f85667b927e9babb672d761a11664d6e0e5"
+      },
+      "source-manifest.json": {
+        "bytes": 11932,
+        "sha256": "5d7b31cd7fc9879d1b09367f3b55d1197a637026d40eb748281f5f646fec0fc7"
+      },
+      "source.tar.gz": {
+        "bytes": 420707,
+        "sha256": "b5ca6d5aecacfeda14a8394013952d38916d60d4eebdc65d3c387887a63843f1"
+      },
+      "verification-support.tar.gz": {
+        "bytes": 3638,
+        "sha256": "3ac23eba5ee0c07dd4a833b1b052e6eb825cefa4648223bc9d21ab6e206c3b8a"
+      }
+    },
+    "git_sha": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+    "url_prefix": "https://data.qscat.org/co-numerov-co-canary-20261020/"
+  },
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "historical_unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "new_qualified_co_identities": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0
+}

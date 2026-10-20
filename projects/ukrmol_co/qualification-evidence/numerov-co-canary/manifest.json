@@ -1,0 +1,52 @@
+{
+  "git_sha": "8520bbbad8879e450066b07aceb48e7b9e42b51d",
+  "verification_support_git_sha": "646257e8235f6ae97c2c7dee2746aa349a051cf2",
+  "verification_support_sha256": {
+    "projects/ukrmol_co/numerov_co_canary_replay.py": "b6a2e3a78de1b4febebd2403c5a5d66f94dc187d2c883ba8cca762e10dd7789c",
+    "projects/ukrmol_co/test_numerov_co_canary_replay.py": "302ae61a1b40ad6f1c83ee9b9cc17d81de97c5eead42ef475219b210b04cf668"
+  },
+  "record_type": "saved-co-recurrence-conditioning-canary",
+  "date": "2026-10-20",
+  "experiment_verdict": true,
+  "checks_passed": 303,
+  "checks_total": 303,
+  "rows": 36,
+  "original_runtime_exits": [
+    0,
+    0
+  ],
+  "original_owner_exit": 0,
+  "public_numerical_reexecution_passed": true,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "co_successor_submitted": false,
+  "new_qualified_co_identities": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0,
+  "original_strict_public_replay_exits": [
+    1,
+    1
+  ],
+  "original_strict_public_owner_exit": 1,
+  "original_strict_replay_failed": true,
+  "condition_support_git_sha": "5da71f3704b52f182c3ddd67822109777017207e",
+  "condition_support_sha256": {
+    "projects/ukrmol_co/numerov_co_canary_condition_replay.py": "145996f39a09eaa9c69ebaa3fc3bce3915e80a3100174616200c6c46b42540bd",
+    "projects/ukrmol_co/test_numerov_co_canary_condition_replay.py": "5991a52a4c869f3bacbe1f50abde7d07de41771311d7ef1c87d85124422dbc2d"
+  },
+  "diagnosis_sha256": "7737b009221a35a6aeea71446e37d582755a90f6973c6c7482c2517b9ca9e18a",
+  "condition_successor_verdict": true,
+  "public_audited_native_scientific_records_exact": 6,
+  "public_saved_decisions_verified": 303,
+  "public_replay_exits": [
+    0,
+    0
+  ],
+  "public_owner_exit": 0,
+  "timing_repetitions_reexecuted": 0,
+  "condition_estimate_relative_budget": 7.105427357601002e-15,
+  "maximum_rcond_relative_drift": 4.553357097749675e-16
+}

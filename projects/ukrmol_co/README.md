@@ -76,7 +76,18 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 19 October, 16:05 UTC:** [native residual integration](NUMEROV_NATIVE_INTEGRATION.md)
+**Update — 20 October, 00:13 UTC:** the [saved-CO canary](NUMEROV_CO_CANARY.md)
+passes **303/303 checks / exits0/0**,36 short prefixes /3,996 mixed solves across
+six actual CO cases. All180 audited residual matrices match NumPy; zero gate
+disagreements, at most one correction. Measured early-region marginal gain is
+**2.23–2.24×**, with runtime468.93s / .179GiB. A separate public successor
+reproduces all six scientific prefix records exactly, exits0/0. The original
+strict replay's1/1 exits are preserved: only auxiliary condition-estimate last
+bits differ; the successor checks those observations under an explicit rounding
+budget. All19 final public payloads verify. Prefixes stop before18.2bohr; a
+separately costed long-range radial pilot is next, with nativeK gates still open.
+
+**Earlier update — 19 October, 16:05 UTC:** [native residual integration](NUMEROV_NATIVE_INTEGRATION.md)
 passes **538/538 checks / exits 0/0** over 50 propagations and 1,737,200 mixed
 solves. All 1,735,263 independently audited residual evaluations match NumPy,
 with zero decision disagreements. Four-channel analytic/physical/stress controls
@@ -469,12 +480,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--16-october-2026"></a>
 
-## Progress overview — 19 October 2026
+## Progress overview — 20 October 2026
 
-![CO qualification: native integration passes 538 checks and exact replay with 2.26 times lower synthetic interval cost](../../docs/physics/figures/co-progress-20261019-native-integration.png)
+![CO qualification: actual saved-CO prefixes pass303 checks with2.23–2.24 times lower early-region interval cost](../../docs/physics/figures/co-progress-20261020-co-canary.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261019-native-integration.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261019-native-integration.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261020-co-canary.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261020-co-canary.json) ·
+[Actual CO recurrence canary](NUMEROV_CO_CANARY.md) ·
+[Canary public evidence](qualification-evidence/numerov-co-canary/README.md) ·
+[Previous integration figure](../../docs/physics/figures/co-progress-20261019-native-integration.svg) ·
+[Previous integration snapshot](progress-snapshot-20261019-native-integration.json) ·
 [Native integration qualification](NUMEROV_NATIVE_INTEGRATION.md) ·
 [Native integration public evidence](qualification-evidence/numerov-native-integration/README.md) ·
 [Previous primitive figure](../../docs/physics/figures/co-progress-20261019-native-residual.svg) ·
@@ -764,13 +779,13 @@ The six panels explain the qualification campaign:
   pole curve; background-sensitive extraction still needs qualification. The
   CAS12 both-sector native candidate is shown in the note alongside the completed
   independent export/Pi checks; it remains provisional for pole extraction.
-- **B — Native residual integration.** All 538 checks pass over 50 propagations.
-  Every one of 1,735,263 native accuracy residuals matches NumPy, with zero gate
-  disagreements and at most one correction. Four-channel embeddings force the
-  mixed path; short/physical/dense and all three stress endpoints pass. Separate
-  unaudited timing rows show 2.26–2.27× marginal interval improvement and
-  1.84–1.88× full N128 improvement. Complete public numerical replay is exact.
-  Actual CO conditioning, throughput and native error bounds remain open.
+- **B — Actual CO recurrence canary.** All303 checks pass across six cases and
+  36 prefixes /3,996 mixed solves. All180 audited residuals match NumPy, zero gate
+  disagreements and at most one correction. Marginal early-region cost improves
+  2.23–2.24×; minimum binary64 rcond is .00426065. Six fresh public prefixes match
+  scientific records exactly. Original strict replay1/1 on auxiliary rcond
+  last bits is retained; the separate successor bounds that observation's drift.
+  These prefixes stop before18.2bohr; long-range/nativeK accuracy remains open.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
   budgets pass over 1.9–2.5 bohr: maximum QZ/5Z relative difference 17.243 meV and
@@ -794,7 +809,7 @@ The six panels explain the qualification campaign:
   The scientific4096comparison adds **14.92 h / 21.74 GiB** and passes pair
   stability; absolute omitted-spectrum qualification remains open.
   This inner-region memory constraint is distinct from the 298-channel exterior:
-  one dense extended matrix is 1.36 MiB and the integrated run peaks at .138 GiB.
+  one dense extended matrix is 1.36 MiB and the CO canary peaks at .179 GiB.
   Sparse potentials have two 149-channel blocks, but the full boundary and early
   recurring solve systems are dense. Inner-region sparse methods remain required.
 - **E — Measured channel sensitivity.** Five→nine retained A2 roots change
@@ -807,14 +822,14 @@ The six panels explain the qualification campaign:
   channels, identity, width extraction and neutral correlation still determine the
   production model. A frozen restartable pilot precedes the sweep and held-out
   QSCAT potential validation. Coupled extended arithmetic passes its finite
-  controls; native residual integration now passes accuracy/stress/performance
-  gates and exact replay. A costed saved-CO-matrix canary precedes an interior
-  comparison; no automatic full 60-solve submission follows.
+  controls; native integration and actual-CO early prefixes pass. A costed
+  long-range radial pilot precedes an interior comparison; no automatic full
+  60-solve submission follows.
 
-The **19 October 16:05:32 UTC** snapshot adds integrated native residual
-qualification: 538 decisions, 2.26–2.27× marginal interval improvement, all
-three finest stress endpoints and complete exact numerical replay. Actual
-CO conditioning/throughput is next.
+The **20 October 00:13:25 UTC** snapshot adds actual-CO early-prefix
+qualification:303 decisions,2.23–2.24× marginal gain and six exact scientific
+public replays. The strict replay failure remains; auxiliary condition-estimate
+roundoff is bounded separately. Long-range CO conditioning/accuracy/cost is next.
 The earlier32-propagation coupled control and exact replay remain qualified.
 Earlier interior false/exits1/1 and all other
 numerical/model rejections remain recorded. Historical independent coverage is
@@ -834,7 +849,7 @@ uv run --with matplotlib python -m projects.ukrmol_co.progress_figure
 ```
 
 The renderer checks the snapshot's source-file hashes before plotting. The new
-snapshot is an explicit delta against the hash-pinned 14:41 native-primitive snapshot; its chain
+snapshot is an explicit delta against the hash-pinned 19 October16:05 integration snapshot; its chain
 pins the earlier releases and first snapshot. Historical values and the neutral
 curve remain identical. Its 52
 neutral points are condensed from the checksum-indexed public neutral archive;

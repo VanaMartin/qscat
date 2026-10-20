@@ -20,25 +20,79 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Actual-CO recurrence canary frozen for bounded execution — 20 October
+### Actual-CO recurrence canary and scientific-record replay pass — 20 October, 00:13 UTC
 
-The [saved-CO canary](NUMEROV_CO_CANARY.md) and
-[finite contract](numerov-co-canary-contract.json) select the six existing
+The [saved-CO canary](NUMEROV_CO_CANARY.md) freezes/pushes at
+**`8520bbbad8879e450066b07aceb48e7b9e42b51d`**. Its
+[finite contract](numerov-co-canary-contract.json) selects the six existing
 high-|K| identities: compressed B1/B2 index87, equilibrium B1/B2 index53,
 stretched B1/B2 index18. All receive N8 reference/audited-native prefixes;
 compressed B1/equilibrium B2/stretched B1 receive two opposite-order N32/128
 timing pairs. **36 prefixes / 3,996 mixed solves / 1,980 recurring updates**;
-90 native accuracy solves independently audit residual decisions, 12 actual
-operand triples supply paired80/110-digit residual-entry checks. Canonical
-final-delta hashes, all accuracy operands and numerical diagnostics must match.
+**303/303 checks / original tests/runtime exits0/0 / 17 remote tests pass**.
+All90 native accuracy solves independently audit residual decisions; all180 full
+residual matrices match NumPy with zero gate disagreements and at most one
+correction. Maximum independent accepted backward error **5.11240e-20**.
+All paired canonical final-delta hashes, accuracy operands and solver stats match.
+Twelve full actual operand triples supply36 paired80/110-digit residual entries,
+maximum scaled arithmetic error **1.43844e-19**, within32 extended epsilons.
+
+Minimum sampled binary64 reciprocal one-norm condition estimate is **.0042606510**.
+It is a preconditioner observation, not a forward-error bound. Native marginal
+early-region rates compressed B1/equilibrium B2/stretched B1 are
+**.12499373 / .12491870 / .12391814 s per interval**, versus reference
+.27979947 / .27876346 / .27735493: **2.23851× / 2.23156× / 2.23821×** gains.
+FullN128-prefix gains are2.14843× /2.14826× /2.15079×. Native marginal rates are
+only3.42–4.32% above the prior synthetic varying rate; this is not long-range cost.
 
 The unchanged propagator stops at its second Taylor call, before endpoint tail
 matching. Final prefix radii are 18.0109375/18.0484375/18.1984375 bohr; this
 measures early CO conditioning/throughput, not a short-radius physical K or
-long-range cost. Reserved physical cores0–3 / one worker / single-threaded BLAS /
-4 GiB, expected600s / upper1200s / hard1800s. Preserve unrelated ComfyUI workload
-and record potential timing contention. No automatic full propagation follows.
-Prior numerical modules, native kernel and wheel remain frozen/read-only.
+long-range cost. Runtime finishes **00:05:41 UTC / 468.927574 s wall /
+468.456538 sampled CPU s /192,290,816-byte peak**,2340 samples. Reserved physical
+cores0–3 / one worker / single-threaded BLAS /4 GiB, below600/1200/1800-s budgets.
+Unrelated ComfyUI remains untouched. All99 frozen sources /242 artifacts /24 raw
+inputs /two wheel components verify before/after. Originals:
+`prepared/numerov-co-canary-20261020/`,25-file collection including12 operands.
+
+**Preserved original public replay failure:** support `646257e` completes saved
+verification but rejects the first fresh prefix's all-fields-exact comparison,
+**00:07:46 UTC / exits1/1 /owner1**,14.439877s /100,003,840-byte peak. No completed
+verification JSON exists. A separate fixed one-prefix diagnostic at `858b370`
+finishes00:09:27UTC /exits0/0 /4.976144s /105,230,336-byte peak. It finds only
+eight auxiliary binary64 rcond estimates differ (<=8.88e-16 absolute); all
+scientific fields, actual A/B/X hashes and full captured entries are exact.
+This is not an elementary-operation cause attribution. Original failed replay
+and diagnostic remain public, unchanged.
+
+**Separate condition-observation successor:** supplement/support freeze at
+**`5da71f3`**; original producer and strict verifier remain unchanged. All scientific
+records stay exact. Only positive/finite auxiliary rcond observations use a
+32-binary64-epsilon relative rounding budget (7.10543e-15), preserving all303
+saved decisions and every original residual/refinement gate. The successor passes
+**00:12:25UTC /exits0/0 /owner0**: all303 decisions,12 full captured residuals,
+36 paired entries and **six fresh audited native prefixes /90 solves** verify;
+scientific hashes/stats/residual aggregates are exact. Maximum rcond relative
+drift **4.55336e-16**. Timing rows are not repeated. Cost35.919531s wall /
+35.478702 sampled CPU s /137,981,952-byte peak,178 samples, below90/180/300-s budgets.
+All103 effective sources /242 installed artifacts /26 raw/component pins verify.
+Successor originals: `prepared/numerov-co-canary-condition-successor-20261020/`.
+
+All **19 final public payloads** and the final index fresh-verify; public prefix:
+`https://data.qscat.org/co-numerov-co-canary-20261020/`. The
+[00:13:25 UTC capture](progress-numerov-co-canary-result-20261020.json) verifies
+all40 producer/failed/successor collected hashes and all99/101/103 frozen sources;
+242 engine artifacts remain byte-identical. No scientific container runs;
+ComfyUI remains active,57.92GiB free. Prior numerical modules/kernel are unchanged.
+
+**Next:** separately cost a bounded long-range CO radial pilot addressing
+conditioning, accuracy and throughput beyond18.2bohr. No automatic60-solve scope.
+Original interior false/exits1/1,14 corner identities, historical132/594 coverage /
+462 uncomputed, nativeK and all model/extraction/continuity/neutral gates remain.
+Local final checks:12 focused tests pass /one native-format skip exercised by
+the17 passing remote tests; Ruff lint/format and diff checks pass. Main index
+is complete at `423d577`, refreshed/current at handoff; all three canary modules
+are branch-only and locally resolved against that main delta and exact freezes.
 
 ### Native coupled integration and exact public replay pass — 19 October, 16:05 UTC
 

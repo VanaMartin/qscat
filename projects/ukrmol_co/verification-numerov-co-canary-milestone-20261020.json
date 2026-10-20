@@ -1,0 +1,51 @@
+{
+  "verified_utc": "2026-10-20T00:15:39.707160+00:00",
+  "producer_freeze": "8520bbb",
+  "original_replay_freeze": "646257e",
+  "successor_freeze": "5da71f3",
+  "source_hashes_verified": 530,
+  "documentation_links_verified": 741,
+  "frozen_numerical_sources_unchanged": true,
+  "producer_checks_passed": 303,
+  "producer_checks_total": 303,
+  "prefix_executions": 36,
+  "mixed_solves": 3996,
+  "native_audited_solves": 90,
+  "native_residuals_exact": 180,
+  "gate_disagreements": 0,
+  "public_scientific_records_exact": 6,
+  "public_native_solves": 90,
+  "original_strict_replay_exits": [
+    1,
+    1
+  ],
+  "condition_successor_exits": [
+    0,
+    0
+  ],
+  "auxiliary_rcond_maximum_relative_drift": 4.553357097749675e-16,
+  "auxiliary_rcond_relative_budget": 7.105427357601002e-15,
+  "public_payloads_fresh_verified": 19,
+  "collected_hashes_verified": 40,
+  "installed_artifacts_verified": 242,
+  "local_tests_passed": 12,
+  "local_tests_skipped": 1,
+  "remote_tests_passed": 17,
+  "ruff_lint_format_and_diff_passed": true,
+  "png_visually_checked_and_svg_validated": true,
+  "main_index_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+  "main_index_integrity": "complete",
+  "main_index_refreshed": true,
+  "main_branch_delta": "Canary producer/strict reader/successor are branch-only; locally resolved and checked against exact source freezes.",
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [
+    1,
+    1
+  ],
+  "historical_unique_energy_coverage": 132,
+  "uncomputed_identities": 462,
+  "new_qualified_co_identities": 0,
+  "co_successor_submitted": false,
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0
+}

@@ -250,6 +250,20 @@ full 60-solve proposal. Dense exterior matrices are small; memory rules excludin
 dense inner-region Hamiltonians remain. Original interior false/exits1/1 and
 historical coverage 132/594 remain unchanged.
 
+The subsequent [actual-CO prefix canary](NUMEROV_CO_CANARY.md) passes **303/303
+checks / exits0/0**,36 prefixes /3,996 mixed solves across six cases. All180
+audited residuals match NumPy; zero gate disagreements, one correction maximum.
+Early-region rates are .12392–.12499 s per native interval,2.23–2.24× reference
+gain, only3.42–4.32% above the synthetic varying rate. Minimum binary64 rcond
+.00426065 is a preconditioner observation. Runtime468.93s / .179GiB; all17 remote
+tests pass. The original public strict-estimate replay fails exits1/1 on rcond
+last bits while science fields/operands agree. A separate explicit supplement
+keeps science records exact, checking rcond estimates within32 binary64 epsilons
+relative; six fresh prefixes /90 solves and303 saved decisions pass exits0/0.
+All19 final public payloads verify, including the failed replay and diagnostic.
+These prefixes end before18.2bohr, without tail matching or K. **Next:** cost a
+bounded long-range radial pilot; no full-scope interior comparison is released.
+
 **Current:** CAS11 DZ imports/scattering and CAS12 DZ imports pass at three
 anchors. Supported stretched aug-TZ passes all64
 root/dipole/subspace/seed-preservation checks. The original stretched TZ import
