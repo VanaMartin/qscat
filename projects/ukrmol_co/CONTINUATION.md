@@ -20,7 +20,7 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Bounded long-range CO radial pilot — prospective 20 October
+### Bounded long-range CO radial pilot running — 20 October, 07:16 UTC
 
 The [radial pilot](NUMEROV_CO_RADIAL_PILOT.md) and
 [finite contract](numerov-co-radial-pilot-contract.json) reuse stretched nine-A2
@@ -41,11 +41,37 @@ audit native residuals;12 full triples supply36 paired80/110-digit oracle entrie
 Reserve physical cores4–11 /four single-threaded workers initially /one endpoint
 worker /8GiB. Forecast **5h elapsed /8h upper /12h cap**, approximately6.12
 single-worker CPU-hours from early rates; actual long-range cost is unmeasured.
-Source/contract must freeze and push before submission. Tests, all24 raw files,
+Source/contract freeze/push at **`37c503f9cfa265f0e29c0533da0e00209dc5d8c5`**.
+Tests, all24 raw files,
 prior/reference/verifier hashes, wheel/components and242 engine artifacts preflight
-before science; any false/unset prevents the next stage. Persistent planned path:
-`prepared/numerov-co-radial-pilot-20261020/`. No submission or result is claimed
-by this prospective entry; launch evidence follows after successful preflight.
+before science; any false/unset prevents the next stage. Persistent originals:
+`prepared/numerov-co-radial-pilot-20261020/`.
+
+**Launched07:15:32UTC** after **22 remote tests pass /original exits0/0**,
+including the native full-propagation analytic test. All107 frozen sources,
+242 engine artifacts and28 raw/prior/component pins verify before execution.
+The [07:16:30UTC launch capture](progress-numerov-co-radial-pilot-launch-20261020.json)
+reverifies source/engine bytes: four initial workers active, zero completed rows,
+scientific verdict unset; memory peak241,397,760 bytes. The detached persistent
+owner enforces the12h cap, records.2-s resources and automatically admits the
+sole400-bohr row only after all initial gates pass. ComfyUI stays active/untouched.
+Local15 tests pass /seven native-format skips are exercised in the22 remote
+passes; Ruff lint/format and diff checks pass.
+
+At **07:18:03UTC**, coarse/medium/fine native workers have2048 solves each,
+at43.6/30.8/24.4bohr; the reference worker has1024 solves at21.2bohr. Largest
+reported accepted backward error1.11467e-19 remains below32 extended epsilons.
+No row has finished and no K/endpoint qualification follows yet. Nine collected
+immutable launch files and all107 committed source bytes independently verify;
+driver/tests/contract remain at the producer freeze. Main index is complete and
+upstream-current at `423d577`; branch-only source and local delta are resolved.
+
+**Next progress check:** inspect `result/*/progress.json` (every1024 solves),
+`result/*/report.json`, aggregate `result/report.json`, `runtime-resources.jsonl`
+and `original-owner-exit.json`. Keep the original owner/command/container exits.
+On completion, independently reconstruct saved decisions, cost any numerical
+replay, publish evidence and refresh the six-panel result overview. No new stage
+outside the frozen five-propagation contract is authorized automatically.
 
 ### Actual-CO recurrence canary and scientific-record replay pass — 20 October, 00:13 UTC
 

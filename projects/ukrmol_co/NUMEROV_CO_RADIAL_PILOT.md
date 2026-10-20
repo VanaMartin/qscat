@@ -1,5 +1,16 @@
 # Bounded long-range saved-CO radial pilot
 
+## Launch — 20 October,07:16 UTC
+
+Source/contract freeze **`37c503f9cfa265f0e29c0533da0e00209dc5d8c5`** is pushed.
+The runtime starts **07:15:32UTC** after **22 remote tests pass /exits0/0**.
+All107 sources,242 engine artifacts and28 raw/prior/component pins preflight.
+The [launch capture](progress-numerov-co-radial-pilot-launch-20261020.json)
+records four initial workers active, zero completed rows and an unset scientific
+verdict. The persistent detached owner enforces the frozen stage gates and12h
+cap. Progress saves every1024 solves; original exits/resources remain under the
+remote directory below. Results and independent numerical verification are pending.
+
 ## Decision and fixed scope
 
 The [near-boundary canary](NUMEROV_CO_CANARY.md) qualifies recurrence behavior only

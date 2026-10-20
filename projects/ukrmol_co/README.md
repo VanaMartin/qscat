@@ -76,6 +76,15 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
+**Running — 20 October,07:16UTC:** the [bounded long-range radial pilot](NUMEROV_CO_RADIAL_PILOT.md)
+starts from pushed freeze `37c503f` after **22 remote tests pass /exits0/0**.
+Four full200-bohr runs test three spacings and a NumPy/native-residual pair at
+the already qualified stretchedB1/1-eV identity. A sole400-bohr run is gated on
+all initial accuracy checks. Maximum five propagations /282,400 mixed solves;
+forecast5h elapsed /8h upper /12h cap, physical cores4–11 /8GiB. All107 sources,
+242 engine artifacts and28 raw/prior/component pins preflight. Scientific
+verdict is pending; see the [launch capture](progress-numerov-co-radial-pilot-launch-20261020.json).
+
 **Update — 20 October, 00:13 UTC:** the [saved-CO canary](NUMEROV_CO_CANARY.md)
 passes **303/303 checks / exits0/0**,36 short prefixes /3,996 mixed solves across
 six actual CO cases. All180 audited residual matrices match NumPy; zero gate

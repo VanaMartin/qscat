@@ -1,0 +1,80 @@
+{
+  "captured_utc": "2026-10-20T07:16:30.671159+00:00",
+  "source_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+  "remote_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/numerov-co-radial-pilot-20261020",
+  "collected_sha256": {
+    "launch.json": "31b4959521ace82b6d270cc18d7ef1599dc7373a1463da97a27ef334e55b2267",
+    "source.tar.gz": "21e064c7f5233e436dd1e5f7fe282fb488227551c1f08d184941014ee8850895",
+    "source-manifest.json": "b0365e8582727b6fc2370c748aae4b1224a5b52b78965a1ae303cc8ddcacd53b",
+    "owner.py": "c5f88c00514b94c1b3db10e6bf1a3d5674fcfcdbaf054f68b6ceeacc4105cc75",
+    "bootstrap.py": "6a04cb5b95246886eac11a64b2b9e6f9fe0acf5255201575552a332e9382a6b7",
+    "tests-execution.json": "0467a87372f6d1be6e60b99e936367ca309f02448a2b5ee157e4a180f7cb113e",
+    "tests-run.log": "e5c94fd40b888edbdf647d3e55ce3d6ca24454d1de9eda302efd4e8398183065",
+    "tests-container-inspect.json": "1932e0efbc75c02f3961f7fa6a6fd47441cd59af30f20e5ca101696b2a3b1dc7",
+    "runtime-execution-start.json": "54a855b5a1b99be65ea65d378fea0e2284da9c59376bf3c80598dfcec21e60f5"
+  },
+  "source_files_verified_now": 107,
+  "installed_engine_artifacts_verified_now": 242,
+  "raw_prior_component_pins_verified_before": 28,
+  "remote_tests": {
+    "passed": 22,
+    "stdout": "......................                                                   [100%]\n22 passed in 0.42s\n",
+    "original_command_exit": 0,
+    "original_container_exit": 0,
+    "wall_seconds": 0.9712963649944868
+  },
+  "runtime_started_utc": "2026-10-20T07:15:32.137345+00:00",
+  "runtime_state": "running",
+  "runtime_pid": 121686,
+  "cpuset_cpus": "4-11",
+  "memory_limit_bytes": 8589934592,
+  "memory_peak_bytes": 241397760,
+  "sampled_cpu_seconds": 232.252915,
+  "completed_rows": 0,
+  "experiment_verdict": null,
+  "progress": [],
+  "row_directories": [
+    "native-200-medium",
+    "native-200-coarse",
+    "reference-200-fine",
+    "native-200-fine"
+  ],
+  "original_owner_exit": null,
+  "other_running_containers": [
+    "numerov-co-radial-pilot-20261020-runtime Up 58 seconds",
+    "comfyui Up 7 hours"
+  ],
+  "local_checks": {
+    "focused_tests_passed": 15,
+    "focused_tests_skipped": 7,
+    "all_skipped_native_format_tests_exercised_remotely": true,
+    "ruff_lint_passed": true,
+    "ruff_format_passed": true,
+    "diff_check_passed": true
+  },
+  "followup": {
+    "captured_utc": "2026-10-20T07:18:03.963155+00:00",
+    "experiment_verdict": null,
+    "completed_rows": 0,
+    "original_owner_exit_present": false,
+    "runtime_log_empty": true,
+    "progress": [
+      {"id": "native-200-coarse", "completed_solves": 2048, "expected_solves": 14560, "last_radius_bohr": 43.6, "elapsed_seconds": 126.4363800729916, "maximum_solve_backward_error": 8.355332275090097e-20},
+      {"id": "native-200-fine", "completed_solves": 2048, "expected_solves": 58240, "last_radius_bohr": 24.4, "elapsed_seconds": 126.46970753799542, "maximum_solve_backward_error": 1.1146704260210481e-19},
+      {"id": "native-200-medium", "completed_solves": 2048, "expected_solves": 29120, "last_radius_bohr": 30.8, "elapsed_seconds": 126.7775662689819, "maximum_solve_backward_error": 8.522048322513299e-20},
+      {"id": "reference-200-fine", "completed_solves": 1024, "expected_solves": 58240, "last_radius_bohr": 21.2, "elapsed_seconds": 140.67025334999198, "maximum_solve_backward_error": 1.1146704260210481e-19}
+    ]
+  },
+  "search_provenance": {
+    "indexed_main_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+    "snapshot_integrity": "complete",
+    "upstream_state": "current",
+    "local_delta": "Pilot and canary numerical modules are branch-only; resolved locally against the indexed-main delta and the exact107-file producer freeze. Driver, tests and contract remain byte-identical to37c503f; subsequent changes record launch/documentation only."
+  },
+  "historical_unique_energy_coverage": 132,
+  "new_qualified_co_identities": 0,
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [1, 1],
+  "native_full_k_reconstruction_verdict": false,
+  "new_inner_solves": 0
+}
