@@ -20,6 +20,39 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Long-range CO producer passes — 20 October,11:34 UTC
+
+The [radial pilot](NUMEROV_CO_RADIAL_PILOT.md) completes all **131/131 checks /
+five full propagations /282,400 mixed solves**, original command/container/owner
+exits **0/0/0**. Finest200/400 native64 K discrepancies1.56617e-7 /1.81307e-7,
+final step3.22807e-7, endpoint2.46905e-8 pass separate1e-6 gates. S/phase and
+invariant gates also pass. Full200 native/NumPy scientific records are exact.
+All96 sampled residual evaluations match NumPy across48 accepted sampled solves;
+zero disagreements, at most one correction. All12 triples /36 paired references
+pass, maximum scaled oracle error9.56203e-20. Minimum sampled rcond.000945956
+describes the sampled binary64 preconditioner, not a global forward-error bound.
+
+Runtime **4.31638h wall /6.04903 sampled CPUh /.27837GiB peak**,77,556 samples;
+all107 source /242 engine /28 raw-prior-component pins verify before/after.
+The42-file original collection and exact archive/report hashes are preserved in
+`prepared/numerov-co-radial-pilot-20261020/`. No scientific container remains;
+ComfyUI remains untouched. Producer freeze stays `37c503f`.
+
+The [separate verification/replay contract](numerov-co-radial-pilot-public-replay-contract.json)
+prospectively reconstructs all saved decisions/oracles, then reexecutes exactly
+one full native400 row /122,240 mixed solves from authenticated public bytes.
+Measured7567.65-s row supports7800/10800/14400-s expected/upper/cap on cores4–11,
+one actual worker /4GiB. Saved audit60/120/240s. Tests and saved verification
+must pass before numerical submission. Scientific records and all captured array
+entries remain exact; auxiliary rcond alone has the prior32-epsilon relative
+budget. NPZ storage bytes are authenticated per payload; canonical scalar identity
+is the cross-execution gate. Freeze/push support before running either stage.
+
+**Next:** publish/authenticate original evidence, run independent saved decisions,
+then the single declared numerical replay; update public evidence and six-panel
+overview with their actual status. Original interior false/exits1/1,132/594
+historical coverage, zero new identities and all physical-model gates remain.
+
 ### Bounded long-range CO radial pilot running — 20 October, 07:16 UTC
 
 The [radial pilot](NUMEROV_CO_RADIAL_PILOT.md) and

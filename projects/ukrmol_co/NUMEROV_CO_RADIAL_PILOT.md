@@ -1,5 +1,52 @@
 # Bounded long-range saved-CO radial pilot
 
+## Completed producer — 20 October,11:34 UTC
+
+All **131/131 producer checks /five propagations /282,400 mixed solves** pass;
+original command/container/owner exits **0/0/0**. Finest200/400-bohr K discrepancies
+against native64 are **1.56617e-7 /1.81307e-7**, within their separate1e-6 gates.
+Final step K change **3.22807e-7** and200→400 change **2.46905e-8** pass; S/phase
+and invariant gates pass separately. The native and NumPy-residual full200 runs
+have exact extended K, diagnostics and sampled A/B/X hashes, with zero rcond drift.
+
+All96 observed native residual evaluations across48 sampled solves match NumPy,
+with zero acceptance disagreements; maximum independently audited accepted error
+4.03631e-20. Across every solve, the recorded maximum accepted backward error is
+3.24329e-18, below32 extended epsilons, at most one correction. Twelve full
+captured triples /36 paired80/110-digit entries pass, maximum scaled oracle
+error9.56203e-20. Minimum sampled binary64 rcond is.000945956; this is not a
+global condition or forward-error bound.
+
+Runtime **15,538.964659s /4.31638h wall**, sampled CPU21,776.502185s /6.04903h,
+peak298,893,312 bytes /.27837GiB,77,556 samples at.2s. All107 sources /242 installed
+engine artifacts /28 raw-prior-component pins verify before/after. The42-file
+collection preserves original outputs, resource samples and exits. Qualification
+remains producer-only pending the independently expressed saved verifier below.
+
+## Independent verification and finite public replay
+
+The [separate replay contract](numerov-co-radial-pilot-public-replay-contract.json)
+freezes independent reconstruction of all131 decisions,12 full captured residuals
+and36 high-precision entries. Its reader uses a right-solve Cayley map and
+eigenvalue-arctangent phase, rather than the producer evaluator. Every original
+row/aggregate decision must match. Original observer counters for unsaved
+intermediate operands remain observations.
+
+After saved verification, reexecute **exactly one full native400 row /61,120
+intervals /122,240 mixed solves**, the longest declared endpoint. This is a
+one-row numerical subset, not all five propagations. Require every scientific
+record and every entry of all three captured A/B/X triples exact. Only auxiliary
+positive finite rcond observations use the existing32-binary64-epsilon relative
+budget. Timing and NPZ storage-byte digests are excluded from cross-execution
+identity; each payload's own SHA256 and canonical scalar hashes remain checked.
+
+The measured7567.65-s kernel cost supports **7800-s expected /10,800-s upper /
+14,400-s hard cap**, reserved physical cores4–11 /one actual worker /single-threaded
+BLAS /4GiB. Saved audit has60/120/240-s expected/upper/cap. Freeze/push support
+before either command; failed tests/saved audit prevent numerical submission.
+Fresh public source/raw/wheel/evidence authentication precedes reexecution. No
+retry, additional row or automatic interior scope follows.
+
 ## Launch — 20 October,07:16 UTC
 
 Source/contract freeze **`37c503f9cfa265f0e29c0533da0e00209dc5d8c5`** is pushed.
