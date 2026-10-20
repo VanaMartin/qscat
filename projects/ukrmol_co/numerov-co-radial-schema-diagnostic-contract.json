@@ -1,0 +1,17 @@
+{
+  "status": "prospective saved-output diagnostic of the failed full400 replay; zero new propagations",
+  "original_support_commit": "42bb02f9b7b0f2a76ae50cc65b5d86e95fcd956c",
+  "producer_commit": "37c503f9cfa265f0e29c0533da0e00209dc5d8c5",
+  "original_failure_archive_sha256": "0dd76c6fc58bc826ad206576cee6005b13545427c673656d328faba410ccf613",
+  "original_runtime_and_owner_exits": [1, 1, 1],
+  "discrepancy": "The original full400 propagation completes and passes22 row checks, but the wrapper raises Fresh full-row scientific record differs. Comparing both saved JSON rows with the original field exclusions finds no changed scientific value. The unchanged oracle helper emits lists of tuple coordinates; JSON decoding yields lists of lists. Test this source-backed container-type hypothesis on the actual saved captures before any further numerical propagation.",
+  "scope": "Authenticate all30 original failure files and110 original effective sources, all24 raw inputs/two priors/two wheel components and242 read-only engine artifacts. Independently reconstruct131 original decisions and22 fresh row decisions. Reevaluate the original oracle helper on three fresh full captures and reproduce the old exact-comparison failure solely through its nine tuple coordinate pairs. Normalize only coordinate containers to JSON-compatible lists, preserving every coordinate value and all scientific fields exactly. Verify all entries of the three original/fresh full A/B/X triples, canonical extended K, full diagnostics, sampled operand hashes, audit aggregates and paired high-precision references exactly. Auxiliary rcond retains the previously declared32-binary64-epsilon relative budget. Preserve original wrapper failure/exits separately from a successful saved-output diagnostic.",
+  "resources": {"cpuset_cpus": "0-3", "workers": 1, "memory_gib": 2, "expected_wall_seconds": 20, "upper_wall_seconds": 60, "timeout_seconds": 120, "test_timeout_seconds": 120, "sample_interval_seconds": 0.2},
+  "runtime_image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "test_image": "sha256:197c549d46c65df24bb02202040dd6e4b64c1556246e0fc364c45b2c9a303ac5",
+  "cost_justification": "The completed7164.65-second run already supplies the complete fresh scientific record and three full captured operand triples. A saved-output comparison can decide whether any numerical result changed without repeating two hours of propagation. No new physical data or accuracy is claimed from the schema correction.",
+  "stopping_rule": "Push source/test/contract before remote diagnosis. Tests precede the saved diagnostic. Preserve the original command/container/owner1/1/1 and all failed output bytes. A failed diagnosis stops; no tolerance relaxation, full-row retry,800-bohr expansion,60-solve release or new inner solve is authorized.",
+  "new_propagations": 0,
+  "new_inner_solves": 0,
+  "new_qualified_co_identities": 0
+}

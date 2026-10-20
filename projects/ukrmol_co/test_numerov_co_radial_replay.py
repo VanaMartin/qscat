@@ -1,6 +1,7 @@
 """Independent phase/K gates and exact scientific-record replay boundaries."""
 
 import copy
+import json
 
 import numpy as np
 import pytest
@@ -24,7 +25,9 @@ def record():
         diagnostics=dict(error=1e-20),
         samples=[dict(index=0, reciprocal_condition_1=0.25, x_sha256="exact")],
         captures=[dict(file="a.npz", sha256="storage", index=0)],
-        oracles=[dict(file="a.npz", sha256="storage", references={"80": ["1e-20"]})],
+        oracles=[
+            dict(file="a.npz", sha256="storage", positions=[(0, 0)], references={"80": ["1e-20"]})
+        ],
         kernel_wall_seconds=1.0,
         role_solve_seconds={},
         unaudited_recurring_bins={},
@@ -54,6 +57,22 @@ def test_condition_observations_must_stay_positive_finite_and_within_budget():
             replay.condition_difference(old, fresh)
     fresh["samples"][0]["reciprocal_condition_1"] = 0.251
     assert replay.condition_difference(old, fresh) > 32 * 2**-52
+
+
+def test_actual_oracle_coordinates_survive_json_roundtrip_without_weakening_values(tmp_path):
+    from projects.ukrmol_co.numerov_co_canary import oracle_checks
+
+    a = np.eye(2, dtype=np.longdouble)
+    b = np.ones((2, 2), dtype=np.longdouble)
+    np.savez(tmp_path / "solve-000000.npz", a=a, b=b, x=b)
+    fresh = record()
+    fresh["oracles"] = oracle_checks(tmp_path)
+    archived = json.loads(json.dumps(fresh))
+    assert fresh["oracles"][0]["positions"][0] == (0, 0)
+    assert fresh != archived
+    assert replay.scientific_record(fresh) == replay.scientific_record(archived)
+    archived["oracles"][0]["positions"][0][0] = 1
+    assert replay.scientific_record(fresh) != replay.scientific_record(archived)
 
 
 def test_missing_or_duplicate_radial_samples_reject_before_interpreting_counters(tmp_path):

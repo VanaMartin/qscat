@@ -48,6 +48,9 @@ def scientific_record(row):
         sample.pop("reciprocal_condition_1")
     for entry in result["captures"] + result["oracles"]:
         entry.pop("sha256")
+    for oracle in result["oracles"]:
+        # The oracle emits tuple coordinates; JSON stores the same pairs as lists.
+        oracle["positions"] = [list(pair) for pair in oracle["positions"]]
     return result
 
 
@@ -350,21 +353,24 @@ def audit(root, replay_contract):
     )
 
 
-def reexecute(root, output, replay_contract):
-    from projects.ukrmol_co.numerov_co_radial_pilot import worker
-
+def compare_reexecution(root, output, replay_contract, fresh):
+    """Check an existing complete row and all captured scalar entries exactly."""
     report = json.loads((root / "collected/result/report.json").read_text())
-    config = next(
-        c for c in report["contract"]["configurations"] if c["id"] == replay_contract["row_id"]
-    )
-    output.mkdir()
-    fresh = worker((root / "raw", output, report["contract"], config))
-    old = next(row for row in report["rows"] if row["id"] == config["id"])
-    save(output / "fresh-row.json", fresh)
+    old = next(row for row in report["rows"] if row["id"] == replay_contract["row_id"])
     if fresh.get("experiment_verdict") is not True:
         raise ValueError("Fresh full-row propagation did not pass")
     if scientific_record(old) != scientific_record(fresh):
         raise ValueError("Fresh full-row scientific record differs")
+    directory = output / fresh["id"]
+    if json.loads((directory / "report.json").read_text()) != json.loads(
+        (output / "fresh-row.json").read_text()
+    ):
+        raise ValueError("Fresh aggregate/per-row disk records differ")
+    decisions = saved_row(
+        json.loads((output / "fresh-row.json").read_text()),
+        report["contract"]["absolute_budget"],
+        directory,
+    )
     relative = condition_difference(old, fresh)
     if relative > replay_contract["rcond_relative_budget"]:
         raise ValueError("Fresh auxiliary condition observation exceeds rounding budget")
@@ -376,9 +382,9 @@ def reexecute(root, output, replay_contract):
             if any(not np.array_equal(before[key], after[key]) for key in ["a", "b", "x"]):
                 raise ValueError("Fresh full captured operand entries differ")
     return dict(
-        numerical_replay_passed=True,
         full_rows_reexecuted=1,
         fresh_mixed_solves=fresh["solve_calls"],
+        fresh_row_checks_reconstructed=len(decisions),
         full_scientific_record_exact=True,
         full_captured_operand_entries_exact=True,
         maximum_rcond_relative_drift=relative,
@@ -386,17 +392,71 @@ def reexecute(root, output, replay_contract):
     )
 
 
+def reexecute(root, output, replay_contract):
+    from projects.ukrmol_co.numerov_co_radial_pilot import worker
+
+    report = json.loads((root / "collected/result/report.json").read_text())
+    config = next(
+        c for c in report["contract"]["configurations"] if c["id"] == replay_contract["row_id"]
+    )
+    output.mkdir()
+    fresh = worker((root / "raw", output, report["contract"], config))
+    save(output / "fresh-row.json", fresh)
+    return compare_reexecution(root, output, replay_contract, fresh) | dict(
+        numerical_replay_passed=True
+    )
+
+
+def verify_existing_reexecution(root, output, replay_contract):
+    """Diagnose the preserved failed wrapper without executing another propagation."""
+    from projects.ukrmol_co.numerov_co_canary import oracle_checks
+
+    old = next(
+        row
+        for row in json.loads((root / "collected/result/report.json").read_text())["rows"]
+        if row["id"] == replay_contract["row_id"]
+    )
+    fresh = json.loads((output / "fresh-row.json").read_text())
+    in_memory = copy.deepcopy(fresh)
+    in_memory["oracles"] = oracle_checks(output / fresh["id"])
+    if json.loads(json.dumps(in_memory)) != fresh:
+        raise ValueError("Recomputed original oracle helper differs from the saved row")
+    legacy = scientific_record(in_memory)
+    for target, source in zip(legacy["oracles"], in_memory["oracles"], strict=True):
+        target["positions"] = source["positions"]
+    if legacy == scientific_record(old) or scientific_record(in_memory) != scientific_record(old):
+        raise ValueError("Original coordinate-container failure was not reproduced")
+    runtime = json.loads((root / "runtime-execution.json").read_text())
+    owner = json.loads((root / "original-owner-exit.json").read_text())
+    exits = [runtime["original_command_exit"], runtime["original_container_exit"], owner["exit"]]
+    if exits != [1, 1, 1]:
+        raise ValueError("Original failed replay exits differ")
+    return compare_reexecution(root, output, replay_contract, fresh) | dict(
+        saved_reexecution_verification_passed=True,
+        original_public_numerical_replay_passed=False,
+        original_public_runtime_and_owner_exits=exits,
+        coordinate_container_failure_reproduced=True,
+        tuple_coordinate_pairs=sum(len(row["positions"]) for row in in_memory["oracles"]),
+        new_propagations=0,
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for key in ["root", "contract", "output"]:
         parser.add_argument("--" + key, type=Path, required=True)
-    parser.add_argument("--replay-output", type=Path)
+    execution = parser.add_mutually_exclusive_group()
+    execution.add_argument("--replay-output", type=Path)
+    execution.add_argument("--existing-replay-output", type=Path)
     a = parser.parse_args()
     contract = json.loads(a.contract.read_text())
     summary = audit(a.root, contract)
     save(a.output, summary)
     if a.replay_output is not None:
         summary.update(reexecute(a.root, a.replay_output, contract))
+        save(a.output, summary)
+    if a.existing_replay_output is not None:
+        summary.update(verify_existing_reexecution(a.root, a.existing_replay_output, contract))
         save(a.output, summary)
 
 
