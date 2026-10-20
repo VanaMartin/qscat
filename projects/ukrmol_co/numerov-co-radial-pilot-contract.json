@@ -1,0 +1,59 @@
+{
+  "status": "prospective bounded long-range saved-CO radial pilot",
+  "case": "stretched/nine/B1",
+  "energy_index": 18,
+  "energy_rydberg_hex": "0x1.2d0e560418936p-4",
+  "selection_rule": "Reuse the already corner-qualified high-|K| stretched B1 1-eV identity, also the smallest sampled rcond in the early CO canary. This permits comparison with native64 and independently retained binary64 increment rows at 200/400 bohr without invoking UKRmol or entering the rejected new-interior selection.",
+  "raw_contract_sha256": "11b1aca2ed6f127c88b50bc4de22d7fd4c31ebf6431de95495dc2871c6b042bf",
+  "prior_sha256": {
+    "corner.json": "6867a16b86a446147622548953c7aac8f7954b33a12dd2bb48e92ced5a8332f1",
+    "native64.bin": "b730a895e6b36effde408fc56eab755d18be3591bcc87b30c4168d7fc09a4c0c"
+  },
+  "prerequisite_sha256": {
+    "verification-numerov-co-canary-public-20261020.json": "ffcc8cda481756b10ff8549736077ef109fe0f319fc85a49038af6a349596a0e",
+    "verification-numerov-corner-public-20261019.json": "6e79240416c17a4038fd20ebe70c5799183ab53604675a9d873c10fa11f4a603"
+  },
+  "configurations": [
+    {"id": "native-200-coarse", "stage": "initial", "backend": "native", "endpoint_bohr": 200.0, "step_bohr": 0.025},
+    {"id": "native-200-medium", "stage": "initial", "backend": "native", "endpoint_bohr": 200.0, "step_bohr": 0.0125},
+    {"id": "native-200-fine", "stage": "initial", "backend": "native", "endpoint_bohr": 200.0, "step_bohr": 0.00625},
+    {"id": "reference-200-fine", "stage": "initial", "backend": "reference", "endpoint_bohr": 200.0, "step_bohr": 0.00625},
+    {"id": "native-400-fine", "stage": "endpoint", "backend": "native", "endpoint_bohr": 400.0, "step_bohr": 0.00625}
+  ],
+  "radius_bohr": 18.0,
+  "tail_order": 8,
+  "threshold_degeneracy_rydberg": 1e-10,
+  "propagations": 5,
+  "nominal_intervals": 141200,
+  "mixed_solves": 282400,
+  "native_intervals": 112080,
+  "reference_intervals": 29120,
+  "absolute_budget": 1e-6,
+  "accuracy_rule": "All unsymmetrized finest rows must separately pass K/S/phase-modulo-pi against native64 and saved same-grid binary64 increment, each1e-6. Final step and 200-to-400 endpoint differences each pass all three1e-6 gates. S step change must shrink by8 or reach1e-8. Every row passes separate1e-6 unitarity/reciprocity. Coarse rows diagnose convergence; no native accuracy claim for coarse rows. Native/reference fine200 require exact extended K, complete solver diagnostics and all sampled A/B/X hashes. Only auxiliary positive finite binary64 rcond observations permit32-binary64-epsilon relative drift; this preserves the original strict canary replay failure1/1.",
+  "sampling_rule": "Initialization0; both potential/ratio solve indices2i-1/2i at fixed interior grid radii25,50,100,150,200,300 when below endpoint; last ratio2N-2; matching2N-1. All sampled native solves independently audit every residual/decision against NumPy, require numeric full residual equality, zero decision disagreement,64-bit significand,32-extended-epsilon backward gate and at most3 corrections. Every unsampled solve retains the same backward/correction gates. Condition estimates describe only sampled binary64 preconditioners, not a global condition/forward-error bound.",
+  "captured_oracles": "Capture native initialization, final ratio and matching accepted A/B/X for each native row:12 full triples/36 paired80-and110-digit residual entries. Reference stability<=1e-60 and scaled residual error<=32*2^-63. Save complete arrays and hashes. Samples cannot certify every long-range residual independently.",
+  "ordering": "Submit the four initial200-bohr configurations in listed order to four single-threaded processes; fixed in-flight rows finish. Inspect every row, oracle and comparison before submitting the sole400-bohr row. False/unset prevents endpoint submission. No retries, extra spacings/endpoints/identities or automatic follow-on.",
+  "performance_rule": "Observe complete kernel elapsed time, per-role solve sums and25-bohr bins of unaudited recurring solve time. Audit/condition/hash/capture/oracle overhead is reported within elapsed time and must not be labelled pure timing. No native/reference full-runtime speedup hypothesis: native and reference audit different work, and initial workers share host load. Do not extrapolate one identity to all energies or800bohr.",
+  "runtime_image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "test_image": "sha256:197c549d46c65df24bb02202040dd6e4b64c1556246e0fc364c45b2c9a303ac5",
+  "wheel_sha256": "3c64a66328fd9bb266a88ed143ebd1de9d45ba183a501f590384ab30bce89315",
+  "wheel_components": {
+    "qscat_extended_kernels/__init__.py": "0cb1331687430ecc365653c9462700e86b195f2501fe8b9541bf911ff688f6cc",
+    "qscat_extended_kernels/qscat_extended_kernels.abi3.so": "d977b8b652a17c4de629138bb22d153bee235cc7a268dc049349e867583be61e"
+  },
+  "resources": {
+    "cpuset_cpus": "4-11", "workers": 4, "blas_threads": 1, "memory_gib": 8,
+    "expected_wall_seconds": 18000, "upper_wall_seconds": 28800, "timeout_seconds": 43200,
+    "test_timeout_seconds": 240, "sample_interval_seconds": 0.2
+  },
+  "cost_justification": "Decision-changing discrepancy: actual298-channel extended/mixed CO accuracy, conditioning observations and recurring throughput are unknown beyond18.2bohr. Reuse the already qualified stretched large-K identity and native64 rather than the withheld60-solve scope. Fixed3 spacings are the minimum convergence sequence; one full NumPy-residual fine200 comparator tests accumulated kernel substitution; sole400 row tests long-range endpoint/cumulative behavior. Early rates.124 native/.279 reference s/interval give22022.40 single-worker seconds=6.1173CPUh, approximately2.26h initial critical path plus2.11h endpoint before overhead. Forecast5h elapsed, upper8h, hard12h, eight reserved physical cores4-11/four workers initially/one endpoint worker/8GiB;0-3 remain available for small work. These early-rate cost estimates are hypotheses, not established long-range rates. Record unrelated ComfyUI without modifying it.",
+  "stopping_rule": "Freeze/push source and contract before submission; pin source archive, all24 raw files, prior corner/native64, canary/corner verification, existing wheel/components, runtime images and242 read-only engine artifacts. Tests precede science. Stop at first stage with false/unset; preserve full in-flight outputs and original command/container/owner exits, failure messages and sampled resources. Hard cap does not authorize a retry or partial pass. Numerical public verification/reexecution needs a separately costed contract after results.",
+  "original_interior_analytic_verdict": false,
+  "original_interior_scientific_exits": [1, 1],
+  "historical_unique_energy_coverage": 132,
+  "new_qualified_co_identities": 0,
+  "native_full_k_reconstruction_verdict": false,
+  "co_successor_submitted": false,
+  "native_ukrmol_invocations": 0,
+  "new_inner_solves": 0
+}

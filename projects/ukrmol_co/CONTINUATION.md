@@ -20,6 +20,33 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Bounded long-range CO radial pilot — prospective 20 October
+
+The [radial pilot](NUMEROV_CO_RADIAL_PILOT.md) and
+[finite contract](numerov-co-radial-pilot-contract.json) reuse stretched nine-A2
+B1 index18, exact Rydberg `0x1.2d0e560418936p-4`, with the previously qualified
+native64 and binary64 increment references. Five maximum full propagations:
+native200 at h=.025/.0125/.00625, NumPy-residual200 at h=.00625, then native400
+at h=.00625 only if every initial row/oracle/comparison passes. Total maximum
+**141,200 intervals /282,400 mixed solves**, all298 channels; no engine invocation.
+
+Each finest row separately passes1e-6 unsymmetrized K/S/phase gates against
+native64 and the saved same-grid increment result; final step and endpoint
+changes have the same separate budgets. Backend fine200 extended K, complete
+diagnostics and sampled A/B/X hashes must be exact; auxiliary rcond alone retains
+the prior32-binary64-epsilon relative budget. Original strict canary replay1/1
+and original interior false/exits1/1 remain. Fixed radial samples independently
+audit native residuals;12 full triples supply36 paired80/110-digit oracle entries.
+
+Reserve physical cores4–11 /four single-threaded workers initially /one endpoint
+worker /8GiB. Forecast **5h elapsed /8h upper /12h cap**, approximately6.12
+single-worker CPU-hours from early rates; actual long-range cost is unmeasured.
+Source/contract must freeze and push before submission. Tests, all24 raw files,
+prior/reference/verifier hashes, wheel/components and242 engine artifacts preflight
+before science; any false/unset prevents the next stage. Persistent planned path:
+`prepared/numerov-co-radial-pilot-20261020/`. No submission or result is claimed
+by this prospective entry; launch evidence follows after successful preflight.
+
 ### Actual-CO recurrence canary and scientific-record replay pass — 20 October, 00:13 UTC
 
 The [saved-CO canary](NUMEROV_CO_CANARY.md) freezes/pushes at
