@@ -1,0 +1,31 @@
+{
+  "status": "prospective independent qualification of the completed new fixed orbital frame",
+  "run": "co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021",
+  "original_execution": "prepared/fifty-import-source-20261021/execution.json",
+  "original_seed_preservation_passed": false,
+  "original_seed_verifier_and_owner_exits": [1, 1, 1],
+  "scientific_question": "Does the already completed new fifty-component checkpoint independently pass physical/penalized CI coverage and reproduce all74 saved native target eigenvalues and complete vectors, without inheriting the old seed coverage or repeating orbital optimization?",
+  "discrepancy": "The3-hour target run passes native/new-QC averaged-root import but rejects original seed preservation in6/50 roots, maximum3.38450e-7Hartree versus1e-7. This successor establishes its own fixed-frame reference. It cannot turn the old rejection into a pass.",
+  "input_sha256": {
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/co.casscf.chk": "4c55e3b3828585a451b76a565bc17c4e70227ef1e0e02d1636565250326e386c",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/co.molden": "9ba4b2a85a0cb1574ec576fa6dbabada4293ec089fcdd03b96e4d431d74f97d9",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/target.json": "a69fa567ddc91826a8e54d22abe04f9f6aa1a2449c0c1fb0886c373e26fb45df",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/config.json": "21569471c48bc8fc57f93b633e48f9428693a5c70fa86fdc0fb2d82580214ba8",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/result.json": "302e72b29e439e803be8fcc7448e09c690850e4872c1c335f1a791a3cfa791cd",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/resources.json": "12c96232cd8b609ed6f4d37d8b8b563d7d4849e202f3556f1ed2f9ae012c4d21",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.26": "f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.24": "07f6ad8485b172342d3371cd83371d602117ffbb0a40b7576f86181f1d6b9237",
+    "prepared/fifty-import-source-20261021/execution.json": "7a304d6d454b9aee07fac233de8939ad533f557fa48c92152621d93bdb93288b",
+    "prepared/fifty-import-source-20261021/independent-verification.log": "80c248d08c2c7e9b8917ca8d9078b509543be3dc6f66c3160929efda6f3a8fc7"
+  },
+  "ci_reference_sha256": "095e81ca0b57ded9a5eb6c6f082860864fdd641bd72eda247cd696ea6e2f9cfd",
+  "saved_property_counts": {"singlet.A1": 7, "singlet.B1": 6, "singlet.B2": 6, "singlet.A2": 3, "triplet.A1": 6, "triplet.B1": 8, "triplet.B2": 8, "triplet.A2": 6},
+  "property_scope": "The saved DENPROP50 export selects global low states and contains only3 singlet A2 roots. Qualifying the complete74-root CIDATA does not qualify this property file for matched five-A2 scattering. A subsequent explicitly selected property export and physical channel correspondence need a separate contract/cost before any inner solve.",
+  "ci_reference_provenance": "Byte-identical helper from the previously validated two-frame96-probe coverage under prepared/electronic-successors-source/projects/ukrmol_co/coverage_reference.py; now tracked for portable reproduction. Its Hubbard-dimer analytic/perturbed-vector control precedes this run.",
+  "scope": {"sector_count": 8, "probes": 48, "root_counts_A1": [10, 13], "root_counts_other": [5, 8], "spaces": [40, 80, 160], "fixed_orbital_cycle_cap": 600, "new_orbital_optimizations": 0, "native_engine_invocations": 0, "new_scattering_inner_solves": 0},
+  "gates": {"ci_energy_tolerance_hartree": 1e-12, "ci_lindep": 1e-22, "physical_penalized_and_penalty_action_residual_hartree": 1e-9, "spin_square_error": 1e-6, "ci_vector_orthogonality_error": 1e-9, "ensemble_space_and_root_count_energy_error_hartree": 1e-7, "native_all74_energy_error_hartree": 1e-7, "native_vector_orthogonality_error": 1e-9, "checkpoint_export_subspace_floor": 0.99999999},
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "resources": {"cpuset_cpus": "0-3", "threads": 4, "memory_gib": 4, "available_ram_floor_gib": 8, "free_disk_floor_gib": 30, "expected_wall_seconds": 900, "upper_wall_seconds": 1800, "timeout_seconds": 3600, "sample_interval_seconds": 0.2},
+  "cost_justification": "The existing two-frame96-probe scan measured1280.58s/.658GiB. A single frame is forecast900s expected/1800s upper, with3600s cap and4GiB on four reserved physical cores. This costs far less than repeating the10436-second QC/native import and directly decides whether its saved target can support matched ensemble scattering.",
+  "stopping_rule": "Commit and push source/tests/contract before execution. Use a fresh output directory and mount all completed producer inputs read-only. Authenticate10 input files before/after, including the original failed owner/log. Execute all48 declared probes before judging coverage; preserve every failed probe and original exit. Failed analytic, exported-frame, residual, spin, energy, vector/header/EOF or integrity gate stops the successor. No tolerance changes, CI-space/cycle ladder, orbital optimization, native rerun, new Hamiltonian or production sweep is authorized. A pass releases matched-channel map/cost design only."
+}

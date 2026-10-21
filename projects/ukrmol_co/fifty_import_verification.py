@@ -77,6 +77,65 @@ def covered_sectors(scan, checkpoint_sha256):
     return selected
 
 
+def native_binary_sectors(path, independent):
+    """Validate every vector and header in a complete eight-sector target CIDATA."""
+    sectors = []
+    with FortranFile(path, "r") as stream:
+        for irrep in IRREPS:
+            for spin, label in ((0, "singlet"), (2, "triplet")):
+                assert stream.read_record("u1").tobytes() == b"********                CIDATA  "
+                header = stream.read_record("u1").tobytes()
+                assert len(header) == 208
+                assert header[200:] == bytes(8)
+                assert header[16:136].decode().strip() == f"CO CI calculation - {label} {irrep}"
+                centers, dimension, roots, symmetry = np.frombuffer(
+                    header, "<i8", count=4, offset=136
+                )
+                assert centers == 2 and dimension > 0 and symmetry == IRREPS.index(irrep)
+                assert roots == len(independent[(spin, irrep)])
+                np.testing.assert_array_equal(
+                    np.frombuffer(header, "<f8", count=2, offset=168), [spin / 2] * 2
+                )
+                assert np.frombuffer(header, "<i8", count=1, offset=184)[0] == 14
+                core = np.frombuffer(header, "<f8", count=1, offset=192)[0]
+                charges = []
+                for _ in range(centers):
+                    record = stream.read_record("u1").tobytes()
+                    assert len(record) == 40
+                    values = np.frombuffer(record, "<f8", offset=8)
+                    assert np.isfinite(values).all()
+                    charges.append(values[-1])
+                np.testing.assert_array_equal(charges, [6, 8])
+                record = stream.read_record("<f8")
+                assert len(record) == 2 * dimension + roots
+                energies = record[dimension : dimension + roots] + core
+                assert np.isfinite(energies).all() and np.all(np.diff(energies) >= 0)
+                error = float(np.max(abs(energies - independent[(spin, irrep)])))
+                assert error <= 1e-7
+                vectors = []
+                for index in range(roots):
+                    record = stream.read_record("u1").tobytes()
+                    assert np.frombuffer(record, "<i8", count=1)[0] == index + 1
+                    vector = np.frombuffer(record, "<f8", offset=8)
+                    assert len(vector) == dimension and np.isfinite(vector).all()
+                    vectors.append(vector)
+                gram_error = float(
+                    np.max(abs(np.asarray(vectors) @ np.asarray(vectors).T - np.eye(roots)))
+                )
+                assert gram_error <= 1e-9
+                sectors.append(
+                    dict(
+                        sector=f"{label}.{irrep}",
+                        roots=int(roots),
+                        dimension=int(dimension),
+                        energy_error_hartree=error,
+                        vector_gram_error=gram_error,
+                    )
+                )
+        assert stream._fp.tell() == path.stat().st_size
+    return sectors
+
+
 def verify(root, contract):
     from pyscf import lib
 
@@ -154,60 +213,7 @@ def verify(root, contract):
         native["ukrmol_ground_state_dipole_z_au"], seed["ground_dipole_au"][2], atol=1e-5, rtol=0
     )
     path = run / "output/CO/geom1/fort.26"
-    sectors = []
-    with FortranFile(path, "r") as stream:
-        for irrep in IRREPS:
-            for spin, label in ((0, "singlet"), (2, "triplet")):
-                assert stream.read_record("u1").tobytes() == b"********                CIDATA  "
-                header = stream.read_record("u1").tobytes()
-                assert len(header) == 208
-                assert header[200:] == bytes(8)
-                assert header[16:136].decode().strip() == f"CO CI calculation - {label} {irrep}"
-                centers, dimension, roots, symmetry = np.frombuffer(
-                    header, "<i8", count=4, offset=136
-                )
-                assert centers == 2 and dimension > 0 and symmetry == IRREPS.index(irrep)
-                assert roots == len(independent[(spin, irrep)])
-                np.testing.assert_array_equal(
-                    np.frombuffer(header, "<f8", count=2, offset=168), [spin / 2] * 2
-                )
-                assert np.frombuffer(header, "<i8", count=1, offset=184)[0] == 14
-                core = np.frombuffer(header, "<f8", count=1, offset=192)[0]
-                charges = []
-                for _ in range(centers):
-                    record = stream.read_record("u1").tobytes()
-                    assert len(record) == 40
-                    values = np.frombuffer(record, "<f8", offset=8)
-                    assert np.isfinite(values).all()
-                    charges.append(values[-1])
-                np.testing.assert_array_equal(charges, [6, 8])
-                record = stream.read_record("<f8")
-                assert len(record) == 2 * dimension + roots
-                energies = record[dimension : dimension + roots] + core
-                assert np.isfinite(energies).all() and np.all(np.diff(energies) >= 0)
-                error = float(np.max(abs(energies - independent[(spin, irrep)])))
-                assert error <= 1e-7
-                vectors = []
-                for index in range(roots):
-                    record = stream.read_record("u1").tobytes()
-                    assert np.frombuffer(record, "<i8", count=1)[0] == index + 1
-                    vector = np.frombuffer(record, "<f8", offset=8)
-                    assert len(vector) == dimension and np.isfinite(vector).all()
-                    vectors.append(vector)
-                gram_error = float(
-                    np.max(abs(np.asarray(vectors) @ np.asarray(vectors).T - np.eye(roots)))
-                )
-                assert gram_error <= 1e-9
-                sectors.append(
-                    dict(
-                        sector=f"{label}.{irrep}",
-                        roots=int(roots),
-                        dimension=int(dimension),
-                        energy_error_hartree=error,
-                        vector_gram_error=gram_error,
-                    )
-                )
-        assert stream._fp.tell() == path.stat().st_size
+    sectors = native_binary_sectors(path, independent)
     old, new = reference / "co.casscf.chk", run / "output/CO/geom1/co.casscf.chk"
     lib.num_threads(1)
     mol = lib.chkfile.load_mol(str(old))
