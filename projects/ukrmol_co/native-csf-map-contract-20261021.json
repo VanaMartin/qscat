@@ -1,0 +1,39 @@
+{
+  "status": "prospective saved-only exact signed-diagonal CSF correspondence; no native rewrite",
+  "design": "../../docs/physics/co-native-target-address-map.md",
+  "sectors": {"singlet.A1":710,"triplet.A1":730,"singlet.B1":711,"triplet.B1":731,"singlet.B2":712,"triplet.B2":732,"singlet.A2":713,"triplet.A2":733},
+  "input_sha256": {
+    "target-only/fort.26":"f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+    "target-only/fort.710":"570fc1a835c6bdb029d456aa51cb00969cf5cd948c5207c297e43fcbf0595887",
+    "target-only/fort.730":"26d935a7d07c35c81c5b1b742419afc6af18a60ba5fd231650eacc04ef027347",
+    "target-only/fort.711":"29b104b1df95aa67e59ced2da50abb8b7169b84dfb5197a20ab9e9e496568e18",
+    "target-only/fort.731":"66610ba3d9908ebf889e4728efd5095ec94278f2a38666a797cc73fe5b237395",
+    "target-only/fort.712":"a01c0044dcd61a3d8a5be8b6d2fa00a0811809533014833fca0d0781e4bcdb63",
+    "target-only/fort.732":"4ff1b53cf3bae99ce6a48d1af38f72567e31122a9e595b0bf3b72e0ccfcd4fb1",
+    "target-only/fort.713":"a32a549ae44ad10f68cae62b7b734f5a8c5e79159b95d0e939ae2abe196da03d",
+    "target-only/fort.733":"4d386e8a11b63db0e89d115878ed6b12721caa713c0ae11ad54f7a85fe5d8222",
+    "full-layout/fort.710":"3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+    "full-layout/fort.730":"cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+    "full-layout/fort.711":"88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+    "full-layout/fort.731":"966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+    "full-layout/fort.712":"760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+    "full-layout/fort.732":"035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+    "full-layout/fort.713":"1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+    "full-layout/fort.733":"adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f",
+    "ukrmol-in-3.3.0.tar.gz":"1b81e423b7e2a5a530c336cfc7f7ab50d6f2705abf771c71d6119fc065d9cac2",
+    "engine-source-provenance.json":"2987e176689c3a5ec5001c5da90949f17f7a5add8a86e18b04fb8409b5b11f1b"
+  },
+  "native_source_sha256": {
+    "congen/source/congen_driver.f90":"21799db3c2435e7e7acf59b2520e08f668e5a60518e3817b47c93187924fbaf2",
+    "congen/source/congen_projection.f90":"f75c51e41f5a028cb43b778e15083677e989861e56e26baa4e2b54ebb29d0f8e",
+    "mpi-ci-diag/Modules/Hamiltonian/CSF_module.F90":"a8a162fed5b323e01e297b22b520304dd2467e7e197dba209fa06d5045e9736e",
+    "mpi-ci-diag/Modules/Hamiltonian/SolutionHandler_module.F90":"7c4322e3477dc5424960059f89120c3bca1c474ec640ed5b5249d3bb35167c1e",
+    "mpi-ci-diag/Modules/Hamiltonian/Target_RMat_CI_module.f90":"b4d5050acc0b3e6c71683c7352d2c445d4b17ddc3660cbee78221358996fec97",
+    "ci-diag/scatci_routines.f":"cbbaa8e32026f3ca345c2b382ed38cdb4868a391063a963900de59e4a99f9ea6"
+  },
+  "input_provenance":"Target-only bytes collected without native computation from runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1. Full-layout bytes from the fresh authenticated co-immutable-continuum-20261021 public capsules, with exact pointers retained. Source and destination use the same immutable new-frame orbital export. Two preliminary A1 binary inspections are discovery, not a gate result.",
+  "target_only_archive_sha256":"c34102166386b728abfd31ac1d71385bcac998e26a461d812d5b7e46d0178bb5",
+  "gates":"All16 CSFs complete EOF and typed fields/offsets/counts/norms; every packed term and reference maps monotonically within target-only occupations; reconstructed first-determinant canonical phases; exact all-term signed coefficient bytes under source_phase*destination_phase. All74 CIDATA root IDs/energies/diagonals/vector/phase fields to complete EOF, source phases match CSFs, exact coefficient roundtrip, norm/Gram <=1e-9 and mapped Gram change<=1e-14. Separate canonical determinant expansion reconstruction follows before qualified handoff. No normalized overlap or approximate matching.",
+  "resources":{"cpus":1,"expected_memory_gib":2,"upper_wall_seconds":180,"hard_timeout_seconds":300},
+  "stopping_rule":"Freeze source/tests/design/contract before all-sector saved check. Save original pass/failure and hashes in a fresh result; no converted native file, reheader, padding, root permutation/rotation fallback, QC/CI/target solve/property/native scattering call. Native phase-aware consumer source trace is not live native execution. Integral equivalence, scattering phase/channel and property maps remain unset; old40/new50 physical A1 rejection unchanged."
+}
