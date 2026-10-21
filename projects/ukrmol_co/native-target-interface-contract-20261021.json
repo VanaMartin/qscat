@@ -1,0 +1,38 @@
+{
+  "status":"prospective installed-native read/import-only target interface and saved integral-block comparison",
+  "design":"../../docs/physics/co-native-target-interface.md",
+  "cidata":"runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.26",
+  "full_csf_directory":"prepared/immutable-continuum-completion-source-20261021/outputs/preparation",
+  "source_integrals":"runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/moints",
+  "full_integrals":"prepared/immutable-continuum-completion-source-20261021/outputs/preparation/moints",
+  "map_result":"prepared/native-csf-address-discovery-20261021/progress-native-csf-map-result-20261021.json",
+  "input_sha256":{
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.26":"f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/moints":"c93800081f6c289c81e2591f9c62da2f4f1f30f9bfe60ed14a61dd328a1c6ac7",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/co.molden":"9ba4b2a85a0cb1574ec576fa6dbabada4293ec089fcdd03b96e4d431d74f97d9",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/moints":"577873767fd9ef7df58c809a460aea444c8a5fdfcc1307d8149276e4b8db1c89",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/co.molden":"9ba4b2a85a0cb1574ec576fa6dbabada4293ec089fcdd03b96e4d431d74f97d9",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.710":"3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.730":"cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.711":"88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.731":"966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.712":"760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.732":"035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.713":"1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.733":"adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f",
+    "prepared/native-csf-address-discovery-20261021/progress-native-csf-map-result-20261021.json":"7adf85c1431cfb2041541e4312b938e5009d814580c76ac35857354963c723f5"
+  },
+  "engine_library_sha256":{
+    "/opt/ukrmolp/lib.double/libscatci.a":"1f6883ff2d0d92ec640ac59b5496b59b9fd7dc87128ca7f98a55bc44620e886f",
+    "/opt/ukrmolp/lib.double/libukplus_global.a":"11297b713ca905e4e2961efb64e5d74e12e1f32a23f3b643d6829c34486cc633",
+    "/opt/ukrmolp/lib.double/libukplus_utilities.a":"07225bf84eaa57639e0eafa8d55cc6508fcf6839e4648259285cbcf55b7b948c",
+    "/opt/ukrmolp/lib.double/libGBTO.a":"77c84296264a2a9b3bed16f958acd8ce04db4636cce475ee762f1c9b2d7c686a"
+  },
+  "original_runtime_image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "image":"sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "library_comparison":"All4 linked native library hashes observed equal between original runtime and debug-tools images before this contract. Debug tools supply link/compiler prerequisites, not a replacement engine. Installed module hashes and resulting executable retained.",
+  "scope":{"harness_compilations":1,"target_read_processes":1,"CIRMAT_sector_calls":8,"target_roots":74,"integral_read_processes":2,"integral_generation_calls":0,"QC_CI_calls":0,"target_diagonalizations":0,"property_exports":0,"scattering_inner_solves":0,"converted_CIDATA_files":0},
+  "gates":"14 input hashes and4 engine library hashes before/after; exact integral read-copy integrity. Eight native CIRMAT sectors reproduce all74 vectors/relative energy bytes under the independently qualified phase signs. Positive final native completion markers and complete diagnostic EOF reject zero-exit STOP. Native inventories/continuum flags derive 13-orbital map. Per file all169 h/overlap and28561 ordered ERIs finite, h/ERI symmetries within1e-10; overlaps identity/interfile1e-10; physical geometry1e-12 and extra zero-charge centre. Max h/ERI delta<=1e-10Hartree and spin-counted common-basis operator bound |dEnuc|+2sum|dh|+2sum|dv|<=1e-7Hartree. Not absolute integral accuracy, eigenvector stability or scattering error.",
+  "resources":{"cpuset_cpus":"0-3","threads":1,"mpi_ranks":1,"memory_gib":4,"available_ram_floor_gib":8,"free_disk_floor_gib":30,"expected_wall_seconds":60,"upper_wall_seconds":180,"timeout_seconds":300,"compile_timeout_seconds":120,"reader_timeout_seconds":30,"sample_interval_seconds":0.2},
+  "stopping_rule":"Freeze/push source/tests/design/contract before execution. Fresh persistent source/output, originals read-only, one compile and three native reader processes only. Preserve original command/container/owner/native exits, compile log/binary and every generated file. Stop on failure without automatic retry, new integral/QC/CI/target/property/scattering work, model change or root/channel ladder. Passes retain original CIDATA/40-state properties; actual scattering CONGEN target-channel phase/property/root maps and explicit combined-prescription versus matched-manifold scientific decision remain required. Both A1 physical rejections remain false."
+}
