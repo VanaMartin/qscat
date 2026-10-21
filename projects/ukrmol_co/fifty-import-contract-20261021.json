@@ -1,0 +1,29 @@
+{
+  "status": "prospective one-anchor fifty-component CAS11 native target import",
+  "scientific_question": "Can the independently covered equilibrium fifty-component orbital average be imported with all74 computed target roots and the original orbital frame preserved, enabling a matched orbital-ensemble scattering comparison?",
+  "decision_changing_discrepancy": "Existing40-to50-component CAS11 QC changes the common-forty objective by+0.170147eV and ground energy by+0.456512eV. Those are not scattering errors, but motivate measuring orbital-ensemble dependence rather than assuming it is negligible. CAS11-toCAS12 already rejects scattering insensitivity, so ensemble and basis must remain independent axes.",
+  "run": "co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021",
+  "reference": "co-eq-ccdz-sa11-50-qc-hostprep",
+  "coverage": "diagnostics/equilibrium-fifty-component-ci-residual-coverage-20261007/result.json",
+  "input_sha256": {
+    "runs/co-eq-ccdz-sa11-50-qc-hostprep/co.casscf.chk": "06de88e83f6debfbfca47ddf77fb8ba9f404c1e977e610c3d7879ea842bc75cd",
+    "runs/co-eq-ccdz-sa11-50-qc-hostprep/target.json": "2b670c8804c88b3e7d1e2fcf86a28e9eb6068312ea7d979fc0227373ec0a649e",
+    "runs/co-eq-ccdz-sa11-50-qc-hostprep/config.json": "dbc0bdc02aef31252c8546bab9dc9cb7c810c816b89290b05d749a6a73957aa2",
+    "runs/co-eq-ccdz-sa11-50-qc-hostprep/result.json": "4cc54920702bfef6585571927eec73cb073b42249219145d021d2a49607e0990",
+    "runs/co-eq-ccdz-sa11-50-qc-hostprep/resources.json": "0576a772b8e6cde255ba43d181906b9d5f671200f6f0024fd2137d1ae86f5ca3",
+    "runs/co-eq-ccdz-sa11-50-qc-hostprep/co.molden": "d8f14cf35fb11f21ca92513bd8810b30eeea27b64db83a0a1f05ccc9cb6a79c6",
+    "diagnostics/equilibrium-fifty-component-ci-residual-coverage-20261007/result.json": "7ee2f4e8b1228b73757e714a4fedfbe1b236e024e8294e4dd78f7a2685664795"
+  },
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "orbital_ensemble_roots_per_spin": [10, 5, 5, 5],
+  "computed_native_roots_per_spin": [13, 8, 8, 8],
+  "computed_native_roots_total": 74,
+  "target_states_used": 50,
+  "target_states_used_meaning": "DENPROP import setting only; not an authorization to compare a50-channel scattering calculation with a40/48-channel baseline. Native channel maps and physical subspace matching require their own gate before a matched scattering solve.",
+  "fixed_settings": {"R_bohr": 2.1323, "basis": "cc-pVDZ", "active_orbitals": [5, 3, 3, 0], "frozen_A1_spatial_orbitals": 2, "active_electrons": 10, "ordinary_ci_cycles": 200, "qc_macroiterations": 150, "qc_energy_tolerance_hartree": 1e-11, "qc_gradient_tolerance": 1e-7, "qc_residual_tolerance_hartree": 1e-9},
+  "qualification": {"all_root_energy_tolerance_hartree": 1e-7, "dipole_tolerance_au": 1e-5, "subspace_singular_value_floor": 0.99999999, "native_vector_gram_tolerance": 1e-9, "required_covered_probes": 48},
+  "resources": {"cpuset_cpus": "4-11", "mpi_ranks": 8, "library_threads": 1, "memory_gib": 24, "available_ram_floor_gib": 32, "free_disk_floor_gib": 30, "expected_wall_seconds": 3600, "upper_wall_seconds": 7200, "timeout_seconds": 10800, "verification_timeout_seconds": 180, "sample_interval_seconds": 0.2},
+  "cost_evidence": "Equilibrium CAS11 tight64-root SLEPc import previously3086.6s/5.266GiB with4 ranks; same-basis50-component QC3164.6s/.368GiB from40-component seed. This run starts at the converged50-component checkpoint and computes74 roots. Eight-rank timing/memory are unmeasured;3600s expected and7200s upper are forecasts, not benchmarks.24GiB caps MPI replication. CAS12 imports measured40-41GiB and are deferred at current40GiB host availability rather than submitted under an insufficient reservation.",
+  "stopping_rule": "Freeze and push recipe, contract and verifier before launch. One fresh run; preserve all native/analysis/container/owner exits and output bytes. Reject failed QC flags, gradient, any imported root/dipole/subspace or coverage gate. No automatic numerical repair, CAS12 import, basis expansion, new scattering Hamiltonian, complex pole or production sweep. A passing import permits costing a separately matched scattering comparison, not declaring ensemble convergence.",
+  "new_scattering_inner_solves": 0
+}
