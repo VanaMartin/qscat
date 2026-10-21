@@ -1,0 +1,27 @@
+{
+  "status": "prospective seven-sector completion, not a retry of completed native work",
+  "parent_contract": "prepared/immutable-continuum-source-20261021/source/projects/ukrmol_co/immutable-continuum-contract-20261021.json",
+  "original_preparation": "prepared/immutable-continuum-source-20261021/outputs/preparation",
+  "original_execution": "prepared/immutable-continuum-source-20261021/execution.json",
+  "original_traceback": "prepared/immutable-continuum-source-20261021/prepare.log",
+  "baseline_inputs": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs",
+  "input_sha256": {
+    "prepared/immutable-continuum-source-20261021/source/projects/ukrmol_co/immutable-continuum-contract-20261021.json": "a389af33e62698b5d97ca4a3f51834709e8e542b1f7b812af4893d449ccb699a",
+    "prepared/immutable-continuum-source-20261021/execution.json": "8c1bacc74b510a62868c027ebab1ca650321ab8b10ac0694f7191a96b00ae803",
+    "prepared/immutable-continuum-source-20261021/prepare.log": "14951f8674a41fd808b93db4f93fe519ae5034a0e5c599bd156c4c41baf8fd83",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/failure.json": "eeeb8b15305c17cb6398c25e63ad66c00ee3dc46a78c50b5c9521cd83ba19fe9",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/integrals.native.out": "eb9c18fde8644982ee6c39c542c9944a6264789d8c7d3462561f68886ea0bbe9",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/moints": "577873767fd9ef7df58c809a460aea444c8a5fdfcc1307d8149276e4b8db1c89",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/co.molden": "9ba4b2a85a0cb1574ec576fa6dbabada4293ec089fcdd03b96e4d431d74f97d9",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/congen.singlet.A1.out": "af6de065ac309f49f35892c4a4d9ac53c14e92225957ccbfd6925bd27c54420b",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/target.congen.singlet.A1.inp": "c65c3baaae115ab85ab289dbb512f920fc3ef445f6c6b64268c5455f85d121b7",
+    "prepared/immutable-continuum-source-20261021/outputs/preparation/integrals.inp": "09d83e424d7535751db0be13ed2de0143378f9f735bbc5314597ea8282060d1d"
+  },
+  "target_csf_dimensions": {"singlet.A1":15548,"singlet.B1":15196,"singlet.B2":15196,"singlet.A2":15044,"triplet.A1":24366,"triplet.B1":24540,"triplet.B2":24540,"triplet.A2":24564},
+  "diagnosis": "Original native integral and singlet-A1 CONGEN calls both exit0, but wrapper expects DENPROP's has-completed-execution phrase from CONGEN and stops. Original native generation partial/exits1/1/1 remain unchanged. Saved CONGEN final projection/write markers, count15548 and six-record complete EOF establish that first native file completed; it exactly matches the baseline full-continuum CSF file. No new scientific tolerance or root setting is needed.",
+  "scope": "Authenticate17 parent inputs plus11 successor pins. Reconstruct original two native exits0/0 and wrapper/container/owner1/1/1; inspect saved integral inventories and first CSF. In a fresh output copy saved moints/Molden/first CSF/decks/logs; execute only the7 previously unrun target CONGEN calls. Use CONGEN's own final projection and exact unit/dimension write markers plus complete binary framing. Same physical/model cards and numerical gates; no repeated integral or first CONGEN call.",
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "resources": {"cpuset_cpus":"0-3","threads":1,"memory_gib":4,"available_ram_floor_gib":8,"free_disk_floor_gib":30,"expected_wall_seconds":10,"upper_wall_seconds":30,"timeout_seconds":120,"sample_interval_seconds":0.2},
+  "stopping_rule": "Freeze/push corrected reader, regression controls and successor contract before the7 missing native calls. Preserve the original source/failed owner/output bytes and pin all28 inputs before/after. Original files mount read-only; a new source/output/container/owner records its separate outcome. No retry or further call after any new failure, no QC, target diagonalization, new properties, vector reheader/conversion, retained-root change or scattering Hamiltonian. A pass qualifies generation only; physical subspace rejection and native target-vector reuse/unset scattering remain separate."
+}

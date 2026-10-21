@@ -54,6 +54,16 @@ def congen_deck(original, total):
     return re.sub(pattern, lambda m: m[1] + ",".join(map(str, total[:4])) + "," + m[2], original)
 
 
+def congen_completion(text, unit, dimension):
+    """Use CONGEN's own final projection/write markers, not DENPROP's trailer."""
+    if text.count("Wavefn projection (projec()) - completed") != 1:
+        raise ValueError("Missing or duplicate final CONGEN projection marker")
+    units = re.findall(r"Data on CSFs has been written to file \(MEGUL\)\s*=\s*(\d+)", text)
+    counts = re.findall(r"Number of CSFs\s*\(nocsf\)\s*=\s*(\d+)", text)
+    if units != [str(unit)] or counts != [str(dimension)]:
+        raise ValueError("Wrong or incomplete CONGEN final unit/CSF count")
+
+
 def csf_records(path, total, sector, dimension):
     """Inspect the pinned native header and record framing, not CSF phase meaning."""
     import hashlib
@@ -165,8 +175,10 @@ def prepare(root, output, contract):
                     30,
                     os.environ.copy(),
                 )
-                assert "has completed execution" in (output / f"congen.{label}.out").read_text()
                 unit = (710 if spin == "singlet" else 730) + IRREPS.index(irrep)
+                congen_completion(
+                    (output / f"congen.{label}.out").read_text(), unit, dimensions[label]
+                )
                 report["target_csf_records"][label] = csf_records(
                     output / f"fort.{unit}",
                     inventory["total"],

@@ -110,3 +110,25 @@ established. Do not repeat QC or the37-minute property calculation merely to
 change a file layout. Select the scientific contrast and validate compatible
 target/property/channel maps before any sparse2048-root scattering Hamiltonian.
 The A1 subspace rejection cannot be repaired by this technical construction.
+
+## Saved native completion-marker diagnosis
+
+The first execution (`bc1a0c3`) stops after the first CONGEN because the wrapper
+uses DENPROP's `has completed execution` trailer, which this pinned CONGEN does
+not emit. Both actual native calls exit0. The original wrapper/container/owner
+1/1/1 and partial coverage remain unchanged. Native CONGEN's actual markers are
+`Data on CSFs has been written to file (MEGUL)` with the exact unit and CSF count,
+and `Wavefn projection (projec()) - completed`; require these **and** complete
+six-record binary framing/header checks. This corrects a program-specific reader
+defect, not a numerical/physics tolerance. Regression cases reject missing,
+duplicated and wrong-unit/dimension outputs.
+
+The separate seven-sector completion contract reuses the saved integral data
+and completed singlet-A1 file, after reconstructing their original native exits,
+markers, counts and binary EOF. It authenticates17 parent inputs plus11 new pins,
+copies saved inputs into a fresh directory and invokes only the seven unrun
+CONGEN sectors. Forecast10s expected /30s upper /120s cap on the same reserved
+four cores /4GiB. No integral or first-CON GEN calculation is repeated; no
+scientific setting is changed. The original failed producer and successor have
+separate results and original exits. Any new failure stops without another
+automatic call.

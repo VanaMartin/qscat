@@ -4,7 +4,12 @@ import struct
 
 import pytest
 
-from projects.ukrmol_co.immutable_continuum import congen_deck, csf_records, native_inventory
+from projects.ukrmol_co.immutable_continuum import (
+    congen_completion,
+    congen_deck,
+    csf_records,
+    native_inventory,
+)
 
 
 def inventory_text():
@@ -77,3 +82,19 @@ def test_csf_header_records_and_complete_eof(tmp_path):
         stream.write(b"junk")
     with pytest.raises(ValueError):
         csf_records(path, [58, 37, 37, 22, 0, 0, 0, 0], "singlet.A1", 15548)
+
+
+def test_actual_congen_projection_and_write_markers():
+    text = """Number of CSFs       (nocsf)  =    15548
+Data on CSFs has been written to file (MEGUL) =   710
+***** Wavefn projection (projec()) - completed
+"""
+    congen_completion(text, 710, 15548)
+    for broken in (
+        "has completed execution",
+        text.replace("15548", "1"),
+        text.replace("710", "711"),
+        text + text,
+    ):
+        with pytest.raises(ValueError):
+            congen_completion(broken, 710, 15548)
