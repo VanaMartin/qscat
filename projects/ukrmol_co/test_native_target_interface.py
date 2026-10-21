@@ -5,7 +5,11 @@ import copy
 import numpy as np
 import pytest
 
-from projects.ukrmol_co.native_target_interface import compare_integrals, compare_target
+from projects.ukrmol_co.native_target_interface import (
+    compare_integrals,
+    compare_target,
+    compiler_environment,
+)
 
 
 def blocks():
@@ -28,6 +32,43 @@ def blocks():
         geometry=np.r_[geometry, [[0, 0, 0, 0]]],
     )
     return source, full
+
+
+def test_compiler_relocation_overrides_stale_upstream_path_without_model_changes():
+    env = {"OMPI_FC": "/build/auxiliary-software/bin/gfortran", "OMP_NUM_THREADS": "1"}
+    actual = compiler_environment(env)
+    assert actual["OMPI_FC"] == "/opt/compiler/bin/gfortran"
+    assert actual["OMPI_CC"] == "/opt/compiler/bin/gcc"
+    assert actual["OMP_NUM_THREADS"] == "1" and env["OMPI_FC"].startswith("/build/")
+
+
+def test_successor_inherits_frozen_scientific_settings_and_rejects_changed_parent(tmp_path):
+    import hashlib
+    import json
+
+    from projects.ukrmol_co.native_target_interface import load_contract
+
+    parent = tmp_path / "parent.json"
+    base = dict(resources={"memory_gib": 4}, image="immutable", input_sha256={"target": "oldpin"})
+    parent.write_text(json.dumps(base))
+    child = tmp_path / "child.json"
+    child.write_text(
+        json.dumps(
+            dict(
+                parent_contract="parent.json",
+                input_sha256={"parent.json": hashlib.sha256(parent.read_bytes()).hexdigest()},
+                predecessor_execution="exec",
+                predecessor_failure="failure",
+                predecessor_compile_log="log",
+            )
+        )
+    )
+    result = load_contract(tmp_path, child)
+    assert result["resources"] == base["resources"] and result["image"] == base["image"]
+    assert result["input_sha256"]["target"] == "oldpin"
+    parent.write_text("changed")
+    with pytest.raises(ValueError):
+        load_contract(tmp_path, child)
 
 
 def test_spin_counted_triangle_bound_not_just_largest_integral():

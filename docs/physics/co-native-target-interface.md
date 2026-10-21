@@ -99,3 +99,15 @@ root/property/channel maps and the scientific contrast** unset. Retain original
 CIDATA and40-state properties. Declare combined prescription sensitivity versus
 a separately justified matched-manifold selection before any sparse2048-root
 scattering calculation; no dense Hamiltonian or automatic root/channel ladder.
+
+## Compiler-relocation diagnosis before any native read
+
+The original frozen job exits1/1/1 before compiling because Open MPI's wrapper
+points to `/build/auxiliary-software/bin/gfortran`. No native reader has run.
+The separately frozen compiler-only successor sets
+`OMPI_FC=/opt/compiler/bin/gfortran`, `OMPI_CC=/opt/compiler/bin/gcc`, exactly as
+the existing source-build helper specifies. It inherits the original14 input
+pins/image/libraries/resource budget and all scientific gates, adds four
+predecessor pins, and leaves the Fortran driver unchanged. Original logs/source/
+failure/resources/exits remain in place; new source/output/container record a
+separate outcome. No completed reader is repeated and any new failure stops.

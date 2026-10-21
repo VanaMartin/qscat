@@ -19,6 +19,31 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def compiler_environment(environment):
+    """Override stale compiler relocation paths exactly as source-build.sh does."""
+    return environment | {
+        "OMPI_FC": "/opt/compiler/bin/gfortran",
+        "OMPI_CC": "/opt/compiler/bin/gcc",
+    }
+
+
+def load_contract(root, path):
+    """An environment-only successor inherits every original scientific setting."""
+    contract = json.loads(path.read_text())
+    if "parent_contract" not in contract:
+        return contract
+    parent = root / contract["parent_contract"]
+    if digest(parent) != contract["input_sha256"][contract["parent_contract"]]:
+        raise ValueError("Changed original native-interface contract")
+    base = json.loads(parent.read_text())
+    return base | {
+        "input_sha256": base["input_sha256"] | contract["input_sha256"],
+        "predecessor_execution": contract["predecessor_execution"],
+        "predecessor_failure": contract["predecessor_failure"],
+        "predecessor_compile_log": contract["predecessor_compile_log"],
+    }
+
+
 def integral_block(path):
     """Read the seven-record diagnostic format, not the original GBTOlib format."""
     with FortranFile(path) as stream:
@@ -166,6 +191,22 @@ def execute(root, output, contract):
                 raise ValueError(f"Changed installed engine library: {name}")
 
     verify()
+    if "predecessor_execution" in contract:
+        predecessor = json.loads((root / contract["predecessor_execution"]).read_text())
+        failure = json.loads((root / contract["predecessor_failure"]).read_text())
+        assert predecessor["original_owner_exit"] == 1
+        assert (
+            predecessor["steps"][0]["original_command_exit"]
+            == predecessor["steps"][0]["original_container_exit"]
+            == 1
+        )
+        assert [(s["name"], s["original_exit"], s["timed_out"]) for s in failure["stages"]] == [
+            ("compile", 1, False)
+        ]
+        assert (
+            "unable to find the specified compiler"
+            in (root / contract["predecessor_compile_log"]).read_text()
+        )
     qualified = json.loads((root / contract["map_result"]).read_text())
     assert qualified["original"]["signed_target_csf_correspondence_verdict"] is True
     assert qualified["reconstruction"]["canonical_expansion_reconstruction_verdict"] is True
@@ -212,7 +253,10 @@ def execute(root, output, contract):
             "-fopenmp",
         ]
         report["compile_command"] = command
-        stage(output, report, "compile", command, empty, 120, os.environ.copy())
+        report["compiler_environment"] = compiler_environment({})
+        stage(
+            output, report, "compile", command, empty, 120, compiler_environment(os.environ.copy())
+        )
         report["executable_sha256"] = digest(executable)
         report["module_sha256"] = {
             str(p): digest(p) for p in Path("/opt/ukrmolp/include/UKRmol+").rglob("*.mod")
@@ -301,7 +345,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--contract", type=Path, required=True)
     args = parser.parse_args()
-    execute(args.root, args.output, json.loads(args.contract.read_text()))
+    execute(args.root, args.output, load_contract(args.root, args.contract))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,16 @@
+{
+  "status":"prospective environment-only compiler-relocation successor; original precompile failure retained",
+  "parent_contract":"prepared/native-target-interface-source-20261021/source/projects/ukrmol_co/native-target-interface-contract-20261021.json",
+  "predecessor_execution":"prepared/native-target-interface-source-20261021/execution.json",
+  "predecessor_failure":"prepared/native-target-interface-source-20261021/outputs/check/failure.json",
+  "predecessor_compile_log":"prepared/native-target-interface-source-20261021/outputs/check/compile.out",
+  "input_sha256":{
+    "prepared/native-target-interface-source-20261021/execution.json":"9446e55cdde31350cebfcfb0af1b444ece456d89ebe38f50f45f609e623763c5",
+    "prepared/native-target-interface-source-20261021/outputs/check/failure.json":"d106f6bef4e61889fc4843e5be00aa6c6fb4d7a2588d6ca45167193f6854ad76",
+    "prepared/native-target-interface-source-20261021/outputs/check/compile.out":"11ec863727f3fb156813c864c15b5227434c00fd81b24b4b32f4899e218fadd1",
+    "prepared/native-target-interface-source-20261021/source/projects/ukrmol_co/native-target-interface-contract-20261021.json":"9b63d16cff21d3c51a20079d9254380f54359e708e2a6fad46eadc3243186392"
+  },
+  "diagnosis":"Original OpenMPI mpifort wrapper exits1 before compiling because its relocated default compiler /build/auxiliary-software/bin/gfortran is absent. No compiler front-end, native target reader or integral reader ran. Original command/container/owner1/1/1 and all files stay intact. The repository's source-build.sh already prescribes OMPI_FC=/opt/compiler/bin/gfortran and OMPI_CC=/opt/compiler/bin/gcc. Apply exactly these compiler environment overrides, not different source/libraries/scientific inputs or relaxed gates.",
+  "inheritance":"Inherit original14 input pins, image,4 native library hashes, resource budget and every scientific/API/numerical gate without override. Add4 predecessor pins. Same native_target_io.f90 bytes. Fresh source/output/container/owner; no completed native reader repeated. One corrected compile then only the originally declared3 unrun reader processes, stopping on any failure.",
+  "stopping_rule":"Freeze/push environment correction, regression test and this successor before execution. Original precompile failure remains1/1/1. No automatic retry, compiler/library substitution, model/tolerance change or new QC/target/property/scattering call. Preserve original resources/exits and successor outcome separately; no failed result is overwritten."
+}
