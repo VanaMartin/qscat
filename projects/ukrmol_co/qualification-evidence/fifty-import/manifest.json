@@ -1,0 +1,23 @@
+{
+  "git_sha": "7827867840726767c0b1985f9c4d2cc686907879",
+  "experiment": "co-fifty-import-20261021",
+  "scope": "Completed target/analyzer pass; original independent seed-frame preservation rejection retained. No scientific rerun or tolerance change.",
+  "collection_sha256": "dc055c3964aa52474715c70ea405185c7f75b8bd5cd1907bdc8e0577010dd389",
+  "original_target_exits": [
+    0,
+    0
+  ],
+  "original_analyzer_exits": [
+    0,
+    0
+  ],
+  "original_verifier_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "input_verification_passed": true,
+  "seed_frame_preservation_passed": false,
+  "all74_binary_verification_reached": false,
+  "scattering_ensemble_verdict": null
+}

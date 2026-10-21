@@ -20,6 +20,54 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Fifty-component native target finishes; seed preservation rejects — 21 October,13:47 UTC
+
+The [completed target/import control](FIFTY_COMPONENT_IMPORT.md) finishes
+**13:45:21UTC**: target0/0, analyzer0/0, independent verifier1/1 and owner1.
+Native energies agree with the **newly optimized** frame within5.29468e-10
+Hartree and dipole within1.12928e-11a.u. Final QC gradient7.43813e-8 passes1e-7,
+with original QC/fresh-CI flags passing. All74 requested native roots compute.
+
+The independent verifier rejects **six of50 averaged-root seed-preservation
+comparisons**, maximum3.38450e-7 Hartree versus1e-7. Ensemble-objective drift is
+only−7.10543e-14 Hartree; it does not preserve each root. The maximum drift is
+about0.00921meV, but that physical scale does not waive the explicit seed gate.
+This is not the earlier radial tuple/list bug. Overall import remains unset;
+all74 binary/vector/EOF and core/active-subspace checks are **not reached**.
+Old48-probe coverage remains valid for its own original checkpoint only.
+
+Target runtime **10436.23s /2.899h**, sampled CPU43709.40s /12.14CPUh,
+kernel peak **5.518GiB**,52,122 owner samples. QC stage8101.37s /135.02min,
+native eigensolvers199.79s /3.33min and DENPROP2131.91s /35.53min. The one-hour
+forecast underestimated QC/properties; the original three-hour hard cap is not
+changed and is not reached. All12 frozen sources /7 original inputs verify
+before/after. Original source freeze `7827867`, all native/owner failure bytes
+and the complete run remain unchanged.
+
+[Public evidence](qualification-evidence/fifty-import/README.md) fresh-verifies
+all4 payloads /153 original files /292,424,932 uncompressed bytes. The collection
+archive SHA256 is `dc055c3964aa52474715c70ea405185c7f75b8bd5cd1907bdc8e0577010dd389`.
+[Dated result](progress-fifty-import-result-20261021.json) and
+[public saved verification](verification-fifty-import-public-20261021.json)
+reproduce all50 averaged native-table comparisons and six seed-frame rejections,
+without implying a successful74-root binary qualification. At13:47UTC only
+ComfyUI remains; no scientific job or retry runs. Both completion watchers have
+finished or were locally cancelled, and are historical records only.
+
+**Next:** preserve this rejection. Do not repeat three hours of QC or relax the
+seed gate. Cost/freeze independent fixed-orbital coverage for the **completed new
+checkpoint** and native all-root reconstruction against it, or explicitly choose
+an exact-old-frame import route. Prior two-frame96-probe coverage cost1280.58s;
+a one-frame10–20min forecast is a candidate, **not a submitted successor**. A
+successful separately qualified frame then permits matched-channel mapping and
+costing of the orbital-ensemble scattering contrast. Production remains gated by
+the unchanged physical decisions in [the queue](PRODUCTION_DECISIONS.md).
+
+Search handoff: main snapshot `423d577` is complete/current at this handoff.
+The branch-only verifier and physical-decision sources were resolved against
+the frozen12-file archive and the current local source; no producer/verifier
+source was modified to reinterpret this rejection.
+
 ### Equilibrium orbital-ensemble native calculation running — 21 October,10:52 UTC
 
 The next physical decision is **orbital-ensemble sensitivity**, following the

@@ -535,6 +535,14 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,13:47UTC result:** [fifty-component native target/analyzer pass,
+seed-frame preservation rejects](FIFTY_COMPONENT_IMPORT.md), original verifier
+1/1/owner1. Current native/QC agreement5.29468e-10 Hartree is separate from
+six seed-root shifts up to3.38450e-7, exceeding1e-7. Do not inherit old-frame
+coverage, relax that gate or repeat QC automatically. Next cost/freeze independent
+coverage for the completed new frame, then map/cost matched ensemble scattering.
+Actual target cost2.899h /5.518GiB. No successor is running.
+
 **21 October decision update:** follow the [costed decision queue](PRODUCTION_DECISIONS.md).
 The equilibrium CAS11 fifty-component **native target import is running** from
 its already covered checkpoint, forecast1h expected /3h hard cap on cores4–11 /

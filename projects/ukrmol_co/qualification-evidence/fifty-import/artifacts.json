@@ -1,0 +1,22 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 23884,
+      "sha256": "271aaf9e50517fa87278fa2665ed5fda3ded4330aebef9f9e431886b27fd0549"
+    },
+    "manifest.json": {
+      "bytes": 674,
+      "sha256": "735290d2ae281d4d72514dfc792f72406867a78390a4a719140fcc7fe4c27a42"
+    },
+    "result-summary.json": {
+      "bytes": 19121,
+      "sha256": "adaff363cd337c4f3d0b5329203294dabb0d1aa5ed0489315dc2678ec4a5be9b"
+    },
+    "results.tar.gz": {
+      "bytes": 28229117,
+      "sha256": "dc055c3964aa52474715c70ea405185c7f75b8bd5cd1907bdc8e0577010dd389"
+    }
+  },
+  "git_sha": "7827867840726767c0b1985f9c4d2cc686907879",
+  "url_prefix": "https://data.qscat.org/co-fifty-import-20261021/"
+}

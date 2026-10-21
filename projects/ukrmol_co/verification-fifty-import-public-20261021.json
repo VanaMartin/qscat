@@ -1,0 +1,79 @@
+{
+  "observed_utc": "2026-10-21T13:50:13.835005+00:00",
+  "scope": "Fresh public-byte authentication and independent saved-table/seed-frame-difference reconstruction; no numerical rerun and no new74-root binary qualification.",
+  "public_payloads_verified": 4,
+  "collected_original_files_verified": 153,
+  "frozen_sources_verified": 12,
+  "seed_frame_preservation_passed": false,
+  "failed_seed_frame_roots": [
+    {
+      "label": "singlet.A1.5",
+      "difference_hartree": -3.3844958124973346e-07
+    },
+    {
+      "label": "singlet.A1.7",
+      "difference_hartree": -1.2644662206184876e-07
+    },
+    {
+      "label": "singlet.A1.8",
+      "difference_hartree": -1.0982691378558229e-07
+    },
+    {
+      "label": "triplet.A1.3",
+      "difference_hartree": -2.470240616503361e-07
+    },
+    {
+      "label": "triplet.A1.7",
+      "difference_hartree": -1.397172013639647e-07
+    },
+    {
+      "label": "triplet.A1.10",
+      "difference_hartree": -3.177062666281927e-07
+    }
+  ],
+  "maximum_seed_frame_root_change_hartree": 3.3844958124973346e-07,
+  "seed_frame_gate_hartree": 1e-07,
+  "averaged_native_energy_error_hartree": 5.294680249789963e-10,
+  "averaged_roots_reconstructed": 50,
+  "computed_native_table_roots": 74,
+  "original_target_exits": [
+    0,
+    0
+  ],
+  "original_analyzer_exits": [
+    0,
+    0
+  ],
+  "original_verifier_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "all74_binary_verification_reached": false,
+  "import_verdict": null,
+  "scattering_ensemble_verdict": null,
+  "new_scientific_calculations": 0,
+  "collection_sha256": "dc055c3964aa52474715c70ea405185c7f75b8bd5cd1907bdc8e0577010dd389",
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 23884,
+        "sha256": "271aaf9e50517fa87278fa2665ed5fda3ded4330aebef9f9e431886b27fd0549"
+      },
+      "manifest.json": {
+        "bytes": 674,
+        "sha256": "735290d2ae281d4d72514dfc792f72406867a78390a4a719140fcc7fe4c27a42"
+      },
+      "result-summary.json": {
+        "bytes": 19121,
+        "sha256": "adaff363cd337c4f3d0b5329203294dabb0d1aa5ed0489315dc2678ec4a5be9b"
+      },
+      "results.tar.gz": {
+        "bytes": 28229117,
+        "sha256": "dc055c3964aa52474715c70ea405185c7f75b8bd5cd1907bdc8e0577010dd389"
+      }
+    },
+    "git_sha": "7827867840726767c0b1985f9c4d2cc686907879",
+    "url_prefix": "https://data.qscat.org/co-fifty-import-20261021/"
+  }
+}

@@ -76,7 +76,17 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 21 October,10:52UTC:** an equilibrium **fifty-component CAS11 native
+**Update — 21 October,13:47UTC:** the [fifty-component target calculation](FIFTY_COMPONENT_IMPORT.md)
+finishes, target/analyzer0/0, but independent seed-frame preservation rejects:
+six averaged roots change by more than1e-7 Hartree (maximum3.38450e-7). Native
+energies match the newly optimized frame within5.29468e-10 Hartree. Original
+verifier1/1/owner1 and unset overall import remain preserved; the74-root binary
+gate is not reached. Measured cost2.899h /5.518GiB, chiefly QC and DENPROP. All4
+public payloads /153 original files fresh-verify. No scientific job runs. Next
+cost separately qualified coverage of the completed new frame, **not another
+reoptimization or a relaxed seed gate**, before matched ensemble scattering.
+
+**Earlier launch — 21 October,10:52UTC:** an equilibrium **fifty-component CAS11 native
 target calculation is running** on eight physical cores, advancing the orbital-
 ensemble model decision. The original forty→fifty QC ground-energy change is
 +0.456512eV; its scattering effect is not yet measured. The run imports74 covered
@@ -521,10 +531,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: equilibrium fifty-component native target calculation running; matched electronic-model and width decisions next](../../docs/physics/figures/co-progress-20261021-fifty-import.png)
+![CO qualification: fifty-component native target passes against new QC frame; seed preservation rejects; qualify completed frame before matched scattering](../../docs/physics/figures/co-progress-20261021T1347-fifty-result.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021-fifty-import.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021-fifty-import.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021T1347-fifty-result.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021T1347-fifty-result.json) ·
+[Fifty-component target result](FIFTY_COMPONENT_IMPORT.md) ·
+[Original result/exits](progress-fifty-import-result-20261021.json) ·
+[Public evidence](qualification-evidence/fifty-import/README.md) ·
+[Previous launch figure](../../docs/physics/figures/co-progress-20261021-fifty-import.svg) ·
+[Previous launch snapshot](progress-snapshot-20261021-fifty-import.json) ·
 [Costed production decisions](PRODUCTION_DECISIONS.md) ·
 [Fifty-component import launch](progress-fifty-import-launch-20261021.json) ·
 [Previous radial-closure figure](../../docs/physics/figures/co-progress-20261020T1704-radial-schema.svg) ·

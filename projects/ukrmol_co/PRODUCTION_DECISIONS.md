@@ -52,11 +52,22 @@ The accepted CAS12/2048 baseline and2048→4096 control remain reusable.
 No dense scattering Hamiltonian is authorized. No automatic channel/root ladder
 follows a rejection.
 
+**Completed21 October:** target and analyzer pass, but seed-frame preservation
+rejects6/50 averaged roots, maximum3.38450e-7 Hartree against1e-7. Native energies
+agree with the newly optimized frame to5.29468e-10 Hartree. Original verifier
+exits1/1/owner1; overall import remains unset. Actual cost **2.899h /5.518GiB**,
+dominated by135min QC and35.5min DENPROP, not the3.33min eigensolvers.
+The [result/evidence](FIFTY_COMPONENT_IMPORT.md) preserves all153 original files.
+The next candidate is independent coverage on the completed **new** fixed-orbital
+frame, not another reoptimization or a weakened seed gate. Earlier96 probes on
+two frames cost1280.58s; a one-frame forecast of10–20min requires its own finite
+contract before submission. No successor is yet running.
+
 ## Decision queue and release conditions
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Orbital ensemble | Large QC changes; both fifty-component coverage scans pass | Native CAS11 frame import now; then a fixed-manifold scattering difference at equilibrium | Import about1h expected,3h cap; scattering forecast after maps/dimension are known |
+| Orbital ensemble | Native target/analyzer pass; seed-frame preservation rejects6/50 roots | Qualify the completed new fixed frame under a separate contract; then a fixed-manifold scattering difference | Import measured2.899h; one-frame coverage candidate10–20min, not submitted; scattering cost after maps |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Choose a model only after independent ensemble/basis effects are measured; budget remaining uncertainty explicitly | Reuse existing2048 results; no automatic larger active-space or channel ladder |
 | Resonance widths | Compressed/equilibrium required-window prediction rejects;94 known beyond-budget width counterexamples persist | A physically constrained extraction design with known-truth nonpolynomial successes, held-out phase predictions and explicit pole/width-identifiability veto | Existing calibration/native reading took13.9s /4.0s; new fit design remains uncosted; direct native complex poles need separate numerical qualification |
