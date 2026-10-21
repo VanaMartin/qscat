@@ -1,0 +1,123 @@
+{
+  "observed_utc": "2026-10-21T14:53:59.090908+00:00",
+  "execution": {
+    "source_commit": "96b8ed99290677708893e347bc55631443617bb0",
+    "source_archive_sha256": "d3cadc3ad9d75633147b987f324ee14e506dfd4ec1e42744227cea60649c2a14",
+    "owner_sha256": "249d082a8b4561ba0df80f43bde1be956bc64a3f720b4cdd49c775ebdb87d6bc",
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "started_utc": "2026-10-21T14:52:28.539472+00:00",
+    "steps": [
+      {
+        "label": "properties",
+        "command": [
+          "docker",
+          "run",
+          "--name",
+          "co-fifty-selected-properties-20261021-properties",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=1g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/fifty-selected-properties-source-20261021/outputs:/out",
+          "-e",
+          "TMPDIR=/out",
+          "-e",
+          "PSI_SCRATCH=/out",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/fifty-selected-properties-source-20261021/source:/opt/qmodeling:ro",
+          "-w",
+          "/opt/qmodeling",
+          "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.fifty_property_export",
+          "--root",
+          "/work",
+          "--contract",
+          "/opt/qmodeling/projects/ukrmol_co/fifty-property-export-contract-20261021.json",
+          "--output",
+          "/out/properties"
+        ],
+        "timeout_seconds": 3600,
+        "started_utc": "2026-10-21T14:52:28.675456+00:00",
+        "integrity_before": {
+          "source_files": 12,
+          "original_inputs": 13
+        }
+      }
+    ],
+    "new_property_export_verdict": null,
+    "new_frame_import_verdict": true,
+    "original_seed_preservation_passed": false,
+    "original_seed_verifier_and_owner_exits": [
+      1,
+      1,
+      1
+    ],
+    "scattering_ensemble_verdict": null,
+    "new_scattering_inner_solves": 0,
+    "integrity_before": {
+      "source_files": 12,
+      "original_inputs": 13
+    },
+    "admission": {
+      "available_ram_bytes": 122807877632,
+      "free_disk_bytes": 58623029248
+    },
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n"
+  },
+  "launch": {
+    "owner_pid": 278257,
+    "launched_utc": "2026-10-21T14:52:28.519623+00:00"
+  },
+  "source_manifest": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/analyze.py": "4aa00c6c6734854c6b097d1a0b95962bf1244b9b48d235332bbece5c6c8c6b11",
+    "projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "projects/ukrmol_co/a2_channel_preflight.py": "75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "projects/ukrmol_co/sparse_comparison_owner.py": "a8730d04c122de0447e041e134872044e8abc837a72288bad7812b59bafc9a04",
+    "projects/ukrmol_co/fifty_import_verification.py": "eb4358f0fecc5d6ab035c876482cb1673a2def53f135efdd08c22ea219a7aeb6",
+    "projects/ukrmol_co/fifty_property_export.py": "7008724729c6e2e0f553dcbe2fff0a429f35429f762a5a82df32b48b90ef6ea7",
+    "projects/ukrmol_co/fifty-property-export-contract-20261021.json": "5b3c341095134e1fdb22f3cc5bfaff8a95b2a6c4ef567fcf9da7edb9df593d93",
+    "projects/ukrmol_co/FIFTY_SELECTED_PROPERTIES.md": "d6c5a2d8a7a1d8f8006e7cd39c600bcc407be46a57d7f2b7b115f2f51eab1025",
+    "projects/ukrmol_co/test_fifty_property_export.py": "21af91c789146e1bd37332c0c9dad977d1a6e86fa89df46b5a9aef2787bf5432",
+    "projects/ukrmol_co/test_a2_channel_preflight.py": "520ab15eb28f3a29bf4584219fc871ff1837e94d6470a86bc77b66f74035ca6f"
+  },
+  "native_input_verified_marker_present": true,
+  "selected_deck_sha256": "3324176625887deadd52b472fa5cdd10db26cdac36eee1da8e37455186ceb4a2",
+  "selected_counts": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+  ],
+  "local_focused_tests_passed": 36,
+  "local_pyscf_skip_exercised_by_remote_analytic_control": true,
+  "watcher_shell_id": "sh_15ef38102001QVpGCTJJyGeuDB",
+  "remote_source_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/fifty-selected-properties-source-20261021",
+  "running_containers": [
+    "co-fifty-selected-properties-20261021-properties Up About a minute",
+    "comfyui Up 39 hours"
+  ],
+  "scope": "Prospective selected-property launch capture. New fixed-frame import is qualified; property and scattering verdicts remain pending. Original seed rejection unchanged."
+}

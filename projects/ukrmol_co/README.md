@@ -76,7 +76,17 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 21 October,13:47UTC:** the [fifty-component target calculation](FIFTY_COMPONENT_IMPORT.md)
+**Update — 21 October,14:54UTC:** the [completed new fifty-component frame](FIFTY_FRAME_COVERAGE.md)
+independently passes **48 CI probes /74 native roots, vectors and EOF**, exits0/0/0,
+in **5.144min /.27065GiB**. All5 public payloads /108 original files verify; the
+original seed rejection remains separate. The saved global-low50 properties
+contain only3 singlet-A2 states, so a new [explicit40-state property export](FIFTY_SELECTED_PROPERTIES.md)
+is running from14:52UTC, expected30min /cap60min, no new QC or target solve.
+It supplies the selected manifold needed before physical channel matching and
+costing a matched orbital-ensemble scattering comparison. No new inner solve
+or production sweep is released.
+
+**Earlier result — 21 October,13:47UTC:** the [fifty-component target calculation](FIFTY_COMPONENT_IMPORT.md)
 finishes, target/analyzer0/0, but independent seed-frame preservation rejects:
 six averaged roots change by more than1e-7 Hartree (maximum3.38450e-7). Native
 energies match the newly optimized frame within5.29468e-10 Hartree. Original
@@ -531,10 +541,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: fifty-component native target passes against new QC frame; seed preservation rejects; qualify completed frame before matched scattering](../../docs/physics/figures/co-progress-20261021T1347-fifty-result.png)
+![CO qualification: new fifty-component frame independently passes; explicit40-state properties running before physical channel matching and scattering preparation](../../docs/physics/figures/co-progress-20261021T1454-fifty-frame.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021T1347-fifty-result.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021T1347-fifty-result.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021T1454-fifty-frame.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021T1454-fifty-frame.json) ·
+[New-frame qualification](FIFTY_FRAME_COVERAGE.md) ·
+[New-frame public verification](verification-fifty-frame-public-20261021.json) ·
+[Selected-property launch](progress-fifty-property-launch-20261021.json) ·
+[Previous seed-rejection figure](../../docs/physics/figures/co-progress-20261021T1347-fifty-result.svg) ·
+[Previous seed-rejection snapshot](progress-snapshot-20261021T1347-fifty-result.json) ·
 [Fifty-component target result](FIFTY_COMPONENT_IMPORT.md) ·
 [Original result/exits](progress-fifty-import-result-20261021.json) ·
 [Public evidence](qualification-evidence/fifty-import/README.md) ·

@@ -1,0 +1,26 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 17651,
+      "sha256": "8cab9e351e07a1f6b9588a399df78d8c2610a7690a09692a976f610f5f7c8303"
+    },
+    "manifest.json": {
+      "bytes": 640,
+      "sha256": "c80d6b99fd1fc18e914526286bd964cdf43fd593f29bd5cf0a77883cd23aceac"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 706,
+      "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+    },
+    "result-summary.json": {
+      "bytes": 12945,
+      "sha256": "24abea439ae714d6c676885ecfaeb9db4c2755fcf0a4a3d0545b0f96dd5f73e0"
+    },
+    "results.tar.gz": {
+      "bytes": 148257,
+      "sha256": "7a739e6354ddeb803d969a0a2123a9ab6bfabd2362625a32281791fe8a272d9a"
+    }
+  },
+  "git_sha": "55e89a6b02f94c40638a9f538d3d0a0f2eadfde2",
+  "url_prefix": "https://data.qscat.org/co-fifty-frame-20261021/"
+}

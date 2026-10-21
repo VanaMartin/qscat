@@ -535,6 +535,14 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,14:54UTC advance:** the [completed new frame](FIFTY_FRAME_COVERAGE.md)
+passes48 independent fixed-orbital probes and74 native binary root/vector/EOF
+checks, exits0/0/0,5.144min /.27065GiB. Original seed rejection stays unchanged.
+An [explicit40-state property export](FIFTY_SELECTED_PROPERTIES.md) is running
+because global-low50 retained only3 singlet-A2 states. Forecast30min /cap60min;
+no new QC or target diagonalization. Then physical channel correspondence and
+compatible scattering-preparation/cost design; no inner solve is yet released.
+
 **21 October,13:47UTC result:** [fifty-component native target/analyzer pass,
 seed-frame preservation rejects](FIFTY_COMPONENT_IMPORT.md), original verifier
 1/1/owner1. Current native/QC agreement5.29468e-10 Hartree is separate from

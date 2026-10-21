@@ -1,5 +1,16 @@
 # Explicit matched-manifold property export on the fifty-component frame
 
+**Status21 October,14:54UTC:** one selected40-state DENPROP calculation is
+running, source freeze **`96b8ed9`**, owner PID278257. It starts14:52:28UTC,
+expected30min /upper45min /whole-container cap60min. Physical cores0–3 /
+one native thread /4GiB; all12 frozen sources and13 original input pins verify.
+Native input verification completes; final scientific verdict/exits remain
+pending. Persistent outputs:
+`prepared/fifty-selected-properties-source-20261021/outputs/properties/` on
+Sadaharu. [Launch capture](progress-fifty-property-launch-20261021.json) records
+the actual command, hashes and original pending statuses. The completion watcher
+is read-only; no other numerical work is submitted by it.
+
 The completed new orbital frame now independently passes48 CI probes and all74
 saved native target energy/vector/header/EOF checks. The original seed-frame
 preservation rejection is unchanged. The immediate missing input for an ensemble

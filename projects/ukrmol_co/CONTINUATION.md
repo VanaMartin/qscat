@@ -20,6 +20,69 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### New fifty-component frame qualified; selected-property calculation running — 21 October,14:54 UTC
+
+The [independent fixed-frame successor](FIFTY_FRAME_COVERAGE.md), frozen/pushed
+at **`55e89a6`**, finishes **14:43:05UTC**, original command/container/owner0/0/0.
+All **48 probes and74 saved native roots/vectors/headers/EOF** pass. Maximum
+native/reference energy difference8.24230e-13 Hartree, native Gram1.26565e-14;
+fresh-QC/reference ensemble-root maximum1.42109e-13 Hartree. Physical/penalized
+residual maxima7.20000e-10/9.94442e-10, penalty action6.88784e-10 Hartree pass
+unchanged1e-9 gates. Checkpoint/Molden physical-overlap minimum singular values
+.9999999999999499 core /.99999999999998 active pass1−1e-8. Analytic Hubbard
+positive/negative controls pass. The original six-root seed rejection and1/1/1
+exits remain preserved; new-frame qualification is a separate verdict.
+
+Cost **308.657s /5.144min**, sampled CPU979.610s /16.327CPUmin, kernel peak
+**.27065GiB**,1540 samples, four threads on reserved physical cores0–3 /4GiB.
+All10 frozen sources /10 original input pins verify before/after; zero native
+engine calls, orbital optimizations or scattering solves. All5 public payloads /
+108 original files fresh-verify, four prerequisite payloads reauthenticate.
+[Dated result](progress-fifty-frame-result-20261021.json),
+[public saved reconstruction](verification-fifty-frame-public-20261021.json) and
+[evidence/reproduction](qualification-evidence/fifty-frame/README.md) retain the
+distinction between recomputed native vector/energy checks and observed CI
+residual actions/export overlaps. No new48-probe numerical replay is claimed.
+
+**Next native calculation now running:** the [explicit40-state property export](FIFTY_SELECTED_PROPERTIES.md),
+separately frozen at **`96b8ed9`**, starts **14:52:28UTC**, owner **278257**.
+The existing global-low50 DENPROP file contains only **three singlet-A2 states**,
+so it cannot support a matched five-A2 comparison. The new calculation changes
+only `ntgtl` from7,6,6,8,6,8,3,6 to5,5,5,5,5,5,5,5. It reuses qualified target
+vectors/property integrals and unchanged CONGEN expansions, without new target
+diagonalization or QC. [Prospective contract](fifty-property-export-contract-20261021.json)
+pins13 original files; all12 source hashes pass at launch. Original inputs mount
+read-only, with copies authenticated before/after. Ground-dipole/energy and
+complete40-state moment/map gates remain1e-5a.u./1e-7Hartree.
+
+Forecast **1800s expected /2700s upper /3600s whole-container cap**, native
+timeout3300s, cores0–3 /one native thread /4GiB. The previous50-state DENPROP
+measured2131.91s wall /2136.58CPU seconds /.65450GiB memory.current peak, so
+eight reserved cores would not accelerate this effectively serial stage. At
+14:54UTC native input verification has passed; final property verdict/exits are
+pending. Source/output directory:
+`prepared/fifty-selected-properties-source-20261021/`, output`outputs/properties/`.
+[Launch capture](progress-fifty-property-launch-20261021.json) preserves commands,
+hashes and pending status. Read-only pidfd watcher shell
+**`sh_15ef38102001QVpGCTJJyGeuDB`**, helper`wait-fifty-properties-20261021.py` in
+the approved local temporary directory, awaits completion without polling.
+
+**On completion:** preserve original native/container/owner outcome, collect and
+publish the selected40 property data, independently reconstruct state IDs/energies/
+moment coverage/maps and authenticate original/copy hashes. A pass releases
+physical cross-frame channel/subspace correspondence and sparse-preparation/cost
+design only. Target-only native layout is not yet a validated substitute for full
+scattering/continuum preparation; preserve the qualified orbital frame without
+another optimization. No automatic new Hamiltonian, phase/width claim or sweep.
+36 focused local tests pass; the one PySCF skip is exercised by the remote analytic
+control. Electronic/basis/channel, extraction, continuity, neutral and restartable
+pilot gates remain independent.
+
+Search handoff: complete/current main snapshot `423d577`. New fixed-frame and
+property code is branch-only, resolved locally and against immutable10/12-file
+source archives. Shared binary gates were factored without changing their
+conditions; the original frozen seed-verifier source/rejection is preserved.
+
 ### Fifty-component native target finishes; seed preservation rejects — 21 October,13:47 UTC
 
 The [completed target/import control](FIFTY_COMPONENT_IMPORT.md) finishes

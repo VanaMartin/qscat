@@ -1,0 +1,123 @@
+{
+  "observed_utc": "2026-10-21T14:46:37.862412+00:00",
+  "scope": "Fresh public-byte and saved-decision reconstruction. All74 native binary vectors/headers/EOF and cross-implementation energies recomputed; CI residual actions and checkpoint/Molden overlaps remain producer observations, not independently rerun here.",
+  "new_frame_import_verdict": true,
+  "original_seed_preservation_passed": false,
+  "original_seed_verifier_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "original_runtime_and_owner_exits": [
+    0,
+    0,
+    0
+  ],
+  "public_payloads_fresh_verified": 5,
+  "prerequisite_public_payloads_reauthenticated": 4,
+  "collected_original_files_verified": 108,
+  "sources_verified": 10,
+  "original_inputs_verified": 10,
+  "probes_reconstructed": 48,
+  "native_binary_sectors": [
+    {
+      "sector": "singlet.A1",
+      "roots": 13,
+      "dimension": 15548,
+      "energy_error_hartree": 5.258016244624741e-13,
+      "vector_gram_error": 4.440892098500626e-15
+    },
+    {
+      "sector": "triplet.A1",
+      "roots": 13,
+      "dimension": 24366,
+      "energy_error_hartree": 8.242295734817162e-13,
+      "vector_gram_error": 4.440892098500626e-15
+    },
+    {
+      "sector": "singlet.B1",
+      "roots": 8,
+      "dimension": 15196,
+      "energy_error_hartree": 2.5579538487363607e-13,
+      "vector_gram_error": 6.8833827526759706e-15
+    },
+    {
+      "sector": "triplet.B1",
+      "roots": 8,
+      "dimension": 24540,
+      "energy_error_hartree": 4.689582056016661e-13,
+      "vector_gram_error": 1.1102230246251565e-14
+    },
+    {
+      "sector": "singlet.B2",
+      "roots": 8,
+      "dimension": 15196,
+      "energy_error_hartree": 5.684341886080801e-13,
+      "vector_gram_error": 5.88418203051333e-15
+    },
+    {
+      "sector": "triplet.B2",
+      "roots": 8,
+      "dimension": 24540,
+      "energy_error_hartree": 4.973799150320701e-13,
+      "vector_gram_error": 5.440092820663267e-15
+    },
+    {
+      "sector": "singlet.A2",
+      "roots": 8,
+      "dimension": 15044,
+      "energy_error_hartree": 3.268496584496461e-13,
+      "vector_gram_error": 1.0547118733938987e-14
+    },
+    {
+      "sector": "triplet.A2",
+      "roots": 8,
+      "dimension": 24564,
+      "energy_error_hartree": 5.258016244624741e-13,
+      "vector_gram_error": 5.551115123125783e-15
+    }
+  ],
+  "native_roots_verified": 74,
+  "matched_five_A2_property_manifold_complete": false,
+  "saved_property_counts": {
+    "singlet.A1": 7,
+    "triplet.B1": 8,
+    "triplet.B2": 8,
+    "triplet.A1": 6,
+    "singlet.B2": 6,
+    "singlet.B1": 6,
+    "triplet.A2": 6,
+    "singlet.A2": 3
+  },
+  "scattering_ensemble_verdict": null,
+  "new_orbital_optimizations": 0,
+  "new_ci_probes": 0,
+  "native_engine_invocations": 0,
+  "collection_sha256": "7a739e6354ddeb803d969a0a2123a9ab6bfabd2362625a32281791fe8a272d9a",
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 17651,
+        "sha256": "8cab9e351e07a1f6b9588a399df78d8c2610a7690a09692a976f610f5f7c8303"
+      },
+      "manifest.json": {
+        "bytes": 640,
+        "sha256": "c80d6b99fd1fc18e914526286bd964cdf43fd593f29bd5cf0a77883cd23aceac"
+      },
+      "prerequisite-artifacts.json": {
+        "bytes": 706,
+        "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+      },
+      "result-summary.json": {
+        "bytes": 12945,
+        "sha256": "24abea439ae714d6c676885ecfaeb9db4c2755fcf0a4a3d0545b0f96dd5f73e0"
+      },
+      "results.tar.gz": {
+        "bytes": 148257,
+        "sha256": "7a739e6354ddeb803d969a0a2123a9ab6bfabd2362625a32281791fe8a272d9a"
+      }
+    },
+    "git_sha": "55e89a6b02f94c40638a9f538d3d0a0f2eadfde2",
+    "url_prefix": "https://data.qscat.org/co-fifty-frame-20261021/"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "git_sha": "55e89a6b02f94c40638a9f538d3d0a0f2eadfde2",
+  "experiment": "co-fifty-frame-20261021",
+  "scope": "Independent fixed-frame CI coverage and complete74-root saved native reconstruction; original seed rejection unchanged.",
+  "new_frame_import_verdict": true,
+  "original_seed_preservation_passed": false,
+  "original_runtime_and_owner_exits": [
+    0,
+    0,
+    0
+  ],
+  "original_seed_verifier_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "collection_sha256": "7a739e6354ddeb803d969a0a2123a9ab6bfabd2362625a32281791fe8a272d9a",
+  "matched_five_A2_property_manifold_complete": false,
+  "scattering_ensemble_verdict": null
+}
