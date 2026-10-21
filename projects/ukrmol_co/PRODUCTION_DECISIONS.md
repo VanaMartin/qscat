@@ -1,11 +1,39 @@
 # CO production decisions — 21 October 2026
 
-The next milestone is a **matched electronic-model scattering comparison**.
+The next milestone is a **well-defined electronic-model scattering comparison**.
 The one-identity radial experiment is complete. Production readiness is measured
 by decisions below, with each expensive successor separately costed from the
 model and channel map it will actually use.
 
 ## First calculation: equilibrium orbital-ensemble control
+
+### Current decision — 21 October,16:49 UTC
+
+The [physical ensemble-frame comparison](ENSEMBLE_FRAME_COMPARISON.md) now
+**rejects retained-subspace dominance in both A1 sectors**, minima0.0692964 and
+approximately zero versus0.5; six sectors pass. All eight numerical comparisons
+complete, original scientific exits1/1/1, **63.503s /.49293GiB**. Old retained
+singlet/triplet A1 root5 maps to new root6 at squared overlaps0.9075/0.9838.
+New triplet-A1 root3 has only0.3886 total capture in the old twelve-root buffer.
+This is not fixed by relabeling root5 alone. No scientific job remains.
+
+The new orbital frame and explicit40-state properties remain qualified, but the
+proposed **clean same-manifold orbital-average contrast is not released**.
+Keep the old frame as the current baseline. Choose explicitly between a combined
+lowest-five orbital/channel-prescription sensitivity test and a separately
+designed matched-manifold selection/projection. Do not describe the former as an
+isolated orbital-average effect, or silently tune the retained set into a pass.
+
+For either route, design an **immutable-frame continuum/native preparation**
+adapter instead of `--target-initial-checkpoint`, which reoptimizes. The target-only
+integral/CSF layout is not already the full-scattering layout. Cost each finite
+preparation stage before submitting it; target-only0.114s/full-continuum11.020s
+historical integral-stage times are orientation, not a whole-job forecast. The
+new CI arrays are saved; no QC, root/channel ladder, new properties or dense
+Hamiltonian follows this rejection. [Public numerical replay](verification-ensemble-frame-public-20261021.json)
+reproduces all eight overlap blocks within2.55351e-14, preserving false/exits1/1/1.
+
+### Original recipe and subsequent milestones
 
 The existing CAS11 fifty-component QC frame changes its ground energy by
 **+0.456512 eV** and the common-forty objective by **+0.170147 eV**, relative to
@@ -93,7 +121,7 @@ optimization. No physical-overlap successor is yet submitted.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Orbital ensemble | New frame qualifies48 probes /74 native roots and explicit40 properties /676 moments; original seed rejection kept | Physical cross-frame channel matching and compatible sparse preparation, then a fixed-manifold scattering contrast | Import2.899h; new-frame coverage5.144min; properties37.203min; scattering cost after preparation/maps |
+| Orbital ensemble | Both A1 retained subspaces reject the physical dominance screen; old root5→new6; qualified new target/properties retained | Declare combined prescription sensitivity or separately design matched-manifold selection; immutable continuum preparation before any solve | Physical comparison63.503s /.49293GiB; no QC repeat; preparation/scattering forecast depends on the chosen contrast |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Choose a model only after independent ensemble/basis effects are measured; budget remaining uncertainty explicitly | Reuse existing2048 results; no automatic larger active-space or channel ladder |
 | Resonance widths | Compressed/equilibrium required-window prediction rejects;94 known beyond-budget width counterexamples persist | A physically constrained extraction design with known-truth nonpolynomial successes, held-out phase predictions and explicit pole/width-identifiability veto | Existing calibration/native reading took13.9s /4.0s; new fit design remains uncosted; direct native complex poles need separate numerical qualification |

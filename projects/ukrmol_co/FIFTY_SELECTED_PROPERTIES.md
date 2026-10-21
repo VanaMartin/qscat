@@ -1,5 +1,11 @@
 # Explicit forty-state property export on the fifty-component frame
 
+**Later physical comparison,16:49UTC:** the property export remains qualified,
+but the [cross-frame retained-subspace screen](ENSEMBLE_FRAME_COMPARISON.md)
+rejects both A1 sectors. Selecting five roots per sector does not preserve the
+same physical retained manifold across orbital averages. No new properties or
+Hamiltonian are generated to repair this rejection.
+
 ## Completed and independently read — 21 October,15:38 UTC
 
 **The selected40-state property export passes**, native command/container/owner

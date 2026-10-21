@@ -1,0 +1,762 @@
+{
+  "observed_utc": "2026-10-21T16:43:03.849403+00:00",
+  "execution": {
+    "source_commit": "869a588b30bbd570fe4e1f1e503d4efd1f2ba69c",
+    "source_archive_sha256": "537c9c838c9937a1c00360029b83d45aed9b4e4da783a4a9b37a0de239fe8646",
+    "owner_sha256": "a63c512fdac00359eb43b0be3c663c9bc4d799fd9d87794a146dcdf980074698",
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "started_utc": "2026-10-21T16:42:39.671815+00:00",
+    "steps": [
+      {
+        "label": "overlaps",
+        "command": [
+          "docker",
+          "run",
+          "--name",
+          "co-ensemble-frame-overlaps-20261021-overlaps",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=1g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/ensemble-frame-overlaps-source-20261021/outputs:/out",
+          "-e",
+          "TMPDIR=/out",
+          "-e",
+          "PSI_SCRATCH=/out",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/ensemble-frame-overlaps-source-20261021/source:/opt/qmodeling:ro",
+          "-w",
+          "/opt/qmodeling",
+          "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.ensemble_frame_comparison",
+          "--root",
+          "/work",
+          "--contract",
+          "/opt/qmodeling/projects/ukrmol_co/ensemble-frame-overlap-contract-20261021.json",
+          "--output",
+          "/out/comparison"
+        ],
+        "timeout_seconds": 1800,
+        "started_utc": "2026-10-21T16:42:39.772476+00:00",
+        "integrity_before": {
+          "source_files": 12,
+          "original_inputs": 32
+        }
+      }
+    ],
+    "retained_subspace_dominance_verdict": null,
+    "new_frame_import_verdict": true,
+    "original_seed_preservation_passed": false,
+    "original_seed_verifier_and_owner_exits": [
+      1,
+      1,
+      1
+    ],
+    "scattering_ensemble_verdict": null,
+    "new_scattering_inner_solves": 0,
+    "integrity_before": {
+      "source_files": 12,
+      "original_inputs": 32
+    },
+    "admission": {
+      "available_ram_bytes": 122307555328,
+      "free_disk_bytes": 58333405184
+    },
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n"
+  },
+  "launch": {
+    "owner_pid": 279895,
+    "launched_utc": "2026-10-21T16:42:39.652155+00:00"
+  },
+  "source_manifest": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "docs/physics/co-ensemble-frame-overlaps.md": "77ebe1fb7446b615c221097ec987107de056f8b661c97a50e54d2e09fdd51389",
+    "projects/ukrmol_co/analyze.py": "4aa00c6c6734854c6b097d1a0b95962bf1244b9b48d235332bbece5c6c8c6b11",
+    "projects/ukrmol_co/coverage_reference.py": "095e81ca0b57ded9a5eb6c6f082860864fdd641bd72eda247cd696ea6e2f9cfd",
+    "projects/ukrmol_co/ci_overlap.py": "559227915a1cfb5633dc9c6e3ca61d200c3546cb581d235109f2ac1a25fde7aa",
+    "projects/ukrmol_co/fifty_import_verification.py": "eb4358f0fecc5d6ab035c876482cb1673a2def53f135efdd08c22ea219a7aeb6",
+    "projects/ukrmol_co/ensemble_frame_overlaps.py": "530aefab6c3d3760bcd60e15ccc019bfafc8748b04758548dd93888dfa5dcb66",
+    "projects/ukrmol_co/ensemble_frame_comparison.py": "8f2d51c8ededb4e31ede30cebc93e9c0aa2785f4e8067bc3ea93b0fc439ef6b5",
+    "projects/ukrmol_co/ensemble-frame-overlap-contract-20261021.json": "fb2f635bbb805763fd22dce1200c03cf97f66e3e94a1f13926eff3ec8815a9ae",
+    "projects/ukrmol_co/test_ci_overlap.py": "76f17af8357e40a6f6b1971f759df812bcaf02e53211f856db015e12d75dc204",
+    "projects/ukrmol_co/test_ensemble_frame_overlaps.py": "485df269302e5ccf4e0f3cd1558906179feb6e3fd3022d9e45331ebdced5e4b0"
+  },
+  "completed_sectors": 2,
+  "decision_controls": {
+    "permutation": {
+      "root_overlap_shape": [
+        8,
+        8
+      ],
+      "root_buffer_singular_values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "retained_squared_principal_overlaps": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "minimum_retained_squared_principal_overlap": 1.0,
+      "retained_subspace_dominance_passed": true,
+      "old_retained_projection_into_new_retained": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "new_retained_projection_into_old_retained": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "old_retained_projection_into_new_buffer": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "new_retained_projection_into_old_buffer": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    "unitary": {
+      "root_overlap_shape": [
+        8,
+        8
+      ],
+      "root_buffer_singular_values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9999999999999998,
+        0.9999999999999998,
+        0.9999999999999997,
+        0.9999999999999997
+      ],
+      "retained_squared_principal_overlaps": [
+        1.0,
+        0.9999999999999996,
+        0.9999999999999996,
+        0.9999999999999993,
+        0.9999999999999993
+      ],
+      "minimum_retained_squared_principal_overlap": 0.9999999999999993,
+      "retained_subspace_dominance_passed": true,
+      "old_retained_projection_into_new_retained": [
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999,
+        1.0
+      ],
+      "new_retained_projection_into_old_retained": [
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999,
+        1.0
+      ],
+      "old_retained_projection_into_new_buffer": [
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999998,
+        0.9999999999999999,
+        1.0
+      ],
+      "new_retained_projection_into_old_buffer": [
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999,
+        1.0
+      ],
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.19999999999999998,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.0,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.20000000000000004,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 5.551115123125783e-17,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.20000000000000004,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 5.551115123125783e-17,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.19999999999999998,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 5.551115123125783e-17,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.20000000000000004,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.0,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.19999999999999998,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.0,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.20000000000000004,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 5.551115123125783e-17,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.20000000000000004,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 5.551115123125783e-17,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.19999999999999998,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 5.551115123125783e-17,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.20000000000000004,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.0,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": true,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    "retained_buffer_exchange": {
+      "root_overlap_shape": [
+        8,
+        8
+      ],
+      "root_buffer_singular_values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "retained_squared_principal_overlaps": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "minimum_retained_squared_principal_overlap": 0.0,
+      "retained_subspace_dominance_passed": false,
+      "old_retained_projection_into_new_retained": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "new_retained_projection_into_old_retained": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "old_retained_projection_into_new_buffer": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "new_retained_projection_into_old_buffer": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 6,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 6,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": true
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 6,
+          "assigned_squared_overlap": 1.0,
+          "row_best_opposite_root": 6,
+          "best_to_second_squared_overlap_margin": 1.0,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": true
+        }
+      ]
+    },
+    "contracted": {
+      "root_overlap_shape": [
+        8,
+        8
+      ],
+      "root_buffer_singular_values": [
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "retained_squared_principal_overlaps": [
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994
+      ],
+      "minimum_retained_squared_principal_overlap": 0.48999999999999994,
+      "retained_subspace_dominance_passed": false,
+      "old_retained_projection_into_new_retained": [
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994
+      ],
+      "new_retained_projection_into_old_retained": [
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994
+      ],
+      "old_retained_projection_into_new_buffer": [
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994
+      ],
+      "new_retained_projection_into_old_buffer": [
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994,
+        0.48999999999999994
+      ],
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.48999999999999994,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.48999999999999994,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    }
+  },
+  "residual_analytic_benchmark": {
+    "model": "Hubbard dimer, U=4, t=1, two electrons; energy offset 3",
+    "analytic_ground_energy": 2.1715728752538097,
+    "exact_eigenvector": {
+      "energy_hartree": 2.1715728752538164,
+      "spin_square": 6.508102468073347e-30,
+      "penalized_residual_norm_hartree": 8.37473615099372e-15,
+      "physical_rayleigh_energy_hartree": 2.17157287525381,
+      "physical_residual_norm_hartree": 1.7395462421623706e-15,
+      "spin_penalty_action_norm_hartree": 3.611212654972683e-15
+    },
+    "perturbed_vector": {
+      "energy_hartree": 2.1715728752538164,
+      "spin_square": 6.508102468073347e-30,
+      "penalized_residual_norm_hartree": 0.05044689487067559,
+      "physical_rayleigh_energy_hartree": 2.17205829650504,
+      "physical_residual_norm_hartree": 0.05044455935283661,
+      "spin_penalty_action_norm_hartree": 3.6208423468066684e-15
+    }
+  },
+  "watcher_shell_id": "sh_15f58013a0017lcwMuw8g0COuK",
+  "remote_source_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/ensemble-frame-overlaps-source-20261021",
+  "focused_local_tests_passed": 32,
+  "pyscf_local_skip": 1,
+  "running_containers": [
+    "co-ensemble-frame-overlaps-20261021-overlaps Up 23 seconds",
+    "comfyui Up 41 hours"
+  ],
+  "scope": "Dated launch capture only; finite physical retained-subspace comparison. No new QC or native/scattering call."
+}

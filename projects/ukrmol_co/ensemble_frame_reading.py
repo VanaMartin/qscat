@@ -19,8 +19,10 @@ def replay(root, comparison, contract):
             raise ValueError(f"Changed replay prerequisite: {name}")
     report = json.loads((comparison / "result.json").read_text())
     assert report["all_eight_sectors_complete"] is True and len(report["sectors"]) == 8
+
     def load(name):
         return np.load(comparison / (name + ".npy"), allow_pickle=False)
+
     a, b = load("old.mo"), load("new.mo")
     for name, c in (("old", a), ("new", b)):
         own = c.conj().T @ load(name + ".ao") @ c

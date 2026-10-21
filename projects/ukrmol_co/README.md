@@ -76,7 +76,18 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 21 October,15:38UTC:** the [explicit40-state property export](FIFTY_SELECTED_PROPERTIES.md)
+**Update — 21 October,16:49UTC:** the [physical ensemble-frame comparison](ENSEMBLE_FRAME_COMPARISON.md)
+rejects the retained-five dominance screen in **both A1 sectors**: minimum squared
+principal overlaps0.06930 and approximately zero versus0.5. All eight numerical
+comparisons complete; scientific command/container/owner **1/1/1** are preserved.
+Old retained A1 root5 maps strongly to new root6 in both spins. Cost **63.503s /
+.49293GiB**, no QC or native/scattering call. Fresh public saved-wave replay
+reconstructs all eight blocks within2.55351e-14. The new frame/properties stay
+qualified, but lowest-five on both frames is not a clean same-manifold ensemble
+contrast. Next declare the physical comparison and design immutable continuum
+preparation/cost; no automatic root ladder, new Hamiltonian or sweep. No job runs.
+
+**Earlier update — 21 October,15:38UTC:** the [explicit40-state property export](FIFTY_SELECTED_PROPERTIES.md)
 passes native command/container/owner0/0/0 in **37.203min /.43713GiB**. Independent
 reading reconstructs all40 target IDs /676 moments, energies, symmetry labels,
 dipole and maps. All8 new public payloads /22 generated/owner files fresh-verify;
@@ -551,10 +562,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: new fifty-component frame and explicit40-state properties pass; physical channel matching and scattering preparation next; no scientific job running](../../docs/physics/figures/co-progress-20261021T1538-fifty-properties.png)
+![CO qualification: physical comparison rejects both A1 retained subspaces; qualified frame and properties retained; no automatic Hamiltonian or scientific job running](../../docs/physics/figures/co-progress-20261021T1649-ensemble-frame.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021T1538-fifty-properties.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021T1538-fifty-properties.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021T1649-ensemble-frame.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021T1649-ensemble-frame.json) ·
+[Physical ensemble-frame result](ENSEMBLE_FRAME_COMPARISON.md) ·
+[Saved-wave numerical replay](verification-ensemble-frame-public-20261021.json) ·
+[Physical overlap evidence](qualification-evidence/ensemble-frame/README.md) ·
+[Previous property-result figure](../../docs/physics/figures/co-progress-20261021T1538-fifty-properties.svg) ·
+[Previous property-result snapshot](progress-snapshot-20261021T1538-fifty-properties.json) ·
 [Selected-property result](FIFTY_SELECTED_PROPERTIES.md) ·
 [Independent property reconstruction](verification-fifty-properties-public-20261021.json) ·
 [Selected-property evidence](qualification-evidence/fifty-properties/README.md) ·

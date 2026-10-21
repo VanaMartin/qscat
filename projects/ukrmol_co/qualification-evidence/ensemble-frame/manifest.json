@@ -1,0 +1,20 @@
+{
+  "git_sha": "869a588b30bbd570fe4e1f1e503d4efd1f2ba69c",
+  "experiment": "co-ensemble-frame-20261021",
+  "scope": "Eight physical old40/new50 orbital-frame overlap blocks; finite retained-subspace dominance only.",
+  "retained_subspace_dominance_verdict": false,
+  "original_runtime_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "original_seed_preservation_passed": false,
+  "original_seed_exits": [
+    1,
+    1,
+    1
+  ],
+  "scattering_ensemble_verdict": null,
+  "global_state_identity_verdict": null,
+  "collection_sha256": "278a93c6cdcbb03d10d4f0f616e5a92dd4b744b5222ab76aac5ba6fa14e2f5f8"
+}

@@ -1,0 +1,50 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 13485,
+      "sha256": "176e1840e1f9b242f92f5e597f4db963523d4535817c4c9c9cfb4ce9e555831b"
+    },
+    "manifest.json": {
+      "bytes": 600,
+      "sha256": "bcf1046e64fb4c0bd31f06d1859d9ef8553b72087563e2c03f60aea25d2e08bb"
+    },
+    "prerequisite-frame-artifacts.json": {
+      "bytes": 850,
+      "sha256": "6045941b1a8c11283be0b21c927ddd4c639d0fdd37d2f6cda53926b73cb29505"
+    },
+    "prerequisite-input-map.json": {
+      "bytes": 12032,
+      "sha256": "03ea89bd0280aabf663e61571e7d99078b282a99625dfdaa2e467312ae2c93d9"
+    },
+    "prerequisite-old-artifacts.json": {
+      "bytes": 335,
+      "sha256": "27f092dd7b0abe9cbed82c66ac2dff529e51b026bdacd6d0ea5b77e3aa110a44"
+    },
+    "prerequisite-properties-artifacts.json": {
+      "bytes": 1316,
+      "sha256": "e5a9973f278cb0715beb305306c6edde078ef5ebf87d9fcc311b422b025e8b3e"
+    },
+    "prerequisite-target-artifacts.json": {
+      "bytes": 706,
+      "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+    },
+    "result-summary.json": {
+      "bytes": 133230,
+      "sha256": "73fe73ced38f492394f4b46f64a0a6030e3ded6858bdde0090902b269c3c137e"
+    },
+    "results.tar.gz": {
+      "bytes": 30218383,
+      "sha256": "278a93c6cdcbb03d10d4f0f616e5a92dd4b744b5222ab76aac5ba6fa14e2f5f8"
+    },
+    "verification-support-sha256.json": {
+      "bytes": 203,
+      "sha256": "da8b4d002d7f60e592103f773a07f68f8e166454269fb2694de23585a8aec15a"
+    },
+    "verification-support.tar.gz": {
+      "bytes": 2100,
+      "sha256": "6e6ec02bb770d0658d2bfb837841802d757adccad6e448aae98f771547af663e"
+    }
+  },
+  "git_sha": "869a588b30bbd570fe4e1f1e503d4efd1f2ba69c",
+  "url_prefix": "https://data.qscat.org/co-ensemble-frame-20261021/"
+}

@@ -535,6 +535,17 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,16:49UTC:** the [physical ensemble-frame screen](ENSEMBLE_FRAME_COMPARISON.md)
+**rejects both A1 retained subspaces**, minima0.06930/approximately zero versus0.5,
+while all eight numerical cases pass. Original scientific exits1/1/1; cost63.503s /
+.49293GiB. Old A1 root5 maps to new6; new triplet-A1 root3 is poorly captured even
+in the old twelve-root buffer. The proposed clean same-manifold contrast is not
+released. Keep the baseline; explicitly distinguish combined prescription
+sensitivity from a separately justified matched-manifold selection. Design and
+cost immutable-frame continuum/native preparation before engine work, without
+another QC optimization. New CI waves are saved; no automatic root/channel ladder,
+changed property set, Hamiltonian or production sweep. No scientific job runs.
+
 **21 October,15:38UTC closure:** [explicit40-state properties](FIFTY_SELECTED_PROPERTIES.md)
 pass native/reader gates,40 IDs /676 moments, native/container/owner0/0/0,
 37.203min /.43713GiB. No scientific job runs. Qualified new-frame data now support

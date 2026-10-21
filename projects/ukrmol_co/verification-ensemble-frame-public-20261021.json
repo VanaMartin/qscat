@@ -1,0 +1,967 @@
+{
+  "saved_overlap_reconstruction_verified": true,
+  "retained_subspace_dominance_verdict": false,
+  "sectors": [
+    {
+      "sector": "singlet.A1",
+      "minimum_retained_squared_principal_overlap": 0.06929637466894004,
+      "retained_subspace_dominance_passed": false,
+      "maximum_rebuilt_overlap_error": 2.6645352591003757e-15,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9931782531379039,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9930672436199302,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9932285059991123,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9930537096872524,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.796690311152996,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.617842800222415,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9933992160440266,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9933057459589634,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 6,
+          "assigned_squared_overlap": 0.9074664423226418,
+          "row_best_opposite_root": 6,
+          "best_to_second_squared_overlap_margin": 0.8287073856716327,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": true
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9931782531379039,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9931606924047868,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9932285059991123,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9932044460401739,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.796690311152996,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.793896291024884,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9933992160440266,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9932754644074389,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.07875905665100909,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.10008845427957193,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    {
+      "sector": "singlet.B1",
+      "minimum_retained_squared_principal_overlap": 0.7839631067691128,
+      "retained_subspace_dominance_passed": true,
+      "maximum_rebuilt_overlap_error": 1.4876988529977098e-14,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9904069330052557,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9892763933219199,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9894828362641951,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9867835214097778,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9939266065116703,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9939266065116703,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9719814360894112,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.962331380564451,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.7951282900443892,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.6004482477064981,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9904069330052557,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9903890012655076,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9894828362641951,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.989296362433882,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9939266065116703,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.993914170948627,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9719814360894112,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9706789439706819,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.7951282900443892,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.7877098369121117,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    {
+      "sector": "singlet.B2",
+      "minimum_retained_squared_principal_overlap": 0.7839631067714198,
+      "retained_subspace_dominance_passed": true,
+      "maximum_rebuilt_overlap_error": 2.398081733190338e-14,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9904069330052142,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.989276393321941,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9894828362643037,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9867835214098061,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.993926606511457,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.993926606511457,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9719814360910088,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9623313805653022,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.7951282900486385,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.6004482477134404,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9904069330052142,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9903890012654618,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9894828362643037,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9892963624338769,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.993926606511457,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9939141709484136,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9719814360910088,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9706789439732866,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.7951282900486385,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.787709836918741,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    {
+      "sector": "singlet.A2",
+      "minimum_retained_squared_principal_overlap": 0.9859718823781477,
+      "retained_subspace_dominance_passed": true,
+      "maximum_rebuilt_overlap_error": 2.55351295663786e-14,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9933325904437539,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9931177063157887,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9932285059963682,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9930537096845322,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9933992160448807,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.993305745959845,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9913810105031426,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9911012776264453,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.9860091412342366,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.9859540113475079,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9933325904437539,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9933031325013492,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9932285059963682,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9932044460374453,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9933992160448807,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9932754644082928,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9913810105031426,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9910548415672632,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.9860091412342366,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.9853866735537605,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    {
+      "sector": "triplet.A1",
+      "minimum_retained_squared_principal_overlap": 2.5177914458973156e-16,
+      "retained_subspace_dominance_passed": false,
+      "maximum_rebuilt_overlap_error": 2.55351295663786e-15,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9913952377617559,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9905631370796003,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9925219152651974,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9923153984722076,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.993851019395369,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9933489565550352,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.5971576966443076,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.22895582720541258,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 6,
+          "assigned_squared_overlap": 0.9837919094027937,
+          "row_best_opposite_root": 6,
+          "best_to_second_squared_overlap_margin": 0.9823463856528482,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": true
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9913952377617559,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9912732932990144,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9925219152651974,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9924923879466299,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 10,
+          "assigned_squared_overlap": 0.36294421804580085,
+          "row_best_opposite_root": 10,
+          "best_to_second_squared_overlap_margin": 0.3388030386556046,
+          "weak_assignment_trigger": true,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": true
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.993851019395369,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9938372400450828,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.5971576966443076,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.5925186976362782,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    {
+      "sector": "triplet.B1",
+      "minimum_retained_squared_principal_overlap": 0.5866026386134423,
+      "retained_subspace_dominance_passed": true,
+      "maximum_rebuilt_overlap_error": 1.9095836023552692e-14,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9927812335496126,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9926534360794983,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9936012759376639,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9934577269340185,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9907789102057964,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9895255250061543,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.994437499527689,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.994437499527689,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.5875183834699361,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.3197449916585466,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9927812335496126,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9927546961264304,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9936012759376639,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9934672594450943,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9907789102057964,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.990635361202151,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.994437499527689,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9944321275936046,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.5875183834699361,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.5444393609250916,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    {
+      "sector": "triplet.B2",
+      "minimum_retained_squared_principal_overlap": 0.586602638629508,
+      "retained_subspace_dominance_passed": true,
+      "maximum_rebuilt_overlap_error": 1.1657341758564144e-14,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.992781233549634,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9926534360795317,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9936012759376198,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9934577269339585,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9907789102057893,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9895255250060933,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9944374995276815,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9944374995276815,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.5875183834863906,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.3197449916623388,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.992781233549634,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9927546961264426,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9936012759376198,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9934672594450341,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.9907789102057893,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.990635361202128,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9944374995276815,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9944321275935969,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.5875183834863906,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.5444393609578941,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    },
+    {
+      "sector": "triplet.A2",
+      "minimum_retained_squared_principal_overlap": 0.9817203778236523,
+      "retained_subspace_dominance_passed": true,
+      "maximum_rebuilt_overlap_error": 7.549516567451064e-15,
+      "old_to_new_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9925219152613735,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9925206013798389,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9924017999774956,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9923878446256733,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.993775174488388,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9937119037202693,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9938510193957085,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9938436621715828,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.9826243400892452,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.9805764658899779,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ],
+      "new_to_old_assignments": [
+        {
+          "retained_root": 1,
+          "assigned_opposite_root": 1,
+          "assigned_squared_overlap": 0.9925219152613735,
+          "row_best_opposite_root": 1,
+          "best_to_second_squared_overlap_margin": 0.9924923879428312,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 2,
+          "assigned_opposite_root": 2,
+          "assigned_squared_overlap": 0.9924017999774956,
+          "row_best_opposite_root": 2,
+          "best_to_second_squared_overlap_margin": 0.9923687094187156,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 3,
+          "assigned_opposite_root": 3,
+          "assigned_squared_overlap": 0.993775174488388,
+          "row_best_opposite_root": 3,
+          "best_to_second_squared_overlap_margin": 0.9937262384019355,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 4,
+          "assigned_opposite_root": 4,
+          "assigned_squared_overlap": 0.9938510193957085,
+          "row_best_opposite_root": 4,
+          "best_to_second_squared_overlap_margin": 0.9938471424734807,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        },
+        {
+          "retained_root": 5,
+          "assigned_opposite_root": 5,
+          "assigned_squared_overlap": 0.9826243400892452,
+          "row_best_opposite_root": 5,
+          "best_to_second_squared_overlap_margin": 0.9809323187576166,
+          "weak_assignment_trigger": false,
+          "ambiguous_row_trigger": false,
+          "retained_to_extra_trigger": false
+        }
+      ]
+    }
+  ],
+  "ci_solves": 0,
+  "native_engine_invocations": 0,
+  "original_seed_preservation_passed": false,
+  "scattering_ensemble_verdict": null,
+  "scope": "Fresh full-minor contraction from authenticated saved CI/physical metrics; eigvalsh instead of squared SVD. Same frozen full-minor oracle as the producer cross-check. CI residual actions and AO integral generation are not repeated.",
+  "observed_utc": "2026-10-21T16:49:34.079254+00:00",
+  "producer_source_commit": "869a588b30bbd570fe4e1f1e503d4efd1f2ba69c",
+  "reader_source_commit": "e066879d424196b860440fe42c41af1b718f0f3b",
+  "public_payloads_fresh_verified": 11,
+  "prerequisite_payloads_reauthenticated": 18,
+  "collected_original_files_verified": 85,
+  "prerequisite_input_files_verified": 32,
+  "producer_source_files_verified": 12,
+  "reader_source_files_verified": 1,
+  "original_runtime_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "maximum_saved_ci_residual_observations_hartree": {
+    "physical_residual_norm_hartree": 6.984808909635525e-10,
+    "penalized_residual_norm_hartree": 9.791964759387392e-10,
+    "spin_penalty_action_norm_hartree": 6.114752642370747e-10
+  },
+  "assignment_trigger_counts": {
+    "weak_assignment_trigger": 2,
+    "ambiguous_row_trigger": 0,
+    "retained_to_extra_trigger": 3
+  },
+  "saved_verification_wall_seconds": 8.989925124682486,
+  "collection_sha256": "278a93c6cdcbb03d10d4f0f616e5a92dd4b744b5222ab76aac5ba6fa14e2f5f8",
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 13485,
+        "sha256": "176e1840e1f9b242f92f5e597f4db963523d4535817c4c9c9cfb4ce9e555831b"
+      },
+      "manifest.json": {
+        "bytes": 600,
+        "sha256": "bcf1046e64fb4c0bd31f06d1859d9ef8553b72087563e2c03f60aea25d2e08bb"
+      },
+      "prerequisite-frame-artifacts.json": {
+        "bytes": 850,
+        "sha256": "6045941b1a8c11283be0b21c927ddd4c639d0fdd37d2f6cda53926b73cb29505"
+      },
+      "prerequisite-input-map.json": {
+        "bytes": 12032,
+        "sha256": "03ea89bd0280aabf663e61571e7d99078b282a99625dfdaa2e467312ae2c93d9"
+      },
+      "prerequisite-old-artifacts.json": {
+        "bytes": 335,
+        "sha256": "27f092dd7b0abe9cbed82c66ac2dff529e51b026bdacd6d0ea5b77e3aa110a44"
+      },
+      "prerequisite-properties-artifacts.json": {
+        "bytes": 1316,
+        "sha256": "e5a9973f278cb0715beb305306c6edde078ef5ebf87d9fcc311b422b025e8b3e"
+      },
+      "prerequisite-target-artifacts.json": {
+        "bytes": 706,
+        "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+      },
+      "result-summary.json": {
+        "bytes": 133230,
+        "sha256": "73fe73ced38f492394f4b46f64a0a6030e3ded6858bdde0090902b269c3c137e"
+      },
+      "results.tar.gz": {
+        "bytes": 30218383,
+        "sha256": "278a93c6cdcbb03d10d4f0f616e5a92dd4b744b5222ab76aac5ba6fa14e2f5f8"
+      },
+      "verification-support-sha256.json": {
+        "bytes": 203,
+        "sha256": "da8b4d002d7f60e592103f773a07f68f8e166454269fb2694de23585a8aec15a"
+      },
+      "verification-support.tar.gz": {
+        "bytes": 2100,
+        "sha256": "6e6ec02bb770d0658d2bfb837841802d757adccad6e448aae98f771547af663e"
+      }
+    },
+    "git_sha": "869a588b30bbd570fe4e1f1e503d4efd1f2ba69c",
+    "url_prefix": "https://data.qscat.org/co-ensemble-frame-20261021/"
+  }
+}

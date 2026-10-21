@@ -20,6 +20,75 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Physical ensemble-frame screen rejects both A1 retained subspaces — 21 October,16:49 UTC
+
+The [physical old40/new50-frame comparison](ENSEMBLE_FRAME_COMPARISON.md), frozen
+at **`869a588`**, completes all eight sectors **16:43:43UTC**, with all numerical
+gates passing but **scientific dominance false /command/container/owner1/1/1**.
+The prospective minimum squared principal-overlap gate0.5 rejects singlet A1
+at **0.0692964** and triplet A1 at **8.20e-24 (numerically near zero)**. The other
+six minima are0.7839631/0.7839631/0.9859719/0.5866026/0.5866026/0.9817204.
+The gate is invariant to retained-root unitary mixing; this is not just a gauge
+or label ambiguity. It is a finite dominance screen, not a scattering-error bound.
+
+Old singlet-A1 root5 maps strongly to new root6, squared overlap **0.9074664**;
+old triplet-A1 root5 likewise maps to new root6 at **0.9837919**. Their retained-five
+projection weights are0.0794180 and8.22470e-6. New triplet-A1 root3 has only
+**0.3885705** total projection into all twelve old roots (best old root10 at
+0.3629442), so changing a pair of ordinal labels would not establish a matched
+manifold. Across80 directed assignments: **2 weak /0 ambiguous /3 retained-to-extra**.
+No retained set, threshold, buffer or solver setting is changed after the result.
+
+All eight old CI arrays are reused at the exact original scattering checkpoint;
+only eight new fixed-orbital sets supply the missing74 wavefunctions, now saved
+for reuse. Physical AO/frozen-core overlaps include core/active cross terms.
+Maximum new physical/penalized/penalty-action residuals **6.98481e-10 /
+9.79196e-10 /6.11475e-10 Hartree** pass1e-9. Schur/full-minor discrepancy
+6.66134e-16; reverse conjugate-transpose3.10862e-15. All numerical CI/MO/Gram,
+reference-energy, contractivity and analytic controls pass. The original separate
+seed rejection/exits1/1/1 and the passing new-frame/property qualifications stay
+unchanged.
+
+Measured **63.503s /0.49293GiB**, sampled CPU170.640s,315 samples; four threads on
+reserved physical cores0–3 /4GiB, below300s expected /900s upper /1800s cap. CI
+generation57.660s and overlap/self checks4.920s in aggregate. All12 source /
+32 original input hashes pass before/after. **Zero QC optimizations, native engine
+calls or scattering inner solves.** The read-only watcher is complete; no
+scientific job remains. Persistent source/outputs:
+`prepared/ensemble-frame-overlaps-source-20261021/outputs/comparison/` on Sadaharu.
+
+[Public evidence](qualification-evidence/ensemble-frame/README.md) fresh-verifies
+all11 payloads /85 original files /108,765,937 uncompressed bytes and reauthenticates
+18 prerequisite payloads. All32 inputs map to existing public archive members;
+old wavefunctions are not republished. [Saved-wave numerical replay](verification-ensemble-frame-public-20261021.json),
+reader freeze **`e066879`**, recomputes all eight full-minor contractions and
+Hermitian Gram eigenvalues in8.990s without CI/native work. Maximum rebuilt/saved
+overlap difference **2.55351e-14** reproduces the same false decision. It shares
+the validated full-minor cross-check routine; AO integral generation and CI
+residual actions are not rerun. [Dated result/resources](progress-ensemble-frame-result-20261021.json)
+retain original exits and all assignment flags. Focused tests:21 for overlap/cache
+controls,32 including related import/coverage tests; one local PySCF skip was
+exercised by the remote analytic control.
+
+**Next decision:** lowest-five on both frames is a **combined orbital/channel
+prescription contrast**, not the clean same-physical-manifold contrast proposed
+earlier. A matched-manifold alternative needs its own prospectively justified
+selection/projection evidence; do not silently expand roots or redo properties.
+Keep the original frame as the existing baseline. The common technical next step
+is immutable-frame continuum/native-preparation design and cost, without another
+QC optimization. The target-only native layout is not scattering-compatible by
+assumption: new `fort.16`44,278 bytes versus baseline12,983,436; target CONGEN
+record sizes also differ. `--target-initial-checkpoint` reoptimizes, so it is not
+an immutable import. Select the scientific contrast and freeze bounded compatible
+preparation before engine work. No new Hamiltonian, phase/width claim or sweep is
+released. All independent extraction/model/basis/neutral/continuity limits remain.
+
+Search handoff: complete/current main snapshot `423d577`. The new comparison
+`869a588` and saved reader `e066879` are branch-only additions, resolved against
+current source and immutable12+1-file archives. The two qualified overlap/
+residual helpers remain byte-identical; no earlier native or scientific rejection
+was edited into a pass.
+
 ### Explicit40 property export independently passes — 21 October,15:38 UTC
 
 The [selected-property run](FIFTY_SELECTED_PROPERTIES.md) finishes

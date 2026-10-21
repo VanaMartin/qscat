@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261021T1538-fifty-properties.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261021T1649-ensemble-frame.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -774,6 +774,33 @@ def _native_full_rejection(ax, data):
     _note(ax, data["native_full_rejection_note"])
 
 
+def _ensemble_frame_subspaces(ax, data):
+    _panel(
+        ax,
+        "B",
+        "Both A1 retained subspaces change",
+        "Physical old40/new50 orbital-frame comparison; five retained per sector",
+    )
+    rows = data["ensemble_frame_subspaces"]
+    y = np.arange(len(rows))
+    values = [row["minimum_squared_principal_overlap"] for row in rows]
+    colors = [GREEN if row["passed"] else RED for row in rows]
+    ax.barh(y, values, color=colors, height=0.6)
+    ax.axvline(0.5, color=INK, lw=1.1, linestyle="--")
+    for i, value in enumerate(values):
+        label = f"{value:.3f}" if value >= 1e-10 else "≈0"
+        ax.text(value + 0.02, i, label, va="center", fontsize=9, color=colors[i])
+    ax.set_yticks(y, [row["sector"] for row in rows], fontsize=9)
+    ax.set(xlim=(0, 1.16), ylim=(len(rows) - 0.4, -0.6))
+    ax.set_xlabel("Minimum squared principal overlap   (≥0.5 dominance screen)")
+    _note(
+        ax,
+        "Old A1 root5 → new root6 in both spins.\n"
+        "No normalization of lost overlap; not an error bound.\n"
+        "Eight numerical cases pass; scientific verdict rejects.",
+    )
+
+
 def _radial_accuracy(ax, data):
     _panel(
         ax,
@@ -1088,7 +1115,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _radial_accuracy
+            _ensemble_frame_subspaces
+            if "ensemble_frame_subspaces" in data
+            else _radial_accuracy
             if "radial_accuracy" in data
             else _native_residual
             if "native_residual" in data
@@ -1186,7 +1215,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261021T1538-fifty-properties",
+        default=ROOT / "docs/physics/figures/co-progress-20261021T1649-ensemble-frame",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)
