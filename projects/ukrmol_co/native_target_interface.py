@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
 import json
 import os
+import re
 import shutil
+import tarfile
 from pathlib import Path
 
 import numpy as np
@@ -36,7 +39,7 @@ def load_contract(root, path):
     if digest(parent) != contract["input_sha256"][contract["parent_contract"]]:
         raise ValueError("Changed original native-interface contract")
     base = load_contract(root, parent)
-    return base | {
+    result = base | {
         "input_sha256": base["input_sha256"] | contract["input_sha256"],
         "predecessor_execution": contract["predecessor_execution"],
         "predecessor_failure": contract["predecessor_failure"],
@@ -47,6 +50,50 @@ def load_contract(root, path):
         "engine_library_sha256": base.get("engine_library_sha256", {})
         | contract.get("additional_engine_library_sha256", {}),
     }
+    for name in (
+        "headers_archive",
+        "headers_provenance",
+        "completed_target_directory",
+        "predecessor_stages",
+    ):
+        if name in contract:
+            result[name] = contract[name]
+    return result
+
+
+def require_double_module(path):
+    """Reject quad module metadata before dereferencing a double-library object."""
+    text = gzip.decompress(path.read_bytes()).decode()
+    for name in ("cfp", "wp"):
+        offset = text.find(f"'{name}' 'precisn_gbl'")
+        match = re.search(r"CONSTANT.*?0 '(\d+)'", text[offset:], re.S) if offset >= 0 else None
+        if match is None or int(match[1]) != 8:
+            raise ValueError("Installed module metadata is not double GBTO ABI")
+
+
+def matching_headers(root, output, contract):
+    """Use headers emitted beside a byte-identical retained GBTO library build."""
+    provenance = json.loads((root / contract["headers_provenance"]).read_text())
+    if (
+        provenance["matched_runtime_libGBTO_sha256"]
+        != contract["engine_library_sha256"]["/opt/ukrmolp/lib.double/libGBTO.a"]
+    ):
+        raise ValueError("Header build does not match the runtime GBTO library")
+    pins = provenance["modules_sha256"]
+    directory = output / "headers/gbtolib"
+    directory.mkdir(parents=True, exist_ok=False)
+    with tarfile.open(root / contract["headers_archive"]) as archive:
+        if set(archive.getnames()) != {"gbtolib/" + n for n in pins}:
+            raise ValueError("Unknown module-header capsule entries")
+        for name, want in pins.items():
+            if Path(name).name != name or not name.endswith(".mod"):
+                raise ValueError("Unsafe module-header name")
+            data = archive.extractfile("gbtolib/" + name).read()
+            if hashlib.sha256(data).hexdigest() != want:
+                raise ValueError("Changed matching module header")
+            (directory / name).write_bytes(data)
+    require_double_module(directory / "precisn_gbl.mod")
+    return directory
 
 
 def integral_block(path):
@@ -205,9 +252,9 @@ def execute(root, output, contract):
             == predecessor["steps"][0]["original_container_exit"]
             == 1
         )
-        assert [(s["name"], s["original_exit"], s["timed_out"]) for s in failure["stages"]] == [
-            ("compile", 1, False)
-        ]
+        assert [
+            [s["name"], s["original_exit"], s["timed_out"]] for s in failure["stages"]
+        ] == contract.get("predecessor_stages", [["compile", 1, False]])
         assert (
             contract["predecessor_error_token"]
             in (root / contract["predecessor_compile_log"]).read_text()
@@ -232,6 +279,20 @@ def execute(root, output, contract):
     empty = output / "empty.inp"
     empty.write_text("")
     try:
+        if "completed_target_directory" in contract:
+            previous = root / contract["completed_target_directory"]
+            for name in ("target.bin", "target.out"):
+                shutil.copy2(previous / name, output / name)
+            if (output / "target.out").read_text().count("CO_NATIVE_TARGET_READ_COMPLETE") != 1:
+                raise ValueError("Saved target consumer did not complete")
+            report["target_sectors"] = compare_target(
+                output / "target.bin",
+                root / contract["cidata"],
+                root / contract["full_csf_directory"],
+                qualified["original"]["sectors"],
+            )
+            report["native_consumer_execution_verdict"] = True
+            report["reused_completed_target_read"] = True
         source = Path(__file__).with_name("native_target_io.f90")
         executable = output / "native_target_io"
         command = [
@@ -242,6 +303,14 @@ def execute(root, output, contract):
             "-g",
             "-fcheck=all",
         ]
+        if "headers_archive" in contract:
+            header_directory = matching_headers(root, output, contract)
+            command += ["-I" + str(header_directory)]
+            report["matching_module_sha256"] = {
+                p.name: digest(p) for p in header_directory.glob("*.mod")
+            }
+        else:
+            require_double_module(Path("/opt/ukrmolp/include/UKRmol+/gbtolib/precisn_gbl.mod"))
         command += [
             "-I/opt/ukrmolp/include/UKRmol+/" + p
             for p in ("gbtolib", "ci-diag", "global", "utilities")
@@ -313,6 +382,9 @@ def execute(root, output, contract):
             ),
         ]
         report["native_commands"] = dict(stages)
+        if "completed_target_directory" in contract:
+            stages = [(label, command) for label, command in stages if label != "target"]
+            report["native_commands"] = dict(stages)
         for label, command in stages:
             stage(output, report, label, command, empty, 30, os.environ.copy())
             marker = (

@@ -80,6 +80,17 @@ for the relocated MPI wrappers. Reference **double** binaries/libraries are
 removed before copying the installed source engine. **Quad remains the upstream
 reference engine**; the double build is not a quad build.
 
+The runtime also copies the source build's installed Fortran modules to
+`/opt/ukrmolp/include/UKRmol+/`: native clients must pair those **double** headers
+with `lib.double`. Earlier runtime images inherited upstream quad GBTO headers
+(`cfp=16`) even though `lib.double/libGBTO.a` used `cfp=8`; compiling a client
+against that mixture can corrupt derived-type accesses. Do not use the common
+double header directory to compile a quad client. The CO
+[read-only target interface study](../../projects/ukrmol_co/NATIVE_TARGET_INTERFACE.md)
+preserves the historical failure and uses headers recovered from a retained
+build with a byte-identical double library. The Dockerfile correction is for
+future builds; that study does not rebuild/requalify an image automatically.
+
 Engine source pins and numerical comparisons make the workflow repeatable.
 apt repositories and pip wheels are not fully mirrored/locked; rebuild image
 IDs may differ. Record the resulting image ID and package/toolchain provenance.

@@ -121,3 +121,29 @@ adds that original fifth library, not replacement engine code, and inherits all
 scientific settings/gates and22 input pins across the predecessor chain. Both
 build failures remain1/1/1; neither has executed a native reader. The Fortran
 driver remains unchanged and any new failure stops.
+
+## Completed native target read and GBTO header ABI diagnosis
+
+The link successor compiles and completes the original native target consumer,
+eight sectors/all74 roots, exit0. A separate saved-only comparison verifies every
+coefficient and relative-energy byte exactly under the qualified signs. The
+subsequent source integral read segfaults at direct p2d_array_obj%a access; full
+integral reading never begins. Original wrapper/container/owner1/1/1 and native
+source-read-11 remain unchanged.
+
+The inherited installed GBTO `.mod` headers declare cfp16 and REAL16 arrays,
+whereas the source-built runtime library is double. The runtime Docker stage
+copied libraries but not matching headers. Retained build image `6f080f2f678b`
+provides46 double headers emitted beside a **byte-identical libGBTO.a**, with
+matching source/compiler provenance. Extracting/checksumming those headers is
+metadata-only, not rebuilding/replacing the engine. The integral-only ABI
+completion uses these matching modules first on the include path, checks their
+precision before compilation, and adds a Fortran wp/cfp8 guard before any call.
+Future Docker builds copy matching headers too; this calculation does not rebuild
+the image or claim that future image build/test has run.
+
+The separately frozen completion authenticates30 input pins, reuses the completed
+target output unchanged and runs only the two missing successful integral reads.
+All original mathematical gates/budgets remain fixed. Three failed owners and
+the failed source-read output persist separately; the completed native target
+read is never repeated. Any new failure stops without a tolerance/model change.

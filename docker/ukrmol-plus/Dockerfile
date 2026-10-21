@@ -47,6 +47,8 @@ USER root
 RUN rm -rf /opt/ukrmolp/bin.double /opt/ukrmolp/lib.double
 COPY --from=test /home/ukrmol/source/install/bin/ /opt/ukrmolp/bin.double/
 COPY --from=test /home/ukrmol/source/install/lib/ /opt/ukrmolp/lib.double/
+# Upstream includes can describe quad GBTO layouts; native clients need the matching double modules.
+COPY --from=test /home/ukrmol/source/install/include/ /opt/ukrmolp/include/UKRmol+/
 COPY --from=test /home/ukrmol/source/provenance.json /opt/ukrmolp/source-provenance.json
 COPY --from=test /home/ukrmol/source/build/Testing/ /opt/ukrmolp/source-tests/
 USER ukrmol

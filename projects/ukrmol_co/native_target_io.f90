@@ -1,7 +1,7 @@
 ! Read-only diagnostic driver over installed UKRmol+/GBTOlib entry points.
 ! No integral evaluation, Hamiltonian construction or diagonalization is called.
 program native_target_io
-    use precisn_gbl, only: wp
+    use precisn_gbl, only: wp, cfp
     use const_gbl, only: line_len, one_elham, overlap_ints, two_el_ints, set_verbosity_level
     use mpi_gbl, only: mpi_mod_start, mpi_mod_finalize
     use atomic_basis_gbl, only: atomic_orbital_basis_obj
@@ -32,6 +32,7 @@ program native_target_io
     call get_command_argument(3, csfdir)
     call get_command_argument(4, output)
     if (len_trim(output) == 0) error stop 'four arguments required'
+    if (wp /= 8 .or. cfp /= 8) error stop 'driver requires double GBTO module ABI'
     call mpi_mod_start
     call set_verbosity_level(1)
     open(newunit=u, file=trim(output), status='new', form='unformatted', action='write')

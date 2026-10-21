@@ -1,0 +1,26 @@
+{
+  "status":"prospective integral-only ABI completion; completed native target read reused unchanged",
+  "parent_contract":"prepared/native-target-link-source-20261021/source/projects/ukrmol_co/native-target-interface-link-contract-20261021.json",
+  "predecessor_execution":"prepared/native-target-link-source-20261021/execution.json",
+  "predecessor_failure":"prepared/native-target-link-source-20261021/outputs/check/failure.json",
+  "predecessor_compile_log":"prepared/native-target-link-source-20261021/outputs/check/source_integrals.out",
+  "predecessor_error_token":"signal SIGSEGV",
+  "predecessor_stages":[["compile",0,false],["target",0,false],["source_integrals",-11,false]],
+  "completed_target_directory":"prepared/native-target-link-source-20261021/outputs/check",
+  "headers_archive":"prepared/native-target-double-headers-20261021/double-gbto-headers.tar.gz",
+  "headers_provenance":"prepared/native-target-double-headers-20261021/double-headers-provenance.json",
+  "input_sha256":{
+    "prepared/native-target-link-source-20261021/execution.json":"5c5fce36be4ae77f5289770362a6f032887e916a37e36083f633b9e3dda1ca2f",
+    "prepared/native-target-link-source-20261021/outputs/check/failure.json":"b644efb3f53c3b70f02b7c339d591495b03759a16072a268a74d4c18e45623a2",
+    "prepared/native-target-link-source-20261021/outputs/check/source_integrals.out":"dae4e42eea15eb3fab3c01584ab88bd9483ecaae3a3dc9d1265de5a492643d48",
+    "prepared/native-target-link-source-20261021/outputs/check/target.bin":"65ff22066a8f538c0581af71187a5729f66f61de127693e4a363c52a9bcef5f8",
+    "prepared/native-target-link-source-20261021/outputs/check/target.out":"4405c97e6f6cafcffc89babc1e501c3fd757080ff2f8c66fcc82c833e8d49fd0",
+    "prepared/native-target-link-source-20261021/source/projects/ukrmol_co/native-target-interface-link-contract-20261021.json":"b940f447ac1054f85bcd977dcc9e6733061928aad986fe7eda1dc96a8d8c5316",
+    "prepared/native-target-double-headers-20261021/double-gbto-headers.tar.gz":"a75bd27e3afea13e3154219b00fefe04688fd911c9b13ff7655e5e58549c0ff0",
+    "prepared/native-target-double-headers-20261021/double-headers-provenance.json":"21723aeaf3a3765f3d885cf0686b9d8a1f56819afa247e05e02fbff2132c4f31"
+  },
+  "diagnosis":"The linked harness completes the8-sector74-root original native CIRMAT consumer with exit0 and a complete final marker. A saved-only differential reader verifies every returned coefficient/energy byte against the qualified phase map, with no native replay. The subsequent source integral reader SIGSEGVs at direct p2d_array_obj%a access. Metadata inspection proves installed GBTO headers are quad (cfp=16, a REAL16) while source-built runtime libGBTO.a is double. Runtime Docker stage copied binaries/libraries but inherited quad headers from the upstream image. Original source-reader exit-11 and wrapper/container/owner1/1/1 remain; full integral read was never run.",
+  "header_provenance":"Retained source-inspection image sha256:6f080f2f678b7048bb67403a6013d5f9a2cfc04305f7080eae3d7b8511816f85 has matching double headers (cfp=wp=8) emitted beside libGBTO.a SHA25677c84296264a2a9b3bed16f958acd8ce04db4636cce475ee762f1c9b2d7c686a, exactly equal to the running library. Same archive/compiler provenance. Metadata-only extraction of46 modules; no engine rebuild. Check every header hash and require double-kind metadata before compilation; Fortran adds a cfp/wp guard before any call. Future runtime Docker builds also copy matching installed headers; no image rebuild is part of this job.",
+  "inheritance":"Original scientific/numerical gates,5 original libraries and60s expected/180s upper/300s cap, four cores/4GiB unchanged. Authenticate30 input pins across predecessor chain. Copy/authenticate completed target.bin/target.out, reconstruct all74 roots and never repeat native target read. Compile the same I/O algorithms with matching double headers plus an explicit ABI guard, then run only the2 missing successful integral reads. Original failed source-read bytes and three failed owners stay intact.",
+  "stopping_rule":"Freeze/push ABI guard/header binding, tests and this completion contract first. Fresh source/output/container. Preserve each predecessor failure separately, reuse completed target output, no completed native call repeated. Any new failure stops without numerical/model/tolerance changes. No engine rebuild, new integrals, QC/CI/target diagonalization/properties/scattering call or root/channel ladder. Full scattering target-channel/property/root map and scientific contrast remain required even if this technical completion passes."
+}

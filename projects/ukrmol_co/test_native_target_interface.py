@@ -42,6 +42,25 @@ def test_compiler_relocation_overrides_stale_upstream_path_without_model_changes
     assert actual["OMP_NUM_THREADS"] == "1" and env["OMPI_FC"].startswith("/build/")
 
 
+@pytest.mark.parametrize("kind", [8, 16])
+def test_module_precision_guard_rejects_quad_before_native_calls(tmp_path, kind):
+    import gzip
+
+    from projects.ukrmol_co.native_target_interface import require_double_module
+
+    path = tmp_path / "precisn_gbl.mod"
+    text = (
+        f"7 'cfp' 'precisn_gbl' CONSTANT (INTEGER 8) 0 '{kind}'\n"
+        "33 'wp' 'precisn_gbl' CONSTANT (INTEGER 8) 0 '8'"
+    )
+    path.write_bytes(gzip.compress(text.encode()))
+    if kind == 8:
+        require_double_module(path)
+    else:
+        with pytest.raises(ValueError):
+            require_double_module(path)
+
+
 def test_successor_inherits_frozen_scientific_settings_and_rejects_changed_parent(tmp_path):
     import hashlib
     import json
