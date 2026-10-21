@@ -20,6 +20,76 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Explicit40 property export independently passes — 21 October,15:38 UTC
+
+The [selected-property run](FIFTY_SELECTED_PROPERTIES.md) finishes
+**15:29:41UTC**, native command/container/owner **0/0/0**. All40 targets, five
+per spin/irrep, **676 finite unique dipole/quadrupole records**, complete native
+ID/sector/root map and ground-dipole gate pass. Singlet-A2 roots4/5 now have
+property IDs39/40. Maximum independent-CI energy error4.91610e-10 Hartree versus
+1e-7; dipole difference−1.12928e-11a.u. versus1e-5. The two earlier stages stay
+distinct: new fixed frame independently qualifies48 probes /74 native roots;
+original six-root seed-preservation rejection/exits1/1/1 remains unchanged.
+
+**Independent saved reading** (`5cbefa0`) parses all raw state/moment records
+without calling the producer inventory helper; symmetry indices, coverage,
+energies, dipole convention and maps all reconstruct. The exact input deck change
+is only the declared `ntgtl` replacement. Against the previous global-low50 export
+on this same checkpoint,38 shared state labels /620 common moment keys have
+**620/620 exact values**. This is a same-frame subset observation, not physical
+cross-frame state identity or independent accuracy validation of all moments.
+
+Original source freeze **`96b8ed9`**; all12 producer sources /13 original input
+pins /10 copied input units verify before/after. Cost **2232.151s /37.203min**,
+sampled CPU2231.769s /37.196CPUmin, sampled kernel peak **.43713GiB**,11,150 samples.
+Native DENPROP2231.204s. Thirty-minute expectation is exceeded but45min upper /
+60min cap pass; four reserved cores0–3 /one native thread /4GiB unchanged.
+No target diagonalization, orbital optimization or scattering solve is repeated.
+
+[Public evidence](qualification-evidence/fifty-properties/README.md) fresh-verifies
+all8 payloads /22 generated/owner files /93,323,078 uncompressed bytes, with
+9 prerequisite payloads reauthenticated. All other generated intermediates are
+included; the ten unchanged copied inputs are authenticated via the existing
+target archive instead of republished. Collection SHA256
+`d35630ff8ae9ac6ccc7b451f514bdf0a9b79e71ec6575dc767c7856f1522e3d6`.
+[Dated result/resources](progress-fifty-properties-result-20261021.json) and
+[independent public verification](verification-fifty-properties-public-20261021.json)
+preserve source/support hashes, final and intermediate reports and original exits.
+Seven independent-reader cases and four export-deck cases pass locally.
+
+**No scientific job remains**; only ComfyUI was observed after collection.
+The selected-property watcher has completed and is historical. Original files
+remain under`prepared/fifty-selected-properties-source-20261021/` on Sadaharu.
+
+**Next decision:** physical cross-frame retained-channel/subspace correspondence,
+then compatible sparse scattering preparation/cost without repeating QC. Locate
+and reuse existing state-overlap wavefunctions/algorithms where appropriate;
+state labels and matching counts alone do not establish identity. Target-only
+native input layout has not been qualified as full continuum/scattering input.
+Freeze a bounded preparation contract before new engine work; do not submit an
+inner Hamiltonian, automatic root/channel ladder or production sweep. Numerical
+radial pass remains reusable; ensemble/basis/channel uncertainty, reliable widths,
+continuity, neutral correlation/domain and restartable production pilot remain
+independent. The [production decisions](PRODUCTION_DECISIONS.md) now start from
+qualified target/property data rather than an unqualified frame.
+
+Read-only preparation finds **eight cached equilibrium12-root CI wavefunction
+arrays** under`diagnostics/cas11-target-state-overlap-roots12-20261009/co-eq-ccdz-sa11-tight-cc40/`
+and the validated `ci_overlap.py` in its corresponding prepared source directory.
+Bind their checkpoint/source hashes to the actual scattering baseline before
+reuse. The old full three-anchor24-sector /48-overlap-matrix run cost4322.37s /
+1.177GiB; do not repeat that whole campaign. The new frame's48 coverage probes
+saved reference energies/residuals, **not CI wavefunction arrays**, so a physical
+overlap successor needs a separately costed small set of new fixed-orbital
+wavefunctions, reusing the old arrays and physical-overlap algorithm. AO-following
+transport remains a different diagnostic; no overlap result is claimed here.
+
+Search handoff: complete main snapshot `423d577`; MCP freshness is stale/upstream
+unknown at the final check, while direct remote-main lookup confirms that commit.
+The branch-only producer `96b8ed9` and reader `5cbefa0` are resolved against current
+source and their separate archived hashes; no producer conditions were changed
+to obtain the independent readback pass.
+
 ### New fifty-component frame qualified; selected-property calculation running — 21 October,14:54 UTC
 
 The [independent fixed-frame successor](FIFTY_FRAME_COVERAGE.md), frozen/pushed

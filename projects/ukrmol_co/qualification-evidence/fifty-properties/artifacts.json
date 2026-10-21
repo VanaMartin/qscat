@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 5677,
+      "sha256": "c06572213b283d067e8eebf155996fa281525cc0ee743888a6ee0a0aec5d33e4"
+    },
+    "manifest.json": {
+      "bytes": 1069,
+      "sha256": "d01d21c4a14db4cc120f8bd712cd0620038b200e4959966d1c355b34ee077063"
+    },
+    "prerequisite-frame-artifacts.json": {
+      "bytes": 850,
+      "sha256": "6045941b1a8c11283be0b21c927ddd4c639d0fdd37d2f6cda53926b73cb29505"
+    },
+    "prerequisite-target-artifacts.json": {
+      "bytes": 706,
+      "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+    },
+    "result-summary.json": {
+      "bytes": 15593,
+      "sha256": "59a477698843420d8a809391c769d133ab431c149f05b71677c26b1573ff01f8"
+    },
+    "results.tar.gz": {
+      "bytes": 6175999,
+      "sha256": "d35630ff8ae9ac6ccc7b451f514bdf0a9b79e71ec6575dc767c7856f1522e3d6"
+    },
+    "verification-support-sha256.json": {
+      "bytes": 244,
+      "sha256": "11b5249428f3458094a42e3b5ef2abe7cff7b1ae92ac777126eb28abaeb1bb55"
+    },
+    "verification-support.tar.gz": {
+      "bytes": 2846,
+      "sha256": "13222619b33aab4185fb0bb4ca35f69b87a8e499a12ac363e1b62e609757e4a6"
+    }
+  },
+  "git_sha": "96b8ed99290677708893e347bc55631443617bb0",
+  "url_prefix": "https://data.qscat.org/co-fifty-properties-20261021/"
+}

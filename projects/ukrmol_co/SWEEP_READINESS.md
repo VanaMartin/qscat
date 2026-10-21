@@ -535,6 +535,14 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,15:38UTC closure:** [explicit40-state properties](FIFTY_SELECTED_PROPERTIES.md)
+pass native/reader gates,40 IDs /676 moments, native/container/owner0/0/0,
+37.203min /.43713GiB. No scientific job runs. Qualified new-frame data now support
+physical cross-frame channel/subspace correspondence and compatible sparse
+preparation/cost design without repeating QC. Matching labels/counts and the620
+exact same-frame common moments do not establish cross-frame identity. No new
+inner solve, model-convergence claim or production sweep is released.
+
 **21 October,14:54UTC advance:** the [completed new frame](FIFTY_FRAME_COVERAGE.md)
 passes48 independent fixed-orbital probes and74 native binary root/vector/EOF
 checks, exits0/0/0,5.144min /.27065GiB. Original seed rejection stays unchanged.

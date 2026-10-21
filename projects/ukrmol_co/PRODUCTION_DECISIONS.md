@@ -72,11 +72,28 @@ runs, forecast30min /upper45min /cap60min, using the qualified vectors and no ne
 QC/target diagonalization. Then establish physical cross-frame channel identity
 and compatible scattering preparation/cost, rather than comparing unequal maps.
 
+**21 October,15:38UTC closure:** the selected40-state property export and
+independent reader pass **40 IDs /676 moments**, native/container/owner0/0/0,
+37.203min /.43713GiB. All620 shared moment values across38 same-frame shared
+states are exact. All8 public payloads and9 prerequisites authenticate. No job
+remains. The next decision is now **physical cross-frame retained-channel/
+subspace correspondence and compatible scattering preparation/cost**, using the
+qualified frame without another QC optimization. No new inner solve follows
+automatically; matching labels/counts are not state identity.
+
+Eight candidate cached equilibrium12-root CI arrays and the validated physical
+`ci_overlap.py` are available from the earlier state-overlap campaign. Authenticate
+them against the actual scattering-frame checkpoint before reuse. Its full
+three-anchor24-sector /48-matrix run cost4322.37s /1.177GiB. The new frame's
+coverage saved energies/residuals but no CI arrays; cost only the missing new-frame
+wavefunctions and physical comparisons, not another three-anchor campaign or QC
+optimization. No physical-overlap successor is yet submitted.
+
 ## Decision queue and release conditions
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Orbital ensemble | New frame independently qualifies48 probes /74 native roots; original seed rejection kept | Selected40 properties running; then physical cross-frame channel matching and a fixed-manifold scattering contrast | Import2.899h; new-frame coverage5.144min; properties forecast30min /cap60min; scattering cost after preparation/maps |
+| Orbital ensemble | New frame qualifies48 probes /74 native roots and explicit40 properties /676 moments; original seed rejection kept | Physical cross-frame channel matching and compatible sparse preparation, then a fixed-manifold scattering contrast | Import2.899h; new-frame coverage5.144min; properties37.203min; scattering cost after preparation/maps |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Choose a model only after independent ensemble/basis effects are measured; budget remaining uncertainty explicitly | Reuse existing2048 results; no automatic larger active-space or channel ladder |
 | Resonance widths | Compressed/equilibrium required-window prediction rejects;94 known beyond-budget width counterexamples persist | A physically constrained extraction design with known-truth nonpolynomial successes, held-out phase predictions and explicit pole/width-identifiability veto | Existing calibration/native reading took13.9s /4.0s; new fit design remains uncosted; direct native complex poles need separate numerical qualification |

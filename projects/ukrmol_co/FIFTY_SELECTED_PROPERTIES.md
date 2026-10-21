@@ -1,4 +1,55 @@
-# Explicit matched-manifold property export on the fifty-component frame
+# Explicit forty-state property export on the fifty-component frame
+
+## Completed and independently read — 21 October,15:38 UTC
+
+**The selected40-state property export passes**, native command/container/owner
+**0/0/0**, finishing **15:29:41UTC**. Independent saved-byte reading reconstructs
+all40 IDs, five states in every spin/irrep, **676 finite unique dipole/quadrupole
+records**, their symmetry indices and the complete sector-to-property map.
+Maximum independent-CI energy discrepancy **4.91610e-10 Hartree** passes1e-7;
+ground-dipole difference **−1.12928e-11a.u.** passes1e-5. Previously missing
+singlet-A2 roots4/5 now have property IDs **39/40**. This establishes the explicit
+selection, not physical cross-frame identity or accuracy of every transition moment.
+
+The original and new property files share **38 same-frame states /620 moment
+keys**, and all620 values are **exactly equal**. This is a read-only subset
+observation, not a retrospective acceptance gate or comparison between different
+orbital frames. The raw40-state file SHA256 is
+`16ec0905d1487dddb7ee7f7f891e62b3e8157a44da21d58c74d698f99ede9ece`.
+Its input deck differs only in the declared `ntgtl` selection; all other native
+bytes/tokens stay unchanged. The original six-root seed rejection/exits1/1/1
+remain separate.
+
+Measured cost **2232.151s /37.203min**, sampled CPU2231.769s /37.196CPUmin,
+kernel high-water **469,364,736 bytes /.43713GiB**,11,150 samples. Native DENPROP
+itself takes2231.204s. The run exceeds the30min expectation but stays inside45min
+upper /60min hard bounds. Forty selected states did not make this measured run
+cheaper than the earlier35.5min global-low50 run; these are not isolated timing
+benchmarks. Four reserved cores0–3 /one native thread /4GiB remain unchanged.
+Zero orbital optimizations, target diagonalizations or scattering inner solves.
+
+All12 producer sources /13 original pins /10 copied native units verify before/
+after. Source freeze **`96b8ed9`** precedes production; the separate independent
+reader/tests freeze **`5cbefa0`** before saved reconstruction. Its seven positive/
+negative cases plus four export-deck cases pass locally. The
+[public evidence](qualification-evidence/fifty-properties/README.md) fresh-verifies
+all **8 payloads /22 original generated/owner files**, with9 prerequisite payloads
+reauthenticated. Ten unchanged copied input files are authenticated but not
+republished; their exact bytes remain in the prerequisite target archive.
+The new collection preserves all other generated files, including native
+intermediates,93,323,078 uncompressed bytes, SHA256
+`d35630ff8ae9ac6ccc7b451f514bdf0a9b79e71ec6575dc767c7856f1522e3d6`.
+[Result/resources](progress-fifty-properties-result-20261021.json) and
+[independent reconstruction](verification-fifty-properties-public-20261021.json)
+retain the full maps, moment counts, hashes and original exits.
+
+No scientific job remains after completion. **Next:** physical cross-frame
+channel/subspace correspondence and compatible scattering preparation/cost on
+the qualified orbital frame, with no repeated QC optimization. Property IDs and
+equal target counts alone do not prove that two orbital averages retain the same
+physical state manifold. No new Hamiltonian, phase or width claim is released.
+
+## Earlier launch state
 
 **Status21 October,14:54UTC:** one selected40-state DENPROP calculation is
 running, source freeze **`96b8ed9`**, owner PID278257. It starts14:52:28UTC,

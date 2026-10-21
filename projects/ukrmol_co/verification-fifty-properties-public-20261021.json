@@ -1,0 +1,163 @@
+{
+  "selected_property_inventory_verified": true,
+  "target_count": 40,
+  "target_map": [
+    1,
+    12,
+    17,
+    24,
+    28,
+    4,
+    7,
+    20,
+    35,
+    37,
+    6,
+    16,
+    27,
+    31,
+    33,
+    2,
+    14,
+    19,
+    22,
+    30,
+    5,
+    15,
+    26,
+    32,
+    34,
+    3,
+    13,
+    18,
+    23,
+    29,
+    10,
+    11,
+    25,
+    39,
+    40,
+    8,
+    9,
+    21,
+    36,
+    38
+  ],
+  "state_labels_by_id": {
+    "1": "singlet.A1.1",
+    "12": "singlet.A1.2",
+    "17": "singlet.A1.3",
+    "24": "singlet.A1.4",
+    "28": "singlet.A1.5",
+    "4": "triplet.A1.1",
+    "7": "triplet.A1.2",
+    "20": "triplet.A1.3",
+    "35": "triplet.A1.4",
+    "37": "triplet.A1.5",
+    "6": "singlet.B1.1",
+    "16": "singlet.B1.2",
+    "27": "singlet.B1.3",
+    "31": "singlet.B1.4",
+    "33": "singlet.B1.5",
+    "2": "triplet.B1.1",
+    "14": "triplet.B1.2",
+    "19": "triplet.B1.3",
+    "22": "triplet.B1.4",
+    "30": "triplet.B1.5",
+    "5": "singlet.B2.1",
+    "15": "singlet.B2.2",
+    "26": "singlet.B2.3",
+    "32": "singlet.B2.4",
+    "34": "singlet.B2.5",
+    "3": "triplet.B2.1",
+    "13": "triplet.B2.2",
+    "18": "triplet.B2.3",
+    "23": "triplet.B2.4",
+    "29": "triplet.B2.5",
+    "10": "singlet.A2.1",
+    "11": "singlet.A2.2",
+    "25": "singlet.A2.3",
+    "39": "singlet.A2.4",
+    "40": "singlet.A2.5",
+    "8": "triplet.A2.1",
+    "9": "triplet.A2.2",
+    "21": "triplet.A2.3",
+    "36": "triplet.A2.4",
+    "38": "triplet.A2.5"
+  },
+  "multipole_record_count": 676,
+  "maximum_energy_error_hartree": 4.916103080176981e-10,
+  "ground_dipole_z_au": 0.0624156347458,
+  "ground_dipole_difference_au": -1.1292772272852858e-11,
+  "physical_cross_frame_channel_correspondence_verdict": null,
+  "scattering_ensemble_verdict": null,
+  "observed_utc": "2026-10-21T15:38:24.794222+00:00",
+  "scope": "Fresh public-byte authentication and independently parsed40-state/676-moment inventory, symmetry IDs and exact selection-deck reconstruction. No native rerun; not independent accuracy validation of all transition moments.",
+  "public_payloads_fresh_verified": 8,
+  "prerequisite_target_payloads_reauthenticated": 4,
+  "prerequisite_frame_payloads_reauthenticated": 5,
+  "collected_original_files_verified": 22,
+  "original_input_pins_verified": 13,
+  "unchanged_copied_inputs_reauthenticated": 10,
+  "producer_source_files_verified": 12,
+  "reader_support_files_verified": 2,
+  "producer_source_commit": "96b8ed99290677708893e347bc55631443617bb0",
+  "reader_source_commit": "5cbefa02071ca664a4792a855bc09847b986b10d",
+  "original_runtime_and_owner_exits": [
+    0,
+    0,
+    0
+  ],
+  "original_seed_preservation_passed": false,
+  "original_seed_verifier_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "native_engine_invocations": 0,
+  "same_frame_common_property_observation": {
+    "scope": "Read-only same-frame subset observation, not an additional retrospective acceptance gate or cross-frame state matching.",
+    "common_state_labels": 38,
+    "common_moment_keys": 620,
+    "exact_common_moment_values": 620,
+    "maximum_common_moment_absolute_difference_au": 0.0
+  },
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 5677,
+        "sha256": "c06572213b283d067e8eebf155996fa281525cc0ee743888a6ee0a0aec5d33e4"
+      },
+      "manifest.json": {
+        "bytes": 1069,
+        "sha256": "d01d21c4a14db4cc120f8bd712cd0620038b200e4959966d1c355b34ee077063"
+      },
+      "prerequisite-frame-artifacts.json": {
+        "bytes": 850,
+        "sha256": "6045941b1a8c11283be0b21c927ddd4c639d0fdd37d2f6cda53926b73cb29505"
+      },
+      "prerequisite-target-artifacts.json": {
+        "bytes": 706,
+        "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+      },
+      "result-summary.json": {
+        "bytes": 15593,
+        "sha256": "59a477698843420d8a809391c769d133ab431c149f05b71677c26b1573ff01f8"
+      },
+      "results.tar.gz": {
+        "bytes": 6175999,
+        "sha256": "d35630ff8ae9ac6ccc7b451f514bdf0a9b79e71ec6575dc767c7856f1522e3d6"
+      },
+      "verification-support-sha256.json": {
+        "bytes": 244,
+        "sha256": "11b5249428f3458094a42e3b5ef2abe7cff7b1ae92ac777126eb28abaeb1bb55"
+      },
+      "verification-support.tar.gz": {
+        "bytes": 2846,
+        "sha256": "13222619b33aab4185fb0bb4ca35f69b87a8e499a12ac363e1b62e609757e4a6"
+      }
+    },
+    "git_sha": "96b8ed99290677708893e347bc55631443617bb0",
+    "url_prefix": "https://data.qscat.org/co-fifty-properties-20261021/"
+  }
+}

@@ -1,0 +1,384 @@
+{
+  "observed_utc": "2026-10-21T15:34:25.327469+00:00",
+  "source_commit": "96b8ed99290677708893e347bc55631443617bb0",
+  "execution": {
+    "source_commit": "96b8ed99290677708893e347bc55631443617bb0",
+    "source_archive_sha256": "d3cadc3ad9d75633147b987f324ee14e506dfd4ec1e42744227cea60649c2a14",
+    "owner_sha256": "249d082a8b4561ba0df80f43bde1be956bc64a3f720b4cdd49c775ebdb87d6bc",
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "started_utc": "2026-10-21T14:52:28.539472+00:00",
+    "steps": [
+      {
+        "label": "properties",
+        "command": [
+          "docker",
+          "run",
+          "--name",
+          "co-fifty-selected-properties-20261021-properties",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=1g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/fifty-selected-properties-source-20261021/outputs:/out",
+          "-e",
+          "TMPDIR=/out",
+          "-e",
+          "PSI_SCRATCH=/out",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/fifty-selected-properties-source-20261021/source:/opt/qmodeling:ro",
+          "-w",
+          "/opt/qmodeling",
+          "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.fifty_property_export",
+          "--root",
+          "/work",
+          "--contract",
+          "/opt/qmodeling/projects/ukrmol_co/fifty-property-export-contract-20261021.json",
+          "--output",
+          "/out/properties"
+        ],
+        "timeout_seconds": 3600,
+        "started_utc": "2026-10-21T14:52:28.675456+00:00",
+        "integrity_before": {
+          "source_files": 12,
+          "original_inputs": 13
+        },
+        "timed_out": false,
+        "original_command_exit": 0,
+        "wall_seconds": 2232.151431498991,
+        "finished_utc": "2026-10-21T15:29:40.930816+00:00",
+        "resource_samples": 11150,
+        "sampled_memory_peak_bytes": 469364736,
+        "sampled_cpu_seconds": 2231.769157,
+        "integrity_after": {
+          "source_files": 12,
+          "original_inputs": 13
+        },
+        "original_container_exit": 0
+      }
+    ],
+    "new_property_export_verdict": true,
+    "new_frame_import_verdict": true,
+    "original_seed_preservation_passed": false,
+    "original_seed_verifier_and_owner_exits": [
+      1,
+      1,
+      1
+    ],
+    "scattering_ensemble_verdict": null,
+    "new_scattering_inner_solves": 0,
+    "integrity_before": {
+      "source_files": 12,
+      "original_inputs": 13
+    },
+    "admission": {
+      "available_ram_bytes": 122807877632,
+      "free_disk_bytes": 58623029248
+    },
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "original_owner_exit": 0,
+    "finished_utc": "2026-10-21T15:29:41.039071+00:00",
+    "integrity_after": {
+      "source_files": 12,
+      "original_inputs": 13
+    }
+  },
+  "producer_report": {
+    "stages": [
+      {
+        "name": "target.denprop",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 2231.2041726112366
+      }
+    ],
+    "new_property_export_verdict": true,
+    "original_seed_preservation_passed": false,
+    "original_seed_verifier_and_owner_exits": [
+      1,
+      1,
+      1
+    ],
+    "frame_checkpoint_sha256": "4c55e3b3828585a451b76a565bc17c4e70227ef1e0e02d1636565250326e386c",
+    "reused_input_sha256": {
+      "fort.16": "c93800081f6c289c81e2591f9c62da2f4f1f30f9bfe60ed14a61dd328a1c6ac7",
+      "fort.26": "f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+      "fort.710": "570fc1a835c6bdb029d456aa51cb00969cf5cd948c5207c297e43fcbf0595887",
+      "fort.730": "26d935a7d07c35c81c5b1b742419afc6af18a60ba5fd231650eacc04ef027347",
+      "fort.711": "29b104b1df95aa67e59ced2da50abb8b7169b84dfb5197a20ab9e9e496568e18",
+      "fort.731": "66610ba3d9908ebf889e4728efd5095ec94278f2a38666a797cc73fe5b237395",
+      "fort.712": "a01c0044dcd61a3d8a5be8b6d2fa00a0811809533014833fca0d0781e4bcdb63",
+      "fort.732": "4ff1b53cf3bae99ce6a48d1af38f72567e31122a9e595b0bf3b72e0ccfcd4fb1",
+      "fort.713": "a32a549ae44ad10f68cae62b7b734f5a8c5e79159b95d0e939ae2abe196da03d",
+      "fort.733": "4d386e8a11b63db0e89d115878ed6b12721caa713c0ae11ad54f7a85fe5d8222"
+    },
+    "scattering_ensemble_verdict": null,
+    "property_inventory": {
+      "target_map": [
+        1,
+        12,
+        17,
+        24,
+        28,
+        4,
+        7,
+        20,
+        35,
+        37,
+        6,
+        16,
+        27,
+        31,
+        33,
+        2,
+        14,
+        19,
+        22,
+        30,
+        5,
+        15,
+        26,
+        32,
+        34,
+        3,
+        13,
+        18,
+        23,
+        29,
+        10,
+        11,
+        25,
+        39,
+        40,
+        8,
+        9,
+        21,
+        36,
+        38
+      ],
+      "state_labels_by_id": {
+        "1": "singlet.A1.1",
+        "12": "singlet.A1.2",
+        "17": "singlet.A1.3",
+        "24": "singlet.A1.4",
+        "28": "singlet.A1.5",
+        "4": "triplet.A1.1",
+        "7": "triplet.A1.2",
+        "20": "triplet.A1.3",
+        "35": "triplet.A1.4",
+        "37": "triplet.A1.5",
+        "6": "singlet.B1.1",
+        "16": "singlet.B1.2",
+        "27": "singlet.B1.3",
+        "31": "singlet.B1.4",
+        "33": "singlet.B1.5",
+        "2": "triplet.B1.1",
+        "14": "triplet.B1.2",
+        "19": "triplet.B1.3",
+        "22": "triplet.B1.4",
+        "30": "triplet.B1.5",
+        "5": "singlet.B2.1",
+        "15": "singlet.B2.2",
+        "26": "singlet.B2.3",
+        "32": "singlet.B2.4",
+        "34": "singlet.B2.5",
+        "3": "triplet.B2.1",
+        "13": "triplet.B2.2",
+        "18": "triplet.B2.3",
+        "23": "triplet.B2.4",
+        "29": "triplet.B2.5",
+        "10": "singlet.A2.1",
+        "11": "singlet.A2.2",
+        "25": "singlet.A2.3",
+        "39": "singlet.A2.4",
+        "40": "singlet.A2.5",
+        "8": "triplet.A2.1",
+        "9": "triplet.A2.2",
+        "21": "triplet.A2.3",
+        "36": "triplet.A2.4",
+        "38": "triplet.A2.5"
+      },
+      "target_count": 40,
+      "maximum_energy_error_hartree": 4.916103080176981e-10,
+      "multipole_record_count": 676,
+      "ground_dipole_z_au": 0.0624156347458
+    },
+    "ground_dipole_difference_au": -1.1292772272852858e-11,
+    "selected_property_sha256": "16ec0905d1487dddb7ee7f7f891e62b3e8157a44da21d58c74d698f99ede9ece",
+    "original_deck_sha256": "dc502a2ef0b16b0ef81112806c29949c5906389afb9cd54d094e0e05ba5201c2",
+    "selected_deck_sha256": "3324176625887deadd52b472fa5cdd10db26cdac36eee1da8e37455186ceb4a2",
+    "native_engine_invocations": 1,
+    "new_orbital_optimizations": 0,
+    "new_target_diagonalizations": 0,
+    "new_scattering_inner_solves": 0,
+    "physical_cross_frame_channel_correspondence_verdict": null
+  },
+  "original_runtime_and_owner_exits": [
+    0,
+    0,
+    0
+  ],
+  "native_property_exit": 0,
+  "new_property_export_verdict": true,
+  "new_frame_import_verdict": true,
+  "original_seed_preservation_passed": false,
+  "original_seed_verifier_and_owner_exits": [
+    1,
+    1,
+    1
+  ],
+  "physical_cross_frame_channel_correspondence_verdict": null,
+  "scattering_ensemble_verdict": null,
+  "new_orbital_optimizations": 0,
+  "new_target_diagonalizations": 0,
+  "new_scattering_inner_solves": 0,
+  "native_engine_invocations": 1,
+  "collected_original_files": 22,
+  "collected_original_bytes": 93323078,
+  "copied_inputs_reauthenticated_but_not_duplicated": 10,
+  "input_contract": {
+    "status": "prospective explicit40-state property export on independently qualified new frame",
+    "scientific_question": "Can the completed qualified50-component orbital frame supply all dipole/quadrupole state IDs and moments for an explicit five-per-sector40-state manifold, rather than inheriting its global-low50 export with only3 singlet A2 states?",
+    "geometry": "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1",
+    "frame_result": "prepared/fifty-frame-coverage-source-20261021/outputs/coverage/result.json",
+    "frame_execution": "prepared/fifty-frame-coverage-source-20261021/execution.json",
+    "frame_source_commit": "55e89a6b02f94c40638a9f538d3d0a0f2eadfde2",
+    "input_sha256": {
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.16": "c93800081f6c289c81e2591f9c62da2f4f1f30f9bfe60ed14a61dd328a1c6ac7",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.26": "f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/inputs/target.denprop.inp": "dc502a2ef0b16b0ef81112806c29949c5906389afb9cd54d094e0e05ba5201c2",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.710": "570fc1a835c6bdb029d456aa51cb00969cf5cd948c5207c297e43fcbf0595887",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.730": "26d935a7d07c35c81c5b1b742419afc6af18a60ba5fd231650eacc04ef027347",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.711": "29b104b1df95aa67e59ced2da50abb8b7169b84dfb5197a20ab9e9e496568e18",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.731": "66610ba3d9908ebf889e4728efd5095ec94278f2a38666a797cc73fe5b237395",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.712": "a01c0044dcd61a3d8a5be8b6d2fa00a0811809533014833fca0d0781e4bcdb63",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.732": "4ff1b53cf3bae99ce6a48d1af38f72567e31122a9e595b0bf3b72e0ccfcd4fb1",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.713": "a32a549ae44ad10f68cae62b7b734f5a8c5e79159b95d0e939ae2abe196da03d",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.733": "4d386e8a11b63db0e89d115878ed6b12721caa713c0ae11ad54f7a85fe5d8222",
+      "prepared/fifty-frame-coverage-source-20261021/outputs/coverage/result.json": "b6f270df6ac43df443178a73adc775ffca9ee313a835a80a658a5e540c9612ca",
+      "prepared/fifty-frame-coverage-source-20261021/execution.json": "92dc90aaf01c6f0f5b2e490e3d32523d4ed38527695c990b7daeebab2f864a44"
+    },
+    "only_deck_change": {
+      "from": "  ntgtl = 7,6,6,8,6,8,3,6,",
+      "to": "  ntgtl = 5,5,5,5,5,5,5,5,"
+    },
+    "scope": "One DENPROP invocation only, on copied native inputs from the qualified new frame. Preserve ipol2, rank1/2 moments and every other native card. Reconstruct all40 state IDs/sector roots, energy-order map, finite unique moment records, rank/state coverage and ground dipole using independent fixed-orbital CI energies. Property inventory is not independent accuracy validation of every transition moment, nor physical cross-frame state identity.",
+    "gates": {
+      "state_count": 40,
+      "roots_per_spin_irrep": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "native_reference_energy_hartree": 1e-07,
+      "ground_dipole_au": 1e-05
+    },
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "threads": 1,
+      "memory_gib": 4,
+      "available_ram_floor_gib": 8,
+      "free_disk_floor_gib": 30,
+      "expected_wall_seconds": 1800,
+      "upper_wall_seconds": 2700,
+      "native_timeout_seconds": 3300,
+      "timeout_seconds": 3600,
+      "sample_interval_seconds": 0.2
+    },
+    "cost_evidence": "Original global-low50 DENPROP2131.91s, about2136.58 sampled CPU seconds, .65450GiB peak memory.current and .36610GiB anonymous memory over its stage window. This is effectively serial and does not benefit from reserving8 cores. Explicit40-state cost is forecast1800s/upper2700s/cap3600s on four reserved physical cores,4GiB; no isolated benchmark claim.",
+    "original_seed_preservation_passed": false,
+    "original_seed_verifier_and_owner_exits": [
+      1,
+      1,
+      1
+    ],
+    "stopping_rule": "Freeze/push source/tests/contract before the one new native property calculation. Require independently qualified new checkpoint and original failure records unchanged. Mount all producer inputs read-only; copy the ten native input units into a fresh output directory and authenticate both copied inputs and all13 original pins before/after. Preserve native command/container/owner exits and logs. No property retry, changed tolerances, target diagonalization, orbital optimization, new scattering Hamiltonian or production sweep. A pass releases physical cross-frame channel/subspace correspondence and sparse-preparation/cost design, not scattering execution."
+  },
+  "source_manifest": {
+    "projects/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "projects/ukrmol_co/__init__.py": "8674d475a11b4574739cc1e82ad17c2e7446c08aa5e2f456f4325df8a27e518f",
+    "projects/ukrmol_co/analyze.py": "4aa00c6c6734854c6b097d1a0b95962bf1244b9b48d235332bbece5c6c8c6b11",
+    "projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "projects/ukrmol_co/a2_channel_preflight.py": "75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "projects/ukrmol_co/sparse_comparison_owner.py": "a8730d04c122de0447e041e134872044e8abc837a72288bad7812b59bafc9a04",
+    "projects/ukrmol_co/fifty_import_verification.py": "eb4358f0fecc5d6ab035c876482cb1673a2def53f135efdd08c22ea219a7aeb6",
+    "projects/ukrmol_co/fifty_property_export.py": "7008724729c6e2e0f553dcbe2fff0a429f35429f762a5a82df32b48b90ef6ea7",
+    "projects/ukrmol_co/fifty-property-export-contract-20261021.json": "5b3c341095134e1fdb22f3cc5bfaff8a95b2a6c4ef567fcf9da7edb9df593d93",
+    "projects/ukrmol_co/FIFTY_SELECTED_PROPERTIES.md": "d6c5a2d8a7a1d8f8006e7cd39c600bcc407be46a57d7f2b7b115f2f51eab1025",
+    "projects/ukrmol_co/test_fifty_property_export.py": "21af91c789146e1bd37332c0c9dad977d1a6e86fa89df46b5a9aef2787bf5432",
+    "projects/ukrmol_co/test_a2_channel_preflight.py": "520ab15eb28f3a29bf4584219fc871ff1837e94d6470a86bc77b66f74035ca6f"
+  },
+  "collection_archive_sha256": "d35630ff8ae9ac6ccc7b451f514bdf0a9b79e71ec6575dc767c7856f1522e3d6",
+  "running_containers": [
+    "comfyui Up 40 hours"
+  ],
+  "next_decision": "Physical cross-frame retained-channel/subspace correspondence and compatible sparse scattering preparation/cost without another QC optimization; no automatic inner solve.",
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 5677,
+        "sha256": "c06572213b283d067e8eebf155996fa281525cc0ee743888a6ee0a0aec5d33e4"
+      },
+      "manifest.json": {
+        "bytes": 1069,
+        "sha256": "d01d21c4a14db4cc120f8bd712cd0620038b200e4959966d1c355b34ee077063"
+      },
+      "prerequisite-frame-artifacts.json": {
+        "bytes": 850,
+        "sha256": "6045941b1a8c11283be0b21c927ddd4c639d0fdd37d2f6cda53926b73cb29505"
+      },
+      "prerequisite-target-artifacts.json": {
+        "bytes": 706,
+        "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+      },
+      "result-summary.json": {
+        "bytes": 15593,
+        "sha256": "59a477698843420d8a809391c769d133ab431c149f05b71677c26b1573ff01f8"
+      },
+      "results.tar.gz": {
+        "bytes": 6175999,
+        "sha256": "d35630ff8ae9ac6ccc7b451f514bdf0a9b79e71ec6575dc767c7856f1522e3d6"
+      },
+      "verification-support-sha256.json": {
+        "bytes": 244,
+        "sha256": "11b5249428f3458094a42e3b5ef2abe7cff7b1ae92ac777126eb28abaeb1bb55"
+      },
+      "verification-support.tar.gz": {
+        "bytes": 2846,
+        "sha256": "13222619b33aab4185fb0bb4ca35f69b87a8e499a12ac363e1b62e609757e4a6"
+      }
+    },
+    "git_sha": "96b8ed99290677708893e347bc55631443617bb0",
+    "url_prefix": "https://data.qscat.org/co-fifty-properties-20261021/"
+  },
+  "public_payloads_fresh_verified": 8,
+  "prerequisite_target_payloads_reauthenticated": 4,
+  "prerequisite_frame_payloads_reauthenticated": 5,
+  "independent_selected_property_reading_passed": true,
+  "same_frame_common_property_observation": {
+    "scope": "Read-only same-frame subset observation, not an additional retrospective acceptance gate or cross-frame state matching.",
+    "common_state_labels": 38,
+    "common_moment_keys": 620,
+    "exact_common_moment_values": 620,
+    "maximum_common_moment_absolute_difference_au": 0.0
+  }
+}
