@@ -85,3 +85,16 @@ Any later native check needs its own finite contract and matching double headers
 The lowest-five contrast must be labelled **combined orbital/channel-prescription
 sensitivity**; matched-manifold selection requires separate physical evidence.
 No dense Hamiltonian, automatic root/channel ladder, sweep or fitting is admitted.
+
+## Preserved parser failure
+
+The initial saved-only audit (freeze `1899892`) reconstructs the B1 first-term
+witnesses but stops during card validation: its integer-card reader includes the
+digit in the following `nob0` keyword while reading `nob`. Original exits and
+partial witness remain in `prepared/scattering-input-map-source-20261021/`.
+The property-map stage has already derived25 changed IDs and a maximum
+4.91639e-10Hartree discrepancy to CIDATA. These partial observations do not turn
+the original failed audit into a pass. A separately frozen parser-only successor
+limits the captured assignment to integer tokens/commas/whitespace, with a
+`nob` followed by `nob0` regression. Input pins and all physical/numerical gates
+remain unchanged; no native calculation is retried.

@@ -1,0 +1,12 @@
+{
+  "status": "prospective parser-only saved-audit successor; initial failure retained",
+  "parent_contract": "prepared/scattering-input-map-source-20261021/source/projects/ukrmol_co/scattering-input-map-contract-20261021.json",
+  "input_sha256": {
+    "prepared/scattering-input-map-source-20261021/execution.json": "0a7144c359efc57ed79792fac604456c8e9c5d930724dba6f78e7d72d60cb3a2",
+    "prepared/scattering-input-map-source-20261021/outputs/check/failure.json": "3d9fbbfe01ccb958917d3e9dd5a44691447034ee7c693db0e9a0f0274788e112",
+    "prepared/scattering-input-map-source-20261021/check.log": "e54e6d0fe1135b7c61259121929cac073bbfe35941b21cdb4d5feb8a5f39bc8e",
+    "prepared/scattering-input-map-source-20261021/source/projects/ukrmol_co/scattering-input-map-contract-20261021.json": "ec4bdcdf56ced47ebe262f2fe3acf7402c986961ec52c9ac1bdfd975b2699418"
+  },
+  "diagnosis": "Initial saved audit stops1/1/1 in card validation after B1 phase witnesses are complete; integer parser accidentally includes the digit0 in following nob0 keyword while reading nob. Restrict captures to integer tokens, commas and whitespace; add exact regression. Original3.52888s container /3.07504s Python /736012KiB RSS and all outputs remain. No native call ran; B2 was unrun. Already derived25 changed idtarg positions and CIDATA energy discrepancy4.91639e-10Ha are partial observations, not a retroactive pass.",
+  "inheritance": "Inherit all19 original scientific inputs, unchanged phase algorithm, root/property gates and resource cap. Add4 predecessor pins (23 total). One saved-only audit in a separate source/output/container. No model or numerical tolerance changes, native call or property rewrite. Stop on any new failure. Compact witnesses remain explicitly derived slices, not full raw N+1 CSF publication."
+}

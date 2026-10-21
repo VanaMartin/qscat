@@ -53,6 +53,7 @@ def test_card_parser_ignores_comments_but_not_duplicate_assignments():
     for text in ("/", "ntgts=1,\nntgts=2,/"):
         with pytest.raises(ValueError):
             assignment(text, "ntgts")
+    assert assignment("nob = 58,37,37,22,\n nob0 = 7,3,3,0, /", "nob") == [58, 37, 37, 22]
 
 
 def test_continuum_address_boundaries():
@@ -188,3 +189,23 @@ def test_congen_phase_offset_and_eof_corruptions_reject(tmp_path, monkeypatch, d
     congen_fixture(path, monkeypatch, defect)
     with pytest.raises(ValueError):
         audit_congen(path, 1, [(1,)] * 8, io.BytesIO())
+
+
+def test_parser_successor_cannot_replace_original_pins(tmp_path):
+    import hashlib
+    import json
+
+    from projects.ukrmol_co.scattering_input_map import load_contract
+
+    parent = tmp_path / "parent.json"
+    parent.write_text(
+        json.dumps(dict(input_sha256={"cidata": "immutable"}, resources={"memory_gib": 4}))
+    )
+    child = tmp_path / "child.json"
+    pins = {"parent.json": hashlib.sha256(parent.read_bytes()).hexdigest()}
+    child.write_text(json.dumps(dict(parent_contract="parent.json", input_sha256=pins)))
+    assert load_contract(tmp_path, child)["input_sha256"]["cidata"] == "immutable"
+    pins["cidata"] = "changed"
+    child.write_text(json.dumps(dict(parent_contract="parent.json", input_sha256=pins)))
+    with pytest.raises(ValueError):
+        load_contract(tmp_path, child)

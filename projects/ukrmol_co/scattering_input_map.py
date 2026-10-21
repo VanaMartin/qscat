@@ -29,6 +29,20 @@ def digest(path):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
+def load_contract(root, path):
+    """A parser-only successor may add predecessor pins, not replace model gates."""
+    child = json.loads(path.read_text())
+    if "parent_contract" not in child:
+        return child
+    parent = root / child["parent_contract"]
+    if digest(parent) != child["input_sha256"][child["parent_contract"]]:
+        raise ValueError("Changed original saved-map contract")
+    base = json.loads(parent.read_text())
+    if set(base["input_sha256"]) & set(child["input_sha256"]):
+        raise ValueError("Parser successor cannot override original inputs")
+    return base | {"input_sha256": base["input_sha256"] | child["input_sha256"]}
+
+
 def record_spans(data):
     """Offsets exclude the four-byte little-endian sequential markers."""
     spans, cursor = [], 0
@@ -52,7 +66,7 @@ def assignment(text, name):
     clean = re.sub(r"!.*", "", text)
     if len(re.findall(rf"\b{name}\s*=", clean, re.I)) != 1:
         raise ValueError(f"Missing or ambiguous native assignment: {name}")
-    matches = re.findall(rf"\b{name}\s*=\s*([^/=&]+)", clean, re.I)
+    matches = re.findall(rf"\b{name}\s*=\s*([-+\d,\s]+)", clean, re.I)
     if len(matches) != 1:
         raise ValueError(f"Missing or ambiguous native assignment: {name}")
     return [int(x) for x in re.findall(r"[-+]?\d+", matches[0])]
@@ -350,6 +364,7 @@ def execute(root, output, contract):
 
     try:
         verify()
+        report["input_integrity_before"] = True
         phases = []
         for unit in UNITS:
             data = (root / contract["full_target_csfs"] / f"fort.{unit}").read_bytes()
@@ -392,9 +407,19 @@ def execute(root, output, contract):
         (output / "failure.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
         raise
     finally:
+        integrity_exception = None
+        try:
+            verify()
+            report["input_integrity_after"] = True
+        except BaseException as integrity_error:
+            integrity_exception = integrity_error
+            report["input_integrity_after"] = False
+            report["integrity_error"] = repr(integrity_error)
         report["wall_seconds"] = time.monotonic() - started
         report["peak_rss_platform_units"] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         (output / "execution.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
+        if integrity_exception is not None:
+            raise integrity_exception
 
 
 if __name__ == "__main__":
@@ -403,4 +428,4 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--contract", type=Path, required=True)
     args = parser.parse_args()
-    execute(args.root, args.output, json.loads(args.contract.read_text()))
+    execute(args.root, args.output, load_contract(args.root, args.contract))
