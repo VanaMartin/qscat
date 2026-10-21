@@ -1,0 +1,20 @@
+{
+  "status":"prospective missing-original-link-dependency successor; both build failures preserved",
+  "parent_contract":"prepared/native-target-compiler-source-20261021/source/projects/ukrmol_co/native-target-interface-compiler-contract-20261021.json",
+  "predecessor_execution":"prepared/native-target-compiler-source-20261021/execution.json",
+  "predecessor_failure":"prepared/native-target-compiler-source-20261021/outputs/check/failure.json",
+  "predecessor_compile_log":"prepared/native-target-compiler-source-20261021/outputs/check/compile.out",
+  "predecessor_error_token":"undefined reference to `__maths_MOD_maths_cveca_plus_vecb'",
+  "input_sha256":{
+    "prepared/native-target-compiler-source-20261021/execution.json":"913549264c1dc9a5f3ac6af7e3e8c50931d217358b2885c35efdfef6a9f5f9e8",
+    "prepared/native-target-compiler-source-20261021/outputs/check/failure.json":"b68a3d695cc7b6f15ced1b0400a86fe53d903cf520c542e6cbda7956dcb58b21",
+    "prepared/native-target-compiler-source-20261021/outputs/check/compile.out":"711a01712ef13e753c75ac5e6c7136a3a95146ed17f2dec5e7eb2121db0dd652",
+    "prepared/native-target-compiler-source-20261021/source/projects/ukrmol_co/native-target-interface-compiler-contract-20261021.json":"de67872b6e1e62ff1f0f4f656a540df933d7a5b55176b31b15e6b2f26b52dbc6"
+  },
+  "additional_engine_library_sha256":{
+    "/opt/ukrmolp/lib.double/libukplus_interfaces.a":"0baff8ad01a64b69533834f55edbe729c46d25443b25ed85764d57901efddb51"
+  },
+  "diagnosis":"Compiler relocation is corrected, but linking original libscatci.a pulls a static object that references __maths_MOD_maths_cveca_plus_vecb. Read-only nm inspection locates it in installed libukplus_interfaces.a; its bytes match the original runtime and debug-tools image exactly. Add this original required library to the existing link group, without replacing or rebuilding any engine library. No reader has executed in either preserved build failure1/1/1.",
+  "inheritance":"Recursively authenticate original14 scientific pins plus4 compiler-predecessor pins plus4 link-predecessor pins (22 total). Inherit compiler relocation, immutable image, resource budget, unchanged Fortran harness and all physical/numerical gates. Pin all5 linked original engine libraries. Fresh source/output/container/owner; only the3 originally unrun reader processes may follow a successful link.",
+  "stopping_rule":"Freeze/push link dependency and this successor first. Preserve both predecessor original exits1/1/1 and all bytes. Stop on any new build/read/physics failure without hidden retry or gate/model/solver/root/channel changes. No QC/target/property/integral-generation/scattering call, and no completed native reader repeated. Native library code reachable through other static symbols is not invoked by this I/O harness."
+}

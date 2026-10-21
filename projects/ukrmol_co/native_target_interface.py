@@ -35,12 +35,17 @@ def load_contract(root, path):
     parent = root / contract["parent_contract"]
     if digest(parent) != contract["input_sha256"][contract["parent_contract"]]:
         raise ValueError("Changed original native-interface contract")
-    base = json.loads(parent.read_text())
+    base = load_contract(root, parent)
     return base | {
         "input_sha256": base["input_sha256"] | contract["input_sha256"],
         "predecessor_execution": contract["predecessor_execution"],
         "predecessor_failure": contract["predecessor_failure"],
         "predecessor_compile_log": contract["predecessor_compile_log"],
+        "predecessor_error_token": contract.get(
+            "predecessor_error_token", "unable to find the specified compiler"
+        ),
+        "engine_library_sha256": base.get("engine_library_sha256", {})
+        | contract.get("additional_engine_library_sha256", {}),
     }
 
 
@@ -204,7 +209,7 @@ def execute(root, output, contract):
             ("compile", 1, False)
         ]
         assert (
-            "unable to find the specified compiler"
+            contract["predecessor_error_token"]
             in (root / contract["predecessor_compile_log"]).read_text()
         )
     qualified = json.loads((root / contract["map_result"]).read_text())
@@ -241,7 +246,16 @@ def execute(root, output, contract):
             "-I/opt/ukrmolp/include/UKRmol+/" + p
             for p in ("gbtolib", "ci-diag", "global", "utilities")
         ]
-        libraries = ["libscatci.a", "libukplus_global.a", "libukplus_utilities.a", "libGBTO.a"]
+        libraries = [
+            "libscatci.a",
+            "libukplus_global.a",
+            "libukplus_utilities.a",
+            "libGBTO.a",
+            "libukplus_interfaces.a",
+        ]
+        assert {"/opt/ukrmolp/lib.double/" + n for n in libraries} <= set(
+            contract["engine_library_sha256"]
+        )
         command += [str(source), "-o", str(executable), "-Wl,--start-group"]
         command += ["/opt/ukrmolp/lib.double/" + n for n in libraries]
         command += [

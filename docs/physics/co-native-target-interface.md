@@ -111,3 +111,13 @@ pins/image/libraries/resource budget and all scientific gates, adds four
 predecessor pins, and leaves the Fortran driver unchanged. Original logs/source/
 failure/resources/exits remain in place; new source/output/container record a
 separate outcome. No completed reader is repeated and any new failure stops.
+
+The compiler successor resolves relocation but exposes a missing static-link
+dependency: `libscatci.a`'s object references
+`__maths_MOD_maths_cveca_plus_vecb`, supplied by the original
+`libukplus_interfaces.a`. Read-only symbol inspection and hashes identify this
+dependency in both immutable images. A separately frozen link-only successor
+adds that original fifth library, not replacement engine code, and inherits all
+scientific settings/gates and22 input pins across the predecessor chain. Both
+build failures remain1/1/1; neither has executed a native reader. The Fortran
+driver remains unchanged and any new failure stops.
