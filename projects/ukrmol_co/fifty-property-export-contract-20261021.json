@@ -1,0 +1,32 @@
+{
+  "status": "prospective explicit40-state property export on independently qualified new frame",
+  "scientific_question": "Can the completed qualified50-component orbital frame supply all dipole/quadrupole state IDs and moments for an explicit five-per-sector40-state manifold, rather than inheriting its global-low50 export with only3 singlet A2 states?",
+  "geometry": "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1",
+  "frame_result": "prepared/fifty-frame-coverage-source-20261021/outputs/coverage/result.json",
+  "frame_execution": "prepared/fifty-frame-coverage-source-20261021/execution.json",
+  "frame_source_commit": "55e89a6b02f94c40638a9f538d3d0a0f2eadfde2",
+  "input_sha256": {
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.16": "c93800081f6c289c81e2591f9c62da2f4f1f30f9bfe60ed14a61dd328a1c6ac7",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.26": "f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/inputs/target.denprop.inp": "dc502a2ef0b16b0ef81112806c29949c5906389afb9cd54d094e0e05ba5201c2",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.710": "570fc1a835c6bdb029d456aa51cb00969cf5cd948c5207c297e43fcbf0595887",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.730": "26d935a7d07c35c81c5b1b742419afc6af18a60ba5fd231650eacc04ef027347",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.711": "29b104b1df95aa67e59ced2da50abb8b7169b84dfb5197a20ab9e9e496568e18",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.731": "66610ba3d9908ebf889e4728efd5095ec94278f2a38666a797cc73fe5b237395",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.712": "a01c0044dcd61a3d8a5be8b6d2fa00a0811809533014833fca0d0781e4bcdb63",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.732": "4ff1b53cf3bae99ce6a48d1af38f72567e31122a9e595b0bf3b72e0ccfcd4fb1",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.713": "a32a549ae44ad10f68cae62b7b734f5a8c5e79159b95d0e939ae2abe196da03d",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.733": "4d386e8a11b63db0e89d115878ed6b12721caa713c0ae11ad54f7a85fe5d8222",
+    "prepared/fifty-frame-coverage-source-20261021/outputs/coverage/result.json": "b6f270df6ac43df443178a73adc775ffca9ee313a835a80a658a5e540c9612ca",
+    "prepared/fifty-frame-coverage-source-20261021/execution.json": "92dc90aaf01c6f0f5b2e490e3d32523d4ed38527695c990b7daeebab2f864a44"
+  },
+  "only_deck_change": {"from": "  ntgtl = 7,6,6,8,6,8,3,6,", "to": "  ntgtl = 5,5,5,5,5,5,5,5,"},
+  "scope": "One DENPROP invocation only, on copied native inputs from the qualified new frame. Preserve ipol2, rank1/2 moments and every other native card. Reconstruct all40 state IDs/sector roots, energy-order map, finite unique moment records, rank/state coverage and ground dipole using independent fixed-orbital CI energies. Property inventory is not independent accuracy validation of every transition moment, nor physical cross-frame state identity.",
+  "gates": {"state_count": 40, "roots_per_spin_irrep": [5,5,5,5], "native_reference_energy_hartree": 1e-7, "ground_dipole_au": 1e-5},
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "resources": {"cpuset_cpus": "0-3", "threads": 1, "memory_gib": 4, "available_ram_floor_gib": 8, "free_disk_floor_gib": 30, "expected_wall_seconds": 1800, "upper_wall_seconds": 2700, "native_timeout_seconds": 3300, "timeout_seconds": 3600, "sample_interval_seconds": 0.2},
+  "cost_evidence": "Original global-low50 DENPROP2131.91s, about2136.58 sampled CPU seconds, .65450GiB peak memory.current and .36610GiB anonymous memory over its stage window. This is effectively serial and does not benefit from reserving8 cores. Explicit40-state cost is forecast1800s/upper2700s/cap3600s on four reserved physical cores,4GiB; no isolated benchmark claim.",
+  "original_seed_preservation_passed": false,
+  "original_seed_verifier_and_owner_exits": [1,1,1],
+  "stopping_rule": "Freeze/push source/tests/contract before the one new native property calculation. Require independently qualified new checkpoint and original failure records unchanged. Mount all producer inputs read-only; copy the ten native input units into a fresh output directory and authenticate both copied inputs and all13 original pins before/after. Preserve native command/container/owner exits and logs. No property retry, changed tolerances, target diagonalization, orbital optimization, new scattering Hamiltonian or production sweep. A pass releases physical cross-frame channel/subspace correspondence and sparse-preparation/cost design, not scattering execution."
+}
