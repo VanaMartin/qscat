@@ -76,7 +76,16 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 21 October,16:49UTC:** the [physical ensemble-frame comparison](ENSEMBLE_FRAME_COMPARISON.md)
+**Update — 21 October,17:40UTC:** [immutable-frame continuum preparation](IMMUTABLE_CONTINUUM.md)
+generates154 MOs /141 continuum and all8 target-CSF files without QC, target
+diagonalization, properties or scattering Hamiltonian. All8 CSFs match recorded
+baseline full-layout hashes. The original trailer-check wrapper failure1/1/1 is
+preserved; a separately frozen seven-sector completion passes0/0/0, reusing its
+integrals/first CSF. Total **15.049s /peak2.46218GiB**; all6 public payloads verify.
+Next prove signed native-target vector/address reuse before choosing compatible
+scattering inputs. The physical two-A1 rejection remains; no scientific job runs.
+
+**Earlier update — 21 October,16:49UTC:** the [physical ensemble-frame comparison](ENSEMBLE_FRAME_COMPARISON.md)
 rejects the retained-five dominance screen in **both A1 sectors**: minimum squared
 principal overlaps0.06930 and approximately zero versus0.5. All eight numerical
 comparisons complete; scientific command/container/owner **1/1/1** are preserved.
@@ -562,10 +571,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: physical comparison rejects both A1 retained subspaces; qualified frame and properties retained; no automatic Hamiltonian or scientific job running](../../docs/physics/figures/co-progress-20261021T1649-ensemble-frame.png)
+![CO qualification: immutable continuum and eight target-CSF files generated; physical A1 rejection retained; signed vector mapping next; no Hamiltonian or scientific job running](../../docs/physics/figures/co-progress-20261021T1740-immutable-continuum.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021T1649-ensemble-frame.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021T1649-ensemble-frame.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021T1740-immutable-continuum.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021T1740-immutable-continuum.json) ·
+[Immutable continuum result](IMMUTABLE_CONTINUUM.md) ·
+[Native-layout saved reading](verification-immutable-continuum-public-20261021.json) ·
+[Continuum evidence](qualification-evidence/immutable-continuum/README.md) ·
+[Previous physical-overlap figure](../../docs/physics/figures/co-progress-20261021T1649-ensemble-frame.svg) ·
+[Previous physical-overlap snapshot](progress-snapshot-20261021T1649-ensemble-frame.json) ·
 [Physical ensemble-frame result](ENSEMBLE_FRAME_COMPARISON.md) ·
 [Saved-wave numerical replay](verification-ensemble-frame-public-20261021.json) ·
 [Physical overlap evidence](qualification-evidence/ensemble-frame/README.md) ·

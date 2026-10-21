@@ -1,0 +1,373 @@
+{
+  "observed_utc": "2026-10-21T17:40:00.958452+00:00",
+  "scope": "Fresh public-byte and separate SciPy Fortran-record/native-text reconstruction. All8 CSF headers/48 record digests/EOF,9 native exits and immutable cards/Molden verified. Integrals are authenticated opaque bytes, not independently recalculated; baseline-CSF equality is checked against the recorded host-observed baseline hashes, not a fresh independent baseline calculation.",
+  "public_payloads_fresh_verified": 6,
+  "generated_owner_files_verified": 57,
+  "source_files_verified_across_two_freezes": 28,
+  "original_input_files_verified": 17,
+  "successor_pins_verified": 11,
+  "unchanged_copied_files_reconstructed": 8,
+  "completed_layout_generation_verdict": true,
+  "original_preparation_exits": [
+    1,
+    1,
+    1
+  ],
+  "original_native_stage_exits": [
+    0,
+    0
+  ],
+  "completion_exits": [
+    0,
+    0,
+    0
+  ],
+  "native_inventory": {
+    "target": [
+      7,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "PCOs": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "TGT+PCOs": [
+      7,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "continuum": [
+      51,
+      34,
+      34,
+      22,
+      0,
+      0,
+      0,
+      0
+    ],
+    "total": [
+      58,
+      37,
+      37,
+      22,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "csf_headers": {
+    "singlet.A1": {
+      "unit": 710,
+      "csf_dimension": 15548,
+      "total_orbitals": 154,
+      "complete_records": 6
+    },
+    "singlet.B1": {
+      "unit": 711,
+      "csf_dimension": 15196,
+      "total_orbitals": 154,
+      "complete_records": 6
+    },
+    "singlet.B2": {
+      "unit": 712,
+      "csf_dimension": 15196,
+      "total_orbitals": 154,
+      "complete_records": 6
+    },
+    "singlet.A2": {
+      "unit": 713,
+      "csf_dimension": 15044,
+      "total_orbitals": 154,
+      "complete_records": 6
+    },
+    "triplet.A1": {
+      "unit": 730,
+      "csf_dimension": 24366,
+      "total_orbitals": 154,
+      "complete_records": 6
+    },
+    "triplet.B1": {
+      "unit": 731,
+      "csf_dimension": 24540,
+      "total_orbitals": 154,
+      "complete_records": 6
+    },
+    "triplet.B2": {
+      "unit": 732,
+      "csf_dimension": 24540,
+      "total_orbitals": 154,
+      "complete_records": 6
+    },
+    "triplet.A2": {
+      "unit": 733,
+      "csf_dimension": 24564,
+      "total_orbitals": 154,
+      "complete_records": 6
+    }
+  },
+  "target_csf_records": {
+    "singlet.A1": [
+      {
+        "bytes": 304,
+        "sha256": "9e3e1c862f486c6e03c1a5adc5ffde045c83b1bad37f49e71fc1fa5f3dc23b70"
+      },
+      {
+        "bytes": 124384,
+        "sha256": "84362418c7940b0ab6f9cbc1ebc7630c2d3b398ed111ec977b95450fb45a0ec0"
+      },
+      {
+        "bytes": 124696,
+        "sha256": "b808e62a058ff0c6c9089f562d4f9260b3cfe57ae0ceff305ac74961d6d72820"
+      },
+      {
+        "bytes": 248784,
+        "sha256": "40d0242969fbabe1d36bf58d62eaf44e96afb4f15d9bae376b96e5918ea5636b"
+      },
+      {
+        "bytes": 15731904,
+        "sha256": "a2bfde0e5e0309f6a520c6de6bfc701aba3d762df2efc48b5cf4a5fa2a5f4322"
+      },
+      {
+        "bytes": 1326272,
+        "sha256": "771728b92129d9a7937956b147222484e25f7b7b92854c8d2182e027cd77f4c9"
+      }
+    ],
+    "singlet.B1": [
+      {
+        "bytes": 304,
+        "sha256": "81dd86ba079029a15917d8eb487b0b7ed9279c4d51f2e90da0484c51cd3c79d3"
+      },
+      {
+        "bytes": 121568,
+        "sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715"
+      },
+      {
+        "bytes": 121880,
+        "sha256": "207b27370ac48fcce364cbbf9ce1979b2084811fb227a01395f8b6b8ab395027"
+      },
+      {
+        "bytes": 243152,
+        "sha256": "8da76d0a25b10a7b89d8f9f27e363f57a8e6d8e043ad4836f005ae3686583e68"
+      },
+      {
+        "bytes": 18736000,
+        "sha256": "0abbf344e405c630acf4f3bb95eb66063dc22ef88c8c986572b67cbc13b6b9d9"
+      },
+      {
+        "bytes": 1584352,
+        "sha256": "0027bd9d17340d74e8dd9ed4948e2fcadd36101cb0b6028a2c4b2e823d93c3a6"
+      }
+    ],
+    "singlet.B2": [
+      {
+        "bytes": 304,
+        "sha256": "96ecc8b57b6ee835e75d4a1d28926d901d2cb3661a33bd546b2a4481b7e830d8"
+      },
+      {
+        "bytes": 121568,
+        "sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715"
+      },
+      {
+        "bytes": 121880,
+        "sha256": "dbbeda2bad7998b090c24ec0b856b9842964cb537917a182cd659648c24b25f7"
+      },
+      {
+        "bytes": 243152,
+        "sha256": "145523d4b789379280284503996f0828f103444ab600b2f0ec9c3eea17aee6d3"
+      },
+      {
+        "bytes": 18860992,
+        "sha256": "3a8390e775372dc3a54d1b62d4815e7fa089fc8d8059c5aa0ced7a3893926cee"
+      },
+      {
+        "bytes": 1584352,
+        "sha256": "2103feb1a54218b1e54834db1eb9a3ed4f279af77302f8ae874d081569b6d233"
+      }
+    ],
+    "singlet.A2": [
+      {
+        "bytes": 304,
+        "sha256": "6e8e1e2c0dda4137f03a336ddfa96104ba29b4c281857835ce4772fe937e0840"
+      },
+      {
+        "bytes": 120352,
+        "sha256": "9ba68566ae6e213f6730febe651f9e0171a50c079083cdf7366bd57750d0d66b"
+      },
+      {
+        "bytes": 120664,
+        "sha256": "fa9302357ec6288b5eda099e0141d3987aee41cb8974eb4220a8d535678ba5b1"
+      },
+      {
+        "bytes": 240720,
+        "sha256": "b040b618139a7f8d3d7b75616f83b2ac3d60a0c167f3793e4c6d694df720a14e"
+      },
+      {
+        "bytes": 19711232,
+        "sha256": "d6a0bbf757f40584f62cc94ce008412422034274a32097f5a3500c68e638fbb2"
+      },
+      {
+        "bytes": 1642304,
+        "sha256": "2ce4ccedab88bfa66f6ef6abb50c68c32583c1dcc420b865e8ae20d9f2eb12f0"
+      }
+    ],
+    "triplet.A1": [
+      {
+        "bytes": 304,
+        "sha256": "73cb0be7012b3e612aec27cc8bfa0fb0434746142d271578cfc446f2c9666e46"
+      },
+      {
+        "bytes": 194928,
+        "sha256": "3754c1e4b8c09578993d73f8162e485c1a28aecaf4786acb15d46d5019ecea81"
+      },
+      {
+        "bytes": 195240,
+        "sha256": "6459e46fdb9f724e23d5aef6305788873ec6f37ee55e60bdd9d5fe871c2eaccc"
+      },
+      {
+        "bytes": 389872,
+        "sha256": "b9bfebda21a7b85b8862a3d35d50a7d4f807384d5e224ef165d3545873907649"
+      },
+      {
+        "bytes": 18076688,
+        "sha256": "f970c80407084b55e881344cd9c30371010c02316f29420f2c4f7f4a19717305"
+      },
+      {
+        "bytes": 1573008,
+        "sha256": "e7206efa005488ede7d7b51d2a9a986b00f1a37264dc1540582d624aa3757753"
+      }
+    ],
+    "triplet.B1": [
+      {
+        "bytes": 304,
+        "sha256": "84f593bdd7bf8c406e24b5c535bf1e0ac3b62cac461bb28406b6ec31b4b54576"
+      },
+      {
+        "bytes": 196320,
+        "sha256": "f3d0d4b7ba6506b5c3feb1d57e93549cd522286947823839e8a6267638e2d2f8"
+      },
+      {
+        "bytes": 196632,
+        "sha256": "0fa2168e6aaa38e0101841d952e3f137989c6a0c20f1a87b69ab9e2de6f3ce69"
+      },
+      {
+        "bytes": 392656,
+        "sha256": "fc3bfa9e800cd875c911429b4bb52ad90da9e23b472034644ebebbdcc541a8eb"
+      },
+      {
+        "bytes": 20764280,
+        "sha256": "90862464ecdf4094c2de7e478064e4d741fe2dc44aa401fc6f90ea3e84523233"
+      },
+      {
+        "bytes": 1810744,
+        "sha256": "1c0a1d3a77a205ab902675b9f9cc24003c2438aa4ffde1f2decf9fdb986310ef"
+      }
+    ],
+    "triplet.B2": [
+      {
+        "bytes": 304,
+        "sha256": "3d3c1e73e1d1fed3bc1070f5d05fb206138dcb33e9598c67cc7d8ba9cc0a7f77"
+      },
+      {
+        "bytes": 196320,
+        "sha256": "324119af728b586a220db06cee57bd78f768427cb116527f1d1ffae7e209c2c1"
+      },
+      {
+        "bytes": 196632,
+        "sha256": "abd5775f6b3014b989610fcd93d3fd02a36744f158de7c6ce6edd5d096be6e55"
+      },
+      {
+        "bytes": 392656,
+        "sha256": "0e8a25b7d8e8d560afc76f526815d61845d061faa5f36e5dbfd34fc8ecdd42bf"
+      },
+      {
+        "bytes": 21479968,
+        "sha256": "8b345b4cad1d885942e2dcab0d862a23413755b267689dc474d23104e35c3a90"
+      },
+      {
+        "bytes": 1867888,
+        "sha256": "e05cfd1d41c5cb615145cbde397c0b619547c78c8d4d0d86cff1fdd22b56d0e3"
+      }
+    ],
+    "triplet.A2": [
+      {
+        "bytes": 304,
+        "sha256": "ded621eba88f486a9679d70baf4009660acaf3f8acf46bf29898fb53acb4dfa1"
+      },
+      {
+        "bytes": 196512,
+        "sha256": "9a11bd9a0fcf55d1635ce41bb9aa37b35bedada079e6d5f0f30469c8752ae9d5"
+      },
+      {
+        "bytes": 196824,
+        "sha256": "293bae12fba6ac30918ba6f356e8799fe3d8436271f0cfdb3dd2ba987fbc37a3"
+      },
+      {
+        "bytes": 393040,
+        "sha256": "215b90c50d2c9959a59cd9cc7271d0cab5f7386cb9164fde2302978fdeb8111f"
+      },
+      {
+        "bytes": 22979392,
+        "sha256": "51924fb6bbf871d5e3ee7069e8c8248b6e808feefea4a1291add68cdb112d6fb"
+      },
+      {
+        "bytes": 1978112,
+        "sha256": "212706ceb1801e9f597500b6200f7b52b64a4707911cd04af04d865db3aa0f1c"
+      }
+    ]
+  },
+  "baseline_csf_observation_matches": 8,
+  "retained_subspace_dominance_verdict": false,
+  "native_target_vector_reuse_verdict": null,
+  "scattering_ensemble_verdict": null,
+  "native_replay_calls": 0,
+  "verification_wall_seconds": 1.596019333228469,
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 15481,
+        "sha256": "8507cfd8152a61f9141a3ce15b827975c8ca67b93509205776d2157226442235"
+      },
+      "completion-results.tar.gz": {
+        "bytes": 7490846,
+        "sha256": "2ad26a64eacf27cb0e746f77f79bc5e6f91cd2633dd93941dbd11398583a3918"
+      },
+      "initial-results.tar.gz": {
+        "bytes": 12491019,
+        "sha256": "271a547ee1be5e343016e965e91599d57fe91f8e0353a2db1b4238ac6f5d5f7d"
+      },
+      "manifest.json": {
+        "bytes": 649,
+        "sha256": "0bd88b05266044527a0399c9c24c38476b699ca1ba103ec463a36ab69015475e"
+      },
+      "original-inputs.tar.gz": {
+        "bytes": 54196,
+        "sha256": "9a83173eb06253a644c00979625a6387d18476f2d44a2a5a4c148e6232724d4b"
+      },
+      "result-summary.json": {
+        "bytes": 33397,
+        "sha256": "44c7f1871c0e26a025fe5eff19d5191176ad33a8a0fa089bb8545d44d051aa61"
+      }
+    },
+    "git_sha": "14c4c6124fe93b049f5cdfc18003d10f686f052c",
+    "url_prefix": "https://data.qscat.org/co-immutable-continuum-20261021/"
+  }
+}

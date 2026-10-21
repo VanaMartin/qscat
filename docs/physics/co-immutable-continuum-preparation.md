@@ -128,7 +128,7 @@ and completed singlet-A1 file, after reconstructing their original native exits,
 markers, counts and binary EOF. It authenticates17 parent inputs plus11 new pins,
 copies saved inputs into a fresh directory and invokes only the seven unrun
 CONGEN sectors. Forecast10s expected /30s upper /120s cap on the same reserved
-four cores /4GiB. No integral or first-CON GEN calculation is repeated; no
+four cores /4GiB. No integral or first CONGEN calculation is repeated; no
 scientific setting is changed. The original failed producer and successor have
 separate results and original exits. Any new failure stops without another
 automatic call.

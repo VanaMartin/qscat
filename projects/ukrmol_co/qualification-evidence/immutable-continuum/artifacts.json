@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 15481,
+      "sha256": "8507cfd8152a61f9141a3ce15b827975c8ca67b93509205776d2157226442235"
+    },
+    "completion-results.tar.gz": {
+      "bytes": 7490846,
+      "sha256": "2ad26a64eacf27cb0e746f77f79bc5e6f91cd2633dd93941dbd11398583a3918"
+    },
+    "initial-results.tar.gz": {
+      "bytes": 12491019,
+      "sha256": "271a547ee1be5e343016e965e91599d57fe91f8e0353a2db1b4238ac6f5d5f7d"
+    },
+    "manifest.json": {
+      "bytes": 649,
+      "sha256": "0bd88b05266044527a0399c9c24c38476b699ca1ba103ec463a36ab69015475e"
+    },
+    "original-inputs.tar.gz": {
+      "bytes": 54196,
+      "sha256": "9a83173eb06253a644c00979625a6387d18476f2d44a2a5a4c148e6232724d4b"
+    },
+    "result-summary.json": {
+      "bytes": 33397,
+      "sha256": "44c7f1871c0e26a025fe5eff19d5191176ad33a8a0fa089bb8545d44d051aa61"
+    }
+  },
+  "git_sha": "14c4c6124fe93b049f5cdfc18003d10f686f052c",
+  "url_prefix": "https://data.qscat.org/co-immutable-continuum-20261021/"
+}

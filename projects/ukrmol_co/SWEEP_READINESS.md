@@ -535,6 +535,15 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,17:40UTC:** [full-continuum integrals and8 target CSFs](IMMUTABLE_CONTINUUM.md)
+are generated at fixed new-frame orbitals,154 MOs /141 continuum, no QC/target
+diagonalization/property/scattering solve. The original CONGEN trailer-check
+failure/exits1/1/1 stays beside a seven-sector completion0/0/0 with no repeated
+native work. Total15.049s /peak2.46218GiB. Full-layout CSF hashes match baseline,
+but signed native-vector/address conversion remains unqualified; prove it or cost
+a finite native reimport before compatible target/property/scattering use. Both
+A1 physical retained subspaces still reject. No scientific job or sweep runs.
+
 **21 October,16:49UTC:** the [physical ensemble-frame screen](ENSEMBLE_FRAME_COMPARISON.md)
 **rejects both A1 retained subspaces**, minima0.06930/approximately zero versus0.5,
 while all eight numerical cases pass. Original scientific exits1/1/1; cost63.503s /

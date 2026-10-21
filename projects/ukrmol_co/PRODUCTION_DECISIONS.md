@@ -9,6 +9,17 @@ model and channel map it will actually use.
 
 ### Current decision — 21 October,16:49 UTC
 
+**17:40UTC technical advance:** [full-continuum integrals and eight target-CSF files](IMMUTABLE_CONTINUUM.md)
+are now generated on the unchanged new frame:154 MOs /141 continuum, exact
+baseline continuum cards. One integral plus eight CONGEN calls total; no QC,
+target eigensolver, properties or scattering Hamiltonian. An original CONGEN
+trailer-check wrapper failure/exits1/1/1 is retained; a separately frozen seven-
+sector completion reuses its integral/first-CSF outputs and passes0/0/0.
+Total15.049s /peak2.46218GiB. All eight CSFs match recorded baseline full-layout
+hashes, but target-only signed coefficient/address reuse is still unset. Next
+prove that map or separately justify native target reimport, not reoptimization.
+The physical A1 rejection and the need to declare the scientific contrast remain.
+
 The [physical ensemble-frame comparison](ENSEMBLE_FRAME_COMPARISON.md) now
 **rejects retained-subspace dominance in both A1 sectors**, minima0.0692964 and
 approximately zero versus0.5; six sectors pass. All eight numerical comparisons
@@ -121,7 +132,7 @@ optimization. No physical-overlap successor is yet submitted.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Orbital ensemble | Both A1 retained subspaces reject the physical dominance screen; old root5→new6; qualified new target/properties retained | Declare combined prescription sensitivity or separately design matched-manifold selection; immutable continuum preparation before any solve | Physical comparison63.503s /.49293GiB; no QC repeat; preparation/scattering forecast depends on the chosen contrast |
+| Orbital ensemble | Both A1 subspaces reject; new frame/properties retained; immutable continuum/8 target CSFs generated | Prove signed native-vector/address reuse or justify native reimport; declare contrast and target/property map before scattering | Physical screen63.503s /.49293GiB; generation15.049s /peak2.46218GiB; no QC repeat; scattering forecast remains map-dependent |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Choose a model only after independent ensemble/basis effects are measured; budget remaining uncertainty explicitly | Reuse existing2048 results; no automatic larger active-space or channel ladder |
 | Resonance widths | Compressed/equilibrium required-window prediction rejects;94 known beyond-budget width counterexamples persist | A physically constrained extraction design with known-truth nonpolynomial successes, held-out phase predictions and explicit pole/width-identifiability veto | Existing calibration/native reading took13.9s /4.0s; new fit design remains uncosted; direct native complex poles need separate numerical qualification |

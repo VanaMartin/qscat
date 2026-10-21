@@ -20,6 +20,77 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Immutable continuum and all target CSFs generated; no QC repeat — 21 October,17:40 UTC
+
+The [immutable-frame native preparation](IMMUTABLE_CONTINUUM.md) now supplies
+**154 total MOs:13 target /141 continuum**, target7/3/3/0 and continuum51/34/34/22,
+no PCOs, plus all eight complete target-CSF files. Exact baseline18-bohr/l≤4/
+deletion1e-6 integral cards and exact new-frame Molden are reused; checkpoint/
+Molden physical core/active overlaps pass. **No QC/CASCI, target diagonalization,
+DENPROP, scattering CONGEN/SCATCI or propagation is called.** No retained-root
+selection is made by this technical construction; the two-A1 physical rejection
+and existing baseline are unchanged.
+
+Original freeze **`bc1a0c3`** starts17:31:30UTC. Native integrals and first target
+CONGEN return0/0, but the wrapper incorrectly expects DENPROP's completion phrase
+from CONGEN and exits **1/1/1**, generation verdict null. Its source, traceback,
+partial outputs and exits remain intact. CONGEN's actual final projection/write
+markers, unit710/count15548 and six-record complete EOF verify from saved output.
+This is a wrapper reader defect, not a native/numerical rejection. Corrected
+program-specific marker tests reject missing/duplicated/wrong unit/count output.
+
+The separately frozen [seven-sector successor](immutable-continuum-completion-contract-20261021.json),
+**`14c4c61`**, authenticates17 parent+11 saved input/failure pins and copies the
+completed integrals/first CSF to a fresh output directory. Only seven unrun target
+CONGEN calls execute. It finishes **17:36:12UTC**, original command/container/
+owner **0/0/0**, **3.519s /.28282GiB**, CPU2.857s,16 samples. All15 source /
+28 input hashes pass before/after. The original costs11.530s /2.46218GiB,
+CPU42.620s,56 samples; its13 sources /17 input pins also verify. **One integral
+and eight CONGEN calls total**, nine native exits0; no completed call is repeated.
+Total container wall15.049s /sampled CPU45.478s, reserved physical cores0–3 /
+4GiB. Native generation passes its finite scope only, not Hamiltonian accuracy.
+
+All eight generated full-layout CSFs are **byte-identical to baseline full-layout
+definitions** in a read-only host observation. This does not compare physical
+eigenstates across orbital frames or authorize target-only coefficient reuse.
+Signed records/orbital addresses still differ between target-only and full native
+layouts. New moints SHA256
+`577873767fd9ef7df58c809a460aea444c8a5fdfcc1307d8149276e4b8db1c89`.
+
+[Public evidence](qualification-evidence/immutable-continuum/README.md) verifies
+**6 fresh payloads /57 generated-owner files /28 source checks**,17 parent inputs
+and11 successor pins. Eight unchanged copied files are referenced rather than
+republished. A separate SciPy binary reader reconstructs48 CSF records/headers/
+EOF plus native text inventories, all nine native exits and exact Molden/cards.
+Integral bytes remain opaque authenticated output; baseline-CSF equality uses
+recorded host-observed hashes, not a new independent baseline calculation.
+[Dated result/resources](progress-immutable-continuum-result-20261021.json) and
+[saved reading](verification-immutable-continuum-public-20261021.json) preserve
+original failure/exits1/1/1 separately from completion0/0/0.34 focused local tests
+pass; one local PySCF analytic skip was exercised in the earlier remote control.
+
+**No scientific job remains.** Original source/output:
+`prepared/immutable-continuum-source-20261021/outputs/preparation/`; completed
+reusable files: `prepared/immutable-continuum-completion-source-20261021/outputs/preparation/`.
+Both read-only completion watchers have finished.
+
+**Next:** decode/prove an exact signed target-CSF/address correspondence for saved
+native vectors using these full-layout definitions, without repeating QC or the
+37-minute properties. Do not pad/reheader target-only vectors by assumption.
+If exact reuse cannot be established, justify/cost a finite native target reimport
+separately. Select combined orbital/channel prescription sensitivity versus a
+justified matched-manifold contrast and validate compatible target/property/
+channel maps before any sparse2048 scattering Hamiltonian. Physical dominance
+still false in both A1 sectors; all independent model/extraction/basis/neutral/
+continuity/pilot limits remain. No root/channel ladder or production sweep.
+
+Search handoff: complete/current main snapshot `423d577`; direct remote-main
+lookup also confirms that commit. Preparation `bc1a0c3` and
+completion `14c4c61` are branch-only additions resolved against current source
+and separate13/15-file archives. Remote upstream source anchors were read from
+their retained, hash-identified campaign copies. No original native/scientific
+failure was rewritten into a pass.
+
 ### Physical ensemble-frame screen rejects both A1 retained subspaces — 21 October,16:49 UTC
 
 The [physical old40/new50-frame comparison](ENSEMBLE_FRAME_COMPARISON.md), frozen

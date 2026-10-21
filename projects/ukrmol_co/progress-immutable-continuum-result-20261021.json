@@ -1,0 +1,863 @@
+{
+  "observed_utc": "2026-10-21T17:37:17.538783+00:00",
+  "original_source_commit": "bc1a0c34722b68f1dd4b9eab0e93e6cf16e65fbd",
+  "completion_source_commit": "14c4c6124fe93b049f5cdfc18003d10f686f052c",
+  "original_execution": {
+    "source_commit": "bc1a0c34722b68f1dd4b9eab0e93e6cf16e65fbd",
+    "source_archive_sha256": "462882128943f3421edddc34024222b2b2449e24777ded89f1f0151dcdc2f771",
+    "owner_sha256": "e02fae9be42039c4fcbad9b9e055113d7e0d2e5addfbc88953da386941e0bece",
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "started_utc": "2026-10-21T17:31:30.463783+00:00",
+    "steps": [
+      {
+        "label": "prepare",
+        "command": [
+          "docker",
+          "run",
+          "--name",
+          "co-immutable-continuum-20261021-prepare",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=1g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/immutable-continuum-source-20261021/outputs:/out",
+          "-e",
+          "TMPDIR=/out",
+          "-e",
+          "PSI_SCRATCH=/out",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/immutable-continuum-source-20261021/source:/opt/qmodeling:ro",
+          "-w",
+          "/opt/qmodeling",
+          "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.immutable_continuum",
+          "--root",
+          "/work",
+          "--contract",
+          "/opt/qmodeling/projects/ukrmol_co/immutable-continuum-contract-20261021.json",
+          "--output",
+          "/out/preparation"
+        ],
+        "timeout_seconds": 300,
+        "started_utc": "2026-10-21T17:31:30.490790+00:00",
+        "integrity_before": {
+          "source_files": 13,
+          "original_inputs": 17
+        },
+        "timed_out": false,
+        "original_command_exit": 1,
+        "wall_seconds": 11.529605691030156,
+        "finished_utc": "2026-10-21T17:31:42.021063+00:00",
+        "resource_samples": 56,
+        "sampled_memory_peak_bytes": 2643742720,
+        "sampled_cpu_seconds": 42.620407,
+        "integrity_after": {
+          "source_files": 13,
+          "original_inputs": 17
+        },
+        "original_container_exit": 1
+      }
+    ],
+    "native_layout_generation_verdict": null,
+    "new_frame_import_verdict": true,
+    "retained_subspace_dominance_verdict": false,
+    "original_seed_preservation_passed": false,
+    "original_seed_verifier_and_owner_exits": [
+      1,
+      1,
+      1
+    ],
+    "scattering_ensemble_verdict": null,
+    "new_scattering_inner_solves": 0,
+    "integrity_before": {
+      "source_files": 13,
+      "original_inputs": 17
+    },
+    "admission": {
+      "available_ram_bytes": 122345185280,
+      "free_disk_bytes": 58193747968
+    },
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "error": "RuntimeError('prepare failed; original result preserved')",
+    "original_owner_exit": 1,
+    "finished_utc": "2026-10-21T17:31:42.028963+00:00",
+    "integrity_after": {
+      "source_files": 13,
+      "original_inputs": 17
+    }
+  },
+  "completion_execution": {
+    "source_commit": "14c4c6124fe93b049f5cdfc18003d10f686f052c",
+    "source_archive_sha256": "03af60cd1f719b5a386ccfba25ed56fbb78d4bf2dcbe67e1ac8c16f1d7434642",
+    "owner_sha256": "76be524c7ad8f7e4fef2ded3ec99cf6d8b8637c8eee6884fdcf27fbd9450aea9",
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "started_utc": "2026-10-21T17:36:08.716464+00:00",
+    "steps": [
+      {
+        "label": "complete",
+        "command": [
+          "docker",
+          "run",
+          "--name",
+          "co-immutable-continuum-completion-20261021-complete",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=1g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/immutable-continuum-completion-source-20261021/outputs:/out",
+          "-e",
+          "TMPDIR=/out",
+          "-e",
+          "PSI_SCRATCH=/out",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/immutable-continuum-completion-source-20261021/source:/opt/qmodeling:ro",
+          "-w",
+          "/opt/qmodeling",
+          "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.immutable_continuum_completion",
+          "--root",
+          "/work",
+          "--contract",
+          "/opt/qmodeling/projects/ukrmol_co/immutable-continuum-completion-contract-20261021.json",
+          "--output",
+          "/out/preparation"
+        ],
+        "timeout_seconds": 120,
+        "started_utc": "2026-10-21T17:36:08.760517+00:00",
+        "integrity_before": {
+          "source_files": 15,
+          "original_inputs": 28
+        },
+        "timed_out": false,
+        "original_command_exit": 0,
+        "wall_seconds": 3.5189787370036356,
+        "finished_utc": "2026-10-21T17:36:12.296995+00:00",
+        "resource_samples": 16,
+        "sampled_memory_peak_bytes": 303677440,
+        "sampled_cpu_seconds": 2.857344,
+        "integrity_after": {
+          "source_files": 15,
+          "original_inputs": 28
+        },
+        "original_container_exit": 0
+      }
+    ],
+    "completed_layout_generation_verdict": true,
+    "original_preparation_exits": [
+      1,
+      1,
+      1
+    ],
+    "new_frame_import_verdict": true,
+    "retained_subspace_dominance_verdict": false,
+    "original_seed_preservation_passed": false,
+    "original_seed_verifier_and_owner_exits": [
+      1,
+      1,
+      1
+    ],
+    "scattering_ensemble_verdict": null,
+    "new_scattering_inner_solves": 0,
+    "integrity_before": {
+      "source_files": 15,
+      "original_inputs": 28
+    },
+    "admission": {
+      "available_ram_bytes": 122300309504,
+      "free_disk_bytes": 58162298880
+    },
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "original_owner_exit": 0,
+    "finished_utc": "2026-10-21T17:36:12.317210+00:00",
+    "integrity_after": {
+      "source_files": 15,
+      "original_inputs": 28
+    }
+  },
+  "completed_layout_generation_verdict": true,
+  "original_preparation_exits": [
+    1,
+    1,
+    1
+  ],
+  "original_native_stage_exits": [
+    0,
+    0
+  ],
+  "completion_exits": [
+    0,
+    0,
+    0
+  ],
+  "report": {
+    "stages": [
+      {
+        "name": "congen.triplet.A1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.2641184329986572
+      },
+      {
+        "name": "congen.singlet.B1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.41428685188293457
+      },
+      {
+        "name": "congen.triplet.B1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.3641848564147949
+      },
+      {
+        "name": "congen.singlet.B2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.41429948806762695
+      },
+      {
+        "name": "congen.triplet.B2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.36546874046325684
+      },
+      {
+        "name": "congen.singlet.A2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.5144519805908203
+      },
+      {
+        "name": "congen.triplet.A2",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.4643681049346924
+      }
+    ],
+    "completed_layout_generation_verdict": true,
+    "original_preparation_exits": [
+      1,
+      1,
+      1
+    ],
+    "original_native_stage_exits": [
+      0,
+      0
+    ],
+    "retained_subspace_dominance_verdict": false,
+    "native_target_vector_reuse_verdict": null,
+    "scattering_ensemble_verdict": null,
+    "new_integral_calls": 0,
+    "new_orbital_optimizations": 0,
+    "target_diagonalizations": 0,
+    "property_exports": 0,
+    "scattering_inner_solves": 0,
+    "native_inventory": {
+      "target": [
+        7,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "PCOs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "TGT+PCOs": [
+        7,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "continuum": [
+        51,
+        34,
+        34,
+        22,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": [
+        58,
+        37,
+        37,
+        22,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "saved_first_sector_reconstructed": true,
+    "target_csf_records": {
+      "singlet.A1": [
+        {
+          "bytes": 304,
+          "sha256": "9e3e1c862f486c6e03c1a5adc5ffde045c83b1bad37f49e71fc1fa5f3dc23b70"
+        },
+        {
+          "bytes": 124384,
+          "sha256": "84362418c7940b0ab6f9cbc1ebc7630c2d3b398ed111ec977b95450fb45a0ec0"
+        },
+        {
+          "bytes": 124696,
+          "sha256": "b808e62a058ff0c6c9089f562d4f9260b3cfe57ae0ceff305ac74961d6d72820"
+        },
+        {
+          "bytes": 248784,
+          "sha256": "40d0242969fbabe1d36bf58d62eaf44e96afb4f15d9bae376b96e5918ea5636b"
+        },
+        {
+          "bytes": 15731904,
+          "sha256": "a2bfde0e5e0309f6a520c6de6bfc701aba3d762df2efc48b5cf4a5fa2a5f4322"
+        },
+        {
+          "bytes": 1326272,
+          "sha256": "771728b92129d9a7937956b147222484e25f7b7b92854c8d2182e027cd77f4c9"
+        }
+      ],
+      "triplet.A1": [
+        {
+          "bytes": 304,
+          "sha256": "73cb0be7012b3e612aec27cc8bfa0fb0434746142d271578cfc446f2c9666e46"
+        },
+        {
+          "bytes": 194928,
+          "sha256": "3754c1e4b8c09578993d73f8162e485c1a28aecaf4786acb15d46d5019ecea81"
+        },
+        {
+          "bytes": 195240,
+          "sha256": "6459e46fdb9f724e23d5aef6305788873ec6f37ee55e60bdd9d5fe871c2eaccc"
+        },
+        {
+          "bytes": 389872,
+          "sha256": "b9bfebda21a7b85b8862a3d35d50a7d4f807384d5e224ef165d3545873907649"
+        },
+        {
+          "bytes": 18076688,
+          "sha256": "f970c80407084b55e881344cd9c30371010c02316f29420f2c4f7f4a19717305"
+        },
+        {
+          "bytes": 1573008,
+          "sha256": "e7206efa005488ede7d7b51d2a9a986b00f1a37264dc1540582d624aa3757753"
+        }
+      ],
+      "singlet.B1": [
+        {
+          "bytes": 304,
+          "sha256": "81dd86ba079029a15917d8eb487b0b7ed9279c4d51f2e90da0484c51cd3c79d3"
+        },
+        {
+          "bytes": 121568,
+          "sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715"
+        },
+        {
+          "bytes": 121880,
+          "sha256": "207b27370ac48fcce364cbbf9ce1979b2084811fb227a01395f8b6b8ab395027"
+        },
+        {
+          "bytes": 243152,
+          "sha256": "8da76d0a25b10a7b89d8f9f27e363f57a8e6d8e043ad4836f005ae3686583e68"
+        },
+        {
+          "bytes": 18736000,
+          "sha256": "0abbf344e405c630acf4f3bb95eb66063dc22ef88c8c986572b67cbc13b6b9d9"
+        },
+        {
+          "bytes": 1584352,
+          "sha256": "0027bd9d17340d74e8dd9ed4948e2fcadd36101cb0b6028a2c4b2e823d93c3a6"
+        }
+      ],
+      "triplet.B1": [
+        {
+          "bytes": 304,
+          "sha256": "84f593bdd7bf8c406e24b5c535bf1e0ac3b62cac461bb28406b6ec31b4b54576"
+        },
+        {
+          "bytes": 196320,
+          "sha256": "f3d0d4b7ba6506b5c3feb1d57e93549cd522286947823839e8a6267638e2d2f8"
+        },
+        {
+          "bytes": 196632,
+          "sha256": "0fa2168e6aaa38e0101841d952e3f137989c6a0c20f1a87b69ab9e2de6f3ce69"
+        },
+        {
+          "bytes": 392656,
+          "sha256": "fc3bfa9e800cd875c911429b4bb52ad90da9e23b472034644ebebbdcc541a8eb"
+        },
+        {
+          "bytes": 20764280,
+          "sha256": "90862464ecdf4094c2de7e478064e4d741fe2dc44aa401fc6f90ea3e84523233"
+        },
+        {
+          "bytes": 1810744,
+          "sha256": "1c0a1d3a77a205ab902675b9f9cc24003c2438aa4ffde1f2decf9fdb986310ef"
+        }
+      ],
+      "singlet.B2": [
+        {
+          "bytes": 304,
+          "sha256": "96ecc8b57b6ee835e75d4a1d28926d901d2cb3661a33bd546b2a4481b7e830d8"
+        },
+        {
+          "bytes": 121568,
+          "sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715"
+        },
+        {
+          "bytes": 121880,
+          "sha256": "dbbeda2bad7998b090c24ec0b856b9842964cb537917a182cd659648c24b25f7"
+        },
+        {
+          "bytes": 243152,
+          "sha256": "145523d4b789379280284503996f0828f103444ab600b2f0ec9c3eea17aee6d3"
+        },
+        {
+          "bytes": 18860992,
+          "sha256": "3a8390e775372dc3a54d1b62d4815e7fa089fc8d8059c5aa0ced7a3893926cee"
+        },
+        {
+          "bytes": 1584352,
+          "sha256": "2103feb1a54218b1e54834db1eb9a3ed4f279af77302f8ae874d081569b6d233"
+        }
+      ],
+      "triplet.B2": [
+        {
+          "bytes": 304,
+          "sha256": "3d3c1e73e1d1fed3bc1070f5d05fb206138dcb33e9598c67cc7d8ba9cc0a7f77"
+        },
+        {
+          "bytes": 196320,
+          "sha256": "324119af728b586a220db06cee57bd78f768427cb116527f1d1ffae7e209c2c1"
+        },
+        {
+          "bytes": 196632,
+          "sha256": "abd5775f6b3014b989610fcd93d3fd02a36744f158de7c6ce6edd5d096be6e55"
+        },
+        {
+          "bytes": 392656,
+          "sha256": "0e8a25b7d8e8d560afc76f526815d61845d061faa5f36e5dbfd34fc8ecdd42bf"
+        },
+        {
+          "bytes": 21479968,
+          "sha256": "8b345b4cad1d885942e2dcab0d862a23413755b267689dc474d23104e35c3a90"
+        },
+        {
+          "bytes": 1867888,
+          "sha256": "e05cfd1d41c5cb615145cbde397c0b619547c78c8d4d0d86cff1fdd22b56d0e3"
+        }
+      ],
+      "singlet.A2": [
+        {
+          "bytes": 304,
+          "sha256": "6e8e1e2c0dda4137f03a336ddfa96104ba29b4c281857835ce4772fe937e0840"
+        },
+        {
+          "bytes": 120352,
+          "sha256": "9ba68566ae6e213f6730febe651f9e0171a50c079083cdf7366bd57750d0d66b"
+        },
+        {
+          "bytes": 120664,
+          "sha256": "fa9302357ec6288b5eda099e0141d3987aee41cb8974eb4220a8d535678ba5b1"
+        },
+        {
+          "bytes": 240720,
+          "sha256": "b040b618139a7f8d3d7b75616f83b2ac3d60a0c167f3793e4c6d694df720a14e"
+        },
+        {
+          "bytes": 19711232,
+          "sha256": "d6a0bbf757f40584f62cc94ce008412422034274a32097f5a3500c68e638fbb2"
+        },
+        {
+          "bytes": 1642304,
+          "sha256": "2ce4ccedab88bfa66f6ef6abb50c68c32583c1dcc420b865e8ae20d9f2eb12f0"
+        }
+      ],
+      "triplet.A2": [
+        {
+          "bytes": 304,
+          "sha256": "ded621eba88f486a9679d70baf4009660acaf3f8acf46bf29898fb53acb4dfa1"
+        },
+        {
+          "bytes": 196512,
+          "sha256": "9a11bd9a0fcf55d1635ce41bb9aa37b35bedada079e6d5f0f30469c8752ae9d5"
+        },
+        {
+          "bytes": 196824,
+          "sha256": "293bae12fba6ac30918ba6f356e8799fe3d8436271f0cfdb3dd2ba987fbc37a3"
+        },
+        {
+          "bytes": 393040,
+          "sha256": "215b90c50d2c9959a59cd9cc7271d0cab5f7386cb9164fde2302978fdeb8111f"
+        },
+        {
+          "bytes": 22979392,
+          "sha256": "51924fb6bbf871d5e3ee7069e8c8248b6e808feefea4a1291add68cdb112d6fb"
+        },
+        {
+          "bytes": 1978112,
+          "sha256": "212706ceb1801e9f597500b6200f7b52b64a4707911cd04af04d865db3aa0f1c"
+        }
+      ]
+    },
+    "scope": "Generation-only completion: seven previously unrun target-CSF calls. Original failure preserved; no integral rerun, target-vector conversion or Hamiltonian/property/scattering claim."
+  },
+  "original_failure": {
+    "stages": [
+      {
+        "name": "integrals",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 10.629871129989624
+      },
+      {
+        "name": "congen.singlet.A1",
+        "original_exit": 0,
+        "timed_out": false,
+        "wall_seconds": 0.2640848159790039
+      }
+    ],
+    "native_layout_generation_verdict": null,
+    "retained_subspace_dominance_verdict": false,
+    "original_overlap_exits": [
+      1,
+      1,
+      1
+    ],
+    "native_target_vector_reuse_verdict": null,
+    "scattering_ensemble_verdict": null,
+    "new_orbital_optimizations": 0,
+    "target_diagonalizations": 0,
+    "property_exports": 0,
+    "scattering_inner_solves": 0,
+    "checkpoint_export_overlap": {
+      "core": [
+        0.9999999999999626,
+        0.9999999999999499
+      ],
+      "active": [
+        1.000000000000021,
+        1.00000000000002,
+        1.0000000000000058,
+        1.0000000000000038,
+        1.0000000000000016,
+        1.0000000000000002,
+        0.9999999999999988,
+        0.9999999999999981,
+        0.9999999999999968,
+        0.9999999999999815,
+        0.99999999999998
+      ]
+    },
+    "native_inventory": {
+      "target": [
+        7,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "PCOs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "TGT+PCOs": [
+        7,
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "continuum": [
+        51,
+        34,
+        34,
+        22,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": [
+        58,
+        37,
+        37,
+        22,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "target_csf_records": {},
+    "error": "AssertionError()"
+  },
+  "baseline_csf_byte_observation": {
+    "fort.710": {
+      "baseline_sha256": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+      "new_sha256": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+      "identical": true
+    },
+    "fort.730": {
+      "baseline_sha256": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+      "new_sha256": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+      "identical": true
+    },
+    "fort.711": {
+      "baseline_sha256": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+      "new_sha256": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+      "identical": true
+    },
+    "fort.731": {
+      "baseline_sha256": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+      "new_sha256": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+      "identical": true
+    },
+    "fort.712": {
+      "baseline_sha256": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+      "new_sha256": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+      "identical": true
+    },
+    "fort.732": {
+      "baseline_sha256": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+      "new_sha256": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+      "identical": true
+    },
+    "fort.713": {
+      "baseline_sha256": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+      "new_sha256": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+      "identical": true
+    },
+    "fort.733": {
+      "baseline_sha256": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f",
+      "new_sha256": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f",
+      "identical": true
+    }
+  },
+  "original_contract": {
+    "status": "prospective generation-only native continuum integral and target-CSF preparation",
+    "design": "../../docs/physics/co-immutable-continuum-preparation.md",
+    "scientific_purpose": "Create the missing full-continuum native layout on the qualified immutable new50-component frame, without choosing retained roots or rerunning QC/target diagonalization/properties. Existing target-only CSF addresses and signed records differ; padding its CIDATA is not established as safe.",
+    "molden": "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/co.molden",
+    "checkpoint": "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/co.casscf.chk",
+    "target_report": "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/target.json",
+    "frame_result": "prepared/fifty-frame-coverage-source-20261021/outputs/coverage/result.json",
+    "overlap_result": "prepared/ensemble-frame-overlaps-source-20261021/outputs/comparison/result.json",
+    "overlap_execution": "prepared/ensemble-frame-overlaps-source-20261021/execution.json",
+    "integral_deck": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.scatci_integrals.inp",
+    "baseline_inputs": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs",
+    "input_sha256": {
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.scatci_integrals.inp": "09d83e424d7535751db0be13ed2de0143378f9f735bbc5314597ea8282060d1d",
+      "runs/co-eq-ccdz-sa11-tight-cc40/config.json": "65b7c36ab316f7bd2ca51a25e4a54bb48b83281fa2072a81b7a50b4b6533cf5c",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/config.json": "21569471c48bc8fc57f93b633e48f9428693a5c70fa86fdc0fb2d82580214ba8",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/target.json": "a69fa567ddc91826a8e54d22abe04f9f6aa1a2449c0c1fb0886c373e26fb45df",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/co.casscf.chk": "4c55e3b3828585a451b76a565bc17c4e70227ef1e0e02d1636565250326e386c",
+      "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/co.molden": "9ba4b2a85a0cb1574ec576fa6dbabada4293ec089fcdd03b96e4d431d74f97d9",
+      "prepared/fifty-frame-coverage-source-20261021/outputs/coverage/result.json": "b6f270df6ac43df443178a73adc775ffca9ee313a835a80a658a5e540c9612ca",
+      "prepared/ensemble-frame-overlaps-source-20261021/outputs/comparison/result.json": "d0364abf4f4f1f5e52b7b34da4528eb4f6a8ae5defe2141d4492d69eb7b7fa75",
+      "prepared/ensemble-frame-overlaps-source-20261021/execution.json": "2b16107382a8c7c4bf509efb8259b31e5680bec77af1fbbf29e2410d96b06fca",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.singlet.A1.inp": "c65c3baaae115ab85ab289dbb512f920fc3ef445f6c6b64268c5455f85d121b7",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.singlet.B1.inp": "70d647f43806046d288af4cf43d9f9a5a14410636db434234ef4bd151e1723f3",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.singlet.B2.inp": "efb8150680610026b77478c375105cf9cfdc5eabb988dfd91845848a6887fdae",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.singlet.A2.inp": "00ca869118cfc25bf39a548b6b0d7defb5a615c9d16dc3887af62b54856bbb12",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.triplet.A1.inp": "a62b9f997cfe831efed1b7ce10c7151e1dd3eca1c8c44ff85a13bd82f822f60e",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.triplet.B1.inp": "4e3d6b2555407e55eb32b01d06bd544e7fa03eddc39bc6fc3ba51b6ad80ea0f9",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.triplet.B2.inp": "8532d196a0fb2c971f95416ef5180c1628f0493b327bd0109bb12d89be3f4682",
+      "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/target.congen.triplet.A2.inp": "16c1460873e837bba4d34082bc599356a1ea52b6d32a4ed9a2e457c4773727cc"
+    },
+    "target_csf_dimensions": {
+      "singlet.A1": 15548,
+      "singlet.B1": 15196,
+      "singlet.B2": 15196,
+      "singlet.A2": 15044,
+      "triplet.A1": 24366,
+      "triplet.B1": 24540,
+      "triplet.B2": 24540,
+      "triplet.A2": 24564
+    },
+    "scope": {
+      "integral_invocations": 1,
+      "target_congen_invocations": 8,
+      "new_orbital_optimizations": 0,
+      "ci_solves": 0,
+      "target_diagonalizations": 0,
+      "property_exports": 0,
+      "scattering_inner_solves": 0
+    },
+    "gates": "17 original input hashes before/after; exact copied Molden and full-continuum integral deck; checkpoint/Molden core/active singular-value floor1-1e-8; unique complete8-entry native inventories with target7/3/3/0, no PCOs, positive symmetric C2v continuum and exact total; four-rank native error counts zero and integral completion/nonempty moints; all8 target-CSF completion markers, fixed304-byte header counts/electrons/multiplicity/dimensions and6 records to complete EOF. These are generation checks, not Hamiltonian accuracy or cached-vector reuse qualification.",
+    "preserved_rejections": "Original seed preservation false; physical old40/new50 retained-subspace dominance false, original exits1/1/1. Neither gate is changed or bypassed by this generation-only technical stage.",
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "threads": 1,
+      "mpi_ranks": 4,
+      "memory_gib": 4,
+      "available_ram_floor_gib": 8,
+      "free_disk_floor_gib": 30,
+      "expected_wall_seconds": 60,
+      "upper_wall_seconds": 180,
+      "timeout_seconds": 300,
+      "integral_timeout_seconds": 120,
+      "congen_timeout_seconds": 30,
+      "sample_interval_seconds": 0.2
+    },
+    "cost_evidence": "Same-basis baseline four-rank full-continuum integral stage11.020s plus about3s for8 target CONGEN calls; target-only0.114s is not the forecast. Finite construction only; no whole-scattering performance claim.",
+    "stopping_rule": "Freeze/push source/tests/contract before execution. Fresh persistent output and source snapshot, read-only original inputs, original native/container/owner exits and resources, every generated file preserved. Stop on any failed gate, without retry/tuning/root/channel/space ladder. No target-vector padding/conversion, native target diagonalization, DENPROP or scattering Hamiltonian. A pass supports saved-layout signed-basis/address correspondence design or a separately justified native target reimport. Scientific retained-map choice and compatible target/property proof remain required before scattering."
+  },
+  "completion_contract": {
+    "status": "prospective seven-sector completion, not a retry of completed native work",
+    "parent_contract": "prepared/immutable-continuum-source-20261021/source/projects/ukrmol_co/immutable-continuum-contract-20261021.json",
+    "original_preparation": "prepared/immutable-continuum-source-20261021/outputs/preparation",
+    "original_execution": "prepared/immutable-continuum-source-20261021/execution.json",
+    "original_traceback": "prepared/immutable-continuum-source-20261021/prepare.log",
+    "baseline_inputs": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs",
+    "input_sha256": {
+      "prepared/immutable-continuum-source-20261021/source/projects/ukrmol_co/immutable-continuum-contract-20261021.json": "a389af33e62698b5d97ca4a3f51834709e8e542b1f7b812af4893d449ccb699a",
+      "prepared/immutable-continuum-source-20261021/execution.json": "8c1bacc74b510a62868c027ebab1ca650321ab8b10ac0694f7191a96b00ae803",
+      "prepared/immutable-continuum-source-20261021/prepare.log": "14951f8674a41fd808b93db4f93fe519ae5034a0e5c599bd156c4c41baf8fd83",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/failure.json": "eeeb8b15305c17cb6398c25e63ad66c00ee3dc46a78c50b5c9521cd83ba19fe9",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/integrals.native.out": "eb9c18fde8644982ee6c39c542c9944a6264789d8c7d3462561f68886ea0bbe9",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/moints": "577873767fd9ef7df58c809a460aea444c8a5fdfcc1307d8149276e4b8db1c89",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/co.molden": "9ba4b2a85a0cb1574ec576fa6dbabada4293ec089fcdd03b96e4d431d74f97d9",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/congen.singlet.A1.out": "af6de065ac309f49f35892c4a4d9ac53c14e92225957ccbfd6925bd27c54420b",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/target.congen.singlet.A1.inp": "c65c3baaae115ab85ab289dbb512f920fc3ef445f6c6b64268c5455f85d121b7",
+      "prepared/immutable-continuum-source-20261021/outputs/preparation/integrals.inp": "09d83e424d7535751db0be13ed2de0143378f9f735bbc5314597ea8282060d1d"
+    },
+    "target_csf_dimensions": {
+      "singlet.A1": 15548,
+      "singlet.B1": 15196,
+      "singlet.B2": 15196,
+      "singlet.A2": 15044,
+      "triplet.A1": 24366,
+      "triplet.B1": 24540,
+      "triplet.B2": 24540,
+      "triplet.A2": 24564
+    },
+    "diagnosis": "Original native integral and singlet-A1 CONGEN calls both exit0, but wrapper expects DENPROP's has-completed-execution phrase from CONGEN and stops. Original native generation partial/exits1/1/1 remain unchanged. Saved CONGEN final projection/write markers, count15548 and six-record complete EOF establish that first native file completed; it exactly matches the baseline full-continuum CSF file. No new scientific tolerance or root setting is needed.",
+    "scope": "Authenticate17 parent inputs plus11 successor pins. Reconstruct original two native exits0/0 and wrapper/container/owner1/1/1; inspect saved integral inventories and first CSF. In a fresh output copy saved moints/Molden/first CSF/decks/logs; execute only the7 previously unrun target CONGEN calls. Use CONGEN's own final projection and exact unit/dimension write markers plus complete binary framing. Same physical/model cards and numerical gates; no repeated integral or first CONGEN call.",
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "resources": {
+      "cpuset_cpus": "0-3",
+      "threads": 1,
+      "memory_gib": 4,
+      "available_ram_floor_gib": 8,
+      "free_disk_floor_gib": 30,
+      "expected_wall_seconds": 10,
+      "upper_wall_seconds": 30,
+      "timeout_seconds": 120,
+      "sample_interval_seconds": 0.2
+    },
+    "stopping_rule": "Freeze/push corrected reader, regression controls and successor contract before the7 missing native calls. Preserve the original source/failed owner/output bytes and pin all28 inputs before/after. Original files mount read-only; a new source/output/container/owner records its separate outcome. No retry or further call after any new failure, no QC, target diagonalization, new properties, vector reheader/conversion, retained-root change or scattering Hamiltonian. A pass qualifies generation only; physical subspace rejection and native target-vector reuse/unset scattering remain separate."
+  },
+  "original_inputs": 17,
+  "completion_input_pins": 28,
+  "native_integral_calls_total": 1,
+  "target_congen_calls_total": 8,
+  "new_qc_optimizations": 0,
+  "target_diagonalizations": 0,
+  "property_exports": 0,
+  "scattering_inner_solves": 0,
+  "retained_subspace_dominance_verdict": false,
+  "native_target_vector_reuse_verdict": null,
+  "scattering_ensemble_verdict": null,
+  "running_containers": [
+    "comfyui Up 42 hours"
+  ],
+  "next_decision": "Design an exact signed CSF/address correspondence or justify finite native target reimport without repeating QC/properties; select scientific contrast and compatible target/property map before any scattering Hamiltonian.",
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 15481,
+        "sha256": "8507cfd8152a61f9141a3ce15b827975c8ca67b93509205776d2157226442235"
+      },
+      "completion-results.tar.gz": {
+        "bytes": 7490846,
+        "sha256": "2ad26a64eacf27cb0e746f77f79bc5e6f91cd2633dd93941dbd11398583a3918"
+      },
+      "initial-results.tar.gz": {
+        "bytes": 12491019,
+        "sha256": "271a547ee1be5e343016e965e91599d57fe91f8e0353a2db1b4238ac6f5d5f7d"
+      },
+      "manifest.json": {
+        "bytes": 649,
+        "sha256": "0bd88b05266044527a0399c9c24c38476b699ca1ba103ec463a36ab69015475e"
+      },
+      "original-inputs.tar.gz": {
+        "bytes": 54196,
+        "sha256": "9a83173eb06253a644c00979625a6387d18476f2d44a2a5a4c148e6232724d4b"
+      },
+      "result-summary.json": {
+        "bytes": 33397,
+        "sha256": "44c7f1871c0e26a025fe5eff19d5191176ad33a8a0fa089bb8545d44d051aa61"
+      }
+    },
+    "git_sha": "14c4c6124fe93b049f5cdfc18003d10f686f052c",
+    "url_prefix": "https://data.qscat.org/co-immutable-continuum-20261021/"
+  },
+  "public_payloads_fresh_verified": 6,
+  "saved_native_layout_reconstruction_passed": true,
+  "generated_owner_files_verified": 57,
+  "verification": "verification-immutable-continuum-public-20261021.json"
+}

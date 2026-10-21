@@ -1,0 +1,20 @@
+{
+  "git_sha": "14c4c6124fe93b049f5cdfc18003d10f686f052c",
+  "original_source_commit": "bc1a0c34722b68f1dd4b9eab0e93e6cf16e65fbd",
+  "experiment": "co-immutable-continuum-20261021",
+  "scope": "Generation-only full-continuum integrals and8 target CSF files; original wrapper failure preserved;7 missing sectors completed without repeating integral/A1 calls.",
+  "completed_layout_generation_verdict": true,
+  "original_preparation_exits": [
+    1,
+    1,
+    1
+  ],
+  "completion_exits": [
+    0,
+    0,
+    0
+  ],
+  "retained_subspace_dominance_verdict": false,
+  "native_target_vector_reuse_verdict": null,
+  "scattering_ensemble_verdict": null
+}
