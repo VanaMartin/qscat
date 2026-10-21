@@ -121,3 +121,18 @@ def test_six_record_reader_requires_complete_data_and_eof(tmp_path):
 
     with pytest.raises(FortranFormattingError):
         read_target_csfs(path)
+
+
+def test_separate_canonical_decoder_recovers_analytic_superposition(tmp_path):
+    from projects.ukrmol_co.native_csf_reconstruction import expansion
+
+    path = tmp_path / "fort.710"
+    write_toy(path)
+    csfs = list(expansion(path))
+    assert len(csfs) == 1 and len(csfs[0]) == 2
+    # Stored second coefficient is negative; the electron-slot sorting is odd.
+    np.testing.assert_allclose(list(csfs[0].values()), [1 / np.sqrt(2)] * 2, atol=0, rtol=0)
+    excited = tuple(
+        sorted([(0, k, s) for k in range(1, 7) for s in (0, 1)] + [(0, 7, 1), (1, 1, 0)])
+    )
+    assert excited in csfs[0]
