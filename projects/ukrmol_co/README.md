@@ -76,6 +76,17 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
+**Update — 21 October,10:52UTC:** an equilibrium **fifty-component CAS11 native
+target calculation is running** on eight physical cores, advancing the orbital-
+ensemble model decision. The original forty→fifty QC ground-energy change is
++0.456512eV; its scattering effect is not yet measured. The run imports74 covered
+target roots, with all-root/dipole/frame checks and original outcomes retained.
+Forecast1h expected /2h upper /3h hard cap /24GiB memory. See the
+[costed production decisions](PRODUCTION_DECISIONS.md), [finite contract](fifty-import-contract-20261021.json)
+and [launch capture](progress-fifty-import-launch-20261021.json). A passing import
+enables costing a matched-channel scattering contrast; production widths and the
+remaining model/continuity/neutral/pilot gates are still open.
+
 **Update — 20 October,17:04UTC:** the complete400-bohr replay reproduces the
 [radial scientific result](NUMEROV_CO_RADIAL_PILOT.md) exactly, including all three
 full captured A/B/X sets. The original wrapper exits1/1/owner1 on nine tuple/list
@@ -510,10 +521,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: full400-bohr science reproduces exactly; original verifier schema failure preserved; electronic-model and width decisions remain](../../docs/physics/figures/co-progress-20261020T1704-radial-schema.png)
+![CO qualification: equilibrium fifty-component native target calculation running; matched electronic-model and width decisions next](../../docs/physics/figures/co-progress-20261021-fifty-import.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261020T1704-radial-schema.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261020T1704-radial-schema.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021-fifty-import.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021-fifty-import.json) ·
+[Costed production decisions](PRODUCTION_DECISIONS.md) ·
+[Fifty-component import launch](progress-fifty-import-launch-20261021.json) ·
+[Previous radial-closure figure](../../docs/physics/figures/co-progress-20261020T1704-radial-schema.svg) ·
+[Previous radial-closure snapshot](progress-snapshot-20261020T1704-radial-schema.json) ·
 [Final replay and diagnosis](progress-numerov-co-radial-replay-result-20261020T1704.json) ·
 [Separate saved-output verification](verification-numerov-co-radial-schema-20261020.json) ·
 [Long-range radial qualification](NUMEROV_CO_RADIAL_PILOT.md) ·

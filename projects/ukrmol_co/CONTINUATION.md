@@ -20,6 +20,61 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Equilibrium orbital-ensemble native calculation running — 21 October,10:52 UTC
+
+The next physical decision is **orbital-ensemble sensitivity**, following the
+[costed production decision queue](PRODUCTION_DECISIONS.md). At equilibrium,
+CAS11 forty→fifty averaging changed QC ground/common-forty-objective energies
+by+0.456512/+0.170147eV; these are not scattering errors. Existing fifty-component
+coverage passes48 probes on this frame. The missing native import now runs from
+the converged fifty-component checkpoint, independently of any new pole solver.
+
+Source/recipe/verifier/contract freeze **`7827867`** is pushed before launch.
+The [one-job recipe](calibration-sa11-fifty-import-20261021.json) computes **74
+native roots**, `[13,8,8,8]` per spin, while preserving the fifty equal-weight
+orbital-average components `[10,5,5,5]` per spin. Fixed R=2.1323bohr /cc-pVDZ /
+CAS(10,11) /two frozen A1 orbitals; ordinary CI remains200 cycles. No physical
+model/threshold tolerance is relaxed. The [finite contract](fifty-import-contract-20261021.json)
+and verifier require all-root binary energy/vector/EOF, full averaged-root/dipole
+import and seed-to-reoptimized energy/subspace gates.
+
+Original owner PID **274068**, launched **10:51:23UTC**, writes
+`prepared/fifty-import-source-20261021/`; calculation outputs are under
+`runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/`. Frozen image `6b3b0ed…`;
+eight MPI ranks on physical cores4–11 /24GiB cap, native libraries single-threaded
+and existing PySCF QC eight-threaded. All12 frozen sources and7 original input
+pins verify; input preflight reconstructs48 original coverage probes /74
+reference roots, exits0/0. Admission40.956GiB available RAM /54.898GiB disk passes
+32/30GiB floors. At10:52UTC QC is running; no native import verdict is available.
+
+Forecast **3600s expected /7200s upper /10800s hard cap**; comparable four-rank
+64-root import measured3086.6s /5.266GiB. Eight-rank74-root costs are unmeasured.
+On success the same detached owner runs the existing analyzer and the separately
+frozen all-root/subspace verifier. Original command/container/owner exits and
+resources are retained. One completion watcher waits read-only on the owner via
+pidfd; shell **`sh_15e16d636001YvsOAxvvBa25k6`**, helper
+`wait-co-fifty-import-20261021.py` in the approved local temporary directory.
+Avoid polling the watcher. [Launch capture](progress-fifty-import-launch-20261021.json)
+records pending qualification and the actual commands/source/input hashes.
+
+**Next after completion:** collect original exits and measured costs; reconstruct
+the74-root import and publish the evidence. If it passes, determine explicit
+fixed-manifold maps/physical subspace correspondence and cost a matched scattering
+comparison. DENPROP's50-state import setting is not permission for a50-versus40/48
+channel comparison; this import covers only8 A2 roots. A2 root9 requires a separate
+finite input contract if chosen. CAS12 imports previously needed40–41GiB, above
+the current comfortable host reservation; the accepted CAS12/2048 baseline is
+reused. No dense scattering Hamiltonian or automatic root/channel ladder.
+Widths remain unqualified at compressed/equilibrium; model contrasts can use
+real-axis phases while a physically constrained extraction design is developed.
+The remaining decision queue keeps continuity, neutral correlation/domain and
+a frozen restartable production pilot explicit.
+
+Search handoff: complete main snapshot `423d577` with stale/upstream-unknown MCP
+freshness; direct remote-main lookup confirms the same commit. Existing run,
+target, adapter and analyzer branches were resolved locally against their main
+deltas. New recipe/verifier/decision contract are branch-only and frozen above.
+
 ### Full400 scientific replay exact; wrapper schema failure preserved — 20 October,17:04 UTC
 
 The complete native400 reexecution finishes **16:59:02UTC**,61,120 intervals /

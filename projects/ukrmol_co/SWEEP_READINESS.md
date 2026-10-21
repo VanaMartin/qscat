@@ -535,6 +535,13 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October decision update:** follow the [costed decision queue](PRODUCTION_DECISIONS.md).
+The equilibrium CAS11 fifty-component **native target import is running** from
+its already covered checkpoint, forecast1h expected /3h hard cap on cores4–11 /
+24GiB. This advances the independent orbital-ensemble axis after a+0.456512eV QC
+ground shift. A pass releases mapping/costing for matched scattering, not a sweep.
+Use matched real-axis phases for model contrasts while widths remain unqualified.
+
 1. Design and independently validate an extraction rule addressing the measured
    background failure using known-pole phases and unused-data predictions;
    preserve every rejected all-order gate.
