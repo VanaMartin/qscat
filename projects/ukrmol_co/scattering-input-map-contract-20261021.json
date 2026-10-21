@@ -1,0 +1,45 @@
+{
+  "status": "prospective saved-only scattering phase and property-map audit; no native execution",
+  "cidata": "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.26",
+  "full_target_csfs": "prepared/immutable-continuum-completion-source-20261021/outputs/preparation",
+  "old_properties": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/fort.24",
+  "new_properties": "prepared/fifty-selected-properties-source-20261021/outputs/properties/fort.24",
+  "scattering": {
+    "B1": {
+      "csfs": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B1/fort.721",
+      "congen": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.congen.doublet.B1.inp",
+      "scatci": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.scatci.doublet.B1.inp",
+      "swinterf": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.swinterf.doublet.B1.inp"
+    },
+    "B2": {
+      "csfs": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B2/fort.722",
+      "congen": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.congen.doublet.B2.inp",
+      "scatci": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.scatci.doublet.B2.inp",
+      "swinterf": "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.swinterf.doublet.B2.inp"
+    }
+  },
+  "input_sha256": {
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B1/fort.721": "b68fbb00613a88777f239e5d6628953def39962d1065cbc4fc9872318fc4b383",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/doublet.B2/fort.722": "904195306a971641b660c5f1ad77ec8b68f2a9c216a179f2d814cded7a44a328",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/fort.24": "d36ff032fe5c8cc28d23f7669f79d0441a6edf7fd55245347382b9dd72279c6a",
+    "prepared/fifty-selected-properties-source-20261021/outputs/properties/fort.24": "16ec0905d1487dddb7ee7f7f891e62b3e8157a44da21d58c74d698f99ede9ece",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.congen.doublet.B1.inp": "f2f5f9855f6e18dc7dc8568c5b50d8f784339d223959782a8442ac4b0665924c",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.congen.doublet.B2.inp": "db1c1571ac4dd19665e8b1b70ae59892237d434bb6ab02761eb2e199c225db59",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.scatci.doublet.B1.inp": "c6a1f7a1b7030397191d73aac24dd7bfa1ffa6bf49b15ff179e6dcbfb16ac4f2",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.scatci.doublet.B2.inp": "b2e65a7ad80914ad67a32aecbbaf5d6f638db3a6b291e263481b11dccb643b94",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.swinterf.doublet.B1.inp": "cf51440abbe94296982d363906ad89afd9c2d37465451805c4d3013580e91d63",
+    "runs/co-eq-ccdz-sa11-tight-cc40/output/CO/geom1/inputs/scattering.swinterf.doublet.B2.inp": "49468b3493edd62003d0e31fcdbacf8b14542a3c931b07cf7747eb2a793cc40a",
+    "runs/co-eq-ccdz-sa11-fifty-slepc-target-mpi8-20261021/output/CO/geom1/fort.26": "f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.730": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.711": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.731": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.712": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.732": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.713": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+    "prepared/immutable-continuum-completion-source-20261021/outputs/preparation/fort.733": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f"
+  },
+  "resources": {"cpuset_cpus": "0-3", "threads": 1, "memory_gib": 4, "expected_wall_seconds": 60, "upper_wall_seconds": 180, "timeout_seconds": 300},
+  "gates": "All19 inputs hash before/after; both six-record native files reach exact EOF; every158994 phase per symmetry exactly reconstructs from its first determinant, signed coefficient and unique marked continuum orbital. Validate dimensions, all offsets/counts and expected prototype grouping. Root1-5 selections, expanded continuum cards, original idtarg and1410 coefficients agree. Derive new forty-state idtarg from unchanged properties; all676 finite unique moments have valid indices/coverage; energies agree with original74-root CIDATA to1e-7Ha. Preserve old679-moment file without padding or rewriting.",
+  "stopping_rule": "Freeze/push first. One saved-only audit in a fresh persistent output; mmap inputs read-only; stop on failure with original exits and partial witnesses preserved. No native calls, QC, integral generation, target solve, properties, scattering, regenerated CONGEN, converted CIDATA or property rewriting. Compact first-term witnesses are derived slices, not full original N+1 CSFs. Actual native scattering-destination reads and downstream property semantics remain unset. Both A1 physical subspaces reject; any future lowest-five comparison is combined orbital/channel-prescription sensitivity, not clean ensemble sensitivity."
+}
