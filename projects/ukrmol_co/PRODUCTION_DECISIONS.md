@@ -32,7 +32,8 @@ CAS11 frame first:
 
 **Cost:** earlier same-basis64-root import3086.6s /5.266GiB on four ranks.
 New forecast3600s expected /7200s upper /10800s hard cap; eight MPI ranks on
-physical cores4–11, single-threaded libraries and24GiB memory. Host admission
+physical cores4–11, single-threaded native libraries and24GiB memory. The
+existing PySCF target builder uses eight threads during QC. Host admission
 requires32GiB available RAM /30GiB disk. Extra ranks and nonuniform74 roots have
 not been benchmarked. All output, original exits and source/input hashes persist
 under `/home/kooza/ukrmol/co-sa-20261006` on Sadaharu.
