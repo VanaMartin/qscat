@@ -98,3 +98,14 @@ the original failed audit into a pass. A separately frozen parser-only successor
 limits the captured assignment to integer tokens/commas/whitespace, with a
 `nob` followed by `nob0` regression. Input pins and all physical/numerical gates
 remain unchanged; no native calculation is retried.
+
+## Completed saved-only outcome
+
+Parser-only freeze `07a64e8` passes0/0/0 in6.83320s container wall,6.45214s Python,
+737,088KiB peak process RSS. All23 input pins and seven source entries verify.
+Both B1/B2 reconstruct158,994 phases each,317,988 total;1,410 expanded channel
+coefficients per symmetry. The new property map changes25/40 IDs; maximum
+CIDATA energy discrepancy4.91639e-10Ha. Original failed exits remain1/1/1.
+No native executable ran. See `projects/ukrmol_co/SCATTERING_INPUT_MAP.md` for
+full boundary, compact-public witness replay and the remaining native consumer
+check. The compact replay does not reauthenticate the complete1.4GB source CSFs.

@@ -76,7 +76,15 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 21 October,19:55UTC:** [native target reuse and saved target integrals](NATIVE_TARGET_INTERFACE.md)
+**Update — 21 October,21:55UTC:** [saved scattering phases and property IDs](SCATTERING_INPUT_MAP.md)
+pass:317,988 first-term phases reproduce exactly; **25/40 idtarg positions change**.
+Saved CONGEN definitions and existing properties are reusable candidates without
+regeneration/export. Actual scattering-destination native reads and downstream
+consumer semantics remain gated; both physical A1 rejections remain. No native
+program or Hamiltonian ran. Completion6.833s /.703GiB process RSS; original parser
+failure preserved. Compact public replay does not reauthenticate full raw N+1 CSFs.
+
+**Earlier update — 21 October,19:55UTC:** [native target reuse and saved target integrals](NATIVE_TARGET_INTERFACE.md)
 pass: all74 native vectors/energies byte-exact, h/overlap blocks exact, conservative
 common-basis Hamiltonian difference bound **6.26708e-13Hartree**. Three original
 build/ABI failures remain beside a matching-double-header completion0/0/0; no
@@ -587,10 +595,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 21 October 2026
 
-![CO qualification: original native target reuse and saved target integral comparison pass; physical A1 rejection unchanged; actual scattering phase and property maps next](../../docs/physics/figures/co-progress-20261021T1955-native-target-interface.png)
+![CO qualification: saved scattering phases and property IDs pass;25 idtarg entries change; native scattering-destination and downstream consumer checks remain; physical A1 rejection unchanged](../../docs/physics/figures/co-progress-20261021T2155-scattering-input-map.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021T1955-native-target-interface.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021T1955-native-target-interface.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021T2155-scattering-input-map.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021T2155-scattering-input-map.json) ·
+[Saved scattering input map](SCATTERING_INPUT_MAP.md) ·
+[Compact phase/property replay](verification-scattering-input-map-public-20261021.json) ·
+[Scattering-map evidence](qualification-evidence/scattering-input-map/README.md) ·
+[Previous native-interface figure](../../docs/physics/figures/co-progress-20261021T1955-native-target-interface.svg) ·
+[Previous native-interface snapshot](progress-snapshot-20261021T1955-native-target-interface.json) ·
 [Native target interface result](NATIVE_TARGET_INTERFACE.md) ·
 [Fresh native I/O reconstruction](verification-native-target-interface-public-20261021.json) ·
 [Native I/O evidence](qualification-evidence/native-target-interface/README.md) ·

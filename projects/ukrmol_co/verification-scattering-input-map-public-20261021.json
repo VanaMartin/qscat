@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-10-21T21:55:36.506516+00:00",
+  "public_payloads_verified": 6,
+  "archived_files_verified": 50,
+  "fresh_cidata_prerequisite_archives": 1,
+  "phase_defining_terms_exactly_replayed": 317988,
+  "changed_idtarg_positions": 25,
+  "maximum_cidata_energy_error_hartree": 4.916387297271285e-10,
+  "original_owner_exits": [
+    1,
+    0
+  ],
+  "native_calls": 0,
+  "full_original_scattering_csfs_refetched": false,
+  "scope": "Independent permutation-cycle replay of compact first-term witnesses and raw phase slices; original1.4GB N+1 CSFs were hash-verified remotely but are not independently reauthenticated by this compact public replay. Does not verify all N+1 determinants, native scattering-destination CIRMAT execution or downstream property application."
+}

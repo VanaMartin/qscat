@@ -1,5 +1,10 @@
 # Native target read-only interface and saved integral comparison
 
+**Later saved-only advance,21:55UTC:** [B1/B2 scattering destination phases and
+property-ID selection](SCATTERING_INPUT_MAP.md) now reconstruct exactly from
+317,988 first terms.25/40 property IDs change. This does not extend the native
+target-only execution pass below to those distinct scattering destination phases.
+
 ## Completed — 21 October 2026,19:55 UTC
 
 **Native target reuse and the saved target-Hamiltonian comparison pass.** The

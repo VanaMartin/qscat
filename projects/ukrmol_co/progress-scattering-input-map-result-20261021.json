@@ -1,0 +1,1385 @@
+{
+  "observed_utc": "2026-10-21T21:54:15.915636+00:00",
+  "executions": {
+    "original": {
+      "source_commit": "18998929d960b74a04878267f798bf13b9818f61",
+      "source_archive_sha256": "30466b28568698e6084129005383905eb73d9beda23ba14dc35fe5a4cd112639",
+      "owner_sha256": "07c039cfdb1457383f187094aac931626e225725e2c12f89aca3de4710a80bd2",
+      "started_utc": "2026-10-21T21:51:03.425016+00:00",
+      "native_calls": 0,
+      "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+      "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       7.5Gi        95Gi       585Mi        20Gi       116Gi\nSwap:           29Gi          0B        29Gi\n",
+      "disk": "Filesystem            Size  Used Avail Use% Mounted on\n/dev/mapper/vg0-home  1.5T  1.3T   57G  96% /home\n",
+      "prior_workloads": "comfyui Up 2 hours\n",
+      "command": [
+        "docker",
+        "run",
+        "--name",
+        "co-scattering-input-map-20261021",
+        "--cpuset-cpus=0-3",
+        "--memory=4g",
+        "--memory-swap=4g",
+        "--shm-size=1g",
+        "--entrypoint",
+        "/opt/ukrmolp/entrypoint.sh",
+        "-e",
+        "OMP_NUM_THREADS=1",
+        "-e",
+        "OPENBLAS_NUM_THREADS=1",
+        "-e",
+        "MKL_NUM_THREADS=1",
+        "-e",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "-e",
+        "PYTHONPATH=/opt/qmodeling",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006/prepared/scattering-input-map-source-20261021/source:/opt/qmodeling:ro",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006/prepared/scattering-input-map-source-20261021/outputs:/out",
+        "-w",
+        "/opt/qmodeling",
+        "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "python3",
+        "-m",
+        "projects.ukrmol_co.scattering_input_map",
+        "--root",
+        "/work",
+        "--output",
+        "/out/check",
+        "--contract",
+        "/opt/qmodeling/projects/ukrmol_co/scattering-input-map-contract-20261021.json"
+      ],
+      "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+      "timed_out": false,
+      "original_command_exit": 1,
+      "original_container_exit": 1,
+      "container_oom_killed": false,
+      "original_owner_exit": 1,
+      "wall_seconds": 3.5288759160002883,
+      "finished_utc": "2026-10-21T21:51:06.967607+00:00",
+      "source_integrity_after": true
+    },
+    "parser": {
+      "source_commit": "07a64e85fa59047578456d9bdd2945ae3ac76a33",
+      "source_archive_sha256": "bcdbac7e3bd4a5e7d4e92d63bbb92ef8dbdaf9eb0c3219d1f8389248318b9462",
+      "owner_sha256": "36d37db5dbd2bdd0a9d9ff5c0e87122b37b095cd4807f3793475206255847f76",
+      "started_utc": "2026-10-21T21:52:53.052819+00:00",
+      "native_calls": 0,
+      "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+      "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       7.9Gi        95Gi       682Mi        20Gi       115Gi\nSwap:           29Gi          0B        29Gi\n",
+      "disk": "Filesystem            Size  Used Avail Use% Mounted on\n/dev/mapper/vg0-home  1.5T  1.3T   57G  96% /home\n",
+      "prior_workloads": "comfyui Up 2 hours\n",
+      "command": [
+        "docker",
+        "run",
+        "--name",
+        "co-scattering-input-map-parser-20261021",
+        "--cpuset-cpus=0-3",
+        "--memory=4g",
+        "--memory-swap=4g",
+        "--shm-size=1g",
+        "--entrypoint",
+        "/opt/ukrmolp/entrypoint.sh",
+        "-e",
+        "OMP_NUM_THREADS=1",
+        "-e",
+        "OPENBLAS_NUM_THREADS=1",
+        "-e",
+        "MKL_NUM_THREADS=1",
+        "-e",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "-e",
+        "PYTHONPATH=/opt/qmodeling",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006/prepared/scattering-input-map-parser-source-20261021/source:/opt/qmodeling:ro",
+        "-v",
+        "/home/kooza/ukrmol/co-sa-20261006/prepared/scattering-input-map-parser-source-20261021/outputs:/out",
+        "-w",
+        "/opt/qmodeling",
+        "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "python3",
+        "-m",
+        "projects.ukrmol_co.scattering_input_map",
+        "--root",
+        "/work",
+        "--output",
+        "/out/check",
+        "--contract",
+        "/opt/qmodeling/projects/ukrmol_co/scattering-input-map-parser-contract-20261021.json"
+      ],
+      "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+      "timed_out": false,
+      "original_command_exit": 0,
+      "original_container_exit": 0,
+      "container_oom_killed": false,
+      "original_owner_exit": 0,
+      "wall_seconds": 6.833203426000182,
+      "finished_utc": "2026-10-21T21:52:59.899870+00:00",
+      "source_integrity_after": true
+    }
+  },
+  "result": {
+    "saved_scattering_map_verdict": true,
+    "native_scattering_destination_reader_verdict": null,
+    "scattering_solves": 0,
+    "qc_calls": 0,
+    "target_diagonalizations": 0,
+    "property_exports": 0,
+    "physical_same_manifold_verdict": false,
+    "input_integrity_before": true,
+    "old_properties": {
+      "idtarg": [
+        1,
+        11,
+        19,
+        26,
+        31,
+        4,
+        7,
+        35,
+        37,
+        38,
+        6,
+        15,
+        23,
+        28,
+        32,
+        3,
+        14,
+        18,
+        21,
+        30,
+        5,
+        16,
+        24,
+        27,
+        33,
+        2,
+        13,
+        17,
+        22,
+        29,
+        10,
+        12,
+        25,
+        39,
+        40,
+        8,
+        9,
+        20,
+        34,
+        36
+      ],
+      "states_by_id": {
+        "1": {
+          "sector": "singlet.A1",
+          "root": 1,
+          "energy_hartree": -112.924285075
+        },
+        "11": {
+          "sector": "singlet.A1",
+          "root": 2,
+          "energy_hartree": -112.534219698
+        },
+        "19": {
+          "sector": "singlet.A1",
+          "root": 3,
+          "energy_hartree": -112.348225068
+        },
+        "26": {
+          "sector": "singlet.A1",
+          "root": 4,
+          "energy_hartree": -112.277798763
+        },
+        "31": {
+          "sector": "singlet.A1",
+          "root": 5,
+          "energy_hartree": -112.248100763
+        },
+        "4": {
+          "sector": "triplet.A1",
+          "root": 1,
+          "energy_hartree": -112.599643749
+        },
+        "7": {
+          "sector": "triplet.A1",
+          "root": 2,
+          "energy_hartree": -112.563680618
+        },
+        "35": {
+          "sector": "triplet.A1",
+          "root": 3,
+          "energy_hartree": -112.181703485
+        },
+        "37": {
+          "sector": "triplet.A1",
+          "root": 4,
+          "energy_hartree": -112.147389178
+        },
+        "38": {
+          "sector": "triplet.A1",
+          "root": 5,
+          "energy_hartree": -112.120941022
+        },
+        "6": {
+          "sector": "singlet.B1",
+          "root": 1,
+          "energy_hartree": -112.585301744
+        },
+        "15": {
+          "sector": "singlet.B1",
+          "root": 2,
+          "energy_hartree": -112.393152761
+        },
+        "23": {
+          "sector": "singlet.B1",
+          "root": 3,
+          "energy_hartree": -112.278878144
+        },
+        "28": {
+          "sector": "singlet.B1",
+          "root": 4,
+          "energy_hartree": -112.258054165
+        },
+        "32": {
+          "sector": "singlet.B1",
+          "root": 5,
+          "energy_hartree": -112.22984189
+        },
+        "3": {
+          "sector": "triplet.B1",
+          "root": 1,
+          "energy_hartree": -112.689635749
+        },
+        "14": {
+          "sector": "triplet.B1",
+          "root": 2,
+          "energy_hartree": -112.450677563
+        },
+        "18": {
+          "sector": "triplet.B1",
+          "root": 3,
+          "energy_hartree": -112.365635215
+        },
+        "21": {
+          "sector": "triplet.B1",
+          "root": 4,
+          "energy_hartree": -112.301141092
+        },
+        "30": {
+          "sector": "triplet.B1",
+          "root": 5,
+          "energy_hartree": -112.257560138
+        },
+        "5": {
+          "sector": "singlet.B2",
+          "root": 1,
+          "energy_hartree": -112.585301744
+        },
+        "16": {
+          "sector": "singlet.B2",
+          "root": 2,
+          "energy_hartree": -112.393152761
+        },
+        "24": {
+          "sector": "singlet.B2",
+          "root": 3,
+          "energy_hartree": -112.278878144
+        },
+        "27": {
+          "sector": "singlet.B2",
+          "root": 4,
+          "energy_hartree": -112.258054165
+        },
+        "33": {
+          "sector": "singlet.B2",
+          "root": 5,
+          "energy_hartree": -112.22984189
+        },
+        "2": {
+          "sector": "triplet.B2",
+          "root": 1,
+          "energy_hartree": -112.689635749
+        },
+        "13": {
+          "sector": "triplet.B2",
+          "root": 2,
+          "energy_hartree": -112.450677563
+        },
+        "17": {
+          "sector": "triplet.B2",
+          "root": 3,
+          "energy_hartree": -112.365635215
+        },
+        "22": {
+          "sector": "triplet.B2",
+          "root": 4,
+          "energy_hartree": -112.301141092
+        },
+        "29": {
+          "sector": "triplet.B2",
+          "root": 5,
+          "energy_hartree": -112.257560138
+        },
+        "10": {
+          "sector": "singlet.A2",
+          "root": 1,
+          "energy_hartree": -112.535249831
+        },
+        "12": {
+          "sector": "singlet.A2",
+          "root": 2,
+          "energy_hartree": -112.534219698
+        },
+        "25": {
+          "sector": "singlet.A2",
+          "root": 3,
+          "energy_hartree": -112.277798763
+        },
+        "39": {
+          "sector": "singlet.A2",
+          "root": 4,
+          "energy_hartree": -112.090928388
+        },
+        "40": {
+          "sector": "singlet.A2",
+          "root": 5,
+          "energy_hartree": -112.048289011
+        },
+        "8": {
+          "sector": "triplet.A2",
+          "root": 1,
+          "energy_hartree": -112.563680618
+        },
+        "9": {
+          "sector": "triplet.A2",
+          "root": 2,
+          "energy_hartree": -112.549634199
+        },
+        "20": {
+          "sector": "triplet.A2",
+          "root": 3,
+          "energy_hartree": -112.342362371
+        },
+        "34": {
+          "sector": "triplet.A2",
+          "root": 4,
+          "energy_hartree": -112.181703485
+        },
+        "36": {
+          "sector": "triplet.A2",
+          "root": 5,
+          "energy_hartree": -112.149158599
+        }
+      },
+      "moment_count": 679,
+      "maximum_cidata_energy_error_hartree": null
+    },
+    "new_properties": {
+      "idtarg": [
+        1,
+        12,
+        17,
+        24,
+        28,
+        4,
+        7,
+        20,
+        35,
+        37,
+        6,
+        16,
+        27,
+        31,
+        33,
+        2,
+        14,
+        19,
+        22,
+        30,
+        5,
+        15,
+        26,
+        32,
+        34,
+        3,
+        13,
+        18,
+        23,
+        29,
+        10,
+        11,
+        25,
+        39,
+        40,
+        8,
+        9,
+        21,
+        36,
+        38
+      ],
+      "states_by_id": {
+        "1": {
+          "sector": "singlet.A1",
+          "root": 1,
+          "energy_hartree": -112.907508554
+        },
+        "12": {
+          "sector": "singlet.A1",
+          "root": 2,
+          "energy_hartree": -112.518918677
+        },
+        "17": {
+          "sector": "singlet.A1",
+          "root": 3,
+          "energy_hartree": -112.351255391
+        },
+        "24": {
+          "sector": "singlet.A1",
+          "root": 4,
+          "energy_hartree": -112.26319546
+        },
+        "28": {
+          "sector": "singlet.A1",
+          "root": 5,
+          "energy_hartree": -112.258288205
+        },
+        "4": {
+          "sector": "triplet.A1",
+          "root": 1,
+          "energy_hartree": -112.585062909
+        },
+        "7": {
+          "sector": "triplet.A1",
+          "root": 2,
+          "energy_hartree": -112.549013122
+        },
+        "20": {
+          "sector": "triplet.A1",
+          "root": 3,
+          "energy_hartree": -112.339033716
+        },
+        "35": {
+          "sector": "triplet.A1",
+          "root": 4,
+          "energy_hartree": -112.169433541
+        },
+        "37": {
+          "sector": "triplet.A1",
+          "root": 5,
+          "energy_hartree": -112.146589828
+        },
+        "6": {
+          "sector": "singlet.B1",
+          "root": 1,
+          "energy_hartree": -112.571141833
+        },
+        "16": {
+          "sector": "singlet.B1",
+          "root": 2,
+          "energy_hartree": -112.381202109
+        },
+        "27": {
+          "sector": "singlet.B1",
+          "root": 3,
+          "energy_hartree": -112.262701689
+        },
+        "31": {
+          "sector": "singlet.B1",
+          "root": 4,
+          "energy_hartree": -112.245302868
+        },
+        "33": {
+          "sector": "singlet.B1",
+          "root": 5,
+          "energy_hartree": -112.223044793
+        },
+        "2": {
+          "sector": "triplet.B1",
+          "root": 1,
+          "energy_hartree": -112.672866678
+        },
+        "14": {
+          "sector": "triplet.B1",
+          "root": 2,
+          "energy_hartree": -112.43863258
+        },
+        "19": {
+          "sector": "triplet.B1",
+          "root": 3,
+          "energy_hartree": -112.349500849
+        },
+        "22": {
+          "sector": "triplet.B1",
+          "root": 4,
+          "energy_hartree": -112.284727818
+        },
+        "30": {
+          "sector": "triplet.B1",
+          "root": 5,
+          "energy_hartree": -112.252887348
+        },
+        "5": {
+          "sector": "singlet.B2",
+          "root": 1,
+          "energy_hartree": -112.571141833
+        },
+        "15": {
+          "sector": "singlet.B2",
+          "root": 2,
+          "energy_hartree": -112.381202109
+        },
+        "26": {
+          "sector": "singlet.B2",
+          "root": 3,
+          "energy_hartree": -112.262701689
+        },
+        "32": {
+          "sector": "singlet.B2",
+          "root": 4,
+          "energy_hartree": -112.245302868
+        },
+        "34": {
+          "sector": "singlet.B2",
+          "root": 5,
+          "energy_hartree": -112.223044793
+        },
+        "3": {
+          "sector": "triplet.B2",
+          "root": 1,
+          "energy_hartree": -112.672866678
+        },
+        "13": {
+          "sector": "triplet.B2",
+          "root": 2,
+          "energy_hartree": -112.43863258
+        },
+        "18": {
+          "sector": "triplet.B2",
+          "root": 3,
+          "energy_hartree": -112.349500849
+        },
+        "23": {
+          "sector": "triplet.B2",
+          "root": 4,
+          "energy_hartree": -112.284727818
+        },
+        "29": {
+          "sector": "triplet.B2",
+          "root": 5,
+          "energy_hartree": -112.252887348
+        },
+        "10": {
+          "sector": "singlet.A2",
+          "root": 1,
+          "energy_hartree": -112.520120925
+        },
+        "11": {
+          "sector": "singlet.A2",
+          "root": 2,
+          "energy_hartree": -112.518918677
+        },
+        "25": {
+          "sector": "singlet.A2",
+          "root": 3,
+          "energy_hartree": -112.26319546
+        },
+        "39": {
+          "sector": "singlet.A2",
+          "root": 4,
+          "energy_hartree": -112.077214366
+        },
+        "40": {
+          "sector": "singlet.A2",
+          "root": 5,
+          "energy_hartree": -112.039219175
+        },
+        "8": {
+          "sector": "triplet.A2",
+          "root": 1,
+          "energy_hartree": -112.549013122
+        },
+        "9": {
+          "sector": "triplet.A2",
+          "root": 2,
+          "energy_hartree": -112.5348107
+        },
+        "21": {
+          "sector": "triplet.A2",
+          "root": 3,
+          "energy_hartree": -112.327556467
+        },
+        "36": {
+          "sector": "triplet.A2",
+          "root": 4,
+          "energy_hartree": -112.169433541
+        },
+        "38": {
+          "sector": "triplet.A2",
+          "root": 5,
+          "energy_hartree": -112.136858149
+        }
+      },
+      "moment_count": 676,
+      "maximum_cidata_energy_error_hartree": 4.916387297271285e-10
+    },
+    "changed_idtarg_positions": 25,
+    "symmetries": {
+      "B1": {
+        "total_csfs": 344124,
+        "phase_defining_terms": 158994,
+        "l2_csfs": 26136,
+        "sector_phases": [
+          {
+            "sector": "singlet.A1",
+            "dimension": 15548,
+            "continuum_irrep": 1,
+            "prototype_continua": 2,
+            "phase_sha256": "2fbf2fedaea468ae25dc0c0fae337b5795a36777f121d5f5e63ab42466ea0a00",
+            "different_from_full_target_phases": 16
+          },
+          {
+            "sector": "triplet.A1",
+            "dimension": 24366,
+            "continuum_irrep": 1,
+            "prototype_continua": 2,
+            "phase_sha256": "d571407eb04e333bdc6bbe226ca69bd05da5de8277bc635bc5246aa2c3af3eb1",
+            "different_from_full_target_phases": 5164
+          },
+          {
+            "sector": "singlet.B1",
+            "dimension": 15196,
+            "continuum_irrep": 0,
+            "prototype_continua": 2,
+            "phase_sha256": "ec221bfb35b39ef358e5586487a911f639788a81f46c92841877e65ab3f147a5",
+            "different_from_full_target_phases": 15196
+          },
+          {
+            "sector": "triplet.B1",
+            "dimension": 24540,
+            "continuum_irrep": 0,
+            "prototype_continua": 2,
+            "phase_sha256": "90f9d3fe6eee322e6cd320ed552b11ca367e52902bb60fe5e5a97846327dcb69",
+            "different_from_full_target_phases": 19330
+          },
+          {
+            "sector": "singlet.B2",
+            "dimension": 15196,
+            "continuum_irrep": 3,
+            "prototype_continua": 2,
+            "phase_sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715",
+            "different_from_full_target_phases": 0
+          },
+          {
+            "sector": "triplet.B2",
+            "dimension": 24540,
+            "continuum_irrep": 3,
+            "prototype_continua": 2,
+            "phase_sha256": "49331b3728c357ae110eec1b4fdd9d15dd0ff09a887f1219a915ebc9f1a90e96",
+            "different_from_full_target_phases": 5210
+          },
+          {
+            "sector": "singlet.A2",
+            "dimension": 15044,
+            "continuum_irrep": 2,
+            "prototype_continua": 2,
+            "phase_sha256": "9ba68566ae6e213f6730febe651f9e0171a50c079083cdf7366bd57750d0d66b",
+            "different_from_full_target_phases": 0
+          },
+          {
+            "sector": "triplet.A2",
+            "dimension": 24564,
+            "continuum_irrep": 2,
+            "prototype_continua": 2,
+            "phase_sha256": "13888a7eb3ba9d695c5ce0ccd854117fffd4fca570a524c44c04a28cd7e18c41",
+            "different_from_full_target_phases": 5206
+          }
+        ],
+        "native_record_bytes": [
+          304,
+          1272208,
+          2753312,
+          5506000,
+          640964752,
+          49704496
+        ],
+        "cards": {
+          "expanded_continua": [
+            34,
+            34,
+            51,
+            51,
+            22,
+            22,
+            34,
+            34
+          ],
+          "channel_coefficients": 1410
+        }
+      },
+      "B2": {
+        "total_csfs": 344124,
+        "phase_defining_terms": 158994,
+        "l2_csfs": 26136,
+        "sector_phases": [
+          {
+            "sector": "singlet.A1",
+            "dimension": 15548,
+            "continuum_irrep": 2,
+            "prototype_continua": 2,
+            "phase_sha256": "2fbf2fedaea468ae25dc0c0fae337b5795a36777f121d5f5e63ab42466ea0a00",
+            "different_from_full_target_phases": 16
+          },
+          {
+            "sector": "triplet.A1",
+            "dimension": 24366,
+            "continuum_irrep": 2,
+            "prototype_continua": 2,
+            "phase_sha256": "d571407eb04e333bdc6bbe226ca69bd05da5de8277bc635bc5246aa2c3af3eb1",
+            "different_from_full_target_phases": 5164
+          },
+          {
+            "sector": "singlet.B1",
+            "dimension": 15196,
+            "continuum_irrep": 3,
+            "prototype_continua": 2,
+            "phase_sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715",
+            "different_from_full_target_phases": 0
+          },
+          {
+            "sector": "triplet.B1",
+            "dimension": 24540,
+            "continuum_irrep": 3,
+            "prototype_continua": 2,
+            "phase_sha256": "49331b3728c357ae110eec1b4fdd9d15dd0ff09a887f1219a915ebc9f1a90e96",
+            "different_from_full_target_phases": 5210
+          },
+          {
+            "sector": "singlet.B2",
+            "dimension": 15196,
+            "continuum_irrep": 0,
+            "prototype_continua": 2,
+            "phase_sha256": "ec221bfb35b39ef358e5586487a911f639788a81f46c92841877e65ab3f147a5",
+            "different_from_full_target_phases": 15196
+          },
+          {
+            "sector": "triplet.B2",
+            "dimension": 24540,
+            "continuum_irrep": 0,
+            "prototype_continua": 2,
+            "phase_sha256": "90f9d3fe6eee322e6cd320ed552b11ca367e52902bb60fe5e5a97846327dcb69",
+            "different_from_full_target_phases": 19330
+          },
+          {
+            "sector": "singlet.A2",
+            "dimension": 15044,
+            "continuum_irrep": 1,
+            "prototype_continua": 2,
+            "phase_sha256": "9341b1634aa8d1efd46b60c1124bd193c5c8d0648a2074a4836b1c9ca064b901",
+            "different_from_full_target_phases": 15044
+          },
+          {
+            "sector": "triplet.A2",
+            "dimension": 24564,
+            "continuum_irrep": 1,
+            "prototype_continua": 2,
+            "phase_sha256": "cf806dfe985a78ce944417df78202c1292d519181c3daa960115463181ac0b23",
+            "different_from_full_target_phases": 19358
+          }
+        ],
+        "native_record_bytes": [
+          304,
+          1272208,
+          2753312,
+          5506000,
+          635579552,
+          49338976
+        ],
+        "cards": {
+          "expanded_continua": [
+            34,
+            34,
+            22,
+            22,
+            51,
+            51,
+            34,
+            34
+          ],
+          "channel_coefficients": 1410
+        }
+      }
+    },
+    "new_idtarg_card": "  idtarg = 1,12,17,24,28,4,7,20,35,37,6,16,27,31,33,2,14,19,22,30,5,15,26,32,34,3,13,18,23,29,10,11,25,39,40,8,9,21,36,38,",
+    "input_integrity_after": true,
+    "wall_seconds": 6.45213931499984,
+    "peak_rss_platform_units": 737088
+  },
+  "original_failure": {
+    "saved_scattering_map_verdict": null,
+    "native_scattering_destination_reader_verdict": null,
+    "scattering_solves": 0,
+    "qc_calls": 0,
+    "target_diagonalizations": 0,
+    "property_exports": 0,
+    "physical_same_manifold_verdict": false,
+    "old_properties": {
+      "idtarg": [
+        1,
+        11,
+        19,
+        26,
+        31,
+        4,
+        7,
+        35,
+        37,
+        38,
+        6,
+        15,
+        23,
+        28,
+        32,
+        3,
+        14,
+        18,
+        21,
+        30,
+        5,
+        16,
+        24,
+        27,
+        33,
+        2,
+        13,
+        17,
+        22,
+        29,
+        10,
+        12,
+        25,
+        39,
+        40,
+        8,
+        9,
+        20,
+        34,
+        36
+      ],
+      "states_by_id": {
+        "1": {
+          "sector": "singlet.A1",
+          "root": 1,
+          "energy_hartree": -112.924285075
+        },
+        "11": {
+          "sector": "singlet.A1",
+          "root": 2,
+          "energy_hartree": -112.534219698
+        },
+        "19": {
+          "sector": "singlet.A1",
+          "root": 3,
+          "energy_hartree": -112.348225068
+        },
+        "26": {
+          "sector": "singlet.A1",
+          "root": 4,
+          "energy_hartree": -112.277798763
+        },
+        "31": {
+          "sector": "singlet.A1",
+          "root": 5,
+          "energy_hartree": -112.248100763
+        },
+        "4": {
+          "sector": "triplet.A1",
+          "root": 1,
+          "energy_hartree": -112.599643749
+        },
+        "7": {
+          "sector": "triplet.A1",
+          "root": 2,
+          "energy_hartree": -112.563680618
+        },
+        "35": {
+          "sector": "triplet.A1",
+          "root": 3,
+          "energy_hartree": -112.181703485
+        },
+        "37": {
+          "sector": "triplet.A1",
+          "root": 4,
+          "energy_hartree": -112.147389178
+        },
+        "38": {
+          "sector": "triplet.A1",
+          "root": 5,
+          "energy_hartree": -112.120941022
+        },
+        "6": {
+          "sector": "singlet.B1",
+          "root": 1,
+          "energy_hartree": -112.585301744
+        },
+        "15": {
+          "sector": "singlet.B1",
+          "root": 2,
+          "energy_hartree": -112.393152761
+        },
+        "23": {
+          "sector": "singlet.B1",
+          "root": 3,
+          "energy_hartree": -112.278878144
+        },
+        "28": {
+          "sector": "singlet.B1",
+          "root": 4,
+          "energy_hartree": -112.258054165
+        },
+        "32": {
+          "sector": "singlet.B1",
+          "root": 5,
+          "energy_hartree": -112.22984189
+        },
+        "3": {
+          "sector": "triplet.B1",
+          "root": 1,
+          "energy_hartree": -112.689635749
+        },
+        "14": {
+          "sector": "triplet.B1",
+          "root": 2,
+          "energy_hartree": -112.450677563
+        },
+        "18": {
+          "sector": "triplet.B1",
+          "root": 3,
+          "energy_hartree": -112.365635215
+        },
+        "21": {
+          "sector": "triplet.B1",
+          "root": 4,
+          "energy_hartree": -112.301141092
+        },
+        "30": {
+          "sector": "triplet.B1",
+          "root": 5,
+          "energy_hartree": -112.257560138
+        },
+        "5": {
+          "sector": "singlet.B2",
+          "root": 1,
+          "energy_hartree": -112.585301744
+        },
+        "16": {
+          "sector": "singlet.B2",
+          "root": 2,
+          "energy_hartree": -112.393152761
+        },
+        "24": {
+          "sector": "singlet.B2",
+          "root": 3,
+          "energy_hartree": -112.278878144
+        },
+        "27": {
+          "sector": "singlet.B2",
+          "root": 4,
+          "energy_hartree": -112.258054165
+        },
+        "33": {
+          "sector": "singlet.B2",
+          "root": 5,
+          "energy_hartree": -112.22984189
+        },
+        "2": {
+          "sector": "triplet.B2",
+          "root": 1,
+          "energy_hartree": -112.689635749
+        },
+        "13": {
+          "sector": "triplet.B2",
+          "root": 2,
+          "energy_hartree": -112.450677563
+        },
+        "17": {
+          "sector": "triplet.B2",
+          "root": 3,
+          "energy_hartree": -112.365635215
+        },
+        "22": {
+          "sector": "triplet.B2",
+          "root": 4,
+          "energy_hartree": -112.301141092
+        },
+        "29": {
+          "sector": "triplet.B2",
+          "root": 5,
+          "energy_hartree": -112.257560138
+        },
+        "10": {
+          "sector": "singlet.A2",
+          "root": 1,
+          "energy_hartree": -112.535249831
+        },
+        "12": {
+          "sector": "singlet.A2",
+          "root": 2,
+          "energy_hartree": -112.534219698
+        },
+        "25": {
+          "sector": "singlet.A2",
+          "root": 3,
+          "energy_hartree": -112.277798763
+        },
+        "39": {
+          "sector": "singlet.A2",
+          "root": 4,
+          "energy_hartree": -112.090928388
+        },
+        "40": {
+          "sector": "singlet.A2",
+          "root": 5,
+          "energy_hartree": -112.048289011
+        },
+        "8": {
+          "sector": "triplet.A2",
+          "root": 1,
+          "energy_hartree": -112.563680618
+        },
+        "9": {
+          "sector": "triplet.A2",
+          "root": 2,
+          "energy_hartree": -112.549634199
+        },
+        "20": {
+          "sector": "triplet.A2",
+          "root": 3,
+          "energy_hartree": -112.342362371
+        },
+        "34": {
+          "sector": "triplet.A2",
+          "root": 4,
+          "energy_hartree": -112.181703485
+        },
+        "36": {
+          "sector": "triplet.A2",
+          "root": 5,
+          "energy_hartree": -112.149158599
+        }
+      },
+      "moment_count": 679,
+      "maximum_cidata_energy_error_hartree": null
+    },
+    "new_properties": {
+      "idtarg": [
+        1,
+        12,
+        17,
+        24,
+        28,
+        4,
+        7,
+        20,
+        35,
+        37,
+        6,
+        16,
+        27,
+        31,
+        33,
+        2,
+        14,
+        19,
+        22,
+        30,
+        5,
+        15,
+        26,
+        32,
+        34,
+        3,
+        13,
+        18,
+        23,
+        29,
+        10,
+        11,
+        25,
+        39,
+        40,
+        8,
+        9,
+        21,
+        36,
+        38
+      ],
+      "states_by_id": {
+        "1": {
+          "sector": "singlet.A1",
+          "root": 1,
+          "energy_hartree": -112.907508554
+        },
+        "12": {
+          "sector": "singlet.A1",
+          "root": 2,
+          "energy_hartree": -112.518918677
+        },
+        "17": {
+          "sector": "singlet.A1",
+          "root": 3,
+          "energy_hartree": -112.351255391
+        },
+        "24": {
+          "sector": "singlet.A1",
+          "root": 4,
+          "energy_hartree": -112.26319546
+        },
+        "28": {
+          "sector": "singlet.A1",
+          "root": 5,
+          "energy_hartree": -112.258288205
+        },
+        "4": {
+          "sector": "triplet.A1",
+          "root": 1,
+          "energy_hartree": -112.585062909
+        },
+        "7": {
+          "sector": "triplet.A1",
+          "root": 2,
+          "energy_hartree": -112.549013122
+        },
+        "20": {
+          "sector": "triplet.A1",
+          "root": 3,
+          "energy_hartree": -112.339033716
+        },
+        "35": {
+          "sector": "triplet.A1",
+          "root": 4,
+          "energy_hartree": -112.169433541
+        },
+        "37": {
+          "sector": "triplet.A1",
+          "root": 5,
+          "energy_hartree": -112.146589828
+        },
+        "6": {
+          "sector": "singlet.B1",
+          "root": 1,
+          "energy_hartree": -112.571141833
+        },
+        "16": {
+          "sector": "singlet.B1",
+          "root": 2,
+          "energy_hartree": -112.381202109
+        },
+        "27": {
+          "sector": "singlet.B1",
+          "root": 3,
+          "energy_hartree": -112.262701689
+        },
+        "31": {
+          "sector": "singlet.B1",
+          "root": 4,
+          "energy_hartree": -112.245302868
+        },
+        "33": {
+          "sector": "singlet.B1",
+          "root": 5,
+          "energy_hartree": -112.223044793
+        },
+        "2": {
+          "sector": "triplet.B1",
+          "root": 1,
+          "energy_hartree": -112.672866678
+        },
+        "14": {
+          "sector": "triplet.B1",
+          "root": 2,
+          "energy_hartree": -112.43863258
+        },
+        "19": {
+          "sector": "triplet.B1",
+          "root": 3,
+          "energy_hartree": -112.349500849
+        },
+        "22": {
+          "sector": "triplet.B1",
+          "root": 4,
+          "energy_hartree": -112.284727818
+        },
+        "30": {
+          "sector": "triplet.B1",
+          "root": 5,
+          "energy_hartree": -112.252887348
+        },
+        "5": {
+          "sector": "singlet.B2",
+          "root": 1,
+          "energy_hartree": -112.571141833
+        },
+        "15": {
+          "sector": "singlet.B2",
+          "root": 2,
+          "energy_hartree": -112.381202109
+        },
+        "26": {
+          "sector": "singlet.B2",
+          "root": 3,
+          "energy_hartree": -112.262701689
+        },
+        "32": {
+          "sector": "singlet.B2",
+          "root": 4,
+          "energy_hartree": -112.245302868
+        },
+        "34": {
+          "sector": "singlet.B2",
+          "root": 5,
+          "energy_hartree": -112.223044793
+        },
+        "3": {
+          "sector": "triplet.B2",
+          "root": 1,
+          "energy_hartree": -112.672866678
+        },
+        "13": {
+          "sector": "triplet.B2",
+          "root": 2,
+          "energy_hartree": -112.43863258
+        },
+        "18": {
+          "sector": "triplet.B2",
+          "root": 3,
+          "energy_hartree": -112.349500849
+        },
+        "23": {
+          "sector": "triplet.B2",
+          "root": 4,
+          "energy_hartree": -112.284727818
+        },
+        "29": {
+          "sector": "triplet.B2",
+          "root": 5,
+          "energy_hartree": -112.252887348
+        },
+        "10": {
+          "sector": "singlet.A2",
+          "root": 1,
+          "energy_hartree": -112.520120925
+        },
+        "11": {
+          "sector": "singlet.A2",
+          "root": 2,
+          "energy_hartree": -112.518918677
+        },
+        "25": {
+          "sector": "singlet.A2",
+          "root": 3,
+          "energy_hartree": -112.26319546
+        },
+        "39": {
+          "sector": "singlet.A2",
+          "root": 4,
+          "energy_hartree": -112.077214366
+        },
+        "40": {
+          "sector": "singlet.A2",
+          "root": 5,
+          "energy_hartree": -112.039219175
+        },
+        "8": {
+          "sector": "triplet.A2",
+          "root": 1,
+          "energy_hartree": -112.549013122
+        },
+        "9": {
+          "sector": "triplet.A2",
+          "root": 2,
+          "energy_hartree": -112.5348107
+        },
+        "21": {
+          "sector": "triplet.A2",
+          "root": 3,
+          "energy_hartree": -112.327556467
+        },
+        "36": {
+          "sector": "triplet.A2",
+          "root": 4,
+          "energy_hartree": -112.169433541
+        },
+        "38": {
+          "sector": "triplet.A2",
+          "root": 5,
+          "energy_hartree": -112.136858149
+        }
+      },
+      "moment_count": 676,
+      "maximum_cidata_energy_error_hartree": 4.916387297271285e-10
+    },
+    "changed_idtarg_positions": 25,
+    "symmetries": {},
+    "error": "ValueError('Saved card mismatch: nob')"
+  },
+  "saved_scattering_map_verdict": true,
+  "native_scattering_destination_reader_verdict": null,
+  "original_and_successor_owner_exits": [
+    1,
+    0
+  ],
+  "new_native_calls": 0,
+  "total_container_wall_seconds": 10.36207934200047,
+  "original_large_csfs_republished": false,
+  "public_artifacts": {
+    "artifacts": {
+      "collection-sha256.json": {
+        "bytes": 11722,
+        "sha256": "d5f921a0e72094a20353f9cf08296ce5f09c3cb83313a2c9be7685091694998c"
+      },
+      "manifest.json": {
+        "bytes": 279,
+        "sha256": "5d51b12de22c561152e8f3369e9ed4a19ca4bcf0824cfdd0fc56ee3369ad24c6"
+      },
+      "prerequisite-artifacts.json": {
+        "bytes": 706,
+        "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+      },
+      "reconstruct-saved.py": {
+        "bytes": 6563,
+        "sha256": "d3bd570a2ff7b3fd07fad376951102de7321a7361bf37d202a3b43385ca797f0"
+      },
+      "result-summary.json": {
+        "bytes": 36345,
+        "sha256": "66be93b426c767fac380b1ec5e50014351c293b44cd1b05ed6d4d755840e8ca0"
+      },
+      "results.tar.gz": {
+        "bytes": 1477010,
+        "sha256": "ec8a60e1a2b5b437dd333d007142dbd1673bb6c6e42f1acad8b5583629e86dca"
+      }
+    },
+    "git_sha": "07a64e85fa59047578456d9bdd2945ae3ac76a33",
+    "url_prefix": "https://data.qscat.org/co-scattering-input-map-20261021/"
+  },
+  "public_verification": {
+    "observed_utc": "2026-10-21T21:55:36.506516+00:00",
+    "public_payloads_verified": 6,
+    "archived_files_verified": 50,
+    "fresh_cidata_prerequisite_archives": 1,
+    "phase_defining_terms_exactly_replayed": 317988,
+    "changed_idtarg_positions": 25,
+    "maximum_cidata_energy_error_hartree": 4.916387297271285e-10,
+    "original_owner_exits": [
+      1,
+      0
+    ],
+    "native_calls": 0,
+    "full_original_scattering_csfs_refetched": false,
+    "scope": "Independent permutation-cycle replay of compact first-term witnesses and raw phase slices; original1.4GB N+1 CSFs were hash-verified remotely but are not independently reauthenticated by this compact public replay. Does not verify all N+1 determinants, native scattering-destination CIRMAT execution or downstream property application."
+  }
+}

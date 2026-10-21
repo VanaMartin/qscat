@@ -20,6 +20,63 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Saved scattering phases and property IDs pass — 21 October,21:55 UTC
+
+[The saved-only B1/B2 input audit](SCATTERING_INPUT_MAP.md) reconstructs all
+**317,988 phase-defining first determinants** exactly, with complete six-record
+framing/EOF and CSF count/offset checks. Each symmetry has344,124 CSFs including
+26,136 L2, two prototype continua per sector and **1,410 expanded channel
+coefficients**. Existing CONGEN definitions can be reused as algebraic inputs;
+no orbital optimization, CONGEN regeneration or new integrals are needed for
+this map. This is not a full N+1 determinant audit or physical identity evidence.
+
+**Do not reuse the old `idtarg`:25/40 positions change.** The report retains the
+replacement card and all forty `(sector,root)→property-ID` rows; no production
+card is mutated. New properties still select roots1–5 in each sector and agree
+with original74-root CIDATA absolute energies to **4.91639e-10Ha**, below1e-7.
+Original679/new676 moment records remain unchanged, finite, uniquely indexed and
+state/rank-complete. No padding, relabelling or property export is performed.
+
+Scattering destination phases differ from target-only phases and between B1/B2.
+Native `CIRMAT/CPAKPZ` must apply those destination phases, not the earlier
+target-only map. The saved first-term phase rule includes continuum placement
+and spin coupling; every stored phase matches independently reconstructed signs.
+Both physical A1 dominance rejections remain unchanged.
+
+Original freeze **`1899892`** stops at card parsing after B1 witnesses complete,
+original command/container/owner **1/1/1**,3.52888s. The parser included the digit
+in following `nob0` while reading `nob`; B2 was unrun. Separate parser-only
+successor **`07a64e8`** finishes **21:52:59UTC**, **0/0/0**,6.83320s container /
+6.45214s Python, **.70294GiB process RSS** (not sampled cgroup peak). All23 input
+pins and seven source entries verify; physical cores0–3 /one process /4GiB.
+Total two-job wall10.36208s. Zero native calls, QC, integrals, CONGEN generation,
+target diagonalizations, properties or scattering. Both persistent owners live
+under `prepared/scattering-input-map{,-parser}-source-20261021/`. No job remains.
+
+[Public compact evidence](qualification-evidence/scattering-input-map/README.md)
+fresh-verifies6 payloads /50 files and one prior CIDATA archive. Independent
+permutation-cycle parity reproduces all317,988 phases and the25 changed IDs.
+**Limit:** the1.4GB original N+1 CSFs were hash-verified remotely, not republished
+or independently refetched by compact witness replay. No full raw-CSF public
+reconstruction or native scattering-consumer pass is claimed.
+
+Next finite interface step: two read-only74-root native CIRMAT reads with actual
+B1/B2 scattering destination phases, plus downstream SWINTERF property/channel
+semantics (including energy-tie sorting and optional target phase files). Source
+trace of pinned `source/libouter/swinterf.f:SWTARG/ORDERC` confirms the role of
+`IDTARG` but is not a native consumer execution check. Freeze a separate finite
+read-only contract with matching double headers before those calls. Reuse original
+CIDATA and existing properties unchanged. Any lowest-five old40/new50 contrast
+must remain **combined orbital/channel-prescription sensitivity**; matched-
+manifold selection still needs independent physical evidence. Only then cost a
+sparse2048-root comparison; no dense Hamiltonian, root/channel ladder or sweep.
+
+Search handoff: main index remains complete at `423d577`, but MCP reports stale /
+upstream currency unknown; direct remote-main lookup agrees with that commit.
+Saved-map code/contracts/results are branch-only and resolved locally against
+current source.90 focused tests pass, one local PySCF analytic skip retains its
+earlier remote control evidence. Public compact replay imports no producer reader.
+
 ### Native target consumer and saved target Hamiltonian pass — 21 October,19:55 UTC
 
 The [read-only native interface](NATIVE_TARGET_INTERFACE.md) now verifies the

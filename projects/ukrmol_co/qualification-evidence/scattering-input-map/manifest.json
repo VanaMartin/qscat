@@ -1,0 +1,11 @@
+{
+  "git_sha": "07a64e85fa59047578456d9bdd2945ae3ac76a33",
+  "experiment": "co-scattering-input-map-20261021",
+  "saved_scattering_map_verdict": true,
+  "native_scattering_destination_reader_verdict": null,
+  "original_owner_exits": [
+    1,
+    0
+  ],
+  "new_native_calls": 0
+}

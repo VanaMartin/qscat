@@ -535,6 +535,14 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,21:55UTC:** [saved B1/B2 phase/property mapping](SCATTERING_INPUT_MAP.md)
+passes317,988 phase-defining terms;25 property-ID positions must change. Reuse
+existing CONGEN definitions, original CIDATA and properties without regeneration.
+Next qualify actual scattering-destination native CIRMAT and downstream property/
+channel semantics under a new finite read-only contract, then declare/cost the
+scientific contrast. Both physical A1 rejections remain. No native or scattering
+job is running; compact witness replay is not full raw-CSF authentication.
+
 **21 October,19:55UTC:** [native target consumer and saved target Hamiltonian](NATIVE_TARGET_INTERFACE.md)
 pass: all74 roots byte-exact under the proved signs, h/overlaps exact, common-basis
 operator-difference bound6.26708e-13Ha. Three original build/ABI failures remain;

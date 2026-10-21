@@ -7,7 +7,24 @@ model and channel map it will actually use.
 
 ## First calculation: equilibrium orbital-ensemble control
 
-### Current decision — 21 October,19:55 UTC
+### Current decision — 21 October,21:55 UTC
+
+**Saved scattering phases/root/property mapping now passes:**
+[317,988 phase-defining terms](SCATTERING_INPUT_MAP.md) reconstruct exactly across
+B1/B2. Saved CONGEN algebraic definitions need not be regenerated. The new
+forty-state property file needs **25 changed idtarg positions**; all selected
+energies match original CIDATA within4.91639e-10Ha. Properties/CIDATA stay
+unchanged;1,410 expanded coefficients per symmetry. Parser failure1/1/1 is
+preserved beside parser-only completion0/0/0,6.833s /.703GiB process RSS.
+
+The remaining interface qualification is **native CIRMAT with the actual B1/B2
+scattering destination phases**, plus downstream property/channel semantics,
+not another CONGEN, QC, target solve or property export. The saved-only result
+does not qualify those native consumer calls or overturn physical A1 rejection.
+Compact public replay verifies all first-term witnesses, not the full1.4GB
+original N+1 CSF files. Keep lowest-five sensitivity labelled combined orbital/
+channel-prescription sensitivity; only after this interface and scientific
+contrast are fixed cost the sparse2048-root comparison.
 
 **Native target reuse is now supported:** [the original native consumer and saved
 target integral blocks](NATIVE_TARGET_INTERFACE.md) pass. All74 native vectors /
@@ -160,7 +177,7 @@ optimization. No physical-overlap successor is yet submitted.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Orbital ensemble | Both A1 subspaces reject; continuum/signed CSFs/native74-root consumer/target integrals pass | Reuse original CIDATA/properties; qualify actual scattering channel/root/property maps and declare contrast | Read-only native jobs3.761s /peak.12254GiB; saved Hamiltonian difference bound6.26708e-13Ha; no QC repeat |
+| Orbital ensemble | Both A1 subspaces reject; saved317,988 scattering-phase terms and property-ID map pass; native target/target integrals pass | Reuse CONGEN definitions/CIDATA/properties;25 idtarg entries change; qualify actual scattering-destination native readers and downstream consumers | Saved-only map6.833s /.703GiB RSS; no QC, CONGEN or property repeat |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Choose a model only after independent ensemble/basis effects are measured; budget remaining uncertainty explicitly | Reuse existing2048 results; no automatic larger active-space or channel ladder |
 | Resonance widths | Compressed/equilibrium required-window prediction rejects;94 known beyond-budget width counterexamples persist | A physically constrained extraction design with known-truth nonpolynomial successes, held-out phase predictions and explicit pole/width-identifiability veto | Existing calibration/native reading took13.9s /4.0s; new fit design remains uncosted; direct native complex poles need separate numerical qualification |

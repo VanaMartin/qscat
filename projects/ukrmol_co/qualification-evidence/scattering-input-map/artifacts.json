@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 11722,
+      "sha256": "d5f921a0e72094a20353f9cf08296ce5f09c3cb83313a2c9be7685091694998c"
+    },
+    "manifest.json": {
+      "bytes": 279,
+      "sha256": "5d51b12de22c561152e8f3369e9ed4a19ca4bcf0824cfdd0fc56ee3369ad24c6"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 706,
+      "sha256": "188c517d8f3d90d4ac9d34b7d115342fede2dde07914c8f9c0de945cf7abe594"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 6563,
+      "sha256": "d3bd570a2ff7b3fd07fad376951102de7321a7361bf37d202a3b43385ca797f0"
+    },
+    "result-summary.json": {
+      "bytes": 36345,
+      "sha256": "66be93b426c767fac380b1ec5e50014351c293b44cd1b05ed6d4d755840e8ca0"
+    },
+    "results.tar.gz": {
+      "bytes": 1477010,
+      "sha256": "ec8a60e1a2b5b437dd333d007142dbd1673bb6c6e42f1acad8b5583629e86dca"
+    }
+  },
+  "git_sha": "07a64e85fa59047578456d9bdd2945ae3ac76a33",
+  "url_prefix": "https://data.qscat.org/co-scattering-input-map-20261021/"
+}
