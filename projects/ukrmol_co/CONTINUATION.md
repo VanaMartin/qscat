@@ -20,6 +20,61 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Exact target-CSF correspondence passes; retain original CIDATA — 21 October,18:20 UTC
+
+The [signed same-frame address check](NATIVE_CSF_MAP.md) passes all eight sectors:
+**158,994 CSFs /1,670,879 determinant terms per layout**. Only **16 singlet-A1
+CSFs** flip sign; seven other sectors are unchanged. All reference/packed terms
+map exactly within the target orbitals, with identical CSF/term order and
+byte-exact signed coefficients. Canonical phase reconstruction and unit CSF norms
+pass. All74 CIDATA root IDs/energies/diagonals/phase fields/vectors/EOF verify;
+sign application twice restores coefficient bytes exactly, maximum Gram error
+1.17684e-14, mapped Gram change0. This is representation equivalence **within
+the same new orbital frame**, not old40/new50 physical-subspace agreement.
+
+Pinned UKRmol-in3.3.0 source is located/downloaded and matches the running image's
+source archive provenance, SHA256 `1b81e423b7e2a5a530c336cfc7f7ab50d6f2705abf771c71d6119fc065d9cac2`.
+Six source-file anchors establish `wrnfto`/`dophz0`/`create_csfs` CSF semantics and
+`SolutionHandler` CIDATA phase/vector types. Crucially,
+`Target_RMat_CI.read_ci_mat → CIRMAT → READCIP/CIVIO → CPAKPZ` already applies the
+source/destination phase product. `READCIP` reads the source file's own two-centre
+count, not an assumed three-centre continuum layout. **Retain original CIDATA
+unchanged; do not pad/reheader or write converted vectors.** This native route
+is source-verified, not yet live-consumer/scattering execution qualification.
+
+Producer freeze **`91a4e7f`**, original exit0, takes **16.496s /.60803GiB** Darwin
+process RSS. Independent freeze **`e2e126c`**, exit0, uses a separate struct reader
+and scalar canonical determinant expansions, **38.100s**, reproducing every
+sign/term count. These are local single-worker saved reads, no imposed affinity
+or memory cap, no native program/QC/CI/target diagonalization/properties/scattering.
+The archived forecast180s/2GiB and shell300s cap remain labelled as such.
+
+[Public evidence](qualification-evidence/native-csf-map/README.md) authenticates
+**8 new payloads /3 prior archives /17 native inputs /11 Python-source entries /
+6 native-source anchors**. Both frozen routines replay on fresh public bytes,
+exits0/0,16.599s /37.457s; every sector metric reproduces exactly. Prior CSF/vector
+capsules are referenced, not republished. An initial object-name fetch404 occurred
+before any calculation; its partial download is separate from successful fresh
+reconstruction. Original source/result/publication persist on Sadaharu under
+`prepared/native-csf-address-discovery-20261021/` (no scientific job is running).
+[Dated result/resources](progress-native-csf-map-result-20261021.json) and
+[public replay](verification-native-csf-map-public-20261021.json) retain the scope.
+
+**Next production decision:** the signed-basis obstacle is resolved. Use saved
+original74-root CIDATA and40-state properties, not another QC/target/property
+run. Qualify a bounded native read/import-only route, the actual scattering
+target-channel phase map, and saved target-integral subblock equivalence before
+any scattering Hamiltonian. Declare combined orbital/channel prescription
+sensitivity versus separately justified matched-manifold selection; both A1
+physical rejections remain false. No dense Hamiltonian, root/channel ladder,
+production sweep or fitting follows this technical pass.
+
+Search handoff: main index complete/current at `423d577`; new signed-map work is
+branch-only, resolved against current source and separate91a4e7f/e2e126c archived
+source freezes. No original seed/physical/generation-wrapper rejection changes.
+49 focused tests pass, one local PySCF analytic skip retains its prior remote
+control evidence; lint/format checks cover the new readers and figure defaults.
+
 ### Immutable continuum and all target CSFs generated; no QC repeat — 21 October,17:40 UTC
 
 The [immutable-frame native preparation](IMMUTABLE_CONTINUUM.md) now supplies

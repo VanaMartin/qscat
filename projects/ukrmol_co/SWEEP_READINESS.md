@@ -535,6 +535,15 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,18:20UTC:** [signed target-CSF/address correspondence](NATIVE_CSF_MAP.md)
+passes all8 sectors /158,994 CSFs /all74 native roots; only16 singlet-A1 signs
+change. Independent canonical determinant decoding and fresh public replay pass.
+Native source confirms phase-aware import and source centre-count handling:
+retain original CIDATA unchanged, no QC/target/property rerun. Producer16.496s /
+.60803GiB, independent38.100s. Next qualify live native read-only consumer,
+integral target subblock and actual scattering phase/property/channel interfaces.
+Both A1 physical subspaces still reject; no scattering solve or sweep runs.
+
 **21 October,17:40UTC:** [full-continuum integrals and8 target CSFs](IMMUTABLE_CONTINUUM.md)
 are generated at fixed new-frame orbitals,154 MOs /141 continuum, no QC/target
 diagonalization/property/scattering solve. The original CONGEN trailer-check

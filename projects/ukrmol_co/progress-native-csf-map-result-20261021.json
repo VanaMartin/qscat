@@ -1,0 +1,451 @@
+{
+  "git_sha": "e2e126c4a8cd2048a8bce92d2c7ef698dc8a7aaf",
+  "producer_source_commit": "91a4e7f9029cadad34be6885871367ae443c4532",
+  "experiment": "co-native-csf-map-20261021",
+  "observed_utc": "2026-10-21T18:17:42.093592+00:00",
+  "scope": "Exact saved-only same-frame signed target-CSF correspondence and74 CIDATA root checks; independent full canonical determinant expansion reconstruction. No converted native file or native engine execution.",
+  "signed_target_csf_correspondence_verdict": true,
+  "canonical_expansion_reconstruction_verdict": true,
+  "retained_subspace_dominance_verdict": false,
+  "native_consumer_execution_verdict": null,
+  "target_integral_equivalence_verdict": null,
+  "scattering_channel_map_verdict": null,
+  "original_command_exit": 0,
+  "reconstruction_command_exit": 0,
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.12.7",
+  "original_wall_seconds": 16.495831166394055,
+  "original_peak_gib": 0.6080322265625,
+  "reconstruction_wall_seconds": 38.09966737497598,
+  "csfs": 158994,
+  "determinant_terms_per_layout": 1670879,
+  "negative_csf_signs": 16,
+  "native_calls": 0,
+  "converted_native_files": 0,
+  "source_archive_sha256": "66c4ee126fe2896a8a1e6c825bd834f0f6847e6a4369d5bfdebbed10212f36b1",
+  "native_source_archive_url": "https://zenodo.org/records/18340340/files/ukrmol-in-3.3.0.tar.gz?download=1",
+  "native_source_archive_sha256": "1b81e423b7e2a5a530c336cfc7f7ab50d6f2705abf771c71d6119fc065d9cac2",
+  "resource_limit_note": "One Python worker on local macOS; no CPU affinity or hard memory limit imposed. Saved-check forecast180s/2GiB; shell timeout300s. RSS is Darwin bytes; no remote scientific job.",
+  "original": {
+    "signed_target_csf_correspondence_verdict": true,
+    "saved_cidata_phase_rule_verdict": true,
+    "native_consumer_execution_verdict": null,
+    "target_integral_equivalence_verdict": null,
+    "scattering_channel_map_verdict": null,
+    "retained_subspace_dominance_verdict": false,
+    "sectors": [
+      {
+        "sector": "singlet.A1",
+        "roots": 13,
+        "dimension": 15548,
+        "negative_csf_signs": 16,
+        "determinant_terms": 165784,
+        "sign_int64_sha256": "84362418c7940b0ab6f9cbc1ebc7630c2d3b398ed111ec977b95450fb45a0ec0",
+        "original_vector_sha256": "a41d2f5694595b275a3683caffb2fc858ef661100fccbb92ac8737f70d43e610",
+        "in_memory_mapped_vector_sha256": "433dad36679f2b64f1c3f379c3bd8b65c5cb27eb71ea68f403237485753b686a",
+        "energy_bytes_sha256": "224d34a170c72adc10b8d47ed098d3e5bedcfada0b7c4b81c9d942453724938f",
+        "energies_hartree": [
+          -112.90750855356876,
+          -112.51891867733482,
+          -112.35125539092647,
+          -112.26319545952973,
+          -112.25828820468135,
+          -112.23231906994954,
+          -112.11332062669464,
+          -112.10001542854008,
+          -112.07721436591982,
+          -112.0393245004264,
+          -112.02655564206978,
+          -111.99207547548684,
+          -111.96849588472011
+        ],
+        "vector_gram_error": 5.440092820663267e-15,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      },
+      {
+        "sector": "triplet.A1",
+        "roots": 13,
+        "dimension": 24366,
+        "negative_csf_signs": 0,
+        "determinant_terms": 196626,
+        "sign_int64_sha256": "d571407eb04e333bdc6bbe226ca69bd05da5de8277bc635bc5246aa2c3af3eb1",
+        "original_vector_sha256": "1b7b8eaeeb59472a62607e5616db8daf7f4e3ba990dd797f4508a2d1bf9aac27",
+        "in_memory_mapped_vector_sha256": "1b7b8eaeeb59472a62607e5616db8daf7f4e3ba990dd797f4508a2d1bf9aac27",
+        "energy_bytes_sha256": "bc5ea38cbdb69d569c5c71f209d7c0023004bce03f204006b411d7e4ce278caa",
+        "energies_hartree": [
+          -112.58506290930771,
+          -112.54901312239812,
+          -112.3390337156892,
+          -112.16943354078259,
+          -112.14658982842232,
+          -112.11223883195888,
+          -112.10924151046652,
+          -112.07093126381722,
+          -112.02972550450377,
+          -112.01826015697242,
+          -111.98460810366842,
+          -111.97050719425357,
+          -111.94993501093046
+        ],
+        "vector_gram_error": 4.6629367034256575e-15,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      },
+      {
+        "sector": "singlet.B1",
+        "roots": 8,
+        "dimension": 15196,
+        "negative_csf_signs": 0,
+        "determinant_terms": 198044,
+        "sign_int64_sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715",
+        "original_vector_sha256": "e7acc89160be8f8599234cbab0af90ea6db2c08373caaddf76044c9dc1e7874c",
+        "in_memory_mapped_vector_sha256": "e7acc89160be8f8599234cbab0af90ea6db2c08373caaddf76044c9dc1e7874c",
+        "energy_bytes_sha256": "70da894528fbb3a9bb8bcc248be87c071611135361e3c371fdec4587ea5434fb",
+        "energies_hartree": [
+          -112.57114183305853,
+          -112.38120210874652,
+          -112.2627016894188,
+          -112.2453028675146,
+          -112.22304479278029,
+          -112.1833753242386,
+          -112.05247404478672,
+          -111.95054234236886
+        ],
+        "vector_gram_error": 7.327471962526033e-15,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      },
+      {
+        "sector": "triplet.B1",
+        "roots": 8,
+        "dimension": 24540,
+        "negative_csf_signs": 0,
+        "determinant_terms": 226343,
+        "sign_int64_sha256": "49331b3728c357ae110eec1b4fdd9d15dd0ff09a887f1219a915ebc9f1a90e96",
+        "original_vector_sha256": "c8d64645fae3c827f25d7b3256aadc29f17c5d9e5c2db36fb28addb1922eda09",
+        "in_memory_mapped_vector_sha256": "c8d64645fae3c827f25d7b3256aadc29f17c5d9e5c2db36fb28addb1922eda09",
+        "energy_bytes_sha256": "b79e836bf97d7d7c0b8540722a14fa96bd9d929c45bf3157d220f7035be6e2c8",
+        "energies_hartree": [
+          -112.67286667842367,
+          -112.43863258012479,
+          -112.34950084874234,
+          -112.28472781849163,
+          -112.25288734793406,
+          -112.23793895310004,
+          -112.22042401496512,
+          -112.13833778581517
+        ],
+        "vector_gram_error": 1.176836406102666e-14,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      },
+      {
+        "sector": "singlet.B2",
+        "roots": 8,
+        "dimension": 15196,
+        "negative_csf_signs": 0,
+        "determinant_terms": 198044,
+        "sign_int64_sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715",
+        "original_vector_sha256": "528c82f4731e0ea83bfdc1a6f2cbb85acdacf57ec5b79abdf41edb5e85fac8ff",
+        "in_memory_mapped_vector_sha256": "528c82f4731e0ea83bfdc1a6f2cbb85acdacf57ec5b79abdf41edb5e85fac8ff",
+        "energy_bytes_sha256": "7c7e4a973081d645e35d78140d68672b442d8201d539760521e5d6399fde408f",
+        "energies_hartree": [
+          -112.57114183305939,
+          -112.3812021087466,
+          -112.26270168941926,
+          -112.24530286751443,
+          -112.22304479278029,
+          -112.183375324239,
+          -112.0524740447868,
+          -111.9505423423681
+        ],
+        "vector_gram_error": 4.9960036108132044e-15,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      },
+      {
+        "sector": "triplet.B2",
+        "roots": 8,
+        "dimension": 24540,
+        "negative_csf_signs": 0,
+        "determinant_terms": 233486,
+        "sign_int64_sha256": "49331b3728c357ae110eec1b4fdd9d15dd0ff09a887f1219a915ebc9f1a90e96",
+        "original_vector_sha256": "eaf9c880a6c261b96b07b92bcb2e4ffd513aec69c3ea60c032af8220ea444749",
+        "in_memory_mapped_vector_sha256": "eaf9c880a6c261b96b07b92bcb2e4ffd513aec69c3ea60c032af8220ea444749",
+        "energy_bytes_sha256": "8eb24daa79646f31868933339ef695fd9dc8d09f290d47471fecb8a3eca8786f",
+        "energies_hartree": [
+          -112.67286667842333,
+          -112.43863258012556,
+          -112.3495008487424,
+          -112.28472781849155,
+          -112.25288734793426,
+          -112.23793895310041,
+          -112.22042401496495,
+          -112.1383377858144
+        ],
+        "vector_gram_error": 6.217248937900877e-15,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      },
+      {
+        "sector": "singlet.A2",
+        "roots": 8,
+        "dimension": 15044,
+        "negative_csf_signs": 0,
+        "determinant_terms": 205288,
+        "sign_int64_sha256": "9ba68566ae6e213f6730febe651f9e0171a50c079083cdf7366bd57750d0d66b",
+        "original_vector_sha256": "b969ce28a40dc6d5ffcf8f35f0c9d89de788b9ecd6f5f1ce138de7c89a1d5d99",
+        "in_memory_mapped_vector_sha256": "b969ce28a40dc6d5ffcf8f35f0c9d89de788b9ecd6f5f1ce138de7c89a1d5d99",
+        "energy_bytes_sha256": "bf3269b1977531ee5eec02d24eefda7733441a2922b73d0e83a18407c959cea2",
+        "energies_hartree": [
+          -112.52012092500428,
+          -112.51891867733494,
+          -112.2631954595297,
+          -112.07721436591979,
+          -112.03921917496814,
+          -112.02655564206992,
+          -111.9924573436553,
+          -111.99207547548673
+        ],
+        "vector_gram_error": 9.658940314238862e-15,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      },
+      {
+        "sector": "triplet.A2",
+        "roots": 8,
+        "dimension": 24564,
+        "negative_csf_signs": 0,
+        "determinant_terms": 247264,
+        "sign_int64_sha256": "13888a7eb3ba9d695c5ce0ccd854117fffd4fca570a524c44c04a28cd7e18c41",
+        "original_vector_sha256": "22c000648de5bdfd178f73c9c269ecb0657924d9fa59fff1ac30d0fed4220605",
+        "in_memory_mapped_vector_sha256": "22c000648de5bdfd178f73c9c269ecb0657924d9fa59fff1ac30d0fed4220605",
+        "energy_bytes_sha256": "06018f3887cdd6b8138253606461f031a32fa2616011aa9f4d00a5001b1383ba",
+        "energies_hartree": [
+          -112.54901312239778,
+          -112.53481070006745,
+          -112.32755646703654,
+          -112.16943354078248,
+          -112.13685814941357,
+          -112.11223883195896,
+          -112.08629755087105,
+          -112.07346487715427
+        ],
+        "vector_gram_error": 5.329070518200751e-15,
+        "mapped_gram_change": 0.0,
+        "exact_coefficient_roundtrip": true,
+        "source_centres": 2,
+        "source_phase_match": true
+      }
+    ],
+    "roots_verified": 74,
+    "converted_native_files": 0,
+    "native_calls": 0,
+    "target_diagonalizations": 0,
+    "property_exports": 0,
+    "scattering_inner_solves": 0,
+    "scope": "Exact same-frame signed target-CSF correspondence and saved CIDATA phase rule. Retain original CIDATA unchanged; no live consumer, integral or scattering qualification.",
+    "wall_seconds": 16.495831166394055,
+    "maxrss_platform_units": 652869632
+  },
+  "reconstruction": {
+    "canonical_expansion_reconstruction_verdict": true,
+    "sectors": [
+      {
+        "sector": "singlet.A1",
+        "csfs": 15548,
+        "canonical_terms": 165784,
+        "negative_signs": 16,
+        "sign_int64_sha256": "84362418c7940b0ab6f9cbc1ebc7630c2d3b398ed111ec977b95450fb45a0ec0"
+      },
+      {
+        "sector": "triplet.A1",
+        "csfs": 24366,
+        "canonical_terms": 196626,
+        "negative_signs": 0,
+        "sign_int64_sha256": "d571407eb04e333bdc6bbe226ca69bd05da5de8277bc635bc5246aa2c3af3eb1"
+      },
+      {
+        "sector": "singlet.B1",
+        "csfs": 15196,
+        "canonical_terms": 198044,
+        "negative_signs": 0,
+        "sign_int64_sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715"
+      },
+      {
+        "sector": "triplet.B1",
+        "csfs": 24540,
+        "canonical_terms": 226343,
+        "negative_signs": 0,
+        "sign_int64_sha256": "49331b3728c357ae110eec1b4fdd9d15dd0ff09a887f1219a915ebc9f1a90e96"
+      },
+      {
+        "sector": "singlet.B2",
+        "csfs": 15196,
+        "canonical_terms": 198044,
+        "negative_signs": 0,
+        "sign_int64_sha256": "d6e033527483f3dad0abe8c25a520dd5fa0cd9e624237d33c002599328b4d715"
+      },
+      {
+        "sector": "triplet.B2",
+        "csfs": 24540,
+        "canonical_terms": 233486,
+        "negative_signs": 0,
+        "sign_int64_sha256": "49331b3728c357ae110eec1b4fdd9d15dd0ff09a887f1219a915ebc9f1a90e96"
+      },
+      {
+        "sector": "singlet.A2",
+        "csfs": 15044,
+        "canonical_terms": 205288,
+        "negative_signs": 0,
+        "sign_int64_sha256": "9ba68566ae6e213f6730febe651f9e0171a50c079083cdf7366bd57750d0d66b"
+      },
+      {
+        "sector": "triplet.A2",
+        "csfs": 24564,
+        "canonical_terms": 247264,
+        "negative_signs": 0,
+        "sign_int64_sha256": "13888a7eb3ba9d695c5ce0ccd854117fffd4fca570a524c44c04a28cd7e18c41"
+      }
+    ],
+    "native_calls": 0,
+    "converted_native_files": 0,
+    "independence": "Separate struct framing, scalar native-address to (irrep,ordinal,spin) decoding, full canonical determinant keys/parities and coefficient dictionaries. No producer reader or phase/sign map used to derive the answer.",
+    "wall_seconds": 38.09966737497598
+  },
+  "public_artifacts": {
+    "artifacts": {
+      "engine-source-provenance.json": {
+        "bytes": 791,
+        "sha256": "2987e176689c3a5ec5001c5da90949f17f7a5add8a86e18b04fb8409b5b11f1b"
+      },
+      "input-members.json": {
+        "bytes": 3962,
+        "sha256": "93af5342c7332730e90d925e4b95b2dd54c5181e949fd0c07e3a9517be1c436f"
+      },
+      "manifest.json": {
+        "bytes": 1665,
+        "sha256": "e531770ef39a04619f78f16a8460decd47549d08cf18b6f72855a3e660374127"
+      },
+      "prerequisite-artifacts.json": {
+        "bytes": 1859,
+        "sha256": "33a2200d04c41063102e58070a98ea81b2050f05e667ec994cd6cd6664bb5147"
+      },
+      "result-original.json": {
+        "bytes": 9060,
+        "sha256": "3c9ca0d40de29c4e55d9139f5fab745e12e16eb51a1227e94dac24ee71f9279d"
+      },
+      "result-reconstruction.json": {
+        "bytes": 2147,
+        "sha256": "85f17101851c3765209c1ea306c0f584ae3132e3cd4264a6d2029591017c90d8"
+      },
+      "source-sha256.json": {
+        "bytes": 1350,
+        "sha256": "acc2754ceb0f6089dce62eeab774d90e4a931fb691eea388e97552175bf50a13"
+      },
+      "source.tar.gz": {
+        "bytes": 13695,
+        "sha256": "66c4ee126fe2896a8a1e6c825bd834f0f6847e6a4369d5bfdebbed10212f36b1"
+      }
+    },
+    "git_sha": "e2e126c4a8cd2048a8bce92d2c7ef698dc8a7aaf",
+    "url_prefix": "https://data.qscat.org/co-native-csf-map-20261021/"
+  },
+  "verification": {
+    "observed_utc": "2026-10-21T18:20:03.485496+00:00",
+    "public_payloads_fresh_verified": 8,
+    "prerequisite_archives_fresh_verified": 3,
+    "native_input_files_fresh_verified": 17,
+    "frozen_python_source_files_verified": 11,
+    "native_source_files_verified": 6,
+    "native_source_archive_authenticated": true,
+    "producer_replayed_verdict": true,
+    "independent_canonical_replayed_verdict": true,
+    "all_sector_metrics_exactly_reproduced": true,
+    "commands": [
+      {
+        "command": [
+          "/Users/martin/src/qModeling-ukrmol-potentials/.venv/bin/python3",
+          "-m",
+          "projects.ukrmol_co.native_csf_verification",
+          "--root",
+          "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/inputs",
+          "--contract",
+          "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/source/producer/projects/ukrmol_co/native-csf-map-contract-20261021.json",
+          "--output",
+          "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/replayed-original.json"
+        ],
+        "original_exit": 0,
+        "wall_seconds": 16.599428459070623
+      },
+      {
+        "command": [
+          "/Users/martin/src/qModeling-ukrmol-potentials/.venv/bin/python3",
+          "-m",
+          "projects.ukrmol_co.native_csf_reconstruction",
+          "--root",
+          "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/inputs",
+          "--contract",
+          "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/source/producer/projects/ukrmol_co/native-csf-map-contract-20261021.json",
+          "--output",
+          "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/replayed-reconstruction.json",
+          "--original",
+          "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/result-original.json"
+        ],
+        "original_exit": 0,
+        "wall_seconds": 37.457487458363175
+      }
+    ],
+    "native_calls": 0,
+    "converted_native_files": 0,
+    "retained_subspace_dominance_verdict": false,
+    "native_consumer_execution_verdict": null,
+    "target_integral_equivalence_verdict": null,
+    "scattering_channel_map_verdict": null
+  },
+  "input_sha256": {
+    "target-only/fort.26": "f81547d9776f6b5f23fd8921d4ba0202ddbb912d069d313e23b629a01527ec59",
+    "target-only/fort.710": "570fc1a835c6bdb029d456aa51cb00969cf5cd948c5207c297e43fcbf0595887",
+    "target-only/fort.730": "26d935a7d07c35c81c5b1b742419afc6af18a60ba5fd231650eacc04ef027347",
+    "target-only/fort.711": "29b104b1df95aa67e59ced2da50abb8b7169b84dfb5197a20ab9e9e496568e18",
+    "target-only/fort.731": "66610ba3d9908ebf889e4728efd5095ec94278f2a38666a797cc73fe5b237395",
+    "target-only/fort.712": "a01c0044dcd61a3d8a5be8b6d2fa00a0811809533014833fca0d0781e4bcdb63",
+    "target-only/fort.732": "4ff1b53cf3bae99ce6a48d1af38f72567e31122a9e595b0bf3b72e0ccfcd4fb1",
+    "target-only/fort.713": "a32a549ae44ad10f68cae62b7b734f5a8c5e79159b95d0e939ae2abe196da03d",
+    "target-only/fort.733": "4d386e8a11b63db0e89d115878ed6b12721caa713c0ae11ad54f7a85fe5d8222",
+    "full-layout/fort.710": "3684f9c68c8a16354965b8fdf13f82450d4d17a148c0c90691c4a443822d8a26",
+    "full-layout/fort.730": "cd469a94404d6aef387a9b2a61cf0a6eb31178d1ac423de1640ec756dacb1785",
+    "full-layout/fort.711": "88a89a09ac54bf4a7f50b37996712bc1fe395f459eca5eb70217ddf664f5f768",
+    "full-layout/fort.731": "966a8cd72bc4cd06593bf91c2da3d9d5b2a5548a107ab5bbaf082ec2eddf4809",
+    "full-layout/fort.712": "760644c62ca7b6e4447240700cbd7b87a0a9b38cfbb7330cdef00ec051c6d0c7",
+    "full-layout/fort.732": "035ad34f0cc5b129a121739a63c358d0deb7bf3b0ca56e65f38b36ed124d5abe",
+    "full-layout/fort.713": "1a8f4084fd8fd795a649e9a066b4908960c48b8608196fcf74f8861faae40da7",
+    "full-layout/fort.733": "adb9548d7eb146dbc992fcf81945158669341b3f944c85b6d2763b60de67162f",
+    "ukrmol-in-3.3.0.tar.gz": "1b81e423b7e2a5a530c336cfc7f7ab50d6f2705abf771c71d6119fc065d9cac2",
+    "engine-source-provenance.json": "2987e176689c3a5ec5001c5da90949f17f7a5add8a86e18b04fb8409b5b11f1b"
+  },
+  "native_source_sha256": {
+    "congen/source/congen_driver.f90": "21799db3c2435e7e7acf59b2520e08f668e5a60518e3817b47c93187924fbaf2",
+    "congen/source/congen_projection.f90": "f75c51e41f5a028cb43b778e15083677e989861e56e26baa4e2b54ebb29d0f8e",
+    "mpi-ci-diag/Modules/Hamiltonian/CSF_module.F90": "a8a162fed5b323e01e297b22b520304dd2467e7e197dba209fa06d5045e9736e",
+    "mpi-ci-diag/Modules/Hamiltonian/SolutionHandler_module.F90": "7c4322e3477dc5424960059f89120c3bca1c474ec640ed5b5249d3bb35167c1e",
+    "mpi-ci-diag/Modules/Hamiltonian/Target_RMat_CI_module.f90": "b4d5050acc0b3e6c71683c7352d2c445d4b17ddc3660cbee78221358996fec97",
+    "ci-diag/scatci_routines.f": "cbbaa8e32026f3ca345c2b382ed38cdb4868a391063a963900de59e4a99f9ea6"
+  },
+  "next_decision": "Retain original phase-aware CIDATA unchanged. Qualify native consumer/scattering target-channel phases and target integral-block equivalence; separately declare combined-prescription versus matched-manifold contrast before any scattering Hamiltonian."
+}

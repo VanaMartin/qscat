@@ -38,6 +38,7 @@ def expansion(path):
     rows = records(path)
     h = struct.unpack("<qdddd9q6qdqq", rows[0][120:])
     dimension, electrons, terms, nsym, packed_size = h[7], h[8], h[9], h[11], h[13]
+
     def ints(data):
         return struct.unpack("<" + "q" * (len(data) // 8), data)
 

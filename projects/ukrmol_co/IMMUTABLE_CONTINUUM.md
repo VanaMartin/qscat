@@ -93,6 +93,13 @@ plus one local PySCF analytic skip exercised in the earlier remote control.
 
 ## Next production step
 
+**18:20UTC follow-up:** the [exact signed target-CSF correspondence](NATIVE_CSF_MAP.md)
+now passes every term/all8 sectors/all74 native vectors. Only16 singlet-A1 CSFs
+flip sign. Native source explains phase-aware reuse with the original two-centre
+CIDATA unchanged, so no converted/reheadered file is needed. Actual native
+consumer, integral subblock and scattering-channel phase qualification remain.
+The original generation result below and physical A1 rejection are unchanged.
+
 The target-only and full-continuum layouts are still not interchangeable by
 padding: orbital addresses and signed CSF records differ, even where dimensions
 match. These new files allow an exact **signed basis/address correspondence** to

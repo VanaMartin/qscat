@@ -1,0 +1,52 @@
+{
+  "observed_utc": "2026-10-21T18:20:03.485496+00:00",
+  "public_payloads_fresh_verified": 8,
+  "prerequisite_archives_fresh_verified": 3,
+  "native_input_files_fresh_verified": 17,
+  "frozen_python_source_files_verified": 11,
+  "native_source_files_verified": 6,
+  "native_source_archive_authenticated": true,
+  "producer_replayed_verdict": true,
+  "independent_canonical_replayed_verdict": true,
+  "all_sector_metrics_exactly_reproduced": true,
+  "commands": [
+    {
+      "command": [
+        "/Users/martin/src/qModeling-ukrmol-potentials/.venv/bin/python3",
+        "-m",
+        "projects.ukrmol_co.native_csf_verification",
+        "--root",
+        "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/inputs",
+        "--contract",
+        "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/source/producer/projects/ukrmol_co/native-csf-map-contract-20261021.json",
+        "--output",
+        "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/replayed-original.json"
+      ],
+      "original_exit": 0,
+      "wall_seconds": 16.599428459070623
+    },
+    {
+      "command": [
+        "/Users/martin/src/qModeling-ukrmol-potentials/.venv/bin/python3",
+        "-m",
+        "projects.ukrmol_co.native_csf_reconstruction",
+        "--root",
+        "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/inputs",
+        "--contract",
+        "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/source/producer/projects/ukrmol_co/native-csf-map-contract-20261021.json",
+        "--output",
+        "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/replayed-reconstruction.json",
+        "--original",
+        "/private/var/folders/4k/bqw_pvrj3_z97dhlkzpnqs3r0000gn/T/opencode/native-csf-map-public-replay-20261021/result-original.json"
+      ],
+      "original_exit": 0,
+      "wall_seconds": 37.457487458363175
+    }
+  ],
+  "native_calls": 0,
+  "converted_native_files": 0,
+  "retained_subspace_dominance_verdict": false,
+  "native_consumer_execution_verdict": null,
+  "target_integral_equivalence_verdict": null,
+  "scattering_channel_map_verdict": null
+}

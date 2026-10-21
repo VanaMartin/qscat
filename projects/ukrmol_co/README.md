@@ -76,7 +76,15 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 21 October,17:40UTC:** [immutable-frame continuum preparation](IMMUTABLE_CONTINUUM.md)
+**Update — 21 October,18:20UTC:** the [exact signed target-CSF correspondence](NATIVE_CSF_MAP.md)
+passes all8 sectors /158,994 CSFs and all74 saved target vectors. Only16 singlet-A1
+CSFs flip sign; independent full canonical expansions and fresh public replay
+agree exactly. The native phase-aware reader supports retaining original CIDATA
+unchanged—no padding, QC, target diagonalization or property repeat. Producer
+**16.496s /.60803GiB**, independent38.100s. Next qualify native consumer,
+integral and scattering-channel interfaces; the physical A1 rejection remains.
+
+**Earlier update — 21 October,17:40UTC:** [immutable-frame continuum preparation](IMMUTABLE_CONTINUUM.md)
 generates154 MOs /141 continuum and all8 target-CSF files without QC, target
 diagonalization, properties or scattering Hamiltonian. All8 CSFs match recorded
 baseline full-layout hashes. The original trailer-check wrapper failure1/1/1 is
@@ -571,10 +579,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 20 October 2026
 
-![CO qualification: immutable continuum and eight target-CSF files generated; physical A1 rejection retained; signed vector mapping next; no Hamiltonian or scientific job running](../../docs/physics/figures/co-progress-20261021T1740-immutable-continuum.png)
+![CO qualification: signed CSF correspondence and all74 target vectors pass; original phase-aware CIDATA retained; physical A1 rejection unchanged; native interfaces next](../../docs/physics/figures/co-progress-20261021T1820-native-csf-map.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021T1740-immutable-continuum.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021T1740-immutable-continuum.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021T1820-native-csf-map.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021T1820-native-csf-map.json) ·
+[Signed target-CSF result](NATIVE_CSF_MAP.md) ·
+[Fresh signed-map reconstruction](verification-native-csf-map-public-20261021.json) ·
+[Previous continuum figure](../../docs/physics/figures/co-progress-20261021T1740-immutable-continuum.svg) ·
+[Previous continuum snapshot](progress-snapshot-20261021T1740-immutable-continuum.json) ·
 [Immutable continuum result](IMMUTABLE_CONTINUUM.md) ·
 [Native-layout saved reading](verification-immutable-continuum-public-20261021.json) ·
 [Continuum evidence](qualification-evidence/immutable-continuum/README.md) ·

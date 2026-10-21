@@ -116,3 +116,14 @@ A pass settles the signed target-CSF representation issue only. Reuse original
 CIDATA through the native phase-aware consumer rather than padding/reheadering
 it. Target integral-block equivalence, full scattering channel/phase and property
 compatibility remain explicit prerequisites; the physical A1 rejection remains.
+
+## Measured finite result
+
+The frozen all-sector check and independent canonical determinant reconstruction
+pass:158,994 CSFs /1,670,879 terms per layout;16 negative signs in singlet-A1 only.
+All74 vectors round-trip exactly, maximum Gram error1.17684e-14, mapped Gram
+change0. Original16.496s /.60803GiB, independent38.100s; fresh public replay
+reproduces every sector metric from separate archived sources. The preferred
+decision is original CIDATA reuse through the phase-aware native reader, **not
+file conversion**. See `projects/ukrmol_co/NATIVE_CSF_MAP.md` for exact scope,
+provenance, resources and remaining live-consumer/integral/channel prerequisites.

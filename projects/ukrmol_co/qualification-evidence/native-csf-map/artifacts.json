@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "engine-source-provenance.json": {
+      "bytes": 791,
+      "sha256": "2987e176689c3a5ec5001c5da90949f17f7a5add8a86e18b04fb8409b5b11f1b"
+    },
+    "input-members.json": {
+      "bytes": 3962,
+      "sha256": "93af5342c7332730e90d925e4b95b2dd54c5181e949fd0c07e3a9517be1c436f"
+    },
+    "manifest.json": {
+      "bytes": 1665,
+      "sha256": "e531770ef39a04619f78f16a8460decd47549d08cf18b6f72855a3e660374127"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 1859,
+      "sha256": "33a2200d04c41063102e58070a98ea81b2050f05e667ec994cd6cd6664bb5147"
+    },
+    "result-original.json": {
+      "bytes": 9060,
+      "sha256": "3c9ca0d40de29c4e55d9139f5fab745e12e16eb51a1227e94dac24ee71f9279d"
+    },
+    "result-reconstruction.json": {
+      "bytes": 2147,
+      "sha256": "85f17101851c3765209c1ea306c0f584ae3132e3cd4264a6d2029591017c90d8"
+    },
+    "source-sha256.json": {
+      "bytes": 1350,
+      "sha256": "acc2754ceb0f6089dce62eeab774d90e4a931fb691eea388e97552175bf50a13"
+    },
+    "source.tar.gz": {
+      "bytes": 13695,
+      "sha256": "66c4ee126fe2896a8a1e6c825bd834f0f6847e6a4369d5bfdebbed10212f36b1"
+    }
+  },
+  "git_sha": "e2e126c4a8cd2048a8bce92d2c7ef698dc8a7aaf",
+  "url_prefix": "https://data.qscat.org/co-native-csf-map-20261021/"
+}
