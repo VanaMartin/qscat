@@ -2,7 +2,7 @@
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--19-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--21-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -19,6 +19,75 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Native target consumer and saved target Hamiltonian pass — 21 October,19:55 UTC
+
+The [read-only native interface](NATIVE_TARGET_INTERFACE.md) now verifies the
+installed original CIRMAT/READCIP/CIVIO/CPAKPZ consumer for all **74 target roots**,
+coefficient/relative-energy bytes exact under the proved signs. The original
+two-centre CIDATA stays unchanged. Saved target-only/full-continuum **h and
+overlap blocks agree exactly**, max ERI delta **4.44089e-15Hartree**; the conservative
+common-basis operator-difference bound is **6.26708e-13Hartree**, below1e-7.
+Both169-entry overlaps have identity defect6.66134e-16;28,561 ordered ERIs per
+file, h/ERI symmetries, nuclear references and physical geometry/charge pass.
+This is saved numerical target-Hamiltonian agreement, not absolute accuracy,
+cross-frame physical-state identity or a scattering-error bound.
+
+Three original failed owners remain **1/1/1** separately: `eb092a3` cannot find
+the relocated compiler; `87860b8` reaches the linker but misses the original
+maths-interface library; `c1c3026` links and completes native target reading
+exit0, then source integral reading segfaults **−11**, leaving full read unrun.
+The target read's complete saved output independently verifies all74 roots;
+its producer's later failed outcome is not retroactively changed.
+
+The segmentation fault exposed a real packaging ABI mismatch: inherited GBTO
+headers declare **cfp16/REAL16** but the source-built double library uses **cfp8**.
+The retained source-inspection build has46 double modules emitted beside a
+**byte-identical libGBTO.a**, same archive/compiler provenance. Metadata-only
+extraction pins these headers; no engine is rebuilt/replaced. The corrected
+Dockerfile copies matching modules for future images, but no new image build/test
+is claimed. Python and Fortran guards reject the precision mismatch before calls.
+This is a **new-client header ABI** issue; earlier source-built executables used
+their own matching build modules and are not shown to be mixed-precision or
+invalidated by this diagnosis.
+
+Separately frozen ABI completion **`1a785ee`** copies/rechecks the completed
+target output and **does not repeat its native call**. It runs only two missing
+successful integral reads, native0/0, finishes **19:40:49UTC**, command/container/
+owner **0/0/0**, **1.066s /.09886GiB**, CPU.588181s. All22 frozen source /
+30 input hashes and46 module hashes verify; all five native linked libraries
+match the original runtime. Across four jobs: **3.761s** container wall,
+CPU1.589s, peak **.12254GiB**, four reserved physical cores0–3 /4GiB.
+Native target read0.03165s; corrected integral reads0.01556s /0.03154s.
+No integral generation, QC/CI, target diagonalization, properties or scattering.
+
+[Public evidence](qualification-evidence/native-target-interface/README.md)
+fresh-verifies **7 payloads /3 prior archives /115 generated-owner files /
+73 frozen source checks /30 input pins /46 double modules**. A separate stdlib
+record/IEEE-sign/scalar-sum reader reconstructs every native target coefficient
+and the integral bound without importing the producer reader or replaying native
+code. Six unchanged copied files are referenced instead of republished.
+[Dated results/resources](progress-native-target-interface-result-20261021.json),
+[saved reconstruction](verification-native-target-interface-public-20261021.json)
+and all four original source/owner/output trees persist under
+`prepared/native-target-{interface,compiler,link,abi}-source-20261021/`.
+Matching-header provenance is under `prepared/native-target-double-headers-20261021/`.
+No scientific job remains; the watchers have finished.
+
+**Production decision:** target-vector and target-Hamiltonian reuse no longer
+requires QC, a target eigensolve or property repetition. Retain original74-root
+CIDATA and40-state properties. Next qualify **actual scattering CONGEN target-
+channel phase/root/property maps** and explicitly declare combined orbital/
+channel-prescription sensitivity versus a separately justified matched-manifold
+selection. Both A1 physical dominance rejections stay false; no clean same-
+manifold contrast, dense Hamiltonian, root/channel ladder, sweep or fitting is
+released. Cost a sparse comparison only after its scientific channel map is fixed.
+
+Search handoff: main index complete/current at `423d577`; direct remote-main
+lookup agrees. Native interface work and Docker header correction are branch-only,
+resolved against current source and four archived source freezes.65 focused tests
+pass; one local PySCF analytic skip retains its earlier remote control evidence.
+The forward Dockerfile correction is not described as a rebuilt/tested image.
 
 ### Exact target-CSF correspondence passes; retain original CIDATA — 21 October,18:20 UTC
 

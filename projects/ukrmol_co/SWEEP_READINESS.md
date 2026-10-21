@@ -535,6 +535,15 @@ return to the measured model/extraction/fit discrepancy before promotion.
 
 ## Immediate queue
 
+**21 October,19:55UTC:** [native target consumer and saved target Hamiltonian](NATIVE_TARGET_INTERFACE.md)
+pass: all74 roots byte-exact under the proved signs, h/overlaps exact, common-basis
+operator-difference bound6.26708e-13Ha. Three original build/ABI failures remain;
+double-header integral-only completion0/0/0 reuses the completed target read.
+Total3.761s /peak.12254GiB. Reuse original CIDATA/properties without QC/target/
+property repetition. Next qualify actual scattering target-channel phase/root/
+property maps and declare the contrast. Both A1 physical subspaces still reject;
+no inner solve or sweep is running.
+
 **21 October,18:20UTC:** [signed target-CSF/address correspondence](NATIVE_CSF_MAP.md)
 passes all8 sectors /158,994 CSFs /all74 native roots; only16 singlet-A1 signs
 change. Independent canonical determinant decoding and fresh public replay pass.

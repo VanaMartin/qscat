@@ -76,7 +76,15 @@ declared cases remain in the gate;original false/unset outcomes are preserved.
 [Public reconstruction](qualification-evidence/saved-model-controls/README.md)
 passes124raw files and57frozen sources on downloaded payloads.
 
-**Update — 21 October,18:20UTC:** the [exact signed target-CSF correspondence](NATIVE_CSF_MAP.md)
+**Update — 21 October,19:55UTC:** [native target reuse and saved target integrals](NATIVE_TARGET_INTERFACE.md)
+pass: all74 native vectors/energies byte-exact, h/overlap blocks exact, conservative
+common-basis Hamiltonian difference bound **6.26708e-13Hartree**. Three original
+build/ABI failures remain beside a matching-double-header completion0/0/0; no
+successful target read is repeated. Four-job cost **3.761s /peak.12254GiB**.
+No QC, target diagonalization or properties needed. Next fix the actual scattering
+channel/property map and scientific contrast; physical A1 rejection remains.
+
+**Earlier update — 21 October,18:20UTC:** the [exact signed target-CSF correspondence](NATIVE_CSF_MAP.md)
 passes all8 sectors /158,994 CSFs and all74 saved target vectors. Only16 singlet-A1
 CSFs flip sign; independent full canonical expansions and fresh public replay
 agree exactly. The native phase-aware reader supports retaining original CIDATA
@@ -577,12 +585,17 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--16-october-2026"></a>
 
-## Progress overview — 20 October 2026
+## Progress overview — 21 October 2026
 
-![CO qualification: signed CSF correspondence and all74 target vectors pass; original phase-aware CIDATA retained; physical A1 rejection unchanged; native interfaces next](../../docs/physics/figures/co-progress-20261021T1820-native-csf-map.png)
+![CO qualification: original native target reuse and saved target integral comparison pass; physical A1 rejection unchanged; actual scattering phase and property maps next](../../docs/physics/figures/co-progress-20261021T1955-native-target-interface.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021T1820-native-csf-map.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021T1820-native-csf-map.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261021T1955-native-target-interface.svg) ·
+[Incremental plotted-data snapshot](progress-snapshot-20261021T1955-native-target-interface.json) ·
+[Native target interface result](NATIVE_TARGET_INTERFACE.md) ·
+[Fresh native I/O reconstruction](verification-native-target-interface-public-20261021.json) ·
+[Native I/O evidence](qualification-evidence/native-target-interface/README.md) ·
+[Previous signed-CSF figure](../../docs/physics/figures/co-progress-20261021T1820-native-csf-map.svg) ·
+[Previous signed-CSF snapshot](progress-snapshot-20261021T1820-native-csf-map.json) ·
 [Signed target-CSF result](NATIVE_CSF_MAP.md) ·
 [Fresh signed-map reconstruction](verification-native-csf-map-public-20261021.json) ·
 [Previous continuum figure](../../docs/physics/figures/co-progress-20261021T1740-immutable-continuum.svg) ·

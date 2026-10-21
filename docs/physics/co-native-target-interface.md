@@ -147,3 +147,15 @@ target output unchanged and runs only the two missing successful integral reads.
 All original mathematical gates/budgets remain fixed. Three failed owners and
 the failed source-read output persist separately; the completed native target
 read is never repeated. Any new failure stops without a tolerance/model change.
+
+## Completed finite result
+
+The ABI completion passes with both integral reads native0/0 and wrapper/container/
+owner0/0/0,1.066s /.09886GiB. No completed target read is repeated. Source/full h,
+overlaps and nuclear constants agree exactly; max ERI difference4.44089e-15Ha,
+ERI L1 difference3.13354e-13Ha, common-basis operator bound6.26708e-13Ha. Both
+overlap identity defects are6.66134e-16. The all74-root native target comparison
+is byte-exact. Independent fresh-public reconstruction preserves all three
+original failed owners separately. See `projects/ukrmol_co/NATIVE_TARGET_INTERFACE.md`
+for retained commands/resources and the remaining scattering-channel/scientific
+selection gate. No QC/target/property/integral recomputation was needed.

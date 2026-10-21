@@ -1,0 +1,21 @@
+{
+  "git_sha": "1a785ee1f5f65d6c1a0b2317ad10b63ed89c24aa",
+  "experiment": "co-native-target-interface-20261021",
+  "scope": "Native target consumer74 roots and saved integral target subblocks;3 original failed owners retained; completed target read not repeated; matching double headers recover precision ABI.",
+  "native_consumer_execution_verdict": true,
+  "target_integral_equivalence_verdict": true,
+  "original_owner_exits": [
+    1,
+    1,
+    1,
+    0
+  ],
+  "scattering_channel_map_verdict": null,
+  "retained_subspace_dominance_verdict": false,
+  "source_freezes": {
+    "original": "eb092a3a309acb31607fb36f92a39cf76c499775",
+    "compiler": "87860b879a1965e6770f2a21b88df8a45ba95ac4",
+    "link": "c1c3026afbf898e4ba18703ac0800e0d798a850e",
+    "abi": "1a785ee1f5f65d6c1a0b2317ad10b63ed89c24aa"
+  }
+}

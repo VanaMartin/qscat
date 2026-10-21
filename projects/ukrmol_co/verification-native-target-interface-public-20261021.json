@@ -1,0 +1,25 @@
+{
+  "observed_utc": "2026-10-21T19:55:27.106645+00:00",
+  "public_payloads_fresh_verified": 7,
+  "prerequisite_archives_fresh_verified": 3,
+  "generated_owner_files_verified": 115,
+  "frozen_source_checks": 73,
+  "original_and_successor_pins_verified": 30,
+  "matching_double_headers_verified": 46,
+  "original_owner_exits": [
+    1,
+    1,
+    1,
+    0
+  ],
+  "native_roots_exactly_reconstructed": 74,
+  "max_h_difference_hartree": 0.0,
+  "max_eri_difference_hartree": 4.440892098500626e-15,
+  "operator_bound_hartree": 6.267083765598746e-13,
+  "native_consumer_execution_verdict": true,
+  "target_integral_equivalence_verdict": true,
+  "scattering_channel_map_verdict": null,
+  "retained_subspace_dominance_verdict": false,
+  "native_replay_calls": 0,
+  "independence": "Standard-library record framing, mixed native field decoding, IEEE sign-bit flips and scalar fsum integral bound. No producer numerical reader imported. Original integrals are authenticated, not independently recalculated."
+}

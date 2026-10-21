@@ -7,9 +7,25 @@ model and channel map it will actually use.
 
 ## First calculation: equilibrium orbital-ensemble control
 
-### Current decision — 21 October,18:20 UTC
+### Current decision — 21 October,19:55 UTC
 
-**Signed-basis obstacle resolved:** [all eight target-CSF pairs](NATIVE_CSF_MAP.md)
+**Native target reuse is now supported:** [the original native consumer and saved
+target integral blocks](NATIVE_TARGET_INTERFACE.md) pass. All74 native vectors /
+relative energies are byte-exact under the proved signs; h/overlaps exact,
+max ERI delta4.44089e-15Hartree, conservative common-basis operator-difference
+bound6.26708e-13Hartree. No target/QC/property repetition is needed. Three build/
+ABI failures remain1/1/1; a matched-double-header integral-only completion passes
+0/0/0 without repeating the successful target read. Four-job total3.761s /
+peak.12254GiB; no native diagonalization or scattering. Native header mismatch
+is repaired for this client and guarded; future Docker header copying is corrected
+but no image rebuild is claimed.
+
+Next qualify actual **scattering CONGEN target-channel phase/root/property maps**
+and declare combined-prescription sensitivity versus separately justified matched-
+manifold selection before costing a sparse scattering solve. Do not describe
+both A1 physical rejections as resolved by this technical target reuse pass.
+
+**Earlier signed-basis obstacle resolved:** [all eight target-CSF pairs](NATIVE_CSF_MAP.md)
 map exactly,158,994 CSFs /1,670,879 terms per layout; only16 singlet-A1 signs
 change. All74 native target vectors preserve root IDs/energies and round-trip
 coefficient bytes exactly. Independent canonical expansions and fresh public
@@ -144,7 +160,7 @@ optimization. No physical-overlap successor is yet submitted.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Orbital ensemble | Both A1 subspaces reject; frame/properties retained; continuum generated; signed CSF map/all74 vectors pass | Retain original phase-aware CIDATA; qualify native consumer/integral/channel interfaces and declare contrast before scattering | Physical screen63.503s /.49293GiB; generation15.049s /2.46218GiB; signed check16.496s /.60803GiB; no QC repeat |
+| Orbital ensemble | Both A1 subspaces reject; continuum/signed CSFs/native74-root consumer/target integrals pass | Reuse original CIDATA/properties; qualify actual scattering channel/root/property maps and declare contrast | Read-only native jobs3.761s /peak.12254GiB; saved Hamiltonian difference bound6.26708e-13Ha; no QC repeat |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Choose a model only after independent ensemble/basis effects are measured; budget remaining uncertainty explicitly | Reuse existing2048 results; no automatic larger active-space or channel ladder |
 | Resonance widths | Compressed/equilibrium required-window prediction rejects;94 known beyond-budget width counterexamples persist | A physically constrained extraction design with known-truth nonpolynomial successes, held-out phase predictions and explicit pole/width-identifiability veto | Existing calibration/native reading took13.9s /4.0s; new fit design remains uncosted; direct native complex poles need separate numerical qualification |

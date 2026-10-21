@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 32300,
+      "sha256": "505f64ed16fa13c2474d951c03d543f9e25f03699a06e3a78f03a4fc418fd0b0"
+    },
+    "input-members.json": {
+      "bytes": 4152,
+      "sha256": "6fbf6789aa0ab9a06c0aa05ad37a332b4791bf6a7041fcd62445eba9ec05ff50"
+    },
+    "manifest.json": {
+      "bytes": 813,
+      "sha256": "171f6a55e603cd13fb07e2176a47cde1df8090a41a0a7d88e443ff1fa4226a6a"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 1859,
+      "sha256": "33a2200d04c41063102e58070a98ea81b2050f05e667ec994cd6cd6664bb5147"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 11865,
+      "sha256": "50d7d7f09ce84e0a580f2d27f291bbbfec458d5db86f83c93112ed0fd6ae6f8a"
+    },
+    "result-summary.json": {
+      "bytes": 91160,
+      "sha256": "88dd12f9e9d2b22266eee7946618cd350b411e456c50c4a84dc839e44d8584ba"
+    },
+    "results.tar.gz": {
+      "bytes": 16221481,
+      "sha256": "10c3925dfbe70391ae164d5ae8f73e49c927f2d18217ce617251d78fedef023d"
+    }
+  },
+  "git_sha": "1a785ee1f5f65d6c1a0b2317ad10b63ed89c24aa",
+  "url_prefix": "https://data.qscat.org/co-native-target-interface-20261021/"
+}

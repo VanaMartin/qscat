@@ -102,6 +102,13 @@ malformed root/energy/centre/trailing data. See the two `test_native_csf_*` file
 
 ## Next production decision
 
+**19:55UTC advance:** [the installed native target consumer and saved integral
+target blocks](NATIVE_TARGET_INTERFACE.md) now pass. All74 vectors/relative
+energies agree byte-exactly; h/overlaps exact, common-basis Hamiltonian difference
+bound6.26708e-13Ha. The completed target read is reused while matched double GBTO
+headers repair the separate integral I/O ABI. Actual scattering target-channel
+phase/root/property maps and the physical A1 rejection remain separate.
+
 Do **not** repeat QC, target diagonalization or the37-minute property export
 merely to change orbital addressing. Retain the original phase-aware target
 CIDATA and saved40-state properties. A bounded native **read/import-only** check
