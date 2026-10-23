@@ -46,6 +46,28 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Saved B1 character passes —23 October,17:24UTC
+
+Frozen/pushed `cee9e3e` predates the actual scores. The saved B1 screen completes
+17:23:40UTC, scientific/command/container/owner0/0/0/0,1.322034s container;
+zero new maps. Its open-residue leakage outside ground-target `|m|=1` is
+1.14749065e-9, below the predeclared1e-4 pass threshold. All four estimates pass,
+rank/signal/symmetry/stability guards intact. Mixed-l support does not justify
+a single-partial-wave approximation; these norms are not branching probabilities.
+All123 inputs /86 prior archived files /17 frozen sources verify. Persistent:
+`prepared/saved-pole-character-source-20261023/`. Nine controls pass in runtime.
+The paired verdict remains unset; no B2 propagation has happened at this freeze.
+
+**Next bounded deliverable:** the compressed B2 counterpart under the unchanged
+[policy](paired-pole-character-contract-20261023.json) and
+[execution contract](paired-pole-execution-contract-20261023.json), after adapter/
+source/owner freeze. Reuse B1; two real development-S checks precede complex work.
+At most67 new maps, same original three settings/witnesses, root caps12/8/8,
+fixed B1-centered+/-0.002Ha box and seed pair. Eight physical cores0–7 /8GiB /
+1800s hard cap; no repair or automatic successor. All114 holdouts, equilibrium
+pole exclusion and parked new50 remain protected. Review on any result; a full
+pass returns priority to matched electronic-model evidence, not a geometry sweep.
+
 ### Paired-sector character policy —23 October,17:21UTC, before actual scores
 
 [Design](../../docs/physics/co-paired-pole-character.md) /

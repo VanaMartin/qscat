@@ -2,6 +2,15 @@
 
 ## Decision now
 
+**17:24UTC saved result:** B1 passes the frozen open-residue character screen:
+leakage1.14749e-9, all four estimates agree; no new propagation,1.322s container.
+This supports the intended finite-reference B1 open-Pi support, not a paired
+assignment, probability or single-l approximation. Proceed only to the already
+bounded B2 counterpart under the unchanged policy and
+[separately frozen execution adapter](paired-pole-execution-contract-20261023.json):
+two development-S gates first, all original pole/residue witnesses, at most67
+new maps /eight physical cores /8GiB /1800s hard cap. No other scope is released.
+
 **17:21UTC continuation:** [freeze the paired-sector/character policy](../../docs/physics/co-paired-pole-character.md)
 before actual scores. First screen four saved B1 residues against the native
 ground-target `|m|=1` projector; no new propagation. B1 rejection/inconclusive

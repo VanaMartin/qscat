@@ -183,7 +183,7 @@ def run(root, output, contract):
             save()
             if result.returncode:
                 raise ValueError("Controls failed before CO pole use")
-        if contract["case"] != "compressed/nine/B1":
+        if contract["case"] not in ["compressed/nine/B1", "compressed/nine/B2"]:
             raise ValueError("Only frozen development anchor allowed")
         model = load_model(raw / contract["case"])
         rng = np.random.default_rng(contract["projection_seed"])

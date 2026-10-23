@@ -296,6 +296,32 @@ another geometry or exterior campaign. Electronic accuracy, omitted spectrum,
 continuity, neutral/factory/asymptote/full-scattering gates remain open. All114
 route holdouts and equilibrium pole exclusion stay protected; new50 stays parked.
 
+### Goal checkpoint —23 October,17:24UTC: saved B1 character passes; bounded B2 eligible
+
+Freeze/push `cee9e3e` precedes all actual character scores. The saved-only B1
+application passes at17:23:40UTC, original scientific/command/container/owner
+0/0/0/0, container1.322034s, no propagation. Leakage outside the ground-target
+`|m|=1` subspace is1.14749065e-9 against the prospectively frozen1e-4 pass gate.
+All four residue estimates pass; maximum leakage change1.45e-19, profile TV
+change4.10e-14 and relative norm change2.51e-7. The finite-model profile is mixed
+in l (l=1 about.3271, l=2 about.6663); this is not a p-wave-only model or a
+branching probability. All123 inputs /86 archived files /17 source entries
+authenticate; nine controls pass in the pinned runtime. The paired verdict is unset.
+
+**Evidence delta:** the B1 pole's proposed open-Pi support passes a necessary
+character condition, without a new solve. B2 pairing remains unmeasured, as do
+electronic accuracy, exact axial conservation, omitted spectrum and continuity.
+**Disposition: continue to the single B2 counterpart already allocated by the
+unchanged prospective policy**, after its adapter/source/owner freeze. The
+[execution contract](paired-pole-execution-contract-20261023.json) pins the
+original policy, base pole contract and saved B1 result/exits. Only the existing
+pole runner's compressed-sector guard changes; its numerical routines/settings
+do not. Two development-S checks precede any complex map; at most67 new maps,
+eight physical cores /8GiB /1800s hard cap. Original witnesses and same-root
+budgets remain, with no B1 repropagation, alternate seed/box, repair or successor.
+Review on any B2 outcome; all114 holdouts and equilibrium pole exclusion remain
+protected. This is still within the one-cycle/two-hour implementation effort cap.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

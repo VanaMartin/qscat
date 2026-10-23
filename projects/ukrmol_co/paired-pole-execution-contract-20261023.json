@@ -1,0 +1,16 @@
+{
+  "status": "single conditional B2 execution after saved B1 character pass; unchanged prospective scientific policy",
+  "policy_contract": "projects/ukrmol_co/paired-pole-character-contract-20261023.json",
+  "policy_sha256": "1308e5112e61d1198d5b71cb246ffc2ab51f30d7ecdb6bf659006f623e6c9d56",
+  "pole_contract": "projects/ukrmol_co/compressed-pole-reference-contract-20261023.json",
+  "pole_contract_sha256": "793a8f971800b0343fdc88ccc6d060ebc4ef6d166065c554aa7aec71d794221d",
+  "b1_screen": "prepared/saved-pole-character-source-20261023/outputs/check/result.json",
+  "b1_screen_execution": "prepared/saved-pole-character-source-20261023/execution.json",
+  "input_sha256": {
+    "prepared/saved-pole-character-source-20261023/outputs/check/result.json": "cca809e40ad2039b2a4ef8a5269fc3bda37701da7cfdb01809923d07c1dca837",
+    "prepared/saved-pole-character-source-20261023/execution.json": "8f73c210c97ebae80aea8971780d0b91d0b20d3325eeffd2486d681ba2a9ba77"
+  },
+  "scientific_changes_from_policy": "none: no threshold/box/seed/setting/budget change after the B1 character result",
+  "source_change": "Permit only the additional compressed/nine/B2 case in the existing finite pole runner; root/ODE/contour/derivative numerics unchanged. The paired adapter verifies saved B1 pass, exact policy/base-contract digests, two B2 development full-S gates and all original pole/residue witnesses.",
+  "resource_scope": "At most67 new B2 maps total, eight physical cores0-7, one BLAS thread per worker, up to8 contour workers,8GiB,1800s hard cap. No B1 propagation. Preserve one original application and all exits/partial points. No repair, automatic successor, extra sector/anchor/model/geometry, fit or held-out S analysis."
+}
