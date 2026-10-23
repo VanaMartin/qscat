@@ -15,8 +15,9 @@ bounded deliverable and unresolved scientific blockers.
 **23 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
 parks the optional new50/interface branch. The bare full-S shortcut is ruled out;
 the outgoing-pole reduction below now defines the prospective scalar target.
-The separately bounded outgoing-map canary below now passes, but no root search
-or sweep is automatically released; unqualified widths are not targets.
+The separately bounded map and compressed-pole experiments below now pass for
+one finite reference. No new sector/anchor or sweep is automatically released;
+this is not a qualified CO width curve or factory target.
 
 **23 October,10:12UTC result:** [the bare direct-S fitting shortcut rejects](DIRECT_SCATTERING_SCREEN.md)
 at all three anchors/both sectors,392/480 development matrices, in0.872s with
@@ -39,6 +40,15 @@ or holdout analysis. Original dependency stop2/2/2 is preserved beside the
 unchanged-numerics successor0/0/0. Public saved reconstruction verifies all40
 row gates. Next is a bounded one-anchor pole-reference proposal, not a general
 solver campaign; no qualified CO pole/width or potential has been produced.
+
+**14:55UTC result:** [one compressed finite-reference outgoing pole](COMPRESSED_POLE_REFERENCE.md)
+is numerically witnessed: **3.7604physical eV position /2.0846physical eV full
+width**, CAS11/nine-A2/B1,2048 roots/all298 channels. Boundary matching, interior
+contour and visible open-channel residue pass, with public saved reconstruction.
+Cost180.99s; no new engine/inner solve, geometry, potential fit or holdout S
+analysis. This does not establish electronic accuracy, an independent exterior
+or a CO width curve. Next is a bounded paired-sector/angular-character proposal,
+not automatic expansion to more geometries or a solver campaign.
 
 The completed evidence preserves the first pilot and two calibration snapshots:
 
@@ -629,10 +639,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 23 October 2026
 
-![CO outgoing-map canary: three compressed-anchor full S matrices reproduce; one complex map is stable; pole and electronic-model qualification remain open](../../docs/physics/figures/co-progress-20261023T1321-outgoing-map-canary.png)
+![CO compressed finite-reference B1 pole:3.7604eV position and2.0846eV full width; channel residue witnessed, electronic accuracy and width curve still open](../../docs/physics/figures/co-progress-20261023T1455-compressed-pole-reference.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261023T1321-outgoing-map-canary.svg) ·
-[Outgoing-map snapshot](progress-snapshot-20261023T1321-outgoing-map-canary.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261023T1455-compressed-pole-reference.svg) ·
+[Finite-reference pole snapshot](progress-snapshot-20261023T1455-compressed-pole-reference.json) ·
+[Compressed pole result](COMPRESSED_POLE_REFERENCE.md) ·
+[Independent saved pole witnesses](verification-compressed-pole-reference-public-20261023.json) ·
+[Previous outgoing-map figure](../../docs/physics/figures/co-progress-20261023T1321-outgoing-map-canary.svg) ·
+[Previous outgoing-map snapshot](progress-snapshot-20261023T1321-outgoing-map-canary.json) ·
 [Canary result](OUTGOING_MAP_CANARY.md) ·
 [Independent saved reconstruction](verification-outgoing-map-canary-public-20261023.json) ·
 [Previous target-definition figure](../../docs/physics/figures/co-progress-20261023T1056-effective-target.svg) ·

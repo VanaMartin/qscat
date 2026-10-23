@@ -1,0 +1,38 @@
+{
+  "observed_utc": "2026-10-23T14:55:44.983760+00:00",
+  "public_payloads_verified": 7,
+  "archived_files_verified": 86,
+  "source_entries_verified": 25,
+  "fresh_prerequisite_payloads": 3,
+  "original_inputs_verified": 123,
+  "original_exits": [
+    0,
+    0,
+    0
+  ],
+  "saved_maps_verified": 47,
+  "bordered_search_values_reconstructed": 10,
+  "contour_points_reconstructed": 32,
+  "derivative_witnesses_reconstructed": 2,
+  "pole_position_ev": 3.760389687392806,
+  "pole_full_width_ev": 2.0846143865399505,
+  "max_native_q_absolute_drift": 8.965351675814767e-15,
+  "max_bordered_scalar_absolute_drift": 2.645453300864631e-16,
+  "max_interior_projection_relative_drift": 6.230206230579091e-13,
+  "max_outgoing_transition_relative_drift": 6.417665943772608e-13,
+  "max_contour_phase_drift_rad": 6.004086117172847e-13,
+  "max_moment_relative_drift": 8.713567300883332e-14,
+  "max_derivative_residue_relative_drift": 3.0670035309363303e-11,
+  "independent_contour_root_difference_ev": [
+    2.1676182661574548e-13,
+    1.2424153476756143e-13
+  ],
+  "finite_reference_pole_verdict": true,
+  "physical_co_accuracy_verdict": null,
+  "independent_exterior_verdict": null,
+  "width_curve_verdict": null,
+  "new_propagations": 0,
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "independence": "Independent native record decoder/Q contraction, opposite I-YQ Schur/residue solves, einsum contour moments and NumPy bordered solves. All saved root/contour/residue gates reconstruct; no producer numerical modules, new ODE integration or independent exterior engine. Tiny agreement is not an absolute CO error bound."
+}

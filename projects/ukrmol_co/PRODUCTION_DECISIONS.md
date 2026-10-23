@@ -235,6 +235,36 @@ Review immediately on the outcome. Model, continuity, neutral, scalar/full-
 scattering and sweep gates remain; all114 route holdouts and equilibrium pole
 exclusion stay protected, new50 parked.
 
+### Goal checkpoint —23 October,14:55UTC: one visible finite-reference pole
+
+**Question completed:** can the compressed development reference supply an
+outgoing pole rather than unidentifiable local phase-fit parameters? The
+[finite experiment](COMPRESSED_POLE_REFERENCE.md) finds **3.7604eV position /
+2.0846eV full width**, compressed/nine-A2/B1 CAS11,2048 roots/all298 channels.
+The boundary zero is recovered through interior contour moments and has a
+nonzero rank-one open-channel residue. Original exits0/0/0;47/77 allocated maps,
+180.990698s wall /1.94329GiB cgroup peak, eight physical cores. Independent public
+saved reconstruction verifies every witness with no new propagation. All123
+original inputs and25 source entries verify; eleven controls pass locally/runtime.
+
+**Evidence delta:** one pole/residue datum of the declared finite model now
+replaces a missing local fitting-information ingredient. This resolves that
+local pole-identification question, not electronic accuracy or a CO width curve.
+Both stricter settings accept the same candidate without new iterates; raw
+contour/algebra agreement is not an absolute uncertainty enclosure. Constructions
+share the exterior ODE. Omitted spectrum, paired-sector assignment, model,
+neutral, continuity, extra training nodes and full-scattering embedding stay open.
+
+**Disposition: continue to one paired-sector/character consistency proposal at
+the same compressed anchor**, separately bounded before any B2 work. B1/B2
+degeneracy alone is not a Lambda assignment; require open-channel angular
+character before a Pi target. Failure would block
+the proposed single-Pi assignment; pass should return effort to a matched
+electronic-model decision rather than a general numerical campaign. No next
+sector/anchor, fit, geometry or root ladder is launched. All114 route holdouts
+and equilibrium pole exclusion remain protected; new50 stays parked. Review on
+that proposal or the next active working-cycle boundary.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
@@ -413,7 +443,7 @@ automatic sequence of calculations; parked work does not block every route.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Fitting-information route | Bare full-S shortcut rejects; scalar target defined; one-anchor outgoing-map feasibility now passes, native poles still unqualified | Define a bounded compressed-anchor pole-reference proposal with independent construction/residue witness; full-scattering embedding remains missing | Measured3.53–8.27s/map,55.85s canary; no automatic root search or extra geometries |
+| Fitting-information route | One compressed B1 finite-reference pole/residue now passes; bare full-S shortcut still rejects; no CO width curve/model accuracy yet | Define a bounded paired-sector/angular-character proposal at this anchor, then return to a matched model decision; full-scattering embedding remains missing | Completed47-map pole experiment180.99s /1.943GiB; no automatic sector/anchor, fit or geometry expansion |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Select model with explicit decision-changing checks and remaining uncertainty budget; no accuracy claim from a larger model alone | Reuse existing2048 results; no automatic active-space/channel ladder |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Continuity | Retained/omitted exchanges and ambiguous coarse links remain | Neighboring-geometry physical subspace/resonance correspondence for the selected model | Bound the geometry pilot after the model is selected |

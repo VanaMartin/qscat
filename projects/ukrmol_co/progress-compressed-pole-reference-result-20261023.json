@@ -1,0 +1,369 @@
+{
+  "observed_utc": "2026-10-23T14:49:57.956678+00:00",
+  "execution": {
+    "source_commit": "9b4f588883532923d4420f0875e5418cf72094d6",
+    "source_archive_sha256": "11197103c7dcb117dc66516ed209a407ae012358f15a98c7b20ca9cfe9b7c330",
+    "owner_sha256": "bb4ae94b2ca51a31aaf56246f25eac2e4f31630b8a23f7e49e899ba9cb6cd165",
+    "started_utc": "2026-10-23T14:42:30.533033+00:00",
+    "native_calls": 0,
+    "scope": "one compressed finite-reference pole experiment",
+    "original_owner_exit": 0,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi        10Gi       6.8Gi       1.3Gi       108Gi       112Gi\nSwap:           29Gi       768Ki        29Gi\n",
+    "disk": "Filesystem            Size  Used Avail Use% Mounted on\n/dev/mapper/vg0-home  1.5T  1.3T   47G  97% /home\n",
+    "prior_workloads": "comfyui Up 42 hours\n",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-compressed-pole-reference-20261023",
+      "--cpuset-cpus=0-7",
+      "--memory=8g",
+      "--memory-swap=8g",
+      "--shm-size=1g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "-e",
+      "PYTHONPATH=/opt/qmodeling:/opt/qmodeling/libs/qscat",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-pole-reference-source-20261023/source:/opt/qmodeling:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-pole-reference-source-20261023/outputs:/out",
+      "-w",
+      "/opt/qmodeling",
+      "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+      "python3",
+      "-m",
+      "projects.ukrmol_co.compressed_pole_reference",
+      "--root",
+      "/work",
+      "--output",
+      "/out/check",
+      "--contract",
+      "/opt/qmodeling/projects/ukrmol_co/compressed-pole-reference-contract-20261023.json"
+    ],
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "timed_out": false,
+    "original_command_exit": 0,
+    "original_container_exit": 0,
+    "container_oom_killed": false,
+    "wall_seconds": 180.99069844998303,
+    "finished_utc": "2026-10-23T14:45:31.537548+00:00",
+    "source_integrity_after": true
+  },
+  "result": {
+    "case": "compressed/nine/B1",
+    "roots": [
+      {
+        "stage": 0,
+        "setting": [
+          80,
+          30,
+          8,
+          1e-10
+        ],
+        "completed": true,
+        "search": {
+          "evaluations": 8,
+          "trace": [
+            {
+              "z": [
+                0.14,
+                -0.04
+              ],
+              "alpha_abs": 0.006283095189628011,
+              "sigma_min": 0.006283095189628539,
+              "sigma_second": 0.1528802277957689
+            },
+            {
+              "z": [
+                0.142,
+                -0.04
+              ],
+              "alpha_abs": 0.0107021977346376,
+              "sigma_min": 0.01070194385634937,
+              "sigma_second": 0.15357640317079727
+            },
+            {
+              "z": [
+                0.13764022304276746,
+                -0.03877538517392575
+              ],
+              "alpha_abs": 0.0019561372675371514,
+              "sigma_min": 0.0019560255553355793,
+              "sigma_second": 0.16479552607558023
+            },
+            {
+              "z": [
+                0.1380871712104524,
+                -0.038119770351285054
+              ],
+              "alpha_abs": 0.0005991766032168715,
+              "sigma_min": 0.000599143529530125,
+              "sigma_second": 0.17205661650479076
+            },
+            {
+              "z": [
+                0.1381892479662693,
+                -0.03831422930450647
+              ],
+              "alpha_abs": 2.9204152886705917e-05,
+              "sigma_min": 2.9202786812903204e-05,
+              "sigma_second": 0.16992118993766797
+            },
+            {
+              "z": [
+                0.1381918282778886,
+                -0.03830422002778593
+              ],
+              "alpha_abs": 4.1429189679933227e-07,
+              "sigma_min": 4.1427244773830626e-07,
+              "sigma_second": 0.1700319218514684
+            },
+            {
+              "z": [
+                0.13819177210073108,
+                -0.038304082750976416
+              ],
+              "alpha_abs": 2.910782031447848e-10,
+              "sigma_min": 2.9106481995712133e-10,
+              "sigma_second": 0.170033423038596
+            },
+            {
+              "z": [
+                0.1381917721280088,
+                -0.038304082851481014
+              ],
+              "alpha_abs": 3.070916972817127e-14,
+              "sigma_min": 2.947316394476391e-14,
+              "sigma_second": 0.17003342193681525
+            }
+          ]
+        },
+        "z_hartree": [
+          0.1381917721280088,
+          -0.038304082851481014
+        ],
+        "position_ev": 3.760389687392806,
+        "full_width_ev": 2.0846143865399505
+      },
+      {
+        "stage": 1,
+        "setting": [
+          120,
+          30,
+          8,
+          1e-11
+        ],
+        "completed": true,
+        "search": {
+          "evaluations": 1,
+          "trace": [
+            {
+              "z": [
+                0.1381917721280088,
+                -0.038304082851481014
+              ],
+              "alpha_abs": 2.96291807044331e-14,
+              "sigma_min": 2.8754822499255325e-14,
+              "sigma_second": 0.17003342193681517
+            }
+          ]
+        },
+        "z_hartree": [
+          0.1381917721280088,
+          -0.038304082851481014
+        ],
+        "position_ev": 3.760389687392806,
+        "full_width_ev": 2.0846143865399505
+      },
+      {
+        "stage": 2,
+        "setting": [
+          120,
+          40,
+          10,
+          1e-12
+        ],
+        "completed": true,
+        "search": {
+          "evaluations": 1,
+          "trace": [
+            {
+              "z": [
+                0.1381917721280088,
+                -0.038304082851481014
+              ],
+              "alpha_abs": 2.9941266064796166e-14,
+              "sigma_min": 2.899164321213982e-14,
+              "sigma_second": 0.17003342193681467
+            }
+          ]
+        },
+        "z_hartree": [
+          0.1381917721280088,
+          -0.038304082851481014
+        ],
+        "position_ev": 3.760389687392806,
+        "full_width_ev": 2.0846143865399505
+      }
+    ],
+    "finite_reference_pole_verdict": true,
+    "independent_exterior_verdict": null,
+    "physical_co_accuracy_verdict": null,
+    "width_curve_verdict": null,
+    "scientific_exit": 0,
+    "native_calls": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "full_sweep_released": false,
+    "scope": "Bordered root, interior resolvent moments and nonzero6x6 open-channel residue are different constructions sharing the same native data and exterior ODE. Passing numerically witnesses a pole of the declared2048-root/298-channel finite reference, not an independent exterior engine, omitted-spectrum bound, electronically accurate CO width, qualified curve, potential or full-scattering embedding.",
+    "inputs_verified_before": 123,
+    "test_outgoing_map_exit": 0,
+    "wall_seconds": 180.32626762898872,
+    "process_cpu_seconds": 110.49076600000001,
+    "peak_parent_rss_platform_units": 338056,
+    "cgroup_memory.peak": "2086596608\n",
+    "cgroup_cpu.stat": "usage_usec 660464411\nuser_usec 659840426\nsystem_usec 623985\nnice_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+    "test_pole_reference_exit": 0,
+    "root_setting_differences": [
+      {
+        "position_ev": 0.0,
+        "full_width_ev": 0.0
+      },
+      {
+        "position_ev": 0.0,
+        "full_width_ev": 0.0
+      },
+      {
+        "position_ev": 0.0,
+        "full_width_ev": 0.0
+      }
+    ],
+    "contour_witness": {
+      "interior_residue_norm": 0.018017753120752433,
+      "open_residue_norm_hartree": 0.056890719063889934,
+      "pole": [
+        0.13819177212800085,
+        -0.038304082851478745
+      ],
+      "root_difference": {
+        "position_ev": 2.160065589271889e-13,
+        "full_width_ev": 1.2348626707900485e-13
+      },
+      "rule_pole_difference": {
+        "position_ev": 1.510535377113209e-15,
+        "full_width_ev": 5.6645076641745334e-15
+      },
+      "winding": [
+        1.0000000000000002,
+        1.0
+      ],
+      "max_phase_jump": [
+        0.5429101606415311,
+        0.271720289819501
+      ],
+      "interior_rank_ratio": 5.670240041400858e-16,
+      "open_rank_ratio": 5.202795721445948e-15,
+      "interior_rule_change": 1.3370009781416708e-12,
+      "open_rule_change": 1.345469515168396e-12,
+      "checks": {
+        "interior_signal": true,
+        "interior_rank": true,
+        "open_signal": true,
+        "open_rank": true,
+        "interior_rule": true,
+        "open_rule": true,
+        "root_agreement": true,
+        "pole_rule_agreement": true,
+        "winding": true,
+        "winding_resolution": true
+      }
+    },
+    "derivative_witnesses": [
+      {
+        "derivative_denominator_abs": 2.794944741406379,
+        "sigma_min": 3.0217474287369397e-14,
+        "boundary_transpose_relative_error": 3.4007916071814194e-14,
+        "relative_contour_residue_error": 2.5412267551597554e-07,
+        "checks": {
+          "center_null": true,
+          "residue": true,
+          "transpose": true
+        }
+      },
+      {
+        "derivative_denominator_abs": 2.794945268617333,
+        "sigma_min": 3.0217474287369397e-14,
+        "boundary_transpose_relative_error": 3.400942794234431e-14,
+        "relative_contour_residue_error": 6.329104178472438e-08,
+        "checks": {
+          "center_null": true,
+          "residue": true,
+          "transpose": true
+        }
+      }
+    ],
+    "pole_incident_hartree": [
+      0.1381917721280088,
+      -0.038304082851481014
+    ],
+    "inputs_verified_after": 123,
+    "map_evaluations": 47,
+    "evaluation_kinds": {
+      "contour": 32,
+      "derivative": 4,
+      "residue-center": 1,
+      "root": 10
+    }
+  },
+  "source_entries": 25,
+  "production_decision": "One numerically witnessed pole of the declared compressed CAS11/nine-A2 B1 finite2048-root reference; not absolute CO accuracy, an independent exterior solver, a width curve or a potential. Next paired-sector consistency/model decision requires a separate contract.",
+  "public_verification": {
+    "observed_utc": "2026-10-23T14:55:44.983760+00:00",
+    "public_payloads_verified": 7,
+    "archived_files_verified": 86,
+    "source_entries_verified": 25,
+    "fresh_prerequisite_payloads": 3,
+    "original_inputs_verified": 123,
+    "original_exits": [
+      0,
+      0,
+      0
+    ],
+    "saved_maps_verified": 47,
+    "bordered_search_values_reconstructed": 10,
+    "contour_points_reconstructed": 32,
+    "derivative_witnesses_reconstructed": 2,
+    "pole_position_ev": 3.760389687392806,
+    "pole_full_width_ev": 2.0846143865399505,
+    "max_native_q_absolute_drift": 8.965351675814767e-15,
+    "max_bordered_scalar_absolute_drift": 2.645453300864631e-16,
+    "max_interior_projection_relative_drift": 6.230206230579091e-13,
+    "max_outgoing_transition_relative_drift": 6.417665943772608e-13,
+    "max_contour_phase_drift_rad": 6.004086117172847e-13,
+    "max_moment_relative_drift": 8.713567300883332e-14,
+    "max_derivative_residue_relative_drift": 3.0670035309363303e-11,
+    "independent_contour_root_difference_ev": [
+      2.1676182661574548e-13,
+      1.2424153476756143e-13
+    ],
+    "finite_reference_pole_verdict": true,
+    "physical_co_accuracy_verdict": null,
+    "independent_exterior_verdict": null,
+    "width_curve_verdict": null,
+    "new_propagations": 0,
+    "native_calls": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "independence": "Independent native record decoder/Q contraction, opposite I-YQ Schur/residue solves, einsum contour moments and NumPy bordered solves. All saved root/contour/residue gates reconstruct; no producer numerical modules, new ODE integration or independent exterior engine. Tiny agreement is not an absolute CO error bound."
+  }
+}

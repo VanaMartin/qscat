@@ -40,6 +40,15 @@ proposal using measured map costs, not a pole/width qualification or automatic
 root search. All114 route holdout S values and equilibrium pole exclusion remain
 protected. All model/neutral/continuity/full-scattering production gates remain.
 
+**14:55UTC pole outcome:** [one finite-reference compressed B1 pole](COMPRESSED_POLE_REFERENCE.md)
+passes the frozen boundary/contour/open-residue gates:3.7604eV position and
+2.0846eV full width,180.99s /47 maps. The pole constructions share the outgoing
+ODE; no absolute CO/electronic accuracy, omitted-spectrum bound, width curve,
+factory target or potential follows. Next is one separately bounded paired-
+sector/angular-character proposal at this anchor before a Pi curve/model decision.
+All114 route holdouts and equilibrium pole exclusion stay protected; no next
+sector, anchor, geometry or fit is automatically launched.
+
 This roadmap is decision-driven: use the smallest retained eigenpair count that
 passes observable and omission checks; every refinement must address a measured
 discrepancy. The full execution record is in [CONTINUATION.md](CONTINUATION.md).

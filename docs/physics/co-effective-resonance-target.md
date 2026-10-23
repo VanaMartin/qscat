@@ -211,3 +211,11 @@ qualify complex continuation throughout a search region. The saved references,
 2048-root omission and full-scattering limitations above are unchanged. A bounded
 pole-reference proposal can now use measured map costs instead of assuming that
 a general solver campaign is necessary.
+
+**Later23 October result:** the separately frozen
+[compressed pole experiment](co-compressed-pole-reference.md) now witnesses one
+outgoing B1 pole of the saved finite2048-root model with a visible channel
+residue. It is not a qualified multi-geometry CO width curve or absolute model
+accuracy; paired-sector consistency, electronic-model choice, continuity and
+the factory/held-out scattering requirements above remain open. No factory
+target is populated from that single datum.

@@ -18,11 +18,12 @@ comparison is optional, not a universal sweep prerequisite. The
 native interface closure. The separately frozen saved-S screen has now ruled
 out the bare full-matrix fitter. The outgoing-pole target map is now defined,
 including retained polar shifts and an excluded-geometry validation rule. The
-bounded design cycle was followed by a separately frozen outgoing-map canary,
-which now passes at one saved anchor. Next define one finite compressed-anchor
-pole-reference proposal using measured map costs and an independent pole witness;
-no root search, fitter, extra geometries or inner solve follows automatically.
-Review on that proposal or next cycle boundary (25 October if active).
+bounded design cycle was followed by separately frozen map/pole experiments.
+One visible finite-reference pole now passes at compressed/nine/B1. Next define
+a bounded B1/B2 and channel-character proposal at that anchor before extending a Pi
+curve; model accuracy remains unresolved. No other sector/anchor, fitter, extra
+geometry or inner solve follows automatically. Review on that proposal or next
+cycle boundary (25 October if active).
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -44,6 +45,54 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Compressed finite-reference pole —23 October,14:55UTC
+
+[Result](COMPRESSED_POLE_REFERENCE.md), source freeze `9b4f588`: incident
+z=0.1381917721280088−0.0383040828514810iHa, position **3.7604physical eV** /
+full width **2.0846physical eV**, compressed/nine-A2/B1 CAS11, all298 channels /
+2048 exported roots. No factory target/curve or absolute CO accuracy is qualified.
+Base search uses eight evaluations; both tighter settings accept the same
+starting candidate in one evaluation each. Identical coordinates are not zero
+error or three independent refinements. Interior resolvent contour and visible
+6x6 open residue pass all frozen gates. Both pole constructions share the
+outgoing ODE; no independent298-channel complex exterior or omitted-spectrum
+bound is claimed. Eleven controls pass locally and in the pinned runtime.
+
+Original scientific/command/container/owner0/0/0/0,47 maps, finishes14:45:31UTC.
+Wall180.990698s /Python180.326268s; parent CPU110.490766s excludes workers,
+cgroup CPU660.464411s includes them. Cgroup peak1.94329GiB; parent peak.32240GiB.
+Eight physical cores0–7 /up to8 contour workers /one BLAS thread each /8GiB.
+All123 inputs, four prerequisite pins and25 source entries verify. No timeout,
+OOM, repair, alternate seed, box expansion or automatic successor. Earlier
+canary dependency stop2/2/2 and other historical failures stay unchanged.
+
+[Public saved reconstruction](verification-compressed-pole-reference-public-20261023.json)
+verifies7 payloads /86 files /25 sources and all123 original inputs, plus three
+fresh prerequisite payloads. Independent native Q/opposite I−YQ Schur/residue/
+bordered/einsum moment calculations authenticate47 map captures and rebuild
+their Q, ten bordered values,32 contour points and both derivative checks. No producer
+numerical imports, new ODE propagation or native program. Tiny reconstruction
+differences are not absolute CO error bars. Raw Y/A are authenticated, not
+independently repropagated. Persistent source/output:
+`prepared/compressed-pole-reference-source-20261023/`; public mirror
+`prepared/publication-compressed-pole-reference-20261023/`. The pole job is finished.
+
+**Next decision:** one separately bounded compressed B1/B2 pole/character
+consistency proposal, before another sector/anchor or curve. Degeneracy alone
+is not a Lambda assignment; the proposed Pi target needs open-channel angular
+character. Pass should return priority to
+a decision-changing matched electronic-model contrast, not general exterior/
+precision work. No new engine/QC/property/inner solve, geometry or potential fit
+occurred. All114 route holdout S values and equilibrium pole exclusion remain
+protected. Model, continuity, neutral, training-node minimum and full-scattering
+embedding remain open; new50 stays parked.
+Search handoff: main snapshot `423d577` is complete/current and direct remote-
+main lookup agrees. Native boundary/outgoing/pole code is branch-local and was
+read in current source; canonical unit/exception helpers are unchanged from main.
+The indexed N2 ECS eigenspectrum finder was inspected, not confused with this
+native nonlinear boundary problem. No qscat promotion or branch-index ingestion.
+The experiment is finished; unrelated ComfyUI remains untouched.
 
 ### Selected continuation —23 October: compressed pole-reference experiment
 

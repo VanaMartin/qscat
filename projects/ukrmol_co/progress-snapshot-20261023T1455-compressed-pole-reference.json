@@ -1,0 +1,111 @@
+{
+  "base_snapshot": "progress-snapshot-20261023T1321-outgoing-map-canary.json",
+  "base_snapshot_sha256": "de9ffc0cd06563e7450ebc5936cd025d9f9fc808d94d2841973add405c1467d8",
+  "additional_source_file_sha256": {
+    "docs/physics/co-compressed-pole-reference.md": "03ef2f42d46f30894ad3f6c22627de9345d5bce1d0dd7aa7fb65077c724146cf",
+    "docs/physics/co-effective-resonance-target.md": "54b2087aaf2bb6feb3588d9358328f18fca9718064f9751933b2630dc54386bf",
+    "projects/ukrmol_co/COMPRESSED_POLE_REFERENCE.md": "9830034cd69420150d5803c7a051972cda5509fd1250e36bb3cb9286c982fffe",
+    "projects/ukrmol_co/CONTINUATION.md": "8815932f26458e71ad00ea5a976635ab62a6311efcaef668ababbb23e335200a",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "eac4b1d19d631bcd8054e3b06b306cead3770c95365c8afd13c06726d494bd13",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "8e1f0799066d713cc0ef1963a702d472796adeb167200eb8c886da89d4842a34",
+    "projects/ukrmol_co/README.md": "4dc581617c878a9aaf3c18d00462efd28c1b722c65fc933d17d97a6efda4af70",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "4e5ad2ac1364a734e6059f413bc5fbb2fa00f83ebcb940a95082dd16fdad7b7c",
+    "projects/ukrmol_co/compressed-pole-reference-contract-20261023.json": "793a8f971800b0343fdc88ccc6d060ebc4ef6d166065c554aa7aec71d794221d",
+    "projects/ukrmol_co/compressed_pole_reference.py": "006768d708fd7168afc54df675840167e0f1ae3eba935076c73fb5ae19986175",
+    "projects/ukrmol_co/outgoing_map.py": "8860804fbc55ecee08d017937b5e5d116e7b52003d76cd42252ab13dc2923140",
+    "projects/ukrmol_co/pole_reference.py": "d0294af3da61c00c2b8a5d685c7364da8e14ecad3eb3cd0dd4ce8ed0b97e3472",
+    "projects/ukrmol_co/progress-compressed-pole-reference-result-20261023.json": "5d8eb7175565fe0deb13cf50b3cab115ce7b32f4c2821a3f4cc796415d447d93",
+    "projects/ukrmol_co/progress_figure.py": "be9ff20b5209adf53ec061908655b7ef6b586629e064ab6d51eaf22a6027a4be",
+    "projects/ukrmol_co/qualification-evidence/compressed-pole-reference/README.md": "0308da9e284df9da295e3544b45ecc97a83b0cf57675dc11736a85b8cae962a9",
+    "projects/ukrmol_co/qualification-evidence/compressed-pole-reference/artifacts.json": "7f927ec2f56c32ab8cba5b0a2e64230d598cdc58fa88339cb6aabe9a9403a1dc",
+    "projects/ukrmol_co/qualification-evidence/compressed-pole-reference/manifest.json": "0d4a031b585654ca3840de764c37790acd957bba3b418f566d8d6740001d0a15",
+    "projects/ukrmol_co/test_pole_reference.py": "d5ed51359d2355508ded5147b74efa32b7414e1a973392c72102c67896514141",
+    "projects/ukrmol_co/verification-compressed-pole-reference-public-20261023.json": "468e992e21940537adc962e60d128bd0cde091ad35d9ebf7088a0d91582b4db4"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-23T14:55:44.983760+00:00",
+    "live_status": {
+      "scope": "One finished compressed CAS11/nine-A2/B1 finite2048-root reference experiment; unrelated workloads untouched",
+      "goal_review_disposition": "finite-reference pole witnessed; next a bounded paired-sector/angular-character proposal, not a sweep",
+      "finite_reference_pole_verdict": true,
+      "pole_incident_hartree": [0.1381917721280088,-0.038304082851481014],
+      "pole_position_physical_ev": 3.760389687392806,
+      "pole_full_width_physical_ev": 2.0846143865399505,
+      "pi_assignment_verdict": null,
+      "co_complex_pole_verdict": null,
+      "physical_co_accuracy_verdict": null,
+      "independent_exterior_verdict": null,
+      "qualified_width_curve": false,
+      "production_model_selected": false,
+      "full_sweep_released": false,
+      "original_exits": [0,0,0],
+      "map_evaluations": 47,
+      "root_setting_evaluations": [8,1,1],
+      "tighter_settings_accepted_existing_candidate": true,
+      "same_root_position_full_width_budget_ev": 0.0001,
+      "reported_zero_root_setting_differences_are_not_zero_uncertainty": true,
+      "contour_nodes": 32,
+      "interior_residue_norm": 0.018017753120752433,
+      "open_residue_norm_hartree": 0.056890719063889934,
+      "interior_rank_ratio": 5.670240041400858e-16,
+      "open_rank_ratio": 5.202795721445948e-15,
+      "derivative_contour_relative_errors": [2.5412267551597554e-7,6.329104178472438e-8],
+      "container_wall_seconds": 180.99069844998303,
+      "parent_cpu_seconds_excluding_workers": 110.49076600000001,
+      "cgroup_cpu_seconds_including_workers": 660.464411,
+      "cgroup_peak_gib": 1.9432945251464844,
+      "parent_peak_gib": 0.32239532470703125,
+      "physical_cores": "0-7",
+      "source_entries_verified": 25,
+      "original_inputs_verified": 123,
+      "public_payloads_verified": 7,
+      "archived_files_verified": 86,
+      "new_public_replay_propagations": 0,
+      "native_calls": 0,
+      "route_holdout_s_matrices_analyzed": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "equilibrium_pole_exclusion": "protected",
+      "optional_new50_branch": "parked",
+      "tiny_saved_reconstruction_errors_are_not_absolute_co_error_bounds": true
+    },
+    "figure_subtitle": "Compressed finite-reference B1 pole:3.7604 eV position /2.0846 eV full width; electronic accuracy and a multi-geometry CO target remain open",
+    "anchor_note": "Historical native-fit markers retained (compressed/equilibrium reject).\nNew compressed finite-model pole is reported separately in F.\nStretched fit stays provisional; no qualified CO width curve.",
+    "memory_note": "Historical inner-region costs shown unchanged.\nPole experiment:181 s /1.943 GiB cgroup peak.\n8 physical cores; no engine/inner solve or new geometry.",
+    "roadmap_title": "One finite-model pole, not a curve",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "POLE: COMPRESSED / CAS11-NINE / B1",
+        "title": "3.7604 eV position /2.0846 eV full width",
+        "detail": "All 298 channels /2048 roots; not absolute CO accuracy"
+      },
+      {
+        "kind": "reuse",
+        "status": "WITNESSED: INTERIOR CONTOUR + OPEN RESIDUE",
+        "title": "Visible rank-one channel pole; winding +1",
+        "detail": "Shared outgoing ODE, not an independent exterior engine"
+      },
+      {
+        "kind": "reject",
+        "status": "OPEN: CO ACCURACY / CURVE / ASSIGNMENT",
+        "title": "No model choice or omitted-spectrum bound",
+        "detail": "One B1 pole is not yet an assigned Pi target"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT: B1/B2 COUNTERPART + ANGULAR CHARACTER",
+        "title": "One bounded proposal at the compressed anchor",
+        "detail": "Then prioritize matched electronic-model evidence"
+      },
+      {
+        "kind": "next",
+        "status": "PARKED: SWEEP / NEW50 / EXTRA GEOMETRIES",
+        "title": "47 maps /181 s; no new engine or inner solve",
+        "detail": "114 route holdouts and equilibrium exclusion protected"
+      }
+    ],
+    "roadmap_note": "Finite2048-root reference, not an absolute CO error bound.\nTighter settings accepted the same candidate: no zero-error claim.\nIndependent saved reconstruction performs no new propagation.",
+    "source_footer": "EVIDENCE  Compressed finite CAS11/nine/B1:3.7604 eV position /2.0846 eV full width. Boundary /contour /residue witnesses; original exits0/0/0 retained.",
+    "verification_footer": "Finite model only: shared exterior; no absolute CO accuracy or qualified width curve. Prior failures retained."
+  }
+}

@@ -175,3 +175,16 @@ timeout, input failure or evaluation cap exits2 with qualification unset. All
 declared gates passing exits0, qualifying only the finite-reference pole scope
 above. No retry, expanded region, new model, second sector/anchor, fit or sweep
 is released by this contract. Review immediately on any outcome.
+
+## Completed finite application
+
+Freeze `9b4f588` uses47 maps and finishes23 October14:45:31UTC, exits0/0/0.
+The finite compressed/nine/B1 reference pole is3.7604eV with2.0846eV full width.
+Boundary, interior contour and visible open-channel residue gates all pass.
+The tighter settings accept the original candidate without new iterates;
+identical reported locations are not a zero uncertainty claim. Container
+180.990698s /cgroup peak1.94329GiB. Public saved reconstruction verifies every
+witness without another propagation. See the
+[result and claim boundary](../../projects/ukrmol_co/COMPRESSED_POLE_REFERENCE.md):
+this is one pole of the finite declared model, not independent exterior or
+absolute CO accuracy, a width curve or a potential. No automatic next job.

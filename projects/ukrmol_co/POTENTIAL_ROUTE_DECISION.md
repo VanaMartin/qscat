@@ -2,6 +2,24 @@
 
 ## Decision now
 
+**14:55UTC result:** the [compressed finite-reference pole experiment](COMPRESSED_POLE_REFERENCE.md)
+passes: position **3.7604physical eV**, full width **2.0846physical eV**, for
+CAS11/nine-A2/B1 at1.9bohr with2048 roots/all298 channels. Bordered matching,
+interior contour and a visible rank-one open-channel residue agree; public
+saved reconstruction independently rebuilds the witnesses. The tighter settings
+accept the existing candidate, not new independent iterates or zero uncertainty.
+The exterior ODE is shared; this is not absolute CO/electronic accuracy or a
+qualified width curve. Cost180.99s /47 maps, original exits0/0/0.
+
+**Disposition:** continue to a separately bounded **B1/B2 paired-sector and
+angular-character consistency proposal at this same compressed anchor**. B1/B2
+degeneracy alone is not a Lambda assignment; a Pi target needs channel-character
+evidence before extension to a curve. Pass returns priority to
+a decision-changing matched electronic-model contrast, not another general
+exterior/precision branch. No new sector/anchor, fit, root ladder, geometry or
+sweep is automatically authorized. All114 route holdout S values and equilibrium
+pole exclusion stay protected; new50 remains parked.
+
 **Selected continuation —23 October:** the
 [compressed pole-reference experiment](../../docs/physics/co-compressed-pole-reference.md)
 now has a [finite contract](compressed-pole-reference-contract-20261023.json):

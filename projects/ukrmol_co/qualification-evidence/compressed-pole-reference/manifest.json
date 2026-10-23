@@ -1,0 +1,17 @@
+{
+  "git_sha": "9b4f588883532923d4420f0875e5418cf72094d6",
+  "experiment": "co-compressed-pole-reference-20261023",
+  "original_exits": [
+    0,
+    0,
+    0
+  ],
+  "finite_reference_pole_verdict": true,
+  "physical_co_accuracy_verdict": null,
+  "independent_exterior_verdict": null,
+  "width_curve_verdict": null,
+  "full_sweep_released": false,
+  "case": "compressed/nine/B1",
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0
+}
