@@ -15,16 +15,17 @@ optional comparisons alone do not measure sweep readiness.
 choice and reliable width/extraction remain unresolved. The fifty-component
 comparison is optional, not a universal sweep prerequisite. The
 [route decision](POTENTIAL_ROUTE_DECISION.md) parks that branch, including remaining
-native interface closure, for this cycle. Reuse existing anchors to specify one
-finite feasibility test of physically restricted extraction versus direct
-scattering fitting, or name the single missing ingredient. One working-cycle
-design/review cap, no new numerical job or inner solve authorized. Review after
-that deliverable or by the next cycle boundary (25 October if active).
+native interface closure. The separately frozen saved-S screen has now ruled
+out the bare full-matrix fitter. Next specify one justified channel-to-effective-
+model target map with retained tail/background and validation observable. One
+working-cycle target-definition cap; no new fitter, pole campaign or inner solve
+is authorized automatically. Review on that deliverable or next cycle boundary
+(25 October if active).
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--21-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--23-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -41,6 +42,42 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Goal-linked result —23 October,10:12UTC: bare direct-S fitter ruled out
+
+[The bounded route screen](DIRECT_SCATTERING_SCREEN.md), freeze `8d0cbc8`,
+eliminates the **bare isotropic full-S** fitting specification. All three
+CAS11/nine-A2 anchors/both Pi sectors reject even arbitrary diagonal unitary
+phases independently per energy:392/480 development points reject,16 inconclusive,
+72 pointwise admitted.114 prospective route holdouts are not analyzed. The new
+full-S relative-eigenphase metric is not the historical eigenphase-sum gate.
+It does not rule out tail-dressed/reduced models or identify widths.
+
+Original scientific/command/container/owner1/1/1/1 are intentional rejection,
+not exception/timeout/OOM. All six cases and123 inputs complete/verify;12 source
+entries and two parent pins verify. Container0.87157s, Python0.20946s, process
+RSS.06329GiB; four physical cores0–3 /one thread /4GiB. Zero native calls,
+propagation, fitting, QC, properties or inner solves. Source/output persists at
+`prepared/direct-scattering-screen-source-20261023/`. No scientific job remains.
+
+[Independent public replay](verification-direct-scattering-screen-public-20261023.json)
+verifies6 payloads /24 files, two original payloads /123 inputs and all480
+development matrices/decisions with1.26565e-14 maximum bound drift, preserving
+false/exits1. It uses independent native decoding, spectral S instead of Cayley,
+and residual-Gram eigenvalues instead of SVD. No producer reader or native code
+runs. See [evidence](qualification-evidence/direct-scattering-screen/README.md).
+
+**Cycle disposition:** stop the bare fitter before implementation. The missing
+ingredient is a justified **channel-to-effective-model target map**, retained
+tail/background physics and falsifiable validation observable. One bounded
+target-definition deliverable next, not an automatic coupled fitter/complex-pole
+campaign. Keep the pole-targeted factory as integration baseline, but no
+unqualified CO widths are targets. Electronic-model selection, width identity,
+continuity/neutral and pilot gates remain open. New50 stays parked.
+Search handoff: main snapshot `423d577` is complete/current and direct remote-main
+lookup agrees. Bare-model/factory anchors were read in current source and have
+no delta from that snapshot; saved-matrix/new-screen work is branch-local. The
+11 focused algebra/reader tests pass; this is not a new readiness criterion.
 
 **Priority override —23 October:** the route decision above supersedes historical
 "next interface" instructions below. Saved inputs/results remain valid in their

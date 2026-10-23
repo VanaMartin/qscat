@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 3932,
+      "sha256": "8f997755fff980e4a982efb1b2bbcf9ab7a389f2aa2f7d6aa3570536dab38cb9"
+    },
+    "manifest.json": {
+      "bytes": 408,
+      "sha256": "4f4074ea162e0627099bd1c41d9a1d60b672d74da7d56d6789697e54e1a32885"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 1335,
+      "sha256": "103d72b1984a2f857e7516e94211942166945868a582bd5a5cf21887e5d62b92"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 7042,
+      "sha256": "205f576c260e37ddb63d29d1991af76b6e9c22986a4f8e42ca70fea6a63a72ec"
+    },
+    "result-summary.json": {
+      "bytes": 561744,
+      "sha256": "fb14b5ca913685106f4f856703f1dab3ed083c6b3531f6af25b2788af91f7d76"
+    },
+    "results.tar.gz": {
+      "bytes": 396001,
+      "sha256": "84b355eab29587b476984305b0a8bfa27a2cb0c5b3edc379def3682c79896844"
+    }
+  },
+  "git_sha": "8d0cbc8d9d0871a15909ebb8968d6dc474bc5faa",
+  "url_prefix": "https://data.qscat.org/co-direct-scattering-screen-20261023/"
+}

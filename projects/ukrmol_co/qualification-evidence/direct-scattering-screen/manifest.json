@@ -1,0 +1,16 @@
+{
+  "git_sha": "8d0cbc8d9d0871a15909ebb8968d6dc474bc5faa",
+  "experiment": "co-direct-scattering-screen-20261023",
+  "bare_diagonal_full_s_family_verdict": false,
+  "original_exits": [
+    1,
+    1,
+    1
+  ],
+  "development_points": 480,
+  "reserved_points_not_analyzed": 114,
+  "native_calls": 0,
+  "common_potential_verdict": null,
+  "width_identification_verdict": null,
+  "full_sweep_released": false
+}

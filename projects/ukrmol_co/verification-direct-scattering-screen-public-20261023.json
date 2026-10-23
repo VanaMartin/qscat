@@ -1,0 +1,24 @@
+{
+  "observed_utc": "2026-10-23T10:12:31.032860+00:00",
+  "public_payloads_verified": 6,
+  "archived_files_verified": 24,
+  "source_entries_verified": 12,
+  "fresh_prerequisite_payloads": 2,
+  "original_inputs_verified": 123,
+  "development_matrices_reconstructed": 480,
+  "rejected_points": 392,
+  "inconclusive_points": 16,
+  "constructively_admitted_points": 72,
+  "reserved_s_matrices_not_analyzed": 114,
+  "maximum_bound_reconstruction_difference": 1.2656542480726785e-14,
+  "original_exits": [
+    1,
+    1,
+    1
+  ],
+  "bare_diagonal_full_s_family_verdict": false,
+  "width_identification_verdict": null,
+  "common_potential_verdict": null,
+  "native_replay_calls": 0,
+  "independence": "Native record framing/triangle decoding, spectral S, column-by-column lower bound and Hermitian residual-Gram upper norm; no producer numerical module imported. Same saved native data/NumPy, not an independent scattering engine."
+}

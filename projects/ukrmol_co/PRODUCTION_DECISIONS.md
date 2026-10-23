@@ -87,6 +87,25 @@ application;480 development samples,114 prospective route holdouts left out.
 No new native solve, propagation, QC, new50 work or inner Hamiltonian. Any outcome
 returns to the goal decision, rather than automatically expanding the family.
 
+### Goal checkpoint update —23 October,10:12UTC: bare direct-S shortcut stopped
+
+[The bounded screen](DIRECT_SCATTERING_SCREEN.md) rejects even arbitrary diagonal
+unitary phases at all three anchors/both sectors:392/480 development matrices
+fail the mixing bound;114 route holdouts remain unanalyzed. Maximum necessary
+relative-eigenphase distances0.492 /0.523 /0.439rad exceed the newly declared
+0.05rad full-S metric. This is not a retroactive failure of eigenphase-sum gates
+or a rejection of tail-dressed scalar models.
+
+**Evidence delta:** an incompatible fitter specification is eliminated before
+implementation, in0.872s container time. **Unchanged:** no electronic model
+chosen, no qualified three-anchor width curve, no potential or production pilot.
+**Disposition:** stop the bare full-S fitter; return to the physical target choice.
+Specify one justified channel-to-effective-model map, retained tail/background
+and validation observable within the next bounded working cycle, or report the
+assumption needing a decision. No coupled fitter, general pole campaign, inner
+solve or new50 restart follows automatically. Review on that deliverable or next
+working-cycle boundary.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
@@ -265,7 +284,7 @@ automatic sequence of calculations; parked work does not block every route.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Fitting-information route | Compressed/equilibrium widths reject;94 wrong-width analytic counterexamples; saved nine-A2 matrices available | One bounded restricted-extraction versus direct-scattering-fitting feasibility design, or one named missing ingredient | One active working-cycle design/review cap; no new numerical job authorized |
+| Fitting-information route | Width extraction remains unqualified; bare scalar full-S shortcut rejects392/480 development matrices | Define one channel-to-effective-model target map, retained tail/background and validation observable; no automatic coupled fitter | Completed screen0.872s; next target-definition cycle only, not a new numerical campaign |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Select model with explicit decision-changing checks and remaining uncertainty budget; no accuracy claim from a larger model alone | Reuse existing2048 results; no automatic active-space/channel ladder |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Continuity | Retained/omitted exchanges and ambiguous coarse links remain | Neighboring-geometry physical subspace/resonance correspondence for the selected model | Bound the geometry pilot after the model is selected |

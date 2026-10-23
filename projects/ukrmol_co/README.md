@@ -18,6 +18,12 @@ test for physically restricted resonance extraction versus direct scattering
 fitting, using saved anchors. No new numerical job or sweep is authorized by
 that decision; unqualified widths are not potential-fitting targets.
 
+**23 October,10:12UTC result:** [the bare direct-S fitting shortcut rejects](DIRECT_SCATTERING_SCREEN.md)
+at all three anchors/both sectors,392/480 development matrices, in0.872s with
+no native call or potential fit. This rules out an incompatible bare full-matrix
+fitter, not effective scalar/tail-dressed potentials. Next define the justified
+channel-to-effective-model target map; width identification remains unresolved.
+
 The completed evidence preserves the first pilot and two calibration snapshots:
 
 | Campaign | Attempts | Validated pipelines | Preserved failures | Comparisons | Public evidence |
@@ -605,12 +611,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--16-october-2026"></a>
 
-## Progress overview — 21 October 2026
+## Progress overview — 23 October 2026
 
-![CO goal review: computation is feasible; electronic model and reliable fitting information remain open; optional new50 branch parked; one-to-two-day decision checkpoints](../../docs/physics/figures/co-progress-20261023-goal-review.png)
+![CO route decision: bare scalar full-S fitting rejected at all anchors; coupled-channel target map and width identification remain open; new50 stays parked](../../docs/physics/figures/co-progress-20261023T1012-direct-scattering-screen.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261023-goal-review.svg) ·
-[Goal-review snapshot](progress-snapshot-20261023-goal-review.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261023T1012-direct-scattering-screen.svg) ·
+[Route-screen snapshot](progress-snapshot-20261023T1012-direct-scattering-screen.json) ·
+[Bare direct-S route result](DIRECT_SCATTERING_SCREEN.md) ·
+[Independent saved-S replay](verification-direct-scattering-screen-public-20261023.json) ·
+[Previous goal-review figure](../../docs/physics/figures/co-progress-20261023-goal-review.svg) ·
+[Previous goal-review snapshot](progress-snapshot-20261023-goal-review.json) ·
 [Goal-convergence checklist](PRODUCTION_DECISIONS.md#goal-convergence-checkpoint--every-one-or-two-days-of-campaign-work) ·
 [Potential-route decision](POTENTIAL_ROUTE_DECISION.md) ·
 [Previous scattering-map figure](../../docs/physics/figures/co-progress-20261021T2155-scattering-input-map.svg) ·

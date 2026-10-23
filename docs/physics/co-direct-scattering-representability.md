@@ -103,3 +103,18 @@ name the missing tail/coupling embedding or explicitly different reduced target.
 Admit/inconclusive → return to route selection before a separately bounded common-
 potential/identifiability test. No widths, new geometry sweep, model-convergence
 claim, native propagation, inner Hamiltonian or reopening of new50 is released.
+
+## Completed finite application
+
+Freeze `8d0cbc8` finishes23 October10:08:45UTC:392/480 development matrices reject,
+16 are inconclusive,72 pointwise admitted. Every anchor/sector rejects the bare
+full-S family. Largest necessary relative-eigenphase distances are0.49173 /
+0.52327 /0.43923rad versus0.05rad. All114 prospective route holdouts remain
+unanalyzed. Original scientific/command/container/owner exits1/1/1/1 are retained.
+Container wall0.87157s, peak process RSS.06329GiB, no native call or fit. Fresh
+public spectral-S/residual-Gram replay reproduces all480 matrices/decisions,
+maximum bound drift1.26565e-14. See
+`projects/ukrmol_co/DIRECT_SCATTERING_SCREEN.md` for the production consequence:
+stop the bare full-S fitter, identify a justified channel-to-effective-model map,
+and do not mistake this rejection for a width determination or a rejection of
+tail-dressed/reduced scalar models.

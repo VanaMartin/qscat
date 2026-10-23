@@ -15,6 +15,13 @@ The [23 October route decision](POTENTIAL_ROUTE_DECISION.md) now parks the optio
 new50/interface branch. Next is a single bounded extraction-versus-direct-fitting
 feasibility design from saved anchors, not another native-interface experiment.
 
+**10:12UTC outcome:** [the saved-S screen](DIRECT_SCATTERING_SCREEN.md) rejects the
+bare scalar full-matrix fitter at all anchors/sectors. Stop that implementation
+route. The specific missing ingredient is a justified channel-to-effective-model
+target map (retained polar tail/background, deliberate reduction and validation
+observable). No automatic coupled fitter or pole campaign follows; no qualified
+width curve or production electronic model has been obtained.
+
 This roadmap is decision-driven: use the smallest retained eigenpair count that
 passes observable and omission checks; every refinement must address a measured
 discrepancy. The full execution record is in [CONTINUATION.md](CONTINUATION.md).

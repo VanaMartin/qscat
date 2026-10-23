@@ -2,6 +2,14 @@
 
 ## Decision now
 
+**10:12UTC follow-through:** [the direct-S screen](DIRECT_SCATTERING_SCREEN.md)
+rejects the bare scalar full-matrix fitter at every saved anchor/sector. Stop
+that shortcut before implementation. It does not reject tail-dressed or justified
+effective scalar models. The missing ingredient is a **channel-to-effective-model
+target map**: what physical scattering the scalar potential must reproduce, and
+what background/tail physics is retained or deliberately reduced. Width
+identification remains unresolved.
+
 **Do not launch the production sweep. Park the optional fifty-component orbital
 comparison, including its remaining native interface work, for this cycle.**
 The next critical-path deliverable is a bounded choice of how to obtain usable
@@ -43,7 +51,7 @@ position,5% full width with0.001eV floor, and0.05rad phase.
 
 ## The next bounded working cycle
 
-**23 October follow-through:** the selected first test is the
+**Completed23 October first test:** the
 [bare direct-S representability screen](../../docs/physics/co-direct-scattering-representability.md),
 with its [finite contract](direct-scattering-screen-contract-20261023.json).
 It asks whether physical-channel mixing already rules out the bare scalar
@@ -51,9 +59,18 @@ family, even after relaxing it to arbitrary diagonal unitary phases at every
 energy. This can prevent implementing an incompatible full-S fitter. It does
 not test a tail-dressed/reduced model or identify widths. Use only480 declared
 development samples;114 route holdouts stay unanalyzed. A separately frozen
-saved-only application has60s expected /180s upper /300s cap, no native calls.
-Implementation/diagnosis stays within this working cycle. Rejection, admission
-and inconclusive outcomes all return to route selection, not an automatic ladder.
+saved-only application used0.87157s /.06329GiB process RSS, no native calls.
+392/480 development matrices reject,16 inconclusive,72 pointwise admitted;
+all114 route holdouts remain unanalyzed. Independent public replay preserves
+the rejection. This eliminates an incompatible direct fitter, not electronic
+uncertainty or width ambiguity. No fitter/pole-search successor is automatic.
+
+**Next bounded deliverable:** one justified channel-to-effective-model target
+definition and falsifiable validation observable from saved anchors, before
+new fitting/propagation code. If it cannot be specified within one working cycle,
+identify the modeling assumption needing a decision. Keep the pole-targeted
+factory as integration baseline without supplying unqualified CO widths as
+targets. A scalar pole fit must not be described as a full native-S fit.
 
 **Question:** which route can supply defensible fitting information for the
 potential pilot without another open-ended solver-development campaign?
