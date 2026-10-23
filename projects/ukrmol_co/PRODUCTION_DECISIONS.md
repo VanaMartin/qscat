@@ -77,6 +77,16 @@ Next readiness milestone: choose an explicitly qualified model and extraction/
 fitting route, then a small restartable geometry pilot—not more interface passes.
 No sweep or dense Hamiltonian is released.
 
+**Bounded next test selected,23 October:** [direct-S representability](../../docs/physics/co-direct-scattering-representability.md)
+uses existing six-channel CAS11/nine-A2 matrices to test whether the bare
+isotropic potential family is already incompatible with full physical-channel
+scattering. Rejecting its larger diagonal-unitary relaxation avoids building
+an unsuitable fitter. It neither rejects tail-dressed scalar reductions nor
+qualifies widths. Freeze/tests precede the one saved-only60s expected /300s cap
+application;480 development samples,114 prospective route holdouts left out.
+No new native solve, propagation, QC, new50 work or inner Hamiltonian. Any outcome
+returns to the goal decision, rather than automatically expanding the family.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

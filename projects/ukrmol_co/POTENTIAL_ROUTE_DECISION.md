@@ -43,6 +43,18 @@ position,5% full width with0.001eV floor, and0.05rad phase.
 
 ## The next bounded working cycle
 
+**23 October follow-through:** the selected first test is the
+[bare direct-S representability screen](../../docs/physics/co-direct-scattering-representability.md),
+with its [finite contract](direct-scattering-screen-contract-20261023.json).
+It asks whether physical-channel mixing already rules out the bare scalar
+family, even after relaxing it to arbitrary diagonal unitary phases at every
+energy. This can prevent implementing an incompatible full-S fitter. It does
+not test a tail-dressed/reduced model or identify widths. Use only480 declared
+development samples;114 route holdouts stay unanalyzed. A separately frozen
+saved-only application has60s expected /180s upper /300s cap, no native calls.
+Implementation/diagnosis stays within this working cycle. Rejection, admission
+and inconclusive outcomes all return to route selection, not an automatic ladder.
+
 **Question:** which route can supply defensible fitting information for the
 potential pilot without another open-ended solver-development campaign?
 

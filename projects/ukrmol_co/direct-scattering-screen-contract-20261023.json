@@ -1,0 +1,21 @@
+{
+  "status": "prospective saved-only necessary representability screen, not an inverse fit",
+  "raw_directory": "prepared/saved-matrices-source-20261017/raw",
+  "qualified_report": "prepared/saved-matrices-source-20261017/matrices.json",
+  "input_sha256": {
+    "prepared/saved-matrices-source-20261017/raw/input-manifest.json": "81bb01c3a80c894c3c3d523a0fef507e2b6275bbedde90b0a434a3e49e9fe3a3",
+    "prepared/saved-matrices-source-20261017/matrices.json": "3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63"
+  },
+  "anchors": ["compressed", "equilibrium", "stretched"],
+  "sectors": ["B1", "B2"],
+  "native_rydberg_per_requested_ev": 0.0735,
+  "phase_budget_rad": 0.05,
+  "margin": 1e-10,
+  "model_family": "Bare isotropic scalar potential with free asymptotic channels, generously relaxed to any diagonal unitary S independently at every energy in the original physical angular basis. No arbitrary eigenchannel rotation, tail dressing, anisotropic extension or parameter fit.",
+  "decision_link": "Rejecting even this relaxed class prevents building an incompatible bare full-S potential fitter. Admission only permits a separately designed common-potential/identifiability test. It does not choose the electronic model or qualify widths. Physically restricted extraction remains an alternative needing a new physical restriction/pole evidence, not more polynomial orders.",
+  "data_split": "Evaluate only zero-based indices i%5!=4:80/case,480 total. Reserve19/case,114 total without S analysis; these are not globally untouched historical data. Authenticate original123 inputs and reproduce metadata, but do not silently repair the six five-A2 failures or analyze their matrices.",
+  "gates": "Finite6x6 unitary reciprocal S within1e-10, independent spectral/Cayley agreement1e-10; actual open labels/thresholds/order and99-point grid agree with qualified nine-A2 metadata. Lower bound L=max offdiagonal column norm, upper U=norm(S-diag(Sjj/abs(Sjj)))2. Reject if L>2sin(0.05)+1e-10; admit only U<=2sin(0.05)-1e-10; otherwise inconclusive. New full-matrix relative-eigenphase criterion, not retroactive replacement of the eigenphase-sum budget. Preserve all six cases and all development points. Report width/common-potential verdicts unset in every outcome.",
+  "resources": {"cpuset_cpus": "0-3", "threads": 1, "memory_gib": 4, "expected_wall_seconds": 60, "upper_wall_seconds": 180, "timeout_seconds": 300},
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "stopping_rule": "Freeze/push design/source/analytic tests first. One fresh persistent saved-only application; all prerequisite/source hashes before/after. Scientific rejection exits1, inconclusive2, all constructive admissions0. Input/numerical failure preserves error and returns to goal review, no automatic repair/optimization/refinement. One working-cycle implementation/diagnosis cap. No native calls, propagation, potential fitting, QC, target solve, properties, inner Hamiltonian, new50 continuation, sweep or widths released."
+}
