@@ -46,6 +46,30 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Paired-sector character policy —23 October,17:21UTC, before actual scores
+
+[Design](../../docs/physics/co-paired-pole-character.md) /
+[contract](paired-pole-character-contract-20261023.json) freeze a phase-free
+open-residue support test, native label matching and pass/reject/inconclusive
+bands before any actual character analysis. B1 Pi indices are `[0,1,2,4]`;
+B2 `[0,1,3,5]`; pair `(target,l,|m|)`, not component order. All six open channels
+have ground target1, saved target label `[1,0,1,0]`; source writer/reader hashes
+are pinned. This is not probability, exact Lambda conservation or a single-l
+test. Nine synthetic controls pass, including a degenerate higher-m negative.
+
+**One bounded next deliverable:** saved-only B1 screen via
+`python -m projects.ukrmol_co.saved_pole_character` after source/contract freeze
+and push. Authenticate the original123 inputs and B1 archive; compare16/32-node
+and both derivative residues. No new propagation, four physical cores0–3,
+one thread,1GiB /60s hard cap. Reject/inconclusive stops before B2; a pass only
+makes the prospectively bounded B2 calculation eligible, not an assigned Pi pair.
+The B2 adapter and owner must separately freeze; numerical allocation is already
+fixed at67 maps maximum /eight physical cores /8GiB /1800s cap. No repair,
+expanded box or other sector/anchor. Implementation/diagnosis limited to this
+active cycle, at most two additional hours after label reconnaissance.
+No actual residue-character score is computed yet. Review on this saved result;
+all114 route holdouts and equilibrium pole exclusion remain protected.
+
 ### Compressed finite-reference pole —23 October,14:55UTC
 
 [Result](COMPRESSED_POLE_REFERENCE.md), source freeze `9b4f588`: incident

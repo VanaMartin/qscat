@@ -265,6 +265,37 @@ sector/anchor, fit, geometry or root ladder is launched. All114 route holdouts
 and equilibrium pole exclusion remain protected; new50 stays parked. Review on
 that proposal or the next active working-cycle boundary.
 
+### Goal checkpoint —23 October,17:21UTC: freeze character before its measurement
+
+**Question:** does the compressed finite-reference B1 pole have the intended
+open-Pi character, and is a B2 counterpart test worth running? The
+[paired design](../../docs/physics/co-paired-pole-character.md) and
+[prospective contract](paired-pole-character-contract-20261023.json) use verified
+native `(channel,target,l,m)` labels, not channel order, degeneracy or a single l.
+The decision thresholds and negative/invariance controls are fixed before any
+actual CO residue-character score. Nine synthetic controls pass; those counts
+are implementation evidence, not new sweep/model evidence.
+
+**Minimum reuse and bounds:** first classify all four saved B1 residues, no new
+map, native call, QC/property/inner solve or geometry. Four physical cores0–3,
+one BLAS thread,1GiB,60s hard cap. A resolved rejection or inconclusive B1 screen
+stops before B2. If it passes, the prospective B2 allocation is at most67 maps:
+two real development-S checks, at most28 root evaluations and the original fixed
+37 center/derivative/contour witnesses. Eight physical cores0–7 /8GiB /600s target,
+1200s upper,1800s hard cap. The B2 adapter and exact owner must separately freeze
+before propagation. No automatic retry or general solver development.
+
+**Evidence delta so far:** label provenance/order is resolved and an economical
+necessary-condition test is executable; actual B1/B2 character and pairing remain
+unmeasured. **Disposition: continue only to the frozen saved B1 screen first.**
+Implementation/diagnosis is bounded to this active cycle, at most two additional
+hours after label reconnaissance; stop with the exact missing step if the B2
+adapter cannot freeze within it. Review immediately after the B1 result. A full
+pair pass would return priority to matched electronic-model pole evidence, not
+another geometry or exterior campaign. Electronic accuracy, omitted spectrum,
+continuity, neutral/factory/asymptote/full-scattering gates remain open. All114
+route holdouts and equilibrium pole exclusion stay protected; new50 stays parked.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

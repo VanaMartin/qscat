@@ -2,6 +2,16 @@
 
 ## Decision now
 
+**17:21UTC continuation:** [freeze the paired-sector/character policy](../../docs/physics/co-paired-pole-character.md)
+before actual scores. First screen four saved B1 residues against the native
+ground-target `|m|=1` projector; no new propagation. B1 rejection/inconclusive
+stops before B2. The [contract](paired-pole-character-contract-20261023.json)
+predeclares the conditional B2 scope (at most67 maps, same-root budgets,
+label-matched profiles and all pole witnesses), but needs a separately frozen
+adapter/owner before any B2 map. Four-core saved screen has a60s /1GiB cap;
+implementation is limited to this active cycle. No actual character score or
+pair result exists at this freeze. No other geometry/model/fit/sweep is released.
+
 **14:55UTC result:** the [compressed finite-reference pole experiment](COMPRESSED_POLE_REFERENCE.md)
 passes: position **3.7604physical eV**, full width **2.0846physical eV**, for
 CAS11/nine-A2/B1 at1.9bohr with2048 roots/all298 channels. Bordered matching,
