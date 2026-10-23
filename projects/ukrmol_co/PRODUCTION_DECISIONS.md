@@ -181,6 +181,32 @@ ends the cycle with no further successor. Runtime remains90s per propagation /
 goal-reviewed exception, not relabelling the original stop or authorizing a
 general repair campaign. Review immediately on the successor result.
 
+### Goal checkpoint —23 October,13:21UTC: finite outgoing-map feasibility passes
+
+**Question completed:** can the missing complex outgoing map be tested on one
+saved anchor without a general solver campaign? [Yes, in a finite scope](OUTGOING_MAP_CANARY.md):
+three compressed/nine/B1 development energies reproduce full S at two endpoints,
+worst entry error1.51042e-7 versus1e-6. Five settings at one complex non-pole point
+give largest radius-scaled map change2.06671e-11 versus1e-7. All40 row gates pass;
+all123 inputs verify. Fresh public saved reconstruction independently rebuilds
+every gate, preserving original dependency-stop2/2/2 and successor0/0/0.
+
+**Evidence delta:** the route's298-channel outgoing-map feasibility and recurring
+cost are now measured, not inferred from a two-channel toy. Container55.850916s,
+3.53–8.27s/map, cgroup peak.32147GiB; original packaging stop.972009s retained.
+No numerical source/tolerance change, engine call, inner solve, pole search or
+holdout S analysis. This reduces feasibility uncertainty, not CO width/model
+uncertainty. Complex invariance is local, not independent CO pole qualification.
+
+**Disposition: continue to one bounded pole-reference proposal.** Define a finite
+compressed-anchor search region, sheet, root-evaluation cap, independent
+construction/residue witness and error gate before execution. If that cannot be
+bounded, report the blocker; no automatic propagation/precision campaign.
+Electronic model, neutral correlation/wider domain, continuity, extra training
+nodes and full-scattering embedding remain open. All114 route holdouts and the
+equilibrium pole exclusion stay protected; new50 stays parked. Review on the
+proposal or next active working-cycle boundary, before any root search.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
@@ -359,7 +385,7 @@ automatic sequence of calculations; parked work does not block every route.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Fitting-information route | Bare full-S shortcut rejects; outgoing-pole target map now defined, but native poles remain unqualified | Decide on a bounded one-anchor pole-reference contract versus coupled-model redirect; full-scattering embedding remains missing | Target-definition cycle complete, zero scientific compute; no numerical launch or extra geometries authorized |
+| Fitting-information route | Bare full-S shortcut rejects; scalar target defined; one-anchor outgoing-map feasibility now passes, native poles still unqualified | Define a bounded compressed-anchor pole-reference proposal with independent construction/residue witness; full-scattering embedding remains missing | Measured3.53–8.27s/map,55.85s canary; no automatic root search or extra geometries |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Select model with explicit decision-changing checks and remaining uncertainty budget; no accuracy claim from a larger model alone | Reuse existing2048 results; no automatic active-space/channel ladder |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Continuity | Retained/omitted exchanges and ambiguous coarse links remain | Neighboring-geometry physical subspace/resonance correspondence for the selected model | Bound the geometry pilot after the model is selected |

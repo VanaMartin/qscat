@@ -203,3 +203,11 @@ compute caps, known-truth controls, qualified prerequisites and a stop on failur
 before extension to other anchors. No runtime estimate for a nonexistent qualified
 298-channel solver is claimed here. New50, QC/properties repetition, dense inner
 solves and automatic root/channel ladders remain out of scope.
+
+**23 October follow-through:** the separately frozen
+[one-anchor canary](co-outgoing-map-canary.md) now demonstrates finite298-channel
+outgoing-map feasibility on compressed/nine/B1. It does not find a CO pole or
+qualify complex continuation throughout a search region. The saved references,
+2048-root omission and full-scattering limitations above are unchanged. A bounded
+pole-reference proposal can now use measured map costs instead of assuming that
+a general solver campaign is necessary.

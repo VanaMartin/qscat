@@ -1,0 +1,103 @@
+{
+  "base_snapshot": "progress-snapshot-20261023T1056-effective-target.json",
+  "base_snapshot_sha256": "3225e61d4e928cb41ad261134ceb37aec53e8d2565adac51a5d7dc7b4fa91a93",
+  "additional_source_file_sha256": {
+    "docs/physics/co-effective-resonance-target.md": "8032a4b34a76aeabd187b9a659a2407c511144747e5982e685c719f381afc614",
+    "docs/physics/co-outgoing-map-canary.md": "4a0af8a93a239fdcfd6dfc1e0641b1e24f5514a40429c12d73f1e4110f616878",
+    "projects/ukrmol_co/CONTINUATION.md": "e51e0c35eb0ab9e3967ae2b6c4f8d107b30cd974e02b030263ae1d045ac76d83",
+    "projects/ukrmol_co/OUTGOING_MAP_CANARY.md": "c45d8df557ed3509caa6e3f29828fe261c65a4173f99233eadda5b03c074db37",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "9ff3f25397acb346f0c6555e4784df0036e6ee77fa731da85585090ab9d2ac5f",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "c812191739267b7c177857e505bf75f6d7b1103170ca6330cbbc72063051fdf9",
+    "projects/ukrmol_co/README.md": "ee674f3eff850618620662ee7600fb690230a004b9079e2b88be981729a57724",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "e5c071fc9680e4fb779783412b3998bbf9abc33e067a6beb8f58eef21dc49561",
+    "projects/ukrmol_co/outgoing-map-canary-contract-20261023.json": "1bdf8b08fd3ad6e4979c70bf654da00209e62384cf46ecf7b52f3fd9b60f8209",
+    "projects/ukrmol_co/outgoing-map-dependency-successor-contract-20261023.json": "e8cf58beba0d6007f4888a60ec80d89c54267cbba0ab1c9195945cb4648aebaa",
+    "projects/ukrmol_co/outgoing_map.py": "b27213d3c30af84d65f8972616ed980db86c60932751980f8492cea03e0173aa",
+    "projects/ukrmol_co/outgoing_map_canary.py": "03ec2a9551b6bde920ce1790d2d70723a136588d00933b8991a1db9d5da0b3a8",
+    "projects/ukrmol_co/progress-outgoing-map-canary-result-20261023.json": "853aebda3e421d057e11939d9920bbb2606d7bb78f7d3cb674f7e177dfc09eeb",
+    "projects/ukrmol_co/progress_figure.py": "4fadeb6a818e52f8051f7dd61eb619af6c13786f3c9e0cce7e52807a11b66e04",
+    "projects/ukrmol_co/qualification-evidence/outgoing-map-canary/README.md": "6485bb4595b171736ec0f3934dbf9ed322f95c7d9a256a6618c68b01ecf2afb3",
+    "projects/ukrmol_co/qualification-evidence/outgoing-map-canary/artifacts.json": "b793fb1e5a105a53c6dcf879190612d5524a74a611b76b8efc486f7fb0fe2db4",
+    "projects/ukrmol_co/qualification-evidence/outgoing-map-canary/manifest.json": "17940913fedb2ca1155a20e4c65da18a97a6fad0f46b1eb262843d1f6c32115d",
+    "projects/ukrmol_co/test_outgoing_map.py": "bf2843f869a395620374e0a42d05ac45494f48eef223420dfa00253c1da1277b",
+    "projects/ukrmol_co/verification-outgoing-map-canary-public-20261023.json": "344d27ed9c4dac257abcac2a128e9c7fe3fd5d57ab19b6ff2af004a2ff520bab"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-23T13:21:39.827059+00:00",
+    "live_status": {
+      "scope": "Completed outgoing-map canary only; unrelated host workloads are not modified or classified here",
+      "goal_review_disposition": "finite outgoing-map feasibility passes; next define a bounded one-anchor pole-reference proposal",
+      "outgoing_map_canary_verdict": true,
+      "original_exits": [2,2,2],
+      "successor_exits": [0,0,0],
+      "original_co_propagations": 0,
+      "successor_co_propagations": 11,
+      "saved_row_gates_passed": 40,
+      "real_s_development_identities": 3,
+      "real_s_captures": 6,
+      "complex_probe_energies": 1,
+      "complex_map_settings": 5,
+      "max_real_s_entry_error": 1.5104170548923114e-7,
+      "max_radius_scaled_complex_map_change": 2.066707688028939e-11,
+      "successor_container_wall_seconds": 55.8509163359995,
+      "successor_process_cpu_seconds": 55.034019,
+      "successor_cgroup_peak_gib": 0.3214683532714844,
+      "successor_process_peak_gib": 0.3370208740234375,
+      "original_source_entries_verified": 22,
+      "successor_source_entries_verified": 21,
+      "original_inputs_verified": 123,
+      "public_payloads_verified": 6,
+      "public_archived_files_verified": 70,
+      "independent_saved_s_reconstruction_difference": 1.458211484318739e-14,
+      "native_calls": 0,
+      "pole_searches": 0,
+      "co_complex_pole_verdict": null,
+      "qualified_width_curve": false,
+      "production_model_selected": false,
+      "full_sweep_released": false,
+      "optional_new50_branch": "parked",
+      "route_holdout_s_matrices_analyzed": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "equilibrium_pole_exclusion": "protected",
+      "next_decision": "Bounded compressed-anchor pole-reference proposal with independent construction/residue witness; no automatic search"
+    },
+    "figure_subtitle": "One-anchor outgoing-map feasibility passes in 55.85 s; complex-pole, width and electronic-model qualification still remain open",
+    "memory_note": "Historical inner-region costs shown unchanged.\nNew canary: 55.85 s /0.321 GiB cgroup peak.\nOriginal dependency stop retained; no inner solve or pole search.",
+    "roadmap_title": "Is outgoing matching feasible?",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "PASS: THREE COMPRESSED FULL-S CHECKS",
+        "title": "All 298 channels retained; S error ≤1.52e-7",
+        "detail": "Six propagations, two endpoints; no native solve or holdout use"
+      },
+      {
+        "kind": "reuse",
+        "status": "PASS: ONE COMPLEX NON-POLE PROBE",
+        "title": "Radius-scaled map change ≤2.07e-11",
+        "detail": "Five finite settings, not independent CO pole qualification"
+      },
+      {
+        "kind": "reject",
+        "status": "STILL MISSING: PHYSICAL POLE / WIDTH",
+        "title": "No root search or fitted potential performed",
+        "detail": "Model, neutral, continuity and full-scattering gaps remain"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT: ONE BOUNDED POLE-REFERENCE PROPOSAL",
+        "title": "Search box, cap, independent construction /residue",
+        "detail": "Measured3.53–8.27 s/map informs cost, not pole conditioning"
+      },
+      {
+        "kind": "next",
+        "status": "KEEP PARKED: NEW50 / SWEEP / EXTRA NODES",
+        "title": "Original2/2/2 retained beside successor0/0/0",
+        "detail": "One test-dependency-only change; numerical sources unchanged"
+      }
+    ],
+    "roadmap_note": "Finite feasibility result, not a qualified CO pole.\n114 route holdout S values and equilibrium exclusion protected.\nPublic saved reconstruction verifies every row gate, no propagation.",
+    "source_footer": "EVIDENCE  Compressed/nine/B1:3 development energies /1 complex probe;40 saved gates independently reconstructed. Original dependency stop and unchanged-numerics successor retained.",
+    "verification_footer": "No pole or width found; finite complex invariance is not independent CO pole qualification."
+  }
+}

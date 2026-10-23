@@ -1,0 +1,20 @@
+{
+  "git_sha": "5a919f00595e4723ebb7419cbe83fab3616520ff",
+  "experiment": "co-outgoing-map-canary-20261023",
+  "original_exits": [
+    2,
+    2,
+    2
+  ],
+  "successor_exits": [
+    0,
+    0,
+    0
+  ],
+  "canary_verdict": true,
+  "qualified_pole_verdict": null,
+  "native_calls": 0,
+  "pole_searches": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "full_sweep_released": false
+}

@@ -32,6 +32,14 @@ minimum plus a separate validation geometry. Design complete; no additional
 geometry, solver or fit is authorized. Next decide on one-anchor pole-reference
 feasibility versus a coupled-model redirect under a separate bounded contract.
 
+**13:21UTC feasibility outcome:** [the finite one-anchor canary](OUTGOING_MAP_CANARY.md)
+passes full-S checks at three compressed development energies and complex-map
+invariance at one probe, in55.85s. The original dependency stop remains2/2/2
+beside unchanged-numerics successor0/0/0. This justifies a bounded pole-reference
+proposal using measured map costs, not a pole/width qualification or automatic
+root search. All114 route holdout S values and equilibrium pole exclusion remain
+protected. All model/neutral/continuity/full-scattering production gates remain.
+
 This roadmap is decision-driven: use the smallest retained eigenpair count that
 passes observable and omission checks; every refinement must address a measured
 discrepancy. The full execution record is in [CONTINUATION.md](CONTINUATION.md).

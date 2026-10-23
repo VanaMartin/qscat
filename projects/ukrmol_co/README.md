@@ -15,7 +15,8 @@ bounded deliverable and unresolved scientific blockers.
 **23 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
 parks the optional new50/interface branch. The bare full-S shortcut is ruled out;
 the outgoing-pole reduction below now defines the prospective scalar target.
-No new numerical job or sweep is authorized; unqualified widths are not targets.
+The separately bounded outgoing-map canary below now passes, but no root search
+or sweep is automatically released; unqualified widths are not targets.
 
 **23 October,10:12UTC result:** [the bare direct-S fitting shortcut rejects](DIRECT_SCATTERING_SCREEN.md)
 at all three anchors/both sectors,392/480 development matrices, in0.872s with
@@ -30,6 +31,14 @@ It requires prediction at an excluded geometry, not replay of fitted pole factor
 No qualified CO pole or potential is produced; full-scattering validation remains
 open. The design cycle is complete. Decide on bounded one-anchor pole-reference
 feasibility versus a coupled-model redirect before launching further numerical work.
+
+**13:21UTC result:** [finite298-channel outgoing-map feasibility passes](OUTGOING_MAP_CANARY.md)
+at compressed/nine/B1. Three development S matrices reproduce within1.51042e-7;
+one complex map is stable across five settings. Cost55.85s, no engine/pole search
+or holdout analysis. Original dependency stop2/2/2 is preserved beside the
+unchanged-numerics successor0/0/0. Public saved reconstruction verifies all40
+row gates. Next is a bounded one-anchor pole-reference proposal, not a general
+solver campaign; no qualified CO pole/width or potential has been produced.
 
 The completed evidence preserves the first pilot and two calibration snapshots:
 
@@ -620,10 +629,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 23 October 2026
 
-![CO target definition: preserve an outgoing pole, not channel branching or background; excluded-geometry validation required; no new numerical result](../../docs/physics/figures/co-progress-20261023T1056-effective-target.png)
+![CO outgoing-map canary: three compressed-anchor full S matrices reproduce; one complex map is stable; pole and electronic-model qualification remain open](../../docs/physics/figures/co-progress-20261023T1321-outgoing-map-canary.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261023T1056-effective-target.svg) ·
-[Target-definition snapshot](progress-snapshot-20261023T1056-effective-target.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261023T1321-outgoing-map-canary.svg) ·
+[Outgoing-map snapshot](progress-snapshot-20261023T1321-outgoing-map-canary.json) ·
+[Canary result](OUTGOING_MAP_CANARY.md) ·
+[Independent saved reconstruction](verification-outgoing-map-canary-public-20261023.json) ·
+[Previous target-definition figure](../../docs/physics/figures/co-progress-20261023T1056-effective-target.svg) ·
+[Previous target-definition snapshot](progress-snapshot-20261023T1056-effective-target.json) ·
 [Scalar target specification](../../docs/physics/co-effective-resonance-target.md) ·
 [Previous route-screen figure](../../docs/physics/figures/co-progress-20261023T1012-direct-scattering-screen.svg) ·
 [Previous route-screen snapshot](progress-snapshot-20261023T1012-direct-scattering-screen.json) ·

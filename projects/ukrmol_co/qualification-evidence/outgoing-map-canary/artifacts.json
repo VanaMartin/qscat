@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 11850,
+      "sha256": "d75372ff3b59fc2e8b13abb743ea0a9601500f696be002d733f6ad56014ee777"
+    },
+    "manifest.json": {
+      "bytes": 383,
+      "sha256": "17940913fedb2ca1155a20e4c65da18a97a6fad0f46b1eb262843d1f6c32115d"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 1335,
+      "sha256": "103d72b1984a2f857e7516e94211942166945868a582bd5a5cf21887e5d62b92"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 8849,
+      "sha256": "062de4935fa4f846f4475554f0728a7fe6eda2f92099e0f1c47614b0b04b88cb"
+    },
+    "result-summary.json": {
+      "bytes": 21160,
+      "sha256": "83d30487c7861c916b45c5baf2264ca9b5f8d40a2c3c97c223f255b31bc669e3"
+    },
+    "results.tar.gz": {
+      "bytes": 8404698,
+      "sha256": "8740f7fdc6646ba00f7d6828776d6b911aae2a0fc7915c21dce6e6c9bb1f0b5e"
+    }
+  },
+  "git_sha": "5a919f00595e4723ebb7419cbe83fab3616520ff",
+  "url_prefix": "https://data.qscat.org/co-outgoing-map-canary-20261023/"
+}

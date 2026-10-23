@@ -1,0 +1,32 @@
+{
+  "observed_utc": "2026-10-23T13:21:39.827059+00:00",
+  "public_payloads_verified": 6,
+  "archived_files_verified": 70,
+  "source_entries_verified": {
+    "original": 22,
+    "successor": 21
+  },
+  "original_inputs_verified": 123,
+  "original_exits": [
+    2,
+    2,
+    2
+  ],
+  "successor_exits": [
+    0,
+    0,
+    0
+  ],
+  "unchanged_numerical_sources_verified": true,
+  "real_s_captures_verified": 6,
+  "complex_y_captures_verified": 5,
+  "saved_row_gates_reconstructed": 40,
+  "maximum_independent_s_reconstruction_difference": 1.458211484318739e-14,
+  "maximum_native_error_metric_drift": 6.656675595335774e-16,
+  "canary_verdict": true,
+  "qualified_pole_verdict": null,
+  "new_propagations": 0,
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "independence": "Independent native record/triangle decoder, spectral native S, alternate native-Q contraction, Gram wall solve and reduced RHS boundary solve; no producer numerical modules. Complex maps are authenticated and their saved invariance gates reconstructed, not independently repropagated or pole-qualified."
+}

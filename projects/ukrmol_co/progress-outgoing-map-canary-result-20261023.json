@@ -1,0 +1,608 @@
+{
+  "observed_utc": "2026-10-23T13:19:25.879131+00:00",
+  "stages": {
+    "original": {
+      "execution": {
+        "source_commit": "c00c09accb71faa12470d3e6c1877af140b33c3a",
+        "source_archive_sha256": "a017de15b130c986a71b95aca39ab56cd7e7e9e326fd5b6d4747e7f344b8091c",
+        "owner_sha256": "32a637a486d3e19f042fae40e7836e871251c48e33f9061d26968b3708b09991",
+        "started_utc": "2026-10-23T13:14:34.242486+00:00",
+        "native_calls": 0,
+        "pole_searches": 0,
+        "original_owner_exit": 2,
+        "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+        "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       8.9Gi        10Gi       677Mi       105Gi       114Gi\nSwap:           29Gi       512Ki        29Gi\n",
+        "disk": "Filesystem            Size  Used Avail Use% Mounted on\n/dev/mapper/vg0-home  1.5T  1.3T   47G  97% /home\n",
+        "prior_workloads": "comfyui Up 41 hours\n",
+        "command": [
+          "docker",
+          "run",
+          "--name",
+          "co-outgoing-map-canary-20261023",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=1g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/outgoing-map-canary-source-20261023/source:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/outgoing-map-canary-source-20261023/outputs:/out",
+          "-w",
+          "/opt/qmodeling",
+          "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.outgoing_map_canary",
+          "--root",
+          "/work",
+          "--output",
+          "/out/check",
+          "--contract",
+          "/opt/qmodeling/projects/ukrmol_co/outgoing-map-canary-contract-20261023.json"
+        ],
+        "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "timed_out": false,
+        "original_command_exit": 2,
+        "original_container_exit": 2,
+        "container_oom_killed": false,
+        "wall_seconds": 0.9720090189948678,
+        "finished_utc": "2026-10-23T13:14:35.227656+00:00",
+        "source_integrity_after": true
+      },
+      "result": {
+        "case": "compressed/nine/B1",
+        "rows": [],
+        "canary_verdict": null,
+        "scientific_exit": 2,
+        "native_calls": 0,
+        "pole_searches": 0,
+        "qualified_pole_verdict": null,
+        "full_sweep_released": false,
+        "route_holdout_s_matrices_analyzed": 0,
+        "inputs_verified_before": 123,
+        "controls_original_exit": 1,
+        "error": "ValueError('Toy controls failed; no CO application')",
+        "inputs_verified_after": 123,
+        "wall_seconds": 0.22079651500098407,
+        "peak_process_rss_platform_units": 80412,
+        "process_cpu_seconds": 0.28537399999999996,
+        "cgroup_memory.peak": "184856576\n",
+        "cgroup_cpu.stat": "usage_usec 398717\nuser_usec 337059\nsystem_usec 61657\nnice_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+      },
+      "source_entries": 22
+    },
+    "successor": {
+      "execution": {
+        "source_commit": "5a919f00595e4723ebb7419cbe83fab3616520ff",
+        "source_archive_sha256": "3584ca18521078259fdfe4cc23898ac6bb10e6d161cb6a862dc78346db71e1b3",
+        "owner_sha256": "d32cbf36e6344751f245360ca69d79aa12e0e19d58e87594f1f969f811c08e7c",
+        "started_utc": "2026-10-23T13:17:23.360794+00:00",
+        "native_calls": 0,
+        "pole_searches": 0,
+        "original_owner_exit": 0,
+        "original_stop_verified": true,
+        "unchanged_numerical_sources_verified": true,
+        "dependency_contract_sha256": "e8cf58beba0d6007f4888a60ec80d89c54267cbba0ab1c9195945cb4648aebaa",
+        "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+        "memory": "               total        used        free      shared  buff/cache   available\nMem:           123Gi       8.6Gi        10Gi       677Mi       105Gi       114Gi\nSwap:           29Gi       512Ki        29Gi\n",
+        "disk": "Filesystem            Size  Used Avail Use% Mounted on\n/dev/mapper/vg0-home  1.5T  1.3T   47G  97% /home\n",
+        "prior_workloads": "comfyui Up 41 hours\n",
+        "command": [
+          "docker",
+          "run",
+          "--name",
+          "co-outgoing-map-dependency-20261023",
+          "--cpuset-cpus=0-3",
+          "--memory=4g",
+          "--memory-swap=4g",
+          "--shm-size=1g",
+          "--entrypoint",
+          "/opt/ukrmolp/entrypoint.sh",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "MKL_NUM_THREADS=1",
+          "-e",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "-e",
+          "PYTHONPATH=/opt/qmodeling",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/outgoing-map-dependency-source-20261023/source:/opt/qmodeling:ro",
+          "-v",
+          "/home/kooza/ukrmol/co-sa-20261006/prepared/outgoing-map-dependency-source-20261023/outputs:/out",
+          "-w",
+          "/opt/qmodeling",
+          "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+          "python3",
+          "-m",
+          "projects.ukrmol_co.outgoing_map_canary",
+          "--root",
+          "/work",
+          "--output",
+          "/out/check",
+          "--contract",
+          "/opt/qmodeling/projects/ukrmol_co/outgoing-map-canary-contract-20261023.json"
+        ],
+        "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+        "timed_out": false,
+        "original_command_exit": 0,
+        "original_container_exit": 0,
+        "container_oom_killed": false,
+        "wall_seconds": 55.8509163359995,
+        "finished_utc": "2026-10-23T13:18:19.225390+00:00",
+        "source_integrity_after": true
+      },
+      "result": {
+        "case": "compressed/nine/B1",
+        "rows": [
+          {
+            "kind": "real",
+            "index": 60,
+            "energy_rydberg": 0.22785000000000027,
+            "endpoint": 80,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 1337,
+              "wall_seconds": 3.5269057279801928,
+              "transpose_defect": 1.7658969211916203e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 80,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "invariants": {
+              "flux_defect": 1.7662932227935357e-10,
+              "wronskian_residual": 1.6113635803507464e-13,
+              "amplitude_condition": 1.0722676056728035,
+              "unitarity_defect": 1.3430876411035797e-09,
+              "reciprocity_defect": 9.863205154906953e-14
+            },
+            "s_absolute_error": 1.112373621180897e-08,
+            "checks": {
+              "s": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "kind": "real",
+            "index": 60,
+            "energy_rydberg": 0.22785000000000027,
+            "endpoint": 120,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 2165,
+              "wall_seconds": 5.656131658994127,
+              "transpose_defect": 2.3354429532350846e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "invariants": {
+              "flux_defect": 2.2027923929357485e-10,
+              "wronskian_residual": 1.5802427127240653e-13,
+              "amplitude_condition": 1.0722676056715739,
+              "unitarity_defect": 1.7051304812554235e-09,
+              "reciprocity_defect": 7.172050610316325e-14
+            },
+            "s_absolute_error": 1.1151486736669092e-08,
+            "checks": {
+              "s": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "kind": "real",
+            "index": 70,
+            "energy_rydberg": 0.2646000000000003,
+            "endpoint": 80,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 1349,
+              "wall_seconds": 3.5557955100084655,
+              "transpose_defect": 1.9970098287582177e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 80,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "invariants": {
+              "flux_defect": 3.4459823883281615e-10,
+              "wronskian_residual": 2.5344756431622715e-13,
+              "amplitude_condition": 1.0607869903800127,
+              "unitarity_defect": 2.1364611191287963e-09,
+              "reciprocity_defect": 7.19907427269834e-14
+            },
+            "s_absolute_error": 4.1343891198332193e-08,
+            "checks": {
+              "s": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "kind": "real",
+            "index": 70,
+            "energy_rydberg": 0.2646000000000003,
+            "endpoint": 120,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 2189,
+              "wall_seconds": 5.710343295999337,
+              "transpose_defect": 1.1018671321700829e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "invariants": {
+              "flux_defect": 4.336306869134887e-10,
+              "wronskian_residual": 2.634323267240874e-13,
+              "amplitude_condition": 1.0607869903779268,
+              "unitarity_defect": 2.6926372242996877e-09,
+              "reciprocity_defect": 1.0707577833818238e-13
+            },
+            "s_absolute_error": 4.1510858510253966e-08,
+            "checks": {
+              "s": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "kind": "real",
+            "index": 80,
+            "energy_rydberg": 0.3013500000000001,
+            "endpoint": 80,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 1373,
+              "wall_seconds": 3.6133067249902524,
+              "transpose_defect": 2.37231171551169e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 80,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "invariants": {
+              "flux_defect": 6.073186398225516e-10,
+              "wronskian_residual": 4.0658241446990377e-13,
+              "amplitude_condition": 1.0524398826318602,
+              "unitarity_defect": 3.730906916743493e-09,
+              "reciprocity_defect": 1.0621602733470265e-13
+            },
+            "s_absolute_error": 1.5078200815552717e-07,
+            "checks": {
+              "s": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "kind": "real",
+            "index": 80,
+            "energy_rydberg": 0.3013500000000001,
+            "endpoint": 120,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 2213,
+              "wall_seconds": 5.77388666200568,
+              "transpose_defect": 2.4396901636764872e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "invariants": {
+              "flux_defect": 7.691381975760692e-10,
+              "wronskian_residual": 4.0450768215088893e-13,
+              "amplitude_condition": 1.0524398826286954,
+              "unitarity_defect": 4.887786730911614e-09,
+              "reciprocity_defect": 1.478317690566757e-13
+            },
+            "s_absolute_error": 1.5104170548923114e-07,
+            "checks": {
+              "s": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "kind": "complex",
+            "ordinal": 0,
+            "endpoint": 80,
+            "angle": 30,
+            "order": 8,
+            "rtol": 1e-10,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 1577,
+              "wall_seconds": 4.019283266999992,
+              "transpose_defect": 1.3040214586460777e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 80,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "radius_scaled_map_difference": 2.066707688028939e-11,
+            "radius_scaled_transpose_defect": 2.34723862556294e-17,
+            "checks": {
+              "map": true,
+              "transpose": true
+            }
+          },
+          {
+            "kind": "complex",
+            "ordinal": 1,
+            "endpoint": 80,
+            "angle": 40,
+            "order": 8,
+            "rtol": 1e-10,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 1601,
+              "wall_seconds": 4.072185019002063,
+              "transpose_defect": 1.3479144839305267e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 80,
+              "angle": 40,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "radius_scaled_map_difference": 1.420223597863573e-11,
+            "radius_scaled_transpose_defect": 2.426246071074948e-17,
+            "checks": {
+              "map": true,
+              "transpose": true
+            }
+          },
+          {
+            "kind": "complex",
+            "ordinal": 2,
+            "endpoint": 120,
+            "angle": 30,
+            "order": 8,
+            "rtol": 1e-10,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 2033,
+              "wall_seconds": 5.152928891999181,
+              "transpose_defect": 1.1319402998375371e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 30,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "radius_scaled_map_difference": 1.9268389998146443e-11,
+            "radius_scaled_transpose_defect": 2.037492539707567e-17,
+            "checks": {
+              "map": true,
+              "transpose": true
+            }
+          },
+          {
+            "kind": "complex",
+            "ordinal": 3,
+            "endpoint": 120,
+            "angle": 40,
+            "order": 8,
+            "rtol": 1e-10,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 2105,
+              "wall_seconds": 5.339944448991446,
+              "transpose_defect": 9.885915992528677e-19,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 40,
+              "order": 8,
+              "rtol": 1e-10
+            },
+            "radius_scaled_map_difference": 1.6727437099557562e-11,
+            "radius_scaled_transpose_defect": 1.7794648786551617e-17,
+            "checks": {
+              "map": true,
+              "transpose": true
+            }
+          },
+          {
+            "kind": "complex",
+            "ordinal": 4,
+            "endpoint": 120,
+            "angle": 40,
+            "order": 10,
+            "rtol": 1e-11,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 3269,
+              "wall_seconds": 8.274265568994451,
+              "transpose_defect": 1.2410926070643994e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 40,
+              "order": 10,
+              "rtol": 1e-11
+            },
+            "radius_scaled_map_difference": 0.0,
+            "radius_scaled_transpose_defect": 2.2339666927159188e-17,
+            "checks": {
+              "map": true,
+              "transpose": true
+            }
+          }
+        ],
+        "canary_verdict": true,
+        "scientific_exit": 0,
+        "native_calls": 0,
+        "pole_searches": 0,
+        "qualified_pole_verdict": null,
+        "full_sweep_released": false,
+        "route_holdout_s_matrices_analyzed": 0,
+        "inputs_verified_before": 123,
+        "controls_original_exit": 0,
+        "original_aggregate_verdict": false,
+        "boundary_channels": 298,
+        "wall_seconds": 55.22210410999833,
+        "peak_process_rss_platform_units": 353392,
+        "process_cpu_seconds": 55.034019,
+        "cgroup_memory.peak": "345174016\n",
+        "cgroup_cpu.stat": "usage_usec 55379665\nuser_usec 55291655\nsystem_usec 88009\nnice_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+        "inputs_verified_after": 123
+      },
+      "source_entries": 21
+    }
+  },
+  "max_s_absolute_error": 1.5104170548923114e-07,
+  "max_radius_scaled_map_difference": 2.066707688028939e-11,
+  "scope": "Three compressed/nine/B1 development energies, six real-S propagations and five settings at one complex non-pole point. No physical-pole, omitted-spectrum or electronic-model qualification.",
+  "production_decision": "Finite map feasibility established; permits a separately frozen one-anchor pole-reference proposal, not an automatic pole search, full-S scalar fit or geometry sweep.",
+  "public_verification": {
+    "observed_utc": "2026-10-23T13:21:39.827059+00:00",
+    "public_payloads_verified": 6,
+    "archived_files_verified": 70,
+    "source_entries_verified": {
+      "original": 22,
+      "successor": 21
+    },
+    "original_inputs_verified": 123,
+    "original_exits": [
+      2,
+      2,
+      2
+    ],
+    "successor_exits": [
+      0,
+      0,
+      0
+    ],
+    "unchanged_numerical_sources_verified": true,
+    "real_s_captures_verified": 6,
+    "complex_y_captures_verified": 5,
+    "saved_row_gates_reconstructed": 40,
+    "maximum_independent_s_reconstruction_difference": 1.458211484318739e-14,
+    "maximum_native_error_metric_drift": 6.656675595335774e-16,
+    "canary_verdict": true,
+    "qualified_pole_verdict": null,
+    "new_propagations": 0,
+    "native_calls": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "independence": "Independent native record/triangle decoder, spectral native S, alternate native-Q contraction, Gram wall solve and reduced RHS boundary solve; no producer numerical modules. Complex maps are authenticated and their saved invariance gates reconstructed, not independently repropagated or pole-qualified."
+  }
+}

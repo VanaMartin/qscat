@@ -98,3 +98,14 @@ canary implementation/scope, not all possible outgoing maps. **Timeout, rank or
 integration failure:** inconclusive feasibility; no retry or automatic successor.
 No pole finding, CO width, omitted-spectrum bound, electronic-model choice or
 production sweep follows from any outcome.
+
+## Completed application
+
+The [recorded result](../../projects/ukrmol_co/OUTGOING_MAP_CANARY.md) preserves
+the initial test-dependency stop2/2/2 at `c00c09a`. A goal-reviewed dependency-only
+successor `5a919f0` keeps the propagator, runner and scientific contract byte-exact
+and passes all11 propagations /40 row gates in55.850916s. Worst real-S error
+1.51042e-7 and radius-scaled complex map change2.06671e-11 pass the original gates.
+Fresh saved public reconstruction verifies both owners and all40 decisions,
+with no new propagation. This supplies finite feasibility only, not a pole,
+width or all-anchor qualification; any root search still needs its own contract.

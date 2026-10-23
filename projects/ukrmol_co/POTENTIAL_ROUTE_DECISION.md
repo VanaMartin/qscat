@@ -2,6 +2,17 @@
 
 ## Decision now
 
+**13:21UTC outcome:** [one-anchor outgoing-map feasibility passes](OUTGOING_MAP_CANARY.md).
+The unchanged-numerics successor completes11 propagations /40 row gates in
+55.850916s, worst real full-S entry error1.51042e-7 and radius-scaled complex map
+change2.06671e-11. Independent saved public reconstruction verifies all gates and
+preserves original dependency-stop exits2/2/2 beside successor0/0/0.
+This makes a separately bounded **compressed-anchor pole-reference proposal**
+plausible; no pole search, width, electronic-model choice or sweep is released.
+Require a finite search box/evaluation cap, independent construction/residue
+witness and numerical error gate before any root search. Do not generalize one
+complex probe to a qualified continuation region or omitted-spectrum bound.
+
 **13:14UTC packaging review:** the first canary stops at a test-only missing
 `mpmath` import, exits2/2/2, before CO propagation. A
 [single dependency-only successor](outgoing-map-dependency-successor-contract-20261023.json)

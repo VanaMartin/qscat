@@ -18,10 +18,11 @@ comparison is optional, not a universal sweep prerequisite. The
 native interface closure. The separately frozen saved-S screen has now ruled
 out the bare full-matrix fitter. The outgoing-pole target map is now defined,
 including retained polar shifts and an excluded-geometry validation rule. The
-bounded design cycle is complete, not a numerical launch. Next decide whether to
-authorize one-anchor pole-reference feasibility or redirect to a coupled model;
-no new fitter, pole campaign, geometries or inner solve follows automatically.
-Review before opening either branch or next cycle boundary (25 October if active).
+bounded design cycle was followed by a separately frozen outgoing-map canary,
+which now passes at one saved anchor. Next define one finite compressed-anchor
+pole-reference proposal using measured map costs and an independent pole witness;
+no root search, fitter, extra geometries or inner solve follows automatically.
+Review on that proposal or next cycle boundary (25 October if active).
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -43,6 +44,44 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Outgoing-map result —23 October,13:21UTC
+
+[Compressed-anchor finite feasibility passes](OUTGOING_MAP_CANARY.md), successor
+`5a919f0`, unchanged propagator/runner/scientific contract from `c00c09a`.
+All11 propagations /40 row gates complete: six full-S reconstructions at three
+development indices60/70/80 have maximum entry error1.510417e-7; five settings
+at incident0.14−0.04iHa give max radius-scaled Y change2.066708e-11. Five runtime
+analytic/independent controls pass. No physical CO pole or width is found.
+
+Original test-dependency stop2/2/2 remains; successor0/0/0, no timeout/OOM.
+All123 inputs and22/21 frozen source entries verify. Successor55.850916s wall /
+55.034019 process CPU s, cgroup peak.32147GiB, process peak.33702GiB; one worker /
+BLAS thread, four physical cores0–3 /4GiB. Observed3.53–8.27s/map is a finite
+cost observation, not a forecast of conditioning near a pole.
+
+[Independent public saved reconstruction](verification-outgoing-map-canary-public-20261023.json)
+verifies6 payloads /70 archived files, all123 original inputs and every saved
+gate. It uses independent native decoding/spectral S/Q contraction/Gram wall and
+reduced boundary solves, max S drift1.45821e-14; complex maps are authenticated
+and their finite invariance gates rebuilt, not independently repropagated.
+Zero native calls, pole searches, extra geometries, QC/property work or fits.
+The114 energy-route holdout S values and equilibrium pole exclusion stay protected.
+
+Persistent originals/successor:
+`prepared/outgoing-map-canary-source-20261023/` and
+`prepared/outgoing-map-dependency-source-20261023/`; evidence/public mirror
+`prepared/publication-outgoing-map-canary-20261023/`. Both owners are finished.
+**Next:** a separately bounded compressed pole-reference proposal, with search
+box/sheet/evaluation cap, independent construction/residue witness and error gate.
+No automatic root search or solver campaign. Electronic-model, omitted-complex-
+spectrum, neutral, continuity, extra training-node and full-scattering gates stay
+open; new50 remains parked. This is route feasibility, not a qualified potential.
+Search handoff: main index `423d577` remains complete/current and remote-main
+lookup agrees. Outgoing-map/canary/readers are branch-local and were resolved
+in current source; the old real-axis propagator is unchanged. Five local and
+five pinned-runtime controls pass; public reconstruction performs no propagation.
+The canary owners are finished; unrelated host containers are left untouched.
 
 **13:14UTC canary stop:** original `c00c09a` controls import absent `mpmath`
 through a test-only grid helper; original exits2/2/2, zero CO propagations,
