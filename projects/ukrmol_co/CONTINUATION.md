@@ -18,11 +18,11 @@ comparison is optional, not a universal sweep prerequisite. The
 native interface closure. The separately frozen saved-S screen has now ruled
 out the bare full-matrix fitter. The outgoing-pole target map is now defined,
 including retained polar shifts and an excluded-geometry validation rule. The
-bounded design cycle was followed by separately frozen map/pole experiments.
-One visible finite-reference pole now passes at compressed/nine/B1. Next define
-a bounded B1/B2 and channel-character proposal at that anchor before extending a Pi
-curve; model accuracy remains unresolved. No other sector/anchor, fitter, extra
-geometry or inner solve follows automatically. Review on that proposal or next
+bounded design cycle was followed by separately frozen map/pole/character tests.
+The compressed finite-reference B1/B2 open-Pi pair now passes. Redirect to one
+matched electronic-model outgoing-pole contrast proposal using completed sparse
+inputs at a development geometry; model accuracy remains unresolved. No extra
+sector/anchor, fitter, geometry or inner solve follows automatically. Review on that proposal or next
 cycle boundary (25 October if active).
 No unattended reminder or autonomous daily job is implied.
 
@@ -45,6 +45,61 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Finite compressed open-Pi pair —23 October,17:36UTC, independently reconstructed
+
+[Result](PAIRED_POLE_CHARACTER.md): CAS11/nine-A2, R=1.9bohr,2048 roots/all298
+channels per sector. B1/B2 pass the frozen counterpart and open-residue character
+conditions, leakage1.14749e-9 /1.14744e-9 outside ground-target `|m|=1`.
+Canonical `(target,l,|m|)` profile TV2.581e-11 /norm mismatch6.462e-11.
+This supports a finite-reference open-Pi pair, not exact Lambda conservation,
+single-l sufficiency, electronic accuracy, a CO curve/potential or full-S embedding.
+
+Policy/classifier freeze `cee9e3e` predates every actual character score; B1
+saved screen0/0/0/0,1.322034s, no new map. Unchanged policy and B2 adapter freeze
+`f6dc800` precede all B2 maps. B2 finishes17:31:33UTC,0/0/0/0,42/67 maps:
+two development-S checks +3 root +1 center +4 derivative +32 contour.
+Three settings accept the B1 seed directly (one evaluation each), no B2 secant
+iterate. Reported coordinates agree exactly because of seed acceptance, **not
+zero uncertainty/exact degeneracy**. Independent contour estimates differ by
+4.26e-11 /3.42e-11eV position/full width; small algebraic agreement is not absolute
+CO accuracy. Common reporting candidate remains3.7604 /2.0846physical eV.
+
+B2 full-S errors1.10e-8 /1.50e-7, eigenphase errors3.14e-8 /4.23e-7rad; all
+invariant and pole/contour/residue/character gates pass. Runtime23 controls pass.
+Container173.055525s /Python172.045464s; parent CPU105.140677s excludes workers,
+cgroup CPU634.276314s includes them. Cgroup peak1.83207GiB, parent.26461GiB;
+eight physical cores0–7 /one BLAS thread per worker /up to8 contour workers /
+8GiB allocation.31 sources /123 inputs verify. No timeout/OOM/repair/successor.
+Implementation is within the one-cycle/two-hour bound. Jobs are finished.
+
+[Fresh public reconstruction](verification-paired-pole-character-public-20261023.json)
+verifies10 payloads, B2 92 files/31 sources, saved-B1 27 files/17 sources, five
+prerequisite payloads and123 original inputs. Independent native decoding,
+opposite I−YQ solves and entrywise support sums reconstruct both development-S
+checks, every B2 pole witness, all eight character estimates and pair gates.
+No producer numerical imports or new propagation; saved Y/A authenticate, not
+independently repropagate. Earlier failures/exits stay unchanged. Persistent:
+`prepared/saved-pole-character-source-20261023/`,
+`prepared/paired-pole-character-source-20261023/`; public mirror
+`prepared/publication-paired-pole-character-20261023/`.
+
+**Disposition/one next deliverable: redirect to a matched electronic-model
+outgoing-pole contrast proposal**, at a development geometry, from completed
+sparse inputs. Establish a compatible same-R/same-definition comparison; if
+absent, name the missing artifact and preparation cost instead of extending the
+solver/interface campaign. One design/review cycle, no job yet. Do not subtract
+unlike historical phase-fit widths or use the reserved equilibrium pole.
+All114 route holdouts and equilibrium pole exclusion remain protected; new50
+parked,2048 baseline retained. Electronic accuracy, omitted spectrum, independent
+exterior, continuity, neutral/factory/asymptote/full-S gates remain open. No
+extra sector/anchor, geometry, fit or sweep is released.
+Search handoff: main snapshot `423d577` is complete/current and direct upstream
+lookup agrees. Native pole/character/adapter files are branch-local; current
+bodies and deltas were inspected. Indexed angular-context/unit helpers remain
+unchanged; no index hit is used as evidence of a native CO residue assignment.
+No qscat promotion or branch ingestion. No campaign job is running; unrelated
+ComfyUI is untouched.
 
 ### Saved B1 character passes —23 October,17:24UTC
 

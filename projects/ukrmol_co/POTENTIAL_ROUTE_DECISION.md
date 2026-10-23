@@ -2,6 +2,24 @@
 
 ## Decision now
 
+**17:36UTC completed pair:** [B1/B2 counterpart and open-Pi character pass](PAIRED_POLE_CHARACTER.md)
+for the compressed finite CAS11/nine-A2 reference. Leakage outside ground-target
+`|m|=1` is1.14749e-9 /1.14744e-9; label-matched profile TV2.581e-11. Both sectors
+have contour/residue witnesses; this is not degeneracy alone or single-l support.
+B2's three settings accept the B1 seed directly, not independent new iterates or
+zero splitting uncertainty. Independent public replay rebuilds all saved gates.
+Saved B1 screen1.322s /no new maps; B2 counterpart173.056s /42 maps /1.832GiB.
+
+**Disposition: redirect to one matched electronic-model pole-contrast proposal**
+at a development geometry, reusing completed sparse inputs. First establish a
+compatible same-R/same-definition contrast; if absent, name the exact missing
+artifact and preparation cost. Do not subtract historical phase-fit parameters,
+use the reserved equilibrium pole, or launch another interface/precision campaign.
+One design/review cycle, no numerical job yet. Electronic accuracy, omitted
+spectrum, continuity, neutral/factory/asymptote/full-scattering gates remain open.
+Keep2048 roots, all114 route holdouts and equilibrium pole exclusion protected,
+new50 parked. No extra sector/anchor, geometry, fit or sweep is released.
+
 **17:24UTC saved result:** B1 passes the frozen open-residue character screen:
 leakage1.14749e-9, all four estimates agree; no new propagation,1.322s container.
 This supports the intended finite-reference B1 open-Pi support, not a paired

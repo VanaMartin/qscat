@@ -1,0 +1,46 @@
+{
+  "artifacts": {
+    "b1-pole-prerequisite-artifacts.json": {
+      "bytes": 1165,
+      "sha256": "7f927ec2f56c32ab8cba5b0a2e64230d598cdc58fa88339cb6aabe9a9403a1dc"
+    },
+    "canary-prerequisite-artifacts.json": {
+      "bytes": 1001,
+      "sha256": "b793fb1e5a105a53c6dcf879190612d5524a74a611b76b8efc486f7fb0fe2db4"
+    },
+    "collection-sha256.json": {
+      "bytes": 14775,
+      "sha256": "4aaafd7b1362e1e57c59ad50657ed86eb1745829a68635e0329c849bd0fefdd8"
+    },
+    "manifest.json": {
+      "bytes": 377,
+      "sha256": "6c761554a07d1404fa7983d458644eafc9072ecf262116d4b39ede8eca0606bb"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 1335,
+      "sha256": "103d72b1984a2f857e7516e94211942166945868a582bd5a5cf21887e5d62b92"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 22908,
+      "sha256": "a72709281a97ab07068183f1872ca306c2b6f5682e7b8ecc234cee87dfb87a37"
+    },
+    "result-summary.json": {
+      "bytes": 70666,
+      "sha256": "3134fdeb19518c6e6768b93f224f7beccbe6c4fcfb7506546ba4d9994236ce2e"
+    },
+    "results.tar.gz": {
+      "bytes": 88660381,
+      "sha256": "50c4ada80696db9601be2daaf780322dc6772525b674203419f85cde9cc6fe6a"
+    },
+    "saved-b1-collection.json": {
+      "bytes": 4262,
+      "sha256": "5367e42f29f5fd6162f3f5fb9a044a6348d25d8b6f28c43552d1c47fab2a2a5a"
+    },
+    "saved-b1.tar.gz": {
+      "bytes": 499130,
+      "sha256": "fc73f75001aef57f9f1248f7c2045eca739b15fa16e03730d29bd6ad3b5ed273"
+    }
+  },
+  "git_sha": "f6dc800e8fc8ffa665bfffcc86b7df63576b82d3",
+  "url_prefix": "https://data.qscat.org/co-paired-pole-character-20261023/"
+}

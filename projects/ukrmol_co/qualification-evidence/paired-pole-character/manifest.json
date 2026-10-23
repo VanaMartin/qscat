@@ -1,0 +1,15 @@
+{
+  "git_sha": "f6dc800e8fc8ffa665bfffcc86b7df63576b82d3",
+  "experiment": "co-paired-pole-character-20261023",
+  "paired_finite_reference_open_pi_verdict": true,
+  "physical_co_accuracy_verdict": null,
+  "width_curve_verdict": null,
+  "full_sweep_released": false,
+  "original_exits": [
+    0,
+    0,
+    0
+  ],
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0
+}

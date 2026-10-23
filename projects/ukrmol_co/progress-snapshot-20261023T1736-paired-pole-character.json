@@ -1,0 +1,134 @@
+{
+  "base_snapshot": "progress-snapshot-20261023T1455-compressed-pole-reference.json",
+  "base_snapshot_sha256": "a5475aa7ba29ae961d2d41fcc053ca1bf700e1f1cf70f68175631ae246d99a6e",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/SWEEP_READINESS.md": "be108bd384916551a8833a6ae21c543b2f558609d79a22d24467a6154430f930",
+    "projects/ukrmol_co/progress_figure.py": "62eead1940b65bd6237761aba34ecf456ffa5a9216b78ea3b2da5005f48b9d41",
+    "projects/ukrmol_co/CONTINUATION.md": "71f161391f5310524f08f80f686134fc731412bf9cb10d5e3a6451909b96e1cc",
+    "projects/ukrmol_co/README.md": "6076073c0366d68a11e64783f7dfc5c564c46f5b7fd59d0b863b2a422878e9ee",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "0f830120814bb418f7af59c622737d57515b41c47b62a27f28734ad81646d612",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "7ce77ce1225a8c88809f1d1291e4c83c1edd451186da75f5a0cb0589a6e3f6ee",
+    "docs/physics/co-effective-resonance-target.md": "d9e070970f2b6cf7cc537ca757fc37b55ca50083c0ef11ba5e62447f67495398",
+    "projects/ukrmol_co/compressed_pole_reference.py": "08ac13a2fa8c695a297e424a4b0629ea7c2b5b00acf9064fdf006fc556a3c63e",
+    "docs/physics/co-paired-pole-character.md": "875f8ec01ef4b7b937de48637bcd16064fed8546eb3893c9d1cc59a8af38f6d2",
+    "projects/ukrmol_co/PAIRED_POLE_CHARACTER.md": "04d2c1fb3ccee3d8996fb81dbadb0ef4dc613a45858153acdaccfc0460c47f77",
+    "projects/ukrmol_co/paired-pole-character-contract-20261023.json": "1308e5112e61d1198d5b71cb246ffc2ab51f30d7ecdb6bf659006f623e6c9d56",
+    "projects/ukrmol_co/paired-pole-execution-contract-20261023.json": "0f0ceb2feb47c1545de53434c456e28160b2e2df348209bd0bb13603e2f7e64f",
+    "projects/ukrmol_co/pole_character.py": "d41ac2c8221be529c379a733641c8f80879d4be5e3251a34f79008860cf57732",
+    "projects/ukrmol_co/saved_pole_character.py": "da2e4424c520b731541c867311dc9d7d4ee439c88f7e81d0a423db69686b9479",
+    "projects/ukrmol_co/paired_pole_character.py": "0553a564e6e6fbb34578b99cf583aa300887b4017bad8065377718f14a5bfe71",
+    "projects/ukrmol_co/test_pole_character.py": "0e4b8195cde79f095e1c002e305ea48dffd836c488b93564016373d9ce9f30c6",
+    "projects/ukrmol_co/test_paired_pole_character.py": "7ad920fc9bf85ed782be33392aaca97fb9dfed82de680fd653e0dc01583f1a0a",
+    "projects/ukrmol_co/progress-paired-pole-character-result-20261023.json": "caf26195bb97cc2678ba86e5c2d2667d7cf9daace490defdabe6d6b5db6e676b",
+    "projects/ukrmol_co/verification-paired-pole-character-public-20261023.json": "20d94ca472ceb1fd0978214d9bfff4089b9363cf2dde7d3bb196a77c548362af",
+    "projects/ukrmol_co/qualification-evidence/paired-pole-character/README.md": "97df376a9320a3bae66bc19383c806874ad084a8762c2c5879196e8df0c2de7a",
+    "projects/ukrmol_co/qualification-evidence/paired-pole-character/artifacts.json": "882136d313425228ba14ee73d79d54df7f44e2c2f68a0741b06ec1cd6db72551",
+    "projects/ukrmol_co/qualification-evidence/paired-pole-character/manifest.json": "6c761554a07d1404fa7983d458644eafc9072ecf262116d4b39ede8eca0606bb"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-23T17:36:44.963162+00:00",
+    "live_status": {
+      "scope": "Completed compressed CAS11/nine-A2 finite2048-root B1/B2 open-Pi pair; no electronic-accuracy/curve qualification",
+      "goal_review_disposition": "redirect to one matched same-R/outgoing-pole electronic-model contrast proposal, no new job",
+      "finite_reference_open_pi_pair_verdict": true,
+      "finite_reference_pole_verdict": true,
+      "pole_position_physical_ev": 3.760389687392806,
+      "pole_full_width_physical_ev": 2.0846143865399505,
+      "b1_open_residue_leakage": 1.1474906457584157e-09,
+      "b2_open_residue_leakage": 1.1474359075312911e-09,
+      "counterpart_profile_tv": 2.580998089046247e-11,
+      "counterpart_norm_relative_difference": 6.461969096213149e-11,
+      "exact_lambda_conservation_verdict": null,
+      "physical_co_accuracy_verdict": null,
+      "independent_exterior_verdict": null,
+      "qualified_width_curve": false,
+      "production_model_selected": false,
+      "full_sweep_released": false,
+      "policy_freeze": "cee9e3e",
+      "b2_adapter_freeze": "f6dc800",
+      "saved_b1_original_exits": [
+        0,
+        0,
+        0
+      ],
+      "b2_original_exits": [
+        0,
+        0,
+        0
+      ],
+      "saved_b1_new_maps": 0,
+      "saved_b1_container_wall_seconds": 1.3220340039988514,
+      "b2_map_evaluations": 42,
+      "b2_root_setting_evaluations": [
+        1,
+        1,
+        1
+      ],
+      "b2_settings_accepted_b1_seed_without_new_iterates": true,
+      "reported_zero_root_difference_is_not_zero_uncertainty": true,
+      "b1_b2_contour_difference_ev": [
+        4.258954495770693e-11,
+        3.4206828882417176e-11
+      ],
+      "same_root_position_full_width_budget_ev": 0.0001,
+      "b2_container_wall_seconds": 173.05552464799257,
+      "b2_parent_cpu_seconds_excluding_workers": 105.14067700000001,
+      "b2_cgroup_cpu_seconds_including_workers": 634.276314,
+      "b2_cgroup_peak_gib": 1.8320655822753906,
+      "physical_cores": "0-7",
+      "b2_source_entries_verified": 31,
+      "saved_b1_source_entries_verified": 17,
+      "public_payloads_verified": 10,
+      "b2_archived_files_verified": 92,
+      "saved_b1_archived_files_verified": 27,
+      "original_inputs_verified": 123,
+      "new_public_replay_propagations": 0,
+      "native_calls": 0,
+      "route_holdout_s_matrices_analyzed": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "equilibrium_pole_exclusion": "protected",
+      "optional_new50_branch": "parked",
+      "baseline_inner_roots": 2048,
+      "tiny_saved_reconstruction_errors_are_not_absolute_co_error_bounds": true
+    },
+    "figure_subtitle": "Compressed finite-reference B1/B2 open-Pi pair passes; next matched electronic-model evidence, not a geometry sweep or a fitted CO potential",
+    "anchor_note": "Historical native-fit markers retained (compressed/equilibrium reject).\nFinite compressed open-Pi pair is reported separately in F.\nNo electronically qualified CO width curve or potential.",
+    "memory_note": "Historical inner-region costs shown unchanged.\nB2 counterpart:173 s /1.832 GiB cgroup peak.\nB1 reused; 8 physical cores, no engine/inner solve.",
+    "roadmap_title": "Finite open-Pi pair; model still open",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "FINITE MODEL: COMPRESSED OPEN-PI PAIR",
+        "title": "3.7604 eV position /2.0846 eV full width",
+        "detail": "B1 reused; B2 counterpart and residue character pass"
+      },
+      {
+        "kind": "reuse",
+        "status": "CHARACTER: LEAKAGE OUTSIDE |m|=1",
+        "title": "B1 1.14749e-9 /B2 1.14744e-9",
+        "detail": "Mixed l, not probabilities or exact axial symmetry"
+      },
+      {
+        "kind": "reject",
+        "status": "OPEN: ELECTRONIC MODEL / WIDTH CURVE",
+        "title": "No model accuracy or omitted-spectrum bound",
+        "detail": "One finite pair is not a qualified multi-geometry target"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT: MATCHED ELECTRONIC-MODEL PROPOSAL",
+        "title": "Same R /same outgoing-pole definition",
+        "detail": "Use saved sparse inputs; no new job is released"
+      },
+      {
+        "kind": "next",
+        "status": "PARKED: SWEEP / NEW50 / EXTRA GEOMETRIES",
+        "title": "B2 42 maps /173 s /1.832 GiB",
+        "detail": "114 S holdouts and equilibrium exclusion protected"
+      }
+    ],
+    "roadmap_note": "B2 accepts the B1 seed at all3 settings: no zero-error claim.\nIndependent public replay verifies all pole/character gates.\nReturn priority to electronic-model evidence; no new geometry.",
+    "source_footer": "EVIDENCE  Compressed finite CAS11/nine B1/B2 open-Pi pair: character and counterpart conditions pass. B1 reused; B2 42 maps /173 s; exits0/0/0.",
+    "verification_footer": "Finite model only: shared exterior; no exact Lambda, single-l sufficiency, electronic accuracy or qualified CO width curve. Prior failures retained."
+  }
+}

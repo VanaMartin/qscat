@@ -92,10 +92,13 @@ leakage change `<=1e-5`, canonical profile total-variation change `<=1e-4`, and
 relative norm change `<=1e-3`. Otherwise inconclusive. Never infer zero error
 from identical root coordinates or rename numerical stability model convergence.
 
-The diagnostic is invariant under nonzero complex residue scaling, channel
-permutations with labels, channel phase/sign changes, and orthonormal changes
-within the Pi/complement subspaces. Mixing those subspaces without transforming
-P is a physical change, not a gauge invariance to demand.
+The support diagnostic (not the absolute signal guard) is invariant under
+nonzero complex residue scaling, channel permutations with labels, and
+orthonormal changes within the Pi/complement subspaces. Phase/sign controls use
+reciprocity-preserving congruence `R -> U R U.T`; independently changing incoming
+and outgoing phase conventions can invalidate the transpose guard even while
+support fractions stay unchanged. Mixing the two angular subspaces without
+transforming P is a physical change, not a gauge invariance to demand.
 
 ## What inter-sector comparison can establish
 
@@ -171,3 +174,16 @@ Protect all114 route holdout S values and the equilibrium pole-target exclusion.
 New50 stays parked. Electronic accuracy, omitted spectrum, independent exterior,
 geometry continuity, neutral correlation, training-node count, asymptote and
 full-scattering embedding remain separate, unresolved production gates.
+
+## Completed finite application
+
+Policy/classifier freeze `cee9e3e` precedes actual character analysis; saved B1
+passes with no propagation. Separately frozen adapter `f6dc800` applies the
+unchanged policy to B2:42/67 maps,173.06s, original exits0/0/0. Both sectors pass
+with about1.15e-9 leakage and label-matched profile TV2.581e-11. Three B2 settings
+accept the B1 seed directly; identical coordinates are not exact degeneracy or
+zero uncertainty. All real-S/pole/residue/character gates independently
+reconstruct from public saved artifacts without propagation. See
+[result and claim boundary](../../projects/ukrmol_co/PAIRED_POLE_CHARACTER.md).
+Return priority to a matched electronic-model contrast proposal; no automatic
+new geometry, model solve, fit, solver refinement or sweep.

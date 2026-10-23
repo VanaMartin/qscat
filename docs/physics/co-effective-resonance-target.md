@@ -219,3 +219,11 @@ residue. It is not a qualified multi-geometry CO width curve or absolute model
 accuracy; paired-sector consistency, electronic-model choice, continuity and
 the factory/held-out scattering requirements above remain open. No factory
 target is populated from that single datum.
+
+**Later paired outcome:** the compressed finite-reference
+[B1/B2 open-Pi support/counterpart test](../../projects/ukrmol_co/PAIRED_POLE_CHARACTER.md)
+passes with independently reconstructed saved witnesses. This is not merely
+degeneracy, but also not exact Lambda conservation, single-l sufficiency,
+electronic accuracy, a CO width curve or full-S equivalence. Matched electronic-
+model evidence and all factory/held-out validation requirements remain open;
+the equilibrium pole-target exclusion and114 route holdouts stay protected.

@@ -1,0 +1,1517 @@
+{
+  "observed_utc": "2026-10-23T17:32:24.447683+00:00",
+  "execution": {
+    "source_commit": "f6dc800e8fc8ffa665bfffcc86b7df63576b82d3",
+    "source_archive_sha256": "d660b45f2ea34eb645b13598f57a14191b4a938d4ac16d65abde52e1ef8c6063",
+    "owner_sha256": "c4dc7e0ef27ba6bb3c8bfa2c1306126ff99d57cd3ddefb649561106ad8acfc71",
+    "started_utc": "2026-10-23T17:28:40.294765+00:00",
+    "scope": "single B2 counterpart under the frozen pair policy",
+    "native_calls": 0,
+    "original_owner_exit": 0,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "prior_workloads": "comfyui Up 45 hours\n",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-paired-pole-character-20261023",
+      "--cpuset-cpus=0-7",
+      "--memory=8g",
+      "--memory-swap=8g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "-e",
+      "PYTHONPATH=/opt/qmodeling:/opt/qmodeling/libs/qscat",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/paired-pole-character-source-20261023/source:/opt/qmodeling:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/paired-pole-character-source-20261023/outputs:/out",
+      "-w",
+      "/opt/qmodeling",
+      "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+      "python3",
+      "-c",
+      "from pathlib import Path\nimport json,subprocess,sys\nexits={}\nfor module in ['test_pole_character','test_paired_pole_character']:\n with Path('/out/'+module+'.log').open('x') as log:\n  control=subprocess.run([sys.executable,'-m','projects.ukrmol_co.'+module],stdout=log,stderr=subprocess.STDOUT)\n exits[module]=control.returncode\n Path('/out/controls.json').write_text(json.dumps(exits))\n if control.returncode:raise SystemExit(2)\ncommand=[sys.executable,'-m','projects.ukrmol_co.paired_pole_character','--root','/work','--source','/opt/qmodeling','--output','/out/check','--contract','/opt/qmodeling/projects/ukrmol_co/paired-pole-execution-contract-20261023.json']\nraise SystemExit(subprocess.call(command))\n"
+    ],
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "timed_out": false,
+    "original_command_exit": 0,
+    "original_container_exit": 0,
+    "container_oom_killed": false,
+    "wall_seconds": 173.05552464799257,
+    "finished_utc": "2026-10-23T17:31:33.363843+00:00",
+    "source_integrity_after": true
+  },
+  "result": {
+    "paired_verdict": true,
+    "paired_disposition": "pass",
+    "scientific_exit": 0,
+    "real_rows": [
+      {
+        "index": 60,
+        "completed": true,
+        "diagnostics": {
+          "rhs_evaluations": 4553,
+          "wall_seconds": 11.805834047001554,
+          "transpose_defect": 9.522519042060275e-19,
+          "open_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "endpoint": 120,
+          "angle": 40,
+          "order": 10,
+          "rtol": 1e-12
+        },
+        "invariants": {
+          "flux_defect": 1.5081371142736602e-13,
+          "wronskian_residual": 7.021666937153402e-16,
+          "amplitude_condition": 1.0722676057060687,
+          "unitarity_defect": 3.168576512280197e-13,
+          "reciprocity_defect": 7.702656578361238e-16
+        },
+        "s_absolute_error": 1.1017388997551905e-08,
+        "phase_sum_error_mod_pi_rad": 3.142159701217838e-08,
+        "checks": {
+          "s": true,
+          "phase": true,
+          "flux": true,
+          "wronskian": true,
+          "unitarity": true,
+          "reciprocity": true
+        }
+      },
+      {
+        "index": 80,
+        "completed": true,
+        "diagnostics": {
+          "rhs_evaluations": 4613,
+          "wall_seconds": 11.934612042998197,
+          "transpose_defect": 1.5352686554447084e-18,
+          "open_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "endpoint": 120,
+          "angle": 40,
+          "order": 10,
+          "rtol": 1e-12
+        },
+        "invariants": {
+          "flux_defect": 3.047484479391702e-13,
+          "wronskian_residual": 1.3368855554576669e-15,
+          "amplitude_condition": 1.0524398827245094,
+          "unitarity_defect": 1.749267397599399e-12,
+          "reciprocity_defect": 2.6325398974912097e-15
+        },
+        "s_absolute_error": 1.4991672998815314e-07,
+        "phase_sum_error_mod_pi_rad": 4.2345483265350085e-07,
+        "checks": {
+          "s": true,
+          "phase": true,
+          "flux": true,
+          "wronskian": true,
+          "unitarity": true,
+          "reciprocity": true
+        }
+      }
+    ],
+    "new_propagations": 42,
+    "native_calls": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "full_sweep_released": false,
+    "physical_co_accuracy_verdict": null,
+    "width_curve_verdict": null,
+    "inputs_verified_before": 123,
+    "b1_screen": {
+      "disposition": "pass",
+      "reference": {
+        "disposition": "pass",
+        "guards": {
+          "signal": true,
+          "rank": true,
+          "transpose": true
+        },
+        "residue_norm": 0.05689071906388993,
+        "rank_ratio": 5.202795722115028e-15,
+        "transpose_relative_error": 2.1202568284266708e-16,
+        "incoming_leakage": 1.1474906457584095e-09,
+        "outgoing_leakage": 1.1474906457584159e-09,
+        "leakage": 1.1474906457584159e-09,
+        "canonical_labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            3
+          ]
+        ],
+        "profile": [
+          0.32707191468143726,
+          0.6662906652582312,
+          0.006331961141181691,
+          1.073694197026889e-09,
+          0.00030545777165922163,
+          7.37964487315235e-11
+        ]
+      },
+      "witnesses": [
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689071906396292,
+          "rank_ratio": 3.87156517289799e-15,
+          "transpose_relative_error": 1.9637852426074057e-16,
+          "incoming_leakage": 1.1474906457583753e-09,
+          "outgoing_leakage": 1.1474906457584105e-09,
+          "leakage": 1.1474906457584105e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.32707191468143826,
+            0.6662906652582302,
+            0.006331961141181686,
+            1.0736941970268694e-09,
+            0.00030545777165921995,
+            7.37964487315234e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689071906388993,
+          "rank_ratio": 5.202795722115028e-15,
+          "transpose_relative_error": 2.1202568284266708e-16,
+          "incoming_leakage": 1.1474906457584095e-09,
+          "outgoing_leakage": 1.1474906457584159e-09,
+          "leakage": 1.1474906457584159e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.32707191468143726,
+            0.6662906652582312,
+            0.006331961141181691,
+            1.073694197026889e-09,
+            0.00030545777165922163,
+            7.37964487315235e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.056890733352396465,
+          "rank_ratio": 2.4831715051773373e-16,
+          "transpose_relative_error": 3.392227668836011e-14,
+          "incoming_leakage": 1.1474906459030401e-09,
+          "outgoing_leakage": 1.1474906457593595e-09,
+          "leakage": 1.1474906459030401e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.3270719146814781,
+            0.6662906652581906,
+            0.006331961141181341,
+            1.0736941971029903e-09,
+            0.0003054577716592909,
+            7.379644872820933e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689072262108871,
+          "rank_ratio": 2.6045812104822875e-16,
+          "transpose_relative_error": 3.407295626931665e-14,
+          "incoming_leakage": 1.1474906459030414e-09,
+          "outgoing_leakage": 1.147490645759361e-09,
+          "leakage": 1.1474906459030414e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.327071914681478,
+            0.6662906652581907,
+            0.006331961141181341,
+            1.0736941971029915e-09,
+            0.0003054577716592912,
+            7.379644872820933e-11
+          ]
+        }
+      ],
+      "stability": {
+        "leakage_change": 1.446254990696902e-19,
+        "profile_tv_change": 4.095507204193452e-14,
+        "norm_relative_change": 2.5115701091717806e-07,
+        "checks": {
+          "dispositions": true,
+          "leakage": true,
+          "profile": true,
+          "norm": true
+        }
+      }
+    },
+    "labels": {
+      "B1": [
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2,
+          1
+        ],
+        [
+          3,
+          1,
+          3,
+          1
+        ],
+        [
+          4,
+          1,
+          3,
+          3
+        ],
+        [
+          5,
+          1,
+          4,
+          1
+        ],
+        [
+          6,
+          1,
+          4,
+          3
+        ]
+      ],
+      "B2": [
+        [
+          1,
+          1,
+          1,
+          -1
+        ],
+        [
+          2,
+          1,
+          2,
+          -1
+        ],
+        [
+          3,
+          1,
+          3,
+          -3
+        ],
+        [
+          4,
+          1,
+          3,
+          -1
+        ],
+        [
+          5,
+          1,
+          4,
+          -3
+        ],
+        [
+          6,
+          1,
+          4,
+          -1
+        ]
+      ]
+    },
+    "wall_seconds": 172.04546442898572,
+    "parent_cpu_seconds": 105.14067700000001,
+    "peak_parent_rss_platform_units": 277468,
+    "cgroup_memory.peak": "1967165440\n",
+    "cgroup_cpu.stat": "usage_usec 634276314\nuser_usec 633584366\nsystem_usec 691947\nnice_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+    "b2_original_scientific_exit": 0,
+    "b2_screen": {
+      "disposition": "pass",
+      "reference": {
+        "disposition": "pass",
+        "guards": {
+          "signal": true,
+          "rank": true,
+          "transpose": true
+        },
+        "residue_norm": 0.0568907190675662,
+        "rank_ratio": 5.186078822622733e-15,
+        "transpose_relative_error": 2.7374863858945084e-16,
+        "incoming_leakage": 1.147435907531291e-09,
+        "outgoing_leakage": 1.1474359075312227e-09,
+        "leakage": 1.147435907531291e-09,
+        "canonical_labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            3
+          ]
+        ],
+        "profile": [
+          0.3270719147061532,
+          0.6662906652329669,
+          0.006331961142275902,
+          1.0736477154800224e-09,
+          0.0003054577711681734,
+          7.378819205123461e-11
+        ]
+      },
+      "witnesses": [
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689071906763949,
+          "rank_ratio": 3.904423397450583e-15,
+          "transpose_relative_error": 2.9987003824250016e-16,
+          "incoming_leakage": 1.1474359075312678e-09,
+          "outgoing_leakage": 1.147435907531239e-09,
+          "leakage": 1.1474359075312678e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.3270719147061558,
+            0.6662906652329642,
+            0.006331961142275916,
+            1.0736477154800218e-09,
+            0.0003054577711681743,
+            7.378819205123178e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.0568907190675662,
+          "rank_ratio": 5.186078822622733e-15,
+          "transpose_relative_error": 2.7374863858945084e-16,
+          "incoming_leakage": 1.147435907531291e-09,
+          "outgoing_leakage": 1.1474359075312227e-09,
+          "leakage": 1.147435907531291e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.3270719147061532,
+            0.6662906652329669,
+            0.006331961142275902,
+            1.0736477154800224e-09,
+            0.0003054577711681734,
+            7.378819205123461e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689073335391726,
+          "rank_ratio": 2.1573018247939754e-16,
+          "transpose_relative_error": 5.3336873905089904e-12,
+          "incoming_leakage": 1.1474359074508652e-09,
+          "outgoing_leakage": 1.147435907489889e-09,
+          "leakage": 1.147435907489889e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.32707191470271924,
+            0.6662906652364164,
+            0.006331961142265997,
+            1.0736477154188724e-09,
+            0.00030545777116251056,
+            7.378819205150497e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689072262135269,
+          "rank_ratio": 1.0508182555630226e-16,
+          "transpose_relative_error": 5.334022332699312e-12,
+          "incoming_leakage": 1.147435907450865e-09,
+          "outgoing_leakage": 1.1474359074898889e-09,
+          "leakage": 1.1474359074898889e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.327071914702719,
+            0.6662906652364166,
+            0.0063319611422659895,
+            1.0736477154188724e-09,
+            0.00030545777116251045,
+            7.378819205150484e-11
+          ]
+        }
+      ],
+      "stability": {
+        "leakage_change": 4.140204401950414e-20,
+        "profile_tv_change": 3.449728787488089e-12,
+        "norm_relative_change": 2.511191228914749e-07,
+        "checks": {
+          "dispositions": true,
+          "leakage": true,
+          "profile": true,
+          "norm": true
+        }
+      }
+    },
+    "counterpart": {
+      "disposition": "pass",
+      "components": {
+        "b1": "pass",
+        "b2": "pass",
+        "energy": "pass",
+        "profile": "pass",
+        "norm": "pass"
+      },
+      "pole_difference": {
+        "position_ev": 0.0,
+        "full_width_ev": 0.0
+      },
+      "profile_tv": 2.581014739681102e-11,
+      "norm_relative_difference": 6.461993489977255e-11
+    },
+    "b2_pole_incident_hartree": [
+      0.1381917721280088,
+      -0.038304082851481014
+    ],
+    "inputs_verified_after": 123
+  },
+  "b2_pole": {
+    "case": "compressed/nine/B2",
+    "roots": [
+      {
+        "stage": 0,
+        "setting": [
+          80,
+          30,
+          8,
+          1e-10
+        ],
+        "completed": true,
+        "search": {
+          "evaluations": 1,
+          "trace": [
+            {
+              "z": [
+                0.1381917721280088,
+                -0.038304082851481014
+              ],
+              "alpha_abs": 4.6831485583073865e-12,
+              "sigma_min": 4.68385683204245e-12,
+              "sigma_second": 0.17003342193383825
+            }
+          ]
+        },
+        "z_hartree": [
+          0.1381917721280088,
+          -0.038304082851481014
+        ],
+        "position_ev": 3.760389687392806,
+        "full_width_ev": 2.0846143865399505
+      },
+      {
+        "stage": 1,
+        "setting": [
+          120,
+          30,
+          8,
+          1e-11
+        ],
+        "completed": true,
+        "search": {
+          "evaluations": 1,
+          "trace": [
+            {
+              "z": [
+                0.1381917721280088,
+                -0.038304082851481014
+              ],
+              "alpha_abs": 4.684822220071192e-12,
+              "sigma_min": 4.685658498879912e-12,
+              "sigma_second": 0.1700334219338375
+            }
+          ]
+        },
+        "z_hartree": [
+          0.1381917721280088,
+          -0.038304082851481014
+        ],
+        "position_ev": 3.760389687392806,
+        "full_width_ev": 2.0846143865399505
+      },
+      {
+        "stage": 2,
+        "setting": [
+          120,
+          40,
+          10,
+          1e-12
+        ],
+        "completed": true,
+        "search": {
+          "evaluations": 1,
+          "trace": [
+            {
+              "z": [
+                0.1381917721280088,
+                -0.038304082851481014
+              ],
+              "alpha_abs": 4.684587797353554e-12,
+              "sigma_min": 4.685124696384314e-12,
+              "sigma_second": 0.17003342193383764
+            }
+          ]
+        },
+        "z_hartree": [
+          0.1381917721280088,
+          -0.038304082851481014
+        ],
+        "position_ev": 3.760389687392806,
+        "full_width_ev": 2.0846143865399505
+      }
+    ],
+    "finite_reference_pole_verdict": true,
+    "independent_exterior_verdict": null,
+    "physical_co_accuracy_verdict": null,
+    "width_curve_verdict": null,
+    "scientific_exit": 0,
+    "native_calls": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "full_sweep_released": false,
+    "scope": "One witnessed B2 counterpart of the compressed finite reference, not absolute CO accuracy, exact Lambda or full-S equivalence",
+    "inputs_verified_before": 123,
+    "test_outgoing_map_exit": 0,
+    "wall_seconds": 148.11990064999554,
+    "process_cpu_seconds": 105.07024700000001,
+    "peak_parent_rss_platform_units": 277468,
+    "cgroup_memory.peak": "1967165440\n",
+    "cgroup_cpu.stat": "usage_usec 634205884\nuser_usec 633529937\nsystem_usec 675946\nnice_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+    "test_pole_reference_exit": 0,
+    "root_setting_differences": [
+      {
+        "position_ev": 0.0,
+        "full_width_ev": 0.0
+      },
+      {
+        "position_ev": 0.0,
+        "full_width_ev": 0.0
+      },
+      {
+        "position_ev": 0.0,
+        "full_width_ev": 0.0
+      }
+    ],
+    "contour_witness": {
+      "interior_residue_norm": 0.01611717817819209,
+      "open_residue_norm_hartree": 0.056890719067566195,
+      "pole": [
+        0.138191772129566,
+        -0.038304082852107284
+      ],
+      "root_difference": {
+        "position_ev": 4.237353839877974e-11,
+        "full_width_ev": 3.408334261533817e-11
+      },
+      "rule_pole_difference": {
+        "position_ev": 7.552676885566045e-16,
+        "full_width_ev": 3.776338442783023e-15
+      },
+      "winding": [
+        1.0,
+        1.0000000000000002
+      ],
+      "max_phase_jump": [
+        0.5429101605231668,
+        0.2717202897282993
+      ],
+      "interior_rank_ratio": 6.582387368375854e-16,
+      "open_rank_ratio": 5.1860788207277055e-15,
+      "interior_rule_change": 1.3752684543897582e-12,
+      "open_rule_change": 1.3755096172388065e-12,
+      "checks": {
+        "interior_signal": true,
+        "interior_rank": true,
+        "open_signal": true,
+        "open_rank": true,
+        "interior_rule": true,
+        "open_rule": true,
+        "root_agreement": true,
+        "pole_rule_agreement": true,
+        "winding": true,
+        "winding_resolution": true
+      }
+    },
+    "derivative_witnesses": [
+      {
+        "derivative_denominator_abs": 2.794944741332311,
+        "sigma_min": 4.684790222064811e-12,
+        "boundary_transpose_relative_error": 5.3627281579102146e-12,
+        "relative_contour_residue_error": 2.540667256137045e-07,
+        "checks": {
+          "center_null": true,
+          "residue": true,
+          "transpose": true
+        }
+      },
+      {
+        "derivative_denominator_abs": 2.794945268605012,
+        "sigma_min": 4.684790222064811e-12,
+        "boundary_transpose_relative_error": 5.362728944750354e-12,
+        "relative_contour_residue_error": 6.32112890931457e-08,
+        "checks": {
+          "center_null": true,
+          "residue": true,
+          "transpose": true
+        }
+      }
+    ],
+    "pole_incident_hartree": [
+      0.1381917721280088,
+      -0.038304082851481014
+    ],
+    "inputs_verified_after": 123,
+    "map_evaluations": 40,
+    "evaluation_kinds": {
+      "contour": 32,
+      "derivative": 4,
+      "residue-center": 1,
+      "root": 3
+    }
+  },
+  "saved_b1_execution": {
+    "source_commit": "cee9e3e91876effd2641e3e605d4163b8ff0c201",
+    "source_archive_sha256": "dc45fab2b443f162c0e6e886fb9668555b9f26e8fde18efe459c9b74fa4baeaf",
+    "owner_sha256": "a996b3e3c2286859410850a49f684fc1e13fd2063c59dd68592d19775fc34223",
+    "started_utc": "2026-10-23T17:23:38.743724+00:00",
+    "new_propagations": 0,
+    "native_calls": 0,
+    "original_owner_exit": 0,
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "prior_workloads": "comfyui Up 45 hours\n",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-saved-pole-character-20261023",
+      "--cpuset-cpus=0-3",
+      "--memory=1g",
+      "--memory-swap=1g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "-e",
+      "PYTHONPATH=/opt/qmodeling:/opt/qmodeling/libs/qscat",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-pole-character-source-20261023/source:/opt/qmodeling:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/saved-pole-character-source-20261023/outputs:/out",
+      "-w",
+      "/opt/qmodeling",
+      "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+      "python3",
+      "-c",
+      "from pathlib import Path\nimport json,subprocess,sys\nwith Path('/out/controls.log').open('x') as log:\n control=subprocess.run([sys.executable,'-m','projects.ukrmol_co.test_pole_character'],stdout=log,stderr=subprocess.STDOUT)\nPath('/out/controls.json').write_text(json.dumps({'original_exit':control.returncode})+'\\n')\nif control.returncode:raise SystemExit(2)\ncommand=[sys.executable,'-m','projects.ukrmol_co.saved_pole_character','--root','/work','--output','/out/check','--contract','/opt/qmodeling/projects/ukrmol_co/paired-pole-character-contract-20261023.json']\nraise SystemExit(subprocess.call(command))\n"
+    ],
+    "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+    "timed_out": false,
+    "original_command_exit": 0,
+    "original_container_exit": 0,
+    "container_oom_killed": false,
+    "wall_seconds": 1.3220340039988514,
+    "finished_utc": "2026-10-23T17:23:40.077894+00:00",
+    "source_integrity_after": true
+  },
+  "saved_b1_result": {
+    "stage": "saved B1 necessary character screen only",
+    "paired_verdict": null,
+    "b1_character_disposition": "pass",
+    "scientific_exit": 0,
+    "new_propagations": 0,
+    "native_calls": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "full_sweep_released": false,
+    "inputs_verified_before": 123,
+    "archived_files_verified": 86,
+    "labels": {
+      "B1": [
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2,
+          1
+        ],
+        [
+          3,
+          1,
+          3,
+          1
+        ],
+        [
+          4,
+          1,
+          3,
+          3
+        ],
+        [
+          5,
+          1,
+          4,
+          1
+        ],
+        [
+          6,
+          1,
+          4,
+          3
+        ]
+      ],
+      "B2": [
+        [
+          1,
+          1,
+          1,
+          -1
+        ],
+        [
+          2,
+          1,
+          2,
+          -1
+        ],
+        [
+          3,
+          1,
+          3,
+          -3
+        ],
+        [
+          4,
+          1,
+          3,
+          -1
+        ],
+        [
+          5,
+          1,
+          4,
+          -3
+        ],
+        [
+          6,
+          1,
+          4,
+          -1
+        ]
+      ]
+    },
+    "b1_screen": {
+      "disposition": "pass",
+      "reference": {
+        "disposition": "pass",
+        "guards": {
+          "signal": true,
+          "rank": true,
+          "transpose": true
+        },
+        "residue_norm": 0.05689071906388993,
+        "rank_ratio": 5.202795722115028e-15,
+        "transpose_relative_error": 2.1202568284266708e-16,
+        "incoming_leakage": 1.1474906457584095e-09,
+        "outgoing_leakage": 1.1474906457584159e-09,
+        "leakage": 1.1474906457584159e-09,
+        "canonical_labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            3
+          ]
+        ],
+        "profile": [
+          0.32707191468143726,
+          0.6662906652582312,
+          0.006331961141181691,
+          1.073694197026889e-09,
+          0.00030545777165922163,
+          7.37964487315235e-11
+        ]
+      },
+      "witnesses": [
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689071906396292,
+          "rank_ratio": 3.87156517289799e-15,
+          "transpose_relative_error": 1.9637852426074057e-16,
+          "incoming_leakage": 1.1474906457583753e-09,
+          "outgoing_leakage": 1.1474906457584105e-09,
+          "leakage": 1.1474906457584105e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.32707191468143826,
+            0.6662906652582302,
+            0.006331961141181686,
+            1.0736941970268694e-09,
+            0.00030545777165921995,
+            7.37964487315234e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689071906388993,
+          "rank_ratio": 5.202795722115028e-15,
+          "transpose_relative_error": 2.1202568284266708e-16,
+          "incoming_leakage": 1.1474906457584095e-09,
+          "outgoing_leakage": 1.1474906457584159e-09,
+          "leakage": 1.1474906457584159e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.32707191468143726,
+            0.6662906652582312,
+            0.006331961141181691,
+            1.073694197026889e-09,
+            0.00030545777165922163,
+            7.37964487315235e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.056890733352396465,
+          "rank_ratio": 2.4831715051773373e-16,
+          "transpose_relative_error": 3.392227668836011e-14,
+          "incoming_leakage": 1.1474906459030401e-09,
+          "outgoing_leakage": 1.1474906457593595e-09,
+          "leakage": 1.1474906459030401e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.3270719146814781,
+            0.6662906652581906,
+            0.006331961141181341,
+            1.0736941971029903e-09,
+            0.0003054577716592909,
+            7.379644872820933e-11
+          ]
+        },
+        {
+          "disposition": "pass",
+          "guards": {
+            "signal": true,
+            "rank": true,
+            "transpose": true
+          },
+          "residue_norm": 0.05689072262108871,
+          "rank_ratio": 2.6045812104822875e-16,
+          "transpose_relative_error": 3.407295626931665e-14,
+          "incoming_leakage": 1.1474906459030414e-09,
+          "outgoing_leakage": 1.147490645759361e-09,
+          "leakage": 1.1474906459030414e-09,
+          "canonical_labels": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              3,
+              3
+            ],
+            [
+              1,
+              4,
+              1
+            ],
+            [
+              1,
+              4,
+              3
+            ]
+          ],
+          "profile": [
+            0.327071914681478,
+            0.6662906652581907,
+            0.006331961141181341,
+            1.0736941971029915e-09,
+            0.0003054577716592912,
+            7.379644872820933e-11
+          ]
+        }
+      ],
+      "stability": {
+        "leakage_change": 1.446254990696902e-19,
+        "profile_tv_change": 4.095507204193452e-14,
+        "norm_relative_change": 2.5115701091717806e-07,
+        "checks": {
+          "dispositions": true,
+          "leakage": true,
+          "profile": true,
+          "norm": true
+        }
+      }
+    },
+    "b2_calculation_eligible": true,
+    "b2_execution_released": false,
+    "inputs_verified_after": 123,
+    "wall_seconds": 0.521077155979583,
+    "process_cpu_seconds": 0.633299,
+    "peak_process_rss_platform_units": 68888,
+    "cgroup_memory.peak": "56168448\n",
+    "cgroup_cpu.stat": "usage_usec 832720\nuser_usec 751873\nsystem_usec 80846\nnice_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+  },
+  "source_entries": 31,
+  "saved_b1_source_entries": 17,
+  "public_verification": {
+    "saved_b1_archived_files_verified": 27,
+    "saved_b1_source_entries_verified": 17,
+    "b1_pole_prior_archived_files_verified": 86,
+    "character_witnesses_reconstructed": 8,
+    "real_s_development_checks_reconstructed": 2,
+    "max_real_s_reconstruction_entry_drift": 5.425378467849099e-13,
+    "b1_leakage": 1.1474906457584157e-09,
+    "b2_leakage": 1.1474359075312911e-09,
+    "counterpart_profile_tv": 2.580998089046247e-11,
+    "counterpart_norm_relative_difference": 6.461969096213149e-11,
+    "b1_b2_contour_difference_ev": [
+      4.258954495770693e-11,
+      3.4206828882417176e-11
+    ],
+    "paired_finite_reference_open_pi_verdict": true,
+    "new_b2_maps": 42,
+    "identical_seed_acceptance_is_not_zero_splitting_uncertainty": true,
+    "observed_utc": "2026-10-23T17:36:44.963162+00:00",
+    "public_payloads_verified": 10,
+    "archived_files_verified": 92,
+    "source_entries_verified": 31,
+    "fresh_prerequisite_payloads": 5,
+    "original_inputs_verified": 123,
+    "original_exits": [
+      0,
+      0,
+      0
+    ],
+    "saved_maps_verified": 40,
+    "bordered_search_values_reconstructed": 3,
+    "contour_points_reconstructed": 32,
+    "derivative_witnesses_reconstructed": 2,
+    "pole_position_ev": 3.760389687392806,
+    "pole_full_width_ev": 2.0846143865399505,
+    "max_native_q_absolute_drift": 6.7131781369677144e-15,
+    "max_bordered_scalar_absolute_drift": 1.2207072279303135e-17,
+    "max_interior_projection_relative_drift": 6.4729055066016e-13,
+    "max_outgoing_transition_relative_drift": 6.596689999583348e-13,
+    "max_contour_phase_drift_rad": 4.691802502065912e-13,
+    "max_moment_relative_drift": 8.702456125831553e-14,
+    "max_derivative_residue_relative_drift": 7.25741147897716e-11,
+    "independent_contour_root_difference_ev": [
+      4.2374293666468294e-11,
+      3.4082587347649614e-11
+    ],
+    "finite_reference_pole_verdict": true,
+    "physical_co_accuracy_verdict": null,
+    "independent_exterior_verdict": null,
+    "width_curve_verdict": null,
+    "new_propagations": 0,
+    "native_calls": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "independence": "Independent native record decoder/Q contraction, opposite I-YQ Schur/residue solves, einsum contour moments and NumPy bordered solves. All saved root/contour/residue gates reconstruct; no producer numerical modules, new ODE integration or independent exterior engine. Tiny agreement is not an absolute CO error bound."
+  }
+}

@@ -16,7 +16,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SNAPSHOT = Path(__file__).with_name(
-    "progress-snapshot-20261023T1455-compressed-pole-reference.json"
+    "progress-snapshot-20261023T1736-paired-pole-character.json"
 )
 BLUE = "#2468ac"
 GREEN = "#158477"
@@ -1217,7 +1217,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261023T1455-compressed-pole-reference",
+        default=ROOT / "docs/physics/figures/co-progress-20261023T1736-paired-pole-character",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

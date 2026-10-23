@@ -322,6 +322,42 @@ budgets remain, with no B1 repropagation, alternate seed/box, repair or successo
 Review on any B2 outcome; all114 holdouts and equilibrium pole exclusion remain
 protected. This is still within the one-cycle/two-hour implementation effort cap.
 
+### Goal checkpoint —23 October,17:36UTC: finite open-Pi pair; return to model evidence
+
+**Question completed:** the [compressed finite-reference B1/B2 pair](PAIRED_POLE_CHARACTER.md)
+passes its prospectively frozen angular-character/counterpart conditions, not
+degeneracy alone. Leakage outside target1 `|m|=1` is1.14749e-9 /1.14744e-9,
+profile TV2.581e-11, both visible open residues and interior contours pass. B2
+accepts the B1 starting candidate once per setting; identical reported positions
+are not independent root estimates or zero splitting uncertainty. Distinct
+contour estimates agree within4.26e-11eV position /3.42e-11eV full width, not an
+absolute CO error bound. Source/policy freeze precedes each stage as required.
+
+**Reuse/cost:** saved B1 screen1.322s, zero maps; B2 counterpart42/67 new maps,
+173.055525s container /1.83207GiB cgroup peak /eight physical cores0–7. Original
+exits0/0/0/0, no timeout/OOM/repair, no new engine/QC/property/inner solve, geometry
+or potential fit. Independent fresh public reconstruction verifies10 payloads,
+all saved pole/real-S/character gates and123 original inputs without propagation.
+Implementation remains inside this active cycle's two-hour effort cap.
+
+**Evidence delta:** a local finite-model open-Pi pair is now supported; the
+assignment blocker is removed for this datum. Electronic-model accuracy and
+the known active-space/channel sensitivity are unchanged. This is not exact
+Lambda conservation, a qualified CO curve, scalar fit or full-S validation.
+**Disposition: redirect from supporting pole/character development to one
+matched electronic-model pole-contrast proposal.** At a development geometry,
+identify the smallest same-R/same-definition comparison from completed sparse
+inputs. If no compatible saved contrast exists, name the missing artifact and
+preparation cost; do not automatically open an interface repair or another solver
+campaign. One design/review cycle, no numerical job yet. Do not mix old phase-fit
+parameters with outgoing poles or consume the excluded equilibrium pole.
+
+Keep2048 roots; no automatic root/channel ladder, extra sector/anchor, geometry,
+fit or sweep. All114 route holdouts and equilibrium pole exclusion remain
+protected, new50 parked. Omitted spectrum, independent exterior, continuity,
+neutral correlation, training/validation nodes, asymptote and physical full-S
+embedding stay open. Review on that proposal or next active cycle boundary.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
@@ -500,7 +536,7 @@ automatic sequence of calculations; parked work does not block every route.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Fitting-information route | One compressed B1 finite-reference pole/residue now passes; bare full-S shortcut still rejects; no CO width curve/model accuracy yet | Define a bounded paired-sector/angular-character proposal at this anchor, then return to a matched model decision; full-scattering embedding remains missing | Completed47-map pole experiment180.99s /1.943GiB; no automatic sector/anchor, fit or geometry expansion |
+| Fitting-information route | Compressed finite B1/B2 open-Pi pair passes; no CO curve/electronic accuracy yet; bare full-S shortcut still rejects | Redirect to one matched same-R/outgoing-pole electronic-model contrast proposal using completed sparse inputs; identify a missing artifact if no compatible contrast exists | B1 reused, B2 counterpart42 maps /173.06s /1.832GiB; no next job, sector/anchor, fit or geometry expansion |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Select model with explicit decision-changing checks and remaining uncertainty budget; no accuracy claim from a larger model alone | Reuse existing2048 results; no automatic active-space/channel ladder |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Continuity | Retained/omitted exchanges and ambiguous coarse links remain | Neighboring-geometry physical subspace/resonance correspondence for the selected model | Bound the geometry pilot after the model is selected |

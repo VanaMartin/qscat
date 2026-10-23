@@ -50,6 +50,14 @@ analysis. This does not establish electronic accuracy, an independent exterior
 or a CO width curve. Next is a bounded paired-sector/angular-character proposal,
 not automatic expansion to more geometries or a solver campaign.
 
+**17:36UTC result:** [the compressed finite-reference B1/B2 open-Pi pair passes](PAIRED_POLE_CHARACTER.md),
+not degeneracy alone: both residues have about1.15e-9 leakage outside `|m|=1`.
+B1 is reused; B2 uses42 maps /173.06s, all pole/character gates independently
+reconstruct. All three B2 settings accept the B1 seed directly, not zero splitting
+uncertainty or independent root iterates. Electronic accuracy and a CO curve
+remain open. Redirect next to a matched electronic-model pole-contrast proposal
+from saved sparse inputs; no new geometry, model solve, fit or sweep is released.
+
 The completed evidence preserves the first pilot and two calibration snapshots:
 
 | Campaign | Attempts | Validated pipelines | Preserved failures | Comparisons | Public evidence |
@@ -639,10 +647,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 23 October 2026
 
-![CO compressed finite-reference B1 pole:3.7604eV position and2.0846eV full width; channel residue witnessed, electronic accuracy and width curve still open](../../docs/physics/figures/co-progress-20261023T1455-compressed-pole-reference.png)
+![Compressed finite-reference B1/B2 open-Pi pair passes; electronic-model accuracy and qualified width curve remain open](../../docs/physics/figures/co-progress-20261023T1736-paired-pole-character.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261023T1455-compressed-pole-reference.svg) ·
-[Finite-reference pole snapshot](progress-snapshot-20261023T1455-compressed-pole-reference.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261023T1736-paired-pole-character.svg) ·
+[Paired pole/character snapshot](progress-snapshot-20261023T1736-paired-pole-character.json) ·
+[Paired finite-reference result](PAIRED_POLE_CHARACTER.md) ·
+[Independent paired reconstruction](verification-paired-pole-character-public-20261023.json) ·
+[Previous B1 pole figure](../../docs/physics/figures/co-progress-20261023T1455-compressed-pole-reference.svg) ·
+[Previous B1 pole snapshot](progress-snapshot-20261023T1455-compressed-pole-reference.json) ·
 [Compressed pole result](COMPRESSED_POLE_REFERENCE.md) ·
 [Independent saved pole witnesses](verification-compressed-pole-reference-public-20261023.json) ·
 [Previous outgoing-map figure](../../docs/physics/figures/co-progress-20261023T1321-outgoing-map-canary.svg) ·

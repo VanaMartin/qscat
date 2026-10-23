@@ -54,6 +54,17 @@ passes observable and omission checks; every refinement must address a measured
 discrepancy. The full execution record is in [CONTINUATION.md](CONTINUATION.md).
 Completed/failed owners,raw outputs and dated overview releases remain evidence.
 
+**17:36UTC paired outcome:** [the finite compressed B1/B2 open-Pi pair passes](PAIRED_POLE_CHARACTER.md),
+with all-l residue support, not degeneracy alone. Both sectors have about1.15e-9
+leakage outside ground-target `|m|=1`; independent saved reconstruction confirms
+the two development-S checks and all pole/character gates. B2 accepts the B1
+seed in one evaluation per setting, not zero splitting uncertainty. Cost42 maps /
+173.06s /1.832GiB, B1 reused. Redirect to one matched electronic-model outgoing-
+pole contrast proposal using completed sparse inputs, not another supporting
+solver campaign. Electronic accuracy/curve/full-S gates remain open; no new
+job, sector/anchor, geometry or fit.114 holdouts and equilibrium pole exclusion
+stay protected;2048 baseline retained and new50 parked.
+
 The [quarter evidence](qualification-evidence/quarter-state-tracking/README.md)
 now independently reconstructs all672 states and112 matrices on the host and
 from public downloads,with byte-identical repackaging.
