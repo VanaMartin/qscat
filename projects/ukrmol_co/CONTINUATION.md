@@ -44,6 +44,21 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Selected finite continuation —23 October: outgoing-map canary
+
+Current scope is the [complex outgoing-map canary](../../docs/physics/co-outgoing-map-canary.md),
+[contract](outgoing-map-canary-contract-20261023.json): compressed/nine/B1 only,
+three development S matrices (indices 60/70/80) at two endpoints before one
+complex non-pole energy under five finite settings. At most 11 propagations,
+90s per propagation and 1800s total hard cap, physical cores 0–3 reserved,
+one worker/BLAS thread, 4GiB. One active working-cycle implementation/diagnosis
+cap. No retry, new native call, root search, geometry or potential fit.
+Five independent/analytic controls pass locally; standard-library runtime tests
+avoid installing pytest in the existing image (its missing pytest preflight
+is a dependency observation, not a scientific gate). Freeze/push precedes CO use.
+Any accuracy failure/timeout ends the canary and returns to the goal decision.
+Equilibrium pole exclusion and all 114 route holdout S values remain protected.
+
 ### Target-definition outcome —23 October,10:56UTC
 
 The [scalar target specification](../../docs/physics/co-effective-resonance-target.md)

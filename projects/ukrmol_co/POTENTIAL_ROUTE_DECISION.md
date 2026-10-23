@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**Continuation decision —23 October:** select a strictly bounded
+[outgoing-map canary](../../docs/physics/co-outgoing-map-canary.md), not a pole
+search. The [contract](outgoing-map-canary-contract-20261023.json) uses compressed
+nine-A2 B1 only, three declared development energies, then one complex probe
+under finite contour changes. It tests whether the missing outgoing-map input
+is feasible without another general method campaign. At most 11 propagations,
+90s each /1800s total cap; one active working-cycle implementation/diagnosis cap.
+First accuracy failure or timeout stops, with no automatic repair or successor.
+Five analytic/independent controls pass before source freeze. Equilibrium pole
+exclusion and all 114 route holdout S values remain protected. No CO pole/width,
+extra geometry, electronic-model choice, potential fit or sweep is released.
+
 **10:56UTC target-definition outcome:** the
 [outgoing-pole reduction](../../docs/physics/co-effective-resonance-target.md)
 defines the scalar factory target: incident physical resonance position and

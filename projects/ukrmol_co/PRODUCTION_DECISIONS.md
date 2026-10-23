@@ -136,6 +136,31 @@ compute caps and qualified prerequisites, or redirect to a coupled effective
 model. No solver, coupled fitter, QC/inner solve or new50 work is launched.
 Review before either branch is opened, or at the next active working-cycle boundary.
 
+### Continuation decision —23 October: one-anchor outgoing-map feasibility
+
+**Production link:** the pole-target map has a concrete missing input: a qualified
+complex outgoing reference. Before any CO root search, test whether one small
+general-channel outgoing-map implementation is numerically viable on saved data.
+The [canary design](../../docs/physics/co-outgoing-map-canary.md) and
+[contract](outgoing-map-canary-contract-20261023.json) select compressed/nine/B1,
+indices 60/70/80 only, then one fixed non-pole complex point with finite contour
+variations. All real full-S gates must pass before complex probes. Five analytic/
+independent BVP, boundary-Numerov, flux and sheet/cap controls pass locally.
+
+**Bound/reuse:** no new native calls or inner/QC/property solves. At most eleven
+propagations, 90s each, 300s runtime allocation /900s upper /1800s hard cap, four
+physical cores reserved, one BLAS thread, 4GiB. These are finite allocations,
+not measured CO forecasts. One working-cycle implementation/diagnosis cap; no
+retry, precision escalation or follow-on solver campaign. Preserve failures.
+The equilibrium pole exclusion and all 114 route holdout S values stay protected.
+
+**Disposition: continue only with this canary.** Pass supplies finite map
+feasibility, not a qualified pole/width or full scattering model. Accuracy
+failure rejects this implementation/scope; timeout or numerical failure is
+inconclusive and returns to route selection. Neither releases extra geometries,
+an automatic pole search, model choice, fitter or sweep. Review immediately on
+the result or failure, before any next numerical branch.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

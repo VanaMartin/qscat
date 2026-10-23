@@ -1,0 +1,24 @@
+{
+  "status": "prospective one-anchor outgoing-map feasibility canary, not a pole search",
+  "raw_directory": "prepared/saved-matrices-source-20261017/raw",
+  "qualified_report": "prepared/saved-matrices-source-20261017/matrices.json",
+  "input_sha256": {
+    "prepared/saved-matrices-source-20261017/raw/input-manifest.json": "81bb01c3a80c894c3c3d523a0fef507e2b6275bbedde90b0a434a3e49e9fe3a3",
+    "prepared/saved-matrices-source-20261017/matrices.json": "3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63"
+  },
+  "case": "compressed/nine/B1",
+  "development_indices": [60, 70, 80],
+  "real_endpoints_bohr": [80, 120],
+  "real_angle_deg": 30,
+  "complex_incident_rydberg": [0.28, -0.08],
+  "complex_settings": [[80,30,8,1e-10],[80,40,8,1e-10],[120,30,8,1e-10],[120,40,8,1e-10],[120,40,10,1e-11]],
+  "s_absolute_budget": 1e-6,
+  "invariant_absolute_budget": 1e-6,
+  "flux_absolute_budget": 1e-7,
+  "radius_scaled_y_budget": 1e-7,
+  "resources": {"cpuset_cpus":"0-3","threads":1,"memory_gib":4,"target_seconds":300,"upper_seconds":900,"hard_cap_seconds":1800,"propagation_cap_seconds":90,"rhs_cap":50000},
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "decision_link": "Test whether complex outgoing matching is feasible at one saved anchor before authorizing any physical-pole search. Three real full-S checks and one complex probe, not independent CO poles or a width curve. No electronic-model choice is made.",
+  "controls": "Five analytic/independent BVP/Numerov/sheet/cap tests run first with a standard-library test harness. No dependency install or image rebuild. A preflight missing pytest is not a scientific failure; its diagnostic remains recorded.",
+  "stopping_rule": "One fresh persistent application after source/tests/contract freeze and push. At most 11 propagations. Stop on first failed accuracy row (scientific exit1), timeout or numerical/input exception (inconclusive exit2); no retry, precision escalation, automatic successor or new native call. All real rows must pass before complex probes. Preserve matrices, original exits, input/source checksums and measured resources. All gates passing exits0 but releases only finite map feasibility, not a pole search or fitted potential. Implementation/diagnosis limited to this active working cycle. All 114 route holdout S values and equilibrium pole exclusion stay protected."
+}
