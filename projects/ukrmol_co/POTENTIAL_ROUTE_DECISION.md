@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**Selected continuation —23 October:** the
+[compressed pole-reference experiment](../../docs/physics/co-compressed-pole-reference.md)
+now has a [finite contract](compressed-pole-reference-contract-20261023.json):
+one prescribed lower-half-plane box, three root settings, nested16/32-node
+resolvent contour and nonzero open-channel residue. At most77 maps, eight physical
+cores,8GiB,600s target /1200s upper /1800s hard cap. Eleven known-truth/independent
+controls pass before freeze. Any cap, failed witness or runtime failure stops;
+no automatic repair, expanded region or other anchor. Both pole constructions
+share the outgoing ODE: a pass witnesses only the declared finite native model,
+not independent exterior or absolute CO/electronic accuracy. All114 route
+holdout S values and equilibrium pole exclusion remain protected.
+
 **13:21UTC outcome:** [one-anchor outgoing-map feasibility passes](OUTGOING_MAP_CANARY.md).
 The unchanged-numerics successor completes11 propagations /40 row gates in
 55.850916s, worst real full-S entry error1.51042e-7 and radius-scaled complex map

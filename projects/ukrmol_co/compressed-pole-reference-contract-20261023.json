@@ -1,0 +1,31 @@
+{
+  "status": "prospective one-anchor finite-reference pole experiment, not an absolute CO width qualification",
+  "case": "compressed/nine/B1",
+  "raw_directory": "prepared/saved-matrices-source-20261017/raw",
+  "canary_result": "prepared/outgoing-map-dependency-source-20261023/outputs/check/result.json",
+  "input_sha256": {
+    "prepared/saved-matrices-source-20261017/raw/input-manifest.json": "81bb01c3a80c894c3c3d523a0fef507e2b6275bbedde90b0a434a3e49e9fe3a3",
+    "prepared/saved-matrices-source-20261017/matrices.json": "3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63",
+    "prepared/outgoing-map-dependency-source-20261023/outputs/check/result.json": "1028f2a59207caaa5205dad8b453fee2cc7f66fad1afbcf7ec1c0b7e3e25b1e0",
+    "prepared/outgoing-map-dependency-source-20261023/execution.json": "bc2ed3ee6f1141a20bcb8899457829a068fdf3f48b0005324b5e31e7f8b17bb0"
+  },
+  "search_box_incident_hartree": [0.10,0.18,-0.070,-0.015],
+  "seeds_incident_hartree": [[0.140,-0.040],[0.142,-0.040]],
+  "settings": [[80,30,8,1e-10],[120,30,8,1e-11],[120,40,10,1e-12]],
+  "root_evaluation_caps": [16,12,12],
+  "reference_energy_rydberg": 0.28,
+  "root_seed_refinement_delta_hartree": 0.00002,
+  "same_root_position_full_width_budget_ev": 0.0001,
+  "contour_radius_hartree": 0.001,
+  "contour_nodes": 32,
+  "projection_columns": 8,
+  "projection_seed": 314159,
+  "derivative_steps_hartree": [0.00001,0.000005],
+  "derivative_residue_relative_budget": 0.001,
+  "resources": {"cpuset_cpus":"0-7","threads_per_worker":1,"contour_workers":8,"memory_gib":8,"target_seconds":600,"upper_seconds":1200,"hard_cap_seconds":1800,"per_map_seconds":90,"rhs_cap":50000,"total_map_cap":77},
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "known_truth_controls": "Exact one-level positive-weight boundary pole and S residue; direct small dense interior inverse; nested contour moments; wrong-width and invisible interior-state negatives; explicit complex Jost normalization and real-axis S misuse rejection; frozen box/cap rejection. Existing outgoing-map controls also run in the pinned image with standard-library test harnesses; include the canonical qscat unit helper sources, no package install.",
+  "claim_boundary": "Bordered root, interior resolvent moments and nonzero6x6 open-channel residue are different constructions sharing the same native data and exterior ODE. Passing numerically witnesses a pole of the declared2048-root/298-channel finite reference, not an independent exterior engine, omitted-spectrum bound, electronically accurate CO width, qualified curve, potential or full-scattering embedding.",
+  "decision_link": "Find out whether a physically visible finite-reference pole can replace unidentifiable phase-fit widths at one development anchor. A full pass permits a separately justified sector/continuity/model decision, not an automatic geometry sweep or factory target export. No candidate or failed witness returns to goal review.",
+  "stopping_rule": "Freeze/push design/source/tests/contract before CO root use. One fresh persistent application, at most77 map evaluations and three prescribed root settings, one fixed32-point contour reusing even points for16-node rule, two fixed derivative steps. Stop on cap, box exit, conditioning/input/test/ODE failure (exit2 qualification unset), or failed numerical/residue/isolation gate (exit1). All gates passing exits0 for finite-reference pole scope only. No repair, reseeding, expanded box, additional quadrature, precision/channel/root ladder, second sector/anchor, native call, QC/property/inner solve, new50 work, geometry, potential fit or automatic successor. All114 route holdout S values and equilibrium pole exclusion remain protected; preserve original failures/exits, every evaluated matrix and resources. Implementation/diagnosis limited to this active working cycle."
+}

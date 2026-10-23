@@ -45,6 +45,26 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Selected continuation —23 October: compressed pole-reference experiment
+
+[Design](../../docs/physics/co-compressed-pole-reference.md) and
+[contract](compressed-pole-reference-contract-20261023.json) limit this continuation
+to compressed/nine/B1, one fixed incident-Hartree box/seed pair, three root
+settings, one32-node contour with nested16-node rule, and two fixed derivative
+steps. At most77 outgoing maps; eight physical cores0–7, up to8 independent
+contour workers, one BLAS thread each,8GiB,600s target /1200s upper /1800s cap.
+Eleven analytic/independent controls pass locally before source freeze.
+
+The bordered boundary root must agree with interior-resolvent contour moments
+and have a nonzero rank-one open-channel residue, with same-root0.1meV position/
+full-width budgets. Explicit complex Jost continuation does not permit use of
+the real-axis S formula off-axis. Interior contour and boundary zero are distinct
+constructions but share native data/exterior ODE; a pass is finite-reference
+pole evidence, not an independent exterior or absolute CO accuracy claim.
+No engine/inner solve, extra geometry, root/channel ladder, fit or other anchor.
+Any failure ends this scope, no automatic retry/repair. Protect equilibrium pole
+exclusion and all114 route holdout S values. Review on the result.
+
 ### Outgoing-map result —23 October,13:21UTC
 
 [Compressed-anchor finite feasibility passes](OUTGOING_MAP_CANARY.md), successor

@@ -207,6 +207,34 @@ nodes and full-scattering embedding remain open. All114 route holdouts and the
 equilibrium pole exclusion stay protected; new50 stays parked. Review on the
 proposal or next active working-cycle boundary, before any root search.
 
+### Selected continuation —23 October: one finite-model pole and visible residue
+
+**Production question:** can a numerically witnessed outgoing pole replace the
+unidentifiable phase-fit width at the compressed development anchor? The
+[design](../../docs/physics/co-compressed-pole-reference.md) and
+[contract](compressed-pole-reference-contract-20261023.json) bound one box and
+seed pair in incident Hartree, three prescribed map settings, a nested16/32-node
+interior resolvent contour, and derivative/contour agreement of a nonzero6x6
+open-channel residue. An invisible interior state or a matching-coordinate
+artifact must not qualify. Eleven analytic/independent controls pass locally.
+
+**Reuse/cost bound:** unchanged native2048-root/298-channel compressed/nine/B1
+inputs and completed map-canary evidence; no engine/inner/QC/property solve,
+geometry, new model, potential fit or holdout S analysis. At most77 maps,8 physical
+cores /8 contour workers /one BLAS thread each /8GiB. Root stages sequential.
+Measured3.53–8.27s/map informs600s target /1200s upper /1800s hard cap,90s per
+map, without a guarantee of conditioning near a pole. Implementation/diagnosis
+is limited to this active working cycle. Freeze/push precedes CO root use.
+
+**Disposition: continue only with this experiment.** Pass establishes a pole
+of the finite reference with local numerical/residue witnesses; the two pole
+constructions share the exterior ODE, so no independent exterior, omitted-spectrum
+bound or absolute electronic accuracy follows. A rejected witness/cap/box exit/
+failure stops without a repair, extra seed, contour refinement or successor.
+Review immediately on the outcome. Model, continuity, neutral, scalar/full-
+scattering and sweep gates remain; all114 route holdouts and equilibrium pole
+exclusion stay protected, new50 parked.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

@@ -60,12 +60,15 @@ def outgoing_map(
     timeout=90.0,
     max_nfev=50000,
     amplitudes=False,
+    continued_amplitudes=False,
 ):
     """Return d/dr DtN Y at the real boundary and optional flux-normalized open A.
 
     Energies/C2/C3 use native Rydberg radial-equation units. Endpoint is the
     real contour parameter t, not the complex coordinate's modulus. This is
     binary64 DOP853 with finite inverse-power tail data, no pole search.
+    ``continued_amplitudes`` explicitly requests analytic Jost inverse rows at
+    complex energy; these are not a license to use ``physical_s`` off-axis.
     """
     started = time.monotonic()
     thresholds, angular = np.asarray(thresholds, float), np.asarray(angular)
@@ -95,7 +98,9 @@ def outgoing_map(
     rotation = np.exp(1j * np.deg2rad(angle))
     if np.min((rotation * k).imag) <= 0:
         raise ValueError("Contour does not expose every outgoing/decaying channel")
-    if amplitudes and complex(energy).imag != 0:
+    if continued_amplitudes and not amplitudes:
+        raise ValueError("Continued Jost rows require amplitudes=True")
+    if amplitudes and complex(energy).imag != 0 and not continued_amplitudes:
         raise ValueError("Physical S amplitudes are implemented only on the real axis")
     s = 1j * k
     coefficients = _tail_series(thresholds, c2, c3, s, order)
@@ -158,6 +163,8 @@ def outgoing_map(
 
 def physical_s(q, y, a):
     """Real-axis physical open S from the bilinear Jost Wronskians; no repair."""
+    if np.iscomplexobj(q) and np.any(np.asarray(q).imag != 0):
+        raise ValueError("Complex boundary energy cannot use the real-axis S formula")
     q = np.asarray(q, float)
     if q.shape != y.shape or not np.allclose(q, q.T, atol=1e-10, rtol=0):
         raise ValueError("A compatible real symmetric zero-Bloch Q is required")
