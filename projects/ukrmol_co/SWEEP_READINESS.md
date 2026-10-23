@@ -6,6 +6,15 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
+**Working cadence:** run the [goal-convergence checklist](PRODUCTION_DECISIONS.md#goal-convergence-checkpoint--every-one-or-two-days-of-campaign-work)
+every one or two days of active work and before new branches. Measure progress by
+production decisions/physical uncertainty reduced, not tests or artifacts. The
+23 October checkpoint redirects toward a finite model/extraction decision;
+optional input-reuse work must not indefinitely postpone it.
+The [23 October route decision](POTENTIAL_ROUTE_DECISION.md) now parks the optional
+new50/interface branch. Next is a single bounded extraction-versus-direct-fitting
+feasibility design from saved anchors, not another native-interface experiment.
+
 This roadmap is decision-driven: use the smallest retained eigenpair count that
 passes observable and omission checks; every refinement must address a measured
 discrepancy. The full execution record is in [CONTINUATION.md](CONTINUATION.md).

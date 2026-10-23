@@ -1,5 +1,27 @@
 # CO experiment: resources and continuation
 
+## Standing goal-level review — before continuing experiments
+
+The goal is geometry sweep → two-dimensional potential → held-out scattering
+validation, not indefinite method/interface refinement. Follow the
+[one-to-two-day goal-convergence checklist](PRODUCTION_DECISIONS.md#goal-convergence-checkpoint--every-one-or-two-days-of-campaign-work)
+at working-cycle boundaries (at most48 hours during active work), on resuming
+after a gap, before a new branch and after decision-changing results. Record
+the physical/production evidence delta, remaining blockers and **continue /
+redirect /stop**, with one bounded next deliverable. Passing tests/replays and
+optional comparisons alone do not measure sweep readiness.
+
+**23 October checkpoint: redirect.** Input reuse/affordability improved; model
+choice and reliable width/extraction remain unresolved. The fifty-component
+comparison is optional, not a universal sweep prerequisite. The
+[route decision](POTENTIAL_ROUTE_DECISION.md) parks that branch, including remaining
+native interface closure, for this cycle. Reuse existing anchors to specify one
+finite feasibility test of physically restricted extraction versus direct
+scattering fitting, or name the single missing ingredient. One working-cycle
+design/review cap, no new numerical job or inner solve authorized. Review after
+that deliverable or by the next cycle boundary (25 October if active).
+No unattended reminder or autonomous daily job is implied.
+
 ## Standing progress-figure workflow
 
 Keep the [six-panel progress overview](README.md#progress-overview--21-october-2026)
@@ -19,6 +41,14 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+**Priority override —23 October:** the route decision above supersedes historical
+"next interface" instructions below. Saved inputs/results remain valid in their
+stated scope; optional new50 consumer work is parked, not silently treated as
+complete or mandatory. No job is launched by this process/decision update.
+Search provenance for this update: complete main snapshot `423d577`; MCP upstream
+currency unknown, direct remote-main lookup agrees. Checklist/route changes are
+branch-local and were resolved against current source, not indexed line numbers.
 
 ### Saved scattering phases and property IDs pass — 21 October,21:55 UTC
 

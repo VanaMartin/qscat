@@ -1,11 +1,86 @@
-# CO production decisions — 21 October 2026
+# CO production decisions
 
-The next milestone is a **well-defined electronic-model scattering comparison**.
-The one-identity radial experiment is complete. Production readiness is measured
-by decisions below, with each expensive successor separately costed from the
-model and channel map it will actually use.
+The goal is a geometry sweep supplying a physically grounded two-dimensional
+potential, followed by held-out scattering validation. Engine/interface progress
+is supporting work, not evidence that the electronic model or potential is ready.
 
-## First calculation: equilibrium orbital-ensemble control
+## Goal-convergence checkpoint — every one or two days of campaign work
+
+Review at least every48 hours during active work, before opening a new experimental
+branch, and after a decision-changing result. On resuming after a gap, review
+before launching work. An authorized long job need not be interrupted just because
+a review is due. This is a working/handoff rule, not an unattended scheduled task.
+
+- [ ] **Goal:** name the sweep/potential deliverable this cycle serves, including
+  geometry domain, observables and required accuracy. Do not silently substitute
+  an exploratory, model-conditional potential for the validated deliverable.
+- [ ] **Critical path:** identify the production blocker: electronic-model choice,
+  position/width extraction or direct scattering fitting, continuity/neutral
+  reference, or restartable geometry pilot. Label optional/supporting work as such.
+- [ ] **Decision before experiment:** what will a pass, rejection or inconclusive
+  result change? Name the choice, eliminated candidate, reuse or stop decision.
+  If no outcome changes a production decision, do not launch the experiment.
+- [ ] **Reuse/minimum scope:** use saved data and accepted numerical controls.
+  Explain why this is the smallest decision-changing check; no repeated QC or
+  properties, and no automatic root/channel/refinement ladder.
+- [ ] **Bound the cycle:** state compute cost/caps, implementation/diagnosis effort
+  allowed and a stopping rule. A seconds-long calculation can still consume days
+  of supporting development. Continuing that branch into another cycle needs a
+  renewed decision rationale and effort bound, not merely its next technical task.
+- [ ] **Evidence delta:** compare cycle start/end. Which physical uncertainty
+  shrank, candidate was ruled out, production choice became possible or pilot
+  prerequisite was removed? Explicitly list unchanged blockers. Test/payload/
+  coefficient counts are not readiness metrics; a useful rejection is progress.
+- [ ] **Drift:** are we solving an interesting subsidiary problem instead of the
+  named blocker? Is an optional comparison becoming a universal sweep launch gate?
+- [ ] **Disposition:** record **continue / redirect / stop**, why, one next
+  deliverable and the next review trigger. Without a production-relevant evidence
+  delta, default to reassessment/redirection rather than another refinement.
+  Preserve failed gates; do not lower tolerances to manufacture convergence.
+
+Each dated checkpoint records UTC date, starting blocker, bounded question,
+evidence delta, remaining uncertainty, disposition and next deliverable. Report
+goal-level progress to the user first; link technical evidence separately.
+The checkpoint itself does not authorize an expensive calculation.
+
+### Checkpoint — 23 October 2026: redirect toward production decisions
+
+**Starting position:** reproducible/affordable scattering is substantially in
+place. Electronic-model selection and reliable widths remain open; no qualified
+potential or production-style geometry pilot exists. Neutral data are reusable
+over1.9–2.5bohr, not a qualified wider-domain reference.
+
+**Evidence delta:** saved target reuse and scattering phase/property mapping now
+avoid repeating QC, CONGEN and properties for one optional comparison. These are
+preparation obstacles removed, not electronic accuracy or width identifiability
+settled. Both A1 physical subspaces reject a clean same-manifold ensemble contrast.
+
+**Disposition: redirect.** The fifty-component branch is not a prerequisite for
+every possible sweep. Retain the original forty-component frame and accepted
+sparse/root controls. [The route decision](POTENTIAL_ROUTE_DECISION.md) parks that
+optional comparison, including remaining native consumer closure, for this cycle.
+Reopen only if a specified production decision needs it, with an explicit effort
+bound and finite contract. No repair campaign, rebuild, refinement ladder or
+multi-hour inner solve follows automatically.
+
+**Completed next-step decision:** [model/extraction route triage](POTENTIAL_ROUTE_DECISION.md)
+keeps the existing model-specific references without prematurely freezing a
+production model; unqualified widths cannot yet supply potential-factory targets.
+Next specify one finite feasibility test choosing physically restricted extraction
+versus direct scattering fitting, or name the single missing ingredient. One
+working-cycle design/review cap; no new numerical job is authorized by this note.
+Do not open another propagation/pole-method campaign without that decision link.
+
+**Next review:** after that deliverable or any closure failure, and by the next
+one-to-two-day working-cycle boundary (25 October if work remains active).
+Next readiness milestone: choose an explicitly qualified model and extraction/
+fitting route, then a small restartable geometry pilot—not more interface passes.
+No sweep or dense Hamiltonian is released.
+
+## Supporting branch: equilibrium orbital/channel-prescription comparison
+
+**Parked by the23 October goal review.** The historical technical next steps
+below are conditional, not the current campaign queue or a universal sweep gate.
 
 ### Current decision — 21 October,21:55 UTC
 
@@ -175,15 +250,18 @@ optimization. No physical-overlap successor is yet submitted.
 
 ## Decision queue and release conditions
 
+Ordered by the23 October goal review. Rows are scientific decisions, not an
+automatic sequence of calculations; parked work does not block every route.
+
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Orbital ensemble | Both A1 subspaces reject; saved317,988 scattering-phase terms and property-ID map pass; native target/target integrals pass | Reuse CONGEN definitions/CIDATA/properties;25 idtarg entries change; qualify actual scattering-destination native readers and downstream consumers | Saved-only map6.833s /.703GiB RSS; no QC, CONGEN or property repeat |
+| Fitting-information route | Compressed/equilibrium widths reject;94 wrong-width analytic counterexamples; saved nine-A2 matrices available | One bounded restricted-extraction versus direct-scattering-fitting feasibility design, or one named missing ingredient | One active working-cycle design/review cap; no new numerical job authorized |
+| Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Select model with explicit decision-changing checks and remaining uncertainty budget; no accuracy claim from a larger model alone | Reuse existing2048 results; no automatic active-space/channel ladder |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
-| Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Choose a model only after independent ensemble/basis effects are measured; budget remaining uncertainty explicitly | Reuse existing2048 results; no automatic larger active-space or channel ladder |
-| Resonance widths | Compressed/equilibrium required-window prediction rejects;94 known beyond-budget width counterexamples persist | A physically constrained extraction design with known-truth nonpolynomial successes, held-out phase predictions and explicit pole/width-identifiability veto | Existing calibration/native reading took13.9s /4.0s; new fit design remains uncosted; direct native complex poles need separate numerical qualification |
 | Continuity | Retained/omitted exchanges and ambiguous coarse links remain | Neighboring-geometry physical subspace/resonance correspondence for the selected model | Bound the geometry pilot after the model is selected |
 | Neutral reference |52 QZ/5Z points pass basis/interpolation over1.9–2.5bohr | Correlation-treatment uncertainty over this domain; widening to3–4bohr needs a stable reference | Reuse52 points; previous46 new points cost3.21h wall sum |
 | Production launch | Model/extraction choices open | Frozen restartable small pilot, held-out geometries/energies, measured time/disk forecast | Cost from the selected model; no defensible total forecast yet |
+| Optional orbital ensemble — parked | Both A1 subspaces reject; saved scattering phase/property map and target reuse pass | Reopen only if combined-prescription sensitivity could change a named model choice; native consumer work is not complete or a universal sweep prerequisite | Preserve all inputs; no QC, CONGEN, property or native-interface repeat now |
 
 The position/full-width/phase scientific budgets remain **0.05eV /5% with
 0.001eV floor /0.05rad**. A failed extraction cannot supply a certified width

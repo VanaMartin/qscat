@@ -6,6 +6,18 @@ meet the chosen tolerances for the tested CAS(10,10) model. Electronic-model
 and resonance-extraction qualification remain open, so production
 potential-fitting targets are not yet qualified.
 
+**Campaign discipline:** the [goal-convergence checklist](PRODUCTION_DECISIONS.md#goal-convergence-checkpoint--every-one-or-two-days-of-campaign-work)
+is reviewed every one or two days of active work. Each cycle must name the
+sweep/potential decision it changes and end with continue/redirect/stop—not just
+another collection of passing checks. See the dated checkpoint for the current
+bounded deliverable and unresolved scientific blockers.
+
+**23 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
+parks the optional new50/interface branch. Next choose one bounded feasibility
+test for physically restricted resonance extraction versus direct scattering
+fitting, using saved anchors. No new numerical job or sweep is authorized by
+that decision; unqualified widths are not potential-fitting targets.
+
 The completed evidence preserves the first pilot and two calibration snapshots:
 
 | Campaign | Attempts | Validated pipelines | Preserved failures | Comparisons | Public evidence |
@@ -595,10 +607,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 21 October 2026
 
-![CO qualification: saved scattering phases and property IDs pass;25 idtarg entries change; native scattering-destination and downstream consumer checks remain; physical A1 rejection unchanged](../../docs/physics/figures/co-progress-20261021T2155-scattering-input-map.png)
+![CO goal review: computation is feasible; electronic model and reliable fitting information remain open; optional new50 branch parked; one-to-two-day decision checkpoints](../../docs/physics/figures/co-progress-20261023-goal-review.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261021T2155-scattering-input-map.svg) ·
-[Incremental plotted-data snapshot](progress-snapshot-20261021T2155-scattering-input-map.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261023-goal-review.svg) ·
+[Goal-review snapshot](progress-snapshot-20261023-goal-review.json) ·
+[Goal-convergence checklist](PRODUCTION_DECISIONS.md#goal-convergence-checkpoint--every-one-or-two-days-of-campaign-work) ·
+[Potential-route decision](POTENTIAL_ROUTE_DECISION.md) ·
+[Previous scattering-map figure](../../docs/physics/figures/co-progress-20261021T2155-scattering-input-map.svg) ·
+[Previous scattering-map snapshot](progress-snapshot-20261021T2155-scattering-input-map.json) ·
 [Saved scattering input map](SCATTERING_INPUT_MAP.md) ·
 [Compact phase/property replay](verification-scattering-input-map-public-20261021.json) ·
 [Scattering-map evidence](qualification-evidence/scattering-input-map/README.md) ·
