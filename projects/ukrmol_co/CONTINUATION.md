@@ -44,6 +44,14 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+**13:14UTC canary stop:** original `c00c09a` controls import absent `mpmath`
+through a test-only grid helper; original exits2/2/2, zero CO propagations,
+verdict unset. Sources and123 inputs verify. A goal-reviewed
+[dependency-only successor](outgoing-map-dependency-successor-contract-20261023.json)
+removes only that incidental test dependency, with unchanged numerical sources,
+scope and tolerances. One fresh application, no dependency install/image rebuild
+or further retry. Original failure directory stays immutable.
+
 ### Selected finite continuation —23 October: outgoing-map canary
 
 Current scope is the [complex outgoing-map canary](../../docs/physics/co-outgoing-map-canary.md),

@@ -5,7 +5,6 @@ import unittest
 import numpy as np
 from scipy.linalg import solve
 
-from projects.ukrmol_co.combined_exterior import chebyshev_grid
 from projects.ukrmol_co.exterior_numerov import numerov_k
 from projects.ukrmol_co.outgoing_map import outgoing_map, physical_s, sheet_momenta
 from projects.ukrmol_co.saved_matrices import scattering_matrix
@@ -70,7 +69,19 @@ def test_complex_coupled_map_against_independent_second_order_bvp():
     c2 = np.array([[2.0, 0.3], [0.3, 6.0]])
     c3 = np.array([[0.1, 0.2], [0.2, -0.1]])
     actual, _, _ = outgoing_map(thresholds, [1, 2], c2, c3, energy, 2, 40, 35, order=10)
-    t, d = chebyshev_grid(192, 40)
+    # Coefficient-space polynomial differentiation, independent of the toy's
+    # barycentric grid helper (and its unrelated high-precision dependency).
+    degree = 192
+    x = np.cos(np.pi * np.arange(degree + 1) / degree)
+    basis = np.polynomial.chebyshev.chebvander(x, degree)
+    differentiated = np.column_stack(
+        [
+            np.polynomial.chebyshev.chebval(x, np.polynomial.chebyshev.chebder(column))
+            for column in np.eye(degree + 1)
+        ]
+    )
+    t = 1 + 39 * (x + 1) / 2
+    d = solve(basis.T, differentiated.T).T * 2 / 39
     rotation = np.exp(1j * np.deg2rad(35))
     r = 2 + (t - 1) * rotation * (38 / 39)
     derivative = d * (39 / 38) / rotation

@@ -2,6 +2,12 @@
 
 ## Decision now
 
+**13:14UTC packaging review:** the first canary stops at a test-only missing
+`mpmath` import, exits2/2/2, before CO propagation. A
+[single dependency-only successor](outgoing-map-dependency-successor-contract-20261023.json)
+is separately bounded: unchanged numerical source/scientific scope/tolerances,
+no dependency install or image rebuild. No further successor follows a failure.
+
 **Continuation decision —23 October:** select a strictly bounded
 [outgoing-map canary](../../docs/physics/co-outgoing-map-canary.md), not a pole
 search. The [contract](outgoing-map-canary-contract-20261023.json) uses compressed

@@ -161,6 +161,26 @@ inconclusive and returns to route selection. Neither releases extra geometries,
 an automatic pole search, model choice, fitter or sweep. Review immediately on
 the result or failure, before any next numerical branch.
 
+### Canary goal review —23 October,13:14UTC: packaging stop, one narrow successor
+
+Original `c00c09a` application stops before any CO propagation: the independent
+test grid helper imports absent `mpmath`. Original command/container/owner exits
+**2/2/2**, scientific verdict unset; all123 inputs and source hashes verify.
+This is dependency packaging, not a physical or numerical rejection. Wall .972s;
+no holdout, pole search or new native call. Preserve the original directory.
+
+**Disposition: continue only through one separately frozen dependency-only
+successor**, [contract](outgoing-map-dependency-successor-contract-20261023.json).
+Replace the incidental test helper import by polynomial-coefficient
+differentiation at identical nodes, retaining the same BVP and all tolerances.
+The propagator, runner and scientific contract remain byte-identical and pinned.
+No dependency install, image rebuild, numerical retuning or scope expansion.
+This small change is the entire packaging-diagnosis allowance; another failure
+ends the cycle with no further successor. Runtime remains90s per propagation /
+1800s total, four reserved physical cores /one thread /4GiB. This is a
+goal-reviewed exception, not relabelling the original stop or authorizing a
+general repair campaign. Review immediately on the successor result.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

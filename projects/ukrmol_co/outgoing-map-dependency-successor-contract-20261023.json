@@ -1,0 +1,16 @@
+{
+  "status": "one separately reviewed test-dependency-only successor; no numerical retuning",
+  "original_source_commit": "c00c09accb71faa12470d3e6c1877af140b33c3a",
+  "original_remote_directory": "prepared/outgoing-map-canary-source-20261023",
+  "original_command_container_owner_exits": [2,2,2],
+  "original_outcome": "Controls failed to import an incidental mpmath dependency; zero CO propagations or matrix evaluations, original verdict unset. Retain original sources/logs/results unchanged.",
+  "unchanged_scientific_contract": "projects/ukrmol_co/outgoing-map-canary-contract-20261023.json",
+  "unchanged_numerical_source_sha256": {
+    "projects/ukrmol_co/outgoing_map.py": "b27213d3c30af84d65f8972616ed980db86c60932751980f8492cea03e0173aa",
+    "projects/ukrmol_co/outgoing_map_canary.py": "03ec2a9551b6bde920ce1790d2d70723a136588d00933b8991a1db9d5da0b3a8"
+  },
+  "allowed_change": "Replace the test-only imported Chebyshev differentiation helper by independently assembled polynomial coefficient differentiation. Same BVP nodes/operator/boundary data and original tolerances. No propagator/runner/scientific-contract change, dependency install or image rebuild.",
+  "goal_review": "The failure is packaging, not evidence against outgoing matching. A single small test dependency removal directly enables the already bounded production-relevant feasibility question without opening a solver repair campaign. Same active working cycle; dependency diagnosis capped to this change.",
+  "resources": {"cpuset_cpus":"0-3","threads":1,"memory_gib":4,"target_seconds":300,"upper_seconds":900,"hard_cap_seconds":1800,"propagation_cap_seconds":90,"rhs_cap":50000},
+  "stopping_rule": "Freeze/push first. Verify unchanged numerical source hashes, original scientific contract and original failed owner/result. One fresh directory/container and one application of the identical scientific scope. Original exits remain2/2/2. Any successor failure stops with no further retry/repair/refinement. No pole search, extra geometry, native call, QC/property work, new50 work or potential fit; equilibrium pole exclusion and all114 energy-route holdout S values remain protected."
+}
