@@ -106,6 +106,36 @@ assumption needing a decision. No coupled fitter, general pole campaign, inner
 solve or new50 restart follows automatically. Review on that deliverable or next
 working-cycle boundary.
 
+### Goal checkpoint —23 October,10:56UTC: target map defined, no numerical launch
+
+**Starting blocker/question:** what part of coupled CO scattering can the scalar
+potential represent without repeating the rejected bare full-S fit?
+**Decision:** use a continuously assigned physical outgoing pole, with full width
+Gamma = -2 Im z, as the prospective factory target. The
+[specification](../../docs/physics/co-effective-resonance-target.md) retains
+native polar/closed-channel shifts in that pole and explicitly omits residues,
+channel branching and background. Do not add the polar shift twice.
+
+**Evidence delta:** the target, energy/sheet conventions and claim boundary are
+now explicit. Validation must predict an excluded geometry's native pole; a
+resonant determinant factor reconstructed at a training geometry is not a test.
+A reduced pass is not full-scattering qualification. This is a design decision,
+not new physical evidence, an uncertainty reduction or a qualified CO width.
+
+**Reuse/bounds:** current source and saved reference metadata only; zero new
+scientific calculations, zero holdout S matrices read. The bounded design cycle
+is complete. Factory T1 requires at least four actual tracked training geometries
+plus a separate validation geometry; the current three anchors cannot supply
+that test. No asymptote, width floor or extra geometry is invented to run it.
+
+**Unchanged:** electronic-model choice, qualified pole/width curve, neutral
+correlation/wider-domain reference, continuity, full-scattering embedding and
+restartable pilot. **Disposition: stop before implementation.** Next decision:
+authorize a one-anchor pole-reference feasibility contract with explicit effort/
+compute caps and qualified prerequisites, or redirect to a coupled effective
+model. No solver, coupled fitter, QC/inner solve or new50 work is launched.
+Review before either branch is opened, or at the next active working-cycle boundary.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
@@ -284,7 +314,7 @@ automatic sequence of calculations; parked work does not block every route.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Fitting-information route | Width extraction remains unqualified; bare scalar full-S shortcut rejects392/480 development matrices | Define one channel-to-effective-model target map, retained tail/background and validation observable; no automatic coupled fitter | Completed screen0.872s; next target-definition cycle only, not a new numerical campaign |
+| Fitting-information route | Bare full-S shortcut rejects; outgoing-pole target map now defined, but native poles remain unqualified | Decide on a bounded one-anchor pole-reference contract versus coupled-model redirect; full-scattering embedding remains missing | Target-definition cycle complete, zero scientific compute; no numerical launch or extra geometries authorized |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Select model with explicit decision-changing checks and remaining uncertainty budget; no accuracy claim from a larger model alone | Reuse existing2048 results; no automatic active-space/channel ladder |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Continuity | Retained/omitted exchanges and ambiguous coarse links remain | Neighboring-geometry physical subspace/resonance correspondence for the selected model | Bound the geometry pilot after the model is selected |

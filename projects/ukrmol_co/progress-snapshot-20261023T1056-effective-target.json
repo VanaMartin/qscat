@@ -1,0 +1,80 @@
+{
+  "base_snapshot": "progress-snapshot-20261023T1012-direct-scattering-screen.json",
+  "base_snapshot_sha256": "c7437694196e9963425e8b75a44a062af8ecd2c1936f23665db35f63994f63ac",
+  "additional_source_file_sha256": {
+    "docs/physics/co-effective-resonance-target.md": "45f74bf2dfe3037d00503a62af07c24459edba7ec067beec9194545e60b3cf4a",
+    "docs/physics/co-native-boundary-conventions.md": "0f8792659a193e04fc8fcffd863c93ea412207ff08711fc37c077f226f7f5d7b",
+    "libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+    "projects/potential_factory/fit.py": "d5b8313969098a788d31dd83d2a86e7651c780e5084d061b36bd003aa1774bd5",
+    "projects/potential_factory/report.py": "3ded28980f084558c498f134e7a5a546f45e457da05f6262b5531c624c7903b8",
+    "projects/potential_factory/target.py": "559e7626df81901446bbeecaf0da592cc895f81b1574963a564586b2bcf769ca",
+    "projects/ukrmol_co/CONTINUATION.md": "52ea22562e0574b5412847a3da56c79e5e3f14ccd94b6411b4bc8515bd035d88",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "aff1f67f2a94a7ccd801f85e55a802ccf0e3d8cf63ac7a93edbc6fed497815ac",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "8425cdad8ecbcae32931d576be79d87d7e1c8536c373a2f4a2729ac5c2bcc388",
+    "projects/ukrmol_co/README.md": "22b2cb7c14f6eb5eb50a20b10c4160c72feffacc48f9a4e5ce7d643d5a64e8f7",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "8953cfdf3cb0d15d144e09abcb1f5392e597dd18fe90e046b799921624e721d4",
+    "projects/ukrmol_co/combined_exterior.py": "9d5ae9070f9fc8989db097f2b4bba589e9f92b0ea9ddfad0c387b1d8eb7290d4",
+    "projects/ukrmol_co/exterior_numerov.py": "f989f8e74a841f649566b20afe214680609fec9940dcbbd6c9921397f74a8582",
+    "projects/ukrmol_co/native_boundary.py": "5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+    "projects/ukrmol_co/progress_figure.py": "5c2b95d86feb46db088c27b722721d50b97e8829a5fe80deac16d052c3054c5c"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-23T10:56:38+00:00",
+    "live_status": {
+      "scope": "Goal-level design update only; prior host observations remain in the base snapshot, not reobserved here",
+      "goal_review_disposition": "target definition complete; stop before numerical implementation",
+      "scalar_target_definition": "Continuously assigned coupled outgoing pole, incident Hartree, full width Gamma=-2 Im z",
+      "scalar_target_defined": true,
+      "co_complex_pole_verdict": null,
+      "qualified_width_curve": false,
+      "production_model_selected": false,
+      "full_sweep_released": false,
+      "optional_new50_branch": "parked",
+      "new_scientific_results_this_review": 0,
+      "new_scientific_calculations_this_review": 0,
+      "holdout_s_matrices_read_this_review": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "next_decision": "Separately bounded one-anchor pole-reference feasibility contract versus coupled-model redirect",
+      "reduced_validation": "Predict an excluded geometry pole; fitted training pole factors are not independent validation",
+      "full_scattering_embedding": "missing; reduced gates cannot close the full physical-scattering goal"
+    },
+    "figure_subtitle": "Scalar target defined: retain a coupled outgoing pole, not background or channel branching; no new CO calculation or qualified width",
+    "memory_note": "Historical measured costs unchanged.\nThis milestone is target design only: no scientific compute.\nNo new pole, fit, geometry or holdout S reading.",
+    "roadmap_title": "What does the scalar model retain?",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "DEFINED: COUPLED OUTGOING POLE TARGET",
+        "title": "Incident resonance energy and total full width",
+        "detail": "Native polar /closed-channel dressing retained in the pole"
+      },
+      {
+        "kind": "reject",
+        "status": "NOT PREDICTED: CHANNELS / BACKGROUND",
+        "title": "No full-S or nuclear-scattering claim from a pole fit",
+        "detail": "Bare full-S shortcut stays rejected; no double tail correction"
+      },
+      {
+        "kind": "next",
+        "status": "VALIDATION: EXCLUDE A GEOMETRY POLE",
+        "title": "Four actual training nodes plus separate validation",
+        "detail": "Three anchors cannot supply this; no new geometries launched"
+      },
+      {
+        "kind": "reject",
+        "status": "MISSING: QUALIFIED NATIVE COMPLEX POLE",
+        "title": "Real-axis CO propagation is not complex-safe",
+        "detail": "Existing complex exterior toy has two channels, not 298"
+      },
+      {
+        "kind": "next",
+        "status": "STOP BEFORE IMPLEMENTATION / CHOOSE NEXT",
+        "title": "One-anchor feasibility contract or coupled-model redirect",
+        "detail": "No automatic solver campaign; new50 and sweep stay parked"
+      }
+    ],
+    "roadmap_note": "Design milestone, not new physical evidence.\n114 route holdout S matrices remain unanalyzed.\nReduced resonance gates do not close full-scattering validation.",
+    "source_footer": "EVIDENCE  Historical numerical panels unchanged; current factory / native source inspected. New milestone: outgoing-pole target and excluded-geometry validation specification.",
+    "verification_footer": "Design only: no new pole or fit. Full-scattering validation remains open."
+  }
+}

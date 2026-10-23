@@ -12,8 +12,8 @@ production decisions/physical uncertainty reduced, not tests or artifacts. The
 23 October checkpoint redirects toward a finite model/extraction decision;
 optional input-reuse work must not indefinitely postpone it.
 The [23 October route decision](POTENTIAL_ROUTE_DECISION.md) now parks the optional
-new50/interface branch. Next is a single bounded extraction-versus-direct-fitting
-feasibility design from saved anchors, not another native-interface experiment.
+new50/interface branch. The bare direct-fitting screen and scalar target design
+are complete in their stated scope; neither releases another interface experiment.
 
 **10:12UTC outcome:** [the saved-S screen](DIRECT_SCATTERING_SCREEN.md) rejects the
 bare scalar full-matrix fitter at all anchors/sectors. Stop that implementation
@@ -21,6 +21,16 @@ route. The specific missing ingredient is a justified channel-to-effective-model
 target map (retained polar tail/background, deliberate reduction and validation
 observable). No automatic coupled fitter or pole campaign follows; no qualified
 width curve or production electronic model has been obtained.
+
+**10:56UTC target-definition outcome:** the
+[outgoing-pole map](../../docs/physics/co-effective-resonance-target.md) defines
+what the scalar model would preserve and omit. Its reduced validation excludes
+a geometry's pole target; it does not predict full physical S or replace the
+original held-out scattering goal. Current complex-native pole capability is
+unqualified, and three geometries do not meet the factory's four-training-node
+minimum plus a separate validation geometry. Design complete; no additional
+geometry, solver or fit is authorized. Next decide on one-anchor pole-reference
+feasibility versus a coupled-model redirect under a separate bounded contract.
 
 This roadmap is decision-driven: use the smallest retained eigenpair count that
 passes observable and omission checks; every refinement must address a measured

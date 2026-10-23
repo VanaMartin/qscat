@@ -2,6 +2,23 @@
 
 ## Decision now
 
+**10:56UTC target-definition outcome:** the
+[outgoing-pole reduction](../../docs/physics/co-effective-resonance-target.md)
+defines the scalar factory target: incident physical resonance position and
+**full** width of one continuously assigned coupled-channel pole. Polar/closed-
+channel shifts are included through the native pole, not added again to the
+scalar model. Background, residues and channel branching are not predicted.
+Validation must exclude a geometry's pole target; replaying a fitted pole factor
+is not validation. A reduced pass would still not complete full physical-
+scattering validation. No qualified pole, usable CO factory target or new job
+results from this design.
+
+**Disposition:** the bounded target-definition deliverable is complete; stop
+before implementation. The next decision is whether to authorize a one-anchor
+native pole-reference feasibility contract or redirect to a coupled model.
+Neither a general complex solver campaign nor two additional training geometries
+is authorized automatically. Electronic-model selection remains separate.
+
 **10:12UTC follow-through:** [the direct-S screen](DIRECT_SCATTERING_SCREEN.md)
 rejects the bare scalar full-matrix fitter at every saved anchor/sector. Stop
 that shortcut before implementation. It does not reject tail-dressed or justified
@@ -65,12 +82,15 @@ all114 route holdouts remain unanalyzed. Independent public replay preserves
 the rejection. This eliminates an incompatible direct fitter, not electronic
 uncertainty or width ambiguity. No fitter/pole-search successor is automatic.
 
-**Next bounded deliverable:** one justified channel-to-effective-model target
-definition and falsifiable validation observable from saved anchors, before
-new fitting/propagation code. If it cannot be specified within one working cycle,
-identify the modeling assumption needing a decision. Keep the pole-targeted
-factory as integration baseline without supplying unqualified CO widths as
-targets. A scalar pole fit must not be described as a full native-S fit.
+**Completed target-definition deliverable:** a channel-to-effective-model target
+definition and falsifiable validation observable, before new fitting/propagation
+code. Keep the pole-targeted factory as integration baseline without supplying
+unqualified CO widths as targets. A scalar pole fit must not be described as a
+full native-S fit. The
+[resulting specification](../../docs/physics/co-effective-resonance-target.md)
+sets the energy/sheet/tail conventions, factory mapping and excluded-geometry
+gates. Its missing numerical input is a qualified native outgoing pole; its
+separate full-scattering gap is a frozen channel/background embedding.
 
 **Question:** which route can supply defensible fitting information for the
 potential pilot without another open-ended solver-development campaign?

@@ -13,16 +13,23 @@ another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
 **23 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
-parks the optional new50/interface branch. Next choose one bounded feasibility
-test for physically restricted resonance extraction versus direct scattering
-fitting, using saved anchors. No new numerical job or sweep is authorized by
-that decision; unqualified widths are not potential-fitting targets.
+parks the optional new50/interface branch. The bare full-S shortcut is ruled out;
+the outgoing-pole reduction below now defines the prospective scalar target.
+No new numerical job or sweep is authorized; unqualified widths are not targets.
 
 **23 October,10:12UTC result:** [the bare direct-S fitting shortcut rejects](DIRECT_SCATTERING_SCREEN.md)
 at all three anchors/both sectors,392/480 development matrices, in0.872s with
 no native call or potential fit. This rules out an incompatible bare full-matrix
 fitter, not effective scalar/tail-dressed potentials. Next define the justified
 channel-to-effective-model target map; width identification remains unresolved.
+
+**10:56UTC design outcome:** the
+[scalar target map](../../docs/physics/co-effective-resonance-target.md) preserves
+a coupled outgoing pole's energy/full width, not channel branching or background.
+It requires prediction at an excluded geometry, not replay of fitted pole factors.
+No qualified CO pole or potential is produced; full-scattering validation remains
+open. The design cycle is complete. Decide on bounded one-anchor pole-reference
+feasibility versus a coupled-model redirect before launching further numerical work.
 
 The completed evidence preserves the first pilot and two calibration snapshots:
 
@@ -613,10 +620,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 23 October 2026
 
-![CO route decision: bare scalar full-S fitting rejected at all anchors; coupled-channel target map and width identification remain open; new50 stays parked](../../docs/physics/figures/co-progress-20261023T1012-direct-scattering-screen.png)
+![CO target definition: preserve an outgoing pole, not channel branching or background; excluded-geometry validation required; no new numerical result](../../docs/physics/figures/co-progress-20261023T1056-effective-target.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261023T1012-direct-scattering-screen.svg) ·
-[Route-screen snapshot](progress-snapshot-20261023T1012-direct-scattering-screen.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261023T1056-effective-target.svg) ·
+[Target-definition snapshot](progress-snapshot-20261023T1056-effective-target.json) ·
+[Scalar target specification](../../docs/physics/co-effective-resonance-target.md) ·
+[Previous route-screen figure](../../docs/physics/figures/co-progress-20261023T1012-direct-scattering-screen.svg) ·
+[Previous route-screen snapshot](progress-snapshot-20261023T1012-direct-scattering-screen.json) ·
 [Bare direct-S route result](DIRECT_SCATTERING_SCREEN.md) ·
 [Independent saved-S replay](verification-direct-scattering-screen-public-20261023.json) ·
 [Previous goal-review figure](../../docs/physics/figures/co-progress-20261023-goal-review.svg) ·

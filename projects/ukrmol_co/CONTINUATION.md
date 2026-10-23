@@ -16,11 +16,12 @@ choice and reliable width/extraction remain unresolved. The fifty-component
 comparison is optional, not a universal sweep prerequisite. The
 [route decision](POTENTIAL_ROUTE_DECISION.md) parks that branch, including remaining
 native interface closure. The separately frozen saved-S screen has now ruled
-out the bare full-matrix fitter. Next specify one justified channel-to-effective-
-model target map with retained tail/background and validation observable. One
-working-cycle target-definition cap; no new fitter, pole campaign or inner solve
-is authorized automatically. Review on that deliverable or next cycle boundary
-(25 October if active).
+out the bare full-matrix fitter. The outgoing-pole target map is now defined,
+including retained polar shifts and an excluded-geometry validation rule. The
+bounded design cycle is complete, not a numerical launch. Next decide whether to
+authorize one-anchor pole-reference feasibility or redirect to a coupled model;
+no new fitter, pole campaign, geometries or inner solve follows automatically.
+Review before opening either branch or next cycle boundary (25 October if active).
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -42,6 +43,42 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Target-definition outcome —23 October,10:56UTC
+
+The [scalar target specification](../../docs/physics/co-effective-resonance-target.md)
+selects one continuously assigned outgoing pole of the **coupled** reference,
+incident Hartree relative to its native ground threshold, Gamma = -2 Im z.
+Factory mapping is `v_ion = V0_correlated + Re z`, `gamma = Gamma`; never pass
+native absolute total energy as the dissociation-referenced anion curve.
+Retain polar/closed-channel dressing in z, without adding it again to the scalar
+model. Residues, angular mixing and background are deliberately not predicted.
+
+Prospective validation excludes the equilibrium *pole target* from scalar fitting
+and model selection; historical real-axis equilibrium data are already known.
+At least four genuine training geometries plus that validation geometry would
+be needed. B1/B2 duplication and spline nodes do not meet T1's minimum. Such
+additional geometries are **not authorized**. Predicting a pole factor at a fitted
+geometry is tautological; even an excluded-geometry reduced pass would not
+complete the original full-scattering goal. The 114 route holdout S matrices
+remain unanalyzed. No target object, CO width or asymptote is supplied.
+
+Current capability check: complex `native_boundary.surface_matrix` is not a
+qualified complex pole evaluator; `exterior_numerov` is real-axis only and the
+complex `combined_exterior` toy has only two channels. No qualified 298-channel
+outgoing map/pole reference is established by those APIs or earlier phase tests.
+Keep the accepted 2048-root baseline; no omitted-complex-spectrum bound is claimed.
+
+**Goal disposition:** design complete, stop before numerical implementation.
+Next decision is one-anchor pole-reference feasibility under a separately costed
+contract versus a coupled-model redirect. Full-scattering prediction additionally
+needs a justified frozen channel/background embedding. Electronic-model, neutral,
+continuity and pilot gates stay open; new50 stays parked. Zero scientific compute
+or holdout reads in this cycle. This defines the target, not new physical evidence.
+Search handoff: main index `423d577` remains complete/current; direct remote-main
+lookup agrees. Current factory target/fitting/tolerance and unit anchors are
+unchanged from main. Native boundary/exterior and campaign notes are branch-local
+and were inspected in current source. No indexed excerpt was used as an edit base.
 
 ### Goal-linked result —23 October,10:12UTC: bare direct-S fitter ruled out
 
