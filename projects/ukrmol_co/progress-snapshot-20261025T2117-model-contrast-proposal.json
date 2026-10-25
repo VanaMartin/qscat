@@ -1,0 +1,139 @@
+{
+  "base_snapshot": "progress-snapshot-20261023T1736-paired-pole-character.json",
+  "base_snapshot_sha256": "cbb34f3043d28b14d01a0260ecbcf2e52c7492590405c24ba6d23bfc50e47c73",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/SWEEP_READINESS.md": "c62be3b085dc283d3238883c29ae7b682f7ed58f5146a791085416685d64490b",
+    "projects/ukrmol_co/progress_figure.py": "133385091b293f6ffb09a1600f43f17684447c2bef9d9ae60af0b56726394530",
+    "projects/ukrmol_co/SAVED_MATRICES.md": "f9c55fb698dde49039be1249b2088baf2f2a7755195d4173ba69cce2fde6a176",
+    "projects/ukrmol_co/CONTINUATION.md": "13054851f961bbc8bd2aa7a0f8c7d32116378094b53e5d004d0554bd26433057",
+    "projects/ukrmol_co/README.md": "4807aa45e667d29e334081b102710b78ea788cb6a977d60fa0b5ef3a46442c0d",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "6dba2c4930815e08e9983dc91c254c9833084304b030dfb791f098dd8e00a601",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "857d007c50c67f2173e90f3fe4dce517ed966ff7fe2bd6b022d516a28f14a8c7",
+    "docs/physics/co-compressed-a2-pole-contrast.md": "b9ae4411119e683f7daf3d1e05bc2721aa31af9ef1347a1f12774adc9ffab024",
+    "projects/ukrmol_co/compressed-a2-pole-contrast-proposal-20261025.json": "e35aca2aba5099ba40987dec603c16b1d78364f41d5454bd57ec5b76d953f536",
+    "projects/ukrmol_co/progress-model-contrast-inventory-20261025.json": "08cebf828408a4a79d2ae1c79679ad1f7774a349ce7f826dffb59b9f31dc62b7",
+    "projects/ukrmol_co/verification-model-contrast-inventory-public-20261025.json": "8177d41905b46aea15a0dac77b160a8f62f1227cfb8c4aaf06c812e49d6e6f54"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-25T21:17:00.000000+00:00",
+    "live_status": {
+      "scope": "25 October source/input metadata review only; previous compressed finite open-Pi pair retained, no new pole/model-insensitivity result",
+      "goal_review_disposition": "continue only to one explicit250-channel mapped model view and narrow adapter freeze; two-hour implementation cap, no job released",
+      "finite_reference_open_pi_pair_verdict": true,
+      "finite_reference_pole_verdict": true,
+      "pole_position_physical_ev": 3.760389687392806,
+      "pole_full_width_physical_ev": 2.0846143865399505,
+      "b1_open_residue_leakage": 1.1474906457584157e-09,
+      "b2_open_residue_leakage": 1.1474359075312911e-09,
+      "counterpart_profile_tv": 2.580998089046247e-11,
+      "counterpart_norm_relative_difference": 6.461969096213149e-11,
+      "exact_lambda_conservation_verdict": null,
+      "physical_co_accuracy_verdict": null,
+      "independent_exterior_verdict": null,
+      "qualified_width_curve": false,
+      "production_model_selected": false,
+      "full_sweep_released": false,
+      "policy_freeze": "cee9e3e",
+      "b2_adapter_freeze": "f6dc800",
+      "saved_b1_original_exits": [
+        0,
+        0,
+        0
+      ],
+      "b2_original_exits": [
+        0,
+        0,
+        0
+      ],
+      "saved_b1_new_maps": 0,
+      "saved_b1_container_wall_seconds": 1.3220340039988514,
+      "b2_map_evaluations": 42,
+      "b2_root_setting_evaluations": [
+        1,
+        1,
+        1
+      ],
+      "b2_settings_accepted_b1_seed_without_new_iterates": true,
+      "reported_zero_root_difference_is_not_zero_uncertainty": true,
+      "b1_b2_contour_difference_ev": [
+        4.258954495770693e-11,
+        3.4206828882417176e-11
+      ],
+      "same_root_position_full_width_budget_ev": 0.0001,
+      "b2_container_wall_seconds": 173.05552464799257,
+      "b2_parent_cpu_seconds_excluding_workers": 105.14067700000001,
+      "b2_cgroup_cpu_seconds_including_workers": 634.276314,
+      "b2_cgroup_peak_gib": 1.8320655822753906,
+      "physical_cores": "0-7",
+      "b2_source_entries_verified": 31,
+      "saved_b1_source_entries_verified": 17,
+      "public_payloads_verified": 10,
+      "b2_archived_files_verified": 92,
+      "saved_b1_archived_files_verified": 27,
+      "original_inputs_verified": 123,
+      "new_public_replay_propagations": 0,
+      "native_calls": 0,
+      "route_holdout_s_matrices_analyzed": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "equilibrium_pole_exclusion": "protected",
+      "optional_new50_branch": "parked",
+      "baseline_inner_roots": 2048,
+      "tiny_saved_reconstruction_errors_are_not_absolute_co_error_bounds": true,
+      "selected_contrast": "compressed CAS11 retained A2 five versus nine per spin, R=1.9bohr,2048 roots",
+      "model_contrast_proposal_defined": true,
+      "mapped250_model_view_qualified": null,
+      "model_pole_insensitivity_verdict": null,
+      "metadata_public_payloads_verified": 2,
+      "metadata_scoped_input_pins_verified": 26,
+      "metadata_interfaces_checked": 4,
+      "new_current_cycle_native_calls": 0,
+      "new_current_cycle_propagations": 0,
+      "new_current_cycle_pole_evaluations": 0,
+      "mapped_view_implementation_hours_cap": 2,
+      "future_conditional_map_cap": 146,
+      "numerical_job_released": false,
+      "five_boundary_channels": 250,
+      "nine_boundary_channels": 298,
+      "original_five_strict_reader_failure_preserved": true
+    },
+    "figure_subtitle": "Saved compressed CAS11 A2 five/nine pole contrast selected; explicit 250-channel view remains the gate, with no new scattering calculation",
+    "anchor_note": "Historical native-fit markers retained (compressed/equilibrium reject).\nFinite compressed open-Pi pair remains a separate finite-model result.\nNo new pole or model-insensitivity result on 25 October.",
+    "memory_note": "Historical inner-region costs shown unchanged.\nProposed contrast reuses both sparse eigenpair sets.\nNo new inner solve or paid provisioning.",
+    "roadmap_title": "Saved contrast selected; view still gated",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE: FINITE COMPRESSED OPEN-PI PAIR",
+        "title": "3.7604 eV position /2.0846 eV full width",
+        "detail": "Existing CAS11/nine reference; not electronic accuracy"
+      },
+      {
+        "kind": "reuse",
+        "status": "SAVED CONTRAST: CAS11 / A2 FIVE TO NINE",
+        "title": "250 /298 channels;2048 roots each",
+        "detail": "Same R=1.9, orbitals, target properties and inner inputs"
+      },
+      {
+        "kind": "reject",
+        "status": "BLOCKER: EXPLICIT 250-CHANNEL MODEL VIEW",
+        "title": "12 channel labels need mapping per sector",
+        "detail": "Keep the original strict-reader failure; no engine patch"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT: FREEZE MAPPED VIEW + NARROW ADAPTER",
+        "title": "No new QC /properties /inner Hamiltonian",
+        "detail": "2-hour implementation cap; pole job not released"
+      },
+      {
+        "kind": "next",
+        "status": "OPEN: ELECTRONIC ACCURACY / WIDTH CURVE",
+        "title": "Future contrast at most 146 maps /8 cores",
+        "detail": "114 S holdouts /equilibrium exclusion protected"
+      }
+    ],
+    "roadmap_note": "Public-byte/metadata check only: no S or pole evaluation.\nOriginal strict-reader failure preserved; view unqualified.\nNeither model insensitivity nor production accuracy is established.",
+    "source_footer": "25 OCTOBER  Saved compressed CAS11 A2 five/nine contrast identified; exact property-ID map specified. No new propagation, pole, QC/property or inner solve.",
+    "verification_footer": "Metadata only; mapped view and pole contrast unset. No electronic accuracy or qualified CO curve."
+  }
+}

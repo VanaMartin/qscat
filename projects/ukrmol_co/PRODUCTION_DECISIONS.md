@@ -358,6 +358,74 @@ protected, new50 parked. Omitted spectrum, independent exterior, continuity,
 neutral correlation, training/validation nodes, asymptote and physical full-S
 embedding stay open. Review on that proposal or next active cycle boundary.
 
+### Goal checkpoint —25 October: resume on matched-model decision, not solver work
+
+**Starting blocker:** the compressed finite-reference open-Pi pair is witnessed;
+electronic-model accuracy and a qualified multi-geometry curve remain open.
+**Question this cycle:** which compatible same-R/same-outgoing-pole contrast is
+already supported by saved sparse inputs, and what exact prerequisite is missing?
+Inventory only the completed model/control records and native interface metadata.
+Keep the equilibrium pole reserved and all114 route holdout S values unanalyzed.
+
+**Minimum scope/bound:** one design/evidence-review cycle, at most90 minutes of
+additional work; metadata/source/hash inspection only, no S/pole evaluation,
+propagation, QC/property/inner solve, new50 work or native executable. Reuse the
+2048-root references. A viable contrast gets a finite staged proposal with the
+missing reader/input gate and measured costs; an incompatible contrast is
+declined, not silently repaired. No new numerical job is released by this review.
+
+**Evidence delta at resume:** none yet. **Disposition: continue only this bounded
+saved-input inventory and contrast proposal**, then review immediately. Passing
+the local pair tests is not electronic convergence. No automatic root/channel/
+basis ladder, new geometry, fit or sweep. If an input gap cannot be bounded in
+this cycle, name it and stop rather than opening another interface campaign.
+
+### Goal checkpoint —25 October,21:17UTC: saved channel contrast selected; reader gap bounded
+
+**Decision completed:** the [compressed A2 outgoing-pole proposal](../../docs/physics/co-compressed-a2-pole-contrast.md)
+selects CAS11 five→nine retained A2 states per spin at1.9bohr,2048 roots. This is
+the cheapest compatible development-geometry control found: the original
+40/250 and48/298 target/channel models already exist, target-table subsets match
+exactly and recorded shared native inputs/outer decks agree. The completed
+CAS11→CAS12 scattering pair is at reserved equilibrium; inspected development
+CAS12 records are target imports, not a compatible completed scattering pair.
+That scoped inventory is not a global absence proof.
+
+**Production link:** distinguish whether the next expensive model allocation
+should address retained-channel effects on the **pole target**, rather than
+trust the compressed historical phase pass. A valid pole-sensitivity rejection
+prioritizes channel-model evidence; a pass returns priority to a justified
+basis/active-space contrast while retaining nine, not downgrading to five across
+the domain. Neither proves nine-channel convergence or selects a production model.
+
+**Exact gap/cost:** an explicit mapped250-channel compressed-five model view and
+narrow existing-runner adapter remain unimplemented/unqualified.12 channels per
+sector need property-ID→dense-row lookup; six IDs exceed40. The original strict
+reader failure stays intact. The authenticated zero-Buttle/fixed-nuclei K source
+path bypasses the problematic target-pointer dereferences and uses stored
+thresholds; this does not qualify other native consumers. No engine patch or
+new inner eigenpairs are indicated by this trace. Repeating five/nine would
+duplicate their measured1.651263/1.827292h calculations, not fill the reader gap.
+
+**Evidence delta:** a concrete saved contrast and exact prerequisite replace a
+generic electronic-model proposal. Four scoped interfaces/26 input pins verify
+against two fresh public payloads; target/threshold metadata reconstruct exactly.
+This is availability/source evidence, **not new physical/model-insensitivity
+evidence**. Zero propagation, S construction, pole evaluation or native call.
+The preliminary metadata-only path typo exits1 and is preserved in the inventory.
+
+**Disposition: continue only to the mapped-view/adapter implementation and
+source/tests freeze**, one active cycle /at most two hours. No job is released
+by the [prospective allocation](compressed-a2-pole-contrast-proposal-20261025.json).
+Saved-view gate:4 cores /4GiB /60s; eventual conditional five/B1 then B2 at most
+79+67=146 maps /8 physical cores /8GiB /3600s combined hard cap, reusing all nine
+witnesses. Fresh resource/owner freeze is required. Stop if the view cannot be
+qualified in that effort bound; no repair/rebuild/precision campaign. Review on
+that freeze or first gate/result, and by27 October if work remains active.
+All114 holdouts and equilibrium pole exclusion remain protected; new50 parked,
+2048 baseline retained. Model accuracy, omitted spectrum, continuity, neutral/
+factory/asymptote/full-S gates remain open. No fit, new geometry or sweep.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
@@ -536,7 +604,7 @@ automatic sequence of calculations; parked work does not block every route.
 
 | Decision | Existing evidence | Next deliverable / release condition | Cost basis |
 |---|---|---|---|
-| Fitting-information route | Compressed finite B1/B2 open-Pi pair passes; no CO curve/electronic accuracy yet; bare full-S shortcut still rejects | Redirect to one matched same-R/outgoing-pole electronic-model contrast proposal using completed sparse inputs; identify a missing artifact if no compatible contrast exists | B1 reused, B2 counterpart42 maps /173.06s /1.832GiB; no next job, sector/anchor, fit or geometry expansion |
+| Fitting-information route | Compressed finite open-Pi pair passes; saved same-R CAS11 A2 five/nine contrast identified, no pole-insensitivity or electronic-accuracy result | Qualify/freeze one explicit250-channel mapped view and narrow adapter; no new inner solve; eventual pole contrast triages the next model allocation | Two-hour implementation cap; future at most146 maps /8 cores /8GiB, no job released;114 holdouts/equilibrium exclusion protected |
 | Active space / channels | CAS11→CAS120.1213rad and64–73meV candidate-position shifts; stretched five→nine A2 changes0.0679rad | Select model with explicit decision-changing checks and remaining uncertainty budget; no accuracy claim from a larger model alone | Reuse existing2048 results; no automatic active-space/channel ladder |
 | Basis | Qualified CAS11 larger-basis target frames exist; ground-state accuracy alone is insufficient | One matched basis contrast on the selected ensemble/channel frame, phase first | Reuse imported targets; new inner solve requires its own measured forecast |
 | Continuity | Retained/omitted exchanges and ambiguous coarse links remain | Neighboring-geometry physical subspace/resonance correspondence for the selected model | Bound the geometry pilot after the model is selected |

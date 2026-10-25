@@ -138,3 +138,21 @@ collection/checksumming and publication are separate from this reader timing.
 Persistent sources/outputs/logs are in `prepared/saved-matrices-source-20261017/`.
 **37 focused tests pass.** No native scattering solve runs. Earlier extraction,
 channel and active-space rejections remain intact; production remains gated.
+
+## 25 October scope update: exact mapped-view prerequisite, not a repaired gate
+
+The [compressed matched-pole proposal](../../docs/physics/co-compressed-a2-pole-contrast.md)
+now traces original property IDs through the authenticated **zero-Buttle,
+fixed-nuclei K path**. Its active matching uses stored channel thresholds; the
+relevant target-pointer dereferences are in branches disabled by these inputs.
+This is not evidence that all consumers or correction paths tolerate the IDs.
+No native source/input is edited and the original false aggregate/six unset
+five-case readings above remain unchanged.
+
+The exact next prerequisite is one explicit250-channel compressed-five mapped
+view and narrow pole-runner adapter, with selection/threshold/identity negatives
+and development full-S gates before complex use. Existing eigenpairs are present;
+no QC/property/inner solve or native rebuild is needed merely to supply the view.
+Metadata/source inspection is not decoder or pole qualification. The proposal
+does not launch a new calculation, consume equilibrium poles/114 route holdout S
+values, or establish electronic accuracy or a qualified width curve.

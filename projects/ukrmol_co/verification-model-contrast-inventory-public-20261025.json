@@ -1,0 +1,39 @@
+{
+  "observed_utc": "2026-10-25T21:16:59.940973+00:00",
+  "inventory_sha256": "08cebf828408a4a79d2ae1c79679ad1f7774a349ce7f826dffb59b9f31dc62b7",
+  "public_pointer_sha256": "103d72b1984a2f857e7516e94211942166945868a582bd5a5cf21887e5d62b92",
+  "public_payloads_verified": 2,
+  "scoped_input_pins_verified": 26,
+  "metadata": [
+    {
+      "case": "compressed/five/B1",
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "targets": 40,
+      "channels": 250
+    },
+    {
+      "case": "compressed/five/B2",
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "targets": 40,
+      "channels": 250
+    },
+    {
+      "case": "compressed/nine/B1",
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "targets": 48,
+      "channels": 298
+    },
+    {
+      "case": "compressed/nine/B2",
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "targets": 48,
+      "channels": 298
+    }
+  ],
+  "new_native_calls": 0,
+  "new_propagations": 0,
+  "new_pole_evaluations": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "scope": "Independent public-byte and channel/target metadata verification only; no S construction, mapped-reader qualification or pole/model-insensitivity result",
+  "independence": "Fresh content-addressed public downloads; direct native record walking and original-ID energy lookup, no producer numerical modules or native executable"
+}

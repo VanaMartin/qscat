@@ -12,12 +12,13 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**23 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
-parks the optional new50/interface branch. The bare full-S shortcut is ruled out;
-the outgoing-pole reduction below now defines the prospective scalar target.
-The separately bounded map and compressed-pole experiments below now pass for
-one finite reference. No new sector/anchor or sweep is automatically released;
-this is not a qualified CO width curve or factory target.
+**25 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
+selects a saved compressed CAS11 five/nine-A2 outgoing-pole contrast. Both inner
+calculations exist; the exact gap is an explicit250-channel mapped view and
+narrow adapter, limited to two hours before source/tests freeze. No new pole
+job, QC/property/inner solve, geometry or fit is released. New50 stays parked;
+all114 holdouts and equilibrium pole exclusion remain protected. The existing
+finite open-Pi pair below is not a qualified CO curve or production model.
 
 **23 October,10:12UTC result:** [the bare direct-S fitting shortcut rejects](DIRECT_SCATTERING_SCREEN.md)
 at all three anchors/both sectors,392/480 development matrices, in0.872s with
@@ -57,6 +58,15 @@ reconstruct. All three B2 settings accept the B1 seed directly, not zero splitti
 uncertainty or independent root iterates. Electronic accuracy and a CO curve
 remain open. Redirect next to a matched electronic-model pole-contrast proposal
 from saved sparse inputs; no new geometry, model solve, fit or sweep is released.
+
+**25 October design/availability outcome:** the
+[matched pole-contrast proposal](../../docs/physics/co-compressed-a2-pole-contrast.md)
+identifies a reusable250-versus298-channel control at1.9bohr, not a new inner
+calculation. Public metadata checks confirm the original-ID map; the native
+zero-Buttle K path bypasses the problematic dense-pointer branches here.
+The mapped view is still unqualified. At most146 future maps are proposed,
+conditional on its tests and a separate execution freeze; **zero maps run now**.
+This is not a new model-insensitivity or electronic-accuracy result.
 
 The completed evidence preserves the first pilot and two calibration snapshots:
 
@@ -645,12 +655,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--16-october-2026"></a>
 
-## Progress overview — 23 October 2026
+## Progress overview — 25 October 2026
 
-![Compressed finite-reference B1/B2 open-Pi pair passes; electronic-model accuracy and qualified width curve remain open](../../docs/physics/figures/co-progress-20261023T1736-paired-pole-character.png)
+![Saved compressed A2 pole contrast selected; explicit250-channel mapped view remains the gate, with no new numerical job](../../docs/physics/figures/co-progress-20261025T2117-model-contrast-proposal.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261023T1736-paired-pole-character.svg) ·
-[Paired pole/character snapshot](progress-snapshot-20261023T1736-paired-pole-character.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261025T2117-model-contrast-proposal.svg) ·
+[Model-contrast proposal snapshot](progress-snapshot-20261025T2117-model-contrast-proposal.json) ·
+[Matched contrast design](../../docs/physics/co-compressed-a2-pole-contrast.md) ·
+[Input/metadata verification](verification-model-contrast-inventory-public-20261025.json) ·
+[Previous paired figure](../../docs/physics/figures/co-progress-20261023T1736-paired-pole-character.svg) ·
+[Previous paired snapshot](progress-snapshot-20261023T1736-paired-pole-character.json) ·
 [Paired finite-reference result](PAIRED_POLE_CHARACTER.md) ·
 [Independent paired reconstruction](verification-paired-pole-character-public-20261023.json) ·
 [Previous B1 pole figure](../../docs/physics/figures/co-progress-20261023T1455-compressed-pole-reference.svg) ·

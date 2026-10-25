@@ -1,6 +1,31 @@
-# Sweep/potential route decision — 23 October 2026
+# Sweep/potential route decision — 25 October 2026
 
 ## Decision now
+
+**25 October outcome:** [select the saved compressed CAS11 A2 five→nine pole contrast](../../docs/physics/co-compressed-a2-pole-contrast.md),
+not an equilibrium CAS11→CAS12 pole or a new inner solve. Both2048-root models
+exist at1.9bohr with recorded shared inputs and exact target-table subset metadata.
+The concrete missing deliverable is an **explicit250-channel mapped model view
+and narrow existing-runner adapter**, not another scattering Hamiltonian.
+The zero-Buttle fixed-nuclei native K path uses stored channel thresholds; its
+pointer-sensitive branches are disabled here. Other consumers are not qualified.
+Original strict-reader failure stays unchanged; no engine patch is made.
+
+The [inventory/public metadata check](verification-model-contrast-inventory-public-20261025.json)
+authenticates26 scoped pins with no S/pole evaluation. **No new model-insensitivity
+result exists.** The proposed pole contrast would decide whether to prioritize
+retained-channel effects before a new basis/active-space allocation, not select
+an accurate production model or reverse the stretched phase rejection.
+
+**Disposition: continue to one mapped-view/adapter freeze, at most two hours
+of active work.** The [proposal](compressed-a2-pole-contrast-proposal-20261025.json)
+predeclares all gates and a conditional79+67=146-map allocation, but releases no
+job. Reuse all nine-model witnesses; no new QC/properties/inner solve, new50,
+root/channel ladder, geometry or fit. All114 route holdouts and the equilibrium
+pole exclusion remain protected. Stop if the explicit view cannot be qualified
+within the effort bound; do not extend an interface/solver campaign.
+
+### Preserved decisions —23 October
 
 **17:36UTC completed pair:** [B1/B2 counterpart and open-Pi character pass](PAIRED_POLE_CHARACTER.md)
 for the compressed finite CAS11/nine-A2 reference. Leakage outside ground-target

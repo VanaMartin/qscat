@@ -11,24 +11,21 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**23 October checkpoint: redirect.** Input reuse/affordability improved; model
-choice and reliable width/extraction remain unresolved. The fifty-component
-comparison is optional, not a universal sweep prerequisite. The
-[route decision](POTENTIAL_ROUTE_DECISION.md) parks that branch, including remaining
-native interface closure. The separately frozen saved-S screen has now ruled
-out the bare full-matrix fitter. The outgoing-pole target map is now defined,
-including retained polar shifts and an excluded-geometry validation rule. The
-bounded design cycle was followed by separately frozen map/pole/character tests.
-The compressed finite-reference B1/B2 open-Pi pair now passes. Redirect to one
-matched electronic-model outgoing-pole contrast proposal using completed sparse
-inputs at a development geometry; model accuracy remains unresolved. No extra
-sector/anchor, fitter, geometry or inner solve follows automatically. Review on that proposal or next
-cycle boundary (25 October if active).
+**25 October checkpoint: continue to one bounded reader/adapter freeze.** The
+compressed finite-reference B1/B2 open-Pi pair passes; electronic accuracy and a
+qualified curve remain open. The [route decision](POTENTIAL_ROUTE_DECISION.md)
+selects a saved CAS11 five/nine-A2 pole contrast at1.9bohr, not a reserved
+equilibrium CAS11→CAS12 pole. Both inner calculations exist. The exact gap is
+an explicitly mapped250-channel model view plus narrow adapter, not new QC,
+properties or inner eigenpairs. Original strict-reader failure stays intact.
+At most two hours implementation; no numerical job is released. New50 stays
+parked,2048 baseline retained,114 holdouts and equilibrium pole exclusion
+protected. Review on that freeze/first gate, or27 October if active.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--23-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--25-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -45,6 +42,60 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Matched-model proposal completed —25 October,21:17UTC; no pole job launched
+
+[Design](../../docs/physics/co-compressed-a2-pole-contrast.md) /
+[proposal](compressed-a2-pole-contrast-proposal-20261025.json) select the compressed
+CAS11 retained-A2 five/nine contrast. The existing40/250 versus48/298 target/
+channel models each have2048 roots and six ground-target open channels; target
+table subsets and recorded shared native-input hashes match, outer decks exact.
+Geometry comes from hashed run provenance, not binary R=0. CAS12 equilibrium
+poles stay excluded; inspected development CAS12 records supply target imports,
+not a compatible completed scattering pair. New50 is not reopened.
+
+**Exact missing deliverable:** a private explicitly mapped250-channel compressed-
+five model view, tests and narrow existing-pole-runner adapter. Keep original
+property labels and dense lookup separate; selected written IDs are
+`[1,...,38,40,42]`.12 channels per sector need remapping, six IDs exceed40.
+Do not clip IDs, infer by nearest energy or silently relax the strict reader.
+The old aggregate failure/six unset cases remain. Source trace: `NPOLE=0`,
+`NGEOM=1`, `CALCAK=0`, `CALCDIP(1)=0`, Buttle0; the relevant target-pointer
+dereferences are bypassed while active K matching uses stored EVCHL thresholds.
+This is not a blanket native-consumer qualification or an engine patch.
+
+[Inspection](progress-model-contrast-inventory-20261025.json) and
+[public metadata verification](verification-model-contrast-inventory-public-20261025.json)
+authenticate26 scoped pins/four interfaces from two fresh public payloads; every
+mapped threshold and target subset is exact. No S construction, propagation,
+pole evaluation or native executable. One preliminary metadata path typo exits1,
+recorded before the corrected inspection; no scientific run failed or retried.
+Inspection.0272s excludes SSH/download/hash overhead. Previous native five/nine
+costs1.651263/1.827292h are retained, **not repeated**.
+
+**Next/effort bound:** qualify and freeze just that view/adapter within one active
+cycle /two hours. Stop if it cannot freeze; no broad interface/solver campaign.
+The proposed saved gate is4 physical cores /4GiB /60s. Later conditional five/B1
+then B2 uses at most79+67=146 maps /8 physical cores /8GiB /3600s combined cap,
+only after separate source/tests/owner/resource freeze. A resolved B1 contrast
+rejection stops before B2. Preserve all original pole/residue/Pi gates; protect
+both sectors' nine-model evidence without repropagation. Position.05eV /full
+width max(.001eV,5% of nine) with predeclared operational boundary bands;
+neither finite insensitivity nor production electronic accuracy is established
+yet. No equilibrium pole,114 holdout S values, extra geometry or fit is consumed.
+
+Decision link: a valid contrast triages retained-channel versus new basis/active-
+space evidence before another expensive model allocation. Pass retains nine,
+not a five-state downgrade across the domain; stretched rejection remains.
+Omitted spectrum, independent exterior, model accuracy, continuity, neutral/
+factory/asymptote/full-S gates stay open. Review on the freeze or first result.
+Search handoff: indexed main `423d5770d3de337571f51e62702ae919bad97e8c`
+is complete; its last MCP upstream-currency field is unknown/stale, while an
+independent `git ls-remote` check returns that same main commit. Current mapped-
+reader/loader and decision files were read locally and their branch delta
+resolved; scientific readers/loaders are unchanged in this cycle. No branch
+index ingestion or qscat promotion. No campaign job is running; unrelated
+ComfyUI remains untouched. The deliverable is complete within its90-minute cap.
 
 ### Finite compressed open-Pi pair —23 October,17:36UTC, independently reconstructed
 

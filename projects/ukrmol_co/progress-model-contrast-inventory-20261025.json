@@ -1,0 +1,730 @@
+{
+  "observed_utc": "2026-10-25T21:13:45.930764+00:00",
+  "remote_root": "/home/kooza/ukrmol/co-sa-20261006",
+  "scope": "Read-only source/interface/hash inventory for a compressed matched-pole contrast proposal; no native executable, propagation, S or pole evaluation",
+  "cases": [
+    {
+      "case": "compressed/five/B1",
+      "target_components": 40,
+      "boundary_channels": 250,
+      "roots": 2048,
+      "multipole_orders": 2,
+      "buttle_flag": 0,
+      "radius_bohr": 18.0,
+      "binary_geometry_field": [
+        0.0,
+        12497.711607528516
+      ],
+      "open_labels": [
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2,
+          1
+        ],
+        [
+          3,
+          1,
+          3,
+          1
+        ],
+        [
+          4,
+          1,
+          3,
+          3
+        ],
+        [
+          5,
+          1,
+          4,
+          1
+        ],
+        [
+          6,
+          1,
+          4,
+          3
+        ]
+      ],
+      "closed_channels": 244,
+      "largest_property_id": 42,
+      "channels_above_dense_target_count": 6,
+      "channels_requiring_dense_remap": 12,
+      "selected_property_ids_in_written_row_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        42
+      ],
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "erroneous_direct_dense_index_max_error_rydberg": 0.015165425999981608,
+      "original_native_stage_exits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "compressed/five/B2",
+      "target_components": 40,
+      "boundary_channels": 250,
+      "roots": 2048,
+      "multipole_orders": 2,
+      "buttle_flag": 0,
+      "radius_bohr": 18.0,
+      "binary_geometry_field": [
+        0.0,
+        12497.711607528516
+      ],
+      "open_labels": [
+        [
+          1,
+          1,
+          1,
+          -1
+        ],
+        [
+          2,
+          1,
+          2,
+          -1
+        ],
+        [
+          3,
+          1,
+          3,
+          -3
+        ],
+        [
+          4,
+          1,
+          3,
+          -1
+        ],
+        [
+          5,
+          1,
+          4,
+          -3
+        ],
+        [
+          6,
+          1,
+          4,
+          -1
+        ]
+      ],
+      "closed_channels": 244,
+      "largest_property_id": 42,
+      "channels_above_dense_target_count": 6,
+      "channels_requiring_dense_remap": 12,
+      "selected_property_ids_in_written_row_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        42
+      ],
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "erroneous_direct_dense_index_max_error_rydberg": 0.015165425999981608,
+      "original_native_stage_exits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "compressed/nine/B1",
+      "target_components": 48,
+      "boundary_channels": 298,
+      "roots": 2048,
+      "multipole_orders": 2,
+      "buttle_flag": 0,
+      "radius_bohr": 18.0,
+      "binary_geometry_field": [
+        0.0,
+        12497.711607528516
+      ],
+      "open_labels": [
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2,
+          1
+        ],
+        [
+          3,
+          1,
+          3,
+          1
+        ],
+        [
+          4,
+          1,
+          3,
+          3
+        ],
+        [
+          5,
+          1,
+          4,
+          1
+        ],
+        [
+          6,
+          1,
+          4,
+          3
+        ]
+      ],
+      "closed_channels": 292,
+      "largest_property_id": 48,
+      "channels_above_dense_target_count": 0,
+      "channels_requiring_dense_remap": 0,
+      "selected_property_ids_in_written_row_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "erroneous_direct_dense_index_max_error_rydberg": 0.0,
+      "original_native_stage_exits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "compressed/nine/B2",
+      "target_components": 48,
+      "boundary_channels": 298,
+      "roots": 2048,
+      "multipole_orders": 2,
+      "buttle_flag": 0,
+      "radius_bohr": 18.0,
+      "binary_geometry_field": [
+        0.0,
+        12497.711607528516
+      ],
+      "open_labels": [
+        [
+          1,
+          1,
+          1,
+          -1
+        ],
+        [
+          2,
+          1,
+          2,
+          -1
+        ],
+        [
+          3,
+          1,
+          3,
+          -3
+        ],
+        [
+          4,
+          1,
+          3,
+          -1
+        ],
+        [
+          5,
+          1,
+          4,
+          -3
+        ],
+        [
+          6,
+          1,
+          4,
+          -1
+        ]
+      ],
+      "closed_channels": 292,
+      "largest_property_id": 48,
+      "channels_above_dense_target_count": 0,
+      "channels_requiring_dense_remap": 0,
+      "selected_property_ids_in_written_row_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "mapped_threshold_max_error_rydberg": 0.0,
+      "erroneous_direct_dense_index_max_error_rydberg": 0.0,
+      "original_native_stage_exits": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "matched_comparisons": [
+    {
+      "sector": "B1",
+      "target_table_subset_energy_max_error_hartree": 0.0,
+      "target_symmetry_spin_labels_match": true,
+      "recorded_shared_input_sha256": {
+        "fort.16": "9c937841c049c55704a2eff60183fb70063882164efdd4335426caa086f1b10b",
+        "fort.24": "3e2dfec650e7ce4e71d10dd8c4e462535da9d3abac92cbf9e8d6c735cad3c505",
+        "fort.26": "e8bd43aa54658e37443864224d0666ea0f0ae93cd547fe23cffd7d70e79ca8ea",
+        "fort.721": "b68fbb00613a88777f239e5d6628953def39962d1065cbc4fc9872318fc4b383"
+      },
+      "outer_deck_bytes_identical": true
+    },
+    {
+      "sector": "B2",
+      "target_table_subset_energy_max_error_hartree": 0.0,
+      "target_symmetry_spin_labels_match": true,
+      "recorded_shared_input_sha256": {
+        "fort.16": "9c937841c049c55704a2eff60183fb70063882164efdd4335426caa086f1b10b",
+        "fort.24": "3e2dfec650e7ce4e71d10dd8c4e462535da9d3abac92cbf9e8d6c735cad3c505",
+        "fort.26": "e8bd43aa54658e37443864224d0666ea0f0ae93cd547fe23cffd7d70e79ca8ea",
+        "fort.722": "904195306a971641b660c5f1ad77ec8b68f2a9c216a179f2d814cded7a44a328"
+      },
+      "outer_deck_bytes_identical": true
+    }
+  ],
+  "resources": {
+    "compressed/five/resources.json": {
+      "exit_code": 0,
+      "wall_seconds": 5944.545732760802,
+      "sampled_peak_container_memory_bytes": 6298705920,
+      "baseline_container_memory_bytes": 47550464,
+      "sampled_peak_container_anon_bytes": 4450582528,
+      "kernel_peak_container_memory_bytes": 6454419456,
+      "container_cpu_seconds": 45805.473033999995,
+      "sampled_peak_run_allocated_bytes": 1500803072,
+      "sampled_peak_scratch_allocated_bytes": 208896,
+      "memory_sample_interval_seconds": 0.2,
+      "disk_sample_interval_seconds": 2.0
+    },
+    "compressed/nine/resources.json": {
+      "exit_code": 0,
+      "wall_seconds": 6578.252369139809,
+      "sampled_peak_container_memory_bytes": 7395151872,
+      "baseline_container_memory_bytes": 47804416,
+      "sampled_peak_container_anon_bytes": 4833181696,
+      "kernel_peak_container_memory_bytes": 7780077568,
+      "container_cpu_seconds": 49413.74196,
+      "sampled_peak_run_allocated_bytes": 1511878656,
+      "sampled_peak_scratch_allocated_bytes": 208896,
+      "memory_sample_interval_seconds": 0.2,
+      "disk_sample_interval_seconds": 2.0
+    }
+  },
+  "input_pins": {
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B1/fort.10": {
+      "sha256": "3e8482ee219888b4d3187fcc7b03ac5b3ffd4c50bba6b34b3e8cbaa79b31f240",
+      "bytes": 14152
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B1/fort.21": {
+      "sha256": "bd734e7b78b4942a479252184d16f4d71e6e78c9758a0ce8f99001f070512e79",
+      "bytes": 4614688
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B1/rsolve.inp": {
+      "sha256": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+      "bytes": 1716
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B1/eigenp.inp": {
+      "sha256": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+      "bytes": 600
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B2/fort.10": {
+      "sha256": "b98de38da5d18ba88f8b596d7df617d597d485f680a5a893b8c2261a7a9791f5",
+      "bytes": 14152
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B2/fort.21": {
+      "sha256": "287c5f6c37aa13bcfae8568a546c1b52543c0236679960f2baa3eaf3e08ae4f2",
+      "bytes": 4614688
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B2/rsolve.inp": {
+      "sha256": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2",
+      "bytes": 1716
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/B2/eigenp.inp": {
+      "sha256": "6482d9fba07a9e7e6f04f7b8e9f28f09f140c8b2d798692cafac0a2c77dc2f45",
+      "bytes": 600
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B1/fort.10": {
+      "sha256": "a12949e83019cd810130738011b19e1771fadbf8c44ad4a1f9271b6da4bcc0fa",
+      "bytes": 16840
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B1/fort.21": {
+      "sha256": "4d307ab2671f63e9433b06cb5ea011aa39eae2df9532e9bfcbe3880ab6daf6cf",
+      "bytes": 5611936
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B1/rsolve.inp": {
+      "sha256": "05ddc1c2d26cdb82c4bb09a88ecc3b07a78288822f68d12e4537f7648ba686ab",
+      "bytes": 1716
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B1/eigenp.inp": {
+      "sha256": "8d91d8f76f20a8640b5118c7edb0792d81f03c86efd6c1eecf697389a70f9da1",
+      "bytes": 600
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B2/fort.10": {
+      "sha256": "c372fac213acd63f65dc6bbdca8b128523440ee247cc3c0c6bdaaf602dfb0f59",
+      "bytes": 16840
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B2/fort.21": {
+      "sha256": "6641ce768cc3109fb57bfc0456ce491a4f7a2a1537b1c6e23efa872e8ad1a45f",
+      "bytes": 5611936
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B2/rsolve.inp": {
+      "sha256": "6fc2a1bc65faf35df4816e7ca278fa8a1c482ac0fbc0181c28a00836ff0772d2",
+      "bytes": 1716
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/B2/eigenp.inp": {
+      "sha256": "6482d9fba07a9e7e6f04f7b8e9f28f09f140c8b2d798692cafac0a2c77dc2f45",
+      "bytes": 600
+    },
+    "prepared/saved-matrices-source-20261017/raw/input-manifest.json": {
+      "sha256": "81bb01c3a80c894c3c3d523a0fef507e2b6275bbedde90b0a434a3e49e9fe3a3",
+      "bytes": 12522
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/contract.json": {
+      "sha256": "05a121d982b710b191d8b230bfaa2ea1e79b5de7591a584ddc11f788a856fc58",
+      "bytes": 8867
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/execution.json": {
+      "sha256": "2d993b327738ddebc0bbca76df0043e5cc0bc462ad5e5834fbc8d723fa9ea1d7",
+      "bytes": 14147
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/pilot.json": {
+      "sha256": "ec569a30e9e88e58e03947b1582b4e02e84c3ba25d59a872b241b4d50346af0c",
+      "bytes": 3553
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/pilot.json": {
+      "sha256": "849a998ff6b1322a738ff31843bf2eccb7c0720f7597ce1af8a4c7426b2851bf",
+      "bytes": 3619
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/five/resources.json": {
+      "sha256": "c94ca9b8221a12337088d771398556509f02b0cd3992804c7c611e1693c7b164",
+      "bytes": 488
+    },
+    "prepared/saved-matrices-source-20261017/raw/compressed/nine/resources.json": {
+      "sha256": "e4d6f3f546bee88ec6f4a2d34aaabe998686bccaf3a6a26c1c1fc066b3f7a956",
+      "bytes": 481
+    },
+    "prepared/saved-matrices-source-20261017/raw/engine/source/libouter/outerio.f": {
+      "sha256": "7a2282ea90d42ad7f29ba3bf46809bef1ea1bcc9c4e4580f91bf1ef24d20ded1",
+      "bytes": 90001
+    },
+    "prepared/saved-matrices-source-20261017/raw/engine/source/compak/rsolve_compak.f": {
+      "sha256": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+      "bytes": 122200
+    },
+    "prepared/saved-matrices-source-20261017/writer-evidence/Postprocessing_module.F90": {
+      "sha256": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+      "bytes": 96209
+    }
+  },
+  "native_source_evidence": {
+    "raw/engine/source/libouter/outerio.f": {
+      "sha256": "7a2282ea90d42ad7f29ba3bf46809bef1ea1bcc9c4e4580f91bf1ef24d20ded1",
+      "excerpts": {
+        "1231-1239": "1231: C        MTARG  = symmetries of target states\n1232: C        STARG  = spin multiplicities of target states\n1233: C        GUTARG = G/U symmetries of target states\n1234: C        ETARG  = energies of target states in hartrees\n1235: C        ITCHL  = pointers from scattering channels to vibronic levels\n1236: C        LCHL   = orbital angular momentum in each channel\n1237: C        MCHL   = M quantum number in each channel\n1238: C        ECHL   = channel thresholds, in rydbergs, relative to lowest\n1239: C                 vibronic level",
+        "1295-1305": "1295:         READ(LUCHAN) KEY,NSET,NREC,NINFO,NDATA\n1296:         IF(KEY.NE.KEYCH) GO TO 99\n1297:         READ(LUCHAN) HEADER\n1298:         READ(LUCHAN) NTARG,NVIB,NDIS0,NCHAN0\n1299:         NVD = NVIB+NDIS0\n1300:         READ(LUCHAN) MGVN,STOT,GUTOT,ION,RR,RMASS\n1301:         DO J=1,NTARG\n1302:           READ(LUCHAN) I,MTARG(I),STARG(I),GUTARG(I),ETARG(I)\n1303:         END DO\n1304:         DO J=1,NCHAN\n1305:           READ(LUCHAN) I,ITCHL(I),LCHL(I),MCHL(I),ECHL(I)"
+      }
+    },
+    "raw/engine/source/compak/rsolve_compak.f": {
+      "sha256": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+      "excerpts": {
+        "157-170": "157: C\n158: C***********************************************************************\n159: C\n160:       DATA IREAD,IWRITE,LUCHAN,LURMT,LUKMT,LUWFN/5,6,10,21,19,0/,\n161:      1 LUVCHN,LUNRMT/28,29/,IPRNT/6*0/,NERANG/1/,IEUNIT/1/,newbut/1/,\n162:      2 NKNOT/0/,IVPROP/1/,IDPROP/1/,NPOLE/0/,NVIB/0/,NDIS/0/,LUSCT/88/,\n163:      3 EINC/MAXENR*0.D0,MAXENR*0.D0/,NVCSET,NNRSET,NKSET,NWSET/4*1/,\n164:      4 ISMAX/-1/,BBLOCH,BIGB/2*0.D0/,NVTARG/MAXTGT*1/,NRQUAD/0/,NGEOM/1/\n165:      5,NESCAT/MAXENR*10/,NLPOLE/1/,nbigset/1/,CALCAK/0/,QMOLN/.False./,\n166:      6 NSSET/1/, ifprop2/1/,smooth/0.0/,IKTYPE/0/\n167:       DATA ZERO/0.D0/,HALF/0.5D0/,ONE/1.D0/,TWO/2.D0/,NCOL/6/,MDMAX/-1/\n168:       DATA FORM,CHFORM,RFORM,VCFORM,NRFORM,KFORM,WFORM/7*'FORMATTED'/\n169:      1,ICFORM,IRFORM,IVCFRM,INRFRM,IKFORM,IWFORM/6*'U'/,poleprox/0.D0/\n170:       DATA EUNIT/'RYD','EV'/,RYD/0.073500D0/,BLANK/'        '/",
+        "336-369": "336: C---- Read target and channel data \n337:       NCHAN0 = NCHANF\n338:       NTARG0 = NTARG\n339:       CALL READTC(LUCHAN,NCHSET(IG),NCHAN0,NVIB0,NDIS0,NTARG0,ION,IVT0,\n340:      1 IVU0,ICHL,LVCHL,MVCHL,EVCHL,STARG,MTARG,GTARG,etarg(IET:),R(IG),\n341:      * RMASS,CHFORM,IWRITE,IPRNT(1),IFAIL)\n342:       IF(NCHAN0.NE.NCHANF.OR.NTARG0.NE.NTARG) GO TO 92\n343: C\n344: C---- Read R-matrix header \n345:       CALL READRH(LURMT,NRMSET(IG),RFORM,MGVN,STOT,GUTOT,NCHAN0,NVIB0,\n346:      * NDIS0,NTARG0,ION,R(IG),RMASS,RMATR,NFBUT,ISMX,NCSF(ig),nci,\n347:      2 NPLX,ezero(ig),iex,IWRITE,IPRNT(1),IFAIL)\n348:       IF(NCHAN0.NE.NCHANF.OR.NTARG0.NE.NTARG) GO TO 92\n349: C\n350: C---- Read remainder of fixed nuclei R-matrix data\n351:       if (abs(nfbut).gt.1) then\n352:       CALL READRM(LURMT,RFORM,NCHANF,NCSF(ig),nci,ISMX,isfmax,NPLX,0,\n353:      1 NFBUT,cf,epole(IEG:),wamp(IWA:),vec,butc(IBUT:),sfac(isf:),\n354:      2 iex,ecex(iec:),rcex(irc:),IFAIL)\n355:       else\n356:       CALL READRM(LURMT,RFORM,NCHANF,NCSF(ig),nci,ISMX,isfmax,NPLX,0,\n357:      1 NFBUT,cf,epole(IEG:),wamp(IWA:),vec,butc(IBUT:),dum1,\n358:      2 iex,dum1,dum1,IFAIL)\n359:       endif\n360: C\n361:       IF(IFAIL.NE.0) RETURN\n362: C\n363:  2    CONTINUE\n364: C\n365:       IF(NGEOM.EQ.1) THEN\n366: C\n367: C---- Set up fixed nuclei calculation\n368:         e0 = etarg(1)\n369:         NVCHAN = NCHAN",
+        "503-543": "503:       if (calcak /= 0 .and. calcdip(1) /= 0) then\n504:          if (calcak /= calcdip(3)) then\n505:             print *, 'Error: CALCAK and CALCDIP(3) must be the same'\n506:      *               // ' when calculating both!'\n507:             stop 1\n508:          end if\n509:       end if\n510: \n511:       if (calcak.ne.0) then\n512: C        Determine number of channels to keep.\n513:          last_chan_kept=0\n514:          do i=1,nchan\n515:             if(ICHL(i) .gt. calcak) then\n516:                last_chan_kept=i-1\n517:                exit\n518:  \n519:             end if\n520: \n521:          end do\n522:          if(last_chan_kept .eq. 0) last_chan_kept=nchan\n523: \n524:       end if\n525: \n526: !     Read inner region dipoles for constructing the \n527: !     partial wave dipoles.\n528: !     ---------------------------------------------- \n529: \n530:       if (calcdip(1).ne.0) then\n531: \n532: C       Determine number of channels to keep.\n533:         last_chan_kept=0\n534:         do i=1,nchan\n535:           if(ICHL(i) .gt. calcdip(3)) then\n536:             last_chan_kept=i-1\n537:             exit\n538:  \n539:           end if\n540: \n541:         end do\n542:         if(last_chan_kept .eq. 0) last_chan_kept=nchan\n543: ",
+        "627-637": "627: C----- CALCULATE CONTRIBUTIONS TO FIXED NUCLEI R-MATRICES FROM HIGHER\n628: C      POLES\n629:       if(newbut.eq.0) nfbut=-nfbut\n630:       if (abs(nfbut).gt.1) then\n631:       CALL RESIDR_compak(ETOT,NCHANF,NTARG,ETARG,NLPOLE,NPOLE,nstat,\n632:      1     NGEOM,ncsf,ichl,AMPAE,WAMP,EPOLE,NFBUT,BUTC,RRES,ezero,sfac,\n633:      2     iex,ecex,rcex,IWRITE,IFAIL)\n634:       else\n635:       CALL RESIDR_compak(ETOT,NCHANF,NTARG,ETARG,NLPOLE,NPOLE,nstat,\n636:      1     NGEOM,ncsf,ichl,AMPAE,WAMP,EPOLE,NFBUT,BUTC,RRES,ezero,DUM1,\n637:      2     iex,DUM1,DUM1,IWRITE,IFAIL)",
+        "654-677": "654: C----- CALCULATE RESIDUAL R-MATRIX IN THE ADIABATIC NUCLEI APPROX. AND\n655: C      ADD IT TO THE VIBRATIONAL R-MATRIX OBTAINED IN VRMAT2_compak.  A SQUARE\n656: C      MATRIX IS OUTPUT FOR INPUT TO ASYMPTOTIC CODE.\n657: C\n658:       IF(npole.GT.0) THEN\n659:         CALL ADNUC(NGEOM,R,NCHANF,ICHL,NTARG,NVTARG,VIBFN,KNOTS,\n660:      1  RK,NVCHAN,RRES,RVIB,dum,1,NQUAD,RQUAD,QWTS)\n661: c\n662: c---- Reorder elements to match channel labels\n663:         if(ntarg.gt.1) call REORDV_compak(nvchan,ichord,rvib)\n664: c\n665: C     Add adiabatic component of R-matrix to the non-adiabatic\n666:         K = 0\n667:         IJ = 0\n668:         DO 71 I=1,NVCHAN\n669:         DO 7 J=1,I\n670:         K = K+1\n671:         IJ = IJ+1\n672:         rmn(K) = rmn(K)+rvib(IJ)\n673:  7      continue\n674:  71     continue\n675:         CALL SQUARM_compak(NCHAN,1,RMN,RVIB)\n676:       ELSE\n677:         CALL SQUARM_compak(NCHAN,1,RRES,RVIB)",
+        "685-689": "685: C----- GET SOLUTIONS, DERIVATIVES AND GLOBAL X IN VIBRATIONAL\n686: C      CHANNELS AT R=RAFINV\n687:       IF(NVCHAN.GT.0) THEN\n688:         CALL ASYM2_compak(NVCHAN,NVOPEN,LVCHL,ION,ISMAX,AMC,CRV,\n689:      1  RAFINV,EVCHL,ENRYD,FV,FVP,IVPROP,ifail)",
+        "719-745": "719: C----- PROPAGATE R-MATRICES IF REQUIRED\n720:       IF(IDPROP.GT.0.OR.IVPROP.GT.0)\n721:      1  CALL RPROPX_compak(NCHAN,NVCHAN,NDIS,CRV,CRD,RVIB,IPRNT(5),\n722:      2  IWRITE,IBACK)\n723: C\n724: C----- COMPUTE K-MATRIX\n725:        if (smooth .gt. 1d-10) then\n726: ! !     Assumes no propagation\n727: !          call KMATREG(EPOLE,ENRYD,E0,NSTAT,NCHAN,BLOCH,NOPEN,WAMP,FX,\n728: !      1             FXP,AKMAT,fkmat)\n729:        else\n730: !          call KMATREG(EPOLE,ENRYD,E0,NSTAT,NCHAN,BLOCH,NOPEN,WAMP,FX,\n731: !      1             FXP,AKMAT,fkmat)\n732:           CALL KMAT_compak(NCHAN,BLOCH,NOPEN,FX,FXP,RVIB,AKMAT,fkmat)\n733: c~          CALL KMAT_MKL(NCHAN,BLOCH,NOPEN,FX,FXP,RVIB,AKMAT,fkmat)\n734:        end if\n735: C\n736: \n737:       IF(IPRNT(6).GT.0) THEN\n738:         WRITE(IWRITE,15)\n739:         CALL WRECMT(AKMAT,NOPEN,NOPEN,NOPEN,NOPEN,NCOL,IWRITE)\n740:       ENDIF\n741:       IF(LUKMT.GT.0) THEN\n742:         IF(IKTYPE.EQ.0) THEN\n743: C         Write the asymptotic (open-open) block of the K-matrix\n744:           CALL WRITKM(NOPEN,NDOPEN,ENRYD,AKMAT)\n745:         END IF",
+        "845-873": "845:       if (calcak.ne.0) then\n846: !        Only keep channels corresponding to the first calcak target\n847: !        states. Wavefunction files can get very large with large \n848: !        target lists.\n849: \n850:          call WRITSH(LUSCT,NSSET,SFORM,NAME,MGVN,STOT,GUTOT,\n851:      *   last_chan_kept,ICHL(1:last_chan_kept),LVCHL(1:last_chan_kept),\n852:      *   MVCHL(1:last_chan_kept),EVCHL(1:last_chan_kept),NOCSF,NOCSF,\n853:      *   NESC,0d0,0,IWRITE,IFAIL)\n854: \n855: !          call  WRITSC(LUSCT,SFORM,ESCAT,last_chan_kept,NOCSF,NESC,\n856: !      *   ar_temp2,ai_temp2)\n857:          call  WRITSC(LUSCT,SFORM,ESCAT,last_chan_kept,NOCSF,NESC,ar,ai)\n858: \n859: !          deallocate(ar_temp2,ai_temp2)\n860:       end if\n861:       \n862:       if (calcdip(1).ne.0) then\n863:         call write_pw_dipoles( lu_pw_dipoles, nset_pw_dipoles,\n864:      *    form_pw_dipoles, name, mgvn, stot, gutot,\n865:      *    starg(1:ichl(last_chan_kept)),mtarg(1:ichl(last_chan_kept)),\n866:      *    gtarg(1:ichl(last_chan_kept)),\n867:      *    ichl(1:last_chan_kept), lvchl(1:last_chan_kept),\n868:      *    mvchl(1:last_chan_kept), evchl(1:last_chan_kept), escat,\n869:      *    lmax_property,dip_comp_present, bound_state_energies,\n870:      *    etarg(1),\n871:      *    re_pw_dipoles(:,:,:,1:NRDIP),\n872:      *    im_pw_dipoles(:,:,:,1:NRDIP), 1, iwrite,\n873:      *    ifail )",
+        "1616-1632": "1616: C----- ADD BUTTLE CORRECTION\n1617:       IF(abs(IBUTTL).eq.1) THEN\n1618:         K = 0\n1619:         DO 3 IR=1,NGEOM\n1620:         DO 4 I=1,NCHAN\n1621:         if(ibuttl.lt.0) then\n1622:           itgt = 1\n1623:         else\n1624:           itgt = ichl(i)\n1625:         endif\n1626:         E = TWO*(ETOTR-ETARG(itgt,IR))\n1627:         BUTTL = BCOEF(1,I,IR)+E*BCOEF(2,I,IR)+E*E*BCOEF(3,I,IR)\n1628:         K = K+I\n1629:         RTEMP(K) = RTEMP(K)+BUTTL\n1630:  4      CONTINUE\n1631:  3      CONTINUE\n1632:       ENDIF"
+      }
+    },
+    "writer-evidence/Postprocessing_module.F90": {
+      "sha256": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+      "excerpts": {
+        "748-778": "748:         do i = 1, prop % no_states\n749: \n750:             ! skip states not referenced in IDTARG\n751:             if (findloc(this % idtarg, i, 1) == 0) cycle\n752: \n753:             ! retrieve target data from the properties structure\n754:             tgt_symm = prop % energies_index(2, i)\n755:             tgt_mgvn = prop % symmetries_index(1, tgt_symm)\n756:             tgt_spin = prop % symmetries_index(2, tgt_symm)\n757:             tgt_enrg = prop % energies(i)\n758: \n759:             ! angular momentum composition rule -- must allow for projectile spin\n760:             if (abs(spin - tgt_spin) /= 1) cycle\n761: \n762:             ! get projectile total symmetry IRR from the multiplication table\n763:             prj_mgvn = mprod(tgt_mgvn + 1, mgvn + 1, 0, stdout)\n764: \n765:             ! retrieve channel descriptions from the integral library\n766:             if (opts % use_UKRMOL_integrals) then\n767:                 call ukp_preamp(prj_mgvn, this % nchan + 1, this % lchl, this % mchl, this % qchl, nch, this % maxnmo)\n768:             else\n769:                 call mpi_xermsg('Postprocessing_module', 'get_channel_info', &\n770:                                 'Interface for SWINTERF integrals not implemented.', 1, 1)\n771:             end if\n772: \n773:             ! fill in the remaining channel identifiers\n774:             do j = 1, nch\n775:                 this % ichl(this % nchan + j) = i\n776:                 this % echl(this % nchan + j) = 2 * (tgt_enrg - ebase)\n777:                 this % irrchl(this % nchan + j) = prj_mgvn\n778:             end do",
+        "1070-1083": "1070:             k = 0\n1071:             do i = 1, prop % no_states\n1072:                 if (findloc(this % idtarg, i, 1) > 0) then\n1073:                     k = k + 1\n1074:                     isymm  = prop % energies_index(2, i)\n1075:                     mtarg  = prop % symmetries_index(1, isymm)\n1076:                     starg  = prop % symmetries_index(2, isymm)\n1077:                     gutarg = 0\n1078:                     etarg  = prop % energies(i)\n1079:                     write (luchan) k, mtarg, starg, gutarg, etarg\n1080:                 end if\n1081:             end do\n1082:             do i = 1, this % nchan\n1083:                 write (luchan) i, this % ichl(i), this % lchl(i), this % mchl(i), this % echl(i)"
+      }
+    }
+  },
+  "scoped_cas12_directories": [
+    {
+      "directory": "prepared/compressed-cas12-fixed-orbital-source-20261008",
+      "exists": true,
+      "top_level_entries": [
+        "__pycache__",
+        "co-compressed-fixed-orbital.py",
+        "co-next-controls.py",
+        "diagnostic.launch.log",
+        "execution.json",
+        "owner.lock",
+        "projects"
+      ],
+      "native_run_directories": []
+    },
+    {
+      "directory": "prepared/cas12-basis-import-successors-source-20261008",
+      "exists": true,
+      "top_level_entries": [
+        "__pycache__",
+        "co-basis-import-successors.py",
+        "co-next-controls.py",
+        "co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target.json",
+        "co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target.launch.log",
+        "execution.json",
+        "owner.lock",
+        "projects",
+        "verify-cas12-native-import.py"
+      ],
+      "native_run_directories": []
+    },
+    {
+      "directory": "prepared/cas12-audited-engine-baseline-source-20261012",
+      "exists": true,
+      "top_level_entries": [
+        "baseline-self-reading.launch.log",
+        "capture-20261012T193824",
+        "capture-20261013T001356",
+        "capture-20261013T070125",
+        "capture-20261013T072621",
+        "contract.json",
+        "execution.json",
+        "frozen-inputs.json",
+        "independent-engine-reading.launch.log",
+        "native",
+        "native-matched-baseline.launch.log",
+        "observer",
+        "observer-launch.json",
+        "observer.service.log",
+        "owner.service.log",
+        "projects",
+        "runtime-gate.launch.log",
+        "source-provenance.json"
+      ],
+      "native_run_directories": [
+        "cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012"
+      ]
+    },
+    {
+      "directory": "prepared/cas12-audited-engine-4096-source-20261013",
+      "exists": true,
+      "top_level_entries": [
+        "baseline-self-reading.launch.log",
+        "capture-20261013T080321",
+        "capture-20261013T140449",
+        "capture-20261014T065854",
+        "contract.json",
+        "execution.json",
+        "frozen-inputs.json",
+        "independent-root-reading.launch.log",
+        "native",
+        "native-root-comparison.launch.log",
+        "observer",
+        "observer-launch.json",
+        "observer.service.log",
+        "owner-launch.json",
+        "owner.service.log",
+        "projects",
+        "runtime-gate.launch.log",
+        "source-provenance.json"
+      ],
+      "native_run_directories": [
+        "cas12-eq-roots4096-mpi8-audited-engine-scientific-20261013"
+      ]
+    }
+  ],
+  "new_propagations": 0,
+  "new_native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "equilibrium_poles_evaluated": 0,
+  "full_sweep_released": false,
+  "preliminary_metadata_read": {
+    "original_exit": 1,
+    "failure": "Incorrect parent for the metadata-only read: omitted raw/; corrected absolute path, no calculation was launched"
+  },
+  "wall_seconds": 0.027207056991755962,
+  "inventory_script_sha256": "b7d57414c78271e4305dd25eb34a1d21462dc386b3bf2ee117e0cc759824e9a2"
+}
