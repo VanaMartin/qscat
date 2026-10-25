@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 8792,
+      "sha256": "da36e34b78b8c8b715285f4cc001338f20f309d7f2a15582de19b52f7c7cc1ad"
+    },
+    "manifest.json": {
+      "bytes": 416,
+      "sha256": "2ad88eefd4ccd5658f7fd9f8ebc66992038d3bba1838379c818cdb1a29a536e7"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 1335,
+      "sha256": "103d72b1984a2f857e7516e94211942166945868a582bd5a5cf21887e5d62b92"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 9711,
+      "sha256": "c5fd48dcc5ccef17de536b1011e5429effa61302791be76513fe6ee0b8538237"
+    },
+    "result-summary.json": {
+      "bytes": 58698,
+      "sha256": "23ea8f6a6a05d89206711f3a49a7f788372b12a6fba2a668d3bf1d5ce949bde5"
+    },
+    "results.tar.gz": {
+      "bytes": 607711,
+      "sha256": "21f5bb781f1e07e17c6c91e1c37a638c62a8e558963a282c440193a9c06c98d6"
+    }
+  },
+  "git_sha": "9deb5a193f2ca3f8647d1449ddae1b75b9a71ed5",
+  "url_prefix": "https://data.qscat.org/co-compressed-five-view-20261025/"
+}

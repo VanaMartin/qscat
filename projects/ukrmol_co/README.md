@@ -14,9 +14,10 @@ bounded deliverable and unresolved scientific blockers.
 
 **25 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
 selects a saved compressed CAS11 five/nine-A2 outgoing-pole contrast. Both inner
-calculations exist; the exact gap is an explicit250-channel mapped view and
-narrow adapter, limited to two hours before source/tests freeze. No new pole
-job, QC/property/inner solve, geometry or fit is released. New50 stays parked;
+calculations exist; the explicit250-channel mapped view/narrow adapter now
+[passes saved-only qualification](qualification-evidence/compressed-five-view/README.md).
+The exact remaining gap is the separately frozen real-S/contrast execution owner.
+No new pole job, QC/property/inner solve, geometry or fit is released. New50 stays parked;
 all114 holdouts and equilibrium pole exclusion remain protected. The existing
 finite open-Pi pair below is not a qualified CO curve or production model.
 
@@ -64,8 +65,10 @@ from saved sparse inputs; no new geometry, model solve, fit or sweep is released
 identifies a reusable250-versus298-channel control at1.9bohr, not a new inner
 calculation. Public metadata checks confirm the original-ID map; the native
 zero-Buttle K path bypasses the problematic dense-pointer branches here.
-The mapped view is still unqualified. At most146 future maps are proposed,
-conditional on its tests and a separate execution freeze; **zero maps run now**.
+The later saved-view gate passes both sectors in2.073691s /.223804GiB, preserving
+strict failure and all original bytes; independent public reconstruction confirms
+the arrays. At most146 future maps remain proposed,
+conditional on a separate execution freeze; **zero maps run now**.
 This is not a new model-insensitivity or electronic-accuracy result.
 
 The completed evidence preserves the first pilot and two calibration snapshots:
@@ -657,10 +660,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 25 October 2026
 
-![Saved compressed A2 pole contrast selected; explicit250-channel mapped view remains the gate, with no new numerical job](../../docs/physics/figures/co-progress-20261025T2117-model-contrast-proposal.png)
+![Compressed five-model mapped view qualified; numerical contrast remains gated, no new physical-model evidence](../../docs/physics/figures/co-progress-20261025T2303-mapped-view.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261025T2117-model-contrast-proposal.svg) ·
-[Model-contrast proposal snapshot](progress-snapshot-20261025T2117-model-contrast-proposal.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261025T2303-mapped-view.svg) ·
+[Mapped-view snapshot](progress-snapshot-20261025T2303-mapped-view.json) ·
+[Saved-view evidence](qualification-evidence/compressed-five-view/README.md) ·
+[Independent view reconstruction](verification-compressed-five-view-public-20261025.json) ·
+[Previous proposal figure](../../docs/physics/figures/co-progress-20261025T2117-model-contrast-proposal.svg) ·
+[Previous proposal snapshot](progress-snapshot-20261025T2117-model-contrast-proposal.json) ·
 [Matched contrast design](../../docs/physics/co-compressed-a2-pole-contrast.md) ·
 [Input/metadata verification](verification-model-contrast-inventory-public-20261025.json) ·
 [Previous paired figure](../../docs/physics/figures/co-progress-20261023T1736-paired-pole-character.svg) ·

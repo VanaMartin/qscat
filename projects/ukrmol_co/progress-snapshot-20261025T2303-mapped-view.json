@@ -1,0 +1,163 @@
+{
+  "base_snapshot": "progress-snapshot-20261025T2117-model-contrast-proposal.json",
+  "base_snapshot_sha256": "97ffe1a680f4d5fc2a7c0f1868d26fea568972baaa14721c7d305de29074bf5c",
+  "additional_source_file_sha256": {
+    "docs/physics/co-compressed-a2-pole-contrast.md": "35e6ab8af7cb3b5ec155cb62667f182c3c9790f0f248baa314f2065e73218143",
+    "projects/ukrmol_co/progress_figure.py": "0443f948d7fa82b2268df2263e83ddbfccc3e19225ac8ee16bda186e72464d9b",
+    "projects/ukrmol_co/README.md": "91d7be986809d2e4fedfb99deb7bd0899cc58af60944d76bbf9e79e97de8f0f2",
+    "projects/ukrmol_co/CONTINUATION.md": "19ee6b1d2970f195f9520888f4e3d860e162ed8d0f409ad75cda34f890ade160",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "9185a46b3e99f9b6ee821312e18f676e8bbb395fa429977b8990e77235c471b4",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "3137367a42999d5f000e7c097cc11f3c466fc0c5ca27e61557d85051e5f1a34b",
+    "projects/ukrmol_co/progress-compressed-five-view-result-20261025.json": "e9949eda51af09687206f0d2a9bdbaaf1cfdc4cc62a560a6dcd3515eb84ba5cb",
+    "projects/ukrmol_co/verification-compressed-five-view-public-20261025.json": "21b66185dc804aa78ba75b20334a991783a48313fa8d98b2034ec9de07794861",
+    "projects/ukrmol_co/qualification-evidence/compressed-five-view/README.md": "34b1780feca76c1c37b624c0a02aebb3b8606bc4423b1421ebb6d6fe14082834",
+    "projects/ukrmol_co/qualification-evidence/compressed-five-view/artifacts.json": "0b4265a0a470cb3188cd662a676cbe9af7fe7793a00ba5167b045123031a675a",
+    "projects/ukrmol_co/qualification-evidence/compressed-five-view/manifest.json": "2ad88eefd4ccd5658f7fd9f8ebc66992038d3bba1838379c818cdb1a29a536e7",
+    "projects/ukrmol_co/compressed-five-view-gate-contract-20261025.json": "020e75afd3e146a79e927e4efc3717c6135a7cbc1ec9345453360397ba8acf1d",
+    "projects/ukrmol_co/saved_matrices.py": "97946cb2cdf4c5b0a79090b1ed48fbc35ba96a7084189873480ca5822a1b5f00",
+    "projects/ukrmol_co/native_full_reconstruction.py": "ba15bbefa5b1024f0ea0ef7bcbb61d0a8e5fc96af0ba221b6d36212ce45d2783",
+    "projects/ukrmol_co/compressed_pole_reference.py": "21b8da4b4bd2a3b2a9c21e12b4a940216968f58371a00d53c1134d2da9f4cacd",
+    "projects/ukrmol_co/compressed_five_view.py": "5a77bf6c7433ff82084b7aae61224fa6889316ba0abf33acf9dd14cbd794f574",
+    "projects/ukrmol_co/compressed_a2_pole_contrast.py": "e1afe96df133c27e4d9698fa78b27ab7ac9e201c3e6d92bcaca81f462a6e8e43",
+    "projects/ukrmol_co/compressed_five_view_gate.py": "9a155531fe0f2ce93b5726177feabd725529b9e1a6412923b4ca93cc71a66b36",
+    "projects/ukrmol_co/test_compressed_five_view.py": "e124e51404b03fc4ed6addcaefbfc3ed85dafcc2831b59d36ee9aa2ab1d45a36",
+    "projects/ukrmol_co/test_compressed_a2_pole_contrast.py": "0f6bc87e07f632063505980a41be934165dcebed919ee6690ea5010910b4f2f7"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-25T23:03:00.000000+00:00",
+    "live_status": {
+      "scope": "25 October saved mapped-view qualification only; no new S/pole or electronic-model evidence",
+      "goal_review_disposition": "redirect from completed interface work to separately frozen exact real-S/contrast owner; no numerical job released",
+      "finite_reference_open_pi_pair_verdict": true,
+      "finite_reference_pole_verdict": true,
+      "pole_position_physical_ev": 3.760389687392806,
+      "pole_full_width_physical_ev": 2.0846143865399505,
+      "b1_open_residue_leakage": 1.1474906457584157e-09,
+      "b2_open_residue_leakage": 1.1474359075312911e-09,
+      "counterpart_profile_tv": 2.580998089046247e-11,
+      "counterpart_norm_relative_difference": 6.461969096213149e-11,
+      "exact_lambda_conservation_verdict": null,
+      "physical_co_accuracy_verdict": null,
+      "independent_exterior_verdict": null,
+      "qualified_width_curve": false,
+      "production_model_selected": false,
+      "full_sweep_released": false,
+      "policy_freeze": "cee9e3e",
+      "b2_adapter_freeze": "f6dc800",
+      "saved_b1_original_exits": [
+        0,
+        0,
+        0
+      ],
+      "b2_original_exits": [
+        0,
+        0,
+        0
+      ],
+      "saved_b1_new_maps": 0,
+      "saved_b1_container_wall_seconds": 1.3220340039988514,
+      "b2_map_evaluations": 42,
+      "b2_root_setting_evaluations": [
+        1,
+        1,
+        1
+      ],
+      "b2_settings_accepted_b1_seed_without_new_iterates": true,
+      "reported_zero_root_difference_is_not_zero_uncertainty": true,
+      "b1_b2_contour_difference_ev": [
+        4.258954495770693e-11,
+        3.4206828882417176e-11
+      ],
+      "same_root_position_full_width_budget_ev": 0.0001,
+      "b2_container_wall_seconds": 173.05552464799257,
+      "b2_parent_cpu_seconds_excluding_workers": 105.14067700000001,
+      "b2_cgroup_cpu_seconds_including_workers": 634.276314,
+      "b2_cgroup_peak_gib": 1.8320655822753906,
+      "physical_cores": "0-7",
+      "b2_source_entries_verified": 31,
+      "saved_b1_source_entries_verified": 17,
+      "public_payloads_verified": 10,
+      "b2_archived_files_verified": 92,
+      "saved_b1_archived_files_verified": 27,
+      "original_inputs_verified": 123,
+      "new_public_replay_propagations": 0,
+      "native_calls": 0,
+      "route_holdout_s_matrices_analyzed": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "equilibrium_pole_exclusion": "protected",
+      "optional_new50_branch": "parked",
+      "baseline_inner_roots": 2048,
+      "tiny_saved_reconstruction_errors_are_not_absolute_co_error_bounds": true,
+      "selected_contrast": "compressed CAS11 retained A2 five versus nine per spin, R=1.9bohr,2048 roots",
+      "model_contrast_proposal_defined": true,
+      "mapped250_model_view_qualified": true,
+      "model_pole_insensitivity_verdict": null,
+      "metadata_public_payloads_verified": 2,
+      "metadata_scoped_input_pins_verified": 26,
+      "metadata_interfaces_checked": 4,
+      "new_current_cycle_native_calls": 0,
+      "new_current_cycle_propagations": 0,
+      "new_current_cycle_pole_evaluations": 0,
+      "mapped_view_implementation_hours_cap": 2,
+      "future_conditional_map_cap": 146,
+      "numerical_job_released": false,
+      "five_boundary_channels": 250,
+      "nine_boundary_channels": 298,
+      "original_five_strict_reader_failure_preserved": true,
+      "mapped_view_source_freeze": "9deb5a193f2ca3f8647d1449ddae1b75b9a71ed5",
+      "mapped_view_container_wall_seconds": 2.073691169003723,
+      "mapped_view_gate_wall_seconds": 0.14726230601081625,
+      "mapped_view_cgroup_peak_gib_at_gate_save": 0.22380447387695312,
+      "mapped_view_runtime_controls": 36,
+      "mapped_view_public_payloads_verified": 9,
+      "mapped_view_archived_files_verified": 53,
+      "mapped_view_source_entries_verified": 39,
+      "mapped_view_original_exits": [
+        0,
+        0,
+        0
+      ],
+      "mapped_view_remapped_channels_per_sector": 12,
+      "mapped_view_independent_native_array_hashes_exact": true
+    },
+    "figure_subtitle": "Compressed five-model mapped view qualified from saved bytes; numerical contrast still needs an exact execution freeze, no new S or pole",
+    "anchor_note": "Historical native-fit markers retained (compressed/equilibrium reject).\nFinite compressed open-Pi pair remains a separate finite-model result.\nNo new pole or model-insensitivity result from the saved-view gate.",
+    "memory_note": "Historical inner-region costs shown unchanged.\nSaved view: 2.074 s /0.224 GiB, no new inner solve.\nNo new propagation or paid provisioning.",
+    "roadmap_title": "View qualified; contrast still gated",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE: FINITE COMPRESSED OPEN-PI PAIR",
+        "title": "3.7604 eV position /2.0846 eV full width",
+        "detail": "Existing CAS11/nine reference; not electronic accuracy"
+      },
+      {
+        "kind": "reuse",
+        "status": "SAVED VIEW QUALIFIED: BOTH FIVE SECTORS",
+        "title": "Own 2048 roots /250 channels; 12 remaps",
+        "detail": "Exact subsets /nine identity; strict failure preserved"
+      },
+      {
+        "kind": "reuse",
+        "status": "PUBLIC-BYTE RECONSTRUCTION COMPLETE",
+        "title": "Six native arrays exact in each sector",
+        "detail": "53 files /39 sources /123 inputs; no S or pole"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT: EXACT REAL-S /CONTRAST OWNER FREEZE",
+        "title": "Then B1 first; B2 only after qualified pass",
+        "detail": "146-map ceiling unchanged; no numerical job released"
+      },
+      {
+        "kind": "next",
+        "status": "OPEN: ELECTRONIC ACCURACY / WIDTH CURVE",
+        "title": "No physical uncertainty reduced by this gate",
+        "detail": "114 S holdouts /equilibrium exclusion protected"
+      }
+    ],
+    "roadmap_note": "Saved gate: 2.074 s /0.224 GiB, original exits0/0/0/0.\nNo S construction, propagation or pole evaluation.\nEnd interface work; preserve the original effort cap.",
+    "source_footer": "25 OCTOBER  Explicit compressed-five view qualified and independently reconstructed. No new S/pole/model-insensitivity result; numerical owner freeze remains.",
+    "verification_footer": "Saved-view prerequisite removed only. No electronic accuracy, qualified CO curve, potential or sweep release."
+  }
+}

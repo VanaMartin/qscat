@@ -11,16 +11,17 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**25 October checkpoint: continue to one bounded reader/adapter freeze.** The
+**25 October23:03UTC checkpoint: mapped view qualified; redirect to exact execution freeze.** The
 compressed finite-reference B1/B2 open-Pi pair passes; electronic accuracy and a
 qualified curve remain open. The [route decision](POTENTIAL_ROUTE_DECISION.md)
 selects a saved CAS11 five/nine-A2 pole contrast at1.9bohr, not a reserved
 equilibrium CAS11→CAS12 pole. Both inner calculations exist. The exact gap is
-an explicitly mapped250-channel model view plus narrow adapter, not new QC,
-properties or inner eigenpairs. Original strict-reader failure stays intact.
-At most two hours implementation; no numerical job is released. New50 stays
+the separately frozen real-S/contrast execution owner, not new QC,
+properties or inner eigenpairs. The explicit250-channel view is now qualified;
+adapter controls pass and original strict-reader failure stays intact. Stay within the original
+two-hour implementation cap; no numerical job is released at this handoff. New50 stays
 parked,2048 baseline retained,114 holdouts and equilibrium pole exclusion
-protected. Review on that freeze/first gate, or27 October if active.
+protected. Review before numerical launch/first outcome, or27 October if active.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -42,6 +43,38 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Saved-view result —25 October,23:03UTC; independently reconstructed
+
+[Evidence](qualification-evidence/compressed-five-view/README.md) /
+[compact result](progress-compressed-five-view-result-20261025.json) /
+[public reconstruction](verification-compressed-five-view-public-20261025.json).
+Both five-model views pass, all250 channels /2048 own roots.12 labels remap each;
+target subset error0, own W/D exact, all nine identity fields exact. Strict
+`ValueError('Invalid channel label')`, old false aggregate and six unset cases
+are preserved. Source/tests/contract freeze `9deb5a1` precedes application.
+All39 source pins match frozen Git; public replay verifies nine payloads /
+53 files /39 sources /seven pins /123 original inputs and six arrays per sector.
+36 runtime controls pass,39 focused local tests. Original scientific/command/
+container/owner exits0/0/0/0, no timeout/OOM/repair. Container2.073691s, gate.147262s;
+cgroup peak.223804GiB /CPU1.486406s at gate save includes controls.4 physical
+cores0–3 /one thread /4GiB /60s cap. Read-only public fetch403 before replay is
+recorded separately; first actual reconstruction exits0. Unrelated ComfyUI untouched.
+
+**No new S, propagation, pole evaluation or native executable.** No electronic-
+model evidence, qualified curve or sweep progress is claimed from this pass.
+**Next bounded deliverable:** freeze/review the exact real-S/contrast owner,
+pinning proposal, saved nine witnesses, inputs and guard outputs before complex
+use. Numerical execution is not released by this handoff. Stay within the original
+two-hour active-cycle effort bound; no repeated gate, general interface/solver
+development, new QC/property/inner solve or automatic successor. If later released,
+the unchanged cap is79 B1 +67 conditional B2 maps /8 physical cores /8GiB /
+3600s total; valid B1 sensitivity rejection stops before B2.114 holdouts,
+equilibrium exclusion, parked new50 and2048 baseline stay protected.
+
+Search handoff: main index `423d5770d3de337571f51e62702ae919bad97e8c` reports
+complete/current. View/adapter/evidence additions are branch-local; relevant
+current source and main delta were inspected, with no branch index ingestion.
 
 ### Explicit view/adapter implementation —25 October,22:55UTC; before saved gate
 

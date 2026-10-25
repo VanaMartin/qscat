@@ -449,6 +449,50 @@ owner separately. This remains inside the one-cycle/two-hour implementation
 bound; no new QC/properties/inner solve, geometry or fit, and no actual electronic-
 model evidence yet.114 holdouts/equilibrium exclusion/new50 protections remain.
 
+### Goal checkpoint —25 October,23:03UTC: mapped view qualified; end interface work
+
+**Starting blocker/question:** can the existing compressed five-model eigenpairs
+be consumed explicitly without rewriting native labels or replacing W/D with a
+nine-model slice? This prerequisite serves the selected retained-A2 pole-target
+contrast, not a production-model selection. Source/tests/contract froze/pushed
+at `9deb5a1` before the single saved application.
+
+**Completed evidence:** [both mapped views pass](progress-compressed-five-view-result-20261025.json),
+all250 channels /2048 own roots per sector,12 remapped labels each, exact selected
+target metadata and nine-model identity-view fields. Strict default failure and
+the original false aggregate/six unset cases remain. Independent public-byte
+reconstruction verifies six arrays per sector,53 files /39 sources /seven pins /
+123 inputs;39 source hashes also match the frozen Git blobs.36 runtime controls
+pass (39 focused local tests). Zero S construction, propagation, pole evaluation
+or native call. No repeated QC/property/inner solve or nine repropagation.
+
+**Cost/bound:** four physical cores0–3 /one thread /4GiB /60s hard cap;
+container2.073691s, gate.147262s, cgroup peak.223804GiB /CPU1.486406s sampled at
+final gate save including controls. Original exits0/0/0/0, no timeout/OOM or
+scientific retry. A read-only public-index fetch403 before reconstruction is
+recorded separately; first actual independent reconstruction exits0. This
+deliverable completes within the active cycle's two-hour implementation bound.
+
+**Evidence delta:** the explicit saved-reader prerequisite is removed. **No
+physical uncertainty shrank:** five/nine pole sensitivity, electronic accuracy,
+omitted spectrum, independent exterior, continuity, neutral correlation, factory
+nodes/asymptote and physical full-S embedding remain open. No qualified curve,
+production model or restartable geometry pilot exists.
+
+**Disposition: redirect from completed interface work to the exact real-S/contrast
+execution freeze.** Stop numerical work at this handoff: the saved gate is not
+execution authorization. One next deliverable is a separately reviewed/pushed
+owner pinning saved nine witnesses, proposal, inputs, two measured development-S
+guards per evaluated sector and original pole/character gates. Do not repeat
+this saved gate or open another general solver/interface campaign. The unchanged
+prospective ceiling is79 B1 +67 conditional B2 maps /8 physical cores /8GiB /
+3600s combined; resolved B1 sensitivity rejection stops before B2. Input, identity,
+numerical or cap failures stop inconclusive without repair/retry/successor.
+Owner work must fit the original active-cycle effort cap; otherwise stop with
+the precise missing owner, not an extended development allocation. Review before
+any numerical launch and on its first outcome, or next active-cycle boundary.
+All114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

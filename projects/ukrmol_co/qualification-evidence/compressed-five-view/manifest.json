@@ -1,0 +1,17 @@
+{
+  "git_sha": "9deb5a193f2ca3f8647d1449ddae1b75b9a71ed5",
+  "experiment": "co-compressed-five-view-20261025",
+  "mapped_view_verdict": true,
+  "model_insensitivity_verdict": null,
+  "pole_calculation_released": false,
+  "full_sweep_released": false,
+  "original_exits": [
+    0,
+    0,
+    0
+  ],
+  "new_propagations": 0,
+  "new_pole_evaluations": 0,
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0
+}

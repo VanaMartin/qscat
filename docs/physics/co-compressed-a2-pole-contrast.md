@@ -128,7 +128,22 @@ strict failure, check own W/D bytes and nine-model identity-view equality. It
 does not construct S, propagate, search or release a pole job. Source/tests and
 an exact owner for a numerical contrast still need a separate execution freeze.
 
-## Prospective staged test — not released for execution
+## Saved-view qualification boundary
+
+The [saved-only gate and independent public-byte reconstruction](../../projects/ukrmol_co/qualification-evidence/compressed-five-view/README.md)
+qualify both compressed-five views: own2048 W/D, all250 channels,12 remapped labels
+per sector, exact target subsets and unchanged nine identity-view fields. Original
+strict failure/false aggregate/six unset cases remain. Six assembled-array hashes
+per sector reconstruct exactly without producer imports, S construction or
+propagation. This removes a reader prerequisite, not a physical uncertainty.
+
+Source/tests/contract freeze `9deb5a1` precedes the application; runtime36 controls
+pass and all39 source pins match Git. Container2.073691s /cgroup.223804GiB at gate
+save,4 physical cores /4GiB /60s cap, original exits0/0/0/0. No five-model S/pole
+has been evaluated. Numerical work still needs a separately frozen exact real-S/
+contrast owner/input contract; the unchanged proposal alone is not authorization.
+
+## Prospective numerical stages — not released for execution
 
 The [proposal data](../../projects/ukrmol_co/compressed-a2-pole-contrast-proposal-20261025.json)
 are fixed before any five-model pole evaluation. Implementation, controls, exact

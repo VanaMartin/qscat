@@ -1,0 +1,96 @@
+{
+  "observed_utc": "2026-10-25T23:02:40.580936+00:00",
+  "pointer_sha256": "0b4265a0a470cb3188cd662a676cbe9af7fe7793a00ba5167b045123031a675a",
+  "public_payloads_verified": 9,
+  "archived_files_verified": 53,
+  "source_entries_verified": 39,
+  "original_inputs_verified": 123,
+  "prerequisite_pins_verified": 7,
+  "runtime_controls": 36,
+  "original_strict_aggregate_verdict": false,
+  "original_unset_cases": 6,
+  "cases": [
+    {
+      "case": "compressed/five/B1",
+      "arrays_reconstructed": 6,
+      "roots": 2048,
+      "channels": 250,
+      "remapped_channels": 12,
+      "target_subset_error_hartree": 0.0,
+      "threshold_error_rydberg": 0.0,
+      "nine_identity_mapping_exact": true,
+      "own_native_array_hashes_exact": true
+    },
+    {
+      "case": "compressed/five/B2",
+      "arrays_reconstructed": 6,
+      "roots": 2048,
+      "channels": 250,
+      "remapped_channels": 12,
+      "target_subset_error_hartree": 0.0,
+      "threshold_error_rydberg": 0.0,
+      "nine_identity_mapping_exact": true,
+      "own_native_array_hashes_exact": true
+    }
+  ],
+  "mapped_view_verdict": true,
+  "original_exits": [
+    0,
+    0,
+    0
+  ],
+  "new_propagations": 0,
+  "new_pole_evaluations": 0,
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "model_insensitivity_verdict": null,
+  "numerical_job_released": false,
+  "independence": "Fresh public downloads; direct Fortran-record walking and independent CF row unpacking; no producer imports or rerun. Nine identity is checked algebraically, not repropagated.",
+  "payloads": [
+    {
+      "name": "collection-sha256.json",
+      "sha256": "da36e34b78b8c8b715285f4cc001338f20f309d7f2a15582de19b52f7c7cc1ad",
+      "bytes": 8792
+    },
+    {
+      "name": "manifest.json",
+      "sha256": "2ad88eefd4ccd5658f7fd9f8ebc66992038d3bba1838379c818cdb1a29a536e7",
+      "bytes": 416
+    },
+    {
+      "name": "prerequisite-artifacts.json",
+      "sha256": "103d72b1984a2f857e7516e94211942166945868a582bd5a5cf21887e5d62b92",
+      "bytes": 1335
+    },
+    {
+      "name": "reconstruct-saved.py",
+      "sha256": "c5fd48dcc5ccef17de536b1011e5429effa61302791be76513fe6ee0b8538237",
+      "bytes": 9711
+    },
+    {
+      "name": "result-summary.json",
+      "sha256": "23ea8f6a6a05d89206711f3a49a7f788372b12a6fba2a668d3bf1d5ce949bde5",
+      "bytes": 58698
+    },
+    {
+      "name": "results.tar.gz",
+      "sha256": "21f5bb781f1e07e17c6c91e1c37a638c62a8e558963a282c440193a9c06c98d6",
+      "bytes": 607711
+    },
+    {
+      "name": "raw-inputs.tar.gz",
+      "sha256": "fddfba5a5a6bd16968722a33cd6a5939a8a3004a7571c6610d4c1d44e9b8cad2",
+      "bytes": 53681680
+    },
+    {
+      "name": "writer-evidence.tar.gz",
+      "sha256": "0f67649d20ac8afaf2a02b805b2714e2c802d696105ce0ace85572d2826bc571",
+      "bytes": 23951
+    },
+    {
+      "name": "host-matrices.json",
+      "sha256": "3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63",
+      "bytes": 299622
+    }
+  ]
+}

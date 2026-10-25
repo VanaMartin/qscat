@@ -2,19 +2,26 @@
 
 ## Decision now
 
-**Current implementation continuation:** the explicit mapped view and narrow
-adapter now have synthetic controls. Proceed only to the
-[saved-only qualification gate](compressed-five-view-gate-contract-20261025.json)
-after freeze/push:4 cores /4GiB /60s, no S construction, propagation or pole
-evaluation. Original strict failure stays intact. The numerical contrast is
-not yet released and still needs its exact real-guard/owner freeze. Review on
-the saved gate; retain the original two-hour implementation cap and protections.
+**23:03UTC gate review:** the [saved mapped view is qualified](qualification-evidence/compressed-five-view/README.md)
+for both sectors. Own W/D and all250 channels,12 labels remapped each, exact
+target subsets/nine identity; strict failure and six historical unset cases
+remain. Independent public reconstruction authenticates123 inputs /39 sources
+and all six array hashes per sector. Cost2.073691s /.223804GiB, exits0/0/0/0;
+zero S construction, propagation, pole evaluation or native call.
+
+**Current disposition: redirect from completed interface implementation to one
+exact real-S/contrast execution freeze.** No numerical job is released at this
+handoff. Pin owner, saved nine witnesses, inputs, development guards and resource
+caps separately under the unchanged proposal and original effort cap; do not
+repeat the saved gate or extend a solver/interface campaign. Physical/model-
+insensitivity evidence is unchanged. Review before launch and at first outcome.
 
 **25 October outcome:** [select the saved compressed CAS11 A2 five→nine pole contrast](../../docs/physics/co-compressed-a2-pole-contrast.md),
 not an equilibrium CAS11→CAS12 pole or a new inner solve. Both2048-root models
 exist at1.9bohr with recorded shared inputs and exact target-table subset metadata.
-The concrete missing deliverable is an **explicit250-channel mapped model view
-and narrow existing-runner adapter**, not another scattering Hamiltonian.
+The explicit250-channel mapped view/narrow adapter prerequisite is now resolved;
+the missing deliverable is its **exact numerical execution owner/input freeze**,
+not another scattering Hamiltonian.
 The zero-Buttle fixed-nuclei native K path uses stored channel thresholds; its
 pointer-sensitive branches are disabled here. Other consumers are not qualified.
 Original strict-reader failure stays unchanged; no engine patch is made.
@@ -25,13 +32,12 @@ result exists.** The proposed pole contrast would decide whether to prioritize
 retained-channel effects before a new basis/active-space allocation, not select
 an accurate production model or reverse the stretched phase rejection.
 
-**Disposition: continue to one mapped-view/adapter freeze, at most two hours
-of active work.** The [proposal](compressed-a2-pole-contrast-proposal-20261025.json)
+**Preserved allocation:** the [proposal](compressed-a2-pole-contrast-proposal-20261025.json)
 predeclares all gates and a conditional79+67=146-map allocation, but releases no
 job. Reuse all nine-model witnesses; no new QC/properties/inner solve, new50,
 root/channel ladder, geometry or fit. All114 route holdouts and the equilibrium
-pole exclusion remain protected. Stop if the explicit view cannot be qualified
-within the effort bound; do not extend an interface/solver campaign.
+pole exclusion remain protected. The view is qualified within the two-hour
+effort bound; do not extend an interface/solver campaign.
 
 ### Preserved decisions —23 October
 
