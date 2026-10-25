@@ -493,6 +493,40 @@ the precise missing owner, not an extended development allocation. Review before
 any numerical launch and on its first outcome, or next active-cycle boundary.
 All114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
 
+### Execution checkpoint —25 October,23:20UTC: continue to the decision-changing contrast
+
+The user authorizes continued productive use of the available hours, not a stop
+after every short supporting check. **Disposition: continue to the single
+[frozen numerical contrast](compressed-a2-contrast-execution-20261025.json)**,
+after source/tests/exact persistent owner freeze and push. The question remains
+whether retained A2 channels materially change the coupled pole target at1.9bohr;
+reuse both completed2048-root calculations and all nine witnesses. No actual
+five-model S/pole score exists at this checkpoint. No scientific gate is relaxed.
+
+The narrow owner calls the existing real-S and pole machinery: two real guards
+persist and pin before complex use, B1 first, B2 only after a qualified B1 pass,
+with all original character/identity/counterpart and boundary-band gates. Valid
+B1 sensitivity rejection stops B2; numerical/input/identity failures stay
+inconclusive, preserving nested original exits. Source W/D/CF, ODE, bordered
+search, contour and derivative algorithms are unchanged. Routing/failed-guard/
+after-integrity controls precede freeze. Stay within the original active-cycle
+two-hour implementation cap (22:35:57UTC start), not a new supporting-work cycle.
+
+Fresh Sadaharu resource inspection23:12UTC finds eight distinct physical cores
+0–7 available to pin,114GiB available RAM /64GiB free persistent disk; unrelated
+ComfyUI remains untouched. Allocation8 physical cores /one BLAS thread per worker /
+8GiB, at most79 B1 +67 B2=146 maps,90s per map /1800s per sector /3600s combined.
+No paid provisioning, image rebuild, QC/property/inner solve or root/channel ladder.
+
+**Next review:** at the scientific outcome, independently reconstruct/publish it
+and choose the next electronic-model allocation in the same continuation, rather
+than ending solely because the compute took minutes. A rejection prioritizes
+retained-channel evidence; a pass retains nine and prioritizes a justified basis/
+active-space contrast. Any further expensive calculation needs that outcome-led
+minimum-scope contract first; free capacity is not an accuracy argument. All114
+holdouts, equilibrium exclusion, parked new50 and2048 baseline stay protected.
+No production model/qualified curve/potential fit or sweep is released.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

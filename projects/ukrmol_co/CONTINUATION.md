@@ -11,17 +11,18 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**25 October23:03UTC checkpoint: mapped view qualified; redirect to exact execution freeze.** The
+**25 October23:20UTC checkpoint: continue to the frozen five/nine pole contrast.** The
 compressed finite-reference B1/B2 open-Pi pair passes; electronic accuracy and a
 qualified curve remain open. The [route decision](POTENTIAL_ROUTE_DECISION.md)
 selects a saved CAS11 five/nine-A2 pole contrast at1.9bohr, not a reserved
 equilibrium CAS11→CAS12 pole. Both inner calculations exist. The exact gap is
-the separately frozen real-S/contrast execution owner, not new QC,
-properties or inner eigenpairs. The explicit250-channel view is now qualified;
-adapter controls pass and original strict-reader failure stays intact. Stay within the original
-two-hour implementation cap; no numerical job is released at this handoff. New50 stays
+the exact real-S/contrast source/tests/owner push before execution, not new QC,
+properties or inner eigenpairs. The explicit250-channel view is qualified;
+adapter controls pass and original strict-reader failure stays intact. Stay within
+the original two-hour implementation cap. User requests continued work through
+the scientific outcome and next model decision; unchanged stop rules apply. New50 stays
 parked,2048 baseline retained,114 holdouts and equilibrium pole exclusion
-protected. Review before numerical launch/first outcome, or27 October if active.
+protected. Review on the contrast outcome before a further model allocation.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -43,6 +44,30 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Numerical execution continuation —25 October,23:20UTC; before first five S/pole
+
+User requests sustained decision-changing work, using the available compute.
+The [execution contract](compressed-a2-contrast-execution-20261025.json) and exact
+`compressed_a2_contrast_owner`/`compressed_a2_contrast_run` now bound the one
+application. Freeze/push before actual evaluation. Existing numerical routines
+are unchanged. Two development guards60/80 must be measured/persisted/pinned
+before complex five use; B1 first, B2 only after valid B1 insensitivity pass.
+Valid B1 rejection stops B2; numerical/input/identity/counterpart failures are
+inconclusive, not physical model rejections. Preserve original nested exits.
+
+8 distinct physical cores0–7 /one BLAS thread /8GiB /146 maps maximum,
+1800s per sector /3600s combined. Resource inspection23:12UTC:114GiB available
+RAM,64GiB disk, no other CO job; ComfyUI untouched. Source/controls/exact owner
+must fit the original two-hour active-cycle implementation cap. No saved-gate
+repeat, new inner solve, native executable, image rebuild or solver expansion.
+All114 holdouts/equilibrium exclusion/new50/2048 protections remain.
+
+**Next deliverable:** execute the frozen contrast, independently reconstruct and
+publish the scientific outcome, then make the next electronic-model allocation
+decision in this continuation. Do not end simply because this compute is short;
+do not evade a scientific stop rule to fill the available hours. No five S/pole
+has been evaluated at this freeze. No fit/geometry sweep is released.
 
 ### Saved-view result —25 October,23:03UTC; independently reconstructed
 

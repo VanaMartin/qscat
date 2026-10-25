@@ -143,7 +143,30 @@ save,4 physical cores /4GiB /60s cap, original exits0/0/0/0. No five-model S/pol
 has been evaluated. Numerical work still needs a separately frozen exact real-S/
 contrast owner/input contract; the unchanged proposal alone is not authorization.
 
-## Prospective numerical stages — not released for execution
+## Exact numerical execution owner
+
+`compressed_a2_contrast_run` translates the unchanged proposal through the narrow
+adapter and calls the existing real-S routines and pole CLI. Each sector writes
+both real captures and a guard report before pinning the guard digest into its
+resolved pole contract. Saved nine pole/screens and original owner exits are
+authenticated, not repropagated. Failed real/numerical/identity/counterpart gates
+remain inconclusive even if the nested pole runner preserves its original exit1.
+Only a valid model-sensitivity rejection is exit1 at the contrast level.
+
+`compressed_a2_contrast_owner` is the exact persistent container owner, run from
+the checksum-verified frozen source capsule. It checks physical-core topology,
+RAM/disk, pins8GiB/eight physical cores/one BLAS thread, bounds the combined run
+to3600s, and preserves source/input checksums, commands, controls, partial reports,
+captures and original exits. Per-sector pole subprocesses have the remaining
+1800s allocation and terminate their entire process group on timeout. No retry
+or automatic successor is available. The
+[execution contract](../../projects/ukrmol_co/compressed-a2-contrast-execution-20261025.json)
+must freeze/push with this source/tests before any five-model S/pole evaluation.
+All mathematical routines and prospectively declared scientific thresholds stay
+unchanged. Free compute justifies continuing to the outcome-led model decision,
+not bypassing a failed prerequisite or extending a solver/interface campaign.
+
+## Frozen numerical stages — after source/tests/owner push
 
 The [proposal data](../../projects/ukrmol_co/compressed-a2-pole-contrast-proposal-20261025.json)
 are fixed before any five-model pole evaluation. Implementation, controls, exact

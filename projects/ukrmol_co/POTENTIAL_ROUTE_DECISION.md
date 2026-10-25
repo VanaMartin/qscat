@@ -2,6 +2,17 @@
 
 ## Decision now
 
+**23:20UTC execution continuation:** user requests sustained decision-changing
+work with the available compute. Continue to the unchanged five/nine contrast
+after freezing/pushing its [exact owner/input contract](compressed-a2-contrast-execution-20261025.json):
+B1 real guards then pole/identity/contrast, conditional B2 only on a qualified
+B1 pass.8 physical cores /8GiB /146-map total ceiling /3600s combined. Valid B1
+sensitivity rejection stops B2; failed prerequisite/identity/numerics stops
+inconclusive without repair/retry. No new numerical algorithm or scientific
+threshold. Remain inside the original two-hour implementation cap. Review the
+outcome and next model allocation in this continuation, not merely another gate
+handoff. No actual five S/pole score exists before this execution freeze.
+
 **23:03UTC gate review:** the [saved mapped view is qualified](qualification-evidence/compressed-five-view/README.md)
 for both sectors. Own W/D and all250 channels,12 labels remapped each, exact
 target subsets/nine identity; strict failure and six historical unset cases
@@ -9,7 +20,7 @@ remain. Independent public reconstruction authenticates123 inputs /39 sources
 and all six array hashes per sector. Cost2.073691s /.223804GiB, exits0/0/0/0;
 zero S construction, propagation, pole evaluation or native call.
 
-**Current disposition: redirect from completed interface implementation to one
+**Preserved23:03UTC disposition: redirect from completed interface implementation to one
 exact real-S/contrast execution freeze.** No numerical job is released at this
 handoff. Pin owner, saved nine witnesses, inputs, development guards and resource
 caps separately under the unchanged proposal and original effort cap; do not
