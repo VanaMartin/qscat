@@ -586,6 +586,15 @@ The original pre-execution23:20 caption was prospective/approximate; its measure
 Git freeze is23:17:52UTC before launch23:18:30UTC. Current caption is corrected;
 the frozen capsule and original chronology remain preserved in the result record.
 
+**Launch update23:40UTC:** `bfa3a88` freezes/pushes the exact export source/tests/
+contract/owner before the durable service starts23:40:13UTC. One launch-time
+observation finds native DENPROP active, three runtime controls passing,30 inputs /
+23 sources verified;69 combined focused local tests preceded freeze. Property
+verdict/terminal exits stay pending. Initial100.59% CPU /.133GiB is not a final
+peak or claimed eight-core speedup. Original data/workloads remain untouched.
+This uses the available hours for a necessary different model input, not a
+repeat of successful QC, target eigenpairs or original property selection.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

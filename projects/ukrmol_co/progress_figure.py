@@ -16,7 +16,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SNAPSHOT = Path(__file__).with_name(
-    "progress-snapshot-20261025T2303-mapped-view.json"
+    "progress-snapshot-20261025T2340-contrast-and-cas12.json"
 )
 BLUE = "#2468ac"
 GREEN = "#158477"
@@ -1217,7 +1217,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261025T2303-mapped-view",
+        default=ROOT / "docs/physics/figures/co-progress-20261025T2340-contrast-and-cas12",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

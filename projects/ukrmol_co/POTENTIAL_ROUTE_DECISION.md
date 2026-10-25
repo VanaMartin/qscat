@@ -17,8 +17,9 @@ states. No QC, target solve/reimport or integral regeneration is needed for this
 different property inventory. Five is only a local matched comparator; nine
 remains working reference and CAS12/nine convergence is still open.
 
-Freeze/push the [property owner/contract](compressed-cas12-matched-properties-contract-20261025.json)
-before the one export: conditional3–6h, native8h /owner9h cap,8 physical cores /
+The [property owner/contract](compressed-cas12-matched-properties-contract-20261025.json)
+froze/pushed at `bfa3a88`; [the export starts23:40UTC](progress-compressed-cas12-properties-launch-20261025.json).
+Property verdict remains pending. Conditional3–6h, native8h /owner9h cap,8 physical cores /
 64GiB /one library thread. No automatic repair/retry, Hamiltonian or pole job.
 While it runs, prepare the exact-input integral/CONGEN and2048-root B1 model
 contrast allocation. No production model, new geometry, fit or sweep is released;

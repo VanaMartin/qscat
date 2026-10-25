@@ -19,7 +19,9 @@ vectors are qualified; the required firstfive-per-sector properties are missing
 from the original global-lowest40 inventory. A
 [single necessary property export](../../docs/physics/co-compressed-cas12-model-control.md)
 is selected (forecast3–6h), reusing all vectors with no QC/target solve. Its exact
-owner/source contract must freeze/push before application. New50 stays parked;
+owner/source contract froze/pushed at `bfa3a88` and the
+[multi-hour export starts23:40UTC](progress-compressed-cas12-properties-launch-20261025.json);
+property verdict remains pending. New50 stays parked;
 all114 holdouts and equilibrium pole exclusion remain protected. The existing
 finite open-Pi pair below is not a qualified CO curve or production model.
 
@@ -69,8 +71,8 @@ calculation. Public metadata checks confirm the original-ID map; the native
 zero-Buttle K path bypasses the problematic dense-pointer branches here.
 The later saved-view gate passes both sectors in2.073691s /.223804GiB, preserving
 strict failure and all original bytes; independent public reconstruction confirms
-the arrays. At most146 future maps remain proposed,
-conditional on a separate execution freeze; **zero maps run now**.
+the arrays. At that saved-only gate, at most146 future maps were proposed,
+conditional on a separate execution freeze; **zero maps were evaluated there**.
 That saved-view result alone is not model-insensitivity or electronic accuracy.
 
 **23:24UTC independently verified outcome:** the numerical five/nine contrast now
@@ -671,10 +673,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 25 October 2026
 
-![Compressed five-model mapped view qualified; numerical contrast remains gated, no new physical-model evidence](../../docs/physics/figures/co-progress-20261025T2303-mapped-view.png)
+![Compressed pole contrast passes; matched CAS12 property inventory running from saved target vectors](../../docs/physics/figures/co-progress-20261025T2340-contrast-and-cas12.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261025T2303-mapped-view.svg) ·
-[Mapped-view snapshot](progress-snapshot-20261025T2303-mapped-view.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261025T2340-contrast-and-cas12.svg) ·
+[Contrast/CAS12 launch snapshot](progress-snapshot-20261025T2340-contrast-and-cas12.json) ·
+[Pole-contrast evidence](qualification-evidence/compressed-a2-contrast/README.md) ·
+[Independent pole-contrast reconstruction](verification-compressed-a2-contrast-public-20261025.json) ·
+[Matched CAS12 input decision](../../docs/physics/co-compressed-cas12-model-control.md) ·
+[Previous mapped-view figure](../../docs/physics/figures/co-progress-20261025T2303-mapped-view.svg) ·
+[Previous mapped-view snapshot](progress-snapshot-20261025T2303-mapped-view.json) ·
 [Saved-view evidence](qualification-evidence/compressed-five-view/README.md) ·
 [Independent view reconstruction](verification-compressed-five-view-public-20261025.json) ·
 [Previous proposal figure](../../docs/physics/figures/co-progress-20261025T2117-model-contrast-proposal.svg) ·

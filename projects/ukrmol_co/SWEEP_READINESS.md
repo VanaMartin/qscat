@@ -14,7 +14,9 @@ properties have uneven sector counts and miss states needed by the matched
 firstfive-per-sector comparator. The
 [necessary property export](../../docs/physics/co-compressed-cas12-model-control.md)
 is a different inventory, not repeated QC/target diagonalization: forecast3–6h,
-8 physical cores /64GiB /native8h cap, after exact source/tests/owner freeze.
+8 physical cores /64GiB /native8h cap. Source/tests/owner freeze `bfa3a88` precedes
+the [23:40UTC launch](progress-compressed-cas12-properties-launch-20261025.json);
+the property verdict remains pending.
 No new inner solve, pole, geometry or fit is released by that property contract.
 Compressed insensitivity does not reverse stretched rejection or establish
 electronic accuracy.114 holdouts, equilibrium exclusion,2048 baseline and parked

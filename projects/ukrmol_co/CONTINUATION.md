@@ -44,6 +44,46 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Necessary multi-hour property export running —25 October,23:40UTC
+
+[Launch observation](progress-compressed-cas12-properties-launch-20261025.json):
+source/tests/owner freeze `bfa3a88` is pushed before the durable user service
+`co-compressed-cas12-properties-20261025.service` starts23:40:13UTC, PID77381.
+Container `co-compressed-cas12-properties-20261025` is active at23:40:28UTC;
+native DENPROP is constructing the new firstfive-per-sector inventory. Three
+runtime controls pass;30 saved inputs authenticate before use and all23 frozen
+source entries verify.69 combined focused local tests passed before freeze.
+No QC/target diagonalization, scattering, S or pole call occurs in this job.
+
+Allocation8 physical cores4–11 /one library thread /64GiB /1GiB shared backing,
+native8h /owner9h caps. Start resources114.22GiB available RAM /69.48GiB disk.
+Launch sampling100.59% CPU /.133GiB is **not a final peak or eight-core speedup**.
+Property verdict remains unset; the producer's initial scientific/owner exit2
+is a pending default, not a completed failure. No terminal exit is assigned yet.
+Source archive SHA256 `1fde3a6afd78d737023542ebaa293fc999013c56abc71b6e3c88dee38c5e3c4d`;
+owner SHA256 `13ab69327e9cbf7a1e9a099f88dc322d55ccf6c5a86a0fd53ca918471a7d8c45`.
+Remote persistent root:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-properties-source-20261025/`.
+Original run is mounted read-only; native work/logs/resources live under
+`outputs/properties/`. Unrelated workloads remain untouched.
+
+**Next:** review actual property outcome and independently authenticate the new
+40-state map/moments before any new scattering allocation. While this necessary
+multi-hour export runs, prepare only the costed exact-input native integral/CONGEN
+and sparse2048-root B1 proposal. No Hamiltonian/pole job follows automatically.
+The [minimum preparation proposal](compressed-cas12-scattering-input-proposal-20261025.json)
+is now recorded: at most one integral/two CONGEN calls,4 physical cores /16GiB /
+3600s cap, **not released** until the property outcome and exact input/owner freeze.
+The explicitly requested background job is durable and bounded; this is not an
+unattended daily campaign or permission for a retry after failure.
+
+Search handoff: main index `423d5770d3de337571f51e62702ae919bad97e8c` is complete.
+Latest MCP upstream currency is unknown/stale; independent `git ls-remote origin
+refs/heads/main` still returns that same commit. Relevant current source and
+branch-local owner/property/evidence additions were inspected; no branch index
+ingestion or qscat promotion. The running capsule is immutable at `bfa3a88`;
+subsequent local edits affect only the dated launch/decision/overview handoff.
+
 ### Contrast verified —25 October,23:24UTC; next matched model inputs selected
 
 [Result](qualification-evidence/compressed-a2-contrast/README.md) /

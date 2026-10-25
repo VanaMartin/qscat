@@ -54,6 +54,14 @@ moments covering all states, and ground dipole within1e-5au. Record the own
 target map and original native exit/completion marker. Original and copied input
 hashes must remain unchanged. Failed prerequisites or export stay inconclusive.
 
+The new property table itself contains exactly the40 states to retain. A future
+native export therefore selects all its IDs1…40 (in its own contraction order);
+unlike the saved CAS11/five-from48 view, it should need no sparse property-ID
+remapping. Verify this from actual native files and reuse the existing strict
+reader/40-target/250-channel assembly, not a new general interface framework or CAS11 channel
+slice. This is a prospective input consequence, not an already qualified CAS12
+scattering interface.
+
 The exact persistent `compressed_cas12_properties_owner` runs the pinned source
 capsule/image, records progress/exits/resources and bounds its one container.
 Source/tests/contract must freeze/push before application. No repairs, retries or
@@ -75,6 +83,15 @@ and saved vectors. Measure actual dimensions/input hashes before allocating one
 sparse2048-root B1 solve. No dense Hamiltonian or eigenpair ladder; no repeated
 QC/target solve or successful CAS11 inner calculation. B2 remains conditional on
 the outcome of a separately frozen B1 comparison.
+
+The [preparation proposal](../../projects/ukrmol_co/compressed-cas12-scattering-input-proposal-20261025.json)
+records this minimum scope: one integral and two CONGEN calls, four physical cores /
+16GiB /600s conditional target /3600s hard cap. **It releases no job:** first
+authenticate the completed matched properties and freeze exact new input bytes/
+owner. Equilibrium CAS12's84942 L2 +1410 continuum =86352 contracted dimension
+is a cost-planning anchor, not an observed compressed dimension. An eventual
+very large inner calculation should use twelve physical cores under the user's
+policy, with MPI-layout differences and actual memory cost explicitly qualified.
 
 An eventual pole contrast must preserve the same outgoing definition, own W/D,
 two development-S guards, original root/contour/residue/Pi/identity gates and full-
