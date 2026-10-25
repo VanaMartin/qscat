@@ -12,12 +12,14 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**25 October priority:** [the potential-route decision](POTENTIAL_ROUTE_DECISION.md)
-selects a saved compressed CAS11 five/nine-A2 outgoing-pole contrast. Both inner
-calculations exist; the explicit250-channel mapped view/narrow adapter now
-[passes saved-only qualification](qualification-evidence/compressed-five-view/README.md).
-The exact remaining gap is the separately frozen real-S/contrast execution owner.
-No new pole job, QC/property/inner solve, geometry or fit is released. New50 stays parked;
+**25 October priority:** [the compressed five/nine outgoing-pole contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
+in both sectors:10.88meV position /4.48meV full-width changes,89 maps /217s.
+Retain nine and prioritize a matched CAS11/CAS12 model control. Its saved64 target
+vectors are qualified; the required firstfive-per-sector properties are missing
+from the original global-lowest40 inventory. A
+[single necessary property export](../../docs/physics/co-compressed-cas12-model-control.md)
+is selected (forecast3–6h), reusing all vectors with no QC/target solve. Its exact
+owner/source contract must freeze/push before application. New50 stays parked;
 all114 holdouts and equilibrium pole exclusion remain protected. The existing
 finite open-Pi pair below is not a qualified CO curve or production model.
 
@@ -69,7 +71,16 @@ The later saved-view gate passes both sectors in2.073691s /.223804GiB, preservin
 strict failure and all original bytes; independent public reconstruction confirms
 the arrays. At most146 future maps remain proposed,
 conditional on a separate execution freeze; **zero maps run now**.
-This is not a new model-insensitivity or electronic-accuracy result.
+That saved-view result alone is not model-insensitivity or electronic accuracy.
+
+**23:24UTC independently verified outcome:** the numerical five/nine contrast now
+passes both sectors, including real-S, root/contour/residue/Pi/identity and
+counterpart gates. Five-model pole3.771266eV /2.089095eV full width; nine-model
+3.760390eV /2.084614eV reused without propagation.89/146 maps /216.873s /
+1.738GiB, exits0/0/0/0. This is compressed finite-reference pole-target
+insensitivity, not full-domain channel convergence or electronic accuracy.
+The next model allocation uses saved CAS12 eigenvectors and firstfive-per-sector
+properties; no equilibrium pole, new geometry, fit or sweep is consumed.
 
 The completed evidence preserves the first pilot and two calibration snapshots:
 

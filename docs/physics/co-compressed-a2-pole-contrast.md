@@ -145,6 +145,18 @@ contrast owner/input contract; the unchanged proposal alone is not authorization
 
 ## Exact numerical execution owner
 
+The [completed public reconstruction](../../projects/ukrmol_co/qualification-evidence/compressed-a2-contrast/README.md)
+now supports a pass for both sectors: five→nine lowers position10.876503meV
+and full width4.480322meV, within the frozen tolerances/bands. Four own real-S
+guards and all pole/contour/residue/Pi/identity/counterpart gates pass. Cost89
+maps /216.873008s /1.737797GiB, original exits0/0/0/0; no nine repropagation or
+new native solve. B1 tighter settings/B2 accept the existing candidate, not
+independent iterates or zero uncertainty. This is finite compressed insensitivity,
+not full-domain convergence; retain nine and the stretched rejection. The next
+[matched CAS11/CAS12 model allocation](co-compressed-cas12-model-control.md) reuses
+saved target vectors but requires a different, firstfive-per-sector property
+inventory. No production accuracy/curve, new geometry, fit or sweep follows.
+
 `compressed_a2_contrast_run` translates the unchanged proposal through the narrow
 adapter and calls the existing real-S routines and pole CLI. Each sector writes
 both real captures and a guard report before pinning the guard digest into its

@@ -493,7 +493,7 @@ the precise missing owner, not an extended development allocation. Review before
 any numerical launch and on its first outcome, or next active-cycle boundary.
 All114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
 
-### Execution checkpoint —25 October,23:20UTC: continue to the decision-changing contrast
+### Execution checkpoint —25 October,23:17UTC: continue to the decision-changing contrast
 
 The user authorizes continued productive use of the available hours, not a stop
 after every short supporting check. **Disposition: continue to the single
@@ -526,6 +526,65 @@ active-space contrast. Any further expensive calculation needs that outcome-led
 minimum-scope contract first; free capacity is not an accuracy argument. All114
 holdouts, equilibrium exclusion, parked new50 and2048 baseline stay protected.
 No production model/qualified curve/potential fit or sweep is released.
+
+### Goal checkpoint —25 October: contrast passes; allocate missing matched CAS12 properties
+
+**Physical question completed:** [compressed five/nine pole-target insensitivity
+passes both sectors](qualification-evidence/compressed-a2-contrast/README.md).
+Changing retained A2 targets lowers position10.876503meV /full width4.480322meV,
+within50meV /104.230719meV budgets and frozen boundary bands. Own real-S,
+root/contour/residue/Pi/identity and five-model counterpart gates pass. B1 root
+search uses6/1/1 evaluations; B2 accepts the B1 candidate once per setting,
+not independent iterates or zero splitting uncertainty. Independent public
+reconstruction completes23:24:18UTC, authenticating168 files /42 sources /
+24 prerequisites /123 inputs and all scientific gates without propagation.
+
+**Cost/evidence delta:**89/146 maps,216.873008s /1.737797GiB, original exits0/0/0/0,
+no timeout/OOM/retry. No QC/property/inner solve or nine repropagation. Retained
+channels do not dominate this **compressed finite pole-target** contrast at the
+chosen budgets. This is new model-sensitivity evidence, not absolute accuracy;
+stretched rejection, full-domain channel convergence, omitted spectrum, independent
+exterior, continuity, neutral/factory/asymptote/full-S gates remain open.
+Keep nine as working reference, not a five-state production downgrade.
+
+**Production decision: redirect to one matched compressed CAS11/CAS12 model
+control**, not another channel/root/precision ladder. Both native target sets
+already exist at1.9bohr/cc-pVDZ. The witnessed CAS11/five pair supplies only the
+local firstfive-per-sector comparator; CAS12/nine and full-domain convergence
+remain unqualified. This changes optimized orbital frames/imported target
+representations too, so no pure active-orbital-count claim or equilibrium pole use.
+
+**Exact prerequisite found:** original CAS12 DENPROP retained global lowest40,
+not five per sector: A1 singlet/triplet6/4, B1=5/7, B2=5/7, A2=3/3. Missing A2
+roots4/5 and tripletA1root5 already exist among the64 independently qualified
+native vectors. Reuse all vectors, target integrals, CONGEN, checkpoint/Molden;
+only a **different, matched property inventory** needs computing. No QC, target
+diagonalization/reimport, new integrals or scattering solve is released now.
+
+**Disposition: continue to the single multi-hour property export** after its
+source/tests/exact owner freeze/push, under the
+[property contract](compressed-cas12-matched-properties-contract-20261025.json).
+Change only DENPROP NTGTL to5 in all eight sectors, preserving original set order.
+30 saved-input hashes and the all64-root proof authenticate reuse. Original
+DENPROP took4.43h; conditional forecast3–6h, native8h /owner9h hard caps,
+64GiB /8 physical cores4–11 /one library thread, minimum80GiB available RAM /
+10GiB disk. Whole old target-pipeline41.12GiB peak is a conservative anchor,
+not isolated DENPROP cost. No paid provisioning or speculative speedup.
+Implementation/diagnosis is bounded to60minutes after this model decision;
+this is a new physical input allocation, not extending the completed view work.
+
+**Next while it runs:** prepare the costed exact-input full-continuum integral/
+CONGEN contract and one2048-root CAS12 B1 model contrast, reusing these properties.
+Actual dimensions and input/target identity must freeze before an inner solve;
+no dense build or automatic B2/root/basis ladder. Property failure stops without
+repair/retry/successor; property success alone releases no Hamiltonian or pole job.
+Review at that contract or property outcome, and next active-cycle boundary.
+All114 holdout S matrices/equilibrium exclusion/new50/2048 protections remain.
+No production model, qualified curve, potential fit or sweep is released.
+
+The original pre-execution23:20 caption was prospective/approximate; its measured
+Git freeze is23:17:52UTC before launch23:18:30UTC. Current caption is corrected;
+the frozen capsule and original chronology remain preserved in the result record.
 
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 

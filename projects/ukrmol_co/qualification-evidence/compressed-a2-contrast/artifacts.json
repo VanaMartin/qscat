@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "collection-sha256.json": {
+      "bytes": 27728,
+      "sha256": "fc4665df08f92cd7286821aaf839e282427c56f69b4379b53b2a72a08576b795"
+    },
+    "manifest.json": {
+      "bytes": 371,
+      "sha256": "17bb56273c7bd0b73a2477465615b147dd2a7e0cad61a38ce209b9e1f08a5672"
+    },
+    "prerequisite-artifacts.json": {
+      "bytes": 1335,
+      "sha256": "103d72b1984a2f857e7516e94211942166945868a582bd5a5cf21887e5d62b92"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 23484,
+      "sha256": "555fa1aed69a758457392cd0826bdd97f8bcc5f71253fd12dab6d1fbb74f62c9"
+    },
+    "reference-collection.json": {
+      "bytes": 4808,
+      "sha256": "f06b28458920b56e864861976abd7490e6f481bf046de0eb53ae9cd03559c8e7"
+    },
+    "reference-inputs.tar.gz": {
+      "bytes": 5596045,
+      "sha256": "2ed433d811dc11e7b9c7db9394e0c1aecebed15e19f2f72c9709ba3c9f77a286"
+    },
+    "result-summary.json": {
+      "bytes": 116598,
+      "sha256": "7853d6416180cef18d08e152215fda2428b789c1c29a8b4227edc506b83b6c84"
+    },
+    "results.tar.gz": {
+      "bytes": 131240326,
+      "sha256": "10d4e460d70387c2dc6509fe3f9f7a1cee00475d254d3b30a318cea388dc9e33"
+    }
+  },
+  "git_sha": "dbc83e1a59be60368e288e050e8223485b9eb131",
+  "url_prefix": "https://data.qscat.org/co-compressed-a2-contrast-20261025/"
+}

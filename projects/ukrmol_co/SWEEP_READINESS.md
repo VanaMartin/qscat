@@ -6,16 +6,19 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**25 October decision:** the [compressed A2 pole-contrast proposal](../../docs/physics/co-compressed-a2-pole-contrast.md)
-uses already completed CAS11 five/nine2048-root models at1.9bohr. No new inner
-calculation is needed; a private explicit250-channel mapped view and narrow
-existing-runner adapter remain unqualified. The zero-Buttle K source trace and
-public metadata checks bound that prerequisite without changing the failed
-strict reader or patching the engine. At most two hours implementation before
-source/tests freeze; no numerical job is released. Future conditional B1/B2
-allocation is at most146 maps /8 cores /8GiB. This is model-allocation triage,
-not a new insensitivity or electronic-accuracy result.114 route holdouts,
-equilibrium pole exclusion,2048 baseline and parked new50 remain protected.
+**25 October decision:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
+both sectors,10.88meV position /4.48meV full-width changes,89 maps /217s. Keep
+nine as working reference and prioritize a matched compressed CAS11/CAS12 model
+control. Reuse all64 saved qualified CAS12 target vectors; the original lowest40
+properties have uneven sector counts and miss states needed by the matched
+firstfive-per-sector comparator. The
+[necessary property export](../../docs/physics/co-compressed-cas12-model-control.md)
+is a different inventory, not repeated QC/target diagonalization: forecast3–6h,
+8 physical cores /64GiB /native8h cap, after exact source/tests/owner freeze.
+No new inner solve, pole, geometry or fit is released by that property contract.
+Compressed insensitivity does not reverse stretched rejection or establish
+electronic accuracy.114 holdouts, equilibrium exclusion,2048 baseline and parked
+new50 stay protected; full-domain/continuity/neutral/full-scattering gates remain.
 
 **Working cadence:** run the [goal-convergence checklist](PRODUCTION_DECISIONS.md#goal-convergence-checkpoint--every-one-or-two-days-of-campaign-work)
 every one or two days of active work and before new branches. Measure progress by

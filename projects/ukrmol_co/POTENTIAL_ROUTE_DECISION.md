@@ -2,7 +2,31 @@
 
 ## Decision now
 
-**23:20UTC execution continuation:** user requests sustained decision-changing
+**Verified contrast outcome:** [five/nine compressed pole-target insensitivity passes](qualification-evidence/compressed-a2-contrast/README.md)
+in both sectors:10.876503meV position /4.480322meV full width; all original
+guards/witnesses/character/identity/pairing gates pass.89 maps /216.873008s /
+1.737797GiB, exits0/0/0/0. Independent public reconstruction verifies all gates.
+Retain nine, preserve stretched rejection; this is not electronic accuracy.
+
+**Current disposition: continue to the matched CAS11/CAS12 model allocation**
+at the same compressed geometry, not another solver/channel/root branch.
+The [smallest necessary new input](../../docs/physics/co-compressed-cas12-model-control.md)
+is DENPROP for five roots per sector from the **saved64 CAS12 vectors**. Original
+lowest40 properties have uneven6/4,5/7,5/7,3/3 counts and miss required A2/A1
+states. No QC, target solve/reimport or integral regeneration is needed for this
+different property inventory. Five is only a local matched comparator; nine
+remains working reference and CAS12/nine convergence is still open.
+
+Freeze/push the [property owner/contract](compressed-cas12-matched-properties-contract-20261025.json)
+before the one export: conditional3–6h, native8h /owner9h cap,8 physical cores /
+64GiB /one library thread. No automatic repair/retry, Hamiltonian or pole job.
+While it runs, prepare the exact-input integral/CONGEN and2048-root B1 model
+contrast allocation. No production model, new geometry, fit or sweep is released;
+114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
+
+### Preserved execution review — before the completed contrast
+
+**23:17UTC execution continuation:** user requests sustained decision-changing
 work with the available compute. Continue to the unchanged five/nine contrast
 after freezing/pushing its [exact owner/input contract](compressed-a2-contrast-execution-20261025.json):
 B1 real guards then pole/identity/contrast, conditional B2 only on a qualified

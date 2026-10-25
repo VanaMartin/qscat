@@ -1,0 +1,256 @@
+{
+  "observed_utc": "2026-10-25T23:30:14.772299+00:00",
+  "target_directory": "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010",
+  "original_property_counts": {
+    "Singlet.A1": 6,
+    "Triplet.B2": 7,
+    "Triplet.B1": 7,
+    "Singlet.B1": 5,
+    "Singlet.B2": 5,
+    "Triplet.A1": 4,
+    "Triplet.A2": 3,
+    "Singlet.A2": 3
+  },
+  "required_property_counts": {
+    "Singlet.A1": 5,
+    "Triplet.A1": 5,
+    "Singlet.B1": 5,
+    "Triplet.B1": 5,
+    "Singlet.B2": 5,
+    "Triplet.B2": 5,
+    "Singlet.A2": 5,
+    "Triplet.A2": 5
+  },
+  "native_cidata_set_order": {
+    "singlet.A1": 1,
+    "triplet.A1": 2,
+    "singlet.B1": 3,
+    "triplet.B1": 4,
+    "singlet.B2": 5,
+    "triplet.B2": 6,
+    "singlet.A2": 7,
+    "triplet.A2": 8
+  },
+  "input_sha256": {
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/config.json": {
+      "sha256": "5659c73ff1e40eaa7e0b8dba9100dd71c0f63396899b1059fdfad2c3a5688c70",
+      "bytes": 2199
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/target.json": {
+      "sha256": "f6d5b48e914b366ea1f952e290ac606b29999df4f4bfce0a75a9601a16bf16e1",
+      "bytes": 20098
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/result.json": {
+      "sha256": "8708d33bac6ff51ba7860d811e98efe124525ad9c6aebfd4b6565ec7cf692ecc",
+      "bytes": 6397
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/resources.json": {
+      "sha256": "bce88f4d5f54fb7b409e0b6055d5dbdfadfd2f9293d4e78fefee3abefd0b1d2d",
+      "bytes": 485
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/stages.tsv": {
+      "sha256": "d4cd59c1687b7126c0b46765b8394865b684f994117db1cb9130fe545a402cef",
+      "bytes": 825
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.16": {
+      "sha256": "ec126c7f5c0dacbd9a40453c240f70b1706547e2c0c23c0c5874e8cf49f36a31",
+      "bytes": 53886
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.26": {
+      "sha256": "52ed343364a608e45e51745f3e8b962c939f28c5d4f00af97656ad3287387109",
+      "bytes": 36246336
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.24": {
+      "sha256": "1e0b854efd8ff16fa4149fe7d773ae85cca7ff2cd695d6a317d8cde940f751bd",
+      "bytes": 36471
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/prop.out": {
+      "sha256": "1e0b854efd8ff16fa4149fe7d773ae85cca7ff2cd695d6a317d8cde940f751bd",
+      "bytes": 36471
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/co.molden": {
+      "sha256": "29362d1fc33e6bfe3d0556d8fe20776fcd28d9ec26e1b06387ee797385d20bb1",
+      "bytes": 25325
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/co.casscf.chk": {
+      "sha256": "f908dc1f5e1caeeb3e7828ebf8a77561295af0d1e0316a0f2428d92f6f205250",
+      "bytes": 19728
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/inputs/target.denprop.inp": {
+      "sha256": "1918157bcfcb5f5f2faa8424ae6fc3fa716a14ec5058c98417fab29977ae1252",
+      "bytes": 974
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.710": {
+      "sha256": "9d44aad27ed2c8ba887490ddab17fe3d0ffac01f6c78176bb9cc97e23c4a1292",
+      "bytes": 65833112
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.730": {
+      "sha256": "4e4965016162f908ac6721b9ddd842de138ffd823ec2f80e2143e9b97c59766d",
+      "bytes": 80704904
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.711": {
+      "sha256": "8bc6391880314c7c2332a9ab7f96a6716c958b23356f09cda594095e1442a38c",
+      "bytes": 76602488
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.731": {
+      "sha256": "a38e73e911f66d69a5cd4268a8e5b52fdda8de53d4e0c57557f0973475af72a4",
+      "bytes": 90223304
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.712": {
+      "sha256": "f3030c2ac225937ecd58fee41b64089ed0e6a5706c63a7c440e925465347a4b8",
+      "bytes": 77104248
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.732": {
+      "sha256": "bb0ca49edbcf6421f54f0bd536797d35a732c0cd6c67bb376dad96b9d13a3dce",
+      "bytes": 92653464
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.713": {
+      "sha256": "11e31e5cb6735ec96adc97dc04fd0f7b2ce7a04ea1f1f2a25f0810f4cc2c4ff9",
+      "bytes": 77812152
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/fort.733": {
+      "sha256": "9aa8b55a1eb2a856e70a95bc3bb541e73154de005228c2b914e6d114f825ecfa",
+      "bytes": 94839144
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.singlet.A1.out": {
+      "sha256": "f9f522d7cbfd77f907bfb41a2cc825bedb923ffc09b5cf8c7542ac784a7d940e",
+      "bytes": 12114
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.triplet.A1.out": {
+      "sha256": "0b01d9c8557ea86921c34ed6e690a13f67ca49a15fc1c355e9c8f92921f2ec6c",
+      "bytes": 12717
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.singlet.B1.out": {
+      "sha256": "5b987cdf6c4b4ba7839cf891340f4ebad68636498142e93bd6bf8e5bba42278a",
+      "bytes": 13146
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.triplet.B1.out": {
+      "sha256": "fa942f7dcef7eea18a766609d02fe3e776450f00a09f1484cd3fa64d967e6c93",
+      "bytes": 13663
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.singlet.B2.out": {
+      "sha256": "a33374e3efbc791fe5c2634ad15a957acc478ebf2b03406782f7f3ecfa74db6d",
+      "bytes": 14178
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.triplet.B2.out": {
+      "sha256": "efaba6c076e1c6987cab2a1c298972900d76e5dfea0791c378e80520f35b62c8",
+      "bytes": 14695
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.singlet.A2.out": {
+      "sha256": "5527af0c872630cdd9c0bd48531068029efbb515d24950f9ce20bb2c42268485",
+      "bytes": 15210
+    },
+    "runs/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010/output/CO/geom1/outputs/target.scatci.triplet.A2.out": {
+      "sha256": "9ceb6a6407cbe5d90873d391f7f6d1ae6a70942829a0a3939d78fd2bd58ccd43",
+      "bytes": 15727
+    },
+    "prepared/compressed-private-cache-source-20261010/co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010.verification.json": {
+      "sha256": "397d147cb6e7acb76351041e696ccf1e868e2b90af1957d61d09d30b70ebc41e",
+      "bytes": 3405
+    },
+    "prepared/compressed-private-cache-source-20261010/execution.json": {
+      "sha256": "0fb575132d113a712b1863114debc9dc09483fe4e50585e1dec4a2e45c0ebbcd",
+      "bytes": 9018
+    }
+  },
+  "original_target_verification": {
+    "run": "co-r1900-ccdz-sa12-slepc-roots8-singlet0-space160-qualified-target-mpi12-privatecache-20261010",
+    "all_64_roots_pass": true,
+    "sector_checks": [
+      {
+        "spin": 0,
+        "irrep": "A1",
+        "new_cidata_set_number": 1,
+        "maximum_independent_root_difference_hartree": 1.3415089483714837e-08,
+        "maximum_saved_table_rounding_difference_hartree": "5E-10"
+      },
+      {
+        "spin": 0,
+        "irrep": "B1",
+        "new_cidata_set_number": 3,
+        "maximum_independent_root_difference_hartree": 1.0934414262919745e-08,
+        "maximum_saved_table_rounding_difference_hartree": "5E-10"
+      },
+      {
+        "spin": 0,
+        "irrep": "B2",
+        "new_cidata_set_number": 5,
+        "maximum_independent_root_difference_hartree": 1.0934499528048036e-08,
+        "maximum_saved_table_rounding_difference_hartree": "5E-10"
+      },
+      {
+        "spin": 0,
+        "irrep": "A2",
+        "new_cidata_set_number": 7,
+        "maximum_independent_root_difference_hartree": 1.182436903945927e-08,
+        "maximum_saved_table_rounding_difference_hartree": "5E-10"
+      },
+      {
+        "spin": 2,
+        "irrep": "A1",
+        "new_cidata_set_number": 2,
+        "maximum_independent_root_difference_hartree": 1.871747201676044e-08,
+        "maximum_saved_table_rounding_difference_hartree": "3E-10"
+      },
+      {
+        "spin": 2,
+        "irrep": "B1",
+        "new_cidata_set_number": 4,
+        "maximum_independent_root_difference_hartree": 1.7465183077547408e-08,
+        "maximum_saved_table_rounding_difference_hartree": "4E-10"
+      },
+      {
+        "spin": 2,
+        "irrep": "B2",
+        "new_cidata_set_number": 6,
+        "maximum_independent_root_difference_hartree": 1.7465310975239845e-08,
+        "maximum_saved_table_rounding_difference_hartree": "4E-10"
+      },
+      {
+        "spin": 2,
+        "irrep": "A2",
+        "new_cidata_set_number": 8,
+        "maximum_independent_root_difference_hartree": 9.898641906147532e-09,
+        "maximum_saved_table_rounding_difference_hartree": "4E-10"
+      }
+    ],
+    "format_analytic_controls": {
+      "exact_and_both_half_unit_ties_pass": true,
+      "corrupt_tokens_rejected": true,
+      "inherited_cidata_sets_excluded": true,
+      "missing_final_set_rejected": true
+    },
+    "saved_table_format": "%16.9f, half-last-unit bound 5e-10 Hartree",
+    "physical_root_gate_hartree": 1e-07,
+    "physical_dipole_gate_au": 1e-05,
+    "maximum_seed_to_reoptimized_ensemble_root_difference_hartree": 1.090486989596684e-08,
+    "native_dipole_difference_from_seed_au": -1.3299794685006638e-07,
+    "subspace_overlap_singular_values": {
+      "core": [
+        1.0000000000000004,
+        0.9999999999999998
+      ],
+      "active": [
+        1.000000000000001,
+        1.0000000000000007,
+        1.0,
+        0.9999999999999998,
+        0.9999999999999997,
+        0.9999999999999994,
+        0.9999999999999993,
+        0.9999999999999991,
+        0.9999999999999719,
+        0.9999999999996877,
+        0.9999999999989045,
+        0.9999999999989042
+      ]
+    },
+    "imported_checkpoint_sha256": "f908dc1f5e1caeeb3e7828ebf8a77561295af0d1e0316a0f2428d92f6f205250",
+    "reference_checkpoint_sha256": "24035d3b7f51a23875604583dafa5acbfaa7b21206f3b62e912d7122759c5242",
+    "writer_source_sha256": "f531586e68396c89e18623516fae8f1a5dc1135e60858255fe66a4da109f46e9",
+    "verifier_source_sha256": "795f909e4e224727ff4319e43fcba260447ce30f667f24b558f63b7ea3448c44",
+    "scope": "Covered CAS12 all-root/dipole import; competing-start and model gates remain open"
+  },
+  "original_denprop_seconds": 15951.6889669895,
+  "scope": "Saved metadata/hash inventory only; original lowest40 property set is not matched firstfive per sector; reuse all native target eigenpairs without QC or diagonalization"
+}

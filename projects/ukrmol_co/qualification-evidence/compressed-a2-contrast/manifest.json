@@ -1,0 +1,16 @@
+{
+  "git_sha": "dbc83e1a59be60368e288e050e8223485b9eb131",
+  "experiment": "co-compressed-a2-contrast-20261025",
+  "model_insensitivity_verdict": true,
+  "disposition": "pass",
+  "original_exits": [
+    0,
+    0,
+    0
+  ],
+  "scientific_exit": 0,
+  "new_maps_reserved": 89,
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "full_sweep_released": false
+}

@@ -1,0 +1,440 @@
+{
+  "observed_utc": "2026-10-25T23:22:26.431170+00:00",
+  "finished_utc": "2026-10-25T23:22:07.364898+00:00",
+  "source_commit": "dbc83e1a59be60368e288e050e8223485b9eb131",
+  "source_archive_sha256": "7b58e9eeff7d77220edb549be0a99ca4c430ef525276fb0a0e44857f411dd85f",
+  "owner_sha256": "1b97f162d7e06c384942628af6f716c24e549aa5ee80821b2e32bef8a20fdea3",
+  "source_entries_verified_against_git": 42,
+  "model_insensitivity_verdict": true,
+  "disposition": "pass",
+  "scientific_exit": 0,
+  "original_exits": [
+    0,
+    0,
+    0
+  ],
+  "sectors": [
+    {
+      "sector": "B1",
+      "pole_incident_hartree": [
+        0.13859147623159174,
+        -0.03838640724468573
+      ],
+      "position_ev": 3.771266190139508,
+      "full_width_ev": 2.0890947082618707,
+      "root_setting_evaluations": [
+        6,
+        1,
+        1
+      ],
+      "tighter_settings_accept_existing_seed_without_new_iterates": true,
+      "character_leakage": 1.8334844331971915e-09,
+      "contrast": {
+        "disposition": "pass",
+        "identity_screen_passed": true,
+        "identity_profile_tv": 0.0008400099821057632,
+        "difference": {
+          "position_ev": 0.010876502746702007,
+          "full_width_ev": 0.004480321721920099
+        },
+        "tolerances": {
+          "position_ev": 0.05,
+          "full_width_ev": 0.10423071932699753
+        },
+        "boundary_bands": {
+          "position_ev": 0.0002,
+          "full_width_ev": 0.000205
+        },
+        "components": {
+          "position_ev": "pass",
+          "full_width_ev": "pass"
+        }
+      },
+      "real_guards": {
+        "case": "compressed/five/B1",
+        "scientific_exit": 0,
+        "real_rows": [
+          {
+            "index": 60,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 4481,
+              "wall_seconds": 7.473593670001719,
+              "transpose_defect": 6.889497528068194e-19,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 40,
+              "order": 10,
+              "rtol": 1e-12
+            },
+            "invariants": {
+              "flux_defect": 2.1387297315100806e-13,
+              "wronskian_residual": 8.473409486550037e-16,
+              "amplitude_condition": 1.0722676055276066,
+              "unitarity_defect": 3.3950620093037287e-13,
+              "reciprocity_defect": 4.007061034182927e-16
+            },
+            "s_absolute_error": 1.0971182171182251e-08,
+            "phase_sum_error_mod_pi_rad": 3.130819650189222e-08,
+            "checks": {
+              "s": true,
+              "phase": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "index": 80,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 4529,
+              "wall_seconds": 7.536807576980209,
+              "transpose_defect": 1.436583860208118e-18,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 40,
+              "order": 10,
+              "rtol": 1e-12
+            },
+            "invariants": {
+              "flux_defect": 4.189401646773061e-13,
+              "wronskian_residual": 7.61244040815047e-15,
+              "amplitude_condition": 1.0524398825840706,
+              "unitarity_defect": 1.6617818232589343e-12,
+              "reciprocity_defect": 1.0457564189777996e-14
+            },
+            "s_absolute_error": 1.499177756398353e-07,
+            "phase_sum_error_mod_pi_rad": 4.2325806738712224e-07,
+            "checks": {
+              "s": true,
+              "phase": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          }
+        ]
+      },
+      "contour_witness": {
+        "interior_residue_norm": 0.03258441849372346,
+        "open_residue_norm_hartree": 0.05693646991139367,
+        "pole": [
+          0.13859147623158613,
+          -0.03838640724468894
+        ],
+        "root_difference": {
+          "position_ev": 1.525640730884341e-13,
+          "full_width_ev": 1.7484446990085395e-13
+        },
+        "rule_pole_difference": {
+          "position_ev": 1.5860621459688693e-14,
+          "full_width_ev": 1.2084283016905672e-14
+        },
+        "winding": [
+          1.0,
+          1.0000000000000002
+        ],
+        "max_phase_jump": [
+          0.5423661057072482,
+          0.27153362196494735
+        ],
+        "interior_rank_ratio": 1.511473615459161e-16,
+        "open_rank_ratio": 4.8687637932001255e-15,
+        "interior_rule_change": 1.1335171855377778e-13,
+        "open_rule_change": 9.298711847367656e-14,
+        "checks": {
+          "interior_signal": true,
+          "interior_rank": true,
+          "open_signal": true,
+          "open_rank": true,
+          "interior_rule": true,
+          "open_rule": true,
+          "root_agreement": true,
+          "pole_rule_agreement": true,
+          "winding": true,
+          "winding_resolution": true
+        }
+      },
+      "derivative_witnesses": [
+        {
+          "derivative_denominator_abs": 2.787263615548822,
+          "sigma_min": 3.05894538113536e-14,
+          "boundary_transpose_relative_error": 3.939760738489581e-14,
+          "relative_contour_residue_error": 2.539746679792403e-07,
+          "checks": {
+            "center_null": true,
+            "residue": true,
+            "transpose": true
+          }
+        },
+        {
+          "derivative_denominator_abs": 2.787264142134372,
+          "sigma_min": 3.05894538113536e-14,
+          "boundary_transpose_relative_error": 3.9432242993101786e-14,
+          "relative_contour_residue_error": 6.300381391557431e-08,
+          "checks": {
+            "center_null": true,
+            "residue": true,
+            "transpose": true
+          }
+        }
+      ],
+      "original_pole_scientific_exit": 0,
+      "original_pole_command_exit": 0,
+      "maps": 47,
+      "wall_seconds": 113.90972817601869
+    },
+    {
+      "sector": "B2",
+      "pole_incident_hartree": [
+        0.13859147623159174,
+        -0.03838640724468573
+      ],
+      "position_ev": 3.771266190139508,
+      "full_width_ev": 2.0890947082618707,
+      "root_setting_evaluations": [
+        1,
+        1,
+        1
+      ],
+      "tighter_settings_accept_existing_seed_without_new_iterates": true,
+      "character_leakage": 1.8334148060895093e-09,
+      "contrast": {
+        "disposition": "pass",
+        "identity_screen_passed": true,
+        "identity_profile_tv": 0.0008400099836861325,
+        "difference": {
+          "position_ev": 0.010876502746702007,
+          "full_width_ev": 0.004480321721920099
+        },
+        "tolerances": {
+          "position_ev": 0.05,
+          "full_width_ev": 0.10423071932699753
+        },
+        "boundary_bands": {
+          "position_ev": 0.0002,
+          "full_width_ev": 0.000205
+        },
+        "components": {
+          "position_ev": "pass",
+          "full_width_ev": "pass"
+        }
+      },
+      "real_guards": {
+        "case": "compressed/five/B2",
+        "scientific_exit": 0,
+        "real_rows": [
+          {
+            "index": 60,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 4481,
+              "wall_seconds": 7.429778256017016,
+              "transpose_defect": 5.421010862427522e-19,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 40,
+              "order": 10,
+              "rtol": 1e-12
+            },
+            "invariants": {
+              "flux_defect": 2.147171871726139e-13,
+              "wronskian_residual": 1.0087920413118926e-15,
+              "amplitude_condition": 1.0722676055275917,
+              "unitarity_defect": 3.008704396734174e-13,
+              "reciprocity_defect": 1.2225062931717347e-15
+            },
+            "s_absolute_error": 1.0972790292638916e-08,
+            "phase_sum_error_mod_pi_rad": 3.131190247996534e-08,
+            "checks": {
+              "s": true,
+              "phase": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          },
+          {
+            "index": 80,
+            "completed": true,
+            "diagnostics": {
+              "rhs_evaluations": 4529,
+              "wall_seconds": 7.4963847039907705,
+              "transpose_defect": 9.400768367348327e-19,
+              "open_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "endpoint": 120,
+              "angle": 40,
+              "order": 10,
+              "rtol": 1e-12
+            },
+            "invariants": {
+              "flux_defect": 4.1406369435600943e-13,
+              "wronskian_residual": 7.762257844216342e-15,
+              "amplitude_condition": 1.0524398825840602,
+              "unitarity_defect": 1.6728840535052267e-12,
+              "reciprocity_defect": 1.0593469386447014e-14
+            },
+            "s_absolute_error": 1.4991453914112257e-07,
+            "phase_sum_error_mod_pi_rad": 4.2325904796070173e-07,
+            "checks": {
+              "s": true,
+              "phase": true,
+              "flux": true,
+              "wronskian": true,
+              "unitarity": true,
+              "reciprocity": true
+            }
+          }
+        ]
+      },
+      "contour_witness": {
+        "interior_residue_norm": 0.02567800604770941,
+        "open_residue_norm_hartree": 0.05693646992377398,
+        "pole": [
+          0.13859147623333262,
+          -0.03838640724790812
+        ],
+        "root_difference": {
+          "position_ev": 4.737189996164735e-11,
+          "full_width_ev": 1.7537164674746645e-10
+        },
+        "rule_pole_difference": {
+          "position_ev": 1.4350086082575486e-14,
+          "full_width_ev": 1.2084283016905672e-14
+        },
+        "winding": [
+          1.0,
+          1.0
+        ],
+        "max_phase_jump": [
+          0.5423661046135906,
+          0.2715336213729844
+        ],
+        "interior_rank_ratio": 1.670357573003575e-16,
+        "open_rank_ratio": 4.902935800500778e-15,
+        "interior_rule_change": 2.0553505964458987e-13,
+        "open_rule_change": 1.8717790418700137e-13,
+        "checks": {
+          "interior_signal": true,
+          "interior_rank": true,
+          "open_signal": true,
+          "open_rank": true,
+          "interior_rule": true,
+          "open_rule": true,
+          "root_agreement": true,
+          "pole_rule_agreement": true,
+          "winding": true,
+          "winding_resolution": true
+        }
+      },
+      "derivative_witnesses": [
+        {
+          "derivative_denominator_abs": 2.787263615466312,
+          "sigma_min": 1.0198634315647817e-11,
+          "boundary_transpose_relative_error": 1.16813056873321e-11,
+          "relative_contour_residue_error": 2.537731892188256e-07,
+          "checks": {
+            "center_null": true,
+            "residue": true,
+            "transpose": true
+          }
+        },
+        {
+          "derivative_denominator_abs": 2.787264142197844,
+          "sigma_min": 1.0198634315647817e-11,
+          "boundary_transpose_relative_error": 1.1681389886575387e-11,
+          "relative_contour_residue_error": 6.274472600766068e-08,
+          "checks": {
+            "center_null": true,
+            "residue": true,
+            "transpose": true
+          }
+        }
+      ],
+      "original_pole_scientific_exit": 0,
+      "original_pole_command_exit": 0,
+      "maps": 42,
+      "wall_seconds": 101.50599743501516
+    }
+  ],
+  "five_pair": {
+    "disposition": "pass",
+    "components": {
+      "b1": "pass",
+      "b2": "pass",
+      "energy": "pass",
+      "profile": "pass",
+      "norm": "pass"
+    },
+    "pole_difference": {
+      "position_ev": 0.0,
+      "full_width_ev": 0.0
+    },
+    "profile_tv": 2.313644356492036e-11,
+    "norm_relative_difference": 2.1744068662821692e-10
+  },
+  "new_maps": 89,
+  "maximum_map_allocation": 146,
+  "container_wall_seconds": 216.87300818698714,
+  "python_wall_seconds": 215.53264588399907,
+  "parent_cpu_seconds_excluding_pole_children": 30.346392,
+  "cgroup_cpu_seconds_at_final_save": 721.88376,
+  "cgroup_peak_bytes": 1865945088,
+  "cgroup_peak_gib": 1.7377967834472656,
+  "physical_cores": "0-7",
+  "memory_allocation_gib": 8,
+  "combined_hard_cap_seconds": 3600,
+  "timed_out": false,
+  "oom_killed": false,
+  "source_integrity_after": true,
+  "inputs_verified_before": 123,
+  "inputs_verified_after": 123,
+  "runtime_owner_adapter_character_controls": 20,
+  "inherited_pole_controls_per_sector": 11,
+  "local_focused_tests": 45,
+  "public_payloads_verified": 10,
+  "archived_files_verified": 168,
+  "reference_inputs_verified": 24,
+  "new_native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "equilibrium_pole_exclusion": "protected",
+  "full_sweep_released": false,
+  "physical_co_accuracy_verdict": null,
+  "width_curve_verdict": null,
+  "chronological_caption_correction": "The pre-execution note caption23:20UTC was an approximate prospective label, not a measured event time. Git freeze dbc83e1 was23:17:52UTC, before actual launch23:18:30.481049UTC. Frozen original capsule remains unchanged.",
+  "independence": "Fresh public-byte reconstruction: direct native Q contraction, opposite I-YQ Schur/residue solves, bordered traces, einsum contour moments, own native K-to-S real guards, elementwise character/identity/full-width decisions. Saved exterior maps are authenticated, not independently propagated; no absolute CO accuracy claim.",
+  "verification": "verification-compressed-a2-contrast-public-20261025.json",
+  "decision": "Retain nine as working reference. At1.9bohr five/nine coupled pole targets agree within frozen budgets; no full-domain channel convergence or electronic accuracy. Prioritize a matched retained-target CAS11/CAS12 model control using saved compressed CAS12 target vectors, without consuming equilibrium pole or repeating QC/target diagonalization."
+}

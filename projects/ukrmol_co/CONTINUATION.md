@@ -11,18 +11,17 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**25 October23:20UTC checkpoint: continue to the frozen five/nine pole contrast.** The
-compressed finite-reference B1/B2 open-Pi pair passes; electronic accuracy and a
-qualified curve remain open. The [route decision](POTENTIAL_ROUTE_DECISION.md)
-selects a saved CAS11 five/nine-A2 pole contrast at1.9bohr, not a reserved
-equilibrium CAS11→CAS12 pole. Both inner calculations exist. The exact gap is
-the exact real-S/contrast source/tests/owner push before execution, not new QC,
-properties or inner eigenpairs. The explicit250-channel view is qualified;
-adapter controls pass and original strict-reader failure stays intact. Stay within
-the original two-hour implementation cap. User requests continued work through
-the scientific outcome and next model decision; unchanged stop rules apply. New50 stays
-parked,2048 baseline retained,114 holdouts and equilibrium pole exclusion
-protected. Review on the contrast outcome before a further model allocation.
+**25 October checkpoint: compressed five/nine pole contrast passes; continue to
+matched CAS12 property inputs.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
+retains nine and prioritizes a matched CAS11/CAS12 model control at1.9bohr, not
+the reserved equilibrium pole. Reuse the saved64 qualified CAS12 target vectors.
+Its original lowest40 properties have uneven per-sector counts, so export the
+missing firstfive-per-sector inventory once; no QC or target diagonalization.
+The [property contract](compressed-cas12-matched-properties-contract-20261025.json)
+bounds the multi-hour job and requires source/tests/exact owner push first.
+User requests continued decision-changing work; unchanged scientific stop rules
+apply. New50 stays parked,2048 baseline retained,114 holdouts/equilibrium exclusion
+protected. Review on the next native-input contract or property outcome.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -45,7 +44,48 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Numerical execution continuation —25 October,23:20UTC; before first five S/pole
+### Contrast verified —25 October,23:24UTC; next matched model inputs selected
+
+[Result](qualification-evidence/compressed-a2-contrast/README.md) /
+[compact metrics](progress-compressed-a2-contrast-result-20261025.json) /
+[independent reconstruction](verification-compressed-a2-contrast-public-20261025.json).
+Both five/nine pole comparisons pass:10.876503meV position /4.480322meV full width,
+against50meV /104.230719meV budgets. Five pole3.77126619014eV /2.08909470826eV
+full width; own250 channels/2048 roots. Real guards, contour/derivative/Pi/identity/
+five-pair gates pass. Cross-model profile TV.00084001; five leakage1.8335e-9.
+Freeze `dbc83e1` at23:17:52UTC precedes launch23:18:30UTC; finish23:22:07UTC.
+B1 root settings6/1/1, B2 settings1/1/1; accepted seeds are not independent
+iterates/exact degeneracy/zero uncertainty. Original exits0/0/0/0, no timeout/OOM.
+
+47+42=89/146 maps,216.873008s container /1.737797GiB cgroup peak /
+721.883760s cgroup CPU at final save; parent CPU30.346392s excludes pole children.
+8 physical cores0–7 /one library thread /8GiB.20 owner/adapter/character controls
+plus11 pole controls per sector pass. Public replay verifies10 payloads /
+168 files /42 sources /24 saved prerequisites /123 original inputs and all gates
+without propagation;42 source pins match Git. No native call, QC/target/inner
+solve, nine repropagation, holdout analysis, fit or new geometry. Prior strict
+reader failures remain. The pre-execution23:20 caption was approximate; current
+caption is corrected to measured freeze time, original capsule preserved.
+
+**Next allocation:** [matched CAS11/CAS12 model control](../../docs/physics/co-compressed-cas12-model-control.md),
+using the existing CAS11/five pair only as a local matched firstfive comparator.
+Retain nine as working reference; stretched rejection/domain accuracy remain.
+Original compressed CAS12 properties are global lowest40 (A1=6/4, B1/B2=5/7,
+A2=3/3), not matched five per sector. The required roots already exist among
+64 imported vectors. A single different DENPROP inventory is necessary, not
+another QC/target solve or a repeat of the original successful prescription.
+
+**Bounded next deliverable:** freeze/push and launch that export under its
+[exact contract](compressed-cas12-matched-properties-contract-20261025.json),
+8 physical cores4–11 /one library thread /64GiB, forecast3–6h from original
+4.43h DENPROP, hard8h native /9h owner.30 saved inputs and all64-root proof are
+pinned. Source/controls/owner effort≤60minutes after this decision. Failure stops
+without repair/retry/successor. While it runs, cost/freeze necessary full-continuum
+integral/CONGEN preparation and one sparse2048-root B1 model comparison; no
+Hamiltonian or pole job is released by property success alone. Keep114 holdouts,
+equilibrium exclusion, parked new50 and2048 baseline protected; no fit/sweep.
+
+### Numerical execution continuation —25 October,23:17UTC; before first five S/pole
 
 User requests sustained decision-changing work, using the available compute.
 The [execution contract](compressed-a2-contrast-execution-20261025.json) and exact
