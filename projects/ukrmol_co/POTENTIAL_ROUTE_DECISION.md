@@ -2,6 +2,14 @@
 
 ## Decision now
 
+**Current implementation continuation:** the explicit mapped view and narrow
+adapter now have synthetic controls. Proceed only to the
+[saved-only qualification gate](compressed-five-view-gate-contract-20261025.json)
+after freeze/push:4 cores /4GiB /60s, no S construction, propagation or pole
+evaluation. Original strict failure stays intact. The numerical contrast is
+not yet released and still needs its exact real-guard/owner freeze. Review on
+the saved gate; retain the original two-hour implementation cap and protections.
+
 **25 October outcome:** [select the saved compressed CAS11 A2 five→nine pole contrast](../../docs/physics/co-compressed-a2-pole-contrast.md),
 not an equilibrium CAS11→CAS12 pole or a new inner solve. Both2048-root models
 exist at1.9bohr with recorded shared inputs and exact target-table subset metadata.

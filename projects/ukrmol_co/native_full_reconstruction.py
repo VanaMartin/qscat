@@ -49,28 +49,37 @@ def verify_inputs(directory, contract):
 def load_model(source):
     """Decode unchanged native boundary coefficients; retain every closed channel."""
     interface = read_interface(source / "fort.10", source / "fort.21")
+    return _model_from_interface(source, interface, (48, 298))
+
+
+def _model_from_interface(source, interface, expected):
+    """Shared native assembly for the declared48/298 and explicit40/250 views."""
+    if expected not in [(48, 298), (40, 250)]:
+        raise ValueError("Only the two declared compressed target/channel layouts are supported")
+    target_count, channel_count = expected
     output_unit = unit(source / "rsolve.inp", "lukmt")
     energies, saved, header = read_k(source / output_unit)
     for key in ["target_components", "boundary_channels", "symmetry_charge", "geometry_mass"]:
         if header[key] != interface[key]:
             raise ValueError(f"K/interface {key} differs")
     if (
-        interface["boundary_channels"] != 298
+        interface["boundary_channels"] != channel_count
         or interface["boundary_poles"] != 2048
-        or interface["target_components"] != 48
+        or interface["target_components"] != target_count
         or interface["multipole_orders"] != 2
         or interface["symmetry_charge"][3] != 0
         or abs(interface["radius_bohr"] - 18) > 1e-12
         or saved.shape != (99, 6, 6)
     ):
-        raise ValueError("Only the frozen six-channel/298-boundary/2048-pole model is supported")
+        raise ValueError("Only the declared six-open-channel/2048-pole model view is supported")
     np.testing.assert_allclose(energies / 0.0735, 0.1 + 0.05 * np.arange(99), atol=1e-11, rtol=0)
     labels = np.asarray(interface["channel_labels"])
     angular = labels[:, 2]
     thresholds = np.asarray(interface["channel_thresholds_rydberg"])
     targets = np.asarray(interface["target_energies_hartree"])
+    target_rows = np.asarray(interface.get("channel_target_rows", labels[:, 1]))
     np.testing.assert_allclose(
-        thresholds, 2 * (targets[labels[:, 1] - 1] - targets[0]), atol=1e-10, rtol=0
+        thresholds, 2 * (targets[target_rows - 1] - targets[0]), atol=1e-10, rtol=0
     )
     if np.any(thresholds[:6] != 0) or np.any(thresholds[6:] <= energies.max()):
         raise ValueError("Declared open ordering or closed-channel grid coverage differs")

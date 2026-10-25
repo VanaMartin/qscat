@@ -100,6 +100,34 @@ photoionization or vibrational paths. The future mapped view must still reproduc
 two development full-S matrices before any complex evaluation. Failure stops;
 no native repair, rebuild or fresh scattering solve follows automatically.
 
+## Explicit implementation API and gates
+
+`read_interface(..., selected_property_ids=...)` sorts a checked integer bijection
+and adds separate `channel_target_rows`/`selected_property_ids` metadata. Raw
+channel labels stay intact. With no keyword it retains strict dense-row behavior
+and the same historical failure. Mapped thresholds must agree within1e-10Ryd;
+selected written row IDs must be consecutive. No bytes are rewritten.
+
+`compressed_five_view.load_compressed_five(source)` accepts only compressed/five
+B1/B2, checks original pilot versus actual OUTER_INTERFACE selection and the
+48-state target subset (1e-10Ha), then shares native assembly with the original
+48/298 loader. Its W/D/CF come from the **five** files. The old loader remains
+48/298-only by default; the shared assembly permits just these two declared layouts.
+
+`compressed_a2_pole_contrast` supplies the narrow case dispatcher, proposal-to-
+pole-contract translator and `pole_insensitivity` band/identity decision. There
+is no automatic-execution CLI. The existing pole runner requires a checksum-
+pinned real-guard report covering exactly indices60/80, recomputes its measured
+error gates and only then permits a five-model complex use. A canary pass for
+the nine model cannot substitute for these two real checks. All ODE, bordered,
+contour and derivative numerical routines are unchanged.
+
+`compressed_five_view_gate` is a separate **saved-only** CLI. After source/tests/
+contract freeze it may authenticate the original inputs, preserve the default
+strict failure, check own W/D bytes and nine-model identity-view equality. It
+does not construct S, propagate, search or release a pole job. Source/tests and
+an exact owner for a numerical contrast still need a separate execution freeze.
+
 ## Prospective staged test — not released for execution
 
 The [proposal data](../../projects/ukrmol_co/compressed-a2-pole-contrast-proposal-20261025.json)

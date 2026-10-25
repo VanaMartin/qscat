@@ -16,8 +16,8 @@ from pathlib import Path
 import numpy as np
 from qscat.units import hartree_to_ev
 
+from projects.ukrmol_co.compressed_a2_pole_contrast import load_pole_model, require_real_guard
 from projects.ukrmol_co.native_boundary import surface_matrix
-from projects.ukrmol_co.native_full_reconstruction import load_model
 from projects.ukrmol_co.outgoing_map import outgoing_map
 from projects.ukrmol_co.pole_reference import (
     bordered_search,
@@ -36,7 +36,7 @@ def digest(path):
 
 def initialize(source, output, contract):
     global MODEL, OUTPUT, CONTRACT, PROBES
-    MODEL = load_model(Path(source))
+    MODEL = load_pole_model(Path(source), contract)
     OUTPUT = Path(output)
     CONTRACT = contract
     with np.load(OUTPUT / "probes.npz") as data:
@@ -183,9 +183,9 @@ def run(root, output, contract):
             save()
             if result.returncode:
                 raise ValueError("Controls failed before CO pole use")
-        if contract["case"] not in ["compressed/nine/B1", "compressed/nine/B2"]:
-            raise ValueError("Only frozen development anchor allowed")
-        model = load_model(raw / contract["case"])
+        if contract["case"] in ["compressed/five/B1", "compressed/five/B2"]:
+            require_real_guard(root, contract)
+        model = load_pole_model(raw / contract["case"], contract)
         rng = np.random.default_rng(contract["projection_seed"])
         x, _ = np.linalg.qr(rng.normal(size=(len(model["poles"]), contract["projection_columns"])))
         np.savez(output / "probes.npz", x=x)

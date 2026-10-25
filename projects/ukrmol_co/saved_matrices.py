@@ -94,8 +94,13 @@ def scattering_matrix(k: np.ndarray) -> np.ndarray:
     return np.linalg.solve(identity - 1j * k, identity + 1j * k)
 
 
-def read_interface(channels_path: Path, boundary_path: Path) -> dict:
-    """Validate the no-correction fixed-nuclei channel and boundary metadata."""
+def read_interface(channels_path: Path, boundary_path: Path, *, selected_property_ids=None) -> dict:
+    """Validate native metadata; original property IDs need an explicit selection.
+
+    The default remains strict dense-row interpretation. Explicit selection
+    preserves raw labels and exposes their dense lookup separately; it neither
+    edits native bytes nor qualifies another consumer of the original pointers.
+    """
     ch, bd = records(channels_path), records(boundary_path)
     if array(ch[0], "<i8", 5)[0] != 10 or array(bd[0], "<i8", 5)[0] != 11:
         raise ValueError("Wrong channel/boundary dataset key")
@@ -111,14 +116,41 @@ def read_interface(channels_path: Path, boundary_path: Path) -> dict:
     states = ch[4 : 4 + targets]
     target_labels = [array(v[:32], "<i8", 4).tolist() for v in states]
     target_energies = np.array([array(v[32:], "<f8", 1)[0] for v in states])
+    selected = None
+    if selected_property_ids is not None:
+        selected = np.asarray(selected_property_ids)
+        if (
+            selected.shape != (targets,)
+            or not np.issubdtype(selected.dtype, np.integer)
+            or len(np.unique(selected)) != targets
+            or np.any(selected < 1)
+            or np.min(selected) != 1
+        ):
+            raise ValueError(
+                "Unique positive integer property selection including ground1 required"
+            )
+        selected = np.sort(selected)
+        if [row[0] for row in target_labels] != list(range(1, targets + 1)):
+            raise ValueError("Selected target table must have consecutive written row IDs")
+    lookup = (
+        {int(original): i + 1 for i, original in enumerate(selected)}
+        if selected is not None
+        else {i: i for i in range(1, targets + 1)}
+    )
     labels, thresholds = [], []
+    target_rows = []
     for i, record in enumerate(ch[4 + targets :], 1):
         label = array(record[:32], "<i8", 4)
         threshold = array(record[32:], "<f8", 1)[0]
-        if label[0] != i or not 1 <= label[1] <= targets or label[2] < abs(label[3]):
+        if label[0] != i or label[1] not in lookup or label[2] < abs(label[3]):
             raise ValueError("Invalid channel label")
         labels.append(label.tolist())
         thresholds.append(float(threshold))
+        target_rows.append(lookup[int(label[1])])
+    if selected is not None:
+        expected = 2 * (target_energies[np.asarray(target_rows) - 1] - target_energies[0])
+        if np.max(abs(np.asarray(thresholds) - expected)) > 1e-10:
+            raise ValueError("Mapped channel threshold differs from the selected target energy")
     multipoles, roots, vectors, buttle = array(bd[4][:32], "<i8", 4)
     if multipoles <= 0 or roots <= 0 or vectors != 0 or buttle != 0 or len(bd) != 8:
         raise ValueError("Unsupported boundary correction/vector layout")
@@ -127,7 +159,7 @@ def read_interface(channels_path: Path, boundary_path: Path) -> dict:
     array(bd[7], "<f8", int(roots * count))
     if np.any(np.diff(poles) < 0):
         raise ValueError("Boundary poles are not energy ordered")
-    return {
+    result = {
         "target_components": int(targets),
         "boundary_channels": int(count),
         "symmetry_charge": symmetry.tolist(),
@@ -147,6 +179,9 @@ def read_interface(channels_path: Path, boundary_path: Path) -> dict:
         "saved_full_ci_vectors": int(vectors),
         "spectral_scope": "2048 exported poles; uncorrected truncated sum, not full spectrum",
     }
+    if selected is not None:
+        result.update(selected_property_ids=selected.tolist(), channel_target_rows=target_rows)
+    return result
 
 
 def unit(path: Path, name: str) -> str:

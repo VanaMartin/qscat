@@ -1,0 +1,22 @@
+{
+  "status": "one saved-only qualification after source/tests/contract freeze; not a CO propagation or pole-search contract",
+  "source_proposal": "compressed-a2-pole-contrast-proposal-20261025.json",
+  "source_proposal_sha256": "e35aca2aba5099ba40987dec603c16b1d78364f41d5454bd57ec5b76d953f536",
+  "raw_directory": "prepared/saved-matrices-source-20261017/raw",
+  "original_strict_report": "prepared/saved-matrices-source-20261017/matrices.json",
+  "input_sha256": {
+    "prepared/saved-matrices-source-20261017/raw/input-manifest.json": "81bb01c3a80c894c3c3d523a0fef507e2b6275bbedde90b0a434a3e49e9fe3a3",
+    "prepared/saved-matrices-source-20261017/matrices.json": "3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63",
+    "prepared/saved-matrices-source-20261017/writer-evidence/compressed/five/B1/scatci.inp": "42c73b26995f79e8d479a3d7fb84bd57610cf1e5269a14972b70380229dda5ed",
+    "prepared/saved-matrices-source-20261017/writer-evidence/compressed/five/B2/scatci.inp": "e346831604b533513733cc17fec27f763e63747034ccb1f50be2e311d497486b",
+    "prepared/saved-matrices-source-20261017/writer-evidence/Postprocessing_module.F90": "119904bf4ca633d3502a44d011cc4ca38ab229c468f103fcfb9ca1269e623f30",
+    "prepared/saved-matrices-source-20261017/raw/engine/source/compak/rsolve_compak.f": "93c462b3a76a35cf068d195c3469ae57f1ef12aa19af118a43dc33cb57b59684",
+    "prepared/saved-matrices-source-20261017/raw/engine/source/libouter/outerio.f": "7a2282ea90d42ad7f29ba3bf46809bef1ea1bcc9c4e4580f91bf1ef24d20ded1"
+  },
+  "scope": "compressed/five B1/B2 only; all250 channels and own2048 eigenpairs, explicit selected-property-ID map authenticated against pilot and actual deck. Compare selected target metadata with the existing48-target reference, not its pole; check identity mapping leaves all nine-model assembled fields exact. No nine repropagation or five-from-nine channel slicing.",
+  "controls": "Synthetic native-format mapping positives/negatives, identity map, own W/D and CF units/packing, pilot/deck/subset/scope negatives; adapter allocation, pinned real guard, known position/full-width band and wrong-Pi-profile controls. Inherited pole/outgoing/character/paired controls run once in the pinned image with standard-library harnesses, NumPy/SciPy only; no dependency install or image rebuild.",
+  "resources": {"cpuset_cpus":"0-3","threads":1,"memory_gib":4,"hard_cap_seconds":60,"new_maps":0},
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "implementation_effort_cap": "This active cycle, within the predeclared two-hour bound; no general interface framework or numerical-method change.",
+  "stopping_rule": "Freeze/push before actual view qualification. One persistent application, preserving all original exits and partial reports. Input/control/format/identity mismatch or timeout exits2 with qualification unset; full saved-view pass exits0 but pole/model-insensitivity and scientific execution release remain unset/false. Original strict aggregate failure and compressed five-case unset verdicts remain unchanged. No repair, retry, native executable, S construction, propagation, pole evaluation, extra sector/anchor, QC/property/inner solve, fit or sweep. All114 route holdout S values and equilibrium pole exclusion stay protected; new50 parked,2048 baseline retained. Review on this gate before a separately frozen numerical contrast owner."
+}

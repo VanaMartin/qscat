@@ -426,6 +426,29 @@ All114 holdouts and equilibrium pole exclusion remain protected; new50 parked,
 2048 baseline retained. Model accuracy, omitted spectrum, continuity, neutral/
 factory/asymptote/full-S gates remain open. No fit, new geometry or sweep.
 
+### Implementation checkpoint —25 October: explicit view and adapter; saved gate only
+
+The bounded implementation now exposes original property IDs and dense target
+rows separately, preserving strict default failure. A private compressed/five
+view checks pilot/deck IDs and the48-state subset, then shares the native W/D/CF
+assembly with the unchanged-default nine-model loader. Its own2048 eigenpairs
+are retained, not sliced from nine. The narrow pole adapter translates the
+existing allocation and requires a pinned, measured two-point real guard before
+complex five-model use; ODE/root/contour/derivative routines are unchanged.
+Synthetic mapping/CF/identity, scope, guard and full-width-band controls precede
+source freeze; no actual five pole or S value has been evaluated.
+
+**Disposition: continue only with the separately frozen saved-view gate**
+([contract](compressed-five-view-gate-contract-20261025.json)): four physical
+cores0–3 /one BLAS thread /4GiB /60s hard cap, zero maps. Authenticate all123
+original inputs, pilot/deck/source pins, strict failure, own W/D bytes and
+nine identity-view fields. A gate failure stops without a repair or retry;
+a pass removes this reader prerequisite but does not release the numerical
+contrast. Review immediately afterward and freeze the exact real-S/contrast
+owner separately. This remains inside the one-cycle/two-hour implementation
+bound; no new QC/properties/inner solve, geometry or fit, and no actual electronic-
+model evidence yet.114 holdouts/equilibrium exclusion/new50 protections remain.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

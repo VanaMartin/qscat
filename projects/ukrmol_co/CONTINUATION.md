@@ -43,6 +43,32 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Explicit view/adapter implementation —25 October,22:55UTC; before saved gate
+
+The [saved-view contract](compressed-five-view-gate-contract-20261025.json)
+now has a private compressed-five loader and narrow existing-runner adapter.
+Explicit `selected_property_ids` preserves original labels and provides dense
+rows separately; strict default failure remains. The native W/D/CF assembly is
+shared, with48/298 default and explicit40/250 layouts only. Five uses its own
+2048 eigenpairs. The adapter refuses complex five use without a pinned real
+guard for exactly development indices60/80. Numerical ODE/root/contour/residue
+routines are unchanged; no generic interface framework or qscat promotion.
+
+39 focused tests pass locally (36 standard-library-harness controls for the
+pinned runtime plus3 saved-matrix tests). Mapping, source-scope, own eigenpair/
+CF packing, identity-view, real-guard, wrong-Pi-profile and full-width floor/
+boundary-band negatives are covered. No actual five-model S or pole has been
+evaluated. Freeze/push precedes the single saved-only gate, four physical
+cores0–3 /one thread /4GiB /60s cap, zero maps. All123 original inputs and actual
+writer decks must authenticate; preserve old strict failure and native bytes.
+
+**Next bounded deliverable:** execute only that gate and review its result.
+Failure stops without repair/retry. Pass removes the reader prerequisite but
+does not by itself release numerical work: the exact real-S/contrast owner and
+source/input contract must freeze separately. This remains inside the active
+two-hour implementation bound.114 holdouts, equilibrium pole exclusion, parked
+new50 and2048 baseline remain protected; no QC/property/inner solve or fit.
+
 ### Matched-model proposal completed —25 October,21:17UTC; no pole job launched
 
 [Design](../../docs/physics/co-compressed-a2-pole-contrast.md) /
