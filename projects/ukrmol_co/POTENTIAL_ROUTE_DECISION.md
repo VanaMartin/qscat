@@ -2,7 +2,24 @@
 
 ## Decision now
 
-**14:08UTC independently reconstructed outcome: [A2-only pilot stops](qualification-evidence/singlet-a2-pilot/README.md).**
+**14:25UTC saved-evidence decision: [redirect to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
+At2.5bohr both saved models report the same valid forty-component objective /
+6/3/3/0 active space and64 native roots. The distinct TZ-frame qualification is
+not the failed compressed TZ optimization; its original seed-preservation
+failure stays recorded. Four public metadata payloads/seventeen records/pins
+and objective arithmetic verify, without new CI/QC/native/maps or holdout reads.
+This is a feasible reuse direction, **not a new full-target replay or basis/pole
+verdict**. Stop compressed A2 solver development; no selector/full-QC retry.
+
+**One next deliverable:** exact saved-proof/retention/cost decision within60minutes,
+zero new scientific calls. Complete public proof for the existing distinct TZ
+frame and audit common retained states/properties before costing missing inputs.
+Stretched five/nine channel rejection is not waived; eight imported roots are
+not nine. No properties/preparation/scattering/pole/B2 or numerical successor
+is released. No active/queued job or production model. Compressed basis uncertainty,
+prior B1 model rejection and all protected references/holdouts remain unchanged.
+
+**Historical14:08UTC independently reconstructed outcome: [A2-only pilot stops](qualification-evidence/singlet-a2-pilot/README.md).**
 Exact A2 and small H4 mixed-optimizer controls pass, but the five-root CO request
 has an unconverged fifth root, full-Hamiltonian residual8.79527e-8Ha >1e-9.
 Other action/exchange gates fail too despite tiny S² expectation. Eight roots

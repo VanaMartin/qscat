@@ -30,8 +30,10 @@ production selector or full QC change. Frozen/pushed `dc43f53`, the
 [pilot stops at CO root5](qualification-evidence/singlet-a2-pilot/README.md):
 exact/H4 controls pass, but CI/full-action gates fail; eight roots are not run.
 Public replay confirms26.09s /.545GiB, exits2. No retry, selector promotion,
-fresh full QC or automatic successor; no job is active. Next is a saved-evidence
-production-route decision, not another solver-budget increase.
+fresh full QC or automatic successor; no job is active. The
+[14:25UTC saved-evidence decision redirects to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md),
+same40-state objective at2.5bohr. Next is one saved-proof/common-retention/cost
+decision before any new scientific call, not another solver-budget increase.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -695,10 +697,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![A2 pilot stops at fifth CO root; no selector or full QC release](../../docs/physics/figures/co-progress-20261026T1408-a2-stop.png)
+![Redirect basis-model feasibility to existing stretched DZ and TZ targets; no numerical job released](../../docs/physics/figures/co-progress-20261026T1425-basis-redirect.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1408-a2-stop.svg) ·
-[A2 pilot-stop snapshot](progress-snapshot-20261026T1408-a2-stop.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1425-basis-redirect.svg) ·
+[Basis-route decision snapshot](progress-snapshot-20261026T1425-basis-redirect.json) ·
+[Saved stretched-target route review](../../docs/physics/co-post-a2-model-route.md) ·
+[Public metadata](qualification-evidence/stretched-basis-route-review/README.md) ·
+[Previous A2-stop figure](../../docs/physics/figures/co-progress-20261026T1408-a2-stop.svg) ·
+[Previous A2-stop snapshot](progress-snapshot-20261026T1408-a2-stop.json) ·
 [A2 stopped evidence](qualification-evidence/singlet-a2-pilot/README.md) ·
 [Previous allocation figure](../../docs/physics/figures/co-progress-20261026T1329-a2-driver.svg) ·
 [Previous allocation snapshot](progress-snapshot-20261026T1329-a2-driver.json) ·

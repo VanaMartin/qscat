@@ -1,0 +1,112 @@
+{
+  "base_snapshot": "progress-snapshot-20261026T1408-a2-stop.json",
+  "base_snapshot_sha256": "07558b5d1e7a7374e29a1f562e3762cc30a658c5442acb6369fd43b85326b444",
+  "additional_source_file_sha256": {
+    "docs/physics/co-post-a2-model-route.md": "8d7b5cae97b5be9aff8d5da59e068a18882b1a7ce4aeb5034f3bac41c67a5329",
+    "docs/physics/co-compressed-cas12-basis-control.md": "78790aeb4f146a17f119bf598057097c46c2b0f5017fc52846bcde9e048c26a9",
+    "projects/ukrmol_co/README.md": "f6543cce72d8ab514f129cef6ff478fe27cf6e1c4350236d43be2c7be431d025",
+    "projects/ukrmol_co/CONTINUATION.md": "ef8346eb24b4f269433fbdadba55e5fe265e71ec52d4ceaa9be1ad0827ef93af",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "70b5f3fee23b95d6b9b3b21791e845a6d7fd63ced904f3cedd05026827e75bf5",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "1076a318eebfc46db57f73c8d0449fe44f7be141b8cc31a3b99c7b34ecd5f78f",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "466f64cd611f3ba33bf18c752ebcfde655ed29837564ef154ddb610860f6fcde",
+    "projects/ukrmol_co/progress_figure.py": "396011c319191f63eb21f58a67d08d29be3f642311fe4d6dc9ec517d2eaaa798",
+    "projects/ukrmol_co/qualification-evidence/stretched-basis-route-review/README.md": "7c0002c32509b662d11cb0bb0c2b48227867bec30af319e7a13e524a79abaa3e",
+    "projects/ukrmol_co/qualification-evidence/stretched-basis-route-review/artifacts.json": "6e25d6d5cdd01f7b47cad5d9aba7384de2d7cd6c631a14e00f85d70aa3359fce",
+    "projects/ukrmol_co/qualification-evidence/stretched-basis-route-review/manifest.json": "3b857227a6052a43efab7daca1709c9b4cb351508d47de8d3e147a771019b349"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-26T14:24:55.954567+00:00",
+    "live_status": {
+      "scope": "Saved-evidence production-route decision after stopped compressed A2 pilot",
+      "goal_review_disposition": "redirect to existing stretched CAS12 DZ/TZ full40-state targets for saved-input feasibility; no numerical launch",
+      "decision": "docs/physics/co-post-a2-model-route.md",
+      "public_metadata_pointer": "qualification-evidence/stretched-basis-route-review/artifacts.json",
+      "public_metadata_payloads_verified": 4,
+      "saved_metadata_records_and_byte_pins": 17,
+      "metadata_objective_arithmetic_verified": true,
+      "metadata_ranked_excitation_arithmetic_verified": true,
+      "independent_full_target_qualification_replayed": false,
+      "distinct_tz_frame_public_raw_proof_still_required": true,
+      "comparison_geometry_bohr": 2.5,
+      "comparison_bases": ["cc-pVDZ", "cc-pVTZ"],
+      "comparison_active_orbitals": [6, 3, 3, 0],
+      "comparison_ensemble_components": 40,
+      "comparison_component_weight": 0.025,
+      "comparison_native_root_inventory_per_model": 64,
+      "comparison_original_full_ensemble_flags_reported_pass": true,
+      "comparison_dz_checkpoint_sha256": "b84db2421fcb4445eddf698aa36638daa91e82383005f2a5cb03653f032ba9aa",
+      "comparison_tz_checkpoint_sha256": "8518dc191b8670af9ec87d7666b091eaf370187e7022684cd93716d240b40568",
+      "comparison_tz_original_seed_preservation_verdict": false,
+      "comparison_tz_original_import_controller_exit": 1,
+      "comparison_tz_distinct_frame_qualification_reported": true,
+      "comparison_dz_ensemble_hartree": -112.47157983595963,
+      "comparison_tz_ensemble_hartree": -112.50464389165757,
+      "maximum_ranked_excitation_change_hartree": 0.010859968765146277,
+      "ranked_comparison_is_not_state_identity_or_pole_budget": true,
+      "new_current_cycle_ci_calls": 0,
+      "new_current_cycle_qc_calls": 0,
+      "new_current_cycle_native_calls": 0,
+      "new_current_cycle_maps": 0,
+      "production_selector_changed": false,
+      "compressed_a2_pilot_stopped": true,
+      "compressed_tz_optimization_qualified": false,
+      "compressed_basis_verdict": null,
+      "stretched_basis_pole_verdict": null,
+      "stretched_channel_rejection_waived": false,
+      "next_deliverable": "saved-proof/common-retention/property/cost decision, zero new scientific calls",
+      "next_implementation_review_cap_minutes": 60,
+      "baseline_inner_roots": 2048,
+      "working_reference": "CAS11/nine",
+      "route_holdout_s_matrices_analyzed": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "equilibrium_pole_exclusion": "protected",
+      "optional_new50_branch": "parked",
+      "new_qc_released": false,
+      "property_job_released": false,
+      "scattering_job_released": false,
+      "production_model_selected": false,
+      "qualified_width_curve": false,
+      "full_sweep_released": false,
+      "active_or_queued_numerical_job": false
+    },
+    "figure_subtitle": "Redirect basis-model feasibility to saved stretched CAS12 DZ /TZ targets; compressed A2 stays stopped, no new scientific call released",
+    "roadmap_title": "Reuse valid targets, not CI rescue",
+    "roadmap_entries": [
+      {
+        "kind": "reject",
+        "status": "STOPPED: COMPRESSED A2 /TZ ALLOCATION",
+        "title": "No solver-budget increase or failed-target reuse",
+        "detail": "B1 model rejection and compressed basis gap remain"
+      },
+      {
+        "kind": "reuse",
+        "status": "REUSE: STRETCHED CAS12 DZ /TZ TARGETS",
+        "title": "Same40-component objective;64 native roots each",
+        "detail": "Reported passing CI /orbital flags at2.5 bohr"
+      },
+      {
+        "kind": "next",
+        "status": "NEXT: SAVED-PROOF /RETENTION /COST DECISION",
+        "title": "Close distinct-TZ-frame public proof; no QC repeat",
+        "detail": "60 min effort /zero new scientific calls"
+      },
+      {
+        "kind": "gated",
+        "status": "GATED: MATCHED PROPERTIES /SCATTERING",
+        "title": "Eight roots are not nine;retention needs a decision",
+        "detail": "Stretched channel rejection is not waived"
+      },
+      {
+        "kind": "gated",
+        "status": "NOT RELEASED: POLE /CURVE /FIT /SWEEP",
+        "title": "Metadata shifts are not a basis or pole verdict",
+        "detail": "114 S holdouts protected;no active /queued job"
+      }
+    ],
+    "roadmap_note": "Full ensemble and objective arithmetic verified in metadata.\nNot a new full-target /wavefunction-action reconstruction.\nNo selector change,solver campaign or production promotion.",
+    "source_footer": "26 OCTOBER  Saved-evidence redirect: existing stretched CAS12 DZ /TZ targets avoid new QC. Full public distinct-frame proof and retained-model feasibility precede any new execution.",
+    "verification_footer": "Four public metadata payloads /17 records and byte pins verified. No CI,QC,native,outgoing-map or holdout calculation.",
+    "memory_note": "A2 pilot stop retained:26.09 s /.545 GiB.\nStretched target imports already exist;do not repeat.\nNative bars keep their historical scopes;no new forecast.",
+    "memory_next_step": "Saved-proof /retention /cost decision;no job queued."
+  }
+}

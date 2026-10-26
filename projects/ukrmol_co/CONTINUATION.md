@@ -41,6 +41,14 @@ User requests continued decision-changing work; scientific stop rules still appl
 New50/2048/114 holdouts/equilibrium exclusion remain protected.
 No unattended reminder or autonomous daily job is implied.
 
+**Current14:25UTC disposition: [redirect to saved stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
+The bounded route review finds a same40-component/6/3/3/0 objective and64 native
+roots in both models at2.5bohr. Public metadata/arithmetic checks pass, not a
+new full-target or pole qualification. Keep compressed A2/TZ stopped. One next
+deliverable: saved-input proof/retention/cost decision,60minutes effort /zero
+new CI/QC/native/maps; full public distinct-TZ-frame proof and common channel/
+property prescription before any expensive allocation. No numerical job queued.
+
 ## Standing progress-figure workflow
 
 Keep the [six-panel progress overview](README.md#progress-overview--26-october-2026)
@@ -60,6 +68,32 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Saved stretched basis-model direction selected —26 October,14:25UTC review
+
+[Decision/objective](../../docs/physics/co-post-a2-model-route.md) /
+[public metadata](qualification-evidence/stretched-basis-route-review/README.md).
+Select2.5bohr CAS12 DZ/TZ, reusing existing full-ensemble optimized targets and
+native64-root records. No new exact-spin solver, compressed QC retry or failed
+checkpoint reuse. The distinct TZ-frame qualification must retain the original
+seed-preservation failure/exit1 and match checkpoint
+`8518dc191b8670af9ec87d7666b091eaf370187e7022684cd93716d240b40568`.
+Seventeen saved metadata records/pins and four public payloads verify; objective
+arithmetic is checked, but full raw/distinct-frame replay is not claimed here.
+
+**Next only:** within60minutes, a saved-proof/common-retention/property/cost
+decision, zero new scientific calls. Authenticate actual DZ/TZ prerequisites and
+publicly close the already-existing distinct-TZ-frame proof without rerunning
+successful QC/CI/native work. Inventory exact properties/vectors; decide common
+retention before proposing missing inputs. Eight roots are not nine; global
+lowest40 properties are not a matched firstfive-per-sector table; stretched
+five/nine channel rejection remains. A local finite comparison is not production
+channel convergence. Stop on missing/inconsistent evidence, no repair/retry queue.
+
+The review changes the proposed allocation, not physical basis convergence or
+the compressed B1 model rejection. No full-target, scattering, pole, geometry
+sweep or fit is newly qualified.4/8/12-core policy and2048/nine/new50/equilibrium/
+114-holdout protections remain. No active/queued numerical job.
 
 ### A2-only pilot stopped —26 October,14:08UTC public reconstruction
 

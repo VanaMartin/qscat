@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261026T1408-a2-stop.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261026T1425-basis-redirect.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -1215,7 +1215,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261026T1408-a2-stop",
+        default=ROOT / "docs/physics/figures/co-progress-20261026T1425-basis-redirect",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

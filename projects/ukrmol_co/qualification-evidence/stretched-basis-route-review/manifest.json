@@ -1,0 +1,10 @@
+{
+  "git_sha": "578f2961ba42d3dd0b0b1017cede1ee0465ec2d5",
+  "experiment": "co-stretched-basis-route-review-20261026",
+  "scope": "Saved metadata and checkpoint/Molden byte hashes only; no numerical rerun or independent wavefunction action",
+  "new_ci_calls": 0,
+  "new_qc_calls": 0,
+  "new_native_calls": 0,
+  "new_maps": 0,
+  "full_sweep_released": false
+}

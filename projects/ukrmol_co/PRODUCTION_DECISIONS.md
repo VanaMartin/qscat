@@ -1013,6 +1013,62 @@ decision-changing model uncertainty; it may not merely increase this solver's
 budget or reclassify the failed checkpoint. No implementation/pilot is released
 by this next-deliverable statement.
 
+### Goal checkpoint —26 October,14:25UTC: redirect basis question to saved stretched targets
+
+The user asks to continue the bounded saved-evidence decision. **Production
+link:** obtain an independent atomic-basis model test without making compressed
+CI-driver development the critical path to every electronic-model comparison.
+The [route review](../../docs/physics/co-post-a2-model-route.md) defines the valid
+forty-component objective and compares genuine exact-spin/CSF reoptimization,
+fixed projected frames, ensemble changes and reuse at another geometry.
+
+**Decision: redirect to existing R=2.5bohr CAS12 DZ/TZ targets for saved-input
+feasibility.** Both saved models report equal1/40 weights, five roots in every
+spin/irrep, active6/3/3/0, passing original/fresh CI/orbital flags and64 imported
+roots. Gradients5.69e-8/3.72e-8 meet1e-7. The TZ checkpoint matches its separately
+declared reoptimized-frame contract; original seed-preservation failure/exit1
+stays false/unchanged. That record is categorically different from compressed
+TZ, whose original optimizer contained invalid CI roots. No failed target is
+relabelled and no successful QC or target solve needs repeating for the redirect.
+
+**Evidence delta / limits:** seventeen saved records/byte pins in four freshly
+fetched/hash-verified public payloads, objective and ranked-energy arithmetic
+checked. Maximum ranked excitation change.010859968765Ha is diagnostic only:
+no state identity, pole-budget/physical basis verdict or new independent target
+qualification follows. The existing DZ import has public raw verification;
+full public replay of the distinct TZ-frame proof remains missing. No new
+PySCF/package import, CI, QC, Hamiltonian action, native call, outgoing map or
+holdout S analysis. This30minute design review completes within its effort cap;
+test/interface counts are not reported as sweep progress.
+
+**Alternatives:** a genuine exact-spin/CSF inner solver could preserve the objective
+but would require a new RDM/gradient/mixed-optimizer validation campaign; not
+selected. Frozen DZ→TZ orbitals would define a different unoptimized model, not
+answer the relaxed-basis question. Dropping A2/renormalizing weights or increasing
+the stopped solver budget is not a justified substitute. Plain stretched TZ is
+selected ahead of aug-TZ to avoid mixing augmentation with the zeta direction.
+CAS13/new50/root escalation and B2 stay unselected.
+
+**One next deliverable / bounds:** a saved-input proof/retention/cost decision,
+at most60minutes implementation/review and zero new CI/QC/native/maps. Reconstruct/
+publish the existing distinct-TZ-frame proof, authenticate actual source/target/
+native/property inputs, and declare a common retained-state comparison. Stop if
+saved evidence is missing/inconsistent; do not recreate it through QC retries.
+Global-lowest40 properties are not automatically firstfive-per-sector; imported
+eight roots are not nine. The stretched CAS11 five/nine phase rejection means
+a small matched comparison could only be a labelled finite diagnostic, not a
+production channel-convergence certificate. Resolve whether it changes a useful
+decision before spending on properties or scattering; no automatic channel ladder.
+
+Existing native imports cost5.93/6.53h at≈40–41GiB; these are sunk costs, not a
+new allocation or property forecast. Use the economical2048 baseline and4/8/12
+physical-core policy for any later separately frozen small/large/very-large job.
+No execution contract, paid provisioning or multi-hour reservation is released.
+The next review is on this saved-only deliverable or failure, before any numerical
+job. Prior86.77meV B1 rejection, compressed basis uncertainty, continuity/neutral/
+embedding gaps, nine working reference, parked new50, equilibrium exclusion and
+all114 untouched S holdouts remain. No model, sweep, curve or fit is qualified.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

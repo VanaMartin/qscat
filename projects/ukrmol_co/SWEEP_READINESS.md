@@ -28,7 +28,12 @@ The [A2 pilot now stops after the five-root request](qualification-evidence/sing
 exact/H4 controls pass; CO root5 CI/full-action gates fail. Eight roots blocked,
 26.09s /.545GiB, original exits2. No selector or fresh full-QC release; no retry
 or automatic successor. Next is a30minute saved-evidence route decision with
-zero numerical calls, not an expanded solver allocation. No job is queued.
+zero numerical calls, not an expanded solver allocation. The
+[14:25UTC route decision](../../docs/physics/co-post-a2-model-route.md) now selects
+saved stretched CAS12 DZ/TZ targets with the unchanged40-component objective.
+One60minute saved-proof/retention/cost deliverable precedes any new scientific
+call; distinct-TZ-frame public proof and common properties/retention remain gates.
+No compressed basis verdict or waived stretched channel rejection. No job queued.
 
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
 both sectors,10.88meV position /4.48meV full-width changes,89 maps /217s. Keep

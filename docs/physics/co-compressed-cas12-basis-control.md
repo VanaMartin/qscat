@@ -22,6 +22,11 @@ not a retry of this optimization: exact non-A1/mixed-optimizer controls precede
 two frozen-frame diagnostics. The failed checkpoint and current target-selector
 defaults remain unchanged; no full QC or native release is implied.
 
+That pilot subsequently stops at its fifth CO root. The
+[post-A2 route decision](co-post-a2-model-route.md) selects saved stretched
+CAS12 DZ/TZ targets for bounded saved-input feasibility, not another compressed
+QC retry. The compressed basis question remains inconclusive.
+
 The matched CAS11/CAS12 B1 outgoing-pole comparison rejects position
 insensitivity:86.774662meV exceeds50meV, with passing numerical/character/local
 identity gates. Its full-width difference16.066613meV passes. Neither model is

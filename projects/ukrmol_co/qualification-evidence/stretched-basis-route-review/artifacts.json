@@ -1,0 +1,22 @@
+{
+  "artifacts": {
+    "file-index.json": {
+      "bytes": 3488,
+      "sha256": "e8a774847b78c5a42b95bca08e95e6d372dcf7c178acde0507c13991a14c74c7"
+    },
+    "manifest.json": {
+      "bytes": 359,
+      "sha256": "3b857227a6052a43efab7daca1709c9b4cb351508d47de8d3e147a771019b349"
+    },
+    "route-review.json": {
+      "bytes": 9087,
+      "sha256": "95b1907f0c0c038089747fd7338a11fb8c4f4663c96c9b47f73f0e0bfe47e638"
+    },
+    "saved-metadata.tar.gz": {
+      "bytes": 15832,
+      "sha256": "94cecd0003c732c689c9cb2ca6c72dcc83157f35f6b843a2c309f2552d233ea8"
+    }
+  },
+  "git_sha": "578f2961ba42d3dd0b0b1017cede1ee0465ec2d5",
+  "url_prefix": "https://data.qscat.org/co-stretched-basis-route-review-20261026/"
+}
