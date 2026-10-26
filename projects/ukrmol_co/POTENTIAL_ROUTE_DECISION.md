@@ -9,13 +9,16 @@ identity gates pass. This is model sensitivity, not a failed solver or proof
 that CAS12 is accurate. Both models use own2048 roots/all250 channels; optimized
 frames/imported target representations change too. No isolated active-space claim.
 
-**Disposition: stop this contrast branch; redirect to the next electronic-model
-decision, with no new calculation released.** B2 is unlaunched under the frozen
-stop rule. Retain nine as working reference, not a qualified production model.
-Do not repeat native inputs/solves, repair/retry, expand seeds/boxes or launch a
-root/channel ladder. The next bounded deliverable is a separate physics-driven
-electronic-model allocation decision using the saved results, before another
-job is frozen. No sweep, potential fit or full-scattering claim follows.
+**11:00UTC continuation decision:** keep this contrast stopped and B2 unlaunched;
+select the [independent CAS12 DZ/TZ basis-model direction](../../docs/physics/co-compressed-cas12-basis-control.md).
+There is no completed compressed CAS12/TZ target. The only next allocation is
+[one missing QC target](compressed-cas12-tz-qc-contract-20261026.json), using the
+qualified DZ checkpoint and unchanged40-component ensemble/active6/3/3/0.
+Freeze/push source/tests/exact owner first; four physical cores /24GiB /
+conditional0.5–4h /8h hard cap. No automatic import, properties, scattering or
+pole job; any failure stops without repair/retry. Neither larger CAS13 nor a
+new frame-attribution branch is selected without stronger decision value.
+Retain nine working reference and2048 baseline; no sweep, fit or full-S claim.
 
 ### Completed path to the model contrast
 

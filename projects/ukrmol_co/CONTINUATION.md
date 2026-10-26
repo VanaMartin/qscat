@@ -15,9 +15,14 @@ optional comparisons alone do not measure sweep readiness.
 Position86.774662meV exceeds50meV; full width16.066613meV passes. Numerical and
 local character/identity prerequisites pass, so this is model sensitivity rather
 than a failed solver. **Stop this branch; redirect to an electronic-model choice.**
-No B2, retry or successor calculation is released. Retain nine as working reference,
-not a production model. Next bounded deliverable: a separate physics-driven
-electronic-model allocation decision using saved results, before freezing a job.
+No B2 or retry of that contrast is released. Retain nine as working reference,
+not a production model. **11:00UTC user-directed continuation now selects
+[one missing compressed CAS12/TZ QC target](compressed-cas12-tz-qc-contract-20261026.json)**
+for the [separately reviewed basis-model direction](../../docs/physics/co-compressed-cas12-basis-control.md).
+Reuse qualified DZ checkpoint, same40-component average/active6/3/3/0; four
+physical cores /24GiB /conditional0.5–4h /8h hard cap. Freeze/push before launch.
+No automatic import/scattering/pole or solver rescue. Independently authenticate
+QC outcome before any further allocation; there is no production-model release.
 User requests continued decision-changing work; scientific stop rules still apply.
 New50/2048/114 holdouts/equilibrium exclusion remain protected.
 No unattended reminder or autonomous daily job is implied.
@@ -41,6 +46,22 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Independent basis direction selected —26 October,11:00UTC review
+
+[Decision](../../docs/physics/co-compressed-cas12-basis-control.md) /
+[exact QC-only contract](compressed-cas12-tz-qc-contract-20261026.json).
+Compressed CAS12/TZ is a missing physical target, not a repeated successful QC.
+Use the actual qualified DZ import checkpoint, unchanged target builder/analyzer,
+five averaged states per spin/irrep, spin0 singlet A1, space160 and all original
+optimizer/CI/fresh-root/spin/Pi/MO gates. No50-component frame or other geometry.
+Nine root/seven source pins; read-only old inputs, fresh output/cache, no network.
+Four physical cores0–3 /24GiB /16000MB PySCF,8h container cap/bounded teardown;
+conditional0.5–4h forecast, not a scaling claim. Exact source/tests/owner freeze
+must precede use. Failed input/QC/analyzer/time/OOM stops inconclusive without
+repair/retry/alternate seed. Pass is QC-only, not independent native import or
+electronic/basis/pole convergence. Next deliverable: authenticate the saved QC
+outcome and separately decide minimum coverage/import; no automatic successor.
 
 ### Matched B1 pole-model rejection —26 October,09:57UTC finish
 

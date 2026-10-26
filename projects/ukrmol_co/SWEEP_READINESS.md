@@ -10,8 +10,11 @@ electronic,continuity and neutral-reference qualification.
 Position shift86.774662meV exceeds50meV; full width16.066613meV passes.
 All numerical/character/local-identity gates independently reconstruct.
 Stop this branch with B2 unlaunched; no successor job, sweep or fit is released.
-Next is a separate electronic-model allocation decision, not more supporting
-solver/interface work. Larger CAS12 is not thereby accurate; optimized frames
+The user-directed continuation separately selects
+[one missing compressed CAS12/TZ QC target](../../docs/physics/co-compressed-cas12-basis-control.md),
+same40-component ensemble/active space and qualified DZ seed,4 physical cores /
+24GiB /8h cap. Only this prerequisite is selected; no automatic import,
+scattering, pole or B2. Larger CAS12 is not thereby accurate; optimized frames
 and imported target representations also differ. Retain nine working reference.
 
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)

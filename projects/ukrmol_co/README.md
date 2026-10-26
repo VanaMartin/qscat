@@ -17,8 +17,11 @@ Position shifts **86.77meV**, beyond50meV; full width shifts16.07meV and passes.
 Real-S/pole/residue/character/local-identity gates independently reconstruct:
 this is model sensitivity, not a failed solver.48 maps /129.15s /1.309GiB,
 original model exits1, numerical pole exits0. **Stop this contrast branch; no B2
-or automatic successor.** Redirect to a separately reviewed electronic-model
-allocation decision; neither model is qualified for a production sweep or fit.
+or automatic successor.** The user-directed continuation separately selects
+[one missing compressed CAS12/TZ QC target](../../docs/physics/co-compressed-cas12-basis-control.md),
+same40-component ensemble/active space, reusing the qualified DZ checkpoint.
+Only that prerequisite is selected; native/scattering/pole stages stay gated.
+Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
 
@@ -681,10 +684,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Matched CAS11/CAS12 B1 pole position sensitivity rejects; no B2 or sweep released](../../docs/physics/figures/co-progress-20261026T0959-cas12-pole.png)
+![Matched B1 pole sensitivity rejects; one missing CAS12 TZ target selected, no B2 or sweep](../../docs/physics/figures/co-progress-20261026T1100-cas12-basis.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T0959-cas12-pole.svg) ·
-[CAS12 pole-result snapshot](progress-snapshot-20261026T0959-cas12-pole.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1100-cas12-basis.svg) ·
+[CAS12 basis-allocation snapshot](progress-snapshot-20261026T1100-cas12-basis.json) ·
+[Basis-control decision](../../docs/physics/co-compressed-cas12-basis-control.md) ·
+[Exact QC-only contract](compressed-cas12-tz-qc-contract-20261026.json) ·
+[Previous pole-result figure](../../docs/physics/figures/co-progress-20261026T0959-cas12-pole.svg) ·
+[Previous pole-result snapshot](progress-snapshot-20261026T0959-cas12-pole.json) ·
 [Independent pole/model evidence](qualification-evidence/compressed-cas12-pole/README.md) ·
 [Independent pole/model replay](verification-compressed-cas12-pole-public-20261026.json) ·
 [Previous export figure](../../docs/physics/figures/co-progress-20261026T0917-cas12-export.svg) ·

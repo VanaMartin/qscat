@@ -805,6 +805,53 @@ model/balance control, explain what its result would decide and bound its input
 reuse/effort/compute before freezing another job. This is a decision note, not
 permission for B2, a repeat support-method campaign or an unconverged sweep.
 
+### Goal checkpoint —26 October,11:00UTC continuation: independent basis-model direction
+
+The user explicitly requests continued work after the resolved B1 rejection.
+**Keep that contrast stopped, including CAS12 B2; open a separately bounded
+basis-model prerequisite instead.** The [allocation decision](../../docs/physics/co-compressed-cas12-basis-control.md)
+selects CAS12/cc-pVTZ at the same1.9bohr geometry, unchanged forty-component
+orbital average and active6/3/3/0. Optimized orbitals change with basis, so this
+is a basis-model comparison, not isolated AO truncation. Do not choose CAS13
+merely because it is larger, or spend another model solve attributing orbital
+relaxation before checking the still-missing atomic-basis direction.
+
+**Evidence / input reuse:** read-only inventory finds no completed compressed
+CAS12/TZ target; older compressed TZ/aug-TZ attempts are CAS11 and rejected.
+Qualified targets at other geometries do not fill this gap. Reuse the actual
+compressed CAS12/DZ native checkpoint, not the rejected early QC seeds or new50.
+The existing target builder/analyzer and their numerical source remain unchanged.
+No successful QC, import, properties, preparation or scattering solve is repeated.
+
+**Decision changing question:** is the DZ atomic-basis model adequate at CAS12
+under the same retained-state/pole definition? An eventual valid DZ/TZ pole
+rejection rules out local basis insensitivity; a pass does not erase active-
+space/model uncertainty or certify either model. Literature results are
+motivation/plausibility only, not targets to fit or error bars. The source's
+extra TZ A1 averaging states are deliberately **not** adopted: keep40 here.
+
+**Minimum current allocation:** [one missing QC-only target](compressed-cas12-tz-qc-contract-20261026.json),
+projected from the qualified DZ checkpoint at fixed geometry. Four physical
+cores0–3,24GiB container/16000MB PySCF,32GiB available RAM/8GiB free disk floors,
+no network or dependency install. Conditional0.5–4h forecast,8h hard container
+cap/bounded owner teardown. Existing150 macroiterations/ordinary200 CI cycles,
+trial space160, singlet-A1 spin0, fresh-CI and unchanged tolerances. Implementation/
+freeze effort≤60minutes. Source/tests/exact owner and nine root/seven source
+prerequisites must freeze/push before use. Preserve original exits/resources,
+including failed/incomplete telemetry. Routing controls must stop failed inputs
+before QC and failed runner before analysis; analytic Hubbard/full-action startup
+control must pass in the pinned PySCF image before CO use.
+
+**Disposition: continue this one prerequisite after freeze; no automatic next
+calculation.** Any optimizer/CI/spin/Pi/gradient/fresh-root/input/analyzer/time/OOM
+failure stops inconclusive without rescue/retry/alternative seed or solver work.
+A pass supplies only a QC self-consistency candidate. Independently authenticate
+it and compare ranked target energies/excitations/dipole as diagnostics, then
+separately review minimum fixed-orbital/full-action coverage and native import.
+No integral, native target solve, DENPROP, scattering, pole, geometry, B2 or
+sweep is released by this allocation. All114 S holdouts/equilibrium exclusion,
+nine working reference,2048 baseline and parked new50 remain protected.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
