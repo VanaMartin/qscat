@@ -37,9 +37,12 @@ select all eight native roots per sector/64 per model as a finite comparator.
 Both existing40-state property tables miss24 required states. The
 [15:37UTC property-only contract/owner freeze is complete](qualification-evidence/stretched-basis-properties-freeze/README.md):
 eight mocked runtime controls pass;36 original input pins/12 source entries verify.
-No scientific call or export. Next is a **separate DZ-only execution release**;
-TZ remains independent-DZ-receipt-gated and separately released, never automatic.
-No CI/QC/target/import repeat is needed; neither missing64-state table exists yet.
+No scientific call occurred at the freeze. The [separately released DZ-only export
+starts15:49:41UTC](qualification-evidence/stretched-basis-properties-dz-launch/README.md):
+all eight runtime controls pass and DENPROP is active at15:50:36UTC. Inventory
+verdict/terminal exits/final cost remain pending; neither new table is qualified.
+Next independently publish/read DZ output/exits/resources. TZ stays receipt-gated
+and separately released, never automatic. No CI/QC/target/import repeat is needed.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -703,10 +706,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Property-only contract and owner frozen; no export released and both64-state tables remain missing](../../docs/physics/figures/co-progress-20261026T1537-properties-frozen.png)
+![DZ-only64-state property export active; inventory and exits pending, TZ blocked](../../docs/physics/figures/co-progress-20261026T1550-dz-properties.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1537-properties-frozen.svg) ·
-[Property-freeze snapshot](progress-snapshot-20261026T1537-properties-frozen.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1550-dz-properties.svg) ·
+[DZ-launch snapshot](progress-snapshot-20261026T1550-dz-properties.json) ·
+[Public DZ-launch evidence](qualification-evidence/stretched-basis-properties-dz-launch/README.md) ·
+[Compact launch record](progress-stretched-basis-properties-dz-launch-20261026.json) ·
+[Previous freeze figure](../../docs/physics/figures/co-progress-20261026T1537-properties-frozen.svg) ·
+[Previous property-freeze snapshot](progress-snapshot-20261026T1537-properties-frozen.json) ·
 [Property-only scope and gates](../../docs/physics/co-stretched-basis-properties.md) ·
 [Public freeze controls](qualification-evidence/stretched-basis-properties-freeze/README.md) ·
 [Previous feasibility figure](../../docs/physics/figures/co-progress-20261026T1456-basis-feasible.svg) ·
@@ -975,7 +982,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **26 October,15:37UTC property-freeze** release of an incremental overview, with its exact UTC
+This is the **26 October,15:50UTC DZ-launch** release of an incremental overview, with its exact UTC
 cutoff recorded in the snapshot and figure. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
@@ -983,7 +990,13 @@ remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed now:** panels D/F distinguish the completed property-only freeze
+**What changed now:** panels D/F record one separately released DZ-only property
+export active after eight runtime controls pass. Eighteen original input/five
+source pins,12 copied inputs/archived sources and13 public launch payloads verify.
+Terminal exits, inventory verdict and final cost are pending; TZ/downstream work
+stays blocked. This is a bounded missing-input allocation, not a physical result.
+
+**Previous freeze change:** panels D/F distinguish the completed property-only freeze
 from unreleased scientific execution: eight mocked runtime controls,36 original
 input pins,12 archived sources and seven public payloads verify. Two64-state
 tables remain missing. Next is a separate DZ-only release; TZ requires independent

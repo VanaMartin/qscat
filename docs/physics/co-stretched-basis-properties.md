@@ -93,3 +93,15 @@ model-position rejection, compressed basis uncertainty, continuity, neutral
 correlation and full-S embedding remain. Preserve2048 baseline, nine working
 reference, parked new50, equilibrium exclusion and114 untouched holdout S matrices.
 No model, curve, fit, sweep, native export or automatic successor is promoted.
+
+## Separate DZ-only execution release
+
+The later [DZ-only release](../../projects/ukrmol_co/stretched-basis-properties-dz-release-20261026.json)
+uses the unchanged frozen source/contract, with a fresh committed-source capsule
+and host eligibility review. It does not retroactively turn the freeze into a
+scientific calculation. [Launch evidence](../../projects/ukrmol_co/qualification-evidence/stretched-basis-properties-dz-launch/README.md)
+witnesses DENPROP active after all eight controls pass, with original/source/copy/
+deck pins intact. Inventory, final cost and terminal exits remain pending.
+No completed64-state property table or physical-model verdict is claimed by a
+launch. Independently qualify/publish the actual DZ output before considering
+the still separately gated TZ application; no automatic downstream work follows.

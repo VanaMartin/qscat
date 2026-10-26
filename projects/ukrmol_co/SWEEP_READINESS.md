@@ -40,10 +40,12 @@ existing property tables miss24 states. The [15:37UTC property-only contract/own
 freeze completes](qualification-evidence/stretched-basis-properties-freeze/README.md)
 within the60minute effort allocation: eight mocked runtime controls pass,36 input
 pins and12 source entries verify. Zero scientific calls, no new property table
-or physical-model verdict. Next is a separately reviewed **DZ-only execution
-release**; TZ requires independently published DZ success/hash-pinned receipt and
-another explicit release. Prospective8 physical cores/64GiB,18h native/19h owner;
-no reservation, automatic peer or downstream scattering/pole/fit/sweep release.
+or physical-model verdict. [Separately released DZ starts15:49:41UTC](qualification-evidence/stretched-basis-properties-dz-launch/README.md):
+eight runtime controls pass; at15:50:36UTC DENPROP is active. Inventory verdict,
+all terminal exits and final cost remain pending. Next independently read/publish
+DZ output/exits/resources; TZ requires independent public DZ success/a hash-pinned
+receipt and another release. Eight physical cores/64GiB,18h native/19h owner;
+no automatic peer or downstream scattering/pole/fit/sweep release.
 Original failures, production channel gates and holdouts remain intact.
 
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)

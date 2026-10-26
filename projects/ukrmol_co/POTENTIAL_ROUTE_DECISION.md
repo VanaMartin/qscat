@@ -20,8 +20,12 @@ and host eligibility pass. Available105GiB RAM/58GiB disk; unrelated GPU evaluat
 and ComfyUI remain untouched. Commit/push release before launch; runtime controls
 precede at most one DENPROP call. Conditional6–16h /18h native /18.5h container /
 19h owner /eight physical cores /64GiB; RAM80GiB/disk10GiB floors unchanged.
-No job has launched at this release checkpoint. Next independently read/publish
-the original DZ result/exits/resources, including failure. TZ needs a pinned
+**Launch15:49:41UTC, [active at15:50:36UTC](qualification-evidence/stretched-basis-properties-dz-launch/README.md):**
+all eight runtime controls pass; DENPROP is witnessed on the exact deck/copied
+inputs. Thirteen public launch payloads/twelve Git-matched sources authenticate.
+Property verdict and all terminal exits remain pending, not a success/failure.
+Next independently read/publish original DZ result/exits/resources, including
+failure. TZ needs a pinned
 independent public DZ success receipt and another explicit release; no automatic
 peer or preparation/B1/pole/B2/fit/sweep successor. No waived channel gate or
 model/curve/fit promotion. The frozen non-release record above remains historical.

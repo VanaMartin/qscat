@@ -56,10 +56,12 @@ per sector/64 per model as a finite matched comparator, not channel convergence.
 Both old40-state property tables lack24 selected states. **15:37UTC queue item2
 is complete:** [property-only source/contract/owner freeze](qualification-evidence/stretched-basis-properties-freeze/README.md),
 eight mocked runtime controls/exit0,36 unchanged original input pins and12 source
-entries verified, zero scientific calls. Next is a **separate DZ-only execution
-release**, not an automatic launch. TZ needs an independent public DZ success
-receipt pinned by hash and a further explicit release. No CI/QC/target repeat,
-active job or automatic successor; no new physical verdict or sweep progress.
+entries verified, zero scientific calls at that freeze. **Separately released DZ
+launches15:49:41UTC**, [active at15:50:36UTC](qualification-evidence/stretched-basis-properties-dz-launch/README.md).
+All eight runtime controls pass; DENPROP is active, inventory/exits pending.
+Next independently read/publish DZ output/exits/resources. TZ needs independent
+public DZ success/a pinned receipt and another explicit release. No CI/QC/target
+repeat or automatic successor; no new physical verdict or sweep progress.
 
 ## Standing progress-figure workflow
 
@@ -81,7 +83,26 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### DZ-only release —26 October,15:48UTC; launch pending
+### DZ-only property export active —26 October,15:50:36UTC observation
+
+[Launch record](progress-stretched-basis-properties-dz-launch-20261026.json) /
+[public source/controls/observation](qualification-evidence/stretched-basis-properties-dz-launch/README.md).
+Release `c675526` pushed before15:49:41UTC launch; source `f497e18` unchanged.
+Eight runtime controls pass;18 original/five source pins and12 copied inputs
+verify. Exact deck and12 source entries match;13 fresh public launch payloads
+authenticate. The durable service/container and DENPROP process are witnessed.
+**Inventory verdict and terminal scientific/command/container/owner/service
+exits remain pending.** Conservative producer2 /running Docker0 are defaults,
+not failure/success. No qualified64-state table or measured final cost exists yet.
+
+**Next only:** independently read/publish original DZ output/exits/resources once
+complete, including failure. No repair/retry/peer job. TZ requires independent
+public DZ success/a hash-pinned receipt and another explicit release. No
+preparation/scattering/pole/B2/fit/sweep successor. The service is bounded to19h,
+container18.5h/native18h;8 physical cores4–11/64GiB. Original data/source read-only;
+unrelated Bonsai evaluation/ComfyUI untouched, all114 S holdouts protected.
+
+### Historical DZ-only release —26 October,15:48UTC; launch then pending
 
 The user's continuation selects [one missing DZ property export](stretched-basis-properties-dz-release-20261026.json)
 under unchanged committed source `f497e18` and the exact frozen contract. Fresh

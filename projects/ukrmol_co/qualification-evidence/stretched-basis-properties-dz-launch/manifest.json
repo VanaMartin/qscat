@@ -1,0 +1,6 @@
+{
+  "git_sha": "f497e18bb442a16c097bb04c7aaefd6eff1e04eb",
+  "release_git_sha": "c675526",
+  "experiment": "co-stretched-basis-properties-dz-20261026",
+  "scope": "One released DZ-only64-state DENPROP property export; no TZ/downstream release"
+}

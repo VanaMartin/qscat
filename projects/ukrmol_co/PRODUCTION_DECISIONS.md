@@ -1179,6 +1179,18 @@ success/a matching hash-pinned receipt and separate explicit release. No automat
 peer or preparation/scattering/pole/B2/fit/sweep. All2048/nine/new50/equilibrium/
 114-holdout protections remain. No model/curve/fit is promoted or job running yet.
 
+**Launch update —15:50:36UTC:** [DZ is active](qualification-evidence/stretched-basis-properties-dz-launch/README.md),
+started15:49:41UTC after release `c675526` pushed, source `f497e18` unchanged.
+All eight runtime controls pass;18 original/five source pins and12 copied-input
+hashes verify. Thirteen fresh public launch payloads and12 Git-matched capsule
+sources authenticate. Actual DENPROP process, active container/service and exact
+deck/limits/read-only mounts are witnessed. Inventory verdict, measured final
+cost and all terminal exits remain pending. Producer default2 and running Docker0
+are not terminal failure/success. No new physical verdict or production progress.
+Next independently read/publish original DZ output/exits/resources, whether pass
+or failure; no retry or automatic TZ/downstream release. Bonsai evaluation was
+already unhealthy before launch; no unrelated workload/settings changed.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
