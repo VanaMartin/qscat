@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "__pycache__/saved_algebra.cpython-312.pyc": {
+      "bytes": 33580,
+      "sha256": "ddbce9da9194b90dc3867bc80b8adc5c7dd510610632cb655f503dc0e41f9d17"
+    },
+    "collection.json": {
+      "bytes": 25554,
+      "sha256": "0bb6e3b721e01fda137885080f2778328cc9e0759a6433e823ee8f13c0a7d76b"
+    },
+    "manifest.json": {
+      "bytes": 223,
+      "sha256": "8479b57676ff7f34efb5f4d4c3fd907f698449584341b0143d8a1964e0d7e0eb"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 8664,
+      "sha256": "ed4a2ef89f9a78321004b0f765ae5ee4978e9aa234ca96e93cae2f1fc0ee4d1b"
+    },
+    "reference-inputs.tar.gz": {
+      "bytes": 6103671,
+      "sha256": "ed686b0e320549b01f060e30d9700f27a9e1600fa6be3b419cf57565c98eeba0"
+    },
+    "result-summary.json": {
+      "bytes": 13031,
+      "sha256": "ee7e6c95f6d727f46d4dabc6d59d1d7d7401f3d80258f56c693bed6df6e32ad1"
+    },
+    "results.tar.gz": {
+      "bytes": 74845305,
+      "sha256": "75ee8835ffcbc34cb9c3b2234c17fba4583f5af2f23fdfb50e5cb1900e35fd9a"
+    },
+    "saved_algebra.py": {
+      "bytes": 15307,
+      "sha256": "90753660f05479c2afae0693ab988232f844bef8bfe238337b69b9418fbc8b58"
+    }
+  },
+  "git_sha": "12a298215f9e88470e40f4f23a9db12e6835d41d",
+  "url_prefix": "https://data.qscat.org/co-compressed-cas12-pole-20261026/"
+}

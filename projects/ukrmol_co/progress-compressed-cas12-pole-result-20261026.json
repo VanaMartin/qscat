@@ -1,0 +1,480 @@
+{
+  "observed_utc": "2026-10-26T09:59:22.312110+00:00",
+  "pointer_sha256": "ce19ddbb60caa36622b94c5f5da63fe406bea93dc800e3c7dc8b8408a8258d39",
+  "source_commit": "12a298215f9e88470e40f4f23a9db12e6835d41d",
+  "source_archive_sha256": "5ad6111c2b721ab8868f26e7204683b9ef1240ff305cccc3f84e455f75ee05d1",
+  "public_payloads_verified": 8,
+  "archived_files_verified": 125,
+  "source_entries_verified": 45,
+  "reference_inputs_verified": 19,
+  "frozen_root_pins_verified": 14,
+  "frozen_source_pins_verified": 7,
+  "original_inputs_hashed_only": 123,
+  "runtime_controls": 7,
+  "original_exits": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "original_pole_exits": [
+    0,
+    0
+  ],
+  "scientific_exit": 1,
+  "model_insensitivity_verdict": false,
+  "disposition": "reject",
+  "pole_incident_hartree": [
+    0.13540256620534344,
+    -0.03809118866922502
+  ],
+  "reference_pole_incident_hartree": [
+    0.13859147623159174,
+    -0.03838640724468573
+  ],
+  "saved_maps_verified": 46,
+  "contour_points_reconstructed": 32,
+  "bordered_search_values_reconstructed": 9,
+  "max_native_q_absolute_drift": 1.9988948158781202e-14,
+  "max_bordered_scalar_absolute_drift": 3.2635268225205646e-16,
+  "max_interior_projection_relative_drift": 1.0620502118228487e-12,
+  "max_outgoing_transition_relative_drift": 1.0633641152692884e-12,
+  "max_contour_phase_drift_rad": 8.615330671091215e-13,
+  "max_moment_relative_drift": 8.81366852175845e-14,
+  "max_derivative_residue_relative_drift": 1.0779329046103782e-10,
+  "pole_position_ev": 3.684491527711562,
+  "pole_full_width_ev": 2.073028094894167,
+  "independent_contour_root_difference_ev": [
+    1.0536286362440056e-10,
+    1.7883190566258854e-09
+  ],
+  "real_s_development_checks_reconstructed": 2,
+  "max_real_s_reconstruction_drift": 5.499686870407675e-13,
+  "contrast": {
+    "disposition": "reject",
+    "difference": {
+      "position_ev": 0.08677466242794618,
+      "full_width_ev": 0.016066613367703292
+    },
+    "tolerances": {
+      "position_ev": 0.05,
+      "full_width_ev": 0.10445473541309354
+    },
+    "identity_profile_tv": 0.00524957845931591
+  },
+  "leakage": 1.4283663698932441e-09,
+  "new_maps": 48,
+  "scientific_wall_seconds": 129.15068151801825,
+  "owner_wall_seconds": 130.1593986999942,
+  "kernel_peak_bytes": 1405091840,
+  "cgroup_cpu_seconds_at_report_save": 291.185783,
+  "allocated_disk_bytes_at_collection": 104464384,
+  "allocated_disk_peak_bytes": null,
+  "pi_pair_verdict": null,
+  "physical_co_accuracy_verdict": null,
+  "width_curve_verdict": null,
+  "full_sweep_released": false,
+  "new_propagations": 0,
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "independence": "Saved-byte direct native Q contraction, opposite I-YQ solves, bordered traces, contour moments, derivative residues, own native K-to-S guards, four-witness character and CAS11/five-relative position/FULL-width decision. Exterior maps authenticated, not independently propagated. CAS11 residue prerequisites are independently screened and covered by prior published replay. No absolute electronic accuracy or omitted-spectrum bound.",
+  "started_utc": "2026-10-26T09:55:08.535401+00:00",
+  "finished_utc": "2026-10-26T09:57:18.694719+00:00",
+  "owner_sha256": "5231c4f9f8225023419a947f6276c97158317bf0753739232a80f7f19d35da40",
+  "source_entries_verified_against_git": 45,
+  "kernel_peak_gib": 1.30859375,
+  "real_s_guards": [
+    {
+      "index": 60,
+      "completed": true,
+      "diagnostics": {
+        "rhs_evaluations": 4205,
+        "wall_seconds": 7.082484297978226,
+        "transpose_defect": 9.263427422397553e-19,
+        "open_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endpoint": 120,
+        "angle": 40,
+        "order": 10,
+        "rtol": 1e-12
+      },
+      "invariants": {
+        "flux_defect": 2.9994121801448197e-13,
+        "wronskian_residual": 8.886119947416683e-16,
+        "amplitude_condition": 1.0722603790827612,
+        "unitarity_defect": 2.204902926905561e-13,
+        "reciprocity_defect": 3.088404649850184e-16
+      },
+      "s_absolute_error": 1.0547322593169652e-08,
+      "phase_sum_error_mod_pi_rad": 3.130450736089028e-08,
+      "checks": {
+        "s": true,
+        "phase": true,
+        "flux": true,
+        "wronskian": true,
+        "unitarity": true,
+        "reciprocity": true
+      }
+    },
+    {
+      "index": 80,
+      "completed": true,
+      "diagnostics": {
+        "rhs_evaluations": 4253,
+        "wall_seconds": 7.138307347981026,
+        "transpose_defect": 5.821466173856918e-19,
+        "open_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endpoint": 120,
+        "angle": 40,
+        "order": 10,
+        "rtol": 1e-12
+      },
+      "invariants": {
+        "flux_defect": 5.797931709357063e-13,
+        "wronskian_residual": 1.4895230173105555e-15,
+        "amplitude_condition": 1.0524350400781892,
+        "unitarity_defect": 1.3808953980291106e-12,
+        "reciprocity_defect": 3.236828524569468e-15
+      },
+      "s_absolute_error": 1.4998714842763373e-07,
+      "phase_sum_error_mod_pi_rad": 4.238288066731316e-07,
+      "checks": {
+        "s": true,
+        "phase": true,
+        "flux": true,
+        "wronskian": true,
+        "unitarity": true,
+        "reciprocity": true
+      }
+    }
+  ],
+  "pole_screen": {
+    "disposition": "pass",
+    "reference": {
+      "disposition": "pass",
+      "guards": {
+        "signal": true,
+        "rank": true,
+        "transpose": true
+      },
+      "residue_norm": 0.05676956738946931,
+      "rank_ratio": 5.595505825711376e-15,
+      "transpose_relative_error": 5.231411363820505e-16,
+      "incoming_leakage": 1.4283663698932429e-09,
+      "outgoing_leakage": 1.4283663698932443e-09,
+      "leakage": 1.4283663698932443e-09,
+      "canonical_labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          1
+        ],
+        [
+          1,
+          3,
+          3
+        ],
+        [
+          1,
+          4,
+          1
+        ],
+        [
+          1,
+          4,
+          3
+        ]
+      ],
+      "profile": [
+        0.33148148315864745,
+        0.6621452850412816,
+        0.006089294798926175,
+        1.3554651198145675e-09,
+        0.00028393557277851334,
+        7.290125007867624e-11
+      ]
+    },
+    "witnesses": [
+      {
+        "disposition": "pass",
+        "guards": {
+          "signal": true,
+          "rank": true,
+          "transpose": true
+        },
+        "residue_norm": 0.05676956738949666,
+        "rank_ratio": 5.029360613076386e-15,
+        "transpose_relative_error": 6.268958270205259e-16,
+        "incoming_leakage": 1.4283663698932476e-09,
+        "outgoing_leakage": 1.4283663698932718e-09,
+        "leakage": 1.4283663698932718e-09,
+        "canonical_labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            3
+          ]
+        ],
+        "profile": [
+          0.3314814831586341,
+          0.6621452850412949,
+          0.006089294798926281,
+          1.3554651198145869e-09,
+          0.00028393557277851204,
+          7.290125007867276e-11
+        ]
+      },
+      {
+        "disposition": "pass",
+        "guards": {
+          "signal": true,
+          "rank": true,
+          "transpose": true
+        },
+        "residue_norm": 0.05676956738946931,
+        "rank_ratio": 5.595505825711376e-15,
+        "transpose_relative_error": 5.231411363820505e-16,
+        "incoming_leakage": 1.4283663698932429e-09,
+        "outgoing_leakage": 1.4283663698932443e-09,
+        "leakage": 1.4283663698932443e-09,
+        "canonical_labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            3
+          ]
+        ],
+        "profile": [
+          0.33148148315864745,
+          0.6621452850412816,
+          0.006089294798926175,
+          1.3554651198145675e-09,
+          0.00028393557277851334,
+          7.290125007867624e-11
+        ]
+      },
+      {
+        "disposition": "pass",
+        "guards": {
+          "signal": true,
+          "rank": true,
+          "transpose": true
+        },
+        "residue_norm": 0.05676958175564268,
+        "rank_ratio": 1.5410050535123505e-16,
+        "transpose_relative_error": 1.039020047411963e-10,
+        "incoming_leakage": 1.4283663701002089e-09,
+        "outgoing_leakage": 1.42836637018612e-09,
+        "leakage": 1.42836637018612e-09,
+        "canonical_labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            3
+          ]
+        ],
+        "profile": [
+          0.33148148317029547,
+          0.6621452850299067,
+          0.006089294798595712,
+          1.3554651200691813e-09,
+          0.00028393557283574246,
+          7.290125007398319e-11
+        ]
+      },
+      {
+        "disposition": "pass",
+        "guards": {
+          "signal": true,
+          "rank": true,
+          "transpose": true
+        },
+        "residue_norm": 0.05676957087076858,
+        "rank_ratio": 2.5058574928867783e-16,
+        "transpose_relative_error": 1.0390223937719822e-10,
+        "incoming_leakage": 1.4283663701002087e-09,
+        "outgoing_leakage": 1.4283663701861203e-09,
+        "leakage": 1.4283663701861203e-09,
+        "canonical_labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            3
+          ]
+        ],
+        "profile": [
+          0.3314814831702957,
+          0.6621452850299064,
+          0.006089294798595713,
+          1.3554651200691815e-09,
+          0.00028393557283574257,
+          7.290125007398316e-11
+        ]
+      }
+    ],
+    "stability": {
+      "leakage_change": 2.928759103787409e-19,
+      "profile_tv_change": 1.1705525919852144e-11,
+      "norm_relative_change": 2.530611099234632e-07,
+      "checks": {
+        "dispositions": true,
+        "leakage": true,
+        "profile": true,
+        "norm": true
+      }
+    }
+  },
+  "model_budget_components": {
+    "position_ev": "reject",
+    "full_width_ev": "pass"
+  },
+  "boundary_bands": {
+    "position_ev": 0.0002,
+    "full_width_ev": 0.000205
+  },
+  "original_scientific_exit": 1,
+  "original_command_exit": 1,
+  "original_container_exit": 1,
+  "original_owner_exit": 1,
+  "original_service_exit": 1,
+  "original_public_reconstruction_exit": 0,
+  "original_local_reconstruction_exit": 0,
+  "container_oom_killed": false,
+  "timed_out": false,
+  "systemd_supervisor_peak": "21.8M, not scientific container",
+  "systemd_supervisor_cpu_seconds": 0.104,
+  "decision": "Stop this contrast branch, leave B2 unlaunched; redirect to a separately reviewed physics-driven electronic-model allocation decision. No retry/automatic successor or production model.",
+  "verification": "verification-compressed-cas12-pole-public-20261026.json",
+  "neutral_reference": "Each own model ground; CAS11/five comparison, not nine width",
+  "working_reference": "CAS11/nine; five remains local matched comparator",
+  "active_orbital_count_isolated": false,
+  "search_provenance": {
+    "indexed_main_commit": "423d5770d3de337571f51e62702ae919bad97e8c",
+    "integrity": "complete",
+    "upstream_currency_at_handoff": "current",
+    "current_source": "Frozen branch12a2982,45 capsule sources independently matched to Git; main lacks the branch-only pole driver/owner and campaign evidence. Local source and scoped branch delta inspected; no scientific source edited after freeze."
+  }
+}

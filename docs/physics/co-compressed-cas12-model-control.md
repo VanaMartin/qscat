@@ -17,9 +17,34 @@ also changes optimized orbital frames and imported target representations;
 do not call it an isolated active-orbital-count effect or absolute accuracy.
 The equilibrium pole remains reserved.
 
-## Exact saved-input gap: a different property inventory
+## Completed matched B1 comparison —26 October2026
 
-**26October09:17UTC native outcome:** the
+[Independent public reconstruction](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-pole/README.md)
+confirms a resolved **position-budget rejection**: CAS12 position3.684491527712eV
+versus CAS11/five3.771266190140eV, a decrease86.774662meV beyond50meV plus.2meV
+band. FULL width decreases16.066613meV (2.089094708262→2.073028094894eV), within
+104.454735meV. Both use own2048 roots/all250 channels at1.9bohr/cc-pVDZ.
+Own real-S guards60/80, root/contour/derivative/residue and four-witness finite-Pi
+support/local identity gates pass; profile TV.00524958, leakage1.42837e-9.
+The model difference is not a numerical failure. It neither isolates orbital
+count from optimized frames/imported representations nor proves CAS12 accurate.
+
+Source/tests/exact owner froze/pushed before launch.48/79 maps,129.150682s /
+1.308594GiB, four physical cores, no native/QC/target/property/preparation repeat.
+Original model scientific/command/container/owner/service exits1, nested pole
+exits0, independent public reconstruction0; all failures/exits remain explicit.
+Exterior maps are authenticated, not independently repropagated.
+
+**Stop this branch under the frozen B1 rule; B2 remains unlaunched.** A B2
+counterpart check cannot reverse the resolved B1 position failure. No retry,
+altered seed/box, root/channel ladder or automatic model successor. Retain nine
+as working reference, not a qualified production model; no geometry sweep or
+potential fit is released. The next deliverable is a separately reviewed
+physics-driven electronic-model allocation decision using saved evidence.
+
+## Preserved input path: a different property inventory
+
+**Historical26October09:17UTC native outcome:** the
 [own CAS12 B1/2048 export independently qualifies](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-inner/README.md),
 all250 channels, recorded residual1.3462e-10Ha, CI-boundary agreement and99 own K
 references. Measured4.227h /22.490GiB; original native/owner exits0, no timeout/OOM.

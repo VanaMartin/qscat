@@ -2,13 +2,30 @@
 
 ## Decision now
 
+**26October outcome: [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).**
+Position shifts86.774662meV, beyond50meV; full width shifts16.066613meV and
+passes its104.454735meV budget. Own real-S/root/contour/residue/character/local
+identity gates pass. This is model sensitivity, not a failed solver or proof
+that CAS12 is accurate. Both models use own2048 roots/all250 channels; optimized
+frames/imported target representations change too. No isolated active-space claim.
+
+**Disposition: stop this contrast branch; redirect to the next electronic-model
+decision, with no new calculation released.** B2 is unlaunched under the frozen
+stop rule. Retain nine as working reference, not a qualified production model.
+Do not repeat native inputs/solves, repair/retry, expand seeds/boxes or launch a
+root/channel ladder. The next bounded deliverable is a separate physics-driven
+electronic-model allocation decision using the saved results, before another
+job is frozen. No sweep, potential fit or full-scattering claim follows.
+
+### Completed path to the model contrast
+
 **Verified contrast outcome:** [five/nine compressed pole-target insensitivity passes](qualification-evidence/compressed-a2-contrast/README.md)
 in both sectors:10.876503meV position /4.480322meV full width; all original
 guards/witnesses/character/identity/pairing gates pass.89 maps /216.873008s /
 1.737797GiB, exits0/0/0/0. Independent public reconstruction verifies all gates.
 Retain nine, preserve stretched rejection; this is not electronic accuracy.
 
-**Current disposition: continue to the matched CAS11/CAS12 model allocation**
+**Prior disposition: continue to the matched CAS11/CAS12 model allocation**
 at the same compressed geometry, not another solver/channel/root branch.
 The [smallest necessary new input](../../docs/physics/co-compressed-cas12-model-control.md)
 is DENPROP for five roots per sector from the **saved64 CAS12 vectors**. Original
@@ -32,13 +49,14 @@ Original native/owner exits0;4.227h /22.490GiB on12 physical cores. Public repla
 authenticates100 files/50 prerequisites/44 sources and all six arrays, without S
 construction or new propagation. No native fit is promoted to a coupled pole.
 
-**Current next allocation:** freeze/push [one B1-only CAS11/five→CAS12/five pole
+**Completed allocation:** frozen/pushed [one B1-only CAS11/five→CAS12/five pole
 contrast](compressed-cas12-pole-contract-20261026.json), four physical cores /
 8GiB /79-map total ceiling /1800s scientific cap. Own real-S guards60/80 must
 persist/pin before any complex use. Unchanged root/contour/derivative/residue/
 character/identity and position/FULL-width gates, reference the saved CAS11/five
 coupled pole. No new native solve, automatic B2, retry or alternate box/seed.
-Counterpart Pi pairing/model accuracy/curve verdicts stay unset.
+Counterpart Pi pairing/model accuracy/curve verdicts stay unset. The B1 outcome
+above completes this allocation and stops B2; there is no pending execution.
 No production model, new geometry, fit or sweep is released;
 114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
 

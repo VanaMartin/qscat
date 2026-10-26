@@ -12,23 +12,24 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**26 October priority:** [the compressed five/nine outgoing-pole contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
-in both sectors:10.88meV position /4.48meV full-width changes,89 maps /217s.
-Retain nine and prioritize a matched CAS11/CAS12 model control. Its saved64 target
-vectors are qualified; the required firstfive-per-sector properties now
-[qualify independently](qualification-evidence/compressed-cas12-properties/README.md).
-The one different DENPROP inventory takes4.43h /1.903GiB, all native/owner exits0,
-without repeated QC/target solves. The
-[completed preparation also qualifies](qualification-evidence/compressed-cas12-preparation/README.md):
-actual86352 contracted states per sector,171.42s /10.700GiB, all original exits0.
-The [own B1/2048 export now qualifies independently](qualification-evidence/compressed-cas12-inner/README.md):
-4.227h /22.490GiB, original native/owner exits0, recorded residual1.3462e-10Ha
-and all250 channels/99 own K references. Next freeze
-[one B1-only outgoing-pole model contrast](compressed-cas12-pole-contract-20261026.json),
-own real-S guards first,4 physical cores /8GiB /79-map ceiling. No new inner solve
-or automatic B2. New50 stays parked;
-all114 holdouts and equilibrium pole exclusion remain protected. The existing
-finite open-Pi pair below is not a qualified CO curve or production model.
+**26 October outcome:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
+Position shifts **86.77meV**, beyond50meV; full width shifts16.07meV and passes.
+Real-S/pole/residue/character/local-identity gates independently reconstruct:
+this is model sensitivity, not a failed solver.48 maps /129.15s /1.309GiB,
+original model exits1, numerical pole exits0. **Stop this contrast branch; no B2
+or automatic successor.** Redirect to a separately reviewed electronic-model
+allocation decision; neither model is qualified for a production sweep or fit.
+Optimized frames/imported target representations change too, so this is not an
+isolated active-orbital-count effect or proof CAS12 is more accurate.
+
+The [prior five/nine pole contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
+both sectors; retain nine as working reference. Reused
+[matched CAS12 properties](qualification-evidence/compressed-cas12-properties/README.md),
+[preparation](qualification-evidence/compressed-cas12-preparation/README.md) and
+[B1/2048 native export](qualification-evidence/compressed-cas12-inner/README.md)
+independently qualify; none was repeated for the pole test. New50 stays parked,
+2048 retained, all114 holdouts/equilibrium exclusion protected. No qualified CO
+curve, electronic model or full-scattering embedding exists.
 
 **23 October,10:12UTC result:** [the bare direct-S fitting shortcut rejects](DIRECT_SCATTERING_SCREEN.md)
 at all three anchors/both sectors,392/480 development matrices, in0.872s with
@@ -680,10 +681,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Own CAS12 B1/2048 export independently qualified; matched outgoing-pole contrast is next](../../docs/physics/figures/co-progress-20261026T0917-cas12-export.png)
+![Matched CAS11/CAS12 B1 pole position sensitivity rejects; no B2 or sweep released](../../docs/physics/figures/co-progress-20261026T0959-cas12-pole.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T0917-cas12-export.svg) ·
-[CAS12 export snapshot](progress-snapshot-20261026T0917-cas12-export.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T0959-cas12-pole.svg) ·
+[CAS12 pole-result snapshot](progress-snapshot-20261026T0959-cas12-pole.json) ·
+[Independent pole/model evidence](qualification-evidence/compressed-cas12-pole/README.md) ·
+[Independent pole/model replay](verification-compressed-cas12-pole-public-20261026.json) ·
+[Previous export figure](../../docs/physics/figures/co-progress-20261026T0917-cas12-export.svg) ·
+[Previous export snapshot](progress-snapshot-20261026T0917-cas12-export.json) ·
 [Own native-export evidence](qualification-evidence/compressed-cas12-inner/README.md) ·
 [Independent native-export replay](verification-compressed-cas12-inner-public-20261026.json) ·
 [Exact B1 pole-contrast contract](compressed-cas12-pole-contract-20261026.json) ·

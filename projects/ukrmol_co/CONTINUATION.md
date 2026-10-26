@@ -11,22 +11,20 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**26 October checkpoint: own B1/2048 export independently qualifies; continue to
-one matched B1 outgoing-pole contrast.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
-retains nine and prioritizes a matched CAS11/CAS12 model control at1.9bohr, not
-the reserved equilibrium pole. Reuse the saved64 qualified CAS12 target vectors.
-The missing firstfive-per-sector property export is complete and independently
-verified; no QC or target diagonalization repeated. The
-[pole contract](compressed-cas12-pole-contract-20261026.json)
-bounds one B1-only saved-model contrast and requires source/tests/exact owner push first.
-User requests continued decision-changing work; unchanged scientific stop rules
-apply. New50 stays parked,2048 baseline retained,114 holdouts/equilibrium exclusion
-protected. Review on the pole/model outcome before B2 or another allocation.
+**26 October checkpoint: [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).**
+Position86.774662meV exceeds50meV; full width16.066613meV passes. Numerical and
+local character/identity prerequisites pass, so this is model sensitivity rather
+than a failed solver. **Stop this branch; redirect to an electronic-model choice.**
+No B2, retry or successor calculation is released. Retain nine as working reference,
+not a production model. Next bounded deliverable: a separate physics-driven
+electronic-model allocation decision using saved results, before freezing a job.
+User requests continued decision-changing work; scientific stop rules still apply.
+New50/2048/114 holdouts/equilibrium exclusion remain protected.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--25-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--26-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -43,6 +41,35 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Matched B1 pole-model rejection —26 October,09:57UTC finish
+
+[Evidence](qualification-evidence/compressed-cas12-pole/README.md) /
+[result/resources](progress-compressed-cas12-pole-result-20261026.json) /
+[independent public replay](verification-compressed-cas12-pole-public-20261026.json).
+Source/tests/exact owner froze/pushed at `12a2982`; launch09:55:08UTC,
+finish09:57:18UTC. CAS12 pole0.13540256620534344−0.03809118866922502iHa,
+3.684491527712eV position /2.073028094894eV full width. Saved CAS11/five reference
+3.771266190140 /2.089094708262eV. Position decrease86.774662meV rejects50meV,
+full-width decrease16.066613meV passes104.454735meV. Guards60/80 persist/pin
+before complex use; root/contour/derivative/character/identity gates all pass.
+Profile TV.00524958, leakage1.42837e-9. No exact-Lambda or counterpart Pi claim.
+
+48/79 maps,129.150682s scientific /130.159399s owner,1.308594GiB kernel peak,
+291.185783CPU seconds at report save. Disk104464384bytes is a post-run sample,
+not a peak. Four physical cores0–3 /four workers /one BLAS thread /8GiB.
+Original scientific/command/container/owner/service exits1 are the declared
+model rejection; nested numerical pole exits0. No timeout/OOM/retry or new
+native/QC/target/property/preparation call. Persistent capsule:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-pole-source-20261026/`.
+Archive SHA256 `5ad6111c2b721ab8868f26e7204683b9ef1240ff305cccc3f84e455f75ee05d1`.
+
+**Stop:** no B2, automatic successor, alternative seed/box, root/channel ladder,
+geometry, sweep or fit. B1 rejection cannot be reversed by a B2 degeneracy check.
+The effect includes optimized-frame/imported-target changes, not isolated
+active-orbital count or an accuracy ranking. Preserve nine working reference,
+stretched rejection and all protected data. Next deliverable is the separate
+electronic-model allocation decision, not another support-method campaign.
 
 ### Own native export independently verified —26 October,09:17UTC
 
@@ -64,7 +91,7 @@ Original local reader1 incorrectly assumed two CIDATA centers; corrected local/
 public0 verifies C/O +uncharged continuum center and1.9bohr distance. Initial
 reader/failure preserved; no scientific file or native solve changed.
 
-**Next:** freeze/push and execute
+**Historical next, now completed above:** freeze/push and execute
 [one B1-only pole contrast](compressed-cas12-pole-contract-20261026.json), reusing
 own W/D/CF/K and the saved CAS11/five pole/character. Native40/250 loader only;
 no sparse-ID framework or native fit substitution. Real-S guards60/80 persist/pin

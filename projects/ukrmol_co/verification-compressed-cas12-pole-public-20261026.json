@@ -1,0 +1,81 @@
+{
+  "observed_utc": "2026-10-26T09:59:22.312110+00:00",
+  "pointer_sha256": "ce19ddbb60caa36622b94c5f5da63fe406bea93dc800e3c7dc8b8408a8258d39",
+  "source_commit": "12a298215f9e88470e40f4f23a9db12e6835d41d",
+  "source_archive_sha256": "5ad6111c2b721ab8868f26e7204683b9ef1240ff305cccc3f84e455f75ee05d1",
+  "public_payloads_verified": 8,
+  "archived_files_verified": 125,
+  "source_entries_verified": 45,
+  "reference_inputs_verified": 19,
+  "frozen_root_pins_verified": 14,
+  "frozen_source_pins_verified": 7,
+  "original_inputs_hashed_only": 123,
+  "runtime_controls": 7,
+  "original_exits": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "original_pole_exits": [
+    0,
+    0
+  ],
+  "scientific_exit": 1,
+  "model_insensitivity_verdict": false,
+  "disposition": "reject",
+  "pole_incident_hartree": [
+    0.13540256620534344,
+    -0.03809118866922502
+  ],
+  "reference_pole_incident_hartree": [
+    0.13859147623159174,
+    -0.03838640724468573
+  ],
+  "saved_maps_verified": 46,
+  "contour_points_reconstructed": 32,
+  "bordered_search_values_reconstructed": 9,
+  "max_native_q_absolute_drift": 1.9988948158781202e-14,
+  "max_bordered_scalar_absolute_drift": 3.2635268225205646e-16,
+  "max_interior_projection_relative_drift": 1.0620502118228487e-12,
+  "max_outgoing_transition_relative_drift": 1.0633641152692884e-12,
+  "max_contour_phase_drift_rad": 8.615330671091215e-13,
+  "max_moment_relative_drift": 8.81366852175845e-14,
+  "max_derivative_residue_relative_drift": 1.0779329046103782e-10,
+  "pole_position_ev": 3.684491527711562,
+  "pole_full_width_ev": 2.073028094894167,
+  "independent_contour_root_difference_ev": [
+    1.0536286362440056e-10,
+    1.7883190566258854e-09
+  ],
+  "real_s_development_checks_reconstructed": 2,
+  "max_real_s_reconstruction_drift": 5.499686870407675e-13,
+  "contrast": {
+    "disposition": "reject",
+    "difference": {
+      "position_ev": 0.08677466242794618,
+      "full_width_ev": 0.016066613367703292
+    },
+    "tolerances": {
+      "position_ev": 0.05,
+      "full_width_ev": 0.10445473541309354
+    },
+    "identity_profile_tv": 0.00524957845931591
+  },
+  "leakage": 1.4283663698932441e-09,
+  "new_maps": 48,
+  "scientific_wall_seconds": 129.15068151801825,
+  "owner_wall_seconds": 130.1593986999942,
+  "kernel_peak_bytes": 1405091840,
+  "cgroup_cpu_seconds_at_report_save": 291.185783,
+  "allocated_disk_bytes_at_collection": 104464384,
+  "allocated_disk_peak_bytes": null,
+  "pi_pair_verdict": null,
+  "physical_co_accuracy_verdict": null,
+  "width_curve_verdict": null,
+  "full_sweep_released": false,
+  "new_propagations": 0,
+  "native_calls": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "independence": "Saved-byte direct native Q contraction, opposite I-YQ solves, bordered traces, contour moments, derivative residues, own native K-to-S guards, four-witness character and CAS11/five-relative position/FULL-width decision. Exterior maps authenticated, not independently propagated. CAS11 residue prerequisites are independently screened and covered by prior published replay. No absolute electronic accuracy or omitted-spectrum bound."
+}

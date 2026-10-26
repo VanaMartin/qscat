@@ -749,6 +749,62 @@ No production model, qualified width curve, scalar factory export, new geometry,
 fit or sweep follows this experiment. Retain nine as working/domain reference,
 the2048 baseline,114 unanalyzed S holdouts, equilibrium exclusion and parked new50.
 
+### Goal checkpoint —26 October,09:59UTC: matched B1 pole sensitivity resolves; stop B2
+
+**Production decision changed:** [CAS11/five→CAS12/five insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md)
+at compressed1.9bohr/cc-pVDZ. CAS12 pole3.684491527712eV position /
+2.073028094894eV FULL width, versus saved CAS11/five3.771266190140 /
+2.089094708262eV. Position decreases86.774662meV, beyond50meV plus.2meV band;
+full width decreases16.066613meV, passing104.454735meV plus its declared band.
+Thus the economical baseline is not electronically insensitive even though
+the previous local five/nine retained-A2 pole contrast passed. This does not
+rank either model's absolute accuracy or isolate active-orbital count: optimized
+frames/imported target representations also change.
+
+**Uncertainty reduced:** own guards60/80, root settings, nested16/32 contour,
+winding, derivative residues and four-witness finite-Pi support all pass.
+Profile TV.00524958 passes the necessary local identity screen, leakage1.42837e-9.
+The rejected position difference is not a guard failure, numerical stop or an
+unidentified pole. CAS12 counterpart pairing, exact Lambda, independent complex
+exterior and absolute/omitted-spectrum uncertainty remain unresolved.
+
+**Reused scope / actual bounds:** frozen source/tests/exact owner `12a2982`
+precedes09:55:08UTC launch; finish09:57:18UTC. Reuse qualified CAS12 native
+W/D/CF/K and saved CAS11/five pole/residue; no QC/target/property/preparation or
+inner solve repeated, no native call.48/79 maps (two real +46 complex),
+129.150682s scientific /130.159399s owner versus1800/3600s caps, four physical
+cores0–3/four workers/one BLAS thread,1.308594GiB versus8GiB.291.185783CPU seconds
+at report save;104464384allocated disk bytes is a post-run sample, not a peak.
+Implementation/freeze/launch fit the≤60minute window after09:17UTC review.
+Original scientific/command/container/owner/service exits1 are the prescribed
+model rejection, nested numerical pole exits0. No timeout/OOM/retry; original
+successful native stages retain their separate exits.
+
+**Independent evidence delta:** fresh public reconstruction exits0, eight
+payloads/125 files/45 Git-matched sources/19 narrow prerequisites/14 root pins /
+seven source pins. It recontracts native Q, uses opposite-order matching,
+reconstructs bordered traces/contour moments/derivative residues and own-native
+K-to-S guards, then recomputes all character/identity/model-budget decisions.
+Exterior maps are authenticated, not independently propagated; tiny replay drift
+is not absolute physical accuracy.123 legacy hashes remain unchanged;114 held-out
+S matrices remain unanalyzed. Seven exact-owner runtime controls and eleven
+inherited pole controls pass. No repeat of the successful native export.
+
+**Disposition: stop this contrast branch and redirect to an electronic-model
+allocation decision.** B2 stays unlaunched under the frozen B1 rejection rule;
+checking its counterpart cannot reverse the resolved B1 position failure.
+No retry/alternate box/seed, root/channel ladder, new geometry or automatic
+successor is released. Do not choose CAS12 just because it is larger, or CAS11
+because it is cheaper. Preserve nine as working/domain reference,2048 baseline,
+equilibrium exclusion and parked new50. No qualified production model, curve,
+potential fit or full-scattering embedding exists.
+
+**One bounded next deliverable:** a separate physics-driven electronic-model
+allocation decision using these saved results: identify the missing independent
+model/balance control, explain what its result would decide and bound its input
+reuse/effort/compute before freezing another job. This is a decision note, not
+permission for B2, a repeat support-method campaign or an unconverged sweep.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

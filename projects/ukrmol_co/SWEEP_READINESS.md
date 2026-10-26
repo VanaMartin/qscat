@@ -6,7 +6,15 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**25 October decision:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
+**26 October decision:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
+Position shift86.774662meV exceeds50meV; full width16.066613meV passes.
+All numerical/character/local-identity gates independently reconstruct.
+Stop this branch with B2 unlaunched; no successor job, sweep or fit is released.
+Next is a separate electronic-model allocation decision, not more supporting
+solver/interface work. Larger CAS12 is not thereby accurate; optimized frames
+and imported target representations also differ. Retain nine working reference.
+
+**Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
 both sectors,10.88meV position /4.48meV full-width changes,89 maps /217s. Keep
 nine as working reference and prioritize a matched compressed CAS11/CAS12 model
 control. Reuse all64 saved qualified CAS12 target vectors; the original lowest40
@@ -15,14 +23,14 @@ firstfive-per-sector comparator. The
 [necessary property export](qualification-evidence/compressed-cas12-properties/README.md)
 now qualifies independently:40 states/five per sector,725 moments, all native/
 owner exits0,4.43h /1.903GiB. No repeated QC/target diagonalization. The
-the [one-integral/two-CONGEN preparation](compressed-cas12-preparation-contract-20261026.json),
+[one-integral/two-CONGEN preparation](compressed-cas12-preparation-contract-20261026.json),
 which now independently qualifies:86352 contracted states per sector,171.42s /
 10.700GiB, original exits0. The
 [B1/2048 export also independently qualifies](qualification-evidence/compressed-cas12-inner/README.md):
 4.227h /22.490GiB, all250 channels/99 own K references, residual1.3462e-10Ha.
-Next freeze [one B1-only pole-target contrast](compressed-cas12-pole-contract-20261026.json),
-own real-S guards first,4 physical cores /8GiB /79 maps. No new inner solve or
-automatic B2; native RESON fit is not the coupled outgoing target.
+The separately frozen [B1-only pole contrast](compressed-cas12-pole-contract-20261026.json)
+completes above in48 maps /129.15s /1.309GiB, without a new inner solve;
+native RESON fit is not substituted for the coupled outgoing target.
 No new inner solve, pole, geometry or fit is released by that property contract.
 Compressed insensitivity does not reverse stretched rejection or establish
 electronic accuracy.114 holdouts, equilibrium exclusion,2048 baseline and parked
