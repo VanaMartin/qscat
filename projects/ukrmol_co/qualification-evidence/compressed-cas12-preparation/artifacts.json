@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "collection.json": {
+      "bytes": 23738,
+      "sha256": "99b90389e16a1c35f09a2bc74038fa8f383cb9031203369ff5ab99bcdfb8dc27"
+    },
+    "manifest.json": {
+      "bytes": 237,
+      "sha256": "008261809f22c0fe06292619d772374acec032631062611cc72ad8e8923eacd2"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 9718,
+      "sha256": "b94b9d1ce57b49b2c14ef15810b1734f83dd57f5e0c7e07bdc61ba9cc658a864"
+    },
+    "reference-inputs.tar.gz": {
+      "bytes": 84821680,
+      "sha256": "6f688ca22aa62e4b4db1aa6e9a72a0fd0ee57a7a8fce017da80069209b212c2c"
+    },
+    "result-summary.json": {
+      "bytes": 13242,
+      "sha256": "4ddb20e0fc9b4d91022216f33a86f9989c2262a6d5dbb6dc9da0d3f944953de4"
+    },
+    "results.tar.gz": {
+      "bytes": 508507454,
+      "sha256": "42bac163b60ec3052729bd131ea5482b3c12597e408f07bd54029eacf9cf6045"
+    }
+  },
+  "git_sha": "6bad62273ecbbfba6dc95cf87cfa65f0bbaccf66",
+  "url_prefix": "https://data.qscat.org/co-compressed-cas12-preparation-20261026/"
+}

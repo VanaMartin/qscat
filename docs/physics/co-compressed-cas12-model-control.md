@@ -28,6 +28,17 @@ service exits0, no timeout/OOM or repeated QC/target solve. Measured4.43h /
 The exact next [preparation contract](../../projects/ukrmol_co/compressed-cas12-preparation-contract-20261026.json)
 releases one integral/two CONGEN calls only after source/tests/owner push.
 
+The [completed preparation independently qualifies](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-preparation/README.md):
+actual86352 contracted states per sector,990990 raw CSFs, all14 target/core MOs,
+171.42s /10.700GiB, original native/owner exits0. No CIRMAT phase or boundary/S
+interface is yet qualified. Next is the
+[exact B1-only2048 inner/export](../../projects/ukrmol_co/compressed-cas12-inner-contract-20261026.json),
+12 physical cores/64GiB, conditional3–8h forecast from the earlier same-size
+5.95h B1 at8ranks. Changed MPI layout is explicit, not linear-scaling evidence.
+B1 alone leaves Pi pairing/model/pole verdicts unset. After independent export
+qualification, real-S/outgoing-pole/character/model comparison needs a separate
+freeze. All native algorithms are reused; no new solver is added.
+
 The saved compressed CAS12 import independently qualifies64 native roots—eight
 per spin/irrep—on its frozen checkpoint. Its completed DENPROP selected the global
 lowest40 states, distributed as

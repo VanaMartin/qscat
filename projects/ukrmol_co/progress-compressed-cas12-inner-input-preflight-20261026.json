@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-10-26T04:39:02.927486+00:00",
+  "root_input_pins": 50,
+  "engine_installed_files": 242,
+  "engine_frozen_files": {
+    "source": 55,
+    "inputs": 192
+  },
+  "engine_and_input_byte_gate": true,
+  "ram_available_bytes": 122647810048,
+  "disk_free_bytes": 66447499264,
+  "workloads": "comfyui Up 42 hours\n",
+  "scope": "Read-only input/qualified-engine byte identity and resource gate; no native engine test, rebuild, QC, target, property or scattering call."
+}

@@ -1,0 +1,33 @@
+&input
+  megul = 721,  ! input from module CONGEN
+  nfte = 821, ! Hamiltonian scratch file
+  iposit = 0, ! positron flag - 0 for electron, -1 for positron
+  icidg = 1,   ! 0 - do not diagonalize for parallel, 1 - do diagonalise Hamiltonian matrix for serial
+  iexpc = 1,   ! prototype CI expansion flag - 1 for scattering calculation
+  icitg = 1,   ! CI target flag - 1 = perform CI target contraction
+  idiag = 2,   ! matrix element evaluation flag - 2 = do not evaluate pure target integrals
+  nftg = 26,    ! CI target vectors switch - 0 = use scattering wavefunctions to generated (phase corrected) target wavefunctions
+  ntgsym = 8,  ! number of target state symmetries (>1 in CAS calculations)
+  mcont = 1,1,0,0,3,3,2,2,   ! lambda value ('symmetry') of the continuum orbitals associated with each target state
+  notgt = 34,34,51,51,22,22,34,34, ! number of continuum orbitals associated with each target symmetry
+  numtgt = 5,5,5,5,5,5,5,5,  ! number of target states for each symmetries
+  ntgtf = 1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8,  ! set number, on unit NFTG, which contains the required target state
+  ntgts = 1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,  ! sequence number of the state within the set specified by NTGTF to be used as the target state
+/
+&cinorn
+  name = 'CO CI calculation - doublet B1',
+  nftw = 25,
+  memp = 16.0,
+  vecstore = 3, ! 1: store continuum coefficients of the eigenvectors only, 5: store all coefficients
+  igh = -1, nstat = 2048, crite = 9.9999999999999998e-13, maxiter = 1000,
+  NPFLG(1) = 0, ! no Hamiltonian matrix elements printed
+  NPFLG(2) = 0, ! print lowest 20 eigenvalues only
+  nciset = 1,
+/
+
+&outer_interface
+ write_amp = .true., write_dip = .false., write_rmt = .false.,
+ auto_nvo = .false., lutarg = 24, luchan = 10, lurmt = 21,
+ rmatr = 18, ntarg = 40, idtarg = 1,10,16,21,28,6,8,15,33,37,4,17,25,32,35,3,14,19,23,30,5,18,26,31,34,2,13,20,24,29,11,12,27,39,40,7,9,22,36,38,
+ cform = 'U', rform = 'U',
+/

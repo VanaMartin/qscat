@@ -1,0 +1,11 @@
+&phasin                   ! used by EIGEN_P (see docs/eigenp)
+  name = 'e + CO - doublet B1',
+  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV
+  icon = 1,               ! eigenphase smoothing switch - 1 = add multiples of pi
+  luchan = 10,            ! channel information unit number
+  nchset = 1,  ! index of the dataset in channel information file
+  icform = 'U',           ! format of the channel information file
+  lukmt = 921,          ! K-matrix file unit
+  ikform = 'U',           ! formatted/unformatted switch for K-matrix file
+  luphso = 1021,           ! formatted eigenphases
+/

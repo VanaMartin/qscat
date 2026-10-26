@@ -11,17 +11,17 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**26 October checkpoint: matched CAS12 properties independently qualify; continue
-to bounded scattering-input preparation.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
+**26 October checkpoint: properties and scattering inputs independently qualify;
+continue to one B1/2048 model solve.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
 retains nine and prioritizes a matched CAS11/CAS12 model control at1.9bohr, not
 the reserved equilibrium pole. Reuse the saved64 qualified CAS12 target vectors.
 The missing firstfive-per-sector property export is complete and independently
 verified; no QC or target diagonalization repeated. The
-[preparation contract](compressed-cas12-preparation-contract-20261026.json)
-bounds one integral/two CONGEN calls and requires source/tests/exact owner push first.
+[inner contract](compressed-cas12-inner-contract-20261026.json)
+bounds the missing B1/2048 export and requires source/tests/exact owner push first.
 User requests continued decision-changing work; unchanged scientific stop rules
 apply. New50 stays parked,2048 baseline retained,114 holdouts/equilibrium exclusion
-protected. Review on the preparation outcome before any inner solve.
+protected. Review on the B1 outcome before outgoing-pole or B2 allocation.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -43,6 +43,46 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Preparation verified —26 October,04:31UTC; freeze one B1 solve
+
+[Evidence](qualification-evidence/compressed-cas12-preparation/README.md) /
+[result/resources](progress-compressed-cas12-preparation-result-20261026.json) /
+[public reconstruction](verification-compressed-cas12-preparation-public-20261026.json).
+Actual86352 contracted states =84942 L² +1410 continuum per sector;990990 raw
+CSFs. All14 target/core MOs retained. Three native and all original owner exits0,
+no timeout/OOM/retry.171.42s /10.700GiB kernel /5.617GiB disk. Six public payloads
+verify83 files/36 prerequisites/34 Git sources and native inventory/dimension
+headers. No CIRMAT phase, scattering interface or electronic accuracy claim.
+
+**Next:** freeze/push [one exact B1-only2048 inner/export](compressed-cas12-inner-contract-20261026.json),
+reusing all completed inputs and the qualified242-artifact audited engine.
+Exact native deck/own property map frozen; strict40/250 assembly/residual/
+CI-boundary/native-K metadata and copied-input gates retained. Default two-sector
+pilot stays unchanged; B1-only leaves Pi pairing/model/pole verdicts unset.
+50 root input pins/nine source prerequisites;114 focused local tests pass.
+
+Prior same-size B1 cost5.95h at8ranks gives conditional3–8h forecast. Native12h /
+owner13h caps,64GiB /8GiB shared backing /12 physical cores0–11, one library
+thread per rank. MPI layout changes; no linear-scaling claim. Need80GiB available
+RAM /16GiB disk/no other scientific container. Source/owner effort≤60minutes
+after04:31UTC review. Failure stops without repair/retry/successor, preserving
+all original nested native and command/container/owner/service exits/resources.
+At outcome independently qualify export before a separate real-S/outgoing-pole/
+character/model freeze. No automatic B2, fit, factory export, new geometry or
+sweep; nine/114 holdouts/equilibrium exclusion/2048/new50 protections remain.
+
+### Exact preparation running —26 October,04:23UTC observation
+
+Source/tests/owner/contract freeze `6bad622` is pushed before the durable service
+starts04:21:57UTC. [Launch evidence](progress-compressed-cas12-preparation-launch-20261026.json)
+records six passing runtime controls and intact frozen sources. Native work is
+limited to one integral/two CONGEN calls; pending default exits are not failures.
+Four physical cores0–3 /16GiB /one-hour cap. No inner solve has been launched.
+The [cost-only B1 proposal](compressed-cas12-inner-cost-proposal-20261026.json)
+uses prior measured CAS12 B1 cost5.95h at8ranks/whole-run21.97GiB peak as planning
+anchors, not a compressed12-rank speedup claim. Preparation must complete and
+independently qualify before a separate exact inner freeze. No automatic successor.
 
 ### Matched properties independently verified —26 October,04:16UTC
 

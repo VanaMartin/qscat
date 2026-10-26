@@ -1,0 +1,160 @@
+{
+  "observed_utc": "2026-10-26T04:31:03.264241+00:00",
+  "pointer_sha256": "68b5e0d3d64e9c32e00442c7d3083156f43c4d8c359e1310b5daf82317a645e2",
+  "preparation_verdict": true,
+  "scientific_exit": 0,
+  "original_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "public_payloads_verified": 6,
+  "archived_files_verified": 83,
+  "reference_inputs_verified": 36,
+  "source_entries_verified": 34,
+  "native_inventory": {
+    "target": [
+      8,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "PCOs": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "TGT+PCOs": [
+      8,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "continuum": [
+      51,
+      34,
+      34,
+      22,
+      0,
+      0,
+      0,
+      0
+    ],
+    "total": [
+      59,
+      37,
+      37,
+      22,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "sectors": {
+    "B1": {
+      "raw_congen_csfs": 990990,
+      "last_continuum_prototype_csf": 906048,
+      "uncontracted_l2_csfs": 84942,
+      "contracted_continuum_dimension": 1410,
+      "contracted_dimension": 86352,
+      "radial_continuum_per_target_sector": [
+        34,
+        34,
+        51,
+        51,
+        22,
+        22,
+        34,
+        34
+      ],
+      "retained_roots_per_sector": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    "B2": {
+      "raw_congen_csfs": 990990,
+      "last_continuum_prototype_csf": 906048,
+      "uncontracted_l2_csfs": 84942,
+      "contracted_continuum_dimension": 1410,
+      "contracted_dimension": 86352,
+      "radial_continuum_per_target_sector": [
+        34,
+        34,
+        22,
+        22,
+        51,
+        51,
+        34,
+        34
+      ],
+      "retained_roots_per_sector": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    }
+  },
+  "container_wall_seconds": 170.61420357000316,
+  "owner_wall_seconds": 171.4197398829856,
+  "kernel_peak_bytes": 11489054720,
+  "container_cpu_seconds": 202.119108,
+  "allocated_disk_peak_bytes": 6031511552,
+  "native_stages": [
+    {
+      "name": "integrals",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 10.632729768753052
+    },
+    {
+      "name": "congen.B1",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 77.36060380935669
+    },
+    {
+      "name": "congen.B2",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 76.41246938705444
+    }
+  ],
+  "original_inputs_unchanged": true,
+  "native_calls": 0,
+  "new_qc_calls": 0,
+  "new_target_solves": 0,
+  "new_inner_solves": 0,
+  "new_propagations": 0,
+  "full_sweep_released": false,
+  "physical_co_accuracy_verdict": null,
+  "independence": "Fresh public-byte streaming hash checks, independent native inventory and group/range contraction arithmetic, native CSF header spin/orbital/electron/dimension checks. No native executable, CIRMAT phase audit, scattering interface or electronic-accuracy claim."
+}

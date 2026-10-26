@@ -1,0 +1,33 @@
+&rslvin                   ! used by R_SOLVE (see docs/rsolve)
+  name = 'e + CO - doublet B1 - K-matrices',
+  mgvn = 1,               ! symmetry
+  stot = 2,               ! spin multiplicity 2*S+1
+  newbut = 0,             ! Buttle correction - 0 in polyatomic codes
+
+  nerang = 1,          ! number of energy subranges
+  nescat = 99,          ! number of input scattering energies in each subrange
+  einc = 0.1, 0.05,     ! scattering energies - initial energy, energy increment, there can be more subranges
+  ieunit = 2,             ! energy unit - 1 = Ryd, 2 = eV
+
+  luchan = 10,            ! channel information unit number
+  icform = 'U',           ! format of the channel information file
+  nchset = 1,  ! index of the dataset in channel information file
+
+  lurmt  = 21,            ! boundary amplitudes unit number
+  irform = 'U',           ! format of the boundary amplitudes file
+  nrmset = 1,  ! index of the dataset in boundary amplitudes file
+
+  lukmt = 921,    ! K-matrix unit number
+  ikform = 'U',           ! formatted/unformatted switch for the K-matrix file
+  iktype = 0,             ! open-open (= 0) of full (= 1) K-matrix files to calculate
+
+  calcdip   = 0,1,0,   ! do calculate dipoles for given range of ionic states
+  form_pw_dipoles = 'FORMATTED',    ! format of the partial wave dipole file
+  lu_pw_dipoles = 421,  ! output partial wave dipoles file unit number
+  lu_inner_dipoles = 621,    ! input inner dipoles file unit
+/
+
+&bprop                    ! read by subroutine ASYM1 called from R_SOLVE (see docs/rprop-cfasym)
+  raf = 100.0,             ! radius at which continued fraction method can be used
+  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region
+/

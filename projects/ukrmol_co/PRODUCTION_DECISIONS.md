@@ -636,6 +636,57 @@ dimensions, RAM/disk and measured source costs must be explicit before release.
 No B2 or root/channel/basis ladder is automatic.114 holdouts, equilibrium exclusion,
 2048 baseline and parked new50 remain protected; no fit, curve or sweep released.
 
+**Preparation launch:** `6bad622` freezes/pushes source/tests/exact owner before
+04:21:57UTC; six runtime controls pass at the04:23 observation.76 focused local
+tests passed before freeze. This stays within the60minute implementation cap.
+The [B1 cost-only proposal](compressed-cas12-inner-cost-proposal-20261026.json)
+records prior same-dimension equilibrium cost5.95h at8ranks and whole-run21.97GiB
+peak; a12-rank forecast is conditional, not linear scaling evidence. It releases
+no inner job before actual preparation dimensions and independent qualification.
+
+### Goal checkpoint —26 October,04:31UTC: preparation qualifies; allocate one B1 model solve
+
+[Independent preparation reconstruction passes](qualification-evidence/compressed-cas12-preparation/README.md):
+all14 target/core MOs, continuum51/34/34/22,990990 raw CSFs and actual86352
+contracted states in each sector. Three native exits0; original scientific/
+command/container/owner/service exits0, no timeout/OOM/retry. Owner171.42s /
+10.700GiB kernel peak /5.617GiB allocated disk.36 inputs/copies and34 sources
+authenticate; public replay verifies six payloads/83 files without a native call.
+This removes the exact same-frame input/dimension blocker, not CIRMAT phase,
+scattering-interface, pole or electronic accuracy gates. No QC/target/property
+calculation repeated. Nine remains working reference; five is a local comparator.
+
+**Disposition: continue to one B1-only compressed CAS12/2048 inner/export job**,
+after the [exact contract/source/tests/owner freeze](compressed-cas12-inner-contract-20261026.json)
+and push. This is the smallest missing expensive calculation that supplies own
+W/D/CF/K for the selected model contrast. Reuse all completed preparation and
+target/property bytes; use the already qualified242-artifact audited engine,
+not a rebuild. Preserve existing residual/CI-boundary/native metadata gates and
+strict40-target/250-channel assembly. B1 alone leaves Pi pairing/model/pole
+verdicts unset; a success does not launch B2 or a pole search automatically.
+
+**Cost and limits:** same measured dimension as the saved equilibrium CAS12
+baseline; B1 previously took21416.594209s (5.95h) at8ranks. Whole-run kernel
+peak21.97GiB/disk5.10GiB are anchors, not new compressed measurements.
+Conditional3–8h forecast, native12h /owner13h caps,64GiB /8GiB shared backing /
+**12 physical cores0–11** /one library thread per rank.12-rank MPI layout differs
+from the qualified8-rank run; no linear speedup or exact8-rank replay claim.
+Recheck80GiB available RAM /16GiB disk and no other scientific workload before
+launch. Preserve residual1e-7Ha and CI/boundary1e-10Ha gates unchanged.
+
+**Implementation bound:** at most60minutes from04:31UTC review to exact narrow
+adapter/owner freeze; existing default two-sector pilot stays unchanged. B1-only
+is explicit, failed prerequisites block native work, and no B2-only route is
+added. Freeze the actual solver deck and own property map before native use,
+then require copied-input/deck integrity and strict own export. No general
+mapping/solver framework or supporting precision cycle. Failure stops inconclusive
+without repair/retry/successor; preserve every original nested native exit.
+
+**Next at outcome:** independently qualify the own2048-root export, then freeze
+the two real-S guards and outgoing-pole/character/model comparison separately.
+No scalar/factory export, fit or sweep follows native success.114 holdouts,
+equilibrium pole exclusion,2048 baseline and parked new50 remain protected.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

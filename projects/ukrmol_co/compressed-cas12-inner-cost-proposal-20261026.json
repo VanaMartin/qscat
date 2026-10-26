@@ -1,0 +1,24 @@
+{
+  "status": "costed proposal only; native preparation must complete and independently qualify before exact inner source/input/owner freeze",
+  "decision_served": "Does compressed CAS12/five materially change the outgoing pole of the already witnessed CAS11/five local comparator? This is a matched retained-target electronic-model contrast, including changed optimized orbital frames and imported target representations, not a pure active-orbital-count effect. Nine remains the working/domain reference.",
+  "reuse": "Use the new compressed continuum integrals/scattering CONGEN, original64 target vectors and independently qualified new40-state properties. Do not repeat QC, target diagonalization, DENPROP, preparation, successful CAS11 inner solves or equilibrium model controls. No new geometry or basis/root/channel ladder.",
+  "measured_cost_anchor": {
+    "directory": "prepared/cas12-audited-engine-baseline-source-20261012/native/cas12-eq-roots2048-mpi8-audited-engine-baseline-20261012",
+    "geometry_bohr": 2.1323,
+    "contracted_dimension": 86352,
+    "roots": 2048,
+    "mpi_ranks": 8,
+    "b1_scatci_seconds": 21416.594208749942,
+    "b2_scatci_seconds": 19969.250326391077,
+    "b1_outer_seconds": 123.67850885307416,
+    "whole_two_sector_wall_seconds": 41637.3495523741,
+    "whole_two_sector_kernel_peak_bytes": 23584403456,
+    "whole_two_sector_disk_peak_bytes": 5474078720,
+    "interpretation": "B1 alone is5.95h on8ranks. The whole-run21.97GiB peak/5.10GiB allocated disk are conservative same-dimension anchors, not isolated B1 or compressed12-rank measurements. Full target/frame/integral identities differ at compressed R."
+  },
+  "minimum_future_scope": "One B1-only2048-root selected eigensolve, own native boundary export and own native K reference/development grid on the exact242-artifact audited engine. Preserve residuals/energy/export/interface invariants and original exits. B1 alone leaves Pi pairing unset; do not auto-run B2. A later outgoing-pole evaluation requires its own exact-input freeze/real-S/character/identity gates before model comparison.",
+  "proposed_resources_not_released": {"physical_cpu_group":"0-11","physical_cores":12,"mpi_ranks":12,"library_threads_per_rank":1,"memory_gib":64,"shared_memory_gib":8,"minimum_available_ram_gib":80,"minimum_free_disk_gib":16,"native_hard_cap_seconds":43200,"owner_hard_cap_seconds":46800,"conditional_forecast_hours":[3,8]},
+  "mpi_layout": "Twelve physical cores implement the user's very-large-job policy. This changes the prior8-rank layout; no unmeasured linear speedup or exact8-rank replay is claimed. Same native residual1e-7Ha, CI/boundary1e-10Ha, own40-state/250-channel interface and complete finite output gates remain. Future paired-sector/Pi/real-S/pole gates are separate; numerical stability and electronic-model convergence are distinct.",
+  "release_requirements": "Authenticate actual new preparation dimensions/input digests and native exits/resources first. Reinspect free RAM/disk/other workloads and exact audited engine/telemetry/numerical-library pins; preserve read-only originals and a fresh durable output. Freeze/test/push the narrow B1-only existing-runner adapter, no general solver framework, within one60minute implementation allocation after preparation review. Cap any unexpected dimension at the actual costed case rather than allocate by spare RAM. Failed prerequisite/identity/numerical/native/cap stops without repair/retry/successor.",
+  "protected": {"holdout_s_matrices_unanalyzed":114,"equilibrium_pole_target":"excluded","baseline_roots":2048,"new50":"parked","production_model_selected":false,"full_sweep_released":false}
+}

@@ -1,0 +1,21 @@
+&res                      ! used by RESON_F (see docs/reson)
+  name = 'e + CO - doublet B1 - Resonance fits',
+  luchan = 10,            ! channel information unit number
+  lurmt  = 21,            ! boundary amplitudes unit number
+  lukmt = 921,             ! file with K-matrix
+  lures = 1321,             ! unit for K-matrix data for resonance fits
+  nchset = 1,  ! index of the dataset in channel information file
+  nrmset = 1,  ! index of the dataset in boundary amplitudes file
+  mgvn = 1,               ! symmetry
+  stot = 2,               ! spin multiplicity 2*S+1
+  nst = 1,                ! label of scattering state symmetry ???
+  icform = 'U',           ! format of the channel information file
+  irform = 'U',           ! format of the boundary amplitudes file
+  ikform = 'U',           ! formatted/unformatted switch for unit LUKMT = 19 (K-matrix)
+  geteta = .false.,        ! fit only using the supplied energy points, i.e. don't call RSOLVE from RESON.
+/
+
+&bprop                    ! read by subroutine ASYM1 called from RESON (see docs/rprop-cfasym)
+  raf = 100.0,             ! radius at which continued fraction method can be used
+  igail = 1,            ! propagate (= 1) or just match Coulomb functions (= 2) in outer region
+/

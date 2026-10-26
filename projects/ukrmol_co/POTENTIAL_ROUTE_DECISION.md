@@ -22,12 +22,17 @@ The [matched properties now qualify independently](qualification-evidence/compre
 in4.43h /1.903GiB. No QC/target solve repeated. Original archive-reader failure
 is preserved beside corrected public-byte replay0; native output is unchanged.
 
-**Next bounded allocation:** freeze/push the
-[one-integral/two-CONGEN preparation](compressed-cas12-preparation-contract-20261026.json),
-4 physical cores /16GiB /3600s owner cap. Use compressed Molden/checkpoint/own
-vectors/new40 properties; reuse only geometry-free equilibrium CAS12 algebra.
-Measure actual dimensions and authenticate outputs before a separately costed
-2048-root B1 solve. No automatic repair/retry, Hamiltonian or pole job.
+**Preparation independently qualifies:** [actual86352 contracted states per sector](qualification-evidence/compressed-cas12-preparation/README.md),
+all14 target/core MOs, original exits0;171.42s /10.700GiB. Public replay verifies
+83 files/36 inputs/34 sources and native inventory/dimension headers.
+
+**Current allocation:** freeze/push [one B1-only2048 inner/export](compressed-cas12-inner-contract-20261026.json)
+on12 physical cores /64GiB /8GiB shared backing, reusing the completed inputs
+and qualified audited engine. Prior same-size B1 cost5.95h at8ranks gives
+conditional3–8h forecast; native12h /owner13h caps. Changed MPI layout is explicit,
+not a linear-scaling claim. Original residual/CI-boundary/strict40/250 gates
+remain. B1-only Pi pairing/model/pole verdicts stay unset. No automatic retry,
+repair, B2 or outgoing-pole job.
 No production model, new geometry, fit or sweep is released;
 114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
 

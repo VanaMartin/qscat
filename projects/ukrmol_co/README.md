@@ -18,10 +18,12 @@ Retain nine and prioritize a matched CAS11/CAS12 model control. Its saved64 targ
 vectors are qualified; the required firstfive-per-sector properties now
 [qualify independently](qualification-evidence/compressed-cas12-properties/README.md).
 The one different DENPROP inventory takes4.43h /1.903GiB, all native/owner exits0,
-without repeated QC/target solves. The next
-[bounded preparation](compressed-cas12-preparation-contract-20261026.json)
-is one integral/two CONGEN calls,4 physical cores /16GiB /3600s cap, after exact
-source/tests/owner freeze/push. No inner Hamiltonian or pole job yet. New50 stays parked;
+without repeated QC/target solves. The
+[completed preparation also qualifies](qualification-evidence/compressed-cas12-preparation/README.md):
+actual86352 contracted states per sector,171.42s /10.700GiB, all original exits0.
+Next is [one costed B1/2048 inner export](compressed-cas12-inner-contract-20261026.json),
+12 physical cores /64GiB /conditional3–8h, after exact source/tests/owner push.
+No B2 or outgoing-pole job follows automatically. New50 stays parked;
 all114 holdouts and equilibrium pole exclusion remain protected. The existing
 finite open-Pi pair below is not a qualified CO curve or production model.
 
@@ -671,12 +673,19 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--16-october-2026"></a>
 
-## Progress overview — 25 October 2026
+<a id="progress-overview--25-october-2026"></a>
 
-![Compressed pole contrast passes; matched CAS12 property inventory running from saved target vectors](../../docs/physics/figures/co-progress-20261025T2340-contrast-and-cas12.png)
+## Progress overview — 26 October 2026
 
-[Vector figure](../../docs/physics/figures/co-progress-20261025T2340-contrast-and-cas12.svg) ·
-[Contrast/CAS12 launch snapshot](progress-snapshot-20261025T2340-contrast-and-cas12.json) ·
+![Matched CAS12 properties verified; bounded scattering-input preparation running, no inner solve yet](../../docs/physics/figures/co-progress-20261026T0423-properties-and-preparation.png)
+
+[Vector figure](../../docs/physics/figures/co-progress-20261026T0423-properties-and-preparation.svg) ·
+[Property/preparation snapshot](progress-snapshot-20261026T0423-properties-and-preparation.json) ·
+[Matched property evidence](qualification-evidence/compressed-cas12-properties/README.md) ·
+[Independent property reconstruction](verification-compressed-cas12-properties-public-20261026.json) ·
+[Exact preparation contract](compressed-cas12-preparation-contract-20261026.json) ·
+[Previous contrast/CAS12 launch figure](../../docs/physics/figures/co-progress-20261025T2340-contrast-and-cas12.svg) ·
+[Previous launch snapshot](progress-snapshot-20261025T2340-contrast-and-cas12.json) ·
 [Pole-contrast evidence](qualification-evidence/compressed-a2-contrast/README.md) ·
 [Independent pole-contrast reconstruction](verification-compressed-a2-contrast-public-20261025.json) ·
 [Matched CAS12 input decision](../../docs/physics/co-compressed-cas12-model-control.md) ·

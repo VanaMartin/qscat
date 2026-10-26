@@ -116,7 +116,9 @@ def audit_sector(
     }
 
 
-def compute(args: argparse.Namespace) -> None:
+def compute(args: argparse.Namespace, *, sectors=("B1", "B2")) -> None:
+    if sectors not in (("B1",), ("B1", "B2")):
+        raise ValueError("Only the declared B1 pilot or complete B1/B2 pair is supported")
     geometry = args.preflight / "output/CO/geom1"
     preflight = json.loads((args.preflight / "preflight-result.json").read_text())
     if preflight["original_exit"] != 0:
@@ -129,7 +131,7 @@ def compute(args: argparse.Namespace) -> None:
         "sectors": {},
         "spectral_truncation_verdict": None,
     }
-    for sector in ("B1", "B2"):
+    for sector in sectors:
         directory = args.workdir / sector
         directory.mkdir()
         text = (geometry / f"inputs/scattering.scatci.doublet.{sector}.inp").read_text()
@@ -187,7 +189,11 @@ def compute(args: argparse.Namespace) -> None:
                 )
                 timed_out = False
                 try:
-                    process.wait(timeout=args.stage_timeout)
+                    process.wait(
+                        timeout=args.stage_timeout
+                        if stage == "scatci"
+                        else getattr(args, "outer_stage_timeout", args.stage_timeout)
+                    )
                 except subprocess.TimeoutExpired:
                     timed_out = True
                     os.killpg(process.pid, signal.SIGTERM)
@@ -224,6 +230,15 @@ def compute(args: argparse.Namespace) -> None:
             )
         )
         _save(args.workdir / "pilot.json", report)
+    if sectors == ("B1",):
+        report.update(
+            all_stages_complete=True,
+            pi_phase_difference_rad_mod_pi=None,
+            pi_check_passed=None,
+            scope="B1 only; no counterpart, pole, electronic-model or omitted-spectrum verdict",
+        )
+        _save(args.workdir / "pilot.json", report)
+        return
     phases = []
     for sector in ("B1", "B2"):
         p = args.workdir / sector

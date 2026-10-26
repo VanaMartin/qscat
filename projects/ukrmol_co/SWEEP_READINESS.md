@@ -16,7 +16,10 @@ firstfive-per-sector comparator. The
 now qualifies independently:40 states/five per sector,725 moments, all native/
 owner exits0,4.43h /1.903GiB. No repeated QC/target diagonalization. Next freeze
 the [one-integral/two-CONGEN preparation](compressed-cas12-preparation-contract-20261026.json),
-4 physical cores /16GiB /3600s cap, and measure actual compressed dimensions.
+which now independently qualifies:86352 contracted states per sector,171.42s /
+10.700GiB, original exits0. Next freeze
+[one B1/2048 inner export](compressed-cas12-inner-contract-20261026.json),12 physical
+cores /64GiB /native12h cap. No automatic B2 or outgoing-pole comparison.
 No new inner solve, pole, geometry or fit is released by that property contract.
 Compressed insensitivity does not reverse stretched rejection or establish
 electronic accuracy.114 holdouts, equilibrium exclusion,2048 baseline and parked
