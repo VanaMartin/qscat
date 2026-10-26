@@ -1,0 +1,8 @@
+{
+  "git_sha": "c066f4abf351e65eb61d6351cc5a6b04e412b002",
+  "experiment": "co-stretched-basis-properties-freeze-20261026",
+  "scope": "Prospective source/contract/owner freeze and mocked runtime controls; zero scientific exports or launch release",
+  "new_native_calls": 0,
+  "new_qc_calls": 0,
+  "new_maps": 0
+}

@@ -1114,6 +1114,41 @@ No automatic native/scattering/pole/B2/sweep/fit or paid provisioning. Compresse
 TZ/A2 remains stopped, prior B1 model rejection remains resolved, nine/2048/
 new50/equilibrium/114-holdout protections unchanged. No production model selected.
 
+### Goal checkpoint —26 October,15:37UTC: property-only freeze complete; no execution release
+
+**Executed queue item2:** [exact contract/consumer/owner/tests](qualification-evidence/stretched-basis-properties-freeze/README.md)
+are frozen within the60minute implementation-effort allocation. Reuse the two
+saved stretched CAS12 targets and existing native vectors/integrals/CSFs; change
+only each DENPROP NTGTL to all8, yielding one missing64-state table per basis.
+Thirty-six original input pins/five source prerequisites and the validated image/
+DENPROP executable/translated deck are exact. No CI/QC/target/import/native/map
+call or protected holdout read occurs. Both new tables are still missing.
+
+**Evidence delta:** eight synthetic/mocked runtime controls pass in the pinned
+image, exit0,0.878s. Twelve archived source entries and seven fresh public payloads
+authenticate;36 original hashes match before/after. Host owner imports without
+third-party packages;19 focused local tests pass. The control container mounts
+no original run. These are readiness checks, not reduced physical uncertainty,
+basis insensitivity, new properties or production sweep progress.
+
+**Continue / next bounded deliverable:** separate DZ-only execution release from
+a fresh capsule of the committed source after host/source eligibility review.
+Prospective8 distinct physical cores4–11 /64GiB /1GiB shared memory;80GiB available
+RAM and10GiB disk floors, one library thread/no network. Conditional6–16h/export
+remains unmeasured;18h native /18.5h container /19h durable owner caps. Nothing is
+reserved, launched or queued at this freeze. Each owner can run only its selected
+case, at most one DENPROP call; failures stop with original exits/outputs and no
+retry. Independently qualify/publicly publish DZ before any separately released
+TZ application, which requires a hash-pinned independent public DZ success receipt
+with matching contract,64 states/eight per sector, original scientific/command/
+container/owner exits0, public-reader0 and output digest. No automatic peer job.
+
+Compressed TZ/A2 stays stopped and the prior B1 model-position rejection stands.
+Stretched finite64-state scope does not waive channel rejection or establish
+cross-basis continuity. No preparation/scattering/pole/B2/sweep/fit or paid resource
+release; keep2048/nine/parked new50/equilibrium exclusion/114 holdouts unchanged.
+No electronic model, width curve, potential or full-scattering embedding qualified.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

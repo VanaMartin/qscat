@@ -53,11 +53,13 @@ property prescription before any expensive allocation. No numerical job queued.
 both native64-root files authenticate; the existing distinct-TZ-frame proof is
 public and saved gates reconstruct without new actions. Select all eight roots
 per sector/64 per model as a finite matched comparator, not channel convergence.
-Both old40-state property tables lack24 selected states. Next is queue item2:
-freeze two property-only export recipes/tests/exact owner within60minutes,
-zero scientific calls. Only separately released item3 would run/qualify them;
-item4 reviews preparation/B1 comparison. No CI/QC/target repeat, active job or
-automatic scientific successor. All protected data/references remain unchanged.
+Both old40-state property tables lack24 selected states. **15:37UTC queue item2
+is complete:** [property-only source/contract/owner freeze](qualification-evidence/stretched-basis-properties-freeze/README.md),
+eight mocked runtime controls/exit0,36 unchanged original input pins and12 source
+entries verified, zero scientific calls. Next is a **separate DZ-only execution
+release**, not an automatic launch. TZ needs an independent public DZ success
+receipt pinned by hash and a further explicit release. No CI/QC/target repeat,
+active job or automatic successor; no new physical verdict or sweep progress.
 
 ## Standing progress-figure workflow
 
@@ -79,7 +81,32 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Saved-input feasibility complete —26 October,14:56UTC
+### Property-only freeze complete —26 October,15:37UTC
+
+[Exact contract](stretched-basis-properties-contract-20261026.json) /
+[scope/gates](../../docs/physics/co-stretched-basis-properties.md) /
+[public controls](qualification-evidence/stretched-basis-properties-freeze/README.md) /
+[verification](verification-stretched-basis-properties-freeze-20261026.json).
+One explicitly selected case per durable owner; at most one DENPROP call,
+changing only NTGTL to all8 and reusing the original vectors/integrals/CSFs.
+Pinned runtime archive authenticates12 sources; eight mocked controls pass in
+the validated property image,36 original hashes unchanged before/after. Host
+owner imports with the standard library alone;19 focused local tests pass.
+No original run is mounted in the control container and no scientific call occurs.
+
+**One next deliverable:** separately review/release the DZ-only property export
+from a fresh capsule of the committed freeze; recheck host eligibility/source
+parity before launch. Prospective8 physical cores4–11 /64GiB /1GiB shared memory,
+80GiB available RAM/10GiB disk floors;18h native /18.5h container /19h owner.
+Conditional6–16h remains unmeasured planning, not a reservation or speedup.
+Independently publish/qualify DZ before considering a separately released TZ job;
+TZ requires a hash-pinned independent DZ receipt,64 states/eight per sector and
+all declared original exits0. Failure stops without retry/peer job. No property
+execution is released here; no preparation/scattering/pole/B2/sweep/fit successor.
+Both64-state tables remain missing. All protected references/114 holdouts and
+scientific failures remain; no model, curve or fit is promoted.
+
+### Historical saved-input feasibility complete —26 October,14:56UTC
 
 [Public saved proof](qualification-evidence/stretched-basis-feasibility/README.md) /
 [verification](verification-stretched-basis-feasibility-public-20261026.json) /
@@ -99,7 +126,7 @@ properties contain40 unevenly distributed states, DZ6/5/5/6/5/6/3/4 and
 TZ6/4/5/6/5/7/3/4,827/708 multipoles. Each lacks24 chosen states. Two new64-state
 property exports are missing; exact native vectors/integrals/CSFs are retained.
 
-**Next queue item2 only:** within60minutes, freeze the property-only contract,
+**Next at that checkpoint, now completed above:** within60minutes, freeze the property-only contract,
 tests, owner and exact input/source pins; change only each DENPROP NTGTL to all8.
 No new CI/QC/native/map call. Original DENPROP alone4.65/4.40h; prospective
 6–16h/export,18h native/19h owner,8 physical cores/64GiB are planning bounds,

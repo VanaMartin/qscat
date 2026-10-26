@@ -9,12 +9,18 @@ The distinct-TZ-frame proof is public; original failures remain. Existing40-stat
 property tables have unequal sector counts and each lacks24 required states:
 two new64-state DENPROP exports are missing. No QC/target/import repeat needed.
 
-**Next queue item2:** freeze the property-only contract/tests/exact owner, within
-60minutes and zero scientific calls. Proposed6–16h/export /18h native /19h owner /
-eight physical cores /64GiB is planning only, not a reservation or launch.
-Item3 executes/qualifies missing properties only after separate release; item4
-reviews preparation/B1 scattering. No scientific job is active/queued, no
-automatic successor, no waived channel gate or model/curve/fit promotion.
+**15:37UTC queue item2 complete:** [property-only contract/tests/exact owner frozen](qualification-evidence/stretched-basis-properties-freeze/README.md),
+within the60minute effort allocation and with zero scientific calls. Eight mocked
+runtime controls pass;36 original inputs and12 archived source entries verify.
+This is execution readiness, not new properties or physical-model progress.
+
+**Next: separate DZ-only execution release**, fresh committed-source capsule and
+host eligibility review. Prospective6–16h/export /18h native /18.5h container /
+19h durable owner /eight physical cores /64GiB; RAM80GiB/disk10GiB floors.
+Nothing is reserved or launched. TZ needs a pinned independent public DZ success
+receipt and another explicit release; no owner launches its peer. Item4 remains a
+separate preparation/B1 review after property qualification. No automatic successor,
+waived channel gate or model/curve/fit promotion; no scientific job active/queued.
 
 **Historical14:25UTC saved-evidence decision: [redirect to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
 At2.5bohr both saved models report the same valid forty-component objective /

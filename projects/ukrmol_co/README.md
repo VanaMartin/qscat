@@ -34,9 +34,12 @@ fresh full QC or automatic successor; no job is active. The
 [14:25UTC saved-evidence decision redirects to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md),
 same40-state objective at2.5bohr. The [saved feasibility now passes](qualification-evidence/stretched-basis-feasibility/README.md):
 select all eight native roots per sector/64 per model as a finite comparator.
-Both existing40-state property tables miss24 required states. Next is an exact
-two-export property-only contract/owner freeze, not another solver-budget increase
-or numerical launch. No CI/QC/target/import repeat is needed.
+Both existing40-state property tables miss24 required states. The
+[15:37UTC property-only contract/owner freeze is complete](qualification-evidence/stretched-basis-properties-freeze/README.md):
+eight mocked runtime controls pass;36 original input pins/12 source entries verify.
+No scientific call or export. Next is a **separate DZ-only execution release**;
+TZ remains independent-DZ-receipt-gated and separately released, never automatic.
+No CI/QC/target/import repeat is needed; neither missing64-state table exists yet.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -700,10 +703,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Saved stretched DZ and TZ feasibility passes for a finite64-state comparison; two property inputs remain missing](../../docs/physics/figures/co-progress-20261026T1456-basis-feasible.png)
+![Property-only contract and owner frozen; no export released and both64-state tables remain missing](../../docs/physics/figures/co-progress-20261026T1537-properties-frozen.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1456-basis-feasible.svg) ·
-[Saved-feasibility snapshot](progress-snapshot-20261026T1456-basis-feasible.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1537-properties-frozen.svg) ·
+[Property-freeze snapshot](progress-snapshot-20261026T1537-properties-frozen.json) ·
+[Property-only scope and gates](../../docs/physics/co-stretched-basis-properties.md) ·
+[Public freeze controls](qualification-evidence/stretched-basis-properties-freeze/README.md) ·
+[Previous feasibility figure](../../docs/physics/figures/co-progress-20261026T1456-basis-feasible.svg) ·
+[Previous saved-feasibility snapshot](progress-snapshot-20261026T1456-basis-feasible.json) ·
 [Saved proof and missing-property decision](qualification-evidence/stretched-basis-feasibility/README.md) ·
 [Public saved reconstruction](verification-stretched-basis-feasibility-public-20261026.json) ·
 [Previous route figure](../../docs/physics/figures/co-progress-20261026T1425-basis-redirect.svg) ·
@@ -968,7 +975,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **19 October** release of an incremental overview, with its exact UTC
+This is the **26 October,15:37UTC property-freeze** release of an incremental overview, with its exact UTC
 cutoff recorded in the snapshot and figure. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
@@ -976,7 +983,14 @@ remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed:** panel B retains the older coarser800/native failure alongside
+**What changed now:** panels D/F distinguish the completed property-only freeze
+from unreleased scientific execution: eight mocked runtime controls,36 original
+input pins,12 archived sources and seven public payloads verify. Two64-state
+tables remain missing. Next is a separate DZ-only release; TZ requires independent
+public DZ success/a pinned receipt and another release. Historical physical panels
+are unchanged; no new properties, model verdict, curve, fit or sweep is claimed.
+
+**Historical19 October change:** panel B retains the older coarser800/native failure alongside
 the new fine-grid endpoints, all corner/native comparisons and final spacing/
 endpoint controls. Every finest-step endpoint now passes, worst native K2.15e-7.
 Panels D/F record32 analytic checks,294+36 CO checks,78 new/six reused rows,

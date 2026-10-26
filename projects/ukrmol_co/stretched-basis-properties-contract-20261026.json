@@ -1,0 +1,75 @@
+{
+  "status": "Prospective property-only freeze. No execution released at this stage; separate reviewed launch required for each case.",
+  "scientific_question": "Supply two missing all-eight-per-sector64-state property tables for a finite matched stretched CAS12 DZ/TZ model comparison. This is not a basis-convergence, nine-A2, state-continuity or production-model result.",
+  "verification": "projects/ukrmol_co/verification-stretched-basis-feasibility-public-20261026.json",
+  "source_sha256": {
+    "projects/ukrmol_co/a2_channel_preflight.py": "75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "projects/ukrmol_co/stretched_basis_feasibility.py": "d231097887c9d6f34893253a40951c3c43c3e0feceb100c9cbfed595d4094130",
+    "projects/ukrmol_co/verification-stretched-basis-feasibility-public-20261026.json": "53edd3afbf50984d39073cb360d53030f8b33576c5d3a7883668ff592185fb3f",
+    "projects/ukrmol_co/qualification-evidence/stretched-basis-feasibility/artifacts.json": "162476891b08eb6ecf44dde4ae36577620db2e88d6b1c6c7df8bdb114b9d157d"
+  },
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "denprop_sha256": "f412f16e0681588866e3b765b3ee6ad63c205775ce206b20df0c6ef17e64cc9a",
+  "matched_deck_sha256": "4fbc4ebbb87ebd2adf7ff1def36ffe9dc1356babba184c0f05974283ea0b77a4",
+  "models": {
+    "dz": {
+      "basis": "cc-pVDZ",
+      "target_directory": "runs/co-r2500-ccdz-sa12-slepc-roots8-dz80-residual-qualified-target",
+      "original_property_counts": [6, 5, 5, 6, 5, 6, 3, 4],
+      "input_sha256": {
+        "output/CO/geom1/co.casscf.chk": "b84db2421fcb4445eddf698aa36638daa91e82383005f2a5cb03653f032ba9aa",
+        "output/CO/geom1/co.molden": "8d2e50b57179e3e543f52f6b367ccd9da776cf38035e932fb27aba86a4e3cb66",
+        "output/CO/geom1/fort.16": "603fa5bf557570e66a59d9f41615abf187bf96a326b6450d4ed39c1b28f95d66",
+        "output/CO/geom1/fort.26": "e39bd253b24b65c9234fd89d056f51949896a38c208f934cf1ea13777a68949c",
+        "output/CO/geom1/fort.24": "e71f919f049049b643b7b5e6669d2fe5b4629c0a17df7c3b75bbcdd5e4760293",
+        "output/CO/geom1/fort.710": "9d44aad27ed2c8ba887490ddab17fe3d0ffac01f6c78176bb9cc97e23c4a1292",
+        "output/CO/geom1/fort.730": "4e4965016162f908ac6721b9ddd842de138ffd823ec2f80e2143e9b97c59766d",
+        "output/CO/geom1/fort.711": "8bc6391880314c7c2332a9ab7f96a6716c958b23356f09cda594095e1442a38c",
+        "output/CO/geom1/fort.731": "a38e73e911f66d69a5cd4268a8e5b52fdda8de53d4e0c57557f0973475af72a4",
+        "output/CO/geom1/fort.712": "f3030c2ac225937ecd58fee41b64089ed0e6a5706c63a7c440e925465347a4b8",
+        "output/CO/geom1/fort.732": "bb0ca49edbcf6421f54f0bd536797d35a732c0cd6c67bb376dad96b9d13a3dce",
+        "output/CO/geom1/fort.713": "11e31e5cb6735ec96adc97dc04fd0f7b2ce7a04ea1f1f2a25f0810f4cc2c4ff9",
+        "output/CO/geom1/fort.733": "9aa8b55a1eb2a856e70a95bc3bb541e73154de005228c2b914e6d114f825ecfa",
+        "config.json": "cc0ace56541765ea60c55558ad2c0dcc2ef89ac04b7084694ea96e1c3bea7dff",
+        "target.json": "c69d29c89777f8914986ff5c26c4a1f79b2b61541a6daff0fd5293a8fc446ba0",
+        "target-diagnostics.json": "892d1a1817266d65b0130c355ef430a1fdfebd551d0a04004e554222cc8cf173",
+        "resources.json": "8cd875fae922c370175a9b21f8db168ebaa9799fb6d1e47db845ab8118856344",
+        "output/CO/geom1/inputs/target.denprop.inp": "28fa47fbeaaba8449f62c8351afcb8bc0f29c5f948dfff88a7fa66a7031be372"
+      }
+    },
+    "tz": {
+      "basis": "cc-pVTZ",
+      "target_directory": "runs/co-r2500-cctz-sa12-slepc-roots8-dz80-residual-qualified-target-mpi12-package3",
+      "original_property_counts": [6, 4, 5, 6, 5, 7, 3, 4],
+      "input_sha256": {
+        "output/CO/geom1/co.casscf.chk": "8518dc191b8670af9ec87d7666b091eaf370187e7022684cd93716d240b40568",
+        "output/CO/geom1/co.molden": "608adabdb4b201a64627d72fe0022694f82eccb3ca4aaf1f64068df5e138fd29",
+        "output/CO/geom1/fort.16": "c64651e919635620245c14e69ce361915b8a30eadce240d062e8cf4c02414d92",
+        "output/CO/geom1/fort.26": "180ebd9230d28770e81a390c7e68f93ad43c6c0361ec9abb7ba022019869adad",
+        "output/CO/geom1/fort.24": "7f5464dfd9969d37ab58b93a94cdbeb0fb84738b3e30809dbf6b2a9cd94d34e4",
+        "output/CO/geom1/fort.710": "9d44aad27ed2c8ba887490ddab17fe3d0ffac01f6c78176bb9cc97e23c4a1292",
+        "output/CO/geom1/fort.730": "4e4965016162f908ac6721b9ddd842de138ffd823ec2f80e2143e9b97c59766d",
+        "output/CO/geom1/fort.711": "8bc6391880314c7c2332a9ab7f96a6716c958b23356f09cda594095e1442a38c",
+        "output/CO/geom1/fort.731": "a38e73e911f66d69a5cd4268a8e5b52fdda8de53d4e0c57557f0973475af72a4",
+        "output/CO/geom1/fort.712": "f3030c2ac225937ecd58fee41b64089ed0e6a5706c63a7c440e925465347a4b8",
+        "output/CO/geom1/fort.732": "bb0ca49edbcf6421f54f0bd536797d35a732c0cd6c67bb376dad96b9d13a3dce",
+        "output/CO/geom1/fort.713": "11e31e5cb6735ec96adc97dc04fd0f7b2ce7a04ea1f1f2a25f0810f4cc2c4ff9",
+        "output/CO/geom1/fort.733": "9aa8b55a1eb2a856e70a95bc3bb541e73154de005228c2b914e6d114f825ecfa",
+        "config.json": "c5b70aedb20604ccd5c206c760abba6c81f7536471a2dac115e93b041a16dbfd",
+        "target.json": "6535334f1de04c5b7e8a464fc8a5dfa0e662962aa8658bf85a7ff3ac5f950b29",
+        "target-diagnostics.json": "cacc2b38c2145d9de7e5dd0dbc517cf08a3879a761afba965239f09e33cbeb25",
+        "resources.json": "057bab63585e42da50e89d1cb5809e475cd350524c224f9a18cc693ce71262b8",
+        "output/CO/geom1/inputs/target.denprop.inp": "dd40ea1eb58bb6eeb7acf837667bcdd9389594b22a1902f58dc21271492577f5"
+      }
+    }
+  },
+  "resources": {"physical_cpu_group": "4-11", "physical_cores": 8, "library_threads": 1, "memory_gib": 64, "shared_memory_gib": 1, "minimum_available_ram_gib": 80, "minimum_free_disk_gib": 10, "native_timeout_seconds": 64800, "container_timeout_seconds": 66600, "owner_timeout_seconds": 68400, "controls_timeout_seconds": 120},
+  "forecast": "Conditional6-16h per export, not measured64-state cost or an eight-core speedup. Old DENPROP alone16742.4801859856s DZ /15842.3222000599s TZ. One application per explicit case; no peer job is launched automatically.",
+  "selection": "Only NTGTL becomes8,8,8,8,8,8,8,8. Preserve NFTSOR and native set order1..8, all other original deck bytes, same orbitals/integrals/vectors/CSFs. This changes property retention, not the original equal40-component orbital objective.",
+  "gates": "Runtime known-truth/no-native controls first; all frozen original/source/copy hashes before and after. Read64 own CIDATA energies and normalized vectors. Require native exit0/completion,64 sequential energy-ordered IDs/eight per sector, own energy agreement1e-7Ha, finite unique rank1/2 records covering all states and both ranks, ground dipole1e-5au. Reuse the established property_inventory criterion; no new absolute multipole-completeness theorem is asserted.",
+  "tz_predecessor": "Separate explicit launch only after a hash-pinned independent public DZ receipt. Fields:case=dz; contract_sha256=this contract digest; independent_property_inventory_verdict=true;target_count=64;roots_per_sector=[8]*8;original_scientific_command_container_owner_exits=[0]*4;public_reader_exit=0;property_sha256=64 lower-case hex. Receipt path must be within the persistent read-only root. No producer-only pass, unset/failed exit or missing receipt qualifies TZ.",
+  "stops": "Any prerequisite/control/native/count/property/dipole/integrity/timeout/OOM failure stops inconclusive2 with original outputs/exits, no repair/retry/peer job. Preserve each failed container/capsule. DZ failure blocks TZ; successful DZ requires independent review and a separately released TZ application, not an automatic queue. No import, integral/CONGEN preparation, scattering, pole, B2, fit or sweep follows automatically.",
+  "implementation_effort_minutes_cap": 60,
+  "protected": {"baseline_roots": 2048, "working_reference": "CAS11/nine", "new50": "parked", "holdout_s_matrices_unanalyzed": 114, "equilibrium_pole": "excluded", "failed_compressed_tz_qualified": false, "full_sweep_released": false}
+}

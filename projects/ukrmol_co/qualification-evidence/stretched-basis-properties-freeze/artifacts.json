@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "check-command.py": {"bytes": 2456, "sha256": "bac7e76d34476f32bced7e8979d950fadad6025da8342887b0b8e40425a480d7"},
+    "controls.log": {"bytes": 907, "sha256": "2c5f5dcb8fd5845e2bbf06371898f03dbe9f080f3ebdf7c550b7d695847044b4"},
+    "manifest.json": {"bytes": 314, "sha256": "aed1872c693e2e75dbd73adbe99981e6a9b2fb6283a01d679759df5cc41e7e42"},
+    "remote-return.log": {"bytes": 3971, "sha256": "c94919b2b8fc5eab724bc4a0bec4862c1dec5830f574fbf701ce0aef2a7ac865"},
+    "source-manifest.json": {"bytes": 1489, "sha256": "791b76d2d05ec7d1084dd30f0f39e0401c5bc58ddc4ba050524e348d6d1ed077"},
+    "source.tar.gz": {"bytes": 30804, "sha256": "0c3fce25c733cd6bf05344059fc9c15b020e164f08d6ffe0a107d7927b38cc7c"},
+    "verification.json": {"bytes": 3063, "sha256": "4fe90bf6b7f2dccb2917538326d792d94a55f63760443fc85a6595f2373fdcba"}
+  },
+  "git_sha": "c066f4abf351e65eb61d6351cc5a6b04e412b002",
+  "url_prefix": "https://data.qscat.org/co-stretched-basis-properties-freeze-20261026/"
+}
