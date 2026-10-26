@@ -18,8 +18,11 @@ same40-component ensemble/active space and qualified DZ seed,4 physical cores /
 runtime controls pass. It [stops12:39UTC](qualification-evidence/compressed-cas12-tz-qc/README.md)
 on unconverged/wrong-spin singlet-A2 roots despite orbital convergence.
 DZ/TZ physical comparison is inconclusive; coverage/native import/scattering/
-pole/B2 and retries remain blocked. Next is a separate singlet-A2 correctness
-decision, not another full QC attempt. Larger CAS12 is not thereby accurate; optimized frames
+pole/B2 and retries remain blocked. The subsequent user-directed source review
+selects [one bounded A2-only driver pilot](../../docs/physics/co-singlet-a2-driver-control.md):
+exact non-A1/small H4 optimizer controls before two diagnostic frozen-frame CO
+requests; no production selector or full QC change. Freeze/push first; this does
+not release the blocked coverage proposal. Larger CAS12 is not thereby accurate; optimized frames
 and imported target representations also differ. Retain nine working reference.
 
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)

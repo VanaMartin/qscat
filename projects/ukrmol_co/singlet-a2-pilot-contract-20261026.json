@@ -1,0 +1,81 @@
+{
+  "status": "One separately frozen non-A1 driver-control pilot; exact/small-optimizer controls before two CO fixed-orbital requests. No CO reoptimization or target promotion.",
+  "question": "Does the existing external spin0_symm driver give valid singlet A2 roots on the failed TZ frame after independent non-A1 controls? This decides whether a separately gated A2-selector/fresh-ensemble optimization experiment is worth considering; it does not repair or qualify the failed optimization.",
+  "checkpoint": "prepared/compressed-cas12-tz-qc-source-20261026/outputs/run/co.casscf.chk",
+  "failed_diagnostics": "prepared/compressed-cas12-tz-qc-source-20261026/outputs/run/target-diagnostics.json",
+  "failed_result": "prepared/compressed-cas12-tz-qc-source-20261026/outputs/result.json",
+  "input_sha256": {
+    "prepared/compressed-cas12-tz-qc-source-20261026/outputs/run/co.casscf.chk": "2bfbcafabac0fa07ab2af5e31888eabddaa7dabe465a50cde07e386e33f52cf6",
+    "prepared/compressed-cas12-tz-qc-source-20261026/outputs/run/config.json": "223c0081b15784410cf3f70ff31633e1c48ad8b909c18917e101f300ae967af1",
+    "prepared/compressed-cas12-tz-qc-source-20261026/outputs/run/target-diagnostics.json": "4f5a7c84a1ae57cc365d44bd5800d3bfd7450ecbe2b9f7f9143e2a15cd372521",
+    "prepared/compressed-cas12-tz-qc-source-20261026/outputs/run/resources.json": "2487bd074768de27a38c6f33c0c2d318decb728482dbe472f86e62066ad95665",
+    "prepared/compressed-cas12-tz-qc-source-20261026/outputs/result.json": "ae6757666d1d3e73e7b02198d17bb48f96e6567429a76d9477d785c37322084b",
+    "prepared/compressed-cas12-tz-qc-source-20261026/execution.json": "8ca5b9c167c9f46affa6935c67bea3971ec9f3eee7bb36c3519ee0ad8829a760",
+    "prepared/compressed-cas12-tz-qc-source-20261026/service-return.json": "76dd1bdbeef4d44875e6644d2df0dceef57649c9b583f9b8e49cfb646a08b492"
+  },
+  "source_sha256": {
+    "projects/ukrmol_co/target.py": "cc81b9f33640bc1badcb2900fd7307dc28253f555ff0bc949ee50263b321f96d",
+    "projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "projects/ukrmol_co/verification-compressed-cas12-tz-qc-public-20261026.json": "e581f67a24678725cb7bd8f021d83cdc1057330f38ba9230b4e5bc3855561232",
+    "projects/ukrmol_co/singlet-a2-source-review-20261026.json": "33a84683e27809612d50072efa37f906e7381a3e2fa6a3b6257451c0c29a0acc"
+  },
+  "package_sha256": {
+    "addons": "a317adbe693172d8006bd4ded4355a1cfe004018d4dd9061e9b28f211e989517",
+    "cistring": "f06a025d3eee7895d9e33d3cf4f2fbb22fabb94b555aad4c18fe6783e99db1be",
+    "direct_spin0": "bd32dd04c004386b1fe50ea0e49cd82373c1986762d4fa7fbe147ca703fc81dd",
+    "direct_spin0_symm": "3b6f896636a98531c2a34d3dc47f2d50fb3353471934aa4602bbefb4342052cd",
+    "direct_spin1": "42be20035f21f8609fad73c706c526f697c86bb18ba18b1d7eabb88b4b7f72f3",
+    "direct_spin1_symm": "4fa9357f8ed3728b8e8bbaad176e7613d2380d7f4dfb89bc04e4a3c6e51e4982",
+    "spin_op": "a820086c0b58774dee42c7eb489fcafc118b89b8cfe208bae6573ffba09d0343"
+  },
+  "image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "co_root_requests": [
+    5,
+    8
+  ],
+  "co_ci_space": 160,
+  "co_ci_cycles": 200,
+  "co_ci_energy_tolerance_hartree": 1e-12,
+  "co_ci_residual_tolerance_hartree": 1e-09,
+  "co_ci_lindep": 1e-22,
+  "spin_penalty_shift": 1.0,
+  "same_first_five_tolerance_hartree": 1e-07,
+  "container_timeout_seconds": 1800,
+  "owner_timeout_seconds": 1920,
+  "forecast_minutes_conditional": [
+    2,
+    15
+  ],
+  "resources": {
+    "physical_cores": "0-3",
+    "memory_gib": 8,
+    "pyscf_threads": 4,
+    "blas_environment_threads": 1,
+    "minimum_available_ram_gib": 16,
+    "minimum_free_disk_gib": 2,
+    "network": "none"
+  },
+  "implementation_effort_minutes_cap": 90,
+  "controls": "Independent fermion-sign two-electron oracle and analytic two-by-two A2 singlet/triplet blocks; small orbital-moving H4/C2v A2 singlet/triplet optimizer oracle. Exact/small-optimizer failure blocks all CO use. These validation calculations are separate from the zero-new-CO-QC counter.",
+  "gates": {
+    "exact_energy_action_tolerance": 1e-11,
+    "mixed_optimizer_energy_action_tolerance": 1e-09,
+    "co_full_physical_penalized_residual_max_hartree": 1e-09,
+    "co_spin_penalty_and_restricted_full_action_difference_max_hartree": 1e-09,
+    "co_spin_square_error_max": 1e-06,
+    "co_spin_action_exchange_spatial_leakage_orthogonality_max": 1e-09
+  },
+  "scope": "At most two CO singlet-A2 fixed-orbital calls. Save uncompressed-Hamiltonian actions from direct_spin1, S2 actions, CI vectors and integral tensors. No other CO sector or successful QC repeat. The failed checkpoint is only a diagnostic Hamiltonian, never a qualified target input.",
+  "stops": "Any exact/optimizer/flag/spin/action/count/cap/integrity failure stops inconclusive2, with original logs/flags/exit preserved. No alternate seed, larger space/cycle, repair or successor. No target.py selection/default change in this pilot.",
+  "after_pass": "Independently reconstruct evidence and separately review a narrow experimental A2 selector plus fresh40-state optimization from the qualified DZ seed. No full QC, target import/property/scattering/pole/coverage/B2 or automatic successor release.",
+  "protected": {
+    "original_tz_qc": "rejected; cannot be retroactively qualified",
+    "prior_b1_model_insensitivity": false,
+    "baseline_roots": 2048,
+    "working_reference": "CAS11/nine",
+    "route_holdout_s_matrices_unanalyzed": 114,
+    "equilibrium_pole": "excluded",
+    "new50": "parked",
+    "full_sweep_released": false
+  }
+}

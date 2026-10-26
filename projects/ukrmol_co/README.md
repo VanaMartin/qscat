@@ -24,7 +24,9 @@ It [stops12:39UTC at singlet-A2 CI](qualification-evidence/compressed-cas12-tz-q
 despite orbital convergence; wrong-spin roots prevent a valid target export.
 Cost1.36h, no timeout/OOM. The basis comparison is **inconclusive**, not a
 physical TZ rejection. Coverage/retry/native/scattering/pole/B2 stay blocked;
-next is a separately reviewed singlet-A2 correctness decision. No job active.
+the separate [source review now selects one bounded A2 driver pilot](../../docs/physics/co-singlet-a2-driver-control.md).
+Exact non-A1/small-optimizer controls precede two fixed-orbital requests; no
+production selector or full QC change. Freeze/push first, no automatic successor.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -688,10 +690,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![B1 model sensitivity remains; TZ QC stops at singlet A2, basis comparison inconclusive](../../docs/physics/figures/co-progress-20261026T1244-cas12-tz-stop.png)
+![TZ target remains rejected; bounded A2 driver pilot selected before any new QC](../../docs/physics/figures/co-progress-20261026T1329-a2-driver.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1244-cas12-tz-stop.svg) ·
-[CAS12 TZ stop snapshot](progress-snapshot-20261026T1244-cas12-tz-stop.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1329-a2-driver.svg) ·
+[A2 pilot-allocation snapshot](progress-snapshot-20261026T1329-a2-driver.json) ·
+[Non-A1 driver-control design](../../docs/physics/co-singlet-a2-driver-control.md) ·
+[Exact pilot contract](singlet-a2-pilot-contract-20261026.json) ·
+[Previous TZ-stop figure](../../docs/physics/figures/co-progress-20261026T1244-cas12-tz-stop.svg) ·
+[Previous TZ-stop snapshot](progress-snapshot-20261026T1244-cas12-tz-stop.json) ·
 [Stopped QC evidence](qualification-evidence/compressed-cas12-tz-qc/README.md) ·
 [Independent stopped-QC reconstruction](verification-compressed-cas12-tz-qc-public-20261026.json) ·
 [Previous QC-launch figure](../../docs/physics/figures/co-progress-20261026T1119-cas12-tz-qc.svg) ·

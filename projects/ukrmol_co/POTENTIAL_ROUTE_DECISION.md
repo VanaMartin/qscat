@@ -10,12 +10,15 @@ TZ target/Molden export exists; the failed checkpoint is preserved, not promoted
 The conditional24-probe proposal is blocked. No retry, larger space, alternative
 seed, native import/scattering/pole/B2 or other model job is released.
 
-**Disposition: stop this allocation; next deliverable is a separately reviewed
-singlet-A2 correctness/optimizer-objective decision from saved evidence.**
-A later fixed-orbital CI pass could not qualify an optimization containing
-unconverged wrong-spin ensemble roots. Do not bypass the guard or return to
-indefinite solver tuning. Keep the resolved B1 model rejection below and all
-protected inputs/holdouts; no electronic model, width curve or fit is qualified.
+**13:29UTC user-directed source-review disposition:** keep that allocation
+stopped; select [one bounded A2-only driver pilot](../../docs/physics/co-singlet-a2-driver-control.md).
+Exact non-A1 and small H4 mixed-optimizer controls must pass before two diagnostic
+CO fixed-orbital requests,5/8 roots at unchanged160/200 settings. Four physical
+cores /8GiB /1800s, exact source/tests/owner freeze first. This does not modify
+the production selector, qualify the failed checkpoint or release full QC.
+Any control/CI/spin/action/count/cap failure stops without rescue/retry. Review
+the independently reconstructed outcome before another allocation. No native,
+scattering, B2, electronic model, width curve or fit is released.
 
 **26October outcome: [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).**
 Position shifts86.774662meV, beyond50meV; full width shifts16.066613meV and

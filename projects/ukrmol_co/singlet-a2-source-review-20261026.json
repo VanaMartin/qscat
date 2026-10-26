@@ -1,0 +1,27 @@
+{
+  "review_utc": "2026-10-26T13:29:05.569717+00:00",
+  "package_observed_utc": "2026-10-26T13:41:58.003633+00:00",
+  "pyscf_version": "2.11.0",
+  "image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+  "package_sha256": {
+    "addons": "a317adbe693172d8006bd4ded4355a1cfe004018d4dd9061e9b28f211e989517",
+    "cistring": "f06a025d3eee7895d9e33d3cf4f2fbb22fabb94b555aad4c18fe6783e99db1be",
+    "direct_spin0": "bd32dd04c004386b1fe50ea0e49cd82373c1986762d4fa7fbe147ca703fc81dd",
+    "direct_spin0_symm": "3b6f896636a98531c2a34d3dc47f2d50fb3353471934aa4602bbefb4342052cd",
+    "direct_spin1": "42be20035f21f8609fad73c706c526f697c86bb18ba18b1d7eabb88b4b7f72f3",
+    "direct_spin1_symm": "4fa9357f8ed3728b8e8bbaad176e7613d2380d7f4dfb89bc04e4a3c6e51e4982",
+    "spin_op": "a820086c0b58774dee42c7eb489fcafc118b89b8cfe208bae6573ffba09d0343"
+  },
+  "current_target_selector": "spin0 only for singlet.A1 when explicitly requested; singlet.A2 uses spin1_symm",
+  "candidate": "Direct spin0_symm FCI with wfnsym=A2, unchanged spin penalty, requires exact non-A1 and full-Hamiltonian/spin validation before use",
+  "verified_source_symbols": [
+    "pyscf.fci.direct_spin0_symm.get_init_guess",
+    "pyscf.fci.direct_spin0_symm.FCISolver.contract_2e",
+    "pyscf.fci.addons.SpinPenaltyFCISolver.contract_2e"
+  ],
+  "finding": "Point-group-filtered guesses and action support alpha/beta-exchange symmetry for a supplied non-A1 irrep. This source property is not a validation of exact singlet selection, lowest-root coverage, CO convergence or the failed objective.",
+  "new_ci_calls_at_review": 0,
+  "new_co_qc_calls_at_review": 0,
+  "native_ukrmol_calls": 0,
+  "new_maps": 0
+}

@@ -1,0 +1,96 @@
+{
+  "base_snapshot": "progress-snapshot-20261026T1244-cas12-tz-stop.json",
+  "base_snapshot_sha256": "499e5061d6608845eb77455a3ce5e0877c2c8e9430f07c090b0921619d7cce71",
+  "additional_source_file_sha256": {
+    "docs/physics/co-singlet-a2-driver-control.md": "7bcaef5dcb9592616f3e650914cd2407e7c835f8c88a5f7f15a4fdddf35c8e4d",
+    "docs/physics/co-compressed-cas12-basis-control.md": "d4182634784f35b3bc74125461a5ebb655bad37cf564bf49cef31fa3d2de6cb1",
+    "projects/ukrmol_co/README.md": "e67d003ec5b67c408a7def5acf646c4cd5a1ac21a4c24edb0ddb9cba22fdcccc",
+    "projects/ukrmol_co/CONTINUATION.md": "aae531390b618ceee610848ac29da27df9cecbd0148308aa69adb097603b19e7",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "4727021becebf25d51297f09c9f62fe5212578da252169f89dd7bf759e31b75c",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "e20b52b3cc0e8f56f6db76fb71c2aeae23648f39e1d9549de39f0016d3c9e144",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "ccb078f0ee0c0bc5a957f2fb865b18d7f06347bc4aaf7e2fb6b9c72302ca3dac",
+    "projects/ukrmol_co/progress_figure.py": "234f6fdb1f463bc4d87e49c4acd31595a174a4806444cd6656a029d8e58a3d5c",
+    "projects/ukrmol_co/singlet_a2_pilot.py": "33b04ad40938deb8825486dae73fa44635949e9b29f682ea09a554678474685b",
+    "projects/ukrmol_co/singlet_a2_reference.py": "b2dec53765ff1a477621c554764572172ba637dd8fb7040c3e0d836480015be6",
+    "projects/ukrmol_co/test_singlet_a2_pilot.py": "14dc1d63b9986661a8c2d41bfa6b90a6dfe6d7bfd0e80403fa77ed2b07557b17",
+    "projects/ukrmol_co/test_singlet_a2_reference.py": "87d03e56bce34eb706d9cc0ab51552a18ed989445f438b5adc85ef90e1ea3ece",
+    "projects/ukrmol_co/singlet-a2-pilot-contract-20261026.json": "38b4c434db826de45bcbfff6b3718382803a12dcda37a1e204a40660dcef7c83",
+    "projects/ukrmol_co/singlet-a2-source-review-20261026.json": "33a84683e27809612d50072efa37f906e7381a3e2fa6a3b6257451c0c29a0acc",
+    "projects/ukrmol_co/progress-singlet-a2-pilot-allocation-20261026.json": "44b8a2a08285d14107d433bad03fc98886ca7346e4827dbf686a9ab2fbb4b17f"
+  },
+  "updates": {
+    "snapshot_utc": "2026-10-26T13:29:05.569717+00:00",
+    "live_status": {
+      "scope": "Source-review decision; external controls and CO pilot not yet run",
+      "goal_review_disposition": "continue one bounded A2-only driver pilot after source freeze",
+      "allocation": "progress-singlet-a2-pilot-allocation-20261026.json",
+      "contract": "singlet-a2-pilot-contract-20261026.json",
+      "external_exact_controls_verdict": null,
+      "small_h4_optimizer_verdict": null,
+      "co_fixed_orbital_verdict": null,
+      "current_cycle_co_ci_calls": 0,
+      "current_cycle_co_qc_calls": 0,
+      "current_cycle_native_calls": 0,
+      "current_cycle_maps": 0,
+      "production_selector_changed": false,
+      "failed_tz_optimization_qualified": false,
+      "basis_model_verdict": null,
+      "prior_b1_model_insensitivity_verdict": false,
+      "physical_cores": "0-3 conditional; no active calculation at decision",
+      "memory_gib": 8,
+      "container_hard_cap_seconds": 1800,
+      "owner_hard_cap_seconds": 1920,
+      "baseline_inner_roots": 2048,
+      "working_reference": "CAS11/nine",
+      "route_holdout_s_matrices_analyzed": 0,
+      "route_holdout_s_matrices_still_unanalyzed": 114,
+      "equilibrium_pole_exclusion": "protected",
+      "optional_new50_branch": "parked",
+      "new_qc_released": false,
+      "coverage_released": false,
+      "cas12_b2_released": false,
+      "production_model_selected": false,
+      "qualified_width_curve": false,
+      "full_sweep_released": false
+    },
+    "figure_subtitle": "TZ target remains rejected; source review selects one bounded A2-driver pilot, not a full QC retry or physical basis verdict",
+    "roadmap_title": "A2 control before any new QC",
+    "roadmap_entries": [
+      {
+        "kind": "reuse",
+        "status": "REUSE: QUALIFIED DZ /PRESERVED TZ FAILURE",
+        "title": "No successful target or native solve repeated",
+        "detail": "Nine working reference /2048 roots retained"
+      },
+      {
+        "kind": "reject",
+        "status": "UNCHANGED: B1 MODEL-POSITION REJECTION",
+        "title": "86.77 meV shift; failed TZ supplies no basis verdict",
+        "detail": "Small orbital gradient cannot qualify wrong-spin CI"
+      },
+      {
+        "kind": "next",
+        "status": "SELECTED: EXACT NON-A1 /SMALL H4 CONTROLS",
+        "title": "Analytic A2 blocks plus orbital-moving spin mixture",
+        "detail": "Existing external driver; full Hamiltonian /spin guards"
+      },
+      {
+        "kind": "gated",
+        "status": "CONDITIONAL: TWO FROZEN-FRAME CO A2 REQUESTS",
+        "title": "5 /8 roots, unchanged160 /200 settings; no rescue",
+        "detail": "4 physical cores /8 GiB /1800 s; freeze source first"
+      },
+      {
+        "kind": "gated",
+        "status": "NOT RELEASED: FULL QC /NATIVE /SCATTERING",
+        "title": "Failed checkpoint remains diagnostic only",
+        "detail": "No model/curve/fit;114 S holdouts protected"
+      }
+    ],
+    "roadmap_note": "Source support is not a numerical driver validation.\nAny failed control blocks CO; failed5 blocks8; no retry.\nReview saved evidence before considering fresh full QC.",
+    "source_footer": "26 OCTOBER  Exact A2 driver and small mixed-optimizer controls selected; no pilot verdict yet. Failed TZ objective preserved; basis comparison remains inconclusive.",
+    "verification_footer": "Production selector unchanged. Diagnostic fixed-orbital success cannot qualify the failed optimization.",
+    "memory_note": "Failed TZ QC:1.36 h /1.168 GiB; not a RAM failure.\nProposed A2 control:4 cores /8 GiB /1800 s cap.\nHistorical native bars keep their separate scopes.",
+    "memory_next_step": "Bounded A2 pilot; no new CO orbital optimization."
+  }
+}

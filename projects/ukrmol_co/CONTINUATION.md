@@ -26,7 +26,12 @@ convergence, with wrong-spin printed roots.** The basis comparison is inconclusi
 no successful target export exists. Conditional coverage is blocked. No retry,
 native/scattering/pole or solver rescue. Next bounded deliverable is a separately
 reviewed singlet-A2 correctness/optimizer-objective decision, not another full QC
-attempt. No calculation remains active or production model is released.
+attempt. **13:29UTC source review now selects
+[one bounded A2 driver pilot](singlet-a2-pilot-contract-20261026.json)**:
+exact non-A1/small H4 optimizer gates first, then at most two fixed-orbital CO
+A2 requests. Production selector/defaults unchanged; no failed-checkpoint/full-QC
+release. Freeze/push source/tests/exact owner before use. Four physical cores /
+8GiB /1800s cap, no retry or automatic successor. No production-model release.
 User requests continued decision-changing work; scientific stop rules still apply.
 New50/2048/114 holdouts/equilibrium exclusion remain protected.
 No unattended reminder or autonomous daily job is implied.
@@ -50,6 +55,28 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### A2-only driver pilot selected —26 October,13:29UTC source review
+
+[Physics/independence](../../docs/physics/co-singlet-a2-driver-control.md) /
+[exact contract](singlet-a2-pilot-contract-20261026.json) /
+[package-source review](singlet-a2-source-review-20261026.json).
+The thirty-minute zero-CO-compute review finds a source-supported non-A1
+candidate in the existing spin0_symm package. Test it rather than rerunning
+the1.36h failed QC or changing solver budgets. Keep the original failed objective
+and current `target.py` selector unchanged.
+
+After freeze/push: exact fermion-sign/analytic A2 blocks and small H4 mixed-A2
+orbital-moving optimizer controls first. Then five/eight CO singlet-A2 roots on
+the pinned failed TZ checkpoint, space160/200 cycles, full unrestricted spin1
+Hamiltonian/S² actions and original residual/spin/symmetry/orthogonality/count
+gates. Seven input/four source/seven package pins; four physical cores0–3 /
+8GiB /2–15minute conditional forecast /1800s container /1920s owner caps.
+Any failure stops; no retry, larger request after failed5, full QC or native
+successor. The failed checkpoint is a diagnostic Hamiltonian only, never an
+import/property target. Independently reconstruct the outcome before considering
+an A2 selector and fresh optimization from the qualified DZ seed. All protected
+holdouts/references and the prior physical B1 rejection remain unchanged.
 
 ### CAS12/TZ QC prerequisite stopped —26 October,12:39UTC finish
 

@@ -1,0 +1,40 @@
+{
+  "review_utc": "2026-10-26T13:29:05.569717+00:00",
+  "disposition": "continue one separately frozen non-A1 A2 driver pilot; preserve failed TZ optimization and unchanged production selector",
+  "input_scope": "failed TZ checkpoint is a diagnostic Hamiltonian only",
+  "source_review": "singlet-a2-source-review-20261026.json",
+  "contract": "singlet-a2-pilot-contract-20261026.json",
+  "root_pins": 7,
+  "source_prerequisites": 4,
+  "package_source_pins": 7,
+  "local_oracle_and_routing_controls_pass": true,
+  "local_focused_tests": {
+    "passed": 29,
+    "skipped": 1,
+    "skip_scope": "optional legacy PySCF control; exact/non-A1 external controls required inside pinned image"
+  },
+  "exact_external_driver_controls_verdict": null,
+  "small_h4_optimizer_verdict": null,
+  "co_fixed_orbital_verdict": null,
+  "co_ci_calls_at_decision": 0,
+  "new_co_qc_calls": 0,
+  "native_calls": 0,
+  "new_maps": 0,
+  "current_target_selector_changed": false,
+  "failed_optimization_qualified": false,
+  "new_qc_released": false,
+  "coverage_released": false,
+  "cas12_b2_released": false,
+  "full_sweep_released": false,
+  "conditional_forecast_minutes": [
+    2,
+    15
+  ],
+  "container_hard_cap_seconds": 1800,
+  "owner_hard_cap_seconds": 1920,
+  "physical_cores": "0-3",
+  "memory_gib": 8,
+  "method_stage": "Project-local validation pilot around existing PySCF; independent Python two-electron oracle retained; no Rust optimization or qscat promotion",
+  "design_effort_minutes_cap": 30,
+  "implementation_effort_minutes_cap": 90
+}

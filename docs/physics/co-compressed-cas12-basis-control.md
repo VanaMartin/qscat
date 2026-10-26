@@ -16,6 +16,12 @@ seed/larger space, native import, scattering, pole, B2 or other model successor.
 Next is a separately reviewed singlet-A2 correctness/optimizer-objective decision
 from saved evidence, not another full QC run or an automatic solver campaign.
 
+The subsequent user-directed
+[source review selects one bounded A2 driver pilot](co-singlet-a2-driver-control.md),
+not a retry of this optimization: exact non-A1/mixed-optimizer controls precede
+two frozen-frame diagnostics. The failed checkpoint and current target-selector
+defaults remain unchanged; no full QC or native release is implied.
+
 The matched CAS11/CAS12 B1 outgoing-pole comparison rejects position
 insensitivity:86.774662meV exceeds50meV, with passing numerical/character/local
 identity gates. Its full-width difference16.066613meV passes. Neither model is

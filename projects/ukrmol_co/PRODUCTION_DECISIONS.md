@@ -918,6 +918,51 @@ benchmarks/full-Hamiltonian action and an unchanged intended ensemble before
 any future full orbital optimization. No implementation or numerical pilot is
 released here. Do not open another unconstrained solver/repair campaign.
 
+### Goal checkpoint —26 October,13:29UTC source review: bounded A2-only driver pilot
+
+The user requests continuation after the failed TZ prerequisite. The
+thirty-minute saved-evidence/source review completes without a CO CI solve,
+optimizer retry, native call or map. Actual pinned PySCF2.11.0 source constructs
+transpose-symmetric initial vectors for a supplied non-A1 irrep in
+`direct_spin0_symm`; the existing CO selector only enables it for singlet A1.
+This is a source-supported candidate, **not** validation or proof of a package
+bug. The failed optimization stays rejected; its physical basis verdict is unset.
+
+**Decision / uncertainty:** select [one bounded non-A1 driver control](../../docs/physics/co-singlet-a2-driver-control.md),
+not another full TZ QC. Determine whether an existing external A2 driver can
+supply correct frozen-frame singlets and work through a small non-A1 mixed-spin
+orbital-moving optimizer. A failure stops this route; a pass would justify
+considering an A2-only experimental selector/fresh ensemble optimization, not
+reuse or promotion of the failed objective. Production `target.py` defaults and
+selection remain unchanged by this pilot.
+
+**Minimum scope:** independent two-electron fermion-sign Hamiltonian and analytic
+A2 singlet/triplet2×2 blocks, exact-triplet/perturbed-vector negative controls,
+then a small H4/C2v mixed singlet/triplet-A2 optimizer checked against its final
+exact spin block. Only after these pass, two CO singlet-A2 CASCI requests on the
+unchanged failed TZ checkpoint:5/8 roots, space160, ordinary200 CI cycles,
+unchanged energy/residual/lindep/spin-penalty settings. No other CO sector,
+successful QC repeat, new state average or engine run. Full `direct_spin1`
+Hamiltonian and S² actions, symmetry/transpose/orthogonality and first-five
+agreement gates are mandatory; save vectors/actions/integrals for reconstruction.
+Small H4 optimizer validation is separate from the **zero CO QC** counter.
+
+**Bounds / reuse:** [exact pilot contract](singlet-a2-pilot-contract-20261026.json),
+seven frozen failed-run inputs/four source prerequisites/seven installed package
+source pins, original image/checkpoint. Four physical cores0–3 /8GiB /no network,
+conditional2–15minutes /1800s container /1920s owner caps. At most90minutes
+narrow implementation/freeze effort after the review; no general CI framework,
+Rust kernel, package patch or qscat promotion. Source/tests/exact owner must
+freeze/push before CO use. Failed controls block all CO calls; first CO failure
+blocks the second request. No expanded space/cycles/alternate seed or retry.
+
+**Disposition: continue to this finite pilot after freeze.** Independently
+reconstruct its outcome before any selector/full-QC decision. Preserve original
+failure/exits, B1 model rejection,114 untouched S holdouts/equilibrium exclusion,
+nine working reference,2048 baseline and parked new50. No failed-checkpoint
+qualification, full QC, native import/properties/scattering, B2, fit or sweep
+is released. More passing toy controls alone are not a production-model result.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
