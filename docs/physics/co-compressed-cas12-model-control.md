@@ -19,6 +19,15 @@ The equilibrium pole remains reserved.
 
 ## Exact saved-input gap: a different property inventory
 
+**26 October outcome:** the missing inventory now
+[qualifies independently](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-properties/README.md):
+40 states/five per sector,725 moments, native CIDATA energy agreement4.768e-10Ha
+and dipole agreement2.075e-9au. Original native/scientific/command/container/owner/
+service exits0, no timeout/OOM or repeated QC/target solve. Measured4.43h /
+1.903GiB container peak, roughly one-core execution; supervisor metrics differ.
+The exact next [preparation contract](../../projects/ukrmol_co/compressed-cas12-preparation-contract-20261026.json)
+releases one integral/two CONGEN calls only after source/tests/owner push.
+
 The saved compressed CAS12 import independently qualifies64 native roots—eight
 per spin/irrep—on its frozen checkpoint. Its completed DENPROP selected the global
 lowest40 states, distributed as

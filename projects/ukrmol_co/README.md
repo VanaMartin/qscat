@@ -12,16 +12,16 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**25 October priority:** [the compressed five/nine outgoing-pole contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
+**26 October priority:** [the compressed five/nine outgoing-pole contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
 in both sectors:10.88meV position /4.48meV full-width changes,89 maps /217s.
 Retain nine and prioritize a matched CAS11/CAS12 model control. Its saved64 target
-vectors are qualified; the required firstfive-per-sector properties are missing
-from the original global-lowest40 inventory. A
-[single necessary property export](../../docs/physics/co-compressed-cas12-model-control.md)
-is selected (forecast3–6h), reusing all vectors with no QC/target solve. Its exact
-owner/source contract froze/pushed at `bfa3a88` and the
-[multi-hour export starts23:40UTC](progress-compressed-cas12-properties-launch-20261025.json);
-property verdict remains pending. New50 stays parked;
+vectors are qualified; the required firstfive-per-sector properties now
+[qualify independently](qualification-evidence/compressed-cas12-properties/README.md).
+The one different DENPROP inventory takes4.43h /1.903GiB, all native/owner exits0,
+without repeated QC/target solves. The next
+[bounded preparation](compressed-cas12-preparation-contract-20261026.json)
+is one integral/two CONGEN calls,4 physical cores /16GiB /3600s cap, after exact
+source/tests/owner freeze/push. No inner Hamiltonian or pole job yet. New50 stays parked;
 all114 holdouts and equilibrium pole exclusion remain protected. The existing
 finite open-Pi pair below is not a qualified CO curve or production model.
 

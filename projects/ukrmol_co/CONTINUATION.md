@@ -11,17 +11,17 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**25 October checkpoint: compressed five/nine pole contrast passes; continue to
-matched CAS12 property inputs.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
+**26 October checkpoint: matched CAS12 properties independently qualify; continue
+to bounded scattering-input preparation.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
 retains nine and prioritizes a matched CAS11/CAS12 model control at1.9bohr, not
 the reserved equilibrium pole. Reuse the saved64 qualified CAS12 target vectors.
-Its original lowest40 properties have uneven per-sector counts, so export the
-missing firstfive-per-sector inventory once; no QC or target diagonalization.
-The [property contract](compressed-cas12-matched-properties-contract-20261025.json)
-bounds the multi-hour job and requires source/tests/exact owner push first.
+The missing firstfive-per-sector property export is complete and independently
+verified; no QC or target diagonalization repeated. The
+[preparation contract](compressed-cas12-preparation-contract-20261026.json)
+bounds one integral/two CONGEN calls and requires source/tests/exact owner push first.
 User requests continued decision-changing work; unchanged scientific stop rules
 apply. New50 stays parked,2048 baseline retained,114 holdouts/equilibrium exclusion
-protected. Review on the next native-input contract or property outcome.
+protected. Review on the preparation outcome before any inner solve.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -43,6 +43,43 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Matched properties independently verified —26 October,04:16UTC
+
+[Evidence](qualification-evidence/compressed-cas12-properties/README.md) /
+[compact result](progress-compressed-cas12-properties-result-20261026.json) /
+[public replay](verification-compressed-cas12-properties-public-20261026.json).
+One DENPROP finishes04:06:02UTC with original native/scientific/command/container/
+owner/service exits0, no timeout/OOM.40 states/five per sector,725 multipoles;
+energy error4.424e-9Ha versus qualified QC and4.768e-10Ha versus raw CIDATA;
+ground dipole.177380573649au /error2.075e-9au.30 original pins/12 copies and23
+source hashes remain unchanged; source `bfa3a88` also authenticates against Git.
+Public reconstruction verifies nine payloads/63 archived files with no native call.
+Original archive-reader1/local parser-control1 are preserved; the same original
+fort.16 bytes were recollected with symlinks dereferenced. Corrected public replay0
+does not change or repeat the scientific calculation.
+
+Native15946.447569s, profiled container15948.199065s, owner15948.793576s;
+container CPU15979.841532s /kernel+sample peak2043465728bytes (1.903126GiB).
+Systemd23.9M /7.126CPU seconds cover only the supervisor. Eight physical cores
+allocated, roughly one-core actual execution; no eight-core speedup claimed.
+Qualified fort.24 SHA256:
+`5b6cd664e41062d7d4292092137adb63b423a7b34bbac6536af472987948cdaa`.
+Own contraction map is a permutation of1…40; do not borrow CAS11/global-lowest40 IDs.
+
+**Next bounded deliverable:** freeze/push and execute the
+[exact preparation](compressed-cas12-preparation-contract-20261026.json), one
+four-rank full-continuum integral +two serial CONGEN calls,4 physical cores0–3 /
+16GiB /600s conditional target /3600s owner cap.36 inputs pin the properties/
+source target/frame/exits. All14 target/core MOs and actual continuum inventories
+must pass; derive L2/contracted dimensions rather than assert equilibrium planning
+anchors. Geometry-free CAS12 algebra only is reused; never equilibrium physical
+integrals/target IDs/eigenpairs. Implementation effort≤60minutes from04:06UTC.
+No QC, target solve/reimport, DENPROP repeat or Hamiltonian/scattering/pole job.
+Failure stops inconclusive without repair/retry/successor; success requires
+independent output authentication and a separate costed2048-root B1 freeze.
+The latter should use12 physical cores for a very large calculation, accounting
+for MPI layout, measured dimensions/memory and bounded disk. No automatic B2.
 
 ### Necessary multi-hour property export running —25 October,23:40UTC
 

@@ -1,0 +1,42 @@
+{
+  "artifacts": {
+    "collection-regular-bytes.json": {
+      "bytes": 18590,
+      "sha256": "e0dbad1e45ca8440adf8b552dea1b1ae1864d277bd4ebd3339e252628453f840"
+    },
+    "collection.json": {
+      "bytes": 18590,
+      "sha256": "2bd78a7de4fd7f6d7159f1becc74e2e09e746be763074d62f97d03253604f7d5"
+    },
+    "manifest.json": {
+      "bytes": 243,
+      "sha256": "a28aaa793f0ef345ed2610974750b6d501535851013bc2bab4f20335753c1642"
+    },
+    "original-inputs-bytes.tar.gz": {
+      "bytes": 84806368,
+      "sha256": "e137aa808cf1540166898e54879be0bee868a2dea8e7d8869e657d51f5751e98"
+    },
+    "original-inputs.tar.gz": {
+      "bytes": 84781900,
+      "sha256": "75e93811dd98f9f993059b1f22e44487f11e443b46a048d29235992119036a36"
+    },
+    "reader-correction.json": {
+      "bytes": 898,
+      "sha256": "c30be49745469ee76b213af4d53a6b4f65d5b5fc5d932143d38604f2b0469780"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 9477,
+      "sha256": "119560d9010267b9361ad366265edb472e700ce49689fb292e9443b44f420266"
+    },
+    "result-summary.json": {
+      "bytes": 9359,
+      "sha256": "2e1d8f20c5aaec19efa4183f106f2aa10e6ecdb00471ce29743eddccf79a2881"
+    },
+    "results.tar.gz": {
+      "bytes": 119712847,
+      "sha256": "1c0a1c38b35eabe4debc52b662db9a591de204bc84f19ab42215041056c3a94d"
+    }
+  },
+  "git_sha": "bfa3a88301ef05c0dbf9be77bf8fa408c05ca6ef",
+  "url_prefix": "https://data.qscat.org/co-compressed-cas12-properties-20261026/"
+}

@@ -595,6 +595,47 @@ peak or claimed eight-core speedup. Original data/workloads remain untouched.
 This uses the available hours for a necessary different model input, not a
 repeat of successful QC, target eigenpairs or original property selection.
 
+### Goal checkpoint —26 October,04:16UTC: matched properties verified; prepare the model input
+
+**Decision served:** remove the missing matched-retention CAS12 property input
+before the selected compressed CAS11/CAS12 model control. The
+[single different DENPROP export passes](qualification-evidence/compressed-cas12-properties/README.md):
+40 states/five per sector,725 unique multipoles, ground dipole agreement2.075e-9au;
+native CIDATA energies agree within4.768e-10Ha. This qualifies input identity/
+inventory, **not electronic convergence, a new pole or a production model**.
+Nine remains the working reference; five is only a local matched comparator.
+
+The source-frozen job finishes04:06UTC, original native/scientific/command/
+container/owner/service exits0, no timeout/OOM/scientific retry. Native4.4296h,
+container15948.199065s /15979.841532CPU seconds /1.903126GiB kernel/sample peak.
+Eight physical cores were allocated but execution is roughly one-core; supervisor
+23.9M/7.126CPU seconds are not scientific resources. Saved30 inputs,12 copies
+and23 source hashes remain unchanged; no QC/target solve/reimport was repeated.
+Public reconstruction reads native CIDATA and properties independently, nine
+payloads /63 files. Original archive-reader exit1 and symlink-byte recollection
+are preserved beside corrected reader0; no scientific calculation was rerun.
+
+**Disposition: continue to the one bounded native preparation**, under the
+[exact contract](compressed-cas12-preparation-contract-20261026.json), after
+source/tests/owner freeze/push. One full-continuum integral call +two CONGEN
+calls,4 physical cores0–3 /16GiB /one library thread;600s conditional target /
+3600s combined owner cap.36 input pins include the completed property bytes/exits;
+geometry-free CAS12 algebra is reused, but compressed Molden/checkpoint/own target
+vectors/properties are the only physical inputs. All14 target/core orbitals
+must survive; derive actual continua/L2/contracted counts, not force equilibrium
+86352/990990 planning anchors. No target/QC/property repeat or inner solve.
+
+**Implementation and stop bounds:** source/test/exact owner freeze≤60minutes
+after04:06UTC property outcome. Reuse native stage/inventory/completion helpers,
+with explicit CAS12 inventory rather than changing the default CAS11 gate.
+Failed prerequisite/native/count/identity/cap stops inconclusive, preserving
+exits/partial data, with no repair/retry/successor. A pass needs independent
+saved-output authentication before the separate2048-root B1 allocation review.
+That very large job should use12 physical cores; MPI-layout changes, actual
+dimensions, RAM/disk and measured source costs must be explicit before release.
+No B2 or root/channel/basis ladder is automatic.114 holdouts, equilibrium exclusion,
+2048 baseline and parked new50 remain protected; no fit, curve or sweep released.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

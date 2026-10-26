@@ -1,4 +1,4 @@
-# Sweep/potential route decision — 25 October 2026
+# Sweep/potential route decision — 26 October 2026
 
 ## Decision now
 
@@ -17,12 +17,18 @@ states. No QC, target solve/reimport or integral regeneration is needed for this
 different property inventory. Five is only a local matched comparator; nine
 remains working reference and CAS12/nine convergence is still open.
 
-The [property owner/contract](compressed-cas12-matched-properties-contract-20261025.json)
-froze/pushed at `bfa3a88`; [the export starts23:40UTC](progress-compressed-cas12-properties-launch-20261025.json).
-Property verdict remains pending. Conditional3–6h, native8h /owner9h cap,8 physical cores /
-64GiB /one library thread. No automatic repair/retry, Hamiltonian or pole job.
-While it runs, prepare the exact-input integral/CONGEN and2048-root B1 model
-contrast allocation. No production model, new geometry, fit or sweep is released;
+The [matched properties now qualify independently](qualification-evidence/compressed-cas12-properties/README.md):
+40 states/five per sector,725 multipoles, all original exits0; one DENPROP call
+in4.43h /1.903GiB. No QC/target solve repeated. Original archive-reader failure
+is preserved beside corrected public-byte replay0; native output is unchanged.
+
+**Next bounded allocation:** freeze/push the
+[one-integral/two-CONGEN preparation](compressed-cas12-preparation-contract-20261026.json),
+4 physical cores /16GiB /3600s owner cap. Use compressed Molden/checkpoint/own
+vectors/new40 properties; reuse only geometry-free equilibrium CAS12 algebra.
+Measure actual dimensions and authenticate outputs before a separately costed
+2048-root B1 solve. No automatic repair/retry, Hamiltonian or pole job.
+No production model, new geometry, fit or sweep is released;
 114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
 
 ### Preserved execution review — before the completed contrast

@@ -18,7 +18,7 @@ COUNTS = ("target", "PCOs", "TGT+PCOs", "continuum", "total")
 IRREPS = ("A1", "B1", "B2", "A2")
 
 
-def native_inventory(text):
+def native_inventory(text, *, target_counts=(7, 3, 3, 0, 0, 0, 0, 0)):
     """Parse complete native inventories, rejecting duplicates and inconsistent sums."""
     inventory = {}
     for kind in COUNTS:
@@ -28,7 +28,9 @@ def native_inventory(text):
         if len(rows) != 1 or not re.fullmatch(r"\s*\d+(?:\s+\d+){7}\s*", rows[0]):
             raise ValueError(f"Incomplete or duplicate native orbital inventory: {kind}")
         inventory[kind] = list(map(int, rows[0].split()))
-    target = [7, 3, 3, 0, 0, 0, 0, 0]
+    target = list(target_counts)
+    if target not in ([7, 3, 3, 0, 0, 0, 0, 0], [8, 3, 3, 0, 0, 0, 0, 0]):
+        raise ValueError("Only the fixed CAS11/CAS12 target inventories are supported")
     if inventory["target"] != target or inventory["TGT+PCOs"] != target or any(inventory["PCOs"]):
         raise ValueError("Native target/PCO space differs from the fixed CAS")
     continuum = inventory["continuum"]

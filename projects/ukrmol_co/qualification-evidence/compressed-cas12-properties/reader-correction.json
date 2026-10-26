@@ -1,0 +1,7 @@
+{
+  "original_public_reader_exit": 1,
+  "original_script_sha256": "a117965410b4",
+  "failure": "Read-only archive parser rejected the original fort.16 symlink to moints, whose target was not in the original30-file archive. A local hard-link-only parser control also exited1 and is preserved. Original native DENPROP/exits and scientific files are unchanged.",
+  "correction": "Recollect the same30 pinned original inputs with tar dereference=True into original-inputs-bytes.tar.gz and collection-regular-bytes.json. All original pin digests must still match; first archive/collection remain published unchanged. No new native call, QC, property export or scientific retry.",
+  "original_pointer_and_replay": "Preserved locally in compressed-cas12-properties-public-fresh-20261026; original script remains content-addressed in public storage. Corrected public replay uses a new output directory."
+}

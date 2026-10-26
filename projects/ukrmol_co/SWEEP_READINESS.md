@@ -12,11 +12,11 @@ nine as working reference and prioritize a matched compressed CAS11/CAS12 model
 control. Reuse all64 saved qualified CAS12 target vectors; the original lowest40
 properties have uneven sector counts and miss states needed by the matched
 firstfive-per-sector comparator. The
-[necessary property export](../../docs/physics/co-compressed-cas12-model-control.md)
-is a different inventory, not repeated QC/target diagonalization: forecast3–6h,
-8 physical cores /64GiB /native8h cap. Source/tests/owner freeze `bfa3a88` precedes
-the [23:40UTC launch](progress-compressed-cas12-properties-launch-20261025.json);
-the property verdict remains pending.
+[necessary property export](qualification-evidence/compressed-cas12-properties/README.md)
+now qualifies independently:40 states/five per sector,725 moments, all native/
+owner exits0,4.43h /1.903GiB. No repeated QC/target diagonalization. Next freeze
+the [one-integral/two-CONGEN preparation](compressed-cas12-preparation-contract-20261026.json),
+4 physical cores /16GiB /3600s cap, and measure actual compressed dimensions.
 No new inner solve, pole, geometry or fit is released by that property contract.
 Compressed insensitivity does not reverse stretched rejection or establish
 electronic accuracy.114 holdouts, equilibrium exclusion,2048 baseline and parked

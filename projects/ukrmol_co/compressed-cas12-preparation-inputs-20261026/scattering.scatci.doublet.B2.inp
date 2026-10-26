@@ -1,0 +1,26 @@
+&input
+  megul = 722,  ! input from module CONGEN
+  nfte = 822, ! Hamiltonian scratch file
+  iposit = 0, ! positron flag - 0 for electron, -1 for positron
+  icidg = 1,   ! 0 - do not diagonalize for parallel, 1 - do diagonalise Hamiltonian matrix for serial
+  iexpc = 1,   ! prototype CI expansion flag - 1 for scattering calculation
+  icitg = 1,   ! CI target flag - 1 = perform CI target contraction
+  idiag = 2,   ! matrix element evaluation flag - 2 = do not evaluate pure target integrals
+  nftg = 26,    ! CI target vectors switch - 0 = use scattering wavefunctions to generated (phase corrected) target wavefunctions
+  ntgsym = 8,  ! number of target state symmetries (>1 in CAS calculations)
+  mcont = 2,2,3,3,0,0,1,1,   ! lambda value ('symmetry') of the continuum orbitals associated with each target state
+  notgt = 34,34,22,22,51,51,34,34,  ! number of continuum orbitals associated with each target symmetry
+  numtgt = 5,5,5,5,5,5,5,5,  ! number of target states for each symmetries
+  ntgtf = 1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8,  ! set number, on unit NFTG, which contains the required target state
+  ntgts = 1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,  ! sequence number of the state within the set specified by NTGTF to be used as the target state
+/
+&cinorn
+  name = 'CO CI calculation - doublet B2',
+  nftw = 25,
+  memp = 16.0,
+  vecstore = 1, ! 1: store continuum coefficients of the eigenvectors only, 5: store all coefficients
+!  igh = 1,
+  NPFLG(1) = 0, ! no Hamiltonian matrix elements printed
+  NPFLG(2) = 0, ! print lowest 20 eigenvalues only
+  nciset = 1,
+/
