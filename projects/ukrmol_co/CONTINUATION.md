@@ -81,6 +81,24 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### DZ-only release —26 October,15:48UTC; launch pending
+
+The user's continuation selects [one missing DZ property export](stretched-basis-properties-dz-release-20261026.json)
+under unchanged committed source `f497e18` and the exact frozen contract. Fresh
+12-entry capsule /18 original inputs /five source prerequisites authenticate;
+available105GiB RAM/58GiB disk clear80/10GiB floors. Bonsai GPU evaluation and
+ComfyUI remain unchanged. Eight distinct physical cores4–11/64GiB/one library
+thread,18h native/18.5h container/19h user-service owner. Conditional6–16h is
+unmeasured; user service survives SSH disconnect, but all-session logout/host
+shutdown can interrupt it (Linger=no; no system setting changed).
+
+Commit/push release before launch. Runtime mocked controls first, one native
+DENPROP call at most, no repair/retry/peer launch. **One next deliverable:**
+independently authenticate/publish DZ output, all original exits and resources,
+whether successful or failed. TZ remains blocked pending a separate public DZ
+success receipt/hash and explicit release. No preparation/scattering/pole/B2/
+fit/sweep successor. No scientific job active at this release checkpoint.
+
 ### Property-only freeze complete —26 October,15:37UTC
 
 [Exact contract](stretched-basis-properties-contract-20261026.json) /

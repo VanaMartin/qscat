@@ -14,13 +14,17 @@ within the60minute effort allocation and with zero scientific calls. Eight mocke
 runtime controls pass;36 original inputs and12 archived source entries verify.
 This is execution readiness, not new properties or physical-model progress.
 
-**Next: separate DZ-only execution release**, fresh committed-source capsule and
-host eligibility review. Prospective6–16h/export /18h native /18.5h container /
-19h durable owner /eight physical cores /64GiB; RAM80GiB/disk10GiB floors.
-Nothing is reserved or launched. TZ needs a pinned independent public DZ success
-receipt and another explicit release; no owner launches its peer. Item4 remains a
-separate preparation/B1 review after property qualification. No automatic successor,
-waived channel gate or model/curve/fit promotion; no scientific job active/queued.
+**15:48UTC user-directed continuation: [release one DZ-only property export](stretched-basis-properties-dz-release-20261026.json).**
+Committed source `f497e18`/fresh12-entry capsule, original18 input/five source pins
+and host eligibility pass. Available105GiB RAM/58GiB disk; unrelated GPU evaluation
+and ComfyUI remain untouched. Commit/push release before launch; runtime controls
+precede at most one DENPROP call. Conditional6–16h /18h native /18.5h container /
+19h owner /eight physical cores /64GiB; RAM80GiB/disk10GiB floors unchanged.
+No job has launched at this release checkpoint. Next independently read/publish
+the original DZ result/exits/resources, including failure. TZ needs a pinned
+independent public DZ success receipt and another explicit release; no automatic
+peer or preparation/B1/pole/B2/fit/sweep successor. No waived channel gate or
+model/curve/fit promotion. The frozen non-release record above remains historical.
 
 **Historical14:25UTC saved-evidence decision: [redirect to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
 At2.5bohr both saved models report the same valid forty-component objective /

@@ -1149,6 +1149,36 @@ cross-basis continuity. No preparation/scattering/pole/B2/sweep/fit or paid reso
 release; keep2048/nine/parked new50/equilibrium exclusion/114 holdouts unchanged.
 No electronic model, width curve, potential or full-scattering embedding qualified.
 
+### Goal checkpoint —26 October,15:48UTC: release one missing DZ property export
+
+**User-directed continuation / continue:** [DZ-only execution release](stretched-basis-properties-dz-release-20261026.json)
+uses committed source `f497e18`, unchanged validated contract and a fresh12-source
+capsule. Before any science,18 original input pins/five prerequisites authenticate;
+available105GiB RAM/58GiB disk pass80/10GiB floors. Existing Bonsai GPU evaluation
+and ComfyUI stay untouched; no exclusive host/core allocation is claimed.
+
+**Production decision / minimum scope:** supply only the missing64-state DZ table
+on the qualified stretched frame, same40-component orbital objective, native
+vectors/integrals/CSFs; only NTGTL changes. No QC/CI/import/integral/CONGEN repeat.
+This enables a later finite basis-model comparison only if independently qualified,
+not basis/channel/continuity convergence. No new physical uncertainty is resolved
+by the release itself. Keep compressed TZ/A2 stopped and prior B1 rejection intact.
+
+**Bounds:** no numerical-source edits or new scheduler; at most30minutes release/
+handoff effort, one native DENPROP call, eight physical cores4–11/64GiB and one
+library thread/no network. Conditional6–16h unmeasured;18/18.5/19h native/container/
+owner caps. Runtime mocked controls must pass first; any failure stops without
+repair/retry. Preserve failed container/capsule and original exits/resources.
+The user service survives SSH disconnect, not all-session logout/host shutdown;
+Linger=no and no login/system changes are made. Commit/push release before launch.
+
+**Next bounded deliverable:** independently read/publish original DZ output/exits/
+resources; success requires all64 states/eight per sector and declared own-energy/
+moments/dipole/integrity gates. TZ stays blocked until independently published DZ
+success/a matching hash-pinned receipt and separate explicit release. No automatic
+peer or preparation/scattering/pole/B2/fit/sweep. All2048/nine/new50/equilibrium/
+114-holdout protections remain. No model/curve/fit is promoted or job running yet.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
