@@ -44,6 +44,47 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### B1/2048 model calculation running —26 October,04:43UTC observation
+
+[Launch evidence](progress-compressed-cas12-inner-launch-20261026.json): source/
+tests/exact owner froze/pushed at `6ae5b79`04:41:34UTC before durable service
+`co-compressed-cas12-b1-2048-20261026.service` starts04:42:17UTC, PID88035.
+Six runtime controls pass;50 input pins,44 capsule sources,242 installed engine
+files and55 source/192 original engine evidence inputs verify. Numerical-library/
+telemetry symbol gate passes. Native output reads all40 target transformation
+vectors in the compressed1.9bohr frame and starts the86352-dimensional matrix
+with7196 local rows at12ranks. This is startup, not a completed solve/export.
+
+Allocation12 physical cores0–11 /one library thread /64GiB /8GiB shared backing;
+conditional3–8h forecast, native12h /owner13h caps. Startup1199.39% CPU /
+13.39GiB is not a final peak or proof of linear speedup. B1-only Pi pairing,
+pole/model/electronic-accuracy/omitted-spectrum verdicts remain unset. Pending
+scientific/owner default2 is not a terminal failure; no completed exit is assigned.
+Source archive SHA256:
+`52edbdfcd058a0aa8b3d38103ce5bd5ef927080c18d7dee3a6dce87599253843`.
+Persistent capsule:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-inner-source-20261026/`;
+native logs/resources/partial reports are under `outputs/inner/native/B1/`
+and `outputs/inner/`. Original inputs/engine are read-only; ComfyUI untouched.
+
+**Next at the bounded outcome:** collect all original nested native/command/
+container/owner/service exits/resources, independently authenticate own W/D/CF/K
+and strict40/250 assembly. Only then freeze real-S/outgoing-pole/character/model
+comparison. Failed prerequisite/native/numerical/identity/cap stops without
+repair/retry/successor. No B2, new geometry, root ladder, fit or sweep is released.
+Do not repeat QC, targets, properties, preparation or the passing CAS11 calculation.
+All114 holdouts/equilibrium exclusion/nine/2048/new50 protections remain.
+The inner report's `new_propagations=0` counts new complex/Python outgoing maps;
+the declared native pipeline still includes RSOLVE propagation to100bohr for
+its own K references. Preserve those native stage calls separately at outcome.
+
+Search handoff: main snapshot `423d5770d3de337571f51e62702ae919bad97e8c` is complete
+and upstream-current at this handoff. Relevant branch-local preparation/inner
+adapters and the narrowed default-preserving sparse-pilot change were read and
+validated against current source.44 running-capsule hashes match Git `6ae5b79`;
+later edits are dated documentation/figure metadata only. No branch index
+ingestion, qscat promotion or native algorithm change.
+
 ### Preparation verified —26 October,04:31UTC; freeze one B1 solve
 
 [Evidence](qualification-evidence/compressed-cas12-preparation/README.md) /

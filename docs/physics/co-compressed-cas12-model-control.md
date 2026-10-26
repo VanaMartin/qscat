@@ -39,6 +39,17 @@ B1 alone leaves Pi pairing/model/pole verdicts unset. After independent export
 qualification, real-S/outgoing-pole/character/model comparison needs a separate
 freeze. All native algorithms are reused; no new solver is added.
 
+The source/tests/exact owner freeze `6ae5b79` precedes the
+[26October04:42UTC launch](../../projects/ukrmol_co/progress-compressed-cas12-inner-launch-20261026.json).
+At04:43, all50 input pins/44 capsule sources/242 installed engine files and the
+runtime numerical-library/telemetry symbol gate pass. Native matrix construction
+is active at86352 dimensions/7196 local rows on12ranks. Startup resource samples
+are not final peaks or a scaling measurement. No completed solve/export/pole or
+electronic-model verdict is available yet.
+The inner adapter's zero new-propagations counter refers to complex/Python
+outgoing maps, not the declared native RSOLVE-to100bohr stage. Its native K
+references and diagnostic EIGENP/RESON stages remain part of the frozen pipeline.
+
 The saved compressed CAS12 import independently qualifies64 native roots—eight
 per spin/irrep—on its frozen checkpoint. Its completed DENPROP selected the global
 lowest40 states, distributed as

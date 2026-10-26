@@ -1,0 +1,139 @@
+{
+  "observed_utc": "2026-10-26T04:43:10.918220+00:00",
+  "remote_directory": "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-inner-source-20261026",
+  "source_entries": 44,
+  "source_integrity_now": true,
+  "execution": {
+    "source_commit": "6ae5b79f3af31bd2d51b27a0f06324ab880a8f15",
+    "source_archive_sha256": "52edbdfcd058a0aa8b3d38103ce5bd5ef927080c18d7dee3a6dce87599253843",
+    "owner_sha256": "fc0d03fdb25f909ee3d806e5dc175fa8ee364cfd769a6518768837dc87a1fce2",
+    "owner_pid": 88035,
+    "started_utc": "2026-10-26T04:42:17.095394+00:00",
+    "original_owner_exit": 2,
+    "sectors": [
+      "B1"
+    ],
+    "roots": 2048,
+    "mpi_ranks": 12,
+    "pi_pair_verdict": null,
+    "pole_verdict": null,
+    "full_sweep_released": false,
+    "engine_verified_before": {
+      "provenance_sha256": "acb8d48753f4552903125650974463da1c1892a71c1024ea823ee473736873ef",
+      "installed_files": 242,
+      "frozen_counts": {
+        "source": 55,
+        "inputs": 192
+      }
+    },
+    "topology": "CPU CORE SOCKET NODE\n  0    0      0    0\n  1    1      0    0\n  2    2      0    0\n  3    3      0    0\n  4    4      0    0\n  5    5      0    0\n  6    6      0    0\n  7    7      0    0\n  8    8      0    0\n  9    9      0    0\n 10   10      0    0\n 11   11      0    0\n 12   12      0    0\n 13   13      0    0\n 14   14      0    0\n 15   15      0    0\n 16    0      0    0\n 17    1      0    0\n 18    2      0    0\n 19    3      0    0\n 20    4      0    0\n 21    5      0    0\n 22    6      0    0\n 23    7      0    0\n 24    8      0    0\n 25    9      0    0\n 26   10      0    0\n 27   11      0    0\n 28   12      0    0\n 29   13      0    0\n 30   14      0    0\n 31   15      0    0\n",
+    "available_ram_bytes_before": 122630762496,
+    "free_disk_bytes_before": 66445905920,
+    "prior_workloads": "comfyui Up 42 hours\n",
+    "state": "running",
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "co-compressed-cas12-b1-2048-20261026",
+      "--cpuset-cpus=0-11",
+      "--memory=64g",
+      "--memory-swap=64g",
+      "--shm-size=8g",
+      "--entrypoint",
+      "/opt/ukrmolp/entrypoint.sh",
+      "-e",
+      "OMP_NUM_THREADS=1",
+      "-e",
+      "OPENBLAS_NUM_THREADS=1",
+      "-e",
+      "MKL_NUM_THREADS=1",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "-e",
+      "PYTHONPATH=/opt/qmodeling:/opt/qmodeling/libs/qscat",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006:/work:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-inner-source-20261026/source:/opt/qmodeling:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-inner-source-20261026/outputs:/out",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/bin:/opt/ukrmolp/bin.double:ro",
+      "-v",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/cas12-pointer-address-source-20261012/build/install/lib:/opt/ukrmolp/lib.double:ro",
+      "-w",
+      "/opt/qmodeling",
+      "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+      "python3",
+      "-c",
+      "from pathlib import Path\nimport json,subprocess,sys\nwith Path('/out/controls.log').open('x') as log:\n control=subprocess.run([sys.executable,'-m','projects.ukrmol_co.test_compressed_cas12_inner'],stdout=log,stderr=subprocess.STDOUT,timeout=120)\nPath('/out/controls.json').write_text(json.dumps({'original_exit':control.returncode})+'\\n')\nif control.returncode:raise SystemExit(2)\ncommand=[sys.executable,'-m','projects.ukrmol_co.compressed_cas12_inner','--root','/work','--source','/opt/qmodeling','--work','/out/inner','--contract','/opt/qmodeling/projects/ukrmol_co/compressed-cas12-inner-contract-20261026.json']\nraise SystemExit(subprocess.call(command))\n"
+    ],
+    "image": "sha256:48b9af05d30ce3c289e519433d9fc72a399b8caff6c109ea6c361e8a6b3599b6",
+    "docker_client_pid": 88064
+  },
+  "service_launch": {
+    "command": [
+      "systemd-run",
+      "--user",
+      "--unit=co-compressed-cas12-b1-2048-20261026",
+      "--property=Type=exec",
+      "--property=WorkingDirectory=/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-inner-source-20261026/source",
+      "--wait",
+      "/usr/bin/python3",
+      "-m",
+      "projects.ukrmol_co.compressed_cas12_inner_owner",
+      "--capsule",
+      "/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-inner-source-20261026",
+      "--archive-sha256",
+      "52edbdfcd058a0aa8b3d38103ce5bd5ef927080c18d7dee3a6dce87599253843",
+      "--commit",
+      "6ae5b79f3af31bd2d51b27a0f06324ab880a8f15"
+    ],
+    "source_commit": "6ae5b79f3af31bd2d51b27a0f06324ab880a8f15",
+    "source_archive_sha256": "52edbdfcd058a0aa8b3d38103ce5bd5ef927080c18d7dee3a6dce87599253843",
+    "started_utc": "2026-10-26T04:42:17.034338+00:00"
+  },
+  "service_state": "MainPID=88035\nActiveState=active\nSubState=running\n",
+  "outputs/controls.json": {
+    "original_exit": 0
+  },
+  "outputs/inner/result.json": {
+    "inner_export_verdict": null,
+    "scientific_exit": 2,
+    "sectors": [
+      "B1"
+    ],
+    "roots": 2048,
+    "mpi_ranks": 12,
+    "pi_pair_verdict": null,
+    "pole_verdict": null,
+    "electronic_model_verdict": null,
+    "spectral_truncation_verdict": null,
+    "full_sweep_released": false,
+    "new_qc_calls": 0,
+    "new_target_diagonalizations": 0,
+    "new_property_exports": 0,
+    "new_preparation_calls": 0,
+    "new_propagations": 0,
+    "route_holdout_s_matrices_analyzed": 0,
+    "inputs_verified_before": 50,
+    "runtime_gate": {
+      "runtime_gate_passed": true,
+      "numerical_library_sha256": {
+        "/opt/ukrmolp/lib/libslepc.so": "2e109093e0484b24f6ff254e7071d99b8b8ab4479ac6a98ce0c688e2185272a7",
+        "/opt/ukrmolp/lib/libpetsc.so": "5405c2663e019fbe9b95ef1437425851ae2d30a6f8147ca18bd93895153333ba",
+        "/opt/ukrmolp/lib/libopenblas.so": "72ba00ae2092c1e3240dc54208c90ae7e123498072c96447d02e3b40fcff9ae7",
+        "/opt/ukrmolp/lib/libscalapack.so": "33e0e85ebc9cb1252cac77e8b1100cb7b62d38b43d69efc1873aad2b42ec29c7"
+      },
+      "telemetry_sha256": "ddf4b3ac1e029fe1308bda398ad1758ab61e70a3c2964642d10882cc320f9ac4",
+      "telemetry_ldd": "\tlinux-vdso.so.1 (0x00007fbb0c8f5000)\n\tlibslepc.so.3.24 => /opt/ukrmolp/lib/libslepc.so.3.24 (0x00007fbb0c49c000)\n\tlibpetsc.so.3.24 => /opt/ukrmolp/lib/libpetsc.so.3.24 (0x00007fbb0a910000)\n\tlibmpi.so.40 => /opt/ukrmolp/lib/libmpi.so.40 (0x00007fbb0a585000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fbb0a359000)\n\tlibopenblas.so.0 => /opt/ukrmolp/lib/libopenblas.so.0 (0x00007fbb08038000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fbb07f51000)\n\tlibmpi_usempi_ignore_tkr.so.40 => /opt/ukrmolp/lib/libmpi_usempi_ignore_tkr.so.40 (0x00007fbb07f3e000)\n\tlibmpi_mpifh.so.40 => /opt/ukrmolp/lib/libmpi_mpifh.so.40 (0x00007fbb07ec6000)\n\tlibgfortran.so.5 => /opt/ukrmolp/lib/libgfortran.so.5 (0x00007fbb07b6d000)\n\tlibgcc_s.so.1 => /opt/ukrmolp/lib/libgcc_s.so.1 (0x00007fbb07b40000)\n\tlibquadmath.so.0 => /opt/ukrmolp/lib/libquadmath.so.0 (0x00007fbb07af8000)\n\tlibstdc++.so.6 => /opt/ukrmolp/lib/libstdc++.so.6 (0x00007fbb07876000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007fbb0c8f7000)\n\tlibopen-pal.so.80 => /opt/ukrmolp/lib/libopen-pal.so.80 (0x00007fbb07704000)\n\tlibpmix.so.2 => /opt/ukrmolp/lib/libpmix.so.2 (0x00007fbb0749c000)\n\tlibevent_core-2.1.so.7 => /opt/ukrmolp/lib/libevent_core-2.1.so.7 (0x00007fbb07459000)\n\tlibevent_pthreads-2.1.so.7 => /opt/ukrmolp/lib/libevent_pthreads-2.1.so.7 (0x00007fbb07454000)\n\tlibhwloc.so.15 => /opt/ukrmolp/lib/libhwloc.so.15 (0x00007fbb073e4000)\n\tlibgomp.so.1 => /opt/ukrmolp/lib/libgomp.so.1 (0x00007fbb0738d000)\n",
+      "scope": "Dependency byte and symbol-loading gate; native residual audit follows"
+    }
+  },
+  "native_scatci_log_bytes": 36969,
+  "native_scatci_log_tail": "TE  2\n\n TRANSFORMATION VECTOR  28 FROM SET  6 STATE  3\n\n TRANSFORMATION VECTOR  29 FROM SET  6 STATE  4\n\n TRANSFORMATION VECTOR  30 FROM SET  6 STATE  5\n\n TRANSFORMATION VECTOR  31 FROM SET  7 STATE  1\n SET   7    CO CI calculation - singlet A2                                                                                          \n          NOCSF=41898    NSTAT=    8    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.085270  6.000000\n   O  2        0.000000  0.000000  0.814730  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.3744672746     -112.3739539564     -112.1130203045     -111.9676127404     -111.8816067524\n\n TRANSFORMATION VECTOR  32 FROM SET  7 STATE  2\n\n TRANSFORMATION VECTOR  33 FROM SET  7 STATE  3\n\n TRANSFORMATION VECTOR  34 FROM SET  7 STATE  4\n\n TRANSFORMATION VECTOR  35 FROM SET  7 STATE  5\n\n TRANSFORMATION VECTOR  36 FROM SET  8 STATE  1\n SET   8    CO CI calculation - triplet A2                                                                                          \n          NOCSF=70746    NSTAT=    8    NNUC =    2\n\n Nuclear data     X         Y         Z       Charge\n   C  1        0.000000  0.000000 -1.085270  6.000000\n   O  2        0.000000  0.000000  0.814730  8.000000\n          EIGEN-ENERGIES OF THE REQ. STATES\n                     -112.4058890783     -112.3912613400     -112.1738052269     -112.0283141750     -112.0209257296\n\n TRANSFORMATION VECTOR  37 FROM SET  8 STATE  2\n\n TRANSFORMATION VECTOR  38 FROM SET  8 STATE  3\n\n TRANSFORMATION VECTOR  39 FROM SET  8 STATE  4\n\n TRANSFORMATION VECTOR  40 FROM SET  8 STATE  5\nSLEPc chosen as diagonalizer of choice. Amazing!\nConstructing Distributed matrix\n CO_PTR_PASSbefore-buildrank=                    0 csfs=               990990 determinants=             22475718\n CO_PTR_PASS retained-context rank=                    0\ncontinuum block_size =    1410\nAllocating dimension        86352\nMat_size =    86352\nLocal_size =     7196\nTHRESHOLD =   1.00000000E-15\nstart,end =        0    7196\nPETSC matrix creation completed!\nMatrix uses 2021179392. B of memory\nEstimated uses 2018741232 B of memory\nAverage uses 481408536 B of memory\nCurrently we have        15.51215744GB /        16.00000000GiB available\nMemory availability at   97.0%\n       223072128       223072128 updates will occur at continuum =    223072128 and L2 =    223072128\n CO_PTR_CLASS1_BEGIN rank=                    0 target=                    1\n",
+  "actual_native_input_sha256": "723f2532468e003dd48fc540eb3dec2ca216cbe89c428d98662014dd6cd17e7a",
+  "container_stats": "co-compressed-cas12-b1-2048-20261026 1199.39% 13.39GiB / 64GiB\n",
+  "scope": "One launch-time observation: pending default exits are not completed failures, startup sampled resources are not final peaks or scaling evidence. No additional scientific call or successor."
+}

@@ -26,7 +26,8 @@ is preserved beside corrected public-byte replay0; native output is unchanged.
 all14 target/core MOs, original exits0;171.42s /10.700GiB. Public replay verifies
 83 files/36 inputs/34 sources and native inventory/dimension headers.
 
-**Current allocation:** freeze/push [one B1-only2048 inner/export](compressed-cas12-inner-contract-20261026.json)
+**Current allocation:** [one B1-only2048 inner/export](compressed-cas12-inner-contract-20261026.json)
+froze/pushed at `6ae5b79` and [starts04:42UTC](progress-compressed-cas12-inner-launch-20261026.json),
 on12 physical cores /64GiB /8GiB shared backing, reusing the completed inputs
 and qualified audited engine. Prior same-size B1 cost5.95h at8ranks gives
 conditional3–8h forecast; native12h /owner13h caps. Changed MPI layout is explicit,

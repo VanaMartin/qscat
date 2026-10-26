@@ -687,6 +687,14 @@ the two real-S guards and outgoing-pole/character/model comparison separately.
 No scalar/factory export, fit or sweep follows native success.114 holdouts,
 equilibrium pole exclusion,2048 baseline and parked new50 remain protected.
 
+**Launch04:42UTC:** source/tests/exact owner freeze/push `6ae5b79`04:41:34UTC
+precedes service start04:42:17UTC. At04:43, six runtime controls/50 input pins/
+44 source entries/242 installed artifacts and runtime numerical/telemetry gate
+pass. The12-rank native matrix is86352 with7196 local rows; target reads are in
+the compressed1.9bohr frame. Startup1199.39% CPU /13.39GiB is not a final peak or
+scaling result.114 focused local tests preceded freeze. No final native/export/
+Pi/model/pole verdict yet; no successor is released by this bounded launch.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

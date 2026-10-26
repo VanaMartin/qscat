@@ -17,9 +17,11 @@ now qualifies independently:40 states/five per sector,725 moments, all native/
 owner exits0,4.43h /1.903GiB. No repeated QC/target diagonalization. Next freeze
 the [one-integral/two-CONGEN preparation](compressed-cas12-preparation-contract-20261026.json),
 which now independently qualifies:86352 contracted states per sector,171.42s /
-10.700GiB, original exits0. Next freeze
-[one B1/2048 inner export](compressed-cas12-inner-contract-20261026.json),12 physical
-cores /64GiB /native12h cap. No automatic B2 or outgoing-pole comparison.
+10.700GiB, original exits0. The separately frozen
+[one B1/2048 inner export](compressed-cas12-inner-contract-20261026.json) runs on12 physical
+cores /64GiB /native12h cap. Source/tests/owner freeze `6ae5b79` precedes the
+[04:42UTC launch](progress-compressed-cas12-inner-launch-20261026.json); no completed
+export verdict yet. No automatic B2 or outgoing-pole comparison.
 No new inner solve, pole, geometry or fit is released by that property contract.
 Compressed insensitivity does not reverse stretched rejection or establish
 electronic accuracy.114 holdouts, equilibrium exclusion,2048 baseline and parked

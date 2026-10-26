@@ -22,7 +22,9 @@ without repeated QC/target solves. The
 [completed preparation also qualifies](qualification-evidence/compressed-cas12-preparation/README.md):
 actual86352 contracted states per sector,171.42s /10.700GiB, all original exits0.
 Next is [one costed B1/2048 inner export](compressed-cas12-inner-contract-20261026.json),
-12 physical cores /64GiB /conditional3–8h, after exact source/tests/owner push.
+12 physical cores /64GiB /conditional3–8h. Exact source/tests/owner `6ae5b79`
+is pushed before the [04:42UTC launch](progress-compressed-cas12-inner-launch-20261026.json);
+native matrix construction is active at the04:43 observation.
 No B2 or outgoing-pole job follows automatically. New50 stays parked;
 all114 holdouts and equilibrium pole exclusion remain protected. The existing
 finite open-Pi pair below is not a qualified CO curve or production model.
@@ -677,10 +679,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Matched CAS12 properties verified; bounded scattering-input preparation running, no inner solve yet](../../docs/physics/figures/co-progress-20261026T0423-properties-and-preparation.png)
+![Matched CAS12 inputs independently qualified; one B1/2048 model calculation running on twelve physical cores](../../docs/physics/figures/co-progress-20261026T0443-cas12-inner.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T0423-properties-and-preparation.svg) ·
-[Property/preparation snapshot](progress-snapshot-20261026T0423-properties-and-preparation.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T0443-cas12-inner.svg) ·
+[CAS12 inner-launch snapshot](progress-snapshot-20261026T0443-cas12-inner.json) ·
+[Preparation evidence](qualification-evidence/compressed-cas12-preparation/README.md) ·
+[Independent preparation reconstruction](verification-compressed-cas12-preparation-public-20261026.json) ·
+[Exact B1/2048 contract](compressed-cas12-inner-contract-20261026.json) ·
+[Previous property/preparation figure](../../docs/physics/figures/co-progress-20261026T0423-properties-and-preparation.svg) ·
+[Previous property/preparation snapshot](progress-snapshot-20261026T0423-properties-and-preparation.json) ·
 [Matched property evidence](qualification-evidence/compressed-cas12-properties/README.md) ·
 [Independent property reconstruction](verification-compressed-cas12-properties-public-20261026.json) ·
 [Exact preparation contract](compressed-cas12-preparation-contract-20261026.json) ·
