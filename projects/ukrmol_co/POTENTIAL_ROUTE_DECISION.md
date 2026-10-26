@@ -2,7 +2,21 @@
 
 ## Decision now
 
-**14:25UTC saved-evidence decision: [redirect to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
+**14:56UTC queue step1 complete: [saved feasibility passes](qualification-evidence/stretched-basis-feasibility/README.md).**
+Both actual native files supply64 roots. Select all eight per spin/irrep for a
+finite matched stretched DZ/TZ comparison, not nine-A2 or production convergence.
+The distinct-TZ-frame proof is public; original failures remain. Existing40-state
+property tables have unequal sector counts and each lacks24 required states:
+two new64-state DENPROP exports are missing. No QC/target/import repeat needed.
+
+**Next queue item2:** freeze the property-only contract/tests/exact owner, within
+60minutes and zero scientific calls. Proposed6–16h/export /18h native /19h owner /
+eight physical cores /64GiB is planning only, not a reservation or launch.
+Item3 executes/qualifies missing properties only after separate release; item4
+reviews preparation/B1 scattering. No scientific job is active/queued, no
+automatic successor, no waived channel gate or model/curve/fit promotion.
+
+**Historical14:25UTC saved-evidence decision: [redirect to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
 At2.5bohr both saved models report the same valid forty-component objective /
 6/3/3/0 active space and64 native roots. The distinct TZ-frame qualification is
 not the failed compressed TZ optimization; its original seed-preservation

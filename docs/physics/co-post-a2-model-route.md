@@ -2,6 +2,12 @@
 
 ## Decision and scope
 
+**14:56UTC completion:** [saved-input feasibility passes](../../projects/ukrmol_co/qualification-evidence/stretched-basis-feasibility/README.md)
+for the finite all-eight-per-sector/64-state comparison. The saved distinct-TZ
+proof is now public and its recorded gates reconstruct; no fresh Hamiltonian
+action was run. Two64-state property exports are missing. Next is their exact
+contract/owner freeze, not execution. Historical selection/release rationale follows.
+
 **Redirect the next basis-model investigation to the already constructed
 stretched CAS12 DZ/TZ targets at R=2.5bohr. Do not continue the compressed A2
 driver/optimizer campaign.** This is a saved-evidence allocation decision,
@@ -131,3 +137,47 @@ The failed compressed checkpoint is never an input to this redirect. Nine stays
 the working reference, not a production model;2048/new50/equilibrium exclusion
 and all114 untouched S holdouts remain protected. No geometry sweep, fit,
 production model or successor numerical job is active or queued.
+
+## Completed saved-input/retention/cost decision
+
+The user asks to execute queue step1. Within the60minute cap, authenticate217
+archived files/177 original frozen entries and freshly fetch nine public payloads.
+Read both actual native CIDATA files:64 roots each, orthonormal to1.34e-14,
+correct phases/centers/set order. The TZ binary energies agree with its existing
+widest-space CI within4.974e-13Ha. All48 saved probe records and128 saved CI-vector
+norms reconstruct; original action/subspace evidence is authenticated, not
+recomputed. Original import/seed-preservation failure1 and distinct-frame
+qualification0 remain separate; a packaging-only reader failure1 is preserved
+beside dereferenced-package completion0.
+
+**Select eight roots in every sector,64 total, in each model.** This uses the
+maximum already available common native inventory without additional target
+solves and avoids knowingly returning to the failed first-five stretched
+prescription. Eight is still not nine and is not certified complete. The future
+question is explicitly finite-model DZ/TZ sensitivity. A rejection would rule
+out declaring this finite matched model basis-insensitive; a pass would support
+only this local64-state contrast, not electronic accuracy or production promotion.
+No outcome alone overturns stretched channel rejection or closes compressed
+basis uncertainty. Ranked roots specify each model's truncation; no cross-basis
+state-identity assertion is made.
+
+Existing property counts are DZ `6,5,5,6,5,6,3,4` and TZ
+`6,4,5,6,5,7,3,4` in native set order,40 states each,827/708 multipoles. Each
+misses24 selected states. **Two64-state DENPROP exports are necessary missing
+inputs**, not repeats of successful identical property calculations. Reuse exact
+checkpoints/Molden, all64 CIDATA vectors, target integrals and eight CSF files per
+frame; only NTGTL becomes `8,8,8,8,8,8,8,8`. Original DENPROP calls took4.65/4.40h.
+The proposed conditional6–16h/export and18h native/19h owner ceilings are a
+conservative planning envelope, not measured64-state costs or a threading gain.
+Eight physical cores/64GiB follow the large-job policy. No resources are reserved.
+
+**Queue now:** (1) saved-input feasibility complete; (2) freeze a property-only
+contract/tests/exact owner with input pins, runtime floors and stops; (3) only on
+separate release, compute/independently qualify the missing properties; (4) then
+review minimum preparation and one B1 comparison. Step2 has at most60minutes
+narrow implementation/freeze effort, zero scientific calls. No optimizer/CI
+retuning, new target import, common-frame attribution project, root/channel
+ladder or general solver API. A failed property prerequisite/job must block the
+other model's launch and any successor. No automatic expensive run follows this
+saved-data completion. All protected references/holdouts and scientific budgets
+remain unchanged.

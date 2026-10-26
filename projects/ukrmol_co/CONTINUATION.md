@@ -41,13 +41,23 @@ User requests continued decision-changing work; scientific stop rules still appl
 New50/2048/114 holdouts/equilibrium exclusion remain protected.
 No unattended reminder or autonomous daily job is implied.
 
-**Current14:25UTC disposition: [redirect to saved stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
+**Historical14:25UTC disposition: [redirect to saved stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md).**
 The bounded route review finds a same40-component/6/3/3/0 objective and64 native
 roots in both models at2.5bohr. Public metadata/arithmetic checks pass, not a
 new full-target or pole qualification. Keep compressed A2/TZ stopped. One next
 deliverable: saved-input proof/retention/cost decision,60minutes effort /zero
 new CI/QC/native/maps; full public distinct-TZ-frame proof and common channel/
 property prescription before any expensive allocation. No numerical job queued.
+
+**Current14:56UTC: queue step1 complete.** [Saved feasibility passes](qualification-evidence/stretched-basis-feasibility/README.md):
+both native64-root files authenticate; the existing distinct-TZ-frame proof is
+public and saved gates reconstruct without new actions. Select all eight roots
+per sector/64 per model as a finite matched comparator, not channel convergence.
+Both old40-state property tables lack24 selected states. Next is queue item2:
+freeze two property-only export recipes/tests/exact owner within60minutes,
+zero scientific calls. Only separately released item3 would run/qualify them;
+item4 reviews preparation/B1 comparison. No CI/QC/target repeat, active job or
+automatic scientific successor. All protected data/references remain unchanged.
 
 ## Standing progress-figure workflow
 
@@ -69,7 +79,37 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Saved stretched basis-model direction selected —26 October,14:25UTC review
+### Saved-input feasibility complete —26 October,14:56UTC
+
+[Public saved proof](qualification-evidence/stretched-basis-feasibility/README.md) /
+[verification](verification-stretched-basis-feasibility-public-20261026.json) /
+[reader/tests](stretched_basis_feasibility.py).
+Nine fresh public payloads,217 archived files and177 original frozen entries
+verify. Both CIDATA files contain64 normalized roots; TZ binary energies agree
+with saved independent CI within4.974e-13Ha.128 saved CI vectors are norm-checked;
+48 saved probes retain their passing original action/spin gates. No fresh
+Hamiltonian/spin action or eigensolve. Original seed-preservation failure1 and
+distinct-TZ qualification0 remain. Initial symlink-package reader1 is preserved
+beside a dereferenced-package completion0; no scientific outputs changed.
+
+**Retain eight roots in each sector,64 per basis, for a finite model comparison.**
+This maximizes reused common native coverage but does not establish nine-A2/
+omitted-channel/production convergence or identified-state continuity. Existing
+properties contain40 unevenly distributed states, DZ6/5/5/6/5/6/3/4 and
+TZ6/4/5/6/5/7/3/4,827/708 multipoles. Each lacks24 chosen states. Two new64-state
+property exports are missing; exact native vectors/integrals/CSFs are retained.
+
+**Next queue item2 only:** within60minutes, freeze the property-only contract,
+tests, owner and exact input/source pins; change only each DENPROP NTGTL to all8.
+No new CI/QC/native/map call. Original DENPROP alone4.65/4.40h; prospective
+6–16h/export,18h native/19h owner,8 physical cores/64GiB are planning bounds,
+not measured64-state costs, reservations or speedups. A prerequisite/job failure
+must block the other model/successor. Item3 requires separate execution release;
+no preparation/scattering/pole/B2/sweep/fit is released. No job is active/queued.
+Keep compressed A2/TZ stopped, B1 model rejection, nine/2048/new50/equilibrium/
+114-holdout protections. No new production model or physical basis verdict.
+
+### Historical stretched basis-model selection —26 October,14:25UTC review
 
 [Decision/objective](../../docs/physics/co-post-a2-model-route.md) /
 [public metadata](qualification-evidence/stretched-basis-route-review/README.md).

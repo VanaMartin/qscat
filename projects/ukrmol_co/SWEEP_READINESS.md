@@ -34,6 +34,11 @@ saved stretched CAS12 DZ/TZ targets with the unchanged40-component objective.
 One60minute saved-proof/retention/cost deliverable precedes any new scientific
 call; distinct-TZ-frame public proof and common properties/retention remain gates.
 No compressed basis verdict or waived stretched channel rejection. No job queued.
+The [saved feasibility now completes](qualification-evidence/stretched-basis-feasibility/README.md):
+use all eight native roots per sector/64 per basis as a finite comparator. Both
+existing property tables miss24 states. Next is a60minute property-only contract/
+owner freeze for two missing tables; zero scientific calls and no execution
+release. Original failures, production channel gates and holdouts remain intact.
 
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
 both sectors,10.88meV position /4.48meV full-width changes,89 maps /217s. Keep

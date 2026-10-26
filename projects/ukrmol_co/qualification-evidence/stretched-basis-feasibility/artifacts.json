@@ -1,0 +1,15 @@
+{
+  "artifacts": {
+    "collection-command.py": {"bytes": 3808, "sha256": "2f1b5e17ca6d41e4bf15941ea32a677d4ddeeda0631408328d9e5f2f366ec32d"},
+    "collection.json": {"bytes": 52039, "sha256": "a1d3ad8810b85cc80c283d83c48f3417d4d4e6df35aca81bcab0f1eeb8c1b2fb"},
+    "manifest.json": {"bytes": 353, "sha256": "6fa3a2d8e9f0022d2b09bf9d5bbaf90fa37bcc83dba35683f0ef714aae29bb62"},
+    "original-symlink-collection.json": {"bytes": 52039, "sha256": "5bdb0f1fe3fcdd50dfb23ce388d12d3c6ef09794adfc538fb74a661c61080c6a"},
+    "original-symlink-proof.tar.gz": {"bytes": 231978033, "sha256": "3cf080124de7ade65abc1f52223c93b3319f0095553714d8e859b5a2ec2be11f"},
+    "preserved-reader-failure.json": {"bytes": 376, "sha256": "6452c3d7db781a18d53175b2a0864ac25fa54459410769a30acd5d038fb30a32"},
+    "reconstruct-saved.py": {"bytes": 15928, "sha256": "d231097887c9d6f34893253a40951c3c43c3e0feceb100c9cbfed595d4094130"},
+    "result-summary.json": {"bytes": 3086, "sha256": "31bf6f457d55d128301dd814ad649c59d4f6764c3036c6942a4e0d3d6bcbce85"},
+    "saved-proof.tar.gz": {"bytes": 232028736, "sha256": "c19261f8db1d3621d4a233eea36491d26a9726633fa054dca94dfdc2a9df770c"}
+  },
+  "git_sha": "e1fdf6ae10379c49d01ff339b4fb1a11851e22a7",
+  "url_prefix": "https://data.qscat.org/co-stretched-basis-feasibility-20261026/"
+}

@@ -1,0 +1,10 @@
+{
+  "git_sha": "e1fdf6ae10379c49d01ff339b4fb1a11851e22a7",
+  "experiment": "co-stretched-basis-feasibility-20261026",
+  "scope": "Saved-source/input/probe/native-record collection only; no new CI/QC/native/Hamiltonian/outgoing action",
+  "new_ci_calls": 0,
+  "new_qc_calls": 0,
+  "new_native_calls": 0,
+  "new_maps": 0,
+  "full_sweep_released": false
+}

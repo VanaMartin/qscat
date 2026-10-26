@@ -32,8 +32,11 @@ exact/H4 controls pass, but CI/full-action gates fail; eight roots are not run.
 Public replay confirms26.09s /.545GiB, exits2. No retry, selector promotion,
 fresh full QC or automatic successor; no job is active. The
 [14:25UTC saved-evidence decision redirects to existing stretched CAS12 DZ/TZ targets](../../docs/physics/co-post-a2-model-route.md),
-same40-state objective at2.5bohr. Next is one saved-proof/common-retention/cost
-decision before any new scientific call, not another solver-budget increase.
+same40-state objective at2.5bohr. The [saved feasibility now passes](qualification-evidence/stretched-basis-feasibility/README.md):
+select all eight native roots per sector/64 per model as a finite comparator.
+Both existing40-state property tables miss24 required states. Next is an exact
+two-export property-only contract/owner freeze, not another solver-budget increase
+or numerical launch. No CI/QC/target/import repeat is needed.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -697,10 +700,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Redirect basis-model feasibility to existing stretched DZ and TZ targets; no numerical job released](../../docs/physics/figures/co-progress-20261026T1425-basis-redirect.png)
+![Saved stretched DZ and TZ feasibility passes for a finite64-state comparison; two property inputs remain missing](../../docs/physics/figures/co-progress-20261026T1456-basis-feasible.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1425-basis-redirect.svg) ·
-[Basis-route decision snapshot](progress-snapshot-20261026T1425-basis-redirect.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1456-basis-feasible.svg) ·
+[Saved-feasibility snapshot](progress-snapshot-20261026T1456-basis-feasible.json) ·
+[Saved proof and missing-property decision](qualification-evidence/stretched-basis-feasibility/README.md) ·
+[Public saved reconstruction](verification-stretched-basis-feasibility-public-20261026.json) ·
+[Previous route figure](../../docs/physics/figures/co-progress-20261026T1425-basis-redirect.svg) ·
+[Previous route snapshot](progress-snapshot-20261026T1425-basis-redirect.json) ·
 [Saved stretched-target route review](../../docs/physics/co-post-a2-model-route.md) ·
 [Public metadata](qualification-evidence/stretched-basis-route-review/README.md) ·
 [Previous A2-stop figure](../../docs/physics/figures/co-progress-20261026T1408-a2-stop.svg) ·

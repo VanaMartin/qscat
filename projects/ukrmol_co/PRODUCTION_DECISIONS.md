@@ -1069,6 +1069,51 @@ job. Prior86.77meV B1 rejection, compressed basis uncertainty, continuity/neutra
 embedding gaps, nine working reference, parked new50, equilibrium exclusion and
 all114 untouched S holdouts remain. No model, sweep, curve or fit is qualified.
 
+### Goal checkpoint —26 October,14:56UTC: saved feasibility complete; two missing64-state properties
+
+**Executed queue item1:** the user asks to list next steps and execute the first.
+The [saved-input proof/retention/cost review](qualification-evidence/stretched-basis-feasibility/README.md)
+completes within60minutes, with zero new CI/QC/native/Hamiltonian/outgoing calls
+and zero holdout S reads. Nine fresh public payloads/217 archived files/177
+original frozen entries authenticate. Native binary energies/vectors, raw logs,
+ordinary QC flags/objective and actual existing properties independently parse;
+48 saved probe records/128 saved CI-vector norms reconstruct. Original independent
+action/subspace metrics remain saved evidence, not fresh contractions. The
+distinct TZ-frame saved proof is now public; original seed failure/owner1 and
+separate qualification0 remain. Initial tar-symlink reader1 is preserved beside
+dereferenced-packaging completion0 without scientific changes.
+
+**Decision / production link:** select all eight existing native roots per
+spin/irrep,64 per model, as the common finite stretched DZ/TZ comparator. Both
+files actually contain64 normalized roots. No QC, target solve, reimport or new
+orbital construction is needed. Eight is not nine or an omitted-channel bound;
+the existing stretched phase rejection remains. A future finite-model rejection
+would rule out calling this64-state model basis-insensitive; a pass would not
+promote either model or close channel/domain/accuracy uncertainty. No ranked-root
+comparison is represented as cross-basis state continuity.
+
+**Exact missing inputs:** current DZ properties use6,5,5,6,5,6,3,4 states per
+native set, TZ6,4,5,6,5,7,3,4. Each table has40 states and lacks24 of the selected
+64;827/708 multipoles. Reuse exact native vectors/integrals/CSFs and produce one
+new all-eight-per-sector property table per model. Only NTGTL changes. No
+successful identical property calculation is repeated. Subsequent scattering
+preparation/dimensions/costs are not yet measured or released.
+
+**Cost bounds / disposition:** continue to queue item2, an exact two-export
+property-only contract/tests/owner freeze, at most60minutes implementation effort
+and zero scientific calls. Measured old DENPROP alone4.65/4.40h supports only a
+conditional planning envelope6–16h/export,18h native /19h owner ceilings,
+eight physical cores /64GiB. These are proposed, not measured64-state costs or
+reserved resources; do not infer an eight-core speedup from serial DENPROP.
+Declare actual floors/input/source hashes and failure routing in that separate
+contract. No job launches now; a failure must prevent the other model/successor.
+
+Queue item3 would execute and independently qualify those missing inputs only
+after separate release; item4 would review minimum preparation/B1 model comparison.
+No automatic native/scattering/pole/B2/sweep/fit or paid provisioning. Compressed
+TZ/A2 remains stopped, prior B1 model rejection remains resolved, nine/2048/
+new50/equilibrium/114-holdout protections unchanged. No production model selected.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
