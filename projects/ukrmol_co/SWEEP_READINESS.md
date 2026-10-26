@@ -13,7 +13,10 @@ Stop this branch with B2 unlaunched; no successor job, sweep or fit is released.
 The user-directed continuation separately selects
 [one missing compressed CAS12/TZ QC target](../../docs/physics/co-compressed-cas12-basis-control.md),
 same40-component ensemble/active space and qualified DZ seed,4 physical cores /
-24GiB /8h cap. Only this prerequisite is selected; no automatic import,
+24GiB /8h cap. Source/tests/owner freeze precedes the
+[11:17UTC launch](progress-compressed-cas12-tz-qc-launch-20261026.json); eight
+runtime controls pass and target optimization is active at11:19UTC. No QC
+verdict yet. Only this prerequisite is running; no automatic import,
 scattering, pole or B2. Larger CAS12 is not thereby accurate; optimized frames
 and imported target representations also differ. Retain nine working reference.
 

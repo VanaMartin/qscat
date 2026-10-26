@@ -20,7 +20,8 @@ not a production model. **11:00UTC user-directed continuation now selects
 [one missing compressed CAS12/TZ QC target](compressed-cas12-tz-qc-contract-20261026.json)**
 for the [separately reviewed basis-model direction](../../docs/physics/co-compressed-cas12-basis-control.md).
 Reuse qualified DZ checkpoint, same40-component average/active6/3/3/0; four
-physical cores /24GiB /conditional0.5–4h /8h hard cap. Freeze/push before launch.
+physical cores /24GiB /conditional0.5–4h /8h hard cap. Source/tests/owner `317ae15`
+is pushed before the11:17UTC launch; the target is running at11:19UTC observation.
 No automatic import/scattering/pole or solver rescue. Independently authenticate
 QC outcome before any further allocation; there is no production-model release.
 User requests continued decision-changing work; scientific stop rules still apply.
@@ -46,6 +47,28 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Missing CAS12/TZ QC target running —26 October,11:19UTC observation
+
+[Launch record](progress-compressed-cas12-tz-qc-launch-20261026.json): frozen/pushed
+source/tests/exact owner `317ae15`, archive
+`433ae897f332e08c324eeeae7ca8626412e78d330f61c63e2f56c1a29ce3e70a`,
+23 Git-matched source entries. Service/container
+`co-compressed-cas12-tz-qc-20261026`, persistent capsule
+`/home/kooza/ukrmol/co-sa-20261006/prepared/compressed-cas12-tz-qc-source-20261026/`.
+Start11:17:37UTC. Eight runtime controls pass with no skips, PySCF2.11.0;
+nine root/seven source prerequisites authenticate. RHF converges; CAS(10,12),
+two core/46 virtual orbitals and40 equal.025-weight states reach optimization.
+No QC or terminal exit is claimed yet; pending owner/scientific default2 is not
+a terminal failure. Four physical cores0–3 /24GiB, network disabled, old inputs
+read-only.8h container /28920s systemd owner cap; no retry or automatic successor.
+
+**Next on original completion:** authenticate outputs/exits/actual resources,
+independently reconstruct QC gates and label ranked DZ/TZ comparisons diagnostic.
+If QC passes, review the [unreleased24-probe coverage proposal](compressed-cas12-tz-coverage-proposal-20261026.json)
+before an exact new checkpoint/source/owner freeze. Reuse published full-action
+helpers, no old-DZ/failed-seed repeats or new solver. No import/property/scattering/
+pole/B2 stage is queued; all protected data and the prior B1 rejection remain.
 
 ### Independent basis direction selected —26 October,11:00UTC review
 

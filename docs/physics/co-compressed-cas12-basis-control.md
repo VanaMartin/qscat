@@ -72,6 +72,14 @@ automatic import or another model job**.
 
 ## What a result would release
 
+**Launch observation26October11:19UTC:** the exact source/tests/owner freeze
+`317ae15` precedes11:17:37UTC launch. All eight runtime controls, including the
+analytic singlet/full-action control, pass without skips in PySCF2.11.0. Nine
+root/seven source pins and23 Git-matched capsule sources authenticate. RHF
+converges and the intended CAS(10,12)/40-state optimizer is active; no QC verdict
+or terminal runner/analyzer exit exists at this observation.
+[Launch record](../../projects/ukrmol_co/progress-compressed-cas12-tz-qc-launch-20261026.json).
+
 QC pass supplies an orbital/self-consistency candidate only. Independently
 authenticate its output and compare DZ/TZ ranked energies/excitations, dipole
 and MO metadata as diagnostics—not identified-state continuity or a pole budget.
@@ -79,6 +87,17 @@ Then separately review the minimum fixed-orbital/full-action coverage and native
 target import needed for this new TZ frame. Existing successful DZ inputs remain
 unchanged. No integral, DENPROP, native target/scattering solve, pole map, B2 or
 sweep is released by this QC contract.
+
+The [conditional coverage proposal](../../projects/ukrmol_co/compressed-cas12-tz-coverage-proposal-20261026.json)
+is **unreleased**: one new checkpoint,24 probes rather than repeating the old
+96-probe/two-seed scan. Per spin/irrep use5roots/space160 for independent action
+on averaged roots,8/160 for candidate native roots/common-first-five count, and
+8/240 for the larger-request space check. Reuse the published residual/full-
+action algorithms; the maintained helper's AST matches the published original.
+No80-space or5/240 repeat is needed for those declared comparisons. This is
+bounded root coverage/agreement, not an absolute missing-state/electronic-error
+certificate. Failure stops; exact checkpoint/source/owner freeze and a new review
+are required before any execution.
 
 An eventual valid DZ→TZ B1 pole rejection would rule out treating DZ as
 basis-insensitive at CAS12. A pass would only support that local basis contrast;

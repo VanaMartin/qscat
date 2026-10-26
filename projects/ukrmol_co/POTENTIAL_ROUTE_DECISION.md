@@ -14,8 +14,10 @@ select the [independent CAS12 DZ/TZ basis-model direction](../../docs/physics/co
 There is no completed compressed CAS12/TZ target. The only next allocation is
 [one missing QC target](compressed-cas12-tz-qc-contract-20261026.json), using the
 qualified DZ checkpoint and unchanged40-component ensemble/active6/3/3/0.
-Freeze/push source/tests/exact owner first; four physical cores /24GiB /
-conditional0.5–4h /8h hard cap. No automatic import, properties, scattering or
+Source/tests/exact owner `317ae15` is frozen/pushed before
+[11:17UTC launch](progress-compressed-cas12-tz-qc-launch-20261026.json); eight
+runtime controls pass, the intended target is active at11:19UTC. Four physical
+cores /24GiB /conditional0.5–4h /8h hard cap. No automatic import, properties, scattering or
 pole job; any failure stops without repair/retry. Neither larger CAS13 nor a
 new frame-attribution branch is selected without stronger decision value.
 Retain nine working reference and2048 baseline; no sweep, fit or full-S claim.

@@ -852,6 +852,18 @@ No integral, native target solve, DENPROP, scattering, pole, geometry, B2 or
 sweep is released by this allocation. All114 S holdouts/equilibrium exclusion,
 nine working reference,2048 baseline and parked new50 remain protected.
 
+**11:19UTC execution observation:** source/tests/exact owner froze/pushed at
+`317ae15` before11:17:37UTC launch. [Record](progress-compressed-cas12-tz-qc-launch-20261026.json)
+authenticates23 source entries/nine root/seven source prerequisites and eight
+runtime controls with no skips, including analytic singlet/full-Hamiltonian
+action in PySCF2.11.0. RHF converges and the intended40-state/CAS12 optimizer
+is active; no QC/terminal exit claimed. Inputs remain read-only, no network,
+actual available RAM121646575616bytes/free disk62896316416bytes at launch.
+Implementation/freeze/launch fits the≤60minute effort bound. No follow-on job is
+queued. The [conditional24-probe coverage proposal](compressed-cas12-tz-coverage-proposal-20261026.json)
+reuses published algorithms and avoids irrelevant old-seed/80-space repeats;
+it remains unreleased until QC outcome review and exact new checkpoint/owner freeze.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

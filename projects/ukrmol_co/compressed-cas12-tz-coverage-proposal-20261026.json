@@ -1,0 +1,70 @@
+{
+  "status": "Unreleased conditional proposal only; no QC output digest exists at proposal time. Wait for independently authenticated QC pass before exact input/source/owner freeze.",
+  "scientific_question": "For the new fixed CAS12/TZ orbital frame only, independently cover the40 averaged roots plus64 candidate native roots with physical/spin-penalized Hamiltonian actions and requested-count/trial-space agreement. No reoptimization or new numerical method.",
+  "required_parent": "compressed-cas12-tz-qc-contract-20261026.json",
+  "required_qc_candidate_verdict": true,
+  "checkpoint_sha256": null,
+  "probe_settings": [
+    {
+      "roots": 5,
+      "space": 160
+    },
+    {
+      "roots": 8,
+      "space": 160
+    },
+    {
+      "roots": 8,
+      "space": 240
+    }
+  ],
+  "sectors": [
+    "singlet.A1",
+    "singlet.B1",
+    "singlet.B2",
+    "singlet.A2",
+    "triplet.A1",
+    "triplet.B1",
+    "triplet.B2",
+    "triplet.A2"
+  ],
+  "probes": 24,
+  "eigenpair_records": 168,
+  "cycles_per_probe": 600,
+  "numerical_helpers": {
+    "maintained": "projects/ukrmol_co/coverage_reference.py",
+    "maintained_sha256": "095e81ca0b57ded9a5eb6c6f082860864fdd641bd72eda247cd696ea6e2f9cfd",
+    "ast_identical_to_published_coverage_reference": true,
+    "published_archive_sha256": "1601d06c66212b747ed7c367293b93433b7d4b9ec004c437784a434d4aa04d12",
+    "published_helper_sha256": {
+      "state-averaged-evidence/owner-source/projects/ukrmol_co/coverage_reference.py": "095e81ca0b57ded9a5eb6c6f082860864fdd641bd72eda247cd696ea6e2f9cfd",
+      "state-averaged-evidence/owner-source/projects/ukrmol_co/singlet_reference.py": "b2dfe8da64372ba4471b009d331f883fa020615464d23467862928ed50ec5104"
+    },
+    "singlet_a1": "Reuse published singlet_reference.solve with its independent direct_spin1 full-Hamiltonian action; do not use the ordinary spin1_symm solver for this sector."
+  },
+  "minimum_scope_rationale": "One new checkpoint, not both historical mixed-QC seeds.5/160 independently acts on the averaged roots;8/160 covers the64 eventual native vectors and tests common-first-five root count;8/240 tests the larger request under space refinement.5/240 adds no uncovered common-root/space comparison. No80-space probe, old-DZ repeat or optimizer retry.",
+  "gates": {
+    "all_flags": true,
+    "physical_penalized_spin_penalty_action_max_hartree": 1e-09,
+    "singlet_full_action_difference_and_residual_max_hartree": 1e-09,
+    "spin_square_error_max": 1e-06,
+    "ci_vector_mo_orthogonality_max": 1e-09,
+    "ensemble_root_count_space_pi_max_hartree": 1e-07
+  },
+  "resources": {
+    "physical_cores": "0-3",
+    "memory_gib": 8,
+    "forecast_minutes_conditional": [
+      10,
+      60
+    ],
+    "hard_cap_seconds": 7200
+  },
+  "implementation_effort_minutes_cap": 45,
+  "decision": "Any failure stops without repair/retry/import. A verified pass would permit a separate minimal native-target import/property inventory contract, not scattering or a pole. No job is released by this proposal.",
+  "new_qc_calls": 0,
+  "new_native_calls": 0,
+  "new_pole_maps": 0,
+  "full_sweep_released": false,
+  "route_holdout_s_matrices_analyzed": 0
+}

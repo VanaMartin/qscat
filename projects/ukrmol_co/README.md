@@ -20,7 +20,10 @@ original model exits1, numerical pole exits0. **Stop this contrast branch; no B2
 or automatic successor.** The user-directed continuation separately selects
 [one missing compressed CAS12/TZ QC target](../../docs/physics/co-compressed-cas12-basis-control.md),
 same40-component ensemble/active space, reusing the qualified DZ checkpoint.
-Only that prerequisite is selected; native/scattering/pole stages stay gated.
+It [starts11:17UTC](progress-compressed-cas12-tz-qc-launch-20261026.json) after
+source/tests/owner freeze; eight runtime controls pass and target optimization
+is active at11:19UTC. Only that prerequisite is running; native/scattering/pole
+stages stay gated. No QC result yet.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -684,10 +687,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Matched B1 pole sensitivity rejects; one missing CAS12 TZ target selected, no B2 or sweep](../../docs/physics/figures/co-progress-20261026T1100-cas12-basis.png)
+![Matched B1 sensitivity rejects; missing CAS12 TZ target running, no B2 or sweep](../../docs/physics/figures/co-progress-20261026T1119-cas12-tz-qc.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1100-cas12-basis.svg) ·
-[CAS12 basis-allocation snapshot](progress-snapshot-20261026T1100-cas12-basis.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1119-cas12-tz-qc.svg) ·
+[CAS12 TZ launch snapshot](progress-snapshot-20261026T1119-cas12-tz-qc.json) ·
+[QC launch record](progress-compressed-cas12-tz-qc-launch-20261026.json) ·
+[Conditional coverage proposal—unreleased](compressed-cas12-tz-coverage-proposal-20261026.json) ·
+[Previous allocation figure](../../docs/physics/figures/co-progress-20261026T1100-cas12-basis.svg) ·
+[Previous allocation snapshot](progress-snapshot-20261026T1100-cas12-basis.json) ·
 [Basis-control decision](../../docs/physics/co-compressed-cas12-basis-control.md) ·
 [Exact QC-only contract](compressed-cas12-tz-qc-contract-20261026.json) ·
 [Previous pole-result figure](../../docs/physics/figures/co-progress-20261026T0959-cas12-pole.svg) ·
