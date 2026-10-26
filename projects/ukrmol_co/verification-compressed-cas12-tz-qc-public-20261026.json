@@ -1,0 +1,92 @@
+{
+  "observed_utc": "2026-10-26T12:44:18.134345+00:00",
+  "pointer_sha256": "f58e88934bcecdce97b62101557617375517b5dfc22a0a79d6ab79bb1b1e4573",
+  "source_commit": "317ae155f35487ffedfa618a92da8fd4f574c73f",
+  "source_archive_sha256": "433ae897f332e08c324eeeae7ca8626412e78d330f61c63e2f56c1a29ce3e70a",
+  "public_payloads_verified": 6,
+  "archived_files_verified": 970,
+  "source_entries_verified": 23,
+  "root_prerequisites_verified": 9,
+  "source_prerequisites_verified": 7,
+  "original_runner_exit": 1,
+  "original_analyzer_exit": null,
+  "original_command_container_owner_service_exits": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "scientific_exit": 2,
+  "qc_candidate_verdict": null,
+  "basis_model_verdict": null,
+  "qc_gate_rejection_independently_confirmed": true,
+  "physical_model_rejection": false,
+  "failed_ci_sectors": [
+    "singlet.A2"
+  ],
+  "orbital_converged": true,
+  "macroiterations": 25,
+  "final_gradient_norm": 2.309636221551488e-08,
+  "final_orbital_energy_change_hartree": 8.185452315956354e-12,
+  "rejected_state_average_objective_hartree": -112.2200432928071,
+  "printed_wrong_spin_states": [
+    {
+      "sector": "singlet.A2",
+      "root": 1,
+      "printed_spin_square": 7.78e-05,
+      "expected_spin_square": 0.0,
+      "absolute_error": 7.78e-05
+    },
+    {
+      "sector": "singlet.A2",
+      "root": 2,
+      "printed_spin_square": 3.87e-05,
+      "expected_spin_square": 0.0,
+      "absolute_error": 3.87e-05
+    },
+    {
+      "sector": "singlet.A2",
+      "root": 3,
+      "printed_spin_square": 0.0017931,
+      "expected_spin_square": 0.0,
+      "absolute_error": 0.0017931
+    },
+    {
+      "sector": "singlet.A2",
+      "root": 4,
+      "printed_spin_square": 2.0000126,
+      "expected_spin_square": 0.0,
+      "absolute_error": 2.0000126
+    },
+    {
+      "sector": "singlet.A2",
+      "root": 5,
+      "printed_spin_square": 1.9952972,
+      "expected_spin_square": 0.0,
+      "absolute_error": 1.9952972
+    }
+  ],
+  "printed_average_spin_square": 1.099930485,
+  "expected_average_spin_square": 1.0,
+  "fresh_ci_audit_reached": false,
+  "successful_target_export_exists": false,
+  "checkpoint_preserved": true,
+  "checkpoint_sha256": "2bfbcafabac0fa07ab2af5e31888eabddaa7dabe465a50cde07e386e33f52cf6",
+  "runtime_controls_passed": 8,
+  "resource_samples_verified": 24423,
+  "profiled_wall_seconds": 4898.179625935998,
+  "scientific_wall_seconds": 4898.480258540978,
+  "owner_wall_seconds": 4899.111255267024,
+  "container_cpu_seconds": 14569.732293000001,
+  "kernel_peak_bytes": 1253928960,
+  "sampled_peak_anon_bytes": 1089122304,
+  "sampled_peak_run_allocated_bytes": 1601536,
+  "sampled_peak_scratch_allocated_bytes": 0,
+  "timed_out": false,
+  "container_oom_killed": false,
+  "native_calls": 0,
+  "new_pole_maps": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "full_sweep_released": false,
+  "independence": "Fresh-byte archive/source/prerequisite authentication and independent reconstruction of optimizer/CI-flag/spin/absence-of-export/original-exit/resource gates from saved JSON, raw PySCF text and telemetry. Spin values and gradients are independently parsed/arithmetic-checked, not recomputed from wavefunctions. No PySCF import, CI/optimizer retry, full-Hamiltonian action or physical basis verdict. Rejected checkpoint preserved, not promoted."
+}

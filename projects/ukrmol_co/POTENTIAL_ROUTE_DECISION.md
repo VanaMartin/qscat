@@ -2,6 +2,21 @@
 
 ## Decision now
 
+**12:39UTC outcome: [CAS12/TZ QC stops at singlet A2](qualification-evidence/compressed-cas12-tz-qc/README.md).**
+Orbital convergence passes, but the singlet-A2 CI flag fails and its five raw
+printed states have wrong-spin contamination, including two near-triplet roots.
+The DZ/TZ physical comparison remains **inconclusive**, not rejected. No valid
+TZ target/Molden export exists; the failed checkpoint is preserved, not promoted.
+The conditional24-probe proposal is blocked. No retry, larger space, alternative
+seed, native import/scattering/pole/B2 or other model job is released.
+
+**Disposition: stop this allocation; next deliverable is a separately reviewed
+singlet-A2 correctness/optimizer-objective decision from saved evidence.**
+A later fixed-orbital CI pass could not qualify an optimization containing
+unconverged wrong-spin ensemble roots. Do not bypass the guard or return to
+indefinite solver tuning. Keep the resolved B1 model rejection below and all
+protected inputs/holdouts; no electronic model, width curve or fit is qualified.
+
 **26October outcome: [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).**
 Position shifts86.774662meV, beyond50meV; full width shifts16.066613meV and
 passes its104.454735meV budget. Own real-S/root/contour/residue/character/local
@@ -9,15 +24,17 @@ identity gates pass. This is model sensitivity, not a failed solver or proof
 that CAS12 is accurate. Both models use own2048 roots/all250 channels; optimized
 frames/imported target representations change too. No isolated active-space claim.
 
-**11:00UTC continuation decision:** keep this contrast stopped and B2 unlaunched;
+**Historical11:00UTC continuation decision:** keep this contrast stopped and B2 unlaunched;
 select the [independent CAS12 DZ/TZ basis-model direction](../../docs/physics/co-compressed-cas12-basis-control.md).
 There is no completed compressed CAS12/TZ target. The only next allocation is
 [one missing QC target](compressed-cas12-tz-qc-contract-20261026.json), using the
 qualified DZ checkpoint and unchanged40-component ensemble/active6/3/3/0.
 Source/tests/exact owner `317ae15` is frozen/pushed before
 [11:17UTC launch](progress-compressed-cas12-tz-qc-launch-20261026.json); eight
-runtime controls pass, the intended target is active at11:19UTC. Four physical
-cores /24GiB /conditional0.5–4h /8h hard cap. No automatic import, properties, scattering or
+runtime controls pass, the intended target is active at11:19UTC. Allocation:
+four physical cores /24GiB /conditional0.5–4h /8h hard cap. It subsequently stops
+at the QC prerequisite as recorded above; no calculation is running now.
+No automatic import, properties, scattering or
 pole job; any failure stops without repair/retry. Neither larger CAS13 nor a
 new frame-attribution branch is selected without stronger decision value.
 Retain nine working reference and2048 baseline; no sweep, fit or full-S claim.

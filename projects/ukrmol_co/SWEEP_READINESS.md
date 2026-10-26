@@ -15,9 +15,11 @@ The user-directed continuation separately selects
 same40-component ensemble/active space and qualified DZ seed,4 physical cores /
 24GiB /8h cap. Source/tests/owner freeze precedes the
 [11:17UTC launch](progress-compressed-cas12-tz-qc-launch-20261026.json); eight
-runtime controls pass and target optimization is active at11:19UTC. No QC
-verdict yet. Only this prerequisite is running; no automatic import,
-scattering, pole or B2. Larger CAS12 is not thereby accurate; optimized frames
+runtime controls pass. It [stops12:39UTC](qualification-evidence/compressed-cas12-tz-qc/README.md)
+on unconverged/wrong-spin singlet-A2 roots despite orbital convergence.
+DZ/TZ physical comparison is inconclusive; coverage/native import/scattering/
+pole/B2 and retries remain blocked. Next is a separate singlet-A2 correctness
+decision, not another full QC attempt. Larger CAS12 is not thereby accurate; optimized frames
 and imported target representations also differ. Retain nine working reference.
 
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)

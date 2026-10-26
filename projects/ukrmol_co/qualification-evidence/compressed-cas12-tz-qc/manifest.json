@@ -1,0 +1,9 @@
+{
+  "git_sha": "317ae155f35487ffedfa618a92da8fd4f574c73f",
+  "experiment": "co-compressed-cas12-tz-qc-20261026",
+  "scientific_exit": 2,
+  "original_qc_runner_exit": 1,
+  "qc_candidate_verdict": null,
+  "basis_model_verdict": null,
+  "full_sweep_released": false
+}

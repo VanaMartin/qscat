@@ -1,0 +1,30 @@
+{
+  "artifacts": {
+    "collection.json": {
+      "bytes": 278189,
+      "sha256": "1a74e12119329e95aac319057d3e36032b990b507f5a75faee8aacc554bbc5e6"
+    },
+    "manifest.json": {
+      "bytes": 265,
+      "sha256": "57bc70b9876853346c8c857a5b01a669d2e6c0fc724823dd7600405b4fe12791"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 9880,
+      "sha256": "77b1288d6fe6ea893326755c92cdfcc0a19407c2ee11925470fff2867f8730ae"
+    },
+    "reference-inputs.tar.gz": {
+      "bytes": 6979776,
+      "sha256": "f2a4ecfd8fc5b9e7d36bfcda0be6d53038161f4b468ad6becf5973077444a62c"
+    },
+    "result-summary.json": {
+      "bytes": 14152,
+      "sha256": "2051fb83ce3192d9db8a7a1757893a44423e5b8d81cf873062ff18e8eaee751a"
+    },
+    "results.tar.gz": {
+      "bytes": 18310488,
+      "sha256": "f2244b48d003a87895a9404dddd7efb2d0e12b2100b3a69d4a17c4bc8ef2de0c"
+    }
+  },
+  "git_sha": "317ae155f35487ffedfa618a92da8fd4f574c73f",
+  "url_prefix": "https://data.qscat.org/co-compressed-cas12-tz-qc-20261026/"
+}

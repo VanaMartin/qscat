@@ -2,6 +2,20 @@
 
 ## Decision
 
+**26October12:39UTC outcome:** the [QC prerequisite stops at singlet A2](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-tz-qc/README.md).
+Orbital gradient passes after25 macros, but the singlet-A2 CI flag fails; raw
+printed nominal singlet roots include S²≈2. No successful target/Molden export
+or fresh-CI audit exists. Original runner1, analyzer unrun, owner/scientific2;
+no timeout/OOM,1.36h. The physical DZ/TZ comparison remains **inconclusive**.
+This failed optimization is not a target input, even if a future fixed-orbital
+CI calculation could recover valid singlets. Its objective was contaminated.
+
+**Stop this route under the frozen contract.** The24-probe proposal below is
+blocked, not released on the saved failed checkpoint. No retry, alternative
+seed/larger space, native import, scattering, pole, B2 or other model successor.
+Next is a separately reviewed singlet-A2 correctness/optimizer-objective decision
+from saved evidence, not another full QC run or an automatic solver campaign.
+
 The matched CAS11/CAS12 B1 outgoing-pole comparison rejects position
 insensitivity:86.774662meV exceeds50meV, with passing numerical/character/local
 identity gates. Its full-width difference16.066613meV passes. Neither model is
@@ -70,7 +84,7 @@ Failure, timeout, wrong spin, optimizer/fresh-CI/gradient failure or identity
 failure stops inconclusive **without repair/retry, competing-start queue,
 automatic import or another model job**.
 
-## What a result would release
+## Preserved prospective release policy — QC pass did not occur
 
 **Launch observation26October11:19UTC:** the exact source/tests/owner freeze
 `317ae15` precedes11:17:37UTC launch. All eight runtime controls, including the

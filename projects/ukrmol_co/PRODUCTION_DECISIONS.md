@@ -864,6 +864,60 @@ queued. The [conditional24-probe coverage proposal](compressed-cas12-tz-coverage
 reuses published algorithms and avoids irrelevant old-seed/80-space repeats;
 it remains unreleased until QC outcome review and exact new checkpoint/owner freeze.
 
+### Goal checkpoint —26 October,12:44UTC: TZ prerequisite fails; no physical basis verdict
+
+**Production decision:** the [single missing CAS12/TZ QC input fails](qualification-evidence/compressed-cas12-tz-qc/README.md).
+No valid target is supplied for the proposed DZ/TZ comparison. This cycle adds
+**no basis-insensitivity or accuracy evidence**; it exposes a singlet-A2 CI/
+spin-correctness blocker in the selected target construction. The prior resolved
+86.774662meV CAS11/CAS12 B1 position rejection remains unchanged. Do not label
+the failed QC as a physical rejection of TZ or promote the failed checkpoint.
+
+**Evidence delta:** orbital optimization converges after25 macros; final
+gradient2.30964e-8 and energy step8.18545e-12 pass1e-7/1e-11. Nevertheless
+singlet-A2 CI is false and its nominal singlet roots print S²7.78e-5,3.87e-5,
+.0017931,2.0000126,1.9952972 instead of0. Raw weighted S²=1.099930485 rather
+than the intended1.0. The original code stops at the CI flag before fresh-CI/
+spin audit, successful target/Molden export or analysis. A small orbital gradient
+does not qualify an objective containing unconverged wrong-spin roots; a later
+fixed-orbital repair alone cannot retroactively qualify that optimization.
+The precise numerical cause/repair is not established by parsing saved outputs.
+
+**Bounds / original exits:** one new attempt, no successful-input repeat or
+source change, starts11:17:37UTC/finishes12:39:16UTC. Four physical cores0–3 /
+24GiB;4898.179626s profiled /4898.480259s scientific /4899.111255s owner,
+inside forecast/hard caps. CPU14569.732293s, kernel1.167812GiB,24423 samples.
+Run-directory allocated peak1601536bytes excludes copied cache/source; scratch0.
+No timeout/OOM. Original runner1, analyzer unrun; scientific/command/container/
+owner/service2. Systemd's `INVALIDARGUMENT` is the generic exit2 label, not a
+CLI parsing diagnosis. Systemd23.8M /1.483CPU seconds are supervisor metrics.
+All eight runtime controls pass, including the small **A1** singlet benchmark;
+that does not certify every non-A1 molecular CI sector.
+
+**Independent reconstruction:** public replay exits0, six payloads/970 archived
+files/23 Git-matched sources/nine root/seven source prerequisites. It parses
+optimizer traces/CI flags and all forty printed energies/spins, checks weighted
+arithmetic/serialization, original exit routing, absence of successful exports
+and resource samples. This reconstructs the saved failure, not a new CI/full-
+Hamiltonian action or a repaired physical target. Original seed/source/data and
+failed checkpoint are unchanged and public; no native call, pole map or holdout
+S analysis occurs.
+
+**Disposition: stop this allocation.** The conditional24-probe proposal is
+blocked on its QC-pass prerequisite. No larger-space/alternative-seed/optimizer
+retry, coverage on the failed checkpoint, import, DENPROP, scattering, pole, B2
+or other model job is released. The published failure is not reclassified as
+success. Nine remains working reference, not production;2048/equilibrium/new50 /
+114-holdout protections persist. No qualified model/curve/fit exists.
+
+**One bounded next deliverable:** a separately reviewed singlet-A2 correctness/
+optimizer-objective decision from saved evidence, at most30minutes design effort
+and **zero new QC/native/maps**. Decide whether an independently validated
+non-A1 singlet-sector control is warranted; it would need exact spin-resolved
+benchmarks/full-Hamiltonian action and an unchanged intended ensemble before
+any future full orbital optimization. No implementation or numerical pilot is
+released here. Do not open another unconstrained solver/repair campaign.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

@@ -20,10 +20,11 @@ original model exits1, numerical pole exits0. **Stop this contrast branch; no B2
 or automatic successor.** The user-directed continuation separately selects
 [one missing compressed CAS12/TZ QC target](../../docs/physics/co-compressed-cas12-basis-control.md),
 same40-component ensemble/active space, reusing the qualified DZ checkpoint.
-It [starts11:17UTC](progress-compressed-cas12-tz-qc-launch-20261026.json) after
-source/tests/owner freeze; eight runtime controls pass and target optimization
-is active at11:19UTC. Only that prerequisite is running; native/scattering/pole
-stages stay gated. No QC result yet.
+It [stops12:39UTC at singlet-A2 CI](qualification-evidence/compressed-cas12-tz-qc/README.md)
+despite orbital convergence; wrong-spin roots prevent a valid target export.
+Cost1.36h, no timeout/OOM. The basis comparison is **inconclusive**, not a
+physical TZ rejection. Coverage/retry/native/scattering/pole/B2 stay blocked;
+next is a separately reviewed singlet-A2 correctness decision. No job active.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -687,10 +688,14 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Matched B1 sensitivity rejects; missing CAS12 TZ target running, no B2 or sweep](../../docs/physics/figures/co-progress-20261026T1119-cas12-tz-qc.png)
+![B1 model sensitivity remains; TZ QC stops at singlet A2, basis comparison inconclusive](../../docs/physics/figures/co-progress-20261026T1244-cas12-tz-stop.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1119-cas12-tz-qc.svg) ·
-[CAS12 TZ launch snapshot](progress-snapshot-20261026T1119-cas12-tz-qc.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1244-cas12-tz-stop.svg) ·
+[CAS12 TZ stop snapshot](progress-snapshot-20261026T1244-cas12-tz-stop.json) ·
+[Stopped QC evidence](qualification-evidence/compressed-cas12-tz-qc/README.md) ·
+[Independent stopped-QC reconstruction](verification-compressed-cas12-tz-qc-public-20261026.json) ·
+[Previous QC-launch figure](../../docs/physics/figures/co-progress-20261026T1119-cas12-tz-qc.svg) ·
+[Previous QC-launch snapshot](progress-snapshot-20261026T1119-cas12-tz-qc.json) ·
 [QC launch record](progress-compressed-cas12-tz-qc-launch-20261026.json) ·
 [Conditional coverage proposal—unreleased](compressed-cas12-tz-coverage-proposal-20261026.json) ·
 [Previous allocation figure](../../docs/physics/figures/co-progress-20261026T1100-cas12-basis.svg) ·

@@ -16,14 +16,17 @@ Position86.774662meV exceeds50meV; full width16.066613meV passes. Numerical and
 local character/identity prerequisites pass, so this is model sensitivity rather
 than a failed solver. **Stop this branch; redirect to an electronic-model choice.**
 No B2 or retry of that contrast is released. Retain nine as working reference,
-not a production model. **11:00UTC user-directed continuation now selects
+not a production model. **The separately selected
 [one missing compressed CAS12/TZ QC target](compressed-cas12-tz-qc-contract-20261026.json)**
 for the [separately reviewed basis-model direction](../../docs/physics/co-compressed-cas12-basis-control.md).
 Reuse qualified DZ checkpoint, same40-component average/active6/3/3/0; four
 physical cores /24GiB /conditional0.5–4h /8h hard cap. Source/tests/owner `317ae15`
-is pushed before the11:17UTC launch; the target is running at11:19UTC observation.
-No automatic import/scattering/pole or solver rescue. Independently authenticate
-QC outcome before any further allocation; there is no production-model release.
+is pushed before launch. **It stops12:39UTC: singlet-A2 CI fails despite orbital
+convergence, with wrong-spin printed roots.** The basis comparison is inconclusive;
+no successful target export exists. Conditional coverage is blocked. No retry,
+native/scattering/pole or solver rescue. Next bounded deliverable is a separately
+reviewed singlet-A2 correctness/optimizer-objective decision, not another full QC
+attempt. No calculation remains active or production model is released.
 User requests continued decision-changing work; scientific stop rules still apply.
 New50/2048/114 holdouts/equilibrium exclusion remain protected.
 No unattended reminder or autonomous daily job is implied.
@@ -48,7 +51,37 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Missing CAS12/TZ QC target running —26 October,11:19UTC observation
+### CAS12/TZ QC prerequisite stopped —26 October,12:39UTC finish
+
+[Evidence](qualification-evidence/compressed-cas12-tz-qc/README.md) /
+[result/resources](progress-compressed-cas12-tz-qc-result-20261026.json) /
+[independent public replay](verification-compressed-cas12-tz-qc-public-20261026.json).
+Run11:17:37–12:39:16UTC; original runner1, analyzer not run,
+scientific/command/container/owner/service2. No timeout/OOM. Systemd's generic
+`INVALIDARGUMENT` text denotes exit2, not a CLI-parser failure. Source23 /nine
+root/seven source pins stay unchanged, all eight runtime controls pass.
+
+Orbital convergence in25 macros /gradient2.30964e-8 passes, but singlet-A2 CI
+flag is false. Five nominal singlet roots print S²7.78e-5,3.87e-5,.0017931,
+2.0000126,1.9952972 instead of0; the original guard stops before fresh-CI audit,
+Molden/target export or analysis. Preserve the checkpoint
+`2bfbcafabac0fa07ab2af5e31888eabddaa7dabe465a50cde07e386e33f52cf6`,
+but **do not promote it**: a later fixed-orbital pass cannot qualify this wrong-
+spin/unconverged orbital objective. No physical basis-insensitivity verdict.
+
+Profiled4898.179626s /owner4899.111255s (1.36h), CPU14569.732293s,
+kernel1253928960bytes,24423 resource samples. Run-directory allocated peak
+1601536bytes excludes cache/source; scratch0. All raw logs, failed diagnostics,
+original exits/source/seed are persistent and public. No native call, new pole
+map or protected S analysis. Prior86.77meV B1 rejection remains unchanged.
+
+**Stop:**24-probe coverage proposal blocked, no rescue/retry/alternative seed/
+larger space/native import/other model job/B2. One next deliverable is a separate
+singlet-A2 correctness/optimizer-objective decision using saved evidence, with
+explicit authorization and a new scope before any numerical pilot or full QC.
+Nine/2048/equilibrium/new50/114-holdout protections remain. No calculation active.
+
+### Historical launch —26 October,11:19UTC observation
 
 [Launch record](progress-compressed-cas12-tz-qc-launch-20261026.json): frozen/pushed
 source/tests/exact owner `317ae15`, archive
