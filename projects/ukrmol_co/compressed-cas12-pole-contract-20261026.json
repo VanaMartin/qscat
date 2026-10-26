@@ -1,0 +1,82 @@
+{
+  "status": "one prospective B1-only CAS11/five-to-CAS12/five outgoing-pole contrast; freeze/push source/tests/exact owner before numerical execution",
+  "scientific_question": "Does the matched-retention compressed CAS12 B1 finite coupled outgoing pole differ materially from the independently witnessed CAS11/five B1 reference? Both use own2048 roots and all250 channels. Orbital frames/imported target representations also change; no pure active-orbital-count claim.",
+  "raw_directory": "prepared/compressed-cas12-pole-source-20261026/raw",
+  "legacy_raw_directory": "prepared/saved-matrices-source-20261017/raw",
+  "raw_case_origins": {
+    "fort.10": {
+      "source": "prepared/compressed-cas12-inner-source-20261026/outputs/inner/native/B1/fort.10",
+      "sha256": "e6f44a550ed910eb8bcab78e18b3164877f7c0762166e46cf381497c80a54ca4"
+    },
+    "fort.21": {
+      "source": "prepared/compressed-cas12-inner-source-20261026/outputs/inner/native/B1/fort.21",
+      "sha256": "8b21167b890b98ebfdc5f9c34d5d026ecf473f0ce0f9f64dce2a8cedee8726b2"
+    },
+    "fort.921": {
+      "source": "prepared/compressed-cas12-inner-source-20261026/outputs/inner/native/B1/fort.921",
+      "sha256": "be7c591ed2a913640952c77de49748e849ad30985aa135353af3ce5a0957a455"
+    },
+    "rsolve.inp": {
+      "source": "prepared/compressed-cas12-inner-source-20261026/outputs/inner/native/B1/rsolve.inp",
+      "sha256": "a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa"
+    }
+  },
+  "output_relative": "prepared/compressed-cas12-pole-source-20261026/outputs",
+  "input_sha256": {
+    "prepared/saved-matrices-source-20261017/raw/input-manifest.json": "81bb01c3a80c894c3c3d523a0fef507e2b6275bbedde90b0a434a3e49e9fe3a3",
+    "prepared/saved-matrices-source-20261017/matrices.json": "3b00fe9bb52ea9e5e29f087cb53e30458ff3d6ced5defbcb41203cc899126f63",
+    "prepared/outgoing-map-dependency-source-20261023/outputs/check/result.json": "1028f2a59207caaa5205dad8b453fee2cc7f66fad1afbcf7ec1c0b7e3e25b1e0",
+    "prepared/outgoing-map-dependency-source-20261023/execution.json": "bc2ed3ee6f1141a20bcb8899457829a068fdf3f48b0005324b5e31e7f8b17bb0",
+    "prepared/compressed-cas12-inner-source-20261026/outputs/inner/result.json": "3f5c38790bc89ede31ec968de1dca1da3203f8037fce397a7e54ae9fc9a88df5",
+    "prepared/compressed-cas12-inner-source-20261026/execution.json": "b2228ab38efe0c07f62633766c7ca96167df8eea366d486c2355b16e18888dc9",
+    "prepared/compressed-cas12-inner-source-20261026/service-return.json": "c850ccf501ef6f9e05bd70ad13e3701f0fe06dfcdd30acbbb1448b4a5a022e18",
+    "prepared/compressed-a2-contrast-source-20261025/outputs/check/B1/result.json": "200bf72da483d734de8162e32e9a94f4c35b84470772f4346c0c825e500104c5",
+    "prepared/compressed-a2-contrast-source-20261025/execution.json": "d61cc0c286c307129363f5926cdc0ec71cc6a61a5722470565195fc7e1a43074",
+    "prepared/compressed-cas12-pole-source-20261026/raw/input-manifest.json": "81bb01c3a80c894c3c3d523a0fef507e2b6275bbedde90b0a434a3e49e9fe3a3",
+    "prepared/compressed-cas12-pole-source-20261026/raw/compressed/cas12/B1/fort.10": "e6f44a550ed910eb8bcab78e18b3164877f7c0762166e46cf381497c80a54ca4",
+    "prepared/compressed-cas12-pole-source-20261026/raw/compressed/cas12/B1/fort.21": "8b21167b890b98ebfdc5f9c34d5d026ecf473f0ce0f9f64dce2a8cedee8726b2",
+    "prepared/compressed-cas12-pole-source-20261026/raw/compressed/cas12/B1/fort.921": "be7c591ed2a913640952c77de49748e849ad30985aa135353af3ce5a0957a455",
+    "prepared/compressed-cas12-pole-source-20261026/raw/compressed/cas12/B1/rsolve.inp": "a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa"
+  },
+  "source_sha256": {
+    "projects/ukrmol_co/compressed-pole-reference-contract-20261023.json": "793a8f971800b0343fdc88ccc6d060ebc4ef6d166065c554aa7aec71d794221d",
+    "projects/ukrmol_co/compressed-a2-pole-contrast-proposal-20261025.json": "e35aca2aba5099ba40987dec603c16b1d78364f41d5454bd57ec5b76d953f536",
+    "projects/ukrmol_co/paired-pole-character-contract-20261023.json": "1308e5112e61d1198d5b71cb246ffc2ab51f30d7ecdb6bf659006f623e6c9d56",
+    "projects/ukrmol_co/verification-compressed-cas12-inner-public-20261026.json": "ab581653cea4fc74b9239343b32d6810208d0fbcd2f24cc3207a09a949e7efed",
+    "projects/ukrmol_co/progress-compressed-cas12-inner-result-20261026.json": "99dcc2e7cc1161c990846320d489ff8034b4b3809b07d2f884464e15d1bd9d88",
+    "projects/ukrmol_co/qualification-evidence/compressed-cas12-inner/artifacts.json": "4117e555c4e1a0421c9b1ee5f65eedc10fba5bb875361ba9ab083537446c480e",
+    "projects/ukrmol_co/verification-compressed-a2-contrast-public-20261025.json": "e7630b5eb7584527208c6a37c85dce7174fc15408debeb24ae51143075046769"
+  },
+  "base_pole_contract": "projects/ukrmol_co/compressed-pole-reference-contract-20261023.json",
+  "numerical_proposal": "projects/ukrmol_co/compressed-a2-pole-contrast-proposal-20261025.json",
+  "character_policy": "projects/ukrmol_co/paired-pole-character-contract-20261023.json",
+  "inner_verification": "projects/ukrmol_co/verification-compressed-cas12-inner-public-20261026.json",
+  "inner_result": "prepared/compressed-cas12-inner-source-20261026/outputs/inner/result.json",
+  "cas11_five_reference": "prepared/compressed-a2-contrast-source-20261025/outputs/check/B1/result.json",
+  "resources": {
+    "cpuset_cpus": "0-3",
+    "threads_per_worker": 1,
+    "contour_workers": 4,
+    "memory_gib": 8
+  },
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "total_map_cap": 79,
+  "per_case_hard_cap_seconds": 1800,
+  "owner_timeout_seconds": 3600,
+  "scope": "Exactly two own-model real-S guards at development indices60/80, persist/pin their digest before any complex map. Then unchanged bordered root/contour16+32/derivative/residue and four-witness finite open-Pi support/identity screen. One B1-only model contrast; Pi counterpart pairing remains unset. No native call, new inner/QC/target/property/preparation, fit, new geometry or B2. Native RESON fit is not the pole target or a seed.",
+  "numerics": "Reuse numerical_proposal settings80/30/8/1e-10,120/30/8/1e-11,120/40/10/1e-12; root caps16/12/12, fixed32-node contour radius0.001Ha, two derivative steps and all budgets unchanged. Seeds are the saved qualified CAS11/five pole and+0.00002Ha, box+-0.01Ha in real/imaginary parts, declared before CAS12 complex scores. Only parallel allocation changes to four physical cores/four contour workers for this small job; one BLAS thread. Per-map90s/rhs50000 cap.",
+  "model_budgets": "Position0.05eV; FULL width5percent of the CAS11/five reference full width with0.001eV floor, unchanged0.0002eV/0.000205eV operational boundary bands. Historical policy key full_width_relative_to_nine is reused algebraically with the explicitly supplied CAS11/five reference; it does not mean the nine-model width here. Cross-model canonical-profile TV<=0.25 is necessary local identity only, not continuity/exact Lambda or an error bound.",
+  "raw_overlay": "Fresh raw tree only: original123 files are relative read-only symlink aliases to the unchanged legacy snapshot, whose original manifest remains byte-identical. Only the four new native case payloads are copied from the qualified CAS12 export and individually pinned. Never add to or rewrite the old raw directory/manifest/native labels. Hash verification of123 originals does not analyze their protected S matrices.",
+  "implementation_bound": "At most60minutes from09:17UTC independent-export review for the narrow explicit CAS12/40/250 loader/owner/contract and positive/negative controls. No general interface, new solver, independent exterior campaign, dependency install or engine rebuild.",
+  "decision": "Qualified B1 sensitivity rejection exits1 and prioritizes electronic-model uncertainty, with B2 unlaunched. Qualified pass exits0 but still releases no B2 or production model. Any input/guard/numerical/residue/character/identity/boundary-band/cap failure is inconclusive exit2, not a physical model rejection; preserve original nested pole/scientific/native-owner exits. No repair/retry/expanded box/alternate seed/root or channel ladder/automatic successor. Independently reconstruct any scientific outcome and record continue/redirect/stop before another model allocation.",
+  "protected": {
+    "route_holdout_s_matrices_unanalyzed": 114,
+    "equilibrium_pole_target": "excluded",
+    "working_reference": "CAS11/nine; five is local matched comparator only",
+    "baseline_roots": 2048,
+    "new50": "parked",
+    "full_sweep_released": false,
+    "physical_co_accuracy_verdict": null,
+    "width_curve_verdict": null
+  }
+}

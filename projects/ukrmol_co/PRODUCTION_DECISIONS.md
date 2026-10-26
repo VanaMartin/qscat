@@ -695,6 +695,60 @@ the compressed1.9bohr frame. Startup1199.39% CPU /13.39GiB is not a final peak o
 scaling result.114 focused local tests preceded freeze. No final native/export/
 Pi/model/pole verdict yet; no successor is released by this bounded launch.
 
+### Goal checkpoint —26 October,09:17UTC: own CAS12 export qualifies; compare the pole target
+
+**Completed missing physical input:** [compressed CAS12 B1/2048 export independently
+qualifies](qualification-evidence/compressed-cas12-inner/README.md), all250 channels /
+86352 contracted states. Recorded residual1.3462e-10Ha and CI/boundary energy
+agreement pass;99 own K references and six full arrays reconstruct without S
+construction or propagation. K-to-EIGENP phase arithmetic agrees4.9742e-8rad.
+Public replay verifies eight payloads/100 files/50 prerequisites/44 Git sources.
+Initial local reader1 (two versus three scattering-center records) is preserved
+beside corrected local/public0; no scientific input/output or native solve changed.
+
+Original native/scientific/command/container/owner/service exits0, finish08:56UTC,
+no timeout/OOM/retry. Profiled4.227h /22.490GiB,181161.455CPU seconds,2.570GiB
+allocated disk. Twelve physical cores, actual resources inside the forecast/caps.
+Old8-rank equilibrium and new12-rank compressed costs are not a speedup benchmark.
+No QC/target/property/preparation repeat. B1 alone does not give Pi pairing,
+an outgoing pole, electronic accuracy, omitted-spectrum bounds or a curve.
+
+**Disposition: continue to one B1-only matched CAS11/five→CAS12/five pole-target
+contrast**, after [exact source/tests/owner freeze/push](compressed-cas12-pole-contract-20261026.json).
+This is the decision-changing target comparison for which the multi-hour model
+solve was allocated, not another supporting precision study. Reuse every own
+native W/D/CF/K byte and the saved qualified CAS11/five pole/residue; do not use
+native RESON fit widths or rerun the inner problem. Optimized frames/imported
+target representations change too; no pure active-orbital-count attribution.
+
+**Minimum scope and bounds:** two own-model real-S guards60/80 must persist/pin
+before complex use, then unchanged bordered root/contour16+32/two-derivative/
+four-residue finite-Pi support and canonical-profile identity gates. Explicit
+native40/250 CAS12 loader only; default strict failures/old cases remain. Seed
+and second seed are the saved CAS11/five pole and+2e-5Ha, box±.01Ha, chosen before
+CAS12 complex scores; numerical settings/caps/budgets unchanged. At most79 maps
+(two real +77 complex),4 physical cores0–3 /one BLAS thread /four contour workers /
+8GiB,1800s scientific /3600s owner caps. Four cores follow the small-job policy;
+resource parallelism changes, not mathematical settings. Implementation≤60minutes
+after09:17UTC review. No general interface, new solver, engine build or dependency
+work; controls must prove failed guards block complex use and numerical failures
+stay inconclusive rather than physical model rejections.
+
+Position budget50meV; full width5percent of the explicit CAS11/five reference,
+with1meV floor and unchanged operational boundary bands. The shared numerical
+policy's historical `relative_to_nine` key denotes that supplied reference here,
+not the nine-model width. Necessary local profile-TV≤.25 is not continuous
+tracking, exact Lambda or an error bound. B1-only counterpart/Pi pairing stays
+unset. A resolved B1 rejection stops without B2; a pass still releases no B2
+automatically. Invalid input/guard/numerical/identity/band/cap stops inconclusive,
+without repair/retry/alternate seeds/expanded boxes/root or channel ladder.
+
+**Next review:** independently reconstruct the actual pole/character/model
+outcome, then record continue/redirect/stop before another model allocation.
+No production model, qualified width curve, scalar factory export, new geometry,
+fit or sweep follows this experiment. Retain nine as working/domain reference,
+the2048 baseline,114 unanalyzed S holdouts, equilibrium exclusion and parked new50.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

@@ -26,14 +26,19 @@ is preserved beside corrected public-byte replay0; native output is unchanged.
 all14 target/core MOs, original exits0;171.42s /10.700GiB. Public replay verifies
 83 files/36 inputs/34 sources and native inventory/dimension headers.
 
-**Current allocation:** [one B1-only2048 inner/export](compressed-cas12-inner-contract-20261026.json)
-froze/pushed at `6ae5b79` and [starts04:42UTC](progress-compressed-cas12-inner-launch-20261026.json),
-on12 physical cores /64GiB /8GiB shared backing, reusing the completed inputs
-and qualified audited engine. Prior same-size B1 cost5.95h at8ranks gives
-conditional3–8h forecast; native12h /owner13h caps. Changed MPI layout is explicit,
-not a linear-scaling claim. Original residual/CI-boundary/strict40/250 gates
-remain. B1-only Pi pairing/model/pole verdicts stay unset. No automatic retry,
-repair, B2 or outgoing-pole job.
+**Own B1 export independently qualifies:** [2048 roots/all250 channels](qualification-evidence/compressed-cas12-inner/README.md),
+recorded residual1.3462e-10Ha, CI-boundary agreement and99 own K references.
+Original native/owner exits0;4.227h /22.490GiB on12 physical cores. Public replay
+authenticates100 files/50 prerequisites/44 sources and all six arrays, without S
+construction or new propagation. No native fit is promoted to a coupled pole.
+
+**Current next allocation:** freeze/push [one B1-only CAS11/five→CAS12/five pole
+contrast](compressed-cas12-pole-contract-20261026.json), four physical cores /
+8GiB /79-map total ceiling /1800s scientific cap. Own real-S guards60/80 must
+persist/pin before any complex use. Unchanged root/contour/derivative/residue/
+character/identity and position/FULL-width gates, reference the saved CAS11/five
+coupled pole. No new native solve, automatic B2, retry or alternate box/seed.
+Counterpart Pi pairing/model accuracy/curve verdicts stay unset.
 No production model, new geometry, fit or sweep is released;
 114 holdouts, equilibrium exclusion, parked new50 and2048 baseline remain.
 

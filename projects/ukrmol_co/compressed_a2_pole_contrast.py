@@ -15,18 +15,27 @@ import numpy as np
 from qscat.units import hartree_to_ev
 
 from projects.ukrmol_co.compressed_five_view import SELECTED_PROPERTY_IDS, load_compressed_five
-from projects.ukrmol_co.native_full_reconstruction import load_model
+from projects.ukrmol_co.native_full_reconstruction import _model_from_interface, load_model
 from projects.ukrmol_co.pole_reference import pole_difference
+from projects.ukrmol_co.saved_matrices import read_interface
 
 
 def load_pole_model(source, contract):
-    """Dispatch only the two retained-target models at the compressed anchor."""
+    """Dispatch the explicitly qualified finite model views at the compressed anchor."""
     source = Path(source)
     case = contract["case"]
     if "/".join(source.parts[-3:]) != case:
         raise ValueError("Case and source directory differ")
     if case in ["compressed/nine/B1", "compressed/nine/B2"]:
         return load_model(source)
+    if (
+        case == "compressed/cas12/B1"
+        and contract.get("model_view") == "compressed-cas12-native40-v1"
+    ):
+        interface = read_interface(source / "fort.10", source / "fort.21")
+        model = _model_from_interface(source, interface, (40, 250))
+        model["interface"] = interface
+        return model
     if (
         case in ["compressed/five/B1", "compressed/five/B2"]
         and contract.get("model_view") == "compressed-five-property-ids-v1"

@@ -1,0 +1,121 @@
+{
+  "observed_utc": "2026-10-26T09:17:41.036855+00:00",
+  "pointer_sha256": "4117e555c4e1a0421c9b1ee5f65eedc10fba5bb875361ba9ab083537446c480e",
+  "inner_export_verdict": true,
+  "scientific_exit": 0,
+  "original_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "public_payloads_verified": 8,
+  "archived_files_verified": 100,
+  "reference_inputs_verified": 50,
+  "source_entries_verified": 44,
+  "installed_engine_files_authenticated_by_original_owner": 242,
+  "roots": 2048,
+  "contracted_dimension": 86352,
+  "continuum_coefficients": 1410,
+  "boundary_channels": 250,
+  "maximum_native_residual_hartree": 1.3462043350560917e-10,
+  "boundary_to_ci_energy_error_hartree": 0.0,
+  "native_k_energy_records": 99,
+  "max_k_to_eigenphase_sum_difference_rad_mod_pi": 4.974175826788496e-08,
+  "array_sha256": {
+    "poles": "6a396f62f3882723a2a6c73e634a06427e7c67e9dfd19063d81bc7f06049c186",
+    "amplitudes": "841c2b2f971abb6becff4497c247df83f6ce1b8581981a36c0727bc2e58c239b",
+    "c2": "eb91227881abef0aab6b36e1f72e6dd14568ec2cd741d5b666ad6e85e68bd30c",
+    "c3": "d48d1f7fe33d2e196bfe8b198f78f9e0e1c9c589e60be29faaebeec5e00390bb",
+    "thresholds": "7dd0d153443d71c72a0b8f8cb8ac70d941c9436dbb3615ff318cdcd4189acc28",
+    "saved": "71655ac226b851c30ec04b9877f3330260184ad10a77eca43ff8a7641a07479a"
+  },
+  "shapes": {
+    "poles": [
+      2048
+    ],
+    "amplitudes": [
+      2048,
+      250
+    ],
+    "c2": [
+      250,
+      250
+    ],
+    "c3": [
+      250,
+      250
+    ],
+    "thresholds": [
+      250
+    ],
+    "saved": [
+      99,
+      6,
+      6
+    ]
+  },
+  "ground_hartree": -112.86667543,
+  "native_energy_range_hartree": [
+    -112.85541880294244,
+    -109.68533952470102
+  ],
+  "source_commit": "6ae5b79f3af31bd2d51b27a0f06324ab880a8f15",
+  "native_stages": [
+    {
+      "name": "scatci",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 15086.519829215016
+    },
+    {
+      "name": "rsolve",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 124.85000780699193
+    },
+    {
+      "name": "eigenp",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 0.015859234001254663
+    },
+    {
+      "name": "reson",
+      "original_exit": 0,
+      "timed_out": false,
+      "wall_seconds": 0.01559151298715733
+    }
+  ],
+  "container_wall_seconds": 15217.721929467021,
+  "owner_wall_seconds": 15230.767316266982,
+  "container_cpu_seconds": 181161.455029,
+  "kernel_peak_bytes": 24148611072,
+  "allocated_disk_peak_bytes": 2759098368,
+  "native_engine_calls_in_original_run": 4,
+  "native_rsolve_propagations_in_original_run": 1,
+  "new_native_calls": 0,
+  "new_complex_python_maps": 0,
+  "new_s_constructions": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "pi_pair_verdict": null,
+  "pole_verdict": null,
+  "electronic_model_verdict": null,
+  "spectral_truncation_verdict": null,
+  "full_sweep_released": false,
+  "independence": "Fresh public-byte streaming authentication plus independent CIDATA/boundary/channel/K decoding, direct six-array assembly, per-root recorded native residual gates, CI-boundary energy and K-to-EIGENP phase arithmetic. No producer imports, native solve, S construction or outgoing propagation. Authenticates exported CF and original residual telemetry, not independent Hamiltonian action, CIRMAT phases, exact Lambda, electronic accuracy or omitted-spectrum bounds.",
+  "finished_utc": "2026-10-26T08:56:07.862726+00:00",
+  "source_archive_sha256": "52edbdfcd058a0aa8b3d38103ce5bd5ef927080c18d7dee3a6dce87599253843",
+  "owner_sha256": "fc0d03fdb25f909ee3d806e5dc175fa8ee364cfd769a6518768837dc87a1fce2",
+  "kernel_peak_gib": 22.49014663696289,
+  "source_entries_verified_against_git": 44,
+  "original_local_reader_exit": 1,
+  "corrected_local_reader_exit": 0,
+  "original_public_reader_exit": 0,
+  "systemd_supervisor_peak": "7.8G; supervisor/hash-cache accounting, not the scientific container",
+  "systemd_supervisor_cpu_seconds": 17.102,
+  "decision": "Continue to one separately frozen B1-only own-real-S/outgoing-pole/character/model contrast; no repeat inner solve or automatic B2.",
+  "verification": "verification-compressed-cas12-inner-public-20261026.json"
+}

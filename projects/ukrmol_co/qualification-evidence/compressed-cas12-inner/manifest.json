@@ -1,0 +1,10 @@
+{
+  "git_sha": "6ae5b79f3af31bd2d51b27a0f06324ab880a8f15",
+  "experiment": "co-compressed-cas12-inner-20261026",
+  "inner_export_verdict": true,
+  "scientific_exit": 0,
+  "original_service_exit": 0,
+  "pi_pair_verdict": null,
+  "pole_verdict": null,
+  "full_sweep_released": false
+}

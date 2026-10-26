@@ -183,7 +183,7 @@ def run(root, output, contract):
             save()
             if result.returncode:
                 raise ValueError("Controls failed before CO pole use")
-        if contract["case"] in ["compressed/five/B1", "compressed/five/B2"]:
+        if contract["case"] in ["compressed/five/B1", "compressed/five/B2", "compressed/cas12/B1"]:
             require_real_guard(root, contract)
         model = load_pole_model(raw / contract["case"], contract)
         rng = np.random.default_rng(contract["projection_seed"])

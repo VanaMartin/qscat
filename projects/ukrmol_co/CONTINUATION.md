@@ -11,17 +11,17 @@ the physical/production evidence delta, remaining blockers and **continue /
 redirect /stop**, with one bounded next deliverable. Passing tests/replays and
 optional comparisons alone do not measure sweep readiness.
 
-**26 October checkpoint: properties and scattering inputs independently qualify;
-continue to one B1/2048 model solve.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
+**26 October checkpoint: own B1/2048 export independently qualifies; continue to
+one matched B1 outgoing-pole contrast.** The [route decision](POTENTIAL_ROUTE_DECISION.md)
 retains nine and prioritizes a matched CAS11/CAS12 model control at1.9bohr, not
 the reserved equilibrium pole. Reuse the saved64 qualified CAS12 target vectors.
 The missing firstfive-per-sector property export is complete and independently
 verified; no QC or target diagonalization repeated. The
-[inner contract](compressed-cas12-inner-contract-20261026.json)
-bounds the missing B1/2048 export and requires source/tests/exact owner push first.
+[pole contract](compressed-cas12-pole-contract-20261026.json)
+bounds one B1-only saved-model contrast and requires source/tests/exact owner push first.
 User requests continued decision-changing work; unchanged scientific stop rules
 apply. New50 stays parked,2048 baseline retained,114 holdouts/equilibrium exclusion
-protected. Review on the B1 outcome before outgoing-pole or B2 allocation.
+protected. Review on the pole/model outcome before B2 or another allocation.
 No unattended reminder or autonomous daily job is implied.
 
 ## Standing progress-figure workflow
@@ -43,6 +43,45 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### Own native export independently verified —26 October,09:17UTC
+
+[Evidence](qualification-evidence/compressed-cas12-inner/README.md) /
+[result/resources](progress-compressed-cas12-inner-result-20261026.json) /
+[public replay](verification-compressed-cas12-inner-public-20261026.json).
+Finish08:56:07UTC, original native/scientific/command/container/owner/service
+exits0, no timeout/OOM/retry.2048 own roots/all250 channels/86352 contracted states,
+recorded residual1.3462e-10Ha, CI-boundary agreement,99 own K references and six
+array fingerprints reconstruct. K-to-EIGENP phase difference4.9742e-8rad passes
+the1e-6rad same-root budget. Eight public payloads/100 files/50 prerequisites /
+44 frozen Git sources authenticate. No S construction or outgoing map in replay.
+
+Native SCATCI15086.519829s /RSOLVE124.850008s; profiled15217.721929s (4.227h),
+owner15230.767316s,181161.455CPU seconds, kernel24148611072bytes (22.490147GiB),
+disk2759098368bytes. Systemd7.8G/17.102CPU seconds are supervisor/cache metrics,
+not scientific resources. Twelve physical cores, no controlled8→12 scaling claim.
+Original local reader1 incorrectly assumed two CIDATA centers; corrected local/
+public0 verifies C/O +uncharged continuum center and1.9bohr distance. Initial
+reader/failure preserved; no scientific file or native solve changed.
+
+**Next:** freeze/push and execute
+[one B1-only pole contrast](compressed-cas12-pole-contract-20261026.json), reusing
+own W/D/CF/K and the saved CAS11/five pole/character. Native40/250 loader only;
+no sparse-ID framework or native fit substitution. Real-S guards60/80 persist/pin
+before complex use; unchanged root/contour/derivative/residue/character/identity/
+FULL-width gates. Seed the saved CAS11/five pole and+2e-5Ha, box±.01Ha, before
+CAS12 complex scores.50meV position /5percent reference full width with1meV floor,
+unchanged operational bands. B1 counterpart pairing remains unset. Four physical
+cores0–3 /four workers /one BLAS thread /8GiB /79 maps /1800s scientific /3600s
+owner caps; source/owner effort≤60minutes after09:17UTC review.
+
+Fresh raw overlay has123 relative aliases to unchanged originals plus four
+pinned CAS12 payload copies; old manifest/labels/bytes never change. Hashing
+originals does not score holdout S. Valid model rejection stops without B2;
+invalid guard/numerics/identity/band/cap stays inconclusive, no repair/retry/box
+expansion or automatic successor. Independently reconstruct before another
+allocation. Nine/2048/114 holdouts/equilibrium/new50 protections remain; no
+production model, curve, factory target, fit or sweep.
 
 ### B1/2048 model calculation running —26 October,04:43UTC observation
 

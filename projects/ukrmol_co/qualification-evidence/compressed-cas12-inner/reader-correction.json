@@ -1,0 +1,7 @@
+{
+  "original_local_reader_exit": 1,
+  "original_reader_sha256": "49c571aaac1a614be0e93bc7fb8d9105f1c63e558b645891c718cae6feb2ae42",
+  "failure": "Independent reader assumed two center records as in target CIDATA. Scattering CIDATA has three: C/O nuclei and uncharged sc continuum center at origin.",
+  "correction": "Require all three center records; verify charges6/8/0, physical C-O distance1.9bohr and zero continuum-center coordinate/charge. Original native exits/files unchanged, no native solve or scientific retry.",
+  "preservation": "Original reader and failed replay remain preserved; original-reader.py publishes the initial candidate bytes."
+}

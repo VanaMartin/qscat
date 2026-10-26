@@ -19,6 +19,18 @@ The equilibrium pole remains reserved.
 
 ## Exact saved-input gap: a different property inventory
 
+**26October09:17UTC native outcome:** the
+[own CAS12 B1/2048 export independently qualifies](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-inner/README.md),
+all250 channels, recorded residual1.3462e-10Ha, CI-boundary agreement and99 own K
+references. Measured4.227h /22.490GiB; original native/owner exits0, no timeout/OOM.
+No native or QC/target/property/preparation repeat. B1 pairing/pole/model/curve
+verdicts remain unset. One separately frozen
+[B1 pole-target contrast](../../projects/ukrmol_co/compressed-cas12-pole-contract-20261026.json)
+is now selected: own development-S guards60/80 first, then unchanged outgoing
+pole/contour/derivative/residue/character/identity and position/FULL-width budgets.
+Compare against the saved CAS11/five reference, not the native phase-fit width.
+At most79 maps /four physical cores /8GiB /1800s scientific cap, no automatic B2.
+
 **26 October outcome:** the missing inventory now
 [qualifies independently](../../projects/ukrmol_co/qualification-evidence/compressed-cas12-properties/README.md):
 40 states/five per sector,725 moments, native CIDATA energy agreement4.768e-10Ha

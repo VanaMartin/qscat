@@ -21,11 +21,12 @@ The one different DENPROP inventory takes4.43h /1.903GiB, all native/owner exits
 without repeated QC/target solves. The
 [completed preparation also qualifies](qualification-evidence/compressed-cas12-preparation/README.md):
 actual86352 contracted states per sector,171.42s /10.700GiB, all original exits0.
-Next is [one costed B1/2048 inner export](compressed-cas12-inner-contract-20261026.json),
-12 physical cores /64GiB /conditional3–8h. Exact source/tests/owner `6ae5b79`
-is pushed before the [04:42UTC launch](progress-compressed-cas12-inner-launch-20261026.json);
-native matrix construction is active at the04:43 observation.
-No B2 or outgoing-pole job follows automatically. New50 stays parked;
+The [own B1/2048 export now qualifies independently](qualification-evidence/compressed-cas12-inner/README.md):
+4.227h /22.490GiB, original native/owner exits0, recorded residual1.3462e-10Ha
+and all250 channels/99 own K references. Next freeze
+[one B1-only outgoing-pole model contrast](compressed-cas12-pole-contract-20261026.json),
+own real-S guards first,4 physical cores /8GiB /79-map ceiling. No new inner solve
+or automatic B2. New50 stays parked;
 all114 holdouts and equilibrium pole exclusion remain protected. The existing
 finite open-Pi pair below is not a qualified CO curve or production model.
 
@@ -679,10 +680,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![Matched CAS12 inputs independently qualified; one B1/2048 model calculation running on twelve physical cores](../../docs/physics/figures/co-progress-20261026T0443-cas12-inner.png)
+![Own CAS12 B1/2048 export independently qualified; matched outgoing-pole contrast is next](../../docs/physics/figures/co-progress-20261026T0917-cas12-export.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T0443-cas12-inner.svg) ·
-[CAS12 inner-launch snapshot](progress-snapshot-20261026T0443-cas12-inner.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T0917-cas12-export.svg) ·
+[CAS12 export snapshot](progress-snapshot-20261026T0917-cas12-export.json) ·
+[Own native-export evidence](qualification-evidence/compressed-cas12-inner/README.md) ·
+[Independent native-export replay](verification-compressed-cas12-inner-public-20261026.json) ·
+[Exact B1 pole-contrast contract](compressed-cas12-pole-contract-20261026.json) ·
+[Previous inner-launch figure](../../docs/physics/figures/co-progress-20261026T0443-cas12-inner.svg) ·
+[Previous inner-launch snapshot](progress-snapshot-20261026T0443-cas12-inner.json) ·
 [Preparation evidence](qualification-evidence/compressed-cas12-preparation/README.md) ·
 [Independent preparation reconstruction](verification-compressed-cas12-preparation-public-20261026.json) ·
 [Exact B1/2048 contract](compressed-cas12-inner-contract-20261026.json) ·

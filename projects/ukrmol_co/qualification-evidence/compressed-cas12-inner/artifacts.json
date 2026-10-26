@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "collection.json": {
+      "bytes": 29802,
+      "sha256": "3509bdd27935b4eb87a9a7c197cae0ba6dc0f37c88bab132c0312fc8c0542467"
+    },
+    "manifest.json": {
+      "bytes": 283,
+      "sha256": "dce999c86bd92bb9c863d7a8116bb0e5da76e334ce3f80a34dbd70035b28b4b8"
+    },
+    "original-reader.py": {
+      "bytes": 12255,
+      "sha256": "49c571aaac1a614be0e93bc7fb8d9105f1c63e558b645891c718cae6feb2ae42"
+    },
+    "reader-correction.json": {
+      "bytes": 657,
+      "sha256": "5a09f178bb234e20332a7271c5657038e209056949d4e7df1a8b523f9540413f"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 12586,
+      "sha256": "cf3cd747635a4d6b88e6b0d7b4d806e24cb3c174cef03bb094177db9da7cffab"
+    },
+    "reference-inputs.tar.gz": {
+      "bytes": 327820880,
+      "sha256": "d135a08c64e4e8cacfa8875ea8900a902d9dfb5eae3900bb488265c8e27e1e94"
+    },
+    "result-summary.json": {
+      "bytes": 47643,
+      "sha256": "5ce2951ba997ee554ce45b84f5d94a523fbe7a9b73e61da85ef34c5d785e5879"
+    },
+    "results.tar.gz": {
+      "bytes": 271595775,
+      "sha256": "e869f31a28705c3b8eb58e4d5240121cd8a02172ce812f9514b9b00d1ac0b970"
+    }
+  },
+  "git_sha": "6ae5b79f3af31bd2d51b27a0f06324ab880a8f15",
+  "url_prefix": "https://data.qscat.org/co-compressed-cas12-inner-20261026/"
+}
