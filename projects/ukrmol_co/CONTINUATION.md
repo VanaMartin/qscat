@@ -31,7 +31,12 @@ attempt. **13:29UTC source review now selects
 exact non-A1/small H4 optimizer gates first, then at most two fixed-orbital CO
 A2 requests. Production selector/defaults unchanged; no failed-checkpoint/full-QC
 release. Freeze/push source/tests/exact owner before use. Four physical cores /
-8GiB /1800s cap, no retry or automatic successor. No production-model release.
+8GiB /1800s cap, no retry or automatic successor. **It stops14:03:38UTC:**
+exact A2/H4 controls pass, CO root5 CI/action gates fail; eight roots blocked.
+[Public replay](verification-singlet-a2-pilot-public-20261026.json) confirms the
+stop,26.085s /.545GiB. No selector/full-QC release or active job. Next is a
+saved-evidence production-route decision,30minutes design /zero numerical calls,
+not another solver-budget increase. No production-model release.
 User requests continued decision-changing work; scientific stop rules still apply.
 New50/2048/114 holdouts/equilibrium exclusion remain protected.
 No unattended reminder or autonomous daily job is implied.
@@ -56,7 +61,34 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### A2-only driver pilot selected —26 October,13:29UTC source review
+### A2-only pilot stopped —26 October,14:08UTC public reconstruction
+
+[Evidence/replay](qualification-evidence/singlet-a2-pilot/README.md) /
+[verification](verification-singlet-a2-pilot-public-20261026.json).
+Source/tests/exact owner `dc43f53` pushed before14:03:12UTC launch;
+finish14:03:38UTC. Exact two-electron A2 controls and orbital-moving H4 mixture
+pass. The single five-root CO call returns true/true/true/true/**false**;
+root5 full residual8.79527e-8Ha >1e-9, penalized/action/spin-action/exchange
+gates fail. Tiny S² expectation does not qualify it. No eight-root call or count
+agreement. Original scientific/profile/command/container/owner/service exits2.
+No timeout/OOM;26.085183s profiled /26.423980s owner /63.130420CPU seconds /
+585584640bytes peak. Seven public payloads/fifty archived files/twenty Git-matched
+sources;131 resource samples and all seven input/four source prerequisites verify.
+Reader-only HTTP403/exit1 remains beside User-Agent correction/exit0.
+
+**Stop this allocation.** Production selector/defaults and failed TZ objective
+remain unchanged; no new CO optimization/coverage/import/properties/native/
+scattering/B2/fit or automatic successor. Four individual roots are not a valid
+five-root sector. The independently computed−0.07751764535Ha hypothetical
+substitution is unqualified, not a reoptimized objective or target. All holdout/
+reference protections and prior physical B1 rejection remain. No active/queued job.
+
+**One bounded next deliverable:** saved-evidence production-route decision,
+30minutes design /zero numerical calls. Compare a separately justified valid
+full-ensemble target alternative against a model-route redirect. No larger
+solver budget, implementation or new numerical pilot is released.
+
+### Historical A2 pilot selection —26 October,13:29UTC source review
 
 [Physics/independence](../../docs/physics/co-singlet-a2-driver-control.md) /
 [exact contract](singlet-a2-pilot-contract-20261026.json) /

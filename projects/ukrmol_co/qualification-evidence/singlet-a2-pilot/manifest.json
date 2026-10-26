@@ -1,0 +1,10 @@
+{
+  "git_sha": "dc43f53fd5000d1f74de3248b1cd81614955542e",
+  "experiment": "co-singlet-a2-pilot-20261026",
+  "scientific_exit": 2,
+  "pilot_verdict": null,
+  "failed_optimization_qualified": false,
+  "new_co_qc_released": false,
+  "basis_model_verdict": null,
+  "full_sweep_released": false
+}

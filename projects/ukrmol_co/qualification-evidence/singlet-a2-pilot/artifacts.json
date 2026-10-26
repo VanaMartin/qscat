@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "collection.json": {
+      "bytes": 8869,
+      "sha256": "8372d8a56801b8278976909d16e440ab9afd804c8f7f0e866353337965df4faa"
+    },
+    "manifest.json": {
+      "bytes": 293,
+      "sha256": "bc136427689a1e9e7765fdd8d06b2ed8a94692d89f0548ad4af638a02b2cec21"
+    },
+    "reconstruct-saved.py": {
+      "bytes": 10860,
+      "sha256": "95bc711dfd91789a30ee70572adf75fb0dbf0aacd933dd5cfa6d796ea22a65e2"
+    },
+    "reference-inputs.tar.gz": {
+      "bytes": 19407,
+      "sha256": "fc37aada4cc993401bd65b7e98b13897295769687f73c5de2ef4c2cf1415dcab"
+    },
+    "result-summary.json": {
+      "bytes": 23626,
+      "sha256": "fb538668bd0da3587e30cae898c4be75fc4692a1044f4adf9f9788ebc7772ee0"
+    },
+    "results.tar.gz": {
+      "bytes": 33863027,
+      "sha256": "c21b6eb76864bdfee7faac9a9b49c178300563ac96cad2ded2e6dc302597fcbb"
+    },
+    "run.log": {
+      "bytes": 1118,
+      "sha256": "a3eb86acc2cd1225ff45031168302232208c52ce26bfc604bef6a98bd87f4185"
+    }
+  },
+  "git_sha": "dc43f53fd5000d1f74de3248b1cd81614955542e",
+  "url_prefix": "https://data.qscat.org/co-singlet-a2-pilot-20261026/"
+}

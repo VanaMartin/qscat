@@ -2,6 +2,16 @@
 
 ## Decision now
 
+**14:08UTC independently reconstructed outcome: [A2-only pilot stops](qualification-evidence/singlet-a2-pilot/README.md).**
+Exact A2 and small H4 mixed-optimizer controls pass, but the five-root CO request
+has an unconverged fifth root, full-Hamiltonian residual8.79527e-8Ha >1e-9.
+Other action/exchange gates fail too despite tiny S² expectation. Eight roots
+are not run. Cost26.09s /.545GiB, original scientific/command/container/owner/
+service exits2, no timeout/OOM. **Stop this allocation; no selector change or
+fresh full QC.** No rescue/retry/expanded budget or automatic successor. One
+bounded next deliverable is a saved-evidence production-route decision,30minutes
+design /zero numerical calls, not another solver campaign. No job is queued.
+
 **12:39UTC outcome: [CAS12/TZ QC stops at singlet A2](qualification-evidence/compressed-cas12-tz-qc/README.md).**
 Orbital convergence passes, but the singlet-A2 CI flag fails and its five raw
 printed states have wrong-spin contamination, including two near-triplet roots.
@@ -10,7 +20,7 @@ TZ target/Molden export exists; the failed checkpoint is preserved, not promoted
 The conditional24-probe proposal is blocked. No retry, larger space, alternative
 seed, native import/scattering/pole/B2 or other model job is released.
 
-**13:29UTC user-directed source-review disposition:** keep that allocation
+**Historical13:29UTC user-directed source-review disposition:** keep that allocation
 stopped; select [one bounded A2-only driver pilot](../../docs/physics/co-singlet-a2-driver-control.md).
 Exact non-A1 and small H4 mixed-optimizer controls must pass before two diagnostic
 CO fixed-orbital requests,5/8 roots at unchanged160/200 settings. Four physical

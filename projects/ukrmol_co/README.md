@@ -26,7 +26,12 @@ Cost1.36h, no timeout/OOM. The basis comparison is **inconclusive**, not a
 physical TZ rejection. Coverage/retry/native/scattering/pole/B2 stay blocked;
 the separate [source review now selects one bounded A2 driver pilot](../../docs/physics/co-singlet-a2-driver-control.md).
 Exact non-A1/small-optimizer controls precede two fixed-orbital requests; no
-production selector or full QC change. Freeze/push first, no automatic successor.
+production selector or full QC change. Frozen/pushed `dc43f53`, the
+[pilot stops at CO root5](qualification-evidence/singlet-a2-pilot/README.md):
+exact/H4 controls pass, but CI/full-action gates fail; eight roots are not run.
+Public replay confirms26.09s /.545GiB, exits2. No retry, selector promotion,
+fresh full QC or automatic successor; no job is active. Next is a saved-evidence
+production-route decision, not another solver-budget increase.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.
@@ -690,10 +695,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 26 October 2026
 
-![TZ target remains rejected; bounded A2 driver pilot selected before any new QC](../../docs/physics/figures/co-progress-20261026T1329-a2-driver.png)
+![A2 pilot stops at fifth CO root; no selector or full QC release](../../docs/physics/figures/co-progress-20261026T1408-a2-stop.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1329-a2-driver.svg) ·
-[A2 pilot-allocation snapshot](progress-snapshot-20261026T1329-a2-driver.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261026T1408-a2-stop.svg) ·
+[A2 pilot-stop snapshot](progress-snapshot-20261026T1408-a2-stop.json) ·
+[A2 stopped evidence](qualification-evidence/singlet-a2-pilot/README.md) ·
+[Previous allocation figure](../../docs/physics/figures/co-progress-20261026T1329-a2-driver.svg) ·
+[Previous allocation snapshot](progress-snapshot-20261026T1329-a2-driver.json) ·
 [Non-A1 driver-control design](../../docs/physics/co-singlet-a2-driver-control.md) ·
 [Exact pilot contract](singlet-a2-pilot-contract-20261026.json) ·
 [Previous TZ-stop figure](../../docs/physics/figures/co-progress-20261026T1244-cas12-tz-stop.svg) ·

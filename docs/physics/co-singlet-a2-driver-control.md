@@ -108,3 +108,14 @@ optimization, validate the failed TZ checkpoint or permit its properties/import.
 All original failures, B1 model-position rejection,114 unanalyzed holdout S
 matrices, equilibrium exclusion, nine working reference,2048 baseline and parked
 new50 remain. B2, coverage/import/scattering, production curves and fits stay gated.
+
+## Completed outcome
+
+The [frozen pilot stops at CO root5](../../projects/ukrmol_co/qualification-evidence/singlet-a2-pilot/README.md).
+Exact A2 and small orbital-moving H4 controls pass, but the first molecular
+request has false fifth-root convergence and full residual8.79527e-8Ha versus
+1e-9, with failed spin-action/exchange/action-difference gates. A tiny S²
+expectation is insufficient. Eight roots are blocked; no request-count agreement
+or full molecular-driver validation is claimed. No production selector or full
+optimization is released. This closes the finite allocation without repair/retry;
+the failed TZ optimization remains rejected and basis comparison inconclusive.

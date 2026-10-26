@@ -963,6 +963,56 @@ nine working reference,2048 baseline and parked new50. No failed-checkpoint
 qualification, full QC, native import/properties/scattering, B2, fit or sweep
 is released. More passing toy controls alone are not a production-model result.
 
+### Goal checkpoint —26 October,14:08UTC: A2 pilot stops; no QC release
+
+**Decision / evidence delta:** the separately frozen
+[A2 pilot](qualification-evidence/singlet-a2-pilot/README.md) completes and stops
+inconclusive. Both external exact A2 drivers and the small orbital-moving H4
+mixed-optimizer control pass. This establishes limited non-A1 feasibility, not
+a validated molecular construction or production-model progress. The five-root
+CO diagnostic returns flags true/true/true/true/**false**. Root5 full-Hamiltonian
+residual8.79527e-8Ha fails1e-9; penalized residual1.86017e-7 and spin-action /
+exchange/action-difference gates also fail. Tiny S² expectation3.94e-16 and
+orthogonality do not override those gates. Roots1–4 pass their individual gates.
+The required all-five/count comparison is unqualified; **eight roots not run**.
+
+**Reuse / bounds / measured cost:** source/tests/exact owner `dc43f53` frozen/
+pushed before14:03:12UTC launch. Original rejected TZ checkpoint and all seven
+input/four source/seven package pins,160-space/200-cycle settings unchanged.
+One CO CI request, zero CO QC/native/maps. Four physical cores0–3 /8GiB,
+26.085183s profiled /26.423980s owner /63.130420CPU seconds /0.545368GiB;
+no timeout/OOM. The bounded implementation/freeze completes within90minutes.
+No successful target, property, native or scattering calculation is repeated.
+All original profile/command/container/owner/service exits remain2. Public saved
+reconstruction authenticates seven payloads/fifty archived files/twenty Git-
+matched sources and independently checks controls/action norms/symmetry/resources.
+The CO contractions themselves remain external saved actions, not a new
+independent Hamiltonian implementation. Public HTTP403 reader failure1 is kept
+beside a User-Agent-only reader correction0; scientific outputs are unchanged.
+
+**Objective caveat:** independently substituting the five new diagnostic energies
+for the five rejected printed A2 values at1/40 weight gives−0.07751764535Ha.
+This includes an unconverged fifth root and is not a reoptimized/qualified
+objective, valid target, accuracy gain or permission to keep the old orbitals.
+The pilot's pass-only substitution stage was not reached. The original failed
+optimization and physical DZ/TZ basis comparison remain unqualified.
+
+**Disposition: stop this A2 driver allocation and selector-promotion route.**
+No repair/retry, larger space/cycle/seed, eight-root request, fresh40-state CO
+optimization, import/properties/coverage/native/scattering/pole/B2 or automatic
+successor is released. Exact toy controls alone do not justify full QC. The
+resolved86.77meV B1 model-position rejection remains; neither model is accurate
+by declaration. Preserve nine working reference,2048 baseline, parked new50,
+equilibrium exclusion and114 untouched S holdouts. No job is active or queued.
+
+**One bounded next deliverable:** a saved-evidence production-route decision,
+at most30minutes design effort and zero numerical calls, weighing the scientific
+value of a separately justified target-construction alternative against redirecting
+the model comparison. It must identify a valid full-ensemble objective and
+decision-changing model uncertainty; it may not merely increase this solver's
+budget or reclassify the failed checkpoint. No implementation/pilot is released
+by this next-deliverable statement.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
