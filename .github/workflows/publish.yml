@@ -46,4 +46,4 @@ jobs:
         # job holds `id-token: write`, so whatever this action resolves to can
         # mint a PyPI OIDC token. v1.14.2 was the latest release on 2026-08-25;
         # bump it deliberately.
-        uses: pypa/gh-action-pypi-publish@v1.14.2
+        uses: pypa/gh-action-pypi-publish@v1.14.3
