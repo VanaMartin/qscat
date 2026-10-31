@@ -53,9 +53,9 @@ def load_model(source):
 
 
 def _model_from_interface(source, interface, expected):
-    """Shared native assembly for the declared48/298 and explicit40/250 views."""
-    if expected not in [(48, 298), (40, 250)]:
-        raise ValueError("Only the two declared compressed target/channel layouts are supported")
+    """Shared native assembly for the explicitly declared finite target/channel views."""
+    if expected not in [(48, 298), (40, 250), (64, 400)]:
+        raise ValueError("Only the declared48/298,40/250,64/400 layouts are supported")
     target_count, channel_count = expected
     output_unit = unit(source / "rsolve.inp", "lukmt")
     energies, saved, header = read_k(source / output_unit)

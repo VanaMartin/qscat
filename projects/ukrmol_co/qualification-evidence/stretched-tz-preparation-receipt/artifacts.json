@@ -1,0 +1,8 @@
+{
+  "artifacts": {
+    "independent-tz-preparation-receipt.json": {"bytes": 4107, "sha256": "4a13d0031d3d2169415c73c7965729abb91dd3b35df29f1aaaf87b670c41a56e"},
+    "manifest.json": {"bytes": 210, "sha256": "1b4ae7b608f1b9f187f14d764acfc01647fc0502f6c884044bc8c1652b461700"}
+  },
+  "git_sha": "33811d8148a759bf14ca6da965f0dffa94c0b4b8",
+  "url_prefix": "https://data.qscat.org/co-stretched-tz-preparation-receipt-20261031/"
+}

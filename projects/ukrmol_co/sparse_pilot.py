@@ -116,15 +116,25 @@ def audit_sector(
     }
 
 
-def compute(args: argparse.Namespace, *, sectors=("B1", "B2")) -> None:
+def compute(
+    args: argparse.Namespace,
+    *,
+    sectors=("B1", "B2"),
+    target_roots_per_sector=5,
+    boundary_channels=250,
+) -> None:
     if sectors not in (("B1",), ("B1", "B2")):
         raise ValueError("Only the declared B1 pilot or complete B1/B2 pair is supported")
+    if (target_roots_per_sector, boundary_channels) not in [(5, 250), (8, 400)]:
+        raise ValueError("Only the declared40/250 and64/400 target/channel layouts are supported")
     geometry = args.preflight / "output/CO/geom1"
     preflight = json.loads((args.preflight / "preflight-result.json").read_text())
     if preflight["original_exit"] != 0:
         raise ValueError("Native preflight failed")
     target = json.loads((args.preflight / "target.json").read_text())
-    mapping = target_map((geometry / "prop.out").read_text(), target["states"])
+    mapping = target_map(
+        (geometry / "prop.out").read_text(), target["states"], roots=target_roots_per_sector
+    )
     report = {
         "roots": args.roots,
         "target_map": mapping,
@@ -147,7 +157,10 @@ def compute(args: argparse.Namespace, *, sectors=("B1", "B2")) -> None:
             shutil.copy2(source, directory / name)
             row["input_sha256"][name] = hashlib.sha256(source.read_bytes()).hexdigest()
         text = selected_deck(text, args.roots, 1e-12, 1000)
-        boundary = f"ntarg = 40, idtarg = {','.join(map(str, mapping))}, rmatr = 18,"
+        boundary = (
+            f"ntarg = {8 * target_roots_per_sector}, "
+            f"idtarg = {','.join(map(str, mapping))}, rmatr = 18,"
+        )
         (directory / "scatci.inp").write_text(mpi_boundary_deck(text, boundary))
         for stage in ("rsolve", "eigenp", "reson"):
             shutil.copy2(
@@ -227,6 +240,7 @@ def compute(args: argparse.Namespace, *, sectors=("B1", "B2")) -> None:
                 args.roots,
                 preflight["sectors"][sector]["contracted_dimension"],
                 preflight["sectors"][sector]["contracted_continuum_dimension"],
+                boundary_channels=boundary_channels,
             )
         )
         _save(args.workdir / "pilot.json", report)

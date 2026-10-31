@@ -1326,6 +1326,48 @@ No inner/pole/B2/fit/sweep now, no new holdout analysis; prior rejections and
 2048/nine/new50/equilibrium/114 protections stay unchanged. Main-index mismatch
 persists, local branch source authoritative; no shared-service changes attempted.
 
+### Goal checkpoint —31 October,17:26UTC: both preparations qualify; continue one DZ B1/2048 own export
+
+**Production decision / evidence delta:** the finite stretched DZ/TZ basis-model
+uncertainty still needs actual outgoing-pole sensitivity. Both prerequisites now
+independently/publicly qualify: DZ90.40s/8.288GiB, TZ38.67s/4.174GiB, all exits0,
+87198 contracted states each. TZ uses one own integral call and zero new CONGEN;
+full deck/inventory/eight target-CSF bytes agree, so original signed DZ algebra
+is reused, not its radial Hamiltonian or native vectors/properties. Seven fresh
+TZ payloads/53 raw files/194 samples/31 Git sources reconstruct, including the
+actual public DZ predecessor and reuse overlay. Public TZ receipt `4a13d003`.
+No model, pole or channel-convergence verdict is gained from preparation alone.
+
+**Continue / smallest missing calculation:** [one own DZ B1/2048 inner and native
+export](stretched-dz-inner-contract-20261031.json), before any TZ inner. Reuse all
+qualified own integrals/CSFs/CIDATA/64-state properties and audited engine. No
+QC/target/property/preparation repeat, root/channel ladder, B2 or complex map.
+Existing pilot/strict assembler gain explicit8-per-sector/64-target/400-channel
+arguments, preserving five-root40/250 defaults. New known-truth tests cover
+ordering, shapes/thresholds/angular diagonal, wrong-layout/closed-gap rejection,
+read-only view, B1-only routing and exact owner contract. No new solver method.
+
+**Bounds:**60minutes implementation; actual87198 dimension/2256 continuum
+coefficients/400 planned boundary channels/2048 selected roots. Measured old
+compressed86352/1410/250 B1 at12ranks:4.227h/22.49GiB. Conditional4–10h here,
+12h native/20min each native outer stage/13h owner,12 physical cores0–11/64GiB/
+8GiB shared backing; minimum80GiB available RAM/20GiB disk. No speedup claim.
+Source/tests/exact owner/frozen own-ID deck must push before use. Reuse the
+original99-point0.1–5.0eV diagnostic grid: own DZ/TZ first excited gaps exceed5eV;
+actual emitted thresholds must still pass the strict six-open-channel guard.
+Native RSOLVE supplies own K references and propagates to100bohr; no complex
+outgoing propagation occurs in this allocation. Native RESON is diagnostic only.
+
+**One next bounded deliverable:** independently/publicly qualify actual DZ
+native export/exits/resources, then separately review TZ B1/2048. Check at most
+five minutes apart during the long job; read-only monitor never starts a peer,
+retry or successor. Any native/input/engine/numerical/cap failure stops with
+original evidence, no rescue. No real-S/pole/B2/fit/sweep released, no CIRMAT
+phase audit or omitted-spectrum/electronic-accuracy inference. Keep all114
+holdouts,2048/nine/new50/equilibrium and prior failures intact. Main index still
+unavailable due shared-code mismatch; indexed anchor423d577/local delta resolved,
+current upstream currency unverified, no shared-service intervention.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

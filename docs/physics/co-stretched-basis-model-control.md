@@ -89,6 +89,10 @@ Mismatch stops without fallback CONGEN/retry. This avoids repeating a successful
 identical algebraic calculation. Own TZ native/scientific exits and resource
 costs remain separate from the original DZ CONGEN's exit and cost.
 
+TZ [now also independently/publicly qualifies](../../projects/ukrmol_co/qualification-evidence/stretched-tz-preparation/README.md),
+38.67s/4.174GiB, all exits0, same87198 contracted states. The exact conditional
+reuse gates pass, and full public raw data/predecessor authenticate independently.
+
 Review actual dimensions/cost and separately freeze a B1/2048 inner/export test,
 then its counterpart in the other atomic basis. Preserve2048 as baseline; expand
 only for a named discrepancy. Numerical boundary/eigenpair/own-K/export gates
@@ -104,3 +108,33 @@ launched to rescue it. A pass alone does not promote either model or justify a
 production sweep. No inner solve, pole search or B2/fit/sweep is released by this
 preparation document. Keep nine working reference, parked new50, equilibrium pole
 exclusion and all114 untouched S holdouts.
+
+### Separate minimum own DZ B1/2048 allocation
+
+Both preparations now qualify, so the [exact DZ-only inner/export contract](../../projects/ukrmol_co/stretched-dz-inner-contract-20261031.json)
+selects one missing own native solve, after new source/tests/exact owner freeze
+and push. Reuse all own DZ prepared inputs and the existing fully qualified
+audited engine, with its same-image numerical-library/telemetry/installed-artifact
+checks. Extend only explicit finite layout arguments: eight target roots per
+sector,64 targets/400 boundary channels/2256 contracted continuum coefficients;
+preserve five-root40/250 defaults. No new native solver or generic selection layer.
+
+Exactly one twelve-rank B1/2048 SCATCI, then native RSOLVE/EIGENP/RESON for own99
+real-K references at requested0.1–5.0eV; RSOLVE propagates to100bohr. The lowest
+own DZ/TZ excited thresholds lie above5eV, so the six-open-channel reader remains
+applicable only if actual emitted metadata confirms the closed gap. The native
+RESON fit is diagnostic, not the coupled outgoing pole. No complex/Python map,
+new target/property/preparation, B2 or root/channel ladder is released.
+
+Twelve physical cores0–11/64GiB/8GiB shared backing;80GiB available RAM/20GiB disk
+floors. Actual87198 dimension is0.98% above the compressed86352 case, but stored
+continuum/channel counts are60% larger; do not extrapolate cost from dimension
+alone. Previous compressed twelve-rank B1 measured4.227h/22.49GiB. Conditional
+4–10h here,12h native/20min per outer stage/13h durable owner; implementation
+bounded to60minutes. Check at most five minutes apart while running.
+
+Original input/deck/engine/native/residual/export/finite-array/closed-gap gates
+remain strict. A failed gate preserves original exits/partial evidence and stops
+without retry. Independently/publicly qualify DZ export and measured cost before
+reviewing a separately frozen TZ inner release. No automatic TZ/pole/B2/fit/sweep;
+no CIRMAT-phase, omitted-spectrum, electronic-accuracy or state-identity claim.

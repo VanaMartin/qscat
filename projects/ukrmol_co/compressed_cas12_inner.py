@@ -1,4 +1,4 @@
-"""Narrow saved-preparation adapter for one audited-engine CAS12 B1/2048 solve."""
+"""Saved-preparation adapter for a declared finite audited-engine CAS12 B1/2048 solve."""
 
 from __future__ import annotations
 
@@ -26,12 +26,18 @@ def verify(root, source, contract):
                 raise ValueError(f"Changed inner prerequisite: {name}")
     prepared = root / contract["preparation_directory"]
     saved = json.loads((prepared / "result.json").read_text())
-    public = json.loads((source / contract["preparation_verification"]).read_text())
+    public_path = (
+        root / contract["preparation_receipt"]
+        if "preparation_receipt" in contract
+        else source / contract["preparation_verification"]
+    )
+    public = json.loads(public_path.read_text())
     if saved["preparation_verdict"] is not True or public["preparation_verdict"] is not True:
         raise ValueError("Independent completed preparation required")
     if (
         saved["scientific_exit"] != 0
-        or saved["sectors"]["B1"]["contracted_dimension"] != contract["dimension"]
+        or saved.get("sectors", {"B1": saved.get("B1")})["B1"]["contracted_dimension"]
+        != contract["dimension"]
     ):
         raise ValueError("Preparation dimension/exit differs from the costed case")
     baseline = json.loads((root / contract["engine_baseline_result"]).read_text())
@@ -43,14 +49,37 @@ def verify(root, source, contract):
     ):
         raise ValueError("Audited engine scientific baseline has not qualified")
     target = json.loads((prepared / "target.json").read_text())
-    mapping = target_map((prepared / "fort.24").read_text(), target["states"])
+    retained = contract.get("target_roots_per_sector", 5)
+    if retained == 8 and not (
+        public["case"] == saved["case"] == contract["case"]
+        and public["public_reader_exit"] == 0
+        and public["original_scientific_command_container_owner_exits"] == [0] * 4
+        and public["roots_per_sector"] == [8] * 8
+        and public["contract_sha256"] == contract["preparation_contract_sha256"]
+        and public["moints_sha256"] == digest(prepared / "moints")
+        and public["moints_sha256"] == digest(prepared / "fort.16")
+        and public["csf_sha256"] == digest(prepared / "fort.721")
+    ):
+        raise ValueError("Own public64-state preparation receipt differs")
+    if retained == 8:
+        peer = json.loads((root / contract["peer_preparation_receipt"]).read_text())
+        if not (
+            peer["case"] == {"dz": "tz", "tz": "dz"}[contract["case"]]
+            and peer["preparation_verdict"] is True
+            and peer["public_reader_exit"] == 0
+            and peer["contract_sha256"] == contract["preparation_contract_sha256"]
+            and peer["original_scientific_command_container_owner_exits"] == [0] * 4
+            and peer["roots_per_sector"] == [8] * 8
+        ):
+            raise ValueError("Both finite basis preparations must independently qualify")
+    mapping = target_map((prepared / "fort.24").read_text(), target["states"], roots=retained)
     if mapping != contract["own_target_map"]:
         raise ValueError("Own matched contraction-to-property IDs changed")
     text = selected_deck(
         (prepared / "scattering.scatci.doublet.B1.inp").read_text(), 2048, 1e-12, 1000
     )
     expected = mpi_boundary_deck(
-        text, f"ntarg = 40, idtarg = {','.join(map(str, mapping))}, rmatr = 18,"
+        text, f"ntarg = {8 * retained}, idtarg = {','.join(map(str, mapping))}, rmatr = 18,"
     )
     if expected != (source / contract["frozen_native_deck"]).read_text():
         raise ValueError("Resolved native2048-root input differs before execution")
@@ -66,7 +95,8 @@ def preflight_view(directory, prepared, saved):
     (geometry / "doublet.B1").mkdir()
     (directory / "target.json").symlink_to(prepared / "target.json")
     (directory / "preflight-result.json").write_text(
-        json.dumps(dict(original_exit=0, sectors=saved["sectors"])) + "\n"
+        json.dumps(dict(original_exit=0, sectors=saved.get("sectors", {"B1": saved.get("B1")})))
+        + "\n"
     )
     for name in ["fort.24", "fort.26"]:
         (geometry / name).symlink_to(prepared / name)
@@ -79,10 +109,13 @@ def preflight_view(directory, prepared, saved):
     return directory
 
 
-def export_gate(directory, own):
-    """Strict40/250 native assembly, not a new sparse-ID remapping framework."""
+def export_gate(directory, own, expected_layout=(40, 250)):
+    """Strict declared native assembly, not a sparse-ID remapping framework."""
+    if expected_layout not in [(40, 250), (64, 400)]:
+        raise ValueError("Undeclared CAS12 target/channel layout")
+    targets, channels = expected_layout
     interface = read_interface(directory / "fort.10", directory / "fort.21")
-    if [label[0] for label in interface["target_labels"]] != list(range(1, 41)):
+    if [label[0] for label in interface["target_labels"]] != list(range(1, targets + 1)):
         raise ValueError("Unexpected native selected-target row IDs")
     expected = [
         float(line.split()[8].replace("D", "E"))
@@ -90,7 +123,7 @@ def export_gate(directory, own):
         if line.split()[:1] == ["5"]
     ]
     np.testing.assert_allclose(interface["target_energies_hartree"], expected, atol=1e-9, rtol=0)
-    model = _model_from_interface(directory, interface, (40, 250))
+    model = _model_from_interface(directory, interface, expected_layout)
     arrays = {
         name: dict(shape=list(model[name].shape), finite=bool(np.isfinite(model[name]).all()))
         for name in ["poles", "amplitudes", "c2", "c3", "thresholds", "saved"]
@@ -98,7 +131,7 @@ def export_gate(directory, own):
     if not all(row["finite"] for row in arrays.values()):
         raise ValueError("Nonfinite own model arrays")
     return dict(
-        strict40_target_250_channel_assembly_verdict=True,
+        **{f"strict{targets}_target_{channels}_channel_assembly_verdict": True},
         arrays=arrays,
         ground_hartree=model["ground"],
         open_labels=interface["channel_labels"][:6],
@@ -125,6 +158,7 @@ def compute(root, source, work, contract):
         new_property_exports=0,
         new_preparation_calls=0,
         new_propagations=0,
+        propagation_counter_scope="Complex/Python maps only; native RSOLVE is a separate recorded stage",
         route_holdout_s_matrices_analyzed=0,
     )
 
@@ -149,7 +183,12 @@ def compute(root, source, work, contract):
             outer_stage_timeout=contract["resources"]["outer_timeout_seconds"],
             telemetry=root / contract["telemetry_directory"] / "scattering_telemetry.so",
         )
-        native_pilot(args, sectors=("B1",))
+        native_pilot(
+            args,
+            sectors=("B1",),
+            target_roots_per_sector=contract.get("target_roots_per_sector", 5),
+            boundary_channels=contract["boundary_channels"],
+        )
         report["native_report"] = json.loads((native / "pilot.json").read_text())
         for name, want in report["native_report"]["sectors"]["B1"]["input_sha256"].items():
             if digest(native / "B1" / name) != want:
@@ -157,7 +196,11 @@ def compute(root, source, work, contract):
         if digest(native / "B1/scatci.inp") != digest(source / contract["frozen_native_deck"]):
             raise ValueError("Actual native solver deck differs from the frozen input")
         report["copied_native_inputs_unchanged"] = True
-        report["export_gate"] = export_gate(native / "B1", prepared / "fort.24")
+        report["export_gate"] = export_gate(
+            native / "B1",
+            prepared / "fort.24",
+            (8 * contract.get("target_roots_per_sector", 5), contract["boundary_channels"]),
+        )
         report.update(inner_export_verdict=True, scientific_exit=0)
     except Exception as error:
         report["error"] = repr(error)

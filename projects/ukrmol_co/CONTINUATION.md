@@ -88,6 +88,26 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Both preparations public success; one DZ B1/2048 export selected —31 October,17:26UTC
+
+[TZ result](qualification-evidence/stretched-tz-preparation/README.md) /
+[TZ independent receipt](qualification-evidence/stretched-tz-preparation-receipt/README.md),
+SHA256 `4a13d0031d3d2169415c73c7965729abb91dd3b35df29f1aaaf87b670c41a56e`.
+Own TZ integrals32.21s; zero new CONGEN, exact deck/inventory/eight target CSFs
+permit explicit DZ algebra reuse. All original exits0, profile38.67s/4.174GiB.
+Both public preparations independently reconstruct87198 contracted states, own
+64-state inputs and full raw hashes. No physical basis/pole/model verdict yet.
+
+One next bounded deliverable: [DZ B1/2048 own native export](stretched-dz-inner-contract-20261031.json)
+and independent public output/exit/resource qualification. Reuse prepared own
+inputs/audited engine, explicit64/400 adapter retaining old defaults; no new
+target/property/preparation, B2, complex map or root/channel ladder. Freeze/push
+source/tests/owner/frozen own-ID deck first.12 physical cores0–11/64GiB/8GiB backing,
+conditional4–10h/12h native/20min native outer/13h owner;80GiB RAM/20GiB disk floors.
+Check at most5min during this long job; monitor is read-only/no successor. DZ
+public success is required before reviewing a separately frozen TZ inner. Any
+failed gate stops without repair/retry. No pole/fit/sweep or114-holdout analysis.
+
 ### DZ preparation public success; TZ conditional reuse selected —31 October,17:15UTC
 
 [DZ result](qualification-evidence/stretched-dz-preparation/README.md) /

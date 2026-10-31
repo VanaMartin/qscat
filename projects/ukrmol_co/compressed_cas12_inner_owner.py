@@ -18,7 +18,7 @@ CONTRACT = "projects/ukrmol_co/compressed-cas12-inner-contract-20261026.json"
 NAME = "co-compressed-cas12-b1-2048-20261026"
 
 
-def container_command(root, source, output, contract):
+def container_command(root, source, output, contract, contract_path=CONTRACT):
     engine = root / contract["engine_source_directory"] / "build/install"
     inside = """from pathlib import Path
 import json,subprocess,sys
@@ -29,11 +29,15 @@ if control.returncode:raise SystemExit(2)
 command=[sys.executable,'-m','projects.ukrmol_co.compressed_cas12_inner','--root','/work','--source','/opt/qmodeling','--work','/out/inner','--contract','/opt/qmodeling/projects/ukrmol_co/compressed-cas12-inner-contract-20261026.json']
 raise SystemExit(subprocess.call(command))
 """
+    inside = inside.replace(CONTRACT, contract_path).replace(
+        "projects.ukrmol_co.test_compressed_cas12_inner",
+        contract.get("runtime_controls_module", "projects.ukrmol_co.test_compressed_cas12_inner"),
+    )
     return [
         "docker",
         "run",
         "--name",
-        NAME,
+        contract.get("container_name", NAME),
         "--cpuset-cpus=0-11",
         "--memory=64g",
         "--memory-swap=64g",
@@ -69,9 +73,10 @@ raise SystemExit(subprocess.call(command))
     ]
 
 
-def run(capsule, archive_sha256, commit):
+def run(capsule, archive_sha256, commit, contract_path=CONTRACT):
     root, source = capsule.parent.parent, capsule / "source"
-    contract = json.loads((source / CONTRACT).read_text())
+    contract = json.loads((source / contract_path).read_text())
+    container_name = contract.get("container_name", NAME)
     limits = contract["resources"]
     pins = json.loads((capsule / "source-manifest.json").read_text())
     report = dict(
@@ -101,6 +106,10 @@ def run(capsule, archive_sha256, commit):
         )
 
     try:
+        if contract_path not in pins or not (source / contract_path).resolve().is_relative_to(
+            source.resolve()
+        ):
+            raise ValueError("Inner contract must belong to the frozen source capsule")
         if not source_ok():
             raise ValueError("Changed frozen inner source capsule")
         report["engine_verified_before"] = verify_engine(root, contract)
@@ -141,7 +150,7 @@ def run(capsule, archive_sha256, commit):
         output = capsule / "outputs"
         output.mkdir(mode=0o777)
         output.chmod(0o777)
-        command = container_command(root, source, output, contract)
+        command = container_command(root, source, output, contract, contract_path)
         report.update(state="launching", command=command, image=contract["image_id"])
         save()
         with (capsule / "check.log").open("x") as log:
@@ -153,10 +162,12 @@ def run(capsule, archive_sha256, commit):
                 report["timed_out"] = False
             except subprocess.TimeoutExpired:
                 report["timed_out"] = True
-                subprocess.run(["docker", "kill", NAME], check=False, timeout=30)
+                subprocess.run(["docker", "kill", container_name], check=False, timeout=30)
                 process.wait(timeout=30)
         report["original_command_exit"] = process.returncode
-        state = json.loads(subprocess.check_output(["docker", "inspect", NAME], text=True))[0]
+        state = json.loads(
+            subprocess.check_output(["docker", "inspect", container_name], text=True)
+        )[0]
         (capsule / "container-inspect.json").write_text(json.dumps(state, indent=2) + "\n")
         report.update(
             original_container_exit=state["State"]["ExitCode"],
@@ -164,7 +175,12 @@ def run(capsule, archive_sha256, commit):
         )
         report["engine_verified_after"] = verify_engine(root, contract)
         report["original_owner_exit"] = (
-            process.returncode if process.returncode in [0, 1, 2] and not report["timed_out"] else 2
+            process.returncode
+            if process.returncode in [0, 1, 2]
+            and process.returncode == state["State"]["ExitCode"]
+            and not report["timed_out"]
+            and not report["container_oom_killed"]
+            else 2
         )
     except Exception as error:
         report["error"] = repr(error)
@@ -187,5 +203,6 @@ if __name__ == "__main__":
     parser.add_argument("--capsule", type=Path, required=True)
     parser.add_argument("--archive-sha256", required=True)
     parser.add_argument("--commit", required=True)
+    parser.add_argument("--contract", default=CONTRACT)
     args = parser.parse_args()
-    raise SystemExit(run(args.capsule, args.archive_sha256, args.commit))
+    raise SystemExit(run(args.capsule, args.archive_sha256, args.commit, args.contract))

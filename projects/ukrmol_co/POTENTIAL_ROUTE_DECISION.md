@@ -2,6 +2,21 @@
 
 ## Decision now
 
+**31October17:26UTC: [TZ preparation also independently/publicly qualifies](qualification-evidence/stretched-tz-preparation/README.md).**
+Own integral only/zero new CONGEN,38.67s/4.174GiB,87198 contracted states/all exits0.
+Seven fresh public payloads/53 raw files/194 samples/31 Git sources reconstruct;
+conditional signed-CSF reuse and actual public DZ receipt authenticate. Both
+preparations now supply inputs, not a physical-model or outgoing-pole result.
+
+**Continue one [DZ B1/2048 own native export](stretched-dz-inner-contract-20261031.json):**
+reuse qualified preparations/properties/audited engine; explicit64-target/400-channel
+adapter, unchanged five-root defaults and solver.12 physical cores/64GiB, conditional
+4–10h /12h native /13h owner; source/tests/exact owner and own-ID deck push first.
+At most5min read-only checks. Next independent DZ export/public/cost reading before
+separately reviewing TZ inner. No automatic peer, pole, B2, fit, sweep or holdout read.
+
+### Earlier31October DZ preparation success
+
 **31October17:15UTC: [DZ B1 preparation independently/publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md).**
 One integral/one CONGEN, all exits0;87198 actual contracted states,90.40s/8.288GiB.
 Seven fresh public payloads/51 raw files/452 samples/30 Git sources reconstruct.

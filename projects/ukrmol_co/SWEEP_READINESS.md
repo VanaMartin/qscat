@@ -12,6 +12,14 @@ physical-model verdict. Next [TZ own-integral/conditional CSF reuse](stretched-t
 separate source/owner freeze, exact deck/inventory/eight target-CSF equality or
 stop. No repeated identical CONGEN, inner/pole/B2/fit/sweep release or holdout read.
 
+**17:26UTC update:** [TZ preparation also publicly qualifies](qualification-evidence/stretched-tz-preparation/README.md),
+87198 states/all exits0,38.67s/4.174GiB; own integrals/qualified signed-CSF reuse.
+Separate [DZ-only B1/2048 inner/export contract](stretched-dz-inner-contract-20261031.json)
+is selected, requiring source/tests/exact owner freeze/push and own64/400 layout
+gates.12 physical cores/64GiB/conditional4–10h/12h native cap; at most5min checks.
+Independent public DZ export must precede separately reviewed TZ inner. Neither
+preparation nor an export pass qualifies the basis-model contrast or a sweep.
+
 **26 October decision:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
 Position shift86.774662meV exceeds50meV; full width16.066613meV passes.
 All numerical/character/local-identity gates independently reconstruct.

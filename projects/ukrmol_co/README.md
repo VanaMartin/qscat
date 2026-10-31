@@ -21,6 +21,13 @@ TZ integrals, exact deck/inventory/eight target-CSF equality before copying only
 qualified algebra. No repeated identical CONGEN or fallback on mismatch. No inner,
 pole, B2, fit or sweep released; same finite model limitations/protected holdouts.
 
+**17:26UTC update:** [TZ preparation independently/publicly qualifies too](qualification-evidence/stretched-tz-preparation/README.md),
+one own integral/zero new CONGEN,38.67s/4.174GiB; same87198 states/all exits0.
+Next separately freeze/push and release [one DZ B1/2048 own native export](stretched-dz-inner-contract-20261031.json),
+12 physical cores/64GiB/conditional4–10h/12h native cap, five-minute checks.
+No successful input work repeated; DZ public export success before separately
+reviewing TZ inner. No automatic peer, pole, B2, fit, sweep or holdout analysis.
+
 **26 October outcome:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
 Position shifts **86.77meV**, beyond50meV; full width shifts16.07meV and passes.
 Real-S/pole/residue/character/local-identity gates independently reconstruct:
