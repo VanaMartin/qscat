@@ -1,0 +1,12 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes": 5638, "sha256": "f0e2b37ce5d277485a9da65d5221c65efc1cbd4a13f7d37124aae327d8c4d59b"},
+    "evidence.tar.gz": {"bytes": 31834067, "sha256": "eaeb7a403426dcf2d325e6ba2548617106aeeaebd24b1712922c3a3c678884e9"},
+    "manifest.json": {"bytes": 223, "sha256": "bdf538db1d4c9fefbdf0ec694d5f06a18fa09d64873ae0c436a9550025eb26f3"},
+    "reader-tests.py": {"bytes": 1385, "sha256": "1549c05d4e6846278c255afe92c81cbd7fece3b68877f3038daad5353c5d274d"},
+    "reader.py": {"bytes": 12141, "sha256": "c14fc4d8029b96bab639c76b29aaa90a4cdc4cd543a73bfb6353ca124cc5bc2d"},
+    "verification.json": {"bytes": 2159, "sha256": "2223838acc8a6a9d43c40edab50e39c177976abcdcc17dd6afed4557a8c53790"}
+  },
+  "git_sha": "f497e18bb442a16c097bb04c7aaefd6eff1e04eb",
+  "url_prefix": "https://data.qscat.org/co-stretched-basis-properties-dz-result-20261031/"
+}

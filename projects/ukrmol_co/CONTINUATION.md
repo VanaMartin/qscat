@@ -58,10 +58,13 @@ is complete:** [property-only source/contract/owner freeze](qualification-eviden
 eight mocked runtime controls/exit0,36 unchanged original input pins and12 source
 entries verified, zero scientific calls at that freeze. **Separately released DZ
 launches15:49:41UTC**, [active at15:50:36UTC](qualification-evidence/stretched-basis-properties-dz-launch/README.md).
-All eight runtime controls pass; DENPROP is active, inventory/exits pending.
-Next independently read/publish DZ output/exits/resources. TZ needs independent
-public DZ success/a pinned receipt and another explicit release. No CI/QC/target
-repeat or automatic successor; no new physical verdict or sweep progress.
+All eight runtime controls passed at launch. **31October: [completed DZ publicly
+qualifies](qualification-evidence/stretched-basis-properties-dz/README.md)**,
+64 states/2040 moments, all original exits0,4.552h/1.453GiB. Its independent
+public success receipt passes the original TZ gate. The user continuation now
+selects one separate [TZ-only release](stretched-basis-properties-tz-release-20261031.json),
+not a DZ retry or automatic queue. Next independently qualify TZ output/exits/
+resources; no CI/QC/target repeat or preparation/scattering/pole/fit/sweep successor.
 
 ## Standing progress-figure workflow
 
@@ -83,7 +86,34 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### DZ-only property export active —26 October,15:50:36UTC observation
+### DZ public success / separate TZ-only release —31 October,01:27UTC
+
+[DZ result](qualification-evidence/stretched-basis-properties-dz/README.md) /
+[receipt/path/hash](qualification-evidence/stretched-basis-properties-dz-receipt/README.md) /
+[exact TZ release](stretched-basis-properties-tz-release-20261031.json).
+The completed DZ64-state table independently reconstructs from six fresh public
+payloads/27 archived files, including81793 resource samples and12 Git-matched
+sources. Original native/scientific/profile/command/container/owner/service exits0,
+4.552h/1.453GiB, no timeout/OOM; energy4.875e-10Ha/dipole6.140e-13au pass.
+Saved input/copy attestations authenticate; native vector norms are checked,
+not new Hamiltonian actions or regenerated integrals. No new DZ scientific call.
+
+Separate TZ-only release reuses exact source `f497e18`/frozen contract and a fresh
+31October capsule.18 TZ original inputs/five source prerequisites and public
+DZ receipt hash pass; host has107.5GiB RAM/144.3GiB disk, ComfyUI untouched.
+Eight physical cores4–11/64GiB/one library thread/no network;18h native/18.5h
+container/19h owner. Conditional6–16h TZ forecast is not inferred from DZ's cost.
+Push the explicit release before launch; eight runtime controls precede at most
+one DENPROP call. No retry/repair/downstream job. Original frozen owner keeps
+26October service/container names but this is the first TZ application.
+
+**One next deliverable:** independent original TZ output/exit/resource/public
+qualification after completion, including failure. Only then review a separately
+bounded preparation/B1 comparison; none is released now. All114 S holdouts,
+nine/2048/parked new50/equilibrium exclusion and physical rejections remain.
+No TZ job active at this release checkpoint; no production model/curve/fit.
+
+### Historical DZ-only property export active —26 October,15:50:36UTC observation
 
 [Launch record](progress-stretched-basis-properties-dz-launch-20261026.json) /
 [public source/controls/observation](qualification-evidence/stretched-basis-properties-dz-launch/README.md).

@@ -41,11 +41,13 @@ freeze completes](qualification-evidence/stretched-basis-properties-freeze/READM
 within the60minute effort allocation: eight mocked runtime controls pass,36 input
 pins and12 source entries verify. Zero scientific calls, no new property table
 or physical-model verdict. [Separately released DZ starts15:49:41UTC](qualification-evidence/stretched-basis-properties-dz-launch/README.md):
-eight runtime controls pass; at15:50:36UTC DENPROP is active. Inventory verdict,
-all terminal exits and final cost remain pending. Next independently read/publish
-DZ output/exits/resources; TZ requires independent public DZ success/a hash-pinned
-receipt and another release. Eight physical cores/64GiB,18h native/19h owner;
-no automatic peer or downstream scattering/pole/fit/sweep release.
+eight runtime controls pass. **31October [DZ publicly qualifies](qualification-evidence/stretched-basis-properties-dz/README.md):**
+64 states/eight per sector/2040 moments, all original exits0,4.552h/1.453GiB.
+Fresh public evidence reconstructs under a separate reader; the independent
+receipt passes the frozen TZ gate. One [separate TZ-only release](stretched-basis-properties-tz-release-20261031.json)
+is selected, push before launch.8 physical cores/64GiB,18h native/19h owner;
+conditional6–16h unmeasured. Next independently qualify TZ output/exits/resources,
+not an automatic preparation/scattering/pole/fit/sweep release or basis verdict.
 Original failures, production channel gates and holdouts remain intact.
 
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)

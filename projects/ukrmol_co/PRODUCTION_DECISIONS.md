@@ -1225,6 +1225,27 @@ model/curve/fit selected. Main semantic search is unavailable due to a shared
 service code/dependency mismatch; use live local branch source and the last known
 main anchor423d577, with current upstream freshness explicitly unverified.
 
+**31October01:27UTC disposition:** [public DZ qualification completes](qualification-evidence/stretched-basis-properties-dz/README.md).
+Six fresh public payloads/27 archived files/81793 samples reconstruct; separate
+reader/public-reader exits0 and12 sources match original Git. The exact independent
+success receipt is published and fetched/hash-checked on the host. It satisfies
+the frozen TZ gate with matching contract/output,64 states/eight per sector and
+all declared original exits0. No new DZ native/QC/CI/map call or holdout read.
+
+**Separate release / continue:** [one missing TZ table only](stretched-basis-properties-tz-release-20261031.json),
+unchanged committed execution source/contract, fresh capsule and independently
+qualified existing stretched TZ frame.18 original TZ input/five source pins and
+receipt gate pass; host107.5GiB available RAM/144.3GiB disk. Recheck at launch,
+leave ComfyUI unchanged.8 physical cores/64GiB,18/18.5/19h caps, conditional6–16h
+TZ remains unmeasured. No new objective, target/QC/import/integral/CONGEN repeat.
+Push this explicit release first. Runtime controls then at most one DENPROP call;
+any failure stops with original evidence and no repair/retry or automatic job.
+
+Next only independently qualify/publish original TZ output/exits/resources after
+completion; later preparation/B1 scope/cost needs its own review. No scattering,
+pole/B2/fit/sweep release, no physical basis verdict or production-model promotion.
+The60minute qualification/release/handoff effort cap and all protections remain.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

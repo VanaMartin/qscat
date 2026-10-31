@@ -39,10 +39,14 @@ Both existing40-state property tables miss24 required states. The
 eight mocked runtime controls pass;36 original input pins/12 source entries verify.
 No scientific call occurred at the freeze. The [separately released DZ-only export
 starts15:49:41UTC](qualification-evidence/stretched-basis-properties-dz-launch/README.md):
-all eight runtime controls pass and DENPROP is active at15:50:36UTC. Inventory
-verdict/terminal exits/final cost remain pending; neither new table is qualified.
-Next independently publish/read DZ output/exits/resources. TZ stays receipt-gated
-and separately released, never automatic. No CI/QC/target/import repeat is needed.
+all eight runtime controls pass. It finishes20:22UTC; on31October the [DZ result
+qualifies publicly](qualification-evidence/stretched-basis-properties-dz/README.md):
+64 states/2040 moments, own-energy/dipole/integrity gates, all exits0,
+4.552h/1.453GiB. The separate independent public receipt now qualifies the TZ
+prerequisite, not a basis/model result. User continuation selects one
+[TZ-only release](stretched-basis-properties-tz-release-20261031.json), push before
+launch; no automatic successor. Next independently qualify TZ outputs/exits/
+resources. No CI/QC/target/import repeat or downstream scattering/fit is released.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.

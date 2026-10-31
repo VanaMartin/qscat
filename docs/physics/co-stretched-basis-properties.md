@@ -105,3 +105,21 @@ deck pins intact. Inventory, final cost and terminal exits remain pending.
 No completed64-state property table or physical-model verdict is claimed by a
 launch. Independently qualify/publish the actual DZ output before considering
 the still separately gated TZ application; no automatic downstream work follows.
+
+## Completed DZ input and independent public receipt
+
+The [DZ table now qualifies](../../projects/ukrmol_co/qualification-evidence/stretched-basis-properties-dz/README.md):
+64 states/eight per sector/2040 dipole/quadrupole records, own energy/dipole gates,
+original exits0,4.552h/1.453GiB, no timeout/OOM. A separate standard-library reader
+reconstructs the raw native energy/vector-norm and property checks plus resource
+sample peaks from freshly downloaded evidence. It imports no producer code and
+does not recompute Hamiltonian actions or integrals. This validates the missing
+property input, not the target's physical accuracy or cross-basis continuity.
+
+The [independent receipt](../../projects/ukrmol_co/qualification-evidence/stretched-basis-properties-dz-receipt/README.md)
+pins contract/output/exits/public-reader0 and is itself publicly content-addressed.
+The host fetches/hash-checks it before the [separate TZ-only release](../../projects/ukrmol_co/stretched-basis-properties-tz-release-20261031.json).
+No new scientific method, orbital objective, preparation/scattering/pole job or
+production model follows automatically. Preserve the original distinct-TZ-frame
+qualification/seed failure and compressed A2/TZ stops. TZ uses its own saved
+energies/dipole, not the newly successful DZ result as a numerical substitute.

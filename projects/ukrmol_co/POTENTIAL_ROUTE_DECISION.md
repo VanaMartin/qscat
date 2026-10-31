@@ -1,6 +1,27 @@
-# Sweep/potential route decision — 26 October 2026
+# Sweep/potential route decision — 31 October 2026
 
 ## Decision now
+
+**31October01:25UTC: [DZ properties qualify publicly](qualification-evidence/stretched-basis-properties-dz/README.md).**
+Original26October completion has all exits0,64 states/eight per sector,2040
+moments, own-energy/dipole/integrity gates passing;4.552h/1.453GiB. Six fresh public
+payloads/27 archived files/81793 resource samples reconstruct under the separate
+committed reader. The [independent receipt](qualification-evidence/stretched-basis-properties-dz-receipt/README.md)
+is publicly pinned, fetched by the host and accepted by the original TZ gate.
+No successful DZ calculation was repeated, no new physical basis verdict.
+
+**Separate user-directed [TZ-only release](stretched-basis-properties-tz-release-20261031.json):**
+reuse the original qualified stretched TZ frame and all64 native roots, same
+forty-component orbital objective, changing only property NTGTL to all8. Fresh
+capsule, unchanged committed source/contract/owner/image;18 original input/five
+source pins and the exact independent DZ receipt pass. Available107.5GiB RAM /
+144.3GiB disk; ComfyUI unchanged. Eight physical cores4–11/64GiB,18h native /
+18.5h container/19h owner; conditional6–16h TZ remains unmeasured. Push release
+before launch. Next independently read/publish TZ output/exits/resources; no
+repair/retry or preparation/scattering/pole/B2/fit/sweep successor. No TZ job
+launched at this release checkpoint. All historical rejections/protections remain.
+
+### Historical26October decisions
 
 **14:56UTC queue step1 complete: [saved feasibility passes](qualification-evidence/stretched-basis-feasibility/README.md).**
 Both actual native files supply64 roots. Select all eight per spin/irrep for a
