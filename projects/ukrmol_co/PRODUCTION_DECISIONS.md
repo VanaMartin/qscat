@@ -1191,6 +1191,40 @@ Next independently read/publish original DZ output/exits/resources, whether pass
 or failure; no retry or automatic TZ/downstream release. Bonsai evaluation was
 already unhealthy before launch; no unrelated workload/settings changed.
 
+### Goal checkpoint —31 October: resume with completed DZ evidence, then one conditional TZ input
+
+**Production link / continue:** the user requests next steps after the successful
+DZ property status check. Close the public DZ qualification/receipt first; only
+then review a separate TZ-only export under the unchanged frozen contract.
+Reuse both original stretched CAS12 frames, native vectors/integrals/CSFs and the
+completed DZ output; no successful identical scientific calculation is repeated.
+This supplies missing inputs for a later finite matched basis-model comparison,
+not basis/channel convergence, state continuity or a physical pole verdict.
+
+**Evidence delta:** DZ original exits are all0,64 states/eight per sector and2040
+moments; own-native energy error4.875e-10Ha, dipole error6.140e-13au. Measured
+4.552h /1.453GiB, no timeout/OOM. Saved output has independently re-read successfully,
+but public-byte reconstruction and the hash-pinned receipt must precede TZ release.
+The new standard-library evidence reader imports no producer/parser and makes no
+scientific calls. Known-truth/corruption controls pass; native energies/vector
+norms, property IDs/moments and81793 resource samples reconstruct from saved files.
+
+**Bounds / one next deliverable:** public DZ evidence and independent receipt,
+zero new native/QC/CI/maps, at most60minutes qualification/release/handoff effort.
+Then at most one separately released missing TZ DENPROP application,8 physical
+cores4–11/64GiB/one library thread/no network;18h native/18.5h container/19h owner
+caps. DZ's4.55h is measured, not a TZ forecast; retain conditional6–16h for TZ,
+80GiB available RAM/10GiB disk floors.31October host preflight has107.6GiB RAM /
+144.3GiB disk and only ComfyUI container active; recheck before launch, do not
+change unrelated workloads. Any failed prerequisite/export stops without retry.
+
+No preparation/scattering/pole/B2/fit/sweep successor. Compressed TZ/A2 remains
+stopped, prior B1 model rejection and stretched channel rejection stand. Keep
+2048/nine/parked new50/equilibrium exclusion/114 holdouts unchanged. No production
+model/curve/fit selected. Main semantic search is unavailable due to a shared
+service code/dependency mismatch; use live local branch source and the last known
+main anchor423d577, with current upstream freshness explicitly unverified.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
