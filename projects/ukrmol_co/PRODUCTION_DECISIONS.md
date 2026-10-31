@@ -1259,6 +1259,43 @@ fit is newly qualified. Next independent original TZ output/exit/resource/public
 reading, no automatic preparation/scattering/pole/B2/fit/sweep successor. Eight
 physical cores/64GiB and18/18.5/19h caps remain; ComfyUI/all protected data untouched.
 
+### Goal checkpoint —31 October,16:46UTC: both property inputs qualify; continue minimum B1 preparation
+
+**User instruction:** continue experiments until blocked or instructed to stop,
+with regular progress checks. This authorizes staged reviewed continuation, not
+waiving scientific stops, an automatic solver ladder, a sweep or paid resources.
+
+**Evidence delta:** [TZ independently/publicly qualifies](qualification-evidence/stretched-basis-properties-tz/README.md),
+64 states/eight per sector/1683 moments, all original exits0,4.42085h/1.71470GiB.
+Six fresh public payloads/28 archived files/79433 resource samples and12 Git
+sources reconstruct; original independent DZ predecessor also authenticates.
+Own energy4.954e-10Ha/dipole1.170e-11au pass. No native/QC/CI call was repeated.
+Both missing property tables are now supplied, not a new basis/pole verdict.
+
+**Continue / minimum production decision:** [finite stretched DZ/TZ basis control](../../docs/physics/co-stretched-basis-model-control.md).
+Both selected frames have only target integrals, no full-continuum/B1 preparation.
+Prepare one missing four-rank integral set and one B1 CONGEN expansion per basis,
+reusing all original vectors/CSFs/orbitals/new properties. DZ first, TZ only after
+independent public DZ preparation success/a pinned receipt and separate release.
+No QC/target/property repeat or B2. Keep identical64-state retention as a finite
+model, not nine-A2 or production convergence; original frame/CI failures remain.
+
+**Bounds:**60minutes source/tests/exact owner effort;4 physical cores0–3/32GiB,
+40GiB available RAM/20GiB disk floors, one library thread/no network. Conditional
+3–20min/preparation unmeasured;40min integral/5min CONGEN/58min container/60min
+owner caps. Measured old compressed171s/10.70GiB is a planning anchor, not a
+stretched/TZ measurement. Actual contracted dimension<=150000; derive from logs,
+not presumed87198. Freeze/push source and tests before scientific use.
+
+**Next bounded deliverable:** independently qualify actual DZ B1 preparation,
+then separately release/qualify TZ preparation and review dimension-costed B1/2048
+inner exports. No inner/propagation/pole/B2/fit/sweep successor automatic. Check
+stage transitions and at most60s during preparation; later long jobs at most5min.
+Monitors never launch jobs or suppress failures. Stop on a failed gate, preserve
+original evidence; leave unrelated workloads and2048/nine/new50/equilibrium/114
+holdouts unchanged. Main index remains unavailable; last known423d577, local
+branch source/delta authoritative and current upstream freshness unverified.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

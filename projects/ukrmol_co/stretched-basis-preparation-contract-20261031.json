@@ -1,0 +1,67 @@
+{
+  "status": "Exact one-case preparation contract. User-directed continuation releases DZ first after source/tests/owner freeze and push; TZ requires independent public DZ preparation success and a separate reviewed launch. No inner/pole successor automatic.",
+  "scientific_question": "Supply the missing full-continuum integrals and B1 N+1 configuration expansion for a finite matched stretched CAS12 DZ/TZ64-state basis-model comparison. Preparation is not a model-insensitivity result.",
+  "property_input_contract": "projects/ukrmol_co/stretched-basis-properties-contract-20261026.json",
+  "source_sha256": {
+    "projects/ukrmol_co/a2_channel_preflight.py": "75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "projects/ukrmol_co/stretched_basis_feasibility.py": "d231097887c9d6f34893253a40951c3c43c3e0feceb100c9cbfed595d4094130",
+    "projects/ukrmol_co/verification-stretched-basis-feasibility-public-20261026.json": "53edd3afbf50984d39073cb360d53030f8b33576c5d3a7883668ff592185fb3f",
+    "projects/ukrmol_co/qualification-evidence/stretched-basis-feasibility/artifacts.json": "162476891b08eb6ecf44dde4ae36577620db2e88d6b1c6c7df8bdb114b9d157d",
+    "projects/ukrmol_co/stretched-basis-properties-contract-20261026.json": "7bcf27226b67d7a54b74de4f84423b96e832122be289a2ae1921cc09512ea712",
+    "projects/ukrmol_co/compressed_cas12_preparation.py": "cb80c33131cc48e9f4e086283419400152f049ad355be270a2ae9583622ed7e6",
+    "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026/target.scatci_integrals.inp": "2981201dbf0836502d4220380ae078910335a4968ee85f58bddfb28e8d4522cc",
+    "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026/scattering.congen.doublet.B1.inp": "0f149a4c235ef282aea53112b7cd2586d82a63fd635c0ed04fef6351ec613753",
+    "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026/scattering.scatci.doublet.B1.inp": "8198eec3d05c04cdfbe5bd90ae85c3751ed2e6a3dbad81a7cb99f919df97592d",
+    "projects/ukrmol_co/qualification-evidence/stretched-basis-properties-dz-receipt/independent-dz-receipt.json": "ca1efe565ee346a3554107ba9cd9ce457bb31674899ec7bad83f409dc4f2e8d4",
+    "projects/ukrmol_co/qualification-evidence/stretched-basis-properties-tz-receipt/independent-tz-receipt.json": "037434ce88faaa39c88393e9f45ef6fd3cfa48b669c967b942931c23881f8f2d"
+  },
+  "models": {
+    "dz": {
+      "property_directory": "prepared/stretched-basis-properties-dz-source-20261026/outputs/properties",
+      "property_receipt": "projects/ukrmol_co/qualification-evidence/stretched-basis-properties-dz-receipt/independent-dz-receipt.json",
+      "input_sha256": {
+        "prepared/stretched-basis-properties-dz-source-20261026/outputs/properties/fort.24": "5020129a2207853cb2a67a45aebf8ec2278f73505497b223129cba54ba3aa5e5",
+        "prepared/stretched-basis-properties-dz-source-20261026/outputs/properties/result.json": "e2ef43d17fcaa7c95ae92111d3984f66bc0faf57c899c263a61e87fc3c1b4917",
+        "prepared/stretched-basis-properties-dz-source-20261026/outputs/properties/resources.json": "19f86d2017fcc994f8fbbab42ef87c6aec5e6abf1e617e9ce16c7803caa76764",
+        "prepared/stretched-basis-properties-dz-source-20261026/execution.json": "b642edc7628cc1898cc2a8a1a047eaa7b38e1f0756bb16930f50b1e053ecd47a",
+        "prepared/stretched-basis-properties-dz-source-20261026/service-return.json": "23212be51683b1897c4cf7e7581a61cdcf48ef6c8f82a3ed75b174b50a2fe7aa"
+      }
+    },
+    "tz": {
+      "property_directory": "prepared/stretched-basis-properties-tz-source-20261031/outputs/properties",
+      "property_receipt": "projects/ukrmol_co/qualification-evidence/stretched-basis-properties-tz-receipt/independent-tz-receipt.json",
+      "input_sha256": {
+        "prepared/stretched-basis-properties-tz-source-20261031/outputs/properties/fort.24": "6e0ae07b16f8b3ee9ab55cf1877ba7701c2bab7bb440eaeb689a07bf01f5e1f6",
+        "prepared/stretched-basis-properties-tz-source-20261031/outputs/properties/result.json": "c6ee294d8539f21dd7e2491fadd4ead7964b76cb5b9ffce42ce8b83c1f44c36c",
+        "prepared/stretched-basis-properties-tz-source-20261031/outputs/properties/resources.json": "498acfedb0ddd961618531f39fa5f03042c55ac3d27f30571dd261d8aec69758",
+        "prepared/stretched-basis-properties-tz-source-20261031/execution.json": "b68189f2c7a61a28673bd51325dbe882156aa7d2afdc42d60d10e86335ca5eb6",
+        "prepared/stretched-basis-properties-tz-source-20261031/service-return.json": "a83b120539d0701e9a63ac83e5eabfba90a0a34e96b0a8308c0f71ac5f4c044c"
+      }
+    }
+  },
+  "engine_sha256": {
+    "/opt/ukrmolp/bin.double/scatci_integrals": "9bbe9e945734165d7de5eb61c62252314202bf69624a27161be5f882081d173b",
+    "/opt/ukrmolp/bin.double/congen": "3d4c00ee826c45b981c185c6191cf680c7f0028aff2d814b8ac9ef4e1e36a415",
+    "/opt/ukrmolp/source-provenance.json": "2987e176689c3a5ec5001c5da90949f17f7a5add8a86e18b04fb8409b5b11f1b"
+  },
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "resources": {
+    "physical_cpu_group": "0-3", "physical_cores": 4, "mpi_ranks": 4,
+    "library_threads": 1, "memory_gib": 32, "shared_memory_gib": 1,
+    "minimum_available_ram_gib": 40, "minimum_free_disk_gib": 20,
+    "integral_timeout_seconds": 2400, "congen_timeout_seconds": 300,
+    "container_timeout_seconds": 3480, "owner_timeout_seconds": 3600,
+    "conditional_forecast_seconds_per_case": [180, 1200]
+  },
+  "maximum_contracted_dimension": 150000,
+  "fixed_physics": {"bond_length_bohr": 2.5, "basis_pair": ["cc-pVDZ", "cc-pVTZ"], "active_orbitals": [6,3,3,0], "core_orbitals": 2, "orbital_ensemble_components": 40, "retained_roots_per_sector": [8,8,8,8,8,8,8,8], "radius_bohr": 18, "max_l": 4, "deletion_threshold": 1e-6, "sector": "B1"},
+  "exact_change": "Reuse the pinned geometry-free CAS12 full-continuum and B1 CONGEN cards on each own qualified frame. Resolve only nob/notgt from actual continuum inventory and change SCATCI numtgt/ntgtf/ntgts to all8. The SCATCI deck is recorded, not executed. CONGEN target/L2 groups are byte-preserved. Derive64-state target metadata from own CIDATA energies, not a new orbital objective or target diagonalization.",
+  "gates": "Both property public receipts before any native call;18 original target/property-contract inputs plus five completed property records per selected case stay pinned. Own64-state table/energy map re-parses. Exact engine and copied inputs stay unchanged. Four-rank integral inventory/error/completion checks and nonempty moints; one B1 CONGEN final projection/unit/raw count/contiguous L2 groups. Contracted dimension uses actual radial counts times eight roots plus L2, <=150000. Record all raw decks/logs/output hashes/resources and original exits. Input/property success alone does not certify native CIRMAT/scattering exports.",
+  "planning_anchor": "Compressed/equilibrium five-root CAS12 has84942 L2 CSFs; at matching radial inventory, eight roots gives2256 continuum coefficients and87198 contracted states. This is a planning anchor, not a forced stretched result. Old compressed preparation171s/10.70GiB. No measured stretched/TZ cost or four-core speedup claimed.",
+  "tz_predecessor": "Separate TZ launch requires a hash-pinned within-root independent public DZ preparation success receipt with this contract digest,case=dz,preparation_verdict=true,roots_per_sector=[8]*8,original_scientific_command_container_owner_exits=[0]*4,public_reader_exit=0,moints_sha256 and csf_sha256. No peer job is automatic.",
+  "stops": "Any input/native/control/inventory/count/hash/timeout/OOM/dimension failure stops inconclusive2; preserve original outputs/exits, failed container/capsule. No repair/retry/peer/inner solver. Success requires independent saved/public preparation verification and a separately frozen dimension-costed B1/2048 inner release; B2/pole/fit/sweep still blocked.",
+  "implementation_effort_minutes_cap": 60,
+  "progress_checks": "User requests sustained continuation with regular checks. Check each stage and at most60s during preparation; long inner jobs later need at most5-minute read-only status/resource checks. Monitors never launch successors or suppress failures. No recurring daily job or paid provisioning is authorized.",
+  "protected": {"baseline_roots": 2048, "working_reference": "CAS11/nine", "new50": "parked", "equilibrium_pole": "excluded", "holdout_s_matrices_unanalyzed": 114, "full_sweep_released": false}
+}

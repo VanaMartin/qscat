@@ -58,8 +58,8 @@ def resolved_cards(congen, scatci, inventory, sector):
     )
 
 
-def dimensions(text, scatci):
-    """Count L2 CSFs plus five targets times the actual radial inventories."""
+def dimensions(text, scatci, *, roots_per_sector=5):
+    """Count L2 CSFs plus the declared retained targets times actual radial inventories."""
     groups = re.split(r"WFN GROUP\s+\d+", text)[1:]
     if len(groups) != 9 or "L^2:" not in groups[-1]:
         raise ValueError("No complete eight-target/one-L2 CONGEN grouping")
@@ -85,8 +85,13 @@ def dimensions(text, scatci):
     ):
         raise ValueError("Inconsistent or noncontiguous L2 CSFs")
     radial, roots = values(scatci, "notgt"), values(scatci, "numtgt")
-    if len(radial) != 8 or roots != [5] * 8 or min(radial) < 1:
-        raise ValueError("Not the matched five-per-sector contraction")
+    if (
+        roots_per_sector not in (5, 8)
+        or len(radial) != 8
+        or roots != [roots_per_sector] * 8
+        or min(radial) < 1
+    ):
+        raise ValueError("Not the declared matched five/eight-per-sector contraction")
     bound = last - first + 1
     continuum = sum(a * b for a, b in zip(radial, roots, strict=True))
     return dict(

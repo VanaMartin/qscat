@@ -47,8 +47,13 @@ prerequisite, not a basis/model result. User continuation selects one
 [TZ-only release](stretched-basis-properties-tz-release-20261031.json), pushed before
 the [01:28:39UTC launch](qualification-evidence/stretched-basis-properties-tz-launch/README.md).
 Eight runtime controls/receipt gate pass; TZ is active at01:29:01UTC with inventory
-and all terminal exits pending. No automatic successor. Next independently qualify TZ outputs/exits/
-resources. No CI/QC/target/import repeat or downstream scattering/fit is released.
+and all terminal exits pending at that observation. **The later [TZ public result
+qualifies](qualification-evidence/stretched-basis-properties-tz/README.md)**:
+all original exits0,64 states/1683 moments,4.421h/1.715GiB. Both missing property
+inputs now qualify. User-directed sustained continuation selects [minimum
+full-continuum/B1 preparation](../../docs/physics/co-stretched-basis-model-control.md),
+one integral/one CONGEN per basis, DZ first and independently gated TZ next.
+No CI/QC/target/property repeat or automatic inner/scattering/pole/fit successor.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
 isolated active-orbital-count effect or proof CAS12 is more accurate.

@@ -2,6 +2,23 @@
 
 ## Decision now
 
+**31October16:46UTC: [both64-state property inputs qualify](qualification-evidence/stretched-basis-properties-tz/README.md).**
+TZ completes with all exits0,4.421h/1.715GiB; six public payloads/28 files/79433
+samples independently reconstruct. Its own-energy/dipole/receipt/hash gates pass.
+No basis/pole sensitivity verdict yet. User requests sustained experiments and
+regular checks, retaining all scientific stops and source-freeze boundaries.
+
+**Continue:** [minimum full-continuum/B1 preparation](../../docs/physics/co-stretched-basis-model-control.md),
+[exact contract](stretched-basis-preparation-contract-20261031.json). One integral
+and one B1 CONGEN call per own frame, no QC/CI/property repeat. DZ first, TZ needs
+independent public DZ preparation receipt/separate release. Four physical cores/
+32GiB/60min owner cap; source/tests/owner freeze first. Check at least every60s
+during preparation, with no automatic peer/inner/pole/fit job. Next independently
+qualify actual dimensions/resources, then review costed B1/2048 inner exports.
+No preparation launched at this selection checkpoint; sweep remains blocked.
+
+### Earlier31October property stage
+
 **31October01:25UTC: [DZ properties qualify publicly](qualification-evidence/stretched-basis-properties-dz/README.md).**
 Original26October completion has all exits0,64 states/eight per sector,2040
 moments, own-energy/dipole/integrity gates passing;4.552h/1.453GiB. Six fresh public

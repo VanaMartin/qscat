@@ -52,6 +52,14 @@ conditional6–16h unmeasured. Next independently qualify TZ output/exits/resour
 not an automatic preparation/scattering/pole/fit/sweep release or basis verdict.
 Original failures, production channel gates and holdouts remain intact.
 
+**31October16:46UTC:** [TZ also independently/publicly qualifies](qualification-evidence/stretched-basis-properties-tz/README.md),
+all original exits0,64 states/1683 moments,4.421h/1.715GiB;28 archived files/79433
+samples reconstruct. Both missing property tables are supplied. Next [minimum
+full-continuum/B1 preparation](../../docs/physics/co-stretched-basis-model-control.md)
+reuses exact targets/CSFs/properties, one integral/one CONGEN per basis. DZ first,
+independent public preparation receipt before separately reviewed TZ; no automatic
+inner/pole/B2/fit/sweep. This is input progress, not model/basis convergence.
+
 **Completed input path:** the [compressed A2 pole-target contrast passes](qualification-evidence/compressed-a2-contrast/README.md)
 both sectors,10.88meV position /4.48meV full-width changes,89 maps /217s. Keep
 nine as working reference and prioritize a matched compressed CAS11/CAS12 model

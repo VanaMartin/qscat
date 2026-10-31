@@ -88,7 +88,29 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### TZ property export active —31 October,01:29:01UTC observation
+### Both properties qualified; minimum B1 preparation selected —31 October,16:46UTC
+
+[TZ public result](qualification-evidence/stretched-basis-properties-tz/README.md) /
+[receipt](qualification-evidence/stretched-basis-properties-tz-receipt/README.md) /
+[next preparation scope](../../docs/physics/co-stretched-basis-model-control.md).
+TZ finishes05:53:55UTC, all original exits0,64 states/1683 moments;4.421h/1.715GiB.
+Separate public reading verifies28 files/79433 samples/12 source entries and
+the original independent DZ receipt. Both64-state property inputs now qualify;
+no new model/basis/pole/curve verdict or successful-work repeat.
+
+The user requests sustained experiments until blocked/stopped and regular checks.
+Continue with one missing full-continuum integral set and one B1 CONGEN per basis,
+DZ first. Exact [contract](stretched-basis-preparation-contract-20261031.json) and
+owner/tests must freeze/push before launch;4 physical cores0–3/32GiB,60min cap.
+TZ needs independent public DZ preparation receipt and separate release. At most
+60s status checks during preparation; later long inner jobs at most5min. No
+monitor launches successors. One next deliverable: independent DZ preparation
+dimensions/resources/public qualification, then reviewed TZ preparation and a
+dimension-costed B1/2048 export decision. No automatic scattering/pole/B2/fit/sweep.
+All114 holdouts/2048/nine/new50/equilibrium and scientific failures stay protected.
+
+### Historical TZ property export active —31 October,01:29:01UTC observation
+
 
 [Launch reading](progress-stretched-basis-properties-tz-launch-20261031.json) /
 [public source/receipt/controls](qualification-evidence/stretched-basis-properties-tz-launch/README.md).

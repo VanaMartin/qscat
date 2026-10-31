@@ -1,0 +1,12 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes": 5771, "sha256": "b3ed1f805726cc2aba50806712037fea4616d99806d9f3720d8989e26d8fbe90"},
+    "evidence.tar.gz": {"bytes": 31813284, "sha256": "143d363f214026b845884a25a4737137fb48b3ea4d5e311fd99fc950fe6580ea"},
+    "manifest.json": {"bytes": 228, "sha256": "cca0b1505677f21139cc389a6b4de325820421b1a380a6e00c4b6da09596f896"},
+    "reader-tests.py": {"bytes": 1385, "sha256": "1549c05d4e6846278c255afe92c81cbd7fece3b68877f3038daad5353c5d274d"},
+    "reader.py": {"bytes": 12141, "sha256": "c14fc4d8029b96bab639c76b29aaa90a4cdc4cd543a73bfb6353ca124cc5bc2d"},
+    "verification.json": {"bytes": 2083, "sha256": "f1c78ca0153c374067897942f42a07c2e4369f3bca2b200ef4f399e3a4d580d2"}
+  },
+  "git_sha": "f497e18bb442a16c097bb04c7aaefd6eff1e04eb",
+  "url_prefix": "https://data.qscat.org/co-stretched-basis-properties-tz-result-20261031/"
+}

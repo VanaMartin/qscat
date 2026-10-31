@@ -1,0 +1,8 @@
+{
+  "artifacts": {
+    "independent-tz-receipt.json": {"bytes": 2532, "sha256": "037434ce88faaa39c88393e9f45ef6fd3cfa48b669c967b942931c23881f8f2d"},
+    "manifest.json": {"bytes": 218, "sha256": "e679227083057b92c2db95af7424ba0d40cf6d339c7f34d206e3b4fc083cf5ed"}
+  },
+  "git_sha": "6ca40b30dd930edee1ff4380d04aee82fdd6d31d",
+  "url_prefix": "https://data.qscat.org/co-stretched-basis-properties-tz-receipt-20261031/"
+}
