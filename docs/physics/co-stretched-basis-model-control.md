@@ -69,6 +69,26 @@ all-session logout unless existing host configuration provides that persistence.
 
 ## What follows only after preparation qualifies
 
+### Qualified DZ and separate conditional TZ reuse
+
+[DZ preparation independently qualifies](../../projects/ukrmol_co/qualification-evidence/stretched-dz-preparation/README.md):
+87198 contracted states,90.40s/8.288GiB, all original exits0. Full public raw
+CSFs/integrals and independent inventories/counts/header authenticate. This does
+not qualify CIRMAT channel phases, a scattering export or an electronic model.
+
+The [separate TZ reuse release](../../projects/ukrmol_co/stretched-tz-preparation-reuse-release-20261031.json)
+retains the executed DZ contract unchanged. CONGEN's occupation/spin/angular
+algebra depends on numbered orbital addresses, its complete resolved deck and
+the target-CSF definitions, not the radial Hamiltonian or optimized coefficients.
+All eight original target-CSF hashes agree. After generating own TZ integrals,
+require exact native inventory and full resolved deck equality, then copy only
+the qualified B1 CSF definition and original DZ log, explicitly marked reused.
+Identical algebra is not identical wavefunctions or cross-basis target identity.
+No integral/CIDATA/property/Molden/checkpoint reuse across bases is allowed.
+Mismatch stops without fallback CONGEN/retry. This avoids repeating a successful
+identical algebraic calculation. Own TZ native/scientific exits and resource
+costs remain separate from the original DZ CONGEN's exit and cost.
+
 Review actual dimensions/cost and separately freeze a B1/2048 inner/export test,
 then its counterpart in the other atomic basis. Preserve2048 as baseline; expand
 only for a named discrepancy. Numerical boundary/eigenpair/own-K/export gates

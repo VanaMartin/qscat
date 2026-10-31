@@ -25,6 +25,7 @@ PREFIX = "outputs/preparation/"
 CONTRACT = "projects/ukrmol_co/stretched-basis-preparation-contract-20261031.json"
 PROPERTY_CONTRACT = "projects/ukrmol_co/stretched-basis-properties-contract-20261026.json"
 CONTRACT_SHA = "d00a24a308e3b8da289e631ceba937f7086a61d37e8984ac79cb6da151cf6f4f"
+REUSE = "projects/ukrmol_co/stretched-tz-preparation-reuse-release-20261031.json"
 
 
 def values(text, key):
@@ -176,7 +177,10 @@ def verify(path, collection):
     service, resources = load("service-return.json"), load(PREFIX + "resources.json")
     source = files_in(kept["source.tar.gz"])
     pins = load("source-manifest.json")
-    require(set(source) == set(pins) and len(pins) == 30, "Wrong frozen source set")
+    reused = result.get("csf_reuse")
+    require(
+        set(source) == set(pins) and len(pins) == (31 if reused else 30), "Wrong frozen source set"
+    )
     for name, want in pins.items():
         require(sha(source[name]) == want, "Changed frozen source: " + name)
     require(
@@ -214,10 +218,41 @@ def verify(path, collection):
         and not owner["container_oom_killed"],
         "Failed original preparation",
     )
+    if reused:
+        release = json.loads(source[REUSE])
+        predecessor = load("independent-dz-preparation-receipt.json")
+        require(
+            result["case"] == "tz"
+            and sha(source[REUSE]) == reused["release_sha256"]
+            and release["contract_sha256"] == CONTRACT_SHA
+            and result["predecessor"] == release["predecessor"]
+            and digests["independent-dz-preparation-receipt.json"]
+            == release["predecessor"]["sha256"]
+            and predecessor["case"] == "dz"
+            and predecessor["preparation_verdict"] is True
+            and predecessor["public_reader_exit"] == 0
+            and predecessor["original_scientific_command_container_owner_exits"] == [0] * 4
+            and predecessor["contract_sha256"] == CONTRACT_SHA
+            and predecessor["csf_sha256"] == release["input_sha256"]["fort.721"]
+            and predecessor["csf_sha256"] == digests[PREFIX + "fort.721"]
+            and reused["original_congen_exit"] == 0,
+            "Unqualified conditional CSF reuse",
+        )
+        for name in ("fort.721", "congen.B1.out", "scattering.congen.doublet.B1.inp"):
+            require(
+                digests[PREFIX + name] == release["input_sha256"][name], "Changed reused algebra"
+            )
+        require(
+            digests["reuse-source/result.json"] == release["input_sha256"]["result.json"],
+            "Changed DZ source result",
+        )
+        for name, want in release["target_csf_sha256"].items():
+            require(digests[PREFIX + name] == want, "Changed own target CSF")
     require(
         result["integral_calls"] == 1
-        and result["congen_calls"] == 1
-        and [s["name"] for s in result["stages"]] == ["integrals", "congen.B1"]
+        and result["congen_calls"] == (0 if reused else 1)
+        and [s["name"] for s in result["stages"]]
+        == (["integrals"] if reused else ["integrals", "congen.B1"])
         and all(s["original_exit"] == 0 and not s["timed_out"] for s in result["stages"]),
         "Wrong native execution scope",
     )
@@ -268,6 +303,11 @@ def verify(path, collection):
         require(digests[PREFIX + name] == want, "Changed preparation output")
     orbitals = orbital_inventory(kept[PREFIX + "integrals.native.out"].decode())
     require(orbitals == result["native_inventory"], "Wrong reported orbital inventory")
+    if reused:
+        require(
+            orbitals == release["native_inventory"] == predecessor["native_inventory"],
+            "Changed reused continuum addresses",
+        )
     card = kept[PREFIX + "scattering.congen.doublet.B1.inp"].decode()
     require(
         values(card, "nob") == orbitals["total"][:4] and values(card, "nob0") == [8, 3, 3, 0],
@@ -301,7 +341,7 @@ def verify(path, collection):
     )
     require(
         load("outputs/controls.json")["original_exit"] == 0
-        and b"Ran 7 tests" in kept["outputs/controls.log"],
+        and (b"Ran 10 tests" if reused else b"Ran 7 tests") in kept["outputs/controls.log"],
         "Runtime controls failed",
     )
     samples = list(csv.DictReader(io.StringIO(kept[PREFIX + "resources.csv"].decode())))
@@ -334,6 +374,7 @@ def verify(path, collection):
         resources=resources,
         finished_utc=owner["finished_utc"],
         native_stages=result["stages"],
+        **({"csf_reuse": reused} if reused else {}),
         new_scientific_calls=0,
         full_sweep_released=False,
         independence=(

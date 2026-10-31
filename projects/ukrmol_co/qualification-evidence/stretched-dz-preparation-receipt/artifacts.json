@@ -1,0 +1,8 @@
+{
+  "artifacts": {
+    "independent-dz-preparation-receipt.json": {"bytes": 3817, "sha256": "65bee00fab9a30c64393aca9979a8890569c064cf99797ce38082bbfff5c4160"},
+    "manifest.json": {"bytes": 210, "sha256": "7b155e3bcb1297f0be4b7207413291768debe69e1d4da470ca6dcd9ca6e028b5"}
+  },
+  "git_sha": "9e31938d8b8b309bca476bc7d4541b6b416ec5d4",
+  "url_prefix": "https://data.qscat.org/co-stretched-dz-preparation-receipt-20261031/"
+}

@@ -1,0 +1,43 @@
+{
+  "status": "Separate TZ-only conditional algebraic-CSF reuse release; freeze and push new source/tests/owner before launch. Does not alter the executed DZ contract or release any inner solve.",
+  "contract_sha256": "d00a24a308e3b8da289e631ceba937f7086a61d37e8984ac79cb6da151cf6f4f",
+  "predecessor": {
+    "path": "prepared/stretched-dz-preparation-receipt-20261031/independent-dz-preparation-receipt.json",
+    "sha256": "65bee00fab9a30c64393aca9979a8890569c064cf99797ce38082bbfff5c4160"
+  },
+  "predecessor_public_url": "https://data.qscat.org/co-stretched-dz-preparation-receipt-20261031/independent-dz-preparation-receipt.65bee00fab9a.json",
+  "preparation_directory": "prepared/stretched-dz-preparation-source-20261031/outputs/preparation",
+  "input_sha256": {
+    "result.json": "57ff46c935a0456a8d3a8cfdf81d768263e3f80a7646d53591191ab3bedab8c4",
+    "fort.721": "a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+    "congen.B1.out": "70212fd0367e0a01efaca28ea809bda681410cc01f3339947803e57dd99e97a0",
+    "scattering.congen.doublet.B1.inp": "0f149a4c235ef282aea53112b7cd2586d82a63fd635c0ed04fef6351ec613753"
+  },
+  "target_csf_sha256": {
+    "fort.710": "9d44aad27ed2c8ba887490ddab17fe3d0ffac01f6c78176bb9cc97e23c4a1292",
+    "fort.730": "4e4965016162f908ac6721b9ddd842de138ffd823ec2f80e2143e9b97c59766d",
+    "fort.711": "8bc6391880314c7c2332a9ab7f96a6716c958b23356f09cda594095e1442a38c",
+    "fort.731": "a38e73e911f66d69a5cd4268a8e5b52fdda8de53d4e0c57557f0973475af72a4",
+    "fort.712": "f3030c2ac225937ecd58fee41b64089ed0e6a5706c63a7c440e925465347a4b8",
+    "fort.732": "bb0ca49edbcf6421f54f0bd536797d35a732c0cd6c67bb376dad96b9d13a3dce",
+    "fort.713": "11e31e5cb6735ec96adc97dc04fd0f7b2ce7a04ea1f1f2a25f0810f4cc2c4ff9",
+    "fort.733": "9aa8b55a1eb2a856e70a95bc3bb541e73154de005228c2b914e6d114f825ecfa"
+  },
+  "native_inventory": {
+    "target": [8,3,3,0,0,0,0,0],
+    "PCOs": [0,0,0,0,0,0,0,0],
+    "TGT+PCOs": [8,3,3,0,0,0,0,0],
+    "continuum": [51,34,34,22,0,0,0,0],
+    "total": [59,37,37,22,0,0,0,0]
+  },
+  "scope": "One missing own TZ four-rank full-continuum integral call. If and only if the resulting inventory, resolved full CONGEN deck and eight original target-CSF hashes equal qualified DZ, copy its fort.721 and original CONGEN log with explicit provenance; zero new CONGEN calls. No integral/CIDATA/property/checkpoint/Molden reuse across bases.",
+  "basis_for_reuse": "CONGEN constructs spin/angular/occupation algebra in numbered orbital addresses from the deck and target CSF expansions. Neither optimized orbital coefficients nor radial integrals determine that algebra. Exact input/deck equality allows reuse of the signed configuration definition, not physical wavefunctions, matrix elements or target-state identity. The original DZ native exit/time remains DZ evidence, never a claimed TZ call.",
+  "stop": "Any differing inventory, resolved deck, original target CSF, saved output, receipt or cap stops inconclusive without a fallback CONGEN/retry. Review a genuinely different expansion separately. Same four-core/32GiB/resource floors/timeouts/image/protections as the original preparation contract; no automatic successor.",
+  "effort_minutes_cap": 30,
+  "conditional_forecast_seconds": [30,180],
+  "measured_anchor": "DZ integral11.080651s; whole DZ preparation90.402706s/8.288 GiB, includes a76.726857s CONGEN not repeated here. TZ cost unmeasured.",
+  "progress_checks_max_seconds": 60,
+  "automatic_successor": false,
+  "inner_released": false,
+  "full_sweep_released": false
+}

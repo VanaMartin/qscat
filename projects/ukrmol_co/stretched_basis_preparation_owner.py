@@ -12,7 +12,11 @@ import sys
 import time
 from pathlib import Path
 
-from projects.ukrmol_co.stretched_basis_preparation import CONTRACT, authenticate
+from projects.ukrmol_co.stretched_basis_preparation import (
+    CONTRACT,
+    authenticate,
+    reuse_prerequisites,
+)
 from projects.ukrmol_co.stretched_basis_properties import digest, save
 
 
@@ -20,10 +24,14 @@ def name(case):
     return "co-stretched-" + case + "-preparation-20261031"
 
 
-def container_command(root, source, output, case, contract, receipt=None, receipt_sha256=None):
+def container_command(
+    root, source, output, case, contract, receipt=None, receipt_sha256=None, reuse_dz_csf=False
+):
     science = ["python3", "-m", "projects.ukrmol_co.stretched_basis_preparation", "--case", case]
     if receipt is not None:
         science += ["--previous-receipt", receipt, "--previous-receipt-sha256", receipt_sha256]
+    if reuse_dz_csf:
+        science += ["--reuse-dz-csf"]
     inside = (
         "from pathlib import Path\nimport json,subprocess\n"
         "with Path('/out/controls.log').open('x') as f:\n"
@@ -71,7 +79,9 @@ def container_command(root, source, output, case, contract, receipt=None, receip
     ]
 
 
-def own(capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None):
+def own(
+    capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None, reuse_dz_csf=False
+):
     root, source = capsule.parent.parent, capsule / "source"
     contract = json.loads((source / CONTRACT).read_text())
     pins = json.loads((capsule / "source-manifest.json").read_text())
@@ -97,7 +107,9 @@ def own(capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None
     try:
         if not source_ok():
             raise ValueError("Changed frozen preparation source")
-        authenticate(root, source, case, contract, receipt, receipt_sha256)
+        _, _, previous = authenticate(root, source, case, contract, receipt, receipt_sha256)
+        if reuse_dz_csf:
+            reuse_prerequisites(root, source, case, previous)
         topology = subprocess.check_output(
             ["lscpu", "-e=CPU,CORE,SOCKET,NODE"], text=True, timeout=15
         )
@@ -128,7 +140,9 @@ def own(capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None
         output = capsule / "outputs"
         output.mkdir(mode=0o777)
         output.chmod(0o777)
-        command = container_command(root, source, output, case, contract, receipt, receipt_sha256)
+        command = container_command(
+            root, source, output, case, contract, receipt, receipt_sha256, reuse_dz_csf
+        )
         report.update(state="running", command=command)
         save(capsule / "execution.json", report)
         with (capsule / "owner.log").open("x") as log:
@@ -178,6 +192,7 @@ if __name__ == "__main__":
     parser.add_argument("--commit", required=True)
     parser.add_argument("--previous-receipt")
     parser.add_argument("--previous-receipt-sha256")
+    parser.add_argument("--reuse-dz-csf", action="store_true")
     parser.add_argument("--execute-reviewed", action="store_true")
     parser.add_argument("--under-service", action="store_true")
     args = parser.parse_args()
@@ -195,6 +210,7 @@ if __name__ == "__main__":
                 args.case,
                 args.previous_receipt,
                 args.previous_receipt_sha256,
+                args.reuse_dz_csf,
             )
         )
     command = [

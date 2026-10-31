@@ -15,6 +15,7 @@ from projects.ukrmol_co.stretched_basis_properties import COPY, digest, save
 CONTRACT = "projects/ukrmol_co/stretched-basis-preparation-contract-20261031.json"
 PROPERTY_CONTRACT = "projects/ukrmol_co/stretched-basis-properties-contract-20261026.json"
 TEMPLATES = "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026"
+REUSE = "projects/ukrmol_co/stretched-tz-preparation-reuse-release-20261031.json"
 
 
 def prior_preparation(root, source, case, receipt=None, receipt_sha256=None):
@@ -100,7 +101,52 @@ def cards(inventory, source):
     return congen, scatci
 
 
-def compute(root, source, work, case, contract, receipt=None, receipt_sha256=None):
+def reuse_prerequisites(root, source, case, previous):
+    """Authenticate the separate opt-in release; the executed DZ contract stays unchanged."""
+    release = json.loads((source / REUSE).read_text())
+    if (
+        case != "tz"
+        or previous != release["predecessor"]
+        or digest(source / CONTRACT) != release["contract_sha256"]
+    ):
+        raise ValueError("CSF reuse requires its exact TZ-only release and public DZ predecessor")
+    prepared = root / release["preparation_directory"]
+    if not prepared.resolve().is_relative_to(root.resolve()):
+        raise ValueError("Out-of-root preparation reuse")
+    for name, want in release["input_sha256"].items():
+        if digest(prepared / name) != want:
+            raise ValueError("Changed qualified DZ reuse input: " + name)
+    receipt = json.loads((root / previous["path"]).read_text())
+    if receipt["csf_sha256"] != release["input_sha256"]["fort.721"]:
+        raise ValueError("Reuse CSF is not the public qualified DZ output")
+    return prepared, release
+
+
+def reuse_csf(work, prepared, release, inventory, congen):
+    """Copy algebraic CSFs, never basis-dependent integrals, CIDATA or properties."""
+    if (
+        inventory != release["native_inventory"]
+        or (prepared / "scattering.congen.doublet.B1.inp").read_text() != congen
+    ):
+        raise ValueError("TZ resolved inventory/deck differs; CSF reuse not released")
+    for name, want in release["target_csf_sha256"].items():
+        if digest(work / name) != want:
+            raise ValueError("TZ target-CSF bytes differ: " + name)
+    for name in ["fort.721", "congen.B1.out"]:
+        shutil.copy2(prepared / name, work / name)
+        if digest(work / name) != release["input_sha256"][name]:
+            raise ValueError("Copied qualified CSF/log changed")
+    return dict(
+        source_directory=release["preparation_directory"],
+        csf_sha256=release["input_sha256"]["fort.721"],
+        original_congen_exit=0,
+        reason="Identical resolved deck and eight target-CSF hashes; geometry-free algebra only",
+    )
+
+
+def compute(
+    root, source, work, case, contract, receipt=None, receipt_sha256=None, reuse_dz_csf=False
+):
     from projects.ukrmol_co.a2_channel_preflight import property_inventory, stage
     from projects.ukrmol_co.compressed_cas12_preparation import TARGET, dimensions, values
     from projects.ukrmol_co.immutable_continuum import congen_completion, native_inventory
@@ -128,6 +174,7 @@ def compute(root, source, work, case, contract, receipt=None, receipt_sha256=Non
             root, source, case, contract, receipt, receipt_sha256
         )
         report["predecessor"] = previous
+        reuse = reuse_prerequisites(root, source, case, previous) if reuse_dz_csf else None
         for name, want in contract["engine_sha256"].items():
             if digest(Path(name)) != want:
                 raise ValueError("Changed preparation engine: " + name)
@@ -180,17 +227,21 @@ def compute(root, source, work, case, contract, receipt=None, receipt_sha256=Non
         card = work / "scattering.congen.doublet.B1.inp"
         card.write_text(congen)
         (work / "scattering.scatci.doublet.B1.inp").write_text(scatci)
-        report["congen_calls"] = 1
-        save(work / "result.json", report)
-        stage(
-            work,
-            report,
-            "congen.B1",
-            ["/opt/ukrmolp/bin.double/congen"],
-            card,
-            contract["resources"]["congen_timeout_seconds"],
-            os.environ.copy(),
-        )
+        if reuse is not None:
+            report["csf_reuse"] = reuse_csf(work, *reuse, inventory, congen)
+            report["csf_reuse"]["release_sha256"] = digest(source / REUSE)
+        else:
+            report["congen_calls"] = 1
+            save(work / "result.json", report)
+            stage(
+                work,
+                report,
+                "congen.B1",
+                ["/opt/ukrmolp/bin.double/congen"],
+                card,
+                contract["resources"]["congen_timeout_seconds"],
+                os.environ.copy(),
+            )
         log = (work / "congen.B1.out").read_text()
         counts = dimensions(log, scatci, roots_per_sector=8)
         congen_completion(log, 721, counts["raw_congen_csfs"])
@@ -215,7 +266,9 @@ def compute(root, source, work, case, contract, receipt=None, receipt_sha256=Non
         report["error"] = repr(error)
     finally:
         try:
-            authenticate(root, source, case, contract, receipt, receipt_sha256)
+            _, _, previous = authenticate(root, source, case, contract, receipt, receipt_sha256)
+            if reuse_dz_csf:
+                reuse_prerequisites(root, source, case, previous)
             if any(digest(work / n) != want for n, want in copied.items()):
                 raise ValueError("Copied target/property changed during preparation")
             report["input_integrity_after"] = True
@@ -231,6 +284,7 @@ def main():
     parser.add_argument("--profiled", action="store_true")
     parser.add_argument("--previous-receipt")
     parser.add_argument("--previous-receipt-sha256")
+    parser.add_argument("--reuse-dz-csf", action="store_true")
     args = parser.parse_args()
     root, source, work = Path("/work"), Path("/opt/qmodeling"), Path("/out/preparation")
     contract = json.loads((source / CONTRACT).read_text())
@@ -243,6 +297,7 @@ def main():
             contract,
             args.previous_receipt,
             args.previous_receipt_sha256,
+            args.reuse_dz_csf,
         )
     from projects.ukrmol_co.run import run_profiled
 

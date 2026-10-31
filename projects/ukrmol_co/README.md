@@ -12,6 +12,15 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
+**31October17:15UTC:** both64-state property inputs qualify; [DZ continuum/B1
+preparation also publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md):
+87198 contracted states, all exits0,90.40s/8.288GiB. Full raw bytes/51 files/452
+samples/30 Git sources authenticate independently. Next [separately frozen TZ
+conditional CSF reuse](stretched-tz-preparation-reuse-release-20261031.json): own
+TZ integrals, exact deck/inventory/eight target-CSF equality before copying only
+qualified algebra. No repeated identical CONGEN or fallback on mismatch. No inner,
+pole, B2, fit or sweep released; same finite model limitations/protected holdouts.
+
 **26 October outcome:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
 Position shifts **86.77meV**, beyond50meV; full width shifts16.07meV and passes.
 Real-S/pole/residue/character/local-identity gates independently reconstruct:

@@ -88,6 +88,24 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### DZ preparation public success; TZ conditional reuse selected —31 October,17:15UTC
+
+[DZ result](qualification-evidence/stretched-dz-preparation/README.md) /
+[independent receipt](qualification-evidence/stretched-dz-preparation-receipt/README.md).
+One integral/one B1 CONGEN finishes17:03:45UTC with all exits0;87198 contracted
+states,90.40s/8.288GiB. Seven fresh public payloads/51 raw files/452 samples/30
+Git sources reconstruct; receipt SHA256 `65bee00fab9a30c64393aca9979a8890569c064cf99797ce38082bbfff5c4160`.
+No repeated QC/CI/property/scattering; no physical-model verdict or inner export.
+
+Next bounded deliverable: [conditional TZ preparation](stretched-tz-preparation-reuse-release-20261031.json),
+one own integral call, copy qualified geometry-free DZ B1 CSFs only if native
+inventory/full resolved deck/eight target-CSF bytes match exactly. New source/
+tests/owner freeze/push first; original executed DZ contract immutable. No fallback
+CONGEN/retry on mismatch.4 physical cores/32GiB/original caps, conditional30–180s,
+at most60s read-only checks. Independently publish/read TZ result then separately
+review costed B1/2048 exports. No automatic inner/pole/B2/fit/sweep. All114 holdouts,
+2048/nine/new50/equilibrium and original failures remain protected.
+
 ### Both properties qualified; minimum B1 preparation selected —31 October,16:46UTC
 
 [TZ public result](qualification-evidence/stretched-basis-properties-tz/README.md) /

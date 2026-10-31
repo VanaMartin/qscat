@@ -6,6 +6,12 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
+**31October17:15UTC:** [DZ full-continuum/B1 preparation publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md),
+87198 contracted states,90.40s/8.288GiB, all exits0. This supplies inputs, not a
+physical-model verdict. Next [TZ own-integral/conditional CSF reuse](stretched-tz-preparation-reuse-release-20261031.json),
+separate source/owner freeze, exact deck/inventory/eight target-CSF equality or
+stop. No repeated identical CONGEN, inner/pole/B2/fit/sweep release or holdout read.
+
 **26 October decision:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
 Position shift86.774662meV exceeds50meV; full width16.066613meV passes.
 All numerical/character/local-identity gates independently reconstruct.

@@ -1296,6 +1296,36 @@ original evidence; leave unrelated workloads and2048/nine/new50/equilibrium/114
 holdouts unchanged. Main index remains unavailable; last known423d577, local
 branch source/delta authoritative and current upstream freshness unverified.
 
+### Goal checkpoint —31 October,17:15UTC: DZ preparation qualifies; continue own TZ integrals with conditional CSF reuse
+
+**Evidence delta:** [DZ public preparation](qualification-evidence/stretched-dz-preparation/README.md)
+reconstructs87198 contracted states, all original exits0,90.40s/8.288GiB.
+Seven fresh payloads/51 raw archived files/452 samples/30 original Git sources,
+full CSF/integral hashes and independent native counts/header/properties pass.
+Public receipt `65bee00f` satisfies the original TZ gate; no successful scientific
+work repeated. This supplies a necessary model-comparison input, not an extra
+physical insensitivity result. No CIRMAT phase or scattering export is qualified.
+
+**Continue / minimum reused-data scope:** unchanged finite stretched CAS12 DZ/TZ
+64-state B1 question. All eight original target-CSF files match across these
+frames. CONGEN is geometry-free occupation/spin/angular algebra in numbered
+orbital addresses, so freeze a [separate TZ overlay](stretched-tz-preparation-reuse-release-20261031.json)
+which generates only own TZ integrals and copies DZ B1 CSFs/original log if the
+actual full native inventory/resolved deck/all target-CSF bytes agree exactly.
+Preserve original DZ contract/source/outputs. No shared DZ/TZ integral/CIDATA/
+property/orbital bytes, no fallback CONGEN or retry on a mismatch.
+
+**Bounds / disposition:** continue after new source/tests/exact owner freeze/push;
+30minutes implementation effort,4 physical cores/32GiB, unchanged40GiB RAM/20GiB
+disk floors and40/5/58/60min native/container/owner caps. Conditional30–180s TZ
+preparation is not measured. Ten mocked runtime controls, source/receipt/native
+hashes and at most60s read-only checks; no monitor successor. One bounded next
+deliverable: independent/public TZ preparation/count/resource qualification,
+then separately reviewed smallest dimension-costed B1/2048 inner/export release.
+No inner/pole/B2/fit/sweep now, no new holdout analysis; prior rejections and
+2048/nine/new50/equilibrium/114 protections stay unchanged. Main-index mismatch
+persists, local branch source authoritative; no shared-service changes attempted.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

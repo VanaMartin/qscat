@@ -2,6 +2,24 @@
 
 ## Decision now
 
+**31October17:15UTC: [DZ B1 preparation independently/publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md).**
+One integral/one CONGEN, all exits0;87198 actual contracted states,90.40s/8.288GiB.
+Seven fresh public payloads/51 raw files/452 samples/30 Git sources reconstruct.
+The [independent public receipt](qualification-evidence/stretched-dz-preparation-receipt/README.md)
+now satisfies the original TZ preparation gate. No physical-model verdict yet.
+
+**Continue with a separately frozen [TZ conditional reuse release](stretched-tz-preparation-reuse-release-20261031.json):**
+one own TZ integral call; reuse qualified DZ B1 CSFs only if full resolved deck,
+native inventory and eight target-CSF hashes agree exactly. No repeated identical
+CONGEN, no shared integrals/vectors/properties. Mismatch stops without fallback.
+Four physical cores/32GiB and original caps;30minutes implementation effort,
+conditional30–180s TZ preparation, measured cost pending. Ten mocked controls
+and new source/owner freeze/push precede launch. Check at most60s apart. Next
+independently qualify TZ preparation then review dimension-costed B1/2048 exports.
+No inner/propagation/pole/B2/fit/sweep released; all protections remain intact.
+
+### Earlier31October preparation selection
+
 **31October16:46UTC: [both64-state property inputs qualify](qualification-evidence/stretched-basis-properties-tz/README.md).**
 TZ completes with all exits0,4.421h/1.715GiB; six public payloads/28 files/79433
 samples independently reconstruct. Its own-energy/dipole/receipt/hash gates pass.

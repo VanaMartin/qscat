@@ -167,6 +167,83 @@ def test_owner_failed_authentication_does_not_start_scientific_container():
             process.assert_not_called()
 
 
+def test_reuse_requires_frozen_tz_release_and_same_public_csf():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        path = root / prep.CONTRACT
+        path.parent.mkdir(parents=True)
+        path.write_text("{}")
+        prepared = root / "prepared/dz"
+        prepared.mkdir(parents=True)
+        (prepared / "fort.721").write_bytes(b"algebraic CSFs")
+        receipt = root / "receipt.json"
+        receipt.write_text(json.dumps(dict(csf_sha256=prep.digest(prepared / "fort.721"))))
+        previous = dict(path="receipt.json", sha256=prep.digest(receipt))
+        release = dict(
+            predecessor=previous,
+            contract_sha256=prep.digest(path),
+            preparation_directory="prepared/dz",
+            input_sha256={"fort.721": prep.digest(prepared / "fort.721")},
+        )
+        (root / prep.REUSE).write_text(json.dumps(release))
+        assert prep.reuse_prerequisites(root, root, "tz", previous)[0] == prepared
+        with unittest.TestCase().assertRaises(ValueError):
+            prep.reuse_prerequisites(root, root, "dz", previous)
+        (prepared / "fort.721").write_bytes(b"changed")
+        with unittest.TestCase().assertRaises(ValueError):
+            prep.reuse_prerequisites(root, root, "tz", previous)
+
+
+def test_reuse_copies_only_algebra_and_rejects_deck_or_target_changes():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        prepared = root / "dz"
+        prepared.mkdir()
+        for name, data in [("fort.721", b"CSFs"), ("congen.B1.out", b"completed log")]:
+            (prepared / name).write_bytes(data)
+        (prepared / "scattering.congen.doublet.B1.inp").write_text("exact deck")
+        work = root / "tz"
+        work.mkdir()
+        (work / "fort.710").write_bytes(b"target CSFs")
+        release = dict(
+            preparation_directory="dz",
+            native_inventory=inventory(),
+            input_sha256={n: prep.digest(prepared / n) for n in ["fort.721", "congen.B1.out"]},
+            target_csf_sha256={"fort.710": prep.digest(work / "fort.710")},
+        )
+        for deck in ["changed deck", "exact deck"]:
+            if deck == "changed deck":
+                with unittest.TestCase().assertRaises(ValueError):
+                    prep.reuse_csf(work, prepared, release, inventory(), deck)
+            else:
+                assert (
+                    prep.reuse_csf(work, prepared, release, inventory(), deck)[
+                        "original_congen_exit"
+                    ]
+                    == 0
+                )
+        assert not (work / "moints").exists() and not (work / "fort.26").exists()
+        (work / "fort.710").write_bytes(b"changed target")
+        with unittest.TestCase().assertRaises(ValueError):
+            prep.reuse_csf(work, prepared, release, inventory(), "exact deck")
+
+
+def test_reuse_owner_passes_explicit_opt_in_without_automatic_successor():
+    command = container_command(
+        Path("/root"),
+        Path("/source"),
+        Path("/out"),
+        "tz",
+        dict(image="sha256:pinned"),
+        "receipt",
+        "a" * 64,
+        True,
+    )
+    assert "--reuse-dz-csf" in command[-1] and "--previous-receipt" in command[-1]
+    assert "inner" not in command[-1]
+    compile(command[-1], "<reuse-owner>", "exec")
+
+
 if __name__ == "__main__":
     suite = unittest.TestSuite(
         unittest.FunctionTestCase(fn)
