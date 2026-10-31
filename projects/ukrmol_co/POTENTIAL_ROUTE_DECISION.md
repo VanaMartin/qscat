@@ -15,6 +15,13 @@ adapter, unchanged five-root defaults and solver.12 physical cores/64GiB, condit
 At most5min read-only checks. Next independent DZ export/public/cost reading before
 separately reviewing TZ inner. No automatic peer, pole, B2, fit, sweep or holdout read.
 
+**DZ starts17:37:43UTC; [active at17:40:25UTC](qualification-evidence/stretched-dz-inner-launch/README.md).**
+Pushed source/exact owner `16e8aae`, seven runtime controls/library/telemetry gates,
+15 input/four copied native pins/34 Git sources and frozen own64-target deck pass.
+All seven public launch payloads authenticate. Twelve native ranks witnessed;
+terminal exits/export verdict/final cost remain pending, not success/failure.
+Four-minute read-only checks are active. No automatic peer or model promotion.
+
 ### Earlier31October DZ preparation success
 
 **31October17:15UTC: [DZ B1 preparation independently/publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md).**

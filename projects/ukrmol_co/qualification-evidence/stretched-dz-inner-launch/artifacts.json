@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "collect-stretched-dz-inner-launch-20261031.py": {"bytes": 4640, "sha256": "1131fc6b91cf1120c8e6368aeeed441b6170f504acbc4710fc23fd0633466d44"},
+    "collect-stretched-dz-inner-launch-corrected-20261031.py": {"bytes": 462, "sha256": "1d062e5fd02e55505844310430c4c19407385c1d97e069998e9625b1e39912f4"},
+    "collection.json": {"bytes": 4145, "sha256": "7cf5f6012e1c5737f01bb587d63de1cac2f0287d8f07ed8d6b6c2e69c96525c4"},
+    "collector-correction.json": {"bytes": 579, "sha256": "4517787635c786edc0f2e9da62c090a12fa78c8cc07df95b123c792f03d118fd"},
+    "evidence.tar.gz": {"bytes": 89095, "sha256": "9caa9cd071d5dd58090a104175055cfb650311d1b43f9a86e1158b98fc36283b"},
+    "manifest.json": {"bytes": 211, "sha256": "cad87a1084346b624ead6c9b83e5b28bddd9ce78352a6cfbefa3ece3f468e8c6"},
+    "verification.json": {"bytes": 494, "sha256": "e10b9f6c77af18ec3c2b3490bbfa869e4377755a6b5636d79b1ffdae0fcef1ee"}
+  },
+  "git_sha": "16e8aaebc3a1d0a8b1421875b815051ad68e05db",
+  "url_prefix": "https://data.qscat.org/co-stretched-dz-inner-launch-20261031/"
+}

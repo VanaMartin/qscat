@@ -28,6 +28,12 @@ Next separately freeze/push and release [one DZ B1/2048 own native export](stret
 No successful input work repeated; DZ public export success before separately
 reviewing TZ inner. No automatic peer, pole, B2, fit, sweep or holdout analysis.
 
+**DZ inner starts17:37:43UTC; [active at17:40:25UTC](qualification-evidence/stretched-dz-inner-launch/README.md).**
+Pushed `16e8aae` source/exact owner, seven runtime controls/library/telemetry gates,
+15 inputs/four actual copied files/34 Git sources and exact own64-target deck pass.
+Twelve native ranks are witnessed; terminal exits/export verdict/final cost pending.
+Four-minute read-only checks are active, with no automatic scientific successor.
+
 **26 October outcome:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
 Position shifts **86.77meV**, beyond50meV; full width shifts16.07meV and passes.
 Real-S/pole/residue/character/local-identity gates independently reconstruct:
@@ -733,10 +739,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 31 October 2026
 
-![DZ64-state properties qualify publicly; separately released TZ export active, result pending](../../docs/physics/figures/co-progress-20261031T0129-tz-properties.png)
+![Both64-state property tables and DZ/TZ preparation qualify; one DZ B1/2048 inner export active](../../docs/physics/figures/co-progress-20261031T1740-dz-inner.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261031T0129-tz-properties.svg) ·
-[DZ-success/TZ-launch snapshot](progress-snapshot-20261031T0129-tz-properties.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261031T1740-dz-inner.svg) ·
+[Preparation-success/DZ-inner snapshot](progress-snapshot-20261031T1740-dz-inner.json) ·
+[Both preparation scope](../../docs/physics/co-stretched-basis-model-control.md) ·
+[Qualified DZ preparation](qualification-evidence/stretched-dz-preparation/README.md) ·
+[Qualified TZ preparation](qualification-evidence/stretched-tz-preparation/README.md) ·
+[Active DZ inner launch](qualification-evidence/stretched-dz-inner-launch/README.md) ·
+[Previous property-stage figure](../../docs/physics/figures/co-progress-20261031T0129-tz-properties.svg) ·
+[Previous property-stage snapshot](progress-snapshot-20261031T0129-tz-properties.json) ·
 [Qualified DZ result](qualification-evidence/stretched-basis-properties-dz/README.md) ·
 [Independent public DZ receipt](qualification-evidence/stretched-basis-properties-dz-receipt/README.md) ·
 [TZ-launch evidence](qualification-evidence/stretched-basis-properties-tz-launch/README.md) ·

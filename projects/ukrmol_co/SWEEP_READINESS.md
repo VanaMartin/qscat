@@ -20,6 +20,13 @@ gates.12 physical cores/64GiB/conditional4–10h/12h native cap; at most5min che
 Independent public DZ export must precede separately reviewed TZ inner. Neither
 preparation nor an export pass qualifies the basis-model contrast or a sweep.
 
+**DZ inner [active at17:40:25UTC](qualification-evidence/stretched-dz-inner-launch/README.md)**
+after17:37:43UTC launch/frozen-pushed `16e8aae`. Seven runtime controls,34 Git
+sources/four copied files/exact64-target deck and all input/engine/library gates
+pass. Twelve ranks are witnessed, final exports/exits/cost pending. Four-minute
+read-only checks; no automatic TZ/pole/B2/fit/sweep or scientific failure inferred
+from pending defaults.
+
 **26 October decision:** [matched CAS11/CAS12 B1 pole insensitivity rejects](qualification-evidence/compressed-cas12-pole/README.md).
 Position shift86.774662meV exceeds50meV; full width16.066613meV passes.
 All numerical/character/local-identity gates independently reconstruct.

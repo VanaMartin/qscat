@@ -158,7 +158,9 @@ def compute(root, source, work, contract):
         new_property_exports=0,
         new_preparation_calls=0,
         new_propagations=0,
-        propagation_counter_scope="Complex/Python maps only; native RSOLVE is a separate recorded stage",
+        propagation_counter_scope=(
+            "Complex/Python maps only; native RSOLVE is a separate recorded stage"
+        ),
         route_holdout_s_matrices_analyzed=0,
     )
 

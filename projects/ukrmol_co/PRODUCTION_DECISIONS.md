@@ -1368,6 +1368,24 @@ holdouts,2048/nine/new50/equilibrium and prior failures intact. Main index still
 unavailable due shared-code mismatch; indexed anchor423d577/local delta resolved,
 current upstream currency unverified, no shared-service intervention.
 
+### Launch observation —31 October,17:40:25UTC: DZ inner active, verdict pending
+
+Separate source/tests/exact owner/frozen deck `16e8aae` pushed before17:37:43UTC
+launch. [Seven public launch payloads](qualification-evidence/stretched-dz-inner-launch/README.md)
+authenticate18 records/34 original Git sources,15 input/four copied native pins
+and exact own64-target deck. Seven runtime controls/library/telemetry gate and
+audited55/192/242 source/input/installed records pass. Twelve native SCATCI ranks
+are witnessed on12 physical cores/64GiB/8GiB shared backing. Host121688137728bytes
+RAM/139808808960bytes disk; ComfyUI untouched. No new model/pole evidence yet.
+
+Terminal scientific/command/container/owner/service exits/export verdict/final
+cost pending. Producer/owner2 and Docker running0 are defaults. Four-minute
+read-only checks are active, no automatic successor. Collector-only failure1
+required literal `mpiexec` but OpenMPI reports `prterun -n12`; the corrected
+reader0 and both source versions remain public. No scientific repeat/failure.
+Next independently qualify original DZ outputs/resources before any separate
+TZ-inner review; all scientific stops and protected references/holdouts remain.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
