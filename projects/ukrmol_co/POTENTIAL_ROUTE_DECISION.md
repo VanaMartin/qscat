@@ -18,8 +18,12 @@ source pins and the exact independent DZ receipt pass. Available107.5GiB RAM /
 144.3GiB disk; ComfyUI unchanged. Eight physical cores4–11/64GiB,18h native /
 18.5h container/19h owner; conditional6–16h TZ remains unmeasured. Push release
 before launch. Next independently read/publish TZ output/exits/resources; no
-repair/retry or preparation/scattering/pole/B2/fit/sweep successor. No TZ job
-launched at this release checkpoint. All historical rejections/protections remain.
+repair/retry or preparation/scattering/pole/B2/fit/sweep successor.
+**TZ starts01:28:39UTC; [active at01:29:01UTC](qualification-evidence/stretched-basis-properties-tz-launch/README.md).**
+All eight runtime controls and the independent DZ receipt gate pass; actual
+DENPROP, exact deck,18 original/12 copied input pins and12 source entries verify.
+Fourteen public launch payloads authenticate. TZ inventory and terminal exits
+remain pending, not a success/failure; all historical rejections/protections remain.
 
 ### Historical26October decisions
 

@@ -1,0 +1,20 @@
+{
+  "artifacts": {
+    "execution.json": {"bytes": 2970, "sha256": "24b7eacaeaef609efebd3849d74daef352004da252bf49c5cc98693ad4ef62f8"},
+    "independent-dz-receipt.json": {"bytes": 2388, "sha256": "ca1efe565ee346a3554107ba9cd9ce457bb31674899ec7bad83f409dc4f2e8d4"},
+    "launch-observation.json": {"bytes": 2980, "sha256": "1e321be660aadecf8f4c66ee13146e76f061762f9d94ef4ea0a6f0108457b4f5"},
+    "manifest.json": {"bytes": 308, "sha256": "19d8e49195e057496eafdbe9ac74e8b5b67ceae0a592850617aefc566c49ade0"},
+    "outputs/controls.json": {"bytes": 21, "sha256": "267e7c7f631476725625a39b567299e9adb7155ff2c0debab08207fe3bbfb25f"},
+    "outputs/controls.log": {"bytes": 907, "sha256": "e2b87a810c7405665f9b39be3a7191d87b57b076b202076381372b3f7114191a"},
+    "outputs/properties/result.json": {"bytes": 4122, "sha256": "92ad24f9b1698f46b429e699a90850abbd2bcae25e7585e9c7c6b331e16da7ce"},
+    "outputs/properties/target.denprop.inp": {"bytes": 974, "sha256": "4fbc4ebbb87ebd2adf7ff1def36ffe9dc1356babba184c0f05974283ea0b77a4"},
+    "preflight.json": {"bytes": 1742, "sha256": "8a1114dade20228bd06dd02584305a3fdef0291095df40b11162dd2e19084770"},
+    "service-client.json": {"bytes": 932, "sha256": "a99524ba35081e133be4abc3601f397eba063fdcb1015c86d4f7c29f08cae251"},
+    "service-launch.json": {"bytes": 1121, "sha256": "5f4716f7e7ab9b951a18d045a8d14050219a15d1d419b48ecc42bddc0a709767"},
+    "source-manifest.json": {"bytes": 1489, "sha256": "791b76d2d05ec7d1084dd30f0f39e0401c5bc58ddc4ba050524e348d6d1ed077"},
+    "source.tar.gz": {"bytes": 30967, "sha256": "2df5c985ab6496fa57ccda11ab7f1832e6c4b31b3a428283f85a5e62bcdf3cee"},
+    "stretched-basis-properties-tz-release-20261031.json": {"bytes": 4575, "sha256": "05e0983bdd081320df8a194a8ef3fce2e167b50a067b9531d4760ee69dcfc77a"}
+  },
+  "git_sha": "f497e18bb442a16c097bb04c7aaefd6eff1e04eb",
+  "url_prefix": "https://data.qscat.org/co-stretched-basis-properties-tz-launch-20261031/"
+}

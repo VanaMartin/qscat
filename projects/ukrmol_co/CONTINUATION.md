@@ -63,12 +63,14 @@ qualifies](qualification-evidence/stretched-basis-properties-dz/README.md)**,
 64 states/2040 moments, all original exits0,4.552h/1.453GiB. Its independent
 public success receipt passes the original TZ gate. The user continuation now
 selects one separate [TZ-only release](stretched-basis-properties-tz-release-20261031.json),
-not a DZ retry or automatic queue. Next independently qualify TZ output/exits/
+not a DZ retry or automatic queue. **TZ starts01:28:39UTC**, active at01:29:01UTC
+after eight runtime controls/receipt gate pass; its inventory remains pending.
+Next independently qualify TZ output/exits/
 resources; no CI/QC/target repeat or preparation/scattering/pole/fit/sweep successor.
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--26-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--31-october-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -86,7 +88,28 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### DZ public success / separate TZ-only release —31 October,01:27UTC
+### TZ property export active —31 October,01:29:01UTC observation
+
+[Launch reading](progress-stretched-basis-properties-tz-launch-20261031.json) /
+[public source/receipt/controls](qualification-evidence/stretched-basis-properties-tz-launch/README.md).
+Separate release `a70861b` pushed before01:28:39UTC launch; source `f497e18`,
+exact contract/image/owner unchanged. Eight runtime controls and independent public
+DZ receipt gate pass on host/application;18 original/five source pins,12 copies
+and exact deck authenticate. Fourteen fresh public launch payloads and12 Git
+source entries verify; service/container/DENPROP are active. **TZ inventory,
+terminal exits and final cost remain pending**; default producer2/running Docker0
+are not verdicts. The already completed DZ result remains independently qualified.
+
+Capsule `/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-basis-properties-tz-source-20261031`;
+frozen service/container `co-stretched-basis-properties-tz-20261026` (actual launch31October).
+8 physical cores4–11/64GiB/one library thread/no network;18h native/18.5h container/
+19h owner. Original/source/receipt mounts read-only; ComfyUI unchanged. No restart,
+repair/retry or automatic successor. Next only independently read/publish original
+TZ output/exits/resources after completion, including failure. Later preparation/
+B1 scope/cost remains separately gated; no scattering/pole/B2/fit/sweep release.
+Keep114 holdouts, nine/2048/new50/equilibrium protections and all physical rejections.
+
+### Historical DZ public success / separate TZ-only release —31 October,01:27UTC
 
 [DZ result](qualification-evidence/stretched-basis-properties-dz/README.md) /
 [receipt/path/hash](qualification-evidence/stretched-basis-properties-dz-receipt/README.md) /

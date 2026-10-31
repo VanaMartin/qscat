@@ -45,7 +45,9 @@ eight runtime controls pass. **31October [DZ publicly qualifies](qualification-e
 64 states/eight per sector/2040 moments, all original exits0,4.552h/1.453GiB.
 Fresh public evidence reconstructs under a separate reader; the independent
 receipt passes the frozen TZ gate. One [separate TZ-only release](stretched-basis-properties-tz-release-20261031.json)
-is selected, push before launch.8 physical cores/64GiB,18h native/19h owner;
+is pushed before01:28:39UTC launch; [TZ is active at01:29:01UTC](qualification-evidence/stretched-basis-properties-tz-launch/README.md)
+after eight controls/receipt gate pass. Inventory/terminal exits remain pending.
+8 physical cores/64GiB,18h native/19h owner;
 conditional6–16h unmeasured. Next independently qualify TZ output/exits/resources,
 not an automatic preparation/scattering/pole/fit/sweep release or basis verdict.
 Original failures, production channel gates and holdouts remain intact.

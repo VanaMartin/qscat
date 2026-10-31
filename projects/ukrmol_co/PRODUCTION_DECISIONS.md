@@ -1246,6 +1246,19 @@ completion; later preparation/B1 scope/cost needs its own review. No scattering,
 pole/B2/fit/sweep release, no physical basis verdict or production-model promotion.
 The60minute qualification/release/handoff effort cap and all protections remain.
 
+**Launch update —31October01:29:01UTC:** [TZ is active](qualification-evidence/stretched-basis-properties-tz-launch/README.md),
+started01:28:39UTC after separate release `a70861b` pushed. Unchanged source
+`f497e18`, exact independent public DZ receipt and eight runtime controls pass;
+18 original input/five source pins,12 copied inputs and exact deck verify. All14
+fresh public launch payloads and12 Git source entries authenticate. Actual native
+DENPROP and active service/container are witnessed. Inventory/terminal exits/final
+cost remain pending; producer2/running Docker0 are defaults, not verdicts.
+
+No successful DZ work is repeated. No model/basis insensitivity, pole, curve or
+fit is newly qualified. Next independent original TZ output/exit/resource/public
+reading, no automatic preparation/scattering/pole/B2/fit/sweep successor. Eight
+physical cores/64GiB and18/18.5/19h caps remain; ComfyUI/all protected data untouched.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

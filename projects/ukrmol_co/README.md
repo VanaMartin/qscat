@@ -44,8 +44,10 @@ qualifies publicly](qualification-evidence/stretched-basis-properties-dz/README.
 64 states/2040 moments, own-energy/dipole/integrity gates, all exits0,
 4.552h/1.453GiB. The separate independent public receipt now qualifies the TZ
 prerequisite, not a basis/model result. User continuation selects one
-[TZ-only release](stretched-basis-properties-tz-release-20261031.json), push before
-launch; no automatic successor. Next independently qualify TZ outputs/exits/
+[TZ-only release](stretched-basis-properties-tz-release-20261031.json), pushed before
+the [01:28:39UTC launch](qualification-evidence/stretched-basis-properties-tz-launch/README.md).
+Eight runtime controls/receipt gate pass; TZ is active at01:29:01UTC with inventory
+and all terminal exits pending. No automatic successor. Next independently qualify TZ outputs/exits/
 resources. No CI/QC/target/import repeat or downstream scattering/fit is released.
 Neither model is qualified for a production sweep or fit.
 Optimized frames/imported target representations change too, so this is not an
@@ -708,12 +710,17 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--25-october-2026"></a>
 
-## Progress overview — 26 October 2026
+## Progress overview — 31 October 2026
 
-![DZ-only64-state property export active; inventory and exits pending, TZ blocked](../../docs/physics/figures/co-progress-20261026T1550-dz-properties.png)
+![DZ64-state properties qualify publicly; separately released TZ export active, result pending](../../docs/physics/figures/co-progress-20261031T0129-tz-properties.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261026T1550-dz-properties.svg) ·
-[DZ-launch snapshot](progress-snapshot-20261026T1550-dz-properties.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261031T0129-tz-properties.svg) ·
+[DZ-success/TZ-launch snapshot](progress-snapshot-20261031T0129-tz-properties.json) ·
+[Qualified DZ result](qualification-evidence/stretched-basis-properties-dz/README.md) ·
+[Independent public DZ receipt](qualification-evidence/stretched-basis-properties-dz-receipt/README.md) ·
+[TZ-launch evidence](qualification-evidence/stretched-basis-properties-tz-launch/README.md) ·
+[Previous DZ-launch figure](../../docs/physics/figures/co-progress-20261026T1550-dz-properties.svg) ·
+[Previous DZ-launch snapshot](progress-snapshot-20261026T1550-dz-properties.json) ·
 [Public DZ-launch evidence](qualification-evidence/stretched-basis-properties-dz-launch/README.md) ·
 [Compact launch record](progress-stretched-basis-properties-dz-launch-20261026.json) ·
 [Previous freeze figure](../../docs/physics/figures/co-progress-20261026T1537-properties-frozen.svg) ·
@@ -986,7 +993,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [CAS12 pilot start and preserved shared-memory failure](progress-start-20261011T0816.json) ·
 [Current steps before a production sweep](CONTINUATION.md#live-qualification-handoff)
 
-This is the **26 October,15:50UTC DZ-launch** release of an incremental overview, with its exact UTC
+This is the **31 October,01:29UTC DZ-success/TZ-launch** release of the incremental overview, with its UTC
 cutoff recorded in the snapshot and figure. New findings, verification
 milestones, rejected gates and measured resource outcomes trigger a fresh dated
 release. This section follows the latest release; earlier snapshots and figures
@@ -994,7 +1001,14 @@ remain available for comparison. The
 [standing update workflow](CONTINUATION.md#standing-progress-figure-workflow)
 records the publication convention.
 
-**What changed now:** panels D/F record one separately released DZ-only property
+**What changed now:** panels D/F record independent public qualification of the
+completed DZ input:64 states/2040 moments, all original exits0,4.552h/1.453GiB,
+27 archived files/81793 resource samples. The exact public success receipt gates
+one separately released TZ export, now active after eight runtime controls pass.
+TZ inventory/exits/cost remain pending; no physical basis verdict or model/curve/
+fit/scattering successor. Historical physical panels and protections are unchanged.
+
+**Previous DZ-launch change:** panels D/F record one separately released DZ-only property
 export active after eight runtime controls pass. Eighteen original input/five
 source pins,12 copied inputs/archived sources and13 public launch payloads verify.
 Terminal exits, inventory verdict and final cost are pending; TZ/downstream work

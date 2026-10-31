@@ -123,3 +123,8 @@ No new scientific method, orbital objective, preparation/scattering/pole job or
 production model follows automatically. Preserve the original distinct-TZ-frame
 qualification/seed failure and compressed A2/TZ stops. TZ uses its own saved
 energies/dipole, not the newly successful DZ result as a numerical substitute.
+
+The [TZ launch observation](../../projects/ukrmol_co/qualification-evidence/stretched-basis-properties-tz-launch/README.md)
+witnesses one active DENPROP call after the independent DZ receipt and all eight
+runtime controls pass. Its property verdict and final resources/exits are pending.
+No finite basis/pole comparison or downstream numerical work is released by launch.
