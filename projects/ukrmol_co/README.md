@@ -12,6 +12,14 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
+**1November00:04UTC:** [own DZ B1/2048 export independently/publicly qualifies](qualification-evidence/stretched-dz-inner/README.md),
+2048 roots/400 channels/99 native K references, all original exits0;6.222h/28.662GiB.
+Fifteen public payloads/66 raw files/34 Git sources/111536 samples and94 monitor
+checks reconstruct. Reader-only failures1/1/1→0 remain public; no scientific repeat.
+Next separately freeze/push [one TZ B1/2048 counterpart](stretched-tz-inner-contract-20261101.json),
+own inputs/exact public DZ receipt;12 physical cores/64GiB/conditional5–10h/12h
+native cap/five-minute checks. No automatic pole/B2/fit/sweep or holdout analysis.
+
 **31October17:15UTC:** both64-state property inputs qualify; [DZ continuum/B1
 preparation also publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md):
 87198 contracted states, all exits0,90.40s/8.288GiB. Full raw bytes/51 files/452

@@ -88,6 +88,30 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### DZ export public success; one TZ counterpart selected —1 November,00:04UTC
+
+[DZ native export result](qualification-evidence/stretched-dz-inner/README.md) /
+[independent public receipt](qualification-evidence/stretched-dz-inner-receipt/README.md).
+Original completion31October23:51:12UTC, all exits0,6.22242h/28.662GiB.2048 roots,
+400 boundary channels/2256 continuum coefficients,87198 dimension,99 own K records.
+Residual1.27737e-10Ha/own phase4.97976e-8rad pass. Fifteen fresh payloads/66 raw
+files/34 Git sources/111536 samples/94 monitor checks reconstruct independently.
+All monitor gaps<=256.531511s. Reader-only failures1/1/1→0 are preserved with
+exact header/capture/final-allocation explanations; no native repeat or gate
+relaxation. No physical-model, target-identity, omitted-spectrum or pole verdict.
+
+One next bounded deliverable: [separately released TZ B1/2048 own native export](stretched-tz-inner-contract-20261101.json)
+and independent public result/exit/resource qualification. Own TZ prepared
+inputs/audited engine; exact DZ public success receipt SHA256
+`5493103d4c7b033ba5c45a72c9c0ff0a009cddddce41805baa7b80d8c5eaa3eb`
+must be fetched/hash-pinned on the host and pass before science. New source/
+eight runtime controls/exact owner/own-ID deck must freeze/push before launch.
+12 physical cores0–11/64GiB/8GiB backing; conditional5–10h/12h native/20min outer/
+13h owner,80GiB RAM/20GiB disk floors. At most5min read-only checks, no automatic
+pole/B2/fit/sweep or retry. Independently qualify TZ before reviewing a separate
+finite outgoing-pole/character/model comparison. All114 holdouts and protected
+references/failures unchanged. No job launched by this selection checkpoint.
+
 ### DZ B1/2048 active —31 October,17:40:25UTC observation
 
 [Public launch witness](qualification-evidence/stretched-dz-inner-launch/README.md) /

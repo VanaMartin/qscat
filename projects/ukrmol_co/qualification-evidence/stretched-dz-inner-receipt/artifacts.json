@@ -1,0 +1,8 @@
+{
+  "artifacts": {
+    "independent-dz-inner-receipt.json": {"bytes": 4910, "sha256": "5493103d4c7b033ba5c45a72c9c0ff0a009cddddce41805baa7b80d8c5eaa3eb"},
+    "manifest.json": {"bytes": 219, "sha256": "b14a1d84b2911500906bb540e353cf7e09efda3118875d4da4e88a1fdb367e74"}
+  },
+  "git_sha": "be1e88074100fb31dc243ba13334d484096353a5",
+  "url_prefix": "https://data.qscat.org/co-stretched-dz-inner-receipt-20261101/"
+}

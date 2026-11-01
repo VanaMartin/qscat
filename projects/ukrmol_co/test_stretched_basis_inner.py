@@ -222,6 +222,59 @@ def test_separate_stretched_owner_changes_contract_identity_not_engine_or_resour
     compile(command[-1], "<stretched-inner-owner>", "exec")
 
 
+def test_tz_requires_hash_pinned_public_dz_export_not_a_producer_success():
+    with TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        path = root / "receipt.json"
+        value = dict(
+            case="dz",
+            inner_export_verdict=True,
+            public_reader_exit=0,
+            original_exits=[0] * 6,
+            contract_sha256="a" * 64,
+            roots=2048,
+            target_count=64,
+            boundary_channels=400,
+            full_sweep_released=False,
+        )
+        for changes in [
+            {},
+            dict(public_reader_exit=1),
+            dict(original_exits=[0, 0, 0, 0, 1, 0]),
+            dict(case="tz"),
+            dict(inner_export_verdict=False),
+            dict(target_count=40),
+        ]:
+            path.write_text(json.dumps(value | changes))
+            c = dict(
+                case="tz",
+                prior_inner_receipt="receipt.json",
+                prior_inner_contract_sha256="a" * 64,
+                input_sha256={"receipt.json": inner.digest(path)},
+            )
+            if changes:
+                with unittest.TestCase().assertRaises(ValueError):
+                    inner.prior_inner(root, c)
+            else:
+                assert inner.prior_inner(root, c)["sha256"] == inner.digest(path)
+        assert inner.prior_inner(root, dict(case="dz")) is None
+        c["input_sha256"]["receipt.json"] = "b" * 64
+        with unittest.TestCase().assertRaises(ValueError):
+            inner.prior_inner(root, c)
+        with (
+            patch.object(inner, "runtime_gate") as runtime,
+            patch.object(inner, "native_pilot") as native,
+        ):
+            assert inner.compute(root, root, root, c) == 2
+            runtime.assert_not_called()
+            native.assert_not_called()
+        missing = c | dict(
+            prior_inner_receipt="missing.json", input_sha256={"missing.json": "0" * 64}
+        )
+        with unittest.TestCase().assertRaises(FileNotFoundError):
+            inner.prior_inner(root, missing)
+
+
 if __name__ == "__main__":
     suite = unittest.TestSuite(
         unittest.FunctionTestCase(fn)

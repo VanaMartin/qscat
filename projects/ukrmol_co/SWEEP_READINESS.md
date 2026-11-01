@@ -6,6 +6,15 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
+**1November00:04UTC:** [DZ B1/2048 own native export publicly qualifies](qualification-evidence/stretched-dz-inner/README.md),
+all exits0,6.222h/28.662GiB;99 native K/phase references/residual/metadata gates
+reconstruct independently. Fifteen public payloads/66 files/34 Git sources/111536
+samples/94 progress checks qualify; reader failures1/1/1→0 are not native failures.
+Next [separate TZ B1/2048 counterpart](stretched-tz-inner-contract-20261101.json),
+exact public DZ prerequisite and own inputs/source/owner freeze.12 physical cores/
+64GiB/conditional5–10h/12h native cap; at most5min checks. No new basis/pole,
+electronic-model, full-domain channel or production-sweep qualification yet.
+
 **31October17:15UTC:** [DZ full-continuum/B1 preparation publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md),
 87198 contracted states,90.40s/8.288GiB, all exits0. This supplies inputs, not a
 physical-model verdict. Next [TZ own-integral/conditional CSF reuse](stretched-tz-preparation-reuse-release-20261031.json),

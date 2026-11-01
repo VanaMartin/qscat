@@ -1,0 +1,21 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes": 15027, "sha256": "f30eaac3e1a5956b79edbd7a6bb2461c88c94219fb5236479303fce53bb131cb"},
+    "evidence.tar.gz": {"bytes": 287436808, "sha256": "f205ebb1d75a0d71596dc1a6b8207cb3bda2f56d22257989e2bbce5c73402e50"},
+    "final-allocation.json": {"bytes": 8643, "sha256": "a8a60cec283dd379ad9dd6208f55d594fe47b64a84816cfe47dc9882c1126cd8"},
+    "manifest.json": {"bytes": 221, "sha256": "ac7d145c32fefab6c8e70c7ff43d7b079dbe66646124fb27a27c4a2da22befca"},
+    "monitor-checks.jsonl": {"bytes": 85021, "sha256": "f50dc94e847d331b826037282589dd1a889b54246513ed75f2c59e221ab90861"},
+    "reader-before-capture-correction.py": {"bytes": 16568, "sha256": "9781481cd0ef850d12299880868e04ae250bba3d67f6f4452a9eb6b4d3ee144b"},
+    "reader-before-header-correction.py": {"bytes": 16568, "sha256": "9781481cd0ef850d12299880868e04ae250bba3d67f6f4452a9eb6b4d3ee144b"},
+    "reader-before-resource-correction.py": {"bytes": 16691, "sha256": "314c21f8f5f2e6f59e7e3ca9e1b8a140bed0329d86859469a39ae5299fcd9d84"},
+    "reader-correction.json": {"bytes": 2071, "sha256": "8c7f0a4a8d953a0f6053146fb340b13ab6be7b69f2299f2dacbb1c19c1bd2a6e"},
+    "stream-before-capture-correction.py": {"bytes": 16751, "sha256": "f0c22196a74a77d63226a3d1871a2fe23ae9b980665c3c4558b34ccb3faa629a"},
+    "test_verify_stretched_inner.py": {"bytes": 3915, "sha256": "512c5808a5273fec1d7f1c541259b36761a0e722f3851190068044eb584188be"},
+    "verification.json": {"bytes": 4695, "sha256": "ed715418f187aaee195091f04cd9640e2a577ac22fa0a6e62b154662a84aee84"},
+    "verify_stretched_inner.py": {"bytes": 18938, "sha256": "89d3686a779d365596e1b080bd07229e574de7ae940fb544a5ec699cfbcfd789"},
+    "verify_stretched_preparation.py": {"bytes": 16761, "sha256": "16cb51041416600d088b6260f60db9ead23c880fccd0512f872a6e61d11758ba"},
+    "verify_stretched_properties.py": {"bytes": 12141, "sha256": "c14fc4d8029b96bab639c76b29aaa90a4cdc4cd543a73bfb6353ca124cc5bc2d"}
+  },
+  "git_sha": "16e8aaebc3a1d0a8b1421875b815051ad68e05db",
+  "url_prefix": "https://data.qscat.org/co-stretched-dz-inner-result-20261101/"
+}

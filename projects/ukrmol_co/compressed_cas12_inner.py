@@ -19,11 +19,38 @@ from projects.ukrmol_co.sparse_pilot import target_map
 from projects.ukrmol_co.sparse_scattering import mpi_boundary_deck, selected_deck
 
 
+def prior_inner(root, contract):
+    """TZ needs the separately qualified public DZ export, never a running producer flag."""
+    if contract.get("case") != "tz":
+        return None
+    name = contract["prior_inner_receipt"]
+    path = root / name
+    if (
+        not path.resolve().is_relative_to(root.resolve())
+        or digest(path) != contract["input_sha256"][name]
+    ):
+        raise ValueError("Changed/out-of-root public DZ inner prerequisite")
+    value = json.loads(path.read_text())
+    if not (
+        value.get("case") == "dz"
+        and value.get("inner_export_verdict") is True
+        and value.get("public_reader_exit") == 0
+        and value.get("original_exits") == [0] * 6
+        and value.get("contract_sha256") == contract["prior_inner_contract_sha256"]
+        and (value.get("roots"), value.get("target_count"), value.get("boundary_channels"))
+        == (2048, 64, 400)
+        and value.get("full_sweep_released") is False
+    ):
+        raise ValueError("Public DZ inner receipt does not qualify TZ")
+    return dict(path=name, sha256=digest(path))
+
+
 def verify(root, source, contract):
     for base, key in [(root, "input_sha256"), (source, "source_prerequisite_sha256")]:
         for name, want in contract[key].items():
             if digest(base / name) != want:
                 raise ValueError(f"Changed inner prerequisite: {name}")
+    prior_inner(root, contract)
     prepared = root / contract["preparation_directory"]
     saved = json.loads((prepared / "result.json").read_text())
     public_path = (
@@ -168,6 +195,7 @@ def compute(root, source, work, contract):
         (work / "result.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
 
     try:
+        report["predecessor"] = prior_inner(root, contract)
         prepared, saved = verify(root, source, contract)
         report["inputs_verified_before"] = len(contract["input_sha256"])
         report["runtime_gate"] = runtime_gate(contract)

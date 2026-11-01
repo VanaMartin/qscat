@@ -138,3 +138,31 @@ remain strict. A failed gate preserves original exits/partial evidence and stops
 without retry. Independently/publicly qualify DZ export and measured cost before
 reviewing a separately frozen TZ inner release. No automatic TZ/pole/B2/fit/sweep;
 no CIRMAT-phase, omitted-spectrum, electronic-accuracy or state-identity claim.
+
+### Qualified DZ export and separate TZ counterpart
+
+The [own DZ B1/2048 export now independently/publicly qualifies](../../projects/ukrmol_co/qualification-evidence/stretched-dz-inner/README.md):
+all exits0,6.22242h/28.662GiB;2048 roots/400 boundary channels/99 K references,
+recorded residual1.27737e-10Ha, CI/boundary energies exact, K/native phase error
+4.97976e-8rad moduloπ. This supplies an input, not a physical model verdict.
+All94 monitor checks meet300s cadence. Independent reader failures remain
+separate from successful native exits; exact final-allocation reconciliation
+does not loosen numerical budgets or repeat science.
+
+The [separate TZ-only counterpart](../../projects/ukrmol_co/stretched-tz-inner-contract-20261101.json)
+requires that exact independent public DZ receipt, both preparation receipts,
+own TZ input pins, frozen own64-target ID map and unchanged audited engine.
+Keep the finite64/400/2048 model, geometry2.5bohr and forty-component orbital
+objective. Atomic basis and its optimized frame change together; identical root
+counts do not establish target-state identity. All own integrals/vectors/
+properties remain basis-specific; only the already proved algebraic CSFs reuse.
+
+No numerical method changes: add only the explicit serial predecessor gate and
+own paths/map. Eight mocked runtime controls/source/tests/exact owner/frozen deck
+must push first. Twelve physical cores/64GiB/8GiB backing,80GiB RAM/20GiB disk
+floors, conditional5–10h/12h native/20min per outer stage/13h owner;45minutes
+implementation. At most5min read-only checks. Preserve any failed gate/partial
+output without repair/retry. Public independent TZ qualification precedes a
+separately costed outgoing-pole/character/model-sensitivity proposal. No pole,
+B2, fit, sweep, root/channel ladder, electronic-accuracy or omitted-spectrum
+claim follows automatically; all protected references/holdouts remain untouched.

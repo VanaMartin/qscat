@@ -1386,6 +1386,49 @@ reader0 and both source versions remain public. No scientific repeat/failure.
 Next independently qualify original DZ outputs/resources before any separate
 TZ-inner review; all scientific stops and protected references/holdouts remain.
 
+### Goal checkpoint —1 November,00:04UTC: DZ own export qualifies; continue one matched TZ B1/2048 export
+
+**Production decision / evidence delta:** finite stretched DZ/TZ basis-model
+uncertainty still needs an outgoing-pole sensitivity test. The missing own DZ
+export now [independently/publicly qualifies](qualification-evidence/stretched-dz-inner/README.md),
+2048 roots/400 channels/87198 dimension/2256 continuum coefficients/99 own native
+K matrices. Original31October23:51UTC completion has all exits0,6.22242h/28.662GiB.
+Recorded residual1.27737e-10Ha, CI/boundary energies exact, own K/native phase
+4.97976e-8rad pass. Fifteen public payloads/66 raw files/15 prerequisites/34 Git
+sources/111536 samples reconstruct;94 monitor checks max256.531511s (<300).
+No new physical-model, channel, target-identity, omitted-spectrum or pole verdict.
+
+**Reader failures preserved, not scientific failures:**1/1/1 before corrected0.
+Retain JSONL telemetry after hashing; parse known scattering-header base fields
+and authenticate its336-byte extension; distinguish periodic disk CSV from the
+original profiler's final post-CSV/pre-summary allocation. All46 retained file/
+symlink blocks authenticate; final excluding summary2778312704bytes exactly
+matches max(periodic,final). Memory/scratch gates unchanged. No native repeat,
+numerical budget relaxation or suppressed underflow/denormal notes.
+
+**Continue / minimum reused-data scope:** one [separate TZ B1/2048 inner/export](stretched-tz-inner-contract-20261101.json),
+using its already qualified own integrals/CIDATA/64-state properties/CSFs and the
+same audited engine. Only paths/own property IDs and a strict independent public
+DZ-inner receipt gate change; no new solver, QC, target/property/preparation or
+successful DZ solve. Source/tests/exact owner/own-ID deck freeze/push first.
+The eight mocked runtime controls include missing/false/nonpublic/wrong-model
+predecessor rejection. Original DZ source/contract/outputs remain immutable.
+
+**Bounds:**45minutes implementation; same87198/2256/400/2048 dimensions,12 physical
+cores0–11/64GiB/8GiB shared backing,80GiB available RAM/20GiB disk floors. Measured
+DZ6.222h/28.662GiB/RSOLVE656s is a planning anchor, not a TZ measurement or speedup.
+Conditional5–10h TZ,12h native/20min per native outer stage/13h owner. At most5min
+read-only checks; no monitor launch/retry/successor. No paid provisioning.
+
+**One bounded next deliverable:** independently/publicly qualify actual TZ own
+export/exits/resources, including failure. Then review a separate finite B1
+outgoing-pole/character/model-comparison allocation; no automatic pole, B2, fit,
+sweep or root/channel ladder. Any prerequisite/native/numerical/cap failure stops
+inconclusive with original evidence, no rescue. Retain2048/nine/new50/equilibrium,
+114 untouched S holdouts and prior failures. Main retrieval remains unavailable
+(shared-code mismatch), last known423d577/main currency unverified; local branch
+delta/source authoritative, no shared-service intervention.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

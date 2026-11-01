@@ -1,6 +1,24 @@
-# Sweep/potential route decision — 31 October 2026
+# Sweep/potential route decision — 1 November 2026
 
 ## Decision now
+
+**1November00:04UTC: [DZ B1/2048 native export independently/publicly qualifies](qualification-evidence/stretched-dz-inner/README.md).**
+Original completion31October23:51UTC, all exits0;6.222h/28.662GiB. All2048 roots/
+400 boundary channels/99 own K records reconstruct; residual1.277e-10Ha and
+K/native phase4.980e-8rad pass. Fifteen fresh public payloads/66 raw files/34 Git
+sources/111536 samples qualify.94 monitor checks obey300s maximum cadence.
+Reader-only failures1/1/1 and corrected0 remain public, with no native repeat.
+
+**Continue one separately frozen [TZ B1/2048 own export](stretched-tz-inner-contract-20261101.json):**
+same finite64-target/400-channel model/own TZ inputs/audited engine. Exact public
+DZ success [receipt](qualification-evidence/stretched-dz-inner-receipt/README.md)
+gates science; new source/tests/owner/own-ID deck must freeze/push first.12 physical
+cores/64GiB, conditional5–10h/12h native/13h owner, at most5min checks. No successful
+DZ/target/property/preparation repeat. Next independent TZ export/public/resource
+qualification before any outgoing-pole/model-comparison review. No automatic
+pole/B2/fit/sweep, electronic-accuracy claim or holdout read.
+
+### Earlier31October DZ inner stage
 
 **31October17:26UTC: [TZ preparation also independently/publicly qualifies](qualification-evidence/stretched-tz-preparation/README.md).**
 Own integral only/zero new CONGEN,38.67s/4.174GiB,87198 contracted states/all exits0.
