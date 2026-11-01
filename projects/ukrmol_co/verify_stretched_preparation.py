@@ -131,7 +131,7 @@ def csf_header(data, total, raw):
     )
 
 
-def stream_files(path, collection):
+def stream_files(path, collection, *, capture_names=()):
     with path.open("rb") as stream:
         require(
             path.stat().st_size == collection["archive"]["bytes"]
@@ -145,11 +145,12 @@ def stream_files(path, collection):
             require(entry.isfile() and entry.name not in digests, "Unexpected archive member")
             pin = collection["files"][entry.name]
             require(entry.size == pin["bytes"], "Wrong archived file size")
-            capture = Path(entry.name).suffix in (".json", ".inp", ".out", ".log", ".csv")
+            capture = Path(entry.name).suffix in (".json", ".jsonl", ".inp", ".out", ".log", ".csv")
             capture = (
                 capture
                 or entry.name == "source.tar.gz"
                 or entry.name in (PREFIX + "fort.24", PREFIX + "fort.26")
+                or entry.name in capture_names
             )
             chunks, header, digest = [], b"", hashlib.sha256()
             with archive.extractfile(entry) as stream:
