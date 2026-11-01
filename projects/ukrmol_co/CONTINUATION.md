@@ -88,6 +88,32 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### TZ B1/2048 active —1 November,00:12:32UTC observation
+
+[Public TZ launch](qualification-evidence/stretched-tz-inner-launch/README.md) /
+[compact observation](progress-stretched-tz-inner-launch-20261101.json).
+Source/tests/exact owner/own-ID deck `d71beb4` pushed before00:11:18UTC launch.
+Eight runtime controls, exact public DZ-inner predecessor,16 inputs/four copied
+files/36 Git sources/own64-target deck and audited-engine/library/telemetry gates
+pass. Five fresh public payloads authenticate18 records and the actual independent
+DZ receipt. Twelve native ranks witnessed; export, terminal exits and cost pending.
+
+Service/container `co-stretched-tz-b1-2048-20261101`; persistent capsule
+`/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-tz-inner-source-20261101`.
+Archive SHA256 `c92ff8b722b5df0e07d2108d3ec967406ddae478821d80ef89d9bbf18f22f996`.
+Finite240s read-only monitor writes `stretched-tz-inner-checks-20261101.jsonl`
+in the approved OpenCode temporary root. It never schedules a successor/retry.
+12 physical cores/64GiB/8GiB backing; conditional5–10h/12h native/13h owner.
+Producer/owner2 and running Docker0 are defaults, not terminal verdicts.
+
+Next one bounded deliverable: independent/public actual TZ output/exit/resource
+qualification, including failure. The independent reader has explicit frozen
+DZ/TZ case selection; retain exact per-case contract/source/control/reference
+counts and actual public predecessor. Preserve three reader-only DZ failures
+and original scientific success separately. Only after TZ qualification review
+a separately costed finite outgoing-pole/character/model comparison. No automatic
+pole/B2/fit/sweep or protected114-S analysis. ComfyUI/references unchanged.
+
 ### DZ export public success; one TZ counterpart selected —1 November,00:04UTC
 
 [DZ native export result](qualification-evidence/stretched-dz-inner/README.md) /

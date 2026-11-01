@@ -20,6 +20,11 @@ Next separately freeze/push [one TZ B1/2048 counterpart](stretched-tz-inner-cont
 own inputs/exact public DZ receipt;12 physical cores/64GiB/conditional5–10h/12h
 native cap/five-minute checks. No automatic pole/B2/fit/sweep or holdout analysis.
 
+**TZ starts00:11:18UTC; [active at00:12:32UTC](qualification-evidence/stretched-tz-inner-launch/README.md).**
+Pushed `d71beb4` source/owner/own-ID deck, eight controls/public DZ receipt and all
+input/engine/runtime gates pass. Five public payloads/36 Git sources authenticate;
+twelve ranks witnessed. Export/exits/cost pending; four-minute read-only checks.
+
 **31October17:15UTC:** both64-state property inputs qualify; [DZ continuum/B1
 preparation also publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md):
 87198 contracted states, all exits0,90.40s/8.288GiB. Full raw bytes/51 files/452
@@ -745,12 +750,17 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--25-october-2026"></a>
 
-## Progress overview — 31 October 2026
+## Progress overview — 1 November 2026
 
-![Both64-state property tables and DZ/TZ preparation qualify; one DZ B1/2048 inner export active](../../docs/physics/figures/co-progress-20261031T1740-dz-inner.png)
+![DZ B1/2048 native export independently qualifies; receipt-gated TZ counterpart active](../../docs/physics/figures/co-progress-20261101T0012-tz-inner.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261031T1740-dz-inner.svg) ·
-[Preparation-success/DZ-inner snapshot](progress-snapshot-20261031T1740-dz-inner.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261101T0012-tz-inner.svg) ·
+[DZ-success/TZ-inner snapshot](progress-snapshot-20261101T0012-tz-inner.json) ·
+[Independent DZ native export](qualification-evidence/stretched-dz-inner/README.md) ·
+[Public DZ success receipt](qualification-evidence/stretched-dz-inner-receipt/README.md) ·
+[Active TZ counterpart](qualification-evidence/stretched-tz-inner-launch/README.md) ·
+[Previous DZ-launch figure](../../docs/physics/figures/co-progress-20261031T1740-dz-inner.svg) ·
+[Previous DZ-launch snapshot](progress-snapshot-20261031T1740-dz-inner.json) ·
 [Both preparation scope](../../docs/physics/co-stretched-basis-model-control.md) ·
 [Qualified DZ preparation](qualification-evidence/stretched-dz-preparation/README.md) ·
 [Qualified TZ preparation](qualification-evidence/stretched-tz-preparation/README.md) ·

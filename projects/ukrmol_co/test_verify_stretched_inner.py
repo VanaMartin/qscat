@@ -3,6 +3,7 @@
 import io
 import struct
 import tarfile
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -20,6 +21,21 @@ def test_record_framing_and_complete_eof():
     for broken in [data[:-1], data + b"x", record(b"first")[:-4] + b"\0" * 4]:
         with pytest.raises(ValueError):
             reader.records(broken)
+
+
+def test_exact_frozen_case_selection_rejects_ambiguity_and_changed_contract():
+    root = Path(__file__).resolve().parents[2]
+    for case, spec in reader.CASES.items():
+        data = (root / spec[0]).read_bytes()
+        assert reader.select_contract({spec[0]: data}) == (case, spec)
+        with pytest.raises(ValueError):
+            reader.select_contract({spec[0]: data + b" "})
+    with pytest.raises(ValueError):
+        reader.select_contract({})
+    with pytest.raises(ValueError):
+        reader.select_contract(
+            {spec[0]: (root / spec[0]).read_bytes() for spec in reader.CASES.values()}
+        )
 
 
 def test_native_array_size_and_nonfinite_values_are_rejected():

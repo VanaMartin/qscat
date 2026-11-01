@@ -18,6 +18,12 @@ DZ/target/property/preparation repeat. Next independent TZ export/public/resourc
 qualification before any outgoing-pole/model-comparison review. No automatic
 pole/B2/fit/sweep, electronic-accuracy claim or holdout read.
 
+**TZ starts00:11:18UTC; [active at00:12:32UTC](qualification-evidence/stretched-tz-inner-launch/README.md).**
+Frozen/pushed `d71beb4` source/owner/own-ID deck, eight controls, exact independent
+public DZ receipt and all input/engine/runtime gates pass. Five public launch
+payloads/18 records/36 Git sources authenticate. Twelve native ranks witnessed;
+terminal exits/export/final cost pending. Four-minute checks active, no successor.
+
 ### Earlier31October DZ inner stage
 
 **31October17:26UTC: [TZ preparation also independently/publicly qualifies](qualification-evidence/stretched-tz-preparation/README.md).**

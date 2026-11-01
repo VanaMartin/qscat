@@ -24,6 +24,23 @@ from projects.ukrmol_co.verify_stretched_properties import (
 PREFIX = "outputs/inner/native/B1/"
 CONTRACT = "projects/ukrmol_co/stretched-dz-inner-contract-20261031.json"
 CONTRACT_SHA = "47f150582e19e3072d2c9c1d7ddea0fe9aba9071958f6991ac715f089bad95cc"
+CASES = {
+    "dz": (CONTRACT, CONTRACT_SHA, 34, 7),
+    "tz": (
+        "projects/ukrmol_co/stretched-tz-inner-contract-20261101.json",
+        "e107ee7aaf256d82c9603727be6336e402a87bfd6d52f4702452c448b4c62c96",
+        36,
+        8,
+    ),
+}
+
+
+def select_contract(source):
+    matched = [(case, spec) for case, spec in CASES.items() if spec[0] in source]
+    require(len(matched) == 1, "Missing/ambiguous frozen inner case")
+    case, spec = matched[0]
+    require(sha(source[spec[0]]) == spec[1], "Changed frozen inner contract")
+    return case, spec
 
 
 def records(data):
@@ -212,15 +229,27 @@ def verify(path, collection, allocation):
 
     source = files_in(files["source.tar.gz"])
     pins = load("source-manifest.json")
-    require(set(source) == set(pins) and len(pins) == 34, "Wrong frozen source")
+    case, spec = select_contract(source)
+    require(set(source) == set(pins) and len(pins) == spec[2], "Wrong frozen source")
     for n, w in pins.items():
         require(sha(source[n]) == w, "Changed source: " + n)
-    require(sha(source[CONTRACT]) == CONTRACT_SHA, "Changed frozen inner contract")
-    c = json.loads(source[CONTRACT])
+    c = json.loads(source[spec[0]])
     references = collection["reference_files"]
     require(set(references) == set(c["input_sha256"]), "Wrong prerequisite set")
     for n, w in c["input_sha256"].items():
         require(digests[references[n]] == w, "Changed prerequisite: " + n)
+    if case == "tz":
+        prior = load(references[c["prior_inner_receipt"]])
+        require(
+            prior["case"] == "dz"
+            and prior["inner_export_verdict"] is True
+            and prior["public_reader_exit"] == 0
+            and prior["original_exits"] == [0] * 6
+            and prior["contract_sha256"] == CONTRACT_SHA
+            and (prior["roots"], prior["target_count"], prior["boundary_channels"])
+            == (2048, 64, 400),
+            "Unqualified public DZ inner predecessor",
+        )
     for n, w in c["source_prerequisite_sha256"].items():
         require(sha(source[n]) == w, "Changed source prerequisite")
     owner, result, resources = (
@@ -394,14 +423,14 @@ def verify(path, collection, allocation):
     require(
         resources["kernel_peak_container_memory_bytes"]
         >= resources["sampled_peak_container_memory_bytes"]
-        and result["inputs_verified_before"] == result["inputs_verified_after"] == 15
+        and result["inputs_verified_before"] == result["inputs_verified_after"] == len(references)
         and load("outputs/controls.json")["original_exit"] == 0
-        and b"Ran 7 tests" in files["outputs/controls.log"],
+        and f"Ran {spec[3]} tests".encode() in files["outputs/controls.log"],
         "Control/resource/integrity gate failed",
     )
     return dict(
-        case="dz",
-        contract_sha256=CONTRACT_SHA,
+        case=case,
+        contract_sha256=spec[1],
         inner_export_verdict=True,
         original_exits=exits,
         roots=2048,
@@ -441,6 +470,14 @@ def verify(path, collection, allocation):
         electronic_model_verdict=None,
         spectral_truncation_verdict=None,
         full_sweep_released=False,
+        **(
+            {
+                "independent_dz_predecessor_authenticated": True,
+                "dz_inner_receipt_sha256": digests[references[c["prior_inner_receipt"]]],
+            }
+            if case == "tz"
+            else {}
+        ),
         independence=(
             "Streaming full-byte authentication; independent CIDATA/channel/boundary/K decoding, "
             "six-array assembly, recorded residual and own-K/native phase arithmetic. "

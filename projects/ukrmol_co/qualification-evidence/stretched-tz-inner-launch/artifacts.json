@@ -1,0 +1,11 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes": 4145, "sha256": "c9c2dc98f5492ac570760f7a87746fb64b3f909333374a3baeb422d374335e8d"},
+    "evidence.tar.gz": {"bytes": 90217, "sha256": "27d5775e0db8bd0ee413f56002b8e50c6e13a3e0c0bb29115f1be10e9ba1b6cd"},
+    "independent-dz-inner-receipt.json": {"bytes": 4910, "sha256": "5493103d4c7b033ba5c45a72c9c0ff0a009cddddce41805baa7b80d8c5eaa3eb"},
+    "manifest.json": {"bytes": 211, "sha256": "af93d557ebfee3fbb75a1711d26be2b3729fc3d4ae109be7089a0bbb51a5adcc"},
+    "verification.json": {"bytes": 484, "sha256": "dee67efe674e929dc63038af6969d00a98e3ee8119b60ac8b747a0968b194215"}
+  },
+  "git_sha": "d71beb400cf806633f80294acea1b7e083879755",
+  "url_prefix": "https://data.qscat.org/co-stretched-tz-inner-launch-20261101/"
+}

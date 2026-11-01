@@ -15,6 +15,12 @@ exact public DZ prerequisite and own inputs/source/owner freeze.12 physical core
 64GiB/conditional5–10h/12h native cap; at most5min checks. No new basis/pole,
 electronic-model, full-domain channel or production-sweep qualification yet.
 
+**TZ [active at00:12:32UTC](qualification-evidence/stretched-tz-inner-launch/README.md)**
+after00:11:18UTC launch/frozen-pushed `d71beb4`. Eight controls/public DZ receipt,
+36 source/16 input/four copied file pins and own64-target deck authenticate.
+Five public launch payloads pass;12 native ranks witnessed. Exits/export/cost
+pending, four-minute checks active. No automatic numerical/model successor.
+
 **31October17:15UTC:** [DZ full-continuum/B1 preparation publicly qualifies](qualification-evidence/stretched-dz-preparation/README.md),
 87198 contracted states,90.40s/8.288GiB, all exits0. This supplies inputs, not a
 physical-model verdict. Next [TZ own-integral/conditional CSF reuse](stretched-tz-preparation-reuse-release-20261031.json),

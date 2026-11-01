@@ -1429,6 +1429,23 @@ inconclusive with original evidence, no rescue. Retain2048/nine/new50/equilibriu
 (shared-code mismatch), last known423d577/main currency unverified; local branch
 delta/source authoritative, no shared-service intervention.
 
+### Launch observation —1 November,00:12:32UTC: TZ counterpart active, verdict pending
+
+Separate [TZ launch](qualification-evidence/stretched-tz-inner-launch/README.md)
+starts00:11:18UTC after `d71beb4` source/tests/exact owner/own-ID deck freeze/push.
+Eight runtime controls, exact public DZ success receipt/own16 inputs, four copied
+files and36 original Git sources authenticate. Audited55/192/242 engine and
+numerical-library/telemetry gates pass. Five fresh public launch payloads verify
+18 records and the actual independent DZ receipt. Twelve native ranks witnessed.
+
+Host108839522304bytes available RAM /136658120704bytes free disk; ComfyUI unchanged.
+12 physical cores/64GiB/8GiB backing, conditional5–10h/12h native/13h owner. Finite
+four-minute read-only monitoring is active. Export/terminal exits/final cost
+pending, no success/failure inferred from default2/running Docker0. No repeated
+DZ/target/property/preparation calculation or physical-model verdict. Next actual
+independent/public TZ result/exit/resource qualification, no automatic pole/B2/
+fit/sweep/root/channel ladder or holdout analysis.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
