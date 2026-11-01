@@ -1,0 +1,60 @@
+{
+  "status":"Separate finite real-axis prerequisite only after both public own exports qualify. Freeze/push source/tests/exact owner before any map; no pole search or automatic successor.",
+  "scientific_question":"Can the unchanged exterior Riccati/Jost machinery reproduce each stretched CAS12 basis model's own native real S at the two fixed development identities before any complex outgoing pole is attempted? This is same-model numerical validation, not basis insensitivity or model accuracy.",
+  "container_name":"co-stretched-real-guard-20261101",
+  "runner_module":"projects.ukrmol_co.stretched_real_guard",
+  "runtime_controls_module":"projects.ukrmol_co.test_stretched_real_guard",
+  "models":{
+    "dz":{
+      "native_directory":"prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1",
+      "receipt":"prepared/stretched-dz-inner-receipt-20261101/independent-dz-inner-receipt.json",
+      "inner_contract_sha256":"47f150582e19e3072d2c9c1d7ddea0fe9aba9071958f6991ac715f089bad95cc"
+    },
+    "tz":{
+      "native_directory":"prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1",
+      "receipt":"prepared/stretched-tz-inner-receipt-20261101/independent-tz-inner-receipt.json",
+      "inner_contract_sha256":"e107ee7aaf256d82c9603727be6336e402a87bfd6d52f4702452c448b4c62c96"
+    }
+  },
+  "input_sha256":{
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/fort.10":"b9954b6dc7f6439b2f8a27f8a3c5b5c7613deb2a2010e65bc318d497e21940b5",
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/fort.21":"46beb335935519800b61466b71e38545db4823b2f95de23d0d1ec6dfd18fe137",
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/fort.921":"b4fa3045557a9957bc1b479764bcc213d6ab01aea7244c2fb244d1b293972963",
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/rsolve.inp":"a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa",
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/fort.10":"76d566dee0a48eaf5fd8b37663f333d07f160052d910602bf6b875d53f2325c9",
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/fort.21":"7095620eea8e1cbf53810dc6dec321a291261af5fb3da46a3683935b75fa4ce9",
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/fort.921":"5d23bb67da460d4f5dff5d6d6ea4d0aabad08361e8d53fd663e0cdf69e4fbf92",
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/rsolve.inp":"a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa",
+    "prepared/stretched-dz-inner-receipt-20261101/independent-dz-inner-receipt.json":"5493103d4c7b033ba5c45a72c9c0ff0a009cddddce41805baa7b80d8c5eaa3eb",
+    "prepared/stretched-tz-inner-receipt-20261101/independent-tz-inner-receipt.json":"04435b1fcc7bf4c8613cbea3d979dea8b3b664b8fbb746e871bce8397e581615"
+  },
+  "source_sha256":{
+    "projects/ukrmol_co/compressed_a2_contrast_run.py":"a17dede36792d7eda54fea80ffde7e3764cfd5b66f5630e3498d3ece72c47b56",
+    "projects/ukrmol_co/native_full_reconstruction.py":"fd05aa8ec4b1e40cf7e3921ae34d2ecd11039949c6851129389e9e9c785bf0ec",
+    "projects/ukrmol_co/outgoing_map.py":"8860804fbc55ecee08d017937b5e5d116e7b52003d76cd42252ab13dc2923140",
+    "projects/ukrmol_co/native_boundary.py":"5daaa6cec84400a79e64cf6a770dec2c2026618bdad90f3c0674cf0d645439b0",
+    "projects/ukrmol_co/saved_matrices.py":"97946cb2cdf4c5b0a79090b1ed48fbc35ba96a7084189873480ca5822a1b5f00",
+    "projects/ukrmol_co/paired_pole_character.py":"0553a564e6e6fbb34578b99cf583aa300887b4017bad8065377718f14a5bfe71",
+    "projects/ukrmol_co/qualification-evidence/stretched-dz-inner-receipt/artifacts.json":"3e6fb17576301cb2dfb13adb2c2a747d6ed9f4a18d37d336f8f068f4cf3f051a",
+    "projects/ukrmol_co/qualification-evidence/stretched-tz-inner-receipt/artifacts.json":"05a64758c3bc7221ed7f7d9389305ab265def85dc9886f834cec6e65a224bbd2"
+  },
+  "real_development_indices":[60,80],
+  "settings":[[120,40,10,1e-12]],
+  "real_s_absolute_budget":0.000001,
+  "real_invariant_absolute_budget":0.000001,
+  "real_phase_sum_budget_rad":0.000001,
+  "real_flux_absolute_budget":0.0000001,
+  "future_resources":{"per_map_seconds":90,"rhs_cap":50000},
+  "guard_timeout_seconds":600,
+  "owner_timeout_seconds":900,
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "resources":{"physical_cpu_group":"0-3","physical_cores":4,"memory_gib":8,"threads_per_library":1,"maps_max":4,"conditional_seconds":[30,180],"minimum_available_ram_gib":16,"minimum_free_disk_gib":2},
+  "implementation_bound_minutes":60,
+  "numerics":"Reuse existing real_guard/physical_s/surface_matrix and strict64/400 own exporter without changing mathematics or tolerances. Exactly DZ indices60/80 then TZ60/80, own native energies/Rydberg thresholds/ground zero/W/D/CF/K each. Boundary18bohr, rotated tail parameter120bohr/40degrees/order10/DOP853 rtol1e-12. Capture Q,Y,A,S,own native reference S,diagnostics and invariants for all attempted maps; compare own arrays against independent receipt hashes before maps. No cross-basis comparison or pole fit performed.",
+  "known_truth_controls":"Six mocked controls: missing/nonpublic/false/wrong-model receipts abort before model access; strict64/400/hash identity; exactly four staged real maps; failed DZ check leaves TZ unstarted; read-only four-core/no-network/no-successor owner. Existing outgoing analytic/flux and compressed-real guards retained and rerun before freeze.",
+  "stop":"First failed prerequisite/map/invariant/input/cap exits2 inconclusive, with original partial matrices/exits and no retry, endpoint/precision/RHS/tolerance rescue or automatic complex job. Native calls/QC/inner/property/preparation/B2/fit/sweep remain zero. A pass is only same-model numerical consistency; then separately review a stretched B1 pole seed/box/character/local-identity proposal. Do not use native RESON fits as outgoing-pole targets or silently transport compressed pole identity.",
+  "monitoring":"Read-only checks at most60s apart. After one access failure, retry observation promptly within the remaining300s allowance; preserve every failed attempt and actual observation gaps, never infer success from missing data or restart science.",
+  "automatic_successor":false,
+  "pole_search_released":false,
+  "protected":{"route_holdout_s_matrices_unanalyzed":114,"equilibrium_pole_target":"excluded","working_reference":"CAS11/nine","baseline_roots":2048,"new50":"parked","full_sweep_released":false}
+}

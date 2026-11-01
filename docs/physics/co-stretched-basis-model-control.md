@@ -166,3 +166,39 @@ output without repair/retry. Public independent TZ qualification precedes a
 separately costed outgoing-pole/character/model-sensitivity proposal. No pole,
 B2, fit, sweep, root/channel ladder, electronic-accuracy or omitted-spectrum
 claim follows automatically; all protected references/holdouts remain untouched.
+
+### Both own exports qualify; smallest pre-complex guard
+
+[TZ now independently/publicly qualifies](../../projects/ukrmol_co/qualification-evidence/stretched-tz-inner/README.md),
+5.561856h/27.132191GiB, all exits0; own2048 roots/64 targets/400 channels/2256
+continuum coefficients,87198 dimension. Residual1.28373e-10Ha, CI/boundary energies
+exact,99 K/native phase errors<=4.92617e-8rad. Independent public bytes reproduce
+the own native arrays without a producer import or native repeat. One SSH timeout
+leaves a495.443016s successful-observation gap; preserve that operational exception.
+
+Before any complex search, [four real-axis guards](../../projects/ukrmol_co/stretched-real-guard-contract-20261101.json)
+test each model against **its own** native real K. For each fixed development
+index60/80, assemble the surface matrix Q from its2048 own poles and amplitudes at
+total energy E0+E_Ry/2, integrate the same Riccati/Jost exterior to boundary18bohr,
+and construct physical real S with the existing flux-normalized open amplitudes.
+Compare to S(K) of that own native reference, not to the other basis. Use both
+own incident thresholds/ground zero/CF matrices; physical energy arithmetic stays
+native Rydberg in the radial equations and Hartree in the inner denominator.
+
+Reuse the already validated method at120bohr tail parameter/40degrees/order10/
+rtol1e-12. Require1e-6 absolute S,1e-6rad phase-moduloπ,1e-6 Wronskian/unitarity/
+reciprocity and1e-7 flux errors,90s/RHS50000 per map. Exactly two development
+maps per model, DZ before TZ; no legacy route-holdout access. Freeze source,
+two exact independent public receipts, raw models, array hashes, tests and owner
+before computation.4 physical cores/8GiB/600s science/900s owner; conditional
+30–180s,60min implementation. This narrowly parameterizes an experiment, not a
+new solver or production API. First failure stops without numerical rescue.
+
+Retain actual Q,Y,A,S,native-reference matrices and all diagnostics/resources.
+Passing is necessary own-model numerical consistency before complex use, not
+electronic accuracy, basis insensitivity, CIRMAT-phase qualification or an
+independent exterior oracle. No stretched coupled pole has been identified; a
+separate physically justified seed/box and open-Pi residue/character/local-identity
+proposal remains necessary after this finite guard. Do not promote native RESON
+fits to outgoing poles or silently assume a compressed-pole identity at2.5bohr.
+No complex search, B2, fit or sweep is released by the real-axis guard.

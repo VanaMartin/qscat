@@ -2,6 +2,26 @@
 
 ## Decision now
 
+**1November05:51UTC: [TZ B1/2048 also independently/publicly qualifies](qualification-evidence/stretched-tz-inner/README.md).**
+Completion05:45:09UTC/all exits0,5.561856h/27.132191GiB; ten fresh payloads/67 raw
+files/36 Git sources/99756 samples reconstruct. Recorded residual1.28373e-10Ha,
+CI/boundary error0,99 own K/native phases4.92617e-8rad pass. The85 monitoring
+attempts include one SSH255 and495.443016s successful-observation gap, preserved
+as an operational exception—not uninterrupted300s monitoring or a native failure.
+
+**Continue only [four own-model real-axis guards](stretched-real-guard-contract-20261101.json)**
+before any pole search: DZ then TZ, fixed development indices60/80 in each own
+99-point export, no original route-holdout reads. Reuse exact64/400 arrays and
+existing exterior method/budgets; both public receipts before maps. Six mocked
+controls/new source/exact four-core owner freeze/push first.4 physical cores/8GiB,
+conditional30–180s/90s per map/600s science/900s owner,60min implementation.
+At most60s checks; promptly retry a failed status observation, never scientific
+work. A failed gate stops inconclusive without rescue. Next independently publish
+four-map evidence, then separately resolve a physically justified stretched B1
+seed/box/character/local-identity proposal. No complex pole, B2, fit or sweep now.
+
+### Earlier1November inner export stage
+
 **1November00:04UTC: [DZ B1/2048 native export independently/publicly qualifies](qualification-evidence/stretched-dz-inner/README.md).**
 Original completion31October23:51UTC, all exits0;6.222h/28.662GiB. All2048 roots/
 400 boundary channels/99 own K records reconstruct; residual1.277e-10Ha and

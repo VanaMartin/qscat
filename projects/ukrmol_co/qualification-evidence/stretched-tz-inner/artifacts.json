@@ -1,0 +1,16 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes":15422,"sha256":"3ef76eae62fb65166eb0aae6f61a482c7b13d0bc815fcbb392a263167ab9e98e"},
+    "evidence.tar.gz": {"bytes":287321792,"sha256":"f92ba4dfc23da146197bfc97ba2db8a621dadfd2a23611b1d2dc3535b1df966f"},
+    "final-allocation.json": {"bytes":8643,"sha256":"8722c51b7abef868b7f57b4c46a6356b2c7b729ea6528a1967b0d0db79ca91f8"},
+    "manifest.json": {"bytes":221,"sha256":"46f23fbb3b75752b60917cbf96db1c6c09130b99dc3a012aeb0f035559879317"},
+    "monitor-checks.jsonl": {"bytes":77238,"sha256":"366be53565bb5dc675692fec2be56f7b7e4db2d05833bd83ae0251854dc3c4a6"},
+    "test_verify_stretched_inner.py": {"bytes":4563,"sha256":"0feb86cf4fffef2be625c7f53f0fb05a2301639291e65366ba1f093e06fc83be"},
+    "verification.json": {"bytes":5552,"sha256":"328ceeea57f441dfbad4f4c1ad51ab41eaba14b497ac938416680898edd60b24"},
+    "verify_stretched_inner.py": {"bytes":20258,"sha256":"66247e2e7ddd48fa93b69e49218777ca49c55709b0044c53c81d29412689166c"},
+    "verify_stretched_preparation.py": {"bytes":16761,"sha256":"16cb51041416600d088b6260f60db9ead23c880fccd0512f872a6e61d11758ba"},
+    "verify_stretched_properties.py": {"bytes":12141,"sha256":"c14fc4d8029b96bab639c76b29aaa90a4cdc4cd543a73bfb6353ca124cc5bc2d"}
+  },
+  "git_sha":"d71beb400cf806633f80294acea1b7e083879755",
+  "url_prefix":"https://data.qscat.org/co-stretched-tz-inner-result-20261101/"
+}

@@ -1,0 +1,8 @@
+{
+  "artifacts": {
+    "independent-tz-inner-receipt.json":{"bytes":5742,"sha256":"04435b1fcc7bf4c8613cbea3d979dea8b3b664b8fbb746e871bce8397e581615"},
+    "manifest.json":{"bytes":259,"sha256":"5fd9d940b950c3c46620cc8fb602f34dcb09b4c710c8d4dc0cbd7d76e552498d"}
+  },
+  "git_sha":"d56046d55686cda6653aec0630dc6ab186db141b",
+  "url_prefix":"https://data.qscat.org/co-stretched-tz-inner-receipt-20261101/"
+}

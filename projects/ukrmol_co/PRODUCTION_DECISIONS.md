@@ -1446,6 +1446,49 @@ DZ/target/property/preparation calculation or physical-model verdict. Next actua
 independent/public TZ result/exit/resource qualification, no automatic pole/B2/
 fit/sweep/root/channel ladder or holdout analysis.
 
+### Goal checkpoint —1 November,05:51UTC: both own exports qualify; continue four real development guards
+
+**Decision / evidence delta:** finite stretched CAS12 DZ/TZ basis-plus-optimized-
+frame sensitivity still needs a qualified outgoing-pole contrast. [TZ export](qualification-evidence/stretched-tz-inner/README.md)
+now independently/publicly qualifies, all original exits0,5.561856h/27.132191GiB,
+2048/64/400/2256 at87198 dimension. Ten fresh payloads/67 raw files/16 prerequisites/
+36 Git sources/99756 samples authenticate; residual1.283727593e-10Ha, CI/boundary
+energies exact,99 own K/native phase differences<=4.926171338e-8rad. Independent
+reader `d56046d` exits0 without correction/repeat. Public TZ receipt `04435b1f`.
+No basis-model, pole, cross-basis identity, channel-completeness or production gate
+is newly passed. Same-model numerical input evidence is now complete in both bases.
+
+**Monitoring exception:**85 read-only attempts/84 observations, SSH255 at03:40:29UTC;
+max attempt spacing255.121914s but successful-observation gap495.443016s. Do not
+describe that as uninterrupted300s cadence. It recovers next attempt, terminal
+success observed05:48:38UTC. Preserve failed attempt/raw resources and distinguish
+the operational miss from native success. Future finite status monitor retries
+one failed observation promptly rather than waiting another full interval; no
+scientific scheduling, kill, retry or budget changes follow from access failure.
+
+**Continue / minimum calculation:** [four real-axis development guards](stretched-real-guard-contract-20261101.json),
+DZ60/80 then TZ60/80, on their own qualified64/400 arrays and own native K. This
+is the smallest pre-complex consistency check; no prior stretched coupled pole
+is qualified, so do not silently transport compressed identity or use a native
+RESON fit as a pole target. Freeze two exact public receipt pins and raw four-file
+models; independent array hashes must agree before maps. Reuse existing real_guard/
+outgoing_map/physical_s/strict64 assembler without a solver or tolerance change.
+No old114 route-holdout matrix is opened or analyzed by this allocation.
+
+**Bounds / next deliverable:**60min implementation,6 mocked runtime controls,
+source/tests/exact owner freeze/push first.4 physical cores0–3/8GiB/one library
+thread, conditional30–180s total,90s/RHS50000 per map,600s science/900s owner.
+Same120bohr/40degree/order10/rtol1e-12 numerical prescription,1e-6 S/invariant/
+phase and1e-7 flux gates. At most60s status checks; preserve real Q/Y/A/S/reference
+matrices, all partial captures/exits/resources. First failed gate stops inconclusive
+without endpoint/precision/RHS/seed/budget rescue or retry. Public independent
+real-guard qualification precedes a separate bounded stretched B1 seed/box/
+character/local-identity proposal. No complex map, B2, new inner/QC/property/
+preparation, model ladder, potential fit, sweep or paid host now. Preserve all
+previous stops/2048/nine/new50/equilibrium/114 protections. Main retrieval remains
+unavailable (shared-code mismatch), last known423d577/upstream currency unverified;
+current branch delta inspected locally, no shared-service intervention.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

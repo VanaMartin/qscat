@@ -88,6 +88,32 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Both own exports public success; four real development guards selected —1 November,05:51UTC
+
+[TZ result](qualification-evidence/stretched-tz-inner/README.md) /
+[independent public TZ receipt](qualification-evidence/stretched-tz-inner-receipt/README.md),
+SHA256 `04435b1fcc7bf4c8613cbea3d979dea8b3b664b8fbb746e871bce8397e581615`.
+Original05:45:09UTC completion/all exits0,5.561856h/27.132191GiB; ten fresh
+payloads/67 raw files/36 Git sources/99756 samples qualify. Own2048/64/400 arrays,
+residual1.28373e-10Ha, CI/boundary exact,99 native K/phase4.92617e-8rad pass.
+Both finite inputs qualify, not a physical basis/pole/model or state-identity verdict.
+
+Original TZ monitor is finished:85 attempts,84 successes, one SSH255; max attempt
+gap255.121914s, successful-observation gap495.443016s. Preserve as an operational
+exception, not uninterrupted300s cadence. No scientific failure/retry/successor.
+
+One next bounded deliverable: [four real-axis development guards](stretched-real-guard-contract-20261101.json)
+and independent/public actual Q/Y/A/S/native-reference/exits/resource qualification.
+DZ then TZ, indices60/80 each only, own public receipt/array hashes before maps;
+same existing strict64/400 assembler and exterior method. Six mocked controls,
+new source/tests/exact owner freeze/push first.4 physical cores/8GiB, conditional
+30–180s/90s per map/600s science/900s owner. At most60s checks; promptly retry
+an access failure rather than waiting a whole interval, no scientific changes.
+Any prerequisite/numerical/cap failure stops inconclusive without rescue.
+No complex/pole/B2/fit/sweep now. After public real-guard reading separately
+review a stretched B1 seed/box/character/local-identity design; no compressed
+identity transport or native-fit pole target. All114 S holdouts/protections intact.
+
 ### TZ B1/2048 active —1 November,00:12:32UTC observation
 
 [Public TZ launch](qualification-evidence/stretched-tz-inner-launch/README.md) /

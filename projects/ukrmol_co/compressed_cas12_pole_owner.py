@@ -16,7 +16,7 @@ CONTRACT = "projects/ukrmol_co/compressed-cas12-pole-contract-20261026.json"
 NAME = "co-compressed-cas12-pole-20261026"
 
 
-def container_command(root, source, output, contract):
+def container_command(root, source, output, contract, contract_path=CONTRACT):
     inside = """from pathlib import Path
 import json,subprocess,sys
 with Path('/out/controls.log').open('x') as log:
@@ -26,11 +26,25 @@ if control.returncode:raise SystemExit(2)
 command=[sys.executable,'-m','projects.ukrmol_co.compressed_cas12_pole_contrast','--root','/work','--source','/opt/qmodeling','--output','/out/check','--contract','/opt/qmodeling/projects/ukrmol_co/compressed-cas12-pole-contract-20261026.json']
 raise SystemExit(subprocess.call(command))
 """
+    inside = (
+        inside.replace(CONTRACT, contract_path)
+        .replace(
+            "projects.ukrmol_co.test_compressed_cas12_pole_contrast",
+            contract.get(
+                "runtime_controls_module", "projects.ukrmol_co.test_compressed_cas12_pole_contrast"
+            ),
+        )
+        .replace(
+            "projects.ukrmol_co.compressed_cas12_pole_contrast",
+            contract.get("runner_module", "projects.ukrmol_co.compressed_cas12_pole_contrast"),
+        )
+    )
     return [
         "docker",
         "run",
         "--name",
-        NAME,
+        contract.get("container_name", NAME),
+        "--network=none",
         "--cpuset-cpus=0-3",
         "--memory=8g",
         "--memory-swap=8g",
@@ -61,9 +75,10 @@ raise SystemExit(subprocess.call(command))
     ]
 
 
-def run(capsule, archive_sha256, commit):
+def run(capsule, archive_sha256, commit, contract_path=CONTRACT):
     root, source = capsule.parent.parent, capsule / "source"
-    contract = json.loads((source / CONTRACT).read_text())
+    contract = json.loads((source / contract_path).read_text())
+    name = contract.get("container_name", NAME)
     pins = json.loads((capsule / "source-manifest.json").read_text())
     started = time.monotonic()
     record = dict(
@@ -86,6 +101,10 @@ def run(capsule, archive_sha256, commit):
         )
 
     try:
+        if contract_path not in pins or not (source / contract_path).resolve().is_relative_to(
+            source.resolve()
+        ):
+            raise ValueError("Contract must belong to the frozen source capsule")
         if not source_ok():
             raise ValueError("Source capsule integrity failure")
         record["topology"] = subprocess.check_output(
@@ -116,7 +135,7 @@ def run(capsule, archive_sha256, commit):
         output = capsule / "outputs"
         output.mkdir(mode=0o777)
         output.chmod(0o777)
-        command = container_command(root, source, output, contract)
+        command = container_command(root, source, output, contract, contract_path)
         record.update(state="running", command=command, image=contract["image"])
         save()
         with (capsule / "check.log").open("x") as log:
@@ -128,17 +147,22 @@ def run(capsule, archive_sha256, commit):
                 record["timed_out"] = False
             except subprocess.TimeoutExpired:
                 record["timed_out"] = True
-                subprocess.run(["docker", "kill", NAME], check=False, timeout=30)
+                subprocess.run(["docker", "kill", name], check=False, timeout=30)
                 process.wait(timeout=30)
         record["original_command_exit"] = process.returncode
-        state = json.loads(subprocess.check_output(["docker", "inspect", NAME], text=True))[0]
+        state = json.loads(subprocess.check_output(["docker", "inspect", name], text=True))[0]
         (capsule / "container-inspect.json").write_text(json.dumps(state, indent=2) + "\n")
         record.update(
             original_container_exit=state["State"]["ExitCode"],
             container_oom_killed=state["State"]["OOMKilled"],
         )
         record["original_owner_exit"] = (
-            process.returncode if process.returncode in [0, 1, 2] and not record["timed_out"] else 2
+            process.returncode
+            if process.returncode in [0, 1, 2]
+            and not record["timed_out"]
+            and not record["container_oom_killed"]
+            and process.returncode == state["State"]["ExitCode"]
+            else 2
         )
     except Exception as error:
         record["error"] = repr(error)
@@ -161,5 +185,6 @@ if __name__ == "__main__":
     p.add_argument("--capsule", type=Path, required=True)
     p.add_argument("--archive-sha256", required=True)
     p.add_argument("--commit", required=True)
+    p.add_argument("--contract", default=CONTRACT)
     args = p.parse_args()
-    raise SystemExit(run(args.capsule, args.archive_sha256, args.commit))
+    raise SystemExit(run(args.capsule, args.archive_sha256, args.commit, args.contract))

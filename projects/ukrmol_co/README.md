@@ -12,6 +12,14 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
+**1November05:51UTC:** [TZ B1/2048 also independently/publicly qualifies](qualification-evidence/stretched-tz-inner/README.md),
+all exits0,5.561856h/27.132191GiB; ten fresh public payloads/67 raw files/36 Git
+sources/99756 samples reconstruct. Both own finite64/400 exports now qualify,
+not a basis/pole/model verdict. One SSH timeout/495.443016s observation gap stays
+explicit. Next [four own-model real-axis development guards](stretched-real-guard-contract-20261101.json),
+4 physical cores/8GiB/600s science cap, source/tests/owner freeze first. No complex
+pole/B2/fit/sweep or original114-holdout analysis now.
+
 **1November00:04UTC:** [own DZ B1/2048 export independently/publicly qualifies](qualification-evidence/stretched-dz-inner/README.md),
 2048 roots/400 channels/99 native K references, all original exits0;6.222h/28.662GiB.
 Fifteen public payloads/66 raw files/34 Git sources/111536 samples and94 monitor

@@ -6,6 +6,14 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
+**1November05:51UTC:** [both own finite exports independently/publicly qualify](qualification-evidence/stretched-tz-inner/README.md).
+TZ all exits0,5.561856h/27.132191GiB; residual/CI-boundary/99 native K-phase gates
+pass. Ten payloads/67 files/36 Git sources/99756 samples authenticate. One failed
+SSH check/495.443016s observation gap is explicit, not a native failure. Next only
+[four own real-axis guards](stretched-real-guard-contract-20261101.json); source/
+tests/owner freeze first,4 physical cores/8GiB/600s cap. No basis/pole, electronic-
+accuracy, state-continuity, channel-completeness or sweep gate newly passed.
+
 **1November00:04UTC:** [DZ B1/2048 own native export publicly qualifies](qualification-evidence/stretched-dz-inner/README.md),
 all exits0,6.222h/28.662GiB;99 native K/phase references/residual/metadata gates
 reconstruct independently. Fifteen public payloads/66 files/34 Git sources/111536
