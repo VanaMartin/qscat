@@ -2,6 +2,24 @@
 
 ## Decision now
 
+**1November06:02UTC: STOP numerical continuation—[own-DZ real guard fails](qualification-evidence/stretched-real-guard/README.md).**
+Frozen/pushed `35637b2` runs DZ60/80 only; all original science/profile/command/
+container/owner/service exits2. At80, flux6.96992e-6 exceeds1e-7 and Wronskian
+1.49092e-5 exceeds1e-6, although S/phase/unitarity/reciprocity pass.44.667987s/
+0.312019GiB. Eleven fresh public payloads/33 raw files/31 Git sources/224 samples
+independently reconstruct the stop, reader0 is not scientific success. Three
+status checks max30.224973s; no timeout/OOM, retry or successor. No active job.
+
+**Blocked:** real-axis exterior prerequisite for stretched complex use. TZ guards
+never start; zero complex/pole/B2/fit/sweep or protected S analysis. Both own
+native exports remain qualified; no physical basis rejection or convergence
+verdict. Cause unresolved, no numerical/tolerance/endpoint/RHS rescue. Next one
+bounded deliverable is30minutes saved-evidence/source-only diagnosis of Jost/flux
+normalization/conditioning, zero new maps/native/CI/QC. A new numerical proposal
+requires a separate evidence-based review/freeze; nothing is queued automatically.
+
+### Earlier1November real-guard selection
+
 **1November05:51UTC: [TZ B1/2048 also independently/publicly qualifies](qualification-evidence/stretched-tz-inner/README.md).**
 Completion05:45:09UTC/all exits0,5.561856h/27.132191GiB; ten fresh payloads/67 raw
 files/36 Git sources/99756 samples reconstruct. Recorded residual1.28373e-10Ha,

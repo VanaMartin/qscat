@@ -6,6 +6,13 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
+**1November06:02UTC—STOP numerical continuation:** [own-DZ real-axis guard fails](qualification-evidence/stretched-real-guard/README.md)
+flux/Wronskian budgets at80, independently/publicly reconstructed. All original
+exits2,44.67s/0.312GiB. TZ guards and complex maps unstarted, no active job.
+Both native exports remain qualified; no physical basis rejection. Numerical
+exterior prerequisite blocks outgoing-pole comparison. Next saved-source/evidence
+diagnosis only, no retry/endpoint/tolerance rescue, B2/fit/sweep or holdout read.
+
 **1November05:51UTC:** [both own finite exports independently/publicly qualify](qualification-evidence/stretched-tz-inner/README.md).
 TZ all exits0,5.561856h/27.132191GiB; residual/CI-boundary/99 native K-phase gates
 pass. Ten payloads/67 files/36 Git sources/99756 samples authenticate. One failed

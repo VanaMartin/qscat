@@ -1489,6 +1489,38 @@ previous stops/2048/nine/new50/equilibrium/114 protections. Main retrieval remai
 unavailable (shared-code mismatch), last known423d577/upstream currency unverified;
 current branch delta inspected locally, no shared-service intervention.
 
+### Goal checkpoint —1 November,06:02UTC: STOP at own-DZ real-axis prerequisite
+
+**Decision-changing evidence:** both own native exports remain independently
+qualified. The [separately frozen four-map allocation](qualification-evidence/stretched-real-guard/README.md)
+launches05:57:40UTC from pushed `35637b2` after both fresh public receipt gates/
+six controls;31 source/ten input/eight method-policy pins verify. It stops05:58:26UTC
+after DZ60 and80, all original scientific/profile/command/container/owner/service
+exits2. DZ60 passes. DZ80 S1.78007e-7/phase4.01697e-7rad/unitarity9.15811e-8/
+reciprocity3.78289e-9 pass, but flux6.96992e-6 fails1e-7 and Wronskian1.49092e-5
+fails1e-6. Numerical prerequisites are conjunctive; passing S alone cannot release
+complex use. This does not reject an electronic basis or invalidate native exports.
+
+**Independent/public reading:** eleven fresh payloads/33 raw files/31 original
+Git sources/ten raw own-model inputs/224 resource samples reconstruct original
+Q/Y/A/S/native-K algebra and the exact failed gates without new ODE/native calls.
+Reader `29dd4de` exits0 for evidence reconstruction, not a scientific pass. Full
+raw matrices and original2 exits remain public, no budget/capture correction.
+Measured44.667987s/0.312019GiB, CPU44.702252s, no timeout/OOM. Three read-only
+status checks max30.224973s witness the stop. No active numerical job/monitor.
+
+**Stop / bounded next deliverable:** blocked at the own-DZ exterior normalization/
+flux prerequisite. TZ guards remain unstarted; zero complex maps/poles/native
+calls/new inner/QC/target/property/preparation/B2/fit/sweep or114-holdout analysis.
+No retry, endpoint/precision/RHS/tolerance increase, alternate seed/box or model
+rescue. Cause is unresolved; make no claim that the basis, closed-channel spectrum
+or native engine caused it. One saved-evidence/source-only diagnosis,30minutes,
+zero new numerical actions, may distinguish Jost/flux algebra/conditioning from
+unresolved exterior integration error before a separately justified proposal.
+No successor is queued. Preserve all prior stops/2048/nine/new50/equilibrium and
+both own native-export receipts. Numerical-method correctness, not another long
+electronic allocation, is the immediate blocker toward a physical basis/pole test.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

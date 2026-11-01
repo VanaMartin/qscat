@@ -70,7 +70,7 @@ resources; no CI/QC/target repeat or preparation/scattering/pole/fit/sweep succe
 
 ## Standing progress-figure workflow
 
-Keep the [six-panel progress overview](README.md#progress-overview--31-october-2026)
+Keep the [six-panel progress overview](README.md#progress-overview--1-november-2026)
 incremental as new results land. Refresh it whenever a completed result,
 independent reconstruction, qualification verdict or measured resource outcome
 adds evidence or changes the next decision. Include failures and rejected gates
@@ -87,6 +87,32 @@ is complete. Update the roadmap alongside the findings so each experiment's
 motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
+
+### BLOCKED—own-DZ real guard stops; no job active —1 November,06:02UTC
+
+[Original result/raw matrices](qualification-evidence/stretched-real-guard/README.md) /
+[independent public reading](qualification-evidence/stretched-real-guard-reading/README.md) /
+[compact observation](progress-stretched-real-guard-result-20261101.json).
+Source/tests/exact four-core owner `35637b2` push before05:57:40UTC launch; both
+public receipts/six controls/31 sources/ten inputs/eight method pins pass. Original
+stop05:58:26UTC: all scientific/profile/command/container/owner/service exits2,
+44.667987s/0.312019GiB, no timeout/OOM. DZ60 passes; DZ80 flux6.96992e-6>1e-7
+and Wronskian1.49092e-5>1e-6, despite passing S/phase/unitarity/reciprocity.
+
+Eleven fresh public payloads/33 raw files/31 Git sources/224 resource samples
+independently reconstruct the stop, reader0 not scientific success. Three status
+checks max30.224973s; monitor finished. TZ guards unstarted, zero complex/pole/
+native/B2/fit/sweep or protected114-S analysis. Both native exports remain qualified.
+This is an unresolved exterior prerequisite, not physical basis rejection.
+
+Persistent stopped capsule:
+`/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-real-guard-source-20261101`.
+Service/container `co-stretched-real-guard-20261101`, no successor. Exact contract
+SHA256 `bb9f9e38920c66125d1645799706b65a885fa916f649805f97d62bb400fd5abe`.
+Do not rerun or loosen gates. One next bounded deliverable:30minute saved-evidence/
+source-only diagnosis of Jost/flux normalization/conditioning, **zero new maps,
+roots, CI/QC/native calls**. Cause unresolved; any new numerical design/release
+requires separate evidence-based review/freeze. No automatic queue or paid host.
 
 ### Both own exports public success; four real development guards selected —1 November,05:51UTC
 

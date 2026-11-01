@@ -1,0 +1,17 @@
+{
+  "artifacts": {
+    "collection.json":{"bytes":7519,"sha256":"c127f503813135f2f1069854cb92043cb57cbc41ae234e897c87693163242cf5"},
+    "evidence.tar.gz":{"bytes":18062069,"sha256":"88a0dc925c3f11119d08edc3d47efa1a5ee17765d35fdf04c1c3f050ba89a262"},
+    "final-allocation.json":{"bytes":1474,"sha256":"20761e9d02dbcb68b666c251552c097919d32ae7dd98d66d891d697b60d1d41b"},
+    "manifest.json":{"bytes":240,"sha256":"d6c778298c9cd635366af97ee4357e9e811153ec4d8b4967f3cf18a699637519"},
+    "monitor-checks.jsonl":{"bytes":1158,"sha256":"ecdd200ed244254c5fc7fed338142e8c1173e786d98fa2530de659e047314f4e"},
+    "test_verify_stretched_real_guard.py":{"bytes":1870,"sha256":"5dfa119a6cd48448c50d77e99f3ec3a116a8b872587acad707c0ee63b6e9a7ef"},
+    "verification.json":{"bytes":3389,"sha256":"435df1e8def0a9e183e56f37b3cedfba7d698220d9e281c960f17b8296750265"},
+    "verify_stretched_inner.py":{"bytes":20258,"sha256":"66247e2e7ddd48fa93b69e49218777ca49c55709b0044c53c81d29412689166c"},
+    "verify_stretched_preparation.py":{"bytes":16761,"sha256":"16cb51041416600d088b6260f60db9ead23c880fccd0512f872a6e61d11758ba"},
+    "verify_stretched_properties.py":{"bytes":12141,"sha256":"c14fc4d8029b96bab639c76b29aaa90a4cdc4cd543a73bfb6353ca124cc5bc2d"},
+    "verify_stretched_real_guard.py":{"bytes":10351,"sha256":"206919886c99e4aa3bb9b2e0786245250b4ccbf500bd69d9cbef787efef73b5c"}
+  },
+  "git_sha":"35637b272fc752e887e7857b95bed883d20704bb",
+  "url_prefix":"https://data.qscat.org/co-stretched-real-guard-result-20261101/"
+}

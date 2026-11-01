@@ -12,6 +12,13 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
+**1November06:02UTC—BLOCKED:** [own-DZ real guard stops](qualification-evidence/stretched-real-guard/README.md),
+flux6.97e-6>1e-7 and Wronskian1.49e-5>1e-6 at development index80; S/phase pass.
+Original exits2,44.67s/0.312GiB, independently reconstructed from eleven fresh
+public payloads. TZ guards unstarted; no complex/pole/B2/fit/sweep, no active job.
+Both own native exports still qualify, not a physical basis rejection. No retry
+or tolerance/endpoint rescue; next saved-evidence/source-only diagnosis,zero maps.
+
 **1November05:51UTC:** [TZ B1/2048 also independently/publicly qualifies](qualification-evidence/stretched-tz-inner/README.md),
 all exits0,5.561856h/27.132191GiB; ten fresh public payloads/67 raw files/36 Git
 sources/99756 samples reconstruct. Both own finite64/400 exports now qualify,
@@ -760,10 +767,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 1 November 2026
 
-![DZ B1/2048 native export independently qualifies; receipt-gated TZ counterpart active](../../docs/physics/figures/co-progress-20261101T0012-tz-inner.png)
+![Both native exports qualify; own-DZ real guard fails flux/Wronskian, blocking TZ guards and complex poles](../../docs/physics/figures/co-progress-20261101T0602-real-guard-stop.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261101T0012-tz-inner.svg) ·
-[DZ-success/TZ-inner snapshot](progress-snapshot-20261101T0012-tz-inner.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261101T0602-real-guard-stop.svg) ·
+[Both-exports/real-guard-stop snapshot](progress-snapshot-20261101T0602-real-guard-stop.json) ·
+[Qualified TZ native export](qualification-evidence/stretched-tz-inner/README.md) ·
+[Original real-guard stop](qualification-evidence/stretched-real-guard/README.md) ·
+[Independent public stop reading](qualification-evidence/stretched-real-guard-reading/README.md) ·
+[Previous TZ-launch figure](../../docs/physics/figures/co-progress-20261101T0012-tz-inner.svg) ·
+[Previous TZ-launch snapshot](progress-snapshot-20261101T0012-tz-inner.json) ·
 [Independent DZ native export](qualification-evidence/stretched-dz-inner/README.md) ·
 [Public DZ success receipt](qualification-evidence/stretched-dz-inner-receipt/README.md) ·
 [Active TZ counterpart](qualification-evidence/stretched-tz-inner-launch/README.md) ·

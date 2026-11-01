@@ -202,3 +202,22 @@ separate physically justified seed/box and open-Pi residue/character/local-ident
 proposal remains necessary after this finite guard. Do not promote native RESON
 fits to outgoing poles or silently assume a compressed-pole identity at2.5bohr.
 No complex search, B2, fit or sweep is released by the real-axis guard.
+
+### Real-axis prerequisite stops; no complex use
+
+The [original four-map allocation stops after DZ60/80](../../projects/ukrmol_co/qualification-evidence/stretched-real-guard/README.md),
+all original exits2,44.667987s/0.312019GiB. Both integrators complete normally.
+Index60 passes every gate; at80 flux6.96992e-6 fails1e-7 and Wronskian1.49092e-5
+fails1e-6, although S/phase/unitarity/reciprocity pass. The normalizing Jost/flux
+identities cannot be waived because an on-shell S comparison happens to be good.
+Independent public saved-matrix arithmetic reconstructs both failed gates with
+no new integration, input change or tolerance relaxation.
+
+TZ guards never start; no complex map, outgoing pole, B2, fit or sweep follows.
+The native own exports remain qualified within their scope. This is not physical
+basis sensitivity, target identity or a native-engine failure. Numerical cause
+is unresolved. Stop without endpoint/precision/RHS/tolerance rescue or retry.
+The next bounded task is30minutes saved-evidence/source-only diagnosis of Jost/
+flux algebra and conditioning versus unresolved integration error, zero new
+maps/native/CI/QC. A changed numerical proposal requires a separate review;
+no automatic successor. Three30-second checks preserve the original stop.

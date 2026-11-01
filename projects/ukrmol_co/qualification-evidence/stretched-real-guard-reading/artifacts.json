@@ -1,0 +1,8 @@
+{
+  "artifacts":{
+    "independent-real-guard-reading.json":{"bytes":3486,"sha256":"9bf68e0f8c4f14a3ba1b862c99681255fc5baf0cfda1c56a77369bf9056151f6"},
+    "manifest.json":{"bytes":239,"sha256":"98b50d642b25a31d3f9ce825967605d4da5a7c02dc6c12df276a92011da56e51"}
+  },
+  "git_sha":"29dd4de744f6968e14ed6fdfee2be46c13e22d61",
+  "url_prefix":"https://data.qscat.org/co-stretched-real-guard-reading-20261101/"
+}
