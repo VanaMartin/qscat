@@ -16,15 +16,20 @@ from projects.ukrmol_co.compressed_cas12_properties import digest
 CONTRACT = "projects/ukrmol_co/stretched-dz-pole-execution-20261102.json"
 
 
-def command(root, source, output, c):
-    result = base_command(root, source, output, c, CONTRACT)
+def command(root, source, output, c, contract_path=CONTRACT):
+    result = base_command(root, source, output, c, contract_path)
     result[result.index("--cpuset-cpus=0-3")] = "--cpuset-cpus=0-7"
     return result
 
 
-def run(capsule, archive_sha, commit):
+def run(capsule, archive_sha, commit, contract_path=CONTRACT):
     root, source = capsule.parent.parent, capsule / "source"
-    c = json.loads((source / CONTRACT).read_text())
+    c = json.loads((source / contract_path).read_text())
+    if "base_execution_contract" in c:
+        base = source / c["base_execution_contract"]
+        if digest(base) != c["base_execution_sha256"]:
+            raise ValueError("Original execution contract pin differs")
+        c = json.loads(base.read_text()) | c
     pins = json.loads((capsule / "source-manifest.json").read_text())
     started = time.monotonic()
     record = dict(
@@ -52,7 +57,7 @@ def run(capsule, archive_sha, commit):
         )
 
     try:
-        if CONTRACT not in pins or not source_ok():
+        if contract_path not in pins or not source_ok():
             raise ValueError("Incomplete frozen source capsule")
         topology = subprocess.check_output(["lscpu", "-e=CPU,CORE,SOCKET,NODE"], text=True)
         rows = [line.split() for line in topology.splitlines()[1:]]
@@ -81,7 +86,7 @@ def run(capsule, archive_sha, commit):
         output = capsule / "outputs"
         output.mkdir(mode=0o777)
         output.chmod(0o777)
-        cmd = command(root, source, output, c)
+        cmd = command(root, source, output, c, contract_path)
         record.update(state="running", command=cmd, image=c["image"])
         save()
         with (capsule / "check.log").open("x") as log:
@@ -129,5 +134,6 @@ if __name__ == "__main__":
     parser.add_argument("--capsule", type=Path, required=True)
     parser.add_argument("--archive-sha256", required=True)
     parser.add_argument("--commit", required=True)
+    parser.add_argument("--contract", default=CONTRACT)
     args = parser.parse_args()
-    raise SystemExit(run(args.capsule, args.archive_sha256, args.commit))
+    raise SystemExit(run(args.capsule, args.archive_sha256, args.commit, args.contract))

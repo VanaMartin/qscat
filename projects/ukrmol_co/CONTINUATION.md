@@ -88,6 +88,19 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User authorizes adapter-only correction —2 November,15:36UTC
+
+[Fresh release](stretched-dz-pole-adapter-release-20261102.json) inherits all
+original numerical proposal/settings/gates/caps and binds the public zero-map
+failure. Labels via existing `read_interface`, no numerical-model schema change.
+Positive actual-schema/wrong-label controls and actual pinned saved-native load
+(64/400/2048,99 references) pass before freeze; no ODE/native calls. Old failed
+capsule/exits2 untouched. Freeze/push new source/tests/owner/contract and fresh
+immutable capsule/container before the still-unstarted79-map attempt. Same8 cores/
+8GiB/7200s science/7800s owner/60minute implementation, near-feature guards first.
+Next independent public actual outcome/resources; any failure stops without rescue.
+No automatic TZ/B2/geometry/fit/sweep/114-holdout action or successful-work repeat.
+
 ### STOP: own-DZ adapter fails before maps; correction decision —2 November,15:30UTC
 
 [Independent public stop](qualification-evidence/stretched-dz-pole-stop/README.md) /

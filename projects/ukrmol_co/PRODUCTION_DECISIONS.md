@@ -1856,6 +1856,28 @@ algorithms/gates/8 physical cores/8GiB/7200s science/7800s owner/60minute effort
 bound, zero completed-map repeat. No automatic TZ/B2/geometry/fit/sweep/114-holdout
 action; electronic-model/channel/continuity/neutral/full-S blockers stay open.
 
+### Goal checkpoint —2 November,15:36UTC: user authorizes adapter-only correction
+
+Explicit **Authorize correction** releases only the [fresh adapter contract](stretched-dz-pole-adapter-release-20261102.json).
+Read labels via existing pinned native-interface reader, not absent numerical-
+model metadata. The eleven-field own-model return and all numerical algorithms/
+seeds/box/gates/79-map cap/resources remain unchanged. Original failed source/
+capsule/exits2 are preserved and its public stop reading is an eighth input pin.
+Positive actual-return-schema and wrong-label controls pass. Before freeze, the
+corrected adapter successfully loads the actual five pinned saved native/receipt
+files at64 targets/400 channels/2048 roots/99 K references with zero ODE/native
+calls; saved check names exact adapter/owner source hashes. This is adapter
+qualification, not numerical/physical progress or a pole verdict.
+
+Freeze/push corrected adapter/tests/owner and fresh immutable capsule/container
+before the still-unstarted bounded attempt. Same8 physical cores/8GiB/eight
+workers/one thread, conditional600–2400s/7200s science/7800s owner/90s map/50000
+RHS,60minute implementation bound and at most60s observation gap. Near-feature
+real checks before roots; first numerical/box/cap/character failure stops without
+rescue. Next independent public actual result/cost, then a separate TZ decision
+only if justified. No completed map/native/electronic repeat or automatic B2/
+geometry/fit/sweep/114-holdout analysis. Both prior real prerequisites remain valid.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

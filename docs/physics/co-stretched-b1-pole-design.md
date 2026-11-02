@@ -147,3 +147,16 @@ uses the existing native metadata reader and requires actual-return-schema and
 positive saved-native-load controls before a separately frozen fresh release.
 No numerical method, seed, box, gate or cap is to change. Do not alter/restart
 the stopped capsule or infer correction permission from the prior attempt.
+
+### Separately authorized adapter correction
+
+The user explicitly authorizes the metadata-only correction after the public
+zero-map stop. A [separate immutable release](../../projects/ukrmol_co/stretched-dz-pole-adapter-release-20261102.json)
+inherits every original numerical setting and binds the failed-stop reading.
+Labels are read through existing `read_interface` on the same pinned native
+bytes; the numerical model's eleven-field return schema is not changed. Positive
+actual-schema and wrong-label controls pass, and the corrected adapter loads
+the five hash-pinned saved native/receipt files (64/400/2048,99 K references)
+successfully before freeze, with zero ODE/native calls. Original algorithms,
+seeds/box/gates/caps and old capsule/exits2 stay unchanged. Only contract-path
+routing/provenance change in the eight-core owner; no scientific fallback.

@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**2November15:36UTC: user authorizes [adapter-only corrected release](stretched-dz-pole-adapter-release-20261102.json).**
+Existing native reader supplies labels; numerical return/schema/algorithms and
+all original seeds/box/gates/79-map cap unchanged. Positive actual-schema/wrong-
+label controls and pinned saved-native adapter load pass with no ODE/native
+call before freeze. New source/tests/owner/immutable capsule/container, bind old
+failure and preserve its exits2. Same8 cores/8GiB/7200s science/7800s owner;
+near-feature real checks before complex maps. Any gate/cap/box/character failure
+stops with no rescue. Next independent public actual result, no automatic TZ/B2/
+fit/sweep/holdouts or successful native/electronic repeats.
+
+### Earlier2November zero-map adapter failure
+
 **2November15:30UTC: [authorized own-DZ attempt stops at adapter metadata](qualification-evidence/stretched-dz-pole-stop/README.md).**
 All original exits2/zero real or complex maps. Numerical own-model dictionary
 has no nested `interface`; the adapter incorrectly requests it after arrays

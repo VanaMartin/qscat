@@ -1,0 +1,12 @@
+{
+  "status":"User explicitly authorizes adapter-only native-label access correction after zero-map failure;unchanged numerical proposal and bounded attempt",
+  "base_execution_contract":"projects/ukrmol_co/stretched-dz-pole-execution-20261102.json",
+  "base_execution_sha256":"f9013207e8184d633299b62aad647eaa1678ffa7aad446d055a6c60ce9b76734",
+  "execution_authorized":true,
+  "pole_search_released":true,
+  "container_name":"co-stretched-dz-pole-adapter2-20261102",
+  "failed_stop_reading":"prepared/stretched-dz-pole-adapter2-source-20261102/public-adapter-stop-reading.json",
+  "input_sha256":{
+    "prepared/stretched-dz-pole-adapter2-source-20261102/public-adapter-stop-reading.json":"d3ccd7d14b8576d407f03bdfae40153538e6f9309fa25a05d1154b7643827d7f"
+  }
+}

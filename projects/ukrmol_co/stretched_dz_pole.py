@@ -28,13 +28,24 @@ from projects.ukrmol_co.pole_reference import (
     matching,
     pole_difference,
 )
-from projects.ukrmol_co.saved_matrices import scattering_matrix
+from projects.ukrmol_co.saved_matrices import read_interface, scattering_matrix
 from projects.ukrmol_co.stretched_real_guard import own_model
 
 PROPOSAL = "projects/ukrmol_co/stretched-dz-pole-proposal-20261102.json"
 
 
 def resolve(source, execution):
+    if "base_execution_contract" in execution:
+        path = source / execution["base_execution_contract"]
+        if (
+            not path.resolve().is_relative_to(source.resolve())
+            or core.digest(path) != execution["base_execution_sha256"]
+        ):
+            raise ValueError("Changed original pole execution contract")
+        base = json.loads(path.read_text())
+        inputs = base["input_sha256"] | execution["input_sha256"]
+        execution = base | execution
+        execution["input_sha256"] = inputs
     if core.digest(source / PROPOSAL) != execution["proposal_sha256"]:
         raise ValueError("Changed frozen pole proposal")
     return json.loads((source / PROPOSAL).read_text()) | execution
@@ -84,6 +95,15 @@ def authenticate(root, source, c):
         and seed["cases"]["dz"]["index"] == c["near_feature_real_index"]
     ):
         raise ValueError("Own native seed provenance differs")
+    if "failed_stop_reading" in c:
+        stop = json.loads((root / c["failed_stop_reading"]).read_text())
+        if not (
+            stop["reader_exit"] == 0
+            and stop["result"]["original_exits"] == [2] * 6
+            and stop["result"]["real_maps"] == stop["result"]["complex_maps"] == 0
+            and stop["result"]["error"] == "KeyError('interface')"
+        ):
+            raise ValueError("Original zero-map adapter stop receipt required")
     return receipt
 
 
@@ -95,7 +115,8 @@ def load_own(root, c, receipt):
         400,
     ):
         raise ValueError("Strict own64/400/2048 model required; no slicing or fallback")
-    labels = model["interface"]["channel_labels"][:6]
+    directory = root / c["model"]["native_directory"]
+    labels = read_interface(directory / "fort.10", directory / "fort.21")["channel_labels"][:6]
     canonical_labels(labels)
     if (
         labels != c["open_labels"]

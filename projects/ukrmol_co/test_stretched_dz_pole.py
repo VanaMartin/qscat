@@ -39,6 +39,62 @@ def test_loader_rejects_a_sliced_or_wrong_open_model():
             pole.load_own(Path("/unused"), resolved(), {})
 
 
+def test_positive_actual_return_schema_uses_native_metadata_not_a_model_interface():
+    c = resolved()
+    model = dict(
+        poles=np.zeros(2048),
+        amplitudes=np.zeros((2048, 400)),
+        thresholds=np.r_[np.zeros(6), np.ones(394)],
+    )
+    assert "interface" not in model
+    with (
+        patch.object(pole, "own_model", return_value=model),
+        patch.object(
+            pole, "read_interface", return_value=dict(channel_labels=c["open_labels"])
+        ) as metadata,
+    ):
+        assert pole.load_own(Path("/native-root"), c, {}) is model
+        assert metadata.call_args.args[0].name == "fort.10"
+        assert metadata.call_args.args[1].name == "fort.21"
+    with (
+        patch.object(pole, "own_model", return_value=model),
+        patch.object(pole, "read_interface", return_value=dict(channel_labels=[[1, 2, 1, 1]] * 6)),
+    ):
+        with unittest.TestCase().assertRaises(ValueError):
+            pole.load_own(Path("/native-root"), c, {})
+
+
+def test_corrected_release_keeps_all_numerical_parameters_and_binds_original_stop():
+    source = Path(__file__).resolve().parents[2]
+    execution = json.loads(
+        (source / "projects/ukrmol_co/stretched-dz-pole-adapter-release-20261102.json").read_text()
+    )
+    original = resolved()
+    corrected = pole.resolve(source, execution)
+    changed = {k for k in set(original) | set(corrected) if original.get(k) != corrected.get(k)}
+    assert changed == {
+        "status",
+        "container_name",
+        "input_sha256",
+        "failed_stop_reading",
+        "base_execution_contract",
+        "base_execution_sha256",
+    }
+    assert corrected["input_sha256"].items() >= original["input_sha256"].items()
+    assert (
+        corrected["input_sha256"][corrected["failed_stop_reading"]]
+        == "d3ccd7d14b8576d407f03bdfae40153538e6f9309fa25a05d1154b7643827d7f"
+    )
+    cmd = command(
+        Path("/root"),
+        Path("/source"),
+        Path("/out"),
+        corrected,
+        "projects/ukrmol_co/stretched-dz-pole-adapter-release-20261102.json",
+    )
+    assert "stretched-dz-pole-adapter-release-20261102.json" in cmd[-1]
+
+
 def test_new_authorization_and_missing_input_failure_start_no_model_or_maps():
     with (
         TemporaryDirectory() as tmp,
