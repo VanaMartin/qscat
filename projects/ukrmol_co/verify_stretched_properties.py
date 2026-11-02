@@ -11,6 +11,7 @@ import itertools
 import json
 import math
 import struct
+import subprocess
 import tarfile
 from pathlib import Path
 
@@ -173,7 +174,15 @@ def inventory(text, energies, ground_dipole):
     )
 
 
-def verify(archive):
+def verify(
+    archive,
+    *,
+    contract_path=CONTRACT,
+    contract_sha256=CONTRACT_SHA,
+    source_entries=12,
+    runtime_controls=8,
+    source_commit=None,
+):
     files = files_in(archive)
 
     def load(name):
@@ -186,11 +195,17 @@ def verify(archive):
     for name, want in collection["files_sha256"].items():
         require(sha(files[name]) == want, "Changed archived evidence: " + name)
     source, pins = files_in(files["source.tar.gz"]), load("source-manifest.json")
-    require(set(source) == set(pins) and len(pins) == 12, "Wrong capsule source set")
+    require(set(source) == set(pins) and len(pins) == source_entries, "Wrong capsule source set")
     for name, want in pins.items():
         require(sha(source[name]) == want, "Changed capsule source: " + name)
-    require(sha(source[CONTRACT]) == CONTRACT_SHA, "Changed exact contract")
-    contract = json.loads(source[CONTRACT])
+        if source_commit is not None:
+            require(
+                source[name]
+                == subprocess.check_output(["git", "show", source_commit + ":" + name]),
+                "Executed Git source " + name,
+            )
+    require(sha(source[contract_path]) == contract_sha256, "Changed exact contract")
+    contract = json.loads(source[contract_path])
     result, owner = load("outputs/properties/result.json"), load("execution.json")
     require(sha(files["source.tar.gz"]) == owner["source_archive_sha256"], "Changed source archive")
     require(
@@ -267,7 +282,7 @@ def verify(archive):
     )
     require(
         load("outputs/controls.json")["original_exit"] == 0
-        and b"Ran 8 tests" in files["outputs/controls.log"],
+        and f"Ran {runtime_controls} tests".encode() in files["outputs/controls.log"],
         "Runtime controls failed",
     )
     require(
@@ -282,7 +297,7 @@ def verify(archive):
     )
     return dict(
         case=case,
-        contract_sha256=CONTRACT_SHA,
+        contract_sha256=contract_sha256,
         independent_property_inventory_verdict=True,
         original_scientific_command_container_owner_exits=exits[:4],
         original_service_exit=exits[4],
@@ -293,7 +308,7 @@ def verify(archive):
         resources=resources,
         archived_files_verified=len(files),
         resource_samples_verified=len(samples),
-        source_entries_verified=12,
+        source_entries_verified=source_entries,
         original_input_pins_authenticated=len(model["input_sha256"]),
         independence=(
             "Separate stdlib parser on saved native energies/vectors and properties; "
