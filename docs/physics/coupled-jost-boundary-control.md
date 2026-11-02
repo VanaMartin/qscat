@@ -86,3 +86,30 @@ endpoint defect may converge: error injection and actual truncation are differen
 After this one control, decide whether a separately justified CO method trial is
 authorized or a different extraction route is needed; do not accumulate toys
 without that decision. Original guard exits2 and both native-export receipts stand.
+
+## Observed result and method decision —2 November2026
+
+[Independent public reading](../../projects/ukrmol_co/qualification-evidence/coupled-jost/README.md)
+authenticates all54 integrations from pushed `16f76fb`, all original exits0.
+Exact-start maximum map errors are1.40548e-8,1.40328e-10,1.39615e-12 at the three
+rtols. Free-start errors fall across the three lengths from2.23e-5 to6.22e-12
+at20degrees,8.75e-5 to4.19e-10 at40degrees, and2.35e-4 to8.04e-9 at50degrees.
+Every preregistered finest/longest map/flux/Wronskian and tail-separation gate
+passes. The independent fundamental-seed reader performs no ODE calls.
+Science0.576349s/owner1.236477s/0.052368GiB recorded cgroup high-water.
+
+Canonical endpoint data are a sound normalization prescription for this exact
+model. The coupled error still converges above the diagonal45degree crossover,
+because the true omitted endpoint tail vanishes sufficiently rapidly. Therefore
+neither a diagonal damping factor nor an angle choice substitutes for actual
+coupled finite-tail convergence. This explicitly limits the earlier CO mechanism
+diagnosis rather than upgrading it to causal proof.
+
+The next useful calculation would now consume actual CO data. An
+[unreleased three-map proposal](../../projects/ukrmol_co/stretched-contour-study-proposal-20261102.json)
+would test one fixed20degree contour and three endpoints at the failed own-DZ
+development energy, retaining original tolerance/order/flux/S budgets. It is
+an explicitly new numerical prescription, not an original40degree guard retry;
+it requires a user decision before any implementation/execution release.
+Until then the original CO stop remains binding. No more generic toys are
+selected: authorize a bounded actual-CO diagnostic or park this extraction route.

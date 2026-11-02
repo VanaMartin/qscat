@@ -1,0 +1,6 @@
+{
+  "git_sha": "e8efa4ffedb9102a7d5c67c60ded8b19c91bc0d5",
+  "experiment": "co-coupled-jost-control-20261102",
+  "executed_source_commit": "16f76fb78d95c9fe1055328f2bd361dcf5a4dd0d",
+  "scope": "Exact coupled exponential-tail endpoint control; no CO inputs or maps; original CO stop remains"
+}

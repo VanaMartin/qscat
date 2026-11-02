@@ -1612,6 +1612,37 @@ public coupled-control outcome, then explicit production-method decision before
 any new CO trial. No pole/B2/fit/sweep or model promotion. Main-index service still
 incompatible;423d577 last-known anchor, current sources/delta inspected locally.
 
+### Goal checkpoint —2 November,09:05UTC: coupled endpoint control passes; actual-CO decision required
+
+**Evidence delta:** [canonical coupled-Jost control independently/publicly passes](qualification-evidence/coupled-jost/README.md),
+54 integrations from pushed `16f76fb`, all six original exits0. Independent full-
+seed oracle `e8efa4f`/eight fresh public payloads authenticate12 raw files/seven
+executed and three reader Git sources. Exact-start ODE errors1.40548e-8→1.40328e-10
+→1.39615e-12. Free-start errors converge across lengths4/8/12 at all three angles,
+including50degrees, to6.22e-12/4.19e-10/8.04e-9 for20/40/50degrees. Full finest/
+longest map/flux/Wronskian gates pass.0.576349s science/1.236477s owner/0.052368GiB
+recorded cgroup high-water. No CO input mount/map/native/holdout read or retry.
+
+**Method decision:** canonical wave/derivative boundary data and coupled transport
+are validated for this exact exponential-tail model. Actual omitted-tail decay
+matters: the diagonal crossover alone cannot establish a CO fix or justify an
+angle. No CO inverse-power remainder bound, actual error attribution, repaired
+guard, qualified pole/basis comparison or production-model gate is newly passed.
+Original six guard exits2 and both own native-export receipts remain unchanged.
+
+**Disposition: stop at an explicit authorization decision, not another generic
+toy or source-only task.** The smallest actual-CO discriminator is the
+[unreleased fixed three-map proposal](stretched-contour-study-proposal-20261102.json):
+own-DZ development80 only,20degrees/endpoints60/90/120, unchanged order10/rtol1e-12
+and original S/phase/flux/invariant budgets, plus90/120 Y/A stability1e-7.
+It changes the contour and therefore needs explicit authorization as a new study,
+not retroactive repair of the frozen40degree guard. Four physical cores/8GiB,
+conditional45–180s/300s science/600s owner,60minutes implementation, no native
+or electronic repeat. Separate pins/tests/exact owner freeze/push before any use.
+No source/owner implementing that CO study has been released or any map queued.
+Alternative: keep this numerical extraction route parked and decide a different
+production route. No automatic TZ guard/pole/B2/fit/sweep/114-holdout analysis.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

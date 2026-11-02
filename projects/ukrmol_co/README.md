@@ -12,13 +12,21 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**2November08:31UTC—CO remains BLOCKED; [exact transport toy passes](qualification-evidence/dual-transport-toy/README.md).**
+**2November09:05UTC—[coupled exact endpoint control passes](qualification-evidence/coupled-jost/README.md); actual-CO decision required.**
+54 integrations/all original exits0, exact-start finest error1.40e-12; genuine
+omitted-tail errors converge at20/40/50degrees. Independent fresh-public reading
+passes. No CO inputs mounted or maps rerun; this exponential-tail control does
+not certify the actual CO tail or repair the guard. A [new three-map CO study](stretched-contour-study-proposal-20261102.json)
+is unreleased pending explicit permission, versus parking pole extraction.
+No active job/automatic successor; original failures and both native exports stand.
+
+**Earlier2November08:31UTC—[exact diagonal transport toy passes](qualification-evidence/dual-transport-toy/README.md).**
 Saved-only [diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md)
 localizes open–closed amplitude contamination. The separate no-CO-mount toy
 validates its exact transport mechanism:72 integrations/all exits0, finest error
 3.57e-12 and seven S-pass/flux-fail controls; independent public reading passes.
-This does not repair CO or choose a replacement angle. Next one30minute
-source-only amplitude/tail method decision, no numerical allocation/successor.
+This does not repair CO or choose a replacement angle. The subsequent source-only
+decision and exact coupled control are complete above.
 
 **Original1November06:02UTC—BLOCKED:** [own-DZ real guard stops](qualification-evidence/stretched-real-guard/README.md),
 flux6.97e-6>1e-7 and Wronskian1.49e-5>1e-6 at development index80; S/phase pass.
@@ -777,9 +785,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![Exact dual-transport mechanism passes independently; original CO flux/Wronskian stop remains, with no new CO maps](../../docs/physics/figures/co-progress-20261102T0831-dual-transport-toy.png)
+![Exact coupled endpoint control passes; actual CO tail remains unqualified and a new numerical prescription requires a decision](../../docs/physics/figures/co-progress-20261102T0905-coupled-jost.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T0831-dual-transport-toy.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T0905-coupled-jost.svg) ·
+[Coupled-control/decision snapshot](progress-snapshot-20261102T0905-coupled-jost.json) ·
+[Independent coupled endpoint evidence](qualification-evidence/coupled-jost/README.md) ·
+[Unreleased actual-CO proposal](stretched-contour-study-proposal-20261102.json) ·
+[Previous exact-diagonal figure](../../docs/physics/figures/co-progress-20261102T0831-dual-transport-toy.svg) ·
 [Diagnosis/exact-toy snapshot](progress-snapshot-20261102T0831-dual-transport-toy.json) ·
 [Saved-only diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md) ·
 [Independent public exact toy](qualification-evidence/dual-transport-toy/README.md) ·

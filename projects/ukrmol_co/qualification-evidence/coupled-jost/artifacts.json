@@ -1,0 +1,14 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes":1782,"sha256":"a8e6af0345adf07f284384f0a4f805426694c671c8370501e84fe07db2fe333c"},
+    "evidence.tar.gz": {"bytes":22471,"sha256":"bd830ce069eac7bb9030e95fca6dbb9eb586e330607683731bc550a7ac154066"},
+    "manifest.json": {"bytes":294,"sha256":"3ae4c1f47b9894e4a60c95fe23bef6adc058ccf435278e2d60d96f43ba747ff0"},
+    "reading.json": {"bytes":7137,"sha256":"a3731c31819fcbda01d568b1096aaa323e11ca0ab9e03b06794536258539a98c"},
+    "result.json": {"bytes":54235,"sha256":"e9e14295a375475817e67169c6e9d49bf43ceaec9f381454edb8a6b8a7e8a68d"},
+    "test_verify_coupled_jost.py": {"bytes":747,"sha256":"94f90556b754180ee29af7be4f5552b28c4c65c1d1da333fd6a6635123254f91"},
+    "verify_coupled_jost.py": {"bytes":8339,"sha256":"c618f422e858cc29201911f2a8dcc837f5fc397a87d61343ee38d4d084cc1885"},
+    "verify_dual_transport_toy.py": {"bytes":8317,"sha256":"b88f2adc33e42aad09ed3fbc7adc8cc0d902d0efabba69003450a154ec895498"}
+  },
+  "git_sha":"e8efa4ffedb9102a7d5c67c60ded8b19c91bc0d5",
+  "url_prefix":"https://data.qscat.org/co-coupled-jost-control-20261102/"
+}

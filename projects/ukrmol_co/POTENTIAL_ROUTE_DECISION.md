@@ -2,6 +2,23 @@
 
 ## Decision now
 
+**2November09:05UTC: [coupled canonical endpoint control independently passes](qualification-evidence/coupled-jost/README.md).**
+54 integrations/all original exits0, exact-start finest error1.40e-12; genuine
+tail errors converge at20/40/50degrees.0.576349s/0.052368GiB, no CO input mount.
+Canonical normalization is validated for this exponential-tail control only;
+no actual CO tail bound or repair follows, and no angle alone is certified.
+
+**Decision needed:** authorize a separately frozen [three-map actual-CO numerical study](stretched-contour-study-proposal-20261102.json)
+(own-DZ80,20degrees/endpoints60/90/120, unchanged order10/rtol1e-12/original gates,
+last-two Y/A stability1e-7;4 physical cores/8GiB/300s science/600s owner), or keep
+this extraction route parked. It changes the original contour and is expressly
+unreleased pending permission; no implementing source/owner or map queued. This
+is not authorization to retry/requalify the original40degree guard, relax gates,
+repeat electronic work or start TZ/pole/B2/fit/sweep/114-holdout analysis.
+Both native exports remain qualified. No active numerical job/successor.
+
+### Earlier2November coupled-control selection
+
 **2November08:58UTC: continue one isolated [coupled canonical-Jost boundary control](../../docs/physics/coupled-jost-boundary-control.md).**
 The source-only decision selects canonical wave/derivative normalization, not
 a CO angle change or flux projection. Exact coupled maps versus deliberately

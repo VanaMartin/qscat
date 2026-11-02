@@ -88,6 +88,33 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Decision required before new CO numerical study —2 November,09:05UTC
+
+[Coupled exact control](qualification-evidence/coupled-jost/README.md) /
+[compact result](progress-coupled-jost-result-20261102.json) independently/publicly
+passes54 integrations/all original exits0. Source `16f76fb` pushed before08:59:09UTC
+launch; completion08:59:10UTC. Full-seed oracle `e8efa4f`, eight fresh public
+payloads/12 raw files/seven executed and three reader Git sources authenticate.
+Exact-start errors1.40548e-8→1.40328e-10→1.39615e-12. Genuine omitted-tail errors
+converge at20/40/50degrees, including above the diagonal crossover. All frozen
+gates pass;0.576349s science/1.236477s owner/0.052368GiB recorded cgroup high-water.
+No CO inputs/maps/native calls/holdout reads, retry or active campaign job.
+
+Persistent capsule `/home/kooza/ukrmol/co-sa-20261006/prepared/coupled-jost-source-20261102`;
+container `co-coupled-jost-control-20261102` finished. Original CO guard exits2,
+both native qualifications and all scientific protections remain unchanged.
+This exponential-tail control does not certify actual CO inverse-power data.
+
+**Blocked by decision:** authorize the [unreleased new three-map CO prescription](stretched-contour-study-proposal-20261102.json),
+or park numerical pole extraction and select another route. Proposal: own-DZ80,
+fixed20degrees/endpoints60/90/120, original order10/rtol1e-12/gates and stricter
+last-two Y/A stability;4 physical cores/8GiB/300s science/600s owner,60minutes
+implementation after authorization. No implementing source/owner or map queued.
+Explicit permission is needed because this changes the prohibited original
+contour, not because another generic toy or source-only review is missing.
+Never rerun/requalify the original40degree guard; no automatic TZ/pole/B2/fit/
+sweep/114-holdout analysis or paid resource.
+
 ### Continue one isolated coupled canonical-Jost control —2 November,08:58UTC
 
 Source-only method review selects canonical wave/derivative endpoint data, not

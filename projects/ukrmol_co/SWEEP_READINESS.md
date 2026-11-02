@@ -6,7 +6,16 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November08:31UTC—CO stop remains:** [saved diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md)
+**2November09:05UTC—coupled control passes; new CO study needs authorization.**
+[Exact canonical endpoint control](qualification-evidence/coupled-jost/README.md):
+54 integrations/all original exits0, finest exact-start error1.40e-12; genuine
+tail error converges at20/40/50degrees. Independent public reading qualifies;
+no CO inputs or maps. This does not certify the actual CO inverse-power tail or
+repair the original failed guard. [Three-map20degree CO proposal](stretched-contour-study-proposal-20261102.json)
+is explicitly unreleased; authorize a new numerical prescription or park this
+route. No other production gate or114-holdout protection changes.
+
+**Earlier2November08:31UTC—CO stop remains:** [saved diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md)
 and [independent exact transport toy](qualification-evidence/dual-transport-toy/README.md)
 support the open–closed dual sensitivity mechanism.72 isolated toy integrations/
 all exits0, three-resolution errors3.52e-8→3.55e-10→3.57e-12, seven S-pass/

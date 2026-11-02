@@ -23,3 +23,18 @@ def test_current_snapshot_pins_sources_and_does_not_requalify_the_co_stop():
     assert compact["science_wall_seconds"] == pytest.approx(
         live["toy_science_wall_seconds"], abs=1e-12, rel=0
     )
+
+
+def test_coupled_pass_does_not_release_the_proposed_co_study():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    assert live["coupled_integrations_verified"] == 54 and live["coupled_control_verdict"] is True
+    result = json.loads((DEFAULT_SNAPSHOT.parent / live["coupled_verification"]).read_text())
+    assert result["integrations_verified"] == live["coupled_integrations_verified"]
+    assert result["science_wall_seconds"] == pytest.approx(
+        live["coupled_science_wall_seconds"], abs=1e-12, rel=0
+    )
+    proposal = json.loads(
+        DEFAULT_SNAPSHOT.with_name("stretched-contour-study-proposal-20261102.json").read_text()
+    )
+    assert proposal["execution_authorized"] is False
+    assert proposal["maps_max"] == 3 and proposal["development_index"] == 80
