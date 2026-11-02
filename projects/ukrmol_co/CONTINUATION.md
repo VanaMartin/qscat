@@ -88,6 +88,19 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User authorizes fresh capsule-only correction —2 November,14:17UTC
+
+[Separate immutable release](stretched-real-completion-capsule-release-20261102.json):
+new capsule/container, missing byte-pinned TZ pointer included, actual source
+closure regression and prior public failed-stop reading bound before maps.
+Numerical runner SHA256e79d7885…/five identities/20degree/order10/rtol1e-12/
+gates/caps unchanged; no passed DZ80 repeat. Old failed capsule/exits2 untouched.
+All13 raw pins/nine source prerequisites required. Freeze/push source/controls/
+exact existing owner first, same4 physical cores/8GiB/600s science/900s owner,
+60minute implementation. First failed prerequisite/integration/cap or standalone/
+final gate stops without fallback. Next independent public actual evidence,
+then B1 complex-method design decision; no automatic pole/B2/fit/sweep/holdouts.
+
 ### BLOCKED by capsule-correction decision; zero maps in stopped completion —2 November,13:50UTC
 
 [Independent public stop](qualification-evidence/stretched-real-completion-stop/README.md) /

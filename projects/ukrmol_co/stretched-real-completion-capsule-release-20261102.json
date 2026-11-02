@@ -1,0 +1,37 @@
+{
+  "status":"User explicitly authorizes new immutable capsule-only correction;preserve zero-map failed allocation;unchanged five-map numerical source/parameters/gates/caps",
+  "execution_authorized":true,
+  "container_name":"co-stretched-real-completion-capsule2-20261102",
+  "runner_module":"projects.ukrmol_co.stretched_real_completion",
+  "runtime_controls_module":"projects.ukrmol_co.test_stretched_real_completion",
+  "base_guard_contract":"projects/ukrmol_co/stretched-real-guard-contract-20261101.json",
+  "base_guard_sha256":"bb9f9e38920c66125d1645799706b65a885fa916f649805f97d62bb400fd5abe",
+  "previous_public_reading":"prepared/stretched-real-completion-source-20261102/public-dz80-reading.json",
+  "original_guard_result":"prepared/stretched-real-guard-source-20261101/outputs/check/result.json",
+  "failed_stop_reading":"prepared/stretched-real-completion-capsule2-source-20261102/public-completion-stop-reading.json",
+  "input_sha256":{
+    "prepared/stretched-real-completion-source-20261102/public-dz80-reading.json":"fffb47f4e1de116bea4c6d74448125de5bbc2dc381ecacf402596fb789ac9684",
+    "prepared/stretched-real-guard-source-20261101/outputs/check/result.json":"f8549d2341c16fa79d67ce99d333b271e5e96d6d9ce6e6cc95b6b1c1d48af98e",
+    "prepared/stretched-real-completion-capsule2-source-20261102/public-completion-stop-reading.json":"c0d5af051ecc6790087111180e155fb8382bd9bcab2a6096c81b9b69df4a3063"
+  },
+  "source_sha256":{
+    "projects/ukrmol_co/qualification-evidence/stretched-contour-study/artifacts.json":"fe72aebb759c7ea0bba44e48e2bcde95fe36196f9f0e81c19303f43253894dfe"
+  },
+  "maps":[["dz",60,120],["tz",60,120],["tz",80,60],["tz",80,90],["tz",80,120]],
+  "angle_degrees":20,
+  "boundary_bohr":18,
+  "order":10,
+  "rtol":1e-12,
+  "tz80_last_two_y_and_a_stability_budget":1e-7,
+  "per_map_seconds":90,
+  "rhs_cap":50000,
+  "science_timeout_seconds":600,
+  "owner_timeout_seconds":900,
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "resources":{"physical_cores":4,"memory_gib":8,"library_threads":1,"maps_max":5,"conditional_seconds":[60,240]},
+  "implementation_bound_minutes":60,
+  "stop":"First input/integration/cap or standalone/final physical gate failure stops;short TZ80 diagnostics retained as fixed convergence dataset;no fallback/retry/automatic pole",
+  "automatic_successor":false,
+  "pole_search_released":false,
+  "full_sweep_released":false
+}

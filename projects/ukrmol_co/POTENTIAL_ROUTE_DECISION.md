@@ -2,6 +2,17 @@
 
 ## Decision now
 
+**2November14:17UTC: user authorizes [fresh capsule-only correction](stretched-real-completion-capsule-release-20261102.json).**
+Include pinned TZ pointer/all nine source prerequisites; bind old public zero-map
+stop; fresh immutable capsule/container, old exits2 untouched. Same numerical
+runner/five maps/20degree/order10/rtol1e-12/gates/caps, no completed-DZ80 repeat.
+All13 raw pins before maps. Freeze/push complete source/controls/owner/release,
+4 physical cores/8GiB/600s science/900s owner. Any prerequisite/numerical/cap or
+standalone/final gate failure stops. Next independent actual public evidence;
+no automatic complex/pole/B2/fit/sweep/114-holdout release.
+
+### Earlier2November zero-map capsule stop
+
 **2November13:50UTC: completion stops before maps—[source pointer omitted](qualification-evidence/stretched-real-completion-stop/README.md).**
 All original exits2, zero maps; all12 raw input pins match. The capsule lacks the
 already pinned TZ receipt `artifacts.json`; no native/model/ODE work is reached.

@@ -1750,6 +1750,26 @@ source, sequence,20degree/order10/rtol1e-12/gates/caps stay unchanged; no scient
 retry or completed-map repeat. Separate release/source/tests/owner freeze first.
 No automatic peer/complex/pole/B2/fit/sweep/114-holdout action or paid resources.
 
+### Goal checkpoint —2 November,14:17UTC: user authorizes capsule-only correction
+
+The user explicitly selects **Authorize capsule correction** after the public
+zero-map stop. The [new immutable capsule release](stretched-real-completion-capsule-release-20261102.json)
+adds the missing pinned TZ source pointer and actual-source closure controls,
+binds the previous failed-allocation public reading, and uses a fresh directory/
+container. Failed capsule/source/exits2 remain untouched. The numerical runner
+SHA256e79d7885… and all five map identities/20degrees/order10/rtol1e-12/physical
+gates/caps are unchanged. Prior passed DZ80 is never repeated. A control checks
+that only release metadata/provenance differ from the first completion contract.
+
+All13 raw pins and nine source prerequisites must match before model/map access.
+Freeze/push complete source/controls/exact owner/release and verify actual capsule
+closure before execution. Same4 physical cores/8GiB/600s science/900s owner and
+60minute implementation bound, no dependency/image/native/electronic changes.
+First prerequisite/integration/cap or standalone/final physical gate failure
+stops again without fallback. Next independent public actual result (including
+failure), then stretched B1 complex-method seed/box/character/local-identity
+design review. No automatic complex/pole/B2/fit/sweep or114-holdout analysis.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

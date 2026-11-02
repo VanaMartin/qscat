@@ -111,6 +111,28 @@ def test_original_input_and_method_contract_resolves_without_relaxed_gates():
         assert completion.digest(path) == expected, name
 
 
+def test_capsule_release_changes_metadata_only_and_retains_numerical_source():
+    original = json.loads(
+        Path(__file__).with_name("stretched-real-completion-contract-20261102.json").read_text()
+    )
+    release = json.loads(
+        Path(__file__)
+        .with_name("stretched-real-completion-capsule-release-20261102.json")
+        .read_text()
+    )
+    changed = {key for key in set(original) | set(release) if original.get(key) != release.get(key)}
+    assert changed == {"status", "container_name", "input_sha256", "failed_stop_reading"}
+    assert release["input_sha256"].items() >= original["input_sha256"].items()
+    assert (
+        release["input_sha256"][release["failed_stop_reading"]]
+        == "c0d5af051ecc6790087111180e155fb8382bd9bcab2a6096c81b9b69df4a3063"
+    )
+    assert (
+        completion.digest(Path(completion.__file__))
+        == "e79d7885650da54cfc8f00a6c77352a7e09aa37f9aa18a86d99eca2f1bd71a24"
+    )
+
+
 def test_unapproved_route_or_changed_public_receipt_starts_no_map():
     with TemporaryDirectory() as tmp:
         root = Path(tmp)
