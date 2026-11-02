@@ -1,0 +1,6 @@
+{
+  "git_sha": "b07ea2a84505688ba1ac1d34efeaed6f7cb9b83b",
+  "experiment": "co-stretched-target-overlap-20261102",
+  "executed_source_commit": "d4301b3ff012a37b7e29c0d7467941a49d6ff177",
+  "scope": "Finite retained-eight physical DZ/TZ target-subspace dominance;no new target solve,scattering,global N+1 identity or electronic-error bound"
+}

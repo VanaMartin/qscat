@@ -1,0 +1,13 @@
+{
+  "artifacts":{
+    "collection.json":{"bytes":15755,"sha256":"f1227d290c9fd19f062e4ad75a3e17326b556bca488ec46dfe8a7077c9e96dd0"},
+    "evidence.tar.gz":{"bytes":337330958,"sha256":"6dc613fd981b22feae39605b7dbc2151003ce6057f2e11262903b1ec93fd779b"},
+    "manifest.json":{"bytes":342,"sha256":"5f80a4236f997af26277e204b448e361c9db069d3131429b60d32e033027d87c"},
+    "reading.json":{"bytes":9303,"sha256":"eb96077d2dc7ab33c341b191044d4ee828e02098547e8ab7a4a45d3175b54c33"},
+    "result.json":{"bytes":21988,"sha256":"841da3eb75a39dd09be58109af8f0077324bc6391a5ae8fb39da22b14a210e5c"},
+    "test_verify_stretched_target_overlap.py":{"bytes":981,"sha256":"b349821275479ab18085f486b2b508d74a72505cd8f1001feb0a882aed45dcb2"},
+    "verify_stretched_target_overlap.py":{"bytes":11948,"sha256":"4241e6ab2a882c822205080b5037348ff87bee944b6159d685def2a9f11b77da"}
+  },
+  "git_sha":"b07ea2a84505688ba1ac1d34efeaed6f7cb9b83b",
+  "url_prefix":"https://data.qscat.org/co-stretched-target-overlap-20261102/"
+}

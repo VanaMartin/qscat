@@ -95,3 +95,19 @@ owner push before any molecular re-expansion or overlap calculation.
 This remains project-stage validation; no Rust optimization or qscat promotion.
 The original40degree/capsule/adapter failures, qualified finite poles,2048 baseline,
 nine working reference, parked new50 and equilibrium exclusion all remain intact.
+
+## Completed finite result
+
+[Independent public evidence](../../projects/ukrmol_co/qualification-evidence/stretched-target-overlap/README.md)
+records all eight numerical and predeclared dominance passes. Minimum squared
+principal overlaps span0.978069419–0.989985595, all64 assignments preserve rank,
+and the smallest assigned squared overlap is0.946981842. Saved independent TZ
+conversion agreement is>=0.9999999999999889; full-Slater/eigvalsh replay changes
+overlaps by at most7.93e-14. All six original exits0,102.167383s/1.316498GiB kernel
+peak/four physical cores. No scientific target/native/scattering calls repeated.
+
+The finite retained-target correspondence ambiguity is substantially reduced,
+not the measured pole sensitivity. These overlaps are for N electrons; unique
+N+1 resonance/global identity and electronic convergence remain unproved. No
+accuracy threshold or production release is inferred. Next the campaign selects
+one bounded saved aug-TZ reuse-feasibility review, not an automatic allocation.

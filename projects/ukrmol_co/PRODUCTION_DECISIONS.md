@@ -2028,6 +2028,42 @@ model. Next independent public actual outcome/cost and one model disposition;
 no automatic next allocation. Existing poles/failures/nine/new50/2048/equilibrium/
 114-holdout protections remain unchanged. No paid resources or ComfyUI changes.
 
+### Goal checkpoint —2 November,17:30UTC: physical target correspondence passes; review diffuse-flexibility reuse
+
+**Question/evidence delta:** the [saved-native target screen](qualification-evidence/stretched-target-overlap/README.md)
+finds all eight retained DZ/TZ target subspaces predominantly corresponding:
+sector minima0.978069419–0.989985595 versus predeclared0.5 majority projection.
+All64 maximum-weight assignments preserve rank, minimum assigned squared overlap
+0.946981842. Native conversion agrees with independent saved TZ determinants to
+>=0.9999999999999889. Pushed `d4301b3` launches17:15:58UTC, finishes17:17:41UTC/
+all six original exits0. Reader `b07ea2a` and seven freshly authenticated public
+payloads reconstruct71 raw files/62 executed sources/41 inputs/511 samples/four
+observations; maximum independent overlap difference7.93e-14. No QC/CI eigensolve/
+Hamiltonian action/native/property/map/holdout calls. Cost102.167383s/CPU102.166329s/
+1.316498GiB kernel peak/four physical cores, no timeout/OOM. Conditional120–900s
+overestimated cost; no parallel speedup claimed.
+
+**Interpretation/disposition:** retained-target loss or rank exchange is not
+observed in this finite screen. This strengthens the target-manifold comparison
+without certifying unique N+1 resonance identity, omitted channels or absolute
+electronic accuracy. Both finite poles and their103.370meV/44.172meV sensitivity
+remain unchanged; stop production-insensitivity/fit inference. Continue electronic
+model investigation, not interface work as a substitute for physical progress.
+
+**Next bounded deliverable:**30minutes saved-only feasibility/cost review of the
+existing supported CAS12 aug-TZ import atR=2.5, common40-component objective/
+active6/3/3/0/eight roots per sector. Diffuse radial flexibility at fixed zeta is
+the uncertainty, not an automatic QZ/CAS13/root/channel ladder. Minimum reuse:
+freshly authenticate supported80/160/240 public coverage, actual checkpoint/frame/
+native64 proof, existing DENPROP coverage and missing common64/preparation inputs.
+Use measured DZ/TZ cost bounds; do not invent an aug-TZ allocation forecast.
+Zero new scientific calls in this review. Historical metadata/root/dipole checks
+motivate inspection but do not alone qualify reuse or measure a scattering effect.
+If proof qualifies, separately design/freeze one decision-changing control under
+the user's continuation; otherwise preserve the blocker and stop, no solver rescue
+or repeat of successful targets. No active campaign numerical job/monitor/paid
+resources/ComfyUI changes. Nine/new50/2048/equilibrium/114-holdout protections stand.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

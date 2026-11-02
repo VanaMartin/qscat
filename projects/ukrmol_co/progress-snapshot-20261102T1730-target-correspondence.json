@@ -1,0 +1,66 @@
+{
+  "base_snapshot":"progress-snapshot-20261102T1635-basis-sensitivity.json",
+  "base_snapshot_sha256":"9a513a219bac93f6a727f6b80575fdd99bae31fc9e5fda119ff5abcff456b420",
+  "additional_source_file_sha256":{
+    "projects/ukrmol_co/SWEEP_READINESS.md":"7562cef61436e652eed6e1a6334648f8cbb90544648c9ffdaa92330e7914a709",
+    "projects/ukrmol_co/progress_figure.py":"492ecd0fbf027423d27e3336e2dde7282fd3376dadf90875db9d8b689b8ed81f",
+    "projects/ukrmol_co/CONTINUATION.md":"7370825b485b78be0ac85a4be4e77a2fe0075830f7a53e1f92064589c325111d",
+    "projects/ukrmol_co/README.md":"4c0a36748bd529430707eb5610be1cbdd258b1353eb917a91ccb7c5bb2ac2900",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md":"6a40c26af4807bc1cdf9168f1f8bf40e055383abe4460caab278da2eb62363cd",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md":"9d552e391f20e44811ae7bb0c8c74a2902b4632816ae757c503bb163806ceb31",
+    "projects/ukrmol_co/stretched_dz_pole_owner.py":"6b15c80b6b47163be72f4d4e7d1c0a5e4c330b214992202aaff15982400879a5",
+    "projects/ukrmol_co/test_progress_snapshot.py":"56dd7272bd6ab1beb0f985c4f9dbb4bc0ca80445c80a64ba27bd79f04d1465d3",
+    "projects/ukrmol_co/progress-stretched-target-overlap-result-20261102.json":"fb445947bfb12d05e435a6d59271ecedcfd58054c7ef450deff77d8fabb86488",
+    "projects/ukrmol_co/stretched_target_overlap.py":"c18ee8bd5b18ea27c8dd61d4c086ce046ebc8b4cd173120d4178bb20778edc74",
+    "projects/ukrmol_co/native_target_determinants.py":"ab7d4e92d9ac01418c83d758123f0ecc04688f2a705910528e51550d5f876c91",
+    "projects/ukrmol_co/verify_stretched_target_overlap.py":"4241e6ab2a882c822205080b5037348ff87bee944b6159d685def2a9f11b77da",
+    "projects/ukrmol_co/test_stretched_target_overlap.py":"f5c6d9361da592be399b708d7e87a0561242296ed3303a0df956cfbea03b7641",
+    "projects/ukrmol_co/test_verify_stretched_target_overlap.py":"b349821275479ab18085f486b2b508d74a72505cd8f1001feb0a882aed45dcb2",
+    "projects/ukrmol_co/stretched-target-overlap-contract-20261102.json":"a6016572bbf3bff6d565a1db7d432a8c7442dc4c9e50b4f4c51459d7ba42488b",
+    "projects/ukrmol_co/qualification-evidence/stretched-target-overlap/artifacts.json":"b0b147f42f6919efc72dbe40b68c8fc6b26a619fa9027f37d60620927ff5cb98",
+    "projects/ukrmol_co/qualification-evidence/stretched-target-overlap/manifest.json":"5f80a4236f997af26277e204b448e361c9db069d3131429b60d32e033027d87c",
+    "projects/ukrmol_co/qualification-evidence/stretched-target-overlap/README.md":"1ff1db79e18bb5de62a417b719ccba103c8d9dd48feb5f741cf2ba5f53bd1178",
+    "docs/physics/co-stretched-target-correspondence.md":"72711bbc364f509bd86d3d0d12f827903cb4048340d85c71b221bcf267d204e3"
+  },
+  "live_status_updates":{
+    "scope":"Physical retained-eight DZ/TZ target correspondence passes;finite pole sensitivity still blocks production inference",
+    "goal_review_disposition":"Continue one bounded saved aug-TZ reuse feasibility/cost review;no automatic numerical allocation",
+    "target_overlap_verification":"progress-stretched-target-overlap-result-20261102.json",
+    "target_correspondence_verdict":true,
+    "target_overlap_original_exits":[0,0,0,0,0,0],
+    "target_overlap_profile_wall_seconds":102.16738285799511,
+    "target_overlap_kernel_peak_container_memory_bytes":1413578752,
+    "next_deliverable":"Saved aug-TZ supported-proof/imported-frame/common64-property and cost feasibility review;30minutes/zero scientific calls before any new execution freeze"
+  },
+  "updates":{
+    "snapshot_utc":"2026-11-02T17:30:00.000000+00:00",
+    "ensemble_frame_title":"Retained DZ /TZ targets correspond",
+    "ensemble_frame_subtitle":"Physical CAS12 DZ /TZ frames; eight retained roots per sector",
+    "ensemble_frame_subspaces":[
+      {"sector":"Singlet A1","minimum_squared_principal_overlap":0.9887184625080683,"passed":true},
+      {"sector":"Triplet A1","minimum_squared_principal_overlap":0.9781222953528512,"passed":true},
+      {"sector":"Singlet B1","minimum_squared_principal_overlap":0.9780694190482758,"passed":true},
+      {"sector":"Triplet B1","minimum_squared_principal_overlap":0.9795337572512255,"passed":true},
+      {"sector":"Singlet B2","minimum_squared_principal_overlap":0.9780694190499866,"passed":true},
+      {"sector":"Triplet B2","minimum_squared_principal_overlap":0.9795337572498619,"passed":true},
+      {"sector":"Singlet A2","minimum_squared_principal_overlap":0.9898861464428078,"passed":true},
+      {"sector":"Triplet A2","minimum_squared_principal_overlap":0.989985594910519,"passed":true}
+    ],
+    "ensemble_frame_note":"All64 assignments retain rank; minimum |overlap|²0.947.\nNo normalization of lost overlap; not an error bound.\nN-electron targets, not unique N+1 resonance identity.",
+    "anchor_note":"Native-fit markers are not outgoing-pole curves.\nFinite DZ /TZ poles:target correspondence now passes.\nPosition /width shifts still exceed physical budgets.",
+    "figure_subtitle":"All eight physical DZ /TZ retained-target subspaces correspond,but103.370meV /44.172meV pole sensitivity remains:production fitting stays stopped",
+    "roadmap_title":"Target correspondence narrows ambiguity",
+    "roadmap_entries":[
+      {"kind":"reuse","status":"PASS: FINITE OWN-MODEL DZ /TZ B1 POLES","title":"Both local numerical /Pi qualifications retained","detail":"No successful target or scattering calculation repeated"},
+      {"kind":"reuse","status":"PASS: RETAINED N-ELECTRON TARGET SUBSPACES","title":"Eight sector minima0.978–0.990;all64 ranks retained","detail":"Full-Slater /eigvalsh independent public reconstruction"},
+      {"kind":"reject","status":"REJECT: PRODUCTION-INSENSITIVITY INFERENCE","title":"Position103.370meV /width44.172meV shifts remain","detail":"Target correspondence is not electronic convergence"},
+      {"kind":"gated","status":"OPEN: N+1 IDENTITY AND OMITTED SPECTRUM","title":"No unique global resonance /accuracy certificate","detail":"Channels,neutral correlation and full-S embedding open"},
+      {"kind":"next","status":"NEXT: SAVED AUG-TZ REUSE FEASIBILITY","title":"Authenticate frame,proof,common64 properties /cost","detail":"Diffuse-flexibility candidate,not an automatic basis ladder"}
+    ],
+    "roadmap_note":"Neither finite model is a qualified production choice.\nAug-TZ review:30minutes /zero scientific calls.\nAll114 S holdouts and original failures preserved.",
+    "memory_note":"DZ48 maps:409.61 s /3.002 GiB kernel peak.\nTZ48 maps:409.19 s /3.019 GiB kernel peak.\nTarget overlap:102.17 s /1.316 GiB /four cores.",
+    "memory_next_step":"No active job;saved aug-TZ feasibility review next.",
+    "source_footer":"2 NOVEMBER  Physical retained-target correspondence passes in all eight sectors;finite pole sensitivity still blocks production fitting. No new CI /native /maps.",
+    "verification_footer":"Target:7 public payloads /71 raw files /62 Git sources /41 inputs /511 samples. No unique N+1 identity or accuracy claim. All114 S holdouts protected."
+  }
+}

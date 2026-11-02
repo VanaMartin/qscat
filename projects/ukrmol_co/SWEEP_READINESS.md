@@ -6,7 +6,18 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November16:35UTC—both finite poles qualify, but candidate shifts exceed physical budgets.**
+**2November17:30UTC—physical retained-target correspondence passes, production remains stopped.**
+[Independent public screen](qualification-evidence/stretched-target-overlap/README.md):
+all eight sector minima0.978069419–0.989985595 exceed the predeclared0.5 dominance
+diagnostic, all64 root assignments preserve rank.102.167383s/1.316498GiB/four cores,
+zero QC/CI/native/Hamiltonian/property/maps/holdouts; all original exits0.
+This establishes finite N-electron target correspondence, not N+1 pole identity
+or accuracy. The measured103.370meV position/44.172meV width sensitivity remains.
+Next bounded saved aug-TZ input/proof/frame/common64-property/cost review only,
+30minutes/zero scientific calls; no automatic allocation or production release.
+No active campaign job/monitor;114 holdouts and original failures remain protected.
+
+**Earlier2November16:35UTC—both finite poles qualify, but candidate shifts exceed physical budgets.**
 [TZ evidence](qualification-evidence/stretched-tz-pole/README.md) and
 [saved counterpart review](qualification-evidence/stretched-pole-counterpart/README.md):
 DZ0.914117/0.267093eV versus TZ1.017487/0.311264eV position/full width.

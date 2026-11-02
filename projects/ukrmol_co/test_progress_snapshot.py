@@ -160,3 +160,34 @@ def test_terminal_snapshot_does_not_rewrite_the_historical_pending_peer():
     )
     assert historical["live_status"]["tz_pole_execution_authorized"] is False
     assert len(historical["finite_poles"]) == 1
+
+
+def test_target_correspondence_does_not_certify_resonance_identity_or_remove_sensitivity():
+    snapshot = _snapshot_data(DEFAULT_SNAPSHOT)
+    live = snapshot["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["target_overlap_verification"]).read_text())
+    assert result["original_exits"] == [0] * 6
+    assert (
+        result["retained_eight_dominance_verdict"] is live["target_correspondence_verdict"] is True
+    )
+    assert result["all64_assignments_preserve_rank"] is True
+    rows = snapshot["ensemble_frame_subspaces"]
+    assert len(rows) == 8 and all(row["passed"] for row in rows)
+    assert [row["minimum_squared_principal_overlap"] for row in rows] == result["sector_minima"]
+    assert min(result["sector_minima"]) == pytest.approx(0.9780694190482758)
+    assert result["global_resonance_identity_verdict"] is None
+    assert live["cross_basis_wavefunction_identity_verdict"] is None
+    assert live["candidate_insensitivity_verdict"] is False
+    assert live["production_model_selected"] is live["full_sweep_released"] is False
+    for name in [
+        "native_calls",
+        "new_ci_solves",
+        "new_hamiltonian_actions",
+        "new_maps",
+        "route_holdout_s_matrices_analyzed",
+    ]:
+        assert result[name] == 0
+    historical = _snapshot_data(
+        DEFAULT_SNAPSHOT.with_name("progress-snapshot-20261102T1635-basis-sensitivity.json")
+    )
+    assert any(not row["passed"] for row in historical["ensemble_frame_subspaces"])

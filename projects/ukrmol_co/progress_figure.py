@@ -16,7 +16,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SNAPSHOT = Path(__file__).with_name(
-    "progress-snapshot-20261102T1635-basis-sensitivity.json"
+    "progress-snapshot-20261102T1730-target-correspondence.json"
 )
 BLUE = "#2468ac"
 GREEN = "#158477"
@@ -808,8 +808,11 @@ def _ensemble_frame_subspaces(ax, data):
     _panel(
         ax,
         "B",
-        "Both A1 retained subspaces change",
-        "Physical old40/new50 orbital-frame comparison; five retained per sector",
+        data.get("ensemble_frame_title", "Both A1 retained subspaces change"),
+        data.get(
+            "ensemble_frame_subtitle",
+            "Physical old40/new50 orbital-frame comparison; five retained per sector",
+        ),
     )
     rows = data["ensemble_frame_subspaces"]
     y = np.arange(len(rows))
@@ -825,9 +828,12 @@ def _ensemble_frame_subspaces(ax, data):
     ax.set_xlabel("Minimum squared principal overlap   (≥0.5 dominance screen)")
     _note(
         ax,
-        "Old A1 root5 → new root6 in both spins.\n"
-        "No normalization of lost overlap; not an error bound.\n"
-        "Eight numerical cases pass; scientific verdict rejects.",
+        data.get(
+            "ensemble_frame_note",
+            "Old A1 root5 → new root6 in both spins.\n"
+            "No normalization of lost overlap; not an error bound.\n"
+            "Eight numerical cases pass; scientific verdict rejects.",
+        ),
     )
 
 
@@ -1246,7 +1252,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261102T1635-basis-sensitivity",
+        default=ROOT / "docs/physics/figures/co-progress-20261102T1730-target-correspondence",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

@@ -850,9 +850,12 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![Both finite poles qualify but DZ/TZ local-candidate shifts exceed position and width budgets; electronic-model choice precedes any production release](../../docs/physics/figures/co-progress-20261102T1635-basis-sensitivity.png)
+![DZ/TZ retained-target correspondence passes in all eight sectors; finite pole sensitivity still blocks production fitting](../../docs/physics/figures/co-progress-20261102T1730-target-correspondence.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1635-basis-sensitivity.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1730-target-correspondence.svg) ·
+[Target-correspondence snapshot](progress-snapshot-20261102T1730-target-correspondence.json) ·
+[Independent physical target correspondence](qualification-evidence/stretched-target-overlap/README.md) ·
+[Previous finite-pole sensitivity figure](../../docs/physics/figures/co-progress-20261102T1635-basis-sensitivity.svg) ·
 [Completed comparison snapshot](progress-snapshot-20261102T1635-basis-sensitivity.json) ·
 [TZ pole evidence](qualification-evidence/stretched-tz-pole/README.md) ·
 [Counterpart/sensitivity review](qualification-evidence/stretched-pole-counterpart/README.md) ·
@@ -1359,15 +1362,15 @@ The six panels explain the qualification campaign:
   0.984/0.293 eV at 1.9/2.1323/2.5 bohr. Reuse these anchors, raw phases and import
   checks as calibration inputs. Discrete markers do not establish a continuous
   pole curve; background-sensitive extraction still needs qualification. The
-  CAS12 both-sector native candidate is shown in the note alongside the completed
-  independent export/Pi checks; it remains provisional for pole extraction.
-- **B — Actual CO recurrence canary.** All303 checks pass across six cases and
-  36 prefixes /3,996 mixed solves. All180 audited residuals match NumPy, zero gate
-  disagreements and at most one correction. Marginal early-region cost improves
-  2.23–2.24×; minimum binary64 rcond is .00426065. Six fresh public prefixes match
-  scientific records exactly. Original strict replay1/1 on auxiliary rcond
-  last bits is retained; the separate successor bounds that observation's drift.
-  These prefixes stop before18.2bohr; long-range/nativeK accuracy remains open.
+   finite CAS12 DZ/TZ B1 outgoing poles qualify atR=2.5, but their103.370meV
+   position/44.172meV full-width sensitivity rejects production insensitivity.
+- **B — Physical DZ/TZ retained-target correspondence.** All eight sector minimum
+   squared principal overlaps are0.978–0.990, above the predeclared0.5 majority-
+   projection diagnostic. All64 maximum-weight assignments preserve rank, minimum
+   assigned squared overlap0.946982. Independent full-Slater/eigvalsh replay passes.
+   This removes a substantial N-electron target-manifold ambiguity, not the pole
+   sensitivity or unproved unique N+1 resonance identity. Historical old40/new50
+   A1 rejection remains in earlier snapshots; no lost overlap is normalized away.
 - **C — Independent neutral curve.** All 52 QZ/5Z near-equilibrium points pass
   stability/convergence checks. Relative-energy basis and held-point interpolation
   budgets pass over 1.9–2.5 bohr: maximum QZ/5Z relative difference 17.243 meV and

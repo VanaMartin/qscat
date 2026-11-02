@@ -88,6 +88,38 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Target correspondence passes; bounded aug-TZ reuse review next —2 November,17:30UTC
+
+[Independent public target evidence](qualification-evidence/stretched-target-overlap/README.md)
+and [compact result](progress-stretched-target-overlap-result-20261102.json):
+pushed `d4301b3` launches17:15:58UTC, completes17:17:41UTC/all six original exits0.
+All eight physical retained-target subspaces pass the predeclared0.5 dominance
+screen, minima0.978069419–0.989985595. All64 maximum-weight assignments preserve
+rank; minimum assigned squared overlap0.946981842, ground0.991311503. Saved TZ
+conversion agreement>=0.9999999999999889. This is N-electron target correspondence,
+not unique N+1 resonance/global-geometry identity or an electronic-error bound.
+The103.370meV position/44.172meV width sensitivity still rejects insensitivity.
+
+Reader `b07ea2a`/seven fresh public payloads authenticate71 raw files/62 executed
+Git sources/41 inputs/511 samples/four observations; full-Slater/eigvalsh replay
+differs by at most7.93e-14. Profile102.167383s/CPU102.166329s/kernel peak1.316498GiB,
+four physical cores; zero QC/CI solves/Hamiltonian/native/property/maps/holdouts.
+No timeout/OOM. Immutable capsule `prepared/stretched-target-overlap-source-20261102`
+on Sadaharu; container `co-stretched-target-overlap-20261102` finished. No active
+campaign numerical job or monitor. Original failures and114 holdouts stay intact.
+
+**Next one deliverable:** bounded saved-input/proof/frame/64-state-property and
+cost feasibility review of the existing supported CAS12 aug-TZ target atR=2.5.
+This tests reuse feasibility for diffuse flexibility at fixed zeta, not an automatic
+basis ladder or production promotion. Historical supported80/160/240 coverage and
+all64-root import verification exist, but fresh raw/public authentication and the
+actual common64-state property inventory must precede a new execution freeze.
+30minutes saved-data review/zero scientific calls; use actual measured DZ/TZ costs,
+not an invented aug-TZ runtime. If prerequisites qualify, design one decision-changing
+control under user continuation; if missing/invalid, preserve the blocker rather
+than repeating QC/CI/native successes. No B2/geometry/fit/sweep/holdout release.
+Main search remains incompatible; last-known main423d5770, currency unverified.
+
 ### User continuation selects one saved-native target-overlap screen —2 November,17:00UTC review
 
 [Design](../../docs/physics/co-stretched-target-correspondence.md) /

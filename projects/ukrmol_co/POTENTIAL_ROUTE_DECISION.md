@@ -2,6 +2,25 @@
 
 ## Decision now
 
+**2November17:30UTC: [physical retained-target correspondence passes](qualification-evidence/stretched-target-overlap/README.md).**
+All eight DZ/TZ sector minima0.978069419–0.989985595 exceed the predeclared0.5
+majority-projection diagnostic; all64 maximum-weight assignments preserve rank.
+Saved independent TZ vectors validate native conversion; public full-Slater/
+eigvalsh replay reconstructs. This is N-electron target correspondence, **not**
+unique N+1 resonance identity, omitted-spectrum convergence or absolute accuracy.
+The103.370meV/44.172meV pole sensitivity remains; production fitting stays stopped.
+
+**Continue with one bounded saved aug-TZ feasibility/cost review**,30minutes/zero
+QC/CI/native/property/maps/holdouts. Authenticate supported-space public proof,
+actual imported frame/native64 records and common64-state property inventory.
+Diffuse flexibility at fixed zeta is a candidate control, not a basis ladder.
+Historical successful import is not a fresh reuse qualification. Freeze one
+decision-changing control only if prerequisites qualify; missing proof stops
+rather than retunes/repeats targets. No active campaign job/monitor, automatic
+B2/geometry/fit/sweep or protected-holdout analysis. User continuation stands.
+
+### Earlier2November saved-route selection
+
 **2November17:00UTC saved-route review selects [one target-correspondence screen](../../docs/physics/co-stretched-target-correspondence.md).**
 User authorizes continuation/experiments unless blocked. Reuse original native
 64-root CSF coefficients, checkpoints and all eight saved independent TZ CI
