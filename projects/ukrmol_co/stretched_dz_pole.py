@@ -1,4 +1,4 @@
-"""One authorized own64/400 DZ pole attempt using unchanged pole/Jost algorithms."""
+"""Strict own64/400 B1 pole allocation for separately authorized DZ or TZ data."""
 
 from __future__ import annotations
 
@@ -34,6 +34,25 @@ from projects.ukrmol_co.stretched_real_guard import own_model
 PROPOSAL = "projects/ukrmol_co/stretched-dz-pole-proposal-20261102.json"
 
 
+def numerical_proposal(source, execution):
+    path = source / execution.get("proposal_path", PROPOSAL)
+    if (
+        not path.resolve().is_relative_to(source.resolve())
+        or core.digest(path) != execution["proposal_sha256"]
+    ):
+        raise ValueError("Changed frozen pole proposal")
+    proposal = json.loads(path.read_text())
+    if "base_dz_proposal" in proposal:
+        base = source / proposal["base_dz_proposal"]
+        if (
+            not base.resolve().is_relative_to(source.resolve())
+            or core.digest(base) != proposal["base_dz_proposal_sha256"]
+        ):
+            raise ValueError("Changed shared numerical allocation")
+        proposal = json.loads(base.read_text()) | proposal
+    return proposal
+
+
 def resolve(source, execution):
     if "base_execution_contract" in execution:
         path = source / execution["base_execution_contract"]
@@ -46,9 +65,7 @@ def resolve(source, execution):
         inputs = base["input_sha256"] | execution["input_sha256"]
         execution = base | execution
         execution["input_sha256"] = inputs
-    if core.digest(source / PROPOSAL) != execution["proposal_sha256"]:
-        raise ValueError("Changed frozen pole proposal")
-    return json.loads((source / PROPOSAL).read_text()) | execution
+    return numerical_proposal(source, execution) | execution
 
 
 def authenticate(root, source, c):
@@ -57,16 +74,19 @@ def authenticate(root, source, c):
             path = base / name
             if not path.resolve().is_relative_to(base.resolve()) or core.digest(path) != want:
                 raise ValueError("Changed/out-of-root pole prerequisite: " + name)
-    proposal = json.loads((source / PROPOSAL).read_text())
+    proposal = numerical_proposal(source, c)
     if not c["execution_authorized"] or any(
         c[k] != v
         for k, v in proposal.items()
         if k not in ["status", "execution_authorized", "pole_search_released"]
     ):
-        raise ValueError("Outside the explicitly authorized own-DZ proposal")
+        raise ValueError("Outside the explicitly authorized own-model proposal")
+    case = {"stretched/cas12/dz/B1": "dz", "stretched/cas12/tz/B1": "tz"}.get(c["case"])
+    if case is None:
+        raise ValueError("Only the two declared finite own64/400 B1 models are supported")
     receipt = json.loads((root / c["model"]["receipt"]).read_text())
     if not (
-        receipt["case"] == "dz"
+        receipt["case"] == case
         and receipt["inner_export_verdict"] is True
         and receipt["public_reader_exit"] == 0
         and receipt["original_exits"] == [0] * 6
@@ -76,7 +96,7 @@ def authenticate(root, source, c):
         and receipt["spectral_truncation_verdict"] is None
         and not receipt["full_sweep_released"]
     ):
-        raise ValueError("Own-DZ public native receipt required")
+        raise ValueError("Matching own-model public native receipt required")
     reading = json.loads((root / c["completion_reading"]).read_text())
     r = reading["result"]
     if not (
@@ -92,7 +112,7 @@ def authenticate(root, source, c):
     if not (
         seed["real_prerequisite_verdict"]
         and not seed["pole_measurement"]
-        and seed["cases"]["dz"]["index"] == c["near_feature_real_index"]
+        and seed["cases"][case]["index"] == c["near_feature_real_index"]
     ):
         raise ValueError("Own native seed provenance differs")
     if "failed_stop_reading" in c:
@@ -104,6 +124,16 @@ def authenticate(root, source, c):
             and stop["result"]["error"] == "KeyError('interface')"
         ):
             raise ValueError("Original zero-map adapter stop receipt required")
+    if case == "tz":
+        dz = json.loads((root / c["dz_pole_reading"]).read_text())
+        if not (
+            dz["reader_exit"] == 0
+            and dz["result"]["original_exits"] == [0] * 6
+            and dz["result"]["source_commit"] == "fbd16ee059f0c5fa682444a0c3af2dba4fe090fc"
+            and dz["result"]["finite_reference_pole_verdict"] is True
+            and dz["result"]["physical_pi_support_verdict"] is True
+        ):
+            raise ValueError("Independent qualified own-DZ pole required before own-TZ attempt")
     return receipt
 
 
@@ -145,6 +175,7 @@ def require_box(z, c):
 def run(root, source, output, c):
     started = time.monotonic()
     report = dict(
+        case=c["case"],
         scientific_exit=2,
         disposition="inconclusive",
         finite_reference_pole_verdict=None,
@@ -154,7 +185,7 @@ def run(root, source, output, c):
         evaluations=[],
         native_calls=0,
         route_holdout_s_matrices_analyzed=0,
-        tz_started=False,
+        tz_started=c["case"] == "stretched/cas12/tz/B1",
         automatic_successor=False,
         original_failures_requalified=False,
         full_sweep_released=False,

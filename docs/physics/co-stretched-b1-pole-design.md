@@ -210,3 +210,16 @@ model comparison retains0.05eV position and5% full width with0.001eV floor;
 the numerical budget stays0.1meV. The comparison changes atomic basis plus its
 optimized orbital frame, not isolated basis-size convergence. No automatic
 B2/geometry/curve/fit/sweep or holdout analysis follows even from two pole passes.
+
+### Separate own-TZ authorization
+
+The user explicitly authorizes the own-TZ counterpart under the
+[new execution contract](../../projects/ukrmol_co/stretched-tz-pole-execution-20261102.json).
+The strict shared driver accepts only the two declared finite own64/400 B1
+models; it selects the byte-pinned own-TZ proposal, receipt and native arrays,
+never substitutes DZ inputs. All original numerical algorithms/gates/caps are
+inherited unchanged. A qualified public DZ pole is a prerequisite, not its seed.
+Positive actual own-TZ saved-native loading (including its99 K references) and
+new receipt/seed/unit controls precede freeze. Next independently reconstruct
+the actual pole-or-stop outcome, then review saved necessary counterpart
+evidence before a basis-plus-frame shift interpretation. No numerical successor.

@@ -88,6 +88,20 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User authorizes own-TZ B1 counterpart —2 November,16:11UTC
+
+[Own-TZ execution contract](stretched-tz-pole-execution-20261102.json): own native
+index18 seed/box/reference, strict64/400/2048 receipt/array/label gates, eight
+input/ten source pins. Public DZ pole is a prerequisite only, never rerun or
+used as seed. Positive actual saved-native TZ load/99 references passes before
+freeze with zero ODE/native calls; own receipt/seed/unit controls added. Existing
+numerical algorithms/gates/79-map allocation unchanged. New source/tests/contract/
+exact eight-core owner freeze/push first.8 cores/8GiB/7200s science/7800s owner/
+60minute implementation; two near-feature real guards before complex use.
+Next independent public actual pole-or-stop evidence/cost, then saved necessary
+counterpart review before basis-plus-frame interpretation. No automatic B2/
+geometry/fit/sweep/114-holdout analysis or successful-work repeat. No job launched yet.
+
 ### First finite own-DZ stretched B1 pole independently/publicly qualifies —2 November,15:55UTC
 
 [Public evidence](qualification-evidence/stretched-dz-pole/README.md) /

@@ -1912,6 +1912,33 @@ One finite DZ pole does not select a production model or width curve; channels,
 global continuity, neutral-domain/correlation and full-S embedding stay open.
 No automatic B2/geometry/fit/sweep or protected-holdout analysis.
 
+### Goal checkpoint —2 November,16:11UTC: user authorizes one own-TZ B1 counterpart
+
+The user explicitly selects **Authorize TZ** after public DZ qualification and
+pushed `9d797ae` overview. The [new own-TZ execution contract](stretched-tz-pole-execution-20261102.json)
+tests whether the own native near-feature candidate yields an isolated visible
+Pi-support pole under the same numerical prescription. The physical uncertainty
+is finite basis-plus-optimized-frame sensitivity, not total electronic convergence.
+
+Reuse qualified own-TZ64/400 B1/2048 raw arrays and both real prerequisites;
+qualified DZ pole is a public receipt only and is never rerun or transported
+as a seed. Own index18,0.0735Ry reference,(0.03675,−0.00606)Ha seed/own frozen box.
+Strict two-case metadata routing, matching own receipt/array/label gates and
+eight input/ten source pins. Positive saved-native own-TZ adapter load passes
+with all99 native references and zero ODE/native calls before freeze. Existing
+Jost/calculator/root/contour/residue/character algorithms unchanged; new controls
+reject a DZ receipt or failed DZ pole prerequisite before TZ model/map access.
+
+Separate source/tests/contract/exact eight-core owner freeze/push first. Same
+79-map cap/two near-feature real guards/three root settings/nested moments/two
+derivative witnesses/physical-Pi gates;8 physical cores/8GiB/eight workers/one
+thread, conditional600–2400s/7200s science/7800s owner/90s map/50000 RHS,60minute
+implementation.30s read-only observations; first input/ODE/cap/box/numerical/
+character failure stops without rescue. Next independent public actual result/
+cost, then saved-only necessary counterpart/residue/isolation review before
+finite pole-shift interpretation. No automatic cross-basis wavefunction identity,
+B2/geometry/fit/sweep/114-holdout analysis or native/electronic/DZ success repeat.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

@@ -1,0 +1,39 @@
+{
+  "status":"User explicitly authorizes one separate own-TZ B1 counterpart after public DZ pole;no transported DZ seed or automatic basis verdict",
+  "execution_authorized":true,
+  "pole_search_released":true,
+  "proposal_path":"projects/ukrmol_co/stretched-tz-pole-proposal-20261102.json",
+  "proposal_sha256":"289f902e9ea79ccf4880dd784e6f7cbc5f489a7189b370061fe9e343d191c16b",
+  "runner_module":"projects.ukrmol_co.stretched_dz_pole",
+  "runtime_controls_module":"projects.ukrmol_co.test_stretched_tz_pole",
+  "container_name":"co-stretched-tz-pole-20261102",
+  "owner_timeout_seconds":7800,
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "model":{"native_directory":"prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1","receipt":"prepared/stretched-tz-inner-receipt-20261101/independent-tz-inner-receipt.json","inner_contract_sha256":"e107ee7aaf256d82c9603727be6336e402a87bfd6d52f4702452c448b4c62c96"},
+  "completion_reading":"prepared/stretched-tz-pole-source-20261102/public-real-completion-reading.json",
+  "seed_reading":"prepared/stretched-tz-pole-source-20261102/public-seed-review.json",
+  "dz_pole_reading":"prepared/stretched-tz-pole-source-20261102/public-dz-pole-reading.json",
+  "input_sha256":{
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/fort.10":"76d566dee0a48eaf5fd8b37663f333d07f160052d910602bf6b875d53f2325c9",
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/fort.21":"7095620eea8e1cbf53810dc6dec321a291261af5fb3da46a3683935b75fa4ce9",
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/fort.921":"5d23bb67da460d4f5dff5d6d6ea4d0aabad08361e8d53fd663e0cdf69e4fbf92",
+    "prepared/stretched-tz-inner-source-20261101/outputs/inner/native/B1/rsolve.inp":"a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa",
+    "prepared/stretched-tz-inner-receipt-20261101/independent-tz-inner-receipt.json":"04435b1fcc7bf4c8613cbea3d979dea8b3b664b8fbb746e871bce8397e581615",
+    "prepared/stretched-tz-pole-source-20261102/public-real-completion-reading.json":"efb11811bf4e63cb20405ed730550a56bee502adaede2172182bde64f65f3a73",
+    "prepared/stretched-tz-pole-source-20261102/public-seed-review.json":"1aa7fdf0f86a97b4f8f66bd80c392218ed8512e04fc78afd069dbf13bc915d05",
+    "prepared/stretched-tz-pole-source-20261102/public-dz-pole-reading.json":"dc7819118262b9de02befe6f1766b28e4f74ec63747f711e3cbecd8230b5043a"
+  },
+  "source_sha256":{
+    "projects/ukrmol_co/stretched-dz-pole-proposal-20261102.json":"58bd40207d8c76e187c4318b476c77a54f094d1b0b76190395bef79885b054ba",
+    "projects/ukrmol_co/stretched-tz-pole-proposal-20261102.json":"289f902e9ea79ccf4880dd784e6f7cbc5f489a7189b370061fe9e343d191c16b",
+    "projects/ukrmol_co/compressed_pole_reference.py":"97c18dde96ebd622f07f83264719c2450407330bd575ca736866765b246c4eb3",
+    "projects/ukrmol_co/pole_reference.py":"d0294af3da61c00c2b8a5d685c7364da8e14ecad3eb3cd0dd4ce8ed0b97e3472",
+    "projects/ukrmol_co/pole_character.py":"d41ac2c8221be529c379a733641c8f80879d4be5e3251a34f79008860cf57732",
+    "projects/ukrmol_co/outgoing_map.py":"8860804fbc55ecee08d017937b5e5d116e7b52003d76cd42252ab13dc2923140",
+    "projects/ukrmol_co/stretched_real_guard.py":"1043daea8f0104c39ade62f7da2981b338b43243a6e96fbe3269a1178e39eb23",
+    "projects/ukrmol_co/native_full_reconstruction.py":"fd05aa8ec4b1e40cf7e3921ae34d2ecd11039949c6851129389e9e9c785bf0ec",
+    "projects/ukrmol_co/qualification-evidence/stretched-tz-inner-receipt/artifacts.json":"05a64758c3bc7221ed7f7d9389305ab265def85dc9886f834cec6e65a224bbd2",
+    "projects/ukrmol_co/qualification-evidence/stretched-dz-pole/artifacts.json":"86e5a94d370f26975b3145a3fb3b3dfc1a54223dff3959f532d422a157ff8976"
+  },
+  "open_labels":[[1,1,1,1],[2,1,2,1],[3,1,3,1],[4,1,3,3],[5,1,4,1],[6,1,4,3]]
+}

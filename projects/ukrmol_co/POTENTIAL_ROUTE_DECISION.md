@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**2November16:11UTC: user authorizes [one separate own-TZ B1 counterpart](stretched-tz-pole-execution-20261102.json).**
+Own index18 native seed/box/reference, strict64/400/2048 receipt/array/label gates;
+eight raw/ten source pins and qualified DZ public pole prerequisite, no DZ repeat.
+Positive actual saved-TZ load/99 references and own-routing/unit controls pass
+before freeze. Same numerical algorithms/gates/79-map/eight-core/8GiB/7200s science/
+7800s owner; near-feature real checks first, source/tests/contract/owner freeze/
+push before maps. Any failure stops without rescue. Next independent public
+actual result/cost and saved counterpart review before basis-plus-frame shift
+interpretation. No automatic B2/geometry/fit/sweep/114-holdout action or accuracy claim.
+
+### Earlier2November finite own-DZ qualification and TZ decision
+
 **2November15:55UTC: [one finite own-DZ stretched B1 pole independently qualifies](qualification-evidence/stretched-dz-pole/README.md).**
 Position0.914117eV/full width0.267093eV, all near-feature real/root/isolation/
 contour/derivative/Pi-support gates pass.48 maps/all original exits0,409.613145s/
