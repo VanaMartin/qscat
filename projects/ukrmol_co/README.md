@@ -12,7 +12,18 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**2November15:30UTC—[own-DZ pole attempt stops before maps](qualification-evidence/stretched-dz-pole-stop/README.md).**
+**2November15:55UTC—[first finite stretched own-DZ B1 pole independently qualifies](qualification-evidence/stretched-dz-pole/README.md).**
+Position **0.914117eV**, **full width0.267093eV**, stable isolated open-Pi residue
+support.48 maps/all original exits0; near-feature real/root/contour/derivative/
+character gates independently reconstruct from fresh public evidence.
+409.613145s/3.002216GiB; no native/electronic repeat. Original adapter and earlier
+failures remain preserved. This is one local finite-model pole, not a width
+curve, cross-basis/global identity, electronic accuracy or production-fit release.
+Next [separate own-TZ counterpart decision](stretched-tz-pole-proposal-20261102.json),
+own native seed/box and same gates/caps; no automatic peer/B2/fit/sweep/114-holdout
+analysis. No active campaign job or monitor.
+
+**Earlier2November15:30UTC—[own-DZ pole attempt stops before maps](qualification-evidence/stretched-dz-pole-stop/README.md).**
 All original exits2/zero real or complex maps: the adapter expected nested
 `interface` metadata absent from the own numerical model. The26 controls missed
 this return-schema mismatch. Native labels/arrays and both20degree real
@@ -827,9 +838,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![Own-DZ pole adapter stops before any map; both real prerequisites remain qualified and adapter-only correction needs a separate decision](../../docs/physics/figures/co-progress-20261102T1530-adapter-stop.png)
+![One finite own-DZ stretched pole independently qualifies; original failures preserved and own-TZ counterpart requires separate authorization](../../docs/physics/figures/co-progress-20261102T1555-dz-pole.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1530-adapter-stop.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1555-dz-pole.svg) ·
+[Finite DZ pole snapshot](progress-snapshot-20261102T1555-dz-pole.json) ·
+[Independent DZ pole evidence](qualification-evidence/stretched-dz-pole/README.md) ·
+[Unreleased own-TZ counterpart](stretched-tz-pole-proposal-20261102.json) ·
+[Previous adapter-stop figure](../../docs/physics/figures/co-progress-20261102T1530-adapter-stop.svg) ·
 [Zero-map adapter-stop snapshot](progress-snapshot-20261102T1530-adapter-stop.json) ·
 [Independent adapter-stop evidence](qualification-evidence/stretched-dz-pole-stop/README.md) ·
 [Unreleased adapter-only correction](stretched-dz-pole-adapter-repair-proposal-20261102.json) ·

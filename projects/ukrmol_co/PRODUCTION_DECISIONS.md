@@ -1878,6 +1878,40 @@ rescue. Next independent public actual result/cost, then a separate TZ decision
 only if justified. No completed map/native/electronic repeat or automatic B2/
 geometry/fit/sweep/114-holdout analysis. Both prior real prerequisites remain valid.
 
+### Goal checkpoint —2 November,15:55UTC: first finite own-DZ stretched pole qualifies; TZ decision
+
+**Physical evidence delta:** [own-DZ B1 outgoing pole independently/publicly qualifies](qualification-evidence/stretched-dz-pole/README.md),
+position0.9141170929567332eV/full width0.2670925297157766eV atR=2.5bohr, strict
+own64/400/2048 CAS12 model. The `fbd16ee` corrected source is pushed before
+15:39:46UTC launch;15:46:37UTC completion/all six original exits0.28 runtime
+controls and positive actual saved load precede science.48 maps: two real,
+nine root, one centre, four derivative and32 contour. Near-feature native guards,
+three root/isolation settings, unit windings/nested moments/derivative residues
+and all four open-Pi support/stability witnesses pass without changed gates.
+Reference leakage2.03e-11; full-width root–moment difference1.58e-11eV. Settings2/3
+accept the first root coordinate without another secant update; zero recorded
+coordinate differences are not zero uncertainty, with residuals about3e-11.
+
+Eight fresh public payloads/reader `8e42c1e` reconstruct79 raw files/48 executed
+Git sources/eight inputs/nine source prerequisites/2044 samples/14 observations
+(max30.000752s). Independent algebra shares saved exterior maps/native model,
+not an independent exterior engine. Profile409.613145s/CPU1194.174534s/3.002216GiB
+kernel peak; conditional600–2400s forecast overestimated actual cost. No timeout/
+OOM/retry/native/electronic repeat; original adapter/40degree/capsule failures
+stay preserved. No active job/monitor. All114 S holdouts remain unanalyzed.
+
+**Decision required:** [one own-TZ B1 counterpart attempt](stretched-tz-pole-proposal-20261102.json),
+or keep peers stopped. Own native index18 seed/box/reference, not the measured
+DZ pole; same numerical/character gates/79-map/8core/8GiB/7200s science/7800s
+owner and60minute implementation, positive saved-native load/source/tests/exact
+owner freeze before execution. Reuse DZ pole/both real prerequisites, no success
+repeat. On a pass, review saved necessary counterpart/open-residue/isolation
+evidence before interpreting finite basis-plus-optimized-frame pole shifts;
+no automatic cross-basis wavefunction identity or electronic-accuracy verdict.
+One finite DZ pole does not select a production model or width curve; channels,
+global continuity, neutral-domain/correlation and full-S embedding stay open.
+No automatic B2/geometry/fit/sweep or protected-holdout analysis.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

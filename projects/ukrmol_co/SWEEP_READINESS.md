@@ -6,7 +6,19 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November15:30UTC—own-DZ pole adapter stops before maps.**
+**2November15:55UTC—one finite own-DZ B1 outgoing pole independently qualifies.**
+[Public saved-native/Jost/residue reconstruction](qualification-evidence/stretched-dz-pole/README.md):
+position0.914117eV/full width0.267093eV, all near-feature real/root/isolation/
+contour/derivative/Pi-support gates pass.48 maps/all original exits0,
+409.613145s/3.002216GiB, no native/electronic repeat or old-failure requalification.
+This supplies one local finite-model pole, not electronic accuracy, cross-basis
+or global identity, a width curve, fitting target or sweep release. Next
+[separate own-TZ counterpart](stretched-tz-pole-proposal-20261102.json) decision,
+own native seed/box and unchanged gates/caps; saved counterpart/residue review
+before basis-plus-frame sensitivity interpretation. No automatic B2/geometry/
+fit/sweep/114-holdout action; no active campaign job/monitor.
+
+**Earlier2November15:30UTC—own-DZ pole adapter stops before maps.**
 [Independent public stop](qualification-evidence/stretched-dz-pole-stop/README.md)
 authenticates all original exits2/zero maps: adapter expects absent nested
 metadata after own-array checks. This is an implementation error, not numerical

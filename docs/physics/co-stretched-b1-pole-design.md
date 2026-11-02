@@ -160,3 +160,53 @@ the five hash-pinned saved native/receipt files (64/400/2048,99 K references)
 successfully before freeze, with zero ODE/native calls. Original algorithms,
 seeds/box/gates/caps and old capsule/exits2 stay unchanged. Only contract-path
 routing/provenance change in the eight-core owner; no scientific fallback.
+
+## Qualified finite own-DZ result —2 November2026
+
+[Independent fresh-public evidence](../../projects/ukrmol_co/qualification-evidence/stretched-dz-pole/README.md)
+qualifies the corrected `fbd16ee` allocation:48 maps/all original exits0,
+incident pole0.03359318355534015−0.00490773471261789iHartree, position0.914117eV,
+full width0.267093eV. Two own-native near-feature real checks pass, all three
+root settings accept the same coordinate with sigma_min about3e-11, contour
+windings16/32 are1/1, and root–moment full-width disagreement is1.58e-11eV.
+Recorded zero coordinate differences are not zero uncertainty: residual,
+contour and derivative gates remain required. Derivative residue changes
+5.04e-6/1.26e-6 pass1e-3. All four Pi-support witnesses pass, reference
+non-|m|=1 leakage2.03e-11, profile/norm changes1.34e-10/4.70e-6.
+
+Eight fresh public payloads authenticate79 raw files/48 executed Git sources/
+eight inputs/nine source prerequisites/2044 samples/14 observations. Independent
+NumPy reconstruction uses saved native sums/Jost matrices, no new ODE/native
+call. Profile409.613145s/CPU1194.174534s/3.002216GiB kernel peak. The original
+adapter/40degree/capsule failures remain preserved. No job/monitor remains active.
+
+This removes the uncontrolled phase-width diagnostic for **one local pole of
+the finite own-DZ model**. It does not release an electronic model, absolute
+CO accuracy, full-S embedding, omitted channels/spectrum, a Pi pair, global
+identity, a width curve, fit or production sweep. The114 S holdouts stay untouched.
+
+## Prospective own-TZ counterpart: separate decision
+
+The [unreleased TZ proposal](../../projects/ukrmol_co/stretched-tz-pole-proposal-20261102.json)
+inherits the DZ numerical allocation unchanged but selects its own native
+phase-gradient index18, E=0.0735Ry, seeds(0.03675,−0.00606) and(0.03677,−0.00606)
+incident Hartree. Its own diagnostic width0.02422555099992847Ry motivates the
+imaginary seed; neither the DZ pole nor a compressed state is transported.
+Box Re=[0.025,0.056], Im=[−0.011,−0.0025]Hartree lies below the first closed
+threshold0.370734394Ry; its worst open exposure angle is below15degrees.
+Near-feature own-TZ index18 real guards at120/15 and120/20 precede complex maps.
+
+Same strict own64/400/2048 array/receipt/label gates, positive saved-native adapter
+load, root/contour/derivative/character witnesses and79-map/8core/8GiB/7200s science/
+7800s owner caps apply. Reuse the public DZ pole and both real prerequisites,
+no successful calculation repeat. Explicit permission and a separate exact
+source/contract/tests/owner freeze are needed; any failure stops without rescue.
+
+A pass would supply a second finite local Pi-support pole, not cross-basis
+wavefunction identity. Review open-label/residue compatibility and isolation on
+saved evidence before interpreting a counterpart shift; a different character
+or ambiguous identity is inconclusive, not a basis rejection. The eventual
+model comparison retains0.05eV position and5% full width with0.001eV floor;
+the numerical budget stays0.1meV. The comparison changes atomic basis plus its
+optimized orbital frame, not isolated basis-size convergence. No automatic
+B2/geometry/curve/fit/sweep or holdout analysis follows even from two pole passes.

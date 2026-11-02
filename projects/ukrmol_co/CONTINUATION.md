@@ -88,6 +88,34 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### First finite own-DZ stretched B1 pole independently/publicly qualifies —2 November,15:55UTC
+
+[Public evidence](qualification-evidence/stretched-dz-pole/README.md) /
+[compact result](progress-stretched-dz-pole-result-20261102.json).
+Corrected `fbd16ee` pushed before15:39:46UTC launch;15:46:37UTC completion/all
+six original exits0. Own64/400/2048 pole z=0.03359318355534015−0.00490773471261789iHa,
+position0.9141170929567332eV/full width0.2670925297157766eV.48 maps/all near-feature
+real/root/isolation/nested-contour/derivative/Pi-support gates pass. Reference
+non-Pi leakage2.03e-11. Zero coordinate shifts across accepted settings are not
+zero uncertainty; residual and moment witnesses remain necessary.
+
+Eight fresh payloads/reader `8e42c1e` authenticate79 raw files/48 executed sources/
+eight inputs/nine source prerequisites/2044 samples/14 observations,max30.000752s.
+Saved-only NumPy native/Schur/moment/residue arithmetic reconstructs, no new ODE.
+Profile409.613145s/CPU1194.174534s/3.002216GiB kernel peak; no timeout/OOM/native/
+electronic repeat. Persistent corrected capsule
+`/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-dz-pole-adapter2-source-20261102`;
+container `co-stretched-dz-pole-adapter2-20261102` finished. All earlier failed
+capsules/exits remain untouched. No active job/monitor or automatic peer.
+
+Next bounded deliverable: decision on [one own-TZ pole counterpart](stretched-tz-pole-proposal-20261102.json),
+own phase index18/seed/box, same gates/79-map/8core/8GiB/7200s science/7800s owner/
+60minute implementation. Positive own saved-native load and new exact source/
+contract/tests/owner freeze first. No execution authorized yet. A second pass
+still requires saved counterpart/residue/isolation review before a basis-plus-
+optimized-frame shift interpretation. No B2/geometry/curve/fit/sweep/114-holdout
+release or electronic-model/global-identity/neutral/full-S gate newly passed.
+
 ### Corrected own-DZ attempt launched; terminal result pending —2 November,15:39:46UTC
 
 Immutable source `fbd16ee` is pushed before launch. New capsule

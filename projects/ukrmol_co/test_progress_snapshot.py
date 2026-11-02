@@ -16,7 +16,7 @@ def test_current_snapshot_pins_sources_and_does_not_requalify_the_co_stop():
     assert live["toy_integrations_verified"] == 72 and live["toy_mechanism_verdict"] is True
     assert live["real_guard_original_terminal_exits"] == [2] * 6
     assert live["co_guard_repaired"] is False and live["real_guard_tz_started"] is False
-    assert live["new_co_maps"] == 8 and live["route_holdout_s_matrices_analyzed"] == 0
+    assert live["new_co_maps"] == 56 and live["route_holdout_s_matrices_analyzed"] == 0
     assert live["automatic_successor"] is False and live["full_sweep_released"] is False
     compact = json.loads((DEFAULT_SNAPSHOT.parent / live["verification"]).read_text())
     assert compact["integrations_verified"] == live["toy_integrations_verified"]
@@ -88,7 +88,7 @@ def test_real_prerequisite_pass_does_not_authorize_complex_use_or_a_pole_search(
     assert live["route_holdout_s_matrices_still_unanalyzed"] == 114
 
 
-def test_zero_map_pole_adapter_stop_preserves_real_pass_and_requires_new_decision():
+def test_zero_map_pole_adapter_stop_is_preserved_separately_from_corrected_success():
     live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
     result = json.loads(DEFAULT_SNAPSHOT.with_name(live["pole_stop_verification"]).read_text())
     assert result["original_exits"] == live["pole_attempt_original_exits"] == [2] * 6
@@ -102,9 +102,25 @@ def test_zero_map_pole_adapter_stop_preserves_real_pass_and_requires_new_decisio
             "stretched-dz-pole-adapter-repair-proposal-20261102.json"
         ).read_text()
     )
-    assert (
-        proposal["execution_authorized"]
-        is live["pole_adapter_repair_execution_authorized"]
-        is False
-    )
+    assert proposal["execution_authorized"] is False  # Historical proposal, not the later release.
+    assert live["pole_adapter_repair_execution_authorized"] is True
     assert proposal["numerical_algorithms_changed"] is False
+
+
+def test_single_finite_dz_pole_is_not_a_tz_basis_or_production_release():
+    snapshot = _snapshot_data(DEFAULT_SNAPSHOT)
+    live = snapshot["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["dz_pole_verification"]).read_text())
+    assert result["original_exits"] == live["corrected_pole_original_exits"] == [0] * 6
+    assert result["finite_reference_pole_verdict"] is live["dz_finite_pole_qualified"] is True
+    assert result["physical_pi_support_verdict"] is live["dz_pi_support_qualified"] is True
+    assert result["total_maps"] == live["corrected_pole_total_maps"] == 48
+    assert result["prior_adapter_failure_original_exits"] == live["pole_attempt_original_exits"]
+    point = snapshot["finite_poles"][0]
+    for key in ["position_ev", "full_width_ev"]:
+        assert point[key] == pytest.approx(result[key], abs=1e-12, rel=0)
+    tz = json.loads(
+        DEFAULT_SNAPSHOT.with_name("stretched-tz-pole-proposal-20261102.json").read_text()
+    )
+    assert tz["execution_authorized"] is live["tz_pole_execution_authorized"] is False
+    assert live["basis_model_verdict"] is None and live["full_sweep_released"] is False

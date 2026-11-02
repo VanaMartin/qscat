@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261102T1530-adapter-stop.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261102T1555-dz-pole.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -412,7 +412,7 @@ def _anchor_candidates(ax, data):
         ax,
         "A",
         "What the potential must reproduce",
-        "CAS11 / DZ / 40: three independently checked pipelines",
+        data.get("anchor_subtitle", "CAS11 / DZ / 40: three independently checked pipelines"),
     )
     rows = data["anchor_candidates"]
     x = np.asarray([row["R_bohr"] for row in rows])
@@ -432,11 +432,37 @@ def _anchor_candidates(ax, data):
                 color=color,
                 fontsize=10,
             )
+    for row in data.get("finite_poles", []):
+        for ordinal, (key, label) in enumerate(
+            [
+                ("position_ev", "DZ pole"),
+                ("full_width_ev", "DZ full width"),
+            ]
+        ):
+            value = row[key]
+            ax.scatter(
+                row["R_bohr"],
+                value,
+                c=GREEN,
+                marker="D",
+                s=60,
+                zorder=7,
+                label="Own CAS12 DZ pole (not curve)" if ordinal == 0 else None,
+            )
+            ax.annotate(
+                f"{label} {value:.3f}",
+                (row["R_bohr"], value),
+                xytext=(-120, -15 if ordinal == 0 else -2),
+                textcoords="offset points",
+                fontsize=8.5,
+                color=GREEN,
+                arrowprops={"arrowstyle": "-", "color": GREEN, "lw": 0.7},
+            )
     ax.set(
         xlim=(1.85, 2.56),
         ylim=(0, 4.35),
         xlabel="Internuclear distance R / bohr",
-        ylabel="Native fit candidate / eV",
+        ylabel=data.get("anchor_ylabel", "Native fit candidate / eV"),
     )
     ax.set_xticks(x, ["1.900", "2.1323", "2.500"])
     ax.legend(loc="upper right", frameon=False, fontsize=9)
@@ -1215,7 +1241,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261102T1530-adapter-stop",
+        default=ROOT / "docs/physics/figures/co-progress-20261102T1555-dz-pole",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

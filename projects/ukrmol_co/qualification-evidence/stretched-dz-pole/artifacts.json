@@ -1,0 +1,14 @@
+{
+  "artifacts":{
+    "collection.json":{"bytes":13100,"sha256":"36c4e044c2340d34a5afaba02a8de8b94555122f4d688a90d348ca9c35cb5a24"},
+    "evidence.tar.gz":{"bytes":186871525,"sha256":"c4c35d62c6d269efda0e007f59d6da4fa047774984754dbc180d8dcd394671d0"},
+    "manifest.json":{"bytes":362,"sha256":"7eea96287757f418efb25d9a3cc66850f3a73c3f04d8d657717ae706aff39515"},
+    "reader-source-manifest.json":{"bytes":1221,"sha256":"281d85d2a5aa878e44540f14099f8751fe1c8913ae6e74aaf9c35cfc2c46c085"},
+    "reading.json":{"bytes":8772,"sha256":"dc7819118262b9de02befe6f1766b28e4f74ec63747f711e3cbecd8230b5043a"},
+    "result.json":{"bytes":49161,"sha256":"ad673e8c22e4c8fba8f1aeb6f8da296fab513b89e9ac0746834a9dc9755d322a"},
+    "test_verify_stretched_dz_pole.py":{"bytes":2522,"sha256":"1b900469c9733f07bfee725266a33f7f8dfec6ed44a522730a198bf312c5ea5c"},
+    "verify_stretched_dz_pole.py":{"bytes":24494,"sha256":"8b761ec4ba447d7b001615c0665e1ec67923519384ba0727c55faa6190a440d3"}
+  },
+  "git_sha":"8e42c1e4ebc47331c503b3a28772f5e24953acfd",
+  "url_prefix":"https://data.qscat.org/co-stretched-dz-pole-20261102/"
+}

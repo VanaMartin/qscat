@@ -2,6 +2,24 @@
 
 ## Decision now
 
+**2November15:55UTC: [one finite own-DZ stretched B1 pole independently qualifies](qualification-evidence/stretched-dz-pole/README.md).**
+Position0.914117eV/full width0.267093eV, all near-feature real/root/isolation/
+contour/derivative/Pi-support gates pass.48 maps/all original exits0,409.613145s/
+3.002216GiB; eight fresh public payloads/79 raw files/48 executed sources/2044
+samples reconstruct. No native/electronic repeat; original failures preserved.
+This is a local finite-model outgoing pole, not electronic accuracy, a Pi pair,
+cross-basis/global identity, a width curve or a production fitting target.
+
+**Next decision:** [one own-TZ B1 counterpart](stretched-tz-pole-proposal-20261102.json)
+or keep peers stopped. Own index18 native seed/box, same numerical/character
+gates/79-map/8core/8GiB/7200s science/7800s owner,60minute implementation; reuse
+DZ/both real prerequisites, positive saved-native load and new source/tests/
+contract/exact owner freeze first. Explicit authorization required. Review saved
+counterpart/residue/isolation evidence before interpreting a basis-plus-frame
+shift. No automatic B2/geometry/fit/sweep/114-holdout action. No job/monitor active.
+
+### Earlier2November corrected attempt launch
+
 **2November15:39:46UTC: corrected own-DZ attempt launches from pushed `fbd16ee`.**
 Fresh immutable capsule/48 Git sources/nine source prerequisites/eight input
 pins; positive saved-native load before freeze and28 runtime controls before
