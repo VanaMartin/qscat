@@ -88,6 +88,19 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Continue one isolated coupled canonical-Jost control —2 November,08:58UTC
+
+Source-only method review selects canonical wave/derivative endpoint data, not
+a CO angle change or flux projection. [Exact coupled design](../../docs/physics/coupled-jost-boundary-control.md)
+separates genuine free-tail truncation from integration error with an independent
+analytic matrix oracle.54 integrations/three lengths/three resolutions; no CO
+inputs, maps or native executable. Source/tests/exact owner freeze/push first.
+4 physical cores/2GiB/one thread/no network,5s each/300s science/360s owner;
+60minute implementation cap. Preserve failure without retry/parameter expansion.
+Next independently/publicly qualify outcome, then an explicit production-method
+decision before any new CO trial. Original CO stop/native receipts/114 holdouts
+and all restrictions remain unchanged; no automatic successor.
+
 ### CO BLOCKED; exact toy independently/publicly passes; no job active —2 November,08:31UTC
 
 [Exact toy evidence](qualification-evidence/dual-transport-toy/README.md) /

@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**2November08:58UTC: continue one isolated [coupled canonical-Jost boundary control](../../docs/physics/coupled-jost-boundary-control.md).**
+The source-only decision selects canonical wave/derivative normalization, not
+a CO angle change or flux projection. Exact coupled maps versus deliberately
+omitted exponential-tail data separate initialization and ODE error;54 frozen
+integrations/three lengths/three tolerances.4 physical cores/2GiB/no network/
+no CO inputs;300s science/360s owner,60minute implementation. Freeze/push code/
+synthetic controls/exact owner first. Preserve failures without retry. Next
+independent public outcome, then explicit production-method decision before any
+new CO trial. Original guard stop/native qualifications/114 holdouts unchanged.
+
+### Earlier2November exact diagonal control outcome
+
 **2November08:31UTC: [exact isolated toy independently/publicly passes](qualification-evidence/dual-transport-toy/README.md).**
 All72 integrations/six original exits0, three-resolution errors3.52e-8→3.55e-10→
 3.57e-12, seven S-pass/flux-fail controls.0.350555s/0.070160GiB, no CO input mount.

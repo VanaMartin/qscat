@@ -1586,6 +1586,32 @@ no angle/endpoint/tolerance/RHS change or CO successor is released. Review on th
 deliverable before extending method work. This prevents a successful exact toy
 from becoming an unbounded contour/propagator campaign or an automatic CO rescue.
 
+### Goal checkpoint —2 November,08:58UTC: canonical endpoint prescription; one coupled control
+
+The user requests continued decision-changing work until a decision blocks it.
+The bounded source-only review rejects choosing a CO contour solely from the
+diagonal crossover and rejects flux projection as an independent qualification.
+[Canonical wave/derivative boundary data](../../docs/physics/coupled-jost-boundary-control.md)
+are the selected prescription; actual finite-tail error must be resolved separately
+from integration error. This is a method decision, not a CO guard release.
+
+**Continue one minimum coupled control:** exact noncommuting two-channel real-
+symmetric exterior with analytic canonical Jost waves. Compare exact versus free-
+tail endpoint data, three lengths and three ODE resolutions,54 integrations;
+no CO inputs or maps. A pass establishes coupled canonical normalization and
+resolved tail/ODE error separation; a failure stops, no rescue. Unlike the prior
+diagonal injected-error control, this contains a genuine omitted physical tail.
+It is exponential, not a CO inverse-power-tail certification.
+
+Reuse all original campaign exports/failures unchanged. Design/contract/code/
+synthetic controls/exact owner freeze/push before ODEs; implementation60minutes,
+4 physical cores/2GiB/one thread/no network, conditional1–10s/5s per integration/
+10000 RHS/300s science/360s owner. Preserve any failure, no retries or automatic
+successor/CO mount/native call/114-holdout read. One next deliverable: independent
+public coupled-control outcome, then explicit production-method decision before
+any new CO trial. No pole/B2/fit/sweep or model promotion. Main-index service still
+incompatible;423d577 last-known anchor, current sources/delta inspected locally.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
