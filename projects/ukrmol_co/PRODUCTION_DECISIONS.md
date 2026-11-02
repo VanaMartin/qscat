@@ -1828,6 +1828,34 @@ Next independent public actual pole-or-stop evidence and measured costs before
 any separate TZ counterpart decision. No native/electronic repeat, B2, geometry,
 fit/sweep/114-holdout analysis or automatic successor. All original failures stand.
 
+### Goal checkpoint —2 November,15:30UTC: own-DZ adapter stops before maps; correction decision
+
+The explicitly authorized `d04d3b0` attempt launches15:22:10UTC and stops15:22:11UTC,
+all six original exits2, zero real/complex maps or roots. [Independent public
+stop reading](qualification-evidence/stretched-dz-pole-stop/README.md) authenticates
+25 raw files/47 executed Git sources/seven inputs/nine source prerequisites/three
+resource samples. Actual native W/poles/labels and frozen loader-return keys
+reconstruct. `KeyError('interface')` occurs after own arrays validate: the adapter
+expects nested metadata not returned by the own numerical loader. This is the
+assistant's implementation error, not an ODE, pole/character or physical rejection.
+The26 passing controls missed the successful own-model return path; source-schema
+regressions now expose that gap. No adapter change or remote restart has occurred.
+
+**Evidence delta:** no new numerical/physical prerequisite passed. Prior both-model
+20degree real qualification/native exports and every original failure remain
+unchanged. Profile0.401291s/CPU0.208804s/0.119068GiB kernel peak, owner1.336440s,
+no timeout/OOM. Seven fresh public payloads reconstruct the zero-map stop; reader0
+does not qualify a pole. No active campaign job/monitor, no paid resource.
+
+**Stop at decision:** authorize an [adapter-only correction](stretched-dz-pole-adapter-repair-proposal-20261102.json)
+or keep complex extraction stopped. Read labels via existing pinned `read_interface`
+instead of absent model metadata; require positive actual-schema/saved-native-load
+controls before a fresh immutable contract/source/tests/owner freeze. Preserve
+failed capsule/exits2 and bind its public stop receipt. Same seeds/box/79-map cap/
+algorithms/gates/8 physical cores/8GiB/7200s science/7800s owner/60minute effort
+bound, zero completed-map repeat. No automatic TZ/B2/geometry/fit/sweep/114-holdout
+action; electronic-model/channel/continuity/neutral/full-S blockers stay open.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

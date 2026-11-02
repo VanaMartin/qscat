@@ -130,3 +130,20 @@ propagation remain byte-identical. Two real checks execute before complex maps.
 The new eight-core owner verifies complete immutable source/mount/resource caps.
 Concurrent contour failures cancel not-yet-running work; already running bounded
 maps finish as preserved partial evidence, never as a retry or replacement.
+
+### Observed adapter stop; numerical attempt unstarted
+
+[Independent public evidence](../../projects/ukrmol_co/qualification-evidence/stretched-dz-pole-stop/README.md)
+preserves the authorized `d04d3b0` allocation, all original exits2 and zero maps.
+The own numerical model has no nested `interface` dictionary. The adapter asks
+for that absent metadata after its own-array checks, producing the recorded
+`KeyError('interface')` before near-feature guards or complex use. The26 passing
+controls did not test the successful own-model return schema. This is an adapter
+implementation failure, not scientific evidence against the pole or model.
+
+The six native labels independently reproduce from the unchanged raw interface.
+The [unreleased correction proposal](../../projects/ukrmol_co/stretched-dz-pole-adapter-repair-proposal-20261102.json)
+uses the existing native metadata reader and requires actual-return-schema and
+positive saved-native-load controls before a separately frozen fresh release.
+No numerical method, seed, box, gate or cap is to change. Do not alter/restart
+the stopped capsule or infer correction permission from the prior attempt.

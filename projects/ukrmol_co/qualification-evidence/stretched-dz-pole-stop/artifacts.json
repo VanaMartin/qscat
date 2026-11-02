@@ -1,0 +1,13 @@
+{
+  "artifacts":{
+    "collection.json":{"bytes":4570,"sha256":"d92afd35336eaff979176cdff11cd3294d547d870c18992d69a7b1b397a2876d"},
+    "evidence.tar.gz":{"bytes":6690436,"sha256":"7a33fc3888e44ee376df313531b4bbfbf1611775c4755c60dd7f7853a937e1a6"},
+    "manifest.json":{"bytes":317,"sha256":"6e5b9ced81f4f9cce404e738be51ce7104ce44db8d7e8c0b4bb2a0245b42a860"},
+    "reading.json":{"bytes":2897,"sha256":"d3ccd7d14b8576d407f03bdfae40153538e6f9309fa25a05d1154b7643827d7f"},
+    "result.json":{"bytes":726,"sha256":"0669a0bcdf8bd0d515eec0f0d303656e845ee5bf23a631ddb945b62453488fe8"},
+    "test_verify_stretched_dz_pole_stop.py":{"bytes":954,"sha256":"9719c2f9aac34983569f8596f4f98eb478d940bee31799eae506c09dbe64f897"},
+    "verify_stretched_dz_pole_stop.py":{"bytes":8878,"sha256":"e9f6c93224ad2d0c7cdc2da307896dab0e664c33809d97e6a9b15d5aa668a186"}
+  },
+  "git_sha":"88b2d13d51f82d480befa83dd4987fa6811679df",
+  "url_prefix":"https://data.qscat.org/co-stretched-dz-pole-stop-20261102/"
+}

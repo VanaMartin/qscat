@@ -86,3 +86,25 @@ def test_real_prerequisite_pass_does_not_authorize_complex_use_or_a_pole_search(
     assert live["pole_search_execution_authorized"] is proposal["execution_authorized"] is False
     assert proposal["pole_search_released"] is proposal["tz_counterpart_released"] is False
     assert live["route_holdout_s_matrices_still_unanalyzed"] == 114
+
+
+def test_zero_map_pole_adapter_stop_preserves_real_pass_and_requires_new_decision():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["pole_stop_verification"]).read_text())
+    assert result["original_exits"] == live["pole_attempt_original_exits"] == [2] * 6
+    assert result["real_maps"] == result["complex_maps"] == 0
+    assert live["pole_attempt_was_authorized"] is True
+    assert live["pole_attempt_real_maps"] == live["pole_attempt_complex_maps"] == 0
+    assert result["finite_reference_pole_verdict"] is result["physical_pi_support_verdict"] is None
+    assert live["combined_20degree_real_prerequisite_verdict"] is True
+    proposal = json.loads(
+        DEFAULT_SNAPSHOT.with_name(
+            "stretched-dz-pole-adapter-repair-proposal-20261102.json"
+        ).read_text()
+    )
+    assert (
+        proposal["execution_authorized"]
+        is live["pole_adapter_repair_execution_authorized"]
+        is False
+    )
+    assert proposal["numerical_algorithms_changed"] is False

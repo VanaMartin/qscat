@@ -12,7 +12,17 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**2November14:40UTC—[both finite models'20degree real prerequisites qualify](qualification-evidence/stretched-real-completion/README.md).**
+**2November15:30UTC—[own-DZ pole attempt stops before maps](qualification-evidence/stretched-dz-pole-stop/README.md).**
+All original exits2/zero real or complex maps: the adapter expected nested
+`interface` metadata absent from the own numerical model. The26 controls missed
+this return-schema mismatch. Native labels/arrays and both20degree real
+prerequisites remain valid; independent public evidence reconstructs the stop.
+No numerical/physical rejection or pole measurement, no active job or restart.
+Next [adapter-only correction decision](stretched-dz-pole-adapter-repair-proposal-20261102.json),
+same numerical algorithms/seeds/box/gates/79-map cap, with positive actual-schema/
+saved-native-load controls before a separately frozen release. No automatic peers.
+
+**Earlier2November14:40UTC—[both finite models'20degree real prerequisites qualify](qualification-evidence/stretched-real-completion/README.md).**
 The separately authorized corrected capsule completes five maps/all original
 exits0; passed DZ80 is reused. DZ60/TZ60/TZ80 native S/phase/full-flux/Wronskian
 gates pass; TZ80 endpoint changes Y1.84e-13/A3.65e-10 pass1e-7. Independent public
@@ -817,9 +827,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![Both finite models pass the new20degree real prerequisites; original failures remain preserved and a separate own-DZ pole attempt awaits authorization](../../docs/physics/figures/co-progress-20261102T1440-real-completion.png)
+![Own-DZ pole adapter stops before any map; both real prerequisites remain qualified and adapter-only correction needs a separate decision](../../docs/physics/figures/co-progress-20261102T1530-adapter-stop.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1440-real-completion.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1530-adapter-stop.svg) ·
+[Zero-map adapter-stop snapshot](progress-snapshot-20261102T1530-adapter-stop.json) ·
+[Independent adapter-stop evidence](qualification-evidence/stretched-dz-pole-stop/README.md) ·
+[Unreleased adapter-only correction](stretched-dz-pole-adapter-repair-proposal-20261102.json) ·
+[Previous real-completion figure](../../docs/physics/figures/co-progress-20261102T1440-real-completion.svg) ·
 [Completed real-prerequisite snapshot](progress-snapshot-20261102T1440-real-completion.json) ·
 [Independent completion evidence](qualification-evidence/stretched-real-completion/README.md) ·
 [Unreleased own-DZ pole design](../../docs/physics/co-stretched-b1-pole-design.md) ·

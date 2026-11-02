@@ -2,6 +2,23 @@
 
 ## Decision now
 
+**2November15:30UTC: [authorized own-DZ attempt stops at adapter metadata](qualification-evidence/stretched-dz-pole-stop/README.md).**
+All original exits2/zero real or complex maps. Numerical own-model dictionary
+has no nested `interface`; the adapter incorrectly requests it after arrays
+validate.26 passing controls missed the successful return schema. Independent
+fresh-public reading confirms present native labels/arrays and source mismatch,
+not a numerical or physical rejection. Both20degree real prerequisites remain
+qualified; original failures intact. No active job/retry or pole verdict.
+
+**Decision:** [adapter-only correction](stretched-dz-pole-adapter-repair-proposal-20261102.json)
+or keep complex extraction stopped. Use existing native metadata reader and
+positive actual-schema/saved-native-load controls, then separate fresh immutable
+source/tests/owner/contract freeze. Same algorithms/seeds/box/79-map cap/gates/
+resources; preserve failed capsule/exits2. No correction or restart authorized
+by the old attempt; no automatic TZ/B2/fit/sweep/114-holdout action.
+
+### Earlier2November own-DZ attempt authorization
+
 **2November15:15UTC: user explicitly authorizes [one own-DZ B1 pole attempt](stretched-dz-pole-execution-20261102.json).**
 Same79-map own-data proposal, two near-feature real checks before complex use,
 strict own64/400/2048/public-prerequisite/source closure and unchanged numerical/

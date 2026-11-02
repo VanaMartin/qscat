@@ -88,6 +88,31 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### STOP: own-DZ adapter fails before maps; correction decision —2 November,15:30UTC
+
+[Independent public stop](qualification-evidence/stretched-dz-pole-stop/README.md) /
+[compact observation](progress-stretched-dz-pole-stop-20261102.json).
+Pushed `d04d3b0` attempt launches15:22:10UTC, stops15:22:11UTC/all original exits2,
+zero real/complex maps. The adapter requests absent `model['interface']` metadata
+after own-array checks; the numerical loader returns no such key. All26 controls
+pass but missed this successful own-model schema. Native labels/arrays are present
+and independently authenticate; no ODE/pole/character/model rejection occurred.
+Seven fresh payloads/25 raw files/47 executed sources/seven inputs/nine source
+prerequisites/three resource samples reconstruct; reader `88b2d13`0 authenticates
+the stop only. Profile0.401291s/0.119068GiB kernel peak, no timeout/OOM.
+
+Persistent failed capsule `/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-dz-pole-source-20261102`;
+container `co-stretched-dz-pole-20261102` finished. Never modify/restart it. Both
+finite models' prior20degree real prerequisite and all previous evidence stand.
+No active job/monitor. No adapter correction implemented or numerical retry.
+
+Next decision: [adapter-only correction](stretched-dz-pole-adapter-repair-proposal-20261102.json)
+or keep stopped. Existing native-interface reader for labels; positive actual-
+schema and saved-native-load tests before new source/contract/owner freeze, bind
+old stop, same numerical algorithms/seeds/box/gates/79-map cap/8 cores/8GiB/
+7200s science/7800s owner/60minutes implementation. No completed map repeated,
+automatic TZ/B2/geometry/fit/sweep or114-holdout analysis.
+
 ### User authorizes one own-DZ B1 finite pole attempt —2 November,15:15UTC
 
 [Separate execution contract](stretched-dz-pole-execution-20261102.json) binds

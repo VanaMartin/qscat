@@ -6,7 +6,18 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November14:40UTC—both finite models pass the new20degree real prerequisite.**
+**2November15:30UTC—own-DZ pole adapter stops before maps.**
+[Independent public stop](qualification-evidence/stretched-dz-pole-stop/README.md)
+authenticates all original exits2/zero maps: adapter expects absent nested
+metadata after own-array checks. This is an implementation error, not numerical
+or physical rejection; native labels/arrays and both20degree real prerequisites
+remain qualified. No pole/basis/model/fit gate newly passes. Next [adapter-only
+correction decision](stretched-dz-pole-adapter-repair-proposal-20261102.json),
+same numerical algorithms/seeds/box/gates/caps after positive actual-schema/
+saved-native-load controls and separate freeze. No active job or automatic peer/
+curve/fit/sweep/114-holdout analysis; all original failures stay preserved.
+
+**Earlier2November14:40UTC—both finite models pass the new20degree real prerequisite.**
 [Independent completion evidence](qualification-evidence/stretched-real-completion/README.md)
 qualifies DZ60/TZ60/TZ80 with the reused DZ80 result; full real S/phase/flux/
 Wronskian gates and both80-point endpoint controls pass. Five new maps/all exits0,

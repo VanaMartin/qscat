@@ -1,0 +1,19 @@
+{
+  "status":"UNRELEASED: adapter metadata-contract correction only after zero-map own-DZ failure",
+  "execution_authorized":false,
+  "failed_source_commit":"d04d3b0392ac3e78e4b70a7332cf55bb5cb5b3a7",
+  "failed_stop_reading_sha256":"d3ccd7d14b8576d407f03bdfae40153538e6f9309fa25a05d1154b7643827d7f",
+  "original_pole_proposal_sha256":"58bd40207d8c76e187c4318b476c77a54f094d1b0b76190395bef79885b054ba",
+  "correction":"Read own channel labels through existing read_interface on the same pinned fort.10/fort.21 bytes;do not assume nested interface in the numerical model;retain strict layout,array,threshold,label gates",
+  "required_controls":"Actual own-model return-schema regression,positive own-label routing,wrong labels/layout rejection,positive saved-native adapter load with zero maps,existing26 analytic/synthetic controls,source/input closure before freeze",
+  "required_before_execution":"Separate explicit correction authorization;fresh immutable capsule/container/contract/source/tests/exact owner freeze and push;bind failed public receipt;preserve original exits2",
+  "numerical_algorithms_changed":false,
+  "seed_box_settings_gates_caps_changed":false,
+  "resources":{"physical_cores":8,"memory_gib":8,"total_map_cap":79,"conditional_seconds":[600,2400],"science_cap_seconds":7200,"owner_cap_seconds":7800},
+  "implementation_bound_minutes":60,
+  "completed_real_or_complex_maps_to_repeat":0,
+  "native_calls":0,
+  "automatic_successor":false,
+  "tz_counterpart_released":false,
+  "full_sweep_released":false
+}
