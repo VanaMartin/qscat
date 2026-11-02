@@ -2,6 +2,21 @@
 
 ## Decision now
 
+**2November13:50UTC: completion stops before maps—[source pointer omitted](qualification-evidence/stretched-real-completion-stop/README.md).**
+All original exits2, zero maps; all12 raw input pins match. The capsule lacks the
+already pinned TZ receipt `artifacts.json`; no native/model/ODE work is reached.
+Independent fresh-public reading confirms the assistant's packaging omission,
+not a physical/numerical rejection. Prior new20degree DZ80 and both native
+exports remain qualified; original40degree failure stays2. No active job/retry.
+
+**Decision needed:** [fresh-capsule-only correction](stretched-real-capsule-repair-proposal-20261102.json)
+for the same five unstarted maps, or keep completion stopped. Add the missing
+source pointer/all actual source prerequisites; same numerical source, parameters,
+budgets and caps; preserve failed capsule/exits2 and freeze a new release first.
+No automatic peers/complex/poles/B2/fit/sweep/114-holdout analysis.
+
+### Earlier2November completion authorization
+
 **2November13:36UTC: user authorizes [separate five-map real completion](stretched-real-completion-contract-20261102.json).**
 Reuse passed DZ80; DZ60/TZ60 at120, TZ80 at60/90/120, unchanged20degree/order10/
 rtol1e-12/physical gates and TZ80 endpoint stability1e-7.4 physical cores/8GiB/

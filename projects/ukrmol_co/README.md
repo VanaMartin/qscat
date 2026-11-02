@@ -12,7 +12,15 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**2November10:52UTC—[authorized20degree actual-DZ80 study independently passes](qualification-evidence/stretched-contour-study/README.md).**
+**2November13:50UTC—[completion stops before any map](qualification-evidence/stretched-real-completion-stop/README.md).**
+The source capsule omitted the pinned TZ receipt `artifacts.json`; all12 raw
+input pins match. Original exits2/zero maps, independently verified from fresh
+public evidence. This is a packaging omission, not a numerical failure. The
+prior20degree DZ80 pass and both native exports remain valid. No restart occurred.
+A [fresh-capsule-only correction](stretched-real-capsule-repair-proposal-20261102.json)
+needs a separate decision, with unchanged numerical source/parameters/gates/caps.
+
+**Earlier2November10:52UTC—[authorized20degree actual-DZ80 study independently passes](qualification-evidence/stretched-contour-study/README.md).**
 Three fixed endpoints/all original exits0;120 flux1.01e-9/Wronskian4.75e-15 and
 native S/phase pass unchanged gates.90/120 full-map changes Y2.32e-13/A6.69e-9
 pass1e-7.41.861348s/0.375618GiB; fresh public native/raw reconstruction passes.
@@ -794,9 +802,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![Authorized20degree DZ80 study passes full real gates and endpoint stability; original40degree failure remains, remaining DZ/TZ checks unreleased](../../docs/physics/figures/co-progress-20261102T1052-contour-study.png)
+![Completion source gate stops before maps because a TZ source pointer is omitted; prior20degree DZ80 remains qualified and fresh capsule correction needs a decision](../../docs/physics/figures/co-progress-20261102T1350-completion-stop.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1052-contour-study.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1350-completion-stop.svg) ·
+[Zero-map completion-stop snapshot](progress-snapshot-20261102T1350-completion-stop.json) ·
+[Independent capsule stop](qualification-evidence/stretched-real-completion-stop/README.md) ·
+[Unreleased capsule-only correction](stretched-real-capsule-repair-proposal-20261102.json) ·
+[Previous actual-DZ80 figure](../../docs/physics/figures/co-progress-20261102T1052-contour-study.svg) ·
 [Actual-DZ80 endpoint snapshot](progress-snapshot-20261102T1052-contour-study.json) ·
 [Independent actual-CO evidence](qualification-evidence/stretched-contour-study/README.md) ·
 [Unreleased remaining real checks](stretched-real-completion-proposal-20261102.json) ·

@@ -1,0 +1,21 @@
+{
+  "observed_utc":"2026-11-02T13:50:00+00:00",
+  "source_commit":"048bb941a785ff4276a8153270c6dd7eac2ec903",
+  "reader_source_commit":"19e28f88f33e74395a8cda9a82006e33257edeaa",
+  "archive_sha256":"0f51c413b9ff7841563a7b3b92bc000c9417ce25f6acb015e9170c9eaf9ac407",
+  "reading_sha256":"c0d5af051ecc6790087111180e155fb8382bd9bcab2a6096c81b9b69df4a3063",
+  "fresh_public_payloads_verified":7,
+  "raw_files_verified":29,
+  "source_entries_verified":34,
+  "raw_input_pins_verified":12,
+  "missing_source_prerequisites":["projects/ukrmol_co/qualification-evidence/stretched-tz-inner-receipt/artifacts.json"],
+  "original_exits":[2,2,2,2,2,2],
+  "maps_reserved":0,
+  "real_completion_verdict":null,
+  "profile_wall_seconds":0.20077060101903044,
+  "kernel_peak_container_memory_bytes":111218688,
+  "previous_dz80_contour_verdict":true,
+  "original40degree_scientific_exit":2,
+  "automatic_successor":false,
+  "full_sweep_released":false
+}

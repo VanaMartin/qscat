@@ -1725,6 +1725,31 @@ identity design before any complex use. Original40degree failure remains2; no
 automatic complex/pole/B2/fit/sweep/114-holdout analysis. Main retrieval still
 incompatible at last-known423d577; branch sources/delta reviewed locally.
 
+### Goal checkpoint —2 November,13:50UTC: source-capsule gate stops completion before maps
+
+The user-authorized completion from pushed `048bb94` stops13:42:01UTC, all six
+original exits2, zero maps reserved. [Independent public stop reading](qualification-evidence/stretched-real-completion-stop/README.md)
+authenticates29 raw files/34 original Git sources/12 input pins and isolates one
+missing source prerequisite: the already tracked/pinned TZ receipt `artifacts.json`.
+All raw native inputs match; eight other source pins pass. This is an assistant
+capsule-packaging omission, not an electronic or numerical-method failure.
+Six synthetic controls passed but lacked an actual source-capsule closure check;
+that regression is now added, with no numerical-source change or remote restart.
+
+**Evidence delta / stop:** input/source integrity gate works; no new physics or
+remaining real guard qualifies. Prior public20degree DZ80 and both native exports
+remain valid; original40degree failure stays2. Profile0.200771s/0.103580GiB kernel
+peak, no timeout/OOM/retry. Seven fresh public payloads reproduce the zero-map
+stop; reader0 is not scientific success. No active campaign job/monitor.
+
+**Decision required:** release a [fresh-capsule-only correction](stretched-real-capsule-repair-proposal-20261102.json)
+for the same five unstarted maps, or keep completion stopped. Add the missing
+byte-pinned source pointer, check all nine actual source prerequisites, preserve
+the failed immutable capsule/exits2 and bind its public stop receipt. Numerical
+source, sequence,20degree/order10/rtol1e-12/gates/caps stay unchanged; no scientific
+retry or completed-map repeat. Separate release/source/tests/owner freeze first.
+No automatic peer/complex/pole/B2/fit/sweep/114-holdout action or paid resources.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

@@ -1,0 +1,23 @@
+{
+  "status":"UNRELEASED: source-capsule completeness correction only, after zero-map input failure",
+  "execution_authorized":false,
+  "failed_source_commit":"048bb941a785ff4276a8153270c6dd7eac2ec903",
+  "failed_allocation_reading_sha256":"c0d5af051ecc6790087111180e155fb8382bd9bcab2a6096c81b9b69df4a3063",
+  "numerical_source_sha256":"e79d7885650da54cfc8f00a6c77352a7e09aa37f9aa18a86d99eca2f1bd71a24",
+  "original_completion_contract_sha256":"ca2472ea1405095dd6312eabf8aec28c2e6c8a8f46fdc918eda71aeba8f05630",
+  "add_source_file":"projects/ukrmol_co/qualification-evidence/stretched-tz-inner-receipt/artifacts.json",
+  "add_source_sha256":"05a64758c3bc7221ed7f7d9389305ab265def85dc9886f834cec6e65a224bbd2",
+  "correction":"New immutable capsule/container;include every resolved source prerequisite and the missing TZ pointer;actual-capsule completeness regression before science;preserve failed capsule/exits2 and bind its public stop receipt",
+  "maps":[["dz",60,120],["tz",60,120],["tz",80,60],["tz",80,90],["tz",80,120]],
+  "numerical_change":false,
+  "previous_dz80_repeated":false,
+  "angle_degrees":20,
+  "order":10,
+  "rtol":1e-12,
+  "resources":{"physical_cores":4,"memory_gib":8,"per_map_seconds":90,"rhs_cap":50000,"science_cap_seconds":600,"owner_cap_seconds":900},
+  "gates":"All original real S/phase/flux/Wronskian/unitarity/reciprocity budgets unchanged;TZ80 last90/120 Y/A stability1e-7",
+  "required_before_execution":"Separate explicit source-capsule correction release;new contract/source/tests/exact owner freeze and push;fresh input/source closure/resource checks",
+  "automatic_successor":false,
+  "pole_search_released":false,
+  "full_sweep_released":false
+}

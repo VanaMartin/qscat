@@ -6,7 +6,16 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November10:52UTC—new20degree actual-DZ80 prescription qualifies at one energy.**
+**2November13:50UTC—completion source gate stops before maps.**
+[Independent public reading](qualification-evidence/stretched-real-completion-stop/README.md)
+names the omitted pinned TZ receipt source pointer; all12 raw input pins match.
+All original exits2/zero maps, no new physics or numerical rejection. Prior
+20degree DZ80 and both native exports remain qualified. Source-completeness
+regression added, but no remote restart. Next [capsule-only correction decision](stretched-real-capsule-repair-proposal-20261102.json),
+same five unstarted maps/unchanged numerical source and budgets. No automatic
+complex/pole/B2/fit/sweep/114-holdout release.
+
+**Earlier2November10:52UTC—new20degree actual-DZ80 prescription qualifies at one energy.**
 [Three-endpoint public study](qualification-evidence/stretched-contour-study/README.md)
 passes original S/phase/full flux/Wronskian gates and90/120 full-map stability,
 all original exits0,41.861348s/0.375618GiB. This removes the full-amplitude blocker

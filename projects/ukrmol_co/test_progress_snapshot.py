@@ -52,3 +52,13 @@ def test_separate_authorized_study_pass_is_not_a_remaining_guard_or_pole_release
         DEFAULT_SNAPSHOT.with_name("stretched-real-completion-proposal-20261102.json").read_text()
     )
     assert proposal["execution_authorized"] is False and len(proposal["maps"]) == 5
+
+
+def test_completion_input_stop_does_not_erase_the_dz80_pass_or_release_a_retry():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    assert live["contour_study_verdict"] is True
+    assert live["completion_original_exits"] == [2] * 6 and live["completion_maps_reserved"] == 0
+    assert (
+        live["completion_verdict"] is None and live["capsule_repair_execution_authorized"] is False
+    )
+    assert len(live["completion_missing_source_prerequisites"]) == 1

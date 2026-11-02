@@ -88,6 +88,30 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### BLOCKED by capsule-correction decision; zero maps in stopped completion —2 November,13:50UTC
+
+[Independent public stop](qualification-evidence/stretched-real-completion-stop/README.md) /
+[compact record](progress-stretched-real-completion-stop-20261102.json).
+Pushed `048bb94` completion stops13:42:01UTC/all original exits2/zero maps. All12
+raw input pins match; source capsule omitted pinned
+`projects/ukrmol_co/qualification-evidence/stretched-tz-inner-receipt/artifacts.json`.
+Packaging omission, not numerical/electronic failure. Seven fresh public payloads/
+29 raw files/34 executed Git sources reproduce the prerequisite stop; reader
+`19e28f8`0 authenticates evidence only. Profile0.200771s/0.103580GiB kernel peak,
+no timeout/OOM/retry. Source-completeness regression added; numerical source
+unchanged. No remote restart or active job/monitor.
+
+Prior actual20degree DZ80/public receipts/native exports remain valid, original
+40degree failure stays2. Persistent failed capsule
+`/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-real-completion-source-20261102`;
+container `co-stretched-real-completion-20261102` finished. Never modify/reuse it.
+
+Next decision: authorize [fresh-capsule-only correction](stretched-real-capsule-repair-proposal-20261102.json)
+for the same five unstarted maps or keep stopped. Missing pointer/all nine source
+prerequisites required, same numerical source/order/angle/rtol/gates/caps; new
+immutable capsule/container/contract/source/tests/owner freeze and bind old stop
+receipt. No automatic complex/pole/B2/fit/sweep or protected114-S analysis.
+
 ### User authorizes five remaining20degree real checks —2 November,13:36UTC
 
 [Separate completion contract](stretched-real-completion-contract-20261102.json)
