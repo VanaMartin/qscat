@@ -88,6 +88,20 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User authorizes five remaining20degree real checks —2 November,13:36UTC
+
+[Separate completion contract](stretched-real-completion-contract-20261102.json)
+reuses passed DZ80/public reading and both own native exports. Exact five-map
+sequence: DZ60/TZ60 at120; TZ80 at60/90/120,20degrees/order10/rtol1e-12/original
+physical gates plus TZ80 last-two Y/A stability1e-7. Public own receipts/DZ80
+reading/original stop/method/array pins before maps; new source/synthetic tests/
+exact existing owner freeze/push first.4 physical cores/8GiB/one thread/600s
+science/900s owner,60minute implementation. First input/integration/cap or
+standalone/final gate failure stops, no fallback; retain short TZ80 diagnostics.
+Next independent actual public result/cost before any stretched B1 complex-design
+review. Original40degree failure never requalified; no native/electronic repeat,
+automatic complex/pole/B2/fit/sweep/114-holdout analysis. No map launched yet.
+
 ### New20degree DZ80 prescription independently/publicly passes; next peer decision —2 November,10:52UTC
 
 [Actual CO result](qualification-evidence/stretched-contour-study/README.md) /

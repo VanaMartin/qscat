@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**2November13:36UTC: user authorizes [separate five-map real completion](stretched-real-completion-contract-20261102.json).**
+Reuse passed DZ80; DZ60/TZ60 at120, TZ80 at60/90/120, unchanged20degree/order10/
+rtol1e-12/physical gates and TZ80 endpoint stability1e-7.4 physical cores/8GiB/
+600s science/900s owner,60minute implementation; exact pins/source/tests/owner
+freeze first. Any input/integration/cap or standalone/final gate failure stops
+without fallback. Next independent public actual maps/cost, then a separate
+stretched B1 seed/box/character/local-identity decision. Original40degree failure
+stays2; no native/electronic repeat or automatic complex/pole/B2/fit/sweep/holdout
+release. This is numerical qualification, not a physical basis/model verdict.
+
+### Earlier2November single-point study outcome
+
 **2November10:52UTC: [authorized20degree own-DZ80 study independently/publicly passes](qualification-evidence/stretched-contour-study/README.md).**
 Three maps/all original exits0; flux at60/90/120 is9.86e-8/4.70e-9/1.01e-9,
 Wronskian1.52e-9/7.96e-13/4.75e-15. All original real S/phase/invariant budgets

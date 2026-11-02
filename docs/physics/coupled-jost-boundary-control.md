@@ -144,3 +144,14 @@ old40degree failure. It does not qualify DZ60/TZ60/TZ80 at20degrees or complex
 continuation. Original40degree exits2 and both native-export receipts stand.
 Complete the remaining own-model real prerequisites only under a separately
 approved/frozen finite allocation; no automatic peer or pole use follows.
+
+### Separate real-axis completion authorization
+
+The user subsequently authorizes the [fixed five-map completion](../../projects/ukrmol_co/stretched-real-completion-contract-20261102.json):
+reuse passed DZ80; DZ60/TZ60 at120 and TZ80 at60/90/120, unchanged20degree/
+order10/rtol1e-12/real gates plus TZ80 endpoint stability. Only original own input/
+method pins and physical budgets are inherited; historical40degree settings and
+four-map routing are not inherited. Standalone/final physical gate failures,
+input errors, integration errors or cap exhaustion stop without fallback. Short
+TZ80 diagnostics remain part of its predeclared convergence dataset. No original
+failure requalification or complex/pole/model release follows from this permission.

@@ -1702,6 +1702,29 @@ passed DZ80 result rather than repeating it. Four physical cores/8GiB, condition
 freeze before use. This remains unreleased: obtain a separate continuation
 decision for peers or park extraction. No automatic pole release even on a pass.
 
+### Goal checkpoint —2 November,13:36UTC: user authorizes five remaining real checks
+
+On resuming, the user explicitly selects **Authorize completion** for the
+[separate new20degree five-map contract](stretched-real-completion-contract-20261102.json).
+It reuses independently qualified DZ80 and both own64/400 B1/2048 native exports;
+no successful map/native/QC/CI/property/preparation repeat. DZ60/TZ60 at120 then
+TZ80 at60/90/120, same20degrees/order10/rtol1e-12/original physical budgets and
+TZ80 last-two full Y/A stability1e-7. The public DZ80 reading/original stopped
+result/own receipts/method and native array pins must pass before maps.
+
+**Decision served:** complete both finite models' real numerical prerequisite,
+not a physical basis/pole/accuracy comparison. Failure stops inconclusive with
+all original data/exits; no fallback/parameter ladder. Short TZ80 diagnostics
+are preserved as its predeclared convergence dataset; standalone/final gate
+failure or any input/integration/cap failure aborts. Four physical cores/8GiB/
+one thread, conditional60–240s/90s per map/50000 RHS/600s science/900s owner;
+60minute implementation, source/tests/exact owner freeze/push first. Checks at
+most60s apart. Next independently publish/reconstruct the actual five-map result,
+including failure, then review a justified stretched B1 seed/box/character/local-
+identity design before any complex use. Original40degree failure remains2; no
+automatic complex/pole/B2/fit/sweep/114-holdout analysis. Main retrieval still
+incompatible at last-known423d577; branch sources/delta reviewed locally.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
