@@ -1521,6 +1521,43 @@ No successor is queued. Preserve all prior stops/2048/nine/new50/equilibrium and
 both own native-export receipts. Numerical-method correctness, not another long
 electronic allocation, is the immediate blocker toward a physical basis/pole test.
 
+### Goal checkpoint —2 November,08:25UTC: diagnosis complete; separate exact toy selected
+
+**Goal / critical path:** a physically grounded pole-targeted2-D potential and
+held-out scattering validation, retaining0.05eV position/5% full-width with
+0.001eV floor/0.05rad phase budgets. At stretchedR=2.5bohr, the qualified finite
+CAS12 DZ/TZ64-target comparison still lacks a qualified exterior amplitude map.
+No production curve, model/neutral-domain/channel convergence or state continuity
+is established;114 S holdouts,2048 baseline, nine reference/new50/equilibrium
+exclusion remain unchanged.
+
+**Evidence delta:** the separately bounded30minute saved-only diagnosis finishes
+with no new ODE/native/CI/QC calls. [Public authenticated diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md)
+localizes the failed flux to open–closed(0,65); modest final A/matching conditions
+disfavor a catastrophic final solve. Asymptotic damping ratio29536.5 versus
+observed Wronskian ratio23178.9 supports finite-tail closed-dual contamination,
+not unique causal proof or a CO repair. Original guard six exits2 remain2.
+
+**Disposition: continue only one separate method-level control**, the
+[exact dual-transport toy](../../docs/physics/inverse-jost-dual-transport-control.md),
+not another CO map. Its pass would validate the proposed transport mechanism
+and S-pass/flux-fail distinction against a closed-form oracle; failure stops
+method work for review. This is the minimum check before considering any actual
+CO method proposal, with no CO files mounted/opened. Reuse all qualified campaign
+results unchanged; mathematical E=1Ry,T=2Ry only. Freeze/push source/tests/exact
+owner/contract before72 DOP853 integrations at three resolutions;4 physical cores/
+2GiB/one library thread/no network, conditional1–10s/5s each/10000 RHS/300s total/
+360s owner. Separate implementation bound30minutes. No retry/parameter expansion,
+native executable, dependency install, paid host or automatic successor.
+
+**One next deliverable / review trigger:** preserve and independently/publicly
+reconstruct the exact toy outcome, including any failure, then return to the
+production decision. Even a pass does not isolate actual CO tail/ODE/roundoff
+error or authorize a new angle/endpoint/tolerance/RHS budget, TZ guard, complex
+pole/B2/fit/sweep. Main retrieval remains unavailable: shared-service code/
+dependency mismatch; last-known indexed anchor423d577, upstream currency unknown.
+Relevant branch-only sources read locally; no shared-service intervention.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

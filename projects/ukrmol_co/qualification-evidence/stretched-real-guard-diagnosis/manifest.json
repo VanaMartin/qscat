@@ -1,0 +1,5 @@
+{
+  "git_sha": "f8a33e160c9a45a3f967b221a0a71cb024391641",
+  "experiment": "co-stretched-real-guard-diagnosis-20261102",
+  "scope": "Saved-only block/rate diagnosis; original exits2 not repaired; zero new ODE/native/pole/CO calls"
+}

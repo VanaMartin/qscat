@@ -1,0 +1,13 @@
+{
+  "artifacts":{
+    "diagnose_stretched_real_guard.py":{"bytes":6207,"sha256":"e51c7b2afb22171e9cccf17c725669e8b5b77929918a071b93e390a4c9268b48"},
+    "diagnosis.json":{"bytes":4729,"sha256":"16a88c8141a1e903410104c9cb7f51897b2de13df32911c1879a06c3c0e087e3"},
+    "input-artifacts.json":{"bytes":1510,"sha256":"db8483eef4c861db96f2c0e5460920f0ef369cff2651d91e91c74a4930acd74b"},
+    "manifest.json":{"bytes":233,"sha256":"f11d8e8b480b86a2d82b9de6f3f72af89446cb883a8ba22fe213925fbc469996"},
+    "physics-note.md":{"bytes":6155,"sha256":"51a7c8315d96e37154095c8e177ce9c51fa64fa9ecdeed43552951d274817835"},
+    "source-manifest.json":{"bytes":869,"sha256":"28dfee0b71c7b42c605451053ce1b2bc2ee105d6b0b2990938c7d8047fa12713"},
+    "test_diagnose_stretched_real_guard.py":{"bytes":1521,"sha256":"7b8d2d30f4cd0ad0cdc05aba20f9769f2534b001bc62c240d42d4f85b0620571"}
+  },
+  "git_sha":"f8a33e160c9a45a3f967b221a0a71cb024391641",
+  "url_prefix":"https://data.qscat.org/co-stretched-real-guard-diagnosis-20261102/"
+}

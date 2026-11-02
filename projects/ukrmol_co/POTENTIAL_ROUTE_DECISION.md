@@ -1,6 +1,19 @@
-# Sweep/potential route decision — 1 November 2026
+# Sweep/potential route decision — 2 November 2026
 
 ## Decision now
+
+**2November08:25UTC: CO numerical stop unchanged; saved diagnosis complete.**
+[Authenticated saved blocks/rates](qualification-evidence/stretched-real-guard-diagnosis/README.md)
+support finite-tail open–closed dual contamination, not unique causal proof or
+a repaired guard. The separately selected [exact two-channel toy](../../docs/physics/inverse-jost-dual-transport-control.md)
+uses mathematical constants only and no CO input mount. Freeze/push code/tests/
+owner first;72 integrations/three resolutions,4 physical cores/2GiB/300s total/
+360s owner,30minute implementation bound. Preserve any failure without retry.
+One next deliverable: independent public toy outcome, then separate method review.
+Even a pass authorizes no CO angle/endpoint/tolerance/RHS rescue, TZ guard,
+complex pole/B2/fit/sweep or holdout read. Original stops/qualified exports remain.
+
+### Original guard stop (still binding)
 
 **1November06:02UTC: STOP numerical continuation—[own-DZ real guard fails](qualification-evidence/stretched-real-guard/README.md).**
 Frozen/pushed `35637b2` runs DZ60/80 only; all original science/profile/command/
@@ -13,10 +26,10 @@ status checks max30.224973s; no timeout/OOM, retry or successor. No active job.
 **Blocked:** real-axis exterior prerequisite for stretched complex use. TZ guards
 never start; zero complex/pole/B2/fit/sweep or protected S analysis. Both own
 native exports remain qualified; no physical basis rejection or convergence
-verdict. Cause unresolved, no numerical/tolerance/endpoint/RHS rescue. Next one
-bounded deliverable is30minutes saved-evidence/source-only diagnosis of Jost/flux
-normalization/conditioning, zero new maps/native/CI/QC. A new numerical proposal
-requires a separate evidence-based review/freeze; nothing is queued automatically.
+verdict. No numerical/tolerance/endpoint/RHS rescue. The originally selected
+30minute saved-evidence/source-only diagnosis is now complete as above, with
+zero new maps/native/CI/QC. Actual CO cause remains incompletely isolated;
+a new CO numerical proposal still requires separate review/freeze.
 
 ### Earlier1November real-guard selection
 

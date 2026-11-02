@@ -88,6 +88,26 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CO remains BLOCKED; saved diagnosis complete, separate exact toy selected —2 November,08:25UTC
+
+[Goal checkpoint](PRODUCTION_DECISIONS.md#goal-checkpoint-2-november0825utc-diagnosis-complete-separate-exact-toy-selected) /
+[public saved diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md).
+Original own-DZ real guard six exits2 remain2; both native exports still qualify.
+Saved matrices localize the error to open–closed amplitudes; damping/residual
+ratios support finite-tail closed-dual contamination without unique causal proof
+or any repair. Zero new CO/native/ODE calls during diagnosis. Seven fresh
+diagnosis/eleven fresh original payloads reproduce the report exactly.
+
+One next bounded deliverable: independently/publicly reconstruct the separately
+selected [exact two-channel transport toy](../../docs/physics/inverse-jost-dual-transport-control.md).
+No CO campaign/input mount, only seven minimal source/contract/design files;
+source/tests/exact owner freeze/push before72 toy integrations.4 physical cores/
+2GiB/one library thread/no network, conditional1–10s/300s total/360s owner;
+30minute implementation bound. Preserve any failure without retry or parameter
+expansion. No automatic CO successor: pass validates only the exact mechanism,
+not the actual CO tail, coupled exterior or new contour. Reassess after outcome;
+no TZ guard/pole/B2/fit/sweep/114-holdout analysis or paid resources.
+
 ### BLOCKED—own-DZ real guard stops; no job active —1 November,06:02UTC
 
 [Original result/raw matrices](qualification-evidence/stretched-real-guard/README.md) /
