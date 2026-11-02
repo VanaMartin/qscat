@@ -6,7 +6,17 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November17:52UTC—[one aug-TZ64 property job is active](qualification-evidence/stretched-augtz-properties-launch/README.md).**
+**2November22:50UTC—[aug-TZ64 properties independently qualify](qualification-evidence/stretched-augtz-properties/README.md).**
+64 states/eight per sector/1928 moments, all eight original execution exits0;
+4.780938h/1.693340GiB. Thirteen fresh public payloads/85869 samples reconstruct;
+first metadata-packaging/reader1 and strict300s cadence overrun remain explicit.
+No active campaign job/monitor, no new scattering effect or production release.
+Next freeze one own full-continuum integral/conditional algebraic B1-CSF reuse
+preparation; actual equality gates and fresh source/tests/owner needed before a
+new call. Existing DZ/TZ preparation releases do not cover aug-TZ. No automatic
+inner/pole/geometry/fit/sweep;114 holdouts and all original failures preserved.
+
+**Earlier2November17:52UTC—[one aug-TZ64 property job is active](qualification-evidence/stretched-augtz-properties-launch/README.md).**
 All10 runtime controls passed; one DENPROP call, terminal inventory/exits/cost
 pending. Pushed `58a61ba`, eight cores/8GiB/same hard caps/300s read-only monitor.
 No automatic preparation/scattering/pole successor; this is not a new physical

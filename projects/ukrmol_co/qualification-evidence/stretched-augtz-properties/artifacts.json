@@ -1,0 +1,19 @@
+{
+  "artifacts":{
+    "first-reader-failure.json":{"bytes":314,"sha256":"f1bc26fb5596891754a1aedd497a46e3e94761291ee9aafc19853e00f7ac5a5b"},
+    "manifest.json":{"bytes":338,"sha256":"2ec07dc397cc807107b6d74cfb510e15548c1fcada2b8612814d55f70b2ba18d"},
+    "monitor-attempts.jsonl":{"bytes":54711,"sha256":"cb0097967cd426676e15f6341f514978e586cd74bb88d481286af7d51a028b42"},
+    "reading.json":{"bytes":3948,"sha256":"9f083f46937b85117089be229c4ecdbbda3921837b28737e7c36e816216d3bd3"},
+    "result-summary.json":{"bytes":2661,"sha256":"350a56d26086e105b767a9773413fdf6b61ef55ecfa298ce0dc1726ae85285ce"},
+    "terminal-archive-complete.json":{"bytes":123,"sha256":"9ce8654df5bf76805e8073c647d924315fddbaebbd116c81c82a288590124c84"},
+    "terminal-archive.json":{"bytes":123,"sha256":"400f09179976d6c16c8caec7969424800d788120dd43116bb55a6da51f3917d7"},
+    "terminal-evidence-complete.tar.gz":{"bytes":31971705,"sha256":"5e9dfdd9c024f1fbd9d41953d37f98f5acfd5bc35ab0885ba648c5d85af69e16"},
+    "terminal-evidence.tar.gz":{"bytes":31968378,"sha256":"89e63adaa385e9edcabcf4cec1ca0437c373d17c70a4357f21ce227b2e8ef1c8"},
+    "test_verify_stretched_augtz_properties.py":{"bytes":1269,"sha256":"ac8ee04012f4c51fcbf4c1833f63d5486486c3ca9899ebea7481a79521f8e506"},
+    "verify_stretched_augtz_properties.py":{"bytes":6193,"sha256":"d2a98c41eaa22a55b8fa579095e0e8e0a7f72fb36f2ec21c731d43edbf39088a"},
+    "verify_stretched_augtz_properties_launch.py":{"bytes":6428,"sha256":"15472b1c6525c0136d95860c7898ada96636f5cc4973d8cb757d239274810e7b"},
+    "verify_stretched_properties.py":{"bytes":12610,"sha256":"853bf28ad3603e7a7c737fc7675a2704852be68a93b9b41a7b0bac18b0a30315"}
+  },
+  "git_sha":"64a08ad95b5495ade07cc7a64a3609e156edd0e1",
+  "url_prefix":"https://data.qscat.org/co-stretched-augtz-properties-result-20261102/"
+}

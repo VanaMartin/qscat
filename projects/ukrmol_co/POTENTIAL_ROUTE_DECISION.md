@@ -2,6 +2,25 @@
 
 ## Decision now
 
+**2November22:50UTC: [one aug-TZ64 property export independently qualifies](qualification-evidence/stretched-augtz-properties/README.md).**
+64 states/eight per sector/1928 valid moments, all eight original execution exits0;
+4.780938h/1.693340GiB,13 fresh public payloads reconstruct. First packaging/reader1
+is preserved beside corrected reader0, no science rerun. Maximum monitor gap
+300.614284s fails strict300s cadence; operational exception, not a native failure.
+No active campaign job/monitor. This fills missing inputs, not a scattering
+effect, electronic convergence or production fitting target.
+
+**Next:** freeze one own aug-TZ integral/conditional algebraic B1-CSF reuse
+preparation,4cores/32GiB/conditional30–180s/30minute implementation bound. Actual
+inventory/deck/eight target-CSF equality must precede copying qualified DZ signed
+CSFs/log; no cross-basis integral/property/vector copy, fallback CONGEN or target/
+property repeat. Existing DZ/TZ contracts do not cover aug-TZ; fresh source/tests/
+receipt/owner freeze and push before any new call. No preparation/inner/scattering/
+pole allocation is active or automatically released here. DZ/TZ103.370meV/44.172meV
+sensitivity, N+1 identity uncertainty and all114 holdout protections stand.
+
+### Earlier2November property launch
+
 **2November17:52:04UTC: [one aug-TZ64 property export launches](qualification-evidence/stretched-augtz-properties-launch/README.md).**
 Pushed `58a61ba`, all10 runtime controls pass;17:53:23UTC capture confirms one
 DENPROP call active. Six public payloads/20 executing sources reconstruct;

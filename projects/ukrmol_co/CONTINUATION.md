@@ -88,6 +88,41 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Aug-TZ64 properties independently qualify; minimum preparation freeze next —2 November,22:50UTC
+
+[Public result](qualification-evidence/stretched-augtz-properties/README.md):
+the one DENPROP call finishes22:38:56UTC/all eight original execution exits0.
+All64 states/eight per sector and1928 unique dipole/quadrupole records qualify,
+own-native energy error4.98645e-10Ha/ground-dipole error1.36486e-11au. Reader
+`64a08ad`/13 freshly fetched public payloads reconstruct35 raw records/20 executing
+Git sources/six prerequisites/85869 samples; original18/copy12 after-hashes
+reconcile as attestations, not independent raw replay of the large CSF files.
+Profile17211.376450s/4.780938h, CPU17227.023222s, kernel peak1.693340GiB;
+conditional4–7h forecast contains actual cost, no eight-core speedup claimed.
+
+Preserve first terminal collection/reader1: it omitted the original container
+inspection. Complete package adds that metadata, all33 earlier non-index payloads
+unchanged, reader0, no science rerun. All59 SSH observations succeed, but maximum
+gap300.614284s means strict300s cadence fails; terminal observation delay224.070381s.
+The scheduling exception is separate from unchanged scientific/native success.
+Service/container finished; capsule and all outputs unchanged. **No active campaign
+numerical job or monitor.** Original failures/114 holdouts remain protected.
+
+**Next one bounded deliverable:** source/tests/contract/exact owner freeze for one
+own aug-TZ full-continuum integral/conditional B1 algebraic-CSF reuse preparation,
+under the existing diffuse-control decision. Existing DZ/TZ preparation recipes
+hard-code their cases/receipts and do not release aug-TZ. Reuse the qualified DZ
+signed CSFs/log only if actual inventory/resolved CONGEN deck/all eight original
+target-CSF hashes equal; no basis-dependent integral/property/vector reuse and
+no fallback CONGEN on a mismatch. Planning anchors TZ38.671s/4.174GiB and DZ
+90.403s/8.288GiB; conditional30–180s for the reuse path, not an aug-TZ measurement.
+Proposed4 physical cores/32GiB/one library thread/30s observations,40GiB available
+RAM/20GiB disk floors,2400s integral/3480s container/3600s owner,30minute narrow
+freeze effort. No new native call at this handoff; no inner/B2/pole/geometry/fit/
+sweep/holdout release. First verify the reused public preparation proof and actual
+property receipt/input pins, then freeze/push before any numerical allocation.
+Main retrieval still incompatible; last-known423d5770, upstream unverified.
+
 ### Aug-TZ64 properties launched; actual result pending —2 November,17:52UTC
 
 [Independent public launch](qualification-evidence/stretched-augtz-properties-launch/README.md),

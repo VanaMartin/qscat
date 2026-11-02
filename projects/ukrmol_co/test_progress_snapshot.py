@@ -197,7 +197,9 @@ def test_target_correspondence_does_not_certify_resonance_identity_or_remove_sen
 
 
 def test_active_aug_property_job_does_not_invent_terminal_results_or_release_scattering():
-    snapshot = _snapshot_data(DEFAULT_SNAPSHOT)
+    snapshot = _snapshot_data(
+        DEFAULT_SNAPSHOT.with_name("progress-snapshot-20261102T1755-augtz-property-launch.json")
+    )
     live = snapshot["live_status"]
     launch = json.loads(
         DEFAULT_SNAPSHOT.with_name(live["augtz_property_launch_verification"]).read_text()
@@ -213,3 +215,24 @@ def test_active_aug_property_job_does_not_invent_terminal_results_or_release_sca
     assert live["active_monitor"] is True and live["candidate_insensitivity_verdict"] is False
     assert live["production_model_selected"] is live["full_sweep_released"] is False
     assert live["route_holdout_s_matrices_still_unanalyzed"] == 114
+
+
+def test_completed_aug_properties_keep_monitor_exception_and_physical_gates_separate():
+    snapshot = _snapshot_data(DEFAULT_SNAPSHOT)
+    live = snapshot["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["augtz_property_verification"]).read_text())
+    assert (
+        result["independent_property_inventory_verdict"]
+        is live["augtz_property_inventory_verdict"]
+        is True
+    )
+    assert result["target_count"] == 64 and result["roots_per_sector"] == [8] * 8
+    assert result["multipole_records"] == 1928
+    assert result["original_exits"] == live["augtz_property_terminal_exits"] == [0] * 8
+    assert result["strict_300second_observation_cadence_passed"] is False
+    assert result["maximum_observation_gap_seconds"] > 300
+    assert result["original_independent_reader_exit"] == 1
+    assert result["corrected_independent_reader_exit"] == 0
+    assert live["active_numerical_job"] is None and live["active_monitor"] is False
+    assert live["candidate_insensitivity_verdict"] is False and live["full_sweep_released"] is False
+    assert result["new_ci_calls"] == result["new_qc_calls"] == result["new_maps"] == 0

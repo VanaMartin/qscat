@@ -1,0 +1,53 @@
+{
+  "base_snapshot":"progress-snapshot-20261102T1755-augtz-property-launch.json",
+  "base_snapshot_sha256":"993dfc63c314cda471ee3c19a8ee31ded742c7a147bd87aeeaef792fad937ba7",
+  "additional_source_file_sha256":{
+    "projects/ukrmol_co/SWEEP_READINESS.md":"5d3f793ceadc21b22061c0694d422bcaf9a55bbfb840b450e633aa6bf696f31c",
+    "projects/ukrmol_co/progress_figure.py":"e15607d4a1d594e6cfd6aff2ab24f9d3b3bdba2cad58f5596770dbc5978c1d28",
+    "projects/ukrmol_co/CONTINUATION.md":"37c355157d7eb3a5e5f4d35c6c6ff287c8dc091be2c3b9b155d84dfb4eb4e89e",
+    "projects/ukrmol_co/README.md":"70fbf00771b959b2fade4553c2d24860a06a0d7b347df0887346dbc65b20f5d8",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md":"3782d5f3ca5c6a77a7a429b7097942a3e9f3c008d766524af989e2178dabcd1e",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md":"ebee57b2fc544515958539c926ec663cb685aad8a2089d4cad515d47c5592e1c",
+    "projects/ukrmol_co/verify_stretched_properties.py":"853bf28ad3603e7a7c737fc7675a2704852be68a93b9b41a7b0bac18b0a30315",
+    "projects/ukrmol_co/test_progress_snapshot.py":"44b232ca53d8cdce61f3f4b677b32a6b01219d807f81ecda792bb79f15fc1717",
+    "docs/physics/co-stretched-diffuse-flexibility.md":"19d8002b0430afddbeab0b6e2d5df8c6e7b6b615169e5f2a47b730b0733aff2e",
+    "projects/ukrmol_co/verify_stretched_augtz_properties.py":"d2a98c41eaa22a55b8fa579095e0e8e0a7f72fb36f2ec21c731d43edbf39088a",
+    "projects/ukrmol_co/test_verify_stretched_augtz_properties.py":"ac8ee04012f4c51fcbf4c1833f63d5486486c3ca9899ebea7481a79521f8e506",
+    "projects/ukrmol_co/progress-stretched-augtz-properties-result-20261102.json":"c5bc18deac6a3f07153ee2303da624bc8a7824348c3f2df1ccb5dcf99e0f661f",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-properties/artifacts.json":"6a36cf01af1a4bdbfff5f5b9d80b2802b73e4f13ac3ec11a0d913973c8279d53",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-properties/manifest.json":"2ec07dc397cc807107b6d74cfb510e15548c1fcada2b8612814d55f70b2ba18d",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-properties/README.md":"adeb66961e035a64611c9e7626df221ccedc660e81640ec73707b4278145aa16"
+  },
+  "live_status_updates":{
+    "scope":"Aug-TZ64 properties independently qualify;minimum own-integral/conditional algebraic-CSF preparation freeze next",
+    "goal_review_disposition":"Continue selected diffuse-flexibility control via minimum preparation freeze;no production or automatic numerical successor",
+    "augtz_property_verification":"progress-stretched-augtz-properties-result-20261102.json",
+    "augtz_property_inventory_verdict":true,
+    "augtz_property_terminal_exits":[0,0,0,0,0,0,0,0],
+    "augtz_property_target_count":64,
+    "augtz_property_multipole_records":1928,
+    "augtz_property_profile_wall_seconds":17211.376449542004,
+    "augtz_property_kernel_peak_container_memory_bytes":1818210304,
+    "augtz_property_strict_monitor_cadence_passed":false,
+    "active_numerical_job":null,
+    "active_monitor":false,
+    "next_deliverable":"Freeze one own aug-TZ integral/conditional algebraic B1-CSF reuse preparation;actual equality gates and exact source/tests/receipt/owner before any new native call"
+  },
+  "updates":{
+    "snapshot_utc":"2026-11-02T22:50:00.000000+00:00",
+    "figure_subtitle":"Aug-TZ64 properties independently qualify:64 states /1928 moments /4.781h /1.693GiB. Necessary inputs,not a new scattering effect or production release",
+    "roadmap_title":"Missing aug-TZ properties now qualify",
+    "roadmap_entries":[
+      {"kind":"reuse","status":"PASS: DZ /TZ POLES AND TARGET CORRESPONDENCE","title":"Eight target-sector minima0.978–0.990","detail":"All64 ranks retained;not unique N+1 state identity"},
+      {"kind":"reject","status":"REJECT: PRODUCTION-INSENSITIVITY INFERENCE","title":"Position103.370meV /width44.172meV shifts remain","detail":"No production model,width curve or fit released"},
+      {"kind":"reuse","status":"PASS: ONE AUG-TZ64 PROPERTY EXPORT","title":"64 states /1928 moments;all eight execution exits0","detail":"4.781h /1.693GiB;no QC /CI /target repetition"},
+      {"kind":"gated","status":"EXCEPTIONS PRESERVED,NOT SCIENTIFIC FAILURES","title":"Monitor max300.614s fails strict300s cadence","detail":"First metadata package /reader1;complete reader0"},
+      {"kind":"next","status":"NEXT: FREEZE OWN-INTEGRAL /CSF REUSE STEP","title":"Conditional algebraic reuse,not cross-basis integrals","detail":"No fallback CONGEN,automatic inner solve or pole"}
+    ],
+    "roadmap_note":"No active campaign numerical job or monitor.\nProperty input stage is not a scattering effect.\nAll114 S holdouts and original failures preserved.",
+    "memory_note":"DZ /TZ poles:409.61 /409.19 s;3.002 /3.019 GiB.\nTarget overlap:102.17 s /1.316 GiB /four cores.\nAug-TZ64 properties:4.781h /1.693GiB kernel peak.",
+    "memory_next_step":"Actual property cost qualifies;minimum preparation freeze next.",
+    "source_footer":"2 NOVEMBER  Aug-TZ64 properties qualify;physical DZ /TZ pole sensitivity still blocks fitting. Own preparation needs a new exact freeze;no active job.",
+    "verification_footer":"Property:13 fresh payloads /35 raw files /20 Git sources /85869 samples. First reader1 preserved;strict300s cadence fails separately. All114 holdouts protected."
+  }
+}

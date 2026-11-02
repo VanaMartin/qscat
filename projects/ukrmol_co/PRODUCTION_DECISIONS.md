@@ -2121,6 +2121,49 @@ placeholder2 fields. Eight physical cores/8GiB/same4–7h conditional forecast/
 monitor. Next actual independent property/exits/resource/unchanged-input review.
 No automatic preparation/nativeB1/scattering/pole/geometry/fit/sweep/holdout work.
 
+### Goal checkpoint —2 November,22:50UTC: missing aug-TZ64 properties qualify; freeze minimum preparation
+
+**Evidence delta/production decision:** [independent public property result](qualification-evidence/stretched-augtz-properties/README.md)
+supplies all64 states/eight per sector and1928 valid dipole/quadrupole records.
+One native DENPROP finishes22:38:56UTC/all eight original execution exits0,
+no timeout/OOM/retry. Own CIDATA energy/norm/property IDs/ranks/coverage and ground
+dipole pass. Reader `64a08ad`/13 fresh payloads reconstruct35 raw files/20 original
+Git sources/six prerequisites/85869 samples. Original18/copy12 after-hash records
+authenticate, not independent raw CSF replay. No QC/CI/import/electronic success
+repeat or scattering maps. Profile4.780938h/CPU17227.023222s/kernel1.693340GiB,
+inside conditional4–7h forecast; no eight-core speedup inference.
+
+First terminal package omits existing container metadata/reader1; original package
+and error public. Complete package adds the original inspection, all33 earlier
+non-index payloads byte-identical/reader0, no scientific repeat. All59 SSH checks
+succeed, but maximum gap300.614284s does not meet strict300s cadence. Preserve
+operational scheduling exception separately from scientific/native qualification.
+No active numerical job/monitor or automatic successor. These are necessary
+inputs for the already selected finite diffuse-basis-plus-frame contrast, **not**
+the contrast's scattering result or a production-readiness advance. DZ/TZ target
+correspondence and103.370meV/44.172meV sensitivity remain unchanged.
+
+**Minimum next scope:** design/freeze one own aug-TZ four-rank full-continuum
+integral call with conditional qualified-DZ algebraic B1-CSF reuse; no new target
+or properties. Existing preparation implementation/receipts are DZ/TZ-specific,
+so current releases do not authorize an aug-TZ call. Freshly authenticate existing
+public preparation proof/receipt and exact original/qualified-property inputs.
+Only if actual inventory/resolved CONGEN deck/eight target-CSF hashes equal,
+copy signed CSFs/original DZ CONGEN log, never basis-dependent integrals/native
+vectors/properties. Any mismatch stops without fallback CONGEN. No automatic
+inner/2048/scattering/pole successor; eventual inner allocation needs actual
+dimensions and a separate costed freeze. No B2/geometry/fit/sweep/holdout release.
+
+**Planning bounds:**4 physical cores/32GiB/four MPI ranks/one library thread,
+40GiB RAM/20GiB disk floors; conditional30–180s reuse path versus measured
+plain-TZ38.671s/4.174GiB and DZ90.403s/8.288GiB (includes its original CONGEN).
+Not an aug-TZ runtime or speedup. Retain2400s integral/3480s container/3600s owner
+hard caps,30s checks (below the old60s preparation bound),30minute narrow freeze
+effort. Continue the selected physical contrast via this minimum input stage,
+not a basis/root/channel ladder. Freeze/push new source/tests/contract/owner before
+any new numerical work. Paid resources/ComfyUI/image rebuilds remain excluded;
+all114 holdouts/nine/new50/2048/equilibrium/original failures remain preserved.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

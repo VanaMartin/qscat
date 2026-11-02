@@ -850,6 +850,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
+**22:50UTC:** [aug-TZ64 properties independently qualify](qualification-evidence/stretched-augtz-properties/README.md),
+64 states/1928 moments, all eight original execution exits0,4.781h/1.693GiB.
+First terminal packaging failure and strict300s monitor overrun remain explicit.
+No active campaign job/monitor. Next freeze the minimum own integral/conditional
+algebraic B1-CSF reuse preparation, not another target or property export; no
+new scattering effect, automatic inner/pole successor or production release.
+
 **17:52:04UTC:** [one aug-TZ64 property export is active](qualification-evidence/stretched-augtz-properties-launch/README.md),
 all10 runtime controls passed. One DENPROP call on unchanged saved electronic
 inputs; eight cores/8GiB/conditional4–7h/hard caps/300s bounded read-only monitor.
@@ -864,9 +871,12 @@ physical cores/8GiB; independent actual result/cost required before preparation.
 Production fitting remains stopped; the target-correspondence result below does
 not waive the measured pole sensitivity or unproved N+1 resonance identity.
 
-![DZ/TZ target correspondence passes; saved aug-TZ reuse qualifies and one property-only job is active, with no terminal or production verdict](../../docs/physics/figures/co-progress-20261102T1755-augtz-property-launch.png)
+![Aug-TZ64 properties independently qualify; finite pole sensitivity still blocks fitting and preparation needs a separate freeze](../../docs/physics/figures/co-progress-20261102T2250-augtz-properties.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1755-augtz-property-launch.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T2250-augtz-properties.svg) ·
+[Completed property snapshot](progress-snapshot-20261102T2250-augtz-properties.json) ·
+[Independent completed properties](qualification-evidence/stretched-augtz-properties/README.md) ·
+[Previous active-launch figure](../../docs/physics/figures/co-progress-20261102T1755-augtz-property-launch.svg) ·
 [Aug-TZ reuse/active property snapshot](progress-snapshot-20261102T1755-augtz-property-launch.json) ·
 [Saved aug-TZ feasibility](qualification-evidence/stretched-augtz-feasibility/README.md) ·
 [Independent active launch](qualification-evidence/stretched-augtz-properties-launch/README.md) ·

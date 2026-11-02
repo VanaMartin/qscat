@@ -92,3 +92,23 @@ exports; no full-route runtime is guaranteed before actual aug-TZ preparation.
 This missing-input stage is necessary for the physical contrast, **not** itself
 a measured scattering effect or production-readiness advance. No paid resources,
 image rebuild, ComfyUI changes, held-out S analysis or qscat promotion is selected.
+
+## Completed property stage and minimum preparation direction
+
+[Independent public qualification](../../projects/ukrmol_co/qualification-evidence/stretched-augtz-properties/README.md)
+supplies64 states/1928 valid unique moments; all eight original execution exits0.
+Measured4.780938h/1.693340GiB lies inside the forecast, not a parallel speedup.
+The first metadata-packaging failure is preserved beside corrected reading0;
+maximum monitor gap300.614284s fails strict300s cadence, independently of native
+and scientific success. No campaign numerical job/monitor remains active.
+
+Next freeze only one own aug-TZ full-continuum integral/conditional algebraic B1
+CSF reuse step. Actual native inventory/resolved deck/eight target-CSF hashes must
+equal qualified DZ before copying signed CSFs and original CONGEN log; integral,
+property, orbital and native-vector files remain aug-TZ-specific. On mismatch,
+stop without fallback CONGEN. The existing release is DZ/TZ-only; a new exact
+source/tests/receipt/owner freeze and push is needed before a call. Proposed
+four cores/32GiB,30–180s conditional reuse forecast,2400s integral/3480s container/
+3600s owner,30s observations and30minute freeze effort. Those are planning bounds
+anchored to plain-TZ38.671s/4.174GiB, not measured aug-TZ preparation. No native
+inner solve, pole or production work is released by this property qualification.
