@@ -63,3 +63,21 @@ pole residue, nor choose a replacement CO angle. A failure stops method work for
 review. Any pass returns to a separate numerical-method decision; original CO
 exits2, all budgets, qualified native exports and114 holdouts remain untouched.
 No new CO map, TZ guard, pole, B2, fit or sweep follows automatically.
+
+## Observed exact-control result —2 November2026
+
+[Independent public evidence](../../projects/ukrmol_co/qualification-evidence/dual-transport-toy/README.md)
+authenticates all72 original integrations from pushed `708d3eb`. Maximum scaled
+errors at the three declared resolutions are3.51990e-8,3.55123e-10,3.56998e-12;
+the approximately hundredfold reduction per hundredfold rtol refinement is
+resolved well above roundoff. The finest1e-6 gate and zero-injection control pass.
+Seven finest contaminated cases pass S while failing flux. The largest injected
+output,50degrees/40bohr, has flux1.38417e-4 but S error7.43918e-9. The independent
+reader uses real scalar trig/exponential formulas rather than the integrator or
+its complex-exponential oracle. All original exits0;0.350555s science/1.236827s
+owner/0.070160GiB recorded cgroup high-water. No CO inputs mounted or new CO maps.
+
+This resolves the toy-level sign/transport mechanism, not actual coupled-CO
+error attribution. The original CO stop and all gates remain unchanged. Next
+review a separately bounded source-only amplitude/tail method proposal; do not
+turn the toy's50degree example into a molecular contour recommendation.

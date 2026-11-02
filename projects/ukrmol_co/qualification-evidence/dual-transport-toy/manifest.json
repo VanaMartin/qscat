@@ -1,0 +1,6 @@
+{
+  "git_sha": "afecec75d4b5efb13ad047d84fb433f590a07417",
+  "experiment": "co-dual-transport-toy-20261102",
+  "executed_source_commit": "708d3eb10e32a71f809681bb0e71fb773562654f",
+  "scope": "Exact two-channel mechanism control only; no CO input mount, no repaired CO guard or automatic successor"
+}

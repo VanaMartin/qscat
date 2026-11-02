@@ -1558,6 +1558,34 @@ pole/B2/fit/sweep. Main retrieval remains unavailable: shared-service code/
 dependency mismatch; last-known indexed anchor423d577, upstream currency unknown.
 Relevant branch-only sources read locally; no shared-service intervention.
 
+### Goal checkpoint —2 November,08:31UTC: exact mechanism passes; CO remains stopped
+
+**Evidence delta:** the [separate exact dual-transport toy](qualification-evidence/dual-transport-toy/README.md)
+completes all72 integrations from pushed `708d3eb`, all original exits0. Scalar
+independent reading `afecec7`/seven fresh public payloads reconstruct12 raw files/
+seven Git sources, caps and analytic rows. Three-resolution maximum errors
+3.51990e-8→3.55123e-10→3.56998e-12; seven S-pass/flux-fail negative controls.
+Science0.350555s/owner1.236827s/0.070160GiB recorded cgroup high-water. No CO
+mount, numerical rerun, native call or holdout read; no active job/successor.
+Reader-only SCP1 and HTTP403 precede corrected accesses, never a science retry.
+
+**Decision / production relevance:** validates the exact inverse-Jost transport
+sensitivity, eliminating a toy-level sign/formula objection to the saved CO
+diagnosis. Passing final S is not a sufficient normalization check. This is
+supporting numerical-method evidence, not an electronic/basis comparison or
+progress to a qualified pole curve. Actual CO tail truncation/ODE/roundoff remain
+unseparated; original six guard exits2 and every failed gate stand. Both native
+exports still qualify. Model choice/channel completeness/continuity/neutral-domain/
+full-scattering embedding remain unresolved,114 holdouts untouched.
+
+**Disposition: stop numerical allocations and redirect to one30minute source-only
+method decision.** Name a justified amplitude/tail boundary prescription and the
+minimum independent coupled-control evidence it would need, or explicitly park
+this extraction route. Zero new ODE/native/CO/QC/CI calls during that decision;
+no angle/endpoint/tolerance/RHS change or CO successor is released. Review on that
+deliverable before extending method work. This prevents a successful exact toy
+from becoming an unbounded contour/propagator campaign or an automatic CO rescue.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

@@ -88,6 +88,29 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### CO BLOCKED; exact toy independently/publicly passes; no job active —2 November,08:31UTC
+
+[Exact toy evidence](qualification-evidence/dual-transport-toy/README.md) /
+[compact observation](progress-dual-transport-toy-result-20261102.json).
+Pushed `708d3eb` before08:26:13UTC launch,72 integrations complete08:26:15UTC;
+all six original exits0. Independent scalar reader `afecec7`/seven fresh public
+payloads authenticate12 raw files/seven Git sources. Maximum errors at three
+resolutions3.51990e-8→3.55123e-10→3.56998e-12; seven intended S-pass/flux-fail
+controls.0.350555s science/1.236827s owner/0.070160GiB cgroup high-water.
+No CO input mount, native/CO map/holdout reads or scientific retries. Access-only
+SCP1/HTTP403 are preserved separately from successful original science.
+
+This qualifies the exact mechanism only; original CO guard exits2/flux/Wronskian
+failures and both native-export qualifications are unchanged. Persistent toy
+capsule `/home/kooza/ukrmol/co-sa-20261006/prepared/dual-transport-toy-source-20261102`;
+container `co-dual-transport-toy-20261102` finished. No active campaign job/monitor.
+
+One next deliverable:30minute source-only amplitude/tail method decision, naming
+a justified boundary prescription and minimal independent coupled control, or
+parking this route. Zero new ODE/native/CO/CI/QC; no automatic angle/endpoint/
+tolerance/RHS rescue, TZ guard/pole/B2/fit/sweep. Actual CO error attribution and
+production-model/continuity/channel/neutral/full-scattering gates remain open.
+
 ### CO remains BLOCKED; saved diagnosis complete, separate exact toy selected —2 November,08:25UTC
 
 [Goal checkpoint](PRODUCTION_DECISIONS.md#goal-checkpoint-2-november0825utc-diagnosis-complete-separate-exact-toy-selected) /

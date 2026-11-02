@@ -12,12 +12,20 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**1November06:02UTC—BLOCKED:** [own-DZ real guard stops](qualification-evidence/stretched-real-guard/README.md),
+**2November08:31UTC—CO remains BLOCKED; [exact transport toy passes](qualification-evidence/dual-transport-toy/README.md).**
+Saved-only [diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md)
+localizes open–closed amplitude contamination. The separate no-CO-mount toy
+validates its exact transport mechanism:72 integrations/all exits0, finest error
+3.57e-12 and seven S-pass/flux-fail controls; independent public reading passes.
+This does not repair CO or choose a replacement angle. Next one30minute
+source-only amplitude/tail method decision, no numerical allocation/successor.
+
+**Original1November06:02UTC—BLOCKED:** [own-DZ real guard stops](qualification-evidence/stretched-real-guard/README.md),
 flux6.97e-6>1e-7 and Wronskian1.49e-5>1e-6 at development index80; S/phase pass.
 Original exits2,44.67s/0.312GiB, independently reconstructed from eleven fresh
 public payloads. TZ guards unstarted; no complex/pole/B2/fit/sweep, no active job.
 Both own native exports still qualify, not a physical basis rejection. No retry
-or tolerance/endpoint rescue; next saved-evidence/source-only diagnosis,zero maps.
+or tolerance/endpoint rescue; saved diagnosis and exact toy are now complete above.
 
 **1November05:51UTC:** [TZ B1/2048 also independently/publicly qualifies](qualification-evidence/stretched-tz-inner/README.md),
 all exits0,5.561856h/27.132191GiB; ten fresh public payloads/67 raw files/36 Git
@@ -765,11 +773,17 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--25-october-2026"></a>
 
-## Progress overview — 1 November 2026
+<a id="progress-overview--1-november-2026"></a>
 
-![Both native exports qualify; own-DZ real guard fails flux/Wronskian, blocking TZ guards and complex poles](../../docs/physics/figures/co-progress-20261101T0602-real-guard-stop.png)
+## Progress overview — 2 November 2026
 
-[Vector figure](../../docs/physics/figures/co-progress-20261101T0602-real-guard-stop.svg) ·
+![Exact dual-transport mechanism passes independently; original CO flux/Wronskian stop remains, with no new CO maps](../../docs/physics/figures/co-progress-20261102T0831-dual-transport-toy.png)
+
+[Vector figure](../../docs/physics/figures/co-progress-20261102T0831-dual-transport-toy.svg) ·
+[Diagnosis/exact-toy snapshot](progress-snapshot-20261102T0831-dual-transport-toy.json) ·
+[Saved-only diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md) ·
+[Independent public exact toy](qualification-evidence/dual-transport-toy/README.md) ·
+[Previous real-guard-stop figure](../../docs/physics/figures/co-progress-20261101T0602-real-guard-stop.svg) ·
 [Both-exports/real-guard-stop snapshot](progress-snapshot-20261101T0602-real-guard-stop.json) ·
 [Qualified TZ native export](qualification-evidence/stretched-tz-inner/README.md) ·
 [Original real-guard stop](qualification-evidence/stretched-real-guard/README.md) ·
@@ -778,7 +792,7 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 [Previous TZ-launch snapshot](progress-snapshot-20261101T0012-tz-inner.json) ·
 [Independent DZ native export](qualification-evidence/stretched-dz-inner/README.md) ·
 [Public DZ success receipt](qualification-evidence/stretched-dz-inner-receipt/README.md) ·
-[Active TZ counterpart](qualification-evidence/stretched-tz-inner-launch/README.md) ·
+[Historical TZ launch](qualification-evidence/stretched-tz-inner-launch/README.md) ·
 [Previous DZ-launch figure](../../docs/physics/figures/co-progress-20261031T1740-dz-inner.svg) ·
 [Previous DZ-launch snapshot](progress-snapshot-20261031T1740-dz-inner.json) ·
 [Both preparation scope](../../docs/physics/co-stretched-basis-model-control.md) ·

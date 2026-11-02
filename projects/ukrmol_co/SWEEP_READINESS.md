@@ -6,12 +6,21 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**1November06:02UTC—STOP numerical continuation:** [own-DZ real-axis guard fails](qualification-evidence/stretched-real-guard/README.md)
+**2November08:31UTC—CO stop remains:** [saved diagnosis](qualification-evidence/stretched-real-guard-diagnosis/README.md)
+and [independent exact transport toy](qualification-evidence/dual-transport-toy/README.md)
+support the open–closed dual sensitivity mechanism.72 isolated toy integrations/
+all exits0, three-resolution errors3.52e-8→3.55e-10→3.57e-12, seven S-pass/
+flux-fail controls. No CO input mount or CO maps. This does not repair the guard,
+isolate actual tail/ODE/roundoff error or qualify any physical basis/pole curve.
+Stop numerical allocations; next one30minute source-only amplitude/tail decision
+or route parking, no automatic CO rescue/TZ guard/pole/fit/sweep/holdout read.
+
+**Original1November06:02UTC—STOP numerical continuation:** [own-DZ real-axis guard fails](qualification-evidence/stretched-real-guard/README.md)
 flux/Wronskian budgets at80, independently/publicly reconstructed. All original
 exits2,44.67s/0.312GiB. TZ guards and complex maps unstarted, no active job.
 Both native exports remain qualified; no physical basis rejection. Numerical
-exterior prerequisite blocks outgoing-pole comparison. Next saved-source/evidence
-diagnosis only, no retry/endpoint/tolerance rescue, B2/fit/sweep or holdout read.
+exterior prerequisite blocks outgoing-pole comparison. Saved diagnosis is now
+complete; no retry/endpoint/tolerance rescue, B2/fit/sweep or holdout read.
 
 **1November05:51UTC:** [both own finite exports independently/publicly qualify](qualification-evidence/stretched-tz-inner/README.md).
 TZ all exits0,5.561856h/27.132191GiB; residual/CI-boundary/99 native K-phase gates

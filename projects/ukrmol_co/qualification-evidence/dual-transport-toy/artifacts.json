@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes":1778,"sha256":"63fc2665f2a6fd31361a58746c46ed6d5f4d257f619794d6b79cc333e1178caf"},
+    "evidence.tar.gz": {"bytes":20443,"sha256":"cb015867b097191fadc7cae7f7b67a92310597b5eb9745897eab173daf5f532d"},
+    "manifest.json": {"bytes":301,"sha256":"f9012ee91d88ae62a7fda41e859a21641a682e17cbc7ea044fbf018fbf8d0fc0"},
+    "reading.json": {"bytes":7151,"sha256":"41c2d0bc3b033fa8658a2555e4278564ee71fdd96a3999815b20c3ce60233b76"},
+    "result.json": {"bytes":46920,"sha256":"6d23cd26f5450c6ef973981939c14ebf4451c4638c624a65650b986b304968e8"},
+    "test_verify_dual_transport_toy.py": {"bytes":837,"sha256":"944400269ba656a97943b418d217d955fcdcb3b120f36b46f1835340117bfd9b"},
+    "verify_dual_transport_toy.py": {"bytes":8317,"sha256":"b88f2adc33e42aad09ed3fbc7adc8cc0d902d0efabba69003450a154ec895498"}
+  },
+  "git_sha":"afecec75d4b5efb13ad047d84fb433f590a07417",
+  "url_prefix":"https://data.qscat.org/co-dual-transport-toy-20261102/"
+}

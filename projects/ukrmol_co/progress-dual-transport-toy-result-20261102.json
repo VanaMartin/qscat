@@ -1,0 +1,23 @@
+{
+  "observed_utc":"2026-11-02T08:31:00+00:00",
+  "executed_source_commit":"708d3eb10e32a71f809681bb0e71fb773562654f",
+  "reader_source_commit":"afecec75d4b5efb13ad047d84fb433f590a07417",
+  "archive_sha256":"cb015867b097191fadc7cae7f7b67a92310597b5eb9745897eab173daf5f532d",
+  "reading_sha256":"41c2d0bc3b033fa8658a2555e4278564ee71fdd96a3999815b20c3ce60233b76",
+  "fresh_public_payloads_verified":7,
+  "raw_files_verified":12,
+  "git_sources_verified":7,
+  "integrations_verified":72,
+  "original_exits":[0,0,0,0,0,0],
+  "maximum_scaled_error_by_rtol":{"1e-8":3.519897371923356e-8,"1e-10":3.5512304855613623e-10,"1e-12":3.5699756600407452e-12},
+  "negative_control_cases":7,
+  "science_wall_seconds":0.3505546359810978,
+  "owner_wall_seconds":1.236827311979141,
+  "recorded_cgroup_memory_peak_bytes":75333632,
+  "toy_mechanism_verdict":true,
+  "co_guard_repaired":false,
+  "co_maps":0,
+  "native_calls":0,
+  "automatic_successor":false,
+  "full_sweep_released":false
+}

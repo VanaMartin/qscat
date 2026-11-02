@@ -2,6 +2,17 @@
 
 ## Decision now
 
+**2November08:31UTC: [exact isolated toy independently/publicly passes](qualification-evidence/dual-transport-toy/README.md).**
+All72 integrations/six original exits0, three-resolution errors3.52e-8→3.55e-10→
+3.57e-12, seven S-pass/flux-fail controls.0.350555s/0.070160GiB, no CO input mount.
+This validates only the exact dual-rate mechanism, not actual CO error attribution
+or a replacement contour. CO numerical stop remains binding; both native exports
+remain qualified. No job active. Stop numerical allocations; next one30minute
+source-only amplitude/tail method decision or explicit route parking, zero new
+ODE/native/CO/CI/QC. No automatic CO rescue/TZ guard/pole/B2/fit/sweep/holdout read.
+
+### Earlier2November toy selection
+
 **2November08:25UTC: CO numerical stop unchanged; saved diagnosis complete.**
 [Authenticated saved blocks/rates](qualification-evidence/stretched-real-guard-diagnosis/README.md)
 support finite-tail open–closed dual contamination, not unique causal proof or
