@@ -88,6 +88,24 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Corrected own-DZ attempt launched; terminal result pending —2 November,15:39:46UTC
+
+Immutable source `fbd16ee` is pushed before launch. New capsule
+`/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-dz-pole-adapter2-source-20261102`,
+container `co-stretched-dz-pole-adapter2-20261102`; archive SHA256
+701215d9927a67b5c3b39dc2b06f9cf89c46a31b58de9676beb6e7f3674c132a.
+48 Git-matched sources/all nine source prerequisites/eight input pins; positive
+saved-native adapter check SHA256869e0703… binds exact adapter/owner hashes and
+zero ODE/native calls before freeze.28 runtime controls run before science.
+Read-only owner monitor records at most30s intervals through terminal exit.
+Science/exit/pole/character verdicts are **pending at this launch handoff**, not
+inferred from a successful corrected load or the earlier real prerequisites.
+
+Next one bounded deliverable: collect the immutable actual pole-or-stop evidence,
+independently verify/publish it and measured resources, preserving the original
+adapter failure. Draft saved-only reader/analytic tests are local and have not
+yet been tested against this allocation. No automatic peer/rescue/fit/sweep.
+
 ### User authorizes adapter-only correction —2 November,15:36UTC
 
 [Fresh release](stretched-dz-pole-adapter-release-20261102.json) inherits all

@@ -2,6 +2,16 @@
 
 ## Decision now
 
+**2November15:39:46UTC: corrected own-DZ attempt launches from pushed `fbd16ee`.**
+Fresh immutable capsule/48 Git sources/nine source prerequisites/eight input
+pins; positive saved-native load before freeze and28 runtime controls before
+science. Terminal scientific/pole/character verdicts pending at this launch
+handoff.30s read-only observations, same79-map/eight-core/8GiB/science/owner caps.
+Next independent public actual result/cost, including any failure. No automatic
+TZ/B2/rescue/geometry/fit/sweep/114-holdout action; all prior failures preserved.
+
+### Earlier2November adapter correction authorization
+
 **2November15:36UTC: user authorizes [adapter-only corrected release](stretched-dz-pole-adapter-release-20261102.json).**
 Existing native reader supplies labels; numerical return/schema/algorithms and
 all original seeds/box/gates/79-map cap unchanged. Positive actual-schema/wrong-
