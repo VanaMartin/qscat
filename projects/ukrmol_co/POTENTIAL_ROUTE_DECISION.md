@@ -2,6 +2,24 @@
 
 ## Decision now
 
+**2November14:40UTC: [both finite models'20degree real prerequisites independently qualify](qualification-evidence/stretched-real-completion/README.md).**
+Five new maps/all original exits0; prior DZ80 reused. Own DZ60/TZ60/TZ80 S/phase/
+full-flux/Wronskian gates pass; TZ80 endpoint changes Y1.84e-13/A3.65e-10 pass1e-7.
+Eleven fresh payloads/35 raw files/36 sources/390 samples reconstruct.77.885420s/
+0.420670GiB kernel peak. Original40degree/zero-map capsule failures stay2, no
+native/electronic repeat or numerical-code/budget change. No active job/monitor.
+
+**Next decision:** [one own-DZ B1 finite pole attempt](stretched-dz-pole-proposal-20261102.json)
+under the [new own-data seed/box/character design](../../docs/physics/co-stretched-b1-pole-design.md),
+or keep complex use stopped. Native phase gradients are seed diagnostics only,
+not outgoing poles or basis rejection. Two near-feature real checks precede any
+complex map; three root settings/nested moments/derivative residues/Pi and local
+identity gates; at most79 maps/8 physical cores/8GiB/7200s science/7800s owner.
+Explicit authorization/new exact source/tests/adapter/owner freeze required.
+No automatic TZ/B2/curve/fit/sweep/114-holdout release or model-accuracy claim.
+
+### Earlier2November capsule-only correction authorization
+
 **2November14:17UTC: user authorizes [fresh capsule-only correction](stretched-real-completion-capsule-release-20261102.json).**
 Include pinned TZ pointer/all nine source prerequisites; bind old public zero-map
 stop; fresh immutable capsule/container, old exits2 untouched. Same numerical

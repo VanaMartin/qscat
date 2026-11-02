@@ -6,7 +6,19 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November13:50UTC—completion source gate stops before maps.**
+**2November14:40UTC—both finite models pass the new20degree real prerequisite.**
+[Independent completion evidence](qualification-evidence/stretched-real-completion/README.md)
+qualifies DZ60/TZ60/TZ80 with the reused DZ80 result; full real S/phase/flux/
+Wronskian gates and both80-point endpoint controls pass. Five new maps/all exits0,
+77.885420s/0.420670GiB; no native/electronic repeat. Original40degree and zero-map
+capsule failures remain unchanged. This is numerical consistency for each own
+finite model, not a complex/pole/basis-model/channel-convergence verdict.
+Next [separate own-DZ B1 pole decision](stretched-dz-pole-proposal-20261102.json),
+at most79 maps/8 physical cores/8GiB with near-feature real checks first. Explicit
+authorization/new source/tests/adapter/owner freeze required. No automatic TZ/B2/
+curve/fit/sweep or protected114-S analysis; no active job/monitor.
+
+**Earlier2November13:50UTC—completion source gate stops before maps.**
 [Independent public reading](qualification-evidence/stretched-real-completion-stop/README.md)
 names the omitted pinned TZ receipt source pointer; all12 raw input pins match.
 All original exits2/zero maps, no new physics or numerical rejection. Prior

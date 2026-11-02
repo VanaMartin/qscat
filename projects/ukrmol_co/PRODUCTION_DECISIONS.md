@@ -1770,6 +1770,39 @@ stops again without fallback. Next independent public actual result (including
 failure), then stretched B1 complex-method seed/box/character/local-identity
 design review. No automatic complex/pole/B2/fit/sweep or114-holdout analysis.
 
+### Goal checkpoint —2 November,14:40UTC: both new-prescription real prerequisites qualify; DZ pole decision
+
+**Evidence delta:** [capsule-corrected real completion independently/publicly passes](qualification-evidence/stretched-real-completion/README.md).
+Pushed `a4f86e2` before14:20:14UTC launch;14:21:33UTC completion/all six original
+exits0. Seven controls include actual source closure/metadata-only correction;
+numerical runner unchanged. Eleven fresh payloads/35 raw files/36 original Git
+sources/13 inputs/nine source prerequisites/390 samples reconstruct native Q/K/S,
+full Y/A gates and TZ80 stability. Five new maps only; passed DZ80 not repeated.
+Profile77.885420s/CPU77.766124s/0.420670GiB kernel peak. Three observations
+max30.000425s gap, no timeout/OOM. Original40degree and zero-map capsule exits2
+remain preserved. Both finite models'20degree development60/80 real gates now
+qualify, with DZ80/TZ80 endpoint stability; no active campaign job/monitor.
+
+**Minimum next physical question:** can a locally isolated, open-Pi visible own-DZ
+B1 outgoing pole replace a diagnostic phase-width seed at stretchedR=2.5bohr?
+Saved-only native99-point phase reconnaissance finds own DZ16/TZ18 gradient maxima
+at0.900017/1.000018eV and width heuristics0.285508/0.329605eV. These are not pole
+targets, controlled widths, cross-basis identity or a basis rejection. Source-only
+[own-DZ design](../../docs/physics/co-stretched-b1-pole-design.md) now fixes an own-
+data seed/box, outgoing sheet/exposure and unchanged existing numerical/character
+witnesses. No compressed-pole identity is transported or old40degree failure repaired.
+
+**Decision required:** [one unreleased own-DZ B1 finite pole attempt](stretched-dz-pole-proposal-20261102.json),
+including two near-feature real checks before complex maps, three root settings,
+nested32/16 moments/two derivative residues and open-Pi character/local-identity
+gates. At most79 maps,8 physical cores/8GiB/eight contour workers/one thread,
+conditional600–2400s/7200s science/7800s owner,60minute implementation. Explicit
+authorization/new source/tests/exact adapter/owner/input closure freeze first.
+Any failure stops without reseed/box/angle/tolerance/quad rescue. Pass is one
+finite-model local pole, then separate TZ counterpart decision—not automatic
+B2/geometry/curve/fit/sweep or114-holdout analysis. Electronic choice/channel
+completeness/global continuity/neutral-domain/full-S embedding remain open.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

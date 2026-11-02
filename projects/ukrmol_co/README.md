@@ -12,7 +12,22 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**2November13:50UTC—[completion stops before any map](qualification-evidence/stretched-real-completion-stop/README.md).**
+**2November14:40UTC—[both finite models'20degree real prerequisites qualify](qualification-evidence/stretched-real-completion/README.md).**
+The separately authorized corrected capsule completes five maps/all original
+exits0; passed DZ80 is reused. DZ60/TZ60/TZ80 native S/phase/full-flux/Wronskian
+gates pass; TZ80 endpoint changes Y1.84e-13/A3.65e-10 pass1e-7. Independent public
+reconstruction verifies35 raw files/36 executed sources/390 resource samples.
+Cost77.885420s/0.420670GiB; original40degree and zero-map capsule failures stay2.
+No native/electronic repeat or active job. Real-axis consistency does not qualify
+complex continuation, a pole, basis sensitivity or electronic-model accuracy.
+
+Next decision: [one bounded own-DZ B1 pole attempt](stretched-dz-pole-proposal-20261102.json)
+with [own-data seeds and physical-Pi residue witnesses](../../docs/physics/co-stretched-b1-pole-design.md),
+or keep complex use stopped. At most79 maps/8 physical cores/8GiB, two near-feature
+real guards first. Explicit authorization and new adapter/tests/owner freeze are
+required; no automatic TZ/B2/fit/sweep or114-holdout analysis.
+
+**Earlier2November13:50UTC—[completion stops before any map](qualification-evidence/stretched-real-completion-stop/README.md).**
 The source capsule omitted the pinned TZ receipt `artifacts.json`; all12 raw
 input pins match. Original exits2/zero maps, independently verified from fresh
 public evidence. This is a packaging omission, not a numerical failure. The
@@ -802,9 +817,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![Completion source gate stops before maps because a TZ source pointer is omitted; prior20degree DZ80 remains qualified and fresh capsule correction needs a decision](../../docs/physics/figures/co-progress-20261102T1350-completion-stop.png)
+![Both finite models pass the new20degree real prerequisites; original failures remain preserved and a separate own-DZ pole attempt awaits authorization](../../docs/physics/figures/co-progress-20261102T1440-real-completion.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1350-completion-stop.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1440-real-completion.svg) ·
+[Completed real-prerequisite snapshot](progress-snapshot-20261102T1440-real-completion.json) ·
+[Independent completion evidence](qualification-evidence/stretched-real-completion/README.md) ·
+[Unreleased own-DZ pole design](../../docs/physics/co-stretched-b1-pole-design.md) ·
+[Previous zero-map-stop figure](../../docs/physics/figures/co-progress-20261102T1350-completion-stop.svg) ·
 [Zero-map completion-stop snapshot](progress-snapshot-20261102T1350-completion-stop.json) ·
 [Independent capsule stop](qualification-evidence/stretched-real-completion-stop/README.md) ·
 [Unreleased capsule-only correction](stretched-real-capsule-repair-proposal-20261102.json) ·

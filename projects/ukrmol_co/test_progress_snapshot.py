@@ -16,7 +16,7 @@ def test_current_snapshot_pins_sources_and_does_not_requalify_the_co_stop():
     assert live["toy_integrations_verified"] == 72 and live["toy_mechanism_verdict"] is True
     assert live["real_guard_original_terminal_exits"] == [2] * 6
     assert live["co_guard_repaired"] is False and live["real_guard_tz_started"] is False
-    assert live["new_co_maps"] == 3 and live["route_holdout_s_matrices_analyzed"] == 0
+    assert live["new_co_maps"] == 8 and live["route_holdout_s_matrices_analyzed"] == 0
     assert live["automatic_successor"] is False and live["full_sweep_released"] is False
     compact = json.loads((DEFAULT_SNAPSHOT.parent / live["verification"]).read_text())
     assert compact["integrations_verified"] == live["toy_integrations_verified"]
@@ -54,11 +54,35 @@ def test_separate_authorized_study_pass_is_not_a_remaining_guard_or_pole_release
     assert proposal["execution_authorized"] is False and len(proposal["maps"]) == 5
 
 
-def test_completion_input_stop_does_not_erase_the_dz80_pass_or_release_a_retry():
+def test_failed_completion_is_preserved_separately_from_the_corrected_release():
     live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
     assert live["contour_study_verdict"] is True
-    assert live["completion_original_exits"] == [2] * 6 and live["completion_maps_reserved"] == 0
-    assert (
-        live["completion_verdict"] is None and live["capsule_repair_execution_authorized"] is False
+    assert live["stopped_completion_original_exits"] == [2] * 6
+    assert live["stopped_completion_maps_reserved"] == 0
+    assert live["stopped_completion_verdict"] is None
+    assert len(live["stopped_completion_missing_source_prerequisites"]) == 1
+    assert live["capsule_repair_execution_authorized"] is True
+    assert live["corrected_completion_original_exits"] == [0] * 6
+    assert live["corrected_completion_maps_reserved"] == 5
+
+
+def test_real_prerequisite_pass_does_not_authorize_complex_use_or_a_pole_search():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["completion_verification"]).read_text())
+    assert result["real_completion_verdict"] is live["corrected_completion_verdict"] is True
+    assert result["combined_20degree_real_prerequisite_verdict"] is True
+    assert live["combined_20degree_real_prerequisite_verdict"] is True
+    assert result["previous_dz80_repeated"] is live["previous_dz80_repeated"] is False
+    assert result["original_exits"] == live["corrected_completion_original_exits"]
+    assert result["zero_map_failure_original_exits"] == live["stopped_completion_original_exits"]
+    assert result["tz80_last_two_stability"] == live["tz80_last_two_stability"]
+    assert result["profile_wall_seconds"] == pytest.approx(
+        live["corrected_completion_profile_wall_seconds"], abs=1e-12, rel=0
     )
-    assert len(live["completion_missing_source_prerequisites"]) == 1
+    proposal = json.loads(
+        DEFAULT_SNAPSHOT.with_name("stretched-dz-pole-proposal-20261102.json").read_text()
+    )
+    assert result["complex_use_released"] is live["complex_use_released"] is False
+    assert live["pole_search_execution_authorized"] is proposal["execution_authorized"] is False
+    assert proposal["pole_search_released"] is proposal["tz_counterpart_released"] is False
+    assert live["route_holdout_s_matrices_still_unanalyzed"] == 114

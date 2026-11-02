@@ -88,6 +88,33 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Both20degree real prerequisites independently/publicly qualify —2 November,14:40UTC
+
+[Completion evidence](qualification-evidence/stretched-real-completion/README.md) /
+[compact result](progress-stretched-real-completion-result-20261102.json).
+Pushed `a4f86e2` before14:20:14UTC launch;14:21:33UTC completion/all six original
+exits0. Eleven fresh public payloads/reader `451403b` authenticate35 raw files/
+36 original Git sources/13 inputs/nine source prerequisites/390 samples. Seven
+controls/source closure pass; numerical runner byte-identical to stopped capsule.
+Five new maps; prior passed DZ80 reused. Own DZ60/TZ60/TZ80 all real gates pass;
+TZ80 full90/120 changes Y1.83882e-13/A3.65034e-10 pass1e-7. Combined with DZ80,
+both finite models' prescribed20degree real prerequisite now qualifies.
+
+Profile77.885420s/0.420670GiB kernel peak; three observations max30.000425s gap,
+no timeout/OOM. Persistent corrected capsule
+`/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-real-completion-capsule2-source-20261102`;
+container `co-stretched-real-completion-capsule2-20261102` finished. Original40degree
+failure and first zero-map capsule/exits2 untouched. No active job/monitor.
+
+Saved-only native phase seeds: DZ16/TZ18 at0.900017/1.000018eV; heuristic widths
+are not pole measurements or basis verdicts. [Own-DZ B1 design](../../docs/physics/co-stretched-b1-pole-design.md)
+selects seed/box, near-feature real guards, sheet exposure, numerical and physical-
+Pi/local identity witnesses. [79-map proposal](stretched-dz-pole-proposal-20261102.json)
+is unreleased pending explicit decision/new source/tests/adapter/owner freeze;
+8 physical cores/8GiB/conditional600–2400s/7200s science/7800s owner,60minutes
+implementation. No automatic complex/TZ/B2/fit/sweep/114-holdout release. All
+model accuracy/channel/global continuity/neutral/full-scattering gates remain open.
+
 ### User authorizes fresh capsule-only correction —2 November,14:17UTC
 
 [Separate immutable release](stretched-real-completion-capsule-release-20261102.json):
