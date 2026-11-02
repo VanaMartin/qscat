@@ -88,6 +88,19 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User authorizes one own-DZ B1 finite pole attempt —2 November,15:15UTC
+
+[Separate execution contract](stretched-dz-pole-execution-20261102.json) binds
+the unchanged79-map proposal, own64/400 B1/2048 arrays and public real/seed receipts.
+Strict source/input/array/layout/open-label gates; two near-feature real checks
+before complex maps. Existing numerical calculator/root/contour/residue/character
+algorithms unchanged; new own-model adapter and exact eight-core owner freeze/
+push first.8 physical cores/8GiB/7200s science/7800s owner,90s per map/50000 RHS,
+60minute implementation. No job launched yet. Next independent public actual
+pole-or-stop evidence/cost; any gate/cap/box/character failure stops without rescue.
+Original failures/114 holdouts/nine/new50/equilibrium protections remain. No
+automatic TZ/B2/geometry/fit/sweep or native/electronic repeat.
+
 ### Both20degree real prerequisites independently/publicly qualify —2 November,14:40UTC
 
 [Completion evidence](qualification-evidence/stretched-real-completion/README.md) /

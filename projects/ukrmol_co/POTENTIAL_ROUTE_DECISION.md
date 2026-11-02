@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**2November15:15UTC: user explicitly authorizes [one own-DZ B1 pole attempt](stretched-dz-pole-execution-20261102.json).**
+Same79-map own-data proposal, two near-feature real checks before complex use,
+strict own64/400/2048/public-prerequisite/source closure and unchanged numerical/
+residue/Pi gates.8 physical cores/8GiB/7200s science/7800s owner,60minute
+implementation. Freeze/push new adapter/tests/exact owner before maps. First
+gate/cap/box/character failure stops with no rescue or automatic TZ/B2/fit/sweep/
+114-holdout action. Next independent public actual result and measured resources;
+one finite-model pole if all gates pass, never an electronic-accuracy verdict.
+No native/electronic repeat; all prior failures/qualified reuse remain intact.
+
+### Earlier2November real completion and pole decision
+
 **2November14:40UTC: [both finite models'20degree real prerequisites independently qualify](qualification-evidence/stretched-real-completion/README.md).**
 Five new maps/all original exits0; prior DZ80 reused. Own DZ60/TZ60/TZ80 S/phase/
 full-flux/Wronskian gates pass; TZ80 endpoint changes Y1.84e-13/A3.65e-10 pass1e-7.

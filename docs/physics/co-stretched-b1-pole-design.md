@@ -116,3 +116,17 @@ quadrature. A full pass supplies one locally isolated physically visible pole of
 this finite DZ model only. Then separately decide a TZ counterpart using its own
 data/character/local identity. No automatic peer, B2, geometry, production-model,
 curve, fit, factory target or114-holdout analysis follows.
+
+## Separate execution authorization —2 November2026
+
+The user explicitly authorizes this bounded attempt after the public real
+completion and source-only design. The historical proposal remains unchanged;
+the [separate execution contract](../../projects/ukrmol_co/stretched-dz-pole-execution-20261102.json)
+binds its bytes and all seven own-native/public prerequisites. The adapter
+populates the strict own64/400 model state consumed by the existing
+`compressed_pole_reference.calculate` function, never its compressed loader or
+experiment owner. Bordered search, contour/residue/character functions and Jost
+propagation remain byte-identical. Two real checks execute before complex maps.
+The new eight-core owner verifies complete immutable source/mount/resource caps.
+Concurrent contour failures cancel not-yet-running work; already running bounded
+maps finish as preserved partial evidence, never as a retry or replacement.

@@ -1803,6 +1803,31 @@ finite-model local pole, then separate TZ counterpart decision—not automatic
 B2/geometry/curve/fit/sweep or114-holdout analysis. Electronic choice/channel
 completeness/global continuity/neutral-domain/full-S embedding remain open.
 
+### Goal checkpoint —2 November,15:15UTC: user authorizes one own-DZ B1 pole attempt
+
+The user explicitly selects **Authorize attempt** after the independently public
+real completion, own-native seed design and pushed `da8ab53` overview. The
+[separate execution contract](stretched-dz-pole-execution-20261102.json) binds
+the unchanged prospective79-map proposal. **Physical question:** can an isolated,
+open-Pi visible finite-model outgoing pole replace the uncontrolled real phase-
+width diagnostic at stretchedR=2.5bohr? This is not a basis/model-accuracy verdict.
+
+Reuse own-DZ64/400 B1/2048 native export and public real/seed receipts; seven raw
+prerequisites/nine source pins and strict layout/array/open-label gates before
+maps. Two near-feature real checks precede three root settings and nested moments/
+derivative/character gates. No compressed identity or completed map is repeated.
+New adapter supplies own model state to the unchanged numerical calculator;
+source/controls/exact eight-core owner freeze/push before any CO map.
+
+Bound:79 maps/8 physical cores/8GiB/eight contour workers/one library thread,
+conditional600–2400s/7200s science/7800s owner,90s/50000 RHS per map and60minute
+implementation. Resource/closure checks and observations at most60s apart.
+First input/ODE/cap/box/numerical/character failure stops; pending contour work
+cancels, already running bounded maps are retained, no fallback/reseed/expansion.
+Next independent public actual pole-or-stop evidence and measured costs before
+any separate TZ counterpart decision. No native/electronic repeat, B2, geometry,
+fit/sweep/114-holdout analysis or automatic successor. All original failures stand.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

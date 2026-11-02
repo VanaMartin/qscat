@@ -1,0 +1,35 @@
+{
+  "status":"User explicitly authorized one bounded own-DZ B1 pole/physical-Pi attempt after public real completion;no automatic peer",
+  "execution_authorized":true,
+  "pole_search_released":true,
+  "proposal_sha256":"58bd40207d8c76e187c4318b476c77a54f094d1b0b76190395bef79885b054ba",
+  "runner_module":"projects.ukrmol_co.stretched_dz_pole",
+  "runtime_controls_module":"projects.ukrmol_co.test_stretched_dz_pole",
+  "container_name":"co-stretched-dz-pole-20261102",
+  "owner_timeout_seconds":7800,
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "model":{"native_directory":"prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1","receipt":"prepared/stretched-dz-inner-receipt-20261101/independent-dz-inner-receipt.json","inner_contract_sha256":"47f150582e19e3072d2c9c1d7ddea0fe9aba9071958f6991ac715f089bad95cc"},
+  "completion_reading":"prepared/stretched-dz-pole-source-20261102/public-real-completion-reading.json",
+  "seed_reading":"prepared/stretched-dz-pole-source-20261102/public-seed-review.json",
+  "input_sha256":{
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/fort.10":"b9954b6dc7f6439b2f8a27f8a3c5b5c7613deb2a2010e65bc318d497e21940b5",
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/fort.21":"46beb335935519800b61466b71e38545db4823b2f95de23d0d1ec6dfd18fe137",
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/fort.921":"b4fa3045557a9957bc1b479764bcc213d6ab01aea7244c2fb244d1b293972963",
+    "prepared/stretched-dz-inner-source-20261031/outputs/inner/native/B1/rsolve.inp":"a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa",
+    "prepared/stretched-dz-inner-receipt-20261101/independent-dz-inner-receipt.json":"5493103d4c7b033ba5c45a72c9c0ff0a009cddddce41805baa7b80d8c5eaa3eb",
+    "prepared/stretched-dz-pole-source-20261102/public-real-completion-reading.json":"efb11811bf4e63cb20405ed730550a56bee502adaede2172182bde64f65f3a73",
+    "prepared/stretched-dz-pole-source-20261102/public-seed-review.json":"1aa7fdf0f86a97b4f8f66bd80c392218ed8512e04fc78afd069dbf13bc915d05"
+  },
+  "source_sha256":{
+    "projects/ukrmol_co/stretched-dz-pole-proposal-20261102.json":"58bd40207d8c76e187c4318b476c77a54f094d1b0b76190395bef79885b054ba",
+    "projects/ukrmol_co/compressed_pole_reference.py":"97c18dde96ebd622f07f83264719c2450407330bd575ca736866765b246c4eb3",
+    "projects/ukrmol_co/pole_reference.py":"d0294af3da61c00c2b8a5d685c7364da8e14ecad3eb3cd0dd4ce8ed0b97e3472",
+    "projects/ukrmol_co/pole_character.py":"d41ac2c8221be529c379a733641c8f80879d4be5e3251a34f79008860cf57732",
+    "projects/ukrmol_co/outgoing_map.py":"8860804fbc55ecee08d017937b5e5d116e7b52003d76cd42252ab13dc2923140",
+    "projects/ukrmol_co/stretched_real_guard.py":"1043daea8f0104c39ade62f7da2981b338b43243a6e96fbe3269a1178e39eb23",
+    "projects/ukrmol_co/native_full_reconstruction.py":"fd05aa8ec4b1e40cf7e3921ae34d2ecd11039949c6851129389e9e9c785bf0ec",
+    "projects/ukrmol_co/qualification-evidence/stretched-dz-inner-receipt/artifacts.json":"3e6fb17576301cb2dfb13adb2c2a747d6ed9f4a18d37d336f8f068f4cf3f051a",
+    "projects/ukrmol_co/qualification-evidence/stretched-real-completion/artifacts.json":"40e7e072b05143e2f86977606864142b5b350629818c1759891ade22966bd8c3"
+  },
+  "open_labels":[[1,1,1,1],[2,1,2,1],[3,1,3,1],[4,1,3,3],[5,1,4,1],[6,1,4,3]]
+}
