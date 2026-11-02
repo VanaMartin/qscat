@@ -103,6 +103,12 @@ def test_original_input_and_method_contract_resolves_without_relaxed_gates():
     assert len(c["input_sha256"]) == 12 and len(c["source_sha256"]) == 9
     assert c["real_flux_absolute_budget"] == 1e-7 and c["real_s_absolute_budget"] == 1e-6
     assert c["execution_authorized"] is True and c["maps"] == [list(row) for row in completion.MAPS]
+    # Check the actual capsule too, not only the synthetic receipt fixture below.
+    source = Path(__file__).resolve().parents[2]
+    for name, expected in c["source_sha256"].items():
+        path = source / name
+        assert path.is_file(), "Incomplete frozen source capsule: " + name
+        assert completion.digest(path) == expected, name
 
 
 def test_unapproved_route_or_changed_public_receipt_starts_no_map():
