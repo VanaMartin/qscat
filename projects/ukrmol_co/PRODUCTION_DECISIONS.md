@@ -1939,6 +1939,57 @@ cost, then saved-only necessary counterpart/residue/isolation review before
 finite pole-shift interpretation. No automatic cross-basis wavefunction identity,
 B2/geometry/fit/sweep/114-holdout analysis or native/electronic/DZ success repeat.
 
+### Goal checkpoint —2 November,16:35UTC: both finite poles qualify; physical candidate sensitivity redirects model choice
+
+**Production question / evidence delta:** does the stretched common-objective
+CAS12 DZ/TZ finite comparison justify a basis-insensitive pole target for fitting?
+[Own-TZ independent qualification](qualification-evidence/stretched-tz-pole/README.md)
+now completes the two finite local pole measurements. `69609bf` pushed before
+16:18:29UTC launch,16:25:19UTC completion/all six original exits0; own index18
+seed/box,31 controls/positive actual saved load first.48 maps/all native real/
+root/isolation/moment/derivative/Pi gates pass. Position1.0174870326211831eV/full
+width0.3112642087752365eV, versus saved qualified DZ0.9141170929567332/0.2670925297157766.
+Nine fresh public payloads/reader `1289aca` reconstruct81 raw files/52 executed
+Git sources/eight raw inputs/ten source prerequisites/2042 samples/14 observations,
+maximum30.000755s. Profile409.193043s/CPU1194.325872s/3.018551GiB, no timeout/OOM.
+Conditional600–2400s forecast overestimates actual cost; no speedup claim.
+
+**Minimum reused-data scope / interpretation:** [saved-only counterpart review](qualification-evidence/stretched-pole-counterpart/README.md)
+`fbf10be` reconstructs both public bundles, common native open labels and saved
+residues, no DZ/native/electronic repeat or extra maps. Four fresh public review
+payloads reproduce. Local isolation/ground-channel Pi support and profiles are
+compatible necessary counterpart evidence; TV0.026477666/magnitude distance
+0.044440327 are diagnostics without invented identity thresholds. Equal64-target
+counts/common40-component objective do not prove cross-basis physical wavefunction
+identity. Unique state/global geometry assignment and union-box pole count remain
+unset. This is finite basis-plus-separately-optimized-frame sensitivity, not
+isolated basis-size convergence or absolute CO accuracy.
+
+Position shift103.369940meV rejects50meV; full-width shift44.171679meV rejects
+5% DZ=13.354626meV with1meV floor (16.54% DZ,14.19% TZ; either reference rejects).
+These are physical candidate budgets, not the0.1meV same-model numerical budget.
+Zero accepted root-coordinate shifts at settings2/3 are not zero uncertainty;
+residual/contour/derivative witnesses remain necessary. Margins survive subtracting
+two declared numerical budgets, a diagnostic not rigorous uncertainty enclosure.
+If strict same-state assignment is required, its verdict stays inconclusive;
+the present data still cannot support a production-insensitivity claim.
+
+**Disposition: stop this insensitivity-to-fit route; redirect to electronic-model
+choice.** Do not promote TZ merely because larger or fit a single-geometry width.
+Retain both local poles as exploratory evidence and nine as working reference,
+not a production model. Original40degree/capsule/adapter failures/exits remain
+unchanged; no active job/monitor or automatic scientific successor. Protected
+114 S holdouts remain untouched; new50 parked/2048/equilibrium exclusion stand.
+Omitted channels/spectrum, cross-basis identity, geometry continuity, neutral
+correlation/wider domain and full-scattering embedding remain unresolved.
+
+**One bounded next deliverable:** saved-evidence electronic-route decision,
+30minutes design/zero QC/CI/native/maps/holdout calls. Name the physical model
+uncertainty and one decision-changing finite allocation only if warranted; do
+not start an automatic basis/channel/root ladder, B2 rescue, geometry, fit or
+sweep. Any numerical branch or production work requires a separate explicit
+decision and freeze. More solver/interface tests are not sweep progress.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

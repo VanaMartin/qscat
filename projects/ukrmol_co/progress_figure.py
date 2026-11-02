@@ -15,7 +15,9 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261102T1555-dz-pole.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name(
+    "progress-snapshot-20261102T1635-basis-sensitivity.json"
+)
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -433,30 +435,32 @@ def _anchor_candidates(ax, data):
                 fontsize=10,
             )
     for row in data.get("finite_poles", []):
+        basis = row.get("basis", "DZ")
+        color = GREEN if basis == "DZ" else "#875bb5"
         for ordinal, (key, label) in enumerate(
             [
-                ("position_ev", "DZ pole"),
-                ("full_width_ev", "DZ full width"),
+                ("position_ev", f"{basis} pole"),
+                ("full_width_ev", f"{basis} full width"),
             ]
         ):
             value = row[key]
             ax.scatter(
                 row["R_bohr"],
                 value,
-                c=GREEN,
-                marker="D",
+                c=color,
+                marker="D" if basis == "DZ" else "^",
                 s=60,
                 zorder=7,
-                label="Own CAS12 DZ pole (not curve)" if ordinal == 0 else None,
+                label=f"Own CAS12 {basis} pole (not curve)" if ordinal == 0 else None,
             )
             ax.annotate(
                 f"{label} {value:.3f}",
                 (row["R_bohr"], value),
-                xytext=(-120, -15 if ordinal == 0 else -2),
+                xytext=(-140, (-15 if basis == "DZ" else 12)),
                 textcoords="offset points",
                 fontsize=8.5,
-                color=GREEN,
-                arrowprops={"arrowstyle": "-", "color": GREEN, "lw": 0.7},
+                color=color,
+                arrowprops={"arrowstyle": "-", "color": color, "lw": 0.7},
             )
     ax.set(
         xlim=(1.85, 2.56),
@@ -1079,6 +1083,7 @@ def _snapshot_data(snapshot: Path) -> dict:
         raise ValueError("Historical base snapshot hash differs")
     result = _snapshot_data(snapshot.with_name(data["base_snapshot"]))
     result.update(data["updates"])
+    result["live_status"].update(data.get("live_status_updates", {}))
     result["source_file_sha256"].update(data["additional_source_file_sha256"])
     return result
 
@@ -1241,7 +1246,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261102T1555-dz-pole",
+        default=ROOT / "docs/physics/figures/co-progress-20261102T1635-basis-sensitivity",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

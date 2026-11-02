@@ -2,6 +2,31 @@
 
 ## Decision now
 
+**2November16:35UTC: [own-TZ pole qualifies](qualification-evidence/stretched-tz-pole/README.md);
+[saved DZ/TZ local-candidate review rejects physical insensitivity](qualification-evidence/stretched-pole-counterpart/README.md).**
+DZ position/full width0.914117/0.267093eV; TZ1.017487/0.311264eV. Position shift
+103.369940meV>50meV; full-width shift44.171679meV (16.54% DZ)>5%/1meV-floor.
+Both local Pi-support/isolation/numerical qualifications pass; the six open
+labels and residue profiles are compatible necessary evidence, not cross-basis
+wavefunction identity. No post-hoc identity threshold or absolute convergence
+claim. Equal target counts alone do not establish physical correspondence.
+
+**Stop** basis-insensitive/production fitting inference; **redirect** to an
+explicit electronic-model/remaining-uncertainty choice. Do not promote TZ because
+it is larger or fit either single-geometry pole. Next one bounded saved-evidence
+route decision (30minutes design/zero QC/CI/native/maps/holdouts); any new numerical
+branch needs separate authorization and freeze. No B2 rescue, geometry/fit/sweep.
+Channels/omitted spectrum, identity/continuity, neutral correlation/domain and
+full-S embedding remain open. Nine working reference/new50 parked/2048 baseline/
+equilibrium exclusion/114 untouched S holdouts remain protected.
+
+TZ48 maps/all six original exits0,409.193043s/3.018551GiB, nine fresh public
+payloads/81 raw files/52 executed sources/2042 samples reconstruct; saved review
+four fresh public payloads reproduces both bundles without new ODE/native calls.
+Original failures are unchanged. No active campaign job/monitor or successor.
+
+### Earlier2November own-TZ launch
+
 **2November16:18:29UTC: own-TZ attempt launches from pushed `69609bf`.**
 Fresh immutable capsule/52 Git sources/ten source prerequisites/eight input
 pins, positive own saved-native load and31 controls before science. Terminal

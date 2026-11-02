@@ -1,4 +1,12 @@
-# First finite stretched B1 pole: own-DZ design
+# Finite stretched B1 poles: own-data design and DZ/TZ interpretation
+
+**Current outcome —2November16:35UTC:** both finite own-model poles qualify;
+[saved counterpart review](../../projects/ukrmol_co/qualification-evidence/stretched-pole-counterpart/README.md)
+finds compatible local Pi-support candidates with position/full-width shifts
+103.370/44.172meV, exceeding50meV/5%. Stop basis-insensitive/production inference;
+redirect to an explicit electronic-model decision. Cross-basis wavefunction
+identity and absolute convergence remain unset. No new numerical work released.
+The prospective design/authorization history below remains separate from results.
 
 ## Decision served and evidence boundary
 
@@ -223,3 +231,45 @@ Positive actual own-TZ saved-native loading (including its99 K references) and
 new receipt/seed/unit controls precede freeze. Next independently reconstruct
 the actual pole-or-stop outcome, then review saved necessary counterpart
 evidence before a basis-plus-frame shift interpretation. No numerical successor.
+
+## Qualified TZ and completed saved counterpart review
+
+[Own-TZ independent public reading](../../projects/ukrmol_co/qualification-evidence/stretched-tz-pole/README.md)
+qualifies `69609bf`, launched16:18:29UTC, finished16:25:19UTC/all original exits0.
+48 maps: own index18 near-feature real guards, three root settings, nested
+moments/derivative residues and four Pi-support witnesses pass. Incident pole
+0.03739195877134704−0.005719374345015751iHa, position1.0174870326211831eV/full
+width0.3112642087752365eV. Residual<=4.47e-11/second singular0.903076,
+unit16/32 windings and derivative errors4.21e-6/1.05e-6. Non-Pi leakage1.89e-11.
+Nine fresh payloads/81 raw files/52 executed Git sources/eight inputs/ten source
+prerequisites/2042 samples/14 observations independently reconstruct. Profile
+409.193043s/CPU1194.325872s/3.018551GiB kernel peak, no timeout/OOM/retry. No
+electronic/native/DZ-map repeat, no job or monitor active. Earlier failures stand.
+
+The [saved-only counterpart review](../../projects/ukrmol_co/qualification-evidence/stretched-pole-counterpart/README.md)
+reconstructs both public bundles, native open labels and high-rule residues.
+Local unit-winding/rank-one/Pi-support witnesses and common ground-channel labels
+are compatible necessary counterpart evidence. ProfileTV0.026477666 and normalized
+residue-magnitude distance0.044440327 are diagnostics, **not an identity gate**.
+No same-model witness threshold is repurposed across bases, no global union-box
+pole count or cross-basis electronic overlap exists. Unique state identity stays
+unset; residue support is not probability, coherent overlap or exact Lambda.
+
+On these compatible local candidates, TZ−DZ position is+0.10336993966445eV;
+full width+0.04417167905946eV,16.537969% of DZ or14.191056% of TZ. Both physical
+budgets reject (50meV;max[1meV,5% DZ width]=13.354626meV, or15.563210meV with TZ
+reference). The same-model numerical0.1meV budget is not the physical comparison
+tolerance, and accepted zero coordinate differences are not error-free roots.
+Even subtracting two numerical budgets leaves a wide rejection margin; it is
+not a rigorous uncertainty enclosure. These finite basis-plus-optimized-frame
+results cannot support production insensitivity; a strict same-state basis-
+convergence/absolute-accuracy claim remains unqualified.
+
+**Disposition:** stop production-fit/model release from this comparison and
+redirect to an explicit electronic-model/remaining-error-budget choice. Do not
+select TZ solely because it is larger or fit either single-geometry width.
+Retain nine/new50/2048/equilibrium/114-holdout protections; omitted channels/
+spectrum, cross-basis identity, geometry continuity, neutral correlation/domain
+and full-scattering embedding remain open. One bounded next deliverable is a
+30minute saved-evidence route choice, zero new scientific calls; any numerical
+successor needs a separate explicit decision/freeze. No automatic B2 or sweep.

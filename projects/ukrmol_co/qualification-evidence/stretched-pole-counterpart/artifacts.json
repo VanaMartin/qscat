@@ -1,0 +1,10 @@
+{
+  "artifacts":{
+    "manifest.json":{"bytes":281,"sha256":"6b97fd7fffa9dc3452b64975100d7a7b42339857b4b8822ef0f9703fbbbe15c7"},
+    "review.json":{"bytes":5054,"sha256":"112d3fe5b2fdf232586eb46bd20e806b0a8354140226695b28115766744bfbb3"},
+    "stretched_pole_counterpart_review.py":{"bytes":6222,"sha256":"85b0b529c02b60fe50c0d3ca38c98caa79620fd951b9fc349ec3a55ce7f79686"},
+    "test_stretched_pole_counterpart_review.py":{"bytes":2530,"sha256":"a14ed54cf30dd17730fa1d16f5afb20939dca19a55f8a42c10b4396ff998e4f6"}
+  },
+  "git_sha":"fbf10be81efc1f74dd33fde420a052c4d82cb925",
+  "url_prefix":"https://data.qscat.org/co-stretched-pole-counterpart-20261102/"
+}

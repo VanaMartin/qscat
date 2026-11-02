@@ -88,6 +88,36 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Terminal TZ qualifies; saved DZ/TZ candidate sensitivity redirects model choice —2 November,16:35UTC
+
+[Own-TZ public evidence](qualification-evidence/stretched-tz-pole/README.md) /
+[saved counterpart review](qualification-evidence/stretched-pole-counterpart/README.md).
+Pushed `69609bf` launches16:18:29UTC, finishes16:25:19UTC/all original exits0.
+48 maps/own index18 native guards/three roots/moments/derivative/Pi gates qualify;
+TZ pole1.0174870326211831eV/full width0.3112642087752365eV. Nine fresh payloads/
+81 raw files/52 executed sources/eight inputs/ten prerequisites/2042 samples/
+14 observations reconstruct; profile409.193043s/CPU1194.325872s/3.018551GiB.
+Immutable capsule `/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-tz-pole-source-20261102`,
+container `co-stretched-tz-pole-20261102` finished; no active campaign job/monitor.
+
+Saved-only `fbf10be` review/four fresh public payloads reconstruct both bundles,
+native open labels and residue diagnostics, no new ODE/native/electronic calls.
+DZ/TZ compatible local Pi-support candidates differ103.369940meV in position
+and44.171679meV in full width (16.54% DZ), above50meV/5% budgets. Native labels/
+local isolation/residue profiles are necessary compatible evidence, not unique
+cross-basis wavefunction/global identity. No post-hoc identity cutoff, same-model
+numerical-budget substitution, absolute convergence or production-model claim.
+
+**Stop production-insensitivity/fit inference; redirect to electronic-model
+choice.** Next one bounded saved-evidence route decision:30minutes design/zero
+QC/CI/native/maps/holdouts, before any separately authorized numerical branch.
+Do not promote TZ merely because larger. No automatic B2/geometry/fit/sweep;
+channel/spectrum/identity/continuity/neutral/full-S gates remain open. Both poles
+and every earlier failure/exits are immutable;114 holdouts/nine/new50/2048/
+equilibrium protections remain. Main retrieval still fails shared-service
+compatibility; last-known423d5770, upstream currency unverified, local branch
+sources/delta inspected. No service intervention or paid provisioning.
+
 ### Own-TZ attempt launched; terminal result pending —2 November,16:18:29UTC
 
 Pushed immutable `69609bf` source launches the separately authorized own-TZ

@@ -6,7 +6,19 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November15:55UTC—one finite own-DZ B1 outgoing pole independently qualifies.**
+**2November16:35UTC—both finite poles qualify, but candidate shifts exceed physical budgets.**
+[TZ evidence](qualification-evidence/stretched-tz-pole/README.md) and
+[saved counterpart review](qualification-evidence/stretched-pole-counterpart/README.md):
+DZ0.914117/0.267093eV versus TZ1.017487/0.311264eV position/full width.
+103.370meV>50meV and44.172meV (16.54% DZ)>5%/1meV-floor. Local native-label/
+Pi-support/isolation evidence is compatible, not a unique cross-basis state
+assignment, basis convergence or absolute accuracy claim. **Stop production-fit
+inference; redirect to an explicit electronic-model/remaining-uncertainty choice.**
+No model/width curve/fit/sweep release, B2 rescue or automatic geometry/basis ladder.
+No active job;114 S holdouts/nine/new50/2048/equilibrium protections remain.
+Next bounded saved route decision only,30minutes/zero new scientific calls.
+
+**Earlier2November15:55UTC—one finite own-DZ B1 outgoing pole independently qualifies.**
 [Public saved-native/Jost/residue reconstruction](qualification-evidence/stretched-dz-pole/README.md):
 position0.914117eV/full width0.267093eV, all near-feature real/root/isolation/
 contour/derivative/Pi-support gates pass.48 maps/all original exits0,

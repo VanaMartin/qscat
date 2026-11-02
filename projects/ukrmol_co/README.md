@@ -12,7 +12,19 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**2November15:55UTC—[first finite stretched own-DZ B1 pole independently qualifies](qualification-evidence/stretched-dz-pole/README.md).**
+**2November16:35UTC—both finite stretched poles qualify; physical insensitivity does not.**
+[Own-TZ public evidence](qualification-evidence/stretched-tz-pole/README.md) qualifies
+position1.017487eV/full width0.311264eV; DZ0.914117/0.267093eV is reused.
+[Saved counterpart review](qualification-evidence/stretched-pole-counterpart/README.md)
+finds compatible local Pi-support candidates with **103.370meV position** and
+**44.172meV full-width (16.54%) shifts**, exceeding50meV/5% budgets. Necessary
+channel/residue compatibility is not cross-basis wavefunction identity or absolute
+convergence. Stop production-insensitivity/fit inference; redirect to an explicit
+electronic-model choice, not an automatic larger-basis/B2/geometry ladder.
+TZ48 maps/all exits0,409.193043s/3.018551GiB; fresh public reconstruction passes.
+No active job/monitor or new scientific branch; all114 S holdouts untouched.
+
+**Earlier2November15:55UTC—[first finite stretched own-DZ B1 pole independently qualifies](qualification-evidence/stretched-dz-pole/README.md).**
 Position **0.914117eV**, **full width0.267093eV**, stable isolated open-Pi residue
 support.48 maps/all original exits0; near-feature real/root/contour/derivative/
 character gates independently reconstruct from fresh public evidence.
@@ -838,9 +850,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![One finite own-DZ stretched pole independently qualifies; original failures preserved and own-TZ counterpart requires separate authorization](../../docs/physics/figures/co-progress-20261102T1555-dz-pole.png)
+![Both finite poles qualify but DZ/TZ local-candidate shifts exceed position and width budgets; electronic-model choice precedes any production release](../../docs/physics/figures/co-progress-20261102T1635-basis-sensitivity.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1555-dz-pole.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1635-basis-sensitivity.svg) ·
+[Completed comparison snapshot](progress-snapshot-20261102T1635-basis-sensitivity.json) ·
+[TZ pole evidence](qualification-evidence/stretched-tz-pole/README.md) ·
+[Counterpart/sensitivity review](qualification-evidence/stretched-pole-counterpart/README.md) ·
+[Previous DZ pole figure](../../docs/physics/figures/co-progress-20261102T1555-dz-pole.svg) ·
 [Finite DZ pole snapshot](progress-snapshot-20261102T1555-dz-pole.json) ·
 [Independent DZ pole evidence](qualification-evidence/stretched-dz-pole/README.md) ·
 [Unreleased own-TZ counterpart](stretched-tz-pole-proposal-20261102.json) ·
