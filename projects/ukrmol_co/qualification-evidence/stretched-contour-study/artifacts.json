@@ -1,0 +1,14 @@
+{
+  "artifacts":{
+    "collection.json":{"bytes":5692,"sha256":"be79eaf886e3bf08680043d320a02e3ada2c7829eed9c562b3dbf0d956289d7e"},
+    "evidence.tar.gz":{"bytes":13812079,"sha256":"a561209ab4d784c45dc878c95c1754e52d062739230574d6e565100f9a479f51"},
+    "manifest.json":{"bytes":330,"sha256":"6ec3714e35978b1c2056e503a4efd776cdd2900e0790db47c07084708018d4f3"},
+    "reader-source-manifest.json":{"bytes":748,"sha256":"f44c3c4b19cd24785ee5b24cf27ff16c443d0a114dec953e0a70260053e0fe73"},
+    "reading.json":{"bytes":4669,"sha256":"fffb47f4e1de116bea4c6d74448125de5bbc2dc381ecacf402596fb789ac9684"},
+    "result.json":{"bytes":3769,"sha256":"e2978690b33b34280dd57bbfe6a850521cdb3270eeb08dbcd0ec4cbec5ace44b"},
+    "test_verify_stretched_contour_study.py":{"bytes":1137,"sha256":"2cb4b5dee587ca050dab4febbee7ee4f2d88da88b7c3f9c76f1f68bc20684ca6"},
+    "verify_stretched_contour_study.py":{"bytes":10527,"sha256":"14d75c5293ed16eb4192989f20fe004d62667ae1374e65eba6f55f1ee13c1b7a"}
+  },
+  "git_sha":"1ba520a413c3334d8c079213df61cadb41dce4ac",
+  "url_prefix":"https://data.qscat.org/co-stretched-contour-study-20261102/"
+}

@@ -6,7 +6,16 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November09:05UTC—coupled control passes; new CO study needs authorization.**
+**2November10:52UTC—new20degree actual-DZ80 prescription qualifies at one energy.**
+[Three-endpoint public study](qualification-evidence/stretched-contour-study/README.md)
+passes original S/phase/full flux/Wronskian gates and90/120 full-map stability,
+all original exits0,41.861348s/0.375618GiB. This removes the full-amplitude blocker
+at one new-prescription development identity, not across both bases or complex
+energies. Original40degree failure remains2; no physical model/curve/fit release.
+Next [separate five-map remaining real qualification](stretched-real-completion-proposal-20261102.json)
+or park extraction; no automatic peer/pole/sweep/114-holdout analysis.
+
+**Earlier2November09:05UTC—coupled control passes; new CO study needs authorization.**
 [Exact canonical endpoint control](qualification-evidence/coupled-jost/README.md):
 54 integrations/all original exits0, finest exact-start error1.40e-12; genuine
 tail error converges at20/40/50degrees. Independent public reading qualifies;

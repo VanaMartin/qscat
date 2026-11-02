@@ -16,7 +16,7 @@ def test_current_snapshot_pins_sources_and_does_not_requalify_the_co_stop():
     assert live["toy_integrations_verified"] == 72 and live["toy_mechanism_verdict"] is True
     assert live["real_guard_original_terminal_exits"] == [2] * 6
     assert live["co_guard_repaired"] is False and live["real_guard_tz_started"] is False
-    assert live["new_co_maps"] == live["route_holdout_s_matrices_analyzed"] == 0
+    assert live["new_co_maps"] == 3 and live["route_holdout_s_matrices_analyzed"] == 0
     assert live["automatic_successor"] is False and live["full_sweep_released"] is False
     compact = json.loads((DEFAULT_SNAPSHOT.parent / live["verification"]).read_text())
     assert compact["integrations_verified"] == live["toy_integrations_verified"]
@@ -25,7 +25,7 @@ def test_current_snapshot_pins_sources_and_does_not_requalify_the_co_stop():
     )
 
 
-def test_coupled_pass_does_not_release_the_proposed_co_study():
+def test_historical_proposal_is_not_retroactively_released_by_the_coupled_pass():
     live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
     assert live["coupled_integrations_verified"] == 54 and live["coupled_control_verdict"] is True
     result = json.loads((DEFAULT_SNAPSHOT.parent / live["coupled_verification"]).read_text())
@@ -38,3 +38,17 @@ def test_coupled_pass_does_not_release_the_proposed_co_study():
     )
     assert proposal["execution_authorized"] is False
     assert proposal["maps_max"] == 3 and proposal["development_index"] == 80
+
+
+def test_separate_authorized_study_pass_is_not_a_remaining_guard_or_pole_release():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    assert (
+        live["contour_study_verdict"] is True and live["new_co_study_execution_authorized"] is True
+    )
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["study_verification"]).read_text())
+    assert result["contour_study_verdict"] is True and result["original_guard_scientific_exit"] == 2
+    assert result["tz_started"] is False and result["original_guard_requalified"] is False
+    proposal = json.loads(
+        DEFAULT_SNAPSHOT.with_name("stretched-real-completion-proposal-20261102.json").read_text()
+    )
+    assert proposal["execution_authorized"] is False and len(proposal["maps"]) == 5

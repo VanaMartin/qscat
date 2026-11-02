@@ -125,3 +125,22 @@ stability1e-7. No empirical angle/tolerance ladder. Short-endpoint diagnostics
 are retained as convergence evidence, not gate successes; input/integration/cap
 failure aborts. Source/tests/owner freeze before maps and independent actual
 CO evidence after execution remain necessary. No pole or peer release follows.
+
+### Actual-CO outcome within that separate authorization
+
+The [independent public three-map study](../../projects/ukrmol_co/qualification-evidence/stretched-contour-study/README.md)
+qualifies the new20degree prescription at own-DZ development80 only. Endpoints
+60/90/120 give flux9.85840e-8/4.70332e-9/1.01230e-9, all below the original1e-7
+gate; Wronskian residuals1.51706e-9/7.95953e-13/4.74598e-15 pass1e-6. Full90/120
+map changes Y2.32024e-13/A6.69041e-9 pass1e-7. Native S/phase and other invariants
+also pass without altered tolerances or amplitude projection. All original exits0,
+profile41.861348s/0.375618GiB kernel cgroup peak,33 executed Git sources and
+210 resource samples independently authenticate. The first reader's mistaken
+six-versus-five control count is preserved separately; no scientific retry.
+
+This is actual evidence for a useful lower-angle prescription at the failed
+development identity, not a rigorous CO tail bound or unique attribution of the
+old40degree failure. It does not qualify DZ60/TZ60/TZ80 at20degrees or complex
+continuation. Original40degree exits2 and both native-export receipts stand.
+Complete the remaining own-model real prerequisites only under a separately
+approved/frozen finite allocation; no automatic peer or pole use follows.

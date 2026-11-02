@@ -2,6 +2,24 @@
 
 ## Decision now
 
+**2November10:52UTC: [authorized20degree own-DZ80 study independently/publicly passes](qualification-evidence/stretched-contour-study/README.md).**
+Three maps/all original exits0; flux at60/90/120 is9.86e-8/4.70e-9/1.01e-9,
+Wronskian1.52e-9/7.96e-13/4.75e-15. All original real S/phase/invariant budgets
+pass;90/120 full-map stability Y2.32e-13/A6.69e-9 passes1e-7.41.861348s/
+0.375618GiB kernel peak; eight fresh public payloads/27 raw files/33 sources/
+210 samples reconstruct. Reader-only1→0 control-count correction retained.
+No retry, projection or tolerance change. Original40degree failed guard remains2.
+
+**Next decision:** [five missing20degree real checks](stretched-real-completion-proposal-20261102.json)
+or park extraction. Reuse passed DZ80; separately test DZ60/TZ60 at120 and TZ80
+at60/90/120, same gates/order/rtol and TZ80 last-two stability.4 physical cores/
+8GiB/600s science/900s owner,60minute implementation, new freeze first. Unreleased
+pending separate peer decision; no automatic complex/pole/B2/fit/sweep/holdout
+analysis. Both native exports remain qualified; no physical basis/model verdict.
+No active campaign job or monitor.
+
+### Earlier2November separate study authorization
+
 **2November10:39UTC: user explicitly authorizes the separate [fixed three-map20degree study](stretched-contour-study-contract-20261102.json).**
 Own-DZ80/endpoints60/90/120/order10/rtol1e-12, unchanged original real gates and
 additional90/120 Y/A stability1e-7.4 physical cores/8GiB/300s science/600s owner;

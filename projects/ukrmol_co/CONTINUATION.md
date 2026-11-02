@@ -88,6 +88,34 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### New20degree DZ80 prescription independently/publicly passes; next peer decision —2 November,10:52UTC
+
+[Actual CO result](qualification-evidence/stretched-contour-study/README.md) /
+[compact observation](progress-stretched-contour-result-20261102.json).
+Explicitly authorized source/tests/exact owner `102b523` pushed before10:44:24UTC
+launch;10:45:07UTC completion, all six original exits0. Eight fresh public payloads/
+reader `1ba520a` authenticate27 raw files/33 original Git sources/seven inputs/
+210 resource samples. Native Q/S and saved full Y/A/S gates reconstruct.
+Reader-only control-count error1→0 is preserved, not a scientific retry.
+
+At20degrees/endpoints60/90/120, flux9.85840e-8/4.70332e-9/1.01230e-9; Wronskian
+1.51706e-9/7.95953e-13/4.74598e-15. All original real gates pass, no tolerance
+change.90/120 differences Y2.32024e-13/A6.69041e-9 pass1e-7. Profile41.861348s/
+0.375618GiB kernel cgroup peak; two observations max29.979418s gap, no timeout/OOM.
+Persistent capsule `/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-contour-source-20261102`;
+container `co-stretched-contour-study-20261102` finished. No active job/monitor.
+
+Only own-DZ80 real-axis normalization/endpoint stability now qualifies under the
+new prescription. Original40degree failure remains2, both native exports valid,
+TZ guards/complex/poles/model accuracy and every wider production gate unqualified.
+No native/QC/CI/property/preparation repeat or protected114-S analysis.
+
+Next decision: [five remaining20degree real checks](stretched-real-completion-proposal-20261102.json)
+or park extraction. Reuse passed DZ80; DZ60/TZ60 at120, TZ80 at60/90/120. Same
+order10/rtol1e-12/gates and TZ80 endpoint stability;4 physical cores/8GiB/600s
+science/900s owner,60minutes implementation. Unreleased pending separate decision/
+exact pins/tests/source/owner freeze. No automatic peers, poles/B2/fit/sweep.
+
 ### User authorizes separate actual-CO three-map study —2 November,10:39UTC
 
 Explicit **Authorize study** releases only the [new fixed20degree contract](stretched-contour-study-contract-20261102.json):

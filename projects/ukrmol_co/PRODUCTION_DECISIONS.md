@@ -1669,6 +1669,39 @@ publish/reconstruct actual maps and resources, including failure, then review
 the production-method decision. No original guard requalification, TZ guards,
 complex/pole/B2/fit/sweep/114-holdout read or automatic successor is authorized.
 
+### Goal checkpoint —2 November,10:52UTC: actual20degree DZ80 prescription independently passes
+
+**Production-relevant delta:** the [explicitly authorized actual-CO study](qualification-evidence/stretched-contour-study/README.md)
+qualifies full real S/flux/Wronskian and endpoint stability at the identity that
+failed under the original prescription. Source `102b523` pushed before10:44:24UTC
+launch; three maps complete10:45:07UTC/all six original exits0. Reader `1ba520a`
+and eight fresh public payloads authenticate27 raw files/33 original Git sources/
+seven input pins/210 samples. Native surface-sum/S and saved full-map algebra
+reconstruct independently. Five runtime controls passed; reader-only1 from a
+six-versus-five control-count expectation is preserved beside corrected0, no
+science repeat. Profile41.861348s/CPU41.833552s/0.375618GiB kernel peak; two
+observations max29.979418s gap. No active campaign job or monitor.
+
+At20degrees/endpoints60/90/120, flux9.85840e-8→4.70332e-9→1.01230e-9 passes1e-7;
+Wronskian1.51706e-9→7.95953e-13→4.74598e-15 passes1e-6.120 native S error1.49741e-7/
+phase4.18238e-7rad pass the unchanged1e-6 budgets.90/120 full-map differences
+Y2.32024e-13/A6.69041e-9 pass additional1e-7 stability. No closed-column removal,
+whitening or projection. Actual one-energy numerical prerequisite now qualifies
+under the new prescription; the original40degree failed guard remains2.
+
+**Unchanged:** no unique old-error attribution, global tail bound, complete new
+DZ/TZ real-guard set, complex method/pole/basis-model verdict, production model,
+channel completeness, state continuity, neutral-domain or full-scattering fit.
+No native/electronic repeat/TZ map/complex/pole/B2/fit/sweep/114-holdout analysis.
+
+**Decision:** [propose the five missing real-axis checks](stretched-real-completion-proposal-20261102.json)
+at the same frozen20degree/order10/rtol1e-12 and original physical budgets: DZ60
+and TZ60 at120; TZ80 at60/90/120 with the same last-two Y/A stability. Reuse this
+passed DZ80 result rather than repeating it. Four physical cores/8GiB, conditional
+60–240s/600s science/900s owner,60minute implementation and fresh source/owner
+freeze before use. This remains unreleased: obtain a separate continuation
+decision for peers or park extraction. No automatic pole release even on a pass.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

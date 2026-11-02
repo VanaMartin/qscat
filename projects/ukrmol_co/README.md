@@ -12,7 +12,16 @@ sweep/potential decision it changes and end with continue/redirect/stop—not ju
 another collection of passing checks. See the dated checkpoint for the current
 bounded deliverable and unresolved scientific blockers.
 
-**2November09:05UTC—[coupled exact endpoint control passes](qualification-evidence/coupled-jost/README.md); actual-CO decision required.**
+**2November10:52UTC—[authorized20degree actual-DZ80 study independently passes](qualification-evidence/stretched-contour-study/README.md).**
+Three fixed endpoints/all original exits0;120 flux1.01e-9/Wronskian4.75e-15 and
+native S/phase pass unchanged gates.90/120 full-map changes Y2.32e-13/A6.69e-9
+pass1e-7.41.861348s/0.375618GiB; fresh public native/raw reconstruction passes.
+This qualifies one new-prescription development point, not the original40degree
+guard, TZ guards, a complex pole or the electronic model. Original failure stays2.
+Next [separate remaining-real-check decision](stretched-real-completion-proposal-20261102.json),
+no automatic peer/pole/sweep or114-holdout analysis. No active campaign job.
+
+**Earlier2November09:05UTC—[coupled exact endpoint control passes](qualification-evidence/coupled-jost/README.md).**
 54 integrations/all original exits0, exact-start finest error1.40e-12; genuine
 omitted-tail errors converge at20/40/50degrees. Independent fresh-public reading
 passes. No CO inputs mounted or maps rerun; this exponential-tail control does
@@ -785,9 +794,13 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
-![Exact coupled endpoint control passes; actual CO tail remains unqualified and a new numerical prescription requires a decision](../../docs/physics/figures/co-progress-20261102T0905-coupled-jost.png)
+![Authorized20degree DZ80 study passes full real gates and endpoint stability; original40degree failure remains, remaining DZ/TZ checks unreleased](../../docs/physics/figures/co-progress-20261102T1052-contour-study.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T0905-coupled-jost.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1052-contour-study.svg) ·
+[Actual-DZ80 endpoint snapshot](progress-snapshot-20261102T1052-contour-study.json) ·
+[Independent actual-CO evidence](qualification-evidence/stretched-contour-study/README.md) ·
+[Unreleased remaining real checks](stretched-real-completion-proposal-20261102.json) ·
+[Previous coupled-control figure](../../docs/physics/figures/co-progress-20261102T0905-coupled-jost.svg) ·
 [Coupled-control/decision snapshot](progress-snapshot-20261102T0905-coupled-jost.json) ·
 [Independent coupled endpoint evidence](qualification-evidence/coupled-jost/README.md) ·
 [Unreleased actual-CO proposal](stretched-contour-study-proposal-20261102.json) ·
