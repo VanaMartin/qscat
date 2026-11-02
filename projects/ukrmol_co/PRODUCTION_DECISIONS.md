@@ -1643,6 +1643,32 @@ No source/owner implementing that CO study has been released or any map queued.
 Alternative: keep this numerical extraction route parked and decide a different
 production route. No automatic TZ guard/pole/B2/fit/sweep/114-holdout analysis.
 
+### Goal checkpoint —2 November,10:39UTC: user authorizes separate fixed actual-CO study
+
+The user explicitly selects **Authorize study** in the bounded-method decision:
+own-DZ development80, fixed20degrees/endpoints60/90/120, original order10/rtol1e-12
+and unchanged real S/phase/flux/invariant gates;4 physical cores/8GiB/300s science.
+This supersedes the proposal's unreleased status through a separate
+[execution contract](stretched-contour-study-contract-20261102.json), not by
+rewriting that historical proposal or the original40degree guard result.
+
+**Decision served:** determine whether a fixed lower-angle canonical finite-tail
+prescription gives native-consistent full amplitudes and endpoint stability on
+the actual failed development input. Both exact controls support testing this
+hypothesis, not assuming it. Reuse qualified own-DZ64/400 arrays/2048 roots and
+native K; public own receipt/coupled pass/original stop and unchanged method pins
+must authenticate before any map. No native/QC/CI/property/preparation repeat.
+
+Exactly three predeclared endpoints form one convergence dataset. Preserve all
+short-endpoint diagnostic failures; final120 original gates and90/120 full Y/A
+stability1e-7 are conjunctive. Input/integration/cap failure aborts without other
+maps/fallbacks. Source/tests/exact existing four-core owner freeze/push first;
+60minute implementation bound, conditional45–180s/90s per map/50000 RHS/300s
+science/600s owner. At most60s observations during execution. Next independently
+publish/reconstruct actual maps and resources, including failure, then review
+the production-method decision. No original guard requalification, TZ guards,
+complex/pole/B2/fit/sweep/114-holdout read or automatic successor is authorized.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

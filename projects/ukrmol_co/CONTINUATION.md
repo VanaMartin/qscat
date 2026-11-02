@@ -88,6 +88,22 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User authorizes separate actual-CO three-map study —2 November,10:39UTC
+
+Explicit **Authorize study** releases only the [new fixed20degree contract](stretched-contour-study-contract-20261102.json):
+own-DZ80/endpoints60/90/120/order10/rtol1e-12/original gates;4 physical cores/
+8GiB/300s science/600s owner,60minute implementation bound. Original40degree
+failure remains2 and is never retried/requalified. Historical unreleased proposal
+stays intact; this is a new execution decision, not a tolerance rescue.
+
+Authenticate public own receipt/coupled reading/original stop/method and array
+pins before maps. Freeze/push source/synthetic controls/exact reused owner first.
+Preserve short-endpoint failed diagnostics as a predeclared convergence dataset;
+input/integration/cap failure stops immediately, no fallback. Final120 gates plus
+90/120 full Y/A stability1e-7 required. Next independent/public actual result/
+resource reconstruction. No electronic repeat, native call, TZ guard, complex
+pole/B2/fit/sweep/114-holdout analysis or automatic successor. No map launched yet.
+
 ### Decision required before new CO numerical study —2 November,09:05UTC
 
 [Coupled exact control](qualification-evidence/coupled-jost/README.md) /

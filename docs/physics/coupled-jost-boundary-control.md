@@ -113,3 +113,15 @@ an explicitly new numerical prescription, not an original40degree guard retry;
 it requires a user decision before any implementation/execution release.
 Until then the original CO stop remains binding. No more generic toys are
 selected: authorize a bounded actual-CO diagnostic or park this extraction route.
+
+### Explicit separate authorization
+
+On2November the user selects **Authorize study** for the fixed three-map CO
+diagnostic. Its [new execution contract](../../projects/ukrmol_co/stretched-contour-study-contract-20261102.json)
+does not alter the historical unreleased proposal or original40degree failure.
+At the one own-DZ development energy80, evaluate20degrees/endpoints60/90/120
+with unchanged order10/rtol1e-12/original real gates, plus90/120 full Y/A
+stability1e-7. No empirical angle/tolerance ladder. Short-endpoint diagnostics
+are retained as convergence evidence, not gate successes; input/integration/cap
+failure aborts. Source/tests/owner freeze before maps and independent actual
+CO evidence after execution remain necessary. No pole or peer release follows.

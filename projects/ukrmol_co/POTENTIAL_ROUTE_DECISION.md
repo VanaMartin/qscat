@@ -2,6 +2,18 @@
 
 ## Decision now
 
+**2November10:39UTC: user explicitly authorizes the separate [fixed three-map20degree study](stretched-contour-study-contract-20261102.json).**
+Own-DZ80/endpoints60/90/120/order10/rtol1e-12, unchanged original real gates and
+additional90/120 Y/A stability1e-7.4 physical cores/8GiB/300s science/600s owner;
+60minute implementation, source/tests/exact owner freeze/push first. Public
+own export/coupled reading/original stop and method/array pins before maps.
+Short-endpoint diagnostics preserved; integration/input/cap failure stops with
+no fallback. Next independent public actual evidence, then method review.
+Original40degree failure never retried/requalified; no native/electronic repeat,
+TZ guards/poles/B2/fit/sweep/114-holdout read or automatic successor.
+
+### Earlier2November coupled outcome and authorization question
+
 **2November09:05UTC: [coupled canonical endpoint control independently passes](qualification-evidence/coupled-jost/README.md).**
 54 integrations/all original exits0, exact-start finest error1.40e-12; genuine
 tail errors converge at20/40/50degrees.0.576349s/0.052368GiB, no CO input mount.
