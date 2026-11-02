@@ -850,6 +850,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
+**17:50UTC saved aug-TZ review:** [native64 reuse qualifies](qualification-evidence/stretched-augtz-feasibility/README.md),
+but actual40-state properties lack24 of the matched64 states. Select one finite
+diffuse-basis-plus-frame control at fixed zeta; first only one missing DENPROP64
+export under [its separate contract](stretched-augtz-properties-contract-20261102.json),
+no QC/CI/import repeat or automatic scattering successor. Conditional4–7h/eight
+physical cores/8GiB; independent actual result/cost required before preparation.
+Production fitting remains stopped; the target-correspondence result below does
+not waive the measured pole sensitivity or unproved N+1 resonance identity.
+
 ![DZ/TZ retained-target correspondence passes in all eight sectors; finite pole sensitivity still blocks production fitting](../../docs/physics/figures/co-progress-20261102T1730-target-correspondence.png)
 
 [Vector figure](../../docs/physics/figures/co-progress-20261102T1730-target-correspondence.svg) ·

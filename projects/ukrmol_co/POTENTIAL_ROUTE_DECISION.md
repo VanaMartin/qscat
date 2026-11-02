@@ -2,6 +2,20 @@
 
 ## Decision now
 
+**2November17:50UTC: [saved aug-TZ reuse qualifies](qualification-evidence/stretched-augtz-feasibility/README.md).**
+13 fresh public payloads reconstruct supported48-probe proof and actual native64
+import; original seed/frame gates pass. Existing40-state properties lack24 of
+the common64. Select [one finite diffuse-basis-plus-frame control](../../docs/physics/co-stretched-diffuse-flexibility.md),
+fixed zeta/common objective/retention, not a basis ladder or accuracy promotion.
+Release **only one missing64-state DENPROP export** after exact source/tests/
+owner freeze/push:18 raw/six source pins, unchanged original electronic inputs,
+eight cores/8GiB/conditional4–7h/12h native/12.5h container/13h owner/300s
+observations. Independent result/cost before any later preparation/scattering.
+No QC/CI/import repeat or automatic successor. Production fitting stays stopped;
+DZ/TZ target correspondence is not N+1 identity and does not remove sensitivity.
+
+### Earlier2November target-correspondence completion
+
 **2November17:30UTC: [physical retained-target correspondence passes](qualification-evidence/stretched-target-overlap/README.md).**
 All eight DZ/TZ sector minima0.978069419–0.989985595 exceed the predeclared0.5
 majority-projection diagnostic; all64 maximum-weight assignments preserve rank.

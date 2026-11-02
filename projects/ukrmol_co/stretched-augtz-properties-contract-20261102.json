@@ -1,0 +1,61 @@
+{
+  "status":"User continuation selects one missing64-state aug-TZ property export for a bounded diffuse-flexibility control;exact source/tests/owner push before execution",
+  "execution_authorized":true,
+  "scientific_question":"Supply24 missing retained-state properties for the common64 CAS12 plain-TZ/aug-TZ finite diffuse-basis-plus-frame contrast atR=2.5;not itself a scattering effect or model qualification",
+  "verification":"projects/ukrmol_co/verification-stretched-augtz-feasibility-public-20261102.json",
+  "source_sha256":{
+    "projects/ukrmol_co/a2_channel_preflight.py":"75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "projects/ukrmol_co/run.py":"bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "projects/ukrmol_co/stretched_basis_feasibility.py":"d231097887c9d6f34893253a40951c3c43c3e0feceb100c9cbfed595d4094130",
+    "projects/ukrmol_co/verification-stretched-augtz-feasibility-public-20261102.json":"0d6d14cf926026c98f1175e88d38cfbdd2fe95bb6f775e84ceaedae3ba2b27f4",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-feasibility/artifacts.json":"1c4908b808d33a9eacddc6b70e07358f914ca19a0c53ced983b87408f727e05d",
+    "projects/ukrmol_co/stretched_augtz_feasibility.py":"f59fa4db8bf7edc762394232b3d90679957ebaf3e6cc49e17e8ead431c78757f"
+  },
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "container_name":"co-stretched-augtz-properties-20261102",
+  "runtime_controls_module":"projects.ukrmol_co.test_stretched_augtz_properties",
+  "denprop_sha256":"f412f16e0681588866e3b765b3ee6ad63c205775ce206b20df0c6ef17e64cc9a",
+  "matched_deck_sha256":"4fbc4ebbb87ebd2adf7ff1def36ffe9dc1356babba184c0f05974283ea0b77a4",
+  "models":{
+    "augtz":{
+      "basis":"aug-cc-pVTZ",
+      "target_directory":"runs/co-r2500-augtz-sa12-slepc-roots8-spaces80-240-qualified-target-mpi12-framequalified-20261010",
+      "original_property_counts":[5,3,6,7,6,7,3,3],
+      "input_sha256":{
+        "config.json":"2bd3c9dda0c5f654913270334428b9817f20e33453a8f0034e80c8142898d9d7",
+        "target.json":"8896862a730171b4e0350f5962e81a2e9950515724dc274f6144a380f806142f",
+        "target-diagnostics.json":"5eefa106f7d029c922c12cfc966aa605ef9d6c92af3eca06e35547bd9291ee4e",
+        "resources.json":"457e862856d38ae362b5c3a1e97039a02207966aab43c57af8042b245f8a1851",
+        "output/CO/geom1/co.casscf.chk":"5dc900314de3b4dfa525bec30c1bb6fc10db1f84e21eeb91d30b275dfa0d8718",
+        "output/CO/geom1/co.molden":"39134dd82380c0defd9c233ebd08d3b0e2a25d1b2458c4f63865752a6971bac7",
+        "output/CO/geom1/fort.16":"14f9ece004570cf8984c61b4af7772c42dd2b35f64318f9972b60dcc6b75e57f",
+        "output/CO/geom1/fort.26":"0fe88d3404de060a3335aefa798b86b13c17f656d73befd15ace5236c631e716",
+        "output/CO/geom1/fort.24":"f5b391a410d7acfe9f36e9f55701f7b899cef0e725837ba8451425caf1dc6fd4",
+        "output/CO/geom1/inputs/target.denprop.inp":"f0821c10534c701c5047f79b64240ed10c4b24aaa09a39b28e1decfadb473bb5",
+        "output/CO/geom1/fort.710":"9d44aad27ed2c8ba887490ddab17fe3d0ffac01f6c78176bb9cc97e23c4a1292",
+        "output/CO/geom1/fort.730":"4e4965016162f908ac6721b9ddd842de138ffd823ec2f80e2143e9b97c59766d",
+        "output/CO/geom1/fort.711":"8bc6391880314c7c2332a9ab7f96a6716c958b23356f09cda594095e1442a38c",
+        "output/CO/geom1/fort.731":"a38e73e911f66d69a5cd4268a8e5b52fdda8de53d4e0c57557f0973475af72a4",
+        "output/CO/geom1/fort.712":"f3030c2ac225937ecd58fee41b64089ed0e6a5706c63a7c440e925465347a4b8",
+        "output/CO/geom1/fort.732":"bb0ca49edbcf6421f54f0bd536797d35a732c0cd6c67bb376dad96b9d13a3dce",
+        "output/CO/geom1/fort.713":"11e31e5cb6735ec96adc97dc04fd0f7b2ce7a04ea1f1f2a25f0810f4cc2c4ff9",
+        "output/CO/geom1/fort.733":"9aa8b55a1eb2a856e70a95bc3bb541e73154de005228c2b914e6d114f825ecfa"
+      }
+    }
+  },
+  "resources":{
+    "service_unit":"co-stretched-augtz-properties-20261102",
+    "physical_cpu_group":"4-11","physical_cores":8,"library_threads":1,
+    "memory_gib":8,"shared_memory_gib":1,"minimum_available_ram_gib":16,
+    "minimum_free_disk_gib":10,"native_timeout_seconds":43200,
+    "container_timeout_seconds":45000,"owner_timeout_seconds":46800,
+    "controls_timeout_seconds":120,"observation_interval_seconds":300
+  },
+  "forecast":"Conditional4-7h,not an aug-TZ64 measurement or eight-core speedup;old aug-TZ40 DENPROP4.413h,matched DZ/TZ64 exports4.552h/1.453GiB and4.421h/1.715GiB",
+  "selection":"Only NTGTL becomes8 in all8 sectors;all other deck bytes and original orbitals/integrals/CSFs/native vectors unchanged",
+  "stops":"Any proof/control/input/native/inventory/dipole/integrity/timeout/OOM failure stops inconclusive2;no retry/retuning or automatic preparation/scattering/pole successor",
+  "implementation_effort_minutes_cap":60,
+  "native_denprop_calls_max":1,"qc_calls":0,"target_diagonalizations":0,
+  "scattering_calls":0,"new_maps":0,"route_holdout_s_matrices_analyzed":0,
+  "automatic_successor":false,"full_sweep_released":false
+}

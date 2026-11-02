@@ -1,0 +1,19 @@
+{
+  "artifacts": {
+    "augtz-supported-spaces.tar.gz":{"bytes":699721,"sha256":"3513b97900945be5cdd33366d592d91003252fcbd4b7c0f24f91454ab6acab5e"},
+    "collection-dereferenced.json":{"bytes":20461,"sha256":"6e73f350565720a0b68adadcc757e367b64a3c3ef16f851d333a6f90e716b0de"},
+    "collection.json":{"bytes":20205,"sha256":"b003aef12ea660d217dbc3b606f21a9dfa6d2030e142cb638e60588ff00fac32"},
+    "manifest.json":{"bytes":250,"sha256":"a36305b2ea32c6137a79efd5dc5fe551ebb86ab7b6a4f39f9ac3ae9625568995"},
+    "original-reader-failure.json":{"bytes":321,"sha256":"cf06b4de8ff2636e5e2b3491fe41bc057be0b9a39a737a7a060d138e5b484839"},
+    "reading.json":{"bytes":4140,"sha256":"391b37db67e1d61504a98fa10eceedf6f191898df0f8147d11d339b538d5c651"},
+    "saved-inputs-dereferenced.tar.gz":{"bytes":32193695,"sha256":"851a5855fe1f1f6816685dd11e1e0017f7d2e92a1660ff4be6c569a5cfdda875"},
+    "saved-inputs.tar.gz":{"bytes":32168102,"sha256":"a421c2d928a7c410cb8222f709d2ae7fac8f4913e37fbf01cc2ceb1187bf44b9"},
+    "stretched_augtz_feasibility.py":{"bytes":13239,"sha256":"f59fa4db8bf7edc762394232b3d90679957ebaf3e6cc49e17e8ead431c78757f"},
+    "supported-public-replay-exit.json":{"bytes":369,"sha256":"acc92cc1a93a233cfdda5defc2c326412b6427bf19e27a7465324863878fec2b"},
+    "supported-public-replay.stderr":{"bytes":0,"sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    "supported-public-replay.stdout":{"bytes":1109,"sha256":"c4199f6244eee0e8edef7c5b72f93ccbbca80071e0a438154946faf6b60c289a"},
+    "test_stretched_augtz_feasibility.py":{"bytes":2215,"sha256":"0211f8e65f5afa22eb81f592db468bcf4b2737b0f247bf6889e195a7eccf38e8"}
+  },
+  "git_sha":"16fbb29633ffff0916f7b151c94c25bbbab6f4c8",
+  "url_prefix":"https://data.qscat.org/co-stretched-augtz-feasibility-20261102/"
+}

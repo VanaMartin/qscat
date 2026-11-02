@@ -88,6 +88,30 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Saved aug-TZ reuse qualifies; one property-only release —2 November,17:50UTC
+
+[Saved public review](qualification-evidence/stretched-augtz-feasibility/README.md)
+reconstructs269 supported-space members/48 probes plus73 actual import inputs,
+14 old frozen pins/105816 samples;13 fresh payloads. Native64/seed-preservation/
+saved physical-frame gates pass;8 CSF hashes equal qualified TZ. Actual properties
+are40 states/812 moments, missing24 common64 states. Original queue exits1 and
+first symlink-reader1 remain public; unchanged dereferenced collection passes0.
+No scientific calls repeated. Native vector/action/frame scope and limitations
+are explicit in the public reading; no new TZ/aug-TZ physical overlap or pole yet.
+
+Select [one finite diffuse-basis-plus-frame control](../../docs/physics/co-stretched-diffuse-flexibility.md).
+First only [DENPROP64 property export](stretched-augtz-properties-contract-20261102.json):
+same actual imported orbitals/integrals/CSFs/native coefficients; only NTGTL=8.
+18 raw/six source prerequisite pins, same executed DZ/TZ64 deck hash. Ten
+self-contained no-native controls and exact source/tests/owner freeze/push first;
+no launch at this freeze checkpoint. Eight physical cores4–11/8GiB/one library
+thread/no network, conditional4–7h,12h native/12.5h container/13h owner/300s
+read-only observations,60minute implementation bound. No speedup claim.
+Next independent public actual inventory/result/exits/cost; only then review
+missing full-continuum/B1/2048 preparation. No QC/CI/import repeat, automatic
+peer/pole/geometry/fit/sweep/holdout action or paid resources. Production stays
+stopped; DZ/TZ pole sensitivity and N+1 identity uncertainty remain unchanged.
+
 ### Target correspondence passes; bounded aug-TZ reuse review next —2 November,17:30UTC
 
 [Independent public target evidence](qualification-evidence/stretched-target-overlap/README.md)

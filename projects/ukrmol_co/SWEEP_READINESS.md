@@ -6,7 +6,18 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November17:30UTC—physical retained-target correspondence passes, production remains stopped.**
+**2November17:50UTC—saved aug-TZ target reuse qualifies; only missing64-state properties released.**
+[Public feasibility](qualification-evidence/stretched-augtz-feasibility/README.md):
+269 proof members/48 probes plus73 actual import records/105816 samples reproduce.
+Native64/seed/frame checks pass; actual40-state properties lack24 common64 states.
+One [property-only export](stretched-augtz-properties-contract-20261102.json) after
+exact source/tests/owner freeze, eight cores/8GiB/conditional4–7h/hard12h native.
+No target/QC/import repetition or automatic preparation/scattering/pole successor.
+This is a necessary input for a finite diffuse-flexibility control, not a new
+scattering effect, accuracy verdict or production release. All original failures
+and114 holdouts remain preserved; independent actual result/cost is next.
+
+**Earlier2November17:30UTC—physical retained-target correspondence passes, production remains stopped.**
 [Independent public screen](qualification-evidence/stretched-target-overlap/README.md):
 all eight sector minima0.978069419–0.989985595 exceed the predeclared0.5 dominance
 diagnostic, all64 root assignments preserve rank.102.167383s/1.316498GiB/four cores,

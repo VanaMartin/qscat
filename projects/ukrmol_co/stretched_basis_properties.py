@@ -82,12 +82,30 @@ def authenticate(root, source, case, contract, receipt=None, receipt_sha256=None
         if digest(source / name) != want:
             raise ValueError("Changed frozen source prerequisite: " + name)
     proof = json.loads((source / contract["verification"]).read_text())
-    if not (
-        proof["saved_proof_reconstruction_pass"]
-        and proof["native_root_counts_dz_tz"] == [64, 64]
-        and proof["original_import_seed_preservation_verdict"] is False
-    ):
-        raise ValueError("Saved distinct-frame proof prerequisite failed")
+    if case == "augtz":
+        if receipt is not None or receipt_sha256 is not None:
+            raise ValueError("Aug-TZ does not accept a DZ predecessor override")
+        if not (
+            contract.get("execution_authorized") is True
+            and proof.get("reuse_feasibility_verdict") is True
+            and proof.get("corrected_reader_exit") == 0
+            and proof.get("fresh_public_payloads_verified") == 13
+            and proof.get("native_root_count") == 64
+            and proof.get("original_import_analysis_verifier_exits") == [0, 0, 0]
+            and proof.get("imported_checkpoint_sha256")
+            == model["input_sha256"]["output/CO/geom1/co.casscf.chk"]
+            and proof.get("original_property_counts") == model["original_property_counts"]
+        ):
+            raise ValueError("Saved supported aug-TZ reuse qualification failed")
+    elif case in ["dz", "tz"]:
+        if not (
+            proof["saved_proof_reconstruction_pass"]
+            and proof["native_root_counts_dz_tz"] == [64, 64]
+            and proof["original_import_seed_preservation_verdict"] is False
+        ):
+            raise ValueError("Saved distinct-frame proof prerequisite failed")
+    else:
+        raise ValueError("Unsupported property case")
     for name, want in model["input_sha256"].items():
         if digest(target / name) != want:
             raise ValueError("Changed frozen native input: " + name)
@@ -99,7 +117,11 @@ def authenticate(root, source, case, contract, receipt=None, receipt_sha256=None
         and cfg["sa_singlet_roots"] == cfg["sa_triplet_roots"] == [5] * 4
     ):
         raise ValueError("Wrong full-ensemble target construction")
-    previous = predecessor(root, case, digest(source / CONTRACT), receipt, receipt_sha256)
+    previous = (
+        None
+        if case == "augtz"
+        else predecessor(root, case, digest(source / CONTRACT), receipt, receipt_sha256)
+    )
     return target, previous
 
 
@@ -186,13 +208,14 @@ def compute(root, source, work, case, contract, receipt=None, receipt_sha256=Non
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--case", choices=["dz", "tz"], required=True)
+    parser.add_argument("--case", choices=["dz", "tz", "augtz"], required=True)
+    parser.add_argument("--contract", default=CONTRACT)
     parser.add_argument("--profiled", action="store_true")
     parser.add_argument("--dz-receipt")
     parser.add_argument("--dz-receipt-sha256")
     args = parser.parse_args()
     root, source, work = Path("/work"), Path("/opt/qmodeling"), Path("/out/properties")
-    contract = json.loads((source / CONTRACT).read_text())
+    contract = json.loads((source / args.contract).read_text())
     if args.profiled:
         return compute(
             root, source, work, args.case, contract, args.dz_receipt, args.dz_receipt_sha256

@@ -2064,6 +2064,50 @@ the user's continuation; otherwise preserve the blocker and stop, no solver resc
 or repeat of successful targets. No active campaign numerical job/monitor/paid
 resources/ComfyUI changes. Nine/new50/2048/equilibrium/114-holdout protections stand.
 
+### Goal checkpoint —2 November,17:50UTC: saved aug-TZ reuse qualifies; release only missing64-state properties
+
+**Question/evidence delta:** can an existing supported aug-TZ calculation supply
+one finite diffuse-flexibility contrast at fixed triple-zeta, without repeating
+successful electronic work? [Fresh public saved review](qualification-evidence/stretched-augtz-feasibility/README.md)
+`16fbb29`/13 payloads reconstructs269 supported proof members/48 probes plus73
+actual import records/14 original pins/105816 resource samples. Native64 binary
+roots differ from saved independent probes by<=3.85122e-8Ha; original printed
+root gate/seed-preservation/frame/ordinary40-component QC flags pass. Eight CSF
+hashes equal qualified plain-TZ definitions. Actual fort.24 has40 states/812
+moments, counts5/3/6/7/6/7/3/3:24 common64-state properties are missing. No new
+QC/CI/Hamiltonian/native/property/map/holdout action in the saved review.
+
+Original coverage and import combined owners remain exit1 for their separate
+outer/compressed-proof failures; supported scan/verifier0/0 and aug import/
+analyzer/verifier0/0/0 are retained, not relabelled whole-queue successes. First
+symlink collection lacks fort.16 payload/reader1; corrected dereference contains
+the same73 unchanged bytes/reader0. Both archives/failure are public. Physical
+frame/action metrics are authenticated saved witnesses, not regenerated actions.
+
+**Continue:** select [one finite plain-TZ/aug-TZ diffuse-basis-plus-frame control](../../docs/physics/co-stretched-diffuse-flexibility.md),
+sameR=2.5/common40 objective/active6/3/3/0/common64 retention. This is not absolute
+accuracy, a ladder, or an isolated AO-function perturbation with frozen MOs.
+The target-correspondence pass and103.370meV/44.172meV DZ/TZ pole sensitivity stand.
+Production-insensitivity/fit inference stays stopped. More interface tests alone
+are not a scattering effect or sweep progress.
+
+**Minimum new work released now:** [one DENPROP64 export](stretched-augtz-properties-contract-20261102.json),
+only NTGTL changes to8;18 raw/six source prerequisite pins, identical previously
+executed64-state deck hash, original orbitals/integrals/CSFs/CIDATA immutable.
+New source/tests/owner must freeze/push first. Reuse original inventory/energy/
+dipole/finite-unique-moment gates. Ten no-native runtime controls first; stop
+inconclusive2 on any failure, no fallback/retry/automatic successor.
+
+**Bounds/cost:** eight physical cores4–11/one library thread/8GiB/no network,
+minimum16GiB RAM/10GiB disk,12h native/12.5h container/13h owner,300s bounded
+read-only observations,60minute implementation/freeze cap. Conditional4–7h is
+based on aug-TZ40 DENPROP4.413h and measured matched64 DZ4.552h/1.453GiB,
+TZ4.421h/1.715GiB, not a measured aug-TZ64 runtime or rank speedup. The old full
+import5.894h/41.114GiB is not property-only memory. Independent public result
+reconstruction must precede any preparation/nativeB1/2048 or pole decision.
+All114 holdouts/original failures/nine/new50/2048/equilibrium protections stand.
+No paid resources, image rebuild, ComfyUI changes or production release.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

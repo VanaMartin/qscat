@@ -19,7 +19,8 @@ def service_command(capsule, limits, arguments):
     return [
         "systemd-run",
         "--user",
-        "--unit=co-stretched-basis-properties-" + arguments[1] + "-20261026",
+        "--unit="
+        + limits.get("service_unit", "co-stretched-basis-properties-" + arguments[1] + "-20261026"),
         "--property=Type=exec",
         "--property=RuntimeMaxSec=" + str(limits["owner_timeout_seconds"]),
         "--property=TimeoutStopSec=60",
@@ -33,10 +34,20 @@ def service_command(capsule, limits, arguments):
     ]
 
 
-def container_command(root, source, output, case, contract, receipt=None, receipt_sha256=None):
-    name = "co-stretched-basis-properties-" + case + "-20261026"
-    controls = ["python3", "-m", "projects.ukrmol_co.test_stretched_basis_properties"]
+def container_command(
+    root, source, output, case, contract, receipt=None, receipt_sha256=None, contract_path=CONTRACT
+):
+    name = contract.get("container_name", "co-stretched-basis-properties-" + case + "-20261026")
+    controls = [
+        "python3",
+        "-m",
+        contract.get(
+            "runtime_controls_module", "projects.ukrmol_co.test_stretched_basis_properties"
+        ),
+    ]
     science = ["python3", "-m", "projects.ukrmol_co.stretched_basis_properties", "--case", case]
+    if contract_path != CONTRACT:
+        science += ["--contract", contract_path]
     if receipt is not None:
         science += ["--dz-receipt", receipt, "--dz-receipt-sha256", receipt_sha256]
     inside = (
@@ -53,8 +64,8 @@ def container_command(root, source, output, case, contract, receipt=None, receip
         "--name",
         name,
         "--cpuset-cpus=4-11",
-        "--memory=64g",
-        "--memory-swap=64g",
+        f"--memory={contract.get('resources', {}).get('memory_gib', 64)}g",
+        f"--memory-swap={contract.get('resources', {}).get('memory_gib', 64)}g",
         "--shm-size=1g",
         "--network=none",
         "--entrypoint",
@@ -85,9 +96,11 @@ def container_command(root, source, output, case, contract, receipt=None, receip
     ]
 
 
-def own(capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None):
+def own(
+    capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None, contract_path=CONTRACT
+):
     root, source = capsule.parent.parent, capsule / "source"
-    contract = json.loads((source / CONTRACT).read_text())
+    contract = json.loads((source / contract_path).read_text())
     pins = json.loads((capsule / "source-manifest.json").read_text())
     limits = contract["resources"]
     started = time.monotonic()
@@ -147,7 +160,9 @@ def own(capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None
         output = capsule / "outputs"
         output.mkdir(mode=0o777)
         output.chmod(0o777)
-        command = container_command(root, source, output, case, contract, receipt, receipt_sha256)
+        command = container_command(
+            root, source, output, case, contract, receipt, receipt_sha256, contract_path
+        )
         report.update(state="running", command=command)
         save(capsule / "execution.json", report)
         with (capsule / "owner.log").open("x") as log:
@@ -192,7 +207,8 @@ def own(capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--case", choices=["dz", "tz"], required=True)
+    parser.add_argument("--case", choices=["dz", "tz", "augtz"], required=True)
+    parser.add_argument("--contract", default=CONTRACT)
     parser.add_argument("--capsule", type=Path, required=True)
     parser.add_argument("--archive-sha256", required=True)
     parser.add_argument("--commit", required=True)
@@ -215,9 +231,10 @@ if __name__ == "__main__":
                 args.case,
                 args.dz_receipt,
                 args.dz_receipt_sha256,
+                args.contract,
             )
         )
-    contract = json.loads((args.capsule / "source" / CONTRACT).read_text())
+    contract = json.loads((args.capsule / "source" / args.contract).read_text())
     # Normalize the case position; no second service or model is constructed.
     arguments = [
         "--case",
@@ -230,6 +247,8 @@ if __name__ == "__main__":
         args.commit,
         "--execute-reviewed",
     ]
+    if args.contract != CONTRACT:
+        arguments += ["--contract", args.contract]
     if args.dz_receipt is not None:
         arguments += [
             "--dz-receipt",
