@@ -1990,6 +1990,44 @@ not start an automatic basis/channel/root ladder, B2 rescue, geometry, fit or
 sweep. Any numerical branch or production work requires a separate explicit
 decision and freeze. More solver/interface tests are not sweep progress.
 
+### Goal checkpoint —2 November,17:00UTC review: select one saved-native target-correspondence screen
+
+The user asks to go on and authorizes experiments without stopping unless blocked.
+Within the30minute saved-route review, inspect actual saved inventories and freshly
+authenticate four public feasibility payloads. Both CAS12 native64-root coefficient
+sets/CSF definitions/checkpoints exist; independent determinant-CI vectors for all
+eight sectors exist on the actual qualified TZ frame. The inspected DZ coverage
+directories have metrics but no saved determinant arrays. The TZ covered-seed
+cache is another TZ frame, **not a DZ substitute**. No target solve is repeated.
+
+**Physical decision addressed:** can the finite retained-eight target manifolds
+be compared predominantly as corresponding physical subspaces, or do retained-
+state exchanges/truncation obstruct a clean same-manifold basis interpretation?
+Select one [saved-native target-overlap screen](../../docs/physics/co-stretched-target-correspondence.md),
+not another scattering/B2/geometry run or automatic larger-basis/active-space rung.
+Re-expand original native CSFs/coefficients algebraically, validate against all
+eight saved TZ independent CI sectors, then form physical cross-basis AO/Slater
+overlaps with the full frozen-core factor. Existing CAS11 CSF readers hard-code
+7/3/3; a strict CAS12 decoder is required, not a silent reuse or generic converter.
+
+**Bound/reuse:** new source/contract/tests/exact owner freeze/push before molecular
+re-expansion.41 byte-pinned saved inputs, no QC/CI eigensolve/native engine/new
+Hamiltonian/spin action/property/maps/holdouts. Four physical cores/8GiB/one BLAS
+thread/no network, conditional120–900s (not measured CAS12),1800s science/2100s
+owner/30s observations,60minute implementation bound. Exact sign/occupation/
+source-phase/positive-native-layout controls and retained-subspace counterexamples
+first. Numerical/format/reference failures stop without fallback/retry. On a
+numerical pass, report all eight sectors even if physical dominance rejects.
+
+Predeclare min squared principal overlap0.5 as a finite majority-dominance screen
+of the actually retained-eight, reusing the earlier retained-five mathematical
+criterion, **not an electronic error or unique-state threshold**. No omitted-root
+buffer is available; rejection cannot attribute lost weight uniquely. A pass does
+not prove N+1 resonance identity, basis/active/channel convergence or a production
+model. Next independent public actual outcome/cost and one model disposition;
+no automatic next allocation. Existing poles/failures/nine/new50/2048/equilibrium/
+114-holdout protections remain unchanged. No paid resources or ComfyUI changes.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

@@ -2,6 +2,21 @@
 
 ## Decision now
 
+**2November17:00UTC saved-route review selects [one target-correspondence screen](../../docs/physics/co-stretched-target-correspondence.md).**
+User authorizes continuation/experiments unless blocked. Reuse original native
+64-root CSF coefficients, checkpoints and all eight saved independent TZ CI
+sectors; no DZ determinant cache exists in inspected coverage directories.
+Algebraic native re-expansion avoids repeating CI. Strict CAS12 address/sign/
+saved-TZ gates before physical cross-basis retained-eight subspace overlaps.
+Four physical cores/8GiB/1800s science/2100s owner/60minute implementation,
+source/tests/contract/exact owner freeze first. No QC/native/Hamiltonian/maps/
+holdout action, B2 rescue or basis ladder. Min squared principal overlap0.5
+is a majority-dominance diagnostic, not a pole-identity or accuracy certificate.
+Next independent actual evidence/cost and physical-model disposition; any
+numerical/reference failure stops without fallback. No production release.
+
+### Earlier2November completed finite-pole sensitivity review
+
 **2November16:35UTC: [own-TZ pole qualifies](qualification-evidence/stretched-tz-pole/README.md);
 [saved DZ/TZ local-candidate review rejects physical insensitivity](qualification-evidence/stretched-pole-counterpart/README.md).**
 DZ position/full width0.914117/0.267093eV; TZ1.017487/0.311264eV. Position shift

@@ -88,6 +88,23 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User continuation selects one saved-native target-overlap screen —2 November,17:00UTC review
+
+[Design](../../docs/physics/co-stretched-target-correspondence.md) /
+[execution contract](stretched-target-overlap-contract-20261102.json).
+Four public feasibility payloads freshly authenticate; native64-root vectors/
+CSFs/checkpoints and all eight TZ independent CI references are reusable.
+DZ determinant arrays are absent in the inspected coverage directories; derive
+from native CSFs rather than rerun CI. Strict CAS12 decoder (CAS11 readers are
+not applicable) and saved-TZ coefficient/energy/phase gates before cross-basis
+physical overlaps.41 saved-input pins, no target solve/native engine/Hamiltonian/
+property/maps/holdouts. Four cores/8GiB/1800s science/2100s owner/30s observations,
+60minute implementation, new source/tests/owner freeze/push first. No job launched.
+Next one actual independently public retained-eight target-correspondence result/
+cost, then model disposition.0.5 squared-principal-overlap is only a finite
+majority-dominance diagnostic; no unique N+1 identity/absolute error/production
+claim. No automatic ladder/B2/geometry/fit/sweep or successful-work repeat.
+
 ### Terminal TZ qualifies; saved DZ/TZ candidate sensitivity redirects model choice —2 November,16:35UTC
 
 [Own-TZ public evidence](qualification-evidence/stretched-tz-pole/README.md) /

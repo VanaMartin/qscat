@@ -18,7 +18,10 @@ CONTRACT = "projects/ukrmol_co/stretched-dz-pole-execution-20261102.json"
 
 def command(root, source, output, c, contract_path=CONTRACT):
     result = base_command(root, source, output, c, contract_path)
-    result[result.index("--cpuset-cpus=0-3")] = "--cpuset-cpus=0-7"
+    cores = c.get("physical_cores", 8)
+    if cores not in [4, 8]:
+        raise ValueError("Only declared four/eight physical-core allocations")
+    result[result.index("--cpuset-cpus=0-3")] = f"--cpuset-cpus=0-{cores - 1}"
     return result
 
 
@@ -61,9 +64,12 @@ def run(capsule, archive_sha, commit, contract_path=CONTRACT):
             raise ValueError("Incomplete frozen source capsule")
         topology = subprocess.check_output(["lscpu", "-e=CPU,CORE,SOCKET,NODE"], text=True)
         rows = [line.split() for line in topology.splitlines()[1:]]
-        chosen = [r for r in rows if int(r[0]) in range(8)]
-        if len(chosen) != 8 or len({(r[1], r[2]) for r in chosen}) != 8:
-            raise ValueError("CPU0-7 are not eight distinct physical cores")
+        cores = c.get("physical_cores", 8)
+        if cores not in [4, 8]:
+            raise ValueError("Unsupported physical-core allocation")
+        chosen = [r for r in rows if int(r[0]) in range(cores)]
+        if len(chosen) != cores or len({(r[1], r[2]) for r in chosen}) != cores:
+            raise ValueError("Requested CPU group is not distinct physical cores")
         record["topology"] = topology
         record["prior_workloads"] = subprocess.check_output(
             ["docker", "ps", "--format", "{{.Names}} {{.Status}}"], text=True
