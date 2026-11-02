@@ -1,0 +1,12 @@
+{
+  "artifacts":{
+    "launch-collection.json":{"bytes":2296,"sha256":"880bc723be34a7becaa896c670095d7cfb9b30f65a2a0d4e83837359929586a7"},
+    "launch-evidence.tar.gz":{"bytes":62341,"sha256":"8626a057dbf07351295174c7b6337abdb65a432bdab87f1bf2568e0520788d4b"},
+    "manifest.json":{"bytes":305,"sha256":"811e8a077fde050fad103a729e8efd43f94ece820e7cc9a745e98c5a88cd31b3"},
+    "reading.json":{"bytes":1479,"sha256":"6914d220f7a40a6a939b6f17dadd958bfdc81e348f8a4ab5bea4b6dde120c794"},
+    "test_verify_stretched_augtz_properties_launch.py":{"bytes":1475,"sha256":"4bbc2af88a10f4956b37e77b10a6e4bc4ce36614b72257806bcef3a6c4c07e3f"},
+    "verify_stretched_augtz_properties_launch.py":{"bytes":6428,"sha256":"15472b1c6525c0136d95860c7898ada96636f5cc4973d8cb757d239274810e7b"}
+  },
+  "git_sha":"20e383b03321c3f6880ee0d724e0a07c4113c8bd",
+  "url_prefix":"https://data.qscat.org/co-stretched-augtz-properties-launch-20261102/"
+}

@@ -6,7 +6,13 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November17:50UTC—saved aug-TZ target reuse qualifies; only missing64-state properties released.**
+**2November17:52UTC—[one aug-TZ64 property job is active](qualification-evidence/stretched-augtz-properties-launch/README.md).**
+All10 runtime controls passed; one DENPROP call, terminal inventory/exits/cost
+pending. Pushed `58a61ba`, eight cores/8GiB/same hard caps/300s read-only monitor.
+No automatic preparation/scattering/pole successor; this is not a new physical
+scattering result or production-readiness pass. Independent actual result next.
+
+**Earlier2November17:50UTC—saved aug-TZ target reuse qualifies; only missing64-state properties released.**
 [Public feasibility](qualification-evidence/stretched-augtz-feasibility/README.md):
 269 proof members/48 probes plus73 actual import records/105816 samples reproduce.
 Native64/seed/frame checks pass; actual40-state properties lack24 common64 states.

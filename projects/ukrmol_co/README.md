@@ -850,6 +850,11 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 2 November 2026
 
+**17:52:04UTC:** [one aug-TZ64 property export is active](qualification-evidence/stretched-augtz-properties-launch/README.md),
+all10 runtime controls passed. One DENPROP call on unchanged saved electronic
+inputs; eight cores/8GiB/conditional4–7h/hard caps/300s bounded read-only monitor.
+Terminal property verdict/exits/cost remain pending; no automatic scientific successor.
+
 **17:50UTC saved aug-TZ review:** [native64 reuse qualifies](qualification-evidence/stretched-augtz-feasibility/README.md),
 but actual40-state properties lack24 of the matched64 states. Select one finite
 diffuse-basis-plus-frame control at fixed zeta; first only one missing DENPROP64
@@ -859,9 +864,13 @@ physical cores/8GiB; independent actual result/cost required before preparation.
 Production fitting remains stopped; the target-correspondence result below does
 not waive the measured pole sensitivity or unproved N+1 resonance identity.
 
-![DZ/TZ retained-target correspondence passes in all eight sectors; finite pole sensitivity still blocks production fitting](../../docs/physics/figures/co-progress-20261102T1730-target-correspondence.png)
+![DZ/TZ target correspondence passes; saved aug-TZ reuse qualifies and one property-only job is active, with no terminal or production verdict](../../docs/physics/figures/co-progress-20261102T1755-augtz-property-launch.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T1730-target-correspondence.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261102T1755-augtz-property-launch.svg) ·
+[Aug-TZ reuse/active property snapshot](progress-snapshot-20261102T1755-augtz-property-launch.json) ·
+[Saved aug-TZ feasibility](qualification-evidence/stretched-augtz-feasibility/README.md) ·
+[Independent active launch](qualification-evidence/stretched-augtz-properties-launch/README.md) ·
+[Previous target-correspondence figure](../../docs/physics/figures/co-progress-20261102T1730-target-correspondence.svg) ·
 [Target-correspondence snapshot](progress-snapshot-20261102T1730-target-correspondence.json) ·
 [Independent physical target correspondence](qualification-evidence/stretched-target-overlap/README.md) ·
 [Previous finite-pole sensitivity figure](../../docs/physics/figures/co-progress-20261102T1635-basis-sensitivity.svg) ·

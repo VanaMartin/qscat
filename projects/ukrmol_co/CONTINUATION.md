@@ -88,6 +88,25 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Aug-TZ64 properties launched; actual result pending —2 November,17:52UTC
+
+[Independent public launch](qualification-evidence/stretched-augtz-properties-launch/README.md),
+source `58a61ba`, starts17:52:04UTC;17:53:23UTC capture confirms one active DENPROP,
+all10 controls passed. Six fresh public payloads/14 launch records/20 executed
+Git sources/six source prerequisites reconstruct;18 input hash-gate attestations/
+12 copied pins reconcile. Terminal property verdict/exits/cost remain null;
+initial science/owner2 fields are placeholders, not observed terminal failures.
+
+Service/container `co-stretched-augtz-properties-20261102`, capsule
+`/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-augtz-properties-source-20261102`.
+Eight cores4–11/8GiB/one library thread/no network; conditional4–7h, hard12h
+native/12.5h container/13h owner. Local bounded read-only monitor
+`stretched-augtz-properties-frozen-20261102/monitor-observations.jsonl` under the
+approved OpenCode temporary root records300s checks; remote `monitor.jsonl`
+preserves successful observations. No scientific retry or automatic successor.
+Next independent actual property inventory/exits/cost and unchanged-input checks,
+not preparation/scattering/pole/geometry/fit/sweep. All114 holdouts stay intact.
+
 ### Saved aug-TZ reuse qualifies; one property-only release —2 November,17:50UTC
 
 [Saved public review](qualification-evidence/stretched-augtz-feasibility/README.md)

@@ -2,6 +2,15 @@
 
 ## Decision now
 
+**2November17:52:04UTC: [one aug-TZ64 property export launches](qualification-evidence/stretched-augtz-properties-launch/README.md).**
+Pushed `58a61ba`, all10 runtime controls pass;17:53:23UTC capture confirms one
+DENPROP call active. Six public payloads/20 executing sources reconstruct;
+terminal inventory/exits/cost pending. Same property-only bounds and unchanged
+electronic inputs,300s bounded read-only monitor. Next independent actual result,
+no automatic preparation/scattering/pole successor or production release.
+
+### Earlier2November aug-TZ reuse and property-only freeze
+
 **2November17:50UTC: [saved aug-TZ reuse qualifies](qualification-evidence/stretched-augtz-feasibility/README.md).**
 13 fresh public payloads reconstruct supported48-probe proof and actual native64
 import; original seed/frame gates pass. Existing40-state properties lack24 of

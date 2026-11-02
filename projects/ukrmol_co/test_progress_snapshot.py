@@ -150,7 +150,10 @@ def test_two_numerical_pole_successes_do_not_waive_physical_candidate_budget_rej
     assert [p["basis"] for p in snapshot["finite_poles"]] == ["DZ", "TZ"]
     for key in ["position_ev", "full_width_ev"]:
         assert snapshot["finite_poles"][1][key] == pytest.approx(tz[key], abs=1e-12, rel=0)
-    assert live["active_numerical_job"] is None and live["active_monitor"] is False
+    terminal = _snapshot_data(
+        DEFAULT_SNAPSHOT.with_name("progress-snapshot-20261102T1635-basis-sensitivity.json")
+    )["live_status"]
+    assert terminal["active_numerical_job"] is None and terminal["active_monitor"] is False
     assert live["production_model_selected"] is live["full_sweep_released"] is False
 
 
@@ -191,3 +194,22 @@ def test_target_correspondence_does_not_certify_resonance_identity_or_remove_sen
         DEFAULT_SNAPSHOT.with_name("progress-snapshot-20261102T1635-basis-sensitivity.json")
     )
     assert any(not row["passed"] for row in historical["ensemble_frame_subspaces"])
+
+
+def test_active_aug_property_job_does_not_invent_terminal_results_or_release_scattering():
+    snapshot = _snapshot_data(DEFAULT_SNAPSHOT)
+    live = snapshot["live_status"]
+    launch = json.loads(
+        DEFAULT_SNAPSHOT.with_name(live["augtz_property_launch_verification"]).read_text()
+    )
+    proof = json.loads(
+        DEFAULT_SNAPSHOT.with_name(live["augtz_feasibility_verification"]).read_text()
+    )
+    assert proof["reuse_feasibility_verdict"] is True and proof["missing_states_for_all64"] == 24
+    assert proof["native_root_count"] == 64 and proof["new_native_calls"] == 0
+    assert launch["property_inventory_verdict"] is launch["original_terminal_exits"] is None
+    assert launch["native_denprop_calls"] == 1 and launch["runtime_controls_passed"] == 10
+    assert live["active_numerical_job"] == "stretched/augtz/DENPROP64"
+    assert live["active_monitor"] is True and live["candidate_insensitivity_verdict"] is False
+    assert live["production_model_selected"] is live["full_sweep_released"] is False
+    assert live["route_holdout_s_matrices_still_unanalyzed"] == 114

@@ -1,0 +1,59 @@
+{
+  "base_snapshot":"progress-snapshot-20261102T1730-target-correspondence.json",
+  "base_snapshot_sha256":"ee59b0e8c773b661fe0af4e8a9b658bbf6614259362c716bbcf1d8c12f0fd44f",
+  "additional_source_file_sha256":{
+    "projects/ukrmol_co/SWEEP_READINESS.md":"285cc019c0d8a88bf08313531644e9682bb931074c938ad47133a17ac6b2975e",
+    "projects/ukrmol_co/progress_figure.py":"aaf4c537018bfc526a7ed61047126c7b4264ebb9db9aecc037ed8837be4dfc45",
+    "projects/ukrmol_co/CONTINUATION.md":"aabe75867cbebed38df1374c0dfb0f8a5b15214bb9024c9d9d88b73fd1bc30d4",
+    "projects/ukrmol_co/README.md":"c8fa354e3ea979ef5d0558443bb98ff4d30c2261dfbf823d5597c334ee7d3ee6",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md":"d622722d45f2adfca1ddbc2c81144513b6c4ef0c32b72db620859417da494ec0",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md":"33150349717fafa9610288856a3db2c32e9911ddee40fb17550dc78a5072b7ad",
+    "projects/ukrmol_co/stretched_basis_properties.py":"b8f67f35961394cd622134a7428ea217093fece02cc3712c553e8076038b6279",
+    "projects/ukrmol_co/stretched_basis_properties_owner.py":"28d1f06b2b7836f4554d74bf1050a35a0c086ecf4d39f05e6c2ddaf348bca2d7",
+    "projects/ukrmol_co/test_progress_snapshot.py":"a6d3fb61f376bd0e2bfd42eac2aff1241002349c1d8d71f3e398e72b26ca0cd3",
+    "projects/ukrmol_co/stretched_augtz_feasibility.py":"f59fa4db8bf7edc762394232b3d90679957ebaf3e6cc49e17e8ead431c78757f",
+    "projects/ukrmol_co/test_stretched_augtz_feasibility.py":"0211f8e65f5afa22eb81f592db468bcf4b2737b0f247bf6889e195a7eccf38e8",
+    "projects/ukrmol_co/stretched-augtz-properties-contract-20261102.json":"3f82307b03773ef276897a64e62eae2516a9eb0075debdf2cf7235cfd7e7266b",
+    "projects/ukrmol_co/test_stretched_augtz_properties.py":"dfb46f34a32317063c47620879b650a20ba46f084a5b184fdfd8b01780942226",
+    "projects/ukrmol_co/verification-stretched-augtz-feasibility-public-20261102.json":"0d6d14cf926026c98f1175e88d38cfbdd2fe95bb6f775e84ceaedae3ba2b27f4",
+    "projects/ukrmol_co/verify_stretched_augtz_properties_launch.py":"15472b1c6525c0136d95860c7898ada96636f5cc4973d8cb757d239274810e7b",
+    "projects/ukrmol_co/test_verify_stretched_augtz_properties_launch.py":"4bbc2af88a10f4956b37e77b10a6e4bc4ce36614b72257806bcef3a6c4c07e3f",
+    "projects/ukrmol_co/progress-stretched-augtz-properties-launch-20261102.json":"d909ae48c617b1a2c58901214063959e2ce1ca0c9b8fea9ff3663860f75c7696",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-feasibility/artifacts.json":"1c4908b808d33a9eacddc6b70e07358f914ca19a0c53ced983b87408f727e05d",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-feasibility/manifest.json":"a36305b2ea32c6137a79efd5dc5fe551ebb86ab7b6a4f39f9ac3ae9625568995",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-feasibility/README.md":"b0bbab5626a3f2209df19a9e4232e620cc8ca430db334b088b7c92cb668fcfbf",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-properties-launch/artifacts.json":"cd34a57f4ad12501eceaa658cfb5c38e1fed95ee768cbcaf0daac7171c79c60f",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-properties-launch/manifest.json":"811e8a077fde050fad103a729e8efd43f94ece820e7cc9a745e98c5a88cd31b3",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-properties-launch/README.md":"5cbf7c5ede1ecd56d2917a15f5f8311d404ca7a981ae721febe852bbaf29638c",
+    "docs/physics/co-stretched-diffuse-flexibility.md":"39b9d7f203977f99ebefe32dec12f6a38e4ccdbf4cb6c5bd64d0de75530fd399"
+  },
+  "live_status_updates":{
+    "scope":"Saved aug-TZ native reuse qualifies;one missing64-state property export active,terminal result pending",
+    "goal_review_disposition":"One finite diffuse-basis-plus-frame control selected;only property input stage released,no automatic scientific successor",
+    "augtz_feasibility_verification":"verification-stretched-augtz-feasibility-public-20261102.json",
+    "augtz_property_launch_verification":"progress-stretched-augtz-properties-launch-20261102.json",
+    "augtz_reuse_feasibility_verdict":true,
+    "augtz_property_inventory_verdict":null,
+    "augtz_property_terminal_exits":null,
+    "active_numerical_job":"stretched/augtz/DENPROP64",
+    "active_monitor":true,
+    "next_deliverable":"Independent actual aug-TZ64 property inventory/exits/cost/unchanged-input review;no automatic preparation/scattering/pole successor"
+  },
+  "updates":{
+    "snapshot_utc":"2026-11-02T17:55:00.000000+00:00",
+    "figure_subtitle":"DZ /TZ target correspondence passes;pole sensitivity remains. Saved aug-TZ reuse qualifies;one missing64-state property export is active,not a new pole result",
+    "roadmap_title":"One diffuse-flexibility control, in stages",
+    "roadmap_entries":[
+      {"kind":"reuse","status":"PASS: DZ /TZ POLES AND TARGET CORRESPONDENCE","title":"Eight target-sector minima0.978–0.990","detail":"All64 ranks retained;not unique N+1 state identity"},
+      {"kind":"reject","status":"REJECT: PRODUCTION-INSENSITIVITY INFERENCE","title":"Position103.370meV /width44.172meV shifts remain","detail":"No production model,width curve or fit released"},
+      {"kind":"reuse","status":"PASS: SAVED SUPPORTED AUG-TZ NATIVE REUSE","title":"64 roots qualify;40 properties lack24 selected states","detail":"48-probe public proof /actual imported frame reconcile"},
+      {"kind":"active","status":"ACTIVE: ONLY ONE MISSING DENPROP64 EXPORT","title":"Eight cores /8GiB;conditional4–7h,not measured","detail":"All10 runtime controls pass;terminal result pending"},
+      {"kind":"gated","status":"GATED: INDEPENDENT ACTUAL RESULT BEFORE B1","title":"Properties /exits /cost /unchanged-input review next","detail":"No automatic preparation,scattering,pole or basis ladder"}
+    ],
+    "roadmap_note":"Diffuse-basis-plus-frame sensitivity at fixed zeta.\nProperty input stage is not a scattering effect.\nAll114 S holdouts and original failures preserved.",
+    "memory_note":"DZ /TZ poles:409.61 /409.19 s;3.002 /3.019 GiB.\nTarget overlap:102.17 s /1.316 GiB /four cores.\nAug-TZ64 property cost pending;4–7h is forecast.",
+    "memory_next_step":"One property job active;no automatic scientific successor.",
+    "source_footer":"2 NOVEMBER  Target correspondence passes;physical pole sensitivity still blocks fitting. Saved aug-TZ native reuse qualifies,one DENPROP64 job active.",
+    "verification_footer":"Aug reuse:13 fresh payloads /269 proof members /73 inputs. Launch:6 payloads /20 Git sources /10 controls. Terminal verdicts pending;all114 holdouts protected."
+  }
+}

@@ -2108,6 +2108,19 @@ reconstruction must precede any preparation/nativeB1/2048 or pole decision.
 All114 holdouts/original failures/nine/new50/2048/equilibrium protections stand.
 No paid resources, image rebuild, ComfyUI changes or production release.
 
+### Launch checkpoint —2 November,17:52UTC: only aug-TZ64 properties active
+
+Pushed `58a61ba`/20-source capsule/six source prerequisites/18 original input pins
+launches17:52:04UTC. All10 runtime controls pass;one DENPROP active at17:53:23UTC.
+[Six fresh public launch payloads](qualification-evidence/stretched-augtz-properties-launch/README.md)
+reconstruct14 records/20 executing Git files, host18-input hash-gate attestation
+and12 copied-input pins; large CSFs are not independently replayed in this small
+launch bundle. No terminal inventory/verdict/exits/cost is inferred from running
+placeholder2 fields. Eight physical cores/8GiB/same4–7h conditional forecast/
+12h native/12.5h container/13h owner caps, durable service and bounded300s read-only
+monitor. Next actual independent property/exits/resource/unchanged-input review.
+No automatic preparation/nativeB1/scattering/pole/geometry/fit/sweep/holdout work.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps
