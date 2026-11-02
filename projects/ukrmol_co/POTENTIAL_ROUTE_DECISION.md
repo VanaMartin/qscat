@@ -2,6 +2,16 @@
 
 ## Decision now
 
+**2November16:18:29UTC: own-TZ attempt launches from pushed `69609bf`.**
+Fresh immutable capsule/52 Git sources/ten source prerequisites/eight input
+pins, positive own saved-native load and31 controls before science. Terminal
+scientific/pole/character/counterpart verdicts pending at this launch handoff.
+Same79-map/eight-core/8GiB/science/owner caps and30s observations. Next independent
+public actual result/cost and saved counterpart review, no automatic scientific
+successor/rescue or protected-holdout analysis. Qualified DZ pole is not repeated.
+
+### Earlier2November own-TZ counterpart authorization
+
 **2November16:11UTC: user authorizes [one separate own-TZ B1 counterpart](stretched-tz-pole-execution-20261102.json).**
 Own index18 native seed/box/reference, strict64/400/2048 receipt/array/label gates;
 eight raw/ten source pins and qualified DZ public pole prerequisite, no DZ repeat.

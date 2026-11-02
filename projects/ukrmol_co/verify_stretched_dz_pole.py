@@ -117,7 +117,17 @@ def character(residue, labels, width, policy):
     )
 
 
-def verify(archive, collection):
+def verify(archive, collection, *, allocation=None):
+    allocation = allocation or dict(
+        source_commit=SOURCE_COMMIT,
+        source_archive_sha256=SOURCE_ARCHIVE_SHA,
+        execution_path=RELEASE,
+        source_count=48,
+        runtime_controls=28,
+        case="dz",
+    )
+    source_commit = allocation["source_commit"]
+    source_archive_sha = allocation["source_archive_sha256"]
     capture = [
         n
         for n in collection["files"]
@@ -132,24 +142,33 @@ def verify(archive, collection):
     pins = load("source-manifest.json")
     require(
         set(source) == set(pins)
-        and len(pins) == 48
-        and hashes["source.tar.gz"] == SOURCE_ARCHIVE_SHA,
+        and len(pins) == allocation["source_count"]
+        and hashes["source.tar.gz"] == source_archive_sha,
         "Frozen source inventory",
     )
     for n, pin in pins.items():
         require(
             sha(source[n]) == pin
-            and source[n] == subprocess.check_output(["git", "show", SOURCE_COMMIT + ":" + n]),
+            and source[n] == subprocess.check_output(["git", "show", source_commit + ":" + n]),
             "Executed Git source " + n,
         )
-    release = json.loads(source[RELEASE])
-    base_raw = source[release["base_execution_contract"]]
-    require(sha(base_raw) == release["base_execution_sha256"], "Original execution contract")
-    base = json.loads(base_raw)
-    execution = base | release
-    execution["input_sha256"] = base["input_sha256"] | release["input_sha256"]
-    require(sha(source[PROPOSAL]) == execution["proposal_sha256"], "Unchanged numerical proposal")
-    c = json.loads(source[PROPOSAL]) | execution
+    execution = json.loads(source[allocation["execution_path"]])
+    if "base_execution_contract" in execution:
+        base_raw = source[execution["base_execution_contract"]]
+        require(sha(base_raw) == execution["base_execution_sha256"], "Original execution contract")
+        base = json.loads(base_raw)
+        inputs = base["input_sha256"] | execution["input_sha256"]
+        execution = base | execution
+        execution["input_sha256"] = inputs
+    proposal_path = execution.get("proposal_path", PROPOSAL)
+    require(sha(source[proposal_path]) == execution["proposal_sha256"], "Unchanged own proposal")
+    proposal = json.loads(source[proposal_path])
+    if "base_dz_proposal" in proposal:
+        raw = source[proposal["base_dz_proposal"]]
+        require(sha(raw) == proposal["base_dz_proposal_sha256"], "Unchanged numerical allocation")
+        proposal = json.loads(raw) | proposal
+    c = proposal | execution
+    require(c["case"] == f"stretched/cas12/{allocation['case']}/B1", "Own model routing")
     refs = collection["reference_files"]
     require(
         c["execution_authorized"] and set(refs) == set(c["input_sha256"]) and len(refs) == 8,
@@ -169,8 +188,8 @@ def verify(archive, collection):
         ]
     ]
     require(
-        owner["source_commit"] == SOURCE_COMMIT
-        and owner["source_archive_sha256"] == SOURCE_ARCHIVE_SHA
+        owner["source_commit"] == source_commit
+        and owner["source_archive_sha256"] == source_archive_sha
         and owner["owner_sha256"] == sha(source["projects/ukrmol_co/stretched_dz_pole_owner.py"])
         and owner["source_integrity_after"],
         "Immutable owner/source integrity",
@@ -192,8 +211,8 @@ def verify(archive, collection):
     )
     require(
         load("outputs/controls.json")["original_exit"] == 0
-        and b"Ran 28 tests" in files["outputs/controls.log"],
-        "28 original controls",
+        and f"Ran {allocation['runtime_controls']} tests".encode() in files["outputs/controls.log"],
+        "Original runtime controls",
     )
     require(
         container["Image"] == c["image"] and not container["State"]["Running"],
@@ -231,18 +250,31 @@ def verify(archive, collection):
         ),
         "Actual saved-load source and return-schema provenance",
     )
-    old = load(refs[c["failed_stop_reading"]])
     previous = load(refs[c["completion_reading"]])
     require(
-        old["reader_exit"] == 0
-        and old["result"]["original_exits"] == [2] * 6
-        and old["result"]["real_maps"] == old["result"]["complex_maps"] == 0
-        and previous["reader_exit"] == 0
+        previous["reader_exit"] == 0
         and previous["result"]["combined_20degree_real_prerequisite_verdict"],
-        "Preserved prior stop/real pass",
+        "Preserved real prerequisite",
     )
+    if allocation["case"] == "dz":
+        old = load(refs[c["failed_stop_reading"]])
+        require(
+            old["reader_exit"] == 0
+            and old["result"]["original_exits"] == [2] * 6
+            and old["result"]["real_maps"] == old["result"]["complex_maps"] == 0,
+            "Preserved adapter stop",
+        )
+    else:
+        dz = load(refs[c["dz_pole_reading"]])
+        require(
+            dz["reader_exit"] == 0
+            and dz["result"]["original_exits"] == [0] * 6
+            and dz["result"]["finite_reference_pole_verdict"] is True
+            and dz["result"]["physical_pi_support_verdict"] is True,
+            "Qualified public DZ prerequisite",
+        )
     require(
-        not result["tz_started"]
+        result["tz_started"] == (allocation["case"] == "tz")
         and result["native_calls"] == result["route_holdout_s_matrices_analyzed"] == 0
         and not result["automatic_successor"]
         and not result["full_sweep_released"],
@@ -250,10 +282,13 @@ def verify(archive, collection):
     )
     real = []
     for row, setting in zip(result["real_rows"], c["near_feature_real_settings"], strict=False):
-        require(row["index"] == 16 and row["setting"] == setting, "Near-feature real identity")
+        require(
+            row["index"] == c["near_feature_real_index"] and row["setting"] == setting,
+            "Near-feature real identity",
+        )
         if not row["completed"]:
             continue
-        energy, q_ref, native = native_at(files, refs, c["model"], 16)
+        energy, q_ref, native = native_at(files, refs, c["model"], c["near_feature_real_index"])
         with np.load(
             io.BytesIO(files[f"outputs/check/real-{setting[1]}.npz"]), allow_pickle=False
         ) as z:
@@ -536,11 +571,11 @@ def verify(archive, collection):
         character_witnesses=screen_rows,
         character_stability=stability,
         error=result.get("error"),
-        source_commit=SOURCE_COMMIT,
+        source_commit=source_commit,
         raw_files_verified=len(hashes),
         executed_git_sources_verified=len(pins),
         raw_input_pins_verified=8,
-        source_prerequisites_verified=9,
+        source_prerequisites_verified=len(c["source_sha256"]),
         resources=resources,
         resource_samples_verified=len(samples),
         observation_count=len(monitor),
@@ -551,7 +586,8 @@ def verify(archive, collection):
         automatic_successor=False,
         full_sweep_released=False,
         scope=(
-            "Finite own-DZ pole-or-stop evidence using saved native sums/Jost matrices only;"
+            f"Finite own-{allocation['case'].upper()} pole-or-stop evidence using saved native "
+            "sums/Jost matrices only;"
             "no independent exterior engine or electronic-model/basis/geometry verdict"
         ),
     )

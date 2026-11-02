@@ -88,6 +88,24 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### Own-TZ attempt launched; terminal result pending —2 November,16:18:29UTC
+
+Pushed immutable `69609bf` source launches the separately authorized own-TZ
+attempt. Capsule `/home/kooza/ukrmol/co-sa-20261006/prepared/stretched-tz-pole-source-20261102`,
+container `co-stretched-tz-pole-20261102`; source archive SHA256
+3d51fff8c3da7ee337f69c90a8977e9fd6d101c47f70331e264e1e547dfc79db.
+52 Git-matched sources/all ten source prerequisites/eight input pins; positive
+actual saved-TZ adapter check SHA256cc8879e6… and31 runtime controls before science.
+30s read-only owner observations continue through terminal exit. All scientific/
+pole/character/counterpart verdicts are pending at this launch handoff.
+
+Next collect immutable actual result/cost and independently publish/reconstruct,
+including failure, then saved necessary counterpart review. Shared saved-only
+reader now accepts explicit own-TZ provenance/native index; its existing public
+DZ reconstruction remains exactly unchanged, with zero ODE/native repeat. TZ
+reader has analytic/provenance controls but is not yet qualified on this allocation.
+No automatic successor, rescue, B2/geometry/fit/sweep/114-holdout action.
+
 ### User authorizes own-TZ B1 counterpart —2 November,16:11UTC
 
 [Own-TZ execution contract](stretched-tz-pole-execution-20261102.json): own native
