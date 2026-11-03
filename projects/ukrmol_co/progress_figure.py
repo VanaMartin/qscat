@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261103T1220-atomic-basis.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-review-20261103.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"

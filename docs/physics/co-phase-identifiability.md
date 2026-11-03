@@ -27,7 +27,7 @@ of polynomials generally have unsuitable behavior at infinity. The distinction
 is essential: this audit tests what local fidelity/unitarity/analyticity alone
 can certify, not which backgrounds are physically admissible for CO.
 
-For a fixed alternative pole with width `Γ'`, the needed background on the
+For a fixed alternative pole with width $\Gamma'$, the needed background on the
 real interval is the true unwrapped phase minus the alternative resonance phase.
 It is smooth there. Approximate that function with a fixed-degree Chebyshev
 polynomial by linear least squares on development points. The resulting `S'`
@@ -57,7 +57,7 @@ The contract is `projects/ukrmol_co/phase-identifiability-contract.json`.
   coefficient vectors so predictions are reproducible.
 - A width counterexample requires **all three** audit sets to agree modulo π
   within **0.001 rad**, real-axis unitarity within `3e-15`, full-rank background
-  solve, and width displacement strictly larger than `max(0.001 eV, 5% Γ)`.
+  solve, and width displacement strictly larger than $\max(0.001\,\mathrm{eV},0.05\Gamma)$.
   This finite audit is not a rigorous supremum bound between nodes.
 - Nonvacuous representation qualification requires the **true-pole degree-11
   control in every scale/window/grid** to pass all audit sets. This includes

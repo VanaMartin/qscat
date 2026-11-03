@@ -27,12 +27,12 @@ There is no claim that these two target channels describe CO convergence.
 ## Outgoing sheet and exterior rotation
 
 Let k0=+sqrt(ε), and below the second threshold use
-`k1=+i sqrt(16−ε)`; above it use `+sqrt(ε−16)`. Complex points are continued
+$k_1=+i\sqrt{16-\varepsilon}$; above it use $+\sqrt{\varepsilon-16}$. Complex points are continued
 from their declared side of the threshold, away from the branch point. At the
 two lower-half-plane energies an open outgoing wave grows on the real axis.
 Rotate the exterior coordinate from its boundary:
 
-`z(t)=1+(t−1)exp(iθ)`, 1≤t≤L. Require **Im(k_i exp(iθ))>0** for every
+$z(t)=1+(t-1)\exp(i\theta)$, 1≤t≤L. Require **Im(k_i exp(iθ))>0** for every
 asymptotic outgoing/decaying channel. This exposes the outgoing solution as a
 decaying BVP. The potential is analytic along these contours; the only inverse-
 square singularity z=0 lies outside them. Derivatives returned at t=1 are
@@ -48,12 +48,12 @@ points ε=15.9/16.1 are included; exact threshold is excluded.
 ## Independent numerical paths
 
 1. **Riccati ODE:** set Y(L)=iK and integrate inward
-   `dY/dt=exp(iθ)[T+C/z²−εI−Y²]` with DOP853 at rtol 1e-5/1e-8/1e-11,
+   $dY/dt=\exp(i\theta)[T+C/z^2-\varepsilon I-Y^2]$ with DOP853 at rtol 1e-5/1e-8/1e-11,
    atol=0.01rtol. This is a nonlinear 2×2 boundary-operator propagation.
 2. **Spectral BVP:** independently discretize the second-order linear equation
    on Chebyshev–Lobatto nodes, with u(1)=I and the same endpoint outgoing Robin
    condition. Solve the full two-channel collocation matrix at N=64/128/256.
-   Return `exp(−iθ)D_t u(1)`. This route does not integrate a Riccati equation,
+   Return $\exp(-i\theta)D_t u(1)$. This route does not integrate a Riccati equation,
    use ODE output as a boundary condition, or share its radial grid.
 
 Neither method is an exact coupled oracle. Their differential agreement is
@@ -90,7 +90,7 @@ The JSON contract and sources are frozen before the full matrix:
   decay. A Riccati singularity is an explicit failed case, without chart switching.
 - Wrong open-channel incoming sign in the decoupled exact ε=8 control must
   change Y by >0.001; omitting dipole coupling at d=1.2,ε=8 must do likewise.
-  Omitting the `exp(−iθ)` derivative conversion must also differ by >0.001.
+  Omitting the $\exp(-i\theta)$ derivative conversion must also differ by >0.001.
 
 False/unset checks stop after saving evidence. No retries, changes to the
 declared matrix, fitted poles, native solves or automatic successors. Limit the

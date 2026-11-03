@@ -1,376 +1,71 @@
-# CO electronic-qualification evidence
+# CO evidence index
 
-This supplement preserves **46 completed attempts in 18 batches**:
-nine passing QC targets, ten passing neutral records and five neutral failures,
-dense and five/eight-root SLEPc tight CAS(10,11) target imports, four rejected Davidson controls,
-four passing small-model SLEPc controls, tight CAS(10,11) scattering and seven rejected CAS(10,11) ladder
-entries, the matched tight CAS(10,10) scattering control and four numerical
-CI-space repairs (two stretched-DZ passes and two projected-TZ failures).
-It also includes all **160** CAS(10,10)/(10,11)/(10,12)
-fixed-orbital CI coverage probes, final checkpoint comparisons and the
-CAS(10,12) installed-library workspace audit and guarded utility checks,
-including thirteen additional valid 16-/32-rank target-sector queries.
+Public, content-addressed bundles preserve accepted calculations **and original
+failures**. Each study directory contains a small `artifacts.json`, its original
+manifest and a README stating the measured result, limits and exact replay command.
+Fetch verifies sizes and SHA256 before accepting bytes. Extract source capsules
+outside the checkout: their historical tests are not current source modules.
 
-All three orbital starts recover the same fixed-ensemble solution: maximum
-root/dipole differences are 7.69e-9 Hartree / 5.13e-8 a.u., with minimum final
-active-subspace overlap singular value 0.999999999999924. Forty-six CI probes
-converge completely; the eighth singlet B1/B2 root fails at trial-space size
-40 and converges at 80/160. Every ensemble root converges in every probe.
-The original nonzero diagnostic exit and failed controls remain preserved.
-Both tight CAS(10,12) restart/RHF starts also pass: maximum root/dipole
-differences are 4.17e-8 Hartree / 6.27e-8 a.u., with minimum final active
-overlap singular value 0.999999999999496. All five ensemble roots pass every
-CAS(10,12) coverage probe within 2.85e-13 Hartree. Two extra-root controls
-fail at space 40 and converge at 80/160; a failed pre-probe import-path launch
-and its fresh repaired retry are both retained.
+## Scientific reading order
 
-The neutral pilot compares conventional frozen-core CCSD(T) at R=1.9/2.1323/2.5
-bohr in aug-TZ/QZ bases. Its dipoles are CCSD lambda-density values. The
-independent cc-pVDZ PySCF/Psi4 energy control agrees within 8.3e-11 Hartree;
-the sentinel relative curves change by 76.04/68.47 meV for TZ-to-QZ and
-17.24/15.82 meV for QZ-to-5Z. Four aug-TZ/QZ checks at R=3.0/4.0 fail external
-RHF stability and stop before CCSD(T); that restricted route is blocked there.
-These are qualification pilots, not a converged electronic model or neutral
-curve. The tightened import passes all 40 averaged roots within 5.33e-10
-Hartree and the independent dipole within 7.95e-11 a.u.; it took 97.75 minutes
-with an 18.42-GiB kernel memory peak. The matched nine-job CAS(10,11) ladder
-has two QC passes, three CI failures and four simultaneous geometry/basis
-projection rejections. Its 50-component ensemble shifts the ground root by
-0.45651 eV and the dipole by +125.09% relative to the 40-component objective.
-The tight scattering run has complete 99-point grids, consistent Pi components,
-two contracted dimensions of 27546 and a 4.423-hour wall / 25.20-GiB peak.
-Its default candidate is at 2.520805 eV with full width 1.151002 eV. Position
-and phase changes of 64.84 meV / 0.109809 rad from the earlier CAS(10,10) model
-exceed the chosen gates; QC controls also differ, so the comparison does not
-isolate the active-space change. Reference inputs and raw phase grids travel
-with the archive. The matched tight CAS(10,10) rerun now passes in 21.38 minutes
-at a 2.864-GiB peak; all forty imported roots/dipole and 48 independent coverage
-probes pass. Tightening changes its earlier position/full width by only
-−0.544/+0.395 micro-eV and phases by 1.30e-6 rad. Matching numerical controls
-therefore leaves the active-space comparison failing at +64.8401 meV and
-0.1098099 rad. The two passing stretched-DZ repairs still require their own
-coverage/subspace and independent-import qualification; both projected TZ
-repairs retain singlet B1/B2 CI failures after orbital convergence.
+| Evidence | What it establishes |
+|---|---|
+| [Near-equilibrium neutral](neutral-near-equilibrium/README.md) | 52 QZ/5Z well points; relative-basis/interpolation, not dissociation |
+| [QZ atomic endpoints](atomic-qz-endpoints/README.md) | Four finite-method totals, all fragment sums and electron affinities |
+| [Matched5Z endpoints](atomic-5z-endpoints/README.md) | Reconstructs QZ and 5Z; rejects finite-basis insensitivity, not the finite calculations |
+| [Original5Z startup stop](atomic-5z-launch-stop/README.md) | Zero-quantum control failure, retained separately from corrected success |
+| [Stretched DZ/TZ pole contrast](stretched-pole-counterpart/README.md) | Local finite poles; physical position/width sensitivity rejects |
+| [Retained-target overlaps](stretched-target-overlap/README.md) | Physical target correspondence, not unique N+1 resonance identity |
+| [Compressed CAS11/CAS12 poles](compressed-cas12-pole/README.md) | Active-space position insensitivity rejects |
+| [Compressed CAS12/TZ QC](compressed-cas12-tz-qc/README.md), [A2 pilot](singlet-a2-pilot/README.md) | Failed prerequisites; no valid physical TZ contrast |
+| [Phase identifiability](phase-identifiability-endpoint/README.md) | Known wrong widths can predict unused phases; corrected endpoint isolation and original defect preserved |
+| [Direct-S screen](direct-scattering-screen/README.md) | Rejects the unqualified bare full-S fitting shortcut |
+| [Aug-TZ properties](stretched-augtz-properties/README.md), [preparation](stretched-augtz-preparation/README.md), [export blocker](stretched-augtz-inner-preflight/README.md) | Reusable inputs; no inner/pole release across incompatible open-channel grid rows |
 
-The later [near-equilibrium neutral companion](neutral-near-equilibrium/README.md)
-independently verifies all 52 QZ/5Z points, including 46 new jobs and six unchanged
-anchors. Cubic/PCHIP midpoint and 20-meV basis budgets pass; correlation treatment
-and the four rejected stretched RHF references remain unresolved. Its public
-archive verifies 959 payloads and 63867 profile samples.
+## Reusable numerical and implementation controls
 
-The [native sparse control companion](sparse-native-control/README.md) preserves
-the successful B1 128-root CAS(10,10) sparse eigensolve and its rejected legacy
-SWINTERF continuation. Energies/residuals/continuum coefficients pass dense
-differentials at a 1.228-GiB peak; phase and resonance verdicts remain unset for
-that original attempt. The [ongoing replay guide](../SPARSE_SCATTERING.md)
-describes native MPI boundary export and finite omitted-spectrum controls.
+- [Sparse native boundary](sparse-boundary/README.md),
+  [CAS11 refinement](cas11-sparse-refinement/README.md),
+  [stretched DZ](stretched-dz-inner/README.md) and
+  [TZ exports](stretched-tz-inner/README.md).
+- [Native conventions](native-exterior-method/README.md),
+  [full reconstruction](native-full-reconstruction/README.md),
+  [Numerov corners](numerov-corners/README.md),
+  [native residual kernel](numerov-native-residual/README.md).
+- [Physical shell](physical-pole/README.md),
+  [coupled tail](coupled-tail/README.md),
+  [dual transport](dual-transport-toy/README.md),
+  [coupled Jost](coupled-jost/README.md),
+  [original real-guard failure](stretched-real-guard/README.md) and
+  [separate corrected-prescription controls](stretched-real-completion/README.md).
+- [Physical ensemble-frame rejection](ensemble-frame/README.md),
+  [native target reuse](native-target-interface/README.md) and
+  [signed CSF correspondence](native-csf-map/README.md).
 
-The [native boundary companion](sparse-boundary/README.md) subsequently qualifies
-the fixed CAS10 2048-root implementation in both Pi sectors at a 1.861-GiB peak.
-All 306 payloads and 25504 profiles reconstruct; native eigenpair/export agreement,
-complete phases, identical fixed-window fits and dense spectral refinement pass.
-The original parser failure remains preserved. A separately predeclared CAS11
-sequence proceeds against its own immutable dense oracle.
-
-The [CAS11 refinement companion](cas11-sparse-refinement/README.md) independently
-reconstructs both-sector native controls at 2048/4096/8192 roots and preserves
-the original 16384-root 24-GiB OOM. Its eight components also include the passing
-96 fifty-component probes, stretched CAS11 anchor and stretched CAS12 TZ/aug-TZ
-QC. Public fetch/reconstruction/byte-identical repackaging verifies **1506
-payloads / 477179 profiles**. A separately declared 40-GiB resource-only successor
-retains the scientific contract; CAS12 scattering remains separately gated.
-
-The [compressed-anchor companion](compressed-anchor/README.md) verifies 48
-fixed-orbital residual probes, the complete 64-root native import and both dense
-scattering sectors at R=1.9 bohr. Its 1115 payloads and 75913 run-profile samples
-reconstruct independently; electronic/extraction/continuity gates remain open.
-The [original CAS12 repair companion](cas12-base-repairs/README.md) preserves
-four trial-space-80/160 retries and 96 original 200-cycle coverage probes.
-Compressed QC rejects and stretched QC passes with rejected original coverage;
-the later 600-cycle residual scan has separate ownership and evidence.
-
-The [staged-target companion](staged-targets/README.md) reconstructs four original
-CAS12 QC rejections and both fifty-component equilibrium pilots, with 545 payloads
-and 281438 profile samples. The common-forty-root diagnostics expose ensemble
-sensitivity while independent fifty-component coverage/import remains open.
-The [CAS12 residual companion](cas12-residual/README.md) then verifies all 96
-600-cycle fixed-orbital probes on the two unchanged stretched DZ repair checkpoints:
-627 payloads / 11138 scan profiles, including original 200-cycle and wrapper
-failures. Native import and larger-basis qualification remain separate successors.
-
-The [stretched CAS12 basis-coverage companion](cas12-stretched-basis-coverage/README.md)
-subsequently reconstructs **354 payloads / 8603 profiles** from all 96 TZ/aug-TZ
-probes. TZ passes all48; aug-TZ rejects triplet A2 root8/space40 while its other47
-probes pass. The failed flag/residuals and original stopped controller remain
-publicly reproducible; a fresh 80/160/240 trial-space convergence scan is separately
-declared and cannot overwrite the original rejection or import proof.
-
-The [aug-TZ supported-space companion](augtz-supported-spaces/README.md) verifies
-**269 payloads / 4346 profiles** from all 48 passing fresh 80/160/240-space probes,
-with unchanged orbital checkpoint, cycles and physical/spin-penalized residual
-gates. Its independent result supports a separately declared fresh native import;
-the original space40 rejection remains public.
-
-The [stretched-window companion](stretched-window-controls/README.md) verifies
-**310 payloads / 1947 profiles** from the complete 399/797-point retained-data
-outer replay. Grid/common-phase/cross-section controls and all 48 complete-data
-fits pass implementation checks, but native fine-grid MAXFIT and the 6.72–6.74%
-all-background width spread keep extraction unqualified. Every candidate and
-both earlier launcher/completion-wrapper failures are preserved.
-
-The [compressed CAS12 diagnostic](compressed-cas12-diagnostic/README.md) records
-all 96 completed fixed-orbital probes: 84 pass, but all 12 singlet-A1 probes
-reject, including spin contamination and a 1.6561-Hartree root-count mismatch.
-It independently reconstructs **344 payloads / 11201 profiles** without
-promoting the original rejected QC checkpoints.
-
-The [alternative singlet-driver pilot](compressed-singlet-driver-pilot/README.md)
-then passes all eight separately declared checks, including independent
-full-Hamiltonian action, spin/residual and root/space continuity gates.
-**49 payloads / 1259 profiles** reconstruct. Its 1.670142-Hartree difference
-from the rejected objective requires fresh orbital optimization; the pilot
-does not retroactively qualify the saved seeds.
-
-The [fresh singlet-driver QC companion](compressed-singlet-qc/README.md) verifies
-**228 payloads / 16864 profiles** from the two fresh optimizations: space80
-rejects its singlet-A1 CI flag, while space160 passes optimizer/fresh-CI/spin/
-Pi/MO checks. Both original exits, checkpoints and immutable source remain public.
-Independent fixed-orbital coverage and native import are separate qualification
-gates; stable saved roots cannot override the rejected space80 record.
-
-The [compressed singlet-driver coverage companion](compressed-singlet-coverage/README.md)
-verifies **438 payloads / 7075 coverage profiles**, with all 96 independent
-fixed-orbital probes passing. Physical/spin-penalized/full-action and ensemble/
-root/space/Pi gates support the passing original space160 QC as a separately
-declared native-import candidate. The failed original space80 QC remains
-rejected, and native-root/dipole/subspace verification remains outstanding.
-
-The [stretched DZ import and queue-failure companion](dz-import-queue-failures/README.md)
-verifies **3040 payloads / 225208 profiles**, including the completed CAS12
-stretched DZ64-root/dipole/subspace import and both covered repair checkpoints.
-It preserves the later CAS11 40-GiB attempt's six-hour timeout at a31.994-GiB
-peak, the original pre-engine TZ packaging failure and both dependent-owner
-stops. Fresh time-budget and package-complete successors retain their original
-scientific gates and are captured with pending verdicts.
-
-The [compressed extraction and three-anchor orbital screens](small-anchor-controls/README.md)
-reconstruct **94 payloads / 10 profiles** from three subsecond, sub-0.1-GiB
-diagnostics. All 24 compressed saved-grid fits are numerically valid, but
-window/background position and width spans are **0.08993 eV / 32.206%**, rejecting
-the extraction gates. Physical core-overlap follow-up triggers are contrasted
-with an explicitly AO-indexed metric transport, diagnosing basis-centre-motion
-sensitivity; many-electron state and resonance-pole identity remain unset.
-
-The [compressed outer-grid companion](compressed-outer-grid/README.md)
-then reconstructs **257 payloads / 3170 profiles**, including the original
-small screens. All20 native stages and 317/633-point grids pass in **634.56
-seconds / 0.7989 GiB**. Matched finer-grid fit changes are at most **0.3651 /
-2.0296 meV** position/full width, but the all-background width span remains
-**32.096/32.043%**. Both grids emit MAXFIT and the finest native candidates
-are empty; fit/pole verdicts stay unset.
-
-The [initial twelve-rank release companion](mpi12-import-release/README.md)
-reconstructs **847 payloads / 832 frozen release files / 820 unchanged parent
-hashes** from the user-directed8/12-core policy and fresh CAS12 import queue.
-Original zero-step waiter/source records remain exact; real twelve-rank recipe/
-batch-snapshot preflight passes. The archive captures a waiting queue, with
-native-import and scaling verdicts unset.
-
-The [many-electron target-state overlap companion](target-state-overlap/README.md)
-reconstructs **118 payloads / 18455 profiles**, **192 wavefunctions / 48 matrices**
-at the unchanged three CAS11/cc-pVDZ anchors. Native first-five energies,
-physical/penalized Hamiltonian residuals, spins and root orthogonality pass;
-independent full occupied-minor overlap error is **3.320e-14**. Singlet-A2 roots
-1↔2 exchange compressed-to-equilibrium matches, and several retained roots
-assign outside the first-five manifold toward stretched geometry. Weak/ambiguous
-assignments and nearly singular eight-root manifolds motivate a separately
-declared twelve-root closure control. Physical overlaps and AO-following
-coefficient-frame transport remain distinct, with continuity/pole verdicts unset.
-
-The [twelve-root closure companion](target-state-overlap-roots12/README.md)
-publicly reconstructs **171 payloads / 288 states / 48 matrices / 21542 profiles**,
-including original-eight energy/projection preservation and physical/penalized
-actions. Full occupied-minor errors are below3e-15. Enlarging the manifold
-recovers missing directions but retains20 ensemble-to-extra assignment triggers;
-state/pole continuity remains unset.
-
-The [two-start midpoint companion](midpoint-state-tracking/README.md) then
-reconstructs **231 payloads / 576 states / 32 probes / 96 matrices / 40963 profiles**
-from both ordinary-QC starts and reused endpoint vectors. First-five midpoint
-roots agree within1.226e-8 Hartree,while some higher roots differ more. Half-interval
-physical overlaps improve,but singlet-A2 root5 follows5→6→5 rather than the direct
-5→8 map. Public fetch/reconstruction and byte-identical repackaging pass for both
-companions; the quarter-interval control targets the named path discrepancy.
-
-The [quarter-interval companion](quarter-state-tracking/README.md) independently
-reconstructs **298 payloads / 672 states / 32 probes / 112 matrices / 22916 profiles**
-on the host. Singlet-A2 root5's route strengthens and agrees with the midpoint
-endpoint,but two other retained path labels remain refinement-dependent.
-Public-download reconstruction and byte-identical repackaging pass; final
-state/pole verdicts stay unset.
-
-Forty-nine native saved-data replay attempts retain **48 successes and one
-failure**: twelve background/detection controls, twenty-four two-component
-window/background controls, and twelve partial B1 passes before a B2 unit-binding
-failure. The fresh unit-fixed retry reads the template's actual `LUKMT`
-(921/922), reproduces both default fits and checks raw saved-point fit grids.
-Window clipping at fixed background changes position/width by at most
-6.03 meV / 3.62%; background terms 1–4 change width by 12.65%, failing that gate.
-The original exits/logs and corrected sources are retained; K-matrix/R-matrix
-binaries stay on Sadaharu for execution. Twenty-four independent phase fits
-reproduce the native fits, check printed residues and predict 120 interleaved
-held-point sets; the poorer constant background remains evidence. The pinned
-engine's 0.0735 Ryd/input-eV conversion (18.44-ppm offset from modern units) is
-explicitly audited and retained.
-
-Four outer-only pipelines refine the full grid from 99 to 197/393 points in
-6.37 minutes at 0.719 GiB. Common-point phases agree at printed precision;
-fixed-window linear-background position/full-width changes are at most
-0.145/0.292 meV (0.0254% in width), within the chosen gates. Both fine automatic
-native fits hit `MAXFIT=100`; their truncated records have unset acceptance
-verdicts and independent fits use the full fixed intervals. Four original
-driver failures remain preserved: two MPI-input EOFs, a pause-state race and
-a completion-message mismatch after four successful native stages. Every
-CPU-slot lease records resumption of its waiting owner.
-
-The later [radial-propagation companion](outer-propagation/README.md) completes
-eight pipelines and verifies forty native stages, all requested propagation
-sectors and full-precision binary K matrices. Step/radius refinement changes
-phases by at most 2.57e-6 rad, with successive refined differences below
-2.28e-10 rad, passing the chosen numerical propagation gates.
-
-The [fresh-basis companion](fresh-basis/README.md) preserves four completed
-fresh TZ/aug-TZ QC starts: three passes and the original CAS(10,11) aug-TZ
-fresh-CI rejection. Its 194 payloads and 160 raw final-state energies/spins
-verify. Fresh CAS(10,12) TZ→aug-TZ lowers the ensemble objective by 1.80 eV
-but raises the ground-state energy by 0.480 eV; competing-start and import
-qualification remain open.
-
-The subsequent [fresh-target coverage companion](fresh-coverage/README.md)
-passes all 144 probes/936 eigenpair evaluations for those three targets under
-the 600-cycle contract. All raw spectra/spins and 352 payload digests verify;
-physical/spin-penalized residual maxima are 6.96e-10/9.99e-10 Hartree.
-
-The [fresh aug-TZ repair companion](fresh-augtz-repairs/README.md) retains two
-successful space-80/160 restarts of the rejected CAS(10,11) checkpoint.
-All forty roots agree within 1.667e-11 Hartree, dipoles within 3.230e-12 a.u.
-and core/active subspaces to roundoff. All 129 payloads and 80 raw final states
-verify; the original rejected parent remains exact. Independent coverage,
-competing starts and imports remain required.
-
-The [fresh TZ import companion](fresh-tz-import/README.md) now checks all 64
-CAS(10,11) roots within 3.196e-8 Hartree against the covered seed's independent
-controls. The engine run passes in 54.38 minutes / 5.270 GiB. All 181 payloads
-verify, including the original rounding-contract rejection, a CIDATA parser
-recheck failure and the passing final-set/decimal recheck. Physical gates are
-unchanged; competing-start/model qualification remains open.
-
-The [repaired aug-TZ coverage companion](fresh-augtz-coverage/README.md) also
-passes all 96 probes/624 eigenpair evaluations, with physical/penalized residual
-maxima 6.62e-10/9.94e-10 Hartree. All 253 payloads verify. The 10.02-minute /
-0.391-GiB scan releases a gated 64-root UKRmol import on Sadaharu.
-
-That [aug-TZ import companion](fresh-augtz-import/README.md) now passes all 64
-native roots against both repaired seeds within 5.969e-11/5.764e-11 Hartree.
-Dipole and orbital-subspace gates pass; engine, supervisor and verifier all
-exit zero. All 181 payloads and 96 raw reference spectra verify. Cost is
-56.01 minutes / 5.268 GiB. Competing-start projections are now active.
-
-The [competing-start companion](competing-starts/README.md) subsequently retains
-two failed downward projections and two passing aug-TZ targets. Their space-80/160
-pair passes, but both differ from the prior fresh branch: objective **−0.538388 eV**,
-ground energy **−1.115756 eV**, z dipole **−0.06670992 a.u.** and minimum active
-overlap **0.141085**. All 277 payloads and 80 raw final states verify; original
-batch/controller exits stay one. A tested core+active projection interface repair
-releases new-name downward retries after coverage of the new branch.
-
-That [new-branch coverage](competing-augtz-coverage/README.md) now passes all
-96 probes/624 eigenpair evaluations in 10.17 minutes / 0.380 GiB. Residual maxima
-are 6.630e-10/9.977e-10 Hartree; all 335 payloads verify. The downward retry
-queue starts after slot release, and the covered branch's native import is queued.
-
-The [matched MPI/throughput companion](mpi-throughput/README.md) now passes all
-seven CAS(10,10) replicas. One/two/four ranks take 3105.91/1830.62/1239.61 seconds;
-four concurrent single-core jobs finish in 3444.36 seconds, **1.440×** the
-throughput of repeated four-rank execution on the same allocation. All 1221
-payloads and 98997 raw profile samples verify; numerical equivalence includes
-the distinct initial-checkpoint lineage. Continuum work resumes after slot release.
-
-The [CAS(10,12) import companion](cas12-import/README.md) subsequently passes all
-40 native roots and the independent dipole on Sadaharu. Native roots agree with
-current QC within **4.801e-11 Hartree**, covered seed spectra within **6.815e-9
-Hartree**, and the separate RHF-start target within **3.485e-8 Hartree**; current
-QC/import dipole error is **1.279e-11 a.u.** Complete cost is **6.201 hours /
-40.405 GiB**. Serial DENPROP is **80.768%** of wall. All 335 payloads, 40 raw QC
-states, 48 raw reference probes/312 eigenpairs and 111339 resource samples verify.
-The original two extra-root coverage failures and prior controller retry failure
-remain retained. The stretched CAS(10,11) queue starts on the released core group.
-
-That [stretched import companion](stretched-import/README.md) now passes all
-64 native roots against both covered DZ seeds within **3.598e-10 / 3.836e-10
-Hartree**, with passing dipole/subspace gates. Cost is **54.25 minutes /
-5.269 GiB**. Its 488 payloads preserve the original saved-table verifier failure
-and passing exact-decimal recheck, and reconstruct 40 raw QC states, 96 reference
-spectra/624 eigenpairs and 16229 resource samples. Same-geometry TZ/aug-TZ QC
-subsequently passes in **14.57 / 20.33 minutes**, at **0.345 / 0.434 GiB**.
-Its [170-payload companion](stretched-basis-qc/README.md) reconstructs 80 raw
-QC states, same-geometry basis shifts and 10430 resource samples. Fixed-orbital
-coverage and individually gated native imports continue on CPUs 8–11.
-
-The [downward-projection companion](downward-projections/README.md) also passes
-all four new-name equilibrium TZ starts and six same-basis restart comparisons.
-Both aug-TZ lineages recover qualified fresh TZ within **4.156e-8 Hartree /
-6.916e-8 a.u.**, with minimum active overlap **0.9999999999995466**. The 296
-payloads reconstruct 160 raw QC states and 34132 resource samples. Original
-projection-interface failures and distinct aug-TZ solutions remain retained;
-the new branch's native import subsequently passes; electronic-model qualification
-remains open.
-
-The [continuum/competing-import companion](continuum-competing/README.md)
-now passes both l=3/l=5 angular-cutoff comparisons and the competing aug-TZ
-all-64-root native import. It verifies 1014 payloads, 36 native replays,
-39 batch-source hashes and 219998 raw profile samples. Angular refinement
-does not repair the 11.98–12.65% background-width sensitivity.
-
-The [native scattering preflight](scattering-preflight/README.md) reproduces
-CAS(10,11)'s dimension 27546 and measures CAS(10,12)'s dimension **86352**.
-Valid aggregate workspace-array floors **222.391 / 222.555 GiB** block the full
-current scattering solve on Sadaharu; the four-rank query retains its overflow
-failure and no estimate. Its 814 payloads preserve the original scheduling
-failure and four failed native preparations, and verify 245 source hashes and
-1099 raw profile samples. Actual CAS(10,12) scattering runtime/scaling remain open.
-
-Staged QC repairs, the neutral pilot and finite CAS(10,11) two-anchor follow-up
-continue locally. The prior
-eleven-/twelve-/eighteen-/thirty-seven-/thirty-eight-/forty-one-attempt supplements remain in
-`manifest.json`'s `prior_snapshots` with its immutable URL and digest.
-
-The Davidson controls request 5/8/16/32 roots and all fail required root imports
-despite engine convergence. Independent diagonalization of the stored small
-singlet-A1 Hamiltonian agrees with QC within 3.69e-13 Hartree. The SLEPc-enabled
-source build passes 12/12 upstream checks; five-root and eight-root/tighter
-small-model targets pass all 40 required roots within 4.98e-10 Hartree and
-dipoles within 5.62e-11 a.u. These controls use about 0.12 GiB in 49.53/46.91
-seconds. The full five-root CAS(10,11) SLEPc target passes all 40 roots within
-5.34e-10 Hartree and dipole within 8.04e-11 a.u., at 52.55 minutes / 5.25 GiB.
-Observed SCATCI/full-wall reductions are 89.17%/46.25%; these are not controlled
-MPI scaling results. The source audit confirms dense PETSc Hamiltonian storage:
-the largest CAS(10,12) matrix alone needs 37.41 GiB.
-The eight-root/tighter CAS(10,11) import also passes all forty ensemble roots
-within 5.33e-10 Hartree and the dipole within 7.90e-11 a.u., in 51.44 minutes
-at a 5.27-GiB peak. Sixteen fixed-orbital probes at spaces 80/160 fully converge
-and independently check all **64 requested roots** within 5.34e-10 Hartree,
-including raw CASCI energies, root order and spins. Common dense/five-root
-excitations match at printed precision. The scan takes 128.22 seconds at a
-0.280-GiB peak; an initial pre-probe process-identity guard failure and its
-repaired launch are retained. The later CAS(10,12) companion above establishes
-the full forty-root/dipole target import locally.
-The preceding 55-attempt target/scattering snapshot remains available in
-[`../sa-evidence/`](../sa-evidence/README.md).
+Other subdirectories retain narrower intermediate controls and stopped attempts.
+Their READMEs describe those finite studies, not current successor authorization.
+[Permanent conclusions](../../../docs/physics/co-results-and-rejected-routes.md)
+and [production decisions](../PRODUCTION_DECISIONS.md) govern interpretation.
 
 ## Fetch and reconstruct
 
-```bash
+For example, reconstruct the matched atomic comparison without quantum calls:
+
+```sh
+uv run qscat-run fetch projects/ukrmol_co/qualification-evidence/atomic-qz-endpoints
+uv run qscat-run fetch projects/ukrmol_co/qualification-evidence/atomic-5z-endpoints
+uv run --no-sync python -m projects.ukrmol_co.verify_atomic_5z \
+  projects/ukrmol_co/qualification-evidence/atomic-5z-endpoints/evidence.tar.gz \
+  projects/ukrmol_co/qualification-evidence/atomic-5z-endpoints/collection.json \
+  projects/ukrmol_co/qualification-evidence/atomic-qz-endpoints/evidence.tar.gz \
+  projects/ukrmol_co/qualification-evidence/atomic-qz-endpoints/collection.json
+```
+
+The root bundle is the earlier 46-attempt electronic-qualification supplement,
+including 160 fixed-orbital probes, checkpoints, source/licence/build evidence,
+neutral failures and selected-root controls. Later companions do not overwrite it:
+
+```sh
 uv run qscat-run fetch projects/ukrmol_co/qualification-evidence
 EVIDENCE_DIR=$(mktemp -d)
 tar -xzf projects/ukrmol_co/qualification-evidence/qualification-evidence.tar.gz \
@@ -381,62 +76,15 @@ uv run python -m projects.ukrmol_co.collect "$EVIDENCE_ROOT" \
   --output "$EVIDENCE_DIR/reconstructed.json"
 ```
 
-Extract outside the checkout: historical source snapshots contain Python test
-modules. The reconstructed JSON matches `qualification-results.json` in the
-archive. `neutral-results.json` retains the fifteen-attempt neutral-only subset.
-The file index records every payload's size and SHA256. Publication verification
-checked 4635 payloads, 298 batch-source hashes, 17 embedded-image source hashes,
-raw reanalysis of all 28 successful records, all 160 CI spectra/spins and
-exact reconstruction of both aggregates. Repackaging is byte-identical.
-All four Davidson rejections are reproduced; the stored Hamiltonian is
-independently reconstructed and its eigenpair residuals checked.
-All seven ladder failures, the four unstable neutral references and the
-CAS(10,12) launch failure are checked against their retained diagnostics/logs.
-The extra-root launch failure's original source/hash and exit are preserved;
-the repaired worker's CPU-slot lease records verify resumption of its waiting
-follow-on after the scan. Native scattering dimensions, raw phase comparisons,
-all 49 replay attempts and saved-point fit grids are independently reconstructed.
-The matched numerical configurations, generated diagonalizer inputs and raw
-phase/candidate comparisons, independent/held-point fits, four outer grids and
-their MAXFIT limits are also reconstructed. All 41 prior run records and sixteen
-prior batch records remain exact.
-The later [stretched-repair coverage companion](stretched-coverage/README.md)
-retains another 96 probes and the failed strict coverage gate. It also measures
-continuity of the matched CAS(10,10) orbitals. The main 46-attempt archive and
-its prior snapshots remain frozen.
-The [iteration-refinement companion](stretched-iteration/README.md) subsequently
-repairs all nine failed stretched settings at 600 cycles and passes complete
-96-probe scans with explicit Hamiltonian residuals. The original 200-cycle
-outcomes remain preserved in their separate archive.
-The full dense/SLEPc comparison and its storage-floor calculation are independently
-reconstructed from raw stages, resources, roots, dipoles and pinned source.
+Exact reanalysis/repackaging uses the analysis source recorded in that manifest;
+later analyzers record their own hashes. Raw saved-data reconstruction is not a
+new integral/eigensolve. Native replay, numerical tolerances and absolute model
+accuracy must be reported separately.
 
-The archive retains raw logs, configs, resource/stage records, source snapshots,
-engine build/test provenance, upstream licences, RHF/CCSD/CASSCF checkpoints,
-projected initial checkpoints and all workspace query commands. Valid eight-/
-sixteen-rank triplet queries give array floors of 148.92/148.99 GiB; the
-undersized four-rank query is explicitly rejected by the shipped utility.
-The extended all-sector audit reaches 149.78/149.91 GiB on 16/32 ranks;
-these are array floors before engine/library overhead.
-Large UKRmol integral/channel/K-matrix artifacts remain on the host.
+## Historical narrative
 
-The archived `verify-qualification-evidence.py` reproduces the checks above:
-
-```bash
-PYTHONPATH=. uv run python "$EVIDENCE_ROOT/verify-qualification-evidence.py" \
-  "$EVIDENCE_ROOT" \
-  --original-archive projects/ukrmol_co/qualification-evidence/qualification-evidence.tar.gz \
-  --repacked "$EVIDENCE_DIR/repacked.tar.gz"
-```
-
-Exact reanalysis/repackaging uses the analysis source commit recorded in the
-manifest. Later analyzer versions deliberately record their own source hash.
-The current utilities/packaging commit is
-`28f5e1f6158abe775c8d2a70244504dacc46201a`, retaining the nested outer-engine
-licence selection and independent phase-fit tools. `analysis-archive.py` retains the packaging
-source; embedded image modules keep their actual original bytes and digests.
-To replay the numerical recipes, copy archived `runs/` to a new host root
-mounted at `/work` so retained checkpoint arguments resolve, and choose new
-output/batch names. See [`../CONTINUATION.md`](../CONTINUATION.md) for the live
-jobs and remaining gates, and
-[the method contract](../../../docs/physics/co-electronic-qualification.md).
+The [campaign-history bundle](campaign-history/README.md) preserves exact
+superseded handoffs, progress figures and rendering inputs. It is optional audit
+material: the clone's permanent notes already state methods, measurements,
+assumptions, limitations and rejected routes. Small JSON regression inputs and
+execution contracts remain tracked; untracked reports/scratch notes do not ship.

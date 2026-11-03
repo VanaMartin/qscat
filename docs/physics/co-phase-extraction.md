@@ -18,7 +18,7 @@ The coefficient count `nback=1..4` denotes background degree 0..3. The existing
 \qquad x=(E-E_m)/E_s.
 \]
 
-Its positive-width resonance factor has pole `z=E_r-i Γ/2`. The independent
+Its positive-width resonance factor has pole $z=E_r-i\Gamma/2$. The independent
 oracle constructs the unitary real-axis S factor directly,
 
 \[

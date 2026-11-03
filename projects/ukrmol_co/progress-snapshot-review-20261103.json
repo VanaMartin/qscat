@@ -1,0 +1,37 @@
+{
+  "base_snapshot": "progress-snapshot-20261103T1220-atomic-basis.json",
+  "base_snapshot_sha256": "6241a2a2efcf2215f99091ed85afbe85481c49cf5c42a1be4d1152c36dcf83de",
+  "additional_source_file_sha256": {
+    "native/qscat-extended/README.md": "82ce2d112b2a19552f68255a44d53829b906a32af587d0024df706cb4260ff0f",
+    "projects/ukrmol_co/qualification-evidence/README.md": "90fb6ea76a33c7e51d569b45fd50816146a5cff2d014ecb97ab2b875a8fa33c1",
+    "docs/physics/co-combined-exterior-benchmark.md": "3165fbea0bba2c6897320feb6229045109dccc48a5097fcdcaf4f129341393d6",
+    "docs/physics/co-coupled-tail-benchmark.md": "68877ca46a6455609cb07acc6265046fe190bd02a0eaf9393cf3ff33e8bc222e",
+    "docs/physics/co-native-boundary-conventions.md": "e5eccb54866893940612cf33841a19dc48ac4ca135554c1e265483f57dc09224",
+    "docs/physics/co-native-exterior-reconstruction.md": "6d50bb7b30fd7d68f7f2b85c9ccc4cad05ac1a4041f76ec55e42c49ff5f80d66",
+    "docs/physics/co-phase-extraction.md": "6354a4ba0bd0cd74cf4cfb0666d774f92ddbc73592366a4d855b2bcf6909c65b",
+    "docs/physics/co-phase-identifiability.md": "7257a5dd09c14e3fc625a57c39a11c916334cdad400b7b76abc58ce067c8c8bb",
+    "docs/physics/co-physical-pole-benchmark.md": "59ca7a2754eb09c39b4c2f2a81ee9341615d2afcd1fd61d49c60c8f7f93617da",
+    "docs/physics/co-results-and-rejected-routes.md": "34f407a7dfb7e935f11375626fa1f9d78c6f7d7537b99be332601c8f97844a0e",
+    "docs/physics/co-saved-scattering-matrices.md": "e964e0ebf574ca0b22400e17531b13652c751321a313495b2768babf5d6f74a3",
+    "projects/ukrmol_co/CONTINUATION.md": "b621d4214c29451a1c257b05156665afbde559e06b0a0f46899e59f45f681cd3",
+    "projects/ukrmol_co/NUMEROV_CORNER_CONTROL.md": "829f5fc1dd5db110c83feb5a817dc322716a259317922b6416ba0a14d17b7196",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md": "081d5b951c47971f166ea6553b79dfa4813c933372bec21ba2c091d744a89d53",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "859a85e23af2ceadd2a07d3f53c5dd89e3bc3537f403f6f81619bc93769b9d9f",
+    "projects/ukrmol_co/README.md": "b0d4474e5331ac54a78af5f183f7de51e9b64af26bf6c8480fbb3cbaddd3ec27",
+    "projects/ukrmol_co/RUNNING.md": "5560d289a017fb7bc22611c1f950769bf4b5ef0f3daa952e691711f7eac6b156",
+    "projects/ukrmol_co/SWEEP_READINESS.md": "4c562b04209b4c0acc341e8e5b04be67aa1bcfd9a827c2d47a062eaf52f6bbac",
+    "projects/ukrmol_co/progress_figure.py": "0829c4f605947bb9aeee9c4050b53a13dd2c42b85d98576f386182f959829f45",
+    "projects/ukrmol_co/qualification-evidence/campaign-history/.gitignore": "c96115e6edb28541e9c19818a694aa7ddece7f80c3573aa1f17a7c1b87e26f43",
+    "projects/ukrmol_co/qualification-evidence/campaign-history/README.md": "92f966c3df43607ed386b51d9a60bae1aade3179ba7ce67ebbc7f49ddc5d76d9",
+    "projects/ukrmol_co/qualification-evidence/campaign-history/artifacts.json": "dc058ffb47d1315c0858373c115e922692829c12971f331ccd1aeed182a6fa00",
+    "projects/ukrmol_co/qualification-evidence/campaign-history/manifest.json": "5d7b0fd13576f2b544d816dc21c919c17fb658329c787713e6ac487a05c0201f",
+    "projects/ukrmol_co/test_campaign_archive.py": "3993dd6f004065caa73083a9ef08ac079e5abe2c05d0339033fc23d3e7dca7bd",
+    "pyproject.toml": "3f49e99d1d17ccd0d6ae56c316f7ecc715ca0a4cf2bc6b5093b5659fb5b23a38"
+  },
+  "live_status_updates": {
+    "campaign_narrative_archived": true,
+    "production_model_selected": false,
+    "full_sweep_released": false
+  },
+  "updates": {}
+}

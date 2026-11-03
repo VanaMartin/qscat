@@ -3,8 +3,9 @@
 **Paid provisioning is deferred.** Continue qualification on Sadaharu, with
 **native sparse/iterative scattering qualification ahead of large-host allocation**.
 The measured memory blocker is specific to the current dense full-spectrum path;
-the alternative remains unvalidated. See the
-[local solver tasks](CONTINUATION.md#sparseiterative-scattering-qualification--preferred-before-a-large-host)
+selected-spectrum alternatives now have finite-model differential qualification,
+not electronic-model convergence. See the
+[current decisions](PRODUCTION_DECISIONS.md)
 and [reproducer contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract).
 Keep the first paid experiment within **approximately $200**, reducing the earlier
 full-campaign compute forecast by at least 80%. The retained hardware candidate

@@ -24,18 +24,18 @@ Use atomic units, electron mass one, reduced radial s wave on the half-line:
 For real positive `g`, the real derivative jump conserves the radial probability
 current `Im(u* u')`; the operator has no negative-energy bound state. It has
 outgoing resonances: the repulsive shell temporarily confines a cavity wave.
-Let `x=r/a`, `q=ka`, `λ=2ga`. Inside, the regular solution normalized by
-`u_x(0)=1` is `sin(qx)/q`; at the shell `u_x` jumps by `λu`. Outside write
+Let `x=r/a`, `q=ka`, $\lambda=2ga$. Inside, the regular solution normalized by
+`u_x(0)=1` is `sin(qx)/q`; at the shell `u_x` jumps by $\lambda u$. Outside write
 `u = C(S e^{iqx} − e^{-iqx})/(2i)`. Thus
 
 \[
  F(q)=1+\lambda e^{iq}\frac{\sin q}{q},\qquad S(q)=F(-q)/F(q).
 \]
 
-`F(0)=1+λ`, so the apparent zero at `q=0` obtained after multiplication by `q`
+$F(0)=1+\lambda$, so the apparent zero at `q=0` obtained after multiplication by `q`
 is **not a pole**. For nonzero q, `F(q)=0` gives
-`e^{2iq}=1−2iq/λ`. With `z=2iq`, put `w=λ−z`; then
-`w exp(w)=λ exp(λ)`. The outgoing positive-real-q branches are
+$e^{2iq}=1-2iq/\lambda$. With `z=2iq`, put $w=\lambda-z$; then
+$w\exp(w)=\lambda\exp(\lambda)$. The outgoing positive-real-q branches are
 
 \[
  q_n=\frac{i}{2}\{W_{-n}(\lambda e^\lambda)-\lambda\},\quad n=1,2,3,\ldots;
@@ -90,7 +90,7 @@ This is a single-threshold sheet test, not multichannel sheet qualification.
 - b=−1,0,2 and common boundary rescaling 7, testing representation invariance;
 - nine physical poles (λ=2/10/30 × n=1/2/3), each at all three radii and all
   three ODE tolerances: **81 shooting solves**. Each solve starts once from
-  `q=nπ−0.3−0.2i`, without the oracle; root tolerance 1e-9, maxfev=80.
+  $q=n\pi-0.3-0.2i$, without the oracle; root tolerance 1e-9, maxfev=80.
 
 Store every root solver exit/message, residual, oracle discrepancy, and all
 three refinement levels. Finest real-axis S error ≤1e-7, phase error modulo π
@@ -100,7 +100,7 @@ incoming residual magnitude ≥0.1. Bloch/rescaling errors ≤1e-10, maximum
 finest radius spread in q ≤1e-7. Real-axis and pole maximum errors must decrease
 at least tenfold from coarsest to finest unless coarsest already lies below
 1e-10. Intermediate levels remain reported; monotonicity is not assumed near
-roundoff. Low-energy `−arg(S)/(2q)` must reproduce `a_s/a=λ/(1+λ)` within 2e-8
+roundoff. Low-energy `−arg(S)/(2q)` must reproduce $a_s/a=\lambda/(1+\lambda)$ within 2e-8
 at the finest tolerance. Free propagation must reproduce S=1 without shell poles.
 
 Mandatory negatives reverse the shell jump or multiply it by 1/2 at q=1.3,

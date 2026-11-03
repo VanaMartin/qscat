@@ -19,7 +19,8 @@ members = ["libs/*", "native/*", "apps/*"]
 # live work checked out on another branch); their test modules share
 # basenames with the real tree and break collection with duplicate-module
 # errors. Never recurse into .claude/.
-norecursedirs = [".venv", ".git", ".hypothesis", "reference", "target", "*.egg-info", ".claude"]
+# Downloaded evidence contains historical source capsules, not current test modules.
+norecursedirs = [".venv", ".git", ".hypothesis", "reference", "target", "*.egg-info", ".claude", "state-averaged-evidence"]
 pythonpath = ["."]
 # The two tiers (docs/adr/0005-test-tiers-fast-and-slow.md):
 #

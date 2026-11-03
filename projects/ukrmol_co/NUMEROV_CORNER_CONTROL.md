@@ -144,7 +144,7 @@ The [08:59:58 UTC result capture](progress-numerov-corner-result-20261019.json)
 reverifies69 remote collected hashes,41 frozen sources,242 installed engine
 artifacts and all24/12/2/1 input/reference pins. **No scientific container is
 running**;61.51 GiB persistent space remains. The
-[six-panel overview](../../docs/physics/figures/co-progress-20261019-corners.png)
+[historical six-panel overview](qualification-evidence/campaign-history/README.md)
 shows the old coarser diagnostic beside the new finest-endpoint passes.
 
 **Qualification scope:** the increment formulation is now qualified at these

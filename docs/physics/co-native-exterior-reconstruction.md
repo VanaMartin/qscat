@@ -12,7 +12,7 @@ truncated inner spectrum and electronic model are inputs, not newly converged
 approximations.
 
 Use the [derived native surface convention](co-native-boundary-conventions.md):
-`u(a)=Q(E)u'(a)`, `Q=Σwwᵀ/(E_n−E_total,Hartree)`, a=18 bohr. Incident energy
+`u(a)=Q(E)u'(a)`, $Q=\sum ww^T/(E_n-E_{\mathrm{total,Hartree}})$, a=18 bohr. Incident energy
 is the saved requested-eV value times0.0735 Ryd/eV, total Hartree energy is the
 first target energy plus half the incident Rydberg energy. With Z=0 the exterior
 equation is
@@ -31,7 +31,7 @@ The read-only engine's `outer/source/libouter/cfasym.f` has SHA256
 lines304–320 divides the Coulomb/Bessel values by sqrt(k) and multiplies their
 argument derivatives by sqrt(k). Lines413–419 form the regular/irregular
 coupled columns. `BKSHWF`, lines1614–1633 explicitly fixes the neutral limits
-`f=sin(kr−lπ/2)/sqrt(k)`, `g=cos(kr−lπ/2)/sqrt(k)`.
+$f=\sin(kr-l\pi/2)/\sqrt{k}$, $g=\cos(kr-l\pi/2)/\sqrt{k}$.
 The closed branch (`ASYWFN`, lines459–469, and `BKSHWF`, lines1650–1653)
 selects a decaying column; its finite nonzero column scaling cannot affect
 open-open K. `KMAT_compak`, lines2204–2229 and2260–2269 solves
@@ -47,9 +47,9 @@ does not yet validate native finite-radius asymptotic errors.
 ## Independent coupled inverse-power tail
 
 For each reference column j let `s_j=+ik_j` for an open outgoing column, or
-`s_j=−κ_j` for a closed decaying column. Write
+$s_j=-\kappa_j$ for a closed decaying column. Write
 
-`U_j(r)=exp(s_j r) Σ[p=0..P] a_p^(j) r^(−p)`, `a_0=e_j`.
+$U_j(r)=\exp(s_jr)\sum_{p=0}^P a_p^{(j)}r^{-p}$, `a_0=e_j`.
 
 For `D=diag(threshold−incident)` substitution gives
 
@@ -63,7 +63,7 @@ it the next equation determines
 
 Threshold grouping tolerance is an explicit input and its maximum within-group
 spread must be recorded. No energy at an exact channel threshold is supported.
-Open columns carry the fixed phase/amplitude `exp(−il_jπ/2)/sqrt(k_j)`; their
+Open columns carry the fixed phase/amplitude $\exp(-il_j\pi/2)/\sqrt{k_j}$; their
 imaginary and real parts give f and g. Closed columns are rescaled to omit the
 common exponential at the outer endpoint, preventing underflow without changing
 the permitted solution space. Evaluate their values and analytic derivatives. Series
@@ -84,7 +84,7 @@ Propagate the inward-value ratio outward,
 This avoids propagating exponentially growing closed-channel fundamental
 columns. Start with `u(a)=Q`, `u'(a)=I`, and a sixth-order Taylor evaluation at
 a+h. Taylor derivatives follow the exact smooth potential:
-`u^(n+2)=Σ[j=0..n] binomial(n,j) V^(j) u^(n−j)`.
+$u^{(n+2)}=\sum_{j=0}^n\binom{n}{j}V^{(j)}u^{(n-j)}$.
 The initial ratio is `B_0 Q (B_1 u(a+h))^−1`. All matrix divisions are linear
 solves; no symmetrization is applied to a measured K.
 

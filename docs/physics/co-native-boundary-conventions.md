@@ -43,7 +43,7 @@ Read the actual pinned engine, not a generic R-matrix convention:
 
 For reduced radial eigenfunctions normalized in the inner-region Hilbert space,
 write physical surface overlaps as γ_in. Native stored amplitudes are
-`w_in=γ_in/sqrt(2)`. The Hartree spectral Green identity gives
+$w_{in}=\gamma_{in}/\sqrt{2}$. The Hartree spectral Green identity gives
 
 \[
  Q_{ij}(E)=\frac12\sum_n\frac{\gamma_{in}\gamma_{jn}}{E_n-E}
@@ -61,10 +61,10 @@ qualified by these zero-Bloch decks.
 
 At complex energy use **transpose products**, not Hermitian conjugation:
 Q(E) is complex symmetric and satisfies `Q(E*)=Q(E)*` for these real amplitudes.
-Its energy derivative is `Σ wwᵀ/(E_n−E)²`, which is positive semidefinite on
+Its energy derivative is $\sum ww^T/(E_n-E)^2$, which is positive semidefinite on
 real intervals away from poles. None of this makes a truncated pole set complete.
 For a qualified outgoing exterior map Y, the matching singularity is
-`det[I−Q(E)(Y(E)−βI)]=0`; this formula is not permission to search CO poles
+$\det[I-Q(E)(Y(E)-\beta I)]=0$; this formula is not permission to search CO poles
 before native matrix reconstruction and spectral/model controls pass.
 
 ## Energy zero and outer potential
@@ -97,13 +97,13 @@ inverse-fourth-power polarization model.
 ## Independent analytic normalization check
 
 A free radial box, u(0)=0,u'(a)=0, has
-`p_n=(n+1/2)π/a`, `E_n=p_n²/2`, normalized `γ_n=(-1)^n sqrt(2/a)`.
+$p_n=(n+1/2)\pi/a$, `E_n=p_n²/2`, normalized $\gamma_n=(-1)^n\sqrt{2/a}$.
 Therefore native `w_n=(-1)^n/sqrt(a)` and the exact sum is
 
-`Σ w_n²/(E_n−E)=tan(ka)/k`, k²=2E.
+$\sum w_n^2/(E_n-E)=\tan(ka)/k$, k²=2E.
 
 This directly reproduces u(a)/u'(a), while the dimensionless convention yields
-`tan(ka)/(ka)`. At finite N the omitted sum falls as `2a/(π²N)`; three-rung
+`tan(ka)/(ka)`. At finite N the omitted sum falls as $2a/(\pi^2N)$; three-rung
 tests must observe that truncation rather than claiming finite-N equality.
 Multiplying Q by half/two or dividing by a gives persistent discrepancies.
 This mathematical check anchors the derived formula independently of CO phases.

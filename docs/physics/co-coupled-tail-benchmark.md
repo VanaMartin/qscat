@@ -19,12 +19,12 @@ On x≥1 impose a hard inner wall u(1)=0 and solve
 \]
 
 This is the l=1,2, |m|=1 two-wave projection of centrifugal energy plus
-`−d cosθ/r²`: the angular recurrence gives
-`<1,1|cosθ|2,1>=1/√5`, with zero diagonal elements. Truncation to two waves
+$-d\cos\theta/r^2$: the angular recurrence gives
+$\langle1,1|\cos\theta|2,1\rangle=1/\sqrt{5}$, with zero diagonal elements. Truncation to two waves
 defines the model being tested, not an angular-convergence statement about CO.
 The origin is excluded by the hard wall; for d=0/0.4/1.2 the matrix is positive.
 Both channels have the same threshold, so a constant real orthogonal O diagonalizes
-C. The eigenchannel orders are `ν_j=sqrt(c_j+1/4)` and are noninteger when d≠0.
+C. The eigenchannel orders are $\nu_j=\sqrt{c_j+1/4}$ and are noninteger when d≠0.
 The exact outgoing/incoming matrices are
 
 \[
@@ -34,7 +34,7 @@ The exact outgoing/incoming matrices are
  \mathrm{diag}[e^{\mp i\ell\pi/2}].
 \]
 
-They approach `diag(exp[±i(qx−lπ/2)]/sqrt(q))`, fixing unit flux on the real
+They approach $\operatorname{diag}(\exp[\pm i(qx-l\pi/2)]/\sqrt{q})$, fixing unit flux on the real
 axis and the physical partial-wave phases. For complex q in the right half-plane
 use Hankel1/Hankel2 analytically, not complex conjugation. The hard-wall solution
 written `u=H+ S−H−` gives **`S=(H+(1))⁻¹ H−(1)`**. This direct boundary value,
@@ -66,15 +66,15 @@ For x>0, u(0)=0, solve a two-internal-channel radial Hamiltonian
 \]
 
 T and Λ do not commute when c≠0. The real symmetric shell gives the jump
-`V(1+)=V(1−)+ΛU(1)`, conserves current and couples different channel momenta.
+$V(1+)=V(1-)+\Lambda U(1)$, conserves current and couples different channel momenta.
 This model uses radial s channels to isolate threshold elimination; it is not
 the angular tail model A and does not combine unequal thresholds with a dipole tail.
-At a real energy below 16 choose `k0=+sqrt(ε)`, `k1=+i sqrt(16−ε)` (decaying);
+At a real energy below 16 choose $k_0=+\sqrt{\varepsilon}$, $k_1=+i\sqrt{16-\varepsilon}$ (decaying);
 above 16 choose both positive real. Exact threshold points, where flux-normalized
 open waves are singular, are excluded; points ±0.001 either side are retained.
 
 The independent exact shell logarithmic derivative is
-`L=diag(k_i cot k_i)+Λ`. Below the second threshold eliminate the closed channel:
+$L=\operatorname{diag}(k_i\cot k_i)+\Lambda$. Below the second threshold eliminate the closed channel:
 `L_eff=Loo−Loc(Lcc−i kc)⁻¹Lco`. Above it use the full L. With open-channel
 `P±=diag(exp(±ik)/sqrt(k))`, the exact unit-flux S is
 
@@ -95,7 +95,7 @@ For an outgoing resonance use q=k0 as root variable, ε=q², and explicitly keep
 Im ε<0 this branch has Im k1>0 and generally Re k1<0; flipping its sign gives a
 different sheet. The numerical Jost determinant is
 `det[diag(exp(ik_i B))(V−iK U)]`. Its independent oracle uses exact
-`U=diag(sin k/k)` and `V=diag(cos k)+ΛU` at x=1, followed by a high-precision
+`U=diag(sin k/k)` and $V=\operatorname{diag}(\cos k)+\Lambda U$ at x=1, followed by a high-precision
 root solve from a fixed secant pair. For c=0 its first-channel root must reproduce
 the earlier independent Lambert-W pole. Changing the sign of k0 at the oracle
 pole must give a nonzero determinant, excluding numerator cancellation.

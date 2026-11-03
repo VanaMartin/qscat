@@ -1,0 +1,18 @@
+{
+  "artifacts": {
+    "campaign-history.tar.gz": {
+      "bytes": 93307293,
+      "sha256": "1c09411aebf941fe5ecb8688af49749dee1600fea85f652bb6f310ec7eb91bea"
+    },
+    "manifest.json": {
+      "bytes": 284,
+      "sha256": "5d7b0fd13576f2b544d816dc21c919c17fb658329c787713e6ac487a05c0201f"
+    },
+    "members.json": {
+      "bytes": 62733,
+      "sha256": "68cc9531f4c0cfa4efe0bf0d47e638d16f224a920c1557f501a07c622e8ea064"
+    }
+  },
+  "git_sha": "46d90c87c081ad3ae615eb27e91ec81564f77d78",
+  "url_prefix": "https://data.qscat.org/co-campaign-history-20261103/"
+}

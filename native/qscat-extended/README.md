@@ -13,12 +13,17 @@ The C shim is compiled without reassociation or multiply/add contraction.
 ```sh
 uv run --no-sync maturin develop --release --manifest-path native/qscat-extended/Cargo.toml
 uv run --no-sync pytest -q projects/ukrmol_co/test_numerov_native_residual.py
-cargo test --locked --manifest-path native/qscat-extended/Cargo.toml
+cargo test --locked --manifest-path native/qscat-extended/Cargo.toml --lib
 cargo clippy --locked --manifest-path native/qscat-extended/Cargo.toml --all-targets -- -D warnings
 cargo bench --locked --manifest-path native/qscat-extended/Cargo.toml --bench residual
 ```
 
 If both Conda and a virtualenv are active, unset `CONDA_PREFIX` for maturin.
+Build the Python extension with maturin, not plain `cargo test`: on macOS the
+extension-module ABI leaves Python symbols for the interpreter to resolve.
+`cargo test --lib` runs the Rust buffer-validation tests without linking the
+standalone cdylib. It does not exercise supported-format numerical arithmetic
+on hosts outside the qualified x86-64 ABI.
 The published qualification wheel uses abi3-py311 to run in the pinned external
 tools container's Python3.11 as well as the layered build image's Python3.12.
 The repository's ordinary Python requirement remains>=3.12. Wheel extraction in

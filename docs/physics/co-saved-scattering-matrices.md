@@ -22,7 +22,7 @@ basis, use
 \]
 
 The matrix inverse is evaluated as a linear solve. A separate spectral route
-`Q diag(exp(2i arctan κ)) Qᵀ` cross-checks the solve. Analytic tests use rotated
+$Q\operatorname{diag}(\exp(2i\arctan\kappa))Q^T$ cross-checks the solve. Analytic tests use rotated
 channels with specified eigenphases; unitarity and reciprocity use the ordinary
 Hermitian product, not the ECS c-product. Native eigenphase sums are printed
 to limited precision: require agreement modulo π within **1e-6 rad**, while
@@ -58,7 +58,7 @@ target pointers and angular labels. `fort.21` supplies total inner eigenenergies
 coefficients. The selected runs use an **uncorrected truncated pole sum**;
 calling its 2048 exported poles a complete physical spectrum would be wrong.
 The external source's `READRM` describes its convention as
-`a R_ij(E) = Σ_k w_ik w_jk / (E_k − E)` for this no-correction layout.
+$aR_{ij}(E)=\sum_k w_{ik}w_{jk}/(E_k-E)$ for this no-correction layout.
 An independent propagator must derive its boundary normalization/Bloch convention
 from the actual writer and assembler before using that formula.
 

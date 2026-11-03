@@ -4,7 +4,7 @@ This is an experimental lower-memory route for the same CO scattering model.
 It is being tested locally before considering large-host allocation. The
 [qualification contract](../../docs/physics/co-electronic-qualification.md#sparseiterative-scattering-qualification-contract)
 requires a dense differential, spectral refinement and measured resources.
-See [the live handoff](CONTINUATION.md#sparseiterative-scattering-qualification--preferred-before-a-large-host)
+See [the current handoff](CONTINUATION.md)
 for execution status; launching a control is not a passing scattering verdict.
 
 ## What the pinned source establishes
