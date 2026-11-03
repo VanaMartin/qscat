@@ -14,11 +14,13 @@ with excluded-geometry validation. A channel-specific vibrationally assisted DA
 claim requires a separate nuclear-observable check. This does not promise total
 thermal CO DA near10eV, where other resonance families contribute.
 
-**Current verdict:** useful local data, not a dissociation-qualified potential.
+**Current verdict:** useful local data and calculated atomic endpoints, not a
+dissociation-qualified potential.
 The correlated neutral segment is1.9–2.5bohr only; molecular3/4bohr restricted
-references failed stability before CCSD(T). No qualified C/O/O-/C- energy sums,
-consistent resonance curve, demonstrated bound continuation or production model
-exist. Qualified stretched DZ/TZ poles differ103.370meV/44.172meV in position/
+references failed stability before CCSD(T). The first four-atom aug-QZ pilot now
+supplies independently reconstructed finite-method sums; absolute EA accuracy,
+a consistent resonance curve,bound continuation and production model remain
+unqualified. Qualified stretched DZ/TZ poles differ103.370meV/44.172meV in position/
 full width. Aug-TZ preparation is preserved but its inner/pole work is paused.
 
 ## Rules preventing another open-ended supporting campaign
@@ -42,6 +44,12 @@ full width. Aug-TZ preparation is preserved but its inner/pole work is paused.
 7. Keep114 S holdouts untouched, reserve the equilibrium outgoing pole for the
    specified validation, retain nine as working reference/new50 parked. No fit,
    sweep or automatic B2 rescue is released by this plan.
+8. User requests automatic continuation and status checks every5–15minutes.
+   During active runs,target600s checks plus immediate terminal observation;
+   record actual gaps. Continue within an approved bounded stage and independently
+   qualify its result. A new stage needs its goal-linked tested/frozen release,
+   not another preference question. Stop on scientific/resource/scope blockers.
+   This is active-run monitoring,not a perpetual scheduler while no job runs.
 
 ## Ordered work packages and decision gates
 
@@ -114,20 +122,27 @@ claim about threshold-crossing/high-energy DA follows.
 | User direction and work order | Approved; recorded here | Follow this queue instead of the old inner-export successor |
 | Reference specification | Complete; [protocol](../../docs/physics/co-atomic-energy-references.md) and [unset ledger](atomic-asymptote-inputs-20261103.json) | Freeze source/tests/owner before quantum execution |
 | Open-shell runtime | [Source-only inspection passes](atomic-runtime-preflight-20261103.json);PySCF2.11 conversion supported,external ROHF stability unavailable | Use supported internal checks;external status must remain unavailable,not passed |
-| Actual atomic sums | Missing; no qualified results located | First four-atom aug-QZ pilot under a separate costed contract |
+| Actual atomic sums | [Four aug-QZ finite-method endpoints independently reconstructed](qualification-evidence/atomic-qz-endpoints/README.md),17.914s/1.943GiB | One bounded basis/reference-convention decision;no automatic second basis |
 | Neutral QZ/5Z well data | Reuse; no dense rerun | Read existing records for shape/spectroscopic diagnostics |
 | Dora2020 numerical supplement | One acquisition pass reached human-verification page; [receipt](literature-reference-acquisition-20261103.json) | No bypass/digitized precision benchmark; proceed with independent atomic work |
 | Neutral stretched reference | Restricted approach stopped | Select spin-consistent correlation/dissociation strategy, not an SCF retry |
 | Augmented scattering | Paused; no inner/pole result | Reopen only after the physical-model decision needs it |
 | Potential/DA/production release | Not ready | Complete reference, curve and independent validation gates |
 
-**Completed first continuation:** atomic protocol/input ledger, source-only runtime
-inspection and one literature-data acquisition attempt. **Immediate next deliverable:**
-freeze the first four-atom pilot's
-source/tests/inputs/durable owner, within the protocol's2hour implementation cap.
-This is atomic-reference work, not a scattering allocation. Subsequent atom execution
-needs a frozen tested/costed release; user continuation permits progress without
-repeated preference questions, but does not waive scientific stops.
+**Completed continuation:** four atoms execute under their separate frozen release;
+all original exits0,public raw-log/source/resource reconstruction passes. Computed
+EAs O1.403073/C1.235049eV have correct ordering but differ from rounded external
+context by approximately58/27meV; reference-convention/correlation/basis accuracy
+remains unresolved. Completion occurs before the first600s periodic check; the
+immediate terminal observation is17.907s after start.
+
+**Immediate next deliverable:** at most30minutes saved evidence/source review to
+decide whether one matched5Z endpoint control is needed to isolate basis sensitivity
+and connect the existing5Z molecular zero. Reconcile spin-free/ground-J conventions
+before scoring precise EA errors. No second basis or molecular/scattering job
+follows automatically; any selected quantum control needs a new exact freeze.
+No active campaign job/monitor remains. Continue the approved research without
+repeated preference questions,but do not waive scientific stops.
 
 ## Evidence and provenance
 

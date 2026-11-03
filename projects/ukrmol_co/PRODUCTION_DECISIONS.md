@@ -43,7 +43,42 @@ evidence delta, remaining uncertainty, disposition and next deliverable. Report
 goal-level progress to the user first; link technical evidence separately.
 The checkpoint itself does not authorize an expensive calculation.
 
-### Current goal checkpoint —3 November,09:40UTC: user-approved reference-first direction
+### Current goal checkpoint —3 November,11:00UTC: missing finite atomic endpoints supplied
+
+**Goal/decision link:** close the atomic-reference gap before selecting a neutral
+dissociation treatment or more scattering work. User authorizes automatic
+continuation and5–15minute active-run status checks. The separately frozen first
+four-atom aug-QZ release supplies finite-method C/O/O-/C- energies,not molecular
+dissociation or absolute atomic accuracy.
+
+**Reuse/minimum/cost:** no molecular,property or scattering repeat; one basis,
+four sequential occupation-constrained ROHF-reference UCCSD(T) atoms with one
+frozen1s each. Source/tests/owner493856b pushed first;six runtime controls pass.
+Science17.478060s/owner17.913795s,1.943348GiB container kernel high-water,
+CPU45.812191s/four physical cores,all original exits0. Well inside30minute/atom,
+2hour science and2hour implementation caps. Scheduled600s monitoring plus an
+immediate terminal observation; completion precedes first periodic check,actual
+17.906786s gap within the requested900s maximum. No active job or monitor.
+
+**Physical evidence delta:** [independent public reconstruction](qualification-evidence/atomic-qz-endpoints/README.md)
+now supplies the previously missing three free-fragment sums. Computed EAs are
+O1.403072709/C1.235049235eV. Lowest product ordering is correct; approximate58/27meV
+differences from rounded literature context motivate a basis/reference/correlation
+decision,not an absolute pass/fail against unmatched spin conventions. Full
+correlated L2 purity and molecular size-consistent dissociation remain unproved.
+No reference offset is mislabeled De,and no zero width is invented.
+
+**Disposition: continue the reference-first route,not the scattering ladder.**
+Next30minute saved review decides whether one matched5Z atomic control can isolate
+basis effects and connect existing5Z molecular data. No second basis is automatically
+released; a justified control needs a new exact source/tests/input/owner freeze.
+No automatic larger ladder,neutral grid,augmented inner/pole,fit/sweep or114-holdout
+analysis. Original physical/numerical gates,previous failures and equilibrium/
+nine/new50/2048 protections stand. Review on that decision or before another
+quantum release. Repeated preference questions are unnecessary within the approved
+plan; scientific/resource/scope blockers still stop execution.
+
+### Earlier goal checkpoint —3 November,09:40UTC: user-approved reference-first direction
 
 **Goal/physical blocker:** complete neutral and lowest-Pi resonance/bound-anion
 curves on a justified atomic zero, then a2-D potential with excluded-geometry

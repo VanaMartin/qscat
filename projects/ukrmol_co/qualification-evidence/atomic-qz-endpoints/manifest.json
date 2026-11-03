@@ -1,0 +1,6 @@
+{
+  "git_sha": "7b9240b97cbf69f4591436b3f0ffb2ebab32c84a",
+  "experiment": "co-atomic-qz-endpoints-20261103",
+  "executed_source_commit": "493856bd83751e36d66596157e8cbfc9a74efb5a",
+  "scope": "Four finite-method ROHF-reference UCCSD(T) atomic totals and free-fragment sums;not absolute atomic accuracy or molecular dissociation qualification"
+}

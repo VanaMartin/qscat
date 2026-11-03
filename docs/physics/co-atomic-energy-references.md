@@ -5,9 +5,17 @@
 The independent near-equilibrium neutral calculation is molecular frozen-core
 RHF/CCSD(T), not a dissociation reference. Its accepted aug-QZ/5Z data span
 1.9–2.5bohr. All four attempted3/4bohr RHF references failed external stability
-before CCSD(T). No qualified atomic C/O/O-/C- totals or fragment sums were found
-in the reviewed CO evidence. Missing totals remain unset in the
+before CCSD(T). At the initial review,no qualified atomic C/O/O-/C- totals or
+fragment sums were found. The immutable pre-execution fields remain unset in the
 [input/reference ledger](../../projects/ukrmol_co/atomic-asymptote-inputs-20261103.json).
+
+**Completed first pilot:** [independent public reconstruction](../../projects/ukrmol_co/qualification-evidence/atomic-qz-endpoints/README.md)
+now supplies all four finite-method aug-QZ totals and fragment sums. EAs are
+O1.403072709/C1.235049235eV,not an absolute-accuracy or molecular-dissociation
+qualification. Original exits0,17.913795s owner/1.943348GiB container high-water.
+No supported bound-state continuation or practical matching radius follows from
+atomic sums alone. Original source/protocol inputs and their earlier missing-
+result status remain preserved in the executed capsule.
 
 The first endpoint pilot targets four free atoms in **aug-cc-pVQZ**, matching one
 existing molecular basis. It does not repeat the neutral well grid and does not

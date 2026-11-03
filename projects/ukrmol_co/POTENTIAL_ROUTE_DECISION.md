@@ -2,6 +2,21 @@
 
 ## Decision now
 
+**3November11:00UTC—[four finite-method atomic endpoints now independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).**
+C/O/O-/C- aug-QZ totals and free-fragment sums are supplied; EAs1.403073/1.235049eV,
+correct ordering but absolute accuracy unresolved. Original exits0,17.913795s/
+1.943348GiB/four physical cores. Nine fresh public payloads replay saved native
+energy logs,source and resources. No molecular dissociation or production pass.
+
+Continue reference-first: one30minute saved decision on a possible matched5Z
+endpoint control and spin-free/lowest-J comparison conventions. No automatic second
+basis,new neutral grid,augmented inner/pole,fit/sweep or114-holdout action. User
+requests5–15minute active-run checks and automatic continuation; target600s and
+immediate completion,retaining actual gaps and scientific stops. This17.9s job
+finishes before the first periodic check; no active campaign quantum job/monitor.
+
+### Earlier3November reference-first approval
+
 **3November09:40UTC—user-approved reference-first research plan.** Pause the
 aug-TZ inner/pole successor; preserve its qualified inputs and threshold blocker.
 Follow [the active queue](RESEARCH_PLAN.md): common atomic/neutral references,

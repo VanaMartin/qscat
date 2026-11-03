@@ -88,7 +88,43 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Current: user approves reference-first research plan —3 November,09:40UTC
+### Current: four atomic endpoints independently reconstructed —3 November,11:00UTC
+
+User requests automatic continuation with status checks every5–15minutes.
+For active allocations,target600s checks plus immediate terminal observation;
+record actual gaps. Continue inside approved bounded stages and qualify saved
+results automatically. New stages still need goal-linked tested/frozen contracts;
+do not ask repeated preference questions,but stop on scientific/resource/scope
+blockers. This creates no perpetual reminder while no quantum job is running.
+
+[First four-atom aug-QZ pilot](qualification-evidence/atomic-qz-endpoints/README.md)
+finishes10:53:10UTC from pushed source493856b. C/O/O-/C- totals and all three
+free-fragment sums now exist as finite-method calculations. All original atom/
+stage/profile/command/container/owner/service/control exits0; no retry/OOM/timeout.
+Public reader7b9240b and nine fresh payloads reproduce47 raw files/14 original
+Git sources/91 resource samples. Science17.478060s,owner17.913795s,container
+kernel high-water1.943348GiB; four physical cores. The job finishes before its
+first600s check; immediate terminal observation gap17.906786s passes the requested
+900s bound. **No active campaign quantum job/monitor remains.**
+
+EAs O1.403072709/C1.235049235eV give C+O- below C-+O. They differ by about58/27meV
+from rounded external context; spin-free/lowest-J corrections,basis/correlation
+and full correlated L2 purity remain unresolved. Finite endpoint reconstruction
+is **not** an absolute-accuracy,molecular De/D0,bound-continuation or DA pass.
+The old null input ledger is preserved; actual values live in the terminal result.
+
+**Next bounded deliverable:**30minute saved basis/reference-convention decision:
+would one matched5Z endpoint control isolate the basis part and connect the existing
+5Z neutral zero? No automatic second basis/larger ladder,neutral grid,augmented
+inner/pole,fit/sweep or114-holdout action. User continuation stands,but a selected
+new quantum control must get an exact release/freeze. Retain all prior failures,
+numerical/physical gates,nine/new50/2048 and equilibrium-pole exclusion.
+
+Main retrieval remains incompatible-service error; last-known indexed commit
+423d5770d3de337571f51e62702ae919bad97e8c,upstream currency unverified. Current
+branch sources and public executed-Git evidence govern; no service intervention.
+
+### Earlier: user approves reference-first research plan —3 November,09:40UTC
 
 The user explicitly requests a plan and continued research after the goal-level
 review. [Active research queue](RESEARCH_PLAN.md): atomic endpoints/common zero,

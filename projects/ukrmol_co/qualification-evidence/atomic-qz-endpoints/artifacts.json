@@ -1,0 +1,15 @@
+{
+  "artifacts":{
+    "collection.json":{"bytes":6858,"sha256":"5315a1becdda015f7513aad31ca3b39c8784623da4c29daaf16fe9b258bda455"},
+    "evidence.tar.gz":{"bytes":547956,"sha256":"2908950e1ded0c448fc83daf3162ce5b2ae0df52887cb77708fbfbd60bb0a842"},
+    "manifest.json":{"bytes":346,"sha256":"6b8fdfd52c7d05fe3ff34f9fdbcd4407d0591462440d8e8fba235e1c17735f56"},
+    "reading.json":{"bytes":4742,"sha256":"59527df5b9db2cdcfef3983b17eb4b6e4361749d54fe2583c3ffa1b115570662"},
+    "result-summary.json":{"bytes":3902,"sha256":"21b7cd04aebbcb1011f4b1e6d8cfad1323f23aec29f3c6098c9050a53f399cb9"},
+    "test_verify_atomic_references.py":{"bytes":944,"sha256":"db5bb156cee6c4764c68a8ac5761d93203f37537f36261d436e719ff255f3218"},
+    "units.py":{"bytes":797,"sha256":"780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f"},
+    "verify_atomic_references.py":{"bytes":9291,"sha256":"f784268fd6b2a6ca393ecbce83013b463c5b156b207da9ce8f77a2cba2ab8ba9"},
+    "verify_stretched_properties.py":{"bytes":12610,"sha256":"853bf28ad3603e7a7c737fc7675a2704852be68a93b9b41a7b0bac18b0a30315"}
+  },
+  "git_sha":"7b9240b97cbf69f4591436b3f0ffb2ebab32c84a",
+  "url_prefix":"https://data.qscat.org/co-atomic-qz-endpoints-20261103/"
+}

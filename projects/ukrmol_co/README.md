@@ -852,7 +852,15 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 3 November 2026
 
-**09:40UTC direction:** [active research plan](RESEARCH_PLAN.md) puts atomic
+**11:00UTC:** [four calculated atomic endpoints independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).
+We now have C/O/O-/C- aug-QZ totals and fragment sums. EAs O1.403073/C1.235049eV
+give correct ordering,not an absolute-accuracy or molecular-dissociation pass.
+17.913795s/1.943348GiB/four cores/all original exits0. The requested5–15minute
+active-run monitoring is implemented with600s checks and immediate completion;
+this job finishes before its first periodic check. No active job/monitor. Next
+one bounded basis/reference-convention decision; no automatic scattering ladder.
+
+**Earlier09:40UTC direction:** [active research plan](RESEARCH_PLAN.md) puts atomic
 endpoints/common zero, matched literature and neutral dissociation ahead of more
 scattering-interface work. No qualified calculated atomic sums or consistent
 resonance curve yet exist. The [first four-atom aug-QZ protocol](../../docs/physics/co-atomic-energy-references.md)
@@ -892,9 +900,12 @@ physical cores/8GiB; independent actual result/cost required before preparation.
 Production fitting remains stopped; the target-correspondence result below does
 not waive the measured pole sensitivity or unproved N+1 resonance identity.
 
-![Reference-first CO research plan: missing atomic endpoints and dissociation continuation take priority over more scattering-interface work](../../docs/physics/figures/co-progress-20261103T0940-reference-plan.png)
+![Four finite-method atomic endpoints now exist;absolute reference accuracy and molecular dissociation remain open](../../docs/physics/figures/co-progress-20261103T1100-atomic-endpoints.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261103T0940-reference-plan.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261103T1100-atomic-endpoints.svg) ·
+[Atomic-endpoint snapshot](progress-snapshot-20261103T1100-atomic-endpoints.json) ·
+[Independent atomic evidence](qualification-evidence/atomic-qz-endpoints/README.md) ·
+[Previous reference-plan figure](../../docs/physics/figures/co-progress-20261103T0940-reference-plan.svg) ·
 [Active-plan snapshot](progress-snapshot-20261103T0940-reference-plan.json) ·
 [Research plan](RESEARCH_PLAN.md) ·
 [Atomic energy conventions](../../docs/physics/co-atomic-energy-references.md) ·

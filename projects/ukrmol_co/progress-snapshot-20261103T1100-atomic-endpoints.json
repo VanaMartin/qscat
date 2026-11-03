@@ -1,0 +1,57 @@
+{
+  "base_snapshot":"progress-snapshot-20261103T0940-reference-plan.json",
+  "base_snapshot_sha256":"7797a4923d7e667a93d2097409a96d88cf74c7b90bb29fbb693c89e9815f1a8d",
+  "additional_source_file_sha256":{
+    "projects/ukrmol_co/SWEEP_READINESS.md":"9c0fab97ee1301970eeff911d39c9740a22cd23ab011f2b7a48b9256a935a266",
+    "projects/ukrmol_co/progress_figure.py":"ef8d2850dd5b94d37577845e0efb20fb948cb563775a954099e83ba02c6cc6ba",
+    "projects/ukrmol_co/CONTINUATION.md":"7b64b5b9deb1a4d5979e4a8bf31d07cdd3611e0dbaed7fe10221514420a7cc64",
+    "projects/ukrmol_co/README.md":"dda1a2ce91bc5d75746993233bbc68c4956e59a7cf3d3becd8b7c64e03abcb9a",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md":"c553f90f32fad550ef1980a4443b162cde2f93bd12084531db5d137b17d37ca9",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md":"2a10cddf8a80145dda1060f11b9c9af977ff45c569eccc7c74873f9d9f3ac5bd",
+    "projects/ukrmol_co/test_progress_snapshot.py":"b928332d64ac87082a0ad092fde557ee973c37ae44662c39128d32223cef8766",
+    "projects/ukrmol_co/RESEARCH_PLAN.md":"5258c736115fbad5ec520506a756c0dfaba6dbeeaa396f7b21eb64002ded0a2d",
+    "docs/physics/co-atomic-energy-references.md":"5cb5ca8c81cf507ffb35084023182795bbfc2a5cd49b8c28b332785615db4285",
+    "projects/ukrmol_co/atomic_references.py":"1a635c19deed49ff5e3b558c2194eff3e902b5cb9d7d99156a59ff35043bf9e9",
+    "projects/ukrmol_co/atomic_references_owner.py":"d3780910a4ed9a01f2fe8b8d56344f12dc22f54b4c924560c240a069851eeddb",
+    "projects/ukrmol_co/test_atomic_references.py":"8c8167088f72ade76ec2bf3b9ffa9262e475928c4c6020404df3d529f8dfa34b",
+    "projects/ukrmol_co/verify_atomic_references.py":"f784268fd6b2a6ca393ecbce83013b463c5b156b207da9ce8f77a2cba2ab8ba9",
+    "projects/ukrmol_co/test_verify_atomic_references.py":"db5bb156cee6c4764c68a8ac5761d93203f37537f36261d436e719ff255f3218",
+    "projects/ukrmol_co/atomic-asymptote-release-20261103.json":"8ea4cbce6491f7440f40defab1ed54143f60b6cc0223b2395e872d7b55f2746f",
+    "projects/ukrmol_co/atomic-pilot-release-20261103.md":"2a37d399c3a8b0139cb663374d87bc768509aedce7d0e4aaf6eee6b902f32cb0",
+    "projects/ukrmol_co/progress-atomic-qz-endpoints-result-20261103.json":"a515b8f177272ce696268c94e8fd0f8754e46c778bfbcc95395b0e3db543e258",
+    "projects/ukrmol_co/qualification-evidence/atomic-qz-endpoints/artifacts.json":"e254436588b85f6a69edf66ee034f71f97be005339bd5a8f5861a0ce5896385f",
+    "projects/ukrmol_co/qualification-evidence/atomic-qz-endpoints/manifest.json":"6b8fdfd52c7d05fe3ff34f9fdbcd4407d0591462440d8e8fba235e1c17735f56",
+    "projects/ukrmol_co/qualification-evidence/atomic-qz-endpoints/README.md":"521f063de8f9ae683056c1dc7b1ae5aa9f9ea915e8aa558de63f4fa02fb8097a"
+  },
+  "live_status_updates":{
+    "scope":"Four finite-method atomic totals and free-fragment sums independently reconstructed;absolute accuracy and molecular dissociation still unqualified",
+    "goal_review_disposition":"Continue reference-first;one bounded basis/reference-convention decision,no automatic second basis or scattering successor",
+    "atomic_execution_release":"atomic-asymptote-release-20261103.json",
+    "atomic_result_verification":"progress-atomic-qz-endpoints-result-20261103.json",
+    "atomic_execution_released":true,
+    "atomic_finite_endpoints_verified":true,
+    "atomic_sums_qualified":true,
+    "atomic_absolute_accuracy_qualified":false,
+    "active_numerical_job":null,
+    "active_monitor":false,
+    "active_run_status_interval_seconds":600,
+    "next_deliverable":"30minute saved basis/reference-convention decision on one possible matched5Z endpoint control;new exact freeze before any quantum successor"
+  },
+  "updates":{
+    "snapshot_utc":"2026-11-03T11:00:00.000000+00:00",
+    "figure_subtitle":"Four calculated atomic endpoints now exist:17.91s /1.943GiB /all original exits0. Absolute EA accuracy and molecular dissociation remain open",
+    "roadmap_title":"Atomic endpoint gap filled; accuracy open",
+    "roadmap_entries":[
+      {"kind":"reuse","status":"PASS: FOUR FINITE-METHOD ATOMIC ENDPOINTS","title":"C /O /O- /C- totals and all three fragment sums","detail":"Aug-QZ ROHF-reference UCCSD(T);all original exits0"},
+      {"kind":"gated","status":"NOT AN ABSOLUTE-ACCURACY PASS","title":"EA(O)1.4031 /EA(C)1.2350eV","detail":"About58 /27meV from rounded external context"},
+      {"kind":"next","status":"NEXT: ONE BASIS /REFERENCE DECISION","title":"Assess one matched5Z endpoint control","detail":"No automatic basis ladder or scattering successor"},
+      {"kind":"gated","status":"STILL MISSING: MOLECULAR DISSOCIATION","title":"Neutral continuity and bound-anion branch open","detail":"Atomic sums alone do not qualify De /D0 or DA"},
+      {"kind":"gated","status":"THEN: COMPATIBLE CURVE AND HELD-OUT TEST","title":"Fit once after the physical-model decision","detail":"Existing gates and114 holdouts remain intact"}
+    ],
+    "roadmap_note":"No active campaign quantum job or monitor.\n600s checks plus immediate completion configured.\nThis17.9s job finishes before its first periodic check.",
+    "memory_note":"Own aug-TZ preparation:77.13s /6.114GiB /four cores.\nFour atoms:17.91s /1.943GiB container high-water.\nKernel peak cumulative;no parallel-speedup inference.",
+    "memory_next_step":"Use atomic results for reference decisions,not a new root ladder.",
+    "source_footer":"3 NOVEMBER  Calculated finite atomic endpoints fill a real reference gap. Correct product ordering is not absolute EA accuracy,molecular dissociation or a production-model release.",
+    "verification_footer":"Atoms:9 public payloads /47 raw files /14 Git sources /91 samples. Immediate terminal status gap17.91s;zero holdout analysis."
+  }
+}

@@ -268,7 +268,9 @@ def test_preparation_success_does_not_release_an_incompatible_inner_grid():
 
 
 def test_reference_plan_does_not_invent_atomic_results_or_relax_physical_gates():
-    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    live = _snapshot_data(
+        DEFAULT_SNAPSHOT.with_name("progress-snapshot-20261103T0940-reference-plan.json")
+    )["live_status"]
     ledger = json.loads(DEFAULT_SNAPSHOT.with_name(live["atomic_reference_inputs"]).read_text())
     assert ledger["execution_authorized"] is live["atomic_execution_released"] is False
     assert ledger["basis"] == "aug-cc-pVQZ"
@@ -289,3 +291,28 @@ def test_reference_plan_does_not_invent_atomic_results_or_relax_physical_gates()
     assert acquisition["new_quantum_jobs"] == 0
     assert live["production_model_selected"] is live["full_sweep_released"] is False
     assert live["route_holdout_s_matrices_still_unanalyzed"] == 114
+
+
+def test_completed_atomic_pilot_fills_finite_endpoints_not_absolute_accuracy():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["atomic_result_verification"]).read_text())
+    assert (
+        result["finite_method_endpoint_reconstruction_verdict"]
+        is live["atomic_finite_endpoints_verified"]
+        is True
+    )
+    assert result["original_exits"] == [0] * 8 and result["original_atom_profile_exits"] == [0] * 4
+    assert set(result["total_energy_hartree"]) == {"C", "O", "O-", "C-"}
+    assert result["electron_affinity_ev"]["O"] > result["electron_affinity_ev"]["C"] > 0
+    assert (
+        result["atomic_absolute_accuracy_qualified"]
+        is result["molecular_dissociation_qualified"]
+        is False
+    )
+    assert result["finished_before_first_600second_periodic_check"] is True
+    assert result["within_requested_900second_observation_bound"] is True
+    assert live["active_numerical_job"] is None and live["active_monitor"] is False
+    assert (
+        live["full_sweep_released"] is False
+        and live["route_holdout_s_matrices_still_unanalyzed"] == 114
+    )

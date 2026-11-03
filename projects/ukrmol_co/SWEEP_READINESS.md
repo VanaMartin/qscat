@@ -6,7 +6,17 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**3November09:40UTC—[reference-first research queue](RESEARCH_PLAN.md) approved.**
+**3November11:00UTC—[four calculated atomic endpoints independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).**
+The finite-method atomic-sum gap is filled:EAs O1.403073/C1.235049eV,correct
+channel ordering. Absolute EA accuracy,molecular dissociation and a consistent
+resonance curve remain unqualified. All original exits0,17.913795s/1.943348GiB/
+four cores; nine public payloads replay raw energy/source/resource evidence.
+600s active-run checks and immediate terminal observation are configured; this
+job finishes before the first periodic check. No active campaign job/monitor.
+Next one saved basis/reference decision,not an automatic5Z/scattering/fit/sweep
+release; all114 holdouts and original failures remain intact.
+
+**Earlier3November09:40UTC—[reference-first research queue](RESEARCH_PLAN.md) approved.**
 Atomic C/O/O-/C- sums, neutral dissociation continuation and a consistent resonance
 curve are missing. Prioritize their reference/model decisions over further
 scattering-interface improvements. First four-atom aug-QZ protocol/input ledger
