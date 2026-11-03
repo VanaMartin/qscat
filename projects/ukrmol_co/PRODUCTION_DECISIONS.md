@@ -43,6 +43,50 @@ evidence delta, remaining uncertainty, disposition and next deliverable. Report
 goal-level progress to the user first; link technical evidence separately.
 The checkpoint itself does not authorize an expensive calculation.
 
+### Current goal checkpoint —3 November,08:45UTC: preparation qualified, unchanged export stopped
+
+**Goal/starting blocker:** the selected finite plain-TZ/aug-TZ diffuse-basis-plus-
+optimized-frame control atR=2.5bohr supports electronic-model selection before a
+geometry sweep/potential/held-out validation. It is not a production pilot. Common64
+properties were ready; own full-continuum preparation was missing. Physical
+position50meV/full-width5% with1meV floor/phase0.05rad budgets stay unchanged.
+
+**Reused minimum work and actual cost:** pushed exact source/owner `bc3b33a`
+performs one four-rank own integral call, zero CONGEN. Actual native inventory,
+resolved deck and eight target-CSF hashes match qualified DZ, so only its signed
+algebraic expansion/log is reused. No QC/CI/import/property repeat. Actual87,198
+contracted states,77.133800s/6.113655GiB, all eight original exits0;14 runtime
+controls. [Public preparation evidence](qualification-evidence/stretched-augtz-preparation/README.md)
+reconstructs49 full raw files/37 Git sources/386 samples. Conditional30–180s
+forecast contains actual cost, not speedup. Max observation gap30.000512s fails
+strict30s; inherited60s preparation bound passes separately. Previous property
+packaging/reader1 and300.614284s overrun remain preserved.
+
+**Decision-changing evidence delta:** own preparation removes one input obstacle;
+saved CIDATA also exposes a blocker **before** the costly inner solve. Triplet
+B1/B2 root1 thresholds4.941440507eV cross unchanged99-point grid indices97/98
+(requested4.95/5.00eV, actual endpoint5.000092223eV). The adapter demands99×6×6
+K matrices and all excited channels closed over the grid. [Saved-only screen](qualification-evidence/stretched-augtz-inner-preflight/README.md)
+and five fresh public payloads reproduce rejection of that unchanged prerequisite.
+No precise new open-channel count or electronic-invalidity inference is made.
+
+**Unchanged uncertainties:** no augmented pole or diffuse-sensitivity result,
+qualified electronic model, width curve, production fit or sweep. DZ/TZ103.370meV/
+44.172meV sensitivity, unique N+1 identity/continuity, channel/omitted-spectrum,
+neutral correlation/domain and full-scattering validation remain open. Preparation
+and test counts are not physical convergence/readiness metrics.
+
+**Disposition: stop unchanged expensive export; redirect to one threshold-aware
+export/reference design decision.** Bound next deliverable to30minutes current
+source/saved-data review and zero numerical/native/CI/Hamiltonian/maps/holdouts.
+Define the reference prescription and its validation claims before a separately
+frozen/authorized allocation; do not silently narrow the grid or relax gates.
+No target retry, aug-TZ inner contract/solve, B2 rescue, pole/geometry/fit/sweep or
+active campaign monitor. Nine working reference/new50 parked/2048 baseline/
+equilibrium exclusion/114 untouched S holdouts and all original failures stand.
+Next review: that deliverable, a proposed numerical release, or next one-to-two-day
+working-cycle boundary. This checkpoint records the blocker, not its repair.
+
 ### Checkpoint — 23 October 2026: redirect toward production decisions
 
 **Starting position:** reproducible/affordable scattering is substantially in

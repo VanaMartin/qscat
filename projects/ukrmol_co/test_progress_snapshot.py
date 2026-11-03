@@ -236,3 +236,32 @@ def test_completed_aug_properties_keep_monitor_exception_and_physical_gates_sepa
     assert live["active_numerical_job"] is None and live["active_monitor"] is False
     assert live["candidate_insensitivity_verdict"] is False and live["full_sweep_released"] is False
     assert result["new_ci_calls"] == result["new_qc_calls"] == result["new_maps"] == 0
+
+
+def test_preparation_success_does_not_release_an_incompatible_inner_grid():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    prep = json.loads(
+        DEFAULT_SNAPSHOT.with_name(live["augtz_preparation_verification"]).read_text()
+    )
+    screen = json.loads(
+        DEFAULT_SNAPSHOT.with_name(live["augtz_inner_preflight_verification"]).read_text()
+    )
+    assert prep["preparation_verdict"] is live["augtz_preparation_verdict"] is True
+    assert prep["original_exits"] == live["augtz_preparation_original_exits"] == [0] * 8
+    assert prep["contracted_dimension"] == 87198
+    assert prep["new_integral_calls"] == 1 and prep["new_congen_calls"] == 0
+    assert prep["strict_30second_observation_cadence_passed"] is False
+    assert prep["inherited_60second_preparation_observation_bound_passed"] is True
+    assert screen["unchanged_six_open_grid_prerequisite_verdict"] is False
+    assert screen["affected_grid_indices_zero_based"] == [97, 98]
+    assert screen["first_excited_threshold_hartree"] < screen["native_grid_maximum_hartree"]
+    assert (
+        screen["expensive_inner_execution_released"]
+        is live["augtz_inner_execution_released"]
+        is False
+    )
+    assert screen["new_native_calls"] == screen["new_maps"] == 0
+    assert prep["new_inner_solves"] == prep["new_maps"] == 0
+    assert live["production_model_selected"] is live["full_sweep_released"] is False
+    assert live["route_holdout_s_matrices_still_unanalyzed"] == 114
+    assert live["active_numerical_job"] is None and live["active_monitor"] is False

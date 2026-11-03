@@ -1,0 +1,11 @@
+{
+  "artifacts": {
+    "fort.26":{"bytes":36246336,"sha256":"0fe88d3404de060a3335aefa798b86b13c17f656d73befd15ace5236c631e716"},
+    "manifest.json":{"bytes":1618,"sha256":"1e2b3299cd742f12d2daa9f1bd84dac7b4be71f1f260b3a1838d8d224560f747"},
+    "result.json":{"bytes":1458,"sha256":"7c440234d38f5c5e4a9c1f1bc7499776f59d978d7f7b594b27b7145220518b32"},
+    "rsolve.inp":{"bytes":1730,"sha256":"a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa"},
+    "stretched_augtz_inner_preflight.py":{"bytes":3997,"sha256":"2b7c3171c39c4851bf1ff5c5f1cb3ee0a2cfbf42c5fbdc146558253c05367868"}
+  },
+  "git_sha":"f1e3e03eb66943169f6fcbb6a788023ef77e1bdd",
+  "url_prefix":"https://data.qscat.org/co-stretched-augtz-inner-preflight-20261103/"
+}

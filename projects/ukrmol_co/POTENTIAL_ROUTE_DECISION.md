@@ -2,6 +2,26 @@
 
 ## Decision now
 
+**3November08:45UTC: [own aug-TZ preparation independently qualifies](qualification-evidence/stretched-augtz-preparation/README.md),
+but [unchanged inner/export is blocked](qualification-evidence/stretched-augtz-inner-preflight/README.md).**
+One own integral/zero CONGEN; exact equality permits signed algebraic reuse.
+87,198 contracted states,77.133800s/6.113655GiB, all eight original exits0;
+full public raw-byte/Git replay. Strict30s cadence fails at30.000512s, inherited
+60s preparation bound passes; all earlier operational failures stay explicit.
+Own triplet Pi thresholds4.941440507eV cross the existing99-point diagnostic
+grid at requested4.95/5.00eV, incompatible with its fixed six-open-channel gate.
+This rejects the unchanged export prescription, not the electronic model.
+
+**Stop before the hours-long solve; redirect** to one explicit threshold-aware
+export/reference design and qualification scope,30minutes saved-only review/zero
+native/CI/Hamiltonian/maps/holdouts. No grid narrowing, gate relaxation, target
+retry or aug-TZ inner allocation occurred. No active job/monitor, pole/B2/geometry/
+fit/sweep release. Preparation is a necessary input, not new scattering evidence;
+production-model/width-curve/N+1-identity/full-S uncertainties remain unchanged.
+Review on that design deliverable or before any proposed expensive release.
+
+### Earlier3November preparation release
+
 **3November08:03UTC user continuation selects [one separate own aug-TZ preparation](stretched-augtz-preparation-contract-20261103.json).**
 Fresh saved full DZ proof/receipt and aug-TZ64 reading authenticate; live saved
 inputs agree. One own four-rank full-continuum integral call, conditional signed

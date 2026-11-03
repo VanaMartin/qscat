@@ -848,9 +848,21 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 <a id="progress-overview--1-november-2026"></a>
 
-## Progress overview — 2 November 2026
+<a id="progress-overview--2-november-2026"></a>
 
-**22:50UTC:** [aug-TZ64 properties independently qualify](qualification-evidence/stretched-augtz-properties/README.md),
+## Progress overview — 3 November 2026
+
+**08:45UTC:** [own aug-TZ preparation independently qualifies](qualification-evidence/stretched-augtz-preparation/README.md),
+one own integral/zero CONGEN and exact signed-CSF reuse gates;87,198 contracted
+states,77.133800s/6.113655GiB/all eight original exits0. Full public raw-byte/Git
+replay; strict30s cadence fails separately at30.000512s (inherited60s bound passes).
+[Saved-only preflight blocks unchanged inner/export](qualification-evidence/stretched-augtz-inner-preflight/README.md):
+triplet thresholds4.94144eV cross the grid's4.95/5.00eV requested points,
+incompatible with the fixed six-open-channel requirement. No costly solve, grid
+narrowing, target retry or new scattering result. Next explicit threshold-aware
+export/reference design; no active campaign job, production or automatic successor.
+
+**Earlier2November22:50UTC:** [aug-TZ64 properties independently qualify](qualification-evidence/stretched-augtz-properties/README.md),
 64 states/1928 moments, all eight original execution exits0,4.781h/1.693GiB.
 First terminal packaging failure and strict300s monitor overrun remain explicit.
 No active campaign job/monitor. Next freeze the minimum own integral/conditional
@@ -871,9 +883,13 @@ physical cores/8GiB; independent actual result/cost required before preparation.
 Production fitting remains stopped; the target-correspondence result below does
 not waive the measured pole sensitivity or unproved N+1 resonance identity.
 
-![Aug-TZ64 properties independently qualify; finite pole sensitivity still blocks fitting and preparation needs a separate freeze](../../docs/physics/figures/co-progress-20261102T2250-augtz-properties.png)
+![Own aug-TZ preparation qualifies; excited thresholds block unchanged six-open-channel export before a costly solve](../../docs/physics/figures/co-progress-20261103T0845-augtz-preflight.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261102T2250-augtz-properties.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261103T0845-augtz-preflight.svg) ·
+[Preparation and blocker snapshot](progress-snapshot-20261103T0845-augtz-preflight.json) ·
+[Independent preparation](qualification-evidence/stretched-augtz-preparation/README.md) ·
+[Saved-only export blocker](qualification-evidence/stretched-augtz-inner-preflight/README.md) ·
+[Previous completed-property figure](../../docs/physics/figures/co-progress-20261102T2250-augtz-properties.svg) ·
 [Completed property snapshot](progress-snapshot-20261102T2250-augtz-properties.json) ·
 [Independent completed properties](qualification-evidence/stretched-augtz-properties/README.md) ·
 [Previous active-launch figure](../../docs/physics/figures/co-progress-20261102T1755-augtz-property-launch.svg) ·

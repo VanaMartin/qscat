@@ -1,0 +1,55 @@
+{
+  "base_snapshot":"progress-snapshot-20261102T2250-augtz-properties.json",
+  "base_snapshot_sha256":"e6442c506e9eb75859731cc6c5153704525dc92017dacd122fd8d123a8e718c1",
+  "additional_source_file_sha256":{
+    "projects/ukrmol_co/SWEEP_READINESS.md":"40edcfc50a900434d312ce8e03a97d77f1d9df74d3ba9fc44ed43a533b6b244b",
+    "projects/ukrmol_co/progress_figure.py":"bd237399441b773a306ebfddd814abe76d52ba00aa9aea5f1a10ee8a0601480a",
+    "projects/ukrmol_co/CONTINUATION.md":"f05e58cf57a8c16b33733be5694b090385b3f9430cfdf210fc66e4467c373f7b",
+    "projects/ukrmol_co/README.md":"0df2d14ee6c28281f3a2456e7784dab6cdbf7dc1e4276adb45c384ca868c86ed",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md":"6d62d44c01efbf426064130a527874f7f1ff562aaee8bf529a4dc0a57932ace2",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md":"4f1a71ae72bfc50f861fcb1bf131a2e609b28e8a89e376dd1a1f439741d1627a",
+    "projects/ukrmol_co/verify_stretched_preparation.py":"e604ad10ee8a211e1b275ab905cf4dea8a1f54ede38b8e072856fd352688033e",
+    "projects/ukrmol_co/test_progress_snapshot.py":"6e1d01522eb6efbfba12f7aaf052796b60196008b4f2cd01193cf16de370ec08",
+    "docs/physics/co-stretched-diffuse-flexibility.md":"4e239ae4f869fe5ae0e1cf49aad19f29687a377c80866f63273dd85aa763a63e",
+    "projects/ukrmol_co/stretched_augtz_inner_preflight.py":"2b7c3171c39c4851bf1ff5c5f1cb3ee0a2cfbf42c5fbdc146558253c05367868",
+    "projects/ukrmol_co/test_stretched_augtz_inner_preflight.py":"eb0f56a34c382bcfd7b4ff1c8b907d880d3b18133e27b3022f0052eb150e9662",
+    "projects/ukrmol_co/verify_stretched_augtz_preparation.py":"dc470b5d7bdbdb2f1b00a1c4ee83d5c97c9c9b336911399fc8c65cdd39c95c21",
+    "projects/ukrmol_co/progress-stretched-augtz-preparation-result-20261103.json":"9f44257b63cbf58c8b4707d92ca8e239e43d91eedec19b95d8082fa88bba2822",
+    "projects/ukrmol_co/progress-stretched-augtz-inner-preflight-20261103.json":"37c418ca33b714faa51049eb3be5e5db9d6da7f8f55ab27f3c73aa22c03cc6f2",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-preparation/artifacts.json":"c2010e64adbcbf64fc3f2aa79c251fc525546be877fbaaf82691c1d14b3d82a1",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-preparation/manifest.json":"f0757e2d54bce139988a066da1e4554226c4835bc7f42250fa055e0bc5f2e18a",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-preparation/README.md":"69c41274d1c56cb54d39da5d18026c54b909f6128e03cca7cdb7e9f8d5c62fa9",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-inner-preflight/artifacts.json":"561c4d67473b2ecd60158fed5e4d6e6e36751e9783d12eee6cf1bf7df9993cef",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-inner-preflight/manifest.json":"1e2b3299cd742f12d2daa9f1bd84dac7b4be71f1f260b3a1838d8d224560f747",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-inner-preflight/README.md":"9e422416575662996be81ed734ea3d65105380d4484537a088c3d0bf63434ac1"
+  },
+  "live_status_updates":{
+    "scope":"Own aug-TZ preparation independently qualifies;unchanged99-point/six-open-channel inner export blocked before costly allocation",
+    "goal_review_disposition":"Stop unchanged allocation;redirect to explicit threshold-aware export/reference design;no numerical successor",
+    "augtz_preparation_verification":"progress-stretched-augtz-preparation-result-20261103.json",
+    "augtz_preparation_verdict":true,
+    "augtz_preparation_original_exits":[0,0,0,0,0,0,0,0],
+    "augtz_inner_preflight_verification":"progress-stretched-augtz-inner-preflight-20261103.json",
+    "augtz_inner_execution_released":false,
+    "active_numerical_job":null,
+    "active_monitor":false,
+    "next_deliverable":"Threshold-aware export/reference design and qualification scope;30minute saved-only review/zero numerical calls;no silently narrowed grid or target retry"
+  },
+  "updates":{
+    "snapshot_utc":"2026-11-03T08:45:00.000000+00:00",
+    "figure_subtitle":"Own aug-TZ preparation qualifies:87,198 states /77.13s /6.114GiB. Excited thresholds block unchanged six-open-channel export before costly solve",
+    "roadmap_title":"Preparation ready; export grid blocked",
+    "roadmap_entries":[
+      {"kind":"reuse","status":"PASS: OWN AUG-TZ PREPARATION","title":"87,198 states;all eight original exits0","detail":"One own integral /zero CONGEN;signed-CSF reuse"},
+      {"kind":"reuse","status":"MEASURED INPUT STAGE,NOT SCATTERING","title":"77.13s /6.114GiB;full public replay","detail":"Strict30s gap fails at30.000512s;60s bound passes"},
+      {"kind":"reject","status":"BLOCKED: UNCHANGED SIX-OPEN-CHANNEL GRID","title":"Triplet thresholds4.94144eV <grid5.00009eV","detail":"Requested4.95 /5.00eV points cross;no inner solve"},
+      {"kind":"next","status":"NEXT: THRESHOLD-AWARE REFERENCE DESIGN","title":"No silent grid narrowing or target retry","detail":"Saved-only decision before a new costly release"},
+      {"kind":"gated","status":"PHYSICAL SENSITIVITY STILL BLOCKS FITTING","title":"DZ /TZ shifts103.370 /44.172meV remain","detail":"No augmented pole,production model or sweep"}
+    ],
+    "roadmap_note":"No active campaign numerical job or monitor.\nPreparation success does not waive export closure.\nAll114 S holdouts and original failures preserved.",
+    "memory_note":"DZ /TZ poles:409.61 /409.19s;3.002 /3.019GiB.\nAug-TZ64 properties:4.781h /1.693GiB kernel peak.\nOwn aug-TZ preparation:77.13s /6.114GiB /four cores.",
+    "memory_next_step":"No inner allocation:threshold-aware export design needed.",
+    "source_footer":"3 NOVEMBER  Own aug-TZ preparation qualifies;threshold crossing blocks unchanged export. No expensive inner solve or new scattering effect;production fitting remains stopped.",
+    "verification_footer":"Preparation:9 public payloads /49 full raw files /37 Git sources /386 samples. Saved-only threshold screen reproduces;114 holdouts protected."
+  }
+}

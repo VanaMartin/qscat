@@ -6,7 +6,20 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**2November22:50UTC—[aug-TZ64 properties independently qualify](qualification-evidence/stretched-augtz-properties/README.md).**
+**3November08:45UTC—[own aug-TZ preparation qualifies](qualification-evidence/stretched-augtz-preparation/README.md);
+[unchanged inner/export is blocked](qualification-evidence/stretched-augtz-inner-preflight/README.md).**
+One own integral/zero CONGEN, signed algebraic reuse after actual equality gates;
+87,198 contracted states,77.133800s/6.113655GiB/all eight original exits0. Full
+public replay qualifies preparation, not scattering or electronic accuracy.
+Strict30s cadence fails at30.000512s; inherited60s preparation bound passes.
+Triplet Pi thresholds4.941440507eV cross requested4.95/5.00eV points of the old
+grid, incompatible with fixed six-open-channel export. Stop before costly solve;
+next explicit threshold-aware export/reference design only,30minute saved-only/
+zero numerical-call bound. No grid narrowing, gate relaxation, target repeat or
+aug-TZ inner allocation. No active campaign job/monitor or new pole/fit/sweep
+release;114 holdouts and all previous failures remain protected.
+
+**Earlier2November22:50UTC—[aug-TZ64 properties independently qualify](qualification-evidence/stretched-augtz-properties/README.md).**
 64 states/eight per sector/1928 moments, all eight original execution exits0;
 4.780938h/1.693340GiB. Thirteen fresh public payloads/85869 samples reconstruct;
 first metadata-packaging/reader1 and strict300s cadence overrun remain explicit.

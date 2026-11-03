@@ -1,5 +1,32 @@
 # Finite stretched CAS12 diffuse-flexibility control
 
+## Current disposition —3 November
+
+[Own aug-TZ preparation independently qualifies](../../projects/ukrmol_co/qualification-evidence/stretched-augtz-preparation/README.md):
+one own four-rank integral/zero CONGEN, actual equality permits signed algebraic
+DZ-CSF reuse;87,198 contracted states,77.133800s/6.113655GiB/all eight original
+exits0. Nine public payloads reconstruct full raw evidence and executing Git
+sources. Strict30s observation cadence fails at30.000512s; inherited60s
+preparation bound passes, separately from the scientific exits.
+
+**The unchanged inner/export prescription is blocked**, not launched. The
+[saved CIDATA screen](../../projects/ukrmol_co/qualification-evidence/stretched-augtz-inner-preflight/README.md)
+finds triplet.B1/B2 root1 thresholds0.181594589190Ha (4.941440507eV), below grid
+maximum0.18375Ha (5.000092223eV). Requested4.95/5.00eV points violate the
+adapter's excited-channel-closure prerequisite for its99×6×6 K view. Native
+energies use the pinned0.0735Rydberg/requested-eV conversion; physical reporting
+uses `qscat.units`. This is not a failure of augmented electronic validity or
+successful properties/preparation, and no precise new open-channel count is
+asserted before native export.
+
+Stop the unchanged hours-long allocation. Next is an explicit threshold-aware
+export/reference prescription and qualification scope,30minutes saved-source/
+data review/zero numerical calls. No silent grid narrowing, gate relaxation,
+target retry, new inner contract or solve. A new costly release needs its own
+design/source/tests/owner freeze. No augmented pole/diffuse-sensitivity/production
+verdict exists. All earlier failures and114 holdouts remain untouched.
+The staged releases below are historical, not authorization to bypass this stop.
+
 ## Physical question and scope
 
 The qualified DZ/TZ finite poles differ by103.370meV in position and44.172meV in

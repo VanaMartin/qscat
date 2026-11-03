@@ -1,0 +1,37 @@
+{
+  "unchanged_six_open_grid_prerequisite_verdict": false,
+  "first_excited_threshold_hartree": 0.18159458918989912,
+  "first_excited_threshold_ev": 4.941440506627862,
+  "native_grid_maximum_hartree": 0.18375,
+  "native_grid_maximum_physical_ev": 5.000092222700295,
+  "crossed_retained_target_thresholds": [
+    {
+      "sector": "triplet.B1",
+      "root": 1,
+      "threshold_hartree": 0.18159458918989912,
+      "threshold_ev": 4.941440506627862
+    },
+    {
+      "sector": "triplet.B2",
+      "root": 1,
+      "threshold_hartree": 0.18159458919126337,
+      "threshold_ev": 4.941440506664985
+    }
+  ],
+  "affected_grid_indices_zero_based": [97, 98],
+  "affected_requested_energies_ev": [4.95, 5.0],
+  "new_native_calls": 0,
+  "new_ci_calls": 0,
+  "new_hamiltonian_actions": 0,
+  "new_maps": 0,
+  "route_holdout_s_matrices_analyzed": 0,
+  "automatic_successor": false,
+  "expensive_inner_execution_released": false,
+  "full_sweep_released": false,
+  "scope": "Saved N-electron thresholds versus existing diagnostic prescription;not a native variable-open-channel export or a rejection of the electronic model",
+  "cidata_sha256": "0fe88d3404de060a3335aefa798b86b13c17f656d73befd15ace5236c631e716",
+  "deck_sha256": "a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa",
+  "maximum_native_norm_error": 1.1213252548714081e-14,
+  "native_rydberg_per_requested_ev": 0.0735,
+  "hartree_to_reported_ev": 27.211386245988
+}

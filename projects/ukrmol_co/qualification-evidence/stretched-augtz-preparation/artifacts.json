@@ -1,0 +1,15 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes":10398,"sha256":"f148e4c869d17d08b6afddb180b62a21792c9f0f4beac601d0e75e2c5da5b9a0"},
+    "evidence.tar.gz": {"bytes":169456544,"sha256":"b0424e510340d24a835a086e654d01f20bd023c6b49adee98e73ccc530838ff1"},
+    "manifest.json": {"bytes":305,"sha256":"f0757e2d54bce139988a066da1e4554226c4835bc7f42250fa055e0bc5f2e18a"},
+    "reading.json": {"bytes":5319,"sha256":"62df9b71bd93d70db2a4be5dfa787888401cf4ac6edaf98dc68c8078e94a75ae"},
+    "result-summary.json": {"bytes":4287,"sha256":"cd357d7a487575f186b2f90efa81c4bfbde21da866689f06adfc75ac55c1b4d1"},
+    "test_verify_stretched_augtz_preparation.py": {"bytes":984,"sha256":"8585d3996d3522d41a17f96f0085677eec4744bc39eb31655eec253171283400"},
+    "verify_stretched_augtz_preparation.py": {"bytes":5402,"sha256":"dc470b5d7bdbdb2f1b00a1c4ee83d5c97c9c9b336911399fc8c65cdd39c95c21"},
+    "verify_stretched_preparation.py": {"bytes":17571,"sha256":"e604ad10ee8a211e1b275ab905cf4dea8a1f54ede38b8e072856fd352688033e"},
+    "verify_stretched_properties.py": {"bytes":12610,"sha256":"853bf28ad3603e7a7c737fc7675a2704852be68a93b9b41a7b0bac18b0a30315"}
+  },
+  "git_sha":"2040dbefb617eb8e35e941b3495fc2a02a4023e1",
+  "url_prefix":"https://data.qscat.org/co-stretched-augtz-preparation-20261103/"
+}

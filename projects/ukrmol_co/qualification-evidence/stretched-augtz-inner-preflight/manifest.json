@@ -1,0 +1,21 @@
+{
+  "git_sha": "f1e3e03eb66943169f6fcbb6a788023ef77e1bdd",
+  "experiment": "co-stretched-augtz-inner-preflight-20261103",
+  "source_sha256": {
+    "projects/ukrmol_co/stretched_augtz_inner_preflight.py": "2b7c3171c39c4851bf1ff5c5f1cb3ee0a2cfbf42c5fbdc146558253c05367868",
+    "projects/ukrmol_co/test_stretched_augtz_inner_preflight.py": "eb0f56a34c382bcfd7b4ff1c8b907d880d3b18133e27b3022f0052eb150e9662",
+    "projects/ukrmol_co/verify_stretched_properties.py": "853bf28ad3603e7a7c737fc7675a2704852be68a93b9b41a7b0bac18b0a30315",
+    "projects/ukrmol_co/phase_diagnostics.py": "b10e1f4c2a42dcebd5541150bcca4e1c754e6a15937bfd7c1c7e289c8655c4b0",
+    "projects/ukrmol_co/native_full_reconstruction.py": "fd05aa8ec4b1e40cf7e3921ae34d2ecd11039949c6851129389e9e9c785bf0ec",
+    "libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+    "projects/ukrmol_co/compressed-cas12-inner-inputs-20261026/scattering.rsolve.doublet.B1.inp": "a8069d2c8fc4757b10b989e747a7c6806c81c1e9e8c28392b99fe4de8498d9aa"
+  },
+  "preparation_url_prefix": "https://data.qscat.org/co-stretched-augtz-preparation-20261103/",
+  "preparation_archive_sha256": "b0424e510340d24a835a086e654d01f20bd023c6b49adee98e73ccc530838ff1",
+  "preparation_collection_sha256": "f148e4c869d17d08b6afddb180b62a21792c9f0f4beac601d0e75e2c5da5b9a0",
+  "cidata_archive_member": "outputs/preparation/fort.26",
+  "screen_execution_exit": 0,
+  "unchanged_grid_prerequisite_verdict": false,
+  "expensive_inner_execution_released": false,
+  "scope": "Saved-only prerequisite rejection;no native export or scientific-model rejection"
+}

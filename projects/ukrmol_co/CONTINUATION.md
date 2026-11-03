@@ -88,7 +88,38 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### User continuation selects one own aug-TZ preparation —3 November,08:03UTC checkpoint
+### Current: own preparation qualifies; unchanged inner/export blocked —3 November,08:45UTC
+
+[Preparation evidence](qualification-evidence/stretched-augtz-preparation/README.md)
+and [saved-only threshold blocker](qualification-evidence/stretched-augtz-inner-preflight/README.md)
+are independently public. Preparation finishes08:17:56UTC: one own integral/zero
+CONGEN, exact inventory/deck/eight target-CSF equality allows signed algebraic DZ
+reuse;87,198 contracted states,77.133800s/6.113655GiB, all eight original exits0.
+Nine public payloads replay49 full raw files/37 executed Git sources/11 source
+prerequisites/386 samples. Strict30s cadence fails at30.000512s; inherited60s
+preparation bound passes. Earlier failures and monitoring exceptions remain.
+
+**New blocker, not a target failure:** own triplet.B1/B2 root1 thresholds are
+4.941440507eV, below unchanged99-point grid maximum5.000092223eV. Five fresh public
+screen payloads reproduce affected zero-based indices97/98/requested4.95/5.00eV.
+Existing99×6×6 export gate requires all excited thresholds closed over the grid;
+the unchanged recipe cannot qualify. No exact new open-channel count is asserted.
+
+**Disposition: stop unchanged expensive allocation; redirect to a threshold-aware
+export/reference decision.** One next deliverable: explicit design/qualification
+scope, at most30minutes saved-source/data review and zero numerical/native/CI/
+Hamiltonian/map/holdout work; no new allocation without a separate exact release.
+Do not silently narrow the grid, relax gates or retry targets. No aug-TZ inner
+contract, solve, pole, B2 rescue, geometry, fit or sweep has been launched. No
+campaign numerical job/monitor active. Preparation removes an input obstacle,
+not diffuse-pole sensitivity, N+1 identity or production uncertainty. Existing
+103.370meV/44.172meV rejection, nine/new50/2048/equilibrium and114 holdouts stand.
+
+Main-index check still errors on incompatible shared-service code/dependencies;
+last-known snapshot `423d5770d3de337571f51e62702ae919bad97e8c`, upstream currency
+unverified. Used current local branch source/delta; no service intervention.
+
+### Earlier: user continuation selects one own aug-TZ preparation —3 November,08:03UTC
 
 [Exact contract](stretched-augtz-preparation-contract-20261103.json) /
 [reuse overlay](stretched-augtz-preparation-reuse-20261103.json). Five fresh public
