@@ -1,0 +1,12 @@
+{
+  "artifacts": {
+    "bse-oxygen-daugqz.json": {"bytes":13236,"sha256":"36c967dd4a763e71b2e5fca3809cfc7796a4780a5f26b3dda875fd0a9152b806"},
+    "collection.json": {"bytes":3941,"sha256":"8a7bcef5ba9f1bee23fd10e3b4e4705aff866a6e323e6c20e51f8f2c943ae36f"},
+    "config.resolved.json": {"bytes":2743,"sha256":"279bf43ae60d7265ef097357ca9c5e719b37d0954770e4d9dcd08d852a5874e0"},
+    "evidence.tar.gz": {"bytes":313129,"sha256":"7ba5b429be6a64a84b32c63498e126c7167d69b0cc45c9360000a7e4b4e50645"},
+    "manifest.json": {"bytes":289,"sha256":"a093823f63ccf0fae05e116e935a2e5aa9a29ca7c5c0697cfc501716cac26b7c"},
+    "reconstruction.json": {"bytes":722,"sha256":"3e9969dc8415a1460edabc52097aa5022b9bf5c9f8ae5f932afaffa2be1effde"}
+  },
+  "git_sha":"a2968d92e7494ac16b14b17efb4aa2de7363f571",
+  "url_prefix":"https://data.qscat.org/co-oxygen-affinity-diffuse-stop-20261103/"
+}

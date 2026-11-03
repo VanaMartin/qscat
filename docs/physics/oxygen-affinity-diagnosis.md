@@ -24,7 +24,7 @@ The saved isolated atoms have consistent electron counts, 2s2/2p4 and 2s2/2p5
 occupations, spin, one frozen 1s pair and E(O)−E(O−) subtraction. No R-matrix
 radius enters these calculations. There is no demonstrated configuration bug.
 
-The unjustified setting was the **accuracy expectation**: a frozen-core,
+The unsupported assumption would be the **accuracy expectation**: a frozen-core,
 nonrelativistic finite-basis CCSD(T) calculation is not a complete prediction of
 an isotope/lowest-J experimental threshold. The saved 5Z affinity decomposes as
 HF −0.538835931 eV, CCSD 1.263421920 eV, and triples +0.163184539 eV. Correlation

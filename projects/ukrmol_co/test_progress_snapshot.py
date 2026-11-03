@@ -8,6 +8,21 @@ import pytest
 from projects.ukrmol_co.progress_figure import DEFAULT_SNAPSHOT, ROOT, _snapshot_data
 
 
+def test_affinity_controls_do_not_claim_a_corrected_absolute_endpoint():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    assert live["oxygen_semicanonical_electron_affinity_ev"] == pytest.approx(
+        1.426635553589346, abs=1e-11, rel=0
+    )
+    assert live["oxygen_orbital_convention_meaningful_at_0_1_mev"] is False
+    assert live["oxygen_diffuse_original_worker_exits"] == [0, 1]
+    assert live["oxygen_diffuse_original_owner_exit"] == 2
+    assert live["oxygen_diffuse_electron_affinity_ev"] is None
+    assert live["oxygen_diffuse_shift_ev"] is None
+    assert live["oxygen_diffuse_failure_requalified"] is False
+    assert live["atomic_absolute_accuracy_qualified"] is False
+    assert live["active_numerical_job"] is None and live["active_monitor"] is False
+
+
 def test_current_snapshot_pins_sources_and_does_not_requalify_the_co_stop():
     snapshot = _snapshot_data(DEFAULT_SNAPSHOT)
     for name, expected in snapshot["source_file_sha256"].items():

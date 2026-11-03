@@ -1,0 +1,39 @@
+{
+  "base_snapshot": "progress-snapshot-review-20261103.json",
+  "base_snapshot_sha256": "766ee884f9c8f9fb76da939f503edb3985646502b7e8d0d73ba361a0bf20f9cc",
+  "additional_source_file_sha256": {
+    "projects/ukrmol_co/CONTINUATION.md": "350563ab8e1a67c166002c366b4a52461d7967d05117dab822bf64d31adcac10",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md": "f20f009f040994d722a32dafb601df16e1567affa185a333b0c5b391b0ef86ad",
+    "projects/ukrmol_co/qualification-evidence/README.md": "56f9da8c4f252b6358e5b8b4bb37d07a64a0d621b37bcc57e0e8672755fcd165",
+    "projects/ukrmol_co/progress_figure.py": "fc87aea2e2662d8be57668e3fef8981e01f46c94207bbab2acef06a2abea7d74",
+    "projects/ukrmol_co/test_progress_snapshot.py": "ba95669997384d495bcce143c26cc2007c35d68f7cc664a47b6696b5180b5730",
+    "docs/physics/oxygen-affinity-diagnosis.md": "bb0cd4f34ee95f0123e4c82b76b86428c94a711299cf57a4f374c2e6a02deed7",
+    "projects/ukrmol_co/verify_oxygen_affinity.py": "058df6388ec46348ff3a4bf02a962f3dd5cf6d234b30fc5b2011168164098561",
+    "projects/ukrmol_co/verify_oxygen_diffuse.py": "ebed8007b6edc6d8dfdccf6ce119e896772418e13259f694edd2686b4bfc9a3c",
+    "reference/literature/deoliveira-1999-pra60-1034.md": "72c59cc9b74c2ce42348cfe905211ecea3a81b4e0d16097705a8a5dfb9c2fe7e",
+    "projects/ukrmol_co/qualification-evidence/oxygen-affinity-orbitals/artifacts.json": "33d441c036434e3593b24bad82b4cc7b41e279b1993d0958361c6640ab188d2a",
+    "projects/ukrmol_co/qualification-evidence/oxygen-affinity-diffuse-stop/artifacts.json": "be93c8081ce9866a023c3f02705dd24f0548a5f100b79ab7fad8b85141c79069"
+  },
+  "updates": {
+    "snapshot_utc": "2026-11-03T14:32:00+00:00"
+  },
+  "live_status_updates": {
+    "scope": "Orbital convention changes saved5Z oxygen EA by0.029095meV;fixed-QZ diffuse attempt stops at unconverged anion SCF;absolute affinity unresolved",
+    "oxygen_semicanonical_electron_affinity_ev": 1.426635553589346,
+    "oxygen_orbital_convention_ea_shift_ev": 0.000029094706024412886,
+    "oxygen_orbital_convention_meaningful_at_0_1_mev": false,
+    "oxygen_diffuse_original_worker_exits": [0, 1],
+    "oxygen_diffuse_original_owner_exit": 2,
+    "oxygen_diffuse_electron_affinity_ev": null,
+    "oxygen_diffuse_shift_ev": null,
+    "oxygen_diffuse_failure_requalified": false,
+    "atomic_absolute_accuracy_qualified": false,
+    "active_numerical_job": null,
+    "active_monitor": false,
+    "automatic_successor": false,
+    "goal_review_disposition": "Stop diffuse-SCF route;select one state/core-consistent correlation control,without gate relaxation or empirical correction",
+    "next_deliverable": "At most60minutes saved-source/method selection,zero new quantum calls;one correlation control with spin/residual gates and a costed pilot contract",
+    "production_model_selected": false,
+    "full_sweep_released": false
+  }
+}
