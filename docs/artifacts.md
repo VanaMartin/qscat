@@ -1,10 +1,18 @@
 # Published artifacts
 
-Some results in this repository are not committed. A converged sweep is a few
-hundred kilobytes of CSV that takes minutes to hours of MUMPS solves to
-produce — reproducible from a committed config, but expensive enough that
-recomputing it to look at a number would be absurd. Those bytes live in public
-object storage; what is committed is a small pointer beside them.
+Experiment records belong in immutable external storage, not Git, regardless of
+size. This includes filled plans, resolved inputs, executed source snapshots,
+runtime manifests, outputs, original failures, analyses, tables, figures and
+reports. Git holds reusable code, synthetic/analytic tests, durable guidance and
+minimal ID/URL/checksum references. See [experiment planning](experiment-planning.md).
+
+Use fresh external work directories, not the checkout, for new records. A changed
+attempt or corrected analysis is a new immutable object with its parent recorded;
+do not overwrite a previous observation or import its data-heavy Git history to
+make it reproducible. Archive the exact executed source bytes. Verify a fresh
+download and the full inventory before treating a bundle as portable evidence.
+Existing tracked experiment data await a separate archival/merge pass; this is
+not authorization to delete or rewrite them during ongoing experiments.
 
 ## Three tiers, by who reads the number
 
@@ -25,12 +33,13 @@ multivalued one. The O₂ mesh has 134× margin at its finest spacing and loses 
 points, but level-aware meshes exist to resolve peaks a few meV wide, so that
 margin is not worth spending for 13 kB.
 
-Everything a claim *depends* on stays in git: the golden inputs tests read, the
-fit reports that lock model constants, the figures the physics notes discuss.
-The classification, the measurements behind it, and why the line is drawn there
-are recorded in `docs/adr/0008-computed-artifacts-live-in-public-object-storage.md`
-— a repository-only document, so it is named by path rather than linked: `adr/`
-is excluded from this site.
+These tiers choose representation **within storage**, not exceptions to the
+data/code boundary. Do not turn experiment outputs into tracked “golden” fixtures
+or result documentation. Tests needing real records should fetch authenticated
+external fixtures explicitly; small synthetic/analytic controls remain source.
+The older classification in
+`docs/adr/0008-computed-artifacts-live-in-public-object-storage.md` describes the
+legacy layout, superseded by the record boundary above for new work.
 
 ## Fetching
 
@@ -50,20 +59,19 @@ validation/factory/results/o2-ve  (from 69742d8)
   https://data.qscat.org/o2-ve/cross_section.f8808b6e6355.png
 ```
 
-Only outputs are on that list. Every published run directory also carries a
-committed `config.resolved.yaml` and `manifest.json` — the input the sweep is a
-function of, and the record of what produced it — so a clone with no network
-can still say exactly what a published number came from and how to re-run it.
-Both are kilobytes; putting them behind a download would make them unavailable
-precisely when they are wanted.
+New records include resolved inputs and runtime provenance in the immutable
+bundle alongside outputs. Older pointers may list only outputs and have tracked
+`config.resolved.yaml`/`manifest.json` companions; their continued presence is
+legacy evidence, not the template for new experiments. An offline clone can
+identify the external record but need not contain its experimental payload.
 
 Every file is checked against the sha256 recorded when it was published. A
 mismatch is an error, and the bad bytes are not written — a truncated download
 must never end up on disk looking like data. A file already present and correct
 is skipped, so re-running costs nothing and an interrupted fetch resumes.
 
-Directories without an `artifacts.json` keep their results in git and need no
-fetching.
+Some legacy directories still contain tracked results. Absence of an
+`artifacts.json` is not permission to add new experiment data to Git.
 
 ## What a pointer may say
 
@@ -102,7 +110,8 @@ $ curl -O https://data.qscat.org/o2-ve/cross_section.<digest>.npz
 ```python
 import io, urllib.request, numpy as np
 url = "https://data.qscat.org/o2-ve/cross_section.<digest>.npz"
-d = np.load(io.BytesIO(urllib.request.urlopen(url).read()))
+request = urllib.request.Request(url, headers={"User-Agent": "qscat-reader/1.0"})
+d = np.load(io.BytesIO(urllib.request.urlopen(request).read()))
 E, sigma = d["energy"], d["ti:ve:v0->0"]
 ```
 

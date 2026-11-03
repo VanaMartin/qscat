@@ -22,6 +22,7 @@ served from <https://data.qscat.org>.
 getting-started
 api/index
 artifacts
+experiment-planning
 related-work
 ```
 

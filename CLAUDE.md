@@ -10,6 +10,30 @@ reference material but deliberately deferred — not part of this phase.
 
 ## The lifecycle
 
+Before planning, extending or retrying an experiment, apply
+[goal-directed experiment planning](docs/experiment-planning.md). Name the final
+observable and blocking physical decision; distinguish provenance, numerical
+verification, independent implementation agreement and physical validation.
+Freeze the smallest discriminating test, outcome-to-decision rules, uncertainty
+and resource/implementation caps before launch. Reassess support work that does
+not change the physical decision. The
+[CO lessons](docs/physics/co-experiment-lessons.md) illustrate the failure modes.
+
+**Experiment records are write-once data, not versioned source.** Keep filled
+plans, inputs, executed source capsules, runtime manifests, outputs, analyses,
+figures and run/continuation ledgers in immutable external storage. Git may hold
+reusable code, synthetic/analytic tests, durable methodology and minimal
+ID/URL/checksum references—not per-run payloads disguised as small JSON fixtures
+or documentation. Freeze exact experiment inputs/source in storage; commit/push
+new reusable code before using it, not experiment data. Corrected analyses or
+changed attempts get new immutable identities and retain the original failure.
+This rule supersedes legacy record-placement guidance below and in older
+experiment notes; existing tracked records await a separate archive/merge pass,
+not expansion or deletion during unrelated work. No history rewrite is implied.
+For CO, use the minimal [experiment catalogue](projects/ukrmol_co/experiments.md)
+to find new external decision cards and handoffs. These supplement the legacy
+campaign records; only a current, bounded release authorizes a calculation.
+
 Every method or numerical capability moves through five stages:
 
 1. **Design** — work out the math/algorithm (see `docs/physics/`), decide the
@@ -473,14 +497,11 @@ apps/       qscat-run — THE single execution surface: one YAML config runs
             earlier commit-addressed scheme was orphaned by three separate
             rebases and stored 25% of the bucket twice.
             Fetching verifies every byte and refuses to leave failing
-            bytes on disk. A pointer names only OUTPUT: the run's
-            `config.resolved.yaml` and `manifest.json` stay tracked beside it,
-            so an offline clone has the input and the provenance for every
-            published number (guarded by
-            `apps/qscat-run/tests/test_artifact_store.py`, since a fetched
-            config and a cloned one are indistinguishable on disk).
-            What stays in git is what a test or a note needs to
-            stand alone -- golden inputs, fit reports, cited figures -- see
+            bytes on disk. For new experiments, resolved inputs, manifests and
+            outputs all belong in the external immutable record. A minimal
+            tracked pointer identifies the record; it does not duplicate its
+            contents. Older tracked run directories retain their legacy layout
+            until the separate archive pass. See
             docs/adr/0008-computed-artifacts-live-in-public-object-storage.md
             for the classification and docs/artifacts.md for the reader's side.
             NOT here: the project's public face. `qscat.org` (the landing page)
