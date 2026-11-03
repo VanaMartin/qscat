@@ -1,7 +1,7 @@
 """No-quantum atomic inventory, energy-zero, release and first-failure controls."""
 
-import ast
 import hashlib
+import inspect
 import json
 import math
 import tempfile
@@ -14,7 +14,7 @@ from projects.ukrmol_co.atomic_references_owner import container_command
 
 ROOT = Path(__file__).resolve().parents[2]
 INPUTS = "projects/ukrmol_co/atomic-asymptote-inputs-20261103.json"
-RELEASE = "projects/ukrmol_co/atomic-asymptote-5z-release-20261103.json"
+RELEASE = "projects/ukrmol_co/atomic-asymptote-5z-source-compat-release-20261103.json"
 
 
 def test_four_ground_term_occupations_have_correct_charge_spin_and_one_core():
@@ -94,14 +94,9 @@ def test_owner_four_physical_core_readonly_networkless_runtime_and_controls():
 
 def test_calculation_algorithm_is_identical_to_the_executed_qz_implementation():
     c = json.loads((ROOT / RELEASE).read_text())
-    node = next(
-        n
-        for n in ast.parse(Path(atom.__file__).read_text()).body
-        if isinstance(n, ast.FunctionDef) and n.name == "calculate"
-    )
     assert (
-        hashlib.sha256(ast.dump(node, include_attributes=False).encode()).hexdigest()
-        == c["qz_calculation_ast_sha256"]
+        hashlib.sha256(inspect.getsource(atom.calculate).encode()).hexdigest()
+        == c["qz_calculation_source_sha256"]
     )
 
 
