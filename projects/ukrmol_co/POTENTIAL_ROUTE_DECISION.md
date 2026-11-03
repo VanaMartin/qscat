@@ -2,6 +2,33 @@
 
 ## Decision now
 
+**3November09:40UTC—user-approved reference-first research plan.** Pause the
+aug-TZ inner/pole successor; preserve its qualified inputs and threshold blocker.
+Follow [the active queue](RESEARCH_PLAN.md): common atomic/neutral references,
+matched literature and existing-neutral shape checks, dissociation/correlation
+decision, then one electronic-model choice and a compatible validated curve.
+No qualified atomic sums or dissociation-range neutral curve currently exist.
+No model is selected by a convenient literature match or larger basis.
+
+[Atomic protocol](../../docs/physics/co-atomic-energy-references.md) fixes the
+first four C/O/O-/C- aug-QZ cases and state/core/zero conventions; totals remain
+unset. [Supplement access](literature-reference-acquisition-20261103.json) reaches
+human verification, so its numeric grid/zero remain unverified; no figure-based
+precision score or bypass. Software-only runtime inspection confirms supported
+ROHF-to-UHF conversion; external ROHF stability is unavailable, not passed.
+Zero atom/integral/SCF/CC calls. Next source/tests/inputs/owner
+freeze,2hour implementation cap, before any atom job. Planning four cores/16GiB/
+30minutes per atom/2hours total science is not a launch or measured cost. Do not
+let publisher access block independent atomic work.
+
+No new scattering allocation, automatic basis/root/channel ladder, lowered gate,
+fit/sweep or114-holdout analysis. Numerical controls are supporting evidence;
+atomic endpoints/molecular continuity/electronic accuracy are now the critical
+path. Low-Pi channel-specific dynamics is distinct from total thermal DA. All
+original failures and held-out/equilibrium/nine/new50/2048 boundaries stand.
+
+### Earlier3November preparation and export blocker
+
 **3November08:45UTC: [own aug-TZ preparation independently qualifies](qualification-evidence/stretched-augtz-preparation/README.md),
 but [unchanged inner/export is blocked](qualification-evidence/stretched-augtz-inner-preflight/README.md).**
 One own integral/zero CONGEN; exact equality permits signed algebraic reuse.

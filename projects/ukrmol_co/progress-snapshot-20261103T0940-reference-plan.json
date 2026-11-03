@@ -1,0 +1,50 @@
+{
+  "base_snapshot":"progress-snapshot-20261103T0845-augtz-preflight.json",
+  "base_snapshot_sha256":"2384b5c982b9c391914c10c5672ecf02d0eb3fabfe2bf7310b2dad7d143624b4",
+  "additional_source_file_sha256":{
+    "reference/literature/dora-2016-epjd70-197.md":"81edd13422580619b13397a9e86867459792bce69b41a4148045f0bb6e41e66d",
+    "reference/literature/dora-2020-jpb53-195202.md":"f224a5a327a0ecbda99207a683caa9e64a89467f2c20a224f05611b7c7779931",
+    "projects/ukrmol_co/SWEEP_READINESS.md":"c28c83142854a3a34182da0502f95d5098a690412fd73df1c1ec441ddce00ae6",
+    "projects/ukrmol_co/progress_figure.py":"41ae424901cafa993f42f188cb60049db01a00a300ddc32935088a471032f1f8",
+    "projects/ukrmol_co/CONTINUATION.md":"7a8f7112bdbbf97601ab970afd8b5cbe09c6c0b0435635ddf1232ae99718bcec",
+    "projects/ukrmol_co/README.md":"3a3547491f3ff6b74bdbe4f1288c2ca5e1f671ac1e78323a57ededfcb1b5c067",
+    "projects/ukrmol_co/PRODUCTION_DECISIONS.md":"d893079bb4462f4301f26b2c3202ed2d2b3f3b8a530027261bb3937012aabe28",
+    "projects/ukrmol_co/POTENTIAL_ROUTE_DECISION.md":"be6635e665c6d86caf40e48dd4dc4443e110164672fd8229454352621fcbb00f",
+    "projects/ukrmol_co/test_progress_snapshot.py":"5c81d70101e99858c79995c148a908dd0f6d875374bbbb915e5c84ff03fe038f",
+    "projects/ukrmol_co/RESEARCH_PLAN.md":"3bd05ceecdc08db94da075d02453f32c3f9093ce4fc46dac2ee2bce003a733ec",
+    "docs/physics/co-atomic-energy-references.md":"3de66afe3deb91acd29559fc0d7aa7338642bb9aef94f94c23fb20df58d818f0",
+    "projects/ukrmol_co/atomic-asymptote-inputs-20261103.json":"95930bb8a41d29faa32ec0173f6d700b314f59f367379f6a3e29e0d23292fd8e",
+    "projects/ukrmol_co/atomic-runtime-preflight-20261103.json":"d4b223abe138ecd26d52e4bc554217388a8af8049527912b4c9aeaa37bfefc09",
+    "projects/ukrmol_co/literature-reference-acquisition-20261103.json":"b08f3040ebe1ceff07ac7d2e6958244cf69743ba4c0f624a98a2eb153d4f945c"
+  },
+  "live_status_updates":{
+    "scope":"User-approved reference-first work order;atomic protocol and software-only preflight complete;no new quantum energies",
+    "goal_review_disposition":"Redirect to atom/common-zero and neutral dissociation evidence;pause augmented scattering-interface successor",
+    "research_plan":"RESEARCH_PLAN.md",
+    "atomic_reference_inputs":"atomic-asymptote-inputs-20261103.json",
+    "atomic_runtime_preflight":"atomic-runtime-preflight-20261103.json",
+    "atomic_execution_released":false,
+    "atomic_sums_qualified":false,
+    "literature_acquisition":"literature-reference-acquisition-20261103.json",
+    "exploratory_lower_accuracy_tier_adopted":false,
+    "active_numerical_job":null,
+    "active_monitor":false,
+    "next_deliverable":"Freeze source/tests/exact inputs/durable owner for four sequential aug-QZ atoms;2hour implementation cap;no scattering successor"
+  },
+  "updates":{
+    "snapshot_utc":"2026-11-03T09:40:00.000000+00:00",
+    "figure_subtitle":"Reference-first research plan:atomic limits and neutral dissociation are missing. Pause augmented scattering;no new energies or accuracy pass",
+    "roadmap_title":"References first; decisions before jobs",
+    "roadmap_entries":[
+      {"kind":"reject","status":"MISSING: ATOMIC AND DISSOCIATION REFERENCES","title":"No qualified C /O /O- /C- energy sums","detail":"Neutral data cover1.9–2.5bohr,not dissociation"},
+      {"kind":"next","status":"FIRST: FOUR-ATOM AUG-QZ PILOT","title":"State /core /common-zero protocol fixed","detail":"Runtime route checked;source /owner freeze next"},
+      {"kind":"gated","status":"ONE MATCHED LITERATURE PASS","title":"Dora2020 data access needs human verification","detail":"No tables acquired;not a precision figure benchmark"},
+      {"kind":"next","status":"THEN: NEUTRAL AND ELECTRONIC-MODEL CHOICE","title":"Select dissociation treatment and compatible nodes","detail":"Augmented inner /pole work paused;no model ladder"},
+      {"kind":"gated","status":"FINISH: FIT ONCE AND PREDICT EXCLUDED DATA","title":"Crossing /bound continuation before a DA claim","detail":"No lower gate adopted;114 holdouts preserved"}
+    ],
+    "roadmap_note":"No active campaign quantum job or monitor.\nOpen-shell runtime check is source-only,not an energy.\nExisting failed gates remain failed.",
+    "memory_next_step":"Next compute:four-atom pilot after exact source /owner freeze.",
+    "source_footer":"3 NOVEMBER  User-approved direction changes the work order,not physical qualification. Atomic references,neutral dissociation and consistent resonance nodes remain missing.",
+    "verification_footer":"Atomic totals unset;software-only inspection made zero integral /SCF /CC calls. No augmented inner run or protected-holdout analysis."
+  }
+}

@@ -852,7 +852,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 3 November 2026
 
-**08:45UTC:** [own aug-TZ preparation independently qualifies](qualification-evidence/stretched-augtz-preparation/README.md),
+**09:40UTC direction:** [active research plan](RESEARCH_PLAN.md) puts atomic
+endpoints/common zero, matched literature and neutral dissociation ahead of more
+scattering-interface work. No qualified calculated atomic sums or consistent
+resonance curve yet exist. The [first four-atom aug-QZ protocol](../../docs/physics/co-atomic-energy-references.md)
+is fixed, not executed; [supplement access](literature-reference-acquisition-20261103.json)
+requires human verification. Aug-TZ inner/pole work is paused. Existing failed
+gates and114 holdouts remain unchanged; no production release or lower-quality
+scope is inferred.
+
+**Earlier08:45UTC:** [own aug-TZ preparation independently qualifies](qualification-evidence/stretched-augtz-preparation/README.md),
 one own integral/zero CONGEN and exact signed-CSF reuse gates;87,198 contracted
 states,77.133800s/6.113655GiB/all eight original exits0. Full public raw-byte/Git
 replay; strict30s cadence fails separately at30.000512s (inherited60s bound passes).
@@ -883,9 +892,13 @@ physical cores/8GiB; independent actual result/cost required before preparation.
 Production fitting remains stopped; the target-correspondence result below does
 not waive the measured pole sensitivity or unproved N+1 resonance identity.
 
-![Own aug-TZ preparation qualifies; excited thresholds block unchanged six-open-channel export before a costly solve](../../docs/physics/figures/co-progress-20261103T0845-augtz-preflight.png)
+![Reference-first CO research plan: missing atomic endpoints and dissociation continuation take priority over more scattering-interface work](../../docs/physics/figures/co-progress-20261103T0940-reference-plan.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261103T0845-augtz-preflight.svg) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261103T0940-reference-plan.svg) ·
+[Active-plan snapshot](progress-snapshot-20261103T0940-reference-plan.json) ·
+[Research plan](RESEARCH_PLAN.md) ·
+[Atomic energy conventions](../../docs/physics/co-atomic-energy-references.md) ·
+[Previous preparation/blocker figure](../../docs/physics/figures/co-progress-20261103T0845-augtz-preflight.svg) ·
 [Preparation and blocker snapshot](progress-snapshot-20261103T0845-augtz-preflight.json) ·
 [Independent preparation](qualification-evidence/stretched-augtz-preparation/README.md) ·
 [Saved-only export blocker](qualification-evidence/stretched-augtz-inner-preflight/README.md) ·

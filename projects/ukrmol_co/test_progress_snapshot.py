@@ -265,3 +265,27 @@ def test_preparation_success_does_not_release_an_incompatible_inner_grid():
     assert live["production_model_selected"] is live["full_sweep_released"] is False
     assert live["route_holdout_s_matrices_still_unanalyzed"] == 114
     assert live["active_numerical_job"] is None and live["active_monitor"] is False
+
+
+def test_reference_plan_does_not_invent_atomic_results_or_relax_physical_gates():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    ledger = json.loads(DEFAULT_SNAPSHOT.with_name(live["atomic_reference_inputs"]).read_text())
+    assert ledger["execution_authorized"] is live["atomic_execution_released"] is False
+    assert ledger["basis"] == "aug-cc-pVQZ"
+    assert {r["id"] for r in ledger["states"]} == {"C", "O", "C-", "O-"}
+    assert all(r["total_energy_hartree"] is None for r in ledger["states"])
+    assert all(v is None for v in ledger["fragment_sum_hartree"].values())
+    assert ledger["molecular_reference_offset_hartree"] is None
+    assert ledger["frozen_spatial_orbitals_per_atom"] == 1
+    for r in ledger["states"]:
+        assert 4 + sum(r["p_occupations"]) == r["electrons"]
+        assert sum(v == 1 for v in r["p_occupations"]) == r["spin_2s"]
+    assert ledger["automatic_second_basis"] is ledger["molecular_dissociation_qualified"] is False
+    assert live["augtz_inner_execution_released"] is False
+    assert live["atomic_sums_qualified"] is live["exploratory_lower_accuracy_tier_adopted"] is False
+    acquisition = json.loads(DEFAULT_SNAPSHOT.with_name(live["literature_acquisition"]).read_text())
+    assert acquisition["supplement_acquired"] is False
+    assert acquisition["matched_R_numeric_comparison_completed"] is False
+    assert acquisition["new_quantum_jobs"] == 0
+    assert live["production_model_selected"] is live["full_sweep_released"] is False
+    assert live["route_holdout_s_matrices_still_unanalyzed"] == 114

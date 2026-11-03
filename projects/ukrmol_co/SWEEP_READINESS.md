@@ -6,7 +6,17 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**3November08:45UTC—[own aug-TZ preparation qualifies](qualification-evidence/stretched-augtz-preparation/README.md);
+**3November09:40UTC—[reference-first research queue](RESEARCH_PLAN.md) approved.**
+Atomic C/O/O-/C- sums, neutral dissociation continuation and a consistent resonance
+curve are missing. Prioritize their reference/model decisions over further
+scattering-interface improvements. First four-atom aug-QZ protocol/input ledger
+is fixed with all calculated totals unset; exact runtime/source/tests/owner
+freeze precedes quantum execution. Dora2020 supplement access is blocked by human
+verification, not replaced by a precision figure comparison. No new physics
+accuracy gate passes, no active quantum job/monitor. Aug-TZ inner/pole work is
+paused; all prior failures, budgets and114 holdouts stay protected.
+
+**Earlier3November08:45UTC—[own aug-TZ preparation qualifies](qualification-evidence/stretched-augtz-preparation/README.md);
 [unchanged inner/export is blocked](qualification-evidence/stretched-augtz-inner-preflight/README.md).**
 One own integral/zero CONGEN, signed algebraic reuse after actual equality gates;
 87,198 contracted states,77.133800s/6.113655GiB/all eight original exits0. Full

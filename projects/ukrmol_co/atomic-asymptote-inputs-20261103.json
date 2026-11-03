@@ -1,0 +1,30 @@
+{
+  "status":"Protocol fixed; calculated totals missing; implementation/runtime/source/owner freeze required before execution",
+  "execution_authorized":false,
+  "scientific_question":"Supply finite-method free C/O/O-/C- endpoints and consistent EAs before choosing a CO dissociation reference",
+  "basis":"aug-cc-pVQZ",
+  "hamiltonian":"nonrelativistic spin-free, spherical Gaussian functions, isolated atoms without ghosts",
+  "reference":"occupation-constrained high-spin ROHF",
+  "correlation":"proposed PySCF UCCSD(T) on explicit ROHF-to-UHF representation without additional UHF optimization; runtime convention must be verified",
+  "frozen_spatial_orbitals_per_atom":1,
+  "frozen_core":"1s pair; retain its mean-field contribution in total energy",
+  "states":[
+    {"id":"C","element":"C","charge":0,"electrons":6,"spin_2s":2,"term":"3P","valence":"2s2 2p2","p_occupations":[1,1,0],"total_energy_hartree":null},
+    {"id":"O","element":"O","charge":0,"electrons":8,"spin_2s":2,"term":"3P","valence":"2s2 2p4","p_occupations":[2,1,1],"total_energy_hartree":null},
+    {"id":"O-","element":"O","charge":-1,"electrons":9,"spin_2s":1,"term":"2P","valence":"2s2 2p5","p_occupations":[2,2,1],"total_energy_hartree":null},
+    {"id":"C-","element":"C","charge":-1,"electrons":7,"spin_2s":3,"term":"4S","valence":"2s2 2p3","p_occupations":[1,1,1],"total_energy_hartree":null}
+  ],
+  "fragment_sum_hartree":{"C+O":null,"C+O-":null,"C-+O":null},
+  "electron_affinity_hartree":{"O":null,"C":null},
+  "molecular_reference_R_bohr":2.1323,
+  "molecular_reference_offset_hartree":null,
+  "reference_offset_is_dissociation_depth":false,
+  "external_reference_scope":"Rounded Dora2016 p4 Table3 binding values are context, not a precise spin-free/isotope-resolved acceptance oracle",
+  "planning_only_resources":{"host":"sadaharu","physical_cores":4,"container_memory_gib":16,"pyscf_memory_mb":12000,"available_ram_floor_gib":24,"free_disk_floor_gib":10,"per_atom_timeout_seconds":1800,"total_science_timeout_seconds":7200,"implementation_effort_hours_cap":2},
+  "automatic_second_basis":false,
+  "automatic_successor":false,
+  "molecular_dissociation_qualified":false,
+  "production_model_selected":false,
+  "route_holdout_s_matrices_analyzed":0,
+  "full_sweep_released":false
+}

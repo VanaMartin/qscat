@@ -88,7 +88,45 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Current: own preparation qualifies; unchanged inner/export blocked —3 November,08:45UTC
+### Current: user approves reference-first research plan —3 November,09:40UTC
+
+The user explicitly requests a plan and continued research after the goal-level
+review. [Active research queue](RESEARCH_PLAN.md): atomic endpoints/common zero,
+one matched literature/neutral shape assessment, neutral dissociation strategy,
+one electronic-model decision, compatible geometry nodes, then fit/held-out
+observables. **This supersedes the earlier next-inner-export design task.**
+
+No qualified calculated atomic sums were found; existing neutral data stop at
+2.5bohr and do not establish dissociation. Individual finite poles are not a
+consistent curve. Larger-basis promotion and the discussed exploratory lower-
+accuracy tier are not adopted. Existing gates/failures/protections stay intact.
+
+First continuation completed: [atomic reference protocol](../../docs/physics/co-atomic-energy-references.md)
+and [input/unset-energy ledger](atomic-asymptote-inputs-20261103.json) select
+C(3P)/O(3P)/O-(2P)/C-(4S), first aug-QZ, one frozen1s pair per atom, explicit
+ROHF-to-UHF/UCCSD(T) convention subject to runtime verification. No atom total,
+EA, molecular De/D0 or production result is invented. The
+[bounded Dora2020 acquisition](literature-reference-acquisition-20261103.json)
+confirms the paper's supplement statement but reaches a human-verification page,
+not numeric tables. No bypass or precision figure-derived grading; that access
+gap does not block atomic work. [Source-only runtime check](atomic-runtime-preflight-20261103.json)
+passes in the existing image/PySCF2.11.0,zero integral/SCF/CC calls. Explicit
+ROHF-to-UHF conversion is supported; external ROHF stability is unavailable and
+must stay null, not passed. This checks API/source, not an atomic energy.
+
+**One next deliverable:** source/tests/inputs/durable-owner
+freeze for four sequential aug-QZ atoms,2hour implementation cap. Planning caps
+four physical Sadaharu cores/16GiB/30minutes per atom/2hours total science, not
+measured costs or a launch receipt; actual execution needs exact image/source/
+contract pins before launch. No active campaign quantum job or monitor. Aug-TZ
+inner/pole work is **paused**, not rejected or silently narrowed. Keep all114
+holdouts, equilibrium pole exclusion, nine/new50/2048 and original failures.
+
+Main-index check still reports incompatible shared-service dependencies;
+last-known`423d5770d3de337571f51e62702ae919bad97e8c`, upstream currency unverified.
+Current local branch evidence governs; no service intervention.
+
+### Earlier: own preparation qualifies; unchanged inner/export blocked —3 November,08:45UTC
 
 [Preparation evidence](qualification-evidence/stretched-augtz-preparation/README.md)
 and [saved-only threshold blocker](qualification-evidence/stretched-augtz-inner-preflight/README.md)

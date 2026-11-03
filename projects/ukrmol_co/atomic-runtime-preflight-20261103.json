@@ -1,0 +1,28 @@
+{
+  "observed_utc":"2026-11-03T09:36:14.322523+00:00",
+  "scope":"Software-only import and inspect.getsource;no atom construction, integral, SCF, CC or stability execution",
+  "host":"sadaharu",
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "pyscf_version":"2.11.0",
+  "original_ssh_container_command_exit":0,
+  "ssh_command_wall_seconds":0.7717942092567682,
+  "source_sha256":{
+    "pyscf.cc.UCCSD":"d289c503bd6f474d4d06a96799b4e518d8cb439a980e919aa75e34b2abfe2411",
+    "pyscf.scf.addons.convert_to_uhf":"bf35e4f3fd6b2ab17cfb2708f837bae5a1193adb3b9f4ab1d76e7f5234546bbd",
+    "pyscf.scf.rohf.ROHF.stability":"50f4e562d43ea444dc25d878e94119c633bcc3a6083b896fc785fddd5e257e1f"
+  },
+  "source_findings":{
+    "uccsd_converts_non_uhf_reference_with_to_uhf":true,
+    "conversion_documents_unchanged_reference_energy_and_wavefunction":true,
+    "rohf_internal_stability_api_present":true,
+    "rohf_external_stability_supported":false,
+    "rohf_external_stability_status":null
+  },
+  "interpretation":"Supported source-level route,not validation of an executed atom or coupled-cluster energy;never report unavailable external ROHF stability as a passed gate",
+  "container":"New ephemeral read-only container,network none,no pulls,four physical CPU affinity0-3,1GiB memory,one library thread;removed after successful inspection",
+  "new_integral_calls":0,
+  "new_scf_calls":0,
+  "new_cc_calls":0,
+  "atomic_execution_released":false,
+  "route_holdout_s_matrices_analyzed":0
+}

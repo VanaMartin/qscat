@@ -43,7 +43,51 @@ evidence delta, remaining uncertainty, disposition and next deliverable. Report
 goal-level progress to the user first; link technical evidence separately.
 The checkpoint itself does not authorize an expensive calculation.
 
-### Current goal checkpoint —3 November,08:45UTC: preparation qualified, unchanged export stopped
+### Current goal checkpoint —3 November,09:40UTC: user-approved reference-first direction
+
+**Goal/physical blocker:** complete neutral and lowest-Pi resonance/bound-anion
+curves on a justified atomic zero, then a2-D potential with excluded-geometry
+validation. Current neutral evidence is a near-equilibrium basis/interpolation
+segment only. No qualified C/O/O-/C- sums, molecular dissociation continuation or
+consistent resonance curve exist. Numerically credible finite poles do not close
+those gaps. Total thermal approximately10eV DA is not implied by a low-Pi model.
+
+**User decision:** write and follow a finite research plan rather than continue
+small supporting improvements. **Redirect to references first; pause augmented
+inner/pole development.** [Research queue](RESEARCH_PLAN.md) orders atomic sums,
+matched literature/neutral spectroscopy, neutral dissociation/correlation choice,
+one electronic-model decision, compatible curve nodes and frozen validation.
+No automatic root/basis/channel or general variable-open-interface ladder.
+
+**Minimum reuse/evidence delta:** retain all52 QZ/5Z neutral points, qualified
+DZ/TZ poles and accepted2048-root controls. A four-atom aug-QZ input/protocol now
+specifies charge/spin/occupation/frozen-core/common-zero conventions; calculated
+totals remain unset, not substituted from literature. One bounded supplement
+acquisition confirms Dora2020's p8 statement, but the data endpoint requires
+human verification; no tables or matched-R precision benchmark acquired. Record
+that access gap and proceed independently with atoms. This is a physical-scope/
+reference decision, not a newly measured energy or readiness pass. A software-only
+probe of the existing pinned image confirms PySCF2.11's ROHF-to-UHF/UCCSD route;
+external ROHF stability is unavailable, not a passed numerical gate. Zero atom/
+integral/SCF/CC calls and original command exit0; no image rebuild.
+
+**Next/bounds:** freeze source/tests/exact-input/durable-owner
+for four sequential atoms, first aug-QZ only,2hour implementation cap. Protocol
+planning envelope: four physical Sadaharu cores/16GiB/30minutes per atom/2hours
+science total; measure actual costs, no quantum launch before exact execution
+release. No dense neutral rerun, scattering solve, protected validation analysis,
+fit or sweep. Every package must return continue/redirect/stop at its deliverable
+and within48h active work. Atomic sums alone do not demonstrate molecular
+size-consistent dissociation; an independent correlation/continuation decision
+remains necessary.
+
+Existing50meV/5%-with-1meV-floor/0.05rad physical gates and0.1meV/1e-6rad
+numerical budgets remain unchanged in their declared metrics. The discussed
+0.1eV/10–20% exploratory tier is not silently adopted. All previous rejections,
+114 untouched S holdouts, equilibrium pole exclusion, nine/new50/2048 protections
+stand. No active quantum job/monitor or production-model release.
+
+### Earlier goal checkpoint —3 November,08:45UTC: preparation qualified, unchanged export stopped
 
 **Goal/starting blocker:** the selected finite plain-TZ/aug-TZ diffuse-basis-plus-
 optimized-frame control atR=2.5bohr supports electronic-model selection before a

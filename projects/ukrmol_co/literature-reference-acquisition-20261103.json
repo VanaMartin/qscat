@@ -1,0 +1,18 @@
+{
+  "scope":"One bounded Dora2020 numerical-supplement acquisition pass;no new quantum calculation or curve digitization",
+  "doi":"10.1088/1361-6455/aba5b0",
+  "primary_article_url":"https://iopscience.iop.org/article/10.1088/1361-6455/aba5b0",
+  "primary_article_read":true,
+  "supplement_statement":"Printed p8 conclusion advertises numerical PECs of27 target states and complex position/full-width curves for9 resonances",
+  "supplement_data_url_attempted":"https://iopscience.iop.org/article/10.1088/1361-6455/aba5b0/data",
+  "supplement_response":"Radware Bot Manager Captcha human-verification page, not numerical data;no attempt to bypass",
+  "supplement_acquired":false,
+  "supplement_sha256":null,
+  "numerical_grid_or_energy_zero_authenticated":false,
+  "matched_R_numeric_comparison_completed":false,
+  "alternate_authoritative_supplement_found":false,
+  "additional_lead":{"title":"Electron scattering on carbon monoxide: An optimization of ...","publisher_url":"https://pubs.aip.org/aip/jcp/article/164/4/044309/3378318/Electron-scattering-on-carbon-monoxide-An","status":"Search lead only;publisher returned403;not a numerical benchmark or adopted model"},
+  "disposition":"Record access gap without precise figure-based scoring;do not block independent atomic protocol/pilot work on publisher access",
+  "new_quantum_jobs":0,
+  "route_holdout_s_matrices_analyzed":0
+}
