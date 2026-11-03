@@ -1,0 +1,19 @@
+{
+  "status":"Separate matched5Z control;immutable inputs,not terminal results",
+  "execution_authorized":false,
+  "basis":"aug-cc-pV5Z",
+  "hamiltonian":"nonrelativistic spin-free, spherical Gaussian functions, isolated atoms without ghosts",
+  "reference":"occupation-constrained high-spin ROHF",
+  "correlation":"PySCF UCCSD(T) on explicit ROHF-to-UHF representation without additional UHF optimization",
+  "frozen_spatial_orbitals_per_atom":1,
+  "states":[
+    {"id":"C","element":"C","charge":0,"electrons":6,"spin_2s":2,"term":"3P","valence":"2s2 2p2","p_occupations":[1,1,0],"total_energy_hartree":null},
+    {"id":"O","element":"O","charge":0,"electrons":8,"spin_2s":2,"term":"3P","valence":"2s2 2p4","p_occupations":[2,1,1],"total_energy_hartree":null},
+    {"id":"O-","element":"O","charge":-1,"electrons":9,"spin_2s":1,"term":"2P","valence":"2s2 2p5","p_occupations":[2,2,1],"total_energy_hartree":null},
+    {"id":"C-","element":"C","charge":-1,"electrons":7,"spin_2s":3,"term":"4S","valence":"2s2 2p3","p_occupations":[1,1,1],"total_energy_hartree":null}
+  ],
+  "molecular_reference_R_bohr":2.1323,
+  "reference_offset_is_dissociation_depth":false,
+  "automatic_next_basis":false,
+  "full_sweep_released":false
+}

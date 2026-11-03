@@ -50,16 +50,33 @@ def authenticate(source, contract):
         if digest(source / name) != pin:
             raise ValueError("Changed atomic prerequisite " + name)
     inputs = json.loads((source / contract["inputs"]).read_text())
+    basis = contract.get("basis", "aug-cc-pVQZ")
     if (
         contract.get("execution_authorized") is not True
         or contract["maximum_atoms"] != 4
-        or inputs["basis"] != "aug-cc-pVQZ"
+        or basis not in ("aug-cc-pVQZ", "aug-cc-pV5Z")
+        or inputs["basis"] != basis
         or [s["id"] for s in inputs["states"]] != ["C", "O", "O-", "C-"]
         or inputs["frozen_spatial_orbitals_per_atom"] != 1
         or contract["automatic_second_basis"]
         or contract["full_sweep_released"]
     ):
-        raise ValueError("Only the reviewed four-atom augmented-QZ release is supported")
+        raise ValueError("Only the reviewed four-atom QZ or separately released5Z is supported")
+    if basis == "aug-cc-pV5Z":
+        previous = json.loads((source / contract["predecessor_result"]).read_text())
+        original = json.loads((source / contract["predecessor_inputs"]).read_text())
+        proof = json.loads((source / contract["predecessor_public_proof"]).read_text())
+        if not (
+            previous.get("finite_method_endpoint_reconstruction_verdict") is True
+            and previous.get("original_exits") == [0] * 8
+            and previous.get("original_atom_profile_exits") == [0] * 4
+            and proof.get("finite_method_endpoint_reconstruction_verdict") is True
+            and proof.get("fresh_public_payloads_verified") == 5
+            and proof.get("archive_sha256") == previous["archive_sha256"]
+            and inputs["states"] == original["states"]
+            and original["basis"] == "aug-cc-pVQZ"
+        ):
+            raise ValueError("Independently qualified QZ predecessor and identical states required")
     for state in inputs["states"]:
         z = {"C": 6, "O": 8}[state["element"]]
         if z - state["charge"] != state["electrons"]:
@@ -230,7 +247,7 @@ def calculate(state, inputs, resources, work):
         save(work / "diagnostics.json", report)
 
 
-def run_queue(source, output, contract):
+def run_queue(source, output, contract, contract_path=CONTRACT):
     """Profile sequential atoms; first failed original child exit stops without fallback."""
     from projects.ukrmol_co.run import run_profiled
 
@@ -271,7 +288,7 @@ def run_queue(source, output, contract):
                 "-m",
                 "projects.ukrmol_co.atomic_references",
                 "--contract",
-                str(source / CONTRACT),
+                str(source / contract_path),
                 "--output",
                 str(output),
                 "--atom",
@@ -320,6 +337,6 @@ if __name__ == "__main__":
     c = json.loads(args.contract.read_text())
     inputs = authenticate(source, c)
     if args.atom is None:
-        raise SystemExit(run_queue(source, args.output, c))
+        raise SystemExit(run_queue(source, args.output, c, args.contract))
     state = next(s for s in inputs["states"] if s["id"] == args.atom)
     calculate(state, inputs, c["resources"], args.output / state["id"])

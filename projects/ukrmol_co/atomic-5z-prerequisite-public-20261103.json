@@ -1,0 +1,14 @@
+{
+  "scope":"Fresh saved-only replay of the existing qualified QZ endpoint bundle;no repeated atoms or molecular/scattering work",
+  "fresh_public_payloads_verified":5,
+  "finite_method_endpoint_reconstruction_verdict":true,
+  "archive_sha256":"2908950e1ded0c448fc83daf3162ce5b2ae0df52887cb77708fbfbd60bb0a842",
+  "reading_sha256":"59527df5b9db2cdcfef3983b17eb4b6e4361749d54fe2583c3ffa1b115570662",
+  "executed_source_commit":"493856bd83751e36d66596157e8cbfc9a74efb5a",
+  "archived_files_verified":47,
+  "executed_git_sources_verified":14,
+  "resource_samples_verified":91,
+  "original_exits":[0,0,0,0,0,0,0,0],
+  "new_quantum_calls":0,
+  "route_holdout_s_matrices_analyzed":0
+}

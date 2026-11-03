@@ -15,7 +15,7 @@ from pathlib import Path
 from projects.ukrmol_co.atomic_references import CONTRACT, authenticate, digest, save
 
 
-def container_command(source, output, contract):
+def container_command(source, output, contract, contract_path=CONTRACT):
     controls = "projects.ukrmol_co.test_atomic_references"
     inside = (
         "from pathlib import Path\nimport json,subprocess\n"
@@ -25,7 +25,7 @@ def container_command(source, output, contract):
         "Path('/out/controls.json').write_text(json.dumps({'original_exit':p.returncode})+'\\n')\n"
         "if p.returncode:raise SystemExit(2)\n"
         "raise SystemExit(subprocess.call(['python3','-m',"
-        "'projects.ukrmol_co.atomic_references']))\n"
+        f"'projects.ukrmol_co.atomic_references','--contract',{str(contract_path)!r}]))\n"
     )
     return [
         "docker",
@@ -63,9 +63,9 @@ def container_command(source, output, contract):
     ]
 
 
-def own(capsule, archive_sha256, commit):
+def own(capsule, archive_sha256, commit, contract_path=CONTRACT):
     source = capsule / "source"
-    c = json.loads((source / CONTRACT).read_text())
+    c = json.loads((source / contract_path).read_text())
     pins = json.loads((capsule / "source-manifest.json").read_text())
     start = time.monotonic()
     report = dict(
@@ -118,7 +118,7 @@ def own(capsule, archive_sha256, commit):
         output = capsule / "outputs"
         output.mkdir(mode=0o777)
         output.chmod(0o777)
-        command = container_command(source, output, c)
+        command = container_command(source, output, c, contract_path)
         report.update(state="running", command=command)
         save(capsule / "execution.json", report)
         with (
@@ -197,6 +197,7 @@ if __name__ == "__main__":
     p.add_argument("--capsule", type=Path, required=True)
     p.add_argument("--archive-sha256", required=True)
     p.add_argument("--commit", required=True)
+    p.add_argument("--contract", default=CONTRACT)
     p.add_argument("--execute-reviewed", action="store_true")
     p.add_argument("--under-service", action="store_true")
     a = p.parse_args()
@@ -204,8 +205,8 @@ if __name__ == "__main__":
     if not a.execute_reviewed:
         p.error("Explicit reviewed execution release required")
     if a.under_service:
-        raise SystemExit(own(a.capsule, a.archive_sha256, a.commit))
-    c = json.loads((a.capsule / "source" / CONTRACT).read_text())
+        raise SystemExit(own(a.capsule, a.archive_sha256, a.commit, a.contract))
+    c = json.loads((a.capsule / "source" / a.contract).read_text())
     command = [
         "systemd-run",
         "--user",

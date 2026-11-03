@@ -1,5 +1,7 @@
 """No-quantum atomic inventory, energy-zero, release and first-failure controls."""
 
+import ast
+import hashlib
 import json
 import math
 import tempfile
@@ -12,6 +14,7 @@ from projects.ukrmol_co.atomic_references_owner import container_command
 
 ROOT = Path(__file__).resolve().parents[2]
 INPUTS = "projects/ukrmol_co/atomic-asymptote-inputs-20261103.json"
+RELEASE = "projects/ukrmol_co/atomic-asymptote-5z-release-20261103.json"
 
 
 def test_four_ground_term_occupations_have_correct_charge_spin_and_one_core():
@@ -44,8 +47,8 @@ def test_known_atomic_zero_sums_eas_and_ordering():
 
 
 def test_contract_authenticates_and_no_expanded_basis_or_unauthorized_release():
-    c = json.loads((ROOT / atom.CONTRACT).read_text())
-    assert atom.authenticate(ROOT, c)["basis"] == "aug-cc-pVQZ"
+    c = json.loads((ROOT / RELEASE).read_text())
+    assert atom.authenticate(ROOT, c)["basis"] == "aug-cc-pV5Z"
     for change in [
         dict(execution_authorized=False),
         dict(maximum_atoms=8),
@@ -58,21 +61,22 @@ def test_contract_authenticates_and_no_expanded_basis_or_unauthorized_release():
 
 
 def test_first_failed_atom_preserves_exit_and_never_starts_peer():
-    c = json.loads((ROOT / atom.CONTRACT).read_text())
+    c = json.loads((ROOT / RELEASE).read_text())
     with (
         tempfile.TemporaryDirectory() as tmp,
         patch("projects.ukrmol_co.run.run_profiled", return_value=124) as run,
     ):
-        assert atom.run_queue(ROOT, Path(tmp), c) == 2
+        assert atom.run_queue(ROOT, Path(tmp), c, RELEASE) == 2
         assert run.call_count == 1
         r = json.loads((Path(tmp) / "result.json").read_text())
         assert r["new_scf_calls_reserved"] == 1 and r["atoms"][0]["original_profile_exit"] == 124
         assert "total_energy_hartree" not in r
+        assert str(ROOT / RELEASE) in run.call_args.args[2]
 
 
 def test_owner_four_physical_core_readonly_networkless_runtime_and_controls():
-    c = json.loads((ROOT / atom.CONTRACT).read_text())
-    command = container_command(Path("/src"), Path("/out"), c)
+    c = json.loads((ROOT / RELEASE).read_text())
+    command = container_command(Path("/src"), Path("/out"), c, RELEASE)
     for token in [
         "--pull=never",
         "--cpuset-cpus=0-3",
@@ -82,9 +86,47 @@ def test_owner_four_physical_core_readonly_networkless_runtime_and_controls():
     ]:
         assert token in command
     assert "test_atomic_references" in command[-1]
+    assert RELEASE in command[-1]
     assert c["resources"]["observation_interval_seconds"] == 600
     assert not c["automatic_second_basis"] and not c["full_sweep_released"]
     compile(command[-1], "<atomic-owner>", "exec")
+
+
+def test_calculation_algorithm_is_identical_to_the_executed_qz_implementation():
+    c = json.loads((ROOT / RELEASE).read_text())
+    node = next(
+        n
+        for n in ast.parse(Path(atom.__file__).read_text()).body
+        if isinstance(n, ast.FunctionDef) and n.name == "calculate"
+    )
+    assert (
+        hashlib.sha256(ast.dump(node, include_attributes=False).encode()).hexdigest()
+        == c["qz_calculation_ast_sha256"]
+    )
+
+
+def test_five_z_rejects_failed_predecessor_and_unsupported_basis_before_quantum_import():
+    c = json.loads((ROOT / RELEASE).read_text())
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        paths = {
+            key: root / c[key]
+            for key in [
+                "inputs",
+                "predecessor_result",
+                "predecessor_inputs",
+                "predecessor_public_proof",
+            ]
+        }
+        for key, path in paths.items():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes((ROOT / c[key]).read_bytes())
+        previous = json.loads(paths["predecessor_result"].read_text())
+        paths["predecessor_result"].write_text(json.dumps(previous | dict(original_exits=[2] * 8)))
+        with unittest.TestCase().assertRaises(ValueError):
+            atom.authenticate(root, c | dict(source_sha256={}))
+    with unittest.TestCase().assertRaises(ValueError):
+        atom.authenticate(ROOT, c | dict(basis="aug-cc-pV6Z"))
 
 
 if __name__ == "__main__":
