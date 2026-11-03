@@ -46,12 +46,28 @@ def log_energies(text):
     )
 
 
-def verify(path, collection):
+def verify(
+    path,
+    collection,
+    *,
+    source_commit=SOURCE,
+    source_archive_sha256=SOURCE_ARCHIVE,
+    archive_sha256=ARCHIVE,
+    contract_path="projects/ukrmol_co/atomic-asymptote-release-20261103.json",
+    basis="aug-cc-pVQZ",
+    source_entries=14,
+    raw_entries=47,
+    runtime_controls=6,
+):
     raw = path.read_bytes()
-    require(sha(raw) == ARCHIVE == collection["archive"]["sha256"], "Exact original atomic archive")
+    require(
+        sha(raw) == archive_sha256 == collection["archive"]["sha256"],
+        "Exact original atomic archive",
+    )
     kept = files_in(raw)
     require(
-        set(kept) == set(collection["files"]) and len(kept) == 47, "Full original file inventory"
+        set(kept) == set(collection["files"]) and len(kept) == raw_entries,
+        "Full original file inventory",
     )
     for n, pin in collection["files"].items():
         require(
@@ -66,17 +82,17 @@ def verify(path, collection):
     pins = load("source-manifest.json")
     require(
         set(source) == set(pins)
-        and len(source) == 14
-        and sha(kept["source.tar.gz"]) == SOURCE_ARCHIVE,
+        and len(source) == source_entries
+        and sha(kept["source.tar.gz"]) == source_archive_sha256,
         "Exact executed source archive",
     )
     for n, h in pins.items():
         require(
             sha(source[n]) == h
-            and source[n] == subprocess.check_output(["git", "show", SOURCE + ":" + n]),
+            and source[n] == subprocess.check_output(["git", "show", source_commit + ":" + n]),
             "Original executed Git source " + n,
         )
-    c = json.loads(source["projects/ukrmol_co/atomic-asymptote-release-20261103.json"])
+    c = json.loads(source[contract_path])
     inputs = json.loads(source[c["inputs"]])
     owner = load("execution.json")
     container = load("container-inspect.json")
@@ -98,9 +114,9 @@ def verify(path, collection):
     )
     require(
         container["Image"] == c["image"]
-        and owner["source_commit"] == SOURCE
+        and owner["source_commit"] == source_commit
         and owner["source_integrity_after"]
-        and b"Ran 6 tests" in kept["outputs/controls.log"],
+        and f"Ran {runtime_controls} tests".encode() in kept["outputs/controls.log"],
         "Image/source/runtime controls",
     )
     host = container["HostConfig"]
@@ -129,7 +145,7 @@ def verify(path, collection):
         for k, value in native.items():
             require(abs(reported[k] - value) <= 1e-10, "Raw log arithmetic " + species + "/" + k)
         require(
-            reported["basis"] == "aug-cc-pVQZ"
+            reported["basis"] == basis
             and reported["pyscf_version"] == "2.11.0"
             and reported["external_rohf_stability"] is None
             and reported["rohf_internally_stable"]
@@ -185,7 +201,7 @@ def verify(path, collection):
     )
     return dict(
         finite_method_endpoint_reconstruction_verdict=True,
-        source_commit=SOURCE,
+        source_commit=source_commit,
         archived_files_verified=len(kept),
         executed_git_sources_verified=len(source),
         source_prerequisites_verified=len(c["source_sha256"]),
