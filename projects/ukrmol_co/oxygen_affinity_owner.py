@@ -1,4 +1,4 @@
-"""Durable bounded owner for two saved-state oxygen orbital-convention diagnostics."""
+"""Durable bounded owner for one frozen two-state oxygen diagnostic."""
 
 from __future__ import annotations
 
@@ -16,9 +16,34 @@ from projects.ukrmol_co.atomic_references import digest, save
 CONTRACT = "projects/ukrmol_co/oxygen-affinity-orbital-release-20261103.json"
 
 
-def own(capsule, commit, archive_hash):
+def container_program(contract):
+    """Use frozen module names; never interpolate a shell command."""
+    controls = [
+        "python3",
+        "-m",
+        contract.get("runtime_test_module", "projects.ukrmol_co.test_oxygen_affinity_orbitals"),
+    ]
+    science = [
+        "python3",
+        "-m",
+        contract.get("runtime_science_module", "projects.ukrmol_co.oxygen_affinity_orbitals"),
+        "--queue",
+        "--output",
+        "/out",
+    ]
+    return (
+        "from pathlib import Path\nimport subprocess,json\n"
+        "with Path('/out/controls.log').open('x') as f:\n"
+        f" p=subprocess.run({controls!r},stdout=f,stderr=subprocess.STDOUT,timeout=120)\n"
+        "Path('/out/controls.json').write_text(json.dumps({'original_exit':p.returncode})+'\\n')\n"
+        "if p.returncode:raise SystemExit(2)\n"
+        f"raise SystemExit(subprocess.call({science!r}))\n"
+    )
+
+
+def own(capsule, commit, archive_hash, contract_path=CONTRACT):
     source = capsule / "source"
-    c = json.loads((source / CONTRACT).read_text())
+    c = json.loads((source / contract_path).read_text())
     pins = json.loads((capsule / "source-manifest.json").read_text())
     previous = Path(c["previous_capsule"])
     start = time.monotonic()
@@ -72,17 +97,7 @@ def own(capsule, commit, archive_hash):
         output = capsule / "outputs"
         output.mkdir(mode=0o777)
         output.chmod(0o777)
-        inside = (
-            "from pathlib import Path\nimport subprocess,json\n"
-            "with Path('/out/controls.log').open('x') as f:\n"
-            " p=subprocess.run(['python3','-m','projects.ukrmol_co.test_oxygen_affinity_orbitals'],"
-            "stdout=f,stderr=subprocess.STDOUT,timeout=120)\n"
-            "Path('/out/controls.json').write_text(json.dumps({'original_exit':p.returncode})+'\\n')\n"
-            "if p.returncode:raise SystemExit(2)\n"
-            "raise SystemExit(subprocess.call(['python3','-m',"
-            "'projects.ukrmol_co.oxygen_affinity_orbitals',"
-            "'--queue','--output','/out']))\n"
-        )
+        inside = container_program(c)
         command = [
             "docker",
             "run",
@@ -194,7 +209,8 @@ if __name__ == "__main__":
     parser.add_argument("--commit", required=True)
     parser.add_argument("--archive-sha256", required=True)
     parser.add_argument("--execute-reviewed", action="store_true")
+    parser.add_argument("--contract", default=CONTRACT)
     a = parser.parse_args()
     if not a.execute_reviewed:
         parser.error("Exact reviewed release required")
-    raise SystemExit(own(a.capsule.resolve(), a.commit, a.archive_sha256))
+    raise SystemExit(own(a.capsule.resolve(), a.commit, a.archive_sha256, a.contract))

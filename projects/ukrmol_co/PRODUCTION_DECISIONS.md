@@ -3,18 +3,22 @@
 ## Current user-selected affinity correctness checkpoint
 
 The user asks to solve the atomic-affinity discrepancy and identify an incorrect
-setting if present. Reuse original O/O- aug5Z ROHF/CCSD checkpoints and all prior
-endpoint evidence. First bounded question: does non-semicanonical evaluation of
-the triples correction contribute? Source inspection confirms conversion keeps
-ROHF orbitals while UCCSD uses spin-Fock diagonal denominators;this is a hypothesis,
-not an established bug. The saved-state control must preserve density/core and
-CCSD energy before comparing triples. Zero SCF/CCSD iterations;at most four
-integral rebuilds/four triples evaluations,four cores/16GiB,1800s science,
-one-hour implementation cap. A failed invariant stops;no retry or numerical
-gate relaxation. Actual result decides whether to correct the orbital convention
-or rule it out and return to a separate reference-error decision. No automatic
-6Z/CBS,molecular/scattering or holdout work. See the
-[math and explicit gates](../../docs/physics/oxygen-affinity-orbital-convention.md).
+setting if present. The saved5Z orbital-convention control completed: EA changes
+only +0.029095 meV,below its0.1meV criterion;density/core and CCSD energy invariant.
+All original exits0,76.515963s owner,11.817177GiB kernel peak,zero SCF/CCSD
+iterations. Thus this convention is not the main cause. Occupation/core/subtraction
+audit finds no configuration bug. External atomic benchmarks support slow basis
+convergence and missing post-CCSD(T) correlation,not an empirical correction.
+
+**Continue one bounded diagnostic:** reuse original QZ atoms;calculate only O/O-
+with one additional published diffuse shell per angular momentum at fixed QZ,
+unchanged calculation function/state/core/convergence gates. Measure the affinity
+shift against1meV;this tests a diffuse omission,not absolute convergence. Two
+new endpoints,four cores/16GiB,900s each/1800s science,one-hour implementation,
+600s active checks plus immediate terminal observation. First failure stops.
+No automatic6Z/CBS/FCI,molecular/scattering or holdout successor. Exact source,
+tests and owner must be frozen/pushed before execution. See the
+[completed diagnosis and next-control contract](../../docs/physics/oxygen-affinity-diagnosis.md).
 
 ## Current disposition
 

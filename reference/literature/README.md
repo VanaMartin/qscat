@@ -39,8 +39,14 @@ To write or update a note, use the `mastering-references` skill
 
 ### CO scattering models
 
+Atomic reference: [de Oliveira et al. 1999](deoliveira-1999-pra60-1034.md),
+Phys. Rev. A **60**, 1034, [DOI](https://doi.org/10.1103/PhysRevA.60.1034),
+separates slow oxygen valence-basis convergence from post-CCSD(T), core and
+relativistic corrections. Its published corrections are not our computed data.
+
 | Note | Source | Role here |
 |---|---|---|
+| [`deoliveira-1999-pra60-1034.md`](deoliveira-1999-pra60-1034.md) | de Oliveira et al., PRA **60**, 1034 (1999) | Atomic affinity error components and limits of finite-basis CCSD(T). |
 | [`laporta-2012-psst21-045005.md`](laporta-2012-psst21-045005.md) | Laporta et al., PSST **21**, 045005 (2012), [DOI](https://doi.org/10.1088/0963-0252/21/4/045005) | Six-valence-electron SEP prescription, low-energy resonance, empirical width adjustment and separate correlated neutral curve. |
 | [`dora-2016-epjd70-197.md`](dora-2016-epjd70-197.md) | Dora et al., EPJD **70**, 197 (2016), [DOI](https://doi.org/10.1140/epjd/e2016-70124-7) | Basis/active-space/channel sensitivity and target/scattering imbalance in SEP. |
 | [`dora-2020-jpb53-195202.md`](dora-2020-jpb53-195202.md) | Dora and Tennyson, JPB **53**, 195202 (2020), [DOI](https://doi.org/10.1088/1361-6455/aba5b0) | Larger-basis comparison, geometry tracking limitations and resonance-fit sensitivity. |

@@ -1,17 +1,14 @@
 # CO: current handoff
 
-## Oxygen-affinity diagnosis requested
+## Oxygen-affinity diagnosis
 
-The user now selects a separate reference-correctness investigation: audit the
-O/O- affinity and identify any incorrectly configured calculation. This work
-is isolated on its own branch, not added to the PR under review. The saved
-state audit finds consistent occupations/core/subtraction, but ROHF-to-UHF
-conversion does not semicanonicalize the spin Fock blocks. The
-[bounded orbital-convention control](../../docs/physics/oxygen-affinity-orbital-convention.md)
-tests that specific hypothesis using the saved5Z checkpoints/amplitudes, with
-zero SCF/CCSD iterations. Four physical cores/16GiB,1800s science cap,600s active
-checks and immediate terminal observation. Next reconstruct the actual result;
-no automatic6Z,reference reoptimization,molecular/scattering or holdout successor.
+Separate branch;the PR under review is untouched. Saved-state5Z orbital replay
+completed,all exits0:semicanonical EA1.426635554eV versus original1.426606459eV,
+only+0.029095meV;density/core/CCSD invariants pass. Source/input/native-log and
+rotation-witness reconstruction confirms the negligible effect. This does not
+solve absolute affinity. Occupations/core/subtraction look consistent;benchmark
+evidence points to slow basis and missing higher correlation. See the
+[diagnosis](../../docs/physics/oxygen-affinity-diagnosis.md).
 
 ## Goal and disposition
 
@@ -47,12 +44,14 @@ their first 600-s periodic check; immediate terminal observations are retained.
 
 ## One bounded next deliverable
 
-At most **60 minutes of saved evidence/source review, zero new quantum calls**:
-select one stable spin-consistent neutral dissociation/correlation treatment or
-an explicitly declared hybrid/literature reference. Require overlap with the
-accepted well data, a route to fragment consistency, and one costed small
-diagnostic set. If the evidence cannot select a treatment, record the blocker.
-Reconcile spin-free/lowest-J conventions before precise external EA scoring.
+One fixed-QZ diffuse diagnostic:two O/O- endpoints with the unchanged atomic
+calculation algorithm and one extra diffuse shell s–g,105 rather than80 AOs.
+Reuse original QZ,not repeat it. Four physical cores/16GiB,900s per state,
+1800s science,600s active checks and immediate completion;first failure stops.
+Interpret extended−original EA against1meV as a contribution,not convergence.
+Freeze/test/push exact source/input/owner before launch;reconstruct actual result
+afterwards. No automatic FCI or further basis successor. Neutral dissociation
+and spin-free/lowest-J convention reconciliation remain separate open tasks.
 
 No 6Z, automatic extrapolation, dense neutral grid, augmented inner/pole work,
 fit, sweep or holdout action follows automatically. A new calculation needs

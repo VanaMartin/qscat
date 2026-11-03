@@ -1,0 +1,13 @@
+{
+  "basis_name": "aug-cc-pVQZ plus BSE d-aug-cc-pVQZ second diffuse shell",
+  "parent_basis": "aug-cc-pVQZ",
+  "source_url": "https://www.basissetexchange.org/api/basis/d-aug-cc-pvqz/format/json/?elements=8&version=0",
+  "bse_version": "0",
+  "bse_response_sha256": "36c967dd4a763e71b2e5fca3809cfc7796a4780a5f26b3dda875fd0a9152b806",
+  "second_diffuse_shells": [[0, [0.0234, 1.0]], [1, [0.0163, 1.0]], [2, [0.0534, 1.0]], [3, [0.122, 1.0]], [4, [0.276, 1.0]]],
+  "expected_spherical_ao_count": 105,
+  "states": [
+    {"id":"O","element":"O","charge":0,"electrons":8,"spin_2s":2,"term":"3P","p_occupations":[2,1,1]},
+    {"id":"O-","element":"O","charge":-1,"electrons":9,"spin_2s":1,"term":"2P","p_occupations":[2,2,1]}
+  ]
+}

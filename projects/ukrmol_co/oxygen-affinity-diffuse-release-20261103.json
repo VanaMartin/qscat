@@ -1,0 +1,44 @@
+{
+  "execution_authorized": true,
+  "states": ["O", "O-"],
+  "maximum_new_scf_calls": 2,
+  "maximum_new_ccsd_calls": 2,
+  "maximum_new_triples_calls": 2,
+  "automatic_successor": false,
+  "previous_capsule": "/home/kooza/ukrmol/co-sa-20261006/prepared/atomic-qz-endpoints-source-20261103",
+  "image": "sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "container_name": "co-oxygen-affinity-diffuse-20261103",
+  "runtime_test_module": "projects.ukrmol_co.test_oxygen_affinity_diffuse",
+  "runtime_science_module": "projects.ukrmol_co.oxygen_affinity_diffuse",
+  "input_sha256": {
+    "outputs/O/atom.json": "3d024ffb3689e551acb5d5a16f56f5bd7ce1ede35204026483d62ec9d0ecb67d",
+    "outputs/O-/atom.json": "984aabda70196a44b5435a41491fa6b110d16bb99a1cdc00a4627dec7569f537"
+  },
+  "source_sha256": {
+    "projects/ukrmol_co/oxygen_affinity_diffuse.py": "ce69f74d50c9d946e1e21bb915766892363c26160ca0cc7443e85038e42eefbe",
+    "projects/ukrmol_co/oxygen_affinity_owner.py": "3d27724d2c5029597578c04b240c7d6d90f2b3631832bfde2b266e6140de430e",
+    "projects/ukrmol_co/test_oxygen_affinity_diffuse.py": "206e0c9ae76d241287833dc69651a3dc01b9f929eb9d18e6a4b9239eecfbb9a4",
+    "projects/ukrmol_co/oxygen-diffuse-inputs-20261103.json": "5a7b2af425e91b5b8b6407674ad312a0a9920724390415d0e74849d9d4f67990",
+    "projects/ukrmol_co/atomic_references.py": "6a6f5714ff4b5df314cc8acda2f02c340d9e3f25d35ec4f79f8cfaba42cf845b",
+    "projects/ukrmol_co/run.py": "bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "libs/qscat/qscat/__init__.py": "779279252f7e81043ab5332ca690d7e45960975a3e2d1a90e81ea69bd75f4ca5",
+    "libs/qscat/qscat/units.py": "780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+    "libs/qscat/qscat/exceptions.py": "0aac3f1856612c86c10637b85eda54f9aacca1b36005540d2550717b3a30f237",
+    "docs/physics/oxygen-affinity-diagnosis.md": "1ca55e4fdb64d620de587cbb3d9974830a67f1f8fb62090d24251d96c1cbd68e"
+  },
+  "resources": {
+    "physical_cores": 4,
+    "pyscf_memory_mb": 12000,
+    "container_memory_gib": 16,
+    "per_atom_timeout_seconds": 900,
+    "total_science_timeout_seconds": 1800,
+    "container_timeout_seconds": 1950,
+    "owner_service_timeout_seconds": 2100,
+    "observation_interval_seconds": 600,
+    "implementation_effort_hours_cap": 1
+  },
+  "observable": "Matched fixed-QZ second-diffuse-shell affinity shift;1meV practical contribution threshold,not an absolute accuracy pass",
+  "scope": "Unchanged atomic calculate function and original occupations/core/ROHF-reference conventional UCCSD(T);80->105 AO extension only;no re-evaluation of original QZ or semicanonical convention change",
+  "full_sweep_released": false,
+  "route_holdout_s_matrices_analyzed": 0
+}
