@@ -1,5 +1,21 @@
 # CO production decisions
 
+## Current user-selected affinity correctness checkpoint
+
+The user asks to solve the atomic-affinity discrepancy and identify an incorrect
+setting if present. Reuse original O/O- aug5Z ROHF/CCSD checkpoints and all prior
+endpoint evidence. First bounded question: does non-semicanonical evaluation of
+the triples correction contribute? Source inspection confirms conversion keeps
+ROHF orbitals while UCCSD uses spin-Fock diagonal denominators;this is a hypothesis,
+not an established bug. The saved-state control must preserve density/core and
+CCSD energy before comparing triples. Zero SCF/CCSD iterations;at most four
+integral rebuilds/four triples evaluations,four cores/16GiB,1800s science,
+one-hour implementation cap. A failed invariant stops;no retry or numerical
+gate relaxation. Actual result decides whether to correct the orbital convention
+or rule it out and return to a separate reference-error decision. No automatic
+6Z/CBS,molecular/scattering or holdout work. See the
+[math and explicit gates](../../docs/physics/oxygen-affinity-orbital-convention.md).
+
 ## Current disposition
 
 **Reference-first; production model, potential fit and sweep remain stopped.**

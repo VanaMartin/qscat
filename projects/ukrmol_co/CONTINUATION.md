@@ -1,5 +1,18 @@
 # CO: current handoff
 
+## Oxygen-affinity diagnosis requested
+
+The user now selects a separate reference-correctness investigation: audit the
+O/O- affinity and identify any incorrectly configured calculation. This work
+is isolated on its own branch, not added to the PR under review. The saved
+state audit finds consistent occupations/core/subtraction, but ROHF-to-UHF
+conversion does not semicanonicalize the spin Fock blocks. The
+[bounded orbital-convention control](../../docs/physics/oxygen-affinity-orbital-convention.md)
+tests that specific hypothesis using the saved5Z checkpoints/amplitudes, with
+zero SCF/CCSD iterations. Four physical cores/16GiB,1800s science cap,600s active
+checks and immediate terminal observation. Next reconstruct the actual result;
+no automatic6Z,reference reoptimization,molecular/scattering or holdout successor.
+
 ## Goal and disposition
 
 A physically grounded neutral and lowest-doublet-Pi resonance/bound-anion curve,

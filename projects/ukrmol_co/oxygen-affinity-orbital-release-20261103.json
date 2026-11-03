@@ -1,0 +1,40 @@
+{
+  "status":"User requests diagnosing/correcting oxygen affinity;one saved-state orbital-convention control,not a basis ladder",
+  "execution_authorized":true,
+  "states":["O","O-"],
+  "new_scf_calls":0,
+  "new_ccsd_iterations":0,
+  "maximum_integral_rebuilds":4,
+  "maximum_triples_evaluations":4,
+  "previous_capsule":"/home/kooza/ukrmol/co-sa-20261006/prepared/atomic-5z-endpoints-source-compat-20261103",
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "container_name":"co-oxygen-affinity-orbitals-20261103",
+  "input_sha256":{
+    "outputs/O/atom.json":"6313adee611299853af4fb6167f245ec1fa4cc9acc03a2a7d547b439517cd8bd",
+    "outputs/O/rohf.chk":"efecbf46d7c403e4df5528e7ba9af4b91745477d62faf680e034a4ff953063d7",
+    "outputs/O/uccsd.chk":"481c5490d24a09110378dc2be60fac1378bbb38b9b209278b68571562e8977dc",
+    "outputs/O-/atom.json":"7941dd21dcd95fb6c235a04cb3b98a8449fa56ce30290b2605da705d15aa0276",
+    "outputs/O-/rohf.chk":"d8324a4bbf69628a19e9b622245ae50a94c2792e2dc37a06ef673a77019a5859",
+    "outputs/O-/uccsd.chk":"d27ef1b94186aac8245099c0dc5a1c713f9ba0c9fcf3227e3943bce628b28c96"
+  },
+  "source_sha256":{
+    "projects/ukrmol_co/oxygen_affinity_orbitals.py":"0b2152f08d93d6dda424f492dffa866590bc1a1edda7059baa4f1a132a373212",
+    "projects/ukrmol_co/oxygen_affinity_owner.py":"abc4c6b9702fa0fd30e16174179eb7e3776b85c6ef75fa3385e4b837dd4ab361",
+    "projects/ukrmol_co/test_oxygen_affinity_orbitals.py":"8cbf2b1d42c5e3eae7d77dd88892dd099b8bca334db4b3e43d6cbe64fca4d359",
+    "projects/ukrmol_co/atomic_references.py":"6a6f5714ff4b5df314cc8acda2f02c340d9e3f25d35ec4f79f8cfaba42cf845b",
+    "projects/ukrmol_co/run.py":"bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "libs/qscat/qscat/__init__.py":"779279252f7e81043ab5332ca690d7e45960975a3e2d1a90e81ea69bd75f4ca5",
+    "libs/qscat/qscat/units.py":"780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f",
+    "libs/qscat/qscat/exceptions.py":"0aac3f1856612c86c10637b85eda54f9aacca1b36005540d2550717b3a30f237",
+    "docs/physics/oxygen-affinity-orbital-convention.md":"500e7c864076a1979f02c188c208b556703a395428bc56ea319344ed535bd941"
+  },
+  "resources":{"physical_cores":4,"memory_gib":16,"pyscf_memory_mb":12000,
+    "per_state_timeout_seconds":900,"total_science_timeout_seconds":1800,
+    "container_timeout_seconds":1950,"service_timeout_seconds":2100,
+    "observation_interval_seconds":600,"minimum_available_ram_gib":24,"minimum_disk_gib":10},
+  "scope":"Same original ROHF density/core/basis/CCSD amplitudes;replay original energies,rotate occupied/virtual blocks within spin and irrep,rebuild integrals and recompute triples;no UHF optimization",
+  "stops":"First source/input/control/replay/density/CCSD-invariance/timeout/OOM failure stops without peer/retry or iterative rescue",
+  "automatic_successor":false,
+  "full_sweep_released":false,
+  "route_holdout_s_matrices_analyzed":0
+}
