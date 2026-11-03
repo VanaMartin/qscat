@@ -2164,6 +2164,38 @@ not a basis/root/channel ladder. Freeze/push new source/tests/contract/owner bef
 any new numerical work. Paid resources/ComfyUI/image rebuilds remain excluded;
 all114 holdouts/nine/new50/2048/equilibrium/original failures remain preserved.
 
+### Goal checkpoint —3 November,08:03UTC: continue the selected diffuse control with one own-integral/conditional reuse step
+
+**Physical uncertainty/decision:** continue the already selected finite plain-TZ/
+aug-TZ diffuse-basis-plus-frame contrast, not a new model ladder. Qualified aug-TZ64
+properties fill the previous input gap; no new scattering effect or production
+insensitivity has been established. The user asks to continue. Minimum new work
+is one own aug-TZ full-continuum integral call and conditional signed algebraic
+B1 expansion reuse, before separately costing an actual-dimension B1/2048 export.
+
+**Saved evidence/reuse:** five fresh public payloads authenticate full original
+DZ preparation/51 raw files/30 executed Git sources/452 samples, its signed-CSF
+receipt and completed aug-TZ64 property reading. Full stdlib replay exactly matches
+the saved public result; all30 original sources match Git `b776f4c`. Live DZ CSF/
+log/deck and aug property records agree. No successful native/target/CI/property
+work is repeated. Use each own augmented-basis checkpoint, Molden, CIDATA and
+properties; copy only qualified geometry-free signed CSFs/log **after** actual
+inventory/resolved deck/all eight target-CSF hashes match. On mismatch stop with
+no fallback CONGEN. Existing DZ/TZ routes/receipts remain unchanged.
+
+**Execution bounds/disposition:** [one explicit new contract](stretched-augtz-preparation-contract-20261103.json)
+and reuse overlay; source/tests/exact owner freeze/push first. Four physical
+cores0–3/four MPI ranks/one library thread/32GiB/no network,40GiB available RAM/
+20GiB disk floors; conditional30–180s from measured plain-TZ38.671s/4.174GiB,
+not an aug-TZ measurement or speedup.2400s integral/3480s container/3600s durable
+owner,30s read-only observations,30minute narrow implementation/freeze bound.
+Runtime known-truth/routing/receipt/reuse/no-fallback controls before science.
+Any input/engine/native/inventory/dimension/hash/time/memory failure stops
+inconclusive2 without retry or rescue. Next independently public actual result,
+dimensions and cost, not an automatic inner/scattering/pole successor. No B2/
+geometry/fit/sweep/protected-holdout work. Nine/new50/2048/equilibrium and all
+original failures remain intact; no paid resources/image rebuild/ComfyUI changes.
+
 ## Supporting branch: equilibrium orbital/channel-prescription comparison
 
 **Parked by the23 October goal review.** The historical technical next steps

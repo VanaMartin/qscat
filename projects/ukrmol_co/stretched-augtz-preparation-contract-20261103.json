@@ -1,0 +1,56 @@
+{
+  "status":"User continuation releases one own aug-TZ integral call with conditional qualified DZ algebraic B1-CSF reuse,after exact source/tests/owner freeze and push",
+  "execution_authorized":true,
+  "property_input_contract":"projects/ukrmol_co/stretched-augtz-properties-contract-20261102.json",
+  "reuse_source_contract_sha256":"d00a24a308e3b8da289e631ceba937f7086a61d37e8984ac79cb6da151cf6f4f",
+  "reuse_release":"projects/ukrmol_co/stretched-augtz-preparation-reuse-20261103.json",
+  "reuse_qualification":"projects/ukrmol_co/verification-stretched-augtz-preparation-reuse-public-20261103.json",
+  "runtime_controls_module":"projects.ukrmol_co.test_stretched_augtz_preparation",
+  "container_name":"co-stretched-augtz-preparation-20261103",
+  "source_sha256":{
+    "projects/ukrmol_co/a2_channel_preflight.py":"75a7ebc27b41537803662bbf2e26f00768bdca92389291d899169e74f3bcffe5",
+    "projects/ukrmol_co/run.py":"bd3ced250b40f202ae48f0b889743b78ffd548ce7ceed115b20060a7300c1853",
+    "projects/ukrmol_co/stretched_basis_feasibility.py":"d231097887c9d6f34893253a40951c3c43c3e0feceb100c9cbfed595d4094130",
+    "projects/ukrmol_co/compressed_cas12_preparation.py":"cb80c33131cc48e9f4e086283419400152f049ad355be270a2ae9583622ed7e6",
+    "projects/ukrmol_co/immutable_continuum.py":"d561bd3fc998403d35d0d6c6df5a61d6300a53b3a2f08012fa3d528d15b4662e",
+    "projects/ukrmol_co/stretched-augtz-properties-contract-20261102.json":"3f82307b03773ef276897a64e62eae2516a9eb0075debdf2cf7235cfd7e7266b",
+    "projects/ukrmol_co/qualification-evidence/stretched-augtz-properties/independent-augtz-receipt.json":"d4ad4fc7a7129e560aa4f8a2692cc1d237ce5eb2d5869f098108c7298f477caf",
+    "projects/ukrmol_co/verification-stretched-augtz-preparation-reuse-public-20261103.json":"bc27dbfdfcc17833702f6206b844f7e4759ce3423c4be2faf263ad610f88c03c",
+    "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026/target.scatci_integrals.inp":"2981201dbf0836502d4220380ae078910335a4968ee85f58bddfb28e8d4522cc",
+    "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026/scattering.congen.doublet.B1.inp":"0f149a4c235ef282aea53112b7cd2586d82a63fd635c0ed04fef6351ec613753",
+    "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026/scattering.scatci.doublet.B1.inp":"8198eec3d05c04cdfbe5bd90ae85c3751ed2e6a3dbad81a7cb99f919df97592d"
+  },
+  "models":{
+    "augtz":{
+      "property_directory":"prepared/stretched-augtz-properties-source-20261102/outputs/properties",
+      "property_receipt":"projects/ukrmol_co/qualification-evidence/stretched-augtz-properties/independent-augtz-receipt.json",
+      "input_sha256":{
+        "prepared/stretched-augtz-properties-source-20261102/outputs/properties/fort.24":"3d379b70be8eed7f1ba10720208a5b4d962e50b127b83f1153a49c5f7740d1e3",
+        "prepared/stretched-augtz-properties-source-20261102/outputs/properties/result.json":"880c444a8186e6751e5323e8d7a3555085000e4e516648a825edcc7cec8b2d9e",
+        "prepared/stretched-augtz-properties-source-20261102/outputs/properties/resources.json":"acabef41ba082baa32184ea38121217cd2d49b0e0aa046bc60db9a764bac0629",
+        "prepared/stretched-augtz-properties-source-20261102/execution.json":"8a73aca26e8ff73949d5071993ed650417fe07be5bb11c1f3e7d7432bdac5566",
+        "prepared/stretched-augtz-properties-source-20261102/service-return.json":"1f1f64f006900cca4377b201d9571ccabc38a5402ea8c5bcf29e4f79fed28e76"
+      }
+    }
+  },
+  "engine_sha256":{
+    "/opt/ukrmolp/bin.double/scatci_integrals":"9bbe9e945734165d7de5eb61c62252314202bf69624a27161be5f882081d173b",
+    "/opt/ukrmolp/bin.double/congen":"3d4c00ee826c45b981c185c6191cf680c7f0028aff2d814b8ac9ef4e1e36a415",
+    "/opt/ukrmolp/source-provenance.json":"2987e176689c3a5ec5001c5da90949f17f7a5add8a86e18b04fb8409b5b11f1b"
+  },
+  "image":"sha256:6b3b0ededa85494076229b111efe969985407023e404bff888f17cafb4630666",
+  "resources":{"physical_cpu_group":"0-3","physical_cores":4,"mpi_ranks":4,
+    "library_threads":1,"memory_gib":32,"minimum_available_ram_gib":40,
+    "minimum_free_disk_gib":20,"integral_timeout_seconds":2400,
+    "congen_timeout_seconds":300,"container_timeout_seconds":3480,
+    "owner_timeout_seconds":3600,"observation_interval_seconds":30},
+  "maximum_contracted_dimension":150000,
+  "conditional_forecast_seconds":[30,180],
+  "implementation_effort_minutes_cap":30,
+  "native_integral_calls_max":1,
+  "native_congen_calls_max":0,
+  "stops":"Any original/public/source/engine/input/control/native/inventory/deck/target-CSF/hash/time/memory/dimension failure stops inconclusive2 with original outputs;no fallback CONGEN/retry or automatic inner/scattering/pole successor",
+  "protected":{"baseline_roots":2048,"working_reference":"CAS11/nine","new50":"parked","equilibrium_pole":"excluded","holdout_s_matrices_unanalyzed":114},
+  "automatic_successor":false,
+  "full_sweep_released":false
+}

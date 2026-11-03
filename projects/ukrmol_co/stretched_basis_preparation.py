@@ -18,7 +18,9 @@ TEMPLATES = "projects/ukrmol_co/compressed-cas12-preparation-inputs-20261026"
 REUSE = "projects/ukrmol_co/stretched-tz-preparation-reuse-release-20261031.json"
 
 
-def prior_preparation(root, source, case, receipt=None, receipt_sha256=None):
+def prior_preparation(
+    root, source, case, receipt=None, receipt_sha256=None, expected_contract_sha256=None
+):
     if case == "dz":
         if receipt is not None or receipt_sha256 is not None:
             raise ValueError("DZ has no preparation predecessor override")
@@ -32,7 +34,7 @@ def prior_preparation(root, source, case, receipt=None, receipt_sha256=None):
     if not (
         value.get("case") == "dz"
         and value.get("preparation_verdict") is True
-        and value.get("contract_sha256") == digest(source / CONTRACT)
+        and value.get("contract_sha256") == (expected_contract_sha256 or digest(source / CONTRACT))
         and value.get("original_scientific_command_container_owner_exits") == [0] * 4
         and value.get("public_reader_exit") == 0
         and value.get("roots_per_sector") == [8] * 8
@@ -47,19 +49,27 @@ def authenticate(root, source, case, contract, receipt=None, receipt_sha256=None
     for name, want in contract["source_sha256"].items():
         if digest(source / name) != want:
             raise ValueError("Changed frozen source prerequisite: " + name)
-    properties = json.loads((source / PROPERTY_CONTRACT).read_text())
+    property_contract = contract.get("property_input_contract", PROPERTY_CONTRACT)
+    if case == "augtz" and not (
+        contract.get("execution_authorized") is True
+        and set(contract["models"]) == {"augtz"}
+        and contract.get("reuse_source_contract_sha256")
+        and contract.get("reuse_release")
+    ):
+        raise ValueError("Aug-TZ requires its separate reviewed conditional-reuse release")
+    properties = json.loads((source / property_contract).read_text())
     for selected, model in contract["models"].items():
         public = json.loads((source / model["property_receipt"]).read_text())
         if not (
             public["case"] == selected
-            and public["contract_sha256"] == digest(source / PROPERTY_CONTRACT)
+            and public["contract_sha256"] == digest(source / property_contract)
             and public["independent_property_inventory_verdict"] is True
             and public["public_reader_exit"] == 0
             and public["target_count"] == 64
             and public["roots_per_sector"] == [8] * 8
             and public["original_scientific_command_container_owner_exits"] == [0] * 4
         ):
-            raise ValueError("Both independent64-state property inputs must qualify")
+            raise ValueError("Selected independent64-state property inputs must qualify")
     model = contract["models"][case]
     target = root / properties["models"][case]["target_directory"]
     for name, want in properties["models"][case]["input_sha256"].items():
@@ -77,7 +87,9 @@ def authenticate(root, source, case, contract, receipt=None, receipt_sha256=None
         and digest(props / "fort.24") == public["property_sha256"]
     ):
         raise ValueError("Original property output no longer qualifies")
-    previous = prior_preparation(root, source, case, receipt, receipt_sha256)
+    previous = prior_preparation(
+        root, source, case, receipt, receipt_sha256, contract.get("reuse_source_contract_sha256")
+    )
     return target, props, previous
 
 
@@ -101,13 +113,25 @@ def cards(inventory, source):
     return congen, scatci
 
 
-def reuse_prerequisites(root, source, case, previous):
+def reuse_prerequisites(root, source, case, previous, contract=None):
     """Authenticate the separate opt-in release; the executed DZ contract stays unchanged."""
-    release = json.loads((source / REUSE).read_text())
+    release_path = REUSE if contract is None else contract["reuse_release"]
+    release = json.loads((source / release_path).read_text())
+    if contract is not None:
+        proof = json.loads((source / contract["reuse_qualification"]).read_text())
+        if not (
+            proof.get("preparation_verdict") is True
+            and proof.get("augtz_public_property_verdict") is True
+            and proof.get("fresh_public_payloads_verified") == 5
+            and proof.get("dz_executed_git_sources_verified") == 30
+            and proof.get("csf_sha256") == release["input_sha256"]["fort.721"]
+        ):
+            raise ValueError("Fresh public algebraic/property reuse proof failed")
     if (
-        case != "tz"
+        case != release.get("case", "tz")
         or previous != release["predecessor"]
-        or digest(source / CONTRACT) != release["contract_sha256"]
+        or digest(source / (CONTRACT if contract is None else release["preparation_contract"]))
+        != release["contract_sha256"]
     ):
         raise ValueError("CSF reuse requires its exact TZ-only release and public DZ predecessor")
     prepared = root / release["preparation_directory"]
@@ -170,11 +194,17 @@ def compute(
     )
     copied = {}
     try:
+        if case == "augtz" and not reuse_dz_csf:
+            raise ValueError("Aug-TZ has no fresh/fallback CONGEN release")
         target, props, previous = authenticate(
             root, source, case, contract, receipt, receipt_sha256
         )
         report["predecessor"] = previous
-        reuse = reuse_prerequisites(root, source, case, previous) if reuse_dz_csf else None
+        reuse = (
+            reuse_prerequisites(root, source, case, previous, contract if case == "augtz" else None)
+            if reuse_dz_csf
+            else None
+        )
         for name, want in contract["engine_sha256"].items():
             if digest(Path(name)) != want:
                 raise ValueError("Changed preparation engine: " + name)
@@ -229,7 +259,9 @@ def compute(
         (work / "scattering.scatci.doublet.B1.inp").write_text(scatci)
         if reuse is not None:
             report["csf_reuse"] = reuse_csf(work, *reuse, inventory, congen)
-            report["csf_reuse"]["release_sha256"] = digest(source / REUSE)
+            report["csf_reuse"]["release_sha256"] = digest(
+                source / contract.get("reuse_release", REUSE)
+            )
         else:
             report["congen_calls"] = 1
             save(work / "result.json", report)
@@ -268,7 +300,9 @@ def compute(
         try:
             _, _, previous = authenticate(root, source, case, contract, receipt, receipt_sha256)
             if reuse_dz_csf:
-                reuse_prerequisites(root, source, case, previous)
+                reuse_prerequisites(
+                    root, source, case, previous, contract if case == "augtz" else None
+                )
             if any(digest(work / n) != want for n, want in copied.items()):
                 raise ValueError("Copied target/property changed during preparation")
             report["input_integrity_after"] = True
@@ -280,14 +314,15 @@ def compute(
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--case", choices=["dz", "tz"], required=True)
+    parser.add_argument("--case", choices=["dz", "tz", "augtz"], required=True)
+    parser.add_argument("--contract", default=CONTRACT)
     parser.add_argument("--profiled", action="store_true")
     parser.add_argument("--previous-receipt")
     parser.add_argument("--previous-receipt-sha256")
     parser.add_argument("--reuse-dz-csf", action="store_true")
     args = parser.parse_args()
     root, source, work = Path("/work"), Path("/opt/qmodeling"), Path("/out/preparation")
-    contract = json.loads((source / CONTRACT).read_text())
+    contract = json.loads((source / args.contract).read_text())
     if args.profiled:
         return compute(
             root,

@@ -1,0 +1,16 @@
+{
+  "case":"augtz",
+  "contract_sha256":"3f82307b03773ef276897a64e62eae2516a9eb0075debdf2cf7235cfd7e7266b",
+  "independent_property_inventory_verdict":true,
+  "public_reader_exit":0,
+  "public_reading_sha256":"9f083f46937b85117089be229c4ecdbbda3921837b28737e7c36e816216d3bd3",
+  "reader_source_commit":"64a08ad95b5495ade07cc7a64a3609e156edd0e1",
+  "property_sha256":"3d379b70be8eed7f1ba10720208a5b4d962e50b127b83f1153a49c5f7740d1e3",
+  "target_count":64,
+  "roots_per_sector":[8,8,8,8,8,8,8,8],
+  "multipole_records":1928,
+  "original_scientific_command_container_owner_exits":[0,0,0,0],
+  "original_exits":[0,0,0,0,0,0,0,0],
+  "strict_300second_observation_cadence_passed":false,
+  "scope":"Tracked receipt derived from freshly authenticated public completed-property reading;monitor exception preserved,not a scattering or accuracy verdict"
+}

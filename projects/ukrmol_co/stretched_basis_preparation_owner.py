@@ -20,22 +20,35 @@ from projects.ukrmol_co.stretched_basis_preparation import (
 from projects.ukrmol_co.stretched_basis_properties import digest, save
 
 
-def name(case):
-    return "co-stretched-" + case + "-preparation-20261031"
+def name(case, contract=None):
+    return (contract or {}).get("container_name", "co-stretched-" + case + "-preparation-20261031")
 
 
 def container_command(
-    root, source, output, case, contract, receipt=None, receipt_sha256=None, reuse_dz_csf=False
+    root,
+    source,
+    output,
+    case,
+    contract,
+    receipt=None,
+    receipt_sha256=None,
+    reuse_dz_csf=False,
+    contract_path=CONTRACT,
 ):
     science = ["python3", "-m", "projects.ukrmol_co.stretched_basis_preparation", "--case", case]
+    if contract_path != CONTRACT:
+        science += ["--contract", contract_path]
     if receipt is not None:
         science += ["--previous-receipt", receipt, "--previous-receipt-sha256", receipt_sha256]
     if reuse_dz_csf:
         science += ["--reuse-dz-csf"]
+    controls = contract.get(
+        "runtime_controls_module", "projects.ukrmol_co.test_stretched_basis_preparation"
+    )
     inside = (
         "from pathlib import Path\nimport json,subprocess\n"
         "with Path('/out/controls.log').open('x') as f:\n"
-        " p=subprocess.run(['python3','-m','projects.ukrmol_co.test_stretched_basis_preparation'],"
+        f" p=subprocess.run(['python3','-m',{controls!r}],"
         "stdout=f,stderr=subprocess.STDOUT,timeout=120)\n"
         "Path('/out/controls.json').write_text(json.dumps({'original_exit':p.returncode})+'\\n')\n"
         "if p.returncode:raise SystemExit(2)\n"
@@ -45,7 +58,7 @@ def container_command(
         "docker",
         "run",
         "--name",
-        name(case),
+        name(case, contract),
         "--cpuset-cpus=0-3",
         "--memory=32g",
         "--memory-swap=32g",
@@ -80,10 +93,17 @@ def container_command(
 
 
 def own(
-    capsule, archive_sha256, commit, case, receipt=None, receipt_sha256=None, reuse_dz_csf=False
+    capsule,
+    archive_sha256,
+    commit,
+    case,
+    receipt=None,
+    receipt_sha256=None,
+    reuse_dz_csf=False,
+    contract_path=CONTRACT,
 ):
     root, source = capsule.parent.parent, capsule / "source"
-    contract = json.loads((source / CONTRACT).read_text())
+    contract = json.loads((source / contract_path).read_text())
     pins = json.loads((capsule / "source-manifest.json").read_text())
     started = time.monotonic()
     report = dict(
@@ -95,7 +115,7 @@ def own(
         original_owner_exit=2,
         started_utc=datetime.datetime.now(datetime.UTC).isoformat(),
         max_integral_calls=1,
-        max_congen_calls=1,
+        max_congen_calls=0 if case == "augtz" else 1,
         automatic_successor=False,
     )
 
@@ -107,9 +127,11 @@ def own(
     try:
         if not source_ok():
             raise ValueError("Changed frozen preparation source")
+        if case == "augtz" and not reuse_dz_csf:
+            raise ValueError("Only conditional CSF reuse is released for aug-TZ")
         _, _, previous = authenticate(root, source, case, contract, receipt, receipt_sha256)
         if reuse_dz_csf:
-            reuse_prerequisites(root, source, case, previous)
+            reuse_prerequisites(root, source, case, previous, contract if case == "augtz" else None)
         topology = subprocess.check_output(
             ["lscpu", "-e=CPU,CORE,SOCKET,NODE"], text=True, timeout=15
         )
@@ -141,7 +163,15 @@ def own(
         output.mkdir(mode=0o777)
         output.chmod(0o777)
         command = container_command(
-            root, source, output, case, contract, receipt, receipt_sha256, reuse_dz_csf
+            root,
+            source,
+            output,
+            case,
+            contract,
+            receipt,
+            receipt_sha256,
+            reuse_dz_csf,
+            contract_path,
         )
         report.update(state="running", command=command)
         save(capsule / "execution.json", report)
@@ -152,10 +182,12 @@ def own(
                 report["timed_out"] = False
             except subprocess.TimeoutExpired:
                 report["timed_out"] = True
-                subprocess.run(["docker", "kill", name(case)], check=False, timeout=30)
+                subprocess.run(["docker", "kill", name(case, contract)], check=False, timeout=30)
                 process.wait(timeout=30)
         state = json.loads(
-            subprocess.check_output(["docker", "inspect", name(case)], text=True, timeout=30)
+            subprocess.check_output(
+                ["docker", "inspect", name(case, contract)], text=True, timeout=30
+            )
         )[0]
         save(capsule / "container-inspect.json", state)
         report.update(
@@ -186,7 +218,8 @@ def own(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--case", choices=["dz", "tz"], required=True)
+    parser.add_argument("--case", choices=["dz", "tz", "augtz"], required=True)
+    parser.add_argument("--contract", default=CONTRACT)
     parser.add_argument("--capsule", type=Path, required=True)
     parser.add_argument("--archive-sha256", required=True)
     parser.add_argument("--commit", required=True)
@@ -211,12 +244,14 @@ if __name__ == "__main__":
                 args.previous_receipt,
                 args.previous_receipt_sha256,
                 args.reuse_dz_csf,
+                args.contract,
             )
         )
+    contract = json.loads((args.capsule / "source" / args.contract).read_text())
     command = [
         "systemd-run",
         "--user",
-        "--unit=" + name(args.case),
+        "--unit=" + name(args.case, contract),
         "--property=Type=exec",
         "--property=RuntimeMaxSec=3600",
         "--property=TimeoutStopSec=60",

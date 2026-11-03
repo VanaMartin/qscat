@@ -1,6 +1,18 @@
-# Sweep/potential route decision — 2 November 2026
+# Sweep/potential route decision — 3 November 2026
 
 ## Decision now
+
+**3November08:03UTC user continuation selects [one separate own aug-TZ preparation](stretched-augtz-preparation-contract-20261103.json).**
+Fresh saved full DZ proof/receipt and aug-TZ64 reading authenticate; live saved
+inputs agree. One own four-rank full-continuum integral call, conditional signed
+algebraic B1-CSF reuse only after actual inventory/deck/eight target-CSF equality.
+No fallback CONGEN or cross-basis integrals/properties/vectors; four cores/32GiB/
+conditional30–180s/2400s native/3480s container/3600s owner/30s observations,
+30minute implementation. Freeze/push source/tests/owner before any call. Next
+independent actual preparation/dimension/exits/cost, no automatic B1 inner/pole/
+geometry/fit/sweep/114-holdout action. Production fitting remains stopped.
+
+### Earlier2November completed property qualification
 
 **2November22:50UTC: [one aug-TZ64 property export independently qualifies](qualification-evidence/stretched-augtz-properties/README.md).**
 64 states/eight per sector/1928 valid moments, all eight original execution exits0;

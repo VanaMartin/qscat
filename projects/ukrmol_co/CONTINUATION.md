@@ -88,6 +88,26 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
+### User continuation selects one own aug-TZ preparation —3 November,08:03UTC checkpoint
+
+[Exact contract](stretched-augtz-preparation-contract-20261103.json) /
+[reuse overlay](stretched-augtz-preparation-reuse-20261103.json). Five fresh public
+payloads reconstruct full qualified DZ preparation/51 raw files/30 original Git
+sources/452 samples and its signed-CSF receipt, plus completed aug-TZ64 reading.
+Live saved CSF/log/deck and property fingerprints agree. No QC/CI/property repeat.
+One own four-rank integral call; only if actual inventory/resolved CONGEN deck/
+eight own target-CSF hashes agree copy the qualified DZ signed algebraic CSFs/log.
+No cross-basis integrals/properties/native vectors and no fallback CONGEN.
+
+Four physical cores0–3/32GiB/no network/one library thread, conditional30–180s,
+2400s integral/3480s container/3600s owner/30s read-only checks;30minute narrow
+implementation/freeze bound. New source/tests/contract/exact owner freeze/push
+before native work; no launch at this checkpoint. Next independent actual own-
+integral/reuse/dimension/exits/cost qualification, then separately cost B1/2048.
+No automatic inner/B2/pole/geometry/fit/sweep or114-holdout analysis. Current
+physical uncertainty remains diffuse-basis-plus-frame sensitivity, not production
+convergence; prior103.370meV/44.172meV sensitivity and all failures stay intact.
+
 ### Aug-TZ64 properties independently qualify; minimum preparation freeze next —2 November,22:50UTC
 
 [Public result](qualification-evidence/stretched-augtz-properties/README.md):

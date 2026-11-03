@@ -112,3 +112,29 @@ four cores/32GiB,30–180s conditional reuse forecast,2400s integral/3480s conta
 3600s owner,30s observations and30minute freeze effort. Those are planning bounds
 anchored to plain-TZ38.671s/4.174GiB, not measured aug-TZ preparation. No native
 inner solve, pole or production work is released by this property qualification.
+
+## 3 November: separate own-integral/conditional-CSF preparation release
+
+User continuation selects the minimum step above. Five fresh public payloads
+reconstruct the full original DZ preparation (51 raw files/30 original Git
+sources/452 resource samples), its public signed-CSF receipt and the completed
+aug-TZ64 property reading. The unchanged live DZ CSF/log/deck hashes and aug-TZ
+property records agree with that evidence. This is saved-only preflight, not a
+repeat of any native calculation.
+
+[Exact execution contract](../../projects/ukrmol_co/stretched-augtz-preparation-contract-20261103.json)
+and [conditional reuse overlay](../../projects/ukrmol_co/stretched-augtz-preparation-reuse-20261103.json)
+release one four-rank own aug-TZ integral call only. Existing geometry-free cards
+and contraction mathematics are unchanged. The adapter selects only the aug-TZ
+property contract/receipt and requires explicit conditional reuse; no fresh
+CONGEN path is released for this case. The original DZ/TZ routes and receipts
+remain unchanged. Inventory/deck/target-CSF equality is checked **after** the own
+integral calculation and **before** any saved signed expansion is copied.
+
+Four physical cores0–3/32GiB/no network/one library thread,40GiB available RAM/
+20GiB disk floors; conditional30–180s (not measured aug-TZ),2400s integral/3480s
+container/3600s durable owner,30s read-only observations. At most30minutes narrow
+implementation/freeze effort; original known-truth/count/phase/reuse controls plus
+aug-only routing/no-fallback controls must pass before native work. Freeze/push
+source/tests/contract/owner first. A mismatch stops inconclusive with no CONGEN
+fallback, retry, inner solve, scattering map or automatic pole successor.

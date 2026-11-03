@@ -1,0 +1,16 @@
+{
+  "scope":"Fresh saved-only replay of existing qualified DZ algebraic expansion and completed aug-TZ64 property reading;no native/CI/Hamiltonian/map calls",
+  "fresh_public_payloads_verified":5,
+  "preparation_verdict":true,
+  "dz_source_commit":"b776f4c0488e40099aca2c8c037d3dd269d1c29d",
+  "dz_archive_sha256":"0d7d41caa9a82bc7b267ff09b2d31c47d0b6542762e5690572c47cc2997556f9",
+  "dz_public_receipt_sha256":"65bee00fab9a30c64393aca9979a8890569c064cf99797ce38082bbfff5c4160",
+  "dz_executed_git_sources_verified":30,
+  "dz_raw_files_verified":51,
+  "dz_resource_samples_verified":452,
+  "csf_sha256":"a58becc60c5f86d739b8c749b6bb34ecdd9408835823fcaf5ef008bdd98baa89",
+  "augtz_public_property_reading_sha256":"9f083f46937b85117089be229c4ecdbbda3921837b28737e7c36e816216d3bd3",
+  "augtz_public_property_verdict":true,
+  "new_native_calls":0,"new_ci_calls":0,"new_maps":0,
+  "route_holdout_s_matrices_analyzed":0,"full_sweep_released":false
+}
