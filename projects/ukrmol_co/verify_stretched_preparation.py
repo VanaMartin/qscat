@@ -10,6 +10,7 @@ import itertools
 import json
 import re
 import struct
+import subprocess
 import tarfile
 from pathlib import Path
 
@@ -168,7 +169,18 @@ def stream_files(path, collection, *, capture_names=()):
     return kept, digests, headers
 
 
-def verify(path, collection):
+def verify(
+    path,
+    collection,
+    *,
+    contract_path=CONTRACT,
+    contract_sha256=CONTRACT_SHA,
+    property_contract_path=PROPERTY_CONTRACT,
+    reuse_path=REUSE,
+    source_entries=None,
+    runtime_controls=None,
+    source_commit=None,
+):
     kept, digests, headers = stream_files(path, collection)
 
     def load(name):
@@ -180,18 +192,26 @@ def verify(path, collection):
     pins = load("source-manifest.json")
     reused = result.get("csf_reuse")
     require(
-        set(source) == set(pins) and len(pins) == (31 if reused else 30), "Wrong frozen source set"
+        set(source) == set(pins)
+        and len(pins) == (source_entries if source_entries is not None else (31 if reused else 30)),
+        "Wrong frozen source set",
     )
     for name, want in pins.items():
         require(sha(source[name]) == want, "Changed frozen source: " + name)
+        if source_commit is not None:
+            require(
+                source[name]
+                == subprocess.check_output(["git", "show", source_commit + ":" + name]),
+                "Original executed Git source " + name,
+            )
     require(
         digests["source.tar.gz"] == owner["source_archive_sha256"]
         and sha(source["projects/ukrmol_co/stretched_basis_preparation_owner.py"])
         == owner["owner_sha256"],
         "Wrong executing source/owner",
     )
-    require(sha(source[CONTRACT]) == CONTRACT_SHA, "Changed executed preparation contract")
-    contract = json.loads(source[CONTRACT])
+    require(sha(source[contract_path]) == contract_sha256, "Changed executed preparation contract")
+    contract = json.loads(source[contract_path])
     for name, want in contract["source_sha256"].items():
         require(sha(source[name]) == want, "Changed preparation source prerequisite")
     container = load("container-inspect.json")
@@ -220,12 +240,12 @@ def verify(path, collection):
         "Failed original preparation",
     )
     if reused:
-        release = json.loads(source[REUSE])
+        release = json.loads(source[reuse_path])
         predecessor = load("independent-dz-preparation-receipt.json")
         require(
-            result["case"] == "tz"
-            and sha(source[REUSE]) == reused["release_sha256"]
-            and release["contract_sha256"] == CONTRACT_SHA
+            result["case"] == release.get("case", "tz")
+            and sha(source[reuse_path]) == reused["release_sha256"]
+            and release["contract_sha256"] == contract_sha256
             and result["predecessor"] == release["predecessor"]
             and digests["independent-dz-preparation-receipt.json"]
             == release["predecessor"]["sha256"]
@@ -233,7 +253,8 @@ def verify(path, collection):
             and predecessor["preparation_verdict"] is True
             and predecessor["public_reader_exit"] == 0
             and predecessor["original_scientific_command_container_owner_exits"] == [0] * 4
-            and predecessor["contract_sha256"] == CONTRACT_SHA
+            and predecessor["contract_sha256"]
+            == contract.get("reuse_source_contract_sha256", contract_sha256)
             and predecessor["csf_sha256"] == release["input_sha256"]["fort.721"]
             and predecessor["csf_sha256"] == digests[PREFIX + "fort.721"]
             and reused["original_congen_exit"] == 0,
@@ -271,7 +292,7 @@ def verify(path, collection):
         ),
         "Unexpected scientific successor",
     )
-    props = json.loads(source[PROPERTY_CONTRACT])["models"][result["case"]]
+    props = json.loads(source[property_contract_path])["models"][result["case"]]
     require(collection["original_input_sha256"] == props["input_sha256"], "Wrong original pins")
     model = contract["models"][result["case"]]
     require(
@@ -342,7 +363,12 @@ def verify(path, collection):
     )
     require(
         load("outputs/controls.json")["original_exit"] == 0
-        and (b"Ran 10 tests" if reused else b"Ran 7 tests") in kept["outputs/controls.log"],
+        and (
+            f"Ran {runtime_controls} tests".encode()
+            if runtime_controls is not None
+            else (b"Ran 10 tests" if reused else b"Ran 7 tests")
+        )
+        in kept["outputs/controls.log"],
         "Runtime controls failed",
     )
     samples = list(csv.DictReader(io.StringIO(kept[PREFIX + "resources.csv"].decode())))
@@ -357,7 +383,7 @@ def verify(path, collection):
         )
     return dict(
         case=result["case"],
-        contract_sha256=sha(source[CONTRACT]),
+        contract_sha256=sha(source[contract_path]),
         preparation_verdict=True,
         original_scientific_command_container_owner_exits=exits[:4],
         original_service_exit=exits[4],
