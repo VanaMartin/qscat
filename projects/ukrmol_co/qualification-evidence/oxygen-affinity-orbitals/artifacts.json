@@ -1,0 +1,11 @@
+{
+  "artifacts": {
+    "collection.json": {"bytes":3639,"sha256":"1752d4f5435114cf3603f7bbc248544b3d3ba66434ccf2a1b79c1be9077de930"},
+    "config.resolved.json": {"bytes":2935,"sha256":"23851c78825729107179769f76748148922476a4e53739221bf160ea7b1ebb5c"},
+    "evidence.tar.gz": {"bytes":251430,"sha256":"862cbe2aecc1843aa497b6a03641f761ebea071954e4158f525d34cc65459262"},
+    "manifest.json": {"bytes":287,"sha256":"c4584d24e193565e8e868c77759bf913a433327055fc292710d50e49874851cf"},
+    "reconstruction.json": {"bytes":796,"sha256":"d3b8a3360cb88c8fb8f8c1232aea98719f328de80a9d784cea7fb5ea10cddced"}
+  },
+  "git_sha":"2b21b43a33d94a0fb4157dc7d8a4c4a1ace4da24",
+  "url_prefix":"https://data.qscat.org/co-oxygen-affinity-orbitals-20261103/"
+}

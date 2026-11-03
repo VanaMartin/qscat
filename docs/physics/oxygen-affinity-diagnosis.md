@@ -42,6 +42,24 @@ No published correction is added to our endpoints.
 
 ## One bounded next control: radial diffuseness at fixed QZ
 
+**Completed attempt, stopped at the anion; no affinity result.** On3November2026
+at14:25:19UTC the frozen source`2b21b43` finished with original worker exits0/1
+and science/container/owner/launcher exits2. Neutral O converged, passed internal
+stability and CCSD, and gave −74.99518604197657Ha. O− oscillated through100 ROHF
+cycles and failed convergence; neither its stability nor CCSD/triples was run.
+Its last SCF iterate is not an endpoint and must not be subtracted from neutral O.
+Owner15.860873s,CPU44.236479s,kernel high-water5,896,859,648bytes,without OOM or
+timeout. Integral-only parent-basis controls passed;no overlap rank deletion or
+convergence-gate relaxation occurred. The original failure and successful neutral
+are preserved in [the partial-evidence bundle](../../projects/ukrmol_co/qualification-evidence/oxygen-affinity-diffuse-stop/README.md).
+
+The diffuse contribution is therefore **unmeasured**, not small or zero. The
+positive occupied orbital energies and occupied/virtual order changes in the
+failed log are consistent with a difficult unbound HF reference, but do not prove
+that no stationary ROHF solution exists or invalidate the original converged
+QZ/5Z states. No retry, optimizer switch or silently accepted unconverged reference.
+The following is the exact scope attempted, not continuing launch authorization.
+
 Recalculate only O/O− with the **unchanged original atomic calculation function**,
 same occupations, frozen core, convergence/stability gates and noncanonical
 ROHF-reference UCCSD(T) convention, adding the second diffuse shell from BSE
@@ -65,3 +83,20 @@ Implementation cap one hour. Durable 600-s observations and immediate completion
 preserve all original exits and first-failure stop, no retries/rescue or successor.
 No molecular/scattering/fit/holdout work. A later small-basis FCI correlation
 control requires its own release; it is not silently chained to this run.
+
+## Current decision and remaining deliverable
+
+**Stop this diffuse-SCF route. Absolute oxygen affinity remains unresolved.**
+The defensible conclusion is a finite-basis/correlation accuracy limitation,
+with the orbital-convention contribution ruled out at0.1meV and a separate
+diffuse-SCF convergence failure,not a demonstrated occupation bug.
+
+The next bounded deliverable is at most60minutes of saved-source/method selection,
+zero new quantum calls: choose a state- and core-consistent correlation control
+(for example frozen-core FCI versus CCSD(T) in AVDZ),with analytic spin checks,
+a residual/convergence gate and a measured-cost pilot contract. Such a control
+measures higher correlation in its finite basis,not a CBS affinity;selecting it
+does not qualify a corrected5Z endpoint. Any complete threshold prediction must
+also resolve basis limit,core,scalar relativistic,fine-structure and isotope
+conventions. Do not add the benchmark's corrections to our data or report that
+experimental agreement has been calculated. No active quantum job remains.

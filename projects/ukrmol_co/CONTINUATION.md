@@ -10,6 +10,13 @@ solve absolute affinity. Occupations/core/subtraction look consistent;benchmark
 evidence points to slow basis and missing higher correlation. See the
 [diagnosis](../../docs/physics/oxygen-affinity-diagnosis.md).
 
+The separately frozen diffuse control then stopped:neutral O completed at
+−74.99518604197657Ha,but O− ROHF failed100cycles before CCSD/triples. Worker
+exits0/1,outer exits2,no OOM/timeout,owner15.860873s,5.491879GiB kernel peak.
+No affinity or diffuse shift exists. Do not score the failed SCF iterate or
+repeat the successful neutral. Both original attempt bundles are public and
+independently reconstructable;no active campaign job/monitor remains.
+
 ## Goal and disposition
 
 A physically grounded neutral and lowest-doublet-Pi resonance/bound-anion curve,
@@ -44,14 +51,14 @@ their first 600-s periodic check; immediate terminal observations are retained.
 
 ## One bounded next deliverable
 
-One fixed-QZ diffuse diagnostic:two O/O- endpoints with the unchanged atomic
-calculation algorithm and one extra diffuse shell s–g,105 rather than80 AOs.
-Reuse original QZ,not repeat it. Four physical cores/16GiB,900s per state,
-1800s science,600s active checks and immediate completion;first failure stops.
-Interpret extended−original EA against1meV as a contribution,not convergence.
-Freeze/test/push exact source/input/owner before launch;reconstruct actual result
-afterwards. No automatic FCI or further basis successor. Neutral dissociation
-and spin-free/lowest-J convention reconciliation remain separate open tasks.
+At most60minutes saved-source/method selection,zero new quantum calls. Choose
+one state/core-consistent correlation control with explicit residual/spin gates
+and a costed pilot contract;small-basis FCI versus CCSD(T) is a candidate,not an
+authorized successor or calculated5Z correction. Preserve the diffuse failure;
+no solver retry or gate relaxation. Absolute affinity,neutral dissociation and
+spin-free/lowest-J convention reconciliation remain open. A complete calculation
+also needs basis-limit,core and scalar-relativistic uncertainty,not empirical
+alignment to the experimental threshold.
 
 No 6Z, automatic extrapolation, dense neutral grid, augmented inner/pole work,
 fit, sweep or holdout action follows automatically. A new calculation needs

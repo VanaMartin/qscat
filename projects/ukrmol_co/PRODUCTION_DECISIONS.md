@@ -10,15 +10,20 @@ iterations. Thus this convention is not the main cause. Occupation/core/subtract
 audit finds no configuration bug. External atomic benchmarks support slow basis
 convergence and missing post-CCSD(T) correlation,not an empirical correction.
 
-**Continue one bounded diagnostic:** reuse original QZ atoms;calculate only O/O-
-with one additional published diffuse shell per angular momentum at fixed QZ,
-unchanged calculation function/state/core/convergence gates. Measure the affinity
-shift against1meV;this tests a diffuse omission,not absolute convergence. Two
-new endpoints,four cores/16GiB,900s each/1800s science,one-hour implementation,
-600s active checks plus immediate terminal observation. First failure stops.
-No automatic6Z/CBS/FCI,molecular/scattering or holdout successor. Exact source,
-tests and owner must be frozen/pushed before execution. See the
-[completed diagnosis and next-control contract](../../docs/physics/oxygen-affinity-diagnosis.md).
+**Stop the attempted diffuse-SCF diagnostic:** the fixed-QZ105-AO extension
+passes integral-only parent-space controls;neutral O completes,but O− ROHF fails
+100cycles before correlation. Worker exits0/1,outer exits2;no affinity or diffuse
+shift. No gate relaxation/retry,timeout or OOM. Owner15.860873s,CPU44.236479s,
+kernel peak5,896,859,648bytes. Original partial evidence and failure remain intact.
+This does not establish negligible diffuseness or absence of a stationary ROHF
+state;it does show that adding diffuse functions is not a reliable automatic fix.
+
+**Redirect:** at most60minutes saved-source/method selection,zero quantum calls,
+for one state/core-consistent correlation control with spin/residual gates and a
+costed pilot. Small-basis FCI is a candidate,not an automatic successor or a5Z
+correction. Absolute affinity remains unresolved;no6Z/CBS,empirical adjustment,
+molecular/scattering or holdout work. See the
+[completed diagnosis and limits](../../docs/physics/oxygen-affinity-diagnosis.md).
 
 ## Current disposition
 

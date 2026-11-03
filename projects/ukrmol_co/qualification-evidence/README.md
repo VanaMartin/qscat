@@ -13,6 +13,8 @@ outside the checkout: their historical tests are not current source modules.
 | [Near-equilibrium neutral](neutral-near-equilibrium/README.md) | 52 QZ/5Z well points; relative-basis/interpolation, not dissociation |
 | [QZ atomic endpoints](atomic-qz-endpoints/README.md) | Four finite-method totals, all fragment sums and electron affinities |
 | [Matched5Z endpoints](atomic-5z-endpoints/README.md) | Reconstructs QZ and 5Z; rejects finite-basis insensitivity, not the finite calculations |
+| [Oxygen orbital convention](oxygen-affinity-orbitals/README.md) | Saved-state5Z replay changes EA by only0.029095meV;not the main deficit |
+| [Oxygen diffuse-control stop](oxygen-affinity-diffuse-stop/README.md) | O succeeds;O− ROHF fails100cycles;no completed diffuse affinity |
 | [Original5Z startup stop](atomic-5z-launch-stop/README.md) | Zero-quantum control failure, retained separately from corrected success |
 | [Stretched DZ/TZ pole contrast](stretched-pole-counterpart/README.md) | Local finite poles; physical position/width sensitivity rejects |
 | [Retained-target overlaps](stretched-target-overlap/README.md) | Physical target correspondence, not unique N+1 resonance identity |
